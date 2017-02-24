@@ -17,3 +17,6 @@ define ('SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
 //Benodigde plugins
 require_once('includes/required-plugins.php');
 
+//Referentiegegevens
+require_once('includes/reference-data.php');
+require_once('includes/settings.php');

@@ -53,14 +53,12 @@ function siw_register_required_plugins() {
 		'required'			=> true,
 		'version'			=> '',
 	);
-	/*
 	$plugins[] = array(
 		'name'				=> 'CMB2',
 		'slug'				=> 'cmb2',
 		'required'			=> true,
 		'version'			=> '',
 	);
-	*/
 	if ( !WP_DEBUG ){
 		$plugins[] = array(
 			'name'				=> 'Coming Soon Page & Maintenance Mode by SeedProd',
