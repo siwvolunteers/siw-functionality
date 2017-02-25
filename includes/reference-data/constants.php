@@ -25,10 +25,10 @@ define('SIW_IP_WHITELIST_SIZE', 5);
 define('SIW_OPT_NAME', 'siw');//optienaam voor Redux
 
 //Cron jobs
-define('SIW_CRON_JOB_TS_GENERAL', '02:00');
-define('SIW_CRON_JOB_TS_BACKUP_DB', '03:00');
-//define('SIW_CRON_JOB_TS_BACKUP_FILES', '05:00'); //nog niet gebruikt
-define('SIW_CRON_JOB_TS_REBUILD_CACHE', '04:00');
+define('SIW_CRON_TS_GENERAL', '02:00');
+define('SIW_CRON_TS_BACKUP_DB', '03:00');
+define('SIW_CRON_TS_BACKUP_FILES', '05:00'); //nog niet gebruikt
+define('SIW_CRON_TS_REBUILD_CACHE', '04:00');
 
 //Tarieven
 define('SIW_WORKCAMP_FEE_STUDENT', 225);
@@ -58,10 +58,10 @@ function siw_get_constants(){
 		'SIW_NUMBER_OF_EVS_DEADLINES'	=> __( 'Maximaal aantal EVS-deadlines', 'siw' ),
 		'SIW_IP_WHITELIST_SIZE'			=> __( 'Maximale grootte IP-whitelist', 'siw' ),
 		'SIW_OPT_NAME'					=> __( 'Optienaam voor Redux', 'siw' ),
-		'SIW_CRON_JOB_TS_GENERAL'		=> __( 'Tijd algemene cronjob', 'siw' ),
-		'SIW_CRON_JOB_TS_BACKUP_DB'		=> __( 'Tijdstip backup database', 'siw' ),
-		//'SIW_CRON_JOB_TS_BACKUP_FILES'	=> __( 'Tijdstip backup bestanden', 'siw' ),
-		'SIW_CRON_JOB_TS_REBUILD_CACHE'	=> __( 'Tijdstip cache verversen', 'siw' ),
+		'SIW_CRON_TS_GENERAL'		=> __( 'Tijd algemene cronjob', 'siw' ),
+		'SIW_CRON_TS_BACKUP_DB'		=> __( 'Tijdstip backup database', 'siw' ),
+		//'SIW_CRON_TS_BACKUP_FILES'	=> __( 'Tijdstip backup bestanden', 'siw' ),
+		'SIW_CRON_TS_REBUILD_CACHE'	=> __( 'Tijdstip cache verversen', 'siw' ),
 		'SIW_WORKCAMP_FEE_STUDENT'		=> __( 'Inschrijfgeld groepsproject (student)', 'siw' ),
 		'SIW_WORKCAMP_FEE_REGULAR'		=> __( 'Inschrijfgeld groepsproject (regulier)', 'siw' ),
 		'SIW_OP_MAAT_FEE_STUDENT'		=> __( 'Inschrijfgeld Op Maat (student)', 'siw' ),

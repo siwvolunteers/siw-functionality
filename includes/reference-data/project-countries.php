@@ -14,79 +14,85 @@ function siw_get_project_countries(){
 		'name'		=> __('Albanië', 'siw'),
 		'continent'	=> 'europa',
 		'allowed'	=> 'yes',
-	); 
+	);
 	$project_countries['ARG'] = array(
 		'slug'		=> 'argentinie',
 		'name'		=> __('Argentinië', 'siw'),
 		'continent'	=> 'latijns-amerika',
 		'allowed'	=> 'no',
-	); 
+	);
 	$project_countries['ARM'] = array(
 		'slug'		=> 'armenie',
 		'name'		=> __('Armenië', 'siw'),
 		'continent'	=> 'europa',
 		'allowed'	=> 'yes',
-	); 			
+	);
+	$project_countries['AUS'] = array(
+		'slug'		=> 'australie',
+		'name'		=> __('Australië', 'siw'),
+		'continent'	=> 'oceanie',
+		'allowed'	=> 'no',
+	);
 	$project_countries['AUT'] = array(
 		'slug'		=> 'oostenrijk',
 		'name'		=> __('Oostenrijk', 'siw'),
 		'continent'	=> 'europa',
 		'allowed'	=> 'yes',
-	); 				
+	);
 	$project_countries['BDI'] = array(
 		'slug'		=> 'burundi',
 		'name'		=> __('Burundi', 'siw'),
 		'continent'	=> 'afrika-midden-oosten',
 		'allowed'	=> 'no',
-	); 					
+	);
 	$project_countries['BEL'] = array(
 		'slug'		=> 'belgie',
 		'name'		=> __('België', 'siw'),
 		'continent'	=> 'europa',
 		'allowed'	=> 'yes',
-	); 	
+	);
 	$project_countries['BLR'] = array(
 		'slug'		=> 'wit-rusland',
 		'name'		=> __('Wit-Rusland', 'siw'),
 		'continent'	=> 'europa',
 		'allowed'	=> 'yes',
-	); 	
+	);
 	$project_countries['CAN'] = array(
 		'slug'		=> 'canada',
 		'name'		=> __('Canada', 'siw'),
 		'continent'	=> 'noord-amerika',
 		'allowed'	=> 'yes',
-	); 	
+	);
 	$project_countries['CHE'] = array(
 		'slug'		=> 'zwitserland',
 		'name'		=> __('Zwitserland', 'siw'),
 		'continent'	=> 'europa',
 		'allowed'	=> 'yes',
-	); 	
+	);
 	$project_countries['CHN'] = array(
 		'slug'		=> 'china',
 		'name'		=> __('China', 'siw'),
 		'continent'	=> 'azie',
 		'allowed'	=> 'no',
-	); 
+	);
 	$project_countries['CRI'] = array(
 		'slug'		=> 'costa-rica',
 		'name'		=> __('Costa Rica', 'siw'),
 		'continent'	=> 'latijns-amerika',
 		'allowed'	=> 'no',
-	); 				
+	);
 	$project_countries['CZE'] = array(
 		'slug'		=> 'tsjechie',
 		'name'		=> __('Tsjechië', 'siw'),
 		'continent'	=> 'europa',
 		'allowed'	=> 'yes',
-	); 	
+	);
 	$project_countries['DEU'] = array(
 		'slug'		=> 'duitsland',
 		'name'		=> __('Duitsland', 'siw'),
 		'continent'	=> 'europa',
 		'allowed'	=> 'yes',
-	); 
+	);
 	$project_countries['DNK'] = array(
 		'slug'		=> 'denemarken',
 		'name'		=> __('Denemarken', 'siw'),
@@ -158,7 +164,7 @@ function siw_get_project_countries(){
 		'name'		=> __('Kroatië', 'siw'),
 		'continent'	=> 'europa',
 		'allowed'	=> 'yes',
-	);				
+	);
 	$project_countries['HTE'] = array(
 		'slug'		=> 'haiti',
 		'name'		=> __('Haïti', 'siw'),
@@ -302,7 +308,7 @@ function siw_get_project_countries(){
 		'name'		=> __('Roemenië', 'siw'),
 		'continent'	=> 'europa',
 		'allowed'	=> 'yes',
-	);				
+	);
 	$project_countries['RUS'] = array(
 		'slug'		=> 'rusland',
 		'name'		=> __('Rusland', 'siw'),
@@ -362,7 +368,7 @@ function siw_get_project_countries(){
 		'name'		=> __('Tanzania', 'siw'),
 		'continent'	=> 'afrika-midden-oosten',
 		'allowed'	=> 'yes',
-	);						
+	);
 	$project_countries['UGA'] = array(
 		'slug'		=> 'uganda',
 		'name'		=> __('Uganda', 'siw'),
@@ -387,5 +393,5 @@ function siw_get_project_countries(){
 		'continent'	=> 'azie',
 		'allowed'	=> 'yes',
 	);
-	return $project_countries;	
+	return $project_countries;
 }
