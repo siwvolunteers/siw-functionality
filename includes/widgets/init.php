@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - Quotes van deelnemers
  * - Nieuwsbrief
  */
-require_once( 'agenda.php' );
-require_once( 'contact.php' );
-require_once( 'newsletter.php' );
-require_once( 'quote.php' );
+require_once( __DIR__ . '/agenda.php' );
+require_once( __DIR__ . '/contact.php' );
+require_once( __DIR__ . '/newsletter.php' );
+require_once( __DIR__ . '/quote.php' );

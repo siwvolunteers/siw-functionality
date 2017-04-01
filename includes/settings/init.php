@@ -55,11 +55,11 @@ Redux::setExtensions( SIW_OPT_NAME, SIW_PLUGIN_DIR . '/assets/redux-extensions/'
 
 
 /* Validatiefuncties laden */
-require_once( 'validation.php' );
+require_once( __DIR__ . '/validation.php' );
 
 
 /* Help-tabs laden */
-require_once( 'help-tabs.php' );
+require_once( __DIR__ . '/help-tabs.php' );
 
 
 /* Instelling voor Redux optiepanel zetten */
@@ -109,7 +109,7 @@ $sections = array(
  */
 foreach ( $sections as $section ) {
 	$filename = str_replace('_', '-', $section );
-	require_once( "sections/{$filename}.php" );
+	require_once( __DIR__ . "/sections/{$filename}.php" );
 	do_action( "siw_settings_show_{$section}_section" );
 }
 

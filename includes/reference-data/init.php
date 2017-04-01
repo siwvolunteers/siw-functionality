@@ -14,9 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - Talen
  * - Nationaliteiten
  */
-require_once( 'constants.php' );
-require_once( 'project-currencies.php' );
-require_once( 'project-countries.php' );
-require_once( 'project-work.php' );
-require_once( 'project-languages.php' );
-require_once( 'volunteer-data.php' );
+require_once( __DIR__ . '/constants.php' );
+require_once( __DIR__ . '/project-currencies.php' );
+require_once( __DIR__ . '/project-countries.php' );
+require_once( __DIR__ . '/project-work.php' );
+require_once( __DIR__ . '/project-languages.php' );
+require_once( __DIR__ . '/volunteer-data.php' );

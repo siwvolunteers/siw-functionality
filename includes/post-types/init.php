@@ -11,5 +11,5 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - Agenda
  * - Vacatures
  */
-require_once( 'agenda.php' );
-require_once( 'vacatures.php' );
+require_once( __DIR__ . '/agenda.php' );
+require_once( __DIR__ . '/vacatures.php' );

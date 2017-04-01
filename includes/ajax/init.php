@@ -11,5 +11,5 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - Aanmelding nieuwsbrief
  * - Opzoeken postcode
  */
-require_once( 'newsletter-subscription.php' );
-require_once( 'postcode-lookup.php' );
+require_once( __DIR__ . '/newsletter-subscription.php' );
+require_once( __DIR__ . '/postcode-lookup.php' );

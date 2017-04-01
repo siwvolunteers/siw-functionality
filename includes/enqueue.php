@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 /* Toevoegen custom jQuery-functies */
 add_action( 'wp_enqueue_scripts', function() {
-	wp_register_script( 'siw', SIW_PLUGIN_URL . 'assets/js/siw.js', array( 'jquery' ), SIW_PLUGIN_VERSION, TRUE);
+	wp_register_script( 'siw', SIW_ASSETS_URL . 'js/siw.js', array( 'jquery' ), SIW_PLUGIN_VERSION, TRUE);
 	$site_url = site_url();
 	$parameters = array(
 		'ajax_url'		=> SIW_AJAX_URL,
@@ -21,10 +21,10 @@ add_action( 'wp_enqueue_scripts', function() {
 
 /* Toevoegen custom scripts voor checkout */
 add_action( 'wp_enqueue_scripts', function() {
-	wp_register_script( 'siw-checkout', SIW_PLUGIN_URL . 'assets/js/siw-checkout.js', array( 'jquery' ), SIW_PLUGIN_VERSION, TRUE);
+	wp_register_script( 'siw-checkout', SIW_ASSETS_URL . 'js/siw-checkout.js', array( 'jquery' ), SIW_PLUGIN_VERSION, TRUE);
 	$site_url = site_url();
 	$parameters = array(
-		'ajax_url' => SIW_AJAX_URL,
+		'ajax_url'			=> SIW_AJAX_URL,
 		'invalid_postcode'	=> __( 'Dit is geen geldige postcode', 'siw' ),
 		'invalid_date'		=> __( 'Dit is geen geldige datum', 'siw' ),
 	);
@@ -37,7 +37,7 @@ add_action( 'wp_enqueue_scripts', function() {
 
 /* Voeg styling voor admin toe */
 add_action( 'admin_enqueue_scripts', function() {
-	wp_register_style( 'siw-admin', SIW_PLUGIN_URL . 'assets/css/siw-admin.css' );
+	wp_register_style( 'siw-admin', SIW_ASSETS_URL . 'css/siw-admin.css' );
 	wp_enqueue_style( 'siw-admin' );
 });
 
@@ -46,7 +46,7 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
 	if ( 'index.php' != $hook ) {
 		return;
 	}
-	wp_enqueue_style( 'siw-dashboard-widgets', SIW_PLUGIN_URL . 'assets/css/siw-dashboard-widgets.css' );
+	wp_enqueue_style( 'siw-dashboard-widgets', SIW_ASSETS_URL . 'css/siw-dashboard-widgets.css' );
 });
 
 

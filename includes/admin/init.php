@@ -12,9 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - Interface
  * - Agenda
  */
-require_once( 'login.php' );
-require_once( 'user.php' );
-require_once( 'interface.php' );
-require_once( 'agenda.php' );
-require_once( 'vacatures.php' );
-require_once( 'widgets.php' );
+require_once( __DIR__ . '/login.php' );
+require_once( __DIR__ . '/user.php' );
+require_once( __DIR__ . '/interface.php' );
+require_once( __DIR__ . '/agenda.php' );
+require_once( __DIR__ . '/vacatures.php' );
+require_once( __DIR__ . '/widgets.php' );
