@@ -1,48 +1,52 @@
 <?php
 /*
-(c)2017 SIW Internationale Vrijwilligersprojecten
-*/
+ * (c)2017 SIW Internationale Vrijwilligersprojecten
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-//Organisatiegegevens
-define ('SIW_NAME', 'SIW Internationale Vrijwilligersprojecten'); //eventueel get_bloginfo('name') gebruiken
-define ('SIW_STATUTORY_NAME', 'Stichting Internationale Werkkampen');
-define ('SIW_EMAIL', 'info@siw.nl');
-define ('SIW_PHONE', '030-2317721');
-define ('SIW_KVK', '41165368');
-define ('SIW_IBAN', 'NL28 INGB 0000 0040 75');
-define ('SIW_RSIN', '002817482');
-define ('SIW_ADDRESS', 'Willemstraat 7');
-define ('SIW_POSTAL_CODE', '3511 RJ');
-define ('SIW_CITY', 'Utrecht');
+/* Organisatiegegevens */
+define ( 'SIW_NAME', 'SIW Internationale Vrijwilligersprojecten' ); //eventueel get_bloginfo( 'name' ) gebruiken
+define ( 'SIW_STATUTORY_NAME', 'Stichting Internationale Werkkampen' );
+define ( 'SIW_EMAIL', 'info@siw.nl' );
+define ( 'SIW_PHONE', '030-2317721' );
+define ( 'SIW_KVK', '41165368' );
+define ( 'SIW_IBAN', 'NL28 INGB 0000 0040 75' );
+define ( 'SIW_RSIN', '002817482' );
+define ( 'SIW_ADDRESS', 'Willemstraat 7' );
+define ( 'SIW_POSTAL_CODE', '3511 RJ' );
+define ( 'SIW_CITY', 'Utrecht' );
 
-//Configuratie
-define('SIW_NUMBER_OF_INFO_DAYS', 10);
-define('SIW_NUMBER_OF_EVS_DEADLINES', 5);
-define('SIW_IP_WHITELIST_SIZE', 5);
-define('SIW_OPT_NAME', 'siw');//optienaam voor Redux
+/* Configuratie */
+define( 'SIW_NUMBER_OF_INFO_DAYS', 10 );
+define( 'SIW_NUMBER_OF_EVS_DEADLINES', 5 );
+define( 'SIW_IP_WHITELIST_SIZE', 5 );
 
-//Cron jobs
-define('SIW_CRON_TS_GENERAL', '02:00');
-define('SIW_CRON_TS_BACKUP_DB', '03:00');
-define('SIW_CRON_TS_BACKUP_FILES', '05:00'); //nog niet gebruikt
-define('SIW_CRON_TS_REBUILD_CACHE', '04:00');
+/* Cron jobs */
+define( 'SIW_CRON_TS_GENERAL', '03:00' );
+define( 'SIW_CRON_TS_BACKUP_DB', '04:00' );
+define( 'SIW_CRON_TS_BACKUP_FILES', '04:30' ); //nog niet gebruikt
+define( 'SIW_CRON_TS_REBUILD_CACHE', '05:00' );
 
-//Tarieven
-define('SIW_WORKCAMP_FEE_STUDENT', 225);
-define('SIW_WORKCAMP_FEE_REGULAR', 275);
-define('SIW_OP_MAAT_FEE_STUDENT', 349);
-define('SIW_OP_MAAT_FEE_REGULAR', 275);
-define('SIW_EVS_DEPOSIT', 155);
+/* Tarieven */
+define( 'SIW_WORKCAMP_FEE_STUDENT', 225 );
+define( 'SIW_WORKCAMP_FEE_REGULAR', 275 );
+define( 'SIW_OP_MAAT_FEE_STUDENT', 349 );
+define( 'SIW_OP_MAAT_FEE_REGULAR', 275 );
+define( 'SIW_EVS_DEPOSIT', 155 );
 
-//Kortingen
-define('SIW_DISCOUNT_SECOND_PROJECT', 25);
-define('SIW_DISCOUNT_THIRD_PROJECT', 50);
+/* Kortingen */
+define( 'SIW_DISCOUNT_SECOND_PROJECT', 25 );
+define( 'SIW_DISCOUNT_THIRD_PROJECT', 50 );
 
-//array met constantes en toelichting
-function siw_get_constants(){
+
+/**
+ * Geeft een array met constantes en hun toelichting terug
+ *
+ * @return array
+ */
+function siw_get_constants() {
 	$constants = array(
 		'SIW_NAME' 						=> __( 'Naam', 'siw' ),
 		'SIW_STATUTORY_NAME'			=> __( 'Statutaire naam', 'siw' ),
@@ -54,14 +58,13 @@ function siw_get_constants(){
 		'SIW_ADDRESS'					=> __( 'Adres', 'siw' ),
 		'SIW_POSTAL_CODE'				=> __( 'Postcode', 'siw' ),
 		'SIW_CITY'						=> __( 'Stad', 'siw' ),
-		'SIW_NUMBER_OF_INFO_DAYS' 		=> __( 'Maximaal aantal infodagen', 'siw' ),
-		'SIW_NUMBER_OF_EVS_DEADLINES'	=> __( 'Maximaal aantal EVS-deadlines', 'siw' ),
+		'SIW_NUMBER_OF_INFO_DAYS' 		=> __( 'Maximum aantal infodagen', 'siw' ),
+		'SIW_NUMBER_OF_EVS_DEADLINES'	=> __( 'Maximum aantal EVS-deadlines', 'siw' ),
 		'SIW_IP_WHITELIST_SIZE'			=> __( 'Maximale grootte IP-whitelist', 'siw' ),
-		'SIW_OPT_NAME'					=> __( 'Optienaam voor Redux', 'siw' ),
-		'SIW_CRON_TS_GENERAL'		=> __( 'Tijd algemene cronjob', 'siw' ),
-		'SIW_CRON_TS_BACKUP_DB'		=> __( 'Tijdstip backup database', 'siw' ),
+		'SIW_CRON_TS_GENERAL'			=> __( 'Tijd algemene cronjob', 'siw' ),
+		'SIW_CRON_TS_BACKUP_DB'			=> __( 'Tijdstip backup database', 'siw' ),
 		//'SIW_CRON_TS_BACKUP_FILES'	=> __( 'Tijdstip backup bestanden', 'siw' ),
-		'SIW_CRON_TS_REBUILD_CACHE'	=> __( 'Tijdstip cache verversen', 'siw' ),
+		'SIW_CRON_TS_REBUILD_CACHE'		=> __( 'Tijdstip cache verversen', 'siw' ),
 		'SIW_WORKCAMP_FEE_STUDENT'		=> __( 'Inschrijfgeld groepsproject (student)', 'siw' ),
 		'SIW_WORKCAMP_FEE_REGULAR'		=> __( 'Inschrijfgeld groepsproject (regulier)', 'siw' ),
 		'SIW_OP_MAAT_FEE_STUDENT'		=> __( 'Inschrijfgeld Op Maat (student)', 'siw' ),
@@ -70,5 +73,6 @@ function siw_get_constants(){
 		'SIW_DISCOUNT_SECOND_PROJECT' 	=> __( 'Kortingspercentage tweede project', 'siw' ),
 		'SIW_DISCOUNT_THIRD_PROJECT'	=> __( 'Kortingspercentage derde project', 'siw' ),
 	);
+
 	return $constants;
 }

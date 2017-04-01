@@ -20,10 +20,10 @@ $tabs = array(
 		'content' => __( '<p>TODO: Helptab 2 - inhoud</p>', 'siw' )
 	)
 );
-Redux::setHelpTab( $opt_name, $tabs );
+Redux::setHelpTab( SIW_OPT_NAME, $tabs );
 
 */
 /*help-tab sidebar
 $content = __( '<p>TODO: helptab sidebar inhoud</p>', 'siw' );
-Redux::setHelpSidebar( $opt_name, $content );
+Redux::setHelpSidebar( SIW_OPT_NAME, $content );
 */

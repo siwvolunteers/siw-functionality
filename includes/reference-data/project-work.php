@@ -1,13 +1,17 @@
 <?php
 /*
-(c)2017 SIW Internationale Vrijwilligersprojecten
-*/
+ * (c)2017 SIW Internationale Vrijwilligersprojecten
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
-function siw_get_project_work_types(){
+/**
+ * Geeft een array met soort werk voor projecten terug
+ *
+ * @return array
+ */
+function siw_get_project_work_types() {
 	$project_work_types = array(
 		'RENO'	=> 'restauratie',
 		'ENVI'	=> 'natuur',
@@ -33,5 +37,5 @@ function siw_get_project_work_types(){
 		'LEAD'	=> 'projectbegeleider',
 		'HERI'	=> 'erfgoed'
 	);
-	return $siw_get_project_work_types;
+	return $project_work_types;
 }
