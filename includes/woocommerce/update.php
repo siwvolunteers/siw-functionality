@@ -2,7 +2,7 @@
 /*
  * (c)2017 SIW Internationale Vrijwilligersprojecten
  */
-if ( ! defined('ABSPATH') ) {
+if ( ! defined('ABSPATH' ) ) {
 	exit;
 }
 
@@ -13,19 +13,20 @@ if ( ! defined('ABSPATH') ) {
  * - Als het project handmatig gemarkeerd is om opnieuw te importeren.
  * - Als de optie 'Forceer volledige update' op true staat.
  */
-add_filter('wp_all_import_is_post_to_update', function( $product_id, $xml, $current_import_id ) {
+add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $current_import_id ) {
 
-	$fpl_import_id = siw_get_setting('plato_fpl_import_id');
+	$fpl_import_id = siw_get_setting( 'plato_fpl_import_id' );
 	if ( $current_import_id == $fpl_import_id ) {
+		//TODO: alleen updaten als zichtbaarheid verandert
 		return true;
 	}
 
-	$import_again = get_post_meta( $product_id, 'import_again', true);
+	$import_again = get_post_meta( $product_id, 'import_again', true );
 	if ( $import_again ) {
 		return true;
 	}
 
-	$force_full_update = siw_get_setting('plato_force_full_update');
+	$force_full_update = siw_get_setting( 'plato_force_full_update' );
 	if ( $force_full_update ) {
 		return true;
 	}
@@ -50,9 +51,9 @@ add_filter('wp_all_import_is_post_to_update', function( $product_id, $xml, $curr
  * - Het project is expliciet verborgen
  * - Er zijn geen vrije plaatsen meer
  */
-add_action('siw_hide_workcamps', function() {
-	$days = siw_get_setting('plato_hide_project_days_before_start');
-	$limit = date('Y-m-d', time() + ( $days * DAY_IN_SECONDS) );
+add_action( 'siw_hide_workcamps', function() {
+	$days = siw_get_setting( 'plato_hide_project_days_before_start' );
+	$limit = date( 'Y-m-d', time() + ( $days * DAY_IN_SECONDS ) );
 
 	$meta_query_args = array(
 		'relation'	=>	'AND',
@@ -97,7 +98,7 @@ add_action('siw_hide_workcamps', function() {
 	$products = get_posts( $args );
 	foreach ( $products as $product_id ) {
 		//project 'publiceren' als project eigenlijk ter review stond
-		if ('publish' != get_post_status( $product_id ) ) {
+		if ( 'publish' != get_post_status( $product_id ) ) {
 			wp_publish_post( $product_id );
 		}
 		siw_hide_workcamp( $product_id );
@@ -113,10 +114,10 @@ add_action('siw_hide_workcamps', function() {
  * @return void
  */
 function siw_hide_workcamp( $product_id ) {
-	update_post_meta( $product_id, '_visibility', 'hidden');
-	update_post_meta( $product_id, '_stock_status', 'outofstock');
-	update_post_meta( $product_id, '_featured', 'no');
-	update_post_meta( $product_id, '_yoast_wpseo_meta-robots-noindex','1');
+	update_post_meta( $product_id, '_visibility', 'hidden' );
+	update_post_meta( $product_id, '_stock_status', 'outofstock' );
+	update_post_meta( $product_id, '_featured', 'no' );
+	update_post_meta( $product_id, '_yoast_wpseo_meta-robots-noindex','1' );
 
 	$varationsargs = array(
 		'post_type' 	=> 'product_variation',
@@ -125,6 +126,6 @@ function siw_hide_workcamp( $product_id ) {
 	);
 	$variations = get_posts( $varationsargs );
 	foreach ( $variations as $variation_id ) {
-		update_post_meta( $variation_id, '_stock_status', 'outofstock');
+		update_post_meta( $variation_id, '_stock_status', 'outofstock' );
 	}
 }

@@ -57,10 +57,14 @@ add_filter( 'wp_resource_hints', function( $hints, $relation_type ) {
  * - Bestanden
  */
 add_filter( 'updraftplus_schedule_firsttime_db', function() {
-	return strtotime( 'tomorrow '. SIW_CRON_TS_BACKUP_DB );
+	$backup_db_ts = strtotime( 'tomorrow ' . SIW_CRON_TS_BACKUP_DB );
+	$backup_db_ts_gmt = strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $backup_db_ts ) ) . ' GMT' );
+	return $backup_db_ts_gmt;
 } );
 add_filter( 'updraftplus_schedule_firsttime_files', function() {
-	return strtotime( 'tomorrow ' . SIW_CRON_TS_BACKUP_FILES );
+	$backup_files_ts = strtotime( 'tomorrow ' . SIW_CRON_TS_BACKUP_FILES );
+	$backup_files_ts_gmt = strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $backup_files_ts ) ) . ' GMT' );
+	return $backup_files_ts_gmt;
 } );
 
 

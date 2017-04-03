@@ -7,6 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_action( 'kt_before_header_content', function() {
+
+	//TODO: ophalen informatie verplaatsen naar functie get_next_event o.i.d.
 	$show_topbar_days_before_event = siw_get_setting( 'show_topbar_days_before_event' );
 	$hide_topbar_days_before_event = siw_get_setting( 'hide_topbar_days_before_event' );
 	$meta_query_args = array(
@@ -53,7 +55,7 @@ add_action( 'kt_before_header_content', function() {
 			<div class="col-md-12">
 				<div id="eventbar">
 					<span class="hide_on_mobile"><?php esc_html_e( 'Maak kennis met SIW.', 'siw' );?></span><?php
-						if ( date("Y-m-d", $start_ts ) == date("Y-m-d", $end_ts ) ) {
+						if ( date( 'Y-m-d', $start_ts ) == date( 'Y-m-d', $end_ts ) ) {
 							printf( wp_kses_post( __( 'Kom naar de %s op %s', 'siw' ) ), $link, $date_range );
 						}
 						else {

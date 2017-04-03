@@ -51,7 +51,7 @@ if ( ! class_exists( 'Redux' ) ) {
 
 
 /* Extensie (html5 velden) laden */
-Redux::setExtensions( SIW_OPT_NAME, SIW_PLUGIN_DIR . '/assets/redux-extensions/' );
+Redux::setExtensions( SIW_OPT_NAME, SIW_ASSETS_DIR . '/redux-extensions/' );
 
 
 /* Validatiefuncties laden */

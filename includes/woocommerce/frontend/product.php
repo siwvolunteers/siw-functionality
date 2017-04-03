@@ -113,7 +113,7 @@ add_filter( 'woocommerce_product_tabs', function( $tabs ) {
 
 /* Kaart tonen op basis van coördinaten */
 function siw_workcamp_show_project_map( $tab, $args ) {
-	echo do_shortcode( sprintf( '[gmap address="%s,%s" title="Projectlocatie" zoom="7" maptype="ROADMAP"]',esc_attr( $args['latitude'] ), esc_attr( $args['longitude'] ) ) );
+	echo do_shortcode( sprintf( '[gmap address="%s,%s" title="Projectlocatie" zoom="7" maptype="ROADMAP"]', esc_attr( $args['latitude'] ), esc_attr( $args['longitude'] ) ) );
 }
 
 /* Contactformulier product tonen TODO: aanpassen ivm switch naar Caldera Forms */
