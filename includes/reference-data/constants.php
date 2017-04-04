@@ -33,7 +33,7 @@ define( 'SIW_CRON_TS_REBUILD_CACHE', '05:00' );
 define( 'SIW_WORKCAMP_FEE_STUDENT', 225 );
 define( 'SIW_WORKCAMP_FEE_REGULAR', 275 );
 define( 'SIW_OP_MAAT_FEE_STUDENT', 349 );
-define( 'SIW_OP_MAAT_FEE_REGULAR', 275 );
+define( 'SIW_OP_MAAT_FEE_REGULAR', 399 );
 define( 'SIW_EVS_DEPOSIT', 155 );
 
 /* Kortingen */
