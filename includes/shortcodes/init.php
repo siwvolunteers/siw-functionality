@@ -166,7 +166,7 @@ add_shortcode( 'siw_groepsproject_tarief_student', function() {
 add_shortcode( 'siw_groepsproject_tarief_regulier', function() {
 	return '&euro;&nbsp;' . SIW_WORKCAMP_FEE_REGULAR;
 });
-add_shortcode( 'siw_op_maat_tarief_student_regulier', function() {
+add_shortcode( 'siw_op_maat_tarief_student', function() {
 	return '&euro;&nbsp;' . SIW_OP_MAAT_FEE_STUDENT;
 });
 add_shortcode( 'siw_op_maat_tarief_regulier', function() {
