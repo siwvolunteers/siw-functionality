@@ -137,7 +137,7 @@ add_shortcode( 'siw_rsin', function() {
  * - Volgende vertrekmoment
  */
 add_shortcode( 'siw_evs_borg', function() {
- 	return SIW_EVS_DEPOSIT;
+ 	return '&euro;&nbsp;' . SIW_EVS_DEPOSIT;
 });
 add_shortcode( 'siw_evs_volgende_deadline', function() {
 	return siw_get_next_evs_deadline( true );
