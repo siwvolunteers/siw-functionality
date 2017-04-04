@@ -18,13 +18,13 @@ add_action( 'siw_settings_show_workcamps_section', function() {
 		'id'			=> 'workcamp_application_signature_name',
 		'title'			=> __( 'Naam', 'siw' ),
 		'type'			=> 'text',
-		'validate'		=> 'no_special_chars',
+		'validate'		=> 'no_html',
 	);
 	$application_fields[] = array(
 		'id'			=> 'workcamp_application_signature_title',
 		'title'			=> __( 'Functie', 'siw' ),
 		'type'			=> 'text',
-		'validate'		=> 'no_special_chars',
+		'validate'		=> 'no_html',
 	);
 	$application_fields[] = array(
 		'id'			=> 'workcamp_application_signature_section_end',
@@ -53,7 +53,7 @@ add_action( 'siw_settings_show_workcamps_section', function() {
 		'id'			=> 'plato_export_outgoing_placements_name',
 		'title'			=> __( 'Naam', 'siw' ),
 		'type'			=> 'text',
-		'validate'		=> 'no_special_chars',
+		'validate'		=> 'no_html',
 	);
 	$plato_fields[] = array(
 		'id'			=> 'plato_export_outgoing_placements_email',

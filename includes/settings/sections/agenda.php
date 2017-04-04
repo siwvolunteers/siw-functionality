@@ -43,13 +43,13 @@ add_action( 'siw_settings_show_agenda_section', function() {
 		'id'		=> 'info_day_application_signature_name',
 		'title'		=> __( 'Naam', 'siw' ),
 		'type'		=> 'text',
-		'validate'	=> 'no_special_chars',
+		'validate'	=> 'no_html',
 	);
 	$info_day_fields[] = array(
 		'id'		=> 'info_day_application_signature_title',
 		'title'		=> __( 'Functie', 'siw' ),
 		'type'		=> 'text',
-		'validate'	=> 'no_special_chars',
+		'validate'	=> 'no_html',
 	);
 	$info_day_fields[] = array(
 		'id'		=> 'info_day_application_signature_section_end',

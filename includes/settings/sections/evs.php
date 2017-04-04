@@ -45,13 +45,13 @@ add_action( 'siw_settings_show_evs_section', function() {
 		'id'			=> 'evs_application_signature_name',
 		'title'			=> __( 'Naam', 'siw' ),
 		'type'			=> 'text',
-		'validate'		=> 'no_special_chars',
+		'validate'		=> 'no_html',
 	);
 	$application_fields[] = array(
 		'id'			=> 'evs_application_signature_title',
 		'title'			=> __( 'Functie', 'siw' ),
 		'type'			=> 'text',
-		'validate'		=> 'no_special_chars',
+		'validate'		=> 'no_html',
 	);
 	$application_fields[] = array(
 		'id'			=> 'evs_application_signature_section_end',

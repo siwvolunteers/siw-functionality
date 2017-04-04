@@ -18,13 +18,13 @@ add_action( 'siw_settings_show_enquiry_section', function() {
 		'id'			=> 'enquiry_general_signature_name',
 		'title'			=> __( 'Naam', 'siw' ),
 		'type'			=> 'text',
-		'validate'		=> 'no_special_chars',
+		'validate'		=> 'no_html',
 	);
 	$general_fields[] = array(
 		'id'			=> 'enquiry_general_signature_title',
 		'title'			=> __( 'Functie', 'siw' ),
 		'type'			=> 'text',
-		'validate'		=> 'no_special_chars',
+		'validate'		=> 'no_html',
 	);
 	$general_fields[] = array(
 		'id'			=> 'enquiry_general_signature_section_end',
@@ -41,13 +41,13 @@ add_action( 'siw_settings_show_enquiry_section', function() {
 		'id'			=> 'enquiry_workcamp_signature_name',
 		'title'			=> __( 'Naam', 'siw' ),
 		'type'			=> 'text',
-		'validate'		=> 'no_special_chars',
+		'validate'		=> 'no_html',
 	);
 	$workcamp_fields[] = array(
 		'id'			=> 'enquiry_workcamp_signature_title',
 		'title'			=> __( 'Functie', 'siw' ),
 		'type'			=> 'text',
-		'validate'		=> 'no_special_chars',
+		'validate'		=> 'no_html',
 	);
 	$workcamp_fields[] = array(
 		'id'			=> 'enquiry_workcamp_signature_section_end',
@@ -64,13 +64,13 @@ add_action( 'siw_settings_show_enquiry_section', function() {
 		'id'			=> 'enquiry_camp_leader_signature_name',
 		'title'			=> __( 'Naam', 'siw' ),
 		'type'			=> 'text',
-		'validate'		=> 'no_special_chars',
+		'validate'		=> 'no_html',
 	);
 	$camp_leader_fields[] = array(
 		'id'			=> 'enquiry_camp_leader_signature_title',
 		'title'			=> __( 'Functie', 'siw' ),
 		'type'			=> 'text',
-		'validate'		=> 'no_special_chars',
+		'validate'		=> 'no_html',
 	);
 	$camp_leader_fields[] = array(
 		'id'			=> 'enquiry_camp_leader_signature_section_end',
