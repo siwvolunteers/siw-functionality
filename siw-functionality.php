@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
  * Author: Maarten Bruna
- * Version: 1.0
+ * Version: 1.1
  */
 
 
@@ -20,7 +20,7 @@ define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . '/assets' );
 define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . '/includes' );
 define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
-define ( 'SIW_PLUGIN_VERSION', '1.0' );
+define ( 'SIW_PLUGIN_VERSION', '1.1' );
 define ( 'SIW_AJAX_URL', SIW_PLUGIN_URL . 'ajax-handler.php' );
 
 

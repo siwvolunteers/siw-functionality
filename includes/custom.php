@@ -68,9 +68,14 @@ add_filter( 'updraftplus_schedule_firsttime_files', function() {
 } );
 
 
-/*
- * Auteurinfo verwijderen uit oembed
- */
+/* Diverse UpdraftPlus notificaties verbergen */
+define( 'UPDRAFTPLUS_NOADS_B', true );
+define( 'UPDRAFTPLUS_NONEWSFEED', true );
+define( 'UPDRAFTPLUS_ADMINBAR_DISABLE', true);
+define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
+
+
+/* Auteurinfo verwijderen uit oembed */
 add_filter( 'oembed_response_data', function( $data ) {
 	if ( isset ( $data['author_name'] ) ) {
 		unset( $data['author_name'] );
