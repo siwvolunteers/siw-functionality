@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_filter( 'siw_ajax_allowed_actions', function( $actions ) {
 	$actions[] = 'newsletter_subscription';
 	return $actions;
-});
+} );
 
 add_action( 'siw_ajax_newsletter_subscription', function() {
 		//controleer nonce
@@ -48,14 +48,14 @@ add_action( 'siw_ajax_newsletter_subscription', function() {
 			}
 			else{
 				$data = array(
-					'succes'	=> 0,
+					'success'	=> 0,
 					'message'	=> __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
 				);
 			}
 		}
 		else{
 			$data = array(
-				'succes'	=> 0,
+				'success'	=> 0,
 				'message'	=> __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
 			);
 		}
