@@ -113,7 +113,7 @@ function siw_get_workcamp_summary( $project_type, $country, $work, $start_date, 
  */
 function siw_get_workcamp_seo_title( $country, $work ) {
 	$work = siw_get_workcamp_work_in_text( $work );
-	$country = siw_wc_country_name( $country );
+	$country = siw_get_workcamp_country_name( $country );
 	$seo_title = sprintf( 'SIW Vrijwilligerswerk | %sproject in %s', ucfirst( $work ), $country );
  	return $seo_title;
 }
