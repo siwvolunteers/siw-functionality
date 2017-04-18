@@ -26,3 +26,11 @@ add_filter( 'siteorigin_panels_data', function( $panels_data ) {
 	}
 	return $panels_data;
 }, 1 );
+
+/* Siteorigin Live Editor over ssl */
+add_filter('woocommerce_unforce_ssl_checkout', function ( $unforce_ssl ) {
+	if ( 'true' == $_REQUEST['siteorigin_panels_live_editor'] ) {
+		return false;
+	}
+	return $unforce_ssl;
+} );
