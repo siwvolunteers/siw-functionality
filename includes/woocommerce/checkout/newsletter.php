@@ -8,29 +8,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /* Instelling aan WooCommerce toevoegen om lijst te kiezen voor aanmelding nieuwsbrief tijdens checkout */
 add_filter( 'woocommerce_get_settings_checkout', function( $settings ) {
-	//Mailpoet-lijsten ophalen
-	$model_list = WYSIJA::get( 'list','model' );
-	$mailpoet_lists = $model_list->get( array( 'name','list_id' ), array( 'is_enabled'=>1) );
-
-	foreach ( $mailpoet_lists as $list ) {
-		$lists[ $list['list_id'] ] = $list['name'];
-	}
-
-	//sectie voor opties toevoegen
+	$mailpoet_lists = siw_get_mailpoet_lists();
 	$settings[] = array(
 		'title' => __( 'Aanmelden voor nieuwsbrief tijdens checkout', 'siw' ),
 		'type'  => 'title',
 		'id'    => 'siw_woo_newsletter_options',
 	);
 	$settings[] = array(
-		'title' => __( 'Lijst', 'siw' ),
-		'type'  => 'select',
-		'id'    => 'siw_woo_newsletter_list',
-		'options' => $lists,
+		'title'   => __( 'Lijst', 'siw' ),
+		'type'    => 'select',
+		'id'      => 'siw_woo_newsletter_list',
+		'options' => $mailpoet_lists,
 	);
 	$settings[] = array(
-		'type'	=> 'sectionend',
-		'id'	=> 'siw_woo_newsletter_options',
+		'type' => 'sectionend',
+		'id'   => 'siw_woo_newsletter_options',
 	);
 	return $settings;
 }, 10 );
@@ -51,7 +43,7 @@ add_action( 'woocommerce_after_checkout_billing_form', function() {
 add_action( 'woocommerce_checkout_order_processed', function( $order_id, $posted_form ) {
 	$newsletter_signup = isset( $_POST['newsletter_signup'] ) ? 1 : 0;
 	$list = (int) get_option( 'siw_woo_newsletter_list' );
-	if (1 == $newsletter_signup ) {
+	if ( 1 == $newsletter_signup ) {
 		$user_data = array(
 			'email'		=> sanitize_text_field( $_POST['billing_email'] ),
 			'firstname'	=> sanitize_text_field( $_POST['billing_first_name'] ),

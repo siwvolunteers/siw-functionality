@@ -59,14 +59,16 @@ function siw_get_next_evs_deadline( $date_in_text = false ) {
 function siw_get_next_evs_departure_month() {
 
 	$weeks = 14; //TODO: Moet dit flexibel zijn?
-
 	$next_evs_deadline = siw_get_next_evs_deadline();
+
 	if ( empty( $next_evs_deadline) ) {
 		return;
 	}
 
 	$next_evs_departure = date_parse( date("Y-m-d", strtotime( $next_evs_deadline) + ( $weeks * WEEK_IN_SECONDS ) ) );
 	$next_evs_departure_month = siw_get_month_in_text( 	$next_evs_departure['month'] ) . ' ' . $next_evs_departure['year'];
+
+	return $next_evs_departure_month;
 }
 
 
@@ -222,6 +224,121 @@ function siw_get_month_name_from_slug( $slug ) {
 
 
 /**
+ * Geeft array met Mailpoet-lijsten terug
+ *
+ * @return array id => naam
+ */
+function siw_get_mailpoet_lists() {
+	$model_list = WYSIJA::get( 'list','model' );
+	$lists = $model_list->get( array( 'name','list_id' ), array( 'is_enabled' => 1 ) );
+	foreach ( $lists as $list ) {
+		$mailpoet_lists[ $list['list_id'] ] = $list['name'];
+	}
+	return $mailpoet_lists;
+}
+
+
+/**
+ * Geeft array met gegevens van een quote terug
+ *
+ * @param  string $category
+ * @return array
+ */
+function siw_get_testimonial_quote( $category = '' ) {
+
+	$query_args = array(
+		'post_type'				=> 'testimonial',
+		'posts_per_page'		=> 1,
+		'post_status'			=> 'publish',
+		'ignore_sticky_posts'	=> true,
+		'orderby'				=> 'rand',
+		'fields' 				=> 'ids',
+		'testimonial-group'		=> $category,
+	);
+	$post_ids = get_posts( $query_args );
+
+	if ( empty( $post_ids ) ) {
+		return;
+	}
+
+	$post_id = $post_ids[0];
+	$testimonial_quote['quote'] = get_post_field('post_content', $post_id );
+	$testimonial_quote['name'] = get_the_title( $post_id );
+	$testimonial_quote['project'] = get_post_meta( $post_id, '_kad_testimonial_location', true );
+	return $testimonial_quote;
+}
+
+
+/**
+ * Geeft lijst van categorieën voor quotes terug
+ *
+ * @return array [description]
+ */
+function siw_get_testimonial_quote_categories() {
+	$testimonial_groups = get_terms( 'testimonial-group' );
+	$testimonial_quote_categories[''] =  __( 'Alle', 'siw' );
+	foreach ( $testimonial_groups as $testimonial_group ) {
+		$testimonial_quote_categories[ $testimonial_group->slug ] = $testimonial_group->name;
+	}
+	return $testimonial_quote_categories;
+}
+
+
+/**
+ * Geeft array met gegevens van toekomstige evenementen terug
+ *
+ * @param  int $number      [description]
+ * @param  string $date_before [description]
+ * @param  string $date_after  [description]
+ * @return array             [description]
+ */
+function siw_get_upcoming_events( $number, $min_date = '', $max_date = '' ) {
+
+	if ( '' == $min_date ) {
+		$min_date = strtotime( date( 'Y-m-d' ) );
+	}
+
+	$meta_query_args = array(
+		'relation'	=>	'AND',
+		array(
+			'key'		=>	'siw_agenda_eind',
+			'value'		=>	$min_date,
+			'compare'	=>	'>='
+		),
+
+	);
+	if ( '' != $max_date ) {
+		$meta_query_args[] = array(
+			'key'		=> 'siw_agenda_start',
+			'value'		=> $max_date,
+			'compare'	=>	'<='
+		);
+	}
+
+	$query_args = array(
+		'post_type'				=>	'agenda',
+		'posts_per_page'		=>	$number,
+		'post_status'			=>	'publish',
+		'ignore_sticky_posts'	=>	true,
+		'meta_key'				=>	'siw_agenda_start',
+		'orderby'				=>	'meta_value_num',
+		'order'					=>	'ASC',
+		'meta_query'			=>	$meta_query_args,
+		'fields' 				=> 'ids'
+	);
+
+	$events_ids = get_posts( $query_args );
+
+	$upcoming_events = array();
+	foreach ( $events_ids as $event_id ) {
+		$upcoming_events[] = siw_get_event_data( $event_id );
+	}
+
+	return $upcoming_events;
+}
+
+
+/**
  * Haal gegevens van agenda-evenement op
  *
  * @param int $post_id
@@ -229,14 +346,18 @@ function siw_get_month_name_from_slug( $slug ) {
  * @return array
  */
 function siw_get_event_data( $post_id ) {
+	$event_data['permalink']				= get_permalink( $post_id );
+	$event_data['title']					= get_the_title( $post_id );
+	$event_data['excerpt'] 					= get_the_excerpt( $post_id );
+	$event_data['post_thumbnail_url'] 		= get_the_post_thumbnail_url( $post_id );
 	$start_ts 								= get_post_meta( $post_id, 'siw_agenda_start', true );
 	$end_ts 								= get_post_meta( $post_id, 'siw_agenda_eind', true );
-	$event_data['start_date'] 				= date("Y-m-d", $start_ts );
-	$event_data['end_date'] 				= date("Y-m-d", $end_ts );
-	$start_time								= date("H:i", $start_ts );
-	$end_time								= date("H:i", $end_ts );
-	$date_range								= siw_get_date_range_in_text( $event_data['start_date'],  $event_data['end_date'] , false );
-	$event_data['duration']					= $date_range  . ', ' .  $start_time . '&nbsp;-&nbsp;' . $end_time;
+	$event_data['start_date'] 				= date( 'Y-m-d', $start_ts );
+	$event_data['end_date'] 				= date( 'Y-m-d', $end_ts );
+	$event_data['start_time']				= date( 'H:i', $start_ts );
+	$event_data['end_time']					= date( 'H:i', $end_ts );
+	$event_data['date_range']				= siw_get_date_range_in_text( $event_data['start_date'],  $event_data['end_date'] , false );
+	$event_data['duration']					= $event_data['date_range']	  . ', ' .  $event_data['start_time']	 . '&nbsp;-&nbsp;' . $event_data['end_time'];
 	$event_data['program'] 					= get_post_meta( $post_id, 'siw_agenda_programma', true );
 	$event_data['description']				= get_post_meta( $post_id, 'siw_agenda_beschrijving', true );
 	$event_data['location']					= get_post_meta( $post_id, 'siw_agenda_locatie', true );
@@ -262,7 +383,7 @@ function siw_get_event_data( $post_id ) {
  */
 function siw_get_job_data( $post_id ) {
 	$deadline_ts							= get_post_meta( $post_id, 'siw_vacature_deadline', true );
-	$job_data['deadline_datum']				= date("Y-m-d", $deadline_ts );
+	$job_data['deadline_datum']				= date( 'Y-m-d', $deadline_ts );
 	$job_data['deadline']					= siw_get_date_in_text( date("Y-m-d", $deadline_ts ), false);
 	$job_data['inleiding']					= get_post_meta( $post_id, 'siw_vacature_inleiding', true );
 	$job_data['wie_ben_jij']				= get_post_meta( $post_id, 'siw_vacature_wie_ben_jij', true );

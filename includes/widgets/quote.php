@@ -8,67 +8,61 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 /* Widget met quote van deelnemer */
-add_action( 'widgets_init', function() {
-	register_widget( 'siw_testimonial_quote' );
-} );
+add_action( 'init', function() {
+	register_widget( 'SIW_Testimonial_Quote' );
+}, 99 );
 
-class SIW_Testimonial_Quote extends WP_Widget {
+class SIW_Testimonial_Quote extends \TDP\Widgets_Helper {
 
 	public function __construct() {
-		$widget_ops = array(
-			'class'			=> 'siw_testimonial_quote',
-			'description'	=> __( 'Toont een willekeurige quote van deelnemer', 'siw' )
+		$this->widget_name = __( 'SIW: Quote van deelnemer', 'siw' );
+		$this->widget_description = __( 'Toont een willekeurige quote van deelnemer', 'siw' );
+		$this->widget_fields = array(
+			array(
+				'id'   => 'title',
+				'name' => __( 'Titel', 'siw' ),
+				'type' => 'text',
+				'std'  => __( 'Ervaringen van deelnemers', 'siw' ),
+			),
+			array(
+				'id'      => 'cat',
+				'name'    => __( 'Categorie', 'siw'),
+				'type'    => 'select',
+				'options' => siw_get_testimonial_quote_categories(),
+			),
 		);
-
-		parent::__construct(
-			'siw_testimonial_quote',
-			__( 'SIW: Quote van deelnemer', 'siw' ),
-			$widget_ops
-		);
+		$this->init();
 	}
 
-	public function form ( $instance ) {
-		$widget_defaults = array(
-			'title'			=> __( 'Ervaringen van deelnemers', 'siw' ),
-			'cat'			=> '',
-		);
-		$instance  = wp_parse_args( (array) $instance, $widget_defaults );
+	public function widget( $args, $instance ) {
+		$title = apply_filters( 'widget_title', $instance['title'] );
+		siw_debug($instance['cat']);
+		$testimonial_quote = siw_get_testimonial_quote( $instance['cat'] );
 
-		if (isset($instance['cat'])){
-			$cat = esc_attr($instance['cat']);
+		echo $args['before_widget'];
+		echo '<div class="siw_quote_widget">';
+		if ( $title ) {
+			echo $args['before_title'] . $title . $args['after_title'];
 		}
-		else{
-			$cat = '';
-		}
-
-		$categories= get_terms( 'testimonial-group' );
-		$category_options = array();
-		$category_options[] = '<option value="">' . __( 'Alle', 'siw' ) . '</option>';
-		foreach ($categories as $category) {
-			if ( $cat == $category->slug) { $selected=' selected="selected"';} else { $selected=""; }
-			$category_options[] = '<option value="' . $category->slug .'"' . $selected . '>' . $category->name . '</option>';
-		}
-
-
-
 		?>
-<p>
-	<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Titel', 'siw' ); ?></label>
-	<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" class="widefat" value="<?php echo esc_attr( $instance['title'] ); ?>">
-</p>
-<p>
-	<label for="<?php echo $this->get_field_id( 'cat' ); ?>"><?php esc_html_e( 'Categorie', 'siw' ); ?></label>
-	<select id="<?php echo $this->get_field_id( 'cat' ); ?>" name="<?php echo $this->get_field_name( 'cat' ); ?>"><?php echo implode( '', $category_options ); ?></select>
-</p>
-		<?php
-	}
+		<div class="quote">
+			<div class="text">
+			"<?php echo esc_html( $testimonial_quote['quote'] );?>"
+			</div>
+			<div class="volunteer">
+				<span class="name"><?php echo esc_html( $testimonial_quote['name'] );?></span>
+				<span class="separator">&nbsp;|&nbsp;</span>
+				<span class="category"><?php echo esc_html( $testimonial_quote['project'] );?></span>
+			</div>
+		</div><?php
 
-	public function update ( $new_instance, $old_instance ) {
-		$instance = $old_instance;
-		$instance['title'] = $new_instance['title'];
-		$instance['cat'] = $new_instance['cat'];
-		return $instance;
+		echo '</div>';
+		echo $args['after_widget'];
 	}
+}
+/*
+
+
 
 	public function widget ( $args, $instance ) {
 		extract( $args );
@@ -115,3 +109,4 @@ class SIW_Testimonial_Quote extends WP_Widget {
 		}
 	}
 }
+*/

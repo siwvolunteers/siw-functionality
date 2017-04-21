@@ -9,51 +9,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /* Widget met contactgegevens */
 add_action( 'widgets_init', function() {
-	register_widget( 'siw_contact_information' );
+	register_widget( 'SIW_Contact_Information' );
 });
 
-class SIW_Contact_Information extends WP_Widget {
+class SIW_Contact_Information extends \TDP\Widgets_Helper {
 
 	public function __construct() {
-		$widget_ops = array(
-			'class'			=> 'siw_contact_information',
-			'description'	=> __( 'Contactinformatie', 'siw' )
+		$this->widget_name = __( 'SIW: Contactinformatie', 'siw' );
+		$this->widget_description = __( 'Contactinformatie' );
+		$this->widget_fields = array(
+			array(
+				'id'   => 'title',
+				'name' => __( 'Titel', 'siw' ),
+				'type' => 'text',
+				'std'  => __( 'Contact', 'siw' ),
+			),
 		);
-
-		parent::__construct(
-			'siw_contact_information',
-			__( 'SIW: Contactinformatie', 'siw' ),
-			$widget_ops
-		);
+		$this->init();
 	}
 
-	public function form ( $instance ) {
-		$widget_defaults = array(
-			'title'			=> __( 'Contact', 'siw' ),
-		);
-		$instance  = wp_parse_args( (array) $instance, $widget_defaults );
-		?>
-		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Titel', 'siw' ); ?></label>
-			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" class="widefat" value="<?php echo esc_attr( $instance['title'] ); ?>">
-		</p>
-		<?php
-	}
-
-	public function update ( $new_instance, $old_instance ) {
-		$instance = $old_instance;
-		$instance['title'] = $new_instance['title'];
-		return $instance;
-	}
-
-
-    public function widget ( $args, $instance ) {
-		extract( $args );
+	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
-		echo $before_widget;
+		echo $args['before_widget'];
 		if ( $title ) {
-			echo $before_title . $title . $after_title;
+			echo $args['before_title'] . $title . $args['after_title'];
 		}?>
 		<div class="vcard">
 			<p class="fn org"><b><?php echo esc_html( SIW_NAME );?></b></p>
@@ -65,6 +45,6 @@ class SIW_Contact_Information extends WP_Widget {
 			<p><a href="mailto:<?php echo antispambot( SIW_EMAIL );?>" class="email"><i class="kt-icon-envelop"></i>&nbsp;<?php echo antispambot( SIW_EMAIL );?></a></p>
 		</div>
 		<?php
-		echo $after_widget;
-    }
+		echo $args['after_widget'];
+	}
 }
