@@ -202,7 +202,7 @@ add_filter( 'woocommerce_admin_billing_fields', function( $fields ) {
 /*
  * Diverse velden verbergen op het orderscherm
  */
-add_actions( array( 'admin_menu', 'add_meta_boxes' ), function() {
+add_actions( array( 'admin_menu', 'add_meta_boxes_shop_order' ), function() {
 	remove_meta_box( 'postcustom' , 'shop_order' , 'normal' );
 	remove_meta_box( 'woocommerce-order-downloads', 'shop_order', 'normal' );
 

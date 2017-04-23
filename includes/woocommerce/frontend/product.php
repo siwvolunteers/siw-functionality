@@ -45,6 +45,16 @@ add_filter( 'woocommerce_available_variation', function( $variations ) {
 } );
 
 
+/* Tekst voor korting-badge*/
+add_filter('woocommerce_sale_flash', function ($text){
+	return '<span class="onsale">' . __( 'Korting', 'siw' ) . '</span>';
+} );
+
+
+/* Altijd prijs van variatie tonen */
+add_filter( 'woocommerce_show_variation_price', '__return_true' );
+
+
 /* Volgorde van projecteigenschappen aanpassen TODO: sortable optie maken */
 add_filter( 'woocommerce_get_product_attributes', function( $attributes ) {
 	$order = array(
@@ -83,7 +93,7 @@ add_filter( 'woocommerce_get_product_attributes', function( $attributes ) {
  * - Reviews
  */
 add_filter( 'woocommerce_product_tabs', function( $tabs ) {
-	//Contactformulier
+	/*Contactformulier*/
 	$tabs['enquiry'] = array(
 		'title'    => __( 'Stel een vraag', 'siw' ),
 		'priority' => 100,
@@ -91,7 +101,7 @@ add_filter( 'woocommerce_product_tabs', function( $tabs ) {
 		'random'   => 'hoi',
 	);
 
-	//Projectlocatie
+	/*Projectlocatie*/
 	global $product;
 	$latitude = get_post_meta( $product->id, 'latitude', true );
 	$longitude = get_post_meta( $product->id, 'longitude', true );
@@ -105,7 +115,7 @@ add_filter( 'woocommerce_product_tabs', function( $tabs ) {
 		);
 	}
 
-	//review-tab verwijderen
+	/*review-tab verwijderen*/
 	unset( $tabs['reviews'] );
 
 	return $tabs;

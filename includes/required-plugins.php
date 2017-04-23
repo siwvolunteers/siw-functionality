@@ -123,7 +123,7 @@ add_action( 'tgmpa_register', function() {
 	/*
 		- Ninja Kick: Contact Form (ninja-contact-form)
 	*/
-	if ( ! WP_DEBUG ) {
+	if ( WP_DEBUG ) {
 		$plugins[] = array(
 			'name'				=> 'Password Protected',
 			'slug'				=> 'password-protected',

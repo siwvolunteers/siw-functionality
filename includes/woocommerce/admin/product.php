@@ -173,7 +173,7 @@ add_action( 'publish_product', function( $post_id, $post ) {
 
 	/* Ophalen gegevens gebruiker en huidige datum */
 	$current_user = wp_get_current_user();
-	$approval_user = $current_user->display_name . ' ( ' . $current_user->user_login . ' )';
+	$approval_user = $current_user->display_name . ' (' . $current_user->user_login . ')';
 	$approval_date = current_time( 'Y-m-d' );
 
 	/* Afgekeurd project direct verbergen */
@@ -194,18 +194,20 @@ add_action( 'publish_product', function( $post_id, $post ) {
 
 
 /* Historie goedkeuren tonen */
-add_action( 'add_meta_boxes', function() {
-	global $post;
-	if ( get_post_meta( $post->ID, 'approval_result', true ) ) {
-		add_meta_box(
-			'siw_show_project_approval_result',
-			esc_html__( 'Resultaat beoordeling', 'siw' ),
-			'siw_show_project_approval_result',
-			'product',
-			'side',
-			'high'
-		);
+add_action( 'add_meta_boxes_product', function( $post ) {
+
+	if ( ! get_post_meta( $post->ID, 'approval_result', true ) ) {
+		return;
 	}
+	add_meta_box(
+		'siw_show_project_approval_result',
+		esc_html__( 'Resultaat beoordeling', 'siw' ),
+		'siw_show_project_approval_result',
+		'product',
+		'side',
+		'high'
+	);
+
 }, 999 );
 
 function siw_show_project_approval_result( $object ) {
@@ -243,7 +245,7 @@ add_action( 'admin_init', function() {
 
 
 /* Toon aangepaste samenvatting bij projecten voor niet-admins */
-add_action( 'add_meta_boxes', function() {
+add_action( 'add_meta_boxes_product', function() {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		add_meta_box(
 			'siw_show_project_description',
@@ -266,7 +268,7 @@ function siw_show_project_description( $object ) {
 
 
 /* Diverse velden verbergen op het productscherm */
-add_actions( array( 'admin_menu', 'add_meta_boxes' ), function() {
+add_actions( array( 'admin_menu', 'add_meta_boxes_product' ), function() {
 	remove_meta_box( 'slugdiv', 'product', 'normal' );
 	remove_meta_box( 'postcustom' , 'product' , 'normal' );
 	remove_meta_box( 'woocommerce-product-images' , 'product', 'side', 'low' );

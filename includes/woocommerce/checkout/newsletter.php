@@ -41,6 +41,9 @@ add_action( 'woocommerce_after_checkout_billing_form', function() {
 
 /* Klant toevoegen aan Mailpoetlijst indien deze gekozen heeft voor de nieuwsbrief */
 add_action( 'woocommerce_checkout_order_processed', function( $order_id, $posted_form ) {
+	if ( ! class_exists( 'WYSIJA' ) ) {
+		return;
+	}
 	$newsletter_signup = isset( $_POST['newsletter_signup'] ) ? 1 : 0;
 	$list = (int) get_option( 'siw_woo_newsletter_list' );
 	if ( 1 == $newsletter_signup ) {

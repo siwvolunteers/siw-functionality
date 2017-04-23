@@ -229,6 +229,9 @@ function siw_get_month_name_from_slug( $slug ) {
  * @return array id => naam
  */
 function siw_get_mailpoet_lists() {
+	if ( ! class_exists( 'WYSIJA' ) ) {
+		return;
+	}
 	$model_list = WYSIJA::get( 'list','model' );
 	$lists = $model_list->get( array( 'name','list_id' ), array( 'is_enabled' => 1 ) );
 	foreach ( $lists as $list ) {

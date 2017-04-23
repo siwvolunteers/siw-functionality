@@ -37,7 +37,7 @@ $siw_wpai_addon->add_field(
 );
 $siw_wpai_addon->add_field(
 	'minimumleeftijd',
-	__( 'Minimum leeftijd', 'siw' ),
+	__( 'Minimumleeftijd', 'siw' ),
 	'text',
 	null,
 	__( 'Wordt gebruikt bij validaties.', 'siw' )
@@ -47,7 +47,7 @@ $siw_wpai_addon->add_field(
 	__( 'Toegestaan', 'siw' ),
 	'text',
 	null,
-	__( 'Geef aan of dit een project in een toestaan land is (yes/no)', 'siw' )
+	__( 'Geef aan of dit een project in een toegestaan land is (yes/no)', 'siw' )
 );
 
 $siw_wpai_addon->add_title(

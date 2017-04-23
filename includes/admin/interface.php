@@ -52,7 +52,6 @@ add_action( 'wp_before_admin_bar_render', function() {
 	$wp_admin_bar->remove_node( 'wpseo-menu' );
 	$wp_admin_bar->remove_node( 'vfbp-admin-toolbar' );
 	$wp_admin_bar->remove_node( 'new-content' );
-	$wp_admin_bar->remove_node( 'updraft_admin_node' );
 }, 999 );
 
 
