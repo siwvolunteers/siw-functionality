@@ -394,7 +394,7 @@ function siw_get_job_data( $post_id ) {
 	$job_data['wat_bieden_wij_jou']			= get_post_meta( $post_id, 'siw_vacature_wat_bieden_wij_jou', true );
 	$job_data['contactpersoon_naam']		= get_post_meta( $post_id, 'siw_vacature_contactpersoon_naam', true );
 	$job_data['contactpersoon_functie']	= get_post_meta( $post_id, 'siw_vacature_contactpersoon_functie', true );
-	if ( $job_data['contactpersoon_naam'] ) {
+	if ( $job_data['contactpersoon_functie'] ) {
 		$job_data['contactpersoon_naam']	= $job_data['contactpersoon_naam'] . ' ( ' . $job_data['contactpersoon_functie'] . ' )';
 	}
 	$job_data['contactpersoon_email']		= antispambot( get_post_meta( $post_id, 'siw_vacature_contactpersoon_email', true ) );
