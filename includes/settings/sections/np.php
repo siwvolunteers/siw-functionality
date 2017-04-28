@@ -7,12 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-/* edit_jobs toevoegen aan caps op optiemenu te zien
-add_filter( 'siw_manage_settings_caps', function( $caps ) {
-	$caps[] = 'edit_jobs';
-	return $caps;
-});
-*/
 add_action( 'siw_settings_show_np_section', function() {
 	/* Velden */
 	$camp_leader_fields[] = array(
@@ -25,7 +19,7 @@ add_action( 'siw_settings_show_np_section', function() {
 		'id'			=> 'np_camp_leader_email_sender',
 		'title'			=> __( 'Afzender', 'siw' ),
 		'subtitle'		=> __( 'Ontvangt ook de bevestigingsmail', 'siw' ),
-		'subtitle'		=> __( 'info@siw.nl', 'siw' ),
+		'placeholder'	=> __( 'info@siw.nl', 'siw' ),
 		'type'			=> 'text',
 		'validate'		=> 'email',
 	);
