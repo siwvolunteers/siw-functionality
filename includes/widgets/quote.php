@@ -36,7 +36,6 @@ class SIW_Testimonial_Quote extends \TDP\Widgets_Helper {
 
 	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		siw_debug($instance['cat']);
 		$testimonial_quote = siw_get_testimonial_quote( $instance['cat'] );
 
 		echo $args['before_widget'];

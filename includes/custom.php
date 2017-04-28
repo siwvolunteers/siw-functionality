@@ -153,19 +153,19 @@ add_filter( 'kadence_display_sidebar', function( $sidebar ) {
 
 /* Knop naar zo-werkt-het pagina onder elk op maat project */
 add_action( 'kadence_single_portfolio_value_after', function() {
-?>
-<a href="/zo-werkt-het/projecten-op-maat/" class="kad-btn kad-btn-primary"><?php esc_html_e( 'Alles over projecten op maat','siw' );?></a>
-<?php
+	?>
+	<a href="/zo-werkt-het/projecten-op-maat/" class="kad-btn kad-btn-primary"><?php esc_html_e( 'Alles over projecten op maat','siw' );?></a>
+	<?php
 } );
 
 /* Tonen 'Snel zoeken' formulier */
 function siw_show_quick_search_widget() {
-?>
-<div class="snelzoeken">
-	<h4><?php esc_html_e( 'Snel zoeken','siw' );?></h4>
-	<?php echo do_shortcode( '[searchandfilter id="57"]' );//TODO: id vervangen door slug of optie?>
-</div>
-<?php
+	?>
+	<div class="snelzoeken">
+		<h4><?php esc_html_e( 'Snel zoeken','siw' );?></h4>
+		<?php echo do_shortcode( '[searchandfilter id="57"]' );//TODO: id vervangen door slug of optie?>
+	</div>
+	<?php
 }
 
 

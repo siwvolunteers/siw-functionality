@@ -109,7 +109,7 @@ add_action( 'admin_menu', function() {
 function siw_menu_array_search( $find, $items ) {
 	foreach ( $items as $key => $value ) {
 		$current_key = $key;
-		if ( $find === $value OR ( is_array( $value ) && siw_menu_array_search( $find, $value ) !== false ) ) {
+		if ( $find === $value || ( is_array( $value ) && siw_menu_array_search( $find, $value ) !== false ) ) {
 			return $current_key;
 		}
 	}
@@ -123,7 +123,6 @@ add_filter( 'yit_panel_sidebar_load_remote_widgets',  '__return_false' );
 add_filter( 'yit_panel_hide_sidebar', '__return_true' );
 add_filter( 'yith_wcan_settings_tabs', function( $admin_tabs ) {
 	unset( $admin_tabs['premium'] );
-
 	return $admin_tabs;
 });
 
