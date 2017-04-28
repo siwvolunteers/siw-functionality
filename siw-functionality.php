@@ -39,6 +39,7 @@ require_once( SIW_ASSETS_DIR . '/plugins/rapid-addon.php' );
 require_once( SIW_ASSETS_DIR . '/plugins/wp-widgets-helper.php');
 
 
+
 /* Benodigde plugins via TGMPA */
 require_once( SIW_INCLUDES_DIR . '/required-plugins.php' );
 /* Referentiegegevens */
@@ -69,6 +70,10 @@ require_once( SIW_INCLUDES_DIR . '/admin/init.php' );
 require_once( SIW_INCLUDES_DIR . '/ajax/init.php' );
 /*Google Analytics */
 require_once( SIW_INCLUDES_DIR . '/analytics/init.php' );
+/*E-mail*/
+require_once( SIW_INCLUDES_DIR . '/email/init.php');
+/* Formulieren */
+require_once( SIW_INCLUDES_DIR . '/forms/init.php' );
 /* Pagebuilder */
 require_once( SIW_INCLUDES_DIR . '/pagebuilder/init.php' );
 /* Custom post types */

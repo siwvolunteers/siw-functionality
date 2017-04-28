@@ -2,6 +2,11 @@
 (c)2015-2017 SIW Internationale vrijwilligersprojecten
 */
 
+//Google Analytics event voor Caldera Forms
+function siwSendGaFormSubmissionEvent( obj ) {
+	ga( 'send', 'event', obj.form_id, 'Versturen' );
+}
+
 (function( $ ) {
 
 	//Validatieregel voor e-mail
@@ -40,9 +45,9 @@
 		$( 'li.menu-cart-icon-kt' ).has( 'span.kt-cart-total:contains("0")' ).css( 'display', 'none' );
 	});
 
-    $( '.postcode, .huisnummer' ).change(function() {
-		var postcode = $( '.postcode' ).val().replace( / /g, '' ).toUpperCase();
-		var housenumber = $( '.huisnummer' ).val();
+	$( 'input.postcode, input.huisnummer' ).change(function() {
+		var postcode = $( 'input.postcode' ).val().replace( / /g, '' ).toUpperCase();
+		var housenumber = $( 'input.huisnummer' ).val();
 		var housenumber = housenumber.replace( /[^0-9]/g, '' );
 
 		if ( ( '' != postcode ) && ( '' != housenumber ) ) {
@@ -57,15 +62,15 @@
 				},
 				success: function( result ) {
 					if ( 1 == result.success ) {
-						$( '.plaats' ).val( result.resource.town );
-						$( '.straat' ).val( result.resource.street );
-						$( '.plaats' ).prop( 'readonly', true );
-						$( '.straat' ).prop( 'readonly', true );
+						$( 'input.plaats' ).val( result.resource.town );
+						$( 'input.straat' ).val( result.resource.street );
+						$( 'input.plaats' ).prop( 'readonly', true );
+						$( 'input.straat' ).prop( 'readonly', true );
 					}else {
-						$( '.plaats' ).val( '' );
-						$( '.straat' ).val( '' );
-						$( '.plaats' ).prop( 'readonly', false );
-						$( '.straat' ).prop( 'readonly', false );
+						$( 'input.plaats' ).val( '' );
+						$( 'input.straat' ).val( '' );
+						$( 'input.plaats' ).prop( 'readonly', false );
+						$( 'input.straat' ).prop( 'readonly', false );
 					}
 				}
 			});

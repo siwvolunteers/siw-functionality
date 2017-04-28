@@ -96,9 +96,9 @@ $sections = array(
 	'workcamps', /*Groepsprojecten*/
 	'enquiry', 	/*Infoverzoeken*/
 	'countries',  /*Landen*/
+	'np', /*Nederlandse projecten*/
 	'op_maat', /*Op Maat*/
 	'jobs', 	/*Vacatures*/
-	//TODO: Nederlandse Projecten
 );
 
 
