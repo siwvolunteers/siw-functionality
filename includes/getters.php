@@ -242,6 +242,33 @@ function siw_get_mailpoet_lists() {
 
 
 /**
+ * Geeft array met Mapplic-kaarten terug
+ *
+ * @return array
+ */
+function siw_get_mapplic_maps() {
+	$query_args = array(
+		'post_type'				=> 'mapplic_map',
+		'posts_per_page'		=> -1,
+		'post_status'			=> 'publish',
+		'ignore_sticky_posts'	=> true,
+		'orderby'				=> 'title',
+		'order'					=> 'ASC',
+		'fields' 				=> 'ids',
+	);
+	$post_ids = get_posts( $query_args );
+
+	if ( empty( $post_ids ) ) {
+		return;
+	}
+	foreach ( $post_ids as $post_id ) {
+		$mapplic_maps[ $post_id ] = get_the_title( $post_id );
+	}
+	return $mapplic_maps;
+}
+
+
+/**
  * Geeft array met gegevens van een quote terug
  *
  * @param  string $category
@@ -275,7 +302,7 @@ function siw_get_testimonial_quote( $category = '' ) {
 /**
  * Geeft lijst van categorieën voor quotes terug
  *
- * @return array [description]
+ * @return array
  */
 function siw_get_testimonial_quote_categories() {
 	$testimonial_groups = get_terms( 'testimonial-group' );
@@ -290,10 +317,11 @@ function siw_get_testimonial_quote_categories() {
 /**
  * Geeft array met gegevens van toekomstige evenementen terug
  *
- * @param  int $number      [description]
- * @param  string $date_before [description]
- * @param  string $date_after  [description]
- * @return array             [description]
+ * @param  int $number
+ * @param  string $date_before
+ * @param  string $date_after
+ *
+ * @return array
  */
 function siw_get_upcoming_events( $number, $min_date = '', $max_date = '' ) {
 

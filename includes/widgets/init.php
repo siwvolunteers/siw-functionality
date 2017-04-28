@@ -14,5 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 require_once( __DIR__ . '/agenda.php' );
 require_once( __DIR__ . '/contact.php' );
+require_once( __DIR__ . '/map.php' );
 require_once( __DIR__ . '/newsletter.php' );
 require_once( __DIR__ . '/quote.php' );
