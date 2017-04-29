@@ -96,14 +96,21 @@ add_action( 'do_meta_boxes', function() {
 });
 
 
-/* "WooCommerce" in menu vervangen door "Aanmeldingen" */
+/* "WooCommerce" in menu vervangen door "Aanmeldingen" + Eigen icoon voor BBQ Pro*/
 add_action( 'admin_menu', function() {
 	global $menu;
-	$woo = siw_menu_array_search( 'WooCommerce', $menu );
-	if ( ! $woo ) {
-		return;
+
+	$woo = siw_menu_array_search( 'woocommerce', $menu );
+	if ( $woo ) {
+		$menu[ $woo ][0] = __( 'Aanmeldingen', 'siw' );
 	}
-	$menu[ $woo ][0] = __( 'Aanmeldingen', 'siw' );
+
+	$bbq = siw_menu_array_search( 'bbq_settings', $menu );
+	if ( $bbq ) {
+		$menu[ $bbq ][6] = 'dashicons-shield-alt';
+	}
+
+	return;
 }, 999 );
 
 function siw_menu_array_search( $find, $items ) {
