@@ -40,7 +40,7 @@ add_filter( 'caldera_forms_get_form-projectbegeleider_np', function( $form ) {
 	$confirmation_template_args['message'] .= '<span style="font-weight:bold">';
 	$confirmation_template_args['message'] .= 'Hoe gaat het nu verder?';
 	$confirmation_template_args['message'] .= '</span><br/>';
-	$confirmation_template_args['message'] .= 'Wij werven doorgaans in de maanden maart tot en met mei projectbegeleiders om de zomerprojecten te begeleiden. Desalniettemin kun je het hele jaar door aanmelden als projectbegeleider. Wij zullen dan contact met je opnemen zodra we actief gaan werven.';
+	$confirmation_template_args['message'] .= 'Wij werven doorgaans in de maanden maart tot en met mei projectbegeleiders om de zomerprojecten te begeleiden. Mocht jij je in deze periode hebben aangemeld, dan zullen wij contact met je opnemen. Ligt jouw aanmelding buiten onze wervingsperiode? Geen probleem. Wij voegen jouw aanmelding toe aan onze database voor een volgend zomerseizoen.';
 
 	$confirmation_template_args['show_signature'] = true;
 	$confirmation_template_args['signature_name'] = $signature['name'];
@@ -78,6 +78,7 @@ return array(
 	'layout_grid'		=> array(
 		'fields' => array(
 			'intro' => '1:1',
+			'intro_hr' => '1:1',
 			'voornaam' => '2:1',
 			'achternaam' => '2:2',
 			'geboortedatum' => '3:1',
@@ -109,11 +110,28 @@ return array(
 			'config' =>
 			array(
 				'custom_class' => '',
-				'default' => 'De Nederlandse vrijwilligersprojecten vinden plaats in de zomermaanden. We zijn hiervoor altijd op zoek naar projectbegeleiders. Meld je aan via onderstaand formulier en geef aan naar welk project je voorkeur uitgaat. Vervolgens ontvang je een uitnodiging voor een kennismakingsgesprek. In dit gesprek hopen wij erachter te komen wat je verwachtingen en kwaliteiten zijn.<hr>',
+				'default' => 'De Nederlandse vrijwilligersprojecten vinden plaats in de zomermaanden. We zijn hiervoor altijd op zoek naar projectbegeleiders. Meld je aan via onderstaand formulier en geef aan naar welk project je voorkeur uitgaat. Vervolgens ontvang je een uitnodiging voor een kennismakingsgesprek. In dit gesprek hopen wij erachter te komen wat je verwachtingen en kwaliteiten zijn.',
 			),
 			'conditions' =>
 			array(
 				'type' => '',
+			),
+		),
+		'intro_hr' =>
+		array(
+			'ID' => 'intro_hr',
+			'type' => 'section_break',
+			'label' => 'intro_hr',
+			'slug' => 'intro_hr',
+			'conditions' =>
+			array(
+				'type' => '',
+			),
+			'caption' => '',
+			'config' =>
+			array(
+				'custom_class' => '',
+				'width' => '',
 			),
 		),
 		'voornaam' =>

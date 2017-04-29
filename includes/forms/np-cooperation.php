@@ -72,6 +72,7 @@ return array(
 	'layout_grid'		=> array(
 		'fields' => array(
 			'intro' => '1:1',
+			'intro_hr' => '1:1',
 			'naam_organisatie' => '1:1',
 			'naam_contactpersoon' => '1:1',
 			'emailadres' => '1:1',
@@ -95,11 +96,28 @@ return array(
 			'config' =>
 			array(
 				'custom_class' => '',
-				'default' => 'Bent u enthousiast geworden? SIW is het hele jaar door op zoek naar enthousiaste maatschappelijke organisaties die samen met ons willen onderzoeken wat de mogelijkheden zijn voor een samenwerking. Laat uw gegevens achter in onderstaand formulier en wij nemen contact met u op om de mogelijkheden te bespreken.<hr>',
+				'default' => 'Bent u enthousiast geworden? SIW is het hele jaar door op zoek naar enthousiaste maatschappelijke organisaties die samen met ons willen onderzoeken wat de mogelijkheden zijn voor een samenwerking. Laat uw gegevens achter in onderstaand formulier en wij nemen contact met u op om de mogelijkheden te bespreken.',
 			),
 			'conditions' =>
 			array(
 				'type' => '',
+			),
+		),
+		'intro_hr' =>
+		array(
+			'ID' => 'intro_hr',
+			'type' => 'section_break',
+			'label' => 'intro_hr',
+			'slug' => 'intro_hr',
+			'conditions' =>
+			array(
+				'type' => '',
+			),
+			'caption' => '',
+			'config' =>
+			array(
+				'custom_class' => '',
+				'width' => '',
 			),
 		),
 		'naam_organisatie' =>
