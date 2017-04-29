@@ -9,10 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /* Widget met quote van deelnemer */
 add_action( 'init', function() {
-	register_widget( 'SIW_Testimonial_Quote' );
+	register_widget( 'SIW_Quote' );
 }, 99 );
 
-class SIW_Testimonial_Quote extends \TDP\Widgets_Helper {
+class SIW_Quote extends \TDP\Widgets_Helper {
 
 	public function __construct() {
 		$this->widget_name = __( 'SIW: Quote van deelnemer', 'siw' );
@@ -59,53 +59,9 @@ class SIW_Testimonial_Quote extends \TDP\Widgets_Helper {
 		echo $args['after_widget'];
 	}
 }
-/*
-
-
-
-	public function widget ( $args, $instance ) {
-		extract( $args );
-
-		$query = new WP_Query( array(
-			'post_type'				=> 'testimonial',
-			'testimonial-group'		=> $instance['cat'],
-			'no_found_rows'			=> true,
-			'posts_per_page'		=> 1,
-			'orderby'				=> 'rand',
-			'post_status'			=> 'publish',
-			'ignore_sticky_posts'	=> true )
-		);
-
-		if ( $query->have_posts() ) {
-			$title = apply_filters( 'widget_title', $instance['title'] );
-			echo $before_widget;
-			echo '<div class="siw_quote_widget">';
-			if ( $title ) {
-				echo $before_title . $title . $after_title;
-			}
-			while ( $query->have_posts() ) : $query->the_post();
-			global $post;
-			$quote = get_the_content();
-			$name = get_the_title();
-			$project = get_post_meta( $post->ID, '_kad_testimonial_location', true );
-			?>
-			<div class="quote">
-				<div class="text">
-				"<?php echo esc_html( $quote );?>"
-				</div>
-				<div class="volunteer">
-					<span class="name"><?php echo esc_html( $name );?></span>
-					<span class="separator">&nbsp;|&nbsp;</span>
-					<span class="category"><?php echo esc_html( $project );?></span>
-				</div>
-			</div>
-		<?php endwhile; ?>
-		<?php
-		echo '</div>';
-		echo $after_widget;
-
-		wp_reset_postdata();
-		}
-	}
-}
-*/
+/* Widget toevoegen aan Pagebuilder-tab (inclusief eigen icoon) */
+add_filter('siteorigin_panels_widgets', function ( $widgets ) {
+	$widgets['SIW_Quote']['groups'] = array('siw');
+	$widgets['SIW_Quote']['icon'] = 'dashicons dashicons-editor-quote';
+	return $widgets;
+} );

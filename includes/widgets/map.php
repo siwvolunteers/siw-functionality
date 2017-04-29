@@ -44,3 +44,11 @@ class SIW_Map extends \TDP\Widgets_Helper {
 		echo $args['after_widget'];
 	}
 }
+
+
+/* Widget toevoegen aan Pagebuilder-tab (inclusief eigen icoon) */
+add_filter('siteorigin_panels_widgets', function ( $widgets ) {
+	$widgets['SIW_Map']['groups'] = array('siw');
+	$widgets['SIW_Map']['icon'] = 'dashicons dashicons-location-alt';
+	return $widgets;
+} );

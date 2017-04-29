@@ -161,7 +161,7 @@ add_action( 'kadence_single_portfolio_value_after', function() {
 /* Tonen 'Snel zoeken' formulier */
 function siw_show_quick_search_widget() {
 	?>
-	<div class="snelzoeken">
+	<div class="snelzoeken hide_on_mobile">
 		<h4><?php esc_html_e( 'Snel zoeken','siw' );?></h4>
 		<?php echo do_shortcode( '[searchandfilter id="57"]' );//TODO: id vervangen door slug of optie?>
 	</div>
