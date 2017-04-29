@@ -10,13 +10,6 @@ require_once( __DIR__ . '/np-camp-leader.php' );
 require_once( __DIR__ . '/np-cooperation.php' );
 
 
-/* Opties telefoonveld aanpassen */
-add_filter( 'caldera_forms_phone_js_options', function( $options ) {
-	$options['initialCountry'] = 'nl';
-	$options['preferredCountries'] = array('nl');
-	return $options;
-}, 10 );
-
 /*extra span voor styling radiobuttons en checkboxen*/
 add_filters( array('caldera_forms_render_field_type-checkbox', 'caldera_forms_render_field_type-radio'), function( $field_html ) {
 	$field_html = preg_replace( '/<input(.*?)>/', '<input$1><div class="control-indicator"></div>', $field_html );

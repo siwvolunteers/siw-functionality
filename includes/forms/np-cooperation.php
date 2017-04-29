@@ -164,7 +164,7 @@ return array(
 		'telefoonnummer' =>
 		array(
 			'ID' => 'telefoonnummer',
-			'type' => 'phone_better',
+			'type' => 'text',
 			'label' => 'Telefoonnummer',
 			'slug' => 'telefoonnummer',
 			'required' => '1',
@@ -173,6 +173,7 @@ return array(
 			array(
 				'custom_class' => '',
 				'placeholder' => '',
+				'type_override' => 'tel',
 				'default' => '',
 			),
 			'conditions' =>
