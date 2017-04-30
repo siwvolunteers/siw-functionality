@@ -71,12 +71,11 @@ add_action( 'wp_dashboard_setup', function() {
  * @return void
  */
 function siw_display_applications_widget( $var, $args ) {
-	$applications=$args['args']['applications'];
-	$months = siw_get_array( 'month_to_text' );
+	$applications = $args['args']['applications'];
 	if ( ! empty( $applications ) ) {
 
 		foreach ( $applications as $application ) {
-			$application_months[] = siw_get_month_in_text( $application['application_month'] ) . ' ( ' . $application['application_count'] . ' )';
+			$application_months[] = sprintf( '%s (%d)', siw_get_month_in_text( $application['application_month'] ), $application['application_count'] );
 			$application_counts[] = (int) $application['application_count'];
 		}
 		$application_months = array_reverse( $application_months );
@@ -98,7 +97,7 @@ function siw_display_applications_widget( $var, $args ) {
 			<?php endforeach ?>
 		</div>
 		<div class='comment-stat-labels'>
-			<?php foreach( $application_months as $month ) : ?>
+			<?php foreach ( $application_months as $month ) : ?>
 			<div class='comment-stat-label' style='width: <?php echo $bar_width ?>%;'><?php echo ucfirst( $month ) ?></div>
 		<?php endforeach ?>
 		</div>
@@ -138,7 +137,7 @@ function siw_get_vfb_applications_per_month( $form, $results ) {
 							application_month DESC
 					LIMIT  %d; ";
 
-	$applications = $wpdb->get_results( $wpdb->prepare( $query, $form_id, $results ), ARRAY_A);
+	$applications = $wpdb->get_results( $wpdb->prepare( $query, $form_id, $results ), ARRAY_A );
 
 	return $applications;
 }
@@ -163,6 +162,6 @@ function siw_get_woocommerce_application_per_month( $results ) {
 					ORDER  BY application_year DESC,
 							application_month DESC
 					LIMIT  %d; ";
-	$applications_per_month = $wpdb->get_results( $wpdb->prepare( $query, $results ), ARRAY_A);
+	$applications_per_month = $wpdb->get_results( $wpdb->prepare( $query, $results ), ARRAY_A );
 	return $applications_per_month;
 }

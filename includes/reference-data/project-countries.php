@@ -295,7 +295,13 @@ function siw_get_project_countries() {
 		'slug'		=> 'nederland',
 		'name'		=> __( 'Nederland', 'siw' ),
 		'continent'	=> 'europa',
-		'allowed'	=> 'no',
+		'allowed'	=> 'yes',
+	);
+	$project_countries['NOR'] = array(
+		'slug'		=> 'noorwegen',
+		'name'		=> __( 'Noorwegen', 'siw' ),
+		'continent'	=> 'europa',
+		'allowed'	=> 'yes',
 	);
 	$project_countries['NPL'] = array(
 		'slug'		=> 'nepal',

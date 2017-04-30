@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - Verwijderen shake-animatie
  */
 add_action( 'login_enqueue_scripts', function() {
-	wp_enqueue_style( 'siw-login-css', SIW_PLUGIN_URL . 'assets/css/siw-login.css', array(), SIW_PLUGIN_VERSION );
+	wp_enqueue_style( 'siw-login-css', SIW_ASSETS_URL . 'css/siw-login.css', array(), SIW_PLUGIN_VERSION );
 } );
 
 add_filter( 'login_headerurl', function() {

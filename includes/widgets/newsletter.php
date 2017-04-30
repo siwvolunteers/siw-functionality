@@ -7,69 +7,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-//Widget
 add_action( 'widgets_init', function() {
-	register_widget( 'siw_mailpoet_subscription' );
-});
+	register_widget( 'SIW_Mailpoet_Subscription' );
+} );
 
-class SIW_Mailpoet_Subscription extends WP_Widget {
+class SIW_Mailpoet_Subscription extends \TDP\Widgets_Helper {
+
 	public function __construct() {
-		$widget_ops = array(
-			'class'         => 'siw_mailpoet_subscription',
-			'description'   => __( 'Aanmeldformulier voor Mailpoet', 'siw' ),
+		$this->widget_name = __( 'SIW: Aanmelden nieuwsbrief', 'siw' );
+		$this->widget_description = __( 'Aanmeldformulier voor Mailpoet', 'siw' );
+		$this->widget_fields = array(
+			array(
+				'id'   => 'title',
+				'name' => __('Titel', 'siw'),
+				'type' => 'text',
+				'std'  => __('Blijf op de hoogte', 'siw'),
+			),
+			array(
+				'id'   => 'list',
+				'name' => __('Lijst', 'siw'),
+				'type' => 'select',
+				'options' => siw_get_mailpoet_lists(),
+			),
 		);
-
-		parent::__construct(
-			'siw_mailpoet_subscription',
-			__( 'SIW: Aanmelden nieuwsbrief', 'siw' ),
-			$widget_ops
-		);
+		$this->init();
 	}
 
-	public function form( $instance ) {
-		$widget_defaults = array(
-			'title'	=> __( 'Blijf op de hoogte', 'siw' ),
-			'list'	=> '',
-		);
-		$instance  = wp_parse_args( (array) $instance, $widget_defaults );
-
-		$model_list = WYSIJA::get( 'list','model' );
-		$mailpoet_lists = $model_list->get( array( 'name','list_id' ), array( 'is_enabled' => 1) );
-		?>
-
-		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Titel', 'siw' ); ?></label>
-			<input type="text" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" class="widefat" value="<?php echo esc_attr( $instance['title'] ); ?>">
-			<label for="<?php echo $this->get_field_id( 'list' ); ?>"><?php _e( 'Lijst', 'siw' ); ?></label>
-			<select id="<?php echo $this->get_field_id( 'list' ); ?>" name="<?php echo $this->get_field_name( 'list' ); ?>" class="widefat">
-			<?php
-			foreach ($mailpoet_lists as $list) {
-				echo '<option value="', $list['list_id'], '"', $instance['list'] == $list['list_id'] ? ' selected="selected"' : '', '>', $list['name'], '</option>';
-			}
-		  echo '</select>'; ?>
-		</p>
-
-
-		<?php
-	}
-
-	public function update( $new_instance, $old_instance ) {
-		$instance = $old_instance;
-		$instance['title'] = $new_instance['title'];
-		$instance['list'] = $new_instance['list'];
-		return $instance;
-	}
-
-
-    public function widget( $args, $instance ) {
-		extract( $args );
+	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		$list = $instance['list'];
-		$subscriber_count = do_shortcode( '[wysija_subscribers_count list_id="' . $list . '" ]' );
+		$subscriber_count = do_shortcode( '[wysija_subscribers_count list_id="' . $instance['list'] . '" ]' );
 
-		echo $before_widget;
+		echo $args['before_widget'];
 		if ( $title ) {
-			echo $before_title . $title . $after_title;
+			echo $args['before_title'] . $title . $args['after_title'];
 		}?>
 		<div>
 			<div id="newsletter_message" class="text-center hidden"></div>
@@ -90,12 +60,12 @@ class SIW_Mailpoet_Subscription extends WP_Widget {
 				<p>
 					<input type="submit" value="<?php esc_attr_e( 'Aanmelden', 'siw' );?>">
 				</p>
-				<input type="hidden" value="<?php echo $list; ?>" name="list_id" id="newsletter_list_id">
+				<input type="hidden" value="<?php echo $instance['list']; ?>" name="list_id" id="newsletter_list_id">
 				<?php wp_nonce_field( 'siw-newsletter-nonce', 'newsletter_nonce', false);?>
 			</form>
 		</div>
-	<?php
-	echo $after_widget;
-    }
+		<?php
+		echo $args['after_widget'];
 
+	}
 }

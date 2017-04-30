@@ -35,7 +35,8 @@ function siw_get_project_work_types() {
 		'ZOO'	=> 'dieren',
 		'ANIM'	=> 'dieren',
 		'LEAD'	=> 'projectbegeleider',
-		'HERI'	=> 'erfgoed'
+		'HERI'	=> 'erfgoed',
+		'REFU'	=> 'vluchtelingen',
 	);
 	return $project_work_types;
 }

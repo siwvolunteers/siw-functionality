@@ -52,7 +52,6 @@ add_action( 'wp_before_admin_bar_render', function() {
 	$wp_admin_bar->remove_node( 'wpseo-menu' );
 	$wp_admin_bar->remove_node( 'vfbp-admin-toolbar' );
 	$wp_admin_bar->remove_node( 'new-content' );
-	$wp_admin_bar->remove_node( 'updraft_admin_node' );
 }, 999 );
 
 
@@ -97,20 +96,27 @@ add_action( 'do_meta_boxes', function() {
 });
 
 
-/* "WooCommerce" in menu vervangen door "Aanmeldingen" */
+/* "WooCommerce" in menu vervangen door "Aanmeldingen" + Eigen icoon voor BBQ Pro*/
 add_action( 'admin_menu', function() {
 	global $menu;
-	$woo = siw_menu_array_search( 'WooCommerce', $menu );
-	if ( ! $woo ) {
-		return;
+
+	$woo = siw_menu_array_search( 'woocommerce', $menu );
+	if ( $woo ) {
+		$menu[ $woo ][0] = __( 'Aanmeldingen', 'siw' );
 	}
-	$menu[ $woo ][0] = __( 'Aanmeldingen', 'siw' );
+
+	$bbq = siw_menu_array_search( 'bbq_settings', $menu );
+	if ( $bbq ) {
+		$menu[ $bbq ][6] = 'dashicons-shield-alt';
+	}
+
+	return;
 }, 999 );
 
 function siw_menu_array_search( $find, $items ) {
 	foreach ( $items as $key => $value ) {
 		$current_key = $key;
-		if ( $find === $value OR ( is_array( $value ) && siw_menu_array_search( $find, $value ) !== false ) ) {
+		if ( $find === $value || ( is_array( $value ) && siw_menu_array_search( $find, $value ) !== false ) ) {
 			return $current_key;
 		}
 	}
@@ -124,7 +130,6 @@ add_filter( 'yit_panel_sidebar_load_remote_widgets',  '__return_false' );
 add_filter( 'yit_panel_hide_sidebar', '__return_true' );
 add_filter( 'yith_wcan_settings_tabs', function( $admin_tabs ) {
 	unset( $admin_tabs['premium'] );
-
 	return $admin_tabs;
 });
 
