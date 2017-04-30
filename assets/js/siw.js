@@ -4,7 +4,7 @@
 
 //Google Analytics event voor Caldera Forms
 function siwSendGaFormSubmissionEvent( obj ) {
-	ga( 'send', 'event', obj.form_id, 'Versturen' );
+	ga( 'send', 'event', obj.form_id, 'Verzenden' );
 }
 
 (function( $ ) {
