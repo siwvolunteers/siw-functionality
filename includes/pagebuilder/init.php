@@ -35,14 +35,24 @@ add_filters( array( 'siteorigin_panels_widget_style_fields', 'siteorigin_panels_
 		'type'			=> 'checkbox',
 		'priority'		=> 10,
 	);
+	$fields['hide_on_desktop'] = array(
+		'name'			=> '<span class="dashicons dashicons-desktop"></span>' . __( 'Desktop', 'siw'),
+		'label'			=> __( 'Verbergen', 'siw'),
+		'group'			=> 'visibility',
+		'type'			=> 'checkbox',
+		'priority'		=> 20,
+	);
 	return $fields;
 
 }, 10 );
 
-/* Klasse toevoegen om content te verberge op mobiel*/
+/* Klasse toevoegen om content te verbergen op mobiel of desktop */
 add_filters( array( 'siteorigin_panels_widget_style_attributes', 'siteorigin_panels_cell_style_attributes' ), function( $style_attributes, $style_args ) {
 	if ( isset( $style_args['hide_on_mobile'] ) && 1 == $style_args['hide_on_mobile'] ) {
 		$style_attributes['class'][] = 'hide_on_mobile';
+	}
+	if ( isset( $style_args['hide_on_desktop'] ) && 1 == $style_args['hide_on_desktop'] ) {
+		$style_attributes['class'][] = 'hide_on_desktop';
 	}
 	return $style_attributes;
 }, 10, 2 );
