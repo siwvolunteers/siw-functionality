@@ -37,17 +37,47 @@ add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $cur
 		return true;
 	}
 
-	/* TODO:
+
+	/*
 	Project opnieuw importeren als één van de volgende eigenschappen aangepast is.
 	- Startdatum
 	- Eindatum
 	- Local fee
 	- Projectcode
-	- Beschrijving
+	- TODO: Nog meer eigenschappen? Bijv. beschrijving, soort werk...
 	*/
+	$current_attributes = get_post_meta( $product_id, '_product_attributes', true );
+
+	/* Startdatum */
+	$start_date_current = isset( $current_attributes['startdatum']['value'] ) ? $current_attributes['startdatum']['value'] : '';
+	$start_date_new = siw_get_workcamp_formatted_date( $xml['start_date'] );
+	if ( $start_date_current != $start_date_new ) {
+		return true;
+	}
+
+	/* Einddatum */
+	$end_date_current = isset( $current_attributes['einddatum']['value'] ) ? $current_attributes['einddatum']['value'] : '';
+	$end_date_new = siw_get_workcamp_formatted_date( $xml['end_date'] );
+	if ( $end_date_current != $end_date_new ) {
+		return true;
+	}
+
+	/* Local fee */
+	$participation_fee_current = isset( $current_attributes['lokale-bijdrage']['value'] ) ? $current_attributes['lokale-bijdrage']['value'] : '';
+	$participation_fee_new = siw_get_workcamp_local_fee( $xml['participation_fee'], $xml['participation_fee_currency'] );
+	if ( $participation_fee_current != $participation_fee_new ) {
+		return true;
+	}
+
+	/* Local fee */
+	$projectcode_current = isset( $terms['projectcode']['value'] ) ? $terms['projectcode']['value'] : '';
+	$projectcode_new = $xml['code'];
+	if ( $projectcode_current != $projectcode_new ) {
+		return true;
+	}
 
 	return false;
-}, 10, 3);
+}, 10, 3 );
 
 
 /*
