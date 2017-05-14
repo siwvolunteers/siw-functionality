@@ -70,7 +70,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $cur
 	}
 
 	/* Local fee */
-	$projectcode_current = isset( $terms['projectcode']['value'] ) ? $terms['projectcode']['value'] : '';
+	$projectcode_current = isset( $current_attributes['projectcode']['value'] ) ? $current_attributes['projectcode']['value'] : '';
 	$projectcode_new = $xml['code'];
 	if ( $projectcode_current != $projectcode_new ) {
 		return true;
