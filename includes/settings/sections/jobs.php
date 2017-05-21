@@ -37,7 +37,13 @@ add_action( 'siw_settings_show_jobs_section', function() {
 		),
 		'validate' => 'html',
 	);
-
+	$jobs_fields[] = array(
+		'id'		=> 'open_application_email',
+		'title'		=> __( 'E-mailadres voor open sollicitaties', 'siw' ),
+		'desc'		=> __( 'Wordt getoond op vacature-pagina.', 'siw' ),
+		'type'		=> 'text',
+		'validate'	=> 'email',
+	);
 	/* Sectie */
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'jobs',
