@@ -18,6 +18,7 @@ add_action( 'siw_settings_show_jobs_section', function() {
 	$jobs_fields[] = array(
 		'id'		=> 'company_profile',
 		'title'		=> __( 'Wie zijn wij', 'siw' ),
+		'subtitle'	=> __( 'Wordt gebruikt in vacaturebeschrijving', 'siw'),
 		'type'		=> 'editor',
 		'args'		=> array(
 			'teeny'			=> true,
@@ -25,30 +26,11 @@ add_action( 'siw_settings_show_jobs_section', function() {
 			'wpautop'		=> false,
 		),
 		'validate' => 'html',
-	);
-	$jobs_fields[] = array(
-		'id'		=> 'mission_statement',
-		'title'		=> __( 'Missie', 'siw' ),
-		'type'		=> 'editor',
-		'args'		=> array(
-			'teeny'			=> true,
-			'media_buttons'	=> false,
-			'wpautop'		=> false,
-		),
-		'validate' => 'html',
-	);
-	$jobs_fields[] = array(
-		'id'		=> 'open_application_email',
-		'title'		=> __( 'E-mailadres voor open sollicitaties', 'siw' ),
-		'desc'		=> __( 'Wordt getoond op vacature-pagina.', 'siw' ),
-		'type'		=> 'text',
-		'validate'	=> 'email',
 	);
 	/* Sectie */
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'jobs',
 		'title'			=> __( 'Vacatures', 'siw' ),
-		'desc'			=> __( 'Standaardteksten voor vacatures', 'siw' ),
 		'icon'			=> 'el el-paper-clip',
 		'permissions'	=> 'edit_jobs',
 		'fields'		=> $jobs_fields,

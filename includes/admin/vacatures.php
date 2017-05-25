@@ -232,3 +232,62 @@ add_action( 'admin_init', function() {
 		remove_post_type_support( 'page', 'editor' );
 	}
 } );
+
+
+/* Metaboxes voor vacature-pagina toevoegen */
+add_action( 'cmb2_admin_init', function() {
+	$prefix = 'siw_vacature_';
+	$cmb = new_cmb2_box( array(
+			'id'            => 'siw_vacatures_metabox',
+			'title'         => __( 'Instellingen vacature-pagina', 'siw' ),
+			'object_types'  => array( 'page' ),
+			'show_on'		=> array( 'key' => 'page-template', 'value' => array( 'template-vacatures-grid.php' ) ),
+			'context'       => 'normal',
+			'priority'      => 'high',
+			'show_names'    => true,
+			'closed'     	=> false,
+	) );
+	$cmb->add_field( array(
+		'id'      => 'siw_vacatures_introduction',
+		'name'    => 'Introductie',
+		'type'    => 'wysiwyg',
+		'options'		=> array(
+			'wpautop'		=> true,
+			'media_buttons'	=> false,
+			'teeny'			=> true,
+			'textarea_rows'	=> 5,
+		),
+		'attributes'	=> array(
+			'required'		=> 'required',
+		),
+	) );
+	$cmb->add_field( array(
+		'id'      => 'siw_vacatures_open_application',
+		'name'    => 'Open sollicitatie',
+		'type'    => 'wysiwyg',
+		'options'		=> array(
+			'wpautop'		=> true,
+			'media_buttons'	=> false,
+			'teeny'			=> true,
+			'textarea_rows'	=> 5,
+		),
+		'attributes'	=> array(
+			'required'		=> 'required',
+		),
+	) );
+	$cmb->add_field( array(
+		'id'		=> 'siw_vacatures_open_application_email',
+		'name'		=> __( 'E-mail voor open sollicitaties:', 'siw' ),
+		'before' 	=> 'Stuur jouw motivatie en curriculum vitae onder vermelding van \'Open sollicitatie\' naar ',
+		'type'		=> 'text_email',
+	) );
+	$cmb->add_field( array(
+		'id'			=> 'siw_vacatures_no_jobs',
+		'name'			=> __( 'Infotekst geen vacatures', 'siw' ),
+		'type'			=> 'textarea_small',
+		'attributes'	=> array(
+			'required'		=> 'required',
+		),
+	) );
+
+} );
