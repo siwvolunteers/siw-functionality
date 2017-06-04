@@ -7,6 +7,39 @@ function siwSendGaFormSubmissionEvent( obj ) {
 	ga( 'send', 'event', obj.form_id, 'Verzenden' );
 }
 
+function siwPostcodeLookup( postcodeSelector, housenumberSelector, streetSelector, citySelector ) {
+	var postcode = jQuery( postcodeSelector ).val().replace( / /g, '' ).toUpperCase();
+	var housenumber = jQuery( housenumberSelector ).val();
+	var housenumber = housenumber.replace( /[^0-9]/g, '' );
+
+	if ( ( '' != postcode ) && ( '' != housenumber ) ) {
+		jQuery.ajax({
+			url: parameters.ajax_url,
+			type: 'get',
+			dataType: 'json',
+			data: {
+				action: 'postcode_lookup',
+				postcode: postcode,
+				housenumber: housenumber
+			},
+			success: function( result ) {
+				if ( 1 == result.success ) {
+					jQuery( citySelector ).val( result.resource.town );
+					jQuery( streetSelector ).val( result.resource.street );
+					jQuery( citySelector ).prop( 'readonly', true );
+					jQuery( streetSelector ).prop( 'readonly', true );
+				}else {
+					jQuery( citySelector ).val( '' );
+					jQuery( streetSelector ).val( '' );
+					jQuery( citySelector ).prop( 'readonly', false );
+					jQuery( streetSelector ).prop( 'readonly', false );
+				}
+			}
+		});
+	}
+return false;
+}
+
 (function( $ ) {
 
 	//Validatieregel voor e-mail
@@ -46,37 +79,14 @@ function siwSendGaFormSubmissionEvent( obj ) {
 	});
 
 	$( 'input.postcode, input.huisnummer' ).change(function() {
-		var postcode = $( 'input.postcode' ).val().replace( / /g, '' ).toUpperCase();
-		var housenumber = $( 'input.huisnummer' ).val();
-		var housenumber = housenumber.replace( /[^0-9]/g, '' );
-
-		if ( ( '' != postcode ) && ( '' != housenumber ) ) {
-			$.ajax({
-				url: parameters.ajax_url,
-				type: 'get',
-				dataType: 'json',
-				data: {
-					action: 'postcode_lookup',
-					postcode: postcode,
-					housenumber: housenumber
-				},
-				success: function( result ) {
-					if ( 1 == result.success ) {
-						$( 'input.plaats' ).val( result.resource.town );
-						$( 'input.straat' ).val( result.resource.street );
-						$( 'input.plaats' ).prop( 'readonly', true );
-						$( 'input.straat' ).prop( 'readonly', true );
-					}else {
-						$( 'input.plaats' ).val( '' );
-						$( 'input.straat' ).val( '' );
-						$( 'input.plaats' ).prop( 'readonly', false );
-						$( 'input.straat' ).prop( 'readonly', false );
-					}
-				}
-			});
-		}
+		siwPostcodeLookup( 'input.postcode', 'input.huisnummer', 'input.straat', 'input.plaats' );
 		return false;
-    });
+	});
+
+	$( 'input[name="postcode"], input[name="huisnummer"]' ).change(function() {
+		siwPostcodeLookup( 'input[name="postcode"]', 'input[name="huisnummer"]', 'input[name="straat"]', 'input[name="woonplaats"]' );
+		return false;
+	});
 
 	//GA-event bij klikken op topbar
 	$( document ).on( 'click', '#topbar_link', function() {
