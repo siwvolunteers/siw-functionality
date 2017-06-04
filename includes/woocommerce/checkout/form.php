@@ -188,3 +188,21 @@ add_action( 'woocommerce_multistep_checkout_before_order_info', function( $check
 	</div>
 <?php
 } );
+
+/* Aanpassen radiobuttons en checkboxes ivm styling*/
+add_filters( array('woocommerce_form_field_radio', 'woocommerce_form_field_checkbox'), function( $field ) {
+	$field = preg_replace( '/<input(.*?)>/', '<input$1><span class="control-indicator"></span>', $field );
+	return $field;
+},10);
+
+add_filter( 'woocommerce_form_field_args', function( $args ) {
+	//siw_debug($args);
+	if ( $args['type'] == 'radio') {
+		$args['class'][] = 'control-radio';
+	}
+	if ( $args['type'] == 'checkbox') {
+		$args['class'][] = 'control-checkbox';
+	}
+	return $args;
+
+},10 );
