@@ -242,6 +242,23 @@ function siw_get_mailpoet_lists() {
 
 
 /**
+ * Geeft array met pagina's terug
+ *
+ * @return array id => naam
+ */
+function siw_get_pages() {
+	$results = get_pages();
+	$pages = array();
+	foreach ( $results as $result ) {
+		$ancestors = get_ancestors( $result->ID, 'page' );
+		$prefix = str_repeat ( '-', sizeof( $ancestors ) );
+		$pages[ $result->ID ] = $prefix . esc_html( $result->post_title );
+	}
+	return $pages;
+}
+
+
+/**
  * Geeft array met Mapplic-kaarten terug
  *
  * @return array
