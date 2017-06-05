@@ -20,7 +20,7 @@ define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . '/assets' );
 define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . '/includes' );
 define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
-define ( 'SIW_PLUGIN_VERSION', '1.1' );
+define ( 'SIW_PLUGIN_VERSION', '1.2' );
 define ( 'SIW_AJAX_URL', SIW_PLUGIN_URL . 'ajax-handler.php' );
 
 
@@ -44,10 +44,11 @@ require_once( SIW_ASSETS_DIR . '/plugins/wp-widgets-helper.php');
 require_once( SIW_INCLUDES_DIR . '/required-plugins.php' );
 /* Referentiegegevens */
 require_once( SIW_INCLUDES_DIR . '/reference-data/init.php' );
-/* Instellingen */
-require_once( SIW_INCLUDES_DIR . '/settings/init.php' );
 /* Getters */
 require_once( SIW_INCLUDES_DIR . '/getters.php' );
+/* Instellingen */
+require_once( SIW_INCLUDES_DIR . '/settings/init.php' );
+
 
 
 /* Diverse aanpassingen */
