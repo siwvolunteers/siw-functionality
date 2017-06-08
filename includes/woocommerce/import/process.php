@@ -8,8 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /*
  * Voeg prijzen voor tarieven (student/regulier) toe.
- * - Zet regulier tarief als standaardtarief.
- *
+ * Verwerk reeds beoordeelde projecten
  */
 add_action( 'pmxi_saved_post', function( $product_id ) {
 	$tariff_array = array(
@@ -31,8 +30,15 @@ add_action( 'pmxi_saved_post', function( $product_id ) {
 		update_post_meta( $variation_id, '_virtual', 'yes' );
 	}
 
-	$default_attributes = array( 'pa_tarief' => 'regulier' );
-	update_post_meta( $product_id, '_default_attributes', $default_attributes );
+	/*Verwerk al beoordeelde projecten*/
+	$approval_result = get_post_meta( $variation_id, 'approval_result', true );
+	if ( 'publish' != get_post_status( $product_id ) && ! empty( $approval_result ) ) {
+		wp_publish_post( $product_id );
+		if ( 'rejected' == $approval_result ) {
+			siw_hide_workcamp( $post_id );
+		}
+	}
+
 
 }, 10, 1 );
 

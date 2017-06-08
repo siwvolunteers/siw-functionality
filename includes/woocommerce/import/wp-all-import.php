@@ -49,7 +49,15 @@ $siw_wpai_addon->add_field(
 	null,
 	__( 'Geef aan of dit een project in een toegestaan land is (yes/no)', 'siw' )
 );
-
+$siw_wpai_addon->add_field(
+	'default_tariff',
+	__( 'Standaard tarief', 'siw' ),
+	'radio',
+	array(
+		'student' => __( 'Student/<18', 'siw' ),
+ 		'regulier' => __( 'Regulier', 'siw' ),
+	)
+);
 $siw_wpai_addon->add_title(
 	__( 'Projectlocatie', 'siw' ),
 	__( 'Geef de coördinaten van het project op', 'siw' )
@@ -97,30 +105,34 @@ $siw_wpai_addon->run(
 function siw_wpai_addon_import( $post_id, $data, $import_options ) {
 	global $siw_wpai_addon;
 	if ( $siw_wpai_addon->can_update_meta( 'project_id', $import_options ) ) {
-		update_post_meta($post_id, 'project_id', $data['project_id']);
+		update_post_meta( $post_id, 'project_id', $data['project_id'] );
 	}
 	if ( $siw_wpai_addon->can_update_meta( 'startdatum', $import_options ) ) {
-		update_post_meta($post_id, 'startdatum', $data['startdatum']);
+		update_post_meta( $post_id, 'startdatum', $data['startdatum'] );
 	}
 	if ( $siw_wpai_addon->can_update_meta( 'land', $import_options ) ) {
-		update_post_meta($post_id, 'land', $data['land']);
+		update_post_meta( $post_id, 'land', $data['land']);
 	}
 	if ( $siw_wpai_addon->can_update_meta( 'minimumleeftijd', $import_options ) ) {
-		update_post_meta($post_id, 'minimumleeftijd', $data['minimumleeftijd']);
+		update_post_meta( $post_id, 'minimumleeftijd', $data['minimumleeftijd'] );
 	}
 	if ( $siw_wpai_addon->can_update_meta( 'allowed', $import_options ) ) {
-		update_post_meta($post_id, 'allowed', $data['allowed']);
+		update_post_meta( $post_id, 'allowed', $data['allowed'] );
+	}
+	if ( $siw_wpai_addon->can_update_meta( '_default_attributes', $import_options ) ) {
+		$default_attributes = array( 'pa_tarief' => $data['default_tariff'] );
+		update_post_meta( $post_id, '_default_attributes', $default_attributes );
 	}
 	if ( $siw_wpai_addon->can_update_meta( 'latitude', $import_options ) ) {
-		update_post_meta($post_id, 'latitude', $data['latitude']);
+		update_post_meta( $post_id, 'latitude', $data['latitude'] );
 	}
 	if ( $siw_wpai_addon->can_update_meta( 'longitude', $import_options ) ) {
-		update_post_meta($post_id, 'longitude', $data['longitude']);
+		update_post_meta( $post_id, 'longitude', $data['longitude'] );
 	}
 	if ( $siw_wpai_addon->can_update_meta( '_yoast_wpseo_title', $import_options ) ) {
-		update_post_meta($post_id, '_yoast_wpseo_title', $data['_genesis_title']);//TODO:aanpassen na switch naar SEO Framework
+		update_post_meta( $post_id, '_yoast_wpseo_title', $data['_genesis_title'] );//TODO:aanpassen na switch naar SEO Framework
 	}
 	if ( $siw_wpai_addon->can_update_meta( '_yoast_wpseo_metadesc', $import_options ) ) {
-		update_post_meta($post_id, '_yoast_wpseo_metadesc', $data['_genesis_description'] ); //TODO: aanpassen na switch naar SEO Framework
+		update_post_meta( $post_id, '_yoast_wpseo_metadesc', $data['_genesis_description'] ); //TODO: aanpassen na switch naar SEO Framework
 	}
 }

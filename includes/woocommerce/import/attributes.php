@@ -307,6 +307,22 @@ function siw_get_workcamp_is_family_project( $project_type, $family ) {
 
 
 /**
+ * Bepaal standaardtarief op basis van maximumleeftijd
+ *
+ * @param  int $max_age
+ * @return string
+ */
+function siw_get_workcamp_default_tariff( $max_age ){
+	$max_age = (int) $max_age;
+	$default_tariff = 'regulier';
+	if ( 18 > $max_age ) {
+		$default_tariff = 'student';
+	}
+	return $default_tariff;
+}
+
+
+/**
  * Bepaal of het project een tienerproject is
  *
  * @param string $project_type
