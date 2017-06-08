@@ -106,12 +106,16 @@ add_action( 'siw_delete_projects', function() {
 	$limit = date( 'Y-m-d', time() - ( 9 * MONTH_IN_SECONDS ) );
 
 	$meta_query = array(
-		'relation'	=> 'AND',
-			array(
-				'key'		=> 'startdatum',
-				'value'		=> $limit,
-				'compare'	=> '<',
-			),
+		'relation'	=> 'OR',
+		array(
+			'key'		=> 'startdatum',
+			'value'		=> $limit,
+			'compare'	=> '<',
+		),
+		array(
+			'key'		=> 'startdatum',
+			'compare'	=> 'NOT EXISTS',
+		),
 	);
 	$args = array(
 		'posts_per_page'	=> 25,
