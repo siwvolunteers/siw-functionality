@@ -23,9 +23,9 @@ add_filters( 'caldera_forms_magic_summary_should_use_label', '__return_true' );
 /* Patroon voor samenvatting*/
 add_filters( 'caldera_forms_summary_magic_pattern', function( $pattern ) {
 	$pattern = '<tr>
-		<td width="35%%" style="font-family:\'Open Sans\', Verdana, normal; color:#444; font-size:0.8em;">%s</td>
+		<td width="35%%" style="font-family: Verdana, normal; color:#444; font-size:0.8em;">%s</td>
 		<td width="5%%"></td>
-		<td width="50%%" style="font-family:\'Open Sans\', Verdana, normal; color:#444; font-size:0.8em; font-style:italic">%s</td>
+		<td width="50%%" style="font-family: Verdana, normal; color:#444; font-size:0.8em; font-style:italic">%s</td>
 	</tr>';
 	return $pattern;
 } );
