@@ -127,15 +127,12 @@ return false;
 					security: nonce
 				},
 				success: function( result ) {
+					$( '#newsletter_message' ).removeClass( 'hidden' );
+					$( '#newsletter_loading' ).addClass( 'hidden' );
+					$( '#newsletter_message' ).text( result.message );
 					if ( 1 == result.success ) {
-						$( '#newsletter_message' ).removeClass( 'hidden' );
-						$( '#newsletter_loading' ).addClass( 'hidden' );
-						$( '#newsletter_message' ).text( result.message );
 						ga( 'send', 'event', 'Nieuwsbrief', 'Aanmelden' );
 					}else {
-						$( '#newsletter_message' ).removeClass( 'hidden' );
-						$( '#newsletter_loading' ).addClass( 'hidden' );
-						$( '#newsletter_message' ).text( result.message );
 						$( '#siw_newsletter_subscription' ).removeClass( 'hidden' );
 					}
 				}
