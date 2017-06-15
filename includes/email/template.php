@@ -64,7 +64,7 @@ ob_start();
 								<?php echo wp_kses_post( $message );?>
 								<?php if ( $show_signature ) :?>
 									<br/><br/>
-									<?php esc_html_e( 'Met vriendelijke groet,', 'siw'); ?><br /><br />
+									<?php esc_html_e( 'Met vriendelijke groet,', 'siw' ); ?><br /><br />
 									<?php echo esc_html( $signature_name );?><br/>
 									<span style="color:#808080;">
 										<?php echo esc_html( $signature_title );?>

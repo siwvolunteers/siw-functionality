@@ -20,6 +20,14 @@ add_filters( array('caldera_forms_render_field_type-checkbox', 'caldera_forms_re
 /* Gebruik label van radiobuttons en checkboxes in mail*/
 add_filters( 'caldera_forms_magic_summary_should_use_label', '__return_true' );
 
+
+/* Magic tags in links toestaan in wp_kses_post */
+add_filter( 'kses_allowed_protocols', function( $protocols ) {
+	$protocols[] = '{embed_post';
+	return $protocols;
+} );
+
+
 /* Patroon voor samenvatting*/
 add_filters( 'caldera_forms_summary_magic_pattern', function( $pattern ) {
 	$pattern = '<tr>
