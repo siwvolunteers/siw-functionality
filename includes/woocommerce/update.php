@@ -44,6 +44,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $cur
 	- Eindatum
 	- Local fee
 	- Projectcode
+	- Land toegestaan
 	- TODO: Nog meer eigenschappen? Bijv. beschrijving, soort werk...
 	*/
 	$current_attributes = get_post_meta( $product_id, '_product_attributes', true );
@@ -75,6 +76,14 @@ add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $cur
 	if ( $projectcode_current != $projectcode_new ) {
 		return true;
 	}
+
+	/* Land toegestaan*/
+	$country_allowed_current = get_post_meta( $product_id, 'allowed', true );
+	$country_allowed_new = siw_get_workcamp_country_allowed( $xml['country'] );
+	if ( $country_allowed_current != $country_allowed_new ) {
+		return true;
+	}
+
 
 	return false;
 }, 10, 3 );
