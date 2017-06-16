@@ -32,6 +32,16 @@ add_action( 'cmb2_admin_init', function() {
 		),
 	) );
 	$cmb->add_field( array(
+		'id'			=> $prefix . 'highlight_quote',
+		'name'			=> __( 'Highlight quote', 'siw' ),
+		'type'			=> 'textarea_small',
+		'attributes'	=> array(
+			'required'		=> 'required',
+			'maxlength' 	=> 80,
+			'rows'	=> 1,
+		),
+	) );
+	$cmb->add_field( array(
 		'id'			=> $prefix . 'tijden_title',
 		'name'			=> __( 'Tijden', 'siw' ),
 		'type'			=> 'title',

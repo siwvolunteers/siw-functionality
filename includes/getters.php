@@ -408,6 +408,7 @@ function siw_get_event_data( $post_id ) {
 	$event_data['duration']					= $event_data['date_range']	  . ', ' .  $event_data['start_time']	 . '&nbsp;-&nbsp;' . $event_data['end_time'];
 	$event_data['program'] 					= get_post_meta( $post_id, 'siw_agenda_programma', true );
 	$event_data['description']				= get_post_meta( $post_id, 'siw_agenda_beschrijving', true );
+	$event_data['highlight_quote']			= get_post_meta( $post_id, 'siw_agenda_highlight_quote', true );
 	$event_data['location']					= get_post_meta( $post_id, 'siw_agenda_locatie', true );
 	$event_data['address']					= get_post_meta( $post_id, 'siw_agenda_adres', true );
 	$event_data['postal_code']				= get_post_meta( $post_id, 'siw_agenda_postcode', true );
@@ -417,7 +418,7 @@ function siw_get_event_data( $post_id ) {
 	$event_data['application_explanation']	= get_post_meta( $post_id, 'siw_agenda_aanmelden_toelichting', true );
 	$event_data['application_link_url']		= get_post_meta( $post_id, 'siw_agenda_aanmelden_link_url', true );
 	$event_data['application_link_text'] 	= get_post_meta( $post_id, 'siw_agenda_aanmelden_link_tekst', true );
-	$event_data['text_after_hide_cd_form']	= get_post_meta( $post_id, 'siw_agenda_tekst_na_verbergen_formulier', true );
+	$event_data['text_after_hide_form']		= get_post_meta( $post_id, 'siw_agenda_tekst_na_verbergen_formulier', true );
 
 	return $event_data;
 }
