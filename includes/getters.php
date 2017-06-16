@@ -432,6 +432,8 @@ function siw_get_event_data( $post_id ) {
  */
 function siw_get_job_data( $post_id ) {
 	$deadline_ts							= get_post_meta( $post_id, 'siw_vacature_deadline', true );
+	$job_data['permalink']					= get_permalink( $post_id );
+	$job_data['title']						= get_the_title( $post_id );
 	$job_data['deadline_datum']				= date( 'Y-m-d', $deadline_ts );
 	$job_data['deadline']					= siw_get_date_in_text( date("Y-m-d", $deadline_ts ), false);
 	$job_data['inleiding']					= get_post_meta( $post_id, 'siw_vacature_inleiding', true );
@@ -441,7 +443,7 @@ function siw_get_job_data( $post_id ) {
 	$job_data['wat_ga_je_doen']				= get_post_meta( $post_id, 'siw_vacature_wat_ga_je_doen', true );
 	$job_data['wat_bieden_wij_jou']			= get_post_meta( $post_id, 'siw_vacature_wat_bieden_wij_jou', true );
 	$job_data['contactpersoon_naam']		= get_post_meta( $post_id, 'siw_vacature_contactpersoon_naam', true );
-	$job_data['contactpersoon_functie']	= get_post_meta( $post_id, 'siw_vacature_contactpersoon_functie', true );
+	$job_data['contactpersoon_functie']		= get_post_meta( $post_id, 'siw_vacature_contactpersoon_functie', true );
 	if ( $job_data['contactpersoon_functie'] ) {
 		$job_data['contactpersoon_naam']	= $job_data['contactpersoon_naam'] . ' (' . $job_data['contactpersoon_functie'] . ')';
 	}
@@ -450,7 +452,7 @@ function siw_get_job_data( $post_id ) {
 	$job_data['solliciteren_naam']			= get_post_meta( $post_id, 'siw_vacature_solliciteren_naam', true );
 	$job_data['solliciteren_functie']		= get_post_meta( $post_id, 'siw_vacature_solliciteren_functie', true );
 	if (  $job_data['solliciteren_functie'] ) {
-		 $job_data['solliciteren_naam'] =  $job_data['solliciteren_naam'] . ' (' .  $job_data['solliciteren_functie'] . ')';
+		$job_data['solliciteren_naam'] 		=  $job_data['solliciteren_naam'] . ' (' .  $job_data['solliciteren_functie'] . ')';
 	}
 	$job_data['solliciteren_email']			= antispambot( get_post_meta( $post_id, 'siw_vacature_solliciteren_email', true ) );
 	$job_data['toelichting_solliciteren']	= get_post_meta( $post_id, 'siw_vacature_toelichting_solliciteren', true );

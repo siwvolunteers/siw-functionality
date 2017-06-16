@@ -49,7 +49,12 @@ add_action( 'cmb2_admin_init', function() {
 			'rows'	=> 1,
 		),
 	) );
-
+	$cmb->add_field( array(
+		'id'   => $prefix . 'uitgelicht',
+		'name' => __( 'Vacature uitlichten', 'siw' ),
+		'desc' => __( 'Wordt getoond in topbar als er geen evenementen zijn', 'siw'),
+		'type' => 'checkbox',
+	) );
 	$cmb->add_field( array(
 		'id'			=> $prefix . 'wie_ben_jij',
 		'name'			=> __( 'Wie ben jij?', 'siw' ),
