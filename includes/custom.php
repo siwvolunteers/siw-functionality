@@ -223,3 +223,10 @@ add_filter( 'cmb_meta_boxes', function( array $meta_boxes ) {
 	$meta_boxes[ $page_sidebar ]['pages'] = array();
 	return $meta_boxes;
 }, 999 );
+
+
+/*CMB meta box url protocol-onafhankelijk maken*/
+add_filter( 'cmb_meta_box_url', function( $cmb_url ) {
+	$cmb_url = str_replace('http://', '//', $cmb_url );
+	return $cmb_url;
+});

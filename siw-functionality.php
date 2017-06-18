@@ -26,13 +26,11 @@ define ( 'SIW_AJAX_URL', SIW_PLUGIN_URL . 'ajax-handler.php' );
 
 /*
  * Hulp-plugins
- * - TGMPA (http://tgmpluginactivation.com/)
  * - WP MultiFilter (https://github.com/khromov/wp-multifilter)
  * - Disable Emoji's (https://geek.hellyer.kiwi/plugins/disable-emojis/)
  * - Rapid Add-On (https://github.com/soflyy/wp-all-import-rapid-addon)
  * - WordPress Widgets Helper Class (https://github.com/alessandrotesoro/wp-widgets-helper)
  */
-require_once( SIW_ASSETS_DIR . '/plugins/class-tgm-plugin-activation.php' );
 require_once( SIW_ASSETS_DIR . '/plugins/wp-multifilter.php' );
 require_once( SIW_ASSETS_DIR . '/plugins/disable-emojis.php' );
 require_once( SIW_ASSETS_DIR . '/plugins/rapid-addon.php' );
@@ -40,8 +38,6 @@ require_once( SIW_ASSETS_DIR . '/plugins/wp-widgets-helper.php');
 
 
 
-/* Benodigde plugins via TGMPA */
-require_once( SIW_INCLUDES_DIR . '/required-plugins.php' );
 /* Referentiegegevens */
 require_once( SIW_INCLUDES_DIR . '/reference-data/init.php' );
 /* Getters */
