@@ -61,8 +61,5 @@ add_action( 'siw_ajax_newsletter_subscription', function() {
 			'message'	=> __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
 		);
 	}
-
-$result = json_encode( $data );
-echo $result;
-die();
+	wp_send_json( $data );
 } );

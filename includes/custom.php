@@ -6,8 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/* Aantal toegestande redirects aanpassen */
+/* Aantal toegestane redirects + standaard statuscode aanpassen */
 add_filter( 'srm_max_redirects', function() { return 250; } );
+add_filter( 'srm_default_direct_status', function() { return 301; } );
 
 /* Nonce-lifetime verdubbelen ivm cache */
 add_filter( 'nonce_life', function() { return 2 * DAY_IN_SECONDS; } );
@@ -75,6 +76,25 @@ define( 'UPDRAFTPLUS_ADMINBAR_DISABLE', true);
 define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
 
 
+/* Optimalisatie HEAD */
+remove_action('wp_head', 'wp_generator');
+remove_action('wp_head', 'wlwmanifest_link');
+remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
+remove_action('wp_head', 'rsd_link');
+remove_action('wp_head', 'feed_links', 2);
+remove_action('wp_head', 'feed_links_extra', 3);
+remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+remove_action('wp_head', 'wp_oembed_add_discovery_links');
+remove_action('wp_head', 'wp_oembed_add_host_js');
+
+
+/* Uitschakelen feed*/
+add_actions( array( 'do_feed','do_feed_rdf','do_feed_rss','do_feed_rss2','do_feed_atom','do_feed_rss2_comments','do_feed_atom_comments' ), function () {
+	wp_die( __( 'SIW heeft geen feed.', 'siw' ) );
+},1);
+
+
+
 /* Auteurinfo verwijderen uit oembed */
 add_filter( 'oembed_response_data', function( $data ) {
 	if ( isset ( $data['author_name'] ) ) {
@@ -129,18 +149,14 @@ add_action( 'kadence_breadcrumbs_after_home', function() {
 } );
 
 
-/*
- * Functie om pagina titel aan te passen
- */
-/*
+/* Functie om paginatitel aan te passen */
 add_filter( 'kadence_page_title', function( $title ) {
 	if ( is_404() ) {
-		return __( 'TODO', 'siw' );
+		return __( 'Pagina niet gevonden', 'siw' );
 	} else {
 		return $title;
 	}
-});
-*/
+} );
 
 
 /* Sidebar verbergen voor testimonials TODO: Kan weg na switch van Strong Testimonials naar eigen functionaliteit */
@@ -199,3 +215,18 @@ add_filter( 'kadence_portfolio_type_slug', function() { return 'projecten-op-maa
 add_filter( 'kadence_portfolio_tag_slug', function() { return 'projecten-op-maat-per-tag'; } );
 add_filter( 'kadence_staff_post_slug', function() { return 'vrijwilligers'; } );
 add_filter( 'kadence_staff_group_slug', function() { return 'vrijwilligers-per-groep'; } );
+
+
+/* Verwijderen metaboxes */
+add_filter( 'cmb_meta_boxes', function( array $meta_boxes ) {
+	$page_sidebar = array_search( 'page_sidebar', array_column( $meta_boxes, 'id' ) );
+	$meta_boxes[ $page_sidebar ]['pages'] = array();
+	return $meta_boxes;
+}, 999 );
+
+
+/*CMB meta box url protocol-onafhankelijk maken*/
+add_filter( 'cmb_meta_box_url', function( $cmb_url ) {
+	$cmb_url = str_replace('http://', '//', $cmb_url );
+	return $cmb_url;
+});

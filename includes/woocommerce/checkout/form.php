@@ -6,36 +6,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/*
- * Verbergen opmerkingenveld
- */
+/* Verbergen opmerkingenveld */
 add_filter( 'woocommerce_enable_order_notes_field', '__return_false' );
 
 
-/*
- * Voorkomen dat WooCommerce het postcodeveld steeds verplaatst.
- */
+/* Voorkomen dat WooCommerce het postcodeveld steeds verplaatst. */
 add_filter( 'woocommerce_get_country_locale', function( $fields ) {
 	$fields['NL']['postcode_before_city'] = false;
 	return $fields;
 }, 99);
 
 
-/*
- * Verwijderen verzendadres
- */
+/* Verwijderen verzendadres */
 add_filter( 'woocommerce_shipping_fields', '__return_empty_array' );
 
 
-/*
- * Volgorde adresvelden aanpassen
- */
+/* Volgorde adresvelden aanpassen */
 add_filter( 'woocommerce_default_address_fields', function( $fields ) {
 	/* Sorteren velden */
 	$address_fields = siw_sort_customer_address_fields( $fields );
 
 	/*toevoegen geslacht*/
-	$address_fields['gender']['class'] = array( 'form-row-wide' );
+	$address_fields['gender']['class'] = array( 'form-row-last' );
+	$address_fields['gender']['label_class'] = array( 'radio-label' );
 	$address_fields['gender']['clear'] = true;
 
 	/*toevoegen geboortedatum*/
@@ -50,7 +43,7 @@ add_filter( 'woocommerce_default_address_fields', function( $fields ) {
 	$address_fields['housenumber']['clear'] = true;
 
 
-	//pas eigenschappen van standaardvelden aan
+	/*pas eigenschappen van standaardvelden aan*/
 	$address_fields['dob']['placeholder'] = __( 'dd-mm-jjjj', 'siw' );
 	$address_fields['postcode']['class'] = array( 'form-row-first' );
 	$address_fields['postcode']['placeholder'] = __( '1234 AB', 'siw' );
@@ -58,7 +51,9 @@ add_filter( 'woocommerce_default_address_fields', function( $fields ) {
 	$address_fields['address_1']['class'] = array( 'form-row-first' );
 	$address_fields['address_1']['placeholder'] = '';
 	$address_fields['city']['class'] = array( 'form-row-last' );
-
+	$address_fields['country']['class'] = array( 'form-row-first', 'country' );
+	$address_fields['country']['label_class'] = array( 'country-label');
+	$address_fields['country']['description'] = __( 'Het is alleen mogelijk om je aan te melden als je in Nederland woont.', 'siw' );
 	return $address_fields;
 } );
 
@@ -66,7 +61,8 @@ add_filter( 'woocommerce_default_address_fields', function( $fields ) {
 
 /*
  * Toevoegen extra velden
- * Vragen voor partner
+ * - Vragen voor partner
+ * - Talenkennis
  */
 add_action( 'woocommerce_multistep_checkout_before_order_info', function( $checkout ) {
 	//TODO: velden verplaatsen naar generieke functie i.v.m. herbruikbaarheid
@@ -128,7 +124,7 @@ add_action( 'woocommerce_multistep_checkout_before_order_info', function( $check
 			'required'		=> true,
 			'label'			=> __( 'Telefoonnummer', 'siw' ),
 			'clear'			=> true
-	        ), $checkout->get_value( 'emergencyContactPhone' )
+			), $checkout->get_value( 'emergencyContactPhone' )
 		);?>
 		</div>
 		<div id="languageSkills">
@@ -139,13 +135,13 @@ add_action( 'woocommerce_multistep_checkout_before_order_info', function( $check
 			'class'			 => array( 'form-row-first' ),
 			'label'			=> __( 'Taal 1', 'siw' ),
 			'required'		=> true,
-			'clear'			=> true,
 			'options'		=> $languages
 			), $checkout->get_value( 'language1' )
 		);
 		woocommerce_form_field( 'language1Skill', array(
 			'type'			=> 'radio',
-			'class'			=> array( 'form-row-wide' ),
+			'class'			=> array( 'form-row-last' ),
+			'label_class'	=> array( 'radio-label'),
 			'label'			=> __( 'Niveau taal 1', 'siw' ),
 			'required'		=> true,
 			'clear'			=> true,
@@ -157,13 +153,13 @@ add_action( 'woocommerce_multistep_checkout_before_order_info', function( $check
 			'class'			=> array( 'form-row-first' ),
 			'label'			=> __( 'Taal 2', 'siw' ),
 			'required'		=> false,
-			'clear'			=> true,
 			'options'		=> $languages
 			), $checkout->get_value( 'language2' )
 		);
 		woocommerce_form_field( 'language2Skill', array(
 			'type'			=> 'radio',
-			'class'			=> array( 'form-row-wide' ),
+			'class'			=> array( 'form-row-last' ),
+			'label_class'	=> array( 'radio-label'),
 			'label'			=> __( 'Niveau taal 2', 'siw' ),
 			'required'		=> false,
 			'clear'			=> true,
@@ -175,13 +171,13 @@ add_action( 'woocommerce_multistep_checkout_before_order_info', function( $check
 			'class'			=> array( 'form-row-first' ),
 			'label'			=> __( 'Taal 3', 'siw' ),
 			'required'		=> false,
-			'clear'			=> true,
 			'options'		=> $languages,
 			), $checkout->get_value( 'language3' )
 		);
 		woocommerce_form_field( 'language3Skill', array(
 			'type'			=> 'radio',
-			'class'			=> array( 'form-row-wide' ),
+			'class'			=> array( 'form-row-last' ),
+			'label_class'	=> array( 'radio-label'),
 			'label'			=> __( 'Niveau taal 3', 'siw' ),
 			'required'		=> false,
 			'clear'			=> true,
@@ -192,3 +188,21 @@ add_action( 'woocommerce_multistep_checkout_before_order_info', function( $check
 	</div>
 <?php
 } );
+
+/* Aanpassen radiobuttons en checkboxes ivm styling*/
+add_filters( array('woocommerce_form_field_radio', 'woocommerce_form_field_checkbox'), function( $field ) {
+	$field = preg_replace( '/<input(.*?)>/', '<input$1><span class="control-indicator"></span>', $field );
+	return $field;
+},10);
+
+add_filter( 'woocommerce_form_field_args', function( $args ) {
+	//siw_debug($args);
+	if ( $args['type'] == 'radio') {
+		$args['class'][] = 'control-radio';
+	}
+	if ( $args['type'] == 'checkbox') {
+		$args['class'][] = 'control-checkbox';
+	}
+	return $args;
+
+},10 );

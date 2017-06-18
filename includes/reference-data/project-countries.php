@@ -25,7 +25,7 @@ function siw_get_project_countries() {
 		'slug'		=> 'argentinie',
 		'name'		=> __( 'Argentinië', 'siw' ),
 		'continent'	=> 'latijns-amerika',
-		'allowed'	=> 'no',
+		'allowed'	=> 'yes',
 	);
 	$project_countries['ARM'] = array(
 		'slug'		=> 'armenie',
@@ -91,7 +91,7 @@ function siw_get_project_countries() {
 		'slug'		=> 'costa-rica',
 		'name'		=> __( 'Costa Rica', 'siw' ),
 		'continent'	=> 'latijns-amerika',
-		'allowed'	=> 'no',
+		'allowed'	=> 'yes',
 	);
 	$project_countries['CZE'] = array(
 		'slug'		=> 'tsjechie',
@@ -223,7 +223,7 @@ function siw_get_project_countries() {
 		'slug'		=> 'japan',
 		'name'		=> __( 'Japan', 'siw' ),
 		'continent'	=> 'azie',
-		'allowed'	=> 'no',
+		'allowed'	=> 'yes',
 	);
 	$project_countries['KEN'] = array(
 		'slug'		=> 'kenia',
@@ -241,13 +241,13 @@ function siw_get_project_countries() {
 		'slug'		=> 'cambodja',
 		'name'		=> __( 'Cambodja', 'siw' ),
 		'continent'	=> 'azie',
-		'allowed'	=> 'no',
+		'allowed'	=> 'yes',
 	);
 	$project_countries['KOR'] = array(
 		'slug'		=> 'zuid-korea',
 		'name'		=> __( 'Zuid-Korea', 'siw' ),
 		'continent'	=> 'azie',
-		'allowed'	=> 'no',
+		'allowed'	=> 'yes',
 	);
 	$project_countries['LKA'] = array(
 		'slug'		=> 'sri-lanka',
@@ -271,7 +271,7 @@ function siw_get_project_countries() {
 		'slug'		=> 'marokko',
 		'name'		=> __( 'Marokko', 'siw' ),
 		'continent'	=> 'afrika-midden-oosten',
-		'allowed'	=> 'no',
+		'allowed'	=> 'yes',
 	);
 	$project_countries['MEX'] = array(
 		'slug'		=> 'mexico',
@@ -307,7 +307,7 @@ function siw_get_project_countries() {
 		'slug'		=> 'nepal',
 		'name'		=> __( 'Nepal', 'siw' ),
 		'continent'	=> 'azie',
-		'allowed'	=> 'no',
+		'allowed'	=> 'yes',
 	);
 	$project_countries['PER'] = array(
 		'slug'		=> 'peru',
@@ -373,7 +373,7 @@ function siw_get_project_countries() {
 		'slug'		=> 'togo',
 		'name'		=> __( 'Togo', 'siw' ),
 		'continent'	=> 'afrika-midden-oosten',
-		'allowed'	=> 'no',
+		'allowed'	=> 'yes',
 	);
 	$project_countries['THA'] = array(
 		'slug'		=> 'thailand',

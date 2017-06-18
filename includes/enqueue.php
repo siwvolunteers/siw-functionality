@@ -8,7 +8,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /* Toevoegen custom jQuery-functies */
 add_action( 'wp_enqueue_scripts', function() {
 	wp_register_script( 'siw', SIW_ASSETS_URL . 'js/siw.js', array( 'jquery' ), SIW_PLUGIN_VERSION, TRUE);
-	$site_url = site_url();
 	$parameters = array(
 		'ajax_url'		=> SIW_AJAX_URL,
 		'invalid_email'	=> __( 'Vul een geldig e-mailadres in.', 'siw' ),
@@ -22,7 +21,6 @@ add_action( 'wp_enqueue_scripts', function() {
 /* Toevoegen custom scripts voor checkout */
 add_action( 'wp_enqueue_scripts', function() {
 	wp_register_script( 'siw-checkout', SIW_ASSETS_URL . 'js/siw-checkout.js', array( 'jquery' ), SIW_PLUGIN_VERSION, TRUE);
-	$site_url = site_url();
 	$parameters = array(
 		'ajax_url'			=> SIW_AJAX_URL,
 		'invalid_postcode'	=> __( 'Dit is geen geldige postcode', 'siw' ),
@@ -52,35 +50,28 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
 
 /* Functies om scripts alleen te laden indien nodig */
 add_action( 'wp_enqueue_scripts', function() {
-	//variatie als radiobuttons
+	/*variatie als radiobuttons*/
 	if ( ! is_product() ) {
 		wp_dequeue_script( 'kt-wc-add-to-cart-variation-radio' );
 	}
-	//woocommerce ajax filter
+
+	/*woocommerce ajax filter*/
 	if ( ! is_shop() && ! is_product_category() && ! is_product_tag() ) {
 		wp_dequeue_script( 'yith-wcan-script' );
 		wp_dequeue_style( 'yith-wcan-frontend' );
 	}
-	//woocommerce
+
+	/*woocommerce*/
 	wp_dequeue_script( 'woocommerce' );
 
-	//wp-embed
-	wp_deregister_script( 'wp-embed' );
-
-	//search&filter
+	/*search&filter*/
 	wp_dequeue_style( 'search-filter-plugin-styles' );
 	wp_deregister_script( 'search-filter-plugin-chosen' );
 	wp_deregister_script( 'jquery-ui-datepicker' );
 
-	//kadence slider wordt alleen gebruikt op de homepage.
-	if ( ! is_front_page() ) {
-		wp_dequeue_script( 'kadence_slider_js' );
-		wp_dequeue_style( 'kadence_slider_css' );
-	}
-
-	//ncf font
+	/*ncf font*/
 	wp_dequeue_style( 'ncf_lato_font' );
 
-	//styling van mailpoet widget
+	/*styling van mailpoet widget*/
 	wp_deregister_style( 'validate-engine-css' );
 }, 999 );

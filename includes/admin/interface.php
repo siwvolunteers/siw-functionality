@@ -96,7 +96,7 @@ add_action( 'do_meta_boxes', function() {
 });
 
 
-/* "WooCommerce" in menu vervangen door "Aanmeldingen" + Eigen icoon voor BBQ Pro*/
+/* "WooCommerce" in menu vervangen door "Aanmeldingen" + Eigen icoon voor BBQ Pro en Pinnacle theme options*/
 add_action( 'admin_menu', function() {
 	global $menu;
 
@@ -108,6 +108,11 @@ add_action( 'admin_menu', function() {
 	$bbq = siw_menu_array_search( 'bbq_settings', $menu );
 	if ( $bbq ) {
 		$menu[ $bbq ][6] = 'dashicons-shield-alt';
+	}
+
+	$kt = siw_menu_array_search( 'ktoptions', $menu );
+	if ( $kt ) {
+		$menu[ $kt ][6] ='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTZEaa/1AAAA+klEQVRIS+2SsQ7BUBSG27Bgl9jFILGJ3WgzeAlv4DXE0ERsVgw2D+Ad+gTewNDQ1nfqNKQJ7Y0Sw/2SP//Re85/3OJYLK+I47gahuEiiqKaPvoNLJ6hmOVzffR9uOUABbIYD9FIj8qF/IqWsrSBfF0qJrc+UTe1pTwIXaKJ1qt0oZDW+B5zk4EyILCLLioPPbZm4GgqM5T1ZPgTCNvcY/Oh94yNcR+1NMIchvv8fliUvFITMedpjBl8c5eAg97EWCwO8LbGFYehoQSYkO3n81rjisGM3PZouliQmSddUU9j86G5w6va5ok+0U78zXnyT7dYLBaL5d9xnBswdjMy+Bkh/AAAAABJRU5ErkJggg==';
 	}
 
 	return;

@@ -64,42 +64,20 @@ add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) {
 	$pinnacle_shortcodes['siw_korting_derde_project'] = array(
 		'title'	=> __( '[SIW - Korting] Derde project', 'siw' ),
 	);
-	$pinnacle_shortcodes['siw_nederlands_project'] = array(
-		'title'	=> __( '[SIW - NP] Nederlands project', 'siw' ),
+	$pinnacle_shortcodes['siw_externe_link'] = array(
+		'title'	=> __( '[SIW] Externe link', 'siw' ),
 		'attr'	=> array(
-			'name'	=> array(
+			'url'	=> array(
 				'type'	=>'text',
-				'title'	=> __( 'Naam', 'siw' ),
+				'title'	=> __( 'Url', 'siw' ),
 			),
-			'participants'=>array(
-				'type'	=>'text',
-				'title'	=> __( 'Deelnemers', 'siw' ),
-				'desc'	=> __( 'Geheel getal', 'siw' ),
+			'titel'	=> array(
+				'type'	=> 'text',
+				'title'	=> __( 'Titel', 'siw' ),
 			),
-			'location'	=> array(
-				'type'	=>'text',
-				'title'	=> __( 'Locatie', 'siw' ),
-			),
-			'date_start'	=> array(
-				'type'	=>'text',
-				'title'	=> __( 'Startdatum', 'siw' ),
-				'desc'	=> __( 'dd-mm-jjjj', 'siw' ),
-			),
-			'date_end'	=> array(
-				'type'	=>'text',
-				'title'	=> __( 'Einddatum', 'siw' ),
-				'desc'	=> __( 'dd-mm-jjjj', 'siw' ),
-			),
-			'project_type'	=> array(
-				'type'	=>'text',
-				'title'	=> __( 'Soort project', 'siw' ),
-			),
-			'partner'	=> array(
-				'type'	=>'text',
-				'title'	=> __( 'Partner', 'siw' ),
-			),
-		)
+		),
 	);
+
 	return $pinnacle_shortcodes;
 } );
 
@@ -146,6 +124,7 @@ add_shortcode( 'siw_evs_volgende_vertrekmoment', function() {
 	return siw_get_next_evs_departure_month();
 });
 
+
 /*
  * Volgende infodag
  */
@@ -181,44 +160,18 @@ add_shortcode( 'siw_korting_derde_project', function() {
 
 
 /*
- * Nederlands project
+ * Externe link
  */
-add_shortcode( 'siw_nederlands_project', function( $atts, $content = null ) {
+add_shortcode( 'siw_externe_link', function( $atts ) {
 	extract( shortcode_atts( array(
-		'name'			=> '',
-		'date_start'	=> '1-1-1970',
-		'date_end'		=> '15-1-1970',
-		'participants'	=> '',
-		'location'		=> '',
-		'project_type'	=> '',
-		'partner'		=> '',
-		), $atts, 'siw_nederlands_project' ) );
-?>
-<div class="hrule clearfix" style="background:#ff9900; height:1px"></div>
-<div class="row">
-	<div class="col-md-12 ">
-		<h5><b><?php echo esc_html( $name )?></b></h5>
-	</div>
-	<div class="col-md-6  ">
-		<?php echo wp_kses_post( $content )?>
-	</div>
-	<div class="col-md-6  ">
-		<dl class="dl-horizontal">
-			<dt><?php esc_html_e( 'Data', 'siw' );?></dt>
-			<dd><?php echo esc_html( siw_get_date_range_in_text( $date_start, $date_end ) );?></dd>
-			<dt><?php esc_html_e( 'Deelnemers', 'siw' );?></dt>
-			<dd><?php echo esc_html( $participants )?></dd>
-			<dt><?php esc_html_e( 'Locatie', 'siw' );?></dt>
-			<dd><?php echo esc_html( $location )?></dd>
-			<dt><?php esc_html_e( 'Soort werkzaamheden', 'siw' );?></dt>
-			<dd><?php echo esc_html( $project_type )?></dd>
-			<dt><?php esc_html_e( 'Partnerorganisatie', 'siw' );?></dt>
-			<dd><?php echo esc_html( $partner )?></dd>
-		</dl>
-	</div>
-</div>
-<?php
+		'url'	=> '',
+		'titel'	=> '',
+		), $atts, 'siw_externe_link' )
+	);
+	$titel = ( $titel ) ? $titel : $url;
+	return sprintf('<a href="%s" target="_blank" rel="noopener noreferrer">%s&nbsp;<i class="kt-icon-newtab"></i></a>', esc_url( $url ), esc_html( $titel ) );
 });
+
 
 
 /*

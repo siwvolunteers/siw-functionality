@@ -181,7 +181,7 @@ function siw_get_workcamp_work_slugs( $work, $implode = true ) {
 
 
 /**
- * Geeft een zin met het soort weer weer
+ * Geeft een zin met het soort werk terug
  *
  * @param string $work
  * @param bool $single
@@ -210,7 +210,7 @@ function siw_get_workcamp_local_fee( $participation_fee, $participation_fee_curr
 	$project_currencies = siw_get_project_currencies();
 	$participation_fee = (int) $participation_fee;
 
-	if ( 0 == $participation_fee ) {
+	if ( 0 == $participation_fee || empty( $participation_fee_currency ) ) {
 		return '';
 	}
 	if ( isset( $project_currencies[ $participation_fee_currency ] ) ) {
@@ -218,7 +218,7 @@ function siw_get_workcamp_local_fee( $participation_fee, $participation_fee_curr
 		$participation_fee_name = $project_currencies[ $participation_fee_currency ]['name'];
 		$local_fee = sprintf( '%s %d (%s)', $participation_fee_symbol, $participation_fee, $participation_fee_name );
 	}
-	else{
+	else {
 		$local_fee = sprintf( '%s %d', $participation_fee_currency, $participation_fee );
 	}
 	return $local_fee;
@@ -307,6 +307,22 @@ function siw_get_workcamp_is_family_project( $project_type, $family ) {
 
 
 /**
+ * Bepaal standaardtarief op basis van maximumleeftijd
+ *
+ * @param  int $max_age
+ * @return string
+ */
+function siw_get_workcamp_default_tariff( $max_age ){
+	$max_age = (int) $max_age;
+	$default_tariff = 'regulier';
+	if ( 18 > $max_age ) {
+		$default_tariff = 'student';
+	}
+	return $default_tariff;
+}
+
+
+/**
  * Bepaal of het project een tienerproject is
  *
  * @param string $project_type
@@ -341,15 +357,16 @@ function siw_get_workcamp_target_audience( $project_type, $min_age, $max_age, $f
 	$teenager_project = siw_get_workcamp_is_teenager_project( $project_type, $min_age, $max_age );
 
 	$target_audience = array();
-	if ( $family_project) {
+	if ( $family_project ) {
 		$target_audience[] = 'familie|';
 	}
-	if ( $teenager_project) {
+	if ( $teenager_project ) {
 		$target_audience[] = 'tieners|';
 	}
 
 	return implode( '|', $target_audience );
 }
+
 
 /**
  * Bepaal producttags van het project voor WooCommerce
@@ -363,7 +380,6 @@ function siw_get_workcamp_target_audience( $project_type, $min_age, $max_age, $f
  *
  * @return string
  */
-
 function siw_get_workcamp_tags( $country, $work, $project_type, $min_age, $max_age, $family ) {
 	$country = siw_get_workcamp_country_slug( $country );
 	$work = siw_get_workcamp_work_slugs( $work );
@@ -385,10 +401,10 @@ function siw_get_workcamp_tags( $country, $work, $project_type, $min_age, $max_a
 function siw_get_workcamp_age_range( $min_age, $max_age ) {
 	$min_age = (int) $min_age;
 	$max_age = (int) $max_age;
-	if ( $min_age < 1) {
+	if ( $min_age < 1 ) {
 		$min_age = 18;
 	}
-	if ( $max_age < 1) {
+	if ( $max_age < 1 ) {
 		$max_age = 99;
 	}
 	$age_range = sprintf( '%d t/m %d jaar', $min_age, $max_age );
@@ -409,5 +425,5 @@ function siw_get_workcamp_free_places_left( $free_m, $free_f ) {
 	$free_m = (int) $free_m;
 	$free_f = (int) $free_f;
 
-	return ( ($free_m + $free_f) > 0) ? 'yes' : 'no';
+	return ( ( $free_m + $free_f ) > 0 ) ? 'yes' : 'no';
 }

@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /* Verwijderen ongebruikte terms */
-add_action('siw_cleanup_terms', function() {
+add_action( 'siw_cleanup_terms', function() {
 	//ongebruikte terms verwijderen
 	$taxonomies[] = 'pa_maand';
 	$taxonomies[] = 'pa_aantal-vrijwilligers';
@@ -23,7 +23,7 @@ add_action('siw_cleanup_terms', function() {
 			)
 		);
 		foreach ( $terms as $term ) {
-			if (0 == $term->count) {
+			if ( 0 == $term->count ) {
 				wp_delete_term( $term->term_id, $taxonomy );
 			}
 		}
@@ -32,7 +32,7 @@ add_action('siw_cleanup_terms', function() {
 
 
 /* Volgorde en naam van attribute pa_month aanpassen */
-add_action('siw_reorder_rename_product_attribute_month', function() {
+add_action( 'siw_reorder_rename_product_attribute_month', function() {
 	$terms = get_terms( 'pa_maand', array(
 		'hide_empty' => false,
 		)
@@ -61,7 +61,7 @@ add_action('siw_reorder_rename_product_attribute_month', function() {
 
 
 /* Verweesde variaties verwijderen */
-add_action('siw_delete_orphaned_variations', function() {
+add_action( 'siw_delete_orphaned_variations', function() {
 	$args = array(
 		'posts_per_page'		=> -1,
 		'post_type'				=> 'product',
@@ -85,7 +85,7 @@ add_action('siw_delete_orphaned_variations', function() {
 		$wpdb->pmxi_posts = $wpdb->prefix . 'pmxi_posts';
 	}
 
-	$variation_ids = implode(",", $variations );
+	$variation_ids = implode( ',', $variations );
 	$wpdb->query(
 		$wpdb->prepare("
 			DELETE FROM $wpdb->pmxi_posts
@@ -101,17 +101,21 @@ add_action('siw_delete_orphaned_variations', function() {
 });
 
 
-/* Verwijderen groepsprojecten met een startdatum die meer dan 1 jaar in het verleden ligt */
-add_action('siw_delete_projects', function() {
-	$limit = date("Y-m-d", time() - ( YEAR_IN_SECONDS ) );
+/* Verwijderen groepsprojecten met een startdatum die meer dan 9 maanden in het verleden ligt */
+add_action( 'siw_delete_projects', function() {
+	$limit = date( 'Y-m-d', time() - ( 9 * MONTH_IN_SECONDS ) );
 
 	$meta_query = array(
-		'relation'	=> 'AND',
-			array(
-				'key'		=> 'startdatum',
-				'value'		=> $limit,
-				'compare'	=> '<',
-			)
+		'relation'	=> 'OR',
+		array(
+			'key'		=> 'startdatum',
+			'value'		=> $limit,
+			'compare'	=> '<',
+		),
+		array(
+			'key'		=> 'startdatum',
+			'compare'	=> 'NOT EXISTS',
+		),
 	);
 	$args = array(
 		'posts_per_page'	=> 25,
@@ -132,7 +136,7 @@ add_action('siw_delete_projects', function() {
 
 	//variaties en producten samenvoegen tot 1 array voor DELETE-query
 	$posts = array_merge( $variations, $products );
-	$post_ids = implode(",", $posts );
+	$post_ids = implode( ',', $posts );
 
 	//wp all import tabel bijwerken
 	global $wpdb;

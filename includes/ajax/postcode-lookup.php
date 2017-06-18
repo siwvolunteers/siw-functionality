@@ -25,11 +25,15 @@ add_action( 'siw_ajax_postcode_lookup', function() {
 			'X-Api-Key'	=> $api_key,
 			),
 	);
-	$response = json_decode( wp_safe_remote_get( $url, $args )['body'] );
+	$response = wp_safe_remote_get( $url, $args );
+	if ( is_wp_error( $response ) ) {
+		wp_send_json_error();
+	}
+	$body = json_decode( $response['body'] );
 
-	if ( $response->_embedded->addresses ) {
-		$street = $response->_embedded->addresses[0]->street;
-		$town = $response->_embedded->addresses[0]->city->label;
+	if ( $body->_embedded->addresses ) {
+		$street = $body->_embedded->addresses[0]->street;
+		$town = $body->_embedded->addresses[0]->city->label;
 		$data =  array(
 			'success' => 1,
 			'resource'=> array(
@@ -43,9 +47,7 @@ add_action( 'siw_ajax_postcode_lookup', function() {
 			'success' => 0,
 		);
 	}
-	$result = json_encode( $data );
-	echo $result;
-	die();
+	wp_send_json($data);
 } );
 
 //TODO betere functie voor schrijven, bijv splitsen

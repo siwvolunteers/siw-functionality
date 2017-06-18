@@ -48,16 +48,16 @@ function siw_sort_customer_address_fields( $address_fields ) {
 	$address_fields['address_1']['label'] = __( 'Straat', 'siw' );
 
 	$order = array(
-		'gender',
 		'first_name',
 		'last_name',
 		'dob',
-		'nationality',
+		'gender',
 		'postcode',
 		'housenumber',
 		'address_1',
 		'city',
 		'country',
+		'nationality',
 	);
 	uksort( $address_fields, function( $key1, $key2 ) use ( $order ) {
 		return (array_search( $key1, $order ) > array_search( $key2, $order ) );

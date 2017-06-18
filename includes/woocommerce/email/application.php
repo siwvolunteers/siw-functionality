@@ -20,12 +20,12 @@ add_action( 'woocommerce_email', function( $email_class ) {
  */
 function siw_wc_generate_email_table_row( $name, $value = '&nbsp;' ) {?>
 	<tr>
-		<td width="35%" style="font-family:'Open Sans', Verdana, normal; color:#444; font-size:0.8em; ">
-			<?php echo $name; ?>
+		<td width="35%" style="font-family:Verdana, normal; color:#444; font-size:0.8em; ">
+			<?php echo esc_html( $name ); ?>
 		</td>
 		<td width="5%"></td>
-		<td width="50%" style="font-family:'Open Sans', Verdana, normal; color:#444; font-size:0.8em; font-style:italic">
-			<?php echo $value; ?>
+		<td width="50%" style="font-family:Verdana, normal; color:#444; font-size:0.8em; font-style:italic">
+			<?php echo wp_kses_post( $value ); ?>
 		</td>
 	</tr>
 <?php
@@ -40,8 +40,8 @@ function siw_wc_generate_email_table_row( $name, $value = '&nbsp;' ) {?>
  */
 function siw_wc_generate_email_table_header_row( $name ) {?>
 	<tr>
-		<td width="35%" style="font-family:'Open Sans', Verdana, normal; color:#444; font-size:0.8em; font-weight:bold">
-			<?php echo $name; ?>
+		<td width="35%" style="font-family:Verdana, normal; color:#444; font-size:0.8em; font-weight:bold">
+			<?php echo esc_html( $name ); ?>
 		</td>
 		<td width="5%"></td>
 		<td width="50%"></td>
@@ -66,18 +66,18 @@ function siw_wc_email_show_project_details( $order, $application_number ) {
 	siw_wc_generate_email_table_header_row( __( 'Aanmelding', 'siw' ) );
 	siw_wc_generate_email_table_row( __( 'Aanmeldnummer', 'siw' ), $application_number );
 
-
 	//TODO: beter formatteren
 	foreach ( $order->get_items() as $item_id => $item ) {
 		$_product     = apply_filters( 'woocommerce_order_item_product', $order->get_product_from_item( $item ), $item );
 		$item_meta    = new WC_Order_Item_Meta( $item, $_product );
+
 
 		//projectdetails formatteren
 		$item_details = apply_filters( 'woocommerce_order_item_name', $item['name'], $item ) . ' ( ' . get_post_meta( $_product->id, 'projectduur', true) . ' )';
 		if ( $item_meta->meta ) {
 			$item_details .= '<br/><small>' . nl2br( $item_meta->display( true, true, '_', "\n" ) ) . '</small>';
 		}
-		siw_wc_generate_email_table_row( 'Project', $item_details);
+		siw_wc_generate_email_table_row( __( 'Project', 'siw') , $item_details);
 	}
 
 	$discount = $order->get_total_discount();
@@ -86,11 +86,11 @@ function siw_wc_email_show_project_details( $order, $application_number ) {
 
 	//subtotaal alleen tonen als het afwijkt van het totaal
 	if ( $subtotal != $total ) {
-		siw_wc_generate_email_table_row( 'Subtotaal', $order->get_subtotal_to_display() );
-		siw_wc_generate_email_table_row( 'Korting', '-' . $order->get_discount_to_display() );
+		siw_wc_generate_email_table_row( __( 'Subtotaal', 'siw' ), $order->get_subtotal_to_display() );
+		siw_wc_generate_email_table_row( __( 'Korting', 'siw'), '-' . $order->get_discount_to_display() );
 	}
-	siw_wc_generate_email_table_row( 'Totaal', $order->get_formatted_order_total() );
-	siw_wc_generate_email_table_row( 'Betaalwijze', $order->payment_method_title );
+	siw_wc_generate_email_table_row( __( 'Totaal', 'siw' ), $order->get_formatted_order_total() );
+	siw_wc_generate_email_table_row( __( 'Betaalwijze', 'siw' ), $order->payment_method_title );
 	?>
 	</table>
 	<?php
@@ -154,22 +154,22 @@ function siw_wc_email_show_application_details ( $order ) {
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<?php
 	//Persoonsgegevens
-	siw_wc_generate_email_table_header_row( 'Persoonsgegevens' );
-	siw_wc_generate_email_table_row( 'Naam', $full_name );
-	siw_wc_generate_email_table_row( 'Geboortedatum', $date_of_birth );
-	siw_wc_generate_email_table_row( 'Geslacht', $gender );
-	siw_wc_generate_email_table_row( 'Nationaliteit', $nationality );
-	siw_wc_generate_email_table_row( 'Adres', $address );
-	siw_wc_generate_email_table_row( 'E-mailadres', $email );
-	siw_wc_generate_email_table_row( 'Telefoonnummer', $phone );
+	siw_wc_generate_email_table_header_row( __( 'Persoonsgegevens', 'siw' ) );
+	siw_wc_generate_email_table_row( __( 'Naam', 'siw' ), $full_name );
+	siw_wc_generate_email_table_row( __( 'Geboortedatum', 'siw' ), $date_of_birth );
+	siw_wc_generate_email_table_row( __( 'Geslacht', 'siw' ), $gender );
+	siw_wc_generate_email_table_row( __( 'Nationaliteit', 'siw' ), $nationality );
+	siw_wc_generate_email_table_row( __( 'Adres', 'siw' ), $address );
+	siw_wc_generate_email_table_row( __( 'E-mailadres', 'siw' ), $email );
+	siw_wc_generate_email_table_row( __( 'Telefoonnummer', 'siw' ), $phone );
 
 	//gegevens noodcontact
-	siw_wc_generate_email_table_header_row( 'Noodcontact' );
-	siw_wc_generate_email_table_row( 'Naam', $emergency_contact_name );
-	siw_wc_generate_email_table_row( 'Telefoonnummer', $emergency_contact_phone );
+	siw_wc_generate_email_table_header_row( __( 'Noodcontact', 'siw' ) );
+	siw_wc_generate_email_table_row( __( 'Naam', 'siw' ), $emergency_contact_name );
+	siw_wc_generate_email_table_row( __( 'Telefoonnummer', 'siw' ), $emergency_contact_phone );
 
 	//talenkennis
-	siw_wc_generate_email_table_header_row( 'Talenkennis' );
+	siw_wc_generate_email_table_header_row( __( 'Talenkennis', 'siw' ) );
 	siw_wc_generate_email_table_row( $language_1, $language_1_skill );
 	if ( $language_2_code ) {
 		siw_wc_generate_email_table_row( $language_2, $language_2_skill );
@@ -179,16 +179,16 @@ function siw_wc_email_show_application_details ( $order ) {
 	}
 
 	//gegevens voor PO
-	siw_wc_generate_email_table_header_row( 'Informatie voor partnerorganisatie' );
-	siw_wc_generate_email_table_row( 'Motivation', $motivation );
+	siw_wc_generate_email_table_header_row( __( 'Informatie voor partnerorganisatie', 'siw' ) );
+	siw_wc_generate_email_table_row( __( 'Motivation', 'siw' ), $motivation );
 	if ( $health_issues ) {
-		siw_wc_generate_email_table_row( 'Health issues', $health_issues );
+		siw_wc_generate_email_table_row( __( 'Health issues', 'siw' ), $health_issues );
 	}
 	if ( $volunteer_experience ) {
-		siw_wc_generate_email_table_row( 'Volunteer experience', $volunteer_experience );
+		siw_wc_generate_email_table_row( __( 'Volunteer experience', 'siw' ), $volunteer_experience );
 	}
 	if ( $together_with ) {
-		siw_wc_generate_email_table_row( 'Together with', $together_with );
+		siw_wc_generate_email_table_row( __( 'Together with', 'siw' ), $together_with );
 	}
 	?>
 	</table>

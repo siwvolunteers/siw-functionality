@@ -26,12 +26,6 @@ add_action( 'cmb2_admin_init', function() {
 
 	) );
 	$cmb->add_field( array(
-		'id'			=> $prefix . 'meervoud',
-		'name'			=> __( 'Meervoud', 'siw' ),
-		'desc'			=> __( 'Geef aan of de vacaturetitel in het meervoud is. Bijvoorbeeld "regiospecialisten".', 'siw' ),
-		'type'			=> 'checkbox',
-	) );
-	$cmb->add_field( array(
 		'id'			=> $prefix . 'inleiding',
 		'name'			=> __( 'Inleiding', 'siw' ),
 		'type'			=> 'wysiwyg',
@@ -41,6 +35,25 @@ add_action( 'cmb2_admin_init', function() {
 			'teeny' 		=> true,
 			'textarea_rows'	=> 10,
 		),
+		'attributes'  	=> array(
+			'required'    	=> 'required',
+		),
+	) );
+	$cmb->add_field( array(
+		'id'			=> $prefix . 'highlight_quote',
+		'name'			=> __( 'Highlight quote', 'siw' ),
+		'type'			=> 'textarea_small',
+		'attributes'	=> array(
+			'required'		=> 'required',
+			'maxlength' 	=> 80,
+			'rows'	=> 1,
+		),
+	) );
+	$cmb->add_field( array(
+		'id'   => $prefix . 'uitgelicht',
+		'name' => __( 'Vacature uitlichten', 'siw' ),
+		'desc' => __( 'Wordt getoond in topbar als er geen evenementen zijn', 'siw'),
+		'type' => 'checkbox',
 	) );
 	$cmb->add_field( array(
 		'id'			=> $prefix . 'wie_ben_jij',
@@ -82,6 +95,18 @@ add_action( 'cmb2_admin_init', function() {
 		),
 		'attributes'	=> array(
 			'required'		=> 'required',
+		),
+	) );
+	$cmb->add_field( array(
+		'name' => __( 'Aantal uur per week', 'siw' ),
+		'id'   => $prefix . 'uur_per_week',
+		'type' => 'text_small',
+		'attributes' => array(
+			'type' => 'number',
+			'pattern' => '\d*',
+			'min' => 4,
+			'max' => 40,
+			'step' => 2,
 		),
 	) );
 	$cmb->add_field( array(
@@ -199,28 +224,75 @@ add_filter( 'request', function( $vars ) {
 } );
 
 
+/* Verberg editor bij vacacture-grid-pagina */
+add_action( 'admin_init', function() {
+	if ( ! isset( $_GET['post'] ) ) {
+		return;
+	}
+	$post_id = $_GET['post'];
+
+	$template_file = get_post_meta( $post_id, '_wp_page_template', true );
+
+	if ( 'template-vacatures-grid.php' == $template_file ) {
+		remove_post_type_support( 'page', 'editor' );
+	}
+} );
+
+
 /* Metaboxes voor vacature-pagina toevoegen */
 add_action( 'cmb2_admin_init', function() {
 	$prefix = 'siw_vacature_';
 	$cmb = new_cmb2_box( array(
 			'id'            => 'siw_vacatures_metabox',
-			'title'         => __( 'Vacatures grid opties', 'siw' ),
+			'title'         => __( 'Instellingen vacature-pagina', 'siw' ),
 			'object_types'  => array( 'page' ),
-			'show_on'		=> array( 'key' => 'page-template', 'value' => array( 'template-vacatures-grid.php' )),
+			'show_on'		=> array( 'key' => 'page-template', 'value' => array( 'template-vacatures-grid.php' ) ),
 			'context'       => 'normal',
 			'priority'      => 'high',
 			'show_names'    => true,
 			'closed'     	=> false,
 	) );
 	$cmb->add_field( array(
-		'id'		=> 'siw_vacature_columns',
-		'name'		=> __( 'Kies het aantal kolommen:', 'siw' ),
-		'type'		=> 'select',
-		'options'	=> array(
-			'4'			=> __( 'Vier kolommen', 'siw' ),
-			'3'			=> __( 'Drie kolommen', 'siw' ),
-			'2'			=> __( 'Twee kolommen', 'siw' ),
+		'id'      => 'siw_vacatures_introduction',
+		'name'    => 'Introductie',
+		'type'    => 'wysiwyg',
+		'options'		=> array(
+			'wpautop'		=> true,
+			'media_buttons'	=> false,
+			'teeny'			=> true,
+			'textarea_rows'	=> 5,
 		),
-
+		'attributes'	=> array(
+			'required'		=> 'required',
+		),
 	) );
+	$cmb->add_field( array(
+		'id'      => 'siw_vacatures_open_application',
+		'name'    => 'Open sollicitatie',
+		'type'    => 'wysiwyg',
+		'options'		=> array(
+			'wpautop'		=> true,
+			'media_buttons'	=> false,
+			'teeny'			=> true,
+			'textarea_rows'	=> 5,
+		),
+		'attributes'	=> array(
+			'required'		=> 'required',
+		),
+	) );
+	$cmb->add_field( array(
+		'id'		=> 'siw_vacatures_open_application_email',
+		'name'		=> __( 'E-mail voor open sollicitaties:', 'siw' ),
+		'before' 	=> 'Stuur jouw motivatie en curriculum vitae onder vermelding van \'Open sollicitatie\' naar ',
+		'type'		=> 'text_email',
+	) );
+	$cmb->add_field( array(
+		'id'			=> 'siw_vacatures_no_jobs',
+		'name'			=> __( 'Infotekst geen vacatures', 'siw' ),
+		'type'			=> 'textarea_small',
+		'attributes'	=> array(
+			'required'		=> 'required',
+		),
+	) );
+
 } );
