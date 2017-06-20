@@ -24,6 +24,7 @@ add_action( 'siw_settings_show_jobs_section', function() {
 			'teeny'			=> true,
 			'media_buttons'	=> false,
 			'wpautop'		=> false,
+			'textarea_rows'	=> 10,
 		),
 		'validate' => 'html',
 	);

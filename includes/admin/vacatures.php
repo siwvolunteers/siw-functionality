@@ -45,8 +45,9 @@ add_action( 'cmb2_admin_init', function() {
 		'type'			=> 'textarea_small',
 		'attributes'	=> array(
 			'required'		=> 'required',
-			'maxlength' 	=> 80,
-			'rows'	=> 1,
+			'maxlength' 	=> 100,
+			'rows'			=> 1,
+			'cols'			=> 100,
 		),
 	) );
 	$cmb->add_field( array(
