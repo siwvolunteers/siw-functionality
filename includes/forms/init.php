@@ -5,7 +5,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
+require_once( __DIR__ . '/enquiry-general.php' );
+require_once( __DIR__ . '/enquiry-workcamp.php' );
 require_once( __DIR__ . '/np-camp-leader.php' );
 require_once( __DIR__ . '/np-cooperation.php' );
 

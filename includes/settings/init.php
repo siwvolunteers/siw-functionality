@@ -74,7 +74,7 @@ $args = array(
 	'dev_mode'				=> false,
 	'page_priority'			=> 99,
 	'page_permissions'		=> 'manage_settings', //TODO: aparte capability maken en dynamisch zetten via filter user_has_cap
-	'menu_icon'				=> 'dashicons-welcome-widgets-menus',
+	'menu_icon'				=> 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAUCAYAAACAl21KAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxEAAAsRAX9kX5EAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTZEaa/1AAABTElEQVQ4T82TPS8EURSGhxXFIhLK3USCaJGIFoXExx/YQretTjT+gUpFVEKitn6AZP/Clko12cLXYq0Zz7s5l5URc6bzJk/OnXPP+87kzkwUlCTJcBzHFdjKgtlls6XFwBS0oFdv8ACv3atvXZgtLTYV9MLdEmobDmEBSjAP+9C0/ewgkHatV4Z1mMU/QK3kCWowW6Cuwb0Z3+EKqnmCjpntp9Zl6pX2rbqCTpjto57J9Ju8QTcwAkNwAC3zf4ledpAN1qFk/RmoQaebglj7giTWt7DNchB0ZlVo254/SOJaasCizexZP19QEP070IcpnsF12I/m/yH6m6AX0ARX0BHsgM4o6BrGQQev38cVdG7XY7AkeKBRKMCpPZ0r6AMuYQPPJHUCVkCfQOwJmoYQJDqgg32ydeiLmtnS4kZFBlZBP+ufMDtntn+rKPoEpsn/ByanCycAAAAASUVORK5CYII=', 
 	'page_slug'				=> 'siw-settings',
 	'save_defaults'			=> true, //TODO: wat is wenselijk, werking niet helemaal duidelijk
 	'default_mark'			=> '',
