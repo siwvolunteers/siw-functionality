@@ -22,13 +22,7 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		$imports[$result['id']] = esc_html( $result['friendly_name'] . ' (' . $result['name'] . ')' );
 	}
 
-	$results = get_pages();
-	$pages = array();
-	foreach ( $results as $result ) {
-		$ancestors = get_ancestors( $result->ID, 'page' );
-		$prefix = str_repeat ( '&horbar;', sizeof( $ancestors ) );
-		$pages[ $result->ID ] = $prefix . esc_html( $result->post_title );
-	}
+	$pages = siw_get_pages();
 
 	$google_analytics_fields[] = array(
 		'id'			=> 'google_analytics_id',
@@ -148,6 +142,23 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'indent'	=> false,
 	);
 
+	$topbar_fields[] = array(
+		'id'		=> 'show_topbar_days_before_event',
+		'title'		=> __( 'Toon topbar vanaf aantal dagen voor evenement', 'siw' ),
+		'type'		=> 'slider',
+		'min'		=> '1',
+		'max'		=> '31',
+		'default'	=> '14',
+	);
+	$topbar_fields[] = array(
+		'id'		=> 'hide_topbar_days_before_event',
+		'title'		=> __( 'Verberg topbar vanaf aantal dagen voor evenement', 'siw' ),
+		'type'		=> 'slider',
+		'min'		=> '1',
+		'max'		=> '31',
+		'default'	=> '2',
+	);
+
 	/* Secties */
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'configuration',
@@ -190,5 +201,12 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'title'			=> __( 'Postcode API', 'siw' ),
 		'subsection'	=> true,
 		'fields'		=> $postcode_api_fields,
+	) );
+	Redux::setSection( SIW_OPT_NAME, array(
+		'id'		=> 'topbar',
+		'title'		=> __( 'Topbar', 'siw' ),
+		'desc'		=> __( 'Toont eerstvolgende evenement in de agenda', 'siw' ),
+		'subsection'=> true,
+		'fields'	=> $topbar_fields,
 	) );
 } );

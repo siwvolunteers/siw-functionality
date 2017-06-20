@@ -90,10 +90,10 @@ Redux::setArgs( SIW_OPT_NAME, $args );
 
 /* Bepaal volgorde van secties */
 $sections = array(
-	'agenda', /*Agenda*/
 	'configuration', /*Configuratie*/
 	'evs', 	/*EVS*/
 	'workcamps', /*Groepsprojecten*/
+	'info_day', /*Infodag*/
 	'enquiry', 	/*Infoverzoeken*/
 	'countries',  /*Landen*/
 	'np', /*Nederlandse projecten*/
