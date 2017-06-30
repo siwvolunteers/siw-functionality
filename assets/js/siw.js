@@ -65,11 +65,9 @@ return false;
 		//Winkelwagen verbergen indien er geen projecten in zitten
 		$( 'li.menu-cart-icon-kt' ).has( 'span.kt-cart-total:contains("0")' ).css( 'display', 'none' );
 
-		if ( $( window ).width() < 790 ) {
-			$( '.accordion-toggle' ).each(function() {
-				$( this ).removeAttr( 'data-parent' );
-			});
-		}
+		$( '.accordion-toggle' ).each(function() {
+			$( this ).removeAttr( 'data-parent' );
+		});
 	});
 
 	$( document ).ajaxComplete(function() {
