@@ -210,7 +210,7 @@ function siw_get_workcamp_local_fee( $participation_fee, $participation_fee_curr
 	$project_currencies = siw_get_project_currencies();
 	$participation_fee = (int) $participation_fee;
 
-	if ( 0 == $participation_fee || empty( $participation_fee_currency ) ) {
+	if ( 0 == $participation_fee || ! is_string( $participation_fee_currency ) ) {
 		return '';
 	}
 	if ( isset( $project_currencies[ $participation_fee_currency ] ) ) {
