@@ -62,22 +62,24 @@ function siw_wc_email_show_project_details( $order, $application_number ) {
 	//TODO: ophalen gegevens verplaatsen naar getters
 	?>
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td colspan="3" height="20" style="font-family:Verdana, normal; color:#666; font-size:0.8em; font-weight:bold; border-top:thin solid #ff9900" >
+				<?php // esc_html_e( 'Ingevulde gegevens', 'siw'); ?>
+			</td>
+		</tr>
 	<?php
 	siw_wc_generate_email_table_header_row( __( 'Aanmelding', 'siw' ) );
 	siw_wc_generate_email_table_row( __( 'Aanmeldnummer', 'siw' ), $application_number );
 
-	//TODO: beter formatteren
 	foreach ( $order->get_items() as $item_id => $item ) {
 		$_product     = apply_filters( 'woocommerce_order_item_product', $order->get_product_from_item( $item ), $item );
-		$item_meta    = new WC_Order_Item_Meta( $item, $_product );
+		$project_name = $item['name'];
+		$project_code = $_product->get_sku();
+		$project_duration = get_post_meta( $_product->id, 'projectduur', true);
+		$tariff = $item['pa_tarief'];
+		$project_details = sprintf('%s (%s)<br/><small>%s | Tarief:%s</small>', $project_name, $project_code, $project_duration, $tariff );
 
-
-		//projectdetails formatteren
-		$item_details = apply_filters( 'woocommerce_order_item_name', $item['name'], $item ) . ' ( ' . get_post_meta( $_product->id, 'projectduur', true) . ' )';
-		if ( $item_meta->meta ) {
-			$item_details .= '<br/><small>' . nl2br( $item_meta->display( true, true, '_', "\n" ) ) . '</small>';
-		}
-		siw_wc_generate_email_table_row( __( 'Project', 'siw') , $item_details);
+		siw_wc_generate_email_table_row( __( 'Project', 'siw') , $project_details);
 	}
 
 	$discount = $order->get_total_discount();
@@ -104,91 +106,47 @@ function siw_wc_email_show_project_details( $order, $application_number ) {
  * @return void
  */
 function siw_wc_email_show_application_details ( $order ) {
-
-	//TODO:Ophalen gegevens verplaatsen naar getters
-
-	//hulplijstjes
-	$genders = siw_get_volunteer_genders();
-	$nationalities = siw_get_volunteer_nationalities();
-	$languages = siw_get_volunteer_languages();
-	$language_skill = siw_get_volunteer_language_skill_levels();
-
-	//naam, gegeboortedatum, geslacht en nationaliteit
-	$first_name = $order->billing_first_name;
-	$last_name = $order->billing_last_name;
-	$full_name = $first_name . ' ' . $last_name;
-	$date_of_birth = $order->billing_dob;
-	$gender = $genders[ $order->billing_gender ];
-	$nationality = $nationalities[ $order->billing_nationality ];
-
-	//adres formatteren
-	$address = $order->billing_address_1 . ' ' . $order->billing_housenumber . '<br/>' . $order->billing_postcode . ' ' . $order->billing_city . '<br/>' . $order->billing_country;
-	$email = $order->billing_email;
-	$phone = $order->billing_phone;
-
-	//gegevens noodcontact
-	$emergency_contact_name = get_post_meta( $order->id, 'emergencyContactName', true );
-	$emergency_contact_phone = get_post_meta( $order->id, 'emergencyContactPhone', true );
-
-	//talenkennis
-	$language_1 = $languages[get_post_meta( $order->id, 'language1', true )];
-	$language_1_skill = $language_skill[ get_post_meta( $order->id, 'language1Skill', true ) ];
-
-	$language_2_code = get_post_meta( $order->id, 'language2', true );
-	$language_2 = ! empty( $language_2_code ) ? $languages[ $language_2_code ] : '';
-	$language_2_skill_code = get_post_meta( $order->id, 'language2Skill', true );
-	$language_2_skill = ! empty( $language_2_skill_code ) ? $language_skill[ $language_2_skill_code ] : '';
-
-	$language_3_code = get_post_meta( $order->id, 'language3', true );
-	$language_3 = ! empty( $language_3_code ) ? $languages[ $language_3_code ] : '';
-	$language_3_skill_code = get_post_meta( $order->id, 'language3Skill', true );
-	$language_3_skill = ! empty( $language_3_skill_code ) ? $language_skill[ $language_3_skill_code ] : '';
-
-	//gegevens voor PO
-	$motivation = get_post_meta( $order->id, 'motivation', true );
-	$health_issues = get_post_meta( $order->id, 'healthIssues', true );
-	$volunteer_experience = get_post_meta( $order->id, 'volunteerExperience', true );
-	$together_with = get_post_meta( $order->id, 'togetherWith', true );
+	$order_data = siw_get_order_data( $order );
 	?>
 
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<?php
 	//Persoonsgegevens
 	siw_wc_generate_email_table_header_row( __( 'Persoonsgegevens', 'siw' ) );
-	siw_wc_generate_email_table_row( __( 'Naam', 'siw' ), $full_name );
-	siw_wc_generate_email_table_row( __( 'Geboortedatum', 'siw' ), $date_of_birth );
-	siw_wc_generate_email_table_row( __( 'Geslacht', 'siw' ), $gender );
-	siw_wc_generate_email_table_row( __( 'Nationaliteit', 'siw' ), $nationality );
-	siw_wc_generate_email_table_row( __( 'Adres', 'siw' ), $address );
-	siw_wc_generate_email_table_row( __( 'E-mailadres', 'siw' ), $email );
-	siw_wc_generate_email_table_row( __( 'Telefoonnummer', 'siw' ), $phone );
+	siw_wc_generate_email_table_row( __( 'Naam', 'siw' ), $order_data['full_name'] );
+	siw_wc_generate_email_table_row( __( 'Geboortedatum', 'siw' ), $order_data['date_of_birth'] );
+	siw_wc_generate_email_table_row( __( 'Geslacht', 'siw' ), $order_data['gender'] );
+	siw_wc_generate_email_table_row( __( 'Nationaliteit', 'siw' ), $order_data['nationality'] );
+	siw_wc_generate_email_table_row( __( 'Adres', 'siw' ), $order_data['address'] );
+	siw_wc_generate_email_table_row( __( 'E-mailadres', 'siw' ), $order_data['email'] );
+	siw_wc_generate_email_table_row( __( 'Telefoonnummer', 'siw' ), $order_data['phone'] );
 
 	//gegevens noodcontact
 	siw_wc_generate_email_table_header_row( __( 'Noodcontact', 'siw' ) );
-	siw_wc_generate_email_table_row( __( 'Naam', 'siw' ), $emergency_contact_name );
-	siw_wc_generate_email_table_row( __( 'Telefoonnummer', 'siw' ), $emergency_contact_phone );
+	siw_wc_generate_email_table_row( __( 'Naam', 'siw' ), $order_data['emergency_contact_name'] );
+	siw_wc_generate_email_table_row( __( 'Telefoonnummer', 'siw' ), $order_data['emergency_contact_phone'] );
 
 	//talenkennis
 	siw_wc_generate_email_table_header_row( __( 'Talenkennis', 'siw' ) );
-	siw_wc_generate_email_table_row( $language_1, $language_1_skill );
-	if ( $language_2_code ) {
-		siw_wc_generate_email_table_row( $language_2, $language_2_skill );
+	siw_wc_generate_email_table_row( $order_data['language_1'], $order_data['language_1_skill'] );
+	if ( ! empty( $order_data['language_2'] ) ) {
+		siw_wc_generate_email_table_row( $order_data['language_2'], $order_data['language_2_skill'] );
 	}
-	if ( $language_3_code ) {
-		siw_wc_generate_email_table_row( $language_3, $language_3_skill );
+	if ( ! empty( $order_data['language_3'] ) ) {
+		siw_wc_generate_email_table_row( $order_data['language_3'], $order_data['language_3_skill'] );
 	}
 
 	//gegevens voor PO
 	siw_wc_generate_email_table_header_row( __( 'Informatie voor partnerorganisatie', 'siw' ) );
-	siw_wc_generate_email_table_row( __( 'Motivation', 'siw' ), $motivation );
-	if ( $health_issues ) {
-		siw_wc_generate_email_table_row( __( 'Health issues', 'siw' ), $health_issues );
+	siw_wc_generate_email_table_row( __( 'Motivation', 'siw' ), $order_data['motivation'] );
+	if ( ! empty( $order_data['health_issues'] ) ) {
+		siw_wc_generate_email_table_row( __( 'Health issues', 'siw' ), $order_data['health_issues'] );
 	}
-	if ( $volunteer_experience ) {
-		siw_wc_generate_email_table_row( __( 'Volunteer experience', 'siw' ), $volunteer_experience );
+	if ( ! empty( $order_data['volunteer_experience'] ) ) {
+		siw_wc_generate_email_table_row( __( 'Volunteer experience', 'siw' ), $order_data['volunteer_experience'] );
 	}
-	if ( $together_with ) {
-		siw_wc_generate_email_table_row( __( 'Together with', 'siw' ), $together_with );
+	if ( ! empty( $order_data['together_with'] ) ) {
+		siw_wc_generate_email_table_row( __( 'Together with', 'siw' ), $order_data['together_with'] );
 	}
 	?>
 	</table>
