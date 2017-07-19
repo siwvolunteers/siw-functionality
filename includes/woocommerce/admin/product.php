@@ -150,7 +150,7 @@ add_action( 'post_submitbox_start', function() {
 	wp_nonce_field( 'reject_project_nonce_' . $post_id, 'reject_project_nonce' );
 	?>
 	<div class="hide-rejected-project">
-		<label><input type="checkbox" value="1" name="reject_project" /><?php _e( 'Project afkeuren en direct verbergen', 'siw' ); ?></label>
+		<label><input type="checkbox" value="1" name="reject_project" /><?php esc_html_e( 'Project afkeuren en direct verbergen', 'siw' ); ?></label>
 	</div>
 	<?php
 } );

@@ -43,6 +43,7 @@ define( 'SIW_DISCOUNT_THIRD_PROJECT', 50 );
 
 /* Constantes voor strings*/
 define( 'BR', '<br/>');
+define( 'BR2', '<br/><br/>');
 define( 'SPACE', ' ');
 
 /**

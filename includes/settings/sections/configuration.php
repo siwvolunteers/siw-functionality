@@ -28,7 +28,7 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'id'			=> 'google_analytics_id',
 		'title'			=> __( 'Property ID', 'siw' ),
 		'type'			=> 'text',
-		'placeholder'	=> __( 'UA-1234567-8', 'siw' ),
+		'placeholder'	=> 'UA-1234567-8',
 	);
 	$google_analytics_fields[] = array(
 		'id'			=> 'google_analytics_enable_linkid',

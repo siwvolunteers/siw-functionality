@@ -22,6 +22,7 @@ define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
 define ( 'SIW_PLUGIN_VERSION', '1.2.1' );
 define ( 'SIW_AJAX_URL', SIW_PLUGIN_URL . 'ajax-handler.php' );
+define ( 'SIW_SITE_URL', get_site_url() );
 
 
 /*

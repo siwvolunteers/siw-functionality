@@ -148,17 +148,6 @@ add_action( 'kadence_breadcrumbs_after_home', function() {
 	}
 } );
 
-
-/* Functie om paginatitel aan te passen */
-add_filter( 'kadence_page_title', function( $title ) {
-	if ( is_404() ) {
-		return __( 'Pagina niet gevonden', 'siw' );
-	} else {
-		return $title;
-	}
-} );
-
-
 /* Sidebar verbergen voor testimonials TODO: Kan weg na switch van Strong Testimonials naar eigen functionaliteit */
 add_filter( 'kadence_display_sidebar', function( $sidebar ) {
 	if ( 'wpm-testimonial' == get_post_type() ) {
