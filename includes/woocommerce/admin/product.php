@@ -50,29 +50,12 @@ add_action( 'cmb2_admin_init', function() {
  * - Kad custom tabs
  * - Subtitle
 */
-add_filter( 'cmb_meta_boxes', function( array $meta_boxes ) {
-	$sidebar = array_search( 'product_post_side_metabox', array_column( $meta_boxes, 'id' ) );
-	$meta_boxes[ $sidebar ]['pages'] = array();
+add_action( 'init', function(){
+	remove_filter( 'cmb2_admin_init', 'pinnacle_product_metaboxes');
+	remove_filter( 'cmb2_admin_init', 'pinnacle_productvideo_metaboxes');
+	remove_filter( 'cmb2_admin_init', 'pinnacle_product_tab_metaboxes');
+} );
 
-	$video = array_search( 'product_post_metabox', array_column( $meta_boxes, 'id' ) );
-	$meta_boxes[ $video ]['pages'] = array();
-
-	$tab_1 = array_search( 'kad_custom_tab_01', array_column( $meta_boxes, 'id' ) );
-	$meta_boxes[ $tab_1 ]['pages'] = array();
-
-	$tab_2 = array_search( 'kad_custom_tab_02', array_column( $meta_boxes, 'id' ) );
-	$meta_boxes[ $tab_2 ]['pages'] = array();
-
-	$tab_3 = array_search( 'kad_custom_tab_03', array_column( $meta_boxes, 'id' ) );
-	$meta_boxes[ $tab_3 ]['pages'] = array();
-
-	$subtitle_keys = array_keys( array_column( $meta_boxes, 'id' ), 'subtitle_metabox' );
-	foreach ( $subtitle_keys as $subtitle ) {
-		$meta_boxes[ $subtitle ]['pages'] = array_diff( $meta_boxes[ $subtitle ]['pages'], array( 'product' ));
-	}
-
-	return $meta_boxes;
-}, 999 );
 
 
 /*

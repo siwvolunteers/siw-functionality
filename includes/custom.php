@@ -205,17 +205,14 @@ add_filter( 'kadence_portfolio_tag_slug', function() { return 'projecten-op-maat
 add_filter( 'kadence_staff_post_slug', function() { return 'vrijwilligers'; } );
 add_filter( 'kadence_staff_group_slug', function() { return 'vrijwilligers-per-groep'; } );
 
-
-/* Verwijderen metaboxes */
-add_filter( 'cmb_meta_boxes', function( array $meta_boxes ) {
-	$page_sidebar = array_search( 'page_sidebar', array_column( $meta_boxes, 'id' ) );
-	$meta_boxes[ $page_sidebar ]['pages'] = array();
-	return $meta_boxes;
-}, 999 );
-
-
-/*CMB meta box url protocol-onafhankelijk maken*/
-add_filter( 'cmb_meta_box_url', function( $cmb_url ) {
-	$cmb_url = str_replace('http://', '//', $cmb_url );
-	return $cmb_url;
+/* Verwijderen diverse metabox */
+add_action( 'init', function() {
+	remove_filter( 'cmb2_admin_init', 'pinnacle_page_metaboxes' );
+	remove_filter( 'cmb2_admin_init', 'pinnacle_postheader_metaboxes' );
+	add_filter( 'cmb2_admin_init', function() {
+		$page_metabox = cmb2_get_metabox( 'page_title_metabox_options' );
+		if ( is_a( $page_metabox, 'CMB2' ) ) {
+			$page_metabox->set_prop('closed', true);
+		}
+	});
 });
