@@ -30,10 +30,11 @@ add_filter( 'caldera_forms_get_forms', function( $forms ){
 add_filter( 'caldera_forms_get_form-contact_algemeen', function( $form ) {
 	$signature = siw_get_setting( 'enquiry_general_email_signature' );
 	/*E-mail bevestiging*/
-	$confirmation_template_args['subject'] = __('Bevestiging informatieverzoek', 'siw');
-	$confirmation_template_args['message'] = __( 'Beste %voornaam%,', 'siw') . BR . BR;
-	$confirmation_template_args['message'] .= __( 'Bedankt voor het invullen van ons contactformulier.', 'siw' ) . SPACE;
-	$confirmation_template_args['message'] .= __( 'Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je op.', 'siw' );
+	$confirmation_template_args['subject'] = __( 'Bevestiging informatieverzoek', 'siw' );
+	$confirmation_template_args['message'] =
+		sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
+		__( 'Bedankt voor het invullen van ons contactformulier.', 'siw' ) . SPACE .
+		__( 'Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je op.', 'siw' );
 
 	$confirmation_template_args['show_signature'] = true;
 	$confirmation_template_args['signature_name'] = $signature['name'];
@@ -41,8 +42,8 @@ add_filter( 'caldera_forms_get_form-contact_algemeen', function( $form ) {
 	$confirmation_template_args['show_summary'] = true;
 
 	/*E-mail notificatie*/
-	$notification_template_args['subject'] = __( 'Informatieverzoek %voornaam% %achternaam%', 'siw' );
-	$notification_template_args['message'] = __( 'Via de website is een vraag gesteld:', 'siw' ) . BR;
+	$notification_template_args['subject'] = 'Informatieverzoek %voornaam% %achternaam%';
+	$notification_template_args['message'] = 'Via de website is een vraag gesteld:' . BR;
 
 	$notification_template_args['show_signature'] = false;
 	$notification_template_args['show_summary'] = true;
@@ -94,7 +95,10 @@ return array(
 			'config' =>
 			array(
 				'custom_class' => '',
-				'default' => __( 'Heb je een vraag of wil je graag meer informatie? Neem gerust contact met ons op. We staan voor je klaar en denken graag met jou mee!', 'siw' ),
+				'default' =>
+					__( 'Heb je een vraag of wil je graag meer informatie?', 'siw' ) . SPACE .
+					__( 'Neem gerust contact met ons op.', 'siw' ) . SPACE .
+					__( 'We staan voor je klaar en denken graag met jou mee!', 'siw' ),
 			),
 			'conditions' =>
 			array(
