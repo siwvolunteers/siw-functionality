@@ -75,7 +75,9 @@ function siw_wc_email_show_project_details( $order, $application_number ) {
 		$_product     = apply_filters( 'woocommerce_order_item_product', $order->get_product_from_item( $item ), $item );
 		$project_name = $item['name'];
 		$project_code = $_product->get_sku();
-		$project_duration = get_post_meta( $_product->id, 'projectduur', true);
+		$start_date = $_product->get_attribute( 'startdatum' );
+		$end_date = $_product->get_attribute( 'einddatum' );
+		$project_duration = siw_get_date_range_in_text( $start_date, $end_date, false );
 		$tariff = $item['pa_tarief'];
 		$project_details = sprintf('%s (%s)<br/><small>%s | Tarief:%s</small>', $project_name, $project_code, $project_duration, $tariff );
 

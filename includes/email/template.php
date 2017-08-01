@@ -25,14 +25,14 @@ function siw_get_email_template( $template_args ) {
 /* Start template */
 ob_start();
 ?>
-<body bgcolor="#ffffff">
-<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#eeeeee">
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#eeeeee">
 <tr>
 	<td align="center">&nbsp;</td>
 </tr>
 <tr>
-	<td>
-		<table width="600" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center" style="border-radius:3px !important">
+	<td align="center" valign="top">
+		<table border="0" cellpadding="0" cellspacing="0" width="600" bgcolor="#ffffff" style="border-radius:3px !important;">
 			<tr>
 				<td align="center">&nbsp;</td>
 			</tr>
@@ -41,7 +41,9 @@ ob_start();
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 							<td width="10%">&nbsp;</td>
-							<td width="20%"><a href="<?php echo SIW_SITE_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL;?>images/mail/logo.png" width="144" height="76" border="0" alt="logo" title="<?php esc_attr_e( 'Bezoek onze website', 'siw' );?>"/></a></td>
+							<td width="20%">
+								<img src="<?php echo SIW_ASSETS_URL;?>images/mail/logo.png" style="display: block; border: 0px; outline: none; width: 100%; height: auto; max-width: 144px;" width="144" border="0" alt="logo" />
+							</td>
 							<td width="60%" style="vertical-align:bottom;border-bottom: solid #ff9900;font-family:Verdana, normal; color:#666666; font-size:0.95m; font-weight:bold;" align="center">
 								<?php echo esc_html( $subject );?>
 							</td>
@@ -58,18 +60,21 @@ ob_start();
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 							<td width="10%">&nbsp;</td>
-							<td width="80%" align="left" valign="top">
+							<td width="80%">
 								<div style="font-family:Verdana, normal; color:#444; font-size:0.9em; ">
-								<?php echo wp_kses_post( $message );?>
-								<?php if ( $show_signature ) :?>
-									<br/><br/>
-									<?php esc_html_e( 'Met vriendelijke groet,', 'siw' ); ?><br /><br />
-									<?php echo esc_html( $signature_name );?><br/>
-									<span style="color:#808080;">
-										<?php echo esc_html( $signature_title );?>
-									</span>
+									<p>
+									<?php echo wp_kses_post( $message );?>
+									<?php if ( $show_signature ) :?>
+										<br/><br/>
+										<?php esc_html_e( 'Met vriendelijke groet,', 'siw' ); ?><br /><br />
+										<?php echo esc_html( $signature_name );?><br/>
+										<?php if ( ! empty( $signature_title ) ) :?>
+											<span style="color:#808080;">
+												<?php echo esc_html( $signature_title );?>
+											</span>
+										<?php endif; ?>
 									<?php endif; ?>
-									<br/><br/>
+									</p>
 								</div>
 								<?php if ( $show_summary ) :?>
 									<br/><br/>
@@ -85,6 +90,11 @@ ob_start();
 							</td>
 							<td width="10%">&nbsp;</td>
 						</tr>
+						<tr>
+							<td width="10%">&nbsp;</td>
+							<td width="80%" height="20" style="border-bottom:thin solid #ff9900">&nbsp;</td>
+							<td width="10%">&nbsp;</td>
+						</tr>
 					</table>
 				</td>
 			</tr>
@@ -93,12 +103,13 @@ ob_start();
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 							<td width="10%">&nbsp;</td>
-							<td height="20" style="margin-left:10%; m-right:10%;border-bottom:thin solid #ff9900"></td>
+							<td width="auto" align="center" style="font-family:Verdana, normal; color:#666; font-size:0.7em; font-weight:bold"><?php echo SIW_NAME;?>
+							</td>
 							<td width="10%">&nbsp;</td>
 						</tr>
 						<tr>
 							<td width="10%">&nbsp;</td>
-							<td width="auto" align="center" style="font-family:Verdana, normal; color:#666; font-size:0.7em; font-weight:bold"><?php echo SIW_NAME; ?> | <?php echo SIW_PHONE; ?> | <a href= "mailto:<?php echo SIW_EMAIL;?>" style="color:#666; text-decoration:none"><?php echo SIW_EMAIL;?></a>
+							<td width="auto" align="center" style="font-family:Verdana, normal; color:#666; font-size:0.7em; font-weight:bold"><a href= "<?php echo SIW_SITE_URL;?>" target="_blank" style="color:#666; text-decoration:none" title="<?php esc_attr_e( 'Bezoek onze website', 'siw' );?>"><?php echo SIW_SITE_NAME;?></a> | <a href="tel:<?php echo SIW_PHONE_FULL;?>" style="color:#666; text-decoration:none"><?php echo SIW_PHONE; ?></a> | <a href="mailto:<?php echo SIW_EMAIL;?>" style="color:#666; text-decoration:none"><?php echo SIW_EMAIL;?></a>
 							</td>
 							<td width="10%">&nbsp;</td>
 						</tr>

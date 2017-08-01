@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
  * Author: Maarten Bruna
- * Version: 1.2.1
+ * Version: 1.3
  */
 
 
@@ -20,9 +20,11 @@ define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . '/assets' );
 define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . '/includes' );
 define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
-define ( 'SIW_PLUGIN_VERSION', '1.2.1' );
+define ( 'SIW_PLUGIN_VERSION', '1.3' );
 define ( 'SIW_AJAX_URL', SIW_PLUGIN_URL . 'ajax-handler.php' );
 define ( 'SIW_SITE_URL', get_site_url() );
+define ( 'SIW_SITE_NAME', $_SERVER['SERVER_NAME'] );
+
 
 
 /*
@@ -60,7 +62,8 @@ require_once( SIW_INCLUDES_DIR . '/search.php' );
 require_once( SIW_INCLUDES_DIR . '/shortcodes/init.php' );
 /* Vertalingen */
 require_once( SIW_INCLUDES_DIR . '/translations.php' );
-
+/* Update */
+require_once( SIW_INCLUDES_DIR . '/update.php' );
 
 /* Admin */
 require_once( SIW_INCLUDES_DIR . '/admin/init.php' );
