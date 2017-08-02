@@ -22,6 +22,7 @@ define ( 'SIW_CITY', 'Utrecht' );
 /* Configuratie */
 define( 'SIW_NUMBER_OF_INFO_DAYS', 10 );
 define( 'SIW_NUMBER_OF_EVS_DEADLINES', 5 );
+define( 'SIW_EVS_WEEKS_BEFORE_DEPARTURE', 14 );
 define( 'SIW_IP_WHITELIST_SIZE', 5 );
 
 /* Cron jobs */
@@ -58,6 +59,7 @@ function siw_get_constants() {
 		'SIW_STATUTORY_NAME'			=> __( 'Statutaire naam', 'siw' ),
 		'SIW_EMAIL'						=> __( 'E-mail', 'siw' ),
 		'SIW_PHONE'						=> __( 'Telefoonnummer', 'siw' ),
+		'SIW_PHONE_FULL'				=> __( 'Telefoonnummer (volledig)', 'siw' ),
 		'SIW_KVK'						=> __( 'KVK', 'siw' ),
 		'SIW_IBAN'						=> __( 'IBAN', 'siw' ),
 		'SIW_RSIN'						=> __( 'RSIN', 'siw' ),
@@ -66,6 +68,7 @@ function siw_get_constants() {
 		'SIW_CITY'						=> __( 'Stad', 'siw' ),
 		'SIW_NUMBER_OF_INFO_DAYS' 		=> __( 'Maximum aantal infodagen', 'siw' ),
 		'SIW_NUMBER_OF_EVS_DEADLINES'	=> __( 'Maximum aantal EVS-deadlines', 'siw' ),
+		'SIW_EVS_WEEKS_BEFORE_DEPARTURE'=> __( 'EVS: weken voor vertrek', 'siw' ),
 		'SIW_IP_WHITELIST_SIZE'			=> __( 'Maximale grootte IP-whitelist', 'siw' ),
 		'SIW_CRON_TS_GENERAL'			=> __( 'Tijd algemene cronjob', 'siw' ),
 		'SIW_CRON_TS_BACKUP_DB'			=> __( 'Tijdstip backup database', 'siw' ),

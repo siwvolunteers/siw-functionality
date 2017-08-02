@@ -22,7 +22,7 @@ function siw_get_ip_whitelist() {
 /**
  * Geeft de datum van de volgende EVS-deadline terug
  * @param bool $date_in_text
- * @return date
+ * @return string
  */
 function siw_get_next_evs_deadline( $date_in_text = false ) {
 	for ( $x = 1 ; $x <= SIW_NUMBER_OF_EVS_DEADLINES; $x++ ) {
@@ -54,18 +54,18 @@ function siw_get_next_evs_deadline( $date_in_text = false ) {
  * Geeft de maand en jaar van het volgende EVS-vertrekmoment terug
  *
  * Telt 14 weken op bij de volgende EVS-deadline
- * @return date
+ * @return string
  */
 function siw_get_next_evs_departure_month() {
 
-	$weeks = 14; //TODO: Moet dit flexibel zijn?
+	$weeks = SIW_EVS_WEEKS_BEFORE_DEPARTURE;
 	$next_evs_deadline = siw_get_next_evs_deadline();
 
-	if ( empty( $next_evs_deadline) ) {
+	if ( empty( $next_evs_deadline ) ) {
 		return;
 	}
 
-	$next_evs_departure = date_parse( date("Y-m-d", strtotime( $next_evs_deadline) + ( $weeks * WEEK_IN_SECONDS ) ) );
+	$next_evs_departure = date_parse( date( 'Y-m-d', strtotime( $next_evs_deadline) + ( $weeks * WEEK_IN_SECONDS ) ) );
 	$next_evs_departure_month = siw_get_month_in_text( 	$next_evs_departure['month'] ) . ' ' . $next_evs_departure['year'];
 
 	return $next_evs_departure_month;
@@ -76,7 +76,7 @@ function siw_get_next_evs_departure_month() {
  * Geeft de datum van de volgende infodag terug
  *
  * @param bool $date_in_text
- * @return date
+ * @return string
  */
 function siw_get_next_info_day( $date_in_text = false ) {
 	$future_info_days = siw_get_future_info_days( $date_in_text );
@@ -94,16 +94,18 @@ function siw_get_next_info_day( $date_in_text = false ) {
  * Geeft de array met tokomstige infodagen terug
  *
  * @param bool $dates_in_text
+ * @param int $results
+ *
  * @return array
  */
-function siw_get_future_info_days( $dates_in_text = false ) {
-	//TODO: maximaal aantal resultaten als parameter
+function siw_get_future_info_days( $dates_in_text = false, $results = SIW_NUMBER_OF_INFO_DAYS ) {
+
 	for ( $x = 1 ; $x <= SIW_NUMBER_OF_INFO_DAYS; $x++ ) {
 		$info_days[]= siw_get_setting("info_day_{$x}");
 	}
 	asort( $info_days );
 	$hide_form_days_before_info_day = siw_get_setting( 'hide_application_form_days_before_info_day' );
-	$limit = date("Y-m-d", time() + ( $hide_form_days_before_info_day * DAY_IN_SECONDS ));
+	$limit = date( 'Y-m-d', time() + ( $hide_form_days_before_info_day * DAY_IN_SECONDS ));
 
 	$future_info_days = array();
 	foreach ( $info_days as $info_day ) {
@@ -112,6 +114,8 @@ function siw_get_future_info_days( $dates_in_text = false ) {
 		}
 	}
 
+	$results = min( $results, SIW_NUMBER_OF_INFO_DAYS );
+	$future_info_days = array_slice($future_info_days, 0, $results);
 	return $future_info_days;
 }
 
@@ -146,7 +150,7 @@ function siw_get_month_in_text( $month ) {
 /**
  * Geeft de datum in tekst terug
  *
- * @param date $date Y-m-d
+ * @param string $date Y-m-d
  * @param bool $year Jaar toevoegen aan tekst
  *
  * @return string
@@ -168,8 +172,8 @@ function siw_get_date_in_text( $date, $year = true ) {
 /**
  * Geeft de datum in tekst terug
  *
- * @param date $date_start Y-m-d
- * @param date $date_end Y-m-d
+ * @param string $date_start Y-m-d
+ * @param string $date_end Y-m-d
  * @param bool $year jaar toevoegen aan tekst
  *
  * @return string
@@ -204,7 +208,7 @@ function siw_get_date_range_in_text( $date_start, $date_end, $year = true ) {
 
 /**
  * Berekent leeftijd in jaren o.b.v. huidige datm
- * @param  date $date dd-mm-jjjj
+ * @param  string $date dd-mm-jjjj
  * @return int leeftijd in jaren
  */
 function siw_get_age_from_date( $date ) {
@@ -350,8 +354,8 @@ function siw_get_testimonial_quote_categories() {
  * Geeft array met gegevens van toekomstige evenementen terug
  *
  * @param  int $number
- * @param  string $date_before
- * @param  string $date_after
+ * @param  string $min_date
+ * @param  string $max_date
  *
  * @return array
  */

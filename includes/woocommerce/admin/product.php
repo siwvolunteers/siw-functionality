@@ -202,9 +202,9 @@ function siw_show_project_approval_result( $object ) {
 	$approval_user = get_post_meta( $object->ID, 'approval_user', true);
 	$approval_date = get_post_meta( $object->ID, 'approval_date', true);
 
-	echo '<div class="misc-pub-section">' . sprintf(__( 'Resultaat: <strong>%s</strong>', 'siw' ), esc_html( $approval_result ) ) . '</div>';
-	echo '<div class="misc-pub-section">' . sprintf(__( 'Door: <strong>%s</strong>', 'siw' ), esc_html( $approval_user ) ) . '</div>';
-	echo '<div class="misc-pub-section">' . sprintf(__( 'Op: <strong>%s</strong>', 'siw' ), esc_html( $approval_date ) ) . '</div>';
+	echo '<div class="misc-pub-section">' . sprintf( __( 'Resultaat: %s', 'siw' ), '<strong>' . esc_html( $approval_result ) . '</strong>' ) . '</div>';
+	echo '<div class="misc-pub-section">' . sprintf( __( 'Door: %s', 'siw' ), '<strong>' . esc_html( $approval_user ) . '</strong>' ) . '</div>';
+	echo '<div class="misc-pub-section">' . sprintf( __( 'Op: %s', 'siw' ), '<strong>' . esc_html( $approval_date ) . '</strong>' ) . '</div>';
 }
 
 

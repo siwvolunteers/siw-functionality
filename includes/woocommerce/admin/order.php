@@ -10,7 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Actie 'Exporteer naar PLATO' toevoegen aan order-scherm
 */
 add_action( 'woocommerce_order_actions', function( $actions ) {
-	$actions['siw_export_to_plato'] = __( 'Exporteer naar PLATO', 'siw' );
+	global $theorder;
+	/*Alleen tonen voor betaalde aanmeldingen*/
+	if ( $theorder->is_paid() ) {
+		$actions['siw_export_to_plato'] = __( 'Exporteer naar PLATO', 'siw' );
+	}
 	return $actions;
 } );
 add_action( 'woocommerce_order_action_siw_export_to_plato', 'siw_export_application_to_plato' );

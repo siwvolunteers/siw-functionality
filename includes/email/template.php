@@ -77,7 +77,6 @@ ob_start();
 									</p>
 								</div>
 								<?php if ( $show_summary ) :?>
-									<br/><br/>
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<td colspan="3" height="20" style="font-family:Verdana, normal; color:#666; font-size:0.8em; font-weight:bold; border-top:thin solid #ff9900" >

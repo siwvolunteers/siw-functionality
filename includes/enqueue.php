@@ -10,7 +10,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_register_script( 'siw', SIW_ASSETS_URL . 'js/siw.js', array( 'jquery' ), SIW_PLUGIN_VERSION, true );
 	$parameters = array(
 		'ajax_url'		=> SIW_AJAX_URL,
-		'invalid_email'	=> __( 'Vul een geldig e-mailadres in.', 'siw' ),
+		'invalid_email'	=> __( 'Dit is geen geldig e-mailadres', 'siw' ),
 	);
 	wp_localize_script( 'siw', 'parameters', $parameters );
 	wp_enqueue_script( 'siw' );
