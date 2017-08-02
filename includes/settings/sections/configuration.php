@@ -76,16 +76,23 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'off'			=> 'Uit',
 	);
 
-	$breadcrumbs_fields[] = array(
+	$pages_fields[] = array(
 		'id'			=> 'agenda_parent_page',
 		'title'			=> __( 'Agenda', 'siw' ),
 		'type'			=> 'select',
 		'options'		=> $pages,
 		'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
 	);
-	$breadcrumbs_fields[] = array(
+	$pages_fields[] = array(
 		'id'			=> 'vacatures_parent_page',
 		'title'			=> __( 'Vacatures', 'siw' ),
+		'type'			=> 'select',
+		'options'		=> $pages,
+		'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
+	);
+	$pages_fields[] = array(
+		'id'			=> 'child_policy_page',
+		'title'			=> __( 'Beleid kinderprojecten', 'siw' ),
 		'type'			=> 'select',
 		'options'		=> $pages,
 		'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
@@ -167,12 +174,6 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'permissions'	=> 'manage_options'
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'breadcrumbs',
-		'title'			=> __( 'Breadcrumbs', 'siw' ),
-		'subsection'	=> true,
-		'fields'		=> $breadcrumbs_fields,
-	) );
-	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'constants',
 		'title'			=> __( 'Constantes', 'siw' ),
 		'subsection'	=> true,
@@ -189,6 +190,12 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'title'			=> __( 'Login', 'siw' ),
 		'subsection'	=> true,
 		'fields'		=> $login_fields,
+	) );
+	Redux::setSection( SIW_OPT_NAME, array(
+		'id'			=> 'pages',
+		'title'			=> __( "Pagina's", 'siw' ),
+		'subsection'	=> true,
+		'fields'		=> $pages_fields,
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'plato',
