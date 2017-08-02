@@ -64,6 +64,10 @@ add_filter( 'wp_headers', function( $headers ) {
 	return $headers;
 });
 
+/* Verwijderen X-Powered-By header en PHP sessie-cookie httponly maken*/
+header_remove('X-Powered-By');
+@ini_set('session.cookie_httponly', 'on');
+
 /*
  * Instellen starttijd Updraft Plus backup
  * - Database
@@ -139,24 +143,42 @@ add_filter( 'query_vars', function( $vars ) {
 } );
 
 
-/* Parent-pagina's van CPT toevoegen aan breadcrumbs TODO:complete hierarchie tonen */
+/* Parent-pagina's van CPT toevoegen aan breadcrumbs*/
 add_action( 'kadence_breadcrumbs_after_home', function() {
 	$delimiter = '/';
+	$breadcrumb = '<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="%s"><span itemprop="title">%s</span></a></span> %s ';
+
 	if ( is_singular( 'vacatures' ) ) {
 		$vacature_parent = siw_get_setting( 'vacatures_parent_page' );
-		if( ! empty( $vacature_parent ) ) {
-			$parentpagelink = get_page_link( $vacature_parent );
-			$parenttitle = get_the_title( $vacature_parent );
-			echo '<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="' . $parentpagelink .  '"><span itemprop="title">' . $parenttitle . '</span></a></span> ' . $delimiter . ' ';
+
+		/* Afbreken als er geen overzichtspagina is ingesteld*/
+		if ( empty( $vacature_parent ) ) {
+			return;
 		}
+
+		/* Parentpagina's van overzichtspagina */
+		$ancestors = array_reverse( get_ancestors( $vacature_parent, 'page') );
+		foreach ( $ancestors as $ancestor ) {
+			printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter  );
+		}
+		/* Overzichtspagina */
+		printf( $breadcrumb, get_page_link( $vacature_parent ), get_the_title( $vacature_parent ), $delimiter  );
+
 	}
 	if ( is_singular( 'agenda' ) ) {
 		$agenda_parent = siw_get_setting( 'agenda_parent_page' );
-		if( ! empty( $agenda_parent ) ) {
-			$parentpagelink = get_page_link( $agenda_parent );
-			$parenttitle = get_the_title( $agenda_parent );
-			echo '<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="' . $parentpagelink . '"><span itemprop="title">' . $parenttitle . '</span></a></span> ' . $delimiter . ' ';
+
+		/* Afbreken als er geen overzichtspagina is ingesteld*/
+		if ( empty( $agenda_parent ) ) {
+			return;
 		}
+		/* Parentpagina's van overzichtspagina */
+		$ancestors = array_reverse( get_ancestors( $agenda_parent, 'page') );
+		foreach ( $ancestors as $ancestor ) {
+			printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter  );
+		}
+		/* Overzichtspagina */
+		printf( $breadcrumb, get_page_link( $agenda_parent ), get_the_title( $agenda_parent ), $delimiter  );
 	}
 } );
 
