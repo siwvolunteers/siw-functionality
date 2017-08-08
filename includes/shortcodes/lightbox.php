@@ -44,7 +44,7 @@ add_shortcode( 'siw_pagina_lightbox', function( $atts ) {
 					<h4 class="modal-title"><?php echo esc_html( $page_title );?></h4>
 				</div>
 				<div class="modal-body">
-				<?php echo wp_kses_post( wpautop( $page_content ) ); ?>
+				<?php echo wp_kses_post( wpautop( do_shortcode( $page_content ) ) ); ?>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default kad-btn" data-dismiss="modal"><?php esc_html_e('Sluiten', 'siw');?></button>
