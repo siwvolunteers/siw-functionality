@@ -11,6 +11,11 @@ require_once( __DIR__ . '/np-camp-leader.php' );
 require_once( __DIR__ . '/np-cooperation.php' );
 
 
+
+/* Geen revisies */
+add_filter( 'caldera_forms_save_revision', '__return_false' );
+
+
 /*extra span voor styling radiobuttons en checkboxen*/
 add_filters( array('caldera_forms_render_field_type-checkbox', 'caldera_forms_render_field_type-radio'), function( $field_html ) {
 	$field_html = preg_replace( '/<input(.*?)>/', '<input$1><div class="control-indicator"></div>', $field_html );
@@ -38,3 +43,12 @@ add_filters( 'caldera_forms_summary_magic_pattern', function( $pattern ) {
 	</tr>';
 	return $pattern;
 } );
+
+
+/* wpautop verwijderen van mail */
+add_action( 'plugins_loaded', function() {
+	if ( ! class_exists( 'Caldera_Forms' ) ) {
+		return;
+	}
+	remove_filter( 'caldera_forms_mailer', array( Caldera_Forms::get_instance(), 'format_message' ) );
+});
