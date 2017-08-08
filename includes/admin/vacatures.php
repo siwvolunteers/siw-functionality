@@ -55,6 +55,11 @@ add_action( 'cmb2_admin_init', function() {
 		'name' => __( 'Vacature uitlichten', 'siw' ),
 		'desc' => __( 'Wordt getoond in topbar als er geen evenementen zijn', 'siw'),
 		'type' => 'checkbox',
+		'column' => array(
+			'name'			=> esc_html__( 'Uitgelicht', 'siw' ),
+			'position'		=> 3,
+		),
+		'display_cb'	=> 'siw_show_vacature_column_featured',
 	) );
 	$cmb->add_field( array(
 		'id'			=> $prefix . 'wie_ben_jij',
@@ -198,13 +203,27 @@ add_action( 'cmb2_admin_init', function() {
  * @param array $field_args
  * @param object $field
  *
- * @return string
+ * @return void
  */
 function siw_show_vacature_column_date( $field_args, $field ) {
-	$date = date( 'Y-m-d', $field->escaped_value() );
+	$date = date( 'm-d', $field->escaped_value() );
 	echo siw_get_date_in_text( $date );
 }
 
+
+/**
+ * [siw_show_vacature_column_featured description]
+ *
+ * @param  array $field_args
+ * @param  object $field
+ *
+ * @return void
+ */
+function siw_show_vacature_column_featured ( $field_args, $field ) {
+	if ( 'on' == $field->escaped_value() ) {
+	 echo '<span class="dashicons dashicons-yes"></span>';
+	}
+}
 
 /* Sorteren op deadline toevoegen */
 add_filter( 'manage_edit-vacatures_sortable_columns', function( $columns ) {
