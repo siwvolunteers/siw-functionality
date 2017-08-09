@@ -62,8 +62,7 @@ require_once( SIW_INCLUDES_DIR . '/search.php' );
 require_once( SIW_INCLUDES_DIR . '/shortcodes/init.php' );
 /* Vertalingen */
 require_once( SIW_INCLUDES_DIR . '/translations.php' );
-/* Update */
-require_once( SIW_INCLUDES_DIR . '/update.php' );
+
 
 /* Admin */
 require_once( SIW_INCLUDES_DIR . '/admin/init.php' );

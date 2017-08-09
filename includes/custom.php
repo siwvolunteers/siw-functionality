@@ -6,6 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/* Klaarzetten acties voor verwerken plugin-update */
+add_action( 'wppusher_plugin_was_updated', function() {
+	wp_schedule_single_event( time(), 'siw_update_plugin' );
+});
+
+
+
 /* Aantal toegestane redirects + standaard statuscode aanpassen */
 add_filter( 'srm_max_redirects', function() { return 250; } );
 add_filter( 'srm_default_direct_status', function() { return 301; } );

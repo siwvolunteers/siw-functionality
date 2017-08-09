@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'siw_update_mailpoet_mail_template', function () {
+add_action( 'siw_update_plugin', function () {
 	if ( ! class_exists( 'WYSIJA' ) ) {
 		return;
 	}
