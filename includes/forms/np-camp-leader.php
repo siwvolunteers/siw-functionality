@@ -42,7 +42,7 @@ add_filter( 'caldera_forms_get_form-begeleider_np', function( $form ) {
 		__( 'Het is ontzettend leerzaam om met zoveel verschillende mensen om te gaan, iedereen gemotiveerd te houden en te zorgen dat iedereen zich op zijn gemak voelt.', 'siw' ) . SPACE .
 		__( 'Daarnaast zie je hoe de groep zich ontwikkelt, een prachtig proces om van zo dichtbij mee te mogen maken.', 'siw' ) .
 		'"</span>' . BR2 .
-		'<span style="font-weight:bold">';
+		'<span style="font-weight:bold">' .
 		__( 'Hoe gaat het nu verder?', 'siw' ) .
 		'</span>' . BR .
 		__( 'Wij werven doorgaans in de maanden maart tot en met mei projectbegeleiders om de zomerprojecten te begeleiden.', 'siw' ) . SPACE .
