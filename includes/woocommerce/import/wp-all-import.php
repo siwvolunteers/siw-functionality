@@ -73,6 +73,19 @@ $siw_wpai_addon->add_field(
 	'text'
 );
 $siw_wpai_addon->add_title(
+	__( 'Lokale bijdrage', 'siw' )
+);
+$siw_wpai_addon->add_field(
+	'participation_fee_currency',
+	__( 'Valuta', 'siw' ),
+	'text'
+);
+$siw_wpai_addon->add_field(
+	'participation_fee',
+	__( 'Bedrag', 'siw' ),
+	'text'
+);
+$siw_wpai_addon->add_title(
 	__( 'SEO', 'siw' )
 );
 $siw_wpai_addon->add_field(
@@ -129,10 +142,16 @@ function siw_wpai_addon_import( $post_id, $data, $import_options ) {
 	if ( $siw_wpai_addon->can_update_meta( 'longitude', $import_options ) ) {
 		update_post_meta( $post_id, 'longitude', $data['longitude'] );
 	}
-	if ( $siw_wpai_addon->can_update_meta( '_yoast_wpseo_title', $import_options ) ) {
-		update_post_meta( $post_id, '_yoast_wpseo_title', $data['_genesis_title'] );//TODO:aanpassen na switch naar SEO Framework
+	if ( $siw_wpai_addon->can_update_meta( 'participation_fee_currency', $import_options ) ) {
+		update_post_meta( $post_id, 'participation_fee_currency', $data['participation_fee_currency'] );
 	}
-	if ( $siw_wpai_addon->can_update_meta( '_yoast_wpseo_metadesc', $import_options ) ) {
-		update_post_meta( $post_id, '_yoast_wpseo_metadesc', $data['_genesis_description'] ); //TODO: aanpassen na switch naar SEO Framework
+	if ( $siw_wpai_addon->can_update_meta( 'participation_fee', $import_options ) ) {
+		update_post_meta( $post_id, 'participation_fee', $data['participation_fee'] );
+	}
+	if ( $siw_wpai_addon->can_update_meta( '_genesis_title', $import_options ) ) {
+		siw_seo_set_title( $post_id, $data['_genesis_title'] );
+	}
+	if ( $siw_wpai_addon->can_update_meta( '_genesis_description', $import_options ) ) {
+		siw_seo_set_description( $post_id, $data['_genesis_description'] );
 	}
 }
