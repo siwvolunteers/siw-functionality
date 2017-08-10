@@ -32,26 +32,30 @@ add_filter( 'caldera_forms_get_form-samenwerking_np', function( $form ) {
 
 
 	/* TODO: verplaatsen naar instellingen*/
-	$confirmation_template_args['subject'] = 'Bevestiging interesse samenwerking';
-	$confirmation_template_args['message'] = 'Beste %naam_contactpersoon%,<br/><br/>';
-	$confirmation_template_args['message'] .= 'Wat leuk dat u interesse heeft in een samenwerking met SIW Internationale Vrijwilligersprojecten! Wij willen u bedanken voor het achterlaten van uw contactgegevens en wensen. Ons streven is binnen drie tot vijf werkdagen contact met u op te nemen om de mogelijkheden te bespreken. ';
-	$confirmation_template_args['show_summary'] = true;
-	$confirmation_template_args['show_signature'] = true;
-	$confirmation_template_args['signature_name'] = $signature['name'];
-	$confirmation_template_args['signature_title'] = $signature['title'];
-	$confirmation_template_args['remove_linebreaks'] = true;
+	$confirmation_template_args = array(
+		'subject' => __( 'Bevestiging interesse samenwerking', 'siw' ),
+		'message' =>
+			sprintf( __( 'Beste %s,', 'siw' ), '%naam_contactpersoon%' ) . BR2 .
+			__( 'Wat leuk dat u interesse heeft in een samenwerking met SIW Internationale Vrijwilligersprojecten!', 'siw' ) . SPACE .
+			__( 'Wij willen u bedanken voor het achterlaten van uw contactgegevens en wensen.', 'siw' ) . SPACE .
+			__( 'Ons streven is binnen drie tot vijf werkdagen contact met u op te nemen om de mogelijkheden te bespreken.', 'siw' ),
+		'show_summary' => true,
+		'show_signature' => true,
+		'signature_name' => $signature['name'],
+		'signature_title' => $signature['title'],
+	);
 
 
-	$notification_template_args['subject'] = 'Interesse samenwerking';
-	$notification_template_args['message'] = 'Via de website is onderstaand bericht verstuurd:';
-	$notification_template_args['show_summary'] = true;
-	$notification_template_args['show_signature'] = false;
+	$notification_template_args = array(
+		'subject' => 'Interesse samenwerking',
+		'message' => 'Via de website is onderstaand bericht verstuurd:',
+		'show_summary' => true,
+	);
 
 
 return array(
 	'ID'			=> 'samenwerking_np',
-	'name'			=> __('Samenwerking NP', 'siw'),
-	//'description'	=> __('TODO:', 'siw'),
+	'name'			=> __( 'Samenwerking NP', 'siw' ),
 	'db_support'	=> 0,
  	'pinned'		=> 0,
 	'pin_roles'		=>
@@ -59,14 +63,13 @@ return array(
 		'access_role'	=>
 		array(
 			'editor'	=> 1,
-			//'regiospecialist' => 1,
 		),
 	),
 	'hide_form'			=> 1,
 	'check_honey'		=> 1,
 	'success'			=> __( 'Uw bericht werd succesvol verzonden.', 'siw' ),
-	'avatar_field'		=> '',
 	'form_ajax'			=> 1,
+	'scroll_top'		=> 1,
 	'has_ajax_callback'	=> 1,
 	'custom_callback'	=> 'siwSendGaFormSubmissionEvent',
 	'layout_grid'		=> array(

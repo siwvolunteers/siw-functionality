@@ -30,24 +30,25 @@ add_filter( 'caldera_forms_get_forms', function( $forms ){
 add_filter( 'caldera_forms_get_form-contact_algemeen', function( $form ) {
 	$signature = siw_get_setting( 'enquiry_general_email_signature' );
 	/*E-mail bevestiging*/
-	$confirmation_template_args['subject'] = __( 'Bevestiging informatieverzoek', 'siw' );
-	$confirmation_template_args['message'] =
-		sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
-		__( 'Bedankt voor het invullen van ons contactformulier.', 'siw' ) . SPACE .
-		__( 'Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je op.', 'siw' );
-
-	$confirmation_template_args['show_signature'] = true;
-	$confirmation_template_args['signature_name'] = $signature['name'];
-	$confirmation_template_args['signature_title'] = $signature['title'];
-	$confirmation_template_args['show_summary'] = true;
+	$confirmation_template_args = array(
+		'subject' => __( 'Bevestiging informatieverzoek', 'siw' ),
+		'message' =>
+			sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
+			__( 'Bedankt voor het invullen van ons contactformulier.', 'siw' ) . SPACE .
+			__( 'Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je op.', 'siw' ),
+		'show_signature' => true,
+		'signature_name' => $signature['name'],
+		'signature_title' => $signature['title'],
+		'show_summary' => true,
+	);
 
 	/*E-mail notificatie*/
-	$notification_template_args['subject'] = 'Informatieverzoek %voornaam% %achternaam%';
-	$notification_template_args['message'] = 'Via de website is een vraag gesteld:' . BR;
+	$notification_template_args = array(
+		'subject' => 'Informatieverzoek %voornaam% %achternaam%',
+		'message' => 'Via de website is een vraag gesteld:' . BR,
+		'show_summary' => true,
+	);
 
-	$notification_template_args['show_signature'] = false;
-	$notification_template_args['show_summary'] = true;
-	$confirmation_template_args['remove_linebreaks'] = true;
 
 
 return array(
