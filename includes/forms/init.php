@@ -5,9 +5,15 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
+require_once( __DIR__ . '/enquiry-general.php' );
+require_once( __DIR__ . '/enquiry-workcamp.php' );
 require_once( __DIR__ . '/np-camp-leader.php' );
 require_once( __DIR__ . '/np-cooperation.php' );
+
+
+
+/* Geen revisies */
+add_filter( 'caldera_forms_save_revision', '__return_false' );
 
 
 /*extra span voor styling radiobuttons en checkboxen*/
@@ -37,3 +43,12 @@ add_filters( 'caldera_forms_summary_magic_pattern', function( $pattern ) {
 	</tr>';
 	return $pattern;
 } );
+
+
+/* wpautop verwijderen van mail */
+add_action( 'plugins_loaded', function() {
+	if ( ! class_exists( 'Caldera_Forms' ) ) {
+		return;
+	}
+	remove_filter( 'caldera_forms_mailer', array( Caldera_Forms::get_instance(), 'format_message' ) );
+});

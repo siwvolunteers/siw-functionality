@@ -22,19 +22,13 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		$imports[$result['id']] = esc_html( $result['friendly_name'] . ' (' . $result['name'] . ')' );
 	}
 
-	$results = get_pages();
-	$pages = array();
-	foreach ( $results as $result ) {
-		$ancestors = get_ancestors( $result->ID, 'page' );
-		$prefix = str_repeat ( '&horbar;', sizeof( $ancestors ) );
-		$pages[ $result->ID ] = $prefix . esc_html( $result->post_title );
-	}
+	$pages = siw_get_pages();
 
 	$google_analytics_fields[] = array(
 		'id'			=> 'google_analytics_id',
 		'title'			=> __( 'Property ID', 'siw' ),
 		'type'			=> 'text',
-		'placeholder'	=> __( 'UA-1234567-8', 'siw' ),
+		'placeholder'	=> 'UA-1234567-8',
 	);
 	$google_analytics_fields[] = array(
 		'id'			=> 'google_analytics_enable_linkid',
@@ -82,16 +76,23 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'off'			=> 'Uit',
 	);
 
-	$breadcrumbs_fields[] = array(
+	$pages_fields[] = array(
 		'id'			=> 'agenda_parent_page',
 		'title'			=> __( 'Agenda', 'siw' ),
 		'type'			=> 'select',
 		'options'		=> $pages,
 		'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
 	);
-	$breadcrumbs_fields[] = array(
+	$pages_fields[] = array(
 		'id'			=> 'vacatures_parent_page',
 		'title'			=> __( 'Vacatures', 'siw' ),
+		'type'			=> 'select',
+		'options'		=> $pages,
+		'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
+	);
+	$pages_fields[] = array(
+		'id'			=> 'child_policy_page',
+		'title'			=> __( 'Beleid kinderprojecten', 'siw' ),
 		'type'			=> 'select',
 		'options'		=> $pages,
 		'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
@@ -148,18 +149,29 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'indent'	=> false,
 	);
 
+	$topbar_fields[] = array(
+		'id'		=> 'show_topbar_days_before_event',
+		'title'		=> __( 'Toon topbar vanaf aantal dagen voor evenement', 'siw' ),
+		'type'		=> 'slider',
+		'min'		=> '1',
+		'max'		=> '31',
+		'default'	=> '14',
+	);
+	$topbar_fields[] = array(
+		'id'		=> 'hide_topbar_days_before_event',
+		'title'		=> __( 'Verberg topbar vanaf aantal dagen voor evenement', 'siw' ),
+		'type'		=> 'slider',
+		'min'		=> '1',
+		'max'		=> '31',
+		'default'	=> '2',
+	);
+
 	/* Secties */
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'configuration',
 		'title'			=> __( 'Configuratie', 'siw' ),
 		'icon'			=> 'el el-cogs',
 		'permissions'	=> 'manage_options'
-	) );
-	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'breadcrumbs',
-		'title'			=> __( 'Breadcrumbs', 'siw' ),
-		'subsection'	=> true,
-		'fields'		=> $breadcrumbs_fields,
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'constants',
@@ -180,6 +192,12 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'fields'		=> $login_fields,
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
+		'id'			=> 'pages',
+		'title'			=> __( "Pagina's", 'siw' ),
+		'subsection'	=> true,
+		'fields'		=> $pages_fields,
+	) );
+	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'plato',
 		'title'			=> __( 'Plato', 'siw' ),
 		'subsection'	=> true,
@@ -190,5 +208,12 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'title'			=> __( 'Postcode API', 'siw' ),
 		'subsection'	=> true,
 		'fields'		=> $postcode_api_fields,
+	) );
+	Redux::setSection( SIW_OPT_NAME, array(
+		'id'		=> 'topbar',
+		'title'		=> __( 'Topbar', 'siw' ),
+		'desc'		=> __( 'Toont eerstvolgende evenement in de agenda', 'siw' ),
+		'subsection'=> true,
+		'fields'	=> $topbar_fields,
 	) );
 } );

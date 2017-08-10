@@ -6,6 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/* Klaarzetten acties voor verwerken plugin-update */
+add_action( 'wppusher_plugin_was_updated', function() {
+	wp_schedule_single_event( time(), 'siw_update_plugin' );
+});
+
+
+
 /* Aantal toegestane redirects + standaard statuscode aanpassen */
 add_filter( 'srm_max_redirects', function() { return 250; } );
 add_filter( 'srm_default_direct_status', function() { return 301; } );
@@ -51,6 +58,22 @@ add_filter( 'wp_resource_hints', function( $hints, $relation_type ) {
 	return $hints;
 }, 10, 2 );
 
+
+/*
+ * Security headers
+ */
+add_filter( 'wp_headers', function( $headers ) {
+	$headers['X-Frame-Options'] = 'DENY';
+	$headers['X-Content-Type-Options'] = 'nosniff';
+	$headers['X-XSS-Protection'] = '1; mode=block';
+	$headers['Referrer-Policy'] = 'no-referrer-when-downgrade';
+
+	return $headers;
+});
+
+/* Verwijderen X-Powered-By header en PHP sessie-cookie httponly maken*/
+header_remove('X-Powered-By');
+@ini_set('session.cookie_httponly', 'on');
 
 /*
  * Instellen starttijd Updraft Plus backup
@@ -127,37 +150,44 @@ add_filter( 'query_vars', function( $vars ) {
 } );
 
 
-/* Parent-pagina's van CPT toevoegen aan breadcrumbs */
+/* Parent-pagina's van CPT toevoegen aan breadcrumbs*/
 add_action( 'kadence_breadcrumbs_after_home', function() {
 	$delimiter = '/';
+	$breadcrumb = '<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="%s"><span itemprop="title">%s</span></a></span> %s ';
+
 	if ( is_singular( 'vacatures' ) ) {
 		$vacature_parent = siw_get_setting( 'vacatures_parent_page' );
-		if( ! empty( $vacature_parent ) ) {
-			$parentpagelink = get_page_link( $vacature_parent );
-			$parenttitle = get_the_title( $vacature_parent );
-			echo '<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="' . $parentpagelink .  '"><span itemprop="title">' . $parenttitle . '</span></a></span> ' . $delimiter . ' ';
+
+		/* Afbreken als er geen overzichtspagina is ingesteld*/
+		if ( empty( $vacature_parent ) ) {
+			return;
 		}
+
+		/* Parentpagina's van overzichtspagina */
+		$ancestors = array_reverse( get_ancestors( $vacature_parent, 'page') );
+		foreach ( $ancestors as $ancestor ) {
+			printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter  );
+		}
+		/* Overzichtspagina */
+		printf( $breadcrumb, get_page_link( $vacature_parent ), get_the_title( $vacature_parent ), $delimiter  );
+
 	}
 	if ( is_singular( 'agenda' ) ) {
 		$agenda_parent = siw_get_setting( 'agenda_parent_page' );
-		if( ! empty( $agenda_parent ) ) {
-			$parentpagelink = get_page_link( $agenda_parent );
-			$parenttitle = get_the_title( $agenda_parent );
-			echo '<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="' . $parentpagelink . '"><span itemprop="title">' . $parenttitle . '</span></a></span> ' . $delimiter . ' ';
+
+		/* Afbreken als er geen overzichtspagina is ingesteld*/
+		if ( empty( $agenda_parent ) ) {
+			return;
 		}
+		/* Parentpagina's van overzichtspagina */
+		$ancestors = array_reverse( get_ancestors( $agenda_parent, 'page') );
+		foreach ( $ancestors as $ancestor ) {
+			printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter  );
+		}
+		/* Overzichtspagina */
+		printf( $breadcrumb, get_page_link( $agenda_parent ), get_the_title( $agenda_parent ), $delimiter  );
 	}
 } );
-
-
-/* Functie om paginatitel aan te passen */
-add_filter( 'kadence_page_title', function( $title ) {
-	if ( is_404() ) {
-		return __( 'Pagina niet gevonden', 'siw' );
-	} else {
-		return $title;
-	}
-} );
-
 
 /* Sidebar verbergen voor testimonials TODO: Kan weg na switch van Strong Testimonials naar eigen functionaliteit */
 add_filter( 'kadence_display_sidebar', function( $sidebar ) {
@@ -167,22 +197,12 @@ add_filter( 'kadence_display_sidebar', function( $sidebar ) {
 	return $sidebar;
 } );
 
-/* Knop naar zo-werkt-het pagina onder elk op maat project */
+/* Knop naar zo-werkt-het pagina onder elk op maat project TODO:pagina uit instelling halen*/
 add_action( 'kadence_single_portfolio_value_after', function() {
 	?>
 	<a href="/zo-werkt-het/projecten-op-maat/" class="kad-btn kad-btn-primary"><?php esc_html_e( 'Alles over projecten op maat','siw' );?></a>
 	<?php
 } );
-
-/* Tonen 'Snel zoeken' formulier */
-function siw_show_quick_search_widget() {
-	?>
-	<div class="snelzoeken hide_on_mobile">
-		<h4><?php esc_html_e( 'Snel zoeken','siw' );?></h4>
-		<?php echo do_shortcode( '[searchandfilter id="57"]' );//TODO: id vervangen door slug of optie?>
-	</div>
-	<?php
-}
 
 
 /* Functie om categorie header te tonen op productpagina TODO:herschrijven conform naamgevingsconventies */
@@ -216,17 +236,14 @@ add_filter( 'kadence_portfolio_tag_slug', function() { return 'projecten-op-maat
 add_filter( 'kadence_staff_post_slug', function() { return 'vrijwilligers'; } );
 add_filter( 'kadence_staff_group_slug', function() { return 'vrijwilligers-per-groep'; } );
 
-
-/* Verwijderen metaboxes */
-add_filter( 'cmb_meta_boxes', function( array $meta_boxes ) {
-	$page_sidebar = array_search( 'page_sidebar', array_column( $meta_boxes, 'id' ) );
-	$meta_boxes[ $page_sidebar ]['pages'] = array();
-	return $meta_boxes;
-}, 999 );
-
-
-/*CMB meta box url protocol-onafhankelijk maken*/
-add_filter( 'cmb_meta_box_url', function( $cmb_url ) {
-	$cmb_url = str_replace('http://', '//', $cmb_url );
-	return $cmb_url;
+/* Verwijderen diverse metabox */
+add_action( 'init', function() {
+	remove_filter( 'cmb2_admin_init', 'pinnacle_page_metaboxes' );
+	remove_filter( 'cmb2_admin_init', 'pinnacle_postheader_metaboxes' );
+	add_filter( 'cmb2_admin_init', function() {
+		$page_metabox = cmb2_get_metabox( 'page_title_metabox_options' );
+		if ( is_a( $page_metabox, 'CMB2' ) ) {
+			$page_metabox->set_prop('closed', true);
+		}
+	});
 });

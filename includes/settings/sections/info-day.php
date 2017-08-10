@@ -6,32 +6,49 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-add_action( 'siw_settings_show_agenda_section', function() {
+add_action( 'siw_settings_show_info_day_section', function() {
 	/* Velden */
-	$topbar_fields[] = array(
-		'id'		=> 'show_topbar_days_before_event',
-		'title'		=> __( 'Toon topbar vanaf aantal dagen voor evenement', 'siw' ),
-		'type'		=> 'slider',
-		'min'		=> '1',
-		'max'		=> '31',
-		'default'	=> '14',
-	);
-	$topbar_fields[] = array(
-		'id'		=> 'hide_topbar_days_before_event',
-		'title'		=> __( 'Verberg topbar vanaf aantal dagen voor evenement', 'siw' ),
-		'type'		=> 'slider',
-		'min'		=> '1',
-		'max'		=> '31',
-		'default'	=> '2',
-	);
 
-	$info_day_fields[] = array(
+
+	$application_fields[] = array(
 		'id'		=> 'hide_application_form_days_before_info_day',
 		'title'		=> __( 'Verberg aanmeldformulier vanaf aantal dagen voor infodag', 'siw' ),
 		'type'		=> 'slider',
 		'min'		=> '1',
 		'max'		=> '31',
 		'default'	=> '1',
+	);
+	$application_fields[] = array(
+		'id'			=> 'info_day_email_section_start',
+		'title'			=> __( 'E-mail', 'siw' ),
+		'type'			=> 'section',
+		'indent' 		=> true,
+	);
+	$application_fields[] = array(
+		'id'			=> 'info_day_email_sender',
+		'title'			=> __( 'Afzender', 'siw' ),
+		'subtitle'		=> __( 'Ontvangt ook de bevestigingsmail', 'siw' ),
+		'type'			=> 'text',
+		'validate'		=> 'email',
+	);
+	$application_fields[] = array(
+		'id'			=> 'info_day_email_signature',
+		'title'			=> __( 'Ondertekening', 'siw' ),
+		'type'			=> 'text',
+		'validate'		=> 'no_html',
+		'options' 		=> array(
+			'name'			=> __( 'Naam', 'siw' ),
+			'title'			=> __( 'Functie', 'siw' ),
+		),
+		'default' => array(
+			'name' => '',
+			'title' => '',
+		),
+	);
+	$application_fields[] = array(
+		'id'			=> 'info_day_email_section_end',
+		'type'			=> 'section',
+		'indent'		=> false,
 	);
 	$info_day_fields[] = array(
 		'id'		=> 'info_day_application_signature_section_start',
@@ -79,21 +96,21 @@ add_action( 'siw_settings_show_agenda_section', function() {
 	/* Secties */
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'agenda',
-		'title'			=> __( 'Agenda', 'siw' ),
+		'title'			=> __( 'Infodag', 'siw' ),
 		'icon'			=> 'el el-calendar',
 		'permissions'	=> 'manage_options',
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
+		'id'		=> 'info_day_application',
+		'title'		=> __( 'Aanmeldformulier', 'siw' ),
+		'subsection'=> true,
+		'fields'	=> $application_fields,
+	) );
+	Redux::setSection( SIW_OPT_NAME, array(
 		'id'		=> 'info_day',
-		'title'		=> __( 'Infodag', 'siw' ),
+		'title'		=> __( 'Infodagen', 'siw' ),
 		'subsection'=> true,
 		'fields'	=> $info_day_fields,
 	) );
-	Redux::setSection( SIW_OPT_NAME, array(
-		'id'		=> 'topbar',
-		'title'		=> __( 'Topbar', 'siw' ),
-		'desc'		=> __( 'Toont eerstvolgende evenement in de agenda', 'siw' ),
-		'subsection'=> true,
-		'fields'	=> $topbar_fields,
-	) );
+
 } );

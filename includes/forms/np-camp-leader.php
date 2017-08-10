@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @param array $forms All registered forms
  */
-add_filter( 'caldera_forms_get_forms', function( $forms ){
-	$forms['projectbegeleider_np'] = apply_filters( 'caldera_forms_get_form-projectbegeleider_np', array() );
+add_filter( 'caldera_forms_get_forms', function( $forms ) {
+	$forms['begeleider_np'] = apply_filters( 'caldera_forms_get_form-begeleider_np', array() );
 	return $forms;
 } );
 
@@ -26,21 +26,29 @@ add_filter( 'caldera_forms_get_forms', function( $forms ){
  *
  * @param $form array form structure
  */
-add_filter( 'caldera_forms_get_form-projectbegeleider_np', function( $form ) {
+add_filter( 'caldera_forms_get_form-begeleider_np', function( $form ) {
 
 
 	$signature = siw_get_setting( 'np_camp_leader_email_signature' );
 	/*E-mail bevestiging*/
-	$confirmation_template_args['subject'] = 'Bevestiging aanmelding';
-	$confirmation_template_args['message'] = 'Beste %voornaam% %achternaam%,<br/><br/>';
-	$confirmation_template_args['message'] .= 'Bedankt voor jouw aanmelding. Wat leuk dat je interesse hebt om projectbegeleider te worden voor de Nederlandse vrijwilligersprojecten. Een creatieve uitdaging die je nooit meer zal vergeten! Zoals oud-projectbegeleider Diederik (project in Friesland) het omschreef:<br/>';
-	$confirmation_template_args['message'] .= '<span style="font-style:italic">';
-	$confirmation_template_args['message'] .= '"Het is ontzettend leerzaam om met zoveel verschillende mensen om te gaan, iedereen gemotiveerd te houden en te zorgen dat iedereen zich op zijn gemak voelt. Daarnaast zie je hoe de groep zich ontwikkelt, een prachtig proces om van zo dichtbij mee te mogen maken."<br/><br/>';
-	$confirmation_template_args['message'] .= '</span>';
-	$confirmation_template_args['message'] .= '<span style="font-weight:bold">';
-	$confirmation_template_args['message'] .= 'Hoe gaat het nu verder?';
-	$confirmation_template_args['message'] .= '</span><br/>';
-	$confirmation_template_args['message'] .= 'Wij werven doorgaans in de maanden maart tot en met mei projectbegeleiders om de zomerprojecten te begeleiden. Mocht jij je in deze periode hebben aangemeld, dan zullen wij contact met je opnemen. Ligt jouw aanmelding buiten onze wervingsperiode? Geen probleem. Wij voegen jouw aanmelding toe aan onze database voor een volgend zomerseizoen.';
+	$confirmation_template_args['subject'] = __( 'Bevestiging aanmelding', 'siw' );
+	$confirmation_template_args['message'] =
+		sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
+		__( 'Bedankt voor jouw aanmelding.', 'siw') . SPACE .
+		__( 'Wat leuk dat je interesse hebt om projectbegeleider te worden voor de Nederlandse vrijwilligersprojecten.', 'siw' ) . SPACE .
+		__( 'Een creatieve uitdaging die je nooit meer zal vergeten!', 'siw' ) . SPACE .
+		__( 'Zoals oud-projectbegeleider Diederik (project in Friesland) het omschreef:', 'siw' ) . BR .
+		'<span style="font-style:italic">"'.
+		__( 'Het is ontzettend leerzaam om met zoveel verschillende mensen om te gaan, iedereen gemotiveerd te houden en te zorgen dat iedereen zich op zijn gemak voelt.', 'siw' ) . SPACE .
+		__( 'Daarnaast zie je hoe de groep zich ontwikkelt, een prachtig proces om van zo dichtbij mee te mogen maken.', 'siw' ) .
+		'"</span>' . BR2 .
+		'<span style="font-weight:bold">' .
+		__( 'Hoe gaat het nu verder?', 'siw' ) .
+		'</span>' . BR .
+		__( 'Wij werven doorgaans in de maanden maart tot en met mei projectbegeleiders om de zomerprojecten te begeleiden.', 'siw' ) . SPACE .
+		__( 'Mocht jij je in deze periode hebben aangemeld, dan zullen wij contact met je opnemen.', 'siw' ) . SPACE .
+		__( 'Ligt jouw aanmelding buiten onze wervingsperiode? Geen probleem.', 'siw' ) . SPACE .
+		__( 'Wij voegen jouw aanmelding toe aan onze database voor een volgend zomerseizoen.', 'siw' );
 
 	$confirmation_template_args['show_signature'] = true;
 	$confirmation_template_args['signature_name'] = $signature['name'];
@@ -55,7 +63,7 @@ add_filter( 'caldera_forms_get_form-projectbegeleider_np', function( $form ) {
 	$confirmation_template_args['remove_linebreaks'] = true;
 
 return array(
-	'ID'			=> 'projectbegeleider_np',
+	'ID'			=> 'begeleider_np',
 	'name'			=> __('Projectbegeleider NP', 'siw'),
 	//'description'	=> __('TODO:', 'siw'),
 	'db_support'	=> 0,
@@ -71,8 +79,8 @@ return array(
 	'hide_form'			=> 1,
 	'check_honey'		=> 1,
 	'success'			=> __( 'Je bericht werd succesvol verzonden.', 'siw'),//TODO
-	'avatar_field'		=> '',
 	'form_ajax'			=> 1,
+	'scroll_top'		=> 1,
 	'has_ajax_callback'	=> 1,
 	'custom_callback'	=> 'siwSendGaFormSubmissionEvent',
 	'layout_grid'		=> array(

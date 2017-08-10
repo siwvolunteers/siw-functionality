@@ -145,5 +145,5 @@ add_filter( 'wpseo_metabox_prio', function() { return 'low'; } );
 
 /* Copyright in admin footer */
 add_filter( 'admin_footer_text', function() {
-	printf( esc_html__( '&copy; 2015-%s %s', 'siw' ), date( 'Y' ), SIW_NAME );
+	printf( '&copy; 2015-%s %s', date( 'Y' ), SIW_NAME );
 });

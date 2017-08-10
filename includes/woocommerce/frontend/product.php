@@ -93,13 +93,6 @@ add_filter( 'woocommerce_get_product_attributes', function( $attributes ) {
  * - Reviews
  */
 add_filter( 'woocommerce_product_tabs', function( $tabs ) {
-	/*Contactformulier*/
-	$tabs['enquiry'] = array(
-		'title'    => __( 'Stel een vraag', 'siw' ),
-		'priority' => 100,
-		'callback' => 'siw_workcamp_show_product_enquiry_form',
-		'random'   => 'hoi',
-	);
 
 	/*Projectlocatie*/
 	global $product;
@@ -114,7 +107,12 @@ add_filter( 'woocommerce_product_tabs', function( $tabs ) {
 			'longitude' => $longitude,
 		);
 	}
-
+	/*Contactformulier*/
+	$tabs['enquiry'] = array(
+		'title'    => __( 'Stel een vraag', 'siw' ),
+		'priority' => 120,
+		'callback' => 'siw_workcamp_show_product_enquiry_form',
+	);
 	/*review-tab verwijderen*/
 	unset( $tabs['reviews'] );
 
@@ -126,8 +124,7 @@ function siw_workcamp_show_project_map( $tab, $args ) {
 	echo do_shortcode( sprintf( '[gmap address="%s,%s" title="Projectlocatie" zoom="7" maptype="ROADMAP"]', esc_attr( $args['latitude'] ), esc_attr( $args['longitude'] ) ) );
 }
 
-/* Contactformulier product tonen TODO: aanpassen ivm switch naar Caldera Forms */
+/* Contactformulier product tonen */
 function siw_workcamp_show_product_enquiry_form() {
-	$contact_form_id = siw_get_cf7_form_id( 'project' );
-	echo do_shortcode(sprintf( '[contact-form-7 id="%d"]',esc_attr( $contact_form_id ) ) );
+	echo do_shortcode( '[caldera_form id="contact_project"]' );
 }

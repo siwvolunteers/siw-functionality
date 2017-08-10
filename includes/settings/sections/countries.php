@@ -35,6 +35,9 @@ add_action( 'siw_settings_show_countries_section', function() {
 				'placeholder'	=> __( 'Selecteer een regiospecialist', 'siw' ),
 				'type'			=> 'select',
 				'data'			=> 'users',
+				'args'			=> array(
+					'role__in'		=> array( 'regiospecialist', 'medewerker_uitzendingen' ),
+				),
 				'title'			=> __( 'Regiospecialist', 'siw' ),
 			);
 		}
@@ -43,7 +46,7 @@ add_action( 'siw_settings_show_countries_section', function() {
 				'id'			=> $slug . '_not_allowed',
 				'title'			=> __( 'In dit land bieden we geen projecten aan.', 'siw' ),
 				'type'			=> 'info',
-				'style' => 'warning',
+				'style'			=> 'warning',
 			);
 		}
 		$country_fields[ $continent ][] = array(

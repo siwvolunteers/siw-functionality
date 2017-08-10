@@ -22,7 +22,7 @@ function siw_get_ip_whitelist() {
 /**
  * Geeft de datum van de volgende EVS-deadline terug
  * @param bool $date_in_text
- * @return date
+ * @return string
  */
 function siw_get_next_evs_deadline( $date_in_text = false ) {
 	for ( $x = 1 ; $x <= SIW_NUMBER_OF_EVS_DEADLINES; $x++ ) {
@@ -54,18 +54,18 @@ function siw_get_next_evs_deadline( $date_in_text = false ) {
  * Geeft de maand en jaar van het volgende EVS-vertrekmoment terug
  *
  * Telt 14 weken op bij de volgende EVS-deadline
- * @return date
+ * @return string
  */
 function siw_get_next_evs_departure_month() {
 
-	$weeks = 14; //TODO: Moet dit flexibel zijn?
+	$weeks = SIW_EVS_WEEKS_BEFORE_DEPARTURE;
 	$next_evs_deadline = siw_get_next_evs_deadline();
 
-	if ( empty( $next_evs_deadline) ) {
+	if ( empty( $next_evs_deadline ) ) {
 		return;
 	}
 
-	$next_evs_departure = date_parse( date("Y-m-d", strtotime( $next_evs_deadline) + ( $weeks * WEEK_IN_SECONDS ) ) );
+	$next_evs_departure = date_parse( date( 'Y-m-d', strtotime( $next_evs_deadline) + ( $weeks * WEEK_IN_SECONDS ) ) );
 	$next_evs_departure_month = siw_get_month_in_text( 	$next_evs_departure['month'] ) . ' ' . $next_evs_departure['year'];
 
 	return $next_evs_departure_month;
@@ -76,7 +76,7 @@ function siw_get_next_evs_departure_month() {
  * Geeft de datum van de volgende infodag terug
  *
  * @param bool $date_in_text
- * @return date
+ * @return string
  */
 function siw_get_next_info_day( $date_in_text = false ) {
 	$future_info_days = siw_get_future_info_days( $date_in_text );
@@ -94,16 +94,18 @@ function siw_get_next_info_day( $date_in_text = false ) {
  * Geeft de array met tokomstige infodagen terug
  *
  * @param bool $dates_in_text
+ * @param int $results
+ *
  * @return array
  */
-function siw_get_future_info_days( $dates_in_text = false ) {
-	//TODO: maximaal aantal resultaten als parameter
+function siw_get_future_info_days( $dates_in_text = false, $results = SIW_NUMBER_OF_INFO_DAYS ) {
+
 	for ( $x = 1 ; $x <= SIW_NUMBER_OF_INFO_DAYS; $x++ ) {
 		$info_days[]= siw_get_setting("info_day_{$x}");
 	}
 	asort( $info_days );
 	$hide_form_days_before_info_day = siw_get_setting( 'hide_application_form_days_before_info_day' );
-	$limit = date("Y-m-d", time() + ( $hide_form_days_before_info_day * DAY_IN_SECONDS ));
+	$limit = date( 'Y-m-d', time() + ( $hide_form_days_before_info_day * DAY_IN_SECONDS ));
 
 	$future_info_days = array();
 	foreach ( $info_days as $info_day ) {
@@ -112,6 +114,8 @@ function siw_get_future_info_days( $dates_in_text = false ) {
 		}
 	}
 
+	$results = min( $results, SIW_NUMBER_OF_INFO_DAYS );
+	$future_info_days = array_slice($future_info_days, 0, $results);
 	return $future_info_days;
 }
 
@@ -146,7 +150,7 @@ function siw_get_month_in_text( $month ) {
 /**
  * Geeft de datum in tekst terug
  *
- * @param date $date Y-m-d
+ * @param string $date Y-m-d
  * @param bool $year Jaar toevoegen aan tekst
  *
  * @return string
@@ -168,8 +172,8 @@ function siw_get_date_in_text( $date, $year = true ) {
 /**
  * Geeft de datum in tekst terug
  *
- * @param date $date_start Y-m-d
- * @param date $date_end Y-m-d
+ * @param string $date_start Y-m-d
+ * @param string $date_end Y-m-d
  * @param bool $year jaar toevoegen aan tekst
  *
  * @return string
@@ -199,6 +203,21 @@ function siw_get_date_range_in_text( $date_start, $date_end, $year = true ) {
 
 	}
 	return $date_range_in_text;
+}
+
+
+/**
+ * Berekent leeftijd in jaren o.b.v. huidige datm
+ * @param  string $date dd-mm-jjjj
+ * @return int leeftijd in jaren
+ */
+function siw_get_age_from_date( $date ) {
+
+	$from = new DateTime( $date );
+	$to   = new DateTime('today');
+	$age = $from->diff($to)->y;
+
+	return $age;
 }
 
 
@@ -335,8 +354,8 @@ function siw_get_testimonial_quote_categories() {
  * Geeft array met gegevens van toekomstige evenementen terug
  *
  * @param  int $number
- * @param  string $date_before
- * @param  string $date_after
+ * @param  string $min_date
+ * @param  string $max_date
  *
  * @return array
  */
@@ -459,4 +478,57 @@ function siw_get_job_data( $post_id ) {
 	$job_data['meervoud']					= get_post_meta( $post_id, 'siw_vacature_meervoud', true );
 
 	return $job_data;
+}
+
+/**
+ * Haal gegevens van aanmelding op
+ * @param  object $order
+ * @return array
+ */
+function siw_get_order_data( $order ) {
+
+	/* Hulplijstjes */
+	$genders = siw_get_volunteer_genders();
+	$nationalities = siw_get_volunteer_nationalities();
+	$languages = siw_get_volunteer_languages();
+	$language_skill = siw_get_volunteer_language_skill_levels();
+
+	/* Naam, gegeboortedatum, geslacht en nationaliteit */
+	$first_name						= $order->billing_first_name;
+	$last_name						= $order->billing_last_name;
+	$order_data['full_name']		= sprintf('%s %s', $first_name, $last_name );
+	$order_data['date_of_birth']	= $order->billing_dob;
+	$order_data['gender']			= $genders[ $order->billing_gender ];
+	$order_data['nationality']		= $nationalities[ $order->billing_nationality ];
+
+	/* Adres formatteren */
+	$order_data['address']	= sprintf('%s %s<br/>%s %s<br/>%s', $order->billing_address_1, $order->billing_housenumber, $order->billing_postcode, $order->billing_city, $order->billing_country );
+	$order_data['email']	= $order->billing_email;
+	$order_data['phone']	= $order->billing_phone;
+
+	/* Gegevens noodcontact */
+	$order_data['emergency_contact_name']	= get_post_meta( $order->id, 'emergencyContactName', true );
+	$order_data['emergency_contact_phone']	= get_post_meta( $order->id, 'emergencyContactPhone', true );
+
+	/* Talenkennis */
+	$order_data['language_1']		= $languages[get_post_meta( $order->id, 'language1', true )];
+	$order_data['language_1_skill']	= $language_skill[ get_post_meta( $order->id, 'language1Skill', true ) ];
+
+	$language_2_code				= get_post_meta( $order->id, 'language2', true );
+	$order_data['language_2']		= ! empty( $language_2_code ) ? $languages[ $language_2_code ] : '';
+	$language_2_skill_code			= get_post_meta( $order->id, 'language2Skill', true );
+	$order_data['language_2_skill']	= isset( $language_skill[ $language_2_skill_code ] ) ? $language_skill[ $language_2_skill_code ] : '';
+
+	$language_3_code				= get_post_meta( $order->id, 'language3', true );
+	$order_data['language_3']		= ! empty( $language_3_code )? $languages[ $language_3_code ] : '';
+	$language_3_skill_code			= get_post_meta( $order->id, 'language3Skill', true );
+	$order_data['language_3_skill'] = isset( $language_skill[ $language_3_skill_code ] ) ? $language_skill[ $language_3_skill_code ] : '';
+
+	/* Gegevens voor partner */
+	$order_data['motivation']			= get_post_meta( $order->id, 'motivation', true );
+	$order_data['health_issues']		= get_post_meta( $order->id, 'healthIssues', true );
+	$order_data['volunteer_experience']	= get_post_meta( $order->id, 'volunteerExperience', true );
+	$order_data['together_with']		= get_post_meta( $order->id, 'togetherWith', true );
+
+	return $order_data;
 }

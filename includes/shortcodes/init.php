@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
+require_once( __DIR__ . '/lightbox.php' );
 /*
  * SIW shortcodes toevoegen aan pinnacle shortcodes
  * - Algemene informatie (telefoonnummer, email, IBAN, RSIN, KvK)
@@ -17,6 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - Inschrijfgeld groepsproject (student/regulier)
  * - Inschrijfgeld op maat (student/regulier)
  * - Korting tweede/derde project
+ * - Externe link
+ * - Pagina-lightbox
  */
 add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) {
 	$pinnacle_shortcodes['siw_email'] = array(
@@ -77,7 +79,23 @@ add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) {
 			),
 		),
 	);
-
+	$pinnacle_shortcodes['siw_pagina_lightbox'] = array(
+		'title' => __( '[SIW] Pagina-lightbox', 'siw' ),
+		'attr'  => array(
+			'link_tekst' => array(
+				'type'  => 'text',
+				'title' => __( 'Link tekst', 'siw' ),
+			),
+			'pagina' => array(
+				'type'    => 'select',
+				'title'   => __( 'Pagina', 'siw' ),
+				'default' => '',
+				'values'  => array(
+					'kinderbeleid' => __( 'Beleid kinderprojecten', 'siw' ),
+				),
+			),
+		),
+	);
 	return $pinnacle_shortcodes;
 } );
 

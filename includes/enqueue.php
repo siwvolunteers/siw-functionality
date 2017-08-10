@@ -7,10 +7,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 /* Toevoegen custom jQuery-functies */
 add_action( 'wp_enqueue_scripts', function() {
-	wp_register_script( 'siw', SIW_ASSETS_URL . 'js/siw.js', array( 'jquery' ), SIW_PLUGIN_VERSION, TRUE);
+	wp_register_script( 'siw', SIW_ASSETS_URL . 'js/siw.js', array( 'jquery' ), SIW_PLUGIN_VERSION, true );
 	$parameters = array(
 		'ajax_url'		=> SIW_AJAX_URL,
-		'invalid_email'	=> __( 'Vul een geldig e-mailadres in.', 'siw' ),
+		'invalid_email'	=> __( 'Dit is geen geldig e-mailadres', 'siw' ),
 	);
 	wp_localize_script( 'siw', 'parameters', $parameters );
 	wp_enqueue_script( 'siw' );
@@ -20,7 +20,7 @@ add_action( 'wp_enqueue_scripts', function() {
 
 /* Toevoegen custom scripts voor checkout */
 add_action( 'wp_enqueue_scripts', function() {
-	wp_register_script( 'siw-checkout', SIW_ASSETS_URL . 'js/siw-checkout.js', array( 'jquery' ), SIW_PLUGIN_VERSION, TRUE);
+	wp_register_script( 'siw-checkout', SIW_ASSETS_URL . 'js/siw-checkout.js', array( 'jquery' ), SIW_PLUGIN_VERSION, true );
 	$parameters = array(
 		'ajax_url'			=> SIW_AJAX_URL,
 		'invalid_postcode'	=> __( 'Dit is geen geldige postcode', 'siw' ),
@@ -56,7 +56,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	}
 
 	/*woocommerce ajax filter*/
-	if ( ! is_shop() && ! is_product_category() && ! is_product_tag() ) {
+	if ( ! is_shop() && ! is_product_category() && ! is_product_tag() && ! taxonomy_is_product_attribute( get_query_var( 'taxonomy' ) ) ) {
 		wp_dequeue_script( 'yith-wcan-script' );
 		wp_dequeue_style( 'yith-wcan-frontend' );
 	}
@@ -68,9 +68,6 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_dequeue_style( 'search-filter-plugin-styles' );
 	wp_deregister_script( 'search-filter-plugin-chosen' );
 	wp_deregister_script( 'jquery-ui-datepicker' );
-
-	/*ncf font*/
-	wp_dequeue_style( 'ncf_lato_font' );
 
 	/*styling van mailpoet widget*/
 	wp_deregister_style( 'validate-engine-css' );

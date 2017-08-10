@@ -50,29 +50,12 @@ add_action( 'cmb2_admin_init', function() {
  * - Kad custom tabs
  * - Subtitle
 */
-add_filter( 'cmb_meta_boxes', function( array $meta_boxes ) {
-	$sidebar = array_search( 'product_post_side_metabox', array_column( $meta_boxes, 'id' ) );
-	$meta_boxes[ $sidebar ]['pages'] = array();
+add_action( 'init', function(){
+	remove_filter( 'cmb2_admin_init', 'pinnacle_product_metaboxes');
+	remove_filter( 'cmb2_admin_init', 'pinnacle_productvideo_metaboxes');
+	remove_filter( 'cmb2_admin_init', 'pinnacle_product_tab_metaboxes');
+} );
 
-	$video = array_search( 'product_post_metabox', array_column( $meta_boxes, 'id' ) );
-	$meta_boxes[ $video ]['pages'] = array();
-
-	$tab_1 = array_search( 'kad_custom_tab_01', array_column( $meta_boxes, 'id' ) );
-	$meta_boxes[ $tab_1 ]['pages'] = array();
-
-	$tab_2 = array_search( 'kad_custom_tab_02', array_column( $meta_boxes, 'id' ) );
-	$meta_boxes[ $tab_2 ]['pages'] = array();
-
-	$tab_3 = array_search( 'kad_custom_tab_03', array_column( $meta_boxes, 'id' ) );
-	$meta_boxes[ $tab_3 ]['pages'] = array();
-
-	$subtitle_keys = array_keys( array_column( $meta_boxes, 'id' ), 'subtitle_metabox' );
-	foreach ( $subtitle_keys as $subtitle ) {
-		$meta_boxes[ $subtitle ]['pages'] = array_diff( $meta_boxes[ $subtitle ]['pages'], array( 'product' ));
-	}
-
-	return $meta_boxes;
-}, 999 );
 
 
 /*
@@ -150,7 +133,7 @@ add_action( 'post_submitbox_start', function() {
 	wp_nonce_field( 'reject_project_nonce_' . $post_id, 'reject_project_nonce' );
 	?>
 	<div class="hide-rejected-project">
-		<label><input type="checkbox" value="1" name="reject_project" /><?php _e( 'Project afkeuren en direct verbergen', 'siw' ); ?></label>
+		<label><input type="checkbox" value="1" name="reject_project" /><?php esc_html_e( 'Project afkeuren en direct verbergen', 'siw' ); ?></label>
 	</div>
 	<?php
 } );
@@ -219,9 +202,9 @@ function siw_show_project_approval_result( $object ) {
 	$approval_user = get_post_meta( $object->ID, 'approval_user', true);
 	$approval_date = get_post_meta( $object->ID, 'approval_date', true);
 
-	echo '<div class="misc-pub-section">' . sprintf(__( 'Resultaat: <strong>%s</strong>', 'siw' ), esc_html( $approval_result ) ) . '</div>';
-	echo '<div class="misc-pub-section">' . sprintf(__( 'Door: <strong>%s</strong>', 'siw' ), esc_html( $approval_user ) ) . '</div>';
-	echo '<div class="misc-pub-section">' . sprintf(__( 'Op: <strong>%s</strong>', 'siw' ), esc_html( $approval_date ) ) . '</div>';
+	echo '<div class="misc-pub-section">' . sprintf( __( 'Resultaat: %s', 'siw' ), '<strong>' . esc_html( $approval_result ) . '</strong>' ) . '</div>';
+	echo '<div class="misc-pub-section">' . sprintf( __( 'Door: %s', 'siw' ), '<strong>' . esc_html( $approval_user ) . '</strong>' ) . '</div>';
+	echo '<div class="misc-pub-section">' . sprintf( __( 'Op: %s', 'siw' ), '<strong>' . esc_html( $approval_date ) . '</strong>' ) . '</div>';
 }
 
 

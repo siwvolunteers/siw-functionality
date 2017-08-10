@@ -35,11 +35,11 @@ add_action( 'wp_dashboard_setup', function() {
 } );
 
 
-/* Voeg widget met CD-aanmeldingen toe */
+/* Voeg widget met Infodag-aanmeldingen toe */
 add_action( 'wp_dashboard_setup', function() {
 	wp_add_dashboard_widget(
 		'siw_community_day_applications_widget',
-		__( 'Community Day aanmeldingen', 'siw' ),
+		__( 'Infodag aanmeldingen', 'siw' ),
 		'siw_display_applications_widget',
 		'',
 		array(
@@ -57,7 +57,7 @@ add_action( 'wp_dashboard_setup', function() {
 		'siw_display_applications_widget',
 		'',
 		array(
-			'applications' => siw_get_woocommerce_application_per_month( 5 ),
+			'applications' => siw_get_woocommerce_applications_per_month( 5 ),
 		)
 	);
 } );
@@ -114,10 +114,10 @@ function siw_display_applications_widget( $var, $args ) {
 
 
 /**
- * Geeft de datum van de volgende EVS-deadline terug
- * @param bool $date_in_text
- *
- * @return date
+ * Geeft een array terug met aantal aanmeldingen per maand voor een VFB-formulier
+ * @param  string $form
+ * @param  int $results
+ * @return array
  */
 function siw_get_vfb_applications_per_month( $form, $results ) {
 	$form_id = siw_get_vfb_form_id( $form );
@@ -149,7 +149,7 @@ function siw_get_vfb_applications_per_month( $form, $results ) {
  *
  * @return array
  */
-function siw_get_woocommerce_application_per_month( $results ) {
+function siw_get_woocommerce_applications_per_month( $results ) {
 	global $wpdb;
 	$query =	"SELECT Year($wpdb->posts.post_date)  AS application_year,
 						Month($wpdb->posts.post_date) AS application_month,
