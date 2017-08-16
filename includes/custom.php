@@ -62,17 +62,21 @@ add_filter( 'wp_resource_hints', function( $hints, $relation_type ) {
 /*
  * Security headers
  */
-add_filter( 'wp_headers', function( $headers ) {
-	$headers['X-Frame-Options'] = 'DENY';
-	$headers['X-Content-Type-Options'] = 'nosniff';
-	$headers['X-XSS-Protection'] = '1; mode=block';
-	$headers['Referrer-Policy'] = 'no-referrer-when-downgrade';
+add_filter('after_rocket_htaccess_rules', function( $rules ) {
 
-	return $headers;
+	$rules =
+		 '# Extra Security Headers' . PHP_EOL .
+		 '<IfModule mod_headers.c>' . PHP_EOL .
+			'Header always set X-XSS-Protection "1; mode=block"' . PHP_EOL .
+			'Header always append X-Frame-Options SAMEORIGIN' . PHP_EOL .
+			'Header always set X-Content-Type-Options nosniff' . PHP_EOL .
+			'Header always set Referrer-Policy no-referrer-when-downgrade' . PHP_EOL .
+			'Header unset X-Powered-By' . PHP_EOL .
+		'</IfModule>' . PHP_EOL;
+	return $rules;
 });
 
-/* Verwijderen X-Powered-By header en PHP sessie-cookie httponly maken*/
-header_remove('X-Powered-By');
+/* Verwijderen PHP sessie-cookie httponly maken*/
 @ini_set('session.cookie_httponly', 'on');
 
 /*
