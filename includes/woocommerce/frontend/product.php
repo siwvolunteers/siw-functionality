@@ -46,7 +46,7 @@ add_filter( 'woocommerce_available_variation', function( $variations ) {
 
 
 /* Tekst voor korting-badge*/
-add_filter('woocommerce_sale_flash', function ($text){
+add_filter('woocommerce_sale_flash', function ( $text ) {
 	return '<span class="onsale">' . __( 'Korting', 'siw' ) . '</span>';
 } );
 
@@ -56,7 +56,7 @@ add_filter( 'woocommerce_show_variation_price', '__return_true' );
 
 
 /* Volgorde van projecteigenschappen aanpassen TODO: sortable optie maken */
-add_filter( 'woocommerce_get_product_attributes', function( $attributes ) {
+add_filter( 'woocommerce_product_get_attributes', function( $attributes ) {
 	$order = array(
 		'pa_projectnaam', //TODO: verwijderen indien mogelijk
 		'projectnaam',
@@ -85,6 +85,13 @@ add_filter( 'woocommerce_get_product_attributes', function( $attributes ) {
 } );
 
 
+/* Minder (4 i.p.v. 8) related products tonen */
+add_filter( 'woocommerce_related_products_args', function ( $args ) {
+	$args['posts_per_page'] = 4;
+	return $args;
+}, 999 );
+
+
 /*
  * Extra tabs toevoegen:
  * - Contactformulier product
@@ -96,8 +103,9 @@ add_filter( 'woocommerce_product_tabs', function( $tabs ) {
 
 	/*Projectlocatie*/
 	global $product;
-	$latitude = get_post_meta( $product->id, 'latitude', true );
-	$longitude = get_post_meta( $product->id, 'longitude', true );
+	$latitude = $product->get_meta( 'latitude' );
+	$longitude = $product->get_meta( 'longitude' );
+
 	if ( 0 != $latitude && 0 != $longitude ) {
 		$tabs['location'] = array(
 			'title'     => __( 'Projectlocatie', 'siw' ),
@@ -119,12 +127,20 @@ add_filter( 'woocommerce_product_tabs', function( $tabs ) {
 	return $tabs;
 }, 999 ,1 );
 
-/* Kaart tonen op basis van coördinaten */
+/**
+ * Kaart in producttab tonen
+ * @param  array $tab
+ * @param  array $args
+ * @return void
+ */
 function siw_workcamp_show_project_map( $tab, $args ) {
 	echo do_shortcode( sprintf( '[gmap address="%s,%s" title="Projectlocatie" zoom="7" maptype="ROADMAP"]', esc_attr( $args['latitude'] ), esc_attr( $args['longitude'] ) ) );
 }
 
-/* Contactformulier product tonen */
+/**
+ * Contactformulier in producttab tonen
+ * @return void
+ */
 function siw_workcamp_show_product_enquiry_form() {
 	echo do_shortcode( '[caldera_form id="contact_project"]' );
 }

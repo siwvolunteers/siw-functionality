@@ -31,7 +31,7 @@ add_action( 'woocommerce_after_shop_loop_item_title', function() {
 	$start_date = $product->get_attribute( 'startdatum' );
 	$end_date = $product->get_attribute( 'einddatum' );
 	$duration = siw_get_date_range_in_text( $start_date, $end_date, false );
-	$project_code = get_post_meta( $product->id, '_sku', true );
+	$project_code = $product->get_sku();
 	//TODO: inline styling verplaatsen naar css
 	echo '<p>' . esc_html( $duration ) . '</p><hr style="margin:5px;">';
 	echo '<p style="margin-bottom:5px;"><small>' . esc_html( $project_code ) . '</small></p>';

@@ -16,38 +16,32 @@ add_action( 'siw_send_projects_for_approval_email', function() {
 	$projects_for_approval = array();
 	$unassigned_projects_for_approval = '';
 	//zoek zichtbare en toegestane projecten met status 'draft'
-	$meta_query_args = array(
-		'relation'	=>	'AND',
-		array(
-			'key'		=>	'_visibility',
-			'value'		=>	'visible',
-			'compare'	=>	'='
+	//
+	$tax_query = array(
+	 	array(
+			'taxonomy' => 'product_visibility',
+			'operator' => 'NOT EXISTS',
 		),
-		array(
-			'key'		=>	'allowed',
-			'value'		=>	'yes',
-			'compare'	=>	'=' //TODO: is dit nodig?
-		),
-	);
+ 	);
 	$args = array(
 		'posts_per_page'	=> -1,
 		'post_type'			=> 'product',
 		'post_status'		=> 'draft',
-		'meta_query'		=> $meta_query_args,
+		'tax_query'			=> $tax_query,
 		'fields' 			=> 'ids'
 	);
 	$project_ids = get_posts( $args );
 
-	//maak bericht per regiospecialist aan
+	/* Maak een lijst met goed te keuren projecten per regiospecialist aan */
 	//TODO: Link naar zoekresultaten bijv: https://local.siw.nl/wp-admin/edit.php?s=18699%2C18741&post_type=product&action=-1
 	foreach ( $project_ids as $project_id ) {
-		$country = get_post_meta( $project_id, 'land', true );
 		$project = wc_get_product( $project_id );
 	  	$project_code = $project->get_sku();
+		$country = $project->get_meta( 'land' );
 		$regiospecialist_id = siw_get_setting( $country . '_regiospecialist' );
 
 		$project_name = get_the_title( $project_id );
-		$admin_link ='<a href="' . admin_url( 'post.php?post=' . $project_id . '&action=edit' ) . '">' . $project_code . '-' . $project_name . '<a/><br/>';
+		$admin_link ='<a href="' . admin_url( 'post.php?post=' . $project_id . '&action=edit' ) . '">' . $project_code . '-' . $project_name . '<a/><br/>';//TODO:sprintf; want dit is onleesbaar
 
 		if ( '' != $regiospecialist_id ) {
 			if ( ! isset( $projects_for_approval[ $regiospecialist_id ] ) ) {

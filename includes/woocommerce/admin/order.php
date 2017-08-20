@@ -167,7 +167,7 @@ add_action( 'manage_shop_order_posts_custom_column', function( $column_name, $po
 		//export via xml export suite
 		$exported_via_xml_suite = get_post_meta( $post_id, '_wc_customer_order_xml_export_suite_is_exported', true );
 
-		if ( 'success' == $exported or 1 == $exported_via_xml_suite ) {
+		if ( 'success' == $exported || 1 == $exported_via_xml_suite ) {
 			$dashicon = 'yes';
 
 		}

@@ -14,20 +14,20 @@ if ( ! defined('ABSPATH' ) ) {
  * - Als de optie 'Forceer volledige update' op true staat.
  */
 add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $current_import_id ) {
-
+	$product = wc_get_product( $product_id );
 	$is_full_import = ( $current_import_id == siw_get_setting( 'plato_full_import_id' ) );
 	$is_fpl_import = ( $current_import_id == siw_get_setting( 'plato_fpl_import_id' ) );
 
 
 	if ( $is_fpl_import ) {
-		$visibility = get_post_meta( $product_id, '_visibility', true );
-		$free_places_current = get_post_meta( $product_id, 'freeplaces', true );
+		$visibility = $product->is_visible();
+		$free_places_current = $product->get_meta( 'freeplaces' );
 		$free_places_new = siw_get_workcamp_free_places_left( $xml['free_m'], $xml['free_f'] );
 
-		return ( 'no' != $free_places_current && 'no' == $free_places_new && 'visible' == $visibility ) ? true : false;
+		return ( 'no' != $free_places_current && 'no' == $free_places_new && $visibility ) ? true : false; //redundante operator?
 	}
 
-	$import_again = get_post_meta( $product_id, 'import_again', true );
+	$import_again = $product->get_meta( 'import_again' );
 	if ( ! $is_fpl_import && $import_again ) {
 		return true;
 	}
@@ -47,38 +47,38 @@ add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $cur
 	- Land toegestaan
 	- TODO: Nog meer eigenschappen? Bijv. beschrijving, soort werk...
 	*/
-	$current_attributes = get_post_meta( $product_id, '_product_attributes', true );
+	$current_attributes = get_post_meta( $product_id, '_product_attributes', true ); //TODO:crud $product->get_attributes();
 
 	/* Startdatum */
-	$start_date_current = isset( $current_attributes['startdatum']['value'] ) ? $current_attributes['startdatum']['value'] : '';
+	$start_date_current = $product->get_attribute( 'startdatum' );
 	$start_date_new = siw_get_workcamp_formatted_date( $xml['start_date'] );
 	if ( $start_date_current != $start_date_new ) {
 		return true;
 	}
 
 	/* Einddatum */
-	$end_date_current = isset( $current_attributes['einddatum']['value'] ) ? $current_attributes['einddatum']['value'] : '';
+	$end_date_current = $product->get_attribute( 'einddatum' );
 	$end_date_new = siw_get_workcamp_formatted_date( $xml['end_date'] );
 	if ( $end_date_current != $end_date_new ) {
 		return true;
 	}
 
 	/* Local fee */
-	$participation_fee_current = isset( $current_attributes['lokale-bijdrage']['value'] ) ? $current_attributes['lokale-bijdrage']['value'] : '';
+	$participation_fee_current = $product->get_attribute( 'lokale-bijdrage' );
 	$participation_fee_new = siw_get_workcamp_local_fee( $xml['participation_fee'], $xml['participation_fee_currency'] );
 	if ( $participation_fee_current != $participation_fee_new ) {
 		return true;
 	}
 
 	/* Local fee */
-	$projectcode_current = isset( $current_attributes['projectcode']['value'] ) ? $current_attributes['projectcode']['value'] : '';
+	$projectcode_current = $product->get_attribute( 'projectcode' );
 	$projectcode_new = $xml['code'];
 	if ( $projectcode_current != $projectcode_new ) {
 		return true;
 	}
 
 	/* Land toegestaan*/
-	$country_allowed_current = get_post_meta( $product_id, 'allowed', true );
+	$country_allowed_current = $product->get_meta( 'allowed' );
 	$country_allowed_new = siw_get_workcamp_country_allowed( $xml['country'] );
 	if ( $country_allowed_current != $country_allowed_new ) {
 		return true;
@@ -100,42 +100,41 @@ add_action( 'siw_hide_workcamps', function() {
 	$days = siw_get_setting( 'plato_hide_project_days_before_start' );
 	$limit = date( 'Y-m-d', time() + ( $days * DAY_IN_SECONDS ) );
 
-	$meta_query_args = array(
-		'relation'	=>	'AND',
+	$tax_query = array(
 		array(
-			'key'		=>	'_visibility',
-			'value'		=>	'visible',
-			'compare'	=>	'='
+			'taxonomy' => 'product_visibility',
+			'operator' => 'NOT EXISTS',
+		),
+	);
+	$meta_query = array(
+		'relation'	=>	'OR',
+		array(
+			'key'		=> 'freeplaces',
+			'value'		=> 'no',
+			'compare'	=> '='
 		),
 		array(
-			'relation'	=>	'OR',
-			array(
-				'key'		=> 'freeplaces',
-				'value'		=> 'no',
-				'compare'	=> '='
-			),
-			array(
-				'key'		=> 'manual_visibility',
-				'value'		=> 'hide',
-				'compare'	=> '='
-			),
-			array(
-				'key'		=> 'startdatum',
-				'value'		=> $limit,
-				'compare'	=> '<='
-			),
-			array(
-				'key'		=> 'allowed',
-				'value'		=> 'no',
-				'compare'	=> '='
-			),
+			'key'		=> 'manual_visibility',
+			'value'		=> 'hide',
+			'compare'	=> '='
+		),
+		array(
+			'key'		=> 'startdatum',
+			'value'		=> $limit,
+			'compare'	=> '<='
+		),
+		array(
+			'key'		=> 'allowed',
+			'value'		=> 'no',
+			'compare'	=> '='
 		),
 	);
 
 	$args = array(
 		'posts_per_page'	=> -1,
 		'post_type'			=> 'product',
-		'meta_query'		=> $meta_query_args,
+		'meta_query'		=> $meta_query,
+		'tax_query'			=> $tax_query,
 		'fields' 			=> 'ids',
 		'post_status'		=> 'any',
 	);
@@ -159,18 +158,17 @@ add_action( 'siw_hide_workcamps', function() {
  * @return void
  */
 function siw_hide_workcamp( $product_id ) {
-	update_post_meta( $product_id, '_visibility', 'hidden' );
-	update_post_meta( $product_id, '_stock_status', 'outofstock' );
-	update_post_meta( $product_id, '_featured', 'no' );
-	update_post_meta( $product_id, '_yoast_wpseo_meta-robots-noindex','1' );
+	$product = wc_get_product( $product_id );
+	$product->set_catalog_visibility( 'hidden' );
+	$product->set_stock_status( 'outofstock' );
+	$product->set_featured( 'no' );
+	siw_seo_set_noindex( $product_id, true );
+	$product->save();
 
-	$varationsargs = array(
-		'post_type' 	=> 'product_variation',
-		'post_parent'	=> $product_id,
-		'fields' 		=> 'ids'
-	);
-	$variations = get_posts( $varationsargs );
-	foreach ( $variations as $variation_id ) {
-		update_post_meta( $variation_id, '_stock_status', 'outofstock' );
+	$variation_ids = $product->get_children();
+	foreach ( $variation_ids as $variation_id ) {
+		$variation = wc_get_product( $variation_id );
+		$variation->set_stock_status( 'outofstock' );
+		$variation->save();
 	}
 }

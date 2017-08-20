@@ -68,12 +68,13 @@ return false;
 		$( '.accordion-toggle' ).each(function() {
 			$( this ).removeAttr( 'data-parent' );
 		});
-	});
-
-	$( document ).ajaxComplete(function() {
 
 		//Winkelwagen verbergen indien er geen projecten in zitten
-		$( 'li.menu-cart-icon-kt' ).has( 'span.kt-cart-total:contains("0")' ).css( 'display', 'none' );
+		if ( Cookies.get( 'woocommerce_items_in_cart' ) > 0 ) {
+			$( 'li.menu-cart-icon-kt' ).show();
+		}else {
+			$( 'li.menu-cart-icon-kt' ).hide();
+		}
 	});
 
 	$( 'input.postcode, input.huisnummer' ).change(function() {

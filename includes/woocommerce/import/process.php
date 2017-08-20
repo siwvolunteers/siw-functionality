@@ -5,31 +5,28 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
 /*
  * Voeg prijzen voor tarieven (student/regulier) toe.
- * Verwerk reeds beoordeelde projecten
  */
-add_action( 'pmxi_saved_post', function( $product_id ) {
+add_action( 'pmxi_product_variation_saved', function( $variation_id ) {
 	$tariff_array = array(
 		'regulier'	=> number_format( SIW_WORKCAMP_FEE_REGULAR, 2 ),
 		'student'	=> number_format( SIW_WORKCAMP_FEE_STUDENT, 2 )
 	);
+	$variation = wc_get_product( $variation_id );
+	$tariff = $variation->get_attribute('tarief');
+	$price = isset( $tariff_array[ $tariff ] ) ? $tariff_array[ $tariff ] : $tariff_array['regulier'];
+	$variation->set_price( $price );
+	$variation->set_regular_price( $price );
+	$variation->set_virtual( 'yes' );
+	$variation->save();
+});
 
-	$args = array(
-		'post_type'		=> 'product_variation',
-		'post_parent'	=> $product_id,
-		'fields' 		=> 'ids'
-	);
-	$variations = get_posts( $args );
-	foreach ( $variations as $variation_id ) {
-		$tariff = get_post_meta( $variation_id, 'attribute_pa_tarief', true );
-		$price = isset( $tariff_array[ $tariff ] ) ? $tariff_array[ $tariff ] : $tariff_array['regulier'];
-		update_post_meta( $variation_id, '_regular_price', $price );
-		update_post_meta( $variation_id, '_price', $price );
-		update_post_meta( $variation_id, '_virtual', 'yes' );
-	}
 
+/*
+ * Verwerk reeds beoordeelde projecten
+ */
+add_action( 'pmxi_saved_post', function( $product_id ) {
 	/*Verwerk al beoordeelde projecten*/
 	$approval_result = get_post_meta( $variation_id, 'approval_result', true );
 	if ( 'publish' != get_post_status( $product_id ) && ! empty( $approval_result ) ) {
