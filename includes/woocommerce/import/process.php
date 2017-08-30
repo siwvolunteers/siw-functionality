@@ -28,7 +28,7 @@ add_action( 'pmxi_product_variation_saved', function( $variation_id ) {
  */
 add_action( 'pmxi_saved_post', function( $product_id ) {
 	/*Verwerk al beoordeelde projecten*/
-	$approval_result = get_post_meta( $variation_id, 'approval_result', true );
+	$approval_result = get_post_meta( $product_id, 'approval_result', true );
 	if ( 'publish' != get_post_status( $product_id ) && ! empty( $approval_result ) ) {
 		wp_publish_post( $product_id );
 		if ( 'rejected' == $approval_result ) {
