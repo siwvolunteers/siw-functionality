@@ -169,7 +169,6 @@ add_action( 'manage_shop_order_posts_custom_column', function( $column_name, $po
 
 		if ( 'success' == $exported || 1 == $exported_via_xml_suite ) {
 			$dashicon = 'yes';
-
 		}
 		else if ( 'failed' == $exported ) {
 			$dashicon = 'no';

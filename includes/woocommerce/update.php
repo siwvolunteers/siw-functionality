@@ -12,9 +12,12 @@ if ( ! defined('ABSPATH' ) ) {
  * - In het geval van de FPL-update
  * - Als het project handmatig gemarkeerd is om opnieuw te importeren.
  * - Als de optie 'Forceer volledige update' op true staat.
+ * - Als specifieke eigenschappen veranderd zijn.
  */
 add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $current_import_id ) {
 	$product = wc_get_product( $product_id );
+	$sku = $product->get_sku();
+
 	$is_full_import = ( $current_import_id == siw_get_setting( 'plato_full_import_id' ) );
 	$is_fpl_import = ( $current_import_id == siw_get_setting( 'plato_fpl_import_id' ) );
 
@@ -29,6 +32,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $cur
 
 	$import_again = $product->get_meta( 'import_again' );
 	if ( ! $is_fpl_import && $import_again ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Instelling bij project', $product_id, $sku ) );
 		return true;
 	}
 
@@ -47,12 +51,12 @@ add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $cur
 	- Land toegestaan
 	- TODO: Nog meer eigenschappen? Bijv. beschrijving, soort werk...
 	*/
-	$current_attributes = get_post_meta( $product_id, '_product_attributes', true ); //TODO:crud $product->get_attributes();
 
 	/* Startdatum */
 	$start_date_current = $product->get_attribute( 'startdatum' );
 	$start_date_new = siw_get_workcamp_formatted_date( $xml['start_date'] );
 	if ( $start_date_current != $start_date_new ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Startdatum veranderd van %s naar %s', $product_id, $sku, $start_date_current, $start_date_new ) );
 		return true;
 	}
 
@@ -60,13 +64,16 @@ add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $cur
 	$end_date_current = $product->get_attribute( 'einddatum' );
 	$end_date_new = siw_get_workcamp_formatted_date( $xml['end_date'] );
 	if ( $end_date_current != $end_date_new ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Einddatum veranderd van %s naar %s', $product_id, $sku, $end_date_current, $end_date_new ) );
 		return true;
 	}
 
 	/* Local fee */
 	$participation_fee_current = $product->get_attribute( 'lokale-bijdrage' );
-	$participation_fee_new = siw_get_workcamp_local_fee( $xml['participation_fee'], $xml['participation_fee_currency'] );
+	$participation_fee_new = siw_get_workcamp_local_fee( $xml['participation_fee'], isset( $xml['participation_fee_currency'] ) ? $xml['participation_fee_currency'] : '' );
+	$participation_fee_new = html_entity_decode( $participation_fee_new );
 	if ( $participation_fee_current != $participation_fee_new ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Lokale bijdrage veranderd van %s naar %s', $product_id, $sku, $participation_fee_current, $participation_fee_new ) );
 		return true;
 	}
 
@@ -74,6 +81,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $cur
 	$projectcode_current = $product->get_attribute( 'projectcode' );
 	$projectcode_new = $xml['code'];
 	if ( $projectcode_current != $projectcode_new ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Projectcode veranderd van %s naar %s', $product_id, $sku, $projectcode_current, $projectcode_new ) );
 		return true;
 	}
 
@@ -81,6 +89,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $cur
 	$country_allowed_current = $product->get_meta( 'allowed' );
 	$country_allowed_new = siw_get_workcamp_country_allowed( $xml['country'] );
 	if ( $country_allowed_current != $country_allowed_new ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Status land veranderd van %s naar %s', $product_id, $sku, $country_allowed_current, $country_allowed_new ) );
 		return true;
 	}
 
@@ -103,7 +112,9 @@ add_action( 'siw_hide_workcamps', function() {
 	$tax_query = array(
 		array(
 			'taxonomy' => 'product_visibility',
-			'operator' => 'NOT EXISTS',
+			'field'    => 'slug',
+			'terms'    => array( 'exclude-from-search', 'exclude-from-catalog' ),
+			'operator' => 'NOT IN',
 		),
 	);
 	$meta_query = array(

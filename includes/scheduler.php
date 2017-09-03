@@ -11,7 +11,7 @@ add_action( 'wppusher_plugin_was_updated', function() {
 		'siw_no_index_past_events'						=> 0,
 		'siw_no_index_expired_jobs' 					=> 5,
 		'siw_update_community_day_options'				=> 10,
-		'siw_delete_orphaned_variations'				=> 20,
+		'siw_delete_orphaned_variations'				=> 15,
 		'siw_delete_projects'							=> 30,
 		'siw_cleanup_terms'								=> 40,
 		'siw_reorder_rename_product_attribute_month'	=> 50,

@@ -18,7 +18,28 @@ add_action( 'plugins_loaded', function() {
 	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
 	add_filter( 'yith_wcan_untrailingslashit', '__return_false' );
 	add_filter( 'yith_wcan_is_search', '__return_false' );
+	add_filter( 'yith_wcan_hide_out_of_stock_items', '__return_true' );
+	add_filter( 'yith_wcan_skip_layered_nav_query', '__return_false', 999 );
 } );
+
+
+/* AJAX-filtering: Maanden niet filteren op alfabet maar op slug*/
+add_filter( 'yith_wcan_get_terms_list', function ( $terms, $taxonomy, $instance ) {
+	if ( 'pa_maand' != $taxonomy ) {
+		return $terms;
+	}
+	foreach ( $terms as $index=>$term ) {
+		$ordered_term_indices[ $index ] = $term->slug;
+	}
+	asort( $ordered_term_indices, SORT_STRING );
+	$order = array_keys( $ordered_term_indices );
+
+	uksort( $terms, function( $key1, $key2 ) use ( $order ) {
+		return ( array_search( $key1, $order ) > array_search( $key2, $order ) );
+	} );
+
+	return $terms;
+}, 10, 3 );
 
 
 /*

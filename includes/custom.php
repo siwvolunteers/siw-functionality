@@ -107,6 +107,7 @@ define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
 remove_action('wp_head', 'wp_generator');
 remove_action('wp_head', 'wlwmanifest_link');
 remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
+remove_action('wp_head', 'rest_output_link_wp_head', 10);
 remove_action('wp_head', 'rsd_link');
 remove_action('wp_head', 'feed_links', 2);
 remove_action('wp_head', 'feed_links_extra', 3);
@@ -143,6 +144,18 @@ add_filter( 'oembed_response_data', function( $data ) {
  */
 function siw_log( $content ) {
 	error_log( print_r( $content, true ), 0);
+}
+
+
+/**
+ *  Schrijf informatie naar log als DEBUG-mode aan staan*
+ * @param  mixed $content
+ * @return void
+ */
+function siw_debug_log( $content ) {
+	if ( WP_DEBUG ) {
+		siw_log( $content );
+	}
 }
 
 
