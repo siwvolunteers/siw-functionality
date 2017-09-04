@@ -23,9 +23,9 @@ function siwPostcodeLookup( postcodeSelector, housenumberSelector, streetSelecto
 				housenumber: housenumber
 			},
 			success: function( result ) {
-				if ( 1 == result.success ) {
-					jQuery( citySelector ).val( result.resource.town );
-					jQuery( streetSelector ).val( result.resource.street );
+				if ( true == result.success ) {
+					jQuery( citySelector ).val( result.data.city );
+					jQuery( streetSelector ).val( result.data.street );
 					jQuery( citySelector ).prop( 'readonly', true );
 					jQuery( streetSelector ).prop( 'readonly', true );
 				}else {
@@ -62,9 +62,6 @@ return false;
 			$( '.kad-head-cart-popup.in' ).collapse( 'hide' );
 		});
 
-		//Winkelwagen verbergen indien er geen projecten in zitten
-		$( 'li.menu-cart-icon-kt' ).has( 'span.kt-cart-total:contains("0")' ).css( 'display', 'none' );
-
 		$( '.accordion-toggle' ).each(function() {
 			$( this ).removeAttr( 'data-parent' );
 		});
@@ -89,7 +86,7 @@ return false;
 
 	//GA-event bij klikken op topbar
 	$( document ).on( 'click', '#topbar_link', function() {
-		ga( 'send', 'event', 'Topbar', 'Klikken' );
+		ga( 'send', 'event', 'Topbar', 'Klikken', this.href );
 	});
 
 	//GA-event bij social share
