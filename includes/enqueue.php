@@ -61,8 +61,6 @@ add_action( 'wp_enqueue_scripts', function() {
 		wp_dequeue_style( 'yith-wcan-frontend' );
 	}
 
-	/*woocommerce*/
-	wp_dequeue_script( 'woocommerce' );
 
 	/*search&filter*/
 	wp_dequeue_style( 'search-filter-plugin-styles' );
