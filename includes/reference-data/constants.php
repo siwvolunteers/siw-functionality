@@ -18,6 +18,7 @@ define ( 'SIW_RSIN', '002817482' );
 define ( 'SIW_ADDRESS', 'Willemstraat 7' );
 define ( 'SIW_POSTAL_CODE', '3511 RJ' );
 define ( 'SIW_CITY', 'Utrecht' );
+define ( 'SIW_OPENING_HOURS', '10:00 - 17:00' );
 
 /* Configuratie */
 define( 'SIW_NUMBER_OF_INFO_DAYS', 10 );
@@ -66,6 +67,7 @@ function siw_get_constants() {
 		'SIW_ADDRESS'					=> __( 'Adres', 'siw' ),
 		'SIW_POSTAL_CODE'				=> __( 'Postcode', 'siw' ),
 		'SIW_CITY'						=> __( 'Stad', 'siw' ),
+		'SIW_OPENING_HOURS'				=> __( 'Openingstijden', 'siw' ),
 		'SIW_NUMBER_OF_INFO_DAYS' 		=> __( 'Maximum aantal infodagen', 'siw' ),
 		'SIW_NUMBER_OF_EVS_DEADLINES'	=> __( 'Maximum aantal EVS-deadlines', 'siw' ),
 		'SIW_EVS_WEEKS_BEFORE_DEPARTURE'=> __( 'EVS: weken voor vertrek', 'siw' ),
