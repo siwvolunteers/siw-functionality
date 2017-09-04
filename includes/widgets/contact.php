@@ -36,13 +36,12 @@ class SIW_Contact_Information extends \TDP\Widgets_Helper {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}?>
 		<div class="vcard">
-			<p class="fn org"><b><?php echo esc_html( SIW_NAME );?></b></p>
+			<p class="fn org"><?php echo esc_html( SIW_NAME );?></p>
 			<p class="adr">
-				<span class="street-address"><?php echo esc_html( SIW_ADDRESS );?></span><br/>
-				<span class="postal-code"><?php echo esc_html( SIW_POSTAL_CODE );?></span>&nbsp;<span class="locality"><?php echo esc_html( SIW_CITY );?></span>
+				<span class="street-address"><?php echo esc_html( SIW_ADDRESS );?></span>&nbsp;|&nbsp;<span class="postal-code"><?php echo esc_html( SIW_POSTAL_CODE );?></span>&nbsp;<span class="locality"><?php echo esc_html( SIW_CITY );?></span>
 			</p>
-			<p class="tel fixedtel"><i class="kt-icon-phone3"></i>&nbsp;<?php echo esc_html( SIW_PHONE );?></p>
-			<p><a href="mailto:<?php echo antispambot( SIW_EMAIL );?>" class="email"><i class="kt-icon-envelop"></i>&nbsp;<?php echo antispambot( SIW_EMAIL );?></a></p>
+			<p class="tel fixedtel"><i class="kt-icon-phone3"></i>&nbsp;<?php echo esc_html( SIW_PHONE );?>&nbsp;|&nbsp;<a href="mailto:<?php echo antispambot( SIW_EMAIL );?>" class="email"><i class="kt-icon-envelop"></i>&nbsp;<?php echo antispambot( SIW_EMAIL );?></a></p>
+			<p><i class="kt-icon-clock3"></i>&nbsp;<?php printf( esc_html__( 'Maandag t/m vrijdag %s', 'siw' ), SIW_OPENING_HOURS );?></p>
 		</div>
 		<?php
 		echo $args['after_widget'];
