@@ -9,10 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'wppusher_plugin_was_updated', function() {
 	$cron_jobs = array(
 		'siw_no_index_past_events'						=> 0,
-		'siw_no_index_expired_jobs' 					=> 5,
-		'siw_update_community_day_options'				=> 10,
-		'siw_delete_orphaned_variations'				=> 15,
-		'siw_delete_projects'							=> 30,
+		'siw_no_index_expired_jobs' 					=> 0,
+		'siw_update_community_day_options'				=> 0,
+		'siw_update_workcamp_tariffs'					=> 5,
+		'siw_delete_orphaned_variations'				=> 10,
+		'siw_delete_projects'							=> 15,
 		'siw_cleanup_terms'								=> 40,
 		'siw_reorder_rename_product_attribute_month'	=> 50,
 	);

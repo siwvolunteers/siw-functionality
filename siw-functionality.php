@@ -33,11 +33,14 @@ define ( 'SIW_SITE_NAME', $_SERVER['SERVER_NAME'] );
  * - Disable Emoji's (https://geek.hellyer.kiwi/plugins/disable-emojis/)
  * - Rapid Add-On (https://github.com/soflyy/wp-all-import-rapid-addon)
  * - WordPress Widgets Helper Class (https://github.com/alessandrotesoro/wp-widgets-helper)
+ * - WP Background Processing (https://github.com/A5hleyRich/wp-background-processing)
  */
 require_once( SIW_ASSETS_DIR . '/plugins/wp-multifilter.php' );
 require_once( SIW_ASSETS_DIR . '/plugins/disable-emojis.php' );
 require_once( SIW_ASSETS_DIR . '/plugins/rapid-addon.php' );
 require_once( SIW_ASSETS_DIR . '/plugins/wp-widgets-helper.php');
+require_once( SIW_ASSETS_DIR . '/plugins/wp-async-request.php');
+require_once( SIW_ASSETS_DIR . '/plugins/wp-background-process.php');
 
 
 
@@ -70,6 +73,8 @@ require_once( SIW_INCLUDES_DIR . '/translations.php' );
 require_once( SIW_INCLUDES_DIR . '/admin/init.php' );
 /* AJAX-functionaliteit */
 require_once( SIW_INCLUDES_DIR . '/ajax/init.php' );
+/* Achtergrondprocessen */
+require_once( SIW_INCLUDES_DIR . '/background-process/init.php' );
 /*Google Analytics */
 require_once( SIW_INCLUDES_DIR . '/analytics/init.php' );
 /*E-mail*/

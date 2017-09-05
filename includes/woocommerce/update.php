@@ -151,13 +151,13 @@ add_action( 'siw_hide_workcamps', function() {
 	);
 
 	$products = get_posts( $args );
+
+	$siw_hide_workcamps_background_process = $GLOBALS['siw_hide_workcamps_background_process'];
 	foreach ( $products as $product_id ) {
-		//project 'publiceren' als project eigenlijk ter review stond
-		if ( 'publish' != get_post_status( $product_id ) ) {
-			wp_publish_post( $product_id );
-		}
-		siw_hide_workcamp( $product_id );
+		$siw_hide_workcamps_background_process->push_to_queue( $product_id );
 	}
+	$siw_hide_workcamps_background_process->save()->dispatch();
+	siw_debug_log( 'Verbergen projecten gestart.' );
 });
 
 
@@ -180,6 +180,59 @@ function siw_hide_workcamp( $product_id ) {
 	foreach ( $variation_ids as $variation_id ) {
 		$variation = wc_get_product( $variation_id );
 		$variation->set_stock_status( 'outofstock' );
+		$variation->save();
+	}
+}
+
+
+
+/*
+ * Bijwerken tarieven van alle zichtbare projecten
+ */
+add_action( 'siw_update_workcamp_tariffs', function() {
+	$tax_query = array(
+		array(
+			'taxonomy' => 'product_visibility',
+			'field'    => 'slug',
+			'terms'    => array( 'exclude-from-search', 'exclude-from-catalog' ),
+			'operator' => 'NOT IN',
+		),
+	);
+	$args = array(
+		'posts_per_page'	=> -1,
+		'post_type'			=> 'product',
+		'tax_query'			=> $tax_query,
+		'fields' 			=> 'ids',
+		'post_status'		=> 'any',
+	);
+	$products = get_posts( $args );
+
+	$siw_update_tariffs_background_process = $GLOBALS['siw_update_tariffs_background_process'];
+	foreach ( $products as $product ) {
+		$siw_update_tariffs_background_process->push_to_queue( $product );
+	}
+	$siw_update_tariffs_background_process->save()->dispatch();
+	siw_debug_log( 'Bijwerken tarieven gestart.' );
+});
+
+
+/**
+ * [siw_update_workcamp_tariff description]
+ * @param  [type] $product_id [description]
+ * @return [type]             [description]
+ */
+function siw_update_workcamp_tariff( $product_id ) {
+	$tariff_array = siw_get_workcamp_tariffs();
+
+	$product = wc_get_product( $product_id );
+	$variations = $product->get_children();
+
+	foreach ( $variations as $variation_id ) {
+		$variation = wc_get_product( $variation_id );
+		$tariff = $variation->get_attributes()['pa_tarief'];
+		$price = isset( $tariff_array[ $tariff ] ) ? $tariff_array[ $tariff ] : $tariff_array['regulier'];
+		$variation->set_price( $price );
+		$variation->set_regular_price( $price );
 		$variation->save();
 	}
 }
