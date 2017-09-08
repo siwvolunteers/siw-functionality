@@ -45,7 +45,7 @@ class SIW_Hide_Workcamps_Background_Process extends WP_Background_Process {
 	 */
 	protected function complete() {
 		parent::complete();
-		siw_debug( 'Verbergen projecten voltooid');
+		siw_debug_log( 'Verbergen projecten voltooid');
 	}
 }
 

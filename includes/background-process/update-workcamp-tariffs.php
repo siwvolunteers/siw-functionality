@@ -42,7 +42,7 @@ class SIW_Update_Workcamp_Tariffs_Background_Process extends WP_Background_Proce
 	 */
 	protected function complete() {
 		parent::complete();
-		siw_debug( 'Bijwerken tarieven voltooid.' );
+		siw_debug_log( 'Bijwerken tarieven voltooid.' );
 	}
 }
 
