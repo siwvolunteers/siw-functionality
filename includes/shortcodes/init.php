@@ -5,8 +5,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
+require_once( __DIR__ . '/chart.php' );
 require_once( __DIR__ . '/lightbox.php' );
+
 /*
  * SIW shortcodes toevoegen aan pinnacle shortcodes
  * - Algemene informatie (telefoonnummer, email, IBAN, RSIN, KvK)

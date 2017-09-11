@@ -15,6 +15,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_localize_script( 'siw', 'parameters', $parameters );
 	wp_enqueue_script( 'siw' );
 
+	wp_register_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js' );
 });
 
 
