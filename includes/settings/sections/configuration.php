@@ -102,14 +102,12 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	$constants = siw_get_constants();
 
 	$constants_html = '<table class="form-table">';
-	$constants_html .= '<thead>';
-	$constants_html .= '<tr>';
-	$constants_html .= '<th>' . __( 'Constante', 'siw' ) . '</th>';
-	$constants_html .= '<th>' . __( 'Waarde', 'siw' ) . '</th>';
-	$constants_html .= '<th>' . __( 'Toelichting', 'siw' ) . '</th>';
-	$constants_html .= '</tr>';
-	$constants_html .= '</thead>';
 	$constants_html .= '<tbody>';
+	$constants_html .= '<tr style="font-weight:bold;">';
+	$constants_html .= '<td>' . __( 'Constante', 'siw' ) . '</td>';
+	$constants_html .= '<td>' . __( 'Waarde', 'siw' ) . '</td>';
+	$constants_html .= '<td>' . __( 'Toelichting', 'siw' ) . '</td>';
+	$constants_html .= '</tr>';
 
 	foreach ( $constants as $constant => $name ){
 		$constants_html .= '<tr>';

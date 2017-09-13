@@ -62,11 +62,11 @@ add_filter( 'wp_resource_hints', function( $hints, $relation_type ) {
 /*
  * Security headers
  */
-add_filter('after_rocket_htaccess_rules', function( $rules ) {
+add_filter( 'after_rocket_htaccess_rules', function( $rules ) {
 
 	$rules =
-		 '# Extra Security Headers' . PHP_EOL .
-		 '<IfModule mod_headers.c>' . PHP_EOL .
+		'# Extra Security Headers' . PHP_EOL .
+		'<IfModule mod_headers.c>' . PHP_EOL .
 			'Header always set X-XSS-Protection "1; mode=block"' . PHP_EOL .
 			'Header always append X-Frame-Options SAMEORIGIN' . PHP_EOL .
 			'Header always set X-Content-Type-Options nosniff' . PHP_EOL .

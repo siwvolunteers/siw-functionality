@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /* Stel cron jobs in na het updaten van de plugin */
-add_action( 'wppusher_plugin_was_updated', function() {
+add_action( 'siw_update_plugin', function() {
 	$cron_jobs = array(
 		'siw_no_index_past_events'						=> 0,
 		'siw_no_index_expired_jobs' 					=> 0,

@@ -105,7 +105,7 @@ function siw_get_future_info_days( $dates_in_text = false, $results = SIW_NUMBER
 	}
 	asort( $info_days );
 	$hide_form_days_before_info_day = siw_get_setting( 'hide_application_form_days_before_info_day' );
-	$limit = date( 'Y-m-d', time() + ( $hide_form_days_before_info_day * DAY_IN_SECONDS ));
+	$limit = date( 'Y-m-d', time() + ( $hide_form_days_before_info_day * DAY_IN_SECONDS ) );
 
 	$future_info_days = array();
 	foreach ( $info_days as $info_day ) {
@@ -115,7 +115,7 @@ function siw_get_future_info_days( $dates_in_text = false, $results = SIW_NUMBER
 	}
 
 	$results = min( $results, SIW_NUMBER_OF_INFO_DAYS );
-	$future_info_days = array_slice($future_info_days, 0, $results);
+	$future_info_days = array_slice( $future_info_days, 0, $results );
 	return $future_info_days;
 }
 

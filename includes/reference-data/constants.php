@@ -20,6 +20,13 @@ define ( 'SIW_POSTAL_CODE', '3511 RJ' );
 define ( 'SIW_CITY', 'Utrecht' );
 define ( 'SIW_OPENING_HOURS', '10:00 - 17:00' );
 
+/* Sociale netwerken */
+define( 'SIW_FACEBOOK_URL', 'https://www.facebook.com/siwvolunteers' );
+define( 'SIW_TWITTER_URL', 'https://twitter.com/siwvolunteers' );
+define( 'SIW_LINKEDIN_URL', 'https://www.linkedin.com/company/siw' );
+define( 'SIW_YOUTUBE_URL', 'https://www.youtube.com/user/SIWvolunteerprojects' );
+define( 'SIW_INSTAGRAM_URL', 'https://www.instagram.com/siwvolunteers/' );
+
 /* Configuratie */
 define( 'SIW_NUMBER_OF_INFO_DAYS', 10 );
 define( 'SIW_NUMBER_OF_EVS_DEADLINES', 5 );
@@ -42,7 +49,6 @@ define( 'SIW_EVS_DEPOSIT', 155 );
 /* Kortingen */
 define( 'SIW_DISCOUNT_SECOND_PROJECT', 25 );
 define( 'SIW_DISCOUNT_THIRD_PROJECT', 50 );
-
 
 /* Constantes voor strings*/
 define( 'BR', '<br/>');
@@ -68,6 +74,11 @@ function siw_get_constants() {
 		'SIW_POSTAL_CODE'				=> __( 'Postcode', 'siw' ),
 		'SIW_CITY'						=> __( 'Stad', 'siw' ),
 		'SIW_OPENING_HOURS'				=> __( 'Openingstijden', 'siw' ),
+		'SIW_FACEBOOK_URL'				=> __( 'Facebook URL', 'siw' ),
+		'SIW_TWITTER_URL' 				=> __( 'Twitter URL', 'siw' ),
+		'SIW_LINKEDIN_URL'				=> __( 'LinkedIn URL', 'siw' ),
+		'SIW_YOUTUBE_URL'				=> __( 'YouTube URL', 'siw' ),
+		'SIW_INSTAGRAM_URL'				=> __( 'Instagram URL', 'siw' ),
 		'SIW_NUMBER_OF_INFO_DAYS' 		=> __( 'Maximum aantal infodagen', 'siw' ),
 		'SIW_NUMBER_OF_EVS_DEADLINES'	=> __( 'Maximum aantal EVS-deadlines', 'siw' ),
 		'SIW_EVS_WEEKS_BEFORE_DEPARTURE'=> __( 'EVS: weken voor vertrek', 'siw' ),
