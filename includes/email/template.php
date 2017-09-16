@@ -11,16 +11,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param  array
  * @return string e-mailtemplate
  */
-function siw_get_email_template( $template_args ) {
+function siw_get_email_template( $args ) {
 
-	/* opties uit array halen */
-	$remove_linebreaks = isset( $template_args['remove_linebreaks'] ) ? $template_args['remove_linebreaks'] : false;
-	$subject = isset( $template_args['subject'] ) ? $template_args['subject'] : '';
-	$message = isset( $template_args['message'] ) ? $template_args['message'] : '';
-	$show_summary = isset( $template_args['show_summary'] ) ? $template_args['show_summary'] : false;
-	$show_signature = isset( $template_args['show_signature'] ) ? $template_args['show_signature'] : false;
-	$signature_name = isset( $template_args['signature_name'] ) ? $template_args['signature_name'] : '';
-	$signature_title = isset( $template_args['signature_title'] ) ? $template_args['signature_title'] : '';
+	$defaults = array(
+		'subject'			=> '',
+		'message'			=> '',
+		'show_summary'		=> false,
+		'show_signature'	=> false,
+		'signature_name'	=> '',
+		'signature_title'	=> '',
+		'remove_linebreaks' => false,
+	);
+	$args = wp_parse_args( $args, $defaults );
 
 /* Start template */
 ob_start();
@@ -45,7 +47,7 @@ ob_start();
 								<img src="<?php echo SIW_ASSETS_URL;?>images/mail/logo.png" style="display: block; border: 0px; outline: none; width: 100%; height: auto; max-width: 144px;" width="144" border="0" alt="logo" />
 							</td>
 							<td width="60%" style="vertical-align:bottom;border-bottom: solid #ff9900;font-family:Verdana, normal; color:#666666; font-size:0.95m; font-weight:bold;" align="center">
-								<?php echo esc_html( $subject );?>
+								<?php echo esc_html( $args['subject'] );?>
 							</td>
 							<td width="10%">&nbsp;</td>
 						</tr>
@@ -63,20 +65,20 @@ ob_start();
 							<td width="80%">
 								<div style="font-family:Verdana, normal; color:#444; font-size:0.9em; ">
 									<p>
-									<?php echo wp_kses_post( $message );?>
-									<?php if ( $show_signature ) :?>
+									<?php echo wp_kses_post( $args['message'] );?>
+									<?php if ( $args['show_signature'] ) :?>
 										<br/><br/>
 										<?php esc_html_e( 'Met vriendelijke groet,', 'siw' ); ?><br /><br />
-										<?php echo esc_html( $signature_name );?><br/>
-										<?php if ( ! empty( $signature_title ) ) :?>
+										<?php echo esc_html( $args['signature_name'] );?><br/>
+										<?php if ( ! empty( $args['signature_title'] ) ) :?>
 											<span style="color:#808080;">
-												<?php echo esc_html( $signature_title );?>
+												<?php echo esc_html( $args['signature_title'] );?>
 											</span>
 										<?php endif; ?>
 									<?php endif; ?>
 									</p>
 								</div>
-								<?php if ( $show_summary ) :?>
+								<?php if ( $args['show_summary']  ) :?>
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<td colspan="3" height="20" style="font-family:Verdana, normal; color:#666; font-size:0.8em; font-weight:bold; border-top:thin solid #ff9900" >
@@ -108,7 +110,7 @@ ob_start();
 						</tr>
 						<tr>
 							<td width="10%">&nbsp;</td>
-							<td width="auto" align="center" style="font-family:Verdana, normal; color:#666; font-size:0.7em; font-weight:bold"><a href= "<?php echo SIW_SITE_URL;?>" target="_blank" style="color:#666; text-decoration:none" title="<?php esc_attr_e( 'Bezoek onze website', 'siw' );?>"><?php echo SIW_SITE_NAME;?></a> | <a href="tel:<?php echo SIW_PHONE_FULL;?>" style="color:#666; text-decoration:none"><?php echo SIW_PHONE; ?></a> | <a href="mailto:<?php echo SIW_EMAIL;?>" style="color:#666; text-decoration:none"><?php echo SIW_EMAIL;?></a>
+							<td width="auto" align="center" style="font-family:Verdana, normal; color:#666; font-size:0.7em; font-weight:bold"><a href="<?php echo SIW_SITE_URL;?>" target="_blank" style="color:#666; text-decoration:none" title="<?php esc_attr_e( 'Bezoek onze website', 'siw' );?>"><?php echo SIW_SITE_NAME;?></a> | <a href="tel:<?php echo SIW_PHONE_FULL;?>" style="color:#666; text-decoration:none"><?php echo SIW_PHONE; ?></a> | <a href="mailto:<?php echo SIW_EMAIL;?>" style="color:#666; text-decoration:none"><?php echo SIW_EMAIL;?></a>
 							</td>
 							<td width="10%">&nbsp;</td>
 						</tr>
@@ -120,11 +122,11 @@ ob_start();
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 							<td width="40%">&nbsp;</td>
-							<td width="auto" align="center"><a href="https://www.facebook.com/siwvolunteers" target="_blank"><img src="<?php echo SIW_ASSETS_URL;?>images/mail/facebook.png" alt="facebook" title="<?php esc_attr_e( 'Volg ons op Facebook', 'siw' );?>" width="20" height="20" border="0" /></a></td>
-							<td width="auto" align="center"><a href="https://twitter.com/siwvolunteers" target="_blank"><img src="<?php echo SIW_ASSETS_URL;?>images/mail/twitter.png" alt="twitter" title="<?php esc_attr_e( 'Volg ons op Twitter', 'siw' );?>" width="20" height="20" border="0" /></a></td>
-							<td width="auto" align="center"><a href="https://www.instagram.com/siwvolunteers/" target="_blank"><img src="<?php echo SIW_ASSETS_URL;?>images/mail/instagram.png" alt="instagram" title="<?php esc_attr_e( 'Volg ons op Instagram', 'siw' );?>" width="20" height="20" border="0" /></a></td>
-							<td width="auto" align="center"><a href="https://www.youtube.com/user/SIWvolunteerprojects" target="_blank"><img src="<?php echo SIW_ASSETS_URL;?>images/mail/youtube.png" alt="youtube" title="<?php esc_attr_e( 'Volg ons op YouTube', 'siw' );?>" width="20" height="20" border="0" /></a></td>
-							<td width="auto" align="center"><a href="https://www.linkedin.com/company/siw" target="_blank"><img src="<?php echo SIW_ASSETS_URL;?>images/mail/linkedin.png" alt="linkedin" title="<?php esc_attr_e( 'Volg ons op LinkedIn', 'siw' );?>" width="20" height="20" border="0" /></a></td>
+							<td width="auto" align="center"><a href="<?php echo SIW_FACEBOOK_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL;?>images/mail/facebook.png" alt="facebook" title="<?php esc_attr_e( 'Volg ons op Facebook', 'siw' );?>" width="20" height="20" border="0" /></a></td>
+							<td width="auto" align="center"><a href="<?php echo SIW_TWITTER_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL;?>images/mail/twitter.png" alt="twitter" title="<?php esc_attr_e( 'Volg ons op Twitter', 'siw' );?>" width="20" height="20" border="0" /></a></td>
+							<td width="auto" align="center"><a href="<?php echo SIW_INSTAGRAM_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL;?>images/mail/instagram.png" alt="instagram" title="<?php esc_attr_e( 'Volg ons op Instagram', 'siw' );?>" width="20" height="20" border="0" /></a></td>
+							<td width="auto" align="center"><a href="<?php echo SIW_YOUTUBE_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL;?>images/mail/youtube.png" alt="youtube" title="<?php esc_attr_e( 'Volg ons op YouTube', 'siw' );?>" width="20" height="20" border="0" /></a></td>
+							<td width="auto" align="center"><a href="<?php echo SIW_LINKEDIN_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL;?>images/mail/linkedin.png" alt="linkedin" title="<?php esc_attr_e( 'Volg ons op LinkedIn', 'siw' );?>" width="20" height="20" border="0" /></a></td>
 							<td width="40%">&nbsp;</td>
 						</tr>
 					</table>
@@ -143,7 +145,7 @@ ob_start();
 </body>
 <?php
 	$template = ob_get_clean();
-	if ( $remove_linebreaks ) {
+	if (  $args['remove_linebreaks'] ) {
 		$template = str_replace( array( "\n\r", "\r", "\n" ), '', $template );
 	}
 	return $template;

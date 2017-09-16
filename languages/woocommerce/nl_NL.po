@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: 2.2.4\n"
 "Report-Msgid-Bugs-To: https://github.com/woocommerce/woocommerce/issues\n"
 "POT-Creation-Date: 2017-08-15 17:25:30+00:00\n"
-"PO-Revision-Date: 2017-09-02 20:20+0200\n"
+"PO-Revision-Date: 2017-09-09 01:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -9825,7 +9825,7 @@ msgstr ""
 #: templates/emails/email-order-details.php:36
 #: templates/order/order-details.php:38
 msgid "Product"
-msgstr ""
+msgstr "Project"
 
 #: includes/admin/importers/views/html-csv-import-done.php:59
 msgid "Reason for failure"
@@ -9837,10 +9837,9 @@ msgid "View products"
 msgstr ""
 
 #: includes/admin/importers/views/html-csv-import-header.php:10
-#, fuzzy
 #| msgid "Sort Products"
 msgid "Import Products"
-msgstr "Sorteer projecten"
+msgstr "Importeer projecten"
 
 #: includes/admin/importers/views/html-csv-import-mapping.php:11
 msgid "Map CSV fields to products"
@@ -9853,10 +9852,9 @@ msgid ""
 msgstr ""
 
 #: includes/admin/importers/views/html-csv-import-mapping.php:18
-#, fuzzy
 #| msgid "Product name"
 msgid "Column name"
-msgstr "Projectnaam"
+msgstr ""
 
 #: includes/admin/importers/views/html-csv-import-mapping.php:19
 msgid "Map to field"
@@ -9868,10 +9866,9 @@ msgid "Sample:"
 msgstr ""
 
 #: includes/admin/importers/views/html-csv-import-mapping.php:35
-#, fuzzy
 #| msgid "Do not allow"
 msgid "Do not import"
-msgstr "Sta niet toe"
+msgstr ""
 
 #: includes/admin/importers/views/html-csv-import-mapping.php:56
 msgid "Run the importer"
@@ -10158,10 +10155,8 @@ msgstr ""
 
 #. translators: %s: IP address
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:205
-#, fuzzy
-#| msgid "Customers"
 msgid "Customer IP: %s"
-msgstr "Klanten"
+msgstr "Klant IP: %s"
 
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:213
 msgid "General Details"
@@ -10193,10 +10188,9 @@ msgstr ""
 
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:275
 #: templates/checkout/form-billing.php:33
-#, fuzzy
 #| msgid "Billing"
 msgid "Billing details"
-msgstr "Facturatie"
+msgstr ""
 
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:278
 msgid "Load billing address"
@@ -10217,8 +10211,6 @@ msgstr ""
 #: includes/class-wc-order.php:1774
 #: includes/shortcodes/class-wc-shortcode-checkout.php:161
 #: templates/checkout/thankyou.php:63
-#, fuzzy
-#| msgid "Payment Method:"
 msgid "Payment method:"
 msgstr "Betaalmethode:"
 
@@ -10255,10 +10247,9 @@ msgstr ""
 
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:371
 #: includes/gateways/paypal/includes/settings-paypal.php:82
-#, fuzzy
 #| msgid "Shipping Options"
 msgid "Shipping details"
-msgstr "Verzending opties"
+msgstr ""
 
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:374
 msgid "Load shipping address"
@@ -10331,10 +10322,9 @@ msgid ""
 msgstr ""
 
 #: includes/admin/meta-boxes/class-wc-meta-box-order-notes.php:82
-#, fuzzy
 #| msgid "Coupon type"
 msgid "Note type"
-msgstr "Type Kortingscode"
+msgstr ""
 
 #: includes/admin/meta-boxes/class-wc-meta-box-order-notes.php:84
 msgid "Private note"
@@ -10438,10 +10428,8 @@ msgid "Fee"
 msgstr "Toeslag"
 
 #: includes/admin/meta-boxes/views/html-order-fee.php:21
-#, fuzzy
-#| msgid "First name"
 msgid "Fee name"
-msgstr "Voornaam"
+msgstr ""
 
 #: includes/admin/meta-boxes/views/html-order-item-meta.php:55
 msgid "Add&nbsp;meta"
@@ -10518,10 +10506,8 @@ msgid "Increase stock"
 msgstr ""
 
 #: includes/admin/meta-boxes/views/html-order-items.php:107
-#, fuzzy
-#| msgid "Coupons"
 msgid "Coupon(s)"
-msgstr "Kortingscodes"
+msgstr "Kortingscodes(s)"
 
 #: includes/admin/meta-boxes/views/html-order-items.php:121
 msgid "This is the total discount. Discounts are defined per line item."
@@ -10532,8 +10518,6 @@ msgid "This is the shipping and handling total costs for the order."
 msgstr ""
 
 #: includes/admin/meta-boxes/views/html-order-items.php:163
-#, fuzzy
-#| msgid "Order Total"
 msgid "Order total"
 msgstr "Bestelling totaal"
 
@@ -10669,16 +10653,14 @@ msgid "Refund #%1$s - %2$s"
 msgstr ""
 
 #: includes/admin/meta-boxes/views/html-order-shipping.php:21
-#, fuzzy
 #| msgid "Shipping Zones"
 msgid "Shipping name"
-msgstr "Verzending zones"
+msgstr ""
 
 #: includes/admin/meta-boxes/views/html-order-shipping.php:23
-#, fuzzy
 #| msgid "Shipping Options"
 msgid "Shipping method"
-msgstr "Verzending opties"
+msgstr ""
 
 #: includes/admin/meta-boxes/views/html-product-attribute.php:34
 msgid "Select terms"
@@ -10932,10 +10914,8 @@ msgid "Weight in decimal form"
 msgstr ""
 
 #: includes/admin/meta-boxes/views/html-product-data-shipping.php:24
-#, fuzzy
-#| msgid "Dimensions"
 msgid "Dimensions (%s)"
-msgstr "Afmetingen"
+msgstr "Afmetingen (%s)"
 
 #: includes/admin/meta-boxes/views/html-product-data-shipping.php:26
 #: includes/admin/meta-boxes/views/html-product-data-variations.php:70
@@ -11057,10 +11037,9 @@ msgid "Set Status - In stock"
 msgstr ""
 
 #: includes/admin/meta-boxes/views/html-product-data-variations.php:67
-#, fuzzy
 #| msgid "Out of stock"
 msgid "Set Status - Out of stock"
-msgstr "Niet beschikbaar"
+msgstr ""
 
 #: includes/admin/meta-boxes/views/html-product-data-variations.php:81
 #: includes/admin/views/html-report-by-date.php:56
@@ -11117,15 +11096,13 @@ msgstr ""
 
 #: includes/admin/meta-boxes/views/html-product-download.php:9
 #: includes/admin/meta-boxes/views/html-product-variation-download.php:8
-#, fuzzy
-#| msgid "First name"
 msgid "File name"
-msgstr "Voornaam"
+msgstr "Bestandsnaam"
 
 #: includes/admin/meta-boxes/views/html-product-download.php:12
 #: includes/admin/meta-boxes/views/html-product-variation-download.php:11
 msgid "http://"
-msgstr ""
+msgstr "http://"
 
 #: includes/admin/meta-boxes/views/html-product-download.php:13
 #: includes/admin/meta-boxes/views/html-product-variation-download.php:12
@@ -19233,10 +19210,9 @@ msgstr ""
 #: includes/class-wc-data-store.php:86 includes/class-wc-data-store.php:92
 #: includes/class-wc-data-store.php:98
 #: includes/data-stores/class-wc-shipping-zone-data-store.php:79
-#, fuzzy
 #| msgid "Invalid id."
 msgid "Invalid data store."
-msgstr "Ongeldig id."
+msgstr ""
 
 #: includes/class-wc-download-handler.php:41
 #: includes/class-wc-download-handler.php:56
@@ -19308,10 +19284,9 @@ msgid "%s is out of stock."
 msgstr ""
 
 #: includes/class-wc-emails.php:541
-#, fuzzy
 #| msgid "Product Name"
 msgid "Product backorder"
-msgstr "Projectnaam"
+msgstr ""
 
 #: includes/class-wc-emails.php:542
 msgid "%1$s units of %2$s have been backordered in order #%3$s."
@@ -19514,26 +19489,23 @@ msgid "Shop manager"
 msgstr ""
 
 #: includes/class-wc-install.php:905
-#, fuzzy
 #| msgid "WooCommerce Settings"
 msgid "View WooCommerce settings"
-msgstr "WooCommerce instellingen"
+msgstr ""
 
 #: includes/class-wc-install.php:921
-#, fuzzy
 #| msgid "WooCommerce Settings"
 msgid "View WooCommerce documentation"
-msgstr "WooCommerce instellingen"
+msgstr ""
 
 #: includes/class-wc-install.php:921
 msgid "Docs"
 msgstr ""
 
 #: includes/class-wc-install.php:922
-#, fuzzy
 #| msgid "WooCommerce Endpoints"
 msgid "View WooCommerce API docs"
-msgstr "WooCommerce Eindpoints"
+msgstr ""
 
 #: includes/class-wc-install.php:922
 msgid "API docs"
@@ -19575,10 +19547,9 @@ msgid "Invalid tax class"
 msgstr ""
 
 #: includes/class-wc-order-item-product.php:74
-#, fuzzy
 #| msgid "Product IDs"
 msgid "Invalid product ID"
-msgstr "Product ID's"
+msgstr ""
 
 #: includes/class-wc-order-item-product.php:87
 msgid "Invalid variation ID"
@@ -19616,22 +19587,16 @@ msgid "Order status set to %s."
 msgstr ""
 
 #: includes/class-wc-post-types.php:84
-#, fuzzy
-#| msgid "Categories"
 msgid "Category"
-msgstr "Categorieën"
+msgstr "Bestemmingen"
 
 #: includes/class-wc-post-types.php:86
-#, fuzzy
-#| msgid "Subcategories"
 msgid "Search categories"
-msgstr "Subcategorieën"
+msgstr "Zoek bestemmingen"
 
 #: includes/class-wc-post-types.php:87
-#, fuzzy
-#| msgid "Categories"
 msgid "All categories"
-msgstr "Categorieën"
+msgstr "Alle bestemmingen"
 
 #: includes/class-wc-post-types.php:88
 #| msgctxt "slug"
@@ -19662,50 +19627,43 @@ msgid "Add new category"
 msgstr ""
 
 #: includes/class-wc-post-types.php:93
-#, fuzzy
 #| msgid "New Caledonia"
 msgid "New category name"
-msgstr "Nieuw-Caledonië"
+msgstr ""
 
 #: includes/class-wc-post-types.php:94
-#, fuzzy
 #| msgid "Subcategories"
 msgid "No categories found"
-msgstr "Subcategorieën"
+msgstr ""
 
 #: includes/class-wc-post-types.php:120
-#, fuzzy
 #| msgid "Tags"
 msgid "Tag"
-msgstr "Tags"
+msgstr ""
 
 #: includes/class-wc-post-types.php:122
-#, fuzzy
 #| msgid "Search"
 msgid "Search tags"
-msgstr "Zoeken"
+msgstr ""
 
 #: includes/class-wc-post-types.php:123
 msgid "All tags"
 msgstr ""
 
 #: includes/class-wc-post-types.php:124
-#, fuzzy
 #| msgid "Edit"
 msgid "Edit tag"
-msgstr "Bewerken"
+msgstr "Tag bewerken"
 
 #: includes/class-wc-post-types.php:125
-#, fuzzy
 #| msgid "Update Cart"
 msgid "Update tag"
-msgstr "Winkelmand bijwerken"
+msgstr ""
 
 #: includes/class-wc-post-types.php:126
-#, fuzzy
 #| msgid "Add note"
 msgid "Add new tag"
-msgstr "Opmerking toevoegen"
+msgstr ""
 
 #: includes/class-wc-post-types.php:127
 msgid "New tag name"
@@ -19732,28 +19690,24 @@ msgid "No tags found"
 msgstr ""
 
 #: includes/class-wc-post-types.php:156
-#, fuzzy
 #| msgid "Shipping Classes"
 msgid "Product shipping classes"
-msgstr "Verzending klassen"
+msgstr ""
 
 #: includes/class-wc-post-types.php:159
-#, fuzzy
 #| msgid "Shipping Classes"
 msgid "Search shipping classes"
-msgstr "Verzending klassen"
+msgstr ""
 
 #: includes/class-wc-post-types.php:160
-#, fuzzy
 #| msgid "Shipping Classes"
 msgid "All shipping classes"
-msgstr "Verzending klassen"
+msgstr ""
 
 #: includes/class-wc-post-types.php:161
-#, fuzzy
 #| msgid "Shipping Classes"
 msgid "Parent shipping class"
-msgstr "Verzending klassen"
+msgstr ""
 
 #: includes/class-wc-post-types.php:162
 #| msgid "Shipping Classes"
@@ -19761,28 +19715,24 @@ msgid "Parent shipping class:"
 msgstr ""
 
 #: includes/class-wc-post-types.php:163
-#, fuzzy
 #| msgid "Shipping Classes"
 msgid "Edit shipping class"
-msgstr "Verzending klassen"
+msgstr ""
 
 #: includes/class-wc-post-types.php:164
-#, fuzzy
 #| msgid "Shipping Classes"
 msgid "Update shipping class"
-msgstr "Verzending klassen"
+msgstr ""
 
 #: includes/class-wc-post-types.php:165
-#, fuzzy
 #| msgid "Shipping Classes"
 msgid "Add new shipping class"
-msgstr "Verzending klassen"
+msgstr ""
 
 #: includes/class-wc-post-types.php:166
-#, fuzzy
 #| msgid "Shipping Classes"
 msgid "New shipping class Name"
-msgstr "Verzending klassen"
+msgstr ""
 
 #: includes/class-wc-post-types.php:198
 msgid "Search %s"
@@ -19824,7 +19774,7 @@ msgstr ""
 
 #: includes/class-wc-post-types.php:264
 msgid "All Products"
-msgstr ""
+msgstr "Alle projecten"
 
 #: includes/class-wc-post-types.php:266
 #, fuzzy

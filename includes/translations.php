@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - WooCommerce
  * - Pinnacle Premium
  */
-add_filter('load_textdomain_mofile', function($mofile, $domain){
+add_filter( 'load_textdomain_mofile', function( $mofile, $domain ) {
 	$textdomains = array(
 		'woocommerce',
 		'pinnacle',
@@ -21,7 +21,6 @@ add_filter('load_textdomain_mofile', function($mofile, $domain){
 	if( in_array( $domain, $textdomains ) ) {
 		$mofile = SIW_PLUGIN_DIR. "languages/{$domain}/nl_NL.mo";
 	}
-
 
 	return $mofile;
 }, 10, 2 );

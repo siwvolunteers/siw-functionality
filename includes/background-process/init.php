@@ -7,5 +7,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 /* Bijwerken tarieven */
 require_once( __DIR__ . '/update-workcamp-tariffs.php' );
-
+/* Verbergen projecten */
 require_once( __DIR__ . '/hide-workcamps.php' );
