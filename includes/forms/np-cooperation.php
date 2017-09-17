@@ -30,8 +30,6 @@ add_filter( 'caldera_forms_get_form-samenwerking_np', function( $form ) {
 
 	$signature = siw_get_setting( 'np_camp_leader_email_signature' );
 
-
-	/* TODO: verplaatsen naar instellingen*/
 	$confirmation_template_args = array(
 		'subject' => __( 'Bevestiging interesse samenwerking', 'siw' ),
 		'message' =>
@@ -39,10 +37,11 @@ add_filter( 'caldera_forms_get_form-samenwerking_np', function( $form ) {
 			__( 'Wat leuk dat u interesse heeft in een samenwerking met SIW Internationale Vrijwilligersprojecten!', 'siw' ) . SPACE .
 			__( 'Wij willen u bedanken voor het achterlaten van uw contactgegevens en wensen.', 'siw' ) . SPACE .
 			__( 'Ons streven is binnen drie tot vijf werkdagen contact met u op te nemen om de mogelijkheden te bespreken.', 'siw' ),
-		'show_summary' => true,
 		'show_signature' => true,
 		'signature_name' => $signature['name'],
 		'signature_title' => $signature['title'],
+		'show_summary' => true,
+		'remove_linebreaks' => true,
 	);
 
 
