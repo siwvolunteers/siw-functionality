@@ -47,26 +47,22 @@ function siw_sort_customer_address_fields( $address_fields ) {
 	/*aanpassen eigenschappen standaard*/
 	$address_fields['address_1']['label'] = __( 'Straat', 'siw' );
 
-	$order = array(
-		'first_name',
-		'last_name',
-		'dob',
-		'gender',
-		'postcode',
-		'housenumber',
-		'address_1',
-		'city',
-		'country',
-		'nationality',
+	$priorities = array(
+		'first_name' => 10,
+		'last_name' => 20,
+		'dob' => 30,
+		'gender' => 40,
+		'postcode' => 65,
+		'housenumber' => 70,
+		'address_1' => 75,
+		'city' => 80,
+		'country' => 85,
+		'nationality' => 90,
 	);
-	uksort( $address_fields, function( $key1, $key2 ) use ( $order ) {
-		return (array_search( $key1, $order ) > array_search( $key2, $order ) );
-	} );
 
-	$priority = 10;
-	foreach ( $address_fields as $key => $value ) {
-		$priority += 10;
-		$address_fields[$key]['priority'] = $priority;
+	foreach ( $priorities as $field => $priority ) {
+		$address_fields[ $field ]['priority'] = $priority;
 	}
+
 	return $address_fields;
 }
