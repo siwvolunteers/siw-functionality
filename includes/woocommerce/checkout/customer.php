@@ -63,7 +63,7 @@ function siw_sort_customer_address_fields( $address_fields ) {
 		return (array_search( $key1, $order ) > array_search( $key2, $order ) );
 	} );
 
-	$priority = 0;
+	$priority = 10;
 	foreach ( $address_fields as $key => $value ) {
 		$priority += 10;
 		$address_fields[$key]['priority'] = $priority;

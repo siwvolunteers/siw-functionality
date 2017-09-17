@@ -13,7 +13,6 @@ add_filter( 'woocommerce_enable_order_notes_field', '__return_false' );
 /* Voorkomen dat WooCommerce het postcodeveld steeds verplaatst. */
 add_filter( 'woocommerce_get_country_locale', function( $fields ) {
 	$fields['NL']['postcode_before_city'] = false;
-	$locale['NL']['postcode']['priority'] = 50;
 	return $fields;
 }, 99);
 
