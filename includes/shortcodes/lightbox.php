@@ -27,33 +27,37 @@ add_shortcode( 'siw_pagina_lightbox', function( $atts ) {
 		return;
 	}
 
-	/* Haal titel en inhoud van de pagina op */
-	$page_title = get_the_title( $page_id );
-	$page_content = get_post_field('post_content', $page_id );
+	$GLOBALS['lightboxes'][] = $page_id;
 
-
-	/* Start template*/
-	ob_start();	?>
-
- 	<a data-toggle="modal" href="#" data-target="#siw-page-<?php echo esc_attr( $page_id );?>-modal"><?php echo esc_html( $link_tekst ); ?></a>
-	<div class="modal fade" id="siw-page-<?php echo esc_attr( $page_id );?>-modal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title"><?php echo esc_html( $page_title );?></h4>
-				</div>
-				<div class="modal-body">
-				<?php echo wp_kses_post( wpautop( do_shortcode( $page_content ) ) ); ?>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default kad-btn" data-dismiss="modal"><?php esc_html_e('Sluiten', 'siw');?></button>
+	/* HTML voor lightbox aan footer toeoegen */
+	add_action( 'wp_footer', function(){
+ 		$lightboxes = array_unique( $GLOBALS['lightboxes'] );
+		foreach( $lightboxes as $page_id ) {
+			/* Haal titel en inhoud van de pagina op */
+			$page_title = get_the_title( $page_id );
+			$page_content = get_post_field('post_content', $page_id );
+			?>
+			<div class="modal fade" id="siw-page-<?php echo esc_attr( $page_id );?>-modal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title"><?php echo esc_html( $page_title );?></h4>
+						</div>
+						<div class="modal-body">
+						<?php echo wp_kses_post( wpautop( do_shortcode( $page_content ) ) ); ?>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default kad-btn" data-dismiss="modal"><?php esc_html_e('Sluiten', 'siw');?></button>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+			<?php
+		}
+	});
 
-	<?php
-	$output = ob_get_clean();
-	return $output;
+	$link = sprintf('<a data-toggle="modal" href="#" data-target="#siw-page-%s-modal">%s</a>', esc_attr( $page_id ), esc_html( $link_tekst ));
+
+	return $link;
 });
