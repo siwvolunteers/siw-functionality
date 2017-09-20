@@ -92,9 +92,11 @@ add_filter( 'manage_edit-product_columns', function( $columns ) {
 
 add_action( 'manage_product_posts_custom_column', function( $column_name, $post_id ) {
 	if ( 'visibility' == $column_name ) {
-		$visibility = get_post_meta( $post_id, '_visibility', true );
 
-		if ( 'visible' == $visibility ) {
+		$product = wc_get_product( $post_id );
+		$visibility = $product->is_visible();
+
+		if ( $visibility ) {
 			$dashicon = 'visibility';
 		}
 		else {
@@ -103,14 +105,15 @@ add_action( 'manage_product_posts_custom_column', function( $column_name, $post_
 		echo sprintf( '<span class="dashicons dashicons-%s"></span>', $dashicon );
 	}
 	if ( 'next_update' == $column_name ) {
-		$import_again = get_post_meta( $post_id, 'import_again', true );
-		$manual_visibility = get_post_meta ( $post_id, 'manual_visibility', true );
-		$visibility = get_post_meta( $post_id, '_visibility', true );
+		$product = wc_get_product( $post_id );
+		$import_again = $product->get_meta( 'import_again' );
+		$manual_visibility = $product->get_meta( 'manual_visibility' );
+		$visibility = $product->is_visible();
 
 		if ( true == $import_again ) {
 			 echo '<span class="dashicons dashicons-update"></span>';
 		}
-		if ( 'hide' == $manual_visibility && 'visible' == $visibility ) {
+		if ( 'hide' == $manual_visibility && $visibility ) {
 			echo '<span class="dashicons dashicons-hidden"></span>';
 		}
 	}
@@ -156,7 +159,7 @@ add_action( 'publish_product', function( $post_id, $post ) {
 
 	/* Ophalen gegevens gebruiker en huidige datum */
 	$current_user = wp_get_current_user();
-	$approval_user = $current_user->display_name . ' (' . $current_user->user_login . ')';
+	$approval_user = $current_user->display_name . ' (' . $current_user->user_login . ')'; //TODO:sprintf
 	$approval_date = current_time( 'Y-m-d' );
 
 	/* Afgekeurd project direct verbergen */
@@ -193,6 +196,12 @@ add_action( 'add_meta_boxes_product', function( $post ) {
 
 }, 999 );
 
+
+/**
+ * [siw_show_project_approval_result description]
+ * @param  [type] $object [description]
+ * @return [type]         [description]
+ */
 function siw_show_project_approval_result( $object ) {
 	$approval_results = array(
 		'approved'	=> __( 'Goedgekeurd', 'siw' ),
@@ -241,6 +250,12 @@ add_action( 'add_meta_boxes_product', function() {
 	}
 }, 999 );
 
+
+/**
+ * [siw_show_project_description description]
+ * @param  [type] $object [description]
+ * @return [type]         [description]
+ */
 function siw_show_project_description( $object ) {
 	$content = $object->post_content;
 	$content = preg_replace( '/\[pane title="(.*?)"\]/', '<h4>$1</h4><p>', $content );

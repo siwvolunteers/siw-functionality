@@ -152,9 +152,8 @@ add_action( 'siw_delete_projects', function() {
 		)
 	);
 
-	//project verwijderen
+	//project verwijderen //TODO:background process van maken (dan kan ook de limiet van 25 weg.)
 	foreach ( $products as $product_id ) {
 		wp_delete_post( $product_id, true );
-		//do_action('search_filter_update_post_cache', $product_id );
 	}
 });

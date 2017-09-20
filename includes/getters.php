@@ -105,7 +105,7 @@ function siw_get_future_info_days( $dates_in_text = false, $results = SIW_NUMBER
 	}
 	asort( $info_days );
 	$hide_form_days_before_info_day = siw_get_setting( 'hide_application_form_days_before_info_day' );
-	$limit = date( 'Y-m-d', time() + ( $hide_form_days_before_info_day * DAY_IN_SECONDS ));
+	$limit = date( 'Y-m-d', time() + ( $hide_form_days_before_info_day * DAY_IN_SECONDS ) );
 
 	$future_info_days = array();
 	foreach ( $info_days as $info_day ) {
@@ -115,7 +115,7 @@ function siw_get_future_info_days( $dates_in_text = false, $results = SIW_NUMBER
 	}
 
 	$results = min( $results, SIW_NUMBER_OF_INFO_DAYS );
-	$future_info_days = array_slice($future_info_days, 0, $results);
+	$future_info_days = array_slice( $future_info_days, 0, $results );
 	return $future_info_days;
 }
 
@@ -239,6 +239,20 @@ function siw_get_month_name_from_slug( $slug ) {
 		$month_name .= ' ' . $year;
 	}
 	return $month_name;
+}
+
+
+/**
+ * Geeft array met tarieven groepsprojecten terug
+ *
+ * @return array
+ */
+function siw_get_workcamp_tariffs() {
+	$workcamp_tariffs = array(
+		'regulier'	=> number_format( SIW_WORKCAMP_FEE_REGULAR, 2 ),
+		'student'	=> number_format( SIW_WORKCAMP_FEE_STUDENT, 2 )
+	);
+	return $workcamp_tariffs;
 }
 
 
@@ -494,35 +508,44 @@ function siw_get_order_data( $order ) {
 	$language_skill = siw_get_volunteer_language_skill_levels();
 
 	/* Naam, gegeboortedatum, geslacht en nationaliteit */
-	$first_name						= $order->billing_first_name;
-	$last_name						= $order->billing_last_name;
-	$order_data['full_name']		= sprintf('%s %s', $first_name, $last_name );
+	$order_data['first_name']		= $order->billing_first_name;
+	$order_data['last_name']		= $order->billing_last_name;
+	$order_data['full_name']		= sprintf('%s %s', $order_data['first_name'], $order_data['last_name'] );
 	$order_data['date_of_birth']	= $order->billing_dob;
-	$order_data['gender']			= $genders[ $order->billing_gender ];
-	$order_data['nationality']		= $nationalities[ $order->billing_nationality ];
+	$order_data['gender_code']		= $order->billing_gender;
+	$order_data['gender']			= $genders[ $order_data['gender_code'] ];
+	$order_data['nationality_code']	= $order->billing_nationality;
+	$order_data['nationality']		= $nationalities[ $order_data['nationality_code'] ];
 
-	/* Adres formatteren */
-	$order_data['address']	= sprintf('%s %s<br/>%s %s<br/>%s', $order->billing_address_1, $order->billing_housenumber, $order->billing_postcode, $order->billing_city, $order->billing_country );
-	$order_data['email']	= $order->billing_email;
-	$order_data['phone']	= $order->billing_phone;
+	$order_data['street'] 			= $order->billing_address_1;
+	$order_data['housenumber'] 		= $order->billing_housenumber;
+	$order_data['postcode'] 		= $order->billing_postcode;
+	$order_data['city'] 			= $order->billing_city;
+	$order_data['country']			= $order->billing_country;
+	/* Adres formatteren voor e-mail */
+	$order_data['address']			= sprintf('%s %s<br/>%s %s<br/>%s', $order_data['street'] , $order_data['housenumber'], $order_data['postcode'], $order_data['city'], $order_data['country'] );
+	$order_data['email']			= $order->billing_email;
+	$order_data['phone']			= $order->billing_phone;
 
 	/* Gegevens noodcontact */
 	$order_data['emergency_contact_name']	= get_post_meta( $order->id, 'emergencyContactName', true );
 	$order_data['emergency_contact_phone']	= get_post_meta( $order->id, 'emergencyContactPhone', true );
 
 	/* Talenkennis */
-	$order_data['language_1']		= $languages[get_post_meta( $order->id, 'language1', true )];
-	$order_data['language_1_skill']	= $language_skill[ get_post_meta( $order->id, 'language1Skill', true ) ];
+	$order_data['language_1_code']			= get_post_meta( $order->id, 'language1', true );
+	$order_data['language_1']				= $languages[ $order_data['language_1_code'] ];
+	$order_data['language_1_skill_code']	= get_post_meta( $order->id, 'language1Skill', true );
+	$order_data['language_1_skill']			= $language_skill[ $order_data['language_1_skill_code'] ];
 
-	$language_2_code				= get_post_meta( $order->id, 'language2', true );
-	$order_data['language_2']		= ! empty( $language_2_code ) ? $languages[ $language_2_code ] : '';
-	$language_2_skill_code			= get_post_meta( $order->id, 'language2Skill', true );
-	$order_data['language_2_skill']	= isset( $language_skill[ $language_2_skill_code ] ) ? $language_skill[ $language_2_skill_code ] : '';
+	$order_data['language_2_code']			= get_post_meta( $order->id, 'language2', true );
+	$order_data['language_2']				= ! empty( $order_data['language_2_code'] ) ? $languages[ $order_data['language_2_code'] ] : '';
+	$order_data['language_2_skill_code']	= get_post_meta( $order->id, 'language2Skill', true );
+	$order_data['language_2_skill']			= isset( $language_skill[ $order_data['language_2_skill_code'] ] ) ? $language_skill[ $order_data['language_2_skill_code'] ] : '';
 
-	$language_3_code				= get_post_meta( $order->id, 'language3', true );
-	$order_data['language_3']		= ! empty( $language_3_code )? $languages[ $language_3_code ] : '';
-	$language_3_skill_code			= get_post_meta( $order->id, 'language3Skill', true );
-	$order_data['language_3_skill'] = isset( $language_skill[ $language_3_skill_code ] ) ? $language_skill[ $language_3_skill_code ] : '';
+	$order_data['language_3_code']			= get_post_meta( $order->id, 'language3', true );
+	$order_data['language_3']				= ! empty( $order_data['language_3_code'] ) ? $languages[ $order_data['language_3_code'] ] : '';
+	$order_data['language_3_skill_code']	= get_post_meta( $order->id, 'language3Skill', true );
+	$order_data['language_3_skill']			= isset( $language_skill[ $order_data['language_3_skill_code'] ] ) ? $language_skill[ $order_data['language_3_skill_code'] ] : '';
 
 	/* Gegevens voor partner */
 	$order_data['motivation']			= get_post_meta( $order->id, 'motivation', true );

@@ -437,3 +437,21 @@ function siw_get_project_countries() {
 	);
 	return $project_countries;
 }
+
+
+/**
+ * Geeft een array met continenten terug
+ *
+ * @return array
+ */
+function siw_get_continents() {
+	$continents = array(
+		'europa'			=> __( 'Europa', 'siw' ),
+		'azie'				=> __( 'Azië', 'siw' ),
+		'afrika'			=> __( 'Afrika', 'siw' ),
+		'latijns_amerika'	=> __( 'Latijns-Amerika', 'siw' ),
+		'noord_amerika'		=> __( 'Noord-Amerika', 'siw' ),
+	);
+
+	return $continents;
+}

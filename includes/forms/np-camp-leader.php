@@ -31,36 +31,37 @@ add_filter( 'caldera_forms_get_form-begeleider_np', function( $form ) {
 
 	$signature = siw_get_setting( 'np_camp_leader_email_signature' );
 	/*E-mail bevestiging*/
-	$confirmation_template_args['subject'] = __( 'Bevestiging aanmelding', 'siw' );
-	$confirmation_template_args['message'] =
-		sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
-		__( 'Bedankt voor jouw aanmelding.', 'siw') . SPACE .
-		__( 'Wat leuk dat je interesse hebt om projectbegeleider te worden voor de Nederlandse vrijwilligersprojecten.', 'siw' ) . SPACE .
-		__( 'Een creatieve uitdaging die je nooit meer zal vergeten!', 'siw' ) . SPACE .
-		__( 'Zoals oud-projectbegeleider Diederik (project in Friesland) het omschreef:', 'siw' ) . BR .
-		'<span style="font-style:italic">"'.
-		__( 'Het is ontzettend leerzaam om met zoveel verschillende mensen om te gaan, iedereen gemotiveerd te houden en te zorgen dat iedereen zich op zijn gemak voelt.', 'siw' ) . SPACE .
-		__( 'Daarnaast zie je hoe de groep zich ontwikkelt, een prachtig proces om van zo dichtbij mee te mogen maken.', 'siw' ) .
-		'"</span>' . BR2 .
-		'<span style="font-weight:bold">' .
-		__( 'Hoe gaat het nu verder?', 'siw' ) .
-		'</span>' . BR .
-		__( 'Wij werven doorgaans in de maanden maart tot en met mei projectbegeleiders om de zomerprojecten te begeleiden.', 'siw' ) . SPACE .
-		__( 'Mocht jij je in deze periode hebben aangemeld, dan zullen wij contact met je opnemen.', 'siw' ) . SPACE .
-		__( 'Ligt jouw aanmelding buiten onze wervingsperiode? Geen probleem.', 'siw' ) . SPACE .
-		__( 'Wij voegen jouw aanmelding toe aan onze database voor een volgend zomerseizoen.', 'siw' );
-
-	$confirmation_template_args['show_signature'] = true;
-	$confirmation_template_args['signature_name'] = $signature['name'];
-	$confirmation_template_args['signature_title'] = $signature['title'];
-	$confirmation_template_args['show_summary'] = true;
-
+	$confirmation_template_args = array(
+		'subject' => __( 'Bevestiging aanmelding', 'siw' ),
+		'message' =>
+			sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
+			__( 'Bedankt voor jouw aanmelding.', 'siw') . SPACE .
+			__( 'Wat leuk dat je interesse hebt om projectbegeleider te worden voor de Nederlandse vrijwilligersprojecten.', 'siw' ) . SPACE .
+			__( 'Een creatieve uitdaging die je nooit meer zal vergeten!', 'siw' ) . SPACE .
+			__( 'Zoals oud-projectbegeleider Diederik (project in Friesland) het omschreef:', 'siw' ) . BR .
+			'<span style="font-style:italic">"'.
+			__( 'Het is ontzettend leerzaam om met zoveel verschillende mensen om te gaan, iedereen gemotiveerd te houden en te zorgen dat iedereen zich op zijn gemak voelt.', 'siw' ) . SPACE .
+			__( 'Daarnaast zie je hoe de groep zich ontwikkelt, een prachtig proces om van zo dichtbij mee te mogen maken.', 'siw' ) .
+			'"</span>' . BR2 .
+			'<span style="font-weight:bold">' .
+			__( 'Hoe gaat het nu verder?', 'siw' ) .
+			'</span>' . BR .
+			__( 'Wij werven doorgaans in de maanden maart tot en met mei projectbegeleiders om de zomerprojecten te begeleiden.', 'siw' ) . SPACE .
+			__( 'Mocht jij je in deze periode hebben aangemeld, dan zullen wij contact met je opnemen.', 'siw' ) . SPACE .
+			__( 'Ligt jouw aanmelding buiten onze wervingsperiode? Geen probleem.', 'siw' ) . SPACE .
+			__( 'Wij voegen jouw aanmelding toe aan onze database voor een volgend zomerseizoen.', 'siw' ),
+		'show_signature' => true,
+		'signature_name' => $signature['name'],
+		'signature_title' => $signature['title'],
+		'show_summary' => true,
+		'remove_linebreaks' => true,
+	);
 	/*E-mail notificatie*/
-	$notification_template_args['subject'] = 'Aanmelding projectbegeleider';
-	$notification_template_args['message'] = 'Via de website is onderstaande aanmelding voor begeleider NP binnengekomen:';
-	$notification_template_args['show_signature'] = false;
-	$notification_template_args['show_summary'] = true;
-	$confirmation_template_args['remove_linebreaks'] = true;
+	$notification_template_args = array(
+		'subject' => 'Aanmelding projectbegeleider',
+		'message' => 'Via de website is onderstaande aanmelding voor begeleider NP binnengekomen:',
+		'show_summary' => true,
+	);
 
 return array(
 	'ID'			=> 'begeleider_np',

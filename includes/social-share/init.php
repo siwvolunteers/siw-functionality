@@ -1,7 +1,7 @@
 <?php
 /*
-(c)2016 SIW Internationale Vrijwilligersprojecten
-*/
+ * (c)2016-2017 SIW Internationale Vrijwilligersprojecten
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -45,22 +45,21 @@ add_actions( array(	'kadence_single_portfolio_after', 'siw_vacature_footer', 'si
 	/*
 	 * Share-url's voor diverse sociale netwerken genereren
 	 */
-	$twitter_url = 'https://twitter.com/intent/tweet?text=' . $title . '&amp;url=' . $url . '&amp;via=siwvolunteers';
-	$facebook_url = 'https://www.facebook.com/sharer/sharer.php?u=' . $url;
-	$linkedin_url = 'https://www.linkedin.com/shareArticle?mini=true&url=' . $url . '&amp;title=' . $title;
+	$twitter_url = sprintf( 'https://twitter.com/intent/tweet?text=%s&amp;url=%s&amp;via=siwvolunteers', $title, $url);
+	$facebook_url = sprintf( 'https://www.facebook.com/sharer/sharer.php?u=%s', $url);
+	$linkedin_url = sprintf( 'https://www.linkedin.com/shareArticle?mini=true&url=%s&amp;title=%s', $title, $url);
 
 	/*
 	 * html voor social share links genereren
 	 */
-	$share_buttons = '';
-	if ( $hr ) { $share_buttons .= '<hr>'; }
-	$share_buttons .= '<div class="siw-social">';
-	$share_buttons .= '<div class="title">' . $post_type_description .  ':</div>';
-	$share_buttons .= '<a class="facebook" data-toggle="tooltip" data-placement="bottom" data-original-title="Facebook" href="'. $facebook_url .'" target="_blank"><i class="kt-icon-facebook2"></i></a>';
-	$share_buttons .= '<a class="twitter" data-toggle="tooltip" data-placement="bottom" data-original-title="Twitter" href="'. $twitter_url .'" target="_blank"><i class="kt-icon-twitter2"></i></a>';
-	$share_buttons .= '<a class="linkedin" data-toggle="tooltip" data-placement="bottom" data-original-title="LinkedIn" href="'. $linkedin_url .'" target="_blank"><i class="kt-icon-linkedin2"></i></a>';
-	$share_buttons .= '</div>';
-
+	$share_buttons = ( $hr ) ? '<hr>' : '';
+	$share_buttons .=
+		'<div class="siw-social">' .
+			'<div class="title">' . esc_html( $post_type_description ).  ':</div>' .
+			'<a class="facebook" data-toggle="tooltip" data-placement="bottom" data-original-title="Facebook" href="' . esc_url( $facebook_url ) .'" target="_blank"><i class="kt-icon-facebook2"></i></a>' .
+			'<a class="twitter" data-toggle="tooltip" data-placement="bottom" data-original-title="Twitter" href="' . esc_url( $twitter_url ) .'" target="_blank"><i class="kt-icon-twitter2"></i></a>' .
+			'<a class="linkedin" data-toggle="tooltip" data-placement="bottom" data-original-title="LinkedIn" href="' . esc_url( $linkedin_url ) .'" target="_blank"><i class="kt-icon-linkedin2"></i></a>' .
+		'</div>';
 
 	echo $share_buttons;
 }, 60 );

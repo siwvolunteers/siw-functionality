@@ -15,6 +15,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_localize_script( 'siw', 'parameters', $parameters );
 	wp_enqueue_script( 'siw' );
 
+	wp_register_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js' );
 });
 
 
@@ -61,8 +62,6 @@ add_action( 'wp_enqueue_scripts', function() {
 		wp_dequeue_style( 'yith-wcan-frontend' );
 	}
 
-	/*woocommerce*/
-	wp_dequeue_script( 'woocommerce' );
 
 	/*search&filter*/
 	wp_dequeue_style( 'search-filter-plugin-styles' );

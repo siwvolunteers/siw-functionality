@@ -53,7 +53,7 @@ function siw_wc_generate_email_table_header_row( $name ) {?>
 /**
  * Toon projectdetails voor bevestingsmail WooCommerce
  * @param object $order
- * @param string $aanmeldnummer
+ * @param string $application_number
  *
  * @return void
  */
@@ -81,7 +81,7 @@ function siw_wc_email_show_project_details( $order, $application_number ) {
 		$tariff = $item['pa_tarief'];
 		$project_details = sprintf('%s (%s)<br/><small>%s | Tarief:%s</small>', $project_name, $project_code, $project_duration, $tariff );
 
-		siw_wc_generate_email_table_row( __( 'Project', 'siw') , $project_details);
+		siw_wc_generate_email_table_row( __( 'Project', 'siw' ) , $project_details);
 	}
 
 	$discount = $order->get_total_discount();

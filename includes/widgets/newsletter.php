@@ -35,7 +35,7 @@ class SIW_Mailpoet_Subscription extends \TDP\Widgets_Helper {
 
 	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', $instance['title'] );
-		$subscriber_count = do_shortcode( '[wysija_subscribers_count list_id="' . $instance['list'] . '" ]' );
+		$subscriber_count = do_shortcode( '[wysija_subscribers_count list_id="' . esc_attr( $instance['list'] ) . '" ]' );
 
 		echo $args['before_widget'];
 		if ( $title ) {
@@ -60,7 +60,7 @@ class SIW_Mailpoet_Subscription extends \TDP\Widgets_Helper {
 				<p>
 					<input type="submit" value="<?php esc_attr_e( 'Aanmelden', 'siw' );?>">
 				</p>
-				<input type="hidden" value="<?php echo $instance['list']; ?>" name="list_id" id="newsletter_list_id">
+				<input type="hidden" value="<?php echo esc_attr( $instance['list'] ); ?>" name="list_id" id="newsletter_list_id">
 				<?php wp_nonce_field( 'siw-newsletter-nonce', 'newsletter_nonce', false);?>
 			</form>
 		</div>

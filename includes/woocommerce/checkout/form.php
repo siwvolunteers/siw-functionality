@@ -26,37 +26,33 @@ add_filter( 'woocommerce_default_address_fields', function( $fields ) {
 	/* Sorteren velden */
 	$address_fields = siw_sort_customer_address_fields( $fields );
 
-	/*toevoegen geslacht*/
+	/*pas eigenschappen van standaardvelden aan*/
 	$address_fields['gender']['class'] = array( 'form-row-last' );
 	$address_fields['gender']['label_class'] = array( 'radio-label' );
-	$address_fields['gender']['clear'] = true;
-
-	/*toevoegen geboortedatum*/
 	$address_fields['dob']['class'] = array( 'form-row-first' );
-
-	/*toevoegen nationaliteit*/
-	$address_fields['nationality']['class'] = array( 'form-row-last' );
-	$address_fields['nationality']['clear'] = true;
-
-	/*toevoegen huisnummer*/
-	$address_fields['housenumber']['class'] = array( 'form-row-last' );
-	$address_fields['housenumber']['clear'] = true;
-
-
-	/*pas eigenschappen van standaardvelden aan*/
 	$address_fields['dob']['placeholder'] = __( 'dd-mm-jjjj', 'siw' );
+	$address_fields['nationality']['class'] = array( 'form-row-last', 'select' );
+	$address_fields['nationality']['label_class'] = array( 'select-label');
+	$address_fields['housenumber']['class'] = array( 'form-row-last' );
 	$address_fields['postcode']['class'] = array( 'form-row-first' );
 	$address_fields['postcode']['placeholder'] = __( '1234 AB', 'siw' );
-	$address_fields['postcode']['clear'] = false;
 	$address_fields['address_1']['class'] = array( 'form-row-first' );
 	$address_fields['address_1']['placeholder'] = '';
 	$address_fields['city']['class'] = array( 'form-row-last' );
-	$address_fields['country']['class'] = array( 'form-row-first', 'country' );
-	$address_fields['country']['label_class'] = array( 'country-label');
+	$address_fields['country']['class'] = array( 'form-row-first', 'country', 'select' );
+	$address_fields['country']['label_class'] = array( 'select-label');
 	$address_fields['country']['description'] = __( 'Het is alleen mogelijk om je aan te melden als je in Nederland woont.', 'siw' );
+
 	return $address_fields;
 } );
 
+
+/* Filter JS-selectors */
+add_filter( 'woocommerce_country_locale_field_selectors', function( $locale_fields ) {
+	unset( $locale_fields['address_2'] );
+	unset( $locale_fields['state'] );
+	return $locale_fields;
+});
 
 
 /*
@@ -132,7 +128,8 @@ add_action( 'woocommerce_multistep_checkout_before_order_info', function( $check
 		<?php
 		woocommerce_form_field( 'language1', array(
 			'type'			=> 'select',
-			'class'			 => array( 'form-row-first' ),
+			'class'			=> array( 'form-row-first', 'select' ),
+			'label_class'	=> array( 'select-label' ),
 			'label'			=> __( 'Taal 1', 'siw' ),
 			'required'		=> true,
 			'options'		=> $languages
@@ -150,7 +147,8 @@ add_action( 'woocommerce_multistep_checkout_before_order_info', function( $check
 		);
 		woocommerce_form_field( 'language2', array(
 			'type'			=> 'select',
-			'class'			=> array( 'form-row-first' ),
+			'class'			=> array( 'form-row-first', 'select' ),
+			'label_class'	=> array( 'select-label' ),
 			'label'			=> __( 'Taal 2', 'siw' ),
 			'required'		=> false,
 			'options'		=> $languages
@@ -168,7 +166,8 @@ add_action( 'woocommerce_multistep_checkout_before_order_info', function( $check
 		);
 		woocommerce_form_field( 'language3', array(
 			'type'			=> 'select',
-			'class'			=> array( 'form-row-first' ),
+			'class'			=> array( 'form-row-first', 'select' ),
+			'label_class'	=> array( 'select-label' ),
 			'label'			=> __( 'Taal 3', 'siw' ),
 			'required'		=> false,
 			'options'		=> $languages,
@@ -193,16 +192,15 @@ add_action( 'woocommerce_multistep_checkout_before_order_info', function( $check
 add_filters( array('woocommerce_form_field_radio', 'woocommerce_form_field_checkbox'), function( $field ) {
 	$field = preg_replace( '/<input(.*?)>/', '<input$1><span class="control-indicator"></span>', $field );
 	return $field;
-},10);
+}, 10 );
 
 add_filter( 'woocommerce_form_field_args', function( $args ) {
-	//siw_debug($args);
-	if ( $args['type'] == 'radio') {
+	if ( $args['type'] == 'radio' ) {
 		$args['class'][] = 'control-radio';
 	}
-	if ( $args['type'] == 'checkbox') {
+	if ( $args['type'] == 'checkbox' ) {
 		$args['class'][] = 'control-checkbox';
 	}
 	return $args;
 
-},10 );
+}, 10 );

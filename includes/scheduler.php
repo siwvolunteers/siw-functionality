@@ -6,13 +6,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /* Stel cron jobs in na het updaten van de plugin */
-add_action( 'wppusher_plugin_was_updated', function() {
+add_action( 'siw_update_plugin', function() {
 	$cron_jobs = array(
 		'siw_no_index_past_events'						=> 0,
-		'siw_no_index_expired_jobs' 					=> 5,
-		'siw_update_community_day_options'				=> 10,
-		'siw_delete_orphaned_variations'				=> 20,
-		'siw_delete_projects'							=> 30,
+		'siw_no_index_expired_jobs' 					=> 0,
+		'siw_update_community_day_options'				=> 0,
+		'siw_update_workcamp_tariffs'					=> 5,
+		'siw_delete_orphaned_variations'				=> 10,
+		'siw_delete_projects'							=> 15,
 		'siw_cleanup_terms'								=> 40,
 		'siw_reorder_rename_product_attribute_month'	=> 50,
 	);
@@ -43,14 +44,14 @@ add_action( 'siw_no_index_past_events', function() {
 		'fields'			=> 'ids',
 		'posts_per_page'	=> -1,
 	);
-	$events = get_posts( $args );
-	foreach ( $events as $event_id ) {
+	$event_ids = get_posts( $args );
+	foreach ( $event_ids as $event_id ) {
 		$noindex = 0;
 		$start_ts = get_post_meta( $event_id, 'siw_agenda_start', true );
-		if ( $start_ts < time() ) {
+		if ( $start_ts < time() ) {//TODO:vergelijken datum i.p.v. ts
 			$noindex = 1;
 		}
-		update_post_meta( $event_id, '_yoast_wpseo_meta-robots-noindex', $noindex );
+		siw_seo_set_noindex( $event_id, $noindex );
 	}
 } );
 
@@ -62,14 +63,15 @@ add_action( 'siw_no_index_expired_jobs', function() {
 		'fields'			=> 'ids',
 		'posts_per_page'	=> -1,
 	);
-	$jobs = get_posts( $args );
-	foreach ( $jobs as $job_id ) {
+	$job_ids = get_posts( $args );
+	foreach ( $job_ids as $job_id ) {
 		$noindex = 0;
 		$deadline_ts = get_post_meta( $job_id, 'siw_vacature_deadline', true );
 		if ( $deadline_ts < time() ) {//TODO:vergelijken datum i.p.v. ts
 			$noindex = 1;
+			//TODO:uitgelicht op off zetten
 		}
-		update_post_meta( $job_id, '_yoast_wpseo_meta-robots-noindex', $noindex );
+		siw_seo_set_noindex( $job_id, $noindex );
 	}
 } );
 
