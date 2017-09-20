@@ -43,8 +43,8 @@ function siw_wc_generate_email_table_header_row( $name ) {?>
 		<td width="35%" style="font-family:Verdana, normal; color:#444; font-size:0.8em; font-weight:bold">
 			<?php echo esc_html( $name ); ?>
 		</td>
-		<td width="5%"></td>
-		<td width="50%"></td>
+		<td width="5%">&nbsp;</td>
+		<td width="50%">&nbsp;</td>
 	</tr>
 <?php
 }
@@ -64,7 +64,7 @@ function siw_wc_email_show_project_details( $order, $application_number ) {
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<td colspan="3" height="20" style="font-family:Verdana, normal; color:#666; font-size:0.8em; font-weight:bold; border-top:thin solid #ff9900" >
-				<?php // esc_html_e( 'Ingevulde gegevens', 'siw'); ?>
+				&nbsp;
 			</td>
 		</tr>
 	<?php
@@ -72,11 +72,14 @@ function siw_wc_email_show_project_details( $order, $application_number ) {
 	siw_wc_generate_email_table_row( __( 'Aanmeldnummer', 'siw' ), $application_number );
 
 	foreach ( $order->get_items() as $item_id => $item ) {
-		$_product     = apply_filters( 'woocommerce_order_item_product', $order->get_product_from_item( $item ), $item );
-		$project_name = $item['name'];
-		$project_code = $_product->get_sku();
-		$start_date = $_product->get_attribute( 'startdatum' );
-		$end_date = $_product->get_attribute( 'einddatum' );
+
+		$parent_id = $item->get_product_id();
+		$parent = wc_get_product( $parent_id );
+
+		$project_name = $parent->get_name();
+		$project_code = $parent->get_sku();
+		$start_date = $parent->get_attribute( 'startdatum' );
+		$end_date = $parent->get_attribute( 'einddatum' );
 		$project_duration = siw_get_date_range_in_text( $start_date, $end_date, false );
 		$tariff = $item['pa_tarief'];
 		$project_details = sprintf('%s (%s)<br/><small>%s | Tarief:%s</small>', $project_name, $project_code, $project_duration, $tariff );
@@ -94,7 +97,7 @@ function siw_wc_email_show_project_details( $order, $application_number ) {
 		siw_wc_generate_email_table_row( __( 'Korting', 'siw'), '-' . $order->get_discount_to_display() );
 	}
 	siw_wc_generate_email_table_row( __( 'Totaal', 'siw' ), $order->get_formatted_order_total() );
-	siw_wc_generate_email_table_row( __( 'Betaalwijze', 'siw' ), $order->payment_method_title );
+	siw_wc_generate_email_table_row( __( 'Betaalwijze', 'siw' ), $order->get_payment_method_title() );
 	?>
 	</table>
 	<?php

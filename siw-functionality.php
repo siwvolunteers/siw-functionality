@@ -20,7 +20,7 @@ define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . '/assets' );
 define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . '/includes' );
 define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
-define ( 'SIW_PLUGIN_VERSION', '1.3.1' );
+define ( 'SIW_PLUGIN_VERSION', '1.4' );
 define ( 'SIW_AJAX_URL', SIW_PLUGIN_URL . 'ajax-handler.php' );
 define ( 'SIW_SITE_URL', get_site_url() );
 define ( 'SIW_SITE_NAME', $_SERVER['SERVER_NAME'] );
