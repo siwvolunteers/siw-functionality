@@ -49,7 +49,7 @@ function siw_export_application_to_plato( $order ) {
 		);
 
 	/* Haal velden voor aanmelding op */
-	$application_fields = siw_wc_get_application_fields_for_xml( $order );
+	$application_fields = siw_get_application_fields_for_xml( $order );
 
 	$failed_count = 0;
 	$success_count = 0;
@@ -83,14 +83,14 @@ function siw_export_application_to_plato( $order ) {
 		}
 
 		/* Zoek HTML-statuscode en breek af indien ongelijk aan 200 */
-		$status_code = $response['response']['code'];
+		$status_code = wp_remote_retrieve_response_code( $response );
 		if ( '200' != $status_code ) {
 			$order->add_order_note( 'Verbinding met PLATO mislukt. Neem contact op met ICT-beheer.' );
 			$failed_count++;
 			break;
 		}
 
-		$body = simplexml_load_string( $response['body'] );
+		$body = simplexml_load_string( wp_remote_retrieve_body( $response ) );
 		$success = (string) $body->Success;
 		if ( 'true' == $success ) {
 			/* Bug in PLATO: imported_id geeft organizationWebserviceKey terug i.p.v. application_id */
@@ -113,10 +113,12 @@ function siw_export_application_to_plato( $order ) {
 
 	/* Resultaat opslaan bij aanmelding */
 	if ( 0 != $failed_count ) {
-		update_post_meta( $order->id, '_exported_to_plato', 'failed' );
+		$order->update_meta_data( '_exported_to_plato', 'failed' );
+		$order->save();
 	}
 	elseif ( 0 != $success_count ) {
-		update_post_meta( $order->id, '_exported_to_plato', 'success' );
+		$order->update_meta_data( '_exported_to_plato', 'success' );
+		$order->save();
 	}
 
 }
@@ -129,59 +131,36 @@ function siw_export_application_to_plato( $order ) {
  *
  * @return array
  */
-function siw_wc_get_application_fields_for_xml( $order ) {
-
+function siw_get_application_fields_for_xml( $order ) {
+	/*Ophalen instellingen en ordergegevens*/
 	$outgoing_placements_officer = siw_get_setting( 'plato_export_outgoing_placements_name' );
 	$outgoing_placements_email = siw_get_setting( 'plato_export_outgoing_placements_email' );
-
-	$firstname			= $order->billing_first_name;
-	$lastname			= $order->billing_last_name;
-	$sex				= $order->billing_gender;
-	$birthdate			= date( 'Y-m-d', strtotime( $order->billing_dob ) );
-	$email				= $order->billing_email;
-	$nationality		= $order->billing_nationality;
-	$telephone 			= $order->billing_phone;
-	$address1 			= $order->billing_address_1 . ' ' . $order->billing_housenumber;
-	$zip 				= $order->billing_postcode;
-	$city 				= $order->billing_city;
-	$country 			= 'NLD'; //TODO
-	$occupation 		= 'OTH';
-	$emergency_contact	= get_post_meta( $order->id, 'emergencyContactName', true ) . ' ' . get_post_meta( $order->id, 'emergencyContactPhone', true );
-	$language1 			= get_post_meta( $order->id, 'language1', true );
-	$language2 			= get_post_meta( $order->id, 'language2', true );
-	$language3 			= get_post_meta( $order->id, 'language3', true );
-	$langlevel1 		= get_post_meta( $order->id, 'language1Skill', true );
-	$langlevel2			= get_post_meta( $order->id, 'language2Skill', true );
-	$langlevel3 		= get_post_meta( $order->id, 'language3Skill', true );
-	$special_needs 		= get_post_meta( $order->id, 'healthIssues', true );
-	$experience			= get_post_meta( $order->id, 'volunteerExperience', true );
-	$motivation 		= get_post_meta( $order->id, 'motivation', true );
-	$together_with 		= get_post_meta( $order->id, 'togetherWith', true );
+	$order_data = siw_get_order_data( $order );
 
 	return array(
-		'firstname'			=> $firstname,
-		'lastname'			=> $lastname,
-		'sex' 				=> $sex,
-		'birthdate'			=> $birthdate,
-		'email' 			=> $email,
-		'nationality'		=> $nationality,
-		'telephone'			=> $telephone,
-		'address1'			=> $address1,
-		'zip'				=> $zip,
-		'city'				=> $city,
-		'country'			=> $country,
-		'occupation'		=> $occupation,
-		'emergency_contact'	=> $emergency_contact,
-		'language1'			=> $language1,
-		'language2'			=> $language2,
-		'language3'			=> $language3,
-		'langlevel1'		=> $langlevel1,
-		'langlevel2'		=> $langlevel2,
-		'langlevel3'		=> $langlevel3,
-		'special_needs'		=> $special_needs,
-		'experience'		=> $experience,
-		'motivation'		=> $motivation,
-		'together_with'		=> $together_with,
+		'firstname'			=> $order_data['first_name'],
+		'lastname'			=> $order_data['last_name'],
+		'sex' 				=> $order_data['gender_code'],
+		'birthdate'			=> date( 'Y-m-d', strtotime( $order_data['date_of_birth'] ) ),
+		'email' 			=> $order_data['email'],
+		'nationality'		=> $order_data['nationality_code'],
+		'telephone'			=> $order_data['phone'],
+		'address1'			=> sprintf( '%s %s', $order_data['street'], $order_data['housenumber'] ),
+		'zip'				=> $order_data['postcode'] ,
+		'city'				=> $order_data['city'] ,
+		'country'			=> 'NLD', //TODO: uit order halen
+		'occupation'		=> 'OTH', //TODO: uitvragen?
+		'emergency_contact'	=> sprintf( '%s %s', $order_data['emergency_contact_name'], $order_data['emergency_contact_phone'] ),
+		'language1'			=> $order_data['language_1_code'],
+		'language2'			=> $order_data['language_2_code'],
+		'language3'			=> $order_data['language_3_code'],
+		'langlevel1'		=> $order_data['language_1_skill_code'],
+		'langlevel2'		=> $order_data['language_2_skill_code'],
+		'langlevel3'		=> $order_data['language_3_skill_code'],
+		'special_needs'		=> $order_data['health_issues'],
+		'experience'		=> $order_data['volunteer_experience'],
+		'motivation'		=> $order_data['motivation']	,
+		'together_with'		=> $order_data['together_with']	,
 		'req_sent_by'		=> $outgoing_placements_officer,
 		'req_sender_email'	=> $outgoing_placements_email,
 		'date_filed'		=> date( 'Y-m-d' ),
