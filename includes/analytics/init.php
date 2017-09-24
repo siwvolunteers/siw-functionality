@@ -18,7 +18,7 @@ add_action( 'wp_footer', function() {
 
 	if ( $google_analytics_id ) {?>
 		<script>
-		window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 		ga('create','<?php echo esc_js( $google_analytics_id ); ?>',{'siteSpeedSampleRate': 100});
 		ga('set', 'anonymizeIp', true);
 		ga('set', 'forceSSL', true);
@@ -27,7 +27,7 @@ add_action( 'wp_footer', function() {
 			'levels': 5
 		});
 		<?php }?>
-		ga('send','pageview')
+		ga('send','pageview');
 		</script>
 		<script src="https://www.google-analytics.com/analytics.js" async defer></script><?php
 	}
