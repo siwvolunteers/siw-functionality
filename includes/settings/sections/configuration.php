@@ -12,17 +12,10 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	 * - WP All Imports
 	 * - Pagina's
 	*/
-	global $wpdb;
-	if ( ! isset( $wpdb->pmxi_imports ) ) {
-		$wpdb->pmxi_imports = $wpdb->prefix . 'pmxi_imports';
-	}
-	$query = "SELECT $wpdb->pmxi_imports.id, $wpdb->pmxi_imports.friendly_name, $wpdb->pmxi_imports.name FROM $wpdb->pmxi_imports ORDER BY $wpdb->pmxi_imports.friendly_name ASC";
-	$results = $wpdb->get_results( $query, ARRAY_A);
-	foreach ( $results as $result ) {
-		$imports[$result['id']] = esc_html( $result['friendly_name'] . ' (' . $result['name'] . ')' );
-	}
-
+	$imports = siw_get_wpai_imports();
 	$pages = siw_get_pages();
+
+
 
 	$google_analytics_fields[] = array(
 		'id'			=> 'google_analytics_id',
