@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'phpmailer_init', function ( $phpmailer ) {
 
 	/*SMTP-configuratie*/
-	if ( siw_get_setting( 'smtp_enable' ) ) {
+	if ( siw_get_setting( 'smtp_enabled' ) ) {
 		$phpmailer->isSMTP();
 		$phpmailer->Host = siw_get_setting( 'smtp_host' );
 		$phpmailer->Port = siw_get_setting( 'smtp_port');
