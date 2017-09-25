@@ -107,6 +107,22 @@ add_filter( 'after_rocket_htaccess_rules', function( $marker ) {
 @ini_set( 'session.cookie_httponly', 'on' );
 @ini_set( 'session.cookie_secure', 'on' );
 
+
+/* Update mailpoet configuratie ivm switch naar https */
+add_action( 'siw_update_plugin', function(){
+	if ( ! class_exists( 'WYSIJA' ) ) {
+		return;
+	}
+	$model_config = WYSIJA::get( 'config', 'model' );
+	$uploadurl = $model_config->values['uploadurl'];
+
+	if ( WYSIJA_UPLOADS_URL == $uploadurl ) {
+		return;
+	}
+	$model_config->save( array( 'uploadurl' => WYSIJA_UPLOADS_URL ) );
+});
+
+
 /*
  * Instellen starttijd Updraft Plus backup
  * - Database
