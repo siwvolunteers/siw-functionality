@@ -19,9 +19,11 @@ add_action( 'siw_ajax_newsletter_subscription', function() {
 
 	$name = $_POST['name'];
 	$email = $_POST['email'];
-	$list = (int) $_POST['list'];
+	$list =  $_POST['list'];
 
-	if ( $name && is_email( $email ) && $list ) {
+	$mailpoet_lists = siw_get_mailpoet_lists();
+
+	if ( $name && is_email( $email ) && array_key_exists( $list, $mailpoet_lists ) ) {
 		$user_data = array(
 			'firstname'	=> sanitize_text_field( $name ),
 			'email'		=> sanitize_email( $email ),
@@ -30,7 +32,7 @@ add_action( 'siw_ajax_newsletter_subscription', function() {
 			'user'		=> $user_data,
 			'user_list'	=> array(
 				'list_ids' => array(
-					$list,
+					intval( $list ),
 				),
 			),
 		);
