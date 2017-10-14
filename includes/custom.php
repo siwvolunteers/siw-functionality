@@ -122,6 +122,15 @@ add_action( 'siw_update_plugin', function(){
 	$model_config->save( array( 'uploadurl' => WYSIJA_UPLOADS_URL ) );
 });
 
+/* Mailpoet spam-signups blokkeren */
+add_action( 'wp_ajax_nopriv_wysija_ajax', function() {
+	$controller = $_POST['controller'];
+	$task = $_POST['task'];
+	if ( 'subscribers' == $controller && 'save' == $task ) {
+		wp_die( '', 403 );
+	}
+}, 1 );
+
 
 /*
  * Instellen starttijd Updraft Plus backup
