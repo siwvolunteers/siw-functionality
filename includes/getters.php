@@ -292,6 +292,24 @@ function siw_get_pages() {
 
 
 /**
+ * Geeft array met WPAI imports terug
+ *
+ * @return array
+ */
+function siw_get_wpai_imports() {
+	global $wpdb;
+	if ( ! isset( $wpdb->pmxi_imports ) ) {
+		$wpdb->pmxi_imports = $wpdb->prefix . 'pmxi_imports';
+	}
+	$query = "SELECT $wpdb->pmxi_imports.id, $wpdb->pmxi_imports.friendly_name, $wpdb->pmxi_imports.name FROM $wpdb->pmxi_imports ORDER BY $wpdb->pmxi_imports.friendly_name ASC";
+	$results = $wpdb->get_results( $query, ARRAY_A);
+	foreach ( $results as $result ) {
+		$imports[$result['id']] = esc_html( $result['friendly_name'] . ' (' . $result['name'] . ')' );
+	}
+	return $imports;
+}
+
+/**
  * Geeft array met Mapplic-kaarten terug
  *
  * @return array

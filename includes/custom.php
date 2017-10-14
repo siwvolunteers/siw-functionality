@@ -59,25 +59,78 @@ add_filter( 'wp_resource_hints', function( $hints, $relation_type ) {
 }, 10, 2 );
 
 
+/* htaccess opnieuw genereren na update plugin */
+add_action( 'siw_update_plugin', function() {
+	if ( ! function_exists( 'flush_rocket_htaccess' )  || ! function_exists( 'rocket_generate_config_file' ) ) {
+		return false;
+	}
+	flush_rocket_htaccess();
+	rocket_generate_config_file();
+});
+
+
+/* HTTPS redirect */
+add_filter( 'before_rocket_htaccess_rules', function ( $marker ) {
+	$redirection  = '# Redirect http to https' . PHP_EOL;
+	$redirection .= 'RewriteEngine On' . PHP_EOL;
+	$redirection .= 'RewriteCond %{HTTPS} !on' . PHP_EOL;
+	$redirection .= 'RewriteCond %{SERVER_PORT} !^443$' . PHP_EOL;
+	$redirection .= 'RewriteCond %{HTTP:X-Forwarded-Proto} !https' . PHP_EOL;
+	$redirection .= 'RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]' . PHP_EOL;
+	$redirection .= '# END https redirect' . PHP_EOL . PHP_EOL;
+
+	$marker = $redirection . $marker;
+	return $marker;
+});
+
 /*
  * Security headers
  */
-add_filter( 'after_rocket_htaccess_rules', function( $rules ) {
+add_filter( 'after_rocket_htaccess_rules', function( $marker ) {
 
-	$rules =
-		'# Extra Security Headers' . PHP_EOL .
-		'<IfModule mod_headers.c>' . PHP_EOL .
-			'Header always set X-XSS-Protection "1; mode=block"' . PHP_EOL .
-			'Header always append X-Frame-Options SAMEORIGIN' . PHP_EOL .
-			'Header always set X-Content-Type-Options nosniff' . PHP_EOL .
-			'Header always set Referrer-Policy no-referrer-when-downgrade' . PHP_EOL .
-			'Header unset X-Powered-By' . PHP_EOL .
-		'</IfModule>' . PHP_EOL;
-	return $rules;
+	$security  = '# Add security headers' . PHP_EOL;
+	$security .= '<IfModule mod_headers.c>' . PHP_EOL;
+	$security .= 'Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS' . PHP_EOL;
+	$security .= 'Header always set X-XSS-Protection "1; mode=block"' . PHP_EOL;
+	$security .= 'Header always append X-Frame-Options SAMEORIGIN' . PHP_EOL;
+	$security .= 'Header always set X-Content-Type-Options nosniff' . PHP_EOL;
+	$security .= 'Header always set Referrer-Policy no-referrer-when-downgrade' . PHP_EOL;
+	$security .= 'Header unset X-Powered-By' . PHP_EOL;
+	$security .= '</IfModule>' . PHP_EOL;
+	$security .= '# END security headers' . PHP_EOL . PHP_EOL;
+
+	$marker = $security . $marker;
+	return $marker;
 });
 
-/* Verwijderen PHP sessie-cookie httponly maken*/
-@ini_set('session.cookie_httponly', 'on');
+/* PHP sessie-cookie httponly en secure maken*/
+@ini_set( 'session.cookie_httponly', 'on' );
+@ini_set( 'session.cookie_secure', 'on' );
+
+
+/* Update mailpoet configuratie ivm switch naar https */
+add_action( 'siw_update_plugin', function(){
+	if ( ! class_exists( 'WYSIJA' ) ) {
+		return;
+	}
+	$model_config = WYSIJA::get( 'config', 'model' );
+	$uploadurl = $model_config->values['uploadurl'];
+
+	if ( WYSIJA_UPLOADS_URL == $uploadurl ) {
+		return;
+	}
+	$model_config->save( array( 'uploadurl' => WYSIJA_UPLOADS_URL ) );
+});
+
+/* Mailpoet spam-signups blokkeren */
+add_action( 'wp_ajax_nopriv_wysija_ajax', function() {
+	$controller = $_POST['controller'];
+	$task = $_POST['task'];
+	if ( 'subscribers' == $controller && 'save' == $task ) {
+		wp_die( '', 403 );
+	}
+}, 1 );
+
 
 /*
  * Instellen starttijd Updraft Plus backup

@@ -178,6 +178,12 @@ add_shortcode( 'siw_korting_derde_project', function() {
 });
 
 
+/* Shortcode voor footer credits */
+add_shortcode( 'siw_footer', function() {
+	return '&copy;' . SPACE . current_time('Y') . SPACE . SIW_NAME;
+});
+
+
 /*
  * Externe link
  */
