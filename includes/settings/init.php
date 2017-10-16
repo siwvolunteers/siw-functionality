@@ -135,7 +135,6 @@ add_action( 'redux/options/' . SIW_OPT_NAME . '/settings/change', function( $opt
 }, 10, 2);
 
 
-
 /* Hulpfunctie om te bepalen of tenminste 1 van de infodagen is aangepast (Kan weg na switch naar Caldera Forms) */
 function siw_settings_are_info_days_updated( $changed_values ) {
 	for ( $x = 1 ; $x <= SIW_NUMBER_OF_INFO_DAYS; $x++ ) {
@@ -145,3 +144,18 @@ function siw_settings_are_info_days_updated( $changed_values ) {
 	}
 	return false;
 }
+
+
+/*Workaround voor undefined index error TODO:github issue bij Redux aanmaken */
+add_action( 'redux/field/' . SIW_OPT_NAME . '/text/render/before', function( &$field, &$value ) {
+	if( isset( $field['options'] ) && isset( $field['default'] ) ) {
+		$value = wp_parse_args( $value, $field['default'] );
+	}
+}, 10, 2);
+
+
+/* Verwijderen advertenties ivm mixed content en 404 TODO:github issue bij Redux aanmaken*/
+add_filter( 'redux/'. SIW_OPT_NAME . '/localize', function( $localize_data ) {
+	unset( $localize_data['rAds'] );
+	return $localize_data;
+}, 999 );
