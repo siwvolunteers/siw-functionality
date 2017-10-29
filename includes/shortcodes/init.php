@@ -194,7 +194,7 @@ add_shortcode( 'siw_externe_link', function( $atts ) {
 		), $atts, 'siw_externe_link' )
 	);
 	$titel = ( $titel ) ? $titel : $url;
-	return sprintf('<a href="%s" target="_blank" rel="noopener noreferrer">%s&nbsp;<i class="kt-icon-newtab"></i></a>', esc_url( $url ), esc_html( $titel ) );
+	return sprintf('<a href="%s" target="_blank" rel="noopener">%s&nbsp;<i class="kt-icon-newtab"></i></a>', esc_url( $url ), esc_html( $titel ) );
 });
 
 
