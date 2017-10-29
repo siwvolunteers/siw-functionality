@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
  * Author: Maarten Bruna
- * Version: 1.4
+ * Version: 1.4.2
  */
 
 
@@ -20,7 +20,7 @@ define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . '/assets' );
 define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . '/includes' );
 define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
-define ( 'SIW_PLUGIN_VERSION', '1.4' );
+define ( 'SIW_PLUGIN_VERSION', '1.4.2' );
 define ( 'SIW_AJAX_URL', SIW_PLUGIN_URL . 'ajax-handler.php' );
 define ( 'SIW_SITE_URL', get_site_url() );
 define ( 'SIW_SITE_NAME', $_SERVER['SERVER_NAME'] );
@@ -30,13 +30,11 @@ define ( 'SIW_SITE_NAME', $_SERVER['SERVER_NAME'] );
 /*
  * Hulp-plugins
  * - WP MultiFilter (https://github.com/khromov/wp-multifilter)
- * - Disable Emoji's (https://geek.hellyer.kiwi/plugins/disable-emojis/)
  * - Rapid Add-On (https://github.com/soflyy/wp-all-import-rapid-addon)
  * - WordPress Widgets Helper Class (https://github.com/alessandrotesoro/wp-widgets-helper)
  * - WP Background Processing (https://github.com/A5hleyRich/wp-background-processing)
  */
 require_once( SIW_ASSETS_DIR . '/plugins/wp-multifilter.php' );
-require_once( SIW_ASSETS_DIR . '/plugins/disable-emojis.php' );
 require_once( SIW_ASSETS_DIR . '/plugins/rapid-addon.php' );
 require_once( SIW_ASSETS_DIR . '/plugins/wp-widgets-helper.php');
 require_once( SIW_ASSETS_DIR . '/plugins/wp-async-request.php');
