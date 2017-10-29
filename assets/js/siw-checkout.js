@@ -10,11 +10,11 @@
 	});
 	$.validator.addMethod( 'dateNL', function( value, element ) {
 		return this.optional( element ) || /^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$/.test( value );
-	}, parameters.invalid_date );
+	}, siwCheckout.invalid_date );
 
 	$.validator.addMethod( 'postalcodeNL', function( value, element ) {
 		return this.optional( element ) || /^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/.test( value );
-	}, parameters.invalid_postcode );
+	}, siwCheckout.invalid_postcode );
 
 	//Extra validatie
 	$( document ).ready(function() {

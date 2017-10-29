@@ -131,6 +131,8 @@ add_action( 'wp_ajax_nopriv_wysija_ajax', function() {
 	}
 }, 1 );
 
+/* Meerdere nieuwsbrief-aanmeldingen van zelfde IP-adres binnen 1 uur blokkeren (standaard is 1 minuut)*/
+add_filter( 'wysija_subscription_limit_base', function() { return HOUR_IN_SECONDS; } );
 
 /*
  * Instellen starttijd Updraft Plus backup

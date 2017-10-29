@@ -24,6 +24,16 @@ add_action( 'siw_ajax_newsletter_subscription', function() {
 	$mailpoet_lists = siw_get_mailpoet_lists();
 
 	if ( $name && is_email( $email ) && array_key_exists( $list, $mailpoet_lists ) ) {
+
+		/* Meerdere aanmelding van zelfde IP-adres binnen X uur blokkeren*/
+		$helperUser = WYSIJA::get( 'user', 'helper' );
+		if( ! $helperUser->throttleRepeatedSubscriptions() ) {
+			$data = array(
+				'message'	=> __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
+			);
+			wp_send_json_error( $data );
+		}
+
 		$user_data = array(
 			'firstname'	=> sanitize_text_field( $name ),
 			'email'		=> sanitize_email( $email ),
@@ -40,28 +50,27 @@ add_action( 'siw_ajax_newsletter_subscription', function() {
 		$user_id = WYSIJA::get( 'user', 'helper' )->addSubscriber( $data_subscriber );
 		if ( is_numeric( $user_id ) ) {
 			$data = array(
-				'success'	=> 1,
 				'message'	=> __( 'Je bent er bijna! Check je inbox voor de bevestigingsmail om je aanmelding voor de nieuwsbrief te bevestigen.', 'siw' ),
 			);
+			wp_send_json_success( $data );
 		}
 		elseif ( $user_id ) {
 			$data = array(
-				'success'	=> 1,
 				'message'	=> __( 'Je bent al ingeschreven.', 'siw' ),
 			);
+			wp_send_json_success( $data );
 		}
-		else{
+		else {
 			$data = array(
-				'success'	=> 0,
 				'message'	=> __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
 			);
+			wp_send_json_error( $data );
 		}
 	}
-	else{
+	else {
 		$data = array(
-			'success'	=> 0,
 			'message'	=> __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
 		);
+		wp_send_json_error( $data );
 	}
-	wp_send_json( $data );
 } );

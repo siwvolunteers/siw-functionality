@@ -13,17 +13,29 @@ add_filter( 'siw_ajax_allowed_actions', function( $actions ) {
 
 add_action( 'siw_ajax_postcode_lookup', function() {
 
-	$api_key = siw_get_setting( 'postcode_api_key' );
-	$postcode = strtoupper( siw_strip_url( $_GET['postcode'] ) );
-	$housenumber = siw_strip_url( $_GET['housenumber'] );
+	check_ajax_referer( 'siw_ajax_nonce', 'security' );
 
-	$url = 'https://postcode-api.apiwise.nl/v2/addresses/?postcode=' . str_replace(' ', '', $postcode ) . '&number=' . $housenumber;
+	$api_key = siw_get_setting( 'postcode_api_key' );
+
+	preg_match("/^[1-9][0-9]{3}[\s]?[A-Za-z]{2}$/i", $_GET['postcode'], $postcode );
+	$postcode = strtoupper( str_replace(' ', '', $postcode[0] ) );
+	$housenumber = preg_replace("/[^0-9]/", "", $_GET['housenumber'] );
+
+	if ( ! $postcode || ! $housenumber ) {
+		wp_send_json_error();
+	}
+
+	//TODO: transients ivm API limiet (en snelheid)
+
+
+	$url = sprintf( 'https://postcode-api.apiwise.nl/v2/addresses/?postcode=%s&number=%d', $postcode, $housenumber );
+
 	$args = array(
 		'timeout'		=> 10,
 		'redirection'	=> 0,
-		'headers'		=> array(
+		'headers'		=>array(
 			'X-Api-Key'	=> $api_key,
-			),
+		),
 	);
 	$response = wp_safe_remote_get( $url, $args );
 	if ( is_wp_error( $response ) ) {
@@ -31,7 +43,7 @@ add_action( 'siw_ajax_postcode_lookup', function() {
 	}
 
 	$statuscode = wp_remote_retrieve_response_code( $response );
-	if ( 200 != $statuscode ){
+	if ( 200 != $statuscode ) {
 		wp_send_json_error();
 	}
 
@@ -51,15 +63,3 @@ add_action( 'siw_ajax_postcode_lookup', function() {
 	}
 
 } );
-
-//TODO betere functie voor schrijven, bijv splitsen
-function siw_strip_url( $title , $seperator = '-' ) {
-	$title = preg_replace( '/[^a-z0-9\s]/i', '' , $title );
-
-	if ( ! empty( $title ) && strlen( $title ) <= 6 ) {
-		return $title;
-	}
-	else {
- 		return false;
-	}
-}

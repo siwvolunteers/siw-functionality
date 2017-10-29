@@ -2,9 +2,16 @@
 (c)2015-2017 SIW Internationale vrijwilligersprojecten
 */
 
+//Wrapper om ga i.v.m. ingelogde gebruikers
+function siwGa( type, category, action, label ) {
+	if ( 'function' == typeof ga ) {
+		ga( 'send', type, category, action, label );
+	}
+}
+
 //Google Analytics event voor Caldera Forms
 function siwSendGaFormSubmissionEvent( obj ) {
-	ga( 'send', 'event', obj.form_id, 'Verzenden' );
+	siwGa( 'event', obj.form_id, 'Verzenden' );
 }
 
 function siwPostcodeLookup( postcodeSelector, housenumberSelector, streetSelector, citySelector ) {
@@ -14,25 +21,23 @@ function siwPostcodeLookup( postcodeSelector, housenumberSelector, streetSelecto
 
 	if ( ( '' != postcode ) && ( '' != housenumber ) ) {
 		jQuery.ajax({
-			url: parameters.ajax_url,
+			url: siw.ajax_url,
 			type: 'get',
 			dataType: 'json',
 			data: {
 				action: 'postcode_lookup',
 				postcode: postcode,
-				housenumber: housenumber
+				housenumber: housenumber,
+				security: siw.ajax_nonce
 			},
 			success: function( result ) {
 				if ( true == result.success ) {
 					jQuery( citySelector ).val( result.data.city );
 					jQuery( streetSelector ).val( result.data.street );
-					jQuery( citySelector ).prop( 'readonly', true );
-					jQuery( streetSelector ).prop( 'readonly', true );
+					jQuery( citySelector + ', ' + streetSelector ).prop( 'readonly', true );
 				}else {
-					jQuery( citySelector ).val( '' );
-					jQuery( streetSelector ).val( '' );
-					jQuery( citySelector ).prop( 'readonly', false );
-					jQuery( streetSelector ).prop( 'readonly', false );
+					jQuery( citySelector + ', ' + streetSelector ).val( '' );
+					jQuery( citySelector + ', ' + streetSelector ).prop( 'readonly', false );
 				}
 			}
 		});
@@ -44,7 +49,7 @@ return false;
 
 	//Validatieregel voor e-mail
 	var validations = {
-		email: [/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/, parameters.invalid_email]
+		email: [/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/, siw.invalid_email]
 	};
 
 	$( document ).ready(function() {
@@ -86,18 +91,18 @@ return false;
 
 	//GA-event bij klikken op topbar
 	$( document ).on( 'click', '#topbar_link', function() {
-		ga( 'send', 'event', 'Topbar', 'Klikken', this.href );
+		siwGa( 'event', 'Topbar', 'Klikken', this.href );
 	});
 
 	//GA-event bij social share
 	$( document ).on( 'click', '.siw-social .facebook', function() {
-		ga( 'send', 'social', 'Facebook', 'Delen', window.location.href );
+		siwGa( 'social', 'Facebook', 'Delen', window.location.href );
 	});
 	$( document ).on( 'click', '.siw-social .twitter', function() {
-		ga( 'send', 'social', 'Twitter', 'Delen', window.location.href );
+		siwGa( 'social', 'Twitter', 'Delen', window.location.href );
 	});
 	$( document ).on( 'click', '.siw-social .linkedin', function() {
-		ga( 'send', 'social', 'LinkedIn', 'Delen', window.location.href );
+		siwGa( 'social', 'LinkedIn', 'Delen', window.location.href );
 	});
 
 	$( '#siw_newsletter_subscription' ).submit(function( event ) {
@@ -112,7 +117,7 @@ return false;
 			$( '#siw_newsletter_subscription' ).addClass( 'hidden' );
 			$( '#newsletter_loading' ).removeClass( 'hidden' );
 			$.ajax({
-				url: parameters.ajax_url,
+				url: siw.ajax_url,
 				type: 'post',
 				dataType: 'json',
 				data: {
@@ -125,11 +130,9 @@ return false;
 				success: function( result ) {
 					$( '#newsletter_message' ).removeClass( 'hidden' );
 					$( '#newsletter_loading' ).addClass( 'hidden' );
-					$( '#newsletter_message' ).text( result.message );
-					if ( 1 == result.success ) {
-						ga( 'send', 'event', 'Nieuwsbrief', 'Aanmelden' );
-					}else {
-						$( '#siw_newsletter_subscription' ).removeClass( 'hidden' );
+					$( '#newsletter_message' ).text( result.data.message );
+					if ( true == result.success ) {
+						siwGa( 'event', 'Nieuwsbrief', 'Aanmelden' );
 					}
 				}
 			});

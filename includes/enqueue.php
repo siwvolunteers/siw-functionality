@@ -10,9 +10,10 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_register_script( 'siw', SIW_ASSETS_URL . 'js/siw.js', array( 'jquery' ), SIW_PLUGIN_VERSION, true );
 	$parameters = array(
 		'ajax_url'		=> SIW_AJAX_URL,
+		'ajax_nonce'	=> wp_create_nonce( 'siw_ajax_nonce' ),
 		'invalid_email'	=> __( 'Dit is geen geldig e-mailadres', 'siw' ),
 	);
-	wp_localize_script( 'siw', 'parameters', $parameters );
+	wp_localize_script( 'siw', 'siw', $parameters );
 	wp_enqueue_script( 'siw' );
 
 	wp_register_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js' );
@@ -27,7 +28,7 @@ add_action( 'wp_enqueue_scripts', function() {
 		'invalid_postcode'	=> __( 'Dit is geen geldige postcode', 'siw' ),
 		'invalid_date'		=> __( 'Dit is geen geldige datum', 'siw' ),
 	);
-	wp_localize_script( 'siw-checkout', 'parameters', $parameters );
+	wp_localize_script( 'siw-checkout', 'siwCheckout', $parameters );
 	if ( is_checkout() ) {
 		wp_enqueue_script( 'siw-checkout' );
 	}
@@ -68,6 +69,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_deregister_script( 'search-filter-plugin-chosen' );
 	wp_deregister_script( 'jquery-ui-datepicker' );
 
-	/*styling van mailpoet widget*/
+	/*Mailpoet*/
 	wp_deregister_style( 'validate-engine-css' );
+
 }, 999 );
