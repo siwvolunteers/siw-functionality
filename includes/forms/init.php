@@ -5,8 +5,13 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+/* Velden */
+require_once( __DIR__ . '/fields.php' );
+
+/* Formulieren */
 require_once( __DIR__ . '/enquiry-general.php' );
 require_once( __DIR__ . '/enquiry-workcamp.php' );
+require_once( __DIR__ . '/evs.php' );
 require_once( __DIR__ . '/np-camp-leader.php' );
 require_once( __DIR__ . '/np-cooperation.php' );
 

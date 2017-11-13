@@ -82,224 +82,55 @@ return array(
 			'toelichting' => '1:1',
 			'bekend' => '1:1',
 			'bekend_anders' => '1:1',
-			'submit' => '1:1',
+			'verzenden' => '1:1',
 		),
 		'structure' => '12',
 	),
 	'fields' =>
 	array(
-		'intro' =>
-		array(
+		'intro' => siw_get_form_field( 'html', array(
 			'ID' => 'intro',
-			'type' => 'html',
-			'label' => 'header',
-			'slug' => 'header',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'default' => 'Bent u enthousiast geworden? SIW is het hele jaar door op zoek naar enthousiaste maatschappelijke organisaties die samen met ons willen onderzoeken wat de mogelijkheden zijn voor een samenwerking. Laat uw gegevens achter in onderstaand formulier en wij nemen contact met u op om de mogelijkheden te bespreken.',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'intro_hr' =>
-		array(
-			'ID' => 'intro_hr',
-			'type' => 'section_break',
-			'label' => 'intro_hr',
-			'slug' => 'intro_hr',
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'width' => '',
-			),
-		),
-		'naam_organisatie' =>
-		array(
-			'ID' => 'naam_organisatie',
-			'type' => 'text',
-			'label' => 'Naam organisatie',
-			'slug' => 'naam_organisatie',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'default' => '',
-				'mask' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'naam_contactpersoon' =>
-		array(
-			'ID' => 'naam_contactpersoon',
-			'type' => 'text',
-			'label' => 'Naam contactpersoon',
-			'slug' => 'naam_contactpersoon',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'default' => '',
-				'mask' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'emailadres' =>
-		array(
-			'ID' => 'emailadres',
-			'type' => 'email',
-			'label' => 'E-mailadres',
-			'slug' => 'emailadres',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'default' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'telefoonnummer' =>
-		array(
-			'ID' => 'telefoonnummer',
-			'type' => 'text',
-			'label' => 'Telefoonnummer',
-			'slug' => 'telefoonnummer',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'type_override' => 'tel',
-				'default' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'toelichting' =>
-		array(
-			'ID' => 'toelichting',
-			'type' => 'paragraph',
-			'label' => __('Beschrijf kort op welke manier u wilt samenwerken met SIW', 'siw'),
-			'slug' => 'toelichting',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'rows' => '7',
-				'default' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'bekend' =>
-		array(
-			'ID' => 'bekend',
-			'type' => 'checkbox',
-			'label' => __( 'Hoe heeft u van SIW gehoord?', 'siw' ),
-			'slug' => 'bekend',
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'default' => '',
-				'option' =>
-				array(
-					'google' =>
-					array(
-						'value' => 'google',
-						'label' => __( 'Google', 'siw' ),
-					),
-					'social_media' =>
-					array(
-						'value' => 'social_media',
-						'label' => __( 'Social Media', 'siw' ),
-					),
-					'infodag' =>
-					array(
-						'value' => 'infodag',
-						'label' => __( 'SIW Infodag', 'siw' ),
-					),
-					'anders' =>
-					array(
-						'value' => 'anders',
-						'label' => __( 'Anders', 'siw' ),
-					),
+			'slug' => 'intro',
+			'config' => array(
+				'default' =>
+					__( 'Bent u enthousiast geworden?', 'siw' ) . SPACE .
+					__( 'SIW is het hele jaar door op zoek naar enthousiaste maatschappelijke organisaties die samen met ons willen onderzoeken wat de mogelijkheden zijn voor een samenwerking.', 'siw' ) . SPACE .
+					__( 'Laat uw gegevens achter in onderstaand formulier en wij nemen contact met u op om de mogelijkheden te bespreken.', 'siw' ),
 				),
-			),
-	    ),
-		'bekend_anders' =>
-		array(
-			'ID' => 'bekend_anders',
-			'type' => 'text',
-			'label' => __( 'Namelijk', 'siw' ),
-			'hide_label' => 1,
-			'slug' => 'bekend_anders',
-			'required' => 1,
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'default' => '',
-				'mask' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => 'con_bekend_anders',
-			),
+			)
 		),
-		'submit' =>
-		array(
-			'ID' => 'submit',
-			'type' => 'button',
-			'label' => __( 'Verzenden', 'siw' ),
-			'slug' => 'submit',
-			'caption' => '',
-			'config' =>
+		'intro_hr' => siw_get_form_field( 'hr',
 			array(
-				'custom_class' => '',
-				'type' => 'submit',
-				'class' => 'kad-btn kad-btn-primary',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
+				'ID' => 'intro_hr',
+				'slug' => 'intro_hr',
+			)
 		),
+		'naam_organisatie' => siw_get_form_field( 'text',
+			array(
+				'ID' => 'naam_organisatie',
+				'label' => __( 'Naam organisatie', 'siw' ),
+				'slug' => 'naam_organisatie',
+			)
+		),
+		'naam_contactpersoon' => siw_get_form_field( 'text',
+			array(
+				'ID' => 'naam_contactpersoon',
+				'label' => __( 'Naam contactpersoon', 'siw' ),
+				'slug' => 'naam_contactpersoon',
+			)
+		),
+		'emailadres' => siw_get_standard_form_field( 'emailadres' ),
+		'telefoonnummer' => siw_get_standard_form_field( 'telefoonnummer' ),
+		'toelichting' => siw_get_form_field( 'paragraph',
+			array(
+				'ID' => 'toelichting',
+				'label' => __( 'Beschrijf kort op welke manier u wilt samenwerken met SIW', 'siw' ),
+				'slug' => 'toelichting',
+			)
+		),
+		'bekend' => siw_get_standard_form_field( 'bekend' ),
+		'bekend_anders' => siw_get_standard_form_field( 'bekend_anders' ),
+		'verzenden' => siw_get_standard_form_field( 'verzenden' ),
 	),
 	'page_names' =>
 	array(

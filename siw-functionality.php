@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
  * Author: Maarten Bruna
- * Version: 1.4.2
+ * Version: 1.4.3
  */
 
 
@@ -33,12 +33,15 @@ define ( 'SIW_SITE_NAME', $_SERVER['SERVER_NAME'] );
  * - Rapid Add-On (https://github.com/soflyy/wp-all-import-rapid-addon)
  * - WordPress Widgets Helper Class (https://github.com/alessandrotesoro/wp-widgets-helper)
  * - WP Background Processing (https://github.com/A5hleyRich/wp-background-processing)
+ * - wp_parse_args_recursive (https://github.com/kallookoo/wp_parse_args_recursive)
  */
 require_once( SIW_ASSETS_DIR . '/plugins/wp-multifilter.php' );
 require_once( SIW_ASSETS_DIR . '/plugins/rapid-addon.php' );
-require_once( SIW_ASSETS_DIR . '/plugins/wp-widgets-helper.php');
-require_once( SIW_ASSETS_DIR . '/plugins/wp-async-request.php');
-require_once( SIW_ASSETS_DIR . '/plugins/wp-background-process.php');
+require_once( SIW_ASSETS_DIR . '/plugins/wp-widgets-helper.php' );
+require_once( SIW_ASSETS_DIR . '/plugins/wp-async-request.php' );
+require_once( SIW_ASSETS_DIR . '/plugins/wp-background-process.php' );
+require_once( SIW_ASSETS_DIR . '/plugins/wp-parse-args-recursive.php' );
+
 
 
 
