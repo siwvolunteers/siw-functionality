@@ -139,7 +139,12 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'type'		=> 'section',
 		'indent'	=> false,
 	);
-
+	$topbar_fields[] = array(
+		'id'			=> 'topbar_event_section_start',
+		'title'			=> __( 'Evenement in topbar', 'siw' ),
+		'type'			=> 'section',
+		'indent' 		=> true,
+	);
 	$topbar_fields[] = array(
 		'id'		=> 'show_topbar_days_before_event',
 		'title'		=> __( 'Toon topbar vanaf aantal dagen voor evenement', 'siw' ),
@@ -155,6 +160,78 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'min'		=> '1',
 		'max'		=> '31',
 		'default'	=> '2',
+	);
+	$topbar_fields[] = array(
+		'id'			=> 'topbar_event_section_end',
+		'type'			=> 'section',
+		'indent' 		=> false,
+	);
+	$topbar_fields[] = array(
+		'id'			=> 'topbar_social_link_section_start',
+		'title'			=> __( 'Social media in topbar', 'siw' ),
+		'type'			=> 'section',
+		'indent' 		=> true,
+	);
+	$topbar_fields[] = array(
+		'id'			=> 'topbar_social_link_enabled',
+		'title'			=> __( 'Link naar social media', 'siw' ),
+		'type'			=> 'switch',
+		'on'			=> 'Aan',
+		'off'			=> 'Uit',
+	);
+	$topbar_fields[] = array(
+		'id'			=> 'topbar_social_link_intro',
+		'title'			=> __( 'Introtekst', 'siw' ),
+		'subtitle'		=> __( 'Verborgen op mobiel', 'siw' ),
+		'type'			=> 'text',
+		'validate'		=> 'no_html',
+		'required'		=> array(
+			'topbar_social_link_enabled',
+			'equals',
+			'1'
+		),
+	);
+	$topbar_fields[] = array(
+		'id'			=> 'topbar_social_link_text',
+		'title'			=> __( 'Linktekst', 'siw' ),
+		'type'			=> 'text',
+		'validate'		=> 'no_html',
+		'required'		=> array(
+			'topbar_social_link_enabled',
+			'equals',
+			'1'
+		),
+	);
+	$topbar_fields[] = array(
+		'id'			=> 'topbar_social_link_network',
+		'title'			=> __( 'Netwerk', 'siw' ),
+		'type'			=> 'radio',
+		'options'		=> array(
+			'facebook'		=> __( 'Facebook', 'siw' ),
+			'instagram'		=> __( 'Instagram', 'siw' ),
+			'twitter'		=> __( 'Twitter', 'siw' ),
+		),
+		'required'		=> array(
+			'topbar_social_link_enabled',
+			'equals',
+			'1'
+		),
+	);
+	$topbar_fields[] = array(
+		'id'			=> 'topbar_social_link_date_end',
+		'title'			=> __( 'Einddatum', 'siw' ),
+		'type'			=> 'html5',
+		'html5'			=> 'date',
+		'required'		=> array(
+			'topbar_social_link_enabled',
+			'equals',
+			'1'
+		),
+	);
+	$topbar_fields[] = array(
+		'id'			=> 'topbar_social_link_section_end',
+		'type'			=> 'section',
+		'indent' 		=> false,
 	);
 
 	$email_fields[] = array(
@@ -345,7 +422,6 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'		=> 'topbar',
 		'title'		=> __( 'Topbar', 'siw' ),
-		'desc'		=> __( 'Toont eerstvolgende evenement in de agenda', 'siw' ),
 		'subsection'=> true,
 		'fields'	=> $topbar_fields,
 	) );

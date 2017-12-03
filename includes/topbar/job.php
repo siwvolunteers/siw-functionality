@@ -38,14 +38,13 @@ function siw_get_topbar_job_content() {
 	);
 	$featured_job_id = get_posts( $query_args );
 	if ( empty ( $featured_job_id ) ) {
-		return;
+		return false;
 	}
 	$job = siw_get_job_data( $featured_job_id[0] );
 	$job_title = lcfirst( $job['title'] );
-	$link_title = sprintf(__( 'Meer informatie over de vacature %s' ), $job_title );
-	$link = sprintf( '<a id="topbar_link" href="%s" title="%s">%s</a>', esc_url( $job['permalink'] ), esc_attr( $link_title ), esc_html( $job_title ) );
+	$topbar_job_content['intro'] = __( 'Word actief voor SIW.', 'siw' );
+	$topbar_job_content['link_url'] = $job['permalink'];
+	$topbar_job_content['link_text'] = sprintf( __( 'Wij zoeken een %s', 'siw' ), $job_title );
 
-	$topbar_job_content = '<span class="hidden-xs">' . esc_html__( 'Word actief voor SIW.', 'siw' ) . '&nbsp;</span>';
-	$topbar_job_content .= sprintf( wp_kses_post( __( 'Wij zoeken een %s', 'siw' ) ), $link);
 	return $topbar_job_content;
 }

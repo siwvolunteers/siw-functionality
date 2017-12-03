@@ -23,15 +23,15 @@ function siw_get_topbar_event_content() {
 		return;
 	}
 	$event = $upcoming_events[0];
-	$link_title = sprintf(__( 'Meer informatie over de %s' ), $event['title'] );
-	$link = sprintf( '<a id="topbar_link" href="%s" title="%s">%s</a>', esc_url( $event['permalink'] ), esc_attr( $link_title ), esc_html( $event['title'] ) );
+	$topbar_event_content['intro'] = __( 'Maak kennis met SIW.', 'siw' );
+	$topbar_event_content['link_url'] = $event['permalink'];
 
-	$topbar_event_content = '<span class="hidden-xs">' . esc_html__( 'Maak kennis met SIW.', 'siw' ) . '&nbsp;</span>';
 	if ( $event['start_date'] == $event['end_date'] ) {
-		$topbar_event_content .= sprintf( wp_kses_post( __( 'Kom naar de %s op %s', 'siw' ) ), $link, $event['date_range'] );
+		$topbar_event_content['link_text'] = sprintf( __( 'Kom naar de %s op %s', 'siw' ), $event['title'], $event['date_range'] );
 	}
 	else {
-		$topbar_event_content .= sprintf( wp_kses_post( __( 'Kom naar de %s van %s', 'siw' ) ), $link, $event['date_range'] );
+		$topbar_event_content['link_text'] = sprintf( __( 'Kom naar de %s van %s', 'siw' ), $event['title'], $event['date_range'] );
 	}
+
 	return $topbar_event_content;
 }
