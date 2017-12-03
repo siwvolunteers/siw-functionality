@@ -47,7 +47,7 @@ add_actions( array(	'kadence_single_portfolio_after', 'siw_vacature_footer', 'si
 	 */
 	$twitter_url = sprintf( 'https://twitter.com/intent/tweet?text=%s&amp;url=%s&amp;via=siwvolunteers', $title, $url);
 	$facebook_url = sprintf( 'https://www.facebook.com/sharer/sharer.php?u=%s', $url);
-	$linkedin_url = sprintf( 'https://www.linkedin.com/shareArticle?mini=true&url=%s&amp;title=%s', $title, $url);
+	$linkedin_url = sprintf( 'https://www.linkedin.com/shareArticle?mini=true&url=%s&amp;title=%s', $url, $title);
 
 	/*
 	 * html voor social share links genereren
