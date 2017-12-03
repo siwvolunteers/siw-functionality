@@ -4,7 +4,11 @@
  * Plugin URI: https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
  * Author: Maarten Bruna
+<<<<<<< HEAD
  * Version: 1.4.3
+=======
+ * Version: 1.4.2
+>>>>>>> refs/remotes/origin/master
  */
 
 
@@ -88,7 +92,7 @@ require_once( SIW_INCLUDES_DIR . '/pagebuilder/init.php' );
 require_once( SIW_INCLUDES_DIR . '/post-types/init.php' );
 /* Social share links */
 require_once( SIW_INCLUDES_DIR . '/social-share/init.php' );
-/* Topbar met eerstvolgende evenement */
+/* Topbar */
 require_once( SIW_INCLUDES_DIR . '/topbar/init.php' );
 /* Widgets */
 require_once( SIW_INCLUDES_DIR . '/widgets/init.php' );
