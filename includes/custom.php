@@ -54,9 +54,12 @@ add_filter( 'wp_resource_hints', function( $hints, $relation_type ) {
 		$hints[] = '//fonts.googleapis.com';
 		$hints[] = '//fonts.gstatic.com';
 	}
+	if ( ( $key = array_search( 'https://s.w.org/images/core/emoji/2.3/svg/', $hints ) ) !== false) {
+		unset( $hints [$key ] );
+	}
 
 	return $hints;
-}, 10, 2 );
+}, 99, 2 );
 
 
 /* htaccess opnieuw genereren na update plugin */
@@ -87,7 +90,6 @@ add_filter( 'before_rocket_htaccess_rules', function ( $marker ) {
  * Security headers
  */
 add_filter( 'after_rocket_htaccess_rules', function( $marker ) {
-
 	$security  = '# Add security headers' . PHP_EOL;
 	$security .= '<IfModule mod_headers.c>' . PHP_EOL;
 	$security .= 'Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS' . PHP_EOL;
@@ -109,7 +111,7 @@ add_filter( 'after_rocket_htaccess_rules', function( $marker ) {
 
 
 /* Update mailpoet configuratie ivm switch naar https */
-add_action( 'siw_update_plugin', function(){
+add_action( 'siw_update_plugin', function() {
 	if ( ! class_exists( 'WYSIJA' ) ) {
 		return;
 	}
@@ -154,26 +156,25 @@ add_filter( 'updraftplus_schedule_firsttime_files', function() {
 /* Diverse UpdraftPlus notificaties verbergen */
 define( 'UPDRAFTPLUS_NOADS_B', true );
 define( 'UPDRAFTPLUS_NONEWSFEED', true );
-define( 'UPDRAFTPLUS_ADMINBAR_DISABLE', true);
+define( 'UPDRAFTPLUS_ADMINBAR_DISABLE', true );
 define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
 
 
 /* Optimalisatie HEAD */
-remove_action('wp_head', 'wp_generator');
-remove_action('wp_head', 'wlwmanifest_link');
-remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
-remove_action('wp_head', 'rest_output_link_wp_head', 10);
-remove_action('wp_head', 'rsd_link');
-remove_action('wp_head', 'feed_links', 2);
-remove_action('wp_head', 'feed_links_extra', 3);
-remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+remove_action( 'wp_head', 'wp_generator' );
+remove_action( 'wp_head', 'wlwmanifest_link' );
+remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
+remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+remove_action( 'wp_head', 'rsd_link' );
+remove_action( 'wp_head', 'feed_links', 2 );
+remove_action( 'wp_head', 'feed_links_extra', 3 );
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
 
 
 /* Uitschakelen feed*/
 add_actions( array( 'do_feed','do_feed_rdf','do_feed_rss','do_feed_rss2','do_feed_atom','do_feed_rss2_comments','do_feed_atom_comments' ), function () {
 	wp_die( __( 'SIW heeft geen feed.', 'siw' ) );
 },1);
-
 
 
 /* Auteurinfo verwijderen uit oembed */

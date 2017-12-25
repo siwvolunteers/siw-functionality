@@ -18,7 +18,7 @@ define ( 'SIW_RSIN', '002817482' );
 define ( 'SIW_ADDRESS', 'Willemstraat 7' );
 define ( 'SIW_POSTAL_CODE', '3511 RJ' );
 define ( 'SIW_CITY', 'Utrecht' );
-define ( 'SIW_OPENING_HOURS', '10:00 - 17:00' );
+define ( 'SIW_OPENING_HOURS', '9:00 - 17:00' );
 
 /* Sociale netwerken */
 define( 'SIW_FACEBOOK_URL', 'https://www.facebook.com/siwvolunteers' );

@@ -68,7 +68,6 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'on'			=> 'Aan',
 		'off'			=> 'Uit',
 	);
-
 	$pages_fields[] = array(
 		'id'			=> 'agenda_parent_page',
 		'title'			=> __( 'Agenda', 'siw' ),
@@ -104,9 +103,9 @@ add_action( 'siw_settings_show_configuration_section', function() {
 
 	foreach ( $constants as $constant => $name ){
 		$constants_html .= '<tr>';
-		$constants_html .= '<td> ' . $constant . '</td>';
-		$constants_html .= '<td> ' . constant( $constant ) . '</td>';
-		$constants_html .= '<td> ' . esc_html( $name ) . '</td>';
+		$constants_html .= '<td>' . $constant . '</td>';
+		$constants_html .= '<td>' . constant( $constant ) . '</td>';
+		$constants_html .= '<td>' . esc_html( $name ) . '</td>';
 		$constants_html .= '</tr>';
 	}
 	$constants_html .= '</tbody>';
@@ -273,7 +272,7 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	$email_fields[] = array(
 		'id'			=> 'smtp_encryption',
 		'title'			=> __( 'SMTP encryptie', 'siw' ),
-		'type'			=> 'select',
+		'type'			=> 'radio',
 		'options'		=> array(
 			''		=> __( 'Geen', 'siw' ),
 			'ssl'	=> __( 'SSL', 'siw' ),

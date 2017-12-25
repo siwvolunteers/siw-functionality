@@ -25,7 +25,7 @@ add_action( 'kt_before_header_content', function () {
 			<div class="col-md-12">
 				<div id="topbar-content">
 					<span class="hidden-xs hidden-sm"><?php echo esc_html( $topbar_content['intro'] );?>&nbsp;</span>
-					<?php printf('<a href="%s" target="%s">%s</a>', esc_url( $topbar_content['link_url'] ), esc_attr( $target ), esc_html( $topbar_content['link_text'] ) ); ?>
+					<?php printf('<a id="topbar_link" href="%s" target="%s">%s</a>', esc_url( $topbar_content['link_url'] ), esc_attr( $target ), esc_html( $topbar_content['link_text'] ) ); ?>
 				</div>
 			</div>
 		</div>
