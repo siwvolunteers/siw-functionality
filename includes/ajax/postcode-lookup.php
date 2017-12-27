@@ -15,8 +15,6 @@ add_action( 'siw_ajax_postcode_lookup', function() {
 
 	check_ajax_referer( 'siw_ajax_nonce', 'security' );
 
-	$api_key = siw_get_setting( 'postcode_api_key' );
-
 	preg_match("/^[1-9][0-9]{3}[\s]?[A-Za-z]{2}$/i", $_GET['postcode'], $postcode );
 	$postcode = strtoupper( str_replace(' ', '', $postcode[0] ) );
 	$housenumber = preg_replace("/[^0-9]/", "", $_GET['housenumber'] );
@@ -25,8 +23,28 @@ add_action( 'siw_ajax_postcode_lookup', function() {
 		wp_send_json_error();
 	}
 
-	//TODO: transients ivm API limiet (en snelheid)
+	$address = get_transient( "siw_address_{$postcode}_{$housenumber}" );
+	if ( false === $address ) {
+		$address = siw_get_address_from_postcode( $postcode, $housenumber );
+		if ( false == $address ) {
+			wp_send_json_error();
+		}
+		set_transient( "siw_address_{$postcode}_{$housenumber}", $address, MONTH_IN_SECONDS );
+	}
 
+	wp_send_json_success( $address );
+
+} );
+
+
+/**
+ * Zoek adres op basis van postcode en huisnummer
+ * @param  string $postcode
+ * @param  string $housenumber
+ * @return mixed $address
+ */
+function siw_get_address_from_postcode( $postcode, $housenumber ) {
+	$api_key = siw_get_setting( 'postcode_api_key' );
 
 	$url = sprintf( 'https://postcode-api.apiwise.nl/v2/addresses/?postcode=%s&number=%d', $postcode, $housenumber );
 
@@ -39,12 +57,12 @@ add_action( 'siw_ajax_postcode_lookup', function() {
 	);
 	$response = wp_safe_remote_get( $url, $args );
 	if ( is_wp_error( $response ) ) {
-		wp_send_json_error();
+		return false;
 	}
 
 	$statuscode = wp_remote_retrieve_response_code( $response );
 	if ( 200 != $statuscode ) {
-		wp_send_json_error();
+		return false;
 	}
 
 	$body = json_decode( wp_remote_retrieve_body( $response ) );
@@ -52,14 +70,15 @@ add_action( 'siw_ajax_postcode_lookup', function() {
 	if ( $body->_embedded->addresses ) {
 		$street = $body->_embedded->addresses[0]->street;
 		$city = $body->_embedded->addresses[0]->city->label;
-		$data = array(
+		$address = array(
 			'street'	=> $street,
 			'city'		=> $city,
 		);
-		wp_send_json_success( $data );
+		return $address;
 	}
 	else {
-		wp_send_json_error();
+		return false;
 	}
 
-} );
+	return false;
+}
