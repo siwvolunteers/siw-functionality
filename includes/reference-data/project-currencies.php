@@ -68,3 +68,15 @@ function siw_get_project_currencies() {
 
 	return $project_currencies;
 }
+
+
+/**
+ * Haal eigenschappen van een valuta op
+ * @param  string $currency
+ * @return mixed
+ */
+function siw_get_project_currency( $currency ) {
+	$project_currencies = siw_get_project_currencies();
+	$project_currency = isset( $project_currencies[ $currency ] ) ? $project_currencies[ $currency ] : false;
+	return $project_currency;
+}

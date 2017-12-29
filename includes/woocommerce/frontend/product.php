@@ -27,11 +27,30 @@ add_action( 'plugins_loaded', function() {
 /* Toon local fee indien van toepassing */
 add_action( 'woocommerce_after_add_to_cart_form', function() {
 	global $product;
+	$participation_fee = $product->get_meta( 'participation_fee' );
+	$participation_fee_currency = $product->get_meta( 'participation_fee_currency' );
 	$local_fee = $product->get_attribute( 'lokale-bijdrage' );
-	if ( $local_fee ) {
-		echo '<div class="local-fee">';
-		printf( esc_html__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s.', 'siw' ), $local_fee );
-		echo '</div>';
+	if ( ! empty( $participation_fee_currency ) && $participation_fee > 0 ) {
+		$currency = siw_get_project_currency( $participation_fee_currency );
+		$symbol = isset( $currency['symbol'] ) ? $currency['symbol'] : $participation_fee_currency;
+		if ( 'EUR' != $participation_fee_currency ) {
+			$amount_in_euro = siw_get_amount_in_euro( $participation_fee_currency, $participation_fee );
+		}
+		?>
+		<div class="local-fee">
+			<?php printf( esc_html__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s %s.', 'siw' ), $symbol, $participation_fee );?>
+			<?php if ( false != $amount_in_euro ):?>
+				&nbsp;<?php printf ( esc_html__( '(Ca. &euro; %s)', 'siw' ), $amount_in_euro ); ?>
+			<?php endif ?>
+		</div>
+		<?php
+	}
+	elseif ( $local_fee ) {
+ 		?>
+		<div class="local-fee">
+			<?php printf( esc_html__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s.', 'siw' ), $local_fee );?>
+		</div>
+	<?php
 	}
 } );
 
