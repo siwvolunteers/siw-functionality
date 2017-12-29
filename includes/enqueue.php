@@ -41,13 +41,6 @@ add_action( 'admin_enqueue_scripts', function() {
 	wp_enqueue_style( 'siw-admin' );
 });
 
-/* Voeg styling toe voor dashboard widgets */
-add_action( 'admin_enqueue_scripts', function( $hook ) {
-	if ( 'index.php' != $hook ) {
-		return;
-	}
-	wp_enqueue_style( 'siw-dashboard-widgets', SIW_ASSETS_URL . 'css/siw-dashboard-widgets.css' );
-});
 
 
 /* Functies om scripts alleen te laden indien nodig */
