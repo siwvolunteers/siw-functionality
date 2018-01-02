@@ -226,38 +226,29 @@ add_action( 'kadence_breadcrumbs_after_home', function() {
 	$delimiter = '/';
 	$breadcrumb = '<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="%s"><span itemprop="title">%s</span></a></span> %s ';
 
+	$parent = '';
+
 	if ( is_singular( 'vacatures' ) ) {
-		$vacature_parent = siw_get_setting( 'vacatures_parent_page' );
-
-		/* Afbreken als er geen overzichtspagina is ingesteld*/
-		if ( empty( $vacature_parent ) ) {
-			return;
-		}
-
-		/* Parentpagina's van overzichtspagina */
-		$ancestors = array_reverse( get_ancestors( $vacature_parent, 'page') );
-		foreach ( $ancestors as $ancestor ) {
-			printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter  );
-		}
-		/* Overzichtspagina */
-		printf( $breadcrumb, get_page_link( $vacature_parent ), get_the_title( $vacature_parent ), $delimiter  );
-
+		$parent = siw_get_setting( 'vacatures_parent_page' );
 	}
 	if ( is_singular( 'agenda' ) ) {
-		$agenda_parent = siw_get_setting( 'agenda_parent_page' );
-
-		/* Afbreken als er geen overzichtspagina is ingesteld*/
-		if ( empty( $agenda_parent ) ) {
-			return;
-		}
-		/* Parentpagina's van overzichtspagina */
-		$ancestors = array_reverse( get_ancestors( $agenda_parent, 'page') );
-		foreach ( $ancestors as $ancestor ) {
-			printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter  );
-		}
-		/* Overzichtspagina */
-		printf( $breadcrumb, get_page_link( $agenda_parent ), get_the_title( $agenda_parent ), $delimiter  );
+		$parent = siw_get_setting( 'agenda_parent_page' );
 	}
+
+	/* Afbreken als er geen overzichtspagina is ingesteld*/
+	if ( empty( $parent ) ) {
+		return;
+	}
+
+	/* Parentpagina's van overzichtspagina */
+	$ancestors = array_reverse( get_ancestors( $parent, 'page') );
+	foreach ( $ancestors as $ancestor ) {
+		printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter  );
+	}
+
+	/* Overzichtspagina */
+	printf( $breadcrumb, get_page_link( $parent ), get_the_title( $parent ), $delimiter  );
+
 } );
 
 /* Sidebar verbergen voor testimonials TODO: Kan weg na switch van Strong Testimonials naar eigen functionaliteit */
