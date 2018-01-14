@@ -26,7 +26,6 @@ define ( 'SIW_SITE_URL', get_site_url() );
 define ( 'SIW_SITE_NAME', $_SERVER['SERVER_NAME'] );
 
 
-
 /*
  * Hulp-plugins
  * - WP MultiFilter (https://github.com/khromov/wp-multifilter)

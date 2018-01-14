@@ -9,3 +9,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once( __DIR__ . '/update-workcamp-tariffs.php' );
 /* Verbergen projecten */
 require_once( __DIR__ . '/hide-workcamps.php' );
+/* Verwijderen projecten */
+require_once( __DIR__ . '/delete-workcamps.php' );

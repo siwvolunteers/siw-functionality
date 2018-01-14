@@ -6,8 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /* Verwijderen ongebruikte terms */
+siw_add_cron_job( 'siw_cleanup_terms' );
+
 add_action( 'siw_cleanup_terms', function() {
-	//ongebruikte terms verwijderen
+	siw_debug_log( 'Start opruimen ongebruikte terms');
 	$taxonomies[] = 'pa_maand';
 	$taxonomies[] = 'pa_aantal-vrijwilligers';
 	$taxonomies[] = 'pa_leeftijd';
@@ -28,11 +30,16 @@ add_action( 'siw_cleanup_terms', function() {
 			}
 		}
 	}
+	siw_debug_log( 'Eind opruimen ongebruikte terms');
 });
 
 
 /* Volgorde en naam van attribute pa_month aanpassen */
+siw_add_cron_job( 'siw_reorder_rename_product_attribute_month' );
+
 add_action( 'siw_reorder_rename_product_attribute_month', function() {
+	siw_debug_log( 'Start herordenen attribute maand' );
+
 	$terms = get_terms( 'pa_maand', array(
 		'hide_empty' => false,
 		)
@@ -56,12 +63,50 @@ add_action( 'siw_reorder_rename_product_attribute_month', function() {
 		//Volgorde bijwerken
 		update_term_meta( $term_id, 'order_pa_maand', $order );
 	}
+	siw_debug_log( 'Eind herordenen attribute maand' );
+});
 
+
+/*
+ * Bijwerken YITH Ajax Navigation widgets
+ */
+siw_add_cron_job( 'siw_update_yith_widgets' );
+
+add_action( 'siw_update_yith_widgets', function() {
+	siw_debug_log( 'Start updaten YITH widgets' );
+	$widgets = get_option( 'widget_yith-woo-ajax-navigation' );
+	$attributes = array(
+		'maand',
+		'land',
+		'soort-werk',
+		'doelgroep',
+	);
+
+	foreach ( $widgets as $index=>$widget ) {
+
+		if ( isset( $widget['attribute'] ) && in_array( $widget['attribute'], $attributes ) ) {
+			$terms = get_terms( array(
+				'taxonomy' => 'pa_' . $widget['attribute'],
+				'hide_empty' => false,
+			));
+			$labels = array();
+			foreach ( $terms as $term ) {
+				$labels[ $term->term_id ] = $term->name;
+			}
+
+			$widgets[ $index ]['labels'] =  $labels;
+		}
+	}
+	update_option( 'widget_yith-woo-ajax-navigation', $widgets );
+	siw_debug_log( 'Eind updaten YITH widgets' );
 });
 
 
 /* Verweesde variaties verwijderen */
+siw_add_cron_job( 'siw_delete_orphaned_variations' );
+
 add_action( 'siw_delete_orphaned_variations', function() {
+	siw_debug_log( 'Start verwijderen verweesde variaties' );
 	$args = array(
 		'posts_per_page'		=> -1,
 		'post_type'				=> 'product',
@@ -98,11 +143,17 @@ add_action( 'siw_delete_orphaned_variations', function() {
 	foreach ( $variations as $variation_id ) {
 		wp_delete_post( $variation_id, true );
 	}
+	siw_debug_log( 'Variaties verwijderd: ' . count( $variations ) );
+	siw_debug_log( 'Eind verwijderen verweesde variaties' );
 });
 
 
 /* Verwijderen groepsprojecten met een startdatum die meer dan 9 maanden in het verleden ligt */
+siw_add_cron_job( 'siw_delete_projects' );
+
 add_action( 'siw_delete_projects', function() {
+	siw_debug_log( 'Start verwijderen projecten' );
+
 	$limit = date( 'Y-m-d', time() - ( 9 * MONTH_IN_SECONDS ) );
 
 	$meta_query = array(
@@ -118,12 +169,19 @@ add_action( 'siw_delete_projects', function() {
 		),
 	);
 	$args = array(
-		'posts_per_page'	=> 25,
+		'posts_per_page'	=> -1,
 		'post_type'			=> 'product',
 		'meta_query'		=> $meta_query,
 		'fields' 			=> 'ids'
 	);
 	$products = get_posts( $args );
+
+	// Afbreken als er geen te verwijderen projecten zijn
+	if ( empty( $products ) ) {
+		siw_debug_log( 'Eind verwijderen projecten: geen projecten te verwijderen' );
+		return;
+	}
+	siw_debug_log( 'Aantal te verwijderen projecten: ' . count( $products ) );
 
 	//variaties van geselecteerde projecten opzoeken
 	$args = array(
@@ -152,8 +210,9 @@ add_action( 'siw_delete_projects', function() {
 		)
 	);
 
-	//project verwijderen //TODO:background process van maken (dan kan ook de limiet van 25 weg.)
-	foreach ( $products as $product_id ) {
-		wp_delete_post( $product_id, true );
+	$siw_delete_workcamps_background_process = $GLOBALS['siw_delete_workcamps_background_process'];
+	foreach ( $post_ids as $post_id ) {
+		$siw_delete_workcamps_background_process->push_to_queue( $post_id );
 	}
+	$siw_delete_workcamps_background_process->save()->dispatch();
 });

@@ -189,6 +189,8 @@ function siw_hide_workcamp( $product_id ) {
 /*
  * Bijwerken tarieven van alle zichtbare projecten
  */
+siw_add_cron_job( 'siw_update_workcamp_tariffs' );
+
 add_action( 'siw_update_workcamp_tariffs', function() {
 	$tax_query = array(
 		array(
