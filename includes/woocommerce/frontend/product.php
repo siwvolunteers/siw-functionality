@@ -39,7 +39,7 @@ add_action( 'woocommerce_after_add_to_cart_form', function() {
 		?>
 		<div class="local-fee">
 			<?php printf( esc_html__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s %s.', 'siw' ), $symbol, $participation_fee );?>
-			<?php if ( false != $amount_in_euro ):?>
+			<?php if ( isset( $amount_in_euro ) ):?>
 				&nbsp;<?php printf ( esc_html__( '(Ca. &euro; %s)', 'siw' ), $amount_in_euro ); ?>
 			<?php endif ?>
 		</div>
