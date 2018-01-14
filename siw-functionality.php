@@ -47,8 +47,8 @@ require_once( SIW_ASSETS_DIR . '/plugins/wp-parse-args-recursive.php' );
 
 /* Referentiegegevens */
 require_once( SIW_INCLUDES_DIR . '/reference-data/init.php' );
-/* Getters */
-require_once( SIW_INCLUDES_DIR . '/getters.php' );
+/* Functies */
+require_once( SIW_INCLUDES_DIR . '/functions/init.php' );
 /* Instellingen */
 require_once( SIW_INCLUDES_DIR . '/settings/init.php' );
 
