@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param string $job [description]
  */
 function siw_add_cron_job( $job ) {
-	add_filter( 'siw_cron_jobs', function( $jobs ) {
+	add_filter( 'siw_cron_jobs', function( $jobs ) use( $job ) {
 		$jobs[] = $job;
 		return $jobs;
 	});

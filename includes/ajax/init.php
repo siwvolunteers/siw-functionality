@@ -21,7 +21,7 @@ require_once( __DIR__ . '/postcode-lookup.php' );
  * @param [type] $action [description]
  */
 function siw_register_ajax_action( $action ) {
-	add_filter( 'siw_ajax_allowed_actions', function( $actions ) {
+	add_filter( 'siw_ajax_allowed_actions', function( $actions ) use( $action ) {
 		$actions[] = $action;
 		return $actions;
 	});

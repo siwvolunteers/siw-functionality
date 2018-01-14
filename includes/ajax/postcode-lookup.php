@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /* Opzoeken straat+plaats op basis van postcode+huisnummer via AJAX */
-siw_register_ajax_action( 'siw_ajax_postcode_lookup' );
+siw_register_ajax_action( 'postcode_lookup' );
 
 add_action( 'siw_ajax_postcode_lookup', function() {
 
