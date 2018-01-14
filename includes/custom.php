@@ -86,9 +86,7 @@ add_filter( 'before_rocket_htaccess_rules', function ( $marker ) {
 	return $marker;
 });
 
-/*
- * Security headers
- */
+/* Security headers */
 add_filter( 'after_rocket_htaccess_rules', function( $marker ) {
 	$security  = '# Add security headers' . PHP_EOL;
 	$security .= '<IfModule mod_headers.c>' . PHP_EOL;

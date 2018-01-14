@@ -3171,7 +3171,7 @@ msgstr ""
 
 #: plugins/siw-functionality/includes/widgets/contact.php:19
 msgid "Contactinformatie"
-msgstr ""
+msgstr "Contact information"
 
 #: plugins/siw-functionality/includes/widgets/contact.php:25
 msgid "Contact"
@@ -3180,7 +3180,7 @@ msgstr "Contact"
 #: plugins/siw-functionality/includes/widgets/contact.php:44
 #, php-format
 msgid "Maandag t/m vrijdag %s"
-msgstr ""
+msgstr "Monday to Friday %s"
 
 #: plugins/siw-functionality/includes/widgets/cta.php:18
 msgid "SIW: Call to action"
@@ -3220,7 +3220,7 @@ msgstr "Right"
 
 #: plugins/siw-functionality/includes/widgets/map.php:18
 msgid "SIW: Mapplic kaart"
-msgstr ""
+msgstr "SIW: Mapplic map"
 
 #: plugins/siw-functionality/includes/widgets/map.php:19
 msgid "Toont Mapplic-kaart"
@@ -3281,7 +3281,7 @@ msgstr "Extra options"
 #: plugins/siw-functionality/includes/woocommerce/checkout/form.php:127
 #: plugins/siw-functionality/includes/woocommerce/email/application.php:135
 msgid "Talenkennis"
-msgstr ""
+msgstr "Language skills"
 
 #: plugins/siw-functionality/includes/woocommerce/admin/order.php:89
 msgid "Gegevens voor PO"
@@ -3422,7 +3422,7 @@ msgstr ""
 #: plugins/siw-functionality/includes/woocommerce/checkout/form.php:108
 #: plugins/siw-functionality/includes/woocommerce/email/application.php:130
 msgid "Noodcontact"
-msgstr ""
+msgstr "Emergency contact"
 
 #: plugins/siw-functionality/includes/woocommerce/checkout/newsletter.php:13
 msgid "Aanmelden voor nieuwsbrief tijdens checkout"
@@ -3492,7 +3492,7 @@ msgstr "Payment method"
 
 #: plugins/siw-functionality/includes/woocommerce/email/application.php:120
 msgid "Persoonsgegevens"
-msgstr ""
+msgstr "Personal data"
 
 #: plugins/siw-functionality/includes/woocommerce/email/application.php:126
 msgid "E-mailadres"
@@ -3532,7 +3532,7 @@ msgstr "Project location"
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/product.php:120
 msgid "Stel een vraag"
-msgstr ""
+msgstr "Ask a question"
 
 #: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:12
 msgid "Extra gegevens groepsproject"
@@ -3556,11 +3556,11 @@ msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:40
 msgid "Minimumleeftijd"
-msgstr ""
+msgstr "Minimum age"
 
 #: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:43
 msgid "Wordt gebruikt bij validaties."
-msgstr ""
+msgstr "Is used for validations."
 
 #: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:47
 msgid "Toegestaan"
@@ -3639,7 +3639,7 @@ msgstr ""
 #: themes/siw/search-filter/results.php:35
 #: themes/siw/search-filter/results.php:54
 msgid "Bekijk alle projecten"
-msgstr ""
+msgstr "View all projects"
 
 #: themes/siw/search-filter/results.php:39
 #: themes/siw/search-filter/results.php:43
@@ -3658,7 +3658,7 @@ msgstr ""
 
 #: themes/siw/template-vacatures-grid.php:66
 msgid "Open sollicitatie"
-msgstr ""
+msgstr "Open application"
 
 #: themes/siw/template-vacatures-grid.php:68
 #, php-format
@@ -3670,7 +3670,7 @@ msgstr ""
 #: themes/siw/templates/content-agenda.php:30
 #: themes/siw/templates/content-vacature-grid.php:11
 msgid "Lees meer"
-msgstr ""
+msgstr "Read more"
 
 #: themes/siw/templates/content-single-evs-project.php:38
 msgid "Bij welke organisatie ga je werken?"

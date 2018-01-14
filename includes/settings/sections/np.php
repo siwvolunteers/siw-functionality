@@ -19,7 +19,7 @@ add_action( 'siw_settings_show_np_section', function() {
 		'id'			=> 'np_camp_leader_email_sender',
 		'title'			=> __( 'Afzender', 'siw' ),
 		'subtitle'		=> __( 'Ontvangt ook de bevestigingsmail', 'siw' ),
-		'placeholder'	=> __( 'info@siw.nl', 'siw' ),
+		'placeholder'	=> 'info@siw.nl',
 		'type'			=> 'text',
 		'validate'		=> 'email',
 	);
@@ -53,7 +53,7 @@ add_action( 'siw_settings_show_np_section', function() {
 		'id'			=> 'np_cooperation_email_sender',
 		'title'			=> __( 'Afzender', 'siw' ),
 		'subtitle'		=> __( 'Ontvangt ook de bevestigingsmail', 'siw' ),
-		'placeholder'	=> __( 'info@siw.nl', 'siw' ),
+		'placeholder'	=> 'info@siw.nl',
 		'type'			=> 'text',
 		'validate'		=> 'email',
 	);

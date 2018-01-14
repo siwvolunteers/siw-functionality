@@ -26,7 +26,7 @@ add_filter( 'load_textdomain_mofile', function( $mofile, $domain ) {
 	$locale = is_admin() ? get_user_locale() : get_locale();
 
 	if ( isset( $textdomains[ $locale ] ) && in_array( $domain, $textdomains[ $locale ] ) ) {
-		$custom_mofile = SIW_PLUGIN_DIR. "languages/{$domain}/{$locale}.mo";
+		$custom_mofile = SIW_PLUGIN_DIR . "languages/{$domain}/{$locale}.mo";
 		$mofile = file_exists( $custom_mofile ) ? $custom_mofile : $mofile;
 	}
 

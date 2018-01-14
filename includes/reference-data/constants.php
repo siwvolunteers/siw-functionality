@@ -51,9 +51,9 @@ define( 'SIW_DISCOUNT_SECOND_PROJECT', 25 );
 define( 'SIW_DISCOUNT_THIRD_PROJECT', 50 );
 
 /* Constantes voor strings*/
-define( 'BR', '<br/>');
-define( 'BR2', '<br/><br/>');
-define( 'SPACE', ' ');
+define( 'BR', '<br/>' );
+define( 'BR2', '<br/><br/>' );
+define( 'SPACE', ' ' );
 
 /**
  * Geeft een array met constantes en hun toelichting terug

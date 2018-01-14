@@ -1,0 +1,11 @@
+<wpml-config>                             
+    <custom-types>
+        <custom-type translate="0">agenda</custom-type>
+        <custom-type translate="0">vacatures</custom-type>
+        <custom-type translate="0">evs_project</custom-type>
+    </custom-types>    
+    <taxonomies>
+        <taxonomy translate="0">soort_evenement</taxonomy>
+        <taxonomy translate="0">soort_vacature</taxonomy>
+    </taxonomies>    
+ </wpml-config>
