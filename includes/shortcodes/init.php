@@ -134,7 +134,7 @@ add_shortcode( 'siw_rsin', function() {
  * - Volgende vertrekmoment
  */
 add_shortcode( 'siw_evs_borg', function() {
- 	return '&euro;&nbsp;' . SIW_EVS_DEPOSIT;
+ 	return siw_format_amount( SIW_EVS_DEPOSIT );
 });
 add_shortcode( 'siw_evs_volgende_deadline', function() {
 	return siw_get_next_evs_deadline( true );
@@ -158,29 +158,30 @@ add_shortcode( 'siw_volgende_infodag', function() {
  * - Op Maat (student, regulier)
  * - Korting (tweede/derde project)
  */
+
 add_shortcode( 'siw_groepsproject_tarief_student', function() {
-	return '&euro;&nbsp;' . SIW_WORKCAMP_FEE_STUDENT;
+	return siw_format_amount( SIW_WORKCAMP_FEE_STUDENT );
 });
 add_shortcode( 'siw_groepsproject_tarief_regulier', function() {
-	return '&euro;&nbsp;' . SIW_WORKCAMP_FEE_REGULAR;
+	return siw_format_amount( SIW_WORKCAMP_FEE_REGULAR );
 });
 add_shortcode( 'siw_op_maat_tarief_student', function() {
-	return '&euro;&nbsp;' . SIW_OP_MAAT_FEE_STUDENT;
+	return siw_format_amount( SIW_OP_MAAT_FEE_STUDENT );
 });
 add_shortcode( 'siw_op_maat_tarief_regulier', function() {
-	return '&euro;&nbsp;' . SIW_OP_MAAT_FEE_REGULAR;
+	return siw_format_amount( SIW_OP_MAAT_FEE_REGULAR );
 });
 add_shortcode( 'siw_korting_tweede_project', function() {
-	return SIW_DISCOUNT_SECOND_PROJECT . '&percnt;';
+	return siw_format_percentage( SIW_DISCOUNT_SECOND_PROJECT );
 });
 add_shortcode( 'siw_korting_derde_project', function() {
-	return SIW_DISCOUNT_THIRD_PROJECT . '&percnt;';
+	return siw_format_percentage( SIW_DISCOUNT_THIRD_PROJECT );
 });
 
 
 /* Shortcode voor footer credits */
 add_shortcode( 'siw_footer', function() {
-	return '&copy;' . SPACE . current_time('Y') . SPACE . SIW_NAME;
+	return sprintf( '&copy; %s %s', current_time( 'Y' ), SIW_NAME );
 });
 
 
@@ -194,7 +195,8 @@ add_shortcode( 'siw_externe_link', function( $atts ) {
 		), $atts, 'siw_externe_link' )
 	);
 	$titel = ( $titel ) ? $titel : $url;
-	return sprintf('<a href="%s" target="_blank" rel="noopener">%s&nbsp;<i class="kt-icon-newtab"></i></a>', esc_url( $url ), esc_html( $titel ) );
+
+	return siw_generate_external_link( $url, $titel );
 });
 
 

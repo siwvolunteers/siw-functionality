@@ -6,10 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /* Aanmelding voor nieuwsbrief via AJAX */
-add_filter( 'siw_ajax_allowed_actions', function( $actions ) {
-	$actions[] = 'newsletter_subscription';
-	return $actions;
-} );
+siw_register_ajax_action( 'newsletter_subscription' );
 
 add_action( 'siw_ajax_newsletter_subscription', function() {
 	if ( ! class_exists( 'WYSIJA' ) ) {
