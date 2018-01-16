@@ -7,8 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_action( 'siw_settings_show_info_day_section', function() {
-	/* Velden */
-
 
 	$application_fields[] = array(
 		'id'		=> 'hide_application_form_days_before_info_day',
@@ -51,29 +49,6 @@ add_action( 'siw_settings_show_info_day_section', function() {
 		'indent'		=> false,
 	);
 	$info_day_fields[] = array(
-		'id'		=> 'info_day_application_signature_section_start',
-		'title'		=> __( 'Ondertekening e-mail', 'siw' ),
-		'type'		=> 'section',
-		'indent' 	=> true,
-	);
-	$info_day_fields[] = array(
-		'id'		=> 'info_day_application_signature_name',
-		'title'		=> __( 'Naam', 'siw' ),
-		'type'		=> 'text',
-		'validate'	=> 'no_html',
-	);
-	$info_day_fields[] = array(
-		'id'		=> 'info_day_application_signature_title',
-		'title'		=> __( 'Functie', 'siw' ),
-		'type'		=> 'text',
-		'validate'	=> 'no_html',
-	);
-	$info_day_fields[] = array(
-		'id'		=> 'info_day_application_signature_section_end',
-		'type'		=> 'section',
-		'indent'	=> false,
-	);
-	$info_day_fields[] = array(
 		'id'		=> 'info_day_dates_section_start',
 		'title'		=> __( 'Datums', 'siw' ),
 		'type'		=> 'section',
@@ -95,7 +70,7 @@ add_action( 'siw_settings_show_info_day_section', function() {
 
 	/* Secties */
 	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'agenda',
+		'id'			=> 'info_day',
 		'title'			=> __( 'Infodag', 'siw' ),
 		'icon'			=> 'el el-calendar',
 		'permissions'	=> 'manage_options',
@@ -107,7 +82,7 @@ add_action( 'siw_settings_show_info_day_section', function() {
 		'fields'	=> $application_fields,
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
-		'id'		=> 'info_day',
+		'id'		=> 'info_day_dates',
 		'title'		=> __( 'Infodagen', 'siw' ),
 		'subsection'=> true,
 		'fields'	=> $info_day_fields,

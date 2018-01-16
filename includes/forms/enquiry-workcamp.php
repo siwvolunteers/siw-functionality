@@ -89,7 +89,9 @@ return array(
 	),
 	'fields' =>
 	array(
-		'intro' => siw_get_form_field( 'intro', array(
+		'intro' => siw_get_form_field( 'html', array(
+			'ID' => 'intro',
+			'sllug' => 'intro',
 			'config' => array(
 				'default' =>
 					__( 'Heb je een vraag over dit project?', 'siw' ) . SPACE .
@@ -98,7 +100,7 @@ return array(
 				),
 			)
 		),
-		'intro_hr' => siw_get_form_field( 'intro_hr' ),
+		'intro_hr' => siw_get_standard_form_field( 'intro_hr' ),
 		'voornaam' => siw_get_standard_form_field( 'voornaam' ),
 		'achternaam' => siw_get_standard_form_field( 'achternaam' ),
 		'emailadres' => siw_get_standard_form_field( 'emailadres' ),

@@ -28,9 +28,9 @@ add_filter( 'caldera_forms_get_forms', function( $forms ) {
  */
 add_filter( 'caldera_forms_get_form-begeleider_np', function( $form ) {
 
-
 	$signature = siw_get_setting( 'np_camp_leader_email_signature' );
 	/*E-mail bevestiging*/
+	//TODO: tekst conditioneel van datum maken
 	$confirmation_template_args = array(
 		'subject' => __( 'Bevestiging aanmelding', 'siw' ),
 		'message' =>
@@ -113,12 +113,7 @@ return array(
 				),
 			)
 		),
-		'intro_hr' => siw_get_form_field( 'hr',
-			array(
-				'ID' => 'intro_hr',
-				'slug' => 'intro_hr',
-			)
-		),
+		'intro_hr' => siw_get_standard_form_field( 'intro_hr'),
 		'voornaam' => siw_get_standard_form_field( 'voornaam' ),
 		'achternaam' => siw_get_standard_form_field( 'achternaam' ),
 		'geboortedatum' => siw_get_standard_form_field( 'geboortedatum' ),
@@ -213,25 +208,7 @@ return array(
 	array(
 		'conditions' =>
 		array(
-			'con_bekend_anders' =>
-			array(
-				'id' => 'con_bekend_anders',
-				'name' => 'Bekend anders',
-				'type' => 'show',
-				'group' =>
-				array(
-					'con_bekend_anders_group_1' =>
-					array(
-						'con_bekend_anders_group_1_line_1' =>
-						array(
-							'parent' => 'con_bekend_anders_group_1',
-							'field' => 'bekend',
-							'compare' => 'is',
-							'value' => 'anders',
-						),
-					),
-				),
-			),
+			'con_bekend_anders' => siw_get_standard_form_condition( 'con_bekend_anders' ),
 		),
 	),
 	'settings' =>

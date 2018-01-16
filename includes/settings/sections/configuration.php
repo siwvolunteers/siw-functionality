@@ -83,6 +83,13 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
 	);
 	$pages_fields[] = array(
+		'id'			=> 'info_day_page',
+		'title'			=> __( 'Infodagen', 'siw' ),
+		'type'			=> 'select',
+		'options'		=> $pages,
+		'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
+	);
+	$pages_fields[] = array(
 		'id'			=> 'workcamps_page',
 		'title'			=> __( 'Groepsprojecten', 'siw' ),
 		'type'			=> 'select',

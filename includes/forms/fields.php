@@ -49,22 +49,6 @@ function siw_get_form_field( $slug, $options = array() ){
 			'width' => '',
 		),
 	);
-	$fields['intro_hr'] = array(
-		'ID' => 'intro_hr',
-		'type' => 'section_break',
-		'label' => 'intro_hr',
-		'slug' => 'intro_hr',
-		'conditions' =>
-		array(
-			'type' => '',
-		),
-		'caption' => '',
-		'config' =>
-		array(
-			'custom_class' => '',
-			'width' => '',
-		),
-	);
 	$fields['text'] = array(
 		'ID' => 'text',
 		'type' => 'text',
@@ -226,7 +210,7 @@ function siw_get_form_field( $slug, $options = array() ){
 		return;
 	}
 
-	$field = $fields[ $slug ];
+	$field = $fields[ $slug ]; //TODO: ID kopieren naar slug
 	$field = wp_parse_args_recursive( $options, $field );
 
 	return $field;
@@ -250,6 +234,22 @@ function siw_get_standard_form_field( $slug, $options = array() ) {
 	}
 
 	$fields = array();
+	$fields['intro_hr'] = array(
+		'ID' => 'intro_hr',
+		'type' => 'section_break',
+		'label' => 'intro_hr',
+		'slug' => 'intro_hr',
+		'conditions' =>
+		array(
+			'type' => '',
+		),
+		'caption' => '',
+		'config' =>
+		array(
+			'custom_class' => '',
+			'width' => '',
+		),
+	);
 	$fields['voornaam'] = siw_get_form_field( 'text',
 		array(
 			'ID' => 'voornaam',
@@ -388,11 +388,6 @@ function siw_get_standard_form_field( $slug, $options = array() ) {
 						'value' => 'familie_vrienden',
 						'label' => __( 'Familie / vrienden', 'siw' ),
 					),
-					'infodag' =>
-					array(
-						'value' => 'infodag',
-						'label' => __( 'SIW Infodag', 'siw' ),
-					),
 					'anders' =>
 					array(
 						'value' => 'anders',
@@ -452,6 +447,9 @@ function siw_get_standard_form_field( $slug, $options = array() ) {
 		)
 	);
 
+	/* Filter om extra velden toe te voegen */
+	$fields = apply_filters( 'siw_standard_form_fields', $fields );
+
 	/* Afbreken als veld niet gevonden is */
 	if ( ! isset( $fields[ $slug ] ) ) {
 		return;
@@ -460,4 +458,48 @@ function siw_get_standard_form_field( $slug, $options = array() ) {
 	$field = wp_parse_args_recursive( $options, $field );
 
 	return $field;
+}
+
+
+/**
+ * [siw_get_standard_form_condition description]
+ * @param  [type] $slug    [description]
+ * @param  [type] $options [description]
+ * @return [type]          [description]
+ */
+function siw_get_standard_form_condition( $slug, $options = array() ) {
+
+	$conditions = array();
+
+	$conditions['con_bekend_anders'] =
+	array(
+		'id' => 'con_bekend_anders',
+		'name' => 'Bekend anders',
+		'type' => 'show',
+		'group' =>
+		array(
+			'con_bekend_anders_group_1' =>
+			array(
+				'con_bekend_anders_group_1_line_1' =>
+				array(
+					'parent' => 'con_bekend_anders_group_1',
+					'field' => 'bekend',
+					'compare' => 'is',
+					'value' => 'anders',
+				),
+			),
+		),
+	);
+
+	/* Filter om extra condities toe te voegen */
+	$conditions = apply_filters( 'siw_standard_form_conditions', $conditions );
+
+	/* Afbreken als conditie niet gevonden is */
+	if ( ! isset( $conditions[ $slug ] ) ) {
+		return;
+	}
+	$condition = $conditions[ $slug ];
+
+	return $condition;
+
 }

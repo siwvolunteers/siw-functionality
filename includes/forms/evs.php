@@ -28,14 +28,13 @@ add_filter( 'caldera_forms_get_forms', function( $forms ) {
  */
 add_filter( 'caldera_forms_get_form-evs', function( $form ) {
 
-	//TODO!!!!!!!!!!
 	$signature = siw_get_setting( 'evs_email_signature' );
 	/*E-mail bevestiging*/
 	$confirmation_template_args = array(
 		'subject' => __( 'Bevestiging aanmelding', 'siw' ),
 		'message' =>
 		sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
-		__( 'Bedankt voor je EVS-aanmelding.', 'siw') . SPACE .
+		__( 'Bedankt voor je EVS-aanmelding.', 'siw' ) . SPACE .
 		__( 'Onderaan deze mail staan de gegevens die je hebt ingevuld.', 'siw' ) . BR .
 		__( 'We nemen zo snel mogelijk contact met je op om in een gesprek verder met je kennis te maken en op zoek te gaan naar een leuk en geschikt project!', 'siw' ),
 		'show_signature' => true,
@@ -53,7 +52,7 @@ add_filter( 'caldera_forms_get_form-evs', function( $form ) {
 	);
 
 
-	/* Referentiegegevens TODO: hergebruiken voor Op maat*/
+	/* Referentiegegevens TODO: hergebruiken voor Op maat?*/
 	$duration = array(
 		'2-5' =>
 		array(
@@ -76,8 +75,8 @@ add_filter( 'caldera_forms_get_form-evs', function( $form ) {
 return array(
 	'ID'			=> 'evs',
 	'name'			=> __( 'EVS', 'siw' ),
-	'db_support'	=> 1,
- 	'pinned'		=> 1,
+	'db_support'	=> 0,
+ 	'pinned'		=> 0,
 	'pin_roles'		=>
 	array(
 		'access_role'	=>
@@ -121,8 +120,8 @@ return array(
 	'fields' =>
 	array(
 		'intro' => siw_get_form_field( 'html', array(
-			'ID' => 'intro_hr',
-			'slug' => 'intro_hr',
+			'ID' => 'intro',
+			'slug' => 'intro',
 			'config' => array(
 				'default' =>
 					__( 'Start snel jouw eigen EVS avontuur!', 'siw' ) . SPACE .
@@ -130,12 +129,7 @@ return array(
 				),
 			)
 		),
-		'intro_hr' => siw_get_form_field( 'hr',
-			array(
-				'ID' => 'intro_hr',
-				'slug' => 'intro_hr',
-			)
-		),
+		'intro_hr' => siw_get_standard_form_field( 'intro_hr'),
 		'voornaam' => siw_get_standard_form_field( 'voornaam' ),
 		'achternaam' => siw_get_standard_form_field( 'achternaam' ),
 		'geboortedatum' => siw_get_standard_form_field( 'geboortedatum' ),
@@ -194,7 +188,54 @@ return array(
 				),
 			)
 		),
-		'bekend' => siw_get_standard_form_field( 'bekend' ),
+		'bekend' => siw_get_form_field( 'checkbox',
+ 			array(
+				'ID' => 'bekend',
+				'label' => __( 'Hoe heb je van EVS (bij SIW) gehoord?', 'siw' ),
+				'slug' => 'bekend',
+				'config' =>
+				array(
+					'option' =>
+					array(
+						'google' =>
+						array(
+							'value' => 'google',
+							'label' => __( 'Google', 'siw' ),
+						),
+						'website' =>
+						array(
+							'value' => 'website',
+							'label' => __( 'Website SIW', 'siw' ),
+						),
+						'social_media' =>
+						array(
+							'value' => 'social_media',
+							'label' => __( 'Social Media', 'siw' ),
+						),
+						'familie_vrienden' =>
+						array(
+							'value' => 'familie_vrienden',
+							'label' => __( 'Familie / vrienden', 'siw' ),
+						),
+						'infodag' =>
+						array(
+							'value' => 'infodag',
+							'label' => __( 'SIW Infodag', 'siw' ),
+						),
+						'nji' =>
+						array(
+							'value' => 'nji',
+							'label' => __( 'NJI EVS info middag/avond', 'siw' ),
+						),
+						'anders' =>
+						array(
+							'value' => 'anders',
+							'label' => __( 'Anders', 'siw' ),
+						),
+					),
+				),
+			)
+		),
 		'bekend_anders' => siw_get_standard_form_field( 'bekend_anders' ),
 		'verzenden' =>  siw_get_standard_form_field( 'verzenden' ),
 	),
@@ -227,25 +268,7 @@ return array(
 	array(
 		'conditions' =>
 		array(
-			'con_bekend_anders' =>
-			array(
-				'id' => 'con_bekend_anders',
-				'name' => 'Bekend anders',
-				'type' => 'show',
-				'group' =>
-				array(
-					'con_bekend_anders_group_1' =>
-					array(
-						'con_bekend_anders_group_1_line_1' =>
-						array(
-							'parent' => 'con_bekend_anders_group_1',
-							'field' => 'bekend',
-							'compare' => 'is',
-							'value' => 'anders',
-						),
-					),
-				),
-			),
+			'con_bekend_anders' => siw_get_standard_form_condition( 'con_bekend_anders' ),
 		),
 	),
 	'settings' =>
@@ -265,6 +288,7 @@ return array(
 		'recipients' => siw_get_setting( 'evs_email_sender' ),
 		'email_subject' => $notification_template_args['subject'],
 		'email_message' => siw_get_email_template( $notification_template_args ),
+		'csv_data' => 0,
 	),
 );
 } );

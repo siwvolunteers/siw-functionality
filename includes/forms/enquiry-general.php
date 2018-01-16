@@ -98,12 +98,7 @@ return array(
 				),
 			)
 		),
-		'intro_hr' => siw_get_form_field( 'hr',
-			array(
-				'ID' => 'intro_hr',
-				'slug' => 'intro_hr',
-			)
-		),
+		'intro_hr' => siw_get_standard_form_field( 'intro_hr'),
 		'voornaam' => siw_get_standard_form_field( 'voornaam' ),
 		'achternaam' => siw_get_standard_form_field( 'achternaam' ),
 		'emailadres' => siw_get_standard_form_field( 'emailadres' ),
