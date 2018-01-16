@@ -96,7 +96,7 @@ add_action('plugins_loaded', function() {
 		'countries',  /*Landen*/
 		'np', /*Nederlandse projecten*/
 		'op_maat', /*Op Maat*/
-		'organisation',
+		//'organisation',
 		'jobs', 	/*Vacatures*/
 	);
 
