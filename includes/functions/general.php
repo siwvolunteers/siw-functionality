@@ -79,7 +79,12 @@ function siw_get_mailpoet_lists() {
  * @return array id => naam
  */
 function siw_get_pages() {
+	$default_lang = apply_filters( 'wpml_default_language', NULL );
+	$current_lang = apply_filters( 'wpml_current_language', NULL );
+	do_action( 'wpml_switch_language', $default_lang );
 	$results = get_pages();
+	do_action( 'wpml_switch_language', $current_lang );
+
 	$pages = array();
 	foreach ( $results as $result ) {
 		$ancestors = get_ancestors( $result->ID, 'page' );

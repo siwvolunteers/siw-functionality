@@ -257,11 +257,13 @@ add_filter( 'kadence_display_sidebar', function( $sidebar ) {
 	return $sidebar;
 } );
 
-/* Knop naar zo-werkt-het pagina onder elk op maat project TODO:pagina uit instelling halen*/
+/* Knop naar zo-werkt-het pagina onder elk op maat project */
 add_action( 'kadence_single_portfolio_value_after', function() {
-	?>
-	<a href="/zo-werkt-het/projecten-op-maat/" class="kad-btn kad-btn-primary"><?php esc_html_e( 'Alles over projecten op maat','siw' );?></a>
-	<?php
+	$op_maat_page = siw_get_setting( 'op_maat_page' );
+	$op_maat_page = siw_get_translated_page_id( $op_maat_page );
+	$op_maat_page_link = get_page_link( $op_maat_page );
+	printf( '<a href="%s" class="kad-btn kad-btn-primary">%s</a>', esc_url( $op_maat_page_link ), esc_html__( 'Alles over projecten op maat', 'siw' ) );
+
 } );
 
 

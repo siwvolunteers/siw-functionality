@@ -97,6 +97,20 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
 	);
 	$pages_fields[] = array(
+		'id'			=> 'op_maat_page',
+		'title'			=> __( 'Op Maat', 'siw' ),
+		'type'			=> 'select',
+		'options'		=> $pages,
+		'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
+	);
+	$pages_fields[] = array(
+		'id'			=> 'contact_page',
+		'title'			=> __( 'Contact', 'siw' ),
+		'type'			=> 'select',
+		'options'		=> $pages,
+		'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
+	);
+	$pages_fields[] = array(
 		'id'			=> 'child_policy_page',
 		'title'			=> __( 'Beleid kinderprojecten', 'siw' ),
 		'type'			=> 'select',
