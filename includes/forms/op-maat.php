@@ -46,16 +46,7 @@ add_filter( 'caldera_forms_get_form-op_maat', function( $form ) {
 	$info_day_page = siw_get_translated_page_id( $info_day_page );
 	$info_day_page_link = get_page_link( $info_day_page );
 
-	/*
-	 * Ophalen op maat landen
-	 */
-	$op_maat_countries = siw_get_countries_by_property( 'op_maat', true );
-	foreach ( $op_maat_countries as $op_maat_country ) {
-		$country_slug = $op_maat_country['slug'];
-		$country_name = $op_maat_country['name'];
-		$countries[ $country_slug ]['value'] = $country_slug;
-		$countries[ $country_slug ]['label'] = $country_name;
-	}
+
 
 	$duration = array(
 		'2-5' =>
