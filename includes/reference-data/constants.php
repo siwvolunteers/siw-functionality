@@ -40,8 +40,8 @@ define( 'SIW_CRON_TS_BACKUP_FILES', '04:30' ); //nog niet gebruikt
 define( 'SIW_CRON_TS_REBUILD_CACHE', '05:00' );
 
 /* Tarieven */
-define( 'SIW_WORKCAMP_FEE_STUDENT', 225 );
-define( 'SIW_WORKCAMP_FEE_REGULAR', 275 );
+define( 'SIW_WORKCAMP_FEE_STUDENT', 235 );
+define( 'SIW_WORKCAMP_FEE_REGULAR', 285 );
 define( 'SIW_OP_MAAT_FEE_STUDENT', 349 );
 define( 'SIW_OP_MAAT_FEE_REGULAR', 399 );
 define( 'SIW_EVS_DEPOSIT', 155 );
