@@ -55,6 +55,7 @@ add_filter( 'caldera_forms_get_form-infodag', function( $form ) {
 
 	/* Keuzes infodag */
 	$infodays = siw_get_future_info_days( true, 3 );
+	$dates = array();
 	foreach ( $infodays as $infoday ) {
 		$date_slug = sanitize_title( $infoday );
 		$dates[ $date_slug ]['value'] = $date_slug;

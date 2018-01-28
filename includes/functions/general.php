@@ -29,6 +29,17 @@ function siw_get_translated_page_id( $page_id ) {
 
 
 /**
+ * [siw_get_translated_page_link description]
+ * @param  int $page_id
+ * @return string
+ */
+function siw_get_translated_page_link( $page_id ) {
+	$translated_page_id = siw_get_translated_page_id( $page_id );
+	$translated_page_link = get_page_link( $translated_page_id );
+	return $translated_page_link;
+}
+
+/**
  * Geeft een array met gewhiteliste IP-adressen terug
  *
  * @return array

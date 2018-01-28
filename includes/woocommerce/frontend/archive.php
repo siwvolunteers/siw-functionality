@@ -114,8 +114,7 @@ add_filter( 'woocommerce_shortcode_products_query', function( $args, $atts ) {
 /** Introtekst voor overzichtspagina toevoegen*/
 add_action( 'after_page_header', function() {
 	$workcamps_page = siw_get_setting( 'workcamps_page' );
-	$workcamps_page = siw_get_translated_page_id( $workcamps_page );
-	$workcamps_page_link = get_page_link( $workcamps_page );
+	$workcamps_page_link = siw_get_translated_page_link( $workcamps_page );
 
 	if ( is_shop() ) {
 		$text =	__( 'Hieronder zie je het beschikbare aanbod groepsprojecten.', 'siw' );
