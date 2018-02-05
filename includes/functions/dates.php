@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function siw_get_date_in_text( $date, $year = true ) {
 	$format = $year ? 'j F Y' :  'j F';
-	$date_in_text = date_i18n( 'j F Y', strtotime( $date ) );
+	$date_in_text = date_i18n( $format, strtotime( $date ) );
 
 	return $date_in_text;
 }
@@ -94,4 +94,58 @@ function siw_get_month_name_from_slug( $slug ) {
 	$month_name = ucfirst( date_i18n( $date_format, strtotime( $date ) ) );
 
 	return $month_name;
+}
+
+
+/**
+ * Geeft de maand in tekst terug
+ *
+ * @param string $date Y-m-d
+ * @param bool $year Jaar toevoegen aan tekst
+ *
+ * @return string
+ */
+function siw_get_month_in_text( $date, $year = true ) {
+	$format = $year ? 'F Y' :  'F';
+	$month_in_text = date_i18n( $format, strtotime( $date ) );
+
+	return $month_in_text;
+}
+
+
+/**
+ * Geeft de maand in tekst terug
+ *
+ * @param string $date_start Y-m-d
+ * @param string $date_end Y-m-d
+ * @param bool $year jaar toevoegen aan tekst
+ *
+ * @return string
+ */
+function siw_get_month_range_in_text( $date_start, $date_end, $year = true ) {
+
+	$date_start_array = date_parse( $date_start );
+	$date_end_array = date_parse( $date_end );
+
+	if ( $date_start == $date_end || $date_start_array['month'] == $date_end_array['month'] ) {
+	siw_debug($date_start);
+	siw_debug($date_end);
+		return siw_get_month_in_text( $date_start, $year );
+	}
+
+	$format_end = $year ? 'F Y' :  'F';
+	if ( $year && ( $date_start_array['year'] != $date_end_array['year'] ) ) {
+		$format_start = 'F Y';
+	}
+	else {
+		$format_start = 'F';
+	}
+
+
+	$month_start_in_text = date_i18n( $format_start, strtotime( $date_start ) );
+	$month_end_in_text = date_i18n( $format_end, strtotime( $date_end ) );
+
+	$month_range_in_text = sprintf( __( '%s t/m %s', 'siw' ), $month_start_in_text, $month_end_in_text );
+
+	return $month_range_in_text;
 }

@@ -82,6 +82,9 @@ function siw_get_upcoming_events( $number, $min_date = '', $max_date = '' ) {
 	return $upcoming_events;
 }
 
+/* TODO: verwijderen oude evenmenten */
+
+
 
 /**
  * Haal gegevens van agenda-evenement op
@@ -91,30 +94,35 @@ function siw_get_upcoming_events( $number, $min_date = '', $max_date = '' ) {
  * @return array
  */
 function siw_get_event_data( $post_id ) {
-	$event_data['permalink']				= get_permalink( $post_id );
-	$event_data['title']					= get_the_title( $post_id );
-	$event_data['excerpt'] 					= get_the_excerpt( $post_id );
-	$event_data['post_thumbnail_url'] 		= get_the_post_thumbnail_url( $post_id );
-	$start_ts 								= get_post_meta( $post_id, 'siw_agenda_start', true );
-	$end_ts 								= get_post_meta( $post_id, 'siw_agenda_eind', true );
-	$event_data['start_date'] 				= date( 'Y-m-d', $start_ts );
-	$event_data['end_date'] 				= date( 'Y-m-d', $end_ts );
-	$event_data['start_time']				= date( 'H:i', $start_ts );
-	$event_data['end_time']					= date( 'H:i', $end_ts );
-	$event_data['date_range']				= siw_get_date_range_in_text( $event_data['start_date'],  $event_data['end_date'] , false );
-	$event_data['duration']					= $event_data['date_range']	  . ', ' .  $event_data['start_time']	 . '&nbsp;-&nbsp;' . $event_data['end_time'];
-	$event_data['program'] 					= get_post_meta( $post_id, 'siw_agenda_programma', true );
-	$event_data['description']				= get_post_meta( $post_id, 'siw_agenda_beschrijving', true );
-	$event_data['highlight_quote']			= get_post_meta( $post_id, 'siw_agenda_highlight_quote', true );
-	$event_data['location']					= get_post_meta( $post_id, 'siw_agenda_locatie', true );
-	$event_data['address']					= get_post_meta( $post_id, 'siw_agenda_adres', true );
-	$event_data['postal_code']				= get_post_meta( $post_id, 'siw_agenda_postcode', true );
-	$event_data['city']						= get_post_meta( $post_id, 'siw_agenda_plaats', true );
-	$event_data['application'] 				= get_post_meta( $post_id, 'siw_agenda_aanmelden', true );
-	$event_data['application_explanation']	= get_post_meta( $post_id, 'siw_agenda_aanmelden_toelichting', true );
-	$event_data['application_link_url']		= get_post_meta( $post_id, 'siw_agenda_aanmelden_link_url', true );
-	$event_data['application_link_text'] 	= get_post_meta( $post_id, 'siw_agenda_aanmelden_link_tekst', true );
-	$event_data['text_after_hide_form']		= get_post_meta( $post_id, 'siw_agenda_tekst_na_verbergen_formulier', true );
+
+	$start_ts	= get_post_meta( $post_id, 'siw_agenda_start', true );
+	$end_ts 	= get_post_meta( $post_id, 'siw_agenda_eind', true );
+
+	$event_data = array(
+		'permalink'					=> get_permalink( $post_id ),
+		'title'						=> get_the_title( $post_id ),
+		'excerpt' 					=> get_the_excerpt( $post_id ),
+		'post_thumbnail_url'		=> get_the_post_thumbnail_url( $post_id ), //TODO: is dit nog nodig?
+		'start_date' 				=> date( 'Y-m-d', $start_ts ),
+		'end_date'					=> date( 'Y-m-d', $end_ts ),
+		'start_time'				=> date( 'H:i', $start_ts ),
+		'end_time'					=> date( 'H:i', $end_ts ),
+		'program' 					=> get_post_meta( $post_id, 'siw_agenda_programma', true ),
+		'description'				=> get_post_meta( $post_id, 'siw_agenda_beschrijving', true ),
+		'highlight_quote'			=> get_post_meta( $post_id, 'siw_agenda_highlight_quote', true ),
+		'location'					=> get_post_meta( $post_id, 'siw_agenda_locatie', true ),
+		'address'					=> get_post_meta( $post_id, 'siw_agenda_adres', true ),
+		'postal_code'				=> get_post_meta( $post_id, 'siw_agenda_postcode', true ),
+		'city'						=> get_post_meta( $post_id, 'siw_agenda_plaats', true ),
+		'application' 				=> get_post_meta( $post_id, 'siw_agenda_aanmelden', true ),
+		'application_explanation'	=> get_post_meta( $post_id, 'siw_agenda_aanmelden_toelichting', true ),
+		'application_link_url'		=> get_post_meta( $post_id, 'siw_agenda_aanmelden_link_url', true ),
+		'application_link_text' 	=> get_post_meta( $post_id, 'siw_agenda_aanmelden_link_tekst', true ),
+		'text_after_hide_form'		=> get_post_meta( $post_id, 'siw_agenda_tekst_na_verbergen_formulier', true ),
+	);
+	$event_data['date_range'] = siw_get_date_range_in_text( $event_data['start_date'],  $event_data['end_date'] , false );
+	$event_data['duration']	= sprintf( '%s, %s&nbsp;-&nbsp;%s', $event_data['date_range'], $event_data['start_time'], $event_data['end_time'] );
+
 
 	return $event_data;
 }

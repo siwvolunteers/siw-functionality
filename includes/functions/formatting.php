@@ -8,17 +8,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 /**
- * [siw_generate_unordered_list description]
- * @param  [type] $data [description]
- * @return [type]       [description]
+ * Genereert <ul> van array
+ * @param  array $items
+ * @return string
  */
-function siw_generate_unordered_list( $data ) {
-	if ( empty ( $data ) ) {
+function siw_generate_unordered_list( $items ) {
+	if ( empty ( $items ) ) {
 		return false;
 	}
 
 	$unordered_list = '<ul>';
-	foreach ( $data as $item ) {
+	foreach ( $items as $item ) {
 		$unordered_list .= '<li>' . (string) $item . '</li>';
 	}
 	$unordered_list .= '</ul>';
@@ -27,7 +27,7 @@ function siw_generate_unordered_list( $data ) {
 }
 
 /**
- * [siw_generate_external_link description]
+ * Genereert externe link
  * @param  string $url  [description]
  * @param  string $text [description]
  * @return string       [description]
@@ -43,24 +43,44 @@ function siw_generate_external_link( $url, $text = false ) {
 }
 
 /**
- * [siw_format_amount description]
+ * Formatteert getal als bedrag
  * @param  float  $amount
  * @param  integer $decimals
  * @return string
  */
-function siw_format_amount( $amount, $decimals=0 ) {
+function siw_format_amount( $amount, $decimals = 0 ) {
 	$amount = number_format( $amount, $decimals );
 	return sprintf( '&euro; %s', $amount );
 }
 
 
 /**
- * [siw_format_percentage description]
+ * Formatteert getal als percentage
  * @param  float  $percentage
  * @param  integer $decimals
  * @return string
  */
-function siw_format_percentage( $percentage, $decimals=0 ) {
+function siw_format_percentage( $percentage, $decimals = 0 ) {
 	$percentage = number_format( $percentage, $decimals );
 	return sprintf( '%s &percnt;', $percentage );
+}
+
+
+/**
+ * Geneereer pinnacle accordion
+ * @param  array $panes
+ * @return string
+ */
+function siw_generate_accordion( $panes ) {
+
+	if ( empty( $panes) ) {
+		return;
+	}
+	$accordion = '[accordion]';
+		foreach ( $panes as $pane ) {
+		$accordion .= sprintf( '[pane title="%s"]%s[/pane]', esc_html( $pane['title'] ), wp_kses_post( wpautop( $pane['content'] ) ) );
+	}
+	$accordion .= '[/accordion]';
+
+	return $accordion;
 }
