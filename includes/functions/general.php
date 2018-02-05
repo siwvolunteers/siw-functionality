@@ -196,3 +196,32 @@ function siw_get_testimonial_quote_categories() {
 	}
 	return $testimonial_quote_categories;
 }
+
+
+/**
+* Haal array van bestuursleden (met functie) op
+* @return array
+ */
+function siw_get_board_members() {
+	for ( $x = 1 ; $x <= SIW_MAX_BOARD_MEMBERS; $x++ ) {
+		$board_members[] = siw_get_setting( "board_member_{$x}" );
+	}
+	return $board_members;
+}
+
+
+/**
+ * Haal array van jaarverslagen op
+ * @return array
+ */
+function siw_get_annual_reports() {
+	$last_year = (int) date( 'Y' ) - 1;
+	$first_year = $last_year - SIW_MAX_ANNUAL_REPORTS + 1;
+
+	for ( $x = $last_year ; $x >= $first_year; $x-- ) {
+		$annual_reports[ $x ] = siw_get_setting( "annual_report_{$x}" );
+	}
+	return $annual_reports;
+}
+
+
