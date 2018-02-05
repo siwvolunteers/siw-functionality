@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 siw_add_cron_job( 'siw_cleanup_terms' );
 
 add_action( 'siw_cleanup_terms', function() {
-	siw_debug_log( 'Start opruimen ongebruikte terms');
+	siw_debug_log( 'Start verwijderen ongebruikte terms');
 	$taxonomies[] = 'pa_maand';
 	$taxonomies[] = 'pa_aantal-vrijwilligers';
 	$taxonomies[] = 'pa_leeftijd';
@@ -19,6 +19,8 @@ add_action( 'siw_cleanup_terms', function() {
 	$taxonomies[] = 'pa_startdatum';
 	$taxonomies[] = 'pa_einddatum';
 
+	$deleted_terms = 0;
+
 	foreach ( $taxonomies as $taxonomy ) {
 		$terms = get_terms( $taxonomy, array(
 			'hide_empty' => false,
@@ -27,10 +29,12 @@ add_action( 'siw_cleanup_terms', function() {
 		foreach ( $terms as $term ) {
 			if ( 0 == $term->count ) {
 				wp_delete_term( $term->term_id, $taxonomy );
+				$deleted_terms++;
 			}
 		}
 	}
-	siw_debug_log( 'Eind opruimen ongebruikte terms');
+	siw_debug_log( 'Terms verwijderd: ' . $deleted_terms );
+	siw_debug_log( 'Eind verwijderen ongebruikte terms');
 });
 
 
