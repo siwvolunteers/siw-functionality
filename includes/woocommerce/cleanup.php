@@ -211,8 +211,8 @@ add_action( 'siw_delete_projects', function() {
 	);
 
 	$siw_delete_workcamps_background_process = $GLOBALS['siw_delete_workcamps_background_process'];
-	foreach ( $post_ids as $post_id ) {
-		$siw_delete_workcamps_background_process->push_to_queue( $post_id );
+	foreach ( $products as $product_id ) {
+		$siw_delete_workcamps_background_process->push_to_queue( $product_id );
 	}
 	$siw_delete_workcamps_background_process->save()->dispatch();
 });
