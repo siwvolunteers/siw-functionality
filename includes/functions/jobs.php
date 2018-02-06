@@ -75,8 +75,8 @@ function siw_get_job_data( $post_id ) {
 
 
 /**
- * [siw_get_featured_job description]
- * @return [type] [description]
+ * Geeft eerste uitgelichte vacature terug
+ * @return array
  */
 function siw_get_featured_job() {
 	$meta_query = array(

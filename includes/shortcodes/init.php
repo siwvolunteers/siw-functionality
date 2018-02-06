@@ -34,6 +34,9 @@ add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) {
 	$pinnacle_shortcodes['siw_kvk'] = array(
 		'title' => __( '[SIW - Algemeen] KvK-nummer', 'siw' ),
 	);
+	$pinnacle_shortcodes['siw_openingstijden'] = array(
+		'title' => __( '[SIW - Algemeen] Openingstijden', 'siw' ),
+	);
 	$pinnacle_shortcodes['siw_rsin'] = array(
 		'title' => __( '[SIW - Algemeen] RSIN', 'siw' ),
 	);
@@ -116,11 +119,11 @@ add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) {
 /*
  * Algemene informatie
  * - KvK-nummer
- * - E-mailadres
- * - Telefoonnummer
+ * - E-mailadres (+ link)
+ * - Telefoonnummer (+ internationaal)
  * - IBAN
  * - RSIN
- * TODO: openingstijden
+ * - Openingstijden
  */
 add_shortcode( 'siw_kvk', function() {
 	return SIW_KVK;
@@ -143,6 +146,9 @@ add_shortcode( 'siw_iban', function() {
 } );
 add_shortcode( 'siw_rsin', function() {
 	return SIW_RSIN;
+} );
+add_shortcode( 'siw_openingstijden', function() {
+	return sprintf( esc_html__( 'Maandag t/m vrijdag %s', 'siw' ), SIW_OPENING_HOURS );
 } );
 
 

@@ -128,8 +128,6 @@ function siw_get_month_range_in_text( $date_start, $date_end, $year = true ) {
 	$date_end_array = date_parse( $date_end );
 
 	if ( $date_start == $date_end || $date_start_array['month'] == $date_end_array['month'] ) {
-	siw_debug($date_start);
-	siw_debug($date_end);
 		return siw_get_month_in_text( $date_start, $year );
 	}
 

@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
  * Author: Maarten Bruna
- * Version: 1.4.3
+ * Version: 1.4.4
  */
 
 
@@ -20,7 +20,7 @@ define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . '/assets' );
 define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . '/includes' );
 define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
-define ( 'SIW_PLUGIN_VERSION', '1.4.3' );
+define ( 'SIW_PLUGIN_VERSION', '1.4.4' );
 define ( 'SIW_AJAX_URL', SIW_PLUGIN_URL . 'ajax-handler.php' );
 define ( 'SIW_SITE_URL', get_site_url() );
 define ( 'SIW_SITE_NAME', $_SERVER['SERVER_NAME'] );
@@ -42,8 +42,6 @@ require_once( SIW_ASSETS_DIR . '/plugins/wp-background-process.php' );
 require_once( SIW_ASSETS_DIR . '/plugins/wp-parse-args-recursive.php' );
 
 
-
-
 /* Referentiegegevens */
 require_once( SIW_INCLUDES_DIR . '/reference-data/init.php' );
 /* Functies */
@@ -52,15 +50,12 @@ require_once( SIW_INCLUDES_DIR . '/functions/init.php' );
 require_once( SIW_INCLUDES_DIR . '/settings/init.php' );
 
 
-
 /* Diverse aanpassingen */
 require_once( SIW_INCLUDES_DIR . '/custom.php' );
 /* JS en CSS enqueuen */
 require_once( SIW_INCLUDES_DIR . '/enqueue.php' );
 /* Cron jobs schedulen */
 require_once( SIW_INCLUDES_DIR . '/scheduler.php' );
-/* Zoekfunctionaliteit */
-require_once( SIW_INCLUDES_DIR . '/search.php' );
 /* SEO */
 require_once( SIW_INCLUDES_DIR . '/seo.php' );
 /* Shortcodes */

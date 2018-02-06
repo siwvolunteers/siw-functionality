@@ -11,7 +11,7 @@ define( 'SIW_NAME', 'SIW Internationale Vrijwilligersprojecten' ); //eventueel g
 define( 'SIW_STATUTORY_NAME', 'Stichting Internationale Werkkampen' );
 define( 'SIW_EMAIL', 'info@siw.nl' );
 define( 'SIW_PHONE', '030-2317721' );
-define( 'SIW_PHONE_FULL', '+31-30 2317721');
+define( 'SIW_PHONE_FULL', '+31 30 2317721');
 define( 'SIW_KVK', '41165368' );
 define( 'SIW_IBAN', 'NL28 INGB 0000 0040 75' );
 define( 'SIW_RSIN', '002817482' );
