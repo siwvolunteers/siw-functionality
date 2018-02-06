@@ -116,6 +116,9 @@ add_action( 'after_page_header', function() {
 	$workcamps_page = siw_get_setting( 'workcamps_page' );
 	$workcamps_page_link = siw_get_translated_page_link( $workcamps_page );
 
+	$contact_page = siw_get_setting( 'contact_page' );
+	$contact_page_link = siw_get_translated_page_link( $contact_page );
+
 	if ( is_shop() ) {
 		$text =	__( 'Hieronder zie je het beschikbare aanbod groepsprojecten.', 'siw' );
 
@@ -148,6 +151,10 @@ add_action( 'after_page_header', function() {
 			__( 'De projecten hebben vaste begin- en einddata.', 'siw' ) . SPACE .
 		 	sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">groepsprojecten</a>.', 'siw' ), esc_url( $workcamps_page_link ) );
 
+		//Tijdelijke tekst ivm beperkt projectaanbod //TODO: instelling, variabele voor jaar.
+		$text .= BR2 . __( 'Vanaf maart wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor 2018.', 'siw' ) . SPACE .
+			__( 'Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW?', 'siw' ) . SPACE .
+			sprintf( __( '<a href="%s">Bel of mail ons</a> en we denken graag met je mee!', 'siw' ), esc_url( $contact_page_link ) );
 
 	?>
 	<div class="container">
