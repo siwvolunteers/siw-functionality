@@ -23,7 +23,7 @@ function siw_add_cron_job( $job ) {
  * @return int
  */
 function siw_get_translated_page_id( $page_id ) {
-	$translated_page_id = apply_filters( 'wdpml_object_id', $page_id, 'page', true );
+	$translated_page_id = apply_filters( 'wpml_object_id', $page_id, 'page', true );
 	return $translated_page_id;
 }
 
