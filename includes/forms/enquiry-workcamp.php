@@ -44,7 +44,6 @@ add_filter( 'caldera_forms_get_form-contact_project', function( $form ) {
 		'signature_name' => $signature['name'],
 		'signature_title' => $signature['title'],
 		'show_summary' => true,
-		'remove_linebreaks' => true,
 	);
 
 	/*E-mail notificatie*/
@@ -56,17 +55,10 @@ add_filter( 'caldera_forms_get_form-contact_project', function( $form ) {
 	);
 
 return array(
-	'ID'			=> 'contact_project',
-	'name'			=> __( 'Infoverzoek groepsproject', 'siw' ),
-	'db_support'	=> 0,
- 	'pinned'		=> 0,
-	'pin_roles'		=>
-	array(
-		'access_role'	=>
-		array(
-			'publiciteit'	=> 1,
-		),
-	),
+	'ID'				=> 'contact_project',
+	'name'				=> __( 'Infoverzoek groepsproject', 'siw' ),
+	'db_support'		=> 0,
+ 	'pinned'			=> 0,
 	'hide_form'			=> 1,
 	'check_honey'		=> 1,
 	'success'			=> __( 'Je bericht werd succesvol verzonden.', 'siw'),

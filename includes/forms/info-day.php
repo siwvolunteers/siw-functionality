@@ -43,7 +43,6 @@ add_filter( 'caldera_forms_get_form-infodag', function( $form ) {
 		'signature_name' => $signature['name'],
 		'signature_title' => $signature['title'],
 		'show_summary' => true,
-		'remove_linebreaks' => true,
 	);
 
 	/*E-mail notificatie*/

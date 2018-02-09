@@ -41,7 +41,6 @@ add_filter( 'caldera_forms_get_form-evs', function( $form ) {
 		'signature_name' => $signature['name'],
 		'signature_title' => $signature['title'],
 		'show_summary' => true,
-		'remove_linebreaks' => true,
 	);
 	/*E-mail notificatie*/
 	$notification_template_args = array(
@@ -50,27 +49,6 @@ add_filter( 'caldera_forms_get_form-evs', function( $form ) {
 		'show_signature' => false,
 		'show_summary' => true,
 	);
-
-
-	/* Referentiegegevens TODO: hergebruiken voor Op maat?*/
-	$duration = array(
-		'2-5' =>
-		array(
-			'value' => '2-5',
-			'label' => __( '2-5 maanden', 'siw' ),
-		),
-		'6-9' =>
-		array(
-			'value' => '6-9',
-			'label' => __( '6-9 maanden', 'siw' ),
-		),
-		'10-12' =>
-		array(
-			'value' => '10-12',
-			'label' => __( '10-12 maanden', 'siw' ),
-		),
-	);
-
 
 return array(
 	'ID'			=> 'evs',
@@ -106,16 +84,13 @@ return array(
 			'straat' => '6:1',
 			'woonplaats' => '6:2',
 			'motivatie' => '7:1',
-			'startmoment' => '7:2',
-			'projectduur' => '7:2',
-			'werk' => '8:1',
-			'bestemming' => '8:2',
-			'cv' => '9:1',
-			'bekend' => '9:2',
-			'bekend_anders' => '9:2',
-			'verzenden' => '10:1',
+			'periode' => '7:2',
+			'cv' => '8:1',
+			'bekend' => '8:2',
+			'bekend_anders' => '8:2',
+			'verzenden' => '9:1',
 		),
-		'structure' => '12|6:6|6:6|6:6|6:6|6:6|6:6|6:6|6:6|12',
+		'structure' => '12|6:6|6:6|6:6|6:6|6:6|6:6|6:6|12',
 	),
 	'fields' =>
 	array(
@@ -148,44 +123,11 @@ return array(
 				'slug' => 'motivatie',
 			)
 		),
-		'startmoment' => siw_get_form_field( 'text',
+		'periode' => siw_get_form_field( 'paragraph',
 			array(
-				'ID' => 'startmoment',
-				'label' => __( 'Wanneer wil met je EVS-project starten?', 'siw' ),
-				'slug' => 'startmoment',
-			)
-		),
-		'projectduur' => siw_get_form_field( 'radio',
-			array(
-				'ID' => 'projectduur',
-				'label' => __( 'Hoelang wil je weg?', 'siw' ),
-				'slug' => 'projectduur',
-				'config' =>
-				array(
-					'option' => $duration,
-				),
-			)
-		),
-		'werk' => siw_get_form_field( 'paragraph',
-			array(
-				'ID' => 'werk',
-				'label' => __( 'Wat voor soort werk wil je doen?', 'siw' ),
-				'slug' => 'werk',
-				'config' =>
-				array(
-					'rows' => 4,
-				),
-			)
-		),
-		'bestemming' => siw_get_form_field( 'paragraph',
-			array(
-				'ID' => 'bestemming',
-				'label' => __( 'Heb je een voorkeur voor een land of regio?', 'siw' ),
-				'slug' => 'bestemming',
-				'config' =>
-				array(
-					'rows' => 4,
-				),
+				'ID' => 'periode',
+				'label' => __( 'In welke periode zou je graag een EVS project willen doen?', 'siw' ),
+				'slug' => 'periode',
 			)
 		),
 		'bekend' => siw_get_form_field( 'checkbox',

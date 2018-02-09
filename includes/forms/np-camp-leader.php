@@ -54,7 +54,6 @@ add_filter( 'caldera_forms_get_form-begeleider_np', function( $form ) {
 		'signature_name' => $signature['name'],
 		'signature_title' => $signature['title'],
 		'show_summary' => true,
-		'remove_linebreaks' => true,
 	);
 	/*E-mail notificatie*/
 	$notification_template_args = array(

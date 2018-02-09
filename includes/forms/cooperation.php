@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param array $forms All registered forms
  */
 add_filter( 'caldera_forms_get_forms', function( $forms ) {
-	$forms['samenwerking_np'] = apply_filters( 'caldera_forms_get_form-samenwerking_np', array() );
+	$forms['samenwerking'] = apply_filters( 'caldera_forms_get_form-samenwerking', array() );
 	return $forms;
 } );
 
@@ -26,9 +26,9 @@ add_filter( 'caldera_forms_get_forms', function( $forms ) {
  *
  * @param $form array form structure
  */
-add_filter( 'caldera_forms_get_form-samenwerking_np', function( $form ) {
+add_filter( 'caldera_forms_get_form-samenwerking', function( $form ) {
 
-	$signature = siw_get_setting( 'np_camp_leader_email_signature' );
+	$signature = siw_get_setting( 'np_cooperation_email_signature' );
 
 	$confirmation_template_args = array(
 		'subject' => __( 'Bevestiging interesse samenwerking', 'siw' ),
@@ -41,7 +41,6 @@ add_filter( 'caldera_forms_get_form-samenwerking_np', function( $form ) {
 		'signature_name' => $signature['name'],
 		'signature_title' => $signature['title'],
 		'show_summary' => true,
-		'remove_linebreaks' => true,
 	);
 
 
@@ -53,8 +52,8 @@ add_filter( 'caldera_forms_get_form-samenwerking_np', function( $form ) {
 
 
 return array(
-	'ID'			=> 'samenwerking_np',
-	'name'			=> __( 'Samenwerking NP', 'siw' ),
+	'ID'			=> 'samenwerking',
+	'name'			=> __( 'Samenwerking', 'siw' ),
 	'db_support'	=> 0,
  	'pinned'		=> 0,
 	'pin_roles'		=>
