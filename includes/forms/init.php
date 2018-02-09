@@ -9,12 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once( __DIR__ . '/fields.php' );
 
 /* Formulieren */
+require_once( __DIR__ . '/enquiry-evs.php' );
 require_once( __DIR__ . '/enquiry-general.php' );
 require_once( __DIR__ . '/enquiry-workcamp.php' );
 require_once( __DIR__ . '/evs.php' );
 require_once( __DIR__ . '/info-day.php' );
 require_once( __DIR__ . '/np-camp-leader.php' );
-require_once( __DIR__ . '/np-cooperation.php' );
+require_once( __DIR__ . '/cooperation.php' );
 require_once( __DIR__ . '/op-maat.php' );
 
 
@@ -58,4 +59,5 @@ add_action( 'plugins_loaded', function() {
 		return;
 	}
 	remove_filter( 'caldera_forms_mailer', array( Caldera_Forms::get_instance(), 'format_message' ) );
+	remove_filter( 'caldera_forms_autoresponse_mail', array( 'Caldera_Forms_Email_Filters', 'format_autoresponse_message' ) );
 });
