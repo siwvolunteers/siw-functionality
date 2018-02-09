@@ -126,3 +126,7 @@ function siw_get_event_data( $post_id ) {
 
 	return $event_data;
 }
+
+add_filter( 'siw_event_data', function( $event_data, $post_id ) {
+	return siw_get_event_data( $post_id );
+}, 10, 2 );
