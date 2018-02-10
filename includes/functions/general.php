@@ -18,8 +18,8 @@ function siw_add_cron_job( $job ) {
 
 
 /**
- * [siw_get_translated_page_id description]
- * @param  int $page_id [description]
+ * Zoek id van vertaalde pagina op basis van id
+ * @param  int $page_id
  * @return int
  */
 function siw_get_translated_page_id( $page_id ) {
@@ -29,7 +29,7 @@ function siw_get_translated_page_id( $page_id ) {
 
 
 /**
- * [siw_get_translated_page_link description]
+ * Zoek url van vertaalde pagina op basis van id
  * @param  int $page_id
  * @return string
  */

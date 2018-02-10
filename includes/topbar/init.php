@@ -34,6 +34,11 @@ add_action( 'kt_before_header_content', function () {
 <?php
 });
 
+
+/**
+ * [siw_get_topbar_content description]
+ * @return array
+ */
 function siw_get_topbar_content() {
 
 	$topbar_social_content = siw_get_topbar_social_content();
@@ -66,16 +71,18 @@ function siw_get_topbar_social_content() {
 		return false;
 	}
 
+	//TODO: naar functions verplaatsen
 	$social_urls = array(
 		'facebook'	=> SIW_FACEBOOK_URL,
 		'twitter'	=> SIW_TWITTER_URL,
 		'instagram'	=> SIW_INSTAGRAM_URL,
 	);
 
-	$topbar_social_content['intro'] = siw_get_setting( 'topbar_social_link_intro' );
-	$topbar_social_content['link_url'] = $social_urls[ siw_get_setting( 'topbar_social_link_network') ];
-	$topbar_social_content['link_text'] = siw_get_setting( 'topbar_social_link_text' );
-	$topbar_social_content['link_target'] = '_blank';
-
+	$topbar_social_content = array(
+		'intro' => siw_get_setting( 'topbar_social_link_intro' ),
+		'link_url' => $social_urls[ siw_get_setting( 'topbar_social_link_network') ],
+		'link_text' => siw_get_setting( 'topbar_social_link_text' ),
+		'link_target' => '_blank',
+	);
     return $topbar_social_content;
 }

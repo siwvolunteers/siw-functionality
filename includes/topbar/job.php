@@ -17,9 +17,11 @@ function siw_get_topbar_job_content() {
 		return false;
 	}
 	$job_title = lcfirst( $job['title'] );
-	$topbar_job_content['intro'] = __( 'Word actief voor SIW.', 'siw' );
-	$topbar_job_content['link_url'] = $job['permalink'];
-	$topbar_job_content['link_text'] = sprintf( __( 'Wij zoeken een %s', 'siw' ), $job_title );
+	$topbar_job_content = array(
+		'intro'		=> __( 'Word actief voor SIW.', 'siw' ),
+		'link_url'	=> $job['permalink'],
+		'link_text'	=> sprintf( __( 'Wij zoeken een %s', 'siw' ), $job_title ),
+	);
 
 	return $topbar_job_content;
 }

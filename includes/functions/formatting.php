@@ -84,3 +84,7 @@ function siw_generate_accordion( $panes ) {
 
 	return $accordion;
 }
+
+add_filter( 'siw_accordion', function( $accordion, $panes ) {
+	return siw_generate_accordion( $panes );
+}, 10, 2 );

@@ -8,45 +8,47 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 add_action( 'siw_settings_show_info_day_section', function() {
 
-	$application_fields[] = array(
-		'id'		=> 'hide_application_form_days_before_info_day',
-		'title'		=> __( 'Verberg aanmeldformulier vanaf aantal dagen voor infodag', 'siw' ),
-		'type'		=> 'slider',
-		'min'		=> '1',
-		'max'		=> '31',
-		'default'	=> '1',
-	);
-	$application_fields[] = array(
-		'id'			=> 'info_day_email_section_start',
-		'title'			=> __( 'E-mail', 'siw' ),
-		'type'			=> 'section',
-		'indent' 		=> true,
-	);
-	$application_fields[] = array(
-		'id'			=> 'info_day_email_sender',
-		'title'			=> __( 'Afzender', 'siw' ),
-		'subtitle'		=> __( 'Ontvangt ook de bevestigingsmail', 'siw' ),
-		'type'			=> 'text',
-		'validate'		=> 'email',
-	);
-	$application_fields[] = array(
-		'id'			=> 'info_day_email_signature',
-		'title'			=> __( 'Ondertekening', 'siw' ),
-		'type'			=> 'text',
-		'validate'		=> 'no_html',
-		'options' 		=> array(
-			'name'			=> __( 'Naam', 'siw' ),
-			'title'			=> __( 'Functie', 'siw' ),
+	$application_fields = array(
+		array(
+			'id'		=> 'hide_application_form_days_before_info_day',
+			'title'		=> __( 'Verberg aanmeldformulier vanaf aantal dagen voor infodag', 'siw' ),
+			'type'		=> 'slider',
+			'min'		=> '1',
+			'max'		=> '31',
+			'default'	=> '1',
 		),
-		'default' => array(
-			'name' => '',
-			'title' => '',
+		array(
+			'id'			=> 'info_day_email_section_start',
+			'title'			=> __( 'E-mail', 'siw' ),
+			'type'			=> 'section',
+			'indent' 		=> true,
 		),
-	);
-	$application_fields[] = array(
-		'id'			=> 'info_day_email_section_end',
-		'type'			=> 'section',
-		'indent'		=> false,
+		array(
+			'id'			=> 'info_day_email_sender',
+			'title'			=> __( 'Afzender', 'siw' ),
+			'subtitle'		=> __( 'Ontvangt ook de bevestigingsmail', 'siw' ),
+			'type'			=> 'text',
+			'validate'		=> 'email',
+		),
+		array(
+			'id'			=> 'info_day_email_signature',
+			'title'			=> __( 'Ondertekening', 'siw' ),
+			'type'			=> 'text',
+			'validate'		=> 'no_html',
+			'options' 		=> array(
+				'name'			=> __( 'Naam', 'siw' ),
+				'title'			=> __( 'Functie', 'siw' ),
+			),
+			'default' => array(
+				'name' => '',
+				'title' => '',
+			),
+		),
+		array(
+			'id'			=> 'info_day_email_section_end',
+			'type'			=> 'section',
+			'indent'		=> false,
+		),
 	);
 	$info_day_fields[] = array(
 		'id'		=> 'info_day_dates_section_start',

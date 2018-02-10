@@ -81,6 +81,11 @@ return false;
 		return false;
 	});
 
+	//Scroll naar boven na ajax-filtering
+	$( document ).on( 'yith-wcan-ajax-filtered', function() {
+		$( document ).scrollTo( $( '.kad-shop-top' ), 800 );
+	});
+
 	//GA-event bij klikken op topbar
 	$( document ).on( 'click', '#topbar_link', function() {
 		siwGa( 'event', 'Topbar', 'Klikken', this.href );

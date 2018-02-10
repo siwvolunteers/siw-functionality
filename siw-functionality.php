@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
  * Author: Maarten Bruna
- * Version: 1.4.4
+ * Version: 1.5
  */
 
 
