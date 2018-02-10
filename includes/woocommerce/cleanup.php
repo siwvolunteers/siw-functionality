@@ -220,3 +220,34 @@ add_action( 'siw_delete_projects', function() {
 	}
 	$siw_delete_workcamps_background_process->save()->dispatch();
 });
+
+
+/* Verwijderen aanmeldingen van meer dan 1 jaar oud */
+siw_add_cron_job( 'siw_delete_applications' );
+
+add_action( 'siw_delete_applications', function() {
+
+	siw_debug_log( 'Start verwijderen aanmeldingen' );
+
+	// Zoek te verwijderen aanmeldingen
+	$args = array(
+		'limit'			=> -1,
+		'return'		=> 'ids',
+		'type'			=> 'shop_order',
+		'date_created'	=> '<' . ( time() - YEAR_IN_SECONDS ),
+	);
+	$applications = wc_get_orders( $args );
+
+	// Afbreken als er geen te verwijderen aanmeldingen zijn
+	if ( empty( $applications ) ) {
+		siw_debug_log( 'Eind verwijderen aanmeldingen: geen aanmeldingen te verwijderen' );
+		return;
+	}
+	siw_debug_log( 'Aantal te verwijderen aanmeldingen: ' . count( $applications ) );
+
+	$siw_delete_applications_background_process = $GLOBALS['siw_delete_applications_background_process'];
+	foreach ( $applications as $application_id ) {
+		$siw_delete_applications_background_process->push_to_queue( $application_id );
+	}
+	$siw_delete_applications_background_process->save()->dispatch();
+});
