@@ -23,15 +23,19 @@ function siw_get_topbar_event_content() {
 		return;
 	}
 	$event = $upcoming_events[0];
-	$topbar_event_content['intro'] = __( 'Maak kennis met SIW.', 'siw' );
-	$topbar_event_content['link_url'] = $event['permalink'];
 
 	if ( $event['start_date'] == $event['end_date'] ) {
-		$topbar_event_content['link_text'] = sprintf( __( 'Kom naar de %s op %s', 'siw' ), $event['title'], $event['date_range'] );
+		$link_text = sprintf( __( 'Kom naar de %s op %s', 'siw' ), $event['title'], $event['date_range'] );
 	}
 	else {
-		$topbar_event_content['link_text'] = sprintf( __( 'Kom naar de %s van %s', 'siw' ), $event['title'], $event['date_range'] );
+		$link_text = sprintf( __( 'Kom naar de %s van %s', 'siw' ), $event['title'], $event['date_range'] );
 	}
+
+	$topbar_event_content = array(
+		'intro'		=> __( 'Maak kennis met SIW.', 'siw' ),
+		'link_url'	=> $event['permalink'],
+		'link_text'	=> $link_text,
+	);
 
 	return $topbar_event_content;
 }

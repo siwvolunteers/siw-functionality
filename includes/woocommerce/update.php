@@ -14,7 +14,7 @@ if ( ! defined('ABSPATH' ) ) {
  * - Als de optie 'Forceer volledige update' op true staat.
  * - Als specifieke eigenschappen veranderd zijn.
  */
-add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $current_import_id ) {
+add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id, $xml, $current_import_id ) {
 	$product = wc_get_product( $product_id );
 	$sku = $product->get_sku();
 
@@ -95,7 +95,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $product_id, $xml, $cur
 
 
 	return false;
-}, 10, 3 );
+}, 10, 4 );
 
 
 /*
@@ -189,6 +189,8 @@ function siw_hide_workcamp( $product_id ) {
 /*
  * Bijwerken tarieven van alle zichtbare projecten
  */
+siw_add_cron_job( 'siw_update_workcamp_tariffs' );
+
 add_action( 'siw_update_workcamp_tariffs', function() {
 	$tax_query = array(
 		array(

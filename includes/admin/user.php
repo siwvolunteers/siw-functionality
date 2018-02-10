@@ -53,16 +53,6 @@ add_filter( 'kadence_staff_capability_type', function() { return 'volunteer'; } 
 add_filter( 'kadence_staff_map_meta_cap', '__return_true' );
 
 
-/* Capabilites voor Contact Form 7 aanpassen */
-add_filter( 'wpcf7_map_meta_cap', function( $meta_caps ) {
-	$meta_caps['wpcf7_edit_contact_form'] = 'manage_options';
-	$meta_caps['wpcf7_edit_contact_forms'] = 'manage_options';
-	$meta_caps['wpcf7_read_contact_forms'] = 'manage_options';
-	$meta_caps['wpcf7_delete_contact_form'] = 'manage_options';
-	return $meta_caps;
-} );
-
-
 /* Capability voor instellingmenu afleiden */
 add_filter( 'user_has_cap', function ( $allcaps, $caps, $args, $user ) {
 	if ( ! in_array( 'manage_settings', $caps) ) {

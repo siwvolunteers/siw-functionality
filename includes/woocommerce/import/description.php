@@ -89,7 +89,7 @@ function siw_get_workcamp_summary( $project_type, $country, $work, $start_date, 
 	//genereren samenvatting
 	$project_summary = '';
 	if ( $teenager_project ) {
-		$project_summary .= sprintf( 'Dit is een tienerproject (%s).', $age_range_in_text );
+		$project_summary .= sprintf( 'Dit is een tienerproject (%s). ', $age_range_in_text );
 	}
 	else if ( $family_project ) {
 		$project_summary .= 'Dit is een familieproject. ';

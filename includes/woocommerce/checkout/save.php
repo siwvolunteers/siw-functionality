@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /*
- * Sla extra velden op als ordermeta
+ * Sla extra velden op als ordermeta //TODO: crud
  * - Talenkennis
  * - Noodcontact
  * - Informatie voor PO
@@ -33,13 +33,13 @@ add_action( 'woocommerce_checkout_update_order_meta', function( $order_id ) {
 		update_post_meta( $order_id, 'emergencyContactPhone', sanitize_text_field( $_POST['emergencyContactPhone'] ) );
 	}
 	if( ! empty( $_POST['motivation'] ) ) {
-		update_post_meta($order_id, 'motivation', sanitize_text_field($_POST['motivation'] ) );
+		update_post_meta($order_id, 'motivation', sanitize_textarea_field( $_POST['motivation'] ) );
 	}
 	if( ! empty( $_POST['healthIssues'] ) ) {
-		update_post_meta($order_id, 'healthIssues', sanitize_text_field($_POST['healthIssues'] ) );
+		update_post_meta($order_id, 'healthIssues', sanitize_textarea_field( $_POST['healthIssues'] ) );
 	}
 	if( ! empty( $_POST['volunteerExperience'] ) ) {
-		update_post_meta($order_id, 'volunteerExperience', sanitize_text_field($_POST['volunteerExperience'] ) );
+		update_post_meta($order_id, 'volunteerExperience', sanitize_textarea_field( $_POST['volunteerExperience'] ) );
 	}
 	if( ! empty( $_POST['togetherWith'] ) ) {
 		update_post_meta( $order_id, 'togetherWith', sanitize_text_field( $_POST['togetherWith'] ) );

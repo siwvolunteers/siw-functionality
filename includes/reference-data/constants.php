@@ -7,18 +7,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /* Organisatiegegevens */
-define ( 'SIW_NAME', 'SIW Internationale Vrijwilligersprojecten' ); //eventueel get_bloginfo( 'name' ) gebruiken
-define ( 'SIW_STATUTORY_NAME', 'Stichting Internationale Werkkampen' );
-define ( 'SIW_EMAIL', 'info@siw.nl' );
-define ( 'SIW_PHONE', '030-2317721' );
-define ( 'SIW_PHONE_FULL', '+31302317721');
-define ( 'SIW_KVK', '41165368' );
-define ( 'SIW_IBAN', 'NL28 INGB 0000 0040 75' );
-define ( 'SIW_RSIN', '002817482' );
-define ( 'SIW_ADDRESS', 'Willemstraat 7' );
-define ( 'SIW_POSTAL_CODE', '3511 RJ' );
-define ( 'SIW_CITY', 'Utrecht' );
-define ( 'SIW_OPENING_HOURS', '10:00 - 17:00' );
+define( 'SIW_NAME', 'SIW Internationale Vrijwilligersprojecten' ); //eventueel get_bloginfo( 'name' ) gebruiken
+define( 'SIW_STATUTORY_NAME', 'Stichting Internationale Werkkampen' );
+define( 'SIW_EMAIL', 'info@siw.nl' );
+define( 'SIW_PHONE', '030-2317721' );
+define( 'SIW_PHONE_FULL', '+31 30 2317721');
+define( 'SIW_KVK', '41165368' );
+define( 'SIW_IBAN', 'NL28 INGB 0000 0040 75' );
+define( 'SIW_RSIN', '002817482' );
+define( 'SIW_ADDRESS', 'Willemstraat 7' );
+define( 'SIW_POSTAL_CODE', '3511 RJ' );
+define( 'SIW_CITY', 'Utrecht' );
+define( 'SIW_OPENING_HOURS', '9:00 - 17:00' );
 
 /* Sociale netwerken */
 define( 'SIW_FACEBOOK_URL', 'https://www.facebook.com/siwvolunteers' );
@@ -32,6 +32,9 @@ define( 'SIW_NUMBER_OF_INFO_DAYS', 10 );
 define( 'SIW_NUMBER_OF_EVS_DEADLINES', 5 );
 define( 'SIW_EVS_WEEKS_BEFORE_DEPARTURE', 14 );
 define( 'SIW_IP_WHITELIST_SIZE', 5 );
+define( 'SIW_MAX_BOARD_MEMBERS', 7 );
+define( 'SIW_MAX_ANNUAL_REPORTS', 5 );
+define( 'SIW_MAX_DUTCH_PROJECTS', 10 );
 
 /* Cron jobs */
 define( 'SIW_CRON_TS_GENERAL', '03:00' );
@@ -51,9 +54,15 @@ define( 'SIW_DISCOUNT_SECOND_PROJECT', 25 );
 define( 'SIW_DISCOUNT_THIRD_PROJECT', 50 );
 
 /* Constantes voor strings*/
-define( 'BR', '<br/>');
-define( 'BR2', '<br/><br/>');
-define( 'SPACE', ' ');
+define( 'BR', '<br/>' );
+define( 'BR2', '<br/><br/>' );
+define( 'SPACE', ' ' );
+
+/* Constantes voor styling */
+define( 'SIW_PRIMARY_COLOR', '#ff9900' );
+define( 'SIW_PRIMARY_COLOR_HOVER', '#ffcc33' );
+define( 'SIW_SECONDARY_COLOR', '#59ab9c' );
+define( 'SIW_SECONDARY_COLOR_HOVER', '#8cdecf' );
 
 /**
  * Geeft een array met constantes en hun toelichting terug
@@ -83,6 +92,9 @@ function siw_get_constants() {
 		'SIW_NUMBER_OF_EVS_DEADLINES'	=> __( 'Maximum aantal EVS-deadlines', 'siw' ),
 		'SIW_EVS_WEEKS_BEFORE_DEPARTURE'=> __( 'EVS: weken voor vertrek', 'siw' ),
 		'SIW_IP_WHITELIST_SIZE'			=> __( 'Maximale grootte IP-whitelist', 'siw' ),
+		'SIW_MAX_DUTCH_PROJECTS'		=> __( 'Maximaal aantal Nederlandse projecten', 'siw' ),
+		'SIW_MAX_BOARD_MEMBERS'			=> __( 'Maximum aantal bestuursleden', 'siw' ),
+		'SIW_MAX_ANNUAL_REPORTS'		=> __( 'Maximum aantal jaarverslagen', 'siw' ),
 		'SIW_CRON_TS_GENERAL'			=> __( 'Tijd algemene cronjob', 'siw' ),
 		'SIW_CRON_TS_BACKUP_DB'			=> __( 'Tijdstip backup database', 'siw' ),
 		//'SIW_CRON_TS_BACKUP_FILES'	=> __( 'Tijdstip backup bestanden', 'siw' ),

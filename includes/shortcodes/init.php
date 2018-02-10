@@ -25,17 +25,26 @@ add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) {
 	$pinnacle_shortcodes['siw_email'] = array(
 		'title' => __( '[SIW - Algemeen] E-mailadres', 'siw' ),
 	);
+	$pinnacle_shortcodes['siw_email_link'] = array(
+		'title' => __( '[SIW - Algemeen] E-mailadres (link)', 'siw' ),
+	);
 	$pinnacle_shortcodes['siw_iban'] = array(
 		'title' => __( '[SIW - Algemeen] IBAN', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_kvk'] = array(
 		'title' => __( '[SIW - Algemeen] KvK-nummer', 'siw' ),
 	);
+	$pinnacle_shortcodes['siw_openingstijden'] = array(
+		'title' => __( '[SIW - Algemeen] Openingstijden', 'siw' ),
+	);
 	$pinnacle_shortcodes['siw_rsin'] = array(
 		'title' => __( '[SIW - Algemeen] RSIN', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_telefoon'] = array(
 		'title' => __( '[SIW - Algemeen] Telefoonnummer', 'siw' ),
+	);
+	$pinnacle_shortcodes['siw_telefoon_internationaal'] = array(
+		'title' => __( '[SIW - Algemeen] Telefoonnummer internationaal', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_evs_borg'] = array(
 		'title' => __( '[SIW - EVS] Borg', 'siw' ),
@@ -60,6 +69,12 @@ add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) {
 	);
 	$pinnacle_shortcodes['siw_op_maat_tarief_regulier'] = array(
 		'title' => __( '[SIW - Op Maat] Regulier tarief', 'siw' ),
+	);
+	$pinnacle_shortcodes['siw_bestuursleden'] = array(
+		'title' => __( '[SIW - Organisatie] Bestuursleden', 'siw' ),
+	);
+	$pinnacle_shortcodes['siw_jaarverslagen'] = array(
+		'title' => __( '[SIW - Organisatie] Jaarverslagen', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_korting_tweede_project'] = array(
 		'title'	=> __( '[SIW - Korting] Tweede project', 'siw' ),
@@ -104,11 +119,11 @@ add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) {
 /*
  * Algemene informatie
  * - KvK-nummer
- * - E-mailadres
- * - Telefoonnummer
+ * - E-mailadres (+ link)
+ * - Telefoonnummer (+ internationaal)
  * - IBAN
  * - RSIN
- *
+ * - Openingstijden
  */
 add_shortcode( 'siw_kvk', function() {
 	return SIW_KVK;
@@ -116,14 +131,24 @@ add_shortcode( 'siw_kvk', function() {
 add_shortcode( 'siw_email', function() {
 	return antispambot( SIW_EMAIL );
 } );
+add_shortcode( 'siw_email_link', function(){
+	$email = antispambot( SIW_EMAIL );
+	return sprintf( '<a href="mailto:%s">%s</a>', $email, $email );
+});
 add_shortcode( 'siw_telefoon', function() {
 	return SIW_PHONE;
+} );
+add_shortcode( 'siw_telefoon_internationaal', function() {
+	return SIW_PHONE_FULL;
 } );
 add_shortcode( 'siw_iban', function() {
 	return SIW_IBAN;
 } );
 add_shortcode( 'siw_rsin', function() {
 	return SIW_RSIN;
+} );
+add_shortcode( 'siw_openingstijden', function() {
+	return sprintf( esc_html__( 'Maandag t/m vrijdag %s', 'siw' ), SIW_OPENING_HOURS );
 } );
 
 
@@ -134,7 +159,7 @@ add_shortcode( 'siw_rsin', function() {
  * - Volgende vertrekmoment
  */
 add_shortcode( 'siw_evs_borg', function() {
- 	return '&euro;&nbsp;' . SIW_EVS_DEPOSIT;
+ 	return siw_format_amount( SIW_EVS_DEPOSIT );
 });
 add_shortcode( 'siw_evs_volgende_deadline', function() {
 	return siw_get_next_evs_deadline( true );
@@ -158,29 +183,65 @@ add_shortcode( 'siw_volgende_infodag', function() {
  * - Op Maat (student, regulier)
  * - Korting (tweede/derde project)
  */
+
 add_shortcode( 'siw_groepsproject_tarief_student', function() {
-	return '&euro;&nbsp;' . SIW_WORKCAMP_FEE_STUDENT;
+	return siw_format_amount( SIW_WORKCAMP_FEE_STUDENT );
 });
 add_shortcode( 'siw_groepsproject_tarief_regulier', function() {
-	return '&euro;&nbsp;' . SIW_WORKCAMP_FEE_REGULAR;
+	return siw_format_amount( SIW_WORKCAMP_FEE_REGULAR );
 });
 add_shortcode( 'siw_op_maat_tarief_student', function() {
-	return '&euro;&nbsp;' . SIW_OP_MAAT_FEE_STUDENT;
+	return siw_format_amount( SIW_OP_MAAT_FEE_STUDENT );
 });
 add_shortcode( 'siw_op_maat_tarief_regulier', function() {
-	return '&euro;&nbsp;' . SIW_OP_MAAT_FEE_REGULAR;
+	return siw_format_amount( SIW_OP_MAAT_FEE_REGULAR );
 });
 add_shortcode( 'siw_korting_tweede_project', function() {
-	return SIW_DISCOUNT_SECOND_PROJECT . '&percnt;';
+	return siw_format_percentage( SIW_DISCOUNT_SECOND_PROJECT );
 });
 add_shortcode( 'siw_korting_derde_project', function() {
-	return SIW_DISCOUNT_THIRD_PROJECT . '&percnt;';
+	return siw_format_percentage( SIW_DISCOUNT_THIRD_PROJECT );
 });
 
+
+/* Organisatie */
+add_shortcode( 'siw_bestuursleden', function() {
+	$board_members = siw_get_board_members();
+	if ( empty( $board_members ) ) {
+		return;
+	}
+
+	echo'<ul>';
+	foreach ( $board_members as $board_member ) {
+		if ( isset( $board_member['name'] ) ) {
+			echo '<li>' . $board_member['name'] . '<br/>';
+			if ( isset( $board_member['title'] ) ) {
+				echo '<i>' . $board_member['title'] . '</i>';
+			}
+			echo '</li>';
+		}
+	}
+	echo '</ul>';
+});
+
+add_shortcode( 'siw_jaarverslagen', function() {
+	$annual_reports = siw_get_annual_reports();
+	if ( empty( $annual_reports ) ) {
+		return;
+	}
+	foreach ( $annual_reports as $year => $annual_report ) {
+		if ( ! empty( $annual_report['url'] ) ) {?>
+			<a href="<?php echo esc_url( $annual_report['url'] ); ?>" target="_blank" rel="noopener"><?php printf( esc_html__( 'Jaarverslag %s', 'siw' ), $year ); ?></a><br/>
+		<?php
+		}
+	}
+
+
+});
 
 /* Shortcode voor footer credits */
 add_shortcode( 'siw_footer', function() {
-	return '&copy;' . SPACE . current_time('Y') . SPACE . SIW_NAME;
+	return sprintf( '&copy; %s %s', current_time( 'Y' ), SIW_NAME );
 });
 
 
@@ -194,7 +255,8 @@ add_shortcode( 'siw_externe_link', function( $atts ) {
 		), $atts, 'siw_externe_link' )
 	);
 	$titel = ( $titel ) ? $titel : $url;
-	return sprintf('<a href="%s" target="_blank" rel="noopener noreferrer">%s&nbsp;<i class="kt-icon-newtab"></i></a>', esc_url( $url ), esc_html( $titel ) );
+
+	return siw_generate_external_link( $url, $titel );
 });
 
 

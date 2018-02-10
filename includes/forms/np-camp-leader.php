@@ -28,9 +28,9 @@ add_filter( 'caldera_forms_get_forms', function( $forms ) {
  */
 add_filter( 'caldera_forms_get_form-begeleider_np', function( $form ) {
 
-
 	$signature = siw_get_setting( 'np_camp_leader_email_signature' );
 	/*E-mail bevestiging*/
+	//TODO: tekst conditioneel van datum maken
 	$confirmation_template_args = array(
 		'subject' => __( 'Bevestiging aanmelding', 'siw' ),
 		'message' =>
@@ -54,7 +54,6 @@ add_filter( 'caldera_forms_get_form-begeleider_np', function( $form ) {
 		'signature_name' => $signature['name'],
 		'signature_title' => $signature['title'],
 		'show_summary' => true,
-		'remove_linebreaks' => true,
 	);
 	/*E-mail notificatie*/
 	$notification_template_args = array(
@@ -64,22 +63,13 @@ add_filter( 'caldera_forms_get_form-begeleider_np', function( $form ) {
 	);
 
 return array(
-	'ID'			=> 'begeleider_np',
-	'name'			=> __('Projectbegeleider NP', 'siw'),
-	//'description'	=> __('TODO:', 'siw'),
-	'db_support'	=> 0,
- 	'pinned'		=> 0,
-	'pin_roles'		=>
-	array(
-		'access_role'	=>
-		array(
-			'editor'	=> 1,
-			//'regiospecialist' => 1,
-		),
-	),
+	'ID'				=> 'begeleider_np',
+	'name'				=> __( 'Projectbegeleider NP', 'siw' ),
+	'db_support'		=> 0,
+ 	'pinned'			=> 0,
 	'hide_form'			=> 1,
 	'check_honey'		=> 1,
-	'success'			=> __( 'Je bericht werd succesvol verzonden.', 'siw'),//TODO
+	'success'			=> __( 'Je bericht werd succesvol verzonden.', 'siw' ),
 	'form_ajax'			=> 1,
 	'scroll_top'		=> 1,
 	'has_ajax_callback'	=> 1,
@@ -103,287 +93,48 @@ return array(
 			'bekend' => '8:1',
 			'bekend_anders' => '8:1',
 			'opmerkingen' => '8:2',
-			'submit' => '9:1',
+			'verzenden' => '9:1',
 		),
 		'structure' => '12|6:6|6:6|6:6|6:6|6:6|6:6|6:6|12',
 	),
 	'fields' =>
 	array(
-		'intro' =>
-		array(
+		'intro' => siw_get_form_field( 'html', array(
 			'ID' => 'intro',
-			'type' => 'html',
-			'label' => 'header',
-			'slug' => 'header',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'default' => 'De Nederlandse vrijwilligersprojecten vinden plaats in de zomermaanden. We zijn hiervoor altijd op zoek naar projectbegeleiders. Meld je aan via onderstaand formulier en geef aan naar welk project je voorkeur uitgaat. Vervolgens ontvang je een uitnodiging voor een kennismakingsgesprek. In dit gesprek hopen wij erachter te komen wat je verwachtingen en kwaliteiten zijn.',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'intro_hr' =>
-		array(
-			'ID' => 'intro_hr',
-			'type' => 'section_break',
-			'label' => 'intro_hr',
-			'slug' => 'intro_hr',
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'width' => '',
-			),
-		),
-		'voornaam' =>
-		array(
-			'ID' => 'voornaam',
-			'type' => 'text',
-			'label' => __( 'Voornaam', 'siw' ),
-			'slug' => 'voornaam',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'default' => '',
-				'mask' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'achternaam' =>
-		array(
-			'ID' => 'achternaam',
-			'type' => 'text',
-			'label' => __( 'Achternaam', 'siw' ),
-			'slug' => 'achternaam',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'default' => '',
-				'mask' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'geboortedatum' =>
-		array(
-			'ID' => 'geboortedatum',
-			'type' => 'text',
-			'label' => __( 'Geboortedatum', 'siw' ),
-			'slug' => 'geboortedatum',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => 'dd-mm-jjjj',
-				'default' => '',
-				'masked' => 0,
-				'mask' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'geslacht' =>
-		array(
-			'ID' => 'geslacht',
-			'type' => 'radio',
-			'label' => __( 'Geslacht', 'siw' ),
-			'slug' => 'geslacht',
-			'required' => 1,
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'inline' => 1,
-				'default' => '',
-				'option' =>
-				array(
-					'man' =>
-					array(
-						'value' => 'man',
-						'label' => __( 'Man', 'siw' ),
-					),
-					'vrouw' =>
-					array(
-						'value' => 'vrouw',
-						'label' => __( 'Vrouw', 'siw' ),
-					),
+			'slug' => 'intro',
+			'config' => array(
+				'default' =>
+					__( 'De Nederlandse vrijwilligersprojecten vinden plaats in de zomermaanden.', 'siw') . SPACE .
+					__( 'We zijn hiervoor altijd op zoek naar projectbegeleiders.', 'siw') . SPACE .
+					__( 'Meld je aan via onderstaand formulier en geef aan naar welk project je voorkeur uitgaat.', 'siw') . SPACE .
+					__( 'Vervolgens ontvang je een uitnodiging voor een kennismakingsgesprek.', 'siw') . SPACE .
+					__( 'In dit gesprek hopen wij erachter te komen wat je verwachtingen en kwaliteiten zijn.', 'siw'),
 				),
-			),
+			)
 		),
-		'emailadres' =>
-		array(
-			'ID' => 'emailadres',
-			'type' => 'email',
-			'label' => __( 'E-mailadres', 'siw' ),
-			'slug' => 'emailadres',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
+		'intro_hr' => siw_get_standard_form_field( 'intro_hr'),
+		'voornaam' => siw_get_standard_form_field( 'voornaam' ),
+		'achternaam' => siw_get_standard_form_field( 'achternaam' ),
+		'geboortedatum' => siw_get_standard_form_field( 'geboortedatum' ),
+		'geslacht' => siw_get_standard_form_field( 'geslacht' ),
+		'emailadres' => siw_get_standard_form_field( 'emailadres' ),
+		'telefoonnummer' => siw_get_standard_form_field( 'telefoonnummer' ),
+		'postcode' => siw_get_standard_form_field( 'postcode' ),
+		'huisnummer' => siw_get_standard_form_field( 'huisnummer' ),
+		'straat' => siw_get_standard_form_field( 'straat' ),
+		'woonplaats' => siw_get_standard_form_field( 'woonplaats' ),
+		'motivatie' => siw_get_form_field( 'paragraph',
 			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'default' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'telefoonnummer' =>
-		array(
-			'ID' => 'telefoonnummer',
-			'type' => 'text',
-			'label' => __( 'Telefoonnummer', 'siw' ),
-			'slug' => 'telefoonnummer',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'type_override' => 'tel',
-				'default' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'postcode' =>
-		array(
-			'ID' => 'postcode',
-			'type' => 'text',
-			'label' => __( 'Postcode', 'siw' ),
-			'slug' => 'postcode',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => 'postcode',
-				'placeholder' => '1234 AB',
-				'default' => '',
-				'masked' => 0,
-				//'mask' => '9999 aa',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'huisnummer' =>
-		array(
-			'ID' => 'huisnummer',
-			'type' => 'text',
-			'label' => __( 'Huisnummer', 'siw' ),
-			'slug' => 'huisnummer',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => 'huisnummer',
-				'placeholder' => '',
-				'default' => '',
-				'masked' => 0,
-				'mask' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'straat' =>
-		array(
-			'ID' => 'straat',
-			'type' => 'text',
-			'label' => __( 'Straat', 'siw' ),
-			'slug' => 'straat',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => 'straat',
-				'placeholder' => '',
-				'default' => '',
-				'masked' => 0,
-				'mask' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'woonplaats' =>
-		array(
-			'ID' => 'woonplaats',
-			'type' => 'text',
-			'label' => __( 'Woonplaats', 'siw' ),
-			'slug' => 'woonplaats',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => 'plaats',
-				'placeholder' => '',
-				'default' => '',
-				'masked' => 0,
-				'mask' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'motivatie' =>
-		array(
-			'ID' => 'motivatie',
-			'type' => 'paragraph',
-			'label' => __( 'Waarom zou je graag een begeleider willen worden voor de Nederlandse vrijwilligersprojecten?', 'siw' ),
-			'slug' => 'motivatie',
-			'required' => '1',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'rows' => '7',
-				'default' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
+				'ID' => 'motivatie',
+				'label' => __( 'Waarom zou je graag een begeleider willen worden voor de Nederlandse vrijwilligersprojecten?', 'siw' ),
+				'slug' => 'motivatie',
+			)
 		),
 		'voorkeur' =>
 		array(
 			'ID' => 'voorkeur',
 			'type' => 'checkbox',
-			'label' => __( 'Heb je een voorkeur om een bepaald Nederlands vrijwilligersproject te begeleiden?', 'siw' ),
+			'label' => __( 'Heb je een voorkeur om een bepaald soort Nederlands vrijwilligersproject te begeleiden?', 'siw' ),
 			'slug' => 'voorkeur',
 			'conditions' =>
 			array(
@@ -394,145 +145,38 @@ return array(
 			array(
 				'custom_class' => '',
 				'default' => '',
-				'option' => //TODO: automatisch genereren o.b.v. groepsprojecten
-				array(
-					'haarzuilens' =>
-					array(
-						'value' => 'haarzuilens',
-						'label' => __( 'Emmaus Haarzuilens', 'siw' ),
-					),
-					'emma' =>
-					array(
-						'value' => 'emma',
-						'label' => __( 'EMMA Centrum', 'siw' ),
-					),
-					'knhs' =>
-					array(
-						'value' => 'knhs',
-						'label' => __( 'KNHS Ermelo', 'siw' ),
-					),
-					'oudemolen' =>
-					array(
-						'value' => 'oudemolen',
-						'label' => __( 'Staatsbosbeheer Oudemolen', 'siw' ),
-					),
-					'azc' =>
-					array(
-						'value' => 'azc',
-						'label' => __( 'Gezinslocatie AZC Emmen', 'siw' ),
-					),
-					'twijzel' =>
-					array(
-						'value' => 'twijzel',
-						'label' => __( 'Staatsbosbeheer Twijzel', 'siw' ),
-					),
-				),
-			),
-	    ),
-		'bekend' =>
-		array(
-			'ID' => 'bekend',
-			'type' => 'checkbox',
-			'label' => __( 'Hoe heb je van SIW gehoord?', 'siw' ),
-			'slug' => 'bekend',
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'default' => '',
 				'option' =>
+
 				array(
-					'google' =>
+					'sociaal' =>
 					array(
-						'value' => 'google',
-						'label' => __( 'Google', 'siw' ),
+						'value' => 'sociaal',
+						'label' => __( 'Sociaal', 'siw' ),
 					),
-					'social_media' =>
+					'natuur' =>
 					array(
-						'value' => 'social_media',
-						'label' => __( 'Social Media', 'siw' ),
+						'value' => 'natuur',
+						'label' => __( 'Natuur', 'siw' ),
 					),
-					'familie_vrienden' =>
+					'constructie' =>
 					array(
-						'value' => 'familie_vrienden',
-						'label' => __( 'Familie / vrienden', 'siw' ),
-					),
-					'infodag' =>
-					array(
-						'value' => 'infodag',
-						'label' => __( 'SIW Infodag', 'siw' ),
-					),
-					'anders' =>
-					array(
-						'value' => 'anders',
-						'label' => __( 'Anders', 'siw' ),
+						'value' => 'constructie',
+						'label' => __( 'Constructie', 'siw' ),
 					),
 				),
 			),
 	    ),
-		'bekend_anders' =>
-		array(
-			'ID' => 'bekend_anders',
-			'type' => 'text',
-			'label' => __( 'Namelijk', 'siw' ),
-			'hide_label' => 1,
-			'slug' => 'bekend_anders',
-			'required' => 1,
-			'caption' => '',
-			'config' =>
+		'bekend' => siw_get_standard_form_field( 'bekend' ),
+		'bekend_anders' => siw_get_standard_form_field( 'bekend_anders' ),
+		'opmerkingen' => siw_get_form_field( 'paragraph',
 			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'default' => '',
-				'mask' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => 'con_bekend_anders',
-			),
+				'ID' => 'opmerkingen',
+				'label' => __( 'Overige opmerkingen?', 'siw' ),
+				'slug' => 'opmerkingen',
+				'required' => 0,
+			)
 		),
-		'opmerkingen' =>
-		array(
-			'ID' => 'opmerkingen',
-			'type' => 'paragraph',
-			'label' => __( 'Overige opmerkingen?', 'siw' ),
-			'slug' => 'opmerkingen',
-			'required' => 0,
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'rows' => '7',
-				'default' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'submit' =>
-		array(
-			'ID' => 'submit',
-			'type' => 'button',
-			'label' => __( 'Verzenden', 'siw' ),
-			'slug' => 'submit',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'type' => 'submit',
-				'class' => 'kad-btn kad-btn-primary',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
+		'verzenden' => siw_get_standard_form_field( 'verzenden' ),
 	),
 	'page_names' =>
 	array(
@@ -563,25 +207,7 @@ return array(
 	array(
 		'conditions' =>
 		array(
-			'con_bekend_anders' =>
-			array(
-				'id' => 'con_bekend_anders',
-				'name' => 'Bekend anders',
-				'type' => 'show',
-				'group' =>
-				array(
-					'con_bekend_anders_group_1' =>
-					array(
-						'con_bekend_anders_group_1_line_1' =>
-						array(
-							'parent' => 'con_bekend_anders_group_1',
-							'field' => 'bekend',
-							'compare' => 'is',
-							'value' => 'anders',
-						),
-					),
-				),
-			),
+			'con_bekend_anders' => siw_get_standard_form_condition( 'con_bekend_anders' ),
 		),
 	),
 	'settings' =>

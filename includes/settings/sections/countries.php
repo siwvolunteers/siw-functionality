@@ -83,7 +83,7 @@ add_action( 'siw_settings_show_countries_section', function() {
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'countries_latin_america',
-		'title'			=> __( 'Latijns-America', 'siw' ),
+		'title'			=> __( 'Latijns-Amerika', 'siw' ),
 		'subsection'	=> true,
 		'fields'		=> $country_fields['latijns-amerika']	,
 	) );

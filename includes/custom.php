@@ -54,9 +54,11 @@ add_filter( 'wp_resource_hints', function( $hints, $relation_type ) {
 		$hints[] = '//fonts.googleapis.com';
 		$hints[] = '//fonts.gstatic.com';
 	}
-
+	if ( ( $key = array_search( 'https://s.w.org/images/core/emoji/2.3/svg/', $hints ) ) !== false) {
+		unset( $hints [$key ] );
+	}
 	return $hints;
-}, 10, 2 );
+}, 99, 2 );
 
 
 /* htaccess opnieuw genereren na update plugin */
@@ -83,11 +85,8 @@ add_filter( 'before_rocket_htaccess_rules', function ( $marker ) {
 	return $marker;
 });
 
-/*
- * Security headers
- */
+/* Security headers */
 add_filter( 'after_rocket_htaccess_rules', function( $marker ) {
-
 	$security  = '# Add security headers' . PHP_EOL;
 	$security .= '<IfModule mod_headers.c>' . PHP_EOL;
 	$security .= 'Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS' . PHP_EOL;
@@ -109,7 +108,7 @@ add_filter( 'after_rocket_htaccess_rules', function( $marker ) {
 
 
 /* Update mailpoet configuratie ivm switch naar https */
-add_action( 'siw_update_plugin', function(){
+add_action( 'siw_update_plugin', function() {
 	if ( ! class_exists( 'WYSIJA' ) ) {
 		return;
 	}
@@ -131,6 +130,8 @@ add_action( 'wp_ajax_nopriv_wysija_ajax', function() {
 	}
 }, 1 );
 
+/* Meerdere nieuwsbrief-aanmeldingen van zelfde IP-adres binnen 1 uur blokkeren (standaard is 1 minuut)*/
+add_filter( 'wysija_subscription_limit_base', function() { return HOUR_IN_SECONDS; } );
 
 /*
  * Instellen starttijd Updraft Plus backup
@@ -152,28 +153,25 @@ add_filter( 'updraftplus_schedule_firsttime_files', function() {
 /* Diverse UpdraftPlus notificaties verbergen */
 define( 'UPDRAFTPLUS_NOADS_B', true );
 define( 'UPDRAFTPLUS_NONEWSFEED', true );
-define( 'UPDRAFTPLUS_ADMINBAR_DISABLE', true);
+define( 'UPDRAFTPLUS_ADMINBAR_DISABLE', true );
 define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
 
 
 /* Optimalisatie HEAD */
-remove_action('wp_head', 'wp_generator');
-remove_action('wp_head', 'wlwmanifest_link');
-remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
-remove_action('wp_head', 'rest_output_link_wp_head', 10);
-remove_action('wp_head', 'rsd_link');
-remove_action('wp_head', 'feed_links', 2);
-remove_action('wp_head', 'feed_links_extra', 3);
-remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
-remove_action('wp_head', 'wp_oembed_add_discovery_links');
-remove_action('wp_head', 'wp_oembed_add_host_js');
+remove_action( 'wp_head', 'wp_generator' );
+remove_action( 'wp_head', 'wlwmanifest_link' );
+remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
+remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+remove_action( 'wp_head', 'rsd_link' );
+remove_action( 'wp_head', 'feed_links', 2 );
+remove_action( 'wp_head', 'feed_links_extra', 3 );
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
 
 
 /* Uitschakelen feed*/
 add_actions( array( 'do_feed','do_feed_rdf','do_feed_rss','do_feed_rss2','do_feed_atom','do_feed_rss2_comments','do_feed_atom_comments' ), function () {
 	wp_die( __( 'SIW heeft geen feed.', 'siw' ) );
 },1);
-
 
 
 /* Auteurinfo verwijderen uit oembed */
@@ -221,42 +219,42 @@ add_filter( 'query_vars', function( $vars ) {
 
 
 /* Parent-pagina's van CPT toevoegen aan breadcrumbs*/
-add_action( 'kadence_breadcrumbs_after_home', function() {
+add_action( 'pinnale_breadcrumbs_after_home', function() {
 	$delimiter = '/';
 	$breadcrumb = '<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="%s"><span itemprop="title">%s</span></a></span> %s ';
 
+	$parent = '';
+
 	if ( is_singular( 'vacatures' ) ) {
-		$vacature_parent = siw_get_setting( 'vacatures_parent_page' );
-
-		/* Afbreken als er geen overzichtspagina is ingesteld*/
-		if ( empty( $vacature_parent ) ) {
-			return;
-		}
-
-		/* Parentpagina's van overzichtspagina */
-		$ancestors = array_reverse( get_ancestors( $vacature_parent, 'page') );
-		foreach ( $ancestors as $ancestor ) {
-			printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter  );
-		}
-		/* Overzichtspagina */
-		printf( $breadcrumb, get_page_link( $vacature_parent ), get_the_title( $vacature_parent ), $delimiter  );
-
+		$parent = siw_get_setting( 'vacatures_parent_page' );
 	}
 	if ( is_singular( 'agenda' ) ) {
-		$agenda_parent = siw_get_setting( 'agenda_parent_page' );
-
-		/* Afbreken als er geen overzichtspagina is ingesteld*/
-		if ( empty( $agenda_parent ) ) {
-			return;
-		}
-		/* Parentpagina's van overzichtspagina */
-		$ancestors = array_reverse( get_ancestors( $agenda_parent, 'page') );
-		foreach ( $ancestors as $ancestor ) {
-			printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter  );
-		}
-		/* Overzichtspagina */
-		printf( $breadcrumb, get_page_link( $agenda_parent ), get_the_title( $agenda_parent ), $delimiter  );
+		$parent = siw_get_setting( 'agenda_parent_page' );
 	}
+	if ( is_singular( 'evs_project' ) ) {
+		$parent = siw_get_setting( 'evs_projects_parent_page' );
+	}
+
+	/* Breadcrumbs voor attribute-pagina's*/
+	if ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) ) {
+		$parent = wc_get_page_id( 'shop' );
+	}
+
+	/* Afbreken als er geen overzichtspagina is ingesteld*/
+	if ( empty( $parent ) ) {
+		return;
+	}
+
+	/* Parentpagina's van overzichtspagina */
+	$parent = siw_get_translated_page_id( $parent );
+	$ancestors = array_reverse( get_ancestors( $parent, 'page') );
+	foreach ( $ancestors as $ancestor ) {
+		printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter  );
+	}
+
+	/* Overzichtspagina */
+	printf( $breadcrumb, get_page_link( $parent ), get_the_title( $parent ), $delimiter  );
+
 } );
 
 /* Sidebar verbergen voor testimonials TODO: Kan weg na switch van Strong Testimonials naar eigen functionaliteit */
@@ -267,11 +265,13 @@ add_filter( 'kadence_display_sidebar', function( $sidebar ) {
 	return $sidebar;
 } );
 
-/* Knop naar zo-werkt-het pagina onder elk op maat project TODO:pagina uit instelling halen*/
+/* Knop naar zo-werkt-het pagina onder elk op maat project */
 add_action( 'kadence_single_portfolio_value_after', function() {
-	?>
-	<a href="/zo-werkt-het/projecten-op-maat/" class="kad-btn kad-btn-primary"><?php esc_html_e( 'Alles over projecten op maat','siw' );?></a>
-	<?php
+	$op_maat_page = siw_get_setting( 'op_maat_page' );
+	$op_maat_page = siw_get_translated_page_id( $op_maat_page );
+	$op_maat_page_link = get_page_link( $op_maat_page );
+	printf( '<a href="%s" class="kad-btn kad-btn-primary">%s</a>', esc_url( $op_maat_page_link ), esc_html__( 'Alles over projecten op maat', 'siw' ) );
+
 } );
 
 
@@ -282,11 +282,17 @@ add_action( 'kt_header_overlay', function() {
 		if ( $terms = wp_get_post_terms( $post->ID, 'product_cat', array( 'orderby' => 'parent', 'order' => 'DESC' ) ) ) {
 			$main_term = $terms[0];
 			$meta = get_option( 'product_cat_pageheader' );
-			if ( empty( $meta ) ) $meta = array();
-			if ( ! is_array( $meta ) ) $meta = (array) $meta;
+			if ( empty( $meta ) ) {
+				$meta = array();
+			}
+			if ( ! is_array( $meta ) ) {
+				$meta = (array) $meta;
+			}
 			$meta = isset( $meta[ $main_term->term_id ] ) ? $meta[ $main_term->term_id ] : array();
-			if( isset( $meta['kad_pagetitle_bg_image'] ) ) {
-				$bg_image_array = $meta['kad_pagetitle_bg_image']; $src = wp_get_attachment_image_src( $bg_image_array[0], 'full' ); $bg_image = $src[0];
+			if ( isset( $meta['kad_pagetitle_bg_image'] ) ) {
+				$bg_image_array = $meta['kad_pagetitle_bg_image'];
+				$src = wp_get_attachment_image_src( $bg_image_array[0], 'full' );
+				$bg_image = $src[0];
 				echo '<div class="kt_woo_single_override" style="background:url( ' . $bg_image . ' );"></div>';
 			}
 		}

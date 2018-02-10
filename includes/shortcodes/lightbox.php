@@ -26,7 +26,7 @@ add_shortcode( 'siw_pagina_lightbox', function( $atts ) {
 	if ( empty( $page_id ) ) {
 		return;
 	}
-
+	$page_id = siw_get_translated_page_id( $page_id );
 	$GLOBALS['lightboxes'][] = $page_id;
 
 	/* HTML voor lightbox aan footer toeoegen */

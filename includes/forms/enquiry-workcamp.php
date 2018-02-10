@@ -44,7 +44,6 @@ add_filter( 'caldera_forms_get_form-contact_project', function( $form ) {
 		'signature_name' => $signature['name'],
 		'signature_title' => $signature['title'],
 		'show_summary' => true,
-		'remove_linebreaks' => true,
 	);
 
 	/*E-mail notificatie*/
@@ -56,17 +55,10 @@ add_filter( 'caldera_forms_get_form-contact_project', function( $form ) {
 	);
 
 return array(
-	'ID'			=> 'contact_project',
-	'name'			=> __( 'Infoverzoek groepsproject', 'siw' ),
-	'db_support'	=> 0,
- 	'pinned'		=> 0,
-	'pin_roles'		=>
-	array(
-		'access_role'	=>
-		array(
-			'publiciteit'	=> 1,
-		),
-	),
+	'ID'				=> 'contact_project',
+	'name'				=> __( 'Infoverzoek groepsproject', 'siw' ),
+	'db_support'		=> 0,
+ 	'pinned'			=> 0,
 	'hide_form'			=> 1,
 	'check_honey'		=> 1,
 	'success'			=> __( 'Je bericht werd succesvol verzonden.', 'siw'),
@@ -89,161 +81,27 @@ return array(
 	),
 	'fields' =>
 	array(
-		'intro' =>
-		array(
+		'intro' => siw_get_form_field( 'html', array(
 			'ID' => 'intro',
-			'type' => 'html',
-			'label' => 'header',
-			'slug' => 'header',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
+			'sllug' => 'intro',
+			'config' => array(
 				'default' =>
-				__( 'Heb je een vraag over dit project?', 'siw' ) . SPACE .
-				__( 'Neem gerust contact met ons op.', 'siw' ) . SPACE .
-				__( 'We staan voor je klaar en denken graag met jou mee!', 'siw' ),
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
+					__( 'Heb je een vraag over dit project?', 'siw' ) . SPACE .
+					__( 'Neem gerust contact met ons op.', 'siw' ) . SPACE .
+					__( 'We staan voor je klaar en denken graag met jou mee!', 'siw' ),
+				),
+			)
 		),
-		'intro_hr' =>
-		array(
-			'ID' => 'intro_hr',
-			'type' => 'section_break',
-			'label' => 'intro_hr',
-			'slug' => 'intro_hr',
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'width' => '',
-			),
-		),
-		'voornaam' =>
-		array(
-			'ID' => 'voornaam',
-			'type' => 'text',
-			'label' => __( 'Voornaam', 'siw' ),
-			'slug' => 'voornaam',
-			'required' => 1,
-			'caption' => '',
-			'entry_list' => 1,
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'default' => '',
-				'mask' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'achternaam' =>
-		array(
-			'ID' => 'achternaam',
-			'type' => 'text',
-			'label' => __( 'Achternaam', 'siw' ),
-			'slug' => 'achternaam',
-			'required' => 1,
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'default' => '',
-				'mask' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'emailadres' =>
-		array(
-			'ID' => 'emailadres',
-			'type' => 'email',
-			'label' => __( 'E-mailadres', 'siw' ),
-			'slug' => 'emailadres',
-			'required' => 1,
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'default' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'telefoonnummer' =>
-		array(
-			'ID' => 'telefoonnummer',
-			'type' => 'text',
-			'label' => __( 'Telefoonnummer', 'siw' ),
-			'slug' => 'telefoonnummer',
+		'intro_hr' => siw_get_standard_form_field( 'intro_hr' ),
+		'voornaam' => siw_get_standard_form_field( 'voornaam' ),
+		'achternaam' => siw_get_standard_form_field( 'achternaam' ),
+		'emailadres' => siw_get_standard_form_field( 'emailadres' ),
+		'telefoonnummer' => siw_get_standard_form_field( 'telefoonnummer', array(
 			'required' => 0,
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'type_override' => 'tel',
-				'default' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
+			)
 		),
-		'vraag' =>
-		array(
-			'ID' => 'vraag',
-			'type' => 'paragraph',
-			'label' => __( 'Vraag', 'siw' ),
-			'slug' => 'vraag',
-			'required' => 1,
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'placeholder' => '',
-				'rows' => '7',
-				'default' => '',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
-		'verzenden' =>
-		array(
-			'ID' => 'verzenden',
-			'type' => 'button',
-			'label' => __( 'Verzenden', 'siw' ),
-			'slug' => 'verzenden',
-			'caption' => '',
-			'config' =>
-			array(
-				'custom_class' => '',
-				'type' => 'submit',
-				'class' => 'kad-btn kad-btn-primary',
-			),
-			'conditions' =>
-			array(
-				'type' => '',
-			),
-		),
+		'vraag' => siw_get_standard_form_field( 'vraag' ),
+		'verzenden' => siw_get_standard_form_field( 'verzenden' ),
 	),
 	'page_names' =>
 	array(

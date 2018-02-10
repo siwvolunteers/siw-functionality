@@ -35,7 +35,7 @@ add_filter( 'woocommerce_default_address_fields', function( $fields ) {
 	$address_fields['nationality']['label_class'] = array( 'select-label');
 	$address_fields['housenumber']['class'] = array( 'form-row-last' );
 	$address_fields['postcode']['class'] = array( 'form-row-first' );
-	$address_fields['postcode']['placeholder'] = __( '1234 AB', 'siw' );
+	$address_fields['postcode']['placeholder'] = '1234 AB';
 	$address_fields['address_1']['class'] = array( 'form-row-first' );
 	$address_fields['address_1']['placeholder'] = '';
 	$address_fields['city']['class'] = array( 'form-row-last' );

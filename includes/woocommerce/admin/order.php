@@ -146,9 +146,9 @@ add_action( 'cmb2_admin_init', function() {
  * Admin column toevoegen voor export naar Plato
 */
 add_filter( 'manage_edit-shop_order_columns', function( $columns ) {
-	unset( $columns['shipping_address']);
-	unset( $columns['customer_message']);
-	unset( $columns['order_notes']);
+	unset( $columns['shipping_address'] );
+	unset( $columns['customer_message'] );
+	unset( $columns['order_notes'] );
 
 	$new_columns = array();
 	foreach ( $columns as $column_name => $column_info ) {

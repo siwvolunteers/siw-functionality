@@ -88,7 +88,7 @@ add_action( 'password_protected_before_login_form', function() {
 	?>
 	<p class='message'>
 	<b><?php esc_html_e( 'Welkom op de testsite van SIW.','siw' )?></b><br />
-	<?php esc_html_e( 'Voer het wachtwoord in om toegang te krijgen.','siw' )?><br /><br />
+	<?php esc_html_e( 'Voer het wachtwoord in om toegang te krijgen.', 'siw' )?><br /><br />
 	<?php printf( wp_kses_post( __( 'Klik <a href="%s">hier</a> om naar de echte website van SIW te gaan.', 'siw' ) ), esc_url($site_url) );?>
 	</p>
 <?php

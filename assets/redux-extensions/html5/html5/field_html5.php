@@ -82,7 +82,7 @@ if( ! class_exists( 'ReduxFramework_html5' ) ) {
 			$before = ( isset( $field['before'] ) ) ? esc_html( $field['before'] ) : '';
 			$after = ( isset( $field['after'] ) ) ? esc_html( $field['after'] ) : '';
 
-			printf ( '%s <input type="%s" name="%s" value="%s" %s class="%s" />%s', $before, $type, $field['name'], $this->value, $placeholder, $min, $max, $field['class'], $after);
+			printf ( '%s <input type="%s" name="%s" value="%s" %s %s %s class="%s" />%s', $before, $type, $field['name'], $this->value, $placeholder, $min, $max, $field['class'], $after);
 		}
 	}
 }
