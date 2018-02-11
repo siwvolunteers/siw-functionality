@@ -21,7 +21,9 @@ function siw_get_date_in_text( $date, $year = true ) {
 
 	return $date_in_text;
 }
-
+add_filter( 'siw_date_in_text', function( $text, $date, $year = true ) {
+	return siw_get_date_in_text( $date, $year );
+}, 10, 3 );
 
 /**
  * Geeft de datum in tekst terug
@@ -59,6 +61,10 @@ function siw_get_date_range_in_text( $date_start, $date_end, $year = true ) {
 
 	return $date_range_in_text;
 }
+add_filter( 'siw_date_range_in_text', function( $text, $date_start, $date_end, $year = true ) {
+	return siw_get_date_range_in_text( $date_start, $date_end, $year );
+}, 10, 3 );
+
 
 
 /**
@@ -91,7 +97,7 @@ function siw_get_month_name_from_slug( $slug ) {
 	$date = sprintf( '1-%s-%s', $month, $year );
 
 	$date_format = ( $year != $current_year ) ? 'F Y' : 'F';
-	$month_name = ucfirst( date_i18n( $date_format, strtotime( $date ) ) );
+	$month_name = ucfirst( date_i18n( $date_format, strtotime( $date ) ) ); //TODO:waarom ucfirst hier al uitvoeren?
 
 	return $month_name;
 }

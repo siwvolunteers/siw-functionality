@@ -6,6 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+add_filter( 'siw_manage_settings_caps', function( $caps ) {
+	$caps[] = 'edit_evs_projects';
+	return $caps;
+});
+
+
 add_action( 'siw_settings_show_evs_section', function() {
 	/* Velden */
 	$deadline_fields[] = array(
@@ -72,7 +78,7 @@ add_action( 'siw_settings_show_evs_section', function() {
 		'id'			=> 'evs',
 		'title'			=> __( 'EVS', 'siw' ),
 		'icon'			=> 'el el-list-alt',
-		'permissions'	=> 'manage_options',
+		'permissions'	=> 'edit_evs_projects',
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'evs_application',
