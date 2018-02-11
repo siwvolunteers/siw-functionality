@@ -211,17 +211,18 @@ add_shortcode( 'siw_bestuursleden', function() {
 		return;
 	}
 
-	echo'<ul>';
+	$board_members_list = array();
+
 	foreach ( $board_members as $board_member ) {
 		if ( isset( $board_member['name'] ) ) {
-			echo '<li>' . $board_member['name'] . '<br/>';
+			$list_item = $board_member['name'];
 			if ( isset( $board_member['title'] ) ) {
-				echo '<i>' . $board_member['title'] . '</i>';
+				$list_item .= '<br/>' . '<i>' . $board_member['title'] . '</i>';
 			}
-			echo '</li>';
+			$board_members_list[] = $list_item;
 		}
 	}
-	echo '</ul>';
+	return siw_generate_unordered_list( $board_members_list );
 });
 
 add_shortcode( 'siw_jaarverslagen', function() {
