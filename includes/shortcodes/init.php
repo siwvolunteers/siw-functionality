@@ -211,17 +211,18 @@ add_shortcode( 'siw_bestuursleden', function() {
 		return;
 	}
 
-	echo'<ul>';
+	$board_members_list = array();
+
 	foreach ( $board_members as $board_member ) {
 		if ( isset( $board_member['name'] ) ) {
-			echo '<li>' . $board_member['name'] . '<br/>';
+			$list_item = $board_member['name'];
 			if ( isset( $board_member['title'] ) ) {
-				echo '<i>' . $board_member['title'] . '</i>';
+				$list_item .= '<br/>' . '<i>' . $board_member['title'] . '</i>';
 			}
-			echo '</li>';
+			$board_members_list[] = $list_item;
 		}
 	}
-	echo '</ul>';
+	return siw_generate_unordered_list( $board_members_list );
 });
 
 add_shortcode( 'siw_jaarverslagen', function() {
@@ -229,14 +230,17 @@ add_shortcode( 'siw_jaarverslagen', function() {
 	if ( empty( $annual_reports ) ) {
 		return;
 	}
+
+	$output = '';
 	foreach ( $annual_reports as $year => $annual_report ) {
-		if ( ! empty( $annual_report['url'] ) ) {?>
-			<a href="<?php echo esc_url( $annual_report['url'] ); ?>" target="_blank" rel="noopener"><?php printf( esc_html__( 'Jaarverslag %s', 'siw' ), $year ); ?></a><br/>
-		<?php
+		if ( ! empty( $annual_report['url'] ) ) {
+			$url = $annual_report['url'];
+			$text = sprintf( esc_html__( 'Jaarverslag %s', 'siw' ), $year );
+			$output .= sprintf('<a href="%s" target="_blank" rel="noopener">%s</a><br/>', esc_url( $url ), esc_html( $text ) );
 		}
 	}
 
-
+	return $output;
 });
 
 /* Shortcode voor footer credits */
