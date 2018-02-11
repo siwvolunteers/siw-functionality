@@ -23,67 +23,67 @@ require_once( __DIR__ . '/lightbox.php' );
  */
 add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) {
 	$pinnacle_shortcodes['siw_email'] = array(
-		'title' => __( '[SIW - Algemeen] E-mailadres', 'siw' ),
+		'title' => '[SIW] - ' . __( 'E-mailadres', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_email_link'] = array(
-		'title' => __( '[SIW - Algemeen] E-mailadres (link)', 'siw' ),
+		'title' => '[SIW] - ' . __( 'E-mailadres (link)', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_iban'] = array(
-		'title' => __( '[SIW - Algemeen] IBAN', 'siw' ),
+		'title' => '[SIW] - ' . __( 'IBAN', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_kvk'] = array(
-		'title' => __( '[SIW - Algemeen] KvK-nummer', 'siw' ),
+		'title' => '[SIW] - ' . __( 'KvK-nummer', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_openingstijden'] = array(
-		'title' => __( '[SIW - Algemeen] Openingstijden', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Openingstijden', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_rsin'] = array(
-		'title' => __( '[SIW - Algemeen] RSIN', 'siw' ),
+		'title' => '[SIW] - ' . __( 'RSIN', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_telefoon'] = array(
-		'title' => __( '[SIW - Algemeen] Telefoonnummer', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Telefoonnummer', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_telefoon_internationaal'] = array(
-		'title' => __( '[SIW - Algemeen] Telefoonnummer internationaal', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Telefoonnummer (internationaal)', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_evs_borg'] = array(
-		'title' => __( '[SIW - EVS] Borg', 'siw' ),
+		'title' => '[SIW] - ' . __( 'EVS borg', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_evs_volgende_deadline'] = array(
-		'title' => __( '[SIW - EVS] Volgende deadline', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Volgende EVS-deadline', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_evs_volgende_vertrekmoment'] = array(
-		'title' => __( '[SIW - EVS] Volgende vertrekmoment', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Volgende EVS-vertrekmoment', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_volgende_infodag'] = array(
-		'title' => __( '[SIW - Infodag] Volgende infodag', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Volgende infodag', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_groepsproject_tarief_student'] = array(
-		'title' => __( '[SIW - Groepsprojecten] Studententarief', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Groepsprojecten - Studententarief', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_groepsproject_tarief_regulier'] = array(
-		'title' => __( '[SIW - Groepsprojecten] Regulier tarief', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Groepsprojecten - Regulier tarief', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_op_maat_tarief_student'] = array(
-		'title' => __( '[SIW - Op Maat] Studententarief', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Op Maat - Studententarief', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_op_maat_tarief_regulier'] = array(
-		'title' => __( '[SIW - Op Maat] Regulier tarief', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Op Maat - Regulier tarief', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_bestuursleden'] = array(
-		'title' => __( '[SIW - Organisatie] Bestuursleden', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Bestuursleden', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_jaarverslagen'] = array(
-		'title' => __( '[SIW - Organisatie] Jaarverslagen', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Jaarverslagen', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_korting_tweede_project'] = array(
-		'title'	=> __( '[SIW - Korting] Tweede project', 'siw' ),
+		'title'	=> '[SIW] - ' . __( 'Tweede project', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_korting_derde_project'] = array(
-		'title'	=> __( '[SIW - Korting] Derde project', 'siw' ),
+		'title'	=> '[SIW] - ' . __( 'Derde project', 'siw' ),
 	);
 	$pinnacle_shortcodes['siw_externe_link'] = array(
-		'title'	=> __( '[SIW] Externe link', 'siw' ),
+		'title'	=> '[SIW] - ' . __( 'Externe link', 'siw' ),
 		'attr'	=> array(
 			'url'	=> array(
 				'type'	=>'text',
@@ -96,7 +96,7 @@ add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) {
 		),
 	);
 	$pinnacle_shortcodes['siw_pagina_lightbox'] = array(
-		'title' => __( '[SIW] Pagina-lightbox', 'siw' ),
+		'title' => '[SIW] - ' . __( 'Pagina-lightbox', 'siw' ),
 		'attr'  => array(
 			'link_tekst' => array(
 				'type'  => 'text',
