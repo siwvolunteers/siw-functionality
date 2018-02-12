@@ -278,7 +278,7 @@ add_shortcode( 'siw_nederlandse_projecten', function() {
 	$description = '';
 	foreach ( $projects as $project ) {
 		$duration = siw_get_date_range_in_text( $project['start_date'], $project['end_date'] );
-		$description .= esc_html( sprintf( '<b>%s - %s</b><br/>', $project['name'], $project['province_name'] ) );
+		$description .= sprintf( '<b>%s - %s</b><br/>', esc_html( $project['name'] ), esc_html( $project['province_name'] ) );
 		$description .= esc_html__( 'Data:', 'siw' ) . SPACE . esc_html( $duration ) . BR;
 		$description .= esc_html__( 'Deelnemers:', 'siw' ) . SPACE . esc_html( $project['participants'] ) . BR;
 	}
