@@ -31,7 +31,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 	}
 
 	$import_again = $product->get_meta( 'import_again' );
-	if ( ! $is_fpl_import && $import_again ) {
+	if ( $is_full_import && $import_again ) {
 		siw_debug_log( sprintf( 'Update project %s (%s): Instelling bij project', $product_id, $sku ) );
 		return true;
 	}
@@ -219,14 +219,20 @@ add_action( 'siw_update_workcamp_tariffs', function() {
 
 
 /**
- * [siw_update_workcamp_tariff description]
- * @param  [type] $product_id [description]
- * @return [type]             [description]
+ * Werkt tarieven van groepsproject bij
+ * @param  int $product_id
+ * @return bool
  */
 function siw_update_workcamp_tariff( $product_id ) {
 	$tariff_array = siw_get_workcamp_tariffs();
 
 	$product = wc_get_product( $product_id );
+
+	/* Afbreken als product niet meer bestaat */
+	if ( false == $product ) {
+		return false;
+	}
+
 	$variations = $product->get_children();
 
 	foreach ( $variations as $variation_id ) {
@@ -237,4 +243,6 @@ function siw_update_workcamp_tariff( $product_id ) {
 		$variation->set_regular_price( $price );
 		$variation->save();
 	}
+
+	return true;
 }
