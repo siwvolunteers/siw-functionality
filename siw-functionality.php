@@ -76,6 +76,8 @@ require_once( SIW_INCLUDES_DIR . '/analytics/init.php' );
 require_once( SIW_INCLUDES_DIR . '/email/init.php');
 /* Formulieren */
 require_once( SIW_INCLUDES_DIR . '/forms/init.php' );
+/* Kaarten */
+require_once( SIW_INCLUDES_DIR . '/maps/init.php' );
 /* Pagebuilder */
 require_once( SIW_INCLUDES_DIR . '/pagebuilder/init.php' );
 /* Custom post types */
