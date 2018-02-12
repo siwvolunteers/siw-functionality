@@ -17,7 +17,13 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	$maps = siw_get_mapplic_maps();
 
 
-	$google_analytics_fields = array(
+	$analytics_verification_fields = array(
+		array(
+			'id'			=> 'google_analytics_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Google Analytics', 'siw' ),
+			'indent' 		=> true,
+		),
 		array(
 			'id'			=> 'google_analytics_id',
 			'title'			=> __( 'Property ID', 'siw' ),
@@ -30,6 +36,32 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'type'			=> 'switch',
 			'on'			=> 'Aan',
 			'off'			=> 'Uit',
+		),
+		array(
+			'id'			=> 'google_analytics_section_end',
+			'type'			=> 'section',
+			'indent' 		=> false,
+		),
+		array(
+			'id'			=> 'site_verification_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Website verificatie', 'siw' ),
+			'indent' 		=> true,
+		),
+		array(
+			'id'			=> 'google_search_console_verification',
+			'title'			=> __( 'Google Search Console', 'siw' ),
+			'type'			=> 'text',
+		),
+		array(
+			'id'			=> 'bing_webmaster_tools_verification',
+			'title'			=> __( 'Bing Webmaster Tools', 'siw' ),
+			'type'			=> 'text',
+		),
+		array(
+			'id'		=> 'site_verification_section_end',
+			'type'		=> 'section',
+			'indent' 	=> false,
 		),
 	);
 
@@ -466,8 +498,8 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'fields'		=> $email_fields,
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'google_analytics',
-		'title'			=> __( 'Google Analytics', 'siw' ),
+		'id'			=> 'analytics_verification',
+		'title'			=> __( 'Analytics & Verificatie', 'siw' ),
 		'subsection'	=> true,
 		'fields'		=> $analytics_verification_fields,
 	) );
