@@ -64,6 +64,9 @@ add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) {
 	$pinnacle_shortcodes['siw_groepsproject_tarief_regulier'] = array(
 		'title' => '[SIW] - ' . __( 'Groepsprojecten - Regulier tarief', 'siw' ),
 	);
+	$pinnacle_shortcodes['siw_nederlandse_projecten'] = array(
+		'title' => '[SIW] - ' . __( 'Nederlandse projecten', 'siw' ),
+	);
 	$pinnacle_shortcodes['siw_op_maat_tarief_student'] = array(
 		'title' => '[SIW] - ' . __( 'Op Maat - Studententarief', 'siw' ),
 	);
@@ -263,6 +266,24 @@ add_shortcode( 'siw_externe_link', function( $atts ) {
 	return siw_generate_external_link( $url, $titel );
 });
 
+
+/*
+ * Overzicht van Nederlandse projecten
+ */
+add_shortcode( 'siw_nederlandse_projecten', function() {
+	$projects = siw_get_np_projects();
+	if ( empty( $projects ) ) {
+		return;
+	}
+	$description = '';
+	foreach ( $projects as $project ) {
+		$duration = siw_get_date_range_in_text( $project['start_date'], $project['end_date'] );
+		$description .= esc_html( sprintf( '<b>%s - %s</b><br/>', $project['name'], $project['province_name'] ) );
+		$description .= esc_html__( 'Data:', 'siw' ) . SPACE . esc_html( $duration ) . BR;
+		$description .= esc_html__( 'Deelnemers:', 'siw' ) . SPACE . esc_html( $project['participants'] ) . BR;
+	}
+	return $description;
+});
 
 
 /*

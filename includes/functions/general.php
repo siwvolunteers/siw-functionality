@@ -225,3 +225,78 @@ function siw_get_annual_reports() {
 }
 
 
+/**
+ * [siw_get_np_work_types description]
+ * @return array
+ */
+function siw_get_np_work_types() {
+	//TODO: verplaatsen naar reference data?
+	$np_work_types = array(
+		'sociaal' 		=> __( 'Sociaal', 'siw' ),
+		'natuur'		=> __( 'Natuur', 'siw' ),
+		'constructie'	=> __( 'Constructie', 'siw' ),
+	);
+	return $np_work_types;
+}
+
+
+/**
+ * Geeft array met Nederlandse provincies terug
+ * @return array
+ */
+function siw_get_np_provinces(){
+	//TODO: verplaatsen naar reference data?
+	$provinces = array(
+		'nb' => __( 'Brabant', 'siw' ),
+		'dr' => __( 'Drenthe', 'siw' ),
+		'fl' => __( 'Flevoland', 'siw' ),
+		'fr' => __( 'Friesland', 'siw' ),
+		'ge' => __( 'Gelderland', 'siw' ),
+		'gr' => __( 'Groningen', 'siw' ),
+		'li' => __( 'Limburg', 'siw' ),
+		'nh' => __( 'Noord-Holland', 'siw' ),
+		'ov' => __( 'Overijssel', 'siw' ),
+		'ut' => __( 'Utrecht', 'siw' ),
+		'ze' => __( 'Zeeland', 'siw' ),
+		'zh' => __( 'Zuid-Holland', 'siw' ),
+	);
+	return $provinces;
+}
+
+
+/**
+ * Geeft array met Nederlandse projecten terug
+ * @return array
+ */
+function siw_get_np_projects() {
+	$np_projects = array();
+	$properties = array(
+		'name',
+		'city',
+		'province',
+		'latitude',
+		'longitude',
+		'start_date',
+		'end_date',
+		'work',
+		'participants',
+	);
+	$work_types = siw_get_np_work_types();
+	$provinces = siw_get_np_provinces();
+
+	for ( $x = 1 ; $x <= SIW_MAX_DUTCH_PROJECTS; $x++ ) {
+		$present = siw_get_setting( "np_project_{$x}_present" );
+
+		if ( ! $present ) {
+			continue;
+		}
+
+		foreach ( $properties as $property ) {
+			$np_projects[ $x ][ $property ] = siw_get_setting( "np_project_{$x}_$property" );
+		}
+		$np_projects[ $x ][ 'work_name' ] = $work_types[ $np_projects[ $x ][ 'work' ] ];
+		$np_projects[ $x ][ 'province_name' ] = $provinces[	$np_projects[ $x ][ 'province' ] ];
+	}
+
+	return $np_projects;
+}
