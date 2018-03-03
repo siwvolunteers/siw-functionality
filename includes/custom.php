@@ -323,3 +323,27 @@ add_action( 'init', function() {
 		}
 	});
 });
+
+
+
+/* Fix voor aanpassen van nonce voor logged-out user door WooCommerce*/
+add_filter('nonce_user_logged_out', function( $user_id, $action ) {
+
+	$nonces = array(
+		'siw_ajax_nonce',
+		'siw_newsletter_nonce',
+		'caldera_forms_front' //TODO: kan weg na bugfix in CF
+	);
+
+	if ( class_exists( 'WooCommerce' ) ) {
+		if ( $user_id && 0 !== $user_id && $action && ( false !== strpos_arr( $action, $nonces ) ) ) {
+			$user_id = 0;
+		}
+
+	}
+
+	return $user_id;
+
+}, 100, 2 );
+
+

@@ -61,7 +61,7 @@ class SIW_Mailpoet_Subscription extends \TDP\Widgets_Helper {
 					<input type="submit" value="<?php esc_attr_e( 'Aanmelden', 'siw' );?>">
 				</p>
 				<input type="hidden" value="<?php echo esc_attr( $instance['list'] ); ?>" name="list_id" id="newsletter_list_id">
-				<?php wp_nonce_field( 'siw-newsletter-nonce', 'newsletter_nonce', false);?>
+				<?php wp_nonce_field( 'siw_newsletter_nonce', 'newsletter_nonce', false);?>
 			</form>
 		</div>
 		<?php
