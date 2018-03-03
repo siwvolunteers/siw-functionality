@@ -12,7 +12,7 @@ add_action( 'siw_ajax_newsletter_subscription', function() {
 	if ( ! class_exists( 'WYSIJA' ) ) {
 		return;
 	}
-	check_ajax_referer( 'siw-newsletter-nonce', 'security' );
+	check_ajax_referer( 'siw_newsletter_nonce', 'security' );
 
 	$name = $_POST['name'];
 	$email = $_POST['email'];
