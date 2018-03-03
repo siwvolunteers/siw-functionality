@@ -5,6 +5,28 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+
+/**
+ * strpos with array of needles
+ *
+ * @param string $haystack
+ * @param array $needles
+ * @return int
+ */
+function strpos_arr( $haystack, $needles ) {
+    if( ! is_array( $needles ) ) {
+		$needles = array( $needles );
+	}
+    foreach( $needles as $needle ) {
+        if ( ( $pos = strpos( $haystack, $needle ) ) !== false ) {
+			return $pos;
+		}
+    }
+    return false;
+}
+
+
 /**
  * Hulpfunctie om cronjob toe te voegen
  * @param string $job [description]
