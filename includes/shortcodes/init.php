@@ -239,7 +239,7 @@ add_shortcode( 'siw_jaarverslagen', function() {
 		if ( ! empty( $annual_report['url'] ) ) {
 			$url = $annual_report['url'];
 			$text = sprintf( esc_html__( 'Jaarverslag %s', 'siw' ), $year );
-			$output .= sprintf('<a href="%s" target="_blank" rel="noopener">%s</a><br/>', esc_url( $url ), esc_html( $text ) );
+			$output .= sprintf( '<a class="siw-download" href="%s" target="_blank" rel="noopener">%s</a><br/>', esc_url( $url ), esc_html( $text ) );
 		}
 	}
 

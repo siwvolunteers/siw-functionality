@@ -28,19 +28,20 @@ function siw_generate_unordered_list( $items ) {
 
 /**
  * Genereert externe link
- * @param  string $url  [description]
- * @param  string $text [description]
- * @return string       [description]
+ * @param  string $url
+ * @param  string $text
+ * @return string
  */
 function siw_generate_external_link( $url, $text = false ) {
 
 	if ( false == $text ) {
 		$text = $url;
 	}
-	$external_link = sprintf( '<a href="%s" target="_blank" rel="noopener">%s&nbsp;<i class="kt-icon-newtab"></i></a>', esc_url( $url ), esc_html( $text ) );
+	$external_link = sprintf( '<a class="siw-external-link" href="%s" target="_blank" rel="noopener">%s&nbsp;<i class="kt-icon-newtab"></i></a>', esc_url( $url ), esc_html( $text ) );
 
 	return $external_link;
 }
+
 
 /**
  * Formatteert getal als bedrag
