@@ -26,6 +26,9 @@ add_action( 'siw_cleanup_terms', function() {
 			'hide_empty' => false,
 			)
 		);
+		if ( is_wp_error( $terms ) ) {
+			continue;
+		}
 		foreach ( $terms as $term ) {
 			if ( 0 == $term->count ) {
 				wp_delete_term( $term->term_id, $taxonomy );
