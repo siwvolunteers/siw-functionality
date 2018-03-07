@@ -27,17 +27,18 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 		$free_places_current = $product->get_meta( 'freeplaces' );
 		$free_places_new = siw_get_workcamp_free_places_left( $xml['free_m'], $xml['free_f'] );
 
-		return ( 'no' != $free_places_current && 'no' == $free_places_new && $visibility ) ? true : false; //redundante operator?
+		return ( 'no' != $free_places_current && 'no' == $free_places_new && $visibility ) ? true : false; //FIXME:redundante operator?
 	}
 
 	$import_again = $product->get_meta( 'import_again' );
 	if ( $is_full_import && $import_again ) {
-		siw_debug_log( sprintf( 'Update project %s (%s): Instelling bij project', $product_id, $sku ) );
+		siw_debug_log( sprintf( 'Update project %s (%s): Geforceerde update specifiek project', $product_id, $sku ) );
 		return true;
 	}
 
 	$force_full_update = siw_get_setting( 'plato_force_full_update' );
 	if ( $is_full_import && $force_full_update ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Geforceerde update alle projecten', $product_id, $sku ) );
 		return true;
 	}
 
@@ -49,6 +50,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 	- Local fee
 	- Projectcode
 	- Land toegestaan
+	- Leeftijd
 	- TODO: Nog meer eigenschappen? Bijv. beschrijving, soort werk...
 	*/
 
@@ -90,6 +92,14 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 	$country_allowed_new = siw_get_workcamp_country_allowed( $xml['country'] );
 	if ( $country_allowed_current != $country_allowed_new ) {
 		siw_debug_log( sprintf( 'Update project %s (%s): Status land veranderd van %s naar %s', $product_id, $sku, $country_allowed_current, $country_allowed_new ) );
+		return true;
+	}
+
+	/* Leeftijd */
+	$age_range_current = $product->get_attribute( 'leeftijd' );
+	$age_range_new = siw_get_workcamp_age_range( $xml['min_age'], $xml['max_age'] );
+	if ( $age_range_current != $age_range_new ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Leeftijd veranderd van %s naar %s', $product_id, $sku, $age_range_current, $age_range_new ) );
 		return true;
 	}
 
