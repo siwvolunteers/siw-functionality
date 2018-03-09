@@ -52,6 +52,8 @@ require_once( SIW_INCLUDES_DIR . '/settings/init.php' );
 
 /* Diverse aanpassingen */
 require_once( SIW_INCLUDES_DIR . '/custom.php' );
+/* .htaccess-aanpassingen */
+require_once( SIW_INCLUDES_DIR . '/htaccess.php' );
 /* JS en CSS enqueuen */
 require_once( SIW_INCLUDES_DIR . '/enqueue.php' );
 /* Cron jobs schedulen */

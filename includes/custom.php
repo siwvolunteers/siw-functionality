@@ -12,7 +12,6 @@ add_action( 'wppusher_plugin_was_updated', function() {
 });
 
 
-
 /* Aantal toegestane redirects + standaard statuscode aanpassen */
 add_filter( 'srm_max_redirects', function() { return 250; } );
 add_filter( 'srm_default_direct_status', function() { return 301; } );
@@ -46,80 +45,46 @@ add_filter( 'widget_text', 'do_shortcode' );
  */
 add_filter( 'wp_resource_hints', function( $hints, $relation_type ) {
 	if ( 'dns-prefetch' === $relation_type ) {
-		$hints[] = '//www.google-analytics.com';
-		$hints[] = '//maps.googleapis.com';
-		$hints[] = '//maps.google.com';
-		$hints[] = '//maps.gstatic.com';
-		$hints[] = '//csi.gstatic.com';
-		$hints[] = '//fonts.googleapis.com';
-		$hints[] = '//fonts.gstatic.com';
+		$hints[] = 'https://www.google-analytics.com';
+		$hints[] = 'https://maps.googleapis.com';
+		$hints[] = 'https://maps.google.com';
+		$hints[] = 'https://maps.gstatic.com';
+		$hints[] = 'https://csi.gstatic.com';
+		$hints[] = 'https://fonts.googleapis.com';
+		$hints[] = 'https://fonts.gstatic.com';
 	}
-	if ( ( $key = array_search( 'https://s.w.org/images/core/emoji/2.3/svg/', $hints ) ) !== false) {
-		unset( $hints [$key ] );
+	if ( ( $key = array_search( 'https://s.w.org/images/core/emoji/2.3/svg/', $hints ) ) !== false ) {
+		unset( $hints [ $key ] );
 	}
 	return $hints;
 }, 99, 2 );
 
 
-/* htaccess opnieuw genereren na update plugin */
-add_action( 'siw_update_plugin', function() {
-	if ( ! function_exists( 'flush_rocket_htaccess' )  || ! function_exists( 'rocket_generate_config_file' ) ) {
-		return false;
+/* meta-tags aan head toevoegen t.b.v. site-verificatie */
+add_action( 'wp_head', function() {
+
+	if ( ! is_front_page() ) {
+		return;
 	}
-	flush_rocket_htaccess();
-	rocket_generate_config_file();
+
+	$google = siw_get_setting( 'google_search_console_verification' );
+	if ( $google ) {
+		printf( '<meta name="google-site-verification" content="%s">', esc_attr( $google ) );
+	}
+	$bing = siw_get_setting( 'bing_webmaster_tools_verification' );
+	if ( $google ) {
+		printf( '<meta name="msvalidate.01" content="%s">', esc_attr( $bing ) );
+	}
 });
 
-
-/* HTTPS redirect */
-add_filter( 'before_rocket_htaccess_rules', function ( $marker ) {
-	$redirection  = '# Redirect http to https' . PHP_EOL;
-	$redirection .= 'RewriteEngine On' . PHP_EOL;
-	$redirection .= 'RewriteCond %{HTTPS} !on' . PHP_EOL;
-	$redirection .= 'RewriteCond %{SERVER_PORT} !^443$' . PHP_EOL;
-	$redirection .= 'RewriteCond %{HTTP:X-Forwarded-Proto} !https' . PHP_EOL;
-	$redirection .= 'RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]' . PHP_EOL;
-	$redirection .= '# END https redirect' . PHP_EOL . PHP_EOL;
-
-	$marker = $redirection . $marker;
-	return $marker;
-});
-
-/* Security headers */
-add_filter( 'after_rocket_htaccess_rules', function( $marker ) {
-	$security  = '# Add security headers' . PHP_EOL;
-	$security .= '<IfModule mod_headers.c>' . PHP_EOL;
-	$security .= 'Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS' . PHP_EOL;
-	$security .= 'Header always set X-XSS-Protection "1; mode=block"' . PHP_EOL;
-	$security .= 'Header always append X-Frame-Options SAMEORIGIN' . PHP_EOL;
-	$security .= 'Header always set X-Content-Type-Options nosniff' . PHP_EOL;
-	$security .= 'Header always set Referrer-Policy no-referrer-when-downgrade' . PHP_EOL;
-	$security .= 'Header unset X-Powered-By' . PHP_EOL;
-	$security .= '</IfModule>' . PHP_EOL;
-	$security .= '# END security headers' . PHP_EOL . PHP_EOL;
-
-	$marker = $security . $marker;
-	return $marker;
-});
 
 /* PHP sessie-cookie httponly en secure maken*/
 @ini_set( 'session.cookie_httponly', 'on' );
 @ini_set( 'session.cookie_secure', 'on' );
 
+/* Woocommerce cookie secure maken */
+add_filter( 'wc_session_use_secure_cookie', '__return_true' );
 
-/* Update mailpoet configuratie ivm switch naar https */
-add_action( 'siw_update_plugin', function() {
-	if ( ! class_exists( 'WYSIJA' ) ) {
-		return;
-	}
-	$model_config = WYSIJA::get( 'config', 'model' );
-	$uploadurl = $model_config->values['uploadurl'];
-
-	if ( WYSIJA_UPLOADS_URL == $uploadurl ) {
-		return;
-	}
-	$model_config->save( array( 'uploadurl' => WYSIJA_UPLOADS_URL ) );
-});
 
 /* Mailpoet spam-signups blokkeren */
 add_action( 'wp_ajax_nopriv_wysija_ajax', function() {
@@ -199,7 +164,7 @@ function siw_log( $content ) {
 
 
 /**
- *  Schrijf informatie naar log als DEBUG-mode aan staan*
+ *  Schrijf informatie naar log als DEBUG-mode aan staat
  * @param  mixed $content
  * @return void
  */
@@ -236,7 +201,7 @@ add_action( 'pinnale_breadcrumbs_after_home', function() {
 	}
 
 	/* Breadcrumbs voor attribute-pagina's*/
-	if ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) ) {
+	if ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax ( 'pa_taal' ) ) {
 		$parent = wc_get_page_id( 'shop' );
 	}
 
@@ -257,10 +222,13 @@ add_action( 'pinnale_breadcrumbs_after_home', function() {
 
 } );
 
-/* Sidebar verbergen voor testimonials TODO: Kan weg na switch van Strong Testimonials naar eigen functionaliteit */
+/* Sidebar tonen voor product attributes / Sidebar verbergen voor testimonials TODO: Kan weg na switch van Strong Testimonials naar eigen functionaliteit */
 add_filter( 'kadence_display_sidebar', function( $sidebar ) {
 	if ( 'wpm-testimonial' == get_post_type() ) {
 		return false;
+	}
+	if ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax ( 'pa_taal' ) ) {
+		return true;
 	}
 	return $sidebar;
 } );
@@ -332,7 +300,8 @@ add_filter('nonce_user_logged_out', function( $user_id, $action ) {
 	$nonces = array(
 		'siw_ajax_nonce',
 		'siw_newsletter_nonce',
-		'caldera_forms_front' //TODO: kan weg na bugfix in CF
+		'caldera_forms_front', //TODO: kan weg na bugfix in CF
+		'wp_rest',
 	);
 
 	if ( class_exists( 'WooCommerce' ) ) {

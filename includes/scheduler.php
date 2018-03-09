@@ -26,8 +26,10 @@ add_action( 'siw_update_plugin', function() {
 
 	/* Schedule alle jobs met 5 minuten interval */
 	$counter = 0;
+	$cron_job_interval = 5 * MINUTE_IN_SECONDS;
+
 	foreach ( $cron_jobs as $cron_job ) {
-		wp_schedule_event( $cron_ts_gmt + ( $counter * 5 * MINUTE_IN_SECONDS ) , 'daily', $cron_job );
+		wp_schedule_event( $cron_ts_gmt + ( $counter * $cron_job_interval ) , 'daily', $cron_job );
 		$counter++;
 	}
 

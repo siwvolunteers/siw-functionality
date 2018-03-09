@@ -29,12 +29,12 @@ function strpos_arr( $haystack, $needles ) {
 
 /**
  * Hulpfunctie om cronjob toe te voegen
- * @param string $job [description]
+ * @param string $action
  */
-function siw_add_cron_job( $job ) {
-	add_filter( 'siw_cron_jobs', function( $jobs ) use( $job ) {
-		$jobs[] = $job;
-		return $jobs;
+function siw_add_cron_job( $action ) {
+	add_filter( 'siw_cron_jobs', function( $actions ) use( $action ) {
+		$actions[] = $action;
+		return $actions;
 	});
 }
 

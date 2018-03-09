@@ -43,7 +43,10 @@ add_action( 'siw_ajax_postcode_lookup', function() {
 function siw_get_address_from_postcode( $postcode, $housenumber ) {
 	$api_key = siw_get_setting( 'postcode_api_key' );
 
-	$url = sprintf( 'https://postcode-api.apiwise.nl/v2/addresses/?postcode=%s&number=%d', $postcode, $housenumber );
+	$url = add_query_arg( array(
+		'postcode' => $postcode,
+		'number' => $housenumber,
+	), SIW_POSTCODE_API_URL );
 
 	$args = array(
 		'timeout'		=> 10,

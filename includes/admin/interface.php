@@ -39,7 +39,6 @@ add_action( 'admin_bar_menu', function( $wp_admin_bar ) {
  * - Opties Pinnacle Premium
  * - Comments
  * - Yoast
- * - VFB Pro
  * - Nieuw bericht
  * - Updraft Plus
  */
@@ -50,7 +49,6 @@ add_action( 'wp_before_admin_bar_render', function() {
 	$wp_admin_bar->remove_node( 'ktoptions' );
 	$wp_admin_bar->remove_node( 'comments' );
 	$wp_admin_bar->remove_node( 'wpseo-menu' );
-	$wp_admin_bar->remove_node( 'vfbp-admin-toolbar' );
 	$wp_admin_bar->remove_node( 'new-content' );
 }, 999 );
 
@@ -85,13 +83,12 @@ add_action( 'admin_init', function() {
  * Metaboxes van plugins verwijderen:
  * - WooCommerce
  * - Yoast
- * - VFB Pro
+ * - Redux Framework
  */
 add_action( 'do_meta_boxes', function() {
 	remove_meta_box( 'woocommerce_dashboard_recent_reviews', 'dashboard', 'normal' );
 	remove_meta_box( 'woocommerce_dashboard_status', 'dashboard', 'normal' );
 	remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'normal' );
-	remove_meta_box( 'vfbp-dashboard', 'dashboard', 'normal' );
 	remove_meta_box( 'redux_dashboard_widget', 'dashboard', 'side' );
 });
 
@@ -145,5 +142,5 @@ add_filter( 'wpseo_metabox_prio', function() { return 'low'; } );
 
 /* Copyright in admin footer */
 add_filter( 'admin_footer_text', function() {
-	printf( '&copy; 2015-%s %s', date( 'Y' ), SIW_NAME );
+	printf( '&copy; %s %s', date( 'Y' ), SIW_NAME );
 });
