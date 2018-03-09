@@ -64,7 +64,7 @@ class SIW_CTA extends \TDP\Widgets_Helper {
 		echo '<' . esc_attr($instance['heading']) . '>' . esc_html( $instance['title'] ) . '</'. esc_attr($instance['heading']) . '>';
 		echo '</div>';
 		echo '<div class="siw-cta-button" style="text-align:' . esc_attr( $instance['align'] ) . '">';
-		echo '<a href="'. get_permalink( $instance['button_page']) . '" class="kad-btn">' . esc_html( $instance['button_text'] ) . '</a>';
+		echo '<a href="'. siw_get_translated_page_link( $instance['button_page'] ) . '" class="kad-btn">' . esc_html( $instance['button_text'] ) . '</a>';
 		echo '</div>';
 		echo $args['after_widget'];
 
