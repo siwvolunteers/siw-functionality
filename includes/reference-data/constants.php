@@ -63,6 +63,17 @@ define( 'SIW_PRIMARY_COLOR', '#ff9900' );
 define( 'SIW_PRIMARY_COLOR_HOVER', '#ffcc33' );
 define( 'SIW_SECONDARY_COLOR', '#59ab9c' );
 define( 'SIW_SECONDARY_COLOR_HOVER', '#8cdecf' );
+define( 'SIW_FONT_COLOR', '#444' );
+
+define( 'SIW_COLOR_EUROPE', '#007499' );
+define( 'SIW_COLOR_ASIA', '#008e3f' );
+define( 'SIW_COLOR_AFRICA', '#e30613' );
+define( 'SIW_COLOR_LATIN_AMERICA', '#c7017f' );
+define( 'SIW_COLOR_NORTH_AMERICA', '#fbba00' );
+
+/* URL's voor webservices */
+define( 'SIW_POSTCODE_API_URL','https://postcode-api.apiwise.nl/v2/addresses/' );
+define( 'SIW_PLATO_WEBSERVICE_URL', 'http://www.workcamp-plato.org/files/services/ExternalSynchronization.asmx' );
 
 /**
  * Geeft een array met constantes en hun toelichting terug
