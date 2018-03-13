@@ -1,6 +1,6 @@
 <?php
 /*
-(c)2017 SIW Internationale Vrijwilligersprojecten
+(c)2017-2018 SIW Internationale Vrijwilligersprojecten
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -121,13 +121,11 @@ add_action( 'after_page_header', function() {
 
 	if ( is_shop() ) {
 		$text =	__( 'Hieronder zie je het beschikbare aanbod groepsprojecten.', 'siw' );
-
 	}
 
 	if ( is_product_category() ) {
 		$category_name = get_queried_object()->name;
 		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten in %s.', 'siw' ), '<b>' . $category_name . '</b>' );
-
 	};
 
 	if ( is_tax( 'pa_land' ) ) {
@@ -145,6 +143,10 @@ add_action( 'after_page_header', function() {
 		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten voor de doelgroep %s.', 'siw' ), '<b>' . strtolower( $target_audience_name ) . '</b>' );
 	}
 
+	if ( is_tax( 'pa_taal' ) ) {
+		$language_name = get_queried_object()->name;
+		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten met de voertaal %s.', 'siw' ), '<b>' . ucfirst( $language_name ) . '</b>' );
+	}
 	if ( isset( $text ) ) {
 		$text .= SPACE .
 			__( 'Tijdens onze groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
