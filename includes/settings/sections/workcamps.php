@@ -40,6 +40,38 @@ add_action( 'siw_settings_show_workcamps_section', function() {
 		),
 	);
 
+	$archive_fields = array(
+		array(
+			'id'			=> 'workcamp_teaser_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Aankondiging nieuwe groepsprojecten', 'siw' ),
+			'indent' 		=> true,
+		),
+		array(
+			'id'			=> 'workcamp_teaser_text_enabled',
+			'title'			=> __( 'Aankondiging tonen', 'siw' ),
+			'type'			=> 'switch',
+			'on'			=> 'Aan',
+			'off'			=> 'Uit',
+		),
+		array(
+			'id'			=> 'workcamp_teaser_text_end_date',
+			'title'			=> __( 'Einddatum aankonding', 'siw' ),
+			'type'			=> 'html5',
+			'html5'			=> 'date',
+			'required'		=> array(
+				'workcamp_teaser_text_enabled',
+				'equals',
+				1
+			),
+		),		
+		array(
+			'id'			=> 'google_analytics_section_end',
+			'type'			=> 'section',
+			'indent' 		=> false,
+		),
+	);
+
 	/*
 	 * Plato
  	 * - Import
@@ -128,6 +160,12 @@ add_action( 'siw_settings_show_workcamps_section', function() {
 		'title'			=> __( 'Aanmeldformulier', 'siw' ),
 		'subsection'	=> true,
 		'fields'		=> $application_fields,
+	));
+	Redux::setSection( SIW_OPT_NAME, array(
+		'id'			=> 'workcamps_archive',
+		'title'			=> __( 'Overzichtspagina', 'siw' ),
+		'subsection'	=> true,
+		'fields'		=> $archive_fields,
 	));
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'workcamps_plato_import',
