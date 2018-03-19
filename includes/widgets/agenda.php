@@ -33,7 +33,11 @@ class SIW_Agenda extends \TDP\Widgets_Helper {
 
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
-		$events = siw_get_upcoming_events( 2 );
+		$events = get_transient( 'siw_upcoming_events' );
+		if ( false === $events ) {
+			$events = siw_get_upcoming_events( 2 );
+			set_transient( 'siw_upcoming_events', $events, HOUR_IN_SECONDS );
+		}
 
 		echo $args['before_widget'];
 		if ( $title ) {
