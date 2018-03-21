@@ -61,6 +61,7 @@ add_action( 'pmxi_after_xml_import', function( $import_id ) {
 
 	if ( $import_id == $full_import_id ) {
 		wp_schedule_single_event( time(), 'siw_hide_workcamps' );
+		wp_schedule_single_event( time() + ( 5 * MINUTE_IN_SECONDS ) , 'siw_repair_projects' );
 		wp_schedule_single_event( time() + ( 15 * MINUTE_IN_SECONDS ), 'siw_send_projects_for_approval_email' );
 		//TODO: email voor nieuwe projecten
 		if ( siw_get_setting( 'plato_force_full_update' ) ) {
