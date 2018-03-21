@@ -220,3 +220,47 @@ add_action( 'siw_delete_projects', function() {
 	}
 	$siw_delete_workcamps_background_process->save()->dispatch();
 });
+
+
+/* Repareren projecten door bug in WP All Import */
+add_action( 'siw_repair_projects', function() {
+	siw_debug_log( 'Start repareren projecten' );
+	$args = array(
+		'posts_per_page'	=> -1,
+		'post_type'			=> 'product',
+		'fields' 			=> 'ids',
+		'post_status'		=> 'any',
+	);
+	$products = get_posts( $args );
+
+	$siw_repair_workcamps_background_process = $GLOBALS['siw_repair_workcamps_background_process'];
+	foreach ( $products as $product_id ) {
+		$siw_repair_workcamps_background_process->push_to_queue( $product_id );
+	}
+	$siw_repair_workcamps_background_process->save()->dispatch();
+});
+
+
+/**
+ * Repareer los project
+ *
+ * @param int $product_id
+ * @return void
+ */
+function siw_repair_project( $product_id ) {
+
+	$product_types = wp_get_object_terms( $product_id, 'product_type' );
+	foreach ( $product_types as $product_type ) {
+		if ( 'variable' != $product_type->slug ) {
+			wp_remove_object_terms( $product_id, $product_type->slug, 'product_type' );
+		}
+	}
+
+	$country_meta = get_post_meta( $product_id, 'land', true );
+	$countries = wp_get_object_terms( $product_id, 'pa_land' );
+	foreach ( $countries as $country ) {
+		if ( $country_meta != $country->slug ) {
+			wp_remove_object_terms( $product_id, $country->slug, 'pa_land' );	
+		}
+	}
+}
