@@ -1,6 +1,6 @@
 <?php
 /*
- * (c)2016-2017 SIW Internationale Vrijwilligersprojecten
+ * (c)2016-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -74,12 +74,6 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	);
 
 	$plato_fields = array(
-		array(
-			'id'			=> 'plato_webservice_url',
-			'title'			=> __( 'Webservice URL', 'siw' ),
-			'type'			=> 'text',
-			'validate'		=> 'url',
-		),
 		array(
 			'id'			=> 'plato_organization_webkey',
 			'title'			=> __( 'Organization webkey', 'siw' ),

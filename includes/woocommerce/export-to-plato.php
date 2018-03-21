@@ -21,17 +21,16 @@ function siw_export_application_to_plato( $order ) {
 	if ( ! is_object( $order ) ) {
 		$order = new WC_Order( $order );
 	}
-	/* Ophalen Plato webkey en url; afbreken als deze niet allebei gevonden worden. */
+	/* Ophalen Plato webkey; afbreken als deze niet gevonden wordt. */
 	$organization_webkey = siw_get_setting( 'plato_organization_webkey' );
-	$webservice_url = siw_get_setting( 'plato_webservice_url' );
 
-	if ( '' == $organization_webkey || '' == $webservice_url ) {
+	if ( '' == $organization_webkey ) {
 		$order->add_order_note( 'Instellingen voor export naar PLATO ontbreken. Neem contact op met ICT-beheer.' );
 		return;
 	}
 
 	// Export van aanmelding gebruikt endpoint ImportVolunteer
-	$import_volunteer_webservice_url = $webservice_url . '/ImportVolunteer';
+	$import_volunteer_webservice_url = SIW_PLATO_WEBSERVICE_URL . '/ImportVolunteer';
 
 	// Zet HTTP-post argumenten
 	$args = array(
