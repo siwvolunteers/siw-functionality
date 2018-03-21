@@ -19,6 +19,7 @@ add_filter( 'srm_default_direct_status', function() { return 301; } );
 /* Nonce-lifetime verdubbelen ivm cache */
 add_filter( 'nonce_life', function() { return 2 * DAY_IN_SECONDS; } );
 
+
 /*
  * Permalink van testimonials aanpassen van 'testimonial' naar 'ervaring'
  * TODO: Kan weg na vervangen plugin "Strong Testimonials" door eigen functionaliteit
@@ -35,47 +36,6 @@ add_action( 'init', function() {
 
 /* Shortcodes mogelijk maken in text widget */
 add_filter( 'widget_text', 'do_shortcode' );
-
-
-/*
- * DNS-prefetch voor
- * - Google Analytics
- * - Google Maps
- * - Google Fonts
- */
-add_filter( 'wp_resource_hints', function( $hints, $relation_type ) {
-	if ( 'dns-prefetch' === $relation_type ) {
-		$hints[] = 'https://www.google-analytics.com';
-		$hints[] = 'https://maps.googleapis.com';
-		$hints[] = 'https://maps.google.com';
-		$hints[] = 'https://maps.gstatic.com';
-		$hints[] = 'https://csi.gstatic.com';
-		$hints[] = 'https://fonts.googleapis.com';
-		$hints[] = 'https://fonts.gstatic.com';
-	}
-	if ( ( $key = array_search( 'https://s.w.org/images/core/emoji/2.3/svg/', $hints ) ) !== false ) {
-		unset( $hints [ $key ] );
-	}
-	return $hints;
-}, 99, 2 );
-
-
-/* meta-tags aan head toevoegen t.b.v. site-verificatie */
-add_action( 'wp_head', function() {
-
-	if ( ! is_front_page() ) {
-		return;
-	}
-
-	$google = siw_get_setting( 'google_search_console_verification' );
-	if ( $google ) {
-		printf( '<meta name="google-site-verification" content="%s">', esc_attr( $google ) );
-	}
-	$bing = siw_get_setting( 'bing_webmaster_tools_verification' );
-	if ( $google ) {
-		printf( '<meta name="msvalidate.01" content="%s">', esc_attr( $bing ) );
-	}
-});
 
 
 /* PHP sessie-cookie httponly en secure maken*/
@@ -122,17 +82,6 @@ define( 'UPDRAFTPLUS_ADMINBAR_DISABLE', true );
 define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
 
 
-/* Optimalisatie HEAD */
-remove_action( 'wp_head', 'wp_generator' );
-remove_action( 'wp_head', 'wlwmanifest_link' );
-remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
-remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
-remove_action( 'wp_head', 'rsd_link' );
-remove_action( 'wp_head', 'feed_links', 2 );
-remove_action( 'wp_head', 'feed_links_extra', 3 );
-remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
-
-
 /* Uitschakelen feed*/
 add_actions( array( 'do_feed','do_feed_rdf','do_feed_rss','do_feed_rss2','do_feed_atom','do_feed_rss2_comments','do_feed_atom_comments' ), function () {
 	wp_die( __( 'SIW heeft geen feed.', 'siw' ) );
@@ -175,10 +124,10 @@ function siw_debug_log( $content ) {
 }
 
 
-/* Query vars registeren voor Search & Filter (Snel zoeken) */
+/* Query vars registeren voor Snel Zoeken */
 add_filter( 'query_vars', function( $vars ) {
-	$vars[] = '_sft_product_cat';
-	$vars[] = '_sft_pa_maand';
+	$vars[] = 'bestemming';
+	$vars[] = 'maand';
 	return $vars;
 } );
 
@@ -267,6 +216,8 @@ add_action( 'kt_header_overlay', function() {
 	}
 } );
 
+/* WooCommerce help-tab verbergen*/
+add_filter( 'woocommerce_enable_admin_help_tab', '__return_false' );
 
 /*
  * Permalinkbase aanpassen voor

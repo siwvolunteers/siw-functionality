@@ -47,11 +47,11 @@ add_action( 'cmb2_admin_init', function() {
  * Voeg bulkactie toe voor groepsprojecten.
  */
 add_filter( 'bulk_actions-edit-product', function( $bulk_actions ) {
-	$bulk_actions['import_again'] = __( 'Opnieuw importeren', 'domain' );
+	$bulk_actions['import_again'] = __( 'Opnieuw importeren', 'siw' );
 	return $bulk_actions;
 } );
 
-/* Verwerk bulactie */
+/* Verwerk bulkactie */
 add_filter( 'handle_bulk_actions-edit-product', function ( $redirect_to, $action, $post_ids ) {
 	if ( $action !== 'import_again' ) {
 		return $redirect_to;
