@@ -255,6 +255,7 @@ add_action( 'siw_delete_applications', function() {
 	$siw_delete_applications_background_process->save()->dispatch();
 });
 
+
 /* Repareren projecten door bug in WP All Import */
 add_action( 'siw_repair_projects', function() {
 	siw_debug_log( 'Start repareren projecten' );
@@ -297,4 +298,4 @@ function siw_repair_project( $product_id ) {
 		}
 	}
 }
->>>>>>> refs/remotes/origin/master
+
