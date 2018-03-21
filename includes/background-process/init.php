@@ -13,3 +13,6 @@ require_once( __DIR__ . '/hide-workcamps.php' );
 require_once( __DIR__ . '/delete-applications.php' );
 /* Verwijderen projecten */
 require_once( __DIR__ . '/delete-workcamps.php' );
+/* Repareren projecten */
+require_once( __DIR__ . '/repair-workcamps.php' );
+
