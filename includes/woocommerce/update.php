@@ -227,6 +227,12 @@ function siw_update_workcamp_tariff( $product_id ) {
 	$tariff_array = siw_get_workcamp_tariffs();
 
 	$product = wc_get_product( $product_id );
+
+	/* Afbreken als product niet meer bestaat */
+	if ( false == $product ) {
+		return false;
+	}
+
 	$variations = $product->get_children();
 
 	foreach ( $variations as $variation_id ) {
