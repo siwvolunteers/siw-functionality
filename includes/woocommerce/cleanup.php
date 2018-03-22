@@ -267,11 +267,16 @@ add_action( 'siw_repair_projects', function() {
 	);
 	$products = get_posts( $args );
 
+	$product_chunks = array_chunk( $products, 500 );
+
 	$siw_repair_workcamps_background_process = $GLOBALS['siw_repair_workcamps_background_process'];
-	foreach ( $products as $product_id ) {
-		$siw_repair_workcamps_background_process->push_to_queue( $product_id );
+	foreach ( $product_chunks as $products ) {
+		foreach ( $products as $product_id ) {
+			//$siw_repair_workcamps_background_process->push_to_queue( $product_id );
+		}
+		$siw_repair_workcamps_background_process->save();
 	}
-	$siw_repair_workcamps_background_process->save()->dispatch();
+	$siw_repair_workcamps_background_process->dispatch();
 });
 
 
