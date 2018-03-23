@@ -8,13 +8,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Geeft titel voor project terug
  *
- * @param string $country
+ * @param string $country_code
  * @param string $work
  *
  * @return string
  */
-function siw_get_workcamp_title( $country, $work ) {
-	$country_name = siw_get_workcamp_country_name( $country );
+function siw_get_workcamp_title( $country_code, $work ) {
+	$country_name = siw_get_workcamp_country_name( $country_code );
 	$work = siw_get_workcamp_work_in_text( $work, false );
 	$project_name = sprintf( '%s | %s', $country_name, ucfirst( $work ) );
 	return $project_name;
@@ -24,10 +24,14 @@ function siw_get_workcamp_title( $country, $work ) {
 /**
  * Geeft beschrijving voor project terug
  *
- * @param string $country
- * @param string $work
- *
- * @return string
+ * @param string $descr_work
+ * @param string $descr_accomodation_and_food
+ * @param string $descr_location_and_leisure
+ * @param string $descr_partner
+ * @param string $descr_requirements
+ * @param string $notes
+ * @param string $description
+ * @return void
  */
 function siw_get_workcamp_description( $descr_work, $descr_accomodation_and_food, $descr_location_and_leisure, $descr_partner, $descr_requirements, $notes, $description ) {
 	//TODO: formattering herkennen en aanpassen voor bijvoorbeeld links en bulletlijsten
@@ -75,7 +79,7 @@ function siw_get_workcamp_description( $descr_work, $descr_accomodation_and_food
  *
  * @return void
  */
-function siw_get_workcamp_summary( $project_type, $country, $work, $start_date, $end_date, $numvol, $min_age, $max_age, $family ) {
+function siw_get_workcamp_summary( $project_type, $country_code, $work, $start_date, $end_date, $numvol, $min_age, $max_age, $family ) {
 
 	//verzamelen gegevens voor samenvatting
 	$other_volunteers = ( (integer) $numvol ) - 1 ;
@@ -106,15 +110,15 @@ function siw_get_workcamp_summary( $project_type, $country, $work, $start_date, 
  *
  * Format: SIW Vrijwilligerswerk | [werk]-project in [land]
  *
- * @param string $country
- * @param string $work
+ * @param string $country_code
+ * @param string $work_code
  *
  * @return string
  */
-function siw_get_workcamp_seo_title( $country, $work ) {
-	$work = siw_get_workcamp_work_in_text( $work );
-	$country = siw_get_workcamp_country_name( $country );
-	$seo_title = sprintf( 'SIW Vrijwilligerswerk | %sproject in %s', ucfirst( $work ), $country );
+function siw_get_workcamp_seo_title( $country_code, $work_code ) {
+	$work = siw_get_workcamp_work_in_text( $work_code );
+	$country_name = siw_get_workcamp_country_name( $country_code );
+	$seo_title = sprintf( 'Groepsproject %s - %s', $country_name, ucfirst( $work ) );
  	return $seo_title;
 }
 
@@ -122,14 +126,18 @@ function siw_get_workcamp_seo_title( $country, $work ) {
 /**
  * Geeft SEO-omschrijving voor project terug
  *
+ * @param string $project_type
+ * @param string $country_code
+ * @param string $work_code
  * @param date $start_date
  * @param date $end_date
- * @param string $country
- * @param string $work
- *
- * @return string
+ * @param int $numvol
+ * @param int $min_age
+ * @param int $max_age
+ * @param bool $family
+ * @return void
  */
-function siw_get_workcamp_seo_description( $project_type, $country, $work, $start_date, $end_date, $numvol, $min_age, $max_age, $family ) {
+function siw_get_workcamp_seo_description( $project_type, $country_code, $work_code, $start_date, $end_date, $numvol, $min_age, $max_age, $family ) {
 	$seo_summary = '';
 	$project_duration_in_text = siw_get_date_range_in_text( $start_date, $end_date, false );
 	$project_summary = '';

@@ -8,10 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 add_action( 'siw_settings_show_countries_section', function() {
 	/* Sorteer landen op naam i.p.v. op code */
-	$project_countries = siw_get_project_countries();
+	$countries = siw_get_countries();
 
 	/* Velden */
-	foreach ( $project_countries as $country ) {
+	foreach ( $countries as $country ) {
 		$slug = $country['slug'];
 		$name = $country['name'];
 		$allowed = ( 'yes' == $country['allowed'] ) ? true : false;

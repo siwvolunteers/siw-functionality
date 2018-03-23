@@ -30,7 +30,7 @@ add_shortcode( 'siw_pagina_lightbox', function( $atts ) {
 	$GLOBALS['lightboxes'][] = $page_id;
 
 	/* HTML voor lightbox aan footer toeoegen */
-	add_action( 'wp_footer', function(){
+	add_action( 'wp_footer', function() {
  		$lightboxes = array_unique( $GLOBALS['lightboxes'] );
 		foreach( $lightboxes as $page_id ) {
 			/* Haal titel en inhoud van de pagina op */
@@ -61,3 +61,21 @@ add_shortcode( 'siw_pagina_lightbox', function( $atts ) {
 
 	return $link;
 });
+
+siw_add_shortcode( 'siw_pagina_lightbox', array(
+	'title' => '[SIW] - ' . __( 'Pagina-lightbox', 'siw' ),
+	'attr'  => array(
+		'link_tekst' => array(
+			'type'  => 'text',
+			'title' => __( 'Link tekst', 'siw' ),
+		),
+		'pagina' => array(
+			'type'    => 'select',
+			'title'   => __( 'Pagina', 'siw' ),
+			'default' => '',
+			'values'  => array(
+				'kinderbeleid' => __( 'Beleid kinderprojecten', 'siw' ),
+			),
+		),
+	),
+));

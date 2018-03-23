@@ -78,7 +78,8 @@ add_action( 'siw_settings_show_np_section', function() {
 		),
 	);
 
-	$provinces = siw_get_np_provinces();
+	$provinces = siw_get_dutch_provinces();
+	$work_types = siw_get_dutch_project_work_types();
 
 //	$languages = apply_filters( 'wpml_active_languages', array() );
 //$my_default_lang = apply_filters('wpml_default_language', NULL );
@@ -159,7 +160,7 @@ add_action( 'siw_settings_show_np_section', function() {
 			'id'		=> "np_project_{$x}_work",
 			'title'		=> __( 'Soort werk', 'siw' ),
 			'type'		=> 'select',
-			'options'	=> siw_get_np_work_types(),
+			'options'	=> $work_types,
 			'required'	=> $required,
 		);
 		$map_fields[] = array(

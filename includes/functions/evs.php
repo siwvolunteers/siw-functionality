@@ -68,12 +68,12 @@ function siw_get_next_evs_departure_month() {
 function siw_get_evs_project_data( $post_id ) {
 
 	$evs_countries = siw_get_evs_countries();
-	$evs_work_types = siw_get_evs_work_types();
+	$evs_work_types = siw_get_evs_project_work_types();
 
 	$evs_project_data = array(
 		'permalink'				=> get_permalink( $post_id ),
 		'title'					=> get_the_title( $post_id ),
-			//'excerpt' 				=> get_the_excerpt( $post_id ),
+		//'excerpt' 				=> get_the_excerpt( $post_id ),
 		'post_thumbnail_url'	=> get_the_post_thumbnail_url( $post_id ),
 		'highlight_quote'		=> get_post_meta( $post_id, 'siw_evs_project_highlight_quote', true ),
 		'deadline'				=> siw_get_date_in_text( get_post_meta( $post_id, 'siw_evs_project_deadline', true ) ),
@@ -134,25 +134,6 @@ function siw_get_active_evs_projects( $number ) {
 	}
 	return $active_evs_projects;
 }
-
-
-
-/**
- * Geeft array soorten werk voor EVS-projecten terug
- * @return array
- */
-function siw_get_evs_work_types() {
-	//TODO: verplaatsen naar reference data?
-	$evs_work_types = array(
-		'democracy' => __( 'Bewustwording, democracy, beleid', 'siw' ),
-		'culture'	=> __( 'Cultuur, creativiteit', 'siw' ),
-		'inclusion' => __( 'Inclusion, zorg, hulpverlening Kinderen, Roma', 'siw' ),
-		'equality'	=> __( 'Mensenrechten, equality, gender', 'siw' ),
-		'nature'	=> __( 'Natuurbescherming, milieu, klimaat', 'siw' ),
-	);
-	return $evs_work_types;
-}
-
 
 /**
  * Geeft array met EVS-landen terug

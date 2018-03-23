@@ -26,7 +26,7 @@ add_filter( 'siw_date_in_text', function( $text, $date, $year = true ) {
 }, 10, 3 );
 
 /**
- * Geeft de datum in tekst terug
+ * Geeft de datumrange in tekst terug
  *
  * @param string $date_start Y-m-d
  * @param string $date_end Y-m-d

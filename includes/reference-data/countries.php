@@ -6,22 +6,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+
 /**
- * Geeft een array met landen terug //TODO:hernoemen naar siw_get_countries + deprecated functie
+ * Geeft een array van landen met eigenschappen terug
  *
- * Bevat per land de volgende eigenschappen: slug, name, continent, allowed, op maat, evs, mapplic-code
+ * Bevat per land de volgende eigenschappen: slug, name, continent, allowed, groepsprojecten, op maat, evs, mapplic-code
  *
  * @return array
  */
-function siw_get_project_countries() {
-	$project_countries = array(
+function siw_get_countries() {
+	$countries = array(
 		'ALB' => array(
 			'slug'			=> 'albanie',
 			'name'			=> __( 'Albanië', 'siw' ),
 			'continent'		=> 'europa',
 			'allowed'		=> 'yes',
+			//'workcamps'		=> true,
 			'op_maat'		=> false,
-			'mapplic'		=> 'al',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'xx',
+					'coordinates'	=> array( 'x' => 0.0000, 'y' => 0.0000 )
+				),
+				'world' => array(
+					'code' 			=> 'xx',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice' => 'albanie',
 		),
 		'ARG' => array(
@@ -30,7 +41,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'latijns-amerika',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'ar',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'ar',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice' => 'argentinie',
 		),
 		'ARM' => array(
@@ -48,6 +64,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'oceanie',
 			'allowed'		=> 'no',
 			'op_maat'		=> false,
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'xx',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),			
 			'travel_advice'	=> 'australie',
 		),
 		'AUT' => array(
@@ -75,7 +97,16 @@ function siw_get_project_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'be',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'be',
+					'coordinates'	=> array( 'x' => 0.3565,'y' => 0.5327 ),
+				),
+				'world' => array(
+					'code' 			=> 'be',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),			
 			'travel_advice'	=> 'belgie',
 		),
 		'BGR' => array(
@@ -86,6 +117,10 @@ function siw_get_project_countries() {
 			'op_maat'		=> false,
 			'evs'			=> true,
 			'mapplic'		=> 'bg',
+			'coordinates'	=> array(
+				'europe'		=> array( 'x' => 0.7005, 'y'=> 0.7120 ),
+				'world'			=> array( 'x' => 0,'y' => 0 ),
+			),
 			'travel_advice'	=> 'bulgarije',
 		),
 		'BLR' => array(
@@ -120,7 +155,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'afrika-midden-oosten',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'bw',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'bw',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'botswana',
 		),
 		'CAN' => array(
@@ -133,12 +173,12 @@ function siw_get_project_countries() {
 			'travel_advice' => 'canada',
 		),
 		'CHE' => array(
-			'slug'		=> 'zwitserland',
-			'name'		=> __( 'Zwitserland', 'siw' ),
-			'continent'	=> 'europa',
-			'allowed'	=> 'yes',
-			'op_maat'	=> false,
-			'mapplic'	=> 'ch',
+			'slug'			=> 'zwitserland',
+			'name'			=> __( 'Zwitserland', 'siw' ),
+			'continent'		=> 'europa',
+			'allowed'		=> 'yes',
+			'op_maat'		=> false,
+			'mapplic'		=> 'ch',
 		),
 		'CHN' => array(
 			'slug'			=> 'china',
@@ -146,7 +186,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'no',
 			'op_maat'		=> false,
-			'mapplic'		=> 'cn',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'cn',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'china',
 		),
 		'CRI' => array(
@@ -155,7 +200,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'latijns-amerika',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'cr',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'cr',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'costa-rica',
 		),
 		'CYP' => array(
@@ -166,6 +216,10 @@ function siw_get_project_countries() {
 			'op_maat'		=> false,
 			'evs'			=> true,
 			'mapplic'		=> 'cy',
+			'coordinates'	=> array(
+				'europe'		=> array( 'x' => 0.9060, 'y'=> 0.8622 ),
+				'world'			=> array( 'x' => 0,'y' => 0 ),
+			),
 			'travel_advice' => 'cyprus',
 		),
 		'CZE' => array(
@@ -185,6 +239,10 @@ function siw_get_project_countries() {
 			'op_maat'		=> false,
 			'evs'			=> true,
 			'mapplic'		=> 'de',
+			'coordinates'	=> array(
+				'europe'		=> array( 'x' => 0.4383, 'y'=> 0.4949 ),
+				'world'			=> array( 'x' => 0.5,'y' => 0.5 ),
+			),
 			'travel_advice' => 'duitsland',
 		),
 		'DNK' => array(
@@ -195,6 +253,10 @@ function siw_get_project_countries() {
 			'op_maat'		=> false,
 			'evs'			=> true,
 			'mapplic'		=> 'dk',
+			'coordinates'	=> array(
+				'europe'		=> array( 'x' => 0.4253, 'y'=> 0.3948 ),
+				'world'			=> array( 'x' => 0,'y' => 0 ),
+			),
 			'travel_advice' => 'denemarken',
 		),
 		'ECU' => array(
@@ -203,7 +265,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'latijns-amerika',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'ec',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'ec',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'ecuador',
 		),
 		'ESP' => array(
@@ -223,7 +290,11 @@ function siw_get_project_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'ee',
+			'mapplic'		=> 'ee', //EVS: ew
+			'coordinates'	=> array(
+				'europe'		=> array( 'x' => 0.6372, 'y'=> 0.3070 ),
+				'world'			=> array( 'x' => 0,'y' => 0 ),
+			),
 			'travel_advice' => 'estland',
 		),
 		'FIN' => array(
@@ -233,7 +304,11 @@ function siw_get_project_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'fi',
+			'mapplic'		=> 'fi', //EVS:no
+			'coordinates'	=> array(
+				'europe'		=> array( 'x' => 0.6052, 'y'=> 0.2487 ),
+				'world'			=> array( 'x' => 0,'y' => 0 ),
+			),
 			'travel_advice' => 'finland',
 		),
 		'FRA' => array(
@@ -244,6 +319,10 @@ function siw_get_project_countries() {
 			'op_maat'		=> false,
 			'evs'			=> true,
 			'mapplic'		=> 'fr',
+			'coordinates'	=> array(
+				'europe'		=> array( 'x' => 0.3084, 'y'=> 0.6348 ),
+				'world'			=> array( 'x' => 0,'y' => 0 ),
+			),
 			'travel_advice' => 'frankrijk',
 		),
 		'GBR' => array(
@@ -271,7 +350,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'afrika-midden-oosten',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'gh',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'gh',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice'	=> 'ghana',
 		),
 		'GRC' => array(
@@ -282,6 +366,10 @@ function siw_get_project_countries() {
 			'op_maat'		=> false,
 			'evs'			=> true,
 			'mapplic'		=> 'gr',
+			'coordinates'	=> array(
+				'europe'		=> array( 'x' => 0.6743, 'y'=> 0.8102 ),
+				'world'			=> array( 'x' => 0,'y' => 0 ),
+			),
 			'travel_advice'	=> 'griekenland',
 		),
 		'GRL' => array(
@@ -310,6 +398,10 @@ function siw_get_project_countries() {
 			'op_maat'		=> false,
 			'evs'			=> true,
 			'mapplic'		=> 'hu',
+			'coordinates'	=> array(
+				'europe'		=> array( 'x' => 0.5892, 'y'=> 0.6179 ),
+				'world'			=> array( 'x' => 0,'y' => 0 ),
+			),
 			'travel_advice' => 'hongarije',
 		),
 		'HRV' => array(
@@ -328,7 +420,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'latijns-amerika',
 			'allowed'		=> 'no',
 			'op_maat'		=> false,
-			'mapplic'		=> 'ht',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'ht',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'haiti',
 		),
 		'IDN' => array(
@@ -337,7 +434,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'id',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'id',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),					
 			'travel_advice' => 'indonesie',
 		),
 		'IND' => array(
@@ -346,7 +448,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'in',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'in',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'india',
 		),
 		'IRL' => array(
@@ -357,6 +464,10 @@ function siw_get_project_countries() {
 			'op_maat'		=> false,
 			'evs'			=> true,
 			'mapplic'		=> 'ie',
+			'coordinates'	=> array(
+				'europe'		=> array( 'x' => 0.1829, 'y'=> 0.4456 ),
+				'world'			=> array( 'x' => 0,'y' => 0 ),
+			),
 			'travel_advice' => 'ierland',
 		),
 		'ISL' => array(
@@ -367,6 +478,10 @@ function siw_get_project_countries() {
 			'op_maat'		=> false,
 			'evs'			=> true,
 			'mapplic'		=> 'is',
+			'coordinates'	=> array(
+				'europe'		=> array( 'x' => 0.1391, 'y'=> 0.1429 ),
+				'world'			=> array( 'x' => 0,'y' => 0 ),
+			),
 			'travel_advice' => 'ijsland',
 		),
 		'ITA' => array(
@@ -376,7 +491,16 @@ function siw_get_project_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'it',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'it',
+					'coordinates'	=> array( 'x' => 0.4686, 'y' => 0.7159 )
+				),
+				'world' => array(
+					'code' 			=> 'it',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),
 			'travel_advice' => 'italie',
 		),
 		'JPN' => array(
@@ -385,7 +509,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'jp',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'jp',
+					'coordinates'	=> array( 'x' => 0,'y' => 0 ),
+				),
+			),
 			'travel_advice' => 'japan',
 		),
 		'KEN' => array(
@@ -394,7 +523,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'afrika-midden-oosten',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'ke',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'ke',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'kenia',
 		),
 		'KGZ' => array(
@@ -412,7 +546,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'kh',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'kh',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'cambodja',
 		),
 		'KOR' => array(
@@ -421,7 +560,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'kr',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'kr',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'zuid-korea',
 		),
 		'LKA' => array(
@@ -430,7 +574,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'no',
 			'op_maat'		=> false,
-			'mapplic'		=> 'lk',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'lk',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'sri-lanka',
 		),
 		'LTU' => array(
@@ -459,7 +608,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'afrika-midden-oosten',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'ma',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'umas',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'marokko',
 		),
 		'MEX' => array(
@@ -468,7 +622,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'latijns-amerika',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'mx',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'mx',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'mexico',
 		),
 		'MLT' => array(
@@ -496,16 +655,21 @@ function siw_get_project_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'mn',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'mn',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),					
 			'travel_advice' => 'mongolie',
 		),
 		'NLD' => array(
-			'slug'		=> 'nederland',
-			'name'		=> __( 'Nederland', 'siw' ),
-			'continent'	=> 'europa',
-			'allowed'	=> 'yes',
-			'op_maat'	=> false,
-			'mapplic'	=> 'nl',
+			'slug'			=> 'nederland',
+			'name'			=> __( 'Nederland', 'siw' ),
+			'continent'		=> 'europa',
+			'allowed'		=> 'yes',
+			'op_maat'		=> false,
+			'mapplic'		=> 'nl',
 		),
 		'NOR' => array(
 			'slug'			=> 'noorwegen',
@@ -523,7 +687,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'np',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'np',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'nepal',
 		),
 		'PER' => array(
@@ -532,7 +701,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'latijns-amerika',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'pe',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'pe',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'peru',
 		),
 		'POL' => array(
@@ -580,7 +754,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'afrika-midden-oosten',
 			'allowed'		=> 'no',
 			'op_maat'		=> false,
-			'mapplic'		=> 'sn',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'sn',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'senegal',
 		),
 		'SRB' => array(
@@ -628,7 +807,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'afrika-midden-oosten',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'tg',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'tg',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'togo',
 		),
 		'THA' => array(
@@ -637,7 +821,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'th',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'th',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'thailand',
 		),
 		'TUN' => array(
@@ -646,7 +835,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'afrika-midden-oosten',
 			'allowed'		=> 'no',
 			'op_maat'		=> false,
-			'mapplic'		=> 'tn',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'tn',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'tunesie',
 		),
 		'TUR' => array(
@@ -665,7 +859,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'no',
 			'op_maat'		=> false,
-			'mapplic'		=> 'tw',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'tw',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'taiwan',
 		),
 		'TZA' => array(
@@ -674,7 +873,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'afrika-midden-oosten',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'tz',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'tz',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'tanzania',
 		),
 		'UGA' => array(
@@ -683,7 +887,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'afrika-midden-oosten',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'ug',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'ug',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),		
 			'travel_advice' => 'uganda',
 		),
 		'UKR' => array(
@@ -701,7 +910,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'noord-amerika',
 			'allowed'		=> 'no',
 			'op_maat'		=> false,
-			'mapplic'		=> 'us',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'us',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),				
 			'travel_advice' => 'verenigde-staten-van-amerika',
 		),
 		'VNM' => array(
@@ -710,7 +924,12 @@ function siw_get_project_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'vn',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'vn',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),				
 			'travel_advice' => 'vietnam',
 		),
 		'XKS' => array(
@@ -728,31 +947,36 @@ function siw_get_project_countries() {
 			'continent'		=> 'afrika-midden-oosten',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'za',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'za',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),				
 			'travel_advice' => 'zuid-afrika',
 		),
 	);
 
 	/* Sorteren op naam */
 	$country_name = array();
-	foreach ( $project_countries as $key => $row ) {
+	foreach ( $countries as $key => $row ) {
 		$country_name[ $key ] = $row['name'];
 	}
-	array_multisort( $country_name, SORT_ASC, $project_countries );
+	array_multisort( $country_name, SORT_ASC, $countries );
 
-	return $project_countries;
+	return $countries;
 }
 
 
 /**
  * Haal eigenschappen van een land op
- * @param  string $country
+ * @param  string $country_code
  * @return mixed
  */
-function siw_get_project_country( $country ) {
-	$project_countries = siw_get_project_countries();
-	$project_country = isset( $project_countries[ $country ] ) ? $project_countries[ $country ] : false;
-	return $project_country;
+function siw_get_country( $country_code ) {
+	$countries = siw_get_countries();
+	$country = isset( $countries[ $country_code ] ) ? $countries[ $country_code ] : false;
+	return $country;
 }
 
 
@@ -775,13 +999,13 @@ function siw_get_continents() {
 
 
 /**
- * [siw_get_countries_by_property description]
- * @param  [type] $property [description]
- * @param  [type] $value    [description]
- * @return [type]           [description]
+ * Zoek landen op basis van eigenschap
+ * @param  string $property
+ * @param  string|bool $value
+ * @return array
  */
 function siw_get_countries_by_property( $property, $value ) {
-	$countries = siw_get_project_countries();
+	$countries = siw_get_countries();
 	$countries_by_property = array();
 	foreach ( $countries as $key => $country ) {
 		if ( isset( $country[ $property ] ) && $value == $country[ $property ] ) {
@@ -794,10 +1018,10 @@ function siw_get_countries_by_property( $property, $value ) {
 
 
 /**
- * [siw_get_country_by_property description]
- * @param  [type] $property [description]
- * @param  [type] $value    [description]
- * @return [type]           [description]
+ * Zoek land op basis van eigenschap
+ * @param  string $property
+ * @param  string|bool $value
+ * @return array
  */
 function siw_get_country_by_property( $property, $value ) {
 	$countries_by_property = siw_get_countries_by_property( $property, $value );
@@ -808,4 +1032,27 @@ function siw_get_country_by_property( $property, $value ) {
 	}
 
 	return $country_by_property;
+}
+
+
+/**
+ * Geeft array met Nederlandse provincies terug
+ * @return array
+ */
+function siw_get_dutch_provinces() {
+	$dutch_provinces = array(
+		'nb' => __( 'Brabant', 'siw' ),
+		'dr' => __( 'Drenthe', 'siw' ),
+		'fl' => __( 'Flevoland', 'siw' ),
+		'fr' => __( 'Friesland', 'siw' ),
+		'ge' => __( 'Gelderland', 'siw' ),
+		'gr' => __( 'Groningen', 'siw' ),
+		'li' => __( 'Limburg', 'siw' ),
+		'nh' => __( 'Noord-Holland', 'siw' ),
+		'ov' => __( 'Overijssel', 'siw' ),
+		'ut' => __( 'Utrecht', 'siw' ),
+		'ze' => __( 'Zeeland', 'siw' ),
+		'zh' => __( 'Zuid-Holland', 'siw' ),
+	);
+	return $dutch_provinces;
 }

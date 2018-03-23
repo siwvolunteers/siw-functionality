@@ -106,17 +106,20 @@ function siw_get_constants() {
 		'SIW_MAX_DUTCH_PROJECTS'		=> __( 'Maximaal aantal Nederlandse projecten', 'siw' ),
 		'SIW_MAX_BOARD_MEMBERS'			=> __( 'Maximum aantal bestuursleden', 'siw' ),
 		'SIW_MAX_ANNUAL_REPORTS'		=> __( 'Maximum aantal jaarverslagen', 'siw' ),
-		'SIW_CRON_TS_GENERAL'			=> __( 'Tijd algemene cronjob', 'siw' ),
+		'SIW_CRON_TS_GENERAL'			=> __( 'Tijdstip algemene cronjob', 'siw' ),
 		'SIW_CRON_TS_BACKUP_DB'			=> __( 'Tijdstip backup database', 'siw' ),
 		//'SIW_CRON_TS_BACKUP_FILES'	=> __( 'Tijdstip backup bestanden', 'siw' ),
 		'SIW_CRON_TS_REBUILD_CACHE'		=> __( 'Tijdstip cache verversen', 'siw' ),
 		'SIW_WORKCAMP_FEE_STUDENT'		=> __( 'Inschrijfgeld groepsproject (student)', 'siw' ),
 		'SIW_WORKCAMP_FEE_REGULAR'		=> __( 'Inschrijfgeld groepsproject (regulier)', 'siw' ),
-		'SIW_OP_MAAT_FEE_STUDENT'		=> __( 'Inschrijfgeld Op Maat (student)', 'siw' ),
-		'SIW_OP_MAAT_FEE_REGULAR'		=> __( 'Inschrijfgeld Op Maat (regulier)', 'siw' ),
+		'SIW_OP_MAAT_FEE_STUDENT'		=> __( 'Inschrijfgeld op maat (student)', 'siw' ),
+		'SIW_OP_MAAT_FEE_REGULAR'		=> __( 'Inschrijfgeld op maat (regulier)', 'siw' ),
 		'SIW_EVS_DEPOSIT'				=> __( 'EVS-borg', 'siw' ),
 		'SIW_DISCOUNT_SECOND_PROJECT' 	=> __( 'Kortingspercentage tweede project', 'siw' ),
 		'SIW_DISCOUNT_THIRD_PROJECT'	=> __( 'Kortingspercentage derde project', 'siw' ),
+		'SIW_POSTCODE_API_URL'			=> __( 'Postcode API URL', 'siw' ),
+		'SIW_PLATO_WEBSERVICE_URL'		=> __( 'Plato webservice URL', 'siw' ),
+		'SIW_TRAVEL_ADVICE_BASE_URL'	=> __( 'Reisadvies base-URL', 'siw' ),
 	);
 
 	return $constants;

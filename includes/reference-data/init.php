@@ -15,8 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - Nationaliteiten
  */
 require_once( __DIR__ . '/constants.php' );
-require_once( __DIR__ . '/project-currencies.php' );
-require_once( __DIR__ . '/project-countries.php' );
-require_once( __DIR__ . '/project-work.php' );
-require_once( __DIR__ . '/project-languages.php' );
-require_once( __DIR__ . '/volunteer-data.php' );
+require_once( __DIR__ . '/currencies.php' );
+require_once( __DIR__ . '/countries.php' );
+require_once( __DIR__ . '/work.php' );
+require_once( __DIR__ . '/languages.php' );
+require_once( __DIR__ . '/volunteer.php' );

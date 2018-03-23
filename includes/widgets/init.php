@@ -18,3 +18,4 @@ require_once( __DIR__ . '/cta.php' );
 require_once( __DIR__ . '/map.php' );
 require_once( __DIR__ . '/newsletter.php' );
 require_once( __DIR__ . '/quote.php' );
+require_once( __DIR__ . '/quick-search.php' );

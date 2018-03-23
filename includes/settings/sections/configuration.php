@@ -17,7 +17,7 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	$maps = siw_get_mapplic_maps();
 
 
-	$analytics_verification_fields = array(
+	$analytics_seo_fields = array(
 		array(
 			'id'			=> 'google_analytics_section_start',
 			'type'			=> 'section',
@@ -29,6 +29,7 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'title'			=> __( 'Property ID', 'siw' ),
 			'type'			=> 'text',
 			'placeholder'	=> 'UA-1234567-8',
+			'validate'		=> 'no_special_chars',
 		),
 		array(
 			'id'			=> 'google_analytics_enable_linkid',
@@ -52,17 +53,36 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'id'			=> 'google_search_console_verification',
 			'title'			=> __( 'Google Search Console', 'siw' ),
 			'type'			=> 'text',
+			'validate'		=> 'no_special_chars',
 		),
 		array(
 			'id'			=> 'bing_webmaster_tools_verification',
 			'title'			=> __( 'Bing Webmaster Tools', 'siw' ),
 			'type'			=> 'text',
+			'validate'		=> 'no_special_chars',
 		),
 		array(
-			'id'		=> 'site_verification_section_end',
+			'id'			=> 'site_verification_section_end',
+			'type'			=> 'section',
+			'indent' 		=> false,
+		),
+		array(
+			'id'			=> 'blocked_bots_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Geblokkeerde bots', 'siw' ),
+			'indent' 		=> true,
+		),
+		array(
+			'id'			=> 'blocked_bots',
+			'type'			=> 'multi_text',
+			'title'			=> __( 'User-agent', 'siw' ),
+			'validate'		=> 'no_special_chars',
+		),
+		array(
+			'id'		=> 'blocked_bots_section_end',
 			'type'		=> 'section',
 			'indent' 	=> false,
-		),
+		),		
 	);
 
 	$postcode_api_fields = array(
@@ -158,6 +178,13 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
 		),
 		array(
+			'id'			=> 'quick_search_result_page',
+			'title'			=> __( 'Zoekresultaten Snel zoeken', 'siw' ),
+			'type'			=> 'select',
+			'options'		=> $pages,
+			'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
+		),
+		array(
 			'id'			=> 'child_policy_page',
 			'title'			=> __( 'Beleid kinderprojecten', 'siw' ),
 			'type'			=> 'select',
@@ -177,7 +204,7 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	$constants_html .= '<td>' . __( 'Toelichting', 'siw' ) . '</td>';
 	$constants_html .= '</tr>';
 
-	foreach ( $constants as $constant => $name ){
+	foreach ( $constants as $constant => $name ) {
 		$constants_html .= '<tr>';
 		$constants_html .= '<td>' . $constant . '</td>';
 		$constants_html .= '<td>' . constant( $constant ) . '</td>';
@@ -492,10 +519,10 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'fields'		=> $email_fields,
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'analytics_verification',
-		'title'			=> __( 'Analytics & Verificatie', 'siw' ),
+		'id'			=> 'analytics_seo',
+		'title'			=> __( 'Analytics & SEO', 'siw' ),
 		'subsection'	=> true,
-		'fields'		=> $analytics_verification_fields,
+		'fields'		=> $analytics_seo_fields,
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'maps',

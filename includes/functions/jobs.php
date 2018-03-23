@@ -72,6 +72,11 @@ function siw_get_job_data( $post_id ) {
 
 	return $job_data;
 }
+add_filter( 'siw_job_data', function( $job_data, $post_id ) {
+	return siw_get_job_data( $post_id );
+}, 10, 2 );
+
+
 
 
 /**
