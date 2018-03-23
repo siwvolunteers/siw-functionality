@@ -1,6 +1,6 @@
 <?php
 /*
- * (c)2017 SIW Internationale Vrijwilligersprojecten
+ * (c)2017-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined('ABSPATH' ) ) {
 	exit;
@@ -50,6 +50,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 	- Local fee
 	- Projectcode
 	- Land toegestaan
+	- Land
 	- Leeftijd
 	- TODO: Nog meer eigenschappen? Bijv. beschrijving, soort werk...
 	*/
@@ -84,6 +85,14 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 	$projectcode_new = $xml['code'];
 	if ( $projectcode_current != $projectcode_new ) {
 		siw_debug_log( sprintf( 'Update project %s (%s): Projectcode veranderd van %s naar %s', $product_id, $sku, $projectcode_current, $projectcode_new ) );
+		return true;
+	}
+
+	/* Land */
+	$country_current = $product->get_attribute( 'land' );
+	$country_new = siw_get_workcamp_country_name( $xml['country'] );
+	if ( $country_current != $country_new ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Land veranderd van %s naar %s', $product_id, $sku, $country_current, $country_new ) );
 		return true;
 	}
 
@@ -202,29 +211,15 @@ function siw_hide_workcamp( $product_id ) {
 siw_add_cron_job( 'siw_update_workcamp_tariffs' );
 
 add_action( 'siw_update_workcamp_tariffs', function() {
-	$tax_query = array(
-		array(
-			'taxonomy' => 'product_visibility',
-			'field'    => 'slug',
-			'terms'    => array( 'exclude-from-search', 'exclude-from-catalog' ),
-			'operator' => 'NOT IN',
-		),
-	);
-	$args = array(
-		'posts_per_page'	=> -1,
-		'post_type'			=> 'product',
-		'tax_query'			=> $tax_query,
-		'fields' 			=> 'ids',
-		'post_status'		=> 'any',
-	);
-	$products = get_posts( $args );
-
-	$siw_update_tariffs_background_process = $GLOBALS['siw_update_tariffs_background_process'];
-	foreach ( $products as $product ) {
-		$siw_update_tariffs_background_process->push_to_queue( $product );
-	}
-	$siw_update_tariffs_background_process->save()->dispatch();
 	siw_debug_log( 'Bijwerken tarieven gestart.' );
+	$args = array(
+		'visibility'	=> 'visible',
+		'return'		=> 'ids',
+		'limit'			=> -1,
+	);
+	$products = wc_get_products( $args );
+
+	siw_start_background_process( 'siw_update_tariffs_background_process', $products );
 });
 
 

@@ -7,8 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /* Backend-functies */
-require_once( __DIR__ . '/admin/product.php' );
+require_once( __DIR__ . '/admin/logging.php' );
 require_once( __DIR__ . '/admin/order.php' );
+require_once( __DIR__ . '/admin/product.php' );
 
 /* Frontend-functies */
 require_once( __DIR__ . '/frontend/archive.php' );

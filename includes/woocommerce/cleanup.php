@@ -217,11 +217,7 @@ add_action( 'siw_delete_projects', function() {
 		)
 	);
 
-	$siw_delete_workcamps_background_process = $GLOBALS['siw_delete_workcamps_background_process'];
-	foreach ( $products as $product_id ) {
-		$siw_delete_workcamps_background_process->push_to_queue( $product_id );
-	}
-	$siw_delete_workcamps_background_process->save()->dispatch();
+	siw_start_background_process(  'siw_delete_workcamps_background_process', $products );
 });
 
 
@@ -248,11 +244,7 @@ add_action( 'siw_delete_applications', function() {
 	}
 	siw_debug_log( 'Aantal te verwijderen aanmeldingen: ' . count( $applications ) );
 
-	$siw_delete_applications_background_process = $GLOBALS['siw_delete_applications_background_process'];
-	foreach ( $applications as $application_id ) {
-		$siw_delete_applications_background_process->push_to_queue( $application_id );
-	}
-	$siw_delete_applications_background_process->save()->dispatch();
+	siw_start_background_process( 'siw_delete_applications_background_process', $applications );
 });
 
 
@@ -267,16 +259,7 @@ add_action( 'siw_repair_projects', function() {
 	);
 	$products = get_posts( $args );
 
-	$product_chunks = array_chunk( $products, 500 );
-
-	$siw_repair_workcamps_background_process = $GLOBALS['siw_repair_workcamps_background_process'];
-	foreach ( $product_chunks as $products ) {
-		foreach ( $products as $product_id ) {
-			//$siw_repair_workcamps_background_process->push_to_queue( $product_id );
-		}
-		$siw_repair_workcamps_background_process->save();
-	}
-	$siw_repair_workcamps_background_process->dispatch();
+	siw_start_background_process( 'siw_repair_workcamps_background_process', $products );
 });
 
 
@@ -288,12 +271,7 @@ add_action( 'siw_repair_projects', function() {
  */
 function siw_repair_project( $product_id ) {
 
-	$product_types = wp_get_object_terms( $product_id, 'product_type' );
-	foreach ( $product_types as $product_type ) {
-		if ( 'variable' != $product_type->slug ) {
-			wp_remove_object_terms( $product_id, $product_type->slug, 'product_type' );
-		}
-	}
+	wp_set_object_terms( $product_id, 'variable', 'product_type' );
 
 	$country_meta = get_post_meta( $product_id, 'land', true );
 	$countries = wp_get_object_terms( $product_id, 'pa_land' );
