@@ -45,6 +45,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 
 	/*
 	Project opnieuw importeren als één van de volgende eigenschappen aangepast is.
+	- Update in Plate (last_update)
 	- Startdatum
 	- Eindatum
 	- Local fee
@@ -54,6 +55,16 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 	- Leeftijd
 	- TODO: Nog meer eigenschappen? Bijv. beschrijving, soort werk...
 	*/
+
+	/* Als project in Plato is bijgewerkt */
+	$last_update_plato = $xml['last_update'];
+	$last_update_product = $product->get_date_modified()->date_i18n( 'Y-m-d' );
+
+	if ( '0001-01-01' != $last_update_plato && ( $last_update_product < $last_update_plato ) ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Project bijgewerkt in Plato op %s', $xml['last_update'] ) );
+		return true;
+	}
+
 
 	/* Startdatum */
 	$start_date_current = $product->get_attribute( 'startdatum' );
