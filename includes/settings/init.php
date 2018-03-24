@@ -91,18 +91,18 @@ add_action('plugins_loaded', function() {
 
 	/* Bepaal volgorde van secties */
 	$sections = array(
-		'configuration', /*Configuratie*/
-		'evs', 	/*EVS*/
-		'workcamps', /*Groepsprojecten*/
-		'info_day', /*Infodag*/
-		'enquiry', 	/*Infoverzoeken*/
-		'countries',  /*Landen*/
-		'np', /*Nederlandse projecten*/
-		'op_maat', /*Op Maat*/
-		'organisation', /*Organisatie*/
-		'jobs', 	/*Vacatures*/
+		'configuration',
+		'evs',
+		'workcamps',
+		'info_day',
+		'enquiry',
+		'countries',
+		'np',
+		'op_maat',
+		'organisation',
+		'topbar',
+		'jobs',
 	);
-
 
 	/*
 	 * Voor elke sectie:

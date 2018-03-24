@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * [siw_get_topbar_job_content description]
- * @return [type] [description]
+ * @return array
  */
 function siw_get_topbar_job_content() {
 
@@ -20,7 +20,7 @@ function siw_get_topbar_job_content() {
 	$topbar_job_content = array(
 		'intro'		=> __( 'Word actief voor SIW.', 'siw' ),
 		'link_url'	=> $job['permalink'],
-		'link_text'	=> sprintf( __( 'Wij zoeken een %s', 'siw' ), $job_title ),
+		'link_text'	=> sprintf( __( 'Wij zoeken een %s.', 'siw' ), $job_title ),
 	);
 
 	return $topbar_job_content;
