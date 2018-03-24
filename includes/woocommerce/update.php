@@ -61,7 +61,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 	$last_update_product = $product->get_date_modified()->date_i18n( 'Y-m-d' );
 
 	if ( '0001-01-01' != $last_update_plato && ( $last_update_product < $last_update_plato ) ) {
-		siw_debug_log( sprintf( 'Update project %s (%s): Project bijgewerkt in Plato op %s', $xml['last_update'] ) );
+		siw_debug_log( sprintf( 'Update project %s (%s): Project bijgewerkt in Plato op %s', $product_id, $sku, $xml['last_update'] ) );
 		return true;
 	}
 
