@@ -74,24 +74,17 @@ add_filter('woocommerce_sale_flash', function ( $text ) {
 add_filter( 'woocommerce_show_variation_price', '__return_true' );
 
 
-/* Volgorde van projecteigenschappen aanpassen TODO: sortable optie maken */
+/* Volgorde van projecteigenschappen aanpassen */
 add_filter( 'woocommerce_product_get_attributes', function( $attributes ) {
 	$order = array(
-		'pa_projectnaam', //TODO: verwijderen indien mogelijk
 		'projectnaam',
-		'pa_projectcode', //TODO: verwijderen indien mogelijk
 		'projectcode',
 		'pa_land',
 		'pa_soort-werk',
-		'pa_startdatum', //TODO: verwijderen indien mogelijk
 		'startdatum',
-		'pa_einddatum', //TODO: verwijderen indien mogelijk
 		'einddatum',
-		'pa_aantal-vrijwilligers', //TODO: verwijderen indien mogelijk
 		'aantal-vrijwilligers',
-		'pa_leeftijd', //TODO: verwijderen indien mogelijk
 		'leeftijd',
-		'pa_lokale-bijdrage', //TODO: verwijderen indien mogelijk
 		'lokale-bijdrage',
 		'pa_taal',
 		'pa_vog',
@@ -153,7 +146,7 @@ add_filter( 'woocommerce_product_tabs', function( $tabs ) {
  * @return void
  */
 function siw_workcamp_show_project_map( $tab, $args ) {
-	echo do_shortcode( sprintf( '[gmap address="%s,%s" title="Projectlocatie" zoom="6" maptype="ROADMAP"]', esc_attr( $args['latitude'] ), esc_attr( $args['longitude'] ) ) );
+	echo do_shortcode( sprintf( '[gmap address="%s,%s" title="%s" zoom="6" maptype="ROADMAP"]', esc_attr( $args['latitude'] ), esc_attr( $args['longitude'] ), esc_attr__( 'Projectlocatie', 'siw' ) ) );
 }
 
 /**

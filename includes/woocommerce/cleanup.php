@@ -11,14 +11,6 @@ siw_add_cron_job( 'siw_cleanup_terms' );
 add_action( 'siw_cleanup_terms', function() {
 	siw_debug_log( 'Start verwijderen ongebruikte terms');
 	$taxonomies[] = 'pa_maand';
-	$taxonomies[] = 'pa_aantal-vrijwilligers';
-	$taxonomies[] = 'pa_leeftijd';
-	$taxonomies[] = 'pa_lokale-bijdrage';
-	$taxonomies[] = 'pa_projectcode';
-	$taxonomies[] = 'pa_projectnaam';
-	$taxonomies[] = 'pa_startdatum';
-	$taxonomies[] = 'pa_einddatum';
-
 	$deleted_terms = 0;
 
 	foreach ( $taxonomies as $taxonomy ) {
@@ -281,4 +273,3 @@ function siw_repair_project( $product_id ) {
 		}
 	}
 }
-

@@ -207,12 +207,15 @@ function siw_get_workcamp_work_in_text( $work, $single = true ) {
  * @return string
  */
 function siw_get_workcamp_local_fee( $participation_fee, $participation_fee_currency ) {
-	$currency = siw_get_currency( $participation_fee_currency );
+
 	$participation_fee = (int) $participation_fee;
 
 	if ( 0 == $participation_fee || ! is_string( $participation_fee_currency ) ) {
 		return '';
 	}
+
+	$currency = siw_get_currency( $participation_fee_currency );
+
 	if ( $currency ) {
 		$participation_fee_symbol = $currency['symbol'];
 		$participation_fee_name = $currency['name'];

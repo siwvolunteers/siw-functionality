@@ -110,10 +110,6 @@ add_action( 'init', function(){
 add_filter( 'manage_edit-product_columns', function( $columns ) {
 	unset( $columns['product_type'] );
 	unset( $columns['is_in_stock'] );
-	//Yoast
-	unset( $columns['wpseo-title'] );
-	unset( $columns['wpseo-metadesc'] );
-	unset( $columns['wpseo-focuskw'] );
 
 	$new_columns = array();
 	foreach ( $columns as $column_name => $column_info ) {
