@@ -40,7 +40,7 @@ add_action( 'cmb2_admin_init', function() {
 		'id'			=> $prefix . 'soort_werk',
 		'name'			=> __( 'Soort werk', 'siw' ),
 		'type'			=> 'radio',
-		'options'		=> siw_get_evs_work_types(),
+		'options'		=> siw_get_evs_project_work_types(),
 		'attributes'	=> array(
 			'required'		=> 'required',
 		),
