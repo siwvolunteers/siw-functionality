@@ -1,38 +1,37 @@
 <?php
 /*
-(c)2017 SIW Internationale Vrijwilligersprojecten
+(c)2017-2018 SIW Internationale Vrijwilligersprojecten
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 
-class SIW_Update_Workcamp_Tariffs_Background_Process extends WP_Background_Process {
-
-
-	/**
-	 * [protected description]
-	 * @var [type]
-	 */
-	protected $prefix = 'siw';
+class SIW_Update_Workcamp_Tariffs_Process extends SIW_Background_Process {
 
 	/**
-	 * [protected description]
-	 * @var [type]
+	 * Action
+	 *
+	 * @var string
+	 * @access protected
 	 */
 	protected $action = 'update_workcamp_tariffs_process';
 
-	/**
-	 * [task description]
-	 * @param  [type] $item [description]
-	 * @return [type]       [description]
-	 */
+	
+    /**
+     * Task
+     *
+     * @param mixed $item Queue item to iterate over.
+     *
+     * @return mixed
+     */
 	protected function task( $item ) {
 
 		siw_update_workcamp_tariff( $item );
 
 		return false;
 	}
+
 
 	/**
 	 * Complete
@@ -46,4 +45,4 @@ class SIW_Update_Workcamp_Tariffs_Background_Process extends WP_Background_Proce
 	}
 }
 
-$GLOBALS['siw_update_tariffs_background_process'] = new SIW_Update_Workcamp_Tariffs_Background_Process();
+$GLOBALS['siw_update_workcamp_tariffs_process'] = new SIW_Update_Workcamp_Tariffs_Process();

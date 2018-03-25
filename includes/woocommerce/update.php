@@ -180,13 +180,9 @@ add_action( 'siw_hide_workcamps', function() {
 		'post_status'		=> 'any',
 	);
 
-	$products = get_posts( $args );
+	$products = get_posts( $args ); //TODO: wc_get_products
 
-	$siw_hide_workcamps_background_process = $GLOBALS['siw_hide_workcamps_background_process'];
-	foreach ( $products as $product_id ) {
-		$siw_hide_workcamps_background_process->push_to_queue( $product_id );
-	}
-	$siw_hide_workcamps_background_process->save()->dispatch();
+	siw_start_background_process( 'hide_workcamps', $products );
 	siw_debug_log( 'Verbergen projecten gestart.' );
 });
 
@@ -230,7 +226,7 @@ add_action( 'siw_update_workcamp_tariffs', function() {
 	);
 	$products = wc_get_products( $args );
 
-	siw_start_background_process( 'siw_update_tariffs_background_process', $products );
+	siw_start_background_process( 'update_workcamp_tariffs', $products );
 });
 
 

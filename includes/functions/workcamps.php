@@ -22,18 +22,15 @@ function siw_count_projects() {
 		'pa_land',
 		'pa_maand',
 	);
-
+	
 	foreach ( $taxonomies as $taxonomy ) {
 		$terms = get_terms( $taxonomy, array( 'hide_empty' => true ) );
 		foreach ( $terms as $term ) {
-			$item = array( 'taxonomy' => $taxonomy, 'term_slug' => $term->slug );
-			$siw_count_workcamps_background_process->push_to_queue( $item );
+			$data[] = array( 'taxonomy' => $taxonomy, 'term_slug' => $term->slug );
+
 		}
 	}
-
-	$siw_count_workcamps_background_process->save()->dispatch();
-	$siw_count_workcamps_background_process = $GLOBALS['siw_count_workcamps_background_process'];
-
+	siw_start_background_process( 'count_workcamps', $data );
 }
 
 
@@ -44,10 +41,10 @@ function siw_count_projects() {
  * @param string $term
  * @return void
  */
-function siw_count_projects_by_term( $taxonomy, $term_slug ) {
+function siw_count_projects_by_term( $taxonomy, $term_slug, $force_recount = false ) {
 
 	$count = get_transient( "siw_project_count_{$taxonomy}_{$term_slug}" );
-	if ( false === $count ) {
+	if ( false === $count || true === $force_recount ) {
 		$tax_query = array(
 			array(
 				'taxonomy' => $taxonomy,

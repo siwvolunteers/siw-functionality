@@ -11,6 +11,14 @@ siw_add_cron_job( 'siw_cleanup_terms' );
 add_action( 'siw_cleanup_terms', function() {
 	siw_debug_log( 'Start verwijderen ongebruikte terms');
 	$taxonomies[] = 'pa_maand';
+	$taxonomies[] = 'pa_aantal-vrijwilligers';
+	$taxonomies[] = 'pa_leeftijd';
+	$taxonomies[] = 'pa_lokale-bijdrage';
+	$taxonomies[] = 'pa_projectcode';
+	$taxonomies[] = 'pa_projectnaam';
+	$taxonomies[] = 'pa_startdatum';
+	$taxonomies[] = 'pa_einddatum';
+
 	$deleted_terms = 0;
 
 	foreach ( $taxonomies as $taxonomy ) {
@@ -101,7 +109,7 @@ add_action( 'siw_update_yith_widgets', function() {
 });
 
 
-/* Verweesde variaties verwijderen */
+/* Verweesde variaties verwijderen TODO: Background proces, dan kan ook limiet van 10 weg*/
 siw_add_cron_job( 'siw_delete_orphaned_variations' );
 
 add_action( 'siw_delete_orphaned_variations', function() {
@@ -173,7 +181,7 @@ add_action( 'siw_delete_projects', function() {
 		'meta_query'		=> $meta_query,
 		'fields' 			=> 'ids'
 	);
-	$products = get_posts( $args );
+	$products = get_posts( $args ); //TODO: wc_get_products gebruiken
 
 	// Afbreken als er geen te verwijderen projecten zijn
 	if ( empty( $products ) ) {
@@ -209,7 +217,7 @@ add_action( 'siw_delete_projects', function() {
 		)
 	);
 
-	siw_start_background_process(  'siw_delete_workcamps_background_process', $products );
+	siw_start_background_process( 'delete_workcamps', $products );
 });
 
 
@@ -236,40 +244,5 @@ add_action( 'siw_delete_applications', function() {
 	}
 	siw_debug_log( 'Aantal te verwijderen aanmeldingen: ' . count( $applications ) );
 
-	siw_start_background_process( 'siw_delete_applications_background_process', $applications );
+	siw_start_background_process( 'delete_applications', $applications );
 });
-
-
-/* Repareren projecten door bug in WP All Import */
-add_action( 'siw_repair_projects', function() {
-	siw_debug_log( 'Start repareren projecten' );
-	$args = array(
-		'posts_per_page'	=> -1,
-		'post_type'			=> 'product',
-		'fields' 			=> 'ids',
-		'post_status'		=> 'any',
-	);
-	$products = get_posts( $args );
-
-	siw_start_background_process( 'siw_repair_workcamps_background_process', $products );
-});
-
-
-/**
- * Repareer los project
- *
- * @param int $product_id
- * @return void
- */
-function siw_repair_project( $product_id ) {
-
-	wp_set_object_terms( $product_id, 'variable', 'product_type' );
-
-	$country_meta = get_post_meta( $product_id, 'land', true );
-	$countries = wp_get_object_terms( $product_id, 'pa_land' );
-	foreach ( $countries as $country ) {
-		if ( $country_meta != $country->slug ) {
-			wp_remove_object_terms( $product_id, $country->slug, 'pa_land' );	
-		}
-	}
-}

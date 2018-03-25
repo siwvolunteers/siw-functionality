@@ -6,35 +6,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
-class SIW_Count_Workcamps_Background_Process extends WP_Background_Process {
-
+class SIW_Count_Workcamps_Process extends SIW_Background_Process {
 
 	/**
-	 * [protected description]
-	 * @var [type]
-	 */
-	protected $prefix = 'siw';
-
-	/**
-	 * [protected description]
-	 * @var [type]
+	 * Action
+	 *
+	 * @var string
+	 * @access protected
 	 */
 	protected $action = 'count_workcamps_process';
 
-	/**
-	 * [task description]
-	 * @param  [type] $item [description]
-	 * @return [type]       [description]
-	 */
+	
+    /**
+     * Task
+     *
+     * @param mixed $item Queue item to iterate over.
+     *
+     * @return mixed
+     */
 	protected function task( $item ) {
 
         $taxonomy = $item['taxonomy'];
         $term_slug = $item['term_slug']; 
-		siw_count_projets_by_term( $taxonomy, $term_slug );
-
+		siw_count_projects_by_term( $taxonomy, $term_slug, true );
 		return false;
 	}
+
 
 	/**
 	 * Complete
@@ -48,4 +45,4 @@ class SIW_Count_Workcamps_Background_Process extends WP_Background_Process {
 	}
 }
 
-$GLOBALS['siw_count_workcamps_background_process'] = new SIW_Count_Workcamps_Background_Process();
+$GLOBALS['siw_count_workcamps_process'] = new SIW_Count_Workcamps_Process();
