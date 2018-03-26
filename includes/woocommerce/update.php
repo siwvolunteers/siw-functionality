@@ -84,6 +84,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 
 	/* Local fee */
 	$participation_fee_current = $product->get_attribute( 'lokale-bijdrage' );
+	$participation_fee_current = html_entity_decode( $participation_fee_current );
 	$participation_fee_new = siw_get_workcamp_local_fee( $xml['participation_fee'], isset( $xml['participation_fee_currency'] ) ? $xml['participation_fee_currency'] : '' );
 	$participation_fee_new = html_entity_decode( $participation_fee_new );
 	if ( $participation_fee_current != $participation_fee_new ) {
