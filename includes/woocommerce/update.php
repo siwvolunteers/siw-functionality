@@ -196,6 +196,10 @@ add_action( 'siw_hide_workcamps', function() {
  */
 function siw_hide_workcamp( $product_id ) {
 	$product = wc_get_product( $product_id );
+	/* Afbreken als product niet meer bestaat */
+	if ( false == $product ) {
+		return false;
+	}
 	$product->set_catalog_visibility( 'hidden' );
 	$product->set_stock_status( 'outofstock' );
 	$product->set_featured( 'no' );
