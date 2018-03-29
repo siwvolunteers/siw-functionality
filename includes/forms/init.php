@@ -26,7 +26,7 @@ add_filter( 'caldera_forms_save_revision', '__return_false' );
 
 /*extra span voor styling radiobuttons en checkboxen*/
 add_filters( array('caldera_forms_render_field_type-checkbox', 'caldera_forms_render_field_type-radio'), function( $field_html ) {
-	$field_html = preg_replace( '/<input(.*?)>/', '<input$1><div class="control-indicator"></div>', $field_html );
+	$field_html = preg_replace( '/<input(.*?)>/s', '<input$1><div class="control-indicator"></div>', $field_html );
 	return $field_html;
 } );
 
