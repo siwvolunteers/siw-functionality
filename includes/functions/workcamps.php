@@ -6,15 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
+/* Start background proces om aantal zichtbare projecten per term te tellen */
 siw_add_cron_job( 'siw_count_projects' );
-/**
- * Start background proces om aantal zichtbare projecten per term te tellen
- *
- * @return void
- */
-function siw_count_projects() {
 
+add_action( 'siw_count_projects', function() {
 	siw_debug_log( 'Start tellen projecten' );
 
 	$taxonomies = array(
@@ -31,7 +26,7 @@ function siw_count_projects() {
 		}
 	}
 	siw_start_background_process( 'count_workcamps', $data );
-}
+});
 
 
 /**
