@@ -77,14 +77,21 @@ add_filter( 'woocommerce_show_variation_price', '__return_true' );
 /* Volgorde van projecteigenschappen aanpassen */
 add_filter( 'woocommerce_product_get_attributes', function( $attributes ) {
 	$order = array(
+		'pa_projectnaam', //TODO: verwijderen indien mogelijk
 		'projectnaam',
+		'pa_projectcode', //TODO: verwijderen indien mogelijk
 		'projectcode',
 		'pa_land',
 		'pa_soort-werk',
+		'pa_startdatum', //TODO: verwijderen indien mogelijk
 		'startdatum',
+		'pa_einddatum', //TODO: verwijderen indien mogelijk
 		'einddatum',
+		'pa_aantal-vrijwilligers', //TODO: verwijderen indien mogelijk
 		'aantal-vrijwilligers',
+		'pa_leeftijd', //TODO: verwijderen indien mogelijk
 		'leeftijd',
+		'pa_lokale-bijdrage', //TODO: verwijderen indien mogelijk
 		'lokale-bijdrage',
 		'pa_taal',
 		'pa_vog',
