@@ -1,6 +1,6 @@
 <?php
 /*
- * (c)2017 SIW Internationale Vrijwilligersprojecten
+ * (c)2017-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -13,6 +13,11 @@ add_action( 'siw_ajax_postcode_lookup', function() {
 	check_ajax_referer( 'siw_ajax_nonce', 'security' );
 
 	preg_match("/^[1-9][0-9]{3}[\s]?[A-Za-z]{2}$/i", $_GET['postcode'], $postcode );
+
+	if ( ! isset( $postcode[0] ) ) {
+		wp_send_json_error();
+	}
+
 	$postcode = strtoupper( str_replace(' ', '', $postcode[0] ) );
 	$housenumber = preg_replace("/[^0-9]/", "", $_GET['housenumber'] );
 
@@ -42,6 +47,10 @@ add_action( 'siw_ajax_postcode_lookup', function() {
  */
 function siw_get_address_from_postcode( $postcode, $housenumber ) {
 	$api_key = siw_get_setting( 'postcode_api_key' );
+
+	if ( empty( $api_key ) ) {
+		return false;
+	}
 
 	$url = add_query_arg( array(
 		'postcode' => $postcode,

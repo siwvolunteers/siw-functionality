@@ -18,9 +18,9 @@ class SIW_Quick_Search extends \TDP\Widgets_Helper {
 		$this->widget_fields = array(
 			array(
 				'id'   => 'title',
-				'name' => __('Titel', 'siw'),
+				'name' => __( 'Titel', 'siw' ),
 				'type' => 'text',
-				'std'  => __('Blijf op de hoogte', 'siw'),
+				'std'  => __( 'Snel zoeken', 'siw' ),
 			),
 		);
 		$this->init();
@@ -54,3 +54,9 @@ class SIW_Quick_Search extends \TDP\Widgets_Helper {
 
 	}
 }
+/* Widget toevoegen aan Pagebuilder-tab (inclusief eigen icoon) */
+add_filter('siteorigin_panels_widgets', function ( $widgets ) {
+	$widgets['SIW_Quick_Search']['groups'] = array('siw');
+	$widgets['SIW_Quick_Search']['icon'] = 'dashicons dashicons-search';
+	return $widgets;
+} );

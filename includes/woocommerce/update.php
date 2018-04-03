@@ -137,7 +137,10 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
  * - Er zijn geen vrije plaatsen meer
  */
 add_action( 'siw_hide_workcamps', function() {
-	$days = siw_get_setting( 'plato_hide_project_days_before_start' );
+
+	siw_debug_log( 'Verbergen projecten gestart.' );
+
+	$days = siw_get_setting( 'plato_hide_project_days_before_start' ); //TODO:constante van maken
 	$limit = date( 'Y-m-d', time() + ( $days * DAY_IN_SECONDS ) );
 
 	$tax_query = array(
@@ -183,8 +186,12 @@ add_action( 'siw_hide_workcamps', function() {
 
 	$products = get_posts( $args ); //TODO: wc_get_products
 
+	// Afbreken als er geen te verbergen projecten zijn
+	if ( empty( $products ) ) {
+		siw_debug_log( 'Verbergen projecten voltooid: geen projecten te verbergen' );
+		return;
+	}
 	siw_start_background_process( 'hide_workcamps', $products );
-	siw_debug_log( 'Verbergen projecten gestart.' );
 });
 
 

@@ -27,7 +27,7 @@ function siw_generate_list( $items, $ordered = false ) {
 
 	return $list;
 }
-add_filter( 'siw_list', function( $list, $items, $ordered = true ) {
+add_filter( 'siw_list', function( $list, $items, $ordered = false ) {
 	return siw_generate_list( $items, $ordered );
 }, 10, 2 );
 
@@ -219,7 +219,7 @@ function siw_generate_field( $type, $input_args, $wrapper_args = array() ) {
 		)
 	);
 
-	if ( '' != $wrapper_args['tag'] ) {
+	if ( ! empty( $wrapper_args['tag'] ) ) {
 		$wrapper_class = '';
 		if ( ! empty( $wrapper_args['class'] ) ) {
 			$wrapper_class = sprintf( 'class="%s"', sanitize_html_classes( $wrapper_args['class'] ) );

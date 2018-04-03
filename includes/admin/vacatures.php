@@ -62,47 +62,74 @@ add_action( 'cmb2_admin_init', function() {
 		'display_cb'	=> 'siw_show_vacature_column_featured',
 	) );
 	$cmb->add_field( array(
-		'id'			=> $prefix . 'wie_ben_jij',
+		'id'			=> $prefix . 'wie_ben_jij_titel',
 		'name'			=> __( 'Wie ben jij?', 'siw' ),
+		'type'			=> 'title',
+
+	) );
+	$cmb->add_field( array(
+		'id'			=> $prefix . 'wie_ben_jij',
+		'name'			=> __( 'Intro', 'siw' ),
 		'type'			=> 'wysiwyg',
 		'options'		=> array(
 			'wpautop' 		=> true,
 			'media_buttons' => false,
 			'teeny' 		=> true,
-			'textarea_rows'	=> 10,
-		),
-		'attributes'  	=> array(
-			'required'    	=> 'required',
+			'textarea_rows'	=> 5,
 		),
 	) );
 	$cmb->add_field( array(
-		'id'			=> $prefix . 'wat_ga_je_doen',
+		'id'			=> $prefix . 'wie_ben_jij_lijst',
+		'name'			=> __( 'Lijst', 'siw' ),
+		'type'			=> 'text',
+		'repeatable'	=> true,
+	) );
+	$cmb->add_field( array(
+		'id'			=> $prefix . 'wat_ga_je_doen_titel',
 		'name'			=> __( 'Wat ga je doen?', 'siw' ),
+		'type'			=> 'title',
+
+	) );	
+	$cmb->add_field( array(
+		'id'			=> $prefix . 'wat_ga_je_doen',
+		'name'			=> __( 'Introtekst', 'siw' ),
 		'type'			=> 'wysiwyg',
 		'options'		=> array(
 			'wpautop'		=> true,
 			'media_buttons'	=> false,
 			'teeny'			=> true,
-			'textarea_rows'	=> 10,
+			'textarea_rows'	=> 5,
 		),
-		'attributes'	=> array(
-			'required'		=> 'required',
-		),
+	) );
+	$cmb->add_field( array(
+		'id'			=> $prefix . 'wat_ga_je_doen_lijst',
+		'name'			=> __( 'Lijst', 'siw' ),
+		'type'			=> 'text',
+		'repeatable'	=> true,
+	) );	
+	$cmb->add_field( array(
+		'id'			=> $prefix . 'wat_bieden_wij_jou_titel',
+		'name'			=> __( 'Wat bieden wij jou?', 'siw' ),
+		'type'			=> 'title',
+
 	) );
 	$cmb->add_field( array(
 		'id'			=> $prefix . 'wat_bieden_wij_jou',
-		'name'			=> __( 'Wat bieden wij jou?', 'siw' ),
+		'name'			=> __( 'Intro', 'siw' ),
 		'type'			=> 'wysiwyg',
 		'options'		=> array(
 			'wpautop'		=> true,
 			'media_buttons'	=> false,
 			'teeny'			=> true,
-			'textarea_rows'	=> 10,
-		),
-		'attributes'	=> array(
-			'required'		=> 'required',
+			'textarea_rows'	=> 5,
 		),
 	) );
+	$cmb->add_field( array(
+		'id'			=> $prefix . 'wat_bieden_wij_jou_lijst',
+		'name'			=> __( 'Lijst', 'siw' ),
+		'type'			=> 'text',
+		'repeatable'	=> true,
+	) );	
 	$cmb->add_field( array(
 		'name' => __( 'Aantal uur per week', 'siw' ),
 		'id'   => $prefix . 'uur_per_week',
@@ -182,7 +209,7 @@ add_action( 'cmb2_admin_init', function() {
 	) );
 	$cmb->add_field( array(
 		'id'			=> $prefix . 'toelichting_solliciteren',
-		'name'			=> __( 'Toelichting sollicteren', 'siw' ),
+		'name'			=> __( 'Toelichting solliciteren', 'siw' ),
 		'type'			=> 'wysiwyg',
 		'options'		=> array(
 			'wpautop'		=> true,

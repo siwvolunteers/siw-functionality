@@ -30,7 +30,7 @@ function siw_export_application_to_plato( $order ) {
 	}
 
 	// Export van aanmelding gebruikt endpoint ImportVolunteer
-	$import_volunteer_webservice_url = SIW_PLATO_WEBSERVICE_URL . '/ImportVolunteer';
+	$import_volunteer_webservice_url = SIW_PLATO_WEBSERVICE_URL . 'ImportVolunteer';
 
 	// Zet HTTP-post argumenten
 	$args = array(
@@ -68,10 +68,13 @@ function siw_export_application_to_plato( $order ) {
 		$xml_data = $xml->asXML();
 
 		/* Bouw bericht voor webservice op */
-		$args['body'] = 'organizationWebserviceKey=' . $organization_webkey . '&xmlData=' . rawurlencode( $xml_data );
+		$url = add_query_arg( array(
+			'organizationWebserviceKey' => $organization_webkey,
+			'xmlData' => rawurlencode( $xml_data ),
+		), $import_volunteer_webservice_url );
 
 		/* Roep webservice aan */
-		$response = wp_safe_remote_post( $import_volunteer_webservice_url, $args );
+		$response = wp_safe_remote_post( $url, $args );
 
 		/* In het geval van een fout: foutmelding wegschrijven naar log */
 		if ( is_wp_error( $response ) ) {

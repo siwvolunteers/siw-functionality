@@ -85,11 +85,13 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		),		
 	);
 
-	$postcode_api_fields = array(
+	$api_fields = array(
 		array(
 			'id'			=> 'postcode_api_key',
-			'title'			=> __( 'API Key', 'siw' ),
+			'title'			=> __( 'Postcode API Key', 'siw' ),
+			'subtitle'		=> 'https://www.postcodeapi.nu/',
 			'type'			=> 'text',
+			'validate'		=> 'no_special_chars',
 		),
 	);
 
@@ -122,6 +124,12 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	);
 	$pages_fields = array(
 		array(
+			'id'			=> 'pages_overview_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Overzicht', 'siw' ),
+			'indent' 		=> true,
+		),		
+		array(
 			'id'			=> 'agenda_parent_page',
 			'title'			=> __( 'Agenda', 'siw' ),
 			'type'			=> 'select',
@@ -142,6 +150,17 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'options'		=> $pages,
 			'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
 		),
+		array(
+			'id'			=> 'pages_overview_section_end',
+			'type'			=> 'section',
+			'indent' 		=> false,
+		),	
+		array(
+			'id'			=> 'pages_how_it_works_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Zo werkt het', 'siw' ),
+			'indent' 		=> true,
+		),					
 		array(
 			'id'			=> 'info_day_page',
 			'title'			=> __( 'Infodagen', 'siw' ),
@@ -171,6 +190,17 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
 		),
 		array(
+			'id'			=> 'pages_how_it_works_section_end',
+			'type'			=> 'section',
+			'indent' 		=> false,
+		),	
+		array(
+			'id'			=> 'pages_other_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Overige', 'siw' ),
+			'indent' 		=> true,
+		),			
+		array(
 			'id'			=> 'contact_page',
 			'title'			=> __( 'Contact', 'siw' ),
 			'type'			=> 'select',
@@ -191,6 +221,11 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'options'		=> $pages,
 			'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
 		),
+		array(
+			'id'			=> 'pages_other_section_end',
+			'type'			=> 'section',
+			'indent' 		=> false,
+		),			
 	);
 
 	/* Tabel bouwen met alle SIW-contantes */
@@ -411,23 +446,29 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'permissions'	=> 'manage_options'
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'constants',
-		'title'			=> __( 'Constantes', 'siw' ),
-		'subsection'	=> true,
-		'fields'		=> $constants_fields,
-	) );
-	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'email',
-		'title'			=> __( 'E-mail', 'siw' ),
-		'subsection'	=> true,
-		'fields'		=> $email_fields,
-	) );
-	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'analytics_seo',
 		'title'			=> __( 'Analytics & SEO', 'siw' ),
 		'subsection'	=> true,
 		'fields'		=> $analytics_seo_fields,
 	) );
+	Redux::setSection( SIW_OPT_NAME, array(
+		'id'			=> 'api',
+		'title'			=> __( 'API', 'siw' ),
+		'subsection'	=> true,
+		'fields'		=> $api_fields,
+	) );	
+	Redux::setSection( SIW_OPT_NAME, array(
+		'id'			=> 'email',
+		'title'			=> __( 'E-mail', 'siw' ),
+		'subsection'	=> true,
+		'fields'		=> $email_fields,
+	) );	
+	Redux::setSection( SIW_OPT_NAME, array(
+		'id'			=> 'constants',
+		'title'			=> __( 'Constantes', 'siw' ),
+		'subsection'	=> true,
+		'fields'		=> $constants_fields,
+	) );	
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'maps',
 		'title'			=> __( 'Kaarten', 'siw' ),
@@ -451,11 +492,5 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'title'			=> __( 'Plato', 'siw' ),
 		'subsection'	=> true,
 		'fields'		=> $plato_fields,
-	) );
-	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'api',
-		'title'			=> __( 'Postcode API', 'siw' ),
-		'subsection'	=> true,
-		'fields'		=> $postcode_api_fields,
 	) );
 } );
