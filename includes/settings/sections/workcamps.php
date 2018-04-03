@@ -1,6 +1,6 @@
 <?php
 /*
- * (c)2016-2017 SIW Internationale Vrijwilligersprojecten
+ * (c)2016-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,33 +13,41 @@ add_action( 'siw_settings_show_workcamps_section', function() {
  	 * - Ondertekening
  	 * - TODO: bijlages
 	 */
-
 	$application_fields = array(
 		array(
-			'id'			=> 'workcamp_application_signature_section_start',
-			'title'			=> __( 'Ondertekening e-mail', 'siw' ),
+			'id'			=> 'workcamp_application_email_section_start',
+			'title'			=> __( 'E-mail', 'siw' ),
 			'type'			=> 'section',
 			'indent' 		=> true,
 		),
 		array(
-			'id'			=> 'workcamp_application_signature_name',
-			'title'			=> __( 'Naam', 'siw' ),
+			'id'			=> 'workcamp_application_email_sender',
+			'title'			=> __( 'Afzender', 'siw' ),
+			'subtitle'		=> __( 'Ontvangt ook de bevestigingsmail', 'siw' ),
+			'placeholder'	=> 'info@siw.nl',
 			'type'			=> 'text',
-			'validate'		=> 'no_html',
+			'validate'		=> 'email',
 		),
 		array(
-			'id'			=> 'workcamp_application_signature_title',
-			'title'			=> __( 'Functie', 'siw' ),
+			'id'			=> 'workcamp_application_email_signature',
+			'title'			=> __( 'Ondertekening', 'siw' ),
 			'type'			=> 'text',
 			'validate'		=> 'no_html',
+			'options' 		=> array(
+				'name'			=> __( 'Naam', 'siw' ),
+				'title'			=> __( 'Functie', 'siw' ),
+			),
+			'default' => array(
+				'name' => '',
+				'title' => '',
+			),
 		),
 		array(
-			'id'			=> 'workcamp_application_signature_section_end',
+			'id'			=> 'workcamp_application_email_section_end',
 			'type'			=> 'section',
 			'indent'		=> false,
 		),
 	);
-
 	$archive_fields = array(
 		array(
 			'id'			=> 'workcamp_teaser_section_start',
@@ -66,7 +74,7 @@ add_action( 'siw_settings_show_workcamps_section', function() {
 			),
 		),		
 		array(
-			'id'			=> 'google_analytics_section_end',
+			'id'			=> 'workcamp_teaser_section_end',
 			'type'			=> 'section',
 			'indent' 		=> false,
 		),
@@ -157,7 +165,7 @@ add_action( 'siw_settings_show_workcamps_section', function() {
 	));
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'workcamps_application',
-		'title'			=> __( 'Aanmeldformulier', 'siw' ),
+		'title'			=> __( 'Aanmelding', 'siw' ),
 		'subsection'	=> true,
 		'fields'		=> $application_fields,
 	));
