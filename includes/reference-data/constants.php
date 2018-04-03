@@ -75,6 +75,7 @@ define( 'SIW_COLOR_NORTH_AMERICA', '#fbba00' );
 define( 'SIW_POSTCODE_API_URL','https://postcode-api.apiwise.nl/v2/addresses/' );
 define( 'SIW_PLATO_WEBSERVICE_URL', 'http://www.workcamp-plato.org/files/services/ExternalSynchronization.asmx/' );
 define( 'SIW_TRAVEL_ADVICE_BASE_URL', 'https://www.nederlandwereldwijd.nl/reizen/reisadviezen/' );
+define( 'SIW_EXCHANGE_RATES_API_URL', 'https://data.fixer.io/api/' );
 
 /**
  * Geeft een array met constantes en hun toelichting terug
@@ -121,6 +122,7 @@ function siw_get_constants() {
 		'SIW_POSTCODE_API_URL'			=> __( 'Postcode API URL', 'siw' ),
 		'SIW_PLATO_WEBSERVICE_URL'		=> __( 'Plato webservice URL', 'siw' ),
 		'SIW_TRAVEL_ADVICE_BASE_URL'	=> __( 'Reisadvies base-URL', 'siw' ),
+		'SIW_EXCHANGE_RATES_API_URL'	=> __( 'Wisselkoersen API base-url', 'siw' ),
 	);
 
 	return $constants;

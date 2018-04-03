@@ -33,15 +33,14 @@ function siw_get_amount_in_euro( $currency, $amount, $decimals = 0 ) {
  * @return float $exchange_rate
  */
 function siw_get_exchange_rate( $currency ) {
-	$month = date ( 'Ym' );
-	$exchange_rates = get_transient( "siw_exchange_rates_{$month}" );
+	$exchange_rates = get_transient( "siw_exchange_rates" );
 
 	if ( false === $exchange_rates ) {
-		$exchange_rates = siw_get_exchange_rates( $month );
+		$exchange_rates = siw_get_exchange_rates();
 		if ( false == $exchange_rates ) {
 			return false;
 		}
-		set_transient( "siw_exchange_rates_{$month}", $exchange_rates, MONTH_IN_SECONDS );
+		set_transient( "siw_exchange_rates", $exchange_rates, DAY_IN_SECONDS );
 	}
 
 	$exchange_rate = isset( $exchange_rates[ $currency ] ) ? $exchange_rates[ $currency ] : false;
@@ -51,17 +50,25 @@ function siw_get_exchange_rate( $currency ) {
 
 
 /**
- * Ophalen wisselkoersen bij belastingdienst voor een specifieke maand
- * @param  string $month
+ * Ophalen wisselkoersen bij fixer.io
  * @return array
  */
-function siw_get_exchange_rates( $month ) {
-	$url = "https://www.belastingdienst.nl/data/douane_wisselkoersen/wks.douane.wisselkoersen.dd{$month}.xml";
+function siw_get_exchange_rates() {
+
+	$api_key = siw_get_setting( 'exchange_rates_api_key' );
+
+	if ( empty( $api_key ) ) {
+		return false; //TODO: foutafhandeling
+	}
+
+	$url = SIW_EXCHANGE_RATES_API_URL . 'latest';
 	$args = array(
 		'timeout'		=> 10,
 		'redirection'	=> 0,
 	);
+	$url = add_query_arg( 'access_key', $api_key, $url );
 	$response = wp_safe_remote_get( $url, $args );
+
 
 	if ( is_wp_error( $response ) ) {
 		return false; //TODO: foutafhandeling
@@ -71,16 +78,14 @@ function siw_get_exchange_rates( $month ) {
 	if ( 200 != $statuscode ) {
 		return false; //TODO: foutafhandeling
 	}
-	$body = simplexml_load_string( wp_remote_retrieve_body( $response ) );
+	$body = json_decode( wp_remote_retrieve_body( $response ), true );
+	if ( false == $body['success'] ) {
+		return false; //TODO: foutafhandeling		
+	}
 
 	$exchange_rates = array();
-	foreach ( $body->children() as $exchange_rate ) {
-		if ( isset( $exchange_rate->muntCode ) ) {
-			$currency = (string) $exchange_rate->muntCode;
-			$rate = (string) $exchange_rate->tariefInEuro;
-			$rate = floatval( str_replace(",", ".", $rate ) );
-			$exchange_rates[$currency] = $rate;
-		}
+	foreach ( $body['rates'] as $currency => $rate ) {
+		$exchange_rates[$currency] = 1 / $rate;
 	}
 	return $exchange_rates;
 }

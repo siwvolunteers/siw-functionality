@@ -93,7 +93,14 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'type'			=> 'text',
 			'validate'		=> 'no_special_chars',
 		),
-	);
+		array(
+			'id'			=> 'exchange_rates_api_key',
+			'title'			=> __( 'Wisselkoersen API Key', 'siw' ),
+			'subtitle'		=> 'https://fixer.io/',
+			'type'			=> 'text',
+			'validate'		=> 'no_special_chars',			
+		),
+	);	
 
 	$plato_fields = array(
 		array(
