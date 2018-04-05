@@ -47,6 +47,16 @@ add_filter( 'the_seo_framework_metabox_priority', function( $priority ) {
 } );
 
 
+/* SEO support voor Op maat projecten */
+add_filter( 'the_seo_framework_supported_post_type', function( $post_type, $post_type_evaluated ) {
+
+	if ( 'portfolio' === $post_type_evaluated )
+		return $post_type_evaluated;
+	
+	return $post_type;
+}, 10, 2 );
+
+
 /* Diverse archieven niet indexeren */
 add_filter( 'the_seo_framework_robots_meta_array', function( $robots ) {
 
