@@ -1,6 +1,6 @@
 <?php
 /*
-(c)2017 SIW Internationale Vrijwilligersprojecten
+(c)2017-2018 SIW Internationale Vrijwilligersprojecten
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -113,58 +113,58 @@ add_filter( 'woocommerce_shortcode_products_query', function( $args, $atts ) {
 
 /** Introtekst voor overzichtspagina toevoegen*/
 add_action( 'after_page_header', function() {
-	$workcamps_page = siw_get_setting( 'workcamps_page' );
-	$workcamps_page_link = siw_get_translated_page_link( $workcamps_page );
-
-	$contact_page = siw_get_setting( 'contact_page' );
-	$contact_page_link = siw_get_translated_page_link( $contact_page );
+	$workcamps_page_link = siw_get_translated_page_link( siw_get_setting( 'workcamps_page' ) );
+	$contact_page_link = siw_get_translated_page_link( siw_get_setting( 'contact_page' ) );
 
 	if ( is_shop() ) {
 		$text =	__( 'Hieronder zie je het beschikbare aanbod groepsprojecten.', 'siw' );
-
 	}
-
-	if ( is_product_category() ) {
+	elseif ( is_product_category() ) {
 		$category_name = get_queried_object()->name;
 		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten in %s.', 'siw' ), '<b>' . $category_name . '</b>' );
-
-	};
-
-	if ( is_tax( 'pa_land' ) ) {
+	}
+	elseif ( is_tax( 'pa_land' ) ) {
 		$country_name = get_queried_object()->name;
 		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten in %s.', 'siw' ), '<b>' . $country_name . '</b>' );
 	}
-
-	if ( is_tax( 'pa_soort-werk' ) ) {
+	elseif ( is_tax( 'pa_soort-werk' ) ) {
 		$work_type_name = get_queried_object()->name;
 		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten met werkzaamheden gericht op %s.', 'siw' ), '<b>' . strtolower( $work_type_name ) . '</b>' );
 	}
-
-	if ( is_tax( 'pa_doelgroep' ) ) {
+	elseif ( is_tax( 'pa_doelgroep' ) ) {
 		$target_audience_name = get_queried_object()->name;
 		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten voor de doelgroep %s.', 'siw' ), '<b>' . strtolower( $target_audience_name ) . '</b>' );
 	}
+	elseif ( is_tax( 'pa_taal' ) ) {
+		$language_name = get_queried_object()->name;
+		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten met de voertaal %s.', 'siw' ), '<b>' . ucfirst( $language_name ) . '</b>' );
+	}
 
-	if ( isset( $text ) ) {
-		$text .= SPACE .
-			__( 'Tijdens onze groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
-			__( 'De projecten hebben vaste begin- en einddata.', 'siw' ) . SPACE .
-		 	sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">groepsprojecten</a>.', 'siw' ), esc_url( $workcamps_page_link ) );
+	if ( ! isset( $text ) ) {
+		return;
+	}
 
-		//Tijdelijke tekst ivm beperkt projectaanbod //TODO: instelling, variabele voor jaar.
-		$text .= BR2 . __( 'Vanaf maart wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor 2018.', 'siw' ) . SPACE .
+	$text .= SPACE .
+		__( 'Tijdens onze groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
+		__( 'De projecten hebben vaste begin- en einddata.', 'siw' ) . SPACE .
+		sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">groepsprojecten</a>.', 'siw' ), esc_url( $workcamps_page_link ) );
+
+	if ( siw_get_setting( 'workcamp_teaser_text_enabled' ) && date('Y-m-d') <= siw_get_setting( 'workcamp_teaser_text_end_date' ) ) {
+		$teaser_text_end_year = date('Y', strtotime( siw_get_setting( 'workcamp_teaser_text_end_date' ) ) );
+		$text .= BR2 . sprintf( __( 'Vanaf maart wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor %s.', 'siw' ), $teaser_text_end_year ). SPACE .
 			__( 'Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW?', 'siw' ) . SPACE .
 			sprintf( __( '<a href="%s">Bel of mail ons</a> en we denken graag met je mee!', 'siw' ), esc_url( $contact_page_link ) );
+	}
 
-	?>
-	<div class="container">
-		<div class="row woo-archive-intro">
-			<div class="md-12">
-				<?php echo wp_kses_post( $text ); ?>
-			</div>
+?>
+<div class="container">
+	<div class="row woo-archive-intro">
+		<div class="md-12">
+			<?php echo wp_kses_post( $text ); ?>
 		</div>
 	</div>
+</div>
 
 <?php
-	}
+
 });

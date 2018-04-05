@@ -7,58 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Geeft een array met talen terug
- *
- * @return array
- */
-function siw_get_volunteer_languages() {
-	$volunteer_languages = array(
-		''		=> __( 'Selecteer een taal', 'siw' ),
-		'ARA'	=> __( 'Arabisch', 'siw' ),
-		'CAT'	=> __( 'Catalaans', 'siw' ),
-		'CHN'	=> __( 'Chinees', 'siw' ),
-		'DNK'	=> __( 'Deens', 'siw' ),
-		'GER'	=> __( 'Duits', 'siw' ),
-		'ENG'	=> __( 'Engels', 'siw' ),
-		'EST'	=> __( 'Estisch', 'siw' ),
-		'FIN'	=> __( 'Fins', 'siw' ),
-		'FRA'	=> __( 'Frans', 'siw' ),
-		'GRE'	=> __( 'Grieks', 'siw' ),
-		'HEB'	=> __( 'Hebreeuws', 'siw' ),
-		'ITA'	=> __( 'Italiaans', 'siw' ),
-		'JAP'	=> __( 'Japans', 'siw' ),
-		'KOR'	=> __( 'Koreaans', 'siw' ),
-		'HOL'	=> __( 'Nederlands', 'siw' ),
-		'UKR'	=> __( 'Oekraïens', 'siw' ),
-		'POL'	=> __( 'Pools', 'siw' ),
-		'POR'	=> __( 'Portugees', 'siw' ),
-		'RUS'	=> __( 'Russisch', 'siw' ),
-		'SLK'	=> __( 'Slowaaks', 'siw' ),
-		'ESP'	=> __( 'Spaans', 'siw' ),
-		'CZE'	=> __( 'Tsjechisch', 'siw' ),
-		'TUR'	=> __( 'Turks', 'siw' ),
-		'SWE'	=> __( 'Zweeds', 'siw' ),
-	);
-	return $volunteer_languages;
-}
-
-/**
- * Geeft een array met niveau's van taalvaardigheid terug
- *
- * @return array
- */
-function siw_get_volunteer_language_skill_levels() {
-	$language_skill_levels = array(
-		'1'	=> __( 'Matig', 'siw' ),
-		'2'	=> __( 'Redelijk', 'siw' ),
-		'3'	=> __( 'Goed', 'siw' ),
-		'4'	=> __( 'Uitstekend', 'siw' ),
-	);
-	return $language_skill_levels;
-}
-
-
-/**
  * Geeft een array met geslachten terug
  *
  * @return array
@@ -78,7 +26,6 @@ function siw_get_volunteer_genders() {
  * @return array
  */
 function siw_get_volunteer_nationalities() {
-	//TODO: Dit zijn landen geen nationaliteiten
 	$nationalities = array(
 		''		=> __( 'Selecteer een nationaliteit', 'siw' ),
 		'AFG'	=> __( 'Afghaanse', 'siw' ),

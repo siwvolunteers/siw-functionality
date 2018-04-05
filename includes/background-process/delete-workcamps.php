@@ -6,27 +6,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
-class SIW_Delete_Workcamps_Background_Process extends WP_Background_Process {
-
+class SIW_Delete_Workcamps_Process extends SIW_Background_Process {
 
 	/**
-	 * [protected description]
-	 * @var [type]
-	 */
-	protected $prefix = 'siw';
-
-	/**
-	 * [protected description]
-	 * @var [type]
+	 * Action
+	 *
+	 * @var string
+	 * @access protected
 	 */
 	protected $action = 'delete_workcamps_process';
 
-	/**
-	 * [task description]
-	 * @param  [type] $item [description]
-	 * @return [type]       [description]
-	 */
+
+    /**
+     * Task
+     *
+     * @param mixed $item Queue item to iterate over.
+     *
+     * @return mixed
+     */
 	protected function task( $item ) {
 
 		wp_delete_post( $item, true );
@@ -46,4 +43,4 @@ class SIW_Delete_Workcamps_Background_Process extends WP_Background_Process {
 	}
 }
 
-$GLOBALS['siw_delete_workcamps_background_process'] = new SIW_Delete_Workcamps_Background_Process();
+$GLOBALS['siw_delete_workcamps_process'] = new SIW_Delete_Workcamps_Process();

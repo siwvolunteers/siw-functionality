@@ -43,6 +43,45 @@ add_action( 'cmb2_admin_init', function() {
 } );
 
 
+/**
+ * Voeg bulkactie toe voor groepsprojecten.
+ */
+add_filter( 'bulk_actions-edit-product', function( $bulk_actions ) {
+	$bulk_actions['import_again'] = __( 'Opnieuw importeren', 'siw' );
+	return $bulk_actions;
+} );
+
+/* Verwerk bulkactie */
+add_filter( 'handle_bulk_actions-edit-product', function ( $redirect_to, $action, $post_ids ) {
+	if ( $action !== 'import_again' ) {
+		return $redirect_to;
+	}
+
+	foreach ( $post_ids as $post_id ) {
+		update_post_meta( $post_id, 'import_again', true );
+	}
+
+	$redirect_to = add_query_arg( 'import_again_count', count( $post_ids ), $redirect_to );
+
+	return $redirect_to;
+}, 10, 3 );
+
+/* Toon aantal opnieuw te importeren projecten in admin notice */
+add_action( 'admin_notices', function () {
+	if ( ! empty( $_REQUEST['import_again_count'] ) ) {
+		$import_again_count = intval( $_REQUEST['import_again_count'] );
+
+		printf(
+			'<div id="message" class="updated fade">' .
+			_n( '%s project wordt opnieuw geïmporteerd.', '%s projecten worden opnieuw geïmporteerd.', $import_again_count, 'siw' )
+			. '</div>',
+			$import_again_count
+		);
+	}
+});
+
+
+
 /*
  * Exra metaboxes verbergen
  * - Video tab
@@ -71,10 +110,6 @@ add_action( 'init', function(){
 add_filter( 'manage_edit-product_columns', function( $columns ) {
 	unset( $columns['product_type'] );
 	unset( $columns['is_in_stock'] );
-	//Yoast
-	unset( $columns['wpseo-title'] );
-	unset( $columns['wpseo-metadesc'] );
-	unset( $columns['wpseo-focuskw'] );
 
 	$new_columns = array();
 	foreach ( $columns as $column_name => $column_info ) {

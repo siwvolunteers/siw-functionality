@@ -1,6 +1,6 @@
 <?php
 /*
- * (c)2017 SIW Internationale Vrijwilligersprojecten
+ * (c)2017-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -50,7 +50,7 @@ add_action( 'siw_settings_show_organisation_section', function() {
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'organisation',
 		'title'			=> __( 'Organisatie', 'siw' ),
-		'icon'			=> 'el el-flag',
+		'icon'			=> 'el el-address-book',
 		'permissions'	=> 'edit_pages',
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(

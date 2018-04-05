@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return array
  */
-function siw_get_project_currencies() {
+function siw_get_currencies() {
 
 	$project_currencies = array(
 		'CHF' => array(
@@ -75,11 +75,11 @@ function siw_get_project_currencies() {
 
 /**
  * Haal eigenschappen van een valuta op
- * @param  string $currency
+ * @param  string $currency_code
  * @return mixed
  */
-function siw_get_project_currency( $currency ) {
-	$project_currencies = siw_get_project_currencies();
-	$project_currency = isset( $project_currencies[ $currency ] ) ? $project_currencies[ $currency ] : false;
-	return $project_currency;
+function siw_get_currency( $currency_code ) {
+	$currencies = siw_get_currencies();
+	$currency = isset( $currencies[ $currency_code ] ) ? $currencies[ $currency_code ] : false;
+	return $currency;
 }

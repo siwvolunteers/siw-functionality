@@ -63,6 +63,19 @@ define( 'SIW_PRIMARY_COLOR', '#ff9900' );
 define( 'SIW_PRIMARY_COLOR_HOVER', '#ffcc33' );
 define( 'SIW_SECONDARY_COLOR', '#59ab9c' );
 define( 'SIW_SECONDARY_COLOR_HOVER', '#8cdecf' );
+define( 'SIW_FONT_COLOR', '#444' );
+
+define( 'SIW_COLOR_EUROPE', '#007499' );
+define( 'SIW_COLOR_ASIA', '#008e3f' );
+define( 'SIW_COLOR_AFRICA', '#e30613' );
+define( 'SIW_COLOR_LATIN_AMERICA', '#c7017f' );
+define( 'SIW_COLOR_NORTH_AMERICA', '#fbba00' );
+
+/* URL's voor webservices */
+define( 'SIW_POSTCODE_API_URL','https://postcode-api.apiwise.nl/v2/addresses/' );
+define( 'SIW_PLATO_WEBSERVICE_URL', 'http://www.workcamp-plato.org/files/services/ExternalSynchronization.asmx/' );
+define( 'SIW_TRAVEL_ADVICE_BASE_URL', 'https://www.nederlandwereldwijd.nl/reizen/reisadviezen/' );
+define( 'SIW_EXCHANGE_RATES_API_URL', 'https://data.fixer.io/api/' );
 
 /**
  * Geeft een array met constantes en hun toelichting terug
@@ -95,17 +108,21 @@ function siw_get_constants() {
 		'SIW_MAX_DUTCH_PROJECTS'		=> __( 'Maximaal aantal Nederlandse projecten', 'siw' ),
 		'SIW_MAX_BOARD_MEMBERS'			=> __( 'Maximum aantal bestuursleden', 'siw' ),
 		'SIW_MAX_ANNUAL_REPORTS'		=> __( 'Maximum aantal jaarverslagen', 'siw' ),
-		'SIW_CRON_TS_GENERAL'			=> __( 'Tijd algemene cronjob', 'siw' ),
+		'SIW_CRON_TS_GENERAL'			=> __( 'Tijdstip algemene cronjob', 'siw' ),
 		'SIW_CRON_TS_BACKUP_DB'			=> __( 'Tijdstip backup database', 'siw' ),
 		//'SIW_CRON_TS_BACKUP_FILES'	=> __( 'Tijdstip backup bestanden', 'siw' ),
 		'SIW_CRON_TS_REBUILD_CACHE'		=> __( 'Tijdstip cache verversen', 'siw' ),
 		'SIW_WORKCAMP_FEE_STUDENT'		=> __( 'Inschrijfgeld groepsproject (student)', 'siw' ),
 		'SIW_WORKCAMP_FEE_REGULAR'		=> __( 'Inschrijfgeld groepsproject (regulier)', 'siw' ),
-		'SIW_OP_MAAT_FEE_STUDENT'		=> __( 'Inschrijfgeld Op Maat (student)', 'siw' ),
-		'SIW_OP_MAAT_FEE_REGULAR'		=> __( 'Inschrijfgeld Op Maat (regulier)', 'siw' ),
+		'SIW_OP_MAAT_FEE_STUDENT'		=> __( 'Inschrijfgeld op maat (student)', 'siw' ),
+		'SIW_OP_MAAT_FEE_REGULAR'		=> __( 'Inschrijfgeld op maat (regulier)', 'siw' ),
 		'SIW_EVS_DEPOSIT'				=> __( 'EVS-borg', 'siw' ),
 		'SIW_DISCOUNT_SECOND_PROJECT' 	=> __( 'Kortingspercentage tweede project', 'siw' ),
 		'SIW_DISCOUNT_THIRD_PROJECT'	=> __( 'Kortingspercentage derde project', 'siw' ),
+		'SIW_POSTCODE_API_URL'			=> __( 'Postcode API URL', 'siw' ),
+		'SIW_PLATO_WEBSERVICE_URL'		=> __( 'Plato webservice URL', 'siw' ),
+		'SIW_TRAVEL_ADVICE_BASE_URL'	=> __( 'Reisadvies base-URL', 'siw' ),
+		'SIW_EXCHANGE_RATES_API_URL'	=> __( 'Wisselkoersen API base-url', 'siw' ),
 	);
 
 	return $constants;

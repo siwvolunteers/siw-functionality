@@ -7,34 +7,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-/**
- * strpos with array of needles
- *
- * @param string $haystack
- * @param array $needles
- * @return int
- */
-function strpos_arr( $haystack, $needles ) {
-    if( ! is_array( $needles ) ) {
-		$needles = array( $needles );
-	}
-    foreach( $needles as $needle ) {
-        if ( ( $pos = strpos( $haystack, $needle ) ) !== false ) {
-			return $pos;
+if ( ! function_exists( 'strpos_arr' ) ) {
+	/**
+	 * strpos with array of needles
+	 *
+	 * @param string $haystack
+	 * @param array $needles
+	 * @return int
+	 */
+	function strpos_arr( $haystack, $needles ) {
+		if( ! is_array( $needles ) ) {
+			$needles = array( $needles );
 		}
-    }
-    return false;
+		foreach( $needles as $needle ) {
+			if ( ( $pos = strpos( $haystack, $needle ) ) !== false ) {
+				return $pos;
+			}
+		}
+		return false;
+	}
 }
 
 
 /**
  * Hulpfunctie om cronjob toe te voegen
- * @param string $job [description]
+ * @param string $action
  */
-function siw_add_cron_job( $job ) {
-	add_filter( 'siw_cron_jobs', function( $jobs ) use( $job ) {
-		$jobs[] = $job;
-		return $jobs;
+function siw_add_cron_job( $action ) {
+	add_filter( 'siw_cron_jobs', function( $actions ) use( $action ) {
+		$actions[] = $action;
+		return $actions;
 	});
 }
 
@@ -247,3 +249,39 @@ function siw_get_annual_reports() {
 }
 
 
+/**
+ * Geeft array met Nederlandse projecten terug
+ * @return array
+ */
+function siw_get_dutch_projects() {
+	$dutch_projects = array();
+	$properties = array(
+		'name',
+		'city',
+		'province',
+		'latitude',
+		'longitude',
+		'start_date',
+		'end_date',
+		'work',
+		'participants',
+	);
+	$work_types = siw_get_dutch_project_work_types();
+	$provinces = siw_get_dutch_provinces();
+
+	for ( $x = 1 ; $x <= SIW_MAX_DUTCH_PROJECTS; $x++ ) {
+		$present = siw_get_setting( "np_project_{$x}_present" );
+
+		if ( ! $present ) {
+			continue;
+		}
+
+		foreach ( $properties as $property ) {
+			$dutch_projects[ $x ][ $property ] = siw_get_setting( "np_project_{$x}_$property" );
+		}
+		$dutch_projects[ $x ][ 'work_name' ] = $work_types[ $dutch_projects[ $x ][ 'work' ] ];
+		$dutch_projects[ $x ][ 'province_name' ] = $provinces[	$dutch_projects[ $x ][ 'province' ] ];
+	}
+
+	return $dutch_projects;
+}

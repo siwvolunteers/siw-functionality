@@ -1,6 +1,6 @@
 <?php
 /*
- * (c)2016-2017 SIW Internationale Vrijwilligersprojecten
+ * (c)2016-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -14,14 +14,22 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	*/
 	$imports = siw_get_wpai_imports();
 	$pages = siw_get_pages();
+	$maps = siw_get_mapplic_maps();
 
 
-	$google_analytics_fields = array(
+	$analytics_seo_fields = array(
+		array(
+			'id'			=> 'google_analytics_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Google Analytics', 'siw' ),
+			'indent' 		=> true,
+		),
 		array(
 			'id'			=> 'google_analytics_id',
 			'title'			=> __( 'Property ID', 'siw' ),
 			'type'			=> 'text',
 			'placeholder'	=> 'UA-1234567-8',
+			'validate'		=> 'no_special_chars',
 		),
 		array(
 			'id'			=> 'google_analytics_enable_linkid',
@@ -30,23 +38,71 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'on'			=> 'Aan',
 			'off'			=> 'Uit',
 		),
+		array(
+			'id'			=> 'google_analytics_section_end',
+			'type'			=> 'section',
+			'indent' 		=> false,
+		),
+		array(
+			'id'			=> 'site_verification_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Website verificatie', 'siw' ),
+			'indent' 		=> true,
+		),
+		array(
+			'id'			=> 'google_search_console_verification',
+			'title'			=> __( 'Google Search Console', 'siw' ),
+			'type'			=> 'text',
+			'validate'		=> 'no_special_chars',
+		),
+		array(
+			'id'			=> 'bing_webmaster_tools_verification',
+			'title'			=> __( 'Bing Webmaster Tools', 'siw' ),
+			'type'			=> 'text',
+			'validate'		=> 'no_special_chars',
+		),
+		array(
+			'id'			=> 'site_verification_section_end',
+			'type'			=> 'section',
+			'indent' 		=> false,
+		),
+		array(
+			'id'			=> 'blocked_bots_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Geblokkeerde bots', 'siw' ),
+			'indent' 		=> true,
+		),
+		array(
+			'id'			=> 'blocked_bots',
+			'type'			=> 'multi_text',
+			'title'			=> __( 'User-agent', 'siw' ),
+			'validate'		=> 'no_special_chars',
+		),
+		array(
+			'id'		=> 'blocked_bots_section_end',
+			'type'		=> 'section',
+			'indent' 	=> false,
+		),		
 	);
 
-	$postcode_api_fields = array(
+	$api_fields = array(
 		array(
 			'id'			=> 'postcode_api_key',
-			'title'			=> __( 'API Key', 'siw' ),
+			'title'			=> __( 'Postcode API Key', 'siw' ),
+			'subtitle'		=> 'https://www.postcodeapi.nu/',
 			'type'			=> 'text',
+			'validate'		=> 'no_special_chars',
 		),
-	);
+		array(
+			'id'			=> 'exchange_rates_api_key',
+			'title'			=> __( 'Wisselkoersen API Key', 'siw' ),
+			'subtitle'		=> 'https://fixer.io/',
+			'type'			=> 'text',
+			'validate'		=> 'no_special_chars',			
+		),
+	);	
 
 	$plato_fields = array(
-		array(
-			'id'			=> 'plato_webservice_url',
-			'title'			=> __( 'Webservice URL', 'siw' ),
-			'type'			=> 'text',
-			'validate'		=> 'url',
-		),
 		array(
 			'id'			=> 'plato_organization_webkey',
 			'title'			=> __( 'Organization webkey', 'siw' ),
@@ -75,6 +131,12 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	);
 	$pages_fields = array(
 		array(
+			'id'			=> 'pages_overview_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Overzicht', 'siw' ),
+			'indent' 		=> true,
+		),		
+		array(
 			'id'			=> 'agenda_parent_page',
 			'title'			=> __( 'Agenda', 'siw' ),
 			'type'			=> 'select',
@@ -95,6 +157,17 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'options'		=> $pages,
 			'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
 		),
+		array(
+			'id'			=> 'pages_overview_section_end',
+			'type'			=> 'section',
+			'indent' 		=> false,
+		),	
+		array(
+			'id'			=> 'pages_how_it_works_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Zo werkt het', 'siw' ),
+			'indent' 		=> true,
+		),					
 		array(
 			'id'			=> 'info_day_page',
 			'title'			=> __( 'Infodagen', 'siw' ),
@@ -124,8 +197,26 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
 		),
 		array(
+			'id'			=> 'pages_how_it_works_section_end',
+			'type'			=> 'section',
+			'indent' 		=> false,
+		),	
+		array(
+			'id'			=> 'pages_other_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Overige', 'siw' ),
+			'indent' 		=> true,
+		),			
+		array(
 			'id'			=> 'contact_page',
 			'title'			=> __( 'Contact', 'siw' ),
+			'type'			=> 'select',
+			'options'		=> $pages,
+			'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
+		),
+		array(
+			'id'			=> 'quick_search_result_page',
+			'title'			=> __( 'Zoekresultaten Snel zoeken', 'siw' ),
 			'type'			=> 'select',
 			'options'		=> $pages,
 			'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
@@ -137,6 +228,11 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'options'		=> $pages,
 			'placeholder'	=> __( 'Selecteer een pagina', 'siw' ),
 		),
+		array(
+			'id'			=> 'pages_other_section_end',
+			'type'			=> 'section',
+			'indent' 		=> false,
+		),			
 	);
 
 	/* Tabel bouwen met alle SIW-contantes */
@@ -150,7 +246,7 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	$constants_html .= '<td>' . __( 'Toelichting', 'siw' ) . '</td>';
 	$constants_html .= '</tr>';
 
-	foreach ( $constants as $constant => $name ){
+	foreach ( $constants as $constant => $name ) {
 		$constants_html .= '<tr>';
 		$constants_html .= '<td>' . $constant . '</td>';
 		$constants_html .= '<td>' . constant( $constant ) . '</td>';
@@ -186,102 +282,6 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'id'		=> 'ip_whitelist_section_end',
 		'type'		=> 'section',
 		'indent'	=> false,
-	);
-	$topbar_fields = array(
-		array(
-			'id'			=> 'topbar_event_section_start',
-			'title'			=> __( 'Evenement in topbar', 'siw' ),
-			'type'			=> 'section',
-			'indent' 		=> true,
-		),
-		array(
-			'id'		=> 'show_topbar_days_before_event',
-			'title'		=> __( 'Toon topbar vanaf aantal dagen voor evenement', 'siw' ),
-			'type'		=> 'slider',
-			'min'		=> '1',
-			'max'		=> '31',
-			'default'	=> '14',
-		),
-		array(
-			'id'		=> 'hide_topbar_days_before_event',
-			'title'		=> __( 'Verberg topbar vanaf aantal dagen voor evenement', 'siw' ),
-			'type'		=> 'slider',
-			'min'		=> '1',
-			'max'		=> '31',
-			'default'	=> '2',
-		),
-		array(
-			'id'			=> 'topbar_event_section_end',
-			'type'			=> 'section',
-			'indent' 		=> false,
-		),
-		array(
-			'id'			=> 'topbar_social_link_section_start',
-			'title'			=> __( 'Social media in topbar', 'siw' ),
-			'type'			=> 'section',
-			'indent' 		=> true,
-		),
-		array(
-			'id'			=> 'topbar_social_link_enabled',
-			'title'			=> __( 'Link naar social media', 'siw' ),
-			'type'			=> 'switch',
-			'on'			=> 'Aan',
-			'off'			=> 'Uit',
-		),
-		array(
-			'id'			=> 'topbar_social_link_intro',
-			'title'			=> __( 'Introtekst', 'siw' ),
-			'subtitle'		=> __( 'Verborgen op mobiel', 'siw' ),
-			'type'			=> 'text',
-			'validate'		=> 'no_html',
-			'required'		=> array(
-				'topbar_social_link_enabled',
-				'equals',
-				'1'
-			),
-		),
-		array(
-			'id'			=> 'topbar_social_link_text',
-			'title'			=> __( 'Linktekst', 'siw' ),
-			'type'			=> 'text',
-			'validate'		=> 'no_html',
-			'required'		=> array(
-				'topbar_social_link_enabled',
-				'equals',
-				'1'
-			),
-		),
-		array(
-			'id'			=> 'topbar_social_link_network',
-			'title'			=> __( 'Netwerk', 'siw' ),
-			'type'			=> 'radio',
-			'options'		=> array(
-				'facebook'		=> __( 'Facebook', 'siw' ),
-				'instagram'		=> __( 'Instagram', 'siw' ),
-				'twitter'		=> __( 'Twitter', 'siw' ),
-			),
-			'required'		=> array(
-				'topbar_social_link_enabled',
-				'equals',
-				'1'
-			),
-		),
-		array(
-			'id'			=> 'topbar_social_link_date_end',
-			'title'			=> __( 'Einddatum', 'siw' ),
-			'type'			=> 'html5',
-			'html5'			=> 'date',
-			'required'		=> array(
-				'topbar_social_link_enabled',
-				'equals',
-				'1'
-			),
-		),
-		array(
-			'id'			=> 'topbar_social_link_section_end',
-			'type'			=> 'section',
-			'indent' 		=> false,
-		),
 	);
 	$email_fields = array(
 		array(
@@ -421,21 +421,29 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'indent'		=> false,
 		),
 	);
-	$email_fields[] = array(
-		'id'			=> 'dkim_passphrase',
-		'title'			=> __( 'DKIM passphrase', 'siw' ),
-		'type'			=> 'password',
-		'validate'		=> 'no_html',
-		'required'		=> array(
-			'dkim_enabled',
-			'equals',
-			1
+
+	$maps_fields = array(
+		array(
+			'id'			=> 'destinations_map',
+			'title'			=> __( 'Bestemmingen', 'siw' ),
+			'type'			=> 'select',
+			'options'		=> $maps,
+			'placeholder'	=> __( 'Selecteer een kaart', 'siw' ),
 		),
-	);
-	$email_fields[] = array(
-		'id'			=> 'dkim_section_end',
-		'type'			=> 'section',
-		'indent'		=> false,
+		array(
+			'id'			=> 'evs_map',
+			'title'			=> __( 'EVS', 'siw' ),
+			'type'			=> 'select',
+			'options'		=> $maps,
+			'placeholder'	=> __( 'Selecteer een kaart', 'siw' ),
+		),
+		array(
+			'id'			=> 'np_map',
+			'title'			=> __( 'Nederlandse projecten', 'siw' ),
+			'type'			=> 'select',
+			'options'		=> $maps,
+			'placeholder'	=> __( 'Selecteer een kaart', 'siw' ),
+		),
 	);
 	/* Secties */
 	Redux::setSection( SIW_OPT_NAME, array(
@@ -445,22 +453,34 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'permissions'	=> 'manage_options'
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'constants',
-		'title'			=> __( 'Constantes', 'siw' ),
+		'id'			=> 'analytics_seo',
+		'title'			=> __( 'Analytics & SEO', 'siw' ),
 		'subsection'	=> true,
-		'fields'		=> $constants_fields,
+		'fields'		=> $analytics_seo_fields,
 	) );
+	Redux::setSection( SIW_OPT_NAME, array(
+		'id'			=> 'api',
+		'title'			=> __( 'API', 'siw' ),
+		'subsection'	=> true,
+		'fields'		=> $api_fields,
+	) );	
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'email',
 		'title'			=> __( 'E-mail', 'siw' ),
 		'subsection'	=> true,
 		'fields'		=> $email_fields,
-	) );
+	) );	
 	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'google_analytics',
-		'title'			=> __( 'Google Analytics', 'siw' ),
+		'id'			=> 'constants',
+		'title'			=> __( 'Constantes', 'siw' ),
 		'subsection'	=> true,
-		'fields'		=> $google_analytics_fields,
+		'fields'		=> $constants_fields,
+	) );	
+	Redux::setSection( SIW_OPT_NAME, array(
+		'id'			=> 'maps',
+		'title'			=> __( 'Kaarten', 'siw' ),
+		'subsection'	=> true,
+		'fields'		=> $maps_fields,
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'login',
@@ -479,17 +499,5 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'title'			=> __( 'Plato', 'siw' ),
 		'subsection'	=> true,
 		'fields'		=> $plato_fields,
-	) );
-	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'api',
-		'title'			=> __( 'Postcode API', 'siw' ),
-		'subsection'	=> true,
-		'fields'		=> $postcode_api_fields,
-	) );
-	Redux::setSection( SIW_OPT_NAME, array(
-		'id'		=> 'topbar',
-		'title'		=> __( 'Topbar', 'siw' ),
-		'subsection'=> true,
-		'fields'	=> $topbar_fields,
 	) );
 } );

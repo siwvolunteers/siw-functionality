@@ -1,6 +1,6 @@
 <?php
 /*
- * (c)2017 SIW Internationale Vrijwilligersprojecten
+ * (c)2017-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined('ABSPATH' ) ) {
 	exit;
@@ -27,30 +27,44 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 		$free_places_current = $product->get_meta( 'freeplaces' );
 		$free_places_new = siw_get_workcamp_free_places_left( $xml['free_m'], $xml['free_f'] );
 
-		return ( 'no' != $free_places_current && 'no' == $free_places_new && $visibility ) ? true : false; //redundante operator?
+		return ( 'no' != $free_places_current && 'no' == $free_places_new && $visibility ) ? true : false; //FIXME:redundante operator?
 	}
 
 	$import_again = $product->get_meta( 'import_again' );
-	if ( ! $is_fpl_import && $import_again ) {
-		siw_debug_log( sprintf( 'Update project %s (%s): Instelling bij project', $product_id, $sku ) );
+	if ( $is_full_import && $import_again ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Geforceerde update specifiek project', $product_id, $sku ) );
 		return true;
 	}
 
 	$force_full_update = siw_get_setting( 'plato_force_full_update' );
 	if ( $is_full_import && $force_full_update ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Geforceerde update alle projecten', $product_id, $sku ) );
 		return true;
 	}
 
 
 	/*
 	Project opnieuw importeren als één van de volgende eigenschappen aangepast is.
+	- Update in Plate (last_update)
 	- Startdatum
 	- Eindatum
 	- Local fee
 	- Projectcode
 	- Land toegestaan
+	- Land
+	- Leeftijd
 	- TODO: Nog meer eigenschappen? Bijv. beschrijving, soort werk...
 	*/
+
+	/* Als project in Plato is bijgewerkt */
+	$last_update_plato = $xml['last_update'];
+	$last_update_product = $product->get_date_modified()->date_i18n( 'Y-m-d' );
+
+	if ( '0001-01-01' != $last_update_plato && ( $last_update_product < $last_update_plato ) ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Project bijgewerkt in Plato op %s', $product_id, $sku, $xml['last_update'] ) );
+		return true;
+	}
+
 
 	/* Startdatum */
 	$start_date_current = $product->get_attribute( 'startdatum' );
@@ -70,6 +84,7 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 
 	/* Local fee */
 	$participation_fee_current = $product->get_attribute( 'lokale-bijdrage' );
+	$participation_fee_current = html_entity_decode( $participation_fee_current );
 	$participation_fee_new = siw_get_workcamp_local_fee( $xml['participation_fee'], isset( $xml['participation_fee_currency'] ) ? $xml['participation_fee_currency'] : '' );
 	$participation_fee_new = html_entity_decode( $participation_fee_new );
 	if ( $participation_fee_current != $participation_fee_new ) {
@@ -85,11 +100,27 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 		return true;
 	}
 
+	/* Land */
+	$country_current = $product->get_attribute( 'land' );
+	$country_new = siw_get_workcamp_country_name( $xml['country'] );
+	if ( $country_current != $country_new ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Land veranderd van %s naar %s', $product_id, $sku, $country_current, $country_new ) );
+		return true;
+	}
+
 	/* Land toegestaan*/
 	$country_allowed_current = $product->get_meta( 'allowed' );
 	$country_allowed_new = siw_get_workcamp_country_allowed( $xml['country'] );
 	if ( $country_allowed_current != $country_allowed_new ) {
 		siw_debug_log( sprintf( 'Update project %s (%s): Status land veranderd van %s naar %s', $product_id, $sku, $country_allowed_current, $country_allowed_new ) );
+		return true;
+	}
+
+	/* Leeftijd */
+	$age_range_current = $product->get_attribute( 'leeftijd' );
+	$age_range_new = siw_get_workcamp_age_range( $xml['min_age'], $xml['max_age'] );
+	if ( $age_range_current != $age_range_new ) {
+		siw_debug_log( sprintf( 'Update project %s (%s): Leeftijd veranderd van %s naar %s', $product_id, $sku, $age_range_current, $age_range_new ) );
 		return true;
 	}
 
@@ -106,7 +137,10 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
  * - Er zijn geen vrije plaatsen meer
  */
 add_action( 'siw_hide_workcamps', function() {
-	$days = siw_get_setting( 'plato_hide_project_days_before_start' );
+
+	siw_debug_log( 'Verbergen projecten gestart.' );
+
+	$days = siw_get_setting( 'plato_hide_project_days_before_start' ); //TODO:constante van maken
 	$limit = date( 'Y-m-d', time() + ( $days * DAY_IN_SECONDS ) );
 
 	$tax_query = array(
@@ -150,14 +184,14 @@ add_action( 'siw_hide_workcamps', function() {
 		'post_status'		=> 'any',
 	);
 
-	$products = get_posts( $args );
+	$products = get_posts( $args ); //TODO: wc_get_products
 
-	$siw_hide_workcamps_background_process = $GLOBALS['siw_hide_workcamps_background_process'];
-	foreach ( $products as $product_id ) {
-		$siw_hide_workcamps_background_process->push_to_queue( $product_id );
+	// Afbreken als er geen te verbergen projecten zijn
+	if ( empty( $products ) ) {
+		siw_debug_log( 'Verbergen projecten voltooid: geen projecten te verbergen' );
+		return;
 	}
-	$siw_hide_workcamps_background_process->save()->dispatch();
-	siw_debug_log( 'Verbergen projecten gestart.' );
+	siw_start_background_process( 'hide_workcamps', $products );
 });
 
 
@@ -196,36 +230,22 @@ function siw_hide_workcamp( $product_id ) {
 siw_add_cron_job( 'siw_update_workcamp_tariffs' );
 
 add_action( 'siw_update_workcamp_tariffs', function() {
-	$tax_query = array(
-		array(
-			'taxonomy' => 'product_visibility',
-			'field'    => 'slug',
-			'terms'    => array( 'exclude-from-search', 'exclude-from-catalog' ),
-			'operator' => 'NOT IN',
-		),
-	);
-	$args = array(
-		'posts_per_page'	=> -1,
-		'post_type'			=> 'product',
-		'tax_query'			=> $tax_query,
-		'fields' 			=> 'ids',
-		'post_status'		=> 'any',
-	);
-	$products = get_posts( $args );
-
-	$siw_update_tariffs_background_process = $GLOBALS['siw_update_tariffs_background_process'];
-	foreach ( $products as $product ) {
-		$siw_update_tariffs_background_process->push_to_queue( $product );
-	}
-	$siw_update_tariffs_background_process->save()->dispatch();
 	siw_debug_log( 'Bijwerken tarieven gestart.' );
+	$args = array(
+		'visibility'	=> 'visible',
+		'return'		=> 'ids',
+		'limit'			=> -1,
+	);
+	$products = wc_get_products( $args );
+
+	siw_start_background_process( 'update_workcamp_tariffs', $products );
 });
 
 
 /**
- * [siw_update_workcamp_tariff description]
- * @param  [type] $product_id [description]
- * @return [type]             [description]
+ * Werkt tarieven van groepsproject bij
+ * @param  int $product_id
+ * @return bool
  */
 function siw_update_workcamp_tariff( $product_id ) {
 	$tariff_array = siw_get_workcamp_tariffs();
@@ -247,4 +267,6 @@ function siw_update_workcamp_tariff( $product_id ) {
 		$variation->set_regular_price( $price );
 		$variation->save();
 	}
+
+	return true;
 }

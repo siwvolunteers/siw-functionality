@@ -26,7 +26,7 @@ add_filter( 'caldera_forms_save_revision', '__return_false' );
 
 /*extra span voor styling radiobuttons en checkboxen*/
 add_filters( array('caldera_forms_render_field_type-checkbox', 'caldera_forms_render_field_type-radio'), function( $field_html ) {
-	$field_html = preg_replace( '/<input(.*?)>/', '<input$1><div class="control-indicator"></div>', $field_html );
+	$field_html = preg_replace( '/<input(.*?)>/s', '<input$1><div class="control-indicator"></div>', $field_html );
 	return $field_html;
 } );
 
@@ -61,3 +61,20 @@ add_action( 'plugins_loaded', function() {
 	remove_filter( 'caldera_forms_mailer', array( Caldera_Forms::get_instance(), 'format_message' ) );
 	remove_filter( 'caldera_forms_autoresponse_mail', array( 'Caldera_Forms_Email_Filters', 'format_autoresponse_message' ) );
 });
+
+
+/* Extra validaties toevoegen */
+add_filter( 'caldera_forms_field_attributes', function( $attrs, $field ) {
+
+	if ( 'geboortedatum' === $field['ID'] ) {
+		$attrs[ 'data-parsley-error-message' ] = __( 'Dit is geen geldige datum', 'siw' );
+		$attrs[ 'data-parsley-pattern' ] = '/^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$/';
+	}
+
+	if ( 'postcode' === $field['ID'] ) {
+		$attrs[ 'data-parsley-error-message' ] = __( 'Dit is geen geldige postcode', 'siw' );
+		$attrs[ 'data-parsley-pattern' ] = '/^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/';
+	}
+
+	return $attrs;
+}, 10, 2 );

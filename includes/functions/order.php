@@ -25,7 +25,6 @@ function siw_get_order_data( $order ) {
 		'last_name'					=> $order->get_billing_last_name(),
 		'date_of_birth'				=> $order->get_meta( '_billing_dob' ),
 		'gender_code'				=> $order->get_meta( '_billing_gender' ),
-		'gender'					=> $genders[ $order_data['gender_code'] ],
 		'nationality_code'			=> $order->get_meta( '_billing_nationality' ),
 		'street' 					=> $order->get_billing_address_1(),
 		'housenumber' 				=> $order->get_meta( '_billing_housenumber' ),
@@ -47,16 +46,16 @@ function siw_get_order_data( $order ) {
 		'volunteer_experience'		=> $order->get_meta( 'volunteerExperience' ),
 		'together_with'				=> $order->get_meta( 'togetherWith' ),
 	);
-
+	$order_data['gender']			= $genders[ $order_data['gender_code'] ];
 	$order_data['full_name']		= sprintf( '%s %s', $order_data['first_name'], $order_data['last_name'] );
 	$order_data['nationality']		= $nationalities[ $order_data['nationality_code'] ];
 	$order_data['address']			= sprintf( '%s %s<br/>%s %s<br/>%s', $order_data['street'] , $order_data['housenumber'], $order_data['postcode'], $order_data['city'], $order_data['country'] );
 	$order_data['language_1']		= $languages[ $order_data['language_1_code'] ];
 	$order_data['language_1_skill']	= $language_skill[ $order_data['language_1_skill_code'] ];
 	$order_data['language_2']		= ! empty( $order_data['language_2_code'] ) ? $languages[ $order_data['language_2_code'] ] : '';
-	$order_data['language_2_skill']			= isset( $language_skill[ $order_data['language_2_skill_code'] ] ) ? $language_skill[ $order_data['language_2_skill_code'] ] : '';
-	$order_data['language_3']				= ! empty( $order_data['language_3_code'] ) ? $languages[ $order_data['language_3_code'] ] : '';
-	$order_data['language_3_skill']			= isset( $language_skill[ $order_data['language_3_skill_code'] ] ) ? $language_skill[ $order_data['language_3_skill_code'] ] : '';
+	$order_data['language_2_skill']	= isset( $language_skill[ $order_data['language_2_skill_code'] ] ) ? $language_skill[ $order_data['language_2_skill_code'] ] : '';
+	$order_data['language_3']		= ! empty( $order_data['language_3_code'] ) ? $languages[ $order_data['language_3_code'] ] : '';
+	$order_data['language_3_skill']	= isset( $language_skill[ $order_data['language_3_skill_code'] ] ) ? $language_skill[ $order_data['language_3_skill_code'] ] : '';
 
 	return $order_data;
 }

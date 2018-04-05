@@ -48,19 +48,10 @@ class SIW_Mailpoet_Subscription extends \TDP\Widgets_Helper {
 				<p>
 				<?php printf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), $subscriber_count );?>
 				</p>
-				<p>
-					<label><?php esc_html_e( 'Voornaam','siw' );?></label>
-					<input type="text" name="name" title="<?php esc_attr_e( 'Voornaam', 'siw' );?>" id="newsletter_name" required>
-				</p>
-				<p>
-					<label><?php esc_html_e( 'E-mail','siw' );?></label>
-					<input type="email" name="email" title="<?php esc_attr_e( 'E-mail', 'siw' );?>" id="newsletter_email" required>
-
-				</p>
-				<p>
-					<input type="submit" value="<?php esc_attr_e( 'Aanmelden', 'siw' );?>">
-				</p>
-				<input type="hidden" value="<?php echo esc_attr( $instance['list'] ); ?>" name="list_id" id="newsletter_list_id">
+				<?php siw_render_field( 'text', array( 'label' => __( 'Voornaam ', 'siw' ), 'name' => 'name', 'id' => 'newsletter_name', 'required' => true ), array( 'tag' => 'p' )  ) ;?>
+				<?php siw_render_field( 'email', array( 'label' => __( 'E-mail ', 'siw' ), 'name' => 'email', 'id' => 'newsletter_email', 'required' => true ), array( 'tag' => 'p' )  ) ;?>
+				<?php siw_render_field( 'submit', array( 'value' => __( 'Aanmelden', 'siw') ), array( 'tag' => 'p' ) );?>
+				<?php siw_render_field( 'hidden', array( 'value' => $instance['list'], 'name' => 'list_id', 'id' => 'newsletter_list_id' ) ); ?>
 				<?php wp_nonce_field( 'siw_newsletter_nonce', 'newsletter_nonce', false);?>
 			</form>
 		</div>

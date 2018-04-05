@@ -94,15 +94,15 @@ function siw_get_workcamp_duration_in_days( $start_date, $end_date ) {
 /**
  * Geeft continent-slug o.b.v. code terug
  *
- * @param string $country
+ * @param string $country_code
  *
  * @return string
  */
-function siw_get_workcamp_continent_slug( $country ) {
+function siw_get_workcamp_continent_slug( $country_code ) {
 	$continent_slug = '';
-	$project_countries = siw_get_project_countries();
-	if ( isset ( $project_countries[ $country ]['continent'] ) ) {
-		$continent_slug = $project_countries[ $country ]['continent'];
+	$country = siw_get_country( $country_code );
+	if ( isset ( $country['continent'] ) ) {
+		$continent_slug = $country['continent'];
 	}
 	return $continent_slug;
 }
@@ -111,15 +111,15 @@ function siw_get_workcamp_continent_slug( $country ) {
 /**
  * Geeft land-slug o.b.v. code terug
  *
- * @param string $country
+ * @param string $country_code
  *
  * @return string
  */
-function siw_get_workcamp_country_slug( $country ) {
+function siw_get_workcamp_country_slug( $country_code ) {
 	$country_slug = '';
-	$project_countries = siw_get_project_countries();
-	if ( isset ( $project_countries[ $country ]['slug'] ) ) {
-		$country_slug = $project_countries[ $country ]['slug'];
+	$country = siw_get_country( $country_code );
+	if ( isset ( $country['slug'] ) ) {
+		$country_slug = $country['slug'];
 	}
 	return $country_slug;
 }
@@ -128,15 +128,15 @@ function siw_get_workcamp_country_slug( $country ) {
 /**
  * Geeft landnaam o.b.v. code terug
  *
- * @param string $country
+ * @param string $country_code
  *
  * @return string
  */
-function siw_get_workcamp_country_name( $country ) {
+function siw_get_workcamp_country_name( $country_code ) {
 	$country_name = '';
-	$project_countries = siw_get_project_countries();
-	if ( isset ( $project_countries[ $country ]['name']) ) {
-		$country_name = $project_countries[ $country ]['name'];
+	$country = siw_get_country( $country_code );
+	if ( isset ( $country['name']) ) {
+		$country_name = $country['name'];
 	}
 	return $country_name;
 }
@@ -145,15 +145,15 @@ function siw_get_workcamp_country_name( $country ) {
 /**
  * Geeft terug of land toegestaan is
  *
- * @param string $country
+ * @param string $country_code
  *
  * @return string
  */
-function siw_get_workcamp_country_allowed( $country ) {
+function siw_get_workcamp_country_allowed( $country_code ) {
 
-	$project_countries = siw_get_project_countries();
-	if ( isset ( $project_countries[ $country ]['allowed'] ) ) {
-		$country_allowed = $project_countries[ $country ]['allowed'];
+	$country = siw_get_country( $country_code );
+	if ( isset ( $country['allowed'] ) ) {
+		$country_allowed = $country['allowed'];
 	}
 	else {
 		$country_allowed = 'no';
@@ -207,16 +207,22 @@ function siw_get_workcamp_work_in_text( $work, $single = true ) {
  * @return string
  */
 function siw_get_workcamp_local_fee( $participation_fee, $participation_fee_currency ) {
-	$project_currencies = siw_get_project_currencies();
+
 	$participation_fee = (int) $participation_fee;
 
 	if ( 0 == $participation_fee || ! is_string( $participation_fee_currency ) ) {
 		return '';
 	}
-	if ( isset( $project_currencies[ $participation_fee_currency ] ) ) {
-		$participation_fee_symbol = $project_currencies[ $participation_fee_currency ]['symbol'];
-		$participation_fee_name = $project_currencies[ $participation_fee_currency ]['name'];
+
+	$currency = siw_get_currency( $participation_fee_currency );
+
+	if ( $currency && 'EUR' != $participation_fee_currency ) {
+		$participation_fee_symbol = $currency['symbol'];
+		$participation_fee_name = $currency['name'];
 		$local_fee = sprintf( '%s %d (%s)', $participation_fee_symbol, $participation_fee, $participation_fee_name );
+	}
+	elseif( 'EUR' == $participation_fee_currency ) {
+		$local_fee = sprintf( '&euro; %s', $participation_fee );
 	}
 	else {
 		$local_fee = sprintf( '%s %d', $participation_fee_currency, $participation_fee );
@@ -264,7 +270,10 @@ function siw_get_workcamp_languages_slugs( $languages ) {
 	$project_languages = siw_get_project_languages();
 	$languages = '';
 	foreach ( $language_codes as $code ) {
-		$languages .= $project_languages[strtoupper( $code )] . '|';
+		$code = strtoupper( $code );
+		if ( isset( $project_languages[ $code ] ) ){
+			$languages .= $project_languages[ $code ] . '|';
+		}
 	}
 	return $languages;
 

@@ -51,7 +51,9 @@ function siw_get_job_data( $post_id ) {
 		'wie_ben_jij'				=> get_post_meta( $post_id, 'siw_vacature_wie_ben_jij', true ),
 		'wie_ben_jij_lijst'			=> get_post_meta( $post_id, 'siw_vacature_wie_ben_jij_lijst', true ),
 		'wat_ga_je_doen'			=> get_post_meta( $post_id, 'siw_vacature_wat_ga_je_doen', true ),
+		'wat_ga_je_doen_lijst'		=> get_post_meta( $post_id, 'siw_vacature_wat_ga_je_doen_lijst', true ),
 		'wat_bieden_wij_jou'		=> get_post_meta( $post_id, 'siw_vacature_wat_bieden_wij_jou', true ),
+		'wat_bieden_wij_jou_lijst'	=> get_post_meta( $post_id, 'siw_vacature_wat_bieden_wij_jou_lijst', true ),
 		'contactpersoon_naam'		=> get_post_meta( $post_id, 'siw_vacature_contactpersoon_naam', true ),
 		'contactpersoon_email'		=> antispambot( get_post_meta( $post_id, 'siw_vacature_contactpersoon_email', true ) ),
 		'contactpersoon_telefoon'	=> get_post_meta( $post_id, 'siw_vacature_contactpersoon_telefoon', true ),// Wordt nog niet gebruikt
@@ -72,6 +74,11 @@ function siw_get_job_data( $post_id ) {
 
 	return $job_data;
 }
+add_filter( 'siw_job_data', function( $job_data, $post_id ) {
+	return siw_get_job_data( $post_id );
+}, 10, 2 );
+
+
 
 
 /**

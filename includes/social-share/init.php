@@ -16,10 +16,10 @@ Social sharing links toevoegen aan
 */
 
 
-add_actions( array(	'kadence_single_portfolio_after', 'siw_vacature_footer', 'siw_agenda_footer', 'woocommerce_after_single_product', 'kadence_single_post_after' ), function() {
+add_actions( array(	'kadence_single_portfolio_after', 'siw_vacature_footer', 'siw_agenda_footer', 'siw_evs_project_footer', 'woocommerce_after_single_product', 'kadence_single_post_after' ), function() {
 	$post_type = get_post_type();
 	$hr = false;
-	if ( 'portfolio' == $post_type or 'product' == $post_type ) {
+	if ( 'portfolio' == $post_type || 'product' == $post_type || 'evs_project' == $post_type ) {
 		$post_type_description = __( 'Deel dit project', 'siw' );
 		$hr = true;
 	}

@@ -17,6 +17,14 @@ add_filter( 'woocommerce_get_country_locale', function( $fields ) {
 }, 99);
 
 
+add_filter( 'woocommerce_billing_fields', function( $address_fields, $country ) {
+
+	$address_fields['billing_phone']['class'] = array ( 'form-row-first');
+	$address_fields['billing_email']['class'] = array ( 'form-row-last');
+	return $address_fields;
+}, 10, 2 );
+
+
 /* Verwijderen verzendadres */
 add_filter( 'woocommerce_shipping_fields', '__return_empty_array' );
 

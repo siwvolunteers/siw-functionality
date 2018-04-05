@@ -39,7 +39,7 @@ add_action( 'siw_set_noindex_for_past_events', function() {
  */
 function siw_get_upcoming_events( $number, $min_date = '', $max_date = '' ) {
 
-	if ( '' == $min_date ) {
+	if ( empty( $min_date ) ) {
 		$min_date = strtotime( date( 'Y-m-d' ) );
 	}
 
@@ -52,7 +52,7 @@ function siw_get_upcoming_events( $number, $min_date = '', $max_date = '' ) {
 		),
 
 	);
-	if ( '' != $max_date ) {
+	if ( ! empty( $max_date ) ) {
 		$meta_query_args[] = array(
 			'key'		=> 'siw_agenda_start',
 			'value'		=> $max_date,

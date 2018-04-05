@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
  * Author: Maarten Bruna
- * Version: 1.5.1
+ * Version: 1.6
  */
 
 
@@ -20,11 +20,10 @@ define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . '/assets' );
 define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . '/includes' );
 define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
-define ( 'SIW_PLUGIN_VERSION', '1.5.1' );
+define ( 'SIW_PLUGIN_VERSION', '1.5.2' );
 define ( 'SIW_AJAX_URL', SIW_PLUGIN_URL . 'ajax-handler.php' );
-define ( 'SIW_SITE_URL', get_site_url() );
-define ( 'SIW_SITE_NAME', $_SERVER['SERVER_NAME'] );
-
+define ( 'SIW_SITE_URL', get_home_url() );
+define ( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL )['host'] );
 
 /*
  * Hulp-plugins
@@ -52,6 +51,10 @@ require_once( SIW_INCLUDES_DIR . '/settings/init.php' );
 
 /* Diverse aanpassingen */
 require_once( SIW_INCLUDES_DIR . '/custom.php' );
+/* Aanpassingen in de head */
+require_once( SIW_INCLUDES_DIR . '/head.php' );
+/* .htaccess-aanpassingen */
+require_once( SIW_INCLUDES_DIR . '/htaccess.php' );
 /* JS en CSS enqueuen */
 require_once( SIW_INCLUDES_DIR . '/enqueue.php' );
 /* Cron jobs schedulen */
@@ -76,6 +79,8 @@ require_once( SIW_INCLUDES_DIR . '/analytics/init.php' );
 require_once( SIW_INCLUDES_DIR . '/email/init.php');
 /* Formulieren */
 require_once( SIW_INCLUDES_DIR . '/forms/init.php' );
+/* Kaarten */
+require_once( SIW_INCLUDES_DIR . '/maps/init.php' );
 /* Pagebuilder */
 require_once( SIW_INCLUDES_DIR . '/pagebuilder/init.php' );
 /* Custom post types */

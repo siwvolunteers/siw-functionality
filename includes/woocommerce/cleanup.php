@@ -26,6 +26,9 @@ add_action( 'siw_cleanup_terms', function() {
 			'hide_empty' => false,
 			)
 		);
+		if ( is_wp_error( $terms ) ) {
+			continue;
+		}
 		foreach ( $terms as $term ) {
 			if ( 0 == $term->count ) {
 				wp_delete_term( $term->term_id, $taxonomy );
@@ -106,7 +109,7 @@ add_action( 'siw_update_yith_widgets', function() {
 });
 
 
-/* Verweesde variaties verwijderen */
+/* Verweesde variaties verwijderen TODO: Background proces, dan kan ook limiet van 10 weg*/
 siw_add_cron_job( 'siw_delete_orphaned_variations' );
 
 add_action( 'siw_delete_orphaned_variations', function() {
@@ -178,7 +181,7 @@ add_action( 'siw_delete_projects', function() {
 		'meta_query'		=> $meta_query,
 		'fields' 			=> 'ids'
 	);
-	$products = get_posts( $args );
+	$products = get_posts( $args ); //TODO: wc_get_products gebruiken
 
 	// Afbreken als er geen te verwijderen projecten zijn
 	if ( empty( $products ) ) {
@@ -214,58 +217,32 @@ add_action( 'siw_delete_projects', function() {
 		)
 	);
 
-	$siw_delete_workcamps_background_process = $GLOBALS['siw_delete_workcamps_background_process'];
-	foreach ( $products as $product_id ) {
-		$siw_delete_workcamps_background_process->push_to_queue( $product_id );
-	}
-	$siw_delete_workcamps_background_process->save()->dispatch();
+	siw_start_background_process( 'delete_workcamps', $products );
 });
 
 
-/* Repareren projecten door bug in WP All Import */
-add_action( 'siw_repair_projects', function() {
-	siw_debug_log( 'Start repareren projecten' );
+/* Verwijderen aanmeldingen van meer dan 1 jaar oud */
+siw_add_cron_job( 'siw_delete_applications' );
+
+add_action( 'siw_delete_applications', function() {
+
+	siw_debug_log( 'Start verwijderen aanmeldingen' );
+
+	// Zoek te verwijderen aanmeldingen
 	$args = array(
-		'posts_per_page'	=> -1,
-		'post_type'			=> 'product',
-		'fields' 			=> 'ids',
-		'post_status'		=> 'any',
+		'limit'			=> -1,
+		'return'		=> 'ids',
+		'type'			=> 'shop_order',
+		'date_created'	=> '<' . ( time() - YEAR_IN_SECONDS ),
 	);
-	$products = get_posts( $args );
+	$applications = wc_get_orders( $args );
 
-	$product_chunks = array_chunk( $products, 500 );
-
-	$siw_repair_workcamps_background_process = $GLOBALS['siw_repair_workcamps_background_process'];
-	foreach ( $product_chunks as $products ) {
-		foreach ( $products as $product_id ) {
-			//$siw_repair_workcamps_background_process->push_to_queue( $product_id );
-		}
-		$siw_repair_workcamps_background_process->save();
+	// Afbreken als er geen te verwijderen aanmeldingen zijn
+	if ( empty( $applications ) ) {
+		siw_debug_log( 'Eind verwijderen aanmeldingen: geen aanmeldingen te verwijderen' );
+		return;
 	}
-	$siw_repair_workcamps_background_process->dispatch();
+	siw_debug_log( 'Aantal te verwijderen aanmeldingen: ' . count( $applications ) );
+
+	siw_start_background_process( 'delete_applications', $applications );
 });
-
-
-/**
- * Repareer los project
- *
- * @param int $product_id
- * @return void
- */
-function siw_repair_project( $product_id ) {
-
-	$product_types = wp_get_object_terms( $product_id, 'product_type' );
-	foreach ( $product_types as $product_type ) {
-		if ( 'variable' != $product_type->slug ) {
-			wp_remove_object_terms( $product_id, $product_type->slug, 'product_type' );
-		}
-	}
-
-	$country_meta = get_post_meta( $product_id, 'land', true );
-	$countries = wp_get_object_terms( $product_id, 'pa_land' );
-	foreach ( $countries as $country ) {
-		if ( $country_meta != $country->slug ) {
-			wp_remove_object_terms( $product_id, $country->slug, 'pa_land' );	
-		}
-	}
-}

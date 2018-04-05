@@ -31,9 +31,9 @@ add_action( 'woocommerce_after_add_to_cart_form', function() {
 	$participation_fee_currency = $product->get_meta( 'participation_fee_currency' );
 	$local_fee = $product->get_attribute( 'lokale-bijdrage' );
 	if ( ! empty( $participation_fee_currency ) && $participation_fee > 0 ) {
-		$currency = siw_get_project_currency( $participation_fee_currency );
+		$currency = siw_get_currency( $participation_fee_currency );
 		$symbol = isset( $currency['symbol'] ) ? $currency['symbol'] : $participation_fee_currency;
-		if ( 'EUR' != $participation_fee_currency ) {
+		if ( false != $currency && 'EUR' != $participation_fee_currency ) {
 			$amount_in_euro = siw_get_amount_in_euro( $participation_fee_currency, $participation_fee );
 		}
 		?>
@@ -74,7 +74,7 @@ add_filter('woocommerce_sale_flash', function ( $text ) {
 add_filter( 'woocommerce_show_variation_price', '__return_true' );
 
 
-/* Volgorde van projecteigenschappen aanpassen TODO: sortable optie maken */
+/* Volgorde van projecteigenschappen aanpassen */
 add_filter( 'woocommerce_product_get_attributes', function( $attributes ) {
 	$order = array(
 		'pa_projectnaam', //TODO: verwijderen indien mogelijk
@@ -153,7 +153,7 @@ add_filter( 'woocommerce_product_tabs', function( $tabs ) {
  * @return void
  */
 function siw_workcamp_show_project_map( $tab, $args ) {
-	echo do_shortcode( sprintf( '[gmap address="%s,%s" title="Projectlocatie" zoom="6" maptype="ROADMAP"]', esc_attr( $args['latitude'] ), esc_attr( $args['longitude'] ) ) );
+	echo do_shortcode( sprintf( '[gmap address="%s,%s" title="%s" zoom="6" maptype="ROADMAP"]', esc_attr( $args['latitude'] ), esc_attr( $args['longitude'] ), esc_attr__( 'Projectlocatie', 'siw' ) ) );
 }
 
 /**
