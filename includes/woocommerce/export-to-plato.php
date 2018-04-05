@@ -74,7 +74,7 @@ function siw_export_application_to_plato( $order ) {
 		), $import_volunteer_webservice_url );
 
 		/* Roep webservice aan */
-		$response = wp_safe_remote_post( $url, $args );
+		$response = wp_safe_remote_get( $url, $args );
 
 		/* In het geval van een fout: foutmelding wegschrijven naar log */
 		if ( is_wp_error( $response ) ) {
