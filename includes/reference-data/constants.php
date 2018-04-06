@@ -74,6 +74,7 @@ define( 'SIW_COLOR_NORTH_AMERICA', '#fbba00' );
 /* URL's voor webservices */
 define( 'SIW_POSTCODE_API_URL','https://postcode-api.apiwise.nl/v2/addresses/' );
 define( 'SIW_PLATO_WEBSERVICE_URL', 'http://www.workcamp-plato.org/files/services/ExternalSynchronization.asmx/' );
+define( 'SIW_PLATO_BACKOFFICE_URL', 'http://www.workcamp-plato.org/' );
 define( 'SIW_TRAVEL_ADVICE_BASE_URL', 'https://www.nederlandwereldwijd.nl/reizen/reisadviezen/' );
 define( 'SIW_EXCHANGE_RATES_API_URL', 'https://data.fixer.io/api/' );
 
