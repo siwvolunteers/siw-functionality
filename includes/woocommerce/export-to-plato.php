@@ -1,6 +1,6 @@
 <?php
 /*
- * (c) 2017 SIW Internationale Vrijwilligersprojecten
+ * (c) 2017-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -30,7 +30,7 @@ function siw_export_application_to_plato( $order ) {
 	}
 
 	// Export van aanmelding gebruikt endpoint ImportVolunteer
-	$import_volunteer_webservice_url = SIW_PLATO_WEBSERVICE_URL . 'ImportVolunteer';
+	$url = SIW_PLATO_WEBSERVICE_URL . 'ImportVolunteer';
 
 	// Zet HTTP-post argumenten
 	$args = array(
@@ -67,14 +67,11 @@ function siw_export_application_to_plato( $order ) {
 		}
 		$xml_data = $xml->asXML();
 
-		/* Bouw bericht voor webservice op */
-		$url = add_query_arg( array(
-			'organizationWebserviceKey' => $organization_webkey,
-			'xmlData' => rawurlencode( $xml_data ),
-		), $import_volunteer_webservice_url );
-
+		/* Zet bericht in body */
+		$args['body'] = array( 'organizationWebserviceKey' => $organization_webkey, 'xmlData' => $xml_data );
+		
 		/* Roep webservice aan */
-		$response = wp_safe_remote_get( $url, $args );
+		$response = wp_safe_remote_post( $url, $args );
 
 		/* In het geval van een fout: foutmelding wegschrijven naar log */
 		if ( is_wp_error( $response ) ) {
@@ -95,10 +92,12 @@ function siw_export_application_to_plato( $order ) {
 		$body = simplexml_load_string( wp_remote_retrieve_body( $response ) );
 		$success = (string) $body->Success;
 		if ( 'true' == $success ) {
-			/* Bug in PLATO: imported_id geeft organizationWebserviceKey terug i.p.v. application_id */
-			//$imported_id = (string) $body->ImportedIds->string;
-			$note = sprintf( 'Aanmelding voor %s succesvol geëxporteerd naar PLATO.', $projectcode );
-			$order->add_order_note( $note );
+			$imported_id = (string) $body->ImportedIds->string; //TODO: update order meta met Plato application id
+			$plato_application_link = SIW_PLATO_BACKOFFICE_URL . 'list-outgoing.167.aspx#/viewapplication/' . $imported_id;
+			$log_message = sprintf( 'Aanmelding voor %s succesvol geëxporteerd naar PLATO.<br/>', $projectcode );
+			$log_message .= siw_generate_external_link( $plato_application_link , 'Bekijk aanmelding in Plato.');
+			$order->add_order_note( $log_message );
+
 			$success_count++;
 		}
 		else {
