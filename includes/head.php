@@ -22,14 +22,14 @@ add_action( 'wp_head', function() {
 	$icons_url = wp_make_link_relative( SIW_ASSETS_URL . 'icons/' );
 ?>
 	<!-- Start favicons -->
-	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo $icons_url;?>apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo $icons_url;?>favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="192x192" href="<?php echo $icons_url;?>android-chrome-192x192.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo $icons_url;?>favicon-16x16.png">
-	<link rel="manifest" href="<?php echo $icons_url;?>manifest.json">
-	<link rel="mask-icon" href="<?php echo $icons_url;?>safari-pinned-tab.svg" color="#ff9900">
-	<link rel="shortcut icon" href="<?php echo $icons_url;?>favicon.ico">
-	<meta name="msapplication-config" content="<?php echo $icons_url;?>browserconfig.xml">
+	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo esc_url( $icons_url );?>apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo esc_url( $icons_url );?>favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="<?php echo esc_url( $icons_url );?>android-chrome-192x192.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo esc_url( $icons_url );?>favicon-16x16.png">
+	<link rel="manifest" href="<?php echo esc_url( $icons_url );?>manifest.json">
+	<link rel="mask-icon" href="<?php echo esc_url( $icons_url );?>safari-pinned-tab.svg" color="<?php echo esc_attr( SIW_PRIMARY_COLOR );?>">
+	<link rel="shortcut icon" href="<?php echo esc_url( $icons_url );?>favicon.ico">
+	<meta name="msapplication-config" content="<?php echo esc_url( $icons_url );?>browserconfig.xml">
 	<!-- Einde favicons -->
 <?php
 });
