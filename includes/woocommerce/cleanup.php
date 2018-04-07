@@ -155,13 +155,13 @@ add_action( 'siw_delete_orphaned_variations', function() {
 });
 
 
-/* Verwijderen groepsprojecten met een startdatum die meer dan 9 maanden in het verleden ligt */
+/* Verwijderen groepsprojecten met een startdatum die meer dan 6 maanden in het verleden ligt */
 siw_add_cron_job( 'siw_delete_projects' );
 
 add_action( 'siw_delete_projects', function() {
 	siw_debug_log( 'Start verwijderen projecten' );
 
-	$limit = date( 'Y-m-d', time() - ( 9 * MONTH_IN_SECONDS ) );
+	$limit = date( 'Y-m-d', time() - ( 6 * MONTH_IN_SECONDS ) );
 
 	$meta_query = array(
 		'relation'	=> 'OR',
