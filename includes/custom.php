@@ -74,6 +74,11 @@ add_filter( 'updraftplus_schedule_firsttime_files', function() {
 	return $backup_files_ts_gmt;
 } );
 
+/* URL opnemen in bestandsnaam backup */
+add_filter( 'updraftplus_blog_name', function( $blog_name ) {
+	$blog_name = sanitize_title( SIW_SITE_NAME );
+	return $blog_name;
+});
 
 /* Diverse UpdraftPlus notificaties verbergen */
 define( 'UPDRAFTPLUS_NOADS_B', true );
