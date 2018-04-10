@@ -54,3 +54,17 @@ add_action( 'siw_rebuild_cache', function() {
 		run_rocket_sitemap_preload();
 	}
 } );
+
+
+/* Sitemap genereren voor cache preload */
+add_action( 'before_run_rocket_sitemap_preload', function( $sitemap_type, $sitemap_url ) {
+
+	if ( ! function_exists( 'the_seo_framework' ) ) {
+		return;
+	} 
+	$tsf = the_seo_framework();
+	if ( $sitemap_url == $tsf->get_sitemap_xml_url() ) {
+		$tsf->setup_sitemap();
+	}
+
+}, 10, 2 );
