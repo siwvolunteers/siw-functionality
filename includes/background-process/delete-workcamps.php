@@ -1,6 +1,6 @@
 <?php
 /*
-(c)2017 SIW Internationale Vrijwilligersprojecten
+(c)2017-2018 SIW Internationale Vrijwilligersprojecten
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -18,7 +18,7 @@ class SIW_Delete_Workcamps_Process extends SIW_Background_Process {
 
 
     /**
-     * Task
+     * Verwijderen alle producten (inclusief variaties)
      *
      * @param mixed $item Queue item to iterate over.
      *
@@ -26,7 +26,13 @@ class SIW_Delete_Workcamps_Process extends SIW_Background_Process {
      */
 	protected function task( $item ) {
 
-		wp_delete_post( $item, true );
+		$product = wc_get_product( $item );
+		$variations = $product->get_children();
+		foreach ( $variations as $variation_id ) {
+			$variation = wc_get_product( $variation_id );
+			$variation->delete( true );
+		}
+		$product->delete( true );
 
 		return false;
 	}

@@ -18,7 +18,7 @@ class SIW_Delete_Applications_Process extends SIW_Background_Process {
 
 
     /**
-     * Task
+     * Verwijder aanmelding
      *
      * @param mixed $item Queue item to iterate over.
      *
@@ -26,7 +26,8 @@ class SIW_Delete_Applications_Process extends SIW_Background_Process {
      */
 	protected function task( $item ) {
 
-		wp_delete_post( $item, true );
+		$order = wc_get_order( $item );
+		$order->delete( true );
 
 		return false;
 	}
