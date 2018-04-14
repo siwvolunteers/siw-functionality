@@ -13,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 function siw_get_topbar_event_content() {
 
 	$show_topbar_event_days_range = siw_get_setting( 'topbar_event_days_range' );
-	$show_topbar_days_before_event = (int) $show_topbar_event_days_range[1];
-	$hide_topbar_days_before_event = (int) $show_topbar_event_days_range[2];
+	$show_topbar_days_before_event = (int) $show_topbar_event_days_range[2];
+	$hide_topbar_days_before_event = (int) $show_topbar_event_days_range[1];
 
 	$date_before = strtotime( date( 'Y-m-d' ) ) + ( $hide_topbar_days_before_event * DAY_IN_SECONDS );
 	$date_after = strtotime( date( 'Y-m-d' ) ) + ( $show_topbar_days_before_event * DAY_IN_SECONDS );
