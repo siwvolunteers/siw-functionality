@@ -8,7 +8,7 @@ msgstr ""
 "WordPress Blank Pot "
 "v1.0.0\n"
 "POT-Creation-Date: "
-"2018-04-10 23:15+0200\n"
+"2018-04-13 00:46+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -120,14 +120,14 @@ msgid "Locatie"
 msgstr ""
 
 #: plugins/siw-functionality/includes/admin/agenda.php:95
-#: plugins/siw-functionality/includes/reference-data/constants.php:96
+#: plugins/siw-functionality/includes/reference-data/constants.php:98
 #: plugins/siw-functionality/includes/woocommerce/email/application.php:188
 msgid "Adres"
 msgstr ""
 
 #: plugins/siw-functionality/includes/admin/agenda.php:103
 #: plugins/siw-functionality/includes/forms/fields.php:315
-#: plugins/siw-functionality/includes/reference-data/constants.php:97
+#: plugins/siw-functionality/includes/reference-data/constants.php:99
 msgid "Postcode"
 msgstr ""
 
@@ -274,19 +274,19 @@ msgid ""
 "Je bent ingelogd op: %s"
 msgstr ""
 
-#: plugins/siw-functionality/includes/admin/interface.php:69
+#: plugins/siw-functionality/includes/admin/interface.php:72
 msgid "Start actie"
 msgstr ""
 
-#: plugins/siw-functionality/includes/admin/interface.php:75
+#: plugins/siw-functionality/includes/admin/interface.php:78
 msgid "Single User"
 msgstr ""
 
-#: plugins/siw-functionality/includes/admin/interface.php:81
+#: plugins/siw-functionality/includes/admin/interface.php:84
 msgid "All Users"
 msgstr ""
 
-#: plugins/siw-functionality/includes/admin/interface.php:148
+#: plugins/siw-functionality/includes/admin/interface.php:151
 msgid "Aanmeldingen"
 msgstr ""
 
@@ -395,7 +395,7 @@ msgstr ""
 
 #: plugins/siw-functionality/includes/admin/vacatures.php:152
 #: plugins/siw-functionality/includes/admin/vacatures.php:191
-#: plugins/siw-functionality/includes/reference-data/constants.php:88
+#: plugins/siw-functionality/includes/reference-data/constants.php:90
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:31
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:63
 #: plugins/siw-functionality/includes/settings/sections/evs.php:63
@@ -431,13 +431,14 @@ msgstr ""
 #: plugins/siw-functionality/includes/admin/vacatures.php:165
 #: plugins/siw-functionality/includes/admin/vacatures.php:204
 #: plugins/siw-functionality/includes/forms/fields.php:273
-#: plugins/siw-functionality/includes/reference-data/constants.php:90
+#: plugins/siw-functionality/includes/reference-data/constants.php:92
 #: plugins/siw-functionality/includes/settings/sections/configuration.php:476
 #: plugins/siw-functionality/includes/settings/sections/evs.php:46
 #: plugins/siw-functionality/includes/settings/sections/info-day.php:22
 #: plugins/siw-functionality/includes/settings/sections/op-maat.php:14
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:19
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:105
+#: plugins/siw-functionality/includes/widgets/newsletter.php:52
 msgid "E-mail"
 msgstr ""
 
@@ -1168,6 +1169,7 @@ msgid "Anders"
 msgstr ""
 
 #: plugins/siw-functionality/includes/forms/fields.php:257
+#: plugins/siw-functionality/includes/widgets/newsletter.php:51
 msgid "Voornaam"
 msgstr ""
 
@@ -1176,7 +1178,7 @@ msgid "Achternaam"
 msgstr ""
 
 #: plugins/siw-functionality/includes/forms/fields.php:280
-#: plugins/siw-functionality/includes/reference-data/constants.php:91
+#: plugins/siw-functionality/includes/reference-data/constants.php:93
 #: plugins/siw-functionality/includes/shortcodes/general.php:33
 #: plugins/siw-functionality/includes/woocommerce/admin/order.php:125
 #: plugins/siw-functionality/includes/woocommerce/checkout/form.php:129
@@ -2034,172 +2036,183 @@ msgstr ""
 msgid "Soort vacature"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:89
+#: plugins/siw-functionality/includes/reference-data/constants.php:91
 msgid "Statutaire naam"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:92
+#: plugins/siw-functionality/includes/reference-data/constants.php:94
 msgid ""
 "Telefoonnummer (volledig)"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:93
+#: plugins/siw-functionality/includes/reference-data/constants.php:95
 msgid "KVK"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:94
+#: plugins/siw-functionality/includes/reference-data/constants.php:96
 #: plugins/siw-functionality/includes/shortcodes/general.php:47
 msgid "IBAN"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:95
+#: plugins/siw-functionality/includes/reference-data/constants.php:97
 #: plugins/siw-functionality/includes/shortcodes/general.php:54
 msgid "RSIN"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:98
+#: plugins/siw-functionality/includes/reference-data/constants.php:100
 msgid "Stad"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:99
+#: plugins/siw-functionality/includes/reference-data/constants.php:101
 #: plugins/siw-functionality/includes/shortcodes/general.php:61
 msgid "Openingstijden"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:100
+#: plugins/siw-functionality/includes/reference-data/constants.php:102
 msgid "Facebook URL"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:101
+#: plugins/siw-functionality/includes/reference-data/constants.php:103
 msgid "Twitter URL"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:102
+#: plugins/siw-functionality/includes/reference-data/constants.php:104
 msgid "LinkedIn URL"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:103
+#: plugins/siw-functionality/includes/reference-data/constants.php:105
 msgid "YouTube URL"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:104
+#: plugins/siw-functionality/includes/reference-data/constants.php:106
 msgid "Instagram URL"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:105
+#: plugins/siw-functionality/includes/reference-data/constants.php:107
 msgid ""
 "Maximum aantal infodagen"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:106
+#: plugins/siw-functionality/includes/reference-data/constants.php:108
 msgid ""
 "Maximum aantal EVS-"
 "deadlines"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:107
+#: plugins/siw-functionality/includes/reference-data/constants.php:109
 msgid ""
 "EVS: weken voor vertrek"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:108
+#: plugins/siw-functionality/includes/reference-data/constants.php:110
 msgid ""
 "Maximale grootte IP-"
 "whitelist"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:109
+#: plugins/siw-functionality/includes/reference-data/constants.php:111
 msgid ""
 "Maximaal aantal "
 "Nederlandse projecten"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:110
+#: plugins/siw-functionality/includes/reference-data/constants.php:112
 msgid ""
 "Maximum aantal "
 "bestuursleden"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:111
+#: plugins/siw-functionality/includes/reference-data/constants.php:113
 msgid ""
 "Maximum aantal "
 "jaarverslagen"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:112
-msgid ""
-"Tijdstip algemene cronjob"
-msgstr ""
-
-#: plugins/siw-functionality/includes/reference-data/constants.php:113
-msgid ""
-"Tijdstip backup database"
-msgstr ""
-
 #: plugins/siw-functionality/includes/reference-data/constants.php:114
 msgid ""
-"Tijdstip backup bestanden"
+"Tijdstip import projecten"
 msgstr ""
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:115
 msgid ""
-"Tijdstip cache verversen"
+"Tijdstip bijwerken vrije "
+"plaatsen"
 msgstr ""
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:116
+msgid ""
+"Tijdstip algemene cronjob"
+msgstr ""
+
+#: plugins/siw-functionality/includes/reference-data/constants.php:117
+msgid ""
+"Tijdstip backup database"
+msgstr ""
+
+#: plugins/siw-functionality/includes/reference-data/constants.php:118
+msgid ""
+"Tijdstip backup bestanden"
+msgstr ""
+
+#: plugins/siw-functionality/includes/reference-data/constants.php:119
+msgid ""
+"Tijdstip cache verversen"
+msgstr ""
+
+#: plugins/siw-functionality/includes/reference-data/constants.php:120
 msgid ""
 "Inschrijfgeld "
 "groepsproject (student)"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:117
+#: plugins/siw-functionality/includes/reference-data/constants.php:121
 msgid ""
 "Inschrijfgeld "
 "groepsproject (regulier)"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:118
+#: plugins/siw-functionality/includes/reference-data/constants.php:122
 msgid ""
 "Inschrijfgeld op maat "
 "(student)"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:119
+#: plugins/siw-functionality/includes/reference-data/constants.php:123
 msgid ""
 "Inschrijfgeld op maat "
 "(regulier)"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:120
+#: plugins/siw-functionality/includes/reference-data/constants.php:124
 #: plugins/siw-functionality/includes/shortcodes/general.php:68
 msgid "EVS-borg"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:121
+#: plugins/siw-functionality/includes/reference-data/constants.php:125
 msgid ""
 "Kortingspercentage tweede "
 "project"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:122
+#: plugins/siw-functionality/includes/reference-data/constants.php:126
 msgid ""
 "Kortingspercentage derde "
 "project"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:123
+#: plugins/siw-functionality/includes/reference-data/constants.php:127
 msgid "Postcode API URL"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:124
+#: plugins/siw-functionality/includes/reference-data/constants.php:128
 msgid "Plato webservice URL"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:125
+#: plugins/siw-functionality/includes/reference-data/constants.php:129
 msgid "Reisadvies base-URL"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/constants.php:126
+#: plugins/siw-functionality/includes/reference-data/constants.php:130
 msgid ""
 "Wisselkoersen API base-url"
 msgstr ""
@@ -4219,14 +4232,6 @@ msgid ""
 "bij de %d abonnees."
 msgstr ""
 
-#: plugins/siw-functionality/includes/widgets/newsletter.php:51
-msgid "Voornaam "
-msgstr ""
-
-#: plugins/siw-functionality/includes/widgets/newsletter.php:52
-msgid "E-mail "
-msgstr ""
-
 #: plugins/siw-functionality/includes/widgets/quick-search.php:16
 msgid "SIW: Snel zoeken"
 msgstr ""
@@ -4695,7 +4700,7 @@ msgid "Subtotaal"
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/email/application.php:179
-#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:69
+#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:87
 msgid "Korting"
 msgstr ""
 
@@ -4810,7 +4815,7 @@ msgid ""
 "graag met je mee!"
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:41
+#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:53
 #, php-format
 msgid ""
 "Let op: naast het "
@@ -4819,12 +4824,12 @@ msgid ""
 "bijdrage van %s %s."
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:43
+#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:55
 #, php-format
 msgid "(Ca. &euro; %s)"
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:51
+#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:63
 #, php-format
 msgid ""
 "Let op: naast het "
@@ -4833,7 +4838,7 @@ msgid ""
 "bijdrage van %s."
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:61
+#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:79
 msgid ""
 "Je komt in aanmerking "
 "voor het studententarief "
@@ -4843,19 +4848,19 @@ msgid ""
 "laten zien."
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:122
+#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:140
 msgid ""
 "Bekijk het actuele "
 "reisadvies van BuZa"
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:155
-#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:181
+#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:173
+#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:199
 #: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:62
 msgid "Projectlocatie"
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:164
+#: plugins/siw-functionality/includes/woocommerce/frontend/product.php:182
 msgid "Stel een vraag"
 msgstr ""
 
