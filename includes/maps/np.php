@@ -32,8 +32,8 @@ add_filter( 'mapplic_data', function ( $data, $id ) {
 		$duration = siw_get_date_range_in_text( $project['start_date'], $project['end_date'] );
 		$description = __( 'Data:', 'siw' ) . SPACE . $duration . BR;
 		$description .= __( 'Deelnemers:', 'siw' ) . SPACE . $project['participants'] . BR;
-		$description .= __( 'Soort werk:') . SPACE . $project['work_name'] . BR;
-		$description .= __( 'Locatie:') . SPACE . $project['city'] . ', ' . __( 'provincie', 'siw' ) . SPACE . $project['province_name'];
+		$description .= __( 'Soort werk:', 'siw' ) . SPACE . $project['work_name'] . BR;
+		$description .= __( 'Locatie:', 'siw' ) . SPACE . $project['city'] . ', ' . __( 'provincie', 'siw' ) . SPACE . $project['province_name'];
 
 		$location = new stdClass();
 		$location->id = $index;

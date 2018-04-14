@@ -101,7 +101,7 @@ add_action( 'siw_settings_show_np_section', function() {
 		);
 		$map_fields[] = array(
 			'id'		=> "np_project_{$x}_present",
-			'title'		=> __( 'Aanwezig ', 'siw' ),
+			'title'		=> __( 'Aanwezig', 'siw' ),
 			'type'		=> 'switch',
 			'on'		=> 'Aan',
 			'off'		=> 'Uit',

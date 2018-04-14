@@ -219,6 +219,8 @@ add_shortcode( 'siw_nederlandse_projecten', function() {
 		$description .= sprintf( '<b>%s - %s</b><br/>', esc_html( $project['name'] ), esc_html( $project['province_name'] ) );
 		$description .= esc_html__( 'Data:', 'siw' ) . SPACE . esc_html( $duration ) . BR;
 		$description .= esc_html__( 'Deelnemers:', 'siw' ) . SPACE . esc_html( $project['participants'] ) . BR;
+		$description .= esc_html__( 'Soort werk:', 'siw' ) . SPACE . $project['work_name'] . BR;
+		$description .= esc_html__( 'Locatie:', 'siw' ) . SPACE . $project['city'] . ', ' . __( 'provincie', 'siw' ) . SPACE . $project['province_name'] . BR2;
 	}
 	return $description;
 });
