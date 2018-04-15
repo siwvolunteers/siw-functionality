@@ -110,6 +110,13 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'validate'		=> 'no_special_chars',
 		),
 		array(
+			'id'			=> 'plato_test_mode',
+			'title'			=> __( 'Test-mode', 'siw' ),
+			'type'			=> 'switch',
+			'on'			=> 'Aan',
+			'off'			=> 'Uit',
+		),
+		array(
 			'id'			=> 'plato_fpl_import_id',
 			'title'			=> __( 'FPL-import', 'siw' ),
 			'type'			=> 'select',

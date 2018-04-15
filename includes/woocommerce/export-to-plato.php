@@ -18,6 +18,12 @@ add_action( 'woocommerce_order_status_processing', 'siw_export_application_to_pl
  */
 function siw_export_application_to_plato( $order ) {
 
+	/* Afbreken als testmode actief is */
+	$test_mode = siw_get_setting( 'plato_test_mode' );
+	if ( true == $test_mode ) {
+		return;
+	}
+
 	if ( ! is_object( $order ) ) {
 		$order = new WC_Order( $order );
 	}

@@ -1,6 +1,6 @@
 <?php
 /*
- * (c)2017 SIW Internationale Vrijwilligersprojecten
+ * (c)2017-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -37,9 +37,11 @@ define( 'SIW_MAX_ANNUAL_REPORTS', 5 );
 define( 'SIW_MAX_DUTCH_PROJECTS', 10 );
 
 /* Cron jobs */
+define( 'SIW_CRON_TS_IMPORT_PROJECTS', '1:00' );
+define( 'SIW_CRON_TS_UPDATE_FREE_PLACES', '0:30' );
 define( 'SIW_CRON_TS_GENERAL', '03:00' );
 define( 'SIW_CRON_TS_BACKUP_DB', '04:00' );
-define( 'SIW_CRON_TS_BACKUP_FILES', '04:30' ); //nog niet gebruikt
+define( 'SIW_CRON_TS_BACKUP_FILES', '04:30' );
 define( 'SIW_CRON_TS_REBUILD_CACHE', '05:00' );
 
 /* Tarieven */
@@ -71,7 +73,7 @@ define( 'SIW_COLOR_AFRICA', '#e30613' );
 define( 'SIW_COLOR_LATIN_AMERICA', '#c7017f' );
 define( 'SIW_COLOR_NORTH_AMERICA', '#fbba00' );
 
-/* URL's voor webservices */
+/* URL's voor externe services */
 define( 'SIW_POSTCODE_API_URL','https://postcode-api.apiwise.nl/v2/addresses/' );
 define( 'SIW_PLATO_WEBSERVICE_URL', 'http://www.workcamp-plato.org/files/services/ExternalSynchronization.asmx/' );
 define( 'SIW_PLATO_BACKOFFICE_URL', 'http://www.workcamp-plato.org/' );
@@ -109,9 +111,11 @@ function siw_get_constants() {
 		'SIW_MAX_DUTCH_PROJECTS'		=> __( 'Maximaal aantal Nederlandse projecten', 'siw' ),
 		'SIW_MAX_BOARD_MEMBERS'			=> __( 'Maximum aantal bestuursleden', 'siw' ),
 		'SIW_MAX_ANNUAL_REPORTS'		=> __( 'Maximum aantal jaarverslagen', 'siw' ),
+		'SIW_CRON_TS_IMPORT_PROJECTS'	=> __( 'Tijdstip import projecten', 'siw' ),
+		'SIW_CRON_TS_UPDATE_FREE_PLACES'=> __( 'Tijdstip bijwerken vrije plaatsen', 'siw' ),
 		'SIW_CRON_TS_GENERAL'			=> __( 'Tijdstip algemene cronjob', 'siw' ),
 		'SIW_CRON_TS_BACKUP_DB'			=> __( 'Tijdstip backup database', 'siw' ),
-		//'SIW_CRON_TS_BACKUP_FILES'	=> __( 'Tijdstip backup bestanden', 'siw' ),
+		'SIW_CRON_TS_BACKUP_FILES'		=> __( 'Tijdstip backup bestanden', 'siw' ),
 		'SIW_CRON_TS_REBUILD_CACHE'		=> __( 'Tijdstip cache verversen', 'siw' ),
 		'SIW_WORKCAMP_FEE_STUDENT'		=> __( 'Inschrijfgeld groepsproject (student)', 'siw' ),
 		'SIW_WORKCAMP_FEE_REGULAR'		=> __( 'Inschrijfgeld groepsproject (regulier)', 'siw' ),
