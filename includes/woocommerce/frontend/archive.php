@@ -66,7 +66,7 @@ add_action( 'woocommerce_after_shop_loop_item_title', function() {
  * - Start datum
 */
 add_filter( 'woocommerce_get_catalog_ordering_args', function( $args ) {
-	$orderby_value = isset( $_GET['orderby'] ) ? woocommerce_clean( $_GET['orderby'] ) : apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby' ) );
+	$orderby_value = isset( $_GET['orderby'] ) ? wc_clean( $_GET['orderby'] ) : apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby' ) );
 	switch ( $orderby_value ) {
 		case 'random':
 			$sort_args['orderby']	= 'rand';

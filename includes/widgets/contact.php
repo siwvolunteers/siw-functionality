@@ -15,7 +15,7 @@ add_action( 'widgets_init', function() {
 class SIW_Contact_Information extends \TDP\Widgets_Helper {
 
 	public function __construct() {
-		$this->widget_name = __( 'SIW: Contactinformatie', 'siw' );
+		$this->widget_name = 'SIW: Contactinformatie';
 		$this->widget_description = __( 'Contactinformatie' );
 		$this->widget_fields = array(
 			array(

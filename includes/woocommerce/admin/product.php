@@ -102,7 +102,6 @@ add_action( 'init', function(){
  * - Producttype
  * - Voorraad
  * - Prijs
- * - Yoast-velden
  * Extra columns toevoegen
  * - Zichtbaarheid
  * - Actie bij volgende update (verbergen, bijwerken)

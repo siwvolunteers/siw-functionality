@@ -33,19 +33,17 @@ add_shortcode( 'siw_pagina_lightbox', function( $atts ) {
 	add_action( 'wp_footer', function() {
  		$lightboxes = array_unique( $GLOBALS['lightboxes'] );
 		foreach( $lightboxes as $page_id ) {
-			/* Haal titel en inhoud van de pagina op */
-			$page_title = get_the_title( $page_id );
-			$page_content = get_post_field('post_content', $page_id );
+			$page = get_post( $page_id );
 			?>
 			<div class="modal fade" id="siw-page-<?php echo esc_attr( $page_id );?>-modal" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title"><?php echo esc_html( $page_title );?></h4>
+							<h4 class="modal-title"><?php echo esc_html( $page->post_title );?></h4>
 						</div>
 						<div class="modal-body">
-						<?php echo wp_kses_post( wpautop( do_shortcode( $page_content ) ) ); ?>
+						<?php echo wp_kses_post( wpautop( do_shortcode( $page->post_content ) ) ); ?>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default kad-btn" data-dismiss="modal"><?php esc_html_e('Sluiten', 'siw');?></button>

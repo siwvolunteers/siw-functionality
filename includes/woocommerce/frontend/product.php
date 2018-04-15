@@ -23,6 +23,18 @@ add_action( 'plugins_loaded', function() {
 	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 } );
 
+add_action( 'wp', function() {
+	global $product;
+	if ( is_product() ) {
+		
+		$product = wc_get_product();
+		if ( ! $product->is_purchasable() ) {
+			//remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation', 10 );
+			//remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation_add_to_cart_button', 20 );
+			add_filter( 'woocommerce_variation_is_visible', '__return_false');
+		}
+	}
+}, 99 );
 
 /* Toon local fee indien van toepassing */
 add_action( 'woocommerce_after_add_to_cart_form', function() {
@@ -53,6 +65,12 @@ add_action( 'woocommerce_after_add_to_cart_form', function() {
 	<?php
 	}
 } );
+
+
+add_filter( 'woocommerce_is_purchasable', function( $is_purchasable, $product ) {
+	$is_purchasable = $product->is_visible();
+	return $is_purchasable;
+}, 10, 2 );
 
 
 /* Toon voorwaarden voor studententarief als dat geselecteerd is */
