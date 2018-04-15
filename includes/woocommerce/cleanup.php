@@ -152,7 +152,7 @@ add_action( 'siw_delete_orphaned_variations', function() {
 			$variation_ids
 		)
 	);
-	//siw_start_background_process( 'delete_orphaned_variations', $variations );
+	siw_start_background_process( 'delete_orphaned_variations', $variations );
 });
 
 
