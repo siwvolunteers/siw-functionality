@@ -29,8 +29,8 @@ add_action( 'wp', function() {
 		
 		$product = wc_get_product();
 		if ( ! $product->is_purchasable() ) {
-			//remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation', 10 );
-			//remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation_add_to_cart_button', 20 );
+			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation', 10 );
+			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation_add_to_cart_button', 20 );
 			add_filter( 'woocommerce_variation_is_visible', '__return_false');
 		}
 	}

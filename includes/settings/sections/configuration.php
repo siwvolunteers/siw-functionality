@@ -446,7 +446,7 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		),
 		array(
 			'id'			=> 'np_map',
-			'title'			=> __( 'Nederlandse projecten', 'siw' ),
+			'title'			=> __( 'Nederlandse Projecten', 'siw' ),
 			'type'			=> 'select',
 			'options'		=> $maps,
 			'placeholder'	=> __( 'Selecteer een kaart', 'siw' ),

@@ -56,7 +56,7 @@ add_filter( 'caldera_forms_get_form-contact_project', function( $form ) {
 
 return array(
 	'ID'				=> 'contact_project',
-	'name'				=> __( 'Infoverzoek groepsproject', 'siw' ),
+	'name'				=> __( 'Infoverzoek Groepsproject', 'siw' ),
 	'db_support'		=> 0,
  	'pinned'			=> 0,
 	'hide_form'			=> 1,

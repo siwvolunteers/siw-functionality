@@ -207,7 +207,7 @@ siw_add_shortcode( 'siw_externe_link', array(
 ));
 
 
-/* Overzicht van Nederlandse projecten */
+/* Overzicht van Nederlandse Projecten */
 add_shortcode( 'siw_nederlandse_projecten', function() {
 	$projects = siw_get_dutch_projects();
 	if ( empty( $projects ) ) {
@@ -224,7 +224,7 @@ add_shortcode( 'siw_nederlandse_projecten', function() {
 	}
 	return $description;
 });
-siw_add_shortcode( 'siw_nederlandse_projecten', array( 'title' => __( 'Nederlandse projecten', 'siw' ) ) );
+siw_add_shortcode( 'siw_nederlandse_projecten', array( 'title' => __( 'Nederlandse Projecten', 'siw' ) ) );
 
 
 /* Break */

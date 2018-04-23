@@ -157,7 +157,7 @@ add_action( 'manage_product_posts_custom_column', function( $column_name, $post_
 /* Toevoegen optie om project af te keuren en direct te verbergen */
 add_action( 'post_submitbox_start', function() {
 	$post_id = get_the_ID();
-	//Alleen tonen bij groepsprojecten
+	//Alleen tonen bij Groepsprojecten
 	if ( 'product' != get_post_type( $post_id) ) {
 		return;
 	}
@@ -258,7 +258,7 @@ add_action( 'admin_init', function() {
 	}
 	$post_id = $_GET['post'];
 
-	/* Alleen uitvoeren bij groepsprojecten */
+	/* Alleen uitvoeren bij Groepsprojecten */
 	if ( 'product' != get_post_type( $post_id ) ) {
 		return;
 	}

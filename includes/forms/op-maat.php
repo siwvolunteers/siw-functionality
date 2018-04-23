@@ -68,23 +68,23 @@ add_filter( 'caldera_forms_get_form-op_maat', function( $form ) {
 
 	/*E-mail bevestiging*/
 	$confirmation_template_args = array(
-		'subject' => __( 'Aanmelding vrijwilligerswerk op maat', 'siw' ),
+		'subject' => __( 'Aanmelding Vrijwilligerswerk Op Maat', 'siw' ),
 		'message' =>
 			sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
 			__( 'Bedankt voor je aanmelding!', 'siw' ) . SPACE .
- 			__( 'Leuk dat je hebt gekozen via SIW een vrijwilligersproject op maat te doen.', 'siw' ) . SPACE .
+ 			__( 'Leuk dat je hebt gekozen via SIW een Project Op Maat te doen.', 'siw' ) . SPACE .
 			__( 'Wij zullen ons best gaan doen om ervoor te zorgen dat dit voor jou een onvergetelijke ervaring wordt.', 'siw' ) . BR2 .
 			__( 'Onderaan deze e-mail vind je een overzicht van de gegevens zoals je die op het inschrijfformulier hebt ingevuld.', 'siw' ) . BR2 .
 			'<span style="font-weight:bold">' .
 			__( 'Wat gaat er nu gebeuren?', 'siw' ) .
 			'</span>' . BR .
-			__( 'Jouw aanmelding voor vrijwilligerswerk op maat wordt doorgestuurd naar onze SIW-regiospecialisten.', 'siw' ) . SPACE .
+			__( 'Jouw aanmelding voor Vrijwilligerswerk Op Maat wordt doorgestuurd naar onze SIW-regiospecialisten.', 'siw' ) . SPACE .
 			__( 'Vervolgens neemt één van de regiospecialisten contact met je op om een kennismakingsgesprek in te plannen.', 'siw' ) . SPACE .
 			__( 'Houd er rekening mee dat SIW met vrijwilligers werkt, waardoor het contact soms iets langer kan duren.', 'siw' ) . BR2 .
 			'<span style="font-weight:bold">' .
 			__( 'Kennismakingsgesprek', 'siw' ) .
 			'</span>' . BR .
-			__( 'Tijdens het kennismakingsgesprek gaat onze regiospecialist samen met jou kijken welk project op maat het beste bij jouw wensen en voorkeuren aansluit.', 'siw' ) . SPACE .
+			__( 'Tijdens het kennismakingsgesprek gaat onze regiospecialist samen met jou kijken welk Project Op Maat het beste bij jouw wensen en voorkeuren aansluit.', 'siw' ) . SPACE .
 			__( 'In dit gesprek komen ook thema’s naar voren zoals interesse in culturen, creativiteit, flexibiliteit, enthousiasme en reis- en vrijwilligerswerkervaring.', 'siw' ) . BR2 .
 			'<span style="font-weight:bold">' .
 			__( 'Voorbereidingsdag', 'siw' ) .
@@ -106,8 +106,8 @@ add_filter( 'caldera_forms_get_form-op_maat', function( $form ) {
 
 	/*E-mail notificatie*/
 	$notification_template_args = array(
-		'subject' => __( 'Aanmelding vrijwilligerswerk op maat', 'siw' ),
-		'message' => __( 'Via de website is onderstaande aanmelding voor vrijwilligerswerk op maat binnengekomen:', 'siw' ),
+		'subject' => __( 'Aanmelding Vrijwilligerswerk Op Maat', 'siw' ),
+		'message' => __( 'Via de website is onderstaande aanmelding voor Vrijwilligerswerk Op Maat binnengekomen:', 'siw' ),
 		'show_summary' => true,
 	);
 
@@ -171,7 +171,7 @@ return array(
 			'slug' => 'intro',
 			'config' => array(
 				'default' =>
-					__( 'Interesse in een project op maat?', 'siw' ) . SPACE .
+					__( 'Interesse in een Project Op Maat?', 'siw' ) . SPACE .
 					__( 'Meld je dan aan via onderstaand formulier.', 'siw' ) . SPACE .
 					__( 'Vervolgens zal één van onze regiospecialisten contact met je opnemen voor een kennismakingsgesprek.', 'siw' ) . SPACE .
 					sprintf( __( 'Weet je nog niet precies waar je naar toe wil, meld je dan aan voor één van onze <a href="%s">Infodagen</a> en laat je inspireren.', 'siw' ), $info_day_page_link )

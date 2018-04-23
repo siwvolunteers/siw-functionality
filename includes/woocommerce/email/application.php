@@ -35,7 +35,7 @@ add_filter( 'woocommerce_email_recipient_new_order', function( $recipient, $emai
  * - Klant: betaald
  */
 add_filter( 'woocommerce_email_subject_new_order', function( $subject, $order ) {
-	$subject = sprintf( __( 'Nieuwe aanmelding groepsproject (%s)', 'siw' ), $order->get_order_number() );
+	$subject = sprintf( __( 'Nieuwe aanmelding Groepsproject (%s)', 'siw' ), $order->get_order_number() );
 	return $subject;
 }, 10, 2 );
 

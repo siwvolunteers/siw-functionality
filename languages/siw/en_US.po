@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2018-04-13 00:46+0200\n"
+"POT-Creation-Date: 2018-04-17 21:26+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -220,28 +220,20 @@ msgstr "What are you going to do?"
 msgid "Bij welke organisatie ga je werken?"
 msgstr "In which organization will you work?"
 
-#: plugins/siw-functionality/includes/admin/interface.php:29
+#: plugins/siw-functionality/includes/admin/interface.php:35
 #, php-format
 msgid "Je bent ingelogd op: %s"
 msgstr "You are logged in on: %s"
 
-#: plugins/siw-functionality/includes/admin/interface.php:72
-#, fuzzy
-#| msgid "Starttijd"
+#: plugins/siw-functionality/includes/admin/interface.php:85
 msgid "Start actie"
-msgstr "Start time"
+msgstr "Start action"
 
-#: plugins/siw-functionality/includes/admin/interface.php:78
-msgid "Single User"
+#: plugins/siw-functionality/includes/admin/interface.php:121
+msgid "Proces gestart"
 msgstr ""
 
-#: plugins/siw-functionality/includes/admin/interface.php:84
-#, fuzzy
-#| msgid "All Items"
-msgid "All Users"
-msgstr "All Items"
-
-#: plugins/siw-functionality/includes/admin/interface.php:151
+#: plugins/siw-functionality/includes/admin/interface.php:173
 msgid "Aanmeldingen"
 msgstr "Applications"
 
@@ -437,8 +429,10 @@ msgstr "Agree"
 msgid "SIW heeft geen feed."
 msgstr "SIW has no feed."
 
-#: plugins/siw-functionality/includes/custom.php:195
-msgid "Alles over projecten op maat"
+#: plugins/siw-functionality/includes/custom.php:210
+#, fuzzy
+#| msgid "Alles over projecten op maat"
+msgid "Alles over Projecten Op Maat"
 msgstr "Everything about customized projects"
 
 #: plugins/siw-functionality/includes/email/mailpoet.php:17
@@ -872,8 +866,8 @@ msgid "Via de website is een vraag gesteld over het project %s"
 msgstr "Through the website there has been a question about the project %s"
 
 #: plugins/siw-functionality/includes/forms/enquiry-workcamp.php:59
-msgid "Infoverzoek groepsproject"
-msgstr "Information request group project"
+msgid "Infoverzoek Groepsproject"
+msgstr "Enquiry Workcamp"
 
 #: plugins/siw-functionality/includes/forms/enquiry-workcamp.php:89
 msgid "Heb je een vraag over dit project?"
@@ -1068,10 +1062,10 @@ msgstr "If you still have questions, feel free to contact us."
 
 #: plugins/siw-functionality/includes/forms/info-day.php:77
 msgid "Groepsvrijwilligerswerk (2 - 3 weken)"
-msgstr "Group volunteer work (2-3weeks)"
+msgstr "Workcamps (2-3 weeks)"
 
 #: plugins/siw-functionality/includes/forms/info-day.php:82
-msgid "Vrijwilligerswerk op maat (3 weken tot een jaar)"
+msgid "Vrijwilligerswerk Op Maat (3 weken tot een jaar)"
 msgstr "Customized volunteer work (from 3 weeks up to 1 year)"
 
 #: plugins/siw-functionality/includes/forms/info-day.php:87
@@ -1123,7 +1117,9 @@ msgstr "10-12 months"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:71
 #: plugins/siw-functionality/includes/forms/op-maat.php:109
-msgid "Aanmelding vrijwilligerswerk op maat"
+#, fuzzy
+#| msgid "Aanmelding vrijwilligerswerk op maat"
+msgid "Aanmelding Vrijwilligerswerk Op Maat"
 msgstr "Application for customized volunteers work"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:74
@@ -1131,8 +1127,10 @@ msgid "Bedankt voor je aanmelding!"
 msgstr "Thank you for your application!"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:75
-msgid ""
-"Leuk dat je hebt gekozen via SIW een vrijwilligersproject op maat te doen."
+#, fuzzy
+#| msgid ""
+#| "Leuk dat je hebt gekozen via SIW een vrijwilligersproject op maat te doen."
+msgid "Leuk dat je hebt gekozen via SIW een Project Op Maat te doen."
 msgstr ""
 "Great that you have chosen to do a customized volunteer project via SIW."
 
@@ -1156,8 +1154,12 @@ msgid "Wat gaat er nu gebeuren?"
 msgstr "What’s happening now?"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:81
+#, fuzzy
+#| msgid ""
+#| "Jouw aanmelding voor vrijwilligerswerk op maat wordt doorgestuurd naar "
+#| "onze SIW-regiospecialisten."
 msgid ""
-"Jouw aanmelding voor vrijwilligerswerk op maat wordt doorgestuurd naar onze "
+"Jouw aanmelding voor Vrijwilligerswerk Op Maat wordt doorgestuurd naar onze "
 "SIW-regiospecialisten."
 msgstr ""
 "Your application to do customized volunteer work is being sent to our SIW’s "
@@ -1184,9 +1186,14 @@ msgid "Kennismakingsgesprek"
 msgstr "Introductory meeting"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:87
+#, fuzzy
+#| msgid ""
+#| "Tijdens het kennismakingsgesprek gaat onze regiospecialist samen met jou "
+#| "kijken welk project op maat het beste bij jouw wensen en voorkeuren "
+#| "aansluit."
 msgid ""
 "Tijdens het kennismakingsgesprek gaat onze regiospecialist samen met jou "
-"kijken welk project op maat het beste bij jouw wensen en voorkeuren aansluit."
+"kijken welk Project Op Maat het beste bij jouw wensen en voorkeuren aansluit."
 msgstr ""
 "During the introductory meeting, our region specialist together with you "
 "will look for the best customized project fitting your wishes and "
@@ -1256,8 +1263,12 @@ msgstr ""
 "the number %s."
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:110
+#, fuzzy
+#| msgid ""
+#| "Via de website is onderstaande aanmelding voor vrijwilligerswerk op maat "
+#| "binnengekomen:"
 msgid ""
-"Via de website is onderstaande aanmelding voor vrijwilligerswerk op maat "
+"Via de website is onderstaande aanmelding voor Vrijwilligerswerk Op Maat "
 "binnengekomen:"
 msgstr "The application below has arrived via the website:"
 
@@ -1272,7 +1283,9 @@ msgid "Aanmeldformulier voor Op Maat"
 msgstr "Application form for customized"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:174
-msgid "Interesse in een project op maat?"
+#, fuzzy
+#| msgid "Interesse in een project op maat?"
+msgid "Interesse in een Project Op Maat?"
 msgstr "Are you interested in a customized project?"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:175
@@ -1378,7 +1391,7 @@ msgstr "Language skills"
 msgid "%s t/m %s"
 msgstr "%s until %s"
 
-#: plugins/siw-functionality/includes/functions/general.php:217
+#: plugins/siw-functionality/includes/functions/general.php:230
 msgid "Alle"
 msgstr "All"
 
@@ -1410,9 +1423,7 @@ msgid "Groepsprojecten"
 msgstr "Workcamps"
 
 #: plugins/siw-functionality/includes/maps/destinations.php:52
-#, fuzzy
-#| msgid "Alles over projecten op maat"
-msgid "Projecten op maat"
+msgid "Projecten Op Maat"
 msgstr "Everything about customized projects"
 
 #: plugins/siw-functionality/includes/maps/destinations.php:72
@@ -1425,9 +1436,6 @@ msgid "Bestemmingen"
 msgstr "Destinations"
 
 #: plugins/siw-functionality/includes/maps/np.php:21
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:449
-#: plugins/siw-functionality/includes/settings/sections/np.php:185
-#: plugins/siw-functionality/includes/shortcodes/general.php:225
 msgid "Nederlandse projecten"
 msgstr "Dutch projects"
 
@@ -1442,14 +1450,17 @@ msgid "Deelnemers:"
 msgstr "Participants:"
 
 #: plugins/siw-functionality/includes/maps/np.php:35
+#: plugins/siw-functionality/includes/shortcodes/general.php:222
 msgid "Soort werk:"
 msgstr "Type of work:"
 
 #: plugins/siw-functionality/includes/maps/np.php:36
+#: plugins/siw-functionality/includes/shortcodes/general.php:223
 msgid "Locatie:"
 msgstr "Location:"
 
 #: plugins/siw-functionality/includes/maps/np.php:36
+#: plugins/siw-functionality/includes/shortcodes/general.php:223
 msgid "provincie"
 msgstr "province"
 
@@ -1796,8 +1807,8 @@ msgid "Maximale grootte IP-whitelist"
 msgstr "Maximum size IP whitelist"
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:111
-msgid "Maximaal aantal Nederlandse projecten"
-msgstr "Maximum number of Dutch projects"
+msgid "Maximaal aantal Nederlandse Projecten"
+msgstr "Maximum number of Dutch Projects"
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:112
 msgid "Maximum aantal bestuursleden"
@@ -1832,20 +1843,20 @@ msgid "Tijdstip cache verversen"
 msgstr "Time refresh cache"
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:120
-msgid "Inschrijfgeld groepsproject (student)"
-msgstr "Registration fee group project (student)"
+msgid "Inschrijfgeld Groepsproject (student)"
+msgstr "Registration fee Workcamp (student)"
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:121
-msgid "Inschrijfgeld groepsproject (regulier)"
-msgstr "Registration fee group project (regular)"
+msgid "Inschrijfgeld Groepsproject (regulier)"
+msgstr "Registration fee Workcamp (regular)"
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:122
-msgid "Inschrijfgeld op maat (student)"
-msgstr "Registration fee customized project (student)"
+msgid "Inschrijfgeld Op Maat (student)"
+msgstr "Registration fee Customized Project (student)"
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:123
-msgid "Inschrijfgeld op maat (regulier)"
-msgstr "Registration fee customized project (regular)"
+msgid "Inschrijfgeld Op Maat (regulier)"
+msgstr "Registration fee Customized Project (regular)"
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:124
 #: plugins/siw-functionality/includes/shortcodes/general.php:68
@@ -1865,7 +1876,6 @@ msgid "Postcode API URL"
 msgstr "Postcode API URL"
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:128
-#| msgid "Webservice URL"
 msgid "Plato webservice URL"
 msgstr "Plato webservice URL"
 
@@ -2220,17 +2230,14 @@ msgid "Drenthe"
 msgstr "Drenthe"
 
 #: plugins/siw-functionality/includes/reference-data/countries.php:1046
-#| msgid "Finland"
 msgid "Flevoland"
 msgstr "Flevoland"
 
 #: plugins/siw-functionality/includes/reference-data/countries.php:1047
-#| msgid "Finland"
 msgid "Friesland"
 msgstr "Friesland"
 
 #: plugins/siw-functionality/includes/reference-data/countries.php:1048
-#| msgid "Nederland"
 msgid "Gelderland"
 msgstr "Gelderland"
 
@@ -2239,7 +2246,6 @@ msgid "Groningen"
 msgstr "Groningen"
 
 #: plugins/siw-functionality/includes/reference-data/countries.php:1050
-#| msgid "Luxemburg"
 msgid "Limburg"
 msgstr "Limburg"
 
@@ -2248,22 +2254,18 @@ msgid "Noord-Holland"
 msgstr "North Holland"
 
 #: plugins/siw-functionality/includes/reference-data/countries.php:1052
-#| msgid "Algerijnse"
 msgid "Overijssel"
 msgstr "Overijssel"
 
 #: plugins/siw-functionality/includes/reference-data/countries.php:1053
-#| msgid "Rechts"
 msgid "Utrecht"
 msgstr "Utrecht"
 
 #: plugins/siw-functionality/includes/reference-data/countries.php:1054
-#| msgid "Nederland"
 msgid "Zeeland"
 msgstr "Zeeland"
 
 #: plugins/siw-functionality/includes/reference-data/countries.php:1055
-#| msgid "Zuid-Korea"
 msgid "Zuid-Holland"
 msgstr "South Holland"
 
@@ -3242,6 +3244,12 @@ msgstr "DKIM passphrase"
 msgid "Selecteer een kaart"
 msgstr "Select a map"
 
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:449
+#: plugins/siw-functionality/includes/settings/sections/np.php:185
+#: plugins/siw-functionality/includes/shortcodes/general.php:227
+msgid "Nederlandse Projecten"
+msgstr "Dutch Projects"
+
 #: plugins/siw-functionality/includes/settings/sections/configuration.php:458
 msgid "Configuratie"
 msgstr "Configuration"
@@ -3329,8 +3337,8 @@ msgid "Ondertekening"
 msgstr "Signature"
 
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:46
-msgid "E-mail infoverzoek groepsproject"
-msgstr "Email enquiry workcamp"
+msgid "E-mail infoverzoek Groepsproject"
+msgstr "Email enquiry Workcamp"
 
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:80
 msgid "Infoverzoeken"
@@ -3376,7 +3384,7 @@ msgid "E-mail samenwerking"
 msgstr "E-mail cooperation"
 
 #: plugins/siw-functionality/includes/settings/sections/np.php:104
-msgid "Aanwezig "
+msgid "Aanwezig"
 msgstr "Present"
 
 #: plugins/siw-functionality/includes/settings/sections/np.php:125
@@ -3470,8 +3478,8 @@ msgid "Topbar"
 msgstr "Topbar"
 
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:55
-msgid "Aankondiging nieuwe groepsprojecten"
-msgstr "Announcement new workcamps"
+msgid "Aankondiging nieuwe Groepsprojecten"
+msgstr "Announcement new Workcamps"
 
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:60
 msgid "Aankondiging tonen"
@@ -3659,7 +3667,7 @@ msgstr "in %s"
 
 #: plugins/siw-functionality/includes/shortcodes/quick-search-results.php:35
 msgid ""
-"Met een groepsproject ga je voor 2 tot 3 weken naar een project, de begin- "
+"Met een Groepsproject ga je voor 2 tot 3 weken naar een project, de begin- "
 "en einddatum van het project staan al vast."
 msgstr ""
 
@@ -3725,10 +3733,6 @@ msgstr "Check the full agenda."
 #: plugins/siw-functionality/includes/widgets/agenda.php:84
 msgid "Er zijn momenteel geen geplande activiteiten."
 msgstr "There are no planned activities at the moment."
-
-#: plugins/siw-functionality/includes/widgets/contact.php:18
-msgid "SIW: Contactinformatie"
-msgstr "SIW: Contact details"
 
 #: plugins/siw-functionality/includes/widgets/contact.php:19
 msgid "Contactinformatie"
@@ -3800,8 +3804,8 @@ msgid "SIW: Snel zoeken"
 msgstr "SIW: Quick search"
 
 #: plugins/siw-functionality/includes/widgets/quick-search.php:17
-msgid "Snel zoeken in groepsprojecten"
-msgstr "Quick search in workcamps"
+msgid "Snel zoeken in Groepsprojecten"
+msgstr "Quick search in Workcamps"
 
 #: plugins/siw-functionality/includes/widgets/quick-search.php:23
 msgid "Snel zoeken"
@@ -3892,8 +3896,8 @@ msgstr "Import again"
 #, php-format
 msgid "%s project wordt opnieuw geïmporteerd."
 msgid_plural "%s projecten worden opnieuw geïmporteerd."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s project will be imported again."
+msgstr[1] "%s projects will be imported again."
 
 #: plugins/siw-functionality/includes/woocommerce/admin/product.php:120
 msgid "Volgende update"
@@ -4032,10 +4036,18 @@ msgstr "<strong>Emergency contact details</strong> is not filled in."
 msgid "<strong>Motivation</strong> is niet ingevuld."
 msgstr "<strong>Motivation</strong> is not filled in."
 
+#: plugins/siw-functionality/includes/woocommerce/cleanup.php:113
+msgid "Verwijderen variaties"
+msgstr "Delete variations"
+
+#: plugins/siw-functionality/includes/woocommerce/cleanup.php:162
+msgid "Verwijderen projecten"
+msgstr "Delete projects"
+
 #: plugins/siw-functionality/includes/woocommerce/email/application.php:38
 #, php-format
-msgid "Nieuwe aanmelding groepsproject (%s)"
-msgstr "New workcamp application (%s)"
+msgid "Nieuwe aanmelding Groepsproject (%s)"
+msgstr "New application Workcamp (%s)"
 
 #: plugins/siw-functionality/includes/woocommerce/email/application.php:43
 #: plugins/siw-functionality/includes/woocommerce/email/application.php:142
@@ -4199,37 +4211,39 @@ msgid "Willekeurig"
 msgstr "Random"
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:159
-msgid "Hieronder zie je het beschikbare aanbod groepsprojecten."
-msgstr ""
+#, fuzzy
+#| msgid "Hieronder zie je een selectie van de mogelijkheden"
+msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten."
+msgstr "Below you can see a selection of the possibilities"
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:163
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:167
 #, php-format
-msgid "Hieronder zie je het beschikbare aanbod groepsprojecten in %s."
-msgstr ""
+msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten in %s."
+msgstr "Below you can see the available Workcamps in %s."
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:171
 #, php-format
 msgid ""
-"Hieronder zie je het beschikbare aanbod groepsprojecten met werkzaamheden "
+"Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden "
 "gericht op %s."
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:175
 #, php-format
 msgid ""
-"Hieronder zie je het beschikbare aanbod groepsprojecten voor de doelgroep %s."
+"Hieronder zie je het beschikbare aanbod Groepsprojecten voor de doelgroep %s."
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:179
 #, php-format
 msgid ""
-"Hieronder zie je het beschikbare aanbod groepsprojecten met de voertaal %s."
+"Hieronder zie je het beschikbare aanbod Groepsprojecten met de voertaal %s."
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:187
 msgid ""
-"Tijdens onze groepsprojecten ga je samen met een internationale groep "
+"Tijdens onze Groepsprojecten ga je samen met een internationale groep "
 "vrijwilligers voor 2 á 3 weken aan de slag."
 msgstr ""
 
@@ -4241,7 +4255,7 @@ msgstr ""
 #, php-format
 msgid ""
 "We vertellen je meer over de werkwijze van deze projecten op onze pagina <a "
-"href=\"%s\">groepsprojecten</a>."
+"href=\"%s\">Groepsprojecten</a>."
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:193
@@ -4306,8 +4320,8 @@ msgid "Stel een vraag"
 msgstr "Ask a question"
 
 #: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:12
-msgid "Extra gegevens groepsproject"
-msgstr "Extra details group’s project"
+msgid "Extra gegevens Groepsproject"
+msgstr "Extra details Workcamp"
 
 #: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:17
 msgid "Projecteigenschappen"
@@ -4496,6 +4510,19 @@ msgid ""
 msgstr ""
 "I have read and agreed with <a id=“open-terms-and-conditions” data-"
 "toggle=“modal” data-target=“#siw-terms” > registration conditions </a> "
+
+#, fuzzy
+#~| msgid "Aanmelding vrijwilligerswerk op maat"
+#~ msgid "Aanmelding vrijwilligerswerk Op Maat"
+#~ msgstr "Application for customized volunteers work"
+
+#, fuzzy
+#~| msgid "All Items"
+#~ msgid "All Users"
+#~ msgstr "All Items"
+
+#~ msgid "SIW: Contactinformatie"
+#~ msgstr "SIW: Contact details"
 
 #, fuzzy
 #~| msgid "Voornaam"

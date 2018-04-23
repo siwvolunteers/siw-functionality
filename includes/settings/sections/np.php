@@ -182,7 +182,7 @@ add_action( 'siw_settings_show_np_section', function() {
 	/* Sectie */
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'np',
-		'title'			=> __( 'Nederlandse projecten', 'siw' ),
+		'title'			=> __( 'Nederlandse Projecten', 'siw' ),
 		'icon'			=> 'el el-flag',
 		'permissions'	=> 'manage_options',
 	) );

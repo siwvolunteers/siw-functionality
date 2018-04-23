@@ -83,7 +83,6 @@ add_action( 'admin_init', function() {
 /*
  * Metaboxes van plugins verwijderen:
  * - WooCommerce
- * - Yoast
  * - Redux Framework
  */
 add_action( 'do_meta_boxes', function() {
@@ -127,9 +126,9 @@ function siw_menu_array_search( $find, $items ) {
 
 
 /* YITH premium nags verwijderen */
+add_filter( 'yit_plugin_panel_menu_page_show',  '__return_false' );
+
 add_filter( 'yit_show_upgrade_to_premium_version',  '__return_false' );
-add_filter( 'yit_panel_sidebar_load_remote_widgets',  '__return_false' );
-add_filter( 'yit_panel_hide_sidebar', '__return_true' );
 add_filter( 'yith_wcan_settings_tabs', function( $admin_tabs ) {
 	unset( $admin_tabs['premium'] );
 	return $admin_tabs;

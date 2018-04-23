@@ -77,7 +77,7 @@ function siw_get_ip_whitelist() {
 
 
 /**
- * Geeft array met tarieven groepsprojecten terug
+ * Geeft array met tarieven Groepsprojecten terug
  *
  * @return array
  */
@@ -250,7 +250,7 @@ function siw_get_annual_reports() {
 
 
 /**
- * Geeft array met Nederlandse projecten terug
+ * Geeft array met Nederlandse Projecten terug
  * @return array
  */
 function siw_get_dutch_projects() {

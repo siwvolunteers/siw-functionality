@@ -8,7 +8,7 @@ msgstr ""
 "WordPress Blank Pot "
 "v1.0.0\n"
 "POT-Creation-Date: "
-"2018-04-13 00:46+0200\n"
+"2018-04-17 21:15+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your "
 "Name <you@example.com>\n"
@@ -268,25 +268,21 @@ msgid ""
 "je werken?"
 msgstr ""
 
-#: plugins/siw-functionality/includes/admin/interface.php:29
+#: plugins/siw-functionality/includes/admin/interface.php:35
 #, php-format
 msgid ""
 "Je bent ingelogd op: %s"
 msgstr ""
 
-#: plugins/siw-functionality/includes/admin/interface.php:72
+#: plugins/siw-functionality/includes/admin/interface.php:85
 msgid "Start actie"
 msgstr ""
 
-#: plugins/siw-functionality/includes/admin/interface.php:78
-msgid "Single User"
+#: plugins/siw-functionality/includes/admin/interface.php:121
+msgid "Proces gestart"
 msgstr ""
 
-#: plugins/siw-functionality/includes/admin/interface.php:84
-msgid "All Users"
-msgstr ""
-
-#: plugins/siw-functionality/includes/admin/interface.php:151
+#: plugins/siw-functionality/includes/admin/interface.php:173
 msgid "Aanmeldingen"
 msgstr ""
 
@@ -508,10 +504,10 @@ msgstr ""
 msgid "SIW heeft geen feed."
 msgstr ""
 
-#: plugins/siw-functionality/includes/custom.php:195
+#: plugins/siw-functionality/includes/custom.php:210
 msgid ""
-"Alles over projecten op "
-"maat"
+"Alles over Projecten Op "
+"Maat"
 msgstr ""
 
 #: plugins/siw-functionality/includes/email/mailpoet.php:17
@@ -1062,7 +1058,7 @@ msgstr ""
 
 #: plugins/siw-functionality/includes/forms/enquiry-workcamp.php:59
 msgid ""
-"Infoverzoek groepsproject"
+"Infoverzoek Groepsproject"
 msgstr ""
 
 #: plugins/siw-functionality/includes/forms/enquiry-workcamp.php:89
@@ -1300,7 +1296,7 @@ msgstr ""
 
 #: plugins/siw-functionality/includes/forms/info-day.php:82
 msgid ""
-"Vrijwilligerswerk op maat "
+"Vrijwilligerswerk Op Maat "
 "(3 weken tot een jaar)"
 msgstr ""
 
@@ -1367,10 +1363,9 @@ msgid "10-12 maanden"
 msgstr ""
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:71
-#: plugins/siw-functionality/includes/forms/op-maat.php:109
 msgid ""
 "Aanmelding "
-"vrijwilligerswerk op maat"
+"vrijwilligerswerk Op Maat"
 msgstr ""
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:74
@@ -1382,9 +1377,8 @@ msgstr ""
 #: plugins/siw-functionality/includes/forms/op-maat.php:75
 msgid ""
 "Leuk dat je hebt gekozen "
-"via SIW een "
-"vrijwilligersproject op "
-"maat te doen."
+"via SIW een Project Op "
+"Maat te doen."
 msgstr ""
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:76
@@ -1413,7 +1407,7 @@ msgstr ""
 #: plugins/siw-functionality/includes/forms/op-maat.php:81
 msgid ""
 "Jouw aanmelding voor "
-"vrijwilligerswerk op maat "
+"Vrijwilligerswerk Op Maat "
 "wordt doorgestuurd naar "
 "onze SIW-"
 "regiospecialisten."
@@ -1447,7 +1441,7 @@ msgid ""
 "kennismakingsgesprek gaat "
 "onze regiospecialist "
 "samen met jou kijken welk "
-"project op maat het beste "
+"Project Op Maat het beste "
 "bij jouw wensen en "
 "voorkeuren aansluit."
 msgstr ""
@@ -1526,12 +1520,18 @@ msgid ""
 "het nummer %s."
 msgstr ""
 
+#: plugins/siw-functionality/includes/forms/op-maat.php:109
+msgid ""
+"Aanmelding "
+"Vrijwilligerswerk Op Maat"
+msgstr ""
+
 #: plugins/siw-functionality/includes/forms/op-maat.php:110
 msgid ""
 "Via de website is "
 "onderstaande aanmelding "
-"voor vrijwilligerswerk op "
-"maat binnengekomen:"
+"voor Vrijwilligerswerk Op "
+"Maat binnengekomen:"
 msgstr ""
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:117
@@ -1548,8 +1548,8 @@ msgstr ""
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:174
 msgid ""
-"Interesse in een project "
-"op maat?"
+"Interesse in een Project "
+"Op Maat?"
 msgstr ""
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:175
@@ -1669,7 +1669,7 @@ msgstr ""
 msgid "%s t/m %s"
 msgstr ""
 
-#: plugins/siw-functionality/includes/functions/general.php:217
+#: plugins/siw-functionality/includes/functions/general.php:230
 msgid "Alle"
 msgstr ""
 
@@ -1703,7 +1703,7 @@ msgid "Groepsprojecten"
 msgstr ""
 
 #: plugins/siw-functionality/includes/maps/destinations.php:52
-msgid "Projecten op maat"
+msgid "Projecten Op Maat"
 msgstr ""
 
 #: plugins/siw-functionality/includes/maps/destinations.php:72
@@ -1718,9 +1718,6 @@ msgid "Bestemmingen"
 msgstr ""
 
 #: plugins/siw-functionality/includes/maps/np.php:21
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:449
-#: plugins/siw-functionality/includes/settings/sections/np.php:185
-#: plugins/siw-functionality/includes/shortcodes/general.php:225
 msgid ""
 "Nederlandse projecten"
 msgstr ""
@@ -1736,14 +1733,17 @@ msgid "Deelnemers:"
 msgstr ""
 
 #: plugins/siw-functionality/includes/maps/np.php:35
+#: plugins/siw-functionality/includes/shortcodes/general.php:222
 msgid "Soort werk:"
 msgstr ""
 
 #: plugins/siw-functionality/includes/maps/np.php:36
+#: plugins/siw-functionality/includes/shortcodes/general.php:223
 msgid "Locatie:"
 msgstr ""
 
 #: plugins/siw-functionality/includes/maps/np.php:36
+#: plugins/siw-functionality/includes/shortcodes/general.php:223
 msgid "provincie"
 msgstr ""
 
@@ -2113,7 +2113,7 @@ msgstr ""
 #: plugins/siw-functionality/includes/reference-data/constants.php:111
 msgid ""
 "Maximaal aantal "
-"Nederlandse projecten"
+"Nederlandse Projecten"
 msgstr ""
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:112
@@ -2162,24 +2162,24 @@ msgstr ""
 #: plugins/siw-functionality/includes/reference-data/constants.php:120
 msgid ""
 "Inschrijfgeld "
-"groepsproject (student)"
+"Groepsproject (student)"
 msgstr ""
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:121
 msgid ""
 "Inschrijfgeld "
-"groepsproject (regulier)"
+"Groepsproject (regulier)"
 msgstr ""
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:122
 msgid ""
-"Inschrijfgeld op maat "
+"Inschrijfgeld Op Maat "
 "(student)"
 msgstr ""
 
 #: plugins/siw-functionality/includes/reference-data/constants.php:123
 msgid ""
-"Inschrijfgeld op maat "
+"Inschrijfgeld Op Maat "
 "(regulier)"
 msgstr ""
 
@@ -3602,6 +3602,13 @@ msgstr ""
 msgid "Selecteer een kaart"
 msgstr ""
 
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:449
+#: plugins/siw-functionality/includes/settings/sections/np.php:185
+#: plugins/siw-functionality/includes/shortcodes/general.php:227
+msgid ""
+"Nederlandse Projecten"
+msgstr ""
+
 #: plugins/siw-functionality/includes/settings/sections/configuration.php:458
 msgid "Configuratie"
 msgstr ""
@@ -3699,7 +3706,7 @@ msgstr ""
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:46
 msgid ""
 "E-mail infoverzoek "
-"groepsproject"
+"Groepsproject"
 msgstr ""
 
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:80
@@ -3754,7 +3761,7 @@ msgid "E-mail samenwerking"
 msgstr ""
 
 #: plugins/siw-functionality/includes/settings/sections/np.php:104
-msgid "Aanwezig "
+msgid "Aanwezig"
 msgstr ""
 
 #: plugins/siw-functionality/includes/settings/sections/np.php:125
@@ -3855,7 +3862,7 @@ msgstr ""
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:55
 msgid ""
 "Aankondiging nieuwe "
-"groepsprojecten"
+"Groepsprojecten"
 msgstr ""
 
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:60
@@ -4073,7 +4080,7 @@ msgstr ""
 
 #: plugins/siw-functionality/includes/shortcodes/quick-search-results.php:35
 msgid ""
-"Met een groepsproject ga "
+"Met een Groepsproject ga "
 "je voor 2 tot 3 weken "
 "naar een project, de "
 "begin- en einddatum van "
@@ -4156,11 +4163,6 @@ msgid ""
 "geplande activiteiten."
 msgstr ""
 
-#: plugins/siw-functionality/includes/widgets/contact.php:18
-msgid ""
-"SIW: Contactinformatie"
-msgstr ""
-
 #: plugins/siw-functionality/includes/widgets/contact.php:19
 msgid "Contactinformatie"
 msgstr ""
@@ -4239,7 +4241,7 @@ msgstr ""
 #: plugins/siw-functionality/includes/widgets/quick-search.php:17
 msgid ""
 "Snel zoeken in "
-"groepsprojecten"
+"Groepsprojecten"
 msgstr ""
 
 #: plugins/siw-functionality/includes/widgets/quick-search.php:23
@@ -4517,11 +4519,21 @@ msgid ""
 "strong> is niet ingevuld."
 msgstr ""
 
+#: plugins/siw-functionality/includes/woocommerce/cleanup.php:113
+msgid ""
+"Verwijderen variaties"
+msgstr ""
+
+#: plugins/siw-functionality/includes/woocommerce/cleanup.php:162
+msgid ""
+"Verwijderen projecten"
+msgstr ""
+
 #: plugins/siw-functionality/includes/woocommerce/email/application.php:38
 #, php-format
 msgid ""
 "Nieuwe aanmelding "
-"groepsproject (%s)"
+"Groepsproject (%s)"
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/email/application.php:43
@@ -4724,7 +4736,7 @@ msgstr ""
 msgid ""
 "Hieronder zie je het "
 "beschikbare aanbod "
-"groepsprojecten."
+"Groepsprojecten."
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:163
@@ -4733,7 +4745,7 @@ msgstr ""
 msgid ""
 "Hieronder zie je het "
 "beschikbare aanbod "
-"groepsprojecten in %s."
+"Groepsprojecten in %s."
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:171
@@ -4741,7 +4753,7 @@ msgstr ""
 msgid ""
 "Hieronder zie je het "
 "beschikbare aanbod "
-"groepsprojecten met "
+"Groepsprojecten met "
 "werkzaamheden gericht op "
 "%s."
 msgstr ""
@@ -4751,7 +4763,7 @@ msgstr ""
 msgid ""
 "Hieronder zie je het "
 "beschikbare aanbod "
-"groepsprojecten voor de "
+"Groepsprojecten voor de "
 "doelgroep %s."
 msgstr ""
 
@@ -4760,14 +4772,14 @@ msgstr ""
 msgid ""
 "Hieronder zie je het "
 "beschikbare aanbod "
-"groepsprojecten met de "
+"Groepsprojecten met de "
 "voertaal %s."
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:187
 msgid ""
 "Tijdens onze "
-"groepsprojecten ga je "
+"Groepsprojecten ga je "
 "samen met een "
 "internationale groep "
 "vrijwilligers voor 2 á 3 "
@@ -4787,7 +4799,7 @@ msgid ""
 "de werkwijze van deze "
 "projecten op onze pagina "
 "<a href=\"%s"
-"\">groepsprojecten</a>."
+"\">Groepsprojecten</a>."
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:193
@@ -4867,7 +4879,7 @@ msgstr ""
 #: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:12
 msgid ""
 "Extra gegevens "
-"groepsproject"
+"Groepsproject"
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:17

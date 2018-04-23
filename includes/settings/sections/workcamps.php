@@ -52,7 +52,7 @@ add_action( 'siw_settings_show_workcamps_section', function() {
 		array(
 			'id'			=> 'workcamp_teaser_section_start',
 			'type'			=> 'section',
-			'title'			=> __( 'Aankondiging nieuwe groepsprojecten', 'siw' ),
+			'title'			=> __( 'Aankondiging nieuwe Groepsprojecten', 'siw' ),
 			'indent' 		=> true,
 		),
 		array(

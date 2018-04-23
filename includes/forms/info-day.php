@@ -79,7 +79,7 @@ add_filter( 'caldera_forms_get_form-infodag', function( $form ) {
 		'op_maat' =>
 		array(
 			'value' => 'op_maat',
-			'label' => __( 'Vrijwilligerswerk op maat (3 weken tot een jaar)', 'siw' ),
+			'label' => __( 'Vrijwilligerswerk Op Maat (3 weken tot een jaar)', 'siw' ),
 		),
 		'evs' =>
 		array(

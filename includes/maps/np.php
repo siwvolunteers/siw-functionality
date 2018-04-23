@@ -50,29 +50,23 @@ add_filter( 'mapplic_data', function ( $data, $id ) {
 		$data->levels[0]->locations[] = $location;
 	}
 
-	return $data;
-}, 10, 2 );
 
-
-/* Provincies inkleuren op basis van instellingen */
-add_action( 'wp_enqueue_scripts', function() {
-
-	//bepaal provincies van projecten
-	$projects = siw_get_dutch_projects();
+	/* Extra inline css toevoegen om provincies in te kleuren */
 	$provinces = array();
 	foreach ( $projects as $project ) {
 		$provinces[] = sprintf( '#nl-%s path', $project['province'] );
 	}
 	$provinces = array_unique( $provinces );
-
 	$selectors = implode( ',', $provinces );
-	$primary_color_hover = SIW_PRIMARY_COLOR_HOVER;
 
-	$inline_css = "
-		$selectors{
-			fill:$primary_color_hover;
-		}
-	";
+	$css_rules = array(
+		$selectors => array(
+			'fill'      => SIW_PRIMARY_COLOR_HOVER,
+		),
+	);
+	$css = siw_generate_css( $css_rules );
 
-	wp_add_inline_style( 'pinnacle_child', $inline_css );
-}, 101 );
+	wp_add_inline_style( 'mapplic-map-style', $css );
+
+	return $data;
+}, 10, 2 );

@@ -278,3 +278,23 @@ if ( ! function_exists( 'sanitize_html_classes' ) && function_exists( 'sanitize_
 		}
 	}
 }
+
+
+/**
+ * Hulpfunctie om css te genereren op basis van array met regels
+ *
+ * @param array $rules
+ * @return string
+ */
+function siw_generate_css( $rules ) {
+    $css = '';
+    foreach ( $rules as $selector => $styles ) {
+        $css .= $selector . '{';
+        foreach ( $styles as $property => $value ) {
+            $css .= $property . ':' . $value . ';';
+        }
+        $css .= '}';
+    }
+
+    return $css;
+}
