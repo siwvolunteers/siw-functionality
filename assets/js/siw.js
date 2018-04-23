@@ -47,6 +47,18 @@ return false;
 
 (function( $ ) {
 
+	//Cookie notificatie
+	$( document ).on( 'click', '#siw-cookie-consent', function() {
+		Cookies.set('siw_cookie_consent', 'yes', { expires: 365, secure: true });
+		$('#siw-cookie-notification').hide();
+	});
+
+	$( document ).ready(function() {
+		if( 'yes' !== Cookies.get( 'siw_cookie_consent' ) ){
+			$('#siw-cookie-notification').show();
+		}
+	});
+
 	//Validatieregel voor e-mail
 	var validations = {
 		email: [/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/, siw.invalid_email]
