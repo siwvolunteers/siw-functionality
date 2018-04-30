@@ -1092,7 +1092,7 @@ msgstr "Infoday application form"
 
 #: plugins/siw-functionality/includes/forms/info-day.php:137
 msgid "Meld je hieronder aan voor de Infodag."
-msgstr "Apply below to the info day."
+msgstr "Apply below to join the info day."
 
 #: plugins/siw-functionality/includes/forms/info-day.php:138
 msgid ""
