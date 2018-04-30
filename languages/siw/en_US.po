@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2018-04-17 21:26+0200\n"
+"POT-Creation-Date: 2018-04-29 00:24+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -20,15 +20,10 @@ msgstr ""
 "esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
 "_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ../../../..\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.7\n"
 "X-Poedit-SearchPath-0: plugins/siw-functionality/languages\n"
 "X-Poedit-SearchPath-1: plugins/siw-functionality\n"
 "X-Poedit-SearchPath-2: themes/siw\n"
-
-#: plugins/siw-functionality/assets/plugins/wp-background-process.php:425
-#, php-format
-msgid "Every %d Minutes"
-msgstr "Elke %d minuten"
 
 #: plugins/siw-functionality/assets/redux-extensions/html5/extension_html5.php:81
 msgid "Dit is geen geldige waarde"
@@ -42,6 +37,11 @@ msgstr "This is not a valid url"
 #: plugins/siw-functionality/includes/enqueue.php:14
 msgid "Dit is geen geldig e-mailadres"
 msgstr "This is not a valid email address"
+
+#: plugins/siw-functionality/assets/vendor/wp-background-process.php:425
+#, php-format
+msgid "Every %d Minutes"
+msgstr "Elke %d minuten"
 
 #: plugins/siw-functionality/includes/admin/agenda.php:13
 #: plugins/siw-functionality/includes/post-types/agenda.php:14
@@ -220,20 +220,20 @@ msgstr "What are you going to do?"
 msgid "Bij welke organisatie ga je werken?"
 msgstr "In which organization will you work?"
 
-#: plugins/siw-functionality/includes/admin/interface.php:35
+#: plugins/siw-functionality/includes/admin/interface.php:30
 #, php-format
 msgid "Je bent ingelogd op: %s"
 msgstr "You are logged in on: %s"
 
-#: plugins/siw-functionality/includes/admin/interface.php:85
+#: plugins/siw-functionality/includes/admin/interface.php:80
 msgid "Start actie"
 msgstr "Start action"
 
-#: plugins/siw-functionality/includes/admin/interface.php:121
+#: plugins/siw-functionality/includes/admin/interface.php:116
 msgid "Proces gestart"
 msgstr ""
 
-#: plugins/siw-functionality/includes/admin/interface.php:173
+#: plugins/siw-functionality/includes/admin/interface.php:168
 msgid "Aanmeldingen"
 msgstr "Applications"
 
@@ -421,19 +421,29 @@ msgstr ""
 msgid "Je bent al ingeschreven."
 msgstr "You are already registered."
 
-#: plugins/siw-functionality/includes/cookie-bar/init.php:13
-msgid "Akkoord"
-msgstr "Agree"
+#: plugins/siw-functionality/includes/cookie-notification/init.php:15
+msgid ""
+"We gebruiken cookies om ervoor te zorgen dat onze website optimaal werkt en "
+"om het gebruik van onze website te analyseren."
+msgstr ""
+"We use cookies to ensure that our website works optimally and to analyze the "
+"use of our website."
 
-#: plugins/siw-functionality/includes/custom.php:92
+#: plugins/siw-functionality/includes/cookie-notification/init.php:16
+msgid "Door gebruik te blijven maken van onze website, ga je hiermee akkoord."
+msgstr "By continuing to use our website, you agree to this."
+
+#: plugins/siw-functionality/includes/cookie-notification/init.php:19
+msgid "Ik ga akkoord!"
+msgstr "I agree!"
+
+#: plugins/siw-functionality/includes/custom.php:95
 msgid "SIW heeft geen feed."
 msgstr "SIW has no feed."
 
-#: plugins/siw-functionality/includes/custom.php:210
-#, fuzzy
-#| msgid "Alles over projecten op maat"
+#: plugins/siw-functionality/includes/custom.php:213
 msgid "Alles over Projecten Op Maat"
-msgstr "Everything about customized projects"
+msgstr "Everything about Tailor-made Projects"
 
 #: plugins/siw-functionality/includes/email/mailpoet.php:17
 msgid "De vrijwilligers van SIW"
@@ -637,8 +647,7 @@ msgstr ""
 
 #: plugins/siw-functionality/includes/forms/camp-leader.php:110
 msgid "Vervolgens ontvang je een uitnodiging voor een kennismakingsgesprek."
-msgstr ""
-"Afterwards, you will receive an invitation for a conversational interview."
+msgstr "Afterwards, you will receive an invitation for an in-take interview."
 
 #: plugins/siw-functionality/includes/forms/camp-leader.php:111
 msgid ""
@@ -928,7 +937,7 @@ msgstr "Google"
 
 #: plugins/siw-functionality/includes/forms/evs.php:150
 msgid "Website SIW"
-msgstr "Website SIW"
+msgstr "SIW Website"
 
 #: plugins/siw-functionality/includes/forms/evs.php:155
 #: plugins/siw-functionality/includes/forms/fields.php:384
@@ -951,7 +960,7 @@ msgstr "NJI EVS info day/evening"
 #: plugins/siw-functionality/includes/forms/evs.php:175
 #: plugins/siw-functionality/includes/forms/fields.php:394
 msgid "Anders"
-msgstr "Otherwise"
+msgstr "Other"
 
 #: plugins/siw-functionality/includes/forms/fields.php:257
 #: plugins/siw-functionality/includes/widgets/newsletter.php:51
@@ -1117,10 +1126,8 @@ msgstr "10-12 months"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:71
 #: plugins/siw-functionality/includes/forms/op-maat.php:109
-#, fuzzy
-#| msgid "Aanmelding vrijwilligerswerk op maat"
 msgid "Aanmelding Vrijwilligerswerk Op Maat"
-msgstr "Application for customized volunteers work"
+msgstr "Application for Tailor-made volunteer work"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:74
 msgid "Bedankt voor je aanmelding!"
@@ -1283,10 +1290,8 @@ msgid "Aanmeldformulier voor Op Maat"
 msgstr "Application form for customized"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:174
-#, fuzzy
-#| msgid "Interesse in een project op maat?"
 msgid "Interesse in een Project Op Maat?"
-msgstr "Are you interested in a customized project?"
+msgstr "Are you interested in a Tailor-made project?"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:175
 msgid "Meld je dan aan via onderstaand formulier."
@@ -1403,6 +1408,17 @@ msgstr "Where do you want to go?"
 msgid "Wanneer wil je weg?"
 msgstr "When do you want to leave?"
 
+#: plugins/siw-functionality/includes/maps/class-siw-map-evs.php:12
+#: plugins/siw-functionality/includes/maps/evs.php:24
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:435
+msgid "Bestemmingen"
+msgstr "Destinations"
+
+#: plugins/siw-functionality/includes/maps/class-siw-map.php:168
+#: plugins/siw-functionality/includes/maps/destinations.php:72
+msgid "In dit land bieden wij de volgende projecten aan:"
+msgstr "We offer the following projects in this country:"
+
 #: plugins/siw-functionality/includes/maps/destinations.php:41
 #, php-format
 msgid "Bekijk alle projecten in %s"
@@ -1425,15 +1441,6 @@ msgstr "Workcamps"
 #: plugins/siw-functionality/includes/maps/destinations.php:52
 msgid "Projecten Op Maat"
 msgstr "Everything about customized projects"
-
-#: plugins/siw-functionality/includes/maps/destinations.php:72
-msgid "In dit land bieden wij de volgende projecten aan:"
-msgstr "We offer the following projects in this country:"
-
-#: plugins/siw-functionality/includes/maps/evs.php:22
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:435
-msgid "Bestemmingen"
-msgstr "Destinations"
 
 #: plugins/siw-functionality/includes/maps/np.php:21
 msgid "Nederlandse projecten"
@@ -1899,373 +1906,386 @@ msgstr "Argentina"
 msgid "Armenië"
 msgstr "Armenia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:63
+#: plugins/siw-functionality/includes/reference-data/countries.php:68
 msgid "Australië"
 msgstr "Australia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:77
+#: plugins/siw-functionality/includes/reference-data/countries.php:82
 msgid "Oostenrijk"
 msgstr "Austria"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:87
+#: plugins/siw-functionality/includes/reference-data/countries.php:101
 msgid "Burundi"
 msgstr "Burundi"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:95
+#: plugins/siw-functionality/includes/reference-data/countries.php:115
 msgid "België"
 msgstr "Belgium"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:114
+#: plugins/siw-functionality/includes/reference-data/countries.php:134
 msgid "Bulgarije"
 msgstr "Bulgary"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:128
+#: plugins/siw-functionality/includes/reference-data/countries.php:153
 msgid "Wit-Rusland"
 msgstr "Belarus"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:136
+#: plugins/siw-functionality/includes/reference-data/countries.php:167
 msgid "Bolivia"
 msgstr "Bolivia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:145
+#: plugins/siw-functionality/includes/reference-data/countries.php:181
 msgid "Brazilië"
 msgstr "Brazil"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:154
+#: plugins/siw-functionality/includes/reference-data/countries.php:195
 #: plugins/siw-functionality/includes/reference-data/volunteer.php:52
 msgid "Botswana"
 msgstr "Botswanan"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:168
+#: plugins/siw-functionality/includes/reference-data/countries.php:209
 msgid "Canada"
 msgstr "Canada"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:177
+#: plugins/siw-functionality/includes/reference-data/countries.php:223
 msgid "Zwitserland"
 msgstr "Switzerland"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:185
+#: plugins/siw-functionality/includes/reference-data/countries.php:236
 msgid "China"
 msgstr "China"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:199
+#: plugins/siw-functionality/includes/reference-data/countries.php:250
 msgid "Costa Rica"
 msgstr "Costa Rica"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:213
+#: plugins/siw-functionality/includes/reference-data/countries.php:264
 msgid "Cyprus"
 msgstr "Cyprus"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:227
+#: plugins/siw-functionality/includes/reference-data/countries.php:283
 msgid "Tsjechië"
 msgstr "Czech Republic"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:236
+#: plugins/siw-functionality/includes/reference-data/countries.php:301
 msgid "Duitsland"
 msgstr "Germany"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:250
+#: plugins/siw-functionality/includes/reference-data/countries.php:320
 msgid "Denemarken"
 msgstr "Denmark"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:264
+#: plugins/siw-functionality/includes/reference-data/countries.php:339
 msgid "Ecuador"
 msgstr "Ecuador"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:278
+#: plugins/siw-functionality/includes/reference-data/countries.php:353
 msgid "Spanje"
 msgstr "Spain"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:288
+#: plugins/siw-functionality/includes/reference-data/countries.php:372
 msgid "Estland"
 msgstr "Estonia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:302
+#: plugins/siw-functionality/includes/reference-data/countries.php:391
 msgid "Finland"
 msgstr "Finland"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:316
+#: plugins/siw-functionality/includes/reference-data/countries.php:410
 msgid "Frankrijk"
 msgstr "France"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:330
+#: plugins/siw-functionality/includes/reference-data/countries.php:429
 msgid "Verenigd Koninkrijk"
 msgstr "United Kingdom"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:340
+#: plugins/siw-functionality/includes/reference-data/countries.php:448
 msgid "Georgië"
 msgstr "Georgia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:349
+#: plugins/siw-functionality/includes/reference-data/countries.php:462
 msgid "Ghana"
 msgstr "Ghana"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:363
+#: plugins/siw-functionality/includes/reference-data/countries.php:476
 msgid "Griekenland"
 msgstr "Greece"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:377
+#: plugins/siw-functionality/includes/reference-data/countries.php:495
 msgid "Groenland"
 msgstr "Greenland"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:386
+#: plugins/siw-functionality/includes/reference-data/countries.php:504
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:395
+#: plugins/siw-functionality/includes/reference-data/countries.php:519
 msgid "Hongarije"
 msgstr "Hungary"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:409
+#: plugins/siw-functionality/includes/reference-data/countries.php:538
 msgid "Kroatië"
 msgstr "Croatia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:419
+#: plugins/siw-functionality/includes/reference-data/countries.php:557
 msgid "Haïti"
 msgstr "Haiti"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:433
+#: plugins/siw-functionality/includes/reference-data/countries.php:571
 msgid "Indonesië"
 msgstr "Indonesia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:447
+#: plugins/siw-functionality/includes/reference-data/countries.php:585
 msgid "India"
 msgstr "India"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:461
+#: plugins/siw-functionality/includes/reference-data/countries.php:599
 msgid "Ierland"
 msgstr "Ireland"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:475
+#: plugins/siw-functionality/includes/reference-data/countries.php:618
 msgid "IJsland"
 msgstr "Iceland"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:489
+#: plugins/siw-functionality/includes/reference-data/countries.php:637
 msgid "Italië"
 msgstr "Italy"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:508
+#: plugins/siw-functionality/includes/reference-data/countries.php:656
 msgid "Japan"
 msgstr "Japan"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:522
+#: plugins/siw-functionality/includes/reference-data/countries.php:670
 msgid "Kenia"
 msgstr "Kenya"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:536
+#: plugins/siw-functionality/includes/reference-data/countries.php:684
 msgid "Kirgizië"
 msgstr "Kyrgyzstan"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:545
+#: plugins/siw-functionality/includes/reference-data/countries.php:698
 msgid "Cambodja"
 msgstr "Cambodia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:559
+#: plugins/siw-functionality/includes/reference-data/countries.php:712
 msgid "Zuid-Korea"
 msgstr "South Korea"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:573
+#: plugins/siw-functionality/includes/reference-data/countries.php:726
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: plugins/siw-functionality/includes/reference-data/countries.php:744
 msgid "Sri Lanka"
 msgstr "Sri Lanka"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:587
+#: plugins/siw-functionality/includes/reference-data/countries.php:758
 msgid "Litouwen"
 msgstr "Lithuania"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:597
+#: plugins/siw-functionality/includes/reference-data/countries.php:777
+#: plugins/siw-functionality/includes/reference-data/volunteer.php:114
+msgid "Luxemburg"
+msgstr "Luxembourg"
+
+#: plugins/siw-functionality/includes/reference-data/countries.php:795
 msgid "Letland"
 msgstr "Latvia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:607
+#: plugins/siw-functionality/includes/reference-data/countries.php:814
 msgid "Marokko"
 msgstr "Morocco"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:621
+#: plugins/siw-functionality/includes/reference-data/countries.php:828
 msgid "Mexico"
 msgstr "Mexico"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:635
+#: plugins/siw-functionality/includes/reference-data/countries.php:842
+msgid "Macedonië"
+msgstr "Macedonia"
+
+#: plugins/siw-functionality/includes/reference-data/countries.php:860
 msgid "Malta"
 msgstr "Malta"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:645
+#: plugins/siw-functionality/includes/reference-data/countries.php:878
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:654
+#: plugins/siw-functionality/includes/reference-data/countries.php:892
 msgid "Mongolië"
 msgstr "Mongolia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:668
+#: plugins/siw-functionality/includes/reference-data/countries.php:906
 msgid "Nederland"
 msgstr "Netherlands"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:676
+#: plugins/siw-functionality/includes/reference-data/countries.php:919
 msgid "Noorwegen"
 msgstr "Norway"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:686
+#: plugins/siw-functionality/includes/reference-data/countries.php:938
 msgid "Nepal"
 msgstr "Nepal"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:700
+#: plugins/siw-functionality/includes/reference-data/countries.php:952
 msgid "Peru"
 msgstr "Peru"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:714
+#: plugins/siw-functionality/includes/reference-data/countries.php:966
 msgid "Polen"
 msgstr "Poland"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:724
+#: plugins/siw-functionality/includes/reference-data/countries.php:985
 msgid "Portugal"
 msgstr "Portugal"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:734
+#: plugins/siw-functionality/includes/reference-data/countries.php:1004
 msgid "Roemenië"
 msgstr "Romania"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:744
+#: plugins/siw-functionality/includes/reference-data/countries.php:1023
 msgid "Rusland"
 msgstr "Russia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:753
+#: plugins/siw-functionality/includes/reference-data/countries.php:1037
 msgid "Senegal"
 msgstr "Senegal"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:767
+#: plugins/siw-functionality/includes/reference-data/countries.php:1051
 msgid "Servië"
 msgstr "Serbia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:776
+#: plugins/siw-functionality/includes/reference-data/countries.php:1065
 msgid "Slowakije"
 msgstr "Slovakia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:786
+#: plugins/siw-functionality/includes/reference-data/countries.php:1084
 msgid "Slovenië"
 msgstr "Slovenia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:796
+#: plugins/siw-functionality/includes/reference-data/countries.php:1103
 msgid "Zweden"
 msgstr "Sweden"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:806
+#: plugins/siw-functionality/includes/reference-data/countries.php:1122
 msgid "Togo"
 msgstr "Togo"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:820
+#: plugins/siw-functionality/includes/reference-data/countries.php:1136
 msgid "Thailand"
 msgstr "Thailand"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:834
+#: plugins/siw-functionality/includes/reference-data/countries.php:1150
 msgid "Tunesië"
 msgstr "Tunesia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:848
+#: plugins/siw-functionality/includes/reference-data/countries.php:1164
 msgid "Turkije"
 msgstr "Turkey"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:858
+#: plugins/siw-functionality/includes/reference-data/countries.php:1183
 msgid "Taiwan"
 msgstr "Taiwan"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:872
+#: plugins/siw-functionality/includes/reference-data/countries.php:1197
 msgid "Tanzania"
 msgstr "Tanzania"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:886
+#: plugins/siw-functionality/includes/reference-data/countries.php:1211
 msgid "Uganda"
 msgstr "Uganda"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:900
+#: plugins/siw-functionality/includes/reference-data/countries.php:1225
 msgid "Oekraïne"
 msgstr "Ukraine"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:909
+#: plugins/siw-functionality/includes/reference-data/countries.php:1239
 msgid "Verenigde Staten"
 msgstr "United States"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:923
+#: plugins/siw-functionality/includes/reference-data/countries.php:1253
 msgid "Vietnam"
 msgstr "Vietnam"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:937
+#: plugins/siw-functionality/includes/reference-data/countries.php:1267
 msgid "Kosovo"
 msgstr "Kosovo"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:946
+#: plugins/siw-functionality/includes/reference-data/countries.php:1281
 msgid "Zuid-Afrika"
 msgstr "South America"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:990
+#: plugins/siw-functionality/includes/reference-data/countries.php:1325
 #: plugins/siw-functionality/includes/settings/sections/countries.php:73
 msgid "Europa"
 msgstr "Europe"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:991
+#: plugins/siw-functionality/includes/reference-data/countries.php:1326
 #: plugins/siw-functionality/includes/settings/sections/countries.php:67
 msgid "Azië"
 msgstr "Asia"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:992
+#: plugins/siw-functionality/includes/reference-data/countries.php:1327
 #: plugins/siw-functionality/includes/settings/sections/countries.php:61
 msgid "Afrika"
 msgstr "Africa"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:993
+#: plugins/siw-functionality/includes/reference-data/countries.php:1328
 #: plugins/siw-functionality/includes/settings/sections/countries.php:79
 msgid "Latijns-Amerika"
 msgstr "Latin America"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:994
+#: plugins/siw-functionality/includes/reference-data/countries.php:1329
 #: plugins/siw-functionality/includes/settings/sections/countries.php:85
 msgid "Noord-Amerika"
 msgstr "North America"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:1044
+#: plugins/siw-functionality/includes/reference-data/countries.php:1379
 msgid "Brabant"
 msgstr "Brabant"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:1045
+#: plugins/siw-functionality/includes/reference-data/countries.php:1380
 msgid "Drenthe"
 msgstr "Drenthe"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:1046
+#: plugins/siw-functionality/includes/reference-data/countries.php:1381
 msgid "Flevoland"
 msgstr "Flevoland"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:1047
+#: plugins/siw-functionality/includes/reference-data/countries.php:1382
 msgid "Friesland"
 msgstr "Friesland"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:1048
+#: plugins/siw-functionality/includes/reference-data/countries.php:1383
 msgid "Gelderland"
 msgstr "Gelderland"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:1049
+#: plugins/siw-functionality/includes/reference-data/countries.php:1384
 msgid "Groningen"
 msgstr "Groningen"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:1050
+#: plugins/siw-functionality/includes/reference-data/countries.php:1385
 msgid "Limburg"
 msgstr "Limburg"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:1051
+#: plugins/siw-functionality/includes/reference-data/countries.php:1386
 msgid "Noord-Holland"
 msgstr "North Holland"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:1052
+#: plugins/siw-functionality/includes/reference-data/countries.php:1387
 msgid "Overijssel"
 msgstr "Overijssel"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:1053
+#: plugins/siw-functionality/includes/reference-data/countries.php:1388
 msgid "Utrecht"
 msgstr "Utrecht"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:1054
+#: plugins/siw-functionality/includes/reference-data/countries.php:1389
 msgid "Zeeland"
 msgstr "Zeeland"
 
-#: plugins/siw-functionality/includes/reference-data/countries.php:1055
+#: plugins/siw-functionality/includes/reference-data/countries.php:1390
 msgid "Zuid-Holland"
 msgstr "South Holland"
 
@@ -2765,10 +2785,6 @@ msgstr "Lebanese"
 msgid "Litouwse"
 msgstr "Lithuanian"
 
-#: plugins/siw-functionality/includes/reference-data/volunteer.php:114
-msgid "Luxemburg"
-msgstr "Luxembourgers"
-
 #: plugins/siw-functionality/includes/reference-data/volunteer.php:115
 msgid "Macedonische"
 msgstr "Macedonian"
@@ -3021,17 +3037,17 @@ msgstr "Human rights, equality, gender"
 msgid "Natuurbescherming, milieu, klimaat"
 msgstr "Nature preservation, environment, climate"
 
-#: plugins/siw-functionality/includes/seo.php:77
+#: plugins/siw-functionality/includes/seo.php:78
 #, php-format
 msgid "Groepsprojecten in %s"
 msgstr "Workcamps in %s"
 
-#: plugins/siw-functionality/includes/seo.php:80
+#: plugins/siw-functionality/includes/seo.php:81
 #, php-format
 msgid "Groepsprojecten voor %s"
 msgstr "Workcamps for %s"
 
-#: plugins/siw-functionality/includes/seo.php:83
+#: plugins/siw-functionality/includes/seo.php:84
 #, php-format
 msgid "Groepsprojecten met voertaal %s"
 msgstr "Workcamps with language %s"
@@ -3628,6 +3644,8 @@ msgid "Url"
 msgstr "Url"
 
 #: plugins/siw-functionality/includes/shortcodes/general.php:204
+#: plugins/siw-functionality/includes/widgets/accordion/accordion.php:28
+#: plugins/siw-functionality/includes/widgets/accordion/accordion.php:42
 #: plugins/siw-functionality/includes/widgets/agenda.php:24
 #: plugins/siw-functionality/includes/widgets/contact.php:23
 #: plugins/siw-functionality/includes/widgets/cta.php:23
@@ -3717,6 +3735,26 @@ msgstr "Become active for SIW."
 #, php-format
 msgid "Wij zoeken een %s."
 msgstr "We are looking for a %s."
+
+#: plugins/siw-functionality/includes/widgets/accordion/accordion.php:18
+msgid "SIW: Accordeon widget"
+msgstr ""
+
+#: plugins/siw-functionality/includes/widgets/accordion/accordion.php:20
+msgid "Toont een accordeon."
+msgstr ""
+
+#: plugins/siw-functionality/includes/widgets/accordion/accordion.php:32
+msgid "Accordeon"
+msgstr ""
+
+#: plugins/siw-functionality/includes/widgets/accordion/accordion.php:33
+msgid "Paneel"
+msgstr ""
+
+#: plugins/siw-functionality/includes/widgets/accordion/accordion.php:46
+msgid "Inhoud"
+msgstr ""
 
 #: plugins/siw-functionality/includes/widgets/agenda.php:19
 msgid "SIW: Agenda"
@@ -4211,10 +4249,8 @@ msgid "Willekeurig"
 msgstr "Random"
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:159
-#, fuzzy
-#| msgid "Hieronder zie je een selectie van de mogelijkheden"
 msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten."
-msgstr "Below you can see a selection of the possibilities"
+msgstr "Below you can see the available Workcamps."
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:163
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:167
@@ -4233,13 +4269,13 @@ msgstr ""
 #, php-format
 msgid ""
 "Hieronder zie je het beschikbare aanbod Groepsprojecten voor de doelgroep %s."
-msgstr ""
+msgstr "Below you can see the available Workcamps for %s."
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:179
 #, php-format
 msgid ""
 "Hieronder zie je het beschikbare aanbod Groepsprojecten met de voertaal %s."
-msgstr ""
+msgstr "Below you can see the available Workcamps with the %s language."
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/archive.php:187
 msgid ""
@@ -4273,6 +4309,7 @@ msgstr ""
 #, php-format
 msgid "<a href=\"%s\">Bel of mail ons</a> en we denken graag met je mee!"
 msgstr ""
+"<a href=\"%s\">Call or email us</a> and we are happy to think along with you!"
 
 #: plugins/siw-functionality/includes/woocommerce/frontend/product.php:53
 #, php-format
@@ -4403,6 +4440,10 @@ msgstr "SEO title"
 msgid "Meta omschrijving"
 msgstr "Meta description"
 
+#: plugins/siw-functionality/includes/workcamps/import-from-plato/update-free-places.php:9
+msgid "Bijwerken vrije plaatsen"
+msgstr "Update free places"
+
 #: themes/siw/404.php:5
 msgid "Pagina niet gevonden"
 msgstr "Page not found"
@@ -4510,6 +4551,9 @@ msgid ""
 msgstr ""
 "I have read and agreed with <a id=“open-terms-and-conditions” data-"
 "toggle=“modal” data-target=“#siw-terms” > registration conditions </a> "
+
+#~ msgid "Akkoord"
+#~ msgstr "Agree"
 
 #, fuzzy
 #~| msgid "Aanmelding vrijwilligerswerk op maat"

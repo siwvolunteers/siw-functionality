@@ -63,14 +63,24 @@ add_filter( 'wysija_subscription_limit_base', function() { return HOUR_IN_SECOND
  * - Database
  * - Bestanden
  */
-add_filter( 'updraftplus_schedule_firsttime_db', function() {
-	$backup_db_ts = strtotime( 'tomorrow ' . SIW_CRON_TS_BACKUP_DB );
-	$backup_db_ts_gmt = strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $backup_db_ts ) ) . ' GMT' );
+add_filter( 'updraftplus_schedule_firsttime_db', function( $scheduled_time ) {
+
+	$tomorrow = strtotime( 'tomorrow');
+	$backup_db_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
+
+	$backup_db_ts = strtotime( $backup_db_day . ' ' . SIW_CRON_TS_BACKUP_DB );
+	$backup_db_ts_gmt = siw_get_timestamp_in_gmt( $backup_db_ts );
+
 	return $backup_db_ts_gmt;
 } );
-add_filter( 'updraftplus_schedule_firsttime_files', function() {
-	$backup_files_ts = strtotime( 'tomorrow ' . SIW_CRON_TS_BACKUP_FILES );
-	$backup_files_ts_gmt = strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $backup_files_ts ) ) . ' GMT' );
+add_filter( 'updraftplus_schedule_firsttime_files', function( $scheduled_time ) {
+
+	$tomorrow = strtotime( 'tomorrow');
+	$backup_files_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
+
+	$backup_files_ts = strtotime( $backup_files_day . ' ' . SIW_CRON_TS_BACKUP_FILES );
+	$backup_files_ts_gmt = siw_get_timestamp_in_gmt( $backup_files_ts );
+
 	return $backup_files_ts_gmt;
 } );
 
