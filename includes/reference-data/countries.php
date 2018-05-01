@@ -1,6 +1,6 @@
 <?php
 /*
- * (c)2017 SIW Internationale Vrijwilligersprojecten
+ * (c)2017-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -55,7 +55,12 @@ function siw_get_countries() {
 			'continent'		=> 'europa',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'am',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'am',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice' => 'armenie',
 		),
 		'AUS' => array(
@@ -79,7 +84,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'at',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'at',
+					'coordinates'	=> array( 'x' => 0.5101,'y' => 0.6117 ),
+				),
+				'world' => array(
+					'code' 			=> 'at',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice'	=> 'oostenrijk',
 		),
 		'BDI' => array(
@@ -88,6 +102,12 @@ function siw_get_countries() {
 			'continent'		=> 'afrika-midden-oosten',
 			'allowed'		=> 'no',
 			'op_maat'		=> false,
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'bi',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice'	=> 'burundi',
 		),
 		'BEL' => array(
@@ -116,11 +136,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'bg',
-			'coordinates'	=> array(
-				'europe'		=> array( 'x' => 0.7005, 'y'=> 0.7120 ),
-				'world'			=> array( 'x' => 0,'y' => 0 ),
-			),
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'bg',
+					'coordinates'	=> array( 'x' => 0.7005,'y' => 0.7120 ),
+				),
+				'world' => array(
+					'code' 			=> 'bg',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice'	=> 'bulgarije',
 		),
 		'BLR' => array(
@@ -129,6 +154,12 @@ function siw_get_countries() {
 			'continent'		=> 'europa',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'by',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),			
 			'travel_advice' => 'belarus-wit-rusland',
 		),
 		'BOL' => array(
@@ -137,7 +168,12 @@ function siw_get_countries() {
 			'continent'		=> 'latijns-amerika',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'bo',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'bo',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice'	=> 'bolivia',
 		),
 		'BRA' => array(
@@ -146,7 +182,12 @@ function siw_get_countries() {
 			'continent'		=> 'latijns-amerika',
 			'allowed'		=> 'yes',
 			'op_maat'		=> true,
-			'mapplic'		=> 'br',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'br',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice'	=> 'brazilie',
 		),
 		'BWA' => array(
@@ -169,7 +210,12 @@ function siw_get_countries() {
 			'continent'		=> 'noord-amerika',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'ca',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'ca',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice' => 'canada',
 		),
 		'CHE' => array(
@@ -178,7 +224,12 @@ function siw_get_countries() {
 			'continent'		=> 'europa',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'ch',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'ch',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 		),
 		'CHN' => array(
 			'slug'			=> 'china',
@@ -215,11 +266,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'cy',
-			'coordinates'	=> array(
-				'europe'		=> array( 'x' => 0.9060, 'y'=> 0.8622 ),
-				'world'			=> array( 'x' => 0,'y' => 0 ),
-			),
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'cy',
+					'coordinates'	=> array( 'x' => 0.9060,'y' => 0.8622 ),
+				),
+				'world' => array(
+					'code' 			=> 'cy',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'cyprus',
 		),
 		'CZE' => array(
@@ -228,7 +284,16 @@ function siw_get_countries() {
 			'continent'		=> 'europa',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'cz',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'cz',
+					'coordinates'	=> array( 'x' => 0.5209,'y' => 0.5620 ),
+				),
+				'world' => array(
+					'code' 			=> 'cz',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'tsjechie',
 		),
 		'DEU' => array(
@@ -238,11 +303,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'de',
-			'coordinates'	=> array(
-				'europe'		=> array( 'x' => 0.4383, 'y'=> 0.4949 ),
-				'world'			=> array( 'x' => 0.5,'y' => 0.5 ),
-			),
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'de',
+					'coordinates'	=> array( 'x' => 0.4383,'y' => 0.4949 ),
+				),
+				'world' => array(
+					'code' 			=> 'de',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'duitsland',
 		),
 		'DNK' => array(
@@ -252,11 +322,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'dk',
-			'coordinates'	=> array(
-				'europe'		=> array( 'x' => 0.4253, 'y'=> 0.3948 ),
-				'world'			=> array( 'x' => 0,'y' => 0 ),
-			),
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'dk',
+					'coordinates'	=> array( 'x' => 0.4353,'y' => 0.3948 ),
+				),
+				'world' => array(
+					'code' 			=> 'dk',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'denemarken',
 		),
 		'ECU' => array(
@@ -280,7 +355,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'es',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'es',
+					'coordinates'	=> array( 'x' => 0.1731,'y' => 0.7856 ),
+				),
+				'world' => array(
+					'code' 			=> 'es',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'spanje',
 		),
 		'EST' => array(
@@ -290,11 +374,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'ee', //EVS: ew
-			'coordinates'	=> array(
-				'europe'		=> array( 'x' => 0.6372, 'y'=> 0.3070 ),
-				'world'			=> array( 'x' => 0,'y' => 0 ),
-			),
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'ew',
+					'coordinates'	=> array( 'x' => 0.6372,'y' => 0.3070 ),
+				),
+				'world' => array(
+					'code' 			=> 'ee',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'estland',
 		),
 		'FIN' => array(
@@ -304,11 +393,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'fi', //EVS:no
-			'coordinates'	=> array(
-				'europe'		=> array( 'x' => 0.6052, 'y'=> 0.2487 ),
-				'world'			=> array( 'x' => 0,'y' => 0 ),
-			),
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'no',
+					'coordinates'	=> array( 'x' => 0.6052,'y' => 0.2487 ),
+				),
+				'world' => array(
+					'code' 			=> 'fi',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'finland',
 		),
 		'FRA' => array(
@@ -318,10 +412,15 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'fr',
-			'coordinates'	=> array(
-				'europe'		=> array( 'x' => 0.3084, 'y'=> 0.6348 ),
-				'world'			=> array( 'x' => 0,'y' => 0 ),
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'fr',
+					'coordinates'	=> array( 'x' => 0.3084,'y' => 0.6348 ),
+				),
+				'world' => array(
+					'code' 			=> 'fr',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
 			),
 			'travel_advice' => 'frankrijk',
 		),
@@ -332,7 +431,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'gb',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'gb',
+					'coordinates'	=> array( 'x' => 0.2680,'y' => 0.4444 ),
+				),
+				'world' => array(
+					'code' 			=> 'gb',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'verenigd-koninkrijk',
 		),
 		'GEO' => array(
@@ -341,7 +449,12 @@ function siw_get_countries() {
 			'continent'		=> 'europa',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic' 		=> 'ge',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'ge',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice'	=> 'georgie',
 		),
 		'GHA' => array(
@@ -365,11 +478,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'gr',
-			'coordinates'	=> array(
-				'europe'		=> array( 'x' => 0.6743, 'y'=> 0.8102 ),
-				'world'			=> array( 'x' => 0,'y' => 0 ),
-			),
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'gr',
+					'coordinates'	=> array( 'x' => 0.6743,'y' => 0.8102 ),
+				),
+				'world' => array(
+					'code' 			=> 'gr',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice'	=> 'griekenland',
 		),
 		'GRL' => array(
@@ -387,6 +505,12 @@ function siw_get_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'no',
 			'op_maat'		=> false,
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'hk',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),			
 			//'mapplic'		=> '?',
 			'travel_advice' => 'hongkong-sar',
 		),
@@ -397,11 +521,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'hu',
-			'coordinates'	=> array(
-				'europe'		=> array( 'x' => 0.5892, 'y'=> 0.6179 ),
-				'world'			=> array( 'x' => 0,'y' => 0 ),
-			),
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'hu',
+					'coordinates'	=> array( 'x' => 0.5892,'y' => 0.6179 ),
+				),
+				'world' => array(
+					'code' 			=> 'hu',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'hongarije',
 		),
 		'HRV' => array(
@@ -411,7 +540,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'hr',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'hr',
+					'coordinates'	=> array( 'x' => 0.5467,'y' => 0.6570 ),
+				),
+				'world' => array(
+					'code' 			=> 'hr',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'kroatie',
 		),
 		'HTE' => array(
@@ -463,11 +601,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'ie',
-			'coordinates'	=> array(
-				'europe'		=> array( 'x' => 0.1829, 'y'=> 0.4456 ),
-				'world'			=> array( 'x' => 0,'y' => 0 ),
-			),
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'ie',
+					'coordinates'	=> array( 'x' => 0.1829,'y' => 0.4456 ),
+				),
+				'world' => array(
+					'code' 			=> 'ie',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'ierland',
 		),
 		'ISL' => array(
@@ -477,11 +620,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'is',
-			'coordinates'	=> array(
-				'europe'		=> array( 'x' => 0.1391, 'y'=> 0.1429 ),
-				'world'			=> array( 'x' => 0,'y' => 0 ),
-			),
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'is',
+					'coordinates'	=> array( 'x' => 0.1391,'y' => 0.1429 ),
+				),
+				'world' => array(
+					'code' 			=> 'is',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'ijsland',
 		),
 		'ITA' => array(
@@ -537,7 +685,12 @@ function siw_get_countries() {
 			'continent'		=> 'azie',
 			'allowed'		=> 'no',
 			'op_maat'		=> false,
-			'mapplic'		=> 'kg',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'kg',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice' => 'kirgizie',
 		),
 		'KHM' => array(
@@ -568,6 +721,24 @@ function siw_get_countries() {
 			),		
 			'travel_advice' => 'zuid-korea',
 		),
+		'LIE' => array(
+			'slug'			=> 'liechtenstein',
+			'name'			=> __( 'Liechtenstein', 'siw' ),
+			'continent'		=> 'europa',
+			'allowed'		=> 'no',
+			'evs'			=> true,
+			'op_maat'		=> true,
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'li',
+					'coordinates'	=> array( 'x' => 0.4311,'y' => 0.6250 ),
+				),
+				'world' => array(
+					'code' 			=> 'li',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
+		),
 		'LKA' => array(
 			'slug'			=> 'sri-lanka',
 			'name'			=> __( 'Sri Lanka', 'siw' ),
@@ -589,8 +760,35 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'lt',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'lt',
+					'coordinates'	=> array( 'x' => 0.6288,'y' => 0.4005 ),
+				),
+				'world' => array(
+					'code' 			=> 'lt',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'litouwen',
+		),
+		'LUX' => array(
+			'slug'			=> 'luxemburg',
+			'name'			=> __( 'Luxemburg', 'siw' ),
+			'continent'		=> 'europa',
+			'allowed'		=> 'no',
+			'evs'			=> true,
+			'op_maat'		=> false,
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'lu',
+					'coordinates'	=> array( 'x' => 0.3773,'y' => 0.5592 ),
+				),
+				'world' => array(
+					'code' 			=> 'lu',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 		),
 		'LVA' => array(
 			'slug'			=> 'letland',
@@ -599,7 +797,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'lv',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'lv',
+					'coordinates'	=> array( 'x' => 0.6457,'y' => 0.3567 ),
+				),
+				'world' => array(
+					'code' 			=> 'lv',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'letland',
 		),
 		'MAR' => array(
@@ -630,6 +837,24 @@ function siw_get_countries() {
 			),		
 			'travel_advice' => 'mexico',
 		),
+		'MKD' => array(
+			'slug'			=> 'macedonie',
+			'name'			=> __( 'Macedonië', 'siw' ),
+			'continent'		=> 'europa',
+			'allowed'		=> 'no',
+			'evs'			=> true,
+			'op_maat'		=> false,
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'mk',
+					'coordinates'	=> array( 'x' => 0.6491,'y' => 0.7496 ),
+				),
+				'world' => array(
+					'code' 			=> 'mk',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
+		),
 		'MLT' => array(
 			'slug'			=> 'malta',
 			'name'			=> __( 'Malta', 'siw' ),
@@ -637,8 +862,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'mt',
-			'travel_advice' => 'malta',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'mt',
+					'coordinates'	=> array( 'x' => 0.5277,'y' => 0.9087 ),
+				),
+				'world' => array(
+					'code' 			=> 'mt',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 		),
 		'MNE' => array(
 			'slug'			=> 'montenegro',
@@ -646,7 +879,12 @@ function siw_get_countries() {
 			'continent'		=> 'europa',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'me',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'me',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice' => 'montenegro',
 		),
 		'MNG' => array(
@@ -669,7 +907,12 @@ function siw_get_countries() {
 			'continent'		=> 'europa',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'nl',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'nl',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),			
 		),
 		'NOR' => array(
 			'slug'			=> 'noorwegen',
@@ -678,7 +921,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'no',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'fi',
+					'coordinates'	=> array( 'x' => 0.4299,'y' => 0.2622 ),
+				),
+				'world' => array(
+					'code' 			=> 'no',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'noorwegen',
 		),
 		'NPL' => array(
@@ -716,7 +968,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'pl',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'pl',
+					'coordinates'	=> array( 'x' => 0.5656,'y' => 0.4748 ),
+				),
+				'world' => array(
+					'code' 			=> 'pl',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'polen',
 		),
 		'PRT' => array(
@@ -726,7 +987,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'pt',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'pt',
+					'coordinates'	=> array( 'x' => 0.0999,'y' => 0.7642 ),
+				),
+				'world' => array(
+					'code' 			=> 'pt',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'portugal',
 		),
 		'ROU' => array(
@@ -736,7 +1006,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'ro',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'ro',
+					'coordinates'	=> array( 'x' => 0.6946,'y' => 0.6155 ),
+				),
+				'world' => array(
+					'code' 			=> 'ro',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'roemenie',
 		),
 		'RUS' => array(
@@ -745,7 +1024,12 @@ function siw_get_countries() {
 			'continent'		=> 'europa',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'ru',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'ru',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice' => 'rusland',
 		),
 		'SEN' => array(
@@ -768,7 +1052,12 @@ function siw_get_countries() {
 			'continent'		=> 'europa',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'rs',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'rs',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice' => 'servie',
 		),
 		'SVK' => array(
@@ -778,7 +1067,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'sk',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'sk',
+					'coordinates'	=> array( 'x' => 0.5815,'y' => 0.5764 ),
+				),
+				'world' => array(
+					'code' 			=> 'sk',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'slowakije',
 		),
 		'SVN' => array(
@@ -788,7 +1086,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'si',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'si',
+					'coordinates'	=> array( 'x' => 0.5192,'y' => 0.6513 ),
+				),
+				'world' => array(
+					'code' 			=> 'si',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'slovenie',
 		),
 		'SWE' => array(
@@ -798,7 +1105,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'se',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'se',
+					'coordinates'	=> array( 'x' => 0.4923,'y' => 0.2976 ),
+				),
+				'world' => array(
+					'code' 			=> 'se',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'zweden',
 		),
 		'TGO' => array(
@@ -850,7 +1166,16 @@ function siw_get_countries() {
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'evs'			=> true,
-			'mapplic'		=> 'tr',
+			'mapplic'		=> array(
+				'europe' => array(
+					'code' 			=> 'tr',
+					'coordinates'	=> array( 'x' => 0.8529,'y' => 0.7596 ),
+				),
+				'world' => array(
+					'code' 			=> 'tr',
+					'coordinates'	=> array( 'x' => 0.0000,'y' => 0.0000 ),
+				),
+			),	
 			'travel_advice' => 'turkije',
 		),
 		'TWN' => array(
@@ -901,7 +1226,12 @@ function siw_get_countries() {
 			'continent'		=> 'europa',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			'mapplic'		=> 'ua',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'ua',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),
 			'travel_advice' => 'oekraine',
 		),
 		'USA' => array(
@@ -938,7 +1268,12 @@ function siw_get_countries() {
 			'continent'		=> 'europa',
 			'allowed'		=> 'yes',
 			'op_maat'		=> false,
-			//'mapplic'		=> '??',
+			'mapplic'		=> array(
+				'world' => array(
+					'code' 			=> 'xk',
+					'coordinates'	=> array( 'x' => 0.5000,'y' => 0.5000 ),
+				),
+			),			
 			'travel_advice' => 'kosovo',
 		),
 		'ZAF' => array(
