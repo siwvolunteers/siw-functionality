@@ -14,8 +14,6 @@ add_filter( 'mapplic_data', function ( $data, $id ) {
 		return $data;
 	}
 
-	$data->zoomlimit = 1;
-
 	/* Eigenschappen van categorie zetten */
 	$data->categories = array();
 
