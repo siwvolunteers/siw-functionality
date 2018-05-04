@@ -19,6 +19,7 @@ add_action( 'wp_footer', function() {
 					<button id="siw-cookie-consent" class="button"><?php esc_html_e( 'Ik ga akkoord!', 'siw' ); ?></button>
 				</div>
 			</div>
+		</div>
 	</div>
 <?php
 });
