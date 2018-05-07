@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2018-04-29 00:24+0200\n"
+"POT-Creation-Date: 2018-05-04 16:39+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -437,11 +437,11 @@ msgstr "By continuing to use our website, you agree to this."
 msgid "Ik ga akkoord!"
 msgstr "I agree!"
 
-#: plugins/siw-functionality/includes/custom.php:95
+#: plugins/siw-functionality/includes/custom.php:102
 msgid "SIW heeft geen feed."
 msgstr "SIW has no feed."
 
-#: plugins/siw-functionality/includes/custom.php:213
+#: plugins/siw-functionality/includes/custom.php:220
 msgid "Alles over Projecten Op Maat"
 msgstr "Everything about Tailor-made Projects"
 
@@ -547,7 +547,7 @@ msgstr "This is not a valid date."
 #: plugins/siw-functionality/includes/forms/camp-leader.php:35
 #: plugins/siw-functionality/includes/forms/evs.php:34
 msgid "Bevestiging aanmelding"
-msgstr "Confirmation appication"
+msgstr "Confirmation application"
 
 #: plugins/siw-functionality/includes/forms/camp-leader.php:38
 msgid "Bedankt voor jouw aanmelding."
@@ -559,7 +559,7 @@ msgid ""
 "Nederlandse vrijwilligersprojecten."
 msgstr ""
 "Great that you are interested in becoming a project leader for the Dutch "
-"Projects."
+"volunteer projects."
 
 #: plugins/siw-functionality/includes/forms/camp-leader.php:40
 msgid "Een creatieve uitdaging die je nooit meer zal vergeten!"
@@ -614,11 +614,12 @@ msgstr "Have you applied outside of the recruiting period? No problem."
 msgid ""
 "Wij voegen jouw aanmelding toe aan onze database voor een volgend "
 "zomerseizoen."
-msgstr "We add your application to our database for the next summer season."
+msgstr ""
+"We will add your application to our database for the next summer season."
 
 #: plugins/siw-functionality/includes/forms/camp-leader.php:67
 msgid "Projectbegeleider NP"
-msgstr "Project Leader Dutch Projects"
+msgstr "Project Leader Dutch volunteer projects"
 
 #: plugins/siw-functionality/includes/forms/camp-leader.php:72
 #: plugins/siw-functionality/includes/forms/enquiry-evs.php:62
@@ -818,7 +819,7 @@ msgstr "Confirmation inquiry"
 
 #: plugins/siw-functionality/includes/forms/enquiry-general.php:37
 msgid "Bedankt voor het invullen van ons contactformulier."
-msgstr "Thank you for filling in our contact form."
+msgstr "Thank you for filling out our contact form."
 
 #: plugins/siw-functionality/includes/forms/enquiry-general.php:38
 msgid ""
@@ -876,7 +877,7 @@ msgstr "Through the website there has been a question about the project %s"
 
 #: plugins/siw-functionality/includes/forms/enquiry-workcamp.php:59
 msgid "Infoverzoek Groepsproject"
-msgstr "Enquiry Workcamp"
+msgstr "Enquiry volunteer project"
 
 #: plugins/siw-functionality/includes/forms/enquiry-workcamp.php:89
 msgid "Heb je een vraag over dit project?"
@@ -887,6 +888,7 @@ msgid "Bedankt voor je EVS-aanmelding."
 msgstr "Thank you for your EVS application."
 
 #: plugins/siw-functionality/includes/forms/evs.php:38
+#: plugins/siw-functionality/includes/forms/info-day.php:39
 msgid "Onderaan deze mail staan de gegevens die je hebt ingevuld."
 msgstr "At the bottom of this email, see the information you have submitted."
 
@@ -1044,25 +1046,19 @@ msgstr "Yes, I want to sign up for the SIW newsletter"
 #: plugins/siw-functionality/includes/forms/info-day.php:35
 #, php-format
 msgid "Aanmelding Infodag %s"
-msgstr "Infoday application %s"
+msgstr "Info day application %s"
 
 #: plugins/siw-functionality/includes/forms/info-day.php:38
 #, php-format
 msgid "Bedankt voor je aanmelding voor de Infodag van %s!"
-msgstr "Thank you for your application to the info day on %s!"
-
-#: plugins/siw-functionality/includes/forms/info-day.php:39
-msgid "Onderaan deze e-mail vind je de gegevens zoals je die hebt ingevuld."
-msgstr ""
-"At the bottom of this email, find the details the way you have submitted "
-"them."
+msgstr "Thank you for your application for the Info day on %s!"
 
 #: plugins/siw-functionality/includes/forms/info-day.php:40
 msgid ""
 "Uiterlijk één week van te voren ontvang je de uitnodiging met de definitieve "
 "locatie en tijden."
 msgstr ""
-"The latest one week before you will receive your invitation with the "
+"At least before the Info day your will receive your your invitation with the "
 "confirmed location and time."
 
 #: plugins/siw-functionality/includes/forms/info-day.php:41
@@ -1071,11 +1067,11 @@ msgstr "If you still have questions, feel free to contact us."
 
 #: plugins/siw-functionality/includes/forms/info-day.php:77
 msgid "Groepsvrijwilligerswerk (2 - 3 weken)"
-msgstr "Workcamps (2-3 weeks)"
+msgstr "Volunteer projects (2-3 weeks)"
 
 #: plugins/siw-functionality/includes/forms/info-day.php:82
 msgid "Vrijwilligerswerk Op Maat (3 weken tot een jaar)"
-msgstr "Customized volunteer work (from 3 weeks up to 1 year)"
+msgstr "Customized volunteer projects (from 3 weeks up to 1 year)"
 
 #: plugins/siw-functionality/includes/forms/info-day.php:87
 msgid "EVS (European Voluntary Service)"
@@ -1092,7 +1088,7 @@ msgstr "Infoday application form"
 
 #: plugins/siw-functionality/includes/forms/info-day.php:137
 msgid "Meld je hieronder aan voor de Infodag."
-msgstr "Apply below to join the info day."
+msgstr "Apply below to join the Info day."
 
 #: plugins/siw-functionality/includes/forms/info-day.php:138
 msgid ""
@@ -1390,8 +1386,8 @@ msgstr[1] "Projects"
 msgid "Talenkennis"
 msgstr "Language skills"
 
-#: plugins/siw-functionality/includes/functions/dates.php:60
-#: plugins/siw-functionality/includes/functions/dates.php:152
+#: plugins/siw-functionality/includes/functions/dates.php:61
+#: plugins/siw-functionality/includes/functions/dates.php:153
 #, php-format
 msgid "%s t/m %s"
 msgstr "%s until %s"
@@ -1408,16 +1404,47 @@ msgstr "Where do you want to go?"
 msgid "Wanneer wil je weg?"
 msgstr "When do you want to leave?"
 
-#: plugins/siw-functionality/includes/maps/class-siw-map-evs.php:12
-#: plugins/siw-functionality/includes/maps/evs.php:24
+#: plugins/siw-functionality/includes/maps/class-siw-map-destinations.php:15
+#: plugins/siw-functionality/includes/maps/class-siw-map-evs.php:21
+#: plugins/siw-functionality/includes/maps/evs.php:22
 #: plugins/siw-functionality/includes/settings/sections/configuration.php:435
 msgid "Bestemmingen"
 msgstr "Destinations"
 
-#: plugins/siw-functionality/includes/maps/class-siw-map.php:168
-#: plugins/siw-functionality/includes/maps/destinations.php:72
-msgid "In dit land bieden wij de volgende projecten aan:"
-msgstr "We offer the following projects in this country:"
+#: plugins/siw-functionality/includes/maps/class-siw-map-nl.php:35
+#: plugins/siw-functionality/includes/maps/np.php:21
+msgid "Nederlandse projecten"
+msgstr "Dutch volunteer projects"
+
+#: plugins/siw-functionality/includes/maps/class-siw-map-nl.php:54
+#: plugins/siw-functionality/includes/maps/np.php:33
+#: plugins/siw-functionality/includes/shortcodes/general.php:220
+msgid "Data:"
+msgstr "Dates:"
+
+#: plugins/siw-functionality/includes/maps/class-siw-map-nl.php:55
+#: plugins/siw-functionality/includes/maps/np.php:34
+#: plugins/siw-functionality/includes/shortcodes/general.php:221
+msgid "Deelnemers:"
+msgstr "Participants:"
+
+#: plugins/siw-functionality/includes/maps/class-siw-map-nl.php:56
+#: plugins/siw-functionality/includes/maps/np.php:35
+#: plugins/siw-functionality/includes/shortcodes/general.php:222
+msgid "Soort werk:"
+msgstr "Type of work:"
+
+#: plugins/siw-functionality/includes/maps/class-siw-map-nl.php:57
+#: plugins/siw-functionality/includes/maps/np.php:36
+#: plugins/siw-functionality/includes/shortcodes/general.php:223
+msgid "Locatie:"
+msgstr "Location:"
+
+#: plugins/siw-functionality/includes/maps/class-siw-map-nl.php:57
+#: plugins/siw-functionality/includes/maps/np.php:36
+#: plugins/siw-functionality/includes/shortcodes/general.php:223
+msgid "provincie"
+msgstr "province"
 
 #: plugins/siw-functionality/includes/maps/destinations.php:41
 #, php-format
@@ -1436,40 +1463,15 @@ msgstr "Read more"
 #: plugins/siw-functionality/includes/settings/sections/configuration.php:187
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:162
 msgid "Groepsprojecten"
-msgstr "Workcamps"
+msgstr "Volunteer projects"
 
 #: plugins/siw-functionality/includes/maps/destinations.php:52
 msgid "Projecten Op Maat"
 msgstr "Everything about customized projects"
 
-#: plugins/siw-functionality/includes/maps/np.php:21
-msgid "Nederlandse projecten"
-msgstr "Dutch projects"
-
-#: plugins/siw-functionality/includes/maps/np.php:33
-#: plugins/siw-functionality/includes/shortcodes/general.php:220
-msgid "Data:"
-msgstr "Dates:"
-
-#: plugins/siw-functionality/includes/maps/np.php:34
-#: plugins/siw-functionality/includes/shortcodes/general.php:221
-msgid "Deelnemers:"
-msgstr "Participants:"
-
-#: plugins/siw-functionality/includes/maps/np.php:35
-#: plugins/siw-functionality/includes/shortcodes/general.php:222
-msgid "Soort werk:"
-msgstr "Type of work:"
-
-#: plugins/siw-functionality/includes/maps/np.php:36
-#: plugins/siw-functionality/includes/shortcodes/general.php:223
-msgid "Locatie:"
-msgstr "Location:"
-
-#: plugins/siw-functionality/includes/maps/np.php:36
-#: plugins/siw-functionality/includes/shortcodes/general.php:223
-msgid "provincie"
-msgstr "province"
+#: plugins/siw-functionality/includes/maps/destinations.php:72
+msgid "In dit land bieden wij de volgende projecten aan:"
+msgstr "We offer the following projects in this country:"
 
 #: plugins/siw-functionality/includes/pagebuilder/init.php:21
 #: plugins/siw-functionality/includes/woocommerce/admin/product.php:33
@@ -3040,17 +3042,17 @@ msgstr "Nature preservation, environment, climate"
 #: plugins/siw-functionality/includes/seo.php:78
 #, php-format
 msgid "Groepsprojecten in %s"
-msgstr "Workcamps in %s"
+msgstr "Volunteer projects in %s"
 
 #: plugins/siw-functionality/includes/seo.php:81
 #, php-format
 msgid "Groepsprojecten voor %s"
-msgstr "Workcamps for %s"
+msgstr "Volutneer projects for %s"
 
 #: plugins/siw-functionality/includes/seo.php:84
 #, php-format
 msgid "Groepsprojecten met voertaal %s"
-msgstr "Workcamps with language %s"
+msgstr "Volunteer projects with language %s"
 
 #: plugins/siw-functionality/includes/settings/init.php:70
 #: plugins/siw-functionality/includes/settings/init.php:73
@@ -3354,7 +3356,7 @@ msgstr "Signature"
 
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:46
 msgid "E-mail infoverzoek Groepsproject"
-msgstr "Email enquiry Workcamp"
+msgstr "Email enquiry volunteer projects"
 
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:80
 msgid "Infoverzoeken"
@@ -3495,7 +3497,7 @@ msgstr "Topbar"
 
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:55
 msgid "Aankondiging nieuwe Groepsprojecten"
-msgstr "Announcement new Workcamps"
+msgstr "Announcement new volunteer projects"
 
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:60
 msgid "Aankondiging tonen"
@@ -4440,6 +4442,12 @@ msgstr "SEO title"
 msgid "Meta omschrijving"
 msgstr "Meta description"
 
+#: plugins/siw-functionality/includes/workcamps/import-from-plato/class-siw-plato-import-fpl.php:65
+#, fuzzy
+#| msgid "Plato webservice URL"
+msgid "Plato: verwerken FPL"
+msgstr "Plato webservice URL"
+
 #: plugins/siw-functionality/includes/workcamps/import-from-plato/update-free-places.php:9
 msgid "Bijwerken vrije plaatsen"
 msgstr "Update free places"
@@ -4551,6 +4559,11 @@ msgid ""
 msgstr ""
 "I have read and agreed with <a id=“open-terms-and-conditions” data-"
 "toggle=“modal” data-target=“#siw-terms” > registration conditions </a> "
+
+#~ msgid "Onderaan deze e-mail vind je de gegevens zoals je die hebt ingevuld."
+#~ msgstr ""
+#~ "At the bottom of this email, find the details the way you have submitted "
+#~ "them."
 
 #~ msgid "Akkoord"
 #~ msgstr "Agree"
