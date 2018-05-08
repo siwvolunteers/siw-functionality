@@ -78,3 +78,14 @@ add_filter( 'caldera_forms_field_attributes', function( $attrs, $field ) {
 
 	return $attrs;
 }, 10, 2 );
+
+
+/* Shortcode-knop voor Caldera Forms niet meer tonen */
+add_action( 'plugins_loaded', function() {
+	if ( ! class_exists( 'Caldera_Forms_Admin' ) ) {
+		return;
+	}
+	remove_action( 'media_buttons', array( Caldera_Forms_Admin::get_instance(), 'shortcode_insert_button' ), 11 );
+}, 15 );
+
+add_filter( 'caldera_forms_insert_button_include', '__return_false' );
