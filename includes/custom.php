@@ -206,11 +206,21 @@ add_filter( 'kadence_display_sidebar', function( $sidebar ) {
 	if ( 'wpm-testimonial' == get_post_type() ) {
 		return false;
 	}
-	if ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax ( 'pa_taal' ) ) {
+	if ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax ( 'pa_taal' ) || is_tax( 'pa_maand' ) ) {
 		return true;
 	}
 	return $sidebar;
 } );
+
+add_filter( 'kadence_sidebar_id', function( $sidebar ) {
+	if ( is_tax( 'pa_land') || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax( 'pa_taal' ) || is_tax( 'pa_maand' ) ) {
+		global $pinnacle;
+		$sidebar = $pinnacle['shop_cat_sidebar'];
+	}
+
+	return $sidebar;
+});
+
 
 /* Knop naar zo-werkt-het pagina onder elk op maat project */
 add_action( 'kadence_single_portfolio_value_after', function() {
@@ -276,7 +286,7 @@ add_action( 'init', function() {
 
 
 /* Fix voor aanpassen van nonce voor logged-out user door WooCommerce*/
-add_filter('nonce_user_logged_out', function( $user_id, $action ) {
+add_filter( 'nonce_user_logged_out', function( $user_id, $action ) {
 
 	$nonces = array(
 		'siw_ajax_nonce',

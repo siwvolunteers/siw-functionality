@@ -42,6 +42,42 @@ add_filter( 'yith_wcan_get_terms_list', function ( $terms, $taxonomy, $instance 
 }, 10, 3 );
 
 
+/* */
+add_filter( 'sidebars_widgets', function( $sidebars_widgets ) {
+	global $wp_query;
+
+	if ( ! isset( $wp_query ) ) {
+		return $sidebars_widgets;
+	}
+	if ( is_tax( 'pa_land' ) || is_tax( 'pa_doelgroep' ) || is_tax( 'pa_maand' ) ) {
+	
+		global $pinnacle;
+		$products_sidebar = $pinnacle['shop_cat_sidebar'];
+		$products_widgets = $sidebars_widgets[ $products_sidebar ];
+		
+		$yith_widgets = get_transient( 'siw_yith_widgets' );
+		if ( false == $yith_widgets ) {
+			$widgets = get_option( 'widget_yith-woo-ajax-navigation' );
+			foreach ( $widgets as $id => $widget ) {
+				if ( isset( $widget['attribute'] ) ) {
+					$yith_widgets[ 'pa_' . $widget['attribute'] ] = 'yith-woo-ajax-navigation-' . $id;
+					set_transient( 'siw_yith_widgets', $yith_widgets, DAY_IN_SECONDS );
+				}
+			}
+		}
+
+		$taxonomy_slug = get_queried_object()->taxonomy;		
+		$taxonomy_widget = isset( $yith_widgets[ $taxonomy_slug ] ) ? $yith_widgets[ $taxonomy_slug ] : '';
+
+		if ( ( $index = array_search( $taxonomy_widget, $sidebars_widgets[ $products_sidebar ] ) ) !== false) {
+			unset( $sidebars_widgets[ $products_sidebar ][ $index ] );
+		}
+
+	}
+	return $sidebars_widgets;
+});
+
+
 /*
  * Velden toevoegen aan product in productoverzichten
  * - Datums
@@ -117,40 +153,44 @@ add_action( 'after_page_header', function() {
 	$contact_page_link = siw_get_translated_page_link( siw_get_setting( 'contact_page' ) );
 
 	if ( is_shop() ) {
-		$text =	__( 'Hieronder zie je het beschikbare aanbod groepsprojecten.', 'siw' );
+		$text =	__( 'Hieronder zie je het beschikbare aanbod Groepsprojecten.', 'siw' );
 	}
 	elseif ( is_product_category() ) {
 		$category_name = get_queried_object()->name;
-		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten in %s.', 'siw' ), '<b>' . $category_name . '</b>' );
+		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in %s.', 'siw' ), '<b>' . $category_name . '</b>' );
 	}
 	elseif ( is_tax( 'pa_land' ) ) {
 		$country_name = get_queried_object()->name;
-		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten in %s.', 'siw' ), '<b>' . $country_name . '</b>' );
+		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in %s.', 'siw' ), '<b>' . $country_name . '</b>' );
 	}
 	elseif ( is_tax( 'pa_soort-werk' ) ) {
 		$work_type_name = get_queried_object()->name;
-		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten met werkzaamheden gericht op %s.', 'siw' ), '<b>' . strtolower( $work_type_name ) . '</b>' );
+		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op %s.', 'siw' ), '<b>' . strtolower( $work_type_name ) . '</b>' );
 	}
 	elseif ( is_tax( 'pa_doelgroep' ) ) {
 		$target_audience_name = get_queried_object()->name;
-		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten voor de doelgroep %s.', 'siw' ), '<b>' . strtolower( $target_audience_name ) . '</b>' );
+		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten voor de doelgroep %s.', 'siw' ), '<b>' . strtolower( $target_audience_name ) . '</b>' );
 	}
 	elseif ( is_tax( 'pa_taal' ) ) {
 		$language_name = get_queried_object()->name;
-		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod groepsprojecten met de voertaal %s.', 'siw' ), '<b>' . ucfirst( $language_name ) . '</b>' );
+		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met de voertaal %s.', 'siw' ), '<b>' . ucfirst( $language_name ) . '</b>' );
 	}
+	elseif ( is_tax( 'pa_maand' ) ) {
+		$month_name = get_queried_object()->name;
+		$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s.', 'siw' ), '<b>' . ucfirst( $month_name ) . '</b>' );
+	}	
 
 	if ( ! isset( $text ) ) {
 		return;
 	}
 
 	$text .= SPACE .
-		__( 'Tijdens onze groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
+		__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
 		__( 'De projecten hebben vaste begin- en einddata.', 'siw' ) . SPACE .
-		sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">groepsprojecten</a>.', 'siw' ), esc_url( $workcamps_page_link ) );
+		sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">Groepsprojecten</a>.', 'siw' ), esc_url( $workcamps_page_link ) );
 
 	if ( siw_get_setting( 'workcamp_teaser_text_enabled' ) && date('Y-m-d') <= siw_get_setting( 'workcamp_teaser_text_end_date' ) ) {
-		$teaser_text_end_year = date('Y', strtotime( siw_get_setting( 'workcamp_teaser_text_end_date' ) ) );
+		$teaser_text_end_year = date( 'Y', strtotime( siw_get_setting( 'workcamp_teaser_text_end_date' ) ) );
 		$text .= BR2 . sprintf( __( 'Vanaf maart wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor %s.', 'siw' ), $teaser_text_end_year ). SPACE .
 			__( 'Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW?', 'siw' ) . SPACE .
 			sprintf( __( '<a href="%s">Bel of mail ons</a> en we denken graag met je mee!', 'siw' ), esc_url( $contact_page_link ) );
