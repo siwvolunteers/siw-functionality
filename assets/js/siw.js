@@ -32,9 +32,8 @@ function siwPostcodeLookup( postcodeSelector, housenumberSelector, streetSelecto
 			},
 			success: function( result ) {
 				if ( true == result.success ) {
-					jQuery( citySelector ).val( result.data.city ).prop( 'readonly', true );;
-					jQuery( streetSelector ).val( result.data.street ).prop( 'readonly', true );;
-					//jQuery( citySelector + ', ' + streetSelector ).prop( 'readonly', true );
+					jQuery( citySelector ).val( result.data.city ).prop( 'readonly', true );
+					jQuery( streetSelector ).val( result.data.street ).prop( 'readonly', true );
 				}else {
 					jQuery( citySelector + ', ' + streetSelector ).val( '' ).prop( 'readonly', false );
 				}

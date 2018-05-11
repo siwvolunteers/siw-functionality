@@ -41,19 +41,35 @@ add_action( 'wp_head', function() {
  * - Google Analytics
  * - Google Maps
  * - Google Fonts
+ * Preconnect voor
+ * - Google Fonts
+ * - Google Analytics
  */
-add_filter( 'wp_resource_hints', function( $hints, $relation_type ) {
+add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
+	//TODO:verplaatsen naar instelling?
+
 	if ( 'dns-prefetch' === $relation_type ) {
-		$hints[] = 'www.google-analytics.com';
-		$hints[] = 'maps.googleapis.com';
-		$hints[] = 'maps.google.com';
-		$hints[] = 'maps.gstatic.com';
-		$hints[] = 'csi.gstatic.com';
-		$hints[] = 'fonts.googleapis.com';
-		$hints[] = 'fonts.gstatic.com';
+		$urls[] = 'www.google-analytics.com';
+		$urls[] = 'maps.googleapis.com';
+		$urls[] = 'maps.google.com';
+		$urls[] = 'maps.gstatic.com';
+		$urls[] = 'csi.gstatic.com';
+		$urls[] = 'fonts.googleapis.com';
+		$urls[] = 'fonts.gstatic.com';
 	}
 
-	return $hints;
+	if ( 'preconnect' === $relation_type ) {
+	    $urls[] = array(
+	        'href' => 'https://fonts.gstatic.com',
+	        'crossorigin',
+		);
+	    $urls[] = array(
+	        'href' => 'https://www.google-analytics.com',
+	        'crossorigin',
+		);		
+	}
+
+	return $urls;
 }, 99, 2 );
 add_filter( 'emoji_svg_url', '__return_empty_string' );
 
