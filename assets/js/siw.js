@@ -32,12 +32,10 @@ function siwPostcodeLookup( postcodeSelector, housenumberSelector, streetSelecto
 			},
 			success: function( result ) {
 				if ( true == result.success ) {
-					jQuery( citySelector ).val( result.data.city );
-					jQuery( streetSelector ).val( result.data.street );
-					jQuery( citySelector + ', ' + streetSelector ).prop( 'readonly', true );
+					jQuery( citySelector ).val( result.data.city ).prop( 'readonly', true );
+					jQuery( streetSelector ).val( result.data.street ).prop( 'readonly', true );
 				}else {
-					jQuery( citySelector + ', ' + streetSelector ).val( '' );
-					jQuery( citySelector + ', ' + streetSelector ).prop( 'readonly', false );
+					jQuery( citySelector + ', ' + streetSelector ).val( '' ).prop( 'readonly', false );
 				}
 			}
 		});
@@ -46,6 +44,18 @@ return false;
 }
 
 (function( $ ) {
+
+	//Cookie notificatie
+	$( document ).on( 'click', '#siw-cookie-consent', function() {
+		Cookies.set('siw_cookie_consent', 'yes', { expires: 365, secure: true });
+		$('#siw-cookie-notification').hide();
+	});
+
+	$( document ).ready(function() {
+		if( 'yes' !== Cookies.get( 'siw_cookie_consent' ) ){
+			$('#siw-cookie-notification').show();
+		}
+	});
 
 	//Validatieregel voor e-mail
 	var validations = {

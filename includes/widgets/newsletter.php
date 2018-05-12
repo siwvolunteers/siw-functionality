@@ -19,9 +19,9 @@ class SIW_Mailpoet_Subscription extends \TDP\Widgets_Helper {
 		$this->widget_fields = array(
 			array(
 				'id'   => 'title',
-				'name' => __('Titel', 'siw'),
+				'name' => __( 'Titel', 'siw' ),
 				'type' => 'text',
-				'std'  => __('Blijf op de hoogte', 'siw'),
+				'std'  => __( 'Blijf op de hoogte', 'siw' ),
 			),
 			array(
 				'id'   => 'list',
@@ -48,8 +48,8 @@ class SIW_Mailpoet_Subscription extends \TDP\Widgets_Helper {
 				<p>
 				<?php printf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), $subscriber_count );?>
 				</p>
-				<?php siw_render_field( 'text', array( 'label' => __( 'Voornaam ', 'siw' ), 'name' => 'name', 'id' => 'newsletter_name', 'required' => true ), array( 'tag' => 'p' )  ) ;?>
-				<?php siw_render_field( 'email', array( 'label' => __( 'E-mail ', 'siw' ), 'name' => 'email', 'id' => 'newsletter_email', 'required' => true ), array( 'tag' => 'p' )  ) ;?>
+				<?php siw_render_field( 'text', array( 'label' => __( 'Voornaam', 'siw' ), 'name' => 'name', 'id' => 'newsletter_name', 'required' => true ), array( 'tag' => 'p' )  ) ;?>
+				<?php siw_render_field( 'email', array( 'label' => __( 'E-mail', 'siw' ), 'name' => 'email', 'id' => 'newsletter_email', 'required' => true ), array( 'tag' => 'p' )  ) ;?>
 				<?php siw_render_field( 'submit', array( 'value' => __( 'Aanmelden', 'siw') ), array( 'tag' => 'p' ) );?>
 				<?php siw_render_field( 'hidden', array( 'value' => $instance['list'], 'name' => 'list_id', 'id' => 'newsletter_list_id' ) ); ?>
 				<?php wp_nonce_field( 'siw_newsletter_nonce', 'newsletter_nonce', false);?>

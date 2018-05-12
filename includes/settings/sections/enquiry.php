@@ -43,7 +43,7 @@ add_action( 'siw_settings_show_enquiry_section', function() {
 		),
 		array(
 			'id'			=> 'enquiry_workcamp_email_section_start',
-			'title'			=> __( 'E-mail infoverzoek groepsproject', 'siw' ),
+			'title'			=> __( 'E-mail infoverzoek Groepsproject', 'siw' ),
 			'type'			=> 'section',
 			'indent' 		=> true,
 		),

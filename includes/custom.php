@@ -63,17 +63,32 @@ add_filter( 'wysija_subscription_limit_base', function() { return HOUR_IN_SECOND
  * - Database
  * - Bestanden
  */
-add_filter( 'updraftplus_schedule_firsttime_db', function() {
-	$backup_db_ts = strtotime( 'tomorrow ' . SIW_CRON_TS_BACKUP_DB );
-	$backup_db_ts_gmt = strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $backup_db_ts ) ) . ' GMT' );
+add_filter( 'updraftplus_schedule_firsttime_db', function( $scheduled_time ) {
+
+	$tomorrow = strtotime( 'tomorrow');
+	$backup_db_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
+
+	$backup_db_ts = strtotime( $backup_db_day . ' ' . SIW_CRON_TS_BACKUP_DB );
+	$backup_db_ts_gmt = siw_get_timestamp_in_gmt( $backup_db_ts );
+
 	return $backup_db_ts_gmt;
 } );
-add_filter( 'updraftplus_schedule_firsttime_files', function() {
-	$backup_files_ts = strtotime( 'tomorrow ' . SIW_CRON_TS_BACKUP_FILES );
-	$backup_files_ts_gmt = strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $backup_files_ts ) ) . ' GMT' );
+add_filter( 'updraftplus_schedule_firsttime_files', function( $scheduled_time ) {
+
+	$tomorrow = strtotime( 'tomorrow');
+	$backup_files_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
+
+	$backup_files_ts = strtotime( $backup_files_day . ' ' . SIW_CRON_TS_BACKUP_FILES );
+	$backup_files_ts_gmt = siw_get_timestamp_in_gmt( $backup_files_ts );
+
 	return $backup_files_ts_gmt;
 } );
 
+/* URL opnemen in bestandsnaam backup */
+add_filter( 'updraftplus_blog_name', function( $blog_name ) {
+	$blog_name = sanitize_title( SIW_SITE_NAME );
+	return $blog_name;
+});
 
 /* Diverse UpdraftPlus notificaties verbergen */
 define( 'UPDRAFTPLUS_NOADS_B', true );
@@ -98,6 +113,21 @@ add_filter( 'oembed_response_data', function( $data ) {
 	}
 	return $data;
 }, 10, 1 );
+
+
+/* Alleen essentiële gegevens naar WP-update server sturen */
+add_action( 'core_version_check_query_args', function ( $query ) {
+	
+	unset( $query['php'] );
+	unset( $query['mysql'] );
+	unset( $query['local_package'] );
+	unset( $query['blogs'] );
+	unset( $query['users'] );
+	unset( $query['multisite_enabled'] );
+	unset( $query['initial_db_version'] );
+
+	return $query;
+});
 
 
 /**
@@ -176,18 +206,28 @@ add_filter( 'kadence_display_sidebar', function( $sidebar ) {
 	if ( 'wpm-testimonial' == get_post_type() ) {
 		return false;
 	}
-	if ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax ( 'pa_taal' ) ) {
+	if ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax ( 'pa_taal' ) || is_tax( 'pa_maand' ) ) {
 		return true;
 	}
 	return $sidebar;
 } );
+
+add_filter( 'kadence_sidebar_id', function( $sidebar ) {
+	if ( is_tax( 'pa_land') || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax( 'pa_taal' ) || is_tax( 'pa_maand' ) ) {
+		global $pinnacle;
+		$sidebar = $pinnacle['shop_cat_sidebar'];
+	}
+
+	return $sidebar;
+});
+
 
 /* Knop naar zo-werkt-het pagina onder elk op maat project */
 add_action( 'kadence_single_portfolio_value_after', function() {
 	$op_maat_page = siw_get_setting( 'op_maat_page' );
 	$op_maat_page = siw_get_translated_page_id( $op_maat_page );
 	$op_maat_page_link = get_page_link( $op_maat_page );
-	printf( '<a href="%s" class="kad-btn kad-btn-primary">%s</a>', esc_url( $op_maat_page_link ), esc_html__( 'Alles over projecten op maat', 'siw' ) );
+	printf( '<a href="%s" class="kad-btn kad-btn-primary">%s</a>', esc_url( $op_maat_page_link ), esc_html__( 'Alles over Projecten Op Maat', 'siw' ) );
 
 } );
 
@@ -246,7 +286,7 @@ add_action( 'init', function() {
 
 
 /* Fix voor aanpassen van nonce voor logged-out user door WooCommerce*/
-add_filter('nonce_user_logged_out', function( $user_id, $action ) {
+add_filter( 'nonce_user_logged_out', function( $user_id, $action ) {
 
 	$nonces = array(
 		'siw_ajax_nonce',

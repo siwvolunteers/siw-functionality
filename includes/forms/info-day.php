@@ -36,7 +36,7 @@ add_filter( 'caldera_forms_get_form-infodag', function( $form ) {
 		'message' =>
 			sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
 			sprintf( __( 'Bedankt voor je aanmelding voor de Infodag van %s!', 'siw' ), '%datum:label%' )  . SPACE .
-			__( 'Onderaan deze e-mail vind je de gegevens zoals je die hebt ingevuld.', 'siw' ) . BR .
+			__( 'Onderaan deze mail staan de gegevens die je hebt ingevuld.', 'siw' ) . BR .
 			__( 'Uiterlijk één week van te voren ontvang je de uitnodiging met de definitieve locatie en tijden.', 'siw' ) . BR2 .
 			__( 'Als je nog vragen hebt, neem dan gerust contact met ons op.', 'siw' ),
 		'show_signature' => true,
@@ -79,7 +79,7 @@ add_filter( 'caldera_forms_get_form-infodag', function( $form ) {
 		'op_maat' =>
 		array(
 			'value' => 'op_maat',
-			'label' => __( 'Vrijwilligerswerk op maat (3 weken tot een jaar)', 'siw' ),
+			'label' => __( 'Vrijwilligerswerk Op Maat (3 weken tot een jaar)', 'siw' ),
 		),
 		'evs' =>
 		array(

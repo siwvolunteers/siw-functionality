@@ -15,6 +15,7 @@ remove_action( 'wp_head', 'rsd_link' );
 remove_action( 'wp_head', 'feed_links', 2 );
 remove_action( 'wp_head', 'feed_links_extra', 3 );
 remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' ); //TODO:kan weg na fix in WP Rocket	
 
 
 /* Icons toevoegen aan head */ 
@@ -22,14 +23,14 @@ add_action( 'wp_head', function() {
 	$icons_url = wp_make_link_relative( SIW_ASSETS_URL . 'icons/' );
 ?>
 	<!-- Start favicons -->
-	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo $icons_url;?>apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo $icons_url;?>favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="192x192" href="<?php echo $icons_url;?>android-chrome-192x192.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo $icons_url;?>favicon-16x16.png">
-	<link rel="manifest" href="<?php echo $icons_url;?>manifest.json">
-	<link rel="mask-icon" href="<?php echo $icons_url;?>safari-pinned-tab.svg" color="#ff9900">
-	<link rel="shortcut icon" href="<?php echo $icons_url;?>favicon.ico">
-	<meta name="msapplication-config" content="<?php echo $icons_url;?>browserconfig.xml">
+	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo esc_url( $icons_url );?>apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo esc_url( $icons_url );?>favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="<?php echo esc_url( $icons_url );?>android-chrome-192x192.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo esc_url( $icons_url );?>favicon-16x16.png">
+	<link rel="manifest" href="<?php echo esc_url( $icons_url );?>manifest.json">
+	<link rel="mask-icon" href="<?php echo esc_url( $icons_url );?>safari-pinned-tab.svg" color="<?php echo esc_attr( SIW_PRIMARY_COLOR );?>">
+	<link rel="shortcut icon" href="<?php echo esc_url( $icons_url );?>favicon.ico">
+	<meta name="msapplication-config" content="<?php echo esc_url( $icons_url );?>browserconfig.xml">
 	<!-- Einde favicons -->
 <?php
 });
@@ -40,19 +41,35 @@ add_action( 'wp_head', function() {
  * - Google Analytics
  * - Google Maps
  * - Google Fonts
+ * Preconnect voor
+ * - Google Fonts
+ * - Google Analytics
  */
-add_filter( 'wp_resource_hints', function( $hints, $relation_type ) {
+add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
+	//TODO:verplaatsen naar instelling?
+
 	if ( 'dns-prefetch' === $relation_type ) {
-		$hints[] = 'www.google-analytics.com';
-		$hints[] = 'maps.googleapis.com';
-		$hints[] = 'maps.google.com';
-		$hints[] = 'maps.gstatic.com';
-		$hints[] = 'csi.gstatic.com';
-		$hints[] = 'fonts.googleapis.com';
-		$hints[] = 'fonts.gstatic.com';
+		$urls[] = 'www.google-analytics.com';
+		$urls[] = 'maps.googleapis.com';
+		$urls[] = 'maps.google.com';
+		$urls[] = 'maps.gstatic.com';
+		$urls[] = 'csi.gstatic.com';
+		$urls[] = 'fonts.googleapis.com';
+		$urls[] = 'fonts.gstatic.com';
 	}
 
-	return $hints;
+	if ( 'preconnect' === $relation_type ) {
+	    $urls[] = array(
+	        'href' => 'https://fonts.gstatic.com',
+	        'crossorigin',
+		);
+	    $urls[] = array(
+	        'href' => 'https://www.google-analytics.com',
+	        'crossorigin',
+		);		
+	}
+
+	return $urls;
 }, 99, 2 );
 add_filter( 'emoji_svg_url', '__return_empty_string' );
 

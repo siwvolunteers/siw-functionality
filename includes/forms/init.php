@@ -14,7 +14,7 @@ require_once( __DIR__ . '/enquiry-general.php' );
 require_once( __DIR__ . '/enquiry-workcamp.php' );
 require_once( __DIR__ . '/evs.php' );
 require_once( __DIR__ . '/info-day.php' );
-require_once( __DIR__ . '/np-camp-leader.php' );
+require_once( __DIR__ . '/camp-leader.php' );
 require_once( __DIR__ . '/cooperation.php' );
 require_once( __DIR__ . '/op-maat.php' );
 
@@ -32,7 +32,7 @@ add_filters( array('caldera_forms_render_field_type-checkbox', 'caldera_forms_re
 
 
 /* Gebruik label van radiobuttons en checkboxes in mail*/
-add_filters( 'caldera_forms_magic_summary_should_use_label', '__return_true' );
+add_filter( 'caldera_forms_magic_summary_should_use_label', '__return_true' );
 
 
 /* Magic tags in links toestaan in wp_kses_post */
@@ -43,7 +43,7 @@ add_filter( 'kses_allowed_protocols', function( $protocols ) {
 
 
 /* Patroon voor samenvatting*/
-add_filters( 'caldera_forms_summary_magic_pattern', function( $pattern ) {
+add_filter( 'caldera_forms_summary_magic_pattern', function( $pattern ) {
 	$pattern = '<tr>
 		<td width="35%%" style="font-family: Verdana, normal; color:#444; font-size:0.8em;">%s</td>
 		<td width="5%%"></td>
@@ -67,14 +67,25 @@ add_action( 'plugins_loaded', function() {
 add_filter( 'caldera_forms_field_attributes', function( $attrs, $field ) {
 
 	if ( 'geboortedatum' === $field['ID'] ) {
-		$attrs[ 'data-parsley-error-message' ] = __( 'Dit is geen geldige datum', 'siw' );
+		$attrs[ 'data-parsley-error-message' ] = __( 'Dit is geen geldige datum.', 'siw' );
 		$attrs[ 'data-parsley-pattern' ] = '/^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$/';
 	}
 
 	if ( 'postcode' === $field['ID'] ) {
-		$attrs[ 'data-parsley-error-message' ] = __( 'Dit is geen geldige postcode', 'siw' );
+		$attrs[ 'data-parsley-error-message' ] = __( 'Dit is geen geldige postcode.', 'siw' );
 		$attrs[ 'data-parsley-pattern' ] = '/^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/';
 	}
 
 	return $attrs;
 }, 10, 2 );
+
+
+/* Shortcode-knop voor Caldera Forms niet meer tonen */
+add_action( 'plugins_loaded', function() {
+	if ( ! class_exists( 'Caldera_Forms_Admin' ) ) {
+		return;
+	}
+	remove_action( 'media_buttons', array( Caldera_Forms_Admin::get_instance(), 'shortcode_insert_button' ), 11 );
+}, 15 );
+
+add_filter( 'caldera_forms_insert_button_include', '__return_false' );

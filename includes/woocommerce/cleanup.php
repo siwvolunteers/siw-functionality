@@ -109,7 +109,7 @@ add_action( 'siw_update_yith_widgets', function() {
 });
 
 
-/* Verweesde variaties verwijderen TODO: Background proces, dan kan ook limiet van 10 weg*/
+/* Verweesde variaties verwijderen*/
 siw_add_cron_job( 'siw_delete_orphaned_variations' );
 
 add_action( 'siw_delete_orphaned_variations', function() {
@@ -124,12 +124,19 @@ add_action( 'siw_delete_orphaned_variations', function() {
 
 	//zoek alle product_variations zonder parent.
 	$args = array(
-		'posts_per_page'		=> 10,
+		'posts_per_page'		=> -1,
 		'post_type'				=> 'product_variation',
 		'post_parent__not_in'	=> $products,
 		'fields' 				=> 'ids',
 	);
 	$variations = get_posts( $args );
+
+	if ( empty( $variations ) ) {
+		siw_debug_log( 'Eind verwijderen verweesde variaties: geen variaties te verwijderen' );
+		return;
+	}
+	siw_debug_log( 'Aantal te verwijderen variaties: ' . count( $variations ) );
+
 
 	//wp all import tabel bijwerken
 	global $wpdb;
@@ -145,23 +152,17 @@ add_action( 'siw_delete_orphaned_variations', function() {
 			$variation_ids
 		)
 	);
-
-	//variaties verwijderen
-	foreach ( $variations as $variation_id ) {
-		wp_delete_post( $variation_id, true );
-	}
-	siw_debug_log( 'Variaties verwijderd: ' . count( $variations ) );
-	siw_debug_log( 'Eind verwijderen verweesde variaties' );
+	siw_start_background_process( 'delete_orphaned_variations', $variations );
 });
 
 
-/* Verwijderen groepsprojecten met een startdatum die meer dan 9 maanden in het verleden ligt */
+/* Verwijderen groepsprojecten met een startdatum die meer dan 6 maanden in het verleden ligt */
 siw_add_cron_job( 'siw_delete_projects' );
 
 add_action( 'siw_delete_projects', function() {
 	siw_debug_log( 'Start verwijderen projecten' );
 
-	$limit = date( 'Y-m-d', time() - ( 9 * MONTH_IN_SECONDS ) );
+	$limit = date( 'Y-m-d', time() - ( 6 * MONTH_IN_SECONDS ) );
 
 	$meta_query = array(
 		'relation'	=> 'OR',

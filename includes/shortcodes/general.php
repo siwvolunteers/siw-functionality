@@ -207,7 +207,7 @@ siw_add_shortcode( 'siw_externe_link', array(
 ));
 
 
-/* Overzicht van Nederlandse projecten */
+/* Overzicht van Nederlandse Projecten */
 add_shortcode( 'siw_nederlandse_projecten', function() {
 	$projects = siw_get_dutch_projects();
 	if ( empty( $projects ) ) {
@@ -219,10 +219,12 @@ add_shortcode( 'siw_nederlandse_projecten', function() {
 		$description .= sprintf( '<b>%s - %s</b><br/>', esc_html( $project['name'] ), esc_html( $project['province_name'] ) );
 		$description .= esc_html__( 'Data:', 'siw' ) . SPACE . esc_html( $duration ) . BR;
 		$description .= esc_html__( 'Deelnemers:', 'siw' ) . SPACE . esc_html( $project['participants'] ) . BR;
+		$description .= esc_html__( 'Soort werk:', 'siw' ) . SPACE . $project['work_name'] . BR;
+		$description .= esc_html__( 'Locatie:', 'siw' ) . SPACE . $project['city'] . ', ' . __( 'provincie', 'siw' ) . SPACE . $project['province_name'] . BR2;
 	}
 	return $description;
 });
-siw_add_shortcode( 'siw_nederlandse_projecten', array( 'title' => __( 'Nederlandse projecten', 'siw' ) ) );
+siw_add_shortcode( 'siw_nederlandse_projecten', array( 'title' => __( 'Nederlandse Projecten', 'siw' ) ) );
 
 
 /* Break */

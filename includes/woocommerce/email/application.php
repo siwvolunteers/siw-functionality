@@ -35,7 +35,7 @@ add_filter( 'woocommerce_email_recipient_new_order', function( $recipient, $emai
  * - Klant: betaald
  */
 add_filter( 'woocommerce_email_subject_new_order', function( $subject, $order ) {
-	$subject = sprintf( __( 'Nieuwe aanmelding groepsproject (%s)', 'siw' ), $order->get_order_number() );
+	$subject = sprintf( __( 'Nieuwe aanmelding Groepsproject (%s)', 'siw' ), $order->get_order_number() );
 	return $subject;
 }, 10, 2 );
 
@@ -158,7 +158,8 @@ add_action( 'siw_woocommerce_email_order_table', function( $order ) {
 		__( 'Aanmeldnummer', 'siw' ) => $order->get_order_number(),
 	);
 	foreach ( $order->get_items() as $item_id => $item ) {
-		$parent = wc_get_product( $item->get_product_id() ); //FIXME:continue als product niet (meer) bestaat.
+		$parent = wc_get_product( $item->get_product_id() );
+		
 		if ( false == $parent ) {
 			$project_name = $item->get_name();
 			$project_details = sprintf('<small>Tarief: %s</small>', wc_get_order_item_meta( $item_id )['pa_tarief'][0] );
@@ -174,12 +175,27 @@ add_action( 'siw_woocommerce_email_order_table', function( $order ) {
 
 	$table_data[ _n( 'Project', 'Projecten', count( $projects ), 'siw' ) ] = $projects;
 
-	$table_data[ __( 'Betaling', 'siw' ) ] = array(
-		__( 'Subtotaal', 'siw' ) => ( $order->get_total() != $order->get_subtotal() ) ? $order->get_subtotal_to_display() : '',
-		__( 'Korting', 'siw') => ( 0 < $order->get_total_discount() ) ? '-' . $order->get_discount_to_display() : '',
-		__( 'Totaal', 'siw' ) => $order->get_formatted_order_total(),
-		__( 'Betaalwijze', 'siw' ) => $order->get_payment_method_title(),
-	);
+	/** Betaalgegevens (inclusief kortingen) */
+	$payment_data = array();
+	if ( $order->get_total() != $order->get_subtotal() ) {
+		$payment_data[ __( 'Subtotaal', 'siw' ) ] = $order->get_subtotal_to_display();
+		if ( $coupons = $order->get_items( 'coupon' ) ) {
+			foreach ( $coupons as $coupon ) {
+				$payment_data [ sprintf( __( 'Kortingscode: %s', 'siw' ), $coupon->get_code() ) ] = '-' . wc_price( $coupon->get_discount() );
+			}
+		}
+		if ( $fees = $order->get_fees() ) {
+			foreach ( $fees as $id => $fee ) {
+				$payment_data[ $fee->get_name() ] = wc_price( $fee->get_total() );
+			}
+		}
+
+	}
+	$payment_data[ __( 'Totaal', 'siw' ) ] = $order->get_formatted_order_total();
+	$payment_data[ __( 'Betaalwijze', 'siw' ) ] = $order->get_payment_method_title();
+
+	$table_data[ __( 'Betaling', 'siw' ) ] = $payment_data;
+
 	$table_data[ __( 'Persoonsgegevens', 'siw' ) ] = array(
 		__( 'Naam', 'siw' ) => $order_data['full_name'],
 		__( 'Geboortedatum', 'siw' ) => $order_data['date_of_birth'],
@@ -222,6 +238,7 @@ add_action( 'siw_woocommerce_email_order_table', function( $order ) {
 				siw_wc_generate_email_table_row( $label, $value );
 			}
 		}
+		siw_wc_generate_email_table_row( '&nbsp;', '&nbsp;');
 	}
 	?>
 	</table>

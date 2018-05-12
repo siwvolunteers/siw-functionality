@@ -101,7 +101,7 @@ add_action( 'siw_settings_show_np_section', function() {
 		);
 		$map_fields[] = array(
 			'id'		=> "np_project_{$x}_present",
-			'title'		=> __( 'Aanwezig ', 'siw' ),
+			'title'		=> __( 'Aanwezig', 'siw' ),
 			'type'		=> 'switch',
 			'on'		=> 'Aan',
 			'off'		=> 'Uit',
@@ -182,7 +182,7 @@ add_action( 'siw_settings_show_np_section', function() {
 	/* Sectie */
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'np',
-		'title'			=> __( 'Nederlandse projecten', 'siw' ),
+		'title'			=> __( 'Nederlandse Projecten', 'siw' ),
 		'icon'			=> 'el el-flag',
 		'permissions'	=> 'manage_options',
 	) );

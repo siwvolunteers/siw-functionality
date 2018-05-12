@@ -25,6 +25,7 @@ add_filter( 'siw_date_in_text', function( $text, $date, $year = true ) {
 	return siw_get_date_in_text( $date, $year );
 }, 10, 3 );
 
+
 /**
  * Geeft de datumrange in tekst terug
  *
@@ -152,4 +153,17 @@ function siw_get_month_range_in_text( $date_start, $date_end, $year = true ) {
 	$month_range_in_text = sprintf( __( '%s t/m %s', 'siw' ), $month_start_in_text, $month_end_in_text );
 
 	return $month_range_in_text;
+}
+
+
+/**
+ * Undocumented function
+ *
+ * @param int $timestamp
+ * @return int
+ */
+function siw_get_timestamp_in_gmt( $timestamp ) {
+
+	$timestamp_in_gmt = strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $timestamp ) ) . ' GMT' ); 
+	return $timestamp_in_gmt;
 }

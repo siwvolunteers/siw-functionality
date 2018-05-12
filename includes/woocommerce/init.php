@@ -21,6 +21,7 @@ require_once( __DIR__ . '/checkout/save.php' );
 require_once( __DIR__ . '/checkout/customer.php' );
 require_once( __DIR__ . '/checkout/validate.php' );
 require_once( __DIR__ . '/checkout/form.php' );
+require_once( __DIR__ . '/checkout/discount.php' );
 
 /* E-mail-functies */
 require_once( __DIR__ . '/email/application.php' );

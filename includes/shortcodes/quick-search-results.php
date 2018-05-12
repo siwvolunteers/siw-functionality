@@ -32,7 +32,7 @@ add_shortcode( 'siw_zoekresultaten', function() {
     }
 
     /* Genereer output */
-    $output = __( 'Met een groepsproject ga je voor 2 tot 3 weken naar een project, de begin- en einddatum van het project staan al vast.', 'siw' ) . SPACE;
+    $output = __( 'Met een Groepsproject ga je voor 2 tot 3 weken naar een project, de begin- en einddatum van het project staan al vast.', 'siw' ) . SPACE;
     $output .= __( 'Hieronder zie je een selectie van de mogelijkheden', 'siw' );
     $output .= do_shortcode( sprintf( '[products limit="6" columns="3" orderby="random" visibility="visible" %s %s]', $category_arg, $month_arg ) );
     $output .= '<div style="text-align:center">';

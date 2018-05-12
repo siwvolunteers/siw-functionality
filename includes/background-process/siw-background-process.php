@@ -15,7 +15,7 @@ class SIW_Background_Process extends WP_Background_Process {
      * @var string
      * @access protected
      */
-	protected $prefix = 'siw';
+    protected $prefix = 'siw';
 
     /**
      * Empty queue
@@ -37,6 +37,5 @@ class SIW_Background_Process extends WP_Background_Process {
      */
 	protected function task( $item ) {
 		return false;
-	}
-
+    }
 }

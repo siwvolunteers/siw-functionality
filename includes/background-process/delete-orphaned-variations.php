@@ -1,12 +1,12 @@
 <?php
 /*
-(c)2017-2018 SIW Internationale Vrijwilligersprojecten
+(c)2018 SIW Internationale Vrijwilligersprojecten
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class SIW_Delete_Workcamps_Process extends SIW_Background_Process {
+class SIW_Delete_Orphaned_Variations_Process extends SIW_Background_Process {
 
 	/**
 	 * Action
@@ -14,11 +14,11 @@ class SIW_Delete_Workcamps_Process extends SIW_Background_Process {
 	 * @var string
 	 * @access protected
 	 */
-	protected $action = 'delete_workcamps_process';
+	protected $action = 'delete_orphaned_variations';
 
 
     /**
-     * Verwijderen alle producten (inclusief variaties)
+     * Verwijderen alle variaties
      *
      * @param mixed $item Queue item to iterate over.
      *
@@ -27,11 +27,6 @@ class SIW_Delete_Workcamps_Process extends SIW_Background_Process {
 	protected function task( $item ) {
 
 		$product = wc_get_product( $item );
-		$variations = $product->get_children();
-		foreach ( $variations as $variation_id ) {
-			$variation = wc_get_product( $variation_id );
-			$variation->delete( true );
-		}
 		$product->delete( true );
 
 		return false;
@@ -45,8 +40,8 @@ class SIW_Delete_Workcamps_Process extends SIW_Background_Process {
 	 */
 	protected function complete() {
 		parent::complete();
-		siw_debug_log( 'Eind verwijderen projecten' );
+		siw_debug_log( 'Eind verwijderen variaties' );
 	}
 }
 
-$GLOBALS['siw_delete_workcamps_process'] = new SIW_Delete_Workcamps_Process();
+$GLOBALS['siw_delete_orphaned_variations_process'] = new SIW_Delete_Orphaned_Variations_Process();

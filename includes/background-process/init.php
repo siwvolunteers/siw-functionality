@@ -7,17 +7,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 /* Generieke klasse */
 require_once( __DIR__ . '/siw-background-process.php' );
-/* Tellen projecten */
+/* Background processen */
 require_once( __DIR__ . '/count-workcamps.php' );
-/* Bijwerken tarieven */
 require_once( __DIR__ . '/update-workcamp-tariffs.php' );
-/* Verbergen projecten */
 require_once( __DIR__ . '/hide-workcamps.php' );
-/* Verwijderen aanmeldingen */
 require_once( __DIR__ . '/delete-applications.php' );
-/* Verwijderen projecten */
 require_once( __DIR__ . '/delete-workcamps.php' );
-
+require_once( __DIR__ . '/delete-orphaned-variations.php' );
 
 
 /**
@@ -25,13 +21,10 @@ require_once( __DIR__ . '/delete-workcamps.php' );
  *
  * @param string $name
  * @param array $data
+ * @param int $batch_size
  * @return void
  */
-function siw_start_background_process( $name, $data ) {
-
-	$batch_size = 500;
-	//$batch_size = ini_get( 'max_input_vars' ) - 100 
-	//$batch_size = max( $batch_size, 100 );
+function siw_start_background_process( $name, $data, $log_context = '', $batch_size = 500 ) {
 
 	$batches = array_chunk( $data, $batch_size );
 

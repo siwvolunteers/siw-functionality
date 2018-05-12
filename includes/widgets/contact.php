@@ -15,7 +15,7 @@ add_action( 'widgets_init', function() {
 class SIW_Contact_Information extends \TDP\Widgets_Helper {
 
 	public function __construct() {
-		$this->widget_name = __( 'SIW: Contactinformatie', 'siw' );
+		$this->widget_name = 'SIW: Contactinformatie';
 		$this->widget_description = __( 'Contactinformatie' );
 		$this->widget_fields = array(
 			array(
@@ -44,11 +44,11 @@ class SIW_Contact_Information extends \TDP\Widgets_Helper {
 			<p><i class="kt-icon-clock3"></i>&nbsp;<?php printf( esc_html__( 'Maandag t/m vrijdag %s', 'siw' ), SIW_OPENING_HOURS );?></p>
 		</div>
  		<div class="siw-social-links clearfix">
-			<a href="<?php echo esc_url( SIW_FACEBOOK_URL); ?>" class="facebook" title="Facebook" target="_blank" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="kt-icon-facebook3"></i></a>
-			<a href="<?php echo esc_url( SIW_TWITTER_URL ); ?>" class="twitter" title="Twitter" target="_blank" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="kt-icon-twitter2"></i></a>
-			<a href="<?php echo esc_url( SIW_INSTAGRAM_URL ); ?>" class="instagram" title="Instagram" target="_blank" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="kt-icon-instagram"></i></a>
-			<a href="<?php echo esc_url( SIW_YOUTUBE_URL ); ?>" class="youtube" title="YouTube" target="_blank" data-toggle="tooltip" data-placement="top" data-original-title="YouTube"><i class="kt-icon-youtube"></i></a>
-			<a href="<?php echo esc_url( SIW_LINKEDIN_URL ); ?>" class="linkedin" title="LinkedIn" target="_blank" data-toggle="tooltip" data-placement="top" data-original-title="LinkedIn"><i class="kt-icon-linkedin2"></i></a>
+			<a href="<?php echo esc_url( SIW_FACEBOOK_URL); ?>" class="facebook" title="Facebook" target="_blank" rel="noopener" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="kt-icon-facebook3"></i></a>
+			<a href="<?php echo esc_url( SIW_TWITTER_URL ); ?>" class="twitter" title="Twitter" target="_blank" rel="noopener" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="kt-icon-twitter2"></i></a>
+			<a href="<?php echo esc_url( SIW_INSTAGRAM_URL ); ?>" class="instagram" title="Instagram" target="_blank" rel="noopener" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="kt-icon-instagram"></i></a>
+			<a href="<?php echo esc_url( SIW_YOUTUBE_URL ); ?>" class="youtube" title="YouTube" target="_blank" rel="noopener" data-toggle="tooltip" data-placement="top" data-original-title="YouTube"><i class="kt-icon-youtube"></i></a>
+			<a href="<?php echo esc_url( SIW_LINKEDIN_URL ); ?>" class="linkedin" title="LinkedIn" target="_blank" rel="noopener" data-toggle="tooltip" data-placement="top" data-original-title="LinkedIn"><i class="kt-icon-linkedin2"></i></a>
 		</div>
 		<?php
 		echo $args['after_widget'];

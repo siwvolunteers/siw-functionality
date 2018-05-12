@@ -14,7 +14,7 @@ class SIW_Quick_Search extends \TDP\Widgets_Helper {
 
 	public function __construct() {
 		$this->widget_name = __( 'SIW: Snel zoeken', 'siw' );
-		$this->widget_description = __( 'Snel zoeken in groepsprojecten', 'siw' );
+		$this->widget_description = __( 'Snel zoeken in Groepsprojecten', 'siw' );
 		$this->widget_fields = array(
 			array(
 				'id'   => 'title',
