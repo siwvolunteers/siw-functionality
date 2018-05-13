@@ -12,6 +12,11 @@ require_once( __DIR__ . '/job.php' );
 
 add_action( 'kt_before_header_content', function () {
 
+	/* Topbar alleen tonen in het nederlands */
+	if ( apply_filters( 'wpml_current_language', NULL ) != apply_filters( 'wpml_default_language', NULL ) ) {
+		return;
+	}
+
 	$topbar_content = siw_get_topbar_content();
 	if ( false == $topbar_content ) {
 		return;
