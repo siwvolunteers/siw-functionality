@@ -41,6 +41,7 @@ function siw_seo_set_description( $post_id, $description ) {
 /* Naam auteur SEO framework niet in HTML tonen */
 add_filter( 'sybre_waaijer_<3', '__return_false' );
 
+
 /* SEO-metabox lagere prioriteit geven */
 add_filter( 'the_seo_framework_metabox_priority', function( $priority ) {
 	return 'default';
@@ -95,9 +96,18 @@ add_filter( 'the_seo_framework_the_archive_title', function( $title, $term ) {
  * - Query args aanpassen ivm performance
  */
 add_filter( 'the_seo_framework_sitemap_exclude_cpt', function() {
+
 	$remove = array(
 		'testimonial',
 	);
+
+	/* Groepsprojecten en ervaringsverhalen alleen in NL-sitemap opnemen*/
+	if ( apply_filters( 'wpml_current_language', NULL ) != apply_filters( 'wpml_default_language', NULL ) ) {
+		$remove[] = 'product';
+		$remove[] = 'wpm-testimonial';
+	}
+
+
 	return $remove;
 });
 
@@ -106,7 +116,7 @@ add_filter( 'the_seo_framework_sitemap_color_accent', function( $color ) {
 });
 
 add_filter( 'the_seo_framework_sitemap_color_main', function( $color ) {
-	return SIW_PRIMARY_COLOR;
+	return SIW_SECONDARY_COLOR;
 });
 
 add_filter( 'the_seo_framework_sitemap_custom_posts_count', function() {
@@ -132,6 +142,11 @@ add_filter( 'the_seo_framework_sitemap_cpt_query_args', function( $args ) {
 
 /* Productarchieven toevoegen aan de sitemap */
 add_filter( 'the_seo_framework_sitemap_additional_urls', function( $custom_urls ) {
+
+	/* Alleen voor NL-sitemap*/
+	if ( apply_filters( 'wpml_current_language', NULL ) != apply_filters( 'wpml_default_language', NULL ) ) {
+		return $custom_urls;
+	}
 
 	$taxonomies = array(
 		'product_cat',
