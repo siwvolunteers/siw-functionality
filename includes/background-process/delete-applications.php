@@ -27,6 +27,9 @@ class SIW_Delete_Applications_Process extends SIW_Background_Process {
 	protected function task( $item ) {
 
 		$order = wc_get_order( $item );
+		if ( false == $order ) {
+			return false;
+		}
 		$order->delete( true );
 
 		return false;

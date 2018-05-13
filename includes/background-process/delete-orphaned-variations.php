@@ -27,6 +27,9 @@ class SIW_Delete_Orphaned_Variations_Process extends SIW_Background_Process {
 	protected function task( $item ) {
 
 		$product = wc_get_product( $item );
+		if ( false == $product ) {
+			return false;
+		}
 		$product->delete( true );
 
 		return false;
