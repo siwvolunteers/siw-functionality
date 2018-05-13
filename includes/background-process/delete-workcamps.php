@@ -27,9 +27,15 @@ class SIW_Delete_Workcamps_Process extends SIW_Background_Process {
 	protected function task( $item ) {
 
 		$product = wc_get_product( $item );
+		if ( false == $product ) {
+			return false;
+		}
 		$variations = $product->get_children();
 		foreach ( $variations as $variation_id ) {
 			$variation = wc_get_product( $variation_id );
+			if ( false == $variation ) {
+				continue;
+			}
 			$variation->delete( true );
 		}
 		$product->delete( true );
