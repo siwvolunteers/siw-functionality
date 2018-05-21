@@ -203,7 +203,7 @@ add_action( 'pinnale_breadcrumbs_after_home', function() {
 
 /* Sidebar tonen voor product attributes / Sidebar verbergen voor testimonials TODO: Kan weg na switch van Strong Testimonials naar eigen functionaliteit */
 add_filter( 'kadence_display_sidebar', function( $sidebar ) {
-	if ( 'wpm-testimonial' == get_post_type() ) {
+	if ( 'wpm-testimonial' == get_post_type() || 'vacatures' == get_post_type() || 'agenda' == get_post_type() ) {
 		return false;
 	}
 	if ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax ( 'pa_taal' ) || is_tax( 'pa_maand' ) ) {
@@ -305,5 +305,12 @@ add_filter( 'nonce_user_logged_out', function( $user_id, $action ) {
 	return $user_id;
 
 }, 100, 2 );
+
+
+/** */
+add_action( 'after_setup_theme', function() {
+    add_theme_support('custom-logo');
+});
+
 
 

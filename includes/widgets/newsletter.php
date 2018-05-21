@@ -52,7 +52,7 @@ class SIW_Mailpoet_Subscription extends \TDP\Widgets_Helper {
 				<?php siw_render_field( 'email', array( 'label' => __( 'E-mail', 'siw' ), 'name' => 'email', 'id' => 'newsletter_email', 'required' => true ), array( 'tag' => 'p' )  ) ;?>
 				<?php siw_render_field( 'submit', array( 'value' => __( 'Aanmelden', 'siw') ), array( 'tag' => 'p' ) );?>
 				<?php siw_render_field( 'hidden', array( 'value' => $instance['list'], 'name' => 'list_id', 'id' => 'newsletter_list_id' ) ); ?>
-				<?php wp_nonce_field( 'siw_newsletter_nonce', 'newsletter_nonce', false);?>
+				<?php wp_nonce_field( 'siw_newsletter_nonce', 'newsletter_nonce', false );?>
 			</form>
 		</div>
 		<?php

@@ -1,6 +1,6 @@
 <?php
 /*
-(c)2017 SIW Internationale Vrijwilligersprojecten
+(c)2017-2018 SIW Internationale Vrijwilligersprojecten
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -12,8 +12,8 @@ add_action( 'siw_update_plugin', function() {
 	$scheduled_cron_jobs = (array) get_option( 'siw_scheduled_cron_jobs' );
 	foreach ( $scheduled_cron_jobs as $scheduled_cron_job ) {
 		if ( wp_next_scheduled( $scheduled_cron_job ) ) {
-			$cron_job_ts = wp_next_scheduled( $scheduled_cron_job );
-			wp_unschedule_event( $cron_job_ts, $scheduled_cron_job );
+			$timestamp = wp_next_scheduled( $scheduled_cron_job );
+			wp_unschedule_event( $timestamp, $scheduled_cron_job );
 		}
 	}
 
@@ -22,7 +22,7 @@ add_action( 'siw_update_plugin', function() {
 
 	/* Bepaal cron timestamp */
 	$cron_ts = strtotime( 'tomorrow ' . SIW_CRON_TS_GENERAL );
-	$cron_ts_gmt = strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $cron_ts ) ) . ' GMT' );
+	$cron_ts_gmt = siw_get_timestamp_in_gmt( $cron_ts );
 
 	/* Schedule alle jobs met 5 minuten interval */
 	$counter = 0;
@@ -34,14 +34,14 @@ add_action( 'siw_update_plugin', function() {
 	}
 
 	/* Sla alle scheduled jobs op in een optie */
-	update_option( 'siw_scheduled_cron_jobs', $cron_jobs );
+	update_option( 'siw_scheduled_cron_jobs', $cron_jobs, false );
 
 	/* Cache rebuild schedulen */
 	$cache_rebuild_ts = strtotime( 'tomorrow ' . SIW_CRON_TS_REBUILD_CACHE );
-	$cache_rebuild_ts_gmt = strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $cache_rebuild_ts ) ) . ' GMT' );
+	$cache_rebuild_ts_gmt = siw_get_timestamp_in_gmt( $cache_rebuild_ts );
 	if ( wp_next_scheduled( 'siw_rebuild_cache' ) ) {
-		$cron_job_ts = wp_next_scheduled( 'siw_rebuild_cache' );
-		wp_unschedule_event( $cron_job_ts, 'siw_rebuild_cache' );
+		$timestamp = wp_next_scheduled( 'siw_rebuild_cache' );
+		wp_unschedule_event( $timestamp, 'siw_rebuild_cache' );
 	}
 	wp_schedule_event( $cache_rebuild_ts_gmt, 'daily', 'siw_rebuild_cache' );
 } );
