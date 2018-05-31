@@ -19,20 +19,52 @@ add_action( 'wp_enqueue_scripts', function() {
 	wp_register_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js' );
 });
 
-
-/* Toevoegen custom scripts voor checkout */
+/* Extra instellingen voor jQuery validation*/
 add_action( 'wp_enqueue_scripts', function() {
-	wp_register_script( 'siw-checkout', SIW_ASSETS_URL . 'js/siw-checkout.js', array( 'jquery' ), SIW_PLUGIN_VERSION, true );
-	$parameters = array(
-		'ajax_url'			=> SIW_AJAX_URL,
-		'invalid_postcode'	=> __( 'Dit is geen geldige postcode.', 'siw' ),
-		'invalid_date'		=> __( 'Dit is geen geldige datum.', 'siw' ),
-	);
-	wp_localize_script( 'siw-checkout', 'siwCheckout', $parameters );
-	if ( is_checkout() ) {
-		wp_enqueue_script( 'siw-checkout' );
-	}
-});
+
+	/* Element voor validation messages aanpassen */
+	$inline_script = "$.validator.setDefaults({
+		errorPlacement: function( error, element ) {
+			error.appendTo( element.parents( 'p' ) );
+		}
+	})";
+
+	/* Datum-validatie */
+	$date_regex = "/^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$/";
+	$invalid_date_message = __( 'Dit is geen geldige datum.', 'siw' );
+
+	$inline_script .= sprintf("	
+	$.validator.addMethod( 'dateNL', function( value, element ) {
+		return this.optional( element ) || %s.test( value );
+	}, '%s' );", $date_regex, esc_html( $invalid_date_message ) );
+
+	/* Postcode-validatie */
+	$postal_code_regex = "/^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/";
+	$invalid_postal_code_message = __( 'Dit is geen geldige postcode.', 'siw' );
+	$inline_script .= sprintf("
+	$.validator.addMethod( 'postalcodeNL', function( value, element ) {
+		return this.optional( element ) || %s.test( value );
+	}, '%s' );", $postal_code_regex, esc_html( $invalid_postal_code_message ) );
+
+	wp_add_inline_script('jquery-validate', "(function( $ ) {" .	$inline_script . "})( jQuery );" );
+}, 99 );
+
+
+/* Extra javascript voor checkout */
+add_action( 'wp_enqueue_scripts', function() {
+	$inline_script = "
+	$( document ).on( 'change', '#billing_postcode, #billing_housenumber', function() {
+		siwPostcodeLookup( '#billing_postcode', '#billing_housenumber', '#billing_address_1', '#billing_city' );
+		return false;
+	});";
+	
+	$inline_script .= "
+	$( document ).on( 'click', '#open-terms-and-conditions', function() {
+		$('#siw-terms').modal();
+		return false
+	});";
+	wp_add_inline_script('wc-checkout', "(function( $ ) {" .	$inline_script . "})( jQuery );" );
+}, 99 );
 
 
 /* Voeg styling voor admin toe */

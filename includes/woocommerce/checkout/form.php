@@ -38,11 +38,13 @@ add_filter( 'woocommerce_default_address_fields', function( $fields ) {
 	$address_fields['gender']['class'] = array( 'form-row-last' );
 	$address_fields['gender']['label_class'] = array( 'radio-label' );
 	$address_fields['dob']['class'] = array( 'form-row-first' );
+	$address_fields['dob']['input_class'] = array( 'dateNL');
 	$address_fields['dob']['placeholder'] = __( 'dd-mm-jjjj', 'siw' );
 	$address_fields['nationality']['class'] = array( 'form-row-last', 'select' );
 	$address_fields['nationality']['label_class'] = array( 'select-label');
 	$address_fields['housenumber']['class'] = array( 'form-row-last' );
 	$address_fields['postcode']['class'] = array( 'form-row-first' );
+	$address_fields['postcode']['input_class'] = array( 'postalcodeNL' );
 	$address_fields['postcode']['placeholder'] = '1234 AB';
 	$address_fields['address_1']['class'] = array( 'form-row-first' );
 	$address_fields['address_1']['placeholder'] = '';
@@ -212,3 +214,41 @@ add_filter( 'woocommerce_form_field_args', function( $args ) {
 	return $args;
 
 }, 10 );
+
+/* Hooks verwijderen */
+add_action('plugins_loaded', function() {
+	remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_checkout_privacy_policy_text', 20 );
+	remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_terms_and_conditions_page_content', 30 );
+});
+
+/* Voorwaarden*/
+add_filter( 'woocommerce_get_terms_and_conditions_checkbox_text',  function( $text ) {
+	$text = __( 'Ik heb de <a id="open-terms-and-conditions">inschrijfvoorwaarden</a> gelezen en ga akkoord ', 'siw' );
+	return $text;
+});
+
+/* HTML voor lightbox aan footer toevoegen */
+add_action( 'wp_footer', function() {
+	if( ! is_checkout() ) {
+		return;
+	}
+	$terms_page = get_post( wc_terms_and_conditions_page_id() );
+	?>
+	<div class="modal fade" id="siw-terms" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><?php esc_html_e( $terms_page->post_title );?></h4>
+				</div>
+				<div class="modal-body">
+				<?php echo wp_kses_post( wpautop( do_shortcode( $terms_page->post_content ) ) ); ?>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default kad-btn" data-dismiss="modal"><?php esc_html_e('Sluiten', 'siw');?></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php
+});
