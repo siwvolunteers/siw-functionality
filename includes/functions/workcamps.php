@@ -73,8 +73,6 @@ function siw_count_projects_by_term( $taxonomy, $term_slug, $force_recount = fal
  */
 function siw_get_quick_search_destinations() {
 
-//TODO:uncategorized er uit filteren
-
 	$categories = get_terms( array(
 		'taxonomy'		=> 'product_cat',
 		'hide_empty'	=> false,
@@ -84,7 +82,7 @@ function siw_get_quick_search_destinations() {
 		'' => __( 'Waar wil je heen?', 'siw' ),
 	);
 	foreach ( $categories as $category ) {
-		if ( siw_count_projects_by_term( 'product_cat', $category->slug ) > 0 ) {
+		if ( 'uncategorized' != $category->slug && siw_count_projects_by_term( 'product_cat', $category->slug ) > 0 ) {
 			$destinations[ $category->slug ] = $category->name;
 		}
 	}
