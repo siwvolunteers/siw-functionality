@@ -79,6 +79,7 @@ define( 'SIW_PLATO_WEBSERVICE_URL', 'http://www.workcamp-plato.org/files/service
 define( 'SIW_PLATO_BACKOFFICE_URL', 'http://www.workcamp-plato.org/' );
 define( 'SIW_TRAVEL_ADVICE_BASE_URL', 'https://www.nederlandwereldwijd.nl/reizen/reisadviezen/' );
 define( 'SIW_EXCHANGE_RATES_API_URL', 'https://data.fixer.io/api/' );
+define( 'SIW_REPORT_URI', 'https://siwvolunteers.report-uri.com/' );
 
 /**
  * Geeft een array met constantes en hun toelichting terug
@@ -128,6 +129,7 @@ function siw_get_constants() {
 		'SIW_PLATO_WEBSERVICE_URL'		=> __( 'Plato webservice URL', 'siw' ),
 		'SIW_TRAVEL_ADVICE_BASE_URL'	=> __( 'Reisadvies base-URL', 'siw' ),
 		'SIW_EXCHANGE_RATES_API_URL'	=> __( 'Wisselkoersen API base-url', 'siw' ),
+		'SIW_REPORT_URI'				=> __( 'Report URI', 'siw' ),
 	);
 
 	return $constants;

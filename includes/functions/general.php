@@ -76,6 +76,31 @@ function siw_get_ip_whitelist() {
 }
 
 
+
+
+/**
+ * Hulpfunctie om report-uri te genereren
+ *
+ * @param string $type
+ * @param boolean $enforce
+ * @return string
+ */
+function siw_generate_report_uri( $type, $enforce = true ) {
+	$types = array( 
+		'csp',
+		'ct',
+		'xss',
+		'staple',
+	);
+	if( ! in_array( $type, $types ) ) {
+		return false;
+	}
+	$action = ( $enforce ) ? 'enforce' : 'reportOnly';
+	$report_uri = SIW_REPORT_URI . 'r/d/' . $type .'/' . $action;
+	return $report_uri;
+}
+
+
 /**
  * Geeft array met tarieven Groepsprojecten terug
  *
