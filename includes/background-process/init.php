@@ -6,34 +6,78 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /* Generieke klasse */
-require_once( __DIR__ . '/siw-background-process.php' );
+require_once( __DIR__ . '/class-siw-background-process.php' );
 /* Background processen */
-require_once( __DIR__ . '/count-workcamps.php' );
-require_once( __DIR__ . '/update-workcamp-tariffs.php' );
-require_once( __DIR__ . '/hide-workcamps.php' );
-require_once( __DIR__ . '/delete-applications.php' );
-require_once( __DIR__ . '/delete-workcamps.php' );
-require_once( __DIR__ . '/delete-orphaned-variations.php' );
+require_once( __DIR__ . '/class-siw-count-workcamps.php' );
+require_once( __DIR__ . '/class-siw-update-workcamp-tariffs.php' );
+require_once( __DIR__ . '/class-siw-hide-workcamps.php' );
+require_once( __DIR__ . '/class-siw-delete-applications.php' );
+require_once( __DIR__ . '/class-siw-delete-workcamps.php' );
+require_once( __DIR__ . '/class-siw-update-free-places.php' );
+require_once( __DIR__ . '/class-siw-delete-orphaned-variations.php' );
+require_once( __DIR__ . '/class-siw-update-taxonomies.php' );
 
 
 /**
  * Hulpfunctie om background proces te starten
  *
- * @param string $name
- * @param array $data
- * @param int $batch_size
+ * @param string $action
+ *
  * @return void
  */
-function siw_start_background_process( $name, $data, $log_context = '', $batch_size = 500 ) {
+function siw_start_background_process( $action ) {
+	$process_name = 'siw_' .  $action . '_process';
 
-	$batches = array_chunk( $data, $batch_size );
-
-	$process = $GLOBALS[ 'siw_' .  $name . '_process' ];
-	foreach ( $batches as $batch ) {
-		foreach ( $batch as $item ) {
-			$process->push_to_queue( $item );
-		}
-		$process->save()->empty_queue();
+	if ( ! isset( $GLOBALS[ $process_name ] ) ) {
+		return;
 	}
-	$process->dispatch();
+	$process = $GLOBALS[ $process_name ];
+
+	$process->start();
+}
+
+
+/**
+ * Undocumented function
+ *
+ * @param string $class
+ * @param string $action
+ * @param string $node
+ * @param array $parent_nodes
+ * @param bool $add_cron_job
+ * @return void
+ */
+function siw_register_background_process( $class, $action, $node, $parent_nodes = array(), $add_cron_job = true ) {
+
+	/* Afbreken als $class niet bestaat of geen subklasse van SIW_Background_Process is */
+	if ( ! class_exists( $class ) ) {
+		return;
+	}
+	$process = new $class();
+
+	if ( ! is_subclass_of( $process, 'SIW_Background_Process') ) {
+		return;
+	}
+	$GLOBALS['siw_' . $action . '_process'] = new $class();
+
+	/**
+	 * Toevoegen aan admin bar
+	 */
+	if ( ! empty( $parent_nodes ) ) {
+		foreach ( $parent_nodes as $admin_node => $properties ) { 
+			siw_add_admin_bar_node( $admin_node, $properties );
+		}
+	}
+	siw_add_admin_bar_action( $action, $node );
+
+	/**
+	 * Cron job toevoegen
+	 */
+	if ( true == $add_cron_job ) {
+		siw_add_cron_job( 'siw_'. $action );
+	}
+
+	add_action( 'siw_'. $action, function() use( $action ) {
+		siw_start_background_process( $action );
+	});
 }

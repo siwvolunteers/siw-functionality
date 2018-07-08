@@ -44,6 +44,17 @@ add_action( 'siw_update_plugin', function() {
 		wp_unschedule_event( $timestamp, 'siw_rebuild_cache' );
 	}
 	wp_schedule_event( $cache_rebuild_ts_gmt, 'daily', 'siw_rebuild_cache' );
+
+
+	/* FPL-import uit Plato schedulen */
+	$plato_import_fpl_ts = strtotime( 'tomorrow ' . SIW_CRON_TS_UPDATE_FREE_PLACES );
+	$plato_import_fpl_ts_gmt = siw_get_timestamp_in_gmt( $plato_import_fpl_ts );
+	if ( wp_next_scheduled( 'siw_update_free_places' ) ) {
+		$timestamp = wp_next_scheduled( 'siw_update_free_places' );
+		wp_unschedule_event( $timestamp, 'siw_update_free_places' );
+	}
+	wp_schedule_event( $plato_import_fpl_ts_gmt, 'daily', 'siw_update_free_places' );	
+
 } );
 
 

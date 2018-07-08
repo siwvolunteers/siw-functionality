@@ -42,6 +42,34 @@ function siw_add_cron_job( $action ) {
 
 
 /**
+ * Hulpfunctie om admin bar actie toe te voegen
+ * @param string $action
+ * @param array $properties
+ */
+function siw_add_admin_bar_action( $action, $properties ) {
+	add_filter( 'siw_admin_bar_actions', function( $actions ) use( $action, $properties ) {
+		$actions[ $action ] = $properties;
+		return $actions;
+	});
+}
+
+
+/**
+ * Hulpfunctie om admin bar node toe te voegen
+ *
+ * @param string $node
+ * @param array $properties
+ * @return void
+ */
+function siw_add_admin_bar_node( $node, $properties ) {
+	add_filter( 'siw_admin_bar_nodes', function( $nodes ) use( $node, $properties ) {
+		$nodes[ $node ] = $properties;
+		return $nodes;
+	});
+}
+
+
+/**
  * Zoek id van vertaalde pagina op basis van id
  * @param  int $page_id
  * @return int

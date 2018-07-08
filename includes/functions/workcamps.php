@@ -6,28 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/* Start background proces om aantal zichtbare projecten per term te tellen */
-siw_add_cron_job( 'siw_count_projects' );
-
-add_action( 'siw_count_projects', function() {
-	siw_debug_log( 'Start tellen projecten' );
-
-	$taxonomies = array(
-		'product_cat',
-		'pa_land',
-		'pa_maand',
-	);
-	
-	foreach ( $taxonomies as $taxonomy ) {
-		$terms = get_terms( $taxonomy, array( 'hide_empty' => true ) );
-		foreach ( $terms as $term ) {
-			$data[] = array( 'taxonomy' => $taxonomy, 'term_slug' => $term->slug );
-
-		}
-	}
-	siw_start_background_process( 'count_workcamps', $data );
-});
-
 
 /**
  * Tel zichtbare projecten per term

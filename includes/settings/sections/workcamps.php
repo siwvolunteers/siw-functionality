@@ -112,25 +112,6 @@ add_action( 'siw_settings_show_workcamps_section', function() {
 			'indent'		=> false,
 		),
 		array(
-			'id'			=> 'plato_update_section_start',
-			'title'			=> __( 'Update', 'siw' ),
-			'type'			=> 'section',
-			'indent'		=> true,
-		),
-		array(
-			'id'			=> 'plato_hide_project_days_before_start',
-			'title'			=> __( 'Verberg project vanaf aantal dagen voor start project', 'siw' ),
-			'type'			=> 'slider',
-			'min'			=> '1',
-			'max'			=> '28',
-			'default'		=>	'7',
-		),
-		array(
-			'id'			=> 'plato_update_section_end',
-			'type'			=> 'section',
-			'indent'		=> false,
-		),
-		array(
 			'id'			=> 'plato_import_section_start',
 			'title'			=> __( 'Import', 'siw' ),
 			'type'			=> 'section',
