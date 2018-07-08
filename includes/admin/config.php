@@ -21,18 +21,18 @@ function siw_configuration_page() {
 
 	<table class="wp-list-table widefat">
 	<thead>
-	<tr>
-		<th class="row-title"><?php esc_attr_e( 'Instelling', 'siw' ); ?></th>
-		<th class="row-title"><?php esc_attr_e( 'Waarde', 'siw' ); ?></th>
-		<th class="row-title"><?php esc_attr_e( 'Constante', 'siw' ); ?></th>
-	</tr>
+		<tr>
+			<th class="row-title"><?php esc_attr_e( 'Instelling', 'siw' ); ?></th>
+			<th class="row-title"><?php esc_attr_e( 'Waarde', 'siw' ); ?></th>
+			<th class="row-title"><?php esc_attr_e( 'Constante', 'siw' ); ?></th>
+		</tr>
 	</thead>
 	<tfoot>
-	<tr>
-		<th class="row-title"><?php esc_attr_e( 'Instelling', 'siw' ); ?></th>
-		<th class="row-title"><?php esc_attr_e( 'Waarde', 'siw' ); ?></th>
-		<th class="row-title"><?php esc_attr_e( 'Constante', 'siw' ); ?></th>
-	</tr>
+		<tr>
+			<th class="row-title"><?php esc_attr_e( 'Instelling', 'siw' ); ?></th>
+			<th class="row-title"><?php esc_attr_e( 'Waarde', 'siw' ); ?></th>
+			<th class="row-title"><?php esc_attr_e( 'Constante', 'siw' ); ?></th>
+		</tr>
 	</tfoot>
 	<tbody>
 	<?php

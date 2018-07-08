@@ -104,6 +104,23 @@ function siw_get_ip_whitelist() {
 }
 
 
+/**
+ * Geef reguliere expressie terug
+ *
+ * @param string $type
+ * @return string
+ */
+function siw_get_regex( $type ) {
+	$expressions = array(
+		'date' => '/^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$/',
+		'postal_code' => '/^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/',
+	);
+	if ( ! isset( $expressions[ $type ] ) ) {
+		return false;
+	}
+	$regex = $expressions[ $type ];
+	return $regex;
+}
 
 
 /**

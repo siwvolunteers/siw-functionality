@@ -81,7 +81,7 @@ add_action( 'cmb2_admin_init', function() {
 	$cmb->add_field( array(
 		'id'			=> $prefix . 'wie_ben_jij_lijst',
 		'name'			=> __( 'Lijst', 'siw' ),
-		'type'			=> 'text',
+		'type'			=> 'textarea_small',
 		'repeatable'	=> true,
 	) );
 	$cmb->add_field( array(
@@ -104,7 +104,7 @@ add_action( 'cmb2_admin_init', function() {
 	$cmb->add_field( array(
 		'id'			=> $prefix . 'wat_ga_je_doen_lijst',
 		'name'			=> __( 'Lijst', 'siw' ),
-		'type'			=> 'text',
+		'type'			=> 'textarea_small',
 		'repeatable'	=> true,
 	) );	
 	$cmb->add_field( array(
@@ -127,7 +127,7 @@ add_action( 'cmb2_admin_init', function() {
 	$cmb->add_field( array(
 		'id'			=> $prefix . 'wat_bieden_wij_jou_lijst',
 		'name'			=> __( 'Lijst', 'siw' ),
-		'type'			=> 'text',
+		'type'			=> 'textarea_small',
 		'repeatable'	=> true,
 	) );	
 	$cmb->add_field( array(

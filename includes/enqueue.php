@@ -30,7 +30,7 @@ add_action( 'wp_enqueue_scripts', function() {
 	})";
 
 	/* Datum-validatie */
-	$date_regex = "/^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$/";
+	$date_regex = siw_get_regex( 'date' );
 	$invalid_date_message = __( 'Dit is geen geldige datum.', 'siw' );
 
 	$inline_script .= sprintf("	
@@ -39,14 +39,14 @@ add_action( 'wp_enqueue_scripts', function() {
 	}, '%s' );", $date_regex, esc_html( $invalid_date_message ) );
 
 	/* Postcode-validatie */
-	$postal_code_regex = "/^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/";
+	$postal_code_regex = siw_get_regex( 'postal_code' );
 	$invalid_postal_code_message = __( 'Dit is geen geldige postcode.', 'siw' );
 	$inline_script .= sprintf("
 	$.validator.addMethod( 'postalcodeNL', function( value, element ) {
 		return this.optional( element ) || %s.test( value );
 	}, '%s' );", $postal_code_regex, esc_html( $invalid_postal_code_message ) );
 
-	wp_add_inline_script('jquery-validate', "(function( $ ) {" .	$inline_script . "})( jQuery );" );
+	wp_add_inline_script( 'jquery-validate', "(function( $ ) {" .	$inline_script . "})( jQuery );" );
 }, 99 );
 
 
@@ -63,7 +63,7 @@ add_action( 'wp_enqueue_scripts', function() {
 		$('#siw-terms').modal();
 		return false
 	});";
-	wp_add_inline_script('wc-checkout', "(function( $ ) {" .	$inline_script . "})( jQuery );" );
+	wp_add_inline_script( 'wc-checkout', "(function( $ ) {" .	$inline_script . "})( jQuery );" );
 }, 99 );
 
 

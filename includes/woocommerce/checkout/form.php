@@ -223,7 +223,7 @@ add_action('plugins_loaded', function() {
 
 /* Voorwaarden*/
 add_filter( 'woocommerce_get_terms_and_conditions_checkbox_text',  function( $text ) {
-	$text = __( 'Ik heb de <a id="open-terms-and-conditions">inschrijfvoorwaarden</a> gelezen en ga akkoord ', 'siw' );
+	$text = __( 'Ik heb de <a id="open-terms-and-conditions">inschrijfvoorwaarden</a> gelezen en ga akkoord', 'siw' );
 	return $text;
 });
 

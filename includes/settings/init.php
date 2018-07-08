@@ -18,11 +18,12 @@ define( 'SIW_OPT_NAME', 'siw' );
  *
  * @return mixed
  */
-function siw_get_setting( $setting ) {
+function siw_get_setting( $setting, $default = false ) {
 	if ( ! class_exists( 'Redux' ) ) {
 		return;
 	}
-	return Redux::getOption( SIW_OPT_NAME, $setting );
+	$value = Redux::getOption( SIW_OPT_NAME, $setting );
+	return ( $value ) ? $value : $default;
 }
 add_filter( 'siw_setting', function( $value, $setting ) {
 	return siw_get_setting( $setting );
@@ -62,7 +63,7 @@ require_once( __DIR__ . '/validation.php' );
 /* Help-tabs laden */
 require_once( __DIR__ . '/help-tabs.php' );
 
-add_action('plugins_loaded', function() {
+add_action( 'plugins_loaded', function() {
 	/* Instelling voor Redux optiepanel zetten */
 	$args = array(
 		'opt_name'				=> SIW_OPT_NAME,
