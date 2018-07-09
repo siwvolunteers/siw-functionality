@@ -61,6 +61,7 @@ function siw_get_job_data( $post_id ) {
 		'solliciteren_email'		=> antispambot( get_post_meta( $post_id, 'siw_vacature_solliciteren_email', true ) ),
 		'toelichting_solliciteren'	=> get_post_meta( $post_id, 'siw_vacature_toelichting_solliciteren', true ),
 		'meervoud'					=> get_post_meta( $post_id, 'siw_vacature_meervoud', true ),
+		'date_last_updated'			=> get_the_modified_date( 'Y-m-d', $post_id ),
 	);
 
 	if ( $contactpersoon_functie ) {
@@ -70,7 +71,7 @@ function siw_get_job_data( $post_id ) {
 	if (  $solliciteren_functie ) {
 		$job_data['solliciteren_naam'] 		=  $job_data['solliciteren_naam'] . ' (' .  $solliciteren_functie . ')';
 	}
-
+	$job_data['json_ld'] = siw_generate_job_json_ld( $job_data );
 
 	return $job_data;
 }

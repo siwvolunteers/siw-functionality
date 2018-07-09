@@ -123,6 +123,8 @@ function siw_get_event_data( $post_id ) {
 	$event_data['date_range'] = siw_get_date_range_in_text( $event_data['start_date'],  $event_data['end_date'] , false );
 	$event_data['duration']	= sprintf( '%s, %s&nbsp;-&nbsp;%s', $event_data['date_range'], $event_data['start_time'], $event_data['end_time'] );
 
+	$event_data['json_ld'] = siw_generate_event_json_ld( $event_data );
+
 
 	return $event_data;
 }
