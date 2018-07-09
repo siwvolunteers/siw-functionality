@@ -21,6 +21,7 @@ add_action( 'plugins_loaded', function() {
 	add_filter( 'woocommerce_product_additional_information_heading', '__return_false' );
 	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+	remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 } );
 
 add_action( 'wp', function() {
@@ -83,7 +84,7 @@ add_filter( 'woocommerce_available_variation', function( $variations ) {
 
 
 /* Tekst voor korting-badge*/
-add_filter('woocommerce_sale_flash', function ( $text ) {
+add_filter( 'woocommerce_sale_flash', function ( $text ) {
 	return '<span class="onsale">' . __( 'Korting', 'siw' ) . '</span>';
 } );
 

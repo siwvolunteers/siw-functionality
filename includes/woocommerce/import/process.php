@@ -1,6 +1,6 @@
 <?php
 /*
- * (c)2017 SIW Internationale Vrijwilligersprojecten
+ * (c)2017-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -35,17 +35,7 @@ add_action( 'pmxi_saved_post', function( $product_id, $xml_node, $is_update ) {
 		}
 	}
 	//TODO: Kan dit niet weg ivm met pmxi_product_variation_saved ?
-	$tariff_array = siw_get_workcamp_tariffs();
-	$variations = $product->get_children();
-
-	foreach ( $variations as $variation_id ) {
-		$variation = wc_get_product( $variation_id );
-		$tariff = $variation->get_attributes()['pa_tarief'];
-		$price = isset( $tariff_array[ $tariff ] ) ? $tariff_array[ $tariff ] : $tariff_array['regulier'];
-		$variation->set_price( $price );
-		$variation->set_regular_price( $price );
-		$variation->save();
-	}
+	siw_update_workcamp_tariff( $product_id );
 
 	/*
 	 * Corrigeren attributes

@@ -28,11 +28,11 @@ function siw_count_projects_by_term( $taxonomy, $term_slug, $force_recount = fal
 	
 		$products = wc_get_products(
 			array(
-			'status'		=> 'publish',
-			'limit'			=> -1,
-			'return'		=> 'ids',
-			'visibility'	=> 'visible',
-			'tax_query' 	=> $tax_query,
+				'status'		=> 'publish',
+				'limit'			=> -1,
+				'return'		=> 'ids',
+				'visibility'	=> 'visible',
+				'tax_query' 	=> $tax_query,
 			)
 		);
 		$count = count( $products );
@@ -90,4 +90,25 @@ function siw_get_quick_search_months() {
 	}
 
 	return $months;
+}
+
+
+/**
+ * Bepaal of kortingsactie actief is
+ *
+ * @return bool
+ */
+function siw_is_sale_active() {
+
+	$sale_active = false;
+
+
+	if ( siw_get_setting( 'workcamp_sale_active' ) &&
+		date( 'Y-m-d' ) >= siw_get_setting( 'workcamp_sale_start_date' ) &&
+		date( 'Y-m-d' ) <= siw_get_setting( 'workcamp_sale_end_date' )
+		) {
+			$sale_active = true;
+	}
+
+	return $sale_active;
 }

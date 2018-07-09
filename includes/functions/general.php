@@ -153,8 +153,10 @@ function siw_generate_report_uri( $type, $enforce = true ) {
  */
 function siw_get_workcamp_tariffs() {
 	$workcamp_tariffs = array(
-		'regulier'	=> number_format( SIW_WORKCAMP_FEE_REGULAR, 2 ),
-		'student'	=> number_format( SIW_WORKCAMP_FEE_STUDENT, 2 )
+		'regulier'				=> number_format( SIW_WORKCAMP_FEE_REGULAR, 2 ),
+		'student'				=> number_format( SIW_WORKCAMP_FEE_STUDENT, 2 ),
+		'regulier_aanbieding'	=> number_format( SIW_WORKCAMP_FEE_REGULAR_SALE, 2 ),
+		'student_aanbieding'	=> number_format( SIW_WORKCAMP_FEE_STUDENT_SALE, 2 ),
 	);
 	return $workcamp_tariffs;
 }

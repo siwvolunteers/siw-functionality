@@ -16,11 +16,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'plugins_loaded', function() {
 	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
 	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
+	remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 ); //TODO: eventueel alleen als kortingsactie actief is
 	add_filter( 'yith_wcan_untrailingslashit', '__return_false' );
 	add_filter( 'yith_wcan_is_search', '__return_false' );
 	add_filter( 'yith_wcan_hide_out_of_stock_items', '__return_true' );
 	add_filter( 'yith_wcan_skip_layered_nav_query', '__return_false', 999 );
 } );
+
+/* Pinnacle sales badge verwijderen. TODO: kan weg na switch theme */
+add_action( 'init', function() {
+	remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_show_product_loop_sale_flash', 5 );
+}, 999 );
 
 
 /* AJAX-filtering: Maanden niet filteren op alfabet maar op slug*/

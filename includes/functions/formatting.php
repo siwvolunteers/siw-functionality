@@ -57,7 +57,7 @@ function siw_generate_external_link( $url, $text = false ) {
  */
 function siw_format_amount( $amount, $decimals = 0 ) {
 	$amount = number_format( $amount, $decimals );
-	return sprintf( '&euro; %s', $amount );
+	return sprintf( '&euro;&nbsp;%s', $amount );
 }
 
 
@@ -69,7 +69,7 @@ function siw_format_amount( $amount, $decimals = 0 ) {
  */
 function siw_format_percentage( $percentage, $decimals = 0 ) {
 	$percentage = number_format( $percentage, $decimals );
-	return sprintf( '%s &percnt;', $percentage );
+	return sprintf( '%s&nbsp;&percnt;', $percentage );
 }
 
 

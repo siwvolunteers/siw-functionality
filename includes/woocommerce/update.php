@@ -177,9 +177,32 @@ function siw_update_workcamp_tariff( $product_id ) {
 	foreach ( $variations as $variation_id ) {
 		$variation = wc_get_product( $variation_id );
 		$tariff = $variation->get_attributes()['pa_tarief'];
-		$price = isset( $tariff_array[ $tariff ] ) ? $tariff_array[ $tariff ] : $tariff_array['regulier'];
+
+		$regular_price = isset( $tariff_array[ $tariff ] ) ? $tariff_array[ $tariff ] : $tariff_array['regulier'];
+
+		/* Bepaal standaard eigenschappen */
+		$price = $regular_price;
+		$sale_price = null;
+		$date_on_sale_from = null;
+		$date_on_sale_to = null;
+
+		/* Bepaal eigenschappen als kortingsactie actief is */
+		if ( siw_is_sale_active() ) {
+			$sale_price = isset( $tariff_array[ $tariff . '_aanbieding' ] ) ? $tariff_array[ $tariff . '_aanbieding' ] : $tariff_array['regulier_aanbieding'];
+			$price = $sale_price;
+			$date_on_sale_from = date( DATE_ISO8601, strtotime( siw_get_setting( 'workcamp_sale_start_date' ) ) );
+			$date_on_sale_to = date( DATE_ISO8601, strtotime( siw_get_setting( 'workcamp_sale_end_date' ) ) );
+
+		}
+		
+		/* Zet eigenschappen */
+		$variation->set_regular_price( $regular_price );
+		$variation->set_sale_price( $sale_price );
 		$variation->set_price( $price );
-		$variation->set_regular_price( $price );
+		$variation->set_date_on_sale_from( $date_on_sale_from );
+		$variation->set_date_on_sale_to( $date_on_sale_to );
+
+
 		$variation->save();
 	}
 
