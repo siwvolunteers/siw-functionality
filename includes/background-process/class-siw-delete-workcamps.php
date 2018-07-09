@@ -122,5 +122,5 @@ add_action( 'plugins_loaded', function() {
 		'workcamps' =>  array( 'title' => __( 'Groepsprojecten', 'siw' ) ),
 	);
 	$node = array( 'parent' => 'workcamps', 'title' => __( 'Verwijderen oude projecten', 'siw' ) );
-	siw_register_background_process( 'SIW_Delete_Workcamps', 'delete_workcamps', $node, $parent_nodes, false );
+	siw_register_background_process( 'SIW_Delete_Workcamps', 'delete_workcamps', $node, $parent_nodes, true );
 } );
