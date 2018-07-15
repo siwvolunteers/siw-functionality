@@ -1,10 +1,11 @@
 <?php
 /*
- * (c)2017 SIW Internationale Vrijwilligersprojecten
+ * (c)2017-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 /* Admin bar niet tonen in frontend voor ingelogde gebruikers */
 add_filter( 'show_admin_bar', '__return_false' );
 
@@ -50,6 +51,85 @@ add_action( 'wp_before_admin_bar_render', function() {
 	$wp_admin_bar->remove_node( 'new-content' );
 }, 999 );
 
+/* Kolommen verbergen bij overzicht pagina's */
+add_filter( 'manage_pages_columns', function( $columns ) {
+	unset( $columns['comments'] );
+	unset( $columns['author'] );
+
+	return $columns;
+}, 10 );
+
+
+/* Admin Bar acties*/ 
+add_action( 'admin_bar_menu', function ( $wp_admin_bar ) {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	$nodes = apply_filters( 'siw_admin_bar_nodes', array() );
+	$actions = apply_filters( 'siw_admin_bar_actions', array() );
+
+	$referer = '&_wp_http_referer=' . rawurlencode( wp_unslash( $_SERVER['REQUEST_URI'] ) );
+
+	if ( empty( $actions ) ) {
+		return;
+	}
+
+	/* Voeg hoofditem toe*/
+	$args = array(
+		'id'    => 'siw-actions',
+		'title' => __( 'Start actie', 'siw' ),
+		'href'  => '#',
+	);
+	$wp_admin_bar->add_node( $args );
+
+	/* Voeg nodes toe */
+	foreach ( $nodes as $node => $properties ) {
+		$args = array(
+			'parent' => ( isset( $properties['parent'] ) ) ? 'siw-' . $properties['parent'] . '-actions' : 'siw-actions',
+			'id' => 'siw-' .$node . '-actions',
+			'title' => $properties['title'],
+		);
+		$wp_admin_bar->add_node( $args );
+	}
+
+	/* Voeg acties toe */
+	foreach ( $actions as $action => $properties ) {
+		$args = array(
+			'parent' => ( isset( $properties['parent'] ) ) ? 'siw-' . $properties['parent'] . '-actions' : 'siw-actions',
+			'id' => 'siw-action-' . $action,
+			'title' => $properties['title'],
+			'href'   => wp_nonce_url( admin_url( 'admin-post.php?siw-action=' . $action . $referer ), 'siw-action' ),
+		);
+		$wp_admin_bar->add_node( $args );
+	}
+
+});
+
+
+/* Verwerk actietrigger TODO: async request van maken*/
+add_action( 'init', function () {
+	if ( ! isset( $_GET['siw-action'] ) || ! isset( $_GET['_wpnonce'] ) ) {
+		return;
+	}
+	if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'siw-action') ) {
+		return;
+	}
+	$action = esc_attr( trim( $_REQUEST['siw-action']) );
+
+	$actions = apply_filters( 'siw_admin_bar_actions', array() );
+	
+	if ( ! in_array( $action, array_keys( $actions ) ) ) {
+		return;
+	}
+
+	do_action( 'siw_' . $action );
+	$notices = new SIW_Transient_Notices();
+
+	$notices->add_notice( 'success', sprintf( __( 'Proces gestart: %s', 'siw' ), $actions[ $action ]['title']), true );
+	wp_redirect( wp_get_referer() );
+
+});
 
 /*
  * Menu-items verwijderen
@@ -77,6 +157,7 @@ add_action( 'admin_init', function() {
 	remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
 	remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
 	remove_meta_box( 'dashboard_primary', 'dashboard', 'normal' );
+	remove_meta_box( 'so-dashboard-news', 'dashboard', 'normal' );
 });
 
 

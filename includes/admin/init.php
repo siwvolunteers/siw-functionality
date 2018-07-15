@@ -20,3 +20,5 @@ require_once( __DIR__ . '/interface.php' );
 require_once( __DIR__ . '/agenda.php' );
 require_once( __DIR__ . '/vacatures.php' );
 require_once( __DIR__ . '/evs.php' );
+require_once( __DIR__ . '/class-siw-transient-notices.php' );
+require_once( __DIR__ . '/config.php' );

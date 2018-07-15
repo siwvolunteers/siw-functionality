@@ -1,6 +1,6 @@
 <?php
 /*
- * (c)2017 SIW Internationale Vrijwilligersprojecten
+ * (c)2017-2018 SIW Internationale Vrijwilligersprojecten
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -18,11 +18,11 @@ add_action( 'login_enqueue_scripts', function() {
 } );
 
 add_filter( 'login_headerurl', function() {
-	return get_home_url( '', '', 'http' );
+	return get_home_url( '', '' );
 } );
 
 add_filter( 'login_headertitle', function() {
-	return esc_html__( SIW_NAME, 'siw' );
+	return esc_html( SIW_NAME );
 } );
 
 add_filter( 'login_message', function( $message ) {
@@ -84,12 +84,12 @@ add_action( 'manage_users_custom_column', function( $value, $column_name, $user_
  * - IP whitelist voor directe toegang tot site
  */
 add_action( 'password_protected_before_login_form', function() {
-	$site_url = '//www.siw.nl';
+	$site_url = 'https://www.siw.nl';
 	?>
 	<p class='message'>
 	<b><?php esc_html_e( 'Welkom op de testsite van SIW.','siw' )?></b><br />
 	<?php esc_html_e( 'Voer het wachtwoord in om toegang te krijgen.', 'siw' )?><br /><br />
-	<?php printf( wp_kses_post( __( 'Klik <a href="%s">hier</a> om naar de echte website van SIW te gaan.', 'siw' ) ), esc_url($site_url) );?>
+	<?php printf( wp_kses_post( __( 'Klik <a href="%s">hier</a> om naar de echte website van SIW te gaan.', 'siw' ) ), esc_url( $site_url ) );?>
 	</p>
 <?php
 } );

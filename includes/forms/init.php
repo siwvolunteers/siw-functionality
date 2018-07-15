@@ -25,7 +25,7 @@ add_filter( 'caldera_forms_save_revision', '__return_false' );
 
 
 /*extra span voor styling radiobuttons en checkboxen*/
-add_filters( array('caldera_forms_render_field_type-checkbox', 'caldera_forms_render_field_type-radio'), function( $field_html ) {
+add_filters( array('caldera_forms_render_field_type-checkbox', 'caldera_forms_render_field_type-radio', 'caldera_forms_render_field_type-gdpr' ), function( $field_html ) {
 	$field_html = preg_replace( '/<input(.*?)>/s', '<input$1><div class="control-indicator"></div>', $field_html );
 	return $field_html;
 } );
@@ -45,9 +45,9 @@ add_filter( 'kses_allowed_protocols', function( $protocols ) {
 /* Patroon voor samenvatting*/
 add_filter( 'caldera_forms_summary_magic_pattern', function( $pattern ) {
 	$pattern = '<tr>
-		<td width="35%%" style="font-family: Verdana, normal; color:#444; font-size:0.8em;">%s</td>
+		<td width="35%%" style="font-family: Verdana, normal; color:' . SIW_FONT_COLOR . '; font-size:0.8em;">%s</td>
 		<td width="5%%"></td>
-		<td width="50%%" style="font-family: Verdana, normal; color:#444; font-size:0.8em; font-style:italic">%s</td>
+		<td width="50%%" style="font-family: Verdana, normal; color:' . SIW_FONT_COLOR . '; font-size:0.8em; font-style:italic">%s</td>
 	</tr>';
 	return $pattern;
 } );
@@ -67,13 +67,13 @@ add_action( 'plugins_loaded', function() {
 add_filter( 'caldera_forms_field_attributes', function( $attrs, $field ) {
 
 	if ( 'geboortedatum' === $field['ID'] ) {
-		$attrs[ 'data-parsley-error-message' ] = __( 'Dit is geen geldige datum.', 'siw' );
-		$attrs[ 'data-parsley-pattern' ] = '/^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$/';
+		$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige datum.', 'siw' );
+		$attrs[ 'data-parsley-pattern' ] = siw_get_regex( 'date' );
 	}
 
 	if ( 'postcode' === $field['ID'] ) {
-		$attrs[ 'data-parsley-error-message' ] = __( 'Dit is geen geldige postcode.', 'siw' );
-		$attrs[ 'data-parsley-pattern' ] = '/^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/';
+		$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige postcode.', 'siw' );
+		$attrs[ 'data-parsley-pattern' ] = siw_get_regex( 'postal_code' );
 	}
 
 	return $attrs;

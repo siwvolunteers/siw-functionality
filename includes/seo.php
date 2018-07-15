@@ -83,6 +83,12 @@ add_filter( 'the_seo_framework_the_archive_title', function( $title, $term ) {
     if ( isset( $term->taxonomy ) && 'pa_taal' === $term->taxonomy ) {
         return sprintf( __( 'Groepsprojecten met voertaal %s', 'siw' ), $term->name );
 	}
+    if ( isset( $term->taxonomy ) && 'pa_soort-werk' === $term->taxonomy ) {
+       return sprintf( __( 'Groepsprojecten met werk gericht op %s', 'siw' ), $term->name );
+	}
+	if ( isset( $term->taxonomy ) && 'pa_maand' === $term->taxonomy ) {
+		return sprintf( __( 'Groepsprojecten in de maand %s', 'siw' ), $term->name );
+	}
 
     return $title;
 }, 10, 2 );
@@ -105,8 +111,10 @@ add_filter( 'the_seo_framework_sitemap_exclude_cpt', function() {
 	if ( apply_filters( 'wpml_current_language', NULL ) != apply_filters( 'wpml_default_language', NULL ) ) {
 		$remove[] = 'product';
 		$remove[] = 'wpm-testimonial';
+		$remove[] = 'agenda';
+		$remove[] = 'vacatures';
+		$remove[] = 'portfolio';
 	}
-
 
 	return $remove;
 });

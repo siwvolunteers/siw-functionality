@@ -46,7 +46,7 @@ ob_start();
 							<td width="20%">
 								<img src="<?php echo SIW_ASSETS_URL;?>images/mail/logo.png" style="display: block; border: 0px; outline: none; width: 100%; height: auto; max-width: 144px;" width="144" border="0" alt="logo" />
 							</td>
-							<td width="60%" style="vertical-align:bottom;border-bottom: solid #ff9900;font-family:Verdana, normal; color:#666666; font-size:0.95m; font-weight:bold;" align="center">
+							<td width="60%" style="vertical-align:bottom;border-bottom: solid <?php echo SIW_PRIMARY_COLOR;?>;font-family:Verdana, normal; color:#666666; font-size:0.95m; font-weight:bold;" align="center">
 								<?php echo esc_html( $args['subject'] );?>
 							</td>
 							<td width="10%">&nbsp;</td>
@@ -63,7 +63,7 @@ ob_start();
 						<tr>
 							<td width="10%">&nbsp;</td>
 							<td width="80%">
-								<div style="font-family:Verdana, normal; color:#444; font-size:0.9em; ">
+								<div style="font-family:Verdana, normal; color:<?php echo SIW_FONT_COLOR;?>; font-size:0.9em; ">
 									<p>
 									<?php echo wp_kses_post( $args['message'] );?>
 									<?php if ( $args['show_signature'] ) :?>
@@ -81,7 +81,7 @@ ob_start();
 								<?php if ( $args['show_summary']  ) :?>
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
-											<td colspan="3" height="20" style="font-family:Verdana, normal; color:#666; font-size:0.8em; font-weight:bold; border-top:thin solid #ff9900" >
+											<td colspan="3" height="20" style="font-family:Verdana, normal; color:#666; font-size:0.8em; font-weight:bold; border-top:thin solid #<?php echo SIW_PRIMARY_COLOR;?>" >
 												<?php esc_html_e( 'Ingevulde gegevens', 'siw'); ?>
 											</td>
 										</tr>
@@ -93,7 +93,7 @@ ob_start();
 						</tr>
 						<tr>
 							<td width="10%">&nbsp;</td>
-							<td width="80%" height="20" style="border-bottom:thin solid #ff9900">&nbsp;</td>
+							<td width="80%" height="20" style="border-bottom:thin solid <?php echo SIW_PRIMARY_COLOR;?>">&nbsp;</td>
 							<td width="10%">&nbsp;</td>
 						</tr>
 					</table>

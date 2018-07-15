@@ -242,34 +242,6 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		),			
 	);
 
-	/* Tabel bouwen met alle SIW-contantes */
-	$constants = siw_get_constants();
-
-	$constants_html = '<table class="form-table">';
-	$constants_html .= '<tbody>';
-	$constants_html .= '<tr style="font-weight:bold;">';
-	$constants_html .= '<td>' . __( 'Constante', 'siw' ) . '</td>';
-	$constants_html .= '<td>' . __( 'Waarde', 'siw' ) . '</td>';
-	$constants_html .= '<td>' . __( 'Toelichting', 'siw' ) . '</td>';
-	$constants_html .= '</tr>';
-
-	foreach ( $constants as $constant => $name ) {
-		$constants_html .= '<tr>';
-		$constants_html .= '<td>' . $constant . '</td>';
-		$constants_html .= '<td>' . constant( $constant ) . '</td>';
-		$constants_html .= '<td>' . esc_html( $name ) . '</td>';
-		$constants_html .= '</tr>';
-	}
-	$constants_html .= '</tbody>';
-	$constants_html .= '</table>';
-
-	$constants_fields[] = array(
-		'id'			=> 'constants',
-		'title'			=> __( 'Overzicht van constantes', 'siw' ),
-		'type'			=> 'raw',
-		'content'		=> $constants_html,
-	);
-
 	$login_fields[] = array(
 		'id'		=> 'ip_whitelist_section_start',
 		'type'		=> 'section',
@@ -476,12 +448,6 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'title'			=> __( 'E-mail', 'siw' ),
 		'subsection'	=> true,
 		'fields'		=> $email_fields,
-	) );	
-	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'constants',
-		'title'			=> __( 'Constantes', 'siw' ),
-		'subsection'	=> true,
-		'fields'		=> $constants_fields,
 	) );	
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'maps',

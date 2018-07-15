@@ -35,11 +35,12 @@ add_filter( 'after_rocket_htaccess_rules', function( $marker ) {
 	$security_headers  = '# Add security headers' . PHP_EOL;
 	$security_headers .= '<IfModule mod_headers.c>' . PHP_EOL;
 	$security_headers .= '	Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS' . PHP_EOL;
-	$security_headers .= '	Header always set X-XSS-Protection "1; mode=block"' . PHP_EOL;
+	$security_headers .= '	Header always set X-XSS-Protection "1; mode=block; report='. siw_generate_report_uri( 'xss', true ) . '"' . PHP_EOL;
 	$security_headers .= '	Header always append X-Frame-Options SAMEORIGIN' . PHP_EOL;
 	$security_headers .= '	Header always set X-Content-Type-Options nosniff' . PHP_EOL;
 	$security_headers .= '	Header always set Referrer-Policy no-referrer-when-downgrade' . PHP_EOL;
 	$security_headers .= '	Header unset X-Powered-By' . PHP_EOL;
+	$security_headers .= '	Header always set Expect-CT "max-age=0; report-uri='. siw_generate_report_uri( 'ct', false ) . '"' . PHP_EOL;
 	$security_headers .= '</IfModule>' . PHP_EOL;
 	$security_headers .= '# END security headers' . PHP_EOL . PHP_EOL;
 

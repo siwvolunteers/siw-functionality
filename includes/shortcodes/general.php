@@ -91,14 +91,29 @@ siw_add_shortcode( 'siw_volgende_infodag', array( 'title' => __( 'Volgende infod
 
 /* Groepsprojecten - Studententarief */
 add_shortcode( 'siw_groepsproject_tarief_student', function() {
-	return siw_format_amount( SIW_WORKCAMP_FEE_STUDENT );
+
+	if ( siw_is_sale_active() ) {
+		$output = '<del>' . siw_format_amount( SIW_WORKCAMP_FEE_STUDENT ) . '</del>&nbsp;<ins>' . siw_format_amount( SIW_WORKCAMP_FEE_STUDENT_SALE ) . '</ins>';
+	}
+	else {
+		$output = siw_format_amount( SIW_WORKCAMP_FEE_STUDENT );
+	}
+
+	return $output;
 });
 siw_add_shortcode( 'siw_groepsproject_tarief_student', array( 'title' => __( 'Groepsprojecten - Studententarief', 'siw' ) ) );
 
 
 /* Groepsprojecten - Regulier tarief */
 add_shortcode( 'siw_groepsproject_tarief_regulier', function() {
-	return siw_format_amount( SIW_WORKCAMP_FEE_REGULAR );
+	if ( siw_is_sale_active() ) {
+		$output = '<del>' . siw_format_amount( SIW_WORKCAMP_FEE_REGULAR ) . '</del>&nbsp;<ins>' . siw_format_amount( SIW_WORKCAMP_FEE_REGULAR_SALE ) . '</ins>';
+	}
+	else {
+		$output = siw_format_amount( SIW_WORKCAMP_FEE_REGULAR );
+	}
+
+	return $output;
 });
 siw_add_shortcode( 'siw_groepsproject_tarief_regulier', array( 'title' => __( 'Groepsprojecten - Regulier tarief', 'siw' ) ) );
 

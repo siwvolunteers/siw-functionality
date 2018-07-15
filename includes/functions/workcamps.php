@@ -6,28 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/* Start background proces om aantal zichtbare projecten per term te tellen */
-siw_add_cron_job( 'siw_count_projects' );
-
-add_action( 'siw_count_projects', function() {
-	siw_debug_log( 'Start tellen projecten' );
-
-	$taxonomies = array(
-		'product_cat',
-		'pa_land',
-		'pa_maand',
-	);
-	
-	foreach ( $taxonomies as $taxonomy ) {
-		$terms = get_terms( $taxonomy, array( 'hide_empty' => true ) );
-		foreach ( $terms as $term ) {
-			$data[] = array( 'taxonomy' => $taxonomy, 'term_slug' => $term->slug );
-
-		}
-	}
-	siw_start_background_process( 'count_workcamps', $data );
-});
-
 
 /**
  * Tel zichtbare projecten per term
@@ -50,11 +28,11 @@ function siw_count_projects_by_term( $taxonomy, $term_slug, $force_recount = fal
 	
 		$products = wc_get_products(
 			array(
-			'status'		=> 'publish',
-			'limit'			=> -1,
-			'return'		=> 'ids',
-			'visibility'	=> 'visible',
-			'tax_query' 	=> $tax_query,
+				'status'		=> 'publish',
+				'limit'			=> -1,
+				'return'		=> 'ids',
+				'visibility'	=> 'visible',
+				'tax_query' 	=> $tax_query,
 			)
 		);
 		$count = count( $products );
@@ -73,8 +51,6 @@ function siw_count_projects_by_term( $taxonomy, $term_slug, $force_recount = fal
  */
 function siw_get_quick_search_destinations() {
 
-//TODO:uncategorized er uit filteren
-
 	$categories = get_terms( array(
 		'taxonomy'		=> 'product_cat',
 		'hide_empty'	=> false,
@@ -84,7 +60,7 @@ function siw_get_quick_search_destinations() {
 		'' => __( 'Waar wil je heen?', 'siw' ),
 	);
 	foreach ( $categories as $category ) {
-		if ( siw_count_projects_by_term( 'product_cat', $category->slug ) > 0 ) {
+		if ( 'uncategorized' != $category->slug && siw_count_projects_by_term( 'product_cat', $category->slug ) > 0 ) {
 			$destinations[ $category->slug ] = $category->name;
 		}
 	}
@@ -114,4 +90,25 @@ function siw_get_quick_search_months() {
 	}
 
 	return $months;
+}
+
+
+/**
+ * Bepaal of kortingsactie actief is
+ *
+ * @return bool
+ */
+function siw_is_sale_active() {
+
+	$sale_active = false;
+
+
+	if ( siw_get_setting( 'workcamp_sale_active' ) &&
+		date( 'Y-m-d' ) >= siw_get_setting( 'workcamp_sale_start_date' ) &&
+		date( 'Y-m-d' ) <= siw_get_setting( 'workcamp_sale_end_date' )
+		) {
+			$sale_active = true;
+	}
+
+	return $sale_active;
 }

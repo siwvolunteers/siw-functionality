@@ -48,6 +48,50 @@ add_action( 'siw_settings_show_workcamps_section', function() {
 			'indent'		=> false,
 		),
 	);
+
+	$sale_fields = array(
+		array(
+			'id'			=> 'workcamp_sale_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Kortingsactie', 'siw' ),
+			'indent' 		=> true,
+		),
+		array(
+			'id'			=> 'workcamp_sale_active',
+			'title'			=> __( 'Kortingsactie actief', 'siw' ),
+			'type'			=> 'switch',
+			'on'			=> 'Aan',
+			'off'			=> 'Uit',
+		),
+		array(
+			'id'			=> 'workcamp_sale_start_date',
+			'title'			=> __( 'Startdatum kortingsactie', 'siw' ),
+			'type'			=> 'html5',
+			'html5'			=> 'date',
+			'required'		=> array(
+				'workcamp_sale_active',
+				'equals',
+				1
+			),
+		),			
+		array(
+			'id'			=> 'workcamp_sale_end_date',
+			'title'			=> __( 'Einddatum kortingsactie', 'siw' ),
+			'type'			=> 'html5',
+			'html5'			=> 'date',
+			'required'		=> array(
+				'workcamp_sale_active',
+				'equals',
+				1
+			),
+		),		
+		array(
+			'id'			=> 'workcamp_sale_section_end',
+			'type'			=> 'section',
+			'indent' 		=> false,
+		),
+	);
+
 	$archive_fields = array(
 		array(
 			'id'			=> 'workcamp_teaser_section_start',
@@ -112,25 +156,6 @@ add_action( 'siw_settings_show_workcamps_section', function() {
 			'indent'		=> false,
 		),
 		array(
-			'id'			=> 'plato_update_section_start',
-			'title'			=> __( 'Update', 'siw' ),
-			'type'			=> 'section',
-			'indent'		=> true,
-		),
-		array(
-			'id'			=> 'plato_hide_project_days_before_start',
-			'title'			=> __( 'Verberg project vanaf aantal dagen voor start project', 'siw' ),
-			'type'			=> 'slider',
-			'min'			=> '1',
-			'max'			=> '28',
-			'default'		=>	'7',
-		),
-		array(
-			'id'			=> 'plato_update_section_end',
-			'type'			=> 'section',
-			'indent'		=> false,
-		),
-		array(
 			'id'			=> 'plato_import_section_start',
 			'title'			=> __( 'Import', 'siw' ),
 			'type'			=> 'section',
@@ -169,6 +194,12 @@ add_action( 'siw_settings_show_workcamps_section', function() {
 		'subsection'	=> true,
 		'fields'		=> $application_fields,
 	));
+	Redux::setSection( SIW_OPT_NAME, array(
+		'id'			=> 'workcamps_sale',
+		'title'			=> __( 'Kortingsactie', 'siw' ),
+		'subsection'	=> true,
+		'fields'		=> $sale_fields,
+	));	
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'workcamps_archive',
 		'title'			=> __( 'Overzichtspagina', 'siw' ),

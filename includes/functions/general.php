@@ -42,6 +42,34 @@ function siw_add_cron_job( $action ) {
 
 
 /**
+ * Hulpfunctie om admin bar actie toe te voegen
+ * @param string $action
+ * @param array $properties
+ */
+function siw_add_admin_bar_action( $action, $properties ) {
+	add_filter( 'siw_admin_bar_actions', function( $actions ) use( $action, $properties ) {
+		$actions[ $action ] = $properties;
+		return $actions;
+	});
+}
+
+
+/**
+ * Hulpfunctie om admin bar node toe te voegen
+ *
+ * @param string $node
+ * @param array $properties
+ * @return void
+ */
+function siw_add_admin_bar_node( $node, $properties ) {
+	add_filter( 'siw_admin_bar_nodes', function( $nodes ) use( $node, $properties ) {
+		$nodes[ $node ] = $properties;
+		return $nodes;
+	});
+}
+
+
+/**
  * Zoek id van vertaalde pagina op basis van id
  * @param  int $page_id
  * @return int
@@ -77,14 +105,58 @@ function siw_get_ip_whitelist() {
 
 
 /**
+ * Geef reguliere expressie terug
+ *
+ * @param string $type
+ * @return string
+ */
+function siw_get_regex( $type ) {
+	$expressions = array(
+		'date' => '/^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$/',
+		'postal_code' => '/^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/',
+	);
+	if ( ! isset( $expressions[ $type ] ) ) {
+		return false;
+	}
+	$regex = $expressions[ $type ];
+	return $regex;
+}
+
+
+/**
+ * Hulpfunctie om report-uri te genereren
+ *
+ * @param string $type
+ * @param boolean $enforce
+ * @return string
+ */
+function siw_generate_report_uri( $type, $enforce = true ) {
+	$types = array( 
+		'csp',
+		'ct',
+		'xss',
+		'staple',
+	);
+	if( ! in_array( $type, $types ) ) {
+		return false;
+	}
+	$action = ( $enforce ) ? 'enforce' : 'reportOnly';
+	$report_uri = SIW_REPORT_URI . 'r/d/' . $type .'/' . $action;
+	return $report_uri;
+}
+
+
+/**
  * Geeft array met tarieven Groepsprojecten terug
  *
  * @return array
  */
 function siw_get_workcamp_tariffs() {
 	$workcamp_tariffs = array(
-		'regulier'	=> number_format( SIW_WORKCAMP_FEE_REGULAR, 2 ),
-		'student'	=> number_format( SIW_WORKCAMP_FEE_STUDENT, 2 )
+		'regulier'				=> number_format( SIW_WORKCAMP_FEE_REGULAR, 2 ),
+		'student'				=> number_format( SIW_WORKCAMP_FEE_STUDENT, 2 ),
+		'regulier_aanbieding'	=> number_format( SIW_WORKCAMP_FEE_REGULAR_SALE, 2 ),
+		'student_aanbieding'	=> number_format( SIW_WORKCAMP_FEE_STUDENT_SALE, 2 ),
 	);
 	return $workcamp_tariffs;
 }

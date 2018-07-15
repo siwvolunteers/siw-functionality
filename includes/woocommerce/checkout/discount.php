@@ -29,7 +29,7 @@ add_action( 'woocommerce_cart_calculate_fees', function () {
 		}
 		if ( 3 < $count ) {
 			$discount = $line['line_total'] * SIW_DISCOUNT_THIRD_PROJECT * -0.01;
-			$woocommerce->cart->add_fee( sprintf( __( 'Korting %de project', 'siw' ), $count ), $discount, true, '' );
+			$woocommerce->cart->add_fee( sprintf( __( 'Korting %e project', 'siw' ), $count ), $discount, true, '' );
 		}
 	}
 

@@ -85,7 +85,7 @@ add_action( 'siw_woocommerce_email_order_customer', function( $order ) {
 	$signature = siw_get_setting( 'workcamp_application_email_signature' );
 
 	?>
-	<div style="font-family:Verdana, normal; color:#444; font-size:0.9em; ">
+	<div style="font-family:Verdana, normal; color:<?php echo SIW_FONT_COLOR;?>; font-size:0.9em; ">
 	<p><?php
 	printf( esc_html__( 'Beste %s,', 'siw'), $order->get_billing_first_name() ); echo BR2;
 
@@ -95,7 +95,7 @@ add_action( 'siw_woocommerce_email_order_customer', function( $order ) {
 		esc_html_e( 'Je inschrijving wordt pas in behandeling genomen als we je betaling ontvangen hebben.', 'siw' ); echo BR2;
 		printf( esc_html__( 'Je kunt je betaling overmaken naar %s o.v.v. je aanmeldnummer (%s).', 'siw' ), SIW_IBAN, $order->get_order_number() ); echo BR;
 	}
-	if ( $order->has_status( 'processing' ) && ('mollie_wc_gateway_ideal' == $order->get_payment_method() ) ) {
+	if ( $order->has_status( 'processing' ) && ( 'mollie_wc_gateway_ideal' == $order->get_payment_method() ) ) {
 		esc_html_e( 'Heel erg bedankt voor je aanmelding en betaling voor een vrijwilligersproject via SIW!', 'siw' ); echo SPACE;
 		esc_html_e( 'We doen ons best om ervoor te zorgen dat dit voor jou een onvergetelijke ervaring wordt!', 'siw' ); echo BR2;
 	}
@@ -135,7 +135,7 @@ add_action( 'siw_woocommerce_email_order_admin', function( $order ) {
 
 	$admin_url = admin_url( sprintf('post.php?post=%s&action=edit', $order->get_id() ) );
 	?>
-	<div style="font-family:Verdana, normal; color:#444; font-size:14px; ">
+	<div style="font-family:Verdana, normal; color:<?php echo SIW_FONT_COLOR;?>; font-size:14px; ">
 	<p><?php
 	printf( esc_html__( 'Er is een nieuwe aanmelding (%s) binnengekomen:', 'siw' ),  $application_status ); echo BR;
 	?>
@@ -153,43 +153,51 @@ add_action( 'siw_woocommerce_email_order_table', function( $order ) {
 	/* Ophalen order gegevens */
 	$order_data = siw_get_order_data( $order );
 
+	$application_data[ __( 'Aanmeldnummer', 'siw' ) ] = $order->get_order_number();
 
-	$table_data[ __( 'Aanmelding', 'siw' ) ] = array(
-		__( 'Aanmeldnummer', 'siw' ) => $order->get_order_number(),
-	);
-	foreach ( $order->get_items() as $item_id => $item ) {
+	$order_items = $order->get_items();
+	$project_count = count( $order_items );
+	$count = 0;
+	foreach ( $order_items as $item_id => $item ) {
+		$count++;
 		$parent = wc_get_product( $item->get_product_id() );
 		
+		/* Als project niet meer bestaan alleen de gegevens bij de aanmelding tonen*/
 		if ( false == $parent ) {
-			$project_name = $item->get_name();
-			$project_details = sprintf('<small>Tarief: %s</small>', wc_get_order_item_meta( $item_id )['pa_tarief'][0] );
+			$project_details = sprintf('%s<br/><small>Tarief: %s</small>', $item->get_name(), wc_get_order_item_meta( $item_id )['pa_tarief'][0] );
 		}
 		else {
 			$project_duration = siw_get_date_range_in_text( $parent->get_attribute( 'startdatum' ), $parent->get_attribute( 'einddatum' ), false );
-			$tariff = $item['pa_tarief'];
-			$project_name = sprintf('%s<br/><small>Projectcode: %s</small>', $parent->get_name(), $parent->get_sku() );
-			$project_details = sprintf('<small>Projectduur: %s<br/>Tarief: %s</small>', $project_duration, $item['pa_tarief'] );			
+			$project_details = sprintf('%s<br/><small>Projectcode: %s<br>Projectduur: %s<br/>Tarief: %s</small>', $parent->get_name(), $parent->get_sku(),$project_duration, $item['pa_tarief'] );
 		}
-		$projects[ $project_name ] =  $project_details;
+
+		if ( 1 == $project_count ) {
+			$application_data[ __( 'Project', 'siw' ) ] =  $project_details;
+		}
+		else {
+			$application_data[ sprintf( __( 'Project %d', 'siw' ), $count ) ] = $project_details;
+		}
+		
 	}
 
-	$table_data[ _n( 'Project', 'Projecten', count( $projects ), 'siw' ) ] = $projects;
+	$table_data[ __( 'Aanmelding', 'siw' ) ] = $application_data;
 
 	/** Betaalgegevens (inclusief kortingen) */
 	$payment_data = array();
 	if ( $order->get_total() != $order->get_subtotal() ) {
 		$payment_data[ __( 'Subtotaal', 'siw' ) ] = $order->get_subtotal_to_display();
+		/* Toon kortingscodes */
 		if ( $coupons = $order->get_items( 'coupon' ) ) {
 			foreach ( $coupons as $coupon ) {
 				$payment_data [ sprintf( __( 'Kortingscode: %s', 'siw' ), $coupon->get_code() ) ] = '-' . wc_price( $coupon->get_discount() );
 			}
 		}
+		/* Toon automatische kortingen */
 		if ( $fees = $order->get_fees() ) {
 			foreach ( $fees as $id => $fee ) {
 				$payment_data[ $fee->get_name() ] = wc_price( $fee->get_total() );
 			}
 		}
-
 	}
 	$payment_data[ __( 'Totaal', 'siw' ) ] = $order->get_formatted_order_total();
 	$payment_data[ __( 'Betaalwijze', 'siw' ) ] = $order->get_payment_method_title();
@@ -226,14 +234,14 @@ add_action( 'siw_woocommerce_email_order_table', function( $order ) {
 	?>
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr>
-			<td colspan="3" height="20" style="font-family:Verdana, normal; color:#666; font-size:0.8em; font-weight:bold; border-top:thin solid #ff9900" >
+			<td colspan="3" height="20" style="font-family:Verdana, normal; color:<?php echo SIW_FONT_COLOR;?>; font-size:0.8em; font-weight:bold; border-top:thin solid <?php echo SIW_PRIMARY_COLOR;?>" >
 				&nbsp;
 			</td>
 		</tr>
 	<?php
 	foreach ( $table_data as $section => $lines ) {
 		siw_wc_generate_email_table_header_row( $section );
-		foreach ( $lines as $label => $value ){
+		foreach ( $lines as $label => $value ) {
 			if ( ! empty( $label ) && ! empty( $value ) ) {
 				siw_wc_generate_email_table_row( $label, $value );
 			}
@@ -255,11 +263,11 @@ add_action( 'siw_woocommerce_email_order_table', function( $order ) {
  */
 function siw_wc_generate_email_table_row( $label, $value = '&nbsp;' ) {?>
 	<tr>
-		<td width="35%" style="font-family:Verdana, normal; color:#444; font-size:0.8em; ">
+		<td width="35%" style="font-family:Verdana, normal; color:<?php echo SIW_FONT_COLOR;?>; font-size:0.8em; ">
 			<?php echo wp_kses_post( $label ); ?>
 		</td>
 		<td width="5%"></td>
-		<td width="50%" style="font-family:Verdana, normal; color:#444; font-size:0.8em; font-style:italic">
+		<td width="50%" style="font-family:Verdana, normal; color:<?php echo SIW_FONT_COLOR;?>; font-size:0.8em; font-style:italic">
 			<?php echo wp_kses_post( $value ); ?>
 		</td>
 	</tr>
@@ -275,7 +283,7 @@ function siw_wc_generate_email_table_row( $label, $value = '&nbsp;' ) {?>
  */
 function siw_wc_generate_email_table_header_row( $label ) {?>
 	<tr>
-		<td width="35%" style="font-family:Verdana, normal; color:#444; font-size:0.8em; font-weight:bold">
+		<td width="35%" style="font-family:Verdana, normal; color:<?php echo SIW_FONT_COLOR;?>; font-size:0.8em; font-weight:bold">
 			<?php echo esc_html( $label ); ?>
 		</td>
 		<td width="5%">&nbsp;</td>

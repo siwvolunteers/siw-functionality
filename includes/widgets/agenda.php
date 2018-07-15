@@ -57,23 +57,7 @@ class SIW_Agenda extends \TDP\Widgets_Helper {
 					<?php echo esc_html( $event['start_time'] . '&nbsp;-&nbsp;' . $event['end_time'] );?><br/>
 				</span>
 				<span class="siw_event_location"><?php echo esc_html( $event['location'] . ',&nbsp;' . $event['city'] );?></span>
-				<script type="application/ld+json">
-[{
-	"@context" : "http://schema.org",
-	"name" : "<?php echo esc_attr( $event['title'] );?>",
-	"description" : "<?php echo esc_attr( $event['excerpt'] );?>",
-	"image" : "<?php echo esc_url( $event['post_thumbnail_url'] );?>",
-	"@type" : "event",
-	"startDate" : "<?php echo esc_attr( $event['start_date'] ); ?>",
-	"endDate" : "<?php echo esc_attr( $event['end_date'] ); ?>",
-	"location" : {
-		"@type" : "Place",
-		"name" : "<?php echo esc_attr( $event['location'] ); ?>",
-		"address" : "<?php echo esc_attr( $event['address'] . ', ' . $event['postal_code'] . ' ' . $event['city'] ); ?>"
-	},
-	"url": "<?php echo esc_url( $event['permalink'] ); ?>"
-}]
-				</script>
+				<?php echo $event['json_ld'];?>
 			</li>
 			<?php }?>
 		</ul>

@@ -37,7 +37,7 @@ define( 'SIW_MAX_ANNUAL_REPORTS', 5 );
 define( 'SIW_MAX_DUTCH_PROJECTS', 10 );
 
 /* Cron jobs */
-define( 'SIW_CRON_TS_IMPORT_PROJECTS', '1:00' );
+define( 'SIW_CRON_TS_UPDATE_PROJECTS', '1:00' );
 define( 'SIW_CRON_TS_UPDATE_FREE_PLACES', '0:30' );
 define( 'SIW_CRON_TS_GENERAL', '03:00' );
 define( 'SIW_CRON_TS_BACKUP_DB', '04:00' );
@@ -47,6 +47,8 @@ define( 'SIW_CRON_TS_REBUILD_CACHE', '05:00' );
 /* Tarieven */
 define( 'SIW_WORKCAMP_FEE_STUDENT', 225 );
 define( 'SIW_WORKCAMP_FEE_REGULAR', 275 );
+define( 'SIW_WORKCAMP_FEE_STUDENT_SALE', 149 );
+define( 'SIW_WORKCAMP_FEE_REGULAR_SALE', 199 );
 define( 'SIW_OP_MAAT_FEE_STUDENT', 349 );
 define( 'SIW_OP_MAAT_FEE_REGULAR', 399 );
 define( 'SIW_EVS_DEPOSIT', 155 );
@@ -75,10 +77,10 @@ define( 'SIW_COLOR_NORTH_AMERICA', '#fbba00' );
 
 /* URL's voor externe services */
 define( 'SIW_POSTCODE_API_URL','https://postcode-api.apiwise.nl/v2/addresses/' );
-define( 'SIW_PLATO_WEBSERVICE_URL', 'http://www.workcamp-plato.org/files/services/ExternalSynchronization.asmx/' );
-define( 'SIW_PLATO_BACKOFFICE_URL', 'http://www.workcamp-plato.org/' );
+define( 'SIW_PLATO_WEBSERVICE_URL', 'https://www.workcamp-plato.org/files/services/ExternalSynchronization.asmx/' );
 define( 'SIW_TRAVEL_ADVICE_BASE_URL', 'https://www.nederlandwereldwijd.nl/reizen/reisadviezen/' );
 define( 'SIW_EXCHANGE_RATES_API_URL', 'https://data.fixer.io/api/' );
+define( 'SIW_REPORT_URI', 'https://siwvolunteers.report-uri.com/' );
 
 /**
  * Geeft een array met constantes en hun toelichting terug
@@ -87,47 +89,50 @@ define( 'SIW_EXCHANGE_RATES_API_URL', 'https://data.fixer.io/api/' );
  */
 function siw_get_constants() {
 	$constants = array(
-		'SIW_NAME' 						=> __( 'Naam', 'siw' ),
-		'SIW_STATUTORY_NAME'			=> __( 'Statutaire naam', 'siw' ),
-		'SIW_EMAIL'						=> __( 'E-mail', 'siw' ),
-		'SIW_PHONE'						=> __( 'Telefoonnummer', 'siw' ),
-		'SIW_PHONE_FULL'				=> __( 'Telefoonnummer (volledig)', 'siw' ),
-		'SIW_KVK'						=> __( 'KVK', 'siw' ),
-		'SIW_IBAN'						=> __( 'IBAN', 'siw' ),
-		'SIW_RSIN'						=> __( 'RSIN', 'siw' ),
-		'SIW_ADDRESS'					=> __( 'Adres', 'siw' ),
-		'SIW_POSTAL_CODE'				=> __( 'Postcode', 'siw' ),
-		'SIW_CITY'						=> __( 'Stad', 'siw' ),
-		'SIW_OPENING_HOURS'				=> __( 'Openingstijden', 'siw' ),
-		'SIW_FACEBOOK_URL'				=> __( 'Facebook URL', 'siw' ),
-		'SIW_TWITTER_URL' 				=> __( 'Twitter URL', 'siw' ),
-		'SIW_LINKEDIN_URL'				=> __( 'LinkedIn URL', 'siw' ),
-		'SIW_YOUTUBE_URL'				=> __( 'YouTube URL', 'siw' ),
-		'SIW_INSTAGRAM_URL'				=> __( 'Instagram URL', 'siw' ),
-		'SIW_NUMBER_OF_INFO_DAYS' 		=> __( 'Maximum aantal infodagen', 'siw' ),
-		'SIW_NUMBER_OF_EVS_DEADLINES'	=> __( 'Maximum aantal EVS-deadlines', 'siw' ),
-		'SIW_EVS_WEEKS_BEFORE_DEPARTURE'=> __( 'EVS: weken voor vertrek', 'siw' ),
-		'SIW_IP_WHITELIST_SIZE'			=> __( 'Maximale grootte IP-whitelist', 'siw' ),
-		'SIW_MAX_DUTCH_PROJECTS'		=> __( 'Maximaal aantal Nederlandse Projecten', 'siw' ),
-		'SIW_MAX_BOARD_MEMBERS'			=> __( 'Maximum aantal bestuursleden', 'siw' ),
-		'SIW_MAX_ANNUAL_REPORTS'		=> __( 'Maximum aantal jaarverslagen', 'siw' ),
-		'SIW_CRON_TS_IMPORT_PROJECTS'	=> __( 'Tijdstip import projecten', 'siw' ),
-		'SIW_CRON_TS_UPDATE_FREE_PLACES'=> __( 'Tijdstip bijwerken vrije plaatsen', 'siw' ),
-		'SIW_CRON_TS_GENERAL'			=> __( 'Tijdstip algemene cronjob', 'siw' ),
-		'SIW_CRON_TS_BACKUP_DB'			=> __( 'Tijdstip backup database', 'siw' ),
-		'SIW_CRON_TS_BACKUP_FILES'		=> __( 'Tijdstip backup bestanden', 'siw' ),
-		'SIW_CRON_TS_REBUILD_CACHE'		=> __( 'Tijdstip cache verversen', 'siw' ),
-		'SIW_WORKCAMP_FEE_STUDENT'		=> __( 'Inschrijfgeld Groepsproject (student)', 'siw' ),
-		'SIW_WORKCAMP_FEE_REGULAR'		=> __( 'Inschrijfgeld Groepsproject (regulier)', 'siw' ),
-		'SIW_OP_MAAT_FEE_STUDENT'		=> __( 'Inschrijfgeld Op Maat (student)', 'siw' ),
-		'SIW_OP_MAAT_FEE_REGULAR'		=> __( 'Inschrijfgeld Op Maat (regulier)', 'siw' ),
-		'SIW_EVS_DEPOSIT'				=> __( 'EVS-borg', 'siw' ),
-		'SIW_DISCOUNT_SECOND_PROJECT' 	=> __( 'Kortingspercentage tweede project', 'siw' ),
-		'SIW_DISCOUNT_THIRD_PROJECT'	=> __( 'Kortingspercentage derde project', 'siw' ),
-		'SIW_POSTCODE_API_URL'			=> __( 'Postcode API URL', 'siw' ),
-		'SIW_PLATO_WEBSERVICE_URL'		=> __( 'Plato webservice URL', 'siw' ),
-		'SIW_TRAVEL_ADVICE_BASE_URL'	=> __( 'Reisadvies base-URL', 'siw' ),
-		'SIW_EXCHANGE_RATES_API_URL'	=> __( 'Wisselkoersen API base-url', 'siw' ),
+		'SIW_NAME' 							=> __( 'Naam', 'siw' ),
+		'SIW_STATUTORY_NAME'				=> __( 'Statutaire naam', 'siw' ),
+		'SIW_EMAIL'							=> __( 'E-mail', 'siw' ),
+		'SIW_PHONE'							=> __( 'Telefoonnummer', 'siw' ),
+		'SIW_PHONE_FULL'					=> __( 'Telefoonnummer (volledig)', 'siw' ),
+		'SIW_KVK'							=> __( 'KVK', 'siw' ),
+		'SIW_IBAN'							=> __( 'IBAN', 'siw' ),
+		'SIW_RSIN'							=> __( 'RSIN', 'siw' ),
+		'SIW_ADDRESS'						=> __( 'Adres', 'siw' ),
+		'SIW_POSTAL_CODE'					=> __( 'Postcode', 'siw' ),
+		'SIW_CITY'							=> __( 'Stad', 'siw' ),
+		'SIW_OPENING_HOURS'					=> __( 'Openingstijden', 'siw' ),
+		'SIW_FACEBOOK_URL'					=> __( 'Facebook URL', 'siw' ),
+		'SIW_TWITTER_URL' 					=> __( 'Twitter URL', 'siw' ),
+		'SIW_LINKEDIN_URL'					=> __( 'LinkedIn URL', 'siw' ),
+		'SIW_YOUTUBE_URL'					=> __( 'YouTube URL', 'siw' ),
+		'SIW_INSTAGRAM_URL'					=> __( 'Instagram URL', 'siw' ),
+		'SIW_NUMBER_OF_INFO_DAYS' 			=> __( 'Maximum aantal infodagen', 'siw' ),
+		'SIW_NUMBER_OF_EVS_DEADLINES'		=> __( 'Maximum aantal EVS-deadlines', 'siw' ),
+		'SIW_EVS_WEEKS_BEFORE_DEPARTURE'	=> __( 'EVS: weken voor vertrek', 'siw' ),
+		'SIW_IP_WHITELIST_SIZE'				=> __( 'Maximale grootte IP-whitelist', 'siw' ),
+		'SIW_MAX_DUTCH_PROJECTS'			=> __( 'Maximaal aantal Nederlandse Projecten', 'siw' ),
+		'SIW_MAX_BOARD_MEMBERS'				=> __( 'Maximum aantal bestuursleden', 'siw' ),
+		'SIW_MAX_ANNUAL_REPORTS'			=> __( 'Maximum aantal jaarverslagen', 'siw' ),
+		'SIW_CRON_TS_UPDATE_PROJECTS'		=> __( 'Tijdstip import projecten', 'siw' ),
+		'SIW_CRON_TS_UPDATE_FREE_PLACES'	=> __( 'Tijdstip bijwerken vrije plaatsen', 'siw' ),
+		'SIW_CRON_TS_GENERAL'				=> __( 'Tijdstip achtergrondprogramma\'s', 'siw' ),
+		'SIW_CRON_TS_BACKUP_DB'				=> __( 'Tijdstip backup database', 'siw' ),
+		'SIW_CRON_TS_BACKUP_FILES'			=> __( 'Tijdstip backup bestanden', 'siw' ),
+		'SIW_CRON_TS_REBUILD_CACHE'			=> __( 'Tijdstip cache verversen', 'siw' ),
+		'SIW_WORKCAMP_FEE_STUDENT'			=> __( 'Inschrijfgeld Groepsproject (student)', 'siw' ),
+		'SIW_WORKCAMP_FEE_REGULAR'			=> __( 'Inschrijfgeld Groepsproject (regulier)', 'siw' ),
+		'SIW_WORKCAMP_FEE_STUDENT_SALE'		=> __( 'Inschrijfgeld Groepsproject (student) - korting', 'siw' ),
+		'SIW_WORKCAMP_FEE_REGULAR_SALE'		=> __( 'Inschrijfgeld Groepsproject (regulier) - korting', 'siw' ),
+		'SIW_OP_MAAT_FEE_STUDENT'			=> __( 'Inschrijfgeld Op Maat (student)', 'siw' ),
+		'SIW_OP_MAAT_FEE_REGULAR'			=> __( 'Inschrijfgeld Op Maat (regulier)', 'siw' ),
+		'SIW_EVS_DEPOSIT'					=> __( 'EVS-borg', 'siw' ),
+		'SIW_DISCOUNT_SECOND_PROJECT' 		=> __( 'Kortingspercentage tweede project', 'siw' ),
+		'SIW_DISCOUNT_THIRD_PROJECT'		=> __( 'Kortingspercentage derde project', 'siw' ),
+		'SIW_POSTCODE_API_URL'				=> __( 'Postcode API URL', 'siw' ),
+		'SIW_PLATO_WEBSERVICE_URL'			=> __( 'Plato webservice URL', 'siw' ),
+		'SIW_TRAVEL_ADVICE_BASE_URL'		=> __( 'Reisadvies base-URL', 'siw' ),
+		'SIW_EXCHANGE_RATES_API_URL'		=> __( 'Wisselkoersen API base-url', 'siw' ),
+		'SIW_REPORT_URI'					=> __( 'Report URI', 'siw' ),
 	);
 
 	return $constants;

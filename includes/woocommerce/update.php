@@ -129,74 +129,8 @@ add_filter( 'wp_all_import_is_post_to_update', function( $continue, $product_id,
 }, 10, 4 );
 
 
-/*
- * Functie om groepsprojecten te verbergen die aan 1 of meer van onderstaande voorwaarden voldoen:
- * - Het project begint binnen x dagen (configuratie)
- * - Het project is in een niet-toegestaan land
- * - Het project is expliciet verborgen
- * - Er zijn geen vrije plaatsen meer
- */
-add_action( 'siw_hide_workcamps', function() {
-
-	siw_debug_log( 'Verbergen projecten gestart.' );
-
-	$days = siw_get_setting( 'plato_hide_project_days_before_start' ); //TODO:constante van maken
-	$limit = date( 'Y-m-d', time() + ( $days * DAY_IN_SECONDS ) );
-
-	$tax_query = array(
-		array(
-			'taxonomy' => 'product_visibility',
-			'field'    => 'slug',
-			'terms'    => array( 'exclude-from-search', 'exclude-from-catalog' ),
-			'operator' => 'NOT IN',
-		),
-	);
-	$meta_query = array(
-		'relation'	=>	'OR',
-		array(
-			'key'		=> 'freeplaces',
-			'value'		=> 'no',
-			'compare'	=> '='
-		),
-		array(
-			'key'		=> 'manual_visibility',
-			'value'		=> 'hide',
-			'compare'	=> '='
-		),
-		array(
-			'key'		=> 'startdatum',
-			'value'		=> $limit,
-			'compare'	=> '<='
-		),
-		array(
-			'key'		=> 'allowed',
-			'value'		=> 'no',
-			'compare'	=> '='
-		),
-	);
-
-	$args = array(
-		'posts_per_page'	=> -1,
-		'post_type'			=> 'product',
-		'meta_query'		=> $meta_query,
-		'tax_query'			=> $tax_query,
-		'fields' 			=> 'ids',
-		'post_status'		=> 'any',
-	);
-
-	$products = get_posts( $args ); //TODO: wc_get_products
-
-	// Afbreken als er geen te verbergen projecten zijn
-	if ( empty( $products ) ) {
-		siw_debug_log( 'Verbergen projecten voltooid: geen projecten te verbergen' );
-		return;
-	}
-	siw_start_background_process( 'hide_workcamps', $products );
-});
-
-
 /**
- * Verberg groepsproject
+ * Verberg Groepsproject
  *
  * @param int $product_id
  *
@@ -209,7 +143,7 @@ function siw_hide_workcamp( $product_id ) {
 		return false;
 	}
 	$product->set_catalog_visibility( 'hidden' );
-	$product->set_stock_status( 'outofstock' );
+	$product->set_stock_status( 'outofstock' ); //TODO:kan weg als stock-management uitgeschakeld is
 	$product->set_featured( 'no' );
 	siw_seo_set_noindex( $product_id, true );
 	$product->save();
@@ -223,27 +157,8 @@ function siw_hide_workcamp( $product_id ) {
 }
 
 
-
-/*
- * Bijwerken tarieven van alle zichtbare projecten
- */
-siw_add_cron_job( 'siw_update_workcamp_tariffs' );
-
-add_action( 'siw_update_workcamp_tariffs', function() {
-	siw_debug_log( 'Bijwerken tarieven gestart.' );
-	$args = array(
-		'visibility'	=> 'visible',
-		'return'		=> 'ids',
-		'limit'			=> -1,
-	);
-	$products = wc_get_products( $args );
-
-	siw_start_background_process( 'update_workcamp_tariffs', $products );
-});
-
-
 /**
- * Werkt tarieven van groepsproject bij
+ * Werkt tarieven van Groepsproject bij
  * @param  int $product_id
  * @return bool
  */
@@ -262,9 +177,32 @@ function siw_update_workcamp_tariff( $product_id ) {
 	foreach ( $variations as $variation_id ) {
 		$variation = wc_get_product( $variation_id );
 		$tariff = $variation->get_attributes()['pa_tarief'];
-		$price = isset( $tariff_array[ $tariff ] ) ? $tariff_array[ $tariff ] : $tariff_array['regulier'];
+
+		$regular_price = isset( $tariff_array[ $tariff ] ) ? $tariff_array[ $tariff ] : $tariff_array['regulier'];
+
+		/* Bepaal standaard eigenschappen */
+		$price = $regular_price;
+		$sale_price = null;
+		$date_on_sale_from = null;
+		$date_on_sale_to = null;
+
+		/* Bepaal eigenschappen als kortingsactie actief is */
+		if ( siw_is_sale_active() ) {
+			$sale_price = isset( $tariff_array[ $tariff . '_aanbieding' ] ) ? $tariff_array[ $tariff . '_aanbieding' ] : $tariff_array['regulier_aanbieding'];
+			$price = $sale_price;
+			$date_on_sale_from = date( DATE_ISO8601, strtotime( siw_get_setting( 'workcamp_sale_start_date' ) ) );
+			$date_on_sale_to = date( DATE_ISO8601, strtotime( siw_get_setting( 'workcamp_sale_end_date' ) ) );
+
+		}
+		
+		/* Zet eigenschappen */
+		$variation->set_regular_price( $regular_price );
+		$variation->set_sale_price( $sale_price );
 		$variation->set_price( $price );
-		$variation->set_regular_price( $price );
+		$variation->set_date_on_sale_from( $date_on_sale_from );
+		$variation->set_date_on_sale_to( $date_on_sale_to );
+
+
 		$variation->save();
 	}
 
