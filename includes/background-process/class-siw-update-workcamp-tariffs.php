@@ -60,6 +60,6 @@ add_action( 'plugins_loaded', function() {
 		'workcamps' =>  array( 'title' => __( 'Groepsprojecten', 'siw' ) ),
 	);
 	$node = array( 'parent' => 'workcamps', 'title' => __( 'Bijwerken tarieven', 'siw' ) );
-	siw_register_background_process( 'SIW_Update_Workcamp_Tariffs', 'update_workcamp_tariffs', $node, $parent_nodes, false );
+	siw_register_background_process( 'SIW_Update_Workcamp_Tariffs', 'update_workcamp_tariffs', $node, $parent_nodes, true );
 } );
 
