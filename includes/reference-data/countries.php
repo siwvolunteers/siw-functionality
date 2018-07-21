@@ -743,7 +743,7 @@ function siw_get_countries() {
 			'slug'			=> 'sri-lanka',
 			'name'			=> __( 'Sri Lanka', 'siw' ),
 			'continent'		=> 'azie',
-			'allowed'		=> 'no',
+			'allowed'		=> 'yes',
 			'op_maat'		=> false,
 			'mapplic'		=> array(
 				'world' => array(
