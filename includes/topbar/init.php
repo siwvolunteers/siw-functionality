@@ -122,7 +122,7 @@ function siw_get_topbar_sale_content() {
 	$topbar_sale_content = array(
 		'intro' => __( 'Grijp je kans en ontvang korting!',  'siw' ),
 		'link_url' => wc_get_page_permalink( 'shop' ), //TODO: shop page i.p.v. zo werkt het
-		'link_text' => sprintf( __( 'Meld je vóór %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_tariff ) ,
+		'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_tariff ) ,
 	);
 
 	return $topbar_sale_content;
