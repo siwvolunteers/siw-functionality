@@ -23,10 +23,11 @@ add_shortcode( 'siw_zoekresultaten', function() {
 
     /* Verwerk zoekargument maand*/
     $month_arg  = '';    
-    $month_slug = sanitize_key( get_query_var( 'maand', false ) );
-	$month      = get_term_by( 'slug', $month_slug, 'pa_maand');
+    $month_slug = sanitize_key( get_query_var( 'maand', false ) );   
+    $month      = get_term_by( 'slug', $month_slug, 'pa_maand');
+    $month_id   = $month->term_id; 
     if ( is_a( $month, 'WP_Term') ) {
-        $month_arg  = sprintf( 'attribute="maand" terms="%s"', $month_slug );
+        $month_arg  = sprintf( 'attribute="maand" terms="%s"', $month_id );
         $url        = add_query_arg( 'filter_maand', $month_slug, $url );
         $text       .= SPACE . sprintf( __( 'in %s', 'siw' ), strtolower( $month->name ) );        
     }
