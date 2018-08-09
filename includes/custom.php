@@ -100,6 +100,15 @@ define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
 /* WP Rocket White Label */
 define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true );
 
+/* Inline */
+add_filter( 'rocket_excluded_inline_js_content', function( $content ) {
+	$content[] = 'tvc_id';
+	$content[] = 'gmap3';
+
+	return $content;
+});
+
+
 /* Uitschakelen feed*/
 add_actions( array( 'do_feed','do_feed_rdf','do_feed_rss','do_feed_rss2','do_feed_atom','do_feed_rss2_comments','do_feed_atom_comments' ), function () {
 	wp_die( __( 'SIW heeft geen feed.', 'siw' ) );
