@@ -100,10 +100,21 @@ define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
 /* WP Rocket White Label */
 define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true );
 
-/* Inline */
+
+/* JS-bestanden uitsluiten van minification/concatenation */
+add_filter( 'rocket_exclude_js', function( $excluded_files) {
+	
+	$excluded_files[] = '/wp-content/plugins/caldera-forms/assets/build/js/conditionals.min.js';
+	$excluded_files[] = '/wp-content/plugins/wp-sentry-integration/public/(.*).js';
+
+	return $excluded_files;
+});
+
+
+/* Inline JS uitsluiten van combineren */
 add_filter( 'rocket_excluded_inline_js_content', function( $content ) {
-	$content[] = 'tvc_id';
-	$content[] = 'gmap3';
+	$content[] = 'tvc_id'; //Google Analytics voor WooCommerce (bevat product id)
+	$content[] = 'gmap3'; //Google Maps van Pinnacle (bevat random id)
 
 	return $content;
 });
