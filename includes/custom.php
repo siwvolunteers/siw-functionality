@@ -115,6 +115,7 @@ add_filter( 'rocket_exclude_js', function( $excluded_files) {
 add_filter( 'rocket_excluded_inline_js_content', function( $content ) {
 	$content[] = 'tvc_id'; //Google Analytics voor WooCommerce (bevat product id)
 	$content[] = 'gmap3'; //Google Maps van Pinnacle (bevat random id)
+	$content[] = 'caldera_conditionals';
 
 	return $content;
 });
