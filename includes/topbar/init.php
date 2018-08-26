@@ -42,14 +42,10 @@ add_action( 'kt_before_header_content', function () {
 
 /**
  * Bepaal de inhoud van de topbar
- * @return array
+ * 
+ * @return array | bool
  */
 function siw_get_topbar_content() {
-
-	$topbar_sale_content = siw_get_topbar_sale_content();
-	if ( ! empty( $topbar_sale_content ) ) {
-		return $topbar_sale_content;
-	}
 
 	$topbar_social_content = siw_get_topbar_social_content();
 	if ( ! empty( $topbar_social_content ) ) {
@@ -59,6 +55,11 @@ function siw_get_topbar_content() {
 	$topbar_event_content = siw_get_topbar_event_content();
 	if ( ! empty( $topbar_event_content ) ) {
 		return $topbar_event_content;
+	}
+
+	$topbar_sale_content = siw_get_topbar_sale_content();
+	if ( ! empty( $topbar_sale_content ) ) {
+		return $topbar_sale_content;
 	}
 
 	$topbar_job_content = siw_get_topbar_job_content();
@@ -121,7 +122,7 @@ function siw_get_topbar_sale_content() {
 
 	$topbar_sale_content = array(
 		'intro' => __( 'Grijp je kans en ontvang korting!',  'siw' ),
-		'link_url' => wc_get_page_permalink( 'shop' ), //TODO: shop page i.p.v. zo werkt het
+		'link_url' => wc_get_page_permalink( 'shop' ),
 		'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_tariff ) ,
 	);
 

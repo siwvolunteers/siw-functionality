@@ -100,6 +100,27 @@ define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
 /* WP Rocket White Label */
 define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true );
 
+
+/* JS-bestanden uitsluiten van minification/concatenation */
+add_filter( 'rocket_exclude_js', function( $excluded_files) {
+	
+	$excluded_files[] = '/wp-content/plugins/caldera-forms/assets/build/js/conditionals.min.js';
+	$excluded_files[] = '/wp-content/plugins/wp-sentry-integration/public/(.*).js';
+
+	return $excluded_files;
+});
+
+
+/* Inline JS uitsluiten van combineren */
+add_filter( 'rocket_excluded_inline_js_content', function( $content ) {
+	$content[] = 'tvc_id'; //Google Analytics voor WooCommerce (bevat product id)
+	$content[] = 'gmap3'; //Google Maps van Pinnacle (bevat random id)
+	$content[] = 'caldera_conditionals';
+
+	return $content;
+});
+
+
 /* Uitschakelen feed*/
 add_actions( array( 'do_feed','do_feed_rdf','do_feed_rss','do_feed_rss2','do_feed_atom','do_feed_rss2_comments','do_feed_atom_comments' ), function () {
 	wp_die( __( 'SIW heeft geen feed.', 'siw' ) );

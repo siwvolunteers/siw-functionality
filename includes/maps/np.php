@@ -66,7 +66,7 @@ add_filter( 'mapplic_data', function ( $data, $id ) {
 	);
 	$css = siw_generate_css( $css_rules );
 
-	wp_add_inline_style( 'mapplic-map-style', $css );
+	wp_add_inline_style( 'mapplic-style', $css );
 
 	return $data;
 }, 10, 2 );
