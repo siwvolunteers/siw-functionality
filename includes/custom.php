@@ -295,6 +295,15 @@ add_filter( 'kadence_portfolio_tag_slug', function() { return 'projecten-op-maat
 add_filter( 'kadence_staff_post_slug', function() { return 'vrijwilligers'; } );
 add_filter( 'kadence_staff_group_slug', function() { return 'vrijwilligers-per-groep'; } );
 
+/* Kadence lazy load onderdrukken als WP Rocket dit ook doet */
+add_filter( 'kad_lazy_load', function( $lazy ) {
+	if( defined( 'DONOTROCKETOPTIMIZE' ) && DONOTROCKETOPTIMIZE ) {
+		$lazy = false;
+	}
+	return $lazy;
+});
+
+
 /* Verwijderen diverse metabox */
 add_action( 'init', function() {
 	remove_filter( 'cmb2_admin_init', 'pinnacle_page_metaboxes' );
