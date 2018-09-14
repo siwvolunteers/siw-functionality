@@ -82,12 +82,6 @@ add_action( 'wp_enqueue_scripts', function() {
 		wp_dequeue_script( 'kt-wc-add-to-cart-variation-radio' );
 	}
 
-	/*woocommerce ajax filter*/
-	if ( ! is_shop() && ! is_product_category() && ! is_product_tag() && ! taxonomy_is_product_attribute( get_query_var( 'taxonomy' ) ) ) {
-		wp_dequeue_script( 'yith-wcan-script' );
-		wp_dequeue_style( 'yith-wcan-frontend' );
-	}
-
 	/*Mailpoet*/
 	wp_deregister_style( 'validate-engine-css' );
 
