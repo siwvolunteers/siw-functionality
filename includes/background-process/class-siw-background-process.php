@@ -1,7 +1,5 @@
 <?php
-/*
-(c)2018 SIW Internationale Vrijwilligersprojecten
-*/
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -10,6 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Uitbreiding van WP_Background_Process
  * - Logging
  * - Aantal verwerkte items bijhouden
+ * 
+ * @package SIW\Background process
+ * @author Maarten Bruna
+ * @copyright 22018 SIW Internationale Vrijwilligersprojecten
  */
 abstract class SIW_Background_Process extends WP_Background_Process {
     
@@ -43,8 +45,6 @@ abstract class SIW_Background_Process extends WP_Background_Process {
     protected $name;
 
     /**
-     * Undocumented variable
-     *
      * @var integer
      */
     protected $batch_size = 500;
@@ -76,9 +76,7 @@ abstract class SIW_Background_Process extends WP_Background_Process {
      * @return void
      */
     public function set_logger_context() {
-
-        $source = sprintf( 'siw-%s-%s', $this->name, date( 'Y-m-d' ) );
-        $source = str_replace( ' ', '-', $source );
+        $source = sanitize_title( sprintf( 'siw-%s', $this->name ) );
         $context = array( 'source' => $source );
         update_site_option( $this->logger_context_option, $context );
         
@@ -122,7 +120,7 @@ abstract class SIW_Background_Process extends WP_Background_Process {
     /**
      * Zet het aantal verwerkte items
      *
-     * @param int $count
+     * @param int $processed_count
      * @return void
      */
     protected function set_processed_count( $processed_count ) {
@@ -142,7 +140,7 @@ abstract class SIW_Background_Process extends WP_Background_Process {
 
 
     /**
-     * Undocumented function
+     * Zet het aantal verwerkte items op 0
      *
      * @return void
      */
@@ -165,7 +163,7 @@ abstract class SIW_Background_Process extends WP_Background_Process {
     }
 
     /**
-     * Undocumented function
+     * Verwijder het aantal verwerkte items
      *
      * @return void
      */
@@ -183,8 +181,10 @@ abstract class SIW_Background_Process extends WP_Background_Process {
 
 
     /**
-     * Undocumented function
-     *
+     * Starten achtergrondproces
+     * - Logger
+     * - Aantal verwerkte items
+     * - Gegevens ophalen
      * @return void
      */
     public function start() {

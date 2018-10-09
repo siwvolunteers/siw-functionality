@@ -1,27 +1,25 @@
 <?php
-/*
- * (c)2018 SIW Internationale Vrijwilligersprojecten
- */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Werk vrije plaatsen van Groepsprojecten bij (o.b.v. import uit Plato)
+ * Proces om vrije plaatsen van Groepsprojecten bij te werken
+ * 
+ * @package SIW\Background process
+ * @author Maarten Bruna
+ * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @uses \SIW_Plato_Import_FPL
  */
 class SIW_Update_Free_Places extends SIW_Background_Process {
 
 	/**
-	 * Action
-	 *
 	 * @var string
-	 * @access protected
 	 */
 	protected $action = 'update_free_places';
 
 	/**
-	 * Naam
-	 *
 	 * @var string
 	 */
 	protected $name = 'bijwerken vrije plaatsen';		
@@ -42,8 +40,8 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 	}
 
 	/**
-	 * Undocumented function
-	 *
+	 * Haal vrije plaatsen lijst uit Plato op
+	 * 
 	 * @return array
 	 */
 	protected function select_data() {
@@ -54,9 +52,9 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 	}
 	
     /**
-     * Task
+     * Werk aantal vrije plaatsen bij
      *
-     * @param mixed $item Queue item to iterate over.
+     * @param mixed $item
      *
      * @return mixed
      */
@@ -88,7 +86,6 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 		return false;
 	}
 }
-
 
 /* Registreer het background process */
 add_action( 'plugins_loaded', function() {

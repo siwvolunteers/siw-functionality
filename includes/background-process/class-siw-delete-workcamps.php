@@ -1,35 +1,35 @@
 <?php
-/*
-(c)2017-2018 SIW Internationale Vrijwilligersprojecten
-*/
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Proces om oude Groepsprojecten te verwijderen
+ * 
+ * @package SIW\Background process
+ * @author Maarten Bruna
+ * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
+ */
 class SIW_Delete_Workcamps extends SIW_Background_Process {
 
 	/**
-	 * Action
-	 *
-	 * @var string
 	 * @access protected
 	 */
 	protected $action = 'delete_workcamps_process';
 
 	/**
-	 * Naam
-	 *
 	 * @var string
 	 */
 	protected $name = 'verwijderen groepsprojecten';
 
 	/**
-	 * Undocumented function
-	 *
+     * Selecteer Groepsprojecten die meer dan 6 maanden geleden zijn begonnen
+     *
 	 * @return array
 	 */
 	protected function select_data() {
-		$limit = date( 'Y-m-d', time() - ( 6 * MONTH_IN_SECONDS ) );
+		$limit = date( 'Y-m-d', time() - ( 6 * MONTH_IN_SECONDS ) ); //TODO:configuratieconstante voor aantal maanden
 
 		$meta_query = array(
 			'relation'	=> 'OR',
@@ -88,9 +88,9 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 	}
 
     /**
-     * Verwijderen alle producten (inclusief variaties)
+     * Verwijderen van product (inclusief variaties)
      *
-     * @param mixed $item Queue item to iterate over.
+     * @param mixed $item
      *
      * @return mixed
      */

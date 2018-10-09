@@ -1,34 +1,31 @@
 <?php
-/*
-(c)2018 SIW Internationale Vrijwilligersprojecten
-*/
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
  * Proces om aantal zichtbare groepsprojecten per term te tellen
+ * 
+ * @package SIW\Background process
+ * @author Maarten Bruna
+ * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
  */
 class SIW_Count_Workcamps extends SIW_Background_Process {
 
 	/**
-	 * Action
-	 *
 	 * @var string
-	 * @access protected
 	 */
 	protected $action = 'count_workcamps_process';
 
 	/**
-	 * Naam
-	 *
 	 * @var string
 	 */
 	protected $name = 'tellen groepsprojecten';
 
 
 	/**
-	 * Undocumented function
+	 * Selecteer alle terms van de relevante taxonomieën
 	 *
 	 * @return array
 	 */
@@ -47,16 +44,14 @@ class SIW_Count_Workcamps extends SIW_Background_Process {
 			}
 		}
 		return $data;
-
 	}
 
-
-    /**
-     * Task
+	/**
+     * Tel het aantal projecten van de term
      *
-     * @param mixed $item Queue item to iterate over.
+     * @param mixed $item
      *
-     * @return mixed
+     * @return bool
      */
 	protected function task( $item ) {
 
@@ -67,7 +62,6 @@ class SIW_Count_Workcamps extends SIW_Background_Process {
 
 		return false;
 	}
-
 }
 
 /* Registreer het background process */

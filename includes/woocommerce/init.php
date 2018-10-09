@@ -35,6 +35,5 @@ require_once( __DIR__ . '/import/description.php' );
 require_once( __DIR__ . '/import/wp-all-import.php' );
 
 /* Diverse functies */
-require_once( __DIR__ . '/cleanup.php' );
 require_once( __DIR__ . '/update.php' );
 require_once( __DIR__ . '/export-to-plato.php' );

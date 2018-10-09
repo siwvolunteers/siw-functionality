@@ -1,30 +1,30 @@
 <?php
-/*
-(c)2017 SIW Internationale Vrijwilligersprojecten
-*/
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Proces om oude aanmeldingen te verwijderen
+ * 
+ * @package SIW\Background process
+ * @author Maarten Bruna
+ * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
+ */
 class SIW_Delete_Applications extends SIW_Background_Process {
 
 	/**
-	 * Action
-	 *
 	 * @var string
-	 * @access protected
 	 */
 	protected $action = 'delete_applications_process';
 
 	/**
-	 * Naam
-	 *
 	 * @var string
 	 */
 	protected $name = 'verwijderen aanmeldingen';
 
 	/**
-	 * Zoek de aanmeldingen van meer dan 1 jaar oud
+	 * Selecteer de aanmeldingen van meer dan 1 jaar oud //TODO: geannuleerde aanmeldingen van meer dan 1 maand oud
 	 *
 	 * @return array
 	 */
@@ -43,7 +43,7 @@ class SIW_Delete_Applications extends SIW_Background_Process {
     /**
      * Verwijder aanmelding
      *
-     * @param mixed $item Queue item to iterate over.
+     * @param mixed $item
      *
      * @return mixed
      */
@@ -58,9 +58,7 @@ class SIW_Delete_Applications extends SIW_Background_Process {
 		$this->increment_processed_count();
 		return false;
 	}
-
 }
-
 
 /* Registreer het background process */
 add_action( 'plugins_loaded', function() {

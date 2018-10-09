@@ -1,25 +1,24 @@
 <?php
-/*
-(c)2017 SIW Internationale Vrijwilligersprojecten
-*/
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Proces om Groepsprojecten te verbergen
+ * 
+ * @package SIW\Background process
+ * @author Maarten Bruna
+ * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
+ */
 class SIW_Hide_Workcamps extends SIW_Background_Process {
 
-
 	/**
-	 * Action
-	 *
 	 * @var string
-	 * @access protected
 	 */
 	protected $action = 'hide_workcamps_process';
 
 	/**
-	 * Naam
-	 *
 	 * @var string
 	 */
 	protected $name = 'verbergen groepsprojecten';	
@@ -34,7 +33,7 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 	 * @return array
 	 */
 	protected function select_data() {
-		$limit = date( 'Y-m-d', time() + ( 7 * DAY_IN_SECONDS ) ); //TODO: 7 verplaatsen naar constante ?
+		$limit = date( 'Y-m-d', time() + ( 7 * DAY_IN_SECONDS ) ); //TODO: 7 verplaatsen naar configuratie-constante
 	
 		$tax_query = array(
 			array(
@@ -82,13 +81,12 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 		return $products;
 	}	
 
-
     /**
-     * Task
+     * Verberg het Groepsproject
      *
-     * @param mixed $item Queue item to iterate over.
+     * @param mixed $item
      *
-     * @return mixed
+     * @return bool
      */
 	protected function task( $item ) {
 
@@ -101,7 +99,6 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 		return false;
 	}
 }
-
 
 /* Registreer het background process */
 add_action( 'plugins_loaded', function() {

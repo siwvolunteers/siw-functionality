@@ -1,30 +1,30 @@
 <?php
-/*
-(c)2018 SIW Internationale Vrijwilligersprojecten
-*/
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Proces om verweesde variaties te verwijderen
+ * 
+ * @package SIW\Background process
+ * @author Maarten Bruna
+ * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
+ */
 class SIW_Delete_Orphaned_Variations extends SIW_Background_Process {
 
 	/**
-	 * Action
-	 *
 	 * @var string
-	 * @access protected
 	 */
 	protected $action = 'delete_orphaned_variations';
 
 	/**
-	 * Naam
-	 *
 	 * @var string
 	 */
 	protected $name = 'verwijderen verweesde variaties';
 
 	/**
-	 * Undocumented function
+	 * Selecteer alle verweesde variaties
 	 *
 	 * @return array
 	 */
@@ -50,8 +50,7 @@ class SIW_Delete_Orphaned_Variations extends SIW_Background_Process {
 			return false;
 		}
 	
-	
-		//wp all import tabel bijwerken
+			//wp all import tabel bijwerken
 		global $wpdb;
 		if ( ! isset( $wpdb->pmxi_posts ) ) {
 			$wpdb->pmxi_posts = $wpdb->prefix . 'pmxi_posts';
@@ -69,11 +68,10 @@ class SIW_Delete_Orphaned_Variations extends SIW_Background_Process {
 		return $variations;
 	}
 
-
     /**
-     * Verwijderen alle variaties
+     * Verwijderen van verweesde variaties
      *
-     * @param mixed $item Queue item to iterate over.
+     * @param mixed $item
      *
      * @return mixed
      */
@@ -89,7 +87,6 @@ class SIW_Delete_Orphaned_Variations extends SIW_Background_Process {
 	}
 
 }
-
 
 /* Registreer het background process */
 add_action( 'plugins_loaded', function() {
