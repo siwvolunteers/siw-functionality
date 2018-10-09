@@ -14,8 +14,6 @@ add_action( 'siw_settings_show_configuration_section', function() {
 	*/
 	$imports = siw_get_wpai_imports();
 	$pages = siw_get_pages();
-	$maps = siw_get_mapplic_maps();
-
 
 	$analytics_seo_fields = array(
 		array(
@@ -401,29 +399,6 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		),
 	);
 
-	$maps_fields = array(
-		array(
-			'id'			=> 'destinations_map',
-			'title'			=> __( 'Bestemmingen', 'siw' ),
-			'type'			=> 'select',
-			'options'		=> $maps,
-			'placeholder'	=> __( 'Selecteer een kaart', 'siw' ),
-		),
-		array(
-			'id'			=> 'evs_map',
-			'title'			=> __( 'EVS', 'siw' ),
-			'type'			=> 'select',
-			'options'		=> $maps,
-			'placeholder'	=> __( 'Selecteer een kaart', 'siw' ),
-		),
-		array(
-			'id'			=> 'np_map',
-			'title'			=> __( 'Nederlandse Projecten', 'siw' ),
-			'type'			=> 'select',
-			'options'		=> $maps,
-			'placeholder'	=> __( 'Selecteer een kaart', 'siw' ),
-		),
-	);
 	/* Secties */
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'configuration',
@@ -449,12 +424,6 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'subsection'	=> true,
 		'fields'		=> $email_fields,
 	) );	
-	Redux::setSection( SIW_OPT_NAME, array(
-		'id'			=> 'maps',
-		'title'			=> __( 'Kaarten', 'siw' ),
-		'subsection'	=> true,
-		'fields'		=> $maps_fields,
-	) );
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'login',
 		'title'			=> __( 'Login', 'siw' ),

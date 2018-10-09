@@ -222,33 +222,6 @@ function siw_get_wpai_imports() {
 
 
 /**
- * Geeft array met Mapplic-kaarten terug
- *
- * @return array
- */
-function siw_get_mapplic_maps() {
-	$query_args = array(
-		'post_type'				=> 'mapplic_map',
-		'posts_per_page'		=> -1,
-		'post_status'			=> 'publish',
-		'ignore_sticky_posts'	=> true,
-		'orderby'				=> 'title',
-		'order'					=> 'ASC',
-		'fields' 				=> 'ids',
-	);
-	$post_ids = get_posts( $query_args );
-
-	if ( empty( $post_ids ) ) {
-		return;
-	}
-	foreach ( $post_ids as $post_id ) {
-		$mapplic_maps[ $post_id ] = get_the_title( $post_id );
-	}
-	return $mapplic_maps;
-}
-
-
-/**
  * Geeft array met gegevens van een quote terug
  *
  * @param  string $category

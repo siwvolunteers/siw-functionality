@@ -50,6 +50,25 @@ function siw_generate_external_link( $url, $text = false ) {
 
 
 /**
+ * Genereert link
+ *
+ * @param text $url
+ * @param text $text
+ * @return void
+ */
+function siw_generate_link( $url, $text = false, $class = '' ) {
+//TODO:attributes, target en rel
+	if ( false == $text ) {
+		$text = $url;
+	}
+
+	$link = sprintf( '<a class="%s" href="%s">%s</a>', sanitize_html_classes( $class ), esc_url( $url ), esc_html( $text ) );
+
+	return $link;
+}
+
+
+/**
  * Formatteert getal als bedrag
  * @param  float  $amount
  * @param  integer $decimals

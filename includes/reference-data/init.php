@@ -7,6 +7,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 /*
  * Referentiegegevens
+ */
+require_once( __DIR__ . '/continents/continents.php' );
+require_once( __DIR__ . '/countries/countries.php' );
+
+
+/*
+ * Referentiegegevens (oud)
  * - Constantes
  * - Valuta
  * - Landen
