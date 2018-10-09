@@ -74,6 +74,7 @@ function siw_generate_job_json_ld( $job ) {
                 'streetAddress'     => SIW_ADDRESS,
                 'addressLocality'   => SIW_CITY,
                 'postalCode'        => SIW_POSTAL_CODE,
+                'addressRegion'     => SIW_CITY,
                 'addressCountry'    => 'NL',
             ),
         ),        
