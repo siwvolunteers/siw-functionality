@@ -6,15 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/* Siteorigin Live Editor over ssl */
-add_filter( 'woocommerce_unforce_ssl_checkout', function ( $unforce_ssl ) {
-	if ( isset( $_REQUEST['siteorigin_panels_live_editor'] ) && 'true' == $_REQUEST['siteorigin_panels_live_editor'] ) {
-		return false;
-	}
-	return $unforce_ssl;
-} );
-
-
 /*Pagebuilder optiegroep voor zichtbaarheid */
 add_filters( array( 'siteorigin_panels_widget_style_groups', 'siteorigin_panels_row_style_groups' ), function( $groups ) {
 	$groups['visibility'] = array(
