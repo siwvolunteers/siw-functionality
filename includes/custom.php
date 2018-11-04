@@ -349,6 +349,17 @@ add_action( 'after_setup_theme', function() {
 });
 
 
+/* System font stack toevoegen aan theme options*/
+add_action( 'plugins_loaded', function() {
+	add_filter( 'redux/pinnacle/field/typography/custom_fonts', function( $custom_fonts ) {
+		$custom_fonts = [
+			"SIW"=> [
+				"system-ui" => "System fonts",
+			]
+		];
+	return $custom_fonts;
+	});
+});
 
 /* Widgets opschonen */
 add_action( 'widgets_init', function() {
