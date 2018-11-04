@@ -1,0 +1,42 @@
+//out: ./siw-admin.css
+.siw-logo div {
+    width: 195px !important;
+    background-image: url("../images/admin/logo.png") !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+}
+
+table.wp-list-table {
+    .column-visibility,
+    .column-next_update,
+    .column-exported,
+    .column-siw_agenda_start,
+    .column-siw_agenda_eind,
+    .column-siw_vacature_deadline {
+        width: 10%;
+    }
+
+    .column-visibility {
+        .dashicons-visibility {
+            color: green;
+        }
+
+        .dashicons-hidden {
+            color: red;
+        }
+    }
+
+    .column-exported {
+        .dashicons-yes {
+            color: green;
+        }
+
+        .dashicons-no {
+            color: red;
+        }
+
+        .dashicons-minus {
+            color: grey;
+        }
+    }
+}

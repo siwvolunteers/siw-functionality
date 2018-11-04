@@ -1,0 +1,70 @@
+//out: ./siw-login.css
+html{
+	background-image: url('../images/login/background-greyscale.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size:cover;
+}
+
+body.login {
+	background-color:rgba(0, 0, 0, 0.0);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size:cover;
+}
+
+#login{
+	padding-top:5%
+}
+
+.login {
+    form{
+	    border-radius: 4px;
+    }
+    h1 a {
+	    background-image: url('../images/login/logo.png');
+	    background-size:150px;
+	    width: 150px;
+    }
+    label {
+        font-size: 12px;
+        color: #444;
+    }
+    input[type="text"], input[type="password"]{
+        background-color: #ffffff;
+        border-color:#dddddd;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+    }
+    .button-primary {
+        background-color: #ff9900;
+        border-color: #ff9900;
+        color: #fff;
+        box-shadow: none;
+        transition: all 0.3s linear 0s;
+        text-shadow:none;
+        &:hover, &:active{
+            background-color: #ffcc33;
+            border-color: #ffcc33;
+            color: #fff;
+            box-shadow: none;
+        }
+    }      
+    #nav a{
+        color:#fff;
+        &:hover{
+            color:#ff9900;
+        }
+    }
+    .message {
+        border-left: 4px solid #ff9900;
+    }         
+    input[type="checkbox"]:checked::before{
+	    color:#ff9900;
+    }
+    p#backtoblog{
+	    display: none;
+    }
+}
