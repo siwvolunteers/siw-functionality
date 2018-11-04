@@ -45,9 +45,11 @@ add_action( 'woocommerce_after_add_to_cart_form', function() {
 	$local_fee = $product->get_attribute( 'lokale-bijdrage' );
 	if ( ! empty( $participation_fee_currency ) && $participation_fee > 0 ) {
 		$currency = siw_get_currency( $participation_fee_currency );
-		$symbol = isset( $currency['symbol'] ) ? $currency['symbol'] : $participation_fee_currency;
+		$symbol = $participation_fee_currency;
 		if ( false != $currency && 'EUR' != $participation_fee_currency ) {
-			$amount_in_euro = siw_get_amount_in_euro( $participation_fee_currency, $participation_fee );
+			$symbol = $currency->get_symbol();
+			$amount_in_euro = $currency->convert_to_euro( $participation_fee );
+
 		}
 		?>
 		<div class="local-fee">

@@ -5,12 +5,15 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 /*
  * Referentiegegevens
  */
 require_once( __DIR__ . '/configuration/configuration.php' );
 require_once( __DIR__ . '/continents/continents.php' );
 require_once( __DIR__ . '/countries/countries.php' );
+require_once( __DIR__ . '/currencies/currencies.php' );
+
 
 
 /*
@@ -22,7 +25,6 @@ require_once( __DIR__ . '/countries/countries.php' );
  * - Talen
  * - Nationaliteiten
  */
-require_once( __DIR__ . '/currencies.php' );
 require_once( __DIR__ . '/countries.php' );
 require_once( __DIR__ . '/work.php' );
 require_once( __DIR__ . '/languages.php' );

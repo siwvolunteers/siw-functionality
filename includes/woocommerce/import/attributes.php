@@ -217,9 +217,7 @@ function siw_get_workcamp_local_fee( $participation_fee, $participation_fee_curr
 	$currency = siw_get_currency( $participation_fee_currency );
 
 	if ( $currency && 'EUR' != $participation_fee_currency ) {
-		$participation_fee_symbol = $currency['symbol'];
-		$participation_fee_name = $currency['name'];
-		$local_fee = sprintf( '%s %d (%s)', $participation_fee_symbol, $participation_fee, $participation_fee_name );
+		$local_fee = sprintf( '%s %d (%s)', $currency->get_symbol(), $participation_fee, $currency->get_name() );
 	}
 	elseif( 'EUR' == $participation_fee_currency ) {
 		$local_fee = sprintf( '&euro; %s', $participation_fee );
