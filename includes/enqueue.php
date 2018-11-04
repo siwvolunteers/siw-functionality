@@ -15,6 +15,14 @@ add_action( 'wp_enqueue_scripts', function() {
 	);
 	wp_localize_script( 'siw', 'siw', $parameters );
 	wp_enqueue_script( 'siw' );
+});
+
+/**
+ * Toevoegen SIW stylesheet
+ */
+add_action( 'wp_enqueue_scripts', function() {
+	wp_register_style( 'siw', SIW_ASSETS_URL . 'css/siw.css', null, SIW_PLUGIN_VERSION );
+	wp_enqueue_style( 'siw' );
 
 	wp_register_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js' );
 });
