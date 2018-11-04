@@ -3,11 +3,9 @@
  * Functies m.b.t. landen
  * 
  * @author      Maarten Bruna
- * @package 	SIW\Reference data
+ * @package 	SIW\Reference-Data
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
  */
-
-namespace SIW;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,12 +24,19 @@ require_once( __DIR__ . '/data-north-america.php' );
  *
  * @param string $index
  * @param string $context all|workcamps|evs_projects|tailor_made_projects
- * @return \SIW_Country[]
+ * @return SIW_Country[]
  */
-function get_countries( $context = 'all', $index = 'slug' ) { 
+function siw_get_countries( $context = 'all', $index = 'slug' ) { 
 	
 	$data = [];
-	$continent_data = apply_filters( 'siw_country_data', [] );
+
+	$continent_data = [];
+	/**
+	 * Array met gegevens van landen per continent
+	 *
+	 * @param array $continent_data Gegevens van landen per continent { iso|slug|name|allowed|workcamps|tailor_made|evs|europe_map|world_map}
+	 */
+	$continent_data = apply_filters( 'siw_country_data', $continent_data );
 	
 	/* Continent toevoegen aan elke land en array platslaan */
 	foreach ( $continent_data as $continent => $countries_data ) {
@@ -45,7 +50,7 @@ function get_countries( $context = 'all', $index = 'slug' ) {
 	//TODO: sorteren ?
 
 	foreach ( $data as $item ) {
-		$country = new \SIW_Country( $item );
+		$country = new SIW_Country( $item );
 		if ( 'all' == $context 
 			|| ( 'workcamps' == $context && true == $country->has_workcamps() )
 			|| ( 'evs_projects' == $context && true == $country->has_evs_projects() )
@@ -64,11 +69,11 @@ function get_countries( $context = 'all', $index = 'slug' ) {
  *
  * @param string $country
  * @param string $index
- * @return \SIW_Country
+ * @return SIW_Country
  */
-function get_country( $country, $index = 'slug' ) {
+function siw_get_country( $country, $index = 'slug' ) {
 
-	$countries = get_countries( 'all', $index  );
+	$countries = siw_get_countries( 'all', $index  );
 	if ( ! isset( $countries[ $country ] ) ) {
 		return false;
 	}

@@ -7,8 +7,6 @@
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  */
 
-namespace SIW;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -23,30 +21,46 @@ require_once( __DIR__ . '/data-nl.php' );
  * @param string $id
  * @return void
  */
-function render_map( $id ) {
+function siw_render_map( $id ) {
 
-	$map_ids = apply_filters( 'siw_maps', [] );
+	$map_ids = [];
+	/**
+	 * ID's van beschikbare kaarten
+	 * 
+	 * @param array $map_ids ID's van de beschikbare karten
+	 */
+	$map_ids = apply_filters( 'siw_maps', $map_ids );
 	if ( ! array_key_exists( $id, $map_ids ) ) {
 		return false;
 	}
-	$map_files = apply_filters( 'siw_map_files', [] );
+
+	$map_files = [];
+	/**
+	 * Bestandsnamen van beschikbare kaarten
+	 * 
+	 * @param array $map_files Bestandsnamen van beschikbare kaarten
+	 */
+	$map_files = apply_filters( 'siw_map_files', $map_files );
 	if ( ! array_key_exists( $id, $map_files ) ) {
 		return false;
 	}
 
-	/** Haal gegevens van kaart op */
-	$default_map_data = [
+	$map_data = [
 		'data'			=> [],
 		'options'		=> [],
 		'categories'	=> [],
 		'locations'		=> [],
 		'inline_css'	=> [],
 	];
-	$map_data = apply_filters( 'siw_map_' . $id . '_data', [] );
-	$map_data = wp_parse_args( $map_data, $default_map_data );
+	/**
+	 * Gegevens van kaart
+	 * 
+	 * @param array $map_data Gegevens van kaart {data|options|categories|locations|inline_css}
+	 */
+	$map_data = apply_filters( "siw_map_{$id}_data", $map_data );
 
-	/** Genereer kaart */
-	$map = new \SIW_Map;
+	/* Genereer kaart */
+	$map = new SIW_Map;
 	$map->set_id( $id );
 	$map->set_filename( $map_files[ $id ] );
 	$map->set_categories( $map_data['categories'] );
@@ -66,7 +80,7 @@ function render_map( $id ) {
  * @param string $file
  * @return void
  */
-function register_map( $id, $name, $file ) {
+function siw_register_map( $id, $name, $file ) {
 	add_filter( 'siw_maps', function( $maps ) use( $id, $name ) {
 		$maps[ $id ] = $name;
 		return $maps;

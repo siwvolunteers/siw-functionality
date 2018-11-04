@@ -63,9 +63,9 @@ add_filter( 'caldera_forms_get_form-infodag', function( $form ) {
 
 	/* Continenten */
 	$continents = siw_get_continents();
-	foreach ( $continents as $continent_slug => $continent_name ) {
-		$destinations[ $continent_slug ]['value'] = $continent_slug;
-		$destinations[ $continent_slug ]['label'] = $continent_name;
+	foreach ( $continents as $continent ) {
+		$destinations[ $continent->get_slug() ]['value'] = $continent->get_slug();
+		$destinations[ $continent->get_slug() ]['label'] = $continent->get_name();
 	}
 
 

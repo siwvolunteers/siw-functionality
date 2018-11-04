@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Bevat informatie over een continent
  * 
- * @package 	SIW\Reference data
+ * @package 	SIW\Reference-Data
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  */
@@ -62,7 +62,7 @@ class SIW_Continent {
     }
 
     /**
-     * Haal de slug van het continent op
+     * Geeft de slug van het continent terug
      *
      * @return string
      */
@@ -82,7 +82,7 @@ class SIW_Continent {
     }
 
     /**
-     * Haal de naam van het continent op
+     * Geeft de naam van het continent terug
      *
      * @return string
      */
@@ -102,30 +102,12 @@ class SIW_Continent {
     }
 
     /**
-     * Haal kleurcode van continent op kaart op
+     * Geeft kleurcode van continent op kaart terug
      *
      * @return string
      */
     public function get_color() {
         return $this->color;
-    }
-
-    /**
-     * Haal alle landen van een continent op
-     *
-     * @return array
-     */
-    public function get_countries() {
-        //TODO: get_countries_by_continent
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @return boolean
-     */
-    public function has_countries() {
-
     }
 
 }

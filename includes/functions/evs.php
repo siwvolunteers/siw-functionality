@@ -137,14 +137,16 @@ function siw_get_active_evs_projects( $number ) {
 
 /**
  * Geeft array met EVS-landen terug
+ * @deprecated
  * @return array
  */
 function siw_get_evs_countries() {
-	$countries = siw_get_countries_by_property( 'evs', true );
 
-	$evs_countries = array();
+	$countries = siw_get_countries( 'evs_projects' );
+
+	$evs_countries = [];
 	foreach ( $countries as $country ) {
-		$evs_countries[ $country['slug'] ] = $country['name'];
+		$evs_countries[ $country->get_slug() ] = $country->get_name();
 	}
 
 	return $evs_countries;

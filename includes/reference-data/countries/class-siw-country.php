@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Bevat informatie over een land
  * 
- * @package 	SIW\Reference data
+ * @package 	SIW\Reference-Data
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  */
@@ -185,7 +185,7 @@ class SIW_Country {
      */
     public function set_continent( $continent ) {
         if ( ! is_a( $continent, 'SIW_Continent' ) ) {
-            $continent = SIW\get_continent( $continent );
+            $continent = siw_get_continent( $continent );
         }
         $this->continent = $continent;
 

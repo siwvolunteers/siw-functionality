@@ -59,7 +59,7 @@ class SIW_Map_Widget extends SiteOrigin_Widget {
 		if ( $title ) {
 			$html_content .= $args['before_title'] . $title . $args['after_title'];
 		}
-		$html_content .= SIW\render_map( $instance['map'] );
+		$html_content .= siw_render_map( $instance['map'] );
 		$html_content .= $args['after_widget'];
 
 		return $html_content;

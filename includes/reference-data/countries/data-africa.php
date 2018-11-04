@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_filter( 'siw_country_data', function( $data ) {
 
 	$data['afrika'] = [
-        [
-		    'iso'       	=> 'BDI',
+		[
+			'iso'			=> 'BDI',
 			'slug'			=> 'burundi',
 			'name'			=> __( 'Burundi', 'siw' ),
 			'allowed'		=> false,
@@ -114,6 +114,6 @@ add_filter( 'siw_country_data', function( $data ) {
 			'world_map'		=> [ 'code' => 'za', 'x' => 0.5654, 'y' => 0.8221 ],
 		],
 	];
-    
-    return $data;
+	
+	return $data;
 } );
