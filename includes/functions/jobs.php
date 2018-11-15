@@ -47,6 +47,7 @@ function siw_get_job_data( $post_id ) {
 		'deadline'					=> siw_get_date_in_text( date( 'Y-m-d', $deadline_ts ), false ),
 		'inleiding'					=> get_post_meta( $post_id, 'siw_vacature_inleiding', true ),
 		'highlight_quote'			=> get_post_meta( $post_id, 'siw_vacature_highlight_quote', true ),
+		'betaald'					=> get_post_meta( $post_id, 'siw_vacature_betaald', true ),
 		'uur_per_week'				=> get_post_meta( $post_id, 'siw_vacature_uur_per_week', true ),
 		'wie_ben_jij'				=> get_post_meta( $post_id, 'siw_vacature_wie_ben_jij', true ),
 		'wie_ben_jij_lijst'			=> get_post_meta( $post_id, 'siw_vacature_wie_ben_jij_lijst', true ),

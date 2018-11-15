@@ -131,17 +131,15 @@ add_action( 'cmb2_admin_init', function() {
 		'repeatable'	=> true,
 	) );	
 	$cmb->add_field( array(
-		'name' => __( 'Aantal uur per week', 'siw' ),
-		'id'   => $prefix . 'uur_per_week',
-		'type' => 'text_small',
-		'attributes' => array(
-			'type' => 'number',
-			'pattern' => '\d*',
-			'min' => 4,
-			'max' => 40,
-			'step' => 2,
-		),
+		'name'			=> __( 'Aantal uur per week', 'siw' ),
+		'id'			=> $prefix . 'uur_per_week',
+		'type'			=> 'text_small',
 	) );
+	$cmb->add_field( array(
+		'id'			=> $prefix . 'betaald',
+		'name'			=> __( 'Betaalde vacature', 'siw' ),
+		'type'			=> 'checkbox',
+	) );	
 	$cmb->add_field( array(
 		'id'			=> $prefix . 'contactpersoon',
 		'name'			=> __( 'Contactpersoon?', 'siw' ),
