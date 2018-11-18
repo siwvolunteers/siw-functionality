@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /* Optimalisatie HEAD */
+add_filter( 'the_generator', '__return_false' );
 remove_action( 'wp_head', 'wp_generator' );
 remove_action( 'wp_head', 'wlwmanifest_link' );
 remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
@@ -15,7 +16,8 @@ remove_action( 'wp_head', 'rsd_link' );
 remove_action( 'wp_head', 'feed_links', 2 );
 remove_action( 'wp_head', 'feed_links_extra', 3 );
 remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
-remove_action( 'wp_print_styles', 'print_emoji_styles' ); //TODO:kan weg na fix in WP Rocket	
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+remove_action( 'template_redirect', 'rest_output_link_header', 11, 0) ;
 
 
 /* Icons toevoegen aan head */ 
@@ -46,7 +48,6 @@ add_action( 'wp_head', function() {
  * - Google Analytics
  */
 add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
-	//TODO:verplaatsen naar instelling?
 
 	if ( 'dns-prefetch' === $relation_type ) {
 		$urls[] = 'www.google-analytics.com';
@@ -54,19 +55,13 @@ add_filter( 'wp_resource_hints', function( $urls, $relation_type ) {
 		$urls[] = 'maps.google.com';
 		$urls[] = 'maps.gstatic.com';
 		$urls[] = 'csi.gstatic.com';
-		$urls[] = 'fonts.googleapis.com';
-		$urls[] = 'fonts.gstatic.com';
 	}
 
 	if ( 'preconnect' === $relation_type ) {
-	    $urls[] = array(
-	        'href' => 'https://fonts.gstatic.com',
-	        'crossorigin',
+		$urls[] = array(
+			'href' => 'https://www.google-analytics.com',
+			'crossorigin',
 		);
-	    $urls[] = array(
-	        'href' => 'https://www.google-analytics.com',
-	        'crossorigin',
-		);		
 	}
 
 	return $urls;

@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om Groepsprojecten te verbergen
  * 
- * @package SIW\Background process
+ * @package SIW\Background-Process
  * @author Maarten Bruna
  * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
  */
@@ -25,47 +25,50 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 
 	/**
 	 * Groepsprojecten selecteren die aan 1 of meer van onderstaande voorwaarden voldoen:
+	 *
 	 * - Het project begint binnen 7 dagen
 	 * - Het project is in een niet-toegestaan land
  	 * - Het project is expliciet verborgen
 	 * - Er zijn geen vrije plaatsen meer
 	 *
+	 * @todo configuratieconstante voor aantal dagen
+	 * @todo wc_get_products gebruiken
 	 * @return array
 	 */
 	protected function select_data() {
-		$limit = date( 'Y-m-d', time() + ( 7 * DAY_IN_SECONDS ) ); //TODO: 7 verplaatsen naar configuratie-constante
+		$limit = date( 'Y-m-d', time() + ( 7 * DAY_IN_SECONDS ) );
 	
-		$tax_query = array(
-			array(
+		$tax_query = [
+			[
 				'taxonomy' => 'product_visibility',
 				'field'    => 'slug',
-				'terms'    => array( 'exclude-from-search', 'exclude-from-catalog' ),
+				'terms'    => [ 'exclude-from-search', 'exclude-from-catalog' ],
 				'operator' => 'NOT IN',
-			),
-		);
-		$meta_query = array(
+			],
+		];
+		$meta_query = [
 			'relation'	=>	'OR',
-			array(
+			[
 				'key'		=> 'freeplaces',
 				'value'		=> 'no',
 				'compare'	=> '='
-			),
-			array(
+			],
+			[
 				'key'		=> 'manual_visibility',
 				'value'		=> 'hide',
 				'compare'	=> '='
-			),
-			array(
+			],
+			[
 				'key'		=> 'startdatum',
 				'value'		=> $limit,
 				'compare'	=> '<='
-			),
-			array(
+			],
+			[
 				'key'		=> 'allowed',
 				'value'		=> 'no',
 				'compare'	=> '='
-			),
-		);
+			],
+		];
 	
 		$args = array(
 			'posts_per_page'	=> -1,
@@ -76,18 +79,18 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 			'post_status'		=> 'any',
 		);
 	
-		$products = get_posts( $args ); //TODO: wc_get_products
+		$products = get_posts( $args );
 	
 		return $products;
 	}	
 
-    /**
-     * Verberg het Groepsproject
-     *
-     * @param mixed $item
-     *
-     * @return bool
-     */
+	/**
+	 * Verberg het Groepsproject
+	 *
+	 * @param mixed $item
+	 *
+	 * @return bool
+	 */
 	protected function task( $item ) {
 
 		if ( 'publish' != get_post_status( $item ) ) {
@@ -102,9 +105,7 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 
 /* Registreer het background process */
 add_action( 'plugins_loaded', function() {
-	$parent_nodes = array(
-		'workcamps' =>  array( 'title' => __( 'Groepsprojecten', 'siw' ) ),
-	);
-	$node = array( 'parent' => 'workcamps', 'title' => __( 'Verbergen projecten', 'siw' ) );
+	$parent_nodes = [ 'workcamps' => [ 'title' => __( 'Groepsprojecten', 'siw' ) ] ];
+	$node = [ 'parent' => 'workcamps', 'title' => __( 'Verbergen projecten', 'siw' ) ];
 	siw_register_background_process( 'SIW_Hide_Workcamps', 'hide_workcamps', $node, $parent_nodes, false );
 } );

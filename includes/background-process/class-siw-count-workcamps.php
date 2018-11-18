@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om aantal zichtbare groepsprojecten per term te tellen
  * 
- * @package SIW\Background process
+ * @package SIW\Background-Process
  * @author Maarten Bruna
  * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
  */
@@ -30,16 +30,16 @@ class SIW_Count_Workcamps extends SIW_Background_Process {
 	 * @return array
 	 */
 	protected function select_data() {
-		$taxonomies = array(
+		$taxonomies = [
 			'product_cat',
 			'pa_land',
 			'pa_maand',
-		);
+		];
 		
 		foreach ( $taxonomies as $taxonomy ) {
-			$terms = get_terms( $taxonomy, array( 'hide_empty' => true ) );
+			$terms = get_terms( $taxonomy, [ 'hide_empty' => true ] );
 			foreach ( $terms as $term ) {
-				$data[] = array( 'taxonomy' => $taxonomy, 'term_slug' => $term->slug );
+				$data[] = [ 'taxonomy' => $taxonomy, 'term_slug' => $term->slug ];
 	
 			}
 		}
@@ -47,16 +47,16 @@ class SIW_Count_Workcamps extends SIW_Background_Process {
 	}
 
 	/**
-     * Tel het aantal projecten van de term
-     *
-     * @param mixed $item
-     *
-     * @return bool
-     */
+	 * Tel het aantal projecten van de term
+	 *
+	 * @param mixed $item
+	 *
+	 * @return bool
+	 */
 	protected function task( $item ) {
 
-        $taxonomy = $item['taxonomy'];
-        $term_slug = $item['term_slug']; 
+		$taxonomy = $item['taxonomy'];
+		$term_slug = $item['term_slug']; 
 		siw_count_projects_by_term( $taxonomy, $term_slug, true );
 		$this->increment_processed_count();
 
@@ -66,9 +66,7 @@ class SIW_Count_Workcamps extends SIW_Background_Process {
 
 /* Registreer het background process */
 add_action( 'plugins_loaded', function() {
-	$parent_nodes = array(
-		'workcamps' =>  array( 'title' => __( 'Groepsprojecten', 'siw' ) ),
-	);
-	$node = array( 'parent' => 'workcamps', 'title' => __( 'Tellen projecten', 'siw' ) );
+	$parent_nodes = [ 'workcamps' =>  [ 'title' => __( 'Groepsprojecten', 'siw' ) ]	];
+	$node = [ 'parent' => 'workcamps', 'title' => __( 'Tellen projecten', 'siw' ) ];
 	siw_register_background_process( 'SIW_Count_Workcamps', 'count_workcamps', $node, $parent_nodes, true );
 } );

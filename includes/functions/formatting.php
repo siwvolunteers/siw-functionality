@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 /**
- * Genereert <ul> of <ol> van array
+ * Genereert een `<ol>` of `<ul>` lijst van array
  * @param array $items
  * @param bool $ordered
  * @return string
@@ -34,6 +34,8 @@ add_filter( 'siw_list', function( $list, $items, $ordered = false ) {
 
 /**
  * Genereert externe link
+ * 
+ * @todo siw_generate_link gebruiken
  * @param  string $url
  * @param  string $text
  * @return string
@@ -52,12 +54,14 @@ function siw_generate_external_link( $url, $text = false ) {
 /**
  * Genereert link
  *
+ * @todo attributes, target en rel
+ * 
  * @param text $url
  * @param text $text
  * @return void
  */
 function siw_generate_link( $url, $text = false, $class = '' ) {
-//TODO:attributes, target en rel
+
 	if ( false == $text ) {
 		$text = $url;
 	}
@@ -70,12 +74,15 @@ function siw_generate_link( $url, $text = false, $class = '' ) {
 
 /**
  * Formatteert getal als bedrag
+ * 
+ * @todo valuta als parameter toevoegen
  * @param  float  $amount
  * @param  integer $decimals
  * @return string
  */
 function siw_format_amount( $amount, $decimals = 0 ) {
-	$amount = number_format( $amount, $decimals );
+
+	$amount = number_format( $amount, $decimals, ',', '.' );
 	return sprintf( '&euro;&nbsp;%s', $amount );
 }
 
@@ -93,7 +100,7 @@ function siw_format_percentage( $percentage, $decimals = 0 ) {
 
 
 /**
- * Geneereer pinnacle accordion
+ * Genereer pinnacle accordion
  * @param  array $panes
  * @return string
  */
@@ -279,7 +286,7 @@ if ( ! function_exists( 'sanitize_html_classes' ) && function_exists( 'sanitize_
 	/**
 	 * sanitize_html_class voor meerdere classes
 	 *
-	 * @uses   sanitize_html_class
+	 * @uses   sanitize_html_class()
 	 * @param  mixed $class 
 	 * @param  string $fallback
 	 * @return string

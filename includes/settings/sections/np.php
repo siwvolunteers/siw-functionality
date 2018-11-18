@@ -6,7 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 add_action( 'siw_settings_show_np_section', function() {
 	/* Velden */
 	$form_fields = array(
@@ -79,7 +78,11 @@ add_action( 'siw_settings_show_np_section', function() {
 	);
 
 	$provinces = siw_get_dutch_provinces();
-	$work_types = siw_get_dutch_project_work_types();
+
+	$types = siw_get_work_types( 'dutch_projects' );
+	foreach ( $types as $type ) {
+		$work_types[ $type->get_slug() ] = $type->get_name();
+	}
 
 //	$languages = apply_filters( 'wpml_active_languages', array() );
 //$my_default_lang = apply_filters('wpml_default_language', NULL );

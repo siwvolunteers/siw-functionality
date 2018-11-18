@@ -7,10 +7,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om tarieven van Groepsprojecten bij te werken
  * 
- * @package SIW\Background process
+ * @package SIW\Background-Process
  * @author Maarten Bruna
  * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
- * @uses \siw_update_workcamp_tariff()
+ * @uses siw_update_workcamp_tariff()
  */
 class SIW_Update_Workcamp_Tariffs extends SIW_Background_Process {
 
@@ -30,23 +30,23 @@ class SIW_Update_Workcamp_Tariffs extends SIW_Background_Process {
 	 * @return array
 	 */
 	protected function select_data() {
-		$args = array(
+		$args = [
 			'visibility'	=> 'visible',
 			'return'		=> 'ids',
 			'limit'			=> -1,
-		);
+		];
 		$products = wc_get_products( $args );
 		
 		return $products;
 	}
 
 	/**
-     * Werk tarieven van het groepsproject bij
-     *
-     * @param mixed $item
-     *
-     * @return mixed
-     */
+	 * Werk tarieven van het groepsproject bij
+	 *
+	 * @param mixed $item
+	 *
+	 * @return mixed
+	 */
 	protected function task( $item ) {
 
 		if ( siw_update_workcamp_tariff( $item ) ) {
@@ -58,10 +58,8 @@ class SIW_Update_Workcamp_Tariffs extends SIW_Background_Process {
 
 /* Registreer het background process */
 add_action( 'plugins_loaded', function() {
-	$parent_nodes = array(
-		'workcamps' =>  array( 'title' => __( 'Groepsprojecten', 'siw' ) ),
-	);
-	$node = array( 'parent' => 'workcamps', 'title' => __( 'Bijwerken tarieven', 'siw' ) );
+	$parent_nodes = [ 'workcamps' => [ 'title' => __( 'Groepsprojecten', 'siw' ) ]	];
+	$node = [ 'parent' => 'workcamps', 'title' => __( 'Bijwerken tarieven', 'siw' ) ];
 	siw_register_background_process( 'SIW_Update_Workcamp_Tariffs', 'update_workcamp_tariffs', $node, $parent_nodes, true );
 } );
 

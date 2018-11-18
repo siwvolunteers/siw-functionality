@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om vrije plaatsen van Groepsprojecten bij te werken
  * 
- * @package SIW\Background process
+ * @package SIW\Background-Process
  * @author Maarten Bruna
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * @uses \SIW_Plato_Import_FPL
@@ -25,12 +25,12 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 	protected $name = 'bijwerken vrije plaatsen';		
 
 	/**
-	 * Hulpfunctie om te bepalen of er nog vrije plaatsen op het project zijn.
+	 * Bepaalt of er nog vrije plaatsen op het project zijn
 	 *
 	 * @param int $free_m
 	 * @param int $free_f
 	 * @param string $no_more_from
-	 * @return boolean
+	 * @return string
 	 */	
 	protected function has_free_places( $free_m, $free_f, $no_more_from ) {
 		$free_m = (int) $free_m;
@@ -40,7 +40,7 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 	}
 
 	/**
-	 * Haal vrije plaatsen lijst uit Plato op
+	 * Haalt vrije plaatsen lijst uit Plato op
 	 * 
 	 * @return array
 	 */
@@ -51,13 +51,13 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 		return $data;
 	}
 	
-    /**
-     * Werk aantal vrije plaatsen bij
-     *
-     * @param mixed $item
-     *
-     * @return mixed
-     */
+	/**
+	 * Werkt aantal vrije plaatsen bij
+	 *
+	 * @param mixed $item
+	 *
+	 * @return mixed
+	 */
 	protected function task( $item ) {
 
 		$free_places = $this->has_free_places( $item['free_m'], $item['free_f'], $item['no_more_from'] );
@@ -65,12 +65,12 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 			return false;
 		}
 	
-		$args = array(
+		$args = [
 			'visibility'	=> 'visible',
 			'project_id'	=> $item['project_id'],
 			'return'		=> 'objects',
 			'limit'			=> -1,
-		);
+		];
 		$products = wc_get_products( $args );
 	
 		//Afbreken als project niet gevonden wordt.
@@ -89,9 +89,7 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 
 /* Registreer het background process */
 add_action( 'plugins_loaded', function() {
-	$parent_nodes = array(
-		'plato' =>  array( 'title' => __( 'Plato', 'siw' ) ),
-	);
-	$node = array( 'parent' => 'plato', 'title' => __( 'Bijwerken vrije plaatsen', 'siw' ) );
+	$parent_nodes = [ 'plato' =>  [ 'title' => __( 'Plato', 'siw' ) ] ];
+	$node = [ 'parent' => 'plato', 'title' => __( 'Bijwerken vrije plaatsen', 'siw' ) ];
 	siw_register_background_process( 'SIW_Update_Free_Places', 'update_free_places', $node, $parent_nodes, false );
 } );

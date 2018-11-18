@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om verweesde variaties te verwijderen
  * 
- * @package SIW\Background process
+ * @package SIW\Background-Process
  * @author Maarten Bruna
  * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
  */
@@ -29,21 +29,21 @@ class SIW_Delete_Orphaned_Variations extends SIW_Background_Process {
 	 * @return array
 	 */
 	 protected function select_data() {
-		$args = array(
+		$args = [
 			'posts_per_page'		=> -1,
 			'post_type'				=> 'product',
 			'fields'				=> 'ids',
 			'post_status'			=> 'any',
-		);
+		];
 		$products = get_posts( $args );
 	
 		//zoek alle product_variations zonder parent.
-		$args = array(
+		$args = [
 			'posts_per_page'		=> -1,
 			'post_type'				=> 'product_variation',
 			'post_parent__not_in'	=> $products,
 			'fields' 				=> 'ids',
-		);
+		];
 		$variations = get_posts( $args );
 	
 		if ( empty( $variations ) ) {
@@ -68,13 +68,13 @@ class SIW_Delete_Orphaned_Variations extends SIW_Background_Process {
 		return $variations;
 	}
 
-    /**
-     * Verwijderen van verweesde variaties
-     *
-     * @param mixed $item
-     *
-     * @return mixed
-     */
+	/**
+	 * Verwijderen van verweesde variaties
+	 *
+	 * @param mixed $item
+	 *
+	 * @return mixed
+	 */
 	protected function task( $item ) {
 
 		$product = wc_get_product( $item );
@@ -90,9 +90,7 @@ class SIW_Delete_Orphaned_Variations extends SIW_Background_Process {
 
 /* Registreer het background process */
 add_action( 'plugins_loaded', function() {
-	$parent_nodes = array(
-		'workcamps' =>  array( 'title' => __( 'Groepsprojecten', 'siw' ) ),
-	);
-	$node = array( 'parent' => 'workcamps', 'title' => __( 'Verwijderen verweesde variaties', 'siw' ) );
+	$parent_nodes = [ 'workcamps' => [ 'title' => __( 'Groepsprojecten', 'siw' ) ] ];
+	$node = [ 'parent' => 'workcamps', 'title' => __( 'Verwijderen verweesde variaties', 'siw' ) ];
 	siw_register_background_process( 'SIW_Delete_Orphaned_Variations', 'delete_orphaned_variations', $node, $parent_nodes, false );
 } );

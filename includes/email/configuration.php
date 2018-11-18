@@ -1,11 +1,18 @@
 <?php
-/*
- * (c)2017 SIW Internationale Vrijwilligersprojecten
- */
+/**
+ * Configuratie van e-mail
+ * 
+ * - SMTP
+ * - DKIM
+ * 
+ * @package    SIW\Email
+ * @author     Maarten Bruna
+ * @copyright  2017-2018 SIW Internationale Vrijwilligersprojecten
+ * */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
+//TODO: namespace + functies of class
 add_action( 'phpmailer_init', function ( $phpmailer ) {
 
 	/*SMTP-configuratie*/

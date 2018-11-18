@@ -1,6 +1,6 @@
 .siw-logo div {
   width: 195px !important;
-  background-image: url("../images/admin/logo.png") !important;
+  background-image: url("/wp-content/plugins/siw-functionality/assets/images/admin/logo.png") !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
 }

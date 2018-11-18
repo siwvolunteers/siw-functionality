@@ -1,6 +1,8 @@
-//out: ./siw-login.css
+//out: ./siw-login.css, compress: false, sourceMap: false, autoprefixer: >1%, last 2 Chrome versions, last 2 Firefox versions, last 2 Safari versions, last 2 Edge versions, last 1 IE versions, last 3 ChromeAndroid versions, last 2 iOS versions, groupmedia: true
+@import "partials/_variables.sass";
+
 html{
-	background-image: url('../images/login/background-greyscale.jpg');
+	background-image: url('#{$assets-path}/images/login/background-greyscale.jpg');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center;
@@ -20,51 +22,50 @@ body.login {
 }
 
 .login {
-    form{
-	    border-radius: 4px;
-    }
-    h1 a {
-	    background-image: url('../images/login/logo.png');
-	    background-size:150px;
-	    width: 150px;
-    }
-    label {
-        font-size: 12px;
-        color: #444;
-    }
-    input[type="text"], input[type="password"]{
-        background-color: #ffffff;
-        border-color:#dddddd;
-        -webkit-border-radius: 4px;
-        border-radius: 4px;
-    }
-    .button-primary {
-        background-color: #ff9900;
-        border-color: #ff9900;
-        color: #fff;
-        box-shadow: none;
-        transition: all 0.3s linear 0s;
-        text-shadow:none;
-        &:hover, &:active{
-            background-color: #ffcc33;
-            border-color: #ffcc33;
-            color: #fff;
-            box-shadow: none;
-        }
-    }      
-    #nav a{
-        color:#fff;
-        &:hover{
-            color:#ff9900;
-        }
-    }
-    .message {
-        border-left: 4px solid #ff9900;
-    }         
-    input[type="checkbox"]:checked::before{
-	    color:#ff9900;
-    }
-    p#backtoblog{
-	    display: none;
-    }
+	form{
+		border-radius: 4px;
+	}
+	h1 a {
+		background-image: url('#{$assets-path}/images/login/logo.png');
+		background-size:150px;
+		width: 150px;
+	}
+	label {
+		font-size: 12px;
+		color: #444;
+	}
+	input[type="text"], input[type="password"]{
+		background-color: #ffffff;
+		border-color:#dddddd;
+		border-radius: 4px;
+	}
+	.button-primary {
+		background-color: $primary-color;
+		border-color: $primary-color;
+		color: #fff;
+		box-shadow: none;
+		transition: all 0.3s linear 0s;
+		text-shadow:none;
+		&:hover, &:active{
+			background-color: $primary-color-hover;
+			border-color: $primary-color-hover;
+			color: #fff;
+			box-shadow: none;
+		}
+	}
+	#nav a{
+		color:#fff;
+		&:hover{
+			color:#ff9900;
+		}
+	}
+	.message {
+		border-left: 4px solid $primary-color;
+	}
+	input[type="checkbox"]:checked::before{
+		color:$primary-color;
+	}
+	p#backtoblog{
+		display: none;
+	}
 }

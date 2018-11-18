@@ -26,7 +26,7 @@ function siw_render_map( $id ) {
 	$map_ids = [];
 	/**
 	 * ID's van beschikbare kaarten
-	 * 
+	 *
 	 * @param array $map_ids ID's van de beschikbare karten
 	 */
 	$map_ids = apply_filters( 'siw_maps', $map_ids );
@@ -37,7 +37,7 @@ function siw_render_map( $id ) {
 	$map_files = [];
 	/**
 	 * Bestandsnamen van beschikbare kaarten
-	 * 
+	 *
 	 * @param array $map_files Bestandsnamen van beschikbare kaarten
 	 */
 	$map_files = apply_filters( 'siw_map_files', $map_files );
@@ -54,7 +54,7 @@ function siw_render_map( $id ) {
 	];
 	/**
 	 * Gegevens van kaart
-	 * 
+	 *
 	 * @param array $map_data Gegevens van kaart {data|options|categories|locations|inline_css}
 	 */
 	$map_data = apply_filters( "siw_map_{$id}_data", $map_data );

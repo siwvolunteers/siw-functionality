@@ -311,7 +311,10 @@ function siw_get_dutch_projects() {
 		'work',
 		'participants',
 	);
-	$work_types = siw_get_dutch_project_work_types();
+	$types = siw_get_work_types( 'dutch_projects' );
+	foreach ( $types as $type ) {
+		$work_types[ $type->get_slug() ] = $type->get_name();
+	}
 	$provinces = siw_get_dutch_provinces();
 
 	for ( $x = 1 ; $x <= SIW_MAX_DUTCH_PROJECTS; $x++ ) {

@@ -1,42 +1,44 @@
-//out: ./siw-admin.css
+//out: ./siw-admin.css, compress: false, sourceMap: false, autoprefixer: >1%, last 2 Chrome versions, last 2 Firefox versions, last 2 Safari versions, last 2 Edge versions, last 1 IE versions, last 3 ChromeAndroid versions, last 2 iOS versions, groupmedia: true
+@import "partials/_variables.sass";
+	
 .siw-logo div {
-    width: 195px !important;
-    background-image: url("../images/admin/logo.png") !important;
-    background-size: contain !important;
-    background-repeat: no-repeat !important;
+	width: 195px !important;
+	background-image: url("#{$assets-path}/images/admin/logo.png") !important;
+	background-size: contain !important;
+	background-repeat: no-repeat !important;
 }
 
 table.wp-list-table {
-    .column-visibility,
-    .column-next_update,
-    .column-exported,
-    .column-siw_agenda_start,
-    .column-siw_agenda_eind,
-    .column-siw_vacature_deadline {
-        width: 10%;
-    }
+	.column-visibility,
+	.column-next_update,
+	.column-exported,
+	.column-siw_agenda_start,
+	.column-siw_agenda_eind,
+	.column-siw_vacature_deadline {
+		width: 10%;
+	}
 
-    .column-visibility {
-        .dashicons-visibility {
-            color: green;
-        }
+	.column-visibility {
+		.dashicons-visibility {
+			color: green;
+		}
 
-        .dashicons-hidden {
-            color: red;
-        }
-    }
+		.dashicons-hidden {
+			color: red;
+		}
+	}
 
-    .column-exported {
-        .dashicons-yes {
-            color: green;
-        }
+	.column-exported {
+		.dashicons-yes {
+			color: green;
+		}
 
-        .dashicons-no {
-            color: red;
-        }
+		.dashicons-no {
+			color: red;
+		}
 
-        .dashicons-minus {
-            color: grey;
-        }
-    }
+		.dashicons-minus {
+			color: grey;
+		}
+	}
 }

@@ -162,10 +162,11 @@ add_action( 'core_version_check_query_args', function ( $query ) {
  * Schrijf informatie naar PHP-log
  *
  * @param mixed $content
- *
+ * @deprecated
  * @return void
  */
 function siw_log( $content ) {
+	_deprecated_function( __FUNCTION__ );
 	error_log( print_r( $content, true ), 0);
 }
 
@@ -173,10 +174,12 @@ function siw_log( $content ) {
 /**
  *  Schrijf informatie naar log als DEBUG-mode aan staat
  * @param  mixed $content
+ * @deprecated
  * @return void
  */
 function siw_debug_log( $content ) {
 	if ( WP_DEBUG ) {
+		_deprecated_function( __FUNCTION__ );
 		siw_log( $content );
 	}
 }
@@ -255,8 +258,7 @@ add_action( 'kadence_single_portfolio_value_after', function() {
 	$op_maat_page = siw_get_setting( 'op_maat_page' );
 	$op_maat_page = siw_get_translated_page_id( $op_maat_page );
 	$op_maat_page_link = get_page_link( $op_maat_page );
-	printf( '<a href="%s" class="kad-btn kad-btn-primary">%s</a>', esc_url( $op_maat_page_link ), esc_html__( 'Alles over Projecten Op Maat', 'siw' ) );
-
+	echo siw_generate_link(  $op_maat_page_link, __( 'Alles over Projecten Op Maat', 'siw' ), 'kad-btn kad-btn-primary' );
 } );
 
 

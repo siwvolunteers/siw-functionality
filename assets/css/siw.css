@@ -59,19 +59,3 @@
   font-weight: 700;
   src: local(".SFNSText-BoldItalic"), local(".HelveticaNeueDeskInterface-BoldItalic"), local(".LucidaGrandeUI"), local("Segoe UI Bold Italic"), local("Ubuntu Bold Italic"), local("Roboto-BoldItalic"), local("DroidSans-Bold"), local("Tahoma Bold");
 }
-
-nav ul {
-  margin: 0;
-  padding: 10px;
-  list-style: none;
-}
-
-nav li {
-  display: inline-block;
-}
-
-nav a {
-  display: block;
-  padding: 6px 12px;
-  text-decoration: none;
-}

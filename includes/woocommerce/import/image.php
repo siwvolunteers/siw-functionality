@@ -42,7 +42,7 @@ function siw_get_workcamp_image_file( $country, $work ) {
 			}
 		}
 	}
-	if ( '' == $url ) {
+	if ( empty( $url ) ) {
 		foreach ( $work_array as $work ) {
 			$relative_directory = $continent.'/'.$work;
 			$dir = $base_directory . $relative_directory;
@@ -59,7 +59,7 @@ function siw_get_workcamp_image_file( $country, $work ) {
 			}
 		}
 	}
-	if ( '' == $url ) {
+	if ( empty( $url ) ) {
 		$relative_directory = $continent;
 		$dir = $base_directory . $relative_directory;
 		if ( file_exists( $dir ) ) {
@@ -77,7 +77,7 @@ function siw_get_workcamp_image_file( $country, $work ) {
 
 
 /**
- * Bepaalt of URI een bestand is
+ * Bepaalt of URI een bestand is //TODO: waarom niet is_file gebruiken?
  *
  * @param string $name
  *

@@ -2,7 +2,7 @@
 /**
  * Functies m.b.t. valuta's
  * 
- * @package 	SIW\Reference data
+ * @package 	SIW\Reference-Data
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  */
@@ -30,12 +30,12 @@ function siw_get_currencies() {
 	 * @param array $data Gegevens van de valuta { iso|symbol|name }
 	 */
 	$data = apply_filters( 'siw_currency_data', $data );
-    
-    foreach ( $data as $currency ) {
-        $currencies[ $currency['iso'] ] = new SIW_Currency( $currency );
-    }
+	
+	foreach ( $data as $currency ) {
+		$currencies[ $currency['iso'] ] = new SIW_Currency( $currency );
+	}
 
-    return $currencies;
+	return $currencies;
 }
 
 
@@ -45,14 +45,14 @@ function siw_get_currencies() {
  * @return SIW_Currency
  */
 function siw_get_currency( $currency ) {
-    
-    $currencies = siw_get_currencies( $currency );
+	
+	$currencies = siw_get_currencies( $currency );
 
-    if ( isset( $currencies[ $currency ] ) ) {
-        return $currencies[ $currency ];
-    }
+	if ( isset( $currencies[ $currency ] ) ) {
+		return $currencies[ $currency ];
+	}
 
-    return false;
+	return false;
 }
 
 

@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Geeft een array met projecttalen terug
- *
+ * @deprecated
  * @return array
  */
 function siw_get_project_languages() {
@@ -54,7 +54,7 @@ function siw_get_project_languages() {
 
 /**
  * Geeft een array met talen terug
- *
+ * @deprecated
  * @return array
  */
 function siw_get_volunteer_languages() {
@@ -90,7 +90,7 @@ function siw_get_volunteer_languages() {
 
 /**
  * Geeft een array met niveau's van taalvaardigheid terug
- *
+ * @deprecated
  * @return array
  */
 function siw_get_volunteer_language_skill_levels() {

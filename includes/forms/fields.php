@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * [siw_get_form_field description]
- * @param  [type] $slug    [description]
- * @param  array  $options [description]
- * @return [type]          [description]
+ * @param  string $slug    
+ * @param  array  $options
+ * @return array
  */
 function siw_get_form_field( $slug, $options = array() ){
 
@@ -219,9 +219,9 @@ function siw_get_form_field( $slug, $options = array() ){
 
 /**
  * [siw_get_standard_form_field description]
- * @param  [type] $slug    [description]
- * @param  [type] $options [description]
- * @return [type]          [description]
+ * @param  string $slug
+ * @param  array $options
+ * @return array
  */
 function siw_get_standard_form_field( $slug, $options = array() ) {
 
@@ -285,7 +285,6 @@ function siw_get_standard_form_field( $slug, $options = array() ) {
 			),
 		)
 	);
-
 	$fields['geslacht'] = siw_get_form_field( 'radio',
 		array(
 			'ID' => 'geslacht',
@@ -463,9 +462,9 @@ function siw_get_standard_form_field( $slug, $options = array() ) {
 
 /**
  * [siw_get_standard_form_condition description]
- * @param  [type] $slug    [description]
- * @param  [type] $options [description]
- * @return [type]          [description]
+ * @param  array $slug
+ * @param  array $options
+ * @return array
  */
 function siw_get_standard_form_condition( $slug, $options = array() ) {
 

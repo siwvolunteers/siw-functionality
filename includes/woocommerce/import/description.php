@@ -68,7 +68,7 @@ function siw_get_workcamp_description( $descr_work, $descr_accomodation_and_food
  * Genereert projectsamenvatting o.b.v. projecteigenschappen
  *
  * @param  string $project_type
- * @param  string $country
+ * @param  string $country_code
  * @param  string $work
  * @param  date $start_date
  * @param  date $end_date

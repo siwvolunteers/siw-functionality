@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Geeft een array met soort werk voor projecten terug
- *
+ * @deprecated
  * @return array
  */
 function siw_get_project_work_types() {
@@ -41,22 +41,10 @@ function siw_get_project_work_types() {
 	return $project_work_types;
 }
 
-/**
- * Haal array van soorten werk voor NP op
- * @return array
- */
-function siw_get_dutch_project_work_types() {
-	$dutch_project_work_types = array(
-		'sociaal' 		=> __( 'Sociaal', 'siw' ),
-		'natuur'		=> __( 'Natuur', 'siw' ),
-		'constructie'	=> __( 'Constructie', 'siw' ),
-	);
-	return $dutch_project_work_types;
-}
-
 
 /**
  * Geeft array soorten werk voor EVS-projecten terug
+ * @deprecated
  * @return array
  */
 function siw_get_evs_project_work_types() {

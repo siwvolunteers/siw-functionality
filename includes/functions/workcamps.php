@@ -11,7 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Tel zichtbare projecten per term
  *
  * @param string $taxonomy
- * @param string $term
+ * @param string $term_slug
+ * @param bool $force_recount
  * @return void
  */
 function siw_count_projects_by_term( $taxonomy, $term_slug, $force_recount = false ) {

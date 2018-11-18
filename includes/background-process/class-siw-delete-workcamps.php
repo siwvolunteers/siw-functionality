@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om oude Groepsprojecten te verwijderen
  * 
- * @package SIW\Background process
+ * @package SIW\Background-Process
  * @author Maarten Bruna
  * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
  */
@@ -24,32 +24,34 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 	protected $name = 'verwijderen groepsprojecten';
 
 	/**
-     * Selecteer Groepsprojecten die meer dan 6 maanden geleden zijn begonnen
-     *
+	 * Selecteer Groepsprojecten die meer dan 6 maanden geleden zijn begonnen
+	 * @todo configuratieconstante voor aantal maanden
+	 * @todo wc_get_products gebruiken
+	 *
 	 * @return array
 	 */
 	protected function select_data() {
-		$limit = date( 'Y-m-d', time() - ( 6 * MONTH_IN_SECONDS ) ); //TODO:configuratieconstante voor aantal maanden
+		$limit = date( 'Y-m-d', time() - ( 6 * MONTH_IN_SECONDS ) );
 
-		$meta_query = array(
+		$meta_query = [
 			'relation'	=> 'OR',
-			array(
+			[
 				'key'		=> 'startdatum',
 				'value'		=> $limit,
 				'compare'	=> '<',
-			),
-			array(
+			],
+			[
 				'key'		=> 'startdatum',
 				'compare'	=> 'NOT EXISTS',
-			),
-		);
-		$args = array(
+			],
+		];
+		$args = [
 			'posts_per_page'	=> -1,
 			'post_type'			=> 'product',
 			'meta_query'		=> $meta_query,
 			'fields' 			=> 'ids'
-		);
-		$products = get_posts( $args ); //TODO: wc_get_products gebruiken
+		];
+		$products = get_posts( $args );
 	
 		
 		if ( empty( $products ) ) {
@@ -57,13 +59,13 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 			return false;
 		}
 	
-		//variaties van geselecteerde projecten opzoeken //TODO: kan weg na vervangen WP All Import
-		$args = array(
+		//variaties van geselecteerde projecten opzoeken,  kan weg na vervangen WP All Import
+		$args = [
 			'posts_per_page'	=> -1,
 			'post_type'			=> 'product_variation',
 			'post_parent__in'	=> $products,
 			'fields' 			=> 'ids',
-		);
+		];
 		$variations = get_posts( $args );
 	
 		//variaties en producten samenvoegen tot 1 array voor DELETE-query
@@ -87,13 +89,13 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 		return $products;
 	}
 
-    /**
-     * Verwijderen van product (inclusief variaties)
-     *
-     * @param mixed $item
-     *
-     * @return mixed
-     */
+	/**
+	 * Verwijderen van product (inclusief variaties)
+	 *
+	 * @param mixed $item
+	 *
+	 * @return mixed
+	 */
 	protected function task( $item ) {
 
 		$product = wc_get_product( $item );
@@ -118,9 +120,9 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 
 /* Registreer het background process */
 add_action( 'plugins_loaded', function() {
-	$parent_nodes = array(
-		'workcamps' =>  array( 'title' => __( 'Groepsprojecten', 'siw' ) ),
-	);
-	$node = array( 'parent' => 'workcamps', 'title' => __( 'Verwijderen oude projecten', 'siw' ) );
+	$parent_nodes = [
+		'workcamps' => [ 'title' => __( 'Groepsprojecten', 'siw' ) ],
+	];
+	$node = [ 'parent' => 'workcamps', 'title' => __( 'Verwijderen oude projecten', 'siw' ) ];
 	siw_register_background_process( 'SIW_Delete_Workcamps', 'delete_workcamps', $node, $parent_nodes, true );
 } );
