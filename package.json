@@ -1,0 +1,32 @@
+{
+	"name": "siw-functionality",
+	"version": "1.8.3",
+	"description": "Extra functionaliteit voor website SIW",
+	"repository": "https://github.com/siwvolunteers/siw-functionality",
+
+	"scripts": {
+		"postinstall": "vendor-copy"
+	},
+	"dependencies": {
+		"apexcharts": "2.*",
+		"vendor-copy": "2.*",
+		"smoothscroll-for-websites": "1.4.6",
+		"js-cookie": "2.*"
+	},
+	"vendorCopy": [
+		{
+			"from": "node_modules/apexcharts/dist/apexcharts.min.js",
+			"to": "assets/modules/apexcharts/apexcharts.min.js"
+		},
+		{
+			"from": "node_modules/smoothscroll-for-websites/SmoothScroll.js",
+			"to": "assets/modules/smoothscroll/SmoothScroll.js"
+		},
+		{
+			"from": "node_modules/js-cookie/src/js.cookie.js",
+			"to": "assets/modules/js-cookie/js.cookie.js"
+		}
+		
+	]
+
+}
