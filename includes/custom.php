@@ -19,7 +19,6 @@ add_filter( 'srm_default_direct_status', function() { return 301; } );
 /* Nonce-lifetime verdubbelen ivm cache */
 add_filter( 'nonce_life', function() { return 2 * DAY_IN_SECONDS; } );
 
-
 /*
  * Permalink van testimonials aanpassen van 'testimonial' naar 'ervaring'
  * TODO: Kan weg na vervangen plugin "Strong Testimonials" door eigen functionaliteit
@@ -96,7 +95,6 @@ define( 'UPDRAFTPLUS_NONEWSFEED', true );
 define( 'UPDRAFTPLUS_ADMINBAR_DISABLE', true );
 define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
 
-
 /* WP Rocket White Label */
 define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true );
 
@@ -110,12 +108,18 @@ add_filter( 'rocket_exclude_js', function( $excluded_files) {
 	return $excluded_files;
 });
 
+/** Hoge resolutie youtube-thumbnail laden */
+add_filter( 'rocket_youtube_thumbnail_resolution', function( $thumbnail_resolution) {
+	$thumbnail_resolution = 'maxresdefault';
+	return $thumbnail_resolution;
+});
 
 /* Inline JS uitsluiten van combineren */
 add_filter( 'rocket_excluded_inline_js_content', function( $content ) {
 	$content[] = 'tvc_id'; //Google Analytics voor WooCommerce (bevat product id)
 	$content[] = 'gmap3'; //Google Maps van Pinnacle (bevat random id)
 	$content[] = 'caldera_conditionals';
+	$content[] = 'wp_sentry';
 
 	return $content;
 });
@@ -158,10 +162,11 @@ add_action( 'core_version_check_query_args', function ( $query ) {
  * Schrijf informatie naar PHP-log
  *
  * @param mixed $content
- *
+ * @deprecated
  * @return void
  */
 function siw_log( $content ) {
+	_deprecated_function( __FUNCTION__ );
 	error_log( print_r( $content, true ), 0);
 }
 
@@ -169,10 +174,12 @@ function siw_log( $content ) {
 /**
  *  Schrijf informatie naar log als DEBUG-mode aan staat
  * @param  mixed $content
+ * @deprecated
  * @return void
  */
 function siw_debug_log( $content ) {
 	if ( WP_DEBUG ) {
+		_deprecated_function( __FUNCTION__ );
 		siw_log( $content );
 	}
 }
@@ -251,8 +258,7 @@ add_action( 'kadence_single_portfolio_value_after', function() {
 	$op_maat_page = siw_get_setting( 'op_maat_page' );
 	$op_maat_page = siw_get_translated_page_id( $op_maat_page );
 	$op_maat_page_link = get_page_link( $op_maat_page );
-	printf( '<a href="%s" class="kad-btn kad-btn-primary">%s</a>', esc_url( $op_maat_page_link ), esc_html__( 'Alles over Projecten Op Maat', 'siw' ) );
-
+	echo siw_generate_link(  $op_maat_page_link, __( 'Alles over Projecten Op Maat', 'siw' ), 'kad-btn kad-btn-primary' );
 } );
 
 
@@ -295,6 +301,15 @@ add_filter( 'kadence_portfolio_tag_slug', function() { return 'projecten-op-maat
 add_filter( 'kadence_staff_post_slug', function() { return 'vrijwilligers'; } );
 add_filter( 'kadence_staff_group_slug', function() { return 'vrijwilligers-per-groep'; } );
 
+/* Kadence lazy load onderdrukken als WP Rocket dit ook doet */
+add_filter( 'kad_lazy_load', function( $lazy ) {
+	if( defined( 'DONOTROCKETOPTIMIZE' ) && DONOTROCKETOPTIMIZE ) {
+		$lazy = false;
+	}
+	return $lazy;
+});
+
+
 /* Verwijderen diverse metabox */
 add_action( 'init', function() {
 	remove_filter( 'cmb2_admin_init', 'pinnacle_page_metaboxes' );
@@ -323,7 +338,6 @@ add_filter( 'nonce_user_logged_out', function( $user_id, $action ) {
 		if ( $user_id && 0 !== $user_id && $action && ( false !== strpos_arr( $action, $nonces ) ) ) {
 			$user_id = 0;
 		}
-
 	}
 
 	return $user_id;
@@ -331,10 +345,76 @@ add_filter( 'nonce_user_logged_out', function( $user_id, $action ) {
 }, 100, 2 );
 
 
-/** */
+/* Logo toevoegen aan customizer */
 add_action( 'after_setup_theme', function() {
     add_theme_support('custom-logo');
 });
 
 
+/* System font stack toevoegen aan theme options*/
+add_action( 'plugins_loaded', function() {
+	add_filter( 'redux/pinnacle/field/typography/custom_fonts', function( $custom_fonts ) {
+		$custom_fonts = [
+			"SIW"=> [
+				"system-ui" => "System fonts",
+			]
+		];
+	return $custom_fonts;
+	});
+});
 
+/* Widgets opschonen */
+add_action( 'widgets_init', function() {
+
+	/* Core */
+	unregister_widget( 'WP_Widget_Pages' );
+	unregister_widget( 'WP_Widget_Recent_Posts' );
+	unregister_widget( 'WP_Widget_Calendar' );
+	unregister_widget( 'WP_Widget_Archives' );
+	if ( get_option( 'link_manager_enabled' ) ) {
+		unregister_widget( 'WP_Widget_Links' );
+	}
+	unregister_widget( 'WP_Widget_Meta' );
+	unregister_widget( 'WP_Widget_Categories' );
+	unregister_widget( 'WP_Widget_Recent_Comments' );
+	unregister_widget( 'WP_Widget_RSS' );
+	unregister_widget( 'WP_Widget_Tag_Cloud' );
+	unregister_widget( 'WP_Widget_Custom_HTML' );
+	unregister_widget( 'WP_Widget_Media_Audio' );
+	unregister_widget( 'WP_Widget_Media_Video' );
+	unregister_widget( 'WP_Widget_Media_Image' );
+	unregister_widget( 'WP_Widget_Media_Gallery' );
+	unregister_widget( 'WP_Widget_Text' );
+
+	/* SiteOrigin Page Builder */
+	unregister_widget( 'SiteOrigin_Panels_Widgets_PostContent' );
+	unregister_widget( 'SiteOrigin_Panels_Widgets_PostLoop' );
+	unregister_widget( 'SiteOrigin_Panels_Widgets_Layout' );
+	unregister_widget( 'SiteOrigin_Panels_Widgets_Gallery' );
+
+	/* WooCommerce */
+	unregister_widget( 'WC_Widget_Price_Filter' );
+	unregister_widget( 'WC_Widget_Product_Categories' );
+	unregister_widget( 'WC_Widget_Product_Tag_Cloud' );
+	unregister_widget( 'WC_Widget_Products' );
+	unregister_widget( 'WC_Widget_Cart' );
+	
+	/* Mailpoet 2 */
+	unregister_widget( 'WYSIJA_NL_Widget' );
+
+	/* Strong Testimonials */
+	unregister_widget( 'Strong_Testimonials_View_Widget' );
+
+	/* WPML */
+	unregister_widget( 'WPML_LS_Widget' );
+
+	/* Pinnacle */
+	unregister_widget( 'kad_contact_widget' );
+	unregister_widget( 'kad_social_widget' ); 
+	unregister_widget( 'kad_recent_posts_widget' );
+	unregister_widget( 'kad_post_grid_widget' );
+	unregister_widget( 'kad_gallery_widget' );
+	unregister_widget( 'kad_tabs_content_widget' );
+
+	
+}, 99 );

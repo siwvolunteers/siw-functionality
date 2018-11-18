@@ -1,7 +1,13 @@
 <?php
-/*
- * (c)2017-2018 SIW Internationale Vrijwilligersprojecten
+/**
+ * Achtergrond processen
+ * 
+ * @package SIW\Background-Process
+ * @author Maarten Bruna
+ * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  */
+
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -19,7 +25,7 @@ require_once( __DIR__ . '/class-siw-update-taxonomies.php' );
 
 
 /**
- * Hulpfunctie om background proces te starten
+ * Start achtergrondproces
  *
  * @param string $action
  *
@@ -38,7 +44,7 @@ function siw_start_background_process( $action ) {
 
 
 /**
- * Undocumented function
+ * Registreert een achtergrondproces
  *
  * @param string $class
  * @param string $action

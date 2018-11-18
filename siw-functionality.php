@@ -1,10 +1,18 @@
 <?php
-/*
+/**
+ * SIW Functionaliteit
+ *
+ * @package     SIW
+ * @author      Maarten Bruna
+ * @copyright   2017-2018 SIW Internationale Vrijwilligersprojecten
+ *
+ * @wordpress-plugin
  * Plugin Name: SIW Functionaliteit
- * Plugin URI: https://github.com/siwvolunteers/siw-functionality
+ * Plugin URI:  https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
- * Author: Maarten Bruna
- * Version: 1.8.2.1
+ * Version:     1.9
+ * Author:      Maarten Bruna
+ * Text Domain: siw
  */
 
 
@@ -21,8 +29,8 @@ define ( 'SIW_VENDOR_DIR', SIW_ASSETS_DIR . '/vendor' );
 define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . '/includes' );
 define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
-define ( 'SIW_VENDOR_URL', SIW_ASSETS_URL . '/vendor' );
-define ( 'SIW_PLUGIN_VERSION', '1.8.2.1' );
+define ( 'SIW_VENDOR_URL', SIW_ASSETS_URL . 'vendor/' );
+define ( 'SIW_PLUGIN_VERSION', '1.8.4' );
 define ( 'SIW_AJAX_URL', SIW_PLUGIN_URL . 'ajax-handler.php' );
 define ( 'SIW_SITE_URL', get_home_url() );
 define ( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL )['host'] );
@@ -47,7 +55,6 @@ require_once( SIW_INCLUDES_DIR . '/reference-data/init.php' );
 require_once( SIW_INCLUDES_DIR . '/functions/init.php' );
 require_once( SIW_INCLUDES_DIR . '/settings/init.php' );
 
-
 /* Diverse aanpassingen */
 require_once( SIW_INCLUDES_DIR . '/custom.php' );
 require_once( SIW_INCLUDES_DIR . '/head.php' );
@@ -63,10 +70,10 @@ require_once( SIW_INCLUDES_DIR . '/admin/init.php' );
 require_once( SIW_INCLUDES_DIR . '/ajax/init.php' );
 require_once( SIW_INCLUDES_DIR . '/background-process/init.php' );
 require_once( SIW_INCLUDES_DIR . '/analytics/init.php' );
-require_once( SIW_INCLUDES_DIR . '/cookie-notification/init.php' );
+require_once( SIW_INCLUDES_DIR . '/cookie-notification/cookie-notification.php' );
 require_once( SIW_INCLUDES_DIR . '/email/init.php');
 require_once( SIW_INCLUDES_DIR . '/forms/init.php' );
-require_once( SIW_INCLUDES_DIR . '/maps/init.php' );
+require_once( SIW_INCLUDES_DIR . '/maps/maps.php' );
 require_once( SIW_INCLUDES_DIR . '/pagebuilder/init.php' );
 require_once( SIW_INCLUDES_DIR . '/post-types/init.php' );
 require_once( SIW_INCLUDES_DIR . '/social-share/init.php' );

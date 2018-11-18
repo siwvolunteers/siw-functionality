@@ -1,37 +1,35 @@
-.siw-logo div{
-	width: 195px !important;
-	background-image: url("../images/admin/logo.png") !important;
-	background-size: contain !important;
-	background-repeat: no-repeat !important;
+.siw-logo div {
+  width: 195px !important;
+  background-image: url("/wp-content/plugins/siw-functionality/assets/images/admin/logo.png") !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
 }
 
-table.wp-list-table .column-visibility, table.wp-list-table .column-next_update  {
-	width:10%;
-}
-.column-visibility .dashicons-visibility{
-	color:green;
-}
-.column-visibility .dashicons-hidden{
-	color:red;
-}
-
-table.wp-list-table .column-exported  {
-	width:10%;
-}
-.column-exported .dashicons-yes{
-	color:green;
-}
-.column-exported .dashicons-no{
-	color:red;
-}
-.column-exported .dashicons-minus{
-	color:grey;
+table.wp-list-table .column-visibility,
+table.wp-list-table .column-next_update,
+table.wp-list-table .column-exported,
+table.wp-list-table .column-siw_agenda_start,
+table.wp-list-table .column-siw_agenda_eind,
+table.wp-list-table .column-siw_vacature_deadline {
+  width: 10%;
 }
 
-table.wp-list-table .column-siw_agenda_start, table.wp-list-table .column-siw_agenda_eind{
-	width:10%;
+table.wp-list-table .column-visibility .dashicons-visibility {
+  color: green;
 }
 
-table.wp-list-table .column-siw_vacature_deadline{
-	width:10%;
+table.wp-list-table .column-visibility .dashicons-hidden {
+  color: red;
+}
+
+table.wp-list-table .column-exported .dashicons-yes {
+  color: green;
+}
+
+table.wp-list-table .column-exported .dashicons-no {
+  color: red;
+}
+
+table.wp-list-table .column-exported .dashicons-minus {
+  color: grey;
 }

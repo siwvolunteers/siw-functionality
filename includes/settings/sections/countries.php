@@ -12,10 +12,10 @@ add_action( 'siw_settings_show_countries_section', function() {
 
 	/* Velden */
 	foreach ( $countries as $country ) {
-		$slug = $country['slug'];
-		$name = $country['name'];
-		$allowed = ( 'yes' == $country['allowed'] ) ? true : false;
-		$continent = $country['continent'];
+		$slug = $country->get_slug();
+		$name = $country->get_name();
+		$allowed = ( true == $country->is_allowed() ) ? true : false;
+		$continent = $country->get_continent()->get_slug();
 		$country_fields[ $continent ][] = array(
 			'id'		=> $slug . '_section_start',
 			'type'		=> 'section',
@@ -60,7 +60,7 @@ add_action( 'siw_settings_show_countries_section', function() {
 		'id'			=> 'countries_afrika',
 		'title'			=> __( 'Afrika', 'siw' ),
 		'subsection'	=> true,
-		'fields'		=> $country_fields['afrika-midden-oosten']	,
+		'fields'		=> $country_fields['afrika']	,
 	) );
 	Redux::setSection( SIW_OPT_NAME, array(
 		'id'			=> 'countries_asia',

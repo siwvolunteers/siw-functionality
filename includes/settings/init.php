@@ -60,9 +60,6 @@ Redux::setExtensions( SIW_OPT_NAME, SIW_ASSETS_DIR . '/redux-extensions/' );
 /* Validatiefuncties laden */
 require_once( __DIR__ . '/validation.php' );
 
-/* Help-tabs laden */
-require_once( __DIR__ . '/help-tabs.php' );
-
 add_action( 'plugins_loaded', function() {
 	/* Instelling voor Redux optiepanel zetten */
 	$args = array(

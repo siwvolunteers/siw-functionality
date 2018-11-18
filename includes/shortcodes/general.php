@@ -37,7 +37,7 @@ siw_add_shortcode( 'siw_telefoon', array( 'title' => __( 'Telefoonnummer', 'siw'
 add_shortcode( 'siw_telefoon_internationaal', function() {
 	return SIW_PHONE_FULL;
 } );
-siw_add_shortcode( 'siw_telefoon', array( 'title' => __( 'Telefoonnummer (internationaal)', 'siw' ) ) );
+siw_add_shortcode( 'siw_telefoon_internationaal', array( 'title' => __( 'Telefoonnummer (internationaal)', 'siw' ) ) );
 
 
 /* IBAN */

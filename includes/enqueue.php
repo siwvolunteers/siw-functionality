@@ -15,6 +15,14 @@ add_action( 'wp_enqueue_scripts', function() {
 	);
 	wp_localize_script( 'siw', 'siw', $parameters );
 	wp_enqueue_script( 'siw' );
+});
+
+/**
+ * Toevoegen SIW stylesheet
+ */
+add_action( 'wp_enqueue_scripts', function() {
+	wp_register_style( 'siw', SIW_ASSETS_URL . 'css/siw.css', null, SIW_PLUGIN_VERSION );
+	wp_enqueue_style( 'siw' );
 
 	wp_register_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js' );
 });
@@ -80,12 +88,6 @@ add_action( 'wp_enqueue_scripts', function() {
 	/*variatie als radiobuttons*/
 	if ( ! is_product() ) {
 		wp_dequeue_script( 'kt-wc-add-to-cart-variation-radio' );
-	}
-
-	/*woocommerce ajax filter*/
-	if ( ! is_shop() && ! is_product_category() && ! is_product_tag() && ! taxonomy_is_product_attribute( get_query_var( 'taxonomy' ) ) ) {
-		wp_dequeue_script( 'yith-wcan-script' );
-		wp_dequeue_style( 'yith-wcan-frontend' );
 	}
 
 	/*Mailpoet*/

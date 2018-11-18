@@ -100,9 +100,9 @@ function siw_get_workcamp_duration_in_days( $start_date, $end_date ) {
  */
 function siw_get_workcamp_continent_slug( $country_code ) {
 	$continent_slug = '';
-	$country = siw_get_country( $country_code );
-	if ( isset ( $country['continent'] ) ) {
-		$continent_slug = $country['continent'];
+	$country = siw_get_country( $country_code, 'iso' );
+	if ( $country  ) {
+		$continent_slug = $country->get_continent()->get_slug();
 	}
 	return $continent_slug;
 }
@@ -116,10 +116,11 @@ function siw_get_workcamp_continent_slug( $country_code ) {
  * @return string
  */
 function siw_get_workcamp_country_slug( $country_code ) {
+
 	$country_slug = '';
-	$country = siw_get_country( $country_code );
-	if ( isset ( $country['slug'] ) ) {
-		$country_slug = $country['slug'];
+	$country = siw_get_country( $country_code, 'iso' );	
+	if ( $country ) {
+		$country_slug = $country->get_slug();
 	}
 	return $country_slug;
 }
@@ -134,9 +135,9 @@ function siw_get_workcamp_country_slug( $country_code ) {
  */
 function siw_get_workcamp_country_name( $country_code ) {
 	$country_name = '';
-	$country = siw_get_country( $country_code );
-	if ( isset ( $country['name']) ) {
-		$country_name = $country['name'];
+	$country = siw_get_country( $country_code, 'iso' );
+	if ( $country ) {
+		$country_name = $country->get_name();
 	}
 	return $country_name;
 }
@@ -151,9 +152,10 @@ function siw_get_workcamp_country_name( $country_code ) {
  */
 function siw_get_workcamp_country_allowed( $country_code ) {
 
-	$country = siw_get_country( $country_code );
-	if ( isset ( $country['allowed'] ) ) {
-		$country_allowed = $country['allowed'];
+	$country = siw_get_country( $country_code, 'iso' );
+
+	if ( $country && $country->is_allowed() ) {
+		$country_allowed = 'yes';
 	}
 	else {
 		$country_allowed = 'no';
@@ -217,9 +219,7 @@ function siw_get_workcamp_local_fee( $participation_fee, $participation_fee_curr
 	$currency = siw_get_currency( $participation_fee_currency );
 
 	if ( $currency && 'EUR' != $participation_fee_currency ) {
-		$participation_fee_symbol = $currency['symbol'];
-		$participation_fee_name = $currency['name'];
-		$local_fee = sprintf( '%s %d (%s)', $participation_fee_symbol, $participation_fee, $participation_fee_name );
+		$local_fee = sprintf( '%s %d (%s)', $currency->get_symbol(), $participation_fee, $currency->get_name() );
 	}
 	elseif( 'EUR' == $participation_fee_currency ) {
 		$local_fee = sprintf( '&euro; %s', $participation_fee );

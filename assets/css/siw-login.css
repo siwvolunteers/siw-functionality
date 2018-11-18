@@ -1,75 +1,78 @@
-#login{
-	padding-top:5%
-}
-
-html{
-	background-image: url('../images/login/background-greyscale.jpg');
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-position: center;
-	background-size:cover;
+html {
+  background-image: url("/wp-content/plugins/siw-functionality/assets/images/login/background-greyscale.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
 }
 
 body.login {
-	background-color:rgba(0, 0, 0, 0.0);
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-position: center;
-	background-size:cover;
+  background-color: rgba(0, 0, 0, 0);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+#login {
+  padding-top: 5%;
 }
 
 .login form {
-	border-radius: 4px;
+  border-radius: 4px;
 }
 
 .login h1 a {
-	background-image: url('../images/login/logo.png');
-	background-size:150px;
-	width: 150px;
+  background-image: url("/wp-content/plugins/siw-functionality/assets/images/login/logo.png");
+  background-size: 150px;
+  width: 150px;
 }
 
 .login label {
-	font-size: 12px;
-	color: #444;
+  font-size: 12px;
+  color: #444;
 }
 
-.login input[type="text"], .login input[type="password"]{
-	background-color: #ffffff;
-	border-color:#dddddd;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
+.login input[type="text"],
+.login input[type="password"] {
+  background-color: #ffffff;
+  border-color: #dddddd;
+  border-radius: 4px;
 }
 
 .login .button-primary {
-    background-color: #ff9900;
-    border-color: #ff9900;
-    color: #fff;
-	box-shadow: none;
-    transition: all 0.3s linear 0s;
-	text-shadow:none;
+  background-color: #ff9900;
+  border-color: #ff9900;
+  color: #fff;
+  box-shadow: none;
+  transition: all 0.3s linear 0s;
+  text-shadow: none;
 }
 
-.login .button-primary:hover, .login .button-primary:active {
-    background-color: #ffcc33;
-    border-color: #ffcc33;
-    color: #fff;
-	box-shadow: none;
+.login .button-primary:hover,
+.login .button-primary:active {
+  background-color: #ffcc33;
+  border-color: #ffcc33;
+  color: #fff;
+  box-shadow: none;
 }
 
-input[type="checkbox"]:checked::before{
-	color:#ff9900;
+.login #nav a {
+  color: #fff;
 }
 
-p#backtoblog{
-	display: none;
-}
-.login #nav a{
-	color:#fff;
-}
-.login #nav a:hover{
-	color:#ff9900;
+.login #nav a:hover {
+  color: #ff9900;
 }
 
 .login .message {
-    border-left: 4px solid #ff9900;
+  border-left: 4px solid #ff9900;
+}
+
+.login input[type="checkbox"]:checked::before {
+  color: #ff9900;
+}
+
+.login p#backtoblog {
+  display: none;
 }
