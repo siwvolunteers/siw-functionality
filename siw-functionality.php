@@ -10,10 +10,9 @@
  * Plugin Name: SIW Functionaliteit
  * Plugin URI:  https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
- * Version:     1.8.4
+ * Version:     1.9
  * Author:      Maarten Bruna
  * Text Domain: siw
-
  */
 
 
@@ -71,7 +70,7 @@ require_once( SIW_INCLUDES_DIR . '/admin/init.php' );
 require_once( SIW_INCLUDES_DIR . '/ajax/init.php' );
 require_once( SIW_INCLUDES_DIR . '/background-process/init.php' );
 require_once( SIW_INCLUDES_DIR . '/analytics/init.php' );
-require_once( SIW_INCLUDES_DIR . '/cookie-notification/init.php' );
+require_once( SIW_INCLUDES_DIR . '/cookie-notification/cookie-notification.php' );
 require_once( SIW_INCLUDES_DIR . '/email/init.php');
 require_once( SIW_INCLUDES_DIR . '/forms/init.php' );
 require_once( SIW_INCLUDES_DIR . '/maps/maps.php' );
