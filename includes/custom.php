@@ -402,8 +402,6 @@ add_action( 'widgets_init', function() {
 	/* Mailpoet 2 */
 	unregister_widget( 'WYSIJA_NL_Widget' );
 
-	/* Strong Testimonials */
-	unregister_widget( 'Strong_Testimonials_View_Widget' );
 
 	/* WPML */
 	unregister_widget( 'WPML_LS_Widget' );
