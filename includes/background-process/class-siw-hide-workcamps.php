@@ -107,5 +107,5 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 add_action( 'plugins_loaded', function() {
 	$parent_nodes = [ 'workcamps' => [ 'title' => __( 'Groepsprojecten', 'siw' ) ] ];
 	$node = [ 'parent' => 'workcamps', 'title' => __( 'Verbergen projecten', 'siw' ) ];
-	siw_register_background_process( 'SIW_Hide_Workcamps', 'hide_workcamps', $node, $parent_nodes, false );
+	siw_register_background_process( 'SIW_Hide_Workcamps', 'hide_workcamps', $node, $parent_nodes, true );
 } );
