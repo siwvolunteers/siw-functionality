@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param array $items
  * @param bool $ordered
  * @return string
+ * 
+ * @deprecated
  */
 function siw_generate_list( $items, $ordered = false ) {
 	if ( empty ( $items ) ) {
@@ -39,6 +41,8 @@ add_filter( 'siw_list', function( $list, $items, $ordered = false ) {
  * @param  string $url
  * @param  string $text
  * @return string
+ * 
+ * @deprecated
  */
 function siw_generate_external_link( $url, $text = false ) {
 
@@ -59,6 +63,8 @@ function siw_generate_external_link( $url, $text = false ) {
  * @param text $url
  * @param text $text
  * @return void
+ * 
+ * @deprecated
  */
 function siw_generate_link( $url, $text = false, $class = '' ) {
 
@@ -79,6 +85,8 @@ function siw_generate_link( $url, $text = false, $class = '' ) {
  * @param  float  $amount
  * @param  integer $decimals
  * @return string
+ * 
+ * @deprecated
  */
 function siw_format_amount( $amount, $decimals = 0 ) {
 
@@ -92,6 +100,8 @@ function siw_format_amount( $amount, $decimals = 0 ) {
  * @param  float  $percentage
  * @param  integer $decimals
  * @return string
+ * 
+ * @deprecated
  */
 function siw_format_percentage( $percentage, $decimals = 0 ) {
 	$percentage = number_format( $percentage, $decimals );
@@ -103,6 +113,8 @@ function siw_format_percentage( $percentage, $decimals = 0 ) {
  * Genereer pinnacle accordion
  * @param  array $panes
  * @return string
+ * 
+ * @deprecated
  */
 function siw_generate_accordion( $panes ) {
 
@@ -110,8 +122,16 @@ function siw_generate_accordion( $panes ) {
 		return;
 	}
 	$accordion = '[accordion]';
-		foreach ( $panes as $pane ) {
-		$accordion .= sprintf( '[pane title="%s"]%s[/pane]', esc_html( $pane['title'] ), wp_kses_post( wpautop( $pane['content'] ) ) );
+	foreach ( $panes as $pane ) {
+		if ( empty( $pane['content'] ) ) {
+			continue;
+		}
+
+		if ( isset( $pane['show_button'] ) && true == $pane['show_button'] ) {
+			$pane['content'] .= wpautop( siw_generate_link( $pane['button_url'], $pane['button_text'], 'kad-btn' ) );
+		}
+
+		$accordion .= sprintf( '[pane title="%s"]%s[/pane]', esc_html( $pane['title'] ), wp_kses_post( wpautop( $pane['content'] )  ) );
 	}
 	$accordion .= '[/accordion]';
 
@@ -120,7 +140,6 @@ function siw_generate_accordion( $panes ) {
 add_filter( 'siw_accordion', function( $accordion, $panes ) {
 	return siw_generate_accordion( $panes );
 }, 10, 2 );
-
 
 
 /**
@@ -311,6 +330,8 @@ if ( ! function_exists( 'sanitize_html_classes' ) && function_exists( 'sanitize_
  *
  * @param array $rules
  * @return string
+ * 
+ * @deprecated
  */
 function siw_generate_css( $rules ) {
     $css = '';

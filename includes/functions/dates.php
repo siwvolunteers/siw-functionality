@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param bool $year Jaar toevoegen aan tekst
  *
  * @return string
+ *
+ * @deprecated
  */
 function siw_get_date_in_text( $date, $year = true ) {
 	$format = $year ? 'j F Y' :  'j F';
@@ -34,6 +36,8 @@ add_filter( 'siw_date_in_text', function( $text, $date, $year = true ) {
  * @param bool $year jaar toevoegen aan tekst
  *
  * @return string
+ *
+ * @deprecated
  */
 function siw_get_date_range_in_text( $date_start, $date_end, $year = true ) {
 	//als beide datums gelijk zijn gebruik dan siw_get_date_in_text
@@ -111,6 +115,8 @@ function siw_get_month_name_from_slug( $slug ) {
  * @param bool $year Jaar toevoegen aan tekst
  *
  * @return string
+ *
+ * @deprecated
  */
 function siw_get_month_in_text( $date, $year = true ) {
 	$format = $year ? 'F Y' :  'F';
@@ -128,6 +134,8 @@ function siw_get_month_in_text( $date, $year = true ) {
  * @param bool $year jaar toevoegen aan tekst
  *
  * @return string
+ *
+ * @deprecated
  */
 function siw_get_month_range_in_text( $date_start, $date_end, $year = true ) {
 
@@ -164,6 +172,6 @@ function siw_get_month_range_in_text( $date_start, $date_end, $year = true ) {
  */
 function siw_get_timestamp_in_gmt( $timestamp ) {
 
-	$timestamp_in_gmt = strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $timestamp ) ) . ' GMT' ); 
+	$timestamp_in_gmt = strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $timestamp ) ) . ' GMT' );
 	return $timestamp_in_gmt;
 }

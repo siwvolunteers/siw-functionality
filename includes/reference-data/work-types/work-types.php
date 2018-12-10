@@ -27,8 +27,8 @@ function siw_get_work_types( $context = 'all', $index = 'slug' ) {
 
 	/**
 	 * Gegevens van soorten werk
-	 * 
-	 * @param $data Eigenschappen van soort werk {slug|plato|name|dutch_projects|tailor_made_projects}
+	 *
+	 * @param array $data Eigenschappen van soort werk {slug|plato|name|dutch_projects|tailor_made_projects}
 	 */
 	$data = apply_filters( 'siw_work_types_data', $data );
 
@@ -45,10 +45,11 @@ function siw_get_work_types( $context = 'all', $index = 'slug' ) {
 	return $work_types;
 }
 
-
 /**
  * Geeft informatie over soort werk terug
  *
+ * @param string $work_type
+ * @param string $index
  * @return SIW_Work_Type
  */
 function siw_get_work_type( $work_type, $index = 'slug' ) {

@@ -30,25 +30,16 @@ define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . '/includes' );
 define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
 define ( 'SIW_VENDOR_URL', SIW_ASSETS_URL . 'vendor/' );
-define ( 'SIW_PLUGIN_VERSION', '1.8.4' );
+define ( 'SIW_PLUGIN_VERSION', '1.9' );
 define ( 'SIW_AJAX_URL', SIW_PLUGIN_URL . 'ajax-handler.php' );
 define ( 'SIW_SITE_URL', get_home_url() );
 define ( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL )['host'] );
 
-/*
- * Hulp-plugins
- * - WP MultiFilter (https://github.com/khromov/wp-multifilter)
- * - Rapid Add-On (https://github.com/soflyy/wp-all-import-rapid-addon)
- * - WordPress Widgets Helper Class (https://github.com/alessandrotesoro/wp-widgets-helper)
- * - WP Background Processing (https://github.com/A5hleyRich/wp-background-processing)
- * - wp_parse_args_recursive (https://github.com/kallookoo/wp_parse_args_recursive)
- */
-require_once( SIW_VENDOR_DIR . '/wp-multifilter.php' );
+/* Hulp-plugins */
+require_once( SIW_PLUGIN_DIR . '/vendor/autoload.php' );
 require_once( SIW_VENDOR_DIR . '/rapid-addon.php' );
 require_once( SIW_VENDOR_DIR . '/wp-widgets-helper.php' );
-require_once( SIW_VENDOR_DIR . '/wp-async-request.php' );
-require_once( SIW_VENDOR_DIR . '/wp-background-process.php' );
-require_once( SIW_VENDOR_DIR . '/wp-parse-args-recursive.php' );
+
 
 /* Basisfunctionaliteit: referentiegegevens, functies en instellingen */
 require_once( SIW_INCLUDES_DIR . '/reference-data/init.php' );
@@ -81,3 +72,13 @@ require_once( SIW_INCLUDES_DIR . '/topbar/init.php' );
 require_once( SIW_INCLUDES_DIR . '/widgets/init.php' );
 require_once( SIW_INCLUDES_DIR . '/woocommerce/init.php' );
 require_once( SIW_INCLUDES_DIR . '/workcamps/init.php' );
+
+
+require_once( SIW_INCLUDES_DIR . '/class-siw-properties.php' );
+
+
+
+require_once( SIW_INCLUDES_DIR . '/class-siw-formatting.php' );
+
+
+
