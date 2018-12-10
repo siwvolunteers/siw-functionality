@@ -1,0 +1,29 @@
+.siw-social {
+  text-align: center;
+}
+
+.siw-social .title {
+  padding-bottom: 15px;
+  font-weight: bold;
+}
+
+.siw-social a {
+  padding: 5px;
+  margin: 5px;
+  font-size: 18px;
+  border-top: 3px solid;
+  color: #cfcfcf;
+}
+
+.siw-social .twitter:hover {
+  color: #00aced;
+  border-color: #00aced;
+}
+
+.siw-social .facebook:hover {
+  color: #3b5998;
+}
+
+.siw-social .linkedin:hover {
+  color: #007bb6;
+}

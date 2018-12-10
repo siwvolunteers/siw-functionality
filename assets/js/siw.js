@@ -2,17 +2,6 @@
 (c)2015-2017 SIW Internationale vrijwilligersprojecten
 */
 
-//Wrapper om ga i.v.m. ingelogde gebruikers
-function siwGa( type, category, action, label ) {
-	if ( 'function' == typeof ga ) {
-		ga( 'send', type, category, action, label );
-	}
-}
-
-//Google Analytics event voor Caldera Forms
-function siwSendGaFormSubmissionEvent( obj ) {
-	siwGa( 'event', obj.form_id, 'Verzenden' );
-}
 
 function siwPostcodeLookup( postcodeSelector, housenumberSelector, streetSelector, citySelector ) {
 	var postcode = jQuery( postcodeSelector ).val().replace( / /g, '' ).toUpperCase();
@@ -84,35 +73,7 @@ return false;
 		$( document ).scrollTo( $( '.kad-shop-top' ), 800 );
 	});
 
-	/* GA-events:
-	 * - Klikken topbar
-	 * - Social shares
-	 * - Downloaden document
-	 * - Klikken op externe link
-	 */
-	$( document ).on( 'click', '#topbar_link', function() {
-		siwGa( 'event', 'Topbar', 'Klikken', this.href );
-	});
 
-	$( document ).on( 'click', '.siw-social .facebook', function() {
-		siwGa( 'social', 'Facebook', 'Delen', window.location.href );
-	});
-
-	$( document ).on( 'click', '.siw-social .twitter', function() {
-		siwGa( 'social', 'Twitter', 'Delen', window.location.href );
-	});
-
-	$( document ).on( 'click', '.siw-social .linkedin', function() {
-		siwGa( 'social', 'LinkedIn', 'Delen', window.location.href );
-	});
-
-	$( document ).on( 'click', '.siw-download', function() {
-		siwGa( 'event', 'Document', 'Downloaden', this.href );
-	});
-
-	$( document ).on( 'click', '.siw-external-link', function() {
-		siwGa( 'event', 'Externe link', 'Klikken', this.href );
-	});
 
 	$( '#siw_newsletter_subscription' ).submit(function( event ) {
 

@@ -14,11 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SIW_Cookie_Notification {
 	
 	/**
+	 * Undocumented function
+	 *
 	 * @return void
 	 */
-	public function __construct() {
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles'] );
+	public static function init() {
+		$self = new self();
+		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_scripts' ] );
+		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles'] );
+		add_action( 'wp_footer', [ $self, 'render'] );
 	}
 
 	/**
