@@ -81,16 +81,3 @@ add_action( 'admin_enqueue_scripts', function() {
 	wp_enqueue_style( 'siw-admin' );
 });
 
-
-
-/* Functies om scripts alleen te laden indien nodig */
-add_action( 'wp_enqueue_scripts', function() {
-	/*variatie als radiobuttons*/
-	if ( ! is_product() ) {
-		wp_dequeue_script( 'kt-wc-add-to-cart-variation-radio' );
-	}
-
-	/*Mailpoet*/
-	wp_deregister_style( 'validate-engine-css' );
-
-}, 999 );

@@ -81,22 +81,6 @@ add_action( 'admin_notices', function () {
 });
 
 
-
-/*
- * Exra metaboxes verbergen
- * - Video tab
- * - sidebar
- * - Kad custom tabs
- * - Subtitle
-*/
-add_action( 'init', function(){
-	remove_filter( 'cmb2_admin_init', 'pinnacle_product_metaboxes');
-	remove_filter( 'cmb2_admin_init', 'pinnacle_productvideo_metaboxes');
-	remove_filter( 'cmb2_admin_init', 'pinnacle_product_tab_metaboxes');
-} );
-
-
-
 /*
  * Admin columns verbergen
  * - Producttype

@@ -64,13 +64,12 @@ require_once( SIW_INCLUDES_DIR . '/email/init.php');
 require_once( SIW_INCLUDES_DIR . '/forms/init.php' );
 require_once( SIW_INCLUDES_DIR . '/maps/maps.php' );
 require_once( SIW_INCLUDES_DIR . '/modules/modules.php' );
-require_once( SIW_INCLUDES_DIR . '/pagebuilder/init.php' );
 require_once( SIW_INCLUDES_DIR . '/post-types/init.php' );
 require_once( SIW_INCLUDES_DIR . '/widgets/init.php' );
 require_once( SIW_INCLUDES_DIR . '/woocommerce/init.php' );
 require_once( SIW_INCLUDES_DIR . '/workcamps/init.php' );
 
-
+require_once( SIW_INCLUDES_DIR . '/compatibility/compatibility.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-properties.php' );
 
 

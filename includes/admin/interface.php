@@ -157,19 +157,6 @@ add_action( 'admin_init', function() {
 	remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
 	remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
 	remove_meta_box( 'dashboard_primary', 'dashboard', 'normal' );
-	remove_meta_box( 'so-dashboard-news', 'dashboard', 'normal' );
-});
-
-
-/*
- * Metaboxes van plugins verwijderen:
- * - WooCommerce
- * - Redux Framework
- */
-add_action( 'do_meta_boxes', function() {
-	remove_meta_box( 'woocommerce_dashboard_recent_reviews', 'dashboard', 'normal' );
-	remove_meta_box( 'woocommerce_dashboard_status', 'dashboard', 'normal' );
-	remove_meta_box( 'redux_dashboard_widget', 'dashboard', 'side' );
 });
 
 
@@ -204,16 +191,6 @@ function siw_menu_array_search( $find, $items ) {
 	}
 	return false;
 }
-
-
-/* YITH premium nags verwijderen */
-add_filter( 'yit_plugin_panel_menu_page_show',  '__return_false' );
-
-add_filter( 'yit_show_upgrade_to_premium_version',  '__return_false' );
-add_filter( 'yith_wcan_settings_tabs', function( $admin_tabs ) {
-	unset( $admin_tabs['premium'] );
-	return $admin_tabs;
-});
 
 
 /* Copyright in admin footer */

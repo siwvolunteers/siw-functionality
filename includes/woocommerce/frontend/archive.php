@@ -10,43 +10,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Aanpassen diverse woocommerce-hooks voor archive
  * - Prijs verbergen
  * - Add to cart verbergen
- * - AJAX-filtering ook op zoekresultaten-pagina
- * - Trailing slash toevoegen bij AJAX-filtering
-*/
+ */
 add_action( 'plugins_loaded', function() {
 	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
 	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
 	remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 ); //TODO: eventueel alleen als kortingsactie actief is
-	add_filter( 'yith_wcan_untrailingslashit', '__return_false' );
-	add_filter( 'yith_wcan_is_search', '__return_false' );
-	add_filter( 'yith_wcan_hide_out_of_stock_items', '__return_true' );
-	add_filter( 'yith_wcan_skip_layered_nav_query', '__return_false', 999 );
 } );
 
 /* Pinnacle sales badge verwijderen. TODO: kan weg na switch theme */
 add_action( 'init', function() {
 	remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_show_product_loop_sale_flash', 5 );
 }, 999 );
-
-
-/* AJAX-filtering: Maanden niet filteren op alfabet maar op slug*/
-add_filter( 'yith_wcan_get_terms_list', function ( $terms, $taxonomy, $instance ) {
-	if ( 'pa_maand' != $taxonomy ) {
-		return $terms;
-	}
-	foreach ( $terms as $index=>$term ) {
-		$ordered_term_indices[ $index ] = $term->slug;
-	}
-	asort( $ordered_term_indices, SORT_STRING );
-	$order = array_keys( $ordered_term_indices );
-
-	uksort( $terms, function( $key1, $key2 ) use ( $order ) {
-		return ( array_search( $key1, $order ) > array_search( $key2, $order ) );
-	} );
-
-	return $terms;
-}, 10, 3 );
-
 
 /* Verberg AJAX-filter van land, doelgroep of maand op desbetreffende landingspagina */
 add_filter( 'sidebars_widgets', function( $sidebars_widgets ) {

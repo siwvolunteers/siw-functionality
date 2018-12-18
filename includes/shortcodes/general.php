@@ -190,11 +190,6 @@ add_shortcode( 'siw_jaarverslagen', function() {
 siw_add_shortcode( 'siw_jaarverslagen', array( 'title' => __( 'Jaarverslagen', 'siw' ) ) );
 
 
-/* Footer credits */
-add_shortcode( 'siw_footer', function() {
-	return sprintf( '&copy; %s %s', current_time( 'Y' ), SIW_NAME );
-});
-
 
 /* Externe link */
 add_shortcode( 'siw_externe_link', function( $atts ) {
