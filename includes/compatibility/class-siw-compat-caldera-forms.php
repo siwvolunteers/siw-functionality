@@ -11,14 +11,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author    Maarten Bruna
  * 
  * @uses      SIW_Properties
+ * @uses      SIW_Util
  */
 
-class SIW_Caldera_Forms{ 
+class SIW_Compat_Caldera_Forms{ 
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 		
@@ -55,7 +54,7 @@ class SIW_Caldera_Forms{
 	 * Zorgt ervoor dat Magic tags in links toegestaan zijn
 	 *
 	 * @param array $protocols
-	 * @return void
+	 * @return array
 	 */
 	public function allow_magic_tags( $protocols ) {
 		$protocols[] = '{embed_post';
@@ -64,8 +63,6 @@ class SIW_Caldera_Forms{
 
 	/**
 	 * Verwijdert wpautop van e-mails
-	 *
-	 * @return void
 	 */
 	public function disable_wpautop() {
 		remove_filter( 'caldera_forms_mailer', array( Caldera_Forms::get_instance(), 'format_message' ) );
@@ -106,26 +103,18 @@ class SIW_Caldera_Forms{
 	 *
 	 * @param array $attrs
 	 * @param array $field
-	 * @return void
-	 * 
-	 * @uses siw_get_regex()
+	 * @return array
 	 */
 	public function set_validation_field_attributes( $attrs, $field ) {
 		if ( 'geboortedatum' === $field['ID'] ) {
 			$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige datum.', 'siw' );
-			$attrs[ 'data-parsley-pattern' ] = siw_get_regex( 'date' );
+			$attrs[ 'data-parsley-pattern' ] = SIW_Util::get_regex( 'date' );
 		}
 	
 		if ( 'postcode' === $field['ID'] ) {
 			$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige postcode.', 'siw' );
-			$attrs[ 'data-parsley-pattern' ] = siw_get_regex( 'postal_code' );
+			$attrs[ 'data-parsley-pattern' ] = SIW_Util::get_regex( 'postal_code' );
 		}
-	
 		return $attrs;
 	}
 }
-
-
-
-
-

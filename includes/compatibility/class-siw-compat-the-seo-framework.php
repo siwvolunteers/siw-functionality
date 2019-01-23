@@ -13,12 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @uses      SIW_Properties
  */
 
-class SIW_The_SEO_Framework {
+class SIW_Compat_The_SEO_Framework {
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 
@@ -39,6 +37,8 @@ class SIW_The_SEO_Framework {
 		add_filter( 'the_seo_framework_sitemap_color_accent', [ $self, 'set_sitemap_color_accent' ] );
 		add_filter( 'the_seo_framework_sitemap_custom_posts_count', [ $self, 'set_sitemap_custom_posts_count' ] );
 		add_filter( 'the_seo_framework_sitemap_cpt_query_args', [ $self, 'set_sitemap_cpt_query_args' ] );
+		add_filter( 'the_seo_framework_sitemap_exclude_cpt', [ $self, 'set_sitemap_excluded_cpt'] );
+		add_filter( 'the_seo_framework_sitemap_additional_urls', [ $self, 'set_sitemap_additional_urls' ] );
 
 		/* Naam auteur SEO framework niet in HTML tonen */
 		add_filter( 'sybre_waaijer_<3', '__return_false' );
@@ -108,28 +108,25 @@ class SIW_The_SEO_Framework {
 	 */
 	public function set_sitemap_cpt_query_args( $args ) {
 		$args['meta_query'] = [
-			'relation'	=> 'OR',
+			'relation' => 'OR',
 			[
-				'key'		=> '_genesis_noindex',
-				'value'		=> 0,
-				'compare'	=> '=',
+				'key'     => '_genesis_noindex',
+				'value'   => 0,
+				'compare' => '=',
 			],
 			[
-				'key'		=> '_genesis_noindex',
-				'compare'	=> 'NOT EXISTS',
+				'key'     => '_genesis_noindex',
+				'compare' => 'NOT EXISTS',
 			],
 		];
 		return $args;
 	}
 
-
 	/**
 	 * Voegt bots toe aan robot.txt
 	 *
 	 * @param string $output
-	 * @return void
-	 * 
-	 * @uses siw_get_setting()
+	 * @return string
 	 */
 	public function set_robots_txt( $output ) {
 		$bots = siw_get_setting( 'blocked_bots');
@@ -147,4 +144,50 @@ class SIW_The_SEO_Framework {
 		return $output;
 	}
 
+	/**
+	 * Verwijdert CPT's uit sitempa
+	 *
+	 * @param array $excluded_cpt
+	 * @return array
+	 */
+	public function set_sitemap_excluded_cpt( $excluded_cpt ) {
+		$excluded_cpt[] = 'testimonial';
+
+		if ( ! SIW_i18n::is_default_language() ) {
+			$excluded_cpt[] = 'product';
+			$excluded_cpt[] = 'wpm-testimonial';
+			$excluded_cpt[] = 'agenda';
+			$excluded_cpt[] = 'vacatures';
+			$excluded_cpt[] = 'portfolio';
+		}
+	
+		return $excluded_cpt;
+	}
+
+	/**
+	 * Productarchieven toevoegen aan de sitemap 
+	 *
+	 * @param array $custom_urls
+	 */
+	public function set_sitemap_additional_urls( $custom_urls ) {
+		
+		if ( ! SIW_i18n::is_default_language() ) {
+			return $custom_urls;
+		}
+		$taxonomies = [
+			'product_cat',
+			'pa_land',
+			'pa_doelgroep',
+			'pa_soort-werk',
+			'pa_taal',
+		];
+	
+		foreach ( $taxonomies as $taxonomy ) {
+			$terms = get_terms( $taxonomy, [ 'hide_empty' => true ] );
+			foreach ( $terms as $term ) {
+				$custom_urls[] = get_term_link( $term->slug, $term->taxonomy );
+			}
+		}
+		return $custom_urls;
+	}
 }

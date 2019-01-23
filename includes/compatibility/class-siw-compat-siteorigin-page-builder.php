@@ -11,12 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author      Maarten Bruna
  */
 
-class SIW_SiteOrigin_Page_Builder {
+class SIW_Compat_SiteOrigin_Page_Builder {
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 
@@ -25,21 +23,18 @@ class SIW_SiteOrigin_Page_Builder {
 		}
 		$self = new self();
 		add_action( 'admin_init', [ $self, 'remove_dashboard_widget' ] );
-		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], PHP_INT_MAX );
+		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
 		add_filter( 'siteorigin_panels_widget_style_groups', [ $self, 'add_visibility_style_group'] );
 		add_filter( 'siteorigin_panels_row_style_groups', [ $self, 'add_visibility_style_group'] );
 		add_filter( 'siteorigin_panels_widget_style_fields', [ $self, 'add_visibility_style_fields'] );
 		add_filter( 'siteorigin_panels_row_style_fields', [ $self, 'add_visibility_style_fields'] );
 		add_filter( 'siteorigin_panels_widget_style_attributes', [ $self, 'add_visibility_style_attributes'], 10, 2 );
 		add_filter( 'siteorigin_panels_cell_style_attributes', [ $self, 'add_visibility_style_attributes'], 10, 2 );
-
 		add_filter( 'siteorigin_panels_widget_dialog_tabs', [ $self, 'add_widget_tab'] );
 	}
 
 	/**
 	 * Verwijdert dashboard widget
-	 *
-	 * @return void
 	 */
 	public function remove_dashboard_widget() {
 		remove_meta_box( 'so-dashboard-news', 'dashboard', 'normal' );
@@ -47,8 +42,6 @@ class SIW_SiteOrigin_Page_Builder {
 
 	/**
 	 * Verwijdert Page Builder widgets
-	 *
-	 * @return void
 	 */
 	public function unregister_widgets() {
 		unregister_widget( 'SiteOrigin_Panels_Widgets_PostContent' );
@@ -56,7 +49,6 @@ class SIW_SiteOrigin_Page_Builder {
 		unregister_widget( 'SiteOrigin_Panels_Widgets_Layout' );
 		unregister_widget( 'SiteOrigin_Panels_Widgets_Gallery' );
 	}
-
 
 	/**
 	 * Voegt optiegroep voor zichtbaarheid toe
@@ -123,7 +115,7 @@ class SIW_SiteOrigin_Page_Builder {
 	 */
 	public function add_widget_tab( $tabs ) {
 		$tabs[] = [
-			'title' => __( 'SIW Widgets', 'siw' ),
+			'title'  => __( 'SIW Widgets', 'siw' ),
 			'filter' => [
 				'groups' => [ 'siw' ],
 			],

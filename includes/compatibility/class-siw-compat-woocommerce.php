@@ -7,17 +7,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Aanpassingen voor WooCommerce
  * 
- * @package     SIW\Compatibility
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
- * @author      Maarten Bruna
+ * @package   SIW\Compatibility
+ * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @author    Maarten Bruna
  */
 
-class SIW_WooCommerce {
+class SIW_Compat_WooCommerce {
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 
@@ -26,13 +24,15 @@ class SIW_WooCommerce {
 		}
 		$self = new self();
 
-		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], PHP_INT_MAX );
+		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
 
 		$self->set_log_handler();
 		add_filter( 'woocommerce_register_log_handlers', [ $self, 'register_log_handlers' ], PHP_INT_MAX );
 		add_filter( 'woocommerce_status_log_items_per_page', [ $self, 'set_log_items_per_page' ] );
 		add_filter( 'nonce_user_logged_out', [ $self, 'reset_nonce_user_logged_out' ], PHP_INT_MAX, 2 );
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
+		add_filter( 'product_type_selector', [ $self, 'disable_product_types'] );
+		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_project_id_search' ], 10, 2 );
 
 		/* Wachtwoord-reset niet via WooCommerce maar via standaard WordPress-methode */
 		remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
@@ -110,7 +110,7 @@ class SIW_WooCommerce {
 	 *
 	 * @param string $user_id
 	 * @param string $action
-	 * @return void
+	 * @return string
 	 */
 	public function reset_nonce_user_logged_out( $user_id, $action ) {
 		$nonces = [
@@ -128,13 +128,40 @@ class SIW_WooCommerce {
 
 	/**
 	 * Verwijdert dashboard widgets
-	 *
-	 * @return void
 	 */
 	public function remove_dashboard_widgets() {
 		remove_meta_box( 'woocommerce_dashboard_recent_reviews', 'dashboard', 'normal' );
 		remove_meta_box( 'woocommerce_dashboard_status', 'dashboard', 'normal' );
 	}
 
-}
+	/**
+	 * Schakelt ongebruikte product types uit 
+	 *
+	 * @param array $product_types
+	 * @return array
+	 */
+	public function disable_product_types( $product_types ) {
+		unset( $product_types['simple'] );
+		unset( $product_types['grouped'] );
+		unset( $product_types['external'] );
+		return $product_types;
+	}
 
+	/**
+	 * Voegt project_id als argument toe aan WC queries
+	 *
+	 * @param array $query
+	 * @param array $query_vars
+	 * @return array
+	 */
+	public function enable_project_id_search( $query, $query_vars ) {
+		if ( ! empty( $query_vars['project_id'] ) ) {
+			$query['meta_query'][] = [
+				'key'   => 'project_id',
+				'value' => esc_attr( $query_vars['project_id'] ),
+			];
+		}
+		return $query;
+	}
+
+}

@@ -11,12 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author      Maarten Bruna
  */
 
-class SIW_WP_Rocket {
+class SIW_Compat_WP_Rocket {
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 
@@ -30,7 +28,6 @@ class SIW_WP_Rocket {
 		add_filter( 'rocket_youtube_thumbnail_resolution', [ $self, 'set_youtube_thumbnail_resolution' ] );
 		add_filter( 'rocket_excluded_inline_js_content', [ $self, 'set_excluded_inline_js_content' ] );
 		
-		/* WP Rocket White Label */
 		define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true );
 	}
 
@@ -38,7 +35,7 @@ class SIW_WP_Rocket {
 	 * JS-bestanden uitsluiten van minification/concatenation
 	 *
 	 * @param array $excluded_files
-	 * @return void
+	 * @return array
 	 */
 	public function set_excluded_js( $excluded_files ) {
 		$excluded_files[] = '/wp-content/plugins/caldera-forms/assets/build/js/conditionals.min.js';
@@ -52,7 +49,7 @@ class SIW_WP_Rocket {
 	 * - Google Analytics
 	 *
 	 * @param array $excluded_domains
-	 * @return void
+	 * @return array
 	 */
 	public function set_excluded_external_js( $excluded_domains ) {
 		$excluded_domains[] = 'www.google-analytics.com';
@@ -63,7 +60,7 @@ class SIW_WP_Rocket {
 	 * Zet hogere resolutie van YouTube-thumbnail
 	 *
 	 * @param string $thumbnail_resolution
-	 * @return void
+	 * @return string
 	 */
 	public function set_youtube_thumbnail_resolution( $thumbnail_resolution ) {
 		$thumbnail_resolution = 'maxresdefault';
@@ -79,7 +76,7 @@ class SIW_WP_Rocket {
 	 * - Pinnacle Google Maps
 	 *
 	 * @param array $content
-	 * @return void
+	 * @return array
 	 */
 	public function set_excluded_inline_js_content( $content ) {
 		$content[] = 'tvc_id';

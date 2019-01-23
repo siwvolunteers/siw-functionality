@@ -10,19 +10,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  * 
- * @uses        SIW_Propertiesd
+ * @uses        SIW_Properties
  */
-
-class SIW_WordPress {
+class SIW_Compat_WordPress {
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 		$self = new self();
-		add_action( 'widgets_init', [ $self, 'unregister_widgets'], PHP_INT_MAX );
+		add_action( 'widgets_init', [ $self, 'unregister_widgets'], 99 );
 		add_filter( 'nonce_life', [ $self, 'set_nonce_life' ] );
 		add_filter( 'oembed_response_data', [ $self, 'set_oembed_response_data' ] );
 		add_filter( 'rest_url_prefix', [ $self, 'set_rest_url_prefix' ] );
@@ -31,7 +28,15 @@ class SIW_WordPress {
 		add_action( 'init', [ $self, 'add_page_excerpt_support'] );
 		add_action( 'core_version_check_query_args', [ $self, 'remove_core_version_check_query_args'] );
 
-		add_actions( [ 'do_feed','do_feed_rdf','do_feed_rss','do_feed_rss2','do_feed_atom','do_feed_rss2_comments','do_feed_atom_comments' ], [ $self, 'disable_feed' ] , 1 );
+		add_action( 'do_feed', [ $self, 'disable_feed' ] , 1 );
+		add_action( 'do_feed_rdf', [ $self, 'disable_feed' ] , 1 );
+		add_action( 'do_feed_rss', [ $self, 'disable_feed' ] , 1 );
+		add_action( 'do_feed_rss2', [ $self, 'disable_feed' ] , 1 );
+		add_action( 'do_feed_atom', [ $self, 'disable_feed' ] , 1 );
+		add_action( 'do_feed_rss2_comments', [ $self, 'disable_feed' ] , 1 );
+		add_action( 'do_feed_atom_comments', [ $self, 'disable_feed' ] , 1 );
+
+		add_filter( '404_template', [ $self, 'set_404_template']);
 
 		/* Shortcodes mogelijk maken in text widget */
 		add_filter( 'widget_text', 'do_shortcode' );
@@ -50,8 +55,6 @@ class SIW_WordPress {
 
 	/**
 	 * Verwijdert standaard-widgets
-	 *
-	 * @return void
 	 */
 	public function unregister_widgets() {
 		unregister_widget( 'WP_Widget_Pages' );
@@ -115,21 +118,16 @@ class SIW_WordPress {
 	}
 
 	/**
-	 * Undocumented function
-	 *
-	 * @return void
+	 * Voegt support voor custom logo toe
 	 */
 	public function add_custom_logo_support() {
 		add_theme_support( 'custom-logo' );
 	}
 
 	/**
-	 * Undocumented function
-	 *
-	 * @return void
+	 * Voegt samenvatting voor pagina's toe
 	 */
 	public function add_page_excerpt_support() {
-		/* Samenvatting toevoegen aan pagina's i.v.m. lokale zoekfunctie */
 		add_post_type_support( 'page', 'excerpt' );
 	}
 
@@ -150,11 +148,19 @@ class SIW_WordPress {
 
 	/**
 	 * Schakelt feed uit
-	 *
-	 * @return void
 	 */
 	public function disable_feed() {
 		wp_die( __( 'SIW heeft geen feed.', 'siw' ) );
 	}
 
+	/**
+	 * Overschrijft 404-template
+	 *
+	 * @param string $template
+	 * @return string
+	 */
+	public function set_404_template( $template ) {
+		$template = SIW_TEMPLATES_DIR . '/404.php';
+		return $template;
+	}
 }

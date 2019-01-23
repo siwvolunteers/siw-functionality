@@ -11,21 +11,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author      Maarten Bruna
  */
 
-class SIW_YITH {
+class SIW_Compat_YITH_WCAN {
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
-		if ( ! class_exists( 'YITH_WCAN' ) ) {
+		if ( ! defined( 'YITH_WCAN' ) ) {
 			return;
 		}
 
 		$self = new self();
 		add_filter( 'yith_wcan_settings_tabs', [ $self, 'remove_premium_tab' ] );
 		add_filter( 'yith_wcan_get_terms_list', [ $self, 'order_terms' ], 10, 3 );
+		add_filter( 'yith_wcan_body_class', '__return_empty_string' );
 
 		/* Aanpassen diverse woocommerce-hooks voor archive */
 		add_filter( 'yith_wcan_untrailingslashit', '__return_false' );
@@ -42,7 +41,7 @@ class SIW_YITH {
 	 * Verwijdert premium tabs
 	 *
 	 * @param array $admin_tabs
-	 * @return void
+	 * @return array
 	 */
 	public function remove_premium_tab( $admin_tabs ) {
 		unset( $admin_tabs['premium'] );
@@ -55,7 +54,6 @@ class SIW_YITH {
 	 * @param array $terms
 	 * @param string $taxonomy
 	 * @param YITH_WCAN_Navigation_Widget $instance
-	 * 
 	 * @return array
 	 */
 	public function order_terms( $terms, $taxonomy, $instance ) {

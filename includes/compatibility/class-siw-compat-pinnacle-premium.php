@@ -11,14 +11,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author    Maarten Bruna
  * 
  * @uses      SIW_Formatting
+ * @uses      SIW_i18n
  */
 
-class SIW_Pinnacle_Premium { 
+class SIW_Compat_Pinnacle_Premium { 
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 
@@ -26,8 +25,9 @@ class SIW_Pinnacle_Premium {
 		add_filter( 'kad_lazy_load', [ $self, 'set_lazy_load' ] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'dequeue_scripts' ], PHP_INT_MAX );
 		add_filter( 'redux/pinnacle/field/typography/custom_fonts', [ $self, 'add_system_font' ] );
-		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], PHP_INT_MAX );
+		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
 		add_action( 'admin_init', [ $self, 'remove_user_fields' ] );
+		add_action( 'admin_init', [ $self, 'remove_gallery_admin_script'] ) ;
 		add_action( 'init', [ $self, 'remove_metaboxes' ] );
 		add_action( 'admin_bar_menu', [ $self, 'hide_admin_bar_node' ], PHP_INT_MAX );
 		add_filter( 'siteorigin_panels_widget_dialog_tabs', [ $self, 'add_widget_tab'] );
@@ -41,10 +41,12 @@ class SIW_Pinnacle_Premium {
 		add_action( 'init', [ $self, 'remove_wc_sales_badge' ], PHP_INT_MAX );
 		add_shortcode( 'siw_footer', __CLASS__ . '::footer_shortcode' );
 
+		add_filter( "theme_page_templates", [ $self, 'add_page_templates'], 10, 4 );
+
 		$self->set_permalink_slugs();
 		$self->set_capabilities();
 	}
-		
+
 	/**
 	 * Onderdrukt Kadence lazy load
 	 *
@@ -60,8 +62,6 @@ class SIW_Pinnacle_Premium {
 
 	/**
 	 * Laadt script alleen op product-pagina
-	 *
-	 * @return void
 	 */
 	public function dequeue_scripts() {
 		if ( ! is_product() ) {
@@ -86,8 +86,6 @@ class SIW_Pinnacle_Premium {
 
 	/**
 	 * Verwijdert Pinnacle widgets
-	 *
-	 * @return void
 	 */
 	public function unregister_widgets() {
 		unregister_widget( 'kad_contact_widget' );
@@ -100,8 +98,6 @@ class SIW_Pinnacle_Premium {
 
 	/**
 	 * Verwijdert extra gebruikersvelden Pinnacle Premium
-	 *
-	 * @return void
 	 */
 	public function remove_user_fields() {
 		remove_action( 'show_user_profile', 'kt_show_extra_profile_fields' );
@@ -112,8 +108,6 @@ class SIW_Pinnacle_Premium {
 
 	/**
 	 * Verwijdert extra meta-boxes
-	 *
-	 * @return void
 	 */
 	public function remove_metaboxes() {
 		remove_filter( 'cmb2_admin_init', 'pinnacle_page_metaboxes' );
@@ -136,7 +130,6 @@ class SIW_Pinnacle_Premium {
 	 * - Portfolio tag
 	 * - Staff
 	 * - Staff group
-	 * @return void
 	 */
 	protected function set_permalink_slugs() {
 		add_filter( 'kadence_portfolio_type_slug', function() { return 'projecten-op-maat-in'; } );
@@ -146,9 +139,7 @@ class SIW_Pinnacle_Premium {
 	}
 
 	/**
-	 * Voergt custom capabilities toe voor Pinnacle Premium CPT's
-	 *
-	 * @return void
+	 * Voegt custom capabilities toe voor Pinnacle Premium CPT's
 	 */
 	protected function set_capabilities() {
 		add_filter( 'kadence_portfolio_capability_type', function() { return 'op_maat_project'; } );
@@ -160,9 +151,7 @@ class SIW_Pinnacle_Premium {
 	}
 
 	/**
-	 * Verbert Admin Bar node
-	 *
-	 * @return void
+	 * Verbergt Admin Bar node
 	 */
 	public function hide_admin_bar_node( $wp_admin_bar ) {
 		$wp_admin_bar->remove_node( 'ktoptions' );		
@@ -172,11 +161,11 @@ class SIW_Pinnacle_Premium {
 	 * Voegt SiteOrigin-tab toe voor Pinnacle widgets
 	 *
 	 * @param array $tabs
-	 * @return void
+	 * @return array
 	 */
 	public function add_widget_tab( $tabs ) {
 		$tabs[] = [
-			'title' => __( 'Pinnacle Widgets', 'siw' ),
+			'title'  => __( 'Pinnacle Widgets', 'siw' ),
 			'filter' => ['groups' => ['kad'] ],
 		];
 		return $tabs;
@@ -198,24 +187,20 @@ class SIW_Pinnacle_Premium {
 	}
 
 	/**
-	 * Undocumented function
-	 *
-	 * @return void
+	 * Toont knop met uitleg over Op Maat bij elk project
 	 */
 	public function add_tailor_made_page_button() {
-		$op_maat_page_link = siw_get_translated_page_link( siw_get_setting( 'op_maat_page' ) );
-		echo SIW_Formatting::generate_link(  $op_maat_page_link, __( 'Alles over Projecten Op Maat', 'siw' ), 'kad-btn kad-btn-primary' );	
+		$op_maat_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'op_maat_page' ) );
+		echo SIW_Formatting::generate_link( $op_maat_page_link, __( 'Alles over Projecten Op Maat', 'siw' ), [ 'class' => 'kad-btn kad-btn-primary' ] );	
 	}
 
 	/**
 	 * Toont categorie-afbeelding op product-pagina
-	 *
-	 * @return void
 	 */
 	public function show_category_image_on_product_page() {
 		if ( class_exists( 'woocommerce' ) && is_product() ) {
 			global $post;
-			if ( $terms = wp_get_post_terms( $post->ID, 'product_cat', array( 'orderby' => 'parent', 'order' => 'DESC' ) ) ) {
+			if ( $terms = wp_get_post_terms( $post->ID, 'product_cat', [ 'orderby' => 'parent', 'order' => 'DESC' ] ) ) {
 				$main_term = $terms[0];
 				$meta = get_option( 'product_cat_pageheader' );
 				if ( empty( $meta ) ) {
@@ -224,7 +209,7 @@ class SIW_Pinnacle_Premium {
 				if ( ! is_array( $meta ) ) {
 					$meta = (array) $meta;
 				}
-				$meta = isset( $meta[ $main_term->term_id ] ) ? $meta[ $main_term->term_id ] : array();
+				$meta = isset( $meta[ $main_term->term_id ] ) ? $meta[ $main_term->term_id ] : [];
 				if ( isset( $meta['kad_pagetitle_bg_image'] ) ) {
 					$bg_image_array = $meta['kad_pagetitle_bg_image'];
 					$src = wp_get_attachment_image_src( $bg_image_array[0], 'full' );
@@ -236,7 +221,7 @@ class SIW_Pinnacle_Premium {
 	}
 
 	/**
-	 * Undocumented function
+	 * Toont sidebar voor product archives
 	 *
 	 * @param bool $show_sidebar
 	 * @return bool
@@ -252,7 +237,7 @@ class SIW_Pinnacle_Premium {
 	}
 
 	/**
-	 * Undocumented function
+	 * Zet juiste sidebar voor product archives
 	 *
 	 * @param string $sidebar_id
 	 * @return string
@@ -274,8 +259,9 @@ class SIW_Pinnacle_Premium {
 	 * @return string
 	 */
 	public function add_portfolio_tsf_support( $post_type, $post_type_evaluated ) {
-		if ( 'portfolio' === $post_type_evaluated )
-		return $post_type_evaluated;
+		if ( 'portfolio' === $post_type_evaluated ) {
+			return $post_type_evaluated;
+		}
 	
 		return $post_type;
 	}
@@ -286,8 +272,6 @@ class SIW_Pinnacle_Premium {
 	 * - Evenementen
 	 * - Vacatures
 	 * - WooCommerce attribute archive pages
-	 *
-	 * @return void
 	 */
 	public function add_breadcrumbs() {
 		$delimiter = apply_filters('kadence_breadcrumb_delimiter', '/');
@@ -316,7 +300,7 @@ class SIW_Pinnacle_Premium {
 		}
 	
 		/* Parentpagina's van overzichtspagina */
-		$parent = siw_get_translated_page_id( $parent );
+		$parent = SIW_i18n::get_translated_page_id( $parent );
 		$ancestors = array_reverse( get_ancestors( $parent, 'page') );
 		foreach ( $ancestors as $ancestor ) {
 			printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter  );
@@ -329,8 +313,6 @@ class SIW_Pinnacle_Premium {
 
 	/**
 	 * Sales badge op product archive page verwijderen
-	 *
-	 * @return void
 	 */
 	public function remove_wc_sales_badge() {
 		remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_show_product_loop_sale_flash', 5 );
@@ -345,4 +327,36 @@ class SIW_Pinnacle_Premium {
 		return sprintf( '&copy; %s %s', current_time( 'Y' ), SIW_Properties::get('name') );
 	}
 
+	/**
+	 * Adminscript verwijderen ivm conflict
+	 */
+	public function remove_gallery_admin_script() {
+		remove_action( 'print_media_templates', 'kadence_media_gallery_extras' );
+	}
+
+	/**
+	 * Voegt pagina-templates toe
+	 *
+	 * @param array $post_templates
+	 * @param WP_Theme $wp_theme
+	 * @param WP_Post|null $post
+	 * @param string $post_type
+	 * @return array
+	 */
+	public function add_page_templates( $templates, $wp_theme, $post, $post_type ) {
+		$templates['template-agenda.php'] = 'Agenda';
+		$templates['template-vacatures-grid.php'] = 'Vacatures grid';
+		return $templates;
+	}
+
 }
+
+
+add_filter( 'page_template', function( $template, $type, $templates ) {
+
+	if ( in_array( 'template-agenda.php', $templates ) ) {
+		$template = SIW_TEMPLATES_DIR . '/template-agenda.php';
+	}
+
+	return $template;
+}, 10, 3 );

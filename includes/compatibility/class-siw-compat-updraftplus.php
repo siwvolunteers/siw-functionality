@@ -13,15 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  * 
- * @uses        siw_get_timestamp_in_gmt()
+ * @uses        SIW_Util
+ * @uses        SIW_Properties
  */
 
-class SIW_UpdraftPlus {
+class SIW_Compat_UpdraftPlus {
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 
@@ -33,7 +32,6 @@ class SIW_UpdraftPlus {
 		add_filter( 'updraftplus_schedule_firsttime_files', [ $self, 'set_time_files_backup'] ) ;
 		add_filter( 'updraftplus_blog_name', [ $self, 'set_backup_name' ] );
 		$self->hide_notifications();
-
 	}
 
 	/**
@@ -43,16 +41,11 @@ class SIW_UpdraftPlus {
 	 * @return int
 	 */
 	public function set_time_db_backup( $scheduled_time ) {
-		/*
-		* Instellen starttijd Updraft Plus backup
-		* - Database
-		* - Bestanden
-		*/
 		$tomorrow = strtotime( 'tomorrow' );
 		$backup_db_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
 	
-		$backup_db_ts = strtotime( $backup_db_day . ' ' . SIW_CRON_TS_BACKUP_DB );
-		$backup_db_ts_gmt = siw_get_timestamp_in_gmt( $backup_db_ts );
+		$backup_db_ts = strtotime( $backup_db_day . ' ' . SIW_Properties::get('ts_backup_db') );
+		$backup_db_ts_gmt = SIW_Util::convert_timestamp_to_gmt( $backup_db_ts );
 	
 		return $backup_db_ts_gmt;
 	}
@@ -67,8 +60,8 @@ class SIW_UpdraftPlus {
 		$tomorrow = strtotime( 'tomorrow');
 		$backup_files_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
 	
-		$backup_files_ts = strtotime( $backup_files_day . ' ' . SIW_CRON_TS_BACKUP_FILES );
-		$backup_files_ts_gmt = siw_get_timestamp_in_gmt( $backup_files_ts );
+		$backup_files_ts = strtotime( $backup_files_day . ' ' . SIW_Properties::get('ts_backup_files') );
+		$backup_files_ts_gmt = SIW_Util::convert_timestamp_to_gmt( $backup_files_ts );
 	
 		return $backup_files_ts_gmt;
 	}
@@ -86,8 +79,6 @@ class SIW_UpdraftPlus {
 
 	/**
 	 * Verbergt diverse UpdraftPlus notificaties
-	 *
-	 * @return void
 	 */
 	public function hide_notifications() {
 		define( 'UPDRAFTPLUS_NOADS_B', true );
@@ -95,5 +86,4 @@ class SIW_UpdraftPlus {
 		define( 'UPDRAFTPLUS_ADMINBAR_DISABLE', true );
 		define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
 	}
-
 }

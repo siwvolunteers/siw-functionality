@@ -9,34 +9,31 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - Welkomstboodschap
  * - Verwijderen shake-animatie
  * - IP whitelist voor directe toegang tot site
+ * - Secure cookie
  * 
  * @package     SIW\Compatibility
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  */
 
-class SIW_Password_Protected { 
+class SIW_Compat_Password_Protected { 
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 		if ( ! class_exists( 'Password_Protected' ) ) {
 			return;
 		}
-		
 		$self = new self();
 		add_filter( 'password_protected_before_login_form', [ $self, 'set_login_message' ] );
 		add_action( 'password_protected_login_head', [ $self, 'remove_shake_js'] );
 		add_filter( 'password_protected_is_active', [ $self, 'process_whitelisted_ips' ] );
+		add_filter( 'password_protected_secure_password_protected_cookie', [ $self, 'set_secure_cookie'], 10, 2 );
 	}
 
 	/**
 	 * Toont melding over testsite
-	 *
-	 * @return void
 	 */
 	public function set_login_message() {
 		$site_url = 'https://www.siw.nl';
@@ -51,8 +48,6 @@ class SIW_Password_Protected {
 
 	/**
 	 * Verwijdert shake animatie
-	 *
-	 * @return void
 	 */
 	public function remove_shake_js() {
 		remove_action( 'password_protected_login_head', 'wp_shake_js', 12 );
@@ -70,5 +65,17 @@ class SIW_Password_Protected {
 			$is_active = false;
 		}
 		return $is_active;
+	}
+
+	/**
+	 * Zet secure cookie als verbinding secure is
+	 *
+	 * @param bool $secure_cookie
+	 * @param bool $secure_connection
+	 * @return bool
+	 */
+	public function set_secure_cookie( $secure_cookie, $secure_connection ) {
+		$secure_cookie = $secure_connection;
+		return $secure_cookie;
 	}
 }
