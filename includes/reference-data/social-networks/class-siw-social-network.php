@@ -51,7 +51,11 @@ class SIW_Social_Network {
 	protected $for_following;
 
 
-
+	/**
+	 * Constructor
+	 *
+	 * @param array $network
+	 */
 	public function __construct( $network ) {
 		$defaults = [
 			'slug'          => '',
@@ -139,7 +143,7 @@ class SIW_Social_Network {
 	 *
 	 * @return boolean
 	 */
-	public function is_for_follwing() {
+	public function is_for_following() {
 		return $this->for_following;
 	}
 

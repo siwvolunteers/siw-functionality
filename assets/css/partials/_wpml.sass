@@ -1,0 +1,27 @@
+//main: ../siw.sass
+
+.kad-primary-nav ul.sf-menu{
+	.menu-en, .menu-nl{
+		a:hover, a:active, a:focus{
+			background-color: rgba(0, 0, 0, 0);
+			color: $font-color !important;
+		}
+		span{
+			display: inline;
+			border: solid 2px #ccc;
+			padding: 10px;
+			transition: border-color 0.3s ease-out;
+			&:hover{
+				border-color: $primary-color;
+			}
+		}
+	}
+}
+
+.is-sticky .kad-primary-nav ul.sf-menu{
+	.menu-en, .menu-nl{
+		span{
+			padding:2px;	
+		}
+	}
+}

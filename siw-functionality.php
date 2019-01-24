@@ -32,7 +32,6 @@ define ( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL )['host'] );
 /* Hulp-plugins */
 require_once( SIW_PLUGIN_DIR . '/vendor/autoload.php' );
 require_once( SIW_VENDOR_DIR . '/rapid-addon.php' );
-require_once( SIW_VENDOR_DIR . '/wp-widgets-helper.php' );
 
 /* Basisfunctionaliteit: referentiegegevens, functies en instellingen */
 require_once( SIW_INCLUDES_DIR . '/reference-data/init.php' );
@@ -40,7 +39,7 @@ require_once( SIW_INCLUDES_DIR . '/class-siw-formatting.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-properties.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-util.php' );
 
-require_once( SIW_INCLUDES_DIR . '/functions/init.php' );
+
 require_once( SIW_INCLUDES_DIR . '/settings/init.php' );
 
 /* Diverse aanpassingen */
@@ -51,6 +50,7 @@ require_once( SIW_INCLUDES_DIR . '/class-siw-i18n.php' );
 require_once( SIW_INCLUDES_DIR . '/enqueue.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-scheduler.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-shortcodes.php' );
+require_once( SIW_INCLUDES_DIR . '/class-siw-widgets.php' );
 require_once( SIW_INCLUDES_DIR . '/seo.php' );
 
 
@@ -58,6 +58,10 @@ add_action( 'plugins_loaded', ['SIW_i18n', 'init']);
 add_action( 'plugins_loaded', ['SIW_Head', 'init']);
 add_action( 'plugins_loaded', ['SIW_htaccess', 'init']);
 add_action( 'plugins_loaded', ['SIW_Scheduler', 'init']);
+add_action( 'plugins_loaded', ['SIW_Shortcodes', 'init']);
+add_action( 'plugins_loaded', ['SIW_Widgets', 'init']);
+
+require_once( SIW_INCLUDES_DIR . '/functions/init.php' );
 
 require_once( SIW_INCLUDES_DIR . '/admin/init.php' );
 require_once( SIW_INCLUDES_DIR . '/ajax/init.php' );
@@ -67,7 +71,6 @@ require_once( SIW_INCLUDES_DIR . '/forms/init.php' );
 require_once( SIW_INCLUDES_DIR . '/maps/maps.php' );
 require_once( SIW_INCLUDES_DIR . '/modules/modules.php' );
 require_once( SIW_INCLUDES_DIR . '/post-types/init.php' );
-require_once( SIW_INCLUDES_DIR . '/widgets/init.php' );
 require_once( SIW_INCLUDES_DIR . '/woocommerce/init.php' );
 require_once( SIW_INCLUDES_DIR . '/workcamps/init.php' );
 

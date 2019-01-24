@@ -38,7 +38,7 @@ add_filter( 'siw_social_network_data', function( $data ) {
 			'follow'        => true,
 			'follow_url'    => SIW_Properties::get('linkedin_url'),
 			'share'         => true,
-			'share_url'     => 'https://www.linkedin.com/shareArticle?mini=true&url={{ url}}&amp;title={{ title }}',
+			'share_url'     => 'https://www.linkedin.com/shareArticle?mini=true&url={{ url }}&amp;title={{ title }}',
 		],
 		[
 			'slug'          => 'youtube',
