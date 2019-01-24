@@ -70,7 +70,7 @@ function siw_get_evs_project_data( $post_id ) {
 	$evs_countries = siw_get_evs_countries();
 	$evs_work_types = siw_get_evs_project_work_types();
 
-	$evs_project_data = array(
+	$evs_project_data = [
 		'permalink'				=> get_permalink( $post_id ),
 		'title'					=> get_the_title( $post_id ),
 		//'excerpt' 				=> get_the_excerpt( $post_id ),
