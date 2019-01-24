@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 /* Zet noindex voor evenementen die al begonnen zijn */
-siw_add_cron_job( 'siw_set_noindex_for_past_events' );
+SIW_Scheduler::add_job( 'siw_set_noindex_for_past_events' );
 
 add_action( 'siw_set_noindex_for_past_events', function() {
 	$args = array(
@@ -23,7 +23,7 @@ add_action( 'siw_set_noindex_for_past_events', function() {
 		if ( $start_ts < time() ) {//TODO:vergelijken datum i.p.v. ts
 			$noindex = 1;
 		}
-		siw_seo_set_noindex( $event_id, $noindex );
+		SIW_Util::set_seo_noindex( $event_id, $noindex );
 	}
 } );
 
@@ -120,7 +120,7 @@ function siw_get_event_data( $post_id ) {
 		'application_link_text' 	=> get_post_meta( $post_id, 'siw_agenda_aanmelden_link_tekst', true ),
 		'text_after_hide_form'		=> get_post_meta( $post_id, 'siw_agenda_tekst_na_verbergen_formulier', true ),
 	);
-	$event_data['date_range'] = siw_get_date_range_in_text( $event_data['start_date'],  $event_data['end_date'] , false );
+	$event_data['date_range'] = SIW_Formatting::format_date_range( $event_data['start_date'],  $event_data['end_date'] , false );
 	$event_data['duration']	= sprintf( '%s, %s&nbsp;-&nbsp;%s', $event_data['date_range'], $event_data['start_time'], $event_data['end_time'] );
 
 	$event_data['json_ld'] = siw_generate_event_json_ld( $event_data );
@@ -132,3 +132,32 @@ function siw_get_event_data( $post_id ) {
 add_filter( 'siw_event_data', function( $event_data, $post_id ) {
 	return siw_get_event_data( $post_id );
 }, 10, 2 );
+
+
+/**
+ * Genereer structured data voor evenement
+ *
+ * @param array $event
+ * @return string
+ */
+function siw_generate_event_json_ld( $event ) {
+
+	//TODO: standaard afbeelding voor infodag -> setting
+
+	$data = [
+		'@context'      => 'http://schema.org',
+		'@type'         => 'event',
+		'name'          => esc_attr( $event['title'] ),
+		'description'   => esc_attr( $event['excerpt'] ),
+		'image'         => esc_url( $event['post_thumbnail_url'] ),
+		'startDate'     => esc_attr( $event['start_date'] ),
+		'endDate'       => esc_attr( $event['end_date'] ),
+		'url'           => esc_url( $event['permalink'] ),
+		'location'      => [
+			'@type'     => 'Place',
+			'name'      => esc_attr( $event['location'] ),
+			'address'   => esc_attr( sprintf('%s, %s %s', $event['address'], $event['postal_code'], $event['city'] ) ),
+		],
+	];
+	return SIW_Formatting::generate_json_ld( $data );
+}

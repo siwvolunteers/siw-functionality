@@ -86,7 +86,7 @@ function siw_get_workcamp_summary( $project_type, $country_code, $work, $start_d
 	$age_range_in_text = siw_get_workcamp_age_range( $min_age, $max_age );
 	$work = siw_get_workcamp_work_in_text( $work, false );
 	$project_duration_in_days = siw_get_workcamp_duration_in_days( $start_date, $end_date );
-	$project_duration_in_text = siw_get_date_range_in_text( $start_date, $end_date, false );
+	$project_duration_in_text = SIW_Formatting::format_date_range( $start_date, $end_date, false );
 	$teenager_project = siw_get_workcamp_is_teenager_project( $project_type, $min_age, $max_age );
 	$family_project = siw_get_workcamp_is_family_project( $project_type, $family );
 
@@ -139,7 +139,7 @@ function siw_get_workcamp_seo_title( $country_code, $work_code ) {
  */
 function siw_get_workcamp_seo_description( $project_type, $country_code, $work_code, $start_date, $end_date, $numvol, $min_age, $max_age, $family ) {
 	$seo_summary = '';
-	$project_duration_in_text = siw_get_date_range_in_text( $start_date, $end_date, false );
+	$project_duration_in_text = SIW_Formatting::format_date_range( $start_date, $end_date, false );
 	$project_summary = '';
 	//TODO
 	$seo_summary = sprintf( 'Van %s</br>', $project_duration_in_text );

@@ -147,7 +147,7 @@ class SIW_Map {
 		wp_enqueue_style( 'mapplic-style' );
 
 		if ( isset( $this->inline_css ) ) {
-			$css = siw_generate_css( $this->inline_css );
+			$css = SIW_Util::generate_css( $this->inline_css );
 			wp_add_inline_style( 'mapplic-style', $css );
 		}
 		
@@ -180,7 +180,7 @@ class SIW_Map {
 			'mousewheel'    => false,
 			'fullscreen'    => false,
 			'developer'     => false,
-			'fillcolor'     => SIW_PRIMARY_COLOR,
+			'fillcolor'     => SIW_Properties::get('primary_color'),
 			'action'        => 'tooltip',
 			'maxscale'      => 3,
 			'zoom'          => true,
@@ -198,7 +198,7 @@ class SIW_Map {
 		$default_category_data = [
 			'id'    => false,
 			'title' => false,
-			'color' => SIW_PRIMARY_COLOR_HOVER,
+			'color' => SIW_Properties::get('primary_color_hover'),
 			'show'  => 'false',
 		];
 		$this->default_category_data = $default_category_data;
@@ -217,7 +217,7 @@ class SIW_Map {
 			'description'   => false,
 			'action'        => 'tooltip',
 			'pin'           => 'hidden',
-			'fill'          => SIW_PRIMARY_COLOR,
+			'fill'          => SIW_Properties::get('primary_color'),
 			'x'             => false,
 			'y'             => false,
 			'lat'           => false,

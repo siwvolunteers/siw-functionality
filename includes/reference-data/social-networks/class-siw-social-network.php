@@ -201,7 +201,7 @@ class SIW_Social_Network {
 			'url'    => $url,
 		];
 	
-		return SIW_Formatting::render_template( $template, $vars );
+		return SIW_Formatting::parse_template( $template, $vars );
 	}
 
 }

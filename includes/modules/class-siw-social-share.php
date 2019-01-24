@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Voegt share-links toe voor social netwerken
  *
- * @package     SIW\Social-Share
+ * @package     SIW\Modules
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  *
@@ -50,18 +50,31 @@ class SIW_Social_Share {
 	 * @todo generate_link gebruiken
 	 */
 	public function render() {
-		$share_links = $this->get_share_links();
-
 		if ( $this->needs_hr() ) {
 			echo '<hr>';
 		}?>
 		<div class="siw-social">
 			<div class="title"><?= esc_html( $this->get_title() ) ?> </div>
-			<a class="facebook" data-toggle="tooltip" data-placement="bottom" data-original-title="Facebook" href="<?= esc_url( $share_links['facebook'] );?>" target="_blank"><i class="kt-icon-facebook2"></i></a>
-			<a class="twitter" data-toggle="tooltip" data-placement="bottom" data-original-title="Twitter" href="<?= esc_url( $share_links['twitter'] );?>" target="_blank"><i class="kt-icon-twitter2"></i></a>
-			<a class="linkedin" data-toggle="tooltip" data-placement="bottom" data-original-title="LinkedIn" href="<?= esc_url( $share_links['linkedin'] );?>" target="_blank"><i class="kt-icon-linkedin2"></i></a>
+			<?php
+				$networks = siw_get_social_networks('share');
+				$title = get_the_title();
+				$url = get_permalink();
+				foreach ( $networks as $network ) {
+					echo SIW_Formatting::generate_link(
+						$network->generate_share_link( $url, $title ),
+						'&shy;',
+						[
+							'class'               => $network->get_slug(),
+							'data-toggle'         => 'tooltip',
+							'data-placement'      => 'bottom',
+							'data-original-title' => $network->get_name(),
+							'target'              => '_blank',
+						],
+						sprintf('kt-icon-%s2', $network->get_slug() )
+					);
+				}
+			?>
 		</div><?php
-
 
 	}
 
@@ -72,20 +85,24 @@ class SIW_Social_Share {
 	 */
 	protected function get_title() {
 		$post_type = get_post_type();
-		if ( 'portfolio' == $post_type || 'product' == $post_type || 'evs_project' == $post_type ) {
-			$title = __( 'Deel dit project', 'siw' );
-		}
-		elseif ( 'vacatures' == $post_type ) {
-			$title = __( 'Deel deze vacature', 'siw' );
-		}
-		elseif ( 'agenda' == $post_type ) {
-			$title = __( 'Deel dit evenement', 'siw' );
-		}
-		elseif ( 'wpm-testimonial' == $post_type ) {
-			$title = __( 'Deel dit ervaringsverhaal', 'siw' );
-		}
-		else {
-			$title = __( 'Deel deze pagina', 'siw' );
+
+		switch( $post_type ) {
+			case 'portfolio':
+			case 'product':
+			case 'evs_project':
+				$title = __( 'Deel dit project', 'siw' );
+				break;
+			case 'vacatures':
+				$title = __( 'Deel deze vacature', 'siw' );
+				break;
+			case 'agenda':
+				$title = __( 'Deel dit evenement', 'siw' );
+				break;
+			case 'wpm-testimonial':
+				$title = __( 'Deel dit ervaringsverhaal', 'siw' );
+				break;
+			default:
+				$title = __( 'Deel deze pagina', 'siw' );
 		}
 		return $title;
 	}
@@ -101,21 +118,5 @@ class SIW_Social_Share {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Genereert de link voor alle netwerken
-	 *
-	 * @return array
-	 */
-	protected function get_share_links() {
-		$title = get_the_title();
-		$url = get_permalink();
-		$networks = siw_get_social_networks('share');
-		$links = [];
-		foreach ( $networks as $network ) {
-			$links[ $network->get_slug() ] = $network->generate_share_link( $url, $title );
-		}
-		return $links;
 	}
 }

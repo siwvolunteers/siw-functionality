@@ -9,7 +9,7 @@ use Ils\AnnotationParser;
 /**
  * Properties
  *
- * @package   SIW\Properties
+ * @package   SIW
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  *
@@ -43,7 +43,7 @@ class SIW_Properties {
 	 *
 	 * @var string
 	*/
-	const FOUNDING_DATE = '1953-10-28';
+	const FOUNDING_DATE = '1953-10-24';
 
 	/**
 	 * Telefoonnummer
@@ -91,8 +91,17 @@ class SIW_Properties {
 	 * Postcode
 	 *
 	 * @var string
+	 * 
+	 * @deprecated
 	 */
 	const POSTAL_CODE = '3511 RJ';
+
+	/**
+	 * Postcode
+	 *
+	 * @var string
+	 */
+	const POSTCODE = '3511 RJ';
 
 	/**
 	 * Stad
@@ -154,6 +163,8 @@ class SIW_Properties {
 	 * Aantal infodagen
 	 *
 	 * @var int
+	 * 
+	 * @deprecated
 	 */
 	const NUMBER_OF_INFO_DAYS = 10;
 
@@ -161,6 +172,8 @@ class SIW_Properties {
 	 * Aantal EVS-deadlines
 	 *
 	 * @var int
+	 * 
+	 * @deprecated
 	 */
 	const NUMBER_OF_EVS_DEADLINES = 5;
 
@@ -175,6 +188,8 @@ class SIW_Properties {
 	 * Grootte IP whitelist
 	 *
 	 * @var int
+	 * 
+	 * @deprecated
 	 */
 	const IP_WHITELIST_SIZE = 5;
 
@@ -189,6 +204,8 @@ class SIW_Properties {
 	 * Maximum aantal jaarverslagen
 	 *
 	 * @var int
+	 * 
+	 * @deprecated
 	 */
 	const MAX_ANNUAL_REPORTS = 5;
 
@@ -196,6 +213,8 @@ class SIW_Properties {
 	 * Maximum aantal Nederlandse projecten
 	 *
 	 * @var int
+	 * 
+	 * @deprecated
 	 */
 	const MAX_DUTCH_PROJECTS = 10;
 
@@ -218,7 +237,7 @@ class SIW_Properties {
 	 *
 	 * @var string
 	 */
-	const TS_BACKGROUND_PROCESSES = '03:00';
+	const TS_SCHEDULED_JOBS = '03:00';
 
 	/**
 	 * Tijdstip backup database
@@ -320,7 +339,7 @@ class SIW_Properties {
 
 	/**
 	 * Kleurcode secundaire kleur
-	 **
+	 *
 	 * @var string
 	 */
 	const SECONDARY_COLOR = '#59ab9c';
@@ -400,7 +419,7 @@ class SIW_Properties {
 	 *
 	 * @var string
 	 */
-	const EXCHANGE_RATES_API_URL = 'https://data.fixer.io/api/';
+	const EXCHANGE_RATES_API_URL = 'https://data.fixer.io/api/latest';
 
 	/**
 	 * Report-URI
@@ -412,13 +431,13 @@ class SIW_Properties {
 	/**
 	 * Geeft waarde van property terug
 	 *
-	 * @param string $option
+	 * @param string $property
 	 * @return string
 	 */
-	public static function get( $option ) {
-		$option = strtoupper( $option );
-		if ( defined( 'self::' . $option ) ) {
-			return constant('self::' . $option );
+	public static function get( $property ) {
+		$property = strtoupper( $property );
+		if ( defined( 'self::' . $property ) ) {
+			return constant('self::' . $property );
 		}
 		return null;
 	}

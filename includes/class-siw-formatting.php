@@ -7,8 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Hulpfuncties t.b.v. formattering
  *
- * @package SIW\Formatting
- * @author Maarten Bruna
+ * @package   SIW
+ * @author    Maarten Bruna
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  */
 class SIW_Formatting {
@@ -64,41 +64,177 @@ class SIW_Formatting {
 	}
 
 	/**
+	 * Genereert attributes op basis van array
+	 *
+	 * @param array $attributes
+	 * @return string
+	 */
+	public static function render_attributes( $attributes ) {
+		$rendered_attributes = '';
+		foreach ( $attributes as $key => $value ) {
+			if ( false == $value )
+				continue;
+			if ( is_array( $value ) ) {
+				$value = json_encode( $value );
+			}
+			if ( 'class' == $key ) {
+				$value = self::sanitize_html_classes( $value );
+			}
+			$rendered_attributes .= sprintf( true === $value ? ' %s' : ' %s="%s"', $key, esc_attr( $value ) );
+		}
+		return $rendered_attributes;
+	}
+
+	/**
+	 * Genereert form field
+	 *
+	 * @param string $type
+	 * @param array $input_args
+	 * @param array $wrapper_args
+	 * @return string
+	 */
+	public static function generate_field( $type, $input_args, $wrapper_args = [] ) {
+
+		$input_args = wp_parse_args( $input_args, [
+			'id'          => '',
+			'name'        => '',
+			'value'       => '',
+			'options'     => [],
+			'placeholder' => '',
+			'pattern'     => '',
+			'class'       => '',
+			'disabled'    => false,
+			'required'    => false,
+			'attributes'  => [],
+			'options'     => [],
+		]);
+
+		$attributes = wp_parse_args( $input_args['attributes'], [
+			'disabled'    => $input_args['disabled'],
+			'required'    => $input_args['required'],
+			'class'       => $input_args['class'],
+			'id'          => $input_args['id'],
+			'name'        => $input_args['name'],
+			'value'       => $input_args['value'],
+			'placeholder' => $input_args['placeholder'],
+		]);
+
+		$field = '';
+
+		if ( ! empty( $input_args['label'] ) ) {
+			$field .= sprintf( '<label for="%s">%s</label>', esc_attr( $input_args['id'] ), esc_html( $input_args['label'] ) );
+		}
+
+		switch ( $type ) {
+			case 'text':
+			case 'tel':
+			case 'email':
+			case 'url':
+			case 'number':
+			case 'hidden':
+			case 'date':
+			case 'submit':
+				$field .= sprintf('<input type="%s" %s>', esc_attr( $type ), self::render_attributes( $attributes ) );
+				break;
+			case 'radio':
+				$options = $input_args['options'];
+				$value = $attributes['value'];
+				if ( ! empty( $options ) && is_array( $options ) ) {
+					foreach ( $options as $key => $option ) {
+						$checked = checked( $value, $key, false );
+						$field .= sprintf( '<label><input type="radio" value="%s" %s %s>%s</label>', esc_attr( $key ), self::render_attributes( $attributes ), $checked, esc_html( $option ) );
+					}
+				}
+				break;
+
+			case 'select':
+				$options = $input_args['options'];
+	
+				$field .= sprintf( '<select %s>', self::render_attributes( $attributes ) );
+				if ( ! empty( $options ) && is_array( $options ) ) {
+					foreach ( $options as $key => $option ) {
+						$selected = selected( $attributes['value'], $key, false );
+						$field .= sprintf('<option value="%s" %s>%s</option>', esc_attr( $key ), $selected, esc_html( $option ) );
+					}
+				}
+				$field .= '</select>';
+				break;
+
+			case 'checkbox':
+				$value = $attributes['value'];
+				unset( $attributes['value'] );
+				$field .= sprintf( '<label for="%s">', esc_attr( $attributes['id'] ) );
+				$field .= sprintf( '<input type="checkbox" %s %s/>', self::render_attributes( $attributes ), checked( 1, $value, false ) );
+				$field .= sprintf( '%s</label>', esc_html( $input_args['label'] ) );
+				break;
+
+			case 'textarea':
+				$value = $attributes['value'];
+				unset( $attributes['value'] );
+				$field .= sprintf( '<textarea %s>%s</textarea>', self::render_attributes( $attributes ), $value );
+				break;
+
+			default:
+				return false;
+		}
+
+		/* Wrapper toevoegen */
+		$wrapper_args = wp_parse_args( $wrapper_args, [
+			'tag'   => '',
+			'class' => [],
+			]
+		);
+
+		if ( ! empty( $wrapper_args['tag'] ) ) {
+			$wrapper_class = '';
+			if ( ! empty( $wrapper_args['class'] ) ) {
+				$wrapper_class = sprintf( 'class="%s"', self::sanitize_html_classes( $wrapper_args['class'] ) );
+			}
+
+			$wrapper_open = sprintf( '<%s %s>', tag_escape( $wrapper_args['tag'] ), $wrapper_class );
+			$wrapper_close = sprintf( '</%s>', tag_escape( $wrapper_args['tag'] ) );
+
+			$field = $wrapper_open . $field . $wrapper_close;
+		}
+
+		return $field;
+	}
+
+	/**
 	 * Genereert link
 	 *
 	 * @todo attributes, target en rel
 	 *
-	 * @param text $url
-	 * @param text $text
-	 * @return void
+	 * @param string $url
+	 * @param string $text
+	 * @param array $attributes
+	 * @return string
 	 */
-	public static function generate_link( $url, $text = false, $class = '' ) {
+	public static function generate_link( $url, $text = false, $attributes = [], $icon_class = false ) {
 
 		if ( false == $text ) {
 			$text = $url;
 		}
+		$icon_html = ( $icon_class) ? sprintf( '<i class="%s"></i>', self::sanitize_html_classes( $icon_class ) ) : '';
 
-		$link = sprintf( '<a class="%s" href="%s">%s</a>', self::sanitize_html_classes( $class ), esc_url( $url ), esc_html( $text ) );
-
+		$link = sprintf(
+			'<a href="%s" %s>%s</a>',
+			esc_url( $url ),
+			self::render_attributes( $attributes ),
+			wp_kses_post( $text . $icon_html )
+		);
 		return $link;
 	}
 
 	/**
 	 * Genereert externe link
 	 *
-	 * @todo siw_generate_link gebruiken
 	 * @param  string $url
 	 * @param  string $text
 	 * @return string
 	 */
 	public static function generate_external_link( $url, $text = false ) {
-
-		if ( false == $text ) {
-			$text = $url;
-		}
-		$external_link = sprintf( '<a class="siw-external-link" href="%s" target="_blank" rel="noopener">%s&nbsp;<i class="kt-icon-newtab"></i></a>', esc_url( $url ), esc_html( $text ) );
-
-		return $external_link;
+		return self::generate_link( $url, $text . '&nbsp;', [ 'class' => 'siw-external-link', 'target' => '_blank', 'rel' => 'noopener'], 'kt-icon-newtab' );
 	}
 
 	/**
@@ -116,7 +252,7 @@ class SIW_Formatting {
 				continue;
 			}
 			if ( isset( $pane['show_button'] ) && true == $pane['show_button'] ) {
-				$pane['content'] .= wpautop( $self::generate_link( $pane['button_url'], $pane['button_text'], 'kad-btn' ) );
+				$pane['content'] .= wpautop( self::generate_link( $pane['button_url'], $pane['button_text'], [ 'class' => 'kad-btn' ] ) );
 			}
 			$accordion .= sprintf( '[pane title="%s"]%s[/pane]', esc_html( $pane['title'] ), wp_kses_post( wpautop( $pane['content'] )  ) );
 		}
@@ -125,13 +261,13 @@ class SIW_Formatting {
 	}
 
 	/**
-	 * Rendert template o.b.v. variabelen
+	 * Parset template o.b.v. variabelen
 	 *
 	 * @param string $template
 	 * @param array $vars
 	 * @return string
 	 */
-	public static function render_template( $template, $vars ) {
+	public static function parse_template( $template, $vars ) {
 		$variables = [];
 		foreach ( $vars as $key => $value ) {
 			$variables[ '{{ ' . $key . ' }}' ] = $value;
@@ -201,7 +337,7 @@ class SIW_Formatting {
 	public static function format_date_range( $date_start, $date_end, $year = true ) {
 		
 		if ( $date_start == $date_end ) {
-			return $self::format_date( $date_start, $year );
+			return self::format_date( $date_start, $year );
 		}
 
 		$date_start_array = date_parse( $date_start );
@@ -235,7 +371,7 @@ class SIW_Formatting {
 	 *
 	 * @return string
 	 */
-	function format_month( $date, $year = true ) {
+	public static function format_month( $date, $year = true ) {
 		$format = $year ? 'F Y' :  'F';
 		return date_i18n( $format, strtotime( $date ) );
 	}
@@ -249,13 +385,13 @@ class SIW_Formatting {
 	 *
 	 * @return string
 	 */
-	function format_month_range( $date_start, $date_end, $year = true ) {
+	public static function format_month_range( $date_start, $date_end, $year = true ) {
 
 		$date_start_array = date_parse( $date_start );
 		$date_end_array = date_parse( $date_end );
 
-		if ( $date_start == $date_end || $date_start_array['month'] == $date_end_array['month'] ) {
-			return $self::format_month( $date_start, $year );
+		if ( $date_start == $date_end || ( $date_start_array['month'] == $date_end_array['month'] && $date_start_array['year'] == $date_end_array['year'] ) ) {
+			return self::format_month( $date_start, $year );
 		}
 
 		$format_end = $year ? 'F Y' :  'F';
@@ -266,7 +402,6 @@ class SIW_Formatting {
 			$format_start = 'F';
 		}
 
-
 		$month_start_in_text = date_i18n( $format_start, strtotime( $date_start ) );
 		$month_end_in_text = date_i18n( $format_end, strtotime( $date_end ) );
 
@@ -276,22 +411,33 @@ class SIW_Formatting {
 	}
 
 	/**
-	 * Genereert css o.b.v. array met regels
+	 * Genereert html voor bootstap-modal o.b.v. pagina-id
 	 *
-	 * @param array $rules
+	 * @param int $page_id
 	 * @return string
 	 */
-	public static function generate_css( $rules ) {
-		$css = '';
-		foreach ( $rules as $selector => $styles ) {
-			$css .= $selector . '{';
-			foreach ( $styles as $property => $value ) {
-				$css .= $property . ':' . $value . ';';
-			}
-			$css .= '}';
-		}
-	
-		return $css;
+	public static function generate_modal( $page_id ) {
+		$page = get_post( $page_id );
+		ob_start();
+		?>
+		<div class="modal fade" id="siw-page-<?php echo esc_attr( $page_id );?>-modal" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title"><?php esc_html_e( $page->post_title );?></h4>
+					</div>
+					<div class="modal-body">
+					<?php echo wp_kses_post( wpautop( do_shortcode( $page->post_content ) ) ); ?>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default kad-btn" data-dismiss="modal"><?php esc_html_e( 'Sluiten', 'siw' );?></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php
+		$modal = ob_get_clean();
+		return $modal;
 	}
-
 }

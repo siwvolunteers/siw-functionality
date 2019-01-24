@@ -80,7 +80,7 @@ function siw_register_background_process( $class, $action, $node, $parent_nodes 
 	 * Cron job toevoegen
 	 */
 	if ( true == $add_cron_job ) {
-		siw_add_cron_job( 'siw_'. $action );
+		SIW_Scheduler::add_job( "siw_{$action}" );
 	}
 
 	add_action( 'siw_'. $action, function() use( $action ) {

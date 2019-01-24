@@ -30,7 +30,7 @@ function siw_generate_list( $items, $ordered = false ) {
 	return $list;
 }
 add_filter( 'siw_list', function( $list, $items, $ordered = false ) {
-	return siw_generate_list( $items, $ordered );
+	return SIW_Formatting::generate_list( $items, $ordered );
 }, 10, 2 );
 
 
@@ -138,7 +138,7 @@ function siw_generate_accordion( $panes ) {
 	return $accordion;
 }
 add_filter( 'siw_accordion', function( $accordion, $panes ) {
-	return siw_generate_accordion( $panes );
+	return SIW_Formatting::generate_accordion( $panes );
 }, 10, 2 );
 
 

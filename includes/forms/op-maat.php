@@ -42,7 +42,7 @@ add_filter( 'caldera_forms_get_form-op_maat', function( $form ) {
 		$language_skill_levels[ $language_skill_level_slug ]['label'] = $volunteer_language_skill_level;
 	}
 
-	$info_day_page_link = siw_get_translated_page_link( siw_get_setting( 'info_day_page' ) );
+	$info_day_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'info_day_page' ) );
 
 
 

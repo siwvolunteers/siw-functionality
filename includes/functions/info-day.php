@@ -45,7 +45,7 @@ function siw_get_future_info_days( $dates_in_text = false, $results = SIW_NUMBER
 	$future_info_days = array();
 	foreach ( $info_days as $info_day ) {
 		if ( $info_day > $limit ) {
-			$future_info_days[] = $dates_in_text ? siw_get_date_in_text( $info_day, false ) : $info_day;
+			$future_info_days[] = $dates_in_text ? SIW_Formatting::format_date( $info_day, false ) : $info_day;
 		}
 	}
 

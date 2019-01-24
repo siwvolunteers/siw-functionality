@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Topbar
  * 
- * @package SIW\Topbar
+ * @package SIW\Modules
  * @author Maarten Bruna
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * 
@@ -39,7 +39,7 @@ class SIW_Topbar {
 
 	public static function init() {
 		$self = new self();
-		if ( ! $self->is_default_language() ) {
+		if ( ! SIW_i18n::is_default_language() ) {
 			return;
 		}
 		$self->content = $self->get_content();
@@ -65,7 +65,7 @@ class SIW_Topbar {
 					<div class="col-md-12">
 						<div id="topbar-content">
 							<span class="hidden-xs hidden-sm"><?php echo esc_html( $this->content['intro'] );?>&nbsp;</span>
-							<?php printf('<a id="topbar_link" href="%s" target="%s">%s</a>', esc_url( $this->content['link_url'] ), esc_attr( $target ), wp_kses_post( $this->content['link_text'] ) ); ?>
+							<?= SIW_Formatting::generate_link( $this->content['link_url'], $this->content['link_text'], [ 'id' => 'topbar_link', 'target' => $target ] ); ?>
 						</div>
 					</div>
 				</div>
@@ -75,7 +75,7 @@ class SIW_Topbar {
 	}
 
 	/**
-	 * Undocumented function
+	 * Voegt stylesheet toe
 	 *
 	 * @return void
 	 */
@@ -117,8 +117,6 @@ class SIW_Topbar {
 	 * Haalt de social media-inhoud op
 	 *
 	 * @return array
-	 * 
-	 * @todo siw_get_social_networks gebruiken
 	 */
 	protected function get_social_content() {
 
@@ -132,18 +130,14 @@ class SIW_Topbar {
 			return false;
 		}
 
-		$social_urls = array(
-			'facebook'	=> SIW_Properties::get('facebook_url'),
-			'twitter'	=> SIW_Properties::get('twitter_url'),
-			'instagram'	=> SIW_Properties::get('instagram_url'),
-		);
+		$social_networks = siw_get_social_networks('follow');
 
-		$social_content = array(
-			'intro' => siw_get_setting( 'topbar_social_link_intro' ),
-			'link_url' => $social_urls[ siw_get_setting( 'topbar_social_link_network') ],
-			'link_text' => siw_get_setting( 'topbar_social_link_text' ),
+		$social_content = [
+			'intro'       => siw_get_setting( 'topbar_social_link_intro' ),
+			'link_url'    => $social_networks[ siw_get_setting( 'topbar_social_link_network') ]->get_follow_url(),
+			'link_text'   => siw_get_setting( 'topbar_social_link_text' ),
 			'link_target' => '_blank',
-		);
+		];
 		return $social_content;
 
 	}
@@ -222,16 +216,4 @@ class SIW_Topbar {
 	
 		return $sale_content;
 	}
-
-	/**
-	 * Geeft aan of de huidige taal de standaardtaal is
-	 *
-	 * @todo verplaatsen naar SIW_I18n
-	 * @return boolean
-	 */
-	protected function is_default_language() {
-		return ( apply_filters( 'wpml_current_language', NULL ) == apply_filters( 'wpml_default_language', NULL ) ); 
-	}
-
 }
-

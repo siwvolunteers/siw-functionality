@@ -7,16 +7,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Cookie notificatie
  * 
- * @package SIW\Cookie-Notification
+ * @package SIW\Modules
  * @author Maarten Bruna
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  */
 class SIW_Cookie_Notification {
 	
 	/**
-	 * Undocumented function
-	 *
-	 * @return void
+	 * Init
 	 */
 	public static function init() {
 		$self = new self();

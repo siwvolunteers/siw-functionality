@@ -17,27 +17,27 @@ add_filter( 'siw_continent_data', function( $data) {
 		[
 			'slug'  => 'europa',
 			'name'  => __( 'Europa', 'siw' ),
-			'color' => SIW_COLOR_EUROPE,
+			'color' => SIW_Properties::get('color_europe'),
 		],
 		[
 			'slug'  => 'azie',
 			'name'  => __( 'Azië', 'siw' ),
-			'color' => SIW_COLOR_ASIA,
+			'color' => SIW_Properties::get('color_asia'),
 		],
 		[
 			'slug'  => 'afrika',
 			'name'  => __( 'Afrika', 'siw' ),
-			'color' => SIW_COLOR_AFRICA,
+			'color' => SIW_Properties::get('color_africa'),
 		],
 		[
 			'slug'  => 'latijns-amerika',
 			'name'  => __( 'Latijns-Amerika', 'siw' ),
-			'color' => SIW_COLOR_LATIN_AMERICA,
+			'color' => SIW_Properties::get('color_latin_america'),
 		],
 		[
 			'slug'  => 'noord-amerika',
 			'name'  => __( 'Noord-Amerika', 'siw' ),
-			'color' => SIW_COLOR_NORTH_AMERICA,
+			'color' => SIW_Properties::get('north_america'),
 		],
 	];
 

@@ -145,7 +145,7 @@ function siw_hide_workcamp( $product_id ) {
 	$product->set_catalog_visibility( 'hidden' );
 	$product->set_stock_status( 'outofstock' ); //TODO:kan weg als stock-management uitgeschakeld is
 	$product->set_featured( 'no' );
-	siw_seo_set_noindex( $product_id, true );
+	SIW_Util::set_seo_noindex( $product_id, true );
 	$product->save();
 
 	$variation_ids = $product->get_children();

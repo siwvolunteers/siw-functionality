@@ -173,10 +173,10 @@ function siw_get_workcamp_country_allowed( $country_code ) {
  * @return array
  */
 function siw_get_workcamp_work_slugs( $work, $implode = true ) {
-	$work_types = siw_get_project_work_types();
+	$work_types = siw_get_work_types( 'all', 'plato');
 	$work_slugs = explode( ',', $work );
-	foreach ( $work_slugs as $key=>$work_slug ) {
-		$work_slugs[ $key ] = isset( $work_types[ $work_slug ] ) ? $work_types[ $work_slug ] : null;
+	foreach ( $work_slugs as $key => $work_slug ) {
+		$work_slugs[ $key ] = isset( $work_types[ $work_slug ] ) ? $work_types[ $work_slug ]->get_slug() : null;
 	}
 	return ( $implode ) ? implode( '|', $work_slugs ) : $work_slugs;
 }
@@ -267,12 +267,12 @@ function siw_get_workcamp_number_of_volunteers( $numvol, $numvol_m, $numvol_f ) 
  */
 function siw_get_workcamp_languages_slugs( $languages ) {
 	$language_codes = explode( ',', $languages );
-	$project_languages = siw_get_project_languages();
+	$project_languages = siw_get_languages( 'project', 'plato' );
 	$languages = '';
 	foreach ( $language_codes as $code ) {
 		$code = strtoupper( $code );
 		if ( isset( $project_languages[ $code ] ) ){
-			$languages .= $project_languages[ $code ] . '|';
+			$languages .= $project_languages[ $code ]->get_slug() . '|';
 		}
 	}
 	return $languages;

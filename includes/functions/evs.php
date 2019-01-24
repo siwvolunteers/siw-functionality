@@ -31,7 +31,7 @@ function siw_get_next_evs_deadline( $date_in_text = false ) {
 	}
 
 	if ( $date_in_text ) {
-		$next_evs_deadline = siw_get_date_in_text( $next_evs_deadline );
+		$next_evs_deadline = SIW_Formatting::format_date( $next_evs_deadline );
 	}
 
 	return $next_evs_deadline;
@@ -76,14 +76,14 @@ function siw_get_evs_project_data( $post_id ) {
 		//'excerpt' 				=> get_the_excerpt( $post_id ),
 		'post_thumbnail_url'	=> get_the_post_thumbnail_url( $post_id ),
 		'highlight_quote'		=> get_post_meta( $post_id, 'siw_evs_project_highlight_quote', true ),
-		'deadline'				=> siw_get_date_in_text( get_post_meta( $post_id, 'siw_evs_project_deadline', true ) ),
+		'deadline'				=> SIW_Formatting::format_date( get_post_meta( $post_id, 'siw_evs_project_deadline', true ) ),
 		'wat_ga_je_doen'		=> get_post_meta( $post_id, 'siw_evs_project_wat_ga_je_doen', true ),
 		'organisatie'			=> get_post_meta( $post_id, 'siw_evs_project_organisatie', true ),
 		'plaats'				=> get_post_meta( $post_id, 'siw_evs_project_plaats', true ),
 		'startdatum'			=> date( 'Y-m-d', get_post_meta( $post_id, 'siw_evs_project_startdatum', true ) ),
 		'einddatum'				=> date( 'Y-m-d', get_post_meta( $post_id, 'siw_evs_project_einddatum', true ) ),
-	);
-	$evs_project_data['projectduur'] = siw_get_month_range_in_text( $evs_project_data['startdatum'], $evs_project_data['einddatum'] );
+	];
+	$evs_project_data['projectduur'] = SIW_Formatting::format_month_range( $evs_project_data['startdatum'], $evs_project_data['einddatum'] );
 	$evs_project_data['land'] = $evs_countries[ get_post_meta( $post_id, 'siw_evs_project_land', true ) ];
 	$evs_project_data['soort_werk']	= $evs_work_types[ get_post_meta( $post_id, 'siw_evs_project_soort_werk', true ) ];
 
