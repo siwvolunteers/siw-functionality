@@ -64,17 +64,17 @@ function siw_register_background_process( $class, $action, $node, $parent_nodes 
 	if ( ! is_subclass_of( $process, 'SIW_Background_Process') ) {
 		return;
 	}
-	$GLOBALS['siw_' . $action . '_process'] = new $class();
+	$GLOBALS[ "siw_{$action}_process" ] = new $class();
 
 	/**
 	 * Toevoegen aan admin bar
 	 */
 	if ( ! empty( $parent_nodes ) ) {
 		foreach ( $parent_nodes as $admin_node => $properties ) { 
-			siw_add_admin_bar_node( $admin_node, $properties );
+			SIW_Admin_Bar::add_node( $admin_node, $properties );
 		}
 	}
-	siw_add_admin_bar_action( $action, $node );
+	SIW_Admin_Bar::add_action( $action, $node );
 
 	/**
 	 * Cron job toevoegen

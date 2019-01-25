@@ -63,7 +63,8 @@ add_action( 'plugins_loaded', ['SIW_Widgets', 'init']);
 
 require_once( SIW_INCLUDES_DIR . '/functions/init.php' );
 
-require_once( SIW_INCLUDES_DIR . '/admin/init.php' );
+/* Diverse aanpassingen */
+require_once( SIW_INCLUDES_DIR . '/admin/admin.php' );
 require_once( SIW_INCLUDES_DIR . '/ajax/init.php' );
 require_once( SIW_INCLUDES_DIR . '/background-process/init.php' );
 require_once( SIW_INCLUDES_DIR . '/email/init.php');
