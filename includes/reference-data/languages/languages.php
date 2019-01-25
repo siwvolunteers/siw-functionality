@@ -7,7 +7,6 @@
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
  */
 
-/* Class + data laden */
 require_once( __DIR__ . '/class-siw-language.php' );
 require_once( __DIR__ . '/data.php' );
 
@@ -20,12 +19,11 @@ require_once( __DIR__ . '/data.php' );
  */
 function siw_get_languages( $context = 'all', $index = 'slug' ) {
 
-
 	$data = [];
 	/**
 	 * Gegevens van talen
 	 * 
-	 * @param $data Eigenschappen van taal {slug|name|plato|volunteer_language|project_language}
+	 * @param $data Eigenschappen van taal {slug|name|plato|volunteer|project}
 	 */
 	$data = apply_filters( 'siw_language_data', $data );
 
@@ -39,7 +37,6 @@ function siw_get_languages( $context = 'all', $index = 'slug' ) {
 			$languages[ $item[ $index ] ] = $language;
 		}
 	}
-
 	return $languages;
 }
 
@@ -53,8 +50,8 @@ function siw_get_language( $language, $index = 'slug' ) {
 
 	$languages = siw_get_languages( 'all', $index );
 
-	if ( isset( $languages[ $type ] ) ) {
-		return $languages[ $type ];
+	if ( isset( $languages[ $language ] ) ) {
+		return $languages[ $language ];
 	}
 
 	return false;

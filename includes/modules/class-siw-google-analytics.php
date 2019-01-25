@@ -42,8 +42,6 @@ class SIW_Google_Analytics {
 			return;
 		}
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_scripts' ] );
-
-		SIW_Enhanced_Ecommerce::init();
 	}
 
 

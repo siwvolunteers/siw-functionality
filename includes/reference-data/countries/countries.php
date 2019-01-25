@@ -42,13 +42,12 @@ function siw_get_countries( $context = 'all', $index = 'slug' ) {
 	foreach ( $continent_data as $continent => $countries_data ) {
 		$countries_data = array_map( function( $country_data ) use ( $continent ) {
 			$country_data['continent'] = $continent;
-			return $country_data;   
+			return $country_data;
 		}, $countries_data );
 		$data = array_merge( $data, $countries_data );
 	}
 
-	//TODO: sorteren ?
-
+	$countries = [];
 	foreach ( $data as $item ) {
 		$country = new SIW_Country( $item );
 		if ( 'all' == $context 

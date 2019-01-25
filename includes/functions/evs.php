@@ -62,8 +62,8 @@ function siw_get_next_evs_departure_month() {
 
 /**
  * [siw_get_evs_project_data description]
- * @param  [type] $post_id [description]
- * @return [type]          [description]
+ * @param  int $post_id
+ * @return array
  */
 function siw_get_evs_project_data( $post_id ) {
 
@@ -100,21 +100,21 @@ add_filter( 'siw_evs_project_data', function( $evs_project_data, $post_id ) {
 
 /**
  * [siw_get_active_evs_projects description]
- * @param  int $number [description]
- * @return [type]         [description]
+ * @param  int $number
+ * @return array
  */
 function siw_get_active_evs_projects( $number ) {
 	$min_date = strtotime( date( 'Y-m-d' ) );
-	$meta_query_args = array(
+	$meta_query_args = [
 		'relation'	=>	'AND',
-		array(
+		[
 			'key'		=>	'siw_evs_project_deadline',
 			'value'		=>	$min_date,
 			'compare'	=>	'>='
-		),
-	);
+		],
+	];
 
-	$query_args = array(
+	$query_args = [
 		'post_type'				=>	'evs_project',
 		'posts_per_page'		=>	$number,
 		'post_status'			=>	'publish',
@@ -124,11 +124,11 @@ function siw_get_active_evs_projects( $number ) {
 		'order'					=>	'ASC',
 		'meta_query'			=>	$meta_query_args,
 		'fields' 				=> 'ids'
-	);
+	];
 
 	$evs_projects_ids = get_posts( $query_args );
 
-	$active_evs_projects = array();
+	$active_evs_projects = [];
 	foreach ( $evs_projects_ids as $evs_projects_id ) {
 		$active_evs_projects[] = siw_get_evs_project_data( $evs_projects_id );
 	}

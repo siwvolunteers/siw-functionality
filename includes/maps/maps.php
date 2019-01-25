@@ -46,11 +46,11 @@ function siw_render_map( $id ) {
 	}
 
 	$map_data = [
-		'data'			=> [],
-		'options'		=> [],
-		'categories'	=> [],
-		'locations'		=> [],
-		'inline_css'	=> [],
+		'data'       => [],
+		'options'    => [],
+		'categories' => [],
+		'locations'  => [],
+		'inline_css' => [],
 	];
 	/**
 	 * Gegevens van kaart

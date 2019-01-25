@@ -45,7 +45,7 @@ add_filter( 'siw_map_destinations_data', function( $map_data ) {
 			'category'      => $continent->get_slug(),
 			'fill'          => $continent->get_color(),
 			'description'   => siw_generate_country_description( $country ),
-		];      
+		];
 		$map_data['locations'][] = $location;
 	}
 
@@ -72,7 +72,7 @@ function siw_generate_country_description( $country ) {
 
 	/* Groepsprojecten */
 	if ( true == $country->has_workcamps() ) {
-		$workcamp_count = \siw_count_projects_by_term( 'pa_land', $country->get_slug() );
+		$workcamp_count = siw_count_projects_by_term( 'pa_land', $country->get_slug() );
 		if ( $workcamp_count > 0 ) {
 			$url = get_term_link( $country->get_slug(), 'pa_land' );
 			$text = __( 'Bekijk alle projecten', 'siw' );

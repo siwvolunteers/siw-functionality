@@ -27,7 +27,7 @@ function siw_get_currencies() {
 	/**
 	 * Array met gegevens van de valuta
 	 *
-	 * @param array $data Gegevens van de valuta { iso|symbol|name }
+	 * @param array $data Gegevens van de valuta {iso|symbol|name}
 	 */
 	$data = apply_filters( 'siw_currency_data', $data );
 	
@@ -91,10 +91,10 @@ function siw_retrieve_exchange_rates( $force = true ) {
 	}
 
 	$url = SIW_EXCHANGE_RATES_API_URL . 'latest';
-	$args = array(
-		'timeout'		=> 10,
-		'redirection'	=> 0,
-	);
+	$args = [
+		'timeout'     => 10,
+		'redirection' => 0,
+	];
 	$url = add_query_arg( 'access_key', $api_key, $url );
 	$response = wp_safe_remote_get( $url, $args );
 
@@ -112,9 +112,9 @@ function siw_retrieve_exchange_rates( $force = true ) {
 		return false;	
 	}
 
-	$exchange_rates = array();
+	$exchange_rates = [];
 	foreach ( $body['rates'] as $currency => $rate ) {
-		$exchange_rates[$currency] = 1 / $rate;
+		$exchange_rates[ $currency ] = 1 / $rate;
 	}
 	return $exchange_rates;
 }

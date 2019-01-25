@@ -2,6 +2,39 @@
  * CSS voor frontend
  */
 
+.siw-404 {
+  height: 100vh;
+  background-image: url("/wp-content/plugins/siw-functionality/assets/images/404/groep.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+}
+
+.siw-404 .row {
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.siw-404 .row .main {
+  padding-top: 50px;
+  max-width: 767px;
+  display: inline-block;
+}
+
+.siw-404 .row .main .sectiontitle {
+  color: #fff;
+}
+
+.siw-404 .row .main .sectiontitle:hover:after {
+  background-color: #ff9900;
+}
+
+.siw-404 .row .main .sectiontitle:after {
+  background-color: #fff;
+}
+
 /*! system-font.css v2.0.2 | CC0-1.0 License | github.com/jonathantneal/system-font-css */
 
 @font-face {

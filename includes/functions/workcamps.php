@@ -46,55 +46,6 @@ function siw_count_projects_by_term( $taxonomy, $term_slug, $force_recount = fal
 
 
 /**
- * Zoek bestemmingen met zichtbare projecten voor Snel Zoeken
- *
- * @return array
- */
-function siw_get_quick_search_destinations() {
-
-	$categories = get_terms( array(
-		'taxonomy'		=> 'product_cat',
-		'hide_empty'	=> false,
-	) );
-
-	$destinations = array(
-		'' => __( 'Waar wil je heen?', 'siw' ),
-	);
-	foreach ( $categories as $category ) {
-		if ( 'uncategorized' != $category->slug && siw_count_projects_by_term( 'product_cat', $category->slug ) > 0 ) {
-			$destinations[ $category->slug ] = $category->name;
-		}
-	}
-
-	return $destinations;
-}
-
-
-/**
- * Zoek maanden met zichtbare projecten voor Snel Zoeken
- *
- * @return array
- */
-function siw_get_quick_search_months() {
-	$terms = get_terms( array(
-		'taxonomy'		=> 'pa_maand',
-		'hide_empty'	=> false,
-	) );
-
-	$months = array(
-		'' => __( 'Wanneer wil je weg?', 'siw' ),
-	);
-	foreach ( $terms as $term ) {
-		if ( siw_count_projects_by_term( 'pa_maand', $term->slug ) > 0 ) {
-			$months[ $term->slug ] = $term->name; 
-		}
-	}
-
-	return $months;
-}
-
-
-/**
  * Bepaal of kortingsactie actief is
  *
  * @return bool

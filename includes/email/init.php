@@ -6,5 +6,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 require_once( __DIR__ . '/configuration.php' );
-require_once( __DIR__ . '/mailpoet.php' );
 require_once( __DIR__ . '/template.php' );
