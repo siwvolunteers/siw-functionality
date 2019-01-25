@@ -129,8 +129,8 @@ add_filter( 'woocommerce_shortcode_products_query', function( $args, $atts ) {
 
 /** Introtekst voor overzichtspagina toevoegen*/
 add_action( 'after_page_header', function() {
-	$workcamps_page_link = siw_get_translated_page_link( siw_get_setting( 'workcamps_page' ) );
-	$contact_page_link = siw_get_translated_page_link( siw_get_setting( 'contact_page' ) );
+	$workcamps_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'workcamps_page' ) );
+	$contact_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'contact_page' ) );
 
 	if ( is_shop() ) {
 		$text =	__( 'Hieronder zie je het beschikbare aanbod Groepsprojecten.', 'siw' );
@@ -182,11 +182,11 @@ add_action( 'after_page_header', function() {
 	if ( siw_is_sale_active() ) {
 		/* Ophalen tarieven en einddatum */
 		$tariffs = siw_get_workcamp_tariffs();
-		$regular = siw_format_amount( $tariffs[ 'regulier' ] );
-		$regular_sale = siw_format_amount( $tariffs[ 'regulier_aanbieding' ] );
-		$student = siw_format_amount( $tariffs[ 'student' ] );
-		$student_sale = siw_format_amount( $tariffs[ 'student_aanbieding' ] );
-		$end_date = siw_get_date_in_text( siw_get_setting( 'workcamp_sale_end_date' ), false );
+		$regular = SIW_Formatting::format_amount( $tariffs[ 'regulier' ] );
+		$regular_sale = SIW_Formatting::format_amount( $tariffs[ 'regulier_aanbieding' ] );
+		$student = SIW_Formatting::format_amount( $tariffs[ 'student' ] );
+		$student_sale = SIW_Formatting::format_amount( $tariffs[ 'student_aanbieding' ] );
+		$end_date = SIW_Formatting::format_date( siw_get_setting( 'workcamp_sale_end_date' ), false );
 
 		$text .= BR2 . sprintf( __( 'Meld je nu aan en betaal geen %s maar %s voor je vrijwilligersproject.', 'siw' ), $regular, '<b>'. $regular_sale .'</b>' ) . SPACE .
 			__( 'Ben je student of jonger dan 18 jaar?', 'siw' ) . SPACE .
