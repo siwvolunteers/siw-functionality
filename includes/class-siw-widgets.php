@@ -104,7 +104,7 @@ class SIW_Widgets {
 	 */
 	protected function register_widgets() {
 		foreach ( $this->widgets as $id_base => $class_base ) {
-			siteorigin_widget_register( "siw-{$id_base}-widget", $this->widgets_folder_base . "/{$id_base}/{$id_base}.php", "SIW_{$class_base}_Widget");
+			siteorigin_widget_register( "siw-{$id_base}-widget", $this->widgets_folder_base . "/{$id_base}/{$id_base}.php", "SIW_Widget_{$class_base}");
 		}
 	}
 }

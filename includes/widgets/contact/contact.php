@@ -1,4 +1,11 @@
 <?php
+/*
+ * 
+ * Widget Name: SIW: Contactinformatie
+ * Description: Toont contactinformatie.
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -12,45 +19,39 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  * @uses      SIW_Properties
  * @uses      SIW_Formatting
- * 
- * Widget Name: SIW: Contactinformatie
- * Description: Toont contactinformatie.
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
  */
-class SIW_Contact_Widget extends SIW_Widget {
+class SIW_Widget_Contact extends SIW_Widget {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
 	protected $widget_id = 'contact';
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
 	protected $widget_dashicon = 'phone';
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	function __construct() {
+	protected function set_widget_properties() {
 		$this->widget_name = __( 'Contactinformatie', 'siw');
 		$this->widget_description = __( 'Toont contactinformatie', 'siw' );
-		$this->widget_fields = [
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_widget_form() {
+		$widget_forms = [
 			'title' => [
 				'type'      => 'text',
 				'label'     => __( 'Titel', 'siw'),
 				'default'   => __( 'Contact', 'siw' ),
 			],
 		];
-
-		parent::__construct();
+		return $widget_forms;
 	}
 
 	/**

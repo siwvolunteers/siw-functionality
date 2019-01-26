@@ -1,4 +1,11 @@
 <?php
+/*
+ * 
+ * Widget Name: SIW: Organisatiegegevens
+ * Description: Toont organisatiegegevens.
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -11,13 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Properties
- * 
- * Widget Name: SIW: Organisatiegegevens
- * Description: Toont organisatiegegevens.
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
  */
-class SIW_Organisation_Widget extends SIW_Widget {
+class SIW_Widget_Organisation extends SIW_Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -36,10 +38,16 @@ class SIW_Organisation_Widget extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	function __construct() {
+	protected function set_widget_properties() {
 		$this->widget_name = __( 'Organisatiegegevens', 'siw');
 		$this->widget_description = __( 'Toont organisatiegegevens', 'siw' );
-		$this->widget_fields = [
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_widget_form() {
+		$widget_form = [
 			'title' => [
 				'type'      => 'text',
 				'label'     => __( 'Titel', 'siw'),
@@ -52,8 +60,7 @@ class SIW_Organisation_Widget extends SIW_Widget {
 				'default_editor' => 'html',
 			],
 		];
-
-		parent::__construct();
+		return $widget_form;
 	}
 
 	/**
@@ -73,7 +80,7 @@ class SIW_Organisation_Widget extends SIW_Widget {
 		</p>
 		<p>
 			<b><?= __( 'Beloningsbeleid naam', 'siw' ); ?></b><br>
-			<?= esc_html( $instance['renumeration_policy'] ); ?><br></p>
+			<?= wp_kses_post( $instance['renumeration_policy'] ); ?><br></p>
 		</p>
 		<p>
 			<b><?= __( 'Jaarverslagen', 'siw' ); ?></b><br>

@@ -1,4 +1,11 @@
 <?php
+/*
+ * Widget Name: SIW: Kaart
+ * Description: Toont interactieve kaart
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -11,13 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      siw_render_map()
- * 
- * Widget Name: SIW: Kaart
- * Description: Toont interactieve kaart
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
  */
-class SIW_Map_Widget extends SIW_Widget {
+class SIW_Widget_Map extends SIW_Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -32,13 +34,18 @@ class SIW_Map_Widget extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	function __construct() {
-
-		$maps = apply_filters( 'siw_maps', [] ); //TODO: get_maps oid
-
+	protected function set_widget_properties() {
 		$this->widget_name = __( 'Kaart', 'siw');
 		$this->widget_description = __( 'Toont interactieve kaart', 'siw' );
-		$this->widget_fields = [
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_widget_form() {
+		$maps = apply_filters( 'siw_maps', [] ); //TODO: get_maps oid
+
+		$widget_form = [
 			'title' => [
 				'type'    => 'text',
 				'label'   => __( 'Titel', 'siw'),
@@ -51,7 +58,7 @@ class SIW_Map_Widget extends SIW_Widget {
 				'options' => $maps
 			],
 		];
-		parent::__construct();
+		return $widget_form;
 	}
 
 	/**

@@ -1,4 +1,11 @@
 <?php
+/*
+ * 
+ * Widget Name: SIW: Snel Zoeken - resultaten
+ * Description: Toont zoekformulier
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -11,13 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Formatting
- * 
- * Widget Name: SIW: Snel Zoeken - resultaten
- * Description: Toont zoekformulier
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
  */
-class SIW_Quick_Search_Results_Widget extends SIW_Widget {
+class SIW_Widget_Quick_Search_Results extends SIW_Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -33,20 +35,27 @@ class SIW_Quick_Search_Results_Widget extends SIW_Widget {
 	 */
 	protected $widget_dashicon = 'search';
 
+
 	/**
 	 * {@inheritDoc}
 	 */
-	function __construct() {
+	protected function set_widget_properties() {
 		$this->widget_name = __( 'Snel Zoeken - resultaat', 'siw');
 		$this->widget_description = __( 'Toont zoektresultaten', 'siw' );
-		$this->widget_fields = [
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_widget_form() {
+		$widget_form = [
 			'title' => [
 				'type'    => 'text',
 				'label'   => __( 'Titel', 'siw'),
 				'default' => __( 'Groepsprojecten', 'siw' ),
 			],
 		];
-		parent::__construct();
+		return $widget_form;
 	}
 
 	/**

@@ -1,4 +1,11 @@
 <?php
+/*
+ * 
+ * Widget Name: SIW: Accordion
+ * Description: Toont accordion.
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -11,35 +18,32 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Formatting
- * 
- * Widget Name: SIW: Accordion
- * Description: Toont accordion.
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
  */
-class SIW_Accordion_Widget extends SIW_Widget {
+class SIW_Widget_Accordion extends SIW_Widget {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
 	protected $widget_id ='accordion';
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
 	protected $widget_dashicon = 'list-view';
 
 	/**
 	 * {@inheritDoc}
-	 */
-	function __construct() {
+	 */	
+	protected function set_widget_properties() {
 		$this->widget_name = __( 'Accordion', 'siw');
 		$this->widget_description = __( 'Toont accordion', 'siw' );
-		$this->widget_fields = [
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_widget_form() {
+		$widget_form = [
 			'title' => [
 				'type'  => 'text',
 				'label' => __( 'Titel', 'siw'),
@@ -96,7 +100,7 @@ class SIW_Accordion_Widget extends SIW_Widget {
 				]
 			]
 		];
-		parent::__construct();
+		return $widget_form;
 	}
 
 	/**

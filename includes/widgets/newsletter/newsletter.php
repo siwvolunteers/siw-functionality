@@ -1,23 +1,25 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
+/*
+ * Widget Name: SIW: Nieuwsbrief
+ * Description: Toont aanmeldformulier voor nieuwsbrief
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
+ */
+
+ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Widget met formulier voor Snel Zoeken
+ * Widget met aanmeldformulier nieuwsbrief
  *
  * @package   SIW\Widgets
  * @author    Maarten Bruna
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Formatting
- * 
- * Widget Name: SIW: Nieuwsbrief
- * Description: Toont aanmeldformulier voor nieuwsbrief
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
  */
-class SIW_Newsletter_Widget extends SIW_Widget {
+class SIW_Widget_Newsletter extends SIW_Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -36,10 +38,16 @@ class SIW_Newsletter_Widget extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	function __construct() {
+	protected function set_widget_properties() {
 		$this->widget_name = __( 'Nieuwsbrief', 'siw');
 		$this->widget_description = __( 'Toont aanmeldformulier voor nieuwsbrief', 'siw' );
-		$this->widget_fields = [
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_widget_form() {
+		$widget_form = [
 			'title' => [
 				'type'    => 'text',
 				'label'   => __( 'Titel', 'siw' ),
@@ -51,7 +59,7 @@ class SIW_Newsletter_Widget extends SIW_Widget {
 				'options' => siw_get_mailpoet_lists(),
 			]
 		];
-		parent::__construct();
+		return $widget_form;
 	}
 
 	/**

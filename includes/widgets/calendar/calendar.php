@@ -1,4 +1,12 @@
 <?php
+/*
+ * 
+ * @widget_data 
+ * Widget Name: SIW: Agenda
+ * Description: Toont eerstvolgende evenementen
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -11,14 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Formatting
- * 
- * @widget_data 
- * Widget Name: SIW: Agenda
- * Description: Toont eerstvolgende evenementen
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
  */
-class SIW_Calendar_Widget extends SIW_Widget {
+class SIW_Widget_Calendar extends SIW_Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -33,17 +35,24 @@ class SIW_Calendar_Widget extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	function __construct() {
+	protected function set_widget_properties() {
 		$this->widget_name = __( 'Agenda', 'siw');
 		$this->widget_description = __( 'Toont eerstvolgende evenementen', 'siw' );
-		$this->widget_fields = [
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_widget_form() {
+
+		$widget_form = [
 			'title' => [
 				'type'    => 'text',
 				'label'   => __( 'Titel', 'siw'),
 				'default' => __( 'Agenda', 'siw' ),
 			],
 		];
-		parent::__construct();
+		return $widget_form;
 	}
 
 	/**
@@ -81,12 +90,12 @@ class SIW_Calendar_Widget extends SIW_Widget {
 	}
 
 	/**
-	 * Undocumented function
+	 * Haalt toekomstige evenementen op
 	 * 
 	 * @return array
 	 */
 	protected function get_upcoming_events() {
-		$events = false; // get_transient( 'siw_upcoming_events' );
+		$events = get_transient( 'siw_upcoming_events' );
 		if ( false === $events ) {
 			$events = siw_get_upcoming_events( 2 );
 			set_transient( 'siw_upcoming_events', $events, HOUR_IN_SECONDS );

@@ -1,4 +1,12 @@
 <?php
+/*
+ * 
+ * @widget_data 
+ * Widget Name: SIW: CTA
+ * Description: Toont call to action
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -11,14 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Formatting
- * 
- * @widget_data 
- * Widget Name: SIW: CTA
- * Description: Toont call to action
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
+ * @uses      SIW_i18n
+ * @uses      SIW_Util
  */
-class SIW_CTA_Widget extends SIW_Widget {
+class SIW_Widget_CTA extends SIW_Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -33,10 +37,16 @@ class SIW_CTA_Widget extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	function __construct() {
+	protected function set_widget_properties() {
 		$this->widget_name = __( 'CTA', 'siw');
 		$this->widget_description = __( 'Toont call to action', 'siw' );
-		$this->widget_fields = [
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_widget_form() {
+		$widget_form = [
 			'headline' => [
 				'type'    => 'text',
 				'label'   => __( 'Headline', 'siw'),
@@ -70,7 +80,7 @@ class SIW_CTA_Widget extends SIW_Widget {
 				'default' => 'center',
 			],
 		];
-		parent::__construct();
+		return $widget_form;
 	}
 
 	/**

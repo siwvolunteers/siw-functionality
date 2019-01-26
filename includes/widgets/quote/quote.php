@@ -1,4 +1,11 @@
 <?php
+/*
+ * 
+ * Widget Name: SIW: Quote
+ * Description: Toont quote van deelnemer
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,13 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package   SIW\Widgets
  * @author    Maarten Bruna
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
- * 
- * Widget Name: SIW: Quote
- * Description: Toont quote van deelnemer
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
  */
-class SIW_Quote_Widget extends SIW_Widget {
+class SIW_Widget_Quote extends SIW_Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -34,13 +36,12 @@ class SIW_Quote_Widget extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	function __construct() {
+	protected function set_widget_properties() {
 		$this->widget_name = __( 'Quote', 'siw');
 		$this->widget_description = __( 'Toont quote van deelnemer', 'siw' );
-		parent::__construct();
 	}
 
-		/**
+	/**
 	 * {@inheritDoc}
 	 */
 	function get_widget_form() {

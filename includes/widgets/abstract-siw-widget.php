@@ -60,8 +60,7 @@ abstract class SIW_Widget extends SiteOrigin_Widget {
 	 */
 	function __construct() {
 
-		//$this->set_widget_properties();
-
+		$this->set_widget_properties();
 
 		parent::__construct(
 			"siw_{$this->widget_id}_widget",
@@ -74,16 +73,17 @@ abstract class SIW_Widget extends SiteOrigin_Widget {
 			],
 			$this->widget_control_options,
 			$this->widget_fields,
-			plugin_dir_path(__FILE__)
+			plugin_dir_path( __FILE__ )
 		);
 	}
 
-
 	/**
-	 * Undocumented function
+	 * Zet eigenschappen van widget
+	 * 
+	 * - Naam
+	 * - Beschrijving
 	 */
-//	abstract protected function set_widget_properties();
-
+	abstract protected function set_widget_properties();
 
 	/**
 	 * Genereert specifieke inhoud van widget
@@ -122,5 +122,4 @@ abstract class SIW_Widget extends SiteOrigin_Widget {
 		$html_content = ob_get_clean();
 		return $html_content;
 	}
-
 }
