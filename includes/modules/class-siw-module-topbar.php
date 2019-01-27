@@ -7,14 +7,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Topbar
  * 
- * @package SIW\Modules
- * @author Maarten Bruna
+ * @package   SIW\Modules
+ * @author    Maarten Bruna
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses SIW_Formatting
  * @uses SIW_Properties
+ * @uses SIW_i18n
  */
-class SIW_Topbar {
+class SIW_Module_Topbar {
 
 	/**
 	 * Toon het evenement x aantal dagen van te voren
@@ -37,6 +38,9 @@ class SIW_Topbar {
 	 */
 	protected $content;
 
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 		if ( ! SIW_i18n::is_default_language() ) {
@@ -52,8 +56,6 @@ class SIW_Topbar {
 
 	/**
 	 * Rendert de topbar
-	 *
-	 * @return void
 	 */
 	public function render() {
 		$target = isset( $this->content['link_target'] ) ? $this->content['link_target'] : '_self';
@@ -76,8 +78,6 @@ class SIW_Topbar {
 
 	/**
 	 * Voegt stylesheet toe
-	 *
-	 * @return void
 	 */
 	public function enqueue_styles() {
 		wp_register_style( 'siw-topbar', SIW_ASSETS_URL . 'css/siw-topbar.css', null, SIW_PLUGIN_VERSION );
@@ -139,7 +139,6 @@ class SIW_Topbar {
 			'link_target' => '_blank',
 		];
 		return $social_content;
-
 	}
 
 	/**
@@ -171,7 +170,6 @@ class SIW_Topbar {
 			'link_url'  => $event['permalink'],
 			'link_text' => $link_text,
 		];
-
 		return $event_content;
 	}
 
@@ -191,14 +189,11 @@ class SIW_Topbar {
 			'link_url'  => $job['permalink'],
 			'link_text' => sprintf( __( 'Wij zoeken een %s.', 'siw' ), $job_title ),
 		];
-	
 		return $job_content;
 	}
 
 	/**
 	 * Haalt de kortingsactie-inhoud op
-	 *
-	 * @return void
 	 */
 	protected function get_sale_content() {
 		if ( ! siw_is_sale_active() ) {
@@ -213,7 +208,6 @@ class SIW_Topbar {
 			'link_url'  => wc_get_page_permalink( 'shop' ),
 			'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_tariff ) ,
 		];
-	
 		return $sale_content;
 	}
 }

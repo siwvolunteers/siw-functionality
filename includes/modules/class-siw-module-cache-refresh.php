@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @uses      SIW_Properties
  */
 
-class SIW_Cache_Refresh {
+class SIW_Module_Cache_Refresh {
 
 	/**
 	 * Init
@@ -31,7 +31,7 @@ class SIW_Cache_Refresh {
 	}
 
 	/**
-	 * Undocumented function
+	 * Voegt een scheduled event toe
 	 */
 	public function schedule_cache_refresh() {
 		/* Cache rebuild schedulen */
@@ -82,7 +82,7 @@ class SIW_Cache_Refresh {
 			$languages = apply_filters( 'wpml_active_languages', null );
 			//siw_debug_log( $languages );
 			foreach ( $languages as $code => $language ) {
-				do_action( 'wpml_switch_language', $code );
+				do_action( 'wpml_switch_language', $code ); //TODO: waarom werkt dit niet?
 				$sitemaps[] = $tsf->get_sitemap_xml_url();
 			}
 			do_action( 'wpml_switch_language', $current_language );

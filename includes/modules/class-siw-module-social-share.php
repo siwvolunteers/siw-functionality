@@ -13,12 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @uses        siw_get_social_networks();
  */
-class SIW_Social_Share {
+class SIW_Module_Social_Share {
 
 	/**
-	 * Undocumented function
-	 *
-	 * @return void
+	 * Init
 	 */
 	public static function init() {
 		$self = new self();

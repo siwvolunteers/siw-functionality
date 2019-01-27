@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  * @uses      SIW_Enhanced_Ecommerce
  */
-class SIW_Google_Analytics {
+class SIW_Module_Google_Analytics {
 
 	/**
 	 * Google Analytics property ID
@@ -30,9 +30,7 @@ class SIW_Google_Analytics {
 	protected $in_footer = true;
 
 	/**
-	 * Undocumented function
-	 *
-	 * @return void
+	 * Init
 	 */
 	public static function init() {
 		$self = new self();
@@ -44,9 +42,8 @@ class SIW_Google_Analytics {
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_scripts' ] );
 	}
 
-
 	/**
-	 * Undocumented function
+	 * Voegt scripts toe
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'google-analytics', 'https://www.google-analytics.com/analytics.js', null, null, $this->in_footer );
@@ -64,24 +61,19 @@ class SIW_Google_Analytics {
 		<?php
 		$snippet = ob_get_clean();
 		wp_add_inline_script( 'google-analytics', $snippet, 'before' );
-
-		return;
 	}
 
 	/**
 	 * Haalt het GA property ID op
-	 *
-	 * @return void
 	 */
 	protected function set_property_id() {
 		$this->property_id = siw_get_setting( 'google_analytics_id' );
-		return $this;
 	}
 
 	/**
 	 * Geeft aan of tracking ingeschakeld moet worden
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	protected function tracking_enabled() {
 		if ( ! isset( $this->property_id ) || is_user_logged_in() ) {
