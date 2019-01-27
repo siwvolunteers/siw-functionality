@@ -90,9 +90,6 @@ function siw_get_evs_project_data( $post_id ) {
 	return $evs_project_data;
 }
 
-add_filter( 'siw_evs_project_data', function( $evs_project_data, $post_id ) {
-	return siw_get_evs_project_data( $post_id );
-}, 10, 2 );
 
 
 //TODO: functie om oude evs-projecten te verwijderen

@@ -41,7 +41,8 @@ class SIW_Compat_Pinnacle_Premium {
 		add_action( 'init', [ $self, 'remove_wc_sales_badge' ], PHP_INT_MAX );
 		add_shortcode( 'siw_footer', __CLASS__ . '::footer_shortcode' );
 
-		add_filter( "theme_page_templates", [ $self, 'add_page_templates'], 10, 4 );
+		add_filter( 'theme_page_templates', [ $self, 'add_page_templates'], 10, 4 );
+		add_filter( 'page_template', [ $self, 'set_page_templates'], 10, 3 );
 
 		$self->set_permalink_slugs();
 		$self->set_capabilities();
@@ -349,14 +350,21 @@ class SIW_Compat_Pinnacle_Premium {
 		return $templates;
 	}
 
-}
-
-
-add_filter( 'page_template', function( $template, $type, $templates ) {
-
-	if ( in_array( 'template-agenda.php', $templates ) ) {
-		$template = SIW_TEMPLATES_DIR . '/template-agenda.php';
+	/**
+	 * Overschrijft pagina-templates
+	 *
+	 * @param string $template
+	 * @param string $type
+	 * @param array $templates
+	 * @return string
+	 */
+	public function set_page_templates( $template, $type, $templates ) {
+		if ( in_array( 'template-agenda.php', $templates ) ) {
+			$template = SIW_TEMPLATES_DIR . '/template-agenda.php';
+		}
+		if ( in_array( 'template-vacatures-grid.php', $templates ) ) {
+			$template = SIW_TEMPLATES_DIR . '/template-vacatures-grid.php';
+		}
+		return $template;
 	}
-
-	return $template;
-}, 10, 3 );
+}
