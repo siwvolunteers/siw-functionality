@@ -13,6 +13,7 @@ add_filter( 'siw_widgets', function( $widgets ) {
 		'calendar'             => 'Calendar',
 		'contact'              => 'Contact',
 		'cta'                  => 'CTA',
+		'features'             => 'Features',
 		'map'                  => 'Map',
 		'newsletter'           => 'Newsletter',
 		'organisation'         => 'Organisation',
