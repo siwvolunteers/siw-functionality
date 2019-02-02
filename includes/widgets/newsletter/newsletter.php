@@ -53,13 +53,23 @@ class SIW_Widget_Newsletter extends SIW_Widget {
 				'label'   => __( 'Titel', 'siw' ),
 				'default' => __( 'Blijf op de hoogte', 'siw' ),
 			],
-			'list' => [
-				'type'    => 'select',
-				'label'   => __( 'Lijst', 'siw' ),
-				'options' => siw_get_mailpoet_lists(),
-			]
 		];
 		return $widget_form;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function initialize() {
+		add_action( 'wp_enqueue_scripts', function() {
+		$inline_script = "
+			$( '.so-widget-siw_newsletter_widget form' ).submit(function( event ) {
+				event.preventDefault();
+				siwNewsletterSubscribeFromForm( '.so-widget-siw_newsletter_widget' );
+				return false;
+			});";
+		wp_add_inline_script( 'siw-newsletter', "(function( $ ) {" . $inline_script . "})( jQuery );" );
+		});
 	}
 
 	/**
@@ -69,17 +79,15 @@ class SIW_Widget_Newsletter extends SIW_Widget {
 		ob_start();
 		?>
 		<div>
-			<div id="newsletter_message" class="text-center hidden"></div>
-			<div id="newsletter_loading" class="text-center hidden"></div>
-			<form id="siw_newsletter_subscription" method="post" autocomplete="on">
+			<div class="text-center loading hidden"></div>
+			<div class="text-center message hidden"></div>
+			<form method="post" autocomplete="on">
 				<p>
 				<?= sprintf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), $this->get_subscriber_count( $instance['list'] ) );?>
 				</p>
-				<?= SIW_Formatting::generate_field( 'text', [ 'label' => __( 'Voornaam', 'siw' ), 'name' => 'name', 'id' => 'newsletter_name', 'required' => true ], [ 'tag' => 'p' ] ) ;?>
-				<?= SIW_Formatting::generate_field( 'email', [ 'label' => __( 'E-mail', 'siw' ), 'name' => 'email', 'id' => 'newsletter_email', 'required' => true ], [ 'tag' => 'p' ] ) ;?>
+				<?= SIW_Formatting::generate_field( 'text', [ 'label' => __( 'Voornaam', 'siw' ), 'name' => 'name', 'required' => true ], [ 'tag' => 'p' ] ) ;?>
+				<?= SIW_Formatting::generate_field( 'email', [ 'label' => __( 'E-mail', 'siw' ), 'name' => 'email', 'required' => true ], [ 'tag' => 'p' ] ) ;?>
 				<?= SIW_Formatting::generate_field( 'submit', [ 'value' => __( 'Aanmelden', 'siw') ], [ 'tag' => 'p'] ); ?>
-				<?= SIW_Formatting::generate_field( 'hidden', [ 'value' => $instance['list'], 'name' => 'list_id', 'id' => 'newsletter_list_id' ] ); ?>
-				<?php wp_nonce_field( 'siw_newsletter_nonce', 'newsletter_nonce', false );?>
 			</form>
 		</div>
 		<?php

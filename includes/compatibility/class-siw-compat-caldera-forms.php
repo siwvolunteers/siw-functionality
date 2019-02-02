@@ -38,6 +38,7 @@ class SIW_Compat_Caldera_Forms{
 		add_filter( 'caldera_forms_render_field_type-gdpr', [ $self, 'add_input_markup' ] );
 		add_filter( 'caldera_forms_summary_magic_pattern', [ $self, 'set_summary_magic_pattern' ] );
 		add_filter( 'caldera_forms_field_attributes', [ $self, 'set_validation_field_attributes' ] , 10, 2 );
+		add_action( 'caldera_forms_render_end', [ $self, 'maybe_add_postcode_script'] );
 	}
 
 	/**
@@ -116,5 +117,26 @@ class SIW_Compat_Caldera_Forms{
 			$attrs[ 'data-parsley-pattern' ] = SIW_Util::get_regex( 'postal_code' );
 		}
 		return $attrs;
+	}
+
+	/**
+	 * Voegt inline script voor postcode lookup toe als formulier een postcode-veld bevat
+	 *
+	 * @param array $form
+	 * 
+	 * @todo instelling bij formulier i.p.v. afleiden van vel
+	 */
+	public function maybe_add_postcode_script( $form ) {
+
+		if ( isset( $form['fields']['postcode'] ) ) {
+
+			$inline_script = "
+			$( 'input[name=\'postcode\'], input[name=\'huisnummer\']' ).change(function() {
+				siwPostcodeLookupFromForm( 'input[name=\'postcode\']', 'input[name=\'huisnummer\']', 'input[name=\'straat\']', 'input[name=\'woonplaats\']' );
+				return false;
+			});";
+			wp_add_inline_script( 'siw-postcode', "(function( $ ) {" . $inline_script . "})( jQuery );" );
+		}
+
 	}
 }

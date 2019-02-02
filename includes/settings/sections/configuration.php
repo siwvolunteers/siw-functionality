@@ -102,6 +102,23 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'id'		=> 'blocked_bots_section_end',
 			'type'		=> 'section',
 			'indent' 	=> false,
+		),
+		array(
+			'id'			=> 'newsletter_section_start',
+			'type'			=> 'section',
+			'title'			=> __( 'Nieuwsbrief', 'siw' ),
+			'indent' 		=> true,
+		),
+		array(
+			'id'			=> 'newsletter_list',
+			'type'			=> 'select',
+			'title'			=> __( 'Lijst', 'siw' ),
+			'options'		=> siw_get_mailpoet_lists(),
+		),
+		array(
+			'id'		=> 'newsletter_section_end',
+			'type'		=> 'section',
+			'indent' 	=> false,
 		),		
 	);
 
