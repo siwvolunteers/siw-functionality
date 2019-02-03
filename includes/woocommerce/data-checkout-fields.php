@@ -23,10 +23,10 @@ add_filter( 'siw_checkout_sections', function( $checkout_sections) {
 
 add_filter( 'siw_checkout_fields', function( $checkout_fields ) {
 
-	$languages = siw_get_languages( 'volunteer', 'plato' );
-	$volunteer_languages[''] = __( 'Selecteer een taal', 'siw' );
-	foreach ( $languages as $language ) {
-		$volunteer_languages[ $language->get_plato_code() ] = $language->get_name();
+	$volunteer_languages = siw_get_languages( 'volunteer', 'plato' );
+	$languages[''] = __( 'Selecteer een taal', 'siw' );
+	foreach ( $volunteer_languages as $language ) {
+		$languages[ $language->get_plato_code() ] = $language->get_name();
 	}
 
 	$language_skill = siw_get_language_skill_levels();
