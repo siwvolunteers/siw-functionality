@@ -7,4 +7,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
+require_once( __DIR__ . '/class-siw-external-exchange-rates.php' );
 require_once( __DIR__ . '/class-siw-external-postcode-lookup.php' );
