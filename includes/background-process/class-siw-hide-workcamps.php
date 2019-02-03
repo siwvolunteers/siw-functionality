@@ -71,12 +71,12 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 		];
 	
 		$args = array(
-			'posts_per_page'	=> -1,
-			'post_type'			=> 'product',
-			'meta_query'		=> $meta_query,
-			'tax_query'			=> $tax_query,
-			'fields' 			=> 'ids',
-			'post_status'		=> 'any',
+			'posts_per_page' => -1,
+			'post_type'      => 'product',
+			'meta_query'     => $meta_query,
+			'tax_query'      => $tax_query,
+			'fields'         => 'ids',
+			'post_status'    => 'any',
 		);
 	
 		$products = get_posts( $args );
@@ -91,12 +91,22 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 	 *
 	 * @return bool
 	 */
-	protected function task( $item ) {
+	protected function task( $product_id ) {
 
-		if ( 'publish' != get_post_status( $item ) ) {
-			wp_publish_post( $item );
+		$product = wc_get_product( $product_id );
+		
+		if ( false == $product ) {
+			return false;
 		}
-		siw_hide_workcamp( $item );
+
+		if ( 'publish' != get_post_status( $product_id ) ) {
+			wp_publish_post( $product_id );
+		}
+
+		$product->set_catalog_visibility( 'hidden' );
+		$product->set_featured( 'no' );
+		SIW_Util::set_seo_noindex( $product_id, true );
+		$product->save();
 
 		$this->increment_processed_count();
 		return false;

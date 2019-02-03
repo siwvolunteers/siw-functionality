@@ -72,7 +72,14 @@ function siw_generate_country_description( $country ) {
 
 	/* Groepsprojecten */
 	if ( true == $country->has_workcamps() ) {
-		$workcamp_count = siw_count_projects_by_term( 'pa_land', $country->get_slug() );
+		$country_term = get_term_by( 'slug', $country->get_slug(), 'pa_land' );
+		if ( is_a( $country_term, 'WP_Term' ) ) {
+			$workcamp_count = get_term_meta( $country_term->term_id, 'project_count', true );
+		}
+		else {
+			$workcamp_count = 0;
+		}
+
 		if ( $workcamp_count > 0 ) {
 			$url = get_term_link( $country->get_slug(), 'pa_land' );
 			$text = __( 'Bekijk alle projecten', 'siw' );

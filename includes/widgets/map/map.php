@@ -49,7 +49,6 @@ class SIW_Widget_Map extends SIW_Widget {
 			'title' => [
 				'type'    => 'text',
 				'label'   => __( 'Titel', 'siw'),
-				'default' => __( 'Blijf op de hoogte', 'siw' ),
 			],
 			'map' => [
 				'type'    => 'select',

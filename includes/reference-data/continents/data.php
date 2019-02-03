@@ -37,7 +37,7 @@ add_filter( 'siw_continent_data', function( $data) {
 		[
 			'slug'  => 'noord-amerika',
 			'name'  => __( 'Noord-Amerika', 'siw' ),
-			'color' => SIW_Properties::get('north_america'),
+			'color' => SIW_Properties::get('color_north_america'),
 		],
 	];
 

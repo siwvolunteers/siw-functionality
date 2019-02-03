@@ -154,7 +154,7 @@ function siw_generate_job_json_ld( $job ) {
 				'@type'             => 'PostalAddress',
 				'streetAddress'     => SIW_Properties::get('address'),
 				'addressLocality'   => SIW_Properties::get('city'),
-				'postalCode'        => SIW_Properties::get('postal_code'),
+				'postalCode'        => SIW_Properties::get('postcode'),
 				'addressRegion'     => SIW_Properties::get('city'),
 				'addressCountry'    => 'NL',
 			],

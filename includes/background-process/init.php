@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /* Generieke klasse */
-require_once( __DIR__ . '/class-siw-background-process.php' );
+require_once( __DIR__ . '/abstract-siw-background-process.php' );
 /* Background processen */
 require_once( __DIR__ . '/class-siw-count-workcamps.php' );
 require_once( __DIR__ . '/class-siw-update-workcamp-tariffs.php' );

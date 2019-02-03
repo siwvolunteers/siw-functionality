@@ -66,12 +66,12 @@ abstract class SIW_Background_Process extends WP_Background_Process {
 
 		return $this;
 	}
-   
+
 	/**
 	 * Zet logger-context in optie
 	 *
 	 * @param array $context
-	 * @return void
+	 * @return $this
 	 */
 	public function set_logger_context() {
 		$source = sanitize_title( sprintf( 'siw-%s', $this->name ) );
@@ -84,7 +84,7 @@ abstract class SIW_Background_Process extends WP_Background_Process {
 	/**
 	 * Haal logger-context op
 	 *
-	 * @return void
+	 * @return array
 	 */
 	protected function get_logger_context() {
 		$logger_context = get_site_option( $this->logger_context_option );
@@ -94,7 +94,7 @@ abstract class SIW_Background_Process extends WP_Background_Process {
 	/**
 	 * Verwijder optie met logger context
 	 *
-	 * @return void
+	 * @return $this
 	 */
 	protected function delete_logger_context() {
 		delete_site_option( $this->logger_context_option );
@@ -106,7 +106,6 @@ abstract class SIW_Background_Process extends WP_Background_Process {
 	 *
 	 * @param string $level
 	 * @param string $message
-	 * @return void
 	 */
 	protected function log( $level, $message ) {
 		$logger = wc_get_logger();
@@ -119,7 +118,7 @@ abstract class SIW_Background_Process extends WP_Background_Process {
 	 * Zet het aantal verwerkte items
 	 *
 	 * @param int $processed_count
-	 * @return void
+	 * @return $this
 	 */
 	protected function set_processed_count( $processed_count ) {
 		update_site_option( $this->processed_count_option, $processed_count );
@@ -130,28 +129,26 @@ abstract class SIW_Background_Process extends WP_Background_Process {
 	 * Haal aantal verwerkte items op
 	 *
 	 * @return int
-	 */   
+	 */
 	protected function get_processed_count() {
 		$processed_count = get_site_option( $this->processed_count_option );
 		return $processed_count;
 	}
 
-
 	/**
 	 * Zet het aantal verwerkte items op 0
 	 *
-	 * @return void
+	 * @return $this
 	 */
 	public function reset_processed_count() {
 		$this->set_processed_count( 0 );
 		return $this;
 	}
 
-
 	/**
 	 * Hoog aantal verwerkte items met 1 op
 	 *
-	 * @return void
+	 * @return $this
 	 */
 	protected function increment_processed_count() {
 		$processed_count = $this->get_processed_count();
@@ -163,7 +160,7 @@ abstract class SIW_Background_Process extends WP_Background_Process {
 	/**
 	 * Verwijder het aantal verwerkte items
 	 *
-	 * @return void
+	 * @return $this
 	 */
 	protected function delete_processed_count() {
 		delete_site_option( $this->processed_count_option );
@@ -177,9 +174,9 @@ abstract class SIW_Background_Process extends WP_Background_Process {
 	 */
 	protected abstract function select_data();
 
-
 	/**
 	 * Starten achtergrondproces
+	 *
 	 * - Logger
 	 * - Aantal verwerkte items
 	 * - Gegevens ophalen

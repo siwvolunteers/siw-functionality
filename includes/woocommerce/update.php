@@ -5,6 +5,18 @@
 if ( ! defined('ABSPATH' ) ) {
 	exit;
 }
+/**
+ *  Schrijf informatie naar log als DEBUG-mode aan staat
+ * @param  mixed $content
+ * @deprecated
+ * @return void
+ */
+function siw_debug_log( $content ) {
+	if ( WP_DEBUG ) {
+		//_deprecated_function( __FUNCTION__, '1.9');
+		error_log( print_r( $content, true ), 0);
+	}
+}
 
 
 /*
@@ -143,17 +155,9 @@ function siw_hide_workcamp( $product_id ) {
 		return false;
 	}
 	$product->set_catalog_visibility( 'hidden' );
-	$product->set_stock_status( 'outofstock' ); //TODO:kan weg als stock-management uitgeschakeld is
 	$product->set_featured( 'no' );
 	SIW_Util::set_seo_noindex( $product_id, true );
 	$product->save();
-
-	$variation_ids = $product->get_children();
-	foreach ( $variation_ids as $variation_id ) {
-		$variation = wc_get_product( $variation_id );
-		$variation->set_stock_status( 'outofstock' );
-		$variation->save();
-	}
 }
 
 

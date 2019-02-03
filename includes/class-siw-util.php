@@ -112,7 +112,7 @@ class SIW_Util {
 	}
 
 	/**
-	 * Undocumented function
+	 * Converteert timestamp met tijdzone naar timestamp in GMT
 	 *
 	 * @param int $timestamp
 	 * @return int

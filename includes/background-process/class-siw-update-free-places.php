@@ -7,20 +7,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om vrije plaatsen van Groepsprojecten bij te werken
  * 
- * @package SIW\Background-Process
- * @author Maarten Bruna
+ * @package   SIW\Background-Process
+ * @author    Maarten Bruna
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
- * @uses \SIW_Plato_Import_FPL
+ * @uses      SIW_Plato_Import_FPL
  */
 class SIW_Update_Free_Places extends SIW_Background_Process {
 
 	/**
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $action = 'update_free_places';
 
 	/**
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $name = 'bijwerken vrije plaatsen';		
 
@@ -31,7 +31,7 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 	 * @param int $free_f
 	 * @param string $no_more_from
 	 * @return string
-	 */	
+	 */
 	protected function has_free_places( $free_m, $free_f, $no_more_from ) {
 		$free_m = (int) $free_m;
 		$free_f = (int) $free_f;
@@ -54,9 +54,9 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 	/**
 	 * Werkt aantal vrije plaatsen bij
 	 *
-	 * @param mixed $item
+	 * @param array $item
 	 *
-	 * @return mixed
+	 * @return bool
 	 */
 	protected function task( $item ) {
 
@@ -66,10 +66,10 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 		}
 	
 		$args = [
-			'visibility'	=> 'visible',
-			'project_id'	=> $item['project_id'],
-			'return'		=> 'objects',
-			'limit'			=> -1,
+			'visibility' => 'visible',
+			'project_id' => $item['project_id'],
+			'return'     => 'objects',
+			'limit'      => -1,
 		];
 		$products = wc_get_products( $args );
 	

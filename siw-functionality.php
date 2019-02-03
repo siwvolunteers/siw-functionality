@@ -41,8 +41,7 @@ require_once( SIW_INCLUDES_DIR . '/class-siw-util.php' );
 
 require_once( SIW_INCLUDES_DIR . '/settings/init.php' );
 
-/* Diverse aanpassingen */
-require_once( SIW_INCLUDES_DIR . '/custom.php' );
+/* Core */
 require_once( SIW_INCLUDES_DIR . '/class-siw-assets.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-head.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-htaccess.php' );
@@ -50,7 +49,6 @@ require_once( SIW_INCLUDES_DIR . '/class-siw-i18n.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-scheduler.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-shortcodes.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-widgets.php' );
-require_once( SIW_INCLUDES_DIR . '/seo.php' );
 
 add_action( 'plugins_loaded', ['SIW_Assets', 'init']);
 add_action( 'plugins_loaded', ['SIW_i18n', 'init']);

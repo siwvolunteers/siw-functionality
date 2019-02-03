@@ -27,7 +27,7 @@ class SIW_Module_Cookie_Notification {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'siw-cookie', SIW_ASSETS_URL . 'js/siw-cookie.js', [ 'jquery', 'js-cookie' ] , SIW_PLUGIN_VERSION );
+		wp_register_script( 'siw-cookie', SIW_ASSETS_URL . 'js/siw-cookie.js', [ 'jquery', 'js-cookie' ] , SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-cookie' );
 	}
 

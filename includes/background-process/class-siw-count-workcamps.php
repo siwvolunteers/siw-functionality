@@ -14,15 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SIW_Count_Workcamps extends SIW_Background_Process {
 
 	/**
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $action = 'count_workcamps_process';
 
 	/**
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $name = 'tellen groepsprojecten';
-
 
 	/**
 	 * Selecteer alle terms van de relevante taxonomieën
@@ -39,7 +38,7 @@ class SIW_Count_Workcamps extends SIW_Background_Process {
 		foreach ( $taxonomies as $taxonomy ) {
 			$terms = get_terms( $taxonomy, [ 'hide_empty' => true ] );
 			foreach ( $terms as $term ) {
-				$data[] = [ 'taxonomy' => $taxonomy, 'term_slug' => $term->slug ];
+				$data[] = [ 'taxonomy' => $taxonomy, 'term_slug' => $term->slug, 'term_id'=> $term->term_id ];
 	
 			}
 		}
@@ -55,9 +54,25 @@ class SIW_Count_Workcamps extends SIW_Background_Process {
 	 */
 	protected function task( $item ) {
 
-		$taxonomy = $item['taxonomy'];
-		$term_slug = $item['term_slug']; 
-		siw_count_projects_by_term( $taxonomy, $term_slug, true );
+		$tax_query = [
+			[
+				'taxonomy' => $item['taxonomy'],
+				'field'    => 'slug',
+				'terms'    => $item['term_slug'],
+			],
+		];
+	
+		$products = wc_get_products(
+			[
+				'status'     => 'publish',
+				'limit'      => -1,
+				'return'     => 'ids',
+				'visibility' => 'visible',
+				'tax_query'  => $tax_query,
+			]
+		);
+		$count = count( $products );
+		update_term_meta( $item['term_id'], 'project_count', $count ); 
 		$this->increment_processed_count();
 
 		return false;
