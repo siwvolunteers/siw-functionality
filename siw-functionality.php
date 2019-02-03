@@ -62,16 +62,14 @@ require_once( SIW_INCLUDES_DIR . '/functions/init.php' );
 
 /* Diverse aanpassingen */
 require_once( SIW_INCLUDES_DIR . '/admin/admin.php' );
+require_once( SIW_INCLUDES_DIR . '/api/api.php' );
 require_once( SIW_INCLUDES_DIR . '/background-process/init.php' );
+require_once( SIW_INCLUDES_DIR . '/compatibility/compatibility.php' );
 require_once( SIW_INCLUDES_DIR . '/email/init.php');
+require_once( SIW_INCLUDES_DIR . '/external/external.php' );
 require_once( SIW_INCLUDES_DIR . '/forms/init.php' );
 require_once( SIW_INCLUDES_DIR . '/maps/maps.php' );
 require_once( SIW_INCLUDES_DIR . '/modules/modules.php' );
+require_once( SIW_INCLUDES_DIR . '/plato-interface/plato-interface.php' );
 require_once( SIW_INCLUDES_DIR . '/post-types/init.php' );
 require_once( SIW_INCLUDES_DIR . '/woocommerce/init.php' );
-require_once( SIW_INCLUDES_DIR . '/workcamps/init.php' );
-
-require_once( SIW_INCLUDES_DIR . '/compatibility/compatibility.php' );
-
-require_once( SIW_INCLUDES_DIR . '/api/api.php' );
-require_once( SIW_INCLUDES_DIR . '/external/external.php' );
