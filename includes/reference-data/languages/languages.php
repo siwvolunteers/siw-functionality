@@ -2,9 +2,9 @@
 /**
  * Functies m.b.t. talen
  * 
- * @author      Maarten Bruna
- * @package 	SIW\Reference-Data
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
+ * @author    Maarten Bruna
+ * @package   SIW\Reference-Data
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  */
 
 require_once( __DIR__ . '/class-siw-language.php' );
@@ -40,7 +40,6 @@ function siw_get_languages( $context = 'all', $index = 'slug' ) {
 	return $languages;
 }
 
-
 /**
 * Geeft informatie over een taal terug
 *
@@ -56,7 +55,6 @@ function siw_get_language( $language, $index = 'slug' ) {
 
 	return false;
 }
-
 
 /**
  * Geeft een array met niveau's van taalvaardigheid terug
