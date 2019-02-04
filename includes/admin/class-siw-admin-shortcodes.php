@@ -48,14 +48,14 @@ class SIW_Admin_Shortcodes {
 			'siw_openingstijden' => [
 				'title' => __( 'Openingstijden', 'siw' )
 			],
-			'siw_evs_borg' => [
-				'title' => __( 'EVS-borg', 'siw' )
+			'siw_esc_borg' => [
+				'title' => __( 'ESC-borg', 'siw' )
 			],
-			'siw_evs_volgende_deadline' => [
-				'title' => __( 'Volgende EVS-deadline', 'siw' )
+			'siw_esc_volgende_deadline' => [
+				'title' => __( 'Volgende ESC-deadline', 'siw' )
 			],
-			'siw_evs_volgende_vertrekmoment' => [
-				'title' => __( 'Volgende EVS-vertrekmoment', 'siw' )
+			'siw_esc_volgende_vertrekmoment' => [
+				'title' => __( 'Volgende ESC-vertrekmoment', 'siw' )
 			],
 			'siw_volgende_infodag' => [
 				'title' => __( 'Volgende infodag', 'siw' )
