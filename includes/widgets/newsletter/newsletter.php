@@ -83,7 +83,7 @@ class SIW_Widget_Newsletter extends SIW_Widget {
 			<div class="text-center message hidden"></div>
 			<form method="post" autocomplete="on">
 				<p>
-				<?= sprintf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), $this->get_subscriber_count( $instance['list'] ) );?>
+				<?= sprintf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), $this->get_subscriber_count( siw_get_setting( 'newsletter_list' ) ) );?>
 				</p>
 				<?= SIW_Formatting::generate_field( 'text', [ 'label' => __( 'Voornaam', 'siw' ), 'name' => 'name', 'required' => true ], [ 'tag' => 'p' ] ) ;?>
 				<?= SIW_Formatting::generate_field( 'email', [ 'label' => __( 'E-mail', 'siw' ), 'name' => 'email', 'required' => true ], [ 'tag' => 'p' ] ) ;?>
