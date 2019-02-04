@@ -97,7 +97,7 @@ function siw_generate_country_description( $country ) {
 	}
 	
 	/* EVS */
-	if ( true == $country->has_evs_projects() ) {
+	if ( true == $country->has_esc_projects() ) {
 		$project_types[] = esc_html__( 'ESC', 'siw' ) . SPACE . SIW_Formatting::generate_link( $esc_page_link, __( 'Lees meer', 'siw' ) );
 	}
 	

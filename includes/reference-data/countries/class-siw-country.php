@@ -55,12 +55,12 @@ class SIW_Country {
 	 */
 	protected $has_workcamps;
 
-    /**
-     * Geeft aan of het land EVS-projecten heeft
-     *
-     * @var boolean
-     */
-    protected $has_evs_projects;
+	/**
+	 * Geeft aan of het land ESC-projecten heeft
+	 *
+	 * @var boolean
+	 */
+	protected $has_esc_projects;
 
 	/**
 	 * Geeft aan of het land Op Maat projecten heeft
@@ -98,7 +98,7 @@ class SIW_Country {
 			'allowed'     => true,
 			'workcamps'   => false,
 			'tailor_made' => false,
-			'evs'         => false,
+			'esc'         => false,
 			'world_map'   => [],
 			'europe_map'  => [],
 		];
@@ -112,7 +112,7 @@ class SIW_Country {
 		$this->set_allowed( $country['allowed'] );
 		$this->set_has_workcamps( $country['workcamps'] );
 		$this->set_has_tailor_made_projects( $country['tailor_made'] );
-		$this->set_has_evs_projects( $country['evs'] );
+		$this->set_has_esc_projects( $country['esc'] );
 		$this->set_world_map_data( $country['world_map'] );
 		$this->set_europe_map_data( $country['europe_map']);
 	}
@@ -240,25 +240,25 @@ class SIW_Country {
 		return $this->has_workcamps;
 	}
 
-    /**
-     * Zet of het land EVS-projecten heeft
-     *
-     * @param bool $has_evs_projects
-     * @return $this
-     */
-    public function set_has_evs_projects( $has_evs_projects ) {
-        $this->has_evs_projects = (bool) $has_evs_projects;
-        return $this;
-    }
+	/**
+	 * Zet of het land ESC-projecten heeft
+	 *
+	 * @param bool $has_esc_projects
+	 * @return $this
+	 */
+	public function set_has_esc_projects( $has_esc_projects ) {
+		$this->has_esc_projects = (bool) $has_esc_projects;
+		return $this;
+	}
 
-    /**
-     * Geeft aan of het land EVS-projecten heeft
-     *
-     * @return boolean
-     */
-    public function has_evs_projects() {
-        return $this->has_evs_projects;
-    }
+	/**
+	 * Geeft aan of het land ESC-projecten heeft
+	 *
+	 * @return boolean
+	 */
+	public function has_esc_projects() {
+		return $this->has_esc_projects;
+	}
 
 	/**
 	 * Zet of het land Op Maat projecten heeft

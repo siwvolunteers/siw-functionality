@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param array $forms All registered forms
  */
 add_filter( 'caldera_forms_get_forms', function( $forms ) {
-	$forms['evs'] = apply_filters( 'caldera_forms_get_form-evs', array() );
+	$forms['esc'] = apply_filters( 'caldera_forms_get_form-esc', array() );
 	return $forms;
 } );
 
@@ -26,7 +26,7 @@ add_filter( 'caldera_forms_get_forms', function( $forms ) {
  *
  * @param $form array form structure
  */
-add_filter( 'caldera_forms_get_form-evs', function( $form ) {
+add_filter( 'caldera_forms_get_form-esc', function( $form ) {
 
 	$signature = siw_get_setting( 'evs_email_signature' );
 	/*E-mail bevestiging*/
@@ -34,7 +34,7 @@ add_filter( 'caldera_forms_get_form-evs', function( $form ) {
 		'subject' => __( 'Bevestiging aanmelding', 'siw' ),
 		'message' =>
 		sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
-		__( 'Bedankt voor je EVS-aanmelding.', 'siw' ) . SPACE .
+		__( 'Bedankt voor je ESC-aanmelding.', 'siw' ) . SPACE .
 		__( 'Onderaan deze mail staan de gegevens die je hebt ingevuld.', 'siw' ) . BR .
 		__( 'We nemen zo snel mogelijk contact met je op om in een gesprek verder met je kennis te maken en op zoek te gaan naar een leuk en geschikt project!', 'siw' ),
 		'show_signature' => true,
@@ -44,15 +44,15 @@ add_filter( 'caldera_forms_get_form-evs', function( $form ) {
 	);
 	/*E-mail notificatie*/
 	$notification_template_args = array(
-		'subject' => 'Aanmelding EVS',
-		'message' => 'Via de website is onderstaande EVS-aanmelding binnengekomen:',
+		'subject' => 'Aanmelding ESC',
+		'message' => 'Via de website is onderstaande ESC-aanmelding binnengekomen:',
 		'show_signature' => false,
 		'show_summary' => true,
 	);
 
 return array(
-	'ID'			=> 'evs',
-	'name'			=> __( 'EVS', 'siw' ),
+	'ID'			=> 'esc',
+	'name'			=> __( 'ESC', 'siw' ),
 	'db_support'	=> 0,
  	'pinned'		=> 0,
 	'pin_roles'		=>
@@ -62,6 +62,7 @@ return array(
 			'editor'	=> 1,
 		),
 	),
+	'extra_data' => [ 'postcode' => true],
 	'hide_form'			=> 1,
 	'check_honey'		=> 1,
 	'success'			=> __( 'Je bericht werd succesvol verzonden.', 'siw'),
@@ -99,7 +100,7 @@ return array(
 			'slug' => 'intro',
 			'config' => array(
 				'default' =>
-					__( 'Start snel jouw eigen EVS avontuur!', 'siw' ) . SPACE .
+					__( 'Start snel jouw eigen ESC avontuur!', 'siw' ) . SPACE .
 					__( 'Als je onderstaand formulier invult nemen wij zo snel mogelijk contact met je op.', 'siw' ),
 				),
 			)
@@ -119,21 +120,21 @@ return array(
 		'motivatie' => siw_get_form_field( 'paragraph',
 			array(
 				'ID' => 'motivatie',
-				'label' => __( 'Waarom wil je graag aan een EVS-project deelnemen?', 'siw' ),
+				'label' => __( 'Waarom wil je graag aan een ECS-project deelnemen?', 'siw' ),
 				'slug' => 'motivatie',
 			)
 		),
 		'periode' => siw_get_form_field( 'paragraph',
 			array(
 				'ID' => 'periode',
-				'label' => __( 'In welke periode zou je graag een EVS project willen doen?', 'siw' ),
+				'label' => __( 'In welke periode zou je graag een ESC project willen doen?', 'siw' ),
 				'slug' => 'periode',
 			)
 		),
 		'bekend' => siw_get_form_field( 'checkbox',
  			array(
 				'ID' => 'bekend',
-				'label' => __( 'Hoe heb je van EVS (bij SIW) gehoord?', 'siw' ),
+				'label' => __( 'Hoe heb je van ESC (bij SIW) gehoord?', 'siw' ),
 				'slug' => 'bekend',
 				'config' =>
 				array(
@@ -167,7 +168,7 @@ return array(
 						'nji' =>
 						array(
 							'value' => 'nji',
-							'label' => __( 'NJI EVS info middag/avond', 'siw' ),
+							'label' => __( 'NJI ESC infomiddag/avond', 'siw' ),
 						),
 						'anders' =>
 						array(

@@ -169,20 +169,11 @@ class SIW_Properties {
 	const NUMBER_OF_INFO_DAYS = 10;
 
 	/**
-	 * Aantal EVS-deadlines
-	 *
-	 * @var int
-	 * 
-	 * @deprecated
-	 */
-	const NUMBER_OF_EVS_DEADLINES = 5;
-
-	/**
 	 * Minimaal aantal weken voor deadline
 	 *
 	 * @var int
 	 */
-	const EVS_WEEKS_BEFORE_DEPARTURE = 14;
+	const ESC_WEEKS_BEFORE_DEPARTURE = 14;
 
 	/**
 	 * Grootte IP whitelist
@@ -303,11 +294,11 @@ class SIW_Properties {
 	const TAILOR_MADE_FEE_REGULAR = 399;
 
 	/**
-	 * EVS borg
+	 * ESC borg
 	 *
 	 * @var int
 	 */
-	const EVS_DEPOSIT = 155;
+	const ESC_DEPOSIT = 149;
 
 	/**
 	 * Kortingspercentage voor 2e project

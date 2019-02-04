@@ -6,14 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class voor shortcodes
  * 
- * @package   SIW\Shortcodes
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @package   SIW
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  * 
  * @uses      SIW_Formatting
  * @uses      SIW_Properties
  */
-
 class SIW_Shortcodes {
 
 	/**
@@ -29,9 +28,12 @@ class SIW_Shortcodes {
 			'iban'                          => 'iban',
 			'rsin'                          => 'rsin',
 			'openingstijden'                => 'opening_hours',
-			'evs_borg'                      => 'evs_deposit',
-			'evs_volgende_deadline'         => 'next_evs_deadline',
-			'evs_volgende_vertrekmoment'    => 'next_evs_departure_month',
+			'evs_borg'                      => 'esc_deposit',
+			'esc_borg'                      => 'esc_deposit',
+			'evs_volgende_deadline'         => 'next_esc_deadline',
+			'esc_volgende_deadline'         => 'next_esc_deadline',
+			'evs_volgende_vertrekmoment'    => 'next_esc_departure_month',
+			'esc_volgende_vertrekmoment'    => 'next_esc_departure_month',
 			'volgende_infodag'              => 'next_info_day',
 			'groepsproject_tarief_student'  => 'workcamp_fee_student',
 			'groepsproject_tarief_regulier' => 'workcamp_fee_regular',
@@ -130,29 +132,29 @@ class SIW_Shortcodes {
 	}
 
 	/**
-	 * EVS-borg
+	 * ESC-borg
 	 *
 	 * @return string
 	 */
-	public static function evs_deposit() {
-		return SIW_Formatting::format_amount( SIW_Properties::get('evs_deposit') );
+	public static function esc_deposit() {
+		return SIW_Formatting::format_amount( SIW_Properties::ESC_DEPOSIT );
 	}
 
 	/**
-	 * Volgende EVS-deadline
+	 * Volgende ESC-deadline
 	 *
 	 * @return string
 	 */
-	public static function next_evs_deadline() {
+	public static function next_esc_deadline() {
 		return siw_get_next_evs_deadline( true );
 	}
 
 	/**
-	 * Volgende EVS-vertrekmaand
+	 * Volgende ESC-vertrekmaand
 	 *
 	 * @return string
 	 */
-	public static function next_evs_departure_month() {
+	public static function next_esc_departure_month() {
 		return siw_get_next_evs_departure_month();
 	}
 

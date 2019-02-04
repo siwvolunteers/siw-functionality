@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 require_once( __DIR__ . '/class-siw-map.php' );
 require_once( __DIR__ . '/data-destinations.php' );
-require_once( __DIR__ . '/data-evs.php' );
+require_once( __DIR__ . '/data-esc.php' );
 require_once( __DIR__ . '/data-nl.php' );
 
 /**

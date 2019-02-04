@@ -11,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-siw_register_map( 'evs', __( 'EVS', 'siw' ), 'europe' );
+siw_register_map( 'esc', __( 'ESC', 'siw' ), 'europe' );
 
-add_filter( 'siw_map_evs_data', function( $map_data ) {
+add_filter( 'siw_map_esc_data', function( $map_data ) {
 
 	/** Gegevens kaart */
 	$map_data['data'] = [
@@ -32,11 +32,13 @@ add_filter( 'siw_map_evs_data', function( $map_data ) {
 			'id'    => 'bestemmingen',
 			'title' =>  __( 'Bestemmingen', 'siw' ),
 			'show'  => true,
+			'legend' => true,
+			'toggle' => true,
 		],
 	]; 
 
 	/** EVS-landen */
-	$countries = siw_get_countries( 'evs_projects' );
+	$countries = siw_get_countries( 'esc_projects' );
 	foreach ( $countries as $country ) {
 		$europe_map_data = $country->get_europe_map_data();
 		$location = [
@@ -46,7 +48,7 @@ add_filter( 'siw_map_evs_data', function( $map_data ) {
 			'y'         => $europe_map_data->y,
 			'category'  => 'bestemmingen'
 		];
-		$map_data['locations'][] = $location;     
+		$map_data['locations'][] = $location;
 	}
 
 	return $map_data;

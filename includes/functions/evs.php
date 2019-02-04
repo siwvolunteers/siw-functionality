@@ -139,7 +139,7 @@ function siw_get_active_evs_projects( $number ) {
  */
 function siw_get_evs_countries() {
 
-	$countries = siw_get_countries( 'evs_projects' );
+	$countries = siw_get_countries( 'esc_projects' );
 
 	$evs_countries = [];
 	foreach ( $countries as $country ) {
