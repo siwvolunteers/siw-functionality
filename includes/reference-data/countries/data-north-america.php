@@ -2,9 +2,9 @@
 /**
  * Gegevens van landen in Noord-Amerika
  * 
- * @package 	SIW\Reference-Data
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
- * @author      Maarten Bruna
+ * @package   SIW\Reference-Data
+ * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @author    Maarten Bruna
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

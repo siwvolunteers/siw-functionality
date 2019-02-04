@@ -2,20 +2,22 @@
 /**
  * Gegevens van soorten werk
  *
- * @author      Maarten Bruna
- * @package 	SIW\Reference-Data
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
+ * @author    Maarten Bruna
+ * @package   SIW\Reference-Data
+ * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * 
+ * @todo      evs en groepsprojecten toevoegen
  */
 
 add_filter( 'siw_work_types_data', function( $data ) {
 
 	$data = [
 		[
-		   'slug'                   => 'restauratie',
-		   'plato'                  => 'RENO',
-		   'name'                   => __( 'Restauratie', 'siw' ),
-		   'dutch_projects'         => false,
-		   'tailor_made_projects'   => false,
+			'slug'                   => 'restauratie',
+			'plato'                  => 'RENO',
+			'name'                   => __( 'Restauratie', 'siw' ),
+			'dutch_projects'         => false,
+			'tailor_made_projects'   => false,
 		],
 		[
 			'slug'                  => 'natuur',
@@ -179,6 +181,5 @@ add_filter( 'siw_work_types_data', function( $data ) {
 			'tailor_made_projects'  => false,
 		],
 	];
-
 	return $data;
 });
