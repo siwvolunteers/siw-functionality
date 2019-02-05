@@ -26,17 +26,6 @@ add_filter( 'siw_map_esc_data', function( $map_data ) {
 		'search' => true,
 	];
 
-	/** Standaard-categorie */
-	$map_data['categories'] = [
-		[
-			'id'    => 'bestemmingen',
-			'title' =>  __( 'Bestemmingen', 'siw' ),
-			'show'  => true,
-			'legend' => true,
-			'toggle' => true,
-		],
-	]; 
-
 	/** EVS-landen */
 	$countries = siw_get_countries( 'esc_projects' );
 	foreach ( $countries as $country ) {

@@ -25,6 +25,7 @@ add_filter( 'siw_map_destinations_data', function( $map_data ) {
 	/* Zoekoptie activeren */
 	$map_data['options'] = [
 		'search' => true,
+		'searchfields' => ['title', 'about', 'description'],
 	];
 
 	/* Zet de landen */

@@ -7,16 +7,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class om een Mapplic kaart te genereren
  * 
- * @package SIW\Maps
- * @author Maarten Bruna
+ * @package   SIW\Maps
+ * @author    Maarten Bruna
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * 
+ * @uses      SIW_Util
+ * @uses      SIW_Properties
  * */
 class SIW_Map {
 
 	/**
 	 * Mapplic versie
 	 */
-	const MAPPLIC_VERSION = '4.2';
+	const MAPPLIC_VERSION = '5.0';
 
 	/**
 	 * Basis-url van de Mapplic bestanden
@@ -86,7 +89,7 @@ class SIW_Map {
 	/**
 	 * Constructor
 	 */
-	public function __construct(  ) {
+	public function __construct() {
 		$this->set_default_options();
 		$this->set_default_category_data();
 		$this->set_default_location_data();
@@ -98,7 +101,7 @@ class SIW_Map {
 	 * @return array
 	 */
 	public function render() {
-		$this->enqueue_styles()->enqueue_scripts();   
+		$this->enqueue_styles()->enqueue_scripts();
 		return sprintf( '<div id="mapplic-%s" class="mapplic-dark"></div>', $this->id );
 	}
 
@@ -112,23 +115,21 @@ class SIW_Map {
 			$deps[] = 'magnific-popup';
 		}
 		if ( true == $this->options[ 'mousewheel' ] ) {
-			wp_register_script( 'mousewheel', $this->mapplic_url . 'js/jquery.mousewheel.js', false, self::MAPPLIC_VERSION );
+			wp_register_script( 'mousewheel', $this->mapplic_url . 'js/jquery.mousewheel.js', false, self::MAPPLIC_VERSION ); //TODO: kan dit niet in de footer?
 			$deps[] = 'mousewheel';
 		}
 		wp_register_script( 'hammer', $this->mapplic_url . 'js/hammer.min.js', false, self::MAPPLIC_VERSION);
 		wp_register_script( 'mapplic-script', $this->mapplic_url . 'js/mapplic.js', $deps, self::MAPPLIC_VERSION );
 	
-		$mapplic_localization = array(
-			'more'		=> __( 'Meer', 'siw' ),
-			'search'	=> __( 'Zoeken', 'siw' ),
-			'notfound'	=> __( 'Niets gevonden. Probeer een andere zoekopdracht.', 'siw' )
-		);
-		/* Vertalingen en kaartgegevens toevoegen */        
+		$mapplic_localization = [
+			'more'     => __( 'Meer', 'siw' ),
+			'search'   => __( 'Zoeken', 'siw' ),
+		];
+		/* Vertalingen en kaartgegevens toevoegen */
 		wp_localize_script( 'mapplic-script', 'mapplic_localization', $mapplic_localization );
 		wp_enqueue_script( 'mapplic-script' );
-   
 		
-		$inline_script = sprintf( "( function( $ ){ $(document).ready(function() { $('#mapplic-%s').mapplic(%s);	}); } )( jQuery )", $this->id, json_encode( $this->options, JSON_PRETTY_PRINT ) );
+		$inline_script = sprintf( "( function( $ ){ $(document).ready(function() { $('#mapplic-%s').mapplic(%s); }); } )( jQuery )", $this->id, json_encode( $this->options, JSON_PRETTY_PRINT ) );
 		wp_add_inline_script( 'mapplic-script', $inline_script );
 		
 		return $this;
@@ -142,7 +143,7 @@ class SIW_Map {
 		if ( true == $this->options[ 'lightbox' ] ) {
 			wp_register_style( 'magnific-popup', $this->mapplic_url . 'css/magnific-popup.css', false, self::MAPPLIC_VERSION );
 			$deps = [ 'magnific-popup' ];
-		}     
+		}
 		wp_register_style( 'mapplic-style', $this->mapplic_url . 'css/mapplic.css', $deps, self::MAPPLIC_VERSION );
 		wp_enqueue_style( 'mapplic-style' );
 
@@ -176,11 +177,11 @@ class SIW_Map {
 			'zoomoutclose'  => true,
 			'hovertip'      => [ 'desc' => false ],
 			'tooltip'       => [ 'thumb' => false, 'desc' => true, 'link' => true ],
-			'smartip'       => true,        
+			'smartip'       => true,
 			'mousewheel'    => false,
 			'fullscreen'    => false,
 			'developer'     => false,
-			'fillcolor'     => SIW_Properties::get('primary_color'),
+			'fillcolor'     => SIW_Properties::PRIMARY_COLOR,
 			'action'        => 'tooltip',
 			'maxscale'      => 3,
 			'zoom'          => true,
@@ -198,7 +199,7 @@ class SIW_Map {
 		$default_category_data = [
 			'id'    => false,
 			'title' => false,
-			'color' => SIW_Properties::get('primary_color_hover'),
+			'color' => SIW_Properties::PRIMARY_COLOR_HOVER,
 			'show'  => 'false',
 		];
 		$this->default_category_data = $default_category_data;
@@ -217,7 +218,7 @@ class SIW_Map {
 			'description'   => false,
 			'action'        => 'tooltip',
 			'pin'           => 'hidden',
-			'fill'          => SIW_Properties::get('primary_color'),
+			'fill'          => SIW_Properties::PRIMARY_COLOR,
 			'x'             => false,
 			'y'             => false,
 			'lat'           => false,
@@ -254,7 +255,7 @@ class SIW_Map {
 	 */
 	public function set_options( $options ) {
 		$this->options = wp_parse_args( $options, $this->default_options );
-		$this->options['source'] =  $this->data;
+		$this->options['source'] = $this->data;
 		return $this;
 	}
 
@@ -319,4 +320,3 @@ class SIW_Map {
 		$this->data = $data;
 	}
 }
-

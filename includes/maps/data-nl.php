@@ -42,7 +42,7 @@ add_filter( 'siw_map_nl_data', function( $map_data ) {
 			'description'   => $description,
 			'pin'           => 'circular pin-md pin-label',
 			'category'      => 'nl',
-			'fill'          => SIW_Properties::get('secondary_color'),
+			'fill'          => SIW_Properties::SECONDARY_COLOR,
 		];
 		$map_data['locations'][] = $location;
 
@@ -56,7 +56,7 @@ add_filter( 'siw_map_nl_data', function( $map_data ) {
 
 	$inline_css = array(
 		$selectors => array(
-			'fill' => SIW_Properties::get('primary_color_hover'),
+			'fill' => SIW_Properties::PRIMARY_COLOR_HOVER,
 		),
 	);
 	$map_data['inline_css'] = $inline_css;
