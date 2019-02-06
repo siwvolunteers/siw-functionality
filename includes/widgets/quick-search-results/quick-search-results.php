@@ -66,7 +66,10 @@ class SIW_Widget_Quick_Search_Results extends SIW_Widget {
 	}
 
 	/**
-	 * Undocumented function
+	 * Registreert query vars
+	 * 
+	 * - Bestemming
+	 * - Maand
 	 *
 	 * @param array $vars
 	 * @return array
@@ -111,7 +114,7 @@ class SIW_Widget_Quick_Search_Results extends SIW_Widget {
 		$content =
 			esc_html__( 'Met een Groepsproject ga je voor 2 tot 3 weken naar een project, de begin- en einddatum van het project staan al vast.', 'siw' ) . SPACE .
 			esc_html__( 'Hieronder zie je een selectie van de mogelijkheden', 'siw' ) .
-			do_shortcode( sprintf( '[product limit="6" columns="3" orderby="random" visibility="visible" %s %s]', $category_arg, $month_arg ) ) .
+			do_shortcode( sprintf( '[products limit="6" columns="3" orderby="random" visibility="visible" %s %s cache=false]', $category_arg, $month_arg ) ) .
 			'<div style="text-align:center">' .
 			SIW_Formatting::generate_link( $url, $text, [ 'class' => 'kad-btn kad-btn-primary'] ) .
 			'</div>';
