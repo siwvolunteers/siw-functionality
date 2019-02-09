@@ -285,7 +285,7 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		'title'		=> __( 'IP whitelist', 'siw' ),
 		'indent' 	=> true,
 	);
-	for ( $x = 1 ; $x <= SIW_IP_WHITELIST_SIZE; $x++) {
+	for ( $x = 1 ; $x <= SIW_Properties::IP_WHITELIST_SIZE; $x++) {
 		$login_fields[] = array(
 			'id'				=> "whitelist_ip_{$x}",
 			'title'				=> __( "IP {$x}", 'siw' ),

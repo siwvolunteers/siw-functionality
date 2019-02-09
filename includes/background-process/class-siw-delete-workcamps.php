@@ -36,20 +36,20 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 		$meta_query = [
 			'relation'	=> 'OR',
 			[
-				'key'		=> 'startdatum',
-				'value'		=> $limit,
-				'compare'	=> '<',
+				'key'     => 'startdatum',
+				'value'   => $limit,
+				'compare' => '<',
 			],
 			[
-				'key'		=> 'startdatum',
-				'compare'	=> 'NOT EXISTS',
+				'key'     => 'startdatum', //TODO: meta wordt gewoon startdate
+				'compare' => 'NOT EXISTS',
 			],
 		];
 		$args = [
-			'posts_per_page'	=> -1,
-			'post_type'			=> 'product',
-			'meta_query'		=> $meta_query,
-			'fields' 			=> 'ids'
+			'posts_per_page' => -1,
+			'post_type'      => 'product',
+			'meta_query'     => $meta_query,
+			'fields'         => 'ids'
 		];
 		$products = get_posts( $args );
 	
@@ -61,10 +61,10 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 	
 		//variaties van geselecteerde projecten opzoeken,  kan weg na vervangen WP All Import
 		$args = [
-			'posts_per_page'	=> -1,
-			'post_type'			=> 'product_variation',
-			'post_parent__in'	=> $products,
-			'fields' 			=> 'ids',
+			'posts_per_page'  => -1,
+			'post_type'       => 'product_variation',
+			'post_parent__in' => $products,
+			'fields'          => 'ids',
 		];
 		$variations = get_posts( $args );
 	

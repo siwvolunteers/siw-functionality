@@ -144,7 +144,7 @@ function siw_generate_job_json_ld( $job ) {
 		'employmentType'    => ['VOLUNTEER', 'PARTTIME'],
 		'hiringOrganization'=> [
 			'@type' => 'Organization', 
-			'name'  => SIW_Properties::get('name'),
+			'name'  => SIW_Properties::NAME,
 			'sameAs'=> SIW_SITE_URL,
 			'logo'  => esc_url( $logo ),
 		],
@@ -152,10 +152,10 @@ function siw_generate_job_json_ld( $job ) {
 			'@type'     => 'Place',
 			'address'   => [
 				'@type'             => 'PostalAddress',
-				'streetAddress'     => SIW_Properties::get('address'),
-				'addressLocality'   => SIW_Properties::get('city'),
-				'postalCode'        => SIW_Properties::get('postcode'),
-				'addressRegion'     => SIW_Properties::get('city'),
+				'streetAddress'     => SIW_Properties::ADDRESS,
+				'addressLocality'   => SIW_Properties::CITY,
+				'postalCode'        => SIW_Properties::POSTCODE,
+				'addressRegion'     => SIW_Properties::CITY,
 				'addressCountry'    => 'NL',
 			],
 		],

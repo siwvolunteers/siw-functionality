@@ -200,7 +200,7 @@ class SIW_Module_Topbar {
 			return false;
 		}
 
-		$sale_tariff = SIW_Formatting::format_amount( SIW_Properties::get('workcamp_fee_regular_sale') );
+		$sale_tariff = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE );
 		$end_date = SIW_Formatting::format_date( siw_get_setting( 'workcamp_sale_end_date' ), false );
 	
 		$sale_content = [

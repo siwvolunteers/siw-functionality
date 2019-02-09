@@ -60,7 +60,7 @@ class SIW_Head {
 		<link rel="icon" type="image/png" sizes="192x192" href="<?= esc_url( $icons_url );?>android-chrome-192x192.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="<?= esc_url( $icons_url );?>favicon-16x16.png">
 		<link rel="manifest" href="<?= esc_url( $icons_url );?>manifest.json">
-		<link rel="mask-icon" href="<?= esc_url( $icons_url );?>safari-pinned-tab.svg" color="<?= esc_attr( SIW_Properties::get('primary_color') );?>">
+		<link rel="mask-icon" href="<?= esc_url( $icons_url );?>safari-pinned-tab.svg" color="<?php echo esc_attr( SIW_Properties::PRIMARY_COLOR );?>">
 		<link rel="shortcut icon" href="<?= esc_url( $icons_url );?>favicon.ico">
 		<meta name="msapplication-config" content="<?= esc_url( $icons_url );?>browserconfig.xml">
 		<!-- Einde favicons -->
@@ -124,39 +124,39 @@ class SIW_Head {
 		$data = [
 			'@context'      => 'http://schema.org',
 			'@type'         => 'Organization',
-			'name'          => SIW_Properties::get('name'),
-			'legalName'     => SIW_Properties::get('statutory_name'),
-			'url'           => SIW_SITE_URL, //TODO: functie
+			'name'          => SIW_Properties::NAME,
+			'legalName'     => SIW_Properties::STATUTORY_NAME,
+			'url'           => SIW_SITE_URL,
 			"logo"          => wp_get_attachment_url( get_theme_mod( 'custom_logo' ) ),
-			"foundingDate"  => SIW_Properties::get('founding_date'),
+			"foundingDate"  => SIW_Properties::FOUNDING_DATE,
 			"address"       => [
 				'@type'           => "PostalAddress",
-				'streetAddress'   => SIW_Properties::get('address'),
-				'addressLocality' => SIW_Properties::get('city'),
-				'postalCode'      => SIW_Properties::get('postal_code'),
-				'addressRegion'   => SIW_Properties::get('city'),
+				'streetAddress'   => SIW_Properties::ADDRESS,
+				'addressLocality' => SIW_Properties::CITY,
+				'postalCode'      => SIW_Properties::POSTCODE,
+				'addressRegion'   => SIW_Properties::CITY,
 				'addressCountry'  => 'NL',
 			],
 			"contactPoint"  => [
 				"@type"           => "ContactPoint",
 				"contactType"     => "customer support",
-				"telephone"       => SIW_Properties::get('phone_international'),
-				"email"           => SIW_Properties::get('email'),
+				"telephone"       => SIW_Properties::PHONE_INTERNATIONAL,
+				"email"           => SIW_Properties::EMAIL,
 				"hoursAvailable"  => [
 					[
 						"@type"      => "OpeningHoursSpecification",
 						"dayOfWeek"  => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-						"opens"      => SIW_Properties::get('opening_time'),
-						"closes"     => SIW_Properties::get('closing_time'),
+						"opens"      => SIW_Properties::OPENING_TIME,
+						"closes"     => SIW_Properties::CLOSING_TIME,
 					],
 				]
 			],
 			"sameAs"        => [ 
-				SIW_Properties::get('facebook_url'),
-				SIW_Properties::get('twitter_url'),
-				SIW_Properties::get('instagram_url'),
-				SIW_Properties::get('linkedin_url'),
-				SIW_Properties::get('youtube_url'),
+				SIW_Properties::FACEBOOK_URL,
+				SIW_Properties::TWITTER_URL,
+				SIW_Properties::INSTAGRAM_URL,
+				SIW_Properties::LINKEDIN_URL,
+				SIW_Properties::YOUTUBE_URL,
 			],
 		];
 		echo SIW_Formatting::generate_json_ld( $data );

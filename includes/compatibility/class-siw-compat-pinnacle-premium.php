@@ -325,7 +325,7 @@ class SIW_Compat_Pinnacle_Premium {
 	 * @return string
 	 */
 	public static function footer_shortcode() {
-		return sprintf( '&copy; %s %s', current_time( 'Y' ), SIW_Properties::get('name') );
+		return sprintf( '&copy; %s %s', current_time( 'Y' ), SIW_Properties::NAME );
 	}
 
 	/**

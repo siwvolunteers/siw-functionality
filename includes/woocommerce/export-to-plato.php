@@ -21,31 +21,6 @@ function siw_export_application_to_plato( $order ) {
 	if ( ! is_object( $order ) ) {
 		$order = new WC_Order( $order );
 	}
-	/* Ophalen Plato webkey; afbreken als deze niet gevonden wordt. */
-	$organization_webkey = siw_get_setting( 'plato_organization_webkey' );
-
-	if ( '' == $organization_webkey ) {
-		$order->add_order_note( 'Instellingen voor export naar PLATO ontbreken. Neem contact op met ICT-beheer.' );
-		return;
-	}
-
-	// Export van aanmelding gebruikt endpoint ImportVolunteer
-	$url = SIW_PLATO_WEBSERVICE_URL . 'ImportVolunteer';
-
-	// Zet HTTP-post argumenten
-	$args = array(
-			'timeout'		=> 60,
-			'redirection'	=> 0,
-			'httpversion'	=> '1.0',
-			'sslverify'		=> true,
-			'blocking'		=> true,
-			'headers'		=> array(
-				'accept'		=> 'application/xml',
-				'content-type'	=> 'application/x-www-form-urlencoded'
-			),
-			'cookies'		=> array(),
-			'user-agent'	=> 'siw.nl',
-		);
 
 	/* Haal velden voor aanmelding op */
 	$application_data = siw_get_application_fields_for_xml( $order );

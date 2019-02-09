@@ -56,7 +56,7 @@ class SIW_Admin_Login {
 	 * @return string
 	 */
 	public function set_login_headertitle( $title ) {
-		$title = SIW_Properties::get('name');
+		$title = SIW_Properties::NAME;
 		return $title;
 	}
 

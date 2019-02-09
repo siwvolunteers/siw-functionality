@@ -89,9 +89,9 @@ class SIW_Compat_Caldera_Forms{
 	 */
 	public function set_summary_magic_pattern( $pattern ) {
 		$pattern = '<tr>
-			<td width="35%%" style="font-family: Verdana, normal; color:' . SIW_Properties::get('font_color') . '; font-size:0.8em;">%s</td>
+			<td width="35%%" style="font-family: Verdana, normal; color:' . SIW_Properties::FONT_COLOR . '; font-size:0.8em;">%s</td>
 			<td width="5%%"></td>
-			<td width="50%%" style="font-family: Verdana, normal; color:' . SIW_Properties::get('font_color') . '; font-size:0.8em; font-style:italic">%s</td>
+			<td width="50%%" style="font-family: Verdana, normal; color:' . SIW_Properties::FONT_COLOR . '; font-size:0.8em; font-style:italic">%s</td>
 		</tr>';
 		return $pattern;
 	}

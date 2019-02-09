@@ -33,10 +33,10 @@ class SIW_Delete_Applications extends SIW_Background_Process {
 	 */
 	protected function select_data() {
 		$args = [
-			'limit'			=> -1,
-			'return'		=> 'ids',
-			'type'			=> 'shop_order',
-			'date_created'	=> '<' . ( time() - YEAR_IN_SECONDS ),
+			'limit'        => -1,
+			'return'       => 'ids',
+			'type'         => 'shop_order',
+			'date_created' => '<' . ( time() - YEAR_IN_SECONDS ),
 		];
 		$applications = wc_get_orders( $args );
 

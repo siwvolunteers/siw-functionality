@@ -62,7 +62,7 @@ class SIW_Widget_Contact extends SIW_Widget {
 		?>
 		<div class="siw-contact">
 			<p><?= esc_html( SIW_Properties::NAME );?></p>
-			<p><?= esc_html( SIW_Properties::ADDRESS );?>&nbsp;|&nbsp;<?= esc_html( SIW_POSTAL_CODE );?>&nbsp;<?= esc_html( SIW_CITY );?></p>
+			<p><?= esc_html( SIW_Properties::ADDRESS );?>&nbsp;|&nbsp;<?= esc_html( SIW_Properties::POSTCODE );?>&nbsp;<?= esc_html( SIW_Properties::CITY );?></p>
 			<p><i class="kt-icon-phone3"></i>&nbsp;<?= esc_html( SIW_Properties::PHONE );?>&nbsp;|&nbsp;<i class="kt-icon-envelop"></i>&nbsp;<?= SIW_Formatting::generate_link( "mailto:" . antispambot( SIW_Properties::EMAIL ), antispambot( SIW_Properties::EMAIL ) );?></p>
 			<p><i class="kt-icon-clock3"></i>&nbsp;<?php printf( esc_html__( 'Maandag t/m vrijdag %s-%s', 'siw' ), SIW_Properties::OPENING_TIME, SIW_Properties::CLOSING_TIME );?></p>
 		</div>

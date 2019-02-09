@@ -77,7 +77,7 @@ class SIW_Compat_The_SEO_Framework {
 	 * @return string
 	 */
 	public function set_sitemap_color_main( $color ) {
-		return SIW_Properties::get('secondary_color');
+		return SIW_Properties::SECONDARY_COLOR;
 	}
 
 	/**
@@ -87,7 +87,7 @@ class SIW_Compat_The_SEO_Framework {
 	 * @return string
 	 */
 	public function set_sitemap_color_accent( $color ) {
-		return SIW_Properties::get('font_color');
+		return SIW_Properties::FONT_COLOR;
 	}
 
 	/**

@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 function siw_get_next_evs_deadline( $date_in_text = false ) {
-	for ( $x = 1 ; $x <= SIW_NUMBER_OF_EVS_DEADLINES; $x++ ) {
+	for ( $x = 1 ; $x <= SIW_Properties::NUMBER_OF_ESC_DEADLINES; $x++ ) {
 		$evs_deadlines[]= siw_get_setting( "evs_deadline_{$x}" );
 	}
 	asort( $evs_deadlines );
@@ -46,7 +46,7 @@ function siw_get_next_evs_deadline( $date_in_text = false ) {
  */
 function siw_get_next_evs_departure_month() {
 
-	$weeks = SIW_EVS_WEEKS_BEFORE_DEPARTURE;
+	$weeks = SIW_Properties::ESC_WEEKS_BEFORE_DEPARTURE;
 	$next_evs_deadline = siw_get_next_evs_deadline();
 
 	if ( empty( $next_evs_deadline ) ) {

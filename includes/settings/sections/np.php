@@ -88,7 +88,7 @@ add_action( 'siw_settings_show_np_section', function() {
 //$my_default_lang = apply_filters('wpml_default_language', NULL );
 	//siw_debug( $my_default_lang);
 
-	for ( $x = 1 ; $x <= SIW_MAX_DUTCH_PROJECTS; $x++ ) {
+	for ( $x = 1 ; $x <= SIW_Properties::MAX_DUTCH_PROJECTS; $x++ ) {
 
 		$required = array(
 			"np_project_{$x}_present",

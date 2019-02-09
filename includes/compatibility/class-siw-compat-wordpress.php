@@ -95,8 +95,8 @@ class SIW_Compat_WordPress {
 	 * @return array
 	 */
 	public function set_oembed_response_data( $data ) {
-		$data['author_name'] = SIW_Properties::get('name');
-		$data['author_url'] = SIW_SITE_URL; //TODO: functie gebruiken
+		$data['author_name'] = SIW_Properties::NAME;
+		$data['author_url'] = SIW_SITE_URL;
 		
 		return $data;
 	}

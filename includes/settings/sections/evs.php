@@ -28,7 +28,7 @@ add_action( 'siw_settings_show_evs_section', function() {
 		'type'			=> 'section',
 		'indent' 		=> true,
 	);
-	for ($x = 1 ; $x <= SIW_NUMBER_OF_EVS_DEADLINES; $x++) {
+	for ($x = 1 ; $x <= SIW_Properties::NUMBER_OF_ESC_DEADLINES; $x++) {
 		$deadline_fields[] = array(
 			'id'			=> "evs_deadline_{$x}",
 			'title'			=> __( "Deadline {$x}", 'siw' ),

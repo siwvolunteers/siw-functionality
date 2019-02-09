@@ -72,7 +72,7 @@ class SIW_Admin {
 	 * @return string
 	 */
 	public function set_admin_footer_text( $footer_text ) {
-		$footer_text = sprintf( '&copy; %s %s', date( 'Y' ), SIW_Properties::get('name') );
+		$footer_text = sprintf( '&copy; %s %s', date( 'Y' ), SIW_Properties::NAME );
 		return $footer_text;
 	}
 

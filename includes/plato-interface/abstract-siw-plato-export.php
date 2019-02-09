@@ -45,7 +45,11 @@ abstract class SIW_Plato_Export extends SIW_Plato_Interface {
 	public function run( $data ) {
 		
 		if ( ! $this->production ) {
-			return;
+			return [
+				'success'     => false,
+				'imported_id' => '',
+				'message'     => 'Productiemode staat niet aan',
+			];
 		}
 		$this->data = $data;
 

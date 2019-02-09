@@ -36,7 +36,7 @@ class SIW_WC_Emails {
 	 * @return string
 	 */
 	public function set_email_from_name( $from_name, $email ) {
-		$from_name = SIW_Properties::get('name');
+		$from_name = SIW_Properties::NAME;
 		return $from_name;
 	}
 
@@ -98,7 +98,7 @@ class SIW_WC_Emails {
 		?>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td colspan="3" height="20" style="font-family:Verdana, normal; color:<?= SIW_Properties::get('font_color');?>; font-size:0.8em; font-weight:bold; border-top:thin solid <?= SIW_Properties::get('primary_color');?>" >
+				<td colspan="3" height="20" style="font-family:Verdana, normal; color:<?php echo SIW_Properties::FONT_COLOR;?>; font-size:0.8em; font-weight:bold; border-top:thin solid <?php echo SIW_Properties::PRIMARY_COLOR;?>" >
 					&nbsp;
 				</td>
 			</tr>
@@ -125,11 +125,11 @@ class SIW_WC_Emails {
 	 */
 	public function show_table_row( $label, $value = '&nbsp;' ) {?>
 		<tr>
-			<td width="35%" style="font-family:Verdana, normal; color:<?= SIW_Properties::get('font_color');?>; font-size:0.8em; ">
+			<td width="35%" style="font-family:Verdana, normal; color:<?php echo SIW_Properties::FONT_COLOR;?>; font-size:0.8em; ">
 				<?= wp_kses_post( $label ); ?>
 			</td>
 			<td width="5%"></td>
-			<td width="50%" style="font-family:Verdana, normal; color:<?= SIW_Properties::get('font_color');?>; font-size:0.8em; font-style:italic">
+			<td width="50%" style="font-family:Verdana, normal; color:<?php echo SIW_Properties::FONT_COLOR;?>; font-size:0.8em; font-style:italic">
 				<?= wp_kses_post( $value ); ?>
 			</td>
 		</tr>
@@ -143,7 +143,7 @@ class SIW_WC_Emails {
 	 */
 	public function show_table_header_row( $label ) {?>
 		<tr>
-			<td width="35%" style="font-family:Verdana, normal; color:<?= SIW_Properties::get('font_color');?>; font-size:0.8em; font-weight:bold">
+			<td width="35%" style="font-family:Verdana, normal; color:<?php echo SIW_Properties::FONT_COLOR;?>; font-size:0.8em; font-weight:bold">
 				<?= esc_html( $label ); ?>
 			</td>
 			<td width="5%">&nbsp;</td>

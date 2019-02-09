@@ -73,3 +73,8 @@ require_once( SIW_INCLUDES_DIR . '/modules/modules.php' );
 require_once( SIW_INCLUDES_DIR . '/plato-interface/plato-interface.php' );
 require_once( SIW_INCLUDES_DIR . '/post-types/init.php' );
 require_once( SIW_INCLUDES_DIR . '/woocommerce/init.php' );
+
+/* Constantes voor strings*/
+const BR = '<br/>';
+const BR2 = '<br/><br/>';
+const SPACE = ' ';

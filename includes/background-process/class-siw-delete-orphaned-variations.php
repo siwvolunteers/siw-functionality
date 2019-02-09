@@ -30,19 +30,19 @@ class SIW_Delete_Orphaned_Variations extends SIW_Background_Process {
 	 */
 	 protected function select_data() {
 		$args = [
-			'posts_per_page'		=> -1,
-			'post_type'				=> 'product',
-			'fields'				=> 'ids',
-			'post_status'			=> 'any',
+			'posts_per_page' => -1,
+			'post_type'      => 'product',
+			'fields'         => 'ids',
+			'post_status'    => 'any',
 		];
 		$products = get_posts( $args );
 	
 		//zoek alle product_variations zonder parent.
 		$args = [
-			'posts_per_page'		=> -1,
-			'post_type'				=> 'product_variation',
-			'post_parent__not_in'	=> $products,
-			'fields' 				=> 'ids',
+			'posts_per_page'      => -1,
+			'post_type'           => 'product_variation',
+			'post_parent__not_in' => $products,
+			'fields'              => 'ids',
 		];
 		$variations = get_posts( $args );
 	

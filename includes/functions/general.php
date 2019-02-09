@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @deprecated
  */
 function siw_get_ip_whitelist() {
-	for ( $x = 1 ; $x <= SIW_IP_WHITELIST_SIZE; $x++ ) {
+	for ( $x = 1 ; $x <= SIW_Properties::IP_WHITELIST_SIZE; $x++ ) {
 		$ip_whitelist[] = siw_get_setting( "whitelist_ip_{$x}" );
 	}
 	return $ip_whitelist;
@@ -26,12 +26,12 @@ function siw_get_ip_whitelist() {
  * @return array
  */
 function siw_get_workcamp_tariffs() {
-	$workcamp_tariffs = array(
-		'regulier'				=> number_format( SIW_WORKCAMP_FEE_REGULAR, 2 ),
-		'student'				=> number_format( SIW_WORKCAMP_FEE_STUDENT, 2 ),
-		'regulier_aanbieding'	=> number_format( SIW_WORKCAMP_FEE_REGULAR_SALE, 2 ),
-		'student_aanbieding'	=> number_format( SIW_WORKCAMP_FEE_STUDENT_SALE, 2 ),
-	);
+	$workcamp_tariffs = [
+		'regulier'            => number_format( SIW_Properties::WORKCAMP_FEE_REGULAR, 2 ),
+		'student'             => number_format( SIW_Properties::WORKCAMP_FEE_STUDENT, 2 ),
+		'regulier_aanbieding' => number_format( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE, 2 ),
+		'student_aanbieding'  => number_format( SIW_Properties::WORKCAMP_FEE_STUDENT_SALE, 2 ),
+	];
 	return $workcamp_tariffs;
 }
 
@@ -107,7 +107,7 @@ function siw_get_testimonial_quote_categories() {
  */
 function siw_get_annual_reports() {
 	$last_year = (int) date( 'Y' ) - 1;
-	$first_year = $last_year - SIW_MAX_ANNUAL_REPORTS + 1;
+	$first_year = $last_year - SIW_Properties::MAX_ANNUAL_REPORTS + 1;
 
 	for ( $x = $last_year ; $x >= $first_year; $x-- ) {
 		$annual_reports[ $x ] = siw_get_setting( "annual_report_{$x}" );
@@ -139,7 +139,7 @@ function siw_get_dutch_projects() {
 	}
 	$provinces = siw_get_dutch_provinces();
 
-	for ( $x = 1 ; $x <= SIW_MAX_DUTCH_PROJECTS; $x++ ) {
+	for ( $x = 1 ; $x <=  SIW_Properties::MAX_DUTCH_PROJECTS; $x++ ) {
 		$present = siw_get_setting( "np_project_{$x}_present" );
 
 		if ( ! $present ) {

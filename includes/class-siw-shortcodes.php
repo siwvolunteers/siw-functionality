@@ -64,7 +64,7 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function kvk() {
-		return SIW_Properties::get('kvk');
+		return SIW_Properties::KVK;
 	}
 
 	/**
@@ -73,7 +73,7 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function email() {
-		return antispambot( SIW_Properties::get('email') );
+		return antispambot( SIW_Properties::EMAIL );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function email_link() {
-		$email = antispambot( SIW_Properties::get('email') );
+		$email = antispambot( SIW_Properties::EMAIL );
 		return SIW_Formatting::generate_link( "mailto:" . $email, $email );
 	}
 
@@ -92,7 +92,7 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function phone() {
-		return SIW_Properties::get('phone');
+		return SIW_Properties::PHONE;
 	}
 
 	/**
@@ -101,7 +101,7 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function phone_international() {
-		return SIW_Properties::get('phone_international');
+		return SIW_Properties::PHONE_INTERNATIONAL;
 	}
 
 	/**
@@ -110,7 +110,7 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function iban() {
-		return SIW_Properties::get('iban');
+		return SIW_Properties::IBAN;
 	}
 
 	/**
@@ -119,7 +119,7 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function rsin() {
-		return SIW_Properties::get('rsin');
+		return SIW_Properties::RSIN;
 	}
 
 	/**
@@ -128,7 +128,7 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function opening_hours() {
-		return sprintf( esc_html__( 'Maandag t/m vrijdag %s - %s', 'siw' ), SIW_Properties::get('opening_time'), SIW_Properties::get('closing_time') );
+		return sprintf( esc_html__( 'Maandag t/m vrijdag %s - %s', 'siw' ), SIW_Properties::OPENING_TIME, SIW_Properties::CLOSING_TIME );
 	}
 
 	/**
@@ -173,9 +173,9 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function workcamp_fee_student() {
-		$output = SIW_Formatting::format_amount( SIW_Properties::get('workcamp_fee_student') );
+		$output = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT );
 		if ( siw_is_sale_active() ) {
-			$output = sprintf( '<del>%s</del>&nbsp;<ins>%s</ins>', $output, SIW_Formatting::format_amount( SIW_Properties::get('workcamp_fee_student_sale') ) );
+			$output = sprintf( '<del>%s</del>&nbsp;<ins>%s</ins>', $output, SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT_SALE ) );
 		}
 		return $output;
 	}
@@ -186,9 +186,9 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function workcamp_fee_regular() {
-		$output = SIW_Formatting::format_amount( SIW_Properties::get('workcamp_fee_regular') );
+		$output = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR );
 		if ( siw_is_sale_active() ) {
-			$output = sprintf( '<del>%s</del>&nbsp;<ins>%s</ins>', $output, SIW_Formatting::format_amount( SIW_Properties::get('workcamp_fee_regular_sale') ) );
+			$output = sprintf( '<del>%s</del>&nbsp;<ins>%s</ins>', $output, SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE ) );
 		}
 		return $output;
 	}
@@ -199,7 +199,7 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function tailor_made_fee_student() {
-		return SIW_Formatting::format_amount( SIW_Properties::get('tailor_made_fee_student') );
+		return SIW_Formatting::format_amount( SIW_Properties::TAILOR_MADE_FEE_STUDENT );
 	}
 
 	/**
@@ -208,7 +208,7 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function tailor_made_fee_regular() {
-		return SIW_Formatting::format_amount( SIW_Properties::get('tailor_made_fee_regular') );
+		return SIW_Formatting::format_amount( SIW_Properties::TAILOR_MADE_FEE_REGULAR );
 	}
 
 	/**
@@ -217,7 +217,7 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function discount_second_project() {
-		return SIW_Formatting::format_percentage( SIW_Properties::get('discount_second_project') );
+		return SIW_Formatting::format_percentage( SIW_Properties::DISCOUNT_SECOND_PROJECT );
 	}
 
 	/**
@@ -226,7 +226,7 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function discount_third_project() {
-		return SIW_Formatting::format_percentage( SIW_Properties::get('discount_third_project') );
+		return SIW_Formatting::format_percentage( SIW_Properties::DISCOUNT_THIRD_PROJECT );
 	}
 
 	/**
@@ -254,7 +254,7 @@ class SIW_Shortcodes {
 	 * @todo verplaatsen naar widget met organisatiegegevens.
 	 */
 	public static function board_members() {
-		for ( $x = 1 ; $x <= SIW_MAX_BOARD_MEMBERS; $x++ ) {
+		for ( $x = 1 ; $x <= SIW_Properties::MAX_BOARD_MEMBERS; $x++ ) {
 			$board_members[] = siw_get_setting( "board_member_{$x}" );
 		}
 		if ( empty( $board_members ) ) {

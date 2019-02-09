@@ -94,15 +94,15 @@ class SIW_WC_Checkout{
 		foreach ( $cart_contents as $line ) {
 			$count++;
 			if ( 2 == $count ) {
-				$discount = $line['line_total'] * SIW_Properties::get( 'discount_second_project' ) * -0.01;
+				$discount = $line['line_total'] * SIW_Properties::DISCOUNT_SECOND_PROJECT * -0.01;
 				$cart->add_fee( __( 'Korting 2e project', 'siw' ), $discount );
 			}
 			if ( 3 == $count ) {
-				$discount = $line['line_total'] * SIW_Properties::get( 'discount_third_project' ) * -0.01;
+				$discount = $line['line_total'] * SIW_Properties::DISCOUNT_THIRD_PROJECT * -0.01;
 				$cart->add_fee( __( 'Korting 3e project', 'siw' ), $discount );
 			}
 			if ( 3 < $count ) {
-				$discount = $line['line_total'] * SIW_Properties::get( 'discount_third_project' ) * -0.01;
+				$discount = $line['line_total'] * SIW_Properties::DISCOUNT_THIRD_PROJECT * -0.01;
 				$cart->add_fee( sprintf( __( 'Korting %de project', 'siw' ), $count ), $discount );
 			}
 		}

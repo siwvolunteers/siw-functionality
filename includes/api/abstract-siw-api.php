@@ -48,11 +48,15 @@ abstract class SIW_API {
 	 */
 	protected $callback;
 
-
+	/**
+	 * Slug voor script
+	 *
+	 * @var string
+	 */
 	protected $script;
 
 	/**
-	 * Undocumented variable
+	 * Functie om permissie te controleren
 	 *
 	 * @var string
 	 */
@@ -124,7 +128,6 @@ abstract class SIW_API {
 	 * @return bool
 	 */
 	public function verify_nonce( $request ) {
-
 		$nonce = $request->get_header( 'x_wp_nonce' );
 		return wp_verify_nonce( $nonce, 'wp_rest' );
 	}

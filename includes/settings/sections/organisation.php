@@ -13,7 +13,7 @@ add_filter( 'siw_manage_settings_caps', function( $caps ) {
 
 add_action( 'siw_settings_show_organisation_section', function() {
 
-	for ( $x = 1 ; $x <= SIW_MAX_BOARD_MEMBERS; $x++ ) {
+	for ( $x = 1 ; $x <= SIW_Properties::MAX_BOARD_MEMBERS; $x++ ) {
 		$board_fields[] = array(
 			'id'		=> "board_member_{$x}",
 			'title'		=> __( "Bestuurslid {$x}", 'siw' ),
@@ -32,7 +32,7 @@ add_action( 'siw_settings_show_organisation_section', function() {
 	}
 
 	$last_year = (int) date( 'Y' ) - 1;
-	$first_year = $last_year - SIW_MAX_ANNUAL_REPORTS + 1;
+	$first_year = $last_year - SIW_Properties::MAX_ANNUAL_REPORTS + 1;
 
 	for ( $x = $last_year ; $x >= $first_year; $x-- ) {
 		$annual_report_fields[] = array(

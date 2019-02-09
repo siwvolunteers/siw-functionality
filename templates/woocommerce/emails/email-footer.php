@@ -29,13 +29,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<table width="100%" border="0" cellspacing="0" cellpadding="0">
 									<tr>
 										<td width="10%">&nbsp;</td>
-										<td width="auto" align="center" style="font-family:Verdana, normal; color:#666; font-size:0.7em; font-weight:bold"><?php echo SIW_NAME;?>
+										<td width="auto" align="center" style="font-family:Verdana, normal; color:#666; font-size:0.7em; font-weight:bold"><?php echo SIW_Properties::NAME;?>
 										</td>
 										<td width="10%">&nbsp;</td>
 									</tr>
 									<tr>
 										<td width="10%">&nbsp;</td>
-										<td width="auto" align="center" style="font-family:Verdana, normal; color:#666; font-size:0.7em; font-weight:bold"><a href= "<?php echo SIW_SITE_URL;?>" target="_blank" style="color:#666; text-decoration:none" title="<?php esc_attr_e( 'Bezoek onze website', 'siw' );?>"><?php echo SIW_SITE_NAME;?></a> | <a href="tel:<?php echo SIW_PHONE_FULL;?>" style="color:#666; text-decoration:none"><?php echo SIW_PHONE; ?></a> | <a href="mailto:<?php echo SIW_EMAIL;?>" style="color:#666; text-decoration:none"><?php echo SIW_EMAIL;?></a>
+										<td width="auto" align="center" style="font-family:Verdana, normal; color:#666; font-size:0.7em; font-weight:bold"><a href= "<?php echo SIW_SITE_URL;?>" target="_blank" style="color:#666; text-decoration:none" title="<?php esc_attr_e( 'Bezoek onze website', 'siw' );?>"><?php echo SIW_SITE_NAME;?></a> | <a href="tel:<?php echo SIW_Properties::PHONE_INTERNATIONAL;?>" style="color:#666; text-decoration:none"><?php echo SIW_Properties::PHONE; ?></a> | <a href="mailto:<?php echo SIW_Properties::EMAIL;?>" style="color:#666; text-decoration:none"><?php echo SIW_Properties::EMAIL;?></a>
 										</td>
 										<td width="10%">&nbsp;</td>
 									</tr>

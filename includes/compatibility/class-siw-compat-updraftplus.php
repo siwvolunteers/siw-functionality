@@ -44,7 +44,7 @@ class SIW_Compat_UpdraftPlus {
 		$tomorrow = strtotime( 'tomorrow' );
 		$backup_db_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
 	
-		$backup_db_ts = strtotime( $backup_db_day . ' ' . SIW_Properties::get('ts_backup_db') );
+		$backup_db_ts = strtotime( $backup_db_day . ' ' . SIW_Properties::TS_BACKUP_DB );
 		$backup_db_ts_gmt = SIW_Util::convert_timestamp_to_gmt( $backup_db_ts );
 	
 		return $backup_db_ts_gmt;
@@ -60,7 +60,7 @@ class SIW_Compat_UpdraftPlus {
 		$tomorrow = strtotime( 'tomorrow');
 		$backup_files_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
 	
-		$backup_files_ts = strtotime( $backup_files_day . ' ' . SIW_Properties::get('ts_backup_files') );
+		$backup_files_ts = strtotime( $backup_files_day . ' ' . SIW_Properties::TS_BACKUP_FILES );
 		$backup_files_ts_gmt = SIW_Util::convert_timestamp_to_gmt( $backup_files_ts );
 	
 		return $backup_files_ts_gmt;

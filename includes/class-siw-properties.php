@@ -169,6 +169,13 @@ class SIW_Properties {
 	const NUMBER_OF_INFO_DAYS = 10;
 
 	/**
+	 * Maximum aantal ESC-deadlines
+	 *
+	 * @var int
+	 */
+	const NUMBER_OF_ESC_DEADLINES = 5;
+
+	/**
 	 * Minimaal aantal weken voor deadline
 	 *
 	 * @var int

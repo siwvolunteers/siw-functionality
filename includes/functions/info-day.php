@@ -33,9 +33,9 @@ function siw_get_next_info_day( $date_in_text = false ) {
  *
  * @return array
  */
-function siw_get_future_info_days( $dates_in_text = false, $results = SIW_NUMBER_OF_INFO_DAYS ) {
+function siw_get_future_info_days( $dates_in_text = false, $results = SIW_Properties::NUMBER_OF_INFO_DAYS ) {
 
-	for ( $x = 1 ; $x <= SIW_NUMBER_OF_INFO_DAYS; $x++ ) {
+	for ( $x = 1 ; $x <= SIW_Properties::NUMBER_OF_INFO_DAYS; $x++ ) {
 		$info_days[]= siw_get_setting("info_day_{$x}");
 	}
 	asort( $info_days );
@@ -49,7 +49,7 @@ function siw_get_future_info_days( $dates_in_text = false, $results = SIW_NUMBER
 		}
 	}
 
-	$results = min( $results, SIW_NUMBER_OF_INFO_DAYS );
+	$results = min( $results, SIW_Properties::NUMBER_OF_INFO_DAYS );
 	$future_info_days = array_slice( $future_info_days, 0, $results );
 	return $future_info_days;
 }

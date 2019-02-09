@@ -325,7 +325,7 @@ class SIW_htaccess {
 	 */
 	protected function generate_report_uri( $type, $enforce = true ) {
 		if ( 'report-to' == $type ) {
-			return SIW_Properties::get('report_uri') . 'a/d/g';
+			return SIW_Properties::REPORT_URI . 'a/d/g';
 		}
 
 		$types = [ 
@@ -338,7 +338,7 @@ class SIW_htaccess {
 			return false;
 		}
 		$action = ( $enforce ) ? 'enforce' : 'reportOnly';
-		$report_uri = SIW_Properties::get('report_uri') . 'r/d/' . $type .'/' . $action;
+		$report_uri = SIW_Properties::REPORT_URI . 'r/d/' . $type .'/' . $action;
 		return $report_uri;
 	}
 }

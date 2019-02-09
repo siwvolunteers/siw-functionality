@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Scheduler voor cron jobs
  * 
- * @package     SIW\Core
+ * @package     SIW
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  * 
@@ -170,6 +170,4 @@ class SIW_Scheduler {
 	protected function set_scheduled_jobs( $jobs = [] ) {
 		update_option( $this->option_name, $jobs, false );
 	}
-
-
 }
