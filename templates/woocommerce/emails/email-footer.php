@@ -47,11 +47,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<table width="100%" border="0" cellspacing="0" cellpadding="0">
 									<tr>
 										<td width="40%">&nbsp;</td>
-										<td width="auto" align="center"><a href="<?php echo SIW_FACEBOOK_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL; ?>images/mail/facebook.png" alt="facebook" title="<?php esc_attr_e( 'Volg ons op Facebook', 'siw' );?>" width="20" height="20" border="0" /></a></td>
-										<td width="auto" align="center"><a href="<?php echo SIW_TWITTER_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL; ?>images/mail/twitter.png" alt="twitter" title="<?php esc_attr_e( 'Volg ons op Twitter', 'siw' );?>" width="20" height="20" border="0" /></a></td>
-										<td width="auto" align="center"><a href="<?php echo SIW_INSTAGRAM_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL; ?>images/mail/instagram.png" alt="instagram" title="<?php esc_attr_e( 'Volg ons op Instagram', 'siw' );?>" width="20" height="20" border="0" /></a></td>
-										<td width="auto" align="center"><a href="<?php echo SIW_YOUTUBE_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL; ?>images/mail/youtube.png" alt="youtube" title="<?php esc_attr_e( 'Volg ons op YouTube', 'siw' );?>" width="20" height="20" border="0" /></a></td>
-										<td width="auto" align="center"><a href="<?php echo SIW_LINKEDIN_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL; ?>images/mail/linkedin.png" alt="linkedin" title="<?php esc_attr_e( 'Volg ons op LinkedIn', 'siw' );?>" width="20" height="20" border="0" /></a></td>
+										<td width="auto" align="center"><a href="<?php echo SIW_Properties::FACEBOOK_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL; ?>images/mail/facebook.png" alt="facebook" title="<?php esc_attr_e( 'Volg ons op Facebook', 'siw' );?>" width="20" height="20" border="0" /></a></td>
+										<td width="auto" align="center"><a href="<?php echo SIW_Properties::TWITTER_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL; ?>images/mail/twitter.png" alt="twitter" title="<?php esc_attr_e( 'Volg ons op Twitter', 'siw' );?>" width="20" height="20" border="0" /></a></td>
+										<td width="auto" align="center"><a href="<?php echo SIW_Properties::INSTAGRAM_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL; ?>images/mail/instagram.png" alt="instagram" title="<?php esc_attr_e( 'Volg ons op Instagram', 'siw' );?>" width="20" height="20" border="0" /></a></td>
+										<td width="auto" align="center"><a href="<?php echo SIW_Properties::YOUTUBE_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL; ?>images/mail/youtube.png" alt="youtube" title="<?php esc_attr_e( 'Volg ons op YouTube', 'siw' );?>" width="20" height="20" border="0" /></a></td>
+										<td width="auto" align="center"><a href="<?php echo SIW_Properties::LINKEDIN_URL;?>" target="_blank"><img src="<?php echo SIW_ASSETS_URL; ?>images/mail/linkedin.png" alt="linkedin" title="<?php esc_attr_e( 'Volg ons op LinkedIn', 'siw' );?>" width="20" height="20" border="0" /></a></td>
 										<td width="40%">&nbsp;</td>
 									</tr>
 								</table>
