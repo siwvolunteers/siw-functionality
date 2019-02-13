@@ -115,7 +115,7 @@ class SIW_Properties {
 	 *
 	 * @var string
 	 */
-	const OPENING_TIME = '9:00';
+	const OPENING_TIME = '10:00';
 
 	/**
 	 * Sluitingstijd
