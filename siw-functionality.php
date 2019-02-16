@@ -10,7 +10,7 @@
  * Plugin Name: SIW Functionaliteit
  * Plugin URI:  https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
- * Version:     1.9.2
+ * Version:     1.10
  * Author:      Maarten Bruna
  * Text Domain: siw
  */
@@ -24,7 +24,7 @@ define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . '/includes' );
 define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
 define ( 'SIW_VENDOR_URL', SIW_ASSETS_URL . 'vendor/' );
-define ( 'SIW_PLUGIN_VERSION', '1.9.2' );
+define ( 'SIW_PLUGIN_VERSION', '1.10' );
 define ( 'SIW_SITE_URL', get_home_url() );
 define ( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL )['host'] );
 
