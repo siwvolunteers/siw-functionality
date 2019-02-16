@@ -1,71 +1,69 @@
 <?php
 /*
-(c)2018 SIW Internationale Vrijwilligersprojecten
-*/
+ * Widget Name: SIW: Kaart
+ * Description: Toont interactieve kaart
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
+ */
 
-/*
-Widget Name: SIW: Kaart
-Description: Toont een kaart.
-Author: SIW Internationale Vrijwilligersprojecten
-Author URI: http://github.com/siwvolunteers
-*/
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
- * Widget met Mapplic kaart
+ * Widget met interactieve kaart
+ *
+ * @package   SIW\Widgets
+ * @author    Maarten Bruna
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
+ * 
+ * @uses      siw_render_map()
  */
-class SIW_Map_Widget extends SiteOrigin_Widget {
-	function __construct() {
+class SIW_Widget_Map extends SIW_Widget {
 
-		$maps = apply_filters( 'siw_maps', [] );
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $widget_id ='map';
 
-		parent::__construct(
-			'siw-map-widget',
-			__( 'SIW: Kaart', 'siw'),
-			[
-				'description'	=> __( 'Toont een Mapplic-kaart.', 'siw'),
-				'panels_groups'	=> [ 'siw' ],
-				'panels_icon'	=> 'dashicons dashicons-location-alt',
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $widget_dashicon = 'location-alt';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function set_widget_properties() {
+		$this->widget_name = __( 'Kaart', 'siw');
+		$this->widget_description = __( 'Toont interactieve kaart', 'siw' );
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_widget_form() {
+		$maps = apply_filters( 'siw_maps', [] ); //TODO: get_maps oid
+
+		$widget_form = [
+			'title' => [
+				'type'    => 'text',
+				'label'   => __( 'Titel', 'siw'),
 			],
-			[],
-			[
-				'title' => [
-					'type' => 'text',
-					'label' => __( 'Titel', 'siw'),
-				],
-				'map' => [
-					'type'		=> 'select',
-					'label'		=> __( 'Kaart', 'siw' ),
-					'prompt'	=> __( 'Kies een kaart', 'siw' ),
-					'options'	=> $maps
-				],
+			'map' => [
+				'type'    => 'select',
+				'label'   => __( 'Kaart', 'siw' ),
+				'prompt'  => __( 'Kies een kaart', 'siw' ),
+				'options' => $maps
 			],
-			plugin_dir_path(__FILE__)
-		);
+		];
+		return $widget_form;
 	}
 
 	/**
-	 * Undocumented function
-	 *
-	 * @param array $instance
-	 * @param array $args
-	 * @param array $template_vars
-	 * @param string $css_name
-	 * @return void
+	 * {@inheritDoc}
 	 */
-	public function get_html_content( $instance, $args, $template_vars, $css_name ) {
-
-		$title = apply_filters( 'widget_title', $instance['title'] );
-		$html_content =  $args['before_widget'];
-		if ( $title ) {
-			$html_content .= $args['before_title'] . $title . $args['after_title'];
-		}
-		$html_content .= siw_render_map( $instance['map'] );
-		$html_content .= $args['after_widget'];
-
-		return $html_content;
+	public function get_content( $instance, $args, $template_vars, $css_name ) {
+		return siw_render_map( $instance['map'] );
 	}
-
-
 }
-
-siteorigin_widget_register( 'siw-map-widget', __FILE__, 'SIW_Map_Widget');

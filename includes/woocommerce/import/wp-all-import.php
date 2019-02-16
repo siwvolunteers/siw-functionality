@@ -149,9 +149,9 @@ function siw_wpai_addon_import( $post_id, $data, $import_options ) {
 		update_post_meta( $post_id, 'participation_fee', $data['participation_fee'] );
 	}
 	if ( $siw_wpai_addon->can_update_meta( '_genesis_title', $import_options ) ) {
-		siw_seo_set_title( $post_id, $data['_genesis_title'] );
+		SIW_Util::set_seo_title( $post_id, $data['_genesis_title'] );
 	}
 	if ( $siw_wpai_addon->can_update_meta( '_genesis_description', $import_options ) ) {
-		siw_seo_set_description( $post_id, $data['_genesis_description'] );
+		SIW_Util::set_seo_description( $post_id, $data['_genesis_description'] );
 	}
 }

@@ -121,7 +121,7 @@ return array(
 			'type' => 'auto_responder',
 			'config' =>
 			array(
-				'sender_name' => SIW_NAME,
+				'sender_name' => SIW_Properties::NAME,
 				'sender_email' => siw_get_setting( 'evs_email_sender' ),
 				'subject' => $confirmation_template_args['subject'],
 				'recipient_name' => '%voornaam% %achternaam%',

@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /* Generieke klasse */
-require_once( __DIR__ . '/class-siw-background-process.php' );
+require_once( __DIR__ . '/abstract-siw-background-process.php' );
 /* Background processen */
 require_once( __DIR__ . '/class-siw-count-workcamps.php' );
 require_once( __DIR__ . '/class-siw-update-workcamp-tariffs.php' );
@@ -64,23 +64,23 @@ function siw_register_background_process( $class, $action, $node, $parent_nodes 
 	if ( ! is_subclass_of( $process, 'SIW_Background_Process') ) {
 		return;
 	}
-	$GLOBALS['siw_' . $action . '_process'] = new $class();
+	$GLOBALS[ "siw_{$action}_process" ] = new $class();
 
 	/**
 	 * Toevoegen aan admin bar
 	 */
 	if ( ! empty( $parent_nodes ) ) {
 		foreach ( $parent_nodes as $admin_node => $properties ) { 
-			siw_add_admin_bar_node( $admin_node, $properties );
+			SIW_Admin_Bar::add_node( $admin_node, $properties );
 		}
 	}
-	siw_add_admin_bar_action( $action, $node );
+	SIW_Admin_Bar::add_action( $action, $node );
 
 	/**
 	 * Cron job toevoegen
 	 */
 	if ( true == $add_cron_job ) {
-		siw_add_cron_job( 'siw_'. $action );
+		SIW_Scheduler::add_job( "siw_{$action}" );
 	}
 
 	add_action( 'siw_'. $action, function() use( $action ) {

@@ -1,0 +1,225 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "6478e9a85882aaa72829c18a3b342406",
+    "packages": [
+        {
+            "name": "a5hleyrich/wp-background-processing",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/A5hleyRich/wp-background-processing.git",
+                "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/A5hleyRich/wp-background-processing/zipball/1f070aab5058dbaf45d5435a343033ddd8a641b1",
+                "reference": "1f070aab5058dbaf45d5435a343033ddd8a641b1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "classes/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Ashley Rich",
+                    "email": "hello@ashleyrich.com"
+                }
+            ],
+            "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks.",
+            "time": "2018-02-12T09:24:05+00:00"
+        },
+        {
+            "name": "aramonc/docblock-parser",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aramonc/DocBlockParser.git",
+                "reference": "fc22102e04b067a969a629f029de345e831314c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aramonc/DocBlockParser/zipball/fc22102e04b067a969a629f029de345e831314c2",
+                "reference": "fc22102e04b067a969a629f029de345e831314c2",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Ils": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adrian Cardenas",
+                    "email": "arcardenas@gmail.com",
+                    "homepage": "http://twitter.com/aramonc",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Parses strings for docBlock like portions and then extracts the annotations, descriptions, and optional document content. This should not be used as an annotation parser for PHP code, at least not on it's own. If you're looking to do something with the docBlocks you might want to use something like https://github.com/schmittjoh/metadata better. This is more for if you're trying to get metadata from a plain text file. Look through the tests for examples.",
+            "time": "2014-01-03T04:41:36+00:00"
+        },
+        {
+            "name": "kallookoo/wp_parse_args_recursive",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kallookoo/wp_parse_args_recursive.git",
+                "reference": "b42119c04763bab5d4e4701fa39c39ee19c2448f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kallookoo/wp_parse_args_recursive/zipball/b42119c04763bab5d4e4701fa39c39ee19c2448f",
+                "reference": "b42119c04763bab5d4e4701fa39c39ee19c2448f",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/wp-parse-args-recursive.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Sergio (kallookoo)",
+                    "email": "sergio@dsergio.com"
+                }
+            ],
+            "description": "Like wp_parse_args but supports recursivity. By default converts the returned type based on the $args and $defaults",
+            "homepage": "https://github.com/kallookoo/wp_parse_args_recursive",
+            "time": "2018-10-18T16:30:37+00:00"
+        },
+        {
+            "name": "khromov/wp-multifilter",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/khromov/wp-multifilter",
+                "reference": "master"
+            },
+            "type": "library",
+            "time": "2015-01-19T10:20:41+00:00"
+        },
+        {
+            "name": "spatie/array-to-xml",
+            "version": "2.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/array-to-xml.git",
+                "reference": "bb5b3548ae7871750285a3f623c28ec50a14c227"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/bb5b3548ae7871750285a3f623c28ec50a14c227",
+                "reference": "bb5b3548ae7871750285a3f623c28ec50a14c227",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^6.3",
+                "spatie/phpunit-snapshot-assertions": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\ArrayToXml\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://murze.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Convert an array to xml",
+            "homepage": "https://github.com/spatie/array-to-xml",
+            "keywords": [
+                "array",
+                "convert",
+                "xml"
+            ],
+            "time": "2018-10-29T10:28:24+00:00"
+        },
+        {
+            "name": "wpscholar/wp-async-defer-scripts",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wpscholar/wp-async-defer-scripts.git",
+                "reference": "f2d8199b90eb3f8f86cfac8af6f25e2378ba3fac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wpscholar/wp-async-defer-scripts/zipball/f2d8199b90eb3f8f86cfac8af6f25e2378ba3fac",
+                "reference": "f2d8199b90eb3f8f86cfac8af6f25e2378ba3fac",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "functions.php"
+                ],
+                "psr-4": {
+                    "wpscholar\\WordPress\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Micah Wood",
+                    "email": "micah@wpscholar.com"
+                }
+            ],
+            "time": "2017-11-06T16:13:37+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "a5hleyrich/wp-background-processing": 20,
+        "khromov/wp-multifilter": 20,
+        "wpscholar/wp-async-defer-scripts": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

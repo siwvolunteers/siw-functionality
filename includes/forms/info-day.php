@@ -81,10 +81,10 @@ add_filter( 'caldera_forms_get_form-infodag', function( $form ) {
 			'value' => 'op_maat',
 			'label' => __( 'Vrijwilligerswerk Op Maat (3 weken tot een jaar)', 'siw' ),
 		),
-		'evs' =>
+		'esc' =>
 		array(
-			'value' => 'evs',
-			'label' => __( 'EVS (European Voluntary Service)', 'siw' ),
+			'value' => 'esc',
+			'label' => __( 'ESC (European Solidarity Corps)', 'siw' ),
 		),
 	);
 
@@ -199,7 +199,7 @@ return array(
 			'type' => 'auto_responder',
 			'config' =>
 			array(
-				'sender_name' => SIW_NAME,
+				'sender_name' => SIW_Properties::NAME,
 				'sender_email' => siw_get_setting( 'info_day_email_sender' ),
 				'subject' => $confirmation_template_args['subject'],
 				'recipient_name' => '%voornaam% %achternaam%',

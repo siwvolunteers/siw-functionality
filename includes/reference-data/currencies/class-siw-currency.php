@@ -116,7 +116,8 @@ class SIW_Currency {
 	 * @return float
 	 */
 	public function get_exchange_rate() {
-		$exchange_rates = siw_get_exchange_rates();
+		$external_exchange_rates = new SIW_External_Exchange_Rates();
+		$exchange_rates = $external_exchange_rates->get_rates();
 		$exchange_rate = isset( $exchange_rates[ $this->iso_code ] ) ? $exchange_rates[ $this->iso_code ] : false;
 	
 		return $exchange_rate;

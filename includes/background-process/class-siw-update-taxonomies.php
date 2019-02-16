@@ -5,6 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Proces om taxonomieën bij te werken
+ *
  * - Naam bijwerken
  * - Lege taxonomieën verwijderen
  * - Volgorde bijwerken
@@ -120,7 +121,6 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 	/**
 	 * Volgorde en naam van attribute pa_month aanpassen
 	 * @todo kan weg als alle terms bijgewerkt worden
-	 * @return void
 	 */
 	protected function reorder_rename_product_attribute_month() {
 		$terms = get_terms( 'pa_maand', [ 'hide_empty' => false ] );
@@ -133,7 +133,7 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 
 		$order = 0;
 		foreach ( $ordered_terms as $term_id => $term_slug ) {
-			$name = siw_get_month_name_from_slug( $term_slug );
+			$name = $this->get_month_name_from_slug( $term_slug );
 
 			//naam aanpassen
 			wp_update_term( $term_id, 'pa_maand', [ 'name' => $name ] );
@@ -141,6 +141,27 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 			//Volgorde bijwerken
 			update_term_meta( $term_id, 'order_pa_maand', $order );
 		}
+	}
+
+	/**
+	 * Zet pa_maand-slug om naar string
+	 *
+	 * @param string $slug
+	 * @return string
+	 * 
+	 * @todo kan weg als alle terms bijgewerkt worden
+	 */
+	protected function get_month_name_from_slug( $slug ) {
+		$year = substr( $slug, 0, 4);
+		$month = substr( $slug, 4, 2);
+		$current_year = date( 'Y' );
+
+		$date = sprintf( '1-%s-%s', $month, $year );
+
+		$date_format = ( $year != $current_year ) ? 'F Y' : 'F';
+		$month_name = ucfirst( date_i18n( $date_format, strtotime( $date ) ) );
+
+		return $month_name;
 	}
 
 

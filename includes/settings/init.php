@@ -71,7 +71,7 @@ add_action( 'plugins_loaded', function() {
 		'page_title'			=> __( 'Instellingen SIW', 'siw' ),
 		'admin_bar'				=> false,
 		'dev_mode'				=> false,
-		'page_priority'			=> 99,
+		'page_priority'			=> 97,
 		'page_permissions'		=> 'manage_settings',
 		'menu_icon'				=> 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAUCAYAAACAl21KAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxEAAAsRAX9kX5EAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTZEaa/1AAABTElEQVQ4T82TPS8EURSGhxXFIhLK3USCaJGIFoXExx/YQretTjT+gUpFVEKitn6AZP/Clko12cLXYq0Zz7s5l5URc6bzJk/OnXPP+87kzkwUlCTJcBzHFdjKgtlls6XFwBS0oFdv8ACv3atvXZgtLTYV9MLdEmobDmEBSjAP+9C0/ewgkHatV4Z1mMU/QK3kCWowW6Cuwb0Z3+EKqnmCjpntp9Zl6pX2rbqCTpjto57J9Ju8QTcwAkNwAC3zf4ledpAN1qFk/RmoQaebglj7giTWt7DNchB0ZlVo254/SOJaasCizexZP19QEP070IcpnsF12I/m/yH6m6AX0ARX0BHsgM4o6BrGQQev38cVdG7XY7AkeKBRKMCpPZ0r6AMuYQPPJHUCVkCfQOwJmoYQJDqgg32ydeiLmtnS4kZFBlZBP+ufMDtntn+rKPoEpsn/ByanCycAAAAASUVORK5CYII=',
 		'page_slug'				=> 'siw-settings',
@@ -127,3 +127,21 @@ add_filter( 'redux/'. SIW_OPT_NAME . '/localize', function( $localize_data ) {
 	unset( $localize_data['rAds'] );
 	return $localize_data;
 }, 999 );
+
+
+
+/* Capability voor instellingmenu afleiden */
+add_filter( 'user_has_cap', function ( $allcaps, $caps, $args, $user ) {
+	if ( ! in_array( 'manage_settings', $caps) ) {
+		return $allcaps;
+	}
+
+	$manage_settings_caps = apply_filters( 'siw_manage_settings_caps', array( 'manage_options' ) );
+	foreach ( $manage_settings_caps as $manage_settings_caps ) {
+		if ( ! empty ( $allcaps[ $manage_settings_caps ] ) ) {
+			$allcaps['manage_settings'] = 1;
+		}
+	}
+
+	return $allcaps;
+}, 10, 4 );

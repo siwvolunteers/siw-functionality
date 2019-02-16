@@ -1,0 +1,37 @@
+{
+	"name": "siwvolunteers/siw-functionality",
+	"description": "Extra functionaliteit t.b.v. website SIW",
+	"homepage": "https://github.com/siwvolunteers/siw-functionality/",
+	"authors": [
+		{
+			"name": "Maarten Bruna"
+		}
+	],
+	"repositories":[
+		{
+			"type": "package",
+			"package": {
+				"name": "khromov/wp-multifilter",
+				"version": "dev-master",
+				"source": {
+					"url": "https://github.com/khromov/wp-multifilter",
+					"type": "git",
+					"reference": "master"
+				}
+			}
+		}
+	],
+	"require": {
+		"kallookoo/wp_parse_args_recursive": "1.*",
+		"a5hleyrich/wp-background-processing": "dev-master",
+		"khromov/wp-multifilter": "dev-master",
+		"wpscholar/wp-async-defer-scripts": "dev-master",
+		"aramonc/docblock-parser": "1.*",
+		"spatie/array-to-xml": "2.*"
+	},
+	"autoload": {
+		"files": [
+			"vendor/khromov/wp-multifilter/wp-multifilter.php"
+		]
+	}
+}

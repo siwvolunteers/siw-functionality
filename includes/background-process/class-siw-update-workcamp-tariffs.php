@@ -31,9 +31,9 @@ class SIW_Update_Workcamp_Tariffs extends SIW_Background_Process {
 	 */
 	protected function select_data() {
 		$args = [
-			'visibility'	=> 'visible',
-			'return'		=> 'ids',
-			'limit'			=> -1,
+			'visibility' => 'visible',
+			'return'     => 'ids',
+			'limit'      => -1,
 		];
 		$products = wc_get_products( $args );
 		

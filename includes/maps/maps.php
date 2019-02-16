@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 require_once( __DIR__ . '/class-siw-map.php' );
 require_once( __DIR__ . '/data-destinations.php' );
-require_once( __DIR__ . '/data-evs.php' );
+require_once( __DIR__ . '/data-esc.php' );
 require_once( __DIR__ . '/data-nl.php' );
 
 /**
@@ -46,11 +46,11 @@ function siw_render_map( $id ) {
 	}
 
 	$map_data = [
-		'data'			=> [],
-		'options'		=> [],
-		'categories'	=> [],
-		'locations'		=> [],
-		'inline_css'	=> [],
+		'data'       => [],
+		'options'    => [],
+		'categories' => [],
+		'locations'  => [],
+		'inline_css' => [],
 	];
 	/**
 	 * Gegevens van kaart

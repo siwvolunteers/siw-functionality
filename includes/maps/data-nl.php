@@ -21,19 +21,19 @@ add_filter( 'siw_map_nl_data', function( $map_data ) {
 			'title' =>  __( 'Nederlandse projecten', 'siw' ),
 			'show'  => true,
 		],
-	];  
+	];
 
 	/** Projecten */
 	$projects = siw_get_dutch_projects();
 	foreach ( $projects as $index => $project ) {
-		$duration = siw_get_date_range_in_text( $project['start_date'], $project['end_date'] );
+		$duration = SIW_Formatting::format_date_range( $project['start_date'], $project['end_date'] );
 		$description =
 			__( 'Data:', 'siw' ) . SPACE . $duration . BR .
 			__( 'Deelnemers:', 'siw' ) . SPACE . $project['participants'] . BR .
 			__( 'Soort werk:', 'siw' ) . SPACE . $project['work_name'] . BR .
 			__( 'Locatie:', 'siw' ) . SPACE . $project['city'] . ', ' . __( 'provincie', 'siw' ) . SPACE . $project['province_name'];
 
-		$location = [      
+		$location = [
 			'id'            => $index,
 			'title'         => $project['name'],
 			'about'         => $project['province_name'],
@@ -42,13 +42,13 @@ add_filter( 'siw_map_nl_data', function( $map_data ) {
 			'description'   => $description,
 			'pin'           => 'circular pin-md pin-label',
 			'category'      => 'nl',
-			'fill'          => SIW_SECONDARY_COLOR,
+			'fill'          => SIW_Properties::SECONDARY_COLOR,
 		];
 		$map_data['locations'][] = $location;
 
 		// Provincies bijhouden t.b.v. inline css
 		$provinces[] = sprintf( '#nl-%s path', $project['province'] );
-	}    
+	}
 
 	/** Inline CSS */
 	$provinces = array_unique( $provinces );
@@ -56,7 +56,7 @@ add_filter( 'siw_map_nl_data', function( $map_data ) {
 
 	$inline_css = array(
 		$selectors => array(
-			'fill'      => SIW_PRIMARY_COLOR_HOVER,
+			'fill' => SIW_Properties::PRIMARY_COLOR_HOVER,
 		),
 	);
 	$map_data['inline_css'] = $inline_css;
@@ -71,6 +71,5 @@ add_filter( 'siw_map_nl_data', function( $map_data ) {
 		'rightLng'  => '7.679884929662812',
 	];
  
-
 	return $map_data;
 });

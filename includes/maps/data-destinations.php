@@ -25,6 +25,7 @@ add_filter( 'siw_map_destinations_data', function( $map_data ) {
 	/* Zoekoptie activeren */
 	$map_data['options'] = [
 		'search' => true,
+		'searchfields' => ['title', 'about', 'description'],
 	];
 
 	/* Zet de landen */
@@ -45,7 +46,7 @@ add_filter( 'siw_map_destinations_data', function( $map_data ) {
 			'category'      => $continent->get_slug(),
 			'fill'          => $continent->get_color(),
 			'description'   => siw_generate_country_description( $country ),
-		];      
+		];
 		$map_data['locations'][] = $location;
 	}
 
@@ -58,16 +59,28 @@ add_filter( 'siw_map_destinations_data', function( $map_data ) {
  *
  * @param SIW_Country $country
  * @return string
+ * 
+ * @uses SIW_Formatting
+ * @uses SIW_i18n
+ * 
+ * @todo verplaatsen naar SIW_Country?
  */
 function siw_generate_country_description( $country ) {
 
-	$tailor_made_page_link = \siw_get_translated_page_link( siw_get_setting( 'op_maat_page' ) );
-	$evs_page_link = \siw_get_translated_page_link( siw_get_setting( 'evs_page' ) );
-	$workcamps_page_link = \siw_get_translated_page_link( siw_get_setting( 'workcamps_page' ) );
+	$tailor_made_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'op_maat_page' ) );
+	$esc_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'evs_page' ) );
+	$workcamps_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'workcamps_page' ) );
 
 	/* Groepsprojecten */
 	if ( true == $country->has_workcamps() ) {
-		$workcamp_count = \siw_count_projects_by_term( 'pa_land', $country->get_slug() );
+		$country_term = get_term_by( 'slug', $country->get_slug(), 'pa_land' );
+		if ( is_a( $country_term, 'WP_Term' ) ) {
+			$workcamp_count = get_term_meta( $country_term->term_id, 'project_count', true );
+		}
+		else {
+			$workcamp_count = 0;
+		}
+
 		if ( $workcamp_count > 0 ) {
 			$url = get_term_link( $country->get_slug(), 'pa_land' );
 			$text = __( 'Bekijk alle projecten', 'siw' );
@@ -76,20 +89,20 @@ function siw_generate_country_description( $country ) {
 			$url = $workcamps_page_link;
 			$text = __( 'Lees meer', 'siw' );
 		}
-		$project_types[] = esc_html__( 'Groepsprojecten', 'siw' ) . SPACE . \siw_generate_link( $url, $text );            
+		$project_types[] = esc_html__( 'Groepsprojecten', 'siw' ) . SPACE . SIW_Formatting::generate_link( $url, $text );
 	}
 	
 	/* Op maat*/
 	if ( true == $country->has_tailor_made_projects() ) {
-		$project_types[] = esc_html__( 'Projecten Op Maat', 'siw' ) . SPACE . \siw_generate_link( $tailor_made_page_link, __( 'Lees meer', 'siw' ) );
+		$project_types[] = esc_html__( 'Projecten Op Maat', 'siw' ) . SPACE . SIW_Formatting::generate_link( $tailor_made_page_link, __( 'Lees meer', 'siw' ) );
 	}
 	
 	/* EVS */
-	if ( true == $country->has_evs_projects() ) {
-		$project_types[] = esc_html__( 'EVS', 'siw' ) . SPACE . \siw_generate_link( $evs_page_link, __( 'Lees meer', 'siw' ) );
+	if ( true == $country->has_esc_projects() ) {
+		$project_types[] = esc_html__( 'ESC', 'siw' ) . SPACE . SIW_Formatting::generate_link( $esc_page_link, __( 'Lees meer', 'siw' ) );
 	}
 	
-	$description = esc_html__( 'In dit land bieden wij de volgende projecten aan:', 'siw' ) . \siw_generate_list( $project_types );
+	$description = esc_html__( 'In dit land bieden wij de volgende projecten aan:', 'siw' ) . SIW_Formatting::generate_list( $project_types );
 
 	return $description;
 }

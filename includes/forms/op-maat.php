@@ -42,7 +42,7 @@ add_filter( 'caldera_forms_get_form-op_maat', function( $form ) {
 		$language_skill_levels[ $language_skill_level_slug ]['label'] = $volunteer_language_skill_level;
 	}
 
-	$info_day_page_link = siw_get_translated_page_link( siw_get_setting( 'info_day_page' ) );
+	$info_day_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'info_day_page' ) );
 
 
 
@@ -97,7 +97,7 @@ add_filter( 'caldera_forms_get_form-op_maat', function( $form ) {
 			'<span style="font-weight:bold">' .
 			__( 'Meer informatie', 'siw' ) .
 			'</span>' . BR .
-			sprintf( __( 'Als je nog vragen hebt, aarzel dan niet om contact op te nemen met ons kantoor via %s of via het nummer %s.', 'siw' ), SIW_EMAIL, SIW_PHONE ),
+			sprintf( __( 'Als je nog vragen hebt, aarzel dan niet om contact op te nemen met ons kantoor via %s of via het nummer %s.', 'siw' ), SIW_Properties::EMAIL, SIW_Properties::PHONE ),
 		'show_signature' => true,
 		'signature_name' => $signature['name'],
 		'signature_title' => $signature['title'],
@@ -377,7 +377,7 @@ return array(
 			'type' => 'auto_responder',
 			'config' =>
 			array(
-				'sender_name' => SIW_NAME,
+				'sender_name' => SIW_Properties::NAME,
 				'sender_email' => siw_get_setting( 'op_maat_email_sender' ),
 				'subject' => $confirmation_template_args['subject'],
 				'recipient_name' => '%voornaam% %achternaam%',

@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 function siw_get_next_evs_deadline( $date_in_text = false ) {
-	for ( $x = 1 ; $x <= SIW_NUMBER_OF_EVS_DEADLINES; $x++ ) {
+	for ( $x = 1 ; $x <= SIW_Properties::NUMBER_OF_ESC_DEADLINES; $x++ ) {
 		$evs_deadlines[]= siw_get_setting( "evs_deadline_{$x}" );
 	}
 	asort( $evs_deadlines );
@@ -31,7 +31,7 @@ function siw_get_next_evs_deadline( $date_in_text = false ) {
 	}
 
 	if ( $date_in_text ) {
-		$next_evs_deadline = siw_get_date_in_text( $next_evs_deadline );
+		$next_evs_deadline = SIW_Formatting::format_date( $next_evs_deadline );
 	}
 
 	return $next_evs_deadline;
@@ -46,7 +46,7 @@ function siw_get_next_evs_deadline( $date_in_text = false ) {
  */
 function siw_get_next_evs_departure_month() {
 
-	$weeks = SIW_EVS_WEEKS_BEFORE_DEPARTURE;
+	$weeks = SIW_Properties::ESC_WEEKS_BEFORE_DEPARTURE;
 	$next_evs_deadline = siw_get_next_evs_deadline();
 
 	if ( empty( $next_evs_deadline ) ) {
@@ -62,37 +62,34 @@ function siw_get_next_evs_departure_month() {
 
 /**
  * [siw_get_evs_project_data description]
- * @param  [type] $post_id [description]
- * @return [type]          [description]
+ * @param  int $post_id
+ * @return array
  */
 function siw_get_evs_project_data( $post_id ) {
 
 	$evs_countries = siw_get_evs_countries();
 	$evs_work_types = siw_get_evs_project_work_types();
 
-	$evs_project_data = array(
+	$evs_project_data = [
 		'permalink'				=> get_permalink( $post_id ),
 		'title'					=> get_the_title( $post_id ),
 		//'excerpt' 				=> get_the_excerpt( $post_id ),
 		'post_thumbnail_url'	=> get_the_post_thumbnail_url( $post_id ),
 		'highlight_quote'		=> get_post_meta( $post_id, 'siw_evs_project_highlight_quote', true ),
-		'deadline'				=> siw_get_date_in_text( get_post_meta( $post_id, 'siw_evs_project_deadline', true ) ),
+		'deadline'				=> SIW_Formatting::format_date( get_post_meta( $post_id, 'siw_evs_project_deadline', true ) ),
 		'wat_ga_je_doen'		=> get_post_meta( $post_id, 'siw_evs_project_wat_ga_je_doen', true ),
 		'organisatie'			=> get_post_meta( $post_id, 'siw_evs_project_organisatie', true ),
 		'plaats'				=> get_post_meta( $post_id, 'siw_evs_project_plaats', true ),
 		'startdatum'			=> date( 'Y-m-d', get_post_meta( $post_id, 'siw_evs_project_startdatum', true ) ),
 		'einddatum'				=> date( 'Y-m-d', get_post_meta( $post_id, 'siw_evs_project_einddatum', true ) ),
-	);
-	$evs_project_data['projectduur'] = siw_get_month_range_in_text( $evs_project_data['startdatum'], $evs_project_data['einddatum'] );
+	];
+	$evs_project_data['projectduur'] = SIW_Formatting::format_month_range( $evs_project_data['startdatum'], $evs_project_data['einddatum'] );
 	$evs_project_data['land'] = $evs_countries[ get_post_meta( $post_id, 'siw_evs_project_land', true ) ];
 	$evs_project_data['soort_werk']	= $evs_work_types[ get_post_meta( $post_id, 'siw_evs_project_soort_werk', true ) ];
 
 	return $evs_project_data;
 }
 
-add_filter( 'siw_evs_project_data', function( $evs_project_data, $post_id ) {
-	return siw_get_evs_project_data( $post_id );
-}, 10, 2 );
 
 
 //TODO: functie om oude evs-projecten te verwijderen
@@ -100,21 +97,21 @@ add_filter( 'siw_evs_project_data', function( $evs_project_data, $post_id ) {
 
 /**
  * [siw_get_active_evs_projects description]
- * @param  int $number [description]
- * @return [type]         [description]
+ * @param  int $number
+ * @return array
  */
 function siw_get_active_evs_projects( $number ) {
 	$min_date = strtotime( date( 'Y-m-d' ) );
-	$meta_query_args = array(
+	$meta_query_args = [
 		'relation'	=>	'AND',
-		array(
+		[
 			'key'		=>	'siw_evs_project_deadline',
 			'value'		=>	$min_date,
 			'compare'	=>	'>='
-		),
-	);
+		],
+	];
 
-	$query_args = array(
+	$query_args = [
 		'post_type'				=>	'evs_project',
 		'posts_per_page'		=>	$number,
 		'post_status'			=>	'publish',
@@ -124,11 +121,11 @@ function siw_get_active_evs_projects( $number ) {
 		'order'					=>	'ASC',
 		'meta_query'			=>	$meta_query_args,
 		'fields' 				=> 'ids'
-	);
+	];
 
 	$evs_projects_ids = get_posts( $query_args );
 
-	$active_evs_projects = array();
+	$active_evs_projects = [];
 	foreach ( $evs_projects_ids as $evs_projects_id ) {
 		$active_evs_projects[] = siw_get_evs_project_data( $evs_projects_id );
 	}
@@ -142,7 +139,7 @@ function siw_get_active_evs_projects( $number ) {
  */
 function siw_get_evs_countries() {
 
-	$countries = siw_get_countries( 'evs_projects' );
+	$countries = siw_get_countries( 'esc_projects' );
 
 	$evs_countries = [];
 	foreach ( $countries as $country ) {

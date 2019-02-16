@@ -1,0 +1,16 @@
+{
+	"name": "kallookoo/wp_parse_args_recursive",
+    "description": "Like wp_parse_args but supports recursivity. By default converts the returned type based on the $args and $defaults",
+    "type": "library",
+	"homepage": "https://github.com/kallookoo/wp_parse_args_recursive",
+	"license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Sergio (kallookoo)",
+            "email": "sergio@dsergio.com"
+        }
+    ],
+	"autoload": {
+		"files": ["src/wp-parse-args-recursive.php"]
+	}
+}

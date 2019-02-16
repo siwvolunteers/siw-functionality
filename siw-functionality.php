@@ -4,80 +4,77 @@
  *
  * @package     SIW
  * @author      Maarten Bruna
- * @copyright   2017-2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright   2017-2019 SIW Internationale Vrijwilligersprojecten
  *
  * @wordpress-plugin
  * Plugin Name: SIW Functionaliteit
  * Plugin URI:  https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
- * Version:     1.9
+ * Version:     1.10
  * Author:      Maarten Bruna
  * Text Domain: siw
  */
 
-
-/*
- * Definieer constantes m.b.t. plugin
- * - Directory
- * - URL
- * - Versie
- * - URL AJAX-handler
- */
+/** Constantes */
 define ( 'SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . '/assets' );
 define ( 'SIW_VENDOR_DIR', SIW_ASSETS_DIR . '/vendor' );
+define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . '/templates' );
 define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . '/includes' );
 define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
 define ( 'SIW_VENDOR_URL', SIW_ASSETS_URL . 'vendor/' );
-define ( 'SIW_PLUGIN_VERSION', '1.8.4' );
-define ( 'SIW_AJAX_URL', SIW_PLUGIN_URL . 'ajax-handler.php' );
+define ( 'SIW_PLUGIN_VERSION', '1.10' );
 define ( 'SIW_SITE_URL', get_home_url() );
 define ( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL )['host'] );
 
-/*
- * Hulp-plugins
- * - WP MultiFilter (https://github.com/khromov/wp-multifilter)
- * - Rapid Add-On (https://github.com/soflyy/wp-all-import-rapid-addon)
- * - WordPress Widgets Helper Class (https://github.com/alessandrotesoro/wp-widgets-helper)
- * - WP Background Processing (https://github.com/A5hleyRich/wp-background-processing)
- * - wp_parse_args_recursive (https://github.com/kallookoo/wp_parse_args_recursive)
- */
-require_once( SIW_VENDOR_DIR . '/wp-multifilter.php' );
+/* Hulp-plugins */
+require_once( SIW_PLUGIN_DIR . '/vendor/autoload.php' );
 require_once( SIW_VENDOR_DIR . '/rapid-addon.php' );
-require_once( SIW_VENDOR_DIR . '/wp-widgets-helper.php' );
-require_once( SIW_VENDOR_DIR . '/wp-async-request.php' );
-require_once( SIW_VENDOR_DIR . '/wp-background-process.php' );
-require_once( SIW_VENDOR_DIR . '/wp-parse-args-recursive.php' );
 
 /* Basisfunctionaliteit: referentiegegevens, functies en instellingen */
 require_once( SIW_INCLUDES_DIR . '/reference-data/init.php' );
-require_once( SIW_INCLUDES_DIR . '/functions/init.php' );
+require_once( SIW_INCLUDES_DIR . '/class-siw-formatting.php' );
+require_once( SIW_INCLUDES_DIR . '/class-siw-properties.php' );
+require_once( SIW_INCLUDES_DIR . '/class-siw-util.php' );
+
+
 require_once( SIW_INCLUDES_DIR . '/settings/init.php' );
 
+/* Core */
+require_once( SIW_INCLUDES_DIR . '/class-siw-assets.php' );
+require_once( SIW_INCLUDES_DIR . '/class-siw-head.php' );
+require_once( SIW_INCLUDES_DIR . '/class-siw-htaccess.php' );
+require_once( SIW_INCLUDES_DIR . '/class-siw-i18n.php' );
+require_once( SIW_INCLUDES_DIR . '/class-siw-scheduler.php' );
+require_once( SIW_INCLUDES_DIR . '/class-siw-shortcodes.php' );
+require_once( SIW_INCLUDES_DIR . '/class-siw-widgets.php' );
+
+add_action( 'plugins_loaded', ['SIW_Assets', 'init']);
+add_action( 'plugins_loaded', ['SIW_i18n', 'init']);
+add_action( 'plugins_loaded', ['SIW_Head', 'init']);
+add_action( 'plugins_loaded', ['SIW_htaccess', 'init']);
+add_action( 'plugins_loaded', ['SIW_Scheduler', 'init']);
+add_action( 'plugins_loaded', ['SIW_Shortcodes', 'init']);
+add_action( 'plugins_loaded', ['SIW_Widgets', 'init']);
+
+require_once( SIW_INCLUDES_DIR . '/functions/init.php' );
+
 /* Diverse aanpassingen */
-require_once( SIW_INCLUDES_DIR . '/custom.php' );
-require_once( SIW_INCLUDES_DIR . '/head.php' );
-require_once( SIW_INCLUDES_DIR . '/htaccess.php' );
-require_once( SIW_INCLUDES_DIR . '/enqueue.php' );
-require_once( SIW_INCLUDES_DIR . '/scheduler.php' );
-require_once( SIW_INCLUDES_DIR . '/seo.php' );
-require_once( SIW_INCLUDES_DIR . '/shortcodes/init.php' );
-require_once( SIW_INCLUDES_DIR . '/translations.php' );
-
-
-require_once( SIW_INCLUDES_DIR . '/admin/init.php' );
-require_once( SIW_INCLUDES_DIR . '/ajax/init.php' );
+require_once( SIW_INCLUDES_DIR . '/admin/admin.php' );
+require_once( SIW_INCLUDES_DIR . '/api/api.php' );
 require_once( SIW_INCLUDES_DIR . '/background-process/init.php' );
-require_once( SIW_INCLUDES_DIR . '/analytics/init.php' );
-require_once( SIW_INCLUDES_DIR . '/cookie-notification/cookie-notification.php' );
+require_once( SIW_INCLUDES_DIR . '/compatibility/compatibility.php' );
 require_once( SIW_INCLUDES_DIR . '/email/init.php');
+require_once( SIW_INCLUDES_DIR . '/external/external.php' );
 require_once( SIW_INCLUDES_DIR . '/forms/init.php' );
 require_once( SIW_INCLUDES_DIR . '/maps/maps.php' );
-require_once( SIW_INCLUDES_DIR . '/pagebuilder/init.php' );
+require_once( SIW_INCLUDES_DIR . '/modules/modules.php' );
+require_once( SIW_INCLUDES_DIR . '/plato-interface/plato-interface.php' );
 require_once( SIW_INCLUDES_DIR . '/post-types/init.php' );
-require_once( SIW_INCLUDES_DIR . '/social-share/init.php' );
-require_once( SIW_INCLUDES_DIR . '/topbar/init.php' );
-require_once( SIW_INCLUDES_DIR . '/widgets/init.php' );
 require_once( SIW_INCLUDES_DIR . '/woocommerce/init.php' );
-require_once( SIW_INCLUDES_DIR . '/workcamps/init.php' );
+
+/* Constantes voor strings*/
+const BR = '<br/>';
+const BR2 = '<br/><br/>';
+const SPACE = ' ';

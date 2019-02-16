@@ -56,7 +56,7 @@ add_action( 'siw_settings_show_info_day_section', function() {
 		'type'		=> 'section',
 		'indent'	=> true,
 	);
-	for ( $x = 1 ; $x <= SIW_NUMBER_OF_INFO_DAYS; $x++) {
+	for ( $x = 1 ; $x <= SIW_Properties::NUMBER_OF_INFO_DAYS; $x++) {
 		$info_day_fields[] = array(
 			'id'		=> "info_day_{$x}",
 			'title'		=> __( "Infodag {$x}", 'siw' ),

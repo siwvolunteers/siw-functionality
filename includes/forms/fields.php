@@ -226,7 +226,7 @@ function siw_get_form_field( $slug, $options = array() ){
 function siw_get_standard_form_field( $slug, $options = array() ) {
 
 	/* Referentiegegevens*/
-	$volunteer_genders = siw_get_volunteer_genders();
+	$volunteer_genders = siw_get_genders();
 	foreach ( $volunteer_genders as $volunteer_gender ) {
 		$gender_slug = sanitize_title( $volunteer_gender );
 		$genders[ $gender_slug ]['value'] = $gender_slug;

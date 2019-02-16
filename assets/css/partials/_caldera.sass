@@ -1,0 +1,88 @@
+//main: ../siw.sass
+
+.caldera-grid{
+	.checkbox{
+		margin-top:0px !important;
+		padding-left:0px;
+		label{
+			padding-left:30px !important;
+		}
+	}
+	.checkbox-inline{
+		padding-left:30px !important;    
+	}
+	.radio-inline{
+		padding-left:30px !important;    
+	}
+	.radio{
+		margin-top:0px !important;
+		padding-left:0px;
+		label{
+			padding-left:30px !important;
+		}
+	}
+
+	.checkbox, .checkbox-inline, .radio, .radio-inline{
+		label {
+			position: relative;
+			display: block;
+			margin-bottom: 15px;
+			padding-left: 0px;
+			cursor: pointer;
+		}
+		input {
+			position: absolute;
+			z-index: -1;
+			opacity: 0;
+		}
+	}
+
+
+	.control-indicator {
+		position: absolute;
+		top: 2px;
+		left: 0;
+		width: 20px;
+		height: 20px;
+		background: #fff;
+		border: 1px solid #b9b9b9;
+		&:after{
+			position: absolute;
+			display: none;
+			content: '';
+		}
+	}
+
+	.radio .control-indicator, .radio-inline .control-indicator {
+		border-radius:50%;
+	}
+	
+	.checkbox, .checkbox-inline, .radio, .radio-inline{
+		input:checked ~ .control-indicator:after {
+			display: block;
+		}
+	}
+
+	.checkbox, .checkbox-inline{
+		.control-indicator:after {
+			top: 0px;
+			left: 5px;
+			width: 9px;
+			height: 14px;
+			transform: rotate(45deg);
+			border: solid #ff9900;
+			border-width: 0 3px 3px 0;
+		}
+	}
+
+	.radio-inline, .radio{
+		.control-indicator:after {
+			top: 3px;
+			left: 3px;
+			width: 12px;
+			height: 12px;
+			border-radius:50%;
+			background: #ff9900;
+		}
+	}
+}
