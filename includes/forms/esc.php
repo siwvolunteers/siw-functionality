@@ -120,7 +120,7 @@ return array(
 		'motivatie' => siw_get_form_field( 'paragraph',
 			array(
 				'ID' => 'motivatie',
-				'label' => __( 'Waarom wil je graag aan een ECS-project deelnemen?', 'siw' ),
+				'label' => __( 'Waarom wil je graag aan een ESC-project deelnemen?', 'siw' ),
 				'slug' => 'motivatie',
 			)
 		),
