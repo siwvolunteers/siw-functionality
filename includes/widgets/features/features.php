@@ -144,8 +144,7 @@ class SIW_Widget_Features extends SIW_Widget {
 				<?php foreach ( $row as $feature ) : ?>
 				<div class="<?= esc_attr( $class ); ?>">
 					<?php 
-
-						$content = sprintf(
+						$output = sprintf(
 							'[iconbox icon="%s" link="%s" btn="%s" btn_txt="Lees meer" color="#fff" "hbackground="%s" background="%s" tcolor="%s"]',
 							esc_attr( $feature['icon'] ),
 							$feature['add_link'] ? esc_url( $feature['link_url'] ) : '',
@@ -154,13 +153,11 @@ class SIW_Widget_Features extends SIW_Widget {
 							esc_attr( SIW_Properties::FONT_COLOR ),
 							esc_attr( SIW_Properties::FONT_COLOR )
 						);
-						$content .= '<h4>' . esc_html( $feature['title'] ) . '</h4>';
-						$content .= wp_kses_post( $feature['content'] ) . '<br/>';
-						$content .= '[/iconbox]';
-
-						echo $content;
+						$output .= '<h4>' . esc_html( $feature['title'] ) . '</h4>';
+						$output .= wp_kses_post( $feature['content'] ) . '<br/>';
+						$output .= '[/iconbox]';
+						echo do_shortcode( $output );
 					?>
-
 				</div>
 				<?php endforeach ?>
 			</div>
