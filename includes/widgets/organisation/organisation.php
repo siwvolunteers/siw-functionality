@@ -69,22 +69,22 @@ class SIW_Widget_Organisation extends SIW_Widget {
 	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
 		ob_start();
 		?>
-		<p><b><?= __( 'Statutaire naam', 'siw' ); ?></b><br><?= SIW_Properties::STATUTORY_NAME ?><br></p>
-		<p><b><?= __( 'RSIN/fiscaal nummer', 'siw' ); ?></b><br><?= SIW_Properties::RSIN ?><br></p>
-		<p><b><?= __( 'KVK-nummer', 'siw' ); ?></b><br><?= SIW_Properties::KVK ?><br></p>
-		<p><b><?= __( 'Rekeningnummer', 'siw' ); ?></b><br><?= SIW_Properties::IBAN ?><br></p>
+		<p><b><?php esc_html_e( 'Statutaire naam', 'siw' ); ?></b><br><?= SIW_Properties::STATUTORY_NAME ?><br></p>
+		<p><b><?php esc_html_e( 'RSIN/fiscaal nummer', 'siw' ); ?></b><br><?= SIW_Properties::RSIN ?><br></p>
+		<p><b><?php esc_html_e( 'KVK-nummer', 'siw' ); ?></b><br><?= SIW_Properties::KVK ?><br></p>
+		<p><b><?php esc_html_e( 'Rekeningnummer', 'siw' ); ?></b><br><?= SIW_Properties::IBAN ?><br></p>
 		<p>
-			<b><?= __( 'Bestuurssamenstelling', 'siw' ); ?></b><br>
-			<?= esc_html__( 'Het bestuur van SIW bestaat momenteel uit:', 'siw' ); ?>
-			<?= do_shortcode( '[siw_bestuursleden]'); ?>
+			<b><?php esc_html_e( 'Bestuurssamenstelling', 'siw' ); ?></b><br>
+			<?php esc_html_e( 'Het bestuur van SIW bestaat momenteel uit:', 'siw' ); ?>
+			<?php echo do_shortcode( '[siw_bestuursleden]'); ?>
 		</p>
 		<p>
-			<b><?= __( 'Beloningsbeleid naam', 'siw' ); ?></b><br>
-			<?= wp_kses_post( $instance['renumeration_policy'] ); ?><br></p>
+			<b><?php esc_html_e( 'Beloningsbeleid', 'siw' ); ?></b><br>
+			<?php echo wp_kses_post( $instance['renumeration_policy'] ); ?><br></p>
 		</p>
 		<p>
-			<b><?= __( 'Jaarverslagen', 'siw' ); ?></b><br>
-			<?= do_shortcode( '[siw_jaarverslagen]'); ?>
+			<b><?php esc_html_e( 'Jaarverslagen', 'siw' ); ?></b><br>
+			<?php echo do_shortcode( '[siw_jaarverslagen]'); ?>
 		</p>
 		<?php
 		$content = ob_get_clean();

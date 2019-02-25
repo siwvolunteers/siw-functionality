@@ -112,7 +112,6 @@ class SIW_Widget_Features extends SIW_Widget {
 		return $widget_form;
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -145,10 +144,11 @@ class SIW_Widget_Features extends SIW_Widget {
 				<div class="<?= esc_attr( $class ); ?>">
 					<?php 
 						$output = sprintf(
-							'[iconbox icon="%s" link="%s" btn="%s" btn_txt="Lees meer" color="#fff" "hbackground="%s" background="%s" tcolor="%s"]',
+							'[iconbox icon="%s" link="%s" btn="%s" btn_txt="%s" color="#fff" "hbackground="%s" background="%s" tcolor="%s"]',
 							esc_attr( $feature['icon'] ),
 							$feature['add_link'] ? esc_url( $feature['link_url'] ) : '',
 							$feature['add_link'] ? 'true' : 'false',
+							esc_html__( 'Lees meer', 'siw' ),
 							esc_attr( SIW_Properties::PRIMARY_COLOR ),
 							esc_attr( SIW_Properties::FONT_COLOR ),
 							esc_attr( SIW_Properties::FONT_COLOR )
