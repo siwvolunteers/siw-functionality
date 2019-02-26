@@ -27,6 +27,8 @@ class SIW_Compat_WordPress {
 		add_action( 'after_setup_theme', [ $self, 'add_custom_logo_support'] );
 		add_action( 'init', [ $self, 'add_page_excerpt_support'] );
 		add_action( 'core_version_check_query_args', [ $self, 'remove_core_version_check_query_args'] );
+		add_action( 'wp_enqueue_scripts', [ $self, 'dequeue_styles' ], PHP_INT_MAX );
+
 
 		add_action( 'do_feed', [ $self, 'disable_feed' ] , 1 );
 		add_action( 'do_feed_rdf', [ $self, 'disable_feed' ] , 1 );
@@ -144,6 +146,13 @@ class SIW_Compat_WordPress {
 		unset( $query['multisite_enabled'] );
 		unset( $query['initial_db_version'] );
 		return $query;
+	}
+
+	/**
+	 * Gutenberg css uitschakelen
+	 */
+	public function dequeue_styles() {
+		wp_dequeue_style('wp-block-library');
 	}
 
 	/**

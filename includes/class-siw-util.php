@@ -152,4 +152,22 @@ class SIW_Util {
 	public static function set_seo_description( $post_id, $description ) {
 		update_post_meta( $post_id, '_genesis_description', $description );
 	}
+
+	/**
+	 * Geeft aan of kortingsactie voor Groepsprojecten actief is
+	 *
+	 * @return bool
+	 */
+	public static function is_workcamp_sale_active() {
+		
+		$workcamp_sale_active = false;
+
+		if ( siw_get_setting( 'workcamp_sale_active' ) &&
+			date( 'Y-m-d' ) >= siw_get_setting( 'workcamp_sale_start_date' ) &&
+			date( 'Y-m-d' ) <= siw_get_setting( 'workcamp_sale_end_date' )
+			) {
+				$workcamp_sale_active = true;
+		}
+		return $workcamp_sale_active;
+	}
 }

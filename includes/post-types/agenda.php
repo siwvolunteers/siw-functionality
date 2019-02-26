@@ -231,50 +231,6 @@ add_filter( 'rwmb_meta_boxes', function ( $meta_boxes ) {
 				'size'     => 100,
 				'visible'  => [ $prefix . 'aanmelden', '=', 'aangepast' ],
 			],
-			[
-				'name'     => __( 'Programma', 'siw' ),
-				'type'     => 'heading',
-			],
-			[
-				'id'        => $prefix . 'programma',
-				'name'       => __( 'Onderdelen', 'siw' ),
-				'type'       => 'group',
-				'clone'      => true,
-				'sort_clone' => true,
-				'collapsible' => true,
-				'default_state' => 'collapsed',
-				'add_button' => __( 'Onderdeel toevoegen', 'siw' ),
-				'group_title' => [ 'field' => 'starttijd, omschrijving'],
-				'fields' => [
-					[
-						'id' => 'omschrijving',
-						'name' => __( 'Omschrijving', 'siw' ),
-						'type' => 'textarea',
-					],
-					[
-						'id' => 'starttijd',
-						'name' => __( 'Starttijd', 'siw' ),
-						'type' => 'time',
-						'readonly' => true,
-						'js_options' => [
-							'timeFormat'  => 'H:mm',
-							'stepMinute'  => 15,
-							'controlType' => 'select',
-						],
-					],
-					[
-						'id' => 'eindtijd',
-						'name' => __( 'Eindtijd', 'siw' ),
-						'type' => 'time',
-						'readonly' => true,
-						'js_options' => [
-							'timeFormat'  => 'H:mm',
-							'stepMinute'  => 15,
-							'controlType' => 'select',
-						],
-					],
-				]
-			]
 		],
 	];
 

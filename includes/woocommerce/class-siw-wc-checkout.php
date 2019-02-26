@@ -51,7 +51,7 @@ class SIW_WC_Checkout{
 	}
 
 	/**
-	 * Undocumented function
+	 * Verwijdert JS-selectors voor update locale
 	 *
 	 * @param array $locale_fields
 	 * @return array
@@ -136,7 +136,7 @@ class SIW_WC_Checkout{
 	}
 	
 	/**
-	 * Undocumented function
+	 * Haalt checkoutvelden op
 	 *
 	 * @param array $checkout_fields
 	 * @return array
@@ -152,7 +152,7 @@ class SIW_WC_Checkout{
 	}
 
 	/**
-	 * Undocumented function
+	 * Haalt secties voor checkoutvelden op
 	 *
 	 * @return array
 	 */
@@ -394,10 +394,10 @@ class SIW_WC_Checkout{
 	 * @return string
 	 */
 	public function set_checkout_templates( $located, $template_name, $args, $template_path, $default_path ) {
-		if ( 'checkout/terms.php' == $template_name ) {
+		if ( 'checkout' . DIRECTORY_SEPARATOR . 'terms.php' == $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
 		}
-		if ( 'checkout/payment-method.php' == $template_name ) {
+		if ( 'checkout' . DIRECTORY_SEPARATOR . 'payment-method.php' == $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
 		}
 		return $located;

@@ -74,7 +74,7 @@ abstract class SIW_Background_Process extends WP_Background_Process {
 	 * @return $this
 	 */
 	public function set_logger_context() {
-		$source = sanitize_title( sprintf( 'siw-%s', $this->name ) );
+		$source = sanitize_title( "siw-{$this->name}" );
 		$context = [ 'source' => $source ];
 		update_site_option( $this->logger_context_option, $context );
 		

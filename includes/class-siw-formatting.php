@@ -227,6 +227,22 @@ class SIW_Formatting {
 	}
 
 	/**
+	 * Genereert html-tag
+	 *
+	 * @param string $tag
+	 * @param array $attributes
+	 * @return string
+	 */
+	public static function generate_tag( $tag, $attributes ) {
+		$tag = sprintf(
+			'<%s %s>',
+			tag_escape( $tag ),
+			self::render_attributes ( $attributes )
+		);
+		return $tag;
+	}
+
+	/**
 	 * Genereert externe link
 	 *
 	 * @param  string $url
@@ -248,7 +264,7 @@ class SIW_Formatting {
 		}
 		$accordion = '[accordion]';
 		foreach ( $panes as $pane ) {
-			if ( empty( $pane['content'] ) ) {
+			if ( empty( trim( $pane['content'] ) ) ) {
 				continue;
 			}
 			if ( isset( $pane['show_button'] ) && true == $pane['show_button'] ) {

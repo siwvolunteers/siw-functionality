@@ -44,24 +44,6 @@ global $post;
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<?php if ( $event_data['program'] ):?>
-						<h3>
-							<?= esc_html__( 'Programma', 'siw' );?>
-						</h3>
-						<div class="row">
-							<?php
-							foreach ( (array) $event_data['program'] as $key => $item ) :
-							?>
-							<div class="col-xs-3">
-								<p><b><?php echo esc_html( date( 'H:i', strtotime( $item['starttijd'])) .  '&nbsp;-&nbsp;' . date( 'H:i', strtotime( $item['eindtijd'] ) ) );?></b></p>
-							</div>
-							<div class="col-xs-9">
-								<?php echo wp_kses_post( wpautop( $item['omschrijving'] ) );?>
-							</div>
-							<?php endforeach ?>
-						</div>
-						<?php endif ?>
-
 						<h3>
 							<?= esc_html__( 'Locatie', 'siw' );?>
 						</h3>
