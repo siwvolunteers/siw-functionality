@@ -31,13 +31,6 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'validate'		=> 'no_special_chars',
 		),
 		array(
-			'id'			=> 'google_analytics_enable_linkid',
-			'title'			=> __( 'Enhanced link attribution', 'siw' ),
-			'type'			=> 'switch',
-			'on'			=> 'Aan',
-			'off'			=> 'Uit',
-		),
-		array(
 			'id'			=> 'google_analytics_section_end',
 			'type'			=> 'section',
 			'indent' 		=> false,
