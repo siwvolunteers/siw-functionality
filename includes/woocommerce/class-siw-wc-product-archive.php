@@ -162,7 +162,7 @@ class SIW_WC_Product_Archive {
 		}
 	
 		/* Toon extra tekst als de kortingsactie actief is */
-		if ( siw_is_sale_active() ) {
+		if ( SIW_Util::is_workcamp_sale_active() ) {
 
 			$regular = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR );
 			$regular_sale = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE );

@@ -174,7 +174,7 @@ class SIW_Shortcodes {
 	 */
 	public static function workcamp_fee_student() {
 		$output = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT );
-		if ( siw_is_sale_active() ) {
+		if ( SIW_Util::is_workcamp_sale_active() ) {
 			$output = sprintf( '<del>%s</del>&nbsp;<ins>%s</ins>', $output, SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT_SALE ) );
 		}
 		return $output;
@@ -187,7 +187,7 @@ class SIW_Shortcodes {
 	 */
 	public static function workcamp_fee_regular() {
 		$output = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR );
-		if ( siw_is_sale_active() ) {
+		if ( SIW_Util::is_workcamp_sale_active() ) {
 			$output = sprintf( '<del>%s</del>&nbsp;<ins>%s</ins>', $output, SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE ) );
 		}
 		return $output;
