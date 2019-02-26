@@ -20,21 +20,6 @@ function siw_get_ip_whitelist() {
 	return $ip_whitelist;
 }
 
-/**
- * Geeft array met tarieven Groepsprojecten terug
- *
- * @return array
- */
-function siw_get_workcamp_tariffs() {
-	$workcamp_tariffs = [
-		'regulier'            => number_format( SIW_Properties::WORKCAMP_FEE_REGULAR, 2 ),
-		'student'             => number_format( SIW_Properties::WORKCAMP_FEE_STUDENT, 2 ),
-		'regulier_aanbieding' => number_format( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE, 2 ),
-		'student_aanbieding'  => number_format( SIW_Properties::WORKCAMP_FEE_STUDENT_SALE, 2 ),
-	];
-	return $workcamp_tariffs;
-}
-
 
 /**
  * Geeft array met Mailpoet-lijsten terug

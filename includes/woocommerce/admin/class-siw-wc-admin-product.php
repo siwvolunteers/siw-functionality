@@ -112,7 +112,7 @@ class SIW_WC_Admin_Product {
 	 * @param WP_Post $post
 	 */
 	public function show_approval_option( $post ) {
-		if ( 'product' != $post->post_type || 'draft' != $post->post_status ) {
+		if ( 'product' != $post->post_type || 'pending' != $post->post_status ) {
 			return;
 		}
 		$product = wc_get_product( $post->ID );

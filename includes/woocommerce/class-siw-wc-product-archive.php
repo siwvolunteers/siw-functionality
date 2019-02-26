@@ -264,7 +264,7 @@ class SIW_WC_Product_Archive {
 			case 'startdate':
 				$sort_args['orderby']  = 'meta_value';
 				$sort_args['order']    = 'asc';
-				$sort_args['meta_key'] = 'startdatum';
+				$sort_args['meta_key'] = 'start_date';
 				break;
 			case 'country':
 				$sort_args['orderby']  = 'meta_value';

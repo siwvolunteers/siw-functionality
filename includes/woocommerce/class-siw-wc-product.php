@@ -124,8 +124,9 @@ class SIW_WC_Product {
 	 */
 	public function set_product_is_purchasable( $is_purchasable, $product ) {
 		$is_purchasable = $product->is_visible();
+		$status = $product->get_status();
 
-		if ( false == $is_purchasable ) {
+		if ( false == $is_purchasable || 'pending' == $status ) {
 			
 			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation', 10 ); //TODO: kan weg na switch theme
 			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation_add_to_cart_button', 20 );
