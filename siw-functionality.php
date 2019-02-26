@@ -16,21 +16,18 @@
  */
 
 /** Constantes */
+define ( 'SIW_PLUGIN_VERSION', '1.10' );
 define ( 'SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . '/assets' );
-define ( 'SIW_VENDOR_DIR', SIW_ASSETS_DIR . '/vendor' );
-define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . '/templates' );
-define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . '/includes' );
+define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets' );
+define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates' );
+define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . 'includes' );
 define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
-define ( 'SIW_VENDOR_URL', SIW_ASSETS_URL . 'vendor/' );
-define ( 'SIW_PLUGIN_VERSION', '1.10' );
 define ( 'SIW_SITE_URL', get_home_url() );
 define ( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL )['host'] );
 
-/* Hulp-plugins */
+/* Vendor */
 require_once( SIW_PLUGIN_DIR . '/vendor/autoload.php' );
-require_once( SIW_VENDOR_DIR . '/rapid-addon.php' );
 
 /* Basisfunctionaliteit: referentiegegevens, functies en instellingen */
 require_once( SIW_INCLUDES_DIR . '/reference-data/init.php' );

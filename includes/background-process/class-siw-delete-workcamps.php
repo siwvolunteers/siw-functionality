@@ -49,43 +49,14 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 			'posts_per_page' => -1,
 			'post_type'      => 'product',
 			'meta_query'     => $meta_query,
-			'fields'         => 'ids'
+			'fields'         => 'ids',
+			'post_status'    => 'any',
 		];
 		$products = get_posts( $args );
-	
 		
 		if ( empty( $products ) ) {
-			
 			return false;
 		}
-	
-		//variaties van geselecteerde projecten opzoeken,  kan weg na vervangen WP All Import
-		$args = [
-			'posts_per_page'  => -1,
-			'post_type'       => 'product_variation',
-			'post_parent__in' => $products,
-			'fields'          => 'ids',
-		];
-		$variations = get_posts( $args );
-	
-		//variaties en producten samenvoegen tot 1 array voor DELETE-query
-		$posts = array_merge( $variations, $products );
-		$post_ids = implode( ',', $posts );
-	
-		//wp all import tabel bijwerken
-		global $wpdb;
-		if ( ! isset( $wpdb->pmxi_posts ) ) {
-			$wpdb->pmxi_posts = $wpdb->prefix . 'pmxi_posts';
-		}
-	
-		$wpdb->query(
-			$wpdb->prepare("
-				DELETE FROM $wpdb->pmxi_posts
-				WHERE post_id IN (%s)",
-				$post_ids
-			)
-		);
-
 		return $products;
 	}
 

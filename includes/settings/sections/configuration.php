@@ -7,34 +7,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-/**
- * Geeft array met WPAI imports terug
- * 
- * @deprecated
- *
- * @return array
- */
-function siw_get_wpai_imports() {
-	global $wpdb;
-	if ( ! isset( $wpdb->pmxi_imports ) ) {
-		$wpdb->pmxi_imports = $wpdb->prefix . 'pmxi_imports';
-	}
-	$query = "SELECT $wpdb->pmxi_imports.id, $wpdb->pmxi_imports.friendly_name, $wpdb->pmxi_imports.name FROM $wpdb->pmxi_imports ORDER BY $wpdb->pmxi_imports.friendly_name ASC";
-	$results = $wpdb->get_results( $query, ARRAY_A);
-	foreach ( $results as $result ) {
-		$imports[$result['id']] = esc_html( $result['friendly_name'] . ' (' . $result['name'] . ')' );
-	}
-	return $imports;
-}
 
 
 add_action( 'siw_settings_show_configuration_section', function() {
 	/*
 	 * Hulpgegevens
-	 * - WP All Imports
 	 * - Pagina's
 	*/
-	$imports = siw_get_wpai_imports();
 	$pages = SIW_Util::get_pages();
 
 	$analytics_seo_fields = array(
@@ -149,25 +128,6 @@ add_action( 'siw_settings_show_configuration_section', function() {
 		array(
 			'id'			=> 'plato_test_mode',
 			'title'			=> __( 'Test-mode', 'siw' ),
-			'type'			=> 'switch',
-			'on'			=> 'Aan',
-			'off'			=> 'Uit',
-		),
-		array(
-			'id'			=> 'plato_fpl_import_id',
-			'title'			=> __( 'FPL-import', 'siw' ),
-			'type'			=> 'select',
-			'options'		=> $imports,
-		),
-		array(
-			'id'			=> 'plato_full_import_id',
-			'title'			=> __( 'Volledige import', 'siw' ),
-			'type'			=> 'select',
-			'options'		=> $imports,
-		),
-		array(
-			'id'			=> 'plato_force_full_update',
-			'title'			=> __( 'Forceer volledige update', 'siw' ),
 			'type'			=> 'switch',
 			'on'			=> 'Aan',
 			'off'			=> 'Uit',

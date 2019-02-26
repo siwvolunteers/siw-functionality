@@ -22,7 +22,6 @@ require_once( __DIR__ . '/import/attributes.php' );
 require_once( __DIR__ . '/import/image.php' );
 require_once( __DIR__ . '/import/process.php' );
 require_once( __DIR__ . '/import/description.php' );
-require_once( __DIR__ . '/import/wp-all-import.php' );
 
 /* Diverse functies */
 require_once( __DIR__ . '/update.php' );

@@ -49,21 +49,6 @@ class SIW_Delete_Orphaned_Variations extends SIW_Background_Process {
 		if ( empty( $variations ) ) {
 			return false;
 		}
-	
-			//wp all import tabel bijwerken
-		global $wpdb;
-		if ( ! isset( $wpdb->pmxi_posts ) ) {
-			$wpdb->pmxi_posts = $wpdb->prefix . 'pmxi_posts';
-		}
-	
-		$variation_ids = implode( ',', $variations );
-		$wpdb->query(
-			$wpdb->prepare("
-				DELETE FROM $wpdb->pmxi_posts
-				WHERE post_id IN (%s)",
-				$variation_ids
-			)
-		);
 
 		return $variations;
 	}
