@@ -41,11 +41,6 @@ class SIW_Module_Social_Share {
 
 	/**
 	 * Toont de share links
-	 *
-	 * @return void
-	 * 
-	 * @todo loop over social networks
-	 * @todo generate_link gebruiken
 	 */
 	public function render() {
 		if ( $this->needs_hr() ) {
@@ -68,7 +63,7 @@ class SIW_Module_Social_Share {
 							'data-original-title' => $network->get_name(),
 							'target'              => '_blank',
 						],
-						sprintf('kt-icon-%s2', $network->get_slug() )
+						$network->get_icon_class()
 					);
 				}
 			?>
@@ -112,9 +107,15 @@ class SIW_Module_Social_Share {
 	 */
 	protected function needs_hr() {
 		$post_type = get_post_type();
-		if ( 'portfolio' == $post_type || 'product' == $post_type || 'evs_project' == $post_type ) {
-			return true;
+		switch( $post_type ) {
+			case 'portfolio':
+			case 'product':
+			case 'evs_project':
+				$needs_hr = true;
+				break;
+			default:
+				$needs_hr = false;
 		}
-		return false;
+		return $needs_hr;
 	}
 }
