@@ -82,7 +82,7 @@ class SIW_WC_Import_Product {
 	 */
 	public function __construct( $data ) {
 		add_filter( 'wc_product_has_unique_sku', '__return_false' );
-		add_filter( 'wp_insert_post_data', [ $this, 'correct_post_slug'] );
+		add_filter( 'wp_insert_post_data', [ $this, 'correct_post_slug'], 10, 2 );
 		$this->xml = (object) $data;
 		$this->set_country();
 		$this->set_languages();
