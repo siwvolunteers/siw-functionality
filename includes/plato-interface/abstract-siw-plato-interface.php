@@ -115,7 +115,7 @@ abstract class SIW_Plato_Interface {
 		$this->logger = wc_get_logger();
 
 		$source = sanitize_title( "siw-{$this->name}" );
-		$this->logger_context = array( 'source' => $source );
+		$this->logger_context = [ 'source' => $source ];
 	}
 
 	/**

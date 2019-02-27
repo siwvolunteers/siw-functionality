@@ -17,6 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SIW_WC_Import_Product {
 
 	/**
+	 * Post status van projecten die beoordeel moeten worde3n
+	 */
+	const REVIEW_STATUS = 'pending';
+
+	/**
 	 * Ruwe xml-data uit Plato
 	 *
 	 * @var stdClass
@@ -77,11 +82,29 @@ class SIW_WC_Import_Product {
 	 */
 	public function __construct( $data ) {
 		add_filter( 'wc_product_has_unique_sku', '__return_false' );
+		add_filter( 'wp_insert_post_data', [ $this, 'correct_post_slug'] );
 		$this->xml = (object) $data;
 		$this->set_country();
 		$this->set_languages();
 		$this->set_work_types();
 	}
+
+	/**
+	 * Corrigeert slug van product als het ter review staat
+	 *
+	 * @param array $data
+	 * @param array $postarr
+	 * @return array
+	 */
+	public function correct_post_slug( $data, $postarr ) {
+
+		if ( self::REVIEW_STATUS == $data['post_status'] && 'product' == $data['post_type'] ) {
+			$data['post_name'] =  $postarr['post_name'];
+		}
+
+		return $data;
+	}
+
 
 	/**
 	 * Verwerk item
@@ -118,7 +141,7 @@ class SIW_WC_Import_Product {
 			
 		}
 		else {
-			if ( ! $this->is_allowed_project_type() || false == $this->country->is_allowed() ) {
+			if ( ! $this->is_allowed_project_type() || false == $this->country->is_allowed() || date( 'Y-m-d' ) > $this->xml->start_date ) {
 				return false;
 				//TODO check op startdatum in het verleden
 			}
@@ -147,7 +170,7 @@ class SIW_WC_Import_Product {
 			'sold_individually'  => true,
 			'virtual'            => true,
 			'status'             => $this->get_status(),
-			'image_id'           => $this->get_image_id(),
+			//'image_id'           => $this->get_image_id(),
 
 		]);
 		foreach ( $this->get_meta_data() as $key => $value ) {
@@ -611,7 +634,7 @@ class SIW_WC_Import_Product {
 		$status = 'publish';
 		foreach ( $this->work_types as $work_type ) {
 			if ( 'kinderen' == $work_type->get_slug() ) {
-				$status = 'pending';
+				$status = self::REVIEW_STATUS;
 			}
 		}
 		return $status;
