@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Templates voor teksten van een Groepsproject
  * 
  * @author      Maarten Bruna
- * @package     SIW\Workcamps\Import
+ * @package     SIW\WooCommerce
  * @copyright   2018, SIW Internationale Vrijwilligersprojecten
  */
 

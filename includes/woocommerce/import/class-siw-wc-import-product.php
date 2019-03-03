@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Import van een Groepsproject
  *
  * @author      Maarten Bruna
- * @package     SIW\Workcamps\Import
+ * @package     SIW\WooCommerce
  * @copyright   2018-2019 SIW Internationale Vrijwilligersprojecten
  * @uses        SIW_Country
  * @uses        SIW_Language

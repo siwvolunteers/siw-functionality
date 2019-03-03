@@ -45,12 +45,17 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 			'pa_startdatum',
 			'pa_einddatum',
 			'pa_land',
+			'pa_taal',
 			'pa_soort-werk',
 			'pa_doelgroep',
 			'product_tag'
 		];
 		
 		foreach ( $taxonomies as $taxonomy ) {
+			if ( ! taxonomy_exists( $taxonomy ) ) {
+				continue;
+			}
+
 			$terms = get_terms( [
 				'taxonomy'   => $taxonomy,
 				'hide_empty' => false,
@@ -104,6 +109,8 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 		if ( null != $term_order ) {
 			update_term_meta( $term->term_id, "order_{$taxonomy}", $term_order ); 
 		}
+
+		$this->increment_processed_count();
 		return false;
 	}
 
