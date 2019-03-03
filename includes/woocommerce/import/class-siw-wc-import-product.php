@@ -403,7 +403,6 @@ class SIW_WC_Import_Product {
 					'visible'   => true,
 					'variation' => false,
 					'values'    => [],
-					'order'     => null
 				]
 			);
 
@@ -464,7 +463,8 @@ class SIW_WC_Import_Product {
 		}
 
 		foreach ( $values as $value ) {
-			$options[] = $this->maybe_create_term( "pa_{$taxonomy}", $value['slug'], $value['name'], $value['order'] );
+			$order = $value['order'] ?? null;
+			$options[] = $this->maybe_create_term( "pa_{$taxonomy}", $value['slug'], $value['name'], $order );
 		}
 
 		$attribute = new WC_Product_Attribute;

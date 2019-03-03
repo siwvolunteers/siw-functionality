@@ -81,11 +81,11 @@ class SIW_Scheduler {
 
 		$new_timestamp = SIW_Util::convert_timestamp_to_gmt( strtotime( 'tomorrow ' . SIW_Properties::TS_UPDATE_PROJECTS ) );
 
-		if ( wp_next_scheduled( 'siw_update_projects' ) ) {
-			$current_timestamp = wp_next_scheduled( 'siw_update_projects' );
-			wp_unschedule_event( $current_timestamp, 'siw_update_projects' );
+		if ( wp_next_scheduled( 'siw_update_workcamps' ) ) {
+			$current_timestamp = wp_next_scheduled( 'siw_update_workcamps' );
+			wp_unschedule_event( $current_timestamp, 'siw_update_workcamps' );
 		}
-		wp_schedule_event( $new_timestamp, 'daily', 'siw_update_projects' );		
+		wp_schedule_event( $new_timestamp, 'daily', 'siw_update_workcamps' );		
 	}
 
 	/**

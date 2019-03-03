@@ -128,20 +128,30 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 					$name = null;
 				}
 				break;
+
 			case 'pa_land':
 				$country = siw_get_country( $term_slug );
 				$name = $country ? $country->get_name() : null;
 				break;
+
 			case 'pa_soort-werk':
 				$work_type = siw_get_work_type( $term_slug );
 				$name = $work_type ? $work_type->get_name() : null;
 				break;
+
+			case 'pa_taal':
+				$language = siw_get_language( $term_slug );
+				$name = $language ? $language->get_name() : null;
+				break;
+
 			case 'pa_doelgroep':
 				$name = null;
 				break;
+
 			case 'product_tag':
 				$name = null;
 				break;
+
 			default:
 				$name = null;
 		}
