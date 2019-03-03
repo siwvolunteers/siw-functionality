@@ -14,6 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SIW_Delete_Workcamps extends SIW_Background_Process {
 
 	/**
+	 * Aantal maanden voordat Groepsproject verwijderd wordt.
+	 */
+	const MAX_AGE_WORKCAMP_IN_MONTHS = 6;
+
+	/**
 	 * @access protected
 	 */
 	protected $action = 'delete_workcamps_process';
@@ -31,17 +36,17 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 	 * @return array
 	 */
 	protected function select_data() {
-		$limit = date( 'Y-m-d', time() - ( 6 * MONTH_IN_SECONDS ) );
+		$limit = date( 'Y-m-d', time() - ( self::MAX_AGE_WORKCAMP_IN_MONTHS * MONTH_IN_SECONDS ) );
 
 		$meta_query = [
-			'relation'	=> 'OR',
+			'relation' => 'OR',
 			[
-				'key'     => 'startdatum',
+				'key'     => 'start_date',
 				'value'   => $limit,
 				'compare' => '<',
 			],
 			[
-				'key'     => 'startdatum', //TODO: meta wordt gewoon startdate
+				'key'     => 'start_date',
 				'compare' => 'NOT EXISTS',
 			],
 		];
@@ -63,13 +68,13 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 	/**
 	 * Verwijderen van product (inclusief variaties)
 	 *
-	 * @param mixed $item
+	 * @param int $product_id
 	 *
 	 * @return mixed
 	 */
-	protected function task( $item ) {
+	protected function task( $product_id ) {
 
-		$product = wc_get_product( $item );
+		$product = wc_get_product( $product_id );
 		if ( false == $product ) {
 			return false;
 		}
@@ -82,7 +87,6 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 			$variation->delete( true );
 		}
 		$product->delete( true );
-
 		$this->increment_processed_count();
 
 		return false;

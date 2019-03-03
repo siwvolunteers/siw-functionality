@@ -75,7 +75,7 @@ class SIW_Update_Workcamp_Tariffs extends SIW_Background_Process {
 		foreach ( $variations as $variation_id ) {
 			$variation = wc_get_product( $variation_id );
 			$variation_tariff = $variation->get_attributes()['pa_tarief'];
-			$tariff = $tariffs[ $variation_tariff ];
+			$tariff = $tariffs[ $variation_tariff ] ?? 'regulier';
 
 			$regular_price = $tariff['regular_price'];
 			$sale_price = $tariff['sale_price'];

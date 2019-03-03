@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SIW_WC_Import_Product {
 
 	/**
-	 * Post status van projecten die beoordeel moeten worde3n
+	 * Post-status van projecten die beoordeeld moeten worden
 	 */
 	const REVIEW_STATUS = 'pending';
 
@@ -97,14 +97,11 @@ class SIW_WC_Import_Product {
 	 * @return array
 	 */
 	public function correct_post_slug( $data, $postarr ) {
-
 		if ( self::REVIEW_STATUS == $data['post_status'] && 'product' == $data['post_type'] ) {
 			$data['post_name'] =  $postarr['post_name'];
 		}
-
 		return $data;
 	}
-
 
 	/**
 	 * Verwerk item
@@ -275,11 +272,20 @@ class SIW_WC_Import_Product {
 	 * @param string $name
 	 * @return int
 	 */
-	protected function maybe_create_term( $taxonomy, $slug, $name ) {
+	protected function maybe_create_term( $taxonomy, $slug, $name, $order = null ) {
 		$term = get_term_by( 'slug', $slug, $taxonomy );
 		if ( false == $term ) {
 			$new_term = wp_insert_term( $name, $taxonomy, [ 'slug' => $slug ] );
-			return $new_term['term_id'] ?? false;
+
+			if ( ! isset( $new_term['term_id']) ) {
+				return false;
+			}
+
+			if ( null != $order ) {
+				update_term_meta( $new_term['term_id'], "order_pa_{$taxonomy}", $order ); 
+			}
+
+			return $new_term['term_id'];
 		}
 		else {
 			return $term->term_id;
@@ -396,7 +402,8 @@ class SIW_WC_Import_Product {
 				[
 					'visible'   => true,
 					'variation' => false,
-					'values'    => []
+					'values'    => [],
+					'order'     => null
 				]
 			);
 
@@ -457,7 +464,7 @@ class SIW_WC_Import_Product {
 		}
 
 		foreach ( $values as $value ) {
-			$options[] = $this->maybe_create_term( "pa_{$taxonomy}", $value['slug'], $value['name'] );
+			$options[] = $this->maybe_create_term( "pa_{$taxonomy}", $value['slug'], $value['name'], $value['order'] );
 		}
 
 		$attribute = new WC_Product_Attribute;
@@ -562,7 +569,7 @@ class SIW_WC_Import_Product {
 			'latitude'                   => $this->xml->lat_project,
 			'longitude'                  => $this->xml->lng_project,
 			'country'                    => $this->country->get_slug(),
-			'start_date'                 => $this->xml->start_date,//TODO: is nu startdatum dus dat moet overal aangepast worden
+			'start_date'                 => $this->xml->start_date,
 			'min_age'                    => $this->xml->min_age,
 			'max_age'                    => $this->xml->max_age, 
 			'participation_fee_currency' => $this->xml->participation_fee_currency,
@@ -686,6 +693,8 @@ class SIW_WC_Import_Product {
 	 * Geeft aan of project bijgewerkt moet worden
 	 *
 	 * @return bool
+	 * 
+	 * @todo optie of instelling om update te forceren
 	 */
 	protected function should_be_updated() {
 		$should_be_updated = ( (array) $this->xml ) == $this->product->get_meta('xml') ? false : true;

@@ -126,7 +126,7 @@ class SIW_WC_Product {
 		$is_purchasable = $product->is_visible();
 		$status = $product->get_status();
 
-		if ( false == $is_purchasable || 'pending' == $status ) {
+		if ( false == $is_purchasable || SIW_WC_Import_Product::REVIEW_STATUS == $status ) {
 			
 			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation', 10 ); //TODO: kan weg na switch theme
 			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation_add_to_cart_button', 20 );
@@ -168,7 +168,7 @@ class SIW_WC_Product {
 	 * @return array
 	 */
 	public function order_product_attributes( $attributes ) {
-		$order = array(
+		$order = [
 			'pa_projectnaam', //TODO: verwijderen indien mogelijk
 			'projectnaam',
 			'pa_projectcode', //TODO: verwijderen indien mogelijk
@@ -188,7 +188,7 @@ class SIW_WC_Product {
 			'pa_taal',
 			'pa_vog',
 			'pa_doelgroep',
-		);
+		];
 		uksort( $attributes, function( $key1, $key2 ) use ( $order ) {
 			return ( array_search( $key1, $order ) > array_search( $key2, $order ) );
 		} );
