@@ -85,8 +85,8 @@ class SIW_htaccess {
 			],
 		];
 
-		$security_headers = $this->format_rules( $rules );
-		return $marker;
+		$formatted_rules = $this->format_rules( $rules );
+		return $marker . $formatted_rules;
 	}
 
 	/**
