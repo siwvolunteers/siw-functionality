@@ -16,6 +16,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SIW_Admin_Bar {
 
 	/**
+	 * Nodes
+	 *
+	 * @var array
+	 */
+	protected static $nodes = [];
+
+	/**
+	 * Acties
+	 *
+	 * @var array
+	 */
+	protected static $actions = [];
+
+	/**
 	 * Init
 	 */
 	public static function init() {
@@ -74,16 +88,9 @@ class SIW_Admin_Bar {
 	 * @param WP_Admin_Bar $wp_admin_bar
 	 */
 	public function add_action_triggers( $wp_admin_bar ) {
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( 'manage_options' ) || empty( self::$actions ) ) {
 			return;
 		}
-
-		$actions = $this->get_actions();
-		if ( empty( $actions ) ) {
-			return;
-		}
-
-		$nodes = $this->get_nodes();
 
 		/* Voeg hoofdnode toe*/
 		$args = [
@@ -94,7 +101,7 @@ class SIW_Admin_Bar {
 		$wp_admin_bar->add_node( $args );
 	
 		/* Voeg nodes toe */
-		foreach ( $nodes as $node => $properties ) {
+		foreach ( self::$nodes as $node => $properties ) {
 			$args = [
 				'parent' => ( isset( $properties['parent'] ) ) ? 'siw-' . $properties['parent'] . '-actions' : 'siw-actions',
 				'id'     => 'siw-' .$node . '-actions',
@@ -106,7 +113,7 @@ class SIW_Admin_Bar {
 		$referer = '&_wp_http_referer=' . rawurlencode( wp_unslash( $_SERVER['REQUEST_URI'] ) );
 		
 		/* Voeg acties toe */
-		foreach ( $actions as $action => $properties ) {
+		foreach ( self::$actions as $action => $properties ) {
 			$args = [
 				'parent' => ( isset( $properties['parent'] ) ) ? 'siw-' . $properties['parent'] . '-actions' : 'siw-actions',
 				'id'     => "siw-action-{$action}",
@@ -121,59 +128,21 @@ class SIW_Admin_Bar {
 	 * Verwerkt actie
 	 */
 	public function process_action_triggers() {
-		if ( ! isset( $_GET['siw-action'] ) || ! isset( $_GET['_wpnonce'] ) ) {
+		if ( ! isset( $_GET['siw-action'] ) || ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'siw-action') ) {
 			return;
 		}
-		if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'siw-action') ) {
-			return;
-		}
-		$action = esc_attr( trim( $_REQUEST['siw-action']) );
 
-		$actions = $this->get_actions();
+		$action = esc_attr( trim( $_REQUEST['siw-action']) );
 		
-		if ( ! in_array( $action, array_keys( $actions ) ) ) {
+		if ( ! in_array( $action, array_keys( self::$actions ) ) ) {
 			return;
 		}
 		do_action( "siw_{$action}" );
 		do_action( 'siw_action', $action ); //TODO: 1 methode kiezen
 
 		$notices = new SIW_Admin_Notices;
-	
-		$notices->add_notice( 'success', sprintf( __( 'Proces gestart: %s', 'siw' ), $actions[ $action ]['title'] ), true );
+		$notices->add_notice( 'success', sprintf( __( 'Proces gestart: %s', 'siw' ), self::$actions[ $action ]['title'] ), true );
 		wp_redirect( wp_get_referer() );
-	}
-
-	/**
-	 * Haalt alle acties op
-	 * 
-	 * @return array
-	 */
-	protected function get_actions() {
-
-		$actions = [];
-		/**
-		 * Admin bar acties
-		 *
-		 * @param array $actions
-		 */
-		$actions = apply_filters( 'siw_admin_bar_actions', $actions );
-		return $actions;
-	}
-
-	/**
-	 * Haalt alle nodes op
-	 * 
-	 * @return array
-	 */
-	protected function get_nodes() {
-		$nodes = [];
-		/**
-		 * Admin bar nodes
-		 *
-		 * @param array $actions
-		 */
-		$nodes = apply_filters( 'siw_admin_bar_nodes', $nodes );
-		return $nodes;
 	}
 
 	/**
@@ -183,10 +152,7 @@ class SIW_Admin_Bar {
 	 * @param array $properties
 	 */
 	public static function add_node( $node, $properties ) {
-		add_filter( 'siw_admin_bar_nodes', function( $nodes ) use( $node, $properties ) {
-			$nodes[ $node ] = $properties;
-			return $nodes;
-		});
+		self::$nodes[ $node ] = $properties;
 	}
 
 	/**
@@ -196,9 +162,6 @@ class SIW_Admin_Bar {
 	 * @param array $properties
 	 */
 	public static function add_action( $action, $properties ) {
-		add_filter( 'siw_admin_bar_actions', function( $actions ) use( $action, $properties ) {
-			$actions[ $action ] = $properties;
-			return $actions;
-		});
+		self::$actions[ $action ] = $properties;
 	}
 }

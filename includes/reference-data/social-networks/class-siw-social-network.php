@@ -13,14 +13,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SIW_Social_Network {
 
 	/**
-	 * Slug van het netwerkt
+	 * Slug van het netwerk
 	 *
 	 * @var string
 	 */
 	protected $slug;
 
 	/**
-	 * Naam van het netwerkt
+	 * Naam van het netwerk
 	 *
 	 * @var string
 	 */
@@ -88,7 +88,7 @@ class SIW_Social_Network {
 	}
 
 	/**
-	 * Geeft slug van netwerkt terug
+	 * Geeft slug van netwerk terug
 	 * 
 	 * @return string
 	 */
@@ -106,7 +106,7 @@ class SIW_Social_Network {
 	}
 
 	/**
-	 * Geeft icon class voor voor netwerkt terug
+	 * Geeft icon class voor voor netwerk terug
 	 * 
 	 * @return string
 	 */

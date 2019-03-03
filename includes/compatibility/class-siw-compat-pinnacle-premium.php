@@ -65,7 +65,7 @@ class SIW_Compat_Pinnacle_Premium {
 	 * Laadt script alleen op product-pagina
 	 */
 	public function dequeue_scripts() {
-		if ( ! is_product() ) {
+		if ( class_exists( 'woocommerce' ) && ! is_product() ) {
 			wp_dequeue_script( 'kt-wc-add-to-cart-variation-radio' );
 		}
 	}

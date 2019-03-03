@@ -104,10 +104,10 @@ class SIW_Head {
 		}
 	
 		if ( 'preconnect' === $relation_type ) {
-			$urls[] = array(
+			$urls[] = [
 				'href' => 'https://www.google-analytics.com',
 				'crossorigin',
-			);
+			];
 		}
 		return $urls;
 	}

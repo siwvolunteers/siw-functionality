@@ -52,8 +52,6 @@ class SIW_Compat_WooCommerce {
 
 	/**
 	 * Verwijdert ongebruikte widgets
-	 *
-	 * @return void
 	 */
 	public function unregister_widgets() {
 		unregister_widget( 'WC_Widget_Price_Filter' );

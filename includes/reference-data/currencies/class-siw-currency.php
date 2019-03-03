@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Bevat informatie over een valuta
  * 
- * @package 	SIW\Reference-Data
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
- * @author      Maarten Bruna
+ * @package   SIW\Reference-Data
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
+ * @author    Maarten Bruna
  */
 class SIW_Currency {
 
@@ -39,26 +39,15 @@ class SIW_Currency {
 	 */
 	public function __construct( $currency ) {
 		$defaults = [
-			'iso'       => '',
-			'name'		=> '',
-			'symbol'    => '',
+			'iso'    => '',
+			'name'   => '',
+			'symbol' => '',
 		];
 		$currency = wp_parse_args( $currency, $defaults );
 
-		$this->set_iso_code( $currency['iso'] );
-		$this->set_name( $currency['name'] );
-		$this->set_symbol( $currency[ 'symbol'] );
-	}
-
-	/**
-	 * Zet de ISO-code van de valuta
-	 *
-	 * @param string $iso_code
-	 * @return void
-	 */
-	public function set_iso_code( $iso_code ) {
-		$this->iso_code = $iso_code;
-		return $this;
+		$this->iso_code = $currency['iso'];
+		$this->name = $currency['name'];
+		$this->symbol = $currency['symbol'];
 	}
 
 	/**
@@ -71,34 +60,12 @@ class SIW_Currency {
 	}
 
 	/**
-	 * Zet de naam van de valuta
-	 *
-	 * @param string $name
-	 * @return void
-	 */
-	public function set_name( $name ) {
-		$this->name = $name;
-		return $this;
-	}
-
-	/**
 	 * Geeft de naam van de valuta terug
 	 *
 	 * @return string
 	 */
 	public function get_name() {
 		return $this->name;
-	}
-
-	/**
-	 * Zet het symbool van de valuta
-	 *
-	 * @param string $symbol
-	 * @return $this
-	 */
-	public function set_symbol( $symbol ) {
-		$this->symbol = $symbol;
-		return $this;
 	}
 
 	/**
@@ -118,7 +85,7 @@ class SIW_Currency {
 	public function get_exchange_rate() {
 		$external_exchange_rates = new SIW_External_Exchange_Rates();
 		$exchange_rates = $external_exchange_rates->get_rates();
-		$exchange_rate = isset( $exchange_rates[ $this->iso_code ] ) ? $exchange_rates[ $this->iso_code ] : false;
+		$exchange_rate = $exchange_rates[ $this->iso_code ] ?? false;
 	
 		return $exchange_rate;
 	}
@@ -136,7 +103,7 @@ class SIW_Currency {
 		}
 	
 		$amount_in_euro = (float) $amount * (float) $exchange_rate;
-		$amount_in_euro = number_format( $amount_in_euro, $decimals, ',', '.' );
+		$amount_in_euro = number_format_i18n( $amount_in_euro, $decimals );
 		return $amount_in_euro;
 	}
 }

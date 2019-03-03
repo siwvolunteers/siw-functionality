@@ -35,7 +35,8 @@ class SIW_WC_Checkout{
 		add_filter( 'woocommerce_country_locale_field_selectors', [ $self, 'remove_locale_field_selectors']);
 
 		add_filter( 'woocommerce_form_field_args', [ $self, 'add_form_field_classes' ] );
-		add_filters( ['woocommerce_form_field_radio', 'woocommerce_form_field_checkbox'], [ $self, 'add_form_field_markup' ] );
+		add_filter( 'woocommerce_form_field_radio', [ $self, 'add_form_field_markup' ] );
+		add_filter( 'woocommerce_form_field_checkbox', [ $self, 'add_form_field_markup' ] );
 		add_action( 'woocommerce_multistep_checkout_before_order_info', [ $self, 'show_checkout_partner_fields'] );
 		add_filter( 'woocommerce_get_terms_and_conditions_checkbox_text', [ $self, 'set_term_checkbox_text'] );
 		remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_checkout_privacy_policy_text', 20 );
@@ -55,8 +56,6 @@ class SIW_WC_Checkout{
 	 *
 	 * @param array $locale_fields
 	 * @return array
-	 * 
-	 * @todo is dit wel nodig?
 	 */
 	public function remove_locale_field_selectors( $locale_fields ) {
 		unset( $locale_fields['address_2'] );
@@ -79,7 +78,6 @@ class SIW_WC_Checkout{
 	 * Past korting toe bij meerdere projecten
 	 *
 	 * @param WC_Cart $cart
-	 * @return void
 	 * 
 	 * @todo hoort dit wel bij de checkout?
 	 */

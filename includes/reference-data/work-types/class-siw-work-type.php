@@ -6,9 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Bevat informatie over een soort werk
  * 
- * @package 	SIW\Reference-Data
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
- * @author      Maarten Bruna
+ * @package   SIW\Reference-Data
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
+ * @author    Maarten Bruna
  */
 class SIW_Work_Type {
 	
@@ -34,18 +34,25 @@ class SIW_Work_Type {
 	protected $plato_code;
 	
 	/**
+	 * CSS-class van icoon
+	 *
+	 * @var string
+	 */
+	protected $icon_class;
+
+	/**
 	 * Geeft aan of dit soort werk gekoppeld kan worden aan een Nederlands project
 	 *
 	 * @var boolean
 	 */
-	protected $for_dutch_projects;
+	protected $dutch_projects;
 
 	/**
 	 * Geeft aan of dit soort werk gekoppeld kan worden aan een Op Maat project
 	 *
 	 * @var boolean
 	 */
-	protected $for_tailor_made_projects;
+	protected $tailor_made_projects;
 
 	/**
 	 * Constructor
@@ -58,29 +65,20 @@ class SIW_Work_Type {
 			'slug'                  => '',
 			'plato_code'            => '',
 			'name'                  => '',
+			'icon_class'            => '', 
 			'dutch_projects'        => false,
 			'tailor_made_projects'  => false,
 		];
 	 
 		$data = wp_parse_args( $data, $defaults );
 
-		$this->set_slug( $data[ 'slug' ] );
-		$this->set_plato_code( $data[ 'plato_code' ] );
-		$this->set_name( $data[ 'name' ] );
-		$this->set_for_dutch_projects( $data[ 'dutch_projects' ] );
-		$this->set_for_tailor_made_projects( $data[ 'tailor_made_projects' ] );
+		$this->slug = $data[ 'slug' ];
+		$this->plato_code = $data[ 'plato_code' ];
+		$this->name = $data[ 'name' ];
+		$this->dutch_projects = $data[ 'dutch_projects' ];
+		$this->tailor_made_projects = $data[ 'tailor_made_projects' ];
+		$this->icon_class = $data['icon_class'];
 
-	}
-
-	/**
-	 * Zet de slug van het soort werk
-	 *
-	 * @param string $slug
-	 * @return $self
-	 */
-	public function set_slug( $slug ) {
-		$this->slug = $slug;
-		return $this;
 	}
 
 	/**
@@ -93,34 +91,12 @@ class SIW_Work_Type {
 	}
 
 	/**
-	 * Zet de naam van het soort werk
-	 *
-	 * @param string $name
-	 * @return $self
-	 */
-	public function set_name( $name ) {
-		$this->name = $name;
-		return $this;
-	}
-
-	/**
 	 * Geeft de naam van het soort werk terug
 	 *
 	 * @return string
 	 */
 	public function get_name() {
 		return $this->name;
-	}
-
-	/**
-	 * Zet de Plato-code van het soort werk
-	 *
-	 * @param string $plato_code
-	 * @return $self
-	 */
-	public function set_plato_code( $plato_code ) {
-		$this->plato_code = $plato_code;
-		return $this;
 	}
 
 	/**
@@ -133,14 +109,12 @@ class SIW_Work_Type {
 	}
 
 	/**
-	 * Zet of dit soort werk gekoppeld kan worden aan een Nederlands project
-	 *
-	 * @param bool $value
-	 * @return $self
+	 * Geeft icon class voor voor soort -werk terug
+	 * 
+	 * @return string
 	 */
-	public function set_for_dutch_projects( $value ) {
-		$this->for_dutch_projects = $value;
-		return $this;
+	public function get_icon_class() {
+		return $this->icon_class;
 	}
 
 	/**
@@ -149,18 +123,7 @@ class SIW_Work_Type {
 	 * @return boolean
 	 */
 	public function is_for_dutch_projects() {
-		return $this->for_dutch_projects;
-	} 
-
-	/**
-	 * Zet of dit soort werk gekoppeld kan worden aan een Op Maat project
-	 *
-	 * @param bool $value
-	 * @return $self
-	 */
-	public function set_for_tailor_made_projects( $value ) {
-		$this->for_tailor_made_projects = $value;
-		return $this;
+		return $this->dutch_projects;
 	}
 
 	/**
@@ -169,6 +132,6 @@ class SIW_Work_Type {
 	 * @return boolean
 	 */
 	public function is_for_tailor_made_projects() {
-		return $this->for_tailor_made_projects;
+		return $this->tailor_made_projects;
 	}
 }
