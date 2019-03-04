@@ -13,6 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package   SIW\Background-Process
  * @author    Maarten Bruna
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
+ * 
+ * @uses      SIW_Formatting
+ * @uses      SIW_Delete_Workcamps
  */
 class SIW_Update_Taxonomies extends SIW_Background_Process {
 
@@ -88,7 +91,23 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 			return false;
 		}
 
-		if ( 0 == $term->count ) {
+		$tax_query = [
+			[
+				'taxonomy' => $taxonomy,
+				'field'    => 'slug',
+				'terms'    => $term_slug,
+			],
+		];
+		$products = wc_get_products(
+			[
+				'limit'      => -1,
+				'return'     => 'ids',
+				'tax_query'  => $tax_query,
+			]
+		);
+		$term_count = count( $products );
+
+		if ( 0 == $term_count ) {
 			wp_delete_term( $term->term_id, $taxonomy );
 			$this->increment_processed_count();
 			return false;
@@ -96,7 +115,7 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 		
 		/* Naam bijwerken indien nodig */
 		$term_name = $this->get_term_name( $taxonomy, $term_slug );
-		if ( null != $term_name || $term->name != $term_name ) {
+		if ( null != $term_name && $term->name != $term_name ) {
 			wp_update_term(
 				$term->term_id,
 				$taxonomy,
@@ -164,7 +183,6 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 		}
 
 		return $name;
-
 	}
 
 	/**
