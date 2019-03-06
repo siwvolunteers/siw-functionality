@@ -111,7 +111,7 @@ class SIW_Country {
 		$this->allowed = $country['allowed'];
 		$this->has_workcamps = $country['workcamps'];
 		$this->has_tailor_made_projects = $country['tailor_made'];
-		$this->has_esc_project = $country['esc'];
+		$this->has_esc_projects = $country['esc'];
 		$this->world_map_data = (object) $country['world_map'];
 		$this->europe_map_data = (object) $country['europe_map'];
 	}
