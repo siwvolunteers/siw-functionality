@@ -69,9 +69,9 @@ add_filter( 'siw_work_types_data', function( $data ) {
 			'tailor_made_projects'  => false,
 		],
 		[
-			'slug'                  => 'constructie',
+			'slug'                  => 'handarbeid',
 			'plato'                 => 'MANU',
-			'name'                  => __( 'Constructie', 'siw' ), //TODO: is handarbeid niet beter?
+			'name'                  => __( 'Handarbeid', 'siw' ),
 			'dutch_projects'        => false,
 			'tailor_made_projects'  => false,
 		],

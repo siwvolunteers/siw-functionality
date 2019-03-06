@@ -34,7 +34,7 @@ class SIW_WC_Admin_Product {
 
 		add_filter( 'woocommerce_product_data_tabs', [ $self, 'add_tabs'] );
 		add_filter( 'woocommerce_product_data_tabs', [ $self, 'hide_tabs'] );
-		add_action( 'woocommerce_product_data_panels', [ $self, 'show_visibility_tab'] );
+		add_action( 'woocommerce_product_data_panels', [ $self, 'show_import_tab'] );
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_approval_tab'] );
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_description_tab'] );
 
@@ -180,9 +180,9 @@ class SIW_WC_Admin_Product {
 				'priority' => 110,
 			];
 		}
-		$tabs['visibility'] = [
-			'label'    => __( 'Zichtbaarheid', 'siw' ),
-			'target'   => 'visibility_product_data',
+		$tabs['import'] = [
+			'label'    => __( 'Import', 'siw' ),
+			'target'   => 'import_product_data',
 			'class'    => [],
 			'priority' => 120,
 		];
@@ -199,29 +199,25 @@ class SIW_WC_Admin_Product {
 		$tabs['advanced']['class'] = [ 'show_if_simple'];
 		$tabs['shipping']['class'] = [ 'show_if_simple'];
 		$tabs['linked_product']['class'] = [ 'show_if_simple'];
+		if ( ! current_user_can( 'manage_options' ) ) {
+			$tabs['inventory']['class'] = [ 'show_if_simple'];
+			$tabs['attribute']['class'] = [ 'show_if_simple'];
+			$tabs['variations']['class'] = [ 'show_if_simple'];
+
+		}
+
 		return $tabs;
 	}
 
 	/**
 	 * Toont tab met extra zichtbaarheids-opties
 	 */
-	public function show_visibility_tab() {
+	public function show_import_tab() {
 		global $product_object;
 		?>
-		<div id="visibility_product_data" class="panel woocommerce_options_panel">
+		<div id="import_product_data" class="panel woocommerce_options_panel">
 			<div class="options_group">
 				<?php
-				woocommerce_wp_radio(
-					[
-						'id'          => 'manual_visibility',
-						'value'       => $product_object->get_meta( 'manual_visibility' ),
-						'label'       => __( 'Zichtbaarheid', 'siw' ),
-						'options'     => [
-							''     => __( 'Automatisch', 'siw' ),
-							'hide' => __( 'Verbergen', 'siw' ),
-						],
-					]
-				);
 				woocommerce_wp_checkbox(
 					[
 						'id'      => 'import_again',
@@ -325,7 +321,6 @@ class SIW_WC_Admin_Product {
 	 */
 	public function save_product_data( $product ) {
 		$meta_data = [
-			'manual_visibility' => isset( $_POST['manual_visibility'] ) ? wc_clean( $_POST['manual_visibility'] ) : null,
 			'import_again'      => isset( $_POST['import_again'] ),
 		];
 
@@ -357,8 +352,8 @@ class SIW_WC_Admin_Product {
 			'#woocommerce-product-data ul.wc-tabs li.description_options a::before' => [
 				'content' => '"\f123"'
 			],
-			'#woocommerce-product-data ul.wc-tabs li.visibility_options a::before' => [
-				'content' => '"\f177"'
+			'#woocommerce-product-data ul.wc-tabs li.import_options a::before' => [
+				'content' => '"\f463"'
 			],
 			'#woocommerce-product-data ul.wc-tabs li.approval_options a::before' => [
 				'content' => '"\f529"'

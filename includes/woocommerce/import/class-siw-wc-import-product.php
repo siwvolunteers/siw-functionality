@@ -140,7 +140,6 @@ class SIW_WC_Import_Product {
 		else {
 			if ( ! $this->is_allowed_project_type() || false == $this->country->is_allowed() || date( 'Y-m-d' ) > $this->xml->start_date ) {
 				return false;
-				//TODO check op startdatum in het verleden
 			}
 			$this->product = new WC_Product_Variable;
 		}
@@ -542,6 +541,8 @@ class SIW_WC_Import_Product {
 	 * Geneert de korte (Nederlandse) beschrijving van een project op basis van een template
 	 * 
 	 * @return string
+	 * 
+	 * @todo aparte functie in SIW_Formatting
 	 */
 	protected function get_short_description() {
 		$templates = [];
@@ -552,7 +553,7 @@ class SIW_WC_Import_Product {
 		 */
 		$templates = apply_filters( 'siw_workcamp_description_templates', $templates );
 	
-		$template = implode( $templates[ array_rand( $templates, 1 ) ], SPACE ); //TODO: functie in SIW_Formatting
+		$template = implode( $templates[ array_rand( $templates, 1 ) ], SPACE );
 		$short_description = $this->parse_description( $template );
 
 		return $short_description;
@@ -630,7 +631,7 @@ class SIW_WC_Import_Product {
 	 * 
 	 * @return string
 	 * 
-	 * @todo 
+	 * @todo review als eigenschap van type werk
 	 */
 	protected function get_status() {
 
@@ -650,7 +651,7 @@ class SIW_WC_Import_Product {
 	/**
 	 * Zet SEO beschrijving
 	 * 
-	 * @todo splitsen
+	 * @todo aparte functie SIW_Formatting
 	 */
 	protected function get_seo_description() {
 
@@ -661,7 +662,7 @@ class SIW_WC_Import_Product {
 		 * @param array $templates
 		 */
 		$templates = apply_filters( 'siw_workcamp_seo_description_templates', $templates );
-		$template = implode( $templates[ array_rand( $templates, 1 ) ], SPACE ); //TODO: functie in SIW_Formatting
+		$template = implode( $templates[ array_rand( $templates, 1 ) ], SPACE );
 
 		$seo_description = $this->parse_description( $template );
 		return $seo_description;
@@ -691,13 +692,27 @@ class SIW_WC_Import_Product {
 
 	/**
 	 * Geeft aan of project bijgewerkt moet worden
+	 * 
+	 * - Als Plato-data veranderd is
+	 * - Als dit bij het project is aangegeven
+	 * - Bij geforceerde volledige update
 	 *
 	 * @return bool
-	 * 
-	 * @todo optie of instelling om update te forceren
 	 */
 	protected function should_be_updated() {
-		$should_be_updated = ( (array) $this->xml ) == $this->product->get_meta('xml') ? false : true;
+		$should_be_updated = false;
+		if ( ( (array) $this->xml ) != $this->product->get_meta( 'xml' ) ) {
+			$should_be_updated = true;
+		}
+		if ( true == $this->product->get_meta( 'import_again' ) ) {
+			$should_be_updated = true;
+			$this->product->update_meta_data( 'import_again', false );
+		}
+
+		if ( true == siw_get_setting( 'plato_force_full_update' ) ) {
+			$should_be_updated = true;
+		}
+
 		return $should_be_updated;
 	}
 

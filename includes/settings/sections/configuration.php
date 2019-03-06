@@ -125,6 +125,13 @@ add_action( 'siw_settings_show_configuration_section', function() {
 			'on'			=> 'Aan',
 			'off'			=> 'Uit',
 		),
+		array(
+			'id'			=> 'plato_force_full_update',
+			'title'			=> __( 'Forceer volledige update', 'siw' ),
+			'type'			=> 'switch',
+			'on'			=> 'Aan',
+			'off'			=> 'Uit',
+		),
 	);
 	$pages_fields = array(
 		array(
