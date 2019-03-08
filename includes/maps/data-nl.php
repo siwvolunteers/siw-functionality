@@ -14,32 +14,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 siw_register_map( 'nl', __( 'Nederland', 'siw' ), 'netherlands' );
 
 add_filter( 'siw_map_nl_data', function( $map_data ) {
-	/** Standaard-categorie */
-	$map_data['categories'] = [
-		[
-			'id'    => 'nl',
-			'title' =>  __( 'Nederlandse projecten', 'siw' ),
-			'show'  => true,
-		],
-	];
 
 	/** Projecten */
-	$projects = siw_get_dutch_projects();
-	foreach ( $projects as $index => $project ) {
-		$duration = SIW_Formatting::format_date_range( $project['start_date'], $project['end_date'] );
-		$description =
-			__( 'Data:', 'siw' ) . SPACE . $duration . BR .
-			__( 'Deelnemers:', 'siw' ) . SPACE . $project['participants'] . BR .
-			__( 'Soort werk:', 'siw' ) . SPACE . $project['work_name'] . BR .
-			__( 'Locatie:', 'siw' ) . SPACE . $project['city'] . ', ' . __( 'provincie', 'siw' ) . SPACE . $project['province_name'];
+	$language = apply_filters( 'wpml_current_language', NULL ); //TODO: verplaatsen naar SIW_i18n
+	
+	$provinces = siw_get_dutch_provinces();
+
+	$projects = siw_get_option('dutch_projects');
+		
+	foreach ( $projects as $project ) {
+
+		//TODO: wp_parse_args
+		$work_type = siw_get_work_type( $project['work_type'] );
+		$province_name = $provinces[ $project['province'] ];
+
+		$duration = SIW_Formatting::format_date_range( date('Y-m-d', $project['start_date']['timestamp'] ), date('Y-m-d', $project['end_date']['timestamp'] ) );
+		$description = [
+			sprintf( __( 'Data: %s', 'siw' ), $duration ),
+			sprintf( __( 'Deelnemers: %s', 'siw' ), $project['participants'] ),
+			sprintf( __( 'Soort werk: %s', 'siw' ), $work_type->get_name() ),	//TODO: check op work_type
+		];
+		if ( isset( $project['local_fee'] ) ) {
+			$description[] = sprintf( __( 'Lokale bijdrage: %s', 'siw' ), SIW_Formatting::format_amount( $project['local_fee'] ) );
+		}
+		$description[] = sprintf( __( 'Projectcode: %s', 'siw' ), $project['code'] );
+		$description[] = sprintf( __( 'Locatie: %s, provincie %s', 'siw' ), $project['city'], $province_name );
 
 		$location = [
-			'id'            => $index,
-			'title'         => $project['name'],
-			'about'         => $project['province_name'],
-			'lat'           => $project['latitude'],
-			'lng'           => $project['longitude'],
-			'description'   => $description,
+			'id'            => sanitize_title( $project['code'] ),
+			'title'         => $project["name_{$language}"],
+			'image'         => isset( $project['image'] ) ? wp_get_attachment_url( $project['image'][0] ) : null,
+			'about'         => $province_name,
+			'lat'           => $project['latitude'] ?? null,
+			'lng'           => $project['longitude'] ?? null,
+			'description'   => SIW_Formatting::array_to_text( $description, BR ),
 			'pin'           => 'circular pin-md pin-label',
 			'category'      => 'nl',
 			'fill'          => SIW_Properties::SECONDARY_COLOR,
@@ -54,11 +62,11 @@ add_filter( 'siw_map_nl_data', function( $map_data ) {
 	$provinces = array_unique( $provinces );
 	$selectors = implode( ',', $provinces );
 
-	$inline_css = array(
-		$selectors => array(
+	$inline_css = [
+		$selectors => [
 			'fill' => SIW_Properties::PRIMARY_COLOR_HOVER,
-		),
-	);
+		],
+	];
 	$map_data['inline_css'] = $inline_css;
 
 	/** Gegevens kaart */

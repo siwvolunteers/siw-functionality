@@ -126,7 +126,7 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 		'type'             => 'image_advanced',
 		'force_delete'     => true,
 		'max_file_uploads' => 1,
-		'max_status'       => 'false',
+		'max_status'       => false,
 		'image_size'       => 'thumbnail',
 	];
 
@@ -146,6 +146,23 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 				'group_title'   => [ 'field' => 'code, name_nl', 'separator' => ' - ' ],
 				'fields'        => $group_fields,
 			]
+		],
+	];
+
+	$meta_boxes[] = [
+		'id'             => 'dutch-projects_booklet',
+		'title'          => __( 'Programmaboekje', 'siw' ),
+		'settings_pages' => 'siw-options-dutch-projects',
+		'context'        => 'side',
+		'fields'         => [
+			[
+				'id'               => 'dutch_projects_booklet',
+				'name'             => __( 'Bestand', 'siw' ),
+				'type'             => 'file_advanced',
+				'max_file_uploads' => 1,
+				'mime_type'        => 'application/pdf',
+				'force_delete'     => true,
+			],
 		],
 	];
 

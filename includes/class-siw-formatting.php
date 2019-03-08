@@ -20,7 +20,7 @@ class SIW_Formatting {
 	 * @return string
 	 */
 	public static function format_percentage( $percentage, $decimals = 0 ) {
-		$percentage = number_format( $percentage, $decimals );
+		$percentage = number_format_i18n( $percentage, $decimals );
 		return sprintf( '%s&nbsp;&percnt;', $percentage );
 	}
 
@@ -37,7 +37,7 @@ class SIW_Formatting {
 	public static function format_amount( $amount, $decimals = 0, $currency_code = 'EUR' ) {
 		$currency = siw_get_currency( $currency_code );
 		$currency_symbol = $currency->get_symbol();
-		$amount = number_format( $amount, $decimals, ',', '.' );
+		$amount = number_format_i18n( $amount, $decimals );
 		return sprintf( '%s&nbsp;%s', $currency_symbol, $amount );
 	}
 
@@ -277,6 +277,34 @@ class SIW_Formatting {
 	}
 
 	/**
+	 * Genereer pinnacle tabs
+	 * @param  array $panes
+	 * @return string
+	 * 
+	 * @todo samenvoegen met generate_accordion?
+	 */
+	public static function generate_tabs( $panes ) {
+		if ( empty( $panes) ) {
+			return;
+		}
+		$tabs = '[tabs]';
+		$first_tab = true;
+		foreach ( $panes as $pane ) {
+			if ( empty( trim( $pane['content'] ) ) ) {
+				continue;
+			}
+			if ( isset( $pane['show_button'] ) && true == $pane['show_button'] ) {
+				$pane['content'] .= wpautop( self::generate_link( $pane['button_url'], $pane['button_text'], [ 'class' => 'kad-btn' ] ) );
+			}
+			$start = $first_tab ? 'active' : '';
+			$tabs .= sprintf( '[tab title="%s" start="%s"]%s[/tab]', esc_html( $pane['title'] ), esc_attr( $start ), wp_kses_post( wpautop( $pane['content'] )  ) );
+			$first_tab = false;
+		}
+		$tabs .= '[/tabs]';
+		return $tabs;
+	}
+
+	/**
 	 * Parset template o.b.v. variabelen
 	 *
 	 * @param string $template
@@ -390,6 +418,17 @@ class SIW_Formatting {
 	public static function format_month( $date, $year = true ) {
 		$format = $year ? 'F Y' :  'F';
 		return date_i18n( $format, strtotime( $date ) );
+	}
+
+	/**
+	 * Zet array van zinnen om naar tekst
+	 *
+	 * @param array $array
+	 * @return string
+	 */
+	public static function array_to_text( $array, $glue = SPACE ) {
+		$text = implode( $array, $glue );
+		return $text;
 	}
 
 	/**
