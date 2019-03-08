@@ -35,7 +35,7 @@ require_once( SIW_INCLUDES_DIR . '/class-siw-formatting.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-properties.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-util.php' );
 
-
+require_once( SIW_INCLUDES_DIR . '/options/options.php' );
 require_once( SIW_INCLUDES_DIR . '/settings/init.php' );
 
 /* Core */
