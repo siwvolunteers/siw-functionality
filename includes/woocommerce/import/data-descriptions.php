@@ -19,7 +19,7 @@ add_filter( 'siw_workcamp_description_templates', function( $templates ) {
 		__( 'Als vrijwilliger zal je werkzaamheden gaan uitvoeren gericht op {{ work_type }}.', 'siw' ) . BR2,
 		__( 'Lees snel verder voor meer informatie over de kosten, de werkzaamheden, de accommodatie en projectlocatie.', 'siw' ),
 		__( 'Heb je een vraag over dit project?', 'siw' ),
-		__( 'Laat je gegevens achter bij "Stel een vraag en we nemen zo snel mogelijk contact met je op.', 'siw' ),
+		__( 'Laat je gegevens achter bij "Stel een vraag" en we nemen zo snel mogelijk contact met je op.', 'siw' ),
 	];
 	$templates[] = [
 		__( 'Steek je handen uit de mouwen tijdens een {{ project_type }} in {{ country }}.', 'siw' ),

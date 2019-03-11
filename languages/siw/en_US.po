@@ -37,7 +37,7 @@ msgstr "Start action"
 #: plugins/siw-functionality/includes/admin/class-siw-admin-bar.php:144
 #, php-format
 msgid "Proces gestart: %s"
-msgstr ""
+msgstr "Proces started: %s"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-login.php:71
 msgid "Welkom bij SIW. Log in om verder te gaan."
@@ -368,7 +368,7 @@ msgstr "Local fee: %s"
 #: plugins/siw-functionality/includes/maps/data-nl.php:40
 #, php-format
 msgid "Locatie: %s, provincie %s"
-msgstr ""
+msgstr "Location: %s, province %s"
 
 #: plugins/siw-functionality/includes/compatibility/class-siw-compat-caldera-forms.php:111
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:300
@@ -1063,20 +1063,18 @@ msgid "Heb je interesse in een bepaalde bestemming?"
 msgstr "Are you interested in a specific destination?"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:52
-#, fuzzy
 #| msgid "1-3 maanden"
 msgid "2-5 maanden"
-msgstr "1-3 months"
+msgstr ""
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:57
 msgid "6-9 maanden"
 msgstr "6-9 months"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:62
-#, fuzzy
 #| msgid "6-12 maanden"
 msgid "10-12 maanden"
-msgstr "6-12 months"
+msgstr ""
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:70
 #: plugins/siw-functionality/includes/forms/op-maat.php:108
@@ -1088,12 +1086,8 @@ msgid "Bedankt voor je aanmelding!"
 msgstr "Thank you for your application!"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:74
-#, fuzzy
-#| msgid ""
-#| "Leuk dat je hebt gekozen via SIW een vrijwilligersproject op maat te doen."
 msgid "Leuk dat je hebt gekozen via SIW een Project Op Maat te doen."
-msgstr ""
-"Great that you have chosen to do a customized volunteer project via SIW."
+msgstr "Great that you have chosen to do a Tailor Made Project via SIW."
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:75
 msgid ""
@@ -1115,7 +1109,6 @@ msgid "Wat gaat er nu gebeuren?"
 msgstr "What’s happening now?"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:80
-#, fuzzy
 #| msgid ""
 #| "Jouw aanmelding voor vrijwilligerswerk op maat wordt doorgestuurd naar "
 #| "onze SIW-regiospecialisten."
@@ -1123,8 +1116,6 @@ msgid ""
 "Jouw aanmelding voor Vrijwilligerswerk Op Maat wordt doorgestuurd naar onze "
 "SIW-regiospecialisten."
 msgstr ""
-"Your application to do customized volunteer work is being sent to our SIW’s "
-"region specialists."
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:81
 msgid ""
@@ -1147,7 +1138,6 @@ msgid "Kennismakingsgesprek"
 msgstr "Introductory meeting"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:86
-#, fuzzy
 #| msgid ""
 #| "Tijdens het kennismakingsgesprek gaat onze regiospecialist samen met jou "
 #| "kijken welk project op maat het beste bij jouw wensen en voorkeuren "
@@ -1156,9 +1146,6 @@ msgid ""
 "Tijdens het kennismakingsgesprek gaat onze regiospecialist samen met jou "
 "kijken welk Project Op Maat het beste bij jouw wensen en voorkeuren aansluit."
 msgstr ""
-"During the introductory meeting, our region specialist together with you "
-"will look for the best customized project fitting your wishes and "
-"preferences."
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:87
 msgid ""
@@ -1224,14 +1211,13 @@ msgstr ""
 "the number %s."
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:109
-#, fuzzy
 #| msgid ""
 #| "Via de website is onderstaande aanmelding voor vrijwilligerswerk op maat "
 #| "binnengekomen:"
 msgid ""
 "Via de website is onderstaande aanmelding voor Vrijwilligerswerk Op Maat "
 "binnengekomen:"
-msgstr "The application below has arrived via the website:"
+msgstr ""
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:116
 #: plugins/siw-functionality/includes/options/data-configuration.php:277
@@ -2371,18 +2357,16 @@ msgid "Post Type DescriptionOmschrijving"
 msgstr ""
 
 #: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:99
-#, fuzzy
 #| msgid "Evenement"
 msgctxt "Post Type General Name"
 msgid "Evenementen"
-msgstr "Event"
+msgstr ""
 
 #: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:100
-#, fuzzy
 #| msgid "Evenement"
 msgctxt "Post Type Singular Name"
 msgid "Evenement"
-msgstr "Event"
+msgstr ""
 
 #: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:101
 msgid "Post Types"
@@ -2401,44 +2385,38 @@ msgid "Item Attributes"
 msgstr ""
 
 #: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:108
-#, fuzzy
 #| msgid "Add New Item"
 msgid "Add New"
-msgstr "Add New Item"
+msgstr ""
 
 #: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:109
-#, fuzzy
 #| msgid "View Item"
 msgid "New Item"
-msgstr "View Item"
+msgstr ""
 
 #: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:113
-#, fuzzy
 #| msgid "View Item"
 msgid "View Items"
-msgstr "View Item"
+msgstr ""
 
 #: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:114
-#, fuzzy
 #| msgid "Search Items"
 msgid "Search Item"
-msgstr "Search Items"
+msgstr ""
 
 #: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:115
-#, fuzzy
 #| msgid "Not Found"
 msgid "Not found"
-msgstr "Not Found"
+msgstr ""
 
 #: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:116
 msgid "Not found in Trash"
 msgstr ""
 
 #: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:117
-#, fuzzy
 #| msgid "Vacature"
 msgid "Featured Image"
-msgstr "Job listing"
+msgstr ""
 
 #: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:118
 msgid "Set featured image"
@@ -4436,10 +4414,9 @@ msgid "Snel Zoeken - resultaat"
 msgstr "Quick Search - result"
 
 #: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:44
-#, fuzzy
 #| msgid "Aanmeldformulier"
 msgid "Toont zoektresultaten"
-msgstr "Application form"
+msgstr ""
 
 #: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:99
 #: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:110
@@ -4458,10 +4435,8 @@ msgid "Hieronder zie je een selectie van de mogelijkheden"
 msgstr "Below you can see a selection of the possibilities"
 
 #: plugins/siw-functionality/includes/widgets/quote/quote.php:41
-#, fuzzy
-#| msgid "SIW: Quote van deelnemer"
 msgid "Toont quote van deelnemer"
-msgstr "SIW: participant’s quote"
+msgstr "Shows a quote from a participant"
 
 #: plugins/siw-functionality/includes/widgets/quote/quote.php:52
 msgid "Ervaringen van deelnemers"
@@ -4510,10 +4485,9 @@ msgstr[0] "%s project will be imported again."
 msgstr[1] "%s projects will be imported again."
 
 #: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:124
-#, fuzzy
 #| msgid "Korting derde project"
 msgid "Beoordeling project"
-msgstr "Discount third project"
+msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:126
 msgid "Goedkeuren"
@@ -4546,10 +4520,8 @@ msgid "Gebruiker"
 msgstr "User"
 
 #: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:284
-#, fuzzy
-#| msgid "Datums"
 msgid "Datum"
-msgstr "Dates"
+msgstr "Date"
 
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:96
 msgid "Korting 2e project"
@@ -4560,10 +4532,9 @@ msgid "Korting 3e project"
 msgstr "Discount third project"
 
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:104
-#, fuzzy, php-format
-#| msgid "Korting derde project"
+#, php-format
 msgid "Korting %de project"
-msgstr "Discount third project"
+msgstr "Discount %dth project"
 
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:178
 #: plugins/siw-functionality/includes/woocommerce/data-checkout-fields.php:16
@@ -4585,14 +4556,9 @@ msgid "%s bevat geen geldige datum."
 msgstr "%s is not a valid date."
 
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:346
-#, fuzzy, php-format
-#| msgid ""
-#| "<strong>Geboortedatum</strong> de minimumleeftijd voor deelname is 14 "
-#| "jaar."
+#, php-format
 msgid "De minimumleeftijd voor deelname is %s jaar."
-msgstr ""
-"<strong>Date of birth</strong> the minimum age for participants is 14 years-"
-"old."
+msgstr "The minimum age for participation is %s year."
 
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:66
 #, php-format
@@ -4610,16 +4576,14 @@ msgid "Groepsprojecten met voertaal %s"
 msgstr "Volunteer projects with language %s"
 
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:75
-#, fuzzy, php-format
-#| msgid "Groepsprojecten met voertaal %s"
+#, php-format
 msgid "Groepsprojecten met werk gericht op %s"
-msgstr "Volunteer projects with language %s"
+msgstr "Workcamps with work focused on %s"
 
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:78
-#, fuzzy, php-format
-#| msgid "Groepsprojecten in %s"
+#, php-format
 msgid "Groepsprojecten in de maand %s"
-msgstr "Volunteer projects in %s"
+msgstr "Workcamps in the month of  %s"
 
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:95
 #, php-format
@@ -4670,10 +4634,10 @@ msgid ""
 msgstr "Below you can see the available Workcamps with the %s language."
 
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:140
-#, fuzzy, php-format
+#, php-format
 #| msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten in %s."
 msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s."
-msgstr "Below you can see the available Workcamps in %s."
+msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:152
 msgid ""
@@ -4951,7 +4915,6 @@ msgid ""
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:22
-#, fuzzy
 #| msgid ""
 #| "Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je "
 #| "op."
@@ -4959,7 +4922,6 @@ msgid ""
 "Laat je gegevens achter bij \"Stel een vraag en we nemen zo snel mogelijk "
 "contact met je op."
 msgstr ""
-"We have received your question and we will contact you as soon as possible."
 
 #: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:25
 msgid ""
@@ -4980,7 +4942,6 @@ msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:30
 #: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:38
-#, fuzzy
 #| msgid ""
 #| "Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je "
 #| "op."
@@ -4988,7 +4949,6 @@ msgid ""
 "Laat je gegevens achter bij \"Stel een vraag\" en we nemen zo snel mogelijk "
 "contact met je op."
 msgstr ""
-"We have received your question and we will contact you as soon as possible."
 
 #: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:33
 msgid ""
@@ -5225,15 +5185,15 @@ msgstr ""
 
 #: plugins/siw-maintenance-mode/siw-maintenance-mode.php:102
 msgid "Maintenance mode is actief."
-msgstr ""
+msgstr "Maintenance mode is active"
 
 #: plugins/siw-maintenance-mode/siw-maintenance-mode.php:118
 msgid "In verband met onderhoud is onze website tijdelijk niet beschikbaar."
-msgstr ""
+msgstr "Our website is temporarily unavailable due to maintenance."
 
 #: plugins/siw-maintenance-mode/siw-maintenance-mode.php:119
 msgid "Onze excuses voor het ongemak."
-msgstr ""
+msgstr "We apologize for the inconvenience."
 
 #: plugins/siw-maintenance-mode/siw-maintenance-mode.php:137
 msgid "Onderhoud"
