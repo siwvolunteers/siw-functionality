@@ -19,7 +19,7 @@ class SIW_Shortcodes {
 	 * Init
 	 */
 	public static function init() {
-		$shortcodes = array(
+		$shortcodes = [
 			'kvk'                           => 'kvk',
 			'email'                         => 'email',
 			'email_link'                    => 'email_link',
@@ -48,7 +48,7 @@ class SIW_Shortcodes {
 			'pagina_lightbox'               => 'page_modal',
 			'cirkeldiagram'                 => 'pie_chart',
 			'leeftijd'                      => 'age',
-		);
+		];
 
 		foreach ( $shortcodes as $shortcode => $function ) {
 			add_shortcode( "siw_{$shortcode}", __CLASS__ . '::' . $function );
@@ -236,10 +236,10 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function external_link( $atts ) {
-		extract( shortcode_atts( array(
-			'url'	=> '',
-			'titel'	=> '',
-			), $atts, 'siw_externe_link' )
+		extract( shortcode_atts( [
+			'url'   => '',
+			'titel' => '',
+			], $atts, 'siw_externe_link' )
 		);
 		$titel = ( $titel ) ? $titel : $url;
 	
@@ -307,20 +307,29 @@ class SIW_Shortcodes {
 	 * @todo verplaatsen naar kaart-widget
 	 */
 	public static function dutch_projects() {
-		$projects = siw_get_dutch_projects();
+		$language = SIW_i18n::get_current_language();
+		$projects = siw_get_option('dutch_projects');
 		if ( empty( $projects ) ) {
 			return;
 		}
-		$description = '';
+		$content = '';
 		foreach ( $projects as $project ) {
-			$duration = SIW_Formatting::format_date_range( $project['start_date'], $project['end_date'] );
-			$description .= sprintf( '<b>%s - %s</b><br/>', esc_html( $project['name'] ), esc_html( $project['province_name'] ) );
-			$description .= esc_html__( 'Data:', 'siw' ) . SPACE . esc_html( $duration ) . BR;
-			$description .= esc_html__( 'Deelnemers:', 'siw' ) . SPACE . esc_html( $project['participants'] ) . BR;
-			$description .= esc_html__( 'Soort werk:', 'siw' ) . SPACE . $project['work_name'] . BR;
-			$description .= esc_html__( 'Locatie:', 'siw' ) . SPACE . $project['city'] . ', ' . __( 'provincie', 'siw' ) . SPACE . $project['province_name'] . BR2;
+			$duration = SIW_Formatting::format_date_range( date('Y-m-d', $project['start_date']['timestamp'] ), date('Y-m-d', $project['end_date']['timestamp'] ) );
+			$work_type = siw_get_work_type( $project['work_type'] );
+			$province_name = $provinces[ $project['province'] ] ?? '';
+			$description = [
+				sprintf( '<b>%s - %s</b>', $project['code'], $project["name_{$language}"]),
+				sprintf( __( 'Data: %s', 'siw' ), $duration ),
+				sprintf( __( 'Deelnemers: %s', 'siw' ), $project['participants'] ),
+				sprintf( __( 'Soort werk: %s', 'siw' ), $work_type ? $work_type->get_name() : '' ),
+			];
+			if ( isset( $project['local_fee'] ) ) {
+				$description[] = sprintf( __( 'Lokale bijdrage: %s', 'siw' ), SIW_Formatting::format_amount( $project['local_fee'] ) );
+			}
+			$description[] = sprintf( __( 'Locatie: %s, provincie %s', 'siw' ), $project['city'], $province_name );
+			$content .= wpautop( SIW_Formatting::array_to_text( $description, BR ) );
 		}
-		return $description;
+		return $content;
 	}
 
 	/**
@@ -332,15 +341,15 @@ class SIW_Shortcodes {
 	 * @todo slug als parameter en get page by path gebruiken
 	 */
 	public static function page_modal( $atts ) {
-		extract( shortcode_atts( array(
+		extract( shortcode_atts( [
 			'link_tekst' => '',
 			'pagina'     => '',
-			), $atts, 'siw_pagina_lightbox' )
+			], $atts, 'siw_pagina_lightbox' )
 		);
 	
-		$pages = array(
+		$pages = [
 			'kinderbeleid' => 'child_policy',
-		);
+		];
 		/* Haal pagina id op en breek af als pagina niet ingesteld is */
 		$page_id = siw_get_setting( $pages[ $pagina ] . '_page' );
 		if ( empty( $page_id ) ) {
@@ -367,11 +376,11 @@ class SIW_Shortcodes {
 	 * @param array $atts
 	 */
 	public static function pie_chart( $atts ) {
-		extract( shortcode_atts( array(
-			'titel'	=> '',
-			'labels' => '',
+		extract( shortcode_atts( [
+			'titel'   => '',
+			'labels'  => '',
 			'waardes' => '' ,
-			), $atts, 'siw_cirkeldiagram' )
+			], $atts, 'siw_cirkeldiagram' )
 		);
 	
 		/* Data-array opbouwen */

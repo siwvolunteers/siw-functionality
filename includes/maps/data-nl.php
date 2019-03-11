@@ -2,9 +2,9 @@
 /**
  * Kaart van Nederland met Nederlandse projecten
  * 
- * @package SIW\Maps
- * @author Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @package   SIW\Maps
+ * @author    Maarten Bruna
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,23 +16,22 @@ siw_register_map( 'nl', __( 'Nederland', 'siw' ), 'netherlands' );
 add_filter( 'siw_map_nl_data', function( $map_data ) {
 
 	/** Projecten */
-	$language = apply_filters( 'wpml_current_language', NULL ); //TODO: verplaatsen naar SIW_i18n
+	$language = SIW_i18n::get_current_language();
 	
 	$provinces = siw_get_dutch_provinces();
 
-	$projects = siw_get_option('dutch_projects');
+	$projects = siw_get_option( 'dutch_projects' );
 		
 	foreach ( $projects as $project ) {
 
-		//TODO: wp_parse_args
 		$work_type = siw_get_work_type( $project['work_type'] );
-		$province_name = $provinces[ $project['province'] ];
+		$province_name = $provinces[ $project['province'] ] ?? '';
 
 		$duration = SIW_Formatting::format_date_range( date('Y-m-d', $project['start_date']['timestamp'] ), date('Y-m-d', $project['end_date']['timestamp'] ) );
 		$description = [
 			sprintf( __( 'Data: %s', 'siw' ), $duration ),
 			sprintf( __( 'Deelnemers: %s', 'siw' ), $project['participants'] ),
-			sprintf( __( 'Soort werk: %s', 'siw' ), $work_type->get_name() ),	//TODO: check op work_type
+			sprintf( __( 'Soort werk: %s', 'siw' ), $work_type ? $work_type->get_name() : '' ),
 		];
 		if ( isset( $project['local_fee'] ) ) {
 			$description[] = sprintf( __( 'Lokale bijdrage: %s', 'siw' ), SIW_Formatting::format_amount( $project['local_fee'] ) );
@@ -44,7 +43,7 @@ add_filter( 'siw_map_nl_data', function( $map_data ) {
 			'id'            => sanitize_title( $project['code'] ),
 			'title'         => $project["name_{$language}"],
 			'image'         => isset( $project['image'] ) ? wp_get_attachment_url( $project['image'][0] ) : null,
-			'about'         => $province_name,
+			'about'         => $project['code'],
 			'lat'           => $project['latitude'] ?? null,
 			'lng'           => $project['longitude'] ?? null,
 			'description'   => SIW_Formatting::array_to_text( $description, BR ),
@@ -78,6 +77,10 @@ add_filter( 'siw_map_nl_data', function( $map_data ) {
 		'topLat'    => '53.62609096857893',
 		'rightLng'  => '7.679884929662812',
 	];
- 
+	$map_data['options'] = [
+		'alphabetic'    => false,
+	];
+
+	$map_data['mobile_content'] = do_shortcode('[siw_nederlandse_projecten]');
 	return $map_data;
 });

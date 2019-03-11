@@ -82,8 +82,8 @@ class SIW_Util {
 	 * @return array
 	 */
 	public static function get_pages() {
-		$default_lang = apply_filters( 'wpml_default_language', NULL );
-		$current_lang = apply_filters( 'wpml_current_language', NULL );
+		$default_lang = SIW_i18n::get_default_language();
+		$current_lang = SIW_i18n::get_current_language();
 		do_action( 'wpml_switch_language', $default_lang );
 		$results = get_pages();
 		do_action( 'wpml_switch_language', $current_lang );

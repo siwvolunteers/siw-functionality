@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2019-02-04 22:06+0100\n"
+"POT-Creation-Date: 2019-03-10 22:09+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -25,16 +25,16 @@ msgstr ""
 "X-Poedit-SearchPath-1: plugins/siw-functionality\n"
 "X-Poedit-SearchPath-2: themes/siw\n"
 
-#: plugins/siw-functionality/includes/admin/class-siw-admin-bar.php:66
+#: plugins/siw-functionality/includes/admin/class-siw-admin-bar.php:80
 #, php-format
 msgid "Je bent ingelogd op: %s"
 msgstr "You are logged in on: %s"
 
-#: plugins/siw-functionality/includes/admin/class-siw-admin-bar.php:91
+#: plugins/siw-functionality/includes/admin/class-siw-admin-bar.php:98
 msgid "Start actie"
 msgstr "Start action"
 
-#: plugins/siw-functionality/includes/admin/class-siw-admin-bar.php:142
+#: plugins/siw-functionality/includes/admin/class-siw-admin-bar.php:144
 #, php-format
 msgid "Proces gestart: %s"
 msgstr ""
@@ -53,16 +53,12 @@ msgstr "Never logged in"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-properties-page.php:33
 #: plugins/siw-functionality/includes/admin/class-siw-admin-properties-page.php:34
-#, fuzzy
-#| msgid "Projecteigenschappen"
 msgid "SIW Eigenschappen"
-msgstr "Project characteristics"
+msgstr "SIW Properties"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-properties-page.php:46
-#, fuzzy
-#| msgid "Projecteigenschappen"
 msgid "Eigenschappen"
-msgstr "Project characteristics"
+msgstr "Properties"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-properties-page.php:51
 #: plugins/siw-functionality/includes/admin/class-siw-admin-properties-page.php:58
@@ -71,16 +67,12 @@ msgstr "Properties"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-properties-page.php:52
 #: plugins/siw-functionality/includes/admin/class-siw-admin-properties-page.php:59
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:34
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:41
 #: plugins/siw-functionality/includes/widgets/chart/chart.php:95
 msgid "Waarde"
 msgstr "Value"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-properties-page.php:53
 #: plugins/siw-functionality/includes/admin/class-siw-admin-properties-page.php:60
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:35
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:42
 msgid "Constante"
 msgstr "Constant"
 
@@ -99,8 +91,7 @@ msgid "E-mailadres (link)"
 msgstr "Email address (link)"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-shortcodes.php:37
-#: plugins/siw-functionality/includes/forms/fields.php:280
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:70
+#: plugins/siw-functionality/includes/forms/fields.php:281
 #: plugins/siw-functionality/includes/woocommerce/data-checkout-fields.php:92
 #: plugins/siw-functionality/includes/woocommerce/email/class-siw-wc-emails.php:195
 #: plugins/siw-functionality/includes/woocommerce/email/class-siw-wc-emails.php:208
@@ -112,32 +103,28 @@ msgid "Telefoonnummer (internationaal)"
 msgstr "Phone number (international)"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-shortcodes.php:43
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:73
 msgid "IBAN"
 msgstr "IBAN"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-shortcodes.php:46
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:74
 msgid "RSIN"
 msgstr "RSIN"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-shortcodes.php:49
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:78
 msgid "Openingstijden"
 msgstr "Opening hours"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-shortcodes.php:52
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:103
-msgid "EVS-borg"
-msgstr "EVS deposit"
+msgid "ESC-borg"
+msgstr "ESC deposit"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-shortcodes.php:55
-msgid "Volgende EVS-deadline"
-msgstr "Next EVS deadline"
+msgid "Volgende ESC-deadline"
+msgstr "Next ESC deadline"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-shortcodes.php:58
-msgid "Volgende EVS-vertrekmoment"
-msgstr "Next EVS departure moment"
+msgid "Volgende ESC-vertrekmoment"
+msgstr "Next ESC departure moment"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-shortcodes.php:61
 msgid "Volgende infodag"
@@ -172,15 +159,15 @@ msgid "Bestuursleden"
 msgstr "Board members"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-shortcodes.php:85
+#: plugins/siw-functionality/includes/options/data-organisation.php:62
 #: plugins/siw-functionality/includes/options/data-organisation.php:67
-#: plugins/siw-functionality/includes/options/data-organisation.php:72
 #: plugins/siw-functionality/includes/widgets/organisation/organisation.php:86
 msgid "Jaarverslagen"
 msgstr "Annual reports"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-shortcodes.php:88
 #: plugins/siw-functionality/includes/options/data-dutch-projects.php:18
-#: plugins/siw-functionality/includes/settings/sections/np.php:188
+#: plugins/siw-functionality/includes/settings/sections/np.php:83
 msgid "Nederlandse Projecten"
 msgstr "Dutch Projects"
 
@@ -200,8 +187,9 @@ msgstr "Url"
 #: plugins/siw-functionality/includes/widgets/chart/chart.php:85
 #: plugins/siw-functionality/includes/widgets/chart/chart.php:104
 #: plugins/siw-functionality/includes/widgets/contact/contact.php:50
+#: plugins/siw-functionality/includes/widgets/dutch-projects/dutch-projects.php:51
 #: plugins/siw-functionality/includes/widgets/features/features.php:51
-#: plugins/siw-functionality/includes/widgets/features/features.php:80
+#: plugins/siw-functionality/includes/widgets/features/features.php:85
 #: plugins/siw-functionality/includes/widgets/map/map.php:51
 #: plugins/siw-functionality/includes/widgets/newsletter/newsletter.php:53
 #: plugins/siw-functionality/includes/widgets/organisation/organisation.php:53
@@ -224,13 +212,13 @@ msgid "Pagina"
 msgstr "Page"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-shortcodes.php:115
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:270
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:230
 msgid "Beleid kinderprojecten"
 msgstr "Policy children’s projects"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin-shortcodes.php:121
 msgid "Leeftijd van SIW"
-msgstr ""
+msgstr "Age of SIW"
 
 #: plugins/siw-functionality/includes/admin/class-siw-admin.php:127
 #: plugins/siw-functionality/includes/background-process/class-siw-delete-applications.php:68
@@ -260,19 +248,20 @@ msgid "Je bent al ingeschreven."
 msgstr "You are already registered."
 
 #: plugins/siw-functionality/includes/background-process/class-siw-count-workcamps.php:84
-#: plugins/siw-functionality/includes/background-process/class-siw-delete-orphaned-variations.php:93
-#: plugins/siw-functionality/includes/background-process/class-siw-delete-workcamps.php:124
-#: plugins/siw-functionality/includes/background-process/class-siw-hide-workcamps.php:118
-#: plugins/siw-functionality/includes/background-process/class-siw-update-taxonomies.php:187
-#: plugins/siw-functionality/includes/background-process/class-siw-update-workcamp-tariffs.php:61
+#: plugins/siw-functionality/includes/background-process/class-siw-delete-orphaned-variations.php:78
+#: plugins/siw-functionality/includes/background-process/class-siw-delete-workcamps.php:99
+#: plugins/siw-functionality/includes/background-process/class-siw-hide-workcamps.php:107
+#: plugins/siw-functionality/includes/background-process/class-siw-update-taxonomies.php:283
+#: plugins/siw-functionality/includes/background-process/class-siw-update-workcamp-tariffs.php:99
 #: plugins/siw-functionality/includes/background-process/data.php:27
-#: plugins/siw-functionality/includes/maps/data-destinations.php:104
-#: plugins/siw-functionality/includes/options/data-configuration.php:204
-#: plugins/siw-functionality/includes/options/data-countries.php:35
-#: plugins/siw-functionality/includes/options/data-countries.php:41
+#: plugins/siw-functionality/includes/maps/data-destinations.php:92
+#: plugins/siw-functionality/includes/options/data-configuration.php:256
+#: plugins/siw-functionality/includes/options/data-countries.php:36
+#: plugins/siw-functionality/includes/options/data-countries.php:42
+#: plugins/siw-functionality/includes/options/data-emails.php:35
 #: plugins/siw-functionality/includes/options/data-workcamps.php:20
 #: plugins/siw-functionality/includes/options/data-workcamps.php:32
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:224
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:184
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:187
 #: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:55
 msgid "Groepsprojecten"
@@ -283,34 +272,26 @@ msgid "Tellen projecten"
 msgstr "Count projects"
 
 #: plugins/siw-functionality/includes/background-process/class-siw-delete-applications.php:69
-#, fuzzy
-#| msgid "Groepsprojecten aanmeldingen"
 msgid "Verwijderen oude aanmeldingen"
-msgstr "Group project applications"
+msgstr "Delete old applications"
 
-#: plugins/siw-functionality/includes/background-process/class-siw-delete-orphaned-variations.php:94
-#, fuzzy
-#| msgid "Verwijderen variaties"
+#: plugins/siw-functionality/includes/background-process/class-siw-delete-orphaned-variations.php:79
 msgid "Verwijderen verweesde variaties"
-msgstr "Delete variations"
+msgstr "Delete orphaned variations"
 
-#: plugins/siw-functionality/includes/background-process/class-siw-delete-workcamps.php:126
-#, fuzzy
-#| msgid "Verwijderen projecten"
+#: plugins/siw-functionality/includes/background-process/class-siw-delete-workcamps.php:101
 msgid "Verwijderen oude projecten"
-msgstr "Delete projects"
+msgstr "Delete old projects"
 
-#: plugins/siw-functionality/includes/background-process/class-siw-hide-workcamps.php:119
-#, fuzzy
-#| msgid "Verwijderen projecten"
+#: plugins/siw-functionality/includes/background-process/class-siw-hide-workcamps.php:108
 msgid "Verbergen projecten"
-msgstr "Delete projects"
+msgstr "Hide projects"
 
 #: plugins/siw-functionality/includes/background-process/class-siw-update-free-places.php:92
-#: plugins/siw-functionality/includes/background-process/class-siw-update-projects.php:63
+#: plugins/siw-functionality/includes/background-process/class-siw-update-projects.php:68
 #: plugins/siw-functionality/includes/background-process/data.php:31
-#: plugins/siw-functionality/includes/options/data-configuration.php:288
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:480
+#: plugins/siw-functionality/includes/options/data-configuration.php:33
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:440
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:211
 msgid "Plato"
 msgstr "Plato"
@@ -319,81 +300,84 @@ msgstr "Plato"
 msgid "Bijwerken vrije plaatsen"
 msgstr "Update free places"
 
-#: plugins/siw-functionality/includes/background-process/class-siw-update-projects.php:64
-#, fuzzy
-#| msgid "Groepsprojecten"
+#: plugins/siw-functionality/includes/background-process/class-siw-update-projects.php:69
 msgid "Bijwerken groepsprojecten"
-msgstr "Volunteer projects"
+msgstr "Update workcamps"
 
-#: plugins/siw-functionality/includes/background-process/class-siw-update-taxonomies.php:189
+#: plugins/siw-functionality/includes/background-process/class-siw-update-taxonomies.php:285
 msgid "Bijwerken taxonomiën"
 msgstr ""
 
-#: plugins/siw-functionality/includes/background-process/class-siw-update-workcamp-tariffs.php:62
-#, fuzzy
-#| msgid "Bijwerken vrije plaatsen"
+#: plugins/siw-functionality/includes/background-process/class-siw-update-workcamp-tariffs.php:100
 msgid "Bijwerken tarieven"
-msgstr "Update free places"
+msgstr "Update tariffs"
 
 #: plugins/siw-functionality/includes/background-process/data.php:15
-#, fuzzy
-#| msgid "Tellen projecten"
 msgid "Tellen groepsprojecten"
-msgstr "Count projects"
+msgstr "Count workcamps"
 
-#: plugins/siw-functionality/includes/class-siw-formatting.php:360
-#: plugins/siw-functionality/includes/class-siw-formatting.php:408
+#: plugins/siw-functionality/includes/class-siw-formatting.php:475
+#: plugins/siw-functionality/includes/class-siw-formatting.php:534
 #, php-format
 msgid "%s t/m %s"
 msgstr "%s until %s"
 
-#: plugins/siw-functionality/includes/class-siw-formatting.php:434
+#: plugins/siw-functionality/includes/class-siw-formatting.php:560
 msgid "Sluiten"
 msgstr "Close"
 
+#: plugins/siw-functionality/includes/class-siw-icons.php:46
+#| msgid "SIW Infodag"
+msgid "SIW Icons"
+msgstr "SIW Icons"
+
 #: plugins/siw-functionality/includes/class-siw-shortcodes.php:131
-#, fuzzy, php-format
-#| msgid "Maandag t/m vrijdag %s"
+#, php-format
 msgid "Maandag t/m vrijdag %s - %s"
-msgstr "Monday to Friday %s"
+msgstr "Monday to Friday %s - %s"
 
 #: plugins/siw-functionality/includes/class-siw-shortcodes.php:295
 #, php-format
 msgid "Jaarverslag %s"
 msgstr "Annual report %s"
 
-#: plugins/siw-functionality/includes/class-siw-shortcodes.php:318
-#: plugins/siw-functionality/includes/maps/data-nl.php:31
-msgid "Data:"
-msgstr "Dates:"
-
-#: plugins/siw-functionality/includes/class-siw-shortcodes.php:319
+#: plugins/siw-functionality/includes/class-siw-shortcodes.php:322
 #: plugins/siw-functionality/includes/maps/data-nl.php:32
-msgid "Deelnemers:"
-msgstr "Participants:"
+#, php-format
+msgid "Data: %s"
+msgstr "Dates: %s"
 
-#: plugins/siw-functionality/includes/class-siw-shortcodes.php:320
+#: plugins/siw-functionality/includes/class-siw-shortcodes.php:323
 #: plugins/siw-functionality/includes/maps/data-nl.php:33
-msgid "Soort werk:"
-msgstr "Type of work:"
+#, php-format
+msgid "Deelnemers: %s"
+msgstr "Participants: %s"
 
-#: plugins/siw-functionality/includes/class-siw-shortcodes.php:321
+#: plugins/siw-functionality/includes/class-siw-shortcodes.php:324
 #: plugins/siw-functionality/includes/maps/data-nl.php:34
-msgid "Locatie:"
-msgstr "Location:"
+#, php-format
+msgid "Soort werk: %s"
+msgstr "Type of work: %s"
 
-#: plugins/siw-functionality/includes/class-siw-shortcodes.php:321
-#: plugins/siw-functionality/includes/maps/data-nl.php:34
-msgid "provincie"
-msgstr "province"
+#: plugins/siw-functionality/includes/class-siw-shortcodes.php:327
+#: plugins/siw-functionality/includes/maps/data-nl.php:37
+#, php-format
+msgid "Lokale bijdrage: %s"
+msgstr "Local fee: %s"
+
+#: plugins/siw-functionality/includes/class-siw-shortcodes.php:329
+#: plugins/siw-functionality/includes/maps/data-nl.php:40
+#, php-format
+msgid "Locatie: %s, provincie %s"
+msgstr ""
 
 #: plugins/siw-functionality/includes/compatibility/class-siw-compat-caldera-forms.php:111
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:302
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:300
 msgid "Dit is geen geldige datum."
 msgstr "This is not a valid date."
 
 #: plugins/siw-functionality/includes/compatibility/class-siw-compat-caldera-forms.php:116
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:309
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:307
 msgid "Dit is geen geldige postcode."
 msgstr "This is not a valid postal code."
 
@@ -420,8 +404,6 @@ msgstr "Everything about Tailor-made Projects"
 
 #: plugins/siw-functionality/includes/compatibility/class-siw-compat-siteorigin-page-builder.php:61
 #: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product-columns.php:24
-#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:184
-#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:218
 msgid "Zichtbaarheid"
 msgstr "Visibility"
 
@@ -431,7 +413,6 @@ msgstr "Mobile"
 
 #: plugins/siw-functionality/includes/compatibility/class-siw-compat-siteorigin-page-builder.php:76
 #: plugins/siw-functionality/includes/compatibility/class-siw-compat-siteorigin-page-builder.php:83
-#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:221
 msgid "Verbergen"
 msgstr "Hide"
 
@@ -443,7 +424,7 @@ msgstr "Desktop"
 msgid "SIW Widgets"
 msgstr "SIW Widgets"
 
-#: plugins/siw-functionality/includes/compatibility/class-siw-compat-wordpress.php:153
+#: plugins/siw-functionality/includes/compatibility/class-siw-compat-wordpress.php:162
 msgid "SIW heeft geen feed."
 msgstr "SIW has no feed."
 
@@ -629,18 +610,17 @@ msgid ""
 msgstr "Do you have preference in leading a specific type of Dutch project?"
 
 #: plugins/siw-functionality/includes/forms/camp-leader.php:154
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:46
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:50
 msgid "Sociaal"
 msgstr "Social"
 
 #: plugins/siw-functionality/includes/forms/camp-leader.php:159
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:25
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:26
 msgid "Natuur"
 msgstr "Nature"
 
 #: plugins/siw-functionality/includes/forms/camp-leader.php:164
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:32
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:74
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:34
 msgid "Constructie"
 msgstr "Construction"
 
@@ -649,6 +629,7 @@ msgid "Overige opmerkingen?"
 msgstr "Other comments?"
 
 #: plugins/siw-functionality/includes/forms/camp-leader.php:223
+#: plugins/siw-functionality/includes/forms/class-siw-form.php:88
 #: plugins/siw-functionality/includes/forms/cooperation.php:171
 #: plugins/siw-functionality/includes/forms/enquiry-evs.php:149
 #: plugins/siw-functionality/includes/forms/enquiry-general.php:149
@@ -659,7 +640,7 @@ msgstr "Other comments?"
 msgid "Website"
 msgstr "Website"
 
-#: plugins/siw-functionality/includes/forms/class-siw-form.php:77
+#: plugins/siw-functionality/includes/forms/class-siw-form.php:55
 #: plugins/siw-functionality/includes/forms/cooperation.php:68
 msgid "Uw bericht werd succesvol verzonden."
 msgstr "Your message was sent successfully."
@@ -728,6 +709,11 @@ msgstr "Contact person’s name"
 msgid "Beschrijf kort op welke manier u wilt samenwerken met SIW"
 msgstr "Describe shortly how you envision your collaboration with SIW"
 
+#: plugins/siw-functionality/includes/forms/data-form-test.php:20
+#| msgid "Test-mode"
+msgid "Test"
+msgstr ""
+
 #: plugins/siw-functionality/includes/forms/enquiry-evs.php:34
 msgid "Bevestiging interesse EVS"
 msgstr "Confirmation of interest EVS"
@@ -787,6 +773,7 @@ msgstr ""
 "We have received your question and we will contact you as soon as possible."
 
 #: plugins/siw-functionality/includes/forms/enquiry-general.php:56
+#: plugins/siw-functionality/includes/options/data-emails.php:112
 msgid "Infoverzoek algemeen"
 msgstr "Enquiry"
 
@@ -863,9 +850,11 @@ msgstr ""
 "know you better and to find an interesting and adequate project!"
 
 #: plugins/siw-functionality/includes/forms/esc.php:55
-#: plugins/siw-functionality/includes/maps/data-destinations.php:114
+#: plugins/siw-functionality/includes/maps/data-destinations.php:102
 #: plugins/siw-functionality/includes/maps/data-esc.php:14
-#: plugins/siw-functionality/includes/options/data-countries.php:36
+#: plugins/siw-functionality/includes/options/data-countries.php:37
+#: plugins/siw-functionality/includes/options/data-dates.php:33
+#: plugins/siw-functionality/includes/options/data-emails.php:34
 msgid "ESC"
 msgstr "ESC"
 
@@ -882,7 +871,7 @@ msgstr ""
 "possible."
 
 #: plugins/siw-functionality/includes/forms/esc.php:123
-msgid "Waarom wil je graag aan een ECS-project deelnemen?"
+msgid "Waarom wil je graag aan een ESC-project deelnemen?"
 msgstr "Why do you want to participate in an ESC project?"
 
 #: plugins/siw-functionality/includes/forms/esc.php:130
@@ -894,7 +883,7 @@ msgid "Hoe heb je van ESC (bij SIW) gehoord?"
 msgstr "How did you hear about ESC (at SIW)?"
 
 #: plugins/siw-functionality/includes/forms/esc.php:146
-#: plugins/siw-functionality/includes/forms/fields.php:378
+#: plugins/siw-functionality/includes/forms/fields.php:379
 msgid "Google"
 msgstr "Google"
 
@@ -903,13 +892,13 @@ msgid "Website SIW"
 msgstr "SIW Website"
 
 #: plugins/siw-functionality/includes/forms/esc.php:156
-#: plugins/siw-functionality/includes/forms/fields.php:383
-#: plugins/siw-functionality/includes/options/data-topbar.php:51
+#: plugins/siw-functionality/includes/forms/fields.php:384
+#: plugins/siw-functionality/includes/options/data-modules.php:51
 msgid "Social Media"
 msgstr "Social Media"
 
 #: plugins/siw-functionality/includes/forms/esc.php:161
-#: plugins/siw-functionality/includes/forms/fields.php:388
+#: plugins/siw-functionality/includes/forms/fields.php:389
 msgid "Familie / vrienden"
 msgstr "Family / friends"
 
@@ -922,29 +911,28 @@ msgid "NJI ESC infomiddag/avond"
 msgstr "NJI ESC info day/evening"
 
 #: plugins/siw-functionality/includes/forms/esc.php:176
-#: plugins/siw-functionality/includes/forms/fields.php:393
+#: plugins/siw-functionality/includes/forms/fields.php:394
 msgid "Anders"
 msgstr "Other"
 
-#: plugins/siw-functionality/includes/forms/fields.php:257
-#: plugins/siw-functionality/includes/options/data-organisation.php:42
+#: plugins/siw-functionality/includes/forms/fields.php:258
+#: plugins/siw-functionality/includes/options/data-organisation.php:37
 #: plugins/siw-functionality/includes/widgets/newsletter/newsletter.php:88
 msgid "Voornaam"
 msgstr "First name"
 
-#: plugins/siw-functionality/includes/forms/fields.php:265
-#: plugins/siw-functionality/includes/options/data-organisation.php:47
+#: plugins/siw-functionality/includes/forms/fields.php:266
+#: plugins/siw-functionality/includes/options/data-organisation.php:42
 msgid "Achternaam"
 msgstr "Last name"
 
-#: plugins/siw-functionality/includes/forms/fields.php:273
-#: plugins/siw-functionality/includes/options/data-configuration.php:49
+#: plugins/siw-functionality/includes/forms/fields.php:274
+#: plugins/siw-functionality/includes/options/data-configuration.php:95
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:50
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:76
 #: plugins/siw-functionality/includes/post-types/vacatures.php:151
 #: plugins/siw-functionality/includes/post-types/vacatures.php:186
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:69
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:462
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:422
 #: plugins/siw-functionality/includes/settings/sections/evs.php:46
 #: plugins/siw-functionality/includes/settings/sections/info-day.php:22
 #: plugins/siw-functionality/includes/settings/sections/op-maat.php:14
@@ -954,74 +942,73 @@ msgstr "Last name"
 msgid "E-mail"
 msgstr "E-mail"
 
-#: plugins/siw-functionality/includes/forms/fields.php:292
+#: plugins/siw-functionality/includes/forms/fields.php:293
 #: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-order.php:97
 #: plugins/siw-functionality/includes/woocommerce/data-address-fields.php:47
 #: plugins/siw-functionality/includes/woocommerce/email/class-siw-wc-emails.php:179
 msgid "Geslacht"
 msgstr "Gender"
 
-#: plugins/siw-functionality/includes/forms/fields.php:303
+#: plugins/siw-functionality/includes/forms/fields.php:304
 #: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-order.php:112
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:342
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:340
 #: plugins/siw-functionality/includes/woocommerce/data-address-fields.php:38
 #: plugins/siw-functionality/includes/woocommerce/email/class-siw-wc-emails.php:175
 msgid "Geboortedatum"
 msgstr "Date of birth"
 
-#: plugins/siw-functionality/includes/forms/fields.php:307
+#: plugins/siw-functionality/includes/forms/fields.php:308
 #: plugins/siw-functionality/includes/woocommerce/data-address-fields.php:43
 msgid "dd-mm-jjjj"
 msgstr "dd-mm-yyyy"
 
-#: plugins/siw-functionality/includes/forms/fields.php:314
-#: plugins/siw-functionality/includes/post-types/agenda.php:182
+#: plugins/siw-functionality/includes/forms/fields.php:315
+#: plugins/siw-functionality/includes/post-types/agenda.php:183
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:82
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:76
 msgid "Postcode"
 msgstr "Postal code"
 
-#: plugins/siw-functionality/includes/forms/fields.php:326
+#: plugins/siw-functionality/includes/forms/fields.php:327
 #: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-order.php:106
 #: plugins/siw-functionality/includes/woocommerce/data-address-fields.php:62
 msgid "Huisnummer"
 msgstr "House number"
 
-#: plugins/siw-functionality/includes/forms/fields.php:339
+#: plugins/siw-functionality/includes/forms/fields.php:340
 #: plugins/siw-functionality/includes/woocommerce/data-address-fields.php:69
 msgid "Straat"
 msgstr "Street"
 
-#: plugins/siw-functionality/includes/forms/fields.php:349
+#: plugins/siw-functionality/includes/forms/fields.php:350
 msgid "Woonplaats"
 msgstr "City"
 
-#: plugins/siw-functionality/includes/forms/fields.php:361
+#: plugins/siw-functionality/includes/forms/fields.php:362
 msgid "Vraag"
 msgstr "Question"
 
-#: plugins/siw-functionality/includes/forms/fields.php:369
+#: plugins/siw-functionality/includes/forms/fields.php:370
 msgid "Hoe heb je van SIW gehoord?"
 msgstr "How did you hear about SIW?"
 
-#: plugins/siw-functionality/includes/forms/fields.php:402
+#: plugins/siw-functionality/includes/forms/fields.php:403
 msgid "Namelijk"
 msgstr "Namely"
 
-#: plugins/siw-functionality/includes/forms/fields.php:414
+#: plugins/siw-functionality/includes/forms/fields.php:415
 msgid "Verzenden"
 msgstr "Submit"
 
-#: plugins/siw-functionality/includes/forms/fields.php:425
+#: plugins/siw-functionality/includes/forms/fields.php:426
 msgid "Upload hier je CV (optioneel)"
 msgstr "Upload your resume here (optional)"
 
-#: plugins/siw-functionality/includes/forms/fields.php:432
+#: plugins/siw-functionality/includes/forms/fields.php:433
 msgid "Wil je de SIW nieuwsbrief ontvangen?"
 msgstr "Do you want to sign up for the SIW newsletter?"
 
-#: plugins/siw-functionality/includes/forms/fields.php:442
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout-newsletter.php:37
+#: plugins/siw-functionality/includes/forms/fields.php:443
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout-newsletter.php:36
 msgid "Ja, ik wil graag de SIW nieuwsbrief ontvangen"
 msgstr "Yes, I want to sign up for the SIW newsletter"
 
@@ -1056,12 +1043,12 @@ msgid "Vrijwilligerswerk Op Maat (3 weken tot een jaar)"
 msgstr "Customized volunteer projects (from 3 weeks up to 1 year)"
 
 #: plugins/siw-functionality/includes/forms/info-day.php:87
-#| msgid "EVS (European Voluntary Service)"
 msgid "ESC (European Solidarity Corps)"
 msgstr "ESC (European Solidarity Corps)"
 
 #: plugins/siw-functionality/includes/forms/info-day.php:94
-#: plugins/siw-functionality/includes/options/data-info-days.php:20
+#: plugins/siw-functionality/includes/options/data-dates.php:34
+#: plugins/siw-functionality/includes/options/data-emails.php:36
 #: plugins/siw-functionality/includes/settings/sections/info-day.php:76
 msgid "Infodag"
 msgstr "Info day"
@@ -1264,9 +1251,9 @@ msgid ""
 msgstr "The application below has arrived via the website:"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:116
-#: plugins/siw-functionality/includes/options/data-configuration.php:225
-#: plugins/siw-functionality/includes/options/data-tailor-made.php:19
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:238
+#: plugins/siw-functionality/includes/options/data-configuration.php:277
+#: plugins/siw-functionality/includes/options/data-emails.php:39
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:198
 #: plugins/siw-functionality/includes/settings/sections/op-maat.php:48
 msgid "Op Maat"
 msgstr "Customized"
@@ -1357,7 +1344,7 @@ msgid "Personalia"
 msgstr "Personal details"
 
 #: plugins/siw-functionality/includes/forms/op-maat.php:368
-#: plugins/siw-functionality/includes/options/data-dutch-projects.php:38
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:140
 #: plugins/siw-functionality/includes/woocommerce/email/class-siw-wc-emails.php:286
 msgid "Project"
 msgstr "Project"
@@ -1368,7 +1355,7 @@ msgstr "Project"
 msgid "Talenkennis"
 msgstr "Language skills"
 
-#: plugins/siw-functionality/includes/functions/general.php:96
+#: plugins/siw-functionality/includes/functions/general.php:81
 msgid "Alle"
 msgstr "All"
 
@@ -1401,11 +1388,11 @@ msgstr "Who are we?"
 msgid "Selecteer een taal"
 msgstr "Select a language"
 
-#: plugins/siw-functionality/includes/maps/class-siw-map.php:125
+#: plugins/siw-functionality/includes/maps/class-siw-map.php:148
 msgid "Meer"
 msgstr "More"
 
-#: plugins/siw-functionality/includes/maps/class-siw-map.php:126
+#: plugins/siw-functionality/includes/maps/class-siw-map.php:149
 #: plugins/siw-functionality/includes/widgets/quick-search-form/quick-search-form.php:70
 msgid "Zoeken"
 msgstr "Search"
@@ -1414,24 +1401,25 @@ msgstr "Search"
 msgid "Bestemmingen"
 msgstr "Destinations"
 
-#: plugins/siw-functionality/includes/maps/data-destinations.php:98
-#: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:86
+#: plugins/siw-functionality/includes/maps/data-destinations.php:86
+#: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:89
 msgid "Bekijk alle projecten"
 msgstr "View all projects"
 
+#: plugins/siw-functionality/includes/maps/data-destinations.php:90
+#: plugins/siw-functionality/includes/maps/data-destinations.php:97
 #: plugins/siw-functionality/includes/maps/data-destinations.php:102
-#: plugins/siw-functionality/includes/maps/data-destinations.php:109
-#: plugins/siw-functionality/includes/maps/data-destinations.php:114
+#: plugins/siw-functionality/includes/widgets/features/features.php:156
 #: plugins/siw-functionality/templates/content-agenda.php:25
 #: plugins/siw-functionality/templates/content-vacature-grid.php:11
 msgid "Lees meer"
 msgstr "Read more"
 
-#: plugins/siw-functionality/includes/maps/data-destinations.php:109
+#: plugins/siw-functionality/includes/maps/data-destinations.php:97
 msgid "Projecten Op Maat"
 msgstr "Everything about customized projects"
 
-#: plugins/siw-functionality/includes/maps/data-destinations.php:117
+#: plugins/siw-functionality/includes/maps/data-destinations.php:105
 msgid "In dit land bieden wij de volgende projecten aan:"
 msgstr "We offer the following projects in this country:"
 
@@ -1440,10 +1428,12 @@ msgstr "We offer the following projects in this country:"
 msgid "Nederland"
 msgstr "Netherlands"
 
-#: plugins/siw-functionality/includes/maps/data-nl.php:21
-#: plugins/siw-functionality/includes/options/data-dutch-projects.php:33
-msgid "Nederlandse projecten"
-msgstr "Dutch volunteer projects"
+#: plugins/siw-functionality/includes/maps/data-nl.php:39
+#: plugins/siw-functionality/includes/widgets/dutch-projects/dutch-projects.php:69
+#, php-format
+#| msgid "Project %d"
+msgid "Projectcode: %s"
+msgstr "Projectcode: %s"
 
 #: plugins/siw-functionality/includes/modules/class-siw-module-cookie-notification.php:50
 msgid ""
@@ -1461,23 +1451,23 @@ msgstr "By continuing to use our website, you agree to this."
 msgid "Ik ga akkoord!"
 msgstr "I agree!"
 
-#: plugins/siw-functionality/includes/modules/class-siw-module-social-share.php:91
+#: plugins/siw-functionality/includes/modules/class-siw-module-social-share.php:86
 msgid "Deel dit project"
 msgstr "Share this project"
 
-#: plugins/siw-functionality/includes/modules/class-siw-module-social-share.php:94
+#: plugins/siw-functionality/includes/modules/class-siw-module-social-share.php:89
 msgid "Deel deze vacature"
 msgstr "Share this vacancy"
 
-#: plugins/siw-functionality/includes/modules/class-siw-module-social-share.php:97
+#: plugins/siw-functionality/includes/modules/class-siw-module-social-share.php:92
 msgid "Deel dit evenement"
 msgstr "Share this event"
 
-#: plugins/siw-functionality/includes/modules/class-siw-module-social-share.php:100
+#: plugins/siw-functionality/includes/modules/class-siw-module-social-share.php:95
 msgid "Deel dit ervaringsverhaal"
 msgstr "Share this testimonial"
 
-#: plugins/siw-functionality/includes/modules/class-siw-module-social-share.php:103
+#: plugins/siw-functionality/includes/modules/class-siw-module-social-share.php:98
 msgid "Deel deze pagina"
 msgstr "Share this page"
 
@@ -1513,125 +1503,166 @@ msgstr ""
 msgid "Meld je uiterlijk %s aan voor een project en betaal slechts %s."
 msgstr ""
 
-#: plugins/siw-functionality/includes/options/class-siw-options-page.php:76
+#: plugins/siw-functionality/includes/options/class-siw-options-page.php:79
 msgid "SIW Instellingen"
 msgstr "SIW Settings"
 
 #: plugins/siw-functionality/includes/options/data-configuration.php:18
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:28
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:444
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:404
 msgid "Configuratie"
 msgstr "Configuration"
 
 #: plugins/siw-functionality/includes/options/data-configuration.php:28
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:69
+msgid "Extern"
+msgstr "External"
+
+#: plugins/siw-functionality/includes/options/data-configuration.php:31
+#| msgid "Analytics & SEO"
+msgid "Analytics"
+msgstr "Analytics"
+
+#: plugins/siw-functionality/includes/options/data-configuration.php:32
+msgid "API keys"
+msgstr "API keys"
+
+#: plugins/siw-functionality/includes/options/data-configuration.php:34
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:41
 msgid "Website verificatie"
 msgstr "Website verification"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:33
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:74
-msgid "Google Search Console"
-msgstr "Google Search Console"
+#: plugins/siw-functionality/includes/options/data-configuration.php:41
+#| msgid "Google Analytics"
+msgid "Google Analytics Property ID"
+msgstr "Google Analytics Property ID"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:39
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:80
-msgid "Bing Webmaster Tools"
-msgstr "Bing Webmaster Tools"
+#: plugins/siw-functionality/includes/options/data-configuration.php:48
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:100
+msgid "Postcode API Key"
+msgstr "Postcode API Key"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:52
-#: plugins/siw-functionality/includes/options/data-configuration.php:59
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:305
-msgid "SMTP"
-msgstr "SMTP"
+#: plugins/siw-functionality/includes/options/data-configuration.php:56
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:107
+msgid "Wisselkoersen API Key"
+msgstr "Exchange rates API Key"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:53
-#: plugins/siw-functionality/includes/options/data-configuration.php:124
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:390
-msgid "DKIM"
-msgstr "DKIM"
+#: plugins/siw-functionality/includes/options/data-configuration.php:64
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:117
+msgid "Organization webkey"
+msgstr "Organization webkey"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:62
-#: plugins/siw-functionality/includes/options/data-configuration.php:96
-#: plugins/siw-functionality/includes/options/data-configuration.php:126
-#: plugins/siw-functionality/includes/options/data-configuration.php:302
-#: plugins/siw-functionality/includes/options/data-topbar.php:57
+#: plugins/siw-functionality/includes/options/data-configuration.php:71
+msgid "Productie-mode"
+msgstr ""
+
+#: plugins/siw-functionality/includes/options/data-configuration.php:74
+#: plugins/siw-functionality/includes/options/data-configuration.php:113
+#: plugins/siw-functionality/includes/options/data-configuration.php:148
+#: plugins/siw-functionality/includes/options/data-configuration.php:178
+#: plugins/siw-functionality/includes/options/data-modules.php:57
 msgid "Aan"
 msgstr "On"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:63
-#: plugins/siw-functionality/includes/options/data-configuration.php:97
-#: plugins/siw-functionality/includes/options/data-configuration.php:127
-#: plugins/siw-functionality/includes/options/data-configuration.php:303
-#: plugins/siw-functionality/includes/options/data-topbar.php:58
-msgid "Uit"
-msgstr ""
-
-#: plugins/siw-functionality/includes/options/data-configuration.php:67
-msgid "Host"
-msgstr ""
-
 #: plugins/siw-functionality/includes/options/data-configuration.php:75
-msgid "Poort"
-msgstr ""
+#: plugins/siw-functionality/includes/options/data-configuration.php:114
+#: plugins/siw-functionality/includes/options/data-configuration.php:149
+#: plugins/siw-functionality/includes/options/data-configuration.php:179
+#: plugins/siw-functionality/includes/options/data-modules.php:58
+msgid "Uit"
+msgstr "Off"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:82
+#: plugins/siw-functionality/includes/options/data-configuration.php:79
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:46
+msgid "Google Search Console"
+msgstr "Google Search Console"
+
+#: plugins/siw-functionality/includes/options/data-configuration.php:86
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:52
+msgid "Bing Webmaster Tools"
+msgstr "Bing Webmaster Tools"
+
+#: plugins/siw-functionality/includes/options/data-configuration.php:98
+#: plugins/siw-functionality/includes/options/data-configuration.php:104
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:265
+msgid "SMTP"
+msgstr "SMTP"
+
+#: plugins/siw-functionality/includes/options/data-configuration.php:99
+#: plugins/siw-functionality/includes/options/data-configuration.php:176
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:350
+msgid "DKIM"
+msgstr "DKIM"
+
+#: plugins/siw-functionality/includes/options/data-configuration.php:110
+msgid "Inschakelen"
+msgstr "Enable"
+
+#: plugins/siw-functionality/includes/options/data-configuration.php:118
+msgid "Host"
+msgstr "Host"
+
+#: plugins/siw-functionality/includes/options/data-configuration.php:126
+msgid "Poort"
+msgstr "Port"
+
+#: plugins/siw-functionality/includes/options/data-configuration.php:134
 msgid "Encryptie"
 msgstr "Encryption"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:87
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:344
+#: plugins/siw-functionality/includes/options/data-configuration.php:139
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:304
 msgid "Geen"
 msgstr "None"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:88
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:345
+#: plugins/siw-functionality/includes/options/data-configuration.php:140
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:305
 msgid "SSL"
 msgstr "SSL"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:89
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:346
+#: plugins/siw-functionality/includes/options/data-configuration.php:141
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:306
 msgid "TLS"
 msgstr "TLS"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:94
+#: plugins/siw-functionality/includes/options/data-configuration.php:146
 msgid "Authenticatie"
 msgstr "Authentication"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:104
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:373
+#: plugins/siw-functionality/includes/options/data-configuration.php:156
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:333
 msgid "Gebruikersnaam"
 msgstr "Username"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:114
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:374
+#: plugins/siw-functionality/includes/options/data-configuration.php:166
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:334
 msgid "Wachtwoord"
-msgstr "Passowrd"
+msgstr "Password"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:132
+#: plugins/siw-functionality/includes/options/data-configuration.php:184
 msgid "Selector"
 msgstr "Selector"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:139
+#: plugins/siw-functionality/includes/options/data-configuration.php:191
 msgid "Domein"
 msgstr "Domein"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:146
+#: plugins/siw-functionality/includes/options/data-configuration.php:198
 msgid "Passphrase"
 msgstr "Passphrase"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:155
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:92
+#: plugins/siw-functionality/includes/options/data-configuration.php:207
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:64
 msgid "Geblokkeerde bots"
 msgstr "Blocked bots"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:161
+#: plugins/siw-functionality/includes/options/data-configuration.php:213
 msgid "User agent"
 msgstr "User agent"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:164
-#: plugins/siw-functionality/includes/options/data-configuration.php:260
-#: plugins/siw-functionality/includes/options/data-evs.php:62
-#: plugins/siw-functionality/includes/options/data-info-days.php:39
+#: plugins/siw-functionality/includes/options/data-configuration.php:216
+#: plugins/siw-functionality/includes/options/data-configuration.php:312
+#: plugins/siw-functionality/includes/options/data-dates.php:50
+#: plugins/siw-functionality/includes/options/data-dates.php:64
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:147
 #: plugins/siw-functionality/includes/post-types/agenda.php:19
 #: plugins/siw-functionality/includes/post-types/evs-projects.php:18
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:124
@@ -1644,232 +1675,214 @@ msgstr "User agent"
 msgid "Toevoegen"
 msgstr "Add"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:170
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:474
+#: plugins/siw-functionality/includes/options/data-configuration.php:222
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:434
 msgid "Pagina's"
 msgstr "Pages"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:173
+#: plugins/siw-functionality/includes/options/data-configuration.php:225
 msgid "Archief"
-msgstr ""
+msgstr "Archive"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:174
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:212
+#: plugins/siw-functionality/includes/options/data-configuration.php:226
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:172
 msgid "Zo werkt het"
 msgstr "How it works"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:175
+#: plugins/siw-functionality/includes/options/data-configuration.php:227
 msgid "Overig"
 msgstr "Other"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:182
-#, fuzzy
-#| msgid "Evenement"
+#: plugins/siw-functionality/includes/options/data-configuration.php:234
 msgid "Evenementen"
-msgstr "Event"
+msgstr "Events"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:189
+#: plugins/siw-functionality/includes/options/data-configuration.php:241
 #: plugins/siw-functionality/includes/post-types/vacatures.php:14
 #: plugins/siw-functionality/includes/post-types/vacatures.php:30
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:192
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:152
 #: plugins/siw-functionality/includes/settings/sections/jobs.php:34
 #: plugins/siw-functionality/templates/template-vacatures-grid.php:20
 msgid "Vacatures"
 msgstr "Vacancies"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:196
+#: plugins/siw-functionality/includes/options/data-configuration.php:248
 #: plugins/siw-functionality/includes/post-types/evs-projects.php:13
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:199
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:159
 msgid "EVS-projecten"
 msgstr "EVS projects"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:211
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:217
+#: plugins/siw-functionality/includes/options/data-configuration.php:263
+#: plugins/siw-functionality/includes/options/data-dates.php:40
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:177
 #: plugins/siw-functionality/includes/settings/sections/info-day.php:88
 msgid "Infodagen"
 msgstr "Info days"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:218
-#: plugins/siw-functionality/includes/options/data-evs.php:20
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:231
+#: plugins/siw-functionality/includes/options/data-configuration.php:270
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:191
 #: plugins/siw-functionality/includes/settings/sections/evs.php:79
 msgid "EVS"
 msgstr "EVS"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:232
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:256
+#: plugins/siw-functionality/includes/options/data-configuration.php:284
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:216
 #: plugins/siw-functionality/includes/widgets/chart/chart.php:54
 #: plugins/siw-functionality/includes/widgets/contact/contact.php:51
 msgid "Contact"
 msgstr "Contact"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:239
-#, fuzzy
-#| msgid "Zoekresultaten Snel zoeken"
+#: plugins/siw-functionality/includes/options/data-configuration.php:291
 msgid "Resultaten Snel Zoeken"
-msgstr "Results quick search"
+msgstr "Results Quick Search"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:249
-#, fuzzy
-#| msgid "IP whitelist"
+#: plugins/siw-functionality/includes/options/data-configuration.php:301
 msgid "IP Whitelist"
-msgstr "IP whitelist"
+msgstr "IP Whitelist"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:255
+#: plugins/siw-functionality/includes/options/data-configuration.php:307
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
-#: plugins/siw-functionality/includes/options/data-configuration.php:266
-msgid "API keys"
-msgstr ""
-
-#: plugins/siw-functionality/includes/options/data-configuration.php:272
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:128
-msgid "Postcode API Key"
-msgstr "Postcode API Key"
-
-#: plugins/siw-functionality/includes/options/data-configuration.php:279
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:135
-msgid "Wisselkoersen API Key"
-msgstr "Exchange rates API Key"
-
-#: plugins/siw-functionality/includes/options/data-configuration.php:293
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:145
-msgid "Organization webkey"
-msgstr "Organization webkey"
-
-#: plugins/siw-functionality/includes/options/data-configuration.php:299
-msgid "Productie-mode"
-msgstr ""
-
-#: plugins/siw-functionality/includes/options/data-configuration.php:300
-msgid "TODO: export"
-msgstr ""
-
-#: plugins/siw-functionality/includes/options/data-countries.php:14
-#: plugins/siw-functionality/includes/settings/sections/organisation.php:52
-#: plugins/siw-functionality/includes/woocommerce/import/class-siw-import-workcamp.php:327
-msgid "Organisatie"
-msgstr "Organisation"
-
-#: plugins/siw-functionality/includes/options/data-countries.php:42
-#, fuzzy
-#| msgid "Projecten Op Maat"
-msgid "Projecten op maat"
-msgstr "Everything about customized projects"
-
-#: plugins/siw-functionality/includes/options/data-countries.php:53
-#: plugins/siw-functionality/includes/settings/sections/countries.php:34
-msgid "Regiospecialist"
-msgstr "Regional specialist"
-
-#: plugins/siw-functionality/includes/options/data-countries.php:61
-msgid "Aanbod"
-msgstr ""
-
-#: plugins/siw-functionality/includes/options/data-countries.php:76
-#: plugins/siw-functionality/includes/options/data-organisation.php:15
+#: plugins/siw-functionality/includes/options/data-countries.php:15
+#: plugins/siw-functionality/includes/options/data-countries.php:77
 #: plugins/siw-functionality/includes/settings/sections/countries.php:55
 msgid "Landen"
 msgstr "Countries"
 
-#: plugins/siw-functionality/includes/options/data-dutch-projects.php:48
-msgid "Code"
+#: plugins/siw-functionality/includes/options/data-countries.php:43
+msgid "Projecten op maat"
+msgstr "Tailor made projects"
+
+#: plugins/siw-functionality/includes/options/data-countries.php:54
+#: plugins/siw-functionality/includes/settings/sections/countries.php:34
+msgid "Regiospecialist"
+msgstr "Regional specialist"
+
+#: plugins/siw-functionality/includes/options/data-countries.php:62
+msgid "Aanbod"
 msgstr ""
 
-#: plugins/siw-functionality/includes/options/data-dutch-projects.php:54
-#: plugins/siw-functionality/includes/options/data-evs.php:44
-#: plugins/siw-functionality/includes/options/data-info-days.php:60
-#: plugins/siw-functionality/includes/options/data-tailor-made.php:43
-#: plugins/siw-functionality/includes/options/data-workcamps.php:54
-#: plugins/siw-functionality/includes/post-types/agenda.php:170
-#: plugins/siw-functionality/includes/post-types/events/metabox.php:70
-#: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:39
-#: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:66
-#: plugins/siw-functionality/includes/post-types/vacatures.php:140
-#: plugins/siw-functionality/includes/post-types/vacatures.php:175
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:67
-#: plugins/siw-functionality/includes/settings/sections/enquiry.php:31
-#: plugins/siw-functionality/includes/settings/sections/enquiry.php:63
-#: plugins/siw-functionality/includes/settings/sections/evs.php:63
-#: plugins/siw-functionality/includes/settings/sections/info-day.php:39
-#: plugins/siw-functionality/includes/settings/sections/np.php:32
-#: plugins/siw-functionality/includes/settings/sections/np.php:65
-#: plugins/siw-functionality/includes/settings/sections/np.php:114
-#: plugins/siw-functionality/includes/settings/sections/op-maat.php:31
-#: plugins/siw-functionality/includes/settings/sections/organisation.php:23
-#: plugins/siw-functionality/includes/settings/sections/workcamps.php:37
-#: plugins/siw-functionality/includes/settings/sections/workcamps.php:143
-#: plugins/siw-functionality/includes/woocommerce/data-checkout-fields.php:86
-#: plugins/siw-functionality/includes/woocommerce/email/class-siw-wc-emails.php:171
-#: plugins/siw-functionality/includes/woocommerce/email/class-siw-wc-emails.php:204
-msgid "Naam"
-msgstr "Name"
+#: plugins/siw-functionality/includes/options/data-dates.php:20
+#: plugins/siw-functionality/includes/options/data-dates.php:30
+#: plugins/siw-functionality/includes/options/data-dates.php:45
+#: plugins/siw-functionality/includes/options/data-dates.php:59
+#: plugins/siw-functionality/includes/settings/sections/info-day.php:55
+msgid "Datums"
+msgstr "Dates"
 
-#: plugins/siw-functionality/includes/options/data-dutch-projects.php:59
-#: plugins/siw-functionality/includes/post-types/agenda.php:188
+#: plugins/siw-functionality/includes/options/data-dates.php:54
+msgid "ESC deadlines"
+msgstr "ESC deadlines"
+
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:35
+msgid "Code"
+msgstr "Code"
+
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:41
+#, php-format
+#| msgid "Naam"
+msgid "Naam (%s)"
+msgstr "Name (%s)"
+
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:48
+#: plugins/siw-functionality/includes/post-types/agenda.php:189
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:88
 #: plugins/siw-functionality/includes/post-types/evs-projects.php:82
-#: plugins/siw-functionality/includes/settings/sections/np.php:121
 msgid "Plaats"
 msgstr "City"
 
-#: plugins/siw-functionality/includes/options/data-dutch-projects.php:64
-#: plugins/siw-functionality/includes/settings/sections/np.php:128
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:53
 msgid "Provincie"
 msgstr "Province"
 
-#: plugins/siw-functionality/includes/options/data-dutch-projects.php:70
-#: plugins/siw-functionality/includes/settings/sections/np.php:135
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:59
 msgid "Breedtegraad"
 msgstr "Latitude"
 
-#: plugins/siw-functionality/includes/options/data-dutch-projects.php:76
-#: plugins/siw-functionality/includes/settings/sections/np.php:142
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:65
 msgid "Lengtegraad"
 msgstr "Longitude"
 
-#: plugins/siw-functionality/includes/options/data-dutch-projects.php:82
-#: plugins/siw-functionality/includes/options/data-topbar.php:85
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:71
+#: plugins/siw-functionality/includes/options/data-modules.php:85
 #: plugins/siw-functionality/includes/post-types/evs-projects.php:96
-#: plugins/siw-functionality/includes/settings/sections/np.php:150
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:244
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:26
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:243
 msgid "Startdatum"
 msgstr "Start date"
 
-#: plugins/siw-functionality/includes/options/data-dutch-projects.php:87
-#: plugins/siw-functionality/includes/options/data-topbar.php:92
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:81
+#: plugins/siw-functionality/includes/options/data-modules.php:92
 #: plugins/siw-functionality/includes/post-types/evs-projects.php:108
-#: plugins/siw-functionality/includes/settings/sections/np.php:157
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:102
+#: plugins/siw-functionality/includes/settings/sections/topbar.php:65
 msgid "Einddatum"
 msgstr "End date"
 
-#: plugins/siw-functionality/includes/options/data-dutch-projects.php:92
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:91
 #: plugins/siw-functionality/includes/post-types/evs-projects.php:88
-#: plugins/siw-functionality/includes/settings/sections/np.php:164
 #: plugins/siw-functionality/templates/single-evs_project.php:44
 msgid "Soort werk"
 msgstr "Type of work"
 
-#: plugins/siw-functionality/includes/options/data-dutch-projects.php:98
-#: plugins/siw-functionality/includes/settings/sections/np.php:171
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:97
 msgid "Aantal deelnemers"
 msgstr "Number of participants"
 
-#: plugins/siw-functionality/includes/options/data-evs.php:29
-#: plugins/siw-functionality/includes/options/data-info-days.php:45
-#: plugins/siw-functionality/includes/options/data-tailor-made.php:28
-#: plugins/siw-functionality/includes/settings/sections/evs.php:85
-#: plugins/siw-functionality/includes/settings/sections/info-day.php:82
-#: plugins/siw-functionality/includes/settings/sections/op-maat.php:54
-msgid "Aanmeldformulier"
-msgstr "Application form"
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:104
+msgid "Lokale bijdrage"
+msgstr "Local fee"
 
-#: plugins/siw-functionality/includes/options/data-evs.php:34
-#: plugins/siw-functionality/includes/options/data-info-days.php:50
-#: plugins/siw-functionality/includes/options/data-tailor-made.php:33
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:112
+#, php-format
+#| msgid "Beschrijving"
+msgid "Beschrijving (%s)"
+msgstr "Description (%s)"
+
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:125
+msgid "Afbeelding"
+msgstr "Image"
+
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:135
+#: plugins/siw-functionality/includes/options/data-emails.php:38
+#: plugins/siw-functionality/includes/widgets/dutch-projects/dutch-projects.php:40
+msgid "Nederlandse projecten"
+msgstr "Dutch volunteer projects"
+
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:155
+msgid "Programmaboekje"
+msgstr "Program booklet"
+
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:161
+#: plugins/siw-functionality/includes/options/data-organisation.php:77
+msgid "Jaar"
+msgstr "Year"
+
+#: plugins/siw-functionality/includes/options/data-dutch-projects.php:168
+#: plugins/siw-functionality/includes/options/data-organisation.php:84
+msgid "Bestand"
+msgstr "File"
+
+#: plugins/siw-functionality/includes/options/data-emails.php:22
+#: plugins/siw-functionality/includes/options/data-emails.php:31
+msgid "E-mails"
+msgstr "E-mails"
+
+#: plugins/siw-functionality/includes/options/data-emails.php:37
+#: plugins/siw-functionality/includes/settings/sections/enquiry.php:80
+msgid "Infoverzoeken"
+msgstr "Enquiries"
+
+#: plugins/siw-functionality/includes/options/data-emails.php:45
+msgid "Aanmelding ESC"
+msgstr "Application ESC"
+
+#: plugins/siw-functionality/includes/options/data-emails.php:50
+#: plugins/siw-functionality/includes/options/data-emails.php:72
+#: plugins/siw-functionality/includes/options/data-emails.php:95
+#: plugins/siw-functionality/includes/options/data-emails.php:117
+#: plugins/siw-functionality/includes/options/data-emails.php:139
+#: plugins/siw-functionality/includes/options/data-emails.php:161
+#: plugins/siw-functionality/includes/options/data-emails.php:184
 #: plugins/siw-functionality/includes/options/data-workcamps.php:43
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:20
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:52
@@ -1882,9 +1895,13 @@ msgstr "Application form"
 msgid "Afzender"
 msgstr "Sender"
 
-#: plugins/siw-functionality/includes/options/data-evs.php:36
-#: plugins/siw-functionality/includes/options/data-info-days.php:52
-#: plugins/siw-functionality/includes/options/data-tailor-made.php:35
+#: plugins/siw-functionality/includes/options/data-emails.php:53
+#: plugins/siw-functionality/includes/options/data-emails.php:75
+#: plugins/siw-functionality/includes/options/data-emails.php:98
+#: plugins/siw-functionality/includes/options/data-emails.php:120
+#: plugins/siw-functionality/includes/options/data-emails.php:142
+#: plugins/siw-functionality/includes/options/data-emails.php:164
+#: plugins/siw-functionality/includes/options/data-emails.php:187
 #: plugins/siw-functionality/includes/options/data-workcamps.php:46
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:21
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:53
@@ -1897,9 +1914,13 @@ msgstr "Sender"
 msgid "Ontvangt ook de bevestigingsmail"
 msgstr "Receive also the confirmation email"
 
-#: plugins/siw-functionality/includes/options/data-evs.php:41
-#: plugins/siw-functionality/includes/options/data-info-days.php:57
-#: plugins/siw-functionality/includes/options/data-tailor-made.php:40
+#: plugins/siw-functionality/includes/options/data-emails.php:57
+#: plugins/siw-functionality/includes/options/data-emails.php:80
+#: plugins/siw-functionality/includes/options/data-emails.php:102
+#: plugins/siw-functionality/includes/options/data-emails.php:124
+#: plugins/siw-functionality/includes/options/data-emails.php:146
+#: plugins/siw-functionality/includes/options/data-emails.php:169
+#: plugins/siw-functionality/includes/options/data-emails.php:192
 #: plugins/siw-functionality/includes/options/data-workcamps.php:50
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:27
 #: plugins/siw-functionality/includes/settings/sections/enquiry.php:59
@@ -1912,10 +1933,44 @@ msgstr "Receive also the confirmation email"
 msgid "Ondertekening"
 msgstr "Signature"
 
-#: plugins/siw-functionality/includes/options/data-evs.php:45
-#: plugins/siw-functionality/includes/options/data-info-days.php:61
-#: plugins/siw-functionality/includes/options/data-organisation.php:52
-#: plugins/siw-functionality/includes/options/data-tailor-made.php:44
+#: plugins/siw-functionality/includes/options/data-emails.php:61
+#: plugins/siw-functionality/includes/options/data-emails.php:84
+#: plugins/siw-functionality/includes/options/data-emails.php:106
+#: plugins/siw-functionality/includes/options/data-emails.php:128
+#: plugins/siw-functionality/includes/options/data-emails.php:150
+#: plugins/siw-functionality/includes/options/data-emails.php:173
+#: plugins/siw-functionality/includes/options/data-emails.php:196
+#: plugins/siw-functionality/includes/options/data-workcamps.php:54
+#: plugins/siw-functionality/includes/post-types/agenda.php:171
+#: plugins/siw-functionality/includes/post-types/events/metabox.php:70
+#: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:39
+#: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:66
+#: plugins/siw-functionality/includes/post-types/vacatures.php:140
+#: plugins/siw-functionality/includes/post-types/vacatures.php:175
+#: plugins/siw-functionality/includes/settings/sections/enquiry.php:31
+#: plugins/siw-functionality/includes/settings/sections/enquiry.php:63
+#: plugins/siw-functionality/includes/settings/sections/evs.php:63
+#: plugins/siw-functionality/includes/settings/sections/info-day.php:39
+#: plugins/siw-functionality/includes/settings/sections/np.php:32
+#: plugins/siw-functionality/includes/settings/sections/np.php:65
+#: plugins/siw-functionality/includes/settings/sections/op-maat.php:31
+#: plugins/siw-functionality/includes/settings/sections/organisation.php:23
+#: plugins/siw-functionality/includes/settings/sections/workcamps.php:37
+#: plugins/siw-functionality/includes/settings/sections/workcamps.php:143
+#: plugins/siw-functionality/includes/woocommerce/data-checkout-fields.php:86
+#: plugins/siw-functionality/includes/woocommerce/email/class-siw-wc-emails.php:171
+#: plugins/siw-functionality/includes/woocommerce/email/class-siw-wc-emails.php:204
+msgid "Naam"
+msgstr "Name"
+
+#: plugins/siw-functionality/includes/options/data-emails.php:62
+#: plugins/siw-functionality/includes/options/data-emails.php:85
+#: plugins/siw-functionality/includes/options/data-emails.php:107
+#: plugins/siw-functionality/includes/options/data-emails.php:129
+#: plugins/siw-functionality/includes/options/data-emails.php:151
+#: plugins/siw-functionality/includes/options/data-emails.php:174
+#: plugins/siw-functionality/includes/options/data-emails.php:197
+#: plugins/siw-functionality/includes/options/data-organisation.php:47
 #: plugins/siw-functionality/includes/options/data-workcamps.php:55
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:45
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:71
@@ -1933,68 +1988,36 @@ msgstr "Signature"
 msgid "Functie"
 msgstr "Position"
 
-#: plugins/siw-functionality/includes/options/data-evs.php:53
-#: plugins/siw-functionality/includes/settings/sections/evs.php:27
-#: plugins/siw-functionality/includes/settings/sections/evs.php:91
-msgid "Deadlines"
-msgstr "Deadlines"
+#: plugins/siw-functionality/includes/options/data-emails.php:67
+msgid "Aanmelding Op Maat"
+msgstr "Application Tailor Made"
 
-#: plugins/siw-functionality/includes/options/data-evs.php:59
-#: plugins/siw-functionality/includes/post-types/evs-projects.php:127
-#: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:56
-#: plugins/siw-functionality/includes/post-types/vacatures.php:157
-#: plugins/siw-functionality/templates/single-evs_project.php:68
-msgid "Deadline"
-msgstr "Deadline"
+#: plugins/siw-functionality/includes/options/data-emails.php:90
+msgid "Aanmelding Groepsproject"
+msgstr "Application Workcamp"
 
-#: plugins/siw-functionality/includes/options/data-info-days.php:30
-#: plugins/siw-functionality/includes/settings/sections/info-day.php:55
-msgid "Datums"
-msgstr "Dates"
+#: plugins/siw-functionality/includes/options/data-emails.php:134
+msgid "Infoverzoek groepsproject"
+msgstr "Enquiry Workcamp"
 
-#: plugins/siw-functionality/includes/options/data-info-days.php:36
-#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:288
-#, fuzzy
-#| msgid "Datums"
-msgid "Datum"
-msgstr "Dates"
+#: plugins/siw-functionality/includes/options/data-emails.php:156
+msgid "Aanmelding infodag"
+msgstr "Application info day"
 
-#: plugins/siw-functionality/includes/options/data-organisation.php:27
-#: plugins/siw-functionality/includes/settings/sections/organisation.php:58
-msgid "Bestuur"
-msgstr "Board"
+#: plugins/siw-functionality/includes/options/data-emails.php:179
+msgid "Aanmelding projectbegeleider NP"
+msgstr "Application camp leader"
 
-#: plugins/siw-functionality/includes/options/data-organisation.php:55
-msgid "Voorzitter"
-msgstr ""
+#: plugins/siw-functionality/includes/options/data-modules.php:19
+msgid "Modules"
+msgstr "Modules"
 
-#: plugins/siw-functionality/includes/options/data-organisation.php:56
-msgid "Secretaris"
-msgstr ""
-
-#: plugins/siw-functionality/includes/options/data-organisation.php:57
-msgid "Penningmeester"
-msgstr ""
-
-#: plugins/siw-functionality/includes/options/data-organisation.php:58
-msgid "Algemeen bestuurslid"
-msgstr ""
-
-#: plugins/siw-functionality/includes/options/data-organisation.php:82
-msgid "Jaar"
-msgstr ""
-
-#: plugins/siw-functionality/includes/options/data-organisation.php:89
-msgid "Bestand"
-msgstr ""
-
-#: plugins/siw-functionality/includes/options/data-topbar.php:19
-#: plugins/siw-functionality/includes/options/data-topbar.php:33
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:120
+#: plugins/siw-functionality/includes/options/data-modules.php:33
+#: plugins/siw-functionality/includes/settings/sections/topbar.php:83
 msgid "Topbar"
 msgstr "Topbar"
 
-#: plugins/siw-functionality/includes/options/data-topbar.php:38
+#: plugins/siw-functionality/includes/options/data-modules.php:38
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:18
 #: plugins/siw-functionality/includes/post-types/vacatures.php:15
 #: plugins/siw-functionality/includes/post-types/vacatures.php:29
@@ -2002,42 +2025,65 @@ msgstr "Topbar"
 msgid "Vacature"
 msgstr "Job listing"
 
-#: plugins/siw-functionality/includes/options/data-topbar.php:42
-#, fuzzy
-#| msgid "Update vacature"
+#: plugins/siw-functionality/includes/options/data-modules.php:42
 msgid "Uitgelichte vacature"
-msgstr "Update vacancy"
+msgstr "Higlighted job listing"
 
-#: plugins/siw-functionality/includes/options/data-topbar.php:46
-#, fuzzy
-#| msgid "Selecteer een taal"
+#: plugins/siw-functionality/includes/options/data-modules.php:46
 msgid "Selecteer een vacature"
-msgstr "Select a language"
+msgstr "Select a job listing"
 
-#: plugins/siw-functionality/includes/options/data-topbar.php:55
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:57
+#: plugins/siw-functionality/includes/options/data-modules.php:55
+#: plugins/siw-functionality/includes/settings/sections/topbar.php:20
 msgid "Link naar social media"
 msgstr "Link to social media"
 
-#: plugins/siw-functionality/includes/options/data-topbar.php:62
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:64
+#: plugins/siw-functionality/includes/options/data-modules.php:62
+#: plugins/siw-functionality/includes/settings/sections/topbar.php:27
 msgid "Introtekst"
 msgstr "Introduction text"
 
-#: plugins/siw-functionality/includes/options/data-topbar.php:64
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:65
+#: plugins/siw-functionality/includes/options/data-modules.php:64
+#: plugins/siw-functionality/includes/settings/sections/topbar.php:28
 msgid "Verborgen op mobiel"
 msgstr "Hidden on mobile"
 
-#: plugins/siw-functionality/includes/options/data-topbar.php:70
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:76
+#: plugins/siw-functionality/includes/options/data-modules.php:70
+#: plugins/siw-functionality/includes/settings/sections/topbar.php:39
 msgid "Linktekst"
 msgstr "Link text"
 
-#: plugins/siw-functionality/includes/options/data-topbar.php:77
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:87
+#: plugins/siw-functionality/includes/options/data-modules.php:77
+#: plugins/siw-functionality/includes/settings/sections/topbar.php:50
 msgid "Netwerk"
 msgstr "Network"
+
+#: plugins/siw-functionality/includes/options/data-organisation.php:14
+#: plugins/siw-functionality/includes/settings/sections/organisation.php:52
+#: plugins/siw-functionality/includes/woocommerce/import/class-siw-wc-import-product.php:504
+msgid "Organisatie"
+msgstr "Organisation"
+
+#: plugins/siw-functionality/includes/options/data-organisation.php:22
+#: plugins/siw-functionality/includes/settings/sections/organisation.php:58
+msgid "Bestuur"
+msgstr "Board"
+
+#: plugins/siw-functionality/includes/options/data-organisation.php:50
+msgid "Voorzitter"
+msgstr "Chair"
+
+#: plugins/siw-functionality/includes/options/data-organisation.php:51
+msgid "Secretaris"
+msgstr "Secretary"
+
+#: plugins/siw-functionality/includes/options/data-organisation.php:52
+msgid "Penningmeester"
+msgstr "Treasurer"
+
+#: plugins/siw-functionality/includes/options/data-organisation.php:53
+msgid "Algemeen bestuurslid"
+msgstr "Board member"
 
 #: plugins/siw-functionality/includes/options/data-workcamps.php:35
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:193
@@ -2048,10 +2094,8 @@ msgstr "Application"
 #: plugins/siw-functionality/includes/options/data-workcamps.php:36
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:56
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:199
-#, fuzzy
-#| msgid "Korting"
 msgid "Kortingsactie"
-msgstr "Discount"
+msgstr "Sale"
 
 #: plugins/siw-functionality/includes/options/data-workcamps.php:37
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:205
@@ -2068,30 +2112,24 @@ msgstr ""
 #: plugins/siw-functionality/includes/post-types/vacatures.php:114
 #: plugins/siw-functionality/includes/post-types/vacatures.php:126
 msgid "Ja"
-msgstr ""
+msgstr "Yes"
 
 #: plugins/siw-functionality/includes/options/data-workcamps.php:63
 #: plugins/siw-functionality/includes/options/data-workcamps.php:92
 #: plugins/siw-functionality/includes/post-types/vacatures.php:115
 #: plugins/siw-functionality/includes/post-types/vacatures.php:127
-#, fuzzy
-#| msgid "Netwerk"
 msgid "Nee"
-msgstr "Network"
+msgstr "No"
 
 #: plugins/siw-functionality/includes/options/data-workcamps.php:68
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:68
-#, fuzzy
-#| msgid "Start actie"
 msgid "Startdatum kortingsactie"
-msgstr "Start action"
+msgstr "Start date sale"
 
 #: plugins/siw-functionality/includes/options/data-workcamps.php:75
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:79
-#, fuzzy
-#| msgid "Einddatum aankonding"
 msgid "Einddatum kortingsactie"
-msgstr "End date announcement"
+msgstr "End date sale"
 
 #: plugins/siw-functionality/includes/options/data-workcamps.php:89
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:104
@@ -2099,10 +2137,8 @@ msgid "Aankondiging tonen"
 msgstr "Show announcement"
 
 #: plugins/siw-functionality/includes/options/data-workcamps.php:97
-#, fuzzy
-#| msgid "Einddatum aankonding"
 msgid "Startdatum aankonding"
-msgstr "End date announcement"
+msgstr "Start date announcement"
 
 #: plugins/siw-functionality/includes/options/data-workcamps.php:104
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:111
@@ -2122,7 +2158,7 @@ msgstr "Agenda"
 #: plugins/siw-functionality/includes/post-types/agenda.php:14
 #: plugins/siw-functionality/includes/post-types/agenda.php:15
 #: plugins/siw-functionality/includes/post-types/agenda.php:102
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:185
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:145
 #: plugins/siw-functionality/includes/widgets/calendar/calendar.php:39
 #: plugins/siw-functionality/includes/widgets/calendar/calendar.php:52
 msgid "Agenda"
@@ -2130,6 +2166,7 @@ msgstr "Agenda"
 
 #: plugins/siw-functionality/includes/post-types/agenda.php:16
 #: plugins/siw-functionality/includes/post-types/agenda.php:61
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:105
 #: plugins/siw-functionality/includes/post-types/evs-projects.php:15
 #: plugins/siw-functionality/includes/post-types/vacatures.php:16
 #: plugins/siw-functionality/includes/post-types/vacatures.php:61
@@ -2178,7 +2215,8 @@ msgstr "Not found in the bin"
 
 #: plugins/siw-functionality/includes/post-types/agenda.php:29
 #: plugins/siw-functionality/includes/post-types/agenda.php:30
-#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:33
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:60
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:134
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:18
 msgid "Evenement"
 msgstr "Event"
@@ -2199,6 +2237,7 @@ msgid "Soort evement"
 msgstr "Type of event"
 
 #: plugins/siw-functionality/includes/post-types/agenda.php:59
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:106
 #: plugins/siw-functionality/includes/post-types/vacatures.php:59
 msgid "All Items"
 msgstr "All Items"
@@ -2214,21 +2253,25 @@ msgid "New Item Name"
 msgstr "New Item Name"
 
 #: plugins/siw-functionality/includes/post-types/agenda.php:63
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:107
 #: plugins/siw-functionality/includes/post-types/vacatures.php:63
 msgid "Add New Item"
 msgstr "Add New Item"
 
 #: plugins/siw-functionality/includes/post-types/agenda.php:64
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:110
 #: plugins/siw-functionality/includes/post-types/vacatures.php:64
 msgid "Edit Item"
 msgstr "Edit Item"
 
 #: plugins/siw-functionality/includes/post-types/agenda.php:65
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:111
 #: plugins/siw-functionality/includes/post-types/vacatures.php:65
 msgid "Update Item"
 msgstr "Update Item"
 
 #: plugins/siw-functionality/includes/post-types/agenda.php:66
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:112
 #: plugins/siw-functionality/includes/post-types/vacatures.php:66
 msgid "View Item"
 msgstr "View Item"
@@ -2263,122 +2306,198 @@ msgstr "Search Items"
 msgid "Not Found"
 msgstr "Not Found"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:109
+#: plugins/siw-functionality/includes/post-types/agenda.php:110
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:25
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:80
 #: plugins/siw-functionality/includes/post-types/vacatures.php:191
-#: plugins/siw-functionality/includes/woocommerce/import/class-siw-import-workcamp.php:311
+#: plugins/siw-functionality/includes/woocommerce/import/class-siw-wc-import-product.php:488
 msgid "Beschrijving"
 msgstr "Description"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:122
+#: plugins/siw-functionality/includes/post-types/agenda.php:123
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:38
 #: plugins/siw-functionality/includes/post-types/evs-projects.php:120
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:97
 #: plugins/siw-functionality/includes/post-types/vacatures.php:208
 #: plugins/siw-functionality/includes/widgets/quote/quote.php:40
 msgid "Quote"
-msgstr ""
+msgstr "Quote"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:127
+#: plugins/siw-functionality/includes/post-types/agenda.php:128
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:43
 msgid "Tijden"
 msgstr "Times"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:132
+#: plugins/siw-functionality/includes/post-types/agenda.php:133
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:48
 msgid "Start"
 msgstr "Start"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:149
+#: plugins/siw-functionality/includes/post-types/agenda.php:150
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:60
 msgid "Eind"
 msgstr "End"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:165
+#: plugins/siw-functionality/includes/post-types/agenda.php:166
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:65
-#: plugins/siw-functionality/templates/single-agenda.php:66
+#: plugins/siw-functionality/templates/single-agenda.php:48
 #: plugins/siw-functionality/templates/single-evs_project.php:52
 msgid "Locatie"
 msgstr "Location"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:176
+#: plugins/siw-functionality/includes/post-types/agenda.php:177
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:76
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:75
 #: plugins/siw-functionality/includes/woocommerce/email/class-siw-wc-emails.php:187
 msgid "Adres"
 msgstr "Address"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:193
+#: plugins/siw-functionality/includes/post-types/agenda.php:194
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:93
 #: plugins/siw-functionality/includes/widgets/newsletter/newsletter.php:90
-#: plugins/siw-functionality/templates/single-agenda.php:79
+#: plugins/siw-functionality/templates/single-agenda.php:61
 msgid "Aanmelden"
 msgstr "Register"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:198
+#: plugins/siw-functionality/includes/post-types/agenda.php:199
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:98
 msgid "Aanmelden via:"
 msgstr "Register via:"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:201
-#: plugins/siw-functionality/includes/post-types/events/metabox.php:101
-#, fuzzy
-#| msgid "Aanmeldformulier voor de infodag"
-msgid "Aanmeldformulier Infodag"
-msgstr "Infoday application form"
-
 #: plugins/siw-functionality/includes/post-types/agenda.php:202
+#: plugins/siw-functionality/includes/post-types/events/metabox.php:101
+msgid "Aanmeldformulier Infodag"
+msgstr "Application form info day"
+
+#: plugins/siw-functionality/includes/post-types/agenda.php:203
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:102
 msgid "Aangepaste tekst en link"
 msgstr "Custom text and link"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:208
+#: plugins/siw-functionality/includes/post-types/agenda.php:209
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:108
 msgid "Toelichting"
 msgstr "Explanation"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:222
+#: plugins/siw-functionality/includes/post-types/agenda.php:223
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:124
 msgid "Link om aan te melden"
 msgstr "Link to sign up"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:229
+#: plugins/siw-functionality/includes/post-types/agenda.php:230
 #: plugins/siw-functionality/includes/post-types/events/metabox.php:129
 msgid "Tekst voor link"
 msgstr "Text for link"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:235
-#: plugins/siw-functionality/templates/single-agenda.php:49
-msgid "Programma"
-msgstr "Program"
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:61
+msgid "Post Type DescriptionOmschrijving"
+msgstr ""
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:240
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:99
 #, fuzzy
-#| msgid "Onderdeel {#}"
-msgid "Onderdelen"
-msgstr "Part"
+#| msgid "Evenement"
+msgctxt "Post Type General Name"
+msgid "Evenementen"
+msgstr "Event"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:246
-msgid "Onderdeel toevoegen"
-msgstr "Add Part"
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:100
+#, fuzzy
+#| msgid "Evenement"
+msgctxt "Post Type Singular Name"
+msgid "Evenement"
+msgstr "Event"
 
-#: plugins/siw-functionality/includes/post-types/agenda.php:251
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:101
+msgid "Post Types"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:102
+msgid "Post Type"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:103
+msgid "Item Archives"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:104
+msgid "Item Attributes"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:108
+#, fuzzy
+#| msgid "Add New Item"
+msgid "Add New"
+msgstr "Add New Item"
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:109
+#, fuzzy
+#| msgid "View Item"
+msgid "New Item"
+msgstr "View Item"
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:113
+#, fuzzy
+#| msgid "View Item"
+msgid "View Items"
+msgstr "View Item"
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:114
+#, fuzzy
+#| msgid "Search Items"
+msgid "Search Item"
+msgstr "Search Items"
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:115
+#, fuzzy
+#| msgid "Not Found"
+msgid "Not found"
+msgstr "Not Found"
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:116
+msgid "Not found in Trash"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:117
+#, fuzzy
+#| msgid "Vacature"
+msgid "Featured Image"
+msgstr "Job listing"
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:118
+msgid "Set featured image"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:119
+msgid "Remove featured image"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:120
+msgid "Use as featured image"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:121
+msgid "Insert into item"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:122
+msgid "Uploaded to this item"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:123
+msgid "Items list"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:124
+msgid "Items list navigation"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:125
+msgid "Filter items list"
+msgstr ""
+
+#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:135
 #: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:170
 msgid "Omschrijving"
 msgstr "Description"
-
-#: plugins/siw-functionality/includes/post-types/agenda.php:256
-msgid "Starttijd"
-msgstr "Start time"
-
-#: plugins/siw-functionality/includes/post-types/agenda.php:267
-msgid "Eindtijd"
-msgstr "End time"
-
-#: plugins/siw-functionality/includes/post-types/class-siw-cpt.php:34
-msgid "Post Type DescriptionOmschrijving"
-msgstr ""
 
 #: plugins/siw-functionality/includes/post-types/evs-projects.php:11
 msgctxt "Post Type General Name"
@@ -2426,10 +2545,16 @@ msgid "Zoek EVS-project"
 msgstr "Search EVS project"
 
 #: plugins/siw-functionality/includes/post-types/evs-projects.php:75
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:245
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:33
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:244
 msgid "Land"
 msgstr "Country"
+
+#: plugins/siw-functionality/includes/post-types/evs-projects.php:127
+#: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:56
+#: plugins/siw-functionality/includes/post-types/vacatures.php:157
+#: plugins/siw-functionality/templates/single-evs_project.php:68
+msgid "Deadline"
+msgstr "Deadline"
 
 #: plugins/siw-functionality/includes/post-types/evs-projects.php:152
 #: plugins/siw-functionality/templates/single-evs_project.php:13
@@ -2437,10 +2562,8 @@ msgid "Bij welke organisatie ga je werken?"
 msgstr "In which organization will you work?"
 
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:25
-#, fuzzy
-#| msgid "Betaalwijze"
 msgid "Betaald"
-msgstr "Payment method"
+msgstr "Paid"
 
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:30
 #: plugins/siw-functionality/includes/post-types/vacatures.php:119
@@ -2449,17 +2572,13 @@ msgstr "Hours per week"
 
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:34
 #: plugins/siw-functionality/includes/post-types/vacatures.php:135
-#, fuzzy
-#| msgid "Solliciteren?"
 msgid "Solliciteren"
-msgstr "Apply?"
+msgstr "Apply"
 
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:61
 #: plugins/siw-functionality/includes/post-types/vacatures.php:170
-#, fuzzy
-#| msgid "Contactpersoon?"
 msgid "Contactpersoon"
-msgstr "Contact person?"
+msgstr "Contact person"
 
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:85
 #: plugins/siw-functionality/includes/post-types/vacatures.php:196
@@ -2473,10 +2592,8 @@ msgstr "Introduction"
 #: plugins/siw-functionality/includes/post-types/vacatures.php:243
 #: plugins/siw-functionality/includes/post-types/vacatures.php:268
 #: plugins/siw-functionality/includes/post-types/vacatures.php:320
-#, fuzzy
-#| msgid "Constructie"
 msgid "Introductie"
-msgstr "Construction"
+msgstr "Introduction"
 
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:119
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:144
@@ -2484,22 +2601,17 @@ msgstr "Construction"
 #: plugins/siw-functionality/includes/post-types/vacatures.php:230
 #: plugins/siw-functionality/includes/post-types/vacatures.php:255
 #: plugins/siw-functionality/includes/post-types/vacatures.php:280
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:115
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout-newsletter.php:96
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:87
 msgid "Lijst"
 msgstr "List"
 
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:127
 #: plugins/siw-functionality/includes/post-types/vacatures.php:238
-#, fuzzy
-#| msgid "Wie ben jij?"
 msgid "Wie ben je?"
 msgstr "Who are you?"
 
 #: plugins/siw-functionality/includes/post-types/job-postings/metabox.php:152
 #: plugins/siw-functionality/includes/post-types/vacatures.php:263
-#, fuzzy
-#| msgid "Wat bieden wij jou?"
 msgid "Wat bieden wij?"
 msgstr "What do we offer you?"
 
@@ -2551,10 +2663,8 @@ msgid "Soort vacature"
 msgstr "Type of vacancy"
 
 #: plugins/siw-functionality/includes/post-types/vacatures.php:112
-#, fuzzy
-#| msgid "Bewerk vacature"
 msgid "Betaalde vacature"
-msgstr "Edit vacancy"
+msgstr "Paid job"
 
 #: plugins/siw-functionality/includes/post-types/vacatures.php:124
 msgid "Vacature uitlichten"
@@ -2580,164 +2690,6 @@ msgstr "Email for open applications:"
 #: plugins/siw-functionality/includes/post-types/vacatures.php:349
 msgid "Infotekst geen vacatures"
 msgstr "Information text no vacancies"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:17
-#, fuzzy
-#| msgid "Configuratie"
-msgid "SIW Configuratie"
-msgstr "Configuration"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:33
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:40
-#, fuzzy
-#| msgid "Instellingen SIW"
-msgid "Instelling"
-msgstr "Settings SIW"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:68
-#: plugins/siw-functionality/includes/widgets/organisation/organisation.php:72
-msgid "Statutaire naam"
-msgstr "Statutory name"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:71
-msgid "Telefoonnummer (volledig)"
-msgstr "Phone number (full)"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:72
-msgid "KVK"
-msgstr "KVK"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:77
-msgid "Stad"
-msgstr "City"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:79
-msgid "Facebook URL"
-msgstr "Facebook URL"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:80
-msgid "Twitter URL"
-msgstr "Twitter URL"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:81
-msgid "LinkedIn URL"
-msgstr "LinkedIn URL"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:82
-msgid "YouTube URL"
-msgstr "YouTube URL"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:83
-msgid "Instagram URL"
-msgstr "Instagram URL"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:84
-msgid "Maximum aantal infodagen"
-msgstr "Maximum number of info days"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:85
-msgid "Maximum aantal EVS-deadlines"
-msgstr "Maximum number of EVS deadlines"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:86
-msgid "EVS: weken voor vertrek"
-msgstr "EVS: weeks before departure"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:87
-msgid "Maximale grootte IP-whitelist"
-msgstr "Maximum size IP whitelist"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:88
-msgid "Maximaal aantal Nederlandse Projecten"
-msgstr "Maximum number of Dutch Projects"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:89
-msgid "Maximum aantal bestuursleden"
-msgstr "Maximum number of board members"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:90
-msgid "Maximum aantal jaarverslagen"
-msgstr "Maximum number of annual reports"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:91
-msgid "Tijdstip import projecten"
-msgstr "Time import projects"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:92
-msgid "Tijdstip bijwerken vrije plaatsen"
-msgstr "Time update free places"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:93
-msgid "Tijdstip achtergrondprogramma's"
-msgstr ""
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:94
-msgid "Tijdstip backup database"
-msgstr "Time backup database"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:95
-msgid "Tijdstip backup bestanden"
-msgstr "Time backup files"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:96
-msgid "Tijdstip cache verversen"
-msgstr "Time refresh cache"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:97
-msgid "Inschrijfgeld Groepsproject (student)"
-msgstr "Registration fee Workcamp (student)"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:98
-msgid "Inschrijfgeld Groepsproject (regulier)"
-msgstr "Registration fee Workcamp (regular)"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:99
-#, fuzzy
-#| msgid "Inschrijfgeld Groepsproject (student)"
-msgid "Inschrijfgeld Groepsproject (student) - korting"
-msgstr "Registration fee Workcamp (student)"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:100
-#, fuzzy
-#| msgid "Inschrijfgeld Groepsproject (regulier)"
-msgid "Inschrijfgeld Groepsproject (regulier) - korting"
-msgstr "Registration fee Workcamp (regular)"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:101
-msgid "Inschrijfgeld Op Maat (student)"
-msgstr "Registration fee Customized Project (student)"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:102
-msgid "Inschrijfgeld Op Maat (regulier)"
-msgstr "Registration fee Customized Project (regular)"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:104
-msgid "Kortingspercentage tweede project"
-msgstr "Discount percentage second project"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:105
-msgid "Kortingspercentage derde project"
-msgstr "Discount percentage third project"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:106
-msgid "Postcode API URL"
-msgstr "Postcode API URL"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:107
-msgid "Plato webservice URL"
-msgstr "Plato webservice URL"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:108
-msgid "Reisadvies base-URL"
-msgstr "Travel advice base URL"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:109
-msgid "Wisselkoersen API base-url"
-msgstr "Exchange rates API base URL"
-
-#: plugins/siw-functionality/includes/reference-data/configuration/configuration.php:110
-msgid "Report URI"
-msgstr "Report URI"
 
 #: plugins/siw-functionality/includes/reference-data/continents/data.php:19
 #: plugins/siw-functionality/includes/settings/sections/countries.php:73
@@ -3079,54 +3031,58 @@ msgid "Verenigde Staten"
 msgstr "United States"
 
 #: plugins/siw-functionality/includes/reference-data/currencies/data.php:19
+msgid "Canadese dollar"
+msgstr "Canadian dollar"
+
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:24
 msgid "Zwitserse frank"
 msgstr "Swiss franc"
 
-#: plugins/siw-functionality/includes/reference-data/currencies/data.php:24
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:29
 msgid "Deense kroon"
 msgstr "Danish krone"
 
-#: plugins/siw-functionality/includes/reference-data/currencies/data.php:29
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:34
 msgid "Euro"
 msgstr "Euro"
 
-#: plugins/siw-functionality/includes/reference-data/currencies/data.php:34
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:39
 msgid "Britse Pond"
 msgstr "Pound sterling"
 
-#: plugins/siw-functionality/includes/reference-data/currencies/data.php:39
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:44
 msgid "Indonesische roepia"
 msgstr "Indonesian rupiah"
 
-#: plugins/siw-functionality/includes/reference-data/currencies/data.php:44
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:49
 msgid "Indiase roepie"
 msgstr "Indian rupee"
 
-#: plugins/siw-functionality/includes/reference-data/currencies/data.php:49
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:54
 msgid "Japanse yen"
 msgstr "Japanese yen"
 
-#: plugins/siw-functionality/includes/reference-data/currencies/data.php:54
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:59
 msgid "Keniaanse shilling"
 msgstr "Kenyan shilling"
 
-#: plugins/siw-functionality/includes/reference-data/currencies/data.php:59
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:64
 msgid "Mexicaanse peso"
 msgstr "Mexican peso"
 
-#: plugins/siw-functionality/includes/reference-data/currencies/data.php:64
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:69
 msgid "Russische roebel"
 msgstr "Russian ruble"
 
-#: plugins/siw-functionality/includes/reference-data/currencies/data.php:69
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:74
 msgid "Thaise baht"
 msgstr "Thai baht"
 
-#: plugins/siw-functionality/includes/reference-data/currencies/data.php:74
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:79
 msgid "Amerikaanse dollar"
 msgstr "US dollar"
 
-#: plugins/siw-functionality/includes/reference-data/currencies/data.php:79
+#: plugins/siw-functionality/includes/reference-data/currencies/data.php:84
 msgid "Vietnamese dong"
 msgstr "Vietnamese dong"
 
@@ -3244,94 +3200,94 @@ msgstr "Intermediate"
 msgid "Uitstekend"
 msgstr "Advanced"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:32
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:31
 msgid "Brabant"
 msgstr "Brabant"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:33
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:32
 msgid "Drenthe"
 msgstr "Drenthe"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:34
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:33
 msgid "Flevoland"
 msgstr "Flevoland"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:35
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:34
 msgid "Friesland"
 msgstr "Friesland"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:36
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:35
 msgid "Gelderland"
 msgstr "Gelderland"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:37
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:36
 msgid "Groningen"
 msgstr "Groningen"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:38
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:37
 msgid "Limburg"
 msgstr "Limburg"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:39
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:38
 msgid "Noord-Holland"
 msgstr "North Holland"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:40
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:39
 msgid "Overijssel"
 msgstr "Overijssel"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:41
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:40
 msgid "Utrecht"
 msgstr "Utrecht"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:42
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:41
 msgid "Zeeland"
 msgstr "Zeeland"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:43
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:42
 msgid "Zuid-Holland"
 msgstr "South Holland"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:55
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:54
 msgid "Bewustwording, democracy, beleid"
 msgstr "Awareness, democracy, policy"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:56
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:55
 msgid "Cultuur, creativiteit"
 msgstr "Culture, creativyt"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:57
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:56
 msgid "Inclusion, zorg, hulpverlening Kinderen, Roma"
 msgstr "Inclusion, care, assistance Children, Roma"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:58
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:57
 msgid "Mensenrechten, equality, gender"
 msgstr "Human rights, equality, gender"
 
-#: plugins/siw-functionality/includes/reference-data/reference-data.php:59
+#: plugins/siw-functionality/includes/reference-data/reference-data.php:58
 msgid "Natuurbescherming, milieu, klimaat"
 msgstr "Nature preservation, environment, climate"
 
 #: plugins/siw-functionality/includes/reference-data/social-networks/data.php:14
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:90
+#: plugins/siw-functionality/includes/settings/sections/topbar.php:53
 msgid "Facebook"
 msgstr "Facebook"
 
-#: plugins/siw-functionality/includes/reference-data/social-networks/data.php:22
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:92
+#: plugins/siw-functionality/includes/reference-data/social-networks/data.php:23
+#: plugins/siw-functionality/includes/settings/sections/topbar.php:55
 msgid "Twitter"
 msgstr "Twitter"
 
-#: plugins/siw-functionality/includes/reference-data/social-networks/data.php:30
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:91
+#: plugins/siw-functionality/includes/reference-data/social-networks/data.php:32
+#: plugins/siw-functionality/includes/settings/sections/topbar.php:54
 msgid "Instagram"
 msgstr "Instagram"
 
-#: plugins/siw-functionality/includes/reference-data/social-networks/data.php:37
+#: plugins/siw-functionality/includes/reference-data/social-networks/data.php:40
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: plugins/siw-functionality/includes/reference-data/social-networks/data.php:45
+#: plugins/siw-functionality/includes/reference-data/social-networks/data.php:49
 msgid "YouTube"
 msgstr "YouTube"
 
@@ -3897,90 +3853,82 @@ msgstr "Swiss"
 
 #: plugins/siw-functionality/includes/reference-data/work-types/data.php:18
 msgid "Restauratie"
-msgstr ""
+msgstr "Restauration"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:39
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:42
 msgid "Archeologie"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:53
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:58
 msgid "Kinderen"
-msgstr ""
+msgstr "Children"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:60
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:66
 msgid "Thema"
-msgstr ""
+msgstr "Theme"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:67
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:74
 msgid "Gehandicapten"
-msgstr ""
+msgstr "Disabled"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:81
-#, fuzzy
-#| msgid "Anders"
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:82
+msgid "Handarbeid"
+msgstr "Manual labour"
+
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:90
 msgid "Onderwijs"
-msgstr "Other"
+msgstr "Education"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:88
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:98
 msgid "Ouderen"
 msgstr ""
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:95
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:106
 msgid "Festival"
 msgstr "Festival"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:102
-#, fuzzy
-#| msgid "Natuur"
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:114
 msgid "Cultuur"
-msgstr "Nature"
+msgstr "Culture"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:109
-#, fuzzy
-#| msgid "Land"
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:122
 msgid "Landbouw"
-msgstr "Country"
-
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:116
-msgid "Kunst"
-msgstr ""
-
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:123
-#, fuzzy
-#| msgid "Export"
-msgid "Sport"
-msgstr "Export"
+msgstr "Agriculture"
 
 #: plugins/siw-functionality/includes/reference-data/work-types/data.php:130
+msgid "Kunst"
+msgstr "Art"
+
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:138
+#| msgid "Export"
+msgid "Sport"
+msgstr "Sport"
+
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:146
 msgid "Yoga"
 msgstr "Yoga"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:137
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:154
 msgid "Taalcursus"
-msgstr ""
+msgstr "Language course"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:144
-#, fuzzy
-#| msgid "Taal 1"
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:162
 msgid "Taal"
-msgstr "Language 1"
+msgstr "Language"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:151
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:158
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:170
 msgid "Dieren"
 msgstr "Animals"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:165
-#, fuzzy
-#| msgid "Projectbegeleider NP"
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:178
 msgid "Projectbegeleider"
-msgstr "Project Leader Dutch volunteer projects"
+msgstr "Camp leader"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:172
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:186
 msgid "Erfgoed"
 msgstr "Heritage"
 
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:179
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:194
 msgid "Vluchtelingen"
 msgstr "Refugees"
 
@@ -3990,128 +3938,114 @@ msgstr "Refugees"
 msgid "Instellingen SIW"
 msgstr "Settings SIW"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:44
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:23
 msgid "Google Analytics"
 msgstr "Google Analytics"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:49
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:28
 msgid "Property ID"
 msgstr "Property ID"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:56
-msgid "Enhanced link attribution"
-msgstr "Enhanced link attribution"
-
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:98
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:70
 msgid "User-agent"
 msgstr "User-agent"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:109
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:81
 #: plugins/siw-functionality/includes/widgets/newsletter/newsletter.php:42
-#, fuzzy
-#| msgid "Aanmelding nieuwsbrief"
 msgid "Nieuwsbrief"
-msgstr "Newsletter registration"
+msgstr "Newsletter"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:151
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:123
 msgid "Test-mode"
 msgstr "Test mode"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:158
-msgid "FPL-import"
-msgstr "FPL-import"
-
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:164
-msgid "Volledige import"
-msgstr "Full import"
-
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:170
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:130
 msgid "Forceer volledige update"
 msgstr "Force full update"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:180
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:140
 msgid "Overzicht"
 msgstr "Overview"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:188
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:195
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:202
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:220
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:227
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:234
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:241
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:259
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:266
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:273
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:148
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:155
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:162
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:180
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:187
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:194
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:201
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:219
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:226
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:233
 #: plugins/siw-functionality/includes/widgets/cta/cta.php:69
 msgid "Selecteer een pagina"
 msgstr "Select a page"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:251
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:211
 msgid "Overige"
 msgstr "Other"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:263
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:223
 msgid "Zoekresultaten Snel zoeken"
 msgstr "Results quick search"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:285
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:245
 msgid "IP whitelist"
 msgstr "IP whitelist"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:311
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:271
 msgid "SMTP gebruiken"
 msgstr "Use SMTP"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:318
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:278
 msgid "SMTP host"
 msgstr "SMTP host"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:329
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:289
 msgid "SMTP port"
 msgstr "SMTP port"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:341
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:301
 msgid "SMTP encryptie"
 msgstr "SMTP encryption"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:348
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:308
 msgid "Selecteer encryptie"
 msgstr "Select encryption"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:357
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:317
 msgid "SMTP authenticatie"
 msgstr "SMTP authentication"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:369
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:329
 msgid "Inloggegevens"
 msgstr "Credentials"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:396
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:356
 msgid "DKIM gebruiken"
 msgstr "Use DKIM"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:403
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:363
 msgid "DKIM selector"
 msgstr "DKIM selector"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:414
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:374
 msgid "DKIM domein"
 msgstr "DKIM domein"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:425
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:385
 msgid "DKIM passphrase"
 msgstr "DKIM passphrase"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:450
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:410
 msgid "Analytics & SEO"
 msgstr "Analytics & SEO"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:456
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:416
 msgid "API"
 msgstr "API"
 
-#: plugins/siw-functionality/includes/settings/sections/configuration.php:468
+#: plugins/siw-functionality/includes/settings/sections/configuration.php:428
 msgid "Login"
 msgstr "Login"
 
@@ -4131,13 +4065,20 @@ msgstr "Email enquiry general"
 msgid "E-mail infoverzoek Groepsproject"
 msgstr "Email enquiry volunteer projects"
 
-#: plugins/siw-functionality/includes/settings/sections/enquiry.php:80
-msgid "Infoverzoeken"
-msgstr "Enquiries"
-
 #: plugins/siw-functionality/includes/settings/sections/evs.php:19
 msgid "Minimum aantal weken voor deadline"
 msgstr "Minimum number of weeks before deadline"
+
+#: plugins/siw-functionality/includes/settings/sections/evs.php:27
+#: plugins/siw-functionality/includes/settings/sections/evs.php:91
+msgid "Deadlines"
+msgstr "Deadlines"
+
+#: plugins/siw-functionality/includes/settings/sections/evs.php:85
+#: plugins/siw-functionality/includes/settings/sections/info-day.php:82
+#: plugins/siw-functionality/includes/settings/sections/op-maat.php:54
+msgid "Aanmeldformulier"
+msgstr "Application form"
 
 #: plugins/siw-functionality/includes/settings/sections/info-day.php:14
 msgid "Verberg aanmeldformulier vanaf aantal dagen voor infodag"
@@ -4159,42 +4100,15 @@ msgstr "E-mail camp leader"
 msgid "E-mail samenwerking"
 msgstr "E-mail cooperation"
 
-#: plugins/siw-functionality/includes/settings/sections/np.php:107
-msgid "Aanwezig"
-msgstr "Present"
-
-#: plugins/siw-functionality/includes/settings/sections/np.php:194
+#: plugins/siw-functionality/includes/settings/sections/np.php:89
 msgid "Formulieren"
 msgstr "Forms"
-
-#: plugins/siw-functionality/includes/settings/sections/np.php:200
-#: plugins/siw-functionality/includes/widgets/map/map.php:38
-#: plugins/siw-functionality/includes/widgets/map/map.php:55
-msgid "Kaart"
-msgstr "Map"
-
-#: plugins/siw-functionality/includes/settings/sections/np.php:201
-msgid "Projectoverzicht"
-msgstr "Project overview"
 
 #: plugins/siw-functionality/includes/settings/sections/organisation.php:64
 msgid "Jaarverslag"
 msgstr "Annual report"
 
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:27
-msgid "Evenement in topbar"
-msgstr "Event in topbar"
-
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:33
-msgid "Datum range"
-msgstr "Date range"
-
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:34
-msgid ""
-"Toon evenement als het meer dan x en minder dan y dagen in de toekomst ligt"
-msgstr "Show event if it is more than x and less than y days in the future"
-
-#: plugins/siw-functionality/includes/settings/sections/topbar.php:51
+#: plugins/siw-functionality/includes/settings/sections/topbar.php:14
 msgid "Social media in topbar"
 msgstr "Social media in topbar"
 
@@ -4212,6 +4126,7 @@ msgstr "Sender of the application for export to Plato"
 
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:160
 #: plugins/siw-functionality/includes/settings/sections/workcamps.php:167
+#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:184
 msgid "Import"
 msgstr "Import"
 
@@ -4257,40 +4172,34 @@ msgstr ""
 
 #: plugins/siw-functionality/includes/widgets/accordion/accordion.php:54
 msgid "Paneel"
-msgstr ""
+msgstr "Panel"
 
 #: plugins/siw-functionality/includes/widgets/accordion/accordion.php:67
 #: plugins/siw-functionality/includes/widgets/chart/chart.php:108
-#: plugins/siw-functionality/includes/widgets/features/features.php:84
+#: plugins/siw-functionality/includes/widgets/features/features.php:89
 msgid "Inhoud"
-msgstr ""
+msgstr "Content"
 
 #: plugins/siw-functionality/includes/widgets/accordion/accordion.php:73
-#, fuzzy
-#| msgid "Toont CTA met knop"
 msgid "Toon een knop"
-msgstr "Show CTA with button"
+msgstr "Show a button"
 
 #: plugins/siw-functionality/includes/widgets/accordion/accordion.php:85
-#, fuzzy
-#| msgid "Introtekst"
 msgid "Knoptekst"
-msgstr "Introduction text"
+msgstr "Button text"
 
 #: plugins/siw-functionality/includes/widgets/accordion/accordion.php:93
-#: plugins/siw-functionality/includes/widgets/features/features.php:102
+#: plugins/siw-functionality/includes/widgets/features/features.php:107
 msgid "URL"
 msgstr "URL"
 
 #: plugins/siw-functionality/includes/widgets/accordion/accordion.php:94
 msgid "Relatief"
-msgstr ""
+msgstr "Relative"
 
 #: plugins/siw-functionality/includes/widgets/calendar/calendar.php:40
-#, fuzzy
-#| msgid "Toont het eerstvolgende evenement"
 msgid "Toont eerstvolgende evenementen"
-msgstr "Show the next first event"
+msgstr "Shows upcoming events"
 
 #: plugins/siw-functionality/includes/widgets/calendar/calendar.php:66
 msgid "Er zijn momenteel geen geplande activiteiten."
@@ -4302,7 +4211,7 @@ msgstr "Check the full agenda."
 
 #: plugins/siw-functionality/includes/widgets/chart/chart.php:42
 msgid "Grafiek"
-msgstr ""
+msgstr "Chart"
 
 #: plugins/siw-functionality/includes/widgets/chart/chart.php:43
 msgid "Toont grafiek"
@@ -4314,10 +4223,8 @@ msgid "Type grafiek"
 msgstr ""
 
 #: plugins/siw-functionality/includes/widgets/chart/chart.php:60
-#, fuzzy
-#| msgid "Kaart"
 msgid "Taart"
-msgstr "Map"
+msgstr "Pie"
 
 #: plugins/siw-functionality/includes/widgets/chart/chart.php:61
 msgid "Lijn"
@@ -4325,11 +4232,11 @@ msgstr ""
 
 #: plugins/siw-functionality/includes/widgets/chart/chart.php:76
 msgid "SIW: Grafiek"
-msgstr ""
+msgstr "SIW: Chart"
 
 #: plugins/siw-functionality/includes/widgets/chart/chart.php:78
 msgid "Toont een grafiek."
-msgstr ""
+msgstr "Shows a chart."
 
 #: plugins/siw-functionality/includes/widgets/chart/chart.php:94
 msgid "Data"
@@ -4340,32 +4247,26 @@ msgid "Contactinformatie"
 msgstr "Contact information"
 
 #: plugins/siw-functionality/includes/widgets/contact/contact.php:40
-#, fuzzy
-#| msgid "Contactinformatie"
 msgid "Toont contactinformatie"
-msgstr "Contact information"
+msgstr "Shows contact information"
 
 #: plugins/siw-functionality/includes/widgets/contact/contact.php:67
-#, fuzzy, php-format
-#| msgid "Maandag t/m vrijdag %s"
+#, php-format
 msgid "Maandag t/m vrijdag %s-%s"
-msgstr "Monday to Friday %s"
+msgstr "Monday to Friday %s-%s"
 
 #: plugins/siw-functionality/includes/widgets/cta/cta.php:41
 msgid "CTA"
-msgstr ""
+msgstr "CTA"
 
 #: plugins/siw-functionality/includes/widgets/cta/cta.php:42
-#, fuzzy
-#| msgid "SIW: Call to action"
 msgid "Toont call to action"
-msgstr "SIW: Call to action"
+msgstr "Shows call to action"
 
 #: plugins/siw-functionality/includes/widgets/cta/cta.php:52
-#, fuzzy
 #| msgid "Deadline"
 msgid "Headline"
-msgstr "Deadline"
+msgstr "Headline"
 
 #: plugins/siw-functionality/includes/widgets/cta/cta.php:56
 msgid "Heading"
@@ -4395,68 +4296,86 @@ msgstr "Middle"
 msgid "Rechts"
 msgstr "Right"
 
+#: plugins/siw-functionality/includes/widgets/dutch-projects/dutch-projects.php:41
+msgid "Toont omschrijving van Nederlandse projecten"
+msgstr "Show description of Dutch projects"
+
+#: plugins/siw-functionality/includes/widgets/dutch-projects/dutch-projects.php:68
+#, php-format
+msgid "Thema: %s"
+msgstr "Theme: %s"
+
+#: plugins/siw-functionality/includes/widgets/dutch-projects/dutch-projects.php:116
+#, php-format
+msgid "Engelstalige programmaboekje %d (PDF)"
+msgstr "program %d (PDF)"
+
+#: plugins/siw-functionality/includes/widgets/dutch-projects/dutch-projects.php:119
+#, php-format
+msgid ""
+"Wil jij meer lezen over onze Nederlandse vrijwilligersprojecten, download "
+"dan ons %s."
+msgstr ""
+"Do you want to read more about our Dutch volunteer projects, download our %s."
+
 #: plugins/siw-functionality/includes/widgets/features/features.php:35
 #: plugins/siw-functionality/includes/widgets/features/features.php:65
-#, fuzzy
-#| msgid "Vacatures"
 msgid "Features"
-msgstr "Vacancies"
+msgstr "Features"
 
 #: plugins/siw-functionality/includes/widgets/features/features.php:36
 msgid "Toont features met toelichting en link"
 msgstr ""
 
 #: plugins/siw-functionality/includes/widgets/features/features.php:55
-#, fuzzy
-#| msgid "Aantal deelnemers"
 msgid "Aantal kolommen"
-msgstr "Number of participants"
+msgstr "Number of columns"
 
 #: plugins/siw-functionality/includes/widgets/features/features.php:57
 msgid "Eén"
-msgstr ""
+msgstr "One"
 
 #: plugins/siw-functionality/includes/widgets/features/features.php:58
 msgid "Twee"
-msgstr ""
+msgstr "Two"
 
 #: plugins/siw-functionality/includes/widgets/features/features.php:59
 msgid "Drie"
-msgstr ""
+msgstr "Three"
 
 #: plugins/siw-functionality/includes/widgets/features/features.php:60
 msgid "Vier"
-msgstr ""
+msgstr "Four"
 
 #: plugins/siw-functionality/includes/widgets/features/features.php:66
-#, fuzzy
-#| msgid "Vacature"
 msgid "Feature"
-msgstr "Job listing"
+msgstr "Feature"
 
 #: plugins/siw-functionality/includes/widgets/features/features.php:75
+#: plugins/siw-functionality/includes/widgets/features/features.php:80
 msgid "Icoon"
-msgstr ""
+msgstr "Icon"
 
-#: plugins/siw-functionality/includes/widgets/features/features.php:90
+#: plugins/siw-functionality/includes/widgets/features/features.php:95
 msgid "Voeg link toe"
-msgstr ""
+msgstr "Add link"
+
+#: plugins/siw-functionality/includes/widgets/map/map.php:38
+#: plugins/siw-functionality/includes/widgets/map/map.php:55
+msgid "Kaart"
+msgstr "Map"
 
 #: plugins/siw-functionality/includes/widgets/map/map.php:39
 msgid "Toont interactieve kaart"
-msgstr ""
+msgstr "Show interactive map"
 
 #: plugins/siw-functionality/includes/widgets/map/map.php:56
-#, fuzzy
-#| msgid "Selecteer een kaart"
 msgid "Kies een kaart"
 msgstr "Select a map"
 
 #: plugins/siw-functionality/includes/widgets/newsletter/newsletter.php:43
-#, fuzzy
-#| msgid "Aanmeldformulier voor de infodag"
 msgid "Toont aanmeldformulier voor nieuwsbrief"
-msgstr "Infoday application form"
+msgstr "Show application form for newsletter"
 
 #: plugins/siw-functionality/includes/widgets/newsletter/newsletter.php:54
 msgid "Blijf op de hoogte"
@@ -4468,68 +4387,53 @@ msgid "Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees."
 msgstr "Sign-up for our newsletter and join our %d signees."
 
 #: plugins/siw-functionality/includes/widgets/organisation/organisation.php:42
-#, fuzzy
-#| msgid "Organisatie"
 msgid "Organisatiegegevens"
-msgstr "Organisation"
+msgstr "Organisation data"
 
 #: plugins/siw-functionality/includes/widgets/organisation/organisation.php:43
-#, fuzzy
-#| msgid "Contactgegevens"
 msgid "Toont organisatiegegevens"
-msgstr "Contact details"
+msgstr "Show organisation data"
 
 #: plugins/siw-functionality/includes/widgets/organisation/organisation.php:54
-#, fuzzy
-#| msgid "Gegevens voor PO"
 msgid "Gegevens"
-msgstr "Details for PO"
+msgstr "Data"
 
 #: plugins/siw-functionality/includes/widgets/organisation/organisation.php:58
+#: plugins/siw-functionality/includes/widgets/organisation/organisation.php:82
 msgid "Beloningsbeleid"
-msgstr ""
+msgstr "Renumeration policy"
+
+#: plugins/siw-functionality/includes/widgets/organisation/organisation.php:72
+msgid "Statutaire naam"
+msgstr "Statutory name"
 
 #: plugins/siw-functionality/includes/widgets/organisation/organisation.php:73
 msgid "RSIN/fiscaal nummer"
-msgstr ""
+msgstr "Fiscal number"
 
 #: plugins/siw-functionality/includes/widgets/organisation/organisation.php:75
-#, fuzzy
-#| msgid "Telefoonnummer"
 msgid "Rekeningnummer"
-msgstr "Phone number"
+msgstr "Account number"
 
 #: plugins/siw-functionality/includes/widgets/organisation/organisation.php:77
-#, fuzzy
-#| msgid "Bestuursleden"
 msgid "Bestuurssamenstelling"
-msgstr "Board members"
+msgstr "Board composition"
 
 #: plugins/siw-functionality/includes/widgets/organisation/organisation.php:78
 msgid "Het bestuur van SIW bestaat momenteel uit:"
 msgstr ""
 
-#: plugins/siw-functionality/includes/widgets/organisation/organisation.php:82
-msgid "Beloningsbeleid naam"
-msgstr ""
-
 #: plugins/siw-functionality/includes/widgets/quick-search-form/quick-search-form.php:39
-#, fuzzy
-#| msgid "Snel zoeken"
 msgid "Snel Zoeken - formulier"
-msgstr "Quick search"
+msgstr "Quick Search - form"
 
 #: plugins/siw-functionality/includes/widgets/quick-search-form/quick-search-form.php:40
-#, fuzzy
-#| msgid "Aanmeldformulier"
 msgid "Toont zoekformulier"
-msgstr "Application form"
+msgstr "Show search form"
 
 #: plugins/siw-functionality/includes/widgets/quick-search-form/quick-search-form.php:51
-#, fuzzy
-#| msgid "Snel zoeken"
 msgid "Snel Zoeken"
-msgstr "Quick search"
+msgstr "Quick Search"
 
 #: plugins/siw-functionality/includes/widgets/quick-search-form/quick-search-form.php:92
 msgid "Waar wil je heen?"
@@ -4540,10 +4444,8 @@ msgid "Wanneer wil je weg?"
 msgstr "When do you want to leave?"
 
 #: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:43
-#, fuzzy
-#| msgid "Snel zoeken"
 msgid "Snel Zoeken - resultaat"
-msgstr "Quick search"
+msgstr "Quick Search - result"
 
 #: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:44
 #, fuzzy
@@ -4551,19 +4453,19 @@ msgstr "Quick search"
 msgid "Toont zoektresultaten"
 msgstr "Application form"
 
-#: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:96
-#: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:107
+#: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:99
+#: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:110
 #, php-format
 msgid "in %s"
 msgstr "in %s"
 
-#: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:112
+#: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:115
 msgid ""
 "Met een Groepsproject ga je voor 2 tot 3 weken naar een project, de begin- "
 "en einddatum van het project staan al vast."
 msgstr ""
 
-#: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:113
+#: plugins/siw-functionality/includes/widgets/quick-search-results/quick-search-results.php:116
 msgid "Hieronder zie je een selectie van de mogelijkheden"
 msgstr "Below you can see a selection of the possibilities"
 
@@ -4608,7 +4510,7 @@ msgid "Volgende update"
 msgstr "Next update"
 
 #: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:84
-#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:230
+#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:226
 msgid "Opnieuw importeren"
 msgstr "Import again"
 
@@ -4631,74 +4533,70 @@ msgstr "Approve"
 
 #: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:127
 msgid "Afkeuren"
-msgstr ""
+msgstr "Reject"
 
 #: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:177
 msgid "Beoordeling"
 msgstr "Approval"
 
-#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:220
-msgid "Automatisch"
-msgstr "Automatic"
-
-#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:251
-#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:264
+#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:247
+#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:260
 msgid "Goedgekeurd"
 msgstr "Approved"
 
-#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:252
-#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:265
+#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:248
+#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:261
 msgid "Afgewezen"
 msgstr "Rejected"
 
-#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:262
+#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:258
 msgid "Resultaat"
 msgstr "Result"
 
-#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:277
+#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:273
 msgid "Gebruiker"
 msgstr "User"
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout-newsletter.php:91
-msgid "Aanmelden voor nieuwsbrief tijdens checkout"
-msgstr "Sign-up for the newsletter during checkout"
+#: plugins/siw-functionality/includes/woocommerce/admin/class-siw-wc-admin-product.php:284
+#, fuzzy
+#| msgid "Datums"
+msgid "Datum"
+msgstr "Dates"
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:98
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:96
 msgid "Korting 2e project"
 msgstr "Discount second project"
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:102
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:100
 msgid "Korting 3e project"
 msgstr "Discount third project"
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:106
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:104
 #, fuzzy, php-format
 #| msgid "Korting derde project"
 msgid "Korting %de project"
 msgstr "Discount third project"
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:180
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:178
 #: plugins/siw-functionality/includes/woocommerce/data-checkout-fields.php:16
 msgid "Informatie voor partner"
 msgstr "Information for partner"
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:265
-#, fuzzy
-#| msgid "Akkoord met inschrijfvoorwaarden"
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:263
 msgid "inschrijfvoorwaarden"
-msgstr "Agreed with the registration conditions"
+msgstr "registration conditions"
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:266
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:264
 #, php-format
 msgid "Ik heb de %s gelezen en ga akkoord"
-msgstr ""
+msgstr "I have read the %s and agree"
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:342
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:340
 #, php-format
 msgid "%s bevat geen geldige datum."
 msgstr "%s is not a valid date."
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:348
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-checkout.php:346
 #, fuzzy, php-format
 #| msgid ""
 #| "<strong>Geboortedatum</strong> de minimumleeftijd voor deelname is 14 "
@@ -4823,41 +4721,35 @@ msgid "<a href=\"%s\">Bel of mail ons</a> en we denken graag met je mee!"
 msgstr ""
 "<a href=\"%s\">Call or email us</a> and we are happy to think along with you!"
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:174
-#, fuzzy, php-format
-#| msgid ""
-#| "Heel erg bedankt voor je aanmelding en betaling voor een "
-#| "vrijwilligersproject via SIW!"
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:173
+#, php-format
 msgid "Meld je nu aan en betaal geen %s maar %s voor je vrijwilligersproject."
 msgstr ""
-"Thank you very much for your application and payment to a volunteer project "
-"through SIW!"
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:175
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:174
 msgid "Ben je student of jonger dan 18 jaar?"
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:176
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:175
 #, php-format
 msgid "Dan betaal je in plaats van %s nog maar %s."
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:177
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:176
 msgid "Let op:"
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:178
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:177
 #, php-format
 msgid "Deze actie duurt nog maar t/m %s, dus wees er snel bij."
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:246
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product-archive.php:245
 msgid "Willekeurig"
 msgstr "Random"
 
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product.php:77
 #: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product.php:108
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:62
 msgid "Projectlocatie"
 msgstr "Project location"
 
@@ -4865,7 +4757,7 @@ msgstr "Project location"
 msgid "Stel een vraag"
 msgstr "Ask a question"
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product.php:148
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product.php:149
 msgid ""
 "Je komt in aanmerking voor het studententarief als je 17 jaar of jonger bent "
 "of als je een bewijs van inschrijving kunt laten zien."
@@ -4873,11 +4765,11 @@ msgstr ""
 "You are eligible for the student discount if you are 17 or younger, or if "
 "you can show us a proof of registration."
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product.php:160
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product.php:161
 msgid "Korting"
 msgstr "Discount"
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product.php:226
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product.php:221
 #, php-format
 msgid ""
 "Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage "
@@ -4886,7 +4778,7 @@ msgstr ""
 "Pay attention: in addition to the registration fee, on sight you will also "
 "pay a local contribution of %s %s."
 
-#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product.php:228
+#: plugins/siw-functionality/includes/woocommerce/class-siw-wc-product.php:223
 #, php-format
 msgid "(Ca. &euro; %s)"
 msgstr "(About &euro; %s)"
@@ -5017,27 +4909,33 @@ msgstr "Total"
 msgid "Betaalwijze"
 msgstr "Payment method"
 
-#: plugins/siw-functionality/includes/woocommerce/import/class-siw-import-workcamp.php:315
+#: plugins/siw-functionality/includes/woocommerce/import/class-siw-wc-import-product.php:492
 msgid "Werk"
-msgstr ""
+msgstr "Work"
 
-#: plugins/siw-functionality/includes/woocommerce/import/class-siw-import-workcamp.php:319
+#: plugins/siw-functionality/includes/woocommerce/import/class-siw-wc-import-product.php:496
 msgid "Accommodatie en maaltijden"
-msgstr ""
+msgstr "Accommodation and meals"
 
-#: plugins/siw-functionality/includes/woocommerce/import/class-siw-import-workcamp.php:323
+#: plugins/siw-functionality/includes/woocommerce/import/class-siw-wc-import-product.php:500
 msgid "Locatie en vrije tijd"
-msgstr ""
+msgstr "Location and leisure time"
 
-#: plugins/siw-functionality/includes/woocommerce/import/class-siw-import-workcamp.php:331
+#: plugins/siw-functionality/includes/woocommerce/import/class-siw-wc-import-product.php:508
 msgid "Vereisten"
 msgstr "Requirements"
 
-#: plugins/siw-functionality/includes/woocommerce/import/class-siw-import-workcamp.php:335
-#, fuzzy
-#| msgid "Overige opmerkingen?"
+#: plugins/siw-functionality/includes/woocommerce/import/class-siw-wc-import-product.php:512
 msgid "Opmerkingen"
-msgstr "Other comments?"
+msgstr "Remarks"
+
+#: plugins/siw-functionality/includes/woocommerce/import/class-siw-wc-import-product.php:794
+msgid "Families"
+msgstr "Families"
+
+#: plugins/siw-functionality/includes/woocommerce/import/class-siw-wc-import-product.php:798
+msgid "Tieners"
+msgstr "Teenagers"
 
 #: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:17
 #: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:52
@@ -5045,6 +4943,8 @@ msgid "Zet je in voor een {{ project_type }} in {{ country }}."
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:18
+#: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:26
+#: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:34
 msgid ""
 "Dit project vindt plaats van {{ dates }} en biedt ruimte aan "
 "{{ participants }} deelnemers in de leeftijd van {{ ages }}."
@@ -5079,12 +4979,6 @@ msgid ""
 "{{ country }}."
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:26
-msgid ""
-"Dit project vindt plaats van {{ dates }} en biedt ruimte aan "
-"{{ participants }} in de leeftijd van {{ ages }}."
-msgstr ""
-
 #: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:27
 msgid "Jouw werkzaamheden richten zich op {{ work_type }}."
 msgstr ""
@@ -5114,12 +5008,6 @@ msgid ""
 "{{ country }}."
 msgstr ""
 
-#: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:34
-msgid ""
-"Dit project vindt plaats van [start- en einddatum] en biedt ruimte aan "
-"{{ participants }} in de leeftijd van {{ ages }}."
-msgstr ""
-
 #: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:35
 msgid "Je gaat werkzaamheden uitvoeren gericht op {{ work_type }}."
 msgstr ""
@@ -5136,122 +5024,11 @@ msgstr ""
 #: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:53
 msgid ""
 "Dit project vindt plaats van {{ dates }} en biedt ruimte aan "
-"{{ participants }}."
+"{{ participants }} deelnemers."
 msgstr ""
 
 #: plugins/siw-functionality/includes/woocommerce/import/data-descriptions.php:51
 msgid "Op zoek naar een vrijwilligersproject gericht op {{ work_type }}?"
-msgstr ""
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:12
-msgid "Extra gegevens groepsproject"
-msgstr "Extra details Workcamp"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:17
-msgid "Projecteigenschappen"
-msgstr "Project characteristics"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:21
-msgid "Project ID"
-msgstr "Project ID"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:29
-msgid "jjjj-mm-dd"
-msgstr "yyyy-mm-dd"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:36
-msgid "Naam van het land (t.b.v. sorteerfunctie)"
-msgstr "Name of the country (for the purpose of the filter)"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:40
-msgid "Minimumleeftijd"
-msgstr "Minimum age"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:43
-msgid "Wordt gebruikt bij validaties."
-msgstr "Is used for validations."
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:47
-msgid "Toegestaan"
-msgstr "Allowed"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:50
-msgid "Geef aan of dit een project in een toegestaan land is (yes/no)"
-msgstr "Indicate whether this is a project in an allowed country (yes/no)"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:54
-msgid "Standaard tarief"
-msgstr "Default tariff"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:57
-msgid "Student/<18"
-msgstr "Student/<18"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:58
-msgid "Regulier"
-msgstr "Regular"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:63
-msgid "Geef de coördinaten van het project op"
-msgstr "Geef de coördinaten van het project op"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:67
-msgid "Latitude"
-msgstr "Latitude"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:72
-msgid "Longitude"
-msgstr "Longitude"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:76
-msgid "Lokale bijdrage"
-msgstr "Local fee"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:80
-msgid "Valuta"
-msgstr "Currency"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:85
-msgid "Bedrag"
-msgstr "Amount"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:89
-msgid "SEO"
-msgstr "SEO"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:93
-msgid "SEO titel"
-msgstr "SEO title"
-
-#: plugins/siw-functionality/includes/woocommerce/import/wp-all-import.php:98
-msgid "Meta omschrijving"
-msgstr "Meta description"
-
-#: plugins/siw-functionality/node_modules/apexcharts/node_modules/babel-polyfill/browser.js:1
-#: plugins/siw-functionality/node_modules/apexcharts/node_modules/babel-polyfill/dist/polyfill.min.js:1
-msgid "delete"
-msgstr ""
-
-#: plugins/siw-functionality/node_modules/apexcharts/node_modules/babel-polyfill/browser.js:1
-#: plugins/siw-functionality/node_modules/apexcharts/node_modules/babel-polyfill/dist/polyfill.min.js:1
-#, fuzzy
-#| msgid "Thaise"
-msgid "has"
-msgstr "Thai"
-
-#: plugins/siw-functionality/node_modules/apexcharts/node_modules/babel-polyfill/browser.js:1
-#: plugins/siw-functionality/node_modules/apexcharts/node_modules/babel-polyfill/dist/polyfill.min.js:1
-msgid "get"
-msgstr ""
-
-#: plugins/siw-functionality/node_modules/apexcharts/node_modules/babel-polyfill/browser.js:2
-#: plugins/siw-functionality/node_modules/apexcharts/node_modules/babel-polyfill/dist/polyfill.min.js:2
-msgid "Wrong offset!"
-msgstr ""
-
-#: plugins/siw-functionality/node_modules/apexcharts/node_modules/babel-polyfill/browser.js:2
-#: plugins/siw-functionality/node_modules/apexcharts/node_modules/babel-polyfill/dist/polyfill.min.js:2
-msgid "Wrong length!"
 msgstr ""
 
 #: plugins/siw-functionality/templates/404.php:5
@@ -5278,11 +5055,11 @@ msgstr ""
 "enjoy this cheerful photo of our French partner organization Concordia "
 "France."
 
-#: plugins/siw-functionality/templates/single-agenda.php:89
+#: plugins/siw-functionality/templates/single-agenda.php:71
 msgid "Het is helaas niet meer mogelijk om je aan te melden."
 msgstr "Unfortunately you can not apply anymore."
 
-#: plugins/siw-functionality/templates/single-agenda.php:100
+#: plugins/siw-functionality/templates/single-agenda.php:82
 #, php-format
 msgid ""
 "Dit evenement is helaas al afgelopen. Bekijk de toekomstige evenementen in "
@@ -5301,7 +5078,7 @@ msgstr "Length of time"
 
 #: plugins/siw-functionality/templates/single-vacatures.php:47
 msgid "Betaalde functie"
-msgstr ""
+msgstr "Paid job"
 
 #: plugins/siw-functionality/templates/single-vacatures.php:47
 msgid "Vrijwillige functie"
@@ -5474,8 +5251,252 @@ msgstr ""
 msgid "Onderhoud"
 msgstr "Maintenance"
 
+#~ msgid "Dit is geen geldige waarde"
+#~ msgstr "This is not a valid value"
+
+#~ msgid "Dit is geen geldige url"
+#~ msgstr "This is not a valid url"
+
 #~ msgid "Dit is geen geldig e-mailadres"
 #~ msgstr "This is not a valid email address"
+
+#~ msgid "Locatie:"
+#~ msgstr "Location:"
+
+#~ msgid "provincie"
+#~ msgstr "province"
+
+#, fuzzy
+#~| msgid "Infoverzoek Groepsproject"
+#~ msgid "Infoverzoek project"
+#~ msgstr "Enquiry volunteer project"
+
+#, fuzzy
+#~| msgid "Onderdeel {#}"
+#~ msgid "Onderdelen"
+#~ msgstr "Part"
+
+#~ msgid "Onderdeel toevoegen"
+#~ msgstr "Add Part"
+
+#~ msgid "Starttijd"
+#~ msgstr "Start time"
+
+#~ msgid "Eindtijd"
+#~ msgstr "End time"
+
+#~ msgid "Enhanced link attribution"
+#~ msgstr "Enhanced link attribution"
+
+#~ msgid "Aanwezig"
+#~ msgstr "Present"
+
+#~ msgid "Projectoverzicht"
+#~ msgstr "Project overview"
+
+#~ msgid "Evenement in topbar"
+#~ msgstr "Event in topbar"
+
+#~ msgid "Datum range"
+#~ msgstr "Date range"
+
+#~ msgid ""
+#~ "Toon evenement als het meer dan x en minder dan y dagen in de toekomst "
+#~ "ligt"
+#~ msgstr "Show event if it is more than x and less than y days in the future"
+
+#~ msgid "Automatisch"
+#~ msgstr "Automatic"
+
+#~ msgid "Aanmelden voor nieuwsbrief tijdens checkout"
+#~ msgstr "Sign-up for the newsletter during checkout"
+
+#~ msgid "Every %d Minutes"
+#~ msgstr "Elke %d minuten"
+
+#, fuzzy
+#~| msgid "Configuratie"
+#~ msgid "SIW Configuratie"
+#~ msgstr "Configuration"
+
+#, fuzzy
+#~| msgid "Instellingen SIW"
+#~ msgid "Instelling"
+#~ msgstr "Settings SIW"
+
+#~ msgid "Telefoonnummer (volledig)"
+#~ msgstr "Phone number (full)"
+
+#~ msgid "KVK"
+#~ msgstr "KVK"
+
+#~ msgid "Stad"
+#~ msgstr "City"
+
+#~ msgid "Facebook URL"
+#~ msgstr "Facebook URL"
+
+#~ msgid "Twitter URL"
+#~ msgstr "Twitter URL"
+
+#~ msgid "LinkedIn URL"
+#~ msgstr "LinkedIn URL"
+
+#~ msgid "YouTube URL"
+#~ msgstr "YouTube URL"
+
+#~ msgid "Instagram URL"
+#~ msgstr "Instagram URL"
+
+#~ msgid "Maximum aantal infodagen"
+#~ msgstr "Maximum number of info days"
+
+#~ msgid "Maximum aantal EVS-deadlines"
+#~ msgstr "Maximum number of EVS deadlines"
+
+#~ msgid "EVS: weken voor vertrek"
+#~ msgstr "EVS: weeks before departure"
+
+#~ msgid "Maximale grootte IP-whitelist"
+#~ msgstr "Maximum size IP whitelist"
+
+#~ msgid "Maximaal aantal Nederlandse Projecten"
+#~ msgstr "Maximum number of Dutch Projects"
+
+#~ msgid "Maximum aantal bestuursleden"
+#~ msgstr "Maximum number of board members"
+
+#~ msgid "Maximum aantal jaarverslagen"
+#~ msgstr "Maximum number of annual reports"
+
+#~ msgid "Tijdstip import projecten"
+#~ msgstr "Time import projects"
+
+#~ msgid "Tijdstip bijwerken vrije plaatsen"
+#~ msgstr "Time update free places"
+
+#~ msgid "Tijdstip backup database"
+#~ msgstr "Time backup database"
+
+#~ msgid "Tijdstip backup bestanden"
+#~ msgstr "Time backup files"
+
+#~ msgid "Tijdstip cache verversen"
+#~ msgstr "Time refresh cache"
+
+#~ msgid "Inschrijfgeld Groepsproject (student)"
+#~ msgstr "Registration fee Workcamp (student)"
+
+#~ msgid "Inschrijfgeld Groepsproject (regulier)"
+#~ msgstr "Registration fee Workcamp (regular)"
+
+#, fuzzy
+#~| msgid "Inschrijfgeld Groepsproject (student)"
+#~ msgid "Inschrijfgeld Groepsproject (student) - korting"
+#~ msgstr "Registration fee Workcamp (student)"
+
+#, fuzzy
+#~| msgid "Inschrijfgeld Groepsproject (regulier)"
+#~ msgid "Inschrijfgeld Groepsproject (regulier) - korting"
+#~ msgstr "Registration fee Workcamp (regular)"
+
+#~ msgid "Inschrijfgeld Op Maat (student)"
+#~ msgstr "Registration fee Customized Project (student)"
+
+#~ msgid "Inschrijfgeld Op Maat (regulier)"
+#~ msgstr "Registration fee Customized Project (regular)"
+
+#~ msgid "Kortingspercentage tweede project"
+#~ msgstr "Discount percentage second project"
+
+#~ msgid "Kortingspercentage derde project"
+#~ msgstr "Discount percentage third project"
+
+#~ msgid "Postcode API URL"
+#~ msgstr "Postcode API URL"
+
+#~ msgid "Plato webservice URL"
+#~ msgstr "Plato webservice URL"
+
+#~ msgid "Reisadvies base-URL"
+#~ msgstr "Travel advice base URL"
+
+#~ msgid "Wisselkoersen API base-url"
+#~ msgstr "Exchange rates API base URL"
+
+#~ msgid "Report URI"
+#~ msgstr "Report URI"
+
+#~ msgid "FPL-import"
+#~ msgstr "FPL-import"
+
+#~ msgid "Volledige import"
+#~ msgstr "Full import"
+
+#~ msgid "Extra gegevens groepsproject"
+#~ msgstr "Extra details Workcamp"
+
+#~ msgid "Projecteigenschappen"
+#~ msgstr "Project characteristics"
+
+#~ msgid "Project ID"
+#~ msgstr "Project ID"
+
+#~ msgid "jjjj-mm-dd"
+#~ msgstr "yyyy-mm-dd"
+
+#~ msgid "Naam van het land (t.b.v. sorteerfunctie)"
+#~ msgstr "Name of the country (for the purpose of the filter)"
+
+#~ msgid "Minimumleeftijd"
+#~ msgstr "Minimum age"
+
+#~ msgid "Wordt gebruikt bij validaties."
+#~ msgstr "Is used for validations."
+
+#~ msgid "Toegestaan"
+#~ msgstr "Allowed"
+
+#~ msgid "Geef aan of dit een project in een toegestaan land is (yes/no)"
+#~ msgstr "Indicate whether this is a project in an allowed country (yes/no)"
+
+#~ msgid "Standaard tarief"
+#~ msgstr "Default tariff"
+
+#~ msgid "Student/<18"
+#~ msgstr "Student/<18"
+
+#~ msgid "Regulier"
+#~ msgstr "Regular"
+
+#~ msgid "Geef de coördinaten van het project op"
+#~ msgstr "Geef de coördinaten van het project op"
+
+#~ msgid "Latitude"
+#~ msgstr "Latitude"
+
+#~ msgid "Longitude"
+#~ msgstr "Longitude"
+
+#~ msgid "Valuta"
+#~ msgstr "Currency"
+
+#~ msgid "Bedrag"
+#~ msgstr "Amount"
+
+#~ msgid "SEO"
+#~ msgstr "SEO"
+
+#~ msgid "SEO titel"
+#~ msgstr "SEO title"
+
+#~ msgid "Meta omschrijving"
+#~ msgstr "Meta description"
+
+#, fuzzy
+#~| msgid "Thaise"
+#~ msgid "has"
+#~ msgstr "Thai"
 
 #~ msgid "De vrijwilligers van SIW"
 #~ msgstr "The volunteers of SIW"
@@ -5665,15 +5686,6 @@ msgstr "Maintenance"
 #~ "Pay attention: in addition to the registration fee, on sight you will "
 #~ "also pay a local contribution of %s."
 
-#~ msgid "Dit is geen geldige waarde"
-#~ msgstr "This is not a valid value"
-
-#~ msgid "Dit is geen geldige url"
-#~ msgstr "This is not a valid url"
-
-#~ msgid "Every %d Minutes"
-#~ msgstr "Elke %d minuten"
-
 #~ msgid "SIW"
 #~ msgstr "SIW"
 
@@ -5778,9 +5790,6 @@ msgstr "Maintenance"
 
 #~ msgid "Algemeen"
 #~ msgstr "General"
-
-#~ msgid "Aanmeldformulier projectbegeleider"
-#~ msgstr "Application form project leader"
 
 #~ msgid "Ondertekening e-mail"
 #~ msgstr "E-mail signature"

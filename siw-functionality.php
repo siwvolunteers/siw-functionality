@@ -10,13 +10,13 @@
  * Plugin Name: SIW Functionaliteit
  * Plugin URI:  https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
- * Version:     2.0.0
+ * Version:     2.0.1
  * Author:      Maarten Bruna
  * Text Domain: siw
  */
 
 /** Constantes */
-define ( 'SIW_PLUGIN_VERSION', '2.0.0' );
+define ( 'SIW_PLUGIN_VERSION', '2.0.1' );
 define ( 'SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets' );
 define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates' );
@@ -43,12 +43,14 @@ require_once( SIW_INCLUDES_DIR . '/class-siw-assets.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-head.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-htaccess.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-i18n.php' );
+require_once( SIW_INCLUDES_DIR . '/class-siw-icons.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-scheduler.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-shortcodes.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-widgets.php' );
 
 add_action( 'plugins_loaded', ['SIW_Assets', 'init']);
 add_action( 'plugins_loaded', ['SIW_i18n', 'init']);
+add_action( 'plugins_loaded', ['SIW_Icons', 'init']);
 add_action( 'plugins_loaded', ['SIW_Head', 'init']);
 add_action( 'plugins_loaded', ['SIW_htaccess', 'init']);
 add_action( 'plugins_loaded', ['SIW_Scheduler', 'init']);

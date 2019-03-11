@@ -2,9 +2,9 @@
 /**
  * Functies t.b.v. Mapplic-kaarten
  * 
- * @package SIW\Maps
- * @author Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @package   SIW\Maps
+ * @author    Maarten Bruna
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,7 +19,7 @@ require_once( __DIR__ . '/data-nl.php' );
  * Toon een Mapplic-kaart
  *
  * @param string $id
- * @return void
+ * @return string
  */
 function siw_render_map( $id ) {
 
@@ -46,11 +46,12 @@ function siw_render_map( $id ) {
 	}
 
 	$map_data = [
-		'data'       => [],
-		'options'    => [],
-		'categories' => [],
-		'locations'  => [],
-		'inline_css' => [],
+		'data'           => [],
+		'options'        => [],
+		'categories'     => [],
+		'locations'      => [],
+		'inline_css'     => [],
+		'mobile_content' => null
 	];
 	/**
 	 * Gegevens van kaart
@@ -66,6 +67,7 @@ function siw_render_map( $id ) {
 	$map->set_categories( $map_data['categories'] );
 	$map->set_locations( $map_data['locations'] );
 	$map->set_inline_css( $map_data['inline_css'] );
+	$map->set_mobile_content( $map_data['mobile_content']);
 	$map->set_data( $map_data['data'] );
 	$map->set_options( $map_data['options'] );
 	
@@ -78,7 +80,6 @@ function siw_render_map( $id ) {
  * @param string $id
  * @param string $name
  * @param string $file
- * @return void
  */
 function siw_register_map( $id, $name, $file ) {
 	add_filter( 'siw_maps', function( $maps ) use( $id, $name ) {

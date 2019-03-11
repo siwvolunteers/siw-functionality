@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  * @package   SIW\Maps
  * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Util
  * @uses      SIW_Properties
@@ -62,29 +62,46 @@ class SIW_Map {
 	protected $data;
 
 	/**
+	 * Categorieën
+	 * 
 	 * @var array
 	 */
 	protected $categories;
 
 	/**
+	 * Locaties
+	 * 
 	 * @var array
 	 */
 	 protected $locations;
 
 	/**
+	 * Standaard categoriegegevens
+	 * 
 	 * @var array
 	 */
 	private $default_category_data;
 
 	/**
+	 * Standaard locatiegegevens
+	 * 
 	 * @var array
 	 */
 	protected $default_location_data;
 
 	/**
+	 * Inline css-regels
+	 * 
 	 * @var array
 	 */
 	protected $inline_css;
+
+	/**
+	 * Aparte content voor mobiel
+	 *
+	 * @var string
+	 */
+	protected $mobile_content = null;
 
 	/**
 	 * Constructor
@@ -96,17 +113,23 @@ class SIW_Map {
 	}
 
 	/**
-	 * Toon de map
+	 * Rendert de kaart
 	 *
-	 * @return array
+	 * @return string
 	 */
 	public function render() {
-		$this->enqueue_styles()->enqueue_scripts();
-		return sprintf( '<div id="mapplic-%s" class="mapplic-dark"></div>', $this->id );
+		$this->enqueue_styles();
+		$this->enqueue_scripts();
+		$content = sprintf( '<div id="mapplic-%s" class="mapplic-dark"></div>', $this->id );
+		if ( null != $this->mobile_content ) {
+			$content = '<div class="hidden-xs">' . $content . '</div>';
+			$content .= '<div class="hidden-sm hidden-md hidden-lg">' . $this->mobile_content . '</div>';
+		}
+		return $content;
 	}
 
 	/**
-	 * @return $this
+	 * Voegt de benodigde scripts toe
 	 */
 	protected function enqueue_scripts() {
 		$deps = [ 'jquery', 'hammer' ];
@@ -131,12 +154,10 @@ class SIW_Map {
 		
 		$inline_script = sprintf( "( function( $ ){ $(document).ready(function() { $('#mapplic-%s').mapplic(%s); }); } )( jQuery )", $this->id, json_encode( $this->options, JSON_PRETTY_PRINT ) );
 		wp_add_inline_script( 'mapplic-script', $inline_script );
-		
-		return $this;
 	}
 
 	/**
-	 * @return void
+	 * Voegt benodigde styles toe
 	 */
 	protected function enqueue_styles() {
 		$deps = false;
@@ -151,12 +172,10 @@ class SIW_Map {
 			$css = SIW_Util::generate_css( $this->inline_css );
 			wp_add_inline_style( 'mapplic-style', $css );
 		}
-		
-		return $this;
 	}
 
 	/**
-	 * @return $this
+	 * Zet de standaardopties
 	 */
 	protected function set_default_options() {
 		$default_options = [
@@ -183,17 +202,15 @@ class SIW_Map {
 			'developer'     => false,
 			'fillcolor'     => SIW_Properties::PRIMARY_COLOR,
 			'action'        => 'tooltip',
-			'maxscale'      => 3,
+			'maxscale'      => 1,
 			'zoom'          => true,
 			'skin'          => 'mapplic-dark',
 		];
 		$this->default_options = $default_options;
-
-		return $this;
 	}
 
 	/**
-	 * @return $this
+	 * Zet de standaard categoriegegevens
 	 */
 	protected function set_default_category_data() {
 		$default_category_data = [
@@ -203,17 +220,16 @@ class SIW_Map {
 			'show'  => 'false',
 		];
 		$this->default_category_data = $default_category_data;
-
-		return $this;
 	}
 
 	/**
-	 * @return $this
+	 * Zet de standaard locatiegegevens
 	 */
 	protected function set_default_location_data() {
 		$default_location_data = [
 			'id'            => false,
 			'title'         => false,
+			'image'         => null,
 			'about'         => false,
 			'description'   => false,
 			'action'        => 'tooltip',
@@ -227,53 +243,50 @@ class SIW_Map {
 			'category'      => false,
 		];
 		$this->default_location_data = $default_location_data;
-		return $this;
 	}
 
 	/**
+	 * Zet het ID van de kaart
+	 * 
 	 * @param string $id
-	 * @return $this
 	 */
 	public function set_id( $id ) {
 		$this->id = $id;
-		return $this;
 	}
 
 	/**
+	 * Zet de bestandsnaam van de kaart
+	 * 
 	 * @param string $filename
-	 * @return $this
 	 */
 	public function set_filename( $filename ) {
 		$this->filename = $filename;
-		return $this;
 	}
 
 	/**
 	 * Zet de instellingen van de kaart
-	 *
-	 * @return void
 	 */
 	public function set_options( $options ) {
 		$this->options = wp_parse_args( $options, $this->default_options );
 		$this->options['source'] = $this->data;
-		return $this;
 	}
 
 	/**
+	 * Zet de categorieën
+	 * 
 	 * @param array $categories
-	 * @return $this;
 	 */
 	public function set_categories( $categories ) {
 		foreach ( $categories as $category_data ) {
 			$category_data = wp_parse_args( $category_data, $this->default_category_data );
 			$this->categories[] = $category_data;
 		}
-		return $this;
 	}
 
 	/**
+	 * Zet de locaties
+	 * 
 	 * @param array $locations
-	 * @return $this
 	 */
 	public function set_locations( $locations ) {
 		/* Locaties */
@@ -281,23 +294,30 @@ class SIW_Map {
 			$location_data = wp_parse_args( $location_data, $this->default_location_data );
 			$this->locations[] = $location_data;
 		}
-		return $this;
 	}
 
 	/**
+	 * Zet inline CSS
+	 * 
 	 * @param array $css
-	 * @return void
 	 */
 	public function set_inline_css( $css ) {
 		$this->inline_css = $css;
-		return $this;
+	}
+
+	/**
+	 * Zet alternatieve content voor mobiel
+	 *
+	 * @param string $content
+	 */
+	public function set_mobile_content( $content ) {
+		$this->mobile_content = $content;
 	}
 
 	/**
 	 * Zet de eigenschappen van de kaart
 	 *
 	 * @param array $data
-	 * @return $this
 	 */
 	public function set_data( $data ) {
 		$default_data = [

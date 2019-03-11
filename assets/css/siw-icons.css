@@ -1,0 +1,280 @@
+@font-face {
+  font-family: "siw-icons";
+  src: url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.eot?0ee47e224a44170a95d94eea952c3eec?#iefix") format("embedded-opentype"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.woff2?0ee47e224a44170a95d94eea952c3eec") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.woff?0ee47e224a44170a95d94eea952c3eec") format("woff"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.ttf?0ee47e224a44170a95d94eea952c3eec") format("truetype"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.svg?0ee47e224a44170a95d94eea952c3eec#siw-icons") format("svg");
+}
+
+i[class^="siw-icon-"]:before, i[class*=" siw-icon-"]:before {
+  font-family: siw-icons !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.siw-icon-archway:before {
+  content: "\f101";
+}
+
+.siw-icon-atlas:before {
+  content: "\f102";
+}
+
+.siw-icon-blind:before {
+  content: "\f103";
+}
+
+.siw-icon-book-reader:before {
+  content: "\f104";
+}
+
+.siw-icon-calendar-check:before {
+  content: "\f105";
+}
+
+.siw-icon-camera:before {
+  content: "\f106";
+}
+
+.siw-icon-campground:before {
+  content: "\f107";
+}
+
+.siw-icon-child:before {
+  content: "\f108";
+}
+
+.siw-icon-circle:before {
+  content: "\f109";
+}
+
+.siw-icon-clipboard-check:before {
+  content: "\f10a";
+}
+
+.siw-icon-coins:before {
+  content: "\f10b";
+}
+
+.siw-icon-comments:before {
+  content: "\f10c";
+}
+
+.siw-icon-eye:before {
+  content: "\f10d";
+}
+
+.siw-icon-facebook-f:before {
+  content: "\f10e";
+}
+
+.siw-icon-file-signature:before {
+  content: "\f10f";
+}
+
+.siw-icon-futbol:before {
+  content: "\f110";
+}
+
+.siw-icon-globe-europe:before {
+  content: "\f111";
+}
+
+.siw-icon-globe:before {
+  content: "\f112";
+}
+
+.siw-icon-gopuram:before {
+  content: "\f113";
+}
+
+.siw-icon-grin:before {
+  content: "\f114";
+}
+
+.siw-icon-hand-holding-heart:before {
+  content: "\f115";
+}
+
+.siw-icon-hands-helping:before {
+  content: "\f116";
+}
+
+.siw-icon-handshake:before {
+  content: "\f117";
+}
+
+.siw-icon-house-damage:before {
+  content: "\f118";
+}
+
+.siw-icon-info:before {
+  content: "\f119";
+}
+
+.siw-icon-instagram:before {
+  content: "\f11a";
+}
+
+.siw-icon-landmark:before {
+  content: "\f11b";
+}
+
+.siw-icon-language:before {
+  content: "\f11c";
+}
+
+.siw-icon-leaf:before {
+  content: "\f11d";
+}
+
+.siw-icon-linkedin-in:before {
+  content: "\f11e";
+}
+
+.siw-icon-map-marked-alt:before {
+  content: "\f11f";
+}
+
+.siw-icon-music:before {
+  content: "\f120";
+}
+
+.siw-icon-paint-roller:before {
+  content: "\f121";
+}
+
+.siw-icon-passport:before {
+  content: "\f122";
+}
+
+.siw-icon-paw:before {
+  content: "\f123";
+}
+
+.siw-icon-pencil-ruler:before {
+  content: "\f124";
+}
+
+.siw-icon-phone:before {
+  content: "\f125";
+}
+
+.siw-icon-praying-hands:before {
+  content: "\f126";
+}
+
+.siw-icon-route:before {
+  content: "\f127";
+}
+
+.siw-icon-search-location:before {
+  content: "\f128";
+}
+
+.siw-icon-square:before {
+  content: "\f129";
+}
+
+.siw-icon-star:before {
+  content: "\f12a";
+}
+
+.siw-icon-syringe:before {
+  content: "\f12b";
+}
+
+.siw-icon-tasks:before {
+  content: "\f12c";
+}
+
+.siw-icon-theater-masks:before {
+  content: "\f12d";
+}
+
+.siw-icon-thumbs-up:before {
+  content: "\f12e";
+}
+
+.siw-icon-tools:before {
+  content: "\f12f";
+}
+
+.siw-icon-tree:before {
+  content: "\f130";
+}
+
+.siw-icon-twitter:before {
+  content: "\f131";
+}
+
+.siw-icon-user-check:before {
+  content: "\f132";
+}
+
+.siw-icon-user-friends:before {
+  content: "\f133";
+}
+
+.siw-icon-user-injured:before {
+  content: "\f134";
+}
+
+.siw-icon-users:before {
+  content: "\f135";
+}
+
+.siw-icon-wheelchair:before {
+  content: "\f136";
+}
+
+.siw-icon-youtube:before {
+  content: "\f137";
+}
+
+.siw-icon-stack {
+  display: inline-block;
+  height: 2em;
+  line-height: 2.25em;
+  position: relative;
+  vertical-align: middle;
+  width: 2.5em;
+}
+
+.siw-icon-stack-1x,
+.siw-icon-stack-2x {
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.siw-icon-stack-1x {
+  line-height: inherit;
+}
+
+.siw-icon-stack-2x {
+  font-size: 2em;
+}
+
+.siw-icon-inverse {
+  color: #fff;
+}
+
+.siw-icon-1x {
+  font-size: 1em;
+}
+
+.siw-icon-2x {
+  font-size: 2em;
+}
+
+.siw-icon-3x {
+  font-size: 3em;
+}
+
+.siw-icon-4x {
+  font-size: 4em;
+}

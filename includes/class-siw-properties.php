@@ -172,6 +172,8 @@ class SIW_Properties {
 	 * Maximum aantal ESC-deadlines
 	 *
 	 * @var int
+	 * 
+	 * @deprecated
 	 */
 	const NUMBER_OF_ESC_DEADLINES = 5;
 
@@ -206,15 +208,6 @@ class SIW_Properties {
 	 * @deprecated
 	 */
 	const MAX_ANNUAL_REPORTS = 5;
-
-	/**
-	 * Maximum aantal Nederlandse projecten
-	 *
-	 * @var int
-	 * 
-	 * @deprecated
-	 */
-	const MAX_DUTCH_PROJECTS = 10;
 
 	/**
 	 * Tijdstip bijwerken groepsprojecten

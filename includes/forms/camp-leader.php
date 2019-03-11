@@ -62,6 +62,19 @@ add_filter( 'caldera_forms_get_form-begeleider_np', function( $form ) {
 		'show_summary' => true,
 	);
 
+	$language = SIW_i18n::get_current_language();
+	$project_options = [];
+	$projects = siw_get_option( 'dutch_projects' );
+	foreach ( $projects as $project ) {
+		$slug = sanitize_title( $project['code'] );
+		$name = $project["name_{$language}"];
+
+		$project_options[ $slug ] = [
+			'value' => $slug,
+			'label' => $name,
+		];
+	}
+
 return array(
 	'ID'				=> 'begeleider_np',
 	'name'				=> __( 'Projectbegeleider NP', 'siw' ),
@@ -134,7 +147,7 @@ return array(
 		array(
 			'ID' => 'voorkeur',
 			'type' => 'checkbox',
-			'label' => __( 'Heb je een voorkeur om een bepaald soort Nederlands vrijwilligersproject te begeleiden?', 'siw' ),
+			'label' => __( 'Heb je een voorkeur om een bepaald Nederlands vrijwilligersproject te begeleiden?', 'siw' ),
 			'slug' => 'voorkeur',
 			'conditions' =>
 			array(
@@ -145,25 +158,7 @@ return array(
 			array(
 				'custom_class' => '',
 				'default' => '',
-				'option' =>
-
-				array(
-					'sociaal' =>
-					array(
-						'value' => 'sociaal',
-						'label' => __( 'Sociaal', 'siw' ),
-					),
-					'natuur' =>
-					array(
-						'value' => 'natuur',
-						'label' => __( 'Natuur', 'siw' ),
-					),
-					'constructie' =>
-					array(
-						'value' => 'constructie',
-						'label' => __( 'Constructie', 'siw' ),
-					),
-				),
+				'option' => $project_options
 			),
 	    ),
 		'bekend' => siw_get_standard_form_field( 'bekend' ),

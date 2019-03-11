@@ -23,7 +23,7 @@ add_filter( 'siw_settings_pages', function( $pages ) {
 
 add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 
-	$languages = apply_filters( 'wpml_active_languages', null ); //TODO: verplaatsen naar SIW_i18n
+	$languages = SIW_i18n::get_active_languages();
 	$types = siw_get_work_types( 'dutch_projects' );
 
 	foreach ( $types as $type ) {
@@ -144,17 +144,25 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 				'collapsible'   => true,
 				'default_state' => 'collapsed',
 				'group_title'   => [ 'field' => 'code, name_nl', 'separator' => ' - ' ],
+				'add_button'    => __( 'Toevoegen', 'siw' ),
 				'fields'        => $group_fields,
 			]
 		],
 	];
 
 	$meta_boxes[] = [
-		'id'             => 'dutch-projects_booklet',
+		'id'             => 'dutch-projects-booklet',
 		'title'          => __( 'Programmaboekje', 'siw' ),
 		'settings_pages' => 'siw-options-dutch-projects',
 		'context'        => 'side',
 		'fields'         => [
+			[
+				'id'   => 'dutch_projects_booklet_year',
+				'name' => __( 'Jaar', 'siw' ),
+				'type' => 'number',
+				'min'  => 2012, //TODO: property, bijvoorbeeld oprichtingsjaar
+				'max'  => intval(date( 'Y' ) )
+			],
 			[
 				'id'               => 'dutch_projects_booklet',
 				'name'             => __( 'Bestand', 'siw' ),

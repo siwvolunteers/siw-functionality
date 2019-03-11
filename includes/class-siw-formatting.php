@@ -47,6 +47,8 @@ class SIW_Formatting {
 	 * @param bool $ordered
 	 *
 	 * @return string
+	 *
+	 * @todo escaping
 	 */
 	public static function generate_list( $items, $ordered = false ) {
 		if ( empty ( $items ) ) {
@@ -56,11 +58,80 @@ class SIW_Formatting {
 
 		$list = "<{$tag}>";
 		foreach ( $items as $item ) {
-			$list .= '<li>' . (string) $item . '</li>'; //TODO: escaping
+			$list .= '<li>' . (string) $item . '</li>';
 		}
 		$list .= "</{$tag}>";
 
 		return $list;
+	}
+
+	/**
+	 * Genereert kolommen
+	 *
+	 * @param array $cells
+	 * @return string
+	 */
+	public static function generate_columns( $cells ) {
+		$columns = '[columns]';
+		foreach ( $cells as $cell ) {
+			//TODO:wp_parse_args
+			$columns .= sprintf( '[span%s]%s[/span%s]', $cell['width'], $cell['content'], $cell['width'] );
+
+		}
+		$columns .= '[/columns]';
+		return $columns;
+	}
+
+
+	/**
+	 * Genereert html voor icon
+	 *
+	 * @param string $icon_class
+	 * @param int $size
+	 * @param string $background
+	 * @return string
+	 */
+	public static function generate_icon( $icon_class, $size = 2, $background = 'none' ) {
+		switch ( $background ) {
+			case 'circle':
+				$stack = true;
+				$background_class = 'siw-icon-circle';
+				break;
+			case 'square':
+				$stack = true;
+				$background_class = 'siw-icon-square';
+				break;
+			default:
+				$stack = false;
+		}
+
+		switch ( $size ) {
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+				$size_class = "siw-icon-{$size}x";
+				break;
+			default:
+				$size_class = 'siw-icon-1x';
+		}
+
+		if ( $stack ) {
+			$icon = sprintf( 
+				'<span class="siw-icon-stack %s"><i class="%s siw-icon-stack-2x"></i><i class="%s siw-icon-stack-1x siw-icon-inverse"></i></span>',
+				self::sanitize_html_classes( $size_class ),
+				self::sanitize_html_classes( $background_class ),
+				self::sanitize_html_classes( $icon_class )
+			);
+		}
+		else {
+			$icon = sprintf(
+				'<i class="%s %s"></i>',
+				self::sanitize_html_classes( $icon_class ),
+				self::sanitize_html_classes( $size_class )
+			);
+		}
+		return $icon;
 	}
 
 	/**
