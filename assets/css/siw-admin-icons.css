@@ -1,6 +1,6 @@
 @font-face {
   font-family: "siw-icons";
-  src: url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.eot?73e761c3bb410fdb2c10b72c57e3a95b?#iefix") format("embedded-opentype"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.woff2?73e761c3bb410fdb2c10b72c57e3a95b") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.woff?73e761c3bb410fdb2c10b72c57e3a95b") format("woff"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.ttf?73e761c3bb410fdb2c10b72c57e3a95b") format("truetype"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.svg?73e761c3bb410fdb2c10b72c57e3a95b#siw-icons") format("svg");
+  src: url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.eot?0ee47e224a44170a95d94eea952c3eec?#iefix") format("embedded-opentype"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.woff2?0ee47e224a44170a95d94eea952c3eec") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.woff?0ee47e224a44170a95d94eea952c3eec") format("woff"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.ttf?0ee47e224a44170a95d94eea952c3eec") format("truetype"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.svg?0ee47e224a44170a95d94eea952c3eec#siw-icons") format("svg");
 }
 
 i[class^="siw-icon-"]:before, i[class*=" siw-icon-"]:before {
@@ -174,60 +174,109 @@ i[class^="siw-icon-"]:before, i[class*=" siw-icon-"]:before {
   content: "\f128";
 }
 
-.siw-icon-star:before {
+.siw-icon-square:before {
   content: "\f129";
 }
 
-.siw-icon-syringe:before {
+.siw-icon-star:before {
   content: "\f12a";
 }
 
-.siw-icon-tasks:before {
+.siw-icon-syringe:before {
   content: "\f12b";
 }
 
-.siw-icon-theater-masks:before {
+.siw-icon-tasks:before {
   content: "\f12c";
 }
 
-.siw-icon-thumbs-up:before {
+.siw-icon-theater-masks:before {
   content: "\f12d";
 }
 
-.siw-icon-tools:before {
+.siw-icon-thumbs-up:before {
   content: "\f12e";
 }
 
-.siw-icon-tree:before {
+.siw-icon-tools:before {
   content: "\f12f";
 }
 
-.siw-icon-twitter:before {
+.siw-icon-tree:before {
   content: "\f130";
 }
 
-.siw-icon-user-check:before {
+.siw-icon-twitter:before {
   content: "\f131";
 }
 
-.siw-icon-user-friends:before {
+.siw-icon-user-check:before {
   content: "\f132";
 }
 
-.siw-icon-user-injured:before {
+.siw-icon-user-friends:before {
   content: "\f133";
 }
 
-.siw-icon-users:before {
+.siw-icon-user-injured:before {
   content: "\f134";
 }
 
-.siw-icon-wheelchair:before {
+.siw-icon-users:before {
   content: "\f135";
 }
 
-.siw-icon-youtube:before {
+.siw-icon-wheelchair:before {
   content: "\f136";
+}
+
+.siw-icon-youtube:before {
+  content: "\f137";
+}
+
+.siw-icon-stack {
+  display: inline-block;
+  height: 2em;
+  line-height: 2.25em;
+  position: relative;
+  vertical-align: middle;
+  width: 2.5em;
+}
+
+.siw-icon-stack-1x,
+.siw-icon-stack-2x {
+  left: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.siw-icon-stack-1x {
+  line-height: inherit;
+}
+
+.siw-icon-stack-2x {
+  font-size: 2em;
+}
+
+.siw-icon-inverse {
+  color: #fff;
+}
+
+.siw-icon-1x {
+  font-size: 1em;
+}
+
+.siw-icon-2x {
+  font-size: 2em;
+}
+
+.siw-icon-3x {
+  font-size: 3em;
+}
+
+.siw-icon-4x {
+  font-size: 4em;
 }
 
 .sow-icon-siw {
