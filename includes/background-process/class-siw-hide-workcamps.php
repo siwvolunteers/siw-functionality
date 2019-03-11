@@ -28,7 +28,6 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 	 *
 	 * - Het project begint binnen 7 dagen
 	 * - Het project is in een niet-toegestaan land
- 	 * - Het project is expliciet verborgen
 	 * - Er zijn geen vrije plaatsen meer
 	 *
 	 * @todo configuratieconstante voor aantal dagen
@@ -51,11 +50,6 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 			[
 				'key'     => 'freeplaces',
 				'value'   => 'no',
-				'compare' => '='
-			],
-			[
-				'key'     => 'manual_visibility',
-				'value'   => 'hide',
 				'compare' => '='
 			],
 			[

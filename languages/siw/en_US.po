@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2019-03-10 22:09+0100\n"
+"POT-Creation-Date: 2019-03-11 21:34+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -327,7 +327,6 @@ msgid "Sluiten"
 msgstr "Close"
 
 #: plugins/siw-functionality/includes/class-siw-icons.php:46
-#| msgid "SIW Infodag"
 msgid "SIW Icons"
 msgstr "SIW Icons"
 
@@ -555,11 +554,11 @@ msgid ""
 msgstr ""
 "We will add your application to our database for the next summer season."
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:67
+#: plugins/siw-functionality/includes/forms/camp-leader.php:80
 msgid "Projectbegeleider NP"
 msgstr "Project Leader Dutch volunteer projects"
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:72
+#: plugins/siw-functionality/includes/forms/camp-leader.php:85
 #: plugins/siw-functionality/includes/forms/enquiry-evs.php:62
 #: plugins/siw-functionality/includes/forms/enquiry-general.php:68
 #: plugins/siw-functionality/includes/forms/enquiry-workcamp.php:64
@@ -569,33 +568,33 @@ msgstr "Project Leader Dutch volunteer projects"
 msgid "Je bericht werd succesvol verzonden."
 msgstr "Your message was sent successfully."
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:107
+#: plugins/siw-functionality/includes/forms/camp-leader.php:120
 msgid "De Nederlandse vrijwilligersprojecten vinden plaats in de zomermaanden."
 msgstr "The Dutch volunteer projects take place in the summer period."
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:108
+#: plugins/siw-functionality/includes/forms/camp-leader.php:121
 msgid "We zijn hiervoor altijd op zoek naar projectbegeleiders."
 msgstr "We are always looking for project leaders."
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:109
+#: plugins/siw-functionality/includes/forms/camp-leader.php:122
 msgid ""
 "Meld je aan via onderstaand formulier en geef aan naar welk project je "
 "voorkeur uitgaat."
 msgstr ""
 "Apply through the form below and indicate which project has your preference."
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:110
+#: plugins/siw-functionality/includes/forms/camp-leader.php:123
 msgid "Vervolgens ontvang je een uitnodiging voor een kennismakingsgesprek."
 msgstr "Afterwards, you will receive an invitation for an in-take interview."
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:111
+#: plugins/siw-functionality/includes/forms/camp-leader.php:124
 msgid ""
 "In dit gesprek hopen wij erachter te komen wat je verwachtingen en "
 "kwaliteiten zijn."
 msgstr ""
 "During this interview we hope to understand your expectations and qualities."
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:129
+#: plugins/siw-functionality/includes/forms/camp-leader.php:142
 msgid ""
 "Waarom zou je graag een begeleider willen worden voor de Nederlandse "
 "vrijwilligersprojecten?"
@@ -603,32 +602,17 @@ msgstr ""
 "Why would you like to become a project leader for the Dutch volunteer "
 "projects?"
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:137
+#: plugins/siw-functionality/includes/forms/camp-leader.php:150
 msgid ""
-"Heb je een voorkeur om een bepaald soort Nederlands vrijwilligersproject te "
+"Heb je een voorkeur om een bepaald Nederlands vrijwilligersproject te "
 "begeleiden?"
-msgstr "Do you have preference in leading a specific type of Dutch project?"
+msgstr "Do you have preference in leading a specific Dutch project?"
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:154
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:50
-msgid "Sociaal"
-msgstr "Social"
-
-#: plugins/siw-functionality/includes/forms/camp-leader.php:159
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:26
-msgid "Natuur"
-msgstr "Nature"
-
-#: plugins/siw-functionality/includes/forms/camp-leader.php:164
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:34
-msgid "Constructie"
-msgstr "Construction"
-
-#: plugins/siw-functionality/includes/forms/camp-leader.php:174
+#: plugins/siw-functionality/includes/forms/camp-leader.php:169
 msgid "Overige opmerkingen?"
 msgstr "Other comments?"
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:223
+#: plugins/siw-functionality/includes/forms/camp-leader.php:218
 #: plugins/siw-functionality/includes/forms/class-siw-form.php:88
 #: plugins/siw-functionality/includes/forms/cooperation.php:171
 #: plugins/siw-functionality/includes/forms/enquiry-evs.php:149
@@ -710,7 +694,6 @@ msgid "Beschrijf kort op welke manier u wilt samenwerken met SIW"
 msgstr "Describe shortly how you envision your collaboration with SIW"
 
 #: plugins/siw-functionality/includes/forms/data-form-test.php:20
-#| msgid "Test-mode"
 msgid "Test"
 msgstr ""
 
@@ -1431,7 +1414,6 @@ msgstr "Netherlands"
 #: plugins/siw-functionality/includes/maps/data-nl.php:39
 #: plugins/siw-functionality/includes/widgets/dutch-projects/dutch-projects.php:69
 #, php-format
-#| msgid "Project %d"
 msgid "Projectcode: %s"
 msgstr "Projectcode: %s"
 
@@ -1517,7 +1499,6 @@ msgid "Extern"
 msgstr "External"
 
 #: plugins/siw-functionality/includes/options/data-configuration.php:31
-#| msgid "Analytics & SEO"
 msgid "Analytics"
 msgstr "Analytics"
 
@@ -1531,7 +1512,6 @@ msgid "Website verificatie"
 msgstr "Website verification"
 
 #: plugins/siw-functionality/includes/options/data-configuration.php:41
-#| msgid "Google Analytics"
 msgid "Google Analytics Property ID"
 msgstr "Google Analytics Property ID"
 
@@ -1781,7 +1761,6 @@ msgstr "Code"
 
 #: plugins/siw-functionality/includes/options/data-dutch-projects.php:41
 #, php-format
-#| msgid "Naam"
 msgid "Naam (%s)"
 msgstr "Name (%s)"
 
@@ -1834,7 +1813,6 @@ msgstr "Local fee"
 
 #: plugins/siw-functionality/includes/options/data-dutch-projects.php:112
 #, php-format
-#| msgid "Beschrijving"
 msgid "Beschrijving (%s)"
 msgstr "Description (%s)"
 
@@ -3855,9 +3833,21 @@ msgstr "Swiss"
 msgid "Restauratie"
 msgstr "Restauration"
 
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:26
+msgid "Natuur"
+msgstr "Nature"
+
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:34
+msgid "Constructie"
+msgstr "Construction"
+
 #: plugins/siw-functionality/includes/reference-data/work-types/data.php:42
 msgid "Archeologie"
 msgstr ""
+
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:50
+msgid "Sociaal"
+msgstr "Social"
 
 #: plugins/siw-functionality/includes/reference-data/work-types/data.php:58
 msgid "Kinderen"
@@ -3900,7 +3890,6 @@ msgid "Kunst"
 msgstr "Art"
 
 #: plugins/siw-functionality/includes/reference-data/work-types/data.php:138
-#| msgid "Export"
 msgid "Sport"
 msgstr "Sport"
 
@@ -4264,7 +4253,6 @@ msgid "Toont call to action"
 msgstr "Shows call to action"
 
 #: plugins/siw-functionality/includes/widgets/cta/cta.php:52
-#| msgid "Deadline"
 msgid "Headline"
 msgstr "Headline"
 

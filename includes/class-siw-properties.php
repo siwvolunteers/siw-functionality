@@ -91,15 +91,6 @@ class SIW_Properties {
 	 * Postcode
 	 *
 	 * @var string
-	 * 
-	 * @deprecated
-	 */
-	const POSTAL_CODE = '3511 RJ';
-
-	/**
-	 * Postcode
-	 *
-	 * @var string
 	 */
 	const POSTCODE = '3511 RJ';
 

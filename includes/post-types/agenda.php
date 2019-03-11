@@ -98,11 +98,12 @@ add_filter( 'rwmb_meta_boxes', function ( $meta_boxes ) {
 	$prefix = 'siw_agenda_';
 
 	$meta_boxes[] = [
-		'id'         => 'siw_agenda_meta',
-		'title'      => __( 'Agenda', 'siw' ),
-		'post_types' => 'agenda',
-		'context'    => 'normal',
-		'priority'   => 'high',
+		'id'          => 'siw_agenda_meta',
+		'title'       => __( 'Agenda', 'siw' ),
+		'post_types'  => 'agenda',
+		'toggle_type' => 'slide',
+		'context'     => 'normal',
+		'priority'    => 'high',
 		'fields' => [
 			[
 				'id'       => $prefix . 'beschrijving',

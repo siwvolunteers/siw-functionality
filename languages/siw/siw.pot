@@ -8,7 +8,7 @@ msgstr ""
 "WordPress Blank Pot "
 "v1.0.0\n"
 "POT-Creation-Date: "
-"2019-03-10 22:09+0100\n"
+"2019-03-11 21:34+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name "
 "<you@example.com>\n"
@@ -661,11 +661,11 @@ msgid ""
 "een volgend zomerseizoen."
 msgstr ""
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:67
+#: plugins/siw-functionality/includes/forms/camp-leader.php:80
 msgid "Projectbegeleider NP"
 msgstr ""
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:72
+#: plugins/siw-functionality/includes/forms/camp-leader.php:85
 #: plugins/siw-functionality/includes/forms/enquiry-evs.php:62
 #: plugins/siw-functionality/includes/forms/enquiry-general.php:68
 #: plugins/siw-functionality/includes/forms/enquiry-workcamp.php:64
@@ -677,7 +677,7 @@ msgid ""
 "verzonden."
 msgstr ""
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:107
+#: plugins/siw-functionality/includes/forms/camp-leader.php:120
 msgid ""
 "De Nederlandse "
 "vrijwilligersprojecten "
@@ -685,14 +685,14 @@ msgid ""
 "zomermaanden."
 msgstr ""
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:108
+#: plugins/siw-functionality/includes/forms/camp-leader.php:121
 msgid ""
 "We zijn hiervoor altijd op "
 "zoek naar "
 "projectbegeleiders."
 msgstr ""
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:109
+#: plugins/siw-functionality/includes/forms/camp-leader.php:122
 msgid ""
 "Meld je aan via "
 "onderstaand formulier en "
@@ -700,14 +700,14 @@ msgid ""
 "je voorkeur uitgaat."
 msgstr ""
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:110
+#: plugins/siw-functionality/includes/forms/camp-leader.php:123
 msgid ""
 "Vervolgens ontvang je een "
 "uitnodiging voor een "
 "kennismakingsgesprek."
 msgstr ""
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:111
+#: plugins/siw-functionality/includes/forms/camp-leader.php:124
 msgid ""
 "In dit gesprek hopen wij "
 "erachter te komen wat je "
@@ -715,7 +715,7 @@ msgid ""
 "kwaliteiten zijn."
 msgstr ""
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:129
+#: plugins/siw-functionality/includes/forms/camp-leader.php:142
 msgid ""
 "Waarom zou je graag een "
 "begeleider willen worden "
@@ -723,34 +723,19 @@ msgid ""
 "vrijwilligersprojecten?"
 msgstr ""
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:137
+#: plugins/siw-functionality/includes/forms/camp-leader.php:150
 msgid ""
 "Heb je een voorkeur om een "
-"bepaald soort Nederlands "
+"bepaald Nederlands "
 "vrijwilligersproject te "
 "begeleiden?"
 msgstr ""
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:154
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:50
-msgid "Sociaal"
-msgstr ""
-
-#: plugins/siw-functionality/includes/forms/camp-leader.php:159
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:26
-msgid "Natuur"
-msgstr ""
-
-#: plugins/siw-functionality/includes/forms/camp-leader.php:164
-#: plugins/siw-functionality/includes/reference-data/work-types/data.php:34
-msgid "Constructie"
-msgstr ""
-
-#: plugins/siw-functionality/includes/forms/camp-leader.php:174
+#: plugins/siw-functionality/includes/forms/camp-leader.php:169
 msgid "Overige opmerkingen?"
 msgstr ""
 
-#: plugins/siw-functionality/includes/forms/camp-leader.php:223
+#: plugins/siw-functionality/includes/forms/camp-leader.php:218
 #: plugins/siw-functionality/includes/forms/class-siw-form.php:88
 #: plugins/siw-functionality/includes/forms/cooperation.php:171
 #: plugins/siw-functionality/includes/forms/enquiry-evs.php:149
@@ -4152,8 +4137,20 @@ msgstr ""
 msgid "Restauratie"
 msgstr ""
 
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:26
+msgid "Natuur"
+msgstr ""
+
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:34
+msgid "Constructie"
+msgstr ""
+
 #: plugins/siw-functionality/includes/reference-data/work-types/data.php:42
 msgid "Archeologie"
+msgstr ""
+
+#: plugins/siw-functionality/includes/reference-data/work-types/data.php:50
+msgid "Sociaal"
 msgstr ""
 
 #: plugins/siw-functionality/includes/reference-data/work-types/data.php:58
