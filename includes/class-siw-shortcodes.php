@@ -309,6 +309,7 @@ class SIW_Shortcodes {
 	public static function dutch_projects() {
 		$language = SIW_i18n::get_current_language();
 		$projects = siw_get_option('dutch_projects');
+		$provinces = siw_get_dutch_provinces();
 		if ( empty( $projects ) ) {
 			return;
 		}
