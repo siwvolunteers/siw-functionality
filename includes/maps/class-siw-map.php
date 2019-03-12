@@ -202,7 +202,7 @@ class SIW_Map {
 			'developer'     => false,
 			'fillcolor'     => SIW_Properties::PRIMARY_COLOR,
 			'action'        => 'tooltip',
-			'maxscale'      => 1,
+			'maxscale'      => 2,
 			'zoom'          => true,
 			'skin'          => 'mapplic-dark',
 		];
