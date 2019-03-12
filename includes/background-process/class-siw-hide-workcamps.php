@@ -21,14 +21,13 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 	/**
 	 * @var string
 	 */
-	protected $name = 'verbergen groepsprojecten';	
+	protected $name = 'verbergen groepsprojecten';
 
 	/**
 	 * Groepsprojecten selecteren die aan 1 of meer van onderstaande voorwaarden voldoen:
 	 *
 	 * - Het project begint binnen 7 dagen
 	 * - Het project is in een niet-toegestaan land
- 	 * - Het project is expliciet verborgen
 	 * - Er zijn geen vrije plaatsen meer
 	 *
 	 * @todo configuratieconstante voor aantal dagen
@@ -36,7 +35,7 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 	 * @return array
 	 */
 	protected function select_data() {
-		$limit = date( 'Y-m-d', time() + ( 7 * DAY_IN_SECONDS ) );
+		$limit = date( 'Y-m-d', time() + ( 3 * DAY_IN_SECONDS ) );
 	
 		$tax_query = [
 			[
@@ -47,37 +46,27 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 			],
 		];
 		$meta_query = [
-			'relation'	=>	'OR',
+			'relation' => 'OR',
 			[
-				'key'		=> 'freeplaces',
-				'value'		=> 'no',
-				'compare'	=> '='
+				'key'     => 'freeplaces',
+				'value'   => 'no',
+				'compare' => '='
 			],
 			[
-				'key'		=> 'manual_visibility',
-				'value'		=> 'hide',
-				'compare'	=> '='
-			],
-			[
-				'key'		=> 'startdatum',
-				'value'		=> $limit,
-				'compare'	=> '<='
-			],
-			[
-				'key'		=> 'allowed',
-				'value'		=> 'no',
-				'compare'	=> '='
+				'key'     => 'start_date',
+				'value'   => $limit,
+				'compare' => '<='
 			],
 		];
 	
-		$args = array(
+		$args = [
 			'posts_per_page' => -1,
 			'post_type'      => 'product',
 			'meta_query'     => $meta_query,
 			'tax_query'      => $tax_query,
 			'fields'         => 'ids',
 			'post_status'    => 'any',
-		);
+		];
 	
 		$products = get_posts( $args );
 	
@@ -87,7 +76,7 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 	/**
 	 * Verberg het Groepsproject
 	 *
-	 * @param mixed $item
+	 * @param mixed $product_id
 	 *
 	 * @return bool
 	 */
@@ -104,7 +93,7 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 		}
 
 		$product->set_catalog_visibility( 'hidden' );
-		$product->set_featured( 'no' );
+		$product->set_featured( false );
 		SIW_Util::set_seo_noindex( $product_id, true );
 		$product->save();
 

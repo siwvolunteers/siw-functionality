@@ -196,7 +196,7 @@ class SIW_Module_Topbar {
 	 * Haalt de kortingsactie-inhoud op
 	 */
 	protected function get_sale_content() {
-		if ( ! siw_is_sale_active() ) {
+		if ( ! SIW_Util::is_workcamp_sale_active() ) {
 			return false;
 		}
 

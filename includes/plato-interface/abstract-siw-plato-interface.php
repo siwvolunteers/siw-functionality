@@ -113,8 +113,9 @@ abstract class SIW_Plato_Interface {
 	 */
 	private function set_logger() {
 		$this->logger = wc_get_logger();
-		$source = sanitize_title( $this->name );
-		$this->logger_context = array( 'source' => $source );
+
+		$source = sanitize_title( "siw-{$this->name}" );
+		$this->logger_context = [ 'source' => $source ];
 	}
 
 	/**
@@ -144,7 +145,7 @@ abstract class SIW_Plato_Interface {
 		/* Zoek HTML-statuscode en breek af indien ongelijk aan 200 */
 		$status_code = wp_remote_retrieve_response_code( $this->http_response );
 		if ( '200' != $status_code ) {
-			$this->log( 'error', 'Verbinding met PLATO mislukt. Statuscode: ' . $status_code );
+			$this->log( 'error', "Verbinding met PLATO mislukt. Statuscode: {$status_code}" );
 			return false;
 		}
 

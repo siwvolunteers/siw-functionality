@@ -19,7 +19,6 @@ class SIW_WC_Checkout_Newsletter{
 	public static function init() {
 		$self = new self();
 		add_action( 'woocommerce_after_checkout_billing_form', [ $self, 'show_newsletter_signup_checkbox'] );
-		add_filter( 'woocommerce_get_settings_checkout', [ $self, 'add_newsletter_checkout_setting'] );
 		add_filter( 'woocommerce_checkout_posted_data', [ $self, 'capture_newsletter_signup'] );
 		add_action( 'woocommerce_checkout_order_processed', [ $self, 'process_newsletter_signup'], 10, 3 );
 	}
@@ -62,7 +61,7 @@ class SIW_WC_Checkout_Newsletter{
 			return;
 		}
 
-		$list = (int) get_option( 'siw_woo_newsletter_list' );
+		$list = (int) siw_get_setting( 'newsletter_list' );
 		if ( 1 == $posted_data['newsletter_signup'] ) {
 			$user_data = [
 				'email'     => $order->get_billing_email(),
@@ -75,33 +74,5 @@ class SIW_WC_Checkout_Newsletter{
 			];
 			$user_id = WYSIJA::get( 'user', 'helper' )->addSubscriber( $data_subscriber, true );
 		}
-	}
-
-	/**
-	 * Voegt optie voor nieuwsbrief bij checkout toe
-	 *
-	 * @param array $settings
-	 * @return array
-	 * 
-	 * @todo verplaaten naar options
-	 */
-	public function add_newsletter_checkout_setting( $settings ) {
-		$mailpoet_lists = siw_get_mailpoet_lists();
-		$settings[] = [
-			'title'   => __( 'Aanmelden voor nieuwsbrief tijdens checkout', 'siw' ),
-			'type'    => 'title',
-			'id'      => 'siw_woo_newsletter_options',
-		];
-		$settings[] = [
-			'title'   => __( 'Lijst', 'siw' ),
-			'type'    => 'select',
-			'id'      => 'siw_woo_newsletter_list',
-			'options' => $mailpoet_lists,
-		];
-		$settings[] = [
-			'type'    => 'sectionend',
-			'id'      => 'siw_woo_newsletter_options',
-		];
-		return $settings;
 	}
 }

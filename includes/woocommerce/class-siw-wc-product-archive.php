@@ -162,13 +162,12 @@ class SIW_WC_Product_Archive {
 		}
 	
 		/* Toon extra tekst als de kortingsactie actief is */
-		if ( siw_is_sale_active() ) {
-			/* Ophalen tarieven en einddatum */
-			$tariffs = siw_get_workcamp_tariffs(); //TODO: properties gebruiken
-			$regular = SIW_Formatting::format_amount( $tariffs[ 'regulier' ] );
-			$regular_sale = SIW_Formatting::format_amount( $tariffs[ 'regulier_aanbieding' ] );
-			$student = SIW_Formatting::format_amount( $tariffs[ 'student' ] );
-			$student_sale = SIW_Formatting::format_amount( $tariffs[ 'student_aanbieding' ] );
+		if ( SIW_Util::is_workcamp_sale_active() ) {
+
+			$regular = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR );
+			$regular_sale = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE );
+			$student = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT );
+			$student_sale = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT_SALE );
 			$end_date = SIW_Formatting::format_date( siw_get_setting( 'workcamp_sale_end_date' ), false );
 	
 			$text .= BR2 . sprintf( __( 'Meld je nu aan en betaal geen %s maar %s voor je vrijwilligersproject.', 'siw' ), $regular, '<b>'. $regular_sale .'</b>' ) . SPACE .
@@ -265,7 +264,7 @@ class SIW_WC_Product_Archive {
 			case 'startdate':
 				$sort_args['orderby']  = 'meta_value';
 				$sort_args['order']    = 'asc';
-				$sort_args['meta_key'] = 'startdatum';
+				$sort_args['meta_key'] = 'start_date';
 				break;
 			case 'country':
 				$sort_args['orderby']  = 'meta_value';

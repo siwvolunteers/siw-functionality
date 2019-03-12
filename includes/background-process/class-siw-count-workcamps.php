@@ -48,17 +48,17 @@ class SIW_Count_Workcamps extends SIW_Background_Process {
 	/**
 	 * Tel het aantal projecten van de term
 	 *
-	 * @param mixed $item
+	 * @param mixed $term
 	 *
 	 * @return bool
 	 */
-	protected function task( $item ) {
+	protected function task( $term ) {
 
 		$tax_query = [
 			[
-				'taxonomy' => $item['taxonomy'],
+				'taxonomy' => $term['taxonomy'],
 				'field'    => 'slug',
-				'terms'    => $item['term_slug'],
+				'terms'    => $term['term_slug'],
 			],
 		];
 	
@@ -72,7 +72,7 @@ class SIW_Count_Workcamps extends SIW_Background_Process {
 			]
 		);
 		$count = count( $products );
-		update_term_meta( $item['term_id'], 'project_count', $count ); 
+		update_term_meta( $term['term_id'], 'project_count', $count ); 
 		$this->increment_processed_count();
 
 		return false;

@@ -32,7 +32,7 @@ class SIW_Admin_Properties_Page {
 		add_management_page(
 			__( 'SIW Eigenschappen', 'siw' ),
 			__( 'SIW Eigenschappen', 'siw' ),
-			'manage_options',
+			'edit_posts',
 			'siw-properties',
 			[ $this, 'render_properties_page' ]
 		);
@@ -74,5 +74,4 @@ class SIW_Admin_Properties_Page {
 	</table>
 	<?php
 	}
-
 }

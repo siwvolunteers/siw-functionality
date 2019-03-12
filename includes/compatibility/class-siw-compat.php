@@ -46,6 +46,7 @@ class SIW_Compat {
 	 */
 	public function process_plugin_update() {
 		wp_schedule_single_event( time(), 'siw_update_plugin' );
+		flush_rewrite_rules();
 	}
 
 	/**
@@ -95,7 +96,6 @@ class SIW_Compat {
 		$screen = get_current_screen();
 		remove_meta_box( 'icl_div_config', $screen->post_type, 'normal' );
 	}
-
 
 	/**
 	 * Verwijdert redux dashboard widget

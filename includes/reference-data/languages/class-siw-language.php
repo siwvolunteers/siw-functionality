@@ -6,9 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Bevat informatie over een taal
  * 
- * @package 	SIW\Reference-Data
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
- * @author      Maarten Bruna
+ * @package   SIW\Reference-Data
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
+ * @author    Maarten Bruna
  */
 class SIW_Language {
 
@@ -32,14 +32,14 @@ class SIW_Language {
 	 *
 	 * @var bool
 	 */
-	protected $is_volunteer_language;
+	protected $volunteer_language;
 
 	/**
 	 * Geeft aan of dit een projecttaal kan zijn
 	 *
 	 * @var bool
 	 */
-	protected $is_project_language;
+	protected $project_language;
 
 	/**
 	 * @param array $language
@@ -53,20 +53,11 @@ class SIW_Language {
 			'project_language'   => false,
 		];
 		$language = wp_parse_args( $language, $defaults );
-		$this->set_slug( $language['slug'] );
-		$this->set_name( $language['name'] );
-		$this->set_plato_code( $language[ 'plato'] );
-		$this->set_volunteer_language( $language['volunteer_language'] ); 
-		$this->set_project_language( $language['project_language'] ); 
-	}
-
-	/**
-	 * @param string $slug
-	 * @return $this
-	 */
-	public function set_slug( $slug ) {
-		$this->slug = $slug;
-		return $this;
+		$this->slug = $language['slug'];
+		$this->name = $language['name'];
+		$this->plato_code = $language[ 'plato'];
+		$this->volunteer_language = $language['volunteer_language']; 
+		$this->project_language = $language['project_language']; 
 	}
 
 	/**
@@ -93,30 +84,10 @@ class SIW_Language {
 	}
 
 	/**
-	 * @param string $plato_code
-	 * @return $this
-	 */
-	public function set_plato_code( $plato_code ) {
-		$this->plato_code = $plato_code;
-		return $this;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function get_plato_code() {
 		return $this->plato_code;
-	}
-
-	/**
-	 * Zet of dit een taal is die een vrijwilliger kan opgeven
-	 *
-	 * @param bool $value
-	 * @return $this
-	 */
-	public function set_volunteer_language( $value ) {
-		$this->volunteer_language = $value;
-		return $this;
 	}
 
 	/**
@@ -126,17 +97,6 @@ class SIW_Language {
 	 */
 	public function is_volunteer_language() {
 		return $this->volunteer_language;
-	}
-
-	/**
-	 * Zet of dit een projecttaal kan zijn
-	 *
-	 * @param bool $value
-	 * @return $this
-	 */
-	public function set_project_language( $value ) {
-		$this->project_language = $value;
-		return $this;
 	}
 
 	/**

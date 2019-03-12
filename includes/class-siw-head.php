@@ -26,7 +26,7 @@ class SIW_Head {
 	 */
 	public static function init() {
 		$self = new self();
-		add_action( 'wp_head', [ $self, 'add_icons' ] );
+		add_action( 'wp_head', [ $self, 'add_favicons' ] );
 		add_action( 'wp_head', [ $self, 'add_site_verification' ] );
 		add_filter( 'wp_resource_hints', [ $self, 'add_resource_hints' ], 10 , 2 );
 		add_filter( 'wp_head', [ $self, 'add_organisation_json_ld' ] );
@@ -48,21 +48,22 @@ class SIW_Head {
 	/**
 	 * Voegt iconen voor diverse browsers toe
 	 */
-	public function add_icons() {
+	public function add_favicons() {
 
-		$icons_url = wp_make_link_relative( SIW_ASSETS_URL . 'icons/' );
-		//TODO: generate tag oid
+		$base_url = wp_make_link_relative( SIW_ASSETS_URL . 'favicons/' );
 		?>
 	
 		<!-- Start favicons -->
-		<link rel="apple-touch-icon" sizes="180x180" href="<?= esc_url( $icons_url );?>apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="<?= esc_url( $icons_url );?>favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="192x192" href="<?= esc_url( $icons_url );?>android-chrome-192x192.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="<?= esc_url( $icons_url );?>favicon-16x16.png">
-		<link rel="manifest" href="<?= esc_url( $icons_url );?>manifest.json">
-		<link rel="mask-icon" href="<?= esc_url( $icons_url );?>safari-pinned-tab.svg" color="<?php echo esc_attr( SIW_Properties::PRIMARY_COLOR );?>">
-		<link rel="shortcut icon" href="<?= esc_url( $icons_url );?>favicon.ico">
-		<meta name="msapplication-config" content="<?= esc_url( $icons_url );?>browserconfig.xml">
+		<?php
+			echo SIW_Formatting::generate_tag( 'link', [ 'rel' => 'apple-touch-icon', 'sizes' => '180x180', 'href' => esc_url( "{$base_url}apple-touch-icon.png" ) ] );
+			echo SIW_Formatting::generate_tag( 'link', [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '32x32', 'href' => esc_url( "{$base_url}favicon-32x32.png" ) ] );
+			echo SIW_Formatting::generate_tag( 'link', [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '192x192', 'href' => esc_url( "{$base_url}android-chrome-192x192.png" ) ] );
+			echo SIW_Formatting::generate_tag( 'link', [ 'rel' => 'icon', 'type' => 'image/png', 'sizes' => '16x16', 'href' => esc_url( "{$base_url}favicon-16x16.png" ) ] );
+			echo SIW_Formatting::generate_tag( 'link', [ 'rel' => 'manifest', 'href' => esc_url( "{$base_url}manifest.json" ) ] );
+			echo SIW_Formatting::generate_tag( 'link', [ 'rel' => 'mask-icon', 'href' => esc_url( "{$base_url}safari-pinned-tab.svg" ), 'color' => esc_attr( SIW_Properties::PRIMARY_COLOR ) ] );
+			echo SIW_Formatting::generate_tag( 'link', [ 'rel' => 'shortcut icon', 'href' => esc_url( "{$base_url}favicon.ico" ) ] );
+			echo SIW_Formatting::generate_tag( 'meta', [ 'rel' => 'msapplication-config', 'href' => esc_url( "{$base_url}browserconfig.xml" ) ] );
+		?>
 		<!-- Einde favicons -->
 		<?php
 	}
@@ -77,11 +78,11 @@ class SIW_Head {
 		echo '<!-- Start site verificatie -->';
 		$google = siw_get_setting( 'google_search_console_verification' );
 		if ( $google ) {
-			printf( '<meta name="google-site-verification" content="%s">', esc_attr( $google ) );
+			echo SIW_Formatting::generate_tag( 'meta', [ 'name' => 'google-site-verification', 'content' => $google ] );
 		}
 		$bing = siw_get_setting( 'bing_webmaster_tools_verification' );
-		if ( $google ) {
-			printf( '<meta name="msvalidate.01" content="%s">', esc_attr( $bing ) );
+		if ( $bing ) {
+			echo SIW_Formatting::generate_tag( 'meta', [ 'name' => 'msvalidate.01', 'content' => $bing ] );
 		}
 		echo '<!-- Einde site verificatie -->';
 	}
@@ -103,10 +104,10 @@ class SIW_Head {
 		}
 	
 		if ( 'preconnect' === $relation_type ) {
-			$urls[] = array(
+			$urls[] = [
 				'href' => 'https://www.google-analytics.com',
 				'crossorigin',
-			);
+			];
 		}
 		return $urls;
 	}

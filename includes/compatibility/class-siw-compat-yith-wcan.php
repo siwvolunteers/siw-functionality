@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Aanpassingen voor YITH WooCommerce Ajax Product Filter
  * 
  * @package     SIW\Compatibility
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright   2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  */
 
@@ -57,11 +57,11 @@ class SIW_Compat_YITH_WCAN {
 	 * @return array
 	 */
 	public function order_terms( $terms, $taxonomy, $instance ) {
-		if ( 'pa_maand' != $taxonomy ) {
+		if ( 'pa_maand' != $taxonomy || empty( $terms )) {
 			return $terms;
 		}
 		foreach ( $terms as $index => $term ) {
-			$ordered_term_indices[ $index ] = $term->slug;
+			$ordered_term_indices[ $index ] = get_term_meta( $term->term_id, "order_{$taxonomy}", true );
 		}
 		asort( $ordered_term_indices, SORT_STRING );
 		$order = array_keys( $ordered_term_indices );

@@ -82,7 +82,7 @@ class SIW_Widget_Contact extends SIW_Widget {
 						'data-placement'      => 'top',
 						'data-original-title' => $network->get_name(),
 					],
-					"kt-icon-{$network->get_slug()}2"
+					$network->get_icon_class()
 				);
 			}
 			?>

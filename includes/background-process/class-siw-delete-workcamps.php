@@ -14,6 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SIW_Delete_Workcamps extends SIW_Background_Process {
 
 	/**
+	 * Aantal maanden voordat Groepsproject verwijderd wordt.
+	 */
+	const MAX_AGE_WORKCAMP_IN_MONTHS = 6;
+
+	/**
 	 * @access protected
 	 */
 	protected $action = 'delete_workcamps_process';
@@ -31,17 +36,17 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 	 * @return array
 	 */
 	protected function select_data() {
-		$limit = date( 'Y-m-d', time() - ( 6 * MONTH_IN_SECONDS ) );
+		$limit = date( 'Y-m-d', time() - ( self::MAX_AGE_WORKCAMP_IN_MONTHS * MONTH_IN_SECONDS ) );
 
 		$meta_query = [
-			'relation'	=> 'OR',
+			'relation' => 'OR',
 			[
-				'key'     => 'startdatum',
+				'key'     => 'start_date',
 				'value'   => $limit,
 				'compare' => '<',
 			],
 			[
-				'key'     => 'startdatum', //TODO: meta wordt gewoon startdate
+				'key'     => 'start_date',
 				'compare' => 'NOT EXISTS',
 			],
 		];
@@ -49,56 +54,27 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 			'posts_per_page' => -1,
 			'post_type'      => 'product',
 			'meta_query'     => $meta_query,
-			'fields'         => 'ids'
+			'fields'         => 'ids',
+			'post_status'    => 'any',
 		];
 		$products = get_posts( $args );
-	
 		
 		if ( empty( $products ) ) {
-			
 			return false;
 		}
-	
-		//variaties van geselecteerde projecten opzoeken,  kan weg na vervangen WP All Import
-		$args = [
-			'posts_per_page'  => -1,
-			'post_type'       => 'product_variation',
-			'post_parent__in' => $products,
-			'fields'          => 'ids',
-		];
-		$variations = get_posts( $args );
-	
-		//variaties en producten samenvoegen tot 1 array voor DELETE-query
-		$posts = array_merge( $variations, $products );
-		$post_ids = implode( ',', $posts );
-	
-		//wp all import tabel bijwerken
-		global $wpdb;
-		if ( ! isset( $wpdb->pmxi_posts ) ) {
-			$wpdb->pmxi_posts = $wpdb->prefix . 'pmxi_posts';
-		}
-	
-		$wpdb->query(
-			$wpdb->prepare("
-				DELETE FROM $wpdb->pmxi_posts
-				WHERE post_id IN (%s)",
-				$post_ids
-			)
-		);
-
 		return $products;
 	}
 
 	/**
 	 * Verwijderen van product (inclusief variaties)
 	 *
-	 * @param mixed $item
+	 * @param int $product_id
 	 *
 	 * @return mixed
 	 */
-	protected function task( $item ) {
+	protected function task( $product_id ) {
 
-		$product = wc_get_product( $item );
+		$product = wc_get_product( $product_id );
 		if ( false == $product ) {
 			return false;
 		}
@@ -111,7 +87,6 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 			$variation->delete( true );
 		}
 		$product->delete( true );
-
 		$this->increment_processed_count();
 
 		return false;

@@ -31,6 +31,9 @@ class SIW_Widgets {
 	 * Init
 	 */
 	public static function init() {
+		if ( ! class_exists( 'SiteOrigin_Widgets_Bundle' ) ) {
+			return;
+		}
 		$self = new self();
 
 		$self->set_widgets_folder_base();

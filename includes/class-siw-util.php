@@ -82,8 +82,8 @@ class SIW_Util {
 	 * @return array
 	 */
 	public static function get_pages() {
-		$default_lang = apply_filters( 'wpml_default_language', NULL );
-		$current_lang = apply_filters( 'wpml_current_language', NULL );
+		$default_lang = SIW_i18n::get_default_language();
+		$current_lang = SIW_i18n::get_current_language();
 		do_action( 'wpml_switch_language', $default_lang );
 		$results = get_pages();
 		do_action( 'wpml_switch_language', $current_lang );
@@ -151,5 +151,23 @@ class SIW_Util {
 	 */
 	public static function set_seo_description( $post_id, $description ) {
 		update_post_meta( $post_id, '_genesis_description', $description );
+	}
+
+	/**
+	 * Geeft aan of kortingsactie voor Groepsprojecten actief is
+	 *
+	 * @return bool
+	 */
+	public static function is_workcamp_sale_active() {
+		
+		$workcamp_sale_active = false;
+
+		if ( siw_get_setting( 'workcamp_sale_active' ) &&
+			date( 'Y-m-d' ) >= siw_get_setting( 'workcamp_sale_start_date' ) &&
+			date( 'Y-m-d' ) <= siw_get_setting( 'workcamp_sale_end_date' )
+			) {
+				$workcamp_sale_active = true;
+		}
+		return $workcamp_sale_active;
 	}
 }

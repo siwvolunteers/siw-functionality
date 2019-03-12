@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Bevat informatie over een land
  * 
- * @package 	SIW\Reference-Data
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
- * @author      Maarten Bruna
+ * @package   SIW\Reference-Data
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
+ * @author    Maarten Bruna
  */
 class SIW_Country {
 
@@ -104,28 +104,16 @@ class SIW_Country {
 		];
 		$country = wp_parse_args( $country, $defaults );
 
-		// Zet eigenschappen
-		$this->set_iso_code( $country['iso'] );
-		$this->set_slug( $country['slug'] );
-		$this->set_name( $country['name'] );
-		$this->set_continent( $country['continent'] );
-		$this->set_allowed( $country['allowed'] );
-		$this->set_has_workcamps( $country['workcamps'] );
-		$this->set_has_tailor_made_projects( $country['tailor_made'] );
-		$this->set_has_esc_projects( $country['esc'] );
-		$this->set_world_map_data( $country['world_map'] );
-		$this->set_europe_map_data( $country['europe_map']);
-	}
-
-	/**
-	 * Zet ISO-code van het land
-	 *
-	 * @param string $slug
-	 * @return $this
-	 */
-	public function set_iso_code( $iso_code ) {
-		$this->iso_code = $iso_code;
-		return $this;
+		$this->iso_code = $country['iso'];
+		$this->slug = $country['slug'];
+		$this->name = $country['name'];
+		$this->continent = siw_get_continent( $country['continent'] );
+		$this->allowed = $country['allowed'];
+		$this->has_workcamps = $country['workcamps'];
+		$this->has_tailor_made_projects = $country['tailor_made'];
+		$this->has_esc_projects = $country['esc'];
+		$this->world_map_data = (object) $country['world_map'];
+		$this->europe_map_data = (object) $country['europe_map'];
 	}
 
 	/**
@@ -138,34 +126,12 @@ class SIW_Country {
 	}
 
 	/**
-	 * Zet slug van land
-	 *
-	 * @param string $slug
-	 * @return $this
-	 */
-	public function set_slug( $slug ) {
-		$this->slug = $slug;
-		return $this;
-	}
-
-	/**
 	 * Geeft slug van het land terug
 	 *
 	 * @return string
 	 */
 	public function get_slug() {
 		return $this->slug;
-	}
-
-	/**
-	 * Zet naam van land
-	 *
-	 * @param string $name
-	 * @return $this
-	 */
-	public function set_name( $name ) {
-		$this->name = $name;
-		return $this;
 	}
 
 	/**
@@ -178,37 +144,12 @@ class SIW_Country {
 	}
 
 	/**
-	 * Zet continent van het project
-	 *
-	 * @param SIW_Continent|string $continent
-	 * @return $this
-	 */
-	public function set_continent( $continent ) {
-		if ( ! is_a( $continent, 'SIW_Continent' ) ) {
-			$continent = siw_get_continent( $continent );
-		}
-		$this->continent = $continent;
-		return $this;
-	}
-
-	/**
 	 * Geeft continent van land terug
 	 *
 	 * @return SIW_Continent
 	 */
 	public function get_continent() {
 		return $this->continent;
-	}
-
-	/**
-	 * Zet of land toegestaan is
-	 *
-	 * @param bool $allowed
-	 * @return $this
-	 */
-	public function set_allowed( $allowed ) {
-		$this->allowed = (bool) $allowed;
-		return $this;
 	}
 
 	/**
@@ -221,34 +162,12 @@ class SIW_Country {
 	}
 
 	/**
-	 * Zet of het land groepsprojecten heeft
-	 *
-	 * @param bool $has_workcamps
-	 * @return $this
-	 */
-	public function set_has_workcamps( $has_workcamps ) {
-		$this->has_workcamps = (bool) $has_workcamps;
-		return $this;
-	}
-
-	/**
 	 * Geeft aan of het land groepsprojecten heeft
 	 *
 	 * @return bool
 	 */
 	public function has_workcamps() {
 		return $this->has_workcamps;
-	}
-
-	/**
-	 * Zet of het land ESC-projecten heeft
-	 *
-	 * @param bool $has_esc_projects
-	 * @return $this
-	 */
-	public function set_has_esc_projects( $has_esc_projects ) {
-		$this->has_esc_projects = (bool) $has_esc_projects;
-		return $this;
 	}
 
 	/**
@@ -261,17 +180,6 @@ class SIW_Country {
 	}
 
 	/**
-	 * Zet of het land Op Maat projecten heeft
-	 *
-	 * @param bool $has_tailor_made_projects
-	 * @return $this
-	 */
-	public function set_has_tailor_made_projects( $has_tailor_made_projects ) {
-		$this->has_tailor_made_projects = (bool) $has_tailor_made_projects;
-		return $this;
-	}
-
-	/**
 	 * Geeft aan of het land Op Maat projecten heeft
 	 *
 	 * @return boolean
@@ -281,33 +189,12 @@ class SIW_Country {
 	}
 
 	/**
-	 * Zet de gegevens van het land voor de kaart van de wereld
-	 *
-	 * @param array $world_map_data
-	 * @return $this
-	 */
-	public function set_world_map_data( $world_map_data ) {
-		$this->world_map_data = (object) $world_map_data;
-		return $this;
-	}
-
-	/**
 	 * Geeft de gegevens van het land voor de kaart van de wereld terug
 	 *
 	 * @return stdClass
 	 */
 	public function get_world_map_data() {
 		return (object) $this->world_map_data;
-	}
-	/**
-	 * Zet de gegevens van het land voor de kaart van Europa
-	 * 
-	 * @param array $europe_map_data
-	 * @return $this
-	 */
-	public function set_europe_map_data( $europe_map_data ) {
-		$this->europe_map_data = (object) $europe_map_data;
-		return $this;
 	}
 	
 	/**

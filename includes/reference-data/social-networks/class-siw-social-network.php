@@ -7,49 +7,59 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Bevat informatie over een sociaal netwerk
  * 
  * @package     SIW\Reference-Data
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright   2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  */
 class SIW_Social_Network {
 
 	/**
+	 * Slug van het netwerk
+	 *
 	 * @var string
 	 */
 	protected $slug;
 
 	/**
+	 * Naam van het netwerk
+	 *
 	 * @var string
 	 */
 	protected $name;
 
 	/**
-	 * Undocumented variable
+	 * CSS-class van icoon
+	 *
+	 * @var string
+	 */
+	protected $icon_class;
+
+	/**
+	 * URL van netwerk om te volgen
 	 *
 	 * @var string
 	 */
 	protected $follow_url;
 
 	/**
-	 * Undocumented function
+	 * URL-template voor delen
 	 *
-	 * @return void
+	 * @var string
 	 */
-	protected $share_url;
+	protected $share_url_template;
 
 	/**
-	 * Undocumented variable
+	 * Is netwerk om te delen?
 	 *
 	 * @var bool
 	 */
-	protected $for_sharing;
+	protected $share;
 
 	/**
-	 * Undocumented variable
+	 * Is netwerk om te volgen
 	 *
 	 * @var bool
 	 */
-	protected $for_following;
-
+	protected $follow;
 
 	/**
 	 * Constructor
@@ -58,33 +68,28 @@ class SIW_Social_Network {
 	 */
 	public function __construct( $network ) {
 		$defaults = [
-			'slug'          => '',
-			'name'          => '',
-			'follow'        => false,
-			'follow_url'    => null,
-			'share'         => false,
-			'share_url'     => null
+			'slug'               => '',
+			'name'               => '',
+			'icon_class'         => '',
+			'follow'             => false,
+			'follow_url'         => null,
+			'share'              => false,
+			'share_url_template' => null
 		];
 		$network = wp_parse_args( $network, $defaults );
 
-		$this->set_slug( $network['slug'] );
-		$this->set_name( $network['name'] );
-		$this->set_for_following( $network['follow'] );
-		$this->set_follow_url( $network['follow_url'] );
-		$this->set_for_sharing( $network['share'] );
-		$this->set_share_url( $network['share_url'] );
+		$this->slug = $network['slug'];
+		$this->name = $network['name'];
+		$this->icon_class = $network['icon_class'];
+		$this->follow = $network['follow'];
+		$this->follow_url = $network['follow_url'];
+		$this->share = $network['share'];
+		$this->share_url_template = $network['share_url_template'];
 	}
 
 	/**
-	 * @param string $slug
-	 * @return $this
-	 */
-	protected function set_slug( $slug ) {
-		$this->slug = $slug;
-		return $this;
-	}
-
-	/**
+	 * Geeft slug van netwerk terug
+	 * 
 	 * @return string
 	 */
 	public function get_slug() {
@@ -92,15 +97,8 @@ class SIW_Social_Network {
 	}
 
 	/**
-	 * @param string $name
-	 * @return $this
-	 */
-	protected function set_name( $name ) {
-		$this->name = $name;
-		return $this;
-	}
-
-	/**
+	 * Geeft de naam van het netwerk terug
+	 * 
 	 * @return string
 	 */
 	public function get_name() {
@@ -108,58 +106,34 @@ class SIW_Social_Network {
 	}
 
 	/**
-	 * Undocumented function
-	 *
-	 * @param bool $for_sharing
-	 * @return $this
+	 * Geeft icon class voor voor netwerk terug
+	 * 
+	 * @return string
 	 */
-	protected function set_for_sharing( $for_sharing ) {
-		$this->for_sharing = $for_sharing;
-		return $this;
+	public function get_icon_class() {
+		return $this->icon_class;
 	}
 
 	/**
-	 * Undocumented function
+	 * Geeft aan of via dit netwerk gedeeld kan worden
 	 *
 	 * @return boolean
 	 */
 	public function is_for_sharing() {
-		return $this->for_sharing;
+		return $this->share;
 	}
 
 	/**
-	 * Undocumented function
-	 *
-	 * @param bool $for_following
-	 * @return $this
-	 */
-	protected function set_for_following( $for_following ) {
-		$this->for_following = $for_following;
-		return $this;
-	}
-
-	/**
-	 * Undocumented function
+	 * Geeft aan of dit netwerk gevolgd kan worden
 	 *
 	 * @return boolean
 	 */
 	public function is_for_following() {
-		return $this->for_following;
+		return $this->follow;
 	}
 
 	/**
-	 * Undocumented function
-	 *
-	 * @param string $follow_url
-	 * @return void
-	 */
-	protected function set_follow_url( $follow_url ) {
-		$this->follow_url = $follow_url;
-		return $this;
-	}
-
-	/**
-	 * Undocumented function
+	 * Geeft URL van network om te volgen terug
 	 *
 	 * @return string
 	 */
@@ -168,35 +142,24 @@ class SIW_Social_Network {
 	}
 
 	/**
-	 * Undocumented function
-	 *
-	 * @param string $template
-	 * @return $this
-	 */
-	protected function set_share_url( $share_url ) {
-		$this->share_url = $share_url;
-		return $this;
-	}
-
-	/**
-	 * Undocumented function
+	 * Geeft template voor url om te delen terug
 	 *
 	 * @return string
 	 */
-	public function get_share_url() {
-		return $this->share_url;
+	public function get_share_url_template() {
+		return $this->share_url_template;
 	}
 
 	/**
-	 * Undocumented function
+	 * Genereert link op te delen
 	 *
 	 * @param string $url
 	 * @param string $title
-	 * @return void
+	 * @return string
 	 */
 	public function generate_share_link( $url, $title ) {
 
-		$template = $this->get_share_url();
+		$template = $this->get_share_url_template();
 		$url = urlencode( $url );
 		$title = rawurlencode( html_entity_decode( $title ) );
 
@@ -207,5 +170,4 @@ class SIW_Social_Network {
 	
 		return SIW_Formatting::parse_template( $template, $vars );
 	}
-
 }

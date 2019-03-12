@@ -14,6 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_filter( 'siw_currency_data', function( $data ) {
 	$data = [
 		[
+			'iso'    => 'CAD',
+			'symbol' => 'C$',
+			'name'   => __( 'Canadese dollar', 'siw' ),
+		],
+		[
 			'iso'    => 'CHF',
 			'symbol' => 'CHF',
 			'name'   => __( 'Zwitserse frank', 'siw' ),

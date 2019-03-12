@@ -3,15 +3,15 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 /**
  * Functionaliteit t.b.v. meertaligheid
  * 
  * @package   SIW
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  */
-
-class SIW_i18n {
+ class SIW_i18n {
 
 	/**
 	 * Init
@@ -43,7 +43,6 @@ class SIW_i18n {
 			$custom_mofile = SIW_PLUGIN_DIR . "languages/{$domain}/{$locale}.mo";
 			$mofile = file_exists( $custom_mofile ) ? $custom_mofile : $mofile;
 		}
-	
 		return $mofile;
 	}
 
@@ -75,6 +74,33 @@ class SIW_i18n {
 	 */
 	public static function is_default_language() {
 		return ( apply_filters( 'wpml_current_language', NULL ) == apply_filters( 'wpml_default_language', NULL ) ); 
+	}
+
+	/**
+	 * Geeft code van huidige taal terug
+	 * 
+	 * @return string
+	 */
+	public static function get_current_language() {
+		return apply_filters( 'wpml_current_language', NULL );
+	}
+
+	/**
+	 * Geeft code van standaardtaal terug
+	 * 
+	 * @return string
+	 */
+	public static function get_default_language() {
+		return apply_filters( 'wpml_current_language', NULL );
+	}
+
+	/**
+	 * Geeft gegevens van actieve talen terug
+	 * 
+	 * @return array
+	 */
+	public static function get_active_languages() {
+		return apply_filters( 'wpml_active_languages', null );
 	}
 
 	/**

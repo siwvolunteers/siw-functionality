@@ -226,7 +226,7 @@ return array(
 		'on_insert' => 1,
 		'sender_name' => __( 'Website', 'siw' ),
 		'sender_email' => siw_get_setting( 'evs_email_sender' ),
-		'reply_to' => '%email%',
+		'reply_to' => '%emailadres%',
 		'email_type' => 'html',
 		'recipients' => siw_get_setting( 'evs_email_sender' ),
 		'email_subject' => $notification_template_args['subject'],

@@ -18,14 +18,11 @@ add_action( 'plugins_loaded', ['SIW_WC_Email_Customer_On_Hold_Order', 'init']);
 add_action( 'plugins_loaded', ['SIW_WC_Email_Customer_Processing_Order', 'init']);
 
 /* Import-functies */
-require_once( __DIR__ . '/import/attributes.php' );
-require_once( __DIR__ . '/import/image.php' );
-require_once( __DIR__ . '/import/process.php' );
-require_once( __DIR__ . '/import/description.php' );
-require_once( __DIR__ . '/import/wp-all-import.php' );
+require_once( __DIR__ . '/import/class-siw-wc-import-product.php');
+require_once( __DIR__ . '/import/data-descriptions.php' );
 
-/* Diverse functies */
-require_once( __DIR__ . '/update.php' );
+
+/* Export naar Plato TODO: class van maken */
 require_once( __DIR__ . '/export-to-plato.php' );
 
 /** Admin */
@@ -33,7 +30,7 @@ require_once( __DIR__ . '/admin/class-siw-wc-admin-order.php' );
 require_once( __DIR__ . '/admin/class-siw-wc-admin-product.php' );
 
 add_action( 'plugins_loaded', ['SIW_WC_Admin_Order', 'init']);
-add_action( 'plugins_loaded', ['SIW_WC_Admin_Product', 'init' ]);
+add_action( 'plugins_loaded', ['SIW_WC_Admin_Product', 'init']);
 
 /* Frontend*/
 require_once( __DIR__ . '/class-siw-wc-product-archive.php' );

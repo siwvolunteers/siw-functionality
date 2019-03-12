@@ -58,7 +58,7 @@ class SIW_WC_Product {
 	 */
 	public function remove_reviews_tab( $tabs ) {
 		unset( $tabs['reviews'] );
-		return $tabs;	
+		return $tabs;
 	}
 
 	/**
@@ -81,7 +81,7 @@ class SIW_WC_Product {
 				'longitude' => $longitude,
 			];
 		}
-		return $tabs;	
+		return $tabs;
 	}
 
 	/**
@@ -96,7 +96,7 @@ class SIW_WC_Product {
 			'priority' => 120,
 			'callback' => [ $this, 'show_product_contact_form' ],
 		];
-		return $tabs;	
+		return $tabs;
 	}
 
 	/**
@@ -124,8 +124,9 @@ class SIW_WC_Product {
 	 */
 	public function set_product_is_purchasable( $is_purchasable, $product ) {
 		$is_purchasable = $product->is_visible();
+		$status = $product->get_status();
 
-		if ( false == $is_purchasable ) {
+		if ( false == $is_purchasable || SIW_WC_Import_Product::REVIEW_STATUS == $status ) {
 			
 			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation', 10 ); //TODO: kan weg na switch theme
 			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation_add_to_cart_button', 20 );
@@ -167,27 +168,19 @@ class SIW_WC_Product {
 	 * @return array
 	 */
 	public function order_product_attributes( $attributes ) {
-		$order = array(
-			'pa_projectnaam', //TODO: verwijderen indien mogelijk
+		$order = [
 			'projectnaam',
-			'pa_projectcode', //TODO: verwijderen indien mogelijk
 			'projectcode',
 			'pa_land',
 			'pa_soort-werk',
-			'pa_startdatum', //TODO: verwijderen indien mogelijk
 			'startdatum',
-			'pa_einddatum', //TODO: verwijderen indien mogelijk
 			'einddatum',
-			'pa_aantal-vrijwilligers', //TODO: verwijderen indien mogelijk
 			'aantal-vrijwilligers',
-			'pa_leeftijd', //TODO: verwijderen indien mogelijk
 			'leeftijd',
-			'pa_lokale-bijdrage', //TODO: verwijderen indien mogelijk
 			'lokale-bijdrage',
 			'pa_taal',
-			'pa_vog',
 			'pa_doelgroep',
-		);
+		];
 		uksort( $attributes, function( $key1, $key2 ) use ( $order ) {
 			return ( array_search( $key1, $order ) > array_search( $key2, $order ) );
 		} );
@@ -216,10 +209,12 @@ class SIW_WC_Product {
 		if ( ! empty( $participation_fee_currency ) && $participation_fee > 0 ) {
 			$currency = siw_get_currency( $participation_fee_currency );
 			$symbol = $participation_fee_currency;
-			if ( false != $currency && 'EUR' != $participation_fee_currency ) {
+			if ( false != $currency ) {
 				$symbol = $currency->get_symbol();
-				$amount_in_euro = $currency->convert_to_euro( $participation_fee );
-	
+				if ( 'EUR' != $participation_fee_currency ) {
+					$amount_in_euro = $currency->convert_to_euro( $participation_fee );
+				}
+
 			}
 			?>
 			<div class="local-fee">

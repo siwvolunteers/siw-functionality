@@ -20,21 +20,6 @@ function siw_get_ip_whitelist() {
 	return $ip_whitelist;
 }
 
-/**
- * Geeft array met tarieven Groepsprojecten terug
- *
- * @return array
- */
-function siw_get_workcamp_tariffs() {
-	$workcamp_tariffs = [
-		'regulier'            => number_format( SIW_Properties::WORKCAMP_FEE_REGULAR, 2 ),
-		'student'             => number_format( SIW_Properties::WORKCAMP_FEE_STUDENT, 2 ),
-		'regulier_aanbieding' => number_format( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE, 2 ),
-		'student_aanbieding'  => number_format( SIW_Properties::WORKCAMP_FEE_STUDENT_SALE, 2 ),
-	];
-	return $workcamp_tariffs;
-}
-
 
 /**
  * Geeft array met Mailpoet-lijsten terug
@@ -113,45 +98,4 @@ function siw_get_annual_reports() {
 		$annual_reports[ $x ] = siw_get_setting( "annual_report_{$x}" );
 	}
 	return $annual_reports;
-}
-
-
-/**
- * Geeft array met Nederlandse Projecten terug
- * @return array
- */
-function siw_get_dutch_projects() {
-	$dutch_projects = array();
-	$properties = array(
-		'name',
-		'city',
-		'province',
-		'latitude',
-		'longitude',
-		'start_date',
-		'end_date',
-		'work',
-		'participants',
-	);
-	$types = siw_get_work_types( 'dutch_projects' );
-	foreach ( $types as $type ) {
-		$work_types[ $type->get_slug() ] = $type->get_name();
-	}
-	$provinces = siw_get_dutch_provinces();
-
-	for ( $x = 1 ; $x <=  SIW_Properties::MAX_DUTCH_PROJECTS; $x++ ) {
-		$present = siw_get_setting( "np_project_{$x}_present" );
-
-		if ( ! $present ) {
-			continue;
-		}
-
-		foreach ( $properties as $property ) {
-			$dutch_projects[ $x ][ $property ] = siw_get_setting( "np_project_{$x}_$property" );
-		}
-		$dutch_projects[ $x ][ 'work_name' ] = $work_types[ $dutch_projects[ $x ][ 'work' ] ];
-		$dutch_projects[ $x ][ 'province_name' ] = $provinces[	$dutch_projects[ $x ][ 'province' ] ];
-	}
-
-	return $dutch_projects;
 }

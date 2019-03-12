@@ -91,15 +91,6 @@ class SIW_Properties {
 	 * Postcode
 	 *
 	 * @var string
-	 * 
-	 * @deprecated
-	 */
-	const POSTAL_CODE = '3511 RJ';
-
-	/**
-	 * Postcode
-	 *
-	 * @var string
 	 */
 	const POSTCODE = '3511 RJ';
 
@@ -172,6 +163,8 @@ class SIW_Properties {
 	 * Maximum aantal ESC-deadlines
 	 *
 	 * @var int
+	 * 
+	 * @deprecated
 	 */
 	const NUMBER_OF_ESC_DEADLINES = 5;
 
@@ -206,15 +199,6 @@ class SIW_Properties {
 	 * @deprecated
 	 */
 	const MAX_ANNUAL_REPORTS = 5;
-
-	/**
-	 * Maximum aantal Nederlandse projecten
-	 *
-	 * @var int
-	 * 
-	 * @deprecated
-	 */
-	const MAX_DUTCH_PROJECTS = 10;
 
 	/**
 	 * Tijdstip bijwerken groepsprojecten
