@@ -21,7 +21,7 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 	/**
 	 * @var string
 	 */
-	protected $name = 'verbergen groepsprojecten';	
+	protected $name = 'verbergen groepsprojecten';
 
 	/**
 	 * Groepsprojecten selecteren die aan 1 of meer van onderstaande voorwaarden voldoen:
@@ -35,7 +35,7 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 	 * @return array
 	 */
 	protected function select_data() {
-		$limit = date( 'Y-m-d', time() + ( 7 * DAY_IN_SECONDS ) );
+		$limit = date( 'Y-m-d', time() + ( 3 * DAY_IN_SECONDS ) );
 	
 		$tax_query = [
 			[
