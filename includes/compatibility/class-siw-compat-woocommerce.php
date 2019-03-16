@@ -33,6 +33,8 @@ class SIW_Compat_WooCommerce {
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
 		add_filter( 'product_type_selector', [ $self, 'disable_product_types'] );
 		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_project_id_search' ], 10, 2 );
+		add_filter( 'woocommerce_product_visibility_options', [ $self, 'remove_product_visibility_options', ] );
+		add_filter( 'woocommerce_products_admin_list_table_filters', [ $self, 'remove_products_admin_list_table_filters'] );
 
 		/* Wachtwoord-reset niet via WooCommerce maar via standaard WordPress-methode */
 		remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
@@ -161,5 +163,29 @@ class SIW_Compat_WooCommerce {
 		}
 		return $query;
 	}
+	
+	/**
+	 * Verwijdert overbodige zichtbaarheidsopties
+	 *
+	 * @param array $visibility_options
+	 * @return array
+	 */
+	public function remove_product_visibility_options( $visibility_options ) {
+		unset( $visibility_options['catalog']);
+		unset( $visibility_options['search']);
+		return $visibility_options;
+	}
 
+	/**
+	 * Verwijdert filters op admin-lijst met producten 
+	 *
+	 * @param array $filters
+	 * @param array
+	 */
+	public function remove_products_admin_list_table_filters( $filters ) {
+		unset( $filters['product_category']);
+		unset( $filters['product_type']);
+		unset( $filters['stock_status']);
+		return $filters;
+	}
 }
