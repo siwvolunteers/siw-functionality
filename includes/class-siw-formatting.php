@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @package   SIW
  * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  */
 class SIW_Formatting {
 
@@ -118,7 +118,7 @@ class SIW_Formatting {
 
 		if ( $stack ) {
 			$icon = sprintf( 
-				'<span class="siw-icon-stack %s"><i class="%s siw-icon-stack-2x"></i><i class="%s siw-icon-stack-1x siw-icon-inverse"></i></span>',
+				'<span class="siw-icon-stack %s"><i class="%s siw-icon-stack-2x siw-icon-background"></i><i class="%s siw-icon-stack-1x siw-icon-inverse"></i></span>',
 				self::sanitize_html_classes( $size_class ),
 				self::sanitize_html_classes( $background_class ),
 				self::sanitize_html_classes( $icon_class )
@@ -286,7 +286,7 @@ class SIW_Formatting {
 		if ( false == $text ) {
 			$text = $url;
 		}
-		$icon_html = ( $icon_class) ? sprintf( '<i class="%s"></i>', self::sanitize_html_classes( $icon_class ) ) : '';
+		$icon_html = ( $icon_class) ? SIW_Formatting::generate_icon( $icon_class, 1 ) : '';
 
 		$link = sprintf(
 			'<a href="%s" %s>%s</a>',
@@ -321,7 +321,7 @@ class SIW_Formatting {
 	 * @return string
 	 */
 	public static function generate_external_link( $url, $text = false ) {
-		return self::generate_link( $url, $text . '&nbsp;', [ 'class' => 'siw-external-link', 'target' => '_blank', 'rel' => 'noopener'], 'kt-icon-newtab' );
+		return self::generate_link( $url, $text . '&nbsp;', [ 'class' => 'siw-external-link', 'target' => '_blank', 'rel' => 'noopener'], 'siw-icon-external-link-alt' );
 	}
 
 	/**

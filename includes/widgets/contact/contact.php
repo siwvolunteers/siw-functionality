@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @package   SIW\Widgets
  * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Properties
  * @uses      SIW_Formatting
@@ -61,10 +61,18 @@ class SIW_Widget_Contact extends SIW_Widget {
 		ob_start();
 		?>
 		<div class="siw-contact">
-			<p><?= esc_html( SIW_Properties::NAME );?></p>
-			<p><?= esc_html( SIW_Properties::ADDRESS );?>&nbsp;|&nbsp;<?= esc_html( SIW_Properties::POSTCODE );?>&nbsp;<?= esc_html( SIW_Properties::CITY );?></p>
-			<p><i class="kt-icon-phone3"></i>&nbsp;<?= esc_html( SIW_Properties::PHONE );?>&nbsp;|&nbsp;<i class="kt-icon-envelop"></i>&nbsp;<?= SIW_Formatting::generate_link( "mailto:" . antispambot( SIW_Properties::EMAIL ), antispambot( SIW_Properties::EMAIL ) );?></p>
-			<p><i class="kt-icon-clock3"></i>&nbsp;<?php printf( esc_html__( 'Maandag t/m vrijdag %s-%s', 'siw' ), SIW_Properties::OPENING_TIME, SIW_Properties::CLOSING_TIME );?></p>
+			<?php
+			echo wpautop( SIW_Formatting::array_to_text(
+				[
+					esc_html( SIW_Properties::NAME ),
+					sprintf( '%s | %s %s', SIW_Properties::ADDRESS, SIW_Properties::POSTCODE, SIW_Properties::CITY ),
+					sprintf( '%s %s | %s %s', SIW_Formatting::generate_icon( 'siw-icon-phone', 1 ), SIW_Properties::PHONE, SIW_Formatting::generate_icon( 'siw-icon-envelope', 1 ), SIW_Properties::EMAIL ),
+					sprintf( '%s %s', SIW_Formatting::generate_icon( 'siw-icon-clock', 1 ), sprintf( esc_html__( 'Maandag t/m vrijdag %s-%s', 'siw' ), SIW_Properties::OPENING_TIME, SIW_Properties::CLOSING_TIME ) ),
+				],
+				BR2
+				)
+			);
+			?>
 		</div>
 		<div class="siw-social-links clearfix">
 			<?php
@@ -72,7 +80,7 @@ class SIW_Widget_Contact extends SIW_Widget {
 			foreach ( $social_networks as $network ) {
 				echo SIW_Formatting::generate_link(
 					$network->get_follow_url(),
-					'&shy;',
+					SIW_Formatting::generate_icon( $network->get_icon_class(), 1, 'circle' ),
 					[
 						'class'               => $network->get_slug(),
 						'title'               => $network->get_name(),
@@ -81,8 +89,7 @@ class SIW_Widget_Contact extends SIW_Widget {
 						'data-toggle'         => 'tooltip',
 						'data-placement'      => 'top',
 						'data-original-title' => $network->get_name(),
-					],
-					$network->get_icon_class()
+					]
 				);
 			}
 			?>

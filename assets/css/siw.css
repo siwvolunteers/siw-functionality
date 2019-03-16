@@ -289,50 +289,32 @@ h5.job-title {
   margin-top: 10px;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links a {
-  display: inline-block;
-  float: none;
-  width: 20px;
-  text-align: center;
-  line-height: 20px;
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.2);
-  margin-left: 3px;
-  margin-bottom: 3px;
-  color: #f2f2f2;
-  border-radius: 50%;
-  box-sizing: content-box;
+#containerfooter .widget_siw_contact_widget .siw-social-links .siw-icon-stack {
+  font-size: 1.2em;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links a i {
-  font-size: 18px;
-  line-height: 20px;
-  vertical-align: middle;
+#containerfooter .widget_siw_contact_widget .siw-social-links .siw-icon-background {
+  color: #333;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links .facebook:hover {
-  color: #fff;
-  background-color: #3b5998;
+#containerfooter .widget_siw_contact_widget .siw-social-links .facebook .siw-icon-stack:hover .siw-icon-background {
+  color: #3b5998;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links .twitter:hover {
-  color: #fff;
-  background-color: #00aced;
+#containerfooter .widget_siw_contact_widget .siw-social-links .twitter .siw-icon-stack:hover .siw-icon-background {
+  color: #00aced;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links .instagram:hover {
-  color: #fff;
-  background-color: #517fa4;
+#containerfooter .widget_siw_contact_widget .siw-social-links .instagram .siw-icon-stack:hover .siw-icon-background {
+  color: #517fa4;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links .youtube:hover {
-  color: #fff;
-  background-color: #ff3333;
+#containerfooter .widget_siw_contact_widget .siw-social-links .youtube .siw-icon-stack:hover .siw-icon-background {
+  color: #ff3333;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links .linkedin:hover {
-  color: #fff;
-  background-color: #007bb6;
+#containerfooter .widget_siw_contact_widget .siw-social-links .linkedin .siw-icon-stack:hover .siw-icon-background {
+  color: #007bb6;
 }
 
 /* Snel zoeken widget */

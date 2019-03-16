@@ -12,7 +12,7 @@ add_filter( 'siw_social_network_data', function( $data ) {
 		[
 			'slug'                => 'facebook',
 			'name'                => __( 'Facebook', 'siw' ),
-			'icon_class'          => 'kt-icon-facebook2',
+			'icon_class'          => 'siw-icon-facebook-f',
 			'follow'              => true,
 			'follow_url'          => SIW_Properties::FACEBOOK_URL,
 			'share'               => true,
@@ -21,7 +21,7 @@ add_filter( 'siw_social_network_data', function( $data ) {
 		[
 			'slug'                => 'twitter',
 			'name'                => __( 'Twitter', 'siw' ),
-			'icon_class'          => 'kt-icon-twitter2',
+			'icon_class'          => 'siw-icon-twitter',
 			'follow'              => true,
 			'follow_url'          => SIW_Properties::TWITTER_URL,
 			'share'               => true,
@@ -30,7 +30,7 @@ add_filter( 'siw_social_network_data', function( $data ) {
 		[
 			'slug'                => 'instagram',
 			'name'                => __( 'Instagram', 'siw' ),
-			'icon_class'          => 'kt-icon-instagram2',
+			'icon_class'          => 'siw-icon-instagram',
 			'follow'              => true,
 			'follow_url'          => SIW_Properties::INSTAGRAM_URL,
 			'share'               => false,
@@ -38,7 +38,7 @@ add_filter( 'siw_social_network_data', function( $data ) {
 		[
 			'slug'                => 'linkedin',
 			'name'                => __( 'LinkedIn', 'siw' ),
-			'icon_class'          => 'kt-icon-linkedin2',
+			'icon_class'          => 'siw-icon-linkedin-in',
 			'follow'              => true,
 			'follow_url'          => SIW_Properties::LINKEDIN_URL,
 			'share'               => true,
@@ -47,7 +47,7 @@ add_filter( 'siw_social_network_data', function( $data ) {
 		[
 			'slug'                => 'youtube',
 			'name'                => __( 'YouTube', 'siw' ),
-			'icon_class'          => 'kt-icon-youtube2',
+			'icon_class'          => 'siw-icon-youtube',
 			'follow'              => true,
 			'follow_url'          => SIW_Properties::YOUTUBE_URL,
 			'share'               => false,
