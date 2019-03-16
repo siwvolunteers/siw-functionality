@@ -33,20 +33,11 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 	 * Selecteer de terms van de relevante taxonomieën
 	 *
 	 * @return array
-	 * 
-	 * @todo taxonomies verwijderen die nu product attributes zijn geworden
 	 */
 	protected function select_data() {
 
 		$taxonomies = [
 			'pa_maand',
-			'pa_aantal-vrijwilligers',
-			'pa_leeftijd',
-			'pa_lokale-bijdrage',
-			'pa_projectcode',
-			'pa_projectnaam',
-			'pa_startdatum',
-			'pa_einddatum',
 			'pa_land',
 			'pa_taal',
 			'pa_soort-werk',
