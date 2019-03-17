@@ -69,6 +69,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 
 	/**
+	 * Geeft vertaalde permalink in meegegeven taal terug
+	 *
+	 * @param string $permalink
+	 * @param string $language_code
+	 * @return string
+	 */
+	public static function get_translated_permalink( $permalink, $language_code ) {
+		$translated_permalink = apply_filters( 'wpml_permalink', $permalink, $language_code );
+		return $translated_permalink;
+	}
+
+
+	/**
 	 * Geeft terug of de huidige taal gelijk is aan de standaardtaal
 	 *
 	 * @return boolean

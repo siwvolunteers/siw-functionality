@@ -236,11 +236,11 @@ class SIW_Properties {
 	const TS_BACKUP_FILES = '04:30';
 
 	/**
-	 * Tijdstip cache verversen
+	 * Tijdstip cache opnieuw opbouwen
 	 *
 	 * @var string
 	 */
-	const TS_CACHE_REFRESH = '05:00';
+	const TS_CACHE_REBUILD = '05:00';
 
 	/**
 	 * Inschrijfgeld Groepsproject (student)

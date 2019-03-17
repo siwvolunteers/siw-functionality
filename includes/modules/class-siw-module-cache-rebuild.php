@@ -7,14 +7,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Verversen van de cache
  * 
  * @package   SIW\Modules
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  * 
  * @uses      SIW_Util
  * @uses      SIW_Properties
  */
 
-class SIW_Module_Cache_Refresh {
+class SIW_Module_Cache_Rebuild {
 
 	/**
 	 * Init
@@ -24,7 +24,7 @@ class SIW_Module_Cache_Refresh {
 			return false;
 		}
 		$self = new self();
-		add_action( 'siw_update_plugin', [ $self, 'schedule_cache_refresh' ] );
+		add_action( 'siw_update_plugin', [ $self, 'schedule_cache_rebuild' ] );
 		add_action( 'siw_rebuild_cache', [ $self, 'rebuild_cache' ] );
 		add_action( 'before_run_rocket_sitemap_preload', [ $self, 'setup_sitemap' ], 10, 2 );
 		add_filter( 'rocket_sitemap_preload_list', [ $self, 'set_sitemaps_for_preload' ] );
@@ -33,9 +33,9 @@ class SIW_Module_Cache_Refresh {
 	/**
 	 * Voegt een scheduled event toe
 	 */
-	public function schedule_cache_refresh() {
+	public function schedule_cache_rebuild() {
 		/* Cache rebuild schedulen */
-		$cache_rebuild_ts = strtotime( 'tomorrow ' . SIW_Properties::TS_CACHE_REFRESH );
+		$cache_rebuild_ts = strtotime( 'tomorrow ' . SIW_Properties::TS_CACHE_REBUILD );
 		$cache_rebuild_ts_gmt = SIW_Util::convert_timestamp_to_gmt( $cache_rebuild_ts );
 		if ( wp_next_scheduled( 'siw_rebuild_cache' ) ) {
 			$timestamp = wp_next_scheduled( 'siw_rebuild_cache' );
@@ -74,20 +74,17 @@ class SIW_Module_Cache_Refresh {
 	 * @param array $sitemaps
 	 */
 	public function set_sitemaps_for_preload( $sitemaps ) {
+		if ( ! function_exists( 'the_seo_framework' ) ) {
+			return $sitemaps;
+		} 
 		if ( get_rocket_option( 'tsf_xml_sitemap', false ) ) {
-
 			$tsf = the_seo_framework();
-			$current_language = apply_filters( 'wpml_current_language', NULL );
-	
-			$languages = apply_filters( 'wpml_active_languages', null );
-			//siw_debug_log( $languages );
+			$languages = SIW_i18n::get_active_languages();
+			$sitemap_url = $tsf->get_sitemap_xml_url();
 			foreach ( $languages as $code => $language ) {
-				do_action( 'wpml_switch_language', $code ); //TODO: waarom werkt dit niet?
-				$sitemaps[] = $tsf->get_sitemap_xml_url();
+				$sitemaps[] = SIW_i18n::get_translated_permalink( $sitemap_url, $language['code'] );
 			}
-			do_action( 'wpml_switch_language', $current_language );
 		}
-		//siw_debug_log($sitemaps);
 		return $sitemaps;
 	}
 }
