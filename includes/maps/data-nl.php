@@ -42,7 +42,7 @@ add_filter( 'siw_map_nl_data', function( $map_data ) {
 		$location = [
 			'id'            => sanitize_title( $project['code'] ),
 			'title'         => $project["name_{$language}"],
-			'image'         => isset( $project['image'] ) ? wp_get_attachment_url( $project['image'][0] ) : null,
+			'image'         => isset( $project['image'] ) ? wp_get_attachment_image_src( $project['image'][0], 'medium' )[0] : null,
 			'about'         => $project['code'],
 			'lat'           => $project['latitude'] ?? null,
 			'lng'           => $project['longitude'] ?? null,
