@@ -29,7 +29,7 @@ add_action( 'init', function() {
 		'label'               => __( 'Vacature', 'siw' ),
 		'description'         => __( 'Vacatures', 'siw' ),
 		'labels'              => $labels,
-		'supports'            => [ 'title', 'excerpt', 'revisions' ],
+		'supports'            => [ 'title', 'excerpt' ],
 		'taxonomies'          => [ 'job_type' ],
 		'hierarchical'        => false,
 		'public'              => true,
@@ -125,7 +125,7 @@ add_filter( 'rwmb_meta_boxes', function ( $meta_boxes ) {
 				'type'          => 'switch',
 				'on_label'      => __( 'Ja', 'siw' ),
 				'off_label'     => __( 'Nee', 'siw'),
-				'desc'          => __( 'Wordt getoond in topbar als er geen evenementen zijn', 'siw' ),
+				'desc'          => __( 'Wordt getoond in topbar', 'siw' ),
 				'admin_columns' => [
 					'position'    => 'after title',
 					'sort'        => true,
@@ -179,7 +179,7 @@ add_filter( 'rwmb_meta_boxes', function ( $meta_boxes ) {
 			[
 				'id'       => $prefix . 'contactpersoon_functie',
 				'name'     => __( 'Functie', 'siw' ),
-				'type'     => 'text_medium',
+				'type'     => 'text',
 			],
 			[
 				'id'       => $prefix . 'contactpersoon_email',

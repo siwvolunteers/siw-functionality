@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /**
- * Aanpassing voor Pinnacle Premium
+ * Aanpassingen voor Pinnacle Premium
  *
  * @package   SIW\Compatibility
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
@@ -359,10 +359,10 @@ class SIW_Compat_Pinnacle_Premium {
 	 * @return string
 	 */
 	public function set_page_templates( $template, $type, $templates ) {
-		if ( in_array( 'template-agenda.php', $templates ) ) {
+		if ( in_array( 'template-agenda.php', $templates ) && SIW_Util::template_exists( 'template-agenda.php' ) ) {
 			$template = SIW_TEMPLATES_DIR . '/template-agenda.php';
 		}
-		if ( in_array( 'template-vacatures-grid.php', $templates ) ) {
+		if ( in_array( 'template-vacatures-grid.php', $templates ) && SIW_Util::template_exists( 'template-vacatures-grid.php' ) ) {
 			$template = SIW_TEMPLATES_DIR . '/template-vacatures-grid.php';
 		}
 		return $template;

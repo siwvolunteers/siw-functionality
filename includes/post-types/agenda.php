@@ -29,7 +29,7 @@ add_action( 'init', function() {
 		'label'               => __( 'Evenement', 'siw' ),
 		'description'         => __( 'Evenement', 'siw' ),
 		'labels'              => $labels,
-		'supports'            => [ 'title', 'excerpt', 'revisions' ],
+		'supports'            => [ 'title', 'excerpt' ],
 		'taxonomies'          => [ 'agenda_type' ],
 		'hierarchical'        => false,
 		'public'              => true,

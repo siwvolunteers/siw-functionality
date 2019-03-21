@@ -60,6 +60,10 @@ class SIW_WC_Product_Archive {
 	 */
 	public function set_seo_title( $title, $term ) {
 
+		if ( ! is_a( $term, 'WP_Term') ) {
+			return $title;
+		}
+
 		switch ( $term->taxonomy ) {
 			case 'pa_land':
 			case 'product_cat':
@@ -88,7 +92,10 @@ class SIW_WC_Product_Archive {
 	 * @param WP_Term $term
 	 */
 	public function set_seo_description( $description, $term ) {
-
+		if ( ! is_a( $term, 'WP_Term') ) {
+			return $description;
+		}
+		
 		switch ( $term->taxonomy ) {
 			case 'pa_land':
 				$description =

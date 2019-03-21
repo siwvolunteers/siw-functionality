@@ -195,8 +195,6 @@ class SIW_Properties {
 	 * Maximum aantal jaarverslagen
 	 *
 	 * @var int
-	 * 
-	 * @deprecated
 	 */
 	const MAX_ANNUAL_REPORTS = 5;
 

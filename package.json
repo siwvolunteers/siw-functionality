@@ -1,17 +1,21 @@
 {
 	"name": "siw-functionality",
-	"version": "1.8.3",
+	"version": "2.0.0",
 	"description": "Extra functionaliteit voor website SIW",
 	"repository": "https://github.com/siwvolunteers/siw-functionality",
-
 	"scripts": {
-		"postinstall": "vendor-copy"
+		"postinstall": "vendor-copy",
+		"build-icons": "icon-font-generator assets/icons/*.svg -o assets/css/fonts -n siw-icons -p siw-icon -f /fonts --cssfontsurl /wp-content/plugins/siw-functionality/assets/css/fonts --html true --csspath assets/css/partials/_icons.sass --html false --jsonpath assets/icons/siw-icons.json --normalize true"
 	},
 	"dependencies": {
-		"apexcharts": "2.*",
-		"vendor-copy": "2.*",
+		"apexcharts": "^3.6.3",
+		"flickity": "2.*",
+		"icon-font-generator": "2.*",
+		"isotope-layout": "3.*",
+		"js-cookie": "2.*",
 		"smoothscroll-for-websites": "1.4.6",
-		"js-cookie": "2.*"
+		"vendor-copy": "2.*",
+		"webfonts-generator": "^0.4.0"
 	},
 	"vendorCopy": [
 		{
@@ -26,7 +30,5 @@
 			"from": "node_modules/js-cookie/src/js.cookie.js",
 			"to": "assets/modules/js-cookie/js.cookie.js"
 		}
-		
 	]
-
 }

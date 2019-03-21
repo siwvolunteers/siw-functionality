@@ -7,11 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om Groepsprojecten bij te werken
  * 
- * @package SIW\Background-Process
- * @author Maarten Bruna
+ * @package   SIW\Background-Process
+ * @author    Maarten Bruna
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
- * @uses SIW_Plato_Import_Workcamps
- * @uses SIW_Import_Workcamp
+ * @uses      SIW_Plato_Import_Workcamps
+ * @uses      SIW_WC_Import_Product
  */
 class SIW_Update_Workcamps extends SIW_Background_Process {
 
