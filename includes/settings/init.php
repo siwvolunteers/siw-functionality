@@ -25,10 +25,6 @@ function siw_get_setting( $setting, $default = false ) {
 	$value = Redux::getOption( SIW_OPT_NAME, $setting );
 	return ( $value ) ? $value : $default;
 }
-add_filter( 'siw_setting', function( $value, $setting ) {
-	return siw_get_setting( $setting );
-}, 10, 2 );
-
 
 /**
  * Zetten SIW-instelling
@@ -77,7 +73,7 @@ add_action( 'plugins_loaded', function() {
 		'page_slug'				=> 'siw-settings',
 		'save_defaults'			=> true, //TODO: wat is wenselijk, werking niet helemaal duidelijk
 		'default_mark'			=> '',
-		'show_import_export'	=> false,
+		'show_import_export'	=> true,
 		'footer_credit'			=> '&nbsp;',
 		'use_cdn'				=> false,
 		'hide_expand'			=> true,
@@ -94,7 +90,6 @@ add_action( 'plugins_loaded', function() {
 		'workcamps',
 		'info_day',
 		'enquiry',
-		'countries',
 		'np',
 		'op_maat',
 		'organisation',
