@@ -80,6 +80,8 @@ abstract class SIW_Plato_Export extends SIW_Plato_Interface {
 
 	/**
 	 * Verstuurt xml naar plato
+	 * 
+	 * @return bool
 	 */
 	protected function send_xml() {
 		$args = [

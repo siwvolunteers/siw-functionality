@@ -72,8 +72,6 @@ abstract class SIW_Plato_Interface {
 
 	/**
 	 * Zet Plato-webkey
-	 *
-	 * @return void
 	 */
 	protected function set_webkey() {
 		$this->webkey = siw_get_setting( 'plato_organization_webkey' );
@@ -82,7 +80,7 @@ abstract class SIW_Plato_Interface {
 	/**
 	 * Geeft Plato-webkey terug
 	 *
-	 * @return void
+	 * @return string
 	 */
 	protected function get_webkey() {
 		return $this->webkey;
@@ -90,12 +88,9 @@ abstract class SIW_Plato_Interface {
 
 	/**
 	 * Zet URL van het endpoint
-	 *
-	 * @return $this
 	 */
 	protected function set_endpoint_url() {
 		$this->endpoint_url = SIW_Properties::PLATO_WEBSERVICE_URL . $this->endpoint;
-		return $this;
 	}
 	
 	/**
@@ -113,7 +108,6 @@ abstract class SIW_Plato_Interface {
 	 */
 	private function set_logger() {
 		$this->logger = wc_get_logger();
-
 		$source = sanitize_title( "siw-{$this->name}" );
 		$this->logger_context = [ 'source' => $source ];
 	}
