@@ -84,8 +84,8 @@ class SIW_Update_Workcamp_Tariffs extends SIW_Background_Process {
 				'regular_price'     => $regular_price,
 				'sale_price'        => $sale ? $sale_price : null,
 				'price'             => $sale ? $sale_price : $regular_price,
-				'date_on_sale_from' => $sale ? date( DATE_ISO8601, strtotime( siw_get_setting( 'workcamp_sale_start_date' ) ) ) : null,
-				'date_on_sale_to'   => $sale ? date( DATE_ISO8601, strtotime( siw_get_setting( 'workcamp_sale_end_date' ) ) ) : null,
+				'date_on_sale_from' => $sale ? date( DATE_ISO8601, strtotime( siw_get_option( 'workcamp_sale_start_date' ) ) ) : null,
+				'date_on_sale_to'   => $sale ? date( DATE_ISO8601, strtotime( siw_get_option( 'workcamp_sale_end_date' ) ) ) : null,
 			]);
 			$variation->save();
 		}

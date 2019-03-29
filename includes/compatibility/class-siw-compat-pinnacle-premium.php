@@ -191,8 +191,8 @@ class SIW_Compat_Pinnacle_Premium {
 	 * Toont knop met uitleg over Op Maat bij elk project
 	 */
 	public function add_tailor_made_page_button() {
-		$op_maat_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'op_maat_page' ) );
-		echo SIW_Formatting::generate_link( $op_maat_page_link, __( 'Alles over Projecten Op Maat', 'siw' ), [ 'class' => 'kad-btn kad-btn-primary' ] );	
+		$tailor_made_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
+		echo SIW_Formatting::generate_link( $tailor_made_page_link, __( 'Alles over Projecten Op Maat', 'siw' ), [ 'class' => 'kad-btn kad-btn-primary' ] );	
 	}
 
 	/**
@@ -281,13 +281,10 @@ class SIW_Compat_Pinnacle_Premium {
 		$parent = '';
 	
 		if ( is_singular( 'vacatures' ) ) {
-			$parent = siw_get_setting( 'vacatures_parent_page' );
+			$parent = siw_get_option( 'job_postings_archive_page' );
 		}
 		if ( is_singular( 'agenda' ) ) {
-			$parent = siw_get_setting( 'agenda_parent_page' );
-		}
-		if ( is_singular( 'evs_project' ) ) {
-			$parent = siw_get_setting( 'evs_projects_parent_page' );
+			$parent = siw_get_option( 'events_archive_page' );
 		}
 	
 		/* Breadcrumbs voor attribute-pagina's*/

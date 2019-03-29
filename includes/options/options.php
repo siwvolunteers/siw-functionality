@@ -11,6 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
+require_once( __DIR__ . '/data-configuration.php' );
+require_once( __DIR__ . '/data-countries.php' );
+require_once( __DIR__ . '/data-organization.php' );
+require_once( __DIR__ . '/data-dates.php' );
+require_once( __DIR__ . '/data-emails.php' );
+require_once( __DIR__ . '/data-job-postings.php' );
+require_once( __DIR__ . '/data-topbar.php' );
+require_once( __DIR__ . '/data-workcamps.php' );
 require_once( __DIR__ . '/data-dutch-projects.php' );
 
 require_once( __DIR__ . '/class-siw-options-page.php' );
@@ -28,6 +36,10 @@ add_action( 'plugins_loaded', [ 'SIW_Options_Page', 'init' ] );
 function siw_get_option( $option, $default = null ) {
 
 	$value = rwmb_meta( $option, [ 'object_type' => 'setting' ], 'siw_options' );
+
+	if ( empty( $value ) ) {
+		return $default;
+	}
 
 	switch ( $option ) {
 		case 'dutch_projects':
@@ -52,6 +64,21 @@ function siw_get_option( $option, $default = null ) {
 				$value = wp_parse_args( $value, $defaults );
 			};
 			array_walk( $value, $callback, $defaults );
+			break;
+		
+		case 'board_members':
+			$titles = siw_get_board_titles();
+			$callback = function( &$value, $key ) use ( $titles ) {
+				$value['title'] = ( isset( $value['title'] ) && isset( $titles[ $value['title'] ] ) ) ? $titles[ $value['title'] ] : '';
+			};
+			array_walk( $value, $callback, $titles );
+			break;
+		case 'info_days':
+		case 'esc_deadlines':
+			$value = array_filter( $value, function( $date ) {
+				return $date >= date( 'Y-m-d' );
+			});
+			sort( $value );
 			break;
 
 	}

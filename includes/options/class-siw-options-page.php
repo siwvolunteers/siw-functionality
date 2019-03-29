@@ -21,7 +21,7 @@ class SIW_Options_Page {
 	protected $option_name = 'siw_options';
 
 	/**
-	 * Inits
+	 * Init
 	 */
 	public static function init() {
 		$self = new self();
@@ -30,17 +30,22 @@ class SIW_Options_Page {
 	}
 
 	/**
-	 * Haalt alle optie-pagina's op
+	 * Haalt alle optiepagina's op
 	 * 
 	 * @return array
 	 */
 	protected function get_settings_pages() {
 		$pages = [];
 		/**
-		 * TODO: verplaatsen naar losse functie
+		 * Array met gegevens van optiepagina's
+		 *
+		 * @param array $pages
 		 */
 		$pages = apply_filters( 'siw_settings_pages', $pages );
 
+		usort( $pages, function( $a, $b ) {
+			return strnatcmp( $a['menu_title'], $b['menu_title']);
+		});
 		return $pages;
 	}
 
@@ -51,17 +56,17 @@ class SIW_Options_Page {
 	 */
 	protected function get_meta_boxes() {
 		$settings_boxes = [];
-
 		/**
-		 * TODO: verplaatsen naar losse functie
+		 * Array met gegevens van optiepagina-metaboxes
+		 *
+		 * @param array $settings_boxes
 		 */
 		$settings_boxes = apply_filters( 'siw_settings_meta_boxes', $settings_boxes );
-
 		return $settings_boxes;
 	}
 
 	/**
-	 * Voegt optie-pagina toe
+	 * Voegt optiepagina toe
 	 *
 	 * @param array $settings_pages
 	 * @return array
@@ -72,6 +77,8 @@ class SIW_Options_Page {
 		$first_page = true;
 		foreach ( $pages as $page ) {
 			$page['option_name'] = $this->option_name;
+			$page['submit_button'] = __( 'Opslaan', 'siw' );
+			$page['message'] = __( 'Instellingen opgeslagen', 'siw' );
 
 			if ( true == $first_page ) {
 				$page['submenu_title'] = $page['menu_title'];
@@ -86,7 +93,6 @@ class SIW_Options_Page {
 			$settings_pages[] = $page;
 			$first_page = false;
 		}
-
 		return $settings_pages;
 	}
 

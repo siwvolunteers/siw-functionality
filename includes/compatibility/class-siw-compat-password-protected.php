@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - Secure cookie
  * 
  * @package     SIW\Compatibility
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright   2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  */
 
@@ -60,8 +60,8 @@ class SIW_Compat_Password_Protected {
 	 * @return bool
 	 */
 	public function process_whitelisted_ips( $is_active ) {
-		$ip_whitelist = siw_get_ip_whitelist();
-		if ( in_array( $_SERVER['REMOTE_ADDR'], $ip_whitelist ) ) {
+		$ip_whitelist = siw_get_option('ip_whitelist');
+		if ( is_array( $ip_whitelist ) && isset( $_SERVER['REMOTE_ADDR'] ) && in_array( $_SERVER['REMOTE_ADDR'], $ip_whitelist ) ) {
 			$is_active = false;
 		}
 		return $is_active;

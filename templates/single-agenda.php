@@ -12,9 +12,9 @@ get_template_part('templates/post', 'header' );
 global $post;
 	$event_data = siw_get_event_data( $post->ID );
 	$location_map = sprintf('[gmap address="%s, %s %s" title="%s" zoom="15" maptype="ROADMAP"]', esc_attr( $event_data['address'] ), esc_attr( $event_data['postal_code'] ), esc_attr( $event_data['city'] ), esc_attr( $event_data['location'] ) );
-	$hide_application_form_days_before_info_day	= siw_get_setting( 'hide_application_form_days_before_info_day' );
+	$hide_application_form_days_before_info_day	= 1; //TODO:property van maken 
 	$limit_date = date( 'Y-m-d', time() + ( $hide_application_form_days_before_info_day * DAY_IN_SECONDS ) );
-	$agenda_page_url = get_permalink( siw_get_setting( 'agenda_parent_page' ) );
+	$agenda_page_url = get_permalink( siw_get_option( 'events_archive_page' ) );
 ?>
 
 <div id="content" class="container">

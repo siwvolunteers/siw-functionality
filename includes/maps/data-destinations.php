@@ -67,9 +67,9 @@ add_filter( 'siw_map_destinations_data', function( $map_data ) {
  */
 function siw_generate_country_description( $country ) {
 
-	$tailor_made_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'op_maat_page' ) );
-	$esc_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'evs_page' ) );
-	$workcamps_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'workcamps_page' ) );
+	$tailor_made_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
+	$esc_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'esc_explanation_page' ) );
+	$workcamps_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'workcamps_explanation_page' ) );
 
 	/* Groepsprojecten */
 	if ( true == $country->has_workcamps() ) {

@@ -10,13 +10,13 @@
  * Plugin Name: SIW Functionaliteit
  * Plugin URI:  https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
- * Version:     2.0.1
+ * Version:     2.0.2
  * Author:      Maarten Bruna
  * Text Domain: siw
  */
 
 /** Constantes */
-define ( 'SIW_PLUGIN_VERSION', '2.0.1' );
+define ( 'SIW_PLUGIN_VERSION', '2.0.2' );
 define ( 'SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets' );
 define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates' );
@@ -30,13 +30,11 @@ define ( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL )['host'] );
 require_once( SIW_PLUGIN_DIR . '/vendor/autoload.php' );
 
 /* Basisfunctionaliteit: referentiegegevens, functies en instellingen */
-require_once( SIW_INCLUDES_DIR . '/reference-data/init.php' );
+require_once( SIW_INCLUDES_DIR . '/reference-data/reference-data.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-formatting.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-properties.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-util.php' );
-
 require_once( SIW_INCLUDES_DIR . '/options/options.php' );
-require_once( SIW_INCLUDES_DIR . '/settings/init.php' );
 
 /* Core */
 require_once( SIW_INCLUDES_DIR . '/class-siw-assets.php' );

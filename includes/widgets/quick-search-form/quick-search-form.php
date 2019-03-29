@@ -58,7 +58,7 @@ class SIW_Widget_Quick_Search_Form extends SIW_Widget {
 	 * {@inheritDoc}
 	 */
 	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
-		$result_page_id = siw_get_setting( 'quick_search_result_page' );
+		$result_page_id = siw_get_option( 'quick_search_results_page' );
 		$result_page_url = wp_make_link_relative( get_permalink( $result_page_id ) );
 		ob_start();
 		?>

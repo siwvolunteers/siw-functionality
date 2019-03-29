@@ -112,11 +112,10 @@ class SIW_Compat {
 	 * @return bool
 	 */
 	public function process_whitelisted_ips( $allow, $ip ) {
-		$ip_whitelist = siw_get_ip_whitelist();
-		if ( in_array( $ip, $ip_whitelist ) ) {
+		$ip_whitelist = siw_get_option( 'ip_whitelist' );
+		if ( is_array( $ip_whitelist ) && in_array( $ip, $ip_whitelist ) ) {
 			$allow = true;
 		}
 		return $allow;
 	}
-
 }

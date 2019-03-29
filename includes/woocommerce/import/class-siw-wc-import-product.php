@@ -619,8 +619,8 @@ class SIW_WC_Import_Product {
 				'regular_price'     => $tariff['regular_price'],
 				'sale_price'        => $sale ? $tariff['sale_price'] : null,
 				'price'             => $sale ? $tariff['sale_price'] : $tariff['regular_price'],
-				'date_on_sale_from' => $sale ? date( DATE_ISO8601, strtotime( siw_get_setting( 'workcamp_sale_start_date' ) ) ) : null,
-				'date_on_sale_to'   => $sale ? date( DATE_ISO8601, strtotime( siw_get_setting( 'workcamp_sale_end_date' ) ) ) : null,
+				'date_on_sale_from' => $sale ? date( DATE_ISO8601, strtotime( siw_get_option( 'workcamp_sale_start_date' ) ) ) : null,
+				'date_on_sale_to'   => $sale ? date( DATE_ISO8601, strtotime( siw_get_option( 'workcamp_sale_end_date' ) ) ) : null,
 			]);
 			$variation->save();
 		}
@@ -709,7 +709,7 @@ class SIW_WC_Import_Product {
 			$this->product->update_meta_data( 'import_again', false );
 		}
 
-		if ( true == siw_get_setting( 'plato_force_full_update' ) ) {
+		if ( true == siw_get_option( 'plato_force_full_update' ) ) {
 			$should_be_updated = true;
 		}
 

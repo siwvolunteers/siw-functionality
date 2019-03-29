@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - Afzender
  * 
  * @package   SIW\Email
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  * 
  * @uses      SIW_Properties
@@ -37,14 +37,14 @@ class SIW_Email_Configuration {
 	 */
 	public function set_smtp_configuration( $phpmailer ) {
 		/*SMTP-configuratie*/
-		if ( siw_get_setting( 'smtp_enabled' ) ) {
+		if ( siw_get_option( 'smtp_enabled' ) ) {
 			$phpmailer->isSMTP();
-			$phpmailer->Host = siw_get_setting( 'smtp_host' );
-			$phpmailer->Port = siw_get_setting( 'smtp_port');
-			$phpmailer->SMTPAuth = (bool) siw_get_setting( 'smtp_authentication' );
-			$phpmailer->Username = siw_get_setting( 'smtp_credentials' )['username'];
-			$phpmailer->Password = siw_get_setting( 'smtp_credentials' )['password'];
-			$phpmailer->SMTPSecure = siw_get_setting( 'smtp_encryption');
+			$phpmailer->Host = siw_get_option( 'smtp_host' );
+			$phpmailer->Port = siw_get_option( 'smtp_port');
+			$phpmailer->SMTPAuth = (bool) siw_get_option( 'smtp_authentication' );
+			$phpmailer->Username = siw_get_option( 'smtp_username' );
+			$phpmailer->Password = siw_get_option( 'smtp_password' );
+			$phpmailer->SMTPSecure = siw_get_option( 'smtp_encryption');
 			$phpmailer->Sender = $phpmailer->From;
 		}
 	}
@@ -55,15 +55,12 @@ class SIW_Email_Configuration {
 	 * @param PHPMailer $phpmailer
 	 */
 	public function set_dkim_configuration( $phpmailer ) {
-		if ( ! defined( 'SIW_DKIM_KEY' ) ) {
-			define( 'SIW_DKIM_KEY', false );
-		}
 
-		if ( siw_get_setting( 'dkim_enabled' ) && SIW_DKIM_KEY ) {
-			$phpmailer->DKIM_selector = siw_get_setting( 'dkim_selector' );
-			$phpmailer->DKIM_domain = siw_get_setting( 'dkim_domain' );
+		if ( siw_get_option( 'dkim_enabled' ) && defined( 'SIW_DKIM_KEY' ) ) {
+			$phpmailer->DKIM_selector = siw_get_option( 'dkim_selector' );
+			$phpmailer->DKIM_domain = siw_get_option( 'dkim_domain' );
 			$phpmailer->DKIM_identity = $phpmailer->From;
-			$phpmailer->DKIM_passphrase = siw_get_setting( 'dkim_passphrase' );
+			$phpmailer->DKIM_passphrase = siw_get_option( 'dkim_passphrase' );
 			$phpmailer->DKIM_private_string = SIW_DKIM_KEY;
 		}
 	}

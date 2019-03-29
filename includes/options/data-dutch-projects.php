@@ -100,11 +100,12 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 		'max'  => 50,
 	];
 	$group_fields[] = [
-		'id'   => 'local_fee',
-		'name' => __( 'Lokale bijdrage', 'siw' ),
-		'type' => 'number',
-		'min'  => 1,
-		'max'  => 999,
+		'id'      => 'local_fee',
+		'name'    => __( 'Lokale bijdrage', 'siw' ),
+		'type'    => 'number',
+		'prepend' => '€',
+		'min'     => 1,
+		'max'     => 999,
 	];
 	foreach ( $languages as $code => $language ) {
 		$group_fields[] = [
@@ -115,7 +116,6 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 			'options'  => [
 				'teeny'         => true,
 				'media_buttons' => false,
-				'teeny'         => true,
 				'textarea_rows' => 5,
 			],
 		];

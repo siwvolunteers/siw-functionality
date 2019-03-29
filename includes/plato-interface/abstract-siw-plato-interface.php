@@ -74,7 +74,7 @@ abstract class SIW_Plato_Interface {
 	 * Zet Plato-webkey
 	 */
 	protected function set_webkey() {
-		$this->webkey = siw_get_setting( 'plato_organization_webkey' );
+		$this->webkey = siw_get_option( 'plato_organization_webkey' );
 	}
 
 	/**

@@ -176,15 +176,6 @@ class SIW_Properties {
 	const ESC_WEEKS_BEFORE_DEPARTURE = 14;
 
 	/**
-	 * Grootte IP whitelist
-	 *
-	 * @var int
-	 * 
-	 * @deprecated
-	 */
-	const IP_WHITELIST_SIZE = 5;
-
-	/**
 	 * Maximum aantal bestuursleden
 	 *
 	 * @var int

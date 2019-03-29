@@ -7,21 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Geeft een array met gewhiteliste IP-adressen terug
- *
- * @return array
- * 
- * @deprecated
- */
-function siw_get_ip_whitelist() {
-	for ( $x = 1 ; $x <= SIW_Properties::IP_WHITELIST_SIZE; $x++ ) {
-		$ip_whitelist[] = siw_get_setting( "whitelist_ip_{$x}" );
-	}
-	return $ip_whitelist;
-}
-
-
-/**
  * Geeft array met Mailpoet-lijsten terug
  *
  * @return array id => naam
@@ -37,8 +22,6 @@ function siw_get_mailpoet_lists() {
 	}
 	return $mailpoet_lists;
 }
-
-
 
 /**
  * Geeft array met gegevens van een quote terug
@@ -83,19 +66,4 @@ function siw_get_testimonial_quote_categories() {
 		$testimonial_quote_categories[ $testimonial_group->slug ] = $testimonial_group->name;
 	}
 	return $testimonial_quote_categories;
-}
-
-
-/**
- * Haal array van jaarverslagen op
- * @return array
- */
-function siw_get_annual_reports() {
-	$last_year = (int) date( 'Y' ) - 1;
-	$first_year = $last_year - SIW_Properties::MAX_ANNUAL_REPORTS + 1;
-
-	for ( $x = $last_year ; $x >= $first_year; $x-- ) {
-		$annual_reports[ $x ] = siw_get_setting( "annual_report_{$x}" );
-	}
-	return $annual_reports;
 }

@@ -28,21 +28,20 @@ add_filter( 'caldera_forms_get_forms', function( $forms ){
  */
 add_filter( 'caldera_forms_get_form-op_maat', function( $form ) {
 
-	$volunteer_languages = siw_get_volunteer_languages();
-	foreach ( $volunteer_languages as $volunteer_language ) {
-		$language_slug = sanitize_title( $volunteer_language );
-		$languages[$language_slug]['value'] = $language_slug;
-		$languages[$language_slug]['label'] = $volunteer_language;
+	$volunteer_languages = siw_get_languages('volunteer');
+	foreach ( $volunteer_languages as $language ) {
+		$languages[ $language->get_slug() ]['value'] = $language->get_slug();
+		$languages[ $language->get_slug() ]['label'] = $language->get_name();
 	}
 
-	$volunteer_language_skill_levels = siw_get_volunteer_language_skill_levels();
+	$volunteer_language_skill_levels = siw_get_language_skill_levels();
 	foreach ( $volunteer_language_skill_levels as $volunteer_language_skill_level ) {
 		$language_skill_level_slug = sanitize_title( $volunteer_language_skill_level );
 		$language_skill_levels[ $language_skill_level_slug ]['value'] = $language_skill_level_slug;
 		$language_skill_levels[ $language_skill_level_slug ]['label'] = $volunteer_language_skill_level;
 	}
 
-	$info_day_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'info_day_page' ) );
+	$info_day_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'info_days_explanation_page' ) );
 
 
 
@@ -64,7 +63,7 @@ add_filter( 'caldera_forms_get_form-op_maat', function( $form ) {
 		),
 	);
 
-	$signature = siw_get_setting( 'op_maat_email_signature' );
+	$signature = siw_get_option( 'tailor_made_email_signature' );
 
 	/*E-mail bevestiging*/
 	$confirmation_template_args = array(
@@ -378,7 +377,7 @@ return array(
 			'config' =>
 			array(
 				'sender_name' => SIW_Properties::NAME,
-				'sender_email' => siw_get_setting( 'op_maat_email_sender' ),
+				'sender_email' => siw_get_option( 'tailor_made_email_sender' ),
 				'subject' => $confirmation_template_args['subject'],
 				'recipient_name' => '%voornaam% %achternaam%',
 				'recipient_email' => '%emailadres%',
@@ -403,10 +402,10 @@ return array(
 	array(
 		'on_insert' => 1,
 		'sender_name' => __( 'Website', 'siw' ),
-		'sender_email' => siw_get_setting( 'op_maat_email_sender' ),
+		'sender_email' => siw_get_option( 'tailor_made_email_sender' ),
 		'reply_to' => '%email%',
 		'email_type' => 'html',
-		'recipients' => siw_get_setting( 'op_maat_email_sender' ),
+		'recipients' => siw_get_option( 'tailor_made_email_sender' ),
 		'email_subject' => $notification_template_args['subject'],
 		'email_message' => siw_get_email_template( $notification_template_args ),
 	),

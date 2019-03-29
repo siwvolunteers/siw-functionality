@@ -49,7 +49,7 @@ class SIW_WC_Email_New_Order {
 	 * @return string
 	 */
 	public function set_recipient( $recipient, $order ) {
-		$recipient = siw_get_setting( 'workcamp_application_email_sender' );
+		$recipient = siw_get_option( 'workcamp_application_email_sender' );
 		return $recipient;
 	}
 

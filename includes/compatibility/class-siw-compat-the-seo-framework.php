@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Aanpassingen voor The SEO Framework
  * 
  * @package   SIW\Compatibility
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  * 
  * @uses      SIW_Properties
@@ -129,7 +129,7 @@ class SIW_Compat_The_SEO_Framework {
 	 * @return string
 	 */
 	public function set_robots_txt( $output ) {
-		$bots = siw_get_setting( 'blocked_bots');
+		$bots = siw_get_option( 'blocked_bots');
 
 		if ( empty( $bots ) ) {
 			return $output;
@@ -140,7 +140,6 @@ class SIW_Compat_The_SEO_Framework {
 			$output .= "User-agent: " . esc_attr( $bot ) . PHP_EOL;
 			$output .= "Disallow: /" . PHP_EOL . PHP_EOL;
 		}
-	
 		return $output;
 	}
 
@@ -160,7 +159,6 @@ class SIW_Compat_The_SEO_Framework {
 			$excluded_cpt[] = 'vacatures';
 			$excluded_cpt[] = 'portfolio';
 		}
-	
 		return $excluded_cpt;
 	}
 

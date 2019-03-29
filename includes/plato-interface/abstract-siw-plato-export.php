@@ -21,6 +21,13 @@ abstract class SIW_Plato_Export extends SIW_Plato_Interface {
 	protected $data;
 
 	/**
+	 * Productiemode
+	 *
+	 * @var bool
+	 */
+	protected $production;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -30,11 +37,9 @@ abstract class SIW_Plato_Export extends SIW_Plato_Interface {
 
 	/**
 	 * Zet productiemode o.b.v. instelling
-	 *
-	 * @return self
 	 */
 	protected function set_production() {
-		$this->production = ! siw_get_setting( 'plato_test_mode', false );
+		$this->production = siw_get_option( 'plato_production_mode', false );
 	}
 
 	/**

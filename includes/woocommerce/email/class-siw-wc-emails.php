@@ -48,7 +48,7 @@ class SIW_WC_Emails {
 	 * @return string
 	 */
 	public function set_email_from_address( $from_address, $email ) {
-		$from_address = siw_get_setting( 'workcamp_application_email_sender' );
+		$from_address = siw_get_option( 'workcamp_application_email_sender' );
 		return $from_address;
 	}
 

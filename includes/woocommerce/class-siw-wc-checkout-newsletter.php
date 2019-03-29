@@ -61,7 +61,7 @@ class SIW_WC_Checkout_Newsletter{
 			return;
 		}
 
-		$list = (int) siw_get_setting( 'newsletter_list' );
+		$list = (int) siw_get_option( 'newsletter_list' );
 		if ( 1 == $posted_data['newsletter_signup'] ) {
 			$user_data = [
 				'email'     => $order->get_billing_email(),

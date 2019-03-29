@@ -26,7 +26,7 @@ class SIW_External_Postcode_Lookup{
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->api_key = siw_get_setting( 'postcode_api_key' );
+		$this->api_key = siw_get_option( 'postcode_api_key' );
 		if ( empty( $this->api_key ) ) {
 			return;
 		}
