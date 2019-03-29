@@ -53,7 +53,7 @@ add_filter( 'caldera_forms_get_form-infodag', function( $form ) {
 	);
 
 	/* Keuzes infodag TODO: fallback als er geen opties zijn */
-	$infodays = siw_get_option( 'info_day_dates' );
+	$infodays = siw_get_option( 'info_days' );
 
 	$infodays = array_filter( $infodays, function( $date ) {
 		return $date >= date( 'Y-m-d', time() + ( 2 * DAY_IN_SECONDS ) ); //TODO: constante of instelling voor aantal dagen
