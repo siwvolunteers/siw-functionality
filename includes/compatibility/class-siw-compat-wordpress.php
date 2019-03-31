@@ -42,6 +42,7 @@ class SIW_Compat_WordPress {
 
 		/* Shortcodes mogelijk maken in text widget */
 		add_filter( 'widget_text', 'do_shortcode' );
+		
 	}
 
 	/**
@@ -171,5 +172,15 @@ class SIW_Compat_WordPress {
 	public function set_404_template( $template ) {
 		$template = SIW_TEMPLATES_DIR . '/404.php';
 		return $template;
+	}
+
+	/**
+	 * Zet alle editors standaard op tekst
+	 *
+	 * @param string $editor
+	 */
+	public function set_default_editor( $editor ) {
+		$editor = 'html';
+		return $editor;
 	}
 }
