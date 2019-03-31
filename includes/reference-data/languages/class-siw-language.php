@@ -13,16 +13,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SIW_Language {
 
 	/**
+	 * Slug
+	 * 
 	 * @var string
 	 */
 	protected $slug;
 	
 	/**
+	 * Naam
+	 * 
 	 * @var string
 	 */
 	protected $name;
 
 	/**
+	 * PLATO-code
+	 * 
 	 * @var string
 	 */
 	protected $plato_code;
@@ -61,6 +67,8 @@ class SIW_Language {
 	}
 
 	/**
+	 * Geeft slug van taal terug
+	 * 
 	 * @return string
 	 */
 	public function get_slug() {
@@ -68,15 +76,8 @@ class SIW_Language {
 	}
 
 	/**
-	 * @param string $name
-	 * @return $this
-	 */
-	public function set_name( $name ) {
-		$this->name = $name;
-		return $this;
-	}
-
-	/**
+	 * Geeft naam van taal terug
+	 * 
 	 * @return string
 	 */
 	public function get_name() {
@@ -84,6 +85,8 @@ class SIW_Language {
 	}
 
 	/**
+	 * Geeft PLATO-code van taal terug
+	 * 
 	 * @return string
 	 */
 	public function get_plato_code() {

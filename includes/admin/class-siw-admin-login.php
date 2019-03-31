@@ -15,8 +15,6 @@ class SIW_Admin_Login {
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 		$self = new self();

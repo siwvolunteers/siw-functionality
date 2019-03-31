@@ -151,25 +151,14 @@ class SIW_Properties {
 	const INSTAGRAM_URL = 'https://www.instagram.com/siwvolunteers/';
 
 	/**
-	 * Aantal infodagen
-	 *
-	 * @var int
-	 * 
-	 * @deprecated
-	 */
-	const NUMBER_OF_INFO_DAYS = 10;
-
-	/**
-	 * Maximum aantal ESC-deadlines
-	 *
-	 * @var int
-	 * 
-	 * @deprecated
-	 */
-	const NUMBER_OF_ESC_DEADLINES = 5;
-
-	/**
 	 * Minimaal aantal weken voor deadline
+	 *
+	 * @var int
+	 */
+	const ESC_WEEKS_BEFORE_DEADLINE = 5;
+
+	/**
+	 * Minimaal aantal weken voor vertrek
 	 *
 	 * @var int
 	 */
@@ -201,7 +190,7 @@ class SIW_Properties {
 	 *
 	 * @var string
 	 */
-	const TS_UPDATE_FREE_PLACES = '0:30';
+	const TS_UPDATE_FREE_PLACES = '2:00';
 
 	/**
 	 * Tijdstip achtergrondprogramma's

@@ -283,17 +283,13 @@ class SIW_Compat_Pinnacle_Premium {
 		if ( is_singular( 'vacatures' ) ) {
 			$parent = siw_get_option( 'job_postings_archive_page' );
 		}
-		if ( is_singular( 'agenda' ) ) {
+		elseif ( is_singular( 'agenda' ) ) {
 			$parent = siw_get_option( 'events_archive_page' );
 		}
-	
-		/* Breadcrumbs voor attribute-pagina's*/
-		if ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax ( 'pa_taal' ) ) {
+		elseif ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax ( 'pa_taal' ) ) {
 			$parent = wc_get_page_id( 'shop' );
 		}
-	
-		/* Afbreken als er geen overzichtspagina is ingesteld*/
-		if ( empty( $parent ) ) {
+		else {
 			return;
 		}
 	
