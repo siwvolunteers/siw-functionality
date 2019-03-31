@@ -1,5 +1,6 @@
 @import "partials/_icons.sass";
-	
+@import "partials/_variables.sass";
+
 .siw-icon-stack {
 	display: inline-block;
 	height: 2em;
@@ -7,6 +8,14 @@
 	position: relative;
 	vertical-align: middle;
 	width: 2.5em;
+}
+
+.siw-icon-background {
+	transition: all 0.3s linear 0s;
+}
+
+.siw-icon-stack:hover .siw-icon-background {
+	color: $primary-color;
 }
 
 .siw-icon-stack-1x,
