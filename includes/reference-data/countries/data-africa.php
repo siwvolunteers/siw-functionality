@@ -38,7 +38,7 @@ add_filter( 'siw_country_data', function( $data ) {
 			'name'        => __( 'Ghana', 'siw' ),
 			'allowed'     => true,
 			'workcamps'   => true,
-			'tailor_made' => false,
+			'tailor_made' => true,
 			'world_map'   => [ 'code' => 'gh', 'x' => 0.4984, 'y' => 0.6602 ],
 		],
 		[
