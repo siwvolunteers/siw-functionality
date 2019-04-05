@@ -34,7 +34,7 @@
 
 	// init Isotope
 	var $grid = $('.init-isotope').isotope({
-		// options
+		 layoutMode: 'fitRows'
 	});
 	// filter items on button click
 	$('.filter-button-group').on( 'click', 'button', function() {
