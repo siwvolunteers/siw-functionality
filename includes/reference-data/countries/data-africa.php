@@ -72,9 +72,9 @@ add_filter( 'siw_country_data', function( $data ) {
 			'iso'         => 'TGO',
 			'slug'        => 'togo',
 			'name'        => __( 'Togo', 'siw' ),
-			'allowed'     => false,
+			'allowed'     => true,
 			'workcamps'   => true,
-			'tailor_made' => false,
+			'tailor_made' => true,
 			'world_map'   => [ 'code' => 'tg', 'x' => 0.5038, 'y' => 0.6559 ],
 		],
 		[
