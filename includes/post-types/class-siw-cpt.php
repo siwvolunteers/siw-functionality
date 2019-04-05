@@ -96,6 +96,7 @@ class SIW_CPT {
 		add_action( 'init', [ $this, 'register_taxonomies'] );
 		add_action( 'init', [ $this, 'register_post_type'] );
 
+		add_action( 'pre_get_posts', [ $this, 'show_all_posts_on_archive'] );
 	}
 
 	/**
@@ -236,5 +237,18 @@ class SIW_CPT {
 			}
 			}
 		return $template;
+	}
+
+	/**
+	 * Toont alle posts op archiefpagina
+	 *
+	 * @param WP_Query $query
+	 */
+	public function show_all_posts_on_archive( $query ) {
+		if ( ! is_admin() && $query->is_main_query() ) {
+			if ( is_post_type_archive( "siw_{$this->post_type}" ) ) {
+				$query->set('posts_per_page', -1 );
+			}
+		}
 	}
 }
