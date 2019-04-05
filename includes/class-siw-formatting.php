@@ -3,6 +3,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+use SVG\SVG;
 
 /**
  * Hulpfuncties t.b.v. formattering
@@ -91,15 +92,12 @@ class SIW_Formatting {
 	 * @param string $background
 	 * @return string
 	 */
-	public static function generate_icon( $icon_class, $size = 2, $background = 'none' ) {
+	public static function generate_icon( $icon_class, $size = 1, $background = 'none' ) {
 		switch ( $background ) {
 			case 'circle':
-				$stack = true;
-				$background_class = 'siw-icon-circle';
-				break;
 			case 'square':
 				$stack = true;
-				$background_class = 'siw-icon-square';
+				$background_class = "siw-icon-{$background}";
 				break;
 			default:
 				$stack = false;
@@ -566,4 +564,50 @@ class SIW_Formatting {
 		$modal = ob_get_clean();
 		return $modal;
 	}
+
+
+	/**
+	 * Genereert filter-knoppen voor taxonomy
+	 *
+	 * @param string $taxonomy
+	 * @return string
+	 * 
+	 * @todo verplaatsen naar eigen klasse
+	 */
+	public static function generate_filter_buttons( $taxonomy, $header = ''  ) {
+
+		$terms = get_terms( array(
+			'taxonomy'   => $taxonomy,
+			'hide_empty' => true,
+		) );
+		$buttons = sprintf( '<div class="filter-button-group" data-filter-group="%s">', $taxonomy );
+		$buttons .= '<h5>Filter op continent</h5>';
+		$buttons .= sprintf ( '<button class="kad-btn is-checked" data-filter="">%s</button>', esc_html__( 'Alle', 'siw' ) );
+		foreach ( $terms as $term ) {
+			$buttons .= sprintf( '<button class="kad-btn" data-filter=".%s">%s</button>', esc_attr( $term->slug ), esc_html( $term->name ) );
+		}
+		$buttons .= '</div>';
+		return $buttons;
+	}
+
+	/**
+	 * Genereert wereldkaart
+	 *
+	 * @param SIW_Country $country
+	 * @return string
+	 */
+	public static function generate_world_map( $country, $zoom = 1 ) {
+		$continent = $country->get_continent();
+
+		$svg = SVG::fromFile( SIW_ASSETS_DIR . "/modules/mapplic/maps/world.svg" );
+		$doc = $svg->getDocument();
+		$path = $doc->getElementById( $country->get_world_map_data()->code );
+		$path->setStyle( 'fill', $continent->get_color() );
+		return $svg;
+
+	}
+
+	
+
+
 }

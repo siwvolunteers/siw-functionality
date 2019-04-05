@@ -8,7 +8,7 @@
 		"build-icons": "icon-font-generator assets/icons/*.svg -o assets/css/fonts -n siw-icons -p siw-icon -f /fonts --cssfontsurl /wp-content/plugins/siw-functionality/assets/css/fonts --html true --csspath assets/css/partials/_icons.sass --html false --jsonpath assets/icons/siw-icons.json --normalize true"
 	},
 	"dependencies": {
-		"apexcharts": "^3.6.3",
+		"apexcharts": "^3.6.5",
 		"flickity": "2.*",
 		"icon-font-generator": "2.*",
 		"isotope-layout": "3.*",
@@ -29,6 +29,18 @@
 		{
 			"from": "node_modules/js-cookie/src/js.cookie.js",
 			"to": "assets/modules/js-cookie/js.cookie.js"
+		},
+		{
+			"from": "node_modules/isotope-layout/dist/isotope.pkgd.js",
+			"to": "assets/modules/isotope/isotope.js"
+		},
+		{
+			"from": "node_modules/flickity/dist/flickity.pkgd.js",
+			"to": "assets/modules/flickity/flickity.js"
+		},
+		{
+			"from": "node_modules/flickity/dist/flickity.css",
+			"to": "assets/modules/flickity/flickity.css"
 		}
 	]
 }

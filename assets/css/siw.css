@@ -247,6 +247,10 @@ article.agenda {
   float: right;
 }
 
+article.siw_tm_country {
+  background-color: #fff;
+}
+
 /*vacatures*/
 
 article.vacatures {
@@ -526,6 +530,87 @@ h5.job-title {
 .is-sticky .kad-primary-nav ul.sf-menu .menu-en span,
 .is-sticky .kad-primary-nav ul.sf-menu .menu-nl span {
   padding: 2px;
+}
+
+/* Fade in voor lazyload */
+
+img[data-lazy-src] {
+  opacity: 0;
+}
+
+img.lazyloaded {
+  transition: opacity 0.5s linear 0.2s;
+  opacity: 1;
+}
+
+.siw-quote {
+  padding: 40px;
+  font-size: 1.3em;
+  color: #777;
+  font-style: italic;
+  text-align: center;
+}
+
+.siw-quote i[class^="siw-icon-"]::before {
+  font-style: italic;
+}
+
+.siw-archive-intro {
+  background-color: #444;
+  color: #fff;
+  padding: 15px;
+  margin: 15px;
+}
+
+.filter-button-group {
+  text-align: center;
+}
+
+.filter-button-group .is-checked,
+.filter-button-group button:hover {
+  background-color: #ff9900;
+  color: #fff;
+}
+
+.siw_grid_item a,
+.carousel-cell a {
+  color: #444;
+}
+
+.siw_grid_item .grid_item,
+.carousel-cell .grid_item {
+  transition: background 0.3s ease-out 0s;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.siw_grid_item .grid_item .postcontent,
+.carousel-cell .grid_item .postcontent {
+  padding: 5px 15px 15px;
+}
+
+.siw_grid_item:hover h5,
+.siw_grid_item:hover .postedinbottom,
+.siw_grid_item:hover a,
+.carousel-cell:hover h5,
+.carousel-cell:hover .postedinbottom,
+.carousel-cell:hover a {
+  color: #fff;
+}
+
+.siw_grid_item:hover .grid_item .postcontent footer,
+.carousel-cell:hover .grid_item .postcontent footer {
+  border-top-color: #fff;
+}
+
+.siw_grid_item:hover .grid_item,
+.carousel-cell:hover .grid_item {
+  color: #fff;
+  background-color: #ff9900;
+}
+
+article.siw_story {
+  background-color: #fff;
 }
 
 @media (min-width: 760px) {

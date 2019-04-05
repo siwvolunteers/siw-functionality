@@ -11,6 +11,73 @@
 @import "partials/_portfolio.sass";
 @import "partials/_system-font.sass";
 @import "partials/_testimonials.sass";
+@import "partials/_tm-countries.sass";
 @import "partials/_vacatures.sass";
 @import "partials/_widgets.sass";
 @import "partials/_wpml.sass";
+
+/* Fade in voor lazyload */
+img[data-lazy-src] {
+	opacity: 0;
+}
+
+img.lazyloaded {
+	transition: opacity 0.5s linear 0.2s;
+	opacity: 1;
+}
+
+.siw-quote{
+	padding: 40px;
+	font-size: 1.3em;
+	color: #777;
+	font-style: italic;
+	text-align: center;
+	i[class^="siw-icon-"]::before{
+		font-style: italic;
+	}
+}
+
+.siw-archive-intro{
+	background-color: $font-color;
+	color: #fff;
+	padding: 15px;
+	margin:15px;
+}
+
+.filter-button-group{
+	text-align:center;
+	.is-checked, button:hover {
+		background-color: $primary-color;
+		color: #fff;
+	}
+}
+
+.siw_grid_item, .carousel-cell{
+	a{
+		color: #444;
+	}
+	.grid_item{
+		transition: background 0.3s ease-out 0s;
+		border-radius: 5px;
+		text-align:center;
+		.postcontent{
+			padding: 5px 15px 15px;
+		}
+	}
+	&:hover{
+		h5, .postedinbottom, a{
+			color: #fff;
+		}
+		.grid_item .postcontent footer{
+			border-top-color: #fff;
+		}
+		.grid_item{
+			color:#fff;
+			background-color: $primary-color;
+		}
+	}
+}
+
+article.siw_story {
+	background-color:#fff;
+}
