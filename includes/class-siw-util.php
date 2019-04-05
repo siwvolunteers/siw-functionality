@@ -176,4 +176,15 @@ class SIW_Util {
 		}
 		return $workcamp_sale_active;
 	}
+
+	/**
+	 * Geeft aan of template bestaat
+	 *
+	 * @param string $template
+	 * @return bool
+	 */
+	public static function template_exists( $template ) {
+		return file_exists( SIW_TEMPLATES_DIR . "/{$template}" );
+	}
+
 }
