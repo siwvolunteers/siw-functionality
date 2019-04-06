@@ -601,13 +601,42 @@ class SIW_Formatting {
 
 		$svg = SVG::fromFile( SIW_ASSETS_DIR . "/modules/mapplic/maps/world.svg" );
 		$doc = $svg->getDocument();
+		$width = floatval( $doc->getWidth() );
+		$height = floatval( $doc->getHeight() );
+		$zoom = 2;
+		$x = $country->get_world_map_data()->x;
+		$y = $country->get_world_map_data()->y;
+		
+		$x = min( $x + 1/ ( 2 * $zoom ), 1 );
+		$x = max( $x - 1 / ( $zoom ), 0 );
+		$x = $x * $width;
+		
+		$y = min( $y + 1/ ( 2 * $zoom ), 1);
+		$y = max( $y - 1 / ( $zoom ), 0 );
+		$y = $y * $height;
+
+		$vb_width = $width / $zoom;
+		$vb_height = $height / $zoom;
+
+		$doc->setAttribute( 'viewBox', "{$x} {$y} {$vb_width} {$vb_height}");
 		$path = $doc->getElementById( $country->get_world_map_data()->code );
-		$path->setStyle( 'fill', $continent->get_color() );
-		return $svg;
 
-	}
-
+		
+		if ( is_a( $path, 'SVG\Nodes\Shapes\SVGPath') ) {
+			$path->setStyle( 'fill', $continent->get_color() );
+		}
+		elseif ( is_a( $path, 'SVG\Nodes\Structures\SVGGroup' ) ) {
+			//TODO: recursive
+			$childCount = $path->countChildren();
+			if ( $childCount > 0 ) {
+				for ( $i = 0; $i < $childCount; $i++) {
+					$subpath = $path->getChild( $i );
+					$subpath->setStyle( 'fill', $continent->get_color() );
+				}
 	
-
+			}
+		}
+		return $svg;
+	}
 
 }

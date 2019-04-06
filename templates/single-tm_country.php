@@ -9,8 +9,8 @@ get_header();
 get_template_part('templates/post', 'header' );
 
 
-$country = siw_get_country( rwmb_meta('country') );
-$continent = $country->get_continent();
+	$country = siw_get_country( rwmb_meta('country') );
+	$continent = $country->get_continent();
 ?>
 
 <div id="content" class="container">
@@ -20,21 +20,26 @@ $continent = $country->get_continent();
 		<article <?php post_class() ?> id="tm-country-<?php the_ID(); ?>">
 			<div class="postclass">
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-6 kt-pb-animation kt-pb-fadeInLeft kt-pb-duration-1800 kt-pb-delay-0">
 						<?php echo SIW_Formatting::generate_world_map( $country );?>
 					<style>
 						svg {width: 100%; height: auto;}
 					</style>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6 kt-pb-animation kt-pb-fadeInRight kt-pb-duration-1800 kt-pb-delay-0">
 						<h4><?php printf( esc_html__( 'Op Maat in %s', 'siw' ), $country->get_name() );  ?></h4>
 						<p><?php echo wp_kses_post( rwmb_get_value( 'introduction' ) );?></p>
 						<b><?php esc_html_e( 'Dit is het type projecten dat we hier aanbieden:', 'siw' );?></b>
 						<p>
 							<?php
 							$work_types = rwmb_meta( 'work_type' );
+							$child_projects = false;
 							foreach ( $work_types as $work_type ) {
 								$work_type = siw_get_work_type( $work_type );
+								if ( 'kinderen' == $work_type->get_slug() ) {
+									$child_projects = true; //TODO: misschien array_key_exists gebruiken?
+								}
+
 								printf( '%s %s<br>', SIW_Formatting::generate_icon( $work_type->get_icon_class(), 1, 'circle' ), $work_type->get_name() );
 							}
 							?>
@@ -43,7 +48,7 @@ $continent = $country->get_continent();
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<div class="siw-quote">
+						<div class="siw-quote kt-pb-animation kt-pb-fadeIn kt-pb-duration-1800 kt-pb-delay-0">
 							<?php
 							echo SIW_Formatting::generate_icon( 'siw-icon-quote-left', 1 ) . SPACE;
 							echo esc_html( rwmb_get_value( 'quote' ));
@@ -52,8 +57,16 @@ $continent = $country->get_continent();
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-6 kt-pb-animation kt-pb-fadeInLeft kt-pb-duration-1800 kt-pb-delay-0">
 					<p><?php echo wp_kses_post( rwmb_get_value( 'description' ) );?></p>
+					<?php if ( true == $child_projects ) : ?>
+						<p>
+						<?php
+							esc_html_e( 'Goed om te weten: SIW beoordeelt de projecten in Kenia volgens de richtlijnen van het Better Care Network.', 'siw' );
+							echo do_shortcode(' [siw_pagina_lightbox link_tekst="Lees meer over ons beleid." pagina="kinderbeleid"]');
+							?>
+						</p>
+					<?php endif ?>
 					<p>
 					<?php 
 						echo sprintf( esc_html__( 'Samen met de regiospecialist %s ga je aan de slag om van jouw idee werkelijkheid te maken.', 'siw' ), $continent->get_name() ) . SPACE; 
@@ -62,7 +75,7 @@ $continent = $country->get_continent();
 						echo SIW_Formatting::generate_link( $tailor_made_page_link, __( 'Meld je aan', 'siw' ), [ 'class' => 'kad-btn kad-btn-primary' ] );	
 					?>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6 kt-pb-animation kt-pb-fadeInRight kt-pb-duration-1800 kt-pb-delay-0">
 						<?php
 						$images = rwmb_meta( 'image', ['limit' => 1 ] );
 						$image = reset( $images );
