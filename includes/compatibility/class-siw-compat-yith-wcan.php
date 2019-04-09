@@ -25,6 +25,7 @@ class SIW_Compat_YITH_WCAN {
 		add_filter( 'yith_wcan_settings_tabs', [ $self, 'remove_premium_tab' ] );
 		add_filter( 'yith_wcan_get_terms_list', [ $self, 'order_terms' ], 10, 3 );
 		add_filter( 'yith_wcan_body_class', '__return_empty_string' );
+		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
 
 		/* Aanpassen diverse woocommerce-hooks voor archive */
 		add_filter( 'yith_wcan_untrailingslashit', '__return_false' );
@@ -46,6 +47,14 @@ class SIW_Compat_YITH_WCAN {
 	public function remove_premium_tab( $admin_tabs ) {
 		unset( $admin_tabs['premium'] );
 		return $admin_tabs;
+	}
+
+	/**
+	 * Verwijdert dashboard widgets
+	 */
+	public function remove_dashboard_widgets() {
+		remove_meta_box( 'yith_dashboard_products_news', 'dashboard', 'normal' );
+		remove_meta_box( 'yith_dashboard_blog_news', 'dashboard', 'normal' );
 	}
 
 	/**
