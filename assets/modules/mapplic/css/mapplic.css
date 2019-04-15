@@ -1,6 +1,6 @@
 /*
  * Mapplic - Custom Interactive Map Plugin by @sekler
- * Version 5.0
+ * Version 5.0.1
  * https://www.mapplic.com/
  */
 
@@ -17,6 +17,11 @@
 .mapplic-element a:active {
 	outline: none;
 	box-shadow: none;
+	text-decoration: none !important;
+}
+
+.mapplic-element a:focus {
+	outline: none;
 }
 
 .mapplic-element > * {
@@ -93,6 +98,10 @@
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+}
+
+.mapplic-pin.hide {
+	display: none;
 }
 
 /* Marker types */
@@ -470,11 +479,14 @@ a.mapplic-zoomout-button {
 /* Fullscreen */
 .mapplic-fullscreen {
 	background-color: rgba(248, 248, 248, 0.95);
-	position: fixed;
+	position: fixed !important;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100% !important;
+	margin: 0 !important;
+	max-width: 100% !important;
+	max-height: 100% !important;
 	z-index: 99980;
 }
 
@@ -595,6 +607,7 @@ a.mapplic-zoomout-button {
 	background-size: 14px 14px !important;
 	background-repeat: no-repeat !important;
 	background-position: 0 0 !important;
+	background-color: transparent !important;
 	border: none !important;
 	box-shadow: none !important;
 	box-sizing: border-box;
@@ -606,6 +619,10 @@ a.mapplic-zoomout-button {
 	height: 48px !important;
 	margin: 0 !important;
 	padding: 24px 24px 4px 0 !important;
+}
+
+.mapplic-search-input:focus {
+	outline: none !important;
 }
 
 .mapplic-search-input::placeholder {
@@ -631,6 +648,13 @@ a.mapplic-zoomout-button {
 	margin: 2px 0;
 	width: 34px;
 	height: 34px;
+}
+
+/* Search Disabled */
+.mapplic-sidebar-nosearch { padding-top: 56px; }
+.mapplic-sidebar-nosearch .mapplic-filter {
+	margin-top: -44px;
+	height: 44px;
 }
 
 /* Tags */
@@ -741,7 +765,7 @@ a.mapplic-zoomout-button {
 }
 
 .mapplic-list-category h4 {
-	display: block;
+	display: inline-block;
 	font-size: 14px;
 	font-weight: bold;
 	line-height: 22px;
@@ -808,6 +832,7 @@ a.mapplic-zoomout-button {
 .mapplic-list-location {
 	border-color: #aaa;
 	margin: 0 !important;
+	padding: 0 !important;
 }
 
 .mapplic-list-location[data-location=init] {
@@ -1125,15 +1150,21 @@ a.mapplic-zoomout-button {
 .mapplic-legend-label {
 	display: block;
 	font-size: 14px;
+	font-weight: normal;
 	margin: 6px 0;
 	padding-left: 28px;
 	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-ms-user-select: none;
 }
 
 .mapplic-legend-key {
 	background-color: #aaa;
 	border: 2px solid #fff;
 	border-radius: 50%;
+	box-sizing: content-box;
 	display: inline-block;
 	height: 16px;
 	width: 16px;

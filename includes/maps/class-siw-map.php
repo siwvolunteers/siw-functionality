@@ -19,7 +19,7 @@ class SIW_Map {
 	/**
 	 * Mapplic versie
 	 */
-	const MAPPLIC_VERSION = '5.0';
+	const MAPPLIC_VERSION = '5.0.1';
 
 	/**
 	 * Basis-url van de Mapplic bestanden
