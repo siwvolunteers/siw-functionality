@@ -1,3 +1,5 @@
+/** global: ga */
+
 /**
  * @file Functies t.b.v. Google Analytics
  * @author Maarten Bruna
@@ -27,7 +29,6 @@ function siwGa( type, category, action, label ) {
 function siwSendGaFormSubmissionEvent( obj ) {
 	siwGa( 'event', obj.form_id, 'Verzenden' );
 }
-
 
 
 (function( $ ) {

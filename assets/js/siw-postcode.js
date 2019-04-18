@@ -1,3 +1,5 @@
+/** global: siw_postcode */
+
 /**
  * @file Function t.b.v. postcode lookup
  * @author Maarten Bruna 
@@ -15,11 +17,11 @@
 function siwPostcodeLookupFromForm( postcodeSelector, housenumberSelector, streetSelector, citySelector ) {
 	var postcode = jQuery( postcodeSelector ).val().replace( / /g, '' ).toUpperCase();
 	var housenumber = jQuery( housenumberSelector ).val();
-	var housenumber = housenumber.replace( /[^0-9]/g, '' );
+	housenumber = housenumber.replace( /[^0-9]/g, '' );
 
 	if ( ( '' != postcode ) && ( '' != housenumber ) ) {
 		siwPostcodeLookup( postcode, housenumber ).done( function( response ) {
-			if ( true == response.success ) {
+			if ( true === response.success ) {
 				jQuery( citySelector ).val( response.data.city ).prop( 'readonly', true );
 				jQuery( streetSelector ).val( response.data.street ).prop( 'readonly', true );
 			}else {

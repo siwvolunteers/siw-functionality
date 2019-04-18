@@ -1,3 +1,5 @@
+/** global: siw_newsletter */
+
 /**
  * @file Functies t.b.v. de nieuwsbrief signup
  * @author Maarten Bruna 
@@ -46,7 +48,7 @@ function siwNewsletterSubscribeFromForm( selector ) {
 		siwNewsletterSubscribe( name, email ).done( function( response ) {
 			jQuery( selector + ' .loading' ).addClass( 'hidden' );
 			jQuery( selector + ' .message' ).removeClass( 'hidden' ).text( response.message );
-			if ( true == response.success ) {
+			if ( true === response.success ) {
 				siwGa( 'event', 'Nieuwsbrief', 'Aanmelden' );
 			}
 		}).fail( function() {
