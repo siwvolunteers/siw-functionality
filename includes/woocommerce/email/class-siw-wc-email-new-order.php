@@ -35,7 +35,7 @@ class SIW_WC_Email_New_Order {
 	 * @return string
 	 */
 	public function set_template( $located, $template_name, $args, $template_path, $default_path ) {
-		if ( 'emails' . DIRECTORY_SEPARATOR . 'admin-new-order.php' == $template_name ) {
+		if ( 'emails/admin-new-order.php' == $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
 		}
 		return $located;

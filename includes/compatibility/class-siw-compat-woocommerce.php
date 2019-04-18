@@ -51,6 +51,9 @@ class SIW_Compat_WooCommerce {
 
 		/* WooCommerce help-tab verbergen*/
 		add_filter( 'woocommerce_enable_admin_help_tab', '__return_false' );
+
+		/** Advertenties niet tonen */
+		add_filter( 'woocommerce_allow_marketplace_suggestions', '__return_false' );
 	}
 
 	/**

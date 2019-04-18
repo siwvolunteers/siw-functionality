@@ -102,8 +102,7 @@ class SIW_Head {
 			$urls[] = 'maps.gstatic.com';
 			$urls[] = 'csi.gstatic.com';
 		}
-	
-		if ( 'preconnect' === $relation_type ) {
+		elseif ( 'preconnect' === $relation_type ) {
 			$urls[] = [
 				'href' => 'https://www.google-analytics.com',
 				'crossorigin',

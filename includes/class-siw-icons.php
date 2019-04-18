@@ -20,7 +20,7 @@ class SIW_Icons {
 
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_style' ] );
-		add_action( 'admin_enqueue_scripts', [ $self, 'enqueue_style' ] );		
+		add_action( 'admin_enqueue_scripts', [ $self, 'enqueue_style' ] );
 
 		if ( class_exists( 'SiteOrigin_Widgets_Bundle' ) ) {
 			add_filter( 'siteorigin_widgets_icon_families', [ $self, 'add_icon_family' ] );

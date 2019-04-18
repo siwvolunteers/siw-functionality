@@ -42,9 +42,6 @@ class SIW_WC_Checkout{
 		remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_checkout_privacy_policy_text', 20 );
 		remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_terms_and_conditions_page_content', 30 );
 		add_action( 'woocommerce_after_checkout_form', [ $self, 'add_terms_modal'] );
-
-		add_filter( 'woocommerce_format_postcode', [ $self, 'format_postcode' ], 10, 2 );
-		add_filter( 'woocommerce_validate_postcode', [ $self, 'validate_postcode' ], 10, 3 );
 		add_action( 'woocommerce_after_checkout_validation', [ $self, 'validate_checkout_fields' ], 10, 2 );
 		add_action( 'woocommerce_checkout_create_order', [ $self, 'save_checkout_fields'], 10, 2 );
 
@@ -321,7 +318,7 @@ class SIW_WC_Checkout{
 				return false;
 			});";
 	
-		wp_add_inline_script( 'wc-checkout', "(function( $ ) {" . $inline_script . "})( jQuery );" );
+		wp_add_inline_script( 'wc-checkout', "(function( $ ) {" . $inline_script . "})( jQuery );" );//TODO:format-functie voor anonymous jQuery
 	}
 
 	/**
@@ -347,39 +344,6 @@ class SIW_WC_Checkout{
 			}
 		}
 	}
-
-	/**
-	 * Formatteert Nederlandse postcodes
-	 *
-	 * @param string $postcode
-	 * @param string $country
-	 * @return string
-	 * 
-	 * @link https://github.com/woocommerce/woocommerce/pull/22316
-	 */
-	public function format_postcode( $postcode, $country ) {
-		if ( 'NL' == $country ) {
-			$postcode = substr_replace( $postcode, ' ', 4, 0 );
-		}
-		return $postcode;
-	}
-
-	/**
-	 * Voegt validatie voor Nederlandse postcodes toe
-	 *
-	 * @param bool $valid
-	 * @param string $postcode
-	 * @param string $country
-	 * @return bool
-	 * 
-	 * @link https://github.com/woocommerce/woocommerce/pull/22316
-	 */
-	public function validate_postcode( $valid, $postcode, $country ) {
-		if ( 'NL' == $country ) {
-			$valid = (bool) preg_match( SIW_Util::get_regex('postal_code'), $postcode );
-		}
-		return $valid;
-	}
 	
 	/**
 	 * Overschrijft templates
@@ -392,10 +356,10 @@ class SIW_WC_Checkout{
 	 * @return string
 	 */
 	public function set_checkout_templates( $located, $template_name, $args, $template_path, $default_path ) {
-		if ( 'checkout' . DIRECTORY_SEPARATOR . 'terms.php' == $template_name ) {
+		if ( 'checkout/terms.php' == $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
 		}
-		if ( 'checkout' . DIRECTORY_SEPARATOR . 'payment-method.php' == $template_name ) {
+		if ( 'checkout/payment-method.php' == $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
 		}
 		return $located;
