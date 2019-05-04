@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package   SIW\Reference-Data
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
+ * 
+ * @uses      SIW_Continent
  */
 class SIW_Country {
 

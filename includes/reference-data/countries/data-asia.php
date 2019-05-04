@@ -3,7 +3,7 @@
  * Gegevens van landen in Azië
  * 
  * @package   SIW\Reference-Data
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  */
 
@@ -12,14 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_filter( 'siw_country_data', function( $data ) {
-
 	$data[ 'azie' ] = [
 		[
 			'iso'         => 'CHN',
 			'slug'        => 'china',
 			'name'        => __( 'China', 'siw' ),
-			'allowed'     => false,
-			'workcamps'   => false,
+			'allowed'     => true,
+			'workcamps'   => true,
 			'tailor_made' => false,
 			'world_map'   => [ 'code' => 'cn', 'x' => 0.7782, 'y' => 0.5319 ],
 		],
@@ -27,8 +26,8 @@ add_filter( 'siw_country_data', function( $data ) {
 			'iso'         => 'HKG',
 			'slug'        => 'hong-kong',
 			'name'        => __( 'Hong Kong', 'siw' ),
-			'allowed'     => false,
-			'workcamps'   => false,
+			'allowed'     => true,
+			'workcamps'   => true,
 			'tailor_made' => false,
 			'world_map'   => [ 'code' => 'hk', 'x' => 0.7990, 'y' => 0.5998 ],
 		],
@@ -96,6 +95,15 @@ add_filter( 'siw_country_data', function( $data ) {
 			'world_map'   => [ 'code' => 'lk', 'x' => 0.7117, 'y' => 0.6624 ],
 		],
 		[
+			'iso'         => 'LAO',
+			'slug'        => 'laos',
+			'name'        => __( 'Laos', 'siw' ),
+			'allowed'     => true,
+			'workcamps'   => true,
+			'tailor_made' => false,
+			'world_map'   => [ 'code' => 'la', 'x' => 0.7691, 'y' => 0.6171 ],
+		],
+		[
 			'iso'         => 'MNG',
 			'slug'        => 'mongolie',
 			'name'        => __( 'Mongolië', 'siw' ),
@@ -104,6 +112,16 @@ add_filter( 'siw_country_data', function( $data ) {
 			'tailor_made' => false,
 			'world_map'   => [ 'code' => 'mn', 'x' => 0.7721, 'y' => 0.4785 ],
 		],
+		[
+			'iso'         => 'MYS',
+			'slug'        => 'maleisie',
+			'name'        => __( 'Maleisië', 'siw' ),
+			'allowed'     => true,
+			'workcamps'   => true,
+			'tailor_made' => false,
+			'world_map'   => [ 'code' => 'my', 'x' => 0.7675, 'y' => 0.6789 ],
+		],
+		
 		[
 			'iso'         => 'NPL',
 			'slug'        => 'nepal',
@@ -126,9 +144,9 @@ add_filter( 'siw_country_data', function( $data ) {
 			'iso'         => 'TWN',
 			'slug'        => 'taiwan',
 			'name'        => __( 'Taiwan', 'siw' ),
-			'allowed'     => false,
-			'workcamps'   => false,
-			'tailor_made' => false,
+			'allowed'     => true,
+			'workcamps'   => true,
+			'tailor_made' => true,
 			'world_map'   => [ 'code' => 'tw', 'x' => 0.8170, 'y' => 0.5941 ],
 		],
 		[
@@ -140,6 +158,17 @@ add_filter( 'siw_country_data', function( $data ) {
 			'tailor_made' => true,
 			'world_map'   => [ 'code' => 'vn', 'x' => 0.7836, 'y' => 0.6352 ],
 		],
+		[
+			'iso'         => 'PHL',
+			'slug'        => 'filipijnen ',
+			'name'        => __( 'Filipijnen ', 'siw' ),
+			'allowed'     => true,
+			'workcamps'   => true,
+			'tailor_made' => false,
+			'world_map'   => [ 'code' => 'ph', 'x' => 0.8208, 'y' => 0.6447 ],
+		],
+
+		
 	];
 
 	return $data;

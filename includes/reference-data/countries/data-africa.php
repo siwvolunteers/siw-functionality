@@ -60,6 +60,16 @@ add_filter( 'siw_country_data', function( $data ) {
 			'world_map'   => [ 'code' => 'ma', 'x' => 0.4834, 'y' => 0.5547 ],
 		],
 		[
+			'iso'         => 'MOZ',
+			'slug'        => 'mozambique',
+			'name'        => __( 'Mozambique', 'siw' ),
+			'allowed'     => true,
+			'workcamps'   => true,
+			'tailor_made' => false,
+			'world_map'   => [ 'code' => 'mz', 'x' => 0.5925, 'y' => 0.7671 ],
+		],
+		
+		[
 			'iso'         => 'SEN',
 			'slug'        => 'senegal',
 			'name'        => __( 'Senegal', 'siw' ),
@@ -112,6 +122,24 @@ add_filter( 'siw_country_data', function( $data ) {
 			'workcamps'   => true,
 			'tailor_made' => true,
 			'world_map'   => [ 'code' => 'za', 'x' => 0.5654, 'y' => 0.8221 ],
+		],
+		[
+			'iso'         => 'ZMB',
+			'slug'        => 'zambia',
+			'name'        => __( 'Zambia', 'siw' ),
+			'allowed'     => true,
+			'workcamps'   => true,
+			'tailor_made' => false,
+			'world_map'   => [ 'code' => 'zm', 'x' => 0.5733, 'y' => 0.7566 ],
+		],
+		[
+			'iso'         => 'ZWE',
+			'slug'        => 'zimbabwe',
+			'name'        => __( 'Zimbabwe', 'siw' ),
+			'allowed'     => true,
+			'workcamps'   => true,
+			'tailor_made' => false,
+			'world_map'   => [ 'code' => 'zw', 'x' => 0.5791, 'y' => 0.7763 ],
 		],
 	];
 	
