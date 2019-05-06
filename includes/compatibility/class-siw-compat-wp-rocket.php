@@ -25,7 +25,7 @@ class SIW_Compat_WP_Rocket {
 		$self = new self();
 		add_filter( 'rocket_exclude_js', [ $self, 'set_excluded_js' ] );+
 		add_filter( 'rocket_minify_excluded_external_js', [ $self, 'set_excluded_external_js' ] );
-		add_filter( 'rocket_youtube_thumbnail_resolution', [ $self, 'set_youtube_thumbnail_resolution' ] );
+		add_filter( 'rocket_lazyload_youtube_thumbnail_resolution', [ $self, 'set_youtube_thumbnail_resolution' ] );
 		add_filter( 'rocket_excluded_inline_js_content', [ $self, 'set_excluded_inline_js_content' ] );
 		
 		define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true );
