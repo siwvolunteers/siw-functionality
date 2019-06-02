@@ -82,7 +82,6 @@ class SIW_Module_Social_Share {
 		switch( $post_type ) {
 			case 'portfolio':
 			case 'product':
-			case 'evs_project':
 				$title = __( 'Deel dit project', 'siw' );
 				break;
 			case 'vacatures':

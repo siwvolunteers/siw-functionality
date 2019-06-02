@@ -22,6 +22,9 @@ class SIW_Compat {
 		/* WP Pusher */
 		add_action( 'wppusher_plugin_was_updated', [ $self, 'process_plugin_update' ] );
 
+		/* Rewrite rules bijwerken */
+		add_action( 'siw_update_plugin', [ $self, 'flush_rewrite_rules' ] );
+
 		/* Safe Redirect Manager */
 		add_filter( 'srm_max_redirects', [ $self, 'set_max_redirects'] );
 		add_filter( 'srm_default_direct_status', [ $self, 'set_default_direct_status'] );
@@ -46,6 +49,12 @@ class SIW_Compat {
 	 */
 	public function process_plugin_update() {
 		wp_schedule_single_event( time(), 'siw_update_plugin' );
+	}
+
+	/**
+	 * Rewrite rules bijwerken
+	 */
+	public function flush_rewrite_rules() {
 		flush_rewrite_rules();
 	}
 

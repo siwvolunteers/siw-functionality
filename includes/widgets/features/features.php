@@ -40,11 +40,6 @@ class SIW_Widget_Features extends SIW_Widget {
 	 * {@inheritDoc}
 	 */
 	public function get_widget_form() {
-
-		$icons = kad_icon_list();
-
-		$icons = array_combine( $icons, $icons );
-		ksort( $icons );
 		$widget_form = [
 			'title' => [
 				'type'  => 'text',

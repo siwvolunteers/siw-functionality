@@ -273,8 +273,13 @@ class SIW_Compat_Pinnacle_Premium {
 	 * - Evenementen
 	 * - Vacatures
 	 * - WooCommerce attribute archive pages
+	 * 
+	 * @todo filter
+	 * @todo verplaatsen naar eigen class
 	 */
 	public function add_breadcrumbs() {
+		global $post;
+	
 		$delimiter = apply_filters('kadence_breadcrumb_delimiter', '/');
 		$breadcrumb = '<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="%s"><span itemprop="title">%s</span></a></span> %s ';
 	
@@ -289,6 +294,11 @@ class SIW_Compat_Pinnacle_Premium {
 		elseif ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax ( 'pa_taal' ) ) {
 			$parent = wc_get_page_id( 'shop' );
 		}
+		elseif ( is_singular( 'siw_tm_country') ) {
+			$archive_link = get_post_type_archive_link('siw_tm_country');
+			printf( $breadcrumb, $archive_link, __( 'Vrijwilligerswerk op Maat', 'siw' ), $delimiter  );
+			return;
+		}
 		else {
 			return;
 		}
@@ -297,11 +307,11 @@ class SIW_Compat_Pinnacle_Premium {
 		$parent = SIW_i18n::get_translated_page_id( $parent );
 		$ancestors = array_reverse( get_ancestors( $parent, 'page') );
 		foreach ( $ancestors as $ancestor ) {
-			printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter  );
+			printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter );
 		}
 	
 		/* Overzichtspagina */
-		printf( $breadcrumb, get_page_link( $parent ), get_the_title( $parent ), $delimiter  );
+		printf( $breadcrumb, get_page_link( $parent ), get_the_title( $parent ), $delimiter );
 	
 	}
 

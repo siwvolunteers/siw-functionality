@@ -85,9 +85,11 @@ class SIW_Widget_Newsletter extends SIW_Widget {
 				<p>
 				<?= sprintf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), $this->get_subscriber_count() );?>
 				</p>
-				<?= SIW_Formatting::generate_field( 'text', [ 'label' => __( 'Voornaam', 'siw' ), 'name' => 'name', 'required' => true ], [ 'tag' => 'p' ] ) ;?>
-				<?= SIW_Formatting::generate_field( 'email', [ 'label' => __( 'E-mail', 'siw' ), 'name' => 'email', 'required' => true ], [ 'tag' => 'p' ] ) ;?>
-				<?= SIW_Formatting::generate_field( 'submit', [ 'value' => __( 'Aanmelden', 'siw') ], [ 'tag' => 'p'] ); ?>
+				<?php
+				echo SIW_Formatting::generate_field( 'text', [ 'label' => __( 'Voornaam', 'siw' ), 'id' => 'newsletter_name', 'name' => 'name', 'required' => true ], [ 'tag' => 'p' ] );
+				echo SIW_Formatting::generate_field( 'email', [ 'label' => __( 'E-mail', 'siw' ), 'id' => 'newsletter_email', 'name' => 'email', 'required' => true ], [ 'tag' => 'p' ] );
+				echo SIW_Formatting::generate_field( 'submit', [ 'value' => __( 'Aanmelden', 'siw') ], [ 'tag' => 'p'] );
+				?>
 			</form>
 		</div>
 		<?php

@@ -118,6 +118,8 @@ add_filter( 'rwmb_meta_boxes', function ( $meta_boxes ) {
 				'id'       => $prefix . 'uur_per_week',
 				'name'     => __( 'Aantal uur per week', 'siw' ),
 				'type'     => 'text',
+				'size'     => 10,
+				'append'   => __( 'uur/week', 'siw' ),
 			],
 			[
 				'id'            => $prefix . 'uitgelicht',

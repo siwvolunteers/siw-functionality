@@ -42,6 +42,7 @@ class SIW_Compat_Meta_Box {
 			'meta-box-group',
 			'meta-box-include-exclude',
 			'meta-box-tabs',
+			'meta-box-text-limiter',
 			'meta-box-updater',
 		];
 		return $extensions;

@@ -29,7 +29,7 @@ class SIW_Compat_WooCommerce {
 		$self->set_log_handler();
 		add_filter( 'woocommerce_register_log_handlers', [ $self, 'register_log_handlers' ], PHP_INT_MAX );
 		add_filter( 'woocommerce_status_log_items_per_page', [ $self, 'set_log_items_per_page' ] );
-		add_filter( 'woocommerce_logger_days_to_retain_logs', [ $self, 'set_days_to_retail_log'] );
+		add_filter( 'woocommerce_logger_days_to_retain_logs', [ $self, 'set_days_to_retain_log'] );
 		add_filter( 'nonce_user_logged_out', [ $self, 'reset_nonce_user_logged_out' ], PHP_INT_MAX, 2 );
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
 		add_filter( 'product_type_selector', [ $self, 'disable_product_types'] );
@@ -115,7 +115,7 @@ class SIW_Compat_WooCommerce {
 	 * @param int $days
 	 * @return int
 	 */
-	public function set_days_to_retail_log( $days ) {
+	public function set_days_to_retain_log( $days ) {
 		$days = 7;
 		return $days;
 	}
