@@ -6,11 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 get_header();
-get_template_part('templates/post', 'header' );
+get_template_part('templates/page', 'header' );
 
-
-	$country = siw_get_country( rwmb_meta('country') );
-	$continent = $country->get_continent();
+$country = siw_get_country( rwmb_meta('country') );
+$continent = $country->get_continent();
 ?>
 
 <div id="content" class="container">
@@ -20,14 +19,18 @@ get_template_part('templates/post', 'header' );
 		<article <?php post_class() ?> id="tm-country-<?php the_ID(); ?>">
 			<div class="postclass">
 				<div class="row">
-					<div class="col-md-6 kt-pb-animation kt-pb-fadeInLeft kt-pb-duration-1800 kt-pb-delay-0">
-						<?php echo SIW_Formatting::generate_world_map( $country );?>
-					<style>
-						svg {width: 100%; height: auto;}
-					</style>
+					<div class="hidden-xs hidden-sm col-md-6 kt-pb-animation kt-pb-fadeInLeft kt-pb-duration-1800 kt-pb-delay-0">
+						<?php 
+							$world_map = new SIW_Element_World_Map();
+							echo $world_map->generate( $country, 2 );
+						?>
+						<style>
+							/* TODO: verplaatsen naar stylesheet  */
+							svg {width: 100%; height: auto;}
+						</style>
 					</div>
 					<div class="col-md-6 kt-pb-animation kt-pb-fadeInRight kt-pb-duration-1800 kt-pb-delay-0">
-						<h4><?php printf( esc_html__( 'Op Maat in %s', 'siw' ), $country->get_name() );  ?></h4>
+						<h4><?php printf( esc_html__( 'Projecten Op Maat in %s', 'siw' ), $country->get_name() );  ?></h4>
 						<p><?php echo wp_kses_post( rwmb_get_value( 'introduction' ) );?></p>
 						<b><?php esc_html_e( 'Dit is het type projecten dat we hier aanbieden:', 'siw' );?></b>
 						<p>
@@ -47,8 +50,8 @@ get_template_part('templates/post', 'header' );
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12">
-						<div class="siw-quote kt-pb-animation kt-pb-fadeIn kt-pb-duration-1800 kt-pb-delay-0">
+					<div class="col-md-12 kt-pb-animation kt-pb-fadeIn kt-pb-duration-1800 kt-pb-delay-0">
+						<div class="siw-quote">
 							<?php
 							echo SIW_Formatting::generate_icon( 'siw-icon-quote-left', 1 ) . SPACE;
 							echo esc_html( rwmb_get_value( 'quote' ));
@@ -62,7 +65,7 @@ get_template_part('templates/post', 'header' );
 					<?php if ( true == $child_projects ) : ?>
 						<p>
 						<?php
-							esc_html_e( 'Goed om te weten: SIW beoordeelt de projecten in Kenia volgens de richtlijnen van het Better Care Network.', 'siw' );
+							esc_html_e( 'Goed om te weten: SIW beoordeelt projecten met kinderen volgens de richtlijnen van het Better Care Network.', 'siw' );
 							echo do_shortcode(' [siw_pagina_lightbox link_tekst="Lees meer over ons beleid." pagina="kinderbeleid"]');
 							?>
 						</p>
@@ -89,26 +92,26 @@ get_template_part('templates/post', 'header' );
 					<div class="col-md-3" style="text-align:center;">
 						<?php echo SIW_Formatting::generate_icon('siw-icon-file-signature', 2, 'circle' );?><br>
 						<h5><?php esc_html_e( '1. Aanmelding', 'siw' ); ?></h5>
-						<p>Ben je geïnteresseerd in een Project Op Maat? Meld je dan [link naar aanmeldformulier] direct aan via de website.</p>
+						<p><?php esc_html_e( 'Ben je geïnteresseerd in een Project Op Maat? Meld je dan direct aan via de website.', 'siw' );?></p>
 					</div>
 					<div class="col-md-3" style="text-align:center;">
 						<?php echo SIW_Formatting::generate_icon('siw-icon-handshake', 2, 'circle' );?><br>
-						<h5>2. Kennismaking</h5>
-						<p>Na het kennismakingsgesprek stelt de regiospecialist een selectie van drie Projecten Op Maat voor je samen.</p>
+						<h5><?php esc_html_e( '2. Kennismaking', 'siw' ); ?></h5>
+						<p><?php esc_html_e( 'Na het kennismakingsgesprek stelt de regiospecialist een selectie van drie Projecten Op Maat voor je samen.', 'siw' );?></p>
 					</div>
 					<div class="col-md-3" style="text-align:center;">
 						<?php echo SIW_Formatting::generate_icon('siw-icon-clipboard-check', 2, 'circle' );?><br>
-						<h5>3. Bevestiging</h5>
-						<p>Als je een passend Project Op Maat hebt gekozen, volgt de betaling. Vervolgens gaat de regiospecialist voor je aan de slag.</p>
+						<h5><?php esc_html_e( '3. Bevestiging', 'siw' ); ?></h5>
+						<p><?php esc_html_e( 'Als je een passend Project Op Maat hebt gekozen, volgt de betaling. Vervolgens gaat de regiospecialist voor je aan de slag.', 'siw' );?></p>
 					</div>
 					<div class="col-md-3" style="text-align:center;">
 						<?php echo SIW_Formatting::generate_icon('siw-icon-tasks', 2, 'circle' );?><br>
-						<h5>4. Voorbereiding</h5>
-						<p>Kom naar de Infodag [link naar Infodag] zodat je goed voorbereid aan jouw avontuur kan beginnen.</p>
+						<h5><?php esc_html_e( '4. Voorbereiding', 'siw' ); ?></h5>
+						<p><?php esc_html_e( 'Kom naar de Infodag zodat je goed voorbereid aan jouw avontuur kan beginnen.', 'siw' );?></p>
 					</div>
 				</div>
 				<footer class="single-footer clearfix">
-					<?php do_action( 'siw_agenda_footer' );?>
+					<?php do_action( 'siw_tm_country_footer' );?>
 				</footer>
 			</div>
 		</article>

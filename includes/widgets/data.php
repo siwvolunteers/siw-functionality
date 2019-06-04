@@ -11,6 +11,7 @@ add_filter( 'siw_widgets', function( $widgets ) {
 	$widgets = [
 		'accordion'            => 'Accordion',
 		'calendar'             => 'Calendar',
+		'carousel'             => 'Carousel',
 		'contact'              => 'Contact',
 		'cta'                  => 'CTA',
 		'dutch-projects'       => 'Dutch_Projects',

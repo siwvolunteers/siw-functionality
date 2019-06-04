@@ -121,7 +121,6 @@ add_filter( 'siw_settings_meta_boxes', function( $boxes ) {
 				'clone'             => 'true',
 			],
 
-
 		],
 	];
 	return $boxes;

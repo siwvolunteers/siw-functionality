@@ -10,13 +10,13 @@
  * Plugin Name: SIW Functionaliteit
  * Plugin URI:  https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
- * Version:     2.0.2
+ * Version:     2.0.4
  * Author:      Maarten Bruna
  * Text Domain: siw
  */
 
 /** Constantes */
-define ( 'SIW_PLUGIN_VERSION', '2.0.2' );
+define ( 'SIW_PLUGIN_VERSION', '2.0.4' );
 define ( 'SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets' );
 define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates' );
@@ -38,6 +38,7 @@ require_once( SIW_INCLUDES_DIR . '/options/options.php' );
 
 /* Core */
 require_once( SIW_INCLUDES_DIR . '/class-siw-assets.php' );
+require_once( SIW_INCLUDES_DIR . '/class-siw-css.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-head.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-htaccess.php' );
 require_once( SIW_INCLUDES_DIR . '/class-siw-i18n.php' );
@@ -62,6 +63,8 @@ require_once( SIW_INCLUDES_DIR . '/admin/admin.php' );
 require_once( SIW_INCLUDES_DIR . '/api/api.php' );
 require_once( SIW_INCLUDES_DIR . '/background-process/init.php' );
 require_once( SIW_INCLUDES_DIR . '/compatibility/compatibility.php' );
+require_once( SIW_INCLUDES_DIR . '/elements/elements.php' );
+require_once( SIW_INCLUDES_DIR . '/content-types/content-types.php' );
 require_once( SIW_INCLUDES_DIR . '/email/init.php');
 require_once( SIW_INCLUDES_DIR . '/external/external.php' );
 require_once( SIW_INCLUDES_DIR . '/forms/init.php' );
@@ -75,3 +78,7 @@ require_once( SIW_INCLUDES_DIR . '/woocommerce/init.php' );
 const BR = '<br/>';
 const BR2 = '<br/><br/>';
 const SPACE = ' ';
+
+
+/* Hook */
+do_action( 'siw_plugin_loaded' );
