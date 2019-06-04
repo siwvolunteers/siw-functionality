@@ -26,7 +26,7 @@ $panes = [
 	],
 	[
 		'title'   => __( 'Wie zijn wij?', 'siw' ),
-		'content' => siw_get_option( 'job_postings_organisation_profile' ),
+		'content' => siw_get_option( 'job_postings_organization_profile' ),
 	],
 ];
 $content = SIW_Formatting::generate_accordion( $panes );
