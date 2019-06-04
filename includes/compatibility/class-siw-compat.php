@@ -36,9 +36,6 @@ class SIW_Compat {
 		add_action( 'widgets_init', [ $self, 'unregister_wpml_widget'], 99 );
 		add_action( 'admin_head', [ $self, 'remove_wpml_meta_box'] );
 
-		/* Redux Framework */
-		add_action( 'do_meta_boxes', [ $self, 'remove_redux_dashboard_widget'] );
-
 		/* Limit Login Attempts */
 		add_filter( 'limit_login_whitelist_ip', [ $self, 'process_whitelisted_ips'], PHP_INT_MAX, 2 ); 
 
@@ -104,13 +101,6 @@ class SIW_Compat {
 	public function remove_wpml_meta_box() {
 		$screen = get_current_screen();
 		remove_meta_box( 'icl_div_config', $screen->post_type, 'normal' );
-	}
-
-	/**
-	 * Verwijdert redux dashboard widget
-	 */
-	public function remove_redux_dashboard_widget() {
-		remove_meta_box( 'redux_dashboard_widget', 'dashboard', 'side' );
 	}
 
 	/**
