@@ -130,7 +130,7 @@ function siw_generate_job_json_ld( $job ) {
 		'<h5><strong>' . __( 'Wat ga je doen?', 'siw' ) . '</strong></h5>' . wpautop( $job['wat_ga_je_doen'] . SIW_Formatting::generate_list( $job['wat_ga_je_doen_lijst'] ) ) .
 		'<h5><strong>' . __( 'Wie ben jij?', 'siw' ) . '</strong></h5>' . wpautop( $job['wie_ben_jij'] . SIW_Formatting::generate_list( $job['wie_ben_jij_lijst'] ) ) .
 		'<h5><strong>' . __( 'Wat bieden wij jou?', 'siw' ) . '</strong></h5>' . wpautop( $job['wat_bieden_wij_jou'] . SIW_Formatting::generate_list( $job['wat_bieden_wij_jou_lijst'] ) ) .
-		'<h5><strong>' . __( 'Wie zijn wij?', 'siw' ) . '</strong></h5>' . wpautop( siw_get_setting('company_profile') );
+		'<h5><strong>' . __( 'Wie zijn wij?', 'siw' ) . '</strong></h5>' . wpautop( siw_get_option('job_postings_organisation_profile') );
 
 	$logo = wp_get_attachment_url( get_theme_mod( 'custom_logo' ) );
 
