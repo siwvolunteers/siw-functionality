@@ -174,17 +174,17 @@
     },
     {
         "name": "spatie/array-to-xml",
-        "version": "2.8.1",
-        "version_normalized": "2.8.1.0",
+        "version": "2.9.0",
+        "version_normalized": "2.9.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/spatie/array-to-xml.git",
-            "reference": "2bf193b3f795d5a42e147c4fa155c288878312e7"
+            "reference": "934a35b7505059830a515ab9b06fa25fa9dab0bf"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/2bf193b3f795d5a42e147c4fa155c288878312e7",
-            "reference": "2bf193b3f795d5a42e147c4fa155c288878312e7",
+            "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/934a35b7505059830a515ab9b06fa25fa9dab0bf",
+            "reference": "934a35b7505059830a515ab9b06fa25fa9dab0bf",
             "shasum": ""
         },
         "require": {
@@ -195,7 +195,7 @@
             "phpunit/phpunit": "^7.0",
             "spatie/phpunit-snapshot-assertions": "^2.0"
         },
-        "time": "2019-03-15T18:43:25+00:00",
+        "time": "2019-05-06T06:33:48+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
