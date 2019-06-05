@@ -33,18 +33,7 @@ class SIW_Assets {
 	 * Registreert scripts
 	 */
 	public function register_scripts() {
-
-		wp_register_script( 'isotope', SIW_ASSETS_URL . 'modules/isotope/isotope.js', [], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( 'isotope' );
-		//TODO:inline script als dependency van kt_plugins?
-
-
-
-
-
 		wp_register_script( 'siw', SIW_ASSETS_URL . 'js/siw.js', [ 'jquery' ], SIW_PLUGIN_VERSION, true );
-		$parameters = [];
-		wp_localize_script( 'siw', 'siw', $parameters );
 		wp_enqueue_script( 'siw' );
 	}
 }
