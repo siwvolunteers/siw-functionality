@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * SIW Functionaliteit
  *
@@ -10,13 +15,13 @@
  * Plugin Name: SIW Functionaliteit
  * Plugin URI:  https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
- * Version:     2.0.4
+ * Version:     2.1.0
  * Author:      Maarten Bruna
  * Text Domain: siw
  */
 
 /** Constantes */
-define ( 'SIW_PLUGIN_VERSION', '2.0.4' );
+define ( 'SIW_PLUGIN_VERSION', '2.1.0' );
 define ( 'SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets' );
 define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates' );
