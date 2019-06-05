@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 do_action( 'woocommerce_email_header', $email_heading, $email );
 
-$signature = siw_get_option( 'workcamp_application_email_signature' );
+$signature = siw_get_option( 'workcamp_application_email')['signature'];
 
 ?>
 <div style="font-family:Verdana, normal; color:<?= SIW_Properties::FONT_COLOR;?>; font-size:0.9em; ">
