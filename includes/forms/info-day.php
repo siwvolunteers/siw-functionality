@@ -27,8 +27,8 @@ add_filter( 'caldera_forms_get_forms', function( $forms ){
  * @param $form array form structure
  */
 add_filter( 'caldera_forms_get_form-infodag', function( $form ) {
-
-	$signature = siw_get_option( 'info_day_email_signature' );
+	$email_settings = siw_get_option( 'info_day_email' );
+	$signature = $email_settings['signature'];
 
 	/*E-mail bevestiging*/
 	$confirmation_template_args = array(
@@ -240,10 +240,10 @@ return array(
 	array(
 		'on_insert' => 1,
 		'sender_name' => __( 'Website', 'siw' ),
-		'sender_email' => siw_get_option( 'info_day_email_sender' ),
+		'sender_email' => $email_settings['sender'],
 		'reply_to' => '%email%',
 		'email_type' => 'html',
-		'recipients' => siw_get_option( 'info_day_email_sender' ),
+		'recipients' => $email_settings['sender'],
 		'email_subject' => $notification_template_args['subject'],
 		'email_message' => siw_get_email_template( $notification_template_args ),
 	),

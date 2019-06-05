@@ -28,7 +28,8 @@ add_filter( 'caldera_forms_get_forms', function( $forms ) {
  */
 add_filter( 'caldera_forms_get_form-esc', function( $form ) {
 
-	$signature = siw_get_option( 'esc_email_signature' );
+	$email_settings = siw_get_option( 'esc_email' );
+	$signature = $email_settings['signature'];
 	/*E-mail bevestiging*/
 	$confirmation_template_args = array(
 		'subject' => __( 'Bevestiging aanmelding', 'siw' ),
@@ -195,7 +196,7 @@ return array(
 			'config' =>
 			array(
 				'sender_name' => SIW_Properties::NAME,
-				'sender_email' => siw_get_option( 'esc_email_sender' ),
+				'sender_email' => $email_settings['sender'],
 				'subject' => $confirmation_template_args['subject'],
 				'recipient_name' => '%voornaam% %achternaam%',
 				'recipient_email' => '%emailadres%',
@@ -225,7 +226,7 @@ return array(
 	array(
 		'on_insert' => 1,
 		'sender_name' => __( 'Website', 'siw' ),
-		'sender_email' => siw_get_option( 'esc_email_sender' ),
+		'sender_email' => $email_settings['sender'],
 		'reply_to' => '%emailadres%',
 		'email_type' => 'html',
 		'recipients' => siw_get_option( 'esc_email_sender' ),
