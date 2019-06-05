@@ -9,7 +9,7 @@ global $pinnacle, $postcolumn;
 	<div id="content" class="container">
 		<div class="row">
 			<div class="main <?php echo kadence_main_class(); ?> postlist fullwidth" role="main">
-				<div id="kad-blog-grid-archive" class="rowtight kad-blog-grid init-isotope-siw" data-fade-in="1" data-isotope='{ "itemSelector": ".b_item", "layoutMode": "fitRows" }'>
+				<div id="kad-blog-grid-archive" class="rowtight kad-blog-grid init-isotope-intrinsic" data-fade-in="1" data-iso-selector=".b_item" data-iso-style="fitRows">
 					<?php while ( have_posts()) : the_post(); ?>
 					<?php $continent = rwmb_meta( 'continent');?>
 					<div class="<?php echo esc_attr( $itemsize );?> b_item siw_grid_item kad_blog_item <?php echo esc_attr( $continent->slug);?>">

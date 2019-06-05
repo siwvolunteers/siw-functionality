@@ -32,24 +32,5 @@
 		$( document ).scrollTo( $( '.kad-shop-top' ), 800 );
 	});
 
-	// init Isotope
-	var $grid = $('.init-isotope').isotope({
-		 layoutMode: 'fitRows'
-	});
-	// filter items on button click
-	$('.filter-button-group').on( 'click', 'button', function() {
-		var filterValue = $(this).attr('data-filter');
-		$grid.isotope({ filter: filterValue });
-	});
-
-	$('.filter-button-group').each( function( i, buttonGroup ) {
-		var $buttonGroup = $( buttonGroup );
-		$buttonGroup.on( 'click', 'button', function( event ) {
-		$buttonGroup.find('.is-checked').removeClass('is-checked');
-		var $button = $( event.currentTarget );
-		$button.addClass('is-checked');
-	});
-});
-
 
 })( jQuery );

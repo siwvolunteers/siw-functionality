@@ -1,7 +1,7 @@
 //TODO: functies maken
 (function( $ ) {
 	var filters = {};
-	var $grid = $('.init-isotope-siw');
+	var $grid = $('.init-isotope-intrinsic');
 	$('.filter-button-group').on( 'click', 'button', function( event ) {
 		var $button = $( event.currentTarget );
 		// get group key
