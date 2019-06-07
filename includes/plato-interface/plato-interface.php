@@ -14,3 +14,4 @@ require_once( __DIR__ . '/class-siw-plato-export-application.php' );
 require_once( __DIR__ . '/abstract-siw-plato-import.php' );
 require_once( __DIR__ . '/class-siw-plato-import-fpl.php' );
 require_once( __DIR__ . '/class-siw-plato-import-workcamps.php' );
+require_once( __DIR__ . '/class-siw-plato-import-dutch-workcamps.php' );

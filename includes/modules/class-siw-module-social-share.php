@@ -24,6 +24,7 @@ class SIW_Module_Social_Share {
 		add_action( 'kadence_single_portfolio_after', [ $self, 'render' ] );
 		add_action( 'siw_vacature_footer', [ $self, 'render' ] );
 		add_action( 'siw_agenda_footer', [ $self, 'render' ] );
+		add_action( 'siw_tm_country_footer', [ $self, 'render' ] );
 		add_action( 'siw_evs_project_footer', [ $self, 'render' ] );
 		add_action( 'woocommerce_after_single_product', [ $self, 'render' ] );
 		add_action( 'kadence_single_post_after', [ $self, 'render' ] );
@@ -82,7 +83,6 @@ class SIW_Module_Social_Share {
 		switch( $post_type ) {
 			case 'portfolio':
 			case 'product':
-			case 'evs_project':
 				$title = __( 'Deel dit project', 'siw' );
 				break;
 			case 'vacatures':
@@ -93,6 +93,9 @@ class SIW_Module_Social_Share {
 				break;
 			case 'wpm-testimonial':
 				$title = __( 'Deel dit ervaringsverhaal', 'siw' );
+				break;
+			case 'siw_tm_country':
+				$title = __( 'Deel deze landenpagina', 'siw' );
 				break;
 			default:
 				$title = __( 'Deel deze pagina', 'siw' );

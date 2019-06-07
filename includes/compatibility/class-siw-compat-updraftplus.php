@@ -1,6 +1,3 @@
-
-
-
 <?php
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -31,6 +28,8 @@ class SIW_Compat_UpdraftPlus {
 		add_filter( 'updraftplus_schedule_firsttime_db', [ $self, 'set_time_db_backup'] ) ;
 		add_filter( 'updraftplus_schedule_firsttime_files', [ $self, 'set_time_files_backup'] ) ;
 		add_filter( 'updraftplus_blog_name', [ $self, 'set_backup_name' ] );
+		add_action( 'admin_init', [ $self, 'hide_woocommerce_in_plugin_update_message'], PHP_INT_MAX );
+
 		$self->hide_notifications();
 	}
 
@@ -85,5 +84,13 @@ class SIW_Compat_UpdraftPlus {
 		define( 'UPDRAFTPLUS_NONEWSFEED', true );
 		define( 'UPDRAFTPLUS_ADMINBAR_DISABLE', true );
 		define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
+	}
+
+	/**
+	 * Verbergt melding bij WooCommerce plugin updates
+	 */
+	public function hide_woocommerce_in_plugin_update_message() {
+		global $updraftplus_admin;
+		remove_filter('woocommerce_in_plugin_update_message', [ $updraftplus_admin, 'woocommerce_in_plugin_update_message' ] );
 	}
 }

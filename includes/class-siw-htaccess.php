@@ -295,7 +295,7 @@ class SIW_htaccess {
 			if ( ! is_array( $line ) && ! empty( $rules['tag'] ) ) { 
 				$rules['lines'][$index] = "\t" . $rules['lines'][$index];
 			}
-			if ( is_array( $line ) ) {
+			elseif ( is_array( $line ) ) {
 				$rules['lines'][ $index ] = $this->format_rules( $line );
 			}
 		}

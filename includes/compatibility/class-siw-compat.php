@@ -22,6 +22,9 @@ class SIW_Compat {
 		/* WP Pusher */
 		add_action( 'wppusher_plugin_was_updated', [ $self, 'process_plugin_update' ] );
 
+		/* Rewrite rules bijwerken */
+		add_action( 'siw_update_plugin', [ $self, 'flush_rewrite_rules' ] );
+
 		/* Safe Redirect Manager */
 		add_filter( 'srm_max_redirects', [ $self, 'set_max_redirects'] );
 		add_filter( 'srm_default_direct_status', [ $self, 'set_default_direct_status'] );
@@ -33,9 +36,6 @@ class SIW_Compat {
 		add_action( 'widgets_init', [ $self, 'unregister_wpml_widget'], 99 );
 		add_action( 'admin_head', [ $self, 'remove_wpml_meta_box'] );
 
-		/* Redux Framework */
-		add_action( 'do_meta_boxes', [ $self, 'remove_redux_dashboard_widget'] );
-
 		/* Limit Login Attempts */
 		add_filter( 'limit_login_whitelist_ip', [ $self, 'process_whitelisted_ips'], PHP_INT_MAX, 2 ); 
 
@@ -46,6 +46,12 @@ class SIW_Compat {
 	 */
 	public function process_plugin_update() {
 		wp_schedule_single_event( time(), 'siw_update_plugin' );
+	}
+
+	/**
+	 * Rewrite rules bijwerken
+	 */
+	public function flush_rewrite_rules() {
 		flush_rewrite_rules();
 	}
 
@@ -98,13 +104,6 @@ class SIW_Compat {
 	}
 
 	/**
-	 * Verwijdert redux dashboard widget
-	 */
-	public function remove_redux_dashboard_widget() {
-		remove_meta_box( 'redux_dashboard_widget', 'dashboard', 'side' );
-	}
-
-	/**
 	 * Past IP-whitelist toe op Limit Login Attempts
 	 *
 	 * @param bool $allow
@@ -112,11 +111,10 @@ class SIW_Compat {
 	 * @return bool
 	 */
 	public function process_whitelisted_ips( $allow, $ip ) {
-		$ip_whitelist = siw_get_ip_whitelist();
-		if ( in_array( $ip, $ip_whitelist ) ) {
+		$ip_whitelist = siw_get_option( 'ip_whitelist' );
+		if ( is_array( $ip_whitelist ) && in_array( $ip, $ip_whitelist ) ) {
 			$allow = true;
 		}
 		return $allow;
 	}
-
 }

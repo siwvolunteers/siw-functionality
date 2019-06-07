@@ -68,8 +68,8 @@ function siw_export_application_to_plato( $order ) {
  */
 function siw_get_application_fields_for_xml( $order ) {
 	/*Ophalen instellingen en ordergegevens*/
-	$outgoing_placements_officer = siw_get_setting( 'plato_export_outgoing_placements_name' );
-	$outgoing_placements_email = siw_get_setting( 'plato_export_outgoing_placements_email' );
+	$outgoing_placements_officer = siw_get_option( 'plato_export_outgoing_placements_name' );
+	$outgoing_placements_email = siw_get_option( 'plato_export_outgoing_placements_email' );
 	$order_data = siw_get_order_data( $order );
 
 	return [

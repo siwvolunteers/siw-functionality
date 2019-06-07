@@ -2,6 +2,15 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.9.0 - 2019-05-06
+
+- add support for numeric keys
+
+## 2.8.1 - 2019-03-15
+
+- fix tests
+- drop support for PHP 7.0
+
 ## 2.8.0 - 2018-11-29
 
 - added support for mixed content 

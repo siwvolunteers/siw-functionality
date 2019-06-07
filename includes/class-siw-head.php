@@ -76,11 +76,11 @@ class SIW_Head {
 			return;
 		}
 		echo '<!-- Start site verificatie -->';
-		$google = siw_get_setting( 'google_search_console_verification' );
+		$google = siw_get_option( 'google_verification' );
 		if ( $google ) {
 			echo SIW_Formatting::generate_tag( 'meta', [ 'name' => 'google-site-verification', 'content' => $google ] );
 		}
-		$bing = siw_get_setting( 'bing_webmaster_tools_verification' );
+		$bing = siw_get_option( 'bing_verification' );
 		if ( $bing ) {
 			echo SIW_Formatting::generate_tag( 'meta', [ 'name' => 'msvalidate.01', 'content' => $bing ] );
 		}
@@ -102,8 +102,7 @@ class SIW_Head {
 			$urls[] = 'maps.gstatic.com';
 			$urls[] = 'csi.gstatic.com';
 		}
-	
-		if ( 'preconnect' === $relation_type ) {
+		elseif ( 'preconnect' === $relation_type ) {
 			$urls[] = [
 				'href' => 'https://www.google-analytics.com',
 				'crossorigin',

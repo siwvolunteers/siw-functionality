@@ -15,7 +15,7 @@
  *
  * @package   SIW\Widgets
  * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Formatting
  */
@@ -83,11 +83,13 @@ class SIW_Widget_Newsletter extends SIW_Widget {
 			<div class="text-center message hidden"></div>
 			<form method="post" autocomplete="on">
 				<p>
-				<?= sprintf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), $this->get_subscriber_count( siw_get_setting( 'newsletter_list' ) ) );?>
+				<?= sprintf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), $this->get_subscriber_count() );?>
 				</p>
-				<?= SIW_Formatting::generate_field( 'text', [ 'label' => __( 'Voornaam', 'siw' ), 'name' => 'name', 'required' => true ], [ 'tag' => 'p' ] ) ;?>
-				<?= SIW_Formatting::generate_field( 'email', [ 'label' => __( 'E-mail', 'siw' ), 'name' => 'email', 'required' => true ], [ 'tag' => 'p' ] ) ;?>
-				<?= SIW_Formatting::generate_field( 'submit', [ 'value' => __( 'Aanmelden', 'siw') ], [ 'tag' => 'p'] ); ?>
+				<?php
+				echo SIW_Formatting::generate_field( 'text', [ 'label' => __( 'Voornaam', 'siw' ), 'id' => 'newsletter_name', 'name' => 'name', 'required' => true ], [ 'tag' => 'p' ] );
+				echo SIW_Formatting::generate_field( 'email', [ 'label' => __( 'E-mail', 'siw' ), 'id' => 'newsletter_email', 'name' => 'email', 'required' => true ], [ 'tag' => 'p' ] );
+				echo SIW_Formatting::generate_field( 'submit', [ 'value' => __( 'Aanmelden', 'siw') ], [ 'tag' => 'p'] );
+				?>
 			</form>
 		</div>
 		<?php
@@ -96,12 +98,12 @@ class SIW_Widget_Newsletter extends SIW_Widget {
 	}
 
 	/**
-	 * Geeft aantal abonnees van lijst
+	 * Geeft aantal abonnees van nieuwsbrief terug
 	 * 
-	 * @param int $list
 	 * @return int
 	 */
-	protected function get_subscriber_count( $list ) {
+	protected function get_subscriber_count() {
+		$list = siw_get_option( 'newsletter_list' );
 		$subscriber_count = do_shortcode( '[wysija_subscribers_count list_id="' . esc_attr( $list ) . '" ]' );
 		return $subscriber_count;
 	}

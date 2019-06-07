@@ -39,6 +39,7 @@ class SIW_Compat_Caldera_Forms{
 		add_filter( 'caldera_forms_summary_magic_pattern', [ $self, 'set_summary_magic_pattern' ] );
 		add_filter( 'caldera_forms_field_attributes', [ $self, 'set_validation_field_attributes' ] , 10, 2 );
 		add_action( 'caldera_forms_render_end', [ $self, 'maybe_add_postcode_script'] );
+		add_filter( 'caldera_forms_render_assets_minify', '__return_false' );
 	}
 
 	/**

@@ -12,46 +12,27 @@
 #containerfooter .widget_siw_contact_widget .siw-social-links{
 	text-align: center;
 	margin-top:10px;
-	a{
-		display: inline-block;
-		float: none;
-		width: 20px;
-		text-align: center;
-		line-height: 20px;
-		padding: 8px;
-		background: rgba(0,0,0,.2);
-		margin-left: 3px;
-		margin-bottom: 3px;
-		color: #f2f2f2;
-		border-radius: 50%;
-		box-sizing: content-box;
-		i{
-			font-size: 18px;
-			line-height: 20px;
-			vertical-align: middle;	
-		}
+	.siw-icon-stack{
+		font-size: 1.2em;
 	}
-	
-	.facebook:hover{
-		color:#fff;
-		background-color: $facebook-color;
+	.siw-icon-background{
+		color: #333;
 	}
-	.twitter:hover{
-		color:#fff;
-		background-color: $twitter-color;
+	.facebook .siw-icon-stack:hover .siw-icon-background{
+		color: $facebook-color;
 	}
-	.instagram:hover{
-		color:#fff;
-		background-color: $instagram-color;
+	.twitter .siw-icon-stack:hover .siw-icon-background{
+		color: $twitter-color;
 	}
-	.youtube:hover{
-		color:#fff;
-		background-color: $youtube-color;
+	.instagram .siw-icon-stack:hover .siw-icon-background{
+		color: $instagram-color;
 	}
-	.linkedin:hover{
-		color:#fff;
-		background-color: $linkedin-color;
-	}	
+	.youtube .siw-icon-stack:hover .siw-icon-background{
+		color: $youtube-color;
+	}
+	.linkedin .siw-icon-stack:hover .siw-icon-background{
+		color: $linkedin-color;
+	}
 }
 
 /* Snel zoeken widget */

@@ -28,7 +28,8 @@ class SIW_Compat_WordPress {
 		add_action( 'init', [ $self, 'add_page_excerpt_support'] );
 		add_action( 'core_version_check_query_args', [ $self, 'remove_core_version_check_query_args'] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'dequeue_styles' ], PHP_INT_MAX );
-
+		add_filter( 'wp_default_editor', [ $self, 'set_default_editor'] );
+		add_filter( 'site_status_tests', [ $self, 'remove_update_check'] );
 
 		add_action( 'do_feed', [ $self, 'disable_feed' ] , 1 );
 		add_action( 'do_feed_rdf', [ $self, 'disable_feed' ] , 1 );
@@ -42,6 +43,7 @@ class SIW_Compat_WordPress {
 
 		/* Shortcodes mogelijk maken in text widget */
 		add_filter( 'widget_text', 'do_shortcode' );
+		
 	}
 
 	/**
@@ -171,5 +173,26 @@ class SIW_Compat_WordPress {
 	public function set_404_template( $template ) {
 		$template = SIW_TEMPLATES_DIR . '/404.php';
 		return $template;
+	}
+
+	/**
+	 * Zet alle editors standaard op tekst
+	 *
+	 * @param string $editor
+	 */
+	public function set_default_editor( $editor ) {
+		$editor = 'html';
+		return $editor;
+	}
+
+	/**
+	 * Verwijdert test voor automatische updates
+	 *
+	 * @param array $tests
+	 * @return array
+	 */
+	public function remove_update_check( $tests ) {
+		unset( $tests['async']['background_updates'] );
+		return $tests;
 	}
 }

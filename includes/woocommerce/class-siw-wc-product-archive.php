@@ -60,6 +60,10 @@ class SIW_WC_Product_Archive {
 	 */
 	public function set_seo_title( $title, $term ) {
 
+		if ( ! is_a( $term, 'WP_Term') ) {
+			return $title;
+		}
+
 		switch ( $term->taxonomy ) {
 			case 'pa_land':
 			case 'product_cat':
@@ -88,7 +92,10 @@ class SIW_WC_Product_Archive {
 	 * @param WP_Term $term
 	 */
 	public function set_seo_description( $description, $term ) {
-
+		if ( ! is_a( $term, 'WP_Term') ) {
+			return $description;
+		}
+		
 		switch ( $term->taxonomy ) {
 			case 'pa_land':
 				$description =
@@ -144,8 +151,8 @@ class SIW_WC_Product_Archive {
 			return;
 		}
 
-		$workcamps_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'workcamps_page' ) );
-		$contact_page_link = SIW_i18n::get_translated_page_url( siw_get_setting( 'contact_page' ) );
+		$workcamps_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'workcamps_explanation_page' ) );
+		$contact_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'contact_page' ) );
 		
 		/* Toon algemene uitleg over groepsprojecten */
 		$text .= SPACE .
@@ -154,9 +161,13 @@ class SIW_WC_Product_Archive {
 			sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">Groepsprojecten</a>.', 'siw' ), esc_url( $workcamps_page_link ) );
 	
 		/* Toon aankondiging voor nieuwe projecten*/
-		if ( siw_get_setting( 'workcamp_teaser_text_enabled' ) && date('Y-m-d') <= siw_get_setting( 'workcamp_teaser_text_end_date' ) ) {
-			$teaser_text_end_year = date( 'Y', strtotime( siw_get_setting( 'workcamp_teaser_text_end_date' ) ) );
-			$text .= BR2 . sprintf( __( 'Vanaf maart wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor %s.', 'siw' ), $teaser_text_end_year ). SPACE .
+		if ( siw_get_option( 'workcamp_teaser_text_enabled' )
+			&& date('Y-m-d') >= siw_get_option( 'workcamp_teaser_text_start_date' )
+			&& date('Y-m-d') <= siw_get_option( 'workcamp_teaser_text_end_date' )
+			) {
+			$teaser_text_end_year = date( 'Y', strtotime( siw_get_option( 'workcamp_teaser_text_end_date' ) ) );
+			$teaser_text_end_month = date_i18n( 'F', strtotime( siw_get_option( 'workcamp_teaser_text_end_date' ) ) );
+			$text .= BR2 . sprintf( __( 'Vanaf %s wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor %s.', 'siw' ), $teaser_text_end_month, $teaser_text_end_year ). SPACE .
 				__( 'Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW?', 'siw' ) . SPACE .
 				sprintf( __( '<a href="%s">Bel of mail ons</a> en we denken graag met je mee!', 'siw' ), esc_url( $contact_page_link ) );
 		}
@@ -168,7 +179,7 @@ class SIW_WC_Product_Archive {
 			$regular_sale = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE );
 			$student = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT );
 			$student_sale = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT_SALE );
-			$end_date = SIW_Formatting::format_date( siw_get_setting( 'workcamp_sale_end_date' ), false );
+			$end_date = SIW_Formatting::format_date( siw_get_option( 'workcamp_sale_end_date' ), false );
 	
 			$text .= BR2 . sprintf( __( 'Meld je nu aan en betaal geen %s maar %s voor je vrijwilligersproject.', 'siw' ), $regular, '<b>'. $regular_sale .'</b>' ) . SPACE .
 				__( 'Ben je student of jonger dan 18 jaar?', 'siw' ) . SPACE .

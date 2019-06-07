@@ -41,7 +41,7 @@ class SIW_Widget_Quick_Search_Results extends SIW_Widget {
 	 */
 	protected function set_widget_properties() {
 		$this->widget_name = __( 'Snel Zoeken - resultaat', 'siw');
-		$this->widget_description = __( 'Toont zoektresultaten', 'siw' );
+		$this->widget_description = __( 'Toont zoekresultaten', 'siw' );
 	}
 
 	/**
@@ -63,6 +63,7 @@ class SIW_Widget_Quick_Search_Results extends SIW_Widget {
 	 */
 	public function initialize() {
 		add_filter( 'query_vars', [ $this, 'register_query_vars'] );
+		add_filter( 'rocket_cache_query_strings', [ $this, 'register_query_vars'] );
 	}
 
 	/**

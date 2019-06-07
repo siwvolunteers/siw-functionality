@@ -40,15 +40,16 @@ class SIW_Widget_Features extends SIW_Widget {
 	 * {@inheritDoc}
 	 */
 	public function get_widget_form() {
-
-		$icons = kad_icon_list();
-
-		$icons = array_combine( $icons, $icons );
-		ksort( $icons );
 		$widget_form = [
 			'title' => [
 				'type'  => 'text',
 				'label' => __( 'Titel', 'siw'),
+			],
+			'intro' => [
+				'type'           => 'tinymce',
+				'label'          => __( 'Intro', 'siw' ),
+				'rows'           => 10,
+				'default_editor' => 'html',
 			],
 			'columns' => [
 				'type'   => 'radio',
@@ -71,9 +72,8 @@ class SIW_Widget_Features extends SIW_Widget {
 				],
 				'fields' => [
 					'icon' => [
-						'type'  => 'select',
+						'type'  => 'icon',
 						'label' => __( 'Icoon', 'siw' ),
-						'options' => $icons,
 					],
 					'title' => [
 						'type'  => 'text',
@@ -137,8 +137,11 @@ class SIW_Widget_Features extends SIW_Widget {
 
 		ob_start();
 		?>
-		<div class="container">
-		<?php foreach ( $rows as $row ) : ?>
+		<?php
+		if ( isset( $instance['intro'] ) ) {
+			echo wp_kses_post( $instance['intro'] );
+		}
+		foreach ( $rows as $row ) : ?>
 			<div class = "row">
 				<?php foreach ( $row as $feature ) : ?>
 				<div class="<?= esc_attr( $class ); ?>">
@@ -161,10 +164,7 @@ class SIW_Widget_Features extends SIW_Widget {
 				</div>
 				<?php endforeach ?>
 			</div>
-			<?php endforeach ?>
-		</div>
-
-		<?php
+		<?php endforeach;
 		$content = ob_get_clean();
 		return $content;
 	}

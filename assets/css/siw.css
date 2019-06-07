@@ -154,6 +154,95 @@ article.agenda {
   background: #ff9900;
 }
 
+article.siw_tm_country {
+  background-color: #fff;
+}
+
+article.siw_story {
+  background-color: #fff;
+}
+
+.filter-button-group {
+  text-align: center;
+}
+
+.filter-button-group .is-checked,
+.filter-button-group button:hover {
+  background-color: #ff9900;
+  color: #fff;
+}
+
+.filter-button-group button {
+  margin: 2px;
+}
+
+.siw_grid_item a,
+.carousel-cell a {
+  color: #444;
+}
+
+.siw_grid_item .grid_item,
+.carousel-cell .grid_item {
+  transition: background 0.3s ease-out 0s;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.siw_grid_item .grid_item div.postcontent,
+.carousel-cell .grid_item div.postcontent {
+  padding: 10px;
+}
+
+.siw_grid_item:hover h5,
+.siw_grid_item:hover .postedinbottom,
+.siw_grid_item:hover a,
+.carousel-cell:hover h5,
+.carousel-cell:hover .postedinbottom,
+.carousel-cell:hover a {
+  color: #fff;
+}
+
+.siw_grid_item:hover .grid_item .postcontent footer,
+.carousel-cell:hover .grid_item .postcontent footer {
+  border-top-color: #fff;
+}
+
+.siw_grid_item:hover .grid_item,
+.carousel-cell:hover .grid_item {
+  color: #fff;
+  background-color: #ff9900;
+}
+
+/* Fade in voor lazyload */
+
+img[data-lazy-src] {
+  opacity: 0;
+}
+
+img.lazyloaded {
+  transition: opacity 0.5s linear 0.2s;
+  opacity: 1;
+}
+
+.siw-quote {
+  padding: 40px;
+  font-size: 1.3em;
+  color: #777;
+  font-style: italic;
+  text-align: center;
+}
+
+.siw-quote i[class^="siw-icon-"]::before {
+  font-style: italic;
+}
+
+.siw-archive-intro {
+  background-color: #444;
+  color: #fff;
+  padding: 15px;
+  margin: 15px;
+}
+
 .portfolio-postclass h1.entry-title {
   font-size: 24px;
   line-height: 30px;
@@ -289,50 +378,32 @@ h5.job-title {
   margin-top: 10px;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links a {
-  display: inline-block;
-  float: none;
-  width: 20px;
-  text-align: center;
-  line-height: 20px;
-  padding: 8px;
-  background: rgba(0, 0, 0, 0.2);
-  margin-left: 3px;
-  margin-bottom: 3px;
-  color: #f2f2f2;
-  border-radius: 50%;
-  box-sizing: content-box;
+#containerfooter .widget_siw_contact_widget .siw-social-links .siw-icon-stack {
+  font-size: 1.2em;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links a i {
-  font-size: 18px;
-  line-height: 20px;
-  vertical-align: middle;
+#containerfooter .widget_siw_contact_widget .siw-social-links .siw-icon-background {
+  color: #333;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links .facebook:hover {
-  color: #fff;
-  background-color: #3b5998;
+#containerfooter .widget_siw_contact_widget .siw-social-links .facebook .siw-icon-stack:hover .siw-icon-background {
+  color: #3b5998;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links .twitter:hover {
-  color: #fff;
-  background-color: #00aced;
+#containerfooter .widget_siw_contact_widget .siw-social-links .twitter .siw-icon-stack:hover .siw-icon-background {
+  color: #00aced;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links .instagram:hover {
-  color: #fff;
-  background-color: #517fa4;
+#containerfooter .widget_siw_contact_widget .siw-social-links .instagram .siw-icon-stack:hover .siw-icon-background {
+  color: #517fa4;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links .youtube:hover {
-  color: #fff;
-  background-color: #ff3333;
+#containerfooter .widget_siw_contact_widget .siw-social-links .youtube .siw-icon-stack:hover .siw-icon-background {
+  color: #ff3333;
 }
 
-#containerfooter .widget_siw_contact_widget .siw-social-links .linkedin:hover {
-  color: #fff;
-  background-color: #007bb6;
+#containerfooter .widget_siw_contact_widget .siw-social-links .linkedin .siw-icon-stack:hover .siw-icon-background {
+  color: #007bb6;
 }
 
 /* Snel zoeken widget */

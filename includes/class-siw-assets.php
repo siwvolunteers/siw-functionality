@@ -34,8 +34,6 @@ class SIW_Assets {
 	 */
 	public function register_scripts() {
 		wp_register_script( 'siw', SIW_ASSETS_URL . 'js/siw.js', [ 'jquery' ], SIW_PLUGIN_VERSION, true );
-		$parameters = [];
-		wp_localize_script( 'siw', 'siw', $parameters );
 		wp_enqueue_script( 'siw' );
 	}
 }

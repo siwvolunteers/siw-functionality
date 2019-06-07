@@ -29,7 +29,7 @@ add_action( 'init', function() {
 		'label'               => __( 'Evenement', 'siw' ),
 		'description'         => __( 'Evenement', 'siw' ),
 		'labels'              => $labels,
-		'supports'            => [ 'title', 'excerpt', 'revisions' ],
+		'supports'            => [ 'title', 'excerpt' ],
 		'taxonomies'          => [ 'agenda_type' ],
 		'hierarchical'        => false,
 		'public'              => true,
@@ -248,3 +248,28 @@ add_filter( 'request', function( $vars ) {
 	}
 	return $vars;
 } );
+
+/* Slug goed zetten op basis van titel en data */
+add_filter( 'wp_insert_post_data', function( $data, $postarr ) {
+
+	if ( in_array( $data['post_status'], [ 'draft', 'pending', 'auto-draft' ] ) ) {
+		return $data;
+	}
+	if ( 'agenda' != $data['post_type'] ) {
+		return $data;
+	}
+
+	$date_start = date( 'Y-m-d', $postarr['siw_agenda_start']['timestamp'] );
+	$date_end = date( 'Y-m-d', $postarr['siw_agenda_eind']['timestamp']  );
+	$time = SIW_Formatting::format_date_range( $date_start, $date_end, true );
+	$slug = sanitize_title( sprintf( '%s %s', $data['post_title'], $time ) );
+	$data['post_name'] = wp_unique_post_slug( $slug, $postarr['ID'], $data['post_status'], $data['post_type'], $data['post_parent'] );
+
+	//TODO:excerpt vullen met intro indien leeg.
+
+	return $data;
+}, 10, 2 );
+
+add_action( 'add_meta_boxes', function() {
+	remove_meta_box('slugdiv', 'agenda', 'normal'); 
+});

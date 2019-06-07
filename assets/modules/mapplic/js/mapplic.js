@@ -1,6 +1,6 @@
 /*
  * Mapplic - Custom Interactive Map Plugin by @sekler
- * Version 5.0
+ * Version 5.0.1
  * https://www.mapplic.com/
  */
 
@@ -16,11 +16,11 @@
 			selector: '[id^=landmark] > *, svg > #items > *',
 			csv: false,
 			landmark: false,
-			mapfill: false,
 			height: 420,
 			portrait: 668,
 			minimap: false,
 			sidebar: true,
+			hidenofilter: false,
 			search: true,
 			searchfields: ['title', 'about'],
 			thumbholder: false,
@@ -30,6 +30,7 @@
 			zoomoutclose: false,
 			closezoomout: true,
 			action: 'default',
+			linknewtab: false,
 			lightbox: true,
 			hovertip: true,
 			marker: 'default',
@@ -41,6 +42,7 @@
 			maxscale: 3,
 			zoom: true,
 			zoommargin: 200,
+			mapfill: false,
 			developer: false
 		};
 
@@ -92,7 +94,6 @@
 			this.shift = 6;
 			this.drop = 0;
 			this.location = null;
-			this.linknewtab = false;
 
 			this.init = function() {
 				var s = this;
@@ -111,7 +112,7 @@
 				this.content = $('<div></div>').addClass('mapplic-tooltip-content').appendTo(this.wrap);
 				this.desc = $('<div></div>').addClass('mapplic-tooltip-description').appendTo(this.content);
 				this.link = $('<a>' + self.loc.more + '</a>').addClass('mapplic-popup-link').attr('href', '#').hide().appendTo(this.wrap);
-				if (this.linknewtab) this.link.attr('target', '_blank');
+				if (self.o.linknewtab) this.link.attr('target', '_blank');
 				this.triangle = $('<div></div>').addClass('mapplic-tooltip-triangle').prependTo(this.wrap);
 
 				self.map.append(this.el);
@@ -163,7 +164,7 @@
 					this.position();
 				
 					// making it visible
-					this.el.stop().show();
+					this.el.stop().css({opacity: 1}).show();
 					if (self.o.zoom) this.zoom(location);
 				}
 			}
@@ -211,7 +212,6 @@
 		// lightbox
 		function Lightbox() {
 			this.el = null;
-			this.linknewtab = false;
 
 			this.init = function() {
 				// construct
@@ -219,7 +219,7 @@
 				this.title = $('<h2></h2>').addClass('mapplic-lightbox-title').appendTo(this.el);
 				this.desc = $('<div></div>').addClass('mapplic-lightbox-description').appendTo(this.el);
 				this.link = $('<a>' + self.loc.more + '</a>').addClass('mapplic-popup-link').attr('href', '#').hide().appendTo(this.el);
-				if (this.linknewtab) this.link.attr('target', '_blank');
+				if (self.o.linknewtab) this.link.attr('target', '_blank');
 
 				// append
 				self.el.append(this.el);
@@ -541,24 +541,46 @@
 				this.nr++;
 			}
 
+			this.toggle = function(group, state) {
+				$('*[id="' + group + '"]', self.map).toggle(state);
+				$('*[data-category*="' + group + '"]', self.map).each(function() {
+					var attr = $(this).attr('data-category'); 
+					if (attr == group) $(this).toggle(state);
+					else { // multi-group support
+						var groups = attr.split(','),
+							show = false;
+						groups.forEach(function(g) { if ($('.mapplic-toggle > input[data-group="' + g + '"]')[0].checked) show = true; });
+						$(this).toggle(show);
+					}
+				});
+			}
+
 			this.newToggle = function(group, title) {
-				var toggle = null;
+				var s = this,
+					toggle = null;
+
 				if (group.toggle == 'true') {
 					toggle = $('<label class="mapplic-toggle"></label>');
 					var input = $('<input type="checkbox" checked>').attr('data-group', group.id).appendTo(toggle);
 					var circle = $('<span></span>').addClass('mapplic-toggle-circle').appendTo(toggle);
 					if (title) $('<span></span>').addClass('mapplic-legend-label').text(group.title).appendTo(toggle);
-					if (group.switchoff == 'true') input.prop('checked', false);
 					if (group.color) circle.css('background-color', group.color);
+					if (group.switchoff == 'true') input.prop('checked', false);
 					
 					input.change(function() {
 						$('.mapplic-toggle > input[data-group="' + group.id + '"]', self.el).prop('checked', this.checked);
-						$('*[id="' + group.id + '"]', self.map).toggle(this.checked);
-						$('*[data-category="' + group.id + '"]', self.map).toggle(this.checked);
+						s.toggle(group.id, this.checked);
 					});
 				}
 				return toggle;
-			}	
+			}
+
+			this.applyToggles = function() {
+				var s = this;
+				$('.mapplic-toggle > input', self.el).each(function() {
+					s.toggle($(this).attr('data-group'), this.checked);
+				});
+			}
 		}
 
 		// sidebar
@@ -576,25 +598,25 @@
 
 				this.el = $('<div></div>').addClass('mapplic-sidebar').appendTo(self.el);
 
-				if (self.o.search) {
 					this.filter = $('<div></div>').addClass('mapplic-filter').appendTo(this.el);
 					this.tags = $('<div></div>').addClass('mapplic-filter-tags').appendTo(this.filter);
 
 					this.input = $('<input>').attr({'type': 'text', 'spellcheck': 'false', 'placeholder': self.loc.search}).addClass('mapplic-search-input').keyup(function(e) {
 						s.search();
 						if (e.keyCode == 13) $('li > a', s.el).filter(':visible:first').click();
-					}).prependTo(this.filter);
+					});
+					if (self.o.search) this.input.prependTo(this.filter);
+
 					self.clear = $('<a></a>').attr('href', '#').addClass('mapplic-search-clear').click(function(e) {
 						e.preventDefault();
 						s.input.val('');
 						s.search();
 					}).appendTo(this.filter);
-				}
 
 				var container = $('<div></div>').addClass('mapplic-list-container').appendTo(this.el);
 				this.list = $('<ol></ol>').addClass('mapplic-list').appendTo(container);
 
-				if (!self.o.search) this.el.css('padding-top', '12px');
+				if (!self.o.search) this.el.addClass('mapplic-sidebar-nosearch');
 			}
 
 			this.addTag = function(item) {
@@ -698,6 +720,7 @@
 				}).appendTo(item);
 				var color = getColor(location);
 				if (color) item.css('border-color', color);
+				if (self.o.hidenofilter) item.hide();
 
 				if (location.thumbnail) $('<img>').attr('src', location.thumbnail).addClass('mapplic-thumbnail').appendTo(link);
 				else if (self.o.thumbholder) this.placeholder(location.title).appendTo(link);
@@ -715,6 +738,7 @@
 				return item;
 			}
 
+			// search
 			this.search = function() {
 				var keyword = this.input.val(),
 					s = this;
@@ -738,8 +762,10 @@
 				$.each(self.l, function(i, location) {
 					if (location.list) {
 						var shown = false;
-						$.each(self.o.searchfields, function(i, field) { if (location[field] && !shown) shown = !(location[field].toLowerCase().indexOf(keyword.toLowerCase()) == -1); });
-						$.each(s.taglist, function(i, tag) { if (!location.category || location.category.indexOf(i) == -1) shown = false; });
+						if (!self.o.hidenofilter || (!$.isEmptyObject(s.taglist) || keyword)) {
+							$.each(self.o.searchfields, function(i, field) { if (location[field] && !shown) shown = !(location[field].toLowerCase().indexOf(keyword.toLowerCase()) == -1); });
+							$.each(s.taglist, function(i, tag) { if (!location.category || location.category.indexOf(i) == -1) shown = false; });
+						}
 
 						if (shown) location.list.slideDown(200);
 						else location.list.slideUp(200);
@@ -1138,6 +1164,7 @@
 			// extend options
 			self.o = $.extend(self.o, data);
 			self.o.zoommargin = parseFloat(self.o.zoommargin);
+			self.o.maxscale = parseFloat(self.o.maxscale);
 
 			// height of container
 			if (self.el.data('height')) self.o.height = self.el.data('height');
@@ -1163,7 +1190,6 @@
 				self.sidebar.addCategories(data.groups || data.categories);
 			}
 			else self.container.el.css('width', '100%');
-
 
 			// trigger event
 			self.el.trigger('mapstart', self);
@@ -1293,6 +1319,8 @@
 			}
 			self.switchLevel(shownLevel);
 
+			if (self.o.portrait === 'true') self.o.portrait = true;
+
 			// browser resize
 			$(window).resize(function() {
 
@@ -1313,8 +1341,14 @@
 				var wr = self.container.el.width() / self.contentWidth,
 					hr = self.container.el.height() / self.contentHeight;
 
-				if (wr < hr) self.fitscale = wr;
-				else self.fitscale = hr;
+				if (self.o.mapfill) {
+					if (wr > hr) self.fitscale = wr;
+					else self.fitscale = hr;
+				}
+				else {
+					if (wr < hr) self.fitscale = wr;
+					else self.fitscale = hr;
+				}
 
 				if (self.container.oldW != self.container.el.width() || self.container.oldH != self.container.el.height()) {
 
@@ -1325,7 +1359,6 @@
 					self.tooltip.limitSize();
 				}
 			}).resize();
-			self.container.resetZoom();
 
 			// deeplinking
 			if (self.o.deeplinking) {
@@ -1356,6 +1389,9 @@
 			// alphabetic sort
 			if (self.o.alphabetic && self.sidebar) self.sidebar.sort();
 
+			// apply toggle
+			self.legend.applyToggles();
+
 			// CSV support
 			if (self.o.csv) { 
 				Papa.parse(self.o.csv, {
@@ -1368,6 +1404,9 @@
 					}
 				});
 			}
+
+			self.container.resetZoom();
+			if (self.deeplinking) self.deeplinking.check(0);
 
 			// landmark mode
 			if (self.el.data('landmark')) self.o.landmark = self.el.data('landmark');
@@ -1569,7 +1608,7 @@
 				self.l[location.id] = location;
 
 				// interactive element
-				var elem = $('[id^=landmark] > #' + location.id, self.map);
+				var elem = $('[id^=landmark] > *[id="' + location.id + '"]', self.map);
 				if (elem.length > 0) {
 					elem.attr('class', 'mapplic-clickable');
 					location.el = elem;

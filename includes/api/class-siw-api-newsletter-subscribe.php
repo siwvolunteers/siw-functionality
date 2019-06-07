@@ -126,7 +126,7 @@ class SIW_API_Newsletter_Subscribe extends SIW_API {
 				'firstname' => $first_name,
 				'email'     => $email,
 			],
-			'user_list' => [ 'list_ids' => [ siw_get_setting( 'newsletter_list' ) ] ],
+			'user_list' => [ 'list_ids' => [ siw_get_option( 'newsletter_list' ) ] ],
 		];
 	
 		$user_id = WYSIJA::get( 'user', 'helper' )->addSubscriber( $data_subscriber );

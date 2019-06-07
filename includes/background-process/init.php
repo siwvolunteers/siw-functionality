@@ -23,6 +23,7 @@ require_once( __DIR__ . '/class-siw-update-free-places.php' );
 require_once( __DIR__ . '/class-siw-delete-orphaned-variations.php' );
 require_once( __DIR__ . '/class-siw-update-taxonomies.php' );
 require_once( __DIR__ . '/class-siw-update-projects.php' );
+require_once( __DIR__ . '/class-siw-update-dutch-workcamps.php' );
 
 /**
  * Start achtergrondproces

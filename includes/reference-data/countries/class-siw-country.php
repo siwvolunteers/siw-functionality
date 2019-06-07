@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package   SIW\Reference-Data
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
+ * 
+ * @uses      SIW_Continent
  */
 class SIW_Country {
 
@@ -213,7 +215,7 @@ class SIW_Country {
 	 */
 	public function get_specialist() {
 
-		$specialist_id = siw_get_setting( $this->slug . '_regiospecialist' );
+		$specialist_id = siw_get_option( $this->slug . '_specialist' );
 		
 		if ( ! is_int( $specialist_id ) ) {
 			return false;

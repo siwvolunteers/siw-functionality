@@ -33,7 +33,7 @@ class SIW_External_Exchange_Rates{
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->api_key = siw_get_setting( 'exchange_rates_api_key' );
+		$this->api_key = siw_get_option( 'exchange_rates_api_key' );
 		if ( empty( $this->api_key ) ) {
 			return;
 		}

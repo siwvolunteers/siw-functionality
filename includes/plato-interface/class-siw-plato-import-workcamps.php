@@ -14,16 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SIW_Plato_Import_Workcamps extends SIW_Plato_Import {
 
 	/**
-	 * Endpoint voor import
-	 *
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $endpoint = 'GetAllProjects';
 
 	/**
-	 * Identifier van import
-	 *
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $name = 'importeren groepsprojecten';
 
@@ -81,17 +77,15 @@ class SIW_Plato_Import_Workcamps extends SIW_Plato_Import {
 	 * Verwerk xml van Plato
 	 */
 	protected function process_xml() {
-
-	//TODO: foreach $this->xml->xpath( '//project' )
-		foreach ( $this->xml_response->projectform as $projectform ) {
-			foreach ( $projectform->projects->project as $project ) {
-				$project_data = [];
-				foreach ( $this->properties as $property ) {
-					$project_data[ $property ] = (string) $project->$property;
-				}
-				$this->data[] = $project_data;
+		$projects = $this->xml_response->xpath( '//project' );
+		foreach ( $projects as $project ) {
+			$project_data = [];
+			foreach ( $this->properties as $property ) {
+				$project_data[ $property ] = (string) $project->$property;
 			}
+			$this->data[] = $project_data;
 		}
+		return;
 	}
 
 }

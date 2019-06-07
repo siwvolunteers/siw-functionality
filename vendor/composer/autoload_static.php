@@ -20,6 +20,7 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         'S' => 
         array (
             'Spatie\\ArrayToXml\\' => 18,
+            'SVG\\' => 4,
         ),
     );
 
@@ -31,6 +32,10 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         'Spatie\\ArrayToXml\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/array-to-xml/src',
+        ),
+        'SVG\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/meyfa/php-svg/src',
         ),
     );
 

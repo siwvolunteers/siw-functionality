@@ -68,6 +68,9 @@ class SIW_WC_Admin_Product {
 	 * @return void
 	 */
 	public function add_admin_columns() {
+		if ( ! class_exists( 'MB_Admin_Columns_Post' ) ) {
+			return;
+		}
 		require_once( __DIR__ . '/class-siw-wc-admin-product-columns.php' );
 		new SIW_WC_Admin_Product_Columns( 'product', [] );
 	}

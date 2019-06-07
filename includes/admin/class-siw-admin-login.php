@@ -15,14 +15,12 @@ class SIW_Admin_Login {
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 		$self = new self();
 		add_action( 'login_enqueue_scripts', [ $self, 'enqueue_style' ] );
 		add_filter( 'login_headerurl', [ $self, 'set_login_headerurl' ] );
-		add_filter( 'login_headertitle', [ $self, 'set_login_headertitle' ] );
+		add_filter( 'login_headertext', [ $self, 'set_login_headertext' ] );
 		add_filter( 'login_message', [ $self, 'set_login_message' ] );
 		add_action( 'login_head', [ $self, 'remove_shake_js'] );
 		add_action( 'wp_login', [ $self, 'log_last_user_login'], 10, 2 );
@@ -55,7 +53,7 @@ class SIW_Admin_Login {
 	 * @param string $title
 	 * @return string
 	 */
-	public function set_login_headertitle( $title ) {
+	public function set_login_headertext( $title ) {
 		$title = SIW_Properties::NAME;
 		return $title;
 	}

@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		add_filter( 'load_textdomain_mofile', [ $self, 'load_custom_translations'], 10, 2 );
 		load_plugin_textdomain( 'siw', false, SIW_PLUGIN_DIR . 'languages/siw/' );
 		add_filter( 'wpml_ls_directories_to_scan', [ $self, 'add_language_switcher_templates_dir'] );
+		add_action( 'delete_attachment', [ $self, 'delete_original_attachment' ] );
 	}
 
 	/**
@@ -68,6 +69,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	}
 
 	/**
+	 * Geeft vertaalde permalink in meegegeven taal terug
+	 *
+	 * @param string $permalink
+	 * @param string $language_code
+	 * @return string
+	 */
+	public static function get_translated_permalink( $permalink, $language_code ) {
+		$translated_permalink = apply_filters( 'wpml_permalink', $permalink, $language_code );
+		return $translated_permalink;
+	}
+
+
+	/**
 	 * Geeft terug of de huidige taal gelijk is aan de standaardtaal
 	 *
 	 * @return boolean
@@ -91,7 +105,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @return string
 	 */
 	public static function get_default_language() {
-		return apply_filters( 'wpml_current_language', NULL );
+		return apply_filters( 'wpml_default_language', NULL );
 	}
 
 	/**
@@ -112,5 +126,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	public function add_language_switcher_templates_dir( $dirs ) {
 		$dirs[] = SIW_TEMPLATES_DIR .'/wpml/language-switchers';
 		return $dirs;
+	}
+
+	/**
+	 * Verwijder origineel attachment als vertaling verwijderd wordt
+	 *
+	 * @param int $post_id
+	 */
+	public function delete_original_attachment( $post_id ) {
+		if ( self::is_default_language() ) {
+			return;
+		}
+
+		$original_post_id = apply_filters( 'wpml_object_id', $post_id, 'attachment', false, self::get_default_language() );
+		if ( null != $original_post_id && $post_id != $original_post_id ) {
+			wp_delete_attachment( $original_post_id );
+		}
 	}
 }

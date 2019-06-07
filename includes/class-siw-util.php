@@ -80,6 +80,8 @@ class SIW_Util {
 	 * Geeft array met pagina's in standaardtaal terug
 	 * 
 	 * @return array
+	 * 
+	 * @todo https://docs.metabox.io/custom-select-checkbox-tree/
 	 */
 	public static function get_pages() {
 		$default_lang = SIW_i18n::get_default_language();
@@ -90,9 +92,13 @@ class SIW_Util {
 
 		$pages = [];
 		foreach ( $results as $result ) {
-			$ancestors = get_ancestors( $result->ID, 'page' );
-			$prefix = str_repeat ( '-', sizeof( $ancestors ) );
-			$pages[ $result->ID ] = $prefix . esc_html( $result->post_title );
+			$ancestors = array_reverse( get_ancestors( $result->ID, 'page') );
+			$callback = function( &$value, $key ) {
+				$value = get_the_title( $value );
+			};
+			array_walk( $ancestors, $callback );
+			$prefix = ! empty( $ancestors ) ? implode( $ancestors, '/') . '/' : '';
+			$pages[ $result->ID ] = esc_html( $prefix . $result->post_title );
 		}
 		return $pages;
 	}
@@ -162,12 +168,23 @@ class SIW_Util {
 		
 		$workcamp_sale_active = false;
 
-		if ( siw_get_setting( 'workcamp_sale_active' ) &&
-			date( 'Y-m-d' ) >= siw_get_setting( 'workcamp_sale_start_date' ) &&
-			date( 'Y-m-d' ) <= siw_get_setting( 'workcamp_sale_end_date' )
+		if ( siw_get_option( 'workcamp_sale_active' ) &&
+			date( 'Y-m-d' ) >= siw_get_option( 'workcamp_sale_start_date' ) &&
+			date( 'Y-m-d' ) <= siw_get_option( 'workcamp_sale_end_date' )
 			) {
 				$workcamp_sale_active = true;
 		}
 		return $workcamp_sale_active;
 	}
+
+	/**
+	 * Geeft aan of template bestaat
+	 *
+	 * @param string $template
+	 * @return bool
+	 */
+	public static function template_exists( $template ) {
+		return file_exists( SIW_TEMPLATES_DIR . "/{$template}" );
+	}
+
 }

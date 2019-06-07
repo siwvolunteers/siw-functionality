@@ -20,6 +20,7 @@ class SIW_Icons {
 
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_style' ] );
+		add_action( 'admin_enqueue_scripts', [ $self, 'enqueue_style' ] );
 
 		if ( class_exists( 'SiteOrigin_Widgets_Bundle' ) ) {
 			add_filter( 'siteorigin_widgets_icon_families', [ $self, 'add_icon_family' ] );
@@ -45,7 +46,7 @@ class SIW_Icons {
 		$icon_families['siw'] = [
 			'name'      => __( 'SIW Icons', 'siw' ),
 			'style_uri' => SIW_ASSETS_URL . 'css/siw-admin-icons.css',
-			'icons'     => $this->get_icons_from_json(),
+			'icons'     => self::get_icons( 'unicode', false ),
 		];
 		return $icon_families;
 	}
@@ -68,14 +69,40 @@ class SIW_Icons {
 	}
 
 	/**
+	 * Geeft lijst van icons terug
+	 *
+	 * @param string $label html|unicode
+	 * @param bool $prefix Moet prefix siw- toegevoegd worden?
+	 * @return array
+	 */
+	public static function get_icons( $label = 'html', $prefix = true ) {
+		$json_data = self::read_json_file();
+		
+		foreach ( $json_data as $icon => $unicode ) {
+			if ( $prefix ) {
+				$icon = 'siw-' . $icon;
+			}
+			switch ( $label ) {
+				case 'unicode':
+					$value = str_replace( "\\", "&#x", esc_attr( $unicode ) );
+					break;
+				case 'html':
+					$value = "<i class='{$icon}'></i>";
+					break;
+			}
+			$icons[ esc_attr( $icon ) ] = $value;
+		}
+		return $icons;
+	}
+
+	/**
 	 * Haalt gegevens van icons op uit json file
 	 * 
 	 * @return array
 	 * 
 	 * @todo WP_Filesystem gebruiken?
 	 */
-	protected function get_icons_from_json() {
-
+	protected static function read_json_file() {
 		$json_file = SIW_ASSETS_DIR . '/icons/siw-icons.json';
 		if ( ! file_exists( $json_file ) ) {
 			return [];
@@ -85,10 +112,6 @@ class SIW_Icons {
 		if ( ! is_array ( $json_data ) ) {
 			return [];
 		}
-		foreach ( $json_data as $icon => $unicode ) {
-			$icons[ esc_attr( $icon ) ] = str_replace( "\\", "&#x", esc_attr( $unicode ) );
-		}
-
-		return $icons;
+		return $json_data;
 	}
 }

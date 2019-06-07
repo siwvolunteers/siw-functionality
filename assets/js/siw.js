@@ -32,4 +32,5 @@
 		$( document ).scrollTo( $( '.kad-shop-top' ), 800 );
 	});
 
+
 })( jQuery );

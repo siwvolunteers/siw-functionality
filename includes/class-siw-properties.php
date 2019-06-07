@@ -151,38 +151,18 @@ class SIW_Properties {
 	const INSTAGRAM_URL = 'https://www.instagram.com/siwvolunteers/';
 
 	/**
-	 * Aantal infodagen
-	 *
-	 * @var int
-	 * 
-	 * @deprecated
-	 */
-	const NUMBER_OF_INFO_DAYS = 10;
-
-	/**
-	 * Maximum aantal ESC-deadlines
-	 *
-	 * @var int
-	 * 
-	 * @deprecated
-	 */
-	const NUMBER_OF_ESC_DEADLINES = 5;
-
-	/**
 	 * Minimaal aantal weken voor deadline
 	 *
 	 * @var int
 	 */
-	const ESC_WEEKS_BEFORE_DEPARTURE = 14;
+	const ESC_WEEKS_BEFORE_DEADLINE = 5;
 
 	/**
-	 * Grootte IP whitelist
+	 * Minimaal aantal weken voor vertrek
 	 *
 	 * @var int
-	 * 
-	 * @deprecated
 	 */
-	const IP_WHITELIST_SIZE = 5;
+	const ESC_WEEKS_BEFORE_DEPARTURE = 14;
 
 	/**
 	 * Maximum aantal bestuursleden
@@ -195,8 +175,6 @@ class SIW_Properties {
 	 * Maximum aantal jaarverslagen
 	 *
 	 * @var int
-	 * 
-	 * @deprecated
 	 */
 	const MAX_ANNUAL_REPORTS = 5;
 
@@ -212,7 +190,7 @@ class SIW_Properties {
 	 *
 	 * @var string
 	 */
-	const TS_UPDATE_FREE_PLACES = '0:30';
+	const TS_UPDATE_FREE_PLACES = '2:00';
 
 	/**
 	 * Tijdstip achtergrondprogramma's
@@ -236,11 +214,11 @@ class SIW_Properties {
 	const TS_BACKUP_FILES = '04:30';
 
 	/**
-	 * Tijdstip cache verversen
+	 * Tijdstip cache opnieuw opbouwen
 	 *
 	 * @var string
 	 */
-	const TS_CACHE_REFRESH = '05:00';
+	const TS_CACHE_REBUILD = '05:00';
 
 	/**
 	 * Inschrijfgeld Groepsproject (student)

@@ -120,22 +120,14 @@ class SIW_Module_Topbar {
 	 */
 	protected function get_social_content() {
 
-		if ( ! siw_get_setting( 'topbar_social_link_enabled' ) ||
-			empty( siw_get_setting( 'topbar_social_link_date_end' ) ) ||
-			date( 'Y-m-d' ) > siw_get_setting( 'topbar_social_link_date_end' ) ||
-			empty( siw_get_setting( 'topbar_social_link_intro' ) ) ||
-			empty( siw_get_setting( 'topbar_social_link_text' ) ) ||
-			empty( siw_get_setting( 'topbar_social_link_network' ) )
-			) {
+		if ( ! siw_get_option( 'topbar_social_link_enabled' ) ) {
 			return false;
 		}
-
 		$social_networks = siw_get_social_networks('follow');
-
 		$social_content = [
-			'intro'       => siw_get_setting( 'topbar_social_link_intro' ),
-			'link_url'    => $social_networks[ siw_get_setting( 'topbar_social_link_network') ]->get_follow_url(),
-			'link_text'   => siw_get_setting( 'topbar_social_link_text' ),
+			'intro'       => siw_get_option( 'topbar_social_link_intro' ),
+			'link_url'    => $social_networks[ siw_get_option( 'topbar_social_link_network') ]->get_follow_url(),
+			'link_text'   => siw_get_option( 'topbar_social_link_text' ),
 			'link_target' => '_blank',
 		];
 		return $social_content;
@@ -201,7 +193,7 @@ class SIW_Module_Topbar {
 		}
 
 		$sale_tariff = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE );
-		$end_date = SIW_Formatting::format_date( siw_get_setting( 'workcamp_sale_end_date' ), false );
+		$end_date = SIW_Formatting::format_date( siw_get_option( 'workcamp_sale_end_date' ), false );
 	
 		$sale_content = [
 			'intro'     => __( 'Grijp je kans en ontvang korting!',  'siw' ),

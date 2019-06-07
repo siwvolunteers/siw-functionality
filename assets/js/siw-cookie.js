@@ -1,3 +1,5 @@
+/** global: Cookies */
+
 /**
  * @file Functies t.b.v. de cookie notice
  * @author Maarten Bruna 

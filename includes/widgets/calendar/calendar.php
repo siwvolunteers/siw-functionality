@@ -84,7 +84,7 @@ class SIW_Widget_Calendar extends SIW_Widget {
 			$event_list[] = ob_get_clean();
 		}
 		$content = SIW_Formatting::generate_list( $event_list );
-		$content .= '<p class="page-link">' . SIW_Formatting::generate_link( get_page_link( siw_get_setting( 'agenda_parent_page' ) ), __( 'Bekijk de volledige agenda.', 'siw' ) ) . '</p>';
+		$content .= '<p class="page-link">' . SIW_Formatting::generate_link( get_page_link( siw_get_option( 'events_archive_page' ) ), __( 'Bekijk de volledige agenda.', 'siw' ) ) . '</p>';
 
 		return $content;
 	}

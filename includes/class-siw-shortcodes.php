@@ -146,7 +146,9 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function next_esc_deadline() {
-		return siw_get_next_evs_deadline( true );
+		$deadlines = siw_get_option( 'esc_deadlines' );
+		$next_evs_deadline = SIW_Formatting::format_date( reset( $deadlines ), true );
+		return $next_evs_deadline;
 	}
 
 	/**
@@ -155,7 +157,15 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function next_esc_departure_month() {
-		return siw_get_next_evs_departure_month();
+
+		$weeks = SIW_Properties::ESC_WEEKS_BEFORE_DEPARTURE;
+		$deadlines = siw_get_option( 'esc_deadlines' );
+		if ( empty( $deadlines ) ) {
+			return;
+		}
+		$next_evs_departure = strtotime( reset( $deadlines ) ) + ( $weeks * WEEK_IN_SECONDS ) ;
+		$next_evs_departure_month = date_i18n( 'F Y',  $next_evs_departure );
+		return $next_evs_departure_month;
 	}
 
 	/**
@@ -164,7 +174,12 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function next_info_day() {
-		return siw_get_next_info_day( true );
+		$info_days = siw_get_option( 'info_days');
+		if ( empty( $info_days ) ) {
+			return;
+		}
+		$next_info_day = SIW_Formatting::format_date( reset( $info_days ), true );
+		return $next_info_day;
 	}
 
 	/**
@@ -250,27 +265,17 @@ class SIW_Shortcodes {
 	 * Bestuursleden
 	 * 
 	 * @return string
-	 * 
-	 * @todo verplaatsen naar widget met organisatiegegevens.
 	 */
 	public static function board_members() {
-		for ( $x = 1 ; $x <= SIW_Properties::MAX_BOARD_MEMBERS; $x++ ) {
-			$board_members[] = siw_get_setting( "board_member_{$x}" );
-		}
+
+		$board_members = siw_get_option( 'board_members');
 		if ( empty( $board_members ) ) {
 			return;
 		}
 	
 		$board_members_list = [];
-	
 		foreach ( $board_members as $board_member ) {
-			if ( isset( $board_member['name'] ) ) {
-				$list_item = $board_member['name'];
-				if ( isset( $board_member['title'] ) ) {
-					$list_item .= '<br/>' . '<i>' . $board_member['title'] . '</i>';
-				}
-				$board_members_list[] = $list_item;
-			}
+			$board_members_list[] = sprintf('%s %s<br/><i>%s</i>', $board_member['first_name'], $board_member['last_name'], $board_member['title']);
 		}
 		return SIW_Formatting::generate_list( $board_members_list );
 	}
@@ -279,24 +284,21 @@ class SIW_Shortcodes {
 	 * Jaarverslagen
 	 * 
 	 * @return string
-	 * 
-	 * @todo verplaatsen naar widget met organisatiegegevens.
 	 */
 	public static function annual_reports() {
-		$annual_reports = siw_get_annual_reports();
+
+		$annual_reports = siw_get_option( 'annual_reports' );
 		if ( empty( $annual_reports ) ) {
 			return;
 		}
-	
-		$output = '';
-		foreach ( $annual_reports as $year => $annual_report ) {
-			if ( ! empty( $annual_report['url'] ) ) {
-				$url = $annual_report['url'];
-				$text = sprintf( esc_html__( 'Jaarverslag %s', 'siw' ), $year );
-				$output .= SIW_Formatting::generate_link( $url, $text, [ 'class' => 'siw-download', 'target' => '_blank', 'rel' => 'noopener' ] ) . BR ;
-			}
+		$reports = [];
+		foreach ( $annual_reports as $report ) {
+			$url = wp_get_attachment_url( $report['file'] );
+			$text = sprintf( esc_html__( 'Jaarverslag %s', 'siw' ), $report['year'] );
+			$reports[ $report['year'] ] = SIW_Formatting::generate_link( $url, $text, [ 'class' => 'siw-download', 'target' => '_blank', 'rel' => 'noopener' ] );
 		}
-		return $output;
+		krsort( $reports );
+		return SIW_Formatting::array_to_text( $reports, BR );
 	}
 
 	/**
@@ -352,7 +354,7 @@ class SIW_Shortcodes {
 			'kinderbeleid' => 'child_policy',
 		];
 		/* Haal pagina id op en breek af als pagina niet ingesteld is */
-		$page_id = siw_get_setting( $pages[ $pagina ] . '_page' );
+		$page_id = siw_get_option( $pages[ $pagina ] . '_page' );
 		if ( empty( $page_id ) ) {
 			return;
 		}

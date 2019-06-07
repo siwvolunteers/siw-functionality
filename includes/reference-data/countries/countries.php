@@ -49,6 +49,11 @@ function siw_get_countries( $context = 'all', $index = 'slug' ) {
 		$data = array_merge( $data, $countries_data );
 	}
 
+	usort( $data, function( $a, $b ) {
+		return strnatcmp($a['name'], $b['name']);
+	});
+
+
 	$countries = [];
 	foreach ( $data as $item ) {
 		$country = new SIW_Country( $item );

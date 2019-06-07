@@ -58,7 +58,7 @@ add_filter( 'siw_work_types_data', function( $data ) {
 			'name'                  => __( 'Kinderen', 'siw' ),
 			'icon_class'            => 'siw-icon-child',
 			'dutch_projects'        => false,
-			'tailor_made_projects'  => false,
+			'tailor_made_projects'  => true,
 		],
 		[
 			'slug'                  => 'thema',
@@ -114,7 +114,7 @@ add_filter( 'siw_work_types_data', function( $data ) {
 			'name'                  => __( 'Cultuur', 'siw' ),
 			'icon_class'            => 'siw-icon-gopuram',
 			'dutch_projects'        => false,
-			'tailor_made_projects'  => false,
+			'tailor_made_projects'  => true,
 		],
 		[
 			'slug'                  => 'landbouw',

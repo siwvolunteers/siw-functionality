@@ -1,0 +1,29 @@
+//main: ../siw.sass
+
+/* Fade in voor lazyload */
+img[data-lazy-src] {
+	opacity: 0;
+}
+
+img.lazyloaded {
+	transition: opacity 0.5s linear 0.2s;
+	opacity: 1;
+}
+
+.siw-quote{
+	padding: 40px;
+	font-size: 1.3em;
+	color: #777;
+	font-style: italic;
+	text-align: center;
+	i[class^="siw-icon-"]::before{
+		font-style: italic;
+	}
+}
+
+.siw-archive-intro{
+	background-color: $font-color;
+	color: #fff;
+	padding: 15px;
+	margin:15px;
+}

@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'wpscholar\\WordPress\\' => array($vendorDir . '/wpscholar/wp-async-defer-scripts'),
     'Spatie\\ArrayToXml\\' => array($vendorDir . '/spatie/array-to-xml/src'),
+    'SVG\\' => array($vendorDir . '/meyfa/php-svg/src'),
 );

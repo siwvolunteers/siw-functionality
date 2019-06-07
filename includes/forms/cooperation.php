@@ -28,7 +28,8 @@ add_filter( 'caldera_forms_get_forms', function( $forms ) {
  */
 add_filter( 'caldera_forms_get_form-samenwerking', function( $form ) {
 
-	$signature = siw_get_setting( 'np_cooperation_email_signature' );
+	$email_settings = siw_get_option( 'cooperation_email' );
+	$signature = $email_settings['signature'];
 
 	$confirmation_template_args = array(
 		'subject' => __( 'Bevestiging interesse samenwerking', 'siw' ),
@@ -139,7 +140,7 @@ return array(
 			'config' =>
 			array(
 				'sender_name' => SIW_Properties::NAME,
-				'sender_email' => siw_get_setting( 'np_cooperation_email_sender' ),
+				'sender_email' => $email_settings['sender'],
 				'subject' => $confirmation_template_args['subject'],
 				'recipient_name' => '%naam_organisatie%',
 				'recipient_email' => '%emailadres%',
@@ -169,10 +170,10 @@ return array(
 	array(
 		'on_insert' => 1,
 		'sender_name' => __( 'Website', 'siw' ),
-		'sender_email' => siw_get_setting( 'np_cooperation_email_sender' ),
+		'sender_email' => $email_settings['sender'],
 		'reply_to' => '%emailadres%',
 		'email_type' => 'html',
-		'recipients' => siw_get_setting( 'np_cooperation_email_sender' ),
+		'recipients' => $email_settings['sender'],
 		'email_subject' => $notification_template_args['subject'],
 		'email_message' => siw_get_email_template( $notification_template_args ),
 		'csv_data' => 0,
