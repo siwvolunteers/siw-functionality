@@ -89,7 +89,7 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 						'required'         => true,
 						'max_file_uploads' => 1,
 						'mime_type'        => 'application/pdf',
-						'force_delete'     => true,
+						'force_delete'     => false,
 					],
 				]
 			]

@@ -124,7 +124,7 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 		'id'               => 'image',
 		'name'             => __( 'Afbeelding', 'siw' ),
 		'type'             => 'image_advanced',
-		'force_delete'     => true,
+		'force_delete'     => false,
 		'max_file_uploads' => 1,
 		'max_status'       => false,
 		'image_size'       => 'thumbnail',
@@ -169,7 +169,7 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 				'type'             => 'file_advanced',
 				'max_file_uploads' => 1,
 				'mime_type'        => 'application/pdf',
-				'force_delete'     => true,
+				'force_delete'     => false,
 			],
 		],
 	];
