@@ -58,7 +58,7 @@ class SIW_Module_Google_Analytics {
 			ga('send','pageview');
 		<?php
 		$snippet = ob_get_clean();
-		wp_add_inline_script( 'google-analytics', $snippet, 'before' );
+		wp_add_inline_script( 'google-analytics', $snippet, 'after' );
 	}
 
 	/**
