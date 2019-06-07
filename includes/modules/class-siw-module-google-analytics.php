@@ -47,8 +47,6 @@ class SIW_Module_Google_Analytics {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'google-analytics', 'https://www.google-analytics.com/analytics.js', null, null, $this->in_footer );
-		wp_scripts()->add_data( 'google-analytics', 'defer', true );
-		wp_scripts()->add_data( 'google-analytics', 'async', true );
 		wp_enqueue_script( 'siw-analytics', SIW_ASSETS_URL . 'js/siw-analytics.js', [ 'google-analytics', 'jquery' ], SIW_PLUGIN_VERSION, $this->in_footer );
 
 		ob_start();
