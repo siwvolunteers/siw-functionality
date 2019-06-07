@@ -293,7 +293,7 @@ class SIW_Shortcodes {
 		}
 		$reports = [];
 		foreach ( $annual_reports as $report ) {
-			$url = wp_get_attachment_url( $report['file'] );
+			$url = wp_get_attachment_url( $report['file'][0] );
 			$text = sprintf( esc_html__( 'Jaarverslag %s', 'siw' ), $report['year'] );
 			$reports[ $report['year'] ] = SIW_Formatting::generate_link( $url, $text, [ 'class' => 'siw-download', 'target' => '_blank', 'rel' => 'noopener' ] );
 		}
