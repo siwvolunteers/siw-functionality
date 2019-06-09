@@ -36,6 +36,16 @@ class SIW_Content_Type_TM_Country extends SIW_Content_Type {
 	/**
 	 * {@inheritDoc}
 	 */
+	protected $sort_by_title = true;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $show_taxonomy_filter = true;
+
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function get_labels() {
 		$labels = [
 			'name'               => __( 'Op Maat landen', 'siw' ),
