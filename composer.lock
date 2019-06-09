@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29d9341fa095b9626a63cfc36d318a2b",
+    "content-hash": "1fa1974f97ddac336a45194859abd337",
     "packages": [
         {
             "name": "a5hleyrich/wp-background-processing",
@@ -115,17 +115,6 @@
             "time": "2018-10-18T16:30:37+00:00"
         },
         {
-            "name": "khromov/wp-multifilter",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/khromov/wp-multifilter",
-                "reference": "master"
-            },
-            "type": "library",
-            "time": "2015-01-19T10:20:41+00:00"
-        },
-        {
             "name": "meyfa/php-svg",
             "version": "v0.9.0",
             "source": {
@@ -218,50 +207,13 @@
                 "xml"
             ],
             "time": "2019-05-06T06:33:48+00:00"
-        },
-        {
-            "name": "wpscholar/wp-async-defer-scripts",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wpscholar/wp-async-defer-scripts.git",
-                "reference": "f2d8199b90eb3f8f86cfac8af6f25e2378ba3fac"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wpscholar/wp-async-defer-scripts/zipball/f2d8199b90eb3f8f86cfac8af6f25e2378ba3fac",
-                "reference": "f2d8199b90eb3f8f86cfac8af6f25e2378ba3fac",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "functions.php"
-                ],
-                "psr-4": {
-                    "wpscholar\\WordPress\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Micah Wood",
-                    "email": "micah@wpscholar.com"
-                }
-            ],
-            "time": "2017-11-06T16:13:37+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "a5hleyrich/wp-background-processing": 20,
-        "khromov/wp-multifilter": 20,
-        "wpscholar/wp-async-defer-scripts": 20
+        "a5hleyrich/wp-background-processing": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -8,15 +8,9 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
 {
     public static $files = array (
         '6168384990757e5fc380d01d460961a8' => __DIR__ . '/..' . '/kallookoo/wp_parse_args_recursive/src/wp-parse-args-recursive.php',
-        'a6c63e5760f680289348682b58a4fa5d' => __DIR__ . '/..' . '/wpscholar/wp-async-defer-scripts/functions.php',
-        'd7ba32f315ba1aa92d33139ba8bc3c75' => __DIR__ . '/..' . '/khromov/wp-multifilter/wp-multifilter.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'w' => 
-        array (
-            'wpscholar\\WordPress\\' => 20,
-        ),
         'S' => 
         array (
             'Spatie\\ArrayToXml\\' => 18,
@@ -25,10 +19,6 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
     );
 
     public static $prefixDirsPsr4 = array (
-        'wpscholar\\WordPress\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/wpscholar/wp-async-defer-scripts',
-        ),
         'Spatie\\ArrayToXml\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/array-to-xml/src',
