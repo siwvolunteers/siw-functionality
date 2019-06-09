@@ -310,7 +310,7 @@ abstract class SIW_Content_Type {
 				$query->set('posts_per_page', -1 );
 
 				if ( true === $this->sort_by_title ) {
-					$query->set( 'order' , 'desc' );
+					$query->set( 'order' , 'asc' );
 					$query->set( 'orderby', 'title');
 				}
 			}
