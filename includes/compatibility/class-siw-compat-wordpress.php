@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /**
- * Aanpassingen voor WordPRess
+ * Aanpassingen voor WordPress
  * 
  * @package     SIW\Compatibility
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten

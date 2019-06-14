@@ -186,19 +186,21 @@ class SIW_Module_Topbar {
 
 	/**
 	 * Haalt de kortingsactie-inhoud op
+	 * 
+	 * @return array
 	 */
 	protected function get_sale_content() {
 		if ( ! SIW_Util::is_workcamp_sale_active() ) {
 			return false;
 		}
 
-		$sale_tariff = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE );
+		$sale_price = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE );
 		$end_date = SIW_Formatting::format_date( siw_get_option( 'workcamp_sale_end_date' ), false );
 	
 		$sale_content = [
 			'intro'     => __( 'Grijp je kans en ontvang korting!',  'siw' ),
 			'link_url'  => wc_get_page_permalink( 'shop' ),
-			'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_tariff ) ,
+			'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_price ) ,
 		];
 		return $sale_content;
 	}
