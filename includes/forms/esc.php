@@ -229,7 +229,7 @@ return array(
 		'sender_email' => $email_settings['sender'],
 		'reply_to' => '%emailadres%',
 		'email_type' => 'html',
-		'recipients' => siw_get_option( 'esc_email_sender' ),
+		'recipients' => $email_settings['sender'],
 		'email_subject' => $notification_template_args['subject'],
 		'email_message' => siw_get_email_template( $notification_template_args ),
 		'csv_data' => 0,

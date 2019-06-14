@@ -38,33 +38,36 @@ add_filter( 'siw_settings_meta_boxes', function( $boxes ) {
 		'tab_style' => 'left',
 		'fields' => [
 			[
-				'id'                => 'workcamp_sale_active',
-				'name'              => __( 'Kortingsactie actief', 'siw' ),
-				'type'              => 'switch',
-				'on_label'          => __( 'Ja', 'siw' ),
-				'off_label'         => __( 'Nee', 'siw'),
-				'tab'               => 'sale',
-			],
-			[
-				'id'                => 'workcamp_sale_start_date',
-				'name'              => __( 'Startdatum kortingsactie', 'siw' ),
-				'type'              => 'date',
-				'tab'               => 'sale',
-				'visible'           => [ 'workcamp_sale_active', true ],
-			],
-			[
-				'id'                => 'workcamp_sale_end_date',
-				'name'              => __( 'Einddatum kortingsactie', 'siw' ),
-				'type'              => 'date',
-				'tab'               => 'sale',
-				'visible'           => [ 'workcamp_sale_active', true ],
-			],
-			[
-				'type'              => 'custom_html',
-				'tab'               => 'sale',
-				'visible'           => [ 'workcamp_sale_active', true ],
-				'std'               => sprintf( 'Regulier: %s, Student: %s', SIW_Properties::WORKCAMP_FEE_REGULAR_SALE, SIW_Properties::WORKCAMP_FEE_STUDENT_SALE ),
-				//TODO: netter + i18n
+				'id'      => 'workcamp_sale',
+				'type'    => 'group',
+				'tab'     => 'sale',
+				'fields'  => [
+					[
+						'id'                => 'active',
+						'name'              => __( 'Kortingsactie actief', 'siw' ),
+						'type'              => 'switch',
+						'on_label'          => __( 'Ja', 'siw' ),
+						'off_label'         => __( 'Nee', 'siw'),
+					],
+					[
+						'id'                => 'start_date',
+						'name'              => __( 'Startdatum kortingsactie', 'siw' ),
+						'type'              => 'date',
+						'visible'           => [ 'active', true ],
+					],
+					[
+						'id'                => 'end_date',
+						'name'              => __( 'Einddatum kortingsactie', 'siw' ),
+						'type'              => 'date',
+						'visible'           => [ 'active', true ],
+					],
+					[
+						'type'              => 'custom_html',
+						'visible'           => [ 'active', true ],
+						'std'               => sprintf( 'Regulier: %s, Student: %s', SIW_Properties::WORKCAMP_FEE_REGULAR_SALE, SIW_Properties::WORKCAMP_FEE_STUDENT_SALE ),
+						//TODO: netter + i18n
+					],
+				],
 			],
 			[
 				'id'                => 'workcamp_teaser_text_enabled',

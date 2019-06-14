@@ -214,16 +214,24 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function tailor_made_fee_student() {
-		return SIW_Formatting::format_amount( SIW_Properties::TAILOR_MADE_FEE_STUDENT );
+		$output = SIW_Formatting::format_amount( SIW_Properties::TAILOR_MADE_FEE_STUDENT );
+		if ( SIW_Util::is_tailor_made_sale_active() ) {
+			$output = sprintf( '<del>%s</del>&nbsp;<ins>%s</ins>', $output, SIW_Formatting::format_amount( SIW_Properties::TAILOR_MADE_FEE_STUDENT_SALE ) );
+		}
+		return $output;
 	}
-
+	
 	/**
 	 * Inschrijfgeld Op Maaat-project (regulier)
 	 *
 	 * @return string
 	 */
 	public static function tailor_made_fee_regular() {
-		return SIW_Formatting::format_amount( SIW_Properties::TAILOR_MADE_FEE_REGULAR );
+		$output = SIW_Formatting::format_amount( SIW_Properties::TAILOR_MADE_FEE_REGULAR );
+		if ( SIW_Util::is_tailor_made_sale_active() ) {
+			$output = sprintf( '<del>%s</del>&nbsp;<ins>%s</ins>', $output, SIW_Formatting::format_amount( SIW_Properties::TAILOR_MADE_FEE_REGULAR_SALE ) );
+		}
+		return $output;
 	}
 
 	/**

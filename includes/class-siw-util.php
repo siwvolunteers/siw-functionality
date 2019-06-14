@@ -166,15 +166,37 @@ class SIW_Util {
 	 */
 	public static function is_workcamp_sale_active() {
 		
+		$workcamp_sale = siw_get_option( 'workcamp_sale' );
+
 		$workcamp_sale_active = false;
 
-		if ( siw_get_option( 'workcamp_sale_active' ) &&
-			date( 'Y-m-d' ) >= siw_get_option( 'workcamp_sale_start_date' ) &&
-			date( 'Y-m-d' ) <= siw_get_option( 'workcamp_sale_end_date' )
+		if ( $workcamp_sale['active'] &&
+			date( 'Y-m-d' ) >= $workcamp_sale['start_date'] &&
+			date( 'Y-m-d' ) <= $workcamp_sale['end_date']
 			) {
 				$workcamp_sale_active = true;
 		}
 		return $workcamp_sale_active;
+	}
+
+	/**
+	 * Geeft aan of kortingsactie voor Projecten Op Maat actief is
+	 *
+	 * @return bool
+	 */
+	public static function is_tailor_made_sale_active() {
+		
+		$tailor_made_sale = siw_get_option( 'tailor_made_sale' );
+		
+		$tailor_made_sale_active = false;
+
+		if ( $tailor_made_sale['active'] &&
+			date( 'Y-m-d' ) >= $tailor_made_sale['start_date'] &&
+			date( 'Y-m-d' ) <= $tailor_made_sale['end_date']
+			) {
+				$tailor_made_sale_active = true;
+		}
+		return $tailor_made_sale_active;
 	}
 
 	/**
