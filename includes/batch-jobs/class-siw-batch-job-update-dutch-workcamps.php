@@ -7,12 +7,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om Nederlandse Groepsprojecten bij te werken
  * 
- * @package   SIW\Background-Process
+ * @package   SIW\Batch-Jobs
  * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @uses      SIW_Plato_Import_Dutch_Workcamps
  */
-class SIW_Update_Dutch_Workcamps extends SIW_Update_Workcamps {
+class SIW_Batch_Job_Update_Dutch_Workcamps extends SIW_Batch_Job_Update_Workcamps {
 
 	/**
 	 * {@inheritDoc}
@@ -25,6 +25,11 @@ class SIW_Update_Dutch_Workcamps extends SIW_Update_Workcamps {
 	protected $name = 'bijwerken Nederlandse Groepsprojecten';
 
 	/**
+	 * {@inheritDoc}
+	 */
+	protected $category = 'plato';
+
+	/**
 	 * Haal Groepsprojecten op uit Plato
 	 *
 	 * @return array
@@ -35,13 +40,4 @@ class SIW_Update_Dutch_Workcamps extends SIW_Update_Workcamps {
 		
 		return $data;
 	}
-
 }
-
-/* Registreer het background process */
-add_action( 'plugins_loaded', function() {
-	$parent_nodes = [ 'plato' => [ 'title' => __( 'Plato', 'siw' ) ] ];
-	$node = [ 'parent' => 'plato', 'title' => __( 'Bijwerken Nederlandse groepsprojecten', 'siw' ) ];
-	siw_register_background_process( 'SIW_Update_Dutch_Workcamps', 'update_dutch_workcamps', $node, $parent_nodes, false );
-} );
-

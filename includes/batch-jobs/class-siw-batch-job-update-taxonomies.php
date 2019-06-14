@@ -7,22 +7,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Proces om taxonomieën bij te werken
  *
  * - Naam bijwerken
- * - Lege taxonomieën verwijderen
+ * - Lege terms verwijderen
  * - Volgorde bijwerken
  * 
- * @package   SIW\Background-Process
+ * @package   SIW\Batch-Jobs
  * @author    Maarten Bruna
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Formatting
  * @uses      SIW_Delete_Workcamps
  */
-class SIW_Update_Taxonomies extends SIW_Background_Process {
+class SIW_Batch_Job_Update_Taxonomies extends SIW_Batch_Job {
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $action = 'update_taxonomies_process';
+	protected $action = 'update_taxonomies';
 
 	/**
 	 * {@inheritDoc}
@@ -30,9 +30,16 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 	protected $name = 'bijwerken taxonomies';
 
 	/**
+	 * {@inheritDoc}
+	 */
+	protected $category = 'algemeen';
+
+	/**
 	 * Selecteer de terms van de relevante taxonomieën
 	 *
 	 * @return array
+	 * 
+	 * @todo delete_empty_term optie
 	 */
 	protected function select_data() {
 
@@ -74,7 +81,7 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 	protected function task( $item ) {
 
 		$taxonomy = $item['taxonomy'];
-		$term_slug = $item['term_slug']; 
+		$term_slug = $item['term_slug'];
 
 		$term = get_term_by( 'slug', $term_slug, $taxonomy );
 
@@ -207,7 +214,7 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 	 * @return array
 	 */
 	protected function get_months() {
-		$max_age = SIW_Delete_Workcamps::MAX_AGE_WORKCAMP_IN_MONTHS;
+		$max_age = SIW_Batch_Job_Delete_Workcamps::MAX_AGE_WORKCAMP_IN_MONTHS;
 		$max_months_in_future = 12; //TODO: constante
 
 		$current_year = $current_year = date( 'Y' );
@@ -267,12 +274,3 @@ class SIW_Update_Taxonomies extends SIW_Background_Process {
 		parent::complete();
 	}
 }
-
-/* Registreer het background process */
-add_action( 'plugins_loaded', function() {
-	$parent_nodes = [
-		'workcamps' =>  [ 'title' => __( 'Groepsprojecten', 'siw' ) ],
-	];
-	$node = [ 'parent' => 'workcamps', 'title' => __( 'Bijwerken taxonomiën', 'siw' ) ];
-	siw_register_background_process( 'SIW_Update_Taxonomies', 'update_taxonomies', $node, $parent_nodes, true );
-} );

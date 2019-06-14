@@ -7,11 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om oude Groepsprojecten te verwijderen
  * 
- * @package SIW\Background-Process
- * @author Maarten Bruna
- * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
+ * @package   SIW\Batch-Jobs
+ * @author    Maarten Bruna
+ * @copyright 2017-2019 SIW Internationale Vrijwilligersprojecten
  */
-class SIW_Delete_Workcamps extends SIW_Background_Process {
+class SIW_Batch_Job_Delete_Workcamps extends SIW_Batch_Job {
 
 	/**
 	 * Aantal maanden voordat Groepsproject verwijderd wordt.
@@ -19,14 +19,19 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 	const MAX_AGE_WORKCAMP_IN_MONTHS = 6;
 
 	/**
-	 * @access protected
+	 * {@inheritDoc}
 	 */
-	protected $action = 'delete_workcamps_process';
+	protected $action = 'delete_workcamps';
 
 	/**
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $name = 'verwijderen groepsprojecten';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $category = 'groepsprojecten';
 
 	/**
 	 * Selecteer Groepsprojecten die meer dan 6 maanden geleden zijn begonnen
@@ -92,12 +97,3 @@ class SIW_Delete_Workcamps extends SIW_Background_Process {
 		return false;
 	}
 }
-
-/* Registreer het background process */
-add_action( 'plugins_loaded', function() {
-	$parent_nodes = [
-		'workcamps' => [ 'title' => __( 'Groepsprojecten', 'siw' ) ],
-	];
-	$node = [ 'parent' => 'workcamps', 'title' => __( 'Verwijderen oude projecten', 'siw' ) ];
-	siw_register_background_process( 'SIW_Delete_Workcamps', 'delete_workcamps', $node, $parent_nodes, true );
-} );

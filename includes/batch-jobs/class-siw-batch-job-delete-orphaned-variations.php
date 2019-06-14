@@ -11,17 +11,27 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author Maarten Bruna
  * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
  */
-class SIW_Delete_Orphaned_Variations extends SIW_Background_Process {
+class SIW_Batch_Job_Delete_Orphaned_Variations extends SIW_Batch_Job {
 
 	/**
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $action = 'delete_orphaned_variations';
 
 	/**
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $name = 'verwijderen verweesde variaties';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $category = 'groepsprojecten';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $schedule_job = false;
 
 	/**
 	 * Selecteer alle verweesde variaties
@@ -70,12 +80,4 @@ class SIW_Delete_Orphaned_Variations extends SIW_Background_Process {
 
 		return false;
 	}
-
 }
-
-/* Registreer het background process */
-add_action( 'plugins_loaded', function() {
-	$parent_nodes = [ 'workcamps' => [ 'title' => __( 'Groepsprojecten', 'siw' ) ] ];
-	$node = [ 'parent' => 'workcamps', 'title' => __( 'Verwijderen verweesde variaties', 'siw' ) ];
-	siw_register_background_process( 'SIW_Delete_Orphaned_Variations', 'delete_orphaned_variations', $node, $parent_nodes, false );
-} );

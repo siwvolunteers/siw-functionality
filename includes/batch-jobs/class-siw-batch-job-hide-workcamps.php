@@ -7,31 +7,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om Groepsprojecten te verbergen
  * 
- * @package SIW\Background-Process
- * @author Maarten Bruna
- * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
+ * @package   SIW\Batch-Jobs
+ * @author    Maarten Bruna
+ * @copyright 2017-2019 SIW Internationale Vrijwilligersprojecten
  */
-class SIW_Hide_Workcamps extends SIW_Background_Process {
+class SIW_Batch_Job_Hide_Workcamps extends SIW_Batch_Job {
 
 	/**
-	 * @var string
+	 * {@inheritDoc}
 	 */
-	protected $action = 'hide_workcamps_process';
+	protected $action = 'hide_workcamps';
 
 	/**
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $name = 'verbergen groepsprojecten';
 
 	/**
+	 * {@inheritDoc}
+	 */
+	protected $category = 'groepsprojecten';
+
+	/**
 	 * Groepsprojecten selecteren die aan 1 of meer van onderstaande voorwaarden voldoen:
 	 *
-	 * - Het project begint binnen 7 dagen
+	 * - Het project begint binnen 3 dagen
 	 * - Het project is in een niet-toegestaan land
 	 * - Er zijn geen vrije plaatsen meer
 	 *
 	 * @todo configuratieconstante voor aantal dagen
 	 * @todo wc_get_products gebruiken
+	 * @todo loopen over alle producten zodat projecten ook weer zichtbaar kunnen worden
 	 * @return array
 	 */
 	protected function select_data() {
@@ -101,10 +107,3 @@ class SIW_Hide_Workcamps extends SIW_Background_Process {
 		return false;
 	}
 }
-
-/* Registreer het background process */
-add_action( 'plugins_loaded', function() {
-	$parent_nodes = [ 'workcamps' => [ 'title' => __( 'Groepsprojecten', 'siw' ) ] ];
-	$node = [ 'parent' => 'workcamps', 'title' => __( 'Verbergen projecten', 'siw' ) ];
-	siw_register_background_process( 'SIW_Hide_Workcamps', 'hide_workcamps', $node, $parent_nodes, true );
-} );

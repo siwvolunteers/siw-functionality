@@ -7,12 +7,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om vrije plaatsen van Groepsprojecten bij te werken
  * 
- * @package   SIW\Background-Process
+ * @package   SIW\Batch-Jobs
  * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @uses      SIW_Plato_Import_FPL
  */
-class SIW_Update_Free_Places extends SIW_Background_Process {
+class SIW_Batch_Job_Update_Free_Places extends SIW_Batch_Job {
 
 	/**
 	 * {@inheritDoc}
@@ -22,7 +22,17 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'bijwerken vrije plaatsen';		
+	protected $name = 'bijwerken vrije plaatsen';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $category = 'plato';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $schedule_job = false;
 
 	/**
 	 * Bepaalt of er nog vrije plaatsen op het project zijn
@@ -86,10 +96,3 @@ class SIW_Update_Free_Places extends SIW_Background_Process {
 		return false;
 	}
 }
-
-/* Registreer het background process */
-add_action( 'plugins_loaded', function() {
-	$parent_nodes = [ 'plato' =>  [ 'title' => __( 'Plato', 'siw' ) ] ];
-	$node = [ 'parent' => 'plato', 'title' => __( 'Bijwerken vrije plaatsen', 'siw' ) ];
-	siw_register_background_process( 'SIW_Update_Free_Places', 'update_free_places', $node, $parent_nodes, false );
-} );

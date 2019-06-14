@@ -7,21 +7,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Proces om aantal zichtbare groepsprojecten per term te tellen
  * 
- * @package SIW\Background-Process
- * @author Maarten Bruna
- * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
+ * @package   SIW\Batch-Jobs
+ * @author    Maarten Bruna
+ * @copyright 2017-2019 SIW Internationale Vrijwilligersprojecten
  */
-class SIW_Count_Workcamps extends SIW_Background_Process {
+class SIW_Batch_Job_Count_Workcamps extends SIW_Batch_Job {
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $action = 'count_workcamps_process';
+	protected $action = 'count_workcamps';
 
 	/**
 	 * {@inheritDoc}
 	 */
 	protected $name = 'tellen groepsprojecten';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $category = 'groepsprojecten';
 
 	/**
 	 * Selecteer alle terms van de relevante taxonomieën
@@ -78,10 +83,3 @@ class SIW_Count_Workcamps extends SIW_Background_Process {
 		return false;
 	}
 }
-
-/* Registreer het background process */
-add_action( 'plugins_loaded', function() {
-	$parent_nodes = [ 'workcamps' =>  [ 'title' => __( 'Groepsprojecten', 'siw' ) ]	];
-	$node = [ 'parent' => 'workcamps', 'title' => __( 'Tellen projecten', 'siw' ) ];
-	siw_register_background_process( 'SIW_Count_Workcamps', 'count_workcamps', $node, $parent_nodes, true );
-} );
