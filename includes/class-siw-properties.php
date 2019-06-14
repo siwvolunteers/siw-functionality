@@ -263,6 +263,20 @@ class SIW_Properties {
 	const TAILOR_MADE_FEE_REGULAR = 399;
 
 	/**
+	 * Inschrijfgeld Op Maat (student) - korting
+	 *
+	 * @var int
+	 */
+	const TAILOR_MADE_FEE_STUDENT_SALE = 324;
+
+	/**
+	 * Inschrijfgeld Op Maat (regulier) - korting
+	 *
+	 * @var int
+	 */
+	const TAILOR_MADE_FEE_REGULAR_SALE = 374;
+
+	/**
 	 * ESC borg
 	 *
 	 * @var int
