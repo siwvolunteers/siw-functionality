@@ -193,7 +193,7 @@ class SIW_Module_Topbar {
 		}
 
 		$sale_tariff = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE );
-		$end_date = SIW_Formatting::format_date( siw_get_option( 'workcamp_sale_end_date' ), false );
+		$end_date = SIW_Formatting::format_date( siw_get_option( 'workcamp_sale' )['end_date'], false );
 	
 		$sale_content = [
 			'intro'     => __( 'Grijp je kans en ontvang korting!',  'siw' ),
