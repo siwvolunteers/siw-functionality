@@ -36,6 +36,9 @@ class SIW_Compat_YITH_WCAN {
 		/* YITH premium nags verwijderen */
 		add_filter( 'yit_plugin_panel_menu_page_show', '__return_false' );
 		add_filter( 'yit_show_upgrade_to_premium_version', '__return_false' );
+
+		/* Inline script toevoegen */
+		add_action( 'wp_enqueue_scripts', [ $self, 'add_scroll_script' ], PHP_INT_MAX );
 	}
 
 	/**
@@ -80,5 +83,16 @@ class SIW_Compat_YITH_WCAN {
 		} );
 
 		return $terms;
+	}
+
+	/**
+	 * Voegt scroll script toe
+	 */
+	public function add_scroll_script() {
+		$inline_script = "
+		$( document ).on( 'yith-wcan-ajax-filtered', function() {
+			$( document ).scrollTo( $( '.kad-shop-top' ), 800 );
+		});";
+		wp_add_inline_script( 'yith-wcan-script', "(function( $ ) {" . $inline_script . "})( jQuery );" );//TODO:format-functie voor anonymous jQuery
 	}
 }

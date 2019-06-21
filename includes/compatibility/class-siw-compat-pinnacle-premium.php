@@ -44,6 +44,10 @@ class SIW_Compat_Pinnacle_Premium {
 		add_filter( 'theme_page_templates', [ $self, 'add_page_templates'], 10, 4 );
 		add_filter( 'page_template', [ $self, 'set_page_templates'], 10, 3 );
 
+		/* Inline script toevoegen */
+		add_action( 'wp_enqueue_scripts', [ $self, 'add_inline_script' ], PHP_INT_MAX );
+
+
 		$self->set_permalink_slugs();
 		$self->set_capabilities();
 	}
@@ -369,5 +373,31 @@ class SIW_Compat_Pinnacle_Premium {
 			$template = SIW_TEMPLATES_DIR . '/template-vacatures-grid.php';
 		}
 		return $template;
+	}
+
+	/**
+	 * Voegt scroll script toe
+	 */
+	public function add_inline_script() {
+		$inline_script = "
+		$( document ).ready(function() {
+
+			//Cart laten verdwijnen als je ergens anders op het scherm klikt
+			$( document ).on( 'click', function() {
+				$( '.kad-head-cart-popup.in' ).collapse( 'hide' );
+			});
+	
+			$( '.accordion-toggle' ).each(function() {
+				$( this ).removeAttr( 'data-parent' );
+			});
+	
+			//Winkelwagen verbergen indien er geen projecten in zitten
+			if ( Cookies.get( 'woocommerce_items_in_cart' ) > 0 ) {
+				$( 'li.menu-cart-icon-kt' ).show();
+			}else {
+				$( 'li.menu-cart-icon-kt' ).hide();
+			}
+		});";
+		wp_add_inline_script( 'pinnacle_main', "(function( $ ) {" . $inline_script . "})( jQuery );" );//TODO:format-functie voor anonymous jQuery
 	}
 }
