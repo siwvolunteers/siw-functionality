@@ -376,28 +376,16 @@ class SIW_Compat_Pinnacle_Premium {
 	}
 
 	/**
-	 * Voegt scroll script toe
+	 * Voegt diverse inline script toe
 	 */
 	public function add_inline_script() {
 		$inline_script = "
 		$( document ).ready(function() {
-
-			//Cart laten verdwijnen als je ergens anders op het scherm klikt
-			$( document ).on( 'click', function() {
-				$( '.kad-head-cart-popup.in' ).collapse( 'hide' );
-			});
-	
 			$( '.accordion-toggle' ).each(function() {
 				$( this ).removeAttr( 'data-parent' );
 			});
-	
-			//Winkelwagen verbergen indien er geen projecten in zitten
-			if ( Cookies.get( 'woocommerce_items_in_cart' ) > 0 ) {
-				$( 'li.menu-cart-icon-kt' ).show();
-			}else {
-				$( 'li.menu-cart-icon-kt' ).hide();
-			}
-		});";
+		});
+		";
 		wp_add_inline_script( 'pinnacle_main', "(function( $ ) {" . $inline_script . "})( jQuery );" );//TODO:format-functie voor anonymous jQuery
 	}
 }
