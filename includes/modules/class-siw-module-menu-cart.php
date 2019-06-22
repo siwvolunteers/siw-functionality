@@ -56,10 +56,10 @@ class SIW_Module_Menu_Cart {
 		$cart_count = WC()->cart->get_cart_contents_count();
 		ob_start();
 		?>
-		<a class="cart-contents" href="<?php echo wc_get_cart_url(); ?>" title="<?php esc_attr_e( 'Winkelmand', 'siw') ?>">
+		<a class="siw-cart" href="<?php echo wc_get_cart_url(); ?>" title="<?php esc_attr_e( 'Winkelmand', 'siw') ?>">
 			<span class="hidden-sm hidden-md hidden-lg"><?php esc_html_e( 'Je winkelmand', 'siw' );?></span>
 			<i class="siw-icon-suitcase"></i>
-			<span class="cart-contents-count"><?php echo $cart_count; ?></span>
+			<span class="siw-cart-count"><?php echo $cart_count; ?></span>
 		</a>
 		<?php
 		return ob_get_clean();
@@ -72,7 +72,8 @@ class SIW_Module_Menu_Cart {
 	 * @return array
 	 */
 	public function update_cart( array $fragments ) {
-		$fragments['a.cart-contents'] = $this->render_cart();
+		$cart_count = WC()->cart->get_cart_contents_count();
+		$fragments['span.siw-cart-count'] = '<span class="siw-cart-count">' . $cart_count . '</span>';
 		return $fragments;
 	}
 
