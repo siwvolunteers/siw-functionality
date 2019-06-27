@@ -379,7 +379,7 @@ class SIW_Properties {
 	 *
 	 * @var string
 	 */
-	const PLATO_WEBSERVICE_URL = 'https://www.workcamp-plato.org/files/services/ExternalSynchronization.asmx/';
+	const PLATO_WEBSERVICE_URL = 'https://workcamp-plato.org/files/services/ExternalSynchronization.asmx/';
 
 	/**
 	 * BuZa-reisadvies base-url
