@@ -63,6 +63,11 @@ class SIW_Module_Social_Share {
 							'data-placement'      => 'bottom',
 							'data-original-title' => $network->get_name(),
 							'target'              => '_blank',
+							'data-ga-track'       => 1,
+							'data-ga-type'        => 'social',
+							'data-ga-category'    => $network->get_name(),
+							'data-ga-action'      => 'Delen',
+							'data-ga-label'       => $url,
 						],
 						$network->get_icon_class()
 					);

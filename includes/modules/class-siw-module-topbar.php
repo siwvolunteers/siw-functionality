@@ -67,7 +67,21 @@ class SIW_Module_Topbar {
 					<div class="col-md-12">
 						<div id="topbar-content">
 							<span class="hidden-xs hidden-sm"><?php echo esc_html( $this->content['intro'] );?>&nbsp;</span>
-							<?= SIW_Formatting::generate_link( $this->content['link_url'], $this->content['link_text'], [ 'id' => 'topbar_link', 'target' => $target ] ); ?>
+							<?php
+								echo SIW_Formatting::generate_link(
+									$this->content['link_url'],
+									$this->content['link_text'],
+									[
+										'id'               => 'topbar_link',
+										'target'           => $target,
+										'data-ga-track'    => 1,
+										'data-ga-type'     => 'event',
+										'data-ga-category' => 'Topbar',
+										'data-ga-action'   => 'Klikken',
+										'data-ga-label'    => $this->content['link_url'],
+									]
+								);
+							?>
 						</div>
 					</div>
 				</div>

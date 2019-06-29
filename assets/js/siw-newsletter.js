@@ -1,10 +1,9 @@
 /** global: siw_newsletter */
 
 /**
- * @file Functies t.b.v. de nieuwsbrief signup
- * @author Maarten Bruna 
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
- * @requires 
+ * @file      Functies t.b.v. de nieuwsbrief signup
+ * @author    Maarten Bruna 
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  */
 
 
@@ -49,7 +48,9 @@ function siwNewsletterSubscribeFromForm( selector ) {
 			jQuery( selector + ' .loading' ).addClass( 'hidden' );
 			jQuery( selector + ' .message' ).removeClass( 'hidden' ).text( response.message );
 			if ( true === response.success ) {
-				siwGa( 'event', 'Nieuwsbrief', 'Aanmelden' );
+				if ( 'function' == typeof ga ) {
+					ga( 'send', 'event', 'Nieuwsbrief', 'Aanmelden' );
+				}
 			}
 		}).fail( function() {
 			//TODO

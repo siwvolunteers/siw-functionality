@@ -303,7 +303,19 @@ class SIW_Shortcodes {
 		foreach ( $annual_reports as $report ) {
 			$url = wp_get_attachment_url( $report['file'][0] );
 			$text = sprintf( esc_html__( 'Jaarverslag %s', 'siw' ), $report['year'] );
-			$reports[ $report['year'] ] = SIW_Formatting::generate_link( $url, $text, [ 'class' => 'siw-download', 'target' => '_blank', 'rel' => 'noopener' ] );
+			$reports[ $report['year'] ] = SIW_Formatting::generate_link(
+				$url,
+				$text,
+				[
+					'target'           => '_blank',
+					'rel'              => 'noopener',
+					'data-ga-track'    => 1,
+					'data-ga-type'     => 'event',
+					'data-ga-category' => 'Document',
+					'data-ga-action'   => 'Downloaden',
+					'data-ga-label'    => $url,
+				]
+				);
 		}
 		krsort( $reports );
 		return SIW_Formatting::array_to_text( $reports, BR );

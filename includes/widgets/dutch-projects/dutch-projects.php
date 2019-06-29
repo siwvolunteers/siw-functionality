@@ -104,6 +104,7 @@ class SIW_Widget_Dutch_Projects extends SIW_Widget {
 	 * @return string
 	 * 
 	 * @todo check of programmaboekje van huidige jaar is
+	 * @todo function generate_document_link maken
 	 */
 	protected function get_booklet_link() {
 		$booklets = siw_get_option( 'dutch_projects_booklet');
@@ -114,7 +115,15 @@ class SIW_Widget_Dutch_Projects extends SIW_Widget {
 			$booklet_link = SIW_Formatting::generate_link(
 				$booklet['url'],
 				sprintf( __( 'Engelstalige programmaboekje %d (PDF)', 'siw' ), $booklet_year ),
-				[ 'class' => 'siw-download', 'target' => '_blank', 'rel' => 'noopener' ]
+				[
+					'target'           => '_blank',
+					'rel'              => 'noopener',
+					'data-ga-track'    => 1,
+					'data-ga-type'     => 'event',
+					'data-ga-category' => 'Document',
+					'data-ga-action'   => 'Downloaden',
+					'data-ga-label'    => $url,
+					]
 			);
 			$booklet_link = sprintf( __( 'Wil jij meer lezen over onze Nederlandse vrijwilligersprojecten, download dan ons %s.', 'siw' ),  $booklet_link );
 		}

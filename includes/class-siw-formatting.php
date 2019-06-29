@@ -318,7 +318,20 @@ class SIW_Formatting {
 	 * @return string
 	 */
 	public static function generate_external_link( $url, $text = false ) {
-		return self::generate_link( $url, $text . '&nbsp;', [ 'class' => 'siw-external-link', 'target' => '_blank', 'rel' => 'noopener'], 'siw-icon-external-link-alt' );
+		return self::generate_link(
+			$url,
+			$text . '&nbsp;',
+			[
+				'target'           => '_blank',
+				'rel'              => 'noopener',
+				'data-ga-track'    => 1,
+				'data-ga-type'     => 'event',
+				'data-ga-category' => 'Externe link',
+				'data-ga-action'   => 'Klikken',
+				'data-ga-label'    => $url,
+			],
+			'siw-icon-external-link-alt'
+		);
 	}
 
 	/**
