@@ -21,7 +21,6 @@ class SIW_Module_Social_Share {
 	public static function init() {
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles'] );
-		add_action( 'kadence_single_portfolio_after', [ $self, 'render' ] );
 		add_action( 'siw_vacature_footer', [ $self, 'render' ] );
 		add_action( 'siw_agenda_footer', [ $self, 'render' ] );
 		add_action( 'siw_tm_country_footer', [ $self, 'render' ] );
@@ -86,7 +85,6 @@ class SIW_Module_Social_Share {
 		$post_type = get_post_type();
 
 		switch( $post_type ) {
-			case 'portfolio':
 			case 'product':
 				$title = __( 'Deel dit project', 'siw' );
 				break;
@@ -116,9 +114,7 @@ class SIW_Module_Social_Share {
 	protected function needs_hr() {
 		$post_type = get_post_type();
 		switch( $post_type ) {
-			case 'portfolio':
 			case 'product':
-			case 'evs_project':
 				$needs_hr = true;
 				break;
 			default:

@@ -157,7 +157,6 @@ class SIW_Compat_The_SEO_Framework {
 			$excluded_cpt[] = 'wpm-testimonial';
 			$excluded_cpt[] = 'agenda';
 			$excluded_cpt[] = 'vacatures';
-			$excluded_cpt[] = 'portfolio';
 		}
 		return $excluded_cpt;
 	}

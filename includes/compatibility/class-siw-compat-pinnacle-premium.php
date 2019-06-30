@@ -24,6 +24,7 @@ class SIW_Compat_Pinnacle_Premium {
 		$self = new self();
 		add_filter( 'kad_lazy_load', [ $self, 'set_lazy_load' ] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'dequeue_scripts' ], PHP_INT_MAX );
+		add_action( 'wp_enqueue_scripts', [ $self, 'add_inline_script' ], PHP_INT_MAX );
 		add_filter( 'redux/pinnacle/field/typography/custom_fonts', [ $self, 'add_system_font' ] );
 		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
 		add_action( 'admin_init', [ $self, 'remove_user_fields' ] );
@@ -32,24 +33,15 @@ class SIW_Compat_Pinnacle_Premium {
 		add_action( 'admin_bar_menu', [ $self, 'hide_admin_bar_node' ], PHP_INT_MAX );
 		add_filter( 'siteorigin_panels_widget_dialog_tabs', [ $self, 'add_widget_tab'] );
 		add_filter( 'siteorigin_panels_widgets', [ $self, 'group_pinnacle_widgets' ] );
-		add_action( 'kadence_single_portfolio_value_after', [ $self, 'add_tailor_made_page_button' ] );
 		add_action( 'kt_header_overlay', [ $self, 'show_category_image_on_product_page'] );
 		add_filter( 'kadence_display_sidebar', [ $self, 'set_sitebar_visibility'] );
 		add_filter( 'kadence_sidebar_id', [ $self, 'set_sitebar_id' ] );
-		add_filter( 'the_seo_framework_supported_post_type', [ $self, 'add_portfolio_tsf_support' ], 10, 2 );
 		add_action( 'pinnale_breadcrumbs_after_home', [ $self, 'add_breadcrumbs' ] );
 		add_action( 'init', [ $self, 'remove_wc_sales_badge' ], PHP_INT_MAX );
 		add_shortcode( 'siw_footer', __CLASS__ . '::footer_shortcode' );
 
 		add_filter( 'theme_page_templates', [ $self, 'add_page_templates'], 10, 4 );
 		add_filter( 'page_template', [ $self, 'set_page_templates'], 10, 3 );
-
-		/* Inline script toevoegen */
-		add_action( 'wp_enqueue_scripts', [ $self, 'add_inline_script' ], PHP_INT_MAX );
-
-
-		$self->set_permalink_slugs();
-		$self->set_capabilities();
 	}
 
 	/**
@@ -129,33 +121,6 @@ class SIW_Compat_Pinnacle_Premium {
 	}
 
 	/**
-	 * Past permalinkbase aan voor Portfolio en Staff
-	 * 
-	 * - Portfolio type
-	 * - Portfolio tag
-	 * - Staff
-	 * - Staff group
-	 */
-	protected function set_permalink_slugs() {
-		add_filter( 'kadence_portfolio_type_slug', function() { return 'projecten-op-maat-in'; } );
-		add_filter( 'kadence_portfolio_tag_slug', function() { return 'projecten-op-maat-per-tag'; } );
-		add_filter( 'kadence_staff_post_slug', function() { return 'vrijwilligers'; } );
-		add_filter( 'kadence_staff_group_slug', function() { return 'vrijwilligers-per-groep'; } );
-	}
-
-	/**
-	 * Voegt custom capabilities toe voor Pinnacle Premium CPT's
-	 */
-	protected function set_capabilities() {
-		add_filter( 'kadence_portfolio_capability_type', function() { return 'op_maat_project'; } );
-		add_filter( 'kadence_portfolio_map_meta_cap', '__return_true' );
-		add_filter( 'kadence_testimonial_capability_type', function() { return 'quote'; } );
-		add_filter( 'kadence_testimonial_map_meta_cap', '__return_true' );
-		add_filter( 'kadence_staff_capability_type', function() { return 'volunteer'; } );
-		add_filter( 'kadence_staff_map_meta_cap', '__return_true' );
-	}
-
-	/**
 	 * Verbergt Admin Bar node
 	 */
 	public function hide_admin_bar_node( $wp_admin_bar ) {
@@ -189,14 +154,6 @@ class SIW_Compat_Pinnacle_Premium {
 			}
 		}
 		return $widgets;
-	}
-
-	/**
-	 * Toont knop met uitleg over Op Maat bij elk project
-	 */
-	public function add_tailor_made_page_button() {
-		$tailor_made_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
-		echo SIW_Formatting::generate_link( $tailor_made_page_link, __( 'Alles over Projecten Op Maat', 'siw' ), [ 'class' => 'kad-btn kad-btn-primary' ] );	
 	}
 
 	/**
@@ -257,21 +214,6 @@ class SIW_Compat_Pinnacle_Premium {
 	}
 
 	/**
-	 * Voegt TSF support toe voor Op Maat projecten
-	 *
-	 * @param string $post_type
-	 * @param string $post_type_evaluated
-	 * @return string
-	 */
-	public function add_portfolio_tsf_support( $post_type, $post_type_evaluated ) {
-		if ( 'portfolio' === $post_type_evaluated ) {
-			return $post_type_evaluated;
-		}
-	
-		return $post_type;
-	}
-
-	/**
 	 * Voegt breadcrumbs toe voor
 	 * 
 	 * - Evenementen
@@ -316,7 +258,6 @@ class SIW_Compat_Pinnacle_Premium {
 	
 		/* Overzichtspagina */
 		printf( $breadcrumb, get_page_link( $parent ), get_the_title( $parent ), $delimiter );
-	
 	}
 
 	/**
