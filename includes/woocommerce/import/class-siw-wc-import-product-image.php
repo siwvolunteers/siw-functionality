@@ -146,6 +146,8 @@ class SIW_WC_Import_Product_Image {
 			'post_status'    => 'inherit'
 		], $file );
 
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+
 		wp_update_attachment_metadata(
 			$image_id,
 			wp_generate_attachment_metadata( $image_id, $file )
