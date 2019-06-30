@@ -166,7 +166,7 @@ class SIW_WC_Import_Product {
 			'sold_individually'  => true,
 			'virtual'            => true,
 			'status'             => $this->get_status(),
-			//'image_id'           => $this->get_image_id(),
+			'image_id'           => $this->get_image_id(),
 
 		]);
 		foreach ( $this->get_meta_data() as $key => $value ) {
@@ -682,34 +682,32 @@ class SIW_WC_Import_Product {
 	 * Geeft id van featured afbeelding terug
 	 * 
 	 * @return int
-	 * 
-	 * @todo aparte class voor maken
 	 */
 	protected function get_image_id() {
-		
-		return 0;
+		$product_image = new SIW_WC_Import_Product_Image( $this->country, $this->work_types );
+		return $product_image->get_image_id();
 	}
 
 	/**
 	 * Geeft aan of project bijgewerkt moet worden
 	 * 
-	 * - Als Plato-data veranderd is
 	 * - Als dit bij het project is aangegeven
+	 * - Als Plato-data veranderd is
 	 * - Bij geforceerde volledige update
 	 *
 	 * @return bool
 	 */
 	protected function should_be_updated() {
 		$should_be_updated = false;
-		if ( ( (array) $this->xml ) != $this->product->get_meta( 'xml' ) ) {
-			$should_be_updated = true;
-		}
+
 		if ( true == $this->product->get_meta( 'import_again' ) ) {
 			$should_be_updated = true;
 			$this->product->update_meta_data( 'import_again', false );
 		}
-
-		if ( true == siw_get_option( 'plato_force_full_update' ) ) {
+		elseif ( ( (array) $this->xml ) != $this->product->get_meta( 'xml' ) ) {
+			$should_be_updated = true;
+		}
+		elseif ( true == siw_get_option( 'plato_force_full_update' ) ) {
 			$should_be_updated = true;
 		}
 
