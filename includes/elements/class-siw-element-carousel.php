@@ -16,7 +16,7 @@ class SIW_Element_Carousel {
 	/**
 	 * Versienummer 
 	 */
-	const FLICKITY_VERSION = '2.2.0';
+	const FLICKITY_VERSION = '2.2.1';
 
 	/**
 	 * Post type
