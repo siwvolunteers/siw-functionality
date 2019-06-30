@@ -19,6 +19,7 @@ add_action( 'plugins_loaded', ['SIW_WC_Email_Customer_Processing_Order', 'init']
 
 /* Import-functies */
 require_once( __DIR__ . '/import/class-siw-wc-import-product.php');
+require_once( __DIR__ . '/import/class-siw-wc-import-product-image.php');
 require_once( __DIR__ . '/import/data-descriptions.php' );
 
 
