@@ -138,7 +138,7 @@ class SIW_WC_Import_Product_Image {
 		$file = $this->base_dir . $path;
 		$url = $this->base_url . $path;
 		
-			$image_id = wp_insert_attachment( [
+		$image_id = wp_insert_attachment( [
 			'guid'           => $url, 
 			'post_mime_type' => wp_get_image_mime( $file ),
 			'post_title'     => 'Projectfoto',
