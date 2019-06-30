@@ -69,8 +69,8 @@ class SIW_WC_Import_Product_Image {
 		$this->work_types = $work_types;
 		
 		$upload_dir = wp_upload_dir( null, false );
-		$this->base_dir = $upload_dir['basedir'] . $subdir;
-		$this->base_url = $upload_dir['baseurl'] . $subdir;
+		$this->base_dir = $upload_dir['basedir'] . $this->subdir;
+		$this->base_url = $upload_dir['baseurl'] . $this->subdir;
 	}
 
 	/**
