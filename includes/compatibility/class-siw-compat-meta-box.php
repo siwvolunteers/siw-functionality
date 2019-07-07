@@ -17,13 +17,12 @@ class SIW_Compat_Meta_Box {
 	 * Init
 	 */
 	public static function init() {
-		if ( ! class_exists( 'MB_AIO_Loader' ) ) {
+		if ( ! class_exists( 'MBAIO\Loader' ) ) {
 			return;
 		}
 		$self = new self();
 		add_filter( 'mb_aio_extensions', [ $self, 'select_extensions'] );
 		add_filter( 'mb_aio_show_settings', '__return_false' );
-		add_filter( 'mb_aio_load_free_extensions', '__return_false' );
 		add_action( 'admin_init', [ $self, 'remove_dashboard_widget' ] );
 	}
 
@@ -39,6 +38,7 @@ class SIW_Compat_Meta_Box {
 			'mb-settings-page',
 			'meta-box-columns',
 			'meta-box-conditional-logic',
+			'meta-box-geolocation',
 			'meta-box-group',
 			'meta-box-include-exclude',
 			'meta-box-tabs',
