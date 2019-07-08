@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once( __DIR__ . '/class-siw-continent.php' );
-require_once( __DIR__ . '/data.php' );
 
 /**
  * Haal gegevens van continenten op
@@ -21,13 +20,8 @@ require_once( __DIR__ . '/data.php' );
  */
 function siw_get_continents() { 
 
-	$data = [];
-	/**
-	 * Array met gegevens van het continent
-	 *
-	 * @param array $data Gegevens van het continent {slug|name|color}
-	 */
-	$data = apply_filters( 'siw_continent_data', $data );
+	$data = require SIW_DATA_DIR . '/continents.php';
+
 	$continents = [];
 	foreach ( $data as $continent ) {
 		$continents[ $continent['slug'] ] = new SIW_Continent( $continent );

@@ -12,8 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once( __DIR__ . '/class-siw-social-network.php' );
-require_once( __DIR__ . '/data.php' );
-
 
 /**
  * Geeft een array van sociale netwerken terug
@@ -23,13 +21,7 @@ require_once( __DIR__ . '/data.php' );
  */
 function siw_get_social_networks( $context = 'all' ) {
 
-	$data = [];
-	/**
-	 * Gegevens van sociale netwerken
-	 *
-	 * @param array $data Gegevens van social netwerk {slug|name|follow|follow_url|share|share_url}
-	 */
-	$data = apply_filters( 'siw_social_network_data', $data );
+	$data = require SIW_DATA_DIR . '/social-networks.php';
 
 	$social_networks = [];
 	foreach ( $data as $item ) {

@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once( __DIR__ . '/class-siw-work-type.php' );
-require_once( __DIR__ . '/data.php' );
 
 /**
  * Geeft een array met soort werk voor projecten terug
@@ -23,14 +22,8 @@ require_once( __DIR__ . '/data.php' );
  */
 function siw_get_work_types( $context = 'all', $index = 'slug' ) {
 
-	$data = [];
 
-	/**
-	 * Gegevens van soorten werk
-	 *
-	 * @param array $data Eigenschappen van soort werk {slug|plato|name|dutch_projects|tailor_made_projects}
-	 */
-	$data = apply_filters( 'siw_work_types_data', $data );
+	$data = require SIW_DATA_DIR . '/work-types.php';
 
 	foreach ( $data as $item ) {
 		$work_type = new SIW_Work_Type( $item );

@@ -8,7 +8,6 @@
  */
 
 require_once( __DIR__ . '/class-siw-language.php' );
-require_once( __DIR__ . '/data.php' );
 
 /**
  * Geeft array met gegevens van talen terug
@@ -19,16 +18,9 @@ require_once( __DIR__ . '/data.php' );
  */
 function siw_get_languages( $context = 'all', $index = 'slug' ) {
 
-	$data = [];
-	/**
-	 * Gegevens van talen
-	 * 
-	 * @param $data Eigenschappen van taal {slug|name|plato|volunteer|project}
-	 */
-	$data = apply_filters( 'siw_language_data', $data );
+	$data = require SIW_DATA_DIR . '/languages.php';
 
 	foreach ( $data as $item ) {
-
 		$language = new SIW_Language( $item );
 		if ( 'all' == $context 
 			|| ( 'volunteer' == $context && true == $language->is_volunteer_language() )
