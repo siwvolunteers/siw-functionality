@@ -74,14 +74,11 @@ class SIW_htaccess {
 			'value'   => 'mod_headers.c',
 			'lines'   => [
 				'Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS',
-				'Header always set X-XSS-Protection "1; mode=block; report='. $this->generate_report_uri( 'xss', true ) . '"',
+				'Header always set X-XSS-Protection "1; mode=block"',
 				'Header always append X-Frame-Options SAMEORIGIN',
 				'Header always set X-Content-Type-Options nosniff',
 				'Header always set Referrer-Policy no-referrer-when-downgrade',
 				'Header unset X-Powered-By',
-				'Header always set Expect-CT "max-age=0; report-uri='. $this->generate_report_uri( 'ct', false ) . '"',
-				'Header always set Report-To: {"group":"default","max_age":31536000,"endpoints":[{"url":"' . $this->generate_report_uri( 'report-to' ) . '"}],"include_subdomains":false}',
-				'Header always set NEL: {"report_to":"default","max_age":31536000,"include_subdomains":false}',
 			],
 		];
 
@@ -316,29 +313,4 @@ class SIW_htaccess {
 		return $formatted_rules;
 	}
 
-	/**
-	 * Genereert report-uri
-	 *
-	 * @param string $type
-	 * @param boolean $enforce
-	 * @return string
-	 */
-	protected function generate_report_uri( $type, $enforce = true ) {
-		if ( 'report-to' == $type ) {
-			return SIW_Properties::REPORT_URI . 'a/d/g';
-		}
-
-		$types = [ 
-			'csp',
-			'ct',
-			'xss',
-			'staple',
-		];
-		if( ! in_array( $type, $types ) ) {
-			return false;
-		}
-		$action = ( $enforce ) ? 'enforce' : 'reportOnly';
-		$report_uri = SIW_Properties::REPORT_URI . 'r/d/' . $type .'/' . $action;
-		return $report_uri;
-	}
 }

@@ -396,13 +396,6 @@ class SIW_Properties {
 	const EXCHANGE_RATES_API_URL = 'https://data.fixer.io/api/latest';
 
 	/**
-	 * Report-URI
-	 *
-	 * @var string
-	 */
-	const REPORT_URI = 'https://siwvolunteers.report-uri.com/';
-
-	/**
 	 * Geeft waarde van property terug
 	 *
 	 * @param string $property
