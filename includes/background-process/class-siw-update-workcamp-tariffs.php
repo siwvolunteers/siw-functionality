@@ -86,7 +86,7 @@ class SIW_Update_Workcamp_Tariffs extends SIW_Background_Process {
 				'sale_price'        => $sale ? $sale_price : null,
 				'price'             => $sale ? $sale_price : $regular_price,
 				'date_on_sale_from' => $sale ? date( DATE_ISO8601, strtotime( $workcamp_sale['start_date'] ) ) : null,
-				'date_on_sale_to'   => $sale ? date( DATE_ISO8601, strtotime( $workcamp_sale['end_date']) ) ) : null,
+				'date_on_sale_to'   => $sale ? date( DATE_ISO8601, strtotime( $workcamp_sale['end_date'] ) ) : null,
 			]);
 			$variation->save();
 		}
