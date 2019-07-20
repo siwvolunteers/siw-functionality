@@ -608,6 +608,7 @@ class SIW_WC_Import_Product {
 		}
 
 		$sale = SIW_Util::is_workcamp_sale_active();
+		$workcamp_sale = $workcamp_sale = siw_get_option( 'workcamp_sale' );
 
 		/* Maak nieuwe variaties aan indien nodig */
 		foreach ( $tariffs as $slug => $tariff ) {
@@ -619,8 +620,8 @@ class SIW_WC_Import_Product {
 				'regular_price'     => $tariff['regular_price'],
 				'sale_price'        => $sale ? $tariff['sale_price'] : null,
 				'price'             => $sale ? $tariff['sale_price'] : $tariff['regular_price'],
-				'date_on_sale_from' => $sale ? date( DATE_ISO8601, strtotime( siw_get_option( 'workcamp_sale_start_date' ) ) ) : null,
-				'date_on_sale_to'   => $sale ? date( DATE_ISO8601, strtotime( siw_get_option( 'workcamp_sale_end_date' ) ) ) : null,
+				'date_on_sale_from' => $sale ? date( DATE_ISO8601, strtotime( $workcamp_sale['start_date'] ) ) : null,
+				'date_on_sale_to'   => $sale ? date( DATE_ISO8601, strtotime( $workcamp_sale['end_date'] ) ) : null,
 			]);
 			$variation->save();
 		}

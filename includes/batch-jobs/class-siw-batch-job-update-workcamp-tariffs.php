@@ -63,6 +63,8 @@ class SIW_Batch_Job_Update_Workcamp_Tariffs extends SIW_Batch_Job {
 	
 		$tariffs = $this->get_tariffs();
 		$sale = SIW_Util::is_workcamp_sale_active();
+
+		$workcamp_sale = $workcamp_sale = siw_get_option( 'workcamp_sale' );
 		$variations = $product->get_children();
 
 		$updated = false;
@@ -79,8 +81,8 @@ class SIW_Batch_Job_Update_Workcamp_Tariffs extends SIW_Batch_Job {
 				'regular_price'     => $regular_price,
 				'sale_price'        => $sale ? $sale_price : null,
 				'price'             => $sale ? $sale_price : $regular_price,
-				'date_on_sale_from' => $sale ? date( DATE_ISO8601, strtotime( siw_get_option( 'workcamp_sale_start_date' ) ) ) : null,
-				'date_on_sale_to'   => $sale ? date( DATE_ISO8601, strtotime( siw_get_option( 'workcamp_sale_end_date' ) ) ) : null,
+				'date_on_sale_from' => $sale ? date( DATE_ISO8601, strtotime( $workcamp_sale['start_date'] ) ) : null,
+				'date_on_sale_to'   => $sale ? date( DATE_ISO8601, strtotime( $workcamp_sale['end_date'] ) ) : null,
 			]);
 			if ( ! empty( $variation->get_changes() ) ) {
 				$variation->save();

@@ -8,7 +8,7 @@
 			<?php
 				$images = rwmb_meta( 'image', ['limit' => 1 ] );
 				$image = reset( $images );
-				echo wp_get_attachment_image( $image['ID'], ['300', '200'] ); ?>
+				echo wp_get_attachment_image( $image['ID'], ['300', '200'], false, [ 'data-no-lazy' => true ] ); ?>
 			<b><?php echo '<h5 class="entry-title" itemprop="name headline">';  the_title(); echo '</h5>'; ?></b>
 		</header>
 		<div class="entry-content" itemprop="description articleBody">
