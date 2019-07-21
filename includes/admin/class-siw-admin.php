@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Aanpassingen aan Admin
  * 
@@ -33,6 +29,9 @@ class SIW_Admin {
 		/* Admin bar niet tonen in frontend voor ingelogde gebruikers */
 		add_filter( 'show_admin_bar', '__return_false' );
 		remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
+
+		add_filter( 'manage_users_columns', [ $self, 'add_user_column_last_login' ] );
+		add_action( 'manage_users_custom_column', [ $self, 'set_user_column_last_login' ], 10, 3 );
 	}
 
 	/**
@@ -71,7 +70,7 @@ class SIW_Admin {
 	 * @param string $footer_text
 	 * @return string
 	 */
-	public function set_admin_footer_text( $footer_text ) {
+	public function set_admin_footer_text( string $footer_text ) {
 		$footer_text = sprintf( '&copy; %s %s', date( 'Y' ), SIW_Properties::NAME );
 		return $footer_text;
 	}
@@ -82,7 +81,7 @@ class SIW_Admin {
 	 * @param array $columns
 	 * @return array
 	 */
-	public function remove_pages_columns( $columns ) {
+	public function remove_pages_columns( array $columns ) {
 		unset( $columns['comments'] );
 		unset( $columns['author'] );
 		return $columns;
@@ -106,7 +105,7 @@ class SIW_Admin {
 	 * @param array $items
 	 * @return string
 	 */
-	protected function menu_search( $find, $items ) {
+	protected function menu_search( string $find, array $items ) {
 		foreach ( $items as $key => $value ) {
 			$current_key = $key;
 			if ( $find === $value || ( is_array( $value ) && $this->menu_search( $find, $value ) !== false ) ) {
@@ -136,5 +135,39 @@ class SIW_Admin {
 		if ( $kt ) {
 			$menu[ $kt ][6] ='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTZEaa/1AAAA+klEQVRIS+2SsQ7BUBSG27Bgl9jFILGJ3WgzeAlv4DXE0ERsVgw2D+Ad+gTewNDQ1nfqNKQJ7Y0Sw/2SP//Re85/3OJYLK+I47gahuEiiqKaPvoNLJ6hmOVzffR9uOUABbIYD9FIj8qF/IqWsrSBfF0qJrc+UTe1pTwIXaKJ1qt0oZDW+B5zk4EyILCLLioPPbZm4GgqM5T1ZPgTCNvcY/Oh94yNcR+1NMIchvv8fliUvFITMedpjBl8c5eAg97EWCwO8LbGFYehoQSYkO3n81rjisGM3PZouliQmSddUU9j86G5w6va5ok+0U78zXnyT7dYLBaL5d9xnBswdjMy+Bkh/AAAAABJRU5ErkJggg==';
 		}
+	}
+
+	/**
+	 * Voegt kolom met laatste login van een gebruiker toe
+	 *
+	 * @param array $columns
+	 * @return array
+	 */
+	public function add_user_column_last_login( array $columns ) {
+		$columns['lastlogin'] = __( 'Laatste login', 'siw' );
+		return $columns;
+	}
+
+	/**
+	 * Vult kolom met laatste login van een gebruiker
+	 *
+	 * @param string $value
+	 * @param string $column_name
+	 * @param int $user_id
+	 * @return string
+	 */
+	public function set_user_column_last_login( string $value, string $column_name, int $user_id ) {
+		if ( 'lastlogin' === $column_name ) {
+			$last_login = get_user_meta( $user_id, 'last_login', true );
+			if ( ! empty( $last_login ) ) {
+				$time = mysql2date( 'H:i', $last_login, false );
+				$date = SIW_Formatting::format_date( mysql2date( 'Y-m-d', $last_login, false ), true );
+				$value = $date . ' ' . $time;
+			}
+			else {
+				$value = __( 'Nog nooit ingelogd', 'siw' );
+			}
+		}
+		return $value;
 	}
 }

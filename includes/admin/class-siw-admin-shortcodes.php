@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Shortcodes in admin
  * 
@@ -17,8 +13,6 @@ class SIW_Admin_Shortcodes {
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 		$self = new self();
@@ -133,7 +127,7 @@ class SIW_Admin_Shortcodes {
 	 * @param string $shortcode
 	 * @param array $parameters
 	 */
-	public function add( $shortcode, $parameters ) {
+	public function add( string $shortcode, array $parameters ) {
 		add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) use( $shortcode, $parameters ) {
 			$parameters['title'] = '[SIW] - ' . $parameters['title'];
 			$pinnacle_shortcodes[ $shortcode ] = $parameters;

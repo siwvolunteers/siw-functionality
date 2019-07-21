@@ -1,14 +1,13 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Class om alle functionaliteit van de plugin te laden
  * 
  * @package   SIW
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
+ * 
+ * @uses      SIW_Autoloader
  */
 
 class SIW_Bootstrap {
@@ -27,11 +26,11 @@ class SIW_Bootstrap {
 		$this->load_compatibility();
 		$this->load_batch_jobs();
 
-		//if ( is_admin() ) {
-			$this->load_admin(); //TODO: conditioneel maken als login niet meer in admin zit
-		//}
+		if ( is_admin() ) {
+			$this->load_admin();
+		}
 
-		//do_action( 'siw_plugin_loaded' );
+		do_action( 'siw_plugin_loaded' );
 	}
 
 	/**
@@ -57,7 +56,7 @@ class SIW_Bootstrap {
 	 * Externe libraries laden
 	 */
 	protected function load_dependencies() {
-		require_once( SIW_PLUGIN_DIR . '/vendor/autoload.php' );
+		require_once SIW_PLUGIN_DIR . '/vendor/autoload.php';
 	}
 
 	/**
@@ -90,6 +89,7 @@ class SIW_Bootstrap {
 			'SIW_Icons',
 			'SIW_Head',
 			'SIW_htaccess',
+			'SIW_Login',
 			'SIW_Scheduler',
 			'SIW_Shortcodes',
 			'SIW_Upload_Dir',
@@ -130,7 +130,6 @@ class SIW_Bootstrap {
 			'SIW_Admin_Bar',
 			'SIW_Admin_Notices',
 			'SIW_Admin_Shortcodes',
-			'SIW_Admin_Login',
 			'SIW_Admin_Properties_Page',
 		]);
 	}

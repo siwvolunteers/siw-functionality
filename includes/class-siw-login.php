@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Aanpassingen aan login
  * 
@@ -11,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author    Maarten Bruna
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  */
-class SIW_Admin_Login {
+class SIW_Login {
 
 	/**
 	 * Init
@@ -24,8 +20,7 @@ class SIW_Admin_Login {
 		add_filter( 'login_message', [ $self, 'set_login_message' ] );
 		add_action( 'login_head', [ $self, 'remove_shake_js'] );
 		add_action( 'wp_login', [ $self, 'log_last_user_login'], 10, 2 );
-		add_filter( 'manage_users_columns', [ $self, 'add_user_column_last_login' ] );
-		add_action( 'manage_users_custom_column', [ $self, 'set_user_column_last_login' ], 10, 3 );
+
 	}
 
 	/**
@@ -42,7 +37,7 @@ class SIW_Admin_Login {
 	 * @param string $url
 	 * @return string
 	 */
-	public function set_login_headerurl( $url ) {
+	public function set_login_headerurl( string $url ) {
 		$url = SIW_SITE_URL;
 		return $url;
 	}
@@ -53,7 +48,7 @@ class SIW_Admin_Login {
 	 * @param string $title
 	 * @return string
 	 */
-	public function set_login_headertext( $title ) {
+	public function set_login_headertext( string $title ) {
 		$title = SIW_Properties::NAME;
 		return $title;
 	}
@@ -64,7 +59,7 @@ class SIW_Admin_Login {
 	 * @param string $message
 	 * @return string
 	 */
-	public function set_login_message ( $message ) {
+	public function set_login_message ( string $message ) {
 		if ( empty( $message ) ) {
 			$message = '<p class="message">' . esc_html__( 'Welkom bij SIW. Log in om verder te gaan.', 'siw' ) . '</p>';
 		}
@@ -84,41 +79,7 @@ class SIW_Admin_Login {
 	 * @param string $user_login
 	 * @param WP_User $user
 	 */
-	public function log_last_user_login( $user_login, $user ) {
+	public function log_last_user_login( string $user_login, WP_User $user ) {
 		update_user_meta( $user->ID, 'last_login', current_time( 'mysql' ) );
-	}
-
-	/**
-	 * Voegt kolom met laatste login van een gebruiker toe
-	 *
-	 * @param array $columns
-	 * @return array
-	 */
-	public function add_user_column_last_login( $columns ) {
-		$columns['lastlogin'] = __( 'Laatste login', 'siw' );
-		return $columns;
-	}
-
-	/**
-	 * Vult kolom met laatste login van een gebruiker
-	 *
-	 * @param string $value
-	 * @param string $column_name
-	 * @param int $user_id
-	 * @return string
-	 */
-	public function set_user_column_last_login( $value, $column_name, $user_id ) {
-		if ( 'lastlogin' == $column_name ) {
-			$last_login = get_user_meta( $user_id, 'last_login', true );
-			if ( ! empty( $last_login ) ) {
-				$time = mysql2date( 'H:i', $last_login, false );
-				$date = SIW_Formatting::format_date( mysql2date( 'Y-m-d', $last_login, false ), true );
-				$value = $date . ' ' . $time;
-			}
-			else {
-				$value = __( 'Nog nooit ingelogd', 'siw' );
-			}
-		}
-		return $value;	
 	}
 }

@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Admin notices
  * 
@@ -84,11 +80,7 @@ class SIW_Admin_Notices {
 	 * @param string $message
 	 * @param bool $dismissable
 	 */
-	public function add_notice( $type = false, $message = false, $dismissable = false ) {
-
-		if ( ! $type || ! $message ) {
-			return;
-		}
+	public function add_notice( string $type, string $message, bool $dismissable = false ) {
 
 		$type = in_array( $type, $this->types ) ? $type : 'info';
 		
@@ -123,7 +115,7 @@ class SIW_Admin_Notices {
 	 *
 	 * @param array $notices
 	 */
-	protected function set_notices( $notices ) {
+	protected function set_notices( array $notices ) {
 		set_transient( $this->transient_name, $notices, 60 );
 	}
 }
