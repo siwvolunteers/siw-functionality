@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Topbar
  * 
@@ -185,7 +181,7 @@ class SIW_Module_Topbar {
 	 * @return array
 	 */
 	protected function get_job_content() {
-		$job = siw_get_featured_job(); //TODO:setting van maken
+		$job = siw_get_featured_job();
 		if ( false == $job ) {
 			return false;
 		}

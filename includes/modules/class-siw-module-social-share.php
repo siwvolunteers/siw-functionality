@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Voegt share-links toe voor social netwerken
  *
@@ -52,6 +48,7 @@ class SIW_Module_Social_Share {
 				$networks = siw_get_social_networks('share');
 				$title = get_the_title();
 				$url = get_permalink();
+				
 				foreach ( $networks as $network ) {
 					echo SIW_Formatting::generate_link(
 						$network->generate_share_link( $url, $title ),

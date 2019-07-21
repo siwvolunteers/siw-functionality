@@ -107,7 +107,7 @@ class SIW_Module_Google_Analytics {
 		$snippet[] = "ga('send','pageview');";
 		$snippet = array_merge( $snippet, $this->get_script_from_session() );
 		
-		return implode( $snippet, PHP_EOL );
+		return implode( PHP_EOL, $snippet );
 	}
 	
 	/**
@@ -272,7 +272,7 @@ class SIW_Module_Google_Analytics {
 	/**
 	 * Haal opgeslagen script uit WC-sessie
 	 * 
-	 * @return string
+	 * @return array
 	 */
 	protected function get_script_from_session() {
 		$script = WC()->session->get( self::SESSION_SCRIPT_KEY );
