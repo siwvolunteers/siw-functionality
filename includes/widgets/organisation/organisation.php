@@ -1,14 +1,4 @@
 <?php
-/*
- * 
- * Widget Name: SIW: Organisatiegegevens
- * Description: Toont organisatiegegevens.
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met organisatiegegevens
@@ -18,6 +8,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Properties
+ * 
+ * @widget_data
+ * Widget Name: SIW: Organisatiegegevens
+ * Description: Toont organisatiegegevens.
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_Organisation extends SIW_Widget {
 
@@ -66,7 +62,7 @@ class SIW_Widget_Organisation extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
 		ob_start();
 		?>
 		<p><b><?php esc_html_e( 'Statutaire naam', 'siw' ); ?></b><br><?= SIW_Properties::STATUTORY_NAME ?><br></p>

@@ -1,14 +1,4 @@
 <?php
-/*
- * 
- * Widget Name: SIW: Accordion
- * Description: Toont accordion.
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met contactinformatie
@@ -18,6 +8,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Formatting
+ * 
+ * @widget_data
+ * Widget Name: SIW: Accordion
+ * Description: Toont accordion.
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_Accordion extends SIW_Widget {
 

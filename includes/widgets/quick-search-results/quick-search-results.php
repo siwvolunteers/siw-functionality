@@ -1,14 +1,4 @@
 <?php
-/*
- * 
- * Widget Name: SIW: Snel Zoeken - resultaten
- * Description: Toont zoekformulier
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met contactinformatie
@@ -18,6 +8,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Formatting
+ * 
+ * @widget_data
+ * Widget Name: SIW: Snel Zoeken - resultaten
+ * Description: Toont zoekformulier
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_Quick_Search_Results extends SIW_Widget {
 
@@ -84,7 +80,7 @@ class SIW_Widget_Quick_Search_Results extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
 
 		$url = wc_get_page_permalink( 'shop' );
 		$text = __( 'Bekijk alle projecten', 'siw' );

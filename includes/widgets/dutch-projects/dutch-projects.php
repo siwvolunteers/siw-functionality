@@ -1,15 +1,4 @@
 <?php
-/*
- * 
- * @widget_data 
- * Widget Name: SIW: Nederlandse projecten
- * Description: Toont omschrijving van Nederlandse projecten
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met omschrijving Nederlandse projecten
@@ -20,6 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  * @uses      SIW_Formatting
  * @uses      SIW_i18n
+ * 
+ * @widget_data
+ * Widget Name: SIW: Nederlandse projecten
+ * Description: Toont omschrijving van Nederlandse projecten
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_Dutch_Projects extends SIW_Widget {
 
@@ -57,7 +52,7 @@ class SIW_Widget_Dutch_Projects extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( $instance, $args, $template_vars, $css_name ) {
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
 		$language = SIW_i18n::get_current_language();
 		$projects = siw_get_option( 'dutch_projects');
 		$accordion_panes = [];
@@ -122,7 +117,7 @@ class SIW_Widget_Dutch_Projects extends SIW_Widget {
 					'data-ga-type'     => 'event',
 					'data-ga-category' => 'Document',
 					'data-ga-action'   => 'Downloaden',
-					'data-ga-label'    => $url,
+					'data-ga-label'    => $booklet['url'],
 					]
 			);
 			$booklet_link = sprintf( __( 'Wil jij meer lezen over onze Nederlandse vrijwilligersprojecten, download dan ons %s.', 'siw' ),  $booklet_link );

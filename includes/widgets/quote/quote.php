@@ -1,14 +1,4 @@
 <?php
-/*
- * 
- * Widget Name: SIW: Quote
- * Description: Toont quote van deelnemer
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met quote
@@ -16,6 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package   SIW\Widgets
  * @author    Maarten Bruna
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * 
+ * @widget_data
+ * Widget Name: SIW: Quote
+ * Description: Toont quote van deelnemer
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_Quote extends SIW_Widget {
 
@@ -63,7 +59,7 @@ class SIW_Widget_Quote extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( $instance, $args, $template_vars, $css_name ) {
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
 		$quote = siw_get_testimonial_quote( $instance['category'] );
 		ob_start();
 		?>
@@ -81,7 +77,4 @@ class SIW_Widget_Quote extends SIW_Widget {
 		$content = ob_get_clean();
 		return $content;
 	}
-
-	
-
 }

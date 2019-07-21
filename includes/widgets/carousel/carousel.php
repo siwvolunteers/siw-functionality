@@ -1,14 +1,4 @@
 <?php
-/*
- * 
- * Widget Name: SIW: Carousel
- * Description: Toont carousel.
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met carousel
@@ -18,6 +8,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Carousel
+ * 
+ * @widget_data
+ * Widget Name: SIW: Carousel
+ * Description: Toont carousel.
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_Carousel extends SIW_Widget {
 
@@ -50,7 +46,7 @@ class SIW_Widget_Carousel extends SIW_Widget {
 	 * {@inheritDoc}
 	 */
 	public function initialize() {
-		$this->carousel = new SIW_Element_Carousel();
+		// $this->carousel = new SIW_Element_Carousel();
 	}
 
 	/**
@@ -158,15 +154,16 @@ class SIW_Widget_Carousel extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( $instance, $args, $template_vars, $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
 
 		$instance = $this->parse_instance( $instance );
 
-		$this->carousel->set_post_type( $instance['post_type'] );
-		$this->carousel->set_items( $instance['items'] );
-		$this->carousel->set_columns( $instance['columns'] );
+		$carousel = new SIW_Element_Carousel();
+		$carousel->set_post_type( $instance['post_type'] );
+		$carousel->set_items( $instance['items'] );
+		$carousel->set_columns( $instance['columns'] );
 		if ( ! empty( $instance['taxonomy'] ) && ! empty( $instance['term'] ) ) {
-			$this->carousel->set_taxonomy_term( $instance['taxonomy'], $instance['term'] );
+			$carousel->set_taxonomy_term( $instance['taxonomy'], $instance['term'] );
 		}
 		
 		$content = '';
@@ -176,7 +173,7 @@ class SIW_Widget_Carousel extends SIW_Widget {
 			$content .= wpautop( esc_html( $instance['intro'] ) );
 			$content .= '</div>';
 		}
-		$content .= $this->carousel->generate();
+		$content .= $carousel->render();
 		if ( $instance['show_button'] ) {
 			$content .= '<div class="carousel-button">';
 			$content .= $this->generate_button( $instance['button_text'], $instance['post_type'], $instance['taxonomy'], $instance['term'] );
@@ -213,9 +210,13 @@ class SIW_Widget_Carousel extends SIW_Widget {
 	/**
 	 * Genereert knop
 	 *
+	 * @param string $button_text
+	 * @param string $post_type
+	 * @param string $taxonomy
+	 * @param string $term
 	 * @return string
 	 */
-	protected function generate_button( $button_text, $post_type, $taxonomy, $term ) {
+	protected function generate_button( string $button_text, string $post_type, string $taxonomy, string $term ) {
 		if ( ! empty( $taxonomy ) && ! empty( $term ) ) {
 			$link = get_term_link( $term, $taxonomy );
 		}
@@ -273,7 +274,7 @@ class SIW_Widget_Carousel extends SIW_Widget {
 	 * @param string $taxonomy
 	 * @return array
 	 */
-	protected function get_term_options( $taxonomy ) {
+	protected function get_term_options( string $taxonomy ) {
 		$terms = get_terms( $taxonomy );
 		$term_options[''] = __( 'Alle', 'siw' );
 		foreach ( $terms as $term ) {

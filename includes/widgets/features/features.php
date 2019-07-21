@@ -1,13 +1,4 @@
 <?php
-/*
- * Widget Name: SIW: Features
- * Description: Toont features met toelichting en link
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met features
@@ -15,6 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package   SIW\Widgets
  * @author    Maarten Bruna
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
+ * 
+ * @widget_data
+ * Widget Name: SIW: Features
+ * Description: Toont features met toelichting en link
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_Features extends SIW_Widget {
 
@@ -115,7 +112,7 @@ class SIW_Widget_Features extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( $instance, $args, $template_vars, $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
 
 		$columns = $instance['columns'];
 		$rows = array_chunk( $instance['features'], $columns );

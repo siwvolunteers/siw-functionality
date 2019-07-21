@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * SIW Widget base class
  *
@@ -94,7 +90,7 @@ abstract class SIW_Widget extends SiteOrigin_Widget {
 	 * @param string $css_name
 	 * @return string
 	 */
-	abstract protected function get_content( $instance, $args, $template_vars, $css_name );
+	abstract protected function get_content( array $instance, array $args, array $template_vars, string $css_name );
 
 	/**
 	 * Genereert generieke inhoud van widget
@@ -105,7 +101,7 @@ abstract class SIW_Widget extends SiteOrigin_Widget {
 	 * @param string $css_name
 	 * @return string
 	 */
-	protected function get_html_content( $instance, $args, $template_vars, $css_name ) { 
+	protected function get_html_content( array $instance, array $args, array $template_vars, string $css_name ) { 
 		$title = $instance['title'] ?? '';
 		$title = apply_filters( 'widget_title', $title );
 		

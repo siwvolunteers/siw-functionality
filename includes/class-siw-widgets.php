@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * SIW Widgets
  *
@@ -36,9 +32,9 @@ class SIW_Widgets {
 		}
 		$self = new self();
 
-		$self->set_widgets_folder_base();
-		$self->include_files();
-		$self->get_widgets();
+		$self->widgets_folder_base = SIW_INCLUDES_DIR . '/widgets';
+		require_once $self->widgets_folder_base . '/class-siw-widget.php';
+		$self->widgets = require SIW_DATA_DIR . '/widgets.php';
 
 		add_filter( 'siteorigin_widgets_widget_folders', [ $self, 'set_widgets_folders' ] );
 		add_filter( 'siteorigin_widgets_active_widgets', [ $self, 'set_active_widgets' ] );
@@ -47,43 +43,12 @@ class SIW_Widgets {
 	}
 
 	/**
-	 * Zet basis-map voor widgets
-	 */
-	protected function set_widgets_folder_base() {
-		$this->widgets_folder_base = SIW_INCLUDES_DIR . '/widgets';
-	}
-
-	/**
-	 * Include bestanden
-	 * 
-	 * - Abstracte basis-klasse
-	 * - Data
-	 */
-	protected function include_files() {
-		require_once( $this->widgets_folder_base . '/abstract-siw-widget.php' );
-		require_once( $this->widgets_folder_base . '/data.php' );
-	}
-
-	/**
-	 * Haalt widgets op
-	 */
-	protected function get_widgets() {
-		$widgets = [];
-		/**
-		 * Array met SIW-widgets
-		 *
-		 * @param array $widgets Gegevens van widget { id_base => class_base }
-		 */
-		$this->widgets = apply_filters( 'siw_widgets', $widgets );
-	}
-
-	/**
 	 * Overschrijf SiteOrigin Widgets met SIW-widgets
 	 *
 	 * @param array $folders
 	 * @return array
 	 */
-	public function set_widgets_folders( $folders ) {
+	public function set_widgets_folders( array $folders ) {
 		$folders = [];
 		$folders[] = $this->widgets_folder_base . '/';
 		return $folders;
@@ -95,7 +60,7 @@ class SIW_Widgets {
 	 * @param array $active_widgets
 	 * @return array
 	 */
-	public function set_active_widgets( $active_widgets ) {
+	public function set_active_widgets( array $active_widgets ) {
 		foreach ( $this->widgets as $id_base => $class_base ) {
 			$active_widgets[ $id_base ] = true;
 		}
