@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
 * Aanpassingen voor Meta Box
  * 
@@ -32,7 +29,7 @@ class SIW_Compat_Meta_Box {
 	 * @param array $extensions
 	 * @return array
 	 */
-	public function select_extensions( $extensions ) {
+	public function select_extensions( array $extensions ) {
 		$extensions = [
 			'mb-admin-columns',
 			'mb-settings-page',
@@ -43,7 +40,6 @@ class SIW_Compat_Meta_Box {
 			'meta-box-include-exclude',
 			'meta-box-tabs',
 			'meta-box-text-limiter',
-			'meta-box-updater',
 		];
 		return $extensions;
 	}
