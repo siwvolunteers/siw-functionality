@@ -161,16 +161,16 @@
         },
         {
             "name": "spatie/array-to-xml",
-            "version": "2.11.0",
+            "version": "2.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/array-to-xml.git",
-                "reference": "68a181261df9ba16688abb87d8658638157b8f90"
+                "reference": "be43e324b8da8cf5f4a6effb3221dfe945372fa9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/68a181261df9ba16688abb87d8658638157b8f90",
-                "reference": "68a181261df9ba16688abb87d8658638157b8f90",
+                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/be43e324b8da8cf5f4a6effb3221dfe945372fa9",
+                "reference": "be43e324b8da8cf5f4a6effb3221dfe945372fa9",
                 "shasum": ""
             },
             "require": {
@@ -195,9 +195,9 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
+                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://murze.be",
-                    "role": "Developer"
+                    "homepage": "https://murze.be"
                 }
             ],
             "description": "Convert an array to xml",
@@ -207,7 +207,7 @@
                 "convert",
                 "xml"
             ],
-            "time": "2019-06-26T21:54:49+00:00"
+            "time": "2019-07-24T19:21:08+00:00"
         }
     ],
     "packages-dev": [],
