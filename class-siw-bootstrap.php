@@ -160,7 +160,6 @@ class SIW_Bootstrap {
 	 */
 	protected function load_batch_jobs() {
 		$this->init_classes( [
-
 			'SIW_Batch_Job_Count_Workcamps',
 			'SIW_Batch_Job_Delete_Applications',
 			'SIW_Batch_Job_Delete_Orphaned_Variations',
@@ -168,7 +167,7 @@ class SIW_Bootstrap {
 			'SIW_Batch_Job_Hide_Workcamps',
 			'SIW_Batch_Job_Update_Dutch_Workcamps',
 			'SIW_Batch_Job_Update_Free_Places',
-			//'SIW_Batch_Job_Update_SEO_Noindex',
+			'SIW_Batch_Job_Update_SEO_Noindex',
 			'SIW_Batch_Job_Update_Taxonomies',
 			'SIW_Batch_Job_Update_Workcamp_Tariffs',
 			'SIW_Batch_Job_Update_Workcamps',

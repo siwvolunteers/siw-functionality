@@ -28,10 +28,16 @@ class SIW_Batch_Job_Update_SEO_Noindex extends SIW_Batch_Job {
 	 * Selecteer alle posts van de relevante post types
 	 *
 	 * @return array
+	 * 
+	 * @todo filter voor post_types toevoegen
 	 */
 	protected function select_data() {
-		$post_types = [ 'vacatures', 'agenda', 'product' ]; //TODO:filter o.i.d. vanuit CPT-class
-		
+
+		$post_types = [
+			'vacatures',
+			'agenda',
+			'product'
+		];
 
 		$data = get_posts(
 			[
@@ -54,27 +60,30 @@ class SIW_Batch_Job_Update_SEO_Noindex extends SIW_Batch_Job {
 		if ( ! SIW_Util::post_exists( $post_id ) ) {
 			return false;
 		}
-		//$current_noindex = SIW_Util::get_seo_noindex( $post_id );
+		$current_noindex = SIW_Util::get_seo_noindex( $post_id );
 
 		$post_type = get_post_type( $post_id );
 		switch ( $post_type ) {
 			case 'vacatures':
-				//$new_noindex = true;
+				$deadline  = date( 'Y-m-d', get_post_meta( $post_id, 'siw_vacature_deadline', true ) );
+				$new_noindex = date( 'Y-m-d' ) > $deadline;
 				break;
 			case 'agenda':
 				//$new_nodindex = true;
+				$event_end  = date( 'Y-m-d', get_post_meta( $post_id, 'siw_agenda_eind', true ) );
+				$new_noindex = date( 'Y-m-d' ) > $event_end;
 				break;
 			case 'product':
-				//$product = wc_get_product( $post_id );
-				//$new_noindex = ! $product->is_visible();
+				$product = wc_get_product( $post_id );
+				$new_noindex = ! $product->is_visible();
 				break;
 			default:
+				return false;
 		}
 
-		if ( true ) {// $current_noindex != $new_noindex ) {
-			//SIW_Util::set_seo_noindex( $post_id, $new_noindex );
+		if ( $current_noindex != $new_noindex ) {
+			SIW_Util::set_seo_noindex( $post_id, $new_noindex );
 			$this->increment_processed_count();
-			siw_debug( $post_id );
 		}
 		return false;
 	}

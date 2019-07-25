@@ -7,28 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-/* Zet noindex voor evenementen waarvan de deadline verstreken is */
-SIW_Scheduler::add_job( 'siw_set_noindex_for_expired_jobs' );
-
-add_action( 'siw_set_noindex_for_expired_jobs', function() {
-	$args = [
-		'post_type'      => 'vacatures',
-		'fields'         => 'ids',
-		'posts_per_page' => -1,
-	];
-	$job_ids = get_posts( $args );
-	foreach ( $job_ids as $job_id ) {
-		$noindex = 0;
-		$deadline_ts = get_post_meta( $job_id, 'siw_vacature_deadline', true );
-		if ( $deadline_ts < time() ) {//TODO:vergelijken datum i.p.v. ts
-			$noindex = 1;
-			//TODO:uitgelicht op off zetten
-		}
-		SIW_Util::set_seo_noindex( $job_id, $noindex );
-	}
-} );
-
-
 /**
  * Haal gegevens van vacature op
  *
