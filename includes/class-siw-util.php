@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Hulpfuncties
  *
@@ -129,6 +125,17 @@ class SIW_Util {
 	}
 
 	/**
+	 * Undocumented function
+	 *
+	 * @param int $post_id
+	 * @return bool
+	 */
+	public static function get_seo_noindex( $post_id ) {
+		$noindex = get_post_meta( $post_id, '_genesis_noindex', true );
+		return (bool) $noindex;
+	}
+
+	/**
 	 * Zet SEO noindex
 	 * 
 	 * @param int $post_id
@@ -209,4 +216,13 @@ class SIW_Util {
 		return file_exists( SIW_TEMPLATES_DIR . "/{$template}" );
 	}
 
+	/**
+	 * Geeft aan of post bestaat op basis van ID
+	 *
+	 * @param int $post_id
+	 * @return string
+	 */
+	public static function post_exists( $post_id ) {
+		return is_string( get_post_status( $post_id ) );
+	}
 }
