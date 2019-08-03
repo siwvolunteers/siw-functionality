@@ -7,6 +7,8 @@
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
  */
 
+require_once( __DIR__ . '/class-siw-work-type.php' );
+
 /**
  * Geeft een array met soort werk voor projecten terug
  *
