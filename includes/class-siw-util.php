@@ -53,7 +53,7 @@ class SIW_Util {
 			'longitude'   => '^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$',
 			'ip'          => '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$',
 		];
-		return $patterns[ $type ] ?? false;
+		return $patterns[ $type ] ?? null;
 	}
 
 	/**
@@ -65,8 +65,8 @@ class SIW_Util {
 	public static function get_regex( string $type ) {
 
 		$pattern = self::get_pattern( $type );
-		if ( false == $pattern ) {
-			return false;
+		if ( null === $pattern ) {
+			return null;
 		}
 		$regex = sprintf( '/%s/', $pattern );
 		return $regex;
@@ -174,7 +174,6 @@ class SIW_Util {
 	public static function is_workcamp_sale_active() {
 		
 		$workcamp_sale = siw_get_option( 'workcamp_sale' );
-
 		$workcamp_sale_active = false;
 
 		if ( $workcamp_sale['active'] &&

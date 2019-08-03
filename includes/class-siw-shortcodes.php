@@ -51,7 +51,7 @@ class SIW_Shortcodes {
 			add_shortcode( "siw_{$shortcode}", __CLASS__ . '::' . $function );
 		}
 
-		/* Break */
+		/* Shortcode voor line-break */
 		add_shortcode( 'br', function() { return '<br>';});
 	}
 

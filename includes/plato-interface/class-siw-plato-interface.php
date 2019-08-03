@@ -38,21 +38,29 @@ abstract class SIW_Plato_Interface {
 	protected $endpoint_url;
 
 	/**
-	 * @var array
+	 * HTTP response van Plato
+	 * 
+	 * @var array|WP_Error
 	 */
 	protected $http_response;
 
 	/**
-	 * @var SimpleXML
+	 * XML response van Plato
+	 * 
+	 * @var SimpleXMLElement
 	 */
 	protected $xml_response;
 
 	/**
+	 * Logger-instantie
+	 * 
 	 * @var WC_Logger
 	 */
 	protected $logger;
 
 	/**
+	 * Logger context
+	 * 
 	 * @var array
 	 */
 	protected $logger_context;

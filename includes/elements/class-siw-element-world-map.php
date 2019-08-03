@@ -57,6 +57,20 @@ class SIW_Element_World_Map {
 	protected $zoom = 1;
 
 	/**
+	 * Breedte van SVG
+	 *
+	 * @var float
+	 */
+	protected $width;
+
+	/**
+	 * Hoogt van SVG
+	 *
+	 * @var float
+	 */
+	protected $heigth;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {

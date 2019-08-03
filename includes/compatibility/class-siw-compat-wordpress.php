@@ -75,7 +75,6 @@ class SIW_Compat_WordPress {
 		unregister_widget( 'WP_Widget_Media_Video' );
 		unregister_widget( 'WP_Widget_Media_Image' );
 		unregister_widget( 'WP_Widget_Media_Gallery' );
-		//unregister_widget( 'WP_Widget_Text' );
 	}
 
 	/**
@@ -151,7 +150,7 @@ class SIW_Compat_WordPress {
 	 * Gutenberg css uitschakelen
 	 */
 	public function dequeue_styles() {
-		wp_dequeue_style('wp-block-library');
+		wp_dequeue_style( 'wp-block-library' );
 	}
 
 	/**

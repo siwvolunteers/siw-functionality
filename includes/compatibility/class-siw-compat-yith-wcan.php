@@ -36,6 +36,9 @@ class SIW_Compat_YITH_WCAN {
 
 		/* Inline script toevoegen */
 		add_action( 'wp_enqueue_scripts', [ $self, 'add_scroll_script' ], PHP_INT_MAX );
+
+		//Verwijderen promo
+		add_action( 'init', [ $self, 'remove_promo_hooks'] );
 	}
 
 	/**
@@ -92,4 +95,13 @@ class SIW_Compat_YITH_WCAN {
 		});";
 		wp_add_inline_script( 'yith-wcan-script', "(function( $ ) {" . $inline_script . "})( jQuery );" );//TODO:format-functie voor anonymous jQuery
 	}
+
+	/**
+	 * Verwijderen YITH-promo
+	 */
+	public function remove_promo_hooks() {
+		remove_action( 'admin_notices', 'yith_plugin_fw_promo_notices', 15 );
+		remove_action( 'admin_enqueue_scripts', 'yith_plugin_fw_notice_dismiss', 20 );
+	}
+
 }
