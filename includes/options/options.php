@@ -36,6 +36,13 @@ add_action( 'plugins_loaded', [ 'SIW_Options_Page', 'init' ] );
  */
 function siw_get_option( $option, $default = null ) {
 
+
+	//Probeer waarde uit cache te halen
+	$value = wp_cache_get( $option, 'siw_options');
+	if ( false !== $value ) {
+		return $value;
+	}
+
 	$value = rwmb_meta( $option, [ 'object_type' => 'setting' ], 'siw_options' );
 
 	if ( empty( $value ) ) {
@@ -83,6 +90,8 @@ function siw_get_option( $option, $default = null ) {
 			break;
 
 	}
+
+	wp_cache_set( $option, $value, 'siw_options' );
 
 	return $value;
 }
