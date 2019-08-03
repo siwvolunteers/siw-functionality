@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Abstracte klasse voor API
  *
@@ -127,13 +123,13 @@ abstract class SIW_API {
 	 * @param WP_REST_Request $request
 	 * @return bool
 	 */
-	public function verify_nonce( $request ) {
+	public function verify_nonce( WP_REST_Request $request ) {
 		$nonce = $request->get_header( 'x_wp_nonce' );
 		return wp_verify_nonce( $nonce, 'wp_rest' );
 	}
 
 	/**
-	 * Undocumented function
+	 * Voegt scripts toe
 	 */
 	public function enqueue_script() {
 		wp_register_script( "siw-{$this->script}", SIW_ASSETS_URL . "js/siw-{$this->script}.js", [ 'jquery' ], SIW_PLUGIN_VERSION, true );

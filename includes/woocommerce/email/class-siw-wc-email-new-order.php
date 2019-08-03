@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Notificatiemail voor nieuwe aanmelding
  *
@@ -28,14 +24,14 @@ class SIW_WC_Email_New_Order {
 	 * Overschrijft template
 	 *
 	 * @param string $located
-	 * @param array $template_name
-	 * @param string $args
+	 * @param string $template_name
+	 * @param array $args
 	 * @param string $template_path
 	 * @param string $default_path
 	 * @return string
 	 */
-	public function set_template( $located, $template_name, $args, $template_path, $default_path ) {
-		if ( 'emails/admin-new-order.php' == $template_name ) {
+	public function set_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) {
+		if ( 'emails/admin-new-order.php' === $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
 		}
 		return $located;
@@ -48,7 +44,7 @@ class SIW_WC_Email_New_Order {
 	 * @param WC_Order $email
 	 * @return string
 	 */
-	public function set_recipient( $recipient, $order ) {
+	public function set_recipient( string $recipient, WC_Order $order ) {
 		$recipient = siw_get_option( 'workcamp_application_email')['sender'];
 		return $recipient;
 	}
@@ -60,7 +56,7 @@ class SIW_WC_Email_New_Order {
 	 * @param WC_Order $order
 	 * @return string
 	 */
-	public function set_subject( $subject, $order ) {
+	public function set_subject( string $subject, WC_Order $order ) {
 		$subject = sprintf( __( 'Nieuwe aanmelding Groepsproject (%s)', 'siw' ), $order->get_order_number() );
 		return $subject;
 	}
@@ -72,7 +68,7 @@ class SIW_WC_Email_New_Order {
 	 * @param WC_Order $order
 	 * @return string
 	 */
-	public function set_heading( $heading, $order ) {
+	public function set_heading( string $heading, WC_Order $order ) {
 		if ( $order->has_status( 'processing' ) ) {
 			$heading = sprintf( __( 'Nieuwe aanmelding (betaald)', 'siw' ), $order->get_order_number() );
 		}

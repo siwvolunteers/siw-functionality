@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Aanpassingen aan Groepsproject
  *
@@ -56,7 +52,7 @@ class SIW_WC_Product {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function remove_reviews_tab( $tabs ) {
+	public function remove_reviews_tab( array $tabs ) {
 		unset( $tabs['reviews'] );
 		return $tabs;
 	}
@@ -67,7 +63,7 @@ class SIW_WC_Product {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function add_project_location_map_tab( $tabs ) {
+	public function add_project_location_map_tab( array $tabs ) {
 		global $product;
 		$latitude = $product->get_meta( 'latitude' );
 		$longitude = $product->get_meta( 'longitude' );
@@ -90,7 +86,7 @@ class SIW_WC_Product {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function add_contact_form_tab( $tabs ) {
+	public function add_contact_form_tab( array $tabs ) {
 		$tabs['enquiry'] = [
 			'title'    => __( 'Stel een vraag', 'siw' ),
 			'priority' => 120,
@@ -101,10 +97,10 @@ class SIW_WC_Product {
 
 	/**
 	 * Toont kaart met projectlocatie in tab
-	 * @param  array $tab
-	 * @param  array $args
+	 * @param string $tab
+	 * @param array $args
 	 */
-	public function show_project_map( $tab, $args ) {
+	public function show_project_map( string $tab, array $args ) {
 		echo do_shortcode( sprintf( '[gmap address="%s,%s" title="%s" zoom="6" maptype="ROADMAP"]', esc_attr( $args['latitude'] ), esc_attr( $args['longitude'] ), esc_attr__( 'Projectlocatie', 'siw' ) ) );
 	}
 
@@ -122,11 +118,11 @@ class SIW_WC_Product {
 	 * @param WC_Product $product
 	 * @return bool
 	 */
-	public function set_product_is_purchasable( $is_purchasable, $product ) {
+	public function set_product_is_purchasable( bool $is_purchasable, WC_Product $product )  {
 		$is_purchasable = $product->is_visible();
 		$status = $product->get_status();
 
-		if ( false == $is_purchasable || SIW_WC_Import_Product::REVIEW_STATUS == $status ) {
+		if ( false === $is_purchasable || SIW_WC_Import_Product::REVIEW_STATUS == $status ) {
 			
 			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation', 10 ); //TODO: kan weg na switch theme
 			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation_add_to_cart_button', 20 );
@@ -209,7 +205,7 @@ class SIW_WC_Product {
 		if ( ! empty( $participation_fee_currency ) && $participation_fee > 0 ) {
 			$currency = siw_get_currency( $participation_fee_currency );
 			$symbol = $participation_fee_currency;
-			if ( false != $currency ) {
+			if ( false !== $currency ) {
 				$symbol = $currency->get_symbol();
 				if ( 'EUR' != $participation_fee_currency ) {
 					$amount_in_euro = $currency->convert_to_euro( $participation_fee );

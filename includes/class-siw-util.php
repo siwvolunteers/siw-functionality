@@ -5,7 +5,7 @@
  *
  * @package   SIW
  * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  */
 class SIW_Util {
 
@@ -15,7 +15,7 @@ class SIW_Util {
 	 * @param array $rules
 	 * @return string
 	 */
-	public static function generate_css( $rules ) {
+	public static function generate_css( array $rules ) {
 		$css = '';
 		foreach ( $rules as $selector => $styles ) {
 			$css .= $selector . '{';
@@ -34,7 +34,7 @@ class SIW_Util {
 	 * @param string $script
 	 * @return string
 	 */
-	public static function generate_anonymous_jquery( $script ) {
+	public static function generate_anonymous_jquery( string $script ) {
 		return sprintf('(function( $ ) {%s})( jQuery );', $script );
 	}
 
@@ -44,7 +44,7 @@ class SIW_Util {
 	 * @param string $type
 	 * @return string
 	 */
-	public static function get_pattern( $type ) {
+	public static function get_pattern( string $type ) {
 		$patterns = [
 			'date'        => '^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$',
 			'postal_code' => '^[1-9][0-9]{3}\s?[a-zA-Z]{2}$',
@@ -62,7 +62,7 @@ class SIW_Util {
 	 * @param string $type
 	 * @return string
 	 */
-	public static function get_regex( $type ) {
+	public static function get_regex( string $type ) {
 
 		$pattern = self::get_pattern( $type );
 		if ( false == $pattern ) {
@@ -93,7 +93,7 @@ class SIW_Util {
 				$value = get_the_title( $value );
 			};
 			array_walk( $ancestors, $callback );
-			$prefix = ! empty( $ancestors ) ? implode( $ancestors, '/') . '/' : '';
+			$prefix = ! empty( $ancestors ) ? implode( '/', $ancestors ) . '/' : '';
 			$pages[ $result->ID ] = esc_html( $prefix . $result->post_title );
 		}
 		return $pages;
@@ -105,7 +105,7 @@ class SIW_Util {
 	 * @param  string $date dd-mm-jjjj
 	 * @return int leeftijd in jaren
 	 */
-	public static function calculate_age( $date ) {
+	public static function calculate_age( string $date ) {
 		$from = new DateTime( $date );
 		$to   = new DateTime('today');
 		$age = $from->diff( $to )->y;
@@ -119,7 +119,7 @@ class SIW_Util {
 	 * @param int $timestamp
 	 * @return int
 	 */
-	public static function convert_timestamp_to_gmt( $timestamp ) {
+	public static function convert_timestamp_to_gmt( int $timestamp ) {
 		$timestamp_in_gmt = strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $timestamp ) ) . ' GMT' );
 		return $timestamp_in_gmt;
 	}
@@ -130,7 +130,7 @@ class SIW_Util {
 	 * @param int $post_id
 	 * @return bool
 	 */
-	public static function get_seo_noindex( $post_id ) {
+	public static function get_seo_noindex( int $post_id ) {
 		$noindex = get_post_meta( $post_id, '_genesis_noindex', true );
 		return (bool) $noindex;
 	}
@@ -141,7 +141,7 @@ class SIW_Util {
 	 * @param int $post_id
 	 * @param bool $value
 	 */
-	public static function set_seo_noindex( $post_id, $value = false ) {
+	public static function set_seo_noindex( int $post_id, bool $value = false ) {
 		$noindex = $value ? 1 : 0;
 		update_post_meta( $post_id, '_genesis_noindex', $noindex );
 	}
@@ -152,7 +152,7 @@ class SIW_Util {
 	 * @param int $post_id
 	 * @param string $title
 	 */
-	public static function set_seo_title( $post_id, $title ) {
+	public static function set_seo_title( int $post_id, string $title ) {
 		update_post_meta( $post_id, '_genesis_title', $title );
 	}
 
@@ -162,7 +162,7 @@ class SIW_Util {
 	 * @param int $post_id
 	 * @param string $description
 	 */
-	public static function set_seo_description( $post_id, $description ) {
+	public static function set_seo_description( int $post_id, string $description ) {
 		update_post_meta( $post_id, '_genesis_description', $description );
 	}
 
@@ -212,7 +212,7 @@ class SIW_Util {
 	 * @param string $template
 	 * @return bool
 	 */
-	public static function template_exists( $template ) {
+	public static function template_exists( string $template ) {
 		return file_exists( SIW_TEMPLATES_DIR . "/{$template}" );
 	}
 
@@ -222,7 +222,7 @@ class SIW_Util {
 	 * @param int $post_id
 	 * @return string
 	 */
-	public static function post_exists( $post_id ) {
+	public static function post_exists( int $post_id ) {
 		return is_string( get_post_status( $post_id ) );
 	}
 }

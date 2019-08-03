@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Carousel met posts
  * 
@@ -139,7 +135,7 @@ class SIW_Element_Carousel {
 	 *
 	 * @param string $post_type
 	 */
-	public function set_post_type( $post_type ) {
+	public function set_post_type( string $post_type ) {
 		$this->post_type = $post_type;
 	}
 
@@ -148,7 +144,7 @@ class SIW_Element_Carousel {
 	 *
 	 * @param int $items
 	 */
-	public function set_items( $items ) {
+	public function set_items( int $items ) {
 		$this->items = intval( $items );
 	}
 
@@ -157,7 +153,7 @@ class SIW_Element_Carousel {
 	 *
 	 * @param int $columns
 	 */
-	public function set_columns( $columns ) {
+	public function set_columns( int $columns ) {
 		$this->columns = intval( $columns );
 	}
 
@@ -167,7 +163,7 @@ class SIW_Element_Carousel {
 	 * @param string $taxonomy
 	 * @param string $term
 	 */
-	public function set_taxonomy_term( $taxonomy, $term ) {
+	public function set_taxonomy_term( string $taxonomy, string $term ) {
 		$this->taxonomy = $taxonomy;
 		$this->term = $term;
 	}
@@ -177,7 +173,7 @@ class SIW_Element_Carousel {
 	 *
 	 * @param array $options
 	 */
-	public function set_options( $options ) {
+	public function set_options( array $options ) {
 		$this->options = wp_parse_args( $options, $this->options );
 	}
 

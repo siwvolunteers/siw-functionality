@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Hulpfuncties t.b.v. css
  *
@@ -21,7 +17,7 @@ class SIW_CSS {
 	 * @param int $mobile_size
 	 * @return string
 	 */
-	public static function generate_responsive_class( $column_size, $tablet_size = null, $mobile_size = null ) {
+	public static function generate_responsive_class( int $column_size, int $tablet_size = null, int $mobile_size = null ) {
 		
 		if ( is_int( $column_size ) ) {
 			$class = "col-md-{$column_size}";

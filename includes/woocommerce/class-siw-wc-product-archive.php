@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Aanpassingen aan overzichtspagina van groepsprojecten
  *
@@ -58,7 +54,7 @@ class SIW_WC_Product_Archive {
 	 * @param WP_Term $term
 	 * @return string
 	 */
-	public function set_seo_title( $title, $term ) {
+	public function set_seo_title( string $title, WP_Term $term ) {
 
 		if ( ! is_a( $term, 'WP_Term') ) {
 			return $title;
@@ -91,7 +87,7 @@ class SIW_WC_Product_Archive {
 	 * @param string $description
 	 * @param WP_Term $term
 	 */
-	public function set_seo_description( $description, $term ) {
+	public function set_seo_description( string $description, WP_Term $term ) {
 		if ( ! is_a( $term, 'WP_Term') ) {
 			return $description;
 		}
@@ -206,7 +202,7 @@ class SIW_WC_Product_Archive {
 	 * @param array $sidebars_widgets
 	 * @return array
 	 */
-	public function hide_current_taxonomy_widget( $sidebars_widgets ) {
+	public function hide_current_taxonomy_widget( array $sidebars_widgets ) {
 
 		global $wp_query;
 

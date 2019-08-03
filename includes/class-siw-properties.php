@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 use Ils\AnnotationParser;
 
 /**
@@ -401,7 +397,7 @@ class SIW_Properties {
 	 * @param string $property
 	 * @return string
 	 */
-	public static function get( $property ) {
+	public static function get( string $property ) {
 		$property = strtoupper( $property );
 		if ( defined( 'self::' . $property ) ) {
 			return constant('self::' . $property );

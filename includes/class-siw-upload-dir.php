@@ -1,10 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
- * Class om upload directory te zetten op basis van content
+ * Class om upload directory te zetten op basis van content en bestandstype
  * 
  * @package     SIW
  * @copyright   2019 SIW Internationale Vrijwilligersprojecten
@@ -27,7 +24,7 @@ class SIW_Upload_Dir {
 	 * @param array $file
 	 * @return array
 	 */
-	public function add_upload_dir_filter( $file ) {
+	public function add_upload_dir_filter( array $file ) {
 		add_filter( 'upload_dir', [ $this, 'set_upload_dir'] );
 		return $file;
 	}
@@ -38,8 +35,8 @@ class SIW_Upload_Dir {
 	 * @param array $fileinfo
 	 * @return array
 	 */
-	public function remove_upload_dir_filter($fileinfo){
-		remove_filter('upload_dir', [ $this, 'set_upload_dir'] );
+	public function remove_upload_dir_filter( array $fileinfo ) {
+		remove_filter( 'upload_dir', [ $this, 'set_upload_dir'] );
 		return $fileinfo;
 	}
 
@@ -49,7 +46,7 @@ class SIW_Upload_Dir {
 	 * @param array $path
 	 * @return array
 	 */
-	public function set_upload_dir( $path ) {
+	public function set_upload_dir( array $path ) {
 
 		/* Afbreken bij een fout */
 		if ( ! empty( $path['error'] ) ) {

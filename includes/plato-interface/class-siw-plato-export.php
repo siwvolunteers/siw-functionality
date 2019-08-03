@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Export naar Plato
  * 
@@ -19,6 +15,13 @@ abstract class SIW_Plato_Export extends SIW_Plato_Interface {
 	 * @var array
 	 */
 	protected $data;
+
+	/**
+	 * XML-data
+	 *
+	 * @var array
+	 */
+	protected $xml_data;
 
 	/**
 	 * Productiemode

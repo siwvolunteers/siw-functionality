@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Proces om aantal zichtbare groepsprojecten per term te tellen
  * 

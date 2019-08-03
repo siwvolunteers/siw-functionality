@@ -1,11 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
- * `TODO: beschrijving
+ * Aanpassingen aan admin-scherm voor producten
  *
  * @package   SIW\WooCommerce
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten

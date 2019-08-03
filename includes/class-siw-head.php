@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Class om head aan te passen
  *
@@ -94,7 +90,7 @@ class SIW_Head {
 	 * @param string $relation_type
 	 * @return array
 	 */
-	public function add_resource_hints( $urls, $relation_type ) {
+	public function add_resource_hints( array $urls, string $relation_type ) {
 		if ( 'dns-prefetch' === $relation_type ) {
 			$urls[] = 'www.google-analytics.com';
 			$urls[] = 'maps.googleapis.com';

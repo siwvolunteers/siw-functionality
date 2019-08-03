@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Autoloader voor SIW classes
  * 
@@ -47,7 +44,7 @@ class SIW_Autoloader {
 	 *
 	 * @param string $base_dir
 	 */
-	public function set_base_dir( $base_dir ) {
+	public function set_base_dir( string $base_dir ) {
 		$this->base_dir = trailingslashit( $base_dir );
 	}
 
@@ -57,7 +54,7 @@ class SIW_Autoloader {
 	 * @param string $dir
 	 * @param string $prefix
 	 */
-	public function add_dir( $dir, $prefix ) {
+	public function add_dir( string $dir, string $prefix ) {
 		$this->dirs[] = array(
 			'dir'    => trailingslashit( $this->base_dir . $dir ),
 			'prefix' => $this->base_prefix . $prefix,
@@ -69,7 +66,7 @@ class SIW_Autoloader {
 	 *
 	 * @param string $class
 	 */
-	public function autoload( $class ) {
+	public function autoload( string $class ) {
 
 		/* Afbreken als het geen SIW class is */
 		if ( 0 !== strpos( $class, $this->base_prefix ) ) {

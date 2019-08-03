@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Proces om tarieven van Groepsprojecten bij te werken
  * 
@@ -64,7 +60,7 @@ class SIW_Batch_Job_Update_Workcamp_Tariffs extends SIW_Batch_Job {
 		$tariffs = $this->get_tariffs();
 		$sale = SIW_Util::is_workcamp_sale_active();
 
-		$workcamp_sale = $workcamp_sale = siw_get_option( 'workcamp_sale' );
+		$workcamp_sale = siw_get_option( 'workcamp_sale' );
 		$variations = $product->get_children();
 
 		$updated = false;

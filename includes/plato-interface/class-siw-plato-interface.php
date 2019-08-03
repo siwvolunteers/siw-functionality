@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Abstracte klasse voor interface met Plato (import en export)
  * 
@@ -99,7 +95,7 @@ abstract class SIW_Plato_Interface {
 	 * @param string $key
 	 * @param string $value
 	 */
-	protected function add_query_arg( $key, $value ) {
+	protected function add_query_arg( string $key, string $value ) {
 		$this->endpoint_url = add_query_arg( $key, $value, $this->endpoint_url );
 	}
 
@@ -117,11 +113,9 @@ abstract class SIW_Plato_Interface {
 	 *
 	 * @param string $level
 	 * @param string $message
-	 * @return $this
 	 */
-	public function log( $level, $message ) {
+	public function log( string $level, string $message ) {
 		$this->logger->log( $level, $message, $this->logger_context );
-		return $this;
 	}
 
 	/**

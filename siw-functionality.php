@@ -38,6 +38,3 @@ require_once( SIW_INCLUDES_DIR . '/maps/maps.php' );
 require_once( SIW_INCLUDES_DIR . '/post-types/init.php' );
 require_once( SIW_INCLUDES_DIR . '/woocommerce/init.php' );
 
-
-/* Hook */
-do_action( 'siw_plugin_loaded' );

@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 use SVG\SVG;
 
 /**
@@ -75,8 +71,8 @@ class SIW_Element_World_Map {
 	 * @param int $zoom
 	 * @return string
 	 */
-	public function generate( $country, $zoom = 1 ) {
-		if ( false ==  $this->set_country( $country ) ) {
+	public function generate( $country, int $zoom = 1 ) {
+		if ( false == $this->set_country( $country ) ) {
 			return false;
 		}
 		$this->zoom = $zoom;
@@ -157,7 +153,7 @@ class SIW_Element_World_Map {
 	 * @param float $coordinate
 	 * @return float
 	 */
-	protected function calculate_offset( $coordinate ) {
+	protected function calculate_offset( float $coordinate ) {
 		$coordinate = min( $coordinate + 1/ ( 2 * $this->zoom ), 1 );
 		$coordinate = max( $coordinate - 1 / ( $this->zoom ), 0 );
 		return $coordinate;

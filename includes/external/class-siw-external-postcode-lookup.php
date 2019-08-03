@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Opzoeken adres obv postcode en huisnummer
  *
@@ -41,11 +37,11 @@ class SIW_External_Postcode_Lookup{
 	 * 
 	 * @todo sanitize values
 	 */
-	public function get_address( $postcode, $housenumber ) {
+	public function get_address( string $postcode, string $housenumber ) {
 		$address = get_transient( "siw_address_{$postcode}_{$housenumber}" );
 		if ( false === $address ) {
 			$address = $this->retrieve_address( $postcode, $housenumber );
-			if ( false == $address ) {
+			if ( false === $address ) {
 				return false;
 			}
 			set_transient( "siw_address_{$postcode}_{$housenumber}", $address, MONTH_IN_SECONDS );
@@ -60,7 +56,7 @@ class SIW_External_Postcode_Lookup{
 	 * @param string $housenumber
 	 * @return array
 	 */
-	protected function retrieve_address( $postcode, $housenumber ) {
+	protected function retrieve_address( string $postcode, string $housenumber ) {
 		$url = add_query_arg( [
 			'postcode' => $postcode,
 			'number'   => $housenumber,

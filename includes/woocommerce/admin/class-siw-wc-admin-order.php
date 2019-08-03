@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Aanpassing aan admin t.b.v. aanmeldingen
  *
@@ -13,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  * @uses      SIW_Util
  * @uses      SIW_WC_Admin_Order_Columns
+ * 
+ * @todo      splitsen in Order en Admin_Order
  */
 class SIW_WC_Admin_Order {
 
@@ -131,7 +129,7 @@ class SIW_WC_Admin_Order {
 	 * @return array
 	 */
 	public function set_localisation_address_format( $address_formats ) {
-		$address_formats['NL'] = "{gender}\n{name}\n{address_1} {housenumber}\n{postcode} {city}\n{country}\n{dob} {nationality}";
+		$address_formats['NL'] = "{name}\n{address_1} {housenumber}\n{postcode} {city}\n{country}\n{dob}\n{gender}\n{nationality}";
 		return $address_formats;
 	}
 
@@ -154,10 +152,10 @@ class SIW_WC_Admin_Order {
 	 * Toont sectie met velden
 	 *
 	 * @param WC_Order $order
-	 * @param array $section
+	 * @param string $section
 	 * @param boolean $edit
 	 */
-	protected function show_section( $order, $section, $edit = false ) {
+	protected function show_section( WC_Order $order, string $section, bool $edit = false ) {
 		?>
 		<br class="clear" />
 		<h4>
@@ -194,7 +192,7 @@ class SIW_WC_Admin_Order {
 	 * @param WC_Order $order
 	 * @param array $field
 	 */
-	protected function show_field_value( $order, $field ) {
+	protected function show_field_value( WC_Order $order, array $field ) {
 
 		switch ( $field['type'] ) {
 			case 'select':
@@ -221,7 +219,7 @@ class SIW_WC_Admin_Order {
 	 * @param WC_Order $order
 	 * @param array $field
 	 */
-	protected function show_field_input( $order, $field ) {
+	protected function show_field_input( WC_Order $order, array $field ) {
 		unset( $field['class']);
 		$field['value'] = $order->get_meta( $field['id'] );
 		$field['desc_tip'] = true;

@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Scheduler voor cron jobs
  * 
@@ -30,6 +27,8 @@ class SIW_Scheduler {
 
 	/**
 	 * Interval tussen jobs in minuten
+	 * 
+	 * @var int
 	 */
 	const CRON_JOB_INTERVAL = 5;
 
@@ -93,7 +92,7 @@ class SIW_Scheduler {
 	 *
 	 * @param string $hook
 	 */
-	public static function add_job( $hook ) {
+	public static function add_job( string $hook ) {
 		self::$jobs[] = $hook;
 	}
 
@@ -125,7 +124,7 @@ class SIW_Scheduler {
 	 *
 	 * @param array $jobs
 	 */
-	protected function set_scheduled_jobs( $jobs = [] ) {
+	protected function set_scheduled_jobs( array $jobs = [] ) {
 		update_option( $this->option_name, $jobs, false );
 	}
 }

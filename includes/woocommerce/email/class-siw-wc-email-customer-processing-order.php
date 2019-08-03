@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * E-mail voor betaalde aanmeldingen
  *
@@ -29,7 +25,7 @@ class SIW_WC_Email_Customer_Processing_Order {
 	 * @param WC_Order $order
 	 * @return string
 	 */
-	public function set_subject( $subject, $order ) {
+	public function set_subject( string $subject, WC_Order $order ) {
 		$subject = sprintf( __( 'Aanmelding %s', 'siw' ), $order->get_order_number() );
 		return $subject;
 	}
@@ -41,7 +37,7 @@ class SIW_WC_Email_Customer_Processing_Order {
 	 * @param WC_Order $order
 	 * @return string
 	 */
-	public function set_heading( $heading, $order ) {
+	public function set_heading( string $heading, WC_Order $order ) {
 		if ( 'mollie_wc_gateway_ideal' == $order->get_payment_method() ) {
 			$heading = sprintf( __( 'Bevestiging aanmelding #%s', 'siw' ), $order->get_order_number() );
 		}
@@ -55,14 +51,14 @@ class SIW_WC_Email_Customer_Processing_Order {
 	 * Overschrijft template
 	 *
 	 * @param string $located
-	 * @param array $template_name
-	 * @param string $args
+	 * @param string $template_name
+	 * @param array $args
 	 * @param string $template_path
 	 * @param string $default_path
 	 * @return string
 	 */
-	public function set_template( $located, $template_name, $args, $template_path, $default_path ) {
-		if ( 'emails/customer-processing-order.php' == $template_name ) {
+	public function set_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) {
+		if ( 'emails/customer-processing-order.php' === $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
 		}
 		return $located;

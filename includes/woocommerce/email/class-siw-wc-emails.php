@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Aanpassingen t.b.v. WooCommerce e-mails
  *
@@ -35,7 +31,7 @@ class SIW_WC_Emails {
 	 * @param WC_Email $email
 	 * @return string
 	 */
-	public function set_email_from_name( $from_name, $email ) {
+	public function set_email_from_name( string $from_name, WC_Email $email ) {
 		$from_name = SIW_Properties::NAME;
 		return $from_name;
 	}
@@ -47,7 +43,7 @@ class SIW_WC_Emails {
 	 * @param WC_Email $email
 	 * @return string
 	 */
-	public function set_email_from_address( $from_address, $email ) {
+	public function set_email_from_address( string $from_address, WC_Email $email ) {
 		$from_address = siw_get_option( 'workcamp_application_email')['sender'];
 		return $from_address;
 	}
@@ -56,14 +52,14 @@ class SIW_WC_Emails {
 	 * Overschrijft header-template
 	 *
 	 * @param string $located
-	 * @param array $template_name
-	 * @param string $args
+	 * @param string $template_name
+	 * @param array $args
 	 * @param string $template_path
 	 * @param string $default_path
 	 * @return string
 	 */
-	public function set_header_template( $located, $template_name, $args, $template_path, $default_path ) {
-		if ( 'emails/email-header.php' == $template_name ) {
+	public function set_header_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) {
+		if ( 'emails/email-header.php' === $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
 		}
 		return $located;
@@ -73,14 +69,14 @@ class SIW_WC_Emails {
 	 * Overschrijft footer-template
 	 *
 	 * @param string $located
-	 * @param array $template_name
-	 * @param string $args
+	 * @param string $template_name
+	 * @param array $args
 	 * @param string $template_path
 	 * @param string $default_path
 	 * @return string
 	 */
-	public function set_footer_template( $located, $template_name, $args, $template_path, $default_path ) {
-		if ( 'emails/email-footer.php' == $template_name ) {
+	public function set_footer_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) {
+		if ( 'emails/email-footer.php' === $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
 		}
 		return $located;
@@ -92,7 +88,7 @@ class SIW_WC_Emails {
 	 *
 	 * @param WC_Order $order
 	 */
-	public function show_order_table( $order ) {
+	public function show_order_table( WC_Order $order ) {
 		$table_data = $this->get_table_data( $order );
 
 		?>
@@ -123,7 +119,7 @@ class SIW_WC_Emails {
 	 * @param string $label
 	 * @param string $value
 	 */
-	public function show_table_row( $label, $value = '&nbsp;' ) {?>
+	public function show_table_row( string $label, string $value = '&nbsp;' ) {?>
 		<tr>
 			<td width="35%" style="font-family:Verdana, normal; color:<?php echo SIW_Properties::FONT_COLOR;?>; font-size:0.8em; ">
 				<?= wp_kses_post( $label ); ?>
@@ -141,7 +137,7 @@ class SIW_WC_Emails {
 	 *
 	 * @param string $label
 	 */
-	public function show_table_header_row( $label ) {?>
+	public function show_table_header_row( string $label ) {?>
 		<tr>
 			<td width="35%" style="font-family:Verdana, normal; color:<?php echo SIW_Properties::FONT_COLOR;?>; font-size:0.8em; font-weight:bold">
 				<?= esc_html( $label ); ?>
@@ -158,7 +154,7 @@ class SIW_WC_Emails {
 	 * @param WC_Order $order
 	 * @return array
 	 */
-	protected function get_table_data( $order ) {
+	protected function get_table_data( WC_Order $order ) {
 		/* Ophalen order gegevens */
 		$order_data = siw_get_order_data( $order );
 
@@ -257,7 +253,7 @@ class SIW_WC_Emails {
 	 * @param WC_Order $order
 	 * @return array
 	 */
-	protected function get_application_table_data( $order ) {
+	protected function get_application_table_data( WC_Order $order ) {
 
 		$application_data['header'] = __( 'Aanmelding', 'siw' );
 		$application_data['rows'][] = [
@@ -281,7 +277,7 @@ class SIW_WC_Emails {
 				$project_details = sprintf('%s<br/><small>Projectcode: %s<br>Projectduur: %s<br/>Tarief: %s</small>', $parent->get_name(), $parent->get_sku(), $project_duration, $item['pa_tarief'] );
 			}
 	
-			if ( 1 == $project_count ) {
+			if ( 1 === $project_count ) {
 				$application_data['rows'][] = [
 					'label' => __( 'Project', 'siw' ),
 					'value' => $project_details,
@@ -304,7 +300,7 @@ class SIW_WC_Emails {
 	 * @param WC_Order $order
 	 * @return array
 	 */
-	protected function get_payment_table_data( $order ) {
+	protected function get_payment_table_data( WC_Order $order ) {
 		$payment_data['header'] = __( 'Betaling', 'siw' );
 		if ( $order->get_total() != $order->get_subtotal() ) {
 			$payment_data['rows'][] = [

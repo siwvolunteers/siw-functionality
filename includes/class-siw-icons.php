@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Class voor SIW icons
  * 
@@ -17,7 +13,6 @@ class SIW_Icons {
 	 * Init
 	 */
 	public static function init() {
-
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_style' ] );
 		add_action( 'admin_enqueue_scripts', [ $self, 'enqueue_style' ] );
@@ -42,7 +37,7 @@ class SIW_Icons {
 	 * @param array $icon_families
 	 * @return array
 	 */
-	public function add_icon_family( $icon_families ) {
+	public function add_icon_family( array $icon_families ) {
 		$icon_families['siw'] = [
 			'name'      => __( 'SIW Icons', 'siw' ),
 			'style_uri' => SIW_ASSETS_URL . 'css/siw-admin-icons.css',
@@ -57,7 +52,7 @@ class SIW_Icons {
 	 * @param array $icon_families
 	 * @return array
 	 */
-	public function remove_icon_families( $icon_families ) {
+	public function remove_icon_families( array $icon_families ) {
 		unset( $icon_families['elegantline'] );
 		unset( $icon_families['fontawesome'] );
 		unset( $icon_families['genericons'] );
@@ -75,7 +70,7 @@ class SIW_Icons {
 	 * @param bool $prefix Moet prefix siw- toegevoegd worden?
 	 * @return array
 	 */
-	public static function get_icons( $label = 'html', $prefix = true ) {
+	public static function get_icons( string $label = 'html', bool $prefix = true ) {
 		$json_data = self::read_json_file();
 		
 		foreach ( $json_data as $icon => $unicode ) {

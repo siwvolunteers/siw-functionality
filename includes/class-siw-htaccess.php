@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Class om htaccess regels toe te voegen
  * 
@@ -21,7 +18,6 @@ class SIW_htaccess {
 		$self = new self();
 
 		add_action( 'siw_update_plugin', [ $self, 'regenerate_htaccess' ] );
-
 		add_filter( 'before_rocket_htaccess_rules', [ $self, 'add_https_redirect'] );
 		add_filter( 'after_rocket_htaccess_rules', [ $self, 'add_security_headers'] );
 		add_filter( 'after_rocket_htaccess_rules', [ $self, 'add_firewall'] );
@@ -46,7 +42,7 @@ class SIW_htaccess {
 	 * @param string $marker
 	 * @return string
 	 */
-	public function add_https_redirect( $marker ) {
+	public function add_https_redirect( string $marker ) {
 		$rules = [
 			'comment' => 'Redirect http to https',
 			'lines' => [
@@ -67,7 +63,7 @@ class SIW_htaccess {
 	 * @param string $marker
 	 * @return string
 	 */
-	public function add_security_headers( $marker ) {
+	public function add_security_headers( string $marker ) {
 		$rules = [
 			'comment' => 'security headers',
 			'tag'     => 'IfModule',
@@ -94,7 +90,7 @@ class SIW_htaccess {
 	 * 
 	 * @link https://perishablepress.com/6g/
 	 */
-	public function add_firewall( $marker ) {
+	public function add_firewall( string $marker ) {
 		$query_string_rules = [
 			'comment' => '6G:[QUERY STRINGS]',
 			'tag'     => 'IfModule',
@@ -218,7 +214,7 @@ class SIW_htaccess {
 	 * @param string $marker
 	 * @return string
 	 */
-	public function add_security_rules( $marker ) {
+	public function add_security_rules( string $marker ) {
 		$files_rules = [
 			'tag'     => 'FilesMatch',
 			'value'   => '^(wp-config\.php|readme\.html|license\.txt|install\.php|xmlrpc\.php|\.htaccess)',
@@ -278,7 +274,7 @@ class SIW_htaccess {
 	 * @param array $rules
 	 * @return string
 	 */
-	protected function format_rules( $rules ) {
+	protected function format_rules( array $rules ) {
 
 		$defaults = [
 			'comment' => '',

@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Class voor shortcodes
  * 
@@ -258,7 +255,7 @@ class SIW_Shortcodes {
 	 * @param array $atts
 	 * @return string
 	 */
-	public static function external_link( $atts ) {
+	public static function external_link( array $atts ) {
 		extract( shortcode_atts( [
 			'url'   => '',
 			'titel' => '',
@@ -275,7 +272,6 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function board_members() {
-
 		$board_members = siw_get_option( 'board_members');
 		if ( empty( $board_members ) ) {
 			return;
@@ -294,7 +290,6 @@ class SIW_Shortcodes {
 	 * @return string
 	 */
 	public static function annual_reports() {
-
 		$annual_reports = siw_get_option( 'annual_reports' );
 		if ( empty( $annual_reports ) ) {
 			return;
@@ -363,7 +358,7 @@ class SIW_Shortcodes {
 	 * 
 	 * @todo slug als parameter en get page by path gebruiken
 	 */
-	public static function page_modal( $atts ) {
+	public static function page_modal( array $atts ) {
 		extract( shortcode_atts( [
 			'link_tekst' => '',
 			'pagina'     => '',
@@ -398,7 +393,7 @@ class SIW_Shortcodes {
 	 *
 	 * @param array $atts
 	 */
-	public static function pie_chart( $atts ) {
+	public static function pie_chart( array $atts ) {
 		extract( shortcode_atts( [
 			'titel'   => '',
 			'labels'  => '',

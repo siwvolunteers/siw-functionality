@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * API endpoint voor aanmelding nieuwsbrief
  *
@@ -49,19 +45,19 @@ class SIW_API_Newsletter_Subscribe extends SIW_API {
 	 * @param string $key
 	 * @return bool
 	 */
-	public function validate_name( $param, $request, $key ) {
+	public function validate_name( string $param, WP_REST_Request $request, string $key ) {
 		return is_string( $param );
 	}
 
 	/**
-	 * Undocumented function
+	 * Formatteert naam
 	 *
 	 * @param mixed $param
 	 * @param WP_REST_Request $request
 	 * @param string $key
 	 * @return string
 	 */
-	public function sanitize_name( $param, $request, $key ) {
+	public function sanitize_name( string $param, WP_REST_Request $request, string $key ) {
 		return sanitize_text_field( $param );
 	}
 
@@ -69,23 +65,23 @@ class SIW_API_Newsletter_Subscribe extends SIW_API {
 	 * Valideert e-mail
 	 *
 	 * @param mixed $param
-	 * @param  WP_REST_Request $request
+	 * @param WP_REST_Request $request
 	 * @param string $key
 	 * @return bool
 	 */
-	public function validate_email( $param, $request, $key ) {
+	public function validate_email( $param, WP_REST_Request $request, string $key ) {
 		return is_email( $param );
 	}
 
 	/**
-	 * 
+	 * Formatteert email
 	 *
 	 * @param mixed $param
-	 * @param  WP_REST_Request $request
+	 * @param WP_REST_Request $request
 	 * @param string $key
 	 * @return bool
 	 */
-	public function sanitize_email( $param, $request, $key ) {
+	public function sanitize_email( $param, WP_REST_Request $request, string $key ) {
 		return sanitize_email( $param );
 	}
 
@@ -97,7 +93,7 @@ class SIW_API_Newsletter_Subscribe extends SIW_API {
 	 * 
 	 * @todo splitsen
 	 */
-	public function subscribe( $request ) {
+	public function subscribe( WP_REST_Request $request ) {
 
 		$first_name = $request->get_param( 'name' );
 		$email = $request->get_param( 'email' );
