@@ -54,7 +54,7 @@ class SIW_WC_Product_Archive {
 	 * @param WP_Term $term
 	 * @return string
 	 */
-	public function set_seo_title( string $title, WP_Term $term ) {
+	public function set_seo_title( string $title, $term ) {
 
 		if ( ! is_a( $term, 'WP_Term') ) {
 			return $title;
@@ -87,7 +87,7 @@ class SIW_WC_Product_Archive {
 	 * @param string $description
 	 * @param WP_Term $term
 	 */
-	public function set_seo_description( string $description, WP_Term $term ) {
+	public function set_seo_description( string $description, $term ) {
 		if ( ! is_a( $term, 'WP_Term') ) {
 			return $description;
 		}
