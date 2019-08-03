@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Aanpassingen voor Pinnacle Premium
  *
@@ -50,7 +47,7 @@ class SIW_Compat_Pinnacle_Premium {
 	 * @param bool $lazy
 	 * @return bool
 	 */
-	public function set_lazy_load( $lazy ) {
+	public function set_lazy_load( bool $lazy ) {
 		if ( defined( 'DONOTROCKETOPTIMIZE' ) && DONOTROCKETOPTIMIZE ) {
 			$lazy = false;
 		}
@@ -72,7 +69,7 @@ class SIW_Compat_Pinnacle_Premium {
 	 * @param array $custom_fonts
 	 * @return array
 	 */
-	public function add_system_font( $custom_fonts ) {
+	public function add_system_font( array $custom_fonts ) {
 		$custom_fonts = [
 			"SIW"=> [
 				"system-ui" => "System fonts",
@@ -133,7 +130,7 @@ class SIW_Compat_Pinnacle_Premium {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function add_widget_tab( $tabs ) {
+	public function add_widget_tab( array $tabs ) {
 		$tabs[] = [
 			'title'  => __( 'Pinnacle Widgets', 'siw' ),
 			'filter' => ['groups' => ['kad'] ],
@@ -147,7 +144,7 @@ class SIW_Compat_Pinnacle_Premium {
 	 * @param array $widgets
 	 * @return array
 	 */
-	public function group_pinnacle_widgets( $widgets ) {
+	public function group_pinnacle_widgets( array $widgets ) {
 		foreach ( $widgets as $widget_id => &$widget ) {
 			if ( 0 === strpos( $widget_id, 'kad_' ) ) {
 				$widget['groups'][] = 'kad';
@@ -188,7 +185,7 @@ class SIW_Compat_Pinnacle_Premium {
 	 * @param bool $show_sidebar
 	 * @return bool
 	 */
-	public function set_sitebar_visibility( $show_sidebar ) {
+	public function set_sitebar_visibility( bool $show_sidebar ) {
 		if ( 'wpm-testimonial' == get_post_type() || 'vacatures' == get_post_type() || 'agenda' == get_post_type() ) {
 			return false;
 		}
@@ -206,8 +203,7 @@ class SIW_Compat_Pinnacle_Premium {
 	 */
 	public function set_sitebar_id( $sidebar_id ) {
 		if ( is_tax( 'pa_land') || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax( 'pa_taal' ) || is_tax( 'pa_maand' ) ) {
-			global $pinnacle;
-			$sidebar_id = $pinnacle['shop_cat_sidebar'];
+			$sidebar_id = Redux::getOption( 'pinnacle', 'shop_cat_sidebar' );
 		}
 	
 		return $sidebar_id;
@@ -224,7 +220,6 @@ class SIW_Compat_Pinnacle_Premium {
 	 * @todo verplaatsen naar eigen class
 	 */
 	public function add_breadcrumbs() {
-		global $post;
 	
 		$delimiter = apply_filters('kadence_breadcrumb_delimiter', '/');
 		$breadcrumb = '<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="%s"><span itemprop="title">%s</span></a></span> %s ';
@@ -292,7 +287,7 @@ class SIW_Compat_Pinnacle_Premium {
 	 * @param string $post_type
 	 * @return array
 	 */
-	public function add_page_templates( $templates, $wp_theme, $post, $post_type ) {
+	public function add_page_templates( array $templates, WP_Theme $wp_theme, $post, string $post_type ) {
 		$templates['template-agenda.php'] = 'Agenda';
 		$templates['template-vacatures-grid.php'] = 'Vacatures grid';
 		return $templates;
@@ -306,7 +301,7 @@ class SIW_Compat_Pinnacle_Premium {
 	 * @param array $templates
 	 * @return string
 	 */
-	public function set_page_templates( $template, $type, $templates ) {
+	public function set_page_templates( string $template, string $type, array $templates ) {
 		if ( in_array( 'template-agenda.php', $templates ) && SIW_Util::template_exists( 'template-agenda.php' ) ) {
 			$template = SIW_TEMPLATES_DIR . '/template-agenda.php';
 		}

@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Aanpassingen voor SiteOrigin Page Builder
  * 
@@ -56,7 +53,7 @@ class SIW_Compat_SiteOrigin_Page_Builder {
 	 * @param array $groups
 	 * @return array
 	 */
-	public function add_visibility_style_group( $groups ) {
+	public function add_visibility_style_group( array $groups ) {
 		$groups['visibility'] = [
 			'name'     => __( 'Zichtbaarheid', 'siw' ),
 			'priority' => 99,
@@ -70,7 +67,7 @@ class SIW_Compat_SiteOrigin_Page_Builder {
 	 * @param array $fields
 	 * @return array
 	 */
-	public function add_visibility_style_fields( $fields ) {
+	public function add_visibility_style_fields( array $fields ) {
 		$fields['hide_on_mobile'] = [
 			'name'     => '<span class="dashicons dashicons-smartphone"></span>' . __( 'Mobiel', 'siw'),
 			'label'    => __( 'Verbergen', 'siw'),
@@ -95,7 +92,7 @@ class SIW_Compat_SiteOrigin_Page_Builder {
 	 * @param array $style_args
 	 * @return array
 	 */
-	public function add_visibility_style_attributes( $style_attributes, $style_args ) {
+	public function add_visibility_style_attributes( array $style_attributes, array $style_args ) {
 		if ( isset( $style_args['hide_on_mobile'] ) && 1 == $style_args['hide_on_mobile'] ) {
 			$style_attributes['class'][] = 'hidden-xs';
 		}
@@ -113,7 +110,7 @@ class SIW_Compat_SiteOrigin_Page_Builder {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function add_widget_tab( $tabs ) {
+	public function add_widget_tab( array $tabs ) {
 		$tabs[] = [
 			'title'  => __( 'SIW Widgets', 'siw' ),
 			'filter' => [

@@ -1,13 +1,10 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Aanpassingen voor WP Rocket
  * 
  * @package     SIW\Compatibility
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright   2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  */
 
@@ -23,7 +20,7 @@ class SIW_Compat_WP_Rocket {
 		}
 	
 		$self = new self();
-		add_filter( 'rocket_exclude_js', [ $self, 'set_excluded_js' ] );+
+		add_filter( 'rocket_exclude_js', [ $self, 'set_excluded_js' ] );
 		add_filter( 'rocket_minify_excluded_external_js', [ $self, 'set_excluded_external_js' ] );
 		add_filter( 'rocket_lazyload_youtube_thumbnail_resolution', [ $self, 'set_youtube_thumbnail_resolution' ] );
 		add_filter( 'rocket_excluded_inline_js_content', [ $self, 'set_excluded_inline_js_content' ] );
@@ -37,7 +34,7 @@ class SIW_Compat_WP_Rocket {
 	 * @param array $excluded_files
 	 * @return array
 	 */
-	public function set_excluded_js( $excluded_files ) {
+	public function set_excluded_js( array $excluded_files ) {
 		$excluded_files[] = '/wp-content/plugins/caldera-forms/assets/build/js/conditionals.min.js';
 		$excluded_files[] = '/wp-content/plugins/wp-sentry-integration/public/(.*).js';
 		return $excluded_files;
@@ -51,7 +48,7 @@ class SIW_Compat_WP_Rocket {
 	 * @param array $excluded_domains
 	 * @return array
 	 */
-	public function set_excluded_external_js( $excluded_domains ) {
+	public function set_excluded_external_js( array $excluded_domains ) {
 		$excluded_domains[] = 'www.google-analytics.com';
 		return $excluded_domains;
 	}
@@ -62,7 +59,7 @@ class SIW_Compat_WP_Rocket {
 	 * @param string $thumbnail_resolution
 	 * @return string
 	 */
-	public function set_youtube_thumbnail_resolution( $thumbnail_resolution ) {
+	public function set_youtube_thumbnail_resolution( string $thumbnail_resolution ) {
 		$thumbnail_resolution = 'maxresdefault';
 		return $thumbnail_resolution;
 	}
@@ -78,7 +75,7 @@ class SIW_Compat_WP_Rocket {
 	 * @param array $content
 	 * @return array
 	 */
-	public function set_excluded_inline_js_content( $content ) {
+	public function set_excluded_inline_js_content( string $content ) {
 		$content[] = 'tvc_id';
 		$content[] = 'gmap3';
 		$content[] = 'caldera_conditionals';

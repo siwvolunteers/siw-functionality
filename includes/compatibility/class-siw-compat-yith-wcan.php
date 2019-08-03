@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Aanpassingen voor YITH WooCommerce Ajax Product Filter
  * 
@@ -47,7 +44,7 @@ class SIW_Compat_YITH_WCAN {
 	 * @param array $admin_tabs
 	 * @return array
 	 */
-	public function remove_premium_tab( $admin_tabs ) {
+	public function remove_premium_tab( array $admin_tabs ) {
 		unset( $admin_tabs['premium'] );
 		return $admin_tabs;
 	}
@@ -65,10 +62,10 @@ class SIW_Compat_YITH_WCAN {
 	 *
 	 * @param array $terms
 	 * @param string $taxonomy
-	 * @param YITH_WCAN_Navigation_Widget $instance
+	 * @param array $instance
 	 * @return array
 	 */
-	public function order_terms( $terms, $taxonomy, $instance ) {
+	public function order_terms( array $terms, string $taxonomy, array $instance ) {
 		if ( 'pa_maand' != $taxonomy || empty( $terms )) {
 			return $terms;
 		}

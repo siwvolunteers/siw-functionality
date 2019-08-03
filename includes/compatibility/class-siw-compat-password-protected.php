@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Aanpassingen voor "Password protected" plugin
  *
@@ -59,7 +56,7 @@ class SIW_Compat_Password_Protected {
 	 * @param bool $is_active
 	 * @return bool
 	 */
-	public function process_whitelisted_ips( $is_active ) {
+	public function process_whitelisted_ips( bool $is_active ) {
 		$ip_whitelist = siw_get_option('ip_whitelist');
 		if ( is_array( $ip_whitelist ) && isset( $_SERVER['REMOTE_ADDR'] ) && in_array( $_SERVER['REMOTE_ADDR'], $ip_whitelist ) ) {
 			$is_active = false;
@@ -74,7 +71,7 @@ class SIW_Compat_Password_Protected {
 	 * @param bool $secure_connection
 	 * @return bool
 	 */
-	public function set_secure_cookie( $secure_cookie, $secure_connection ) {
+	public function set_secure_cookie( bool $secure_cookie, bool $secure_connection ) {
 		$secure_cookie = $secure_connection;
 		return $secure_cookie;
 	}

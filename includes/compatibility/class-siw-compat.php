@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Aanpassingen voor diverse plugins
  * 
@@ -61,7 +58,7 @@ class SIW_Compat {
 	 * @param int $max_redirects
 	 * @return int
 	 */
-	public function set_max_redirects( $max_redirects ) {
+	public function set_max_redirects( int $max_redirects ) {
 		$max_redirects = 250;
 		return $max_redirects;
 	}
@@ -72,7 +69,7 @@ class SIW_Compat {
 	 * @param int $default_direct_status
 	 * @return int
 	 */
-	public function set_default_direct_status( $default_direct_status ) {
+	public function set_default_direct_status( int $default_direct_status ) {
 		$default_direct_status = 301;
 		return $default_direct_status;
 	}
@@ -83,7 +80,7 @@ class SIW_Compat {
 	 * @param array $args
 	 * @return array
 	 */
-	public function set_wpmtst_post_type_slug( $args ) {
+	public function set_wpmtst_post_type_slug( array $args ) {
 		$args['rewrite']['slug'] = 'ervaring';
 		return $args;
 	}
@@ -110,7 +107,7 @@ class SIW_Compat {
 	 * @param string $ip
 	 * @return bool
 	 */
-	public function process_whitelisted_ips( $allow, $ip ) {
+	public function process_whitelisted_ips( bool $allow, string $ip ) {
 		$ip_whitelist = siw_get_option( 'ip_whitelist' );
 		if ( is_array( $ip_whitelist ) && in_array( $ip, $ip_whitelist ) ) {
 			$allow = true;

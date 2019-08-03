@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Aanpassingen voor Caldera Forms
  * 
@@ -58,7 +55,7 @@ class SIW_Compat_Caldera_Forms{
 	 * @param array $protocols
 	 * @return array
 	 */
-	public function allow_magic_tags( $protocols ) {
+	public function allow_magic_tags( array $protocols ) {
 		$protocols[] = '{embed_post';
 		return $protocols;
 	}
@@ -77,7 +74,7 @@ class SIW_Compat_Caldera_Forms{
 	 * @param string $field_html
 	 * @return string
 	 */
-	public function add_input_markup( $field_html ) {
+	public function add_input_markup( string $field_html ) {
 		$field_html = preg_replace( '/<input(.*?)>/s', '<input$1><div class="control-indicator"></div>', $field_html );
 		return $field_html;
 	}
@@ -88,7 +85,7 @@ class SIW_Compat_Caldera_Forms{
 	 * @param string $pattern
 	 * @return string
 	 */
-	public function set_summary_magic_pattern( $pattern ) {
+	public function set_summary_magic_pattern( string $pattern ) {
 		$pattern = '<tr>
 			<td width="35%%" style="font-family: Verdana, normal; color:' . SIW_Properties::FONT_COLOR . '; font-size:0.8em;">%s</td>
 			<td width="5%%"></td>
@@ -107,7 +104,7 @@ class SIW_Compat_Caldera_Forms{
 	 * @param array $field
 	 * @return array
 	 */
-	public function set_validation_field_attributes( $attrs, $field ) {
+	public function set_validation_field_attributes( array $attrs, array $field ) {
 		if ( 'geboortedatum' === $field['ID'] ) {
 			$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige datum.', 'siw' );
 			$attrs[ 'data-parsley-pattern' ] = SIW_Util::get_regex( 'date' );
@@ -125,9 +122,9 @@ class SIW_Compat_Caldera_Forms{
 	 *
 	 * @param array $form
 	 * 
-	 * @todo instelling bij formulier i.p.v. afleiden van vel
+	 * @todo instelling bij formulier i.p.v. afleiden van veld
 	 */
-	public function maybe_add_postcode_script( $form ) {
+	public function maybe_add_postcode_script( array $form ) {
 
 		if ( isset( $form['fields']['postcode'] ) ) {
 
