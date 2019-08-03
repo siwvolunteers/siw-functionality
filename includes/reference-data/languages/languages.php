@@ -3,7 +3,7 @@
  * Functies m.b.t. talen
  * 
  * @author    Maarten Bruna
- * @package   SIW\Reference-Data
+ * @package   SIW\Data
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  */
 
@@ -16,7 +16,12 @@ require_once( __DIR__ . '/class-siw-language.php' );
  * @param string $context all|volunteer|project
  * @return SIW_Language[]
  */
-function siw_get_languages( $context = 'all', $index = 'slug' ) {
+function siw_get_languages( string $context = 'all', string $index = 'slug' ) {
+	$languages = wp_cache_get( "{$context}_{$index}", 'siw_languages' );
+
+	if ( false !== $languages ) {
+		return $languages;
+	}
 
 	$data = require SIW_DATA_DIR . '/languages.php';
 
@@ -29,6 +34,8 @@ function siw_get_languages( $context = 'all', $index = 'slug' ) {
 			$languages[ $item[ $index ] ] = $language;
 		}
 	}
+	wp_cache_set( "{$context}_{$index}", $languages, 'siw_languages' );
+	
 	return $languages;
 }
 
@@ -37,7 +44,7 @@ function siw_get_languages( $context = 'all', $index = 'slug' ) {
 *
 * @return SIW_Language
 */
-function siw_get_language( $language, $index = 'slug' ) {
+function siw_get_language( string $language, string $index = 'slug' ) {
 
 	$languages = siw_get_languages( 'all', $index );
 

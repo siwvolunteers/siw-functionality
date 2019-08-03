@@ -2,15 +2,10 @@
 /**
  * Functies m.b.t. landen
  * 
- * @author      Maarten Bruna
- * @package 	SIW\Reference-Data
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
+ * @author    Maarten Bruna
+ * @package   SIW\Reference-Data
+ * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 require_once( __DIR__ . '/class-siw-country.php' );
 require_once( __DIR__ . '/data-asia.php' );
 require_once( __DIR__ . '/data-africa.php' );
@@ -28,8 +23,13 @@ require_once( __DIR__ . '/data-north-america.php' );
  * 
  * @todo sorteren op naam
  */
-function siw_get_countries( $context = 'all', $index = 'slug' ) { 
-	
+function siw_get_countries( string $context = 'all', string $index = 'slug' ) { 
+
+	$countries = wp_cache_get( "{$context}_{$index}", 'siw_countries' );
+	if ( false !== $countries ) {
+		return $countries;
+	}
+
 	$data = [];
 
 	$continent_data = [];
@@ -65,6 +65,7 @@ function siw_get_countries( $context = 'all', $index = 'slug' ) {
 			$countries[ $item[ $index ] ] = $country;
 		}
 	}
+	wp_cache_set( "{$context}_{$index}", $countries, 'siw_countries' );
 
 	return $countries;
 }
@@ -77,7 +78,7 @@ function siw_get_countries( $context = 'all', $index = 'slug' ) {
  * @param string $index
  * @return SIW_Country
  */
-function siw_get_country( $country, $index = 'slug' ) {
+function siw_get_country( string $country, string $index = 'slug' ) {
 
 	$countries = siw_get_countries( 'all', $index  );
 	if ( ! isset( $countries[ $country ] ) ) {

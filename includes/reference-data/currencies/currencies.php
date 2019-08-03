@@ -2,15 +2,10 @@
 /**
  * Functies m.b.t. valuta's
  * 
- * @package 	SIW\Reference-Data
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
- * @author      Maarten Bruna
+ * @package   SIW\Data
+ * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @author    Maarten Bruna
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /* Class laden */
 require_once( __DIR__ . '/class-siw-currency.php' );
 
@@ -22,10 +17,16 @@ require_once( __DIR__ . '/class-siw-currency.php' );
  */
 function siw_get_currencies() {
 
+	$currencies = wp_cache_get( "currencies", 'siw_currencies' );
+	if ( false !== $currencies ) {
+		return $currencies;
+	}
+
 	$data = require SIW_DATA_DIR . '/currencies.php';
 	foreach ( $data as $currency ) {
 		$currencies[ $currency['iso'] ] = new SIW_Currency( $currency );
 	}
+	wp_cache_set( "currencies", $currencies, 'siw_currencies' );
 
 	return $currencies;
 }
@@ -35,7 +36,7 @@ function siw_get_currencies() {
  *
  * @return SIW_Currency
  */
-function siw_get_currency( $currency ) {
+function siw_get_currency( string $currency ) {
 	
 	$currencies = siw_get_currencies( $currency );
 

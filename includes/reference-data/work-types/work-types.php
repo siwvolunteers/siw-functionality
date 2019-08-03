@@ -7,12 +7,6 @@
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-require_once( __DIR__ . '/class-siw-work-type.php' );
-
 /**
  * Geeft een array met soort werk voor projecten terug
  *
@@ -20,7 +14,11 @@ require_once( __DIR__ . '/class-siw-work-type.php' );
  * @param string $context all|dutch_projects|tailor_made_projects
  * @return SIW_Work_Type[]
  */
-function siw_get_work_types( $context = 'all', $index = 'slug' ) {
+function siw_get_work_types( string $context = 'all', string $index = 'slug' ) {
+	$work_types = wp_cache_get( "{$context}_{$index}", 'siw_work_types' );
+	if ( false !== $work_types ) {
+		return $work_types;
+	}
 
 
 	$data = require SIW_DATA_DIR . '/work-types.php';
@@ -34,6 +32,7 @@ function siw_get_work_types( $context = 'all', $index = 'slug' ) {
 			$work_types[ $item[ $index ] ] = $work_type;
 		}
 	}
+	wp_cache_set( "{$context}_{$index}", $work_types, 'siw_work_types' );
 
 	return $work_types;
 }
@@ -45,7 +44,7 @@ function siw_get_work_types( $context = 'all', $index = 'slug' ) {
  * @param string $index
  * @return SIW_Work_Type
  */
-function siw_get_work_type( $work_type, $index = 'slug' ) {
+function siw_get_work_type( string $work_type, string $index = 'slug' ) {
 	
 	$work_types = siw_get_work_types( 'all', $index );
 
