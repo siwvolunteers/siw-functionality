@@ -66,11 +66,7 @@ class SIW_Batch_Job_Update_Free_Places extends SIW_Batch_Job {
 	 */
 	protected function task( $item ) {
 
-		$free_places = $this->has_free_places( $item['free_m'], $item['free_f'], $item['no_more_from'] );
-		if ( 'yes' == $free_places ) {
-			return false;
-		}
-	
+		//Zoek project op basis van project_id
 		$args = [
 			'visibility' => 'visible',
 			'project_id' => $item['project_id'],
@@ -83,11 +79,16 @@ class SIW_Batch_Job_Update_Free_Places extends SIW_Batch_Job {
 		if ( empty( $products ) ) {
 			return false;
 		}
-
 		$product = $products[0];
-		$product->update_meta_data( 'freeplaces', $free_places );
-		$product->save();
-		$this->increment_processed_count();
+
+		$new_free_places = $this->has_free_places( $item['free_m'], $item['free_f'], $item['no_more_from'] );
+
+
+		if ( $new_free_places !== $product->get_meta( 'freeplaces' ) ) {
+			$product->update_meta_data( 'freeplaces', $new_free_places );
+			$product->save();
+			$this->increment_processed_count();
+		}
 
 		return false;
 	}
