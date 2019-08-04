@@ -42,12 +42,6 @@ class SIW_Widget_Carousel extends SIW_Widget {
 	 */
 	protected $carousel;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function initialize() {
-		// $this->carousel = new SIW_Element_Carousel();
-	}
 
 	/**
 	 * {@inheritDoc}

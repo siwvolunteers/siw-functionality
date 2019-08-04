@@ -70,17 +70,9 @@ class SIW_Element_Carousel {
 	];
 
 	/**
-	 * Init
-	 */
-	public function __construct() {
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_script' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_style' ] );
-	}
-
-	/**
 	 * Voegt stylesheet toe
 	 */
-	public function enqueue_style() {
+	public function enqueue_styles() {
 		wp_register_style( 'flickity', SIW_ASSETS_URL . 'modules/flickity/flickity.css', [], self::FLICKITY_VERSION );
 		wp_enqueue_style( 'flickity' );
 	}
@@ -88,8 +80,8 @@ class SIW_Element_Carousel {
 	/**
 	 * Voegt scripts toe
 	 */
-	public function enqueue_script() {
-		wp_register_script( 'flickity', SIW_ASSETS_URL . 'modules/flickity/flickity.js', [], self::FLICKITY_VERSION );
+	public function enqueue_scripts() {
+		wp_register_script( 'flickity', SIW_ASSETS_URL . 'modules/flickity/flickity.js', [], self::FLICKITY_VERSION, true );
 		wp_enqueue_script( 'flickity' );
 	}
 
@@ -184,8 +176,11 @@ class SIW_Element_Carousel {
 	 * 
 	 * @todo leesbaarder maken
 	 */
-	public function generate() {
+	public function render() {
 		
+		$this->enqueue_scripts();
+		$this->enqueue_styles();
+
 		$query = $this->generate_query();
 
 		ob_start();
