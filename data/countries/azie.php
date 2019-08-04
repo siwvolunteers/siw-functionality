@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Gegevens van landen in Azië
  * 
- * @package   SIW\Reference-Data
+ * @package   SIW\Data
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  */

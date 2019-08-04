@@ -57,15 +57,15 @@ add_filter( 'siw_map_destinations_data', function( $map_data ) {
 /**
  * Genereer beschrijving van aanbod per land
  *
- * @param SIW_Country $country
+ * @param SIW_Data_Country $country
  * @return string
  * 
  * @uses SIW_Formatting
  * @uses SIW_i18n
  * 
- * @todo verplaatsen naar SIW_Country?
+ * @todo verplaatsen naar SIW_Data_Country?
  */
-function siw_generate_country_description( $country ) {
+function siw_generate_country_description( SIW_Data_Country $country ) {
 
 	$tailor_made_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
 	$esc_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'esc_explanation_page' ) );

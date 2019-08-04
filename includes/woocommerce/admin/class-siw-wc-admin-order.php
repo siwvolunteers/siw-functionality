@@ -34,9 +34,7 @@ class SIW_WC_Admin_Order {
 		add_filter( 'manage_edit-shop_order_columns', [ $self, 'remove_admin_columns'] );
 		add_action( 'admin_init', [ $self, 'add_admin_columns'], 20 );
 
-		add_filter( 'woocommerce_order_actions', [ $self, 'add_order_actions'] );
 		add_filter( 'woocommerce_order_actions', [ $self, 'remove_order_actions'] );
-		add_action( 'woocommerce_order_action_siw_export_to_plato', [ $self, 'export_application_to_plato'] );
 	}
 
 	/**
@@ -345,32 +343,7 @@ class SIW_WC_Admin_Order {
 		if ( ! class_exists( 'MB_Admin_Columns_Post' ) ) {
 			return;
 		}
-
-		require_once( __DIR__ . '/class-siw-wc-admin-order-columns.php' );
 		new SIW_WC_Admin_Order_Columns( 'shop_order', [] );
-	}
-
-	/**
-	 * Voeg orderactie voor export naar Plato toe
-	 *
-	 * @param array $actions
-	 * @return array
-	 */
-	public function add_order_actions( $actions ) {
-		global $theorder;
-		if ( $theorder->is_paid() ) {
-			$actions['siw_export_to_plato'] = __( 'Exporteer naar PLATO', 'siw' );
-		}
-		return $actions;
-	}
-
-	/**
-	 * Exporteert aanmelding naar plato
-	 *
-	 * @param int $order_id
-	 */
-	public function export_application_to_plato( $order_id ) {
-		siw_export_application_to_plato( $order_id );
 	}
 
 	/**

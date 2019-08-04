@@ -22,6 +22,19 @@ add_filter( 'siw_settings_pages', function( $pages ) {
 });
 
 add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
+
+	//Zoek MailPoet-lijsten
+	if ( class_exists( 'WYSIJA' ) ) {
+		$model_list = WYSIJA::get( 'list','model' );
+		$lists = $model_list->get( ['name','list_id' ], ['is_enabled' => 1] );
+		foreach ( $lists as $list ) {
+			$mailpoet_lists[ $list['list_id'] ] = $list['name'];
+		}
+	}
+	else {
+		$mailpoet_lists = [] ;
+	}
+
 	$meta_boxes[] = [
 		'id'             => 'external',
 		'title'          => __( 'Extern', 'siw' ),
@@ -100,7 +113,7 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 				'name'    => __( 'Lijst', 'siw' ),
 				'type'    => 'select',
 				'tab'     => 'newsletter',
-				'options' => siw_get_mailpoet_lists(),
+				'options' => $mailpoet_lists,
 			],
 		],
 	];
@@ -179,6 +192,11 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 						],
 					],
 				],
+			],
+			[
+				'name'      => __( 'DKIM', 'siw' ),
+				'type'      => 'heading',
+				'tab'       => 'dkim',
 			],
 			[
 				'id'        => 'dkim_enabled',

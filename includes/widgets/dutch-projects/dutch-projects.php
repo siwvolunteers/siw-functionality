@@ -86,7 +86,7 @@ class SIW_Widget_Dutch_Projects extends SIW_Widget {
 		$content .= '<div class="hidden-sm hidden-md hidden-lg">' . $mobile_content . '</div>';
 
 		$booklet_link = $this->get_booklet_link();
-		if ( false != $booklet_link ) {
+		if ( false !== $booklet_link ) {
 			$content .= $booklet_link;
 		}
 

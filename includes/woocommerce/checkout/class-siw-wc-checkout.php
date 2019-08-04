@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * WooCommerce checkout
  * 
@@ -22,8 +18,6 @@ class SIW_WC_Checkout{
 	public static function init() {
 		$self = new self();
 
-		add_action( 'woocommerce_cart_calculate_fees', [ $self, 'calculate_discounts' ] );
-		add_action( 'wp_enqueue_scripts', [ $self, 'add_validation_script'] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'add_postcode_script' ] );
 
 		add_filter( 'woocommerce_default_address_fields', [ $self , 'set_default_address_fields'], 10, 2 );
@@ -42,7 +36,6 @@ class SIW_WC_Checkout{
 		remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_checkout_privacy_policy_text', 20 );
 		remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_terms_and_conditions_page_content', 30 );
 		add_action( 'woocommerce_after_checkout_form', [ $self, 'add_terms_modal'] );
-		add_action( 'woocommerce_after_checkout_validation', [ $self, 'validate_checkout_fields' ], 10, 2 );
 		add_action( 'woocommerce_checkout_create_order', [ $self, 'save_checkout_fields'], 10, 2 );
 
 		add_filter( 'wc_get_template', [ $self, 'set_checkout_templates'], 10, 5 );
@@ -54,7 +47,7 @@ class SIW_WC_Checkout{
 	 * @param array $locale_fields
 	 * @return array
 	 */
-	public function remove_locale_field_selectors( $locale_fields ) {
+	public function remove_locale_field_selectors( array $locale_fields ) {
 		unset( $locale_fields['address_2'] );
 		unset( $locale_fields['state'] );
 		return $locale_fields;
@@ -66,41 +59,9 @@ class SIW_WC_Checkout{
 	 * @param array $locale
 	 * @return array
 	 */
-	public function remove_locale_postcode_priority( $locale ) {
+	public function remove_locale_postcode_priority( array $locale ) {
 		unset( $locale['NL']['postcode'] );
 		return $locale;
-	}
-
-	/**
-	 * Past korting toe bij meerdere projecten
-	 *
-	 * @param WC_Cart $cart
-	 * 
-	 * @todo hoort dit wel bij de checkout?
-	 */
-	public function calculate_discounts( $cart ) {
-
-		if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
-			return;
-		}
-		$cart_contents = $cart->get_cart_contents();
-
-		$count = 0;
-		foreach ( $cart_contents as $line ) {
-			$count++;
-			if ( 2 == $count ) {
-				$discount = $line['line_total'] * SIW_Properties::DISCOUNT_SECOND_PROJECT * -0.01;
-				$cart->add_fee( __( 'Korting 2e project', 'siw' ), $discount );
-			}
-			if ( 3 == $count ) {
-				$discount = $line['line_total'] * SIW_Properties::DISCOUNT_THIRD_PROJECT * -0.01;
-				$cart->add_fee( __( 'Korting 3e project', 'siw' ), $discount );
-			}
-			if ( 3 < $count ) {
-				$discount = $line['line_total'] * SIW_Properties::DISCOUNT_THIRD_PROJECT * -0.01;
-				$cart->add_fee( sprintf( __( 'Korting %de project', 'siw' ), $count ), $discount );
-			}
-		}
 	}
 
 	/**
@@ -109,7 +70,7 @@ class SIW_WC_Checkout{
 	 * @param string $field
 	 * @return string
 	 */
-	public function add_form_field_markup( $field ) {
+	public function add_form_field_markup( string $field ) {
 		$field = preg_replace( '/<input(.*?)>/', '<input$1><span class="control-indicator"></span>', $field );
 		return $field;
 	}
@@ -120,7 +81,7 @@ class SIW_WC_Checkout{
 	 * @param array $args
 	 * @return array
 	 */
-	public function add_form_field_classes( $args ) {
+	public function add_form_field_classes( array $args ) {
 		if ( $args['type'] == 'radio' ) {
 			$args['class'][] = 'control-radio';
 		}
@@ -167,7 +128,7 @@ class SIW_WC_Checkout{
 	 *
 	 * @param WC_Checkout $checkout
 	 */
-	public function show_checkout_partner_fields( $checkout ) {
+	public function show_checkout_partner_fields( WC_Checkout $checkout ) {
 
 		$checkout_sections = $this->get_checkout_sections();
 		$checkout_fields = $this->get_checkout_fields();
@@ -194,7 +155,7 @@ class SIW_WC_Checkout{
 	 * @param WC_Order $order
 	 * @param array $data
 	 */
-	public function save_checkout_fields( $order, $data ) {
+	public function save_checkout_fields( WC_Order $order, array $data ) {
 		
 		$checkout_fields = $this->get_checkout_fields();
 
@@ -216,7 +177,7 @@ class SIW_WC_Checkout{
 	 * @param array $address_fields
 	 * @return array
 	 */
-	public function set_default_address_fields( $address_fields ) {
+	public function set_default_address_fields( array $address_fields ) {
 		/**
 		 * Volgorde van adresvelden
 		 *
@@ -230,10 +191,10 @@ class SIW_WC_Checkout{
 	 * Zet de classes voor de billing velden
 	 *
 	 * @param array $billing_fields
-	 * @param array $country
+	 * @param string $country
 	 * @return array
 	 */
-	public function set_billing_fields( $billing_fields, $country ) {
+	public function set_billing_fields( array $billing_fields, string $country ) {
 		$billing_fields['billing_phone']['class'] = ['form-row-first'];
 		$billing_fields['billing_email']['class'] = ['form-row-last'];
 		return $billing_fields;
@@ -256,7 +217,7 @@ class SIW_WC_Checkout{
 	 * @param string $text
 	 * @return string
 	 */
-	public function set_term_checkbox_text( $text ) {
+	public function set_term_checkbox_text( string $text ) {
 		$link = sprintf( '<a data-toggle="modal" href="#" data-target="#siw-page-%s-modal">%s</a>', wc_terms_and_conditions_page_id(), __( 'inschrijfvoorwaarden', 'siw' ) );
 		$text = sprintf(__( 'Ik heb de %s gelezen en ga akkoord', 'siw' ), $link );
 		return $text;
@@ -266,44 +227,9 @@ class SIW_WC_Checkout{
 	 * Voegt html voor voorwaarden-modal toe
 	 *
 	 * @param WC_Checkout $checkout
-	 * @return void
 	 */
-	public function add_terms_modal( $checkout ) {
+	public function add_terms_modal( WC_Checkout $checkout ) {
 		echo SIW_Formatting::generate_modal( wc_terms_and_conditions_page_id() );
-	}
-
-	/**
-	 * Voegt extra client-side validatie toe
-	 * 
-	 * - Postcode
-	 * - Datum
-	 */
-	public function add_validation_script() {
-		$inline_script = "$.validator.setDefaults({
-			errorPlacement: function( error, element ) {
-				error.appendTo( element.parents( 'p' ) );
-			}
-		});";
-
-		$validator = "$.validator.addMethod( '%s', function( value, element ) {
-			return this.optional( element ) || %s.test( value );
-		}, '%s' );";
-		
-		/* Datumvalidatie */
-		$inline_script .= sprintf(
-			$validator,
-			'dateNL',
-			SIW_Util::get_regex( 'date' ),
-			esc_html__( 'Dit is geen geldige datum.', 'siw' )
-		);
-		/* Postcodevalidatie*/
-		$inline_script .= sprintf(
-			$validator,
-			'postalcodeNL',
-			SIW_Util::get_regex( 'postal_code' ),
-			esc_html__( 'Dit is geen geldige postcode.', 'siw' )
-		);
-		wp_add_inline_script( 'jquery-validate', "(function( $ ) {" . $inline_script . "})( jQuery );" ); //TODO:format-functie voor anonymous jQuery
 	}
 
 	/**
@@ -322,44 +248,20 @@ class SIW_WC_Checkout{
 	}
 
 	/**
-	 * Voert validatie voor extra checkout velden uit
-	 *
-	 * @param array $data
-	 * @param WP_Error $errors
-	 * @return void
-	 * 
-	 * @todo minimum/maximum-leeftijd van project gebruiken
-	 */
-	public function validate_checkout_fields( $data, $errors ) {
-
-		$dob = $data['billing_dob'];
-		if ( false === (bool) preg_match( SIW_Util::get_regex('date'), $dob ) ) {
-			$errors->add( 'validation', sprintf( __( '%s bevat geen geldige datum.', 'siw' ), '<strong>' . esc_html__( 'Geboortedatum','siw' ) . '</strong>' ) );
-		}
-		else {
-			$min_age = 14; //TODO: property / projecteigenschap
-			$age = SIW_Util::calculate_age( $dob );
-			if ( $age < $min_age ) {
-				$errors->add( 'validation', sprintf( __( 'De minimumleeftijd voor deelname is %s jaar.', 'siw' ), '<strong>' . esc_html( $min_age ) . '</strong>' ) );
-			}
-		}
-	}
-	
-	/**
 	 * Overschrijft templates
 	 *
 	 * @param string $located
-	 * @param array $template_name
-	 * @param string $args
+	 * @param string $template_name
+	 * @param array $args
 	 * @param string $template_path
 	 * @param string $default_path
 	 * @return string
 	 */
-	public function set_checkout_templates( $located, $template_name, $args, $template_path, $default_path ) {
-		if ( 'checkout/terms.php' == $template_name ) {
+	public function set_checkout_templates( string $located, string $template_name, array $args, string $template_path, string $default_path ) {
+		if ( 'checkout/terms.php' === $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
 		}
-		if ( 'checkout/payment-method.php' == $template_name ) {
+		if ( 'checkout/payment-method.php' === $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
 		}
 		return $located;

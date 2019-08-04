@@ -69,7 +69,6 @@ class SIW_Batch_Job_Update_SEO_Noindex extends SIW_Batch_Job {
 				$new_noindex = date( 'Y-m-d' ) > $deadline;
 				break;
 			case 'agenda':
-				//$new_nodindex = true;
 				$event_end  = date( 'Y-m-d', get_post_meta( $post_id, 'siw_agenda_eind', true ) );
 				$new_noindex = date( 'Y-m-d' ) > $event_end;
 				break;

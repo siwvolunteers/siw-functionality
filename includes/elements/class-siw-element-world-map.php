@@ -9,7 +9,7 @@ use SVG\SVG;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  * 
- * @uses      SIW_Country
+ * @uses      SIW_Data_Country
  * @uses      SVG\SVG
  */
 class SIW_Element_World_Map {
@@ -38,14 +38,14 @@ class SIW_Element_World_Map {
 	/**
 	 * Land
 	 *
-	 * @var SIW_Country
+	 * @var SIW_Data_Country
 	 */
 	protected $country;
 
 	/**
 	 * Continent
 	 *
-	 * @var SIW_Continent
+	 * @var SIW_Data_Continent
 	 */
 	protected $continent;
 
@@ -81,7 +81,7 @@ class SIW_Element_World_Map {
 	/**
 	 * Genereert kaart
 	 *
-	 * @param string|SIW_Country $country
+	 * @param string|SIW_Data_Country $country
 	 * @param int $zoom
 	 * @return string
 	 */
@@ -100,14 +100,14 @@ class SIW_Element_World_Map {
 	/**
 	 * Zet land om in te kleuren
 	 *
-	 * @param string|SIW_Country $country
+	 * @param string|SIW_Data_Country $country
 	 * @return true
 	 */
 	protected function set_country( $country ) {
 		if ( is_string( $country ) ) {
 			$country = siw_get_country( $country );
 		}
-		if ( ! is_a( $country, 'SIW_Country') ) {
+		if ( ! is_a( $country, 'SIW_Data_Country') ) {
 			return false;
 		}
 		$this->country = $country;

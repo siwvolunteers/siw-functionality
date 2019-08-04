@@ -34,7 +34,7 @@ class SIW_Widgets {
 
 		$self->widgets_folder_base = SIW_INCLUDES_DIR . '/widgets';
 		require_once $self->widgets_folder_base . '/class-siw-widget.php';
-		$self->widgets = require SIW_DATA_DIR . '/widgets.php';
+		$self->widgets = siw_get_data( 'widgets' );
 
 		add_filter( 'siteorigin_widgets_widget_folders', [ $self, 'set_widgets_folders' ] );
 		add_filter( 'siteorigin_widgets_active_widgets', [ $self, 'set_active_widgets' ] );

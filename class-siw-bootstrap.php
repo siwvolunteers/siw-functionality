@@ -19,12 +19,14 @@ class SIW_Bootstrap {
 		$this->define_constants();
 		$this->load_dependencies();
 		$this->register_autoloader();
+		$this->load_functions();
 
 		$this->load_core();
 		$this->load_api();
 		$this->load_modules();
 		$this->load_compatibility();
 		$this->load_batch_jobs();
+		$this->load_woocommerce();
 
 		if ( is_admin() ) {
 			$this->load_admin();
@@ -43,6 +45,7 @@ class SIW_Bootstrap {
 		define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates' );
 		define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . 'includes' );
 		define ( 'SIW_DATA_DIR', SIW_PLUGIN_DIR . 'data' );
+		define ( 'SIW_FUNCTIONS_DIR', SIW_INCLUDES_DIR . '/functions' );
 		define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
 		define ( 'SIW_SITE_URL', get_home_url() );
@@ -50,6 +53,7 @@ class SIW_Bootstrap {
 		define ( 'BR', '<br/>' );
 		define ( 'BR2', '<br/><br/>' );
 		define ( 'SPACE', ' ' );
+		define ( 'HR', '<hr>');
 	}
 
 	/**
@@ -71,12 +75,42 @@ class SIW_Bootstrap {
 		$autoloader->add_dir( 'api', 'API' );
 		$autoloader->add_dir( 'batch-jobs', 'Batch_Job' );
 		$autoloader->add_dir( 'compatibility', 'Compat' );
-		$autoloader->add_dir( 'modules', 'Module' );
+		$autoloader->add_dir( 'data', 'Data' );
 		$autoloader->add_dir( 'elements', 'Element' );
 		$autoloader->add_dir( 'external', 'External' );
+		$autoloader->add_dir( 'forms', 'Form' );
+		$autoloader->add_dir( 'modules', 'Module' );
 		$autoloader->add_dir( 'plato-interface', 'Plato' );
+		$autoloader->add_dir( 'woocommerce/admin', 'WC_Admin' );
+		$autoloader->add_dir( 'woocommerce/checkout', 'WC_Checkout' );
+		$autoloader->add_dir( 'woocommerce/email', 'WC_Email' );
+		$autoloader->add_dir( 'woocommerce/import', 'WC_Import' );
+		$autoloader->add_dir( 'woocommerce', 'WC' );
 
 		$autoloader->register();
+	}
+
+	/**
+	 * Laadt functiebestanden
+	 */
+	protected function load_functions() {
+		$functions = [
+			'continents',
+			'countries',
+			'currencies',
+			'data',
+			'languages',
+			'social-networks',
+			'work-types',
+			//Oud
+			'agenda',
+			'jobs',
+			'quotes',
+		];
+		foreach ( $functions as $function ) {
+			require_once SIW_FUNCTIONS_DIR . "/{$function}.php";
+		}
+
 	}
 
 	/**
@@ -85,10 +119,11 @@ class SIW_Bootstrap {
 	protected function load_core() {
 		$this->init_classes( [
 			'SIW_Assets',
-			'SIW_i18n',
-			'SIW_Icons',
 			'SIW_Head',
 			'SIW_htaccess',
+			'SIW_i18n',
+			'SIW_Icons',
+			'SIW_Forms',
 			'SIW_Login',
 			'SIW_Scheduler',
 			'SIW_Shortcodes',
@@ -172,6 +207,24 @@ class SIW_Bootstrap {
 			'SIW_Batch_Job_Update_Workcamp_Tariffs',
 			'SIW_Batch_Job_Update_Workcamps',
 
+		]);
+	}
+
+	/**
+	 * Laadt uitbreidingen/aanpassingen voor WooCommerce
+	 */
+	protected function load_woocommerce() {
+		$this->init_classes( [
+			'SIW_WC_Admin_Order',
+			'SIW_WC_Admin_Product',
+			'SIW_WC_Checkout',
+			'SIW_WC_Checkout_Discount',
+			'SIW_WC_Checkout_Newsletter',
+			'SIW_WC_Checkout_Validation',
+			'SIW_WC_Emails',
+			'SIW_WC_Email_New_Order',
+			'SIW_WC_Email_Customer_On_Hold_Order',
+			'SIW_WC_Email_Customer_Processing_Order',
 		]);
 	}
 

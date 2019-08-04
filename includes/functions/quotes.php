@@ -2,26 +2,6 @@
 /*
  * (c)2018 SIW Internationale Vrijwilligersprojecten
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-/**
- * Geeft array met Mailpoet-lijsten terug
- *
- * @return array id => naam
- */
-function siw_get_mailpoet_lists() {
-	if ( ! class_exists( 'WYSIJA' ) ) {
-		return;
-	}
-	$model_list = WYSIJA::get( 'list','model' );
-	$lists = $model_list->get( array( 'name','list_id' ), array( 'is_enabled' => 1 ) );
-	foreach ( $lists as $list ) {
-		$mailpoet_lists[ $list['list_id'] ] = $list['name'];
-	}
-	return $mailpoet_lists;
-}
 
 /**
  * Geeft array met gegevens van een quote terug

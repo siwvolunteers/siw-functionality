@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Aanmelding voor nieuwsbrief tijdens WooCommerce checkout
  * 
@@ -28,7 +24,7 @@ class SIW_WC_Checkout_Newsletter{
 	 *
 	 * @param WC_Checkout $checkout
 	 */
-	public function show_newsletter_signup_checkbox( $checkout ) {
+	public function show_newsletter_signup_checkbox( WC_Checkout $checkout ) {
 		woocommerce_form_field( 'newsletter_signup', [
 			'type'  => 'checkbox',
 			'class' => ['form-row-wide'],
@@ -44,7 +40,7 @@ class SIW_WC_Checkout_Newsletter{
 	 * @param array $data
 	 * @return array
 	 */
-	public function capture_newsletter_signup( $data ) {
+	public function capture_newsletter_signup( array $data ) {
 		$data['newsletter_signup'] = (int) isset( $_POST['newsletter_signup'] );
 		return $data;
 	}
@@ -56,7 +52,7 @@ class SIW_WC_Checkout_Newsletter{
 	 * @param array $posted_data
 	 * @param WC_Order $order
 	 */
-	public function process_newsletter_signup( $order_id, $posted_data, $order ) {
+	public function process_newsletter_signup( int $order_id, array $posted_data, WC_Order $order ) {
 		if ( ! class_exists( 'WYSIJA' ) ) {
 			return;
 		}

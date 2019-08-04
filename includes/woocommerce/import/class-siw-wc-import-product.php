@@ -1,17 +1,14 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Import van een Groepsproject
  *
  * @author      Maarten Bruna
  * @package     SIW\WooCommerce
  * @copyright   2018-2019 SIW Internationale Vrijwilligersprojecten
- * @uses        SIW_Country
- * @uses        SIW_Language
- * @uses        SIW_Work_Type
+ * @uses        SIW_Data_Country
+ * @uses        SIW_Data_Language
+ * @uses        SIW_Data_Work_Type
  * @uses        SIW_Formatting
  */
 class SIW_WC_Import_Product {
@@ -45,21 +42,21 @@ class SIW_WC_Import_Product {
 	/**
 	 * Land van project
 	 *
-	 * @var SIW_Country
+	 * @var SIW_Data_Country
 	 */
 	protected $country;
 
 	/**
 	 * Projecttalen
 	 *
-	 * @var SIW_Language[]
+	 * @var SIW_Data_Language[]
 	 */
 	protected $languages;
 
 	/**
 	 * Soort werk van het project
 	 *
-	 * @var SIW_Work_Type[]
+	 * @var SIW_Data_Work_Type[]
 	 */
 	protected $work_types;
 
@@ -621,8 +618,8 @@ class SIW_WC_Import_Product {
 				'regular_price'     => $tariff['regular_price'],
 				'sale_price'        => $sale ? $tariff['sale_price'] : null,
 				'price'             => $sale ? $tariff['sale_price'] : $tariff['regular_price'],
-				'date_on_sale_from' => $sale ? date( DATE_ISO8601, strtotime( $workcamp_sale['start_date'] ) ) : null,
-				'date_on_sale_to'   => $sale ? date( DATE_ISO8601, strtotime( $workcamp_sale['end_date'] ) ) : null,
+				'date_on_sale_from' => $sale ? date( 'Y-m-d 00:00:00', strtotime( $workcamp_sale['start_date'] ) ) : null,
+				'date_on_sale_to'   => $sale ? date( 'Y-m-d 23:59:59', strtotime( $workcamp_sale['end_date'] ) ) : null,
 			]);
 			$variation->save();
 		}

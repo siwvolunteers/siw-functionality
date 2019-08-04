@@ -52,8 +52,6 @@ function siw_get_job_data( $post_id ) {
 	return $job_data;
 }
 
-
-
 /**
  * Geeft eerste uitgelichte vacature terug
  * @return array
