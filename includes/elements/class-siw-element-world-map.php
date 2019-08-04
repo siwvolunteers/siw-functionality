@@ -24,14 +24,14 @@ class SIW_Element_World_Map {
 	/**
 	 * SVG
 	 *
-	 * @var SVG\SVG
+	 * @var SVG
 	 */
 	protected $svg;
 
 	/**
 	 * SVG-document
 	 *
-	 * @var SVG\SVGDocumentFragment
+	 * @var SVG\Nodes\Structures\SVGDocumentFragment
 	 */
 	protected $doc;
 
@@ -86,7 +86,7 @@ class SIW_Element_World_Map {
 	 * @return string
 	 */
 	public function generate( $country, int $zoom = 1 ) {
-		if ( false == $this->set_country( $country ) ) {
+		if ( false === $this->set_country( $country ) ) {
 			return false;
 		}
 		$this->zoom = $zoom;

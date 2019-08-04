@@ -54,7 +54,7 @@ abstract class SIW_Widget extends SiteOrigin_Widget {
 	/**
 	 * Constructor
 	 */
-	function __construct() {
+	public function __construct() {
 
 		$this->set_widget_properties();
 

@@ -83,7 +83,7 @@ function siw_generate_country_description( $country ) {
 
 		if ( $workcamp_count > 0 ) {
 			$url = get_term_link( $country->get_slug(), 'pa_land' );
-			$text = __( 'Bekijk alle projecten', 'siw' );
+			$text = __( 'Bekijk het aanbod', 'siw' );
 		}
 		else {
 			$url = $workcamps_page_link;

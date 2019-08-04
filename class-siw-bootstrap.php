@@ -180,12 +180,11 @@ class SIW_Bootstrap {
 	 * Laadt classes 
 	 *
 	 * @param array $classes
+	 * @param string $hook
 	 */
-	protected function init_classes( $classes, $hook = 'plugins_loaded' ) {
-		$classes = (array) $classes;
+	protected function init_classes( array $classes, string $hook = 'plugins_loaded' ) {
 		foreach ( $classes as $class ) {
 			add_action( $hook, [ $class, 'init' ] );
 		}
 	}
-
 }

@@ -2,9 +2,6 @@
 /*
  * (c)2018 SIW Internationale Vrijwilligersprojecten
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 
 /**

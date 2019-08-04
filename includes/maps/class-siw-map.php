@@ -130,15 +130,15 @@ class SIW_Map {
 	protected function enqueue_scripts() {
 		$deps = [ 'jquery', 'hammer' ];
 		if ( true == $this->options[ 'lightbox' ] ) {
-			wp_register_script( 'magnific-popup', $this->mapplic_url . 'js/magnific-popup.js', false, self::MAPPLIC_VERSION );
+			wp_register_script( 'magnific-popup', $this->mapplic_url . 'js/magnific-popup.js', [ 'jquery' ], self::MAPPLIC_VERSION, true );
 			$deps[] = 'magnific-popup';
 		}
 		if ( true == $this->options[ 'mousewheel' ] ) {
-			wp_register_script( 'mousewheel', $this->mapplic_url . 'js/jquery.mousewheel.js', false, self::MAPPLIC_VERSION ); //TODO: kan dit niet in de footer?
+			wp_register_script( 'mousewheel', $this->mapplic_url . 'js/jquery.mousewheel.js', [ 'jquery' ], self::MAPPLIC_VERSION, true ); //TODO: kan dit niet in de footer?
 			$deps[] = 'mousewheel';
 		}
-		wp_register_script( 'hammer', $this->mapplic_url . 'js/hammer.min.js', false, self::MAPPLIC_VERSION);
-		wp_register_script( 'mapplic-script', $this->mapplic_url . 'js/mapplic.js', $deps, self::MAPPLIC_VERSION );
+		wp_register_script( 'hammer', $this->mapplic_url . 'js/hammer.min.js', [], self::MAPPLIC_VERSION, true );
+		wp_register_script( 'mapplic-script', $this->mapplic_url . 'js/mapplic.js', $deps, self::MAPPLIC_VERSION, true );
 	
 		$mapplic_localization = [
 			'more'     => __( 'Meer', 'siw' ),

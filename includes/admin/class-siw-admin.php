@@ -37,7 +37,7 @@ class SIW_Admin {
 	/**
 	 * Voegt admin-styling toe
 	 */
-	function enqueue_admin_style() {
+	public function enqueue_admin_style() {
 		wp_register_style( 'siw-admin', SIW_ASSETS_URL . 'css/siw-admin.css' );
 		wp_enqueue_style( 'siw-admin' );
 	}

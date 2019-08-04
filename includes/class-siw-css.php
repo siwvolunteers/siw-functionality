@@ -19,18 +19,13 @@ class SIW_CSS {
 	 */
 	public static function generate_responsive_class( int $column_size, int $tablet_size = null, int $mobile_size = null ) {
 		
-		if ( is_int( $column_size ) ) {
-			$class = "col-md-{$column_size}";
-		}
-		else {
-			$class = 'col-md-12';
-		}
+		$class = "col-md-{$column_size}";
 
-		if ( $tablet_size && is_int( $tablet_size ) ) {
+		if ( null !== $tablet_size ) {
 			$class .= " col-sm-{$tablet_size}";
 		}
 
-		if ( $mobile_size && is_int( $mobile_size ) ) {
+		if ( null !== $mobile_size  ) {
 			$class .= " col-ss-{$mobile_size}";
 		}
 		return $class;

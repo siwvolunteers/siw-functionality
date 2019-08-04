@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Google Analytics integratie
  * 
@@ -176,8 +172,6 @@ class SIW_Module_Google_Analytics {
 	 * @todo land of partner als brand toevoegen
 	 */
 	protected function get_product_data( WC_Product $product, WC_Product_Variation $variation = null ) {
-		$sku = $product->get_sku();
-		$name = $product->get_title();
 
 		$category_ids = $product->get_category_ids();
 		$category = get_term( $category_ids[0], 'product_cat' );
@@ -218,7 +212,7 @@ class SIW_Module_Google_Analytics {
 	}
 
 	/**
-	 * Trackt toevoegen aan cart
+	 * Track toevoegen aan cart
 	 *
 	 * @param string $cart_item_key
 	 * @param int $product_id
