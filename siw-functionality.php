@@ -24,16 +24,12 @@ require_once dirname( __FILE__ ) . '/class-siw-bootstrap.php';
 $bootstrap = new SIW_Bootstrap();
 $bootstrap->init();
 
-/* Basisfunctionaliteit: referentiegegevens, functies en instellingen */
-require_once( SIW_INCLUDES_DIR . '/reference-data/reference-data.php' );
+/* Basisfunctionaliteit: functies en instellingen */
 require_once( SIW_INCLUDES_DIR . '/options/options.php' );
-
-require_once( SIW_INCLUDES_DIR . '/functions/init.php' );
 
 /* Diverse aanpassingen */
 require_once( SIW_INCLUDES_DIR . '/content-types/content-types.php' );
 require_once( SIW_INCLUDES_DIR . '/email/init.php');
-require_once( SIW_INCLUDES_DIR . '/forms/init.php' );
 require_once( SIW_INCLUDES_DIR . '/maps/maps.php' );
 require_once( SIW_INCLUDES_DIR . '/post-types/init.php' );
 require_once( SIW_INCLUDES_DIR . '/woocommerce/init.php' );
