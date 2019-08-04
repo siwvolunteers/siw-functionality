@@ -67,11 +67,15 @@ class SIW_Batch_Job_Update_Workcamp_Visibility extends SIW_Batch_Job {
 			return false;
 		}
 
+		$country = siw_get_country( $product->get_meta( 'country' ) );
+
 		$new_visibility = 'visible';
 		if (
 			'no' === $product->get_meta( 'freeplaces' )
 			||
-			false == siw_get_country( $product->get_meta( 'country' ) )
+			false === $country
+			||
+			false === $country->is_allowed()
 			||
 			date( 'Y-m-d', time() + ( self::MIN_DAYS_BEFORE_START * DAY_IN_SECONDS ) ) >= $product->get_meta( 'start_date' )
 		) {
