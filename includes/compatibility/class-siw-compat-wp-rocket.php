@@ -75,7 +75,7 @@ class SIW_Compat_WP_Rocket {
 	 * @param array $content
 	 * @return array
 	 */
-	public function set_excluded_inline_js_content( string $content ) {
+	public function set_excluded_inline_js_content( array $content ) {
 		$content[] = 'tvc_id';
 		$content[] = 'gmap3';
 		$content[] = 'caldera_conditionals';
