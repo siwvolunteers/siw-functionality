@@ -13,6 +13,13 @@
 class SIW_Bootstrap {
 
 	/**
+	 * Standaard hook voor initialiseren clas
+	 * 
+	 * @var string
+	 */
+	const DEFAULT_HOOK = 'plugins_loaded';
+
+	/**
 	 * Init
 	 */
 	public function init() {
@@ -188,6 +195,9 @@ class SIW_Bootstrap {
 			'SIW_Compat_WP_Rocket',
 			'SIW_Compat_YITH_WCAN',
 		]);
+
+		//Aanpassingen voor WP_Sentry moeten eerder geladen worden
+		$this->init_class( 'SIW_Compat_WP_Sentry_Integration', 'siw_plugin_loaded' );
 	}
 
 	/**
@@ -235,9 +245,19 @@ class SIW_Bootstrap {
 	 * @param array $classes
 	 * @param string $hook
 	 */
-	protected function init_classes( array $classes, string $hook = 'plugins_loaded' ) {
+	protected function init_classes( array $classes, string $hook = self::DEFAULT_HOOK ) {
 		foreach ( $classes as $class ) {
-			add_action( $hook, [ $class, 'init' ] );
+			$this->init_class( $class, $hook );
 		}
+	}
+
+	/**
+	 * Laadt 1 class
+	 *
+	 * @param array $classes
+	 * @param string $hook
+	 */
+	protected function init_class( string $class, string $hook = self::DEFAULT_HOOK ) {
+		add_action( $hook, [ $class, 'init' ] );
 	}
 }

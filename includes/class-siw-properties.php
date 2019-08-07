@@ -392,6 +392,20 @@ class SIW_Properties {
 	const EXCHANGE_RATES_API_URL = 'https://data.fixer.io/api/latest';
 
 	/**
+	 * PHP-DSN voor Sentry
+	 *
+	 * @var string
+	 */
+	const SENTRY_PHP_DSN = 'https://d66e53bd9d3e41199ff984851c98706b@sentry.io/1264830';
+
+	/**
+	 * JS-DSN voor Sentry
+	 *
+	 * @var string
+	 */
+	const SENTRY_JS_DSN = 'https://e8240c08387042d583692b6415c700e3@sentry.io/1264820';
+	
+	/**
 	 * Geeft waarde van property terug
 	 *
 	 * @param string $property
