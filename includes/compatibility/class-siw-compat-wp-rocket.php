@@ -24,7 +24,8 @@ class SIW_Compat_WP_Rocket {
 		add_filter( 'rocket_minify_excluded_external_js', [ $self, 'set_excluded_external_js' ] );
 		add_filter( 'rocket_lazyload_youtube_thumbnail_resolution', [ $self, 'set_youtube_thumbnail_resolution' ] );
 		add_filter( 'rocket_excluded_inline_js_content', [ $self, 'set_excluded_inline_js_content' ] );
-		
+		add_action( 'wp_rocket_loaded', [ $self, 'remove_all_purge_hooks' ] );
+	
 		define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true );
 	}
 
@@ -83,4 +84,52 @@ class SIW_Compat_WP_Rocket {
 		$content[] = 'ec:';
 		return $content;
 	}
+
+	/**
+	 * Onderdrukken van automatische cache-purge
+	 * 
+	 * @see https://docs.wp-rocket.me/article/137-disable-all-automatic-cache-clearing
+	 */
+	public function remove_all_purge_hooks() {
+		
+		$clean_domain_hooks = [
+			'switch_theme',
+			'user_register',
+			'profile_update',
+			'deleted_user',
+			'wp_update_nav_menu',
+			'update_option_theme_mods_' . get_option( 'stylesheet' ),
+			'update_option_sidebars_widgets',
+			'update_option_category_base',
+			'update_option_tag_base',
+			'permalink_structure_changed',
+			'create_term',
+			'edited_terms',
+			'delete_term',
+			'add_link',
+			'edit_link',
+			'delete_link',
+			'customize_save',
+			'avada_clear_dynamic_css_cache',
+		];
+
+		foreach ( $clean_domain_hooks as $handle ) {
+			remove_action( $handle, 'rocket_clean_domain' );
+		}
+
+		$clean_post_hooks = [
+			'wp_trash_post',
+			'delete_post',
+			'clean_post_cache',
+			'wp_update_comment_count',
+		];
+		
+		foreach ( $clean_post_hooks as $handle ) {
+			remove_action( $handle, 'rocket_clean_post' );
+		}
+			
+		remove_filter( 'widget_update_callback'	, 'rocket_widget_update_callback' );
+		remove_action( 'upgrader_process_complete', 'rocket_clean_cache_theme_update', 10, 2 ); 
+	}
+
 }
