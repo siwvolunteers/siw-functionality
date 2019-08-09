@@ -14,6 +14,7 @@ class SIW_Upload_Dir {
 	 */
 	public static function init() {
 		$self = new self();
+		add_filter( 'wp_handle_sideload_prefilter', [ $self, 'add_upload_dir_filter'] );
 		add_filter( 'wp_handle_upload_prefilter', [ $self, 'add_upload_dir_filter'] );
 		add_filter( 'wp_handle_upload', [ $self, 'remove_upload_dir_filter'] );
 	}
@@ -53,29 +54,32 @@ class SIW_Upload_Dir {
 			return $path;
 		}
 
-		$custom_dir = '';
+		/**
+		 * Zet upload dir op basis van:
+		 * 
+		 * - Extensie
+		 * - Post type
+		 */
+		$upload_dir =
+			$this->get_extension_dir() ??
+			$this->get_post_type_dir() ??
+			null;
 
-		/* Bepaal extensie en post_type */
-		$extension = pathinfo( $_POST['name'], PATHINFO_EXTENSION);
-		$post_type = get_post_type( $_POST['post_id'] );
+		/**
+		 * Custom upload directory
+		 *
+		 * @param string $custom_dir
+		 */
+		$upload_dir = apply_filters( 'siw_upload_dir', $upload_dir );
 
-		$post_type_dir = $this->get_post_type_dir( $post_type );
-		$extension_dir = $this->get_extension_dir( $extension );
+		if ( null !== $upload_dir ) {
+			$upload_dir = '/'. $upload_dir;
 
-		if ( ! empty( $extension_dir ) ) {
-			$custom_dir = '/' . $extension_dir;
-		}
-
-		if ( ! empty( $post_type_dir ) ) {
-			$custom_dir = '/' . $post_type_dir;
-		}
-
-		if ( ! empty( $custom_dir ) ) {
 			$path['path']    = str_replace( $path['subdir'], '', $path['path'] );
 			$path['url']     = str_replace( $path['subdir'], '', $path['url'] );
-			$path['subdir']  = $custom_dir;
-			$path['path']   .= $custom_dir;
-			$path['url']    .= $custom_dir;
+			$path['subdir']  = $upload_dir;
+			$path['path']   .= $upload_dir;
+			$path['url']    .= $upload_dir;
 		}
 		
 		return $path;
@@ -84,36 +88,45 @@ class SIW_Upload_Dir {
 	/**
 	 * Bepaal directory op basis van post type
 	 *
-	 * @param string $post_type
 	 * @return string
 	 */
-	protected function get_post_type_dir( $post_type ) {
-		switch ( $post_type ) {
-			case 'siw_tm_country':
-				$dir = 'op-maat';
-				break;
-			default:
-				$dir = '';
+	protected function get_post_type_dir() {
+		$post_id = isset( $_POST['post_id'] ) ? intval( $_POST['post_id'] ): null;
+		if ( null == $post_id ) {
+			return null;
 		}
+		$post_type = get_post_type( $post_id );
 
-		return $dir;
+		$cpt_upload_dirs = [
+			'siw_tm_country' => 'op-maat',
+			'siw_tm_story'   => 'ervaringen',
+		];
+
+		/**
+		 * Upload directory voor CPT's
+		 *
+		 * @param array $checkout_fields
+		 */
+		$cpt_upload_dirs = apply_filters( 'siw_cpt_upload_dirs', $cpt_upload_dirs );
+
+		return $cpt_upload_dirs[ $post_type ] ?? null;
 	}
 
 	/**
 	 * Bepaal directory op basis van extensie
 	 *
-	 * @param string $extension
 	 * @return string
 	 */
-	protected function get_extension_dir( $extension ) {
-		switch( $extension ) {
-			case 'pdf':
-				$dir = 'pdf';
-				break;
-			default:
-				$dir = '';
+	protected function get_extension_dir() {
+		$name = isset( $_POST['name'] ) ? sanitize_title( $_POST['name'] ): null;
+		if ( null == $name ) {
+			return null;
 		}
+		$extension = pathinfo( $name, PATHINFO_EXTENSION );
 
-		return $dir;
+		$extension_dirs = [
+			'pdf' => 'documenten',
+		];
+		return $extension_dirs[ $extension ] ?? null;
 	}
 }
