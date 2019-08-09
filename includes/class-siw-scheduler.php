@@ -23,7 +23,7 @@ class SIW_Scheduler {
 	 * 
 	 * @var string
 	 */
-	protected $option_name = 'siw_scheduled_cron_jobs';
+	const OPTION_NAME = 'siw_scheduled_cron_jobs';
 
 	/**
 	 * Interval tussen jobs in minuten
@@ -56,7 +56,7 @@ class SIW_Scheduler {
 	protected function schedule_jobs() {
 		$timestamp = SIW_Util::convert_timestamp_to_gmt( strtotime( 'tomorrow ' . SIW_Properties::TS_SCHEDULED_JOBS ) );
 		foreach ( self::$jobs as $index => $job ) {
-			wp_schedule_event( $timestamp + ( $index * self::CRON_JOB_INTERVAL * MINUTE_IN_SECONDS ) , 'daily', $job );
+			wp_schedule_event( $timestamp + ( $index * self::CRON_JOB_INTERVAL * MINUTE_IN_SECONDS ), 'daily', $job );
 		}
 		$this->set_scheduled_jobs( self::$jobs );
 	}
@@ -66,10 +66,11 @@ class SIW_Scheduler {
 	 */
 	protected function schedule_update_free_places() {
 		$new_timestamp = SIW_Util::convert_timestamp_to_gmt( strtotime( 'tomorrow ' . SIW_Properties::TS_UPDATE_FREE_PLACES ) );
+
 		if ( wp_next_scheduled( 'siw_update_free_places' ) ) {
-			$current_timestamp = wp_next_scheduled( 'siw_update_free_places' );
-			wp_unschedule_event( $current_timestamp, 'siw_update_free_places' );
+			wp_clear_scheduled_hook( 'siw_update_free_places' );
 		}
+
 		wp_schedule_event( $new_timestamp, 'daily', 'siw_update_free_places' );	
 	}
 
@@ -77,12 +78,9 @@ class SIW_Scheduler {
 	 * Plant update van groepsprojecten in
 	 */
 	protected function schedule_update_projects() {
-
 		$new_timestamp = SIW_Util::convert_timestamp_to_gmt( strtotime( 'tomorrow ' . SIW_Properties::TS_UPDATE_PROJECTS ) );
-
 		if ( wp_next_scheduled( 'siw_update_workcamps' ) ) {
-			$current_timestamp = wp_next_scheduled( 'siw_update_workcamps' );
-			wp_unschedule_event( $current_timestamp, 'siw_update_workcamps' );
+			wp_clear_scheduled_hook( 'siw_update_workcamps' );
 		}
 		wp_schedule_event( $new_timestamp, 'daily', 'siw_update_workcamps' );		
 	}
@@ -103,8 +101,7 @@ class SIW_Scheduler {
 		$scheduled_jobs = $this->get_scheduled_jobs();
 		foreach ( $scheduled_jobs as $job ) {
 			if ( wp_next_scheduled( $job ) ) {
-				$timestamp = wp_next_scheduled( $job );
-				wp_unschedule_event( $timestamp, $job );
+				wp_clear_scheduled_hook( $job );
 			}
 		}
 	}
@@ -115,7 +112,7 @@ class SIW_Scheduler {
 	 * @return array
 	 */
 	protected function get_scheduled_jobs() {
-		$jobs = (array) get_option( $this->option_name );
+		$jobs = (array) get_option( self::OPTION_NAME );
 		return $jobs;
 	}
 
@@ -125,6 +122,6 @@ class SIW_Scheduler {
 	 * @param array $jobs
 	 */
 	protected function set_scheduled_jobs( array $jobs = [] ) {
-		update_option( $this->option_name, $jobs, false );
+		update_option( self::OPTION_NAME, $jobs, false );
 	}
 }
