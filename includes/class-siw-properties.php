@@ -371,6 +371,13 @@ class SIW_Properties {
 	const POSTCODE_API_URL = 'https://postcode-api.apiwise.nl/v2/addresses/';
 
 	/**
+	 * Spam check API URL
+	 *
+	 * @var string
+	 */
+	const SPAM_CHECK_API_URL = 'https://europe.stopforumspam.org/api';
+
+	/**
 	 * Plato webservice base-url
 	 *
 	 * @var string

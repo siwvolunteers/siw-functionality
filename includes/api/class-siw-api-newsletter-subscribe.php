@@ -17,7 +17,7 @@ class SIW_API_Newsletter_Subscribe extends SIW_API {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $callback = 'subscribe';
+	protected $callback = 'process';
 
 	/**
 	 * {@inheritDoc}
@@ -64,57 +64,87 @@ class SIW_API_Newsletter_Subscribe extends SIW_API {
 	/**
 	 * Valideert e-mail
 	 *
-	 * @param mixed $param
+	 * @param string $param
 	 * @param WP_REST_Request $request
 	 * @param string $key
 	 * @return bool
 	 */
-	public function validate_email( $param, WP_REST_Request $request, string $key ) {
+	public function validate_email( string $param, WP_REST_Request $request, string $key ) {
 		return is_email( $param );
 	}
 
 	/**
 	 * Formatteert email
 	 *
-	 * @param mixed $param
+	 * @param string $param
 	 * @param WP_REST_Request $request
 	 * @param string $key
 	 * @return bool
 	 */
-	public function sanitize_email( $param, WP_REST_Request $request, string $key ) {
+	public function sanitize_email( string $param, WP_REST_Request $request, string $key ) {
 		return sanitize_email( $param );
 	}
 
 	/**
-	 * Undocumented function
+	 * Verwerk verzoek
 	 *
 	 * @param WP_REST_Request $request
 	 * @return WP_REST_Response
-	 * 
-	 * @todo splitsen
 	 */
-	public function subscribe( WP_REST_Request $request ) {
+	public function process( WP_REST_Request $request ) {
 
 		$first_name = $request->get_param( 'name' );
 		$email = $request->get_param( 'email' );
 
-		$blocked_domains = apply_filters( 'siw_blocked_domains_for_newsletter', ['siw.nl'] );
-		$domain = substr( $email, strrpos( $email, '@' ) + 1 );
-
-		if ( in_array( $domain, $blocked_domains ) ) {
+		if ( true === $this->is_blocked_domain( $email ) ) {
 			return new WP_REST_Response( [
 				'success' => false,
-				'message' => sprintf( __( 'Het is niet mogelijk om je aan te melden met een @%s adres.', 'siw' ), esc_html( $domain ) ),
+				'message' => __( 'Het is niet mogelijk om je aan te melden met dit e-mailadres.', 'siw' ),
+			], 200 );
+		}
+		
+		//Spam check
+		$spam_check = new SIW_External_Spam_Check();
+		$spam_check->set_email( $email );
+		if ( isset( $_SERVER['REMOTE_ADDR'] ) ){
+			$spam_check->set_ip( $_SERVER['REMOTE_ADDR']);
+		}
+	
+		if ( true === $spam_check->is_spammer() ) {
+			return new WP_REST_Response( [
+				'success' => false,
+				'message' => __( 'Het is niet mogelijk om je aan te melden met dit e-mailadres.', 'siw' ),
+			], 200 );	
+		}
+
+		if ( true === $this->subscribe( $first_name, $email ) ) {
+			return new WP_REST_Response( [
+				'success' => true,
+				'message' => __( 'Je bent er bijna! Check je inbox voor de bevestigingsmail om je aanmelding voor de nieuwsbrief te bevestigen.', 'siw' ),
 			], 200 );
 		}
 
+		return new WP_REST_Response( [
+			'success' => false,
+			'message' => __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
+		], 200 );
+	}
+
+	/**
+	 * Verwerk de aanmelding
+	 *
+	 * @param string $first_name
+	 * @param string $email
+	 * @return bool
+	 * 
+	 * @todo verplaatsen naar aparte klasse zodat Mailpoet makkelijk te vervangen is
+	 */
+	protected function subscribe( string $first_name, string $email ) {
 		/* Meerdere aanmelding van zelfde IP-adres binnen X uur blokkeren*/
 		$helperUser = WYSIJA::get( 'user', 'helper' );
-		if( ! $helperUser->throttleRepeatedSubscriptions() ) {
-			return new WP_REST_Response( [
-				'success' => false,
-				'message' => __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
-			], 200 );
+
+		if ( ! $helperUser->throttleRepeatedSubscriptions() ) {
+			return false;
 		}
 
 		$data_subscriber = [
@@ -127,22 +157,24 @@ class SIW_API_Newsletter_Subscribe extends SIW_API {
 	
 		$user_id = WYSIJA::get( 'user', 'helper' )->addSubscriber( $data_subscriber );
 		if ( is_numeric( $user_id ) ) {
-			return new WP_REST_Response( [
-				'success' => true,
-				'message' => __( 'Je bent er bijna! Check je inbox voor de bevestigingsmail om je aanmelding voor de nieuwsbrief te bevestigen.', 'siw' ),
-			], 200 ); 
+			return true;
 		}
-		elseif ( $user_id ) {
-			return new WP_REST_Response( [
-				'success' => true,
-				'message' => __( 'Je bent al ingeschreven.', 'siw' ),
-			], 200 ); 
-		}
-		else {
-			return new WP_REST_Response( [
-				'success' => false,
-				'message' => __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
-			], 200 ); 
-		}
+
+		return false;
 	}
+
+	/**
+	 * Geeft aan of het emailadres van een geblokkeerd domein komt
+	 *
+	 * @param string $email
+	 * @return bool
+	 */
+	public function is_blocked_domain( string $email ) {
+		//TODO: instelling van maken
+		$blocked_domains = apply_filters( 'siw_blocked_domains_for_newsletter', ['siw.nl'] ); 
+		$domain = substr( $email, strrpos( $email, '@' ) + 1 );
+
+		return in_array( $domain, $blocked_domains );
+	}
+
 }
