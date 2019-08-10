@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /* Import-functies */
 require_once( __DIR__ . '/import/data-descriptions.php' );
 
-/* Export naar Plato TODO: class van maken */
+/* Export naar Plato */
 require_once( __DIR__ . '/class-siw-wc-order-export.php' );
 add_action( 'plugins_loaded', ['SIW_WC_Order_Export', 'init']);
 
