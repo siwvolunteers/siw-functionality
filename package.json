@@ -1,6 +1,6 @@
 {
 	"name": "siw-functionality",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "Extra functionaliteit voor website SIW",
 	"repository": "https://github.com/siwvolunteers/siw-functionality",
 	"scripts": {
@@ -8,10 +8,10 @@
 		"build-icons": "icon-font-generator assets/icons/*.svg -o assets/css/fonts -n siw-icons -p siw-icon -f /fonts --cssfontsurl /wp-content/plugins/siw-functionality/assets/css/fonts --html true --csspath assets/css/partials/_icons.sass --html false --jsonpath assets/icons/siw-icons.json --normalize true"
 	},
 	"dependencies": {
-		"apexcharts": "^3.8.3",
+		"apexcharts": "^3.8.4",
 		"flickity": "^2.2.1",
 		"isotope-layout": "3.*",
-		"js-cookie": "2.*",
+		"js-cookie": "^2.2.1",
 		"smoothscroll-for-websites": "^1.4.9"
 	},
 	"devDependencies": {
@@ -26,7 +26,7 @@
 		},
 		{
 			"from": "node_modules/smoothscroll-for-websites/SmoothScroll.js",
-			"to": "assets/modules/smoothscroll/SmoothScroll.js"
+			"to": "assets/modules/smoothscroll/smoothscroll.js"
 		},
 		{
 			"from": "node_modules/js-cookie/src/js.cookie.js",
