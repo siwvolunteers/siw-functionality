@@ -2,7 +2,7 @@
 /**
  * Functies m.b.t. valuta's
  * 
- * @package   SIW\Data
+ * @package   SIW\Functions
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  */

@@ -3,7 +3,7 @@
 /**
  * Proces om vrije plaatsen van Groepsprojecten bij te werken
  * 
- * @package   SIW\Batch-Jobs
+ * @package   SIW\Batch
  * @author    Maarten Bruna
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @uses      SIW_Plato_Import_FPL

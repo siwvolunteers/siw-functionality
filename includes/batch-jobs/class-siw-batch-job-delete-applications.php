@@ -3,7 +3,7 @@
 /**
  * Proces om oude aanmeldingen te verwijderen
  * 
- * @package   SIW\Batch-Jobs
+ * @package   SIW\Batch
  * @author    Maarten Bruna
  * @copyright 2017-2019 SIW Internationale Vrijwilligersprojecten
  */

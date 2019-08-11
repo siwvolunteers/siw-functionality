@@ -1,9 +1,9 @@
 <?php
 /**
  * Functies m.b.t. continenten
- * 
+ *
+ * @package   SIW\Functions
  * @author    Maarten Bruna
- * @package   SIW\Reference-Data
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  */
 

@@ -2,9 +2,9 @@
 /**
  * Functies m.b.t. referentiegegevens
  * 
+ * @package   SIW\Functions
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
- * @package   SIW\Data
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  */
 
 /**

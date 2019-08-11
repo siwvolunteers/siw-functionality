@@ -3,7 +3,7 @@
  * Functies m.b.t. landen
  * 
  * @author    Maarten Bruna
- * @package   SIW\Reference-Data
+ * @package   SIW\Functions
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  */
 

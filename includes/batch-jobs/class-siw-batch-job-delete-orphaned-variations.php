@@ -3,7 +3,7 @@
 /**
  * Proces om verweesde variaties te verwijderen
  * 
- * @package SIW\Background-Process
+ * @package SIW\Batch
  * @author Maarten Bruna
  * @copyright 2017-2018 SIW Internationale Vrijwilligersprojecten
  */

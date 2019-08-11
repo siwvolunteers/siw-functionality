@@ -8,7 +8,7 @@
  * - Toevoegen aan admin bar
  * - Schedulen
  * 
- * @package   SIW\Batch-Jobs
+ * @package   SIW\Batch
  * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */

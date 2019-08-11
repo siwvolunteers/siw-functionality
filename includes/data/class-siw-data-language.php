@@ -3,7 +3,7 @@
 /**
  * Bevat informatie over een taal
  * 
- * @package   SIW\Reference-Data
+ * @package   SIW\Data
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  */

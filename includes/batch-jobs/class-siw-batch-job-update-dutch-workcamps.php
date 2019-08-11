@@ -3,7 +3,7 @@
 /**
  * Proces om Nederlandse Groepsprojecten bij te werken
  * 
- * @package   SIW\Batch-Jobs
+ * @package   SIW\Batch
  * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @uses      SIW_Plato_Import_Dutch_Workcamps

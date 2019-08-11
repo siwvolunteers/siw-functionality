@@ -3,7 +3,7 @@
  * Functies m.b.t. talen
  * 
  * @author    Maarten Bruna
- * @package   SIW\Data
+ * @package   SIW\Functions
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  */
 

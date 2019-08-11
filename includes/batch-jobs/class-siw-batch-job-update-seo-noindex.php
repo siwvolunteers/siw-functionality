@@ -3,7 +3,7 @@
 /**
  * Batch job om SEO noindex bij te werken
  * 
- * @package   SIW\Batch-Jobs
+ * @package   SIW\Batch
  * @author    Maarten Bruna
  * @copyright 2019 Internationale Vrijwilligersprojecten
  */

@@ -7,7 +7,7 @@
  * - Lege terms verwijderen
  * - Volgorde bijwerken
  * 
- * @package   SIW\Batch-Jobs
+ * @package   SIW\Batch
  * @author    Maarten Bruna
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
