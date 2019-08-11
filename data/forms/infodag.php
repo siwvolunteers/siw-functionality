@@ -155,13 +155,11 @@ $confirmation = [
 		__( 'Uiterlijk één week van te voren ontvang je de uitnodiging met de definitieve locatie en tijden.', 'siw' ) . BR2 .
 		__( 'Als je nog vragen hebt, neem dan gerust contact met ons op.', 'siw' ),
 	'recipient_name'  => '%voornaam% %achternaam%',
-	'recipient_email' => '%emailadres%',
 ];
 
 $notification = [
 	'subject' => 'Aanmelding Infodag %datum:label%',
 	'message' => 'Via de website is onderstaande aanmelding voor de Infodag van %datum:label% binnengekomen:',
-	'reply_to' => '%emailadres%',
 ];
 
 return [
@@ -172,4 +170,5 @@ return [
 	'confirmation'  => $confirmation,
 	'notification'  => $notification,
 	'email_option'  => 'info_day_email',
+	'primary_email' => 'emailadres',
 ];

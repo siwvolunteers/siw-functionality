@@ -81,13 +81,11 @@ $confirmation = [
 		__( 'Wij willen u bedanken voor het achterlaten van uw contactgegevens en wensen.', 'siw' ) . SPACE .
 		__( 'Ons streven is binnen drie tot vijf werkdagen contact met u op te nemen om de mogelijkheden te bespreken.', 'siw' ),
 	'recipient_name'  => '%voornaam% %achternaam%',
-	'recipient_email' => '%emailadres%',
 ];
 
 $notification = [
 	'subject'  => 'Interesse samenwerking',
 	'message'  => 'Via de website is onderstaand bericht verstuurd:',
-	'reply_to' => '%emailadres%',
 ];
 
 return [
@@ -98,4 +96,5 @@ return [
 	'confirmation'  => $confirmation,
 	'notification'  => $notification,
 	'email_option'  => 'cooperation_email',
+	'primary_email' => 'emailadres',
 ];

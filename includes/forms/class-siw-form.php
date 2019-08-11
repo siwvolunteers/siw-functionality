@@ -71,7 +71,6 @@ class SIW_Form {
 			'confirmation'  => [],
 			'notification'  => [],
 			'email_option'  => '',
-			'processors'    => [],
 		]);
 		return true;
 	}
@@ -107,7 +106,7 @@ class SIW_Form {
 		$this->set_fields();
 		$this->set_mailer();
 		$this->set_autoresponder();
-		$this->set_processors();
+		$this->set_spam_check();
 
 		wp_cache_set( $this->id, $this->form, 'siw_forms' );
 
@@ -156,7 +155,7 @@ class SIW_Form {
 			'on_insert'     => true,
 			'sender_name'   => __( 'Website', 'siw' ),
 			'sender_email'  => $this->email_settings['sender'],
-			'reply_to'      => $notification['reply_to'],
+			'reply_to'      => "%{$this->data['primary_email']}%",
 			'email_type'    => 'html',
 			'recipients'    => $this->email_settings['sender'],
 			'email_subject' => $notification['subject'],
@@ -182,7 +181,7 @@ class SIW_Form {
 			'sender_email'    => $this->email_settings['sender'],
 			'subject'         => $confirmation['subject'],
 			'recipient_name'  => $confirmation['recipient_name'],
-			'recipient_email' => $confirmation['recipient_email'],
+			'recipient_email' => "%{$this->data['primary_email']}%",
 			'message'         => $this->get_email_template(
 				[
 					'subject'         => $confirmation['subject'],
@@ -215,12 +214,10 @@ class SIW_Form {
 	}
 
 	/**
-	 * Voeg formprocessors toe
+	 * Voegt form processor voor spam check toe
 	 */
-	protected function set_processors() {
-		foreach ( $this->data['processors'] as $processor ) {
-			$this->add_processor( $processor['id'], $processor['type'], $processor['config'] );
-		}
+	protected function set_spam_check() {
+		$this->add_processor( 'spam_check', 'siw_spam_check', [ 'email' => $this->data['primary_email'] ] );
 	}
 
 	/**

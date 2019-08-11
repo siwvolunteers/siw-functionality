@@ -22,19 +22,24 @@ class SIW_Forms {
 	public static function init() {
 		$self = new self();
 		$self->forms = siw_get_data_file_ids( 'forms' );
-		$self->register_forms();
+		add_action( 'init', [ $self, 'register_forms' ] );
+		add_action( 'init', [ $self, 'register_form_processors' ] );
+
 	}
 
 	/**
 	 * Registreert alle formulieren
 	 */
-	protected function register_forms() {
+	public function register_forms() {
 		foreach ( $this->forms as $form_id ) {
 			new SIW_Form( $form_id );
 		}
 	}
 
-	protected function register_form_processors() {
-		
+	/**
+	 * Voegt formprocessors toe
+	 */
+	public function register_form_processors() {
+		new SIW_Form_Processor_Spam_Check(); 
 	}
 }

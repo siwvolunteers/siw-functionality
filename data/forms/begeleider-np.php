@@ -205,13 +205,11 @@ $confirmation = [
 		__( 'Ligt jouw aanmelding buiten onze wervingsperiode? Geen probleem.', 'siw' ) . SPACE .
 		__( 'Wij voegen jouw aanmelding toe aan onze database voor een volgend zomerseizoen.', 'siw' ),
 	'recipient_name'  => '%voornaam% %achternaam%',
-	'recipient_email' => '%emailadres%',
 ];
 
 $notification = [
 	'subject'  => 'Aanmelding projectbegeleider',
 	'message'  => 'Via de website is onderstaande aanmelding voor begeleider NP binnengekomen:',
-	'reply_to' => '%emailadres%',
 ];
 
 return [
@@ -222,4 +220,5 @@ return [
 	'confirmation'  => $confirmation,
 	'notification'  => $notification,
 	'email_option'  => 'camp_leader_email',
+	'primary_email' => 'emailadres',
 ];

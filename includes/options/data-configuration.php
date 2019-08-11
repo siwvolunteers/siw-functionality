@@ -36,12 +36,13 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 	}
 
 	$meta_boxes[] = [
-		'id'             => 'external',
-		'title'          => __( 'Extern', 'siw' ),
+		'id'             => 'configuration',
+		'title'          => __( 'Configuratie', 'siw' ),
 		'settings_pages' => 'siw-options-configuration',
 		'tabs'           => [
 			'analytics'    => __( 'Analytics', 'siw' ),
 			'api'          => __( 'API keys', 'siw' ),
+			'forms'        => __( 'Formulieren', 'siw' ),
 			'newsletter'   => __( 'Nieuwsbrief', 'siw' ),
 			'plato'        => __( 'Plato', 'siw' ),
 			'verification' => __( 'Website verificatie', 'siw' ),
@@ -93,6 +94,16 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 				'tab'               => 'plato',
 				'on_label'          => __( 'Aan', 'siw' ),
 				'off_label'         => __( 'Uit', 'siw'),
+			],
+			[
+				'id'      => 'spam_check_mode',
+				'name'    => __( 'Spam check mode', 'siw' ),
+				'type'    => 'button_group',
+				'tab'     => 'forms',
+				'options' => [
+					'report'  => __( 'Rapporteren', 'siw' ),
+					'block'   => __( 'Blokkeren', 'siw' ),
+				]
 			],
 			[
 				'id'    => 'google_verification',

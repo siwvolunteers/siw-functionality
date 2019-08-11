@@ -269,13 +269,11 @@ $confirmation = [
 		'</span>' . BR .
 		sprintf( __( 'Als je nog vragen hebt, aarzel dan niet om contact op te nemen met ons kantoor via %s of via het nummer %s.', 'siw' ), SIW_Properties::EMAIL, SIW_Properties::PHONE ),
 	'recipient_name'  => '%voornaam% %achternaam%',
-	'recipient_email' => '%emailadres%',
 ];
 
 $notification = [
 	'subject'  => 'Aanmelding Vrijwilligerswerk Op Maat',
 	'message'  => 'Via de website is onderstaande aanmelding voor Vrijwilligerswerk Op Maat binnengekomen:',
-	'reply_to' => '%emailadres%',
 ];
 
 return [
@@ -286,4 +284,5 @@ return [
 	'confirmation'  => $confirmation,
 	'notification'  => $notification,
 	'email_option'  => 'tailor_made_email',
+	'primary_email' => 'emailadres',
 ];

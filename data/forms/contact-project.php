@@ -76,14 +76,12 @@ $confirmation = [
 		__( 'Wat de reden ook was, wij helpen je graag verder.', 'siw' ) . SPACE .
 		__( 'We nemen zo snel mogelijk contact met je op.', 'siw' ),
 	'recipient_name'  => '%voornaam% %achternaam%',
-	'recipient_email' => '%emailadres%',
 ];
 
 $notification = [
 	'subject' => sprintf( __( 'Informatieverzoek project %s', 'siw'),  '{embed_post:post_title}' ),
 	'message' =>
 		sprintf( __( 'Via de website is een vraag gesteld over het project %s', 'siw' ), '{embed_post:post_title} (<a href="{embed_post:permalink}" target="_blank" style="text-decoration:none">{embed_post:permalink}<a/>)<br/>' ),
-	'reply_to' => '%emailadres%',
 ];
 
 return [
@@ -94,4 +92,5 @@ return [
 	'confirmation'  => $confirmation,
 	'notification'  => $notification,
 	'email_option'  => 'enquiry_workcamp_email',
+	'primary_email' => 'emailadres',
 ];

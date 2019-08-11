@@ -33,6 +33,8 @@ class SIW_Compat_Caldera_Forms{
 		add_filter( 'caldera_forms_render_field_type-checkbox', [ $self, 'add_input_markup' ] );
 		add_filter( 'caldera_forms_render_field_type-radio', [ $self, 'add_input_markup' ] );
 		add_filter( 'caldera_forms_render_field_type-gdpr', [ $self, 'add_input_markup' ] );
+		add_filter( 'caldera_forms_do_magic_tag', [ $self, 'set_summary_magic_table' ], 10, 2 );
+
 		add_filter( 'caldera_forms_summary_magic_pattern', [ $self, 'set_summary_magic_pattern' ] );
 		add_filter( 'caldera_forms_field_attributes', [ $self, 'set_validation_field_attributes' ] , 10, 2 );
 		add_action( 'caldera_forms_render_end', [ $self, 'maybe_add_postcode_script'] );
@@ -77,6 +79,36 @@ class SIW_Compat_Caldera_Forms{
 	public function add_input_markup( string $field_html ) {
 		$field_html = preg_replace( '/<input(.*?)>/s', '<input$1><div class="control-indicator"></div>', $field_html );
 		return $field_html;
+	}
+
+	/**
+	 * Voegt tabel om samenvatting toe
+	 *
+	 * @param string $value
+	 * @param string $tag
+	 * @return string
+	 */
+	public function set_summary_magic_table( string $value, string $tag ) {
+		if ( '{summary}' !== $tag ) {
+			return $value;
+		}
+		$value = SIW_Formatting::array_to_text(
+			[
+				'<table width="100%" border="0" cellspacing="0" cellpadding="0">',
+					'<tr>',
+						sprintf(
+							'<td colspan="3" height="20" style="font-family:Verdana, normal; color:%s; font-size:0.8em; font-weight:bold; border-top:thin solid %s" >', SIW_Properties::FONT_COLOR, SIW_Properties::PRIMARY_COLOR
+						),
+							esc_html__( 'Ingevulde gegevens', 'siw' ),
+						'</td>',
+					'</tr>',
+					$value,
+				'</table>'
+			],
+			''
+		);
+
+		return $value;
 	}
 
 	/**

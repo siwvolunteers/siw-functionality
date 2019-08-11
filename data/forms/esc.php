@@ -186,13 +186,11 @@ $confirmation = [
 		__( 'Onderaan deze mail staan de gegevens die je hebt ingevuld.', 'siw' ) . BR .
 		__( 'We nemen zo snel mogelijk contact met je op om in een gesprek verder met je kennis te maken en op zoek te gaan naar een leuk en geschikt project!', 'siw' ),
 	'recipient_name'  => '%voornaam% %achternaam%',
-	'recipient_email' => '%emailadres%',
 ];
 
 $notification = [
 	'subject'  => 'Aanmelding ESC',
 	'message'  => 'Via de website is onderstaande ESC-aanmelding binnengekomen:', 
-	'reply_to' => '%emailadres%',
 ];
 
 return [
@@ -203,4 +201,5 @@ return [
 	'confirmation'  => $confirmation,
 	'notification'  => $notification,
 	'email_option'  => 'esc_email',
+	'primary_email' => 'emailadres',
 ];

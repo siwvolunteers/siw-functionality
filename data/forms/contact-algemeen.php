@@ -73,13 +73,11 @@ $confirmation = [
 		__( 'Bedankt voor het invullen van ons contactformulier.', 'siw' ) . SPACE .
 		__( 'Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je op.', 'siw' ),
 	'recipient_name'  => '%voornaam% %achternaam%',
-	'recipient_email' => '%emailadres%',
 ];
 
 $notification = [
 	'subject'  => 'Informatieverzoek %voornaam% %achternaam%',
 	'message'  => 'Via de website is een vraag gesteld:' . BR,
-	'reply_to' => '%emailadres%',
 ];
 
 return [
@@ -90,4 +88,5 @@ return [
 	'confirmation'  => $confirmation,
 	'notification'  => $notification,
 	'email_option'  => 'enquiry_general_email',
+	'primary_email' => 'emailadres',
 ];
