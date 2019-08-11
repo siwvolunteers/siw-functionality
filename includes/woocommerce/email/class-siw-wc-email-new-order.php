@@ -44,7 +44,7 @@ class SIW_WC_Email_New_Order {
 	 * @param WC_Order $email
 	 * @return string
 	 */
-	public function set_recipient( string $recipient, WC_Order $order ) {
+	public function set_recipient( string $recipient, ?WC_Order $order ) {
 		$recipient = siw_get_option( 'workcamp_application_email')['sender'];
 		return $recipient;
 	}
