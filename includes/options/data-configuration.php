@@ -57,14 +57,6 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 				'size'  => 60,
 			],
 			[
-				'id'                => 'postcode_api_key',
-				'name'              => __( 'Postcode API Key', 'siw' ),
-				'type'              => 'text',
-				'tab'               => 'api',
-				'size'              => 60,
-				'label_description' => 'https://www.postcodeapi.nu/',
-			],
-			[
 				'id'                => 'exchange_rates_api_key',
 				'name'              => __( 'Wisselkoersen API Key', 'siw' ),
 				'type'              => 'text',

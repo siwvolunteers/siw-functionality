@@ -364,11 +364,11 @@ class SIW_Properties {
 	const COLOR_NORTH_AMERICA = '#fbba00';
 
 	/**
-	 * PostcodeAPI URL
+	 * Locatieserver URL voor postcode lookup
 	 *
 	 * @var string
 	 */
-	const POSTCODE_API_URL = 'https://postcode-api.apiwise.nl/v2/addresses/';
+	const POSTCODE_API_URL = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/free';
 
 	/**
 	 * Spam check API URL

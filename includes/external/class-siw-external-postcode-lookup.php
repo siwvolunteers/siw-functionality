@@ -7,26 +7,9 @@
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  * 
- * @link      https://www.postcodeapi.nu/docs/
+ * @link      https://github.com/PDOK/locatieserver
  */
 class SIW_External_Postcode_Lookup{
-
-	/**
-	 * API key
-	 *
-	 * @var string
-	 */
-	protected $api_key;
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$this->api_key = siw_get_option( 'postcode_api_key' );
-		if ( empty( $this->api_key ) ) {
-			return;
-		}
-	}
 
 	/**
 	 * Zoekt straat en woonplaats op basis van postcode en huisnumme
@@ -58,14 +41,13 @@ class SIW_External_Postcode_Lookup{
 	 */
 	protected function retrieve_address( string $postcode, string $housenumber ) {
 		$url = add_query_arg( [
-			'postcode' => $postcode,
-			'number'   => $housenumber,
+			'q'  => "postcode:{$postcode}",
+			'fq' => "huisnummer:{$housenumber}",
 		], SIW_Properties::POSTCODE_API_URL );
 
 		$args = [
 			'timeout'     => 10,
 			'redirection' => 0,
-			'headers'     => [ 'X-Api-Key' => $this->api_key ],
 		];
 
 		$response = wp_safe_remote_get( $url, $args );
@@ -80,15 +62,14 @@ class SIW_External_Postcode_Lookup{
 
 		$body = json_decode( wp_remote_retrieve_body( $response ) );
 
-		if ( $body->_embedded->addresses ) {
-			$street = $body->_embedded->addresses[0]->street;
-			$city = $body->_embedded->addresses[0]->city->label;
-			$address = [
-				'street' => $street,
-				'city'   => $city,
-			];
-			return $address;
+		if ( 0 === $body->response->numFound ) {
+			return false;
 		}
-		return false;
+
+		$address = [
+			'street' => $body->response->docs[0]->straatnaam,
+			'city'   => $body->response->docs[0]->woonplaatsnaam,
+		];
+		return $address;
 	}
 }
