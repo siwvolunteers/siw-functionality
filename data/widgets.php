@@ -20,6 +20,7 @@ $data = [
 	'cta'                  => 'CTA',
 	'dutch-projects'       => 'Dutch_Projects',
 	'features'             => 'Features',
+	'google-maps'          => 'Google_Maps',
 	'map'                  => 'Map',
 	'newsletter'           => 'Newsletter',
 	'organisation'         => 'Organisation',
