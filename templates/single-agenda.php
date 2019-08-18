@@ -11,7 +11,15 @@ get_template_part('templates/post', 'header' );
 
 global $post;
 	$event_data = siw_get_event_data( $post->ID );
-	$location_map = sprintf('[gmap address="%s, %s %s" title="%s" zoom="15" maptype="ROADMAP"]', esc_attr( $event_data['address'] ), esc_attr( $event_data['postal_code'] ), esc_attr( $event_data['city'] ), esc_attr( $event_data['location'] ) );
+
+	$location_map = new SIW_Element_Google_Maps();
+	$location_map->add_location_marker(
+		sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] ),
+		$event_data['location'],
+		sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] )
+	);
+	$location_map->set_options(['zoom' => 15 ] );
+
 	$hide_application_form_days_before_info_day	= 1; //TODO:property van maken 
 	$limit_date = date( 'Y-m-d', time() + ( $hide_application_form_days_before_info_day * DAY_IN_SECONDS ) );
 	$agenda_page_url = get_permalink( siw_get_option( 'events_archive_page' ) );
@@ -54,7 +62,7 @@ global $post;
 							<?= esc_html( $event_data['postal_code'] . ' ' . $event_data['city'] ); ?><br/>
 							</b>
 						</p>
-						<?= do_shortcode( $location_map );?>
+						<?php $location_map->render();?>
 					</div>
 					<div class="col-md-6">
 						<h3>
