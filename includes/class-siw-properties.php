@@ -399,6 +399,13 @@ class SIW_Properties {
 	const EXCHANGE_RATES_API_URL = 'http://data.fixer.io/api/latest';
 
 	/**
+	 * URL voor Google Maps API
+	 *
+	 * @var string
+	 */
+	const GOOGLE_MAPS_API_URL = 'https://maps.googleapis.com/maps/api/js';
+
+	/**
 	 * PHP-DSN voor Sentry
 	 *
 	 * @var string

@@ -65,6 +65,14 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 				'label_description' => 'https://fixer.io/',
 			],
 			[
+				'id'                => 'google_maps_api_key',
+				'name'              => __( 'Google Maps API Key', 'siw' ),
+				'type'              => 'text',
+				'tab'               => 'api',
+				'size'              => 60,
+				'label_description' => 'https://cloud.google.com/maps-platform/maps/',
+			],
+			[
 				'id'                => 'plato_organization_webkey',
 				'name'              => __( 'Organization webkey', 'siw' ),
 				'type'              => 'text',
