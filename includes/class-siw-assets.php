@@ -17,7 +17,7 @@ class SIW_Assets {
 	/**
 	 * Versie van SmoothScroll
 	 */
-	const SMOOTHSCROLL_VERSION = '1.4.9';
+	const SMOOTHSCROLL_VERSION = '1.4.10';
 
 	/**
 	 * Init
@@ -44,6 +44,6 @@ class SIW_Assets {
 		wp_register_script( 'js-cookie', SIW_ASSETS_URL . 'modules/js-cookie/js.cookie.js', [], self::JSCOOKIE_VERSION, true );
 
 		wp_register_script( 'smoothscroll', SIW_ASSETS_URL . 'modules/smoothscroll/smoothscroll.js', [], self::SMOOTHSCROLL_VERSION, true );
-		wp_enqueue_script('smoothscroll' );
+		wp_enqueue_script( 'smoothscroll' );
 	}
 }

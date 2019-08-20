@@ -12,7 +12,7 @@
 		"flickity": "^2.2.1",
 		"isotope-layout": "3.*",
 		"js-cookie": "^2.2.1",
-		"smoothscroll-for-websites": "^1.4.9"
+		"smoothscroll-for-websites": "^1.4.10"
 	},
 	"devDependencies": {
 		"vendor-copy": "2.*",
