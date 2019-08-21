@@ -175,7 +175,7 @@ class SIW_WC_Product_Archive {
 			$regular_sale = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE );
 			$student = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT );
 			$student_sale = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT_SALE );
-			$end_date = SIW_Formatting::format_date( siw_get_option( 'workcamp_sale_end_date' ), false );
+			$end_date = SIW_Formatting::format_date( siw_get_option( 'workcamp_sale' )['end_date'], false );
 	
 			$text .= BR2 . sprintf( __( 'Meld je nu aan en betaal geen %s maar %s voor je vrijwilligersproject.', 'siw' ), $regular, '<b>'. $regular_sale .'</b>' ) . SPACE .
 				__( 'Ben je student of jonger dan 18 jaar?', 'siw' ) . SPACE .
