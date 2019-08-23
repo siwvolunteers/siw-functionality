@@ -6,23 +6,24 @@
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
-(function( $ ) {
-	/**
-	 * Werkt zichtbaarheid van cart menu bij
-	 */
-	function updateMenuCartVisibility() {
-		if ( Cookies.get( 'woocommerce_items_in_cart' ) > 0 ) {
-			$( 'li.menu-cart' ).show();
-		}else {
-			$( 'li.menu-cart' ).hide();
-		}
+
+//Zichtbaarheid bijwerken na laden pagina
+if ( document.readyState !== "loading" ) {
+	siwMenuCartUpdateVisibility();
+} else {
+	document.addEventListener( 'DOMContentLoaded', siwMenuCartUpdateVisibility );
+}
+
+//Zichtbaarheid bijwerken na AJAX-refresh van cart
+document.addEventListener( 'wc_fragments_refreshed', siwMenuCartUpdateVisibility );
+
+/**
+ * Werkt zichtbaarheid van menu cart bij
+ */
+function siwMenuCartUpdateVisibility() {
+	if ( Cookies.get( 'woocommerce_items_in_cart' ) > 0 ) {
+		document.querySelector( 'li.menu-cart').classList.remove( 'hidden' );
+	} else {
+		document.querySelector( 'li.menu-cart').classList.add( 'hidden' );
 	}
-
-	$( document ).ready(function() {
-		updateMenuCartVisibility();
-	});
-	$( document ).on( 'wc_fragments_refreshed', function(){
-		updateMenuCartVisibility();
-	});
-
-})( jQuery );
+}

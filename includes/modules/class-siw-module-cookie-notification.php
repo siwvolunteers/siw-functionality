@@ -3,9 +3,9 @@
 /**
  * Cookie notificatie
  * 
- * @package SIW\Modules
- * @author Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @package   SIW\Modules
+ * @author    Maarten Bruna
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  */
 class SIW_Module_Cookie_Notification {
 	
@@ -23,7 +23,7 @@ class SIW_Module_Cookie_Notification {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'siw-cookie', SIW_ASSETS_URL . 'js/siw-cookie.js', [ 'jquery', 'js-cookie' ] , SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-cookie', SIW_ASSETS_URL . 'js/siw-cookie.js', [ 'js-cookie' ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-cookie' );
 	}
 
@@ -31,7 +31,7 @@ class SIW_Module_Cookie_Notification {
 	 * Voegt styles toe
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-cookie', SIW_ASSETS_URL . 'css/siw-cookie.css', null, SIW_PLUGIN_VERSION );
+		wp_register_style( 'siw-cookie', SIW_ASSETS_URL . 'css/siw-cookie.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-cookie' );
 	}
 
@@ -39,7 +39,7 @@ class SIW_Module_Cookie_Notification {
 	 * Toont de cookie notificatie
 	 */
 	public function render() { ?>
-		<div id="siw-cookie-notification">
+		<div id="siw-cookie-notification" class="hidden">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-10 cookie-text"><?php
