@@ -72,12 +72,6 @@ class SIW_Admin_Shortcodes {
 			'siw_korting_derde_project' => [
 				'title' => __( 'Korting derde project', 'siw' )
 			],
-			'siw_bestuursleden' => [
-				'title' => __( 'Bestuursleden', 'siw' )
-			],
-			'siw_jaarverslagen' => [
-				'title' => __( 'Jaarverslagen', 'siw' )
-			],
 			'siw_nederlandse_projecten' => [
 				'title' => __( 'Nederlandse Projecten', 'siw' )
 			],

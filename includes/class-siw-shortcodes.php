@@ -39,8 +39,6 @@ class SIW_Shortcodes {
 			'korting_tweede_project'        => 'discount_second_project',
 			'korting_derde_project'         => 'discount_third_project',
 			'externe_link'                  => 'external_link',
-			'bestuursleden'                 => 'board_members',
-			'jaarverslagen'                 => 'annual_reports',
 			'nederlandse_projecten'         => 'dutch_projects',
 			'pagina_lightbox'               => 'page_modal',
 			'cirkeldiagram'                 => 'pie_chart',
@@ -264,56 +262,6 @@ class SIW_Shortcodes {
 		$titel = ( $titel ) ? $titel : $url;
 	
 		return SIW_Formatting::generate_external_link( $url, $titel );
-	}
-
-	/**
-	 * Bestuursleden
-	 * 
-	 * @return string
-	 */
-	public static function board_members() {
-		$board_members = siw_get_option( 'board_members');
-		if ( empty( $board_members ) ) {
-			return;
-		}
-	
-		$board_members_list = [];
-		foreach ( $board_members as $board_member ) {
-			$board_members_list[] = sprintf('%s %s<br/><i>%s</i>', $board_member['first_name'], $board_member['last_name'], $board_member['title']);
-		}
-		return SIW_Formatting::generate_list( $board_members_list );
-	}
-
-	/**
-	 * Jaarverslagen
-	 * 
-	 * @return string
-	 */
-	public static function annual_reports() {
-		$annual_reports = siw_get_option( 'annual_reports' );
-		if ( empty( $annual_reports ) ) {
-			return;
-		}
-		$reports = [];
-		foreach ( $annual_reports as $report ) {
-			$url = wp_get_attachment_url( $report['file'][0] );
-			$text = sprintf( esc_html__( 'Jaarverslag %s', 'siw' ), $report['year'] );
-			$reports[ $report['year'] ] = SIW_Formatting::generate_link(
-				$url,
-				$text,
-				[
-					'target'           => '_blank',
-					'rel'              => 'noopener',
-					'data-ga-track'    => 1,
-					'data-ga-type'     => 'event',
-					'data-ga-category' => 'Document',
-					'data-ga-action'   => 'Downloaden',
-					'data-ga-label'    => $url,
-				]
-				);
-		}
-		krsort( $reports );
-		return SIW_Formatting::array_to_text( $reports, BR );
 	}
 
 	/**
