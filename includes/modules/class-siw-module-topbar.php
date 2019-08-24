@@ -5,7 +5,7 @@
  * 
  * @package   SIW\Modules
  * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses SIW_Formatting
  * @uses SIW_Properties
@@ -90,7 +90,7 @@ class SIW_Module_Topbar {
 	 * Voegt stylesheet toe
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-topbar', SIW_ASSETS_URL . 'css/siw-topbar.css', null, SIW_PLUGIN_VERSION );
+		wp_register_style( 'siw-topbar', SIW_ASSETS_URL . 'css/siw-topbar.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-topbar' );
 	}
 
@@ -100,10 +100,6 @@ class SIW_Module_Topbar {
 	 * @return array
 	 */
 	protected function get_content() {
-		$social_content = $this->get_social_content();
-		if ( ! empty( $social_content ) ) {
-			return $social_content;
-		}
 	
 		$event_content = $this->get_event_content();
 		if ( ! empty( $event_content ) ) {
@@ -121,26 +117,6 @@ class SIW_Module_Topbar {
 		}
 	
 		return false;
-	}
-
-	/**
-	 * Haalt de social media-inhoud op
-	 *
-	 * @return array
-	 */
-	protected function get_social_content() {
-
-		if ( ! siw_get_option( 'topbar_social_link_enabled' ) ) {
-			return false;
-		}
-		$social_networks = siw_get_social_networks('follow');
-		$social_content = [
-			'intro'       => siw_get_option( 'topbar_social_link_intro' ),
-			'link_url'    => $social_networks[ siw_get_option( 'topbar_social_link_network') ]->get_follow_url(),
-			'link_text'   => siw_get_option( 'topbar_social_link_text' ),
-			'link_target' => '_blank',
-		];
-		return $social_content;
 	}
 
 	/**

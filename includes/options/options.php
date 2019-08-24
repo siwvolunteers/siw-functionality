@@ -18,7 +18,6 @@ require_once( __DIR__ . '/data-dates.php' );
 require_once( __DIR__ . '/data-emails.php' );
 require_once( __DIR__ . '/data-job-postings.php' );
 require_once( __DIR__ . '/data-tailor-made.php' );
-require_once( __DIR__ . '/data-topbar.php' );
 require_once( __DIR__ . '/data-workcamps.php' );
 require_once( __DIR__ . '/data-dutch-projects.php' );
 
