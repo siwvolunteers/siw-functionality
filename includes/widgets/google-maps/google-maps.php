@@ -51,6 +51,14 @@ class SIW_Widget_Google_Maps extends SIW_Widget {
 				'rows'           => 5,
 				'default_editor' => 'html',
 			],
+			'zoom' => [
+				'type'    => 'slider',
+				'label'   => __( 'Zoomniveau', 'siw' ),
+				'default' => 10,
+				'min'     => 1,
+				'max'     => 20,
+				'integer' => true
+			],
 			'markers' => [
 				'type'       => 'repeater',
 				'label'      => __( 'Markers' , 'siw' ),
@@ -126,6 +134,8 @@ class SIW_Widget_Google_Maps extends SIW_Widget {
 		}
 		$map = new SIW_Element_Google_Maps();
 		
+		$map->set_options( ['zoom' => $instance['zoom'] ] );
+
 		foreach ( $instance['markers'] as $marker ) {
 			if ( 'address' == $marker['location'] ) {
 				$map->add_location_marker( $marker['address'], $marker['title'], $marker['description'] );
