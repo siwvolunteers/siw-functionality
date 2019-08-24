@@ -79,7 +79,7 @@ class SIW_Module_Menu_Cart {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'siw-menu-cart', SIW_ASSETS_URL . 'js/siw-menu-cart.js', [ 'js-cookie' ] , SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-menu-cart', SIW_ASSETS_URL . 'js/siw-menu-cart.js', [ 'jquery', 'js-cookie' ] , SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-menu-cart' );
 	}
 

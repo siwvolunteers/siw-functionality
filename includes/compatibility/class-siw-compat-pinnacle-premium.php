@@ -27,6 +27,7 @@ class SIW_Compat_Pinnacle_Premium {
 		add_action( 'admin_init', [ $self, 'remove_user_fields' ] );
 		add_action( 'admin_init', [ $self, 'remove_gallery_admin_script'] ) ;
 		add_action( 'init', [ $self, 'remove_metaboxes' ] );
+		add_action( 'init', [ $self, 'remove_cart_fragment_hooks'], PHP_INT_MAX );
 		add_action( 'admin_bar_menu', [ $self, 'hide_admin_bar_node' ], PHP_INT_MAX );
 		add_filter( 'siteorigin_panels_widget_dialog_tabs', [ $self, 'add_widget_tab'] );
 		add_filter( 'siteorigin_panels_widgets', [ $self, 'group_pinnacle_widgets' ] );
@@ -323,5 +324,13 @@ class SIW_Compat_Pinnacle_Premium {
 		});
 		";
 		wp_add_inline_script( 'pinnacle_main', "(function( $ ) {" . $inline_script . "})( jQuery );" );//TODO:format-functie voor anonymous jQuery
+	}
+
+	/**
+	 * Verwijder cart fragments hook van het thema
+	 */
+	public function remove_cart_fragment_hooks() {
+		remove_filter( 'woocommerce_add_to_cart_fragments', 'pinnacle_get_refreshed_fragments_number' );
+		remove_filter( 'woocommerce_add_to_cart_fragments', 'pinnacle_get_refreshed_fragments' );
 	}
 }
