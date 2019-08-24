@@ -20,6 +20,8 @@ class SIW_Compat_WP_Rocket {
 		}
 	
 		$self = new self();
+
+		add_action( 'siw_update_plugin', [ $self, 'purge_cache' ] );
 		add_filter( 'rocket_exclude_js', [ $self, 'set_excluded_js' ] );
 		add_filter( 'rocket_minify_excluded_external_js', [ $self, 'set_excluded_external_js' ] );
 		add_filter( 'rocket_lazyload_youtube_thumbnail_resolution', [ $self, 'set_youtube_thumbnail_resolution' ] );
@@ -27,6 +29,15 @@ class SIW_Compat_WP_Rocket {
 		add_action( 'wp_rocket_loaded', [ $self, 'remove_all_purge_hooks' ] );
 	
 		define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true );
+	}
+
+	/**
+	 * Cache legen na update plugin
+	 */
+	public function purge_cache() {
+		rocket_clean_domain();
+		rocket_clean_minify();
+		rocket_clean_cache_busting();
 	}
 
 	/**
