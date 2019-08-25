@@ -145,7 +145,7 @@ class SIW_Bootstrap {
 	protected function load_modules() {
 		$this->init_classes( [
 			'SIW_Module_Cache_Rebuild',
-			'SIW_Module_Cookie_Notification',
+			'SIW_Module_Cookie_Notice',
 			'SIW_Module_Google_Analytics',
 			'SIW_Module_Menu_Cart',
 			'SIW_Module_Social_Share',

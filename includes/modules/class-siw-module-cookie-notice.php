@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Cookie notificatie
+ * Cookie notice
  * 
  * @package   SIW\Modules
  * @author    Maarten Bruna
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  */
-class SIW_Module_Cookie_Notification {
+class SIW_Module_Cookie_Notice {
 	
 	/**
 	 * Init
@@ -23,16 +23,16 @@ class SIW_Module_Cookie_Notification {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'siw-cookie', SIW_ASSETS_URL . 'js/siw-cookie.js', [ 'js-cookie' ], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( 'siw-cookie' );
+		wp_register_script( 'siw-cookie-notice', SIW_ASSETS_URL . 'js/siw-cookie-notice.js', [ 'js-cookie' ], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( 'siw-cookie-notice' );
 	}
 
 	/**
 	 * Voegt styles toe
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-cookie', SIW_ASSETS_URL . 'css/siw-cookie.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( 'siw-cookie' );
+		wp_register_style( 'siw-cookie-notice', SIW_ASSETS_URL . 'css/siw-cookie-notice.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( 'siw-cookie-notice' );
 	}
 
 	/**
