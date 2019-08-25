@@ -5,7 +5,7 @@
  * 
  * @package   SIW\Modules
  * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Enhanced_Ecommerce
  */
@@ -22,13 +22,6 @@ class SIW_Module_Google_Analytics {
 	 * @var string
 	 */
 	protected $property_id;
-
-	/**
-	 * Geeft aan of de scripts in de footer geplaatst moeten worden
-	 *
-	 * @var boolean
-	 */
-	protected $in_footer = true;
 
 	/**
 	 * Instellingen voor tracker
@@ -78,8 +71,8 @@ class SIW_Module_Google_Analytics {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'google-analytics', 'https://www.google-analytics.com/analytics.js', null, null, $this->in_footer );
-		wp_register_script( 'siw-analytics', SIW_ASSETS_URL . 'js/siw-analytics.js', [ 'google-analytics', 'jquery' ], SIW_PLUGIN_VERSION, $this->in_footer );
+		wp_enqueue_script( 'google-analytics', 'https://www.google-analytics.com/analytics.js', [], null, true );
+		wp_register_script( 'siw-analytics', SIW_ASSETS_URL . 'js/siw-analytics.js', [ 'google-analytics' ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script( 'siw-analytics', 'siw_analytics_cart', $this->generate_cart_data() );
 		wp_enqueue_script( 'siw-analytics' );
 		wp_add_inline_script( 'google-analytics', $this->generate_snippet(), 'after' );
@@ -249,7 +242,6 @@ class SIW_Module_Google_Analytics {
 		$variation_id = $item['variation_id'];
 
 		$link = str_replace( 'data-product_sku', 'data-variation_id="'. $variation_id . '" data-product_sku', $link );
-		$bodytag = str_replace("%body%", "black", "<body text='%body%'>");
 		return $link;
 	}
 

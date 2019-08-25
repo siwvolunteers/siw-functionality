@@ -6,6 +6,48 @@
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  */
 
+siwGoogleAnalyticsAddListeners();
+
+/**
+ * Voegt listeners toe voor alle links
+ */
+function siwGoogleAnalyticsAddListeners() {
+	
+	var tracking_links = document.querySelectorAll( '[data-ga-track="1"]' );
+	tracking_links.forEach( function ( el, i ) {
+		el.addEventListener( 'click', siwGoogleAnalyicsSendEvent );
+	})
+
+	var remove_from_cart_links = document.querySelectorAll( '.woocommerce-cart-form .product-remove > a' );
+	remove_from_cart_links.forEach( function ( el ) {
+		el.addEventListener( 'click', siwGoogleAnalyticsTrackRemoveFromCart );
+	});
+}
+
+/**
+ * Verstuurt GA-event op basis van data-attributes
+ */
+function siwGoogleAnalyicsSendEvent() {
+	var type = this.dataset.gaType ? this.dataset.gaType : '';
+	var category = this.dataset.gaCategory ? this.dataset.gaCategory : '';
+	var action = this.dataset.gaAction ? this.dataset.gaAction : '';
+	var label = this.dataset.gaLabel ? this.dataset.gaLabel : '';
+	ga( 'send', type, category, action, label);
+}
+
+/**
+ * Verstuurt GA-event voor verwijderen uit cart
+ *
+ * @param {Event} event
+ */
+function siwGoogleAnalyticsTrackRemoveFromCart( event ) {
+	event.preventDefault();
+	var variation_id = this.dataset.variation_id;
+	ga( 'ec:addProduct', siw_analytics_cart[variation_id]);
+	ga( 'ec:setAction', 'remove' );
+	ga( 'send', 'event', 'Ecommerce', 'remove', 'remove from cart' );	
+}
+
 /**
  * Stuurt GA event bij het versturen van een Caldera Form
  *
@@ -14,24 +56,3 @@
 function siwSendGaFormSubmissionEvent( obj ) {
 	ga( 'send', 'event', obj.form_id, 'Verzenden' );
 }
-
-/* GA-events op basis van data-attributes */
-(function( $ ) {
-	$('[data-ga-track="1"]').on( 'click', function() {
-		var type = $( this ).data('ga-type') ? $( this ).data('ga-type') : '';
-		var category = $( this ).data('ga-category') ? $( this ).data('ga-category') : '';
-		var action = $( this ).data('ga-action') ? $( this ).data('ga-action') : '';
-		var label = $( this ).data('ga-label') ? $( this ).data('ga-label') : '';
-	
-		ga( 'send', type, category, action, label);
-	});
-	
-	$( document ).on( 'click', '.woocommerce-cart-form .product-remove > a', function( event ) {
-		event.preventDefault();
-		var variation_id = $( this ).data('variation_id');
-		ga('ec:addProduct', siw_analytics_cart[variation_id]);
-		ga('ec:setAction', 'remove');
-		ga('send', 'event', 'Ecommerce', 'remove', 'remove from cart');
-	});
-
-})( jQuery );
