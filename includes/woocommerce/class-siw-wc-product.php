@@ -17,9 +17,9 @@ class SIW_WC_Product {
 	 */
 	public static function init() {
 		$self = new self();
-		add_filter( 'woocommerce_product_tabs', [ $self, 'remove_reviews_tab'], PHP_INT_MAX );
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_location_map_tab'] );
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_contact_form_tab'] );
+
+		SIW_WC_Product_Tabs::init();
+
 		add_filter( 'woocommerce_is_purchasable', [ $self, 'set_product_is_purchasable'], 10, 2 );
 		add_filter( 'woocommerce_available_variation', [ $self, 'set_variation_description'] );
 		add_filter( 'woocommerce_sale_flash', [ $self, 'set_sales_flash_text' ] );
@@ -27,7 +27,7 @@ class SIW_WC_Product {
 		add_filter( 'woocommerce_related_products_args', [ $self, 'set_related_products_number'], PHP_INT_MAX );
 		add_action( 'woocommerce_after_add_to_cart_form', [ $self, 'show_local_fee'] );
 
-		/*
+		/**
 		 * Verwijderen diverse woocommerce-hooks
 		 * - "Reset variations"-link
 		 * - Prijsrange
@@ -44,71 +44,6 @@ class SIW_WC_Product {
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 		remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
 		add_filter( 'woocommerce_show_variation_price', '__return_true' );
-	}
-
-	/**
-	 * Verwijdert reviews-tab
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
-	public function remove_reviews_tab( array $tabs ) {
-		unset( $tabs['reviews'] );
-		return $tabs;
-	}
-
-	/**
-	 * Voegt tab met projectlocatie toe
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
-	public function add_project_location_map_tab( array $tabs ) {
-		global $product;
-		$latitude = $product->get_meta( 'latitude' );
-		$longitude = $product->get_meta( 'longitude' );
-	
-		if ( 0 != $latitude && 0 != $longitude ) {
-			$tabs['location'] = [
-				'title'     => __( 'Projectlocatie', 'siw' ),
-				'priority'  => 110,
-				'callback'  => [ $this, 'show_project_map'],
-				'latitude'  => $latitude,
-				'longitude' => $longitude,
-			];
-		}
-		return $tabs;
-	}
-
-	/**
-	 * Voegt tab met contactformulier toe
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
-	public function add_contact_form_tab( array $tabs ) {
-		$tabs['enquiry'] = [
-			'title'    => __( 'Stel een vraag', 'siw' ),
-			'priority' => 120,
-			'callback' => [ $this, 'show_product_contact_form' ],
-		];
-		return $tabs;
-	}
-
-	/**
-	 * Toont kaart met projectlocatie in tab
-	 * @param string $tab
-	 * @param array $args
-	 */
-	public function show_project_map( string $tab, array $args ) {
-		echo do_shortcode( sprintf( '[gmap address="%s,%s" title="%s" zoom="6" maptype="ROADMAP"]', esc_attr( $args['latitude'] ), esc_attr( $args['longitude'] ), esc_attr__( 'Projectlocatie', 'siw' ) ) );
-	}
-
-	/**
-	 * Toont contactformulier in tab
-	 */
-	public function show_product_contact_form() {
-		echo do_shortcode( '[caldera_form id="contact_project"]' );
 	}
 
 	/**
