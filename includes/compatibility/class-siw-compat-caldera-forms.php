@@ -88,7 +88,7 @@ class SIW_Compat_Caldera_Forms{
 	 * @param string $tag
 	 * @return string
 	 */
-	public function set_summary_magic_table( string $value, string $tag ) {
+	public function set_summary_magic_table( ?string $value, string $tag ) {
 		if ( '{summary}' !== $tag ) {
 			return $value;
 		}
