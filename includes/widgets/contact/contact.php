@@ -1,14 +1,4 @@
 <?php
-/*
- * 
- * Widget Name: SIW: Contactinformatie
- * Description: Toont contactinformatie.
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met contactinformatie
@@ -19,6 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  * @uses      SIW_Properties
  * @uses      SIW_Formatting
+ * 
+ * @widget_data
+ * Widget Name: SIW: Contactinformatie
+ * Description: Toont contactinformatie.
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_Contact extends SIW_Widget {
 
@@ -57,7 +53,7 @@ class SIW_Widget_Contact extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( $instance, $args, $template_vars, $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
 		ob_start();
 		?>
 		<div class="siw-contact">

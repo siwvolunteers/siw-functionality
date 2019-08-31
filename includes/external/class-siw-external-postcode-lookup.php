@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Opzoeken adres obv postcode en huisnummer
  *
@@ -11,26 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  * 
- * @link      https://www.postcodeapi.nu/docs/
+ * @link      https://github.com/PDOK/locatieserver
  */
 class SIW_External_Postcode_Lookup{
-
-	/**
-	 * API key
-	 *
-	 * @var string
-	 */
-	protected $api_key;
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$this->api_key = siw_get_option( 'postcode_api_key' );
-		if ( empty( $this->api_key ) ) {
-			return;
-		}
-	}
 
 	/**
 	 * Zoekt straat en woonplaats op basis van postcode en huisnumme
@@ -41,11 +20,11 @@ class SIW_External_Postcode_Lookup{
 	 * 
 	 * @todo sanitize values
 	 */
-	public function get_address( $postcode, $housenumber ) {
+	public function get_address( string $postcode, string $housenumber ) {
 		$address = get_transient( "siw_address_{$postcode}_{$housenumber}" );
 		if ( false === $address ) {
 			$address = $this->retrieve_address( $postcode, $housenumber );
-			if ( false == $address ) {
+			if ( false === $address ) {
 				return false;
 			}
 			set_transient( "siw_address_{$postcode}_{$housenumber}", $address, MONTH_IN_SECONDS );
@@ -60,16 +39,15 @@ class SIW_External_Postcode_Lookup{
 	 * @param string $housenumber
 	 * @return array
 	 */
-	protected function retrieve_address( $postcode, $housenumber ) {
+	protected function retrieve_address( string $postcode, string $housenumber ) {
 		$url = add_query_arg( [
-			'postcode' => $postcode,
-			'number'   => $housenumber,
+			'q'  => "postcode:{$postcode}",
+			'fq' => "huisnummer:{$housenumber}",
 		], SIW_Properties::POSTCODE_API_URL );
 
 		$args = [
 			'timeout'     => 10,
 			'redirection' => 0,
-			'headers'     => [ 'X-Api-Key' => $this->api_key ],
 		];
 
 		$response = wp_safe_remote_get( $url, $args );
@@ -84,15 +62,14 @@ class SIW_External_Postcode_Lookup{
 
 		$body = json_decode( wp_remote_retrieve_body( $response ) );
 
-		if ( $body->_embedded->addresses ) {
-			$street = $body->_embedded->addresses[0]->street;
-			$city = $body->_embedded->addresses[0]->city->label;
-			$address = [
-				'street' => $street,
-				'city'   => $city,
-			];
-			return $address;
+		if ( 0 === $body->response->numFound ) {
+			return false;
 		}
-		return false;
+
+		$address = [
+			'street' => $body->response->docs[0]->straatnaam,
+			'city'   => $body->response->docs[0]->woonplaatsnaam,
+		];
+		return $address;
 	}
 }

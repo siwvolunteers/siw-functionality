@@ -1,0 +1,27 @@
+//out: ./siw-cookie-notice.css, compress: false, sourceMap: false, autoprefixer: >1%, last 2 Chrome versions, last 2 Firefox versions, last 2 Safari versions, last 2 Edge versions, last 1 IE versions, last 3 ChromeAndroid versions, last 2 iOS versions, groupmedia: true
+
+@import "partials/_variables.sass";
+
+#siw-cookie-notification {
+	position:fixed;
+	left:0px;
+	bottom:0px;
+	width:100%;
+	z-index:99999;
+	color:#fff;
+	padding:10px;
+	background-color: $secondary-color;
+	text-align:left;
+	font-size:14px;
+	#siw-cookie-consent{
+		padding:5px;
+		margin:5px;
+	}	
+}
+@media only screen and (max-width: $mobile-width) {
+	#siw-cookie-notification {
+		.cookie-button{
+			text-align:center;
+		}
+	}
+}

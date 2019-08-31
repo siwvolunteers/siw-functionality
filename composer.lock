@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29d9341fa095b9626a63cfc36d318a2b",
+    "content-hash": "1fa1974f97ddac336a45194859abd337",
     "packages": [
         {
             "name": "a5hleyrich/wp-background-processing",
@@ -115,32 +115,22 @@
             "time": "2018-10-18T16:30:37+00:00"
         },
         {
-            "name": "khromov/wp-multifilter",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/khromov/wp-multifilter",
-                "reference": "master"
-            },
-            "type": "library",
-            "time": "2015-01-19T10:20:41+00:00"
-        },
-        {
             "name": "meyfa/php-svg",
-            "version": "v0.9.0",
+            "version": "v0.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/meyfa/php-svg.git",
-                "reference": "1680eca33c0e107439969650904ab08ecfe83603"
+                "reference": "34401edef1f724898f468f71b85505fbcc8351bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/meyfa/php-svg/zipball/1680eca33c0e107439969650904ab08ecfe83603",
-                "reference": "1680eca33c0e107439969650904ab08ecfe83603",
+                "url": "https://api.github.com/repos/meyfa/php-svg/zipball/34401edef1f724898f468f71b85505fbcc8351bb",
+                "reference": "34401edef1f724898f468f71b85505fbcc8351bb",
                 "shasum": ""
             },
             "require": {
                 "ext-gd": "*",
+                "ext-simplexml": "*",
                 "php": ">=5.3.3"
             },
             "require-dev": {
@@ -168,28 +158,29 @@
             "keywords": [
                 "svg"
             ],
-            "time": "2018-07-25T10:30:00+00:00"
+            "time": "2019-07-30T18:41:25+00:00"
         },
         {
             "name": "spatie/array-to-xml",
-            "version": "2.9.0",
+            "version": "2.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/array-to-xml.git",
-                "reference": "934a35b7505059830a515ab9b06fa25fa9dab0bf"
+                "reference": "bdb5bc735b0639f6f438e935b13f7ac216239679"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/934a35b7505059830a515ab9b06fa25fa9dab0bf",
-                "reference": "934a35b7505059830a515ab9b06fa25fa9dab0bf",
+                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/bdb5bc735b0639f6f438e935b13f7ac216239679",
+                "reference": "bdb5bc735b0639f6f438e935b13f7ac216239679",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1"
+                "ext-dom": "*",
+                "php": "^7.2"
             },
             "require-dev": {
                 "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^7.0",
+                "phpunit/phpunit": "^8.0",
                 "spatie/phpunit-snapshot-assertions": "^2.0"
             },
             "type": "library",
@@ -205,9 +196,9 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
+                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://murze.be",
-                    "role": "Developer"
+                    "homepage": "https://murze.be"
                 }
             ],
             "description": "Convert an array to xml",
@@ -217,51 +208,14 @@
                 "convert",
                 "xml"
             ],
-            "time": "2019-05-06T06:33:48+00:00"
-        },
-        {
-            "name": "wpscholar/wp-async-defer-scripts",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wpscholar/wp-async-defer-scripts.git",
-                "reference": "f2d8199b90eb3f8f86cfac8af6f25e2378ba3fac"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wpscholar/wp-async-defer-scripts/zipball/f2d8199b90eb3f8f86cfac8af6f25e2378ba3fac",
-                "reference": "f2d8199b90eb3f8f86cfac8af6f25e2378ba3fac",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "functions.php"
-                ],
-                "psr-4": {
-                    "wpscholar\\WordPress\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Micah Wood",
-                    "email": "micah@wpscholar.com"
-                }
-            ],
-            "time": "2017-11-06T16:13:37+00:00"
+            "time": "2019-08-21T06:32:31+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "a5hleyrich/wp-background-processing": 20,
-        "khromov/wp-multifilter": 20,
-        "wpscholar/wp-async-defer-scripts": 20
+        "a5hleyrich/wp-background-processing": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Overzichtspagina met configuratie
  * 
@@ -19,9 +15,7 @@ class SIW_Admin_Properties_Page {
 	 * Init
 	 */
 	public static function init() {
-
 		$self = new self();
-
 		add_action( 'admin_menu', [ $self, 'add_properties_page'] ) ;
 	}
 

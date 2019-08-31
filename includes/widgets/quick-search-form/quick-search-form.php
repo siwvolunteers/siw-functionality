@@ -1,15 +1,4 @@
 <?php
-/*
- * 
- * @widget_data 
- * Widget Name: SIW: Snel Zoeken - formulier
- * Description: Toont zoekformulier
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met formulier voor Snel Zoeken
@@ -19,6 +8,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Formatting
+ * 
+ * @widget_data 
+ * Widget Name: SIW: Snel Zoeken - formulier
+ * Description: Toont zoekformulier
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_Quick_Search_Form extends SIW_Widget {
 
@@ -57,7 +52,7 @@ class SIW_Widget_Quick_Search_Form extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
 		$result_page_id = siw_get_option( 'quick_search_results_page' );
 		$result_page_url = wp_make_link_relative( get_permalink( $result_page_id ) );
 		ob_start();

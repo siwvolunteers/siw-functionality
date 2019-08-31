@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
 * Aanpassingen voor Mailpoet
  * 
@@ -62,7 +59,7 @@ class SIW_Compat_Mailpoet {
 	 * @param int $limit_base
 	 * @return int
 	 */
-	public function set_subscription_limit_base( $limit_base ) {
+	public function set_subscription_limit_base( int $limit_base ) {
 		$limit_base = HOUR_IN_SECONDS;
 		return $limit_base;
 	}
@@ -104,6 +101,4 @@ class SIW_Compat_Mailpoet {
 		);
 
 	}
-
-
 }

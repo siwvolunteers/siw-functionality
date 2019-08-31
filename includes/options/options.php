@@ -18,7 +18,6 @@ require_once( __DIR__ . '/data-dates.php' );
 require_once( __DIR__ . '/data-emails.php' );
 require_once( __DIR__ . '/data-job-postings.php' );
 require_once( __DIR__ . '/data-tailor-made.php' );
-require_once( __DIR__ . '/data-topbar.php' );
 require_once( __DIR__ . '/data-workcamps.php' );
 require_once( __DIR__ . '/data-dutch-projects.php' );
 
@@ -35,6 +34,13 @@ add_action( 'plugins_loaded', [ 'SIW_Options_Page', 'init' ] );
  * @todo constante voor optienaam
  */
 function siw_get_option( $option, $default = null ) {
+
+
+	//Probeer waarde uit cache te halen
+	$value = wp_cache_get( $option, 'siw_options');
+	if ( false !== $value ) {
+		return $value;
+	}
 
 	$value = rwmb_meta( $option, [ 'object_type' => 'setting' ], 'siw_options' );
 
@@ -83,6 +89,8 @@ function siw_get_option( $option, $default = null ) {
 			break;
 
 	}
+
+	wp_cache_set( $option, $value, 'siw_options' );
 
 	return $value;
 }

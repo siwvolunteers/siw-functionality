@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Class om htaccess regels toe te voegen
  * 
@@ -21,7 +18,6 @@ class SIW_htaccess {
 		$self = new self();
 
 		add_action( 'siw_update_plugin', [ $self, 'regenerate_htaccess' ] );
-
 		add_filter( 'before_rocket_htaccess_rules', [ $self, 'add_https_redirect'] );
 		add_filter( 'after_rocket_htaccess_rules', [ $self, 'add_security_headers'] );
 		add_filter( 'after_rocket_htaccess_rules', [ $self, 'add_firewall'] );
@@ -46,7 +42,7 @@ class SIW_htaccess {
 	 * @param string $marker
 	 * @return string
 	 */
-	public function add_https_redirect( $marker ) {
+	public function add_https_redirect( string $marker ) {
 		$rules = [
 			'comment' => 'Redirect http to https',
 			'lines' => [
@@ -67,21 +63,18 @@ class SIW_htaccess {
 	 * @param string $marker
 	 * @return string
 	 */
-	public function add_security_headers( $marker ) {
+	public function add_security_headers( string $marker ) {
 		$rules = [
 			'comment' => 'security headers',
 			'tag'     => 'IfModule',
 			'value'   => 'mod_headers.c',
 			'lines'   => [
 				'Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS',
-				'Header always set X-XSS-Protection "1; mode=block; report='. $this->generate_report_uri( 'xss', true ) . '"',
+				'Header always set X-XSS-Protection "1; mode=block"',
 				'Header always append X-Frame-Options SAMEORIGIN',
 				'Header always set X-Content-Type-Options nosniff',
 				'Header always set Referrer-Policy no-referrer-when-downgrade',
 				'Header unset X-Powered-By',
-				'Header always set Expect-CT "max-age=0; report-uri='. $this->generate_report_uri( 'ct', false ) . '"',
-				'Header always set Report-To: {"group":"default","max_age":31536000,"endpoints":[{"url":"' . $this->generate_report_uri( 'report-to' ) . '"}],"include_subdomains":false}',
-				'Header always set NEL: {"report_to":"default","max_age":31536000,"include_subdomains":false}',
 			],
 		];
 
@@ -97,7 +90,7 @@ class SIW_htaccess {
 	 * 
 	 * @link https://perishablepress.com/6g/
 	 */
-	public function add_firewall( $marker ) {
+	public function add_firewall( string $marker ) {
 		$query_string_rules = [
 			'comment' => '6G:[QUERY STRINGS]',
 			'tag'     => 'IfModule',
@@ -221,7 +214,7 @@ class SIW_htaccess {
 	 * @param string $marker
 	 * @return string
 	 */
-	public function add_security_rules( $marker ) {
+	public function add_security_rules( string $marker ) {
 		$files_rules = [
 			'tag'     => 'FilesMatch',
 			'value'   => '^(wp-config\.php|readme\.html|license\.txt|install\.php|xmlrpc\.php|\.htaccess)',
@@ -281,7 +274,7 @@ class SIW_htaccess {
 	 * @param array $rules
 	 * @return string
 	 */
-	protected function format_rules( $rules ) {
+	protected function format_rules( array $rules ) {
 
 		$defaults = [
 			'comment' => '',
@@ -316,29 +309,4 @@ class SIW_htaccess {
 		return $formatted_rules;
 	}
 
-	/**
-	 * Genereert report-uri
-	 *
-	 * @param string $type
-	 * @param boolean $enforce
-	 * @return string
-	 */
-	protected function generate_report_uri( $type, $enforce = true ) {
-		if ( 'report-to' == $type ) {
-			return SIW_Properties::REPORT_URI . 'a/d/g';
-		}
-
-		$types = [ 
-			'csp',
-			'ct',
-			'xss',
-			'staple',
-		];
-		if( ! in_array( $type, $types ) ) {
-			return false;
-		}
-		$action = ( $enforce ) ? 'enforce' : 'reportOnly';
-		$report_uri = SIW_Properties::REPORT_URI . 'r/d/' . $type .'/' . $action;
-		return $report_uri;
-	}
 }

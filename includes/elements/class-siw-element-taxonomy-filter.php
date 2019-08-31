@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Taxonomy-filter voor archiefpagina's
  * 
@@ -41,7 +37,7 @@ class SIW_Element_Taxonomy_Filter {
 	 * @param string $taxonomy
 	 * @return string
 	 */
-	public function generate( $taxonomy ) {
+	public function generate( string $taxonomy ) {
 		$terms = $this->get_terms( $taxonomy );
 		$name = 'continent';
 		$output = sprintf( '<div class="filter-button-group" data-filter-group="%s">', $taxonomy );
@@ -59,7 +55,7 @@ class SIW_Element_Taxonomy_Filter {
 	 * 
 	 * @return array
 	 */
-	protected function get_terms( $taxonomy ) {
+	protected function get_terms( string $taxonomy ) {
 		$terms = get_terms( [
 			'taxonomy'   => $taxonomy,
 			'hide_empty' => true,

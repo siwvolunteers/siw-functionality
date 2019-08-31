@@ -2,30 +2,6 @@
 /*
  * (c)2018 SIW Internationale Vrijwilligersprojecten
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-
-/* Zet noindex voor evenementen die al begonnen zijn */
-SIW_Scheduler::add_job( 'siw_set_noindex_for_past_events' );
-
-add_action( 'siw_set_noindex_for_past_events', function() {
-	$args = [
-		'post_type'      => 'agenda',
-		'fields'         => 'ids',
-		'posts_per_page' => -1,
-	];
-	$event_ids = get_posts( $args );
-	foreach ( $event_ids as $event_id ) {
-		$noindex = 0;
-		$start_ts = get_post_meta( $event_id, 'siw_agenda_start', true );
-		if ( $start_ts < time() ) {//TODO:vergelijken datum i.p.v. ts
-			$noindex = 1;
-		}
-		SIW_Util::set_seo_noindex( $event_id, $noindex );
-	}
-} );
 
 
 /**

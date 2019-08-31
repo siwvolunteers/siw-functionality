@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Class om een custom content type toe te voegen
  * 
@@ -61,11 +58,18 @@ abstract class SIW_Content_Type {
 	protected $capability_type = 'post';
 	
 	/**
+	 * Post sorteren op titel
+	 *
+	 * @var bool
+	 */
+	protected $sort_by_title = false;
+
+	/**
 	 * Geeft aan of taxonomy filter getoond moet worden
 	 *
 	 * @var bool
 	 */
-	protected $show_taxonomy_filter = true;
+	protected $show_taxonomy_filter = false;
 
 	/**
 	 * Instantie van Taxonomy Filter
@@ -75,7 +79,7 @@ abstract class SIW_Content_Type {
 	protected $taxonomy_filter;
 
 	/**
-	 * Undocumented function
+	 * Constructor
 	 */
 	public function __construct() {
 		$this->meta_box_fields = $this->get_meta_box_fields();
@@ -301,6 +305,11 @@ abstract class SIW_Content_Type {
 		if ( ! is_admin() && $query->is_main_query() ) {
 			if ( is_post_type_archive( "siw_{$this->post_type}" ) ) {
 				$query->set('posts_per_page', -1 );
+
+				if ( true === $this->sort_by_title ) {
+					$query->set( 'order' , 'asc' );
+					$query->set( 'orderby', 'title');
+				}
 			}
 		}
 	}

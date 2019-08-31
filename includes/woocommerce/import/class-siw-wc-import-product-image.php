@@ -36,14 +36,14 @@ class SIW_WC_Import_Product_Image {
 	/**
 	 * Land van het project
 	 *
-	 * @var SIW_Country
+	 * @var SIW_Data_Country
 	 */
 	protected $country;
 
 	/**
 	 * Soorten werk van het project
 	 *
-	 * @var SIW_Work_Type[]
+	 * @var SIW_Data_Work_Type[]
 	 */
 	protected $work_types;
 
@@ -64,7 +64,7 @@ class SIW_WC_Import_Product_Image {
 	 * @param SIW_Country $country
 	 * @param array $work_types
 	 */
-	public function __construct( SIW_Country $country, array $work_types ) {
+	public function __construct( SIW_Data_Country $country, array $work_types ) {
 		$this->country = $country;
 		$this->work_types = $work_types;
 		

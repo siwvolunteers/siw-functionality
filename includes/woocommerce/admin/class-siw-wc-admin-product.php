@@ -1,11 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
- * `TODO: beschrijving
+ * Aanpassingen aan admin-scherm voor producten
  *
  * @package   SIW\WooCommerce
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
@@ -71,7 +67,6 @@ class SIW_WC_Admin_Product {
 		if ( ! class_exists( 'MB_Admin_Columns_Post' ) ) {
 			return;
 		}
-		require_once( __DIR__ . '/class-siw-wc-admin-product-columns.php' );
 		new SIW_WC_Admin_Product_Columns( 'product', [] );
 	}
 
@@ -338,9 +333,9 @@ class SIW_WC_Admin_Product {
 	public function remove_meta_boxes() {
 		remove_meta_box( 'slugdiv', 'product', 'normal' );
 		remove_meta_box( 'postcustom' , 'product' , 'normal' );
-		remove_meta_box( 'woocommerce-product-images' , 'product', 'side', 'low' );
-
 		if ( ! current_user_can( 'manage_options' ) ) {
+			remove_meta_box( 'postimagediv', 'product', 'side' );
+			remove_meta_box( 'woocommerce-product-images' , 'product', 'side' );
 			remove_meta_box( 'tagsdiv-product_tag', 'product', 'normal' );
 			remove_meta_box( 'product_catdiv', 'product', 'normal' );
 		}

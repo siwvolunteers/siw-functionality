@@ -1,16 +1,23 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Class om scripts en styles te registreren
  * 
  * @package     SIW
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright   2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author      Maarten Bruna
  */
 class SIW_Assets {
+
+	/**
+	 * Versie van JS Cookie
+	 */
+	const JSCOOKIE_VERSION = '2.2.1';
+
+	/**
+	 * Versie van SmoothScroll
+	 */
+	const SMOOTHSCROLL_VERSION = '1.4.10';
 
 	/**
 	 * Init
@@ -33,7 +40,10 @@ class SIW_Assets {
 	 * Registreert scripts
 	 */
 	public function register_scripts() {
-		wp_register_script( 'siw', SIW_ASSETS_URL . 'js/siw.js', [ 'jquery' ], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( 'siw' );
+		//JS-cookie niet zelf enqueuen; is dependency van andere scripts
+		wp_register_script( 'js-cookie', SIW_ASSETS_URL . 'modules/js-cookie/js.cookie.js', [], self::JSCOOKIE_VERSION, true );
+
+		wp_register_script( 'smoothscroll', SIW_ASSETS_URL . 'modules/smoothscroll/smoothscroll.js', [], self::SMOOTHSCROLL_VERSION, true );
+		wp_enqueue_script( 'smoothscroll' );
 	}
 }

@@ -1,15 +1,4 @@
 <?php
-/*
- * 
- * @widget_data 
- * Widget Name: SIW: CTA
- * Description: Toont call to action
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met Call to Action
@@ -21,6 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @uses      SIW_Formatting
  * @uses      SIW_i18n
  * @uses      SIW_Util
+ * 
+ * @widget_data 
+ * Widget Name: SIW: CTA
+ * Description: Toont call to action
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_CTA extends SIW_Widget {
 
@@ -86,7 +81,7 @@ class SIW_Widget_CTA extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( $instance, $args, $template_vars, $css_name ) {
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
 		ob_start();
 		?>
 		<div class="title" style="text-align:<?= esc_attr( $instance['align'] ); ?>">

@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Configuratie van e-mail
  * 
@@ -35,7 +31,7 @@ class SIW_Email_Configuration {
 	 *
 	 * @param PHPMailer $phpmailer
 	 */
-	public function set_smtp_configuration( $phpmailer ) {
+	public function set_smtp_configuration( PHPMailer $phpmailer ) {
 		/*SMTP-configuratie*/
 		if ( siw_get_option( 'smtp_enabled' ) ) {
 			$phpmailer->isSMTP();
@@ -55,7 +51,7 @@ class SIW_Email_Configuration {
 	 *
 	 * @param PHPMailer $phpmailer
 	 */
-	public function set_dkim_configuration( $phpmailer ) {
+	public function set_dkim_configuration( PHPMailer $phpmailer ) {
 		if ( siw_get_option( 'dkim_enabled' ) && defined( 'SIW_DKIM_KEY' ) ) {
 			$dkim_settings = siw_get_option( 'dkim_settings');
 			$phpmailer->DKIM_selector = $dkim_settings['selector'];
@@ -72,7 +68,7 @@ class SIW_Email_Configuration {
 	 * @param string $from
 	 * @return string
 	 */
-	public function set_mail_from( $from ) {
+	public function set_mail_from( string $from ) {
 		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
 		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
 			$sitename = substr( $sitename, 4 );
@@ -92,7 +88,7 @@ class SIW_Email_Configuration {
 	 * @param string $from_name
 	 * @return string
 	 */
-	public function set_mail_from_name( $from_name ) {
+	public function set_mail_from_name( string $from_name ) {
 		$default_from_name = 'WordPress';
 		if ( $from_name != $default_from_name ) {
 			return $from_name;

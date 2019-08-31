@@ -1,14 +1,4 @@
 <?php
-/*
- * Widget Name: SIW: Kaart
- * Description: Toont interactieve kaart
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met interactieve kaart
@@ -18,6 +8,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      siw_render_map()
+ * 
+ * @widget_data
+ * Widget Name: SIW: Kaart
+ * Description: Toont interactieve kaart
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_Map extends SIW_Widget {
 
@@ -63,7 +59,7 @@ class SIW_Widget_Map extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( $instance, $args, $template_vars, $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
 		return siw_render_map( $instance['map'] );
 	}
 }

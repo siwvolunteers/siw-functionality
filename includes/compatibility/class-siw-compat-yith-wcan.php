@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Aanpassingen voor YITH WooCommerce Ajax Product Filter
  * 
@@ -36,6 +33,12 @@ class SIW_Compat_YITH_WCAN {
 		/* YITH premium nags verwijderen */
 		add_filter( 'yit_plugin_panel_menu_page_show', '__return_false' );
 		add_filter( 'yit_show_upgrade_to_premium_version', '__return_false' );
+
+		/* Inline script toevoegen */
+		add_action( 'wp_enqueue_scripts', [ $self, 'add_scroll_script' ], PHP_INT_MAX );
+
+		//Verwijderen promo
+		add_action( 'init', [ $self, 'remove_promo_hooks'] );
 	}
 
 	/**
@@ -44,7 +47,7 @@ class SIW_Compat_YITH_WCAN {
 	 * @param array $admin_tabs
 	 * @return array
 	 */
-	public function remove_premium_tab( $admin_tabs ) {
+	public function remove_premium_tab( array $admin_tabs ) {
 		unset( $admin_tabs['premium'] );
 		return $admin_tabs;
 	}
@@ -62,10 +65,10 @@ class SIW_Compat_YITH_WCAN {
 	 *
 	 * @param array $terms
 	 * @param string $taxonomy
-	 * @param YITH_WCAN_Navigation_Widget $instance
+	 * @param array $instance
 	 * @return array
 	 */
-	public function order_terms( $terms, $taxonomy, $instance ) {
+	public function order_terms( array $terms, string $taxonomy, array $instance ) {
 		if ( 'pa_maand' != $taxonomy || empty( $terms )) {
 			return $terms;
 		}
@@ -81,4 +84,24 @@ class SIW_Compat_YITH_WCAN {
 
 		return $terms;
 	}
+
+	/**
+	 * Voegt scroll script toe
+	 */
+	public function add_scroll_script() {
+		$inline_script = "
+		$( document ).on( 'yith-wcan-ajax-filtered', function() {
+			$( document ).scrollTo( $( '.kad-shop-top' ), 800 );
+		});";
+		wp_add_inline_script( 'yith-wcan-script', "(function( $ ) {" . $inline_script . "})( jQuery );" );//TODO:format-functie voor anonymous jQuery
+	}
+
+	/**
+	 * Verwijderen YITH-promo
+	 */
+	public function remove_promo_hooks() {
+		remove_action( 'admin_notices', 'yith_plugin_fw_promo_notices', 15 );
+		remove_action( 'admin_enqueue_scripts', 'yith_plugin_fw_notice_dismiss', 20 );
+	}
+
 }

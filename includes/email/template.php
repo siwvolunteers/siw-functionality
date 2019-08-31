@@ -83,14 +83,7 @@ ob_start();
 									</p>
 								</div>
 								<?php if ( $args['show_summary']  ) :?>
-									<table width="100%" border="0" cellspacing="0" cellpadding="0">
-										<tr>
-											<td colspan="3" height="20" style="font-family:Verdana, normal; color:#666; font-size:0.8em; font-weight:bold; border-top:thin solid #<?php echo SIW_Properties::PRIMARY_COLOR;?>" >
-												<?= esc_html__( 'Ingevulde gegevens', 'siw'); ?>
-											</td>
-										</tr>
-										{summary}
-									</table>
+									{summary}
 								<?php endif; ?>
 							</td>
 							<td width="10%">&nbsp;</td>

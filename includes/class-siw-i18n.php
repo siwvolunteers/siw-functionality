@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Functionaliteit t.b.v. meertaligheid
  * 
@@ -34,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @param string $domain
 	 * @return string
 	 */
-	public function load_custom_translations( $mofile, $domain ) {
+	public function load_custom_translations( string $mofile, string $domain ) {
 		$textdomains['nl_NL'] = [ 'woocommerce', 'pinnacle' ];
 		$textdomains['en_US'] = [ 'siw' ];
 	
@@ -52,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @param  int $page_id
 	 * @return string
 	 */
-	public static function get_translated_page_url( $page_id ) {
+	public static function get_translated_page_url( int $page_id ) {
 		$translated_page_id = self::get_translated_page_id( $page_id );
 		$translated_page_url = get_page_link( $translated_page_id );
 		return $translated_page_url;
@@ -63,7 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @param  int $page_id
 	 * @return int
 	 */
-	public static function get_translated_page_id( $page_id ) {
+	public static function get_translated_page_id( int $page_id ) {
 		$translated_page_id = apply_filters( 'wpml_object_id', $page_id, 'page', true );
 		return $translated_page_id;
 	}
@@ -75,7 +71,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @param string $language_code
 	 * @return string
 	 */
-	public static function get_translated_permalink( $permalink, $language_code ) {
+	public static function get_translated_permalink( string $permalink, string $language_code ) {
 		$translated_permalink = apply_filters( 'wpml_permalink', $permalink, $language_code );
 		return $translated_permalink;
 	}
@@ -123,7 +119,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @param array $dirs
 	 * @return array
 	 */
-	public function add_language_switcher_templates_dir( $dirs ) {
+	public function add_language_switcher_templates_dir( array $dirs ) {
 		$dirs[] = SIW_TEMPLATES_DIR .'/wpml/language-switchers';
 		return $dirs;
 	}
@@ -133,13 +129,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 *
 	 * @param int $post_id
 	 */
-	public function delete_original_attachment( $post_id ) {
+	public function delete_original_attachment( int $post_id ) {
 		if ( self::is_default_language() ) {
 			return;
 		}
 
 		$original_post_id = apply_filters( 'wpml_object_id', $post_id, 'attachment', false, self::get_default_language() );
-		if ( null != $original_post_id && $post_id != $original_post_id ) {
+		if ( null !== $original_post_id && $post_id !== $original_post_id ) {
 			wp_delete_attachment( $original_post_id );
 		}
 	}

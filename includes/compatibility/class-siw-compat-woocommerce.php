@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Aanpassingen voor WooCommerce
  * 
@@ -85,7 +81,7 @@ class SIW_Compat_WooCommerce {
 	 * @param array $handlers
 	 * @return array
 	 */
-	public function register_log_handlers( $handlers ) {
+	public function register_log_handlers( array $handlers ) {
 		$log_handler_db = new WC_Log_Handler_DB;
 		$log_handler_email = new WC_Log_Handler_Email;
 		$log_handler_email->set_threshold( 'alert' );
@@ -104,7 +100,7 @@ class SIW_Compat_WooCommerce {
 	 * @param int $per_page
 	 * @return int
 	 */
-	public function set_log_items_per_page( $per_page ) {
+	public function set_log_items_per_page( int $per_page ) {
 		$per_page = 25;
 		return $per_page;
 	}
@@ -115,7 +111,7 @@ class SIW_Compat_WooCommerce {
 	 * @param int $days
 	 * @return int
 	 */
-	public function set_days_to_retain_log( $days ) {
+	public function set_days_to_retain_log( int $days ) {
 		$days = 7;
 		return $days;
 	}
@@ -127,7 +123,7 @@ class SIW_Compat_WooCommerce {
 	 * @param string $action
 	 * @return string
 	 */
-	public function reset_nonce_user_logged_out( $user_id, $action ) {
+	public function reset_nonce_user_logged_out( $user_id, string $action ) {
 		$nonces = [
 			'siw_ajax_nonce',
 			'siw_newsletter_nonce',
@@ -155,7 +151,7 @@ class SIW_Compat_WooCommerce {
 	 * @param array $product_types
 	 * @return array
 	 */
-	public function disable_product_types( $product_types ) {
+	public function disable_product_types( array $product_types ) {
 		unset( $product_types['simple'] );
 		unset( $product_types['grouped'] );
 		unset( $product_types['external'] );
@@ -169,7 +165,7 @@ class SIW_Compat_WooCommerce {
 	 * @param array $query_vars
 	 * @return array
 	 */
-	public function enable_project_id_search( $query, $query_vars ) {
+	public function enable_project_id_search( $query, array $query_vars ) {
 		if ( ! empty( $query_vars['project_id'] ) ) {
 			$query['meta_query'][] = [
 				'key'   => 'project_id',
@@ -185,7 +181,7 @@ class SIW_Compat_WooCommerce {
 	 * @param array $visibility_options
 	 * @return array
 	 */
-	public function remove_product_visibility_options( $visibility_options ) {
+	public function remove_product_visibility_options( array $visibility_options ) {
 		unset( $visibility_options['catalog']);
 		unset( $visibility_options['search']);
 		return $visibility_options;
@@ -197,7 +193,7 @@ class SIW_Compat_WooCommerce {
 	 * @param array $filters
 	 * @param array
 	 */
-	public function remove_products_admin_list_table_filters( $filters ) {
+	public function remove_products_admin_list_table_filters( array $filters ) {
 		unset( $filters['product_category']);
 		unset( $filters['product_type']);
 		unset( $filters['stock_status']);

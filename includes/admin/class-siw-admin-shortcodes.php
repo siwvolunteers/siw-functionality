@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Shortcodes in admin
  * 
@@ -17,8 +13,6 @@ class SIW_Admin_Shortcodes {
 
 	/**
 	 * Init
-	 *
-	 * @return void
 	 */
 	public static function init() {
 		$self = new self();
@@ -78,12 +72,6 @@ class SIW_Admin_Shortcodes {
 			'siw_korting_derde_project' => [
 				'title' => __( 'Korting derde project', 'siw' )
 			],
-			'siw_bestuursleden' => [
-				'title' => __( 'Bestuursleden', 'siw' )
-			],
-			'siw_jaarverslagen' => [
-				'title' => __( 'Jaarverslagen', 'siw' )
-			],
 			'siw_nederlandse_projecten' => [
 				'title' => __( 'Nederlandse Projecten', 'siw' )
 			],
@@ -133,7 +121,7 @@ class SIW_Admin_Shortcodes {
 	 * @param string $shortcode
 	 * @param array $parameters
 	 */
-	public function add( $shortcode, $parameters ) {
+	public function add( string $shortcode, array $parameters ) {
 		add_filter( 'kadence_shortcodes', function( $pinnacle_shortcodes ) use( $shortcode, $parameters ) {
 			$parameters['title'] = '[SIW] - ' . $parameters['title'];
 			$pinnacle_shortcodes[ $shortcode ] = $parameters;

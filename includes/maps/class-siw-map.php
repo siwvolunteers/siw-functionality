@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Class om een Mapplic kaart te genereren
  * 
@@ -134,15 +130,15 @@ class SIW_Map {
 	protected function enqueue_scripts() {
 		$deps = [ 'jquery', 'hammer' ];
 		if ( true == $this->options[ 'lightbox' ] ) {
-			wp_register_script( 'magnific-popup', $this->mapplic_url . 'js/magnific-popup.js', false, self::MAPPLIC_VERSION );
+			wp_register_script( 'magnific-popup', $this->mapplic_url . 'js/magnific-popup.js', [ 'jquery' ], self::MAPPLIC_VERSION, true );
 			$deps[] = 'magnific-popup';
 		}
 		if ( true == $this->options[ 'mousewheel' ] ) {
-			wp_register_script( 'mousewheel', $this->mapplic_url . 'js/jquery.mousewheel.js', false, self::MAPPLIC_VERSION ); //TODO: kan dit niet in de footer?
+			wp_register_script( 'mousewheel', $this->mapplic_url . 'js/jquery.mousewheel.js', [ 'jquery' ], self::MAPPLIC_VERSION, true ); //TODO: kan dit niet in de footer?
 			$deps[] = 'mousewheel';
 		}
-		wp_register_script( 'hammer', $this->mapplic_url . 'js/hammer.min.js', false, self::MAPPLIC_VERSION);
-		wp_register_script( 'mapplic-script', $this->mapplic_url . 'js/mapplic.js', $deps, self::MAPPLIC_VERSION );
+		wp_register_script( 'hammer', $this->mapplic_url . 'js/hammer.min.js', [], self::MAPPLIC_VERSION, true );
+		wp_register_script( 'mapplic-script', $this->mapplic_url . 'js/mapplic.js', $deps, self::MAPPLIC_VERSION, true );
 	
 		$mapplic_localization = [
 			'more'     => __( 'Meer', 'siw' ),
@@ -250,7 +246,7 @@ class SIW_Map {
 	 * 
 	 * @param string $id
 	 */
-	public function set_id( $id ) {
+	public function set_id( string $id ) {
 		$this->id = $id;
 	}
 
@@ -259,14 +255,14 @@ class SIW_Map {
 	 * 
 	 * @param string $filename
 	 */
-	public function set_filename( $filename ) {
+	public function set_filename( string $filename ) {
 		$this->filename = $filename;
 	}
 
 	/**
 	 * Zet de instellingen van de kaart
 	 */
-	public function set_options( $options ) {
+	public function set_options( array $options ) {
 		$this->options = wp_parse_args( $options, $this->default_options );
 		$this->options['source'] = $this->data;
 	}
@@ -276,7 +272,7 @@ class SIW_Map {
 	 * 
 	 * @param array $categories
 	 */
-	public function set_categories( $categories ) {
+	public function set_categories( array $categories ) {
 		foreach ( $categories as $category_data ) {
 			$category_data = wp_parse_args( $category_data, $this->default_category_data );
 			$this->categories[] = $category_data;
@@ -288,7 +284,7 @@ class SIW_Map {
 	 * 
 	 * @param array $locations
 	 */
-	public function set_locations( $locations ) {
+	public function set_locations( array $locations ) {
 		/* Locaties */
 		foreach ( $locations as $location_data ) {
 			$location_data = wp_parse_args( $location_data, $this->default_location_data );
@@ -301,7 +297,7 @@ class SIW_Map {
 	 * 
 	 * @param array $css
 	 */
-	public function set_inline_css( $css ) {
+	public function set_inline_css( array $css ) {
 		$this->inline_css = $css;
 	}
 
@@ -310,7 +306,7 @@ class SIW_Map {
 	 *
 	 * @param string $content
 	 */
-	public function set_mobile_content( $content ) {
+	public function set_mobile_content( ?string $content ) {
 		$this->mobile_content = $content;
 	}
 
@@ -319,7 +315,7 @@ class SIW_Map {
 	 *
 	 * @param array $data
 	 */
-	public function set_data( $data ) {
+	public function set_data( array $data ) {
 		$default_data = [
 			'mapwidth'  => null,
 			'mapheight' => null,

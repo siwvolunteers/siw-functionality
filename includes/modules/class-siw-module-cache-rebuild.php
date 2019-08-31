@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Verversen van de cache
  * 
@@ -17,6 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class SIW_Module_Cache_Rebuild {
 
 	/**
+	 * Hooknaam
+	 * 
+	 * @var string
+	 */
+	const HOOK = 'siw_rebuild_cache';
+
+	/**
 	 * Init
 	 */
 	public static function init() {
@@ -25,7 +29,7 @@ class SIW_Module_Cache_Rebuild {
 		}
 		$self = new self();
 		add_action( 'siw_update_plugin', [ $self, 'schedule_cache_rebuild' ] );
-		add_action( 'siw_rebuild_cache', [ $self, 'rebuild_cache' ] );
+		add_action( self::HOOK, [ $self, 'rebuild_cache' ] );
 		add_action( 'before_run_rocket_sitemap_preload', [ $self, 'setup_sitemap' ], 10, 2 );
 		add_filter( 'rocket_sitemap_preload_list', [ $self, 'set_sitemaps_for_preload' ] );
 	}
@@ -37,11 +41,10 @@ class SIW_Module_Cache_Rebuild {
 		/* Cache rebuild schedulen */
 		$cache_rebuild_ts = strtotime( 'tomorrow ' . SIW_Properties::TS_CACHE_REBUILD );
 		$cache_rebuild_ts_gmt = SIW_Util::convert_timestamp_to_gmt( $cache_rebuild_ts );
-		if ( wp_next_scheduled( 'siw_rebuild_cache' ) ) {
-			$timestamp = wp_next_scheduled( 'siw_rebuild_cache' );
-			wp_unschedule_event( $timestamp, 'siw_rebuild_cache' );
+		if ( wp_next_scheduled( self::HOOK ) ) {
+			wp_clear_scheduled_hook( self::HOOK );
 		}
-		wp_schedule_event( $cache_rebuild_ts_gmt, 'daily', 'siw_rebuild_cache' );
+		wp_schedule_event( $cache_rebuild_ts_gmt, 'daily', self::HOOK );
 	}
 
 	/**
@@ -81,7 +84,7 @@ class SIW_Module_Cache_Rebuild {
 			$tsf = the_seo_framework();
 			$languages = SIW_i18n::get_active_languages();
 			$sitemap_url = $tsf->get_sitemap_xml_url();
-			foreach ( $languages as $code => $language ) {
+			foreach ( $languages as $language ) {
 				$sitemaps[] = SIW_i18n::get_translated_permalink( $sitemap_url, $language['code'] );
 			}
 		}

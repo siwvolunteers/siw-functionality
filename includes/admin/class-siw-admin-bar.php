@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Aanpassingen aan Admin Bar
  * 
@@ -46,7 +42,7 @@ class SIW_Admin_Bar {
 	 *
 	 * @param WP_Admin_Bar $wp_admin_bar
 	 */
-	public function remove_nodes( $wp_admin_bar ) {
+	public function remove_nodes( WP_Admin_Bar $wp_admin_bar ) {
 		$wp_admin_bar->remove_node( 'wp-logo' );
 		$wp_admin_bar->remove_node( 'site-name' );
 		$wp_admin_bar->remove_node( 'comments' );
@@ -58,7 +54,7 @@ class SIW_Admin_Bar {
 	 *
 	 * @param WP_Admin_Bar $wp_admin_bar
 	 */
-	public function add_logo( $wp_admin_bar ) {
+	public function add_logo( WP_Admin_Bar $wp_admin_bar ) {
 		$logo_args = [
 			'id'   => 'siw-logo',
 			'meta' => [
@@ -74,7 +70,7 @@ class SIW_Admin_Bar {
 	 *
 	 * @param WP_Admin_Bar $wp_admin_bar
 	 */
-	public function add_environment( $wp_admin_bar ) {
+	public function add_environment( WP_Admin_Bar $wp_admin_bar ) {
 		$url_args = [
 			'id'    => 'siw-url',
 			'title' => sprintf( __( 'Je bent ingelogd op: %s', 'siw' ), site_url() ),
@@ -87,7 +83,7 @@ class SIW_Admin_Bar {
 	 *
 	 * @param WP_Admin_Bar $wp_admin_bar
 	 */
-	public function add_action_triggers( $wp_admin_bar ) {
+	public function add_action_triggers( WP_Admin_Bar $wp_admin_bar ) {
 		if ( ! current_user_can( 'manage_options' ) || empty( self::$actions ) ) {
 			return;
 		}

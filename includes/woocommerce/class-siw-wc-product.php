@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Aanpassingen aan Groepsproject
  *
@@ -21,9 +17,9 @@ class SIW_WC_Product {
 	 */
 	public static function init() {
 		$self = new self();
-		add_filter( 'woocommerce_product_tabs', [ $self, 'remove_reviews_tab'], PHP_INT_MAX );
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_location_map_tab'] );
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_contact_form_tab'] );
+
+		SIW_WC_Product_Tabs::init();
+
 		add_filter( 'woocommerce_is_purchasable', [ $self, 'set_product_is_purchasable'], 10, 2 );
 		add_filter( 'woocommerce_available_variation', [ $self, 'set_variation_description'] );
 		add_filter( 'woocommerce_sale_flash', [ $self, 'set_sales_flash_text' ] );
@@ -31,7 +27,7 @@ class SIW_WC_Product {
 		add_filter( 'woocommerce_related_products_args', [ $self, 'set_related_products_number'], PHP_INT_MAX );
 		add_action( 'woocommerce_after_add_to_cart_form', [ $self, 'show_local_fee'] );
 
-		/*
+		/**
 		 * Verwijderen diverse woocommerce-hooks
 		 * - "Reset variations"-link
 		 * - Prijsrange
@@ -51,82 +47,17 @@ class SIW_WC_Product {
 	}
 
 	/**
-	 * Verwijdert reviews-tab
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
-	public function remove_reviews_tab( $tabs ) {
-		unset( $tabs['reviews'] );
-		return $tabs;
-	}
-
-	/**
-	 * Voegt tab met projectlocatie toe
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
-	public function add_project_location_map_tab( $tabs ) {
-		global $product;
-		$latitude = $product->get_meta( 'latitude' );
-		$longitude = $product->get_meta( 'longitude' );
-	
-		if ( 0 != $latitude && 0 != $longitude ) {
-			$tabs['location'] = [
-				'title'     => __( 'Projectlocatie', 'siw' ),
-				'priority'  => 110,
-				'callback'  => [ $this, 'show_project_map'],
-				'latitude'  => $latitude,
-				'longitude' => $longitude,
-			];
-		}
-		return $tabs;
-	}
-
-	/**
-	 * Voegt tab met contactformulier toe
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
-	public function add_contact_form_tab( $tabs ) {
-		$tabs['enquiry'] = [
-			'title'    => __( 'Stel een vraag', 'siw' ),
-			'priority' => 120,
-			'callback' => [ $this, 'show_product_contact_form' ],
-		];
-		return $tabs;
-	}
-
-	/**
-	 * Toont kaart met projectlocatie in tab
-	 * @param  array $tab
-	 * @param  array $args
-	 */
-	public function show_project_map( $tab, $args ) {
-		echo do_shortcode( sprintf( '[gmap address="%s,%s" title="%s" zoom="6" maptype="ROADMAP"]', esc_attr( $args['latitude'] ), esc_attr( $args['longitude'] ), esc_attr__( 'Projectlocatie', 'siw' ) ) );
-	}
-
-	/**
-	 * Toont contactformulier in tab
-	 */
-	public function show_product_contact_form() {
-		echo do_shortcode( '[caldera_form id="contact_project"]' );
-	}
-
-	/**
 	 * Bepaalt of product bestelbaar is
 	 *
 	 * @param bool $is_purchasable
 	 * @param WC_Product $product
 	 * @return bool
 	 */
-	public function set_product_is_purchasable( $is_purchasable, $product ) {
+	public function set_product_is_purchasable( bool $is_purchasable, WC_Product $product )  {
 		$is_purchasable = $product->is_visible();
 		$status = $product->get_status();
 
-		if ( false == $is_purchasable || SIW_WC_Import_Product::REVIEW_STATUS == $status ) {
+		if ( false === $is_purchasable || SIW_WC_Import_Product::REVIEW_STATUS == $status ) {
 			
 			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation', 10 ); //TODO: kan weg na switch theme
 			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation_add_to_cart_button', 20 );
@@ -209,7 +140,7 @@ class SIW_WC_Product {
 		if ( ! empty( $participation_fee_currency ) && $participation_fee > 0 ) {
 			$currency = siw_get_currency( $participation_fee_currency );
 			$symbol = $participation_fee_currency;
-			if ( false != $currency ) {
+			if ( false !== $currency ) {
 				$symbol = $currency->get_symbol();
 				if ( 'EUR' != $participation_fee_currency ) {
 					$amount_in_euro = $currency->convert_to_euro( $participation_fee );

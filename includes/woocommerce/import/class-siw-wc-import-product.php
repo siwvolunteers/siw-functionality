@@ -1,17 +1,14 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Import van een Groepsproject
  *
  * @author      Maarten Bruna
  * @package     SIW\WooCommerce
  * @copyright   2018-2019 SIW Internationale Vrijwilligersprojecten
- * @uses        SIW_Country
- * @uses        SIW_Language
- * @uses        SIW_Work_Type
+ * @uses        SIW_Data_Country
+ * @uses        SIW_Data_Language
+ * @uses        SIW_Data_Work_Type
  * @uses        SIW_Formatting
  */
 class SIW_WC_Import_Product {
@@ -45,21 +42,21 @@ class SIW_WC_Import_Product {
 	/**
 	 * Land van project
 	 *
-	 * @var SIW_Country
+	 * @var SIW_Data_Country
 	 */
 	protected $country;
 
 	/**
 	 * Projecttalen
 	 *
-	 * @var SIW_Language[]
+	 * @var SIW_Data_Language[]
 	 */
 	protected $languages;
 
 	/**
 	 * Soort werk van het project
 	 *
-	 * @var SIW_Work_Type[]
+	 * @var SIW_Data_Work_Type[]
 	 */
 	protected $work_types;
 
@@ -80,7 +77,7 @@ class SIW_WC_Import_Product {
 	/**
 	 * Constructor
 	 */
-	public function __construct( $data ) {
+	public function __construct( array $data ) {
 		add_filter( 'wc_product_has_unique_sku', '__return_false' );
 		add_filter( 'wp_insert_post_data', [ $this, 'correct_post_slug'], 10, 2 );
 		$this->xml = (object) $data;
@@ -96,7 +93,7 @@ class SIW_WC_Import_Product {
 	 * @param array $postarr
 	 * @return array
 	 */
-	public function correct_post_slug( $data, $postarr ) {
+	public function correct_post_slug( array $data, array $postarr ) {
 		if ( self::REVIEW_STATUS == $data['post_status'] && 'product' == $data['post_type'] ) {
 			$data['post_name'] =  $postarr['post_name'];
 		}
@@ -269,9 +266,10 @@ class SIW_WC_Import_Product {
 	 * @param string $taxonomy
 	 * @param string $slug
 	 * @param string $name
-	 * @return int
+	 * @param string $order
+	 * @return int|bool
 	 */
-	protected function maybe_create_term( $taxonomy, $slug, $name, $order = null ) {
+	protected function maybe_create_term( string $taxonomy, string $slug, string $name, $order = null ) {
 		$term = get_term_by( 'slug', $slug, $taxonomy );
 		if ( false == $term ) {
 			$new_term = wp_insert_term( $name, $taxonomy, [ 'slug' => $slug ] );
@@ -434,7 +432,7 @@ class SIW_WC_Import_Product {
 	 * @param boolean $taxonomy
 	 * @return WC_Product_Attribute
 	 */
-	protected function create_product_attribute( $name, $options, $visible = true ) {
+	protected function create_product_attribute( string $name, $options, bool $visible = true ) {
 		$options = (array) $options;
 		$attribute = new WC_Product_Attribute;
 		$attribute->set_name( $name );
@@ -454,7 +452,7 @@ class SIW_WC_Import_Product {
 	 * 
 	 * @todo maybe_create_taxonomy of logging als taxonomy niet bestaat
 	 */
-	protected function create_taxonomy_attribute( $taxonomy, $values, $visible = true, $variation = false ) {
+	protected function create_taxonomy_attribute( string $taxonomy, $values, bool $visible = true, bool $variation = false ) {
 
 		$wc_attribute_taxonomy_id = wc_attribute_taxonomy_id_by_name( $taxonomy );
 		if ( false == $wc_attribute_taxonomy_id ) {
@@ -523,7 +521,7 @@ class SIW_WC_Import_Product {
 	 * @param string $template
 	 * @return string
 	 */
-	protected function parse_description( $template ) {
+	protected function parse_description( string $template ) {
 		$vars = [
 			'project_type' => $this->get_workcamp_type(),
 			'country'      => $this->country->get_name(),
@@ -553,7 +551,7 @@ class SIW_WC_Import_Product {
 		 */
 		$templates = apply_filters( 'siw_workcamp_description_templates', $templates );
 	
-		$template = implode( $templates[ array_rand( $templates, 1 ) ], SPACE );
+		$template = implode( SPACE, $templates[ array_rand( $templates, 1 ) ]  );
 		$short_description = $this->parse_description( $template );
 
 		return $short_description;
@@ -620,8 +618,8 @@ class SIW_WC_Import_Product {
 				'regular_price'     => $tariff['regular_price'],
 				'sale_price'        => $sale ? $tariff['sale_price'] : null,
 				'price'             => $sale ? $tariff['sale_price'] : $tariff['regular_price'],
-				'date_on_sale_from' => $sale ? date( DATE_ISO8601, strtotime( $workcamp_sale['start_date'] ) ) : null,
-				'date_on_sale_to'   => $sale ? date( DATE_ISO8601, strtotime( $workcamp_sale['end_date'] ) ) : null,
+				'date_on_sale_from' => $sale ? date( 'Y-m-d 00:00:00', strtotime( $workcamp_sale['start_date'] ) ) : null,
+				'date_on_sale_to'   => $sale ? date( 'Y-m-d 23:59:59', strtotime( $workcamp_sale['end_date'] ) ) : null,
 			]);
 			$variation->save();
 		}
@@ -663,7 +661,7 @@ class SIW_WC_Import_Product {
 		 * @param array $templates
 		 */
 		$templates = apply_filters( 'siw_workcamp_seo_description_templates', $templates );
-		$template = implode( $templates[ array_rand( $templates, 1 ) ], SPACE );
+		$template = implode( SPACE, $templates[ array_rand( $templates, 1 ) ] );
 
 		$seo_description = $this->parse_description( $template );
 		return $seo_description;

@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * CPT voor Op Maat landen
  * 
@@ -32,6 +29,16 @@ class SIW_Content_Type_TM_Country extends SIW_Content_Type {
 	 * {@inheritDoc}
 	 */
 	protected $menu_icon = 'dashicons-location-alt';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $sort_by_title = true;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $show_taxonomy_filter = true;
 
 	/**
 	 * {@inheritDoc}

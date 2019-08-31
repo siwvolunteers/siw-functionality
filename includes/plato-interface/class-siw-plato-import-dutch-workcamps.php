@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Importeer Nederlandse Groepsprojecten uit Plato
  * 
@@ -35,7 +31,7 @@ class SIW_Plato_Import_Dutch_Workcamps extends SIW_Plato_Import_Workcamps {
 	 * Voeg de Plato-webkey toe als query arg
 	 */
 	protected function add_query_arg_partner_webkey() {
-		$this->add_query_arg( 'partnerOrganizationTechnicalKey', $this->webkey, $this->endpoint_url );
+		$this->add_query_arg( 'partnerOrganizationTechnicalKey', $this->webkey );
 	}
 
 }

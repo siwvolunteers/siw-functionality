@@ -1,14 +1,4 @@
 <?php
-/*
- * Widget Name: SIW: Nieuwsbrief
- * Description: Toont aanmeldformulier voor nieuwsbrief
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-
- if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met aanmeldformulier nieuwsbrief
@@ -18,6 +8,12 @@
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses      SIW_Formatting
+ * 
+ * @widget_data
+ * Widget Name: SIW: Nieuwsbrief
+ * Description: Toont aanmeldformulier voor nieuwsbrief
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_Newsletter extends SIW_Widget {
 
@@ -75,7 +71,7 @@ class SIW_Widget_Newsletter extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
 		ob_start();
 		?>
 		<div>

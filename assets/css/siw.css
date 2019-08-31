@@ -243,15 +243,6 @@ img.lazyloaded {
   margin: 15px;
 }
 
-.portfolio-postclass h1.entry-title {
-  font-size: 24px;
-  line-height: 30px;
-}
-
-.cportfoliotag {
-  text-transform: none;
-}
-
 /*! system-font.css v2.0.2 | CC0-1.0 License | github.com/jonathantneal/system-font-css */
 
 @font-face {
@@ -625,13 +616,6 @@ h5.job-title {
   .testimonial .testimonial-inner .testimonial-content {
     display: -webkit-box;
     display: flex;
-  }
-}
-
-@media (min-width: 992px) {
-  .portfolio-postclass .col-md-7,
-  .portfolio-postclass .col-md-5 {
-    width: 50%;
   }
 }
 

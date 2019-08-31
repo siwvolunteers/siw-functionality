@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Aanpassingen voor The SEO Framework
  * 
@@ -50,7 +47,7 @@ class SIW_Compat_The_SEO_Framework {
 	 * @param string $priority
 	 * @return string
 	 */
-	public function set_metabox_priority( $priority ) {
+	public function set_metabox_priority( string $priority ) {
 		$priority = 'default';
 		return $priority;
 	}
@@ -63,7 +60,7 @@ class SIW_Compat_The_SEO_Framework {
 	 *
 	 * @todo soort_evenement soort_vacature testimonial wpm-testimonial-category
 	 */
-	public function set_robots( $robots ) {
+	public function set_robots( array $robots ) {
 		if ( function_exists( 'is_product_tag' ) && is_product_tag() ) {
 			$robots['noindex'] = 'noindex';	
 		}
@@ -76,7 +73,7 @@ class SIW_Compat_The_SEO_Framework {
 	 * @param string $color
 	 * @return string
 	 */
-	public function set_sitemap_color_main( $color ) {
+	public function set_sitemap_color_main( string $color ) {
 		return SIW_Properties::SECONDARY_COLOR;
 	}
 
@@ -86,7 +83,7 @@ class SIW_Compat_The_SEO_Framework {
 	 * @param string $color
 	 * @return string
 	 */
-	public function set_sitemap_color_accent( $color ) {
+	public function set_sitemap_color_accent( string $color ) {
 		return SIW_Properties::FONT_COLOR;
 	}
 
@@ -96,7 +93,7 @@ class SIW_Compat_The_SEO_Framework {
 	 * @param int $count
 	 * @return int
 	 */
-	public function set_sitemap_custom_posts_count( $count ) {
+	public function set_sitemap_custom_posts_count( int $count ) {
 		return 5000;
 	}
 
@@ -106,7 +103,7 @@ class SIW_Compat_The_SEO_Framework {
 	 * @param array $args
 	 * @return array
 	 */
-	public function set_sitemap_cpt_query_args( $args ) {
+	public function set_sitemap_cpt_query_args( array $args ) {
 		$args['meta_query'] = [
 			'relation' => 'OR',
 			[
@@ -128,7 +125,7 @@ class SIW_Compat_The_SEO_Framework {
 	 * @param string $output
 	 * @return string
 	 */
-	public function set_robots_txt( $output ) {
+	public function set_robots_txt( string $output ) {
 		$bots = siw_get_option( 'blocked_bots');
 
 		if ( empty( $bots ) ) {
@@ -149,7 +146,7 @@ class SIW_Compat_The_SEO_Framework {
 	 * @param array $excluded_cpt
 	 * @return array
 	 */
-	public function set_sitemap_excluded_cpt( $excluded_cpt ) {
+	public function set_sitemap_excluded_cpt( array $excluded_cpt ) {
 		$excluded_cpt[] = 'testimonial';
 
 		if ( ! SIW_i18n::is_default_language() ) {
@@ -157,7 +154,6 @@ class SIW_Compat_The_SEO_Framework {
 			$excluded_cpt[] = 'wpm-testimonial';
 			$excluded_cpt[] = 'agenda';
 			$excluded_cpt[] = 'vacatures';
-			$excluded_cpt[] = 'portfolio';
 		}
 		return $excluded_cpt;
 	}
@@ -167,7 +163,7 @@ class SIW_Compat_The_SEO_Framework {
 	 *
 	 * @param array $custom_urls
 	 */
-	public function set_sitemap_additional_urls( $custom_urls ) {
+	public function set_sitemap_additional_urls( array $custom_urls ) {
 		
 		if ( ! SIW_i18n::is_default_language() ) {
 			return $custom_urls;

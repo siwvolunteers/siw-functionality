@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Class om head aan te passen
  *
@@ -40,9 +36,9 @@ class SIW_Head {
 		remove_action( 'wp_head', 'rsd_link' );
 		remove_action( 'wp_head', 'feed_links', 2 );
 		remove_action( 'wp_head', 'feed_links_extra', 3 );
-		remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
+		remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10 );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
-		remove_action( 'template_redirect', 'rest_output_link_header', 11, 0) ;
+		remove_action( 'template_redirect', 'rest_output_link_header', 11 ) ;
 	}
 
 	/**
@@ -94,7 +90,7 @@ class SIW_Head {
 	 * @param string $relation_type
 	 * @return array
 	 */
-	public function add_resource_hints( $urls, $relation_type ) {
+	public function add_resource_hints( array $urls, string $relation_type ) {
 		if ( 'dns-prefetch' === $relation_type ) {
 			$urls[] = 'www.google-analytics.com';
 			$urls[] = 'maps.googleapis.com';

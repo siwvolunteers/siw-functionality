@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Voegt share-links toe voor social netwerken
  *
@@ -21,7 +17,6 @@ class SIW_Module_Social_Share {
 	public static function init() {
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles'] );
-		add_action( 'kadence_single_portfolio_after', [ $self, 'render' ] );
 		add_action( 'siw_vacature_footer', [ $self, 'render' ] );
 		add_action( 'siw_agenda_footer', [ $self, 'render' ] );
 		add_action( 'siw_tm_country_footer', [ $self, 'render' ] );
@@ -36,7 +31,7 @@ class SIW_Module_Social_Share {
 	 * @return void
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-social-share', SIW_ASSETS_URL . 'css/siw-social-share.css', null, SIW_PLUGIN_VERSION );
+		wp_register_style( 'siw-social-share', SIW_ASSETS_URL . 'css/siw-social-share.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-social-share' );
 	}
 
@@ -53,6 +48,7 @@ class SIW_Module_Social_Share {
 				$networks = siw_get_social_networks('share');
 				$title = get_the_title();
 				$url = get_permalink();
+				
 				foreach ( $networks as $network ) {
 					echo SIW_Formatting::generate_link(
 						$network->generate_share_link( $url, $title ),
@@ -63,6 +59,11 @@ class SIW_Module_Social_Share {
 							'data-placement'      => 'bottom',
 							'data-original-title' => $network->get_name(),
 							'target'              => '_blank',
+							'data-ga-track'       => 1,
+							'data-ga-type'        => 'social',
+							'data-ga-category'    => $network->get_name(),
+							'data-ga-action'      => 'Delen',
+							'data-ga-label'       => $url,
 						],
 						$network->get_icon_class()
 					);
@@ -81,7 +82,6 @@ class SIW_Module_Social_Share {
 		$post_type = get_post_type();
 
 		switch( $post_type ) {
-			case 'portfolio':
 			case 'product':
 				$title = __( 'Deel dit project', 'siw' );
 				break;
@@ -111,9 +111,7 @@ class SIW_Module_Social_Share {
 	protected function needs_hr() {
 		$post_type = get_post_type();
 		switch( $post_type ) {
-			case 'portfolio':
 			case 'product':
-			case 'evs_project':
 				$needs_hr = true;
 				break;
 			default:

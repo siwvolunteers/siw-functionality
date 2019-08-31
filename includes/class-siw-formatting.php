@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Hulpfuncties t.b.v. formattering
  *
@@ -16,10 +12,10 @@ class SIW_Formatting {
 	/**
 	 * Formatteert getal als percentage
 	 * @param  float  $percentage
-	 * @param  integer $decimals
+	 * @param  int $decimals
 	 * @return string
 	 */
-	public static function format_percentage( $percentage, $decimals = 0 ) {
+	public static function format_percentage( float $percentage, int $decimals = 0 ) {
 		$percentage = number_format_i18n( $percentage, $decimals );
 		return sprintf( '%s&nbsp;&percnt;', $percentage );
 	}
@@ -28,13 +24,13 @@ class SIW_Formatting {
 	 * Formatteert getal als bedrag
 	 *
 	 * @param float $amount
-	 * @param integer $decimals
-	 * @param string $currency
+	 * @param int $decimals
+	 * @param string $currency_code
 	 * @return string
 	 * 
 	 * @uses siw_get_currency()
 	 */
-	public static function format_amount( $amount, $decimals = 0, $currency_code = 'EUR' ) {
+	public static function format_amount( float $amount, int $decimals = 0, string $currency_code = 'EUR' ) {
 		$currency = siw_get_currency( $currency_code );
 		$currency_symbol = $currency->get_symbol();
 		$amount = number_format_i18n( $amount, $decimals );
@@ -48,9 +44,9 @@ class SIW_Formatting {
 	 *
 	 * @return string
 	 *
-	 * @todo escaping
+	 * @todo escaping en verplaatsen naar SIW_Html
 	 */
-	public static function generate_list( $items, $ordered = false ) {
+	public static function generate_list( array $items, bool $ordered = false ) {
 		if ( empty ( $items ) ) {
 			return false;
 		}
@@ -71,7 +67,7 @@ class SIW_Formatting {
 	 * @param array $cells
 	 * @return string
 	 */
-	public static function generate_columns( $cells ) {
+	public static function generate_columns( array $cells ) {
 		$columns = '[columns]';
 		foreach ( $cells as $cell ) {
 			//TODO:wp_parse_args
@@ -91,7 +87,7 @@ class SIW_Formatting {
 	 * @param string $background
 	 * @return string
 	 */
-	public static function generate_icon( $icon_class, $size = 1, $background = 'none' ) {
+	public static function generate_icon( string $icon_class, int $size = 1, string $background = 'none' ) {
 		switch ( $background ) {
 			case 'circle':
 			case 'square':
@@ -137,7 +133,7 @@ class SIW_Formatting {
 	 * @param array $attributes
 	 * @return string
 	 */
-	public static function render_attributes( $attributes ) {
+	public static function render_attributes( array $attributes ) {
 		$rendered_attributes = '';
 		foreach ( $attributes as $key => $value ) {
 			if ( false == $value )
@@ -161,7 +157,7 @@ class SIW_Formatting {
 	 * @param array $wrapper_args
 	 * @return string
 	 */
-	public static function generate_field( $type, $input_args, $wrapper_args = [] ) {
+	public static function generate_field( string $type, array $input_args, array $wrapper_args = [] ) {
 
 		$input_args = wp_parse_args( $input_args, [
 			'id'          => '',
@@ -276,11 +272,12 @@ class SIW_Formatting {
 	 * @param string $url
 	 * @param string $text
 	 * @param array $attributes
+	 * @param string $icon_class
 	 * @return string
 	 */
-	public static function generate_link( $url, $text = false, $attributes = [], $icon_class = false ) {
+	public static function generate_link( $url, $text = null, array $attributes = [], string $icon_class = null ) {
 
-		if ( false == $text ) {
+		if ( null === $text ) {
 			$text = $url;
 		}
 		$icon_html = ( $icon_class) ? SIW_Formatting::generate_icon( $icon_class, 1 ) : '';
@@ -301,7 +298,7 @@ class SIW_Formatting {
 	 * @param array $attributes
 	 * @return string
 	 */
-	public static function generate_tag( $tag, $attributes ) {
+	public static function generate_tag( string $tag, array $attributes ) {
 		$tag = sprintf(
 			'<%s %s>',
 			tag_escape( $tag ),
@@ -317,8 +314,21 @@ class SIW_Formatting {
 	 * @param  string $text
 	 * @return string
 	 */
-	public static function generate_external_link( $url, $text = false ) {
-		return self::generate_link( $url, $text . '&nbsp;', [ 'class' => 'siw-external-link', 'target' => '_blank', 'rel' => 'noopener'], 'siw-icon-external-link-alt' );
+	public static function generate_external_link( string $url, string $text = null ) {
+		return self::generate_link(
+			$url,
+			$text . '&nbsp;',
+			[
+				'target'           => '_blank',
+				'rel'              => 'noopener',
+				'data-ga-track'    => 1,
+				'data-ga-type'     => 'event',
+				'data-ga-category' => 'Externe link',
+				'data-ga-action'   => 'Klikken',
+				'data-ga-label'    => $url,
+			],
+			'siw-icon-external-link-alt'
+		);
 	}
 
 	/**
@@ -326,7 +336,7 @@ class SIW_Formatting {
 	 * @param  array $panes
 	 * @return string
 	 */
-	public static function generate_accordion( $panes ) {
+	public static function generate_accordion( array $panes ) {
 		if ( empty( $panes) ) {
 			return;
 		}
@@ -351,7 +361,7 @@ class SIW_Formatting {
 	 * 
 	 * @todo samenvoegen met generate_accordion?
 	 */
-	public static function generate_tabs( $panes ) {
+	public static function generate_tabs( array $panes ) {
 		if ( empty( $panes) ) {
 			return;
 		}
@@ -379,7 +389,7 @@ class SIW_Formatting {
 	 * @param array $vars
 	 * @return string
 	 */
-	public static function parse_template( $template, $vars ) {
+	public static function parse_template( string $template, array $vars ) {
 		$variables = [];
 		foreach ( $vars as $key => $value ) {
 			$variables[ '{{ ' . $key . ' }}' ] = $value;
@@ -393,7 +403,7 @@ class SIW_Formatting {
 	 * @param array $data
 	 * @return string
 	 */
-	public static function generate_json_ld( $data ) {
+	public static function generate_json_ld( array $data ) {
 		ob_start();
 		?>
 		<script type="application/ld+json">
@@ -445,9 +455,9 @@ class SIW_Formatting {
 	 *
 	 * @return string
 	 */
-	public static function format_date_range( $date_start, $date_end, $year = true ) {
+	public static function format_date_range( string $date_start, string $date_end, bool $year = true ) {
 		
-		if ( $date_start == $date_end ) {
+		if ( $date_start === $date_end ) {
 			return self::format_date( $date_start, $year );
 		}
 
@@ -493,8 +503,8 @@ class SIW_Formatting {
 	 * @param array $array
 	 * @return string
 	 */
-	public static function array_to_text( $array, $glue = SPACE ) {
-		$text = implode( $array, $glue );
+	public static function array_to_text( array $array, string $glue = SPACE ) {
+		$text = implode( $glue, $array );
 		return $text;
 	}
 
@@ -507,12 +517,12 @@ class SIW_Formatting {
 	 *
 	 * @return string
 	 */
-	public static function format_month_range( $date_start, $date_end, $year = true ) {
+	public static function format_month_range( string $date_start, string $date_end, bool $year = true ) {
 
 		$date_start_array = date_parse( $date_start );
 		$date_end_array = date_parse( $date_end );
 
-		if ( $date_start == $date_end || ( $date_start_array['month'] == $date_end_array['month'] && $date_start_array['year'] == $date_end_array['year'] ) ) {
+		if ( $date_start === $date_end || ( $date_start_array['month'] === $date_end_array['month'] && $date_start_array['year'] === $date_end_array['year'] ) ) {
 			return self::format_month( $date_start, $year );
 		}
 
@@ -538,7 +548,7 @@ class SIW_Formatting {
 	 * @param int $page_id
 	 * @return string
 	 */
-	public static function generate_modal( $page_id ) {
+	public static function generate_modal( int $page_id ) {
 		$page = get_post( $page_id );
 		ob_start();
 		?>

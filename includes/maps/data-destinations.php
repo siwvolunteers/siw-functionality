@@ -57,15 +57,15 @@ add_filter( 'siw_map_destinations_data', function( $map_data ) {
 /**
  * Genereer beschrijving van aanbod per land
  *
- * @param SIW_Country $country
+ * @param SIW_Data_Country $country
  * @return string
  * 
  * @uses SIW_Formatting
  * @uses SIW_i18n
  * 
- * @todo verplaatsen naar SIW_Country?
+ * @todo verplaatsen naar SIW_Data_Country?
  */
-function siw_generate_country_description( $country ) {
+function siw_generate_country_description( SIW_Data_Country $country ) {
 
 	$tailor_made_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
 	$esc_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'esc_explanation_page' ) );
@@ -83,7 +83,7 @@ function siw_generate_country_description( $country ) {
 
 		if ( $workcamp_count > 0 ) {
 			$url = get_term_link( $country->get_slug(), 'pa_land' );
-			$text = __( 'Bekijk alle projecten', 'siw' );
+			$text = __( 'Bekijk het aanbod', 'siw' );
 		}
 		else {
 			$url = $workcamps_page_link;
@@ -94,7 +94,22 @@ function siw_generate_country_description( $country ) {
 	
 	/* Op maat*/
 	if ( true == $country->has_tailor_made_projects() ) {
-		$project_types[] = esc_html__( 'Projecten Op Maat', 'siw' ) . SPACE . SIW_Formatting::generate_link( $tailor_made_page_link, __( 'Lees meer', 'siw' ) );
+		$tailor_made_pages = get_posts( [
+			'posts_per_page'   => -1,
+			'meta_key'         => 'country',
+			'meta_value'       => $country->get_slug(),
+			'post_type'        => 'siw_tm_country',
+		]);
+		if ( ! empty( $tailor_made_pages) ) {
+			$url = get_permalink( $tailor_made_pages[0] );
+			$text = __( 'Bekijk het aanbod', 'siw' );
+		}
+		else {
+			$url = $tailor_made_page_link;
+			$text = __( 'Lees meer', 'siw' );
+		}
+
+		$project_types[] = esc_html__( 'Projecten Op Maat', 'siw' ) . SPACE . SIW_Formatting::generate_link( $url, $text );
 	}
 	
 	/* EVS */

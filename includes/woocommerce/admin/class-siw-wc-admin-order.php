@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Aanpassing aan admin t.b.v. aanmeldingen
  *
@@ -13,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  * @uses      SIW_Util
  * @uses      SIW_WC_Admin_Order_Columns
+ * 
+ * @todo      splitsen in Order en Admin_Order
  */
 class SIW_WC_Admin_Order {
 
@@ -36,9 +34,7 @@ class SIW_WC_Admin_Order {
 		add_filter( 'manage_edit-shop_order_columns', [ $self, 'remove_admin_columns'] );
 		add_action( 'admin_init', [ $self, 'add_admin_columns'], 20 );
 
-		add_filter( 'woocommerce_order_actions', [ $self, 'add_order_actions'] );
 		add_filter( 'woocommerce_order_actions', [ $self, 'remove_order_actions'] );
-		add_action( 'woocommerce_order_action_siw_export_to_plato', [ $self, 'export_application_to_plato'] );
 	}
 
 	/**
@@ -131,7 +127,7 @@ class SIW_WC_Admin_Order {
 	 * @return array
 	 */
 	public function set_localisation_address_format( $address_formats ) {
-		$address_formats['NL'] = "{gender}\n{name}\n{address_1} {housenumber}\n{postcode} {city}\n{country}\n{dob} {nationality}";
+		$address_formats['NL'] = "{name}\n{address_1} {housenumber}\n{postcode} {city}\n{country}\n{dob}\n{gender}\n{nationality}";
 		return $address_formats;
 	}
 
@@ -154,10 +150,10 @@ class SIW_WC_Admin_Order {
 	 * Toont sectie met velden
 	 *
 	 * @param WC_Order $order
-	 * @param array $section
+	 * @param string $section
 	 * @param boolean $edit
 	 */
-	protected function show_section( $order, $section, $edit = false ) {
+	protected function show_section( WC_Order $order, string $section, bool $edit = false ) {
 		?>
 		<br class="clear" />
 		<h4>
@@ -194,7 +190,7 @@ class SIW_WC_Admin_Order {
 	 * @param WC_Order $order
 	 * @param array $field
 	 */
-	protected function show_field_value( $order, $field ) {
+	protected function show_field_value( WC_Order $order, array $field ) {
 
 		switch ( $field['type'] ) {
 			case 'select':
@@ -221,7 +217,7 @@ class SIW_WC_Admin_Order {
 	 * @param WC_Order $order
 	 * @param array $field
 	 */
-	protected function show_field_input( $order, $field ) {
+	protected function show_field_input( WC_Order $order, array $field ) {
 		unset( $field['class']);
 		$field['value'] = $order->get_meta( $field['id'] );
 		$field['desc_tip'] = true;
@@ -347,32 +343,7 @@ class SIW_WC_Admin_Order {
 		if ( ! class_exists( 'MB_Admin_Columns_Post' ) ) {
 			return;
 		}
-
-		require_once( __DIR__ . '/class-siw-wc-admin-order-columns.php' );
 		new SIW_WC_Admin_Order_Columns( 'shop_order', [] );
-	}
-
-	/**
-	 * Voeg orderactie voor export naar Plato toe
-	 *
-	 * @param array $actions
-	 * @return array
-	 */
-	public function add_order_actions( $actions ) {
-		global $theorder;
-		if ( $theorder->is_paid() ) {
-			$actions['siw_export_to_plato'] = __( 'Exporteer naar PLATO', 'siw' );
-		}
-		return $actions;
-	}
-
-	/**
-	 * Exporteert aanmelding naar plato
-	 *
-	 * @param int $order_id
-	 */
-	public function export_application_to_plato( $order_id ) {
-		siw_export_application_to_plato( $order_id );
 	}
 
 	/**

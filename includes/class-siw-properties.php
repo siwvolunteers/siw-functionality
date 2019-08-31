@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 use Ils\AnnotationParser;
 
 /**
@@ -368,11 +364,18 @@ class SIW_Properties {
 	const COLOR_NORTH_AMERICA = '#fbba00';
 
 	/**
-	 * PostcodeAPI URL
+	 * Locatieserver URL voor postcode lookup
 	 *
 	 * @var string
 	 */
-	const POSTCODE_API_URL = 'https://postcode-api.apiwise.nl/v2/addresses/';
+	const POSTCODE_API_URL = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/free';
+
+	/**
+	 * Spam check API URL
+	 *
+	 * @var string
+	 */
+	const SPAM_CHECK_API_URL = 'https://europe.stopforumspam.org/api';
 
 	/**
 	 * Plato webservice base-url
@@ -396,19 +399,33 @@ class SIW_Properties {
 	const EXCHANGE_RATES_API_URL = 'http://data.fixer.io/api/latest';
 
 	/**
-	 * Report-URI
+	 * URL voor Google Maps API
 	 *
 	 * @var string
 	 */
-	const REPORT_URI = 'https://siwvolunteers.report-uri.com/';
+	const GOOGLE_MAPS_API_URL = 'https://maps.googleapis.com/maps/api/js';
 
+	/**
+	 * PHP-DSN voor Sentry
+	 *
+	 * @var string
+	 */
+	const SENTRY_PHP_DSN = 'https://d66e53bd9d3e41199ff984851c98706b@sentry.io/1264830';
+
+	/**
+	 * JS-DSN voor Sentry
+	 *
+	 * @var string
+	 */
+	const SENTRY_JS_DSN = 'https://e8240c08387042d583692b6415c700e3@sentry.io/1264820';
+	
 	/**
 	 * Geeft waarde van property terug
 	 *
 	 * @param string $property
 	 * @return string
 	 */
-	public static function get( $property ) {
+	public static function get( string $property ) {
 		$property = strtoupper( $property );
 		if ( defined( 'self::' . $property ) ) {
 			return constant('self::' . $property );

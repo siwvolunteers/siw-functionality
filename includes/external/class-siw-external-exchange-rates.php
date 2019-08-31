@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Ophalen wisselkoersen bij fixer.io
  *
@@ -84,7 +80,7 @@ class SIW_External_Exchange_Rates{
 		}
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 		if ( false == $body['success'] ) {
-			return false;	
+			return false;
 		}
 	
 		$exchange_rates = [];

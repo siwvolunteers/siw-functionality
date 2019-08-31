@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 use SVG\SVG;
 
 /**
@@ -13,7 +9,7 @@ use SVG\SVG;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  * 
- * @uses      SIW_Country
+ * @uses      SIW_Data_Country
  * @uses      SVG\SVG
  */
 class SIW_Element_World_Map {
@@ -28,28 +24,28 @@ class SIW_Element_World_Map {
 	/**
 	 * SVG
 	 *
-	 * @var SVG\SVG
+	 * @var SVG
 	 */
 	protected $svg;
 
 	/**
 	 * SVG-document
 	 *
-	 * @var SVG\SVGDocumentFragment
+	 * @var SVG\Nodes\Structures\SVGDocumentFragment
 	 */
 	protected $doc;
 
 	/**
 	 * Land
 	 *
-	 * @var SIW_Country
+	 * @var SIW_Data_Country
 	 */
 	protected $country;
 
 	/**
 	 * Continent
 	 *
-	 * @var SIW_Continent
+	 * @var SIW_Data_Continent
 	 */
 	protected $continent;
 
@@ -59,6 +55,20 @@ class SIW_Element_World_Map {
 	 * @var int
 	 */
 	protected $zoom = 1;
+
+	/**
+	 * Breedte van SVG
+	 *
+	 * @var float
+	 */
+	protected $width;
+
+	/**
+	 * Hoogt van SVG
+	 *
+	 * @var float
+	 */
+	protected $heigth;
 
 	/**
 	 * Constructor
@@ -71,12 +81,12 @@ class SIW_Element_World_Map {
 	/**
 	 * Genereert kaart
 	 *
-	 * @param string|SIW_Country $country
+	 * @param string|SIW_Data_Country $country
 	 * @param int $zoom
 	 * @return string
 	 */
-	public function generate( $country, $zoom = 1 ) {
-		if ( false ==  $this->set_country( $country ) ) {
+	public function generate( $country, int $zoom = 1 ) {
+		if ( false === $this->set_country( $country ) ) {
 			return false;
 		}
 		$this->zoom = $zoom;
@@ -90,14 +100,14 @@ class SIW_Element_World_Map {
 	/**
 	 * Zet land om in te kleuren
 	 *
-	 * @param string|SIW_Country $country
+	 * @param string|SIW_Data_Country $country
 	 * @return true
 	 */
 	protected function set_country( $country ) {
 		if ( is_string( $country ) ) {
 			$country = siw_get_country( $country );
 		}
-		if ( ! is_a( $country, 'SIW_Country') ) {
+		if ( ! is_a( $country, 'SIW_Data_Country') ) {
 			return false;
 		}
 		$this->country = $country;
@@ -157,7 +167,7 @@ class SIW_Element_World_Map {
 	 * @param float $coordinate
 	 * @return float
 	 */
-	protected function calculate_offset( $coordinate ) {
+	protected function calculate_offset( float $coordinate ) {
 		$coordinate = min( $coordinate + 1/ ( 2 * $this->zoom ), 1 );
 		$coordinate = max( $coordinate - 1 / ( $this->zoom ), 0 );
 		return $coordinate;

@@ -1,10 +1,7 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
- * Aanpassingen voor WordPRess
+ * Aanpassingen voor WordPress
  * 
  * @package     SIW\Compatibility
  * @copyright   2018 SIW Internationale Vrijwilligersprojecten
@@ -52,7 +49,7 @@ class SIW_Compat_WordPress {
 	 * @param string $prefix
 	 * @return string
 	 */
-	public function set_rest_url_prefix( $prefix ) {
+	public function set_rest_url_prefix( string $prefix ) {
 		$prefix = 'api';
 		return $prefix;
 	}
@@ -78,7 +75,6 @@ class SIW_Compat_WordPress {
 		unregister_widget( 'WP_Widget_Media_Video' );
 		unregister_widget( 'WP_Widget_Media_Image' );
 		unregister_widget( 'WP_Widget_Media_Gallery' );
-		//unregister_widget( 'WP_Widget_Text' );
 	}
 
 	/**
@@ -87,7 +83,7 @@ class SIW_Compat_WordPress {
 	 * @param  int $nonce_life
 	 * @return int
 	 */
-	public function set_nonce_life( $nonce_life ) {
+	public function set_nonce_life( int $nonce_life ) {
 		$nonce_life = 2 * DAY_IN_SECONDS;
 		return $nonce_life;
 	}
@@ -98,7 +94,7 @@ class SIW_Compat_WordPress {
 	 * @param  array $data
 	 * @return array
 	 */
-	public function set_oembed_response_data( $data ) {
+	public function set_oembed_response_data( array $data ) {
 		$data['author_name'] = SIW_Properties::NAME;
 		$data['author_url'] = SIW_SITE_URL;
 		
@@ -111,7 +107,7 @@ class SIW_Compat_WordPress {
 	 * @param array $contactmethods
 	 * @return array
 	 */
-	public function remove_user_contactmethods( $contactmethods ) {
+	public function remove_user_contactmethods( array $contactmethods ) {
 		unset( $contactmethods['aim'] );
 		unset( $contactmethods['jabber'] );
 		unset( $contactmethods['yim'] );
@@ -141,7 +137,7 @@ class SIW_Compat_WordPress {
 	 * @param array $query
 	 * @return array
 	 */
-	public function remove_core_version_check_query_args( $query ) {
+	public function remove_core_version_check_query_args( array $query ) {
 		unset( $query['local_package'] );
 		unset( $query['blogs'] );
 		unset( $query['users'] );
@@ -154,7 +150,7 @@ class SIW_Compat_WordPress {
 	 * Gutenberg css uitschakelen
 	 */
 	public function dequeue_styles() {
-		wp_dequeue_style('wp-block-library');
+		wp_dequeue_style( 'wp-block-library' );
 	}
 
 	/**
@@ -170,7 +166,7 @@ class SIW_Compat_WordPress {
 	 * @param string $template
 	 * @return string
 	 */
-	public function set_404_template( $template ) {
+	public function set_404_template( string $template ) {
 		$template = SIW_TEMPLATES_DIR . '/404.php';
 		return $template;
 	}
@@ -180,7 +176,7 @@ class SIW_Compat_WordPress {
 	 *
 	 * @param string $editor
 	 */
-	public function set_default_editor( $editor ) {
+	public function set_default_editor( string $editor ) {
 		$editor = 'html';
 		return $editor;
 	}
@@ -191,7 +187,7 @@ class SIW_Compat_WordPress {
 	 * @param array $tests
 	 * @return array
 	 */
-	public function remove_update_check( $tests ) {
+	public function remove_update_check( array $tests ) {
 		unset( $tests['async']['background_updates'] );
 		return $tests;
 	}

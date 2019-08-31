@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Aanpassingen voor UpdraftPlus
  * 
@@ -39,7 +36,7 @@ class SIW_Compat_UpdraftPlus {
 	 * @param int $scheduled_time
 	 * @return int
 	 */
-	public function set_time_db_backup( $scheduled_time ) {
+	public function set_time_db_backup( int $scheduled_time ) {
 		$tomorrow = strtotime( 'tomorrow' );
 		$backup_db_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
 	
@@ -55,7 +52,7 @@ class SIW_Compat_UpdraftPlus {
 	 * @param int $scheduled_time
 	 * @return int
 	 */
-	public function set_time_files_backup( $scheduled_time ) {
+	public function set_time_files_backup( int $scheduled_time ) {
 		$tomorrow = strtotime( 'tomorrow');
 		$backup_files_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
 	
@@ -71,7 +68,7 @@ class SIW_Compat_UpdraftPlus {
 	 * @param string $blog_name
 	 * @return string
 	 */
-	public function set_backup_name( $blog_name ) {
+	public function set_backup_name( string $blog_name ) {
 		$blog_name = sanitize_title( SIW_SITE_NAME );
 		return $blog_name;
 	}

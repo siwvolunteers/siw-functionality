@@ -1,15 +1,11 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Topbar
  * 
  * @package   SIW\Modules
  * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
  * @uses SIW_Formatting
  * @uses SIW_Properties
@@ -67,7 +63,21 @@ class SIW_Module_Topbar {
 					<div class="col-md-12">
 						<div id="topbar-content">
 							<span class="hidden-xs hidden-sm"><?php echo esc_html( $this->content['intro'] );?>&nbsp;</span>
-							<?= SIW_Formatting::generate_link( $this->content['link_url'], $this->content['link_text'], [ 'id' => 'topbar_link', 'target' => $target ] ); ?>
+							<?php
+								echo SIW_Formatting::generate_link(
+									$this->content['link_url'],
+									$this->content['link_text'],
+									[
+										'id'               => 'topbar_link',
+										'target'           => $target,
+										'data-ga-track'    => 1,
+										'data-ga-type'     => 'event',
+										'data-ga-category' => 'Topbar',
+										'data-ga-action'   => 'Klikken',
+										'data-ga-label'    => $this->content['link_url'],
+									]
+								);
+							?>
 						</div>
 					</div>
 				</div>
@@ -80,7 +90,7 @@ class SIW_Module_Topbar {
 	 * Voegt stylesheet toe
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-topbar', SIW_ASSETS_URL . 'css/siw-topbar.css', null, SIW_PLUGIN_VERSION );
+		wp_register_style( 'siw-topbar', SIW_ASSETS_URL . 'css/siw-topbar.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-topbar' );
 	}
 
@@ -90,10 +100,6 @@ class SIW_Module_Topbar {
 	 * @return array
 	 */
 	protected function get_content() {
-		$social_content = $this->get_social_content();
-		if ( ! empty( $social_content ) ) {
-			return $social_content;
-		}
 	
 		$event_content = $this->get_event_content();
 		if ( ! empty( $event_content ) ) {
@@ -111,26 +117,6 @@ class SIW_Module_Topbar {
 		}
 	
 		return false;
-	}
-
-	/**
-	 * Haalt de social media-inhoud op
-	 *
-	 * @return array
-	 */
-	protected function get_social_content() {
-
-		if ( ! siw_get_option( 'topbar_social_link_enabled' ) ) {
-			return false;
-		}
-		$social_networks = siw_get_social_networks('follow');
-		$social_content = [
-			'intro'       => siw_get_option( 'topbar_social_link_intro' ),
-			'link_url'    => $social_networks[ siw_get_option( 'topbar_social_link_network') ]->get_follow_url(),
-			'link_text'   => siw_get_option( 'topbar_social_link_text' ),
-			'link_target' => '_blank',
-		];
-		return $social_content;
 	}
 
 	/**
@@ -171,7 +157,7 @@ class SIW_Module_Topbar {
 	 * @return array
 	 */
 	protected function get_job_content() {
-		$job = siw_get_featured_job(); //TODO:setting van maken
+		$job = siw_get_featured_job();
 		if ( false == $job ) {
 			return false;
 		}
@@ -186,19 +172,21 @@ class SIW_Module_Topbar {
 
 	/**
 	 * Haalt de kortingsactie-inhoud op
+	 * 
+	 * @return array
 	 */
 	protected function get_sale_content() {
 		if ( ! SIW_Util::is_workcamp_sale_active() ) {
 			return false;
 		}
 
-		$sale_tariff = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE );
+		$sale_price = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE );
 		$end_date = SIW_Formatting::format_date( siw_get_option( 'workcamp_sale' )['end_date'], false );
 	
 		$sale_content = [
 			'intro'     => __( 'Grijp je kans en ontvang korting!',  'siw' ),
 			'link_url'  => wc_get_page_permalink( 'shop' ),
-			'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_tariff ) ,
+			'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_price ) ,
 		];
 		return $sale_content;
 	}

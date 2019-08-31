@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
  * Carousel met posts
  * 
@@ -16,7 +12,7 @@ class SIW_Element_Carousel {
 	/**
 	 * Versienummer 
 	 */
-	const FLICKITY_VERSION = '2.2.0';
+	const FLICKITY_VERSION = '2.2.1';
 
 	/**
 	 * Post type
@@ -74,17 +70,9 @@ class SIW_Element_Carousel {
 	];
 
 	/**
-	 * Init
-	 */
-	public function __construct() {
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_script' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_style' ] );
-	}
-
-	/**
 	 * Voegt stylesheet toe
 	 */
-	public function enqueue_style() {
+	public function enqueue_styles() {
 		wp_register_style( 'flickity', SIW_ASSETS_URL . 'modules/flickity/flickity.css', [], self::FLICKITY_VERSION );
 		wp_enqueue_style( 'flickity' );
 	}
@@ -92,8 +80,8 @@ class SIW_Element_Carousel {
 	/**
 	 * Voegt scripts toe
 	 */
-	public function enqueue_script() {
-		wp_register_script( 'flickity', SIW_ASSETS_URL . 'modules/flickity/flickity.js', [], self::FLICKITY_VERSION );
+	public function enqueue_scripts() {
+		wp_register_script( 'flickity', SIW_ASSETS_URL . 'modules/flickity/flickity.js', [], self::FLICKITY_VERSION, true );
 		wp_enqueue_script( 'flickity' );
 	}
 
@@ -139,7 +127,7 @@ class SIW_Element_Carousel {
 	 *
 	 * @param string $post_type
 	 */
-	public function set_post_type( $post_type ) {
+	public function set_post_type( string $post_type ) {
 		$this->post_type = $post_type;
 	}
 
@@ -148,7 +136,7 @@ class SIW_Element_Carousel {
 	 *
 	 * @param int $items
 	 */
-	public function set_items( $items ) {
+	public function set_items( int $items ) {
 		$this->items = intval( $items );
 	}
 
@@ -157,7 +145,7 @@ class SIW_Element_Carousel {
 	 *
 	 * @param int $columns
 	 */
-	public function set_columns( $columns ) {
+	public function set_columns( int $columns ) {
 		$this->columns = intval( $columns );
 	}
 
@@ -167,7 +155,7 @@ class SIW_Element_Carousel {
 	 * @param string $taxonomy
 	 * @param string $term
 	 */
-	public function set_taxonomy_term( $taxonomy, $term ) {
+	public function set_taxonomy_term( string $taxonomy, string $term ) {
 		$this->taxonomy = $taxonomy;
 		$this->term = $term;
 	}
@@ -177,7 +165,7 @@ class SIW_Element_Carousel {
 	 *
 	 * @param array $options
 	 */
-	public function set_options( $options ) {
+	public function set_options( array $options ) {
 		$this->options = wp_parse_args( $options, $this->options );
 	}
 
@@ -188,8 +176,11 @@ class SIW_Element_Carousel {
 	 * 
 	 * @todo leesbaarder maken
 	 */
-	public function generate() {
+	public function render() {
 		
+		$this->enqueue_scripts();
+		$this->enqueue_styles();
+
 		$query = $this->generate_query();
 
 		ob_start();

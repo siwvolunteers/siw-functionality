@@ -1,15 +1,4 @@
 <?php
-/*
- * 
- * @widget_data 
- * Widget Name: SIW: Nederlandse projecten
- * Description: Toont omschrijving van Nederlandse projecten
- * Author: SIW Internationale Vrijwilligersprojecten
- * Author URI: https://www.siw.nl
- */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 /**
  * Widget met omschrijving Nederlandse projecten
@@ -20,6 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  * @uses      SIW_Formatting
  * @uses      SIW_i18n
+ * 
+ * @widget_data
+ * Widget Name: SIW: Nederlandse projecten
+ * Description: Toont omschrijving van Nederlandse projecten
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
 class SIW_Widget_Dutch_Projects extends SIW_Widget {
 
@@ -57,7 +52,7 @@ class SIW_Widget_Dutch_Projects extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( $instance, $args, $template_vars, $css_name ) {
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
 		$language = SIW_i18n::get_current_language();
 		$projects = siw_get_option( 'dutch_projects');
 		$accordion_panes = [];
@@ -91,7 +86,7 @@ class SIW_Widget_Dutch_Projects extends SIW_Widget {
 		$content .= '<div class="hidden-sm hidden-md hidden-lg">' . $mobile_content . '</div>';
 
 		$booklet_link = $this->get_booklet_link();
-		if ( false != $booklet_link ) {
+		if ( false !== $booklet_link ) {
 			$content .= $booklet_link;
 		}
 
@@ -104,6 +99,7 @@ class SIW_Widget_Dutch_Projects extends SIW_Widget {
 	 * @return string
 	 * 
 	 * @todo check of programmaboekje van huidige jaar is
+	 * @todo function generate_document_link maken
 	 */
 	protected function get_booklet_link() {
 		$booklets = siw_get_option( 'dutch_projects_booklet');
@@ -114,7 +110,15 @@ class SIW_Widget_Dutch_Projects extends SIW_Widget {
 			$booklet_link = SIW_Formatting::generate_link(
 				$booklet['url'],
 				sprintf( __( 'Engelstalige programmaboekje %d (PDF)', 'siw' ), $booklet_year ),
-				[ 'class' => 'siw-download', 'target' => '_blank', 'rel' => 'noopener' ]
+				[
+					'target'           => '_blank',
+					'rel'              => 'noopener',
+					'data-ga-track'    => 1,
+					'data-ga-type'     => 'event',
+					'data-ga-category' => 'Document',
+					'data-ga-action'   => 'Downloaden',
+					'data-ga-label'    => $booklet['url'],
+					]
 			);
 			$booklet_link = sprintf( __( 'Wil jij meer lezen over onze Nederlandse vrijwilligersprojecten, download dan ons %s.', 'siw' ),  $booklet_link );
 		}

@@ -22,13 +22,27 @@ add_filter( 'siw_settings_pages', function( $pages ) {
 });
 
 add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
+
+	//Zoek MailPoet-lijsten
+	if ( class_exists( 'WYSIJA' ) ) {
+		$model_list = WYSIJA::get( 'list','model' );
+		$lists = $model_list->get( ['name','list_id' ], ['is_enabled' => 1] );
+		foreach ( $lists as $list ) {
+			$mailpoet_lists[ $list['list_id'] ] = $list['name'];
+		}
+	}
+	else {
+		$mailpoet_lists = [] ;
+	}
+
 	$meta_boxes[] = [
-		'id'             => 'external',
-		'title'          => __( 'Extern', 'siw' ),
+		'id'             => 'configuration',
+		'title'          => __( 'Configuratie', 'siw' ),
 		'settings_pages' => 'siw-options-configuration',
 		'tabs'           => [
 			'analytics'    => __( 'Analytics', 'siw' ),
 			'api'          => __( 'API keys', 'siw' ),
+			'forms'        => __( 'Formulieren', 'siw' ),
 			'newsletter'   => __( 'Nieuwsbrief', 'siw' ),
 			'plato'        => __( 'Plato', 'siw' ),
 			'verification' => __( 'Website verificatie', 'siw' ),
@@ -43,20 +57,20 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 				'size'  => 60,
 			],
 			[
-				'id'                => 'postcode_api_key',
-				'name'              => __( 'Postcode API Key', 'siw' ),
-				'type'              => 'text',
-				'tab'               => 'api',
-				'size'              => 60,
-				'label_description' => 'https://www.postcodeapi.nu/',
-			],
-			[
 				'id'                => 'exchange_rates_api_key',
 				'name'              => __( 'Wisselkoersen API Key', 'siw' ),
 				'type'              => 'text',
 				'tab'               => 'api',
 				'size'              => 60,
 				'label_description' => 'https://fixer.io/',
+			],
+			[
+				'id'                => 'google_maps_api_key',
+				'name'              => __( 'Google Maps API Key', 'siw' ),
+				'type'              => 'text',
+				'tab'               => 'api',
+				'size'              => 60,
+				'label_description' => 'https://cloud.google.com/maps-platform/maps/',
 			],
 			[
 				'id'                => 'plato_organization_webkey',
@@ -82,6 +96,16 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 				'off_label'         => __( 'Uit', 'siw'),
 			],
 			[
+				'id'      => 'spam_check_mode',
+				'name'    => __( 'Spam check mode', 'siw' ),
+				'type'    => 'button_group',
+				'tab'     => 'forms',
+				'options' => [
+					'report'  => __( 'Rapporteren', 'siw' ),
+					'block'   => __( 'Blokkeren', 'siw' ),
+				]
+			],
+			[
 				'id'    => 'google_verification',
 				'name'  => __( 'Google Search Console', 'siw' ),
 				'type'  => 'text',
@@ -100,7 +124,7 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 				'name'    => __( 'Lijst', 'siw' ),
 				'type'    => 'select',
 				'tab'     => 'newsletter',
-				'options' => siw_get_mailpoet_lists(),
+				'options' => $mailpoet_lists,
 			],
 		],
 	];
@@ -179,6 +203,11 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 						],
 					],
 				],
+			],
+			[
+				'name'      => __( 'DKIM', 'siw' ),
+				'type'      => 'heading',
+				'tab'       => 'dkim',
 			],
 			[
 				'id'        => 'dkim_enabled',

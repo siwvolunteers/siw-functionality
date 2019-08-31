@@ -1,8 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 /**
  * Class voor shortcodes
  * 
@@ -42,11 +39,8 @@ class SIW_Shortcodes {
 			'korting_tweede_project'        => 'discount_second_project',
 			'korting_derde_project'         => 'discount_third_project',
 			'externe_link'                  => 'external_link',
-			'bestuursleden'                 => 'board_members',
-			'jaarverslagen'                 => 'annual_reports',
 			'nederlandse_projecten'         => 'dutch_projects',
 			'pagina_lightbox'               => 'page_modal',
-			'cirkeldiagram'                 => 'pie_chart',
 			'leeftijd'                      => 'age',
 		];
 
@@ -54,7 +48,7 @@ class SIW_Shortcodes {
 			add_shortcode( "siw_{$shortcode}", __CLASS__ . '::' . $function );
 		}
 
-		/* Break */
+		/* Shortcode voor line-break */
 		add_shortcode( 'br', function() { return '<br>';});
 	}
 
@@ -258,7 +252,7 @@ class SIW_Shortcodes {
 	 * @param array $atts
 	 * @return string
 	 */
-	public static function external_link( $atts ) {
+	public static function external_link( array $atts ) {
 		extract( shortcode_atts( [
 			'url'   => '',
 			'titel' => '',
@@ -267,46 +261,6 @@ class SIW_Shortcodes {
 		$titel = ( $titel ) ? $titel : $url;
 	
 		return SIW_Formatting::generate_external_link( $url, $titel );
-	}
-
-	/**
-	 * Bestuursleden
-	 * 
-	 * @return string
-	 */
-	public static function board_members() {
-
-		$board_members = siw_get_option( 'board_members');
-		if ( empty( $board_members ) ) {
-			return;
-		}
-	
-		$board_members_list = [];
-		foreach ( $board_members as $board_member ) {
-			$board_members_list[] = sprintf('%s %s<br/><i>%s</i>', $board_member['first_name'], $board_member['last_name'], $board_member['title']);
-		}
-		return SIW_Formatting::generate_list( $board_members_list );
-	}
-
-	/**
-	 * Jaarverslagen
-	 * 
-	 * @return string
-	 */
-	public static function annual_reports() {
-
-		$annual_reports = siw_get_option( 'annual_reports' );
-		if ( empty( $annual_reports ) ) {
-			return;
-		}
-		$reports = [];
-		foreach ( $annual_reports as $report ) {
-			$url = wp_get_attachment_url( $report['file'][0] );
-			$text = sprintf( esc_html__( 'Jaarverslag %s', 'siw' ), $report['year'] );
-			$reports[ $report['year'] ] = SIW_Formatting::generate_link( $url, $text, [ 'class' => 'siw-download', 'target' => '_blank', 'rel' => 'noopener' ] );
-		}
-		krsort( $reports );
-		return SIW_Formatting::array_to_text( $reports, BR );
 	}
 
 	/**
@@ -351,7 +305,7 @@ class SIW_Shortcodes {
 	 * 
 	 * @todo slug als parameter en get page by path gebruiken
 	 */
-	public static function page_modal( $atts ) {
+	public static function page_modal( array $atts ) {
 		extract( shortcode_atts( [
 			'link_tekst' => '',
 			'pagina'     => '',
@@ -379,65 +333,6 @@ class SIW_Shortcodes {
 			[ 'data-toggle' => 'modal', 'data-target' => "#siw-page-{$page_id}-modal" ]
 		);
 		return $link;
-	}
-
-	/**
-	 * Cirkeldiagram
-	 *
-	 * @param array $atts
-	 */
-	public static function pie_chart( $atts ) {
-		extract( shortcode_atts( [
-			'titel'   => '',
-			'labels'  => '',
-			'waardes' => '' ,
-			], $atts, 'siw_cirkeldiagram' )
-		);
-	
-		/* Data-array opbouwen */
-		$labels = explode( '|', $labels );
-		$waardes = explode( '|', $waardes );
-		$values = array_combine( $labels, $waardes );
-		$data[] = "['Post', 'Percentage']";
-		foreach( $values as $label => $value ) {
-			$data[] = sprintf( "['%s', %s]", esc_js( $label ), esc_js( $value ) );
-		}
-	
-		/*Optie-array opbouwen */
-		$options[] = "tooltip:{text: 'percentage'}";
-		$options[] = sprintf("title: '%s',", esc_js( $titel ) );
-	
-		/* Start inline script */
-		ob_start();
-		?>
-		google.charts.load('current', {'packages':['corechart']});
-		google.charts.setOnLoadCallback(drawChart);
-	
-		function drawChart() {
-			var data = google.visualization.arrayToDataTable([
-				<?php echo implode( ',', $data ); ?>
-			]);
-			var options = {
-				<?php echo implode( ',', $options ); ?>
-			};
-			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-			chart.draw(data, options);
-		}
-		jQuery(window).resize(function(){
-		  drawChart();
-		});
-		<?php
-		$inline_script = ob_get_clean();
-	
-		/* Script laden*/
-		wp_register_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js' );
-		wp_enqueue_script( 'google-charts' );
-		wp_add_inline_script( 'google-charts', $inline_script );
-	
-		/* Grafiek */
-		$pie_chart = '<div id="piechart" style="width: 100%; min-height: 450px;"></div>';
-	
-		return $pie_chart;
 	}
 
 	/**
