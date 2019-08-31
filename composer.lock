@@ -162,16 +162,16 @@
         },
         {
             "name": "spatie/array-to-xml",
-            "version": "2.11.1",
+            "version": "2.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/array-to-xml.git",
-                "reference": "be43e324b8da8cf5f4a6effb3221dfe945372fa9"
+                "reference": "bdb5bc735b0639f6f438e935b13f7ac216239679"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/be43e324b8da8cf5f4a6effb3221dfe945372fa9",
-                "reference": "be43e324b8da8cf5f4a6effb3221dfe945372fa9",
+                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/bdb5bc735b0639f6f438e935b13f7ac216239679",
+                "reference": "bdb5bc735b0639f6f438e935b13f7ac216239679",
                 "shasum": ""
             },
             "require": {
@@ -208,7 +208,7 @@
                 "convert",
                 "xml"
             ],
-            "time": "2019-07-24T19:21:08+00:00"
+            "time": "2019-08-21T06:32:31+00:00"
         }
     ],
     "packages-dev": [],

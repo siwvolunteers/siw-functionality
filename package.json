@@ -1,6 +1,6 @@
 {
 	"name": "siw-functionality",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"description": "Extra functionaliteit voor website SIW",
 	"repository": "https://github.com/siwvolunteers/siw-functionality",
 	"scripts": {

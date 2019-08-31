@@ -3,7 +3,7 @@
 /**
  * Aanpassingen aan login
  * 
- * @package   SIW\Admin
+ * @package   SIW
  * @author    Maarten Bruna
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  */

@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Data van continenten
  *
  * @author    Maarten Bruna
- * @package   SIW\Reference-Data
+ * @package   SIW\Data
  * @copyright 2018 SIW Internationale Vrijwilligersprojecten
  */
 
