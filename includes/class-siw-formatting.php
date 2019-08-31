@@ -46,8 +46,9 @@ class SIW_Formatting {
 	 *
 	 * @todo escaping en verplaatsen naar SIW_Html
 	 */
-	public static function generate_list( array $items, bool $ordered = false ) {
-		if ( empty ( $items ) ) {
+	public static function generate_list( $items, bool $ordered = false ) {
+		
+		if ( ! is_array( $items ) || empty ( $items ) ) {
 			return false;
 		}
 		$tag = $ordered ? 'ol' : 'ul';
