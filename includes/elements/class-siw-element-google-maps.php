@@ -60,6 +60,11 @@ class SIW_Element_Google_Maps {
 		$this->enqueue_styles();
 	}
 
+	/**
+	 * Zet hoogte van de kaart
+	 *
+	 * @param int $height
+	 */
 	protected function set_height( int $height ) {
 		$this->height = $height;
 	}
@@ -151,9 +156,6 @@ class SIW_Element_Google_Maps {
 		return SIW_Formatting::generate_tag( 'div', $attributes ) . '</div>';
 	}
 
-
-
-
 	/**
 	 * Voegt scripts toe
 	 */
@@ -162,9 +164,8 @@ class SIW_Element_Google_Maps {
 			'key'      => $this->api_key,
 			'callback' => 'siwInitAllGoogleMaps',
 		], SIW_Properties::GOOGLE_MAPS_API_URL );
-		
-		wp_enqueue_script( 'siw-google-maps', SIW_ASSETS_URL . 'js/siw-google-maps.js', [], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( 'google-maps', $google_maps_url, ['siw-google-maps'], null, true );
+		wp_enqueue_script( 'google-maps', $google_maps_url, [], null, true );
+		wp_enqueue_script( 'siw-google-maps', SIW_ASSETS_URL . 'js/siw-google-maps.js', [ 'google-maps'], SIW_PLUGIN_VERSION, true );
 	}
 
 	/**

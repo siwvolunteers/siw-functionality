@@ -31,7 +31,7 @@ class SIW_Module_Social_Share {
 	 * @return void
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-social-share', SIW_ASSETS_URL . 'css/siw-social-share.css', null, SIW_PLUGIN_VERSION );
+		wp_register_style( 'siw-social-share', SIW_ASSETS_URL . 'css/siw-social-share.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-social-share' );
 	}
 

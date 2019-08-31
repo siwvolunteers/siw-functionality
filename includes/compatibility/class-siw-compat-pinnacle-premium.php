@@ -323,7 +323,7 @@ class SIW_Compat_Pinnacle_Premium {
 			});
 		});
 		";
-		wp_add_inline_script( 'pinnacle_main', "(function( $ ) {" . $inline_script . "})( jQuery );" );//TODO:format-functie voor anonymous jQuery
+		wp_add_inline_script( 'pinnacle_main', "(function( $ ) {" . $inline_script . "})( jQuery );" );
 	}
 
 	/**
