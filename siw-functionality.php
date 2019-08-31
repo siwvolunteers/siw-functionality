@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin Name: SIW Functionaliteit
  * Plugin URI:  https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
- * Version:     2.1.0
+ * Version:     2.1.1
  * Author:      Maarten Bruna
  * Text Domain: siw
  */

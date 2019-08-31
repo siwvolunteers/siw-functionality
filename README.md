@@ -8,6 +8,7 @@ Extra functionaliteit t.b.v. www.siw.nl
 https://siwvolunteers.github.io/
 
 ### Maakt gebruikt van:
+- [ApexCharts ](https://github.com/apexcharts/apexcharts.js)
 - [JavaScript Cookie](https://github.com/js-cookie/js-cookie)
 - [Flickity](https://github.com/metafizzy/flickity)
 - [wp_parse_args_recursive](https://github.com/kallookoo/wp_parse_args_recursive)

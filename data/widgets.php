@@ -24,6 +24,7 @@ $data = [
 	'map'                  => 'Map',
 	'newsletter'           => 'Newsletter',
 	'organisation'         => 'Organisation',
+	'pie-chart'            => 'Pie_Chart',
 	'quick-search-form'    => 'Quick_Search_Form',
 	'quick-search-results' => 'Quick_Search_Results',
 	'quote'                => 'Quote',
