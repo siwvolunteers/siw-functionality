@@ -10,13 +10,6 @@
 class SIW_Element_Pie_Chart extends SIW_Element_Chart {
 
 	/**
-	 * Breedte van grafiek
-	 * 
-	 * @var int
-	 */
-	const CHART_WIDTH = 480;
-
-	/**
 	 * {@inheritDoc}
 	 */
 	protected $type = 'pie';
@@ -34,7 +27,6 @@ class SIW_Element_Pie_Chart extends SIW_Element_Chart {
 		$data = [
 			'chart' => [
 				'type'  => $this->type,
-				'width' => self::CHART_WIDTH,
 			],
 			'labels' => $labels,
 			'series' => $series,
