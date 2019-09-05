@@ -66,7 +66,7 @@ class SIW_WC_Coupon {
 			'code'               => $application_number,
 			'discount_type'      => self::DISCOUNT_TYPE,
 			'email_restrictions' => $order->get_billing_email(),
-			'amount'             => empty( $order->get_used_coupons() ) ? SIW_Properties::DISCOUNT_SECOND_PROJECT : SIW_Properties::DISCOUNT_THIRD_PROJECT,
+			'amount'             => empty( $order->get_coupon_codes() ) ? SIW_Properties::DISCOUNT_SECOND_PROJECT : SIW_Properties::DISCOUNT_THIRD_PROJECT,
 			'description'        => $order->get_formatted_billing_full_name(),
 			'date_expires'       => '',
 			'usage_limit'        => 1,
