@@ -21,6 +21,12 @@ class SIW_Options_Page {
 	 * Init
 	 */
 	public static function init() {
+
+		// Tijdelijke fix, kan weg als we van MailPoet af zijn.
+		if ( defined( 'WYSIJA_ITF' ) && WYSIJA_ITF ) {
+			return;
+		}
+
 		$self = new self();
 		add_filter( 'mb_settings_pages', [ $self, 'add_settings_pages'] );
 		add_filter( 'rwmb_meta_boxes', [ $self, 'add_settings_meta_boxes'] );

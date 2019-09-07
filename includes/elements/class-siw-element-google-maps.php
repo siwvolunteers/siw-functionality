@@ -36,7 +36,6 @@ class SIW_Element_Google_Maps {
 	 * @var array
 	 */
 	protected $options = [
-		//'center'            => [ 'lat' => 0, 'lng' => 0 ],
 		'zoom'              => 6,
 		'zoomControl'       => true,
 		'mapTypeControl'    => false,
@@ -162,7 +161,6 @@ class SIW_Element_Google_Maps {
 	public function enqueue_scripts() {
 		$google_maps_url = add_query_arg( [
 			'key'      => $this->api_key,
-			'callback' => 'siwInitAllGoogleMaps',
 		], SIW_Properties::GOOGLE_MAPS_API_URL );
 		wp_enqueue_script( 'google-maps', $google_maps_url, [], null, true );
 		wp_enqueue_script( 'siw-google-maps', SIW_ASSETS_URL . 'js/siw-google-maps.js', [ 'google-maps'], SIW_PLUGIN_VERSION, true );
