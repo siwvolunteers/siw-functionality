@@ -144,7 +144,7 @@ class SIW_Module_Google_Analytics {
 			$order_data = [ 
 				'id'     => $order->get_id(),
 				'revenue' => number_format( $order->get_total(), 2 ),
-				'coupon'  => implode( ',', $order->get_used_coupons()),
+				'coupon'  => implode( ',', $order->get_coupon_codes() ),
 			];
 			$ecommerce_script[] = sprintf( "ga('ec:setAction', 'purchase', %s);", json_encode( $order_data ) );
 		}
