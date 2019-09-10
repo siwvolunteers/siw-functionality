@@ -14,7 +14,7 @@ abstract class SIW_Element_Chart {
 	 * 
 	 * @param string
 	 */
-	const APEX_CHARTS_VERSION = '3.8.5';
+	const APEX_CHARTS_VERSION = '3.8.6';
 
 	/**
 	 * Breakpoint voor responsive behaviour
