@@ -32,9 +32,8 @@ class SIW_Compat_The_SEO_Framework {
 		/* Sitemap */
 		add_filter( 'the_seo_framework_sitemap_color_main', [ $self, 'set_sitemap_color_main' ] );
 		add_filter( 'the_seo_framework_sitemap_color_accent', [ $self, 'set_sitemap_color_accent' ] );
-		add_filter( 'the_seo_framework_sitemap_custom_posts_count', [ $self, 'set_sitemap_custom_posts_count' ] );
-		add_filter( 'the_seo_framework_sitemap_cpt_query_args', [ $self, 'set_sitemap_cpt_query_args' ] );
-		add_filter( 'the_seo_framework_sitemap_exclude_cpt', [ $self, 'set_sitemap_excluded_cpt'] );
+		add_filter( 'the_seo_framework_sitemap_post_limit', [ $self, 'set_sitemap_post_limit' ] );
+		add_filter( 'the_seo_framework_sitemap_supported_post_types', [ $self, 'set_sitemap_supported_post_types'] );
 		add_filter( 'the_seo_framework_sitemap_additional_urls', [ $self, 'set_sitemap_additional_urls' ] );
 
 		/* Naam auteur SEO framework niet in HTML tonen */
@@ -88,35 +87,13 @@ class SIW_Compat_The_SEO_Framework {
 	}
 
 	/**
-	 * Verhoogt limiet aantal custom posts voor sitemap
+	 * Verhoogt limiet aantal posts voor sitemap
 	 *
 	 * @param int $count
 	 * @return int
 	 */
-	public function set_sitemap_custom_posts_count( int $count ) {
+	public function set_sitemap_post_limit( int $count ) {
 		return 5000;
-	}
-
-	/**
-	 * Voegt extra query-args toe t.b.v. performance
-	 *
-	 * @param array $args
-	 * @return array
-	 */
-	public function set_sitemap_cpt_query_args( array $args ) {
-		$args['meta_query'] = [
-			'relation' => 'OR',
-			[
-				'key'     => '_genesis_noindex',
-				'value'   => 0,
-				'compare' => '=',
-			],
-			[
-				'key'     => '_genesis_noindex',
-				'compare' => 'NOT EXISTS',
-			],
-		];
-		return $args;
 	}
 
 	/**
@@ -143,19 +120,27 @@ class SIW_Compat_The_SEO_Framework {
 	/**
 	 * Verwijdert CPT's uit sitempa
 	 *
-	 * @param array $excluded_cpt
+	 * @param array $post_types
 	 * @return array
 	 */
-	public function set_sitemap_excluded_cpt( array $excluded_cpt ) {
-		$excluded_cpt[] = 'testimonial';
+	public function set_sitemap_supported_post_types( array $post_types ) {
 
+		//TODO: verwijderen na verwijderen Pinnacle Premium
+		$post_types = array_diff( $post_types, ['testimonial']);
 		if ( ! SIW_i18n::is_default_language() ) {
-			$excluded_cpt[] = 'product';
-			$excluded_cpt[] = 'wpm-testimonial';
-			$excluded_cpt[] = 'agenda';
-			$excluded_cpt[] = 'vacatures';
+
+			$post_types = array_diff(
+				$post_types,
+				[
+					'product',
+					'wpm-testimonial', //TODO: verwijderen na uitfaseren Strong Testimonials
+					'agenda',
+					'vacatures',
+					'siw_tm_country'
+				]
+			);
 		}
-		return $excluded_cpt;
+		return $post_types;
 	}
 
 	/**

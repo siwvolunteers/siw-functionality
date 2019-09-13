@@ -30,7 +30,6 @@ class SIW_Module_Cache_Rebuild {
 		$self = new self();
 		add_action( 'siw_update_plugin', [ $self, 'schedule_cache_rebuild' ] );
 		add_action( self::HOOK, [ $self, 'rebuild_cache' ] );
-		add_action( 'before_run_rocket_sitemap_preload', [ $self, 'setup_sitemap' ], 10, 2 );
 		add_filter( 'rocket_sitemap_preload_list', [ $self, 'set_sitemaps_for_preload' ] );
 	}
 
@@ -56,34 +55,17 @@ class SIW_Module_Cache_Rebuild {
 	}
 
 	/**
-	 * Genereert de sitemap voor de preload
-	 *
-	 * @param string $sitemap_type
-	 * @param string $sitemap_url
-	 */
-	public function setup_sitemap( $sitemap_type, $sitemap_url ) {
-		if ( ! function_exists( 'the_seo_framework' ) ) {
-			return;
-		} 
-		$tsf = the_seo_framework();
-		if ( $sitemap_url == $tsf->get_sitemap_xml_url() ) {
-			$tsf->setup_sitemap();
-		}
-	}
-
-	/**
 	 * Voegt alle sitemaps toe aan preload
 	 *
 	 * @param array $sitemaps
 	 */
 	public function set_sitemaps_for_preload( $sitemaps ) {
-		if ( ! function_exists( 'the_seo_framework' ) ) {
+		if ( ! class_exists( '\The_SEO_Framework\Bridges\Sitemap' ) ) {
 			return $sitemaps;
 		} 
 		if ( get_rocket_option( 'tsf_xml_sitemap', false ) ) {
-			$tsf = the_seo_framework();
 			$languages = SIW_i18n::get_active_languages();
-			$sitemap_url = $tsf->get_sitemap_xml_url();
+			$sitemap_url = \The_SEO_Framework\Bridges\Sitemap::get_instance()->get_expected_sitemap_endpoint_url();
 			foreach ( $languages as $language ) {
 				$sitemaps[] = SIW_i18n::get_translated_permalink( $sitemap_url, $language['code'] );
 			}
