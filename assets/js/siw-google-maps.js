@@ -1,3 +1,5 @@
+/** global: google */
+
 /**
  * @file      Functies t.b.v. Google Maps
  * @author    Maarten Bruna 

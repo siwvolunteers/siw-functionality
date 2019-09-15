@@ -1,4 +1,4 @@
-/** global: siw_newsletter */
+/** global: siw_newsletter, ga */
 
 /**
  * @file      Functies t.b.v. de nieuwsbrief signup

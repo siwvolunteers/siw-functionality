@@ -1,4 +1,4 @@
-/** global: ga */
+/** global: ga, siw_analytics_cart */
 
 /**
  * @file      Functies t.b.v. Google Analytics
@@ -14,7 +14,7 @@ siwGoogleAnalyticsAddListeners();
 function siwGoogleAnalyticsAddListeners() {
 	
 	var tracking_links = document.querySelectorAll( '[data-ga-track="1"]' );
-	tracking_links.forEach( function ( el, i ) {
+	tracking_links.forEach( function ( el ) {
 		el.addEventListener( 'click', siwGoogleAnalyicsSendEvent );
 	})
 

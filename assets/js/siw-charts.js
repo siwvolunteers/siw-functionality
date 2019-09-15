@@ -1,3 +1,5 @@
+/** global: ApexCharts */
+
 /**
  * @file      Functies t.b.v. grafieken
  * @author    Maarten Bruna 
@@ -14,7 +16,7 @@ function siwChartsInitAll() {
 	var charts = document.querySelectorAll( '.siw-chart' );
 
 	//Intialiseer elke grafiek
-	charts.forEach( function ( el, i ) {
+	charts.forEach( function ( el ) {
 		siwChartsInitSingle( el );
 	})
 }
