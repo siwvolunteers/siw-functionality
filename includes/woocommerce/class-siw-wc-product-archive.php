@@ -4,11 +4,10 @@
  * Aanpassingen aan overzichtspagina van groepsprojecten
  *
  * @package   SIW\WooCommerce
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * @author    Maarten Bruna
  * 
  * @uses      SIW_Formatting
- * @uses      SIW_i18n
  */
 
 class SIW_WC_Product_Archive {
@@ -22,7 +21,8 @@ class SIW_WC_Product_Archive {
 		add_action( 'woocommerce_after_shop_loop_item_title', [ $self, 'show_project_code_and_dates'] );
 		add_filter( 'the_seo_framework_the_archive_title', [ $self, 'set_seo_title'], 10, 2 );
 		add_filter( 'the_seo_framework_generated_archive_excerpt', [ $self, 'set_seo_description' ], 10, 2 );
-		add_action( 'after_page_header', [ $self, 'add_archive_description'] );
+		
+		SIW_WC_Product_Archive_Header::init();
 		add_filter( 'sidebars_widgets', [ $self, 'hide_current_taxonomy_widget'] );
 
 		add_filter( 'woocommerce_default_catalog_orderby_options', [ $self, 'add_catalog_orderby_options' ] );
@@ -106,94 +106,6 @@ class SIW_WC_Product_Archive {
 		}
 
 		return $description;
-	}
-
-	/**
-	 * Toont beschrijving van overzichtspagina
-	 *
-	 * @todo splitsen
-	 */
-	public function add_archive_description() {
-
-		if ( is_shop() ) {
-			$text =	__( 'Hieronder zie je het beschikbare aanbod Groepsprojecten.', 'siw' );
-		}
-		elseif ( is_product_category() ) {
-			$category_name = get_queried_object()->name;
-			$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in %s.', 'siw' ), '<b>' . $category_name . '</b>' );
-		}
-		elseif ( is_tax( 'pa_land' ) ) {
-			$country_name = get_queried_object()->name;
-			$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in %s.', 'siw' ), '<b>' . $country_name . '</b>' );
-		}
-		elseif ( is_tax( 'pa_soort-werk' ) ) {
-			$work_type_name = get_queried_object()->name;
-			$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op %s.', 'siw' ), '<b>' . strtolower( $work_type_name ) . '</b>' );
-		}
-		elseif ( is_tax( 'pa_doelgroep' ) ) {
-			$target_audience_name = get_queried_object()->name;
-			$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten voor de doelgroep %s.', 'siw' ), '<b>' . strtolower( $target_audience_name ) . '</b>' );
-		}
-		elseif ( is_tax( 'pa_taal' ) ) {
-			$language_name = get_queried_object()->name;
-			$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met de voertaal %s.', 'siw' ), '<b>' . ucfirst( $language_name ) . '</b>' );
-		}
-		elseif ( is_tax( 'pa_maand' ) ) {
-			$month_name = get_queried_object()->name;
-			$text =	sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s.', 'siw' ), '<b>' . ucfirst( $month_name ) . '</b>' );
-		}	
-	
-		if ( ! isset( $text ) ) {
-			return;
-		}
-
-		$workcamps_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'workcamps_explanation_page' ) );
-		$contact_page_link = SIW_i18n::get_translated_page_url( siw_get_option( 'contact_page' ) );
-		
-		/* Toon algemene uitleg over groepsprojecten */
-		$text .= SPACE .
-			__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
-			__( 'De projecten hebben vaste begin- en einddata.', 'siw' ) . SPACE .
-			sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">Groepsprojecten</a>.', 'siw' ), esc_url( $workcamps_page_link ) );
-	
-		/* Toon aankondiging voor nieuwe projecten*/
-		if ( siw_get_option( 'workcamp_teaser_text_enabled' )
-			&& date('Y-m-d') >= siw_get_option( 'workcamp_teaser_text_start_date' )
-			&& date('Y-m-d') <= siw_get_option( 'workcamp_teaser_text_end_date' )
-			) {
-			$teaser_text_end_year = date( 'Y', strtotime( siw_get_option( 'workcamp_teaser_text_end_date' ) ) );
-			$teaser_text_end_month = date_i18n( 'F', strtotime( siw_get_option( 'workcamp_teaser_text_end_date' ) ) );
-			$text .= BR2 . sprintf( __( 'Vanaf %s wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor %s.', 'siw' ), $teaser_text_end_month, $teaser_text_end_year ). SPACE .
-				__( 'Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW?', 'siw' ) . SPACE .
-				sprintf( __( '<a href="%s">Bel of mail ons</a> en we denken graag met je mee!', 'siw' ), esc_url( $contact_page_link ) );
-		}
-	
-		/* Toon extra tekst als de kortingsactie actief is */
-		if ( SIW_Util::is_workcamp_sale_active() ) {
-
-			$regular = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR );
-			$regular_sale = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE );
-			$student = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT );
-			$student_sale = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT_SALE );
-			$end_date = SIW_Formatting::format_date( siw_get_option( 'workcamp_sale' )['end_date'], false );
-	
-			$text .= BR2 . sprintf( __( 'Meld je nu aan en betaal geen %s maar %s voor je vrijwilligersproject.', 'siw' ), $regular, '<b>'. $regular_sale .'</b>' ) . SPACE .
-				__( 'Ben je student of jonger dan 18 jaar?', 'siw' ) . SPACE .
-				sprintf( __( 'Dan betaal je in plaats van %s nog maar %s.', 'siw' ), $student, '<b>'. $student_sale .'</b>' ) . BR  .
-				'<b>' . __( 'Let op:', 'siw' ) . '</b>' . SPACE .
-				sprintf( __( 'Deze actie duurt nog maar t/m %s, dus wees er snel bij.', 'siw' ), $end_date );
-		}
-	
-		?>
-		<div class="container">
-			<div class="row woo-archive-intro">
-				<div class="md-12">
-					<?php echo wp_kses_post( $text ); ?>
-				</div>
-			</div>
-		</div>
-		
-		<?php
 	}
 
 	/**
