@@ -14,38 +14,16 @@ class SIW_Shortcodes {
 
 	/**
 	 * Init
+	 * 
+	 * @todo logging als functie voor shortcode niet bestaat
 	 */
 	public static function init() {
-		$shortcodes = [
-			'kvk'                           => 'kvk',
-			'email'                         => 'email',
-			'email_link'                    => 'email_link',
-			'telefoon'                      => 'phone',
-			'telefoon_internationaal'       => 'phone_international',
-			'iban'                          => 'iban',
-			'rsin'                          => 'rsin',
-			'openingstijden'                => 'opening_hours',
-			'evs_borg'                      => 'esc_deposit',
-			'esc_borg'                      => 'esc_deposit',
-			'evs_volgende_deadline'         => 'next_esc_deadline',
-			'esc_volgende_deadline'         => 'next_esc_deadline',
-			'evs_volgende_vertrekmoment'    => 'next_esc_departure_month',
-			'esc_volgende_vertrekmoment'    => 'next_esc_departure_month',
-			'volgende_infodag'              => 'next_info_day',
-			'groepsproject_tarief_student'  => 'workcamp_fee_student',
-			'groepsproject_tarief_regulier' => 'workcamp_fee_regular',
-			'op_maat_tarief_student'        => 'tailor_made_fee_student',
-			'op_maat_tarief_regulier'       => 'tailor_made_fee_regular',
-			'korting_tweede_project'        => 'discount_second_project',
-			'korting_derde_project'         => 'discount_third_project',
-			'externe_link'                  => 'external_link',
-			'nederlandse_projecten'         => 'dutch_projects',
-			'pagina_lightbox'               => 'page_modal',
-			'leeftijd'                      => 'age',
-		];
+		$shortcodes = siw_get_data( 'shortcodes' );
 
-		foreach ( $shortcodes as $shortcode => $function ) {
-			add_shortcode( "siw_{$shortcode}", __CLASS__ . '::' . $function );
+		foreach ( $shortcodes as $shortcode ) {
+			if ( is_callable( __CLASS__ . '::render_' . $shortcode['shortcode'] ) ) {
+				add_shortcode( "siw_{$shortcode['shortcode']}", __CLASS__ . '::render_' . $shortcode['shortcode'] );
+			}
 		}
 
 		/* Shortcode voor line-break */
@@ -57,7 +35,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function kvk() {
+	public static function render_kvk() {
 		return SIW_Properties::KVK;
 	}
 
@@ -66,7 +44,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function email() {
+	public static function render_email() {
 		return antispambot( SIW_Properties::EMAIL );
 	}
 
@@ -75,7 +53,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function email_link() {
+	public static function render_email_link() {
 		$email = antispambot( SIW_Properties::EMAIL );
 		return SIW_Formatting::generate_link( "mailto:" . $email, $email );
 	}
@@ -85,7 +63,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function phone() {
+	public static function render_telefoon() {
 		return SIW_Properties::PHONE;
 	}
 
@@ -94,7 +72,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function phone_international() {
+	public static function render_telefoon_internationaal() {
 		return SIW_Properties::PHONE_INTERNATIONAL;
 	}
 
@@ -103,7 +81,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function iban() {
+	public static function render_iban() {
 		return SIW_Properties::IBAN;
 	}
 
@@ -112,7 +90,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function rsin() {
+	public static function render_rsin() {
 		return SIW_Properties::RSIN;
 	}
 
@@ -121,7 +99,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function opening_hours() {
+	public static function render_openingstijden() {
 		return sprintf( esc_html__( 'Maandag t/m vrijdag %s - %s', 'siw' ), SIW_Properties::OPENING_TIME, SIW_Properties::CLOSING_TIME );
 	}
 
@@ -130,7 +108,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function esc_deposit() {
+	public static function render_esc_borg() {
 		return SIW_Formatting::format_amount( SIW_Properties::ESC_DEPOSIT );
 	}
 
@@ -139,7 +117,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function next_esc_deadline() {
+	public static function render_esc_volgende_deadline() {
 		$deadlines = siw_get_option( 'esc_deadlines' );
 		$next_evs_deadline = SIW_Formatting::format_date( reset( $deadlines ), true );
 		return $next_evs_deadline;
@@ -150,7 +128,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function next_esc_departure_month() {
+	public static function render_esc_volgende_vertrekmoment() {
 
 		$weeks = SIW_Properties::ESC_WEEKS_BEFORE_DEPARTURE;
 		$deadlines = siw_get_option( 'esc_deadlines' );
@@ -167,7 +145,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function next_info_day() {
+	public static function render_volgende_infodag() {
 		$info_days = siw_get_option( 'info_days');
 		if ( empty( $info_days ) ) {
 			return;
@@ -181,7 +159,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function workcamp_fee_student() {
+	public static function render_groepsproject_tarief_student() {
 		$output = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT );
 		if ( SIW_Util::is_workcamp_sale_active() ) {
 			$output = sprintf( '<del>%s</del>&nbsp;<ins>%s</ins>', $output, SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_STUDENT_SALE ) );
@@ -194,7 +172,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function workcamp_fee_regular() {
+	public static function render_groepsproject_tarief_regulier() {
 		$output = SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR );
 		if ( SIW_Util::is_workcamp_sale_active() ) {
 			$output = sprintf( '<del>%s</del>&nbsp;<ins>%s</ins>', $output, SIW_Formatting::format_amount( SIW_Properties::WORKCAMP_FEE_REGULAR_SALE ) );
@@ -207,7 +185,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function tailor_made_fee_student() {
+	public static function render_op_maat_tarief_student() {
 		$output = SIW_Formatting::format_amount( SIW_Properties::TAILOR_MADE_FEE_STUDENT );
 		if ( SIW_Util::is_tailor_made_sale_active() ) {
 			$output = sprintf( '<del>%s</del>&nbsp;<ins>%s</ins>', $output, SIW_Formatting::format_amount( SIW_Properties::TAILOR_MADE_FEE_STUDENT_SALE ) );
@@ -220,7 +198,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function tailor_made_fee_regular() {
+	public static function render_op_maat_tarief_regulier() {
 		$output = SIW_Formatting::format_amount( SIW_Properties::TAILOR_MADE_FEE_REGULAR );
 		if ( SIW_Util::is_tailor_made_sale_active() ) {
 			$output = sprintf( '<del>%s</del>&nbsp;<ins>%s</ins>', $output, SIW_Formatting::format_amount( SIW_Properties::TAILOR_MADE_FEE_REGULAR_SALE ) );
@@ -233,7 +211,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function discount_second_project() {
+	public static function render_korting_tweede_project() {
 		return SIW_Formatting::format_percentage( SIW_Properties::DISCOUNT_SECOND_PROJECT );
 	}
 
@@ -242,7 +220,7 @@ class SIW_Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function discount_third_project() {
+	public static function render_korting_derde_project() {
 		return SIW_Formatting::format_percentage( SIW_Properties::DISCOUNT_THIRD_PROJECT );
 	}
 
@@ -252,7 +230,7 @@ class SIW_Shortcodes {
 	 * @param array $atts
 	 * @return string
 	 */
-	public static function external_link( array $atts ) {
+	public static function render_externe_link( array $atts ) {
 		extract( shortcode_atts( [
 			'url'   => '',
 			'titel' => '',
@@ -270,7 +248,7 @@ class SIW_Shortcodes {
 	 * 
 	 * @todo verplaatsen naar kaart-widget
 	 */
-	public static function dutch_projects() {
+	public static function render_nederlandse_projecten() {
 		$language = SIW_i18n::get_current_language();
 		$projects = siw_get_option('dutch_projects');
 		$provinces = siw_get_dutch_provinces();
@@ -304,8 +282,9 @@ class SIW_Shortcodes {
 	 * @return string
 	 * 
 	 * @todo slug als parameter en get page by path gebruiken
+	 * @todo element van maken
 	 */
-	public static function page_modal( array $atts ) {
+	public static function render_pagina_lightbox( array $atts ) {
 		extract( shortcode_atts( [
 			'link_tekst' => '',
 			'pagina'     => '',
@@ -340,7 +319,7 @@ class SIW_Shortcodes {
 	 * 
 	 * @return string
 	 */
-	public static function age() {
+	public static function render_leeftijd() {
 		return SIW_Util::calculate_age( SIW_Properties::FOUNDING_DATE );
 	}
 
