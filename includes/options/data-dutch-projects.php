@@ -70,21 +70,21 @@ add_filter( 'siw_settings_meta_boxes', function( $meta_boxes ) {
 		'id'         => 'start_date',
 		'name'       => __( 'Startdatum', 'siw' ),
 		'type'       => 'date',
-		'timestamp'  => true,
-		'readonly'   => true,
 		'js_options' => [
-			'dateFormat'  => 'd MM yy',
+			'dateFormat'      => 'yy-mm-dd',
+			'showButtonPanel' => false,
 		],
+		'readonly'   => true,
 	];
 	$group_fields[] = [
 		'id'         => 'end_date',
 		'name'       => __( 'Einddatum', 'siw' ),
 		'type'       => 'date',
-		'timestamp'  => true,
-		'readonly'   => true,
 		'js_options' => [
-			'dateFormat'  => 'd MM yy',
+			'dateFormat'      => 'yy-mm-dd',
+			'showButtonPanel' => false,
 		],
+		'readonly'   => true,
 	];
 	$group_fields[] = [
 		'id'      => 'work_type',

@@ -7,7 +7,7 @@
  * @author    Maarten Bruna
  * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
  * 
- * @uses      siw_render_map()
+ * @uses      siw_render_interactive_map()
  * 
  * @widget_data
  * Widget Name: SIW: Kaart
@@ -39,8 +39,6 @@ class SIW_Widget_Map extends SIW_Widget {
 	 * {@inheritDoc}
 	 */
 	public function get_widget_form() {
-		$maps = apply_filters( 'siw_maps', [] ); //TODO: get_maps oid
-
 		$widget_form = [
 			'title' => [
 				'type'    => 'text',
@@ -50,7 +48,7 @@ class SIW_Widget_Map extends SIW_Widget {
 				'type'    => 'select',
 				'label'   => __( 'Kaart', 'siw' ),
 				'prompt'  => __( 'Kies een kaart', 'siw' ),
-				'options' => $maps
+				'options' => siw_get_interactive_maps(),
 			],
 		];
 		return $widget_form;
@@ -60,6 +58,6 @@ class SIW_Widget_Map extends SIW_Widget {
 	 * {@inheritDoc}
 	 */
 	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
-		return siw_render_map( $instance['map'] );
+		return siw_generate_interactive_map( $instance['map'] );
 	}
 }

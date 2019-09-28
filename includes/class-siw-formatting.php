@@ -137,14 +137,16 @@ class SIW_Formatting {
 	public static function render_attributes( array $attributes ) {
 		$rendered_attributes = '';
 		foreach ( $attributes as $key => $value ) {
-			if ( false == $value )
+			if ( false == $value ) {
 				continue;
-			if ( is_array( $value ) ) {
-				$value = json_encode( $value );
 			}
 			if ( 'class' == $key ) {
 				$value = self::sanitize_html_classes( $value );
 			}
+			if ( is_array( $value ) ) {
+				$value = json_encode( $value );
+			}
+
 			$rendered_attributes .= sprintf( true === $value ? ' %s' : ' %s="%s"', $key, esc_attr( $value ) );
 		}
 		return $rendered_attributes;

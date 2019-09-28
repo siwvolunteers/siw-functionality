@@ -242,40 +242,6 @@ class SIW_Shortcodes {
 	}
 
 	/**
-	 * Overzicht van Nederlandse projecten
-	 * 
-	 * @return string
-	 * 
-	 * @todo verplaatsen naar kaart-widget
-	 */
-	public static function render_nederlandse_projecten() {
-		$language = SIW_i18n::get_current_language();
-		$projects = siw_get_option('dutch_projects');
-		$provinces = siw_get_dutch_provinces();
-		if ( empty( $projects ) ) {
-			return;
-		}
-		$content = '';
-		foreach ( $projects as $project ) {
-			$duration = SIW_Formatting::format_date_range( date('Y-m-d', $project['start_date']['timestamp'] ), date('Y-m-d', $project['end_date']['timestamp'] ) );
-			$work_type = siw_get_work_type( $project['work_type'] );
-			$province_name = $provinces[ $project['province'] ] ?? '';
-			$description = [
-				sprintf( '<b>%s - %s</b>', $project['code'], $project["name_{$language}"]),
-				sprintf( __( 'Data: %s', 'siw' ), $duration ),
-				sprintf( __( 'Deelnemers: %s', 'siw' ), $project['participants'] ),
-				sprintf( __( 'Soort werk: %s', 'siw' ), $work_type ? $work_type->get_name() : '' ),
-			];
-			if ( isset( $project['local_fee'] ) ) {
-				$description[] = sprintf( __( 'Lokale bijdrage: %s', 'siw' ), SIW_Formatting::format_amount( $project['local_fee'] ) );
-			}
-			$description[] = sprintf( __( 'Locatie: %s, provincie %s', 'siw' ), $project['city'], $province_name );
-			$content .= wpautop( SIW_Formatting::array_to_text( $description, BR ) );
-		}
-		return $content;
-	}
-
-	/**
 	 * Lightbox met inhoud van pagina
 	 *
 	 * @param array $atts

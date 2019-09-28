@@ -86,10 +86,6 @@ $data = [
 		'title' => __( 'Korting derde project', 'siw' )
 	],
 	[
-		'shortcode' => 'nederlandse_projecten',
-		'title' => __( 'Nederlandse Projecten', 'siw' )
-	],
-	[
 		'shortcode'  => 'externe_link',
 		'title'      => __( 'Externe link', 'siw' ),
 		'attributes' => [

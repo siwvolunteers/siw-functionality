@@ -46,13 +46,12 @@ class SIW_Bootstrap {
 	 * Definieer constantes
 	 */
 	protected function define_constants() {
-		define ( 'SIW_PLUGIN_VERSION', '2.2.0' );
+		define ( 'SIW_PLUGIN_VERSION', '2.2.1' );
 		define ( 'SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets' );
 		define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates' );
 		define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . 'includes' );
 		define ( 'SIW_DATA_DIR', SIW_PLUGIN_DIR . 'data' );
-		define ( 'SIW_FUNCTIONS_DIR', SIW_INCLUDES_DIR . '/functions' );
 		define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
 		define ( 'SIW_SITE_URL', get_home_url() );
@@ -101,23 +100,10 @@ class SIW_Bootstrap {
 	 * Laadt functiebestanden
 	 */
 	protected function load_functions() {
-		$functions = [
-			'continents',
-			'countries',
-			'currencies',
-			'data',
-			'languages',
-			'social-networks',
-			'work-types',
-			//Oud
-			'agenda',
-			'jobs',
-			'quotes',
-		];
-		foreach ( $functions as $function ) {
-			require_once SIW_FUNCTIONS_DIR . "/{$function}.php";
+		$files = glob( SIW_INCLUDES_DIR . '/functions/*.php' );
+		foreach ( $files as $file ) {
+			require_once $file;
 		}
-
 	}
 
 	/**

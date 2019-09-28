@@ -31,4 +31,23 @@ class SIW_CSS {
 		return $class;
 	}
 
+	/**
+	 * Genereert css o.b.v. array met regels
+	 *
+	 * @param array $rules
+	 * @return string
+	 */
+	public static function generate_inline_css( array $rules ) {
+		$css = '';
+		foreach ( $rules as $selector => $styles ) {
+			$css .= $selector . '{';
+			foreach ( $styles as $property => $value ) {
+				$css .= $property . ':' . $value . ';';
+			}
+			$css .= '}';
+		}
+	
+		return $css;
+	}
+
 }
