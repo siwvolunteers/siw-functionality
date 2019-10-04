@@ -56,20 +56,6 @@ $group_fields[] = [
 	'pattern' => SIW_Util::get_pattern('longitude'),
 ];
 $group_fields[] = [
-	'id'   => 'address',
-	'name' => 'Address',
-	'type' => 'text',
-];
-$group_fields[] = [
-	'id'            => 'location',
-	'name'          => __( 'Locatie', 'siw' ),
-	'type'          => 'map',
-	'std'           => '52.0907, 5.1214',
-	'address_field' => 'address',
-	'region'        => 'nl',
-	'api_key'       => siw_get_option( 'google_maps_api_key'),
-];
-$group_fields[] = [
 	'id'         => 'start_date',
 	'name'       => __( 'Startdatum', 'siw' ),
 	'type'       => 'date',
