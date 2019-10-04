@@ -29,6 +29,7 @@ class SIW_Compat_WP_Sentry_Integration {
 			'WP_SENTRY_ERROR_TYPES' => E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_USER_DEPRECATED,
 			'WP_SENTRY_PUBLIC_DSN'  => SIW_Properties::SENTRY_JS_DSN,
 			'WP_SENTRY_DSN'         => SIW_Properties::SENTRY_PHP_DSN,
+			'WP_SENTRY_DEFAULT_PII' => true,
 		];
 
 		foreach ( $constants as $constant => $value ) {
