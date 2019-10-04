@@ -24,9 +24,6 @@ require_once dirname( __FILE__ ) . '/class-siw-bootstrap.php';
 $bootstrap = new SIW_Bootstrap();
 $bootstrap->init();
 
-/* Basisfunctionaliteit: functies en instellingen */
-require_once( SIW_INCLUDES_DIR . '/options/options.php' );
-
 /* Diverse aanpassingen */
 require_once( SIW_INCLUDES_DIR . '/content-types/content-types.php' );
 require_once( SIW_INCLUDES_DIR . '/email/init.php');

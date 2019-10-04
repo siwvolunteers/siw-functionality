@@ -1,28 +1,12 @@
 <?php
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 /**
- * Opties
+ * Functies m.b.t. opties
  * 
- * @package   SIW\Options
  * @author    Maarten Bruna
+ * @package   SIW\Functions
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
-require_once( __DIR__ . '/data-configuration.php' );
-require_once( __DIR__ . '/data-countries.php' );
-require_once( __DIR__ . '/data-organization.php' );
-require_once( __DIR__ . '/data-dates.php' );
-require_once( __DIR__ . '/data-emails.php' );
-require_once( __DIR__ . '/data-job-postings.php' );
-require_once( __DIR__ . '/data-tailor-made.php' );
-require_once( __DIR__ . '/data-workcamps.php' );
-require_once( __DIR__ . '/data-dutch-projects.php' );
 
-require_once( __DIR__ . '/class-siw-options-page.php' );
-add_action( 'plugins_loaded', [ 'SIW_Options_Page', 'init' ] );
 
 /**
  * Haal optie op
@@ -30,11 +14,13 @@ add_action( 'plugins_loaded', [ 'SIW_Options_Page', 'init' ] );
  * @param string $option
  * @param mixed $default
  * @return mixed
- * 
- * @todo constante voor optienaam
  */
 function siw_get_option( $option, $default = null ) {
 
+	//Foutmelding bij aanroepen vóór init
+	if ( 0 === did_action( 'init' ) && WP_DEBUG ) {
+		trigger_error( 'siw_get_option werd te vroeg aangeroepen', E_USER_ERROR );
+	}
 
 	//Probeer waarde uit cache te halen
 	$value = wp_cache_get( $option, 'siw_options');
@@ -42,12 +28,13 @@ function siw_get_option( $option, $default = null ) {
 		return $value;
 	}
 
-	$value = rwmb_meta( $option, [ 'object_type' => 'setting' ], 'siw_options' );
+	$value = rwmb_meta( $option, [ 'object_type' => 'setting' ],  SIW_Options::OPTION_NAME );
 
 	if ( empty( $value ) ) {
 		return $default;
 	}
 
+	//TODO: Verplaatsen naar SIW_Options en splitsen
 	switch ( $option ) {
 		case 'dutch_projects':
 			$language = SIW_i18n::get_current_language();

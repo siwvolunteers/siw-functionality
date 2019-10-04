@@ -118,6 +118,7 @@ class SIW_Bootstrap {
 			'SIW_Icons',
 			'SIW_Forms',
 			'SIW_Login',
+			'SIW_Options',
 			'SIW_Scheduler',
 			'SIW_Shortcodes',
 			'SIW_Upload_Dir',
@@ -158,6 +159,7 @@ class SIW_Bootstrap {
 			'SIW_Admin_Bar',
 			'SIW_Admin_Notices',
 			'SIW_Admin_Shortcodes',
+			'SIW_Admin_Options_Page',
 			'SIW_Admin_Properties_Page',
 		]);
 	}
