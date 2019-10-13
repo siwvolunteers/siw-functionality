@@ -28,7 +28,8 @@ function siw_get_option( $option, $default = null ) {
 		return $value;
 	}
 
-	$value = rwmb_meta( $option, [ 'object_type' => 'setting' ],  SIW_Options::OPTION_NAME );
+	$options = get_option( SIW_Options::OPTION_NAME );
+	$value = $options[ $option ] ?? null;
 
 	if ( empty( $value ) ) {
 		return $default;
