@@ -34,7 +34,9 @@ class SIW_Compat_Pinnacle_Premium {
 		add_action( 'kt_header_overlay', [ $self, 'show_category_image_on_product_page'] );
 		add_filter( 'kadence_display_sidebar', [ $self, 'set_sitebar_visibility'] );
 		add_filter( 'kadence_sidebar_id', [ $self, 'set_sitebar_id' ] );
-		add_action( 'pinnale_breadcrumbs_after_home', [ $self, 'add_breadcrumbs' ] );
+		add_filter( 'kadence_breadcrumb_post_types', [ $self, 'set_breadcrumbs_post_types' ] );
+		add_filter( 'kadence_breadcrumbs_after_home', [ $self, 'add_product_attribute_breadcrumbs' ] ); 
+
 		add_action( 'init', [ $self, 'remove_wc_sales_badge' ], PHP_INT_MAX );
 		add_shortcode( 'siw_footer', __CLASS__ . '::footer_shortcode' );
 
@@ -211,49 +213,57 @@ class SIW_Compat_Pinnacle_Premium {
 	}
 
 	/**
-	 * Voegt breadcrumbs toe voor
-	 * 
-	 * - Evenementen
-	 * - Vacatures
-	 * - WooCommerce attribute archive pages
-	 * 
-	 * @todo filter
-	 * @todo verplaatsen naar eigen class
+	 * Voegt breadcrumbs toe voor custom post types
+	 *
+	 * @param array $post_types
+	 * @return array
 	 */
-	public function add_breadcrumbs() {
+	public function set_breadcrumbs_post_types( array $post_types ) {
+
+		$post_types['siw_tm_country'] = [
+			'post_types'    => 'siw_tm_country',
+			'taxonomy'      => 'siw_tm_country_continent',
+			'archive_page'  => get_post_type_archive_link('siw_tm_country'),
+			'archive_label' => __( 'Vrijwilligerswerk op Maat', 'siw' ),
+		];
+
+		$events_archive_page = siw_get_option( 'events_archive_page' );
+		$events_archive_page = SIW_i18n::get_translated_page_id( $events_archive_page );
 	
-		$delimiter = apply_filters('kadence_breadcrumb_delimiter', '/');
-		$breadcrumb = '<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop="url" href="%s"><span itemprop="title">%s</span></a></span> %s ';
+		$post_types['agenda'] = [
+			'post_types'    => 'agenda',
+			'taxonomy'      => '',
+			'archive_page'  => get_page_link( $events_archive_page ),
+			'archive_label' => get_the_title( $events_archive_page ),
+		];
+
+		$job_postings_archive_page = siw_get_option( 'job_postings_archive_page' );
+		$job_postings_archive_page = SIW_i18n::get_translated_page_id( $job_postings_archive_page );
 	
-		$parent = '';
-	
-		if ( is_singular( 'vacatures' ) ) {
-			$parent = siw_get_option( 'job_postings_archive_page' );
-		}
-		elseif ( is_singular( 'agenda' ) ) {
-			$parent = siw_get_option( 'events_archive_page' );
-		}
-		elseif ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax ( 'pa_taal' ) ) {
+		$post_types['vacatures'] = [
+			'post_types'    => 'vacatures',
+			'taxonomy'      => '',
+			'archive_page'  => get_page_link( $job_postings_archive_page ),
+			'archive_label' => get_the_title( $job_postings_archive_page ),
+		];
+
+		return $post_types;
+	}
+
+	/**
+	 * Voegt breadcrumbs toe voor product attribute archives
+	 *
+	 * @param string $html
+	 * @return string
+	 */
+	public function add_product_attribute_breadcrumbs( string $html ) {
+
+		if ( is_tax( 'pa_land' ) || is_tax( 'pa_soort-werk' ) || is_tax( 'pa_doelgroep' ) || is_tax ( 'pa_taal' ) ) {
 			$parent = wc_get_page_id( 'shop' );
+			$html .= sprintf( '<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="%s" itemprop="url" ><span itemprop="title">%s</span></a></span>', get_page_link( $parent ), get_the_title( $parent ) );
+			$html .= ' <span class="bc-delimiter">/</span> ';
 		}
-		elseif ( is_singular( 'siw_tm_country') ) {
-			$archive_link = get_post_type_archive_link('siw_tm_country');
-			printf( $breadcrumb, $archive_link, __( 'Vrijwilligerswerk op Maat', 'siw' ), $delimiter  );
-			return;
-		}
-		else {
-			return;
-		}
-	
-		/* Parentpagina's van overzichtspagina */
-		$parent = SIW_i18n::get_translated_page_id( $parent );
-		$ancestors = array_reverse( get_ancestors( $parent, 'page') );
-		foreach ( $ancestors as $ancestor ) {
-			printf( $breadcrumb, get_page_link( $ancestor ), get_the_title( $ancestor ), $delimiter );
-		}
-	
-		/* Overzichtspagina */
-		printf( $breadcrumb, get_page_link( $parent ), get_the_title( $parent ), $delimiter );
+		return $html;
 	}
 
 	/**
