@@ -88,10 +88,7 @@ class SIW_Compat_WP_Rocket {
 	 * @return array
 	 */
 	public function set_excluded_inline_js_content( array $content ) {
-		$content[] = 'tvc_id';
-		$content[] = 'gmap3';
 		$content[] = 'caldera_conditionals';
-		$content[] = 'wp_sentry';
 		$content[] = 'ec:';
 		return $content;
 	}
