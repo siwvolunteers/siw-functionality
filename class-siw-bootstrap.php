@@ -195,6 +195,7 @@ class SIW_Bootstrap {
 		$this->init_classes( [
 			'SIW_Batch_Job_Count_Workcamps',
 			'SIW_Batch_Job_Delete_Applications',
+			'SIW_Batch_Job_Delete_Old_Posts',
 			'SIW_Batch_Job_Delete_Orphaned_Variations',
 			'SIW_Batch_Job_Delete_Workcamps',
 			'SIW_Batch_Job_Update_Dutch_Workcamps',
