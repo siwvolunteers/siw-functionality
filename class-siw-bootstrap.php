@@ -79,7 +79,7 @@ class SIW_Bootstrap {
 
 		$autoloader->add_dir( 'admin', 'Admin' );
 		$autoloader->add_dir( 'api', 'API' );
-		$autoloader->add_dir( 'batch-jobs', 'Batch_Job' );
+		$autoloader->add_dir( 'batch', 'Batch_Job' );
 		$autoloader->add_dir( 'compatibility', 'Compat' );
 		$autoloader->add_dir( 'data', 'Data' );
 		$autoloader->add_dir( 'elements', 'Element' );
