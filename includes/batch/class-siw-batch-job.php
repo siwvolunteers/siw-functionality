@@ -79,13 +79,13 @@ abstract class SIW_Batch_Job extends \WP_Background_Process {
 		$self = new static();
 		add_action( "siw_{$self->action}", [ $self, 'start'] );
 
-		\SIW\Admin\Admin_Bar::add_node(
+		SIW_Admin_Bar::add_node(
 			sanitize_title( $self->category ),
 			[
 				'title' => ucfirst( $self->category ) ]
 		);
 
-		\SIW\Admin\Admin_Bar::add_action(
+		SIW_Admin_Bar::add_action(
 			$self->action,
 			[ 
 				'parent' => sanitize_title( $self->category ),
