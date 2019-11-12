@@ -121,7 +121,7 @@ class SIW_Batch_Job_Update_Taxonomies extends SIW_Batch_Job {
 		/* Volgorde bijwerken van toepassing */
 		$term_order = $this->get_term_order( $taxonomy, $term_slug );
 		if ( null != $term_order ) {
-			update_term_meta( $term->term_id, "order_{$taxonomy}", $term_order ); 
+			update_term_meta( $term->term_id, 'order', $term_order ); 
 		}
 
 		$this->increment_processed_count();
