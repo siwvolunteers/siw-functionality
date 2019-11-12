@@ -94,7 +94,7 @@ abstract class SIW_Batch_Job extends \WP_Background_Process {
 		);
 		
 		if ( true == $self->schedule_job ) {
-			\SIW\Scheduler::add_job( "siw_{$self->action}" );
+			SIW_Scheduler::add_job( "siw_{$self->action}" );
 		}
 	}
 
