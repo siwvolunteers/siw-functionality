@@ -73,7 +73,7 @@ class SIW_Compat_YITH_WCAN {
 			return $terms;
 		}
 		foreach ( $terms as $index => $term ) {
-			$ordered_term_indices[ $index ] = get_term_meta( $term->term_id, "order_{$taxonomy}", true );
+			$ordered_term_indices[ $index ] = get_term_meta( $term->term_id, 'order', true );
 		}
 		asort( $ordered_term_indices, SORT_STRING );
 		$order = array_keys( $ordered_term_indices );
