@@ -213,7 +213,7 @@ class Mailjet {
 		}
 	
 		$statuscode = wp_remote_retrieve_response_code( $response );
-		if ( \WP_Http::OK != $statuscode ) {
+		if ( \WP_Http::OK != $statuscode && \WP_Http::CREATED != $statuscode ) {
 			return false;
 		}
 		return true;
