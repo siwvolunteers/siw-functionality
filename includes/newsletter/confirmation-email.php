@@ -61,7 +61,7 @@ class Confirmation_Email {
 			sprintf( 'From: %s <%s>', Properties::NAME, $this->email_settings['email'] ),
 		];
 
-		wp_mail(
+		$result = wp_mail(
 			$this->email,
 			__( 'Bevestig je aanmelding voor onze nieuwsbrief', 'siw' ),
 			$this->generate_message(),
@@ -69,6 +69,7 @@ class Confirmation_Email {
 		);
 
 		set_transient( "siw_newsletter_email_{$email_hash}", true, HOUR_IN_SECONDS );
+		return $result;
 	}
 
 	/**
