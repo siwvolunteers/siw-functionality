@@ -3,11 +3,8 @@
 /**
  * Class om taxonomy toe te voegen
  * 
- * @package   SIW
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @author    Maarten Bruna
  */
-
 class SIW_Taxonomy {
 
 	/**
@@ -76,7 +73,7 @@ class SIW_Taxonomy {
 	 * @return string
 	 */
 	public function register_template( $template, $type, $templates ) {
-		if ( in_array( "taxonomy-siw_{$this->post_type}_{$this->taxonomy}.php", $templates ) && SIW_Util::template_exists( "archive-{$this->post_type}.php") ) {
+		if ( in_array( "taxonomy-siw_{$this->post_type}_{$this->taxonomy}.php", $templates ) && \SIW\Util::template_exists( "archive-{$this->post_type}.php") ) {
 			$template = SIW_TEMPLATES_DIR . "/archive-{$this->post_type}.php";
 		}
 		return $template;

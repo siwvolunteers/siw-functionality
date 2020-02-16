@@ -7,8 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Gegevens van shortcodes
  * 
- * @author    Maarten Bruna
- * @package   SIW\Data
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
@@ -52,10 +50,6 @@ $data = [
 	[
 		'shortcode' => 'esc_volgende_deadline',
 		'title' => __( 'Volgende ESC-deadline', 'siw' )
-	],
-	[
-		'shortcode' => 'esc_volgende_vertrekmoment',
-		'title' => __( 'Volgende ESC-vertrekmoment', 'siw' )
 	],
 	[
 		'shortcode' => 'volgende_infodag',

@@ -1,13 +1,15 @@
 <?php
 
+namespace SIW\Widgets;
+
+use SIW\HTML;
+use SIW\Util;
+
 /**
  * Widget met formulier voor Snel Zoeken
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
- * 
- * @uses      SIW_Formatting
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  * 
  * @widget_data 
  * Widget Name: SIW: Snel Zoeken - formulier
@@ -15,7 +17,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_Quick_Search_Form extends SIW_Widget {
+class Quick_Search_Form extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -45,6 +47,12 @@ class SIW_Widget_Quick_Search_Form extends SIW_Widget {
 				'label'   => __( 'Titel', 'siw'),
 				'default' => __( 'Snel Zoeken', 'siw' ),
 			],
+			'result_page' => [
+				'type'    => 'select',
+				'label'   => __( 'Resultatenpagina', 'siw' ),
+				'prompt'  => __( 'Selecteer een pagina', 'siw' ),
+				'options' => Util::get_pages(), 
+			],
 		];
 		return $widget_forms;
 	}
@@ -53,16 +61,15 @@ class SIW_Widget_Quick_Search_Form extends SIW_Widget {
 	 * {@inheritDoc}
 	 */
 	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
-		$result_page_id = siw_get_option( 'quick_search_results_page' );
-		$result_page_url = wp_make_link_relative( get_permalink( $result_page_id ) );
+		$result_page_url = wp_make_link_relative( get_permalink( $instance['result_page'] ) );
 		ob_start();
 		?>
 		<div>
 			<form id="siw_quick_search" method="get" action="<?= esc_url( $result_page_url );?>">
 				<ul>
-					<li><?= SIW_Formatting::generate_field( 'select', [ 'name' => 'bestemming', 'id' => 'bestemming', 'options' => $this->get_destinations() ] );?></li>
-					<li><?= SIW_Formatting::generate_field( 'select', [ 'name' => 'maand', 'id' => 'maand', 'options' => $this->get_months() ] );?></li>
-					<li><?= SIW_Formatting::generate_field( 'submit', [ 'value' => __( 'Zoeken', 'siw' ) ] );?></li>
+					<li><?= HTML::generate_field( 'select', [ 'name' => 'bestemming', 'id' => 'bestemming', 'options' => $this->get_destinations() ] );?></li>
+					<li><?= HTML::generate_field( 'select', [ 'name' => 'maand', 'id' => 'maand', 'options' => $this->get_months() ] );?></li>
+					<li><?= HTML::generate_field( 'submit', [ 'value' => __( 'Zoeken', 'siw' ) ] );?></li>
 				</ul>
 			</form>
 		</div>

@@ -7,9 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Gegevens van landen in Afrika
  * 
- * @package   SIW\Data
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
- * @author    Maarten Bruna
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
 $data = [

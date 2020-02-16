@@ -1,0 +1,29 @@
+.siw-tablist [role=tablist] {
+  list-style-type: none;
+  margin: 0 auto;
+  padding: 0;
+}
+.siw-tablist [role=tablist]:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+.siw-tablist [role=tab] {
+  background-color: #ececec;
+  border-radius: 4px;
+  padding: 10px;
+  float: left;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.siw-tablist [role=tab][aria-selected=true] {
+  background-color: #ff9900;
+  color: #fff;
+}
+.siw-tablist [role=tabpanel] {
+  display: block;
+  padding: 15px;
+}
+.siw-tablist [role=tabpanel][aria-hidden=true] {
+  display: none;
+}

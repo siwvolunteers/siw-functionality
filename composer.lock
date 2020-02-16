@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1fa1974f97ddac336a45194859abd337",
+    "content-hash": "37facd30e985e838565ab5d6606bb326",
     "packages": [
         {
             "name": "a5hleyrich/wp-background-processing",
@@ -43,44 +43,6 @@
             "time": "2018-02-12T09:24:05+00:00"
         },
         {
-            "name": "aramonc/docblock-parser",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/aramonc/DocBlockParser.git",
-                "reference": "fc22102e04b067a969a629f029de345e831314c2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/aramonc/DocBlockParser/zipball/fc22102e04b067a969a629f029de345e831314c2",
-                "reference": "fc22102e04b067a969a629f029de345e831314c2",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Ils": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Adrian Cardenas",
-                    "email": "arcardenas@gmail.com",
-                    "homepage": "http://twitter.com/aramonc",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Parses strings for docBlock like portions and then extracts the annotations, descriptions, and optional document content. This should not be used as an annotation parser for PHP code, at least not on it's own. If you're looking to do something with the docBlocks you might want to use something like https://github.com/schmittjoh/metadata better. This is more for if you're trying to get metadata from a plain text file. Look through the tests for examples.",
-            "time": "2014-01-03T04:41:36+00:00"
-        },
-        {
             "name": "kallookoo/wp_parse_args_recursive",
             "version": "1.2.1",
             "source": {
@@ -113,52 +75,6 @@
             "description": "Like wp_parse_args but supports recursivity. By default converts the returned type based on the $args and $defaults",
             "homepage": "https://github.com/kallookoo/wp_parse_args_recursive",
             "time": "2018-10-18T16:30:37+00:00"
-        },
-        {
-            "name": "meyfa/php-svg",
-            "version": "v0.9.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/meyfa/php-svg.git",
-                "reference": "34401edef1f724898f468f71b85505fbcc8351bb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/meyfa/php-svg/zipball/34401edef1f724898f468f71b85505fbcc8351bb",
-                "reference": "34401edef1f724898f468f71b85505fbcc8351bb",
-                "shasum": ""
-            },
-            "require": {
-                "ext-gd": "*",
-                "ext-simplexml": "*",
-                "php": ">=5.3.3"
-            },
-            "require-dev": {
-                "meyfa/phpunit-assert-gd": "^1.1",
-                "phpunit/phpunit": "^4.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SVG\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabian Meyer",
-                    "homepage": "http://meyfa.net"
-                }
-            ],
-            "description": "Read, edit, write, and render SVG files with PHP",
-            "homepage": "https://github.com/meyfa/php-svg",
-            "keywords": [
-                "svg"
-            ],
-            "time": "2019-07-30T18:41:25+00:00"
         },
         {
             "name": "spatie/array-to-xml",

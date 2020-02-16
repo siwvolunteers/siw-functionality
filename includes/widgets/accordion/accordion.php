@@ -1,13 +1,14 @@
 <?php
 
+namespace SIW\Widgets;
+
+use SIW\Formatting;
+
 /**
  * Widget met contactinformatie
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
- * 
- * @uses      SIW_Formatting
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  * 
  * @widget_data
  * Widget Name: SIW: Accordion
@@ -15,7 +16,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_Accordion extends SIW_Widget {
+class Accordion extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -103,7 +104,7 @@ class SIW_Widget_Accordion extends SIW_Widget {
 	 * {@inheritDoc}
 	 */
 	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
-		$content = SIW_Formatting::generate_accordion( $instance['panes']);
+		$content = Formatting::generate_accordion( $instance['panes']);
 		return $content;
 	}
 }

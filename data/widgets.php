@@ -7,9 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Widgets
  *
- * @author      Maarten Bruna
- * @package     SIW\Widgets
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
 $data = [
@@ -28,6 +26,7 @@ $data = [
 	'quick-search-form'    => 'Quick_Search_Form',
 	'quick-search-results' => 'Quick_Search_Results',
 	'quote'                => 'Quote',
+	'tabs'                 => 'Tabs',
 ];
 
 return $data;

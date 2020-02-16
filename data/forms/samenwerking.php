@@ -7,10 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Gegevens van formulier voor samenwerking
  * 
- * @package   SIW\Forms
- * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * */
+ */
 
 $args = [
 	'name'    => __( 'Samenwerking', 'siw' ),
@@ -43,21 +41,8 @@ $fields[0] = [
 		],
 	],
 	[
-		[
-			'slug'  => 'emailadres',
-			'type'  => 'email',
-			'label' => __( 'Emailadres', 'siw' ),
-			'width' => 12,
-		],
-		[
-			'slug'     => 'telefoonnummer',
-			'type'     => 'text',
-			'label'    => __( 'Telefoonnummer', 'siw' ),
-			'config'   => [
-				'type_override' => 'tel',
-			],
-			'width'    => 12,
-		],
+		'emailadres',
+		'telefoonnummer',
 	],
 	[
 		[

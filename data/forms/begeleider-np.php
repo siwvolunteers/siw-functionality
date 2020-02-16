@@ -4,15 +4,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use SIW\i18n;
+
 /**
  * Gegevens van Algemeen contactformulier
  * 
- * @package   SIW\Forms
- * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * */
+ */
 
-$language = SIW_i18n::get_current_language();
+$language = i18n::get_current_language();
 $project_options = [];
 $projects = siw_get_option( 'dutch_projects' );
 foreach ( $projects as $project ) {
@@ -24,7 +24,8 @@ foreach ( $projects as $project ) {
 
 
 $args = [
-	'name' => __( 'Projectbegeleider NP', 'siw' ),
+	'name'            => __( 'Projectbegeleider NP', 'siw' ),
+	'postcode_lookup' => true,
 ];
 
 $processors = [];
@@ -41,88 +42,24 @@ $pages = [];
 
 $fields[0] = [
 	[
-		[
-			'slug'  => 'voornaam',
-			'type'  => 'text',
-			'label' => __( 'Voornaam', 'siw' ),
-		],
-		[
-			'slug'  => 'achternaam',
-			'type'  => 'text',
-			'label' => __( 'Achternaam', 'siw' ),
-		],
+		'voornaam',
+		'achternaam',
 	],
 	[
-		[
-			'slug'   => 'geboortedatum',
-			'type'   => 'text',
-			'label'  => __( 'Geboortedatum', 'siw' ),
-			'config' => [
-				'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
-			],
-		],
-		[
-			'slug'  => 'geslacht',
-			'type'  => 'radio',
-			'label' => __( 'Geslacht', 'siw' ),
-			'config' => [
-				'inline' => true,
-				'option' => siw_get_genders(),
-			]
-		],
+		'geboortedatum',
+		'geslacht',
 	],
 	[
-		[
-			'slug'  => 'emailadres',
-			'type'  => 'email',
-			'label' => __( 'Emailadres', 'siw' ),
-		],
-		[
-			'slug'     => 'telefoonnummer',
-			'type'     => 'text',
-			'label'    => __( 'Telefoonnummer', 'siw' ),
-			'required' => false,
-			'config'   => [
-				'type_override' => 'tel',
-			],
-		],
+		'emailadres',
+		'telefoonnummer',
 	],
 	[
-		[
-			'slug'   => 'postcode',
-			'type'   => 'text',
-			'label'  => __( 'Postcode', 'siw' ),
-			'config' => [
-				'custom_class' => 'postcode',
-				'placeholder'  => '1234 AB',
-			],
-		],
-		[
-			'slug'   => 'huisnummer',
-			'type'   => 'text',
-			'label'  => __( 'Huisnummer', 'siw' ),
-			'config' => [
-				'custom_class' => 'huisnummer',
-			],
-		]
+		'postcode',
+		'huisnummer',
 	],
 	[
-		[
-			'slug'   => 'straat',
-			'type'   => 'text',
-			'label'  => __( 'Straat', 'siw' ),
-			'config' => [
-				'custom_class' => 'straat',
-			],
-		],
-		[
-			'slug'   => 'woonplaats',
-			'type'   => 'text',
-			'label'  => __( 'Woonplaats', 'siw' ),
-			'config' => [
-				'custom_class' => 'plaats',
-			],
-		],
+		'straat',
+		'woonplaats',
 	],
 	[
 		[
@@ -219,6 +156,5 @@ return [
 	'fields'        => $fields,
 	'confirmation'  => $confirmation,
 	'notification'  => $notification,
-	'email_option'  => 'camp_leader_email',
 	'primary_email' => 'emailadres',
 ];

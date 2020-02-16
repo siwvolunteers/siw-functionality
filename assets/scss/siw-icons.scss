@@ -1,0 +1,43 @@
+@import "partials/_variables.scss";
+
+.siw-icon {
+	display: inline-block;
+	position: relative;
+	fill: $font-color;
+}
+
+.siw-icon-background {
+	display: inline-block;
+	font-size: 1em;
+	position: relative;
+	vertical-align: middle;
+	height: 2em;
+	width: 2em;
+	.siw-icon-inverse {
+		position: absolute;
+		left: 0.5em;
+		top: 0.5em;
+		fill: #fff;
+	}
+	
+	.siw-background-icon {
+		position: absolute;
+		left: 0;
+		transition: all 0.3s linear 0s;
+	}
+
+	&:hover .siw-background-icon {
+		fill: $primary-color;
+	}
+}
+
+@for $i from 1 through 4 {
+	.siw-icon-#{$i}x {
+		width: #{$i}em;
+		height: #{$i}em;
+
+	}
+	.siw-icon-background-#{$i}x {
+		font-size: #{$i}em;
+	}
+}

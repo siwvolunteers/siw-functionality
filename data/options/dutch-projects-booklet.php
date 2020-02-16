@@ -7,9 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Opties t.b.v. Nederlandse Projecten
  * 
- * @package   SIW\Data
- * @author    Maarten Bruna
- * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
 $data = [

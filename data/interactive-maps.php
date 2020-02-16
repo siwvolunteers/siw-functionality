@@ -7,9 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Mapplic-kaarten
  *
- * @author      Maarten Bruna
- * @package     SIW\Data
- * @copyright   2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
 $data = [

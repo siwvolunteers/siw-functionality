@@ -1,11 +1,15 @@
 <?php
 
+namespace SIW\Widgets;
+
+use SIW\Formatting;
+use SIW\HTML;
+
 /**
  * Widget met features
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
- * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  * 
  * @widget_data
  * Widget Name: SIW: Features
@@ -13,7 +17,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_Features extends SIW_Widget {
+class Features extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -139,24 +143,16 @@ class SIW_Widget_Features extends SIW_Widget {
 			echo wp_kses_post( $instance['intro'] );
 		}
 		foreach ( $rows as $row ) : ?>
-			<div class = "row">
+			<div class="row">
 				<?php foreach ( $row as $feature ) : ?>
-				<div class="<?= esc_attr( $class ); ?>">
+				<div class="cell <?= esc_attr( $class ); ?>">
+					<?php echo Formatting::generate_icon( $feature['icon'], 2, 'circle');?>
+					<h3><?php echo esc_html( $feature['title'] );?></h3>
+					<?php echo wpautop( wp_kses_post( $feature['content'] ) );?>
 					<?php 
-						$output = sprintf(
-							'[iconbox icon="%s" link="%s" btn="%s" btn_txt="%s" color="#fff" "hbackground="%s" background="%s" tcolor="%s"]',
-							esc_attr( $feature['icon'] ),
-							$feature['add_link'] ? esc_url( $feature['link_url'] ) : '',
-							$feature['add_link'] ? 'true' : 'false',
-							esc_html__( 'Lees meer', 'siw' ),
-							esc_attr( SIW_Properties::PRIMARY_COLOR ),
-							esc_attr( SIW_Properties::FONT_COLOR ),
-							esc_attr( SIW_Properties::FONT_COLOR )
-						);
-						$output .= '<h4>' . esc_html( $feature['title'] ) . '</h4>';
-						$output .= wp_kses_post( $feature['content'] ) . '<br/>';
-						$output .= '[/iconbox]';
-						echo do_shortcode( $output );
+					if ( $feature['add_link'] ) {
+						echo HTML::generate_link( $feature['link_url'], __( 'Lees meer', 'siw' ), [ 'class' => 'kad-btn'] );
+					}
 					?>
 				</div>
 				<?php endforeach ?>

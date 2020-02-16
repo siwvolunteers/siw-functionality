@@ -7,5 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Spatie\\ArrayToXml\\' => array($vendorDir . '/spatie/array-to-xml/src'),
-    'SVG\\' => array($vendorDir . '/meyfa/php-svg/src'),
 );

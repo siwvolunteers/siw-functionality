@@ -7,13 +7,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Gegevens van ESC-formulier
  * 
- * @package   SIW\Forms
- * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * */
+ */
 
 $args = [
-	'name' => __( 'ESC', 'siw' ),
+	'name'            => __( 'ESC', 'siw' ),
+	'postcode_lookup' => true,
 ];
 
 $processors = [];
@@ -27,87 +26,27 @@ $pages = [];
 
 $fields[0] =[
 	[
-		[
-			'slug'  => 'voornaam',
-			'type'  => 'text',
-			'label' => __( 'Voornaam', 'siw' ),
-		],
-		[
-			'slug'  => 'achternaam',
-			'type'  => 'text',
-			'label' => __( 'Achternaam', 'siw' ),
-		],
+		'voornaam',
+		'achternaam',
 	],
 	[
-		[
-			'slug'   => 'geboortedatum',
-			'type'   => 'text',
-			'label'  => __( 'Geboortedatum', 'siw' ),
-			'config' => [
-				'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
-			],
-		],
-		[
-			'slug'  => 'geslacht',
-			'type'  => 'radio',
-			'label' => __( 'Geslacht', 'siw' ),
-			'config' => [
-				'inline' => 1,
-				'option' => siw_get_genders(),
-			]
-		],
+		'geboortedatum',
+		'geslacht',
 	],
 	[
 		[
 			'slug'     => 'telefoonnummer',
-			'type'     => 'text',
-			'label'    => __( 'Telefoonnummer', 'siw' ),
-			'config'   => [
-				'type_override' => 'tel',
-			],
+			'required' => true,
 		],
-		[
-			'slug'  => 'emailadres',
-			'type'  => 'email',
-			'label' => __( 'Emailadres', 'siw' ),
-		],
+		'emailadres',
 	],
 	[
-		[
-			'slug'   => 'postcode',
-			'type'   => 'text',
-			'label'  => __( 'Postcode', 'siw' ),
-			'config' => [
-				'custom_class' => 'postcode',
-				'placeholder'  => '1234 AB',
-			],
-		],
-		[
-			'slug'   => 'huisnummer',
-			'type'   => 'text',
-			'label'  => __( 'Huisnummer', 'siw' ),
-			'config' => [
-				'custom_class' => 'huisnummer',
-			],
-		]
+		'postcode',
+		'huisnummer',
 	],
 	[
-		[
-			'slug'   => 'straat',
-			'type'   => 'text',
-			'label'  => __( 'Straat', 'siw' ),
-			'config' => [
-				'custom_class' => 'straat',
-			],
-		],
-		[
-			'slug'   => 'woonplaats',
-			'type'   => 'text',
-			'label'  => __( 'Woonplaats', 'siw' ),
-			'config' => [
-				'custom_class' => 'plaats',
-			],
-		],
+		'straat',
+		'woonplaats',
 	],
 	[
 		[
@@ -128,17 +67,7 @@ $fields[0] =[
 		]
 	],
 	[
-		[
-			'slug'   => 'cv',
-			'type'   => 'file',
-			'label'  => __( 'Upload hier je CV (optioneel)', 'siw'),
-			'config' => [
-				'attach'     => 1,
-				'media_lib'  => 0,
-				'allowed'    => 'pdf,docx',
-				'max_upload' => wp_max_upload_size(),
-			],
-		],
+		'cv',
 		[
 			'slug'   => 'bekend',
 			'type'   => 'checkbox',
@@ -200,6 +129,5 @@ return [
 	'fields'        => $fields,
 	'confirmation'  => $confirmation,
 	'notification'  => $notification,
-	'email_option'  => 'esc_email',
 	'primary_email' => 'emailadres',
 ];

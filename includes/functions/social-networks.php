@@ -1,17 +1,20 @@
 <?php
+
 /**
  * Sociale netwerken
  * 
- * @author    Maarten Bruna
- * @package   SIW\Functions
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
+
+use SIW\Data\Social_Network;
 
 /**
  * Geeft een array van sociale netwerken terug
+ * 
+ * @since     3.0.0
  *
  * @param string $context all|share|follow
- * @return SIW_Data_Social_Network[]
+ * @return Social_Network[]
  */
 function siw_get_social_networks( $context = 'all' ) {
 
@@ -20,18 +23,31 @@ function siw_get_social_networks( $context = 'all' ) {
 		return $social_networks;
 	}
 
+	//Data ophalen en sorteren
 	$data = siw_get_data( 'social-networks' );
+	$data = wp_list_sort( $data, 'name' );
 
-	$social_networks = [];
-	foreach ( $data as $item ) {
-		$social_network = new SIW_Data_Social_Network( $item );
-		if ( 'all' == $context
-		|| ( 'share' == $context && true === $social_network->is_for_sharing() )
-		|| ( 'follow' == $context && true === $social_network->is_for_following() )
-		) {
-			$social_networks[ $item[ 'slug' ] ] = $social_network;
+	//Gebruik slug als index van array
+	$data = array_column( $data , null, 'slug' );
+
+	//Creëer objecten
+	$social_networks = array_map(
+		function( $item ) {
+			return new Social_Network( $item );
+		},
+		$data
+	);
+
+	//Filter op context
+	$social_networks = array_filter(
+		$social_networks, 
+		function( $social_network ) use ( $context ) {
+			return ( 'all' == $context
+				|| ( 'share' == $context && $social_network->is_for_sharing() )
+				|| ( 'follow' == $context && $social_network->is_for_following() )
+			);
 		}
-	}
+	);
 
 	wp_cache_set( "{$context}", $social_networks, 'siw_social_networks' );
 

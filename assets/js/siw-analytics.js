@@ -2,57 +2,76 @@
 
 /**
  * @file      Functies t.b.v. Google Analytics
- * @author    Maarten Bruna
- * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  */
 
-siwGoogleAnalyticsAddListeners();
+var siwGoogleAnalytics = (function () {
 
-/**
- * Voegt listeners toe voor alle links
- */
-function siwGoogleAnalyticsAddListeners() {
-	
-	var tracking_links = document.querySelectorAll( '[data-ga-track="1"]' );
-	tracking_links.forEach( function ( el ) {
-		el.addEventListener( 'click', siwGoogleAnalyicsSendEvent );
-	})
+	/* Public methodes */
+	return {
+		init: init,
+		trackFormSubmission: trackFormSubmission
+	};
 
-	var remove_from_cart_links = document.querySelectorAll( '.woocommerce-cart-form .product-remove > a' );
-	remove_from_cart_links.forEach( function ( el ) {
-		el.addEventListener( 'click', siwGoogleAnalyticsTrackRemoveFromCart );
-	});
-}
+	/**
+	 * Voegt listeners toe
+	 */
+	function init() {
 
-/**
- * Verstuurt GA-event op basis van data-attributes
- */
-function siwGoogleAnalyicsSendEvent() {
-	var type = this.dataset.gaType ? this.dataset.gaType : '';
-	var category = this.dataset.gaCategory ? this.dataset.gaCategory : '';
-	var action = this.dataset.gaAction ? this.dataset.gaAction : '';
-	var label = this.dataset.gaLabel ? this.dataset.gaLabel : '';
-	ga( 'send', type, category, action, label);
-}
+		var tracking_links = document.querySelectorAll( '[data-ga-track="1"]' );
+		for ( var i=0, len = tracking_links.length; i < len; i++ ) {
+			var tracking_link = tracking_links[i];
+			tracking_link.addEventListener( 'click', _trackClick );
+		}
 
-/**
- * Verstuurt GA-event voor verwijderen uit cart
- *
- * @param {Event} event
- */
-function siwGoogleAnalyticsTrackRemoveFromCart( event ) {
-	event.preventDefault();
-	var variation_id = this.dataset.variation_id;
-	ga( 'ec:addProduct', siw_analytics_cart[variation_id]);
-	ga( 'ec:setAction', 'remove' );
-	ga( 'send', 'event', 'Ecommerce', 'remove', 'remove from cart' );	
-}
+		var remove_from_cart_links = document.querySelectorAll( '.woocommerce-cart-form .product-remove > a' );
+		for ( var i = 0, len = remove_from_cart_links.length; i < len; i++ ) {
+			var remove_from_cart_link = remove_from_cart_links[i];
+			remove_from_cart_link.addEventListener( 'click', _trackRemoveFromCart );
+		}
 
-/**
- * Stuurt GA event bij het versturen van een Caldera Form
- *
- * @param {*} obj
- */
-function siwSendGaFormSubmissionEvent( obj ) {
-	ga( 'send', 'event', obj.form_id, 'Verzenden' );
-}
+	}
+
+	/**
+	 * Verstuurt GA event op basis van data-attributes bij click
+	 *
+	 * @param {Event} event
+	 */
+	function _trackClick( event ) {
+		var dataset = event.target.dataset;
+
+		var type = dataset.gaType || '';
+		var category = dataset.gaCategory || '';
+		var action = dataset.gaAction || '';
+		var label = dataset.gaLabel || '';
+		console.log(event);
+		ga( 'send', type, category, action, label);
+		
+	}
+
+	/**
+	 * Stuurt GA event bij het versturen van een Caldera Form
+	 *
+	 * @param {*} obj
+	 */
+	function trackFormSubmission( obj ) {
+		ga( 'send', 'event', obj.form_id, 'Verzenden' );
+	}
+
+	/**
+	 * Verstuurt GA-event voor verwijderen uit cart
+	 *
+	 * @param {Event} event
+	 */
+	function _trackRemoveFromCart( event ) {
+		event.preventDefault();
+		var variation_id = this.dataset.variation_id;
+		ga( 'ec:addProduct', siw_analytics_cart[variation_id]);
+		ga( 'ec:setAction', 'remove' );
+		ga( 'send', 'event', 'Ecommerce', 'remove', 'remove from cart' );	
+	}
+
+})();
+
+siwGoogleAnalytics.init();

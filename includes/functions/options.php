@@ -1,15 +1,18 @@
 <?php
+
 /**
  * Functies m.b.t. opties
  * 
- * @author    Maarten Bruna
- * @package   SIW\Functions
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
+use SIW\i18n;
+use SIW\Options;
 
 /**
  * Haal optie op
+ * 
+ * @since     3.0.0
  *
  * @param string $option
  * @param mixed $default
@@ -28,7 +31,8 @@ function siw_get_option( $option, $default = null ) {
 		return $value;
 	}
 
-	$options = get_option( SIW_Options::OPTION_NAME );
+	//TODO: omgaan met array als $option i.p.v. string
+	$options = get_option( Options::OPTION_NAME );
 	$value = $options[ $option ] ?? null;
 
 	if ( empty( $value ) ) {
@@ -38,7 +42,7 @@ function siw_get_option( $option, $default = null ) {
 	//TODO: Verplaatsen naar SIW_Options en splitsen
 	switch ( $option ) {
 		case 'dutch_projects':
-			$language = SIW_i18n::get_current_language();
+			$language = i18n::get_current_language();
 			$defaults = [
 				'code'                    => '',
 				"name_{$language}"        => '',
@@ -75,10 +79,38 @@ function siw_get_option( $option, $default = null ) {
 			});
 			sort( $value );
 			break;
-
+		case 'special_opening_hours':
+			$value = array_column( $value , null, 'date' );
+			$callback = function( &$value, $key ) {
+				$value = $value['opened'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' );
+			};
+			array_walk( $value, $callback );
+			break;
+		case 'opening_hours':
+			$callback = function( &$value, $key ) {
+				$value = $value['open'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' );
+			};
+			array_walk( $value, $callback );
 	}
 
 	wp_cache_set( $option, $value, 'siw_options' );
 
 	return $value;
+}
+
+/**
+ * Werk optie bij
+ *
+ * @param string $option
+ * @param mixed $value
+ */
+function siw_set_option( string $option, $value ) {
+	$options = get_option( Options::OPTION_NAME );
+	if ( null === $value ) {
+		unset( $options[ $option ] );
+	}
+	else {
+		$options[ $option ] = $value;
+	}
+	update_option( Options::OPTION_NAME, $options );
 }

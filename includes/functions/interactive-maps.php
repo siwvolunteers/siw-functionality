@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Functies m.b.t. interactive kaarten (Mapplic)
  * 
- * @package   SIW\Functions
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @author    Maarten Bruna
  */
 
 /**
  * Genereert interactieve kaart
+ * 
+ * @since     3.0.0
  *
  * @param string $id
  * @return string
@@ -21,13 +22,15 @@ function siw_generate_interactive_map( string $id ) {
 	if ( ! isset( $maps[ $id ] ) ) {
 		return null;
 	}
-	$class = "SIW_Element_Interactive_Map_{$maps[ $id ]}";
+	$class = "\SIW\Elements\Interactive_Map_{$maps[ $id ]}";
 	$map = new $class;
 	return $map->generate();
 }
 
 /**
  * Geeft lijst met interactieve kaarten terug
+ * 
+ * @since     3.0.0
  * 
  * @return array
  */

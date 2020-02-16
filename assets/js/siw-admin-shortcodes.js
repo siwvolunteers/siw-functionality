@@ -2,8 +2,8 @@
 
 /**
  * @file      TinyMCE-shortcodemenu
- * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  */
 
 tinymce.PluginManager.add( 'siw_shortcodes', function( editor, url ) {

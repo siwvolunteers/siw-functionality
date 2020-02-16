@@ -1,13 +1,14 @@
 <?php
 
+namespace SIW\Widgets;
+
+use SIW\HTML;
+
 /**
  * Widget met agenda
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
- * 
- * @uses      SIW_Formatting
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  * 
  * @widget_data 
  * Widget Name: SIW: Agenda
@@ -15,8 +16,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-
-class SIW_Widget_Calendar extends SIW_Widget {
+class Calendar extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -66,7 +66,7 @@ class SIW_Widget_Calendar extends SIW_Widget {
 			ob_start();
 			?>
 			<h5 class="title">
-				<?= SIW_Formatting::generate_link( $event['permalink'], $event['title'], [ 'class' => 'link' ] ) ?>
+				<?= HTML::generate_link( $event['permalink'], $event['title'], [ 'class' => 'link' ] ) ?>
 			</h5>
 			<span class="duration" >
 				<?= esc_html( $event['date_range'] );?> <br/>
@@ -75,12 +75,13 @@ class SIW_Widget_Calendar extends SIW_Widget {
 			<span class="location">
 				<?= esc_html( $event['location'] . ',&nbsp;' . $event['city'] );?>
 			</span>
-			<?= $event['json_ld'];?>
 			<?php
 			$event_list[] = ob_get_clean();
+			$json_ld[] = $event['json_ld'];
 		}
-		$content = SIW_Formatting::generate_list( $event_list );
-		$content .= '<p class="page-link">' . SIW_Formatting::generate_link( get_page_link( siw_get_option( 'events_archive_page' ) ), __( 'Bekijk de volledige agenda.', 'siw' ) ) . '</p>';
+		$content = HTML::generate_list( $event_list );
+		$content .= implode( SPACE, $json_ld );
+		$content .= '<p class="page-link">' . HTML::generate_link( get_page_link( siw_get_option( 'events_archive_page' ) ), __( 'Bekijk de volledige agenda.', 'siw' ) ) . '</p>';
 
 		return $content;
 	}

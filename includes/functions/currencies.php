@@ -1,17 +1,20 @@
 <?php
+
 /**
  * Functies m.b.t. valuta's
  * 
- * @package   SIW\Functions
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
- * @author    Maarten Bruna
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
+
+use SIW\Data\Currency;
 
 /**
  * Geeft een array met valuta's terug
+ * 
+ * @since     3.0.0
  *
  * @param string $index
- * @return SIW_Data_Currency[]
+ * @return Currency[]
  */
 function siw_get_currencies() {
 
@@ -20,10 +23,20 @@ function siw_get_currencies() {
 		return $currencies;
 	}
 
+	//Data ophalen en sorteren
 	$data = siw_get_data( 'currencies' );
-	foreach ( $data as $currency ) {
-		$currencies[ $currency['iso'] ] = new SIW_Data_Currency( $currency );
-	}
+	$data = wp_list_sort( $data, 'name' );
+
+	//Gebruik iso als index van array
+	$data = array_column( $data , null, 'iso' );
+
+	//Creëer objecten
+	$currencies = array_map(
+		function( $item ) {
+			return new Currency( $item );
+		},
+		$data
+	);
 	wp_cache_set( "currencies", $currencies, 'siw_currencies' );
 
 	return $currencies;
@@ -31,15 +44,12 @@ function siw_get_currencies() {
 
 /**
  * Geeft informatie over een valuta terug
+ * 
+ * @since     3.0.0
  *
- * @return SIW_Data_Currency
+ * @return Currency
  */
 function siw_get_currency( string $currency ) {
-	
 	$currencies = siw_get_currencies();
-
-	if ( isset( $currencies[ $currency ] ) ) {
-		return $currencies[ $currency ];
-	}
-	return false;
+	return $currencies[ $currency ] ?? false;
 }

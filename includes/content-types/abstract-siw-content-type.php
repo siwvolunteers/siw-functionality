@@ -1,5 +1,8 @@
 <?php
 
+use SIW\Formatting;
+use SIW\Elements\Taxonomy_Filter;
+
 /**
  * Class om een custom content type toe te voegen
  * 
@@ -8,11 +11,8 @@
  * - Title
  * - Intro en filter voor archiefpagina
  * 
- * @package   SIW\Content
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @author    Maarten Bruna
  */
-
 abstract class SIW_Content_Type {
 
 	/**
@@ -85,7 +85,7 @@ abstract class SIW_Content_Type {
 		$this->meta_box_fields = $this->get_meta_box_fields();
 		$this->taxonomies = $this->get_taxonomies();
 		
-		new SIW_Post_Type(
+		new \SIW_Post_Type(
 			$this->post_type,
 			$this->get_args(),
 			$this->get_labels(),
@@ -95,7 +95,7 @@ abstract class SIW_Content_Type {
 		);
 		
 		foreach ( $this->taxonomies as $taxonomy ) {
-			new SIW_Taxonomy( $taxonomy['taxonomy'], $this->post_type, $taxonomy['labels'], $taxonomy['args'], $taxonomy['slug'] );
+			new \SIW_Taxonomy( $taxonomy['taxonomy'], $this->post_type, $taxonomy['labels'], $taxonomy['args'], $taxonomy['slug'] );
 		}
 		
 		/* Header voor archiefpagina toevoegen*/
@@ -110,8 +110,8 @@ abstract class SIW_Content_Type {
 		/* Alle posts tonen op archiefpagina */
 		add_action( 'pre_get_posts', [ $this, 'show_all_posts_on_archive'] );
 
-		if ( true == $this->show_taxonomy_filter ) {
-			$this->taxonomy_filter = new SIW_Element_Taxonomy_Filter();
+		if ( $this->show_taxonomy_filter ) {
+			$this->taxonomy_filter = new Taxonomy_Filter();
 		}
 	}
 
@@ -169,7 +169,7 @@ abstract class SIW_Content_Type {
 	 *
 	 * @param string $title
 	 * @param string $archive_type
-	 * @param WP_Term $term
+	 * @param \WP_Term $term
 	 * @return string
 	 */
 	abstract protected function get_archive_seo_title( $title, $archive_type, $term );
@@ -195,7 +195,7 @@ abstract class SIW_Content_Type {
 	 * Past de SEO titel aan
 	 *
 	 * @param string $title
-	 * @param WP_Term $term
+	 * @param \WP_Term $term
 	 * @return string
 	 */
 	public function get_seo_title( $title, $term ) {
@@ -216,7 +216,7 @@ abstract class SIW_Content_Type {
 	 * Past SEO-beschrijving aan
 	 *
 	 * @param string $description
-	 * @param WP_Term $term
+	 * @param \WP_Term $term
 	 */
 	public function set_seo_description( $description, $term ) {
 		if ( ! is_a( $term, 'WP_Term') ) {
@@ -262,12 +262,12 @@ abstract class SIW_Content_Type {
 		<div class="container">
 			<div class="row siw-archive-intro">
 				<div class="col-md-12">
-					<?php echo SIW_Formatting::array_to_text( $archive_intro );?>
+					<?php echo Formatting::array_to_text( $archive_intro );?>
 				</div>
 			</div>
 		</div>
 		<?php
-		if ( true == $this->show_taxonomy_filter ) {
+		if ( $this->show_taxonomy_filter ) {
 			foreach ( $this->taxonomies as $taxonomy ) {
 				if ( $archive_type != $taxonomy['taxonomy'] ) {
 					echo $this->taxonomy_filter->generate( "siw_{$this->post_type}_{$taxonomy['taxonomy']}" );
@@ -306,7 +306,7 @@ abstract class SIW_Content_Type {
 			if ( is_post_type_archive( "siw_{$this->post_type}" ) ) {
 				$query->set('posts_per_page', -1 );
 
-				if ( true === $this->sort_by_title ) {
+				if ( $this->sort_by_title ) {
 					$query->set( 'order' , 'asc' );
 					$query->set( 'orderby', 'title');
 				}

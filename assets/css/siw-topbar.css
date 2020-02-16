@@ -16,19 +16,16 @@
   padding: 10px 0px;
   text-align: center;
 }
-
 #topbar-content a {
   color: #ffffff;
   border-bottom: 1px dotted;
   font-weight: bold;
 }
-
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 780px) {
   #topbar-content {
     font-size: 2.5vw;
   }
 }
-
 @media only screen and (max-width: 480px) {
   #topbar-content {
     font-size: 3vw;

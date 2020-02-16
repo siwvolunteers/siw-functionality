@@ -2,36 +2,46 @@
 
 /**
  * @file      Functies t.b.v. grafieken
- * @author    Maarten Bruna 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  */
 
-siwChartsInitAll();
+var siwCharts = (function () {
 
-/**
- * Initialiseert alle grafieken
- */
-function siwChartsInitAll() {
-	//Zoek alle grafieken
-	var charts = document.querySelectorAll( '.siw-chart' );
+	/* Public methodes */
+	return {
+		init: init
+	};
 
-	//Intialiseer elke grafiek
-	charts.forEach( function ( el ) {
-		siwChartsInitSingle( el );
-	})
-}
+	/**
+	 * Initialiseert alle grafieken
+	 */
+	function init () {
+		//Zoek alle grafieken
+		var charts = document.querySelectorAll( '.siw-chart' );
 
-/**
- * Initialiseert een grafiek
- *
- * @param {Element} el
- */
-function siwChartsInitSingle( el ) {
-	var options = JSON.parse( el.dataset.options );
+		//Initialiseer elke grafiek
+		for ( var i=0, len = charts.length; i < len; i++ ) {
+			var chart = charts[i];
+			_initSingle( chart );
+		}
+	}
 
-	var chart = new ApexCharts(
-		el,
-		options
-	);
-	chart.render();
-}
+	/**
+	 * Initialiseert 1 grafiek
+	 *
+	 * @param {Element} el
+	 */
+	function _initSingle( el ) {
+		var options = JSON.parse( el.dataset.options );
+
+		var chart = new ApexCharts(
+			el,
+			options
+		);
+		chart.render();
+	}
+
+})();
+
+siwCharts.init();

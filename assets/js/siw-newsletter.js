@@ -2,10 +2,31 @@
 
 /**
  * @file      Functies t.b.v. de nieuwsbrief signup
- * @author    Maarten Bruna 
- * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  */
 
+
+if ( document.readyState !== "loading" ) {
+	siwNewsletterSubscribeAddListeners();
+} else {
+	document.addEventListener( 'DOMContentLoaded', siwNewsletterSubscribeAddListeners );
+}
+
+/**
+ * Voegt listeners voor nieuwsbriefwidgets toe
+ *
+ */
+function siwNewsletterSubscribeAddListeners() {
+	var widgets = document.querySelectorAll( '[data-siw-newsletter-selectors]' );
+
+	for ( var i=0, len = widgets.length; i < len; i++ ) {
+		var widget = widgets[i];
+		var selectors = JSON.parse( widget.dataset.siwNewsletterSelectors );
+		var form = document.querySelector( selectors.form );
+		form.addEventListener( 'submit', siwNewsletterSubscribeFromForm.bind( null, selectors ) );
+	}
+}
 
 /**
  * Verstuurt aanmelding voor nieuwsbrief naar API-endpoint
@@ -17,7 +38,7 @@
 function siwNewsletterSubscribe( name, email ) {
 	var data = {
 		name : name,
-		email : email,
+		email : email
 	};
 
 	return jQuery.ajax({
@@ -31,22 +52,24 @@ function siwNewsletterSubscribe( name, email ) {
 }
 
 /**
- * Verwerkt aanmelding voor nieuwsbrief via formulier
+ * Verwerkt aanmelding voor nieuwsbrief
  *
- * @param {*} nameSelector
- * @param {*} emailSelector
+ * @param {Event} event
+ * @param {Array} selectors
  */
-function siwNewsletterSubscribeFromForm( selector ) {
-	var name = jQuery( selector + ' form input[name=\'name\']' ).val();
-	var email = jQuery( selector + ' form input[name=\'email\']' ).val();
+function siwNewsletterSubscribeFromForm( selectors, event ) {
+	event.preventDefault();
+
+	var name = jQuery( selectors.name ).val();
+	var email = jQuery( selectors.email ).val();
 
 	if ( ( '' != name ) && ( '' != email ) ) {
-		jQuery( selector + ' form' ).addClass( 'hidden' );
-		jQuery( selector + ' .loading' ).removeClass( 'hidden' );
+		jQuery( selectors.form ).addClass( 'hidden' );
+		jQuery( selectors.loading ).removeClass( 'hidden' );
 
 		siwNewsletterSubscribe( name, email ).done( function( response ) {
-			jQuery( selector + ' .loading' ).addClass( 'hidden' );
-			jQuery( selector + ' .message' ).removeClass( 'hidden' ).text( response.message );
+			jQuery( selectors.loading ).addClass( 'hidden' );
+			jQuery( selectors.message ).removeClass( 'hidden' ).text( response.message );
 			if ( true === response.success ) {
 				if ( 'function' == typeof ga ) {
 					ga( 'send', 'event', 'Nieuwsbrief', 'Aanmelden' );

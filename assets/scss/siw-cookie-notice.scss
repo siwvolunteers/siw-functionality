@@ -1,0 +1,25 @@
+@import "partials/_variables.scss";
+
+#siw-cookie-notification {
+	position:fixed;
+	left:0px;
+	bottom:0px;
+	width:100%;
+	z-index:99999;
+	color:#fff;
+	padding:10px;
+	background-color: $secondary-color;
+	text-align:left;
+	font-size:14px;
+	#siw-cookie-consent{
+		padding:5px;
+		margin:5px;
+	}
+}
+@media only screen and (max-width: $mobile-width) {
+	#siw-cookie-notification {
+		.cookie-button{
+			text-align:center;
+		}
+	}
+}

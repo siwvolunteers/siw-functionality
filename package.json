@@ -1,28 +1,44 @@
 {
 	"name": "siw-functionality",
-	"version": "2.2.0",
+	"version": "3.0.0-RC1",
+	"license": "GPL-2.0-or-later",
 	"description": "Extra functionaliteit voor website SIW",
 	"repository": "https://github.com/siwvolunteers/siw-functionality",
 	"scripts": {
+		"update": "npm update && vendor-copy",
+		"build": "npm run build:icons && npm run build:css",
+		"build:icons": "svg2sprite assets/icons assets/siw-icons.svg -i --stripExtraAttrs ---iconPrefix siw-icon-",
+		"build:css": "npm run scss && npm run autoprefixer",
 		"postinstall": "vendor-copy",
-		"build-icons": "icon-font-generator assets/icons/*.svg -o assets/css/fonts -n siw-icons -p siw-icon -f /fonts --cssfontsurl /wp-content/plugins/siw-functionality/assets/css/fonts --html true --csspath assets/css/partials/_icons.sass --html false --jsonpath assets/icons/siw-icons.json --normalize true"
+		"scss": "sass --update --no-source-map assets/scss:assets/css",
+		"autoprefixer": "postcss --no-map -u autoprefixer -r assets/css/*.css"
 	},
+	"browserslist": [
+		">1%",
+		"last 2 versions",
+		"IE 10"
+	],
 	"dependencies": {
-		"apexcharts": "^3.8.5",
+		"@accede-web/accordion": "*",
+		"@accede-web/tablist": "*",
+		"apexcharts": "^3.15.6",
 		"flickity": "^2.2.1",
-		"isotope-layout": "3.*",
 		"js-cookie": "^2.2.1",
+		"micromodal": "*",
+		"sal.js": "^0.7.2",
 		"smoothscroll-for-websites": "^1.4.10"
 	},
 	"devDependencies": {
 		"vendor-copy": "2.*",
-		"icon-font-generator": "2.*",
-		"webfonts-generator": "^0.4.0"
+		"postcss-cli": "*",
+		"sass": "*",
+		"svg2sprite-cli": "*",
+		"autoprefixer": "*"
 	},
 	"vendorCopy": [
 		{
-			"from": "node_modules/apexcharts/dist/apexcharts.min.js",
-			"to": "assets/modules/apexcharts/apexcharts.min.js"
+			"from": "node_modules/apexcharts/dist/apexcharts.js",
+			"to": "assets/modules/apexcharts/apexcharts.js"
 		},
 		{
 			"from": "node_modules/smoothscroll-for-websites/SmoothScroll.js",
@@ -33,16 +49,32 @@
 			"to": "assets/modules/js-cookie/js.cookie.js"
 		},
 		{
-			"from": "node_modules/isotope-layout/dist/isotope.pkgd.js",
-			"to": "assets/modules/isotope/isotope.js"
-		},
-		{
 			"from": "node_modules/flickity/dist/flickity.pkgd.js",
 			"to": "assets/modules/flickity/flickity.js"
 		},
 		{
 			"from": "node_modules/flickity/dist/flickity.css",
 			"to": "assets/modules/flickity/flickity.css"
+		},
+		{
+			"from": "node_modules/@accede-web/accordion/dist/accordion.js",
+			"to": "assets/modules/accordion/accordion.js"
+		},
+		{
+			"from": "node_modules/@accede-web/tablist/dist/tablist.js",
+			"to": "assets/modules/tablist/tablist.js"
+		},
+		{
+			"from": "node_modules/micromodal/dist/micromodal.js",
+			"to": "assets/modules/micromodal/micromodal.js"
+		},
+		{
+			"from": "node_modules/sal.js/dist/sal.js",
+			"to": "assets/modules/sal/sal.js"
+		},
+		{
+			"from": "node_modules/sal.js/dist/sal.css",
+			"to": "assets/modules/sal/sal.css"
 		}
 	]
 }

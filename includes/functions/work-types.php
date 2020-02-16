@@ -1,47 +1,76 @@
 <?php
+
 /**
  * Functies m.b.t. soorten werk
  * 
- * @author      Maarten Bruna
- * @package     SIW\Functions
- * @copyright   2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright SIW Internationale Vrijwilligersprojecten
  */
+
+use SIW\Data\Work_Type;
 
 /**
  * Geeft een array met soort werk voor projecten terug
+ * 
+ * @since     3.0.0
  *
  * @param string $index
  * @param string $context all|dutch_projects|tailor_made_projects
- * @return SIW_Data_Work_Type[]
+ * @param string $return objects|array
+ * 
+ * @return Work_Type[]|[]
  */
-function siw_get_work_types( string $context = 'all', string $index = 'slug' ) {
-	$work_types = wp_cache_get( "{$context}_{$index}", 'siw_work_types' );
+function siw_get_work_types( string $context = 'all', string $index = 'slug', string $return = 'objects' ) {
+	$work_types = wp_cache_get( "{$context}_{$index}_{$return}", 'siw_work_types' );
 	if ( false !== $work_types ) {
 		return $work_types;
 	}
 
+	//Data ophalen en sorteren
 	$data = siw_get_data( 'work-types' );
+	$data = wp_list_sort( $data, 'name' );
 
-	foreach ( $data as $item ) {
-		$work_type = new SIW_Data_Work_Type( $item );
-		if ( 'all' == $context
-			|| ( 'dutch_projects' == $context && true === $work_type->is_for_dutch_projects() ) 
-			|| ( 'tailor_made_projects' == $context && true === $work_type->is_for_tailor_made_projects() )
-		) {
-			$work_types[ $item[ $index ] ] = $work_type;
+	//Zet index van array
+	$data = array_column( $data , null, $index );
+
+	//Creëer objecten
+	$work_types = array_map(
+		function( $item ) {
+			return new Work_Type( $item );
+		},
+		$data
+	);
+
+	//Filter op context
+	$work_types = array_filter(
+		$work_types, 
+		function( $work_type ) use ( $context ) {
+			return ( 'all' == $context
+				|| ( 'dutch_projects' == $context && $work_type->is_for_dutch_projects() ) 
+				|| ( 'tailor_made_projects' == $context && $work_type->is_for_tailor_made_projects() )
+			);
 		}
+	);
+	if ( 'array' == $return ) {
+		$work_types = array_map(
+			function( $work_type ) {
+				return $work_type->get_name();
+			},
+			$work_types
+		);
 	}
-	wp_cache_set( "{$context}_{$index}", $work_types, 'siw_work_types' );
+	wp_cache_set( "{$context}_{$index}_{$return}", $work_types, 'siw_work_types' );
 
 	return $work_types;
 }
 
 /**
  * Geeft informatie over soort werk terug
+ * 
+ * @since     3.0.0
  *
  * @param string $work_type
  * @param string $index
- * @return SIW_Data_Work_Type
+ * @return Work_Type
  */
 function siw_get_work_type( string $work_type, string $index = 'slug' ) {
 	

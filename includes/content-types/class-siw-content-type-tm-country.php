@@ -1,13 +1,13 @@
 <?php
 
+use SIW\i18n;
+use SIW\HTML;
+
 /**
  * CPT voor Op Maat landen
  * 
- * @package   SIW\Content
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @author    Maarten Bruna
  */
-
 class SIW_Content_Type_TM_Country extends SIW_Content_Type {
 
 	/**
@@ -65,23 +65,13 @@ class SIW_Content_Type_TM_Country extends SIW_Content_Type {
 	 * {@inheritDoc}
 	 */
 	protected function get_meta_box_fields() {
-
-		$countries = siw_get_countries('tailor_made_projects');
-		foreach ( $countries as $country ) {
-			$country_options[ $country->get_slug() ] = $country->get_name();
-		}
 	
-		$work_types = siw_get_work_types('tailor_made_projects');
-		foreach ( $work_types as $work_type ) {
-			$work_type_options[ $work_type->get_slug() ] = $work_type->get_name();
-		}
-
 		$meta_box_fields = [
 			[
 				'id'          => 'country',
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
-				'options'     => $country_options,
+				'options'     => siw_get_countries( 'tailor_made_projects', 'slug', 'array' ),
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],
 			[
@@ -100,7 +90,7 @@ class SIW_Content_Type_TM_Country extends SIW_Content_Type {
 				'id'          => 'work_type',
 				'name'        => __( 'Soort werk', 'siw' ),
 				'type'        => 'checkbox_list',
-				'options'     => $work_type_options,
+				'options'     => siw_get_work_types( 'all', 'slug', 'array' ),
 			],
 			[
 				'id'       => 'quote',
@@ -178,8 +168,8 @@ class SIW_Content_Type_TM_Country extends SIW_Content_Type {
 	 */
 	protected function get_archive_intro( $archive_type ) {
 
-		$url = SIW_i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
-		$link = SIW_Formatting::generate_link( $url, __( 'Projecten Op Maat', 'siw' ) );
+		$url = i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
+		$link = HTML::generate_link( $url, __( 'Projecten Op Maat', 'siw' ) );
 
 		switch ( $archive_type ) {
 			case 'post_type':
@@ -207,7 +197,7 @@ class SIW_Content_Type_TM_Country extends SIW_Content_Type {
 	 * {@inheritDoc}
 	 */
 	protected function get_single_seo_title( $title ) {
-		return "Projecten op Maat in {$title}"; //TODO: i18n
+		return sprintf( __( 'Projecten op Maat in %s', 'siw' ), $title );
 	}
 
 	/**

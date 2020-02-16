@@ -1,11 +1,12 @@
 <?php
 
+namespace SIW\Widgets;
+
 /**
  * Widget met quote
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  * 
  * @widget_data
  * Widget Name: SIW: Quote
@@ -13,7 +14,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_Quote extends SIW_Widget {
+class Quote extends Widget {
 
 	/**
 	 * {@inheritDoc}

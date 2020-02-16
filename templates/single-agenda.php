@@ -6,13 +6,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use SIW\Elements\Google_Maps;
+use SIW\HTML;
+use SIW\Formatting;
+
 get_header();
 get_template_part('templates/post', 'header' );
 
 global $post;
 	$event_data = siw_get_event_data( $post->ID );
 
-	$location_map = new SIW_Element_Google_Maps();
+	$location_map = new Google_Maps();
 	$location_map->add_location_marker(
 		sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] ),
 		$event_data['location'],
@@ -72,7 +76,7 @@ global $post;
 							<?php
 								if ( 'formulier' == $event_data['application'] ) {
 									if ( $event_data['start_date'] >= $limit_date ) {
-										$default_date = sanitize_title( SIW_Formatting::format_date( $event_data['start_date'], false ) );
+										$default_date = sanitize_title( Formatting::format_date( $event_data['start_date'], false ) );
 										echo do_shortcode( sprintf( '[caldera_form id="infodag" datum="%s"]', $default_date) );
 									}
 									else {
@@ -81,7 +85,7 @@ global $post;
 								} else {
 									echo wp_kses_post( wpautop( $event_data['application_explanation'] ) );
 									if ( $event_data['application_link_url'] ) {
-										echo SIW_Formatting::generate_external_link( $event_data['application_link_url'], $event_data['application_link_text'] );
+										echo HTML::generate_external_link( $event_data['application_link_url'], $event_data['application_link_text'] );
 									}
 								}
 								else:

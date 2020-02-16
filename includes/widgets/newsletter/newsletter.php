@@ -1,13 +1,14 @@
 <?php
 
+namespace SIW\Widgets;
+
+use SIW\HTML;
+
 /**
  * Widget met aanmeldformulier nieuwsbrief
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
- * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
- * 
- * @uses      SIW_Formatting
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  * 
  * @widget_data
  * Widget Name: SIW: Nieuwsbrief
@@ -15,7 +16,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_Newsletter extends SIW_Widget {
+class Newsletter extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -45,9 +46,10 @@ class SIW_Widget_Newsletter extends SIW_Widget {
 	public function get_widget_form() {
 		$widget_form = [
 			'title' => [
-				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw' ),
-				'default' => __( 'Blijf op de hoogte', 'siw' ),
+				'type'     => 'text',
+				'label'    => __( 'Titel', 'siw' ),
+				'default'  => __( 'Blijf op de hoogte', 'siw' ),
+				'required' => true,
 			],
 		];
 		return $widget_form;
@@ -56,51 +58,35 @@ class SIW_Widget_Newsletter extends SIW_Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function initialize() {
-		add_action( 'wp_enqueue_scripts', function() {
-		$inline_script = "
-			$( '.so-widget-siw_newsletter_widget form' ).submit(function( event ) {
-				event.preventDefault();
-				siwNewsletterSubscribeFromForm( '.so-widget-siw_newsletter_widget' );
-				return false;
-			});";
-		wp_add_inline_script( 'siw-newsletter', "(function( $ ) {" . $inline_script . "})( jQuery );" );
-		});
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
+
+		$selectors = [
+			'form'    => "#{$args['widget_id']} form",
+			'name'    => "#{$args['widget_id']} #newsletter_name",
+			'email'   => "#{$args['widget_id']} #newsletter_email",
+			'loading' => "#{$args['widget_id']} .loading",
+			'message' => "#{$args['widget_id']} .message",
+
+		];
+
 		ob_start();
 		?>
-		<div>
+		<div data-siw-newsletter-selectors="<?php echo esc_attr( json_encode( $selectors ) );?>">
 			<div class="text-center loading hidden"></div>
 			<div class="text-center message hidden"></div>
-			<form method="post" autocomplete="on">
+			<form method="post" autocomplete="on" id="newsletter_form">
 				<p>
-				<?= sprintf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), $this->get_subscriber_count() );?>
+				<?= sprintf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), siw_newsletter_get_subscriber_count( $instance['list'] ) );?>
 				</p>
 				<?php
-				echo SIW_Formatting::generate_field( 'text', [ 'label' => __( 'Voornaam', 'siw' ), 'id' => 'newsletter_name', 'name' => 'name', 'required' => true ], [ 'tag' => 'p' ] );
-				echo SIW_Formatting::generate_field( 'email', [ 'label' => __( 'E-mail', 'siw' ), 'id' => 'newsletter_email', 'name' => 'email', 'required' => true ], [ 'tag' => 'p' ] );
-				echo SIW_Formatting::generate_field( 'submit', [ 'value' => __( 'Aanmelden', 'siw') ], [ 'tag' => 'p'] );
+				echo HTML::generate_field( 'text', [ 'label' => __( 'Voornaam', 'siw' ), 'id' => 'newsletter_name', 'name' => 'name', 'required' => true ], [ 'tag' => 'p' ] );
+				echo HTML::generate_field( 'email', [ 'label' => __( 'E-mail', 'siw' ), 'id' => 'newsletter_email', 'name' => 'email', 'required' => true ], [ 'tag' => 'p' ] );
+				echo HTML::generate_field( 'submit', [ 'value' => __( 'Aanmelden', 'siw' ) ], [ 'tag' => 'p'] );
 				?>
 			</form>
 		</div>
 		<?php
 		$content = ob_get_clean();
 		return $content;
-	}
-
-	/**
-	 * Geeft aantal abonnees van nieuwsbrief terug
-	 * 
-	 * @return int
-	 */
-	protected function get_subscriber_count() {
-		$list = siw_get_option( 'newsletter_list' );
-		$subscriber_count = do_shortcode( '[wysija_subscribers_count list_id="' . esc_attr( $list ) . '" ]' );
-		return $subscriber_count;
 	}
 }

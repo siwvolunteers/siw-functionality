@@ -3,6 +3,7 @@
  * (c)2018 SIW Internationale Vrijwilligersprojecten
  */
 
+use SIW\Formatting;
 
 /**
  * Geeft array met gegevens van toekomstige evenementen terug
@@ -96,7 +97,7 @@ function siw_get_event_data( $post_id ) {
 		'application_link_text'   => get_post_meta( $post_id, 'siw_agenda_aanmelden_link_tekst', true ),
 		'text_after_hide_form'    => get_post_meta( $post_id, 'siw_agenda_tekst_na_verbergen_formulier', true ),
 	];
-	$event_data['date_range'] = SIW_Formatting::format_date_range( $event_data['start_date'], $event_data['end_date'] , false );
+	$event_data['date_range'] = Formatting::format_date_range( $event_data['start_date'], $event_data['end_date'] , false );
 	$event_data['duration']	= sprintf( '%s, %s&nbsp;-&nbsp;%s', $event_data['date_range'], $event_data['start_time'], $event_data['end_time'] );
 
 	$event_data['json_ld'] = siw_generate_event_json_ld( $event_data );
@@ -131,5 +132,5 @@ function siw_generate_event_json_ld( $event ) {
 			'address'   => esc_attr( sprintf('%s, %s %s', $event['address'], $event['postal_code'], $event['city'] ) ),
 		],
 	];
-	return SIW_Formatting::generate_json_ld( $data );
+	return Formatting::generate_json_ld( $data );
 }

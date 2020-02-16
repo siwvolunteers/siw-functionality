@@ -1,0 +1,48 @@
+article.siw_tm_country {
+	background-color:#fff;
+}
+
+article.siw_story {
+	background-color:#fff;
+}
+
+.filter-button-group{
+	text-align:center;
+	.is-checked, button:hover {
+		background-color: $primary-color;
+		color: #fff;
+	}
+	button{
+		margin: 2px;
+	}
+}
+
+.siw_grid_item, .carousel-cell{
+	a{
+		color: $font-color;
+	}
+	.grid_item{
+		transition: background 0.3s ease-out 0s;
+		border-radius: 5px;
+		text-align:center;
+		div.postcontent{
+			padding: 10px;
+		}
+	}
+	&:hover{
+		h5, .postedinbottom, a{
+			color: #fff;
+		}
+		.grid_item .postcontent footer{
+			border-top-color: #fff;
+			.siw-icon {
+				fill: #fff;
+			}
+		}
+		.grid_item{
+			color:#fff;
+			background-color: $primary-color;
+		}
+	}
+}
+

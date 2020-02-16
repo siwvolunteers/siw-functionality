@@ -19,6 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use SIW\Properties;
+use SIW\HTML;
+
 /*
  * @hooked WC_Emails::email_header() Output the email header
  */
@@ -34,11 +37,11 @@ $admin_link_url = admin_url( sprintf('post.php?post=%s&action=edit', $order->get
 $admin_link_text = sprintf( __( 'Aanmelding %s', 'siw' ), $order->get_order_number() );
 
 ?>
-<div style="font-family:Verdana, normal; color:<?= SIW_Properties::FONT_COLOR;?>; font-size:14px; ">
+<div style="font-family:Verdana, normal; color:<?= Properties::FONT_COLOR;?>; font-size:14px; ">
 	<p>
 		<?php
 		printf( esc_html__( 'Er is een nieuwe aanmelding (%s) binnengekomen:', 'siw' ),  $application_status ); echo BR;
-		echo SIW_Formatting::generate_link( $admin_link_url, $admin_link_text );
+		echo HTML::generate_link( $admin_link_url, $admin_link_text );
 		?>
 	</p>
 </div>

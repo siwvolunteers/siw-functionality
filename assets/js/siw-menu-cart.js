@@ -2,8 +2,8 @@
 
 /**
  * @file      Functies t.b.v cart menu
- * @author    Maarten Bruna 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  */
 
 (function( $ ) {

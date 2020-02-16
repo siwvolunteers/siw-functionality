@@ -10,13 +10,12 @@
   text-align: left;
   font-size: 14px;
 }
-
 #siw-cookie-notification #siw-cookie-consent {
   padding: 5px;
   margin: 5px;
 }
 
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 780px) {
   #siw-cookie-notification .cookie-button {
     text-align: center;
   }

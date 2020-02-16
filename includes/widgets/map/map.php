@@ -1,21 +1,20 @@
 <?php
 
+namespace SIW\Widgets;
+
 /**
  * Widget met interactieve kaart
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
- * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
- * 
- * @uses      siw_render_interactive_map()
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  * 
  * @widget_data
- * Widget Name: SIW: Kaart
+ * Widget Name: SIW: Interactieve kaart
  * Description: Toont interactieve kaart
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_Map extends SIW_Widget {
+class Map extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -31,7 +30,7 @@ class SIW_Widget_Map extends SIW_Widget {
 	 * {@inheritDoc}
 	 */
 	protected function set_widget_properties() {
-		$this->widget_name = __( 'Kaart', 'siw');
+		$this->widget_name = __( 'Interactieve kaart', 'siw');
 		$this->widget_description = __( 'Toont interactieve kaart', 'siw' );
 	}
 	

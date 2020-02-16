@@ -7,26 +7,75 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Optiepagina's
  *
- * @author    Maarten Bruna
- * @package   SIW\Data
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
 $data = [
 	[
-		'id'          => 'dates',
-		'menu_title'  => __( 'Datums', 'siw' ),
-		'capability'  => 'edit_posts',
+		'id'         => 'configuration',
+		'menu_title' => __( 'Configuratie', 'siw' ),
+		'capability' => 'manage_options',
+		'tabs'       => [
+			'api'    => [
+				'label' => __( 'API', 'siw' ),
+				'icon'  => 'dashicons-admin-network',
+			],
+			'black-white-lists' => [
+				'label' => __( 'Black/Whitelists', 'siw' ),
+				'icon'  => 'dashicons-shield',
+			],
+			'email' => [
+				'label' => __( 'Email', 'siw' ),
+				'icon'  => 'dashicons-email',
+			],
+			'pages' => [
+				'label' => __( "Pagina's", 'siw' ),
+				'icon'  => 'dashicons-admin-page',
+			],
+			'other' => [
+				'label' => __( 'Overig', 'siw' ),
+				'icon'  => 'dashicons-admin-generic',
+			],
+		],
 	],
 	[
-		'id'          => 'configuration',
-		'menu_title'  => __( 'Configuratie', 'siw' ),
-		'capability'  => 'manage_options',
-	],
-	[
-		'id'          => 'workcamps',
-		'menu_title'  => __( 'Groepsprojecten', 'siw' ),
-		'capability'  => 'manage_options',
+		'id'         => 'settings',
+		'menu_title' => __( 'Instellingen', 'siw' ),
+		'capability' => 'edit_posts',
+		'tabs'       => [
+			'board'  => [
+				'label' => __( 'Bestuur', 'siw' ),
+				'icon'  => 'dashicons-businessman',
+			],
+			'dates'  => [
+				'label' => __( 'Datums', 'siw' ),
+				'icon'  => 'dashicons-calendar-alt'
+			],
+			'email' => [
+				'label' => __( 'Email', 'siw' ),
+				'icon'  => 'dashicons-email',
+			],
+			'workcamps' => [
+				'label' => __( 'Groepsprojecten', 'siw' ),
+				'icon'  => 'dashicons-groups'
+			],
+			'annual_reports'    => [
+				'label' => __( 'Jaarverslagen', 'siw' ),
+				'icon'  => 'dashicons-media-document',
+			],
+			'tailor_made' => [
+				'label' => __( 'Op Maat', 'siw' ),
+				'icon'  => 'dashicons-admin-settings',
+			],
+			'opening_hours' => [
+				'label' => __( 'Openingstijden', 'siw' ),
+				'icon'  => 'dashicons-clock',
+			],
+			'job_postings' => [
+				'label' => __( 'Vacatures', 'siw' ),
+				'icon'  => 'dashicons-clipboard'
+			],
+		],
 	],
 	[
 		'id'         => 'dutch-projects',
@@ -35,30 +84,9 @@ $data = [
 	],
 	[
 		'id'         => 'countries',
-		'capability' => 'manage_options',
-		'columns'    => 1,
 		'menu_title' => __( 'Landen', 'siw' ),
-	],
-	[
-		'id'         => 'organization',
-		'capability' => 'edit_posts',
-		'menu_title' => __( 'Organisatie', 'siw' ),
-	],
-	[
-		'id'            => 'tailor-made',
-		'menu_title'    => __( 'Op Maat', 'siw' ),
-		'capability'    => 'manage_options',
-	],
-	[
-		'id'          => 'job-postings',
-		'menu_title'  => __( 'Vacatures', 'siw' ),
-		'capability'  => 'manage_options',
-	],
-	[
-		'id'         => 'emails',
 		'capability' => 'manage_options',
-		'menu_title' => __( 'E-mails', 'siw' ),
+		'tabs'       => siw_get_continents( 'array' ),
 	],
-
 ];
 return $data;
