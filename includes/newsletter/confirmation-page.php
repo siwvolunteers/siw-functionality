@@ -40,8 +40,8 @@ class Confirmation_Page {
 		}
 
 		//Haal parameters van request op
-		$hash = Util::get_request_parameter( 'nl_hash' );
-		$data = base64_decode( Util::get_request_parameter( 'nl_data' ) );
+		$hash = urldecode( Util::get_request_parameter( 'nl_hash' ) );
+		$data = urldecode( base64_decode( Util::get_request_parameter( 'nl_data' ) ) );
 
 		if ( ! Hash::data_is_valid( $data, $hash ) ) {
 			$this->message = __( 'Helaas is er iets misgegaan met de aanmelding.', 'siw' );

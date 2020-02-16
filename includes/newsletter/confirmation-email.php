@@ -120,8 +120,8 @@ class Confirmation_Email {
 		return add_query_arg(
 			[
 				'nl_confirmation' => true,
-				'nl_data'         => base64_encode( $json_data ),
-				'nl_hash'         => Hash::generate_hash( $json_data ),
+				'nl_data'         => urlencode( base64_encode( $json_data ) ),
+				'nl_hash'         => urlencode( Hash::generate_hash( $json_data ) ),
 			],
 			SIW_SITE_URL
 		);
