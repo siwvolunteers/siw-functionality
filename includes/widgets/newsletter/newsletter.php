@@ -69,6 +69,8 @@ class Newsletter extends Widget {
 
 		];
 
+		$newsletter_list = siw_get_option( 'newsletter_list' );
+
 		ob_start();
 		?>
 		<div data-siw-newsletter-selectors="<?php echo esc_attr( json_encode( $selectors ) );?>">
@@ -76,7 +78,7 @@ class Newsletter extends Widget {
 			<div class="text-center message hidden"></div>
 			<form method="post" autocomplete="on" id="newsletter_form">
 				<p>
-				<?= sprintf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), siw_newsletter_get_subscriber_count( $instance['list'] ) );?>
+				<?= sprintf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), siw_newsletter_get_subscriber_count( $newsletter_list ) );?>
 				</p>
 				<?php
 				echo HTML::generate_field( 'text', [ 'label' => __( 'Voornaam', 'siw' ), 'id' => 'newsletter_name', 'name' => 'name', 'required' => true ], [ 'tag' => 'p' ] );
