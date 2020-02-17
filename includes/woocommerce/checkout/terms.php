@@ -13,6 +13,13 @@ use SIW\Formatting;
 class Terms{
 
 	/**
+	 * Link naar modal
+	 *
+	 * @var string
+	 */
+	protected $modal_link;
+
+	/**
 	 * Init
 	 */
 	public static function init() {

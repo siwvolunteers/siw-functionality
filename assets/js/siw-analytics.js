@@ -45,7 +45,6 @@ var siwGoogleAnalytics = (function () {
 		var category = dataset.gaCategory || '';
 		var action = dataset.gaAction || '';
 		var label = dataset.gaLabel || '';
-		console.log(event);
 		ga( 'send', type, category, action, label);
 		
 	}

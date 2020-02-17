@@ -1,4 +1,4 @@
-/** global: MicroModal */
+/** global: MicroModal, siw_modal */
 
 /**
  * @file      Functies t.b.v. modals

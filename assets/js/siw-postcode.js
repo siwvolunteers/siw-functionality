@@ -1,4 +1,4 @@
-/** global: siw_postcode */
+/** global: siw_postcode, siw_checkout_postcode_selectors */
 
 /**
  * @file      Function t.b.v. postcode lookup

@@ -16,12 +16,33 @@ use SIW\Newsletter\Hash;
 class Confirmation_Email {
 
 	/**
+	 * E-mailadres
+	 *
+	 * @var string
+	 */
+	protected $email;
+
+	/**
+	 * ID van maillijst
+	 *
+	 * @var int
+	 */
+	protected $list_id;
+
+	/**
+	 * Properties voor Mailjet
+	 *
+	 * @var array
+	 */
+	protected $properties;
+
+	/**
 	 * E-mail instellingen
 	 *
 	 * @var array
 	 */
 	protected $email_settings;
-
+	
 	/**
 	 * Init
 	 *

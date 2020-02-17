@@ -92,7 +92,6 @@ class Stockphoto_Page {
 							'id'          => 'continent',
 							'type'        => 'select_advanced',
 							'name'        => __( 'Continent', 'siw' ),
-							'required'    => true,
 							'placeholder' => __( 'Selecteer een continent', 'siw '),
 							'options'     => \siw_get_continents( 'array' ),
 						],

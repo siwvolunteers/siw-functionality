@@ -33,6 +33,7 @@ var siwSvg = (function () {
 		//Haal svg via ajax op
 		var ajax = new XMLHttpRequest();
 		ajax.open("GET", url, true);
+		ajax.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		ajax.send();
 
 		// Zet SVG inline

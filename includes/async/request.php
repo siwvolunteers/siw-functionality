@@ -30,7 +30,7 @@ abstract class Request extends \WP_Async_Request {
 	 */
 	protected function handle() {
 		//Haal data op
-		$this->args = $this->get_data();
+		$this->get_data();
 
 		//Afbreken als data niet compleet is
 		if ( ! $this->is_data_complete() ) {
@@ -45,14 +45,14 @@ abstract class Request extends \WP_Async_Request {
 	 * @return array
 	 */
 	protected function get_data() {
-		$args = [];
+		$data = [];
 		foreach ( $this->variables as $variable => $settings ) {
-			$args[ $variable ] = [
+			$data[ $variable ] = [
 				'filter' => $this->get_filter( $settings['type'] ),
 				'flags'  => $settings['array'] ? FILTER_REQUIRE_ARRAY : FILTER_REQUIRE_SCALAR,
 			];
 		}
-		return filter_input_array( INPUT_POST, $args );
+		$this->data = filter_input_array( INPUT_POST, $data );
 	}
 
 	/**
@@ -62,7 +62,7 @@ abstract class Request extends \WP_Async_Request {
 	 */
 	protected function is_data_complete() {
 		foreach ( $this->variables as $variable => $settings ) {
-			if ( isset( $settings['required'] ) && $settings['required'] && empty( $this->args[ $variable ] ) ) {
+			if ( isset( $settings['required'] ) && $settings['required'] && empty( $this->data[ $variable ] ) ) {
 				return false;
 			}
 		}

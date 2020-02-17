@@ -74,7 +74,7 @@ abstract class SIW_Content_Type {
 	/**
 	 * Instantie van Taxonomy Filter
 	 *
-	 * @var SIW_Element_Taxonomy_Filter
+	 * @var Taxonomy_Filter
 	 */
 	protected $taxonomy_filter;
 

@@ -69,7 +69,6 @@ class Process_Stockphoto_Upload extends Request {
 	 * {@inheritDoc}
 	 */
 	protected function process() {
-		$this->data = $this->get_data();
 
 		$attachment = new Attachment( 'image', $this->subdir );
 		$attachment_id = $attachment->add( $this->data['file'], $this->filename_base, $this->title );

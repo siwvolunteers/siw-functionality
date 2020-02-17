@@ -76,7 +76,7 @@ class Postcode_Lookup extends Endpoint {
 	 * @return bool
 	 */
 	public function validate_postcode( string $param, \WP_REST_Request $request, string $key ) {
-		return (bool) preg_match( Util::get_regex('postcode'), $param );
+		return (bool) preg_match( Util::get_regex('postal_code'), $param );
 	}
 
 	/**

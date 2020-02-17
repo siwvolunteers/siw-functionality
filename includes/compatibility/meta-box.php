@@ -31,10 +31,9 @@ class Meta_Box {
 	/**
 	 * Selecteert de gebruikte extensies
 	 *
-	 * @param array $extensions
 	 * @return array
 	 */
-	public function select_extensions( array $extensions ) {
+	public function select_extensions() {
 		$extensions = [
 			'mb-admin-columns',
 			'mb-settings-page',
