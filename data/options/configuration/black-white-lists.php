@@ -26,8 +26,6 @@ $data = [
 			'id'          => 'ip_whitelist',
 			'type'        => 'text',
 			'clone'       => true,
-			'pattern'     => Util::get_pattern('ip'),
-			'placeholder' => '192.168.0.1',
 			'add_button'  => __( 'IP toevoegen', 'siw' ),
 		],
 		[
