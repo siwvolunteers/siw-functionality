@@ -318,6 +318,13 @@ class Product {
 						printf('<h4>%s</h4><p>%s<p>', esc_html( $title ), wp_kses_post( $description[ $topic]) );
 					}
 				}
+				//Legacy code kan uiteindelijk weg
+				$content = $product_object->get_description();
+				$content = preg_replace( '/\[pane title="(.*?)"\]/', '<h4>$1</h4><p>', $content );
+				$content = preg_replace( '/\[\/pane\]/', '</p><hr>', $content );
+				$content = preg_replace( '/\[(.*?)\]/', '', $content );
+				echo wp_kses_post( $content );
+
 			?>
 			</div>
 		</div>
