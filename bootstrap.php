@@ -54,7 +54,7 @@ class Bootstrap {
 	 * Definieer constantes
 	 */
 	protected function define_constants() {
-		$plugin_info = get_plugin_data( PLUGINDIR . '/siw-functionality/siw-functionality.php' );
+		$plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/siw-functionality/siw-functionality.php' );
 
 		define ( 'SIW_PLUGIN_VERSION', $plugin_info['Version'] ); 
 		define ( 'SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
