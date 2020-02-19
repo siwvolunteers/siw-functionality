@@ -52,11 +52,11 @@ class Bootstrap {
 
 	/**
 	 * Definieer constantes
-	 * 
-	 * @todo get_plugin_data gebruiken om versienummer te bepalen
 	 */
 	protected function define_constants() {
-		define ( 'SIW_PLUGIN_VERSION', '3.0.0-RC1' );
+		$plugin_info = get_plugin_data( PLUGINDIR . '/siw-functionality/siw-functionality.php' );
+
+		define ( 'SIW_PLUGIN_VERSION', $plugin_info['Version'] ); 
 		define ( 'SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets' );
 		define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates' );
@@ -122,7 +122,7 @@ class Bootstrap {
 				'Update',
 				'Upload_Subdir',
 				'Widgets',
-				'Newsletter\Confirmation_Page', //TODO: eigen init??
+				'Newsletter\Confirmation_Page',
 			]
 		);
 	}

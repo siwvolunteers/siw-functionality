@@ -1,6 +1,6 @@
 {
 	"name": "siw-functionality",
-	"version": "3.0.0-RC1",
+	"version": "3.0.0",
 	"license": "GPL-2.0-or-later",
 	"description": "Extra functionaliteit voor website SIW",
 	"repository": "https://github.com/siwvolunteers/siw-functionality",
