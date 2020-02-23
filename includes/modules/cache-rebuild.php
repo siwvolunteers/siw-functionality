@@ -58,6 +58,8 @@ class Cache_Rebuild {
 	 */
 	public function rebuild_cache() {
 		rocket_clean_domain();
+		rocket_clean_minify();
+		rocket_clean_cache_busting();
 		run_rocket_sitemap_preload();
 	}
 
