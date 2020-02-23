@@ -26,9 +26,6 @@
 				fill: var(--hover-color);
 			}
 		}
-		.siw-icon-background{
-			font-size:1.2em;
-		}
 	}
 }
 
@@ -199,13 +196,20 @@
 }
 
 
-//features
-
+//Features
 .so-widget-siw_features_widget {
 	text-align:center;
 	.cell{
 		margin-top: 5px;
 		margin-bottom: 5px;
 		padding: 10px 20px;
+	}
+}
+
+//Infobox
+.so-widget-siw_infobox_widget {
+	.icon {
+		text-align:center;
+		padding: 10px;
 	}
 }

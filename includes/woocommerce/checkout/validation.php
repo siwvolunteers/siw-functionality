@@ -26,35 +26,27 @@ class Validation{
 	 * 
 	 * - Postcode
 	 * - Datum
-	 * 
-	 * @todo script van maken met jquery validation als dependency + wp_localize_script voor patterns + conditie op is_checkout
 	 */
 	public function add_validation_script() {
-		$inline_script = "$.validator.setDefaults({
-			errorPlacement: function( error, element ) {
-				error.appendTo( element.parents( 'p' ) );
-			}
-		});";
 
-		$validator = "$.validator.addMethod( '%s', function( value, element ) {
-			return this.optional( element ) || %s.test( value );
-		}, '%s' );";
-		
-		/* Datumvalidatie */
-		$inline_script .= sprintf(
-			$validator,
-			'dateNL',
-			Util::get_regex( 'date' ),
-			esc_html__( 'Dit is geen geldige datum.', 'siw' )
-		);
-		/* Postcodevalidatie*/
-		$inline_script .= sprintf(
-			$validator,
-			'postalcodeNL',
-			Util::get_regex( 'postal_code' ),
-			esc_html__( 'Dit is geen geldige postcode.', 'siw' )
-		);
-		wp_add_inline_script( 'jquery-validate', "(function( $ ) {" . $inline_script . "})( jQuery );" );
+		wp_register_script( 'siw-checkout-validation', SIW_ASSETS_URL . 'js/siw-checkout-validation.js', ['jquery-validate'], SIW_PLUGIN_VERSION, true );
+		$validation = [
+			[
+				'class'   => 'dateNL',
+				'regex'   => Util::get_pattern( 'date' ),
+				'message' => esc_html__( 'Dit is geen geldige datum.', 'siw' ),
+			],
+			[
+				'class'   => 'postalcodeNL',
+				'regex'   => Util::get_pattern( 'postal_code' ),
+				'message' => esc_html__( 'Dit is geen geldige postcode.', 'siw' ),
+			],
+		];
+
+		wp_localize_script( 'siw-checkout-validation', 'siw_checkout_validation', $validation );
+		if ( is_checkout() ) {
+			wp_enqueue_script( 'siw-checkout-validation' );
+		}
 	}
 
 	/**

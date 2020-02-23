@@ -75,17 +75,18 @@ class Form{
 	 */
 	public function add_postcode_script() {
 
+		wp_register_script( 'siw-checkout-postcode-lookup', SIW_ASSETS_URL . 'js/siw-checkout-postcode-lookup.js', ['siw-api-postcode'], SIW_PLUGIN_VERSION, true );
+
+		$postcode_selectors = [
+			'postcode'    => "billing_postcode",
+			'housenumber' => "billing_housenumber",
+			'street'      => "billing_address_1",
+			'city'        => "billing_city",
+		];
+		wp_localize_script( 'siw-checkout-postcode-lookup', 'siw_checkout_postcode_selectors', $postcode_selectors );
+
 		if ( is_checkout() ) {
-			wp_localize_script(
-				'siw-postcode',
-				'siw_checkout_postcode_selectors',
-				[
-					'postcode'    => "#billing_postcode",
-					'housenumber' => "#billing_housenumber",
-					'street'      => "#billing_address_1",
-					'city'        => "#billing_city",
-				]
-			);
+			wp_enqueue_script( 'siw-checkout-postcode-lookup' );
 		}
 	}
 

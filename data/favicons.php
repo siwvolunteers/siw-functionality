@@ -18,9 +18,9 @@ $data = [
 	[
 		'tag'        => 'link',
 		'attributes' => [
-				'rel'   => 'apple-touch-icon',
-				'sizes' => '180x180',
-				'href'  => "{$base_url}apple-touch-icon.png",
+			'rel'   => 'apple-touch-icon',
+			'sizes' => '180x180',
+			'href'  => "{$base_url}apple-touch-icon.png",
 		],
 	],
 	[
@@ -50,7 +50,6 @@ $data = [
 			'href'  => "{$base_url}favicon-16x16.png",
 		],
 	],
-
 	[
 		'tag'        => 'link',
 		'attributes' => [
@@ -66,7 +65,6 @@ $data = [
 			'color' => Properties::PRIMARY_COLOR,
 		],
 	],
-
 	[
 		'tag'        => 'link',
 		'attributes' => [

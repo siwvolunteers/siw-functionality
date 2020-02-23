@@ -25,7 +25,6 @@
 }
 .siw-accordion .panel {
   overflow: hidden;
-  -webkit-transition: max-height 0.3s ease;
   transition: max-height 0.3s ease;
 }
 .siw-accordion .panel[aria-hidden=true] {

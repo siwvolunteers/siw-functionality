@@ -41,7 +41,7 @@ class Tablist {
 	 */
 	protected function enqueue_scripts() {
 		wp_register_script( 'a11y-tablist', SIW_ASSETS_URL . 'modules/tablist/tablist.js', [], self::TABLIST_VERSION, true );
-		wp_register_script( 'siw-tablist', SIW_ASSETS_URL . 'js/siw-tablist.js', ['a11y-tablist'], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-tablist', SIW_ASSETS_URL . 'js/elements/siw-tablist.js', ['a11y-tablist'], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-tablist');
 	}
 
@@ -49,7 +49,7 @@ class Tablist {
 	 * Voegt styles toe
 	 */
 	protected function enqueue_styles() {
-		wp_register_style( 'siw-tablist', SIW_ASSETS_URL . 'css/siw-tablist.css', [], SIW_PLUGIN_VERSION );
+		wp_register_style( 'siw-tablist', SIW_ASSETS_URL . 'css/elements/siw-tablist.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-tablist' );
 	}
 

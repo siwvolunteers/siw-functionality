@@ -85,7 +85,7 @@ class Google_Analytics {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'google-analytics', 'https://www.google-analytics.com/analytics.js', [], null, true );
-		wp_register_script( 'siw-analytics', SIW_ASSETS_URL . 'js/siw-analytics.js', [ 'google-analytics' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-analytics', SIW_ASSETS_URL . 'js/modules/siw-analytics.js', [ 'google-analytics' ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script( 'siw-analytics', 'siw_analytics_cart', $this->generate_cart_data() );
 		wp_enqueue_script( 'siw-analytics' );
 		wp_add_inline_script( 'google-analytics', $this->generate_snippet(), 'after' );

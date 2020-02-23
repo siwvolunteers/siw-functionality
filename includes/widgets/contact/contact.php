@@ -91,17 +91,16 @@ class Contact extends Widget {
 						'title'               => $network->get_name(),
 						'target'              => '_blank',
 						'rel'                 => 'noopener external',
-						'data-toggle'         => 'tooltip',
-						'data-placement'      => 'top',
+						'aria-label'          => sprintf( esc_attr__( 'Volg ons op %s', 'siw' ), $network->get_name() ),
+						'data-balloon-pos'    => 'up',
 						'data-original-title' => $network->get_name(),
 						'style'               => '--hover-color: ' . $network->get_color(),
 					],
 					[
 						'class'      => $network->get_icon_class(),
-						'size'       => 1,
+						'size'       => 2,
 						'background' => 'circle'
 					]
-
 				);
 			}
 			?>

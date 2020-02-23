@@ -122,8 +122,8 @@ class HTML {
 			$icon = wp_parse_args(
 				$icon,
 				[
-					'class' => '',
-					'size'  => 1,
+					'class'      => '',
+					'size'       => 2,
 					'background' => 'none',
 				]
 			);

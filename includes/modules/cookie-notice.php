@@ -24,7 +24,7 @@ class Cookie_Notice {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'siw-cookie-notice', SIW_ASSETS_URL . 'js/siw-cookie-notice.js', [ 'js-cookie' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-cookie-notice', SIW_ASSETS_URL . 'js/modules/siw-cookie-notice.js', [ 'js-cookie' ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-cookie-notice' );
 	}
 
@@ -32,7 +32,7 @@ class Cookie_Notice {
 	 * Voegt styles toe
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-cookie-notice', SIW_ASSETS_URL . 'css/siw-cookie-notice.css', [], SIW_PLUGIN_VERSION );
+		wp_register_style( 'siw-cookie-notice', SIW_ASSETS_URL . 'css/modules/siw-cookie-notice.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-cookie-notice' );
 	}
 

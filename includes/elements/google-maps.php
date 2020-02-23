@@ -177,7 +177,7 @@ class Google_Maps {
 			'key'      => $this->api_key,
 		], self::API_URL );
 		wp_enqueue_script( 'google-maps', $google_maps_url, [], null, true );
-		wp_enqueue_script( 'siw-google-maps', SIW_ASSETS_URL . 'js/siw-google-maps.js', [ 'google-maps'], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( 'siw-google-maps', SIW_ASSETS_URL . 'js/elements/siw-google-maps.js', [ 'google-maps'], SIW_PLUGIN_VERSION, true );
 	}
 
 	/**

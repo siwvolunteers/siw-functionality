@@ -67,6 +67,13 @@ abstract class Endpoint {
 	protected $parameters;
 
 	/**
+	 * Parameters voor script
+	 *
+	 * @var array
+	 */
+	protected $script_parameters;
+
+	/**
 	 * Args voor route
 	 *
 	 * @var array
@@ -81,6 +88,7 @@ abstract class Endpoint {
 		$self->set_parameters();
 		$self->set_args();
 		add_action( 'rest_api_init', [ $self, 'register_route' ] );
+		$self->set_script_parameters();
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_script' ] );
 	}
 
@@ -119,6 +127,11 @@ abstract class Endpoint {
 	abstract protected function set_parameters();
 
 	/**
+	 * Zet extra parameters voor script
+	 */
+	protected function set_script_parameters() {}
+
+	/**
 	 * Valideert nonce
 	 *
 	 * @param \WP_REST_Request $request
@@ -133,12 +146,15 @@ abstract class Endpoint {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_script() {
-		wp_register_script( "siw-{$this->script}", SIW_ASSETS_URL . "js/siw-{$this->script}.js", [ 'jquery' ], SIW_PLUGIN_VERSION, true );
-		$parameters = [
-			'api_nonce'     => wp_create_nonce( 'wp_rest' ),
-			'api_url'       => get_rest_url( null, "/{$this->namespace}/{$this->version}/{$this->resource}"),
-		];
-		wp_localize_script( "siw-{$this->script}", "siw_{$this->script}", $parameters );
-		wp_enqueue_script( "siw-{$this->script}" );
+		wp_register_script( "siw-api-{$this->script}", SIW_ASSETS_URL . "js/api/siw-{$this->script}.js", [], SIW_PLUGIN_VERSION, true );
+		$script_parameters = wp_parse_args(
+			$this->script_parameters,
+			[
+				'nonce'     => wp_create_nonce( 'wp_rest' ),
+				'url'       => get_rest_url( null, "/{$this->namespace}/{$this->version}/{$this->resource}"),
+			]
+		);
+		wp_localize_script( "siw-api-{$this->script}", "siw_api_{$this->script}", $script_parameters );
+		wp_enqueue_script( "siw-api-{$this->script}" );
 	}
 }

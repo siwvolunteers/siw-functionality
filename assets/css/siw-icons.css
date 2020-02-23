@@ -17,10 +17,14 @@
   left: 0.5em;
   top: 0.5em;
   fill: #fff;
+  width: 1em;
+  height: 1em;
 }
 .siw-icon-background .siw-background-icon {
   position: absolute;
   left: 0;
+  width: 2em;
+  height: 2em;
   -webkit-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
 }
@@ -29,37 +33,91 @@
 }
 
 .siw-icon-1x {
+  width: 0.5em;
+  height: 0.5em;
+}
+
+.siw-icon-background-1x {
+  font-size: 0.5em;
+}
+
+.siw-icon-2x {
   width: 1em;
   height: 1em;
 }
 
-.siw-icon-background-1x {
+.siw-icon-background-2x {
   font-size: 1em;
 }
 
-.siw-icon-2x {
+.siw-icon-3x {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.siw-icon-background-3x {
+  font-size: 1.5em;
+}
+
+.siw-icon-4x {
   width: 2em;
   height: 2em;
 }
 
-.siw-icon-background-2x {
+.siw-icon-background-4x {
   font-size: 2em;
 }
 
-.siw-icon-3x {
+.siw-icon-5x {
+  width: 2.5em;
+  height: 2.5em;
+}
+
+.siw-icon-background-5x {
+  font-size: 2.5em;
+}
+
+.siw-icon-6x {
   width: 3em;
   height: 3em;
 }
 
-.siw-icon-background-3x {
+.siw-icon-background-6x {
   font-size: 3em;
 }
 
-.siw-icon-4x {
+.siw-icon-7x {
+  width: 3.5em;
+  height: 3.5em;
+}
+
+.siw-icon-background-7x {
+  font-size: 3.5em;
+}
+
+.siw-icon-8x {
   width: 4em;
   height: 4em;
 }
 
-.siw-icon-background-4x {
+.siw-icon-background-8x {
   font-size: 4em;
+}
+
+.siw-icon-9x {
+  width: 4.5em;
+  height: 4.5em;
+}
+
+.siw-icon-background-9x {
+  font-size: 4.5em;
+}
+
+.siw-icon-10x {
+  width: 5em;
+  height: 5em;
+}
+
+.siw-icon-background-10x {
+  font-size: 5em;
 }

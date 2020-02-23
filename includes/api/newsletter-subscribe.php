@@ -166,4 +166,3 @@ class Newsletter_Subscribe extends Endpoint {
 		return in_array( $domain, $blocked_domains );
 	}
 }
-

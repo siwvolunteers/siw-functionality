@@ -21,6 +21,11 @@ class Assets {
 	const SMOOTHSCROLL_VERSION = '1.4.10';
 
 	/**
+	 * Versie van Balloon.css
+	 */
+	const BALLOON_VERSION = '1.0.4';
+
+	/**
 	 * Init
 	 */
 	public static function init() {
@@ -33,8 +38,11 @@ class Assets {
 	 * Registreert styles
 	 */
 	public function register_styles() {
-		wp_register_style( 'siw', SIW_ASSETS_URL . 'css/siw.css', null, SIW_PLUGIN_VERSION );
+		wp_register_style( 'siw', SIW_ASSETS_URL . 'css/siw.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw' );
+
+		wp_register_style( 'balloon', SIW_ASSETS_URL . 'modules/balloon/balloon.css', [], self::BALLOON_VERSION );
+		wp_enqueue_style( 'balloon' );
 	}
 
 	/**
@@ -46,7 +54,7 @@ class Assets {
 		//JS-cookie niet zelf enqueuen; is dependency van andere scripts
 		wp_register_script( 'js-cookie', SIW_ASSETS_URL . 'modules/js-cookie/js.cookie.js', [], self::JSCOOKIE_VERSION, true );
 
-		//SIW-svg script niet zelf enqueuen, wordt gebruikt door andere classes TODO: misschien toch altijd enqueuen?
+		//SIW-svg script niet zelf enqueuen, wordt gebruikt door andere classes
 		wp_register_script( 'siw-svg', SIW_ASSETS_URL . 'js/siw-svg.js', [], SIW_PLUGIN_VERSION, true );
 
 		wp_register_script( 'smoothscroll', SIW_ASSETS_URL . 'modules/smoothscroll/smoothscroll.js', [], self::SMOOTHSCROLL_VERSION, true );

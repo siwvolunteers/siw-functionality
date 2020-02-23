@@ -28,7 +28,7 @@ class Taxonomy_Filter {
 	 * @todo na switch theme script aanpassen
 	 */
 	public function enqueue_script(){
-		wp_register_script( 'siw-taxonomy-filter', SIW_ASSETS_URL . 'js/siw-taxonomy-filter.js', [], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-taxonomy-filter', SIW_ASSETS_URL . 'js/elements/siw-taxonomy-filter.js', [], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-taxonomy-filter' );
 	}
 

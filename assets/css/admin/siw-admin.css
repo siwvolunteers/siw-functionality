@@ -33,7 +33,7 @@ table.wp-list-table .column-exported .dashicons-minus {
 #woocommerce-product-data ul.wc-tabs li.description_options a::before {
   content: "";
 }
-#woocommerce-product-data ul.wc-tabs li.import_options a::before {
+#woocommerce-product-data ul.wc-tabs li.plato_options a::before {
   content: "";
 }
 #woocommerce-product-data ul.wc-tabs li.approval_options a::before {

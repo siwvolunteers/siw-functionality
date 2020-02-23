@@ -34,11 +34,12 @@ var siwSvg = (function () {
 		var ajax = new XMLHttpRequest();
 		ajax.open("GET", url, true);
 		ajax.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		ajax.responseType = 'text';
 		ajax.send();
 
 		// Zet SVG inline
 		ajax.onload = function(e) {
-			target.innerHTML = ajax.responseText;
+			target.innerHTML = ajax.response;
 		}
 	}
 

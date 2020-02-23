@@ -80,7 +80,7 @@ abstract class Chart {
 	 */
 	protected function enqueue_scripts() {
 		wp_register_script( 'apex-charts', SIW_ASSETS_URL . 'modules/apexcharts/apexcharts.js', [], self::APEX_CHARTS_VERSION, true );
-		wp_register_script( 'siw-charts', SIW_ASSETS_URL . 'js/siw-charts.js', [ 'apex-charts' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-charts', SIW_ASSETS_URL . 'js/elements/siw-charts.js', [ 'apex-charts' ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-charts' );
 	}
 

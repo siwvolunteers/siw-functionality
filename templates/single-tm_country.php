@@ -46,7 +46,7 @@ $continent = $country->get_continent();
 									$has_child_projects = true; //TODO: misschien array_key_exists gebruiken?
 								}
 
-								printf( '%s %s<br>', Formatting::generate_icon( $work_type->get_icon_class(), 1, 'circle' ), $work_type->get_name() );
+								printf( '%s %s<br>', Formatting::generate_icon( $work_type->get_icon_class(), 2, 'circle' ), $work_type->get_name() );
 							}
 							?>
 						</p>
@@ -56,7 +56,7 @@ $continent = $country->get_continent();
 					<div class="col-md-12" data-sal="fade" data-sal-duration="1850" data-sal-easing="ease-out-sine">
 						<div class="siw-quote">
 							<?php
-							echo Formatting::generate_icon( 'siw-icon-quote-left', 1 ) . SPACE;
+							echo Formatting::generate_icon( 'siw-icon-quote-left', 2 ) . SPACE;
 							echo esc_html( rwmb_get_value( 'quote' ));
 							?>
 						</div>
@@ -93,22 +93,22 @@ $continent = $country->get_continent();
 						<h3><?php esc_html_e( 'Zo werkt het', 'siw' );?></h3>
 					</div>
 					<div class="col-md-3" style="text-align:center;">
-						<?php echo Formatting::generate_icon('siw-icon-file-signature', 2, 'circle' );?><br>
+						<?php echo Formatting::generate_icon('siw-icon-file-signature', 4, 'circle' );?><br>
 						<h5><?php esc_html_e( '1. Aanmelding', 'siw' ); ?></h5>
 						<p><?php esc_html_e( 'Ben je geïnteresseerd in een Project Op Maat? Meld je dan direct aan via de website.', 'siw' );?></p>
 					</div>
 					<div class="col-md-3" style="text-align:center;">
-						<?php echo Formatting::generate_icon('siw-icon-handshake', 2, 'circle' );?><br>
+						<?php echo Formatting::generate_icon('siw-icon-handshake', 4, 'circle' );?><br>
 						<h5><?php esc_html_e( '2. Kennismaking', 'siw' ); ?></h5>
 						<p><?php esc_html_e( 'Na het kennismakingsgesprek stelt de regiospecialist een selectie van drie Projecten Op Maat voor je samen.', 'siw' );?></p>
 					</div>
 					<div class="col-md-3" style="text-align:center;">
-						<?php echo Formatting::generate_icon('siw-icon-clipboard-check', 2, 'circle' );?><br>
+						<?php echo Formatting::generate_icon('siw-icon-clipboard-check', 4, 'circle' );?><br>
 						<h5><?php esc_html_e( '3. Bevestiging', 'siw' ); ?></h5>
 						<p><?php esc_html_e( 'Als je een passend Project Op Maat hebt gekozen, volgt de betaling. Vervolgens gaat de regiospecialist voor je aan de slag.', 'siw' );?></p>
 					</div>
 					<div class="col-md-3" style="text-align:center;">
-						<?php echo Formatting::generate_icon('siw-icon-tasks', 2, 'circle' );?><br>
+						<?php echo Formatting::generate_icon('siw-icon-tasks', 4, 'circle' );?><br>
 						<h5><?php esc_html_e( '4. Voorbereiding', 'siw' ); ?></h5>
 						<p><?php esc_html_e( 'Kom naar de Infodag zodat je goed voorbereid aan jouw avontuur kan beginnen.', 'siw' );?></p>
 					</div>

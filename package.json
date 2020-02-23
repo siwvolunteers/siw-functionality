@@ -26,7 +26,8 @@
 		"js-cookie": "^2.2.1",
 		"micromodal": "*",
 		"sal.js": "^0.7.2",
-		"smoothscroll-for-websites": "^1.4.10"
+		"smoothscroll-for-websites": "^1.4.10",
+		"balloon-css": "*"
 	},
 	"devDependencies": {
 		"vendor-copy": "2.*",
@@ -36,6 +37,10 @@
 		"autoprefixer": "*"
 	},
 	"vendorCopy": [
+		{
+			"from": "node_modules/balloon-css/balloon.css",
+			"to": "assets/modules/balloon/balloon.css"
+		},
 		{
 			"from": "node_modules/apexcharts/dist/apexcharts.js",
 			"to": "assets/modules/apexcharts/apexcharts.js"

@@ -384,9 +384,6 @@ h5.job-title {
 #containerfooter .widget_siw_contact_widget .siw-social-links a:hover .siw-background-icon {
   fill: var(--hover-color);
 }
-#containerfooter .widget_siw_contact_widget .siw-social-links a .siw-icon-background {
-  font-size: 1.2em;
-}
 
 /* Snel zoeken widget */
 .so-widget-siw_quick_search_form_widget {
@@ -578,6 +575,11 @@ h5.job-title {
   margin-top: 5px;
   margin-bottom: 5px;
   padding: 10px 20px;
+}
+
+.so-widget-siw_infobox_widget .icon {
+  text-align: center;
+  padding: 10px;
 }
 
 .kad-primary-nav ul.sf-menu .menu-en a:hover, .kad-primary-nav ul.sf-menu .menu-en a:active, .kad-primary-nav ul.sf-menu .menu-en a:focus, .kad-primary-nav ul.sf-menu .menu-nl a:hover, .kad-primary-nav ul.sf-menu .menu-nl a:active, .kad-primary-nav ul.sf-menu .menu-nl a:focus {

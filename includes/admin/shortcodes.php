@@ -113,7 +113,7 @@ class Shortcodes {
 	 * @return array
 	 */
 	public function add_tinymce_plugin( array $plugins ) {
-		$plugins['siw_shortcodes'] = SIW_ASSETS_URL . 'js/siw-admin-shortcodes.js';
+		$plugins['siw_shortcodes'] = SIW_ASSETS_URL . 'js/admin/siw-shortcodes.js';
 		return $plugins;
 	}
 

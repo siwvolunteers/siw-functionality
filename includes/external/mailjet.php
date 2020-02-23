@@ -2,8 +2,6 @@
 
 namespace SIW\External;
 
-use PhpParser\Builder\FunctionTest;
-
 /**
  * Interface met Mailjet
  *

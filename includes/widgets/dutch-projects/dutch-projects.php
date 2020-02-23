@@ -61,7 +61,7 @@ class Dutch_Projects extends Widget {
 		$tabs_panes = [];
 		foreach ( $projects as $project ) {
 			$work_type = siw_get_work_type( $project['work_type'] ); 
-			$icon = Formatting::generate_icon( $work_type ? $work_type->get_icon_class() : '', 2, 'circle' );
+			$icon = Formatting::generate_icon( $work_type ? $work_type->get_icon_class() : '', 4, 'circle' );
 			$summary = wpautop( sprintf( __( 'Thema: %s', 'siw' ), $work_type ? $work_type->get_name() : '' ) );
 			$summary .= wpautop( sprintf( __( 'Projectcode: %s', 'siw' ), $project['code'] ) );
 

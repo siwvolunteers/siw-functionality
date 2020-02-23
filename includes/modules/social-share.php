@@ -32,7 +32,7 @@ class Social_Share {
 	 * @return void
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-social-share', SIW_ASSETS_URL . 'css/siw-social-share.css', [], SIW_PLUGIN_VERSION );
+		wp_register_style( 'siw-social-share', SIW_ASSETS_URL . 'css/modules/siw-social-share.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-social-share' );
 	}
 
@@ -56,9 +56,8 @@ class Social_Share {
 						'&shy;',
 						[
 							'class'               => $network->get_slug(),
-							'data-toggle'         => 'tooltip',
-							'data-placement'      => 'bottom',
-							'data-original-title' => $network->get_name(),
+							'aria-label'          => sprintf( esc_attr__( 'Delen via %s', 'siw' ), $network->get_name() ),
+							'data-balloon-pos'    => 'down',
 							'style'               => '--hover-color: ' . $network->get_color(),
 							'target'              => '_blank',
 							'data-ga-track'       => 1,

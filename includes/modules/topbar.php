@@ -93,7 +93,7 @@ class Topbar {
 	 * Voegt stylesheet toe
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-topbar', SIW_ASSETS_URL . 'css/siw-topbar.css', [], SIW_PLUGIN_VERSION );
+		wp_register_style( 'siw-topbar', SIW_ASSETS_URL . 'css/modules/siw-topbar.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-topbar' );
 	}
 

@@ -1,4 +1,4 @@
-@import "partials/_variables.scss";
+@import "../partials/_variables.scss";
 	
 .siw-logo div {
 	width: 195px !important;
@@ -47,7 +47,7 @@ table.wp-list-table {
 		content: "\f123";
 	}
 	
-	li.import_options a::before {
+	li.plato_options a::before {
 		content: "\f463";
 	}
 	

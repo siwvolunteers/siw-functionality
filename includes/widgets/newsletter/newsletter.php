@@ -59,26 +59,18 @@ class Newsletter extends Widget {
 	 * {@inheritDoc}
 	 */
 	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
+		$subscriber_count = siw_newsletter_get_subscriber_count( siw_get_option( 'newsletter_list' ) );
 
-		$selectors = [
-			'form'    => "#{$args['widget_id']} form",
-			'name'    => "#{$args['widget_id']} #newsletter_name",
-			'email'   => "#{$args['widget_id']} #newsletter_email",
-			'loading' => "#{$args['widget_id']} .loading",
-			'message' => "#{$args['widget_id']} .message",
-
-		];
-
-		$newsletter_list = siw_get_option( 'newsletter_list' );
+		$form_id = uniqid( 'newsletter_form_' );
+		$message_id = uniqid('newsletter_message_');
 
 		ob_start();
 		?>
-		<div data-siw-newsletter-selectors="<?php echo esc_attr( json_encode( $selectors ) );?>">
-			<div class="text-center loading hidden"></div>
-			<div class="text-center message hidden"></div>
-			<form method="post" autocomplete="on" id="newsletter_form">
+		<div class="newsletter_widget">
+			<div id="<?php echo $message_id;?>" class="newsletter_message"></div>
+			<form method="post" autocomplete="on" class="newsletter_form" id="<?php echo $form_id;?>" data-message-id="<?php echo $message_id;?>">
 				<p>
-				<?= sprintf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), siw_newsletter_get_subscriber_count( $newsletter_list ) );?>
+				<?= sprintf( esc_html__( 'Meld je aan voor onze nieuwsbrief en voeg je bij de %d abonnees.', 'siw' ), $subscriber_count );?>
 				</p>
 				<?php
 				echo HTML::generate_field( 'text', [ 'label' => __( 'Voornaam', 'siw' ), 'id' => 'newsletter_name', 'name' => 'name', 'required' => true ], [ 'tag' => 'p' ] );

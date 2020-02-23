@@ -54,7 +54,7 @@ class Modal {
 	 * Voegt styles toe
 	 */
 	protected function enqueue_styles() {
-		wp_register_style( 'siw-modal', SIW_ASSETS_URL . 'css/siw-modal.css', [], SIW_PLUGIN_VERSION );
+		wp_register_style( 'siw-modal', SIW_ASSETS_URL . 'css/elements/siw-modal.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-modal' );
 	}
 
@@ -63,7 +63,7 @@ class Modal {
 	 */
 	protected function enqueue_scripts() {
 		wp_register_script( 'micromodal', SIW_ASSETS_URL . 'modules/micromodal/micromodal.js', [], self::MICROMODAL_VERSION, true );
-		wp_register_script( 'siw-modal', SIW_ASSETS_URL . 'js/siw-modal.js', [ 'micromodal' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-modal', SIW_ASSETS_URL . 'js/elements/siw-modal.js', [ 'micromodal' ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			'siw-modal',
 			'siw_modal',

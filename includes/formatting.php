@@ -82,7 +82,7 @@ class Formatting {
 	 * 
 	 * @return string
 	 */
-	public static function generate_icon( string $icon_class, int $size = 1, string $background = 'none' ) {
+	public static function generate_icon( string $icon_class, int $size = 2, string $background = 'none' ) {
 
 		switch ( $background ) {
 			case 'circle':
@@ -98,7 +98,7 @@ class Formatting {
 			$background_icon = HTML::generate_tag(
 				'svg',
 				[
-					'class' => 'siw-background-icon siw-icon-2x',
+					'class' => 'siw-background-icon',
 				],
 				sprintf( '<use xlink:href="#%s" />', $background_class ),
 				true
@@ -107,7 +107,7 @@ class Formatting {
 			$icon = HTML::generate_tag(
 				'svg',
 				[
-					'class' => 'siw-icon-inverse siw-icon-1x',
+					'class' => 'siw-icon-inverse',
 				],
 				sprintf( '<use xlink:href="#%s" />', $icon_class ),
 				true

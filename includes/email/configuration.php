@@ -25,6 +25,7 @@ class Configuration {
 		add_action( 'phpmailer_init', [ $self, 'set_smtp_configuration' ], PHP_INT_MAX );
 		add_action( 'phpmailer_init', [ $self, 'set_dkim_configuration' ], PHP_INT_MAX );
 		add_action( 'phpmailer_init', [ $self, 'set_mailjet_tracking' ], PHP_INT_MAX );
+		add_action( 'phpmailer_init', [ $self, 'set_antispam_header' ], PHP_INT_MAX );
 		add_filter( 'wp_mail_from', [ $self, 'set_mail_from' ] );
 		add_filter( 'wp_mail_from_name', [ $self, 'set_mail_from_name' ] );
 	}
@@ -70,11 +71,22 @@ class Configuration {
 	 *
 	 * @param \PHPMailer $phpmailer
 	 * 
-	 * @todo opties
+	 * @todo optie voor maken
 	 */
 	public function set_mailjet_tracking( \PHPMailer $phpmailer ) {
 		$phpmailer->addCustomHeader( 'X-Mailjet-TrackOpen', 0 );
 		$phpmailer->addCustomHeader( 'X-Mailjet-TrackClick', 0 );
+	}
+	
+	/**
+	 * Zet header t.b.v. spamfilter Office-365
+	 *
+	 * @param \PHPMailer $phpmailer
+	 *
+	 * @todo optie voor waarde maken
+	 */
+	public function set_antispam_header( \PHPMailer $phpmailer ) {
+		$phpmailer->addCustomHeader( 'X-SIW-WebsiteMail', 1 );
 	}
 
 	/**

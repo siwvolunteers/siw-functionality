@@ -211,7 +211,7 @@ abstract class Interactive_Map {
 		wp_localize_script( 'mapplic', 'mapplic_localization', $mapplic_localization );
 		wp_enqueue_script( 'mapplic' );
 
-		wp_register_script( 'siw-interactive-maps', SIW_ASSETS_URL . 'js/siw-interactive-maps.js', [ 'mapplic', 'jquery' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-interactive-maps', SIW_ASSETS_URL . 'js/elements/siw-interactive-maps.js', [ 'mapplic', 'jquery' ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-interactive-maps' );
 	}
 

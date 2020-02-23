@@ -44,6 +44,13 @@ class Postcode_Lookup extends Endpoint {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	protected function set_script_parameters() {
+		$this->script_parameters['regex'] = Util::get_pattern('postal_code');
+	}
+
+	/**
 	 * Formatteert postcode
 	 *
 	 * @param string $param

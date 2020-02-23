@@ -176,12 +176,9 @@ class Caldera_Forms{
 	public function maybe_add_postcode_lookup( array $attributes, array $form ) {
 		if ( isset( $form['postcode_lookup'] ) && $form['postcode_lookup'] ) {
 			$attributes['data-siw-postcode-lookup'] = true;
-			$attributes['data-siw-postcode-selectors'] = json_encode([
-				'postcode'    => "form#{$attributes['id']} input[name='postcode']",
-				'housenumber' => "form#{$attributes['id']} input[name='huisnummer']",
-				'street'      => "form#{$attributes['id']} input[name='straat']",
-				'city'        => "form#{$attributes['id']} input[name='woonplaats']",
-			]);
+			wp_register_script( 'siw-cf-postcode-lookup', SIW_ASSETS_URL . 'js/siw-cf-postcode-lookup.js', ['siw-api-postcode', 'jquery'], SIW_PLUGIN_VERSION, true );
+			wp_enqueue_script( 'siw-cf-postcode-lookup' );
+
 		}
 		return $attributes;
 	}
