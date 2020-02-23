@@ -41,9 +41,11 @@ class Product_Image {
 	 *
 	 * @param array $identifier
 	 * @param string $filename_base
+	 * @param string $project_id
+	 * 
 	 * @return int|null
 	 */
-	public function get_project_image( array $identifiers, string $filename_base ) {
+	public function get_project_image( array $identifiers, string $filename_base, string $project_id ) {
 
 		// Kijk of er al een attachment voor 1 van de identifiers is
 		$project_images = get_posts([
@@ -75,6 +77,7 @@ class Product_Image {
 				$attachment_id = $attachment->add( $temp_file, $filename_base, 'Projectfoto' );
 				if ( false !== $attachment_id ) {
 					update_post_meta( $attachment_id, 'plato_document_identifier', $identifier );
+					update_post_meta( $attachment_id, 'plato_project_id', $project_id );
 					//wp_update_post() post parent zetten?
 					return $attachment_id;
 				}

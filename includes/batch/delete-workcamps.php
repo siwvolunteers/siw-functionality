@@ -65,12 +65,24 @@ class Delete_Workcamps extends Job {
 			return false;
 		}
 
-		// Verwijder afbeelding als dit een projectspecifieke afbeelding uit Plato is
-		if ( $product->get_meta( 'has_plato_image', true ) ) {
-			wp_delete_attachment( $product->get_image_id(), true );
+		//Verwijder projectspecifieke afbeeldingen
+		$project_images = get_posts([
+			'post_type'   => 'attachment',
+			'post_status' => 'inherit',
+			'fields'      => 'ids',
+			'meta_query'  => [
+				[
+					'key'     => 'plato_project_id',
+					'value'   => $product->get_meta('project_id'),
+					'compare' => '='
+				],
+			],
+		]);
+		foreach ( $project_images as $project_image ) {
+			wp_delete_attachment( $project_image, true );
 		}
 
-		// Verwijder alle variaties
+		//Verwijder alle variaties
 		$variations = $product->get_children();
 		foreach ( $variations as $variation_id ) {
 			$variation = wc_get_product( $variation_id );
@@ -79,6 +91,8 @@ class Delete_Workcamps extends Job {
 			}
 			$variation->delete( true );
 		}
+
+		//Verwijder het product zelf
 		$product->delete( true );
 		$this->increment_processed_count();
 

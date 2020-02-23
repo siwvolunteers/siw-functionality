@@ -30,7 +30,7 @@ class Product {
 
 		add_filter( 'woocommerce_product_data_tabs', [ $self, 'add_tabs'] );
 		add_filter( 'woocommerce_product_data_tabs', [ $self, 'hide_tabs'] );
-		add_action( 'woocommerce_product_data_panels', [ $self, 'show_import_tab'] );
+		add_action( 'woocommerce_product_data_panels', [ $self, 'show_plato_tab'] );
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_approval_tab'] );
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_description_tab'] );
 
@@ -177,9 +177,9 @@ class Product {
 				'priority' => 110,
 			];
 		}
-		$tabs['import'] = [
-			'label'    => __( 'Import', 'siw' ),
-			'target'   => 'import_product_data',
+		$tabs['plato'] = [
+			'label'    => __( 'Plato', 'siw' ),
+			'target'   => 'plato_product_data',
 			'class'    => [],
 			'priority' => 120,
 		];
@@ -209,10 +209,10 @@ class Product {
 	/**
 	 * Toont tab met extra zichtbaarheids-opties
 	 */
-	public function show_import_tab() {
+	public function show_plato_tab() {
 		global $product_object;
 		?>
-		<div id="import_product_data" class="panel woocommerce_options_panel">
+		<div id="plato_product_data" class="panel woocommerce_options_panel">
 			<div class="options_group">
 				<?php
 				woocommerce_wp_checkbox(
@@ -221,6 +221,15 @@ class Product {
 						'value'   => $product_object->get_meta( 'import_again' ),
 						'cbvalue' => '1',
 						'label'   => __( 'Opnieuw importeren', 'siw' ),
+					]
+				);
+				woocommerce_wp_checkbox(
+					[
+						'id'          => 'use_stockphoto',
+						'value'       => $product_object->get_meta( 'use_stockphoto' ),
+						'cbvalue'     => '1',
+						'label'       => __( 'Stockfoto gebruiken', 'siw' ),
+						'description' => __( 'Bijvoorbeeld indien projectfoto niet geschikt is.', 'siw' ),
 					]
 				);
 				?>
@@ -342,6 +351,7 @@ class Product {
 	public function save_product_data( \WC_Product $product ) {
 		$meta_data = [
 			'import_again'      => isset( $_POST['import_again'] ),
+			'use_stockphoto'    => isset( $_POST['use_stockphoto'] ),
 		];
 
 		foreach ( $meta_data as $key => $value ) {

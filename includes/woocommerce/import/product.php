@@ -580,8 +580,8 @@ class Product {
 		);
 
 		// Probeer Plato-afbeelding op te halen
-		if ( ! empty( $this->xml->images ) && is_array( $this->xml->images ) ) {
-			$image_id = $product_image->get_project_image( $this->xml->images, $filename_base );
+		if ( ! empty( $this->xml->images ) && is_array( $this->xml->images ) && ! $this->product->get_meta( 'use_stockphoto' ) ) {
+			$image_id = $product_image->get_project_image( $this->xml->images, $filename_base, $this->xml->project_id );
 			if ( null != $image_id ) {
 				$this->product->update_meta_data( 'has_plato_image',true );
 				return $image_id;
