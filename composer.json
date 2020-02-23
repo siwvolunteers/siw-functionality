@@ -11,7 +11,7 @@
 	],
 	"require": {
 		"kallookoo/wp_parse_args_recursive": "1.*",
-		"a5hleyrich/wp-background-processing": "dev-master",
+		"deliciousbrains/wp-background-processing": "dev-master",
 		"spatie/array-to-xml": "2.*"
 	},
 	"autoload": {
