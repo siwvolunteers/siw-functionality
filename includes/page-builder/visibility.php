@@ -19,12 +19,18 @@ class Visibility {
 		}
 		$self = new self();
 		
+		//Editor settings
 		add_filter( 'siteorigin_panels_widget_style_groups', [ $self, 'add_style_group'] );
+		add_filter( 'siteorigin_panels_cell_style_groups', [ $self, 'add_style_group'] );
 		add_filter( 'siteorigin_panels_row_style_groups', [ $self, 'add_style_group'] );
 		add_filter( 'siteorigin_panels_widget_style_fields', [ $self, 'add_style_fields'] );
+		add_filter( 'siteorigin_panels_cell_style_fields', [ $self, 'add_style_fields'] );
 		add_filter( 'siteorigin_panels_row_style_fields', [ $self, 'add_style_fields'] );
+		
+		//Render attributes
 		add_filter( 'siteorigin_panels_widget_style_attributes', [ $self, 'add_style_attributes'], 10, 2 );
 		add_filter( 'siteorigin_panels_cell_style_attributes', [ $self, 'add_style_attributes'], 10, 2 );
+		add_filter( 'siteorigin_panels_row_style_attributes', [ $self, 'add_style_attributes'], 10, 2 );
 	}
 
 	/**
