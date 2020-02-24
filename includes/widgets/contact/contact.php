@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Elements;
 use SIW\Formatting;
 use SIW\Properties;
 use SIW\HTML;
@@ -68,11 +69,7 @@ class Contact extends Widget {
 						HTML::generate_link( "tel:" . Properties::PHONE_INTERNATIONAL, Properties::PHONE ),
 						HTML::generate_link( "mailto:" . antispambot( Properties::EMAIL ), antispambot( Properties::EMAIL ) )
 					),
-					Formatting::format_opening_hours(
-						siw_get_option( 'opening_hours' ),
-						siw_get_option( 'special_opening_hours' ),
-						'table'
-					),
+					Elements::generate_opening_hours('table'),
 				],
 				BR2
 				)

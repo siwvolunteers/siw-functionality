@@ -18,7 +18,7 @@
 			<?php
 			$term = siw_meta( 'continent');
 			?>
-				<span class="postedinbottom"><?php echo \SIW\Formatting::generate_icon( 'siw-icon-globe' );?></i>&nbsp;<?php echo esc_html( $term->name );?></span><?php
+				<span class="postedinbottom"><?php echo \SIW\Elements::generate_icon( 'siw-icon-globe' );?></i>&nbsp;<?php echo esc_html( $term->name );?></span><?php
 			?>
 		</footer>
 	</div>

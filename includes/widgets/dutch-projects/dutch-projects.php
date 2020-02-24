@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Elements;
 use SIW\Formatting;
 use SIW\i18n;
 use SIW\HTML;
@@ -61,7 +62,7 @@ class Dutch_Projects extends Widget {
 		$tabs_panes = [];
 		foreach ( $projects as $project ) {
 			$work_type = siw_get_work_type( $project['work_type'] ); 
-			$icon = Formatting::generate_icon( $work_type ? $work_type->get_icon_class() : '', 4, 'circle' );
+			$icon = Elements::generate_icon( $work_type ? $work_type->get_icon_class() : '', 4, 'circle' );
 			$summary = wpautop( sprintf( __( 'Thema: %s', 'siw' ), $work_type ? $work_type->get_name() : '' ) );
 			$summary .= wpautop( sprintf( __( 'Projectcode: %s', 'siw' ), $project['code'] ) );
 
@@ -79,8 +80,8 @@ class Dutch_Projects extends Widget {
 				'content' => $project["description_{$language}"],
 			];
 		}
-		$content = Formatting::generate_tabs( $tabs_panes );
-		$mobile_content = Formatting::generate_accordion( $accordion_panes );
+		$content = Elements::generate_tabs( $tabs_panes );
+		$mobile_content = Elements::generate_accordion( $accordion_panes );
 
 
 		//TODO: functie in Formatting voor mobile content

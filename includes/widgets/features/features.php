@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Formatting;
+use SIW\Elements;
 use SIW\HTML;
 
 /**
@@ -146,7 +146,7 @@ class Features extends Widget {
 			<div class="row">
 				<?php foreach ( $row as $feature ) : ?>
 				<div class="cell <?= esc_attr( $class ); ?>">
-					<?php echo Formatting::generate_icon( $feature['icon'], 4, 'circle');?>
+					<?php echo Elements::generate_icon( $feature['icon'], 4, 'circle');?>
 					<h3><?php echo esc_html( $feature['title'] );?></h3>
 					<?php echo wpautop( wp_kses_post( $feature['content'] ) );?>
 					<?php 

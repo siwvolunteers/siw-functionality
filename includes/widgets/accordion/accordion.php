@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Formatting;
+use SIW\Elements;
 
 /**
  * Widget met contactinformatie
@@ -104,7 +104,7 @@ class Accordion extends Widget {
 	 * {@inheritDoc}
 	 */
 	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
-		$content = Formatting::generate_accordion( $instance['panes']);
+		$content = Elements::generate_accordion( $instance['panes']);
 		return $content;
 	}
 }

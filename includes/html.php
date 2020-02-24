@@ -2,6 +2,8 @@
 
 namespace SIW;
 
+use SIW\Elements;
+
 /**
  * Hulpfuncties voor het genereren van HTML
  *
@@ -127,7 +129,7 @@ class HTML {
 					'background' => 'none',
 				]
 			);
-			$icon_html = Formatting::generate_icon( $icon['class'], $icon['size'], $icon['background'] );
+			$icon_html = Elements::generate_icon( $icon['class'], $icon['size'], $icon['background'] );
 		}
 		else { 
 			$icon_html = '';

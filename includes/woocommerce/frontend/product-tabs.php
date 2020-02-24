@@ -2,6 +2,7 @@
 
 namespace SIW\WooCommerce\Frontend;
 
+use SIW\Elements;
 use SIW\Formatting;
 use SIW\Elements\Google_Maps;
 
@@ -160,7 +161,7 @@ class Product_Tabs {
 				];
 			}
 		}
-		echo do_shortcode( Formatting::generate_accordion( $panes ) );
+		echo do_shortcode( Elements::generate_accordion( $panes ) );
 	}
 
 	/**
@@ -184,24 +185,24 @@ class Product_Tabs {
 	/**
 	 * Toont stappenplan in tab
 	 * 
-	 * @todo stappen uit databestand
+	 * @todo stappen uit databestand + loopje maken
 	 */
 	public function show_product_steps() {
 		$columns = [
 			[
 				'width'   => 4,
-				'content' => Formatting::generate_icon( 'siw-icon-file-signature', 2, 'circle' ) . '<br><h5>1. Aanmelding</h5>Heb je interesse in dit groepsproject? Meld je dan direct aan via de knop "Aanmelden".'
+				'content' => Elements::generate_icon( 'siw-icon-file-signature', 2, 'circle' ) . '<br><h5>1. Aanmelding</h5>Heb je interesse in dit groepsproject? Meld je dan direct aan via de knop "Aanmelden".'
 			],
 			[
 				'width'   => 4,
-				'content' => Formatting::generate_icon( 'siw-icon-clipboard-check', 2, 'circle' ) . '<br><h5>2. Bevesting</h5>Binnen twee weken na betaling krijg je een bevestiging van plaatsing op het project.'
+				'content' => Elements::generate_icon( 'siw-icon-clipboard-check', 2, 'circle' ) . '<br><h5>2. Bevesting</h5>Binnen twee weken na betaling krijg je een bevestiging van plaatsing op het project.'
 			],
 			[
 				'width'   => 4,
-				'content' => Formatting::generate_icon( 'siw-icon-tasks', 2, 'circle' ) . '<br><h5>3. Voorbereiding</h5>Kom naar de voorbereidingsdag, zodat je goed voorbereid aan je avontuur kan beginnen.'
+				'content' => Elements::generate_icon( 'siw-icon-tasks', 2, 'circle' ) . '<br><h5>3. Voorbereiding</h5>Kom naar de voorbereidingsdag, zodat je goed voorbereid aan je avontuur kan beginnen.'
 			],
 		];
-		echo '<div style="text-align:center">' .  do_shortcode( Formatting::generate_columns( $columns ) ) . '</div>'; //FIXME: geen inline styling
+		echo '<div style="text-align:center">' . do_shortcode( Formatting::generate_columns( $columns ) ) . '</div>'; //FIXME: geen inline styling
 	}
 
 	/**

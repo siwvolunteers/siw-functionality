@@ -19,6 +19,7 @@ $data = [
 	'dutch-projects'       => 'Dutch_Projects',
 	'features'             => 'Features',
 	'google-maps'          => 'Google_Maps',
+	'infobox'              => 'Infobox',
 	'map'                  => 'Map',
 	'newsletter'           => 'Newsletter',
 	'organisation'         => 'Organisation',

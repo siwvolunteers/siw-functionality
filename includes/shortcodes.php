@@ -3,6 +3,7 @@
 namespace SIW;
 
 use SIW\HTML;
+use SIW\Elements;
 use SIW\Formatting;
 use SIW\Properties;
 
@@ -102,9 +103,7 @@ class Shortcodes {
 	 * @return string
 	 */
 	public static function render_openingstijden() {
-		$opening_hours = siw_get_option( 'opening_hours' );
-		$special_opening_hours = siw_get_option( 'special_opening_hours', [] );
-		return Formatting::format_opening_hours( $opening_hours, $special_opening_hours, 'list' );
+		return Elements::generate_opening_hours( 'list' );
 	}
 
 	/**
@@ -249,7 +248,7 @@ class Shortcodes {
 			return;
 		}
 		
-		return Formatting::generate_page_modal( $page_id, $link_tekst );
+		return Elements::generate_page_modal( $page_id, $link_tekst );
 	}
 
 	/**

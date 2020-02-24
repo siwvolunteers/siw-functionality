@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use SIW\HTML;
-use SIW\Formatting;
+use SIW\Elements;
 
 get_header();
 get_template_part('templates/post', 'header' );
@@ -32,7 +32,7 @@ $panes = [
 		'content' => siw_get_option( 'job_postings_organization_profile' ),
 	],
 ];
-$content = Formatting::generate_accordion( $panes );
+$content = Elements::generate_accordion( $panes );
 ?>
 
 <div id="content" class="container">

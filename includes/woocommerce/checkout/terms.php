@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce\Checkout;
 
-use SIW\Formatting;
+use SIW\Elements;
 
 /**
  * Voorwaarden tijdens checkout
@@ -45,7 +45,7 @@ class Terms{
 	 */
 	public function add_terms_modal() {
 		$terms_page_id = wc_terms_and_conditions_page_id();
-		$this->modal_link = Formatting::generate_page_modal( $terms_page_id, __( 'inschrijfvoorwaarden', 'siw' ) );
+		$this->modal_link = Elements::generate_page_modal( $terms_page_id, __( 'inschrijfvoorwaarden', 'siw' ) );
 	}
 
 	/**
