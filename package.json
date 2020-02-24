@@ -22,12 +22,12 @@
 		"@accede-web/accordion": "*",
 		"@accede-web/tablist": "*",
 		"apexcharts": "^3.15.6",
+		"balloon-css": "*",
 		"flickity": "^2.2.1",
 		"js-cookie": "^2.2.1",
 		"micromodal": "*",
-		"sal.js": "^0.7.2",
-		"smoothscroll-for-websites": "^1.4.10",
-		"balloon-css": "*"
+		"sal.js": "^0.7.3",
+		"smoothscroll-for-websites": "^1.4.10"
 	},
 	"devDependencies": {
 		"vendor-copy": "2.*",
