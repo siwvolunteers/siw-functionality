@@ -2,6 +2,8 @@
 
 namespace SIW;
 
+use SIW\i18n;
+
 /**
  * Class om alle opties te registeren
  * 
@@ -30,6 +32,7 @@ class Options {
 	public static function init() {
 		$self = new self();
 		add_filter( 'rwmb_meta_boxes', [ $self, 'add_settings_meta_boxes'] );
+		add_filter( 'siw_option_value', [ $self, 'format_option_value' ], 10, 2 );
 	}
 
 	/**
@@ -83,4 +86,72 @@ class Options {
 		return $meta_boxes;
 	}
 
+	/**
+	 * Undocumented function
+	 *
+	 * @param mixed $value
+	 * @param string $option
+	 *
+	 * @return mixed
+	 */
+	public function format_option_value( $value, $option ) {
+		switch ( $option ) {
+			case 'dutch_projects':
+				$language = i18n::get_current_language();
+				$defaults = [
+					'code'                    => '',
+					"name_{$language}"        => '',
+					'city'                    => '',
+					'province'                => '',
+					'latitude'                => null,
+					'longitude'               => null,
+					'start_date'              => [ 'timestamp' => 0 ],
+					'end_date'                => [ 'timestamp' => 0 ],
+					'work_type'               => '',
+					'participants'            => 0,
+					'local_fee'               => null,
+					"description_{$language}" => '',
+					'image'                   => null,
+				];
+
+				$callback = function( &$value, $key ) use ( $defaults ) {
+					$value = wp_parse_args( $value, $defaults );
+				};
+				array_walk( $value, $callback, $defaults );
+				break;
+			
+			case 'board_members':
+				$titles = siw_get_board_titles();
+				$callback = function( &$value, $key ) use ( $titles ) {
+					$value['title'] = ( isset( $value['title'] ) && isset( $titles[ $value['title'] ] ) ) ? $titles[ $value['title'] ] : '';
+				};
+				array_walk( $value, $callback, $titles );
+				break;
+
+			case 'info_days':
+			case 'esc_deadlines':
+				$value = array_filter( $value, function( $date ) {
+					return $date >= date( 'Y-m-d' );
+				});
+				sort( $value );
+				break;
+
+			case 'special_opening_hours':
+				$value = array_column( $value , null, 'date' );
+				$callback = function( &$value, $key ) {
+					$value = $value['opened'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' );
+				};
+				array_walk( $value, $callback );
+				break;
+
+			case 'opening_hours':
+				$callback = function( &$value, $key ) {
+					$value = $value['open'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' );
+				};
+				array_walk( $value, $callback );
+			break;
+		}
+
+		return $value;
+	}
 }
