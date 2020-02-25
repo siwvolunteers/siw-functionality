@@ -140,7 +140,7 @@ class Carousel {
 	 * @param int $items
 	 */
 	public function set_items( int $items ) {
-		$this->items = intval( $items );
+		$this->items = $items;
 	}
 
 	/**
@@ -149,7 +149,7 @@ class Carousel {
 	 * @param int $columns
 	 */
 	public function set_columns( int $columns ) {
-		$this->columns = intval( $columns );
+		$this->columns = $columns;
 	}
 
 	/**
@@ -186,6 +186,11 @@ class Carousel {
 
 		$query = $this->generate_query();
 
+		//Lelijkheid ten top, kan hopelijk weg na switch theme
+		global $woocommerce_loop;
+		$columns = $woocommerce_loop['columns'];
+		$woocommerce_loop['columns'] = 1;
+
 		ob_start();
 		?>
 		<div class="siw-carousel">
@@ -196,6 +201,7 @@ class Carousel {
 			<?php
 			while ( $query->have_posts() ) {
 				$query->the_post();
+				global $post; //Kan weg na switch naar GeneratePress
 				?> <div class="<?php echo esc_attr( $this->get_responsive_class() );?> carousel-cell">
 					<?php include( $this->get_template() );?>
 				</div>
@@ -203,12 +209,15 @@ class Carousel {
 			}
 			echo '</div>';
 		} else {
-			//TODO: tekst bij geen posts?
+			//TODO: tekst bij geen posts? -> Instelling
 		}
 
 		echo '</div>';
 
 		wp_reset_postdata();
+
+		//Ongedaan maken lelijkheid, kan hopelijk weg na switch theme
+		$woocommerce_loop['columns'] = $columns;
 		return ob_get_clean();
 	}
 
@@ -233,6 +242,17 @@ class Carousel {
 				],
 			];
 		}
+
+		//In het geval van Groepsprojecten alleen zichtbare projecten tonen (tenzij er al op product_visibility gefilterd wordt)
+		if ( 'product' == $this->post_type && 'product_visibility' != $this->taxonomy ) {
+			$args['tax_query'][] = [
+				'taxonomy' => 'product_visibility',
+				'terms'    => [ 'exclude-from-search', 'exclude-from-catalog'],
+				'field'    => 'slug',
+				'operator' => 'NOT IN'
+			];
+		}
+
 		return new \WP_Query( $args );
 	}
 
@@ -246,6 +266,7 @@ class Carousel {
 
 		$templates = [
 			'siw_tm_country' => SIW_TEMPLATES_DIR . '/content-tm_country.php',
+			'product'        => wc_locate_template('content-product.php' ),
 		];
 
 		$template = $templates[ $this->post_type ] ?? '';
