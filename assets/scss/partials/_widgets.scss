@@ -208,8 +208,13 @@
 
 //Infobox
 .so-widget-siw_infobox_widget {
+	.header{
+		display: inline-flex;
+	}
 	.icon {
-		text-align:center;
-		padding: 10px;
+		margin-right: 10px;
+		margin-top: auto;
+		margin-bottom: auto;
+		margin-left: 10px;
 	}
 }

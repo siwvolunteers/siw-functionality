@@ -93,12 +93,16 @@ class Infobox extends Widget {
 			echo wp_kses_post( $instance['intro'] );
 		}
 		foreach ( $instance['infoboxes'] as $infobox ) : ?>
-			<div class="row">
-				<div class="icon col-md-1">
+			<div class="row header">
+				<div class="icon ">
 					<?php echo Elements::generate_icon( $infobox['icon'], 3, 'circle');?>
 				</div>
-				<div class="cell col-md-11">
-					<h4><?php echo esc_html( $infobox['title'] );?></h4>
+				<div class="title">
+				<h4><?php echo esc_html( $infobox['title'] );?></h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="content col-md-12">
 					<?php echo wpautop( wp_kses_post( $infobox['content'] ) );?>
 				</div>
 			</div>
