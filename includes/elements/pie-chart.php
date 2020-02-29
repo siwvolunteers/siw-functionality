@@ -28,6 +28,7 @@ class Pie_Chart extends Chart {
 		$data = [
 			'chart' => [
 				'type'  => $this->type,
+				'width' => '100%',
 			],
 			'labels' => $labels,
 			'series' => $series,
@@ -47,7 +48,7 @@ class Pie_Chart extends Chart {
 							'width' => '100%',
 						],
 						'legend' => [
-							'position' => 'bottom',
+							'position' => 'top',
 						],
 					],
 				]

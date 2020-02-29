@@ -19,7 +19,7 @@ abstract class Chart {
 	 * 
 	 * @param string
 	 */
-	const APEX_CHARTS_VERSION = '3.15.6';
+	const APEX_CHARTS_VERSION = '3.16.0';
 
 	/**
 	 * Breakpoint voor responsive behaviour
@@ -72,7 +72,7 @@ abstract class Chart {
 			'class'        => 'siw-chart',
 			'data-options' => $this->generate_chart_options(),
 		];
-		return HTML::generate_tag( 'div', $attributes, null, true ) . '</div>' ;
+		return HTML::generate_tag( 'div', $attributes, null, true ) ;
 	}
 
 	/**
