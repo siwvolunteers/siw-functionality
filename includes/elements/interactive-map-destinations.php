@@ -38,13 +38,24 @@ class Interactive_Map_Destinations extends Interactive_Map {
 	protected $options = [
 		'search'       => true,
 		'searchfields' => ['title', 'about', 'description'],
+		'hidenofilter' => true,
 	];
 
 	/**
 	 * {@inheritDoc}
 	 */
 	protected function get_categories() {
-		return [];
+		$continents = siw_get_continents();
+
+		$categories = [];
+		foreach ( $continents as $continent ) {
+			$categories[] = [
+				'id'    => $continent->get_slug(),
+				'title' => $continent->get_name(),
+				'color' => $continent->get_color(),
+			];
+		}
+		return $categories;
 	}
 
 	/**

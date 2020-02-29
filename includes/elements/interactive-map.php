@@ -5,6 +5,7 @@ namespace SIW\Elements;
 use SIW\Properties;
 use SIW\HTML;
 use SIW\CSS;
+use SIW\Util;
 
 /**
  * Class om een Mapplic kaart te genereren
@@ -106,7 +107,7 @@ abstract class Interactive_Map {
 		$default_options = [
 			'source'        => $this->get_map_data(),
 			'landmark'      => null,
-			'portrait'      => 668, //TODO: juiste breakpoint
+			'portrait'      => Util::get_mobile_breakpoint(),
 			'alphabetic'    => true,
 			'search'        => false,
 			'lightbox'      => false,
@@ -115,7 +116,7 @@ abstract class Interactive_Map {
 			'zoomoutclose'  => true,
 			'mousewheel'    => false,
 			'fullscreen'    => false,
-			'developer'     => false, //TODO: setting of WP_DEBUG?
+			'developer'     => defined( 'WP_DEBUG' ) && WP_DEBUG,
 			'fillcolor'     => Properties::PRIMARY_COLOR,
 			'action'        => 'tooltip',
 			'maxscale'      => 2,
@@ -178,8 +179,8 @@ abstract class Interactive_Map {
 			'action'        => 'tooltip',
 			'pin'           => 'hidden',
 			'fill'          => Properties::PRIMARY_COLOR,
-			'x'             => false,
-			'y'             => false,
+			'x'             => null,
+			'y'             => null,
 			'lat'           => false,
 			'lng'           => false,
 			'pin'           => 'hidden',
@@ -227,9 +228,13 @@ abstract class Interactive_Map {
 		wp_register_style( 'mapplic', $this->mapplic_url . 'css/mapplic.css', $deps, self::MAPPLIC_VERSION );
 		wp_enqueue_style( 'mapplic' );
 
+
+		wp_register_style( 'siw-interactive-map', SIW_ASSETS_URL . 'css/elements/siw-interactive-map.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( 'siw-interactive-map' );
+
 		if ( isset( $this->inline_css ) ) {
 			$css = CSS::generate_inline_css( $this->inline_css );
-			wp_add_inline_style( 'mapplic', $css );
+			wp_add_inline_style( 'siw-interactive-map', $css );
 		}
 	}
 }
