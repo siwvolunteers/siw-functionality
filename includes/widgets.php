@@ -15,7 +15,25 @@ class Widgets {
 	 *
 	 * @var array
 	 */
-	protected $widgets;
+	protected $widgets = [
+		'accordion'            => 'Accordion',
+		'calendar'             => 'Calendar',
+		'carousel'             => 'Carousel',
+		'contact'              => 'Contact',
+		'cta'                  => 'CTA',
+		'dutch-projects'       => 'Dutch_Projects',
+		'features'             => 'Features',
+		'google-maps'          => 'Google_Maps',
+		'infobox'              => 'Infobox',
+		'map'                  => 'Map',
+		'newsletter'           => 'Newsletter',
+		'organisation'         => 'Organisation',
+		'pie-chart'            => 'Pie_Chart',
+		'quick-search-form'    => 'Quick_Search_Form',
+		'quick-search-results' => 'Quick_Search_Results',
+		'quote'                => 'Quote',
+		'tabs'                 => 'Tabs',
+	];
 
 	/**
 	 * Basismap voor widgets
@@ -34,7 +52,6 @@ class Widgets {
 		$self = new self();
 
 		$self->widgets_folder_base = SIW_INCLUDES_DIR . '/widgets';
-		$self->widgets = siw_get_data( 'widgets' );
 
 		add_filter( 'siteorigin_widgets_widget_folders', [ $self, 'set_widgets_folders' ] );
 		add_filter( 'siteorigin_widgets_active_widgets', [ $self, 'set_active_widgets' ] );
