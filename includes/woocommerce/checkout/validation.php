@@ -44,7 +44,7 @@ class Validation{
 		];
 
 		wp_localize_script( 'siw-checkout-validation', 'siw_checkout_validation', $validation );
-		if ( is_checkout() ) {
+		if ( is_checkout() && ! is_order_received_page() && ! is_checkout_pay_page() ) {
 			wp_enqueue_script( 'siw-checkout-validation' );
 		}
 	}

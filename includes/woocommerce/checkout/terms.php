@@ -54,7 +54,7 @@ class Terms{
 	 */
 	public function add_script() {
 		wp_register_script( 'siw-checkout-terms', SIW_ASSETS_URL . 'js/siw-checkout-terms.js', [ 'siw-modal' ], SIW_PLUGIN_VERSION, true );
-		if ( is_checkout() ) {
+		if ( is_checkout() && ! is_order_received_page() && ! is_checkout_pay_page() ) {
 			wp_enqueue_script( 'siw-checkout-terms' );
 		}
 	}

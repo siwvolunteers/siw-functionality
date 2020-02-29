@@ -85,7 +85,7 @@ class Form{
 		];
 		wp_localize_script( 'siw-checkout-postcode-lookup', 'siw_checkout_postcode_selectors', $postcode_selectors );
 
-		if ( is_checkout() ) {
+		if ( is_checkout() && ! is_order_received_page() && ! is_checkout_pay_page() ) {
 			wp_enqueue_script( 'siw-checkout-postcode-lookup' );
 		}
 	}
