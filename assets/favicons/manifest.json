@@ -1,5 +1,6 @@
 {
-	"name": "",
+	"short_name": "SIW",
+	"name": "SIW Internationale Vrijwilligersprojecten",
 	"icons": [
 		{
 			"src": "/wp-content/themes/siw/assets/icons/android-chrome-192x192.png",

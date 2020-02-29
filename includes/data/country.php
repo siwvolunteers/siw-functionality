@@ -2,6 +2,8 @@
 
 namespace SIW\Data;
 
+use SIW\Data\Continent;
+
 /**
  * Bevat informatie over een land
  * 
@@ -143,7 +145,7 @@ class Country {
 	/**
 	 * Geeft continent van land terug
 	 *
-	 * @return \SIW\Data\Continent
+	 * @return Continent
 	 */
 	public function get_continent() {
 		return siw_get_continent( $this->continent );

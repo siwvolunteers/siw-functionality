@@ -19,7 +19,6 @@ $data = [
 		'tag'        => 'link',
 		'attributes' => [
 			'rel'   => 'apple-touch-icon',
-			'sizes' => '180x180',
 			'href'  => "{$base_url}apple-touch-icon.png",
 		],
 	],

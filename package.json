@@ -21,7 +21,7 @@
 	"dependencies": {
 		"@accede-web/accordion": "*",
 		"@accede-web/tablist": "*",
-		"apexcharts": "^3.15.6",
+		"apexcharts": "^3.16.0",
 		"balloon-css": "*",
 		"flickity": "^2.2.1",
 		"js-cookie": "^2.2.1",
@@ -30,11 +30,11 @@
 		"smoothscroll-for-websites": "^1.4.10"
 	},
 	"devDependencies": {
-		"vendor-copy": "2.*",
+		"autoprefixer": "*",
 		"postcss-cli": "*",
-		"sass": "*",
+		"sass": "^1.26.2",
 		"svg2sprite-cli": "*",
-		"autoprefixer": "*"
+		"vendor-copy": "2.*"
 	},
 	"vendorCopy": [
 		{
