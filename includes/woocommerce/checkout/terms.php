@@ -29,6 +29,7 @@ class Terms{
 		remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_terms_and_conditions_page_content', 30 );
 		add_action( 'woocommerce_checkout_init', [ $self, 'add_terms_modal'] );
 		add_filter( 'wc_get_template', [ $self, 'set_terms_template'], 10, 5 );
+		add_action( 'wp_enqueue_scripts', [ $self, 'add_script'] );
 	}
 
 	/**
@@ -46,6 +47,16 @@ class Terms{
 	public function add_terms_modal() {
 		$terms_page_id = wc_terms_and_conditions_page_id();
 		$this->modal_link = Elements::generate_page_modal( $terms_page_id, __( 'inschrijfvoorwaarden', 'siw' ) );
+	}
+	
+	/**
+	 * Voegt script voor voorwaarden toe
+	 */
+	public function add_script() {
+		wp_register_script( 'siw-checkout-terms', SIW_ASSETS_URL . 'js/siw-checkout-terms.js', [ 'siw-modal' ], SIW_PLUGIN_VERSION, true );
+		if ( is_checkout() ) {
+			wp_enqueue_script( 'siw-checkout-terms' );
+		}
 	}
 
 	/**

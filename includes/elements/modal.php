@@ -5,9 +5,9 @@ namespace SIW\Elements;
 use SIW\HTML;
 
 /**
- * Class om een accordion te genereren
+ * Class om een Modal te genereren
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
 class Modal {
@@ -42,11 +42,14 @@ class Modal {
 
 	/**
 	 * Init
+	 *
+	 * @param string $id
 	 */
-	public function __construct() {
+	public function __construct( string $id = null ) {
 		$this->enqueue_styles();
 		$this->enqueue_scripts();
-		$this->id = uniqid( 'siw-modal-' );
+		$this->id = ( null === $id ) ? uniqid( 'siw-modal-' ) : "siw-modal-{$id}";
+		
 		add_action( 'wp_footer', [ $this, 'render_modal'] );
 	}
 
@@ -160,7 +163,7 @@ class Modal {
 		$link = HTML::generate_link(
 			$link ?? '#',
 			$text,
-			[ 'data-micromodal-trigger' => $this->id ]
+			[ 'data-micromodal-trigger' => $this->id, 'target' => '_blank' ] //TODO: optie voor target?
 		);
 		return $link;
 	}

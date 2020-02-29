@@ -100,7 +100,7 @@ class Elements {
 		$page_id = i18n::get_translated_page_id( $page_id );
 		$page = get_post( $page_id );
 
-		$modal = new Modal;
+		$modal = new Modal( "page-{$page_id}");
 		$modal->set_title( $page->post_title );
 		$modal->set_content( do_shortcode( $page->post_content ) );
 
