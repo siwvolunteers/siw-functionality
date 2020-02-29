@@ -38,7 +38,7 @@ class Elements {
 					'title'       => '',
 					'content'     => '',
 					'show_button' => false,
-					'button_link' => '',
+					'button_url'  => '',
 					'button_text' => ''
 				]
 			);
@@ -47,7 +47,7 @@ class Elements {
 				$pane['title'],
 				$pane['content'],
 				$pane['show_button'],
-				$pane['button_link'],
+				$pane['button_url'],
 				$pane['button_text']
 			);
 		}
@@ -75,7 +75,7 @@ class Elements {
 					'title'       => '',
 					'content'     => '',
 					'show_button' => false,
-					'button_link' => '',
+					'button_url'  => '',
 					'button_text' => ''
 				]
 			);

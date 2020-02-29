@@ -98,10 +98,10 @@ class Tablist {
 	 * @param string $title
 	 * @param string $content
 	 * @param bool $show_button
+	 * @param string $button_url
 	 * @param string $button_text
-	 * @param string $button_link
 	 */
-	public function add_pane( string $title, string $content, bool $show_button = false, string $button_link = null, string $button_text = null ) {
+	public function add_pane( string $title, string $content, bool $show_button = false, string $button_url = null, string $button_text = null ) {
 		
 		//Afbreken als content geen zichtbare inhoud bevat
 		if ( 0 === strlen( trim( $content ) ) ) {
@@ -112,7 +112,7 @@ class Tablist {
 			'title'       => $title,
 			'content'     => $content,
 			'show_button' => $show_button,
-			'button_link' => $button_link,
+			'button_url'  => $button_url,
 			'button_text' => $button_text,
 		];
 	}
