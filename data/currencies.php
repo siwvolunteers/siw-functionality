@@ -7,9 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Gegevens van valuta's
  * 
- * @package   SIW\Data
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
- * @author    Maarten Bruna
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
 $data = [
@@ -62,6 +60,11 @@ $data = [
 		'iso'    => 'MXN',
 		'symbol' => '$',
 		'name'   => __( 'Mexicaanse peso', 'siw' ),
+	],
+	[
+		'iso'    => 'MYR',
+		'symbol' => 'RM',
+		'name'   => __( 'Maleisische ringgit', 'siw' ),
 	],
 	[
 		'iso'    => 'RUB',

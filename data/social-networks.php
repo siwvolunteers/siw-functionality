@@ -7,9 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Gegevens van sociale netwerken
  * 
- * @author    Maarten Bruna
- * @package   SIW\Data
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
 $data = [
@@ -17,8 +15,9 @@ $data = [
 		'slug'                => 'facebook',
 		'name'                => __( 'Facebook', 'siw' ),
 		'icon_class'          => 'siw-icon-facebook-f',
+		'color'               => '#3b5998',
 		'follow'              => true,
-		'follow_url'          => SIW_Properties::FACEBOOK_URL,
+		'follow_url'          => 'https://www.facebook.com/SIWvolunteers/',
 		'share'               => true,
 		'share_url_template'  => 'https://www.facebook.com/sharer/sharer.php?u={{ url }}',
 	],
@@ -26,8 +25,9 @@ $data = [
 		'slug'                => 'twitter',
 		'name'                => __( 'Twitter', 'siw' ),
 		'icon_class'          => 'siw-icon-twitter',
+		'color'               => '#00aced',
 		'follow'              => true,
-		'follow_url'          => SIW_Properties::TWITTER_URL,
+		'follow_url'          => 'https://twitter.com/SIWvolunteers',
 		'share'               => true,
 		'share_url_template'  => 'https://twitter.com/intent/tweet?text={{ title }}&amp;url={{ url }}&amp;via=siwvolunteers',
 	],
@@ -35,16 +35,18 @@ $data = [
 		'slug'                => 'instagram',
 		'name'                => __( 'Instagram', 'siw' ),
 		'icon_class'          => 'siw-icon-instagram',
+		'color'               => '#dd2a7b',
 		'follow'              => true,
-		'follow_url'          => SIW_Properties::INSTAGRAM_URL,
+		'follow_url'          => 'https://www.instagram.com/siwvolunteers/',
 		'share'               => false,
 	],
 	[
 		'slug'                => 'linkedin',
 		'name'                => __( 'LinkedIn', 'siw' ),
 		'icon_class'          => 'siw-icon-linkedin-in',
+		'color'               => '#007bb6',
 		'follow'              => true,
-		'follow_url'          => SIW_Properties::LINKEDIN_URL,
+		'follow_url'          => 'https://www.linkedin.com/company/siw',
 		'share'               => true,
 		'share_url_template'  => 'https://www.linkedin.com/shareArticle?mini=true&url={{ url }}&amp;title={{ title }}',
 	],
@@ -52,10 +54,29 @@ $data = [
 		'slug'                => 'youtube',
 		'name'                => __( 'YouTube', 'siw' ),
 		'icon_class'          => 'siw-icon-youtube',
-		'follow'              => true,
-		'follow_url'          => SIW_Properties::YOUTUBE_URL,
+		'color'               => '#ff3333',
+		'follow'              => false, //TODO: aanpassen is kanaal gereanimeerd is
+		'follow_url'          => 'https://www.youtube.com/user/SIWvolunteerprojects',
 		'share'               => false,
-	]
+	],
+	[
+		'slug'                => 'pinterest',
+		'name'                => __( 'Pinterest', 'siw' ),
+		'icon_class'          => 'siw-icon-pinterest-p',
+		'color'               => '#e60023',
+		'follow'              => false, //TODO: aanpassen is kanaal gereanimeerd is
+		'follow_url'          => 'https://nl.pinterest.com/SIWvolunteers/',
+		'share'               => false,
+	],
+	[
+		'slug'                => 'whatsapp',
+		'name'                => __( 'WhatsApp', 'siw' ),
+		'icon_class'          => 'siw-icon-whatsapp',
+		'color'               => '#25D366',
+		'follow'              => false,
+		'share'               => true,
+		'share_url_template'  => 'https://api.whatsapp.com/send?&text={{ url }}',
+	],
 ];
 
 return $data;

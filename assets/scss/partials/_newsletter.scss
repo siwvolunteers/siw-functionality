@@ -1,0 +1,27 @@
+.siw-newsletter-confirmation{
+	height:100vh;
+	background-image:url('#{$assets-path}/images/404/groep.jpg'); //TODO: andere afbeelding
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size:cover;
+	color:#fff;
+	.row{
+		height:100vh;
+		background-color:rgba(0, 0, 0, 0.5);
+		text-align:center;
+		.main{
+			padding-top:50px;
+			max-width:$mobile-width;
+			display:inline-block;
+			.sectiontitle{
+				color:#fff;
+				&:hover:after{
+					background-color: $primary-color;
+				}
+				&:after{
+					background-color:#fff;
+				}
+			}
+		}
+	}
+}

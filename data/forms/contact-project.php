@@ -7,10 +7,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Gegevens van contactformulier bij Groepsproject
  * 
- * @package   SIW\Forms
- * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * */
+ */
 
 $args = [
 	'name' => __( 'Infoverzoek Groepsproject', 'siw' ),
@@ -28,32 +26,12 @@ $pages = [];
 
 $fields[0] = [
 	[
-		[
-			'slug'  => 'voornaam',
-			'type'  => 'text',
-			'label' => __( 'Voornaam', 'siw' ),
-		],
-		[
-			'slug'  => 'achternaam',
-			'type'  => 'text',
-			'label' => __( 'Achternaam', 'siw' ),
-		],
+		'voornaam',
+		'achternaam',
 	],
 	[
-		[
-			'slug'  => 'emailadres',
-			'type'  => 'email',
-			'label' => __( 'Emailadres', 'siw' ),
-		],
-		[
-			'slug'     => 'telefoonnummer',
-			'type'     => 'text',
-			'label'    => __( 'Telefoonnummer', 'siw' ),
-			'required' => false,
-			'config'   => [
-				'type_override' => 'tel',
-			],
-		],
+		'emailadres',
+		'telefoonnummer',
 	],
 	[
 		[
@@ -91,6 +69,5 @@ return [
 	'fields'        => $fields,
 	'confirmation'  => $confirmation,
 	'notification'  => $notification,
-	'email_option'  => 'enquiry_workcamp_email',
 	'primary_email' => 'emailadres',
 ];

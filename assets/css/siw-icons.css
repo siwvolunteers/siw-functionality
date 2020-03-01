@@ -1,312 +1,123 @@
-@font-face {
-  font-family: "siw-icons";
-  src: url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.eot?a5b17104bf9e7d841a53cf1ab8d562e5?#iefix") format("embedded-opentype"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.woff2?a5b17104bf9e7d841a53cf1ab8d562e5") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.woff?a5b17104bf9e7d841a53cf1ab8d562e5") format("woff"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.ttf?a5b17104bf9e7d841a53cf1ab8d562e5") format("truetype"), url("/wp-content/plugins/siw-functionality/assets/css/fonts/siw-icons.svg?a5b17104bf9e7d841a53cf1ab8d562e5#siw-icons") format("svg");
-}
-
-i[class^="siw-icon-"]:before, i[class*=" siw-icon-"]:before {
-  font-family: siw-icons !important;
-  font-style: normal;
-  font-weight: normal !important;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.siw-icon-archway:before {
-  content: "\f101";
-}
-
-.siw-icon-atlas:before {
-  content: "\f102";
-}
-
-.siw-icon-blind:before {
-  content: "\f103";
-}
-
-.siw-icon-book-reader:before {
-  content: "\f104";
-}
-
-.siw-icon-calendar-check:before {
-  content: "\f105";
-}
-
-.siw-icon-camera:before {
-  content: "\f106";
-}
-
-.siw-icon-campground:before {
-  content: "\f107";
-}
-
-.siw-icon-child:before {
-  content: "\f108";
-}
-
-.siw-icon-circle:before {
-  content: "\f109";
-}
-
-.siw-icon-clipboard-check:before {
-  content: "\f10a";
-}
-
-.siw-icon-clock:before {
-  content: "\f10b";
-}
-
-.siw-icon-coins:before {
-  content: "\f10c";
-}
-
-.siw-icon-comments:before {
-  content: "\f10d";
-}
-
-.siw-icon-envelope:before {
-  content: "\f10e";
-}
-
-.siw-icon-external-link-alt:before {
-  content: "\f10f";
-}
-
-.siw-icon-eye:before {
-  content: "\f110";
-}
-
-.siw-icon-facebook-f:before {
-  content: "\f111";
-}
-
-.siw-icon-file-signature:before {
-  content: "\f112";
-}
-
-.siw-icon-futbol:before {
-  content: "\f113";
-}
-
-.siw-icon-globe-europe:before {
-  content: "\f114";
-}
-
-.siw-icon-globe:before {
-  content: "\f115";
-}
-
-.siw-icon-gopuram:before {
-  content: "\f116";
-}
-
-.siw-icon-grin:before {
-  content: "\f117";
-}
-
-.siw-icon-hand-holding-heart:before {
-  content: "\f118";
-}
-
-.siw-icon-hands-helping:before {
-  content: "\f119";
-}
-
-.siw-icon-handshake:before {
-  content: "\f11a";
-}
-
-.siw-icon-house-damage:before {
-  content: "\f11b";
-}
-
-.siw-icon-info:before {
-  content: "\f11c";
-}
-
-.siw-icon-instagram:before {
-  content: "\f11d";
-}
-
-.siw-icon-landmark:before {
-  content: "\f11e";
-}
-
-.siw-icon-language:before {
-  content: "\f11f";
-}
-
-.siw-icon-leaf:before {
-  content: "\f120";
-}
-
-.siw-icon-linkedin-in:before {
-  content: "\f121";
-}
-
-.siw-icon-map-marked-alt:before {
-  content: "\f122";
-}
-
-.siw-icon-music:before {
-  content: "\f123";
-}
-
-.siw-icon-paint-roller:before {
-  content: "\f124";
-}
-
-.siw-icon-passport:before {
-  content: "\f125";
-}
-
-.siw-icon-paw:before {
-  content: "\f126";
-}
-
-.siw-icon-pencil-ruler:before {
-  content: "\f127";
-}
-
-.siw-icon-phone:before {
-  content: "\f128";
-}
-
-.siw-icon-praying-hands:before {
-  content: "\f129";
-}
-
-.siw-icon-quote-left:before {
-  content: "\f12a";
-}
-
-.siw-icon-quote-right:before {
-  content: "\f12b";
-}
-
-.siw-icon-route:before {
-  content: "\f12c";
-}
-
-.siw-icon-search-location:before {
-  content: "\f12d";
-}
-
-.siw-icon-square:before {
-  content: "\f12e";
-}
-
-.siw-icon-star:before {
-  content: "\f12f";
-}
-
-.siw-icon-suitcase:before {
-  content: "\f130";
-}
-
-.siw-icon-syringe:before {
-  content: "\f131";
-}
-
-.siw-icon-tasks:before {
-  content: "\f132";
-}
-
-.siw-icon-theater-masks:before {
-  content: "\f133";
-}
-
-.siw-icon-thumbs-up:before {
-  content: "\f134";
-}
-
-.siw-icon-tools:before {
-  content: "\f135";
-}
-
-.siw-icon-tree:before {
-  content: "\f136";
-}
-
-.siw-icon-twitter:before {
-  content: "\f137";
-}
-
-.siw-icon-user-check:before {
-  content: "\f138";
-}
-
-.siw-icon-user-friends:before {
-  content: "\f139";
-}
-
-.siw-icon-user-injured:before {
-  content: "\f13a";
-}
-
-.siw-icon-users:before {
-  content: "\f13b";
-}
-
-.siw-icon-wheelchair:before {
-  content: "\f13c";
-}
-
-.siw-icon-youtube:before {
-  content: "\f13d";
-}
-
-.siw-icon-stack {
+.siw-icon {
   display: inline-block;
-  height: 2em;
-  line-height: 2.25em;
   position: relative;
-  vertical-align: middle;
-  width: 2.5em;
+  fill: #444;
 }
 
 .siw-icon-background {
+  display: inline-block;
+  font-size: 1em;
+  position: relative;
+  vertical-align: middle;
+  height: 2em;
+  width: 2em;
+}
+.siw-icon-background .siw-icon-inverse {
+  position: absolute;
+  left: 0.5em;
+  top: 0.5em;
+  fill: #fff;
+  width: 1em;
+  height: 1em;
+}
+.siw-icon-background .siw-background-icon {
+  position: absolute;
+  left: 0;
+  width: 2em;
+  height: 2em;
+  -webkit-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
 }
-
-.siw-icon-stack:hover .siw-icon-background {
-  color: #ff9900;
-}
-
-.siw-icon-stack-1x,
-.siw-icon-stack-2x {
-  left: 0;
-  position: absolute;
-  text-align: center;
-  width: 100%;
-}
-
-.siw-icon-stack-1x {
-  line-height: inherit;
-}
-
-.siw-icon-stack-2x {
-  font-size: 2em;
-}
-
-.siw-icon-inverse {
-  color: #fff;
+.siw-icon-background:hover .siw-background-icon {
+  fill: #ff9900;
 }
 
 .siw-icon-1x {
-  font-size: 1em;
+  width: 0.5em;
+  height: 0.5em;
+}
+
+.siw-icon-background-1x {
+  font-size: 0.5em;
 }
 
 .siw-icon-2x {
-  font-size: 2em;
+  width: 1em;
+  height: 1em;
+}
+
+.siw-icon-background-2x {
+  font-size: 1em;
 }
 
 .siw-icon-3x {
-  font-size: 3em;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.siw-icon-background-3x {
+  font-size: 1.5em;
 }
 
 .siw-icon-4x {
+  width: 2em;
+  height: 2em;
+}
+
+.siw-icon-background-4x {
+  font-size: 2em;
+}
+
+.siw-icon-5x {
+  width: 2.5em;
+  height: 2.5em;
+}
+
+.siw-icon-background-5x {
+  font-size: 2.5em;
+}
+
+.siw-icon-6x {
+  width: 3em;
+  height: 3em;
+}
+
+.siw-icon-background-6x {
+  font-size: 3em;
+}
+
+.siw-icon-7x {
+  width: 3.5em;
+  height: 3.5em;
+}
+
+.siw-icon-background-7x {
+  font-size: 3.5em;
+}
+
+.siw-icon-8x {
+  width: 4em;
+  height: 4em;
+}
+
+.siw-icon-background-8x {
   font-size: 4em;
+}
+
+.siw-icon-9x {
+  width: 4.5em;
+  height: 4.5em;
+}
+
+.siw-icon-background-9x {
+  font-size: 4.5em;
+}
+
+.siw-icon-10x {
+  width: 5em;
+  height: 5em;
+}
+
+.siw-icon-background-10x {
+  font-size: 5em;
 }

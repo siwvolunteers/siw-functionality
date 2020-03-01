@@ -7,9 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Gegevens van soorten werk
  *
- * @author    Maarten Bruna
- * @package   SIW\Reference-Data
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * 
  * @todo      ESC en groepsprojecten toevoegen
  */

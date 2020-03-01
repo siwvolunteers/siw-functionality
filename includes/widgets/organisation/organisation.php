@@ -1,13 +1,16 @@
 <?php
 
+namespace SIW\Widgets;
+
+use SIW\HTML;
+use SIW\Formatting;
+use SIW\Properties;
+
 /**
  * Widget met organisatiegegevens
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
- * 
- * @uses      SIW_Properties
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  * 
  * @widget_data
  * Widget Name: SIW: Organisatiegegevens
@@ -15,7 +18,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_Organisation extends SIW_Widget {
+class Organisation extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -65,10 +68,10 @@ class SIW_Widget_Organisation extends SIW_Widget {
 	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
 		ob_start();
 		?>
-		<p><b><?php esc_html_e( 'Statutaire naam', 'siw' ); ?></b><br><?= SIW_Properties::STATUTORY_NAME ?><br></p>
-		<p><b><?php esc_html_e( 'RSIN/fiscaal nummer', 'siw' ); ?></b><br><?= SIW_Properties::RSIN ?><br></p>
-		<p><b><?php esc_html_e( 'KVK-nummer', 'siw' ); ?></b><br><?= SIW_Properties::KVK ?><br></p>
-		<p><b><?php esc_html_e( 'Rekeningnummer', 'siw' ); ?></b><br><?= SIW_Properties::IBAN ?><br></p>
+		<p><b><?php esc_html_e( 'Statutaire naam', 'siw' ); ?></b><br><?= Properties::STATUTORY_NAME ?><br></p>
+		<p><b><?php esc_html_e( 'RSIN/fiscaal nummer', 'siw' ); ?></b><br><?= Properties::RSIN ?><br></p>
+		<p><b><?php esc_html_e( 'KVK-nummer', 'siw' ); ?></b><br><?= Properties::KVK ?><br></p>
+		<p><b><?php esc_html_e( 'Rekeningnummer', 'siw' ); ?></b><br><?= Properties::IBAN ?><br></p>
 		<p>
 			<b><?php esc_html_e( 'Bestuurssamenstelling', 'siw' ); ?></b><br>
 			<?php esc_html_e( 'Het bestuur van SIW bestaat momenteel uit:', 'siw' ); ?>
@@ -102,7 +105,7 @@ class SIW_Widget_Organisation extends SIW_Widget {
 		foreach ( $board_members as $board_member ) {
 			$board_members_list[] = sprintf('%s %s<br/><i>%s</i>', $board_member['first_name'], $board_member['last_name'], $board_member['title']);
 		}
-		return SIW_Formatting::generate_list( $board_members_list );
+		return HTML::generate_list( $board_members_list );
 	}
 
 	/**
@@ -119,7 +122,7 @@ class SIW_Widget_Organisation extends SIW_Widget {
 		foreach ( $annual_reports as $report ) {
 			$url = wp_get_attachment_url( $report['file'][0] );
 			$text = sprintf( esc_html__( 'Jaarverslag %s', 'siw' ), $report['year'] );
-			$reports[ $report['year'] ] = SIW_Formatting::generate_link(
+			$reports[ $report['year'] ] = HTML::generate_link(
 				$url,
 				$text,
 				[
@@ -131,9 +134,9 @@ class SIW_Widget_Organisation extends SIW_Widget {
 					'data-ga-action'   => 'Downloaden',
 					'data-ga-label'    => $url,
 				]
-				);
+			);
 		}
 		krsort( $reports );
-		return SIW_Formatting::array_to_text( $reports, BR );
+		return Formatting::array_to_text( $reports, BR );
 	}
 }

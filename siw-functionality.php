@@ -1,5 +1,7 @@
 <?php
 
+namespace SIW;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -7,30 +9,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * SIW Functionaliteit
  *
- * @package     SIW
- * @author      Maarten Bruna
  * @copyright   2017-2019 SIW Internationale Vrijwilligersprojecten
+ * @license     GPL-2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name: SIW Functionaliteit
  * Plugin URI:  https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
- * Version:     2.2.0
- * Author:      Maarten Bruna
+ * Version:     3.0.0
+ * Author:      SIW Internationale Vrijwilligersprojecten
+ * Author URI:  https://www.siw.nl
  * Text Domain: siw
+ * License:     GPLv2 or later
  */
 
-require_once dirname( __FILE__ ) . '/class-siw-bootstrap.php';
-$bootstrap = new SIW_Bootstrap();
+require_once dirname( __FILE__ ) . '/bootstrap.php';
+$bootstrap = new Bootstrap();
 $bootstrap->init();
-
-/* Basisfunctionaliteit: functies en instellingen */
-require_once( SIW_INCLUDES_DIR . '/options/options.php' );
-
-/* Diverse aanpassingen */
-require_once( SIW_INCLUDES_DIR . '/content-types/content-types.php' );
-require_once( SIW_INCLUDES_DIR . '/email/init.php');
-require_once( SIW_INCLUDES_DIR . '/maps/maps.php' );
-require_once( SIW_INCLUDES_DIR . '/post-types/init.php' );
-require_once( SIW_INCLUDES_DIR . '/woocommerce/init.php' );
-

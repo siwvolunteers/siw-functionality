@@ -1,13 +1,15 @@
 <?php
 
+namespace SIW\Widgets;
+
+use SIW\HTML;
+use SIW\Elements\Carousel as Element_Carousel;
+
 /**
  * Widget met carousel
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
- * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
- * 
- * @uses      SIW_Carousel
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  * 
  * @widget_data
  * Widget Name: SIW: Carousel
@@ -15,7 +17,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_Carousel extends SIW_Widget {
+class Carousel extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -36,9 +38,9 @@ class SIW_Widget_Carousel extends SIW_Widget {
 	}
 
 	/**
-	 * Instantie van SIW_Element_Carousel
+	 * Instantie van Carousel
 	 *
-	 * @var SIW_Element_Carousel
+	 * @var Carousel
 	 */
 	protected $carousel;
 
@@ -120,7 +122,15 @@ class SIW_Widget_Carousel extends SIW_Widget {
 				];
 			}
 		}
-
+		$widget_form['show_featured_products'] = [
+			'type'          => 'checkbox',
+			'label'         => __( 'Toon alleen uitgelichte Groepsprojecten', 'siw' ),
+			'default'       => false,
+			'state_handler' => [
+				"post_type[product]" => ['show'],
+				'_else[post_type]'        => ['hide'],
+			],
+		];
 		$widget_form['show_button'] = [
 			'type'          => 'checkbox',
 			'label'         => __( 'Toon een knop', 'siw' ),
@@ -152,12 +162,15 @@ class SIW_Widget_Carousel extends SIW_Widget {
 
 		$instance = $this->parse_instance( $instance );
 
-		$carousel = new SIW_Element_Carousel();
+		$carousel = new Element_Carousel();
 		$carousel->set_post_type( $instance['post_type'] );
 		$carousel->set_items( $instance['items'] );
 		$carousel->set_columns( $instance['columns'] );
 		if ( ! empty( $instance['taxonomy'] ) && ! empty( $instance['term'] ) ) {
 			$carousel->set_taxonomy_term( $instance['taxonomy'], $instance['term'] );
+		}
+		elseif ( 'product' == $instance['post_type'] && isset( $instance['show_featured_products'] ) && $instance['show_featured_products']  ) {
+			$carousel->set_taxonomy_term( 'product_visibility', 'featured' );
 		}
 		
 		$content = '';
@@ -217,7 +230,7 @@ class SIW_Widget_Carousel extends SIW_Widget {
 		else {
 			$link = get_post_type_archive_link( $post_type );
 		}
-		$button = SIW_Formatting::generate_link( $link, $button_text, [ 'class' => 'kad-btn kad-btn-primary' ] ); //TODO: functie generate button
+		$button = HTML::generate_link( $link, $button_text, [ 'class' => 'kad-btn kad-btn-primary' ] ); //TODO: functie generate button
 		return $button;
 	}
 
@@ -230,6 +243,7 @@ class SIW_Widget_Carousel extends SIW_Widget {
 		$post_types = [];
 		$post_types = [
 			'siw_tm_country' => __( 'Op Maat landen', 'siw' ),
+			'product'        => __( 'Groepsprojecten', 'siw' ),
 		];
 		/**
 		 * Custom post types
@@ -250,6 +264,9 @@ class SIW_Widget_Carousel extends SIW_Widget {
 		$taxonomies = [] ;
 		$taxonomies['siw_tm_country'] = [
 			'siw_tm_country_continent' => __( 'Continent', 'siw' ),
+		];
+		$taxonomies['product'] = [
+			'product_cat'        => __( 'Continent', 'siw' ),
 		];
 
 		/**

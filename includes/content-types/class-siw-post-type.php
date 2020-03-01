@@ -3,11 +3,8 @@
 /**
  * Class om een custom post type toe te voegen
  * 
- * @package   SIW
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @author    Maarten Bruna
  */
-
 class SIW_Post_Type {
 	/**
 	 * Post type
@@ -128,7 +125,7 @@ class SIW_Post_Type {
 	 * @return string
 	 */
 	public function register_single_template( $template, $type, $templates ) {
-		if ( in_array( "single-siw_{$this->post_type}.php", $templates ) && SIW_Util::template_exists( "single-{$this->post_type}.php") ) {
+		if ( in_array( "single-siw_{$this->post_type}.php", $templates ) && \SIW\Util::template_exists( "single-{$this->post_type}.php") ) {
 			$template = SIW_TEMPLATES_DIR . "/single-{$this->post_type}.php";
 		}
 		return $template;
@@ -143,7 +140,7 @@ class SIW_Post_Type {
 	 * @return string
 	 */
 	public function register_archive_template( $template, $type, $templates ) {
-		if ( in_array( "archive-siw_{$this->post_type}.php", $templates ) && SIW_Util::template_exists( "archive-{$this->post_type}.php") ) {
+		if ( in_array( "archive-siw_{$this->post_type}.php", $templates ) && \SIW\Util::template_exists( "archive-{$this->post_type}.php") ) {
 			$template = SIW_TEMPLATES_DIR . "/archive-{$this->post_type}.php";
 		}
 		return $template;

@@ -19,15 +19,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use SIW\Properties;
+
 /*
  * @hooked WC_Emails::email_header() Output the email header
  */
 do_action( 'woocommerce_email_header', $email_heading, $email );
 
-$signature = siw_get_option( 'workcamp_application_email')['signature'];
+$email_settings = siw_get_email_settings( 'workcamp' );
 
 ?>
-<div style="font-family:Verdana, normal; color:<?= SIW_Properties::FONT_COLOR;?>; font-size:0.9em; ">
+<div style="font-family:Verdana, normal; color:<?= Properties::FONT_COLOR;?>; font-size:0.9em; ">
 	<p>
 		<?php
 		printf( esc_html__( 'Beste %s,', 'siw'), $order->get_billing_first_name() ); echo BR2;
@@ -48,10 +50,10 @@ $signature = siw_get_option( 'workcamp_application_email')['signature'];
 
 		esc_html_e( 'Als je nog vragen hebt, aarzel dan niet om contact met ons op te nemen.', 'siw'); echo BR2;
 		esc_html_e( 'Met vriendelijke groet,', 'siw' ); echo BR2;
-		echo esc_html( $signature['name'] )
+		echo esc_html( $email_settings['name'] )
 		?>
 		<br/>
-		<span style="color:#808080"><?php echo esc_html( $signature['title'] )?> </span>
+		<span style="color:#808080"><?php echo esc_html( $email_settings['title'] )?> </span>
 	</p>
 </div>
 

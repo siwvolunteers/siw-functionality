@@ -1,14 +1,21 @@
 <?php global $post, $pinnacle;
 
-	$event_data = siw_get_event_data( $post->ID );
-	$loadscripts = ( 1 == $count ) ? true : false;
-	$location_map = sprintf('[gmap address="%s, %s %s" title="%s" zoom="13" maptype="ROADMAP" loadscripts="%s"]', esc_attr( $event_data['address'] ), esc_attr( $event_data['postal_code'] ), esc_attr( $event_data['city'] ), esc_attr( $event_data['location'] ), esc_attr( $loadscripts) );
+use SIW\Elements\Google_Maps;
+
+$event_data = siw_get_event_data( $post->ID );
+$location_map = new Google_Maps();
+$location_map->add_location_marker(
+	sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] ),
+	$event_data['location'],
+	sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] )
+);
+$location_map->set_options(['zoom' => 13 ] );
 
 ?>
 <article id="agenda-<?php the_ID(); ?>" <?php post_class('kad_blog_item postclass kad-animation'); ?> data-animation="fade-in" data-delay="0" itemscope="" itemtype="http://schema.org/BlogPosting">
 	<div class="row">
 		<div class="col-md-4">
-			<?php echo do_shortcode( $location_map ); ?>
+			<?php echo $location_map->generate(); ?>
 		</div>
 		<div class="col-md-8 postcontent">
 			<header>

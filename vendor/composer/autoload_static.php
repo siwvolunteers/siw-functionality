@@ -14,7 +14,6 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         'S' => 
         array (
             'Spatie\\ArrayToXml\\' => 18,
-            'SVG\\' => 4,
         ),
     );
 
@@ -23,25 +22,11 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         array (
             0 => __DIR__ . '/..' . '/spatie/array-to-xml/src',
         ),
-        'SVG\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/meyfa/php-svg/src',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'I' => 
-        array (
-            'Ils' => 
-            array (
-                0 => __DIR__ . '/..' . '/aramonc/docblock-parser/src',
-            ),
-        ),
     );
 
     public static $classMap = array (
-        'WP_Async_Request' => __DIR__ . '/..' . '/a5hleyrich/wp-background-processing/classes/wp-async-request.php',
-        'WP_Background_Process' => __DIR__ . '/..' . '/a5hleyrich/wp-background-processing/classes/wp-background-process.php',
+        'WP_Async_Request' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-async-request.php',
+        'WP_Background_Process' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-background-process.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -49,7 +34,6 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d::$classMap;
 
         }, null, ClassLoader::class);

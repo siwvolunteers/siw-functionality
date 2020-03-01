@@ -13,6 +13,6 @@ https://siwvolunteers.github.io/
 - [Flickity](https://github.com/metafizzy/flickity)
 - [wp_parse_args_recursive](https://github.com/kallookoo/wp_parse_args_recursive)
 - [WP Background Processing](https://github.com/deliciousbrains/wp-background-processing)
-- [DocBlockParser](https://github.com/aramonc/DocBlockParser)
 - [Convert an array to xml](https://github.com/spatie/array-to-xml)
-- [php-svg](https://github.com/meyfa/php-svg)
+- [Sal.js](https://mciastek.github.io/sal/)
+- [Balloon.css](https://kazzkiq.github.io/balloon.css/)

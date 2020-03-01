@@ -1,22 +1,29 @@
 <?php
+
 /**
  * Functies m.b.t. landen
  * 
- * @author    Maarten Bruna
- * @package   SIW\Functions
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright SIW Internationale Vrijwilligersprojecten
  */
+
+use SIW\Data\Country;
 
 /**
  * Geeft array van landen terug op basis van zoekterm (slug of ISO-code)
+ * 
+ * @since     3.0.0
  *
  * @param string $index
  * @param string $context all|workcamps|esc_projects|tailor_made_projects
- * @return SIW_Data_Country[]
+ * @param string $return objects|array
+ * 
+ * @return Country[]|array
+ * 
+ * @todo continent als context toevoegen
  */
-function siw_get_countries( string $context = 'all', string $index = 'slug' ) { 
+function siw_get_countries( string $context = 'all', string $index = 'slug', string $return = 'objects' ) { 
 
-	$countries = wp_cache_get( "{$context}_{$index}", 'siw_countries' );
+	$countries = wp_cache_get( "{$context}_{$index}_{$return}", 'siw_countries' );
 	if ( false !== $countries ) {
 		return $countries;
 	}
@@ -25,10 +32,10 @@ function siw_get_countries( string $context = 'all', string $index = 'slug' ) {
 
 	foreach ( $continents as $continent ) {
 		$continent = str_replace( '_', '-', $continent );
-		$continent_data[ $continent ] = siw_get_data( $continent, 'countries' );
+		$continent_data[ $continent ] = siw_get_data( "countries/{$continent}" );
 	}
 	
-	// Continent toevoegen aan elke land en array platslaan
+	// Continent toevoegen aan elke land en array platslaan TODO: netter
 	$data = [];
 	foreach ( $continent_data as $continent => $countries_data ) {
 		$countries_data = array_map( function( $country_data ) use ( $continent ) {
@@ -39,38 +46,54 @@ function siw_get_countries( string $context = 'all', string $index = 'slug' ) {
 	}
 
 	//Sorteren op naam
-	usort( $data, function( $a, $b ) {
-		return strnatcmp($a['name'], $b['name']);
-	});
+	$data = wp_list_sort( $data, 'name' );
 
-	$countries = [];
-	foreach ( $data as $item ) {
-		$country = new SIW_Data_Country( $item );
-		if ( 'all' == $context 
-			|| ( 'workcamps' == $context && true === $country->has_workcamps() )
-			|| ( 'esc_projects' == $context && true === $country->has_esc_projects() )
-			|| ( 'tailor_made_projects' == $context && true === $country->has_tailor_made_projects() )
-		) {
-			$countries[ $item[ $index ] ] = $country;
+	//Zet index van array
+	$data = array_column( $data , null, $index );
+
+	//Creëer objecten
+	$countries = array_map(
+		function( $item ) {
+			return new Country( $item );
+		},
+		$data
+	);
+
+	//Filter op context
+	$countries = array_filter(
+		$countries, 
+		function( $country ) use ( $context ) {
+			return ( 'all' == $context 
+				|| ( 'workcamps' == $context && $country->has_workcamps() )
+				|| ( 'esc_projects' == $context && $country->has_esc_projects() )
+				|| ( 'tailor_made_projects' == $context && $country->has_tailor_made_projects() )
+			);
 		}
+	);
+
+	if ( 'array' == $return ) {
+		$countries = array_map(
+			function( $country ) {
+				return $country->get_name();
+			},
+			$countries
+		);
 	}
-	wp_cache_set( "{$context}_{$index}", $countries, 'siw_countries' );
+	wp_cache_set( "{$context}_{$index}_{$return}", $countries, 'siw_countries' );
 
 	return $countries;
 }
 
 /**
  * Geeft land terug op basis van zoekterm (slug of ISO-code)
+ * 
+ * @since     3.0.0
  *
  * @param string $country
  * @param string $index
- * @return SIW_Data_Country
+ * @return Country
  */
 function siw_get_country( string $country, string $index = 'slug' ) {
-
-	$countries = siw_get_countries( 'all', $index  );
-	if ( ! isset( $countries[ $country ] ) ) {
-		return false;
-	}
-	return $countries[ $country ];
+	$countries = siw_get_countries( 'all', $index );
+	return $countries[ $country ] ?? false;
 }

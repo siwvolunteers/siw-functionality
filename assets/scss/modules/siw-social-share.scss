@@ -1,0 +1,27 @@
+@import "../partials/_variables.scss";
+
+.siw-social{
+	text-align:center;
+	.title{
+		padding-bottom:15px;
+		font-weight:bold;
+	}
+
+	a{
+		padding:5px;
+		margin:5px;
+		font-size:18px;
+		border-top:3px solid;
+		color:#ccc;
+		.siw-icon {
+			fill:#ccc;
+		}
+
+		&:hover{
+			color: var(--hover-color);
+			.siw-icon {
+				fill: var(--hover-color);
+			}
+		}
+	}
+}

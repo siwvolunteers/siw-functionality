@@ -1,13 +1,15 @@
 <?php
 
+namespace SIW\Widgets;
+
+use SIW\Elements\Pie_Chart as Element_Pie_Chart;
+use SIW\HTML;
+
 /**
  * Widget met grafiek
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * 
- * @uses      SIW_Chart
+ * @since     3.0.0
  * 
  * @widget_data
  * Widget Name: SIW: Grafiek
@@ -15,7 +17,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_Pie_Chart extends SIW_Widget {
+class Pie_Chart extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -47,7 +49,6 @@ class SIW_Widget_Pie_Chart extends SIW_Widget {
 			'title' => [
 				'type'      => 'text',
 				'label'     => __( 'Titel', 'siw'),
-				'default'   => __( 'Contact', 'siw' ),
 			],
 			'intro' => [
 				'type'           => 'tinymce',
@@ -109,20 +110,19 @@ class SIW_Widget_Pie_Chart extends SIW_Widget {
 		if ( isset( $instance['intro'] ) ) {
 			$content .= wpautop( wp_kses_post( $instance['intro'] ) );
 		}
-		$chart = new SIW_Element_Pie_Chart();
-		$content .= $chart->generate( $instance['series'] );
+		$chart = new Element_Pie_Chart();
+		$content .= $chart->generate( $instance['series'] ); //TODO: check of dit series wel gevuld is
 
-		if ( true == $instance['show_explanation'] ) {
+		if ( $instance['show_explanation'] ) {
 			$explanation = array_map(
 				function( $data ) {
 					return '<b>' . $data['label'] . '</b>' . wpautop( $data['explanation'] );
 				}, 
 				$instance['series']
 			);
-			$content .= SIW_HTML::generate_list( $explanation );
+			$content .= HTML::generate_list( $explanation );
 		}
 
 		return $content;
 	}
-
 }

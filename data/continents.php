@@ -7,36 +7,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Data van continenten
  *
- * @author    Maarten Bruna
- * @package   SIW\Data
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
 $data = [
 	[
 		'slug'  => 'europa',
 		'name'  => __( 'Europa', 'siw' ),
-		'color' => SIW_Properties::COLOR_EUROPE,
+		'color' => '#007499',
 	],
 	[
 		'slug'  => 'azie',
 		'name'  => __( 'Azië', 'siw' ),
-		'color' => SIW_Properties::COLOR_ASIA,
+		'color' => '#008e3f',
 	],
 	[
 		'slug'  => 'afrika',
 		'name'  => __( 'Afrika', 'siw' ),
-		'color' => SIW_Properties::COLOR_AFRICA,
+		'color' => '#e30613',
 	],
 	[
 		'slug'  => 'latijns-amerika',
 		'name'  => __( 'Latijns-Amerika', 'siw' ),
-		'color' => SIW_Properties::COLOR_LATIN_AMERICA,
+		'color' => '#c7017f',
 	],
 	[
 		'slug'  => 'noord-amerika',
 		'name'  => __( 'Noord-Amerika', 'siw' ),
-		'color' => SIW_Properties::COLOR_NORTH_AMERICA,
+		'color' => '#fbba00',
 	],
 ];
 

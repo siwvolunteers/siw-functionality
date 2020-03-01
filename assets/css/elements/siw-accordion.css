@@ -1,0 +1,43 @@
+.siw-accordion h5 {
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+.siw-accordion h5 span {
+  width: 100%;
+  display: block;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #ececec;
+}
+.siw-accordion h5 span:after {
+  content: "+";
+  float: right;
+  font-size: 1em;
+  font-weight: bold;
+}
+.siw-accordion h5 span[aria-expanded=true] {
+  background-color: #ff9900;
+  color: #fff;
+}
+.siw-accordion h5 span[aria-expanded=true]:after {
+  content: "-";
+  color: #fff;
+}
+.siw-accordion .panel {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.siw-accordion .panel[aria-hidden=true] {
+  max-height: 0 !important;
+}
+.siw-accordion .panel[aria-hidden=false] {
+  display: block;
+  padding: 10px;
+}
+div.product .woocommerce-tabs .siw-accordion .panel {
+  margin: 0px;
+  padding: 0px;
+}
+div.product .woocommerce-tabs .siw-accordion .panel[aria-hidden=false] {
+  padding: 10px;
+}

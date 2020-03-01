@@ -1,14 +1,17 @@
 <?php
 
+namespace SIW\Widgets;
+
+use SIW\Elements;
+use SIW\Formatting;
+use SIW\Properties;
+use SIW\HTML;
+
 /**
  * Widget met contactinformatie
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
- * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
- * 
- * @uses      SIW_Properties
- * @uses      SIW_Formatting
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  * 
  * @widget_data
  * Widget Name: SIW: Contactinformatie
@@ -16,7 +19,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_Contact extends SIW_Widget {
+class Contact extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -58,12 +61,15 @@ class SIW_Widget_Contact extends SIW_Widget {
 		?>
 		<div class="siw-contact">
 			<?php
-			echo wpautop( SIW_Formatting::array_to_text(
+			echo wpautop( Formatting::array_to_text(
 				[
-					esc_html( SIW_Properties::NAME ),
-					sprintf( '%s | %s %s', SIW_Properties::ADDRESS, SIW_Properties::POSTCODE, SIW_Properties::CITY ),
-					sprintf( '%s %s | %s %s', SIW_Formatting::generate_icon( 'siw-icon-phone', 1 ), SIW_Properties::PHONE, SIW_Formatting::generate_icon( 'siw-icon-envelope', 1 ), SIW_Properties::EMAIL ),
-					sprintf( '%s %s', SIW_Formatting::generate_icon( 'siw-icon-clock', 1 ), sprintf( esc_html__( 'Maandag t/m vrijdag %s-%s', 'siw' ), SIW_Properties::OPENING_TIME, SIW_Properties::CLOSING_TIME ) ),
+					Properties::NAME,
+					sprintf( '%s | %s %s', Properties::ADDRESS, Properties::POSTCODE, Properties::CITY ),
+					sprintf( '%s | %s',
+						HTML::generate_link( "tel:" . Properties::PHONE_INTERNATIONAL, Properties::PHONE ),
+						HTML::generate_link( "mailto:" . antispambot( Properties::EMAIL ), antispambot( Properties::EMAIL ) )
+					),
+					Elements::generate_opening_hours('table'),
 				],
 				BR2
 				)
@@ -72,19 +78,25 @@ class SIW_Widget_Contact extends SIW_Widget {
 		</div>
 		<div class="siw-social-links clearfix">
 			<?php
-			$social_networks = siw_get_social_networks('follow');
+			$social_networks = siw_get_social_networks( 'follow' );
 			foreach ( $social_networks as $network ) {
-				echo SIW_Formatting::generate_link(
+				echo HTML::generate_link(
 					$network->get_follow_url(),
-					SIW_Formatting::generate_icon( $network->get_icon_class(), 1, 'circle' ),
+					'&shy;',
 					[
 						'class'               => $network->get_slug(),
 						'title'               => $network->get_name(),
 						'target'              => '_blank',
-						'rel'                 => 'noopener',
-						'data-toggle'         => 'tooltip',
-						'data-placement'      => 'top',
+						'rel'                 => 'noopener external',
+						'aria-label'          => sprintf( esc_attr__( 'Volg ons op %s', 'siw' ), $network->get_name() ),
+						'data-balloon-pos'    => 'up',
 						'data-original-title' => $network->get_name(),
+						'style'               => '--hover-color: ' . $network->get_color(),
+					],
+					[
+						'class'      => $network->get_icon_class(),
+						'size'       => 2,
+						'background' => 'circle'
 					]
 				);
 			}

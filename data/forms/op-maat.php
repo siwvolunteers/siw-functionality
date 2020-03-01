@@ -4,16 +4,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use SIW\i18n;
+use SIW\Properties;
+
 /**
  * Gegevens van Op Maat
  * 
- * @package   SIW\Data
- * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * */
+ */
 
 $args = [
-	'name' => __( 'Op Maat', 'siw' ),
+	'name'            => __( 'Op Maat', 'siw' ),
+	'postcode_lookup' => true,
 ];
 
 $processors = [];
@@ -22,7 +24,7 @@ $intro = [
 	__( 'Interesse in een Project Op Maat?', 'siw' ) . SPACE .
 	__( 'Meld je dan aan via onderstaand formulier.', 'siw' ) . SPACE .
 	__( 'Vervolgens zal één van onze regiospecialisten contact met je opnemen voor een kennismakingsgesprek.', 'siw' ) . SPACE .
-	sprintf( __( 'Weet je nog niet precies waar je naar toe wil, meld je dan aan voor één van onze <a href="%s">Infodagen</a> en laat je inspireren.', 'siw' ), SIW_i18n::get_translated_page_url( siw_get_option( 'info_days_explanation_page' ) ) )
+	sprintf( __( 'Weet je nog niet precies waar je naar toe wil, meld je dan aan voor één van onze <a href="%s">Infodagen</a> en laat je inspireren.', 'siw' ), i18n::get_translated_page_url( siw_get_option( 'info_days_explanation_page' ) ) )
 ];
 
 $pages = [
@@ -33,88 +35,24 @@ $pages = [
 
 $fields[0] = [
 	[
-		[
-			'slug'  => 'voornaam',
-			'type'  => 'text',
-			'label' => __( 'Voornaam', 'siw' ),
-		],
-		[
-			'slug'  => 'achternaam',
-			'type'  => 'text',
-			'label' => __( 'Achternaam', 'siw' ),
-		],
+		'voornaam',
+		'achternaam',
 	],
 	[
-		[
-			'slug'   => 'geboortedatum',
-			'type'   => 'text',
-			'label'  => __( 'Geboortedatum', 'siw' ),
-			'config' => [
-				'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
-			],
-		],
-		[
-			'slug'  => 'geslacht',
-			'type'  => 'radio',
-			'label' => __( 'Geslacht', 'siw' ),
-			'config' => [
-				'inline' => true,
-				'option' => siw_get_genders(),
-			]
-		],
+		'geboortedatum',
+		'geslacht',
 	],
 	[
-		[
-			'slug'  => 'emailadres',
-			'type'  => 'email',
-			'label' => __( 'Emailadres', 'siw' ),
-		],
-		[
-			'slug'     => 'telefoonnummer',
-			'type'     => 'text',
-			'label'    => __( 'Telefoonnummer', 'siw' ),
-			'required' => false,
-			'config'   => [
-				'type_override' => 'tel',
-			],
-		],
+		'emailadres',
+		'telefoonnummer',
 	],
 	[
-		[
-			'slug'   => 'postcode',
-			'type'   => 'text',
-			'label'  => __( 'Postcode', 'siw' ),
-			'config' => [
-				'custom_class' => 'postcode',
-				'placeholder'  => '1234 AB',
-			],
-		],
-		[
-			'slug'   => 'huisnummer',
-			'type'   => 'text',
-			'label'  => __( 'Huisnummer', 'siw' ),
-			'config' => [
-				'custom_class' => 'huisnummer',
-			],
-		]
+		'postcode',
+		'huisnummer',
 	],
 	[
-		[
-			'slug'   => 'straat',
-			'type'   => 'text',
-			'label'  => __( 'Straat', 'siw' ),
-			'config' => [
-				'custom_class' => 'straat',
-			],
-		],
-		[
-			'slug'   => 'woonplaats',
-			'type'   => 'text',
-			'label'  => __( 'Woonplaats', 'siw' ),
-			'config' => [
-				'custom_class' => 'plaats',
-			],
-		],
+		'straat',
+		'woonplaats',
 	],
 ];
 
@@ -267,7 +205,7 @@ $confirmation = [
 		'<span style="font-weight:bold">' .
 		__( 'Meer informatie', 'siw' ) .
 		'</span>' . BR .
-		sprintf( __( 'Als je nog vragen hebt, aarzel dan niet om contact op te nemen met ons kantoor via %s of via het nummer %s.', 'siw' ), SIW_Properties::EMAIL, SIW_Properties::PHONE ),
+		sprintf( __( 'Als je nog vragen hebt, aarzel dan niet om contact op te nemen met ons kantoor via %s of via het nummer %s.', 'siw' ), Properties::EMAIL, Properties::PHONE ),
 	'recipient_name'  => '%voornaam% %achternaam%',
 ];
 
@@ -283,6 +221,5 @@ return [
 	'fields'        => $fields,
 	'confirmation'  => $confirmation,
 	'notification'  => $notification,
-	'email_option'  => 'tailor_made_email',
 	'primary_email' => 'emailadres',
 ];

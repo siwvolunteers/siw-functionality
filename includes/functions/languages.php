@@ -1,18 +1,21 @@
 <?php
+
 /**
  * Functies m.b.t. talen
  * 
- * @author    Maarten Bruna
- * @package   SIW\Functions
- * @copyright 2018-2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
+
+use SIW\Data\Language;
 
 /**
  * Geeft array met gegevens van talen terug
+ * 
+ * @since     3.0.0
  *
  * @param string $index
  * @param string $context all|volunteer|project
- * @return SIW_Data_Language[]
+ * @return Language[]
  */
 function siw_get_languages( string $context = 'all', string $index = 'slug' ) {
 	$languages = wp_cache_get( "{$context}_{$index}", 'siw_languages' );
@@ -21,40 +24,54 @@ function siw_get_languages( string $context = 'all', string $index = 'slug' ) {
 		return $languages;
 	}
 
+	//Data ophalen en sorteren
 	$data = siw_get_data( 'languages' );
+	$data = wp_list_sort( $data, 'name' );
 
-	foreach ( $data as $item ) {
-		$language = new SIW_Data_Language( $item );
-		if ( 'all' == $context 
-			|| ( 'volunteer' == $context && true === $language->is_volunteer_language() )
-			|| ( 'project' == $context && true === $language->is_project_language() )
-		) {
-			$languages[ $item[ $index ] ] = $language;
+	//Zet index van array
+	$data = array_column( $data , null, $index );
+
+	//Creëer objecten
+	$languages = array_map(
+		function( $item ) {
+			return new Language( $item );
+		},
+		$data
+	);
+
+	//Filter op context
+	$languages = array_filter(
+		$languages, 
+		function( $language ) use ( $context ) {
+			return ( 'all' == $context 
+				|| ( 'volunteer' == $context && $language->is_volunteer_language() )
+				|| ( 'project' == $context && $language->is_project_language() )
+			);
 		}
-	}
+	);
 	wp_cache_set( "{$context}_{$index}", $languages, 'siw_languages' );
-	
+
 	return $languages;
 }
 
 /**
-* Geeft informatie over een taal terug
-*
-* @return SIW_Data_Language
-*/
+ * Geeft informatie over een taal terug
+ * 
+ * @since     3.0.0
+ *
+ * @param string $language
+ * @param string $index
+ * @return Language
+ */
 function siw_get_language( string $language, string $index = 'slug' ) {
-
 	$languages = siw_get_languages( 'all', $index );
-
-	if ( isset( $languages[ $language ] ) ) {
-		return $languages[ $language ];
-	}
-
-	return false;
+	return $languages[ $language ] ?? false;
 }
 
 /**
  * Geeft een array met niveau's van taalvaardigheid terug
+ * 
+ * @since     3.0.0
  *
  * @return array
  */

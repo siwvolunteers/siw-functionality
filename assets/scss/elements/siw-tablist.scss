@@ -1,0 +1,38 @@
+@import "../partials/_variables.scss";
+
+.siw-tablist {
+
+	[role=tablist] {
+		list-style-type: none;
+		margin: 0 auto;
+		padding:0;
+		&:after {
+			clear: both;
+			content: "";
+			display: table;
+		}
+	}
+
+	[role=tab] {
+		background-color: #ececec;
+		border-radius:4px;
+		padding:10px;
+		float: left;
+		font-weight: bold;
+		margin-bottom: 0;
+
+		&[aria-selected=true] {
+			background-color:$primary-color;
+			color: #fff;
+		}
+	}
+
+	[role=tabpanel] {
+		display:block;
+		padding:15px;
+
+		&[aria-hidden=true] {
+			display: none;
+		}
+	}
+}

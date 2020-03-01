@@ -1,15 +1,16 @@
 <?php
 
+namespace SIW\Widgets;
+
+use SIW\i18n;
+use SIW\HTML;
+use SIW\Util;
+
 /**
  * Widget met Call to Action
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
- * @copyright 2018 SIW Internationale Vrijwilligersprojecten
- * 
- * @uses      SIW_Formatting
- * @uses      SIW_i18n
- * @uses      SIW_Util
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  * 
  * @widget_data 
  * Widget Name: SIW: CTA
@@ -17,7 +18,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_CTA extends SIW_Widget {
+class CTA extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -62,7 +63,7 @@ class SIW_Widget_CTA extends SIW_Widget {
 				'type'    => 'select',
 				'label'   => __( 'Pagina voor knop', 'siw' ),
 				'prompt'  => __( 'Selecteer een pagina', 'siw' ),
-				'options' => SIW_Util::get_pages(), 
+				'options' => Util::get_pages(), 
 			],
 			'align' => [
 				'type' => 'select',
@@ -88,7 +89,7 @@ class SIW_Widget_CTA extends SIW_Widget {
 			<?= sprintf( '<%s>%s</%s>', esc_attr( $instance['heading'] ), esc_html( $instance['headline'] ), esc_attr( $instance['heading'] ) );?>
 		</div>
 		<div class="link" style="text-align:<?= esc_attr( $instance['align'] ); ?>">
-			<?= SIW_Formatting::generate_link( SIW_i18n::get_translated_page_url( $instance['button_page'] ), $instance['button_text'], [ 'class' => 'kad-btn' ] ); ?>
+			<?= HTML::generate_link( i18n::get_translated_page_url( $instance['button_page'] ), $instance['button_text'], [ 'class' => 'kad-btn' ] ); ?>
 		</div>
 		<?php
 		$content = ob_get_clean();

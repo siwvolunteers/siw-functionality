@@ -4,17 +4,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use SIW\Formatting;
+
 /**
  * Gegevens van aanmeldformulier voor Infodag
  * 
- * @package   SIW\Forms
- * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * */
+ */
 
-
-
-/* Keuzes infodag TODO: fallback als er geen opties zijn TODO: functie siw_get_infodays*/
+/* Keuzes infodag TODO: functie siw_get_infodays*/
 $infodays = siw_get_option( 'info_days' );
 
 $infodays = array_filter( $infodays, function( $date ) {
@@ -22,18 +20,12 @@ $infodays = array_filter( $infodays, function( $date ) {
 });
 
 $callback = function( &$value, $key )  {
-	$value = SIW_Formatting::format_date( $value, false );
+	$value = Formatting::format_date( $value, false );
 };
 array_walk( $infodays, $callback );
 
 if ( empty( $infodays ) ) {
-	$infodays[] = 'Nog niet bekend';
-}
-
-/* Continenten */
-$continents = siw_get_continents();
-foreach ( $continents as $continent ) {
-	$destinations[ $continent->get_slug() ] = $continent->get_name();
+	$infodays[] = __( 'Nog niet bekend', 'siw' );
 }
 
 
@@ -52,32 +44,12 @@ $pages = [];
 
 $fields[0] = [
 	[
-		[
-			'slug'  => 'voornaam',
-			'type'  => 'text',
-			'label' => __( 'Voornaam', 'siw' ),
-		],
-		[
-			'slug'  => 'achternaam',
-			'type'  => 'text',
-			'label' => __( 'Achternaam', 'siw' ),
-		],
+		'voornaam',
+		'achternaam',
 	],
 	[
-		[
-			'slug'  => 'emailadres',
-			'type'  => 'email',
-			'label' => __( 'Emailadres', 'siw' ),
-		],
-		[
-			'slug'     => 'telefoonnummer',
-			'type'     => 'text',
-			'label'    => __( 'Telefoonnummer', 'siw' ),
-			'required' => false,
-			'config'   => [
-				'type_override' => 'tel',
-			],
-		],
+		'emailadres',
+		'telefoonnummer',
 	],
 	[
 		[
@@ -107,7 +79,7 @@ $fields[0] = [
 			'label'    => __( 'Heb je interesse in een bepaalde bestemming?', 'siw' ),
 			'required' => false,
 			'config'   => [
-				'option' => $destinations,
+				'option' => siw_get_continents( 'array' ),
 			]
 		],
 		[
@@ -169,6 +141,5 @@ return [
 	'fields'        => $fields,
 	'confirmation'  => $confirmation,
 	'notification'  => $notification,
-	'email_option'  => 'info_day_email',
 	'primary_email' => 'emailadres',
 ];

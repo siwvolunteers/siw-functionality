@@ -1,0 +1,67 @@
+@import "../partials/_variables.scss";
+	
+.siw-logo div {
+	width: 195px !important;
+	background-image: url("#{$assets-path}/images/admin/logo.png") !important;
+	background-size: contain !important;
+	background-repeat: no-repeat !important;
+}
+
+table.wp-list-table {
+	.column-visibility,
+	.column-next_update,
+	.column-exported,
+	.column-siw_agenda_start,
+	.column-siw_agenda_eind,
+	.column-siw_vacature_deadline {
+		width: 10%;
+	}
+
+	.column-visibility {
+		.dashicons-visibility {
+			color: green;
+		}
+
+		.dashicons-hidden {
+			color: red;
+		}
+	}
+
+	.column-exported {
+		.dashicons-yes {
+			color: green;
+		}
+
+		.dashicons-no {
+			color: red;
+		}
+
+		.dashicons-minus {
+			color: grey;
+		}
+	}
+}
+
+#woocommerce-product-data ul.wc-tabs {
+	li.description_options a::before {
+		content: "\f123";
+	}
+	
+	li.plato_options a::before {
+		content: "\f463";
+	}
+	
+	li.approval_options a::before {
+		content:"\f529";
+	}
+}
+
+#order_data .order_data_column .form-field.form-field-wide {
+	label {
+		display: inline-block;
+	}
+
+	.woocommerce-help-tip {
+		margin-bottom:5px;
+	}
+}

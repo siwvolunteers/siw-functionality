@@ -6,5 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Ils' => array($vendorDir . '/aramonc/docblock-parser/src'),
 );

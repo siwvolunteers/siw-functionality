@@ -1,14 +1,17 @@
 <?php
 
+namespace SIW\Widgets;
+
+use SIW\Elements;
+use SIW\Formatting;
+use SIW\i18n;
+use SIW\HTML;
+
 /**
  * Widget met omschrijving Nederlandse projecten
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * 
- * @uses      SIW_Formatting
- * @uses      SIW_i18n
+ * @since     3.0.0
  * 
  * @widget_data
  * Widget Name: SIW: Nederlandse projecten
@@ -16,7 +19,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_Dutch_Projects extends SIW_Widget {
+class Dutch_Projects extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -53,17 +56,17 @@ class SIW_Widget_Dutch_Projects extends SIW_Widget {
 	 * {@inheritDoc}
 	 */
 	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
-		$language = SIW_i18n::get_current_language();
+		$language = i18n::get_current_language();
 		$projects = siw_get_option( 'dutch_projects');
 		$accordion_panes = [];
 		$tabs_panes = [];
 		foreach ( $projects as $project ) {
 			$work_type = siw_get_work_type( $project['work_type'] ); 
-			$icon = SIW_Formatting::generate_icon( $work_type ? $work_type->get_icon_class() : '', 2, 'circle' );
+			$icon = Elements::generate_icon( $work_type ? $work_type->get_icon_class() : '', 4, 'circle' );
 			$summary = wpautop( sprintf( __( 'Thema: %s', 'siw' ), $work_type ? $work_type->get_name() : '' ) );
 			$summary .= wpautop( sprintf( __( 'Projectcode: %s', 'siw' ), $project['code'] ) );
 
-			$content = SIW_Formatting::generate_columns([
+			$content = Formatting::generate_columns([
 				[ 'width' => 2, 'content' => $icon . $summary ],
 				[ 'width' => 10, 'content' => $project["description_{$language}"] ],
 			]);
@@ -77,11 +80,11 @@ class SIW_Widget_Dutch_Projects extends SIW_Widget {
 				'content' => $project["description_{$language}"],
 			];
 		}
-		$content = SIW_Formatting::generate_tabs( $tabs_panes );
-		$mobile_content = SIW_Formatting::generate_accordion( $accordion_panes );
+		$content = Elements::generate_tabs( $tabs_panes );
+		$mobile_content = Elements::generate_accordion( $accordion_panes );
 
 
-		//TODO: functie in SIW_Formatting voor mobile content
+		//TODO: functie in Formatting voor mobile content
 		$content = '<div class="hidden-xs">' . $content . '</div>';
 		$content .= '<div class="hidden-sm hidden-md hidden-lg">' . $mobile_content . '</div>';
 
@@ -107,7 +110,7 @@ class SIW_Widget_Dutch_Projects extends SIW_Widget {
 		$booklet_year = siw_get_option( 'dutch_projects_booklet_year');
 
 		if ( ! empty( $booklet ) ) {
-			$booklet_link = SIW_Formatting::generate_link(
+			$booklet_link = HTML::generate_link(
 				$booklet['url'],
 				sprintf( __( 'Engelstalige programmaboekje %d (PDF)', 'siw' ), $booklet_year ),
 				[

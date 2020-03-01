@@ -19,15 +19,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use SIW\Properties;
+
 /*
  * @hooked WC_Emails::email_header() Output the email header
  */
 do_action( 'woocommerce_email_header', $email_heading, $email );
 
-$signature = siw_get_option( 'workcamp_application_email')['signature'];
+$email_settings = siw_get_email_settings( 'workcamp' );
 
 ?>
-<div style="font-family:Verdana, normal; color:<?= SIW_Properties::FONT_COLOR;?>; font-size:0.9em; ">
+<div style="font-family:Verdana, normal; color:<?= Properties::FONT_COLOR;?>; font-size:0.9em; ">
 	<p>
 		<?php
 		printf( esc_html__( 'Beste %s,', 'siw'), $order->get_billing_first_name() ); echo BR2;
@@ -36,14 +38,14 @@ $signature = siw_get_option( 'workcamp_application_email')['signature'];
 			esc_html_e( 'Heel erg bedankt voor je aanmelding voor een vrijwilligersproject via SIW!', 'siw' ); echo SPACE;
 			esc_html_e( 'We doen ons best om ervoor te zorgen dat dit voor jou een onvergetelijke ervaring wordt!', 'siw' ); echo BR2;
 			esc_html_e( 'Je inschrijving wordt pas in behandeling genomen als we je betaling ontvangen hebben.', 'siw' ); echo BR2;
-			printf( esc_html__( 'Je kunt je betaling overmaken naar %s o.v.v. je aanmeldnummer (%s).', 'siw' ), SIW_Properties::IBAN, $order->get_order_number() ); echo BR;
+			printf( esc_html__( 'Je kunt je betaling overmaken naar %s o.v.v. je aanmeldnummer (%s).', 'siw' ), Properties::IBAN, $order->get_order_number() ); echo BR;
 		}
 		esc_html_e( 'Als je nog vragen hebt, aarzel dan niet om contact met ons op te nemen.', 'siw'); echo BR2;
 		esc_html_e( 'Met vriendelijke groet,', 'siw' ); echo BR2;
-		echo esc_html( $signature['name'] )
+		echo esc_html( $email_settings['name'] )
 		?>
 		<br/>
-		<span style="color:#808080"><?php echo esc_html( $signature['title'] )?> </span>
+		<span style="color:#808080"><?php echo esc_html( $email_settings['title'] )?> </span>
 	</p>
 </div>
 <?php

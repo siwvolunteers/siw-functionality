@@ -3,6 +3,9 @@
  * (c)2018 SIW Internationale Vrijwilligersprojecten
  */
 
+use SIW\HTML;
+use SIW\Formatting;
+use SIW\Properties;
 
 /**
  * Haal gegevens van vacature op
@@ -19,17 +22,17 @@ function siw_get_job_data( $post_id ) {
 		'permalink'                => get_permalink( $post_id ),
 		'title'                    => get_the_title( $post_id ),
 		'deadline_datum'           => date( 'Y-m-d', $deadline_ts ),
-		'deadline'                 => SIW_Formatting::format_date( date( 'Y-m-d', $deadline_ts ), false ),
+		'deadline'                 => Formatting::format_date( date( 'Y-m-d', $deadline_ts ), false ),
 		'inleiding'                => get_post_meta( $post_id, 'siw_vacature_inleiding', true ),
 		'highlight_quote'          => get_post_meta( $post_id, 'siw_vacature_highlight_quote', true ),
 		'betaald'                  => get_post_meta( $post_id, 'siw_vacature_betaald', true ),
 		'uur_per_week'             => get_post_meta( $post_id, 'siw_vacature_uur_per_week', true ),
 		'wie_ben_jij'              => get_post_meta( $post_id, 'siw_vacature_wie_ben_jij', true ),
-		'wie_ben_jij_lijst'        => get_post_meta( $post_id, 'siw_vacature_wie_ben_jij_lijst', true ),
+		'wie_ben_jij_lijst'        => get_post_meta( $post_id, 'siw_vacature_wie_ben_jij_lijst', true ) ?? [],
 		'wat_ga_je_doen'           => get_post_meta( $post_id, 'siw_vacature_wat_ga_je_doen', true ),
-		'wat_ga_je_doen_lijst'     => get_post_meta( $post_id, 'siw_vacature_wat_ga_je_doen_lijst', true ),
+		'wat_ga_je_doen_lijst'     => get_post_meta( $post_id, 'siw_vacature_wat_ga_je_doen_lijst', true ) ?? [],
 		'wat_bieden_wij_jou'       => get_post_meta( $post_id, 'siw_vacature_wat_bieden_wij_jou', true ),
-		'wat_bieden_wij_jou_lijst' => get_post_meta( $post_id, 'siw_vacature_wat_bieden_wij_jou_lijst', true ),
+		'wat_bieden_wij_jou_lijst' => get_post_meta( $post_id, 'siw_vacature_wat_bieden_wij_jou_lijst', true ) ?? [],
 		'contactpersoon_naam'      => get_post_meta( $post_id, 'siw_vacature_contactpersoon_naam', true ),
 		'contactpersoon_email'     => antispambot( get_post_meta( $post_id, 'siw_vacature_contactpersoon_email', true ) ),
 		'contactpersoon_telefoon'  => get_post_meta( $post_id, 'siw_vacature_contactpersoon_telefoon', true ),// Wordt nog niet gebruikt
@@ -100,9 +103,9 @@ function siw_get_featured_job() {
 function siw_generate_job_json_ld( $job ) {
 
 	$description = wpautop( $job['inleiding'] ) .
-		'<h5><strong>' . __( 'Wat ga je doen?', 'siw' ) . '</strong></h5>' . wpautop( $job['wat_ga_je_doen'] . SIW_Formatting::generate_list( $job['wat_ga_je_doen_lijst'] ) ) .
-		'<h5><strong>' . __( 'Wie ben jij?', 'siw' ) . '</strong></h5>' . wpautop( $job['wie_ben_jij'] . SIW_Formatting::generate_list( $job['wie_ben_jij_lijst'] ) ) .
-		'<h5><strong>' . __( 'Wat bieden wij jou?', 'siw' ) . '</strong></h5>' . wpautop( $job['wat_bieden_wij_jou'] . SIW_Formatting::generate_list( $job['wat_bieden_wij_jou_lijst'] ) ) .
+		'<h5><strong>' . __( 'Wat ga je doen?', 'siw' ) . '</strong></h5>' . wpautop( $job['wat_ga_je_doen'] . HTML::generate_list( $job['wat_ga_je_doen_lijst'] ) ) .
+		'<h5><strong>' . __( 'Wie ben jij?', 'siw' ) . '</strong></h5>' . wpautop( $job['wie_ben_jij'] . HTML::generate_list( $job['wie_ben_jij_lijst'] ) ) .
+		'<h5><strong>' . __( 'Wat bieden wij jou?', 'siw' ) . '</strong></h5>' . wpautop( $job['wat_bieden_wij_jou'] . HTML::generate_list( $job['wat_bieden_wij_jou_lijst'] ) ) .
 		'<h5><strong>' . __( 'Wie zijn wij?', 'siw' ) . '</strong></h5>' . wpautop( siw_get_option('job_postings_organization_profile') );
 
 	$logo = wp_get_attachment_url( get_theme_mod( 'custom_logo' ) );
@@ -114,25 +117,34 @@ function siw_generate_job_json_ld( $job ) {
 		'title'             => esc_attr( $job['title'] ),
 		'datePosted'        => esc_attr( $job['date_last_updated'] ),
 		'validThrough'      => esc_attr( $job['deadline_datum'] ),
-		'employmentType'    => ['VOLUNTEER', 'PARTTIME'],
+		'employmentType'    => ['VOLUNTEER', 'PARTTIME'], //TODO: afhankelijk maken van instelling betaald.
 		'hiringOrganization'=> [
 			'@type' => 'Organization', 
-			'name'  => SIW_Properties::NAME,
+			'name'  => Properties::NAME,
 			'sameAs'=> SIW_SITE_URL,
 			'logo'  => esc_url( $logo ),
 		],
-		'jobLocation'   => [
+		'jobLocation' => [
 			'@type'     => 'Place',
 			'address'   => [
 				'@type'             => 'PostalAddress',
-				'streetAddress'     => SIW_Properties::ADDRESS,
-				'addressLocality'   => SIW_Properties::CITY,
-				'postalCode'        => SIW_Properties::POSTCODE,
-				'addressRegion'     => SIW_Properties::CITY,
+				'streetAddress'     => Properties::ADDRESS,
+				'addressLocality'   => Properties::CITY,
+				'postalCode'        => Properties::POSTCODE,
+				'addressRegion'     => Properties::CITY,
 				'addressCountry'    => 'NL',
+			],
+		],
+		"baseSalary" => [
+			"@type"    => "MonetaryAmount",
+			"currency" => "EUR",
+			"value"    => [
+				"@type"    => "QuantitativeValue",
+				"value"    => 0.00, //TODO:
+				"unitText" => "MONTH" //TODO:
 			],
 		],
 	];
 
-	return SIW_Formatting::generate_json_ld( $data );
+	return Formatting::generate_json_ld( $data );
 }

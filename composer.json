@@ -11,10 +11,8 @@
 	],
 	"require": {
 		"kallookoo/wp_parse_args_recursive": "1.*",
-		"a5hleyrich/wp-background-processing": "dev-master",
-		"aramonc/docblock-parser": "1.*",
-		"spatie/array-to-xml": "2.*",
-		"meyfa/php-svg": "*"
+		"deliciousbrains/wp-background-processing": "dev-master",
+		"spatie/array-to-xml": "2.*"
 	},
 	"autoload": {
 		"files": [

@@ -1,13 +1,14 @@
 <?php
 
+namespace SIW\Widgets;
+
+use SIW\Elements\Google_Maps as Element_Google_Maps;
+
 /**
  * Widget met Google Maps kaart
  *
- * @package   SIW\Widgets
- * @author    Maarten Bruna
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * 
- * @uses      SIW_Element_Google_Maps
+ * @since     3.0.0
  * 
  * @widget_data
  * Widget Name: SIW: Google Maps
@@ -15,7 +16,7 @@
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class SIW_Widget_Google_Maps extends SIW_Widget {
+class Google_Maps extends Widget {
 
 	/**
 	 * {@inheritDoc}
@@ -132,7 +133,7 @@ class SIW_Widget_Google_Maps extends SIW_Widget {
 		if ( isset( $instance['intro'] ) ) {
 			$output .= wpautop( wp_kses_post( $instance['intro'] ) );
 		}
-		$map = new SIW_Element_Google_Maps();
+		$map = new Element_Google_Maps();
 		
 		$map->set_options( ['zoom' => $instance['zoom'] ] );
 
@@ -146,5 +147,4 @@ class SIW_Widget_Google_Maps extends SIW_Widget {
 		}
 		return $output . $map->generate();
 	}
-
 }

@@ -6,6 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use SIW\HTML;
+use SIW\Elements;
+
 get_header();
 get_template_part('templates/post', 'header' );
 
@@ -14,22 +17,22 @@ $job_data = siw_get_job_data( $post->ID );
 $panes = [
 		[
 		'title'   => __( 'Wat ga je doen?', 'siw' ),
-		'content' => $job_data['wat_ga_je_doen'] . SIW_Formatting::generate_list( $job_data['wat_ga_je_doen_lijst'] ),
+		'content' => $job_data['wat_ga_je_doen'] . HTML::generate_list( $job_data['wat_ga_je_doen_lijst'] ),
 	],
 	[
 		'title'   => __( 'Wie ben jij?', 'siw' ),
-		'content' =>  $job_data['wie_ben_jij'] . SIW_Formatting::generate_list( $job_data['wie_ben_jij_lijst'] ),
+		'content' =>  $job_data['wie_ben_jij'] . HTML::generate_list( $job_data['wie_ben_jij_lijst'] ),
 	],
 	[
 		'title'   => __( 'Wat bieden wij jou?', 'siw' ),
-		'content' => $job_data['wat_bieden_wij_jou'] . SIW_Formatting::generate_list( $job_data['wat_bieden_wij_jou_lijst'] ),
+		'content' => $job_data['wat_bieden_wij_jou'] . HTML::generate_list( $job_data['wat_bieden_wij_jou_lijst'] ),
 	],
 	[
 		'title'   => __( 'Wie zijn wij?', 'siw' ),
 		'content' => siw_get_option( 'job_postings_organization_profile' ),
 	],
 ];
-$content = SIW_Formatting::generate_accordion( $panes );
+$content = Elements::generate_accordion( $panes );
 ?>
 
 <div id="content" class="container">

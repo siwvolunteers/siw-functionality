@@ -21,58 +21,49 @@ body.login {
 .login form {
   border-radius: 4px;
 }
-
 .login h1 a {
   background-image: url("/wp-content/plugins/siw-functionality/assets/images/login/logo.png");
   background-size: 150px;
   width: 150px;
 }
-
 .login label {
   font-size: 12px;
   color: #444;
 }
-
-.login input[type="text"],
-.login input[type="password"] {
+.login input[type=text], .login input[type=password] {
   background-color: #ffffff;
   border-color: #dddddd;
   border-radius: 4px;
 }
-
 .login .button-primary {
   background-color: #ff9900;
   border-color: #ff9900;
   color: #fff;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
   text-shadow: none;
 }
-
-.login .button-primary:hover,
-.login .button-primary:active {
+.login .button-primary:hover, .login .button-primary:active {
   background-color: #ffcc33;
   border-color: #ffcc33;
   color: #fff;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
-
 .login #nav a {
   color: #fff;
 }
-
 .login #nav a:hover {
   color: #ff9900;
 }
-
 .login .message {
   border-left: 4px solid #ff9900;
 }
-
-.login input[type="checkbox"]:checked::before {
+.login input[type=checkbox]:checked::before {
   color: #ff9900;
 }
-
 .login p#backtoblog {
   display: none;
 }
