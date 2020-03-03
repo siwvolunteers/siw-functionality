@@ -39,8 +39,7 @@ body.login {
   background-color: #ff9900;
   border-color: #ff9900;
   color: #fff;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   -webkit-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
   text-shadow: none;
@@ -49,8 +48,7 @@ body.login {
   background-color: #ffcc33;
   border-color: #ffcc33;
   color: #fff;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 .login #nav a {
   color: #fff;
