@@ -138,8 +138,8 @@ class Send_Workcamp_Approval_Emails extends Job {
 	 */
 	protected function get_responsible_user( string $category_slug ) {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
-		if ( isset( $workcamp_approval[ $category_slug ] ) ) {
-			return get_userdata( $workcamp_approval[ $category_slug ] );
+		if ( isset( $workcamp_approval[ "responsible_{$category_slug}" ] ) ) {
+			return get_userdata( $workcamp_approval[ "responsible_{$category_slug}" ] );
 		}
 		return false;
 	}
