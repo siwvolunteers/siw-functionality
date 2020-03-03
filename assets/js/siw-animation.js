@@ -8,8 +8,13 @@
  * @todo      update bij resize
  */
 
-sal({
-	threshold: siw_animation.threshold,
-	disabled: ( window.matchMedia( "(max-width:" + siw_animation.breakpoint + "px)" ).matches ),
-	once: siw_animation.once
-});
+//Tijdelijke workaround
+try {
+	sal({
+		threshold: siw_animation.threshold,
+		disabled: ( window.matchMedia( "(max-width:" + siw_animation.breakpoint + "px)" ).matches ),
+		once: siw_animation.once
+	});
+} catch ( error ) {
+	console.warn( error.message );
+}

@@ -64,6 +64,8 @@ abstract class Chart {
 	public function generate( array $data, array $options = [] ) {
 		$this->data = $data;
 		$this->options = $options;
+
+		add_filter( 'rocket_exclude_js', [ $this, 'set_excluded_js' ] );
 		
 		$this->enqueue_scripts();
 
@@ -73,6 +75,17 @@ abstract class Chart {
 			'data-options' => $this->generate_chart_options(),
 		];
 		return HTML::generate_tag( 'div', $attributes, null, true ) ;
+	}
+
+	/**
+	 * JS-bestanden uitsluiten van minification/concatenation
+	 *
+	 * @param array $excluded_files
+	 * @return array
+	 */
+	public function set_excluded_js( array $excluded_files ) {
+		$excluded_files[] = '/wp-content/plugins/siw-functionality/assets/modules/apexcharts/apexcharts.js';
+		return $excluded_files;
 	}
 
 	/**
