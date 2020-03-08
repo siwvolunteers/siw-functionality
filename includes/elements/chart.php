@@ -29,13 +29,6 @@ abstract class Chart {
 	protected $type;
 
 	/**
-	 * Hoogte
-	 *
-	 * @var ing
-	 */
-	protected $height;
-
-	/**
 	 * Data voor grafiek
 	 *
 	 * @var array
