@@ -53,6 +53,13 @@ abstract class Endpoint {
 	protected $script;
 
 	/**
+	 * Dependencies van script
+	 *
+	 * @var array
+	 */
+	protected $script_deps = [];
+
+	/**
 	 * Functie om permissie te controleren
 	 *
 	 * @var string
@@ -146,7 +153,7 @@ abstract class Endpoint {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_script() {
-		wp_register_script( "siw-api-{$this->script}", SIW_ASSETS_URL . "js/api/siw-{$this->script}.js", [], SIW_PLUGIN_VERSION, true );
+		wp_register_script( "siw-api-{$this->script}", SIW_ASSETS_URL . "js/api/siw-{$this->script}.js", $this->script_deps, SIW_PLUGIN_VERSION, true );
 		$script_parameters = wp_parse_args(
 			$this->script_parameters,
 			[
