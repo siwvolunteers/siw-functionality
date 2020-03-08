@@ -85,6 +85,11 @@ abstract class Interactive_Map {
 	 */
 	public function generate() {
 		$this->set_options();
+
+		//Tijdelijke fix
+		add_filter( 'rocket_exclude_js', [ $this, 'exclude_js_from_combine' ] );
+
+
 		$this->enqueue_styles();
 		$this->enqueue_scripts();
 
@@ -215,6 +220,19 @@ abstract class Interactive_Map {
 		wp_register_script( 'siw-interactive-maps', SIW_ASSETS_URL . 'js/elements/siw-interactive-maps.js', [ 'mapplic', 'jquery' ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-interactive-maps' );
 	}
+
+	/**
+	 * JS-bestanden uitsluiten van minification/concatenation
+	 *
+	 * @param array $excluded_files
+	 * @return array
+	 */
+	public function exclude_js_from_combine( array $excluded_files ) {
+		$excluded_files[] = wp_make_link_relative( $this->mapplic_url . 'js/(.*).js' );
+		$excluded_files[] = wp_make_link_relative( SIW_ASSETS_URL . 'js/elements/siw-interactive-maps.js' );
+		return $excluded_files;
+	}
+
 
 	/**
 	 * Voegt benodigde styles toe

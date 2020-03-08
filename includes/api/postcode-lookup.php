@@ -32,6 +32,11 @@ class Postcode_Lookup extends Endpoint {
 	 * {@inheritDoc}
 	 */
 	protected $script = 'postcode';
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $script_deps = ['polyfill'];
 
 	/**
 	 * {@inheritDoc}

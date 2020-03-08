@@ -26,12 +26,28 @@ class Assets {
 	const BALLOON_VERSION = '1.0.4';
 
 	/**
+	 * Versie van Polyfill.io
+	 */
+	const POLYFILL_VERSION = '3.52.1';
+
+	/**
+	 * Features voor Polyfill.io
+	 *
+	 * @var array
+	 */
+	protected $polyfill_features = [
+		'default'
+	];
+
+	/**
 	 * Init
 	 */
 	public static function init() {
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'register_styles' ] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'register_scripts' ] );
+		add_filter( 'script_loader_tag', [ $self, 'set_crossorigin' ], 10, 2 );
+		add_filter( 'rocket_minify_excluded_external_js', [ $self, 'add_polyfill_url' ] );
 	}
 
 	/**
@@ -57,7 +73,52 @@ class Assets {
 		//SIW-svg script niet zelf enqueuen, wordt gebruikt door andere classes
 		wp_register_script( 'siw-svg', SIW_ASSETS_URL . 'js/siw-svg.js', [], SIW_PLUGIN_VERSION, true );
 
+		//Polyfill niet zelf enqueuen; is dependency van andere scripts
+		$polyfill_url = add_query_arg(
+			[
+				'version'  => self::POLYFILL_VERSION,
+				'features' => implode( ',', $this->polyfill_features ), //TODO: filter?
+				'flags'    => 'gated'
+			],
+			'https://polyfill.io/v3/polyfill.min.js'
+			);
+		wp_register_script( 'polyfill', $polyfill_url, [], null, true );
+		wp_script_add_data( 'polyfill', 'crossorigin', 'anonymous' );
+
+		//Smoothscroll wel enqueuen 
 		wp_register_script( 'smoothscroll', SIW_ASSETS_URL . 'modules/smoothscroll/smoothscroll.js', [], self::SMOOTHSCROLL_VERSION, true );
 		wp_enqueue_script( 'smoothscroll' );
+	}
+
+	/**
+	 * Zet crossorigin attribute
+	 *
+	 * @param string $tag
+	 * @param string $handle
+	 *
+	 * @return string
+	 */
+	public function set_crossorigin( string $tag, string $handle ) {
+		$crossorigin = wp_scripts()->get_data( $handle, 'crossorigin' );
+		if ( $crossorigin ) {
+			$tag = str_replace(
+				'></',
+				sprintf( ' crossorigin="%s"></', esc_attr( $crossorigin ) ),
+				$tag
+			);
+		}
+		return $tag;
+	}
+
+	/**
+	 * Sluit Polyfill uit van optimalisatie
+	 *
+	 * @param array $urls
+	 *
+	 * @return array
+	 */
+	public function add_polyfill_url( array $urls ) {
+		$urls[] = 'https://polyfill.io';
+		return $urls;
 	}
 }

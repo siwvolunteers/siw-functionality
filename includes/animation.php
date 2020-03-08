@@ -18,7 +18,7 @@ class Animation {
 	/**
 	 * Versie van sal.js
 	 */
-	CONST SAL_VERSION = '0.7.3';
+	CONST SAL_VERSION = '0.7.4';
 
 	/**
 	 * Init

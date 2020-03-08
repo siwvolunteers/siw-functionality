@@ -293,10 +293,8 @@ li.menu-item a:hover .siw-icon {
 
 .strong-content {
   display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 .strong-content .testimonial {
   float: left;
@@ -321,7 +319,6 @@ li.menu-item a:hover .siw-icon {
 
   .testimonial .testimonial-inner .testimonial-content {
     display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
   }
 }
@@ -409,12 +406,10 @@ h5.job-title {
 /* Nieuwsbrief */
 .so-widget-siw_newsletter_widget input[type=text], .so-widget-siw_newsletter_widget input[type=email] {
   color: #444;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 .so-widget-siw_newsletter_widget input[type=text]:focus, .so-widget-siw_newsletter_widget input[type=email]:focus {
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 .so-widget-siw_newsletter_widget .loading,
 .so-widget-siw_newsletter_widget .loading:before,
@@ -455,23 +450,19 @@ h5.job-title {
 
 @-webkit-keyframes dots {
   0%, 80%, 100% {
-    -webkit-box-shadow: 0 2.5em 0 -1.3em;
-            box-shadow: 0 2.5em 0 -1.3em;
+    box-shadow: 0 2.5em 0 -1.3em;
   }
   40% {
-    -webkit-box-shadow: 0 2.5em 0 0;
-            box-shadow: 0 2.5em 0 0;
+    box-shadow: 0 2.5em 0 0;
   }
 }
 
 @keyframes dots {
   0%, 80%, 100% {
-    -webkit-box-shadow: 0 2.5em 0 -1.3em;
-            box-shadow: 0 2.5em 0 -1.3em;
+    box-shadow: 0 2.5em 0 -1.3em;
   }
   40% {
-    -webkit-box-shadow: 0 2.5em 0 0;
-            box-shadow: 0 2.5em 0 0;
+    box-shadow: 0 2.5em 0 0;
   }
 }
 /* Agenda */
@@ -579,7 +570,6 @@ h5.job-title {
 
 .so-widget-siw_infobox_widget .header {
   display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
   display: inline-flex;
 }
 .so-widget-siw_infobox_widget .icon {

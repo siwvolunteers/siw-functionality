@@ -3,7 +3,7 @@
 namespace SIW\Elements;
 
 /**
- * Class om een Apex-piechart te genereren
+ * Class om een piechart te genereren
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
@@ -18,42 +18,25 @@ class Pie_Chart extends Chart {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function generate_chart_options() {
+	protected $options = [
+		'height'          => 400,
+		'truncateLegends' => true,
+		'maxSlices'       => 7,
+	];
 
-		foreach ( $this->data as $item ) {
-			$series[] = $item['value'];
-			$labels[] = $item['label'];
-		}
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function generate_chart_data() {
 
 		$data = [
-			'chart' => [
-				'type'  => $this->type,
-				'width' => '100%',
-			],
-			'labels' => $labels,
-			'series' => $series,
-			'legend' => [
-				'fontFamily' => 'system-ui',
-				'fontSize'   => '14px',
-				'position'   => 'right',
-			],
-			'tooltip' => [
-				'enabled' => true,
-			],
-			'responsive' => [
+			'labels'   => wp_list_pluck( $this->data, 'label' ),
+			'datasets' => [
 				[
-					'breakpoint' => self::MOBILE_BREAKPOINT,
-					'options' => [
-						'chart' => [
-							'width' => '100%',
-						],
-						'legend' => [
-							'position' => 'top',
-						],
-					],
+					'values' => wp_list_pluck( $this->data, 'value' ),
 				]
 			],
 		];
-		return  $data;
+		return $data;
 	}
 }

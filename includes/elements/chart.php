@@ -5,7 +5,7 @@ namespace SIW\Elements;
 use SIW\HTML;
 
 /**
- * Class om een Apex-chart te genereren
+ * Class om een chart te genereren
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
@@ -15,16 +15,11 @@ use SIW\HTML;
 abstract class Chart {
 	
 	/**
-	 * Apex Charts versie
+	 * Frappe Charts versie
 	 * 
 	 * @param string
 	 */
-	const APEX_CHARTS_VERSION = '3.16.0';
-
-	/**
-	 * Breakpoint voor responsive behaviour
-	 */
-	const MOBILE_BREAKPOINT = '1024';
+	const FRAPPE_CHARTS_VERSION = '1.3.0';
 
 	/**
 	 * Type grafiek
@@ -32,6 +27,13 @@ abstract class Chart {
 	 * @var string
 	 */
 	protected $type;
+
+	/**
+	 * Hoogte
+	 *
+	 * @var ing
+	 */
+	protected $height;
 
 	/**
 	 * Data voor grafiek
@@ -48,26 +50,18 @@ abstract class Chart {
 	protected $options = [];
 
 	/**
-	 * Undocumented variable
-	 *
-	 * @var array
-	 */
-	protected $series = [];
-
-	/**
 	 * Genereert grafiek
 	 *
 	 * @param array $data
-	 * @param array $options
+	 * @param string $title
 	 * @return string
 	 */
 	public function generate( array $data, array $options = [] ) {
 		$this->data = $data;
-		$this->options = $options;
+		$this->options = wp_parse_args_recursive( $options, $this->options );
 
-		add_filter( 'rocket_exclude_js', [ $this, 'set_excluded_js' ] );
-		
 		$this->enqueue_scripts();
+		$this->enqueue_styles();
 
 		$attributes = [
 			'id'           => uniqid( "siw-{$this->type}-chart-"),
@@ -78,27 +72,41 @@ abstract class Chart {
 	}
 
 	/**
-	 * JS-bestanden uitsluiten van minification/concatenation
-	 *
-	 * @param array $excluded_files
-	 * @return array
-	 */
-	public function set_excluded_js( array $excluded_files ) {
-		$excluded_files[] = '/wp-content/plugins/siw-functionality/assets/modules/apexcharts/apexcharts.js';
-		return $excluded_files;
-	}
-
-	/**
 	 * Voegt scripts toe
 	 */
 	protected function enqueue_scripts() {
-		wp_register_script( 'apex-charts', SIW_ASSETS_URL . 'modules/apexcharts/apexcharts.js', [], self::APEX_CHARTS_VERSION, true );
-		wp_register_script( 'siw-charts', SIW_ASSETS_URL . 'js/elements/siw-charts.js', [ 'apex-charts' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'frappe-charts', SIW_ASSETS_URL . 'modules/frappe-charts/frappe-charts.js', ['polyfill'], self::FRAPPE_CHARTS_VERSION, true );
+		wp_register_script( 'siw-charts', SIW_ASSETS_URL . 'js/elements/siw-charts.js', [ 'frappe-charts' ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-charts' );
+	}
+
+	/**
+	 * Voegt styles toe
+	 */
+	protected function enqueue_styles() {
+		wp_register_style( 'frappe-charts', SIW_ASSETS_URL . 'modules/frappe-charts/frappe-charts.css', [], self::FRAPPE_CHARTS_VERSION );
+		wp_enqueue_style( 'frappe-charts' );
+	}
+
+	/**
+	 * Genereert opties voor grafiek
+	 *
+	 * @return array
+	 */
+	protected function generate_chart_options() {
+
+		$options = wp_parse_args_recursive(
+			$this->options,
+			[
+				'data'  => $this->generate_chart_data(),
+				'type'  => $this->type,
+			]
+		);
+		return $options;
 	}
 
 	/**
 	 * Genereert data voor grafiek
 	 */
-	abstract protected function generate_chart_options();
+	abstract protected function generate_chart_data();
 }

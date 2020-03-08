@@ -18,13 +18,6 @@ class Google_Analytics {
 	const SESSION_SCRIPT_KEY = 'siw_enhanced_ecommerce_script';
 
 	/**
-	 * URL voor Google Analytics
-	 * 
-	 * @var string
-	 */
-	const GA_URL = 'https://www.google-analytics.com/';
-
-	/**
 	 * Google Analytics property ID
 	 *
 	 * @var string
@@ -294,7 +287,7 @@ class Google_Analytics {
 	 * @return array
 	 */
 	public function add_ga_url( array $urls ) {
-		$urls[] = self::GA_URL;
+		$urls[] = 'https://www.google-analytics.com/';
 		return $urls;
 	}
 

@@ -1,4 +1,4 @@
-/** global: ApexCharts */
+/** global: frappe */
 
 /**
  * @file      Functies t.b.v. grafieken
@@ -34,12 +34,7 @@ var siwCharts = (function () {
 	 */
 	function _initSingle( el ) {
 		var options = JSON.parse( el.dataset.options );
-
-		var chart = new ApexCharts(
-			el,
-			options
-		);
-		chart.render();
+		new frappe.Chart( el, options ); 
 	}
 
 })();
