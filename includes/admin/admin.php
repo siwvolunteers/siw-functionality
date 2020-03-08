@@ -115,11 +115,6 @@ class Admin {
 	 */
 	public function change_menu_items() {
 		global $menu;
-
-		$woo = $this->menu_search( 'woocommerce', $menu );
-		if ( $woo ) {
-			$menu[ $woo ][0] = __( 'Aanmeldingen', 'siw' );
-		}
 	
 		$bbq = $this->menu_search( 'bbq_settings', $menu );
 		if ( $bbq ) {
