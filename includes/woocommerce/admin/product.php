@@ -223,15 +223,18 @@ class Product {
 						'label'   => __( 'Opnieuw importeren', 'siw' ),
 					]
 				);
-				woocommerce_wp_checkbox(
-					[
-						'id'          => 'use_stockphoto',
-						'value'       => $product_object->get_meta( 'use_stockphoto' ),
-						'cbvalue'     => '1',
-						'label'       => __( 'Stockfoto gebruiken', 'siw' ),
-						'description' => __( 'Bijvoorbeeld indien projectfoto niet geschikt is.', 'siw' ),
-					]
-				);
+				//Alleen tonen als het project een afbeelding uit Plato heeft of als de optie al aangevinkt is
+				if ( $product_object->get_meta( 'has_plato_image', true ) || $product_object->get_meta( 'use_stockphoto' ) ) {
+					woocommerce_wp_checkbox(
+						[
+							'id'          => 'use_stockphoto',
+							'value'       => $product_object->get_meta( 'use_stockphoto' ),
+							'cbvalue'     => '1',
+							'label'       => __( 'Stockfoto gebruiken', 'siw' ),
+							'description' => __( 'Bijvoorbeeld indien projectfoto niet geschikt is.', 'siw' ),
+						]
+					);
+				}
 				?>
 			</div>
 		</div>
@@ -353,6 +356,12 @@ class Product {
 			'import_again'      => isset( $_POST['import_again'] ),
 			'use_stockphoto'    => isset( $_POST['use_stockphoto'] ),
 		];
+
+		//Als stockfoto gebruikt moet worden, verwijder dan de huidige foto
+		if ( $meta_data['use_stockphoto'] && ! $product->get_meta( 'use_stockphoto' ) ) {
+			$product->set_image_id( null );
+			$product->update_meta_data( 'has_plato_image', false );
+		}
 
 		foreach ( $meta_data as $key => $value ) {
 			$product->update_meta_data( $key, $value );
