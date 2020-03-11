@@ -1,13 +1,13 @@
-/** global: tinymce, siw_shortcodes */
+/** global: siw_shortcodes */
 
 /**
  * @file      TinyMCE-shortcodemenu
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
+jQuery( document ).on( 'tinymce-editor-setup', function( event, editor ) {
 
-tinymce.PluginManager.add( 'siw_shortcodes', function( editor, url ) {
-
+	//Shortcodes ophalen
 	var siw_shortcode_menu = [];
 
 	siw_shortcodes.shortcodes.forEach( function( shortcode ) {
@@ -44,10 +44,16 @@ tinymce.PluginManager.add( 'siw_shortcodes', function( editor, url ) {
 		}
 	});
 
+	//Knop toevoegen
+	editor.settings.toolbar1 += ',siw_shortcodes';
 	editor.addButton( 'siw_shortcodes', {
 		text: siw_shortcodes.title,
 		icon: false,
 		type: 'menubutton',
 		menu: siw_shortcode_menu
 	});
+
+	//Link-knop verwijderen
+	editor.settings.toolbar1 = editor.settings.toolbar1.replace( ',link', '');
+
 });
