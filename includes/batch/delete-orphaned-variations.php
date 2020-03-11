@@ -70,7 +70,7 @@ class Delete_Orphaned_Variations extends Job {
 	protected function task( $item ) {
 
 		$product = wc_get_product( $item );
-		if ( false == $product ) {
+		if ( ! $product instanceof \WC_Product ) {
 			return false;
 		}
 		$product->delete( true );

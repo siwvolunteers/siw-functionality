@@ -43,9 +43,7 @@ class Update_Workcamp_Visibility extends Job {
 			'return'     => 'ids',
 			'limit'      => -1,
 		];
-		$products = wc_get_products( $args );
-		
-		return $products;
+		return wc_get_products( $args );
 	}
 
 	/**
@@ -64,7 +62,7 @@ class Update_Workcamp_Visibility extends Job {
 
 		$product = wc_get_product( $product_id );
 		
-		if ( false === $product ) {
+		if ( ! $product instanceof \WC_Product ) {
 			return false;
 		}
 

@@ -43,12 +43,8 @@ class Delete_Workcamps extends Job {
 			'limit'          => -1,
 			'max_start_date' => $limit
 		];
-		$products = wc_get_products( $args );
 		
-		if ( empty( $products ) ) {
-			return false;
-		}
-		return $products;
+		return wc_get_products( $args );
 	}
 
 	/**
@@ -61,7 +57,7 @@ class Delete_Workcamps extends Job {
 	protected function task( $product_id ) {
 
 		$product = wc_get_product( $product_id );
-		if ( false == $product ) {
+		if ( ! $product instanceof \WC_Product ) {
 			return false;
 		}
 

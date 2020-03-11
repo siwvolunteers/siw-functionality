@@ -54,9 +54,7 @@ class Update_Free_Places extends Job {
 	 */
 	protected function select_data() {
 		$import = new Import_FPL;
-		$data = $import->run();
-		
-		return $data;
+		return $import->run();
 	}
 	
 	/**

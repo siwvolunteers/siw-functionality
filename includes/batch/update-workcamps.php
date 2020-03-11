@@ -45,9 +45,7 @@ class Update_Workcamps extends Job {
 	 */
 	 protected function select_data() {
 		$import = new Import_Workcamps;
-		$data = $import->run();
-		
-		return $data;
+		return $import->run();
 	}
 
 	/**
