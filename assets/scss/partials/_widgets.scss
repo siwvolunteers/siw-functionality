@@ -176,22 +176,41 @@
 
 /*Quote*/
 .so-widget-siw_quote_widget{
-	background: rgba(255,255,255, 0.7);
-	padding:15px;
-	border-radius:5px;
-
-	.widget-title{
-		padding-bottom:0px;
-	}
-	.quote{
-		font-size:15px;
-		.text{
-			margin-bottom:10px;
-			font-style:italic;
+	background: rgba(255,255,255, 0.9);
+	border-radius: 4px;
+	.content {
+		padding:10px;
+		#containerfooter &{
+			padding:inherit;
 		}
 	}
-	.name{
-		font-weight:bold;
+
+	blockquote {
+		font-size: inherit;
+		font-style: italic;
+		border-left-style: solid;
+		border-left-width: 5px;
+		border-left-color: $secondary-color;
+
+		#containerfooter &{
+			border-left-color: #ccc;
+			transition: border 0.6s ease-out 0s;
+			&:hover{
+				border-left-color: $secondary-color;
+			}
+		}
+
+		footer {
+			font-style: normal;
+			font-size: inherit;
+			#containerfooter &{
+				color:inherit;
+			}
+		}
+	}
+
+	#containerfooter &{
+		background: inherit;
 	}
 }
 
