@@ -268,7 +268,7 @@ class Product {
 		$year = date( 'Y', strtotime( $this->xml->start_date ) );
 		$code = $this->xml->code;
 		$name = $this->get_name();
-		return sanitize_title_with_dashes( sprintf( '%s-%s-%s', $year, $code, $name ) );
+		return sanitize_title( sprintf( '%s-%s-%s', $year, $code, $name ) );
 	}
 
 	/**
