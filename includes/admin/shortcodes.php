@@ -15,41 +15,32 @@ class Shortcodes {
 	 */
 	public static function init() {
 		$self = new self();
-		add_action( 'admin_init', [ $self, 'add_shortcode_button' ] );
-		add_action( 'admin_enqueue_scripts', [ $self, 'localize_script' ] );
+		add_action( 'wp_enqueue_editor', [ $self, 'enqueue_script'] );
 	}
 
 	/**
-	 * Voegt knop en plugin voor shortcode toe
+	 * Script toevoegen
 	 */
-	public function add_shortcode_button() {
-		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
-			return;
-		}
-
-		if ( get_user_option( 'rich_editing' ) !== 'true' ) {
-			return;
-		}
-
-		add_filter( 'mce_external_plugins', [ $this, 'add_tinymce_plugin' ] );
-		add_filter( 'mce_buttons', [ $this, 'register_button' ] );
-	}
-
-	/**
-	 * Maakt alle shortcodes beschikbaar via localize_script
-	 */
-	public function localize_script() {
+	public function enqueue_script() {
+		wp_register_script( 'siw-admin-shortcodes', SIW_ASSETS_URL . 'js/admin/siw-shortcodes.js', [], SIW_PLUGIN_VERSION, true );
+		
+		//Shortcodes ophalen
 		$shortcodes = siw_get_data( 'shortcodes' );
 		array_walk( $shortcodes, [ $this, 'format_shortcode' ] );
 
 		$siw_shortcodes = [
-			'title'      =>  __( 'SIW Shortcodes', 'siw' ),
+			'title'      => __( 'SIW Shortcodes', 'siw' ),
 			'shortcodes' => $shortcodes,
 		];
 
-		//Meeliften op script voor TinyMCE
-		wp_localize_script( 'editor', 'siw_shortcodes', $siw_shortcodes );
+		wp_localize_script(
+			'siw-admin-shortcodes',
+			'siw_shortcodes',
+			$siw_shortcodes
+		);
+		wp_enqueue_script( 'siw-admin-shortcodes' );
 	}
+
 
 	/**
 	 * Formatteert shortcode voor gebruik in TinyMCE
@@ -104,27 +95,5 @@ class Shortcodes {
 			'value' => $value,
 			'text'  => $label,
 		];
-	}
-
-	/**
-	 * Voegt plugin voor TinyMCE toe
-	 *
-	 * @param array $plugins
-	 * @return array
-	 */
-	public function add_tinymce_plugin( array $plugins ) {
-		$plugins['siw_shortcodes'] = SIW_ASSETS_URL . 'js/admin/siw-shortcodes.js';
-		return $plugins;
-	}
-
-	/**
-	 * Voegt knop voor SIW-shortcodes toe aan TinyMCE
-	 *
-	 * @param array $buttons
-	 * @return array
-	 */
-	public function register_button( array $buttons ) {
-		array_push( $buttons, 'siw_shortcodes' );
-		return $buttons;
 	}
 }

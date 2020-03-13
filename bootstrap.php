@@ -5,7 +5,7 @@ use SIW\Autoloader;
 /**
  * Class om alle functionaliteit van de plugin te laden
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
 class Bootstrap {
@@ -219,6 +219,7 @@ class Bootstrap {
 				'Update_Free_Places',
 				'Update_SEO_Noindex',
 				'Update_Taxonomies',
+				'Update_Workcamp_Stockphoto',
 				'Update_Workcamp_Tariffs',
 				'Update_Workcamp_Visibility',
 				'Update_Workcamps',

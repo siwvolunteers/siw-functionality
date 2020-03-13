@@ -54,9 +54,9 @@ class Delete_Applications extends Job {
 	 * @return mixed
 	 */
 	protected function task( $item ) {
-
+		
 		$order = wc_get_order( $item );
-		if ( false == $order ) {
+		if ( ! $order instanceof \WC_Order ) {
 			return false;
 		}
 		$order->delete( true );

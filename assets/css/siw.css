@@ -541,22 +541,39 @@ h5.job-title {
 
 /*Quote*/
 .so-widget-siw_quote_widget {
-  background: rgba(255, 255, 255, 0.7);
-  padding: 15px;
-  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
 }
-.so-widget-siw_quote_widget .widget-title {
-  padding-bottom: 0px;
+.so-widget-siw_quote_widget .content {
+  padding: 10px;
 }
-.so-widget-siw_quote_widget .quote {
-  font-size: 15px;
+#containerfooter .so-widget-siw_quote_widget .content {
+  padding: inherit;
 }
-.so-widget-siw_quote_widget .quote .text {
-  margin-bottom: 10px;
+.so-widget-siw_quote_widget blockquote {
+  font-size: inherit;
   font-style: italic;
+  border-left-style: solid;
+  border-left-width: 5px;
+  border-left-color: #59ab9c;
 }
-.so-widget-siw_quote_widget .name {
-  font-weight: bold;
+#containerfooter .so-widget-siw_quote_widget blockquote {
+  border-left-color: #ccc;
+  -webkit-transition: border 0.6s ease-out 0s;
+  transition: border 0.6s ease-out 0s;
+}
+#containerfooter .so-widget-siw_quote_widget blockquote:hover {
+  border-left-color: #59ab9c;
+}
+.so-widget-siw_quote_widget blockquote footer {
+  font-style: normal;
+  font-size: inherit;
+}
+#containerfooter .so-widget-siw_quote_widget blockquote footer {
+  color: inherit;
+}
+#containerfooter .so-widget-siw_quote_widget {
+  background: inherit;
 }
 
 .so-widget-siw_features_widget {

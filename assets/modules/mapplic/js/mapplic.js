@@ -1,6 +1,6 @@
 /*
  * Mapplic - Custom Interactive Map Plugin by @sekler
- * Version 6.0
+ * Version 6.0.2
  * https://www.mapplic.com/
  */
 
@@ -1101,20 +1101,20 @@
 				if (styles) {
 					styles.forEach(function(s) {
 						if (s.base) {
-							css += `.${s.class}.mapplic-clickable:not(g), g.${s.class}.mapplic-clickable > * {\n`;
-							$.each(s.base, function(prop, val) { css += `	${prop}: ${val};\n` });
+							css += '.' + s.class + '.mapplic-clickable:not(g), g.' + s.class + '.mapplic-clickable > * {\n';
+							$.each(s.base, function(prop, val) { css += '	' + prop + ': ' + val + ';\n' });
 							css += '}\n\n';
 						}
 
 						if (s.hover) {
-							css += `.${s.class}.mapplic-highlight:not(g), g.${s.class}.mapplic-highlight > *, .${s.class}.mapplic-clickable:not(g):hover, g.${s.class}.mapplic-clickable:hover > * {\n`;
-							$.each(s.hover, function(prop, val) { css += `	${prop}: ${val};\n` });
+							css += '.' + s.class + '.mapplic-highlight:not(g), g.' + s.class + '.mapplic-highlight > *, .' + s.class + '.mapplic-clickable:not(g):hover, g.' + s.class + '.mapplic-clickable:hover > * {\n';
+							$.each(s.hover, function(prop, val) { css += '	' + prop + ': ' + val + ';\n' });
 							css += '}\n\n';
 						}
 
 						if (s.active) {
-							css += `.${s.class}.mapplic-active:not(g), g.${s.class}.mapplic-active > * {\n`;
-							$.each(s.active, function(prop, val) { css += `	${prop}: ${val} !important;\n` });
+							css += '.'+ s.class + '.mapplic-active:not(g), g.' + s.class + '.mapplic-active > * {\n';
+							$.each(s.active, function(prop, val) { css += '	' + prop + ': ' + val + ' !important;\n' });
 							css += '}\n\n';
 						}
 					});
@@ -1126,8 +1126,8 @@
 			}
 
 			this.rule = function(selector, attribute, value) {
-				var css = `${selector} {\n`;
-				css += `	${attribute}: ${value};\n`;
+				var css = selector + ' {\n';
+				css += '	' + attribute + ': ' + value + ';\n';
 				css += '}\n\n';
 
 				return css;
@@ -1718,9 +1718,9 @@
 		}
 
 		var getIcon = function(name) {
-			return `<svg class="mapplic-icon mapplic-${name}"><use xlink:href="${self.loc.iconfile}#${name}"></use></svg>`;
+			return '<svg class="mapplic-icon mapplic-' + name + '"><use xlink:href="' + self.loc.iconfile + '#' + name + '"></use></svg>';
 		}
-
+		
 		// normalizing x, y and scale
 		var normalizeX = function(x) {
 			var minX = (self.container.el.width() - self.contentWidth * self.scale).toFixed(4);
@@ -1993,7 +1993,7 @@
 				case 'none':
 					self.hideLocation();
 					self.switchLevel(location.level);
-					self.bboxZoom(location.el);
+					if (!self.bboxZoom(location.el)) self.moveTo(location.x, location.y, (location.zoom ? parseFloat(location.zoom)/self.o.maxscale : 1), 600);
 					break;
 				case 'reveal':
 					self.hideLocation();

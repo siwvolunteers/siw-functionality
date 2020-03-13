@@ -110,6 +110,4 @@ class Update_SEO_Noindex extends Job {
 		$noindex = $value ? 1 : 0;
 		update_post_meta( $post_id, '_genesis_noindex', $noindex );
 	}
-
-
 }

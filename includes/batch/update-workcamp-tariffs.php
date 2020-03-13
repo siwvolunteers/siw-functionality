@@ -37,9 +37,7 @@ class Update_Workcamp_Tariffs extends Job {
 			'return'     => 'ids',
 			'limit'      => -1,
 		];
-		$products = wc_get_products( $args );
-		
-		return $products;
+		return wc_get_products( $args );
 	}
 
 	/**
@@ -54,7 +52,7 @@ class Update_Workcamp_Tariffs extends Job {
 		$product = wc_get_product( $product_id );
 		
 		/* Afbreken als product niet meer bestaat */
-		if ( false == $product ) {
+		if ( ! $product instanceof \WC_Product ) {
 			return false;
 		}
 	

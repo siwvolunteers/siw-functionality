@@ -64,16 +64,10 @@ class Quote extends Widget {
 		$quote = siw_get_testimonial_quote( $instance['category'] );
 		ob_start();
 		?>
-		<div class="quote">
-			<div class="text">
-			"<?= esc_html( $quote['quote'] );?>"
-			</div>
-			<div class="volunteer">
-				<span class="name"><?= esc_html( $quote['name'] );?></span>
-				<span class="separator">&nbsp;|&nbsp;</span>
-				<span class="category"><?= esc_html( $quote['project'] );?></span>
-			</div>
-		</div>
+		<blockquote>
+			<p><?php echo esc_html( $quote['quote'] );?></p>
+			<footer><strong><?php echo esc_html( $quote['name'] );?></strong> | <?php echo esc_html( $quote['project'] );?></footer>
+		</blockquote>
 		<?php
 		$content = ob_get_clean();
 		return $content;

@@ -34,8 +34,6 @@ class Update_Dutch_Workcamps extends Update_Workcamps {
 	 */
 	 protected function select_data() {
 		$import = new Import_Dutch_Workcamps;
-		$data = $import->run();
-		
-		return $data;
+		return $import->run();
 	}
 }
