@@ -86,10 +86,6 @@ abstract class Interactive_Map {
 	public function generate() {
 		$this->set_options();
 
-		//Tijdelijke fix
-		add_filter( 'rocket_exclude_js', [ $this, 'exclude_js_from_combine' ] );
-
-
 		$this->enqueue_styles();
 		$this->enqueue_scripts();
 
@@ -216,9 +212,6 @@ abstract class Interactive_Map {
 		];
 		wp_localize_script( 'mapplic', 'mapplic_localization', $mapplic_localization );
 		wp_enqueue_script( 'mapplic' );
-
-		wp_register_script( 'siw-interactive-maps', SIW_ASSETS_URL . 'js/elements/siw-interactive-maps.js', [ 'mapplic', 'jquery' ], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( 'siw-interactive-maps' );
 	}
 
 	/**
