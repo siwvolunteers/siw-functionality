@@ -22,7 +22,7 @@ abstract class Interactive_Map {
 	 *
 	 * @var string
 	 */
-	const MAPPLIC_VERSION = '6.0';
+	const MAPPLIC_VERSION = '6.0.2';
 
 	/**
 	 * URL van Mapplic-bestanden
