@@ -177,7 +177,7 @@ class Carousel extends Widget {
 
 		if ( ! empty( $instance['intro'] ) ) {
 			$content .= '<div class="carousel-intro">';
-			$content .= wpautop( esc_html( $instance['intro'] ) );
+			$content .= wpautop( wp_kses_post( $instance['intro'] ) );
 			$content .= '</div>';
 		}
 		$content .= $carousel->render();
