@@ -39,6 +39,15 @@ $data = [
 		'world_map'   => [ 'code' => 'br', 'x' => 0.3632, 'y' => 0.7413 ],
 	],
 	[
+		'iso'         => 'COL',
+		'slug'        => 'colombia',
+		'name'        => __( 'Colombia', 'siw' ),
+		'allowed'     => true,
+		'workcamps'   => true,
+		'tailor_made' => false,
+		'world_map'   => [ 'code' => 'co', 'x' => 0.3050, 'y' => 0.6871 ],
+	],
+	[
 		'iso'         => 'CRI',
 		'slug'        => 'costa-rica',
 		'name'        => __( 'Costa Rica', 'siw' ),
