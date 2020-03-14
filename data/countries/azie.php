@@ -158,7 +158,7 @@ $data = [
 	],
 	[
 		'iso'         => 'PHL',
-		'slug'        => 'filipijnen ',
+		'slug'        => 'filipijnen',
 		'name'        => __( 'Filipijnen ', 'siw' ),
 		'allowed'     => true,
 		'workcamps'   => true,

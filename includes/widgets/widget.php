@@ -107,15 +107,13 @@ abstract class Widget extends \SiteOrigin_Widget {
 		$title = apply_filters( 'widget_title', $title );
 		
 		ob_start();
-
-		echo $args['before_widget'];
 		if ( $title ) {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}?>
 		<div class="content">
 			<?= $this->get_content( $instance, $args, $template_vars, $css_name ); ?>
 		</div>
-		<?php echo $args['after_widget'];
+		<?php
 		$html_content = ob_get_clean();
 		return $html_content;
 	}
