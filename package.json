@@ -1,6 +1,6 @@
 {
 	"name": "siw-functionality",
-	"version": "3.0.0",
+	"version": "3.0.3",
 	"license": "GPL-2.0-or-later",
 	"description": "Extra functionaliteit voor website SIW",
 	"repository": "https://github.com/siwvolunteers/siw-functionality",
@@ -9,28 +9,30 @@
 		"build": "npm run build:icons && npm run build:css",
 		"build:icons": "svg2sprite assets/icons assets/siw-icons.svg -i --stripExtraAttrs ---iconPrefix siw-icon-",
 		"build:css": "npm run scss && npm run autoprefixer",
-		"postinstall": "vendor-copy",
+		"build:js": "swc assets/js -d assets/dist",
 		"scss": "sass --update --no-source-map assets/scss:assets/css",
 		"autoprefixer": "postcss --no-map -u autoprefixer -r assets/css/*.css"
 	},
 	"browserslist": [
-		">0.25%"
+		">0.5% in NL"
 	],
 	"dependencies": {
 		"@accede-web/accordion": "*",
 		"@accede-web/tablist": "*",
-		"apexcharts": "^3.16.0",
 		"balloon-css": "*",
 		"flickity": "^2.2.1",
+		"frappe-charts": "1.*",
 		"js-cookie": "^2.2.1",
 		"micromodal": "*",
-		"sal.js": "^0.7.3",
+		"sal.js": "^0.7.4",
 		"smoothscroll-for-websites": "^1.4.10"
 	},
 	"devDependencies": {
+		"@swc/cli": "*",
+		"@swc/core": "^1.1.35",
 		"autoprefixer": "*",
 		"postcss-cli": "*",
-		"sass": "^1.26.2",
+		"sass": "^1.26.3",
 		"svg2sprite-cli": "*",
 		"vendor-copy": "2.*"
 	},
@@ -38,10 +40,6 @@
 		{
 			"from": "node_modules/balloon-css/balloon.css",
 			"to": "assets/modules/balloon/balloon.css"
-		},
-		{
-			"from": "node_modules/apexcharts/dist/apexcharts.js",
-			"to": "assets/modules/apexcharts/apexcharts.js"
 		},
 		{
 			"from": "node_modules/smoothscroll-for-websites/SmoothScroll.js",
@@ -78,6 +76,14 @@
 		{
 			"from": "node_modules/sal.js/dist/sal.css",
 			"to": "assets/modules/sal/sal.css"
+		},
+		{
+			"from": "node_modules/frappe-charts/dist/frappe-charts.min.iife.js",
+			"to": "assets/modules/frappe-charts/frappe-charts.js"
+		},
+		{
+			"from": "node_modules/frappe-charts/dist/frappe-charts.min.css",
+			"to": "assets/modules/frappe-charts/frappe-charts.css"
 		}
 	]
 }
