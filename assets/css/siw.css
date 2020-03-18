@@ -543,6 +543,10 @@ h5.job-title {
 .so-widget-siw_quote_widget {
   background: rgba(255, 255, 255, 0.9);
   border-radius: 4px;
+  padding: 10px;
+}
+#containerfooter .so-widget-siw_quote_widget {
+  padding: 0;
 }
 .so-widget-siw_quote_widget .content {
   padding: 10px;

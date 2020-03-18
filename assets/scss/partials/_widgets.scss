@@ -178,6 +178,11 @@
 .so-widget-siw_quote_widget{
 	background: rgba(255,255,255, 0.9);
 	border-radius: 4px;
+	padding: 10px;
+	#containerfooter &{
+		padding: 0;
+	}
+
 	.content {
 		padding:10px;
 		#containerfooter &{
