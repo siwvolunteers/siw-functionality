@@ -38,7 +38,7 @@ class Customer_Processing_Order {
 	 * @return string
 	 */
 	public function set_heading( string $heading, \WC_Order $order ) {
-		if ( 'mollie_wc_gateway_ideal' == $order->get_payment_method() ) {
+		if ( 'mollie_wc_gateway_ideal' == $order->get_payment_method() || 'cod' == $order->get_payment_method() ) {
 			$heading = sprintf( __( 'Bevestiging aanmelding #%s', 'siw' ), $order->get_order_number() );
 		}
 		else {
