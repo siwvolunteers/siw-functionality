@@ -110,24 +110,10 @@
 		margin-bottom: 0px;
 		font-weight: bold;
 	}
-
-	h5 a::before{
-		color: #fff;
-		display: inline-block;
-		height: 30px;
-		left: 15px;
-		vertical-align: middle;
-		width: 30px;
-		background-color: transparent;
-		font-family: kt-icon;
-		content:"\e115";
-	}
-	
 	.duration, .page-link{
 		font-weight: bold;
 	}
 }
-
 
 /* Call to action*/
 .so-widget-siw_cta_widget{
