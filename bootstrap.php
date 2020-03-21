@@ -183,7 +183,6 @@ class Bootstrap {
 			'SIW\Compatibility',
 			[
 				'Caldera_Forms',
-				'Mailpoet', 
 				'Meta_Box',
 				'Password_Protected',
 				'Pinnacle_Premium',
