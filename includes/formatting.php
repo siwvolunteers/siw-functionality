@@ -219,7 +219,7 @@ class Formatting {
 	 * @return string
 	 */
 	public static function format_local_fee( float $fee, string $currency_code ) {
-		if ( 0 === $fee || ! is_string( $currency_code ) ) {
+		if ( 0.0 === $fee || ! is_string( $currency_code ) ) {
 			return '';
 		}
 		$currency = siw_get_currency( $currency_code );

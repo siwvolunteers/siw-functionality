@@ -164,7 +164,7 @@ $data = [
 			'Header always set X-XSS-Protection "1; mode=block"',
 			'Header always append X-Frame-Options SAMEORIGIN',
 			'Header always set X-Content-Type-Options nosniff',
-			'Header always set Referrer-Policy no-referrer-when-downgrade',
+			'Header always set Referrer-Policy strict-origin-when-cross-origin',
 			'Header always unset X-Powered-By',
 		],
 	],
