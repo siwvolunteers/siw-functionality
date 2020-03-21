@@ -23,12 +23,6 @@ class Options_Page {
 	 * Init
 	 */
 	public static function init() {
-
-		// Tijdelijke fix, kan weg als we van MailPoet af zijn.
-		if ( defined( 'WYSIJA_ITF' ) && WYSIJA_ITF ) {
-			return;
-		}
-
 		$self = new self();
 		add_filter( 'mb_settings_pages', [ $self, 'add_settings_pages'] );
 	}
@@ -73,7 +67,6 @@ class Options_Page {
 	 * @return array
 	 */
 	protected function get_settings_pages() {
-		
 		$pages = siw_get_data( 'option-pages' );
 		return wp_list_sort( $pages, 'menu_title' );
 	}
