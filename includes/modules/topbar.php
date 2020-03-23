@@ -31,6 +31,13 @@ class Topbar {
 	const EVENT_HIDE_DAYS_BEFORE = 2;
 
 	/**
+	 * Instellingen
+	 *
+	 * @var array
+	 */
+	protected $settings;
+
+	/**
 	 * Inhoud van de topbar
 	 *
 	 * @var string
@@ -45,6 +52,11 @@ class Topbar {
 		if ( ! i18n::is_default_language() ) {
 			return;
 		}
+
+		//Instellingen ophalen
+		$self->settings = siw_get_option( 'topbar' );
+
+		//Content zetten
 		$self->content = $self->get_content();
 		if ( false == $self->content ) {
 			return;
@@ -104,22 +116,14 @@ class Topbar {
 	 */
 	protected function get_content() {
 	
-		$event_content = $this->get_event_content();
-		if ( ! empty( $event_content ) ) {
-			return $event_content;
-		}
-	
-		$sale_content = $this->get_sale_content();
-		if ( ! empty( $sale_content ) ) {
-			return $sale_content;
-		}
-	
-		$job_content = $this->get_job_content();
-		if ( ! empty ( $job_content ) ) {
-			return $job_content;
-		}
-	
-		return false;
+		$content =
+			$this->get_custom_content() ??
+			$this->get_event_content() ??
+			$this->get_sale_content() ??
+			$this->get_job_posting_content() ??
+			false;
+
+		return $content;
 	}
 
 	/**
@@ -128,6 +132,9 @@ class Topbar {
 	 * @return array
 	 */
 	protected function get_event_content() {
+		if ( ! $this->settings['show_event_content'] ) {
+			return null;
+		}
 
 		$date_hide = strtotime( date( 'Y-m-d' ) ) + ( self::EVENT_SHOW_DAYS_BEFORE * DAY_IN_SECONDS );
 		$date_show = strtotime( date( 'Y-m-d' ) ) + ( self::EVENT_HIDE_DAYS_BEFORE * DAY_IN_SECONDS );
@@ -135,7 +142,7 @@ class Topbar {
 		$upcoming_events = siw_get_upcoming_events( 1, $date_show, $date_hide ); //TODO: andere functie
 
 		if ( empty ( $upcoming_events ) ) {
-			return false;
+			return null;
 		}
 		$event = $upcoming_events[0];
 
@@ -159,10 +166,14 @@ class Topbar {
 	 *
 	 * @return array
 	 */
-	protected function get_job_content() {
+	protected function get_job_posting_content() {
+		if ( ! $this->settings['show_job_posting_content'] ) {
+			return null;
+		}
+
 		$job = siw_get_featured_job();
 		if ( false == $job ) {
-			return false;
+			return null;
 		}
 		$job_title = lcfirst( $job['title'] );
 		$job_content = [
@@ -177,20 +188,47 @@ class Topbar {
 	 * Haalt de kortingsactie-inhoud op
 	 * 
 	 * @return array
+	 * 
+	 * @todo kortingsactie Op Maat toevoegen
 	 */
 	protected function get_sale_content() {
+		if ( ! $this->settings['show_sale_content'] ) {
+			return null;
+		}
+
 		if ( ! Util::is_workcamp_sale_active() ) {
-			return false;
+			return null;
 		}
 
 		$sale_price = Formatting::format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE );
 		$end_date = Formatting::format_date( siw_get_option( 'workcamp_sale' )['end_date'], false );
 	
 		$sale_content = [
-			'intro'     => __( 'Grijp je kans en ontvang korting!',  'siw' ),
+			'intro'     => __( 'Grijp je kans en ontvang korting!', 'siw' ),
 			'link_url'  => wc_get_page_permalink( 'shop' ),
 			'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_price ) ,
 		];
 		return $sale_content;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return array
+	 */
+	protected function get_custom_content() {
+		if ( ! $this->settings['show_custom_content'] ) {
+			return null;
+		}
+
+		if ( date( 'Y-m-d' ) < $this->settings['custom_content']['start_date'] || date( 'Y-m-d' ) > $this->settings['custom_content']['end_date'] ) {
+			return null;
+		}
+
+		return [
+			'intro'     => $this->settings['custom_content']['intro'],
+			'link_url'  => $this->settings['custom_content']['link_url'],
+			'link_text' => $this->settings['custom_content']['link_text'],
+		];
 	}
 }

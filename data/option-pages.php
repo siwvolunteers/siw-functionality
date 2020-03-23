@@ -63,6 +63,10 @@ $data = [
 				'label' => __( 'Jaarverslagen', 'siw' ),
 				'icon'  => 'dashicons-media-document',
 			],
+			'notifications'    => [
+				'label' => __( 'Notificaties', 'siw' ),
+				'icon'  => 'dashicons-megaphone',
+			],
 			'tailor_made' => [
 				'label' => __( 'Op Maat', 'siw' ),
 				'icon'  => 'dashicons-admin-settings',
