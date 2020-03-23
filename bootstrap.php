@@ -258,6 +258,9 @@ class Bootstrap {
 
 		require_once SIW_INCLUDES_DIR . '/post-types/class-siw-post-type-vacatures.php';
 		$this->init_class( null, 'SIW_Post_Type_Vacatures' );
+
+		require_once SIW_INCLUDES_DIR . '/post-types/class-siw-post-type-quote.php';
+		$this->init_class( null, 'SIW_Post_Type_Quote' );
 	}
 
 	/**

@@ -78,7 +78,7 @@ class Quote extends Widget {
 	 *
 	 * @return array
 	 */
-	function get_categories() {
+	protected function get_categories() {
 		$groups = get_terms( 'testimonial-group' );
 		$categories[''] = __( 'Alle', 'siw' );
 		foreach ( $groups as $group ) {
@@ -93,7 +93,7 @@ class Quote extends Widget {
 	 * @param  string $category
 	 * @return array
 	 */
-	function get_quote( $category = '' ) {
+	protected function get_quote( $category = '' ) {
 
 		$query_args = [
 			'post_type'           => 'testimonial',
