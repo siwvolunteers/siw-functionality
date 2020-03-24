@@ -235,9 +235,7 @@ class SIW_Post_Type_Agenda {
 				],
 				[
 					'id'       => $prefix . 'type_evenement',
-					//'name'     => __( 'Soort locatie', 'siw' ),
 					'type'     => 'button_group',
-					'multiple' => true,
 					'inline'   => true,
 					'options'  => [
 						'offline'   => __( 'Offline', 'siw' ),
@@ -328,8 +326,11 @@ class SIW_Post_Type_Agenda {
 					'visible'  => [ $prefix . 'aanmelden', '=', 'aangepast' ],
 				],
 				[
-					'id'       => $prefix . 'status',
 					'name'     => __( 'Status', 'siw' ),
+					'type'     => 'heading',
+				],
+				[
+					'id'       => $prefix . 'status',
 					'type'     => 'button_group',
 					'multiple' => true,
 					'inline'   => true,

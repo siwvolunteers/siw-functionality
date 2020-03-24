@@ -16,13 +16,15 @@ get_template_part('templates/post', 'header' );
 global $post;
 	$event_data = siw_get_event_data( $post->ID );
 
-	$location_map = new Google_Maps();
-	$location_map->add_location_marker(
-		sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] ),
-		$event_data['location'],
-		sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] )
-	);
-	$location_map->set_options(['zoom' => 15 ] );
+	if ( ! isset( $event_data['type_evenement'] ) || 'offline' == $event_data['type_evenement'] ) {
+		$location_map = new Google_Maps();
+		$location_map->add_location_marker(
+			sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] ),
+			$event_data['location'],
+			sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] )
+		);
+		$location_map->set_options(['zoom' => 15 ] );
+	}
 
 	$hide_application_form_days_before_info_day	= 1; //TODO:property van maken 
 	$limit_date = date( 'Y-m-d', time() + ( $hide_application_form_days_before_info_day * DAY_IN_SECONDS ) );
@@ -59,6 +61,13 @@ global $post;
 						<h3>
 							<?= esc_html__( 'Locatie', 'siw' );?>
 						</h3>
+						<?php if ( isset( $event_data['type_evenement'] ) && 'online' == $event_data['type_evenement'] ) : ?>
+						<p>
+							<?php
+							echo HTML::generate_external_link( $event_data['online_url'], __( 'Online', 'siw') );
+							?>
+						</p>
+						<?php else: ?>
 						<p>
 							<b>
 							<?= esc_html( $event_data['location'] ); ?><br/>
@@ -67,6 +76,7 @@ global $post;
 							</b>
 						</p>
 						<?php $location_map->render();?>
+						<?php endif ?>
 					</div>
 					<div class="col-md-6">
 						<h3>

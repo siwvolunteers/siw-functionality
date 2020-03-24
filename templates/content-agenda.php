@@ -1,21 +1,38 @@
 <?php global $post, $pinnacle;
 
+use SIW\Elements;
 use SIW\Elements\Google_Maps;
+use SIW\HTML;
 
 $event_data = siw_get_event_data( $post->ID );
-$location_map = new Google_Maps();
-$location_map->add_location_marker(
-	sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] ),
-	$event_data['location'],
-	sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] )
-);
-$location_map->set_options(['zoom' => 13 ] );
+
+if ( isset( $event_data['type_evenement'] ) && 'online' == $event_data['type_evenement'] ) {
+	$location = HTML::generate_tag(
+		'div',
+		[ 'style' => 'text-align:center' ],
+		Elements::generate_icon( 'siw-icon-globe', 10, 'circle' ),
+		true
+	);
+}
+else {
+	$location_map = new Google_Maps();
+	$location_map->add_location_marker(
+		sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] ),
+		$event_data['location'],
+		sprintf( '%s, %s %s', $event_data['address'], $event_data['postal_code'], $event_data['city'] )
+	);
+	$location_map->set_options(['zoom' => 13 ] );
+	
+	$location = $location_map->generate();
+}
 
 ?>
 <article id="agenda-<?php the_ID(); ?>" <?php post_class('kad_blog_item postclass kad-animation'); ?> data-animation="fade-in" data-delay="0" itemscope="" itemtype="http://schema.org/BlogPosting">
 	<div class="row">
 		<div class="col-md-4">
-			<?php echo $location_map->generate(); ?>
+			<?php
+				echo $location;
+			?>
 		</div>
 		<div class="col-md-8 postcontent">
 			<header>
@@ -26,7 +43,14 @@ $location_map->set_options(['zoom' => 13 ] );
 			</header>
 			<div class="entry-content" itemprop="articleBody">
 			<p class="agenda-location">
-				<?php echo esc_html( $event_data['location'] ) . '<br/>'. esc_html( $event_data['address'] ) . '<br/>' . esc_html( $event_data['postal_code'] . ' ' .  $event_data['city'] ) ; ?>
+				<?php
+				if ( isset( $event_data['type_evenement'] ) && 'online' == $event_data['type_evenement'] ) {
+					esc_html_e( 'Online', 'siw' );
+				}
+				else {
+					echo esc_html( $event_data['location'] ) . '<br/>'. esc_html( $event_data['address'] ) . '<br/>' . esc_html( $event_data['postal_code'] . ' ' .  $event_data['city'] );
+				}
+				?>
 			</p>
 			<?php the_excerpt(); ?>
 			<a class="read-more" href="<?php the_permalink() ?>"><?php esc_html_e( 'Lees meer', 'siw' );?></a>
