@@ -59,9 +59,6 @@ function siw_get_upcoming_events( $number, $min_date = '', $max_date = '' ) {
 	return $upcoming_events;
 }
 
-/* TODO: verwijderen oude evenmenten */
-
-
 
 /**
  * Haal gegevens van agenda-evenement op
@@ -95,13 +92,13 @@ function siw_get_event_data( $post_id ) {
 		'application_explanation' => get_post_meta( $post_id, 'siw_agenda_aanmelden_toelichting', true ),
 		'application_link_url'    => get_post_meta( $post_id, 'siw_agenda_aanmelden_link_url', true ),
 		'application_link_text'   => get_post_meta( $post_id, 'siw_agenda_aanmelden_link_tekst', true ),
-		'text_after_hide_form'    => get_post_meta( $post_id, 'siw_agenda_tekst_na_verbergen_formulier', true ),
+		'status'                  => get_post_meta( $post_id, 'siw_agenda_status', false ),
+		'type_evenement'          => get_post_meta( $post_id, 'siw_agenda_type_evenement', true ),
+		'online_url'              => get_post_meta( $post_id, 'siw_agenda_online_url', true ),
 	];
 	$event_data['date_range'] = Formatting::format_date_range( $event_data['start_date'], $event_data['end_date'] , false );
-	$event_data['duration']	= sprintf( '%s, %s&nbsp;-&nbsp;%s', $event_data['date_range'], $event_data['start_time'], $event_data['end_time'] );
-
+	$event_data['duration']   = sprintf( '%s, %s&nbsp;-&nbsp;%s', $event_data['date_range'], $event_data['start_time'], $event_data['end_time'] );
 	$event_data['json_ld'] = siw_generate_event_json_ld( $event_data );
-
 
 	return $event_data;
 }
@@ -126,11 +123,42 @@ function siw_generate_event_json_ld( $event ) {
 		'startDate'     => esc_attr( $event['start_date'] ),
 		'endDate'       => esc_attr( $event['end_date'] ),
 		'url'           => esc_url( $event['permalink'] ),
-		'location'      => [
+	];
+
+	//Locatie
+	if ( isset( $event['type_evenement'] ) && 'online' == $event['type_evenement'] ) {
+		$data['eventAttendanceMode'] = 'https://schema.org/OnlineEventAttendanceMode';
+		$data['location'] = [ 
+			'@type' => 'VirtualLocation',
+			'url'   => $event['online_url'],
+		];
+	}
+	else {
+		$data['eventAttendanceMode'] = 'https://schema.org/OfflineEventAttendanceMode';
+		$data['location'] = [
 			'@type'     => 'Place',
 			'name'      => esc_attr( $event['location'] ),
 			'address'   => esc_attr( sprintf('%s, %s %s', $event['address'], $event['postal_code'], $event['city'] ) ),
-		],
+		];
+	}
+
+	//event status
+	$statuses = [ 
+		'scheduled'    => 'https://schema.org/EventScheduled',
+		'cancelled'    => 'https://schema.org/EventCancelled',
+		'moved_online' => 'https://schema.org/EventMovedOnline',
+		'postponed'    => 'https://schema.org/EventPostponed',
+		'rescheduled'  => 'https://schema.org/EventRescheduled',
 	];
+
+	if ( is_array( $event['status'] ) ) {
+		foreach( $event['status'] as $status ) {
+			$data['eventStatus'][] = $statuses[ $status ];
+		}
+	}
+	else {
+		$data['eventStatus'][] = 'https://schema.org/EventScheduled';
+	}
+
 	return Formatting::generate_json_ld( $data );
 }
