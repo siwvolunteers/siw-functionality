@@ -144,7 +144,7 @@ class SIW_Post_Type_Quote {
 					'id'          => 'country',
 					'name'        => __( 'Land', 'siw' ),
 					'type'        => 'select_advanced',
-					'options'     => siw_get_countries( 'tailor_made_projects', 'slug', 'array' ),
+					'options'     => siw_get_countries( 'all', 'slug', 'array' ),
 					'placeholder' => __( 'Selecteer een land', 'siw' ),
 				],
 				[
