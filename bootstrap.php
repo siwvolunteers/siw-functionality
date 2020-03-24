@@ -111,7 +111,6 @@ class Bootstrap {
 				'Email\Configuration',
 				'Head',
 				'htaccess',
-				'i18n',
 				'Icons',
 				'Forms',
 				'Login',
@@ -119,6 +118,7 @@ class Bootstrap {
 				'Options',
 				'Scheduler',
 				'Shortcodes',
+				'Translations',
 				'Update',
 				'Upload_Subdir',
 				'Widgets',
@@ -183,7 +183,6 @@ class Bootstrap {
 			'SIW\Compatibility',
 			[
 				'Caldera_Forms',
-				'Mailpoet', 
 				'Meta_Box',
 				'Password_Protected',
 				'Pinnacle_Premium',
@@ -259,6 +258,9 @@ class Bootstrap {
 
 		require_once SIW_INCLUDES_DIR . '/post-types/class-siw-post-type-vacatures.php';
 		$this->init_class( null, 'SIW_Post_Type_Vacatures' );
+
+		require_once SIW_INCLUDES_DIR . '/post-types/class-siw-post-type-quote.php';
+		$this->init_class( null, 'SIW_Post_Type_Quote' );
 	}
 
 	/**

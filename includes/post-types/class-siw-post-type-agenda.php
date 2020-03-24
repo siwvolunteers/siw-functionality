@@ -230,32 +230,58 @@ class SIW_Post_Type_Agenda {
 					],
 				],
 				[
+					'name'     => __( 'Type evenement', 'siw' ),
+					'type'     => 'heading',
+				],
+				[
+					'id'       => $prefix . 'type_evenement',
+					'type'     => 'button_group',
+					'inline'   => true,
+					'options'  => [
+						'offline'   => __( 'Offline', 'siw' ),
+						'online'    => __( 'Online', 'siw' ),
+					],
+				],
+				[
+					'id'       => $prefix . 'online_url',
+					'name'     => __( 'Url', 'siw' ),
+					'type'     => 'url',
+					'required' => true,
+					'size'     => 100,
+					'visible'  => [ $prefix . 'type_evenement', 'contains', 'online'],
+				],
+				[
 					'name'     => __( 'Locatie', 'siw' ),
 					'type'     => 'heading',
+					'visible'  => [ $prefix . 'type_evenement', 'contains', 'offline'],
 				],
 				[
 					'id'       => $prefix . 'locatie',
 					'name'     => __( 'Naam', 'siw' ),
 					'type'     => 'text',
 					'required' => true,
+					'visible'  => [ $prefix . 'type_evenement', 'contains', 'offline'],
 				],
 				[
 					'id'       => $prefix . 'adres',
 					'name'     => __( 'Adres', 'siw' ),
 					'type'     => 'text',
 					'required' => true,
+					'visible'  => [ $prefix . 'type_evenement', 'contains', 'offline'],
 				],
 				[
 					'id'       => $prefix . 'postcode',
 					'name'     => __( 'Postcode', 'siw' ),
 					'type'     => 'text',
 					'required' => true,
+					'visible'  => [ $prefix . 'type_evenement', 'contains', 'offline'],
 				],
 				[
 					'id'       => $prefix . 'plaats',
 					'name'     => __( 'Plaats', 'siw' ),
 					'type'     => 'text',
 					'required' => true,
+					'visible'  => [ $prefix . 'type_evenement', 'contains', 'offline'],
 				],
 				[
 					'name'     => __( 'Aanmelden', 'siw' ),
@@ -298,6 +324,26 @@ class SIW_Post_Type_Agenda {
 					'type'     => 'text',
 					'size'     => 100,
 					'visible'  => [ $prefix . 'aanmelden', '=', 'aangepast' ],
+				],
+				[
+					'name'     => __( 'Status', 'siw' ),
+					'type'     => 'heading',
+				],
+				[
+					'id'       => $prefix . 'status',
+					'type'     => 'button_group',
+					'multiple' => true,
+					'inline'   => true,
+					'options'  => [
+						'scheduled'    => __( 'Gepland', 'siw' ),
+						'cancelled'    => __( 'Geannuleerd', 'siw' ),
+						'moved_online' => __( 'Omgezet naar online evenement', 'siw' ),
+						'postponed'    => __( 'Uitgesteld', 'siw' ),
+						'rescheduled'  => __( 'Verplaatst', 'siw' ),
+					],
+					'std'   => [
+						'scheduled',
+					],
 				],
 			],
 		];

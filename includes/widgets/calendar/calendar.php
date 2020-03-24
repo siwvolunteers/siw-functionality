@@ -19,6 +19,13 @@ use SIW\HTML;
 class Calendar extends Widget {
 
 	/**
+	 * Aantal events wat in widget getoond wordt
+	 * 
+	 * @var int
+	 */
+	const NUMBER_OF_EVENTS = 2;
+
+	/**
 	 * {@inheritDoc}
 	 */
 	protected $widget_id ='calendar';
@@ -73,7 +80,14 @@ class Calendar extends Widget {
 				<?= esc_html( $event['start_time'] . '&nbsp;-&nbsp;' . $event['end_time'] );?><br/>
 			</span>
 			<span class="location">
-				<?= esc_html( $event['location'] . ',&nbsp;' . $event['city'] );?>
+				<?php 
+					if ( isset( $event['type_evenement'] ) && 'online' == $event['type_evenement'] ) {
+						esc_html_e( 'Online', 'siw' );
+					}
+					else {
+						echo esc_html( $event['location'] . ',&nbsp;' . $event['city'] );
+					}
+				?>
 			</span>
 			<?php
 			$event_list[] = ob_get_clean();
@@ -92,11 +106,6 @@ class Calendar extends Widget {
 	 * @return array
 	 */
 	protected function get_upcoming_events() {
-		$events = get_transient( 'siw_upcoming_events' );
-		if ( false === $events ) {
-			$events = siw_get_upcoming_events( 2 );
-			set_transient( 'siw_upcoming_events', $events, HOUR_IN_SECONDS );
-		}
-		return $events;
+		return siw_get_upcoming_events( self::NUMBER_OF_EVENTS );
 	}
 }

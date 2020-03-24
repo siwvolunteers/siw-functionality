@@ -41,8 +41,8 @@ class Caldera_Forms{
 		add_filter( 'caldera_forms_field_attributes', [ $self, 'set_validation_field_attributes' ] , 10, 2 );
 		add_filter( 'caldera_forms_render_assets_minify', '__return_false' );
 		add_filter( 'caldera_forms_render_form_attributes' , [ $self, 'maybe_add_postcode_lookup'], 10, 2 );
-
 		add_filter( 'rocket_excluded_inline_js_content', [ $self, 'set_excluded_inline_js_content' ] );
+		add_action( 'caldera_forms_render_end', [ $self, 'enqueue_script' ] );
 	}
 
 	/**
@@ -165,21 +165,28 @@ class Caldera_Forms{
 	}
 
 	/**
-	 * Voegt postcode lookup toe
+	 * Voegt attribute voor postcode lookup toe
 	 *
 	 * @param array $attributes
 	 * @param array $form
+	 * 
 	 * @return array
 	 * 
-	 * @todo verplaatsen naar SIW\Form ?
+	 * @todo verplaatsen naar SIW\Form?
 	 */
 	public function maybe_add_postcode_lookup( array $attributes, array $form ) {
-		if ( isset( $form['postcode_lookup'] ) && $form['postcode_lookup'] ) {
-			$attributes['data-siw-postcode-lookup'] = true;
-			wp_register_script( 'siw-cf-postcode-lookup', SIW_ASSETS_URL . 'js/siw-cf-postcode-lookup.js', ['siw-api-postcode', 'jquery'], SIW_PLUGIN_VERSION, true );
-			wp_enqueue_script( 'siw-cf-postcode-lookup' );
-
-		}
+		$attributes['data-siw-postcode-lookup'] =  isset( $form['postcode_lookup'] ) && $form['postcode_lookup'];
 		return $attributes;
+	}
+
+	/**
+	 * Voegt script toe
+	 * 
+	 * - Postcode lookup
+	 * - Google Analytics event
+	 */
+	public function enqueue_script() {
+		wp_register_script( 'siw-cf-caldera-forms', SIW_ASSETS_URL . 'js/siw-caldera-forms.js', ['siw-api-postcode', 'siw-analytics', 'jquery'], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( 'siw-cf-caldera-forms' );
 	}
 }
