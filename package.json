@@ -1,6 +1,6 @@
 {
 	"name": "siw-functionality",
-	"version": "3.0.3",
+	"version": "3.0.5",
 	"license": "GPL-2.0-or-later",
 	"description": "Extra functionaliteit voor website SIW",
 	"repository": "https://github.com/siwvolunteers/siw-functionality",
@@ -30,7 +30,7 @@
 	"devDependencies": {
 		"@swc/cli": "*",
 		"@swc/core": "^1.1.35",
-		"autoprefixer": "*",
+		"autoprefixer": "^9.7.5",
 		"postcss-cli": "*",
 		"sass": "^1.26.3",
 		"svg2sprite-cli": "*",
