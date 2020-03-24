@@ -147,7 +147,7 @@ class Form {
 			'form_ajax'          => true,
 			'scroll_top'         => true,
 			'has_ajax_callback'  => true,
-			'custom_callback'    => 'siwGoogleAnalytics.trackFormSubmission',
+			//'custom_callback'    => 'siwGoogleAnalytics.trackFormSubmission',
 			'layout_grid'        => [],
 			'fields'             => [],
 			'page_names'         => [],
