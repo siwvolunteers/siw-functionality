@@ -17,7 +17,7 @@ class Modal {
 	 * 
 	 * @var string
 	 */
-	const MICROMODAL_VERSION = '0.4.2';
+	const MICROMODAL_VERSION = '0.4.4';
 
 	/**
 	 * ID van modal

@@ -23,7 +23,7 @@
 		"flickity": "^2.2.1",
 		"frappe-charts": "1.*",
 		"js-cookie": "^2.2.1",
-		"micromodal": "*",
+		"micromodal": "^0.4.4",
 		"sal.js": "^0.7.4",
 		"smoothscroll-for-websites": "^1.4.10"
 	},
