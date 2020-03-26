@@ -1,7 +1,8 @@
-(function (factory) {
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  factory();
-}((function () { 'use strict';
+  (global = global || self, global.MicroModal = factory());
+}(this, (function () { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -63,9 +64,8 @@
     var FOCUSABLE_ELEMENTS = ['a[href]', 'area[href]', 'input:not([disabled]):not([type="hidden"]):not([aria-hidden])', 'select:not([disabled]):not([aria-hidden])', 'textarea:not([disabled]):not([aria-hidden])', 'button:not([disabled]):not([aria-hidden])', 'iframe', 'object', 'embed', '[contenteditable]', '[tabindex]:not([tabindex^="-"])'];
 
     var Modal = /*#__PURE__*/function () {
-      function Modal() {
-        var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-            targetModal = _ref.targetModal,
+      function Modal(_ref) {
+        var targetModal = _ref.targetModal,
             _ref$triggers = _ref.triggers,
             triggers = _ref$triggers === void 0 ? [] : _ref$triggers,
             _ref$onShow = _ref.onShow,
@@ -176,8 +176,10 @@
           this.config.onClose(this.modal, this.activeElement, event);
 
           if (this.config.awaitCloseAnimation) {
+            var openClass = this.config.openClass; // <- old school ftw
+
             this.modal.addEventListener('animationend', function handler() {
-              modal.classList.remove(this.config.openClass);
+              modal.classList.remove(openClass);
               modal.removeEventListener('animationend', handler, false);
             }, false);
           } else {
@@ -246,17 +248,22 @@
         }
         /**
          * Tries to set focus on a node which is not a close trigger
-         * if no other nodes exist then focuses om first close trigger
+         * if no other nodes exist then focuses on first close trigger
          */
 
       }, {
         key: "setFocusToFirstNode",
         value: function setFocusToFirstNode() {
+          var _this3 = this;
+
           if (this.config.disableFocus) return;
-          var focusableNodes = this.getFocusableNodes(); // could not think of a better name :(
+          var focusableNodes = this.getFocusableNodes(); // no focusable nodes
+
+          if (focusableNodes.length === 0) return; // remove nodes on whose click, the modal closes
+          // could not think of a better name :(
 
           var nodesWhichAreNotCloseTargets = focusableNodes.filter(function (node) {
-            return !node.hasAttribute('data-micromodal-close');
+            return !node.hasAttribute(_this3.config.closeTrigger);
           });
           if (nodesWhichAreNotCloseTargets.length > 0) nodesWhichAreNotCloseTargets[0].focus();
           if (nodesWhichAreNotCloseTargets.length === 0) focusableNodes[0].focus();
@@ -264,7 +271,9 @@
       }, {
         key: "retainFocus",
         value: function retainFocus(event) {
-          var focusableNodes = this.getFocusableNodes();
+          var focusableNodes = this.getFocusableNodes(); // no focusable nodes
+
+          if (focusableNodes.length === 0) return;
           /**
            * Filters nodes which are hidden to prevent
            * focus leak outside modal
@@ -433,7 +442,8 @@
       close: close
     };
   }();
-
   window.MicroModal = MicroModal;
+
+  return MicroModal;
 
 })));
