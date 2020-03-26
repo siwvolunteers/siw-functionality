@@ -51,9 +51,6 @@ class Modal {
 		$this->id = ( null === $id ) ? uniqid( 'siw-modal-' ) : "siw-modal-{$id}";
 		
 		add_action( 'wp_footer', [ $this, 'render_modal'] );
-
-		//Tijdelijke fix
-		add_filter( 'rocket_exclude_js', [ $this, 'exclude_js_from_combine' ] );
 	}
 
 	/**
@@ -84,19 +81,6 @@ class Modal {
 		]);
 		wp_enqueue_script( 'siw-modal' );
 	}
-
-	/**
-	 * JS-bestanden uitsluiten van minification/concatenation
-	 *
-	 * @param array $excluded_files
-	 * @return array
-	 */
-	public function exclude_js_from_combine( array $excluded_files ) {
-		$excluded_files[] = wp_make_link_relative( SIW_ASSETS_URL . 'modules/micromodal/micromodal.js' );
-		$excluded_files[] = wp_make_link_relative( SIW_ASSETS_URL . 'js/elements/siw-modal.js' );
-		return $excluded_files;
-	}
-
 
 	/**
 	 * Rendert modal
