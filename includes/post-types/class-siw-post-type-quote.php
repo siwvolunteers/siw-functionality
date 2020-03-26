@@ -145,6 +145,7 @@ class SIW_Post_Type_Quote {
 					'name'        => __( 'Land', 'siw' ),
 					'type'        => 'select_advanced',
 					'options'     => siw_get_countries( 'all', 'slug', 'array' ),
+					'required'    => true,
 					'placeholder' => __( 'Selecteer een land', 'siw' ),
 				],
 				[
@@ -190,12 +191,19 @@ class SIW_Post_Type_Quote {
 	 */
 	public function generate_slug( array $data, array $postarr ) {
 
+		//Afbreken als het een import is
+		if ( isset( $postarr['import_id'] ) ) {
+			return $data;
+		}
+
 		if ( in_array( $data['post_status'], [ 'draft', 'pending', 'auto-draft' ] ) ) {
 			return $data;
 		}
+
 		if ( 'siw_quote' != $data['post_type'] ) {
 			return $data;
 		}
+		
 		$data['post_title'] = sprintf(
 			'%s | %s %s',
 			$postarr['name'],
