@@ -161,23 +161,11 @@ class Product_Image {
 			$work_type_query,
 		];
 
-		//Land
-		$tax_queries[] = [
-			'relation' => 'AND',
-			$country_query,
-		];
-
 		//Continent en soort werk
 		$tax_queries[] = [
 			'relation' => 'AND',
 			$continent_query,
 			$work_type_query,
-		];
-
-		//Continent
-		$tax_queries[] = [
-			'relation' => 'AND',
-			$continent_query,
 		];
 
 		return $tax_queries;
