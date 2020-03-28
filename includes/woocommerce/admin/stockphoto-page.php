@@ -117,6 +117,7 @@ class Stockphoto_Page {
 							'placeholder' => __( 'Selecteer soort(en) werk', 'siw '),
 							'options'     => \siw_get_work_types( 'all', 'slug', 'array' ),
 							'multiple'    => true,
+							'required'    => true,
 						],
 					],
 				],
