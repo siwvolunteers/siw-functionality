@@ -69,7 +69,7 @@ function siw_get_featured_job() {
 		],
 		[
 			'key'     => 'siw_vacature_uitgelicht',
-			'value'   => 'on',
+			'value'   => 1,
 			'compare' => '=',
 		],
 	];
