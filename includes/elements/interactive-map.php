@@ -161,7 +161,7 @@ abstract class Interactive_Map {
 		$default = [
 			'id'    => false,
 			'title' => false,
-			'color' => Properties::PRIMARY_COLOR_HOVER,
+			'color' => Properties::PRIMARY_COLOR,
 			'show'  => 'false',
 		];
 		return wp_parse_args( $category, $default );

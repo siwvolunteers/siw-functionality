@@ -48,9 +48,6 @@ class Admin {
 		remove_menu_page( 'edit-comments.php' );
 		remove_menu_page( 'edit.php' );
 		remove_menu_page( 'link-manager.php' );
-		if ( ! current_user_can( 'manage_options' ) ) {
-			remove_menu_page( 'wppusher');//Kan dit niet weg?
-		}
 	}
 
 	/**

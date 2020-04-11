@@ -82,7 +82,10 @@ class Elements {
 
 			$tablist->add_pane(
 				$pane['title'],
-				$pane['content']
+				$pane['content'],
+				$pane['show_button'],
+				$pane['button_url'],
+				$pane['button_text']
 			);
 		}
 		return $tablist->generate();

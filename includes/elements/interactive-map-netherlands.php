@@ -80,7 +80,7 @@ class Interactive_Map_Netherlands extends Interactive_Map {
 	
 		$this->inline_css = [
 			$selectors => [
-				'fill' => Properties::PRIMARY_COLOR_HOVER,
+				'fill' => Properties::PRIMARY_COLOR,
 			],
 		];
 		
