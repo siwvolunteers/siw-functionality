@@ -8,7 +8,7 @@ namespace SIW\WooCommerce\Admin;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-class Product_Columns extends \MB_Admin_Columns_Post {
+class Product_Columns extends \MBAC\Post  {
 
 	/**
 	 * Voegt extra columns toe
