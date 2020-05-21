@@ -59,9 +59,7 @@ class UpdraftPlus {
 		$backup_db_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
 	
 		$backup_db_ts = strtotime( $backup_db_day . ' ' . self::TS_BACKUP_DB );
-		$backup_db_ts_gmt = Util::convert_timestamp_to_gmt( $backup_db_ts );
-	
-		return $backup_db_ts_gmt;
+		return Util::convert_timestamp_to_gmt( $backup_db_ts );
 	}
 
 	/**
@@ -75,9 +73,7 @@ class UpdraftPlus {
 		$backup_files_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
 	
 		$backup_files_ts = strtotime( $backup_files_day . ' ' . self::TS_BACKUP_FILES );
-		$backup_files_ts_gmt = Util::convert_timestamp_to_gmt( $backup_files_ts );
-	
-		return $backup_files_ts_gmt;
+		return Util::convert_timestamp_to_gmt( $backup_files_ts );
 	}
 
 	/**

@@ -31,9 +31,6 @@ class Processor_Spam_Check {
 			'description'   => __( 'Spam check bij StopForumSpam.com', 'siw' ),
 			'pre_processor' => [ $this, 'preprocess'],
 			'single'        => true,
-			'magic_tags'    => [
-				'spam'
-			]
 		];
 		return $processors;
 	}

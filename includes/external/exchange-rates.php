@@ -62,6 +62,18 @@ class Exchange_Rates{
 	}
 
 	/**
+	 * Geeft wisselkoers voor specifieke valuta terug
+	 *
+	 * @param string $iso_code
+	 *
+	 * @return float
+	 */
+	public function get_rate( string $iso_code ) {
+		$exchange_rates = $this->get_rates();
+		return $exchange_rates[ $iso_code ] ?? false;
+	}
+
+	/**
 	 * Haalt wisselkoeren op bij fixer.io
 	 * 
 	 * @return array
