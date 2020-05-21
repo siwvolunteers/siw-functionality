@@ -137,10 +137,6 @@ class Interactive_Map_Netherlands extends Interactive_Map {
 		$description[] = sprintf( __( 'Data: %s', 'siw' ), $duration );
 		$description[] = sprintf( __( 'Deelnemers: %s', 'siw' ), $project['participants'] );
 		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), $work_type ? $work_type->get_name() : '' );
-
-		if ( isset( $project['local_fee'] ) ) {
-			$description[] = sprintf( __( 'Lokale bijdrage: %s', 'siw' ), Formatting::format_amount( $project['local_fee'] ) );
-		}
 		$description[] = sprintf( __( 'Locatie: %s, provincie %s', 'siw' ), $project['city'], $province_name );
 
 		return Formatting::array_to_text( $description, BR );
