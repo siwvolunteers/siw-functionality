@@ -129,27 +129,17 @@ class The_SEO_Framework {
 	}
 
 	/**
-	 * Verwijdert CPT's uit sitempa
+	 * Toon alleen pagina's in Engelse sitemap
 	 *
 	 * @param array $post_types
+	 * 
 	 * @return array
 	 */
-	public function set_sitemap_supported_post_types( array $post_types ) {
+	public function set_sitemap_supported_post_types( array $post_types ) : array {
 
-		//TODO: verwijderen na verwijderen Pinnacle Premium
-		$post_types = array_diff( $post_types, ['testimonial']);
 		if ( ! i18n::is_default_language() ) {
-
-			$post_types = array_diff(
-				$post_types,
-				[
-					'product',
-					'wpm-testimonial', //TODO: verwijderen na uitfaseren Strong Testimonials
-					'agenda',
-					'vacatures',
-					'siw_tm_country'
-				]
-			);
+			$post_types = [];
+			$post_types[] = 'page';
 		}
 		return $post_types;
 	}

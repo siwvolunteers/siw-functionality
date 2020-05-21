@@ -54,9 +54,10 @@ class Product {
 	 * @param array $columns
 	 * @return array
 	 */
-	public function remove_admin_columns( $columns ) {
+	public function remove_admin_columns( array $columns ) : array {
+		unset( $columns['thumb']);
 		unset( $columns['date'] );
-		unset( $columns['product-tag'] );
+		unset( $columns['product_tag'] );
 		unset( $columns['price'] );
 		return $columns;
 	}
