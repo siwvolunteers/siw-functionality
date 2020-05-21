@@ -84,7 +84,8 @@ class Stockphoto_Page {
 				[
 					'id'         => 'stockphotos',
 					'type'       => 'group',
-					'clone'      => true,
+					'clone'      => true, //TODO: of lager
+					'max_clone'  => 5,
 					'save_field' => false,
 					'add_button' => __( 'Stockfoto toevoegen', 'siw' ),
 					'fields'     => [
@@ -109,6 +110,8 @@ class Stockphoto_Page {
 							'name'        => __( 'Land', 'siw' ),
 							'placeholder' => __( 'Selecteer een land', 'siw '),
 							'options'     => \siw_get_countries( 'all', 'slug', 'array' ),
+							'required'    => true,
+							
 						],
 						[
 							'id'          => 'work_type',

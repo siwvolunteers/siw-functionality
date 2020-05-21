@@ -26,7 +26,8 @@ class Product {
 		add_filter( 'woocommerce_is_purchasable', [ $self, 'set_product_is_purchasable'], 10, 2 );
 		add_filter( 'woocommerce_available_variation', [ $self, 'set_variation_description'] );
 		add_filter( 'woocommerce_sale_flash', [ $self, 'set_sales_flash_text' ] );
-		add_filter( 'woocommerce_product_get_attributes', [ $self, 'order_product_attributes'] );
+		add_filter( 'woocommerce_display_product_attributes', [ $self, 'display_product_attributes'], 10, 2 );
+
 		add_filter( 'woocommerce_related_products_args', [ $self, 'set_related_products_number'], PHP_INT_MAX );
 		add_action( 'woocommerce_after_add_to_cart_form', [ $self, 'show_local_fee'] );
 
@@ -39,10 +40,10 @@ class Product {
 		 * - Meta-informatie (tags, categorie, SKU)
 		 * Altijd prijs van variatie tonen
 		 */
-		add_filter( 'woocommerce_reset_variations_link', '__return_false' );
+		add_filter( 'woocommerce_reset_variations_link', '__return_empty_string' );
 		add_filter( 'woocommerce_price_trim_zeros', '__return_true' );
-		add_filter( 'woocommerce_product_description_heading', '__return_false' );
-		add_filter( 'woocommerce_product_additional_information_heading', '__return_false' );
+		add_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
+		add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 		remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
@@ -95,12 +96,14 @@ class Product {
 	}
 
 	/**
-	 * Sorteert de attributes
+	 * Past weergave van de attributes aan
 	 *
 	 * @param array $attributes
+	 * @param \WC_Product $product
+	 *
 	 * @return array
 	 */
-	public function order_product_attributes( $attributes ) {
+	public function display_product_attributes( array $attributes, \WC_Product $product ) : array {
 		$order = [
 			'projectnaam',
 			'projectcode',
@@ -114,9 +117,21 @@ class Product {
 			'pa_taal',
 			'pa_doelgroep',
 		];
+
+		$callback = function( &$value, $key ) {
+			$value = 'attribute_' . $value;
+		};
+		array_walk( $order, $callback );
+
 		uksort( $attributes, function( $key1, $key2 ) use ( $order ) {
 			return ( array_search( $key1, $order ) > array_search( $key2, $order ) );
 		} );
+
+		//Local fee verbergen voor nederlandse projecten
+		if ( 'nederland' === $product->get_meta( 'country' ) ) {
+			unset( $attributes['attribute_lokale-bijdrage']);
+		}
+
 		return $attributes;
 	}
 	
@@ -136,27 +151,34 @@ class Product {
 	 */
 	public function show_local_fee() {
 		global $product;
-		$participation_fee = $product->get_meta( 'participation_fee' );
-		$participation_fee_currency = $product->get_meta( 'participation_fee_currency' );
 
-		if ( ! empty( $participation_fee_currency ) && $participation_fee > 0 ) {
-			$currency = siw_get_currency( $participation_fee_currency );
-			$symbol = $participation_fee_currency;
-			if ( false !== $currency ) {
-				$symbol = $currency->get_symbol();
-				if ( 'EUR' != $participation_fee_currency ) {
-					$amount_in_euro = $currency->convert_to_euro( $participation_fee );
-				}
-
-			}
-			?>
-			<div class="local-fee">
-				<?php printf( esc_html__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s %s.', 'siw' ), $symbol, $participation_fee );?>
-				<?php if ( isset( $amount_in_euro ) ):?>
-					&nbsp;<?php printf ( esc_html__( '(Ca. &euro; %s)', 'siw' ), $amount_in_euro ); ?>
-				<?php endif ?>
-			</div>
-			<?php
+		//Local fee niet tonen voor nederlandse projecten
+		if ( 'nederland' === $product->get_meta( 'country' ) ) {
+			return;
 		}
+
+		$amount = $product->get_meta( 'participation_fee' );
+		$currency_code = $product->get_meta( 'participation_fee_currency' );
+
+		if ( empty( $currency_code ) || $amount <= 0 ) {
+			return;
+		}
+		
+		$currency = siw_get_currency( $currency_code );
+		$symbol = $currency_code;
+		if ( is_a( $currency, '\SIW\Data\Currency' ) ) {
+			$symbol = $currency->get_symbol();
+			if ( 'EUR' != $currency_code ) {
+				$amount_in_euro = $currency->convert_to_euro( $amount );
+			}
+		}
+		?>
+		<div class="local-fee">
+			<?php printf( esc_html__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s %s.', 'siw' ), $symbol, $amount );?>
+			<?php if ( isset( $amount_in_euro ) ):?>
+				&nbsp;<?php printf ( esc_html__( '(Ca. &euro; %s)', 'siw' ), $amount_in_euro ); ?>
+			<?php endif ?>
+		</div>
+		<?php
 	}
 }
