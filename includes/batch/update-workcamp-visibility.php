@@ -76,7 +76,7 @@ class Update_Workcamp_Visibility extends Job {
 			||
 			! $country->is_allowed()
 			||
-			'rejected' === $this->product->get_meta( 'approval_result' )
+			'rejected' === $product->get_meta( 'approval_result' )
 			||
 			date( 'Y-m-d', time() + ( self::MIN_DAYS_BEFORE_START * DAY_IN_SECONDS ) ) >= $product->get_meta( 'start_date' )
 		) {
