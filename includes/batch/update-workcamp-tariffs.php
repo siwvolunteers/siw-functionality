@@ -57,7 +57,7 @@ class Update_Workcamp_Tariffs extends Job {
 		}
 	
 		//Afbreken als product een afwijkend tarief heeft
-		if ( $this->product->get_meta( 'has_custom_tariff' ) ) {
+		if ( $product->get_meta( 'has_custom_tariff' ) ) {
 			return;
 		}
 
