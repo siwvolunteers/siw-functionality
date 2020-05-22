@@ -1,6 +1,7 @@
 @import "../partials/_variables.scss";
 
 .siw-accordion {
+	max-width: $mobile-width;
 	h5 {
 		margin-top:1px;
 		margin-bottom:1px;
@@ -9,8 +10,8 @@
 			width: 100%;
 			display: block;
 			padding: 10px;
-			border-radius: 4px;
-			background-color: #ececec;
+			border: solid 3px $button-color;
+			cursor: pointer;
 	
 			&:after {
 				content: "+";
@@ -20,17 +21,18 @@
 			}
 
 			&[aria-expanded="true"] {
-				background-color: $primary-color;
+				background-color: $button-color;
 				color: #fff;
 				&:after {
 					content: "-";
 					color:#fff;
 				}
-			}	
+			}
 		}
 	}
 
 	.panel {
+		max-width: 85ch; //TODO: caniuse?
 		overflow: hidden;
 		transition: max-height 0.3s ease;
 		&[aria-hidden=true] {
@@ -43,8 +45,7 @@
 		}
 
 		div.product .woocommerce-tabs & {
-			margin:0px;
-			padding:0px;
+			margin-bottom:0;
 			&[aria-hidden=false] {
 				padding:10px;
 			}

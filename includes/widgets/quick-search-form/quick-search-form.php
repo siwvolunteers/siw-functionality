@@ -67,9 +67,9 @@ class Quick_Search_Form extends Widget {
 		<div>
 			<form id="siw_quick_search" method="get" action="<?= esc_url( $result_page_url );?>">
 				<ul>
-					<li><?= HTML::generate_field( 'select', [ 'name' => 'bestemming', 'id' => 'bestemming', 'options' => $this->get_destinations() ] );?></li>
-					<li><?= HTML::generate_field( 'select', [ 'name' => 'maand', 'id' => 'maand', 'options' => $this->get_months() ] );?></li>
-					<li><?= HTML::generate_field( 'submit', [ 'value' => __( 'Zoeken', 'siw' ) ] );?></li>
+					<li><?= HTML::generate_field( 'select', [ 'name' => 'bestemming', 'id' => 'bestemming', 'class' => 'select-css', 'options' => $this->get_destinations() ] );?></li>
+					<li><?= HTML::generate_field( 'select', [ 'name' => 'maand', 'id' => 'maand', 'class' => 'select-css', 'options' => $this->get_months() ] );?></li>
+					<li><?= HTML::generate_field( 'submit', [ 'value' => __( 'Zoeken', 'siw' ), 'class' => 'button' ] );?></li>
 				</ul>
 			</form>
 		</div>

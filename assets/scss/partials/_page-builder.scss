@@ -1,0 +1,23 @@
+//Dit is nodig omdat er anders een horizontale scrollbalk komt
+body {
+	overflow-x: hidden;
+}
+
+.row-full-width {
+	margin-left: calc(50% - 50vw );
+	margin-right: calc(50% - 50vw);
+}
+
+.row-full-width-background {
+	margin-left: calc(50% - 50vw );
+	margin-right: calc(50% - 50vw );
+	padding-left: calc(50vw - 50%);
+	padding-right: calc(50vw - 50%);
+}
+
+.panel-layout .widget ul{
+	margin-left: 1em;
+	li {
+		list-style-type: square;
+	}
+}

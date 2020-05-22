@@ -2,7 +2,7 @@
 	display:none;
 }
 
-.strong-content{
+.strong-content {
 	display: flex;
 	flex-wrap: wrap;
 
@@ -15,15 +15,15 @@
 	}
 }
 
-.testimonial .testimonial-inner .testimonial-content .testimonial-image{
+.testimonial .testimonial-inner .testimonial-content .testimonial-image {
 	margin: 10px;
 }
 
-.testimonial .testimonial-inner .readmore a{
+.testimonial .testimonial-inner .readmore a {
 	float:right;
 }
 
-@media (min-width: $mobile-width){
+@media (min-width: $mobile-width) {
 	.strong-content .testimonial{
 		width:45%;
 	}

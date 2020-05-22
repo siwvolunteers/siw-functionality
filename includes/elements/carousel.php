@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\CSS;
+use SIW\Util\CSS;
 
 /**
  * Carousel met posts
@@ -69,7 +69,7 @@ class Carousel {
 		'contain'    => true,
 		'wrapAround' => true,
 		'autoPlay'   => 2000,
-		'pageDots'   => false,
+		'pageDots'   => false, //TODO: styling
 	];
 
 	/**
@@ -96,29 +96,29 @@ class Carousel {
 	protected function get_responsive_class() {
 		switch ( $this->columns ) {
 			case 1:
-				$column_size = 12;
-				$tablet_size = 12;
-				$mobile_size = 12;
+				$column_size = 100;
+				$tablet_size = 100;
+				$mobile_size = 100;
 				break;
 			case 2:
-				$column_size = 6;
-				$tablet_size = 6;
-				$mobile_size = 12;
+				$column_size = 50;
+				$tablet_size = 50;
+				$mobile_size = 100;
 				break;
 			case 3:
-				$column_size = 4;
-				$tablet_size = 6;
-				$mobile_size = 12;
+				$column_size = 33;
+				$tablet_size = 50;
+				$mobile_size = 100;
 				break;
 			case 4:
-				$column_size = 3;
-				$tablet_size = 6;
-				$mobile_size = 12;
+				$column_size = 25;
+				$tablet_size = 50;
+				$mobile_size = 100;
 				break;
 			default:
-				$column_size = 12;
-				$tablet_size = 12;
-				$mobile_size = 12;
+				$column_size = 100;
+				$tablet_size = 100;
+				$mobile_size = 100;
 		}
 		$class = CSS::generate_responsive_class( $column_size, $tablet_size, $mobile_size );
 		return $class;
@@ -186,23 +186,18 @@ class Carousel {
 
 		$query = $this->generate_query();
 
-		//Lelijkheid ten top, kan hopelijk weg na switch theme
-		global $woocommerce_loop;
-		$columns = $woocommerce_loop['columns'];
-		$woocommerce_loop['columns'] = 1;
-
 		ob_start();
 		?>
 		<div class="siw-carousel">
 		<?php
 		if ( $query->have_posts() ) {
 			?>
-			<div class="main-carousel" data-flickity='<?php echo json_encode( $this->options );?>'>
+			<div class="main-carousel grid-container" data-flickity='<?php echo json_encode( $this->options );?>'>
 			<?php
 			while ( $query->have_posts() ) {
 				$query->the_post();
-				global $post; //Kan weg na switch naar GeneratePress
-				?> <div class="<?php echo esc_attr( $this->get_responsive_class() );?> carousel-cell">
+				?>
+				<div class="<?php echo esc_attr( $this->get_responsive_class() );?> carousel-cell">
 					<?php include( $this->get_template() );?>
 				</div>
 				<?php
@@ -211,13 +206,9 @@ class Carousel {
 		} else {
 			//TODO: tekst bij geen posts? -> Instelling
 		}
-
 		echo '</div>';
 
 		wp_reset_postdata();
-
-		//Ongedaan maken lelijkheid, kan hopelijk weg na switch theme
-		$woocommerce_loop['columns'] = $columns;
 		return ob_get_clean();
 	}
 
@@ -260,16 +251,14 @@ class Carousel {
 	 * Haal templatebestand op voor post type
 	 * 
 	 * @return string
+	 * 
+	 * @todo fallback-bestand
 	 */
 	protected function get_template() {
-		//TODO:filter
-
 		$templates = [
-			'siw_tm_country' => SIW_TEMPLATES_DIR . '/content-tm_country.php',
-			'product'        => wc_locate_template('content-product.php' ),
+			'product' => wc_locate_template( 'content-product.php' ),
 		];
-
-		$template = $templates[ $this->post_type ] ?? '';
-		return $template;
+		$templates = apply_filters( 'siw_carousel_post_type_templates', $templates );
+		return $templates[ $this->post_type ] ?? '';
 	}
 }

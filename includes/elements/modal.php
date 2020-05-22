@@ -104,7 +104,7 @@ class Modal {
 	 */
 	protected function generate_header() {
 		$header = '<header class="modal-header">';
-		$header .= sprintf( '<h4 class="modal-title" id="%s-title">%s</h4>', $this->id, $this->title );
+		$header .= sprintf( '<h2 class="modal-title" id="%s-title">%s</h2>', $this->id, $this->title );
 		$header .= sprintf( '<button class="modal-close" aria-label="%s" data-micromodal-close></button>', esc_html__( 'Sluiten', 'siw' ) );
 		$header .= '</header>';
 

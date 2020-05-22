@@ -10,25 +10,32 @@ namespace SIW\Elements;
  */
 class Taxonomy_Filter {
 
-	/**
-	 * Versienummer
-	 */
-	const ISOTOPE_VERSION = '3.0.6';
+	protected $options = [];
+
 
 	/**
 	 * Constructor
 	 */
-	public function __construct() {
+	public function __construct( array $options = [] ) {
+		$this->options = wp_parse_args(
+			$options,
+			[
+				'masonry' => true,
+			]
+		);
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_script' ] );
 	}
 
 	/**
 	 * Voegt script toe
-	 * 
-	 * @todo na switch theme script aanpassen
 	 */
 	public function enqueue_script(){
 		wp_register_script( 'siw-taxonomy-filter', SIW_ASSETS_URL . 'js/elements/siw-taxonomy-filter.js', [], SIW_PLUGIN_VERSION, true );
+		wp_localize_script(
+			'siw-taxonomy-filter',
+			'siw_taxonomy_filter',
+			[]
+		);
 		wp_enqueue_script( 'siw-taxonomy-filter' );
 	}
 
@@ -40,12 +47,13 @@ class Taxonomy_Filter {
 	 */
 	public function generate( string $taxonomy ) {
 		$terms = $this->get_terms( $taxonomy );
-		$name = 'continent';
+		//TODO: afbreken bij fout; ob_start gebruiken
+		$taxonomy_name = get_taxonomy( $taxonomy )->labels->name;
 		$output = sprintf( '<div class="filter-button-group" data-filter-group="%s">', $taxonomy );
-		$output .= '<h5>' . sprintf( esc_html__( 'Filter op %s', 'siw' ), $name ) . '</h5>';
-		$output .= sprintf ( '<button class="kad-btn is-checked" data-filter="">%s</button>', esc_html__( 'Alle', 'siw' ) );
+		$output .= '<h5>' . sprintf( esc_html__( 'Filter op %s', 'siw' ), strtolower( $taxonomy_name ) ) . '</h5>';
+		$output .= sprintf ( '<button class="button ghost is-checked" data-filter="">%s</button>', esc_html__( 'Alle', 'siw' ) );
 		foreach ( $terms as $term ) {
-			$output .= sprintf( '<button class="kad-btn" data-filter=".%s">%s</button>', esc_attr( $term->slug ), esc_html( $term->name ) );
+			$output .= sprintf( '<button class="button ghost" data-filter="%s">%s</button>', esc_attr( $term->slug ), esc_html( $term->name ) );
 		}
 		$output .= '</div>';
 		return $output;
@@ -55,6 +63,8 @@ class Taxonomy_Filter {
 	 * Haalt terms van één taxonomy op
 	 * 
 	 * @return array
+	 * 
+	 * @todo term_meta i.c.m. batch
 	 */
 	protected function get_terms( string $taxonomy ) {
 		$terms = get_terms( [

@@ -1,3 +1,6 @@
+.siw-accordion {
+  max-width: 780px;
+}
 .siw-accordion h5 {
   margin-top: 1px;
   margin-bottom: 1px;
@@ -6,8 +9,8 @@
   width: 100%;
   display: block;
   padding: 10px;
-  border-radius: 4px;
-  background-color: #ececec;
+  border: solid 3px #3f3f3f;
+  cursor: pointer;
 }
 .siw-accordion h5 span:after {
   content: "+";
@@ -16,7 +19,7 @@
   font-weight: bold;
 }
 .siw-accordion h5 span[aria-expanded=true] {
-  background-color: #ff9900;
+  background-color: #3f3f3f;
   color: #fff;
 }
 .siw-accordion h5 span[aria-expanded=true]:after {
@@ -24,6 +27,7 @@
   color: #fff;
 }
 .siw-accordion .panel {
+  max-width: 85ch;
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
@@ -35,8 +39,7 @@
   padding: 10px;
 }
 div.product .woocommerce-tabs .siw-accordion .panel {
-  margin: 0px;
-  padding: 0px;
+  margin-bottom: 0;
 }
 div.product .woocommerce-tabs .siw-accordion .panel[aria-hidden=false] {
   padding: 10px;

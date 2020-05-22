@@ -20,6 +20,8 @@ class Archive {
 		$self = new self();
 
 		add_action( 'woocommerce_after_shop_loop_item_title', [ $self, 'show_project_code_and_dates'] );
+		add_action( 'woocommerce_after_shop_loop_item', [ $self, 'show_project_code'], 1 );
+
 		add_filter( 'the_seo_framework_the_archive_title', [ $self, 'set_seo_title'], 10, 2 );
 		add_filter( 'the_seo_framework_generated_archive_excerpt', [ $self, 'set_seo_description' ], 10, 2 );
 		
@@ -27,13 +29,7 @@ class Archive {
 
 		add_filter( 'woocommerce_default_catalog_orderby_options', [ $self, 'add_catalog_orderby_options' ] );
 		add_filter( 'woocommerce_catalog_orderby', [ $self, 'add_catalog_orderby_options' ] );
-		add_filter( 'woocommerce_get_catalog_ordering_args', [ $self, 'process_catalog_ordering_args' ] );
-		add_filter( 'woocommerce_shortcode_products_query', [ $self, 'process_shortcode_ordering_args'], 10, 2 );
-
-		remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );//TODO: werkt pas na switch van thema
-		remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
-		remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
-		remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 ); //TODO: werkt pas na switch van thema
+		add_filter( 'woocommerce_get_catalog_ordering_args', [ $self, 'process_catalog_ordering_args' ], 10, 3 );
 	}
 
 	/**
@@ -43,8 +39,14 @@ class Archive {
 		global $product;
 		$duration = Formatting::format_date_range( $product->get_attribute('startdatum'), $product->get_attribute('einddatum'), false );
 		//TODO: inline styling verplaatsen naar css
-		echo '<p>' . esc_html( $duration ) . '</p><hr style="margin:5px;">';
-		echo '<p style="margin-bottom:5px;"><small>' . esc_html( $product->get_sku() ) . '</small></p>';
+		echo wpautop( esc_html( $duration ) );
+	}
+
+
+	public function show_project_code() {
+		global $product;
+		echo '<hr>';
+		echo '<span class="project-code">' . esc_html( $product->get_sku() ) . '</span>';
 	}
 
 	/**
@@ -109,62 +111,33 @@ class Archive {
 	}
 
 	/**
-	 * Voegt extra sorteeropties toe voor archive
+	 * Voegt extra sorteeroptie (startdatum) toe voor archive
 	 * 
-	 * - Willekeurig
-	 * - Startdatum
-	 * - Land
 	 * @param array $options
+	 * 
 	 * @return array
 	 */
 	public function add_catalog_orderby_options( $options ) {
+		unset( $options['menu_order'] );
+		unset( $options['popularity'] );
+		unset( $options['rating'] );
+		unset( $options['date'] );
+		unset( $options['price'] );
+		unset( $options['price-desc'] );
 		$options['startdate'] = __( 'Startdatum', 'siw' );
-		$options['country']   = __( 'Land', 'siw' );
-		$options['random']    = __( 'Willekeurig', 'siw' );
-	
 		return $options;
 	}
 
 	/**
-	 * Verwerkt extra sorteeropties voor archive
+	 * Verwerkt extra sorteeroptie voor archive
 	 *
 	 * @param array $args
 	 * @return array
 	 */
-	public function process_catalog_ordering_args( $args ) {
-		$orderby_value = isset( $_GET['orderby'] ) ? wc_clean( $_GET['orderby'] ) : apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby' ) );
-		switch ( $orderby_value ) {
-			case 'random':
-				$sort_args['orderby']  = 'rand';
-				$sort_args['order']    = '';
-				$sort_args['meta_key'] = '';
-				break;
-			case 'startdate':
-				$sort_args['orderby']  = 'meta_value';
-				$sort_args['order']    = 'asc';
-				$sort_args['meta_key'] = 'start_date';
-				break;
-			case 'country':
-				$sort_args['orderby']  = 'meta_value';
-				$sort_args['order']    = 'asc';
-				$sort_args['meta_key'] = 'land';
-				break;
-		}
-		return $sort_args;
-	}
-
-	/**
-	 * Verwerkt extra sorteeropties voor shortcode
-	 *
-	 * @param array $args
-	 * @param array $atts
-	 * @return array
-	 */
-	public function process_shortcode_ordering_args( $args, $atts ) {
-		if ( 'random' == $atts['orderby'] ) {
-			$args['orderby']  = 'rand';
-			$args['order']    = '';
-			$args['meta_key'] = '';
+	public function process_catalog_ordering_args( $args, $orderby, $order ) {
+		if ( 'startdate' == $orderby ) {
+			$args['orderby']  = 'meta_value';
+			$args['meta_key'] = 'start_date';
 		}
 		return $args;
 	}

@@ -27,7 +27,6 @@ class Product_Tabs {
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_location_map_tab'] );
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_contact_form_tab'] );
 		//add_filter( 'woocommerce_product_tabs', [ $self, 'add_steps_tab'] );
-		//add_filter( 'woocommerce_product_tabs', [ $self, 'add_travel_advice_tab'] );
 	}
 
 	/**
@@ -118,21 +117,6 @@ class Product_Tabs {
 	}
 
 	/**
-	 * Voegt tab met BuZa-reisadvies toe
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
-	public function add_travel_advice_tab( array $tabs ) {
-		$tabs['travel_advice'] = [
-			'title'    => __( 'Reisadvies', 'siw' ),
-			'priority' => 140,
-			'callback' => [ $this, 'show_travel_advice_steps' ],
-		];
-		return $tabs;
-	}
-
-	/**
 	 * Toont projectbeschrijving o.b.v. gegevens uit Plato
 	 *
 	 * @param string $tab
@@ -161,7 +145,7 @@ class Product_Tabs {
 				];
 			}
 		}
-		echo do_shortcode( Elements::generate_accordion( $panes ) );
+		echo Elements::generate_accordion( $panes );
 	}
 
 	/**
@@ -185,33 +169,24 @@ class Product_Tabs {
 	/**
 	 * Toont stappenplan in tab
 	 * 
-	 * @todo stappen uit databestand + loopje maken
+	 * @todo stappen uit databestand/instelling + loopje maken
 	 */
 	public function show_product_steps() {
 		$columns = [
 			[
-				'width'   => 4,
+				'width'   => 33,
 				'content' => Elements::generate_icon( 'siw-icon-file-signature', 2, 'circle' ) . '<br><h5>1. Aanmelding</h5>Heb je interesse in dit groepsproject? Meld je dan direct aan via de knop "Aanmelden".'
 			],
 			[
-				'width'   => 4,
+				'width'   => 33,
 				'content' => Elements::generate_icon( 'siw-icon-clipboard-check', 2, 'circle' ) . '<br><h5>2. Bevesting</h5>Binnen twee weken na betaling krijg je een bevestiging van plaatsing op het project.'
 			],
 			[
-				'width'   => 4,
+				'width'   => 33,
 				'content' => Elements::generate_icon( 'siw-icon-tasks', 2, 'circle' ) . '<br><h5>3. Voorbereiding</h5>Kom naar de voorbereidingsdag, zodat je goed voorbereid aan je avontuur kan beginnen.'
 			],
 		];
 		echo '<div style="text-align:center">' . do_shortcode( Formatting::generate_columns( $columns ) ) . '</div>'; //FIXME: geen inline styling
 	}
 
-	/**
-	 * Toont reisadvies van BuZa
-	 *
-	 * @param string $tab
-	 * @param array $args
-	 */
-	public function show_travel_advice_tab( string $tab, array $args ) {
-
-	}
 }

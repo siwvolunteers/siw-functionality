@@ -48,7 +48,6 @@ function siw_get_social_networks( $context = 'all' ) {
 			);
 		}
 	);
-
 	wp_cache_set( "{$context}", $social_networks, 'siw_social_networks' );
 
 	return $social_networks;

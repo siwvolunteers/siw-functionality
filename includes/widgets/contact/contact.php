@@ -69,9 +69,18 @@ class Contact extends Widget {
 						HTML::generate_link( "tel:" . Properties::PHONE_INTERNATIONAL, Properties::PHONE ),
 						HTML::generate_link( "mailto:" . antispambot( Properties::EMAIL ), antispambot( Properties::EMAIL ) )
 					),
+					HTML::generate_link(
+						'https://api.whatsapp.com/send?phone='. Properties::WHATSAPP_FULL,
+						Properties::WHATSAPP,
+						[ 'class' => 'siw-contact-link'],
+						[
+							'class'    => 'siw-icon-whatsapp',
+							'position' => 'before'
+						]
+					),
 					Elements::generate_opening_hours('table'),
 				],
-				BR2
+				BR
 				)
 			);
 			?>

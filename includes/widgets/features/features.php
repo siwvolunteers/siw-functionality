@@ -123,17 +123,17 @@ class Features extends Widget {
 
 		switch ( $columns ) {
 			case 4:
-				$class = 'col-md-3';
+				$class = 'grid-25';
 				break;
 			case 3:
-				$class = 'col-md-4';
+				$class = 'grid-33 ';
 				break;
 			case 2:
-				$class = 'col-md-6';
+				$class = 'grid-50';
 				break;
 			case 1:
 			default:
-				$class = 'col-md-12';
+				$class = 'grid-100';
 		}
 
 		ob_start();
@@ -143,15 +143,15 @@ class Features extends Widget {
 			echo wp_kses_post( $instance['intro'] );
 		}
 		foreach ( $rows as $row ) : ?>
-			<div class="row">
+			<div class="grid-container">
 				<?php foreach ( $row as $feature ) : ?>
-				<div class="cell <?= esc_attr( $class ); ?>">
+				<div class="<?= esc_attr( $class ); ?> feature">
 					<?php echo Elements::generate_icon( $feature['icon'], 4, 'circle');?>
 					<h3><?php echo esc_html( $feature['title'] );?></h3>
 					<?php echo wpautop( wp_kses_post( $feature['content'] ) );?>
 					<?php 
 					if ( $feature['add_link'] ) {
-						echo HTML::generate_link( $feature['link_url'], __( 'Lees meer', 'siw' ), [ 'class' => 'kad-btn'] );
+						echo HTML::generate_link( $feature['link_url'], __( 'Lees meer', 'siw' ), [ 'class' => 'button ghost'] );
 					}
 					?>
 				</div>

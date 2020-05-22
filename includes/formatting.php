@@ -2,10 +2,6 @@
 
 namespace SIW;
 
-use SIW\Elements\Accordion;
-use SIW\Elements\Tablist;
-use SIW\Elements\Modal;
-
 /**
  * Hulpfuncties t.b.v. formattering
  *
@@ -65,9 +61,9 @@ class Formatting {
 	 * @return string
 	 */
 	public static function generate_columns( array $cells ) {
-		$columns = '<div class="row">';
+		$columns = '<div class="grid-container">';
 		foreach ( $cells as $cell ){
-			$columns .= sprintf( '<div class="col-md-%s">%s</div>', $cell['width'], do_shortcode( $cell['content'] ) );
+			$columns .= sprintf( '<div class="grid-%s">%s</div>', $cell['width'], do_shortcode( $cell['content'] ) );
 		}
 		$columns .= '</div>';
 		return $columns;
@@ -114,7 +110,7 @@ class Formatting {
 	 */
 	public static function format_date( $date, bool $year = true ) {
 		$format = $year ? 'j F Y' : 'j F';
-		return date_i18n( $format, strtotime( $date ) );
+		return wp_date( $format, strtotime( $date ) );
 	}
 
 	/**

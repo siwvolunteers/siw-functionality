@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\CSS;
+use SIW\Util\CSS;
 use SIW\HTML;
 
 /**

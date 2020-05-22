@@ -21,7 +21,6 @@ class Widgets {
 		'carousel'             => 'Carousel',
 		'contact'              => 'Contact',
 		'cta'                  => 'CTA',
-		'dutch-projects'       => 'Dutch_Projects',
 		'features'             => 'Features',
 		'google-maps'          => 'Google_Maps',
 		'infobox'              => 'Infobox',

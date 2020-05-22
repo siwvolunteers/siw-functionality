@@ -25,6 +25,7 @@ class Meta_Box {
 		add_filter( 'rwmb_normalize_time_field', [ $self, 'set_default_time_options'] );
 		add_filter( 'rwmb_normalize_date_field', [ $self, 'set_default_date_options'] );
 		add_filter( 'rwmb_normalize_switch_field', [ $self, 'set_default_switch_options'] );
+		add_filter( 'rwmb_normalize_wysiwyg_field', [ $self, 'set_default_wysiwyg_options'] );
 		add_filter( 'rwmb_group_sanitize', [ $self, 'sanitize_group' ], 10, 4 );
 	}
 
@@ -61,6 +62,8 @@ class Meta_Box {
 	 *
 	 * @param array $field
 	 * @return array
+	 * 
+	 * @todo kan weg na introductie HTML5 velden
 	 */
 	public function set_default_time_options( array $field ) {
 		$defaults = [
@@ -73,8 +76,7 @@ class Meta_Box {
 				'oneLine'         => true,
 			],
 		];
-		$field = wp_parse_args_recursive( $defaults, $field );
-		return $field;
+		return wp_parse_args_recursive( $defaults, $field );
 	}
 
 	/**
@@ -82,6 +84,8 @@ class Meta_Box {
 	 *
 	 * @param array $field
 	 * @return array
+	 * 
+	 * @todo kan weg na introductie HTML5 velden
 	 */
 	public function set_default_date_options( array $field ) {
 		$defaults = [
@@ -96,8 +100,7 @@ class Meta_Box {
 				'autocomplete' => 'off',
 			],
 		];
-		$field = wp_parse_args_recursive( $defaults, $field );
-		return $field;
+		return wp_parse_args_recursive( $defaults, $field );
 	}
 
 	/**
@@ -108,10 +111,28 @@ class Meta_Box {
 	 */
 	public function set_default_switch_options( array $field ) {
 		$defaults = [
-			'style'     => 'square',
+			'style' => 'square',
 		];
-		$field = wp_parse_args_recursive( $defaults, $field );
-		return $field;
+		return wp_parse_args_recursive( $defaults, $field );
+	}
+
+	/**
+	 * Zet standaardeigenschappen van wysiwyg
+	 *
+	 * @param array $field
+	 * @return array
+	 */
+	public function set_default_wysiwyg_options( array $field ) {
+		$defaults = [
+			'raw'      => true,
+			'options'  => [
+				'teeny'         => true,
+				'dfw'           => false,
+				'media_buttons' => false,
+				'textarea_rows' => 5,
+			],
+		];
+		return wp_parse_args_recursive( $field, $defaults );
 	}
 
 	/**

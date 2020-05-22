@@ -80,11 +80,11 @@ class Tablist {
 			$id = uniqid();
 
 			if ( isset( $pane['show_button'] ) && true == $pane['show_button'] ) {
-				$pane['content'] .= wpautop( HTML::generate_link( $pane['button_url'], $pane['button_text'], [ 'class' => 'kad-btn' ] ) );
+				$pane['content'] .= wpautop( HTML::generate_link( $pane['button_url'], $pane['button_text'], [ 'class' => 'button ghost' ] ) );
 			}
 
-			$list .= sprintf( '<li role="tab" aria-controls="tab-%s">%s</li>', $id, $pane['title'] );
-			$content .= sprintf( '<div role="tabpanel" id="tab-%s">%s</div>', $id, $pane['content'] );
+			$list .= sprintf( '<li role="tab" aria-controls="tab-%s">%s</li>', $id, esc_html( $pane['title'] ) );
+			$content .= sprintf( '<div role="tabpanel" id="tab-%s">%s</div>', $id, wp_kses_post( wpautop( $pane['content'] ) ) );
 		}
 
 		$list .= '</ul>';

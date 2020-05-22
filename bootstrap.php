@@ -104,15 +104,12 @@ class Bootstrap {
 	 */
 	protected function load_core() {
 		$this->init_classes(
-			'SIW',
+			'SIW\Core',
 			[
-				'Animation',
 				'Assets',
-				'Email\Configuration',
 				'Head',
 				'htaccess',
 				'Icons',
-				'Forms',
 				'Login',
 				'Media_Taxonomies',
 				'Options',
@@ -121,6 +118,15 @@ class Bootstrap {
 				'Translations',
 				'Update',
 				'Upload_Subdir',
+			]
+		);
+
+		$this->init_classes(
+			'SIW',
+			[
+				'Animation',
+				'Email\Configuration',
+				'Forms',
 				'Widgets',
 				'Newsletter\Confirmation_Page',
 			]
@@ -134,6 +140,7 @@ class Bootstrap {
 		$this->init_classes(
 			'SIW\Modules',
 			[
+				'Breadcrumbs',
 				'Cache_Rebuild',
 				'Cookie_Notice',
 				'Google_Analytics',
@@ -183,15 +190,16 @@ class Bootstrap {
 			'SIW\Compatibility',
 			[
 				'Caldera_Forms',
+				'GeneratePress',
 				'Meta_Box',
 				'Password_Protected',
-				'Pinnacle_Premium',
 				'Plugins',
 				'Safe_Redirect_Manager',
 				'SiteOrigin_Page_Builder',
 				'The_SEO_Framework',
 				'UpdraftPlus',
 				'WooCommerce',
+				'WooCommerce_Multistep_Checkout',
 				'WordPress',
 				'WP_Rocket',
 				'WPML',
@@ -212,17 +220,13 @@ class Bootstrap {
 				'Count_Workcamps',
 				'Delete_Applications',
 				'Delete_Old_Posts',
-				'Delete_Orphaned_Variations',
 				'Delete_Workcamps',
-				'Update_Dutch_Workcamps',
-				'Update_Free_Places',
-				'Update_SEO_Noindex',
-				'Update_Taxonomies',
-				'Update_Workcamp_Stockphoto',
-				'Update_Workcamp_Tariffs',
-				'Update_Workcamp_Visibility',
-				'Update_Workcamps',
+				'Import_Dutch_Workcamps',
+				'Import_Workcamps',
 				'Send_Workcamp_Approval_Emails',
+				'Update_Free_Places',
+				'Update_Taxonomies',
+				'Update_Workcamps',
 			]
 		);
 	}
@@ -235,11 +239,11 @@ class Bootstrap {
 			'SIW\Page_Builder',
 			[
 				'Animation',
+				'Layout',
 				'Visibility'
 			]
 		);
 	}
-
 
 	/**
 	 * Laadt custom content types
@@ -247,20 +251,22 @@ class Bootstrap {
 	protected function load_content_types() {
 		
 		// Legacy: kan weg na migratie naar content types
-		require_once SIW_INCLUDES_DIR . '/content-types/class-siw-post-type.php';
-		require_once SIW_INCLUDES_DIR . '/content-types/class-siw-taxonomy.php';
-		require_once SIW_INCLUDES_DIR . '/content-types/abstract-siw-content-type.php';
-		require_once SIW_INCLUDES_DIR . '/content-types/class-siw-content-type-tm-country.php';
-		new \SIW_Content_Type_TM_Country;
-
 		require_once SIW_INCLUDES_DIR . '/post-types/class-siw-post-type-agenda.php';
 		$this->init_class( null, 'SIW_Post_Type_Agenda' );
 
 		require_once SIW_INCLUDES_DIR . '/post-types/class-siw-post-type-vacatures.php';
 		$this->init_class( null, 'SIW_Post_Type_Vacatures' );
 
-		require_once SIW_INCLUDES_DIR . '/post-types/class-siw-post-type-quote.php';
-		$this->init_class( null, 'SIW_Post_Type_Quote' );
+		$this->init_classes(
+			'SIW\Content\Types',
+			[
+				'Event',
+				'Job_Posting',
+				'Quote',
+				'Story',
+				'TM_Country'
+			]
+		);
 	}
 
 	/**
@@ -283,10 +289,15 @@ class Bootstrap {
 				'Export\Order',
 				'Frontend\Product',
 				'Frontend\Archive',
-				'Email\Emails',
-				'Email\New_Order',
-				'Email\Customer_On_Hold_Order',
-				'Email\Customer_Processing_Order',	
+			]
+		);
+		$this->init_classes(
+			'SIW\Woocommerce\Email',
+			[
+				'Emails',
+				'New_Order',
+				'Customer_On_Hold_Order',
+				'Customer_Processing_Order',
 			]
 		);
 	}
@@ -296,10 +307,10 @@ class Bootstrap {
 	 */
 	protected function load_woocommerce_admin() {
 		$this->init_classes(
-			'SIW\Woocommerce',
+			'SIW\Woocommerce\Admin',
 			[
-				'Admin\Order',
-				'Admin\Product',
+				'Order',
+				'Product',
 			]
 		);
 	}
@@ -330,7 +341,6 @@ class Bootstrap {
 		if ( null !== $namespace ) {
 			$class = $namespace . '\\' . $class;
 		}
-
 		add_action( $hook, [ $class, 'init' ], $priority );
 	}
 }

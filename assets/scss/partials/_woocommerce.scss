@@ -1,0 +1,136 @@
+//Archive
+.woocommerce ul.products {
+	li.product {
+		box-shadow: $box-shadow;
+		transition: 0.3s;
+		&:hover {
+			box-shadow: $box-shadow-hover;
+		}
+		a {
+			padding: 10px;
+			color: $font-color;
+			.woocommerce-placeholder {
+				border: none;
+			}
+		}
+		.project-code {
+			font-size: 0.9em;
+			color: $font-color-light;
+		}
+	}
+}
+
+//Carousel
+.siw-carousel {
+	margin-bottom: 20px;
+	.flickity-button:hover{
+		background-color: $button-color;
+	}
+
+	.carousel-cell {
+		li.product {
+			list-style: none;
+			.woocommerce-LoopProduct-link h2 {
+				font-weight: 400;
+				font-size: 20px;
+			}
+			box-shadow: $box-shadow;
+			transition: 0.3s;
+			&:hover {
+				box-shadow: $box-shadow-hover;
+			}
+			text-align: center;
+			a {
+				padding: 10px;
+				display: block;
+				color: $font-color;
+				.woocommerce-placeholder {
+					border: none;
+				}
+			}
+			hr {
+				margin-top: 10px;
+				margin-bottom: 0;
+			}
+			.project-code {
+				font-size: 0.9em;
+				color: $font-color-light;
+			}
+		}
+	}
+}
+
+//Widgets
+.woocommerce-widget-layered-nav-list__item.wc-layered-nav-term a{
+	//border: solid 2px $button-color;
+	//width:50%;
+	//padding:2px;
+}
+
+
+//Single
+.woocommerce div.product {
+	.product_title {
+		font-size: 30px;
+		line-height: 40px;
+	}
+
+	.woocommerce-variation-description {
+		font-size:0.9em;
+		color: $font-color-light;
+		font-style: italic;
+	}
+
+	.woocommerce-variation-price {
+		margin-top:20px;
+		margin-bottom:10px;
+	}
+
+	.participation-fee {
+		color: $font-color-light;
+		font-style: italic;
+	}
+
+	.woocommerce-tabs {
+		ul.tabs {
+			li {
+				//border: solid 3px $button-color;
+				border-width: 3px;
+				border-color: $button-color;
+			}
+		}
+	}
+
+	//Product attributes tabel
+	.woocommerce-product-attributes {
+		border-top: none;
+		th {
+			width: 20%;;
+		}
+		th, td{
+			border: none;
+		}
+	}
+
+}
+//Checkout
+.woocommerce-checkout {
+	.form-row-first, h3{
+		clear:left;
+	}
+
+	span.optional {
+		display: none;
+	}
+
+	.radio-css {
+		label.radio-label {
+			display: block;
+		}
+		label.radio-label.radio {
+			display:inline-block;
+		}
+	}
+
+}
+

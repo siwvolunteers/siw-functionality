@@ -1,6 +1,6 @@
 {
 	"name": "siw-functionality",
-	"version": "3.0.5",
+	"version": "3.1.0",
 	"license": "GPL-2.0-or-later",
 	"description": "Extra functionaliteit voor website SIW",
 	"repository": "https://github.com/siwvolunteers/siw-functionality",
@@ -9,8 +9,8 @@
 		"build": "npm run build:icons && npm run build:css",
 		"build:icons": "svg2sprite assets/icons assets/siw-icons.svg -i --stripExtraAttrs ---iconPrefix siw-icon-",
 		"build:css": "npm run scss && npm run autoprefixer",
-		"build:js": "swc assets/js -d assets/dist",
 		"scss": "sass --update --no-source-map assets/scss:assets/css",
+		"scss-watch": "sass --watch --no-source-map assets/scss:assets/css",
 		"autoprefixer": "postcss --no-map -u autoprefixer -r assets/css/*.css"
 	},
 	"browserslist": [
@@ -21,18 +21,16 @@
 		"@accede-web/tablist": "*",
 		"balloon-css": "*",
 		"flickity": "^2.2.1",
-		"frappe-charts": "1.*",
+		"frappe-charts": "^1.4.1",
 		"js-cookie": "^2.2.1",
-		"micromodal": "^0.4.4",
-		"sal.js": "^0.7.4",
+		"micromodal": "^0.4.6",
+		"sal.js": "^0.7.5",
 		"smoothscroll-for-websites": "^1.4.10"
 	},
 	"devDependencies": {
-		"@swc/cli": "*",
-		"@swc/core": "^1.1.35",
-		"autoprefixer": "^9.7.5",
-		"postcss-cli": "*",
-		"sass": "^1.26.3",
+		"autoprefixer": "^9.8.0",
+		"postcss-cli": "^7.1.1",
+		"sass": "^1.26.5",
 		"svg2sprite-cli": "*",
 		"vendor-copy": "2.*"
 	},

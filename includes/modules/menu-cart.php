@@ -20,8 +20,8 @@ class Menu_Cart {
 	 * @todo verplaatsen naar configuratie
 	 */
 	protected $menu_locations = [
-		'primary_navigation',
-		'mobile_navigation'
+		'primary',
+		//'mobile_navigation'
 	];
 
 	/**
@@ -57,7 +57,7 @@ class Menu_Cart {
 		ob_start();
 		?>
 		<a class="siw-cart" href="<?php echo wc_get_cart_url(); ?>" title="<?php esc_attr_e( 'Winkelmand', 'siw') ?>">
-			<span class="hidden-sm hidden-md hidden-lg"><?php esc_html_e( 'Je winkelmand', 'siw' );?></span>
+			<span class="hide-on-desktop hide-on-tablet"><?php esc_html_e( 'Je winkelmand', 'siw' );?></span>
 			<?php echo Elements::generate_icon( 'siw-icon-suitcase');?>
 			<span class="siw-cart-count"><?php echo $cart_count; ?></span>
 		</a>
@@ -84,5 +84,4 @@ class Menu_Cart {
 		wp_register_script( 'siw-menu-cart', SIW_ASSETS_URL . 'js/modules/siw-menu-cart.js', [ 'jquery', 'js-cookie' ] , SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-menu-cart' );
 	}
-
 }

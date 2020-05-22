@@ -254,4 +254,49 @@ class Elements {
 				return HTML::generate_table( $data );
 		}
 	}
+
+	/**
+	 * Haalt gegevens over interactieve kaarten op
+	 *
+	 * @return array
+	 */
+	public static function get_interactive_maps() {
+		$maps = [
+			[
+				'id'    => 'nl',
+				'name'  => __( 'Nederland', 'siw' ),
+				'class' => 'Netherlands',
+			],
+			[
+				'id'    => 'destinations',
+				'name'  => __( 'Bestemmingen', 'siw' ),
+				'class' => 'Destinations',
+			],
+			[
+				'id'    => 'esc',
+				'name'  => __( 'ESC', 'siw' ),
+				'class' => 'ESC',
+			],
+		];
+		return $maps;
+	}
+
+	/**
+	 * Genereert interactieve kaart
+	 *
+	 * @param string $id
+	 *
+	 * @return string
+	 */
+	public static function generate_interactive_map( string $id ) {
+		$maps = wp_list_pluck( self::get_interactive_maps(), 'class', 'id' );
+
+		if ( ! isset( $maps[ $id ] ) ) {
+			return null;
+		}
+		$class = "\SIW\Elements\Interactive_Map_{$maps[ $id ]}";
+		$map = new $class;
+		return $map->generate();
+	}
+
 }

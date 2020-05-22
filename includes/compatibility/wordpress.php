@@ -32,11 +32,9 @@ class WordPress {
 	public static function init() {
 		$self = new self();
 		add_action( 'widgets_init', [ $self, 'unregister_widgets'], 99 );
-		add_filter( 'nonce_life', [ $self, 'set_nonce_life' ] );
 		add_filter( 'oembed_response_data', [ $self, 'set_oembed_response_data' ] );
 		add_filter( 'rest_url_prefix', [ $self, 'set_rest_url_prefix' ] );
-		add_filter( 'user_contactmethods', [ $self, 'remove_user_contactmethods' ], PHP_INT_MAX );
-		add_action( 'after_setup_theme', [ $self, 'add_custom_logo_support'] );
+		add_filter( 'user_contactmethods', '__return_empty_array', PHP_INT_MAX );
 		add_action( 'init', [ $self, 'add_page_excerpt_support'] );
 		add_action( 'core_version_check_query_args', [ $self, 'remove_core_version_check_query_args'] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'dequeue_styles' ], PHP_INT_MAX );
@@ -44,7 +42,6 @@ class WordPress {
 		add_filter( 'site_status_tests', [ $self, 'remove_update_check'] );
 		add_filter( 'http_headers_useragent', [ $self, 'set_http_headers_useragent'] );
 		add_filter( 'big_image_size_threshold', [ $self, 'set_big_image_size_threshold'] );
-
 
 		add_action( 'do_feed', [ $self, 'disable_feed' ] , 1 );
 		add_action( 'do_feed_rdf', [ $self, 'disable_feed' ] , 1 );
@@ -54,12 +51,14 @@ class WordPress {
 		add_action( 'do_feed_rss2_comments', [ $self, 'disable_feed' ] , 1 );
 		add_action( 'do_feed_atom_comments', [ $self, 'disable_feed' ] , 1 );
 
-		add_filter( '404_template', [ $self, 'set_404_template']);
-
 		add_filter( 'widget_text', 'do_shortcode' );
 
 		add_filter( 'safe_style_css', [ $self, 'add_allowed_css_attributes' ] );
 		add_filter( 'embed_oembed_html', [ $self, 'fix_youtube_embed' ] );
+
+		//Attachments
+		add_filter( 'disable_months_dropdown', '__return_true' );
+		add_filter( 'manage_media_columns', [ $self, 'manage_media_columns'], 10, 2 );
 	}
 
 	/**
@@ -94,15 +93,6 @@ class WordPress {
 	}
 
 	/**
-	 * Verdubbelt levensduur nonces (i.v.m. cache)
-	 *
-	 * @return int
-	 */
-	public function set_nonce_life() {
-		return 2 * DAY_IN_SECONDS;
-	}
-
-	/**
 	 * Verwijdert auteurgegevens uit oembed
 	 *
 	 * @param  array $data
@@ -112,30 +102,7 @@ class WordPress {
 	public function set_oembed_response_data( array $data ) {
 		$data['author_name'] = Properties::NAME;
 		$data['author_url'] = SIW_SITE_URL;
-		
 		return $data;
-	}
-
-	/**
-	 * Verwijdert contactmethodes bij gebruikers
-	 *
-	 * @param array $contactmethods
-	 * 
-	 * @return array
-	 */
-	public function remove_user_contactmethods( array $contactmethods ) {
-		unset( $contactmethods['aim'] );
-		unset( $contactmethods['jabber'] );
-		unset( $contactmethods['yim'] );
-
-		return $contactmethods;
-	}
-
-	/**
-	 * Voegt support voor custom logo toe
-	 */
-	public function add_custom_logo_support() {
-		add_theme_support( 'custom-logo' );
 	}
 
 	/**
@@ -173,15 +140,6 @@ class WordPress {
 	public function disable_feed() {
 		wp_redirect( home_url() );
 		exit;
-	}
-
-	/**
-	 * Overschrijft 404-template
-	 *
-	 * @return string
-	 */
-	public function set_404_template() {
-		return SIW_TEMPLATES_DIR . '/404.php';
 	}
 
 	/**
@@ -267,5 +225,19 @@ class WordPress {
 		], $url );
 
 		return str_replace( $matches[1], $url, $cache );
+	}
+
+	/**
+	 * Verberg admin columns bij attachments
+	 *
+	 * @param array $columns
+	 * @param bool $detached
+	 *
+	 * @return void
+	 */
+	public function manage_media_columns( array $columns, bool $detached ) {
+		unset( $columns['author']);
+		unset( $columns['comments']);
+		return $columns;
 	}
 }

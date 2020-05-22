@@ -17,8 +17,8 @@ use SIW\Data\Language;
  * @param string $context all|volunteer|project
  * @return Language[]
  */
-function siw_get_languages( string $context = 'all', string $index = 'slug' ) {
-	$languages = wp_cache_get( "{$context}_{$index}", 'siw_languages' );
+function siw_get_languages( string $context = 'all', string $index = 'slug', string $return = 'objects' ) {
+	$languages = wp_cache_get( "{$context}_{$index}_{$return}", 'siw_languages' );
 
 	if ( false !== $languages ) {
 		return $languages;
@@ -49,7 +49,17 @@ function siw_get_languages( string $context = 'all', string $index = 'slug' ) {
 			);
 		}
 	);
-	wp_cache_set( "{$context}_{$index}", $languages, 'siw_languages' );
+
+	if ( 'array' == $return ) {
+		$languages = array_map(
+			function( $language ) {
+				return $language->get_name();
+			},
+			$languages
+		);
+	}
+
+	wp_cache_set( "{$context}_{$index}_{$return}", $languages, 'siw_languages' );
 
 	return $languages;
 }

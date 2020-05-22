@@ -2,9 +2,12 @@
 
 namespace SIW\Elements;
 
+use SIW\Elements;
 use SIW\i18n;
 use SIW\Formatting;
+use SIW\HTML;
 use SIW\Properties;
+use WC_Product;
 
 /**
  * Class om een Mapplic kaart te genereren
@@ -60,18 +63,18 @@ class Interactive_Map_Netherlands extends Interactive_Map {
 		$locations = [];
 		foreach ( $projects as $project ) {
 			$locations[] = [
-				'id'            => sanitize_title( $project['code'] ),
-				'title'         => $this->generate_project_title( $project ),
-				'image'         => isset( $project['image'] ) ? wp_get_attachment_image_src( $project['image'][0], 'medium' )[0] : null,
-				'about'         => $project['code'],
-				'lat'           => $project['latitude'] ?? null,
-				'lng'           => $project['longitude'] ?? null,
-				'description'   => $this->generate_project_description( $project, true ),
-				'pin'           => 'circular pin-md pin-label',
+				'id'            => sanitize_title( $project->get_sku() ),
+				'title'         => $this->get_project_title( $project ),
+				'image'         => $project->get_image_id() ? wp_get_attachment_image_src( $project->get_image_id(), 'medium' )[0] : null,
+				'about'         => $project->get_sku(),
+				'lat'           => $project->get_meta( 'latitude') ?? null,
+				'lng'           => $project->get_meta( 'longitude') ?? null,
+				'description'   => $this->get_project_properties( $project ) . $this->get_project_button( $project ),
+				'pin'           => 'pin-classic pin-md',
 				'category'      => 'nl',
-				'fill'          => Properties::SECONDARY_COLOR,
+				'fill'          => Properties::PRIMARY_COLOR,
 			];
-			$provinces[] = sprintf( '#nl-%s path', $project['province'] );
+			$provinces[] = sprintf( '#nl-%s path', $project->get_meta( 'dutch_projects_province' ) );
 		}
 	
 		/** Inline CSS */
@@ -80,7 +83,7 @@ class Interactive_Map_Netherlands extends Interactive_Map {
 	
 		$this->inline_css = [
 			$selectors => [
-				'fill' => Properties::PRIMARY_COLOR,
+				'fill' => Properties::SECONDARY_COLOR,
 			],
 		];
 		
@@ -96,13 +99,18 @@ class Interactive_Map_Netherlands extends Interactive_Map {
 		if ( empty( $projects ) ) {
 			return;
 		}
-		$mobile_content = '';
+		$panes = [];
 		foreach ( $projects as $project ) {
-			$description = sprintf( '<b>%s</b>', $this->generate_project_title( $project, true ) ) . BR;
-			$description .= $this->generate_project_description( $project );
-			$mobile_content .= wpautop( $description );
+			$panes[] = [
+				'title'       => $this->get_project_title( $project ),
+				'content'     => $this->get_project_properties( $project ) . $this->get_project_description( $project ),
+				'show_button' => i18n::is_default_language(),
+				'button_url'  => $project->get_permalink(),
+				'button_text' => __( 'Bekijk project', 'siw' ),
+			];
+
 		}
-		return $mobile_content;
+		return Elements::generate_accordion( $panes );
 	}
 
 	/**
@@ -111,50 +119,95 @@ class Interactive_Map_Netherlands extends Interactive_Map {
 	 * @return array
 	 */
 	protected function get_projects() {
-		$projects = siw_get_option('dutch_projects');
-		return $projects;
+		$args = [
+			'country'    => 'nederland',
+			'return'     => 'objects',
+			'limit'      => -1,
+		];
+		return wc_get_products( $args );
 	}
 
 	/**
 	 * Genereert beschrijving van het project
 	 *
-	 * @param array $project
+	 * @param \WC_Product $project
 	 * @param bool $project_code
 	 * @return string
 	 */
-	protected function generate_project_description( array $project, bool $show_project_code = false ) {
+	protected function get_project_properties( \WC_Product $project ) {
 		//Verzamelen gegevens
-		$work_type = siw_get_work_type( $project['work_type'] );
-		$provinces = siw_get_dutch_provinces();
-		$province_name = $provinces[ $project['province'] ] ?? '';
-		$duration = Formatting::format_date_range( $project['start_date'], $project['end_date'] );
+		$attributes = $project->get_attributes();
+		$work_type_slugs = $attributes['pa_soort-werk']->get_slugs();
+		
+		$work_types = array_map(
+		function( $work_type_slug ) {
+			return siw_get_work_type( $work_type_slug )->get_name();
+			},
+			$work_type_slugs
+		);
+		
+		$duration = Formatting::format_date_range( $project->get_attribute( 'startdatum' ), $project->get_attribute( 'einddatum' ) );
 
 		//Opbouwen beschrijving
-		$description = [];
-		if ( $show_project_code ) {
-			$description[] = sprintf( __( 'Projectcode: %s', 'siw' ), $project['code'] );
-		}
+		$description[] = sprintf( __( 'Projectcode: %s', 'siw' ), $project->get_sku() );
 		$description[] = sprintf( __( 'Data: %s', 'siw' ), $duration );
-		$description[] = sprintf( __( 'Deelnemers: %s', 'siw' ), $project['participants'] );
-		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), $work_type ? $work_type->get_name() : '' );
-		$description[] = sprintf( __( 'Locatie: %s, provincie %s', 'siw' ), $project['city'], $province_name );
-
-		return Formatting::array_to_text( $description, BR );
+		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), implode( ', ', $work_types ) );
+		
+		//Locatie tonen indien bekend
+		if ( $project->get_meta( 'dutch_projects_city' ) && $project->get_meta( 'dutch_projects_province' ) ) {
+			$description[] = sprintf(
+				__( 'Locatie: %s, provincie %s', 'siw' ),
+				$project->get_meta('dutch_projects_city'),
+				siw_get_dutch_province( $project->get_meta( 'dutch_projects_province' ) )
+			);
+		}
+		return wpautop( implode( BR, $description ) );
 	}
 
 	/**
-	 * Genereert projecttitel
+	 * Haalt projectbeschrijving op
 	 *
-	 * @param array $project
-	 * @param bool $prefix_with_code
+	 * @param \WC_Product $project
+	 * 
 	 * @return string
 	 */
-	protected function generate_project_title( array $project, bool $prefix_with_code = false ) {
+	protected function get_project_description( \WC_Product $project ) {
 		$language = i18n::get_current_language();
-		$title = $project["name_{$language}"];
-		if ( $prefix_with_code ) {
-			$title = "{$project['code']} - {$title}";
+		if ( $project->get_meta( "dutch_projects_name_{$language}" ) ) {
+			return wpautop( $project->get_meta( "dutch_projects_description_{$language}" ) );
 		}
-		return $title;
+		return;
+	}
+
+	/**
+	 * Haalt projecttitel op
+	 *
+	 * @param \WC_Product $project
+	 * 
+	 * @return string
+	 */
+	protected function get_project_title( \WC_Product $project ) {
+		$language = i18n::get_current_language();
+		return ! empty( $project->get_meta( "dutch_projects_name_{$language}" ) ) ? $project->get_meta( "dutch_projects_name_{$language}" ) : $project->get_attribute( 'Projectnaam' );
+	}
+
+	/**
+	 * Haal knop naar Groepsproject op
+	 *
+	 * @param \WC_Product $project
+	 *
+	 * @return string
+	 */
+	protected function get_project_button( \WC_Product $project ) {
+		if ( ! i18n::is_default_language() ) {
+			return;
+		}
+		return HTML::generate_link(
+			$project->get_permalink(),
+			__( 'Bekijk project', 'siw' ),
+			[
+				'class' => 'button ghost',
+			]
+		);
 	}
 }

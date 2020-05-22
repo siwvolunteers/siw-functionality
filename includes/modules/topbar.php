@@ -53,6 +53,11 @@ class Topbar {
 			return;
 		}
 
+		//Alleen in front-end tonen
+		if ( is_admin() ) {
+			return;
+		}
+
 		//Instellingen ophalen
 		$self->settings = siw_get_option( 'topbar' );
 
@@ -62,7 +67,7 @@ class Topbar {
 			return;
 		}
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles' ] );
-		add_action( 'kt_before_header_content', [ $self, 'render' ] );
+		add_action( 'generate_before_header', [ $self, 'render' ] );
 	}
 
 	/**
@@ -72,30 +77,26 @@ class Topbar {
 		$target = isset( $this->content['link_target'] ) ? $this->content['link_target'] : '_self';
 	
 		?>
-		<div id="topbar" class="topclass">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div id="topbar-content">
-							<span class="hidden-xs hidden-sm"><?php echo esc_html( $this->content['intro'] );?>&nbsp;</span>
-							<?php
-								echo HTML::generate_link(
-									$this->content['link_url'],
-									$this->content['link_text'],
-									[
-										'id'               => 'topbar_link',
-										'target'           => $target,
-										'data-ga-track'    => 1,
-										'data-ga-type'     => 'event',
-										'data-ga-category' => 'Topbar',
-										'data-ga-action'   => 'Klikken',
-										'data-ga-label'    => $this->content['link_url'],
-									]
-								);
-							?>
-						</div>
-					</div>
-				</div>
+		<div class="topbar">
+			<div class="topbar-content grid-container">
+				<span class="hide-on-mobile hide-on-tablet"><?php echo esc_html( $this->content['intro'] );?>&nbsp;</span>
+					<?php
+					echo HTML::generate_link(
+						$this->content['link_url'],
+						$this->content['link_text'],
+						[
+							'id'               => 'topbar_link',
+							'class'            => 'button ghost',
+							'target'           => $target,
+							'data-ga-track'    => 1,
+							'data-ga-type'     => 'event',
+							'data-ga-category' => 'Topbar',
+							'data-ga-action'   => 'Klikken',
+							'data-ga-label'    => $this->content['link_url'],
+						]
+					);
+				?>
+				
 			</div>
 		</div>
 	<?php
@@ -135,30 +136,31 @@ class Topbar {
 		if ( ! $this->settings['show_event_content'] ) {
 			return null;
 		}
-
-		$date_hide = strtotime( date( 'Y-m-d' ) ) + ( self::EVENT_SHOW_DAYS_BEFORE * DAY_IN_SECONDS );
-		$date_show = strtotime( date( 'Y-m-d' ) ) + ( self::EVENT_HIDE_DAYS_BEFORE * DAY_IN_SECONDS );
-
-		$upcoming_events = siw_get_upcoming_events( 1, $date_show, $date_hide ); //TODO: andere functie
+		
+		$upcoming_events = siw_get_upcoming_events(
+			[
+				'number'      => 1,
+				'date_before' => date( 'Y-m-d', strtotime( '+' . self::EVENT_SHOW_DAYS_BEFORE . ' days') ),
+				'date_after'  => date( 'Y-m-d', strtotime( '+' . self::EVENT_HIDE_DAYS_BEFORE . ' days') ),
+			]
+		);
 
 		if ( empty ( $upcoming_events ) ) {
 			return null;
 		}
-		$event = $upcoming_events[0];
+		$event_id = $upcoming_events[0];
 
-		if ( $event['start_date'] == $event['end_date'] ) {
-			$link_text = sprintf( __( 'Kom naar de %s op %s.', 'siw' ), $event['title'], $event['date_range'] );
-		}
-		else {
-			$link_text = sprintf( __( 'Kom naar de %s van %s.', 'siw' ), $event['title'], $event['date_range'] );
-		}
+		$link_text = sprintf(
+			__( 'Kom naar de %s op %s.', 'siw' ),
+			get_the_title( $event_id ),
+			Formatting::format_date( siw_meta( 'event_date', [], $event_id ), false )
+		);
 
-		$event_content = [
+		return [
 			'intro'     => __( 'Maak kennis met SIW.', 'siw' ),
-			'link_url'  => $event['permalink'],
+			'link_url'  => get_the_permalink( $event_id ),
 			'link_text' => $link_text,
 		];
-		return $event_content;
 	}
 
 	/**
@@ -171,17 +173,18 @@ class Topbar {
 			return null;
 		}
 
-		$job = siw_get_featured_job();
-		if ( false == $job ) {
+		$jobs = siw_get_featured_job_postings();
+		if ( empty ( $jobs ) ) {
 			return null;
 		}
-		$job_title = lcfirst( $job['title'] );
-		$job_content = [
+		$job_id = $jobs[0];
+
+		$job_title = lcfirst( get_the_title( $job_id) );
+		return [
 			'intro'     => __( 'Word actief voor SIW.', 'siw' ),
-			'link_url'  => $job['permalink'],
+			'link_url'  => get_the_permalink( $job_id ),
 			'link_text' => sprintf( __( 'Wij zoeken een %s.', 'siw' ), $job_title ),
 		];
-		return $job_content;
 	}
 
 	/**
@@ -203,12 +206,11 @@ class Topbar {
 		$sale_price = Formatting::format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE );
 		$end_date = Formatting::format_date( siw_get_option( 'workcamp_sale' )['end_date'], false );
 	
-		$sale_content = [
+		return [
 			'intro'     => __( 'Grijp je kans en ontvang korting!', 'siw' ),
 			'link_url'  => wc_get_page_permalink( 'shop' ),
 			'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_price ) ,
 		];
-		return $sale_content;
 	}
 
 	/**

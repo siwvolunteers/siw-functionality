@@ -6,7 +6,7 @@
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
-use SIW\Options;
+use SIW\Core\Options;
 
 /**
  * Haal optie op

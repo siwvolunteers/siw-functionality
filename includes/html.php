@@ -120,6 +120,8 @@ class HTML {
 			$text = $url;
 		}
 
+		$icon_before = '';
+		$icon_after = '';
 		if ( ! empty( $icon ) ) {
 			$icon = wp_parse_args(
 				$icon,
@@ -127,19 +129,22 @@ class HTML {
 					'class'      => '',
 					'size'       => 2,
 					'background' => 'none',
+					'position'   => 'after'
 				]
 			);
-			$icon_html = Elements::generate_icon( $icon['class'], $icon['size'], $icon['background'] );
-		}
-		else { 
-			$icon_html = '';
+			if ( 'before' == $icon['position'] ) {
+				$icon_before = Elements::generate_icon( $icon['class'], $icon['size'], $icon['background'] ) . ' ';
+			}
+			else {
+				$icon_after = ' ' . Elements::generate_icon( $icon['class'], $icon['size'], $icon['background'] );
+			}
 		}
 
 		$link = sprintf(
 			'<a href="%s" %s>%s</a>',
 			esc_url( $url ),
 			self::generate_attributes( $attributes ),
-			wp_kses_post( $text ) . $icon_html
+			$icon_before . wp_kses_post( $text ) . $icon_after
 		);
 		return $link;
 	}
@@ -152,6 +157,10 @@ class HTML {
 	 * @return string
 	 */
 	public static function generate_external_link( string $url, string $text = null ) {
+		if ( null === $text ) {
+			$text = $url;
+		}
+		
 		return self::generate_link(
 			$url,
 			$text . '&nbsp;',

@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 use SIW\Properties;
 
 /**
- * Opties voor jaaverslagen
+ * Opties voor jaarverslagen
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */

@@ -2,7 +2,7 @@
 
 namespace SIW;
 
-use SIW\CSS;
+use SIW\Util\CSS;
 use SIW\Util;
 
 /**

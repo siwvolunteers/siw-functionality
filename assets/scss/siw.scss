@@ -1,13 +1,56 @@
+/**
+ * siw.css
+ * @copyright 2020 SIW Internationale Vrijwilligersprojecten
+ */
+
 @import "partials/_variables.scss";
 
-@import "partials/_404.scss";
-@import "partials/_agenda.scss";
-@import "partials/_caldera.scss";
-@import "partials/_cpt.scss";
+/*--------------------------------------------------------------
+## Algemeen
+--------------------------------------------------------------*/
 @import "partials/_general.scss";
-@import "partials/newsletter";
-@import "partials/_system-font.scss";
+
+
+/*--------------------------------------------------------------
+## 404
+--------------------------------------------------------------*/
+@import "partials/_404.scss";
+
+
+/*--------------------------------------------------------------
+## Custom Post Types
+--------------------------------------------------------------*/
+@import "partials/_cpt.scss";
+
+
+/*--------------------------------------------------------------
+## Nieuwsbrief
+--------------------------------------------------------------*/
+@import "partials/_newsletter.scss";
+
+/*--------------------------------------------------------------
+## Page Builder
+--------------------------------------------------------------*/
+@import "partials/_page-builder.scss";
+
+/*--------------------------------------------------------------
+## Gestylede inputs
+--------------------------------------------------------------*/
+@import "partials/_checkbox.scss";
+@import "partials/_radio.scss";
+@import "partials/_select.scss";
+
+/*--------------------------------------------------------------
+## Strong Testimonials
+--------------------------------------------------------------*/
 @import "partials/_testimonials.scss";
-@import "partials/_vacatures.scss";
+
+/*--------------------------------------------------------------
+## Widgets
+--------------------------------------------------------------*/
 @import "partials/_widgets.scss";
-@import "partials/_wpml.scss";
+
+/*--------------------------------------------------------------
+## WooCommerce
+--------------------------------------------------------------*/
+@import "partials/_woocommerce";

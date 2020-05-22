@@ -26,12 +26,12 @@ class WP_Rocket {
 		if ( ! class_exists( '\WP_Rocket\Plugin' ) ) {
 			return;
 		}
-	
 		$self = new self();
 
 		add_action( 'siw_update_plugin', [ $self, 'purge_cache' ] );
 		add_filter( 'rocket_lazyload_youtube_thumbnail_resolution', [ $self, 'set_youtube_thumbnail_resolution' ] );
 		define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true );
+		add_filter( 'nonce_life', [ $self, 'set_nonce_life' ] );
 	}
 
 	/**
@@ -50,5 +50,14 @@ class WP_Rocket {
 	 */
 	public function set_youtube_thumbnail_resolution() {
 		return self::YOUTUBE_THUMBNAIL_RESOLUTION;
+	}
+
+	/**
+	 * Verdubbelt levensduur nonces (i.v.m. cache)
+	 *
+	 * @return int
+	 */
+	public function set_nonce_life() {
+		return 2 * DAY_IN_SECONDS;
 	}
 }

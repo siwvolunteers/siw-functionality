@@ -64,8 +64,6 @@ class Product {
 
 	/**
 	 * Voegt extra admin columns toe
-	 *
-	 * @return void
 	 */
 	public function add_admin_columns() {
 		if ( ! class_exists( '\MBAC\Post' ) ) {
@@ -82,7 +80,7 @@ class Product {
 	 * @param array $bulk_actions
 	 * @return array
 	 */
-	public function add_bulk_actions( $bulk_actions ) {
+	public function add_bulk_actions( array $bulk_actions ) : array {
 		$bulk_actions['import_again'] = __( 'Opnieuw importeren', 'siw' );
 		return $bulk_actions;
 	}
@@ -95,7 +93,7 @@ class Product {
 	 * @param array $post_ids
 	 * @return string
 	 */
-	public function handle_bulk_actions( $redirect_to, $action, $post_ids ) {
+	public function handle_bulk_actions( string $redirect_to, string $action, $post_ids ) : string {
 		if ( 'import_again' === $action ) {
 			foreach ( $post_ids as $post_id ) {
 				update_post_meta( $post_id, 'import_again', true );
@@ -253,7 +251,7 @@ class Product {
 						'value'       => $product_object->get_meta( 'has_custom_tariff' ),
 						'cbvalue'     => '1',
 						'label'       => __( 'Heeft afwijkend tarief', 'siw' ),
-						'description' => __( 'Tarief wordt niet automatische bijgewerk', 'siw' ),
+						'description' => __( 'Tarief wordt niet automatisch bijgewerkt', 'siw' ),
 					]
 				);
 				?>

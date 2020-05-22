@@ -10,10 +10,7 @@
 table.wp-list-table {
 	.column-visibility,
 	.column-next_update,
-	.column-exported,
-	.column-siw_agenda_start,
-	.column-siw_agenda_eind,
-	.column-siw_vacature_deadline {
+	.column-exported{
 		width: 10%;
 	}
 
@@ -47,7 +44,7 @@ table.wp-list-table {
 		content: "\f123";
 	}
 	
-	li.plato_options a::before {
+	li.update_options a::before {
 		content: "\f463";
 	}
 	

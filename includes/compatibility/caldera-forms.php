@@ -39,6 +39,7 @@ class Caldera_Forms{
 
 		add_filter( 'caldera_forms_summary_magic_pattern', [ $self, 'set_summary_magic_pattern' ] );
 		add_filter( 'caldera_forms_field_attributes', [ $self, 'set_validation_field_attributes' ] , 10, 2 );
+		add_filter( 'caldera_forms_field_attributes', [ $self, 'add_field_classes' ], 10, 2 );
 		add_filter( 'caldera_forms_render_assets_minify', '__return_false' );
 		add_filter( 'caldera_forms_render_form_attributes' , [ $self, 'maybe_add_postcode_lookup'], 10, 2 );
 		add_filter( 'rocket_excluded_inline_js_content', [ $self, 'set_excluded_inline_js_content' ] );
@@ -90,7 +91,7 @@ class Caldera_Forms{
 	 * @return string
 	 */
 	public function add_input_markup( string $field_html ) {
-		$field_html = preg_replace( '/<input(.*?)>/s', '<input$1><div class="control-indicator"></div>', $field_html );
+		$field_html = preg_replace( '/<input(.*?)>/s', '<input$1><span class="checkmark"></span>', $field_html );
 		return $field_html;
 	}
 
@@ -151,7 +152,7 @@ class Caldera_Forms{
 	 * 
 	 * @todo verplaatsen naar SIW\Form ?
 	 */
-	public function set_validation_field_attributes( array $attrs, array $field ) {
+	public function set_validation_field_attributes( array $attrs, array $field ) : array{
 		if ( 'geboortedatum' === $field['ID'] ) {
 			$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige datum.', 'siw' );
 			$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'date' );
@@ -160,6 +161,24 @@ class Caldera_Forms{
 		if ( 'postcode' === $field['ID'] ) {
 			$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige postcode.', 'siw' );
 			$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'postal_code' );
+		}
+		return $attrs;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @param array $attrs
+	 * @param array $field
+	 *
+	 * @return array
+	 */
+	public function add_field_classes( array $attrs, array $field ) : array {
+		if ( 'dropdown' === $field['type'] ) {
+			$attrs['class'] .= SPACE . 'select-css';
+		}
+		if ( 'checkbox' === $field['type'] ) {
+			$attrs['class'] .= SPACE . 'checkbox-css';
 		}
 		return $attrs;
 	}
@@ -175,7 +194,7 @@ class Caldera_Forms{
 	 * @todo verplaatsen naar SIW\Form?
 	 */
 	public function maybe_add_postcode_lookup( array $attributes, array $form ) {
-		$attributes['data-siw-postcode-lookup'] =  isset( $form['postcode_lookup'] ) && $form['postcode_lookup'];
+		$attributes['data-siw-postcode-lookup'] = isset( $form['postcode_lookup'] ) && $form['postcode_lookup'];
 		return $attributes;
 	}
 

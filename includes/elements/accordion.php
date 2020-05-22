@@ -80,7 +80,7 @@ class Accordion {
 			$id = uniqid();
 
 			if ( isset( $pane['show_button'] ) && true == $pane['show_button'] ) {
-				$pane['content'] .= wpautop( HTML::generate_link( $pane['button_url'], $pane['button_text'], [ 'class' => 'kad-btn' ] ) );
+				$pane['content'] .= wpautop( HTML::generate_link( $pane['button_url'], $pane['button_text'], [ 'class' => 'button ghost' ] ) );
 			}
 
 			$output .= implode( '', 

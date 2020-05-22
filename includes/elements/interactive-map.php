@@ -4,7 +4,7 @@ namespace SIW\Elements;
 
 use SIW\Properties;
 use SIW\HTML;
-use SIW\CSS;
+use SIW\Util\CSS;
 use SIW\Util;
 
 /**
@@ -96,8 +96,8 @@ abstract class Interactive_Map {
 		];
 		$content = HTML::generate_tag( 'div', $attributes, null, true );
 
-		$content = '<div class="hidden-xs">' . $content . '</div>';
-		$content .= '<div class="hidden-sm hidden-md hidden-lg">' . $this->get_mobile_content() . '</div>';
+		$content = '<div class="hide-on-mobile hide-on-tablet">' . $content . '</div>';
+		$content .= '<div class="hide-on-desktop">' . $this->get_mobile_content() . '</div>';
 		return $content;
 	}
 
@@ -223,7 +223,7 @@ abstract class Interactive_Map {
 	protected function enqueue_styles() {
 		$deps = [];
 		if ( true == $this->options[ 'lightbox' ] ) {
-			wp_register_style( 'magnific-popup', $this->mapplic_url . 'css/magnific-popup.css', false, self::MAPPLIC_VERSION );
+			wp_register_style( 'magnific-popup', $this->mapplic_url . 'css/magnific-popup.css', [], self::MAPPLIC_VERSION );
 			$deps[] = 'magnific-popup';
 		}
 		wp_register_style( 'mapplic', $this->mapplic_url . 'css/mapplic.css', $deps, self::MAPPLIC_VERSION );

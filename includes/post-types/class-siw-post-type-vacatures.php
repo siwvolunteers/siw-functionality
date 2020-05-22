@@ -10,12 +10,11 @@ class SIW_Post_Type_Vacatures {
 	 */
 	public static function init() {
 		$self = new self();
-		add_filter( 'single_template', [ $self, 'set_template' ], 10, 3 );
-		add_action( 'admin_init', [ $self, 'hide_editor'] );
 		add_filter( 'rwmb_meta_boxes', [ $self, 'add_meta_boxes' ] );
 		add_filter( 'request', [ $self, 'sort_by_deadline' ] );
 		add_action( 'init', [ $self, 'register_post_type'], 0 );
 		add_action( 'init', [ $self, 'register_taxonomy'], 0 );
+		add_filter( 'the_seo_framework_post_meta', [ $self, 'set_seo_noindex' ], 10, 2 );
 	}
 
 	/**
@@ -32,35 +31,6 @@ class SIW_Post_Type_Vacatures {
 			] );
 		}
 		return $vars;
-	}
-
-	/**
-	 * Verberg editor bij vacacture-grid-pagina
-	 */
-	public function hide_editor() {
-		if ( ! isset( $_GET['post'] ) ) {
-			return;
-		}
-		$post_id = $_GET['post'];
-	
-		if ( 'template-vacatures-grid.php' == get_page_template_slug( $post_id ) ) {
-			remove_post_type_support( 'page', 'editor' );
-		}
-	}
-
-	/**
-	 * Zet template voor single post
-	 *
-	 * @param string $template
-	 * @param string $type
-	 * @param array $templates
-	 * @return string
-	 */
-	public function set_template( string $template, string $type, array $templates ) {
-		if ( in_array( 'single-vacatures.php', $templates ) ) {
-			$template = SIW_TEMPLATES_DIR . '/single-vacatures.php';
-		}
-		return $template;
 	}
 
 	/**
@@ -99,11 +69,17 @@ class SIW_Post_Type_Vacatures {
 			'show_in_admin_bar'   => true,
 			'show_in_nav_menus'   => true,
 			'can_export'          => true,
-			'has_archive'         => false,
+			'has_archive'         => false, //TODO:??
 			'exclude_from_search' => false,
 			'publicly_queryable'  => true,
 			'capability_type'     => 'job',
 			'map_meta_cap'        => true,
+			'rewrite'             => [
+				'slug'       => 'vacatures-oud',
+				'with_front' => false,
+				'pages'      => false,
+				'feeds'      => false,
+			],
 		];
 		register_post_type( 'vacatures', $args );
 	}
@@ -123,7 +99,7 @@ class SIW_Post_Type_Vacatures {
 			'public'            => false,
 			'show_ui'           => true,
 			'show_admin_column' => true,
-			'show_in_nav_menus' => true,
+			'show_in_nav_menus' => false,
 			'query_var'         => true,
 			'capabilities'      => [
 				'assign_terms' => 'edit_jobs'
@@ -327,62 +303,23 @@ class SIW_Post_Type_Vacatures {
 				],
 			],
 		];
-
-		//Metabox voor overzichtspagina
-		$meta_boxes[] = [
-			'id'         => 'siw_vacature_pagina_metabox',
-			'title'      => __( 'Instellingen vacature-pagina', 'siw' ),
-			'post_types' => 'page',
-			'include'    => [
-				'template' => ['template-vacatures-grid.php']
-			],
-			'context'    => 'normal',
-			'priority'   => 'high',
-			'fields'     => [
-				[
-					'id'       => 'siw_vacatures_introduction',
-					'name'     => __( 'Introductie', 'siw' ),
-					'type'     => 'wysiwyg',
-					'raw'      => true,
-					'options'  => [
-						'teeny'         => true,
-						'media_buttons' => false,
-						'teeny'         => true,
-						'textarea_rows' => 5,
-					],
-				],
-				[
-					'id'       => 'siw_vacatures_open_application',
-					'name'     => __( 'Open sollicitatie', 'siw' ),
-					'type'     => 'wysiwyg',
-					'raw'      => true,
-					'options'  => [
-						'teeny'         => true,
-						'media_buttons' => false,
-						'teeny'         => true,
-						'textarea_rows' => 5,
-					],
-				],
-				[
-					'id'       => 'siw_vacatures_open_application_email',
-					'name'     => __( 'E-mail voor open sollicitaties:', 'siw' ),
-					'type'     => 'email',
-				],
-				[
-					'id'       => 'siw_vacatures_no_jobs',
-					'name'     => __( 'Infotekst geen vacatures', 'siw' ),
-					'type'     => 'wysiwyg',
-					'raw'      => true,
-					'options'  => [
-						'teeny'         => true,
-						'media_buttons' => false,
-						'teeny'         => true,
-						'textarea_rows' => 5,
-					],
-				],
-	
-			],
-		];
 		return $meta_boxes;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @param array $meta
+	 * @param int $post_id
+	 *
+	 * @return array
+	 */
+	function set_seo_noindex( array $meta, int $post_id ) : array {
+		if ( 'vacatures' == get_post_type( $post_id ) ) {
+			$deadline  = date( 'Y-m-d', get_post_meta( $post_id, 'siw_vacature_deadline', true ) );
+			$noindex = date( 'Y-m-d' ) > $deadline;
+			$meta['_genesis_noindex'] = intval( $noindex );
+		}
+		return $meta;
 	}
 }

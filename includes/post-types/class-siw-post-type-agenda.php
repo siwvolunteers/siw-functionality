@@ -10,13 +10,13 @@ class SIW_Post_Type_Agenda {
 	 */
 	public static function init() {
 		$self = new self();
-		add_filter( 'single_template', [ $self, 'set_template' ], 10, 3 );
 		add_filter( 'request', [ $self, 'sort_by_start_date' ] );
 		add_filter( 'wp_insert_post_data', [ $self, 'generate_slug' ], 10, 2 );
-		add_action( 'add_meta_boxes', [ $self, 'remove_slugdiv' ] );
 		add_action( 'init', [ $self, 'register_post_type'], 0 );
 		add_action( 'init', [ $self, 'register_taxonomy'], 0 );
 		add_filter( 'rwmb_meta_boxes', [ $self, 'add_meta_boxes' ] );
+
+		add_filter( 'the_seo_framework_post_meta', [ $self, 'set_seo_noindex' ], 10, 2 );
 	}
 
 	/**
@@ -55,7 +55,7 @@ class SIW_Post_Type_Agenda {
 			'show_in_admin_bar'   => true,
 			'show_in_nav_menus'   => true,
 			'can_export'          => true,
-			'has_archive'         => false,
+			'has_archive'         => true,
 			'exclude_from_search' => false,
 			'publicly_queryable'  => true,
 			'capability_type'     => 'event',
@@ -79,7 +79,7 @@ class SIW_Post_Type_Agenda {
 			'public'            => false,
 			'show_ui'           => true,
 			'show_admin_column' => true,
-			'show_in_nav_menus' => true,
+			'show_in_nav_menus' => false,
 			'query_var'         => true,
 			'capabilities' => [
 				'assign_terms' => 'edit_events'
@@ -125,32 +125,7 @@ class SIW_Post_Type_Agenda {
 		$time = \SIW\Formatting::format_date_range( $date_start, $date_end, true );
 		$slug = sanitize_title( sprintf( '%s %s', $data['post_title'], $time ) );
 		$data['post_name'] = wp_unique_post_slug( $slug, $postarr['ID'], $data['post_status'], $data['post_type'], $data['post_parent'] );
-
-		//TODO:excerpt vullen met intro indien leeg.
-
 		return $data;
-	}
-
-	/**
-	 * Verwijdert invoerveld voor slug
-	 */
-	public function remove_slugdiv() {
-		remove_meta_box('slugdiv', 'agenda', 'normal'); 
-	}
-
-	/**
-	 * Zet template voor single post
-	 *
-	 * @param string $template
-	 * @param string $type
-	 * @param array $templates
-	 * @return string
-	 */
-	public function set_template( string $template, string $type, array $templates ) {
-		if ( in_array( 'single-agenda.php', $templates ) ) {
-			$template = SIW_TEMPLATES_DIR . '/single-agenda.php';
-		}
-		return $template;
 	}
 
 	/**
@@ -349,4 +324,22 @@ class SIW_Post_Type_Agenda {
 		];
 		return $meta_boxes;
 	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @param array $meta
+	 * @param int $post_id
+	 *
+	 * @return array
+	 */
+	function set_seo_noindex( array $meta, int $post_id ) : array {
+		if ( 'agenda' == get_post_type( $post_id ) ) {
+			$deadline  = date( 'Y-m-d', get_post_meta( $post_id, 'siw_agenda_eind', true ) );
+			$noindex = date( 'Y-m-d' ) > $deadline;
+			$meta['_genesis_noindex'] = intval( $noindex );
+		}
+		return $meta;
+	}
+
 }

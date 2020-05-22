@@ -12,22 +12,18 @@ use SIW\Formatting;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
-/* Keuzes infodag TODO: functie siw_get_infodays*/
-$infodays = siw_get_option( 'info_days' );
-
-$infodays = array_filter( $infodays, function( $date ) {
-	return $date >= date( 'Y-m-d', time() + ( 2 * DAY_IN_SECONDS ) ); //TODO: constante of instelling voor aantal dagen
-});
-
-$callback = function( &$value, $key )  {
-	$value = Formatting::format_date( $value, false );
+$infodays = siw_get_upcoming_info_days( 3 );
+	
+$callback = function( &$value, $key ) {
+	$date = siw_meta( 'event_date', [], $value );
+	$value = Formatting::format_date( $date, false );
 };
 array_walk( $infodays, $callback );
 
+//Fallback voor als er nog geen infodagen bekend zijn
 if ( empty( $infodays ) ) {
 	$infodays[] = __( 'Nog niet bekend', 'siw' );
 }
-
 
 $args = [
 	'name' => __( 'Aanmeldformulier voor de Infodag', 'siw' ),
@@ -81,38 +77,6 @@ $fields[0] = [
 			'config'   => [
 				'option' => siw_get_continents( 'array' ),
 			]
-		],
-		[
-			'slug'   => 'bekend',
-			'type'   => 'checkbox',
-			'label'  => __( 'Hoe heb je van SIW gehoord?', 'siw' ),
-			'config' => [
-				'option' => [
-					'google'           => __( 'Google', 'siw' ),
-					'social_media'     => __( 'Social Media', 'siw' ),
-					'familie_vrienden' => __( 'Familie / vrienden', 'siw' ),
-					'anders'           => __( 'Anders', 'siw' ),
-				],
-			],
-		],
-		[
-			'slug'       => 'bekend_anders',
-			'type'       => 'text',
-			'label'      => __( 'Namelijk', 'siw' ),
-			'hide_label' => true,
-			'condition'  => [
-				'type'     => 'show',
-				'groups'   => [
-					[
-						[
-							'field'   => 'bekend',
-							'compare' => 'is',
-							'value'   => 'anders',
-						],
-					],
-				],
-			],
-			'same_cell' => true,
 		],
 	]
 ];

@@ -100,7 +100,7 @@ class Product {
 	 */
 	public function correct_post_slug( array $data, array $postarr ) {
 		if ( self::REVIEW_STATUS == $data['post_status'] && 'product' == $data['post_type'] ) {
-			$data['post_name'] =  $postarr['post_name'];
+			$data['post_name'] = $postarr['post_name'];
 		}
 		return $data;
 	}
@@ -644,15 +644,10 @@ class Product {
 
 		$this->target_audiences = [];
 
-		$project_type = $this->xml->project_type;
-		$min_age = (int) $this->xml->min_age;
-		$max_age = (int) $this->xml->max_age;
-		$family = (bool) $this->xml->family;
-
-		if ( ( $family ) || ( 'FAM' == $project_type ) ) {
+		if ( ( boolval( $this->xml->family ) ) || ( 'FAM' == $this->xml->project_type ) ) {
 			$this->target_audiences['family'] = $target_audiences['family'];
 		}
-		if ( ( $min_age < 17 && $min_age > 12 && $max_age < 20 ) || ( 'TEEN' == $project_type ) ) {
+		if ( intval( $this->xml->max_age ) <= 20 || 'TEEN' == $this->xml->project_type ) {
 			$this->target_audiences['teens'] = $target_audiences['teens'];
 		}
 	}

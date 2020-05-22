@@ -8,10 +8,7 @@
 
 table.wp-list-table .column-visibility,
 table.wp-list-table .column-next_update,
-table.wp-list-table .column-exported,
-table.wp-list-table .column-siw_agenda_start,
-table.wp-list-table .column-siw_agenda_eind,
-table.wp-list-table .column-siw_vacature_deadline {
+table.wp-list-table .column-exported {
   width: 10%;
 }
 table.wp-list-table .column-visibility .dashicons-visibility {
@@ -33,7 +30,7 @@ table.wp-list-table .column-exported .dashicons-minus {
 #woocommerce-product-data ul.wc-tabs li.description_options a::before {
   content: "";
 }
-#woocommerce-product-data ul.wc-tabs li.plato_options a::before {
+#woocommerce-product-data ul.wc-tabs li.update_options a::before {
   content: "";
 }
 #woocommerce-product-data ul.wc-tabs li.approval_options a::before {

@@ -61,12 +61,19 @@ class Visibility {
 			'type'     => 'checkbox',
 			'priority' => 10,
 		];
+		$fields['hide_on_tablet'] = [
+			'name'     => '<span class="dashicons dashicons-tablet"></span>' . __( 'Tablet', 'siw'),
+			'label'    => __( 'Verbergen', 'siw'),
+			'group'    => 'siw-visibility',
+			'type'     => 'checkbox',
+			'priority' => 20,
+		];
 		$fields['hide_on_desktop'] = [
 			'name'     => '<span class="dashicons dashicons-desktop"></span>' . __( 'Desktop', 'siw'),
 			'label'    => __( 'Verbergen', 'siw'),
 			'group'    => 'siw-visibility',
 			'type'     => 'checkbox',
-			'priority' => 20,
+			'priority' => 30,
 		];
 		return $fields;
 	}
@@ -76,16 +83,18 @@ class Visibility {
 	 *
 	 * @param array $style_attributes
 	 * @param array $style_args
+	 * 
 	 * @return array
 	 */
 	public function add_style_attributes( array $style_attributes, array $style_args ) {
 		if ( isset( $style_args['hide_on_mobile'] ) && 1 == $style_args['hide_on_mobile'] ) {
-			$style_attributes['class'][] = 'hidden-xs';
+			$style_attributes['class'][] = 'hide-on-mobile';
+		}
+		if ( isset( $style_args['hide_on_tablet'] ) && 1 == $style_args['hide_on_tablet'] ) {
+			$style_attributes['class'][] = 'hide-on-tablet';
 		}
 		if ( isset( $style_args['hide_on_desktop'] ) && 1 == $style_args['hide_on_desktop'] ) {
-			$style_attributes['class'][] = 'hidden-sm';
-			$style_attributes['class'][] = 'hidden-md';
-			$style_attributes['class'][] = 'hidden-lg';
+			$style_attributes['class'][] = 'hide-on-desktop';
 		}
 		return $style_attributes;
 	}

@@ -151,26 +151,6 @@ class Util {
 	}
 
 	/**
-	 * Geeft aan of template bestaat
-	 *
-	 * @param string $template
-	 * @return bool
-	 */
-	public static function template_exists( string $template ) {
-		return file_exists( SIW_TEMPLATES_DIR . "/{$template}" );
-	}
-
-	/**
-	 * Geeft aan of post bestaat op basis van ID
-	 *
-	 * @param int $post_id
-	 * @return string
-	 */
-	public static function post_exists( int $post_id ) {
-		return is_string( get_post_status( $post_id ) );
-	}
-
-	/**
 	 * Geeft parameter uit request terug
 	 *
 	 * @param string $key

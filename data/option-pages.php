@@ -47,10 +47,6 @@ $data = [
 				'label' => __( 'Bestuur', 'siw' ),
 				'icon'  => 'dashicons-businessman',
 			],
-			'dates'  => [
-				'label' => __( 'Datums', 'siw' ),
-				'icon'  => 'dashicons-calendar-alt'
-			],
 			'email' => [
 				'label' => __( 'Email', 'siw' ),
 				'icon'  => 'dashicons-email',
@@ -59,11 +55,15 @@ $data = [
 				'label' => __( 'Groepsprojecten', 'siw' ),
 				'icon'  => 'dashicons-groups'
 			],
-			'annual_reports'    => [
+			'annual_reports' => [
 				'label' => __( 'Jaarverslagen', 'siw' ),
 				'icon'  => 'dashicons-media-document',
 			],
-			'notifications'    => [
+			'dutch_projects' => [
+				'label' => __( 'Nederlandse projecten', 'siw' ),
+				'icon'  => 'dashicons-admin-home'
+			],
+			'notifications' => [
 				'label' => __( 'Notificaties', 'siw' ),
 				'icon'  => 'dashicons-megaphone',
 			],
@@ -80,11 +80,6 @@ $data = [
 				'icon'  => 'dashicons-clipboard'
 			],
 		],
-	],
-	[
-		'id'         => 'dutch-projects',
-		'menu_title' => __( 'Nederlandse Projecten', 'siw' ),
-		'capability' => 'edit_posts',
 	],
 	[
 		'id'         => 'countries',

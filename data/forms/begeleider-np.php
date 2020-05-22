@@ -14,12 +14,17 @@ use SIW\i18n;
 
 $language = i18n::get_current_language();
 $project_options = [];
-$projects = siw_get_option( 'dutch_projects' );
-foreach ( $projects as $project ) {
-	$slug = sanitize_title( $project['code'] );
-	$name = $project["name_{$language}"];
 
-	$project_options[ $slug ] = $project["name_{$language}"];
+$args = [
+	'country'    => 'nederland',
+	'return'     => 'objects',
+	'limit'      => -1,
+];
+$projects = wc_get_products( $args );
+
+foreach ( $projects as $project ) {
+	$slug = sanitize_title( $project->get_sku() );
+	$project_options[ $slug ] = ! empty( $project->get_meta( "dutch_projects_name_{$language}" ) ) ? $project->get_meta( "dutch_projects_name_{$language}" ) : $project->get_attribute( 'Projectnaam' );
 }
 
 

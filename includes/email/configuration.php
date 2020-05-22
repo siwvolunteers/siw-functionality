@@ -105,7 +105,6 @@ class Configuration {
 		if ( $from != $default_from ) {
 			return $from;
 		}
-	
 		return Properties::EMAIL;
 	}
 
@@ -120,7 +119,6 @@ class Configuration {
 		if ( $from_name != $default_from_name ) {
 			return $from_name;
 		}
-
 		return Properties::NAME;
 	}
 }

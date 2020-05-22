@@ -71,7 +71,7 @@ class The_SEO_Framework {
 	 * @param array $robots
 	 * @return array
 	 *
-	 * @todo soort_evenement soort_vacature testimonial wpm-testimonial-category
+	 * @todo soort_evenement soort_vacature testimonial wpm-testimonial-category / verplaatsen naar WooCommerce
 	 */
 	public function set_robots( array $robots ) {
 		if ( function_exists( 'is_product_tag' ) && is_product_tag() ) {
@@ -148,6 +148,8 @@ class The_SEO_Framework {
 	 * Productarchieven toevoegen aan de sitemap 
 	 *
 	 * @param array $custom_urls
+	 * 
+	 * @return array
 	 */
 	public function set_sitemap_additional_urls( array $custom_urls ) {
 		

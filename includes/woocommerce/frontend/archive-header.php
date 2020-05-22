@@ -20,7 +20,7 @@ class Archive_Header {
 	 */
 	public static function init() {
 		$self = new self();
-		add_action( 'after_page_header', [ $self, 'add_archive_description'] );
+		add_action( 'generate_inside_site_container', [ $self, 'add_archive_description'] );
 	}
 
 	/**
@@ -44,11 +44,9 @@ class Archive_Header {
 		);
 	
 		?>
-		<div class="container">
-			<div class="row siw-archive-intro">
-				<div class="md-12">
+		<div class="grid-container">
+			<div class="siw-archive-intro">
 					<?php echo wp_kses_post( $text ); ?>
-				</div>
 			</div>
 		</div>
 		

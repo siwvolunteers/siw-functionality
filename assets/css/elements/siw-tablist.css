@@ -8,16 +8,18 @@
   content: "";
   display: table;
 }
-.siw-tablist [role=tab] {
-  background-color: #ececec;
-  border-radius: 4px;
+.siw-tablist [role=tablist] [role=tab] {
+  border: solid 3px #3f3f3f;
   padding: 10px;
   float: left;
   font-weight: bold;
-  margin-bottom: 0;
+  margin-bottom: 2px;
+  margin-right: 2px;
+  cursor: pointer;
+  list-style-type: none;
 }
-.siw-tablist [role=tab][aria-selected=true] {
-  background-color: #ff9900;
+.siw-tablist [role=tablist] [role=tab][aria-selected=true] {
+  background-color: #3f3f3f;
   color: #fff;
 }
 .siw-tablist [role=tabpanel] {

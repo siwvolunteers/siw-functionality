@@ -1,19 +1,25 @@
+//Kleuren
 $primary-color: #ff9900;
-$primary-color-hover: #ffcc33;
 $secondary-color: #59ab9c;
-$secondary-color-hover: #8cdecf;
 $font-color: #444;
+$font-color-light: #555;
 
-$twitter-color: #00aced;
-$facebook-color: #3b5998;
-$linkedin-color: #007bb6;
-$youtube-color: #ff3333;
-$instagram-color: #517fa4;
-$whatsapp-color: #25D366;
-$pinterest-color: #e60023;
+$button-color: #3f3f3f; //TODO: betere naam interaction color ofzo
 
+//Box-shadow voor overlays
+$box-shadow-overlay: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
 
+//Box-shadow voor cards
+$box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.5);
+$box-shadow-hover: 2px 2px 5px 4px rgba(0, 0, 0, 0.5);
+$box-shadow-transition: box-shadow 0.3s ease-in-out;
+
+//Text-shadow voor text op afbeeldingen
+$text-shadow: 1px 1px $font-color;
+
+//Breakpoints
 $mobile-width: 780px;
 $tablet-width: 1024px;
 
+//Pad voor assets
 $assets-path: "/wp-content/plugins/siw-functionality/assets";
