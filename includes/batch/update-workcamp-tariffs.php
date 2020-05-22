@@ -56,6 +56,11 @@ class Update_Workcamp_Tariffs extends Job {
 			return false;
 		}
 	
+		//Afbreken als product een afwijkend tarief heeft
+		if ( $product->get_meta( 'has_custom_tariff' ) ) {
+			return;
+		}
+
 		$tariffs = siw_get_data( 'workcamps/tariffs' );
 		$sale = Util::is_workcamp_sale_active();
 

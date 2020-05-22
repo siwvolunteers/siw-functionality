@@ -63,6 +63,10 @@ class WooCommerce {
 		add_filter( 'woocommerce_allow_marketplace_suggestions', '__return_false' );
 		add_filter( 'woocommerce_show_addons_page', '__return_false' );
 
+		add_filter( 'woocommerce_admin_disabled', '__return_true' );
+		add_filter( 'woocommerce_marketing_menu_items', '__return_empty_array' );
+		add_filter( 'woocommerce_helper_suppress_admin_notices', '__return_true' );
+
 		//Blocks style niet laden
 		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
 

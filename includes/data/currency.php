@@ -82,11 +82,8 @@ class Currency {
 	 * @return float
 	 */
 	public function get_exchange_rate() {
-		$external_exchange_rates = new Exchange_Rates();
-		$exchange_rates = $external_exchange_rates->get_rates();
-		$exchange_rate = $exchange_rates[ $this->iso_code ] ?? false;
-	
-		return $exchange_rate;
+		$exchange_rates = new Exchange_Rates();
+		return $exchange_rates->get_rate( $this->iso_code );
 	}
 
 	/**
@@ -103,7 +100,6 @@ class Currency {
 		}
 	
 		$amount_in_euro = (float) $amount * (float) $exchange_rate;
-		$amount_in_euro = number_format_i18n( $amount_in_euro, $decimals );
-		return $amount_in_euro;
+		return number_format_i18n( $amount_in_euro, $decimals );
 	}
 }

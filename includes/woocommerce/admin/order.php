@@ -338,7 +338,7 @@ class Order {
 	 * Voegt extra admin columns toe
 	 */
 	public function add_admin_columns() {
-		if ( ! class_exists( '\MB_Admin_Columns_Post' ) ) {
+		if ( ! class_exists( '\MBAC\Post' ) ) {
 			return;
 		}
 		new Order_Columns( 'shop_order', [] );

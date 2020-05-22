@@ -14,6 +14,13 @@ use SIW\Async\Process_Stockphoto_Upload;
 class Stockphoto_Page {
 
 	/**
+	 * Pagina-ID
+	 *
+	 * @var string
+	 */
+	protected $page_id = 'siw-stockphotos';
+
+	/**
 	 * Async request voor verwerken van upload
 	 *
 	 * @var Process_Stockphoto_Upload
@@ -44,6 +51,7 @@ class Stockphoto_Page {
 		add_filter( 'mb_settings_pages', [ $self, 'add_page'] ) ;
 		add_filter( 'rwmb_meta_boxes', [ $self, 'add_metabox'] );
 		add_filter( 'rwmb_stockphotos_after_save_field', [ $self, 'process_uploads'], 10 ,5 );
+		add_action( 'admin_menu', [ $self, 'add_woocommerce_navigation_bar'] );
 	}
 
 	/**
@@ -56,7 +64,7 @@ class Stockphoto_Page {
 	public function add_page( $pages ) {
 		$pages[] = [
 			'parent'      => 'edit.php?post_type=product',
-			'id'          => 'siw-stockphotos',
+			'id'          => $this->page_id,
 			'option_name' => 'siw_stockphoto',
 			'capability'  => 'edit_products',
 			'menu_title'  => __( "Stockfoto's", 'siw' ),
@@ -71,12 +79,13 @@ class Stockphoto_Page {
 		$metaboxes[] = [
 			'id'             => 'stockphotos',
 			'title'          => __( "Stockfoto's toevoegen", 'siw' ),
-			'settings_pages' => 'siw-stockphotos',
+			'settings_pages' => $this->page_id,
 			'fields' => [
 				[
 					'id'         => 'stockphotos',
 					'type'       => 'group',
-					'clone'      => true,
+					'clone'      => true, //TODO: of lager
+					'max_clone'  => 5,
 					'save_field' => false,
 					'add_button' => __( 'Stockfoto toevoegen', 'siw' ),
 					'fields'     => [
@@ -101,6 +110,8 @@ class Stockphoto_Page {
 							'name'        => __( 'Land', 'siw' ),
 							'placeholder' => __( 'Selecteer een land', 'siw '),
 							'options'     => \siw_get_countries( 'all', 'slug', 'array' ),
+							'required'    => true,
+							
 						],
 						[
 							'id'          => 'work_type',
@@ -150,5 +161,23 @@ class Stockphoto_Page {
 				$this->process_stockphoto_upload->dispatch();
 			}
 		}
+	}
+
+	/**
+	 * Voegt WooCommerce navigatiebalk toe
+	 */
+	public function add_woocommerce_navigation_bar() {
+		if ( ! function_exists( 'wc_admin_connect_page' ) ) {
+			return;
+		}
+		
+		wc_admin_connect_page(
+			[
+				'id'        => 'siw-stockphotos',
+				'parent'    => 'woocommerce-products',
+				'screen_id' => "product_page_{$this->page_id}",
+				'title'     => __( "Stockfoto's", 'siw' ),
+			]
+		);
 	}
 }

@@ -87,6 +87,13 @@ $data = [
 			'on_label'  => __( 'Aan', 'siw' ),
 			'off_label' => __( 'Uit', 'siw'),
 		],
+		[
+			'id'        => 'plato_download_images',
+			'name'      => __( 'Download afbeeldingen', 'siw' ),
+			'type'      => 'switch',
+			'on_label'  => __( 'Aan', 'siw' ),
+			'off_label' => __( 'Uit', 'siw'),
+		]
 	],
 ];
 

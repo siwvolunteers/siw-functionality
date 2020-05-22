@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce\Admin;
 
-use SIW\CSS;
+use SIW\i18n;
 use SIW\Admin\Notices as Admin_Notices;
 use SIW\WooCommerce\Import\Product as Import_Product;
 
@@ -11,6 +11,8 @@ use SIW\WooCommerce\Import\Product as Import_Product;
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
+ * 
+ * @todo splitsen
  */
 class Product {
 
@@ -30,9 +32,10 @@ class Product {
 
 		add_filter( 'woocommerce_product_data_tabs', [ $self, 'add_tabs'] );
 		add_filter( 'woocommerce_product_data_tabs', [ $self, 'hide_tabs'] );
-		add_action( 'woocommerce_product_data_panels', [ $self, 'show_plato_tab'] );
+		add_action( 'woocommerce_product_data_panels', [ $self, 'show_update_tab'] );
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_approval_tab'] );
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_description_tab'] );
+		add_action( 'woocommerce_product_data_panels', [ $self, 'show_dutch_projects_tab'] );
 
 		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_product_data'] );
 		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_approval_result'] );
@@ -51,9 +54,10 @@ class Product {
 	 * @param array $columns
 	 * @return array
 	 */
-	public function remove_admin_columns( $columns ) {
+	public function remove_admin_columns( array $columns ) : array {
+		unset( $columns['thumb']);
 		unset( $columns['date'] );
-		unset( $columns['product-tag'] );
+		unset( $columns['product_tag'] );
 		unset( $columns['price'] );
 		return $columns;
 	}
@@ -64,7 +68,7 @@ class Product {
 	 * @return void
 	 */
 	public function add_admin_columns() {
-		if ( ! class_exists( '\MB_Admin_Columns_Post' ) ) {
+		if ( ! class_exists( '\MBAC\Post' ) ) {
 			return;
 		}
 		new Product_Columns( 'product', [] );
@@ -177,12 +181,20 @@ class Product {
 				'priority' => 110,
 			];
 		}
-		$tabs['plato'] = [
-			'label'    => __( 'Plato', 'siw' ),
-			'target'   => 'plato_product_data',
+		$tabs['update'] = [
+			'label'    => __( 'Update', 'siw' ),
+			'target'   => 'update_product_data',
 			'class'    => [],
 			'priority' => 120,
 		];
+		if ( 'nederland' == $product_object->get_meta( 'country' ) ) {
+			$tabs['dutch_projects'] = [
+				'label'    => __( 'Nederlandse Projecten', 'siw' ),
+				'target'   => 'dutch_projects_product_data',
+				'class'    => [],
+				'priority' => 120,
+			];
+		}
 		return $tabs;
 	}
 
@@ -207,12 +219,12 @@ class Product {
 	}
 
 	/**
-	 * Toont tab met extra zichtbaarheids-opties
+	 * Toont tab met extra opties
 	 */
-	public function show_plato_tab() {
+	public function show_update_tab() {
 		global $product_object;
 		?>
-		<div id="plato_product_data" class="panel woocommerce_options_panel">
+		<div id="update_product_data" class="panel woocommerce_options_panel">
 			<div class="options_group">
 				<?php
 				woocommerce_wp_checkbox(
@@ -235,6 +247,15 @@ class Product {
 						]
 					);
 				}
+				woocommerce_wp_checkbox(
+					[
+						'id'          => 'has_custom_tariff',
+						'value'       => $product_object->get_meta( 'has_custom_tariff' ),
+						'cbvalue'     => '1',
+						'label'       => __( 'Heeft afwijkend tarief', 'siw' ),
+						'description' => __( 'Tarief wordt niet automatische bijgewerk', 'siw' ),
+					]
+				);
 				?>
 			</div>
 		</div>
@@ -248,7 +269,7 @@ class Product {
 	public function show_approval_tab() {
 		global $product_object;
 
-		if ( empty( $product_object->get_meta('approval_result') ) ) {
+		if ( empty( $product_object->get_meta( 'approval_result' ) ) ) {
 			return;
 		}
 
@@ -260,7 +281,7 @@ class Product {
 		<div id="approval_product_data" class="panel woocommerce_options_panel">
 			<div class="options_group">
 				<?php
-			woocommerce_wp_text_input(
+				woocommerce_wp_text_input(
 					[
 						'id'          => 'approval_result',
 						'value'       => $approval_results[$product_object->get_meta( 'approval_result' )],
@@ -277,9 +298,9 @@ class Product {
 				);
 				woocommerce_wp_text_input(
 					[
-						'id'  => 'approval_user',
-						'value'    => $product_object->get_meta('approval_user'),
-						'label'   => __('Gebruiker', 'siw'),
+						'id'       => 'approval_user',
+						'value'    => $product_object->get_meta( 'approval_user' ),
+						'label'    => __('Gebruiker', 'siw'),
 						'custom_attributes' => [
 							'readonly' => 'readonly',
 							'disabled' => 'disabled',
@@ -288,9 +309,9 @@ class Product {
 				);
 				woocommerce_wp_text_input(
 					[
-						'id'  => 'approval_date',
-						'value'    => $product_object->get_meta('approval_date'),
-						'label'   => __( 'Datum', 'siw' ),
+						'id'       => 'approval_date',
+						'value'    => $product_object->get_meta( 'approval_date' ),
+						'label'    => __( 'Datum', 'siw' ),
 						'custom_attributes' => [
 							'readonly' => 'readonly',
 							'disabled' => 'disabled',
@@ -309,7 +330,7 @@ class Product {
 	public function show_description_tab() {
 		global $product_object;
 
-		$description = $product_object->get_meta('description');
+		$description = $product_object->get_meta( 'description' );
 
 		$topics = [
 			'description'           => __( 'Beschrijving', 'siw' ),
@@ -339,7 +360,6 @@ class Product {
 					$content = preg_replace( '/\[(.*?)\]/', '', $content );
 					echo wp_kses_post( $content );
 				}
-
 			?>
 			</div>
 		</div>
@@ -347,17 +367,79 @@ class Product {
 	}
 
 	/**
+	 * Toont tab met met instellingen voor nederlandse projecten
+	 */
+	public function show_dutch_projects_tab() {
+		global $product_object;
+
+		if ( 'nederland' !== $product_object->get_meta( 'country' ) ) {
+			return;
+		}
+
+		$languages = i18n::get_active_languages();
+		$provinces = [ '' => __( 'Selecteer een provincie', 'siw' ) ] + siw_get_dutch_provinces();
+
+		?>
+		<div id="dutch_projects_product_data" class="panel woocommerce_options_panel">
+			<div class="options_group">
+				<?php
+				foreach ( $languages as $code => $language ) {
+					woocommerce_wp_text_input(
+						[
+							'id'          => "dutch_projects_name_{$code}",
+							'value'       => $product_object->get_meta( "dutch_projects_name_{$code}" ),
+							'label'       => sprintf( __( 'Naam (%s)', 'siw' ), $language['translated_name'] ),
+						]
+					);
+					woocommerce_wp_textarea_input(
+						[
+							'id'          => "dutch_projects_description_{$code}",
+							'value'       => $product_object->get_meta( "dutch_projects_description_{$code}" ),
+							'label'       => sprintf( __( 'Beschrijving (%s)', 'siw' ), $language['translated_name'] ),
+						]
+					);
+				}
+				woocommerce_wp_text_input(
+					[
+						'id'          => 'dutch_projects_city',
+						'value'       => $product_object->get_meta( 'dutch_projects_city' ),
+						'label'       => __( 'Plaats', 'siw' ),
+					]
+				);
+				woocommerce_wp_select(
+					[
+						'id'         => 'dutch_projects_province',
+						'value'      => $provinces[ $product_object->get_meta( 'dutch_projects_province' ) ] ?  $product_object->get_meta( 'dutch_projects_province' ) : '',
+						'label'      => __( 'Provincie', 'siw' ),
+						'options'    => $provinces,
+					]
+				);
+					?>
+			</div>
+		</div>
+		<?php
+	}
+	
+	/**
 	 * Slaat gewijzigde meta-velden op
 	 *
 	 * @param \WC_Product $product
 	 */
 	public function save_product_data( \WC_Product $product ) {
 		$meta_data = [
-			'import_again'      => isset( $_POST['import_again'] ),
-			'use_stockphoto'    => isset( $_POST['use_stockphoto'] ),
+			'import_again'            => isset( $_POST['import_again'] ),
+			'use_stockphoto'          => isset( $_POST['use_stockphoto'] ),
+			'has_custom_tariff'       => isset( $_POST['has_custom_tariff'] ),
+			'dutch_projects_city'     => isset( $_POST['dutch_projects_city'] ) ? wc_clean( $_POST['dutch_projects_city'] ) : '',
+			'dutch_projects_province' => isset( $_POST['dutch_projects_province'] ) ? wc_clean( $_POST['dutch_projects_province'] ) : '',
 		];
 
-		//Als stockfoto gebruikt moet worden, verwijder dan de huidige foto
+		$languages = i18n::get_active_languages();
+		foreach ( $languages as $code => $language ) {
+			$meta_data["dutch_projects_name_{$code}"] = isset( $_POST["dutch_projects_name_{$code}"] ) ? wc_clean( $_POST["dutch_projects_name_{$code}"] ) : '';
+			$meta_data["dutch_projects_description_{$code}"] = isset( $_POST["dutch_projects_description_{$code}"] ) ? wc_clean( $_POST["dutch_projects_description_{$code}"] ) : '';
+		}
+		//Als stockfoto gebruikt moet worden, verwijder dan de huidige foto TODO: Plato-foto echt verwijderen?/
 		if ( $meta_data['use_stockphoto'] && ! $product->get_meta( 'use_stockphoto' ) ) {
 			$product->set_image_id( null );
 			$product->update_meta_data( 'has_plato_image', false );
@@ -375,7 +457,6 @@ class Product {
 		remove_meta_box( 'slugdiv', 'product', 'normal' );
 		remove_meta_box( 'postcustom' , 'product' , 'normal' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			remove_meta_box( 'postimagediv', 'product', 'side' );
 			remove_meta_box( 'woocommerce-product-images' , 'product', 'side' );
 			remove_meta_box( 'tagsdiv-product_tag', 'product', 'normal' );
 			remove_meta_box( 'product_catdiv', 'product', 'normal' );

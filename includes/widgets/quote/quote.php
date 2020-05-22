@@ -31,6 +31,20 @@ class Quote extends Widget {
 	protected $widget_dashicon = 'editor-quote';
 
 	/**
+	 * Taxonomy voor continent
+	 *
+	 * @var string
+	 */
+	protected $continent_taxonomy = 'siw_quote_continent';
+
+	/**
+	 * Taxonomy voor projectsoort
+	 *
+	 * @var string
+	 */
+	protected $project_type_taxonomy = 'siw_quote_project_type';
+
+	/**
 	 * {@inheritDoc}
 	 */
 	protected function set_widget_properties() {
@@ -48,10 +62,15 @@ class Quote extends Widget {
 				'label'   => __( 'Titel', 'siw'),
 				'default' => __( 'Ervaringen van deelnemers', 'siw' ),
 			],
-			'category' => [
+			'continent' => [
 				'type'    => 'select',
-				'label'   => __( 'Categorie', 'siw'),
-				'options' => $this->get_categories(),
+				'label'   => __( 'Continent', 'siw' ),
+				'options' => $this->get_taxonomy_options( $this->continent_taxonomy ),
+			],
+			'project_type' => [
+				'type'    => 'select',
+				'label'   => __( 'Projectsoort', 'siw'),
+				'options' => $this->get_taxonomy_options( $this->project_type_taxonomy ),
 			]
 		];
 		return $widget_form;
@@ -61,62 +80,84 @@ class Quote extends Widget {
 	 * {@inheritDoc}
 	 */
 	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
-		$quote = $this->get_quote( $instance['category'] );
+		$quote = $this->get_quote( $instance['continent'], $instance['project_type'] );
+		
+		if ( null == $quote ) {
+			return;
+		}
+
 		ob_start();
 		?>
 		<blockquote>
 			<p><?php echo esc_html( $quote['quote'] );?></p>
-			<footer><strong><?php echo esc_html( $quote['name'] );?></strong> | <?php echo esc_html( $quote['project'] );?></footer>
+			<footer><strong><?php echo esc_html( $quote['name'] );?></strong> | <?php echo esc_html( $quote['project_type'] . SPACE . $quote['country'] );?></footer>
 		</blockquote>
 		<?php
-		$content = ob_get_clean();
-		return $content;
+		return ob_get_clean();
 	}
 
 	/**
-	 * Geeft lijst van categorieën voor quotes terug
+	 * Geeft lijst met opties terug
+	 *
+	 * @param string $taxonomy
 	 *
 	 * @return array
 	 */
-	protected function get_categories() {
-		$groups = get_terms( 'testimonial-group' );
-		$categories[''] = __( 'Alle', 'siw' );
-		foreach ( $groups as $group ) {
-			$categories[ $group->slug ] = $group->name;
+	protected function get_taxonomy_options( string $taxonomy ) {
+		$terms = get_terms( $taxonomy );
+		$options[''] = __( 'Alle', 'siw' );
+		foreach ( $terms as $term ) {
+			$options[ $term->slug ] = $term->name;
 		}
-		return $categories;
+		return $options;
 	}
 
 	/**
-	 * Geeft array met gegevens van een quote terug
+	 * Haalt gegevens van quote op
 	 *
-	 * @param  string $category
+	 * @param string $continent
+	 * @param string $project_type
+	 *
 	 * @return array
 	 */
-	protected function get_quote( $category = '' ) {
+	protected function get_quote( $continent, $project_type ) {
+		
+		$tax_query = [];
+		if ( ! empty( $continent ) ) {
+			$tax_query[] = [
+				'taxonomy' => $this->continent_taxonomy,
+				'terms'    => $continent,
+				'field'    => 'slug',
+			];
+		}
+		if ( ! empty( $project_type ) ) {
+			$tax_query[] = [
+				'taxonomy' => $this->project_type_taxonomy,
+				'terms'    => $project_type,
+				'field'    => 'slug',
+			];
+		}
 
 		$query_args = [
-			'post_type'           => 'testimonial',
-			'posts_per_page'      => 1,
-			'post_status'         => 'publish',
-			'orderby'             => 'rand',
-			'fields'              => 'ids',
-			'testimonial-group'   => $category,
+			'post_type'      => 'siw_quote',
+			'posts_per_page' => 1,
+			'orderby'        => 'rand',
+			'fields'         => 'ids',
+			'tax_query'      => $tax_query
 		];
 		$post_ids = get_posts( $query_args );
 
 		if ( empty( $post_ids ) ) {
-			return;
+			return null;
 		}
 
 		$post_id = $post_ids[0];
 		$quote = [
-			'quote'   => get_post_field('post_content', $post_id ),
-			'name'    => get_the_title( $post_id ),
-			'project' => get_post_meta( $post_id, '_kad_testimonial_location', true ),
+			'quote'        => get_post_meta( $post_id, 'quote', true ),
+			'name'         => get_post_meta( $post_id, 'name', true ),
+			'country'      => siw_get_country( get_post_meta( $post_id, 'country', true ) )->get_name(),
+			'project_type' => wp_get_post_terms( $post_id, $this->project_type_taxonomy )[0]->name,
 		];
 		return $quote;
 	}
-
-
 }
