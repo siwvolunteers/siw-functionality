@@ -2,6 +2,8 @@
 
 namespace SIW\Compatibility;
 
+use SIW\Formatting;
+
 /**
  * Aanpassingen voor WooCommerce
  * 
@@ -76,6 +78,8 @@ class WooCommerce {
 
 		add_filter( 'woocommerce_layered_nav_count', '__return_empty_string' );
 		add_filter( 'rocket_cache_query_strings', [ $self, 'register_query_vars'] );
+
+		add_filter( 'get_term', [ $self, 'filter_term_name'], 10, 2 );
 	}
 
 	/**
@@ -294,5 +298,30 @@ class WooCommerce {
 	 */
 	public function remove_link_on_thumbnails( string $html ) : string {
 		return strip_tags( $html, '<img>' );
+	}
+
+	/**
+	 * Zet naam van terms
+	 *
+	 * @param \WP_Term $term
+	 * @param string $taxonomy
+	 *
+	 * @return \WP_Term
+	 */
+	public function filter_term_name( \WP_Term $term, string $taxonomy ) : \WP_Term {
+		if ( 'pa_maand' == $taxonomy ) {
+			$order = get_term_meta( $term->term_id, 'order', true );
+			$year = substr( $order, 0, 4 );
+			$month = substr( $order, 4, 2 );
+			$current_year = date( 'Y' );
+
+			$term->name = ucfirst(
+				Formatting::format_month(
+					"{$year}-{$month}-1",
+					$year != $current_year
+				)
+			); 
+		}
+		return $term;
 	}
 }

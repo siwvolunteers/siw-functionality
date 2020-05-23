@@ -217,7 +217,6 @@ class Bootstrap {
 		$this->init_classes(
 			'SIW\Batch',
 			[
-				'Count_Workcamps',
 				'Delete_Applications',
 				'Delete_Old_Posts',
 				'Delete_Workcamps',
@@ -225,7 +224,7 @@ class Bootstrap {
 				'Import_Workcamps',
 				'Send_Workcamp_Approval_Emails',
 				'Update_Free_Places',
-				'Update_Taxonomies',
+				'Update_Terms',
 				'Update_Workcamps',
 			]
 		);

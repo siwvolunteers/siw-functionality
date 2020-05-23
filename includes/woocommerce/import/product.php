@@ -349,10 +349,11 @@ class Product {
 		}
 		
 		/* Maand */
-		$month_name = ucfirst( Formatting::format_month( $this->xml->start_date, true ) );
+		$month_slug = sanitize_title( Formatting::format_month( $this->xml->start_date, true ) );
+		$month_name = ucfirst( Formatting::format_month( $this->xml->start_date, false ) );
 		$taxonomy_attributes['maand']['visible'] = false;
 		$taxonomy_attributes['maand']['values'][] = [
-			'slug'  => sanitize_title( $month_name ),
+			'slug'  => $month_slug,
 			'name'  => $month_name,
 			'order' => date( 'Ym', strtotime( $this->xml->start_date ) ),
 		];
