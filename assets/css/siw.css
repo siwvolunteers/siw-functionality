@@ -298,6 +298,18 @@ body {
   list-style-type: square;
 }
 
+.widget-title-left .widget-title {
+  text-align: left;
+}
+
+.widget-title-center .widget-title {
+  text-align: center;
+}
+
+.widget-title-right .widget-title {
+  text-align: right;
+}
+
 /*--------------------------------------------------------------
 ## Gestylede inputs
 --------------------------------------------------------------*/

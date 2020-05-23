@@ -239,6 +239,7 @@ class Bootstrap {
 			'SIW\Page_Builder',
 			[
 				'Animation',
+				'Design',
 				'Layout',
 				'Visibility'
 			]

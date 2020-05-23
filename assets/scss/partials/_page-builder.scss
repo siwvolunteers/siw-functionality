@@ -15,9 +15,19 @@ body {
 	padding-right: calc(50vw - 50%);
 }
 
-.panel-layout .widget ul{
+.panel-layout .widget ul {
 	margin-left: 1em;
 	li {
 		list-style-type: square;
+	}
+}
+
+//Uitlijning van widget title
+$align-options: left, center, right;
+@each $align-option in $align-options {
+	.widget-title-#{$align-option} {
+		.widget-title {
+			text-align: $align-option;
+		}
 	}
 }
