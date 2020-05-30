@@ -318,7 +318,16 @@ class Elements {
 
 	public static function generate_feature( array $feature, array $attributes ) : string {
 		
-		//TODO: wp_parse_args van feature
+		$feature = wp_parse_args(
+			$feature,
+			[
+				'icon'     => '', //TODO: standaard icoon?
+				'title'    => '',
+				'content'  => '',
+				'add_link' => false,
+				'link_url' => '',
+			]
+		);
 
 		ob_start();
 		?>
