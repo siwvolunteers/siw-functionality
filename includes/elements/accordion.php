@@ -58,7 +58,7 @@ class Accordion {
 	protected function enqueue_scripts() {
 		wp_register_script( 'a11y-accordion', SIW_ASSETS_URL . 'modules/accordion/accordion.js', [], self::ACCORDION_VERSION, true );
 		wp_register_script( 'siw-accordion', SIW_ASSETS_URL . 'js/elements/siw-accordion.js', ['a11y-accordion'], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( 'siw-accordion');
+		wp_enqueue_script( 'siw-accordion' );
 	}
 
 	/**

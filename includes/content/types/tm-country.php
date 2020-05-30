@@ -279,33 +279,35 @@ class TM_Country extends Type {
 		</div>
 
 		<!-- Start stappenplan -->
-		<div class="grid-100 feature">
+		<div class="grid-100">
 			<h2><?php esc_html_e( 'Zo werkt het', 'siw' );?></h2>
 		</div>
-		
-		<div class="grid-25" style="text-align:center;">
-			<?php echo Elements::generate_icon('siw-icon-file-signature', 4, 'circle' );?><br>
-			<h3><?php esc_html_e( '1. Aanmelding', 'siw' ); ?></h3>
-			<p><?php esc_html_e( 'Ben je geïnteresseerd in een Project Op Maat? Meld je dan direct aan via de website.', 'siw' );?></p>
-		</div>
-		<div class="grid-25" style="text-align:center;">
-			<?php echo Elements::generate_icon('siw-icon-handshake', 4, 'circle' );?><br>
-			<h3><?php esc_html_e( '2. Kennismaking', 'siw' ); ?></h3>
-			<p><?php esc_html_e( 'Na het kennismakingsgesprek stelt de regiospecialist een selectie van drie Projecten Op Maat voor je samen.', 'siw' );?></p>
-		</div>
-		<div class="grid-25" style="text-align:center;">
-			<?php echo Elements::generate_icon('siw-icon-clipboard-check', 4, 'circle' );?><br>
-			<h3><?php esc_html_e( '3. Bevestiging', 'siw' ); ?></h3>
-			<p><?php esc_html_e( 'Als je een passend Project Op Maat hebt gekozen, volgt de betaling. Vervolgens gaat de regiospecialist voor je aan de slag.', 'siw' );?></p>
-		</div>
-		<div class="grid-25" style="text-align:center;">
-			<?php echo Elements::generate_icon('siw-icon-tasks', 4, 'circle' );?><br>
-			<h3><?php esc_html_e( '4. Voorbereiding', 'siw' ); ?></h3>
-			<p><?php esc_html_e( 'Kom naar de Infodag zodat je goed voorbereid aan jouw avontuur kan beginnen.', 'siw' );?></p>
-		</div>
-		<!-- Eind stappenplan -->
-
-	<?php
+		<?php
+		echo Elements::generate_features(
+			[
+				[
+					'icon'    => 'siw-icon-file-signature',
+					'title'   => '1. Aanmelding',
+					'content' => 'Ben je geïnteresseerd in een Project Op Maat? Meld je dan direct aan via de website.',
+				],
+				[
+					'icon'    => 'siw-icon-handshake',
+					'title'   => '2. Kennismaking',
+					'content' => 'Na het kennismakingsgesprek stelt de regiospecialist een selectie van drie Projecten Op Maat voor je samen.',
+				],
+				[
+					'icon'    => 'siw-icon-clipboard-check',
+					'title'   => '3. Bevestiging',
+					'content' => 'Als je een passend Project Op Maat hebt gekozen, volgt de betaling. Vervolgens gaat de regiospecialist voor je aan de slag.',
+				],
+				[
+					'icon'    => 'siw-icon-tasks',
+					'title'   => '4. Voorbereiding',
+					'content' => 'Kom naar de Infodag zodat je goed voorbereid aan jouw avontuur kan beginnen.',
+				],
+			],
+			4 //TODO:
+		);
 	}
 
 

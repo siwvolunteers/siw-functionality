@@ -19,7 +19,7 @@ class Archive {
 	public static function init() {
 		$self = new self();
 
-		add_action( 'woocommerce_after_shop_loop_item_title', [ $self, 'show_project_code_and_dates'] );
+		add_action( 'woocommerce_after_shop_loop_item_title', [ $self, 'show_dates'] );
 		add_action( 'woocommerce_after_shop_loop_item', [ $self, 'show_project_code'], 1 );
 
 		add_filter( 'the_seo_framework_the_archive_title', [ $self, 'set_seo_title'], 10, 2 );
@@ -33,16 +33,17 @@ class Archive {
 	}
 
 	/**
-	 * Toont projectcode en datums
+	 * Toont datums
 	 */
-	public function show_project_code_and_dates() {
+	public function show_dates() {
 		global $product;
 		$duration = Formatting::format_date_range( $product->get_attribute('startdatum'), $product->get_attribute('einddatum'), false );
-		//TODO: inline styling verplaatsen naar css
 		echo wpautop( esc_html( $duration ) );
 	}
 
-
+	/**
+	 * Toont projectcode
+	 */
 	public function show_project_code() {
 		global $product;
 		echo '<hr>';

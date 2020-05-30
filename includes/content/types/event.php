@@ -11,7 +11,7 @@ use SIW\HTML;
  * Evenementen
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.?
+ * @since     3.1.0
  */
 class Event extends Type {
 
@@ -116,11 +116,12 @@ class Event extends Type {
 						'id'       => 'name',
 						'name'     => __( 'Naam', 'siw' ),
 						'type'     => 'text',
+						'size'     => 100,
 						'required' => true,
 					],
 					[
 						'id'       => 'street',
-						'name'     => __( 'Adres', 'siw' ),
+						'name'     => __( 'Straat', 'siw' ),
 						'type'     => 'text',
 						'required' => true,
 						'binding'  => 'route'
@@ -186,20 +187,22 @@ class Event extends Type {
 						'name'     => __( 'Toelichting', 'siw' ),
 						'type'     => 'wysiwyg',
 					],
-
 					[
-						'id'       => 'link_url',
-						'name'     => __( 'Link om aan te melden', 'siw' ),
-						'type'     => 'url',
-						'size'     => 100,
+						'id'        => 'has_link',
+						'name'      => __( 'Heeft link', 'siw' ),
+						'type'      => 'switch',
+						'on_label'  => __( 'Ja', 'siw' ),
+						'off_label' => __( 'Nee', 'siw' ),
 					],
 					[
-						'id'       => 'link_text',
-						'name'     => __( 'Tekst voor link', 'siw' ),
-						'type'     => 'text',
-						'size'     => 100,
+						'id'        => 'url',
+						'name'      => __( 'Url', 'siw' ),
+						'type'      => 'url',
+						'visible'   => [ 'has_link', true ],
+						'required'  => true,
+						'size'      => 100,
 					],
-				],
+					],
 			],
 		];
 		return $meta_box_fields;
@@ -240,7 +243,7 @@ class Event extends Type {
 	 * {@inheritDoc}
 	 */
 	protected function get_seo_noindex( int $post_id ) {
-		return siw_meta( 'date', [], $post_id ) < date( 'Y-m-d' );
+		return siw_meta( 'event_date', [], $post_id ) < date( 'Y-m-d' );
 	}
 
 	/**
@@ -258,9 +261,7 @@ class Event extends Type {
 	 * {@inheritDoc}
 	 */
 	protected function generate_slug( array $data, array $postarr ) : string {
-		$date = $postarr['event_date'];
-		$slug = sanitize_title( sprintf( '%s %s', $data['post_title'], Formatting::format_date( $date ) ) );
-		return wp_unique_post_slug( $slug, $postarr['ID'], $data['post_status'], $data['post_type'], $data['post_parent'] );
+		return sprintf( '%s %s', $data['post_title'], Formatting::format_date( $postarr['event_date'] ) );
 	}
 	
 	/**
@@ -321,7 +322,12 @@ class Event extends Type {
 			echo do_shortcode( sprintf( '[caldera_form id="infodag" datum="%s"]', $default_date) );
 		}
 		else {
-			//TODO: aanmelden
+			$application = siw_meta( 'application' );
+			echo wp_kses_post( $application['explanation'] );
+			if ( $application['has_link'] ) {
+				echo HTML::generate_external_link( $application['url'] );
+
+			}
 		}
 
 		//Locatie kaart
@@ -346,11 +352,6 @@ class Event extends Type {
 	 */
 	public function add_archive_content() {
 		$event_date = siw_meta( 'event_date' );
-
-		
-		
-
-
 		?>
 		<div class="grid-20">
 			<span class="event-date">

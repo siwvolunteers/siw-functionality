@@ -39,7 +39,7 @@ class Visibility {
 	 * @param array $groups
 	 * @return array
 	 */
-	public function add_style_group( array $groups ) {
+	public function add_style_group( array $groups ) : array {
 		$groups['siw-visibility'] = [
 			'name'     => __( 'Zichtbaarheid', 'siw' ),
 			'priority' => 99,
@@ -53,7 +53,7 @@ class Visibility {
 	 * @param array $fields
 	 * @return array
 	 */
-	public function add_style_fields( array $fields ) {
+	public function add_style_fields( array $fields ) : array {
 		$fields['hide_on_mobile'] = [
 			'name'     => '<span class="dashicons dashicons-smartphone"></span>' . __( 'Mobiel', 'siw'),
 			'label'    => __( 'Verbergen', 'siw'),
@@ -86,7 +86,7 @@ class Visibility {
 	 * 
 	 * @return array
 	 */
-	public function add_style_attributes( array $style_attributes, array $style_args ) {
+	public function add_style_attributes( array $style_attributes, array $style_args ) : array {
 		if ( isset( $style_args['hide_on_mobile'] ) && 1 == $style_args['hide_on_mobile'] ) {
 			$style_attributes['class'][] = 'hide-on-mobile';
 		}

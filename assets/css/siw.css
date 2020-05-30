@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /**
  * siw.css
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
@@ -95,6 +96,18 @@ h2 > a:before, .footer-widgets a.link:before {
 h2 > a:hover:before, .footer-widgets a.link:hover:before {
   visibility: visible;
   transform: scaleX(1);
+}
+
+.siw-features {
+  text-align: center;
+}
+.siw-features .feature {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+.siw-features .feature .siw-icon {
+  margin-bottom: 10px;
 }
 
 /*--------------------------------------------------------------
@@ -333,21 +346,21 @@ body {
 .checkbox .checkmark::before, .checkbox-css .checkmark::before {
   content: "";
   display: inline-block;
-  height: 1.2em;
-  width: 1.2em;
+  height: 20px;
+  width: 20px;
   border: 1px solid #b9b9b9;
-  top: 0.1em;
+  top: 2px;
 }
 .checkbox .checkmark::after, .checkbox-css .checkmark::after {
   content: "";
   display: inline-block;
-  height: 0.4em;
-  width: 0.7em;
+  height: 8px;
+  width: 12px;
   border-left: 3px solid #ff9900;
   border-bottom: 3px solid #ff9900;
   transform: rotate(-45deg);
-  left: 0.3em;
-  top: 0.4em;
+  left: 4px;
+  top: 6px;
 }
 .checkbox input[type=checkbox] + .checkmark::after, .checkbox-css input[type=checkbox] + .checkmark::after {
   content: none;
@@ -356,52 +369,46 @@ body {
   content: "";
 }
 
-.radio, .radio-inline, .radio-css {
-  /*Outer-box*/
-  /*Checkmark*/
+.radio, .radio-inline {
   /*Hide the checkmark by default*/
   /*Unhide the checkmark on the checked state*/
 }
-.radio input[type=radio], .radio-inline input[type=radio], .radio-css input[type=radio] {
+.radio input[type=radio], .radio-inline input[type=radio] {
   position: absolute;
   z-index: -1;
   opacity: 0;
 }
-.radio .checkmark, .radio-inline .checkmark, .radio-css .checkmark {
+.radio .checkmark, .radio-inline .checkmark {
   position: relative;
-  margin-right: 2em;
+  margin-right: 25px;
   cursor: pointer;
 }
-.radio .checkmark::before, .radio .checkmark::after, .radio-inline .checkmark::before, .radio-inline .checkmark::after, .radio-css .checkmark::before, .radio-css .checkmark::after {
+.radio .checkmark::before, .radio .checkmark::after, .radio-inline .checkmark::before, .radio-inline .checkmark::after {
   position: absolute;
 }
-.radio .checkmark::before, .radio-inline .checkmark::before, .radio-css .checkmark::before {
+.radio .checkmark::before, .radio-inline .checkmark::before {
   content: "";
   display: inline-block;
-  height: 1.2em;
-  width: 1.2em;
+  height: 20px;
+  width: 20px;
   border: 1px solid #b9b9b9;
   border-radius: 50%;
+  top: 3px;
 }
-.radio .checkmark::after, .radio-inline .checkmark::after, .radio-css .checkmark::after {
+.radio .checkmark::after, .radio-inline .checkmark::after {
   content: "";
   display: inline-block;
-  height: 0.6em;
-  width: 0.6em;
+  height: 12px;
+  width: 12px;
   border-radius: 50%;
   background: #ff9900;
+  left: 4px;
+  top: 7px;
 }
-.radio .checkmark::before, .radio-inline .checkmark::before, .radio-css .checkmark::before {
-  top: 0.1em;
-}
-.radio .checkmark::after, .radio-inline .checkmark::after, .radio-css .checkmark::after {
-  left: 0.3em;
-  top: 0.4em;
-}
-.radio input[type=radio] + .checkmark::after, .radio-inline input[type=radio] + .checkmark::after, .radio-css input[type=radio] + .checkmark::after {
+.radio input[type=radio] + .checkmark::after, .radio-inline input[type=radio] + .checkmark::after {
   content: none;
 }
-.radio input[type=radio]:checked + .checkmark::after, .radio-inline input[type=radio]:checked + .checkmark::after, .radio-css input[type=radio]:checked + .checkmark::after {
+.radio input[type=radio]:checked + .checkmark::after, .radio-inline input[type=radio]:checked + .checkmark::after {
   content: "";
 }
 
@@ -622,18 +629,6 @@ body {
   color: inherit;
 }
 
-.so-widget-siw_features_widget {
-  text-align: center;
-}
-.so-widget-siw_features_widget .feature {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  padding: 10px;
-}
-.so-widget-siw_features_widget .feature .siw-icon {
-  margin-bottom: 10px;
-}
-
 .so-widget-siw_infobox_widget .header {
   display: inline-flex;
 }
@@ -702,6 +697,26 @@ body {
   color: #555;
 }
 
+ul.woocommerce-widget-layered-nav-list li:not(.chosen) a {
+  position: relative;
+}
+ul.woocommerce-widget-layered-nav-list li:not(.chosen) a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #59ab9c;
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out 0s;
+}
+ul.woocommerce-widget-layered-nav-list li:not(.chosen) a:hover:before {
+  visibility: visible;
+  transform: scaleX(1);
+}
+
 .woocommerce div.product .product_title {
   font-size: 30px;
   line-height: 40px;
@@ -719,9 +734,24 @@ body {
   color: #555;
   font-style: italic;
 }
-.woocommerce div.product .woocommerce-tabs ul.tabs li {
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li {
   border-width: 3px;
   border-color: #3f3f3f;
+  margin-bottom: 2px;
+  margin-right: 2px;
+  background-color: #fff;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li:first-child {
+  border-left-width: 3px;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li a:hover {
+  color: #3f3f3f;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li.active {
+  background-color: #3f3f3f;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li.active a {
+  color: #fff;
 }
 .woocommerce div.product .woocommerce-product-attributes {
   border-top: none;
@@ -736,12 +766,39 @@ body {
 .woocommerce-checkout .form-row-first, .woocommerce-checkout h3 {
   clear: left;
 }
+@media only screen and (max-width: 780px) {
+  .woocommerce-checkout form .form-row.form-row-first, .woocommerce-checkout form .form-row.form-row-last {
+    float: none;
+    width: 98%;
+  }
+}
 .woocommerce-checkout span.optional {
   display: none;
 }
-.woocommerce-checkout .radio-css label.radio-label {
+.woocommerce-checkout .radio-icon input[type=radio] {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.woocommerce-checkout .radio-icon label.radio-label {
   display: block;
 }
-.woocommerce-checkout .radio-css label.radio-label.radio {
+.woocommerce-checkout .radio-icon label.radio-label.radio {
   display: inline-block;
+  padding-right: 5px;
+}
+.woocommerce-checkout .radio-icon label.radio-label.radio:before {
+  font-family: WooCommerce;
+  padding-right: 5px;
+}
+.woocommerce-checkout .radio-icon input[type=radio] + label::before {
+  content: "";
+}
+.woocommerce-checkout .radio-icon input[type=radio]:checked + label::before {
+  content: "";
+}
+.woocommerce-checkout .country .woocommerce-input-wrapper {
+  display: block;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }

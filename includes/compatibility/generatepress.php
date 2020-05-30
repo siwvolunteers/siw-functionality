@@ -9,7 +9,7 @@ use SIW\Properties;
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  * @see       https://generatepress.com/
- * @since     3.1.?
+ * @since     3.1.0
  */
 class GeneratePress{ 
 
@@ -104,7 +104,7 @@ class GeneratePress{
 	 *
 	 * @return string
 	 */
-	public function set_404_title() {
+	public function set_404_title() : string {
 		return esc_html__( 'Pagina niet gevonden', 'siw');
 	}
 
@@ -113,7 +113,7 @@ class GeneratePress{
 	 *
 	 * @return string
 	 */
-	public function set_404_text() {
+	public function set_404_text() : string {
 		return esc_html__( 'Oeps! Helaas kunnen we de pagina die je zoekt niet vinden. Controleer of de spelling correct is en doe nog een poging via onderstaande zoekfunctie.', 'siw' );
 	}
 

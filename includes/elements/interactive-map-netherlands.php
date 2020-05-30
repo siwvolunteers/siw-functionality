@@ -61,6 +61,7 @@ class Interactive_Map_Netherlands extends Interactive_Map {
 	protected function get_locations() {
 		$projects = $this->get_projects();
 		$locations = [];
+		$provinces = [];
 		foreach ( $projects as $project ) {
 			$locations[] = [
 				'id'            => sanitize_title( $project->get_sku() ),

@@ -86,8 +86,7 @@ class Organisation extends Widget {
 			<?php echo $this->get_annual_reports(); ?>
 		</p>
 		<?php
-		$content = ob_get_clean();
-		return $content;
+		return ob_get_clean();
 	}
 
 	/**

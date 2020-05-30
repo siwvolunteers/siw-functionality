@@ -93,37 +93,29 @@ class Carousel {
 	 * 
 	 * @return string
 	 */
-	protected function get_responsive_class() {
+	protected function get_responsive_classes() : string {
+
+		$desktop_columns = $this->columns;
+		$mobile_columns = 1;
+
 		switch ( $this->columns ) {
 			case 1:
-				$column_size = 100;
-				$tablet_size = 100;
-				$mobile_size = 100;
+				$tablet_columns = 1;
 				break;
 			case 2:
-				$column_size = 50;
-				$tablet_size = 50;
-				$mobile_size = 100;
+				$tablet_columns = 2;
 				break;
 			case 3:
-				$column_size = 33;
-				$tablet_size = 50;
-				$mobile_size = 100;
+				$tablet_columns = 2;
 				break;
 			case 4:
-				$column_size = 25;
-				$tablet_size = 50;
-				$mobile_size = 100;
+				$tablet_columns = 2;
 				break;
 			default:
-				$column_size = 100;
-				$tablet_size = 100;
-				$mobile_size = 100;
-		}
-		$class = CSS::generate_responsive_class( $column_size, $tablet_size, $mobile_size );
-		return $class;
+				$tablet_columns = 1;
+			}
+		return CSS::generate_responsive_classes( $desktop_columns, $tablet_columns, $mobile_columns );
 	}
-
 
 	/**
 	 * Zet post type voor carousel
@@ -197,7 +189,7 @@ class Carousel {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				?>
-				<div class="<?php echo esc_attr( $this->get_responsive_class() );?> carousel-cell">
+				<div class="<?php echo esc_attr( $this->get_responsive_classes() );?> carousel-cell">
 					<?php include( $this->get_template() );?>
 				</div>
 				<?php

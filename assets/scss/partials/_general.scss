@@ -93,3 +93,18 @@ h2 > a, .footer-widgets a.link{
 		transform: scaleX(1);
 	}
 }
+
+
+//Features
+.siw-features {
+	text-align:center;
+	.feature {
+		margin-top: 5px;
+		margin-bottom: 5px;
+		padding: 10px;
+
+		.siw-icon{
+			margin-bottom: 10px;
+		}
+	}
+}

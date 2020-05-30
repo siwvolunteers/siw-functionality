@@ -4,6 +4,7 @@
  * Functies m.b.t. opties
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  */
 
 use SIW\Core\Options;

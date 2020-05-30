@@ -106,12 +106,12 @@
 		font-size: calc(1em + 3vw);
 		line-height: 1em;
 		font-weight: bold;
-		padding-top:20px;
-		padding-bottom:20px;
+		padding-top: 20px;
+		padding-bottom: 20px;
 		text-shadow: 1px 1px $font-color;
 	}
 	.button {
-		text-align:center;
+		text-align: center;
 	}
 }
 
@@ -120,7 +120,7 @@
 	padding: 25px;
 	background: #fff;
 	box-shadow: $box-shadow-overlay;
-	.footer-widgets &{
+	.footer-widgets & {
 		padding: inherit;
 		background: inherit;
 		box-shadow: none;
@@ -145,20 +145,6 @@
 					color: inherit;
 				}
 			}
-		}
-	}
-}
-
-//Features
-.so-widget-siw_features_widget {
-	text-align:center;
-	.feature {
-		margin-top: 5px;
-		margin-bottom: 5px;
-		padding: 10px;
-
-		.siw-icon{
-			margin-bottom: 10px;
 		}
 	}
 }

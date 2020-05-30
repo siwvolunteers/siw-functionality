@@ -81,7 +81,7 @@ class Animation {
 	 *
 	 * @return array
 	 */
-	public static function get_duration_options() {
+	public static function get_duration_options() : array {
 		for ( $t = 200; $t <= 2000; $t+=50 ) {
 			$durations[ $t ] = sprintf( __( '%d ms', 'siw' ), $t );
 		}
@@ -93,7 +93,7 @@ class Animation {
 	 *
 	 * @return array
 	 */
-	public static function get_delay_options() {
+	public static function get_delay_options() : array {
 		$delays['none'] = __( 'Geen', 'siw' );
 		for ( $t = 100; $t <= 1000; $t+=50 ) {
 			$delays[ $t ] = sprintf( __( '%d ms', 'siw' ), $t );
@@ -106,7 +106,7 @@ class Animation {
 	 *
 	 * @return array
 	 */
-	public static function get_easing_options() {
+	public static function get_easing_options() : array {
 		$easings = [
 			'linear'            => 'linear',
 			'ease'              => 'ease',
@@ -146,7 +146,7 @@ class Animation {
 	 *
 	 * @return array
 	 */
-	public static function get_types() {
+	public static function get_types() : array {
 		$types = [
 			'fade'        => __( 'Fade', 'siw' ),
 			'slide-up'    => __( 'Slide up', 'siw' ),
@@ -162,5 +162,4 @@ class Animation {
 		];
 		return $types;
 	}
-
 }

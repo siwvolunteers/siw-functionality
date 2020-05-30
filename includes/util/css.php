@@ -13,23 +13,50 @@ class CSS {
 	/**
 	 * Genereert reponsive classes
 	 *
-	 * @param int $column_size
+	 * @param int $desktop_columns
 	 * @param int $tablet_size
 	 * @param int $mobile_size
 	 * @return string
 	 */
-	public static function generate_responsive_class( int $column_size, int $tablet_size = null, int $mobile_size = null ) {
-		
-		$class = "grid-{$column_size}";
-
-		if ( null !== $tablet_size ) {
-			$class .= SPACE . "tablet-grid-{$tablet_size}";
+	public static function generate_responsive_classes( int $desktop_columns, int $tablet_columns = null, int $mobile_columns = null ) : string {
+		$classes[] = 'grid-'. self::columns_to_grid_width( $desktop_columns );
+		if ( null !== $tablet_columns ) {
+			$classes[] = 'tablet-grid-'. self::columns_to_grid_width( $tablet_columns );
 		}
-
-		if ( null !== $mobile_size  ) {
-			$class .= SPACE . "mobile-grid-{$mobile_size}";
+		if ( null !== $mobile_columns  ) {
+			$classes[] = 'mobile-grid-'. self::columns_to_grid_width( $mobile_columns );
 		}
-		return $class;
+		return implode( SPACE, $classes );
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @param int $column_count
+	 *
+	 * @return int
+	 */
+	public static function columns_to_grid_width( int $columns ) : int {
+		switch ( $columns ) {
+			case 1:
+				$grid_width = 100;
+				break;
+			case 2:
+				$grid_width = 50;
+				break;
+			case 3:
+				$grid_width = 33;
+				break;
+			case 4:
+				$grid_width = 25;
+				break;
+			case 5:
+				$grid_width = 20;
+				break;
+			default:
+				$grid_width = 100;
+		}
+		return $grid_width;
 	}
 
 	/**
@@ -56,7 +83,6 @@ class CSS {
 			foreach ( $media_query as $property => $value ) {
 				$rendered_media_query .= sprintf( ' and (%s)', safecss_filter_attr( sprintf( '%s:%s;', $property, $value ) ) );
 			}
-
 			$css = $rendered_media_query . '{' . $css . '}';
 		}
 		return $css;

@@ -1,14 +1,14 @@
-.siw-tablist [role=tablist] {
+.siw-tablist ul[role=tablist] {
   list-style-type: none;
   margin: 0 auto;
   padding: 0;
 }
-.siw-tablist [role=tablist]:after {
+.siw-tablist ul[role=tablist]:after {
   clear: both;
   content: "";
   display: table;
 }
-.siw-tablist [role=tablist] [role=tab] {
+.siw-tablist ul[role=tablist] li[role=tab] {
   border: solid 3px #3f3f3f;
   padding: 10px;
   float: left;
@@ -18,7 +18,7 @@
   cursor: pointer;
   list-style-type: none;
 }
-.siw-tablist [role=tablist] [role=tab][aria-selected=true] {
+.siw-tablist ul[role=tablist] li[role=tab][aria-selected=true] {
   background-color: #3f3f3f;
   color: #fff;
 }

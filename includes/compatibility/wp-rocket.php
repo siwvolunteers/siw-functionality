@@ -48,7 +48,7 @@ class WP_Rocket {
 	 *
 	 * @return string
 	 */
-	public function set_youtube_thumbnail_resolution() {
+	public function set_youtube_thumbnail_resolution() : string {
 		return self::YOUTUBE_THUMBNAIL_RESOLUTION;
 	}
 
@@ -57,7 +57,7 @@ class WP_Rocket {
 	 *
 	 * @return int
 	 */
-	public function set_nonce_life() {
+	public function set_nonce_life() : int {
 		return 2 * DAY_IN_SECONDS;
 	}
 }

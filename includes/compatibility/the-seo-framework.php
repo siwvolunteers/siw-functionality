@@ -94,7 +94,7 @@ class The_SEO_Framework {
 	 *
 	 * @return string
 	 */
-	public function set_sitemap_color_accent() {
+	public function set_sitemap_color_accent() : string {
 		return Properties::FONT_COLOR;
 	}
 
@@ -103,7 +103,7 @@ class The_SEO_Framework {
 	 *
 	 * @return int
 	 */
-	public function set_sitemap_post_limit() {
+	public function set_sitemap_post_limit() : int {
 		return self::SITEMAP_POST_LIMIT;
 	}
 
@@ -113,7 +113,7 @@ class The_SEO_Framework {
 	 * @param string $output
 	 * @return string
 	 */
-	public function set_robots_txt( string $output ) {
+	public function set_robots_txt( string $output ) : string {
 		$bots = siw_get_option( 'blocked_bots');
 
 		if ( empty( $bots ) ) {
@@ -151,7 +151,7 @@ class The_SEO_Framework {
 	 * 
 	 * @return array
 	 */
-	public function set_sitemap_additional_urls( array $custom_urls ) {
+	public function set_sitemap_additional_urls( array $custom_urls ) : array {
 		
 		if ( ! i18n::is_default_language() ) {
 			return $custom_urls;

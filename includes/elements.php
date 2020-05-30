@@ -6,6 +6,7 @@ use SIW\HTML;
 use SIW\Elements\Accordion;
 use SIW\Elements\Tablist;
 use SIW\Elements\Modal;
+use SIW\Util\CSS;
 
 /**
  * Functies om Elements te genereren
@@ -260,7 +261,7 @@ class Elements {
 	 *
 	 * @return array
 	 */
-	public static function get_interactive_maps() {
+	public static function get_interactive_maps() : array {
 		$maps = [
 			[
 				'id'    => 'nl',
@@ -288,7 +289,7 @@ class Elements {
 	 *
 	 * @return string
 	 */
-	public static function generate_interactive_map( string $id ) {
+	public static function generate_interactive_map( string $id ) : string {
 		$maps = wp_list_pluck( self::get_interactive_maps(), 'class', 'id' );
 
 		if ( ! isset( $maps[ $id ] ) ) {
@@ -297,6 +298,43 @@ class Elements {
 		$class = "\SIW\Elements\Interactive_Map_{$maps[ $id ]}";
 		$map = new $class;
 		return $map->generate();
+	}
+
+
+	public static function generate_features( array $features, int $columns ) : string {
+		$output = '<div class="grid-container siw-features">';
+		foreach ( $features as $feature ) {
+			$output .= self::generate_feature(
+				$feature,
+				[
+					'class' => CSS::generate_responsive_classes( $columns ) . ' feature',
+				]
+			);
+		}
+		$output .= '</div>';
+		return $output;
+	}
+
+
+	public static function generate_feature( array $feature, array $attributes ) : string {
+		
+		//TODO: wp_parse_args van feature
+
+		ob_start();
+		?>
+		<div <?php HTML::render_attributes( $attributes);?>>
+			<?php echo Elements::generate_icon( $feature['icon'], 4, 'circle' );?>
+			<br>
+			<h3><?php echo esc_html( $feature['title'] ); ?></h3>
+			<?php echo wpautop( wp_kses_post( $feature['content'] ) );?>
+			<?php 
+			if ( $feature['add_link'] ) {
+				echo HTML::generate_link( $feature['link_url'], __( 'Lees meer', 'siw' ), [ 'class' => 'button ghost'] );
+			}
+			?>
+		</div>
+		<?php
+		return ob_get_clean();
 	}
 
 }

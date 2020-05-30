@@ -59,7 +59,7 @@ class WP_Sentry_Integration {
 	 * @param array $excluded_files
 	 * @return array
 	 */
-	public function exclude_js_from_combine( array $excluded_files ) {
+	public function exclude_js_from_combine( array $excluded_files ) : array {
 		$excluded_files[] = '/wp-content/plugins/wp-sentry-integration/public/(.*).js';
 		return $excluded_files;
 	}

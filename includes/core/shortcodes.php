@@ -205,7 +205,7 @@ class Shortcodes {
 	public static function render_volgende_infodag() {
 		$info_days = siw_get_upcoming_info_days( 1 );
 		if ( empty( $info_days ) ) {
-			return __( 'Nog niet bekend', 'siw' );
+			return __( 'nog niet bekend', 'siw' );
 		}
 		$date = siw_meta( 'event_date', [], reset( $info_days ) );
 		return Formatting::format_date( $date, true );

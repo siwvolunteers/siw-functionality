@@ -219,7 +219,6 @@ class Bootstrap {
 			[
 				'Delete_Applications',
 				'Delete_Old_Posts',
-				'Delete_Workcamps',
 				'Import_Dutch_Workcamps',
 				'Import_Workcamps',
 				'Send_Workcamp_Approval_Emails',

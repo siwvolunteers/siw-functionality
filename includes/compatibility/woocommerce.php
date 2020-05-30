@@ -47,7 +47,6 @@ class WooCommerce {
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
 		add_filter( 'product_type_selector', [ $self, 'disable_product_types'] );
 		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_project_id_search' ], 10, 2 );
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_max_start_date_search' ], 10, 2 );
 		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_country_search' ], 10, 2 );
 		add_filter( 'woocommerce_product_visibility_options', [ $self, 'remove_product_visibility_options', ] );
 		add_filter( 'woocommerce_products_admin_list_table_filters', [ $self, 'remove_products_admin_list_table_filters'] );
@@ -204,24 +203,6 @@ class WooCommerce {
 	}
 	
 	/**
-	 * Voegt maximum startdatum als argument toe aan WC queries
-	 *
-	 * @param array $query
-	 * @param array $query_vars
-	 * @return array
-	 */
-	public function enable_max_start_date_search( array $query, array $query_vars ) {
-		if ( ! empty( $query_vars['max_start_date'] ) ) {
-			$query['meta_query'][] = [
-				'key'     => 'start_date',
-				'value'   => esc_attr( $query_vars['max_start_date'] ),
-				'compare' => '<',
-			];
-		}
-		return $query;
-	}
-
-	/**
 	 * Voegt country argument toe aan WC queries
 	 *
 	 * @param array $query
@@ -290,7 +271,7 @@ class WooCommerce {
 	}
 
 	/**
-	 * Undocumented function
+	 * Verwijdert link bij productafbeelding
 	 *
 	 * @param string $html
 	 *

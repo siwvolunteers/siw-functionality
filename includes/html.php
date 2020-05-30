@@ -205,7 +205,7 @@ class HTML {
 	 * @param array $attributes
 	 * @return string
 	 */
-	public static function generate_attributes( array $attributes ) {
+	public static function generate_attributes( array $attributes ) : string {
 		$rendered_attributes = '';
 		foreach ( $attributes as $key => $value ) {
 			if ( false == $value ) {
@@ -222,6 +222,16 @@ class HTML {
 		}
 		return $rendered_attributes;
 	}
+
+	/**
+	 * Rendert attributes op basis van array
+	 *
+	 * @param array $attributes
+	 */
+	public static function render_attributes( array $attributes ) {
+		echo self::generate_attributes( $attributes );
+	}
+
 
 	/**
 	 * Genereert form field

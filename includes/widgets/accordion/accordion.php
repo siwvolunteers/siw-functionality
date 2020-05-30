@@ -104,7 +104,6 @@ class Accordion extends Widget {
 	 * {@inheritDoc}
 	 */
 	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
-		$content = Elements::generate_accordion( $instance['panes']);
-		return $content;
+		return Elements::generate_accordion( $instance['panes'] );
 	}
 }

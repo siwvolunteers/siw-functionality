@@ -104,7 +104,6 @@ class Tabs extends Widget {
 	 * {@inheritDoc}
 	 */
 	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
-		$content = Elements::generate_tabs( $instance['panes'] );
-		return $content;
+		return Elements::generate_tabs( $instance['panes'] );
 	}
 }

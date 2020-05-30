@@ -8,6 +8,7 @@ use SIW\WooCommerce\Import\Product_Image;
 /**
  * Proces om Groepsprojecten bij te werken
  * 
+ * - Oude projecten verwijderen
  * - Tarieven
  * - Zichtbaarheid
  * - Stockfoto's
@@ -16,6 +17,11 @@ use SIW\WooCommerce\Import\Product_Image;
  * @since     3.1.?
  */
 class Update_Workcamps extends Job {
+
+	/**
+	 * Aantal maanden voordat Groepsproject verwijderd wordt.
+	 */
+	const MAX_AGE_WORKCAMP = 6;
 
 	/**
 	 * Minimaal aantal dagen dat project in toekomst moet starten om zichtbaar te zijn
@@ -38,6 +44,27 @@ class Update_Workcamps extends Job {
 	 * {@inheritDoc}
 	 */
 	protected $category = 'groepsprojecten';
+
+	/**
+	 * Product
+	 *
+	 * @var \WC_Product
+	 */
+	protected $product;
+
+	/**
+	 * Is het project bijgewerkt?
+	 *
+	 * @var bool
+	 */
+	protected $updated;
+
+	/**
+	 * Is het project verwijderd?
+	 *
+	 * @var bool
+	 */
+	protected $deleted;
 
 	/**
 	 * Selecteer alle projecten
@@ -70,7 +97,7 @@ class Update_Workcamps extends Job {
 		$this->updated = false;
 		$this->deleted = false;
 
-		//TODO: delete oude producten
+		//delete oude producten
 		$this->maybe_delete_project();
 
 		//Als het project verwijderd is, is de rest niet meer nodig
@@ -80,13 +107,13 @@ class Update_Workcamps extends Job {
 		}
 
 		//Bijwerken tarieven
-		$this->update_tariffs();
+		$this->maybe_update_tariffs();
 
 		//Bijwerken zichtbaarheid
-		$this->update_visibility();
+		$this->maybe_update_visibility();
 
 		//Bijwerken stockfoto
-		$this->update_stockphoto();
+		$this->maybe_set_stockphoto();
 
 		if ( $this->updated ) {
 			$this->increment_processed_count();
@@ -97,7 +124,7 @@ class Update_Workcamps extends Job {
 	/**
 	 * Bijwerken tarieven
 	 */
-	protected function update_tariffs() {
+	protected function maybe_update_tariffs() {
 		if ( $this->product->get_meta( 'has_custom_tariff' ) ) {
 			return;
 		}
@@ -138,7 +165,7 @@ class Update_Workcamps extends Job {
 	 * - Er vrije plaatsen zijn
 	 * - Het project niet afgekeurd is
 	 */
-	protected function update_visibility() {
+	protected function maybe_update_visibility() {
 		$country = siw_get_country( $this->product->get_meta( 'country' ) );
 
 		$new_visibility = 'visible';
@@ -169,7 +196,7 @@ class Update_Workcamps extends Job {
 	/**
 	 * Probeer stockfoto toe te wijzen aan project
 	 */
-	protected function update_stockphoto() {
+	protected function maybe_set_stockphoto() {
 
 		//Afbreken als het project al een afbeelding heeft
 		if ( $this->product->get_image_id() ) {
@@ -203,8 +230,49 @@ class Update_Workcamps extends Job {
 		}
 	}
 
+	/**
+	 * Oude projecten verwijderen
+	 */
 	protected function maybe_delete_project() {
+		
+		$start_date = $this->product->get_meta( 'start_date');
+		$min_date = date( 'Y-m-d', time() - ( self::MAX_AGE_WORKCAMP * MONTH_IN_SECONDS ) );
 
+		//Afbreken als project nog niet oud genoeg is
+		if ( $start_date > $min_date ) {
+			return;
+		}
+		
+		//Verwijder projectspecifieke afbeeldingen
+		$project_images = get_posts([
+			'post_type'   => 'attachment',
+			'post_status' => 'inherit',
+			'fields'      => 'ids',
+			'meta_query'  => [
+				[
+					'key'     => 'plato_project_id',
+					'value'   => $this->product->get_meta('project_id'),
+					'compare' => '='
+				],
+			],
+		]);
+		foreach ( $project_images as $project_image ) {
+			wp_delete_attachment( $project_image, true );
+		}
+
+		//Verwijder alle variaties
+		$variations = $this->product->get_children();
+		foreach ( $variations as $variation_id ) {
+			$variation = wc_get_product( $variation_id );
+			if ( false == $variation ) {
+				continue;
+			}
+			$variation->delete( true );
+		}
+
+		//Verwijder het product zelf
+		$this->product->delete( true );
+		$this->deleted = true;
 	}
 
 }

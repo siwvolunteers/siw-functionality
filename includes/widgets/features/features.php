@@ -120,45 +120,15 @@ class Features extends Widget {
 
 		$columns = $instance['columns'];
 		$rows = array_chunk( $instance['features'], $columns );
-
-		switch ( $columns ) {
-			case 4:
-				$class = 'grid-25';
-				break;
-			case 3:
-				$class = 'grid-33 ';
-				break;
-			case 2:
-				$class = 'grid-50';
-				break;
-			case 1:
-			default:
-				$class = 'grid-100';
-		}
-
 		ob_start();
 		?>
 		<?php
 		if ( isset( $instance['intro'] ) ) {
 			echo wp_kses_post( $instance['intro'] );
 		}
-		foreach ( $rows as $row ) : ?>
-			<div class="grid-container">
-				<?php foreach ( $row as $feature ) : ?>
-				<div class="<?= esc_attr( $class ); ?> feature">
-					<?php echo Elements::generate_icon( $feature['icon'], 4, 'circle');?>
-					<h3><?php echo esc_html( $feature['title'] );?></h3>
-					<?php echo wpautop( wp_kses_post( $feature['content'] ) );?>
-					<?php 
-					if ( $feature['add_link'] ) {
-						echo HTML::generate_link( $feature['link_url'], __( 'Lees meer', 'siw' ), [ 'class' => 'button ghost'] );
-					}
-					?>
-				</div>
-				<?php endforeach ?>
-			</div>
-		<?php endforeach;
-		$content = ob_get_clean();
-		return $content;
+		foreach ( $rows as $row ) {
+			echo Elements::generate_features( $row, $columns );
+		}
+		return ob_get_clean();
 	}
 }

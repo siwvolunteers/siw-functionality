@@ -113,7 +113,6 @@ class Contact extends Widget {
 		</div>
 		<?php
 
-		$html_content = ob_get_clean();
-		return $html_content;
+		return ob_get_clean();
 	}
 }

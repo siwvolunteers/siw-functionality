@@ -53,11 +53,6 @@ class Job_Posting extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $admin_active_post_count = true;
-
-	/**
-	 * {@inheritDoc}
-	 */
 	public function get_meta_box_fields() {
 		$hr_manager = siw_get_option( 'hr_manager');
 		//TODO: verplaatsen naar options?
@@ -288,14 +283,6 @@ class Job_Posting extends Type {
 			'compare' => '>'
 		];
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function get_active_post_count() : int {
-		return 1;
-	}
-
 
 	/**
 	 * {@inheritDoc}

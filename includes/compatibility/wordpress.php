@@ -99,7 +99,7 @@ class WordPress {
 	 * 
 	 * @return array
 	 */
-	public function set_oembed_response_data( array $data ) {
+	public function set_oembed_response_data( array $data ) : array {
 		$data['author_name'] = Properties::NAME;
 		$data['author_url'] = SIW_SITE_URL;
 		return $data;
@@ -118,7 +118,7 @@ class WordPress {
 	 * @param array $query
 	 * @return array
 	 */
-	public function remove_core_version_check_query_args( array $query ) {
+	public function remove_core_version_check_query_args( array $query ) : array {
 		unset( $query['local_package'] );
 		unset( $query['blogs'] );
 		unset( $query['users'] );
@@ -147,7 +147,7 @@ class WordPress {
 	 *
 	 * @return string
 	 */
-	public function set_default_editor() {
+	public function set_default_editor() : string {
 		return self::DEFAULT_EDITOR;
 	}
 
@@ -156,7 +156,7 @@ class WordPress {
 	 * 
 	 * @return string
 	 */
-	public function set_http_headers_useragent() {
+	public function set_http_headers_useragent() : string {
 		return Properties::NAME;
 	}
 
@@ -165,7 +165,7 @@ class WordPress {
 	 *
 	 * @return int
 	 */
-	public function set_big_image_size_threshold() {
+	public function set_big_image_size_threshold() : int {
 		return Properties::MAX_IMAGE_SIZE;;
 	}
 
@@ -176,7 +176,7 @@ class WordPress {
 	 * 
 	 * @return array
 	 */
-	public function remove_update_check( array $tests ) {
+	public function remove_update_check( array $tests ) : array {
 		unset( $tests['async']['background_updates'] );
 		return $tests;
 	}
@@ -188,7 +188,7 @@ class WordPress {
 	 *
 	 * @return array
 	 */
-	public function add_allowed_css_attributes( array $attributes ) {
+	public function add_allowed_css_attributes( array $attributes ) : array {
 		$attributes[] = 'fill';
 		$attributes[] = 'opacity';
 		$attributes[] = 'transform';
@@ -206,7 +206,7 @@ class WordPress {
 	 *
 	 * @return string
 	 */
-	public function fix_youtube_embed( string $cache ) {
+	public function fix_youtube_embed( string $cache ) : string {
 	
 		$regex = '/<iframe[^>]*(?<=src=")(https:\/\/www\.youtube\.com\/embed.*?)(?=[\"])/m';
 
@@ -235,7 +235,7 @@ class WordPress {
 	 *
 	 * @return void
 	 */
-	public function manage_media_columns( array $columns, bool $detached ) {
+	public function manage_media_columns( array $columns, bool $detached ) : array {
 		unset( $columns['author']);
 		unset( $columns['comments']);
 		return $columns;

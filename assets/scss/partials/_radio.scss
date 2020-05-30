@@ -1,4 +1,4 @@
-.radio, .radio-inline, .radio-css {
+.radio, .radio-inline {
 	input[type="radio"] {
 		position: absolute;
 		z-index: -1;
@@ -6,7 +6,7 @@
 	}
 	.checkmark {
 		position: relative;
-		margin-right: 2em;
+		margin-right: 25px;
 		cursor: pointer;
 
 		&::before,
@@ -17,31 +17,24 @@
 		&::before {
 			content: "";
 			display: inline-block;
-			height: 1.2em;
-			width: 1.2em;
+			height: 20px;
+			width: 20px;
 			border: 1px solid #b9b9b9;
 			border-radius:50%;
+			top: 3px;
 		}
 
 		&::after {
 			content: "";
 			display: inline-block;
-			height: 0.6em;
-			width: 0.6em;
+			height: 12px;
+			width: 12px;
 			border-radius:50%;
 			background: $primary-color;
+			left: 4px;
+			top: 7px;
 		}
 
-	}
-
-	/*Outer-box*/
-	.checkmark::before {
-		top: 0.1em;
-	}
-	/*Checkmark*/
-	.checkmark::after {
-		left: 0.3em;
-		top: 0.4em;
 	}
 
 	/*Hide the checkmark by default*/

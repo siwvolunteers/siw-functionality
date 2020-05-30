@@ -46,7 +46,7 @@ class Archive_Header {
 		?>
 		<div class="grid-container">
 			<div class="siw-archive-intro">
-					<?php echo wp_kses_post( $text ); ?>
+				<?php echo wp_kses_post( $text ); ?>
 			</div>
 		</div>
 		

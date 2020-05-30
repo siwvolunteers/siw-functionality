@@ -102,16 +102,6 @@ class Util {
 	}
 
 	/**
-	 * Converteert timestamp met tijdzone naar timestamp in GMT
-	 *
-	 * @param int $timestamp
-	 * @return int
-	 */
-	public static function convert_timestamp_to_gmt( int $timestamp ) {
-		return strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $timestamp ) ) . ' GMT' );
-	}
-
-	/**
 	 * Geeft aan of kortingsactie voor Groepsprojecten actief is
 	 *
 	 * @return bool
@@ -191,7 +181,7 @@ class Util {
 
 		//Eventueel volgorde zetten
 		if ( null != $order ) {
-			update_term_meta( $new_term['term_id'], "order_pa_{$taxonomy}", $order ); 
+			update_term_meta( $new_term['term_id'], "order", $order );
 		}
 
 		return $new_term['term_id'];

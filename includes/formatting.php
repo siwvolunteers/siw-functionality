@@ -144,8 +144,8 @@ class Formatting {
 
 		return sprintf(
 			__( '%s t/m %s', 'siw' ),
-			date_i18n( $format_start, strtotime( $date_start ) ),
-			date_i18n( $format_end, strtotime( $date_end ) )
+			wp_date( $format_start, strtotime( $date_start ) ),
+			wp_date( $format_end, strtotime( $date_end ) )
 		);
 	}
 
@@ -157,9 +157,9 @@ class Formatting {
 	 *
 	 * @return string
 	 */
-	public static function format_month( $date, $year = true ) {
+	public static function format_month( $date, $year = true ) : string {
 		$format = $year ? 'F Y' :  'F';
-		return date_i18n( $format, strtotime( $date ) );
+		return wp_date( $format, strtotime( $date ) );
 	}
 
 	/**
@@ -182,7 +182,7 @@ class Formatting {
 	 *
 	 * @return string
 	 */
-	public static function format_month_range( string $date_start, string $date_end, bool $year = true ) {
+	public static function format_month_range( string $date_start, string $date_end, bool $year = true ) : string {
 
 		$date_start_array = date_parse( $date_start );
 		$date_end_array = date_parse( $date_end );
@@ -201,8 +201,8 @@ class Formatting {
 
 		return sprintf(
 			__( '%s t/m %s', 'siw' ),
-			date_i18n( $format_start, strtotime( $date_start ) ),
-			date_i18n( $format_end, strtotime( $date_end ) )
+			wp_date( $format_start, strtotime( $date_start ) ),
+			wp_date( $format_end, strtotime( $date_end ) )
 		);
 	}
 
@@ -214,7 +214,7 @@ class Formatting {
 	 * 
 	 * @return string
 	 */
-	public static function format_local_fee( float $fee, string $currency_code ) {
+	public static function format_local_fee( float $fee, string $currency_code ) : string {
 		if ( 0.0 === $fee || ! is_string( $currency_code ) ) {
 			return '';
 		}
@@ -240,7 +240,7 @@ class Formatting {
 	 * 
 	 * @return string
 	 */
-	public static function format_number_of_volunteers( int $total, int $male, int $female ) {
+	public static function format_number_of_volunteers( int $total, int $male, int $female ) : string {
 
 		$male_label = ( 1 == $male ) ? 'man' : 'mannen';
 		$female_label = ( 1 == $female ) ? 'vrouw' : 'vrouwen';
@@ -262,7 +262,7 @@ class Formatting {
 	 * 
 	 * @return string
 	 */
-	public static function format_age_range( int $min_age, int $max_age ) {
+	public static function format_age_range( int $min_age, int $max_age ) : string {
 		if ( $min_age < 1 ) {
 			$min_age = 18;
 		}

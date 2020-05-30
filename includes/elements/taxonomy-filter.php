@@ -70,6 +70,13 @@ class Taxonomy_Filter {
 		$terms = get_terms( [
 			'taxonomy'   => $taxonomy,
 			'hide_empty' => true,
+			'meta_query' => [
+				[
+					'key'     => 'post_count',
+					'value'   => 0,
+					'compare' => '>',
+				],
+			]
 		] );
 		return $terms;
 	}

@@ -2,8 +2,6 @@
 
 namespace SIW\Core;
 
-use SIW\Util;
-
 /**
  * Scheduler voor cron jobs
  * 
@@ -79,7 +77,7 @@ class Scheduler {
 	 * Plant jobs in
 	 */
 	protected function schedule_jobs() {
-		$timestamp = Util::convert_timestamp_to_gmt( strtotime( 'tomorrow ' . self::TS_SCHEDULED_JOBS ) );
+		$timestamp = strtotime( 'tomorrow ' . self::TS_SCHEDULED_JOBS . wp_timezone_string() );
 		foreach ( self::$jobs as $index => $job ) {
 			wp_schedule_event( $timestamp + ( $index * self::CRON_JOB_INTERVAL * MINUTE_IN_SECONDS ), 'daily', $job );
 		}
@@ -90,24 +88,24 @@ class Scheduler {
 	 * Plant updaten van vrije plaatsen in
 	 */
 	protected function schedule_update_free_places() {
-		$new_timestamp = Util::convert_timestamp_to_gmt( strtotime( 'tomorrow ' . self::TS_UPDATE_FREE_PLACES ) );
+		$new_timestamp = strtotime( 'tomorrow ' . self::TS_UPDATE_FREE_PLACES . wp_timezone_string() );
 
 		if ( wp_next_scheduled( 'siw_update_free_places' ) ) {
 			wp_clear_scheduled_hook( 'siw_update_free_places' );
 		}
 
-		wp_schedule_event( $new_timestamp, 'daily', 'siw_update_free_places' );	
+		wp_schedule_event( $new_timestamp, 'daily', 'siw_update_free_places' );
 	}
 
 	/**
 	 * Plant update van groepsprojecten in
 	 */
 	protected function schedule_update_projects() {
-		$new_timestamp = Util::convert_timestamp_to_gmt( strtotime( 'tomorrow ' . self::TS_IMPORT_PROJECTS ) );
+		$new_timestamp = strtotime( 'tomorrow ' . self::TS_IMPORT_PROJECTS . wp_timezone_string() );
 		if ( wp_next_scheduled( 'siw_import_workcamps' ) ) {
 			wp_clear_scheduled_hook( 'siw_import_workcamps' );
 		}
-		wp_schedule_event( $new_timestamp, 'daily', 'siw_import_workcamps' );		
+		wp_schedule_event( $new_timestamp, 'daily', 'siw_import_workcamps' );
 	}
 
 	/**
@@ -136,7 +134,7 @@ class Scheduler {
 	 * 
 	 * @return array
 	 */
-	protected function get_scheduled_jobs() {
+	protected function get_scheduled_jobs() : array {
 		return (array) get_option( self::OPTION_NAME );
 	}
 

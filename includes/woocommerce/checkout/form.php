@@ -108,8 +108,7 @@ class Form{
 	 */
 	public function add_form_field_classes( array $args ) {
 		if ( $args['type'] == 'radio' ) {
-			$args['class'][] = 'radio-css';
-			$args['label_class'][] = 'checkmark';
+			$args['class'][] = 'radio-icon';
 		}
 		if ( $args['type'] == 'checkbox' ) {
 			$args['class'][] = 'checkbox-css';

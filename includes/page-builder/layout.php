@@ -29,7 +29,7 @@ class Layout {
 	 * 
 	 * @return array
 	 */
-	public function add_row_style_fields( array $fields ) {
+	public function add_row_style_fields( array $fields ) : array {
 		unset( $fields['row_stretch']);
 		$fields['siw_row_stretch'] = [
 			'name'     => __( 'Rij lay-out', 'siw' ),
@@ -53,7 +53,7 @@ class Layout {
 	 *
 	 * @return void
 	 */
-	public function add_row_style_attributes( array $style_attributes, array $style_args ) {
+	public function add_row_style_attributes( array $style_attributes, array $style_args ) : array {
 		if ( ! isset( $style_args['siw_row_stretch'] ) ) {
 			return $style_attributes;
 		}

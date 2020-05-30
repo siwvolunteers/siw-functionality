@@ -41,9 +41,7 @@ class Delete_Applications extends Job {
 			'type'         => 'shop_order',
 			'date_created' => '<' . ( time() - YEAR_IN_SECONDS ),
 		];
-		$applications = wc_get_orders( $args );
-
-		return $applications;
+		return wc_get_orders( $args );
 	}
 
 	/**
@@ -59,6 +57,13 @@ class Delete_Applications extends Job {
 		if ( ! $order instanceof \WC_Order ) {
 			return false;
 		}
+
+		//Eventuele refunds verwijderen
+		$refunds = $order->get_refunds();
+		foreach ( $refunds as $refund ) {
+			$refund->delete();
+		}
+
 		$order->delete( true );
 
 		$this->increment_processed_count();

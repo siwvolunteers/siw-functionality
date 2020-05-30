@@ -17,26 +17,24 @@
 		&::before{
 			content: "";
 			display: inline-block;
-			height: 1.2em;
-			width: 1.2em;
+			height: 20px;
+			width: 20px;
 			border: 1px solid #b9b9b9;
-			top: 0.1em;
+			top: 2px;
 		}
 
 		&::after {
 			content: "";
 			display: inline-block;
-			height: 0.4em;
-			width: 0.7em;
+			height: 8px;
+			width: 12px;
 			border-left: 3px solid $primary-color;
 			border-bottom: 3px solid $primary-color;
 			transform: rotate(-45deg);
-			left: 0.3em;
-			top: 0.4em;
+			left: 4px;
+			top: 6px;
 		}
 	}
-
-
 
 	/*Hide the checkmark by default*/
 	input[type="checkbox"] + .checkmark::after {

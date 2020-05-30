@@ -1,7 +1,7 @@
 @import "../partials/_variables.scss";
 
 .siw-tablist {
-	[role=tablist] {
+	ul[role=tablist] {
 		list-style-type: none;
 		margin: 0 auto;
 		padding: 0;
@@ -10,7 +10,7 @@
 			content: "";
 			display: table;
 		}
-		[role=tab] {
+		li[role=tab] {
 			border: solid 3px $button-color;
 			padding: 10px;
 			float: left;

@@ -107,7 +107,6 @@ class Infobox extends Widget {
 				</div>
 			</div>
 		<?php endforeach;
-		$content = ob_get_clean();
-		return $content;
+		return ob_get_clean();
 	}
 }

@@ -127,13 +127,6 @@ abstract class Type {
 	protected $archive_meta_query = [];
 
 	/**
-	 * Heeft post type teller met aantal actieve posts
-	 *
-	 * @var bool
-	 */
-	protected $admin_active_post_count = false;
-
-	/**
 	 * Kan post type in carousel gebruikt worden
 	 *
 	 * @var bool
@@ -181,9 +174,6 @@ abstract class Type {
 
 		//Standaard volgorde in Admin scherm
 		add_action( 'pre_get_posts', [ $self, 'set_default_orderby'] );
-		if ( $self->admin_active_post_count ) {
-			add_action( 'admin_menu', [ $self, 'add_admin_active_post_count' ], PHP_INT_MAX );
-		}
 
 		//Instellingen voor publieke post types
 		if ( $self->public ) {
@@ -213,6 +203,15 @@ abstract class Type {
 
 			add_action( "siw_{$self->post_type}_archive_intro", [ $self, 'set_archive_intro'] );
 			add_action( "siw_{$self->post_type}_archive_content", [ $self, 'add_archive_content'] );
+
+
+			if ( ! empty( $self->archive_meta_query ) && ! empty( $self->taxonomies ) ) {
+				add_filter( 'siw_update_terms_taxonomies', [ $self, 'set_update_terms_taxonomies'] );
+			}
+
+			if ( ! empty( $self->archive_meta_query ) ) {
+				add_action( 'admin_menu', [ $self, 'add_admin_active_post_count' ], PHP_INT_MAX );
+			}
 
 			//Carousel
 			if ( $self->has_carousel_support ) {
@@ -359,7 +358,6 @@ abstract class Type {
 				]
 			]
 		);
-
 		wp_add_inline_style(
 			'generate-style',
 			$inline_css
@@ -499,19 +497,19 @@ abstract class Type {
 		);
 		$menu_index = ! empty( $menu_item ) ? key( $menu_item ) : null;
 
-		$count = $this->get_active_post_count();
+		$posts = get_posts(
+			[
+				'post_type'  => "siw_{$this->post_type}",
+				'meta_query' => [ $this->archive_meta_query ],
+				'limit'      => -1,
+				'return'     => 'ids',
+			]
+		);
+
+		$count = count( $posts );
 		if ( $count > 0 && $menu_index ) {
 			$submenu["edit.php?post_type=siw_{$this->post_type}"][ $menu_index ][0] .= ' <span class="awaiting-mod">' . number_format_i18n( $count ) . '</span>';
 		}
-	}
-
-	/**
-	 * Undocumented function
-	 *
-	 * @return int
-	 */
-	protected function get_active_post_count() : int {
-		return 0;
 	}
 
 	/**
@@ -564,6 +562,25 @@ abstract class Type {
 			$subdirs["siw_{$this->post_type}"] = $this->upload_subdir;
 		}
 		return $subdirs;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @param array $taxonomies
+	 *
+	 * @return array
+	 */
+	public function set_update_terms_taxonomies( array $taxonomies ) : array {
+		foreach ( array_keys( $this->taxonomies ) as $taxonomy ) {
+			$taxonomies["siw_{$this->post_type}_{$taxonomy}"] = [
+				'query_type'   => 'posts',
+				'count'        => true,
+				'delete_empty' => false,
+				'meta_query'   => [ $this->archive_meta_query ]
+			];
+		}
+		return $taxonomies;
 	}
 
 }

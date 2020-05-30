@@ -3,7 +3,6 @@
 namespace SIW\WooCommerce\Frontend;
 
 use SIW\Elements;
-use SIW\Formatting;
 use SIW\Elements\Google_Maps;
 
 /**
@@ -12,7 +11,6 @@ use SIW\Elements\Google_Maps;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  * 
- * @todo      reisadvies BuZa
  * @todo      stappenplan
  */
 class Product_Tabs {
@@ -26,7 +24,7 @@ class Product_Tabs {
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_description_tab'] );
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_location_map_tab'] );
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_contact_form_tab'] );
-		//add_filter( 'woocommerce_product_tabs', [ $self, 'add_steps_tab'] );
+		add_filter( 'woocommerce_product_tabs', [ $self, 'add_steps_tab'] );
 	}
 
 	/**
@@ -169,24 +167,29 @@ class Product_Tabs {
 	/**
 	 * Toont stappenplan in tab
 	 * 
-	 * @todo stappen uit databestand/instelling + loopje maken
+	 * @todo stappen uit databestand/instelling
 	 */
 	public function show_product_steps() {
-		$columns = [
+		echo Elements::generate_features(
 			[
-				'width'   => 33,
-				'content' => Elements::generate_icon( 'siw-icon-file-signature', 2, 'circle' ) . '<br><h5>1. Aanmelding</h5>Heb je interesse in dit groepsproject? Meld je dan direct aan via de knop "Aanmelden".'
+				[
+					'icon'    => 'siw-icon-file-signature',
+					'title'   => '1. Aanmelding',
+					'content' => 'Heb je interesse in dit groepsproject? Meld je dan direct aan via de knop "Aanmelden".',
+				],
+				[
+					'icon'    => 'siw-icon-clipboard-check',
+					'title'   => '2. Bevesting',
+					'content' => 'Binnen twee weken na betaling krijg je een bevestiging van plaatsing op het project.',
+				],
+				[
+					'icon'    => 'siw-icon-tasks',
+					'title'   => '3. Voorbereiding',
+					'content' => 'Kom naar de voorbereidingsdag, zodat je goed voorbereid aan je avontuur kan beginnen.',
+				],
 			],
-			[
-				'width'   => 33,
-				'content' => Elements::generate_icon( 'siw-icon-clipboard-check', 2, 'circle' ) . '<br><h5>2. Bevesting</h5>Binnen twee weken na betaling krijg je een bevestiging van plaatsing op het project.'
-			],
-			[
-				'width'   => 33,
-				'content' => Elements::generate_icon( 'siw-icon-tasks', 2, 'circle' ) . '<br><h5>3. Voorbereiding</h5>Kom naar de voorbereidingsdag, zodat je goed voorbereid aan je avontuur kan beginnen.'
-			],
-		];
-		echo '<div style="text-align:center">' . do_shortcode( Formatting::generate_columns( $columns ) ) . '</div>'; //FIXME: geen inline styling
+			3 //TODO: stappen tellen
+		);
 	}
 
 }
