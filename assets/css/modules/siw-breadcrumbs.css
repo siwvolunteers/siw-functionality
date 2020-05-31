@@ -8,7 +8,7 @@ nav.breadcrumb ol.breadcrumb {
   list-style: none;
 }
 nav.breadcrumb ol.breadcrumb li {
-  display: inline;
+  display: inline-block;
 }
 nav.breadcrumb ol.breadcrumb li a {
   text-decoration: underline;

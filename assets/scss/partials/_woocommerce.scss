@@ -114,7 +114,13 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a{
 				background-color: #fff;
 				&:first-child{
 					border-left-width: 3px;
+					border-bottom-width: 3px;
 				}
+
+				&:last-child{
+					border-bottom-color: $button-color;
+				}
+
 				a:hover{
 					color: $button-color;
 				}

@@ -743,6 +743,10 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a:hover:before {
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li:first-child {
   border-left-width: 3px;
+  border-bottom-width: 3px;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li:last-child {
+  border-bottom-color: #3f3f3f;
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li a:hover {
   color: #3f3f3f;
