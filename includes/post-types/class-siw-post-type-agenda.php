@@ -26,7 +26,7 @@ class SIW_Post_Type_Agenda {
 		$labels = [
 			'name'               => _x( 'Agenda', 'Post Type General Name', 'siw' ),
 			'singular_name'      => _x( 'Agenda', 'Post Type Singular Name', 'siw' ),
-			'menu_name'          => __( 'Agenda', 'siw' ),
+			'menu_name'          => __( 'Agenda (oud)', 'siw' ),
 			'name_admin_bar'     => __( 'Agenda', 'siw' ),
 			'parent_item_colon'  => __( 'Parent Item:', 'siw' ),
 			'all_items'          => __( 'Alle evenementen', 'siw' ),

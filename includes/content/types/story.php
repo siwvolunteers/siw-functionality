@@ -67,6 +67,7 @@ class Story extends Type {
 				'id'          => 'country',
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
+				'required'    => true,
 				'options'     => siw_get_countries( 'all', 'slug', 'array' ),
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],
@@ -253,10 +254,8 @@ class Story extends Type {
 				$even = ! $even;
 		}
 		?>
-		<!-- Start -->
-		<div class="grid-100">
-			<h2><?php esc_html_e( 'Ook een onvergetelijke ervaring opdoen?', 'siw' );?></h2>
-		</div>
+		<!-- Start CTA (TODO) -->
+
 
 
 		<!-- Eind -->
@@ -284,4 +283,15 @@ class Story extends Type {
 		return __( 'Deel dit ervaringsverhaal', 'siw' );
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function generate_slug( array $data, array $postarr ): string {
+		return sprintf(
+			'%s-%s-%s',
+			$postarr['name'],
+			get_term( $postarr['project_type'], 'siw_story_project_type' )->name,
+			siw_get_country( $postarr['country'] )->get_name()
+		);
+	}
 }

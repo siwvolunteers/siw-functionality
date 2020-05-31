@@ -490,6 +490,11 @@ abstract class Type {
 	 */
 	public function add_admin_active_post_count() {
 		global $submenu;
+		
+		if ( ! isset( $submenu["edit.php?post_type=siw_{$this->post_type}"] ) ) {
+			return;
+		}
+
 		$cpt_menu = $submenu["edit.php?post_type=siw_{$this->post_type}"];
 		$menu_item = wp_list_filter(
 			$cpt_menu,

@@ -81,7 +81,7 @@ class Post_Type {
 				'pages'      => false,
 				'feeds'      => false,
 			],
-			'capability_type'     => 'post',//TODO: is dit wel zo handig? Nee, moet $this->post_type worden
+			'capability_type'     => $this->post_type,
 			'map_meta_cap'        => true,
 		];
 		$args = wp_parse_args( $this->args, $defaults );

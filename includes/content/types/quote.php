@@ -133,10 +133,4 @@ class Quote extends Type {
 		);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function generate_slug( array $data, array $postarr ): string {
-		return $data['post_title'];
-	}
 }

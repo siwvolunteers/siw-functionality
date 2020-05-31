@@ -40,7 +40,7 @@ class SIW_Post_Type_Vacatures {
 		$labels = [
 			'name'               => _x( 'Vacatures', 'Post Type General Name', 'siw' ),
 			'singular_name'      => _x( 'Vacature', 'Post Type Singular Name', 'siw' ),
-			'menu_name'          => __( 'Vacatures', 'siw' ),
+			'menu_name'          => __( 'Vacatures (oud)', 'siw' ),
 			'name_admin_bar'     => __( 'Vacature', 'siw' ),
 			'parent_item_colon'  => __( 'Parent Item:', 'siw' ),
 			'all_items'          => __( 'Alle vacatures', 'siw' ),
@@ -69,7 +69,7 @@ class SIW_Post_Type_Vacatures {
 			'show_in_admin_bar'   => true,
 			'show_in_nav_menus'   => true,
 			'can_export'          => true,
-			'has_archive'         => false, //TODO:??
+			'has_archive'         => false,
 			'exclude_from_search' => false,
 			'publicly_queryable'  => true,
 			'capability_type'     => 'job',
