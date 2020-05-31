@@ -57,8 +57,7 @@ class Design {
 		if ( ! isset( $style_args['siw_widget_title_align'] ) || '' != $style_args['siw_widget_title_align'] ) {
 			return $style_attributes;
 		}
-		$style_attributes['class'][] = "widget-title-{$style_args['siw_wiget_title_align']}";
-
+		$style_attributes['class'][] = "widget-title-{$style_args['siw_widget_title_align']}";
 		return $style_attributes;
 	}
 }
