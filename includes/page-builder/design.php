@@ -54,7 +54,7 @@ class Design {
 	 * @return array
 	 */
 	public function add_widget_style_attributes( array $style_attributes, array $style_args ) : array {
-		if ( ! isset( $style_args['siw_widget_title_align'] ) || '' != $style_args['siw_widget_title_align'] ) {
+		if ( ! isset( $style_args['siw_widget_title_align'] ) || '' == $style_args['siw_widget_title_align'] ) {
 			return $style_attributes;
 		}
 		$style_attributes['class'][] = "widget-title-{$style_args['siw_widget_title_align']}";
