@@ -346,7 +346,7 @@ class Shortcodes {
 			], $atts, 'siw_laatste_jaarverslag' )
 		);
 
-		$booklets = siw_get_option( 'dutch_projects_booklet' );
+		$booklets = siw_get_option( 'dutch_projects_booklets' );
 		if ( empty( $booklets ) ) {
 			return '';
 		}
