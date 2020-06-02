@@ -343,7 +343,7 @@ class Shortcodes {
 	public static function render_nieuwste_programmaboekje_np( array $atts ) : string {
 		extract( shortcode_atts( [
 			'titel' => '',
-			], $atts, 'siw_laatste_jaarverslag' )
+			], $atts, 'siw_nieuwste_programmaboekje_np' )
 		);
 
 		$booklets = siw_get_option( 'dutch_projects_booklets' );
