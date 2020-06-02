@@ -64,7 +64,7 @@ class Archive {
 		add_action( 'generate_inside_site_container', [ $this, 'add_archive_intro' ], 10 );
 		if ( $this->archive_options['taxonomy_filter'] ) {
 			$taxonomy_filter_options = [
-				'user_post_count' => ! empty( $this->archive_options['meta_query'] )
+				'use_post_count' => ! empty( $this->archive_options['meta_query'] )
 			];
 
 			$this->taxonomy_filter = new Taxonomy_Filter( $taxonomy_filter_options );
