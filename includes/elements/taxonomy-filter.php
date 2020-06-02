@@ -10,8 +10,12 @@ namespace SIW\Elements;
  */
 class Taxonomy_Filter {
 
+	/**
+	 * Opties
+	 *
+	 * @var array
+	 */
 	protected $options = [];
-
 
 	/**
 	 * Constructor
@@ -20,7 +24,8 @@ class Taxonomy_Filter {
 		$this->options = wp_parse_args(
 			$options,
 			[
-				'masonry' => true,
+				'masonry'        => true,
+				'use_post_count' => true,
 			]
 		);
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_script' ] );
@@ -63,21 +68,23 @@ class Taxonomy_Filter {
 	 * Haalt terms van één taxonomy op
 	 * 
 	 * @return array
-	 * 
-	 * @todo term_meta i.c.m. batch
 	 */
 	protected function get_terms( string $taxonomy ) {
-		$terms = get_terms( [
+		$term_query = [
 			'taxonomy'   => $taxonomy,
 			'hide_empty' => true,
-			'meta_query' => [
+
+		];
+
+		if ( $this->options['use_post_count'] ) {
+			$term_query['meta_query'] = [
 				[
 					'key'     => 'post_count',
 					'value'   => 0,
 					'compare' => '>',
 				],
-			]
-		] );
-		return $terms;
+			];
+		}
+		return get_terms( $term_query );
 	}
 }

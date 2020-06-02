@@ -3,6 +3,7 @@
 namespace SIW\Content;
 
 use SIW\Elements\Taxonomy_Filter;
+use SIW\Util\CSS;
 
 /**
  * Archiefpagina
@@ -59,11 +60,14 @@ class Archive {
 		add_filter( 'generate_blog_masonry', [ $this, 'set_archive_masonry'] );
 		add_filter( 'generate_sidebar_layout', [ $this, 'set_sidebar_layout'] );
 
-
 		// Header voor archiefpagina toevoegen
 		add_action( 'generate_inside_site_container', [ $this, 'add_archive_intro' ], 10 );
 		if ( $this->archive_options['taxonomy_filter'] ) {
-			$this->taxonomy_filter = new Taxonomy_Filter;
+			$taxonomy_filter_options = [
+				'user_post_count' => ! empty( $this->archive_options['meta_query'] )
+			];
+
+			$this->taxonomy_filter = new Taxonomy_Filter( $taxonomy_filter_options );
 			add_action( 'generate_inside_site_container', [ $this, 'add_taxonomy_filter' ], 20 );
 		}
 
@@ -105,23 +109,7 @@ class Archive {
 		//Filter van huidige taxonomy niet tonen
 		$taxonomies = array_keys( $this->taxonomies );
 		$taxonomies = array_diff( $taxonomies, array( $this->get_archive_type() ) );
-
-		switch ( sizeof( $taxonomies ) ) {
-			case 1:
-				$grid_size = 100;
-				break;
-			case 2:
-				$grid_size = 50;
-				break;
-			case 3:
-				$grid_size = 33;
-				break;
-			case 3:
-				$grid_size = 25;
-				break;
-			default:
-				$grid_size = 100;
-		}
+		$grid_size = CSS::columns_to_grid_width( sizeof( $taxonomies ) );
 
 		echo '<div class="grid-container">';
 		foreach ( $taxonomies as $taxonomy ) {
@@ -274,5 +262,4 @@ class Archive {
 		}
 		return $layout;
 	}
-
 }

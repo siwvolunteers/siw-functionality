@@ -68,8 +68,8 @@ class Shortcodes {
 					],
 				]
 			],
-			'programmaboekje_np'            => [
-				'title'      => __( 'Programmaboekje NP', 'siw' ),
+			'nieuwste_programmaboekje_np' => [
+				'title'      => __( 'Nieuwste programmaboekje NP', 'siw' ),
 				'attributes' => [
 					[
 						'attr'  => 'titel',
@@ -78,7 +78,7 @@ class Shortcodes {
 					],
 				]
 			],
-			'externe_link'                  => [
+			'externe_link' => [
 				'title'      => __( 'Externe link', 'siw' ),
 				'attributes' => [
 					[
@@ -301,7 +301,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_laatste_jaarverslag( array $atts ) {
+	public static function render_laatste_jaarverslag( array $atts ) : string {
 		extract( shortcode_atts( [
 			'titel' => '',
 			], $atts, 'siw_laatste_jaarverslag' )
@@ -309,7 +309,7 @@ class Shortcodes {
 
 		$annual_reports = siw_get_option( 'annual_reports' );
 		if ( empty( $annual_reports ) ) {
-			return;
+			return '';
 		}
 
 		$annual_reports = wp_list_sort( $annual_reports, 'year', 'DESC' );
@@ -328,9 +328,48 @@ class Shortcodes {
 				'data-ga-category' => 'Document',
 				'data-ga-action'   => 'Downloaden',
 				'data-ga-label'    => $report_url,
-				]
+			]
 		);
 		return $report_link;
+	}
+
+	/**
+	 * Toont nieuwste NP-programmboekje
+	 *
+	 * @param array $atts
+	 *
+	 * @return string
+	 */
+	public static function render_nieuwste_programmaboekje_np( array $atts ) : string {
+		extract( shortcode_atts( [
+			'titel' => '',
+			], $atts, 'siw_laatste_jaarverslag' )
+		);
+
+		$booklets = siw_get_option( 'dutch_projects_booklet' );
+		if ( empty( $booklets ) ) {
+			return '';
+		}
+
+		$booklets = wp_list_sort( $booklets, 'year', 'DESC' );
+		$booklet = reset( $booklets );
+		$booklet_url = wp_get_attachment_url( $booklet['file'][0] );
+
+		//TODO: generate_document_link in HTML
+		$booklet_link = HTML::generate_link(
+			$booklet_url,
+			$titel,
+			[
+				'target'           => '_blank',
+				'rel'              => 'noopener',
+				'data-ga-track'    => 1,
+				'data-ga-type'     => 'event',
+				'data-ga-category' => 'Document',
+				'data-ga-action'   => 'Downloaden',
+				'data-ga-label'    => $booklet_url,
+			]
+		);
+		return $booklet_link;
 	}
 
 	/**

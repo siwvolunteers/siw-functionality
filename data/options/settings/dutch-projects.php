@@ -19,7 +19,7 @@ $data = [
 	'tab'            => 'dutch_projects',
 	'fields'         => [
 		[
-			'id'            => 'dutch_projects_booklet',
+			'id'            => 'dutch_projects_booklets',
 			'type'          => 'group',
 			'clone'         => true,
 			'sort_clone'    => true,
