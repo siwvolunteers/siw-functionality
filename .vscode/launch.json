@@ -16,6 +16,13 @@
             "request": "launch",
             "program": "${file}",
             "cwd": "${fileDirname}"
+        },
+        {
+            "name": "Launch Chrome against localhost",
+            "type": "chrome",
+            "request": "launch",
+            "url": "https://siw.local/",
+            "webRoot": "${workspaceRoot}",
         }
     ]
 }
