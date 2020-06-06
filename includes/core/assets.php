@@ -23,7 +23,7 @@ class Assets {
 	/**
 	 * Versie van Balloon.css
 	 */
-	const BALLOON_VERSION = '1.0.4';
+	const BALLOON_VERSION = '1.1.0';
 
 	/**
 	 * Versie van Polyfill.io
