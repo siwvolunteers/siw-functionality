@@ -13,7 +13,7 @@ use SIW\i18n;
  */
 
 $language = i18n::get_current_language();
-$project_options = [];
+$project_options[''] = __( 'Geen voorkeur', 'siw' );
 
 $args = [
 	'country'    => 'nederland',
