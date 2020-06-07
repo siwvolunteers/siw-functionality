@@ -4,8 +4,8 @@ namespace SIW\Newsletter;
 
 use SIW\Email\Template;
 use SIW\Properties;
-use SIW\HTML;
 use SIW\Newsletter\Hash;
+use SIW\Util\Links;
 
 /**
  * Bevestigingsmail voor aanmelding nieuwsbrief
@@ -107,7 +107,7 @@ class Confirmation_Email {
 					sprintf( __('Beste %s,', 'siw' ), $this->properties['firstname'] ). BR2,
 					__( 'Bedankt voor je aanmelding voor de SIW-nieuwsbrief!', 'siw' ) . SPACE,
 					__( 'Om zeker te weten dat je inschrijving correct is, vragen we je je aanmelding te bevestigen.', 'siw' ) . BR2,
-					HTML::generate_link(
+					Links::generate_link(
 						$this->generate_confirmation_url(),
 						__( 'Klik hier om je aanmelding voor onze nieuwsbrief direct te bevestigen.', 'siw' )
 					) . BR2,

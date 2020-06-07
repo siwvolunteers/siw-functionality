@@ -61,7 +61,7 @@ abstract class Chart {
 			'class'        => 'siw-chart',
 			'data-options' => $this->generate_chart_options(),
 		];
-		return HTML::generate_tag( 'div', $attributes, null, true ) ;
+		return HTML::div( $attributes ) ;
 	}
 
 	/**

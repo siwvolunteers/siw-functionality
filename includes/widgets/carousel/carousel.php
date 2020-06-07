@@ -2,8 +2,8 @@
 
 namespace SIW\Widgets;
 
-use SIW\HTML;
 use SIW\Elements\Carousel as Element_Carousel;
+use SIW\Util\Links;
 
 /**
  * Widget met carousel
@@ -230,7 +230,7 @@ class Carousel extends Widget {
 		else {
 			$link = get_post_type_archive_link( $post_type );
 		}
-		return HTML::generate_link( $link, $button_text, [ 'class' => 'button ghost' ] ); //TODO: functie generate button in Elements
+		return Links::generate_button_link( $link, $button_text );
 	}
 
 	/**

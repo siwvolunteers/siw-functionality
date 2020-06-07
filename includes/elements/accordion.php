@@ -3,6 +3,7 @@
 namespace SIW\Elements;
 
 use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Class om een accordion te genereren
@@ -49,7 +50,7 @@ class Accordion {
 			'data-multiselectable' => 'true',
 
 		];
-		return HTML::generate_tag( 'div', $attributes, $this->generate_panes(), true );
+		return HTML::div( $attributes, $this->generate_panes() );
 	}
 
 	/**
@@ -80,7 +81,7 @@ class Accordion {
 			$id = uniqid();
 
 			if ( isset( $pane['show_button'] ) && true == $pane['show_button'] ) {
-				$pane['content'] .= wpautop( HTML::generate_link( $pane['button_url'], $pane['button_text'], [ 'class' => 'button ghost' ] ) );
+				$pane['content'] .= wpautop( Links::generate_button_link( $pane['button_url'], $pane['button_text'] ) );
 			}
 
 			$output .= implode( '', 

@@ -166,7 +166,7 @@ class Google_Maps {
 			'data-options' => $this->options,
 			'data-markers' => $this->markers,
 		];
-		return HTML::generate_tag( 'div', $attributes, null, true );
+		return HTML::div( $attributes );
 	}
 
 	/**

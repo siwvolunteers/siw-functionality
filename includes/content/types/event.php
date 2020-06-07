@@ -5,7 +5,7 @@ use SIW\Content\Type;
 use SIW\Elements;
 use SIW\Elements\Google_Maps;
 use SIW\Formatting;
-use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Evenementen
@@ -289,7 +289,7 @@ class Event extends Type {
 				'%s %s %s',
 				Elements::generate_icon( 'siw-icon-globe'),
 				$online_location['name'],
-				HTML::generate_external_link( $online_location['url'] )
+				Links::generate_external_link( $online_location['url'] )
 			);
 		}
 		else {
@@ -325,8 +325,7 @@ class Event extends Type {
 			$application = siw_meta( 'application' );
 			echo wp_kses_post( $application['explanation'] );
 			if ( $application['has_link'] ) {
-				echo HTML::generate_external_link( $application['url'] );
-
+				echo Links::generate_external_link( $application['url'] );
 			}
 		}
 
@@ -385,7 +384,7 @@ class Event extends Type {
 						'%s %s %s',
 						Elements::generate_icon( 'siw-icon-globe'),
 						$online_location['name'],
-						HTML::generate_external_link( $online_location['url'] )
+						Links::generate_external_link( $online_location['url'] )
 					);
 				}
 				else {
@@ -405,7 +404,7 @@ class Event extends Type {
 			?>
 		</div>
 		<div class="grid-20">
-			<?php echo HTML::generate_link( get_permalink() , __( 'Lees meer', 'siw' ), [ 'class' => 'button ghost'] );?>
+			<?php echo Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) );?>
 		</div>
 
 		<?php

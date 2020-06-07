@@ -7,6 +7,7 @@ use SIW\Elements\Accordion;
 use SIW\Elements\Tablist;
 use SIW\Elements\Modal;
 use SIW\Util\CSS;
+use SIW\Util\Links;
 
 /**
  * Functies om Elements te genereren
@@ -100,7 +101,7 @@ class Elements {
 	 *
 	 * @return string
 	 */
-	public static function generate_page_modal( int $page_id, string $link_text ) {
+	public static function generate_page_modal( int $page_id, string $link_text ) : string {
 		$page_id = i18n::get_translated_page_id( $page_id );
 		$page = get_post( $page_id );
 
@@ -120,7 +121,7 @@ class Elements {
 	 *
 	 * @return string
 	 */
-	public static function generate_modal( string $title, string $content, string $link_text ) {
+	public static function generate_modal( string $title, string $content, string $link_text ) : string {
 		$modal = new Modal;
 		$modal->set_title( $title );
 		$modal->set_content( $content );
@@ -150,46 +151,34 @@ class Elements {
 		}
 
 		if ( $has_background ) {
-			$background_icon = HTML::generate_tag(
-				'svg',
-				[
-					'class' => 'siw-background-icon',
-				],
-				sprintf( '<use xlink:href="#%s" />', $background_class ),
-				true
+			$background_icon = HTML::svg(
+				[ 'class' => 'siw-background-icon' ],
+				sprintf( '<use xlink:href="#%s" />', $background_class )
 			);
 
-			$icon = HTML::generate_tag(
-				'svg',
-				[
-					'class' => 'siw-icon-inverse',
-				],
-				sprintf( '<use xlink:href="#%s" />', $icon_class ),
-				true
+			$icon = HTML::svg(
+				[ 'class' => 'siw-icon-inverse' ],
+				sprintf( '<use xlink:href="#%s" />', $icon_class )
 			);
-	
-			return HTML::generate_tag(
-				'span',
+
+			return HTML::span(
 				[
 					'class'       => sprintf( 'siw-icon siw-icon-background siw-icon-background-%sx', $size ),
 					'aria-hidden' => 'true',
 					'focusable'   => 'false'
 				],
-				$background_icon . $icon,
-				true
+				$background_icon . $icon
 			);
-	
+
 		}
 		else {
-			return HTML::generate_tag(
-				'svg',
+			return HTML::svg(
 				[
 					'class'       => "siw-icon siw-icon-{$size}x",
 					'aria-hidden' => 'true',
 					'focusable'   => 'false'
 				],
-				sprintf( '<use xlink:href="#%s" />', $icon_class ),
-				true
+				sprintf( '<use xlink:href="#%s" />', $icon_class )
 			);
 		}
 	}
@@ -202,11 +191,9 @@ class Elements {
 	 * @return string
 	 */
 	public static function generate_quote( string $quote ) {
-		return HTML::generate_tag(
-			'div',
+		return HTML::div(
 			[ 'class' => 'siw-quote'],
-			self::generate_icon( 'siw-icon-quote-left' ) . SPACE . esc_html( $quote ),
-			true
+			self::generate_icon( 'siw-icon-quote-left' ) . SPACE . esc_html( $quote )
 		);
 	}
 
@@ -233,8 +220,7 @@ class Elements {
 
 			// Bepaal afwijkende openingstijden (indien van toepassing)
 			if ( isset( $special_opening_hours[ $date ] ) ) {
-				$special_opening_times = $special_opening_hours[ $date ];
-				$opening_times = sprintf( '<del>%s</del> <ins>%s</ins>', $opening_times, $special_opening_times );
+				$opening_times = sprintf( '<del>%s</del> <ins>%s</ins>', $opening_times, $special_opening_hours[ $date ] );
 			}
 		
 			//Huidige dag bold maken TODO: netter
@@ -250,9 +236,9 @@ class Elements {
 					$value = implode( ': ', $value );
 				};
 				array_walk( $data, $callback );
-				return HTML::generate_list( $data );
+				return self::generate_list( $data );
 			case 'table':
-				return HTML::generate_table( $data );
+				return self::generate_table( $data );
 		}
 	}
 
@@ -300,7 +286,14 @@ class Elements {
 		return $map->generate();
 	}
 
-
+	/**
+	 * Genereert features
+	 *
+	 * @param array $features
+	 * @param int $columns
+	 *
+	 * @return string
+	 */
 	public static function generate_features( array $features, int $columns ) : string {
 		$output = '<div class="grid-container siw-features">';
 		foreach ( $features as $feature ) {
@@ -315,7 +308,14 @@ class Elements {
 		return $output;
 	}
 
-
+	/**
+	 * Genereert feature met icon
+	 *
+	 * @param array $feature
+	 * @param array $attributes
+	 *
+	 * @return string
+	 */
 	public static function generate_feature( array $feature, array $attributes ) : string {
 		
 		$feature = wp_parse_args(
@@ -331,14 +331,14 @@ class Elements {
 
 		ob_start();
 		?>
-		<div <?php HTML::render_attributes( $attributes);?>>
+		<div <?php echo HTML::generate_attributes( $attributes);?>>
 			<?php echo Elements::generate_icon( $feature['icon'], 4, 'circle' );?>
 			<br>
 			<h3><?php echo esc_html( $feature['title'] ); ?></h3>
 			<?php echo wpautop( wp_kses_post( $feature['content'] ) );?>
 			<?php 
 			if ( $feature['add_link'] ) {
-				echo HTML::generate_link( $feature['link_url'], __( 'Lees meer', 'siw' ), [ 'class' => 'button ghost'] );
+				echo Links::generate_button_link( $feature['link_url'], __( 'Lees meer', 'siw' ) );
 			}
 			?>
 		</div>
@@ -346,4 +346,54 @@ class Elements {
 		return ob_get_clean();
 	}
 
+	/**
+	 * Genereert tabel
+	 *
+	 * @param array $rows
+	 * @param array $headers
+	 *
+	 * @return string
+	 */
+	public static function generate_table( array $rows, array $headers = [] ) : string {
+
+		$output = '';
+		if ( ! empty( $headers ) ) {
+
+			$th_callback = function( &$value, $key ) {
+				$value = HTML::tag( 'th', [], $value );
+			};
+			array_walk( $headers, $th_callback );
+			$output .= HTML::tag( 'tr', [], implode( '', $headers ) );
+		}
+
+		foreach ( $rows as $row ) {
+			$td_callback = function( &$value, $key ) {
+				$value = HTML::tag( 'td', [], $value );
+			};
+			array_walk( $row, $td_callback );
+			$output .= HTML::tag( 'tr', [], implode( '', $row ) );
+		}
+		return HTML::tag( 'table', [] , $output );
+	}
+
+	/**
+	 * Genereert lijst o.b.v. array met items
+	 *
+	 * @param array $items
+	 * @param bool $ordered
+	 *
+	 * @return string
+	 */
+	public static function generate_list( array $items, bool $ordered = false ) : string {
+		$callback = function( &$value, $key ) {
+			$value = HTML::li( [], $value );
+		};
+		array_walk( $items, $callback );
+		if ( $ordered ) {
+			return HTML::tag( 'ol', [], implode( '', $items ) );
+		}
+		else {
+			return HTML::tag( 'ul', [], implode( '', $items ) );
+		}
+	}
 }

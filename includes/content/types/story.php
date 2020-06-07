@@ -4,6 +4,7 @@ namespace SIW\Content\Types;
 use SIW\Content\Type;
 use SIW\Elements;
 use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Ervaringsverhalen
@@ -206,7 +207,7 @@ class Story extends Type {
 			<?php the_excerpt(); ?>
 		</div>
 		<div class="grid-100">
-			<?php echo HTML::generate_link( get_permalink() , __( 'Lees meer', 'siw' ), [ 'class' => 'button ghost'] );?>
+			<?php echo Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) );?>
 		</div>
 		<hr>
 		<div class="grid-100">

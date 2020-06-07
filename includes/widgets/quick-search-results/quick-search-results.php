@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Widget met contactinformatie
@@ -115,7 +115,7 @@ class Quick_Search_Results extends Widget {
 			'</p>' .
 			do_shortcode( sprintf( '[products limit="6" columns="3" orderby="rand" visibility="visible" %s %s cache=false]', $category_arg, $month_arg ) ) .
 			'<div style="text-align:center">' .
-			HTML::generate_link( $url, $text, [ 'class' => 'button'] ) .
+			Links::generate_button_link( $url, $text ) .
 			'</div>';
 		return $content;
 	}

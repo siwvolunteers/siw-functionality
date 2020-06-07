@@ -35,14 +35,11 @@ class Icons {
 	 * Voegt SVG-sprite toe aan header
 	 */
 	public function add_svg_sprite() {
-		HTML::render_tag(
-			'div',
+		echo HTML::div(
 			[
 				'data-svg-url' => SIW_ASSETS_URL . 'siw-icons.svg',
 				'style'        => 'display:none;',
-			],
-			null,
-			true
+			]
 		);
 	}
 
@@ -56,7 +53,7 @@ class Icons {
 	/**
 	 * Voegt stylesheet toe
 	 */
-	public function enqueue_style(){
+	public function enqueue_style() {
 		wp_register_style( 'siw-icons', SIW_ASSETS_URL . 'css/siw-icons.css', null, SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-icons' );
 	}
@@ -88,14 +85,13 @@ class Icons {
 		);
 	}
 
-
 	/**
 	 * Voegt SIW-icon family toe
 	 *
 	 * @param array $icon_families
 	 * @return array
 	 */
-	public function add_icon_family( array $icon_families ) {
+	public function add_icon_family( array $icon_families ) : array {
 		$icon_families['siw'] = [
 			'name'      => __( 'SIW Icons', 'siw' ),
 			'icons'     => $this->get_icons(),
@@ -109,7 +105,7 @@ class Icons {
 	 * @param array $icon_families
 	 * @return array
 	 */
-	public function remove_icon_families( array $icon_families ) {
+	public function remove_icon_families( array $icon_families ) : array {
 		unset( $icon_families['elegantline'] );
 		unset( $icon_families['fontawesome'] );
 		unset( $icon_families['genericons'] );
@@ -125,7 +121,7 @@ class Icons {
 	 *
 	 * @return array
 	 */
-	protected function get_icons() {
+	protected function get_icons() : array {
 
 		$icons = wp_cache_get( 'icons', 'siw_icons' );
 		if ( false !== $icons ) {
@@ -142,9 +138,7 @@ class Icons {
 		foreach ( $icon_files as $icon_file ) {
 			$icons[ "icon-{$icon_file}" ] = $icon_file;
 		}
-
 		wp_cache_set( 'icons', $icons, 'siw_icons' );
-
 		return $icons;
 	}
 }

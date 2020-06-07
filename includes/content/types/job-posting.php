@@ -4,7 +4,7 @@ namespace SIW\Content\Types;
 use SIW\Content\Type;
 use SIW\Elements;
 use SIW\Formatting;
-use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Vacatures
@@ -339,7 +339,7 @@ class Job_Posting extends Type {
 						__( 'Voor meer informatie kun je contact opnemen met: %s (%s), %s', 'siw' ),
 						BR . $contact_person['name'],
 						$contact_person['title'],
-						HTML::generate_link( 'mailto:' . antispambot( $contact_person['email'] ), antispambot( $contact_person['email'] ) )
+						Links::generate_mailto_link( $contact_person['email'] )
 					)
 				)
 			);
@@ -356,7 +356,7 @@ class Job_Posting extends Type {
 					Formatting::format_date( siw_meta( 'deadline' ), true ),
 					BR . $application_manager['name'],
 					$application_manager['title'],
-					HTML::generate_link( 'mailto:' . antispambot( $application_manager['email'] ), antispambot( $application_manager['email']  ) )
+					Links::generate_mailto_link( $application_manager['email'] )
 				)
 			)
 		);
@@ -428,7 +428,7 @@ class Job_Posting extends Type {
 			<?php the_excerpt(); ?>
 		</div>
 		<div class="grid-100">
-			<?php echo HTML::generate_link( get_permalink() , __( 'Lees meer', 'siw' ), [ 'class' => 'button ghost'] );?>
+			<?php echo Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) );?>
 		</div>
 		<hr>
 		<div class="grid-100">

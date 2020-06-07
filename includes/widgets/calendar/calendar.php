@@ -2,8 +2,9 @@
 
 namespace SIW\Widgets;
 
+use SIW\Elements;
 use SIW\Formatting;
-use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Widget met agenda
@@ -76,7 +77,7 @@ class Calendar extends Widget {
 			ob_start();
 			?>
 			<h3 class="title">
-				<?= HTML::generate_link( get_permalink( $event_id ), get_the_title( $event_id ), [ 'class' => 'link' ] ) ?>
+				<?php echo Links::generate_link( get_permalink( $event_id ), get_the_title( $event_id ), [ 'class' => 'link' ] ) ?>
 			</h3>
 			<span class="duration" >
 				<?php
@@ -104,9 +105,9 @@ class Calendar extends Widget {
 			$event_list[] = ob_get_clean();
 			$json_ld[] = siw_generate_event_json_ld( $event_id );
 		}
-		$content = HTML::generate_list( $event_list );
+		$content = Elements::generate_list( $event_list );
 		$content .= implode( SPACE, $json_ld );
-		$content .= '<p class="page-link">' . HTML::generate_link( get_post_type_archive_link( 'siw_event' ) , __( 'Bekijk de volledige agenda.', 'siw' ), ['class' => 'link'] ) . '</p>';
+		$content .= '<p class="page-link">' . Links::generate_link( get_post_type_archive_link( 'siw_event' ) , __( 'Bekijk de volledige agenda.', 'siw' ), ['class' => 'link'] ) . '</p>';
 
 		return $content;
 	}

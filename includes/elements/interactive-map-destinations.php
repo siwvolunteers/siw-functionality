@@ -2,9 +2,10 @@
 
 namespace SIW\Elements;
 
-use SIW\HTML;
 use SIW\i18n;
 use SIW\Data\Country;
+use SIW\Elements;
+use SIW\Util\Links;
 
 /**
  * Class om een Mapplic kaart te genereren
@@ -106,10 +107,10 @@ class Interactive_Map_Destinations extends Interactive_Map {
 		/* EVS */
 		if ( $country->has_esc_projects() ) {
 			$esc_page_link = i18n::get_translated_page_url( siw_get_option( 'esc_explanation_page' ) );
-			$project_types[] = esc_html__( 'ESC', 'siw' ) . SPACE . HTML::generate_link( $esc_page_link, __( 'Lees meer', 'siw' ) );
+			$project_types[] = esc_html__( 'ESC', 'siw' ) . SPACE . Links::generate_link( $esc_page_link, __( 'Lees meer', 'siw' ) );
 		}
 
-		return esc_html__( 'In dit land bieden wij de volgende projecten aan:', 'siw' ) . HTML::generate_list( $project_types );
+		return esc_html__( 'In dit land bieden wij de volgende projecten aan:', 'siw' ) . Elements::generate_list( $project_types );
 	}
 
 	/**
@@ -136,7 +137,7 @@ class Interactive_Map_Destinations extends Interactive_Map {
 			$url = i18n::get_translated_page_url( siw_get_option( 'workcamps_explanation_page' ) );
 			$text = __( 'Lees meer', 'siw' );
 		}
-		return esc_html__( 'Groepsprojecten', 'siw' ) . SPACE . HTML::generate_link( $url, $text );
+		return esc_html__( 'Groepsprojecten', 'siw' ) . SPACE . Links::generate_link( $url, $text );
 	}
 
 	/**
@@ -164,7 +165,7 @@ class Interactive_Map_Destinations extends Interactive_Map {
 			$text = __( 'Lees meer', 'siw' );
 		}
 
-		return esc_html__( 'Projecten Op Maat', 'siw' ) . SPACE . HTML::generate_link( $url, $text );
+		return esc_html__( 'Projecten Op Maat', 'siw' ) . SPACE . Links::generate_link( $url, $text );
 	}
 
 	/**

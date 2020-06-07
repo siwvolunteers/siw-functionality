@@ -2,11 +2,11 @@
 
 namespace SIW\Core;
 
-use SIW\HTML;
 use SIW\Elements;
 use SIW\Formatting;
 use SIW\Properties;
 use SIW\Util;
+use SIW\Util\Links;
 
 /**
  * Class voor shortcodes
@@ -139,8 +139,7 @@ class Shortcodes {
 	 * @return string
 	 */
 	public static function render_email_link() {
-		$email = antispambot( Properties::EMAIL );
-		return HTML::generate_link( "mailto:" . $email, $email );
+		return Links::generate_mailto_link( Properties::EMAIL );
 	}
 
 	/**
@@ -291,7 +290,7 @@ class Shortcodes {
 		);
 		$titel = ( $titel ) ? $titel : $url;
 	
-		return HTML::generate_external_link( $url, $titel );
+		return Links::generate_external_link( $url, $titel );
 	}
 
 	/**
@@ -316,21 +315,7 @@ class Shortcodes {
 		$report = reset( $annual_reports );
 		$report_url = wp_get_attachment_url( $report['file'][0] );
 
-		//TODO: generate_document_link in HTML
-		$report_link = HTML::generate_link(
-			$report_url,
-			$titel,
-			[
-				'target'           => '_blank',
-				'rel'              => 'noopener',
-				'data-ga-track'    => 1,
-				'data-ga-type'     => 'event',
-				'data-ga-category' => 'Document',
-				'data-ga-action'   => 'Downloaden',
-				'data-ga-label'    => $report_url,
-			]
-		);
-		return $report_link;
+		return Links::generate_document_link( $report_url, $titel );
 	}
 
 	/**
@@ -355,21 +340,7 @@ class Shortcodes {
 		$booklet = reset( $booklets );
 		$booklet_url = wp_get_attachment_url( $booklet['file'][0] );
 
-		//TODO: generate_document_link in HTML
-		$booklet_link = HTML::generate_link(
-			$booklet_url,
-			$titel,
-			[
-				'target'           => '_blank',
-				'rel'              => 'noopener',
-				'data-ga-track'    => 1,
-				'data-ga-type'     => 'event',
-				'data-ga-category' => 'Document',
-				'data-ga-action'   => 'Downloaden',
-				'data-ga-label'    => $booklet_url,
-			]
-		);
-		return $booklet_link;
+		return Links::generate_document_link( $booklet_url, $titel );
 	}
 
 	/**

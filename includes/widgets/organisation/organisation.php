@@ -2,9 +2,10 @@
 
 namespace SIW\Widgets;
 
-use SIW\HTML;
+use SIW\Elements;
 use SIW\Formatting;
 use SIW\Properties;
+use SIW\Util\Links;
 
 /**
  * Widget met organisatiegegevens
@@ -104,7 +105,7 @@ class Organisation extends Widget {
 		foreach ( $board_members as $board_member ) {
 			$board_members_list[] = sprintf('%s %s<br/><i>%s</i>', $board_member['first_name'], $board_member['last_name'], $board_member['title']);
 		}
-		return HTML::generate_list( $board_members_list );
+		return Elements::generate_list( $board_members_list );
 	}
 
 	/**
@@ -121,19 +122,7 @@ class Organisation extends Widget {
 		foreach ( $annual_reports as $report ) {
 			$url = wp_get_attachment_url( $report['file'][0] );
 			$text = sprintf( esc_html__( 'Jaarverslag %s', 'siw' ), $report['year'] );
-			$reports[ $report['year'] ] = HTML::generate_link(
-				$url,
-				$text,
-				[
-					'target'           => '_blank',
-					'rel'              => 'noopener',
-					'data-ga-track'    => 1,
-					'data-ga-type'     => 'event',
-					'data-ga-category' => 'Document',
-					'data-ga-action'   => 'Downloaden',
-					'data-ga-label'    => $url,
-				]
-			);
+			$reports[ $report['year'] ] = Links::generate_document_link( $url, $text );
 		}
 		krsort( $reports );
 		return Formatting::array_to_text( $reports, BR );

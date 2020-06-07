@@ -5,8 +5,8 @@ namespace SIW\Elements;
 use SIW\Elements;
 use SIW\i18n;
 use SIW\Formatting;
-use SIW\HTML;
 use SIW\Properties;
+use SIW\Util\Links;
 use WC_Product;
 
 /**
@@ -203,12 +203,6 @@ class Interactive_Map_Netherlands extends Interactive_Map {
 		if ( ! i18n::is_default_language() ) {
 			return;
 		}
-		return HTML::generate_link(
-			$project->get_permalink(),
-			__( 'Bekijk project', 'siw' ),
-			[
-				'class' => 'button ghost',
-			]
-		);
+		return Links::generate_button_link( $project->get_permalink(), __( 'Bekijk project', 'siw' ) );
 	}
 }

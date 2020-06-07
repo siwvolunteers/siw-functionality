@@ -4,8 +4,8 @@ namespace SIW\Content\Types;
 use SIW\Content\Type;
 use SIW\Elements;
 use SIW\Elements\World_Map;
-use SIW\HTML;
 use SIW\i18n;
+use SIW\Util\Links;
 
 /**
  * Op Maat landen
@@ -174,7 +174,7 @@ class TM_Country extends Type {
 	protected function get_archive_intro() {
 
 		$url = i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
-		$link = HTML::generate_link( $url, __( 'Projecten Op Maat', 'siw' ) );
+		$link = Links::generate_link( $url, __( 'Projecten Op Maat', 'siw' ) );
 
 		$intro = [
 			__( 'Hieronder zie je de landenpagina’s van de Projecten op Maat.', 'siw' ),
@@ -203,7 +203,7 @@ class TM_Country extends Type {
 			<?php echo wpautop( esc_html( rwmb_get_value( 'quote' ) ) ); ?>
 		</div>
 		<div class="grid-100">
-			<?php echo HTML::generate_link( get_permalink() , __( 'Lees meer', 'siw' ), [ 'class' => 'button ghost'] );?>
+			<?php echo Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) );?>
 		</div>
 		<hr>
 		<div class="grid-100">
@@ -273,7 +273,7 @@ class TM_Country extends Type {
 				
 				//TODO: verplaatsen naar init/constructor
 				$tailor_made_page_link = i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
-				echo HTML::generate_link( $tailor_made_page_link, __( 'Meld je aan', 'siw' ), [ 'class' => 'button ghost' ] );	
+				echo Links::generate_button_link( $tailor_made_page_link, __( 'Meld je aan', 'siw' ) );
 				?>
 			</p>
 		</div>
@@ -309,7 +309,6 @@ class TM_Country extends Type {
 			4 //TODO:
 		);
 	}
-
 
 	/**
 	 * {@inheritDoc}

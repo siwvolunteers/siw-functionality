@@ -4,9 +4,9 @@ namespace SIW\Modules;
 
 use SIW\i18n;
 use SIW\Formatting;
-use SIW\HTML;
 use SIW\Util;
 use SIW\Properties;
+use SIW\Util\Links;
 
 /**
  * Topbar
@@ -81,7 +81,7 @@ class Topbar {
 			<div class="topbar-content grid-container">
 				<span class="hide-on-mobile hide-on-tablet"><?php echo esc_html( $this->content['intro'] );?>&nbsp;</span>
 					<?php
-					echo HTML::generate_link(
+					echo Links::generate_link(
 						$this->content['link_url'],
 						$this->content['link_text'],
 						[

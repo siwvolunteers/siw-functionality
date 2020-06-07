@@ -2,7 +2,7 @@
 
 namespace SIW\Modules;
 
-use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Voegt share-links toe voor social netwerken
@@ -47,16 +47,18 @@ class Social_Share {
 		?>
 		<hr>
 		<div class="siw-social">
-			<div class="title"><?= esc_html( $this->get_title() ) ?> </div>
+			<div class="title"><?php echo esc_html( $this->get_title() ) ?> </div>
 			<?php
 				$networks = \siw_get_social_networks('share');
 				$title = get_the_title();
 				$url = get_permalink();
 				
 				foreach ( $networks as $network ) {
-					echo HTML::generate_link(
+					echo Links::generate_icon_link(
 						$network->generate_share_link( $url, $title ),
-						'&shy;',
+						[
+							'class' => $network->get_icon_class(),
+						],
 						[
 							'class'               => $network->get_slug(),
 							'aria-label'          => sprintf( esc_attr__( 'Delen via %s', 'siw' ), $network->get_name() ),
@@ -68,9 +70,6 @@ class Social_Share {
 							'data-ga-category'    => $network->get_name(),
 							'data-ga-action'      => 'Delen',
 							'data-ga-label'       => $url,
-						],
-						[
-							'class' => $network->get_icon_class(),
 						]
 					);
 				}
@@ -92,7 +91,7 @@ class Social_Share {
 	 *
 	 * @return bool
 	 */
-	protected function is_supported_post_type() {
+	protected function is_supported_post_type() : bool {
 		$this->post_type = get_post_type();
 		return in_array( $this->post_type, array_keys( $this->get_post_type_settings() ) );
 	}
@@ -102,9 +101,9 @@ class Social_Share {
 	 *
 	 * @return array
 	 */
-	protected function get_post_type_settings() {
+	protected function get_post_type_settings() : array {
 		$settings = [
-			'product'         => __( 'Deel dit project', 'siw' ), //TODO: verplaatsen naar Compat/WooCommerce
+			'product' => __( 'Deel dit project', 'siw' ), //TODO: verplaatsen naar Compat/WooCommerce
 		];
 		return apply_filters( 'siw_social_share_post_types', $settings );
 	}

@@ -94,7 +94,7 @@ abstract class Interactive_Map {
 			'class'        => ['siw-interactive-map', 'mapplic-dark'],
 			'data-options' => $this->options,
 		];
-		$content = HTML::generate_tag( 'div', $attributes, null, true );
+		$content = HTML::div( $attributes );
 
 		$content = '<div class="hide-on-mobile hide-on-tablet">' . $content . '</div>';
 		$content .= '<div class="hide-on-desktop">' . $this->get_mobile_content() . '</div>';
