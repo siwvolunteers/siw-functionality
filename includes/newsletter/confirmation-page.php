@@ -26,6 +26,8 @@ class Confirmation_Page {
 	 */
 	public static function init() {
 		$self = new self();
+
+		add_filter( 'body_class', [ $self, 'maybe_add_body_class' ] );
 		add_action( 'wp', [ $self, 'maybe_process_confirmation'] );
 		add_filter( 'template_include', [ $self, 'load_template' ] );
 		add_action( 'siw_newsletter_confirmation', [ $self, 'show_message'] );
@@ -94,5 +96,19 @@ class Confirmation_Page {
 	 */
 	protected function is_newsletter_confirmation() {
 		return is_front_page() && (bool) Util::get_request_parameter( 'nl_confirmation');
+	}
+
+	/**
+	 * Voegt body class toe bij bevestigingspagina
+	 *
+	 * @param array $classes
+	 *
+	 * @return array
+	 */
+	public function maybe_add_body_class( array $classes ) : array {
+		if ( $this->is_newsletter_confirmation() ) {
+			$classes[] = 'siw-newsletter-confirmation';
+		}
+		return $classes;
 	}
 }

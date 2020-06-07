@@ -257,32 +257,24 @@ h2 > a:hover:before, .footer-widgets a.link:hover:before {
 /*--------------------------------------------------------------
 ## Nieuwsbrief
 --------------------------------------------------------------*/
-.siw-newsletter-confirmation {
+.siw-newsletter-confirmation .container {
   height: 100vh;
   background-image: url("/wp-content/plugins/siw-functionality/assets/images/404/groep.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   color: #fff;
+  max-width: unset;
 }
-.siw-newsletter-confirmation .row {
+.siw-newsletter-confirmation .container .site-content {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   text-align: center;
 }
-.siw-newsletter-confirmation .row .main {
+.siw-newsletter-confirmation .container .site-content main {
   padding-top: 50px;
   max-width: 780px;
   display: inline-block;
-}
-.siw-newsletter-confirmation .row .main .sectiontitle {
-  color: #fff;
-}
-.siw-newsletter-confirmation .row .main .sectiontitle:hover:after {
-  background-color: #ff9900;
-}
-.siw-newsletter-confirmation .row .main .sectiontitle:after {
-  background-color: #fff;
 }
 
 /*--------------------------------------------------------------
