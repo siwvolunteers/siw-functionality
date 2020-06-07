@@ -31,7 +31,7 @@ var siwNewsletterSignup = (function () {
 	function _addListeners() {
 		var forms = document.querySelectorAll( 'form.newsletter_form');
 		for ( var i=0, len = forms.length; i < len; i++ ) {
-			var form = $forms[i];
+			var form = forms[i];
 			form.addEventListener('submit', _handleFormSubmit );
 		}
 	}
