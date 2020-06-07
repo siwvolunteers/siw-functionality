@@ -806,3 +806,26 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a:hover:before {
   padding-top: 15px;
   padding-bottom: 15px;
 }
+
+/*--------------------------------------------------------------
+## Caldera Forms
+--------------------------------------------------------------*/
+.caldera-grid ol.breadcrumb {
+  background-color: #f5f5f5;
+  padding: 6px 12px;
+  margin: 0 0 20px;
+}
+.caldera-grid ol.breadcrumb li {
+  display: inline-block;
+}
+.caldera-grid ol.breadcrumb li.active a {
+  color: #444;
+}
+.caldera-grid ol.breadcrumb li a:hover {
+  color: #59ab9c;
+}
+.caldera-grid ol.breadcrumb li + li:before {
+  content: "/ ";
+  padding: 0 5px;
+  color: #ccc;
+}
