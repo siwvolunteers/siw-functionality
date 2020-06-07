@@ -420,11 +420,6 @@ abstract class Type {
 	 */
 	public function set_post_data( array $data, array $postarr ) : array {
 
-		//Afbreken als het een import is
-		if ( isset( $postarr['import_id'] ) ) {
-			return $data;
-		}
-
 		if ( in_array( $data['post_status'], [ 'draft', 'pending', 'auto-draft' ] ) ) {
 			return $data;
 		}
