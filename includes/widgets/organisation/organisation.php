@@ -2,8 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Elements;
-use SIW\Formatting;
+use SIW\HTML;
 use SIW\Properties;
 use SIW\Util\Links;
 
@@ -67,27 +66,16 @@ class Organisation extends Widget {
 	 * {@inheritDoc}
 	 */
 	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
-		ob_start();
-		?>
-		<p><b><?php esc_html_e( 'Statutaire naam', 'siw' ); ?></b><br><?= Properties::STATUTORY_NAME ?><br></p>
-		<p><b><?php esc_html_e( 'RSIN/fiscaal nummer', 'siw' ); ?></b><br><?= Properties::RSIN ?><br></p>
-		<p><b><?php esc_html_e( 'KVK-nummer', 'siw' ); ?></b><br><?= Properties::KVK ?><br></p>
-		<p><b><?php esc_html_e( 'Rekeningnummer', 'siw' ); ?></b><br><?= Properties::IBAN ?><br></p>
-		<p>
-			<b><?php esc_html_e( 'Bestuurssamenstelling', 'siw' ); ?></b><br>
-			<?php esc_html_e( 'Het bestuur van SIW bestaat momenteel uit:', 'siw' ); ?>
-			<?php echo $this->get_board_members_list(); ?>
-		</p>
-		<p>
-			<b><?php esc_html_e( 'Beloningsbeleid', 'siw' ); ?></b><br>
-			<?php echo wp_kses_post( $instance['renumeration_policy'] ); ?><br></p>
-		</p>
-		<p>
-			<b><?php esc_html_e( 'Jaarverslagen', 'siw' ); ?></b><br>
-			<?php echo $this->get_annual_reports(); ?>
-		</p>
-		<?php
-		return ob_get_clean();
+
+		$output = '';
+		foreach ( $this->get_organisation_properties( $instance ) as $property ) {
+			$output .= HTML::tag('dt', [], esc_html( $property['name'] ) );
+			$values = (array) $property['values'];
+			foreach ( $values as $value ) {
+				$output .= HTML::tag( 'dd', [], wp_kses_post( $value ) );
+			}
+		}
+		return HTML::tag( 'dl', [], $output );
 	}
 
 	/**
@@ -105,8 +93,50 @@ class Organisation extends Widget {
 		foreach ( $board_members as $board_member ) {
 			$board_members_list[] = sprintf('%s %s<br/><i>%s</i>', $board_member['first_name'], $board_member['last_name'], $board_member['title']);
 		}
-		return Elements::generate_list( $board_members_list );
+		return $board_members_list;
 	}
+
+	/**
+	 * Haalt eigenschappen op
+	 *
+	 * @param array $instance
+	 *
+	 * @return array
+	 */
+	protected function get_organisation_properties( array $instance ) : array {
+		$properties = [
+			[
+				'name'   => __( 'Statutaire naam', 'siw' ),
+				'values' =>Properties::STATUTORY_NAME
+			],
+			[
+				'name'   => __( 'RSIN/fiscaal nummer', 'siw' ),
+				'values' => Properties::RSIN,
+			],
+			[
+				'name'   => __( 'KVK-nummer', 'siw' ),
+				'values' => Properties::KVK,
+			],
+			[
+				'name'   => __( 'Rekeningnummer', 'siw' ),
+				'values' => Properties::IBAN,
+			],
+			[
+				'name'   => __( 'Bestuurssamenstelling', 'siw' ),
+				'values' => $this->get_board_members_list(),
+			],
+			[
+				'name'   => __( 'Beloningsbeleid', 'siw' ),
+				'values' => $instance['renumeration_policy'],
+			],
+			[
+				'name'   => __( 'Jaarverslagen', 'siw' ),
+				'values' => $this->get_annual_reports(),
+			],
+		];
+		return $properties;
+	}
+
 
 	/**
 	 * Geeft jaarverslagen terug
@@ -125,6 +155,6 @@ class Organisation extends Widget {
 			$reports[ $report['year'] ] = Links::generate_document_link( $url, $text );
 		}
 		krsort( $reports );
-		return Formatting::array_to_text( $reports, BR );
+		return $reports;
 	}
 }
