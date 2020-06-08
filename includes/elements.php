@@ -281,7 +281,7 @@ class Elements {
 		if ( ! isset( $maps[ $id ] ) ) {
 			return null;
 		}
-		$class = "\SIW\Elements\Interactive_Map_{$maps[ $id ]}";
+		$class = "\SIW\Elements\Interactive_Maps\\{$maps[ $id ]}";
 		$map = new $class;
 		return $map->generate();
 	}

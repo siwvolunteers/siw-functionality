@@ -1,6 +1,8 @@
 <?php
 
-namespace SIW\Elements;
+namespace SIW\Elements\Interactive_Maps;
+
+use SIW\Elements\Interactive_Map;
 
 /**
  * Class om een Mapplic kaart te genereren
@@ -8,7 +10,7 @@ namespace SIW\Elements;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-class Interactive_Map_ESC extends Interactive_Map {
+class ESC extends Interactive_Map {
 
 	/**
 	 * {@inheritDoc}

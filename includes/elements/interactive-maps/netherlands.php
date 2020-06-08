@@ -1,8 +1,9 @@
 <?php
 
-namespace SIW\Elements;
+namespace SIW\Elements\Interactive_Maps;
 
 use SIW\Elements;
+use SIW\Elements\Interactive_Map;
 use SIW\i18n;
 use SIW\Formatting;
 use SIW\Properties;
@@ -15,7 +16,7 @@ use WC_Product;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-class Interactive_Map_Netherlands extends Interactive_Map {
+class Netherlands extends Interactive_Map {
 
 	/**
 	 * {@inheritDoc}

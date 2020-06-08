@@ -1,10 +1,11 @@
 <?php
 
-namespace SIW\Elements;
+namespace SIW\Elements\Interactive_Maps;
 
 use SIW\i18n;
 use SIW\Data\Country;
 use SIW\Elements;
+use SIW\Elements\Interactive_Map;
 use SIW\Util\Links;
 
 /**
@@ -13,7 +14,7 @@ use SIW\Util\Links;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-class Interactive_Map_Destinations extends Interactive_Map {
+class Destinations extends Interactive_Map {
 
 	/**
 	 * {@inheritDoc}
