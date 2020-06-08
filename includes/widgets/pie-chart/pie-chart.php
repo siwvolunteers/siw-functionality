@@ -3,7 +3,7 @@
 namespace SIW\Widgets;
 
 use SIW\Elements;
-use SIW\Elements\Pie_Chart as Element_Pie_Chart;
+use SIW\Elements\Charts\Pie as Element_Pie_Chart;
 
 /**
  * Widget met grafiek

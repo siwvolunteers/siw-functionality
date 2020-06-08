@@ -1,6 +1,8 @@
 <?php
 
-namespace SIW\Elements;
+namespace SIW\Elements\Charts;
+
+use SIW\Elements\Chart;
 
 /**
  * Class om een piechart te genereren
@@ -8,7 +10,7 @@ namespace SIW\Elements;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-class Pie_Chart extends Chart {
+class Pie extends Chart {
 
 	/**
 	 * {@inheritDoc}
