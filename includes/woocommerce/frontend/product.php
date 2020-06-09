@@ -31,6 +31,8 @@ class Product {
 		add_filter( 'woocommerce_out_of_stock_message', [ $self, 'set_out_of_stock_message'] );
 		add_filter( 'woocommerce_dropdown_variation_attribute_options_args', [ $self, 'set_variation_dropdown_args'] );
 
+		add_action( 'woocommerce_before_single_product_summary', [ $self, 'show_featured_badge' ], 10 );
+
 		/**
 		 * Verwijderen diverse woocommerce-hooks
 		 * - "Reset variations"-link
@@ -200,6 +202,18 @@ class Product {
 			$meta['_genesis_noindex'] = intval( ! $product->is_visible() );
 		}
 		return $meta;
+	}
+
+	/**
+	 * Toont badge voor aanbevolen projecten
+	 * 
+	 * @todo template van maken i.v.m. duplicate code in archive
+	 */
+	public function show_featured_badge() {
+		global $product;
+		if ( $product->is_featured() && ! $product->is_on_sale() ) {
+			echo '<span class="product-badge featured-badge">' . esc_html__( 'Aanbevolen', 'siw' ) . '</span>';
+		}
 	}
 
 }

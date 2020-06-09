@@ -3,6 +3,7 @@
 namespace SIW\WooCommerce\Frontend;
 
 use SIW\Formatting;
+use WC_Product;
 
 /**
  * Aanpassingen aan overzichtspagina van groepsprojecten
@@ -30,6 +31,8 @@ class Archive {
 		add_filter( 'woocommerce_default_catalog_orderby_options', [ $self, 'add_catalog_orderby_options' ] );
 		add_filter( 'woocommerce_catalog_orderby', [ $self, 'add_catalog_orderby_options' ] );
 		add_filter( 'woocommerce_get_catalog_ordering_args', [ $self, 'process_catalog_ordering_args' ], 10, 3 );
+
+		add_action( 'woocommerce_before_shop_loop_item_title', [ $self, 'show_featured_badge' ], 10 );
 	}
 
 	/**
@@ -142,4 +145,15 @@ class Archive {
 		}
 		return $args;
 	}
+
+	/**
+	 * Toont badge voor aanbevolen projecten
+	 */
+	public function show_featured_badge() {
+		global $product;
+		if ( $product->is_featured() && ! $product->is_on_sale() ) {
+			echo '<span class="product-badge featured-badge">' . esc_html__( 'Aanbevolen', 'siw' ) . '</span>';
+		}
+	}
+
 }

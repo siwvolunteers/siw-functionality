@@ -17,7 +17,22 @@
 			font-size: 0.9em;
 			color: $font-color-light;
 		}
+		span.product-badge.featured-badge {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
 	}
+}
+
+//Featured badge
+span.product-badge.featured-badge {
+	background-color: #222;
+	color: #fff;
+	padding: 5px 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 0.8em;
 }
 
 //Carousel
@@ -55,6 +70,11 @@
 			.project-code {
 				font-size: 0.9em;
 				color: $font-color-light;
+			}
+			span.product-badge.featured-badge {
+				position: absolute;
+				top: 0;
+				right: 0;
 			}
 		}
 	}
