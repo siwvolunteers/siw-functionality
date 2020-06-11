@@ -73,6 +73,7 @@ class TM_Country extends Type {
 				'id'          => 'country',
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
+				'required'    => true,
 				'options'     => siw_get_countries( 'tailor_made_projects', 'slug', 'array' ),
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],
@@ -80,12 +81,14 @@ class TM_Country extends Type {
 				'id'          => 'work_type',
 				'name'        => __( 'Soort werk', 'siw' ),
 				'type'        => 'checkbox_list',
+				'required'    => true,
 				'options'     => siw_get_work_types( 'tailor_made_projects', 'slug', 'array' ),
 			],
 			[
 				'id'       => 'quote',
 				'name'     => __( 'Quote', 'siw' ),
 				'type'     => 'text',
+				'required' => true,
 				'size'     => 100,
 			],
 			[
@@ -106,6 +109,7 @@ class TM_Country extends Type {
 				'id'               => 'image',
 				'name'             => __( 'Afbeelding', 'siw' ),
 				'type'             => 'image_advanced',
+				'required'         => true,
 				'force_delete'     => true,
 				'max_file_uploads' => 1,
 				'max_status'       => false,
@@ -315,6 +319,13 @@ class TM_Country extends Type {
 	 */
 	protected function get_social_share_cta() {
 		return __( 'Deel deze landenpagina', 'siw' );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function generate_title( array $data, array $postarr ) : string {
+		return siw_get_country( $postarr['country'] )->get_name();
 	}
 
 }
