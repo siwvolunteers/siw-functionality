@@ -61,6 +61,10 @@ class Product_Variations {
 	 * Variaties creëren
 	 */
 	public function create() {
+		if ( $this->product->get_meta( 'has_custom_tariff' ) ) {
+			return;
+		}
+
 		$sale = Util::is_workcamp_sale_active();
 		$workcamp_sale = siw_get_option( 'workcamp_sale' );
 
