@@ -13,6 +13,13 @@ use SIW\Plato\Import_Dutch_Workcamps as Plato_Import_Dutch_Workcamps;
 class Import_Dutch_Workcamps extends Import_Workcamps {
 
 	/**
+	 * Optie waarin geïmporteerde ids opgeslagen worden
+	 * 
+	 * @var int
+	 */
+	const IMPORTED_DUTCH_PROJECT_IDS_OPTION = 'siw_imported_dutch_project_ids';
+
+	/**
 	 * {@inheritDoc}
 	 */
 	protected $action = 'import_dutch_workcamps';
@@ -34,6 +41,10 @@ class Import_Dutch_Workcamps extends Import_Workcamps {
 	 */
 	 protected function select_data() {
 		$import = new Plato_Import_Dutch_Workcamps;
-		return $import->run();
+		$data = $import->run();
+
+		//Geïmporteerde ids opslaan zodat uit Plato verwijderde projecten herkend kunnen worden
+		update_option( self::IMPORTED_DUTCH_PROJECT_IDS_OPTION, wp_list_pluck( $data, 'project_id' ) );
+		return $data;
 	}
 }

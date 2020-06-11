@@ -20,8 +20,17 @@ class Update_Workcamps extends Job {
 
 	/**
 	 * Aantal maanden voordat Groepsproject verwijderd wordt.
+	 * 
+	 * @var int
 	 */
 	const MAX_AGE_WORKCAMP = 6;
+
+	/**
+	 * Aantal maanden voordat Nederlands Groepsproject wordt.
+	 * 
+	 * @var int
+	 */
+	const MAX_AGE_DUTCH_WORKCAMP = 9;
 
 	/**
 	 * Minimaal aantal dagen dat project in toekomst moet starten om zichtbaar te zijn
@@ -106,6 +115,9 @@ class Update_Workcamps extends Job {
 			return false;
 		}
 
+		//Bijwerken plato status
+		$this->maybe_update_deleted_from_plato();
+
 		//Bijwerken tarieven
 		$this->maybe_update_tariffs();
 
@@ -119,6 +131,29 @@ class Update_Workcamps extends Job {
 			$this->increment_processed_count();
 		}
 		return false;
+	}
+
+	/**
+	 * Bijwerken of project uit Plato verwijderd is
+	 */
+	protected function maybe_update_deleted_from_plato() {
+
+		$imported_ids = wp_cache_get( 'imported_ids', 'siw_update_workcamps' );
+		if ( false === $imported_ids ) {
+			$imported_ids = array_merge(
+				get_option( Import_Workcamps::IMPORTED_PROJECT_IDS_OPTION, [] ),
+				get_option( Import_Dutch_Workcamps::IMPORTED_DUTCH_PROJECT_IDS_OPTION, [] )
+			);
+			wp_cache_set( 'imported_ids', $imported_ids, 'siw_update_workcamps' );
+		}
+
+		$deleted_from_plato = ! in_array( $this->product->get_meta( 'project_id' ), $imported_ids );
+
+		if ( $deleted_from_plato !== $this->product->get_meta( 'deleted_from_plato' ) ) {
+			$this->product->update_meta_data( 'deleted_from_plato', $deleted_from_plato );
+			$this->product->save();
+			$this->updated = true;
+		}
 	}
 
 	/**
@@ -138,7 +173,7 @@ class Update_Workcamps extends Job {
 		foreach ( $variations as $variation_id ) {
 			$variation = wc_get_product( $variation_id );
 			$variation_tariff = $variation->get_attributes()['pa_tarief'];
-			$tariff = $tariffs[ $variation_tariff ] ?? 'regulier';
+			$tariff = $tariffs[ $variation_tariff ] ?? $tariffs['regulier'];
 
 			$regular_price = $tariff['regular_price'];
 			$sale_price = $tariff['sale_price'];
@@ -164,11 +199,12 @@ class Update_Workcamps extends Job {
 	 * - Het project in een toegestaan land is
 	 * - Er vrije plaatsen zijn
 	 * - Het project niet afgekeurd is
+	 * - Her project niet uit Plato verwijderd is
 	 */
 	protected function maybe_update_visibility() {
 		$country = siw_get_country( $this->product->get_meta( 'country' ) );
 
-		$new_visibility = 'visible';
+		$visibility = 'visible';
 		if (
 			'no' === $this->product->get_meta( 'freeplaces' )
 			||
@@ -179,13 +215,15 @@ class Update_Workcamps extends Job {
 			'rejected' === $this->product->get_meta( 'approval_result' )
 			||
 			date( 'Y-m-d', time() + ( self::MIN_DAYS_BEFORE_START * DAY_IN_SECONDS ) ) >= $this->product->get_meta( 'start_date' )
+			||
+			$this->product->get_meta( 'deleted_from_plato' )
 		) {
-			$new_visibility = 'hidden';
+			$visibility = 'hidden';
 		}
 
-		if ( $new_visibility !== $this->product->get_catalog_visibility() ) {
-			$this->product->set_catalog_visibility( $new_visibility );
-			if ( 'hidden' === $new_visibility ) {
+		if ( $visibility !== $this->product->get_catalog_visibility() ) {
+			$this->product->set_catalog_visibility( $visibility );
+			if ( 'hidden' === $visibility ) {
 				$this->product->set_featured( false );
 			}
 			$this->product->save();
@@ -234,9 +272,10 @@ class Update_Workcamps extends Job {
 	 * Oude projecten verwijderen
 	 */
 	protected function maybe_delete_project() {
-		
+	
 		$start_date = $this->product->get_meta( 'start_date');
-		$min_date = date( 'Y-m-d', time() - ( self::MAX_AGE_WORKCAMP * MONTH_IN_SECONDS ) );
+		$max_age = ( 'nederland' == $this->product->get_meta( 'country' ) ) ? self::MAX_AGE_DUTCH_WORKCAMP : self::MAX_AGE_WORKCAMP;
+		$min_date = date( 'Y-m-d', time() - ( $max_age * MONTH_IN_SECONDS ) );
 
 		//Afbreken als project nog niet oud genoeg is
 		if ( $start_date > $min_date ) {
@@ -274,5 +313,4 @@ class Update_Workcamps extends Job {
 		$this->product->delete( true );
 		$this->deleted = true;
 	}
-
 }

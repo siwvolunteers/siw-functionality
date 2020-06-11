@@ -14,6 +14,13 @@ use SIW\WooCommerce\Import\Product as Import_Product;
 class Import_Workcamps extends Job {
 
 	/**
+	 * Optie waarin geïmporteerde ids opgeslagen worden
+	 * 
+	 * @var int
+	 */
+	const IMPORTED_PROJECT_IDS_OPTION = 'siw_imported_project_ids';
+
+	/**
 	 * {@inheritDoc}
 	 */
 	protected $action = 'import_workcamps';
@@ -45,7 +52,11 @@ class Import_Workcamps extends Job {
 	 */
 	 protected function select_data() {
 		$import = new Plato_Import_Workcamps;
-		return $import->run();
+		$data = $import->run();
+
+		//Geïmporteerde ids opslaan zodat uit Plato verwijderde projecten herkend kunnen worden
+		update_option( self::IMPORTED_PROJECT_IDS_OPTION, wp_list_pluck( $data, 'project_id' ) );
+		return $data;
 	}
 
 	/**
