@@ -31,6 +31,10 @@ body.home .site-content {
   fill: #777;
 }
 
+dl dd {
+  margin: 0 1em 1em;
+}
+
 .siw-archive-intro {
   background-color: #3f3f3f;
   color: #fff;
