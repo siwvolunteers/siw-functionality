@@ -149,7 +149,7 @@ class Update_Workcamps extends Job {
 
 		$deleted_from_plato = ! in_array( $this->product->get_meta( 'project_id' ), $imported_ids );
 
-		if ( $deleted_from_plato !== $this->product->get_meta( 'deleted_from_plato' ) ) {
+		if ( $deleted_from_plato !== boolval( $this->product->get_meta( 'deleted_from_plato' ) ) ) {
 			$this->product->update_meta_data( 'deleted_from_plato', $deleted_from_plato );
 			$this->product->save();
 			$this->updated = true;
