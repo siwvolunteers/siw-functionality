@@ -32,6 +32,8 @@ class Product {
 		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_approval_result'] );
 
 		Product_Tabs::init();
+
+		add_action( 'wp_ajax_woocommerce_select_for_carousel', [ $self, 'select_for_carousel' ] );
 	}
 
 	/**
@@ -69,12 +71,16 @@ class Product {
 	 * Voegt bulk acties toe
 	 * 
 	 * - Opnieuw importeren
+	 * - Selecteren voor carousel
 	 *
 	 * @param array $bulk_actions
 	 * @return array
+	 * 
+	 * @todo handmatig verbergen
 	 */
 	public function add_bulk_actions( array $bulk_actions ) : array {
 		$bulk_actions['import_again'] = __( 'Opnieuw importeren', 'siw' );
+		$bulk_actions['select_for_carousel'] = __( 'Selecteren voor carousel', 'siw' );
 		return $bulk_actions;
 	}
 
@@ -85,17 +91,36 @@ class Product {
 	 * @param string $action
 	 * @param array $post_ids
 	 * @return string
+	 * 
+	 * @todo netjes woocommerce functies gebruiken
 	 */
 	public function handle_bulk_actions( string $redirect_to, string $action, $post_ids ) : string {
-		if ( 'import_again' === $action ) {
-			foreach ( $post_ids as $post_id ) {
-				update_post_meta( $post_id, 'import_again', true );
-			}
+		$count = count( $post_ids );
+		$add_notice = false;
+		switch ( $action ) {
+			case 'import_again':
+				foreach ( $post_ids as $post_id ) {
+					update_post_meta( $post_id, 'import_again', true );
+				}
+				$message = sprintf( _n( '%s project wordt opnieuw geïmporteerd.', '%s projecten worden opnieuw geïmporteerd.', $count, 'siw' ), $count );
+				$add_notice = true;
+				break;
+			case 'select_for_carousel':
+				foreach ( $post_ids as $post_id ) {
+					update_post_meta( $post_id, 'selected_for_carousel', true );
+				}
+				$message = sprintf( _n( '%s project is geselecteerd voor de carousel.', '%s projecten zijn geselecteerd voor de carousel.', $count, 'siw' ), $count );
+				$add_notice = true;
+				break;
+			default:
+				$add_notice = true;
+		}
+
+		if ( $add_notice ) {
 			$notices = new Admin_Notices;
-			$count = count( $post_ids );
-			$message = sprintf( _n( '%s project wordt opnieuw geïmporteerd.', '%s projecten worden opnieuw geïmporteerd.', $count, 'siw' ), $count );
 			$notices->add_notice( 'info', $message , true);
 		}
+
 		return $redirect_to;
 	}
 
@@ -160,5 +185,22 @@ class Product {
 			remove_meta_box( 'tagsdiv-product_tag', 'product', 'normal' );
 			remove_meta_box( 'product_catdiv', 'product', 'normal' );
 		}
+	}
+
+	/**
+	 * Verwerk selecteren voor carousel
+	 */
+	public function select_for_carousel() {
+		if ( current_user_can( 'edit_products' ) && check_admin_referer( 'woocommerce-select-for-carousel' ) && isset( $_GET['product_id'] ) ) {
+			$product = wc_get_product( absint( $_GET['product_id'] ) );
+
+			if ( $product ) {
+				$product->update_meta_data( 'selected_for_carousel', ! $product->get_meta( 'selected_for_carousel') );
+				$product->save();
+			}
+		}
+
+		wp_safe_redirect( wp_get_referer() ? remove_query_arg( array( 'trashed', 'untrashed', 'deleted', 'ids' ), wp_get_referer() ) : admin_url( 'edit.php?post_type=product' ) );
+		exit;
 	}
 }

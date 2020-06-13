@@ -3,6 +3,7 @@
 namespace SIW\Widgets;
 
 use SIW\Elements\Carousel as Element_Carousel;
+use SIW\HTML;
 use SIW\Util\Links;
 
 /**
@@ -40,7 +41,7 @@ class Carousel extends Widget {
 	/**
 	 * Instantie van Carousel
 	 *
-	 * @var Carousel
+	 * @var Element_Carousel
 	 */
 	protected $carousel;
 
@@ -121,13 +122,14 @@ class Carousel extends Widget {
 				];
 			}
 		}
-		$widget_form['show_featured_products'] = [
+		$widget_form['show_selected_products'] = [
 			'type'          => 'checkbox',
-			'label'         => __( 'Toon alleen uitgelichte Groepsprojecten', 'siw' ),
+			'label'         => __( 'Geselecteerde Groepsprojecten', 'siw' ),
+			'description'   => __( 'Toon alleen voor de carousel geselecteerde Groepsprojecten', 'siw' ),
 			'default'       => false,
 			'state_handler' => [
 				"post_type[product]" => ['show'],
-				'_else[post_type]'        => ['hide'],
+				'_else[post_type]'   => ['hide'],
 			],
 		];
 		$widget_form['show_button'] = [
@@ -168,23 +170,30 @@ class Carousel extends Widget {
 		if ( ! empty( $instance['taxonomy'] ) && ! empty( $instance['term'] ) ) {
 			$carousel->set_taxonomy_term( $instance['taxonomy'], $instance['term'] );
 		}
-		elseif ( 'product' == $instance['post_type'] && isset( $instance['show_featured_products'] ) && $instance['show_featured_products']  ) {
-			$carousel->set_taxonomy_term( 'product_visibility', 'featured' );
+
+		if ( 'product' == $instance['post_type'] && isset( $instance['show_selected_products'] ) && $instance['show_selected_products'] ) {
+			$carousel->set_meta_query([
+				'key'     => 'selected_for_carousel',
+				'value'   => true,
+				'compare' => '='
+			]);
 		}
 		
+		//Content genereren
 		$content = '';
-
 		if ( ! empty( $instance['intro'] ) ) {
-			$content .= '<div class="carousel-intro">';
-			$content .= wpautop( wp_kses_post( $instance['intro'] ) );
-			$content .= '</div>';
+			$content .= HTML::div(
+				['class' => 'carousel-intro'],
+				wpautop( wp_kses_post( $instance['intro'] ) )
+			);
 		}
 		$content .= $carousel->render();
 
 		if ( $instance['show_button'] ) {
-			$content .= '<div class="carousel-button">';
-			$content .= $this->generate_button( $instance['button_text'], $instance['post_type'], $instance['taxonomy'], $instance['term'] );
-			$content .= '</div>';
+			$content .= HTML::div(
+				['class' => 'carousel-button'],
+				$this->generate_button( $instance['button_text'], $instance['post_type'], $instance['taxonomy'], $instance['term'] ),
+			);
 		}
 
 		return $content;

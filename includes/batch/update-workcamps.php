@@ -223,8 +223,11 @@ class Update_Workcamps extends Job {
 
 		if ( $visibility !== $this->product->get_catalog_visibility() ) {
 			$this->product->set_catalog_visibility( $visibility );
+
+			//Als het project verborgen wordt, moet het ook niet meer aanbevolen zijn en in de carousel getoond worden
 			if ( 'hidden' === $visibility ) {
 				$this->product->set_featured( false );
+				$this->product->update_meta_data( 'selected_for_carousel', false );
 			}
 			$this->product->save();
 			$this->updated = true;

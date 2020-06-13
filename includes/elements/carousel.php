@@ -39,6 +39,13 @@ class Carousel {
 	protected $term;
 
 	/**
+	 * Meta query
+	 *
+	 * @var array
+	 */
+	protected $meta_query = [];
+
+	/**
 	 * Aantal items in carousel
 	 *
 	 * @var int
@@ -156,6 +163,15 @@ class Carousel {
 	}
 
 	/**
+	 * Zet meta query
+	 *
+	 * @param array $meta_query
+	 */
+	public function set_meta_query( array $meta_query ) {
+		$this->meta_query[] = $meta_query;
+	}
+
+	/**
 	 * Zet opties voor carousel
 	 *
 	 * @param array $options
@@ -209,7 +225,7 @@ class Carousel {
 	 * 
 	 * @return \WP_Query
 	 */
-	protected function generate_query() {
+	protected function generate_query() : \WP_Query {
 		$args = [
 			'post_type'      => $this->post_type,
 			'posts_per_page' => $this->items,
@@ -219,11 +235,15 @@ class Carousel {
 		if ( isset( $this->taxonomy ) && isset( $this->term ) ) {
 			$args['tax_query'] = [
 				[
-					'taxonomy'         => $this->taxonomy,
-					'terms'            => $this->term,
-					'field'            => 'slug',
+					'taxonomy' => $this->taxonomy,
+					'terms'    => $this->term,
+					'field'    => 'slug',
 				],
 			];
+		}
+
+		if ( ! empty( $this->meta_query ) ) {
+			$args['meta_query'] = $this->meta_query;
 		}
 
 		//In het geval van Groepsprojecten alleen zichtbare projecten tonen (tenzij er al op product_visibility gefilterd wordt)
@@ -235,7 +255,6 @@ class Carousel {
 				'operator' => 'NOT IN'
 			];
 		}
-
 		return new \WP_Query( $args );
 	}
 
@@ -246,7 +265,7 @@ class Carousel {
 	 * 
 	 * @todo fallback-bestand
 	 */
-	protected function get_template() {
+	protected function get_template() : string {
 		$templates = [
 			'product' => wc_locate_template( 'content-product.php' ),
 		];
