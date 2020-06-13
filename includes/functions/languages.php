@@ -13,11 +13,13 @@ use SIW\Data\Language;
  * 
  * @since     3.0.0
  *
- * @param string $index
  * @param string $context all|volunteer|project
- * @return Language[]
+ * @param string $index
+ * @param string $return
+ *
+ * @return array
  */
-function siw_get_languages( string $context = 'all', string $index = 'slug', string $return = 'objects' ) {
+function siw_get_languages( string $context = 'all', string $index = 'slug', string $return = 'objects' ) : array {
 	$languages = wp_cache_get( "{$context}_{$index}_{$return}", 'siw_languages' );
 
 	if ( false !== $languages ) {
@@ -85,12 +87,12 @@ function siw_get_language( string $language, string $index = 'slug' ) {
  *
  * @return array
  */
-function siw_get_language_skill_levels() {
+function siw_get_language_skill_levels() : array {
 	$language_skill_levels = [
-		'1'	=> __( 'Matig', 'siw' ),
-		'2'	=> __( 'Redelijk', 'siw' ),
-		'3'	=> __( 'Goed', 'siw' ),
-		'4'	=> __( 'Uitstekend', 'siw' ),
+		'1' => __( 'Matig', 'siw' ),
+		'2' => __( 'Redelijk', 'siw' ),
+		'3' => __( 'Goed', 'siw' ),
+		'4' => __( 'Uitstekend', 'siw' ),
 	];
 	return $language_skill_levels;
 }

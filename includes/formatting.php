@@ -33,7 +33,12 @@ class Formatting {
 	 */
 	public static function format_amount( float $amount, int $decimals = 0, string $currency_code = 'EUR' ) {
 		$currency = siw_get_currency( $currency_code );
-		$currency_symbol = $currency->get_symbol();
+
+		$currency_symbol = $currency_code;
+		if ( is_a( $currency, '\SIW\Data\Currency' ) ) {
+			$currency_symbol = $currency->get_symbol();
+		}
+		
 		$amount = number_format_i18n( $amount, $decimals );
 		return sprintf( '%s&nbsp;%s', $currency_symbol, $amount );
 	}
@@ -219,11 +224,11 @@ class Formatting {
 			return '';
 		}
 		$currency = siw_get_currency( $currency_code );
-		if ( $currency && 'EUR' != $currency_code ) {
-			$local_fee = sprintf( '%s %d (%s)', $currency->get_symbol(), $fee, $currency->get_name() );
-		}
-		elseif ( 'EUR' == $currency_code ) {
+		if ( 'EUR' == $currency_code ) {
 			$local_fee = sprintf( '&euro; %s', $fee );
+		}
+		elseif ( is_a( $currency, '\SIW\Data\Currency' ) ) {
+			$local_fee = sprintf( '%s %d (%s)', $currency->get_symbol(), $fee, $currency->get_name() );
 		}
 		else {
 			$local_fee = sprintf( '%s %d', $currency_code, $fee );

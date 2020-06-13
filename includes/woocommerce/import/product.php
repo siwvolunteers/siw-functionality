@@ -114,7 +114,7 @@ class Product {
 	 */
 	public function process() {
 
-		if ( false == $this->country || empty( $this->work_types ) || empty( $this->xml->code ) ) {
+		if ( empty( $this->country ) || empty( $this->work_types ) || empty( $this->xml->code ) ) {
 			return false;
 		}
 
@@ -189,8 +189,11 @@ class Product {
 	 * Zet land op basis van ISO-code
 	 */
 	protected function set_country() {
-		$country = strtoupper( $this->xml->country );
-		$this->country = siw_get_country( $country, 'iso' );
+		$country_code = strtoupper( $this->xml->country );
+		$country = siw_get_country( $country_code, 'iso' );
+		if ( is_a( $country, '\SIW\Data\Country' ) ) {
+			$this->country = $country;
+	}
 	}
 
 	/**
@@ -200,11 +203,11 @@ class Product {
 	 */
 	protected function set_languages() {
 		$this->languages = [];
-		$languages = explode( ',', $this->xml->languages );
+		$languages = wp_parse_slug_list( $this->xml->languages );
 		foreach ( $languages as $language_code ) {
 			$language_code = strtoupper( $language_code );
 			$language = siw_get_language( $language_code, 'plato' );
-			if ( false != $language ) {
+			if ( is_a( $language, '\SIW\Data\Language' ) ) {
 				$this->languages[] = $language;
 			}
 		}
@@ -217,11 +220,11 @@ class Product {
 	 */
 	protected function set_work_types() {
 		$this->work_types = [];
-		$work_types = array_unique( explode( ',', $this->xml->work ) );
+		$work_types = wp_parse_slug_list( $this->xml->work );
 		foreach ( $work_types as $work_type_code ) {
 			$work_type_code = strtoupper( $work_type_code );
 			$work_type = siw_get_work_type( $work_type_code, 'plato' );
-			if ( false != $work_type ) {
+			if ( is_a( $work_type, '\SIW\Data\Work_Type' ) ) {
 				$this->work_types[] = $work_type;
 			}
 		}
