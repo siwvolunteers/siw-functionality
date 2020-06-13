@@ -7,7 +7,7 @@
 	"scripts": {
 		"update": "npm update && vendor-copy",
 		"build": "npm run build:icons && npm run build:css",
-		"build:icons": "svg2sprite assets/icons assets/siw-icons.svg -i --stripExtraAttrs ---iconPrefix siw-icon-",
+		"build:general-icons": "svg2sprite assets/icons/general assets/icons/siw-general-icons.svg -i --stripExtraAttrs ---iconPrefix siw-icon-",
 		"build:css": "npm run scss && npm run autoprefixer",
 		"scss": "sass --update --no-source-map assets/scss:assets/css",
 		"scss-watch": "sass --watch --no-source-map assets/scss:assets/css",

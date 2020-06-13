@@ -37,7 +37,7 @@ class Icons {
 	public function add_svg_sprite() {
 		echo HTML::div(
 			[
-				'data-svg-url' => SIW_ASSETS_URL . 'siw-icons.svg',
+				'data-svg-url' => SIW_ASSETS_URL . '/icons/siw-general-icons.svg',
 				'style'        => 'display:none;',
 			]
 		);
@@ -70,7 +70,7 @@ class Icons {
 		];
 		foreach ( $icons as $icon => $code ) {
 			$rules[".sow-icon-siw[data-sow-icon='{$code}']"] = [
-				'cursor' => 'url(' . SIW_ASSETS_URL . "icons/{$code}.svg" . ')',
+				'cursor' => 'url(' . SIW_ASSETS_URL . "icons/general/{$code}.svg" . ')',
 			];
 		}
 
@@ -129,10 +129,10 @@ class Icons {
 		}
 
 		//Icon-bestanden zoeken
-		$icon_files = glob( SIW_ASSETS_DIR . '/icons/*.svg' );
+		$icon_files = glob( SIW_ASSETS_DIR . '/icons/general/*.svg' );
 		//Relatief pad van maken + extensie verwijderen
 		array_walk( $icon_files, function(&$value, &$key) {
-			$value = str_replace( [ SIW_ASSETS_DIR .'/icons/', '.svg'], '', $value );
+			$value = str_replace( [ SIW_ASSETS_DIR .'/icons/general/', '.svg'], '', $value );
 		});
 
 		foreach ( $icon_files as $icon_file ) {
