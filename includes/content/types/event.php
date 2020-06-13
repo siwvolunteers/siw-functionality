@@ -163,6 +163,7 @@ class Event extends Type {
 						'name'     => __( 'Naam', 'siw' ),
 						'type'     => 'text',
 						'required' => true,
+						'binding'  => false,
 					],
 					[
 						'id'       => 'url',
@@ -170,6 +171,7 @@ class Event extends Type {
 						'type'     => 'url',
 						'required' => true,
 						'size'     => 100,
+						'binding'  => false,
 					],
 				],
 			],
@@ -201,8 +203,9 @@ class Event extends Type {
 						'visible'   => [ 'has_link', true ],
 						'required'  => true,
 						'size'      => 100,
+						'binding'   => false,
 					],
-					],
+				],
 			],
 		];
 		return $meta_box_fields;
