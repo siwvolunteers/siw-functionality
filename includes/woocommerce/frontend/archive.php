@@ -3,7 +3,6 @@
 namespace SIW\WooCommerce\Frontend;
 
 use SIW\Formatting;
-use WC_Product;
 
 /**
  * Aanpassingen aan overzichtspagina van groepsprojecten
@@ -60,7 +59,7 @@ class Archive {
 	 * @param \WP_Term $term
 	 * @return string
 	 */
-	public function set_seo_title( string $title, $term ) {
+	public function set_seo_title( string $title, $term ) : string {
 
 		if ( ! is_a( $term, '\WP_Term') ) {
 			return $title;
@@ -80,6 +79,9 @@ class Archive {
 			case 'pa_soort-werk':
 				$title = sprintf( __( 'Groepsprojecten met werk gericht op %s', 'siw' ), strtolower( $term->name ) );
 				break;
+			case 'pa_sdg':
+				$title = sprintf( __( 'Groepsprojecten met werk gericht op het SDG %s', 'siw' ), strtolower( $term->name ) );
+				break;
 			case 'pa_maand':
 				$title = sprintf( __( 'Groepsprojecten in de maand %s', 'siw' ), $term->name );
 				break;
@@ -93,7 +95,7 @@ class Archive {
 	 * @param string $description
 	 * @param \WP_Term $term
 	 */
-	public function set_seo_description( string $description, $term ) {
+	public function set_seo_description( string $description, $term ) : string {
 		if ( ! is_a( $term, '\WP_Term') ) {
 			return $description;
 		}
@@ -109,6 +111,11 @@ class Archive {
 					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), strtolower( $term->name ) ) . SPACE .
 					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
 				break;
+			case 'pa_sdg':
+				$description =
+					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op het Sustainable Development Goal %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name ) . SPACE .
+					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
+				break;
 		}
 
 		return $description;
@@ -121,7 +128,7 @@ class Archive {
 	 * 
 	 * @return array
 	 */
-	public function add_catalog_orderby_options( $options ) {
+	public function add_catalog_orderby_options( array $options ) : array {
 		unset( $options['menu_order'] );
 		unset( $options['popularity'] );
 		unset( $options['rating'] );
@@ -136,9 +143,12 @@ class Archive {
 	 * Verwerkt extra sorteeroptie voor archive
 	 *
 	 * @param array $args
+	 * @param string $orderby
+	 * @param string $order
+	 *
 	 * @return array
 	 */
-	public function process_catalog_ordering_args( $args, $orderby, $order ) {
+	public function process_catalog_ordering_args( array $args, string $orderby, string $order ) : array {
 		if ( 'startdate' == $orderby ) {
 			$args['orderby']  = 'meta_value';
 			$args['meta_key'] = 'start_date';
@@ -155,5 +165,4 @@ class Archive {
 			echo '<span class="product-badge featured-badge">' . esc_html__( 'Aanbevolen', 'siw' ) . '</span>';
 		}
 	}
-
 }

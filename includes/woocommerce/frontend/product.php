@@ -111,6 +111,7 @@ class Product {
 			'lokale-bijdrage',
 			'pa_taal',
 			'pa_doelgroep',
+			'pa_sdg'
 		];
 
 		$callback = function( &$value, $key ) {

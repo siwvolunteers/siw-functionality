@@ -6,6 +6,7 @@ use SIW\Formatting;
 use SIW\Util;
 use SIW\Data\Country;
 use SIW\Data\Language;
+use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Work_Type;
 
 /**
@@ -66,6 +67,13 @@ class Product {
 	protected $work_types;
 
 	/**
+	 * Sustainable Development Goals van het project
+	 *
+	 * @var Sustainable_Development_Goal[];
+	 */
+	protected $sustainable_development_goals;
+
+	/**
 	 * Tarieven die van toepassing zijn
 	 *
 	 * @var array
@@ -89,6 +97,7 @@ class Product {
 		$this->set_country();
 		$this->set_languages();
 		$this->set_work_types();
+		$this->set_sustainable_development_goals();
 	}
 
 	/**
@@ -193,7 +202,7 @@ class Product {
 		$country = siw_get_country( $country_code, 'iso' );
 		if ( is_a( $country, '\SIW\Data\Country' ) ) {
 			$this->country = $country;
-	}
+		}
 	}
 
 	/**
@@ -226,6 +235,20 @@ class Product {
 			$work_type = siw_get_work_type( $work_type_code, 'plato' );
 			if ( is_a( $work_type, '\SIW\Data\Work_Type' ) ) {
 				$this->work_types[] = $work_type;
+			}
+		}
+	}
+
+	/**
+	 * Zet sustainable development goals
+	 */
+	protected function set_sustainable_development_goals() {
+		$this->sustainable_development_goals = [];
+		$goals = wp_parse_slug_list( $this->xml->sdg_prj );
+		foreach ( $goals as $goal_slug ) { 
+			$goal = siw_get_sustainable_development_goal( $goal_slug );
+			if ( is_a( $goal, '\SIW\Data\Sustainable_Development_Goal' ) ) {
+				$this->sustainable_development_goals[] = $goal;
 			}
 		}
 	}
@@ -379,6 +402,15 @@ class Product {
 			];
 		}
 
+		/* Sustainable development goals */
+		foreach ( $this->sustainable_development_goals as $goal ) {
+			$taxonomy_attributes['sdg']['values'][] = [
+				'slug' => $goal->get_slug(),
+				'name' => $goal->get_full_name(),
+			];
+		}
+
+		//Attributes aanmaken
 		foreach ( $taxonomy_attributes as $taxonomy => $attribute ) {
 			$attribute = wp_parse_args(
 				$attribute,
@@ -390,7 +422,7 @@ class Product {
 			);
 
 			if ( ! empty( $attribute['values'] ) ) {
-				$attributes["pa_{$taxonomy}"] = $this->create_taxonomy_attribute( $taxonomy, $attribute['values'], $attribute['visible'], $attribute['variation']  );
+				$attributes["pa_{$taxonomy}"] = $this->create_taxonomy_attribute( $taxonomy, $attribute['values'], $attribute['visible'], $attribute['variation'] );
 			}
 		}
 
@@ -432,15 +464,27 @@ class Product {
 	 * @param array $values
 	 * @param bool $visible
 	 * @param bool $variation
-	 * @return array
 	 * 
-	 * @todo maybe_create_taxonomy of logging als taxonomy niet bestaat
+	 * @return \WC_Product_Attribute
 	 */
 	protected function create_taxonomy_attribute( string $taxonomy, $values, bool $visible = true, bool $variation = false ) {
 
 		$wc_attribute_taxonomy_id = wc_attribute_taxonomy_id_by_name( $taxonomy );
+
+		//TODO: maybe_create_taxonomy
 		if ( 0 === $wc_attribute_taxonomy_id ) {
-			return false;
+			$wc_attribute_taxonomy_id = wc_create_attribute(
+				[
+					'name'         => $taxonomy, //TODO: juiste naam gebruiken
+					'slug'         => $taxonomy,
+					'type'         => 'select',
+					'order_by'     => 'name', //TODO: juiste waarde gebruiken
+					'has_archives' => true,
+				]
+			);
+			if ( is_wp_error( $wc_attribute_taxonomy_id ) ) {
+				return false;
+			}
 		}
 
 		foreach ( $values as $value ) {
