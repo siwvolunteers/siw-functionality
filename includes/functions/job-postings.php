@@ -9,6 +9,13 @@ use SIW\Properties;
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  */
 
+/**
+ * Geeft uitgelichte vacatures terug
+ *
+ * @param int $number
+ *
+ * @return array
+ */
 function siw_get_featured_job_postings( int $number = 1 ) : array {
 	$args = [
 		'number'   => $number,
@@ -18,7 +25,13 @@ function siw_get_featured_job_postings( int $number = 1 ) : array {
 	return siw_get_active_job_postings( $args );
 }
 
-
+/**
+ * Geeft actieve vacatures terug
+ *
+ * @param array $args
+ *
+ * @return array
+ */
 function siw_get_active_job_postings( array $args = [] ) : array {
 
 	$args = wp_parse_args(
