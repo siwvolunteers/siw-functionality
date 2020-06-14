@@ -3,13 +3,14 @@
 namespace SIW\Modules;
 
 use SIW\i18n;
-use SIW\Util;
 
 /**
  * Verversen van de cache
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
+ * 
+ * @todo      verplaatsen naar Compat/WP-Rocket ?
  */
 class Cache_Rebuild {
 
@@ -45,12 +46,11 @@ class Cache_Rebuild {
 	 */
 	public function schedule_cache_rebuild() {
 		/* Cache rebuild schedulen */
-		$cache_rebuild_ts = strtotime( 'tomorrow ' . self::TS_CACHE_REBUILD );
-		$cache_rebuild_ts_gmt = Util::convert_timestamp_to_gmt( $cache_rebuild_ts );
+		$cache_rebuild_ts = strtotime( 'tomorrow ' . self::TS_CACHE_REBUILD . wp_timezone_string() );
 		if ( wp_next_scheduled( self::HOOK ) ) {
 			wp_clear_scheduled_hook( self::HOOK );
 		}
-		wp_schedule_event( $cache_rebuild_ts_gmt, 'daily', self::HOOK );
+		wp_schedule_event( $cache_rebuild_ts, 'daily', self::HOOK );
 	}
 
 	/**

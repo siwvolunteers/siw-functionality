@@ -2,8 +2,6 @@
 
 namespace SIW\Batch;
 
-use SIW\Util;
-
 /**
  * Batch job om oude posts te verwijderen
  * 
@@ -67,13 +65,14 @@ class Delete_Old_Posts extends Job {
 	 * @todo filter voor reference date
 	 */
 	protected function task( $post_id ) {
-		if ( ! Util::post_exists( $post_id ) ) {
+		$post_type = get_post_type( $post_id );
+
+		if ( ! $post_type ) {
 			return false;
 		}
 
 		$limit = date( 'Y-m-d', time() - ( self::MAX_AGE_POST * MONTH_IN_SECONDS ) );
-
-		$post_type = get_post_type( $post_id );
+		
 		switch ( $post_type ) {
 			case 'vacatures':
 				$reference_date = date( 'Y-m-d', get_post_meta( $post_id, 'siw_vacature_deadline', true ) );

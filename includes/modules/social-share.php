@@ -2,7 +2,7 @@
 
 namespace SIW\Modules;
 
-use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Voegt share-links toe voor social netwerken
@@ -13,23 +13,23 @@ use SIW\HTML;
 class Social_Share {
 
 	/**
+	 * Post type van huidige post
+	 *
+	 * @var string
+	 */
+	protected $post_type;
+
+	/**
 	 * Init
 	 */
 	public static function init() {
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles'] );
-		add_action( 'siw_vacature_footer', [ $self, 'render' ] );
-		add_action( 'siw_agenda_footer', [ $self, 'render' ] );
-		add_action( 'siw_tm_country_footer', [ $self, 'render' ] );
-		add_action( 'siw_evs_project_footer', [ $self, 'render' ] );
-		add_action( 'woocommerce_after_single_product', [ $self, 'render' ] );
-		add_action( 'kadence_single_post_after', [ $self, 'render' ] );
+		add_action( 'generate_after_content', [ $self, 'render' ] );
 	}
 
 	/**
 	 * Voegt stylesheet toe
-	 *
-	 * @return void
 	 */
 	public function enqueue_styles() {
 		wp_register_style( 'siw-social-share', SIW_ASSETS_URL . 'css/modules/siw-social-share.css', [], SIW_PLUGIN_VERSION );
@@ -40,20 +40,25 @@ class Social_Share {
 	 * Toont de share links
 	 */
 	public function render() {
-		if ( $this->needs_hr() ) {
-			echo '<hr>';
-		}?>
+
+		if ( ! is_single() || ! $this->is_supported_post_type() ) {
+			return;
+		}
+		?>
+		<hr>
 		<div class="siw-social">
-			<div class="title"><?= esc_html( $this->get_title() ) ?> </div>
+			<div class="title"><?php echo esc_html( $this->get_title() ) ?> </div>
 			<?php
 				$networks = \siw_get_social_networks('share');
 				$title = get_the_title();
 				$url = get_permalink();
 				
 				foreach ( $networks as $network ) {
-					echo HTML::generate_link(
+					echo Links::generate_icon_link(
 						$network->generate_share_link( $url, $title ),
-						'&shy;',
+						[
+							'class' => $network->get_icon_class(),
+						],
 						[
 							'class'               => $network->get_slug(),
 							'aria-label'          => sprintf( esc_attr__( 'Delen via %s', 'siw' ), $network->get_name() ),
@@ -65,9 +70,6 @@ class Social_Share {
 							'data-ga-category'    => $network->get_name(),
 							'data-ga-action'      => 'Delen',
 							'data-ga-label'       => $url,
-						],
-						[
-							'class' => $network->get_icon_class(),
 						]
 					);
 				}
@@ -81,44 +83,29 @@ class Social_Share {
 	 * @return string
 	 */
 	protected function get_title() {
-		$post_type = get_post_type();
-
-		switch( $post_type ) {
-			case 'product':
-				$title = __( 'Deel dit project', 'siw' );
-				break;
-			case 'vacatures':
-				$title = __( 'Deel deze vacature', 'siw' );
-				break;
-			case 'agenda':
-				$title = __( 'Deel dit evenement', 'siw' );
-				break;
-			case 'wpm-testimonial':
-				$title = __( 'Deel dit ervaringsverhaal', 'siw' );
-				break;
-			case 'siw_tm_country':
-				$title = __( 'Deel deze landenpagina', 'siw' );
-				break;
-			default:
-				$title = __( 'Deel deze pagina', 'siw' );
-		}
-		return $title;
+		return $this->get_post_type_settings()[ $this->post_type ] ?? '';
 	}
 
 	/**
-	 * Bepaalt of er een `<hr>` nodig is
+	 * Geeft aan of dit een ondersteunde post type is
 	 *
 	 * @return bool
 	 */
-	protected function needs_hr() {
-		$post_type = get_post_type();
-		switch( $post_type ) {
-			case 'product':
-				$needs_hr = true;
-				break;
-			default:
-				$needs_hr = false;
-		}
-		return $needs_hr;
+	protected function is_supported_post_type() : bool {
+		$this->post_type = get_post_type();
+		return in_array( $this->post_type, array_keys( $this->get_post_type_settings() ) );
 	}
+
+	/**
+	 * Haal instelling van post type op
+	 *
+	 * @return array
+	 */
+	protected function get_post_type_settings() : array {
+		$settings = [
+			'product' => __( 'Deel dit project', 'siw' ), //TODO: verplaatsen naar Compat/WooCommerce
+		];
+		return apply_filters( 'siw_social_share_post_types', $settings );
+	}
+
 }

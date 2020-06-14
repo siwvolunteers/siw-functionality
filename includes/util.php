@@ -102,16 +102,6 @@ class Util {
 	}
 
 	/**
-	 * Converteert timestamp met tijdzone naar timestamp in GMT
-	 *
-	 * @param int $timestamp
-	 * @return int
-	 */
-	public static function convert_timestamp_to_gmt( int $timestamp ) {
-		return strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $timestamp ) ) . ' GMT' );
-	}
-
-	/**
 	 * Geeft aan of kortingsactie voor Groepsprojecten actief is
 	 *
 	 * @return bool
@@ -148,26 +138,6 @@ class Util {
 				$tailor_made_sale_active = true;
 		}
 		return $tailor_made_sale_active;
-	}
-
-	/**
-	 * Geeft aan of template bestaat
-	 *
-	 * @param string $template
-	 * @return bool
-	 */
-	public static function template_exists( string $template ) {
-		return file_exists( SIW_TEMPLATES_DIR . "/{$template}" );
-	}
-
-	/**
-	 * Geeft aan of post bestaat op basis van ID
-	 *
-	 * @param int $post_id
-	 * @return string
-	 */
-	public static function post_exists( int $post_id ) {
-		return is_string( get_post_status( $post_id ) );
 	}
 
 	/**
@@ -211,7 +181,7 @@ class Util {
 
 		//Eventueel volgorde zetten
 		if ( null != $order ) {
-			update_term_meta( $new_term['term_id'], "order_pa_{$taxonomy}", $order ); 
+			update_term_meta( $new_term['term_id'], "order", $order );
 		}
 
 		return $new_term['term_id'];

@@ -5,7 +5,7 @@ namespace SIW\Widgets;
 use SIW\Elements;
 use SIW\Formatting;
 use SIW\Properties;
-use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Widget met contactinformatie
@@ -66,12 +66,16 @@ class Contact extends Widget {
 					Properties::NAME,
 					sprintf( '%s | %s %s', Properties::ADDRESS, Properties::POSTCODE, Properties::CITY ),
 					sprintf( '%s | %s',
-						HTML::generate_link( "tel:" . Properties::PHONE_INTERNATIONAL, Properties::PHONE ),
-						HTML::generate_link( "mailto:" . antispambot( Properties::EMAIL ), antispambot( Properties::EMAIL ) )
+						Links::generate_tel_link( Properties::PHONE_INTERNATIONAL, Properties::PHONE ),
+						Links::generate_tel_link( Properties::EMAIL )
 					),
-					Elements::generate_opening_hours('table'),
+					Links::generate_link(
+						'https://api.whatsapp.com/send?phone='. Properties::WHATSAPP_FULL,
+						Elements::generate_icon( 'siw-icon-whatsapp' ) . SPACE . Properties::WHATSAPP,
+						[ 'class' => 'siw-contact-link'],
+					),
 				],
-				BR2
+				BR
 				)
 			);
 			?>
@@ -80,9 +84,12 @@ class Contact extends Widget {
 			<?php
 			$social_networks = siw_get_social_networks( 'follow' );
 			foreach ( $social_networks as $network ) {
-				echo HTML::generate_link(
+				echo Links::generate_icon_link(
 					$network->get_follow_url(),
-					'&shy;',
+					[
+						'class'      => $network->get_icon_class(),
+						'background' => 'circle'
+					],
 					[
 						'class'               => $network->get_slug(),
 						'title'               => $network->get_name(),
@@ -93,18 +100,11 @@ class Contact extends Widget {
 						'data-original-title' => $network->get_name(),
 						'style'               => '--hover-color: ' . $network->get_color(),
 					],
-					[
-						'class'      => $network->get_icon_class(),
-						'size'       => 2,
-						'background' => 'circle'
-					]
 				);
 			}
 			?>
 		</div>
 		<?php
-
-		$html_content = ob_get_clean();
-		return $html_content;
+		return ob_get_clean();
 	}
 }

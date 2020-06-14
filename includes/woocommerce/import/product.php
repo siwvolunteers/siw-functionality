@@ -6,6 +6,7 @@ use SIW\Formatting;
 use SIW\Util;
 use SIW\Data\Country;
 use SIW\Data\Language;
+use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Work_Type;
 
 /**
@@ -66,6 +67,13 @@ class Product {
 	protected $work_types;
 
 	/**
+	 * Sustainable Development Goals van het project
+	 *
+	 * @var Sustainable_Development_Goal[];
+	 */
+	protected $sustainable_development_goals;
+
+	/**
 	 * Tarieven die van toepassing zijn
 	 *
 	 * @var array
@@ -89,6 +97,7 @@ class Product {
 		$this->set_country();
 		$this->set_languages();
 		$this->set_work_types();
+		$this->set_sustainable_development_goals();
 	}
 
 	/**
@@ -100,7 +109,7 @@ class Product {
 	 */
 	public function correct_post_slug( array $data, array $postarr ) {
 		if ( self::REVIEW_STATUS == $data['post_status'] && 'product' == $data['post_type'] ) {
-			$data['post_name'] =  $postarr['post_name'];
+			$data['post_name'] = $postarr['post_name'];
 		}
 		return $data;
 	}
@@ -114,7 +123,7 @@ class Product {
 	 */
 	public function process() {
 
-		if ( false == $this->country || empty( $this->work_types ) || empty( $this->xml->code ) ) {
+		if ( empty( $this->country ) || empty( $this->work_types ) || empty( $this->xml->code ) ) {
 			return false;
 		}
 
@@ -189,8 +198,11 @@ class Product {
 	 * Zet land op basis van ISO-code
 	 */
 	protected function set_country() {
-		$country = strtoupper( $this->xml->country );
-		$this->country = siw_get_country( $country, 'iso' );
+		$country_code = strtoupper( $this->xml->country );
+		$country = siw_get_country( $country_code, 'iso' );
+		if ( is_a( $country, '\SIW\Data\Country' ) ) {
+			$this->country = $country;
+		}
 	}
 
 	/**
@@ -200,11 +212,11 @@ class Product {
 	 */
 	protected function set_languages() {
 		$this->languages = [];
-		$languages = explode( ',', $this->xml->languages );
+		$languages = wp_parse_slug_list( $this->xml->languages );
 		foreach ( $languages as $language_code ) {
 			$language_code = strtoupper( $language_code );
 			$language = siw_get_language( $language_code, 'plato' );
-			if ( false != $language ) {
+			if ( is_a( $language, '\SIW\Data\Language' ) ) {
 				$this->languages[] = $language;
 			}
 		}
@@ -217,12 +229,26 @@ class Product {
 	 */
 	protected function set_work_types() {
 		$this->work_types = [];
-		$work_types = array_unique( explode( ',', $this->xml->work ) );
+		$work_types = wp_parse_slug_list( $this->xml->work );
 		foreach ( $work_types as $work_type_code ) {
 			$work_type_code = strtoupper( $work_type_code );
 			$work_type = siw_get_work_type( $work_type_code, 'plato' );
-			if ( false != $work_type ) {
+			if ( is_a( $work_type, '\SIW\Data\Work_Type' ) ) {
 				$this->work_types[] = $work_type;
+			}
+		}
+	}
+
+	/**
+	 * Zet sustainable development goals
+	 */
+	protected function set_sustainable_development_goals() {
+		$this->sustainable_development_goals = [];
+		$goals = wp_parse_slug_list( $this->xml->sdg_prj );
+		foreach ( $goals as $goal_slug ) { 
+			$goal = siw_get_sustainable_development_goal( $goal_slug );
+			if ( is_a( $goal, '\SIW\Data\Sustainable_Development_Goal' ) ) {
+				$this->sustainable_development_goals[] = $goal;
 			}
 		}
 	}
@@ -349,10 +375,11 @@ class Product {
 		}
 		
 		/* Maand */
-		$month_name = ucfirst( Formatting::format_month( $this->xml->start_date, true ) );
+		$month_slug = sanitize_title( Formatting::format_month( $this->xml->start_date, true ) );
+		$month_name = ucfirst( Formatting::format_month( $this->xml->start_date, false ) );
 		$taxonomy_attributes['maand']['visible'] = false;
 		$taxonomy_attributes['maand']['values'][] = [
-			'slug'  => sanitize_title( $month_name ),
+			'slug'  => $month_slug,
 			'name'  => $month_name,
 			'order' => date( 'Ym', strtotime( $this->xml->start_date ) ),
 		];
@@ -375,6 +402,15 @@ class Product {
 			];
 		}
 
+		/* Sustainable development goals */
+		foreach ( $this->sustainable_development_goals as $goal ) {
+			$taxonomy_attributes['sdg']['values'][] = [
+				'slug' => $goal->get_slug(),
+				'name' => $goal->get_full_name(),
+			];
+		}
+
+		//Attributes aanmaken
 		foreach ( $taxonomy_attributes as $taxonomy => $attribute ) {
 			$attribute = wp_parse_args(
 				$attribute,
@@ -386,7 +422,7 @@ class Product {
 			);
 
 			if ( ! empty( $attribute['values'] ) ) {
-				$attributes["pa_{$taxonomy}"] = $this->create_taxonomy_attribute( $taxonomy, $attribute['values'], $attribute['visible'], $attribute['variation']  );
+				$attributes["pa_{$taxonomy}"] = $this->create_taxonomy_attribute( $taxonomy, $attribute['values'], $attribute['visible'], $attribute['variation'] );
 			}
 		}
 
@@ -428,15 +464,27 @@ class Product {
 	 * @param array $values
 	 * @param bool $visible
 	 * @param bool $variation
-	 * @return array
 	 * 
-	 * @todo maybe_create_taxonomy of logging als taxonomy niet bestaat
+	 * @return \WC_Product_Attribute
 	 */
 	protected function create_taxonomy_attribute( string $taxonomy, $values, bool $visible = true, bool $variation = false ) {
 
 		$wc_attribute_taxonomy_id = wc_attribute_taxonomy_id_by_name( $taxonomy );
+
+		//TODO: maybe_create_taxonomy
 		if ( 0 === $wc_attribute_taxonomy_id ) {
-			return false;
+			$wc_attribute_taxonomy_id = wc_create_attribute(
+				[
+					'name'         => $taxonomy, //TODO: juiste naam gebruiken
+					'slug'         => $taxonomy,
+					'type'         => 'select',
+					'order_by'     => 'name', //TODO: juiste waarde gebruiken
+					'has_archives' => true,
+				]
+			);
+			if ( is_wp_error( $wc_attribute_taxonomy_id ) ) {
+				return false;
+			}
 		}
 
 		foreach ( $values as $value ) {
@@ -644,15 +692,10 @@ class Product {
 
 		$this->target_audiences = [];
 
-		$project_type = $this->xml->project_type;
-		$min_age = (int) $this->xml->min_age;
-		$max_age = (int) $this->xml->max_age;
-		$family = (bool) $this->xml->family;
-
-		if ( ( $family ) || ( 'FAM' == $project_type ) ) {
+		if ( ( boolval( $this->xml->family ) ) || ( 'FAM' == $this->xml->project_type ) ) {
 			$this->target_audiences['family'] = $target_audiences['family'];
 		}
-		if ( ( $min_age < 17 && $min_age > 12 && $max_age < 20 ) || ( 'TEEN' == $project_type ) ) {
+		if ( intval( $this->xml->max_age ) <= 20 || 'TEEN' == $this->xml->project_type ) {
 			$this->target_audiences['teens'] = $target_audiences['teens'];
 		}
 	}

@@ -24,8 +24,6 @@ class Import_Workcamps extends Import {
 	 * Eigenschappen per project
 	 *
 	 * @var array
-	 * 
-	 * @todo verplaatsen naar databestand
 	 */
 	protected $properties = [
 		'project_id',
@@ -70,6 +68,7 @@ class Import_Workcamps extends Import {
 		'project_summary',
 		'accessibility',
 		'last_update',
+		'sdg_prj',
 	];
 	
 	/**

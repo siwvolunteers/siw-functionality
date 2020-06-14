@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\CSS;
+use SIW\Util\CSS;
 use SIW\Data\Country;
 use SIW\Data\Continent;
 use SIW\HTML;
@@ -106,20 +106,15 @@ class World_Map {
 		$this->zoom = $zoom;
 		$this->enqueue_style();
 		
-		$div = HTML::generate_tag(
-			'div',
+		$div = HTML::div(
 			[
 				'data-svg-url' => $this->map_file,
 				'style'        => 'display:none;',
-			],
-			null,
-			true
+			]
 		);
-		$svg = HTML::generate_tag(
-			'svg',
+		$svg = HTML::svg(
 			[ 'viewBox' => $this->get_viewbox() ],
-			'<use xlink:href="#mapplic-world"></use>',
-			true
+			'<use xlink:href="#mapplic-world"></use>'
 		);
 
 		return $div . $svg;

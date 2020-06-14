@@ -2,10 +2,6 @@
 
 namespace SIW;
 
-use SIW\Elements\Accordion;
-use SIW\Elements\Tablist;
-use SIW\Elements\Modal;
-
 /**
  * Hulpfuncties t.b.v. formattering
  *
@@ -37,7 +33,12 @@ class Formatting {
 	 */
 	public static function format_amount( float $amount, int $decimals = 0, string $currency_code = 'EUR' ) {
 		$currency = siw_get_currency( $currency_code );
-		$currency_symbol = $currency->get_symbol();
+
+		$currency_symbol = $currency_code;
+		if ( is_a( $currency, '\SIW\Data\Currency' ) ) {
+			$currency_symbol = $currency->get_symbol();
+		}
+		
 		$amount = number_format_i18n( $amount, $decimals );
 		return sprintf( '%s&nbsp;%s', $currency_symbol, $amount );
 	}
@@ -65,9 +66,9 @@ class Formatting {
 	 * @return string
 	 */
 	public static function generate_columns( array $cells ) {
-		$columns = '<div class="row">';
+		$columns = '<div class="grid-container">';
 		foreach ( $cells as $cell ){
-			$columns .= sprintf( '<div class="col-md-%s">%s</div>', $cell['width'], do_shortcode( $cell['content'] ) );
+			$columns .= sprintf( '<div class="grid-%s">%s</div>', $cell['width'], do_shortcode( $cell['content'] ) );
 		}
 		$columns .= '</div>';
 		return $columns;
@@ -114,7 +115,7 @@ class Formatting {
 	 */
 	public static function format_date( $date, bool $year = true ) {
 		$format = $year ? 'j F Y' : 'j F';
-		return date_i18n( $format, strtotime( $date ) );
+		return wp_date( $format, strtotime( $date ) );
 	}
 
 	/**
@@ -148,8 +149,8 @@ class Formatting {
 
 		return sprintf(
 			__( '%s t/m %s', 'siw' ),
-			date_i18n( $format_start, strtotime( $date_start ) ),
-			date_i18n( $format_end, strtotime( $date_end ) )
+			wp_date( $format_start, strtotime( $date_start ) ),
+			wp_date( $format_end, strtotime( $date_end ) )
 		);
 	}
 
@@ -161,9 +162,9 @@ class Formatting {
 	 *
 	 * @return string
 	 */
-	public static function format_month( $date, $year = true ) {
+	public static function format_month( $date, $year = true ) : string {
 		$format = $year ? 'F Y' :  'F';
-		return date_i18n( $format, strtotime( $date ) );
+		return wp_date( $format, strtotime( $date ) );
 	}
 
 	/**
@@ -186,7 +187,7 @@ class Formatting {
 	 *
 	 * @return string
 	 */
-	public static function format_month_range( string $date_start, string $date_end, bool $year = true ) {
+	public static function format_month_range( string $date_start, string $date_end, bool $year = true ) : string {
 
 		$date_start_array = date_parse( $date_start );
 		$date_end_array = date_parse( $date_end );
@@ -205,8 +206,8 @@ class Formatting {
 
 		return sprintf(
 			__( '%s t/m %s', 'siw' ),
-			date_i18n( $format_start, strtotime( $date_start ) ),
-			date_i18n( $format_end, strtotime( $date_end ) )
+			wp_date( $format_start, strtotime( $date_start ) ),
+			wp_date( $format_end, strtotime( $date_end ) )
 		);
 	}
 
@@ -218,16 +219,16 @@ class Formatting {
 	 * 
 	 * @return string
 	 */
-	public static function format_local_fee( float $fee, string $currency_code ) {
+	public static function format_local_fee( float $fee, string $currency_code ) : string {
 		if ( 0.0 === $fee || ! is_string( $currency_code ) ) {
 			return '';
 		}
 		$currency = siw_get_currency( $currency_code );
-		if ( $currency && 'EUR' != $currency_code ) {
-			$local_fee = sprintf( '%s %d (%s)', $currency->get_symbol(), $fee, $currency->get_name() );
-		}
-		elseif ( 'EUR' == $currency_code ) {
+		if ( 'EUR' == $currency_code ) {
 			$local_fee = sprintf( '&euro; %s', $fee );
+		}
+		elseif ( is_a( $currency, '\SIW\Data\Currency' ) ) {
+			$local_fee = sprintf( '%s %d (%s)', $currency->get_symbol(), $fee, $currency->get_name() );
 		}
 		else {
 			$local_fee = sprintf( '%s %d', $currency_code, $fee );
@@ -244,7 +245,7 @@ class Formatting {
 	 * 
 	 * @return string
 	 */
-	public static function format_number_of_volunteers( int $total, int $male, int $female ) {
+	public static function format_number_of_volunteers( int $total, int $male, int $female ) : string {
 
 		$male_label = ( 1 == $male ) ? 'man' : 'mannen';
 		$female_label = ( 1 == $female ) ? 'vrouw' : 'vrouwen';
@@ -266,7 +267,7 @@ class Formatting {
 	 * 
 	 * @return string
 	 */
-	public static function format_age_range( int $min_age, int $max_age ) {
+	public static function format_age_range( int $min_age, int $max_age ) : string {
 		if ( $min_age < 1 ) {
 			$min_age = 18;
 		}

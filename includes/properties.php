@@ -53,6 +53,20 @@ class Properties {
 	const PHONE_INTERNATIONAL = '+31 30 2317721';
 
 	/**
+	 * WhatsApp-nummer
+	 *
+	 * @var string
+	 */
+	const WHATSAPP = '06-86109029';
+
+	/**
+	 * Volledig WhatsApp-nummer (voor API)
+	 *
+	 * @var string
+	 */
+	const WHATSAPP_FULL = '0031686109029';
+
+	/**
 	 * KVK-nummer
 	 *
 	 * @var string
@@ -193,25 +207,11 @@ class Properties {
 	const PRIMARY_COLOR = '#ff9900';
 
 	/**
-	 * Kleurcode primaire kleur (hover)
-	 *
-	 * @var string
-	 */
-	const PRIMARY_COLOR_HOVER = '#ffcc33';
-
-	/**
 	 * Kleurcode secundaire kleur
 	 *
 	 * @var string
 	 */
 	const SECONDARY_COLOR = '#59ab9c';
-
-	/**
-	 * Kleurcode secundaire kleur (hover)
-	 *
-	 * @var string
-	 */
-	const SECONDARY_COLOR_HOVER = '#8cdecf';
 
 	/**
 	 * Kleurcode voor tekst

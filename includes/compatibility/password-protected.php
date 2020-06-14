@@ -57,7 +57,7 @@ class Password_Protected {
 	 * @param bool $is_active
 	 * @return bool
 	 */
-	public function process_whitelisted_ips( bool $is_active ) {
+	public function process_whitelisted_ips( bool $is_active ) : bool {
 		$ip_whitelist = siw_get_option('ip_whitelist');
 		if ( is_array( $ip_whitelist ) && isset( $_SERVER['REMOTE_ADDR'] ) && in_array( $_SERVER['REMOTE_ADDR'], $ip_whitelist ) ) {
 			$is_active = false;
@@ -72,7 +72,7 @@ class Password_Protected {
 	 * @param bool $secure_connection
 	 * @return bool
 	 */
-	public function set_secure_cookie( bool $secure_cookie, bool $secure_connection ) {
+	public function set_secure_cookie( bool $secure_cookie, bool $secure_connection ) : bool {
 		return $secure_connection;
 	}
 }

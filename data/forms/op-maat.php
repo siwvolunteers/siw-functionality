@@ -108,10 +108,7 @@ $fields[1] = [
 ];
 
 
-$volunteer_languages = siw_get_languages('volunteer');
-foreach ( $volunteer_languages as $language ) {
-	$languages[ $language->get_slug() ] = $language->get_name();
-}
+$languages = siw_get_languages( 'volunteer', 'slug', 'array' );
 $language_skill_levels = siw_get_language_skill_levels();
 
 $fields[2] = [
@@ -121,7 +118,8 @@ $fields[2] = [
 			'type'    => 'dropdown',
 			'label'   => __( 'Taal 1', 'siw' ),
 			'config'  => [
-				'option' => $languages,
+				'option'      => $languages,
+				'placeholder' => __( 'Selecteer een taal', 'siw' ),
 			]
 		],
 		[
@@ -140,7 +138,8 @@ $fields[2] = [
 			'type'    => 'dropdown',
 			'label'   => __( 'Taal 2', 'siw' ),
 			'config'  => [
-				'option' => $languages,
+				'option'      => $languages,
+				'placeholder' => __( 'Selecteer een taal', 'siw' ),
 			]
 		],
 		[
@@ -159,7 +158,8 @@ $fields[2] = [
 			'type'    => 'dropdown',
 			'label'   => __( 'Taal 3', 'siw' ),
 			'config'  => [
-				'option' => $languages,
+				'option'      => $languages,
+				'placeholder' => __( 'Selecteer een taal', 'siw' ),
 			]
 		],
 		[

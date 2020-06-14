@@ -2,8 +2,6 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Util;
-
 /**
  * Aanpassingen voor UpdraftPlus
  * 
@@ -54,12 +52,11 @@ class UpdraftPlus {
 	 * @param int $scheduled_time
 	 * @return int
 	 */
-	public function set_time_db_backup( int $scheduled_time ) {
+	public function set_time_db_backup( int $scheduled_time ) : int {
 		$tomorrow = strtotime( 'tomorrow' );
 		$backup_db_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
 	
-		$backup_db_ts = strtotime( $backup_db_day . ' ' . self::TS_BACKUP_DB );
-		return Util::convert_timestamp_to_gmt( $backup_db_ts );
+		return strtotime( $backup_db_day . ' ' . self::TS_BACKUP_DB . wp_timezone_string() );
 	}
 
 	/**
@@ -68,12 +65,10 @@ class UpdraftPlus {
 	 * @param int $scheduled_time
 	 * @return int
 	 */
-	public function set_time_files_backup( int $scheduled_time ) {
-		$tomorrow = strtotime( 'tomorrow');
+	public function set_time_files_backup( int $scheduled_time ) : int {
+		$tomorrow = strtotime( 'tomorrow' );
 		$backup_files_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
-	
-		$backup_files_ts = strtotime( $backup_files_day . ' ' . self::TS_BACKUP_FILES );
-		return Util::convert_timestamp_to_gmt( $backup_files_ts );
+		return strtotime( $backup_files_day . ' ' . self::TS_BACKUP_FILES . wp_timezone_string() );
 	}
 
 	/**
@@ -81,7 +76,7 @@ class UpdraftPlus {
 	 *
 	 * @return string
 	 */
-	public function set_backup_name() {
+	public function set_backup_name() : string {
 		return sanitize_title( SIW_SITE_NAME );
 	}
 

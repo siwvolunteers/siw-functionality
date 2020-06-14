@@ -3,8 +3,8 @@
 namespace SIW\Widgets;
 
 use SIW\i18n;
-use SIW\HTML;
 use SIW\Util;
+use SIW\Util\Links;
 
 /**
  * Widget met Call to Action
@@ -47,14 +47,6 @@ class CTA extends Widget {
 				'type'    => 'text',
 				'label'   => __( 'Headline', 'siw'),
 			],
-			'heading' => [
-				'type'  => 'radio',
-				'label' => __( 'Heading', 'siw'),
-				'options' => [
-					'h2' => 'h2',
-					'h4' => 'h4',
-				],
-			],
 			'button_text' => [
 				'type'    => 'text',
 				'label'   => __( 'Tekst voor knop', 'siw'),
@@ -85,14 +77,15 @@ class CTA extends Widget {
 	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
 		ob_start();
 		?>
-		<div class="title" style="text-align:<?= esc_attr( $instance['align'] ); ?>">
-			<?= sprintf( '<%s>%s</%s>', esc_attr( $instance['heading'] ), esc_html( $instance['headline'] ), esc_attr( $instance['heading'] ) );?>
-		</div>
-		<div class="link" style="text-align:<?= esc_attr( $instance['align'] ); ?>">
-			<?= HTML::generate_link( i18n::get_translated_page_url( $instance['button_page'] ), $instance['button_text'], [ 'class' => 'kad-btn' ] ); ?>
+		<div style="text-align:<?php echo esc_attr( $instance['align'] ); ?>">
+			<div class="headline">
+				<?php echo esc_html( $instance['headline'] );?>
+			</div>
+			<div class="button">
+				<?php echo Links::generate_button_link( i18n::get_translated_page_url( $instance['button_page'] ), $instance['button_text'] ); ?>
+			</div>
 		</div>
 		<?php
-		$content = ob_get_clean();
-		return $content;
+		return ob_get_clean();
 	}
 }

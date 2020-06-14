@@ -2,7 +2,7 @@
 
 namespace SIW\Batch;
 
-use SIW\Scheduler;
+use SIW\Core\Scheduler;
 use SIW\Admin\Admin_Bar;
 
 /**
@@ -126,8 +126,7 @@ abstract class Job extends \WP_Background_Process {
 	 * @return array
 	 */
 	protected function get_logger_context() {
-		$logger_context = get_site_option( $this->logger_context_option );
-		return $logger_context;
+		return get_site_option( $this->logger_context_option );
 	}
 
 	/**
@@ -165,8 +164,7 @@ abstract class Job extends \WP_Background_Process {
 	 * @return int
 	 */
 	protected function get_processed_count() {
-		$processed_count = get_site_option( $this->processed_count_option );
-		return $processed_count;
+		return get_site_option( $this->processed_count_option );
 	}
 
 	/**

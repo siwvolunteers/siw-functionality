@@ -25,6 +25,7 @@ class Meta_Box {
 		add_filter( 'rwmb_normalize_time_field', [ $self, 'set_default_time_options'] );
 		add_filter( 'rwmb_normalize_date_field', [ $self, 'set_default_date_options'] );
 		add_filter( 'rwmb_normalize_switch_field', [ $self, 'set_default_switch_options'] );
+		add_filter( 'rwmb_normalize_wysiwyg_field', [ $self, 'set_default_wysiwyg_options'] );
 		add_filter( 'rwmb_group_sanitize', [ $self, 'sanitize_group' ], 10, 4 );
 	}
 
@@ -44,7 +45,6 @@ class Meta_Box {
 			'meta-box-include-exclude',
 			'meta-box-tabs',
 			'meta-box-text-limiter',
-			//'mb-frontend-submission',
 		];
 		return $extensions;
 	}
@@ -61,8 +61,10 @@ class Meta_Box {
 	 *
 	 * @param array $field
 	 * @return array
+	 * 
+	 * @todo kan weg na introductie HTML5 velden
 	 */
-	public function set_default_time_options( array $field ) {
+	public function set_default_time_options( array $field ) : array {
 		$defaults = [
 			'pattern'    => '([01]?[0-9]|2[0-3]):[0-5][0-9]',
 			'inline'     => false,
@@ -73,8 +75,7 @@ class Meta_Box {
 				'oneLine'         => true,
 			],
 		];
-		$field = wp_parse_args_recursive( $defaults, $field );
-		return $field;
+		return wp_parse_args_recursive( $defaults, $field );
 	}
 
 	/**
@@ -82,8 +83,10 @@ class Meta_Box {
 	 *
 	 * @param array $field
 	 * @return array
+	 * 
+	 * @todo kan weg na introductie HTML5 velden
 	 */
-	public function set_default_date_options( array $field ) {
+	public function set_default_date_options( array $field ) : array {
 		$defaults = [
 			'label_description' => 'jjjj-mm-dd',
 			'placeholder'       => 'jjjj-mm-dd',
@@ -96,8 +99,7 @@ class Meta_Box {
 				'autocomplete' => 'off',
 			],
 		];
-		$field = wp_parse_args_recursive( $defaults, $field );
-		return $field;
+		return wp_parse_args_recursive( $defaults, $field );
 	}
 
 	/**
@@ -106,12 +108,30 @@ class Meta_Box {
 	 * @param array $field
 	 * @return array
 	 */
-	public function set_default_switch_options( array $field ) {
+	public function set_default_switch_options( array $field ) : array {
 		$defaults = [
-			'style'     => 'square',
+			'style' => 'square',
 		];
-		$field = wp_parse_args_recursive( $defaults, $field );
-		return $field;
+		return wp_parse_args_recursive( $defaults, $field );
+	}
+
+	/**
+	 * Zet standaardeigenschappen van wysiwyg
+	 *
+	 * @param array $field
+	 * @return array
+	 */
+	public function set_default_wysiwyg_options( array $field ) : array {
+		$defaults = [
+			'raw'      => true,
+			'options'  => [
+				'teeny'         => true,
+				'dfw'           => false,
+				'media_buttons' => false,
+				'textarea_rows' => 5,
+			],
+		];
+		return wp_parse_args_recursive( $field, $defaults );
 	}
 
 	/**
@@ -123,7 +143,7 @@ class Meta_Box {
 	 * @param string $object_id
 	 * @return array
 	 */
-	public function sanitize_group( $values, $group, $old_value = null, $object_id = null ) {
+	public function sanitize_group( array $values, array $group, $old_value = null, $object_id = null ) : array {
 		foreach ( $group['fields'] as $field ) {
 			$key = $field['id'];
 			$old = isset( $old_value[ $key ] ) ? $old_value[ $key ] : null;

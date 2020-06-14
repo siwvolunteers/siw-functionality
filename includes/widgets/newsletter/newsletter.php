@@ -80,7 +80,6 @@ class Newsletter extends Widget {
 			</form>
 		</div>
 		<?php
-		$content = ob_get_clean();
-		return $content;
+		return ob_get_clean();
 	}
 }

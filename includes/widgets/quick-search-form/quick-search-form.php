@@ -67,9 +67,9 @@ class Quick_Search_Form extends Widget {
 		<div>
 			<form id="siw_quick_search" method="get" action="<?= esc_url( $result_page_url );?>">
 				<ul>
-					<li><?= HTML::generate_field( 'select', [ 'name' => 'bestemming', 'id' => 'bestemming', 'options' => $this->get_destinations() ] );?></li>
-					<li><?= HTML::generate_field( 'select', [ 'name' => 'maand', 'id' => 'maand', 'options' => $this->get_months() ] );?></li>
-					<li><?= HTML::generate_field( 'submit', [ 'value' => __( 'Zoeken', 'siw' ) ] );?></li>
+					<li><?= HTML::generate_field( 'select', [ 'name' => 'bestemming', 'id' => 'bestemming', 'class' => 'select-css', 'options' => $this->get_destinations() ] );?></li>
+					<li><?= HTML::generate_field( 'select', [ 'name' => 'maand', 'id' => 'maand', 'class' => 'select-css', 'options' => $this->get_months() ] );?></li>
+					<li><?= HTML::generate_field( 'submit', [ 'value' => __( 'Zoeken', 'siw' ), 'class' => 'button' ] );?></li>
 				</ul>
 			</form>
 		</div>
@@ -88,15 +88,20 @@ class Quick_Search_Form extends Widget {
 		$categories = get_terms( [
 			'taxonomy'   => 'product_cat',
 			'hide_empty' => true,
+			'meta_query' => [
+				[
+					'key'     => 'post_count',
+					'value'   => 0,
+					'compare' => '>',
+				],
+			],
 		] );
 	
 		$destinations = [
 			'' => __( 'Waar wil je heen?', 'siw' ),
 		];
 		foreach ( $categories as $category ) {
-			if ( 'uncategorized' != $category->slug && get_term_meta( $category->term_id, 'project_count', true ) > 0 ) {
-				$destinations[ $category->slug ] = $category->name;
-			}
+			$destinations[ $category->slug ] = $category->name;
 		}
 		return $destinations;
 	}
@@ -110,15 +115,20 @@ class Quick_Search_Form extends Widget {
 		$terms = get_terms( [
 			'taxonomy'   => 'pa_maand',
 			'hide_empty' => true,
+			'meta_query' => [
+				[
+					'key'     => 'post_count',
+					'value'   => 0,
+					'compare' => '>',
+				],
+			]
 		]);
 	
 		$months = [
 			'' => __( 'Wanneer wil je weg?', 'siw' )
 		];
 		foreach ( $terms as $term ) {
-			if ( get_term_meta( $term->term_id, 'project_count', true ) > 0 ) {
-				$months[ $term->slug ] = $term->name; 
-			}
+			$months[ $term->slug ] = $term->name;
 		}
 		return $months;
 	}

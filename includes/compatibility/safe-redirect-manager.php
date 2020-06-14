@@ -34,7 +34,7 @@ class Safe_Redirect_Manager {
 	 *
 	 * @return int
 	 */
-	public function set_max_redirects() {
+	public function set_max_redirects() : int {
 		return self::MAX_REDIRECTS;
 	}
 
@@ -43,7 +43,7 @@ class Safe_Redirect_Manager {
 	 *
 	 * @return int
 	 */
-	public function set_default_direct_status() {
+	public function set_default_direct_status() : int {
 		return \WP_Http::MOVED_PERMANENTLY;
 	}
 }

@@ -5,63 +5,39 @@ html {
   background-position: center;
   background-size: cover;
 }
-
-body.login {
-  background-color: rgba(0, 0, 0, 0);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
+html body.login {
+  background: transparent;
 }
-
-#login {
-  padding-top: 5%;
-}
-
-.login form {
-  border-radius: 4px;
-}
-.login h1 a {
+html body.login h1 a {
   background-image: url("/wp-content/plugins/siw-functionality/assets/images/login/logo.png");
-  background-size: 150px;
-  width: 150px;
+  background-size: unset;
+  width: unset;
 }
-.login label {
-  font-size: 12px;
-  color: #444;
+html body.login .message {
+  border-left-color: #ff9900;
 }
-.login input[type=text], .login input[type=password] {
-  background-color: #ffffff;
-  border-color: #dddddd;
-  border-radius: 4px;
+html body.login form input[type=text], html body.login form input[type=password] {
+  border-radius: 0;
+  border-color: #3f3f3f;
 }
-.login .button-primary {
-  background-color: #ff9900;
-  border-color: #ff9900;
+html body.login form .button-primary {
+  background-color: #3f3f3f;
+  border: none;
+  border-radius: 0;
   color: #fff;
-  box-shadow: none;
-  -webkit-transition: all 0.3s linear 0s;
   transition: all 0.3s linear 0s;
-  text-shadow: none;
 }
-.login .button-primary:hover, .login .button-primary:active {
-  background-color: #ffcc33;
-  border-color: #ffcc33;
-  color: #fff;
-  box-shadow: none;
-}
-.login #nav a {
+html body.login form .button-primary:hover, html body.login form .button-primary:active {
+  background-color: #ff9900;
   color: #fff;
 }
-.login #nav a:hover {
+html body.login #nav a {
+  color: #fff;
+  font-weight: bold;
+}
+html body.login #nav a:hover {
   color: #ff9900;
 }
-.login .message {
-  border-left: 4px solid #ff9900;
-}
-.login input[type=checkbox]:checked::before {
-  color: #ff9900;
-}
-.login p#backtoblog {
+html body.login p#backtoblog {
   display: none;
 }

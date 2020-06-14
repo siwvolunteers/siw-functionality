@@ -1,4 +1,4 @@
-/** global: siw_newsletter_api, ga */
+/** global: siw_api_newsletter, ga */
 
 /**
  * @file      Functies t.b.v. de nieuwsbrief signup
@@ -29,9 +29,9 @@ var siwNewsletterSignup = (function () {
 	 * Voegt listeners toe
 	 */
 	function _addListeners() {
-		$forms = document.querySelectorAll( 'form.newsletter_form');
-		for ( var i=0, len = $forms.length; i < len; i++ ) {
-			var form = $forms[i];
+		var forms = document.querySelectorAll( 'form.newsletter_form');
+		for ( var i=0, len = forms.length; i < len; i++ ) {
+			var form = forms[i];
 			form.addEventListener('submit', _handleFormSubmit );
 		}
 	}

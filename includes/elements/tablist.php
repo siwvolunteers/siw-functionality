@@ -3,6 +3,7 @@
 namespace SIW\Elements;
 
 use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Class om een tablist te genereren
@@ -63,7 +64,7 @@ class Tablist {
 			'id'    => uniqid( 'siw-tablist-' ),
 			'class' => ['siw-tablist'],
 		];
-		return HTML::generate_tag( 'div', $attributes ) . $this->generate_panes() . '</div>' ;
+		return HTML::div( $attributes, $this->generate_panes() );
 	} 
 
 	/**
@@ -80,11 +81,11 @@ class Tablist {
 			$id = uniqid();
 
 			if ( isset( $pane['show_button'] ) && true == $pane['show_button'] ) {
-				$pane['content'] .= wpautop( HTML::generate_link( $pane['button_url'], $pane['button_text'], [ 'class' => 'kad-btn' ] ) );
+				$pane['content'] .= wpautop( Links::generate_button_link( $pane['button_url'], $pane['button_text'] ) );
 			}
 
-			$list .= sprintf( '<li role="tab" aria-controls="tab-%s">%s</li>', $id, $pane['title'] );
-			$content .= sprintf( '<div role="tabpanel" id="tab-%s">%s</div>', $id, $pane['content'] );
+			$list .= sprintf( '<li role="tab" aria-controls="tab-%s">%s</li>', $id, esc_html( $pane['title'] ) );
+			$content .= sprintf( '<div role="tabpanel" id="tab-%s">%s</div>', $id, wp_kses_post( wpautop( $pane['content'] ) ) );
 		}
 
 		$list .= '</ul>';

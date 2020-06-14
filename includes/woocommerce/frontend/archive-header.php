@@ -20,7 +20,7 @@ class Archive_Header {
 	 */
 	public static function init() {
 		$self = new self();
-		add_action( 'after_page_header', [ $self, 'add_archive_description'] );
+		add_action( 'generate_inside_site_container', [ $self, 'add_archive_description'] );
 	}
 
 	/**
@@ -44,11 +44,9 @@ class Archive_Header {
 		);
 	
 		?>
-		<div class="container">
-			<div class="row siw-archive-intro">
-				<div class="md-12">
-					<?php echo wp_kses_post( $text ); ?>
-				</div>
+		<div class="grid-container">
+			<div class="siw-archive-intro">
+				<?php echo wp_kses_post( $text ); ?>
 			</div>
 		</div>
 		
@@ -86,6 +84,9 @@ class Archive_Header {
 					break;
 				case 'pa_soort-werk':
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
+					break;
+				case 'pa_sdg':
+					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op het Sustainable Development Goal %s.', 'siw' ), '<b>' . $name . '</b>' );
 					break;
 				case 'pa_doelgroep':
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten voor de doelgroep %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );

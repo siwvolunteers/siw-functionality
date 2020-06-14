@@ -2,6 +2,8 @@
 
 namespace SIW\Admin;
 
+use SIW\Core\Shortcodes as SIW_Shortcodes;
+
 /**
  * Shortcodes in admin
  * 
@@ -22,11 +24,18 @@ class Shortcodes {
 	 * Script toevoegen
 	 */
 	public function enqueue_script() {
+
+		//FIXME: workaround voor black studio tinymce
+		if ( did_action( 'wp_enqueue_editor' ) > 1 ) {
+			return;
+		}
+
 		wp_register_script( 'siw-admin-shortcodes', SIW_ASSETS_URL . 'js/admin/siw-shortcodes.js', [], SIW_PLUGIN_VERSION, true );
 		
 		//Shortcodes ophalen
-		$shortcodes = siw_get_data( 'shortcodes' );
+		$shortcodes = SIW_Shortcodes::get_shortcodes();
 		array_walk( $shortcodes, [ $this, 'format_shortcode' ] );
+		$shortcodes = array_values( $shortcodes );
 
 		$siw_shortcodes = [
 			'title'      => __( 'SIW Shortcodes', 'siw' ),
@@ -41,13 +50,22 @@ class Shortcodes {
 		wp_enqueue_script( 'siw-admin-shortcodes' );
 	}
 
-
 	/**
 	 * Formatteert shortcode voor gebruik in TinyMCE
 	 *
 	 * @param array $value
 	 */
-	protected function format_shortcode( &$value ) {
+	protected function format_shortcode( &$value, $key ) {
+
+		//Shortcodes zonder parameter verwerken
+		if ( is_string( $value ) ) {
+			$value = [
+				'title' => $value
+			];
+		}
+		$value['shortcode'] = $key;
+
+		//TODO: klop dit wel?
 		$properties = ['shortcode', 'title', 'attributes'];
 		$value = array_intersect_key( $value, array_flip( $properties ) );
 		if ( isset( $value['attributes'] ) ) {

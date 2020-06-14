@@ -2,8 +2,8 @@
 
 namespace SIW\Batch;
 
-use SIW\HTML;
 use SIW\Email\Template;
+use SIW\Util\Links;
 use SIW\WooCommerce\Import\Product as Import_Product;
 
 /**
@@ -96,7 +96,7 @@ class Send_Workcamp_Approval_Emails extends Job {
 		$message = 
 			sprintf( 'Beste %s,', $responsible_user->user_firstname ) . BR2 .
 			sprintf( 'Er wachten nog %d projecten in %s op jouw beoordeling.', count( $products ), $category['name'] ) . BR .
-			sprintf( 'Klik %s om de projecten te bekijken.', HTML::generate_link( $admin_url, 'hier') );
+			sprintf( 'Klik %s om de projecten te bekijken.', Links::generate_link( $admin_url, 'hier') );
 
 		$template = new Template(
 			[

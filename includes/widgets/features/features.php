@@ -120,45 +120,15 @@ class Features extends Widget {
 
 		$columns = $instance['columns'];
 		$rows = array_chunk( $instance['features'], $columns );
-
-		switch ( $columns ) {
-			case 4:
-				$class = 'col-md-3';
-				break;
-			case 3:
-				$class = 'col-md-4';
-				break;
-			case 2:
-				$class = 'col-md-6';
-				break;
-			case 1:
-			default:
-				$class = 'col-md-12';
-		}
-
 		ob_start();
 		?>
 		<?php
 		if ( isset( $instance['intro'] ) ) {
 			echo wp_kses_post( $instance['intro'] );
 		}
-		foreach ( $rows as $row ) : ?>
-			<div class="row">
-				<?php foreach ( $row as $feature ) : ?>
-				<div class="cell <?= esc_attr( $class ); ?>">
-					<?php echo Elements::generate_icon( $feature['icon'], 4, 'circle');?>
-					<h3><?php echo esc_html( $feature['title'] );?></h3>
-					<?php echo wpautop( wp_kses_post( $feature['content'] ) );?>
-					<?php 
-					if ( $feature['add_link'] ) {
-						echo HTML::generate_link( $feature['link_url'], __( 'Lees meer', 'siw' ), [ 'class' => 'kad-btn'] );
-					}
-					?>
-				</div>
-				<?php endforeach ?>
-			</div>
-		<?php endforeach;
-		$content = ob_get_clean();
-		return $content;
+		foreach ( $rows as $row ) {
+			echo Elements::generate_features( $row, $columns );
+		}
+		return ob_get_clean();
 	}
 }

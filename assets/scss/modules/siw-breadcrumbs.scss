@@ -1,0 +1,22 @@
+@import "../partials/_variables.scss";
+
+nav.breadcrumb{
+	font-size: 0.9em;
+	text-shadow: $text-shadow;
+	ol.breadcrumb {
+		margin:0;
+		list-style: none;
+		li{
+			display:inline-block;
+			a{
+				text-decoration: underline;
+				color: #fff;
+			}
+		}
+		li+li:before {
+			padding: 0.9em;
+			color: #fff;
+			content: "/\00a0";
+		}
+	}
+}

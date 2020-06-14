@@ -19,7 +19,7 @@ abstract class Chart {
 	 * 
 	 * @param string
 	 */
-	const FRAPPE_CHARTS_VERSION = '1.4.1';
+	const FRAPPE_CHARTS_VERSION = '1.5.0';
 
 	/**
 	 * Type grafiek
@@ -61,7 +61,7 @@ abstract class Chart {
 			'class'        => 'siw-chart',
 			'data-options' => $this->generate_chart_options(),
 		];
-		return HTML::generate_tag( 'div', $attributes, null, true ) ;
+		return HTML::div( $attributes ) ;
 	}
 
 	/**

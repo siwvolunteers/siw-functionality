@@ -21,7 +21,6 @@ class WPML {
 		
 		add_action( 'widgets_init', [ $self, 'unregister_wpml_widget'], 99 );
 		add_action( 'admin_head', [ $self, 'remove_wpml_meta_box'] );
-		add_filter( 'wpml_ls_directories_to_scan', [ $self, 'add_language_switcher_templates_dir'] );
 		add_action( 'delete_attachment', [ $self, 'delete_original_attachment' ] );
 	}
 
@@ -38,17 +37,6 @@ class WPML {
 	public function remove_wpml_meta_box() {
 		$screen = get_current_screen();
 		remove_meta_box( 'icl_div_config', $screen->post_type, 'normal' );
-	}
-
-	/**
-	 * Voegt templates voor taalwisselaar toe
-	 *
-	 * @param array $dirs
-	 * @return array
-	 */
-	public function add_language_switcher_templates_dir( array $dirs ) {
-		$dirs[] = SIW_TEMPLATES_DIR .'/wpml/language-switchers';
-		return $dirs;
 	}
 
 	/**

@@ -22,22 +22,6 @@ $data = [
 	'fields'         => [
 		[
 			'type'    => 'heading',
-			'name'    => __( 'Archief', 'siw' ),
-		],
-		[
-			'id'      => 'events_archive_page',
-			'name'    => __( 'Evenementen', 'siw' ),
-			'type'    => 'select_advanced',
-			'options' => Util::get_pages(),
-		],
-		[
-			'id'      => 'job_postings_archive_page',
-			'name'    => __( 'Vacatures', 'siw' ),
-			'type'    => 'select_advanced',
-			'options' => Util::get_pages(),
-		],
-		[
-			'type'    => 'heading',
 			'name'    => __( 'Zo werkt het', 'siw' ),
 		],
 		[

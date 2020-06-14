@@ -24,12 +24,35 @@ $data = [
 			'id'       => 'job_postings_organization_profile',
 			'name'     => __( 'Wie zijn wij', 'siw' ),
 			'type'     => 'wysiwyg',
-			'raw'      => true,
-			'options'  => [
-				'teeny'         => false,
-				'media_buttons' => false,
-				'dfw'           => false,
-				'textarea_rows' => 5,
+			'required' => true,
+		],
+		[
+			'id'        => 'hr_manager',
+			'type'      => 'group',
+			'fields'    => [
+				[
+					'type'     => 'heading',
+					'name'     => __( 'P&O manager', 'siw' ),
+					'desc'     => __( 'Standaard contactpersoon voor sollicitaties', 'siw' ),
+				],
+				[
+					'id'       => 'name',
+					'name'     => __( 'Naam', 'siw' ),
+					'type'     => 'text',
+					'required' => true,
+				],
+				[
+					'id'       => 'title',
+					'name'     => __( 'Functie', 'siw' ),
+					'type'     => 'text',
+					'required' => true,
+				],
+				[
+					'id'       => 'email',
+					'name'     => __( 'E-mail', 'siw' ),
+					'type'     => 'email',
+					'required' => true,
+				],
 			],
 		],
 	],

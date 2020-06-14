@@ -40,16 +40,15 @@ class Cookie_Notice {
 	 * Toont de cookie notificatie
 	 */
 	public function render() { ?>
-		<div id="siw-cookie-notification" class="hidden">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-10 cookie-text"><?php
+		<div id="siw-cookie-notification" hidden>
+			<div class="grid-container">
+				<div class="grid-80 cookie-text">
+					<?php
 						esc_html_e( 'We gebruiken cookies om ervoor te zorgen dat onze website optimaal werkt en om het gebruik van onze website te analyseren.', 'siw' ); echo SPACE;
 						esc_html_e( 'Door gebruik te blijven maken van onze website, ga je hiermee akkoord.', 'siw' ); ?>
-					</div>
-					<div class="col-md-2 cookie-button">
-						<button id="siw-cookie-consent" class="button"><?php esc_html_e( 'Ik ga akkoord!', 'siw' ); ?></button>
-					</div>
+				</div>
+				<div class="grid-20 cookie-button">
+					<button id="siw-cookie-consent" type="button" class="button ghost"><?php esc_html_e( 'Ik ga akkoord', 'siw' ); ?></button>
 				</div>
 			</div>
 		</div>

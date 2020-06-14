@@ -11,8 +11,6 @@ namespace SIW\Compatibility;
  */
 class SiteOrigin_Page_Builder {
 
-
-
 	/**
 	 * Init
 	 */
@@ -52,7 +50,7 @@ class SiteOrigin_Page_Builder {
 	 * 
 	 * @return array
 	 */
-	public function add_widget_tab( array $tabs ) {
+	public function add_widget_tab( array $tabs ) : array {
 		$tabs[] = [
 			'title'  => __( 'SIW Widgets', 'siw' ),
 			'filter' => [

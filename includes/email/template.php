@@ -3,7 +3,7 @@
 namespace SIW\Email;
 
 use SIW\Properties;
-use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * E-mail template
@@ -151,18 +151,21 @@ class Template {
 									<td width="40%">&nbsp;</td>
 										<?php foreach ( siw_get_social_networks( 'follow') as $network ) :?>
 										<td width="auto" align="center">
-											<?php echo HTML::generate_link(
-												$network->get_follow_url(),
-												sprintf(
-													'<img src="%s" alt="%s" title="%s" width="20" height="20" border="0" />',
-													SIW_ASSETS_URL . 'images/mail/' . $network->get_slug() . '.png',
-													$network->get_slug(),
-													esc_attr( sprintf( __( 'Volg ons op %s', 'siw' ), $network->get_name() ) )
-												),
-												[
-													'target' => '_blank'
-												]
-											);?>
+										<?php
+													echo Links::generate_image_link(
+														$network->get_follow_url(),
+														[
+															'src'    => SIW_ASSETS_URL . 'images/mail/' . $network->get_slug() . '.png',
+															'alt'    => $network->get_slug(),
+															'title'  =>  sprintf( __( 'Volg ons op %s', 'siw' ), $network->get_name() ),
+															'width'  => 20,
+															'height' => 20,
+														],
+														[
+															'target' => '_blank'
+														]
+													);
+												?>
 										</td>
 										<?php endforeach; ?>
 									<td width="40%">&nbsp;</td>

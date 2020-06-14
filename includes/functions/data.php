@@ -102,6 +102,18 @@ function siw_get_dutch_provinces() {
 }
 
 /**
+ * Geeft naam van provincie van Nederland terug o.b.v. slug
+ * 
+ * @since     3.0.0
+ *
+ * @return array
+ */
+function siw_get_dutch_province( string $slug ) {
+	$provinces = siw_get_dutch_provinces();
+	return $provinces[ $slug ] ?? '';
+}
+
+/**
  * Geeft array met bestuursfuncties terug
  * 
  * @since     3.0.0

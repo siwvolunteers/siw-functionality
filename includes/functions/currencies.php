@@ -13,12 +13,13 @@ use SIW\Data\Currency;
  * 
  * @since     3.0.0
  *
- * @param string $index
- * @return Currency[]
+ * @param string $return
+ *
+ * @return array
  */
-function siw_get_currencies() {
+function siw_get_currencies( string $return = 'objects' ) : array {
 
-	$currencies = wp_cache_get( "currencies", 'siw_currencies' );
+	$currencies = wp_cache_get( "{$return}", 'siw_currencies' );
 	if ( false !== $currencies ) {
 		return $currencies;
 	}
@@ -37,7 +38,15 @@ function siw_get_currencies() {
 		},
 		$data
 	);
-	wp_cache_set( "currencies", $currencies, 'siw_currencies' );
+	if ( 'array' == $return ) {
+		$currencies = array_map(
+			function( $currency ) {
+				return $currency->get_name();
+			},
+			$currencies
+		);
+	}
+	wp_cache_set( "{$return}", $currencies, 'siw_currencies' );
 
 	return $currencies;
 }
@@ -45,11 +54,11 @@ function siw_get_currencies() {
 /**
  * Geeft informatie over een valuta terug
  * 
- * @since     3.0.0
+ * @since  3.0.0
  *
  * @return Currency
  */
-function siw_get_currency( string $currency ) {
+function siw_get_currency( string $currency ) : ?Currency {
 	$currencies = siw_get_currencies();
-	return $currencies[ $currency ] ?? false;
+	return $currencies[ $currency ] ?? null;
 }

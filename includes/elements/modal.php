@@ -3,6 +3,7 @@
 namespace SIW\Elements;
 
 use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Class om een Modal te genereren
@@ -104,7 +105,7 @@ class Modal {
 	 */
 	protected function generate_header() {
 		$header = '<header class="modal-header">';
-		$header .= sprintf( '<h4 class="modal-title" id="%s-title">%s</h4>', $this->id, $this->title );
+		$header .= sprintf( '<h2 class="modal-title" id="%s-title">%s</h2>', $this->id, $this->title );
 		$header .= sprintf( '<button class="modal-close" aria-label="%s" data-micromodal-close></button>', esc_html__( 'Sluiten', 'siw' ) );
 		$header .= '</header>';
 
@@ -117,14 +118,13 @@ class Modal {
 	 * @return string
 	 */
 	protected function generate_body() {
-		return HTML::generate_tag(
+		return HTML::tag(
 			'main',
 			[
 				'class' => 'modal-body',
 				'id'    => "{$this->id}-content"
 			],
 			wpautop( wp_kses_post( $this->content ) ),
-			true
 		);
 	}
 
@@ -139,7 +139,7 @@ class Modal {
 			esc_html__( 'Sluit deze dialoog', 'siw' ),
 			esc_html__( 'Sluiten', 'siw' )
 		);
-		return HTML::generate_tag( 'footer', [ 'class' => 'modal-footer'], $button, true );
+		return HTML::tag( 'footer', [ 'class' => 'modal-footer'], $button );
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Modal {
 	 * @return string
 	 */
 	public function generate_link( string $text, string $link = null ) {
-		$link = HTML::generate_link(
+		$link = Links::generate_link(
 			$link ?? '#',
 			$text,
 			[ 'data-micromodal-trigger' => $this->id, 'target' => '_blank' ] //TODO: optie voor target?

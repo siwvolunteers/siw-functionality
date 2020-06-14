@@ -2,7 +2,7 @@
 
 namespace SIW\Admin;
 
-use SIW\Options;
+use SIW\Core\Options;
 
 /**
  * Optie-pagina's
