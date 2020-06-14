@@ -316,9 +316,7 @@ class SIW_Post_Type_Vacatures {
 	 */
 	function set_seo_noindex( array $meta, int $post_id ) : array {
 		if ( 'vacatures' == get_post_type( $post_id ) ) {
-			$deadline  = date( 'Y-m-d', get_post_meta( $post_id, 'siw_vacature_deadline', true ) );
-			$noindex = date( 'Y-m-d' ) > $deadline;
-			$meta['_genesis_noindex'] = intval( $noindex );
+			$meta['_genesis_noindex'] = 1;
 		}
 		return $meta;
 	}

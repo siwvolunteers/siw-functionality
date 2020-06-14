@@ -335,11 +335,8 @@ class SIW_Post_Type_Agenda {
 	 */
 	function set_seo_noindex( array $meta, int $post_id ) : array {
 		if ( 'agenda' == get_post_type( $post_id ) ) {
-			$deadline  = date( 'Y-m-d', get_post_meta( $post_id, 'siw_agenda_eind', true ) );
-			$noindex = date( 'Y-m-d' ) > $deadline;
-			$meta['_genesis_noindex'] = intval( $noindex );
+			$meta['_genesis_noindex'] = 1;
 		}
 		return $meta;
 	}
-
 }
