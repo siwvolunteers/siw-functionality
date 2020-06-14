@@ -37,7 +37,7 @@ class Icons {
 	public function add_svg_sprite() {
 		echo HTML::div(
 			[
-				'data-svg-url' => SIW_ASSETS_URL . '/icons/siw-general-icons.svg',
+				'data-svg-url' => SIW_ASSETS_URL . 'icons/siw-general-icons.svg',
 				'style'        => 'display:none;',
 			]
 		);
