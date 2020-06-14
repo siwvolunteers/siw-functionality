@@ -8,8 +8,8 @@ use SIW\Properties;
  * Aanpassingen voor WooCommerce Multistep Checkout
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @see       https://woocommerce.com/
- * @since     3.1.?
+ * @see       http://woocommerce-multistep-checkout.com/documentation/
+ * @since     3.1.0
  */
 class WooCommerce_Multistep_Checkout {
 
@@ -20,15 +20,13 @@ class WooCommerce_Multistep_Checkout {
 		$self = new self();
 
 		$options = array_keys( $self->get_option_values() );
-
-		//
 		foreach ( $options as $option ) {
 			add_filter( "option_{$option}", [ $self, 'set_option_value'], 10, 2 );
 		}
 	}
 
 	/**
-	 * Undocumented function
+	 * Geeft waarde voor WMC-opties terug
 	 *
 	 * @return array
 	 */
@@ -61,12 +59,12 @@ class WooCommerce_Multistep_Checkout {
 			'wmc_btn_finish'                  => __( 'Aanmelden', 'siw' ),
 			'wmc_no_account_btn'              => null,
 			'wmc_coupon_label'                => __( 'Kortingscode', 'siw' ),
-			//'wmc_billing_label'               => __( 'Je gegevens', 'siw' ),
-			//'wmc_shipping_label'              => __( 'Informatie partnerorganisatie', 'siw' ),
+			'wmc_billing_label'               => __( 'Je gegevens', 'siw' ),
+			'wmc_shipping_label'              => __( 'Informatie partnerorganisatie', 'siw' ),
 			'wmc_billing_shipping_label'      => __( 'Je gegevens', 'siw' ),
-			//'wmc_orderinfo_label'             => __( 'Overzicht & betalenz', 'siw' ),
+			'wmc_orderinfo_label'             => __( 'Overzicht & betalenz', 'siw' ),
 			'wmc_paymentinfo_label'           => __( 'Overzicht & betalen', 'siw' ),
-			//'wmc_order_review_label'          => __( 'Overzicht', 'siw' ),
+			'wmc_order_review_label'          => __( 'Overzicht', 'siw' ),
 			'wmc_empty_error'                 => __( 'Dit veld is verplicht', 'siw' ),
 			'wmc_email_error'                 => __( 'Dit is geen geldig e-mailadres', 'siw' ),
 			'wmc_phone_error'                 => __( 'Dit is geen geldig telefoonnummer', 'siw' ),
@@ -77,10 +75,8 @@ class WooCommerce_Multistep_Checkout {
 		return $option_values;
 	}
 
-
-
 	/**
-	 * Undocumented function
+	 * Zet waarde van optie
 	 *
 	 * @param mixed $value
 	 * @param string $option
@@ -89,6 +85,6 @@ class WooCommerce_Multistep_Checkout {
 	 */
 	public function set_option_value( $value, string $option ) {
 		$option_values = $this->get_option_values();
-		return $option_values[ $option ];// ?? $value;
+		return $option_values[ $option ];
 	}
 }
