@@ -34,7 +34,7 @@ class Download_File extends Plato_Interface {
 
 		//Download bestand
 		$this->add_query_arg( 'fileIdentifier', $identifier );
-		$temp_file = download_url( $this->endpoint_url, self::TIMEOUT );
+		$temp_file = \download_url( $this->endpoint_url, self::TIMEOUT );
 
 		// Afbreken als downloaden mislukt is
 		if ( is_wp_error( $temp_file ) ) {
