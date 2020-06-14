@@ -45,7 +45,6 @@ class Meta_Box {
 			'meta-box-include-exclude',
 			'meta-box-tabs',
 			'meta-box-text-limiter',
-			//'mb-frontend-submission',
 		];
 		return $extensions;
 	}
