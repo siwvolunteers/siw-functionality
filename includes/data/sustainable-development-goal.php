@@ -100,7 +100,7 @@ class Sustainable_Development_Goal {
 	 * @return string
 	 */
 	public function get_full_name() : string {
-		return sprintf( '%b. %s', $this->number, $this->name );
+		return sprintf( '%d. %s', $this->number, $this->name );
 	}
 
 	/**
