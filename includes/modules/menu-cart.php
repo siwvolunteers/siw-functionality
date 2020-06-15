@@ -21,7 +21,7 @@ class Menu_Cart {
 	 */
 	protected $menu_locations = [
 		'primary',
-		//'mobile_navigation'
+		'slideout'
 	];
 
 	/**
