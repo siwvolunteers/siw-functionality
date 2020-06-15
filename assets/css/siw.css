@@ -486,6 +486,10 @@ body {
 /*--------------------------------------------------------------
 ## Widgets
 --------------------------------------------------------------*/
+html[lang=en-US] #footer-widgets {
+  text-align: center;
+}
+
 /* Contact widget */
 .widget_siw_contact_widget p {
   margin-bottom: 10px;
