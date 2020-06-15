@@ -115,7 +115,7 @@ class Upload_Subdir {
 	 * @return string
 	 */
 	protected function get_extension_subdir() {
-		$name = isset( $_POST['name'] ) ? sanitize_title( $_POST['name'] ): null;
+		$name = isset( $_POST['name'] ) ? sanitize_file_name( $_POST['name'] ): null;
 		if ( null === $name ) {
 			return null;
 		}
