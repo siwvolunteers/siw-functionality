@@ -250,9 +250,6 @@ class Bootstrap {
 	protected function load_content_types() {
 		
 		// Legacy: kan weg na migratie naar content types
-		require_once SIW_INCLUDES_DIR . '/post-types/class-siw-post-type-agenda.php';
-		$this->init_class( null, 'SIW_Post_Type_Agenda' );
-
 		require_once SIW_INCLUDES_DIR . '/post-types/class-siw-post-type-vacatures.php';
 		$this->init_class( null, 'SIW_Post_Type_Vacatures' );
 
