@@ -1,10 +1,17 @@
 <wpml-config>
 	<custom-types>
-		<custom-type translate="0">agenda</custom-type>
-		<custom-type translate="0">vacatures</custom-type>
+		<custom-type translate="0">siw_event</custom-type>
+		<custom-type translate="0">siw_quote</custom-type>
+		<custom-type translate="0">siw_job_posting</custom-type>
+		<custom-type translate="0">siw_story</custom-type>
+		<custom-type translate="0">siw_tm_country</custom-type>
 	</custom-types>
 	<taxonomies>
-		<taxonomy translate="0">soort_evenement</taxonomy>
-		<taxonomy translate="0">soort_vacature</taxonomy>
+		<taxonomy translate="0">siw_job_posting_type</taxonomy>
+		<taxonomy translate="0">siw_quote_continent</taxonomy>
+		<taxonomy translate="0">siw_quote_project_type</taxonomy>
+		<taxonomy translate="0">siw_story_continent</taxonomy>
+		<taxonomy translate="0">siw_story_project_type</taxonomy>
+		<taxonomy translate="0">siw_tm_country_continent</taxonomy>
 	</taxonomies>
 </wpml-config>
