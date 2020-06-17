@@ -236,6 +236,9 @@ h2 > a:hover:before, .footer-widgets a.link:hover:before {
   margin-bottom: 20px;
 }
 
+.siw_event {
+  margin-bottom: 15px;
+}
 .siw_event .event-date {
   color: #555;
   line-height: 2em;
