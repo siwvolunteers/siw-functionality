@@ -162,6 +162,7 @@ class The_SEO_Framework {
 			'pa_doelgroep',
 			'pa_soort-werk',
 			'pa_taal',
+			'pa_sdg',
 		];
 	
 		foreach ( $taxonomies as $taxonomy ) {
