@@ -38,6 +38,16 @@ class Job_Posting extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
+	protected $orderby = 'meta_value';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $orderby_meta_key = 'deadline';
+
+	/**
+	 * {@inheritDoc}
+	 */
 	protected $archive_taxonomy_filter = true;
 
 	/**
@@ -276,7 +286,7 @@ class Job_Posting extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_archive_meta_query() : array {
+	protected function get_active_posts_meta_query() : array {
 		return [
 			'key'     => 'deadline',
 			'value'   => date('Y-m-d'),

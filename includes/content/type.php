@@ -106,25 +106,34 @@ abstract class Type {
 	protected $archive_order = 'DESC';
 
 	/**
-	 * Undocumented variable
+	 * Volgorde van posts in admin
+	 * 
+	 * ASC|DESC
 	 *
 	 * @var string
 	 */
-	protected $archive_orderby = 'date';
+	protected $admin_order = 'DESC';
 
 	/**
-	 * Undocumented variable
+	 * Waarop moeten posts gesorteerd worden
 	 *
 	 * @var string
 	 */
-	protected $archive_meta_key = '';
+	protected $orderby = 'date';
 
 	/**
-	 * Undocumented variable
+	 * Als `orderby` meta_key is, welke meta_key dan
+	 *
+	 * @var string
+	 */
+	protected $orderby_meta_key = '';
+
+	/**
+	 * Meta query om te filteren op 'actieve' posts
 	 *
 	 * @var array
 	 */
-	protected $archive_meta_query = [];
+	protected $active_posts_meta_query = [];
 
 	/**
 	 * Kan post type in carousel gebruikt worden
@@ -182,7 +191,7 @@ abstract class Type {
 			add_action( 'wp_enqueue_scripts', [ $self, 'set_single_width'], 50 );
 			add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta'] );
 
-			$self->archive_meta_query = $self->get_archive_meta_query();
+			$self->active_posts_meta_query = $self->get_active_posts_meta_query();
 
 			//Archive
 			new Archive( 
@@ -193,9 +202,9 @@ abstract class Type {
 					'masonry'         => $self->archive_masonry,
 					'column_count'    => $self->archive_column_width,
 					'order'           => $self->archive_order,
-					'orderby'         => $self->archive_orderby,
-					'meta_key'        => $self->archive_meta_key,
-					'meta_query'      => $self->archive_meta_query,
+					'orderby'         => $self->orderby,
+					'meta_key'        => $self->orderby_meta_key,
+					'meta_query'      => $self->active_posts_meta_query,
 					'sidebar_layout'  => $self->archive_sidebar_layout,
 				]
 			);
@@ -205,11 +214,11 @@ abstract class Type {
 			add_action( "siw_{$self->post_type}_archive_content", [ $self, 'add_archive_content'] );
 
 
-			if ( ! empty( $self->archive_meta_query ) && ! empty( $self->taxonomies ) ) {
+			if ( ! empty( $self->active_posts_meta_query ) && ! empty( $self->taxonomies ) ) {
 				add_filter( 'siw_update_terms_taxonomies', [ $self, 'set_update_terms_taxonomies'] );
 			}
 
-			if ( ! empty( $self->archive_meta_query ) ) {
+			if ( ! empty( $self->active_posts_meta_query ) ) {
 				add_action( 'admin_menu', [ $self, 'add_admin_active_post_count' ], PHP_INT_MAX );
 			}
 
@@ -323,7 +332,7 @@ abstract class Type {
 	 *
 	 * @return array
 	 */
-	protected function get_archive_meta_query() : array {
+	protected function get_active_posts_meta_query() : array {
 		return [];
 	}
 
@@ -463,7 +472,7 @@ abstract class Type {
 	 *
 	 * @param \WP_Query $query
 	 *
-	 * @todo netjes maken?
+	 * @todo netjes maken? + inverse van archive
 	 */
 	public function set_default_orderby( \WP_Query $query ) {
 
@@ -473,47 +482,54 @@ abstract class Type {
 		}
 
 		if ( '' == $query->get( 'orderby' ) ) {
-			$query->set( 'orderby', $this->archive_orderby );
+			$query->set( 'orderby', $this->orderby );
 		}
+
+		if ( '' == $query->get( 'meta_key' ) && 'meta_value' == $this->orderby ) {
+			$query->set( 'meta_key', $this->orderby_meta_key );
+		}
+
 		if ( '' == $query->get( 'order' ) ) {
-			$query->set( 'order', $this->archive_order );
+			$query->set( 'order', $this->admin_order );
 		}
 	}
 
 	/**
-	 * Undocumented function
+	 * Toon teller met aantal actieve posts
 	 */
 	public function add_admin_active_post_count() {
 		global $submenu;
 		
-		if ( ! isset( $submenu["edit.php?post_type=siw_{$this->post_type}"] ) ) {
+		$submenu_index = "edit.php?post_type=siw_{$this->post_type}";
+
+		if ( ! isset( $submenu[ $submenu_index ] ) ) {
 			return;
 		}
 
-		$cpt_menu = $submenu["edit.php?post_type=siw_{$this->post_type}"];
+		$cpt_menu = $submenu[ $submenu_index ];
 		$menu_item = wp_list_filter(
 			$cpt_menu,
-			[ 2 => "edit.php?post_type=siw_{$this->post_type}" ]
+			[ 2 => $submenu_index ]
 		);
-		$menu_index = ! empty( $menu_item ) ? key( $menu_item ) : null;
+		$menu_item_index = ! empty( $menu_item ) ? key( $menu_item ) : null;
 
 		$posts = get_posts(
 			[
 				'post_type'  => "siw_{$this->post_type}",
-				'meta_query' => [ $this->archive_meta_query ],
+				'meta_query' => [ $this->active_posts_meta_query ],
 				'limit'      => -1,
 				'return'     => 'ids',
 			]
 		);
 
 		$count = count( $posts );
-		if ( $count > 0 && $menu_index ) {
-			$submenu["edit.php?post_type=siw_{$this->post_type}"][ $menu_index ][0] .= ' <span class="awaiting-mod">' . number_format_i18n( $count ) . '</span>';
+		if ( $count > 0 && $menu_item_index ) {
+			$submenu[ $submenu_index ][ $menu_item_index ][0] .= ' <span class="awaiting-mod">' . number_format_i18n( $count ) . '</span>';
 		}
 	}
 
 	/**
-	 * Undocumented function
+	 * Voegt post type toe aan carousel widget
 	 *
 	 * @param array $post_types
 	 *
@@ -525,7 +541,7 @@ abstract class Type {
 	}
 
 	/**
-	 * Undocumented function
+	 * Voegt taxonomieën toe aan carousel widget
 	 *
 	 * @param array $post_type_taxonomies
 	 *
@@ -539,7 +555,7 @@ abstract class Type {
 	}
 
 	/**
-	 * Undocumented function
+	 * Zet template voor carousel
 	 *
 	 * @param array $post_type_templates
 	 *
@@ -551,7 +567,7 @@ abstract class Type {
 	}
 
 	/**
-	 * Undocumented function
+	 * Zet subdirectory voor uploads
 	 *
 	 * @param array $subdirs
 	 *
@@ -565,7 +581,7 @@ abstract class Type {
 	}
 
 	/**
-	 * Undocumented function
+	 * Zet taxonomiën om bij te werken via batch
 	 *
 	 * @param array $taxonomies
 	 *
@@ -577,10 +593,9 @@ abstract class Type {
 				'query_type'   => 'posts',
 				'count'        => true,
 				'delete_empty' => false,
-				'meta_query'   => [ $this->archive_meta_query ]
+				'meta_query'   => [ $this->active_posts_meta_query ]
 			];
 		}
 		return $taxonomies;
 	}
-
 }
