@@ -61,7 +61,7 @@ class Caldera_Forms{
 	 * Verwijdert shortcode knop
 	 */
 	public function remove_shortcode_button() {
-		remove_action( 'media_buttons', array( \Caldera_Forms_Admin::get_instance(), 'shortcode_insert_button' ), 11 );
+		remove_action( 'media_buttons', [ \Caldera_Forms_Admin::get_instance(), 'shortcode_insert_button' ], 11 );
 		add_filter( 'caldera_forms_insert_button_include', '__return_false' );
 	}
 
@@ -80,8 +80,8 @@ class Caldera_Forms{
 	 * Verwijdert wpautop van e-mails
 	 */
 	public function disable_wpautop() {
-		remove_filter( 'caldera_forms_mailer', array( \Caldera_Forms::get_instance(), 'format_message' ) );
-		remove_filter( 'caldera_forms_autoresponse_mail', array( 'Caldera_Forms_Email_Filters', 'format_autoresponse_message' ) );
+		remove_filter( 'caldera_forms_mailer', [ \Caldera_Forms::get_instance(), 'format_message' ] );
+		remove_filter( 'caldera_forms_autoresponse_mail', [ 'Caldera_Forms_Email_Filters', 'format_autoresponse_message' ] );
 	}
 
 	/**
