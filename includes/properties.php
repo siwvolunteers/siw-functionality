@@ -197,7 +197,7 @@ class Properties {
 	 *
 	 * @var int
 	 */
-	const DISCOUNT_THIRD_PROJECT = 50;
+	const DISCOUNT_THIRD_PROJECT = 35;
 
 	/**
 	 * Kleurcode primaire kleur
