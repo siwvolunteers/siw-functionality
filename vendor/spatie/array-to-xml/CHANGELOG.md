@@ -2,6 +2,10 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.12.1 - 2020-06-17
+
+- add XML prettification (#136)
+
 ## 2.11.2 - 2019-08-21
 
 - fix XML structure when using numeric keys

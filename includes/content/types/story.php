@@ -94,6 +94,7 @@ class Story extends Type {
 						'id'               => 'image',
 						'name'             => __( 'Afbeelding', 'siw' ),
 						'type'             => 'image_advanced',
+						'required'         => true,
 						'force_delete'     => false,
 						'max_file_uploads' => 1,
 						'max_status'       => false,

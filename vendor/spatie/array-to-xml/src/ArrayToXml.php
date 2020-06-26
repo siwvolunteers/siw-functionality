@@ -2,10 +2,10 @@
 
 namespace Spatie\ArrayToXml;
 
-use Exception;
-use DOMElement;
 use DOMDocument;
+use DOMElement;
 use DOMException;
+use Exception;
 
 class ArrayToXml
 {
@@ -93,6 +93,14 @@ class ArrayToXml
         foreach ($domProperties as $key => $value) {
             $this->document->{$key} = $value;
         }
+
+        return $this;
+    }
+
+    public function prettify()
+    {
+        $this->document->preserveWhiteSpace = false;
+        $this->document->formatOutput = true;
 
         return $this;
     }

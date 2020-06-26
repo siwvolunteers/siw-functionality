@@ -38,12 +38,17 @@ class Event extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_orderby = 'meta_value';
+	protected $orderby = 'meta_value';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_meta_key = 'event_date';
+	protected $orderby_meta_key = 'event_date';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $archive_order = 'ASC';
 
 	/**
 	 * {@inheritDoc}
@@ -252,7 +257,7 @@ class Event extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	function get_archive_meta_query() : array {
+	function get_active_posts_meta_query() : array {
 		return [
 			'key'     => 'event_date',
 			'value'   => date('Y-m-d'),

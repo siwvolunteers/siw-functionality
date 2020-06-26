@@ -124,7 +124,6 @@ class Update_Terms extends Job {
 				[
 					'limit'      => -1,
 					'return'     => 'ids',
-					'visibility' => 'visible',
 					'tax_query'  => $tax_query,
 					'meta_query' => $args['meta_query'],
 				]

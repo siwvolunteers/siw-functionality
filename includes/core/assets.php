@@ -48,6 +48,7 @@ class Assets {
 		add_action( 'wp_enqueue_scripts', [ $self, 'register_scripts' ] );
 		add_filter( 'script_loader_tag', [ $self, 'set_crossorigin' ], 10, 2 );
 		add_filter( 'rocket_minify_excluded_external_js', [ $self, 'add_polyfill_url' ] );
+		add_filter( 'siw_preconnect_urls', [ $self, 'add_polyfill_url'] );
 	}
 
 	/**

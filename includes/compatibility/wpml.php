@@ -20,7 +20,7 @@ class WPML {
 		$self = new self();
 		
 		add_action( 'widgets_init', [ $self, 'unregister_wpml_widget'], 99 );
-		add_action( 'admin_head', [ $self, 'remove_wpml_meta_box'] );
+		add_action( 'admin_head', [ $self, 'remove_wpml_meta_box'], 99 );
 		add_action( 'delete_attachment', [ $self, 'delete_original_attachment' ] );
 	}
 

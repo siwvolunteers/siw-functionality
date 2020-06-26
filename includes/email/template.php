@@ -26,7 +26,7 @@ class Template {
 	 * @param array $args
 	 */
 	public function __construct( array $args ) {
-		$defaults = array(
+		$defaults = [
 			'subject'           => '',
 			'message'           => '',
 			'show_summary'      => false,
@@ -34,7 +34,7 @@ class Template {
 			'signature_name'    => '',
 			'signature_title'   => '',
 			'remove_linebreaks' => false,
-		);
+		];
 		$this->args = wp_parse_args( $args, $defaults );	
 	}
 
@@ -47,7 +47,7 @@ class Template {
 
 		$output = $this->get_template();
 		if ( $this->args['remove_linebreaks'] ) {
-			$output = str_replace( array( "\n\r", "\r", "\n" ), '', $output );
+			$output = str_replace( [ "\n\r", "\r", "\n" ], '', $output );
 		}
 		return $output;
 	}

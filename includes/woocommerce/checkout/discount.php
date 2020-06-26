@@ -45,7 +45,7 @@ class Discount{
 			}
 			if ( 3 < $count ) {
 				$discount = $line['line_total'] * Properties::DISCOUNT_THIRD_PROJECT * -0.01;
-				$cart->add_fee( sprintf( __( 'Korting %de project', 'siw' ), $count ), $discount );
+				$cart->add_fee( sprintf( __( 'Korting %e project', 'siw' ), $count ), $discount );
 			}
 		}
 	}

@@ -2,6 +2,7 @@
 
 namespace SIW\Compatibility;
 
+use SIW\i18n;
 use SIW\Properties;
 
 /**
@@ -57,6 +58,9 @@ class GeneratePress{
 
 		//Pas snelheid voor omhoog scrollen aan
 		add_filter( 'generate_back_to_top_scroll_speed', [ $self, 'set_back_to_top_scroll_speed'] );
+
+		//
+		add_filter( 'generate_footer_widgets', [ $self, 'set_footer_widgets'] );
 	}
 
 	/**
@@ -132,5 +136,19 @@ class GeneratePress{
 	 */
 	public function set_back_to_top_scroll_speed() : int {
 		return self::BACK_TO_TOP_SCROLL_SPEED;
+	}
+
+	/**
+	 * Zet het aantal footer-widgets op 1 voor andere talen dan Nederlands
+	 *
+	 * @param string $widgets
+	 *
+	 * @return string
+	 */
+	public function set_footer_widgets( string $widgets ) : string {
+		if ( ! i18n::is_default_language() ) {
+			$widgets = '1';
+		}
+		return $widgets;
 	}
 }

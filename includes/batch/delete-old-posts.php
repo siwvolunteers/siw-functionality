@@ -42,7 +42,6 @@ class Delete_Old_Posts extends Job {
 	protected function select_data() {
 		$post_types = [
 			'vacatures',
-			'agenda',
 		];
 
 		$data = get_posts(
@@ -76,9 +75,6 @@ class Delete_Old_Posts extends Job {
 		switch ( $post_type ) {
 			case 'vacatures':
 				$reference_date = date( 'Y-m-d', get_post_meta( $post_id, 'siw_vacature_deadline', true ) );
-				break;
-			case 'agenda':
-				$reference_date  = date( 'Y-m-d', get_post_meta( $post_id, 'siw_agenda_eind', true ) );
 				break;
 			default:
 				return false;

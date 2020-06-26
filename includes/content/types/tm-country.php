@@ -47,12 +47,17 @@ class TM_Country extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_orderby = 'title';
+	protected $orderby = 'title';
 
 	/**
 	 * {@inheritDoc}
 	 */
 	protected $archive_order = 'ASC';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected $admin_order = 'ASC';
 
 	/**
 	 * {@inheritDoc}

@@ -9,6 +9,16 @@
 
 This package provides a very simple class to convert an array to an xml string.
 
+## Support us
+
+Learn how to create a package like this one, by watching our premium video course:
+
+[![Laravel Package training](https://spatie.be/github/package-training.jpg)](https://laravelpackage.training)
+
+We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+
+We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+
 ## Install
 
 You can install this package via composer.
@@ -81,7 +91,7 @@ $array = [
     'Bad guy' => [
         'name' => 'Sauron',
         'weapon' => 'Evil Eye'
-    ]
+    ],
     'The survivor' => [
         '_attributes' => ['house'=>'Hogwarts'],
         '_value' => 'Harry Potter'
@@ -274,6 +284,61 @@ $arrayToXml->setDomProperties(['formatOutput' => true]);
 $result = $arrayToXml->toXml();
 ```
 
+### XML Prettification 
+
+Call `$arrayToXml->prettify()` method on ArrayToXml to set XML in pretty form.
+
+Example:
+
+```php
+$array = [
+    'Good guy' => [
+        'name' => 'Luke Skywalker',
+        'weapon' => 'Lightsaber'
+    ],
+    'Bad guy' => [
+        'name' => 'Sauron',
+        'weapon' => 'Evil Eye'
+    ]
+];
+$arrayToXml = new ArrayToXml($array);
+```
+
+With prettification:
+
+```php
+$arrayToXml->prettify()->toXml();
+```
+
+will result in:
+
+```xml
+<?xml version="1.0"?>
+<root>
+    <Good_guy>
+        <name>Luke Skywalker</name>
+        <weapon>Lightsaber</weapon>
+    </Good_guy>
+    <Bad_guy>
+        <name>Sauron</name>
+        <weapon>Evil Eye</weapon>
+    </Bad_guy>
+</root>
+```
+
+Without prettification:
+
+```php
+$arrayToXml->toXml();
+```
+
+will result in:
+
+```xml
+<?xml version="1.0"?>
+<root><Good_guy><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>
+```
+
 ## Testing
 
 ```bash
@@ -304,13 +369,6 @@ We publish all received postcards [on our company website](https://spatie.be/en/
 
 - [Freek Van der Herten](https://github.com/freekmurze)
 - [All Contributors](../../contributors)
-
-## Support us
-
-Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
-
-Does your business depend on our contributions? Reach out and support us on [Patreon](https://www.patreon.com/spatie). 
-All pledges will be dedicated to allocating workforce on maintenance and new awesome stuff.
 
 ## License
 

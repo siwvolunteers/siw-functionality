@@ -28,7 +28,7 @@ class Topbar {
 	 * 
 	 * @var int
 	 */
-	const EVENT_HIDE_DAYS_BEFORE = 2;
+	const EVENT_HIDE_DAYS_BEFORE = 1;
 
 	/**
 	 * Instellingen

@@ -108,7 +108,7 @@ class Archive {
 
 		//Filter van huidige taxonomy niet tonen
 		$taxonomies = array_keys( $this->taxonomies );
-		$taxonomies = array_diff( $taxonomies, array( $this->get_archive_type() ) );
+		$taxonomies = array_diff( $taxonomies, [ $this->get_archive_type() ] );
 		$grid_size = CSS::columns_to_grid_width( sizeof( $taxonomies ) );
 
 		echo '<div class="grid-container">';
