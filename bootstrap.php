@@ -144,6 +144,7 @@ class Bootstrap {
 				'Cache_Rebuild',
 				'Cookie_Notice',
 				'Google_Analytics',
+				'Mega_Menu',
 				'Menu_Cart',
 				'Social_Share',
 				'Topbar',
