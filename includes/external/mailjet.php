@@ -2,6 +2,8 @@
 
 namespace SIW\External;
 
+use SIW\Core\HTTP_Request;
+
 /**
  * Interface met Mailjet
  *
@@ -68,23 +70,15 @@ class Mailjet {
 			'Properties' => $properties
 		]);
 
+		$request = new HTTP_Request( $url );
+		$request->add_accepted_response_code( \WP_Http::CREATED );
+		$request->set_basic_auth( $this->api_key, $this->secret_key );
+		$response = $request->post( $body );
 
-		$args = [
-			'timeout'     => 60,
-			'redirection' => 0,
-			'headers'     => [ 
-				'Authorization' => 'Basic ' . base64_encode("{$this->api_key}:{$this->secret_key}"),
-				'accept'       => 'application/json',
-				'content-type' => 'application/json'
-			],
-			'body'        => $body,
-		];
-		$response = wp_safe_remote_post( $url, $args );
-		if ( false == $this->check_response( $response ) ) {
+		if ( is_wp_error( $response ) ) {
 			return false;
 		}
-
-		//TODO: verdere check op response
+		//TODO: verdere check op response?
 		return true;
 	}
 
@@ -95,7 +89,6 @@ class Mailjet {
 	 */
 	public function get_lists() {
 		$lists = get_transient( 'siw_newsletter_lists' );
-
 		if ( false === $lists ) {
 			$lists = $this->retrieve_lists();
 			if ( false == $lists ) {
@@ -114,35 +107,27 @@ class Mailjet {
 	protected function retrieve_lists() {
 
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist";
-		$args = [
-			'timeout'     => 60,
-			'redirection' => 0,
-			'headers'     => [ 
-				'Authorization' =>'Basic ' . base64_encode("{$this->api_key}:{$this->secret_key}"),
-				'accept'       => 'application/json',
-				'content-type' => 'application/json'
-			],
-		];
-
-		$response = wp_safe_remote_get( $url, $args );
-
-		if ( false == $this->check_response( $response ) ) {
+		$request = new HTTP_Request( $url );
+		$request->set_basic_auth( $this->api_key, $this->secret_key );
+		$response = $request->get();
+		if ( is_wp_error( $response ) ) {
 			return [];
 		}
-		$body = json_decode( wp_remote_retrieve_body( $response ), true );
+		
+		//Verwijderde lijst eruit filteren
+		$lists = wp_list_filter( $response['Data'], [ 'IsDeleted' => false ] );
 
-		$lists = [];
-		foreach ( $body['Data'] as $list ) {
-			if ( $list['IsDeleted'] ) {
-				continue;
-			}
-			$lists[] = [
-				'id'               => $list['ID'],
-				'name'             => $list['Name'],
-				'subscriber_count' => $list['SubscriberCount'],
-			];
-		}
-		return $lists;
+		//data omzetten
+		return array_map(
+			function( $list ) {
+				return [
+					'id'               => $list['ID'],
+					'name'             => $list['Name'],
+					'subscriber_count' => $list['SubscriberCount'],
+				];
+			},
+			$lists
+		);
 	}
 
 	/**
@@ -174,47 +159,19 @@ class Mailjet {
 	 */
 	protected function retrieve_list( int $list_id ) {
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist/{$list_id}";
-		$args = [
-			'timeout'     => 60,
-			'redirection' => 0,
-			'headers'     => [ 
-				'Authorization' =>'Basic ' . base64_encode("{$this->api_key}:{$this->secret_key}"),
-				'accept'       => 'application/json',
-				'content-type' => 'application/json'
-			],
-		];
 
-		$response = wp_safe_remote_get( $url, $args );
-
-		if ( false == $this->check_response( $response ) ) {
+		$request = new HTTP_Request( $url );
+		$request->set_basic_auth( $this->api_key, $this->secret_key );
+		$response = $request->get();
+		if ( is_wp_error( $response ) ) {
 			return [];
 		}
-		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
-		$list = $body['Data'][0];
+		$list = $response['Data'][0];
 		return [
 			'id'               => $list['ID'],
 			'name'             => $list['Name'],
 			'subscriber_count' => $list['SubscriberCount'],
 		];
 	}
-
-	/**
-	 * Controleert response
-	 *
-	 * @param array|\WP_Error $response
-	 * @return bool
-	 */
-	protected function check_response( $response ) {
-		if ( is_wp_error( $response ) ) {
-			return false;
-		}
-	
-		$statuscode = wp_remote_retrieve_response_code( $response );
-		if ( \WP_Http::OK != $statuscode && \WP_Http::CREATED != $statuscode ) {
-			return false;
-		}
-		return true;
-	}
-
 }

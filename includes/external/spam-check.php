@@ -2,6 +2,8 @@
 
 namespace SIW\External;
 
+use SIW\Core\HTTP_Request;
+
 /**
  * Opzoeken e-mailadres en IP in SFS-spamdatabase
  *
@@ -176,48 +178,24 @@ class Spam_Check{
 			$body['ip'] = $this->ip;
 		}
 
-		$args = [
-			'body'    => $body,
-			'timeout' => 10,
-		];
+		$request = new HTTP_Request( self::API_URL );
+		$request->set_content_type( 'application/x-www-form-urlencoded' );
+		$response = $request->post( $body );
 
-		$response = wp_safe_remote_post( self::API_URL, $args );
-
-		if ( false == $this->check_response( $response ) ) {
-			return [];
-		}
-
-		$body = json_decode( wp_remote_retrieve_body( $response ), true );
-		if ( false == $body['success'] ) {
+		if ( is_wp_error( $response ) || false == $response['success'] ) {
 			return [];
 		}
 
 		$result = [];
-		if ( $this->check_email && $body['email']['appears'] ) {
-			$result['email'] = $body['email']['confidence'];
+		if ( $this->check_email && $response['email']['appears'] ) {
+			$result['email'] = $response['email']['confidence'];
 		}
 
-		if ( $this->check_ip && $body['ip']['appears'] ) {
-			$result['ip'] = $body['ip']['confidence'];
+		if ( $this->check_ip && $response['ip']['appears'] ) {
+			$result['ip'] = $response['ip']['confidence'];
 		}
 
 		return $result;
 	}
 
-	/**
-	 * Check HTTP response
-	 *
-	 * @param \WP_Error|array $response
-	 * @return bool
-	 */
-	protected function check_response( $response ) {
-		if ( is_wp_error( $response ) ) {
-			return false;
-		}
-		if ( \WP_Http::OK !== wp_remote_retrieve_response_code( $response ) ) {
-			return false;
-		}
-		
-		return true;
-	}
 }

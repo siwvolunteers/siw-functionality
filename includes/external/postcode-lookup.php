@@ -2,6 +2,8 @@
 
 namespace SIW\External;
 
+use SIW\Core\HTTP_Request;
+
 /**
  * Opzoeken adres obv postcode en huisnummer
  *
@@ -53,31 +55,15 @@ class Postcode_Lookup{
 			'fq' => "huisnummer:{$housenumber}",
 		], self::API_URL );
 
-		$args = [
-			'timeout'     => 10,
-			'redirection' => 0,
+		$request = new HTTP_Request( $url );
+		$response = $request->get();
+
+		if ( is_wp_error( $response ) || 0 === $response['response']['numFound'] ) {
+			return false;
+		}
+		return [
+			'street' => $response['response']['docs'][0]['straatnaam'],
+			'city'   => $response['response']['docs'][0]['woonplaatsnaam'],
 		];
-
-		$response = wp_safe_remote_get( $url, $args );
-		if ( is_wp_error( $response ) ) {
-			return false;
-		}
-	
-		$statuscode = wp_remote_retrieve_response_code( $response );
-		if ( \WP_Http::OK != $statuscode ) {
-			return false;
-		}
-
-		$body = json_decode( wp_remote_retrieve_body( $response ) );
-
-		if ( 0 === $body->response->numFound ) {
-			return false;
-		}
-
-		$address = [
-			'street' => $body->response->docs[0]->straatnaam,
-			'city'   => $body->response->docs[0]->woonplaatsnaam,
-		];
-		return $address;
 	}
 }
