@@ -16,7 +16,6 @@ class Form{
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'add_postcode_script' ] );
 		add_filter( 'woocommerce_form_field_args', [ $self, 'add_form_field_classes' ] );
-		//add_filter( 'woocommerce_form_field_radio', [ $self, 'add_form_field_markup' ] );
 		add_filter( 'woocommerce_form_field_checkbox', [ $self, 'add_form_field_markup' ] );
 		add_action( 'woocommerce_multistep_checkout_before_order_info', [ $self, 'show_checkout_partner_fields'] );
 		add_filter( 'woocommerce_checkout_cart_item_quantity', '__return_empty_string' );
@@ -90,7 +89,7 @@ class Form{
 	}
 
 	/**
-	 * Voegt extra markup voor gestylde radiobuttons en checkboxes toe
+	 * Voegt extra markup voor gestylde checkboxes toe
 	 *
 	 * @param string $field
 	 * @return string
