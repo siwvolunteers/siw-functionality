@@ -9,6 +9,8 @@ namespace SIW\Modules;
  * @since     3.2.0
  * 
  * @see       https://docs.generatepress.com/article/building-simple-mega-menu/
+ * 
+ * @todo      optioneel maken / css alleen laden als mega menu actief is
  */
 class Mega_Menu {
 
@@ -94,14 +96,15 @@ class Mega_Menu {
 	 * Voegt css-klasses voor mega menu toe aan menu item
 	 *
 	 * @param array $classes
-	 * @param \WP_Post $item
+	 * @param \WP_Post | \WPML_LS_Menu_Item $item
 	 * @param \stdClass $args
 	 * @param int $depth
 	 *
 	 * @return array
 	 */
-	public function add_nav_menu_item_class( array $classes, \WP_Post $item, \stdClass $args, int $depth ) : array {
-		if ( get_post_meta( $item->ID, self::META_KEY, true ) ) {
+	public function add_nav_menu_item_class( array $classes, $item, \stdClass $args, int $depth ) : array {
+		
+		if ( is_a( $item, '\WP_Post' ) && get_post_meta( $item->ID, self::META_KEY, true ) ) {
 			$classes[] = 'mega-menu';
 			$classes[] = sprintf( 'mega-menu-col-%s', esc_attr( get_post_meta( $item->ID, self::META_KEY, true ) ) );
 		}
