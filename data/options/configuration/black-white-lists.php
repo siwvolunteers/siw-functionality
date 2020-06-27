@@ -19,16 +19,6 @@ $data = [
 	'tab'            => 'black-white-lists',
 	'fields' => [
 		[
-			'type'        => 'heading',
-			'name'        => __( 'IP whitelist', 'siw' ),
-		],
-		[
-			'id'          => 'ip_whitelist',
-			'type'        => 'text',
-			'clone'       => true,
-			'add_button'  => __( 'IP toevoegen', 'siw' ),
-		],
-		[
 			'type'       => 'heading',
 			'name'       => __( 'Bot blacklist', 'siw' ),
 		],

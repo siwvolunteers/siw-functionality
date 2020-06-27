@@ -7,7 +7,6 @@ namespace SIW\Compatibility;
  *
  * - Welkomstboodschap
  * - Verwijderen shake-animatie
- * - IP whitelist voor directe toegang tot site
  * - Secure cookie
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
@@ -26,7 +25,6 @@ class Password_Protected {
 		$self = new self();
 		add_filter( 'password_protected_before_login_form', [ $self, 'set_login_message' ] );
 		add_action( 'password_protected_login_head', [ $self, 'remove_shake_js'] );
-		add_filter( 'password_protected_is_active', [ $self, 'process_whitelisted_ips' ] );
 		add_filter( 'password_protected_secure_password_protected_cookie', [ $self, 'set_secure_cookie'], 10, 2 );
 	}
 
@@ -49,20 +47,6 @@ class Password_Protected {
 	 */
 	public function remove_shake_js() {
 		remove_action( 'password_protected_login_head', 'wp_shake_js', 12 );
-	}
-	
-	/**
-	 * Verwerkt gewhiteliste IP-adressen voor directe toegang tot de site
-	 *
-	 * @param bool $is_active
-	 * @return bool
-	 */
-	public function process_whitelisted_ips( bool $is_active ) : bool {
-		$ip_whitelist = siw_get_option('ip_whitelist');
-		if ( is_array( $ip_whitelist ) && isset( $_SERVER['REMOTE_ADDR'] ) && in_array( $_SERVER['REMOTE_ADDR'], $ip_whitelist ) ) {
-			$is_active = false;
-		}
-		return $is_active;
 	}
 
 	/**
