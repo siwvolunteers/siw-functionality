@@ -21,9 +21,9 @@
 	"dependencies": {
 		"@accede-web/accordion": "*",
 		"@accede-web/tablist": "*",
-		"balloon-css": "^1.1.0",
+		"balloon-css": "^1.2.0",
 		"flickity": "^2.2.1",
-		"frappe-charts": "^1.5.0",
+		"frappe-charts": "^1.5.1",
 		"js-cookie": "^2.2.1",
 		"micromodal": "^0.4.6",
 		"sal.js": "^0.7.6",
