@@ -37,7 +37,7 @@ $data = [
 		'icon_class'          => 'siw-icon-instagram',
 		'color'               => '#dd2a7b',
 		'follow'              => true,
-		'follow_url'          => 'https://www.instagram.com/siwvolunteers/',
+		'follow_url'          => 'https://www.instagram.com/siwvrijwilligersprojecten/',
 		'share'               => false,
 	],
 	[
