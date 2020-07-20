@@ -14,7 +14,9 @@ use SIW\WooCommerce\Import\Product_Image;
  * - Stockfoto's
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.?
+ * @since     3.1.0
+ * 
+ * @todo  Plato-afbeelding verwijderen als project al begonnen is of uit Plato verwijderd is
  */
 class Update_Workcamps extends Job {
 
@@ -199,7 +201,8 @@ class Update_Workcamps extends Job {
 	 * - Het project in een toegestaan land is
 	 * - Er vrije plaatsen zijn
 	 * - Het project niet afgekeurd is
-	 * - Her project niet uit Plato verwijderd is
+	 * - Het project niet uit Plato verwijderd is
+	 * - Het project niet handmatig verborgen is
 	 */
 	protected function maybe_update_visibility() {
 		$country = siw_get_country( $this->product->get_meta( 'country' ) );
@@ -217,6 +220,8 @@ class Update_Workcamps extends Job {
 			date( 'Y-m-d', time() + ( self::MIN_DAYS_BEFORE_START * DAY_IN_SECONDS ) ) >= $this->product->get_meta( 'start_date' )
 			||
 			$this->product->get_meta( 'deleted_from_plato' )
+			||
+			$this->product->get_meta( 'force_hide' )
 		) {
 			$visibility = 'hidden';
 		}

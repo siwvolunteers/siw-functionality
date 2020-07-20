@@ -81,6 +81,7 @@ class Product {
 	public function add_bulk_actions( array $bulk_actions ) : array {
 		$bulk_actions['import_again'] = __( 'Opnieuw importeren', 'siw' );
 		$bulk_actions['select_for_carousel'] = __( 'Selecteren voor carousel', 'siw' );
+		$bulk_actions['force_hide'] = __( 'Verbergen', 'siw' );
 		return $bulk_actions;
 	}
 
@@ -112,8 +113,15 @@ class Product {
 				$message = sprintf( _n( '%s project is geselecteerd voor de carousel.', '%s projecten zijn geselecteerd voor de carousel.', $count, 'siw' ), $count );
 				$add_notice = true;
 				break;
-			default:
+			case 'force_hide':
+				foreach ( $post_ids as $post_id ) {
+					update_post_meta( $post_id, 'force_hide', true );
+					//TODO: project direct verbergen
+				}
+				$message = sprintf( _n( '%s project is verborgen.', '%s projecten zijn verborgen.', $count, 'siw' ), $count );
 				$add_notice = true;
+				break;
+			default:
 		}
 
 		if ( $add_notice ) {

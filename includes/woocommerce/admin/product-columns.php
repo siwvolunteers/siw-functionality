@@ -41,10 +41,19 @@ class Product_Columns extends \MBAC\Post {
 						'class' => $product->is_visible() ? 'dashicons dashicons-visibility' : 'dashicons dashicons-hidden',
 					]
 				);
+				if ( $product->get_meta( 'force_hide' ) ) {
+					echo HTML::span(
+						[
+							'class' => 'dashicons dashicons-lock',
+						]
+					);
+					
+				}
+
 				break;
 			case 'next_update':
 				$product = wc_get_product( $post_id );
-				if ( true == $product->get_meta( 'import_again' ) ) {
+				if ( $product->get_meta( 'import_again' ) ) {
 					echo HTML::span( ['class' => 'dashicons dashicons-update'] ) ;
 				}
 				break;
@@ -53,7 +62,7 @@ class Product_Columns extends \MBAC\Post {
 
 				$url = add_query_arg(
 					[
-						'action' => 'woocommerce_select_for_carousel',
+						'action'     => 'woocommerce_select_for_carousel',
 						'product_id' => $product->get_id()
 					],
 					'admin-ajax.php'
