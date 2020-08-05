@@ -145,6 +145,7 @@ function siw_get_project_types() {
 		'groepsprojecten' => __( 'Groepsvrijwilligerswerk (2 - 3 weken)', 'siw' ),
 		'op_maat'         => __( 'Vrijwilligerswerk Op Maat (3 weken tot een jaar)', 'siw' ),
 		'esc'             => __( 'ESC (European Solidarity Corps)', 'siw' ),
+		'scholenproject'  => __( 'Scholenproject (internationale stage of tussenjaar)', 'siw' ),
 	];
 	return $project_types;
 }
