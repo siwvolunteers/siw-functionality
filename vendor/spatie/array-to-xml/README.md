@@ -120,6 +120,9 @@ This code will result in:
 </root>
 ```
 
+*Note, that the value of the `_value` field must be a string. [(More)](https://github.com/spatie/array-to-xml/issues/75#issuecomment-413726065)* 
+
+
 ### Using reserved characters
 
 It is also possible to wrap the value of a node into a CDATA section. This allows you to use reserved characters.
@@ -258,6 +261,58 @@ This will result in:
 
 You can change key prefix with setter method called `setNumericTagNamePrefix()`.
 
+### Using custom keys
+
+The package can also can handle custom keys:
+
+```php
+$array = [
+    '__custom:custom-key:1' => [
+        'name' => 'Vladimir',
+        'nickname' => 'greeflas',
+    ],
+    '__custom:custom-key:2' => [
+        'name' => 'Marina',
+        'nickname' => 'estacet',
+        'tags' => [
+            '__custom:tag:1' => 'first-tag',
+            '__custom:tag:2' => 'second-tag',
+        ]
+    ],
+];
+
+$result = ArrayToXml::convert($array);
+```
+
+This will result in:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <custom-key>
+        <name>Vladimir</name>
+        <nickname>greeflas</nickname>
+    </custom-key>
+    <custom-key>
+        <name>Marina</name>
+        <nickname>estacet</nickname>
+        <tags>
+            <tag>first-tag</tag>
+            <tag>second-tag</tag>
+        </tags>
+    </custom-key>
+</root>
+```
+
+A custom key contains three, colon-separated parts: "__custom:[custom-tag]:[unique-string]".
+
+- "__custom"
+  - The key always starts with "__custom".
+- [custom-tag]
+  - The string to be rendered as the XML tag.
+- [unique-string]
+  - A unique string that avoids overwriting of duplicate keys in PHP arrays.
+
 ### Setting DOMDocument properties
 
 To set properties of the internal DOMDocument object just pass an array consisting of keys and values. For a full list of valid properties consult https://www.php.net/manual/en/class.domdocument.php.
@@ -361,7 +416,7 @@ If you discover any security related issues, please email freek@spatie.be instea
 
 You're free to use this package, but if it makes it to your production environment we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
 
-Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
+Our address is: Spatie, Kruikstraat 22, 2018 Antwerp, Belgium.
 
 We publish all received postcards [on our company website](https://spatie.be/en/opensource/postcards).
 
