@@ -39,7 +39,7 @@ class WP_Sentry_Integration {
 	public function define_constants() {
 		$constants = [
 			'WP_SENTRY_VERSION'     => SIW_PLUGIN_VERSION,
-			'WP_SENTRY_ENV'         => defined( 'WP_ENVIRONMENT_TYPE' ) ? WP_ENVIRONMENT_TYPE : '', //TODO: wp_get_environment_type() gebruiken in WP 5.5
+			'WP_SENTRY_ENV'         => \wp_get_environment_type(),
 			'WP_SENTRY_ERROR_TYPES' => E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_USER_DEPRECATED,
 			'WP_SENTRY_PUBLIC_DSN'  => self::JS_DSN,
 			'WP_SENTRY_DSN'         => self::PHP_DSN,

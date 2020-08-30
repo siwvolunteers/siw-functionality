@@ -1,5 +1,36 @@
 @import "../partials/_variables.scss";
-	
+
+#wpadminbar ul li#wp-admin-bar-siw-env {
+	pointer-events: none;
+	background-color: #b92a2a;
+	& > div > span.ab-icon:before {
+		content: "\f339";
+		top: 2px;
+	}
+
+	&.env-production {
+		background-color: #b92a2a;
+		& > div > span.ab-icon:before {
+			content: "\f319";
+			top: 3px;
+		}
+	}
+	&.env-staging {
+		background-color: #d79d00;
+		& > div > span.ab-icon:before {
+			content: "\f111";
+			top: 1px;
+		}
+	}
+	&.env-development {
+		background-color: #3b9843;
+		& > div > span.ab-icon:before {
+			content: "\f107";
+			top: 2px;
+		}
+	}
+}
+
 .siw-logo div {
 	width: 195px !important;
 	background-image: url("#{$assets-path}/images/admin/logo.png") !important;
