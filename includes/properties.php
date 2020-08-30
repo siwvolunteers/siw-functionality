@@ -193,13 +193,6 @@ class Properties {
 	const DISCOUNT_SECOND_PROJECT = 25;
 
 	/**
-	 * Kortingspercentage voor 3e project
-	 *
-	 * @var int
-	 */
-	const DISCOUNT_THIRD_PROJECT = 35;
-
-	/**
 	 * Kleurcode primaire kleur
 	 *
 	 * @var string

@@ -35,16 +35,8 @@ class Discount{
 		$count = 0;
 		foreach ( $cart_contents as $line ) {
 			$count++;
-			if ( 2 === $count ) {
+			if ( 1 < $count ) {
 				$discount = $line['line_total'] * Properties::DISCOUNT_SECOND_PROJECT * -0.01;
-				$cart->add_fee( __( 'Korting 2e project', 'siw' ), $discount );
-			}
-			if ( 3 === $count ) {
-				$discount = $line['line_total'] * Properties::DISCOUNT_THIRD_PROJECT * -0.01;
-				$cart->add_fee( __( 'Korting 3e project', 'siw' ), $discount );
-			}
-			if ( 3 < $count ) {
-				$discount = $line['line_total'] * Properties::DISCOUNT_THIRD_PROJECT * -0.01;
 				$cart->add_fee( sprintf( __( 'Korting %e project', 'siw' ), $count ), $discount );
 			}
 		}

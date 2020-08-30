@@ -56,7 +56,6 @@ class Shortcodes {
 			'op_maat_tarief_student'        => __( 'Op Maat - Studententarief', 'siw' ),
 			'op_maat_tarief_regulier'       => __( 'Op Maat - Regulier tarief', 'siw' ),
 			'korting_tweede_project'        => __( 'Korting tweede project', 'siw' ),
-			'korting_derde_project'         => __( 'Korting derde project', 'siw' ),
 			'leeftijd'                      => __( 'Leeftijd van SIW', 'siw' ),
 			'laatste_jaarverslag'           => [
 				'title'      => __( 'Laatste jaarverslag', 'siw' ),
@@ -265,15 +264,6 @@ class Shortcodes {
 	 */
 	public static function render_korting_tweede_project() {
 		return Formatting::format_percentage( Properties::DISCOUNT_SECOND_PROJECT );
-	}
-
-	/**
-	 * Korting derde Groepsproject
-	 *
-	 * @return string
-	 */
-	public static function render_korting_derde_project() {
-		return Formatting::format_percentage( Properties::DISCOUNT_THIRD_PROJECT );
 	}
 
 	/**

@@ -71,7 +71,7 @@ class Coupon {
 			'code'               => $application_number,
 			'discount_type'      => self::DISCOUNT_TYPE,
 			'email_restrictions' => $order->get_billing_email(),
-			'amount'             => empty( $order->get_coupon_codes() ) ? Properties::DISCOUNT_SECOND_PROJECT : Properties::DISCOUNT_THIRD_PROJECT,
+			'amount'             => Properties::DISCOUNT_SECOND_PROJECT,
 			'description'        => $order->get_formatted_billing_full_name(),
 			'date_expires'       => '',
 			'usage_limit'        => 1,
