@@ -99,7 +99,12 @@ class Animation {
 			'options'     => [ 'default' => __( 'Standaard', 'siw' ) ] + SIW_Animation::get_easing_options(),
 			'default'     => 'default',
 		];
-
+		$fields['siw_animation_repeat'] = [
+			'name'        => __( 'Herhalen', 'siw' ),
+			'group'       => 'siw-animation',
+			'type'        => 'checkbox',
+			'priority'    => 50,
+		];
 		return $fields;
 	}
 
@@ -142,6 +147,11 @@ class Animation {
 		}
 		else {
 			$style_attributes['data-sal-easing'] = $style_args['siw_animation_easing'];
+		}
+
+		//Herhalen
+		if ( isset( $style_args['siw_animation_repeat'] ) && $style_args['siw_animation_repeat'] ) {
+			$style_attributes['data-sal-repeat'] = true;
 		}
 
 		return $style_attributes;
