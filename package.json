@@ -26,8 +26,7 @@
 		"frappe-charts": "^1.5.2",
 		"js-cookie": "^2.2.1",
 		"micromodal": "^0.4.6",
-		"sal.js": "^0.8.0",
-		"smoothscroll-for-websites": "^1.4.10"
+		"sal.js": "^0.8.0"
 	},
 	"devDependencies": {
 		"autoprefixer": "^9.8.6",
@@ -40,10 +39,6 @@
 		{
 			"from": "node_modules/balloon-css/balloon.css",
 			"to": "assets/modules/balloon/balloon.css"
-		},
-		{
-			"from": "node_modules/smoothscroll-for-websites/SmoothScroll.js",
-			"to": "assets/modules/smoothscroll/smoothscroll.js"
 		},
 		{
 			"from": "node_modules/js-cookie/src/js.cookie.js",

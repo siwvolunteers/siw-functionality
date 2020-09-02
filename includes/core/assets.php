@@ -16,11 +16,6 @@ class Assets {
 	const JSCOOKIE_VERSION = '2.2.1';
 
 	/**
-	 * Versie van SmoothScroll
-	 */
-	const SMOOTHSCROLL_VERSION = '1.4.10';
-
-	/**
 	 * Versie van Balloon.css
 	 */
 	const BALLOON_VERSION = '1.2.0';
@@ -64,8 +59,6 @@ class Assets {
 
 	/**
 	 * Registreert scripts
-	 * 
-	 * @todo option voor smoothscroll
 	 */
 	public function register_scripts() {
 		//JS-cookie niet zelf enqueuen; is dependency van andere scripts
@@ -85,10 +78,6 @@ class Assets {
 			);
 		wp_register_script( 'polyfill', $polyfill_url, [], null, true );
 		wp_script_add_data( 'polyfill', 'crossorigin', 'anonymous' );
-
-		//Smoothscroll wel enqueuen 
-		wp_register_script( 'smoothscroll', SIW_ASSETS_URL . 'modules/smoothscroll/smoothscroll.js', [], self::SMOOTHSCROLL_VERSION, true );
-		wp_enqueue_script( 'smoothscroll' );
 	}
 
 	/**
