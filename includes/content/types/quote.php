@@ -128,7 +128,7 @@ class Quote extends Type {
 		return sprintf(
 			'%s | %s %s',
 			$postarr['name'],
-			get_term( $postarr['project_type'], 'siw_quote_project_type' )->name,
+			get_term( $postarr['siw_quote_project_type'], 'siw_quote_project_type' )->name,
 			siw_get_country( $postarr['country'] )->get_name()
 		);
 	}
