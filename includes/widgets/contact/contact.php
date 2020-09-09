@@ -61,21 +61,23 @@ class Contact extends Widget {
 		?>
 		<div class="siw-contact">
 			<?php
-			echo wpautop( Formatting::array_to_text(
-				[
-					Properties::NAME,
-					sprintf( '%s | %s %s', Properties::ADDRESS, Properties::POSTCODE, Properties::CITY ),
-					sprintf( '%s | %s',
-						Links::generate_tel_link( Properties::PHONE_INTERNATIONAL, Properties::PHONE ),
-						Links::generate_tel_link( Properties::EMAIL )
-					),
-					Links::generate_link(
-						'https://api.whatsapp.com/send?phone='. Properties::WHATSAPP_FULL,
-						Elements::generate_icon( 'siw-icon-whatsapp' ) . SPACE . Properties::WHATSAPP,
-						[ 'class' => 'siw-contact-link'],
-					),
-				],
-				BR
+			echo wpautop(
+				implode(
+					BR,
+					[
+						Properties::NAME,
+						sprintf( '%s | %s %s', Properties::ADDRESS, Properties::POSTCODE, Properties::CITY ),
+						sprintf( '%s | %s',
+							Links::generate_tel_link( Properties::PHONE_INTERNATIONAL, Properties::PHONE ),
+							Links::generate_tel_link( Properties::EMAIL )
+						),
+						Links::generate_link(
+							'https://api.whatsapp.com/send?phone='. Properties::WHATSAPP_FULL,
+							Elements::generate_icon( 'siw-icon-whatsapp' ) . SPACE . Properties::WHATSAPP,
+							[ 'class' => 'siw-contact-link'],
+						),
+						Elements::generate_opening_hours('table'),
+					]
 				)
 			);
 			?>
