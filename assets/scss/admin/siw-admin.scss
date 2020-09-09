@@ -22,7 +22,7 @@
 			top: 1px;
 		}
 	}
-	&.env-development {
+	&.env-development, &.env-local {
 		background-color: #3b9843;
 		& > div > span.ab-icon:before {
 			content: "\f107";

@@ -21,10 +21,10 @@
   content: "";
   top: 1px;
 }
-#wpadminbar ul li#wp-admin-bar-siw-env.env-development {
+#wpadminbar ul li#wp-admin-bar-siw-env.env-development, #wpadminbar ul li#wp-admin-bar-siw-env.env-local {
   background-color: #3b9843;
 }
-#wpadminbar ul li#wp-admin-bar-siw-env.env-development > div > span.ab-icon:before {
+#wpadminbar ul li#wp-admin-bar-siw-env.env-development > div > span.ab-icon:before, #wpadminbar ul li#wp-admin-bar-siw-env.env-local > div > span.ab-icon:before {
   content: "";
   top: 2px;
 }
