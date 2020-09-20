@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\External;
 
@@ -26,16 +26,17 @@ class Postcode_Lookup{
 	 *
 	 * @param string $postcode
 	 * @param string $housenumber
-	 * @return array
+	 * 
+	 * @return array|null
 	 * 
 	 * @todo sanitize values
 	 */
-	public function get_address( string $postcode, string $housenumber ) {
+	public function get_address( string $postcode, string $housenumber ) : ?array {
 		$address = get_transient( "siw_address_{$postcode}_{$housenumber}" );
-		if ( false === $address ) {
+		if ( ! is_array( $address ) ) {
 			$address = $this->retrieve_address( $postcode, $housenumber );
-			if ( false === $address ) {
-				return false;
+			if ( ! is_array( $address ) ) {
+				return null;
 			}
 			set_transient( "siw_address_{$postcode}_{$housenumber}", $address, MONTH_IN_SECONDS );
 		}
@@ -47,9 +48,10 @@ class Postcode_Lookup{
 	 *
 	 * @param string $postcode
 	 * @param string $housenumber
-	 * @return array
+	 * 
+	 * @return array|null
 	 */
-	protected function retrieve_address( string $postcode, string $housenumber ) {
+	protected function retrieve_address( string $postcode, string $housenumber ) : ?array {
 		$url = add_query_arg( [
 			'q'  => "postcode:{$postcode}",
 			'fq' => "huisnummer:{$housenumber}",
@@ -59,7 +61,7 @@ class Postcode_Lookup{
 		$response = $request->get();
 
 		if ( is_wp_error( $response ) || 0 === $response['response']['numFound'] ) {
-			return false;
+			return null;
 		}
 		return [
 			'street' => $response['response']['docs'][0]['straatnaam'],

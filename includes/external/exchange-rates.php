@@ -50,12 +50,12 @@ class Exchange_Rates{
 	 * 
 	 * @return array
 	 */
-	public function get_rates() {
+	public function get_rates() : array {
 		$exchange_rates = get_transient( $this->transient_name );
-		if ( false === $exchange_rates ) {
+		if ( ! is_array( $exchange_rates ) ) {
 			$exchange_rates = $this->retrieve_rates();
-			if ( false == $exchange_rates ) {
-				return false;
+			if ( is_null( $exchange_rates ) ) {
+				return [];
 			}
 			set_transient( $this->transient_name, $exchange_rates, DAY_IN_SECONDS );
 		}
@@ -69,9 +69,9 @@ class Exchange_Rates{
 	 *
 	 * @return float
 	 */
-	public function get_rate( string $iso_code ) {
+	public function get_rate( string $iso_code ) : ?float {
 		$exchange_rates = $this->get_rates();
-		return $exchange_rates[ $iso_code ] ?? false;
+		return $exchange_rates[ $iso_code ] ?? null;
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Exchange_Rates{
 	 * 
 	 * @return array
 	 */
-	protected function retrieve_rates() {
+	protected function retrieve_rates() : ?array {
 		$url = add_query_arg( [
 			'access_key' => $this->api_key,
 		], self::API_URL );
@@ -88,7 +88,7 @@ class Exchange_Rates{
 		$response = $request->get();
 		
 		if ( is_wp_error( $response ) || false == $response['success'] ) {
-			return false;
+			return null;
 		}
 	
 		return array_map(

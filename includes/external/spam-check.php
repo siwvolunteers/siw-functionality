@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\External;
 
@@ -107,7 +107,7 @@ class Spam_Check{
 	 *
 	 * @return bool
 	 */
-	public function is_spammer() {
+	public function is_spammer() : bool {
 
 		//Afbreken als er niets to controleren is
 		if ( ! $this->check_email && ! $this->check_ip ) {
@@ -166,7 +166,7 @@ class Spam_Check{
 	/**
 	 * Zoek email en IP op in externe database
 	 */
-	protected function external_lookup() {
+	protected function external_lookup() : array {
 
 		$body = [
 			'json'  => true

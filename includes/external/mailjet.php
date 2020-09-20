@@ -11,8 +11,6 @@ use SIW\Core\HTTP_Request;
  * @since     3.0.0
  * 
  * @link      https://dev.mailjet.com/
- * 
- * @todo      Request class gebruiken
  */
 class Mailjet {
 
@@ -61,7 +59,7 @@ class Mailjet {
 	 *
 	 * @return bool
 	 */
-	public function subscribe_user( string $email, $list_id, array $properties = [] ) {
+	public function subscribe_user( string $email, $list_id, array $properties = [] ) : bool {
 
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist/{$list_id}/managecontact";
 		$body = json_encode( [
@@ -87,11 +85,11 @@ class Mailjet {
 	 *
 	 * @return array
 	 */
-	public function get_lists() {
+	public function get_lists() : array {
 		$lists = get_transient( 'siw_newsletter_lists' );
-		if ( false === $lists ) {
+		if ( ! is_array( $lists ) ) {
 			$lists = $this->retrieve_lists();
-			if ( false == $lists ) {
+			if ( empty( $lists ) ) {
 				return [];
 			}
 			set_transient( 'siw_newsletter_lists', $lists, HOUR_IN_SECONDS );
@@ -104,7 +102,7 @@ class Mailjet {
 	 *
 	 * @return array
 	 */
-	protected function retrieve_lists() {
+	protected function retrieve_lists() : array {
 
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist";
 		$request = new HTTP_Request( $url );
@@ -133,16 +131,16 @@ class Mailjet {
 	/**
 	 * Haalt gegevens van lijst op
 	 *
-	 * @param int $list_id
+	 * @param string $list_id
 	 *
 	 * @return array
 	 */
-	public function get_list( int $list_id ) {
+	public function get_list( string $list_id ) : array {
 		$list = get_transient( "siw_newsletter_list_{$list_id}" );
 
-		if ( false === $list ) {
+		if ( ! is_array( $list ) ) {
 			$list = $this->retrieve_list( $list_id );
-			if ( false == $list ) {
+			if ( empty( $list ) ) {
 				return [];
 			}
 			set_transient( "siw_newsletter_list_{$list_id}", $list, HOUR_IN_SECONDS );
@@ -153,11 +151,11 @@ class Mailjet {
 	/**
 	 * Haalt gegevens van lijst op
 	 *
-	 * @param int $list_id
+	 * @param string $list_id
 	 *
 	 * @return array
 	 */
-	protected function retrieve_list( int $list_id ) {
+	protected function retrieve_list( string $list_id ) : array {
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist/{$list_id}";
 
 		$request = new HTTP_Request( $url );
