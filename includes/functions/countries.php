@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Functies m.b.t. landen
@@ -35,7 +35,7 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 		$continent_data[ $continent ] = siw_get_data( "countries/{$continent}" );
 	}
 	
-	// Continent toevoegen aan elke land en array platslaan TODO: netter
+	// Continent toevoegen aan elke land en array platslaan TODO: netter + refactor
 	$data = [];
 	foreach ( $continent_data as $continent => $countries_data ) {
 		$countries_data = array_map( function( $country_data ) use ( $continent ) {
@@ -59,7 +59,7 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 		$data
 	);
 
-	//Filter op context
+	//Filter op context TODO: filter op continent
 	$countries = array_filter(
 		$countries, 
 		function( $country ) use ( $context ) {
@@ -93,7 +93,7 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
  * @param string $index
  * @return Country
  */
-function siw_get_country( string $country, string $index = 'slug' ) {
+function siw_get_country( string $country, string $index = 'slug' ) : ?Country {
 	$countries = siw_get_countries( 'all', $index );
-	return $countries[ $country ] ?? false;
+	return $countries[ $country ] ?? null;
 }

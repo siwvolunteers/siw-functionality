@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * Functies m.b.t. referentiegegevens
  * 
@@ -50,7 +51,7 @@ function siw_meta( string $key, array $args = [], int $post_id = null ) {
  * @param string $directory
  * @return array
  */
-function siw_get_data_file_ids( string $directory, bool $include_subdirectories = true ) {
+function siw_get_data_file_ids( string $directory, bool $include_subdirectories = true ) : array {
 
 	$base_directory = SIW_DATA_DIR . "/{$directory}";
 	$files = glob( $base_directory . '/*.php' );
@@ -83,7 +84,7 @@ function siw_get_data_file_ids( string $directory, bool $include_subdirectories 
  *
  * @return array
  */
-function siw_get_dutch_provinces() {
+function siw_get_dutch_provinces() : array {
 	$dutch_provinces = [
 		'nb' => __( 'Brabant', 'siw' ),
 		'dr' => __( 'Drenthe', 'siw' ),
@@ -106,11 +107,11 @@ function siw_get_dutch_provinces() {
  * 
  * @since     3.0.0
  *
- * @return array
+ * @return string|null
  */
-function siw_get_dutch_province( string $slug ) {
+function siw_get_dutch_province( string $slug ) : ?string {
 	$provinces = siw_get_dutch_provinces();
-	return $provinces[ $slug ] ?? '';
+	return $provinces[ $slug ] ?? null;
 }
 
 /**
@@ -120,7 +121,7 @@ function siw_get_dutch_province( string $slug ) {
  * 
  * @return array
  */
-function siw_get_board_titles() {
+function siw_get_board_titles() : array {
 	$titles = [
 		'chair'        => __( 'Voorzitter', 'siw' ),
 		'secretary'    => __( 'Secretaris' , 'siw' ),
@@ -139,7 +140,7 @@ function siw_get_board_titles() {
  * 
  * @todo moet hier altijd de duur/uitleg bij?
  */
-function siw_get_project_types() {
+function siw_get_project_types() : array {
 
 	$project_types = [
 		'groepsprojecten' => __( 'Groepsvrijwilligerswerk (2 - 3 weken)', 'siw' ),
@@ -157,7 +158,7 @@ function siw_get_project_types() {
  *
  * @return array
  */
-function siw_get_genders() {
+function siw_get_genders() : array {
 	$genders = [
 		'M' => __( 'Man', 'siw' ),
 		'F' => __( 'Vrouw', 'siw' ),
@@ -172,7 +173,7 @@ function siw_get_genders() {
  *
  * @return array
  */
-function siw_get_nationalities() {
+function siw_get_nationalities() : array {
 	$nationalities = [ '' => __( 'Selecteer een nationaliteit', 'siw' ) ];
 	$nationalities = $nationalities + siw_get_data( 'nationalities' );
 	return $nationalities;
@@ -184,7 +185,7 @@ function siw_get_nationalities() {
  * Nummering volgens ISO-8601 (Maandag = 1, Zondag = 7)
  * @return array
  */
-function siw_get_days() {
+function siw_get_days() : array {
 	$days = [
 		1 => __( 'Maandag', 'siw' ),
 		2 => __( 'Dinsdag', 'siw' ),
@@ -205,7 +206,7 @@ function siw_get_days() {
  * 
  * @todo fallback naar admin-email
  */
-function siw_get_email_settings( string $id ) {
+function siw_get_email_settings( string $id ) : array {
 	$mail_settings = siw_get_option( "{$id}_email" );
 	if ( ! isset( $mail_settings['use_specific'] ) || ! $mail_settings['use_specific'] ) {
 		$mail_settings = siw_get_option( 'email_settings' );

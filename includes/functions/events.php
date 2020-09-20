@@ -1,6 +1,7 @@
 <?php
 
 use SIW\Formatting;
+use SIW\Properties;
 
 /**
  * Functies m.b.t. evenementen

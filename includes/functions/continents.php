@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Functies m.b.t. continenten
@@ -17,7 +17,7 @@ use SIW\Data\Continent;
  * 
  * @since     3.0.0
  */
-function siw_get_continents( string $return = 'objects' ) { 
+function siw_get_continents( string $return = 'objects' ) : array { 
 
 	$continents = wp_cache_get( "continents_{$return}", 'siw_continents' );
 	if ( false !== $continents ) {
@@ -59,7 +59,7 @@ function siw_get_continents( string $return = 'objects' ) {
  * @param string $slug
  * @return Continent
  */
-function siw_get_continent( string $slug ) {
+function siw_get_continent( string $slug ) : ?Continent {
 	$continents = siw_get_continents();
-	return $continents[ $slug ] ?? false;
+	return $continents[ $slug ] ?? null;
 }

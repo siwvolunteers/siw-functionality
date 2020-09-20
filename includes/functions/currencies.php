@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Functies m.b.t. valuta's
@@ -15,7 +15,7 @@ use SIW\Data\Currency;
  *
  * @param string $return
  *
- * @return array
+ * @return Currency[]|array
  */
 function siw_get_currencies( string $return = 'objects' ) : array {
 

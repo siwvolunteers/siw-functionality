@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Functies m.b.t. talen
@@ -75,7 +75,7 @@ function siw_get_languages( string $context = 'all', string $index = 'slug', str
  * @param string $index
  * @return Language
  */
-function siw_get_language( string $language, string $index = 'slug' ) {
+function siw_get_language( string $language, string $index = 'slug' ) : ?Language {
 	$languages = siw_get_languages( 'all', $index );
 	return $languages[ $language ] ?? false;
 }
