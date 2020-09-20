@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -159,7 +159,7 @@ $data = [
 	[
 		'iso'         => 'PHL',
 		'slug'        => 'filipijnen',
-		'name'        => __( 'Filipijnen ', 'siw' ),
+		'name'        => __( 'Filipijnen', 'siw' ),
 		'allowed'     => true,
 		'workcamps'   => true,
 		'tailor_made' => false,
