@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -60,15 +60,14 @@ class Map extends Widget {
 	 *
 	 * @return array
 	 */
-	protected function get_maps() {
+	protected function get_maps() : array {
 		return wp_list_pluck( Elements::get_interactive_maps(), 'name', 'id' );
 	}
-
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 		return Elements::generate_interactive_map( $instance['map'] );
 	}
 }

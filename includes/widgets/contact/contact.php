@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
 use SIW\Elements;
-use SIW\Formatting;
 use SIW\Properties;
 use SIW\Util\Links;
 
@@ -56,7 +55,7 @@ class Contact extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 		ob_start();
 		?>
 		<div class="siw-contact">

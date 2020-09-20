@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -103,7 +103,7 @@ class Accordion extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
+	protected function get_content( $instance, $args, $template_vars, $css_name ) : string { 
 		return Elements::generate_accordion( $instance['panes'] );
 	}
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -79,11 +79,11 @@ class Quote extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 		$quote = $this->get_quote( $instance['continent'], $instance['project_type'] );
 		
-		if ( null == $quote ) {
-			return;
+		if ( is_null( $quote ) ) {
+			return '';
 		}
 
 		ob_start();
@@ -120,7 +120,7 @@ class Quote extends Widget {
 	 *
 	 * @return array
 	 */
-	protected function get_quote( $continent, $project_type ) {
+	protected function get_quote( $continent, $project_type ) : ?array {
 		
 		$tax_query = [];
 		if ( ! empty( $continent ) ) {

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -159,7 +159,7 @@ class Carousel extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 
 		$instance = $this->parse_instance( $instance );
 
@@ -205,7 +205,7 @@ class Carousel extends Widget {
 	 * @param array $instance
 	 * @return array
 	 */
-	protected function parse_instance( $instance ) {
+	protected function parse_instance( array $instance ) : array {
 		$instance = wp_parse_args(
 			$instance,
 			[ 
@@ -232,7 +232,7 @@ class Carousel extends Widget {
 	 * @param string $term
 	 * @return string
 	 */
-	protected function generate_button( string $button_text, string $post_type, string $taxonomy, string $term ) {
+	protected function generate_button( string $button_text, string $post_type, string $taxonomy, string $term ) : string {
 		if ( ! empty( $taxonomy ) && ! empty( $term ) ) {
 			$link = get_term_link( $term, $taxonomy );
 		}

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -60,7 +60,7 @@ class Quick_Search_Form extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string { 
 		$result_page_url = wp_make_link_relative( get_permalink( $instance['result_page'] ) );
 		ob_start();
 		?>
@@ -83,7 +83,7 @@ class Quick_Search_Form extends Widget {
 	 * 
 	 * @return array
 	 */
-	protected function get_destinations() {
+	protected function get_destinations() : array {
 
 		$categories = get_terms( [
 			'taxonomy'   => 'product_cat',
@@ -111,7 +111,7 @@ class Quick_Search_Form extends Widget {
 	 * 
 	 * @return array
 	 */
-	protected function get_months() {
+	protected function get_months() : array {
 		$terms = get_terms( [
 			'taxonomy'   => 'pa_maand',
 			'hide_empty' => true,

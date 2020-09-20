@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -74,7 +74,7 @@ class CTA extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 		ob_start();
 		?>
 		<div style="text-align:<?php echo esc_attr( $instance['align'] ); ?>">

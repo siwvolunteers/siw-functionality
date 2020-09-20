@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -105,7 +105,7 @@ class Pie_Chart extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string { 
 		$content = '';
 		if ( isset( $instance['intro'] ) ) {
 			$content .= wpautop( wp_kses_post( $instance['intro'] ) );

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -91,7 +91,7 @@ abstract class Widget extends \SiteOrigin_Widget {
 	 * @param string $css_name
 	 * @return string
 	 */
-	abstract protected function get_content( array $instance, array $args, array $template_vars, string $css_name );
+	abstract protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string;
 
 	/**
 	 * Genereert generieke inhoud van widget
