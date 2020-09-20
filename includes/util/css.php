@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Util;
 
@@ -9,6 +9,27 @@ namespace SIW\Util;
  * @since     3.0.0
  */
 class CSS {
+
+	/**
+	 * CSS klasse om content op mobiel te verbergen
+	 * 
+	 * @var string
+	 */
+	const HIDE_ON_MOBILE_CLASS = 'hide-on-mobile';
+
+	/**
+	 * CSS klasse om content op tablet te verbergen
+	 * 
+	 * @var string
+	 */
+	const HIDE_ON_TABLET_CLASS = 'hide-on-tablet';
+
+	/**
+	 * CSS klasse om content op desktop te verbergen
+	 * 
+	 * @var string
+	 */
+	const HIDE_ON_DESKTOP_CLASS = 'hide-on-desktop';
 
 	/**
 	 * Genereert reponsive classes
