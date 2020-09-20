@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\API;
 
@@ -144,7 +144,7 @@ abstract class Endpoint {
 	 * @param \WP_REST_Request $request
 	 * @return bool
 	 */
-	public function verify_nonce( \WP_REST_Request $request ) {
+	public function verify_nonce( \WP_REST_Request $request ) : bool {
 		$nonce = $request->get_header( 'x_wp_nonce' );
 		return wp_verify_nonce( $nonce, 'wp_rest' );
 	}
