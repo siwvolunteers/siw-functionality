@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Newsletter;
 
@@ -69,7 +69,7 @@ class Confirmation_Email {
 	/**
 	 * Verstuurt bevestigingsmail
 	 */
-	public function send() {
+	public function send() : bool {
 		$email_hash = sha1( $this->email );
 
 		// Afbreken als bevestigingsmail al verstuurd is
@@ -98,7 +98,7 @@ class Confirmation_Email {
 	 *
 	 * @return string
 	 */
-	protected function generate_message() {
+	protected function generate_message() : string {
 		$template_args = [
 			'subject' => __( 'Aanmelding nieuwsbrief', 'siw' ),
 			'message' => implode(
@@ -129,7 +129,7 @@ class Confirmation_Email {
 	 *
 	 * @return string
 	 */
-	protected function generate_confirmation_url() {
+	protected function generate_confirmation_url() : string {
 
 		$data = [
 			'email'      => $this->email,

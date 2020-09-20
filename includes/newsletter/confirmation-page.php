@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Newsletter;
 
@@ -75,7 +75,7 @@ class Confirmation_Page {
 	 *
 	 * @return string
 	 */
-	public function load_template( $template ) {
+	public function load_template( $template ) : string {
 		if ( $this->is_newsletter_confirmation() ) {
 			$template = SIW_TEMPLATES_DIR . '/newsletter-confirmation.php';
 		}
@@ -94,7 +94,7 @@ class Confirmation_Page {
 	 *
 	 * @return bool
 	 */
-	protected function is_newsletter_confirmation() {
+	protected function is_newsletter_confirmation() : bool {
 		return is_front_page() && (bool) Util::get_request_parameter( 'nl_confirmation');
 	}
 
