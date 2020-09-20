@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Data;
 
@@ -101,7 +101,7 @@ class Social_Network {
 	 * 
 	 * @return string
 	 */
-	public function get_slug() {
+	public function get_slug() : string {
 		return $this->slug;
 	}
 
@@ -110,7 +110,7 @@ class Social_Network {
 	 * 
 	 * @return string
 	 */
-	public function get_name() {
+	public function get_name() : string {
 		return $this->name;
 	}
 
@@ -119,7 +119,7 @@ class Social_Network {
 	 * 
 	 * @return string
 	 */
-	public function get_icon_class() {
+	public function get_icon_class() : string {
 		return $this->icon_class;
 	}
 
@@ -128,7 +128,7 @@ class Social_Network {
 	 * 
 	 * @return string
 	 */
-	public function get_color() {
+	public function get_color() : string {
 		return $this->color;
 	}
 
@@ -137,7 +137,7 @@ class Social_Network {
 	 *
 	 * @return bool
 	 */
-	public function is_for_sharing() {
+	public function is_for_sharing() : bool {
 		return $this->share;
 	}
 
@@ -146,7 +146,7 @@ class Social_Network {
 	 *
 	 * @return bool
 	 */
-	public function is_for_following() {
+	public function is_for_following() : bool {
 		return $this->follow;
 	}
 
@@ -155,7 +155,7 @@ class Social_Network {
 	 *
 	 * @return string
 	 */
-	public function get_follow_url() {
+	public function get_follow_url() : string {
 		return $this->follow_url;
 	}
 
@@ -164,7 +164,7 @@ class Social_Network {
 	 *
 	 * @return string
 	 */
-	public function get_share_url_template() {
+	public function get_share_url_template() : string {
 		return $this->share_url_template;
 	}
 
@@ -175,7 +175,7 @@ class Social_Network {
 	 * @param string $title
 	 * @return string
 	 */
-	public function generate_share_link( string $url, string $title ) {
+	public function generate_share_link( string $url, string $title ) :string {
 
 		$template = $this->get_share_url_template();
 		$url = urlencode( $url );

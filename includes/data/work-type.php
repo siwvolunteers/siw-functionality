@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Data;
 
@@ -84,7 +84,7 @@ class Work_Type {
 	 *
 	 * @return string
 	 */
-	public function get_slug() {
+	public function get_slug() : string {
 		return $this->slug;
 	}
 
@@ -93,7 +93,7 @@ class Work_Type {
 	 *
 	 * @return string
 	 */
-	public function get_name() {
+	public function get_name() : string {
 		return $this->name;
 	}
 
@@ -102,7 +102,7 @@ class Work_Type {
 	 *
 	 * @return string
 	 */
-	public function get_plato_code() {
+	public function get_plato_code() : string {
 		return $this->plato_code;
 	}
 
@@ -111,7 +111,7 @@ class Work_Type {
 	 * 
 	 * @return string
 	 */
-	public function get_icon_class() {
+	public function get_icon_class() : string {
 		return $this->icon_class;
 	}
 
@@ -120,7 +120,7 @@ class Work_Type {
 	 *
 	 * @return bool
 	 */
-	public function is_for_dutch_projects() {
+	public function is_for_dutch_projects() : bool {
 		return $this->dutch_projects;
 	}
 
@@ -129,7 +129,7 @@ class Work_Type {
 	 *
 	 * @return bool
 	 */
-	public function is_for_tailor_made_projects() {
+	public function is_for_tailor_made_projects() : bool {
 		return $this->tailor_made_projects;
 	}
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Data;
 
@@ -51,7 +51,7 @@ class Continent {
 	 *
 	 * @return string
 	 */
-	public function get_slug() {
+	public function get_slug() : string {
 		return $this->slug;
 	}
 
@@ -60,7 +60,7 @@ class Continent {
 	 *
 	 * @return string
 	 */
-	public function get_name() {
+	public function get_name() : string {
 		return $this->name;
 	}
 
@@ -69,7 +69,7 @@ class Continent {
 	 *
 	 * @return string
 	 */
-	public function get_color() {
+	public function get_color() : string {
 		return $this->color;
 	}
 
@@ -81,7 +81,7 @@ class Continent {
 	 * @todo hoort dit wel hier
 	 * @todo caching
 	 */
-	public function get_countries() {
+	public function get_countries() : array {
 		$countries = \siw_get_countries();
 		return array_filter(
 			$countries,

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Data;
 
@@ -120,7 +120,7 @@ class Country {
 	 *
 	 * @return string
 	 */
-	public function get_iso_code() {
+	public function get_iso_code() : string {
 		return $this->iso_code;
 	}
 
@@ -129,7 +129,7 @@ class Country {
 	 *
 	 * @return string
 	 */
-	public function get_slug() {
+	public function get_slug() : string {
 		return $this->slug;
 	}
 
@@ -138,7 +138,7 @@ class Country {
 	 *
 	 * @return string
 	 */
-	public function get_name() {
+	public function get_name() : string {
 		return $this->name;
 	}
 
@@ -147,7 +147,7 @@ class Country {
 	 *
 	 * @return Continent
 	 */
-	public function get_continent() {
+	public function get_continent() : Continent {
 		return siw_get_continent( $this->continent );
 	}
 
@@ -156,7 +156,7 @@ class Country {
 	 *
 	 * @return bool
 	 */
-	public function is_allowed() {
+	public function is_allowed() : bool {
 		return $this->allowed;
 	}
 
@@ -165,7 +165,7 @@ class Country {
 	 *
 	 * @return bool
 	 */
-	public function has_workcamps() {
+	public function has_workcamps() : bool {
 		return $this->has_workcamps;
 	}
 
@@ -174,7 +174,7 @@ class Country {
 	 *
 	 * @return bool
 	 */
-	public function has_esc_projects() {
+	public function has_esc_projects() : bool {
 		return $this->has_esc_projects;
 	}
 
@@ -183,7 +183,7 @@ class Country {
 	 *
 	 * @return bool
 	 */
-	public function has_tailor_made_projects() {
+	public function has_tailor_made_projects() : bool {
 		return $this->has_tailor_made_projects;
 	}
 
@@ -192,7 +192,7 @@ class Country {
 	 *
 	 * @return \stdClass
 	 */
-	public function get_world_map_data() {
+	public function get_world_map_data() : \stdClass {
 		return (object) $this->world_map_data;
 	}
 	
@@ -201,7 +201,7 @@ class Country {
 	 *
 	 * @return \stdClass
 	 */
-	public function get_europe_map_data() {
+	public function get_europe_map_data() : \stdClass {
 		return (object) $this->europe_map_data;
 	}
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Data;
 
@@ -52,7 +52,7 @@ class Language {
 		$defaults = [
 			'slug'               => '',
 			'name'               => '',
-			'plato'              => ',',
+			'plato'              => '',
 			'volunteer_language' => false,
 			'project_language'   => false,
 		];
@@ -69,7 +69,7 @@ class Language {
 	 * 
 	 * @return string
 	 */
-	public function get_slug() {
+	public function get_slug() : string {
 		return $this->slug;
 	}
 
@@ -78,7 +78,7 @@ class Language {
 	 * 
 	 * @return string
 	 */
-	public function get_name() {
+	public function get_name() : string {
 		return $this->name;
 	}
 
@@ -87,7 +87,7 @@ class Language {
 	 * 
 	 * @return string
 	 */
-	public function get_plato_code() {
+	public function get_plato_code() : string {
 		return $this->plato_code;
 	}
 
@@ -96,7 +96,7 @@ class Language {
 	 *
 	 * @return bool
 	 */
-	public function is_volunteer_language() {
+	public function is_volunteer_language() : bool {
 		return $this->volunteer_language;
 	}
 
@@ -105,7 +105,7 @@ class Language {
 	 *
 	 * @return bool
 	 */
-	public function is_project_language() {
+	public function is_project_language() : bool {
 		return $this->project_language;
 	}
 }
