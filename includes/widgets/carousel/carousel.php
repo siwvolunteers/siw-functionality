@@ -165,8 +165,8 @@ class Carousel extends Widget {
 
 		$carousel = new Element_Carousel();
 		$carousel->set_post_type( $instance['post_type'] );
-		$carousel->set_items( $instance['items'] );
-		$carousel->set_columns( $instance['columns'] );
+		$carousel->set_items( intval( $instance['items'] ) );
+		$carousel->set_columns( intval( $instance['columns'] ) );
 		if ( ! empty( $instance['taxonomy'] ) && ! empty( $instance['term'] ) ) {
 			$carousel->set_taxonomy_term( $instance['taxonomy'], $instance['term'] );
 		}
