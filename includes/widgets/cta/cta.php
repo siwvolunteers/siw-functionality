@@ -82,7 +82,7 @@ class CTA extends Widget {
 				<?php echo esc_html( $instance['headline'] );?>
 			</div>
 			<div class="button">
-				<?php echo Links::generate_button_link( i18n::get_translated_page_url( $instance['button_page'] ), $instance['button_text'] ); ?>
+				<?php echo Links::generate_button_link( i18n::get_translated_page_url( intval( $instance['button_page'] ) ), $instance['button_text'] ); ?>
 			</div>
 		</div>
 		<?php

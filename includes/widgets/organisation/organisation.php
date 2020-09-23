@@ -81,9 +81,9 @@ class Organisation extends Widget {
 	/**
 	 * Geeft lijst met bestuursleden terug
 	 * 
-	 * @return string
+	 * @return array|null
 	 */
-	protected function get_board_members_list() : ?string {
+	protected function get_board_members_list() : ?array {
 		$board_members = siw_get_option( 'board_members');
 		if ( empty( $board_members ) ) {
 			return null;;

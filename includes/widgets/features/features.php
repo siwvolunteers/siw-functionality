@@ -117,7 +117,7 @@ class Features extends Widget {
 	 */
 	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 
-		$columns = $instance['columns'];
+		$columns = intval( $instance['columns'] );
 		$rows = array_chunk( $instance['features'], $columns );
 		ob_start();
 		?>
