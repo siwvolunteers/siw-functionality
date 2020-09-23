@@ -77,7 +77,7 @@ function siw_get_languages( string $context = 'all', string $index = 'slug', str
  */
 function siw_get_language( string $language, string $index = 'slug' ) : ?Language {
 	$languages = siw_get_languages( 'all', $index );
-	return $languages[ $language ] ?? false;
+	return $languages[ $language ] ?? null;
 }
 
 /**
