@@ -114,7 +114,7 @@ class WooCommerce {
 	 *
 	 * @return array
 	 */
-	public function register_log_handlers() {
+	public function register_log_handlers() : array {
 		$log_handler_db = new \WC_Log_Handler_DB;
 		$log_handler_email = new \WC_Log_Handler_Email;
 		$log_handler_email->set_threshold( 'alert' );

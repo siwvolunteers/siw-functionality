@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Compatibility;
 
@@ -61,7 +61,7 @@ class The_SEO_Framework {
 	 *
 	 * @return string
 	 */
-	public function set_metabox_priority( ) {
+	public function set_metabox_priority() : string {
 		return self::METABOX_PRIORITY;
 	}
 
@@ -73,9 +73,9 @@ class The_SEO_Framework {
 	 *
 	 * @todo soort_evenement soort_vacature testimonial wpm-testimonial-category / verplaatsen naar WooCommerce
 	 */
-	public function set_robots( array $robots ) {
+	public function set_robots( array $robots ) : array {
 		if ( function_exists( 'is_product_tag' ) && is_product_tag() ) {
-			$robots['noindex'] = 'noindex';	
+			$robots['noindex'] = 'noindex';
 		}
 		return $robots;
 	}
@@ -85,7 +85,7 @@ class The_SEO_Framework {
 	 *
 	 * @return string
 	 */
-	public function set_sitemap_color_main() {
+	public function set_sitemap_color_main() : string {
 		return Properties::SECONDARY_COLOR;
 	}
 

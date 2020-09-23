@@ -87,7 +87,7 @@ class GeneratePress{
 	 *
 	 * @return string
 	 */
-	public function set_copyright_message() {
+	public function set_copyright_message() : string {
 		return sprintf( '&copy; %s %s', current_time( 'Y' ), Properties::NAME );
 	}
 

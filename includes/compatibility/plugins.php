@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Compatibility;
 
@@ -28,7 +28,7 @@ class Plugins {
 	 * @param array $args
 	 * @return array
 	 */
-	public function set_wpmtst_post_type_slug( array $args ) {
+	public function set_wpmtst_post_type_slug( array $args ) : array {
 		$args['rewrite']['slug'] = 'ervaring';
 		return $args;
 	}
