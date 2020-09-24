@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Email;
 
@@ -63,7 +63,7 @@ class Configuration {
 			$phpmailer->DKIM_selector = $dkim_settings['selector'];
 			$phpmailer->DKIM_domain = $dkim_settings['domain'];
 			$phpmailer->DKIM_identity = $phpmailer->From;
-			$phpmailer->DKIM_passphrase = SIW_DKIM_PASSPHRASE;
+			$phpmailer->DKIM_passphrase = defined( 'SIW_DKIM_PASSPHRASE' ) ? SIW_DKIM_PASSPHRASE : '' ;
 			$phpmailer->DKIM_private_string = $dkim_settings['key'];
 		}
 	}
@@ -95,9 +95,10 @@ class Configuration {
 	 * Zet het afzenderadres (indien nog niet gezet)
 	 *
 	 * @param string $from
+	 * 
 	 * @return string
 	 */
-	public function set_mail_from( string $from ) {
+	public function set_mail_from( string $from ) : string {
 		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
 		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
 			$sitename = substr( $sitename, 4 );
@@ -114,9 +115,10 @@ class Configuration {
 	 * Zet de afzendernaam (indien nog niet gezet)
 	 *
 	 * @param string $from_name
+	 * 
 	 * @return string
 	 */
-	public function set_mail_from_name( string $from_name ) {
+	public function set_mail_from_name( string $from_name ) : string {
 		$default_from_name = 'WordPress';
 		if ( $from_name != $default_from_name ) {
 			return $from_name;
