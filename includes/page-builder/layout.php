@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Page_Builder;
 
@@ -51,7 +51,7 @@ class Layout {
 	 * @param array $style_attributes
 	 * @param array $style_args
 	 *
-	 * @return void
+	 * @return array
 	 */
 	public function add_row_style_attributes( array $style_attributes, array $style_args ) : array {
 		if ( ! isset( $style_args['siw_row_stretch'] ) ) {
