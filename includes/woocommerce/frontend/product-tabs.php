@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Frontend;
 
@@ -33,7 +33,7 @@ class Product_Tabs {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function remove_reviews_tab( array $tabs ) {
+	public function remove_reviews_tab( array $tabs ) : array {
 		unset( $tabs['reviews'] );
 		return $tabs;
 	}
@@ -44,7 +44,7 @@ class Product_Tabs {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function add_project_description_tab( array $tabs ) {
+	public function add_project_description_tab( array $tabs ) : array {
 		global $product;
 		$description = $product->get_meta( 'description' );
 		if ( empty( $description ) ) {
@@ -59,7 +59,6 @@ class Product_Tabs {
 		];
 		return $tabs;
 	}
-
 	
 	/**
 	 * Voegt tab met projectlocatie toe
@@ -67,10 +66,10 @@ class Product_Tabs {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function add_project_location_map_tab( array $tabs ) {
+	public function add_project_location_map_tab( array $tabs ) : array {
 		global $product;
-		$lat = $product->get_meta( 'latitude' );
-		$lng = $product->get_meta( 'longitude' );
+		$lat = (float) $product->get_meta( 'latitude' );
+		$lng = (float) $product->get_meta( 'longitude' );
 	
 		if ( 0 != $lat && 0 != $lng ) {
 			$tabs['location'] = [
@@ -90,7 +89,7 @@ class Product_Tabs {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function add_contact_form_tab( array $tabs ) {
+	public function add_contact_form_tab( array $tabs ) : array {
 		$tabs['enquiry'] = [
 			'title'    => __( 'Stel een vraag', 'siw' ),
 			'priority' => 120,
@@ -105,7 +104,7 @@ class Product_Tabs {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function add_steps_tab( array $tabs ) {
+	public function add_steps_tab( array $tabs ) : array {
 		$tabs['steps'] = [
 			'title'    => __( 'Zo werkt het', 'siw' ),
 			'priority' => 130,
@@ -167,7 +166,7 @@ class Product_Tabs {
 	/**
 	 * Toont stappenplan in tab
 	 * 
-	 * @todo stappen uit databestand/instelling
+	 * @todo stappen uit instelling
 	 */
 	public function show_product_steps() {
 		echo Elements::generate_features(
