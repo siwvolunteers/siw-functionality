@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Admin;
 
@@ -61,7 +61,7 @@ class Stockphoto_Page {
 	 *
 	 * @return array
 	 */
-	public function add_page( $pages ) {
+	public function add_page( $pages ) : array {
 		$pages[] = [
 			'parent'      => 'edit.php?post_type=product',
 			'id'          => $this->page_id,
@@ -74,7 +74,14 @@ class Stockphoto_Page {
 		return $pages;
 	}
 
-	public function add_metabox( $metaboxes ) {
+	/**
+	 * Voegt metabox toe
+	 *
+	 * @param array $metaboxes
+	 *
+	 * @return array
+	 */
+	public function add_metabox( array $metaboxes ) : array {
 
 		$metaboxes[] = [
 			'id'             => 'stockphotos',

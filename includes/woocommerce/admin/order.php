@@ -1,8 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Admin;
-
-use SIW\CSS;
 
 /**
  * Aanpassing aan admin t.b.v. aanmeldingen
@@ -10,7 +8,7 @@ use SIW\CSS;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  * 
- * @todo      splitsen in Order en Admin_Order
+ * @todo      splitsen in Order en Admin_Order + refactor enzo
  */
 class Order {
 
@@ -41,7 +39,7 @@ class Order {
 	 *
 	 * @return array
 	 */
-	protected function get_checkout_sections() {
+	protected function get_checkout_sections() : array {
 		$checkout_sections = siw_get_data( 'workcamps/checkout-sections' );
 		return $checkout_sections;
 	}
@@ -52,7 +50,7 @@ class Order {
 	 * @param string $section
 	 * @return array
 	 */
-	protected function get_checkout_section( $section ) {
+	protected function get_checkout_section( $section ) : array {
 		$checkout_sections = $this->get_checkout_sections();
 
 		if ( isset( $checkout_sections[ $section ] ) ) {
@@ -247,7 +245,7 @@ class Order {
 	 * @param array $address
 	 * @param \WC_Order $order
 	 */
-	public function format_billing_address( array $address, \WC_Order $order ) {
+	public function format_billing_address( array $address, \WC_Order $order ) : array {
 		$address['dob'] = $order->get_meta('_billing_dob');
 		$address['gender'] = siw_get_genders()[ $order->get_meta('_billing_gender') ];
 		$address['nationality'] = siw_get_nationalities() [$order->get_meta('_billing_nationality') ];
@@ -283,7 +281,7 @@ class Order {
 	 *
 	 * @param \WC_Order $order
 	 */
-	public function show_language_meta( \WC_Order $order ) {  
+	public function show_language_meta( \WC_Order $order ) {
 		$this->show_section( $order, 'language');
 	}
 
@@ -328,7 +326,7 @@ class Order {
 	 * @param array $columns
 	 * @return array
 	 */
-	public function remove_admin_columns( array $columns ) {
+	public function remove_admin_columns( array $columns ) : array {
 		unset( $columns['shipping_address'] );
 		unset( $columns['billing_address'] );	
 		return $columns;
@@ -350,7 +348,7 @@ class Order {
 	 * @param array $actions
 	 * @return array
 	 */
-	public function remove_order_actions( $actions ) {
+	public function remove_order_actions( $actions ) : array {
 		unset( $actions['regenerate_download_permissions']);
 		unset( $actions['send_order_details']);
 		return $actions;

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Admin;
 
@@ -77,9 +77,9 @@ class Product_Columns extends \MBAC\Post {
 					HTML::span(
 						[
 							'class'    => $product->get_meta( 'selected_for_carousel' ) ? 'carousel show tips' : 'carousel tips',
-							'data-tip' => $product->get_meta( 'selected_for_carousel' ) ? __( 'Yes', 'woocommerce' ) : __( 'No', 'woocommerce' ),
+							'data-tip' => $product->get_meta( 'selected_for_carousel' ) ? __( 'Ja', 'siw' ) : __( 'Nee', 'siw' ),
 						],
-						$product->get_meta( 'selected_for_carousel' ) ? __( 'Yes', 'woocommerce' ) : __( 'No', 'woocommerce' )
+						$product->get_meta( 'selected_for_carousel' ) ? __( 'Ja', 'siw' ) : __( 'Nee', 'siw' )
 					)
 				);
 		}
