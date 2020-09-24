@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Plato;
 
@@ -51,7 +51,7 @@ abstract class Export extends Plato_Interface {
 	 *
 	 * @return array
 	 */
-	public function run( $data ) {
+	public function run( $data ) : array {
 		
 		if ( ! $this->production ) {
 			return [
@@ -92,7 +92,7 @@ abstract class Export extends Plato_Interface {
 	 * 
 	 * @return bool
 	 */
-	protected function send_xml() {
+	protected function send_xml() : bool {
 		$args = [
 			'timeout'     => 60,
 			'redirection' => 0,

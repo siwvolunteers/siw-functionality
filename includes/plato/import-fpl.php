@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Plato;
 
@@ -51,7 +51,7 @@ class Import_FPL extends Import {
 			foreach ( $this->properties as $property ) {
 				$project_data[ $property ] = (string) $project->$property;
 			}
-			$this->data[] = $project_data;		
+			$this->data[] = $project_data;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Plato;
 
@@ -86,7 +86,7 @@ abstract class Plato_Interface {
 	 * Zet Plato-webkey
 	 */
 	protected function set_webkey() {
-		$this->webkey = siw_get_option( 'plato_organization_webkey' );
+		$this->webkey = siw_get_option( 'plato.organization_webkey' );
 	}
 
 	/**
@@ -94,7 +94,7 @@ abstract class Plato_Interface {
 	 *
 	 * @return string
 	 */
-	protected function get_webkey() {
+	protected function get_webkey() : string {
 		return $this->webkey;
 	}
 
@@ -139,7 +139,7 @@ abstract class Plato_Interface {
 	 *
 	 * @return bool
 	 */
-	protected function is_valid_response() {
+	protected function is_valid_response() : bool {
 		/* In het geval van een fout: foutmelding wegschrijven naar log */
 		if ( is_wp_error( $this->http_response ) ) {
 			$this->log('error', 'Verbinding met PLATO mislukt. Response: ' . wc_print_r( $this->http_response ) );
