@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW;
 
@@ -239,7 +239,7 @@ class Properties {
 	 *
 	 * @return array
 	 */
-	static public function get_all() {
+	static public function get_all() : array {
 		$reflectionClass = new \ReflectionClass( __CLASS__ );
 		$constants = $reflectionClass->getConstants();
 		$configuration = [];

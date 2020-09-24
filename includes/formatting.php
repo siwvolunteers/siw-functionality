@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW;
 
@@ -31,7 +31,7 @@ class Formatting {
 	 * 
 	 * @uses siw_get_currency()
 	 */
-	public static function format_amount( float $amount, int $decimals = 0, string $currency_code = 'EUR' ) {
+	public static function format_amount( float $amount, int $decimals = 0, string $currency_code = 'EUR' ) : string {
 		$currency = siw_get_currency( $currency_code );
 
 		$currency_symbol = $currency_code;
@@ -51,7 +51,7 @@ class Formatting {
 	 * @param int $decimals
 	 * @param string $currency_code
 	 */
-	public static function format_sale_amount( float $amount, float $sale_amount, int $decimals = 0, string $currency_code = 'EUR' ) {
+	public static function format_sale_amount( float $amount, float $sale_amount, int $decimals = 0, string $currency_code = 'EUR' ) : string {
 		return sprintf(
 			'<del>%s</del>&nbsp;<ins>%s</ins>',
 			self::format_amount( $amount, $decimals, $currency_code ),
@@ -65,7 +65,7 @@ class Formatting {
 	 * @param array $cells
 	 * @return string
 	 */
-	public static function generate_columns( array $cells ) {
+	public static function generate_columns( array $cells ) : string {
 		$columns = '<div class="grid-container">';
 		foreach ( $cells as $cell ){
 			$columns .= sprintf( '<div class="grid-%s">%s</div>', $cell['width'], do_shortcode( $cell['content'] ) );
@@ -81,7 +81,7 @@ class Formatting {
 	 * @param array $vars
 	 * @return string
 	 */
-	public static function parse_template( string $template, array $vars ) {
+	public static function parse_template( string $template, array $vars ) : string {
 		$variables = [];
 		foreach ( $vars as $key => $value ) {
 			$variables[ '{{ ' . $key . ' }}' ] = $value;
@@ -96,7 +96,7 @@ class Formatting {
 	 *
 	 * @return string
 	 */
-	public static function generate_json_ld( array $data ) {
+	public static function generate_json_ld( array $data ) : string {
 		ob_start();
 		?>
 		<script type="application/ld+json">
@@ -113,7 +113,7 @@ class Formatting {
 	 * @param bool $year jaar toevoegen aan tekst
 	 * @return string
 	 */
-	public static function format_date( $date, bool $year = true ) {
+	public static function format_date( $date, bool $year = true ) : string {
 		$format = $year ? 'j F Y' : 'j F';
 		return wp_date( $format, strtotime( $date ) );
 	}
@@ -127,7 +127,7 @@ class Formatting {
 	 *
 	 * @return string
 	 */
-	public static function format_date_range( string $date_start, string $date_end, bool $year = true ) {
+	public static function format_date_range( string $date_start, string $date_end, bool $year = true ) : string {
 		
 		if ( $date_start === $date_end ) {
 			return self::format_date( $date_start, $year );
