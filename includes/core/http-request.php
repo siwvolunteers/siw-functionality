@@ -162,7 +162,7 @@ class HTTP_Request {
 	}
 
 	/**
-	 * Undocumented function
+	 * Verstuur request
 	 *
 	 * @param string $method
 	 * 
@@ -211,7 +211,7 @@ class HTTP_Request {
 	 * 
 	 * @return bool
 	 */
-	protected function is_valid_response( $response ) {
+	protected function is_valid_response( $response ) : bool {
 		if ( is_wp_error( $response ) ) {
 			$this->error = $response;
 			return false;

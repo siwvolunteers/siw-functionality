@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Core;
 
@@ -28,7 +28,7 @@ class Translations {
 	 * @param string $domain
 	 * @return string
 	 */
-	public function load_custom_translations( string $mofile, string $domain ) {
+	public function load_custom_translations( string $mofile, string $domain ) : string {
 		$textdomains['nl_NL'] = [ 'woocommerce' ];
 		$textdomains['en_US'] = [ 'siw' ];
 	

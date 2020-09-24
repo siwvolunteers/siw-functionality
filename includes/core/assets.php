@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Core;
 
@@ -88,7 +88,7 @@ class Assets {
 	 *
 	 * @return string
 	 */
-	public function set_crossorigin( string $tag, string $handle ) {
+	public function set_crossorigin( string $tag, string $handle ) : string {
 		$crossorigin = wp_scripts()->get_data( $handle, 'crossorigin' );
 		if ( $crossorigin ) {
 			$tag = str_replace(
@@ -107,7 +107,7 @@ class Assets {
 	 *
 	 * @return array
 	 */
-	public function add_polyfill_url( array $urls ) {
+	public function add_polyfill_url( array $urls ) : array {
 		$urls[] = 'https://polyfill.io';
 		return $urls;
 	}

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Core;
 
@@ -51,7 +51,7 @@ class Media_Taxonomies {
 	 *
 	 * @return array
 	 */
-	public function add_metabox( $metaboxes ) {
+	public function add_metabox( array $metaboxes ) : array {
 
 		$taxonomies = $this->get_taxonomies();
 		$fields = [];
@@ -86,7 +86,7 @@ class Media_Taxonomies {
 	 * 
 	 * @todo verplaatsen naar data-bestand?
 	 */
-	protected function get_taxonomies() {
+	protected function get_taxonomies() : array {
 		
 		$taxonomies = [
 			[

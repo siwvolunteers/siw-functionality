@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Core;
 
@@ -37,7 +37,7 @@ class htaccess {
 	 * @param string $marker
 	 * @return string
 	 */
-	public function add_rules( string $marker ) {
+	public function add_rules( string $marker ) : string {
 		$htaccess_rules = siw_get_data('htaccess');
 		foreach ( $htaccess_rules as $rules ) {
 			$marker .= $this->format_rules( $rules );
@@ -51,7 +51,7 @@ class htaccess {
 	 * @param array $rules
 	 * @return string
 	 */
-	protected function format_rules( array $rules ) {
+	protected function format_rules( array $rules ) : string {
 
 		$defaults = [
 			'comment' => '',

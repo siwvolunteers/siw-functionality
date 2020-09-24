@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Core;
 
@@ -47,7 +47,7 @@ class Head {
 	 *
 	 * @return array
 	 */
-	public function add_application_manifest_tag( array $meta_tags ) {
+	public function add_application_manifest_tag( array $meta_tags ) : array {
 		$meta_tags[] = sprintf( '<link rel="manifest" href="%s">', '/application.manifest' );
 		return $meta_tags;
 	}
@@ -99,7 +99,7 @@ class Head {
 	 * 
 	 * @todo is dns-prefetch wel nodig?
 	 */
-	public function add_resource_hints( array $urls, string $relation_type ) {
+	public function add_resource_hints( array $urls, string $relation_type ) : array {
 		/**
 		 * URL's die gepreconnect en geprefetcht moeten worden
 		 * 
@@ -107,12 +107,11 @@ class Head {
 		 */
 		$preconnect_urls = apply_filters( 'siw_preconnect_urls', [] );
 
-		if ( 'preconnect' === $relation_type || 'dns-prefetch' === $relation_type ) {
+		if ( in_array( $relation_type, [ 'preconnect', 'dns-prefetch' ] ) ) {
 			foreach ( $preconnect_urls as $preconnect_url ) {
 				$urls[] = $preconnect_url;
 			}
 		}
 		return $urls;
 	}
-
 }
