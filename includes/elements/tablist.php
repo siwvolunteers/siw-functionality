@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -59,7 +59,7 @@ class Tablist {
 	 *
 	 * @return string
 	 */
-	public function generate() {
+	public function generate() : string {
 		$attributes = [
 			'id'    => uniqid( 'siw-tablist-' ),
 			'class' => ['siw-tablist'],
@@ -74,7 +74,7 @@ class Tablist {
 	 * 
 	 * @todo generate_tag/generate_list gebruiken
 	 */
-	protected function generate_panes() {
+	protected function generate_panes() : string {
 		$list = '<ul role="tablist">';
 		$content = '';
 		foreach ( $this->panes as $pane ) {

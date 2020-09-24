@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -187,7 +187,7 @@ class Carousel {
 	 * 
 	 * @todo leesbaarder maken
 	 */
-	public function render() {
+	public function render() : string {
 		
 		$this->enqueue_scripts();
 		$this->enqueue_styles();
@@ -266,10 +266,7 @@ class Carousel {
 	 * @todo fallback-bestand
 	 */
 	protected function get_template() : string {
-		$templates = [
-			'product' => wc_locate_template( 'content-product.php' ),
-		];
-		$templates = apply_filters( 'siw_carousel_post_type_templates', $templates );
+		$templates = apply_filters( 'siw_carousel_post_type_templates', [] );
 		return $templates[ $this->post_type ] ?? '';
 	}
 }

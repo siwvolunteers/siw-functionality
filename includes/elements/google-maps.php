@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -159,7 +159,7 @@ class Google_Maps {
 	 * 
 	 * @return string
 	 */
-	public function generate() {
+	public function generate() : string {
 		$attributes = [
 			'id'           => uniqid('siw-google-map-'),
 			'class'        => 'siw-google-map',
@@ -201,7 +201,7 @@ class Google_Maps {
 	 * 
 	 * @todo werkt pas als de constructor eerder aangeroepen wordt.
 	 */
-	public function add_urls( array $urls ) {
+	public function add_urls( array $urls ) : array {
 		$urls[] = 'maps.googleapis.com';
 		$urls[] = 'maps.google.com';
 		$urls[] = 'maps.gstatic.com';

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -49,7 +49,7 @@ class Modal {
 	public function __construct( string $id = null ) {
 		$this->enqueue_styles();
 		$this->enqueue_scripts();
-		$this->id = ( null === $id ) ? uniqid( 'siw-modal-' ) : "siw-modal-{$id}";
+		$this->id = ( is_null( $id ) ) ? uniqid( 'siw-modal-' ) : "siw-modal-{$id}";
 		
 		add_action( 'wp_footer', [ $this, 'render_modal'] );
 	}
@@ -103,7 +103,7 @@ class Modal {
 	 *
 	 * @return string
 	 */
-	protected function generate_header() {
+	protected function generate_header() : string {
 		$header = '<header class="modal-header">';
 		$header .= sprintf( '<h2 class="modal-title" id="%s-title">%s</h2>', $this->id, $this->title );
 		$header .= sprintf( '<button class="modal-close" aria-label="%s" data-micromodal-close></button>', esc_html__( 'Sluiten', 'siw' ) );
@@ -117,7 +117,7 @@ class Modal {
 	 *
 	 * @return string
 	 */
-	protected function generate_body() {
+	protected function generate_body() : string {
 		return HTML::tag(
 			'main',
 			[
@@ -133,7 +133,7 @@ class Modal {
 	 *
 	 * @return string
 	 */
-	protected function generate_footer() {
+	protected function generate_footer() : string {
 		$button = sprintf(
 			'<button class="kad-btn" data-micromodal-close aria-label="%s">%s</button>',
 			esc_html__( 'Sluit deze dialoog', 'siw' ),
@@ -159,7 +159,7 @@ class Modal {
 	 *
 	 * @return string
 	 */
-	public function generate_link( string $text, string $link = null ) {
+	public function generate_link( string $text, string $link = null ) : string {
 		$link = Links::generate_link(
 			$link ?? '#',
 			$text,
@@ -182,7 +182,7 @@ class Modal {
 	 *
 	 * @return string
 	 */
-	public function get_id() {
+	public function get_id() : string {
 		return $this->id;
 	}
 

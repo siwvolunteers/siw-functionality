@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -64,26 +64,26 @@ abstract class Interactive_Map {
 	 * 
 	 * @return array
 	 */
-	abstract protected function get_categories();
+	abstract protected function get_categories() : array;
 
 	/**
 	 * Geef locaties terug
 	 * 
 	 * @return array
 	 */
-	abstract protected function get_locations();
+	abstract protected function get_locations() : array;
 
 	/**
 	 * Geeft alternatieve content voor mobiel terug
 	 * 
 	 * @return string
 	 */
-	abstract protected function get_mobile_content();
+	abstract protected function get_mobile_content() : ?string;
 
 	/**
 	 *  Genereert interactieve kaart
 	 */
-	public function generate() {
+	public function generate() : string {
 		$this->set_options();
 
 		$this->enqueue_styles();
@@ -96,8 +96,18 @@ abstract class Interactive_Map {
 		];
 		$content = HTML::div( $attributes );
 
-		$content = '<div class="hide-on-mobile hide-on-tablet">' . $content . '</div>';
-		$content .= '<div class="hide-on-desktop">' . $this->get_mobile_content() . '</div>';
+		$content = HTML::div(
+			[
+				'class' => [ CSS::HIDE_ON_MOBILE_CLASS, CSS::HIDE_ON_TABLET_CLASS ],
+			],
+			$content,
+		);
+		$content .= HTML::div(
+			[
+				'class' => CSS::HIDE_ON_DESKTOP_CLASS,
+			],
+			$this->get_mobile_content(),
+		);
 		return $content;
 	}
 
@@ -130,7 +140,7 @@ abstract class Interactive_Map {
 	 * 
 	 * @return array
 	 */
-	protected function get_map_data() {
+	protected function get_map_data() : array {
 		$default_data = [
 			'mapwidth'  => null,
 			'mapheight' => null,
@@ -157,7 +167,7 @@ abstract class Interactive_Map {
 	 * @param array $category
 	 * @return array
 	 */
-	protected function parse_category( $category ) {
+	protected function parse_category( $category ) : array {
 		$default = [
 			'id'    => false,
 			'title' => false,
@@ -170,7 +180,7 @@ abstract class Interactive_Map {
 	/**
 	 * Parset de gegevens van locatie
 	 */
-	protected function parse_location( $location ) {
+	protected function parse_location( $location ) : array {
 		$default = [
 			'id'            => false,
 			'title'         => false,

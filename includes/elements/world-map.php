@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -99,7 +99,7 @@ class World_Map {
 	 * @param int $zoom
 	 * @return string
 	 */
-	public function generate( $country, int $zoom = 1 ) {
+	public function generate( $country, int $zoom = 1 ) : string {
 		if ( false === $this->set_country( $country ) ) {
 			return false;
 		}
@@ -124,9 +124,9 @@ class World_Map {
 	 * Zet land om in te kleuren
 	 *
 	 * @param string|Country $country
-	 * @return true
+	 * @return bool
 	 */
-	protected function set_country( $country ) {
+	protected function set_country( $country ) : bool {
 		if ( is_string( $country ) ) {
 			$country = siw_get_country( $country );
 		}
@@ -143,7 +143,7 @@ class World_Map {
 	 * 
 	 * @todo refactor
 	 */
-	protected function get_viewbox() {
+	protected function get_viewbox() : string {
 		$x = $this->country->get_world_map_data()->x;
 		$y = $this->country->get_world_map_data()->y;
 	
@@ -161,7 +161,7 @@ class World_Map {
 	 * @param float $coordinate
 	 * @return float
 	 */
-	protected function calculate_offset( float $coordinate ) {
+	protected function calculate_offset( float $coordinate ) : float {
 		$coordinate = min( $coordinate + 1 / ( 2 * $this->zoom ), 1 );
 		$coordinate = max( $coordinate - 1 / ( $this->zoom ), 0 );
 		return $coordinate;

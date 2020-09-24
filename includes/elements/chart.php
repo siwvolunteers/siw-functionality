@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -86,7 +86,7 @@ abstract class Chart {
 	 *
 	 * @return array
 	 */
-	protected function generate_chart_options() {
+	protected function generate_chart_options() : array {
 
 		$options = wp_parse_args_recursive(
 			$this->options,
@@ -101,5 +101,5 @@ abstract class Chart {
 	/**
 	 * Genereert data voor grafiek
 	 */
-	abstract protected function generate_chart_data();
+	abstract protected function generate_chart_data() : array;
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements\Interactive_Maps;
 
@@ -47,7 +47,7 @@ class ESC extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_locations() {
+	protected function get_locations() : array {
 		$countries = siw_get_countries( 'esc_projects' );
 		$locations = [];
 		foreach ( $countries as $country ) {
@@ -68,7 +68,6 @@ class ESC extends Interactive_Map {
 	 * 
 	 * @todo tabel met ESC-landen o.i.d.
 	 */
-	protected function get_mobile_content() {
-		return null;
+	protected function get_mobile_content() : ?string {
 	}
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements\Charts;
 
@@ -29,7 +29,7 @@ class Pie extends Chart {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function generate_chart_data() {
+	protected function generate_chart_data() : array {
 
 		$data = [
 			'labels'   => wp_list_pluck( $this->data, 'label' ),

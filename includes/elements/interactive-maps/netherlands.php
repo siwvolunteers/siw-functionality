@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements\Interactive_Maps;
 
@@ -52,14 +52,14 @@ class Netherlands extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_categories() {
+	protected function get_categories() : array {
 		return [];
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_locations() {
+	protected function get_locations() : array {
 		$projects = $this->get_projects();
 		$locations = [];
 		$provinces = [];
@@ -95,7 +95,7 @@ class Netherlands extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_mobile_content() {
+	protected function get_mobile_content() : ?string {
 		
 		$projects = $this->get_projects();
 		if ( empty( $projects ) ) {
@@ -120,7 +120,7 @@ class Netherlands extends Interactive_Map {
 	 * 
 	 * @return array
 	 */
-	protected function get_projects() {
+	protected function get_projects() : array {
 		$args = [
 			'country'    => 'nederland',
 			'return'     => 'objects',
@@ -136,7 +136,7 @@ class Netherlands extends Interactive_Map {
 	 * @param bool $project_code
 	 * @return string
 	 */
-	protected function get_project_properties( \WC_Product $project ) {
+	protected function get_project_properties( \WC_Product $project ) : string {
 		//Verzamelen gegevens
 		$attributes = $project->get_attributes();
 		$work_type_slugs = $attributes['pa_soort-werk']->get_slugs();
@@ -173,12 +173,12 @@ class Netherlands extends Interactive_Map {
 	 * 
 	 * @return string
 	 */
-	protected function get_project_description( \WC_Product $project ) {
+	protected function get_project_description( \WC_Product $project ) : ?string {
 		$language = i18n::get_current_language();
 		if ( $project->get_meta( "dutch_projects_name_{$language}" ) ) {
 			return wpautop( $project->get_meta( "dutch_projects_description_{$language}" ) );
 		}
-		return;
+		return null;
 	}
 
 	/**
@@ -188,7 +188,7 @@ class Netherlands extends Interactive_Map {
 	 * 
 	 * @return string
 	 */
-	protected function get_project_title( \WC_Product $project ) {
+	protected function get_project_title( \WC_Product $project ) : string {
 		$language = i18n::get_current_language();
 		return ! empty( $project->get_meta( "dutch_projects_name_{$language}" ) ) ? $project->get_meta( "dutch_projects_name_{$language}" ) : $project->get_attribute( 'Projectnaam' );
 	}
@@ -200,9 +200,9 @@ class Netherlands extends Interactive_Map {
 	 *
 	 * @return string
 	 */
-	protected function get_project_button( \WC_Product $project ) {
+	protected function get_project_button( \WC_Product $project ) : ?string {
 		if ( ! i18n::is_default_language() ) {
-			return;
+			return null;
 		}
 		return Links::generate_button_link( $project->get_permalink(), __( 'Bekijk project', 'siw' ) );
 	}

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements\Interactive_Maps;
 
@@ -46,7 +46,7 @@ class Destinations extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_categories() {
+	protected function get_categories() : array {
 		$continents = siw_get_continents();
 
 		$categories = [];
@@ -63,7 +63,7 @@ class Destinations extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_locations() {
+	protected function get_locations() : array {
 		$countries = siw_get_countries();
 		
 		$locations = [];
@@ -93,7 +93,7 @@ class Destinations extends Interactive_Map {
 	 * @param Country $country
 	 * @return string
 	 */
-	protected function generate_country_description( Country $country ) {
+	protected function generate_country_description( Country $country ) : string {
 
 		/* Groepsprojecten */
 		if ( $country->has_workcamps() ) {
@@ -120,7 +120,7 @@ class Destinations extends Interactive_Map {
 	 * @param Country $country
 	 * @return string
 	 */
-	protected function generate_workcamps_description( Country $country ) {
+	protected function generate_workcamps_description( Country $country ) : string {
 		$country_term = get_term_by( 'slug', $country->get_slug(), 'pa_land' );
 		
 		if ( is_a( $country_term, 'WP_Term' ) ) {
@@ -174,7 +174,7 @@ class Destinations extends Interactive_Map {
 	 * 
 	 * @todo lijst/tabel met aanbod per land
 	 */
-	protected function get_mobile_content() {
-		return null;
+	protected function get_mobile_content() : string {
+		return '';
 	}
 }

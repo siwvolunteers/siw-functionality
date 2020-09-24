@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -27,7 +27,7 @@ class Accordion {
 	 *
 	 * @var array
 	 */
-	protected $panes=[];
+	protected $panes = [];
 
 	/**
 	 * Init
@@ -42,7 +42,7 @@ class Accordion {
 	 *
 	 * @return string
 	 */
-	public function generate() {
+	public function generate() : string {
 		$attributes = [
 			'id'                   => uniqid( 'siw-accordion-' ),
 			'class'                => ['siw-accordion'],
@@ -75,7 +75,7 @@ class Accordion {
 	 *
 	 * @return string
 	 */
-	protected function generate_panes() {
+	protected function generate_panes() : string {
 		$output = '';
 		foreach ( $this->panes as $pane ) {
 			$id = uniqid();
