@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Checkout;
 
@@ -27,7 +27,7 @@ class Form{
 	 * @param array $checkout_fields
 	 * @return array
 	 */
-	protected function get_checkout_fields( $checkout_fields = [] ) {
+	protected function get_checkout_fields( $checkout_fields = [] ) : array {
 		$checkout_fields = wp_parse_args_recursive( siw_get_data( 'workcamps/checkout-fields' ), $checkout_fields );
 		return $checkout_fields;
 	}
@@ -37,7 +37,7 @@ class Form{
 	 *
 	 * @return array
 	 */
-	protected function get_checkout_sections() {
+	protected function get_checkout_sections() : array {
 		$checkout_sections = siw_get_data( 'workcamps/checkout-sections' );
 		return $checkout_sections;
 	}
@@ -94,7 +94,7 @@ class Form{
 	 * @param string $field
 	 * @return string
 	 */
-	public function add_form_field_markup( string $field ) {
+	public function add_form_field_markup( string $field ) : string {
 		$field = preg_replace( '/<input(.*?)>/', '<input$1><span class="checkmark"></span>', $field );
 		return $field;
 	}
@@ -105,7 +105,7 @@ class Form{
 	 * @param array $args
 	 * @return array
 	 */
-	public function add_form_field_classes( array $args ) {
+	public function add_form_field_classes( array $args ) : array {
 		if ( $args['type'] == 'radio' ) {
 			$args['class'][] = 'radio-icon';
 		}

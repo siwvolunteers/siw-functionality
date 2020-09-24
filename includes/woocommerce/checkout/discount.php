@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Checkout;
 
@@ -37,7 +37,7 @@ class Discount{
 			$count++;
 			if ( 1 < $count ) {
 				$discount = $line['line_total'] * Properties::DISCOUNT_SECOND_PROJECT * -0.01;
-				$cart->add_fee( sprintf( __( 'Korting %e project', 'siw' ), $count ), $discount );
+				$cart->add_fee( sprintf( __( 'Korting %de project', 'siw' ), $count ), $discount );
 			}
 		}
 	}

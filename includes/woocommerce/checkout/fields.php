@@ -1,5 +1,4 @@
-<?php
-
+<?php declare(strict_types=1);
 namespace SIW\WooCommerce\Checkout;
 
 /**
@@ -32,7 +31,7 @@ class Fields{
 	 * @param array $locale_fields
 	 * @return array
 	 */
-	public function remove_locale_field_selectors( array $locale_fields ) {
+	public function remove_locale_field_selectors( array $locale_fields ) : array {
 		unset( $locale_fields['address_2'] );
 		unset( $locale_fields['state'] );
 		return $locale_fields;
@@ -44,7 +43,7 @@ class Fields{
 	 * @param array $locale
 	 * @return array
 	 */
-	public function remove_locale_postcode_priority( array $locale ) {
+	public function remove_locale_postcode_priority( array $locale ) : array {
 		unset( $locale['NL']['postcode'] );
 		return $locale;
 	}
@@ -55,7 +54,7 @@ class Fields{
 	 * @param array $checkout_fields
 	 * @return array
 	 */
-	protected function get_checkout_fields( $checkout_fields = [] ) {
+	protected function get_checkout_fields( $checkout_fields = [] ) : array {
 		$checkout_fields = wp_parse_args_recursive( siw_get_data( 'workcamps/checkout-fields' ), $checkout_fields );
 		return $checkout_fields;
 	}
@@ -88,7 +87,7 @@ class Fields{
 	 * @param array $address_fields
 	 * @return array
 	 */
-	public function set_default_address_fields( array $standard_address_fields ) {
+	public function set_default_address_fields( array $standard_address_fields ) : array {
 
 		/* Verwijderen standaardvelden */
 		unset( $standard_address_fields['address_2'] );
@@ -114,7 +113,7 @@ class Fields{
 	 * @param string $country
 	 * @return array
 	 */
-	public function set_billing_fields( array $billing_fields, string $country ) {
+	public function set_billing_fields( array $billing_fields, string $country ) : array {
 		$billing_fields['billing_phone']['class'] = ['form-row-first'];
 		$billing_fields['billing_email']['class'] = ['form-row-last'];
 		return $billing_fields;
@@ -126,7 +125,7 @@ class Fields{
 	 * @param array $checkout_fields
 	 * @return array
 	 */
-	public function add_checkout_fields( $checkout_fields ) {
+	public function add_checkout_fields( $checkout_fields ) : array {
 		$checkout_fields = $this->get_checkout_fields( $checkout_fields );
 		return $checkout_fields;
 	}
