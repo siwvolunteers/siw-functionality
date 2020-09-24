@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Email;
 
@@ -31,7 +31,7 @@ class New_Order {
 	 * @param string $default_path
 	 * @return string
 	 */
-	public function set_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) {
+	public function set_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) : string {
 		if ( 'emails/admin-new-order.php' === $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
 		}
@@ -43,8 +43,8 @@ class New_Order {
 	 *
 	 * @return string
 	 */
-	public function set_recipient() {
-		return siw_get_option( 'workcamp_application_email')['sender'];
+	public function set_recipient() : string {
+		return siw_get_email_settings( 'workcamp')['email'];
 	}
 
 	/**
@@ -54,7 +54,7 @@ class New_Order {
 	 * @param \WC_Order $order
 	 * @return string
 	 */
-	public function set_subject( string $subject, \WC_Order $order ) {
+	public function set_subject( string $subject, \WC_Order $order ) : string {
 		return sprintf( __( 'Nieuwe aanmelding Groepsproject (%s)', 'siw' ), $order->get_order_number() );
 	}
 
@@ -65,7 +65,7 @@ class New_Order {
 	 * @param \WC_Order $order
 	 * @return string
 	 */
-	public function set_heading( string $heading, \WC_Order $order ) {
+	public function set_heading( string $heading, \WC_Order $order ) : string {
 		if ( $order->has_status( 'processing' ) ) {
 			$heading = sprintf( __( 'Nieuwe aanmelding (betaald)', 'siw' ), $order->get_order_number() );
 		}
