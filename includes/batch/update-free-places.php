@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
@@ -40,10 +40,7 @@ class Update_Free_Places extends Job {
 	 * @param string $no_more_from
 	 * @return string
 	 */
-	protected function has_free_places( $free_m, $free_f, $no_more_from ) {
-		$free_m = (int) $free_m;
-		$free_f = (int) $free_f;
-	
+	protected function has_free_places( int $free_m, int $free_f, string $no_more_from ) : string {
 		return ( ( $free_m + $free_f ) > 0 && ( false === strpos( $no_more_from, 'NLD' ) ) ) ? 'yes' : 'no';
 	}
 
@@ -52,7 +49,7 @@ class Update_Free_Places extends Job {
 	 * 
 	 * @return array
 	 */
-	protected function select_data() {
+	protected function select_data() : array {
 		$import = new Import_FPL;
 		return $import->run();
 	}

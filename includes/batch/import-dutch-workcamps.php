@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
@@ -39,7 +39,7 @@ class Import_Dutch_Workcamps extends Import_Workcamps {
 	 *
 	 * @return array
 	 */
-	 protected function select_data() {
+	protected function select_data() : array {
 		$import = new Plato_Import_Dutch_Workcamps;
 		$data = $import->run();
 

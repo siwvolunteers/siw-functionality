@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
@@ -82,7 +82,7 @@ class Update_Workcamps extends Job {
 	 *
 	 * @return array
 	 */
-	protected function select_data() {
+	protected function select_data() : array {
 		$args = [
 			'return'     => 'ids',
 			'limit'      => -1,
@@ -269,7 +269,7 @@ class Update_Workcamps extends Job {
 		$import_image = new Product_Image;
 		$image_id = $import_image->get_stock_image( $country, $work_types );
 
-		if ( null !== $image_id ) {
+		if ( is_int( $image_id ) ) {
 			$this->product->set_image_id( $image_id );
 			$this->product->save();
 			$this->updated = true;

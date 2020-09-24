@@ -1,5 +1,4 @@
-<?php
-
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
@@ -34,7 +33,7 @@ class Delete_Applications extends Job {
 	 *
 	 * @return array
 	 */
-	protected function select_data() {
+	protected function select_data() : array {
 		$args = [
 			'limit'        => -1,
 			'return'       => 'ids',

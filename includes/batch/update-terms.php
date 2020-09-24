@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
@@ -40,7 +40,7 @@ class Update_Terms extends Job {
 	 *
 	 * @return array
 	 */
-	protected function select_data() {
+	protected function select_data() : array {
 
 		//TODO: verplaatsen naar woocommerce-compat
 		$taxonomies = [ 

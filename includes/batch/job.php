@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
@@ -154,7 +154,7 @@ abstract class Job extends \WP_Background_Process {
 	 *
 	 * @param int $processed_count
 	 */
-	protected function set_processed_count( $processed_count ) {
+	protected function set_processed_count( int $processed_count ) {
 		update_site_option( $this->processed_count_option, $processed_count );
 	}
 
@@ -163,7 +163,7 @@ abstract class Job extends \WP_Background_Process {
 	 *
 	 * @return int
 	 */
-	protected function get_processed_count() {
+	protected function get_processed_count() : int {
 		return get_site_option( $this->processed_count_option );
 	}
 
@@ -181,7 +181,7 @@ abstract class Job extends \WP_Background_Process {
 	 *
 	 * @return array
 	 */
-	protected abstract function select_data();
+	protected abstract function select_data() : array;
 
 	/**
 	 * Starten achtergrondproces
