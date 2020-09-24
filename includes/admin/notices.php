@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Admin;
 
@@ -57,7 +57,7 @@ class Notices {
 	public function display_notices() {
 
 		$notices = $this->get_notices();
-		if ( false == $notices ) {
+		if ( empty( $notices ) ) {
 			return;
 		}
 
@@ -104,8 +104,8 @@ class Notices {
 	 * 
 	 * @return array
 	 */
-	protected function get_notices() {
-		return get_transient( $this->transient_name );
+	protected function get_notices() : array {
+		return (array) get_transient( $this->transient_name );
 	}
 
 	/**
