@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Import;
 
@@ -45,7 +45,7 @@ class Product_Image {
 	 * 
 	 * @return int|null
 	 */
-	public function get_project_image( array $identifiers, string $filename_base, string $project_id ) {
+	public function get_project_image( array $identifiers, string $filename_base, string $project_id ) : ?int {
 
 		// Kijk of er al een attachment voor 1 van de identifiers is
 		$project_images = get_posts([
@@ -73,7 +73,7 @@ class Product_Image {
 		foreach ( $identifiers as $identifier ) {
 			$temp_file = $document_import->download( $identifier, 'jpg' );
 
-			if ( null !== $temp_file ) {
+			if ( is_string( $temp_file ) ) {
 				$attachment_id = $attachment->add( $temp_file, $filename_base, 'Projectfoto' );
 				if ( false !== $attachment_id ) {
 					update_post_meta( $attachment_id, 'plato_document_identifier', $identifier );
@@ -93,7 +93,7 @@ class Product_Image {
 	 * @param Work_Type[] $work_types
 	 * @return int|null
 	 */
-	public function get_stock_image( Country $country, array $work_types ) {
+	public function get_stock_image( Country $country, array $work_types ) : ?int {
 
 		$continent_slug = $country->get_continent()->get_slug();
 		$country_slug = $country->get_slug();
@@ -131,7 +131,7 @@ class Product_Image {
 	 *
 	 * @return array
 	 */
-	protected function get_tax_queries( string $continent, string $country, array $work_types ) {
+	protected function get_tax_queries( string $continent, string $country, array $work_types ) : array {
 
 		//Maak subqueries aan
 		$country_query = [
