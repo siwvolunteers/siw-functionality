@@ -63,7 +63,7 @@ class Job_Posting extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_meta_box_fields() {
+	public function get_meta_box_fields() : array {
 		$hr_manager = siw_get_option( 'hr_manager');
 		//TODO: verplaatsen naar options?
 		$hr_manager = wp_parse_args(
@@ -122,7 +122,7 @@ class Job_Posting extends Type {
 			],
 			[
 				'id'        => 'different_application_manager',
-				'name'      => __( 'Anders dan standaard contactpersoon ', 'siw' ),
+				'name'      => __( 'Anders dan standaard contactpersoon', 'siw' ),
 				'type'      => 'switch',
 				'on_label'  => __( 'Ja', 'siw' ),
 				'off_label' => __( 'Nee', 'siw' ),
@@ -229,7 +229,7 @@ class Job_Posting extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_labels() {
+	protected function get_labels() : array {
 		$labels = [
 			'name'               => __( 'Vacatures', 'siw' ),
 			'singular_name'      => __( 'Vacature', 'siw' ),
@@ -246,7 +246,7 @@ class Job_Posting extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_taxonomies() {
+	protected function get_taxonomies() : array {
 		$taxonomies['type'] = [
 			'labels' => [
 				'name'                       => _x( 'Soort vacature', 'Taxonomy General Name', 'siw' ),
@@ -268,18 +268,17 @@ class Job_Posting extends Type {
 		return $taxonomies;
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_social_share_cta() {
+	protected function get_social_share_cta() : string {
 		return __( 'Deel deze vacature', 'siw' );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	function get_seo_noindex( int $post_id ) {
+	function get_seo_noindex( int $post_id ) : bool {
 		return siw_meta( 'deadline', [], $post_id ) < date( 'Y-m-d' );
 	}
 
@@ -402,7 +401,7 @@ class Job_Posting extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_archive_intro() {
+	protected function get_archive_intro() : array {
 		$hr_manager = siw_get_option( 'hr_manager' );
 
 		$intro = [

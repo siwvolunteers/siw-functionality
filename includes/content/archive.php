@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Content;
 
@@ -83,7 +83,7 @@ class Archive {
 	 * @todo switch voor taxonomies
 	 */
 	public function add_archive_intro() {
-		if ( false == $this->is_archive_query() ) {
+		if ( ! $this->is_archive_query() ) {
 			return;
 		}
 			
@@ -102,7 +102,7 @@ class Archive {
 	 * Voegt taxonomy filter toe
 	 */
 	public function add_taxonomy_filter() {
-		if ( false == $this->is_archive_query() ) {
+		if ( ! $this->is_archive_query() ) {
 			return;
 		}
 
@@ -256,7 +256,7 @@ class Archive {
 	 *
 	 * @return string
 	 */
-	public function set_sidebar_layout( $layout ) {
+	public function set_sidebar_layout( string $layout ) : string {
 		if ( $this->is_archive_query() ) {
 			return $this->archive_options['sidebar_layout'];
 		}

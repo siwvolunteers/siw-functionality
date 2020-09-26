@@ -251,21 +251,21 @@ abstract class Type {
 	 *
 	 * @return array
 	 */
-	abstract public function get_meta_box_fields();
+	abstract public function get_meta_box_fields() : array;
 
 	/**
 	 * Haal taxonomieën op
 	 *
 	 * @return array
 	 */
-	abstract protected function get_taxonomies();
+	abstract protected function get_taxonomies() : array;
 
 	/**
 	 * Haalt labels op
 	 *
 	 * @return array
 	 */
-	abstract protected function get_labels();
+	abstract protected function get_labels() : array;
 
 	/**
 	 * Undocumented function
@@ -295,7 +295,7 @@ abstract class Type {
 	 *
 	 * @return array
 	 */
-	protected function get_archive_intro() {
+	protected function get_archive_intro() : array {
 		return [];
 	}
 
@@ -390,7 +390,7 @@ abstract class Type {
 	 *
 	 * @return string
 	 */
-	protected function get_social_share_cta() {
+	protected function get_social_share_cta() : string {
 		return __( 'Deel deze pagina', 'siw' );
 	}
 
@@ -416,7 +416,7 @@ abstract class Type {
 	 *
 	 * @return bool
 	 */
-	protected function get_seo_noindex( int $post_id ) {
+	protected function get_seo_noindex( int $post_id ) : bool {
 		return false;
 	}
 

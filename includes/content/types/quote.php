@@ -34,7 +34,7 @@ class Quote extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_meta_box_fields() {
+	public function get_meta_box_fields() : array {
 		$meta_box_fields = [
 			[
 				'type' => 'heading',
@@ -68,7 +68,7 @@ class Quote extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_labels() {
+	protected function get_labels() : array {
 		$labels = [
 			'name'          => __( 'Quotes', 'siw' ),
 			'singular_name' => __( 'Quote', 'siw' ),
@@ -85,7 +85,7 @@ class Quote extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_taxonomies() {
+	protected function get_taxonomies() : array {
 		$taxonomies['continent'] = [
 			'labels' => [
 				'name'          => _x( 'Continent', 'Taxonomy General Name', 'siw' ),

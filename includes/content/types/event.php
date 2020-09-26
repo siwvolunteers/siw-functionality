@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
@@ -53,7 +53,7 @@ class Event extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_meta_box_fields() {
+	public function get_meta_box_fields() : array {
 		$meta_box_fields = [
 			[
 				'type' => 'heading',
@@ -219,14 +219,14 @@ class Event extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_taxonomies() {
+	protected function get_taxonomies() : array {
 		return [];
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_labels() {
+	protected function get_labels() : array {
 		$labels = [
 			'name'               => __( 'Evenementen', 'siw' ),
 			'singular_name'      => __( 'Evenement', 'siw' ),
@@ -243,14 +243,14 @@ class Event extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_social_share_cta() {
+	protected function get_social_share_cta() : string {
 		return __( 'Deel dit evenement', 'siw' );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_seo_noindex( int $post_id ) {
+	protected function get_seo_noindex( int $post_id ) : bool {
 		return siw_meta( 'event_date', [], $post_id ) < date( 'Y-m-d' );
 	}
 
