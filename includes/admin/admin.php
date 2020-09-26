@@ -98,9 +98,9 @@ class Admin {
 	 *
 	 * @param string $slug
 	 * @param array $menu
-	 * @return string|null
+	 * @return int|null
 	 */
-	protected function menu_search( string $slug, array $menu ) : ?string {
+	protected function menu_search( string $slug, array $menu ) : ?int {
 		$menu_item = wp_list_filter(
 			$menu,
 			[ 2 => $slug ]
