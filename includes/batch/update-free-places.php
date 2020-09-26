@@ -78,8 +78,11 @@ class Update_Free_Places extends Job {
 		}
 		$product = $products[0];
 
-		$new_free_places = $this->has_free_places( $item['free_m'], $item['free_f'], $item['no_more_from'] );
-
+		$new_free_places = $this->has_free_places(
+			intval( $item['free_m'] ),
+			intval( $item['free_f'] ),
+			$item['no_more_from']
+		);
 
 		if ( $new_free_places !== $product->get_meta( 'freeplaces' ) ) {
 			$product->update_meta_data( 'freeplaces', $new_free_places );

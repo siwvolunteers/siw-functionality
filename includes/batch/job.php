@@ -164,7 +164,7 @@ abstract class Job extends \WP_Background_Process {
 	 * @return int
 	 */
 	protected function get_processed_count() : int {
-		return get_site_option( $this->processed_count_option );
+		return (int) get_site_option( $this->processed_count_option );
 	}
 
 	/**
