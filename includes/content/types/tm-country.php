@@ -1,10 +1,12 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
 use SIW\Elements;
 use SIW\Elements\World_Map;
 use SIW\i18n;
+use SIW\Util\CSS;
 use SIW\Util\Links;
 
 /**
@@ -72,7 +74,7 @@ class TM_Country extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_meta_box_fields() {
+	public function get_meta_box_fields() : array {
 		$meta_box_fields = [
 			[
 				'id'          => 'country',
@@ -127,7 +129,7 @@ class TM_Country extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_taxonomies() {
+	protected function get_taxonomies() : array {
 		$taxonomies['continent'] = [
 			'labels' => [
 				'name'                       => _x( 'Continent', 'Taxonomy General Name', 'siw' ),
@@ -152,7 +154,7 @@ class TM_Country extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_labels() {
+	protected function get_labels() : array {
 		$labels = [
 			'name'               => __( 'Op Maat landen', 'siw' ),
 			'singular_name'      => __( 'Op Maat land', 'siw' ),
@@ -180,7 +182,7 @@ class TM_Country extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_archive_intro() {
+	protected function get_archive_intro() : array {
 
 		$url = i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
 		$link = Links::generate_link( $url, __( 'Projecten Op Maat', 'siw' ) );
@@ -229,7 +231,7 @@ class TM_Country extends Type {
 		$country = siw_get_country( siw_meta('country') );
 		$continent = $country->get_continent();
 		?>
-		<div class="grid-50 hide-on-mobile" data-sal="slide-right" data-sal-duration="1800" data-sal-easing="ease-out-sine">
+		<div class="grid-50 <?php echo CSS::HIDE_ON_MOBILE_CLASS; ?>" data-sal="slide-right" data-sal-duration="1800" data-sal-easing="ease-out-sine">
 			
 			<?php 
 				$world_map = new World_Map();
@@ -322,7 +324,7 @@ class TM_Country extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_social_share_cta() {
+	protected function get_social_share_cta() : string {
 		return __( 'Deel deze landenpagina', 'siw' );
 	}
 
