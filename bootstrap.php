@@ -156,7 +156,6 @@ class Bootstrap {
 			'SIW\Modules',
 			[
 				'Breadcrumbs',
-				'Cache_Rebuild',
 				'Cookie_Notice',
 				'Google_Analytics',
 				'Mega_Menu',
