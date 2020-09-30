@@ -123,7 +123,8 @@ class Send_Workcamp_Approval_Emails extends Job {
 	protected function get_supervisor() : ?\WP_User {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval['supervisor'] ) ) {
-			return get_userdata( $workcamp_approval['supervisor'] );
+			$supervisor = get_userdata( $workcamp_approval['supervisor'] );
+			return is_a( $supervisor, '\WP_User' ) ? $supervisor : null ;
 		}
 		return null;
 	}
