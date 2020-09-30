@@ -1,3 +1,10 @@
+:root {
+	--siw-primary-color: $primary-color;
+	--siw-secondary-color: $secondary-color;
+	--siw-font-color: $font-color;
+	--siw-font-color-light: $font-color-light;
+}
+
 /* Fade in voor lazyload */
 img[data-lazy-src] {
 	opacity: 0;
