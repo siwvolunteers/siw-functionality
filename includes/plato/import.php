@@ -42,7 +42,7 @@ abstract class Import extends Plato_Interface {
 		$args = [ 'timeout'	=> 60 ];
 		$this->http_response = wp_safe_remote_get( $this->endpoint_url, $args );
 
-		if ( false == $this->is_valid_response() ) {
+		if ( ! $this->is_valid_response() ) {
 			return false;
 		}
 

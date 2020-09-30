@@ -41,10 +41,10 @@ class CSS {
 	 */
 	public static function generate_responsive_classes( int $desktop_columns, int $tablet_columns = null, int $mobile_columns = null ) : string {
 		$classes[] = 'grid-'. self::columns_to_grid_width( $desktop_columns );
-		if ( null !== $tablet_columns ) {
+		if ( is_int( $tablet_columns ) ) {
 			$classes[] = 'tablet-grid-'. self::columns_to_grid_width( $tablet_columns );
 		}
-		if ( null !== $mobile_columns  ) {
+		if ( is_int( $mobile_columns ) ) {
 			$classes[] = 'mobile-grid-'. self::columns_to_grid_width( $mobile_columns );
 		}
 		return implode( SPACE, $classes );

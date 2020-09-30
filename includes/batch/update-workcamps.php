@@ -311,7 +311,7 @@ class Update_Workcamps extends Job {
 		$variations = $this->product->get_children();
 		foreach ( $variations as $variation_id ) {
 			$variation = wc_get_product( $variation_id );
-			if ( false == $variation ) {
+			if ( ! is_a( $variation, '\WC_Product_Variation' ) ) {
 				continue;
 			}
 			$variation->delete( true );

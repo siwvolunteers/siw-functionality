@@ -195,7 +195,6 @@ class Carousel extends Widget {
 				$this->generate_button( $instance['button_text'], $instance['post_type'], $instance['taxonomy'], $instance['term'] ),
 			);
 		}
-
 		return $content;
 	}
 
@@ -219,7 +218,6 @@ class Carousel extends Widget {
 		);
 		$instance['taxonomy'] = $instance["{$instance['post_type']}_taxonomy"] ?? '';
 		$instance['term'] = $instance[ $instance['taxonomy'] ] ?? '';
-
 		return $instance;
 	}
 
@@ -247,18 +245,8 @@ class Carousel extends Widget {
 	 * 
 	 * @return array
 	 */
-	protected function get_post_types() {
-		$post_types = [
-			'product' => __( 'Groepsprojecten', 'siw' ), //TODO: verplaatsen naar Compat/WooCommerce
-		];
-		/**
-		 * Custom post types
-		 *
-		 * @param array $post_types
-		 */
-		$post_types = apply_filters( 'siw_carousel_post_types', $post_types );
-
-		return $post_types;
+	protected function get_post_types() : array {
+		return apply_filters( 'siw_carousel_post_types', [] );
 	}
 
 	/**
@@ -266,19 +254,8 @@ class Carousel extends Widget {
 	 * 
 	 * @return array
 	 */
-	protected function get_taxonomies() {
-		$taxonomies = [] ;
-		$taxonomies['product'] = [
-			'product_cat'        => __( 'Continent', 'siw' ), //TODO: verplaatsen naar Compat/WooCommerce
-		];
-		/**
-		 * Taxonomieën per post type
-		 *
-		 * @param array $taxonomies
-		 */
-		$taxonomies = apply_filters( 'siw_carousel_post_type_taxonomies', $taxonomies );
-
-		return $taxonomies;
+	protected function get_taxonomies() : array {
+		return apply_filters( 'siw_carousel_post_type_taxonomies', [] );
 	}
 
 	/**
@@ -287,7 +264,7 @@ class Carousel extends Widget {
 	 * @param string $taxonomy
 	 * @return array
 	 */
-	protected function get_term_options( string $taxonomy ) {
+	protected function get_term_options( string $taxonomy ) : array {
 		$terms = get_terms( $taxonomy );
 		$term_options[''] = __( 'Alle', 'siw' );
 		foreach ( $terms as $term ) {

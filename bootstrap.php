@@ -323,12 +323,12 @@ class Bootstrap {
 	/**
 	 * Laadt classes 
 	 *
-	 * @param string|null $namespace
+	 * @param string $namespace
 	 * @param array $classes
 	 * @param string $hook
 	 * @param int $priority
 	 */
-	protected function init_classes( ?string $namespace = null, array $classes, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
+	protected function init_classes( string $namespace, array $classes, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
 		foreach ( $classes as $class ) {
 			$this->init_class( $namespace, $class, $hook, $priority );
 		}
@@ -342,11 +342,8 @@ class Bootstrap {
 	 * @param string $hook
 	 * @param int $priority
 	 */
-	protected function init_class( string $namespace = null, string $class, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
-		if ( null !== $namespace ) {
-			$class = $namespace . '\\' . $class;
-		}
-		add_action( $hook, [ $class, 'init' ], $priority );
+	protected function init_class( string $namespace, string $class, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
+		add_action( $hook, [ $namespace . '\\' . $class, 'init' ], $priority );
 	}
 }
 

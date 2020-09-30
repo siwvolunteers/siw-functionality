@@ -1,8 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Forms;
 
-use SIW\Formatting;
 use SIW\Properties;
 use SIW\Email\Template;
 
@@ -108,7 +107,7 @@ class Form {
 	 * @param array $form
 	 * @return array
 	 */
-	public function add_form( array $form ) {
+	public function add_form( array $form ) : array {
 		
 		$form = wp_cache_get( $this->id, 'siw_forms' );
 		if ( false !== $form ) {
@@ -281,7 +280,7 @@ class Form {
 							'type'   => 'html',
 							'width'  => 12,
 							'config' => [
-								'default' => Formatting::array_to_text( $this->data['intro'] ) . HR,
+								'default' => implode( SPACE, $this->data['intro'] ) . HR,
 							],
 						],
 					]
@@ -451,9 +450,9 @@ class Form {
 	 * Formatteert array met opties
 	 *
 	 * @param array $options
-	 * @return string
+	 * @return array
 	 */
-	protected function format_options( array $options ) {
+	protected function format_options( array $options ) : array {
 
 		$has_values = ( array_values( $options ) !== $options );
 
@@ -473,7 +472,7 @@ class Form {
 	 * @param array $args
 	 * @return string
 	 */
-	protected function get_email_template( array $args ) {
+	protected function get_email_template( array $args ) : string {
 		$template = new Template( $args );
 		return $template->generate();
 	}

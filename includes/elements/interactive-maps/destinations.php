@@ -68,7 +68,7 @@ class Destinations extends Interactive_Map {
 		
 		$locations = [];
 		foreach ( $countries as $country ) {
-			if ( true != $country->is_allowed() ) {
+			if ( ! $country->is_allowed() ) {
 				continue;
 			}
 			$continent = $country->get_continent();

@@ -50,7 +50,7 @@ class WPML {
 		}
 
 		$original_post_id = apply_filters( 'wpml_object_id', $post_id, 'attachment', false, i18n::get_default_language() );
-		if ( null !== $original_post_id && $post_id !== $original_post_id ) {
+		if ( is_int( $original_post_id ) && $post_id !== $original_post_id ) {
 			wp_delete_attachment( $original_post_id );
 		}
 	}

@@ -80,7 +80,7 @@ class Accordion {
 		foreach ( $this->panes as $pane ) {
 			$id = uniqid();
 
-			if ( isset( $pane['show_button'] ) && true == $pane['show_button'] ) {
+			if ( isset( $pane['show_button'] ) && $pane['show_button'] ) {
 				$pane['content'] .= wpautop( Links::generate_button_link( $pane['button_url'], $pane['button_text'] ) );
 			}
 

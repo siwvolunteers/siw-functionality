@@ -186,4 +186,13 @@ class Util {
 
 		return $new_term['term_id'];
 	}
+
+	/**
+	 * Geeft aan of het een productieomgeving betreft
+	 *
+	 * @return bool
+	 */
+	public static function is_production() : bool {
+		return 'production' == \wp_get_environment_type();
+	}
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW;
 
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin Name: SIW Functionaliteit
  * Plugin URI:  https://github.com/siwvolunteers/siw-functionality
  * Description: Extra functionaliteit t.b.v website SIW
- * Version:     3.1.1
+ * Version:     3.2.0
  * Author:      SIW Internationale Vrijwilligersprojecten
  * Author URI:  https://www.siw.nl
  * Text Domain: siw

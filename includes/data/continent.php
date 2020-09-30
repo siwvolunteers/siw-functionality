@@ -72,22 +72,4 @@ class Continent {
 	public function get_color() : string {
 		return $this->color;
 	}
-
-	/**
-	 * Geeft landen van dit continent op
-	 * 
-	 * @return \SIW\Data\Country[]
-	 * 
-	 * @todo hoort dit wel hier
-	 * @todo caching
-	 */
-	public function get_countries() : array {
-		$countries = \siw_get_countries();
-		return array_filter(
-			$countries,
-			function( $country) {
-				return $country->get_continent()->get_slug() == $this->slug;
-			}
-		);
-	}
 }

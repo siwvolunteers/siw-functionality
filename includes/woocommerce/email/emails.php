@@ -255,8 +255,8 @@ class Emails {
 			$count++;
 			$parent = wc_get_product( $item->get_product_id() );
 			
-			/* Als project niet meer bestaan alleen de gegevens bij de aanmelding tonen*/
-			if ( false == $parent ) {
+			/* Als project niet meer bestaan alleen de gegevens bij de aanmelding tonen */
+			if ( ! is_a( $parent, '\WC_Product' ) ) {
 				$project_details = sprintf('%s<br/><small>Tarief: %s</small>', $item->get_name(), wc_get_order_item_meta( $item_id, 'pa_tarief' ) );
 			}
 			else {

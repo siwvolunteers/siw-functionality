@@ -68,8 +68,7 @@ class Calendar extends Widget {
 		$events = $this->get_upcoming_events();
 
 		if ( empty( $events ) ) {
-			$content = wpautop( esc_html__( 'Er zijn momenteel geen geplande activiteiten.', 'siw' ) );
-			return $content;
+			return wpautop( esc_html__( 'Er zijn momenteel geen geplande activiteiten.', 'siw' ) );
 		}
 
 		foreach ( $events as $event_id ) {

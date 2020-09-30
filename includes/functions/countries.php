@@ -14,12 +14,10 @@ use SIW\Data\Country;
  * @since     3.0.0
  *
  * @param string $index
- * @param string $context all|workcamps|esc_projects|tailor_made_projects
+ * @param string $context all|workcamps|esc_projects|tailor_made_projects|allowed|{continent_slug}
  * @param string $return objects|array
  * 
  * @return Country[]|array
- * 
- * @todo continent als context toevoegen
  */
 function siw_get_countries( string $context = 'all', string $index = 'slug', string $return = 'objects' ) { 
 
@@ -67,6 +65,8 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 				|| ( 'workcamps' == $context && $country->has_workcamps() )
 				|| ( 'esc_projects' == $context && $country->has_esc_projects() )
 				|| ( 'tailor_made_projects' == $context && $country->has_tailor_made_projects() )
+				|| ( 'allowed' == $context && $country->is_allowed() )
+				|| ( $context == $country->get_continent()->get_slug() )
 			);
 		}
 	);

@@ -168,17 +168,6 @@ class Formatting {
 	}
 
 	/**
-	 * Zet array van zinnen om naar tekst
-	 *
-	 * @param array $array
-	 * 
-	 * @return string
-	 */
-	public static function array_to_text( array $array, string $glue = SPACE ) {
-		return implode( $glue, $array );
-	}
-
-	/**
 	 * Formatteert maand-range uit datums als tekst
 	 *
 	 * @param string $date_start Y-m-d

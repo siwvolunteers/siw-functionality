@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Modules;
 
@@ -6,6 +6,7 @@ use SIW\i18n;
 use SIW\Formatting;
 use SIW\Util;
 use SIW\Properties;
+use SIW\Util\CSS;
 use SIW\Util\Links;
 
 /**
@@ -63,7 +64,7 @@ class Topbar {
 
 		//Content zetten
 		$self->content = $self->get_content();
-		if ( false == $self->content ) {
+		if ( is_null( $self->content ) ) {
 			return;
 		}
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles' ] );
@@ -79,7 +80,7 @@ class Topbar {
 		?>
 		<div class="topbar">
 			<div class="topbar-content grid-container">
-				<span class="hide-on-mobile hide-on-tablet"><?php echo esc_html( $this->content['intro'] );?>&nbsp;</span>
+				<span class="<?php echo CSS::HIDE_ON_MOBILE_CLASS . ' ' . CSS::HIDE_ON_TABLET_CLASS; ?>"><?php echo esc_html( $this->content['intro'] );?>&nbsp;</span>
 					<?php
 					echo Links::generate_link(
 						$this->content['link_url'],
@@ -113,16 +114,16 @@ class Topbar {
 	/**
 	 * Haalt de inhoud op
 	 *
-	 * @return array
+	 * @return array|null
 	 */
-	protected function get_content() {
+	protected function get_content() : ?array {
 	
 		$content =
 			$this->get_custom_content() ??
 			$this->get_event_content() ??
 			$this->get_sale_content() ??
 			$this->get_job_posting_content() ??
-			false;
+			null;
 
 		return $content;
 	}
@@ -130,9 +131,9 @@ class Topbar {
 	/**
 	 * Haalt de evenementen-inhoud op
 	 *
-	 * @return array
+	 * @return array|null
 	 */
-	protected function get_event_content() {
+	protected function get_event_content() : ?array {
 		if ( ! $this->settings['show_event_content'] ) {
 			return null;
 		}
@@ -166,9 +167,9 @@ class Topbar {
 	/**
 	 * Haalt de vacature-inhoud op
 	 *
-	 * @return array
+	 * @return array|null
 	 */
-	protected function get_job_posting_content() {
+	protected function get_job_posting_content() : ?array {
 		if ( ! $this->settings['show_job_posting_content'] ) {
 			return null;
 		}
@@ -190,11 +191,11 @@ class Topbar {
 	/**
 	 * Haalt de kortingsactie-inhoud op
 	 * 
-	 * @return array
+	 * @return array|null
 	 * 
 	 * @todo kortingsactie Op Maat toevoegen
 	 */
-	protected function get_sale_content() {
+	protected function get_sale_content() : ?array {
 		if ( ! $this->settings['show_sale_content'] ) {
 			return null;
 		}
@@ -204,7 +205,7 @@ class Topbar {
 		}
 
 		$sale_price = Formatting::format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE );
-		$end_date = Formatting::format_date( siw_get_option( 'workcamp_sale' )['end_date'], false );
+		$end_date = Formatting::format_date( siw_get_option( 'workcamp_sale.end_date' ), false );
 	
 		return [
 			'intro'     => __( 'Grijp je kans en ontvang korting!', 'siw' ),
@@ -216,7 +217,7 @@ class Topbar {
 	/**
 	 * Undocumented function
 	 *
-	 * @return array
+	 * @return array|null
 	 */
 	protected function get_custom_content() {
 		if ( ! $this->settings['show_custom_content'] ) {
