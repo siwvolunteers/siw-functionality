@@ -69,7 +69,7 @@ class Meta_Box {
 			'priority'    => 'high',
 			'fields'      => $this->get_fields(),
 			'geo'         => [
-				'api_key'   => siw_get_option( 'google_maps_api_key' ), //TODO: conditioneel maken?
+				'api_key'   => siw_get_option( 'google_maps.api_key' ), //TODO: conditioneel maken?
 				'types'     => ['establishment'],
 			],
 		];

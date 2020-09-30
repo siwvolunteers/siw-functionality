@@ -630,7 +630,7 @@ class Product {
 
 		// Probeer Plato-afbeelding op te halen ( indien van toepassing )
 		if (
-			siw_get_option( 'plato_download_images' ) &&
+			siw_get_option( 'plato.download_images' ) &&
 			! empty( $this->xml->images ) &&
 			is_array( $this->xml->images ) &&
 			! $this->product->get_meta( 'use_stockphoto' )
@@ -666,7 +666,7 @@ class Product {
 		elseif ( ( (array) $this->xml ) != $this->product->get_meta( 'xml' ) ) {
 			return true;
 		}
-		elseif ( siw_get_option( 'plato_force_full_update' ) ) {
+		elseif ( siw_get_option( 'plato.force_full_update' ) ) {
 			return true;
 		}
 

@@ -107,7 +107,7 @@ class Destinations extends Interactive_Map {
 	
 		/* EVS */
 		if ( $country->has_esc_projects() ) {
-			$esc_page_link = i18n::get_translated_page_url( siw_get_option( 'esc_explanation_page' ) );
+			$esc_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.esc' ) ) );
 			$project_types[] = esc_html__( 'ESC', 'siw' ) . SPACE . Links::generate_link( $esc_page_link, __( 'Lees meer', 'siw' ) );
 		}
 
@@ -135,7 +135,7 @@ class Destinations extends Interactive_Map {
 			$text = __( 'Bekijk het aanbod', 'siw' );
 		}
 		else {
-			$url = i18n::get_translated_page_url( siw_get_option( 'workcamps_explanation_page' ) );
+			$url = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
 			$text = __( 'Lees meer', 'siw' );
 		}
 		return esc_html__( 'Groepsprojecten', 'siw' ) . SPACE . Links::generate_link( $url, $text );
@@ -149,7 +149,7 @@ class Destinations extends Interactive_Map {
 	 */
 	public function generate_tailor_made_description( Country $country ) : string {
 
-		$tailor_made_page_link = i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
+		$tailor_made_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.tailor_made' ) ) );
 
 		$tailor_made_pages = get_posts( [
 			'posts_per_page'   => -1,

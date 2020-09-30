@@ -60,14 +60,9 @@ class Google_Maps {
 
 	/**
 	 * Init
-	 *
-	 * @param string $id
 	 */
 	public function __construct() {
-		$this->api_key = siw_get_option( 'google_maps_api_key' );
-		if ( empty( $this->api_key ) ) {
-			return;
-		}
+		$this->api_key = siw_get_option( 'google_maps.api_key' );
 		$this->enqueue_scripts();
 		$this->enqueue_styles();
 		add_filter( 'siw_preconnect_urls', [ $this, 'add_urls'] );

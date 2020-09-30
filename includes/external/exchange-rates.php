@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\External;
 
@@ -39,10 +39,7 @@ class Exchange_Rates{
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->api_key = siw_get_option( 'exchange_rates_api_key' );
-		if ( empty( $this->api_key ) ) {
-			return;
-		}
+		$this->api_key = siw_get_option( 'fixer.api_key' );
 	}
 
 	/**

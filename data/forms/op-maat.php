@@ -24,7 +24,7 @@ $intro = [
 	__( 'Interesse in een Project Op Maat?', 'siw' ) . SPACE .
 	__( 'Meld je dan aan via onderstaand formulier.', 'siw' ) . SPACE .
 	__( 'Vervolgens zal één van onze regiospecialisten contact met je opnemen voor een kennismakingsgesprek.', 'siw' ) . SPACE .
-	sprintf( __( 'Weet je nog niet precies waar je naar toe wil, meld je dan aan voor één van onze <a href="%s">Infodagen</a> en laat je inspireren.', 'siw' ), i18n::get_translated_page_url( siw_get_option( 'info_days_explanation_page' ) ) )
+	sprintf( __( 'Weet je nog niet precies waar je naar toe wil, meld je dan aan voor één van onze <a href="%s">Infodagen</a> en laat je inspireren.', 'siw' ), i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.info_days', 0 ) ) ) )
 ];
 
 $pages = [

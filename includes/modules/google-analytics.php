@@ -58,7 +58,7 @@ class Google_Analytics {
 	 * Haalt het GA property ID op
 	 */
 	protected function set_property_id() {
-		$this->property_id = siw_get_option( 'google_analytics_property_id' );
+		$this->property_id = siw_get_option( 'google_analytics.property_id' );
 	}
 
 	/**

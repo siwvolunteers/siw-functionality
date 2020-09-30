@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace SIW;
 use SIW\Autoloader;
 
@@ -34,6 +35,7 @@ class Bootstrap {
 		$this->load_functions();
 
 		$this->load_core();
+		$this->load_options();
 		$this->load_api();
 		$this->load_modules();
 		$this->load_compatibility();
@@ -112,7 +114,6 @@ class Bootstrap {
 				'Icons',
 				'Login',
 				'Media_Taxonomies',
-				'Options',
 				'Scheduler',
 				'Shortcodes',
 				'Translations',
@@ -129,6 +130,20 @@ class Bootstrap {
 				'Forms',
 				'Widgets',
 				'Newsletter\Confirmation_Page',
+			]
+		);
+	}
+
+	/**
+	 * Laadt opties
+	 */
+	protected function load_options() {
+		$this->init_classes(
+			'SIW\Options',
+			[ 
+				'Countries',
+				'Configuration',
+				'Settings'
 			]
 		);
 	}
@@ -177,7 +192,6 @@ class Bootstrap {
 				'Admin_Bar',
 				'Notices',
 				'Shortcodes',
-				'Options_Page',
 				'Properties_Page',
 			]
 		);

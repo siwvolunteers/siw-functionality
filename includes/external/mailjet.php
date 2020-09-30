@@ -46,8 +46,8 @@ class Mailjet {
 	 * Zet API keys
 	 */
 	public function __construct() {
-		$this->api_key = siw_get_option( 'mailjet_api_key' );
-		$this->secret_key = siw_get_option( 'mailjet_secret_key' );
+		$this->api_key = siw_get_option( 'mailjet.api_key', '' );
+		$this->secret_key = siw_get_option( 'mailjet.secret_key', '' );
 	}
 	
 	/**

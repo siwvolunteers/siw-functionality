@@ -102,7 +102,7 @@ class Archive_Header {
 			}
 		}
 		
-		$workcamps_page_link = i18n::get_translated_page_url( siw_get_option( 'pages.explanation.workcamps' ) );
+		$workcamps_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
 
 		$text .= SPACE .
 			__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
@@ -143,7 +143,7 @@ class Archive_Header {
 
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
 
-		$contact_page_link = i18n::get_translated_page_url( siw_get_option( 'pages.contact' ) );
+		$contact_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.contact' ) ) );
 		$end_year = date( 'Y', strtotime( $teaser_text['end_date'] ) );
 		$end_month = date_i18n( 'F', strtotime( $teaser_text['end_date'] ) );
 		$teaser_text = sprintf( __( 'Vanaf %s wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor %s.', 'siw' ), $end_month, $end_year ). SPACE .
