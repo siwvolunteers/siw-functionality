@@ -2,6 +2,8 @@
 
 namespace SIW\Plato;
 
+use SIW\Util;
+
 /**
  * Export naar Plato
  * 
@@ -25,25 +27,10 @@ abstract class Export extends Plato_Interface {
 	protected $xml_data;
 
 	/**
-	 * Productiemode
-	 *
-	 * @var bool
-	 */
-	protected $production;
-
-	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->set_production();
-	}
-
-	/**
-	 * Zet productiemode o.b.v. instelling
-	 */
-	protected function set_production() {
-		$this->production = siw_get_option( 'plato_production_mode', false );
 	}
 
 	/**
@@ -53,11 +40,11 @@ abstract class Export extends Plato_Interface {
 	 */
 	public function run( $data ) : array {
 		
-		if ( ! $this->production ) {
+		if ( ! Util::is_production() ) {
 			return [
 				'success'     => false,
 				'imported_id' => '',
-				'message'     => 'Productiemode staat niet aan',
+				'message'     => 'Geen productieomgeving',
 			];
 		}
 		$this->data = $data;
