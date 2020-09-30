@@ -179,6 +179,13 @@ class Properties {
 	const TAILOR_MADE_FEE_REGULAR_SALE = 374;
 
 	/**
+	 * Inschrijfgeld Schoolproject
+	 *
+	 * @var int
+	 */
+	const SCHOOL_PROJECT_FEE = 125;
+
+	/**
 	 * ESC borg
 	 *
 	 * @var int
