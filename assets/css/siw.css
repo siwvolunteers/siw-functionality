@@ -114,6 +114,16 @@ h2 > a:hover:before, .footer-widgets a.link:hover:before {
   margin-bottom: 10px;
 }
 
+ul[data-columns="2"] {
+  columns: 2;
+}
+ul[data-columns="3"] {
+  columns: 3;
+}
+ul[data-columns="4"] {
+  columns: 4;
+}
+
 /*--------------------------------------------------------------
 ## 404
 --------------------------------------------------------------*/

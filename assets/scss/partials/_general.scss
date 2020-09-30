@@ -113,3 +113,15 @@ h2 > a, .footer-widgets a.link{
 		}
 	}
 }
+
+ul{
+	&[data-columns="2"] {
+		columns: 2;
+	}
+	&[data-columns="3"] {
+		columns: 3;
+	}
+	&[data-columns="4"] {
+		columns: 4;
+	}
+}

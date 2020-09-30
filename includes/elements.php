@@ -380,20 +380,15 @@ class Elements {
 	 * Genereert lijst o.b.v. array met items
 	 *
 	 * @param array $items
-	 * @param bool $ordered
+	 * @param int $columns
 	 *
 	 * @return string
 	 */
-	public static function generate_list( array $items, bool $ordered = false ) : string {
+	public static function generate_list( array $items, int $columns = 1 ) : string {
 		$callback = function( &$value, $key ) {
 			$value = HTML::li( [], $value );
 		};
 		array_walk( $items, $callback );
-		if ( $ordered ) {
-			return HTML::tag( 'ol', [], implode( '', $items ) );
-		}
-		else {
-			return HTML::tag( 'ul', [], implode( '', $items ) );
-		}
+		return HTML::tag( 'ul', [ 'data-columns' => $columns ], implode( '', $items ) );
 	}
 }
