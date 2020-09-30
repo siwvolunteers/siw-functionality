@@ -172,9 +172,10 @@ class Destinations extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @todo lijst/tabel met aanbod per land
+	 * @todo aanbod per land
 	 */
 	protected function get_mobile_content() : string {
-		return '';
+		$countries = siw_get_countries( 'allowed', 'slug', 'array' );
+		return Elements::generate_list(  array_values( $countries ), 2 );
 	}
 }
