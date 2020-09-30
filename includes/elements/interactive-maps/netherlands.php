@@ -99,7 +99,7 @@ class Netherlands extends Interactive_Map {
 		
 		$projects = $this->get_projects();
 		if ( empty( $projects ) ) {
-			return;
+			return null;
 		}
 		$panes = [];
 		foreach ( $projects as $project ) {
