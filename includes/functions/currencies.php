@@ -33,16 +33,13 @@ function siw_get_currencies( string $return = 'objects' ) : array {
 
 	//Creëer objecten
 	$currencies = array_map(
-		function( $item ) {
-			return new Currency( $item );
-		},
+		fn( $item) => new Currency( $item ),
 		$data
 	);
+
 	if ( 'array' == $return ) {
 		$currencies = array_map(
-			function( $currency ) {
-				return $currency->get_name();
-			},
+			fn( Currency $currency ) => $currency->get_name(),
 			$currencies
 		);
 	}
@@ -56,7 +53,7 @@ function siw_get_currencies( string $return = 'objects' ) : array {
  * 
  * @since  3.0.0
  *
- * @return Currency
+ * @return Currency|null
  */
 function siw_get_currency( string $currency ) : ?Currency {
 	$currencies = siw_get_currencies();

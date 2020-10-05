@@ -31,23 +31,17 @@ function siw_get_continents( string $return = 'objects' ) : array {
 
 	//Creëer objecten
 	$continents = array_map(
-		function( $item ) {
-			return new Continent( $item );
-		},
+		fn( $item ) => new Continent( $item ),
 		$data
 	);
 
 	if ( 'array' == $return ) {
 		$continents = array_map(
-			function( $continent ) {
-				return $continent->get_name();
-			},
+			fn( Continent $continent ) => $continent->get_name(),
 			$continents
 		);
 	}
-
 	wp_cache_set( "continents_{$return}", $continents, 'siw_continents' );
-	
 	return $continents;
 }
 

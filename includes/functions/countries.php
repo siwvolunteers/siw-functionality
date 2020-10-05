@@ -51,15 +51,13 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 
 	//Creëer objecten
 	$countries = array_map(
-		function( $item ) {
-			return new Country( $item );
-		},
+		fn( $item ) => new Country( $item ),
 		$data
 	);
 
 	//Filter op context TODO: filter op continent
 	$countries = array_filter(
-		$countries, 
+		$countries,
 		function( $country ) use ( $context ) {
 			return ( 'all' == $context 
 				|| ( 'workcamps' == $context && $country->has_workcamps() )
@@ -73,9 +71,7 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 
 	if ( 'array' == $return ) {
 		$countries = array_map(
-			function( $country ) {
-				return $country->get_name();
-			},
+			fn( Country $country ) => $country->get_name(),
 			$countries
 		);
 	}
@@ -91,7 +87,7 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
  *
  * @param string $country
  * @param string $index
- * @return Country
+ * @return Country|null
  */
 function siw_get_country( string $country, string $index = 'slug' ) : ?Country {
 	$countries = siw_get_countries( 'all', $index );

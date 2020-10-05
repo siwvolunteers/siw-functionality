@@ -35,9 +35,7 @@ function siw_get_social_networks( $context = 'all', string $return = 'objects' )
 
 	//Creëer objecten
 	$social_networks = array_map(
-		function( $item ) {
-			return new Social_Network( $item );
-		},
+		fn( $item ) => new Social_Network( $item ),
 		$data
 	);
 
@@ -53,9 +51,7 @@ function siw_get_social_networks( $context = 'all', string $return = 'objects' )
 	);
 	if ( 'array' == $return ) {
 		$social_networks = array_map(
-			function( $social_network ) {
-				return $social_network->get_name();
-			},
+			fn( Social_Network $social_network ) => $social_network->get_name(),
 			$social_networks
 		);
 	}
