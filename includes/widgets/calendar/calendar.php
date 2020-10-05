@@ -30,12 +30,12 @@ class Calendar extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='calendar';
+	protected string $widget_id ='calendar';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'calendar';
+	protected string $widget_dashicon = 'calendar';
 
 	/**
 	 * {@inheritDoc}

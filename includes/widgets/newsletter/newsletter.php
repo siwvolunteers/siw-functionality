@@ -20,17 +20,13 @@ class Newsletter extends Widget {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_id ='newsletter';
+	protected string $widget_id ='newsletter';
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_dashicon = 'email';
+	protected string $widget_dashicon = 'email';
 
 	/**
 	 * {@inheritDoc}

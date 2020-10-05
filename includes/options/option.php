@@ -19,14 +19,25 @@ abstract class Option {
 
 	//protected $option_name = 'siw_options';
 
-	protected $id = 'settings';
+	/**
+	 * ID van optie
+	 */
+	protected string $id = 'settings';
 
-	protected $title;
+	/**
+	 * Titel van optie
+	 */
+	protected string $title;
 
-	protected $capability = 'manage_options';
+	/**
+	 * Capability voor optie
+	 */
+	protected string $capability = 'manage_options';
 
-	protected $parent_page = 'options-general.php';
-
+	/**
+	 * Parent pagina van optie
+	 */
+	protected string $parent_page = 'options-general.php';
 
 	/**
 	 * Init

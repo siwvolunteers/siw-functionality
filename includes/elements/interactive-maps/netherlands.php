@@ -141,13 +141,8 @@ class Netherlands extends Interactive_Map {
 		$attributes = $project->get_attributes();
 		$work_type_slugs = $attributes['pa_soort-werk']->get_slugs();
 		
-		$work_types = array_map(
-		function( $work_type_slug ) {
-			return siw_get_work_type( $work_type_slug )->get_name();
-			},
-			$work_type_slugs
-		);
-		
+		$work_types = array_map( fn( string $work_type_slug ) => siw_get_work_type( $work_type_slug )->get_name(), $work_type_slugs );
+	
 		$duration = Formatting::format_date_range( $project->get_attribute( 'startdatum' ), $project->get_attribute( 'einddatum' ) );
 
 		//Opbouwen beschrijving

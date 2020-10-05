@@ -12,18 +12,14 @@ namespace SIW\Async;
 abstract class Request extends \WP_Async_Request {
 	
 	/**
-	 * Prefix
-	 * 
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $prefix = 'siw';
 
 	/**
 	 * Variabelen voor process
-	 *
-	 * @var array
 	 */
-	protected $variables = [];
+	protected array $variables = [];
 
 	/**
 	 * {@inheritDoc}

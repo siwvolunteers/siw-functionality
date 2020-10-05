@@ -19,17 +19,13 @@ class Google_Analytics {
 
 	/**
 	 * Google Analytics property ID
-	 *
-	 * @var string
 	 */
-	protected $property_id;
+	protected string $property_id;
 
 	/**
 	 * Instellingen voor tracker
-	 *
-	 * @var array
 	 */
-	protected $tracker_settings = [
+	protected array $tracker_settings = [
 		'anonymizeIp' => true,
 		'forceSSL'    => true,
 	];

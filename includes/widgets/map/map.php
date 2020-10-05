@@ -21,12 +21,12 @@ class Map extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='map';
+	protected string $widget_id ='map';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'location-alt';
+	protected string $widget_dashicon = 'location-alt';
 
 	/**
 	 * {@inheritDoc}

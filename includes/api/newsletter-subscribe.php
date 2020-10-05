@@ -15,20 +15,22 @@ class Newsletter_Subscribe extends Endpoint {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $resource = 'newsletter_subscribe';
+	protected string $resource = 'newsletter_subscribe';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $callback = 'process';
+	protected string $callback = 'process';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $methods = \WP_REST_Server::CREATABLE;
+	protected array $methods = [ \WP_REST_Server::CREATABLE] ;
 
-
-	protected $script = 'newsletter';
+	/**
+	 * {@inheritDoc}
+	 */
+	protected string $script = 'newsletter';
 
 	/**
 	 * {@inheritDoc}

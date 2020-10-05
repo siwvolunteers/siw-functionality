@@ -21,17 +21,13 @@ class Pie_Chart extends Widget {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_id = 'pie_chart';
+	protected string $widget_id = 'pie_chart';
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_dashicon = 'chart-pie';
+	protected string $widget_dashicon = 'chart-pie';
 
 	/**
 	 * {@inheritDoc}

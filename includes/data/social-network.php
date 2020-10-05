@@ -14,59 +14,43 @@ class Social_Network {
 
 	/**
 	 * Slug van het netwerk
-	 *
-	 * @var string
 	 */
-	protected $slug;
+	protected string $slug;
 
 	/**
 	 * Naam van het netwerk
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * CSS-class van icoon
-	 *
-	 * @var string
 	 */
-	protected $icon_class;
+	protected string $icon_class;
 
 	/**
 	 * Kleurcode
-	 *
-	 * @var string
-	 */	
-	protected $color;
+	 */
+	protected string $color;
 
 	/**
 	 * URL van netwerk om te volgen
-	 *
-	 * @var string
 	 */
-	protected $follow_url;
+	protected ?string $follow_url;
 
 	/**
 	 * URL-template voor delen
-	 *
-	 * @var string
 	 */
-	protected $share_url_template;
+	protected ?string $share_url_template;
 
 	/**
 	 * Is netwerk om te delen?
-	 *
-	 * @var bool
 	 */
-	protected $share;
+	protected bool $share;
 
 	/**
 	 * Is netwerk om te volgen?
-	 *
-	 * @var bool
 	 */
-	protected $follow;
+	protected bool $follow;
 
 	/**
 	 * Constructor

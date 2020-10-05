@@ -44,38 +44,28 @@ class Spam_Check{
 
 	/**
 	 * Geeft aan of IP gecheckt moet worden
-	 *
-	 * @var bool
 	 */
-	protected $check_ip = false;
+	protected bool $check_ip = false;
 
 	/**
 	 * Geeft aan of e-mail gecheckt moet worden
-	 *
-	 * @var bool
 	 */
-	protected $check_email = false;
+	protected bool $check_email = false;
 
 	/**
 	 * IP-adres
-	 *
-	 * @var string
 	 */
-	protected $ip;
+	protected string $ip;
 
 	/**
 	 * E-mailadres
-	 *
-	 * @var string
 	 */
-	protected $email;
+	protected string $email;
 
 	/**
 	 * Hash van e-mailadres
-	 *
-	 * @var string
 	 */
-	protected $email_hash;
+	protected string $email_hash;
 
 	/**
 	 * Zet IP-adres om te controlen

@@ -16,59 +16,43 @@ class Attachment {
 
 	/**
 	 * Path van upload directory
-	 *
-	 * @var string
 	 */
-	protected $upload_dir;
+	protected string $upload_dir;
 
 	/**
 	 * URL van upload directory
-	 *
-	 * @var string
 	 */
-	protected $upload_url;
+	protected string $upload_url;
 
 	/**
 	 * Subdirectory voor upload
-	 *
-	 * @var string
 	 */
-	protected $subdir;
+	protected string $subdir;
 
 	/**
 	 * Minimum breedte van afbeelding
-	 *
-	 * @var int
 	 */
-	protected $minimum_width;
+	protected int $minimum_width;
 
 	/**
 	 * Minimum hoogte van afbeelding
-	 *
-	 * @var int
 	 */
-	protected $minimum_height;
+	protected int $minimum_height;
 
 	/**
 	 * Maximum breedte van afbeelding
-	 *
-	 * @var int
 	 */
-	protected $maximum_width = Properties::MAX_IMAGE_SIZE;
+	protected int $maximum_width = Properties::MAX_IMAGE_SIZE;
 
 	/**
 	 * Maximum hoogte van afbeelding
-	 *
-	 * @var int
 	 */
-	protected $maximum_height = Properties::MAX_IMAGE_SIZE;
+	protected int $maximum_height = Properties::MAX_IMAGE_SIZE;
 
 	/**
 	 * Soort bestand
-	 *
-	 * @var string
 	 */
-	protected $filetype;
+	protected string $filetype;
 
 	/**
 	 * Init

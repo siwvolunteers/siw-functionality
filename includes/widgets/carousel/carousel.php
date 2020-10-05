@@ -23,12 +23,12 @@ class Carousel extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id = 'carousel';
+	protected string $widget_id = 'carousel';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'format-gallery';
+	protected string $widget_dashicon = 'format-gallery';
 
 	/**
 	 * {@inheritDoc}

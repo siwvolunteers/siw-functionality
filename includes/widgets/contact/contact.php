@@ -23,12 +23,12 @@ class Contact extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id = 'contact';
+	protected string $widget_id = 'contact';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'phone';
+	protected string $widget_dashicon = 'phone';
 
 	/**
 	 * {@inheritDoc}

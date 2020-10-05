@@ -49,11 +49,8 @@ class Scheduler {
 
 	/**
 	 * Jobs
-	 *
-	 * @var array
 	 */
-	protected static $jobs = [];
-
+	protected static array $jobs = [];
 
 	/**
 	 * Init

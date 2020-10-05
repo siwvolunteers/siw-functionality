@@ -21,12 +21,12 @@ class Features extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='features';
+	protected string $widget_id ='features';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'yes';
+	protected string $widget_dashicon = 'yes';
 
 	/**
 	 * {@inheritDoc}

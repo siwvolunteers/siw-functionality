@@ -13,26 +13,24 @@ class Import_FPL extends Import {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $endpoint = 'GetAllFreePlaces';
+	protected string $endpoint = 'GetAllFreePlaces';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'importeren FPL';
+	protected string $name = 'importeren FPL';
 
 	/**
-	 * Name van background process
-	 *
-	 * @var string
+	 * {@inheritDoc}
 	 */
-	protected $process_name = 'update_free_places';
+	protected string $process_name = 'update_free_places';
 
 	/**
 	 * Eigenschappen per project
 	 *
 	 * @var array
 	 */
-	protected $properties = [
+	protected array $properties = [
 		'project_id',
 		'code',
 		'free_m',

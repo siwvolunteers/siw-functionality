@@ -18,31 +18,23 @@ class Quote extends Widget {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_id ='quote';
+	protected string $widget_id ='quote';
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_dashicon = 'editor-quote';
+	protected string $widget_dashicon = 'editor-quote';
 
 	/**
 	 * Taxonomy voor continent
-	 *
-	 * @var string
 	 */
-	protected $continent_taxonomy = 'siw_quote_continent';
+	protected string $continent_taxonomy = 'siw_quote_continent';
 
 	/**
 	 * Taxonomy voor projectsoort
-	 *
-	 * @var string
 	 */
-	protected $project_type_taxonomy = 'siw_quote_project_type';
+	protected string $project_type_taxonomy = 'siw_quote_project_type';
 
 	/**
 	 * {@inheritDoc}
@@ -103,7 +95,7 @@ class Quote extends Widget {
 	 *
 	 * @return array
 	 */
-	protected function get_taxonomy_options( string $taxonomy ) {
+	protected function get_taxonomy_options( string $taxonomy ) : array {
 		$terms = get_terms( $taxonomy );
 		$options[''] = __( 'Alle', 'siw' );
 		foreach ( $terms as $term ) {

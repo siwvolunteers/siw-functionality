@@ -22,12 +22,12 @@ class Quick_Search_Form extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='quick_search_form';
+	protected string $widget_id ='quick_search_form';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'search';
+	protected string $widget_dashicon = 'search';
 
 	/**
 	 * {@inheritDoc}

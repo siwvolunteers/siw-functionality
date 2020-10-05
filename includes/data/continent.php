@@ -12,24 +12,18 @@ class Continent {
 
 	/**
 	 * Slug van continent
-	 *
-	 * @var string
 	 */
-	protected $slug;
+	protected string $slug;
 
 	/**
 	 * Naam van het continent
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * Kleurcode van continent op kaart
-	 *
-	 * @var string
 	 */
-	protected $color;
+	protected string $color;
 
 	/**
 	 * Constructor

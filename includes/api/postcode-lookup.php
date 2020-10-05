@@ -16,27 +16,27 @@ class Postcode_Lookup extends Endpoint {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $resource = 'postcode_lookup';
+	protected string $resource = 'postcode_lookup';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $methods = \WP_REST_Server::READABLE;
+	protected array $methods = [ \WP_REST_Server::READABLE ];
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $callback = 'postcode_lookup';
+	protected string $callback = 'postcode_lookup';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $script = 'postcode';
+	protected string $script = 'postcode';
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $script_deps = ['polyfill'];
+	protected array $script_deps = ['polyfill'];
 
 	/**
 	 * {@inheritDoc}

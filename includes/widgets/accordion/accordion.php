@@ -21,12 +21,12 @@ class Accordion extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='accordion';
+	protected string $widget_id ='accordion';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'list-view';
+	protected string $widget_dashicon = 'list-view';
 
 	/**
 	 * {@inheritDoc}

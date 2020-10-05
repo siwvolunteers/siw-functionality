@@ -33,17 +33,13 @@ class Topbar {
 
 	/**
 	 * Instellingen
-	 *
-	 * @var array
 	 */
-	protected $settings;
+	protected array $settings;
 
 	/**
 	 * Inhoud van de topbar
-	 *
-	 * @var string
 	 */
-	protected $content;
+	protected ?string $content;
 
 	/**
 	 * Init

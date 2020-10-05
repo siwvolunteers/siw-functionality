@@ -21,12 +21,12 @@ class Infobox extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='infobox';
+	protected string $widget_id ='infobox';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'align-right';
+	protected string $widget_dashicon = 'align-right';
 
 	/**
 	 * {@inheritDoc}

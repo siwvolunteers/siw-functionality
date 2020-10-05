@@ -12,10 +12,8 @@ abstract class Import extends Plato_Interface {
 
 	/**
 	 * Data voor background process
-	 *
-	 * @var array
 	 */
-	protected $data = [];
+	protected array $data = [];
 
 	/**
 	 * Constructor

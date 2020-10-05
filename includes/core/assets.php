@@ -27,10 +27,8 @@ class Assets {
 
 	/**
 	 * Features voor Polyfill.io
-	 *
-	 * @var array
 	 */
-	protected $polyfill_features = [
+	protected array $polyfill_features = [
 		'default'
 	];
 

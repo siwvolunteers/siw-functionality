@@ -12,10 +12,8 @@ class Widgets {
 	
 	/**
 	 * SIW-widgets
-	 *
-	 * @var array
 	 */
-	protected $widgets = [
+	protected array $widgets = [
 		'accordion'            => 'Accordion',
 		'calendar'             => 'Calendar',
 		'carousel'             => 'Carousel',
@@ -36,10 +34,8 @@ class Widgets {
 
 	/**
 	 * Basismap voor widgets
-	 *
-	 * @var string
 	 */
-	protected $widgets_folder_base;
+	protected string $widgets_folder_base;
 
 	/**
 	 * Init

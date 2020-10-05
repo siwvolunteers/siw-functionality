@@ -14,10 +14,8 @@ class Terms{
 
 	/**
 	 * Link naar modal
-	 *
-	 * @var string
 	 */
-	protected $modal_link;
+	protected string $modal_link;
 
 	/**
 	 * Init

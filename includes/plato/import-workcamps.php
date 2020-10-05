@@ -13,12 +13,12 @@ class Import_Workcamps extends Import {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $endpoint = 'GetAllProjects';
+	protected string $endpoint = 'GetAllProjects';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'importeren groepsprojecten';
+	protected string $name = 'importeren groepsprojecten';
 
 	/**
 	 * Eigenschappen per project

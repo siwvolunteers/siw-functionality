@@ -14,17 +14,13 @@ class Admin_Bar {
 
 	/**
 	 * Nodes
-	 *
-	 * @var array
 	 */
-	protected static $nodes = [];
+	protected static array $nodes = [];
 
 	/**
 	 * Acties
-	 *
-	 * @var array
 	 */
-	protected static $actions = [];
+	protected static array $actions = [];
 
 	/**
 	 * Init

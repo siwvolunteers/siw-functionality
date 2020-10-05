@@ -12,38 +12,28 @@ class Language {
 
 	/**
 	 * Slug
-	 * 
-	 * @var string
 	 */
-	protected $slug;
+	protected string $slug;
 	
 	/**
 	 * Naam
-	 * 
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * PLATO-code
-	 * 
-	 * @var string
 	 */
-	protected $plato_code;
+	protected string $plato_code;
 
 	/**
 	 * Geeft dit een taal is die een vrijwilliger kan opgeven
-	 *
-	 * @var bool
 	 */
-	protected $volunteer_language;
+	protected bool $volunteer_language;
 
 	/**
 	 * Geeft aan of dit een projecttaal kan zijn
-	 *
-	 * @var bool
 	 */
-	protected $project_language;
+	protected bool $project_language;
 
 	/**
 	 * @param array $language

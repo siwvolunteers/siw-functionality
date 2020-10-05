@@ -15,12 +15,12 @@ class Export_Application extends Export{
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $endpoint = 'ImportVolunteer';
+	protected string $endpoint = 'ImportVolunteer';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'exporteren aanmelding';
+	protected string $name = 'exporteren aanmelding';
 
 	/**
 	 * Undocumented function

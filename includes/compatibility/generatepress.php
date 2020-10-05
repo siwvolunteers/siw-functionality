@@ -23,10 +23,8 @@ class GeneratePress{
 
 	/**
 	 * Toegestane lettertypes
-	 *
-	 * @var array
 	 */
-	protected $allowed_fonts = [
+	protected array $allowed_fonts = [
 		'System Stack',
 	];
 

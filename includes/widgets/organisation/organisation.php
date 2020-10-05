@@ -22,17 +22,13 @@ class Organisation extends Widget {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_id = 'organisation';
+	protected string $widget_id = 'organisation';
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_dashicon = 'building';
+	protected string $widget_dashicon = 'building';
 
 	/**
 	 * {@inheritDoc}

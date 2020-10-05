@@ -19,7 +19,7 @@ class Menu_Cart {
 	 * 
 	 * @todo verplaatsen naar configuratie
 	 */
-	protected $menu_locations = [
+	protected array $menu_locations = [
 		'primary',
 		'slideout'
 	];

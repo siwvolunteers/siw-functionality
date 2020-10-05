@@ -14,24 +14,18 @@ class Currency {
 
 	/**
 	 * ISO-code
-	 *
-	 * @var string
 	 */
-	protected $iso_code;
+	protected string $iso_code;
 
 	/**
 	 * Naam
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * Valuta-teken
-	 *
-	 * @var string
 	 */
-	protected $symbol;
+	protected string $symbol;
 
 	/**
 	 * @param array $data

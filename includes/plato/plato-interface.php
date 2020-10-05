@@ -19,31 +19,23 @@ abstract class Plato_Interface {
 
 	/**
 	 * Naam van import/export (voor logging)
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * Organization webkey van plato
-	 *
-	 * @var string
 	 */
-	protected $webkey;
+	protected string $webkey;
 
 	/**
 	 * Endpoint van de webservice
-	 * 
-	 * @var string
 	 */
-	protected $endpoint;
+	protected string $endpoint;
 
 	/**
 	 * Endpoint url voor Plato
-	 *
-	 * @var string
 	 */
-	protected $endpoint_url;
+	protected string $endpoint_url;
 
 	/**
 	 * HTTP response van Plato
@@ -57,21 +49,19 @@ abstract class Plato_Interface {
 	 * 
 	 * @var \SimpleXMLElement
 	 */
-	protected $xml_response;
+	protected \SimpleXMLElement $xml_response;
 
 	/**
 	 * Logger-instantie
-	 * 
-	 * @var \WC_Logger
 	 */
-	protected $logger;
+	protected \WC_Logger $logger;
 
 	/**
 	 * Logger context
 	 * 
 	 * @var array
 	 */
-	protected $logger_context;
+	protected array $logger_context;
 
 	/**
 	 * Constructor

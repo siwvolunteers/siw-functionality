@@ -13,7 +13,7 @@ class Countries extends Option {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $id = 'countries';
+	protected string $id = 'countries';
 
 	/**
 	 * {@inheritDoc}

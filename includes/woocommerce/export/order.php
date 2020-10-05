@@ -15,17 +15,13 @@ class Order {
 
 	/**
 	 * Aantal gefaalde geexporteerde aanmeldingen
-	 *
-	 * @var int
 	 */
-	protected $failed_count = 0;
+	protected int $failed_count = 0;
 
 	/**
 	 * Aantal succesvol geexporteerde aanmeldingen
-	 *
-	 * @var int
 	 */
-	protected $success_count = 0;
+	protected int $success_count = 0;
 
 	/**
 	 * Init

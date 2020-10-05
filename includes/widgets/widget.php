@@ -12,45 +12,33 @@ abstract class Widget extends \SiteOrigin_Widget {
 
 	/**
 	 * ID van widget
-	 *
-	 * @var string
 	 */
-	protected $widget_id;
+	protected string $widget_id;
 
 	/**
 	 * Naam van widget
-	 *
-	 * @var string
 	 */
-	protected $widget_name;
+	protected string $widget_name;
 
 	/**
 	 * Beschrijving van widget
-	 *
-	 * @var string
 	 */
-	protected $widget_description = '';
+	protected string $widget_description = '';
 
 	/**
 	 * Icon-class van widget voor pagebuilder
-	 *
-	 * @var string
 	 */
-	protected $widget_dashicon ='admin-generic';
+	protected string $widget_dashicon ='admin-generic';
 
 	/**
 	 * Control opties van widget
-	 *
-	 * @var array
 	 */
-	protected $widget_control_options = [];
+	protected array $widget_control_options = [];
 
 	/**
 	 * Formuliervelden van widget
-	 *
-	 * @var array
 	 */
-	protected $widget_fields = [];
+	protected array $widget_fields = [];
 
 	/**
 	 * Constructor

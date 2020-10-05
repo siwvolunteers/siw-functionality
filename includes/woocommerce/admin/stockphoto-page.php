@@ -18,28 +18,22 @@ class Stockphoto_Page {
 	 *
 	 * @var string
 	 */
-	protected $page_id = 'siw-stockphotos';
+	protected string $page_id = 'siw-stockphotos';
 
 	/**
 	 * Async request voor verwerken van upload
-	 *
-	 * @var Process_Stockphoto_Upload
 	 */
-	protected $process_stockphoto_upload;
+	protected Process_Stockphoto_Upload $process_stockphoto_upload;
 
 	/**
 	 * Upload-subdirectory voor stockfotos
-	 *
-	 * @var string
 	 */
-	protected $upload_subdir = 'groepsprojecten/stockfotos';
+	protected string $upload_subdir = 'groepsprojecten/stockfotos';
 
 	/**
 	 * Tijdelijke directory
-	 *
-	 * @var string
 	 */
-	protected $temp_dir = WP_CONTENT_DIR . '/uploads/temp/';
+	protected string $temp_dir = WP_CONTENT_DIR . '/uploads/temp/';
 
 	/**
 	 * Init

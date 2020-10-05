@@ -26,66 +26,54 @@ class Product {
 
 	/**
 	 * Ruwe xml-data uit Plato
-	 *
-	 * @var \stdClass
 	 */
-	protected $xml;
+	protected \stdClass $xml;
 
 	/**
 	 * Geeft aan of het een update van een bestaand product is
-	 *
-	 * @var bool
 	 */
-	protected $is_update = false;
+	protected bool $is_update = false;
 
 	/**
 	 * Project
-	 *
-	 * @var \WC_Product
 	 */
-	protected $product;
+	protected \WC_Product $product;
 
 	/**
 	 * Land van project
-	 *
-	 * @var Country
 	 */
-	protected $country;
+	protected Country $country;
 
 	/**
 	 * Projecttalen
 	 *
 	 * @var Language[]
 	 */
-	protected $languages;
+	protected array $languages;
 
 	/**
 	 * Soort werk van het project
 	 *
 	 * @var Work_Type[]
 	 */
-	protected $work_types;
+	protected array $work_types;
 
 	/**
 	 * Sustainable Development Goals van het project
 	 *
 	 * @var Sustainable_Development_Goal[];
 	 */
-	protected $sustainable_development_goals;
+	protected array $sustainable_development_goals;
 
 	/**
 	 * Tarieven die van toepassing zijn
-	 *
-	 * @var array
 	 */
-	protected $tariffs;
+	protected array $tariffs;
 
 	/**
 	 * Doelgroepen
-	 *
-	 * @var array
 	 */
-	protected $target_audiences = [];
+	protected array $target_audiences = [];
 
 	/**
 	 * Constructor

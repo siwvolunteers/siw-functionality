@@ -15,7 +15,7 @@ class Configuration extends Option {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $id = 'configuration';
+	protected string $id = 'configuration';
 
 	/**
 	 * {@inheritDoc}
@@ -431,5 +431,23 @@ class Configuration extends Option {
 			'options' => siw_newsletter_get_lists(),
 		];
 		return $fields;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function format_option_value( $value, string $option ) {
+		switch ( $option ) {
+			case 'pages.explanation.workcamps':
+			case 'pages.explanation.info_days':
+			case 'pages.explanation.esc':
+			case 'pages.explanation.tailor_made':
+			case 'pages.contact':
+			case 'pages.child_policy':
+				//Pagina-ID moet integer zijn + fallback naar homepage
+				$value = intval( $value ?? get_option( 'page_on_front' ) );
+				break;
+		}
+		return $value;
 	}
 }

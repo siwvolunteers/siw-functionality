@@ -12,17 +12,13 @@ class Breadcrumbs {
 
 	/**
 	 * Undocumented variable
-	 *
-	 * @var array
 	 */
-	protected $crumbs = [];
+	protected array $crumbs = [];
 
 	/**
 	 * Huidige pagina/post
-	 *
-	 * @var string
 	 */
-	protected $current;
+	protected string $current;
 
 	/**
 	 * Init

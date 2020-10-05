@@ -31,10 +31,8 @@ class Product_Image {
 
 	/**
 	 * Subdirectory voor projectfoto's
-	 *
-	 * @var string
 	 */
-	protected $subdir = 'groepsprojecten/projectfotos';
+	protected string $subdir = 'groepsprojecten/projectfotos';
 
 	/**
 	 * Haal projectafbeelding (uit Plato) op
@@ -75,7 +73,7 @@ class Product_Image {
 
 			if ( is_string( $temp_file ) ) {
 				$attachment_id = $attachment->add( $temp_file, $filename_base, 'Projectfoto' );
-				if ( false !== $attachment_id ) {
+				if ( is_int( $attachment_id ) ) {
 					update_post_meta( $attachment_id, 'plato_document_identifier', $identifier );
 					update_post_meta( $attachment_id, 'plato_project_id', $project_id );
 					//wp_update_post() post parent zetten?

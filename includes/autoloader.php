@@ -12,17 +12,13 @@ class Autoloader {
 
 	/**
 	 * Basis-namespace
-	 *
-	 * @var string
 	 */
-	protected $base_namespace = 'SIW';
+	protected string $base_namespace = 'SIW';
 
 	/**
 	 * Basisdirectory
-	 *
-	 * @var string
 	 */
-	protected $base_dir;
+	protected string $base_dir;
 
 	/**
 	 * Registreert autoloader

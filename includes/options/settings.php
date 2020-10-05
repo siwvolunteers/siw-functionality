@@ -18,7 +18,7 @@ class Settings extends Option {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $id = 'settings';
+	protected string $id = 'settings';
 
 	/**
 	 * {@inheritDoc}

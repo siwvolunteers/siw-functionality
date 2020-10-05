@@ -23,12 +23,12 @@ class CTA extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='cta';
+	protected string $widget_id ='cta';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'megaphone';
+	protected string $widget_dashicon = 'megaphone';
 
 	/**
 	 * {@inheritDoc}

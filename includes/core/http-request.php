@@ -13,11 +13,9 @@ use WP_Error;
 class HTTP_Request {
 
 	/**
-	 * Toegestande methodes TODO: hoe nuttig is dit
-	 *
-	 * @var array
+	 * Toegestane methodes TODO: hoe nuttig is dit
 	 */
-	protected $allowed_methods = [
+	protected array $allowed_methods = [
 		'POST',
 		'GET',
 		'PATCH'
@@ -25,33 +23,25 @@ class HTTP_Request {
 
 	/**
 	 * Geaccepteerde response codes
-	 *
-	 * @var array
 	 */
-	protected $accepted_response_codes = [
+	protected array $accepted_response_codes = [
 		\WP_Http::OK
 	];
 
 	/**
 	 * Url voor request
-	 *
-	 * @var string
 	 */
-	protected $url = '';
+	protected string $url;
 
 	/**
 	 * Args voor request
-	 *
-	 * @var array
 	 */
-	protected $args = [];
+	protected array $args;
 
 	/**
 	 * Fout bij afhandeling van het request
-	 *
-	 * @var \WP_Error
 	 */
-	protected $error;
+	protected \WP_Error $error;
 
 	/**
 	 * Init
@@ -72,7 +62,7 @@ class HTTP_Request {
 				],
 				'body'        => [],
 			]
-			);
+		);
 	}
 
 	/**

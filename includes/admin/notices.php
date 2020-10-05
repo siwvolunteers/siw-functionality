@@ -12,17 +12,13 @@ class Notices {
 
 	/**
 	 * Transient naam
-	 *
-	 * @var string $transient_name
 	 */
-	protected $transient_name;
+	protected string $transient_name;
 
 	/**
 	 * Toegestane notice types
-	 *
-	 * @var array
 	 */
-	protected $types = [ 
+	protected array $types = [ 
 		'success',
 		'info',
 		'warning',

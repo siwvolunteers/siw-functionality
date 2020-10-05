@@ -14,10 +14,8 @@ class Social_Share {
 
 	/**
 	 * Post type van huidige post
-	 *
-	 * @var string
 	 */
-	protected $post_type;
+	protected string $post_type;
 
 	/**
 	 * Init

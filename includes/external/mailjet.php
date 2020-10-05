@@ -23,24 +23,18 @@ class Mailjet {
 
 	/**
 	 * Api-versie
-	 *
-	 * @var string
 	 */
-	protected $api_version = 'v3';
+	protected string $api_version = 'v3';
 
 	/**
 	 * API key
-	 *
-	 * @var string
 	 */
-	protected $api_key;
+	protected string $api_key;
 
 	/**
 	 * Secret key
-	 *
-	 * @var string
 	 */
-	protected $secret_key;
+	protected string $secret_key;
 
 	/**
 	 * Zet API keys

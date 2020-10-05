@@ -259,12 +259,10 @@ class Update_Workcamps extends Job {
 		$work_type_slugs = $attributes['pa_soort-werk']->get_slugs();
 		
 		$work_types = array_map(
-		function( $work_type_slug ) {
-			return siw_get_work_type( $work_type_slug );
-			},
+			fn( string $work_type_slug ) => siw_get_work_type( $work_type_slug ),
 			$work_type_slugs
 		);
-		
+
 		//Stockfoto proberen te vinden
 		$import_image = new Product_Image;
 		$image_id = $import_image->get_stock_image( $country, $work_types );

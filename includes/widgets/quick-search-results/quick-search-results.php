@@ -20,17 +20,13 @@ class Quick_Search_Results extends Widget {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_id ='quick_search_results';
+	protected string $widget_id ='quick_search_results';
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_dashicon = 'search';
+	protected string $widget_dashicon = 'search';
 
 	/**
 	 * {@inheritDoc}

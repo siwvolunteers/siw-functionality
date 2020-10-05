@@ -23,17 +23,13 @@ class Exchange_Rates{
 
 	/**
 	 * API key
-	 *
-	 * @var string
 	 */
-	protected $api_key;
+	protected string $api_key;
 
 	/**
 	 * Transient naam
-	 *
-	 * @var string
 	 */
-	protected $transient_name = 'siw_exchange_rates';
+	protected string $transient_name = 'siw_exchange_rates';
 
 	/**
 	 * Constructor
@@ -87,13 +83,8 @@ class Exchange_Rates{
 		if ( is_wp_error( $response ) || false == $response['success'] ) {
 			return null;
 		}
-	
-		return array_map(
-			function( float $rate ) {
-				return 1 / $rate;
-			},
-			$response['rates']
-		);
+
+		return array_map( fn( float $rate ) => 1 / $rate, $response['rates'] );
 	}
 }
 
