@@ -297,6 +297,11 @@ class WooCommerce {
 	public function filter_term_name( \WP_Term $term, string $taxonomy ) : \WP_Term {
 		if ( 'pa_maand' == $taxonomy ) {
 			$order = get_term_meta( $term->term_id, 'order', true );
+
+			if ( empty( $order ) ) {
+				return $term;
+			}
+
 			$year = substr( $order, 0, 4 );
 			$month = substr( $order, 4, 2 );
 			$current_year = date( 'Y' );
@@ -306,7 +311,7 @@ class WooCommerce {
 					"{$year}-{$month}-1",
 					$year != $current_year
 				)
-			); 
+			);
 		}
 		return $term;
 	}
