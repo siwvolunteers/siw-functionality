@@ -21,6 +21,11 @@ class Animation {
 	CONST SAL_VERSION = '0.8.1';
 
 	/**
+	 * Threshold voor animatie
+	 */
+	CONST THRESHOLD = 0.5;
+
+	/**
 	 * Init
 	 */
 	public static function init() {
@@ -69,7 +74,7 @@ class Animation {
 	
 		wp_register_script( 'siw-animation', SIW_ASSETS_URL . 'js/siw-animation.js', ['sal'], SIW_PLUGIN_VERSION, true );
 		wp_localize_script( 'siw-animation', 'siw_animation', [
-			'threshold'  => 0.5,
+			'threshold'  => self::THRESHOLD,
 			'once'       => true,
 			'breakpoint' => Util::get_mobile_breakpoint(),
 		]);
