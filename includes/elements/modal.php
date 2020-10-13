@@ -66,7 +66,7 @@ class Modal {
 	 * Voegt scripts toe
 	 */
 	protected function enqueue_scripts() {
-		wp_register_script( 'micromodal', SIW_ASSETS_URL . 'modules/micromodal/micromodal.js', [], self::MICROMODAL_VERSION, true );
+		wp_register_script( 'micromodal', SIW_ASSETS_URL . 'vendor/micromodal/micromodal.js', [], self::MICROMODAL_VERSION, true );
 		wp_register_script( 'siw-modal', SIW_ASSETS_URL . 'js/elements/siw-modal.js', [ 'micromodal' ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			'siw-modal',

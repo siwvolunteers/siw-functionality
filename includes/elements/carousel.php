@@ -83,7 +83,7 @@ class Carousel {
 	 * Voegt stylesheet toe
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'flickity', SIW_ASSETS_URL . 'modules/flickity/flickity.css', [], self::FLICKITY_VERSION );
+		wp_register_style( 'flickity', SIW_ASSETS_URL . 'vendor/flickity/flickity.css', [], self::FLICKITY_VERSION );
 		wp_enqueue_style( 'flickity' );
 	}
 
@@ -91,7 +91,7 @@ class Carousel {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'flickity', SIW_ASSETS_URL . 'modules/flickity/flickity.js', [], self::FLICKITY_VERSION, true );
+		wp_register_script( 'flickity', SIW_ASSETS_URL . 'vendor/flickity/flickity.pkgd.js', [], self::FLICKITY_VERSION, true );
 		wp_enqueue_script( 'flickity' );
 	}
 

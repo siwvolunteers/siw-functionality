@@ -33,7 +33,7 @@ class Animation {
 	 * Registreert styles
 	 */
 	public function register_styles() {
-		wp_register_style( 'sal', SIW_ASSETS_URL . 'modules/sal/sal.css', null, self::SAL_VERSION );
+		wp_register_style( 'sal', SIW_ASSETS_URL . 'vendor/sal.js/sal.css', null, self::SAL_VERSION );
 		wp_enqueue_style( 'sal' );
 		$inline_css = [
 			"[data-sal|='fade']" => [
@@ -64,7 +64,7 @@ class Animation {
 	 * Registreert scripts
 	 */
 	public function register_scripts() {
-		wp_register_script( 'sal', SIW_ASSETS_URL . 'modules/sal/sal.js', [], self::SAL_VERSION, true );
+		wp_register_script( 'sal', SIW_ASSETS_URL . 'vendor/sal.js/sal.js', [], self::SAL_VERSION, true );
 		wp_enqueue_script( 'sal' );
 	
 		wp_register_script( 'siw-animation', SIW_ASSETS_URL . 'js/siw-animation.js', ['sal'], SIW_PLUGIN_VERSION, true );

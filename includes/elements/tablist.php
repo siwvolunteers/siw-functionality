@@ -41,7 +41,7 @@ class Tablist {
 	 * Voegt scripts toe
 	 */
 	protected function enqueue_scripts() {
-		wp_register_script( 'a11y-tablist', SIW_ASSETS_URL . 'modules/tablist/tablist.js', [], self::TABLIST_VERSION, true );
+		wp_register_script( 'a11y-tablist', SIW_ASSETS_URL . 'vendor/tablist/tablist.js', [], self::TABLIST_VERSION, true );
 		wp_register_script( 'siw-tablist', SIW_ASSETS_URL . 'js/elements/siw-tablist.js', ['a11y-tablist'], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-tablist');
 	}

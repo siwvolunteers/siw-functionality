@@ -51,7 +51,7 @@ class Assets {
 		wp_register_style( 'siw', SIW_ASSETS_URL . 'css/siw.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw' );
 
-		wp_register_style( 'balloon', SIW_ASSETS_URL . 'modules/balloon/balloon.css', [], self::BALLOON_VERSION );
+		wp_register_style( 'balloon', SIW_ASSETS_URL . 'vendor/balloon-css/balloon.css', [], self::BALLOON_VERSION );
 		wp_enqueue_style( 'balloon' );
 	}
 
@@ -60,7 +60,7 @@ class Assets {
 	 */
 	public function register_scripts() {
 		//JS-cookie niet zelf enqueuen; is dependency van andere scripts
-		wp_register_script( 'js-cookie', SIW_ASSETS_URL . 'modules/js-cookie/js.cookie.js', [], self::JSCOOKIE_VERSION, true );
+		wp_register_script( 'js-cookie', SIW_ASSETS_URL . 'vendor/js-cookie/js.cookie.js', [], self::JSCOOKIE_VERSION, true );
 
 		//SIW-svg script niet zelf enqueuen, wordt gebruikt door andere classes
 		wp_register_script( 'siw-svg', SIW_ASSETS_URL . 'js/siw-svg.js', [], SIW_PLUGIN_VERSION, true );

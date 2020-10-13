@@ -29,7 +29,7 @@ abstract class Interactive_Map {
 	 *
 	 * @var string
 	 */
-	protected $mapplic_url = SIW_ASSETS_URL . 'modules/mapplic/';
+	protected $mapplic_url = SIW_ASSETS_URL . 'vendor/mapplic/';
 
 	/**
 	 * ID van kaart
