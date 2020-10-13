@@ -21,19 +21,12 @@ class Autoloader {
 	protected string $base_dir;
 
 	/**
-	 * Registreert autoloader
+	 * Init
 	 */
-	public function register() {
+	public function __construct( string $base_namespace, string $base_dir ) {
+		$this->base_namespace = $base_namespace;
+		$this->base_dir = $base_dir;
 		spl_autoload_register( [ $this, 'autoload' ] );
-	}
-
-	/**
-	 * Zet base directory
-	 *
-	 * @param string $base_dir
-	 */
-	public function set_base_dir( string $base_dir ) {
-		$this->base_dir = trailingslashit( $base_dir );
 	}
 
 	/**
@@ -43,17 +36,18 @@ class Autoloader {
 	 */
 	public function autoload( string $class ) {
 
-		/* Afbreken als het geen SIW class is */
-		$path = explode( '\\', $class );
-		if ( ! is_array( $path ) || $this->base_namespace !== $path[0] ) {
+		/* Afbreken als het geen relevante class is */
+		if ( strpos( $class, $this->base_namespace ) !== 0 ) {
 			return;
 		}
 
 		//Basis-namespace verwijderen
-		unset( $path[0]);
+		$class = str_replace( $this->base_namespace . '\\', '', $class );
 
 		//Bestandsnaam opbouwen
-		$file = $this->base_dir . implode( '/', $path ) . '.php';
+		$path = str_replace( '\\', '/', $class );
+
+		$file = trailingslashit( $this->base_dir ) . $path . '.php';
 		$file = strtolower( str_replace( '_', '-', $file ) );
 		if ( file_exists( $file ) ) {
 			require_once $file;

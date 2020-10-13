@@ -86,9 +86,7 @@ class Bootstrap {
 	 */
 	protected function register_autoloader() {
 		require_once SIW_INCLUDES_DIR . '/autoloader.php';
-		$autoloader = new Autoloader();
-		$autoloader->set_base_dir( SIW_INCLUDES_DIR );
-		$autoloader->register();
+		new Autoloader( 'SIW', SIW_INCLUDES_DIR );
 	}
 
 	/**
