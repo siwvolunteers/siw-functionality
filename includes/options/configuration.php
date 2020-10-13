@@ -100,58 +100,6 @@ class Configuration extends Option {
 			],
 		];
 		$fields[] = [
-			'id'        => 'google_my_business',
-			'type'      => 'group',
-			'tab'       => 'api',
-			'fields'    => [
-				$fields[] = [
-					'type'      => 'heading',
-					'name'      => __( 'Google My Business', 'siw' ),
-				],
-				[
-					'id'        => 'client_id',
-					'name'      => __( 'Client ID', 'siw' ),
-					'type'      => 'text',
-					'append'    => '.apps.googleusercontent.com',
-					'size'      => 60,
-				],
-				[
-					'id'        => 'client_secret',
-					'name'      => __( 'Client secret', 'siw' ),
-					'type'      => 'text',
-					'size'      => 60,
-				],
-				[
-					'id'        => 'profile_id',
-					'name'      => __( 'Profile ID', 'siw' ),
-					'type'      => 'text', //TODO: select 
-					'size'      => 60,
-				],
-				[
-					'type' => 'custom_html',
-					// HTML content
-					'std'  => '<a href="https://www.siw.nl" class="button ghost">This is a custom HTML content</a>',
-				
-					// PHP function to show custom HTML
-					// 'callback' => 'display_warning',
-				],
-				
-				[
-					'id'        => 'location_id',
-					'name'      => __( 'Locations ID', 'siw' ),
-					'type'      => 'text', //TODO: select 
-					'size'      => 60,
-				],
-				[
-					'id'        => 'production_mode',
-					'name'      => __( 'Productie-mode', 'siw' ),
-					'type'      => 'switch',
-					'on_label'  => __( 'Aan', 'siw' ),
-					'off_label' => __( 'Uit', 'siw'),
-				],
-			],
-		];
-		$fields[] = [
 			'id'        => 'fixer',
 			'type'      => 'group',
 			'tab'       => 'api',
