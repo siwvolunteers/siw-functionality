@@ -23,7 +23,7 @@ class Assets {
 	/**
 	 * Versie van Polyfill.io
 	 */
-	const POLYFILL_VERSION = '3.52.1';
+	const POLYFILL_VERSION = '3.53.1';
 
 	/**
 	 * Features voor Polyfill.io
