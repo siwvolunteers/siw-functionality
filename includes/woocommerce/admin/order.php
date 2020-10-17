@@ -48,15 +48,15 @@ class Order {
 	 * Geeft velden van 1 sectie terug
 	 *
 	 * @param string $section
-	 * @return array
+	 * @return string|null
 	 */
-	protected function get_checkout_section( $section ) : array {
+	protected function get_checkout_section( $section ) : ?string {
 		$checkout_sections = $this->get_checkout_sections();
 
 		if ( isset( $checkout_sections[ $section ] ) ) {
 			return $checkout_sections[ $section ];
 		}
-		return false;
+		return null;
 	}
 
 	/**
