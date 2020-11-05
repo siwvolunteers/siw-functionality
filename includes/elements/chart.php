@@ -19,28 +19,28 @@ abstract class Chart {
 	 * 
 	 * @param string
 	 */
-	const FRAPPE_CHARTS_VERSION = '1.5.2';
+	const FRAPPE_CHARTS_VERSION = '1.5.3';
 
 	/**
 	 * Type grafiek
 	 *
 	 * @var string
 	 */
-	protected $type;
+	protected string $type;
 
 	/**
 	 * Data voor grafiek
 	 *
 	 * @var array
 	 */
-	protected $data = [];
+	protected array $data = [];
 
 	/**
 	 * Opties voor grafiek
 	 *
 	 * @var array
 	 */
-	protected $options = [];
+	protected array $options = [];
 
 	/**
 	 * Genereert grafiek
@@ -49,7 +49,7 @@ abstract class Chart {
 	 * @param string $title
 	 * @return string
 	 */
-	public function generate( array $data, array $options = [] ) {
+	public function generate( array $data, array $options = [] ) : string {
 		$this->data = $data;
 		$this->options = wp_parse_args_recursive( $options, $this->options );
 

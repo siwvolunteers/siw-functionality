@@ -15,12 +15,12 @@ class Pie extends Chart {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $type = 'pie';
+	protected string $type = 'pie';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $options = [
+	protected array $options = [
 		'height'          => 400,
 		'truncateLegends' => true,
 		'maxSlices'       => 7,
