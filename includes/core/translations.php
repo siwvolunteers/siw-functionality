@@ -11,30 +11,45 @@ namespace SIW\Core;
 class Translations {
 
 	/**
+	 * Custom translations
+	 */
+	protected array $custom_translations = [
+		'nl_NL' => [ 'woocommerce' ]
+	];
+
+	/**
 	 * Init
 	 */
 	public static function init() {
 		$self = new self();
 		add_filter( 'load_textdomain_mofile', [ $self, 'load_custom_translations'], 10, 2 );
-		load_plugin_textdomain( 'siw', false, SIW_PLUGIN_DIR . 'languages/siw/' );
+
+		$translations = [
+			'siw' => 'siw-functionality/languages/',
+		];
+
+		//Filter t.b.v. extensies
+		$translations = apply_filters( 'siw_translations', $translations );
+
+		foreach ( $translations as $textdomain => $directory ) {
+			load_plugin_textdomain( $textdomain, false, $directory );
+		}
+		load_plugin_textdomain( 'siw', false, 'siw-functionality/languages/' );
 	}
 
 	/**
 	 * Laad custom vertalingen voor
 	 * 
 	 * - WooCommerce
-	 * - SIW plugin en thema
+	 * 
 	 * @param string $mofile
 	 * @param string $domain
 	 * @return string
 	 */
 	public function load_custom_translations( string $mofile, string $domain ) : string {
-		$textdomains['nl_NL'] = [ 'woocommerce' ];
-		$textdomains['en_US'] = [ 'siw' ];
+		$locale = determine_locale();
 	
-		$locale = is_admin() ? get_user_locale() : get_locale();
-	
-		if ( isset( $textdomains[ $locale ] ) && in_array( $domain, $textdomains[ $locale ] ) ) {
+		if ( isset( $this->custom_translations[ $locale ] ) && in_array( $domain, $this->custom_translations[ $locale ] ) ) {
 			$custom_mofile = SIW_PLUGIN_DIR . "languages/{$domain}/{$locale}.mo";
 			$mofile = file_exists( $custom_mofile ) ? $custom_mofile : $mofile;
 		}
