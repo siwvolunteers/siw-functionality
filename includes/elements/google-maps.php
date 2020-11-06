@@ -24,31 +24,23 @@ class Google_Maps {
 
 	/**
 	 * Google Maps API-key
-	 *
-	 * @var string
 	 */
-	protected $api_key;
+	protected string $api_key;
 
 	/**
 	 * Hoogt van kaart in pixels
-	 *
-	 * @var int
 	 */
-	protected $height = 300;
+	protected int $height = 300;
 
 	/**
 	 * Markers voor op kaart
-	 *
-	 * @var array
 	 */
-	protected $markers = [];
+	protected array $markers = [];
 
 	/**
 	 * Opties voor kaart
-	 *
-	 * @var array
 	 */
-	protected $options = [
+	protected array $options = [
 		'zoom'              => 6,
 		'zoomControl'       => true,
 		'mapTypeControl'    => false,

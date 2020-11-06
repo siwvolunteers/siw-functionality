@@ -17,45 +17,33 @@ class World_Map {
 
 	/**
 	 * Bestandsnaam van wereldkaart
-	 *
-	 * @var string
 	 */
 	protected $map_file = SIW_ASSETS_URL . 'images/maps/world.svg';
 
 	/**
 	 * Land
-	 *
-	 * @var Country
 	 */
-	protected $country;
+	protected Country $country;
 
 	/**
 	 * Continent
-	 *
-	 * @var Continent
 	 */
-	protected $continent;
+	protected Continent $continent;
 
 	/**
 	 * Zoom-niveau
-	 *
-	 * @var int
 	 */
-	protected $zoom = 1;
+	protected int $zoom = 1;
 
 	/**
 	 * Breedte van SVG
-	 *
-	 * @var float
 	 */
-	protected $width = 1200;
+	protected float $width = 1200;
 
 	/**
 	 * Hoogte van SVG
-	 *
-	 * @var float
 	 */
-	protected $height = 760;
+	protected float $height = 760;
 
 	/**
 	 * Constructor

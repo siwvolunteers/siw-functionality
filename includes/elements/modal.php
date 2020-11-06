@@ -22,24 +22,18 @@ class Modal {
 
 	/**
 	 * ID van modal
-	 *
-	 * @var string
 	 */
-	protected $id;
+	protected string $id;
 
 	/**
 	 * Titel van de modal
-	 *
-	 * @var string
 	 */
-	protected $title;
+	protected string $title;
 
 	/**
 	 * Inhoud van de modal
-	 *
-	 * @var string
 	 */
-	protected $content;
+	protected string $content;
 
 	/**
 	 * Init

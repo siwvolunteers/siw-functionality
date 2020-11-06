@@ -24,10 +24,8 @@ class Tablist {
 
 	/**
 	 * Panes
-	 *
-	 * @var array
 	 */
-	protected $panes=[];
+	protected array $panes=[];
 
 	/**
 	 * Init

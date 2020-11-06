@@ -19,59 +19,43 @@ class Carousel {
 
 	/**
 	 * Post type
-	 *
-	 * @var string
 	 */
-	protected $post_type;
+	protected string $post_type;
 
 	/**
 	 * Taxonomy voor query
-	 *
-	 * @var string
 	 */
-	protected $taxonomy;
+	protected string $taxonomy;
 
 	/**
 	 * Term voor query
-	 *
-	 * @var string
 	 */
-	protected $term;
+	protected string $term;
 
 	/**
 	 * Meta query
-	 *
-	 * @var array
 	 */
-	protected $meta_query = [];
+	protected array $meta_query = [];
 
 	/**
 	 * Aantal items in carousel
-	 *
-	 * @var int
 	 */
-	protected $items = 6;
+	protected int $items = 6;
 
 	/**
 	 * Aantal kolommen in carousel
-	 *
-	 * @var int
 	 */
-	protected $columns = 4;
+	protected int $columns = 4;
 
 	/**
 	 * Tekst voor knop
-	 *
-	 * @var string
 	 */
-	protected $button_text;
+	protected string $button_text;
 
 	/**
 	 * Opties voor carousel
-	 *
-	 * @var array
 	 */
-	protected $options = [
+	protected array $options = [
 		'cellAlign'  => 'left',
 		'contain'    => true,
 		'wrapAround' => true,

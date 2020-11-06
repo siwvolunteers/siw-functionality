@@ -12,10 +12,8 @@ class Taxonomy_Filter {
 
 	/**
 	 * Opties
-	 *
-	 * @var array
 	 */
-	protected $options = [];
+	protected array $options = [];
 
 	/**
 	 * Constructor

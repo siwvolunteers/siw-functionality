@@ -21,17 +21,17 @@ class Netherlands extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $id = 'nl';
+	protected string $id = 'nl';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $file = 'netherlands';
+	protected string $file = 'netherlands';
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $data = [
+	protected array $data = [
 		'mapwidth'  => 600,
 		'mapheight' => 600,
 		'bottomLat' => '50.67500192979909',
@@ -43,7 +43,7 @@ class Netherlands extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $options = [
+	protected array $options = [
 		'alphabetic'   => false,
 		'search'       => true,
 		'searchfields' => ['title', 'about', 'description'],

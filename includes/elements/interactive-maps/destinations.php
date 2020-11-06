@@ -19,17 +19,17 @@ class Destinations extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $id = 'destinations';
+	protected string $id = 'destinations';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $file = 'world';
+	protected string $file = 'world';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $data = [
+	protected array $data = [
 		'mapwidth'  => 1200,
 		'mapheight' => 760,
 	];
@@ -37,7 +37,7 @@ class Destinations extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $options = [
+	protected array $options = [
 		'search'       => true,
 		'searchfields' => ['title', 'about', 'description'],
 		'hidenofilter' => true,

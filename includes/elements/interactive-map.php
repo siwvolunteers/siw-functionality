@@ -26,38 +26,28 @@ abstract class Interactive_Map {
 
 	/**
 	 * URL van Mapplic-bestanden
-	 *
-	 * @var string
 	 */
-	protected $mapplic_url = SIW_ASSETS_URL . 'vendor/mapplic/';
+	protected string $mapplic_url = SIW_ASSETS_URL . 'vendor/mapplic/';
 
 	/**
 	 * ID van kaart
-	 *
-	 * @var string
 	 */
-	protected $id;
+	protected string $id;
 
 	/**
 	 * Bestandsnaam van kaart
-	 *
-	 * @var string
 	 */
-	protected $file;
+	protected string $file;
 
 	/**
 	 * Inline CSS-regels
-	 *
-	 * @var array
 	 */
-	protected $inline_css;
+	protected array $inline_css;
 
 	/**
 	 * Gegevens van kaart
-	 *
-	 * @var array
 	 */
-	protected $options;
+	protected array $options;
 
 	/**
 	 * Haalt categorieën op

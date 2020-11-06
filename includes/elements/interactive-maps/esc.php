@@ -16,17 +16,17 @@ class ESC extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $id = 'esc';
+	protected string  $id = 'esc';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $file = 'europe';
+	protected string $file = 'europe';
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $data = [
+	protected array $data = [
 		'mapwidth'  => 600,
 		'mapheight' => 600,
 	];
@@ -34,7 +34,7 @@ class ESC extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $options = [
+	protected array $options = [
 		'search' => true,
 	];
 	

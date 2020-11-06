@@ -23,22 +23,16 @@ abstract class Chart {
 
 	/**
 	 * Type grafiek
-	 *
-	 * @var string
 	 */
 	protected string $type;
 
 	/**
 	 * Data voor grafiek
-	 *
-	 * @var array
 	 */
 	protected array $data = [];
 
 	/**
 	 * Opties voor grafiek
-	 *
-	 * @var array
 	 */
 	protected array $options = [];
 
