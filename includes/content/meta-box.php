@@ -12,31 +12,23 @@ class Meta_Box {
 
 	/**
 	 * Post type
-	 *
-	 * @var string
 	 */
-	protected $post_type;
+	protected string $post_type;
 
 	/**
 	 * Velden van de metabox
-	 *
-	 * @var array
 	 */
-	protected $fields;
+	protected array $fields;
 
 	/**
 	 * Titel van de metabox
-	 *
-	 * @var string
 	 */
-	protected $title;
+	protected string $title;
 
 	/**
 	 * Taxonomieën
-	 *
-	 * @var array
 	 */
-	protected $taxonomies;
+	protected array $taxonomies;
 
 	/**
 	 * Init

@@ -18,37 +18,37 @@ class Event extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $post_type = 'event';
+	protected string $post_type = 'event';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $menu_icon = 'dashicons-calendar-alt';
+	protected string $menu_icon = 'dashicons-calendar-alt';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $slug = 'evenementen';
+	protected string $slug = 'evenementen';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $single_width = 'mobile';
+	protected string $single_width = 'mobile';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $orderby = 'meta_value';
+	protected string $orderby = 'meta_value';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $orderby_meta_key = 'event_date';
+	protected string $orderby_meta_key = 'event_date';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_order = 'ASC';
+	protected string $archive_order = 'ASC';
 
 	/**
 	 * {@inheritDoc}

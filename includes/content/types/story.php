@@ -17,37 +17,37 @@ class Story extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $post_type = 'story';
+	protected string $post_type = 'story';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $menu_icon = 'dashicons-format-gallery';
+	protected string $menu_icon = 'dashicons-format-gallery';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $slug = 'ervaringen';
+	protected string $slug = 'ervaringen';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_taxonomy_filter = true;
+	protected bool $archive_taxonomy_filter = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_masonry = true;
+	protected bool $archive_masonry = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_column_width = 33;
+	protected int $archive_column_width = 33;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $upload_subdir = 'ervaringen';
+	protected string $upload_subdir = 'ervaringen';
 
 	/**
 	 * {@inheritDoc}

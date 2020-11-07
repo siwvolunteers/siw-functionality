@@ -16,60 +16,61 @@ use SIW\Util\Links;
  * @since     3.1.?
  */
 class TM_Country extends Type {
-	/**
-	 * {@inheritDoc}
-	 */
-	protected $post_type = 'tm_country';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $menu_icon = 'dashicons-location-alt';
+	protected string $post_type = 'tm_country';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $slug = 'vrijwilligerswerk-op-maat';
+	protected string $menu_icon = 'dashicons-location-alt';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected string $slug = 'vrijwilligerswerk-op-maat';
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_taxonomy_filter = true;
+	protected bool $archive_taxonomy_filter = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_masonry = true;
+	protected bool $archive_masonry = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_column_width = 25;
+	protected int $archive_column_width = 25;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $orderby = 'title';
+	protected string $orderby = 'title';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_order = 'ASC';
+	protected string $archive_order = 'ASC';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $admin_order = 'ASC';
+	protected string $admin_order = 'ASC';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $has_carousel_support = true;
+	protected bool $has_carousel_support = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $upload_subdir = 'op-maat';
+	protected string $upload_subdir = 'op-maat';
 	
 	/**
 	 * {@inheritDoc}

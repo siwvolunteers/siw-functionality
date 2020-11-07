@@ -14,22 +14,22 @@ class Quote extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $post_type = 'quote';
+	protected string $post_type = 'quote';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $public = false;
+	protected bool $public = false;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $menu_icon = 'dashicons-format-quote';
+	protected string $menu_icon = 'dashicons-format-quote';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $slug = 'quotes';
+	protected string $slug = 'quotes';
 
 	/**
 	 * {@inheritDoc}

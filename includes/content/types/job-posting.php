@@ -18,47 +18,47 @@ class Job_Posting extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $post_type = 'job_posting';
+	protected string $post_type = 'job_posting';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $menu_icon = 'dashicons-nametag';
+	protected string $menu_icon = 'dashicons-nametag';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $slug = 'vacatures';
+	protected string $slug = 'vacatures';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $single_width = 'mobile';
+	protected string $single_width = 'mobile';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $orderby = 'meta_value';
+	protected string $orderby = 'meta_value';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $orderby_meta_key = 'deadline';
+	protected string $orderby_meta_key = 'deadline';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_taxonomy_filter = true;
+	protected bool $archive_taxonomy_filter = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_masonry = true;
+	protected bool $archive_masonry = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_column_width = 33;
+	protected int $archive_column_width = 33;
 
 	/**
 	 * {@inheritDoc}

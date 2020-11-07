@@ -15,31 +15,23 @@ class Archive {
 
 	/**
 	 * Post type
-	 *
-	 * @var string
 	 */
-	protected $post_type;
+	protected string $post_type;
 
 	/**
 	 * Taxonomieën
-	 *
-	 * @var array
 	 */
-	protected $taxonomies;
+	protected array $taxonomies;
 
 	/**
 	 * Opties voor archief-pagina
-	 *
-	 * @var array
 	 */
-	protected $archive_options;
+	protected array $archive_options;
 
 	/**
 	 * Instantie van Taxonomy Filter
-	 *
-	 * @var Taxonomy_Filter
 	 */
-	protected $taxonomy_filter;
+	protected Taxonomy_Filter $taxonomy_filter;
 
 	/**
 	 * Init

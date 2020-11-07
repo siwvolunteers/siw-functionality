@@ -11,38 +11,28 @@ namespace SIW\Content;
 class Post_Type {
 	/**
 	 * Post type
-	 *
-	 * @var string
 	 */
-	protected $post_type;
+	protected string $post_type;
 
 	/**
 	 * Labels
-	 *
-	 * @var array
 	 */
-	protected $labels;
+	protected array $labels;
 
 	/**
 	 * Undocumented variable
-	 *
-	 * @var array
 	 */
-	protected $args = [];
+	protected array $args = [];
 
 	/**
 	 * Slug voor losse post
-	 *
-	 * @var string
 	 */
-	protected $single_slug;
+	protected string $single_slug;
 
 	/**
 	 * Slug voor archiefpagina
-	 *
-	 * @var string
 	 */
-	protected $archive_slug;
+	protected string $archive_slug;
 
 	public function __construct( string $post_type, array $args, array $labels, string $single_slug, string $archive_slug ) {
 		$this->post_type = $post_type;
