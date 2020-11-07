@@ -12,10 +12,8 @@ class HTML {
 
 	/**
 	 * Void tags
-	 *
-	 * @var array
 	 */
-	public static $void_tags = [
+	public static array $void_tags = [
 		'area',
 		'base',
 		'br',

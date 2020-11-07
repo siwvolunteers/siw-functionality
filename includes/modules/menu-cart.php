@@ -14,9 +14,6 @@ class Menu_Cart {
 
 	/**
 	 * Menu-locaties
-	 *
-	 * @var array
-	 * 
 	 * @todo verplaatsen naar configuratie
 	 */
 	protected array $menu_locations = [

@@ -16,10 +16,8 @@ class Confirmation_Page {
 
 	/**
 	 * Boodschap voor gebruiker
-	 *
-	 * @var string
 	 */
-	protected $message;
+	protected string $message;
 
 	/**
 	 * Init

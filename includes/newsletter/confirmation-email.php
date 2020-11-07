@@ -17,31 +17,23 @@ class Confirmation_Email {
 
 	/**
 	 * E-mailadres
-	 *
-	 * @var string
 	 */
-	protected $email;
+	protected string $email;
 
 	/**
 	 * ID van maillijst
-	 *
-	 * @var int
 	 */
-	protected $list_id;
+	protected int $list_id;
 
 	/**
 	 * Properties voor Mailjet
-	 *
-	 * @var array
 	 */
-	protected $properties;
+	protected array $properties;
 
 	/**
 	 * E-mail instellingen
-	 *
-	 * @var array
 	 */
-	protected $email_settings;
+	protected array $email_settings;
 	
 	/**
 	 * Init
