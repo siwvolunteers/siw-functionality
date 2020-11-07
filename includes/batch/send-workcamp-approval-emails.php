@@ -23,12 +23,12 @@ class Send_Workcamp_Approval_Emails extends Job {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'versturen email goedkeuren groepsprojecten';
+	protected string $name = 'versturen email goedkeuren groepsprojecten';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'groepsprojecten';
+	protected string $category = 'groepsprojecten';
 
 	/**
 	 * Selecteer categorieën

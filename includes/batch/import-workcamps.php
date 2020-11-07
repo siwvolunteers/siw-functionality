@@ -28,22 +28,22 @@ class Import_Workcamps extends Job {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'importeren Groepsprojecten';
+	protected string $name = 'importeren Groepsprojecten';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'plato';
+	protected string $category = 'plato';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $schedule_job = false;
+	protected bool $schedule_job = false;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $batch_size = 50;
+	protected int $batch_size = 50;
 
 	/**
 	 * Haal Groepsprojecten op uit Plato

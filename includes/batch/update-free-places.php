@@ -20,17 +20,17 @@ class Update_Free_Places extends Job {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'bijwerken vrije plaatsen';
+	protected string $name = 'bijwerken vrije plaatsen';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'plato';
+	protected string $category = 'plato';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $schedule_job = false;
+	protected bool $schedule_job = false;
 
 	/**
 	 * Bepaalt of er nog vrije plaatsen op het project zijn

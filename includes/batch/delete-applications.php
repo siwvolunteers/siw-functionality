@@ -18,12 +18,12 @@ class Delete_Applications extends Job {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'verwijderen aanmeldingen';
+	protected string $name = 'verwijderen aanmeldingen';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'groepsprojecten';
+	protected string $category = 'groepsprojecten';
 	
 	/**
 	 * Selecteer de aanmeldingen van meer dan 1 jaar oud

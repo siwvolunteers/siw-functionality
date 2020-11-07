@@ -27,12 +27,12 @@ class Import_Dutch_Workcamps extends Import_Workcamps {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'importeren Nederlandse Groepsprojecten';
+	protected string $name = 'importeren Nederlandse Groepsprojecten';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'plato';
+	protected string $category = 'plato';
 
 	/**
 	 * Haal Nederlandse Groepsprojecten op uit Plato

@@ -27,45 +27,33 @@ abstract class Job extends \WP_Background_Process {
 
 	/**
 	 * Optie voor logger-context
-	 *
-	 * @var string
 	 */
-	protected $logger_context_option;
+	protected string $logger_context_option;
 
 	/**
 	 * Optie voor teller verwerkte items
-	 *
-	 * @var string
 	 */
-	protected $processed_count_option;
+	protected string $processed_count_option;
 
 	/**
 	 * Naam van proces (voor logging en admin bar)
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * Category (voor admin bar)
-	 *
-	 * @var string
 	 */
-	protected $category;
+	protected string $category;
 
 	/**
 	 * Grootte van batch
-	 * 
-	 * @var int
 	 */
-	protected $batch_size = 500;
+	protected int $batch_size = 500;
 
 	/**
 	 * Geeft aan of deze batch job ingepland moet worden
-	 *
-	 * @var bool
 	 */
-	protected $schedule_job = true;
+	protected bool $schedule_job = true;
 
 	/**
 	 * Initiate new background process

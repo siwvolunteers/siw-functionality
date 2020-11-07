@@ -21,19 +21,17 @@ class Update_Terms extends Job {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'bijwerken terms';
+	protected string $name = 'bijwerken terms';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'algemeen';
+	protected string $category = 'algemeen';
 
 	/**
 	 * Is de term bijgewerkt?
-	 *
-	 * @var bool
 	 */
-	protected $updated;
+	protected bool $updated;
 
 	/**
 	 * Selecteer de terms van de relevante taxonomieën

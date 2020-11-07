@@ -49,33 +49,27 @@ class Update_Workcamps extends Job {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'bijwerken Groepsprojecten';
+	protected string $name = 'bijwerken Groepsprojecten';
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'groepsprojecten';
+	protected string $category = 'groepsprojecten';
 
 	/**
 	 * Product
-	 *
-	 * @var \WC_Product
 	 */
-	protected $product;
+	protected \WC_Product $product;
 
 	/**
 	 * Is het project bijgewerkt?
-	 *
-	 * @var bool
 	 */
-	protected $updated;
+	protected bool $updated;
 
 	/**
 	 * Is het project verwijderd?
-	 *
-	 * @var bool
 	 */
-	protected $deleted;
+	protected bool $deleted;
 
 	/**
 	 * Selecteer alle projecten
