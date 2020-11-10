@@ -231,7 +231,7 @@ class Carousel {
 		}
 
 		//In het geval van Groepsprojecten alleen zichtbare projecten tonen (tenzij er al op product_visibility gefilterd wordt)
-		if ( 'product' == $this->post_type && 'product_visibility' != $this->taxonomy ) {
+		if ( 'product' == $this->post_type && ( ! isset( $this->taxonomy ) || 'product_visibility' != $this->taxonomy ) ) {
 			$args['tax_query'][] = [
 				'taxonomy' => 'product_visibility',
 				'terms'    => [ 'exclude-from-search', 'exclude-from-catalog'],
