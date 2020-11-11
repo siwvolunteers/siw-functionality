@@ -24,6 +24,7 @@ class Pie extends Chart {
 		'height'          => 400,
 		'truncateLegends' => true,
 		'maxSlices'       => 7,
+		'tooltipOptions'  => [], //TODO: Verwijderen als deze opgelost is: https://github.com/frappe/charts/issues/314
 	];
 
 	/**
