@@ -165,6 +165,20 @@ class Properties {
 	const TAILOR_MADE_FEE_REGULAR = 399;
 
 	/**
+	 * Inschrijfgeld Op Maat (duo)
+	 *
+	 * @var int
+	 */
+	const TAILOR_MADE_FEE_DUO = 550;
+
+	/**
+	 * Inschrijfgeld Op Maat (familie)
+	 *
+	 * @var int
+	 */
+	const TAILOR_MADE_FEE_FAMILY = 750;
+
+	/**
 	 * Inschrijfgeld Op Maat (student) - korting
 	 *
 	 * @var int

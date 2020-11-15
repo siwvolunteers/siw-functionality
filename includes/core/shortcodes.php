@@ -55,6 +55,8 @@ class Shortcodes {
 			'groepsproject_tarief_regulier' => __( 'Groepsprojecten - Regulier tarief', 'siw' ),
 			'op_maat_tarief_student'        => __( 'Op Maat - Studententarief', 'siw' ),
 			'op_maat_tarief_regulier'       => __( 'Op Maat - Regulier tarief', 'siw' ),
+			'op_maat_tarief_duo'            => __( 'Op Maat - Duo-tarief', 'siw' ),
+			'op_maat_tarief_familie'        => __( 'Op Maat - Familie-tarief', 'siw' ),
 			'scholenproject_tarief'         => __( 'Scholenproject - tarief', 'siw' ),
 			'korting_tweede_project'        => __( 'Korting tweede project', 'siw' ),
 			'leeftijd'                      => __( 'Leeftijd van SIW', 'siw' ),
@@ -258,6 +260,23 @@ class Shortcodes {
 		return Formatting::format_amount( Properties::TAILOR_MADE_FEE_REGULAR );
 	}
 
+	/**
+	 * Inschrijfgeld Op Maat-project (duo)
+	 *
+	 * @return string
+	 */
+	public static function render_op_maat_tarief_duo() : string {
+		return Formatting::format_amount( Properties::TAILOR_MADE_FEE_DUO );
+	}
+
+	/**
+	 * Inschrijfgeld Op Maat-project (familie)
+	 *
+	 * @return string
+	 */
+	public static function render_op_maat_tarief_familie() : string {
+		return Formatting::format_amount( Properties::TAILOR_MADE_FEE_FAMILY );
+	}
 	/**
 	 * Inschrijfgeld scholenproject
 	 *
