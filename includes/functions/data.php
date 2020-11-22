@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use function Donut\Util\array_dig;
+
 /**
  * Functies m.b.t. referentiegegevens
  * 
@@ -38,7 +40,15 @@ function siw_get_data( string $file ) {
  */
 function siw_meta( string $key, array $args = [], int $post_id = null ) {
 	if ( function_exists( 'rwmb_meta' ) ) {
-		return rwmb_meta( $key, $args, $post_id );
+		$keys = explode( '.', $key );
+		$value = rwmb_meta( $keys[0], $args, $post_id );
+
+		unset( $keys[0]);
+		if ( ! empty( $keys ) ) {
+			$value = array_dig( $value, $keys );
+		}
+
+		return $value;
 	}
 	return null;
 }
