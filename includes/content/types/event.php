@@ -212,6 +212,43 @@ class Event extends Type {
 					],
 				],
 			],
+			[
+				'name'     => __( 'Organisator', 'siw' ),
+				'type'     => 'heading',
+				'visible'   => [ 'info_day', false ],
+			],
+			[
+				'id'        => 'different_organizer',
+				'name'      => __( 'Andere organisator', 'siw' ),
+				'type'      => 'switch',
+				'visible'   => [ 'info_day', false ],
+				'on_label'  => __( 'Ja', 'siw' ),
+				'off_label' => __( 'Nee', 'siw' ),
+			],
+
+			[
+				'id'        => 'organizer',
+				'type'      => 'group',
+				'visible'   => [ 'different_organizer', true ],
+				'fields'    => [
+
+					[
+						'id'       => 'name',
+						'name'     => __( 'Naam', 'siw' ),
+						'type'     => 'text',
+						'required' => true,
+						'binding'  => false,
+					],
+					[
+						'id'       => 'url',
+						'name'     => __( 'Url', 'siw' ),
+						'type'     => 'url',
+						'required' => true,
+						'size'     => 100,
+						'binding'  => false,
+					],
+				],
+			],
 		];
 		return $meta_box_fields;
 	}
@@ -350,7 +387,17 @@ class Event extends Type {
 			$location_map->set_options(['zoom' => 15 ]);
 
 			echo '<h2>' . esc_html__( 'Locatie', 'siw') . '</h2>';
-			$location_map->render();
+			echo '<p>' . $location_map->generate() . '</p>';
+		}
+
+		//Organisator
+		if ( ! siw_meta( 'info_day' ) && siw_meta( 'different_organizer') ) {
+			echo '<h2>' . esc_html__( 'Organisator', 'siw') . '</h2>';
+			echo sprintf(
+				__( 'Dit evenement wordt georganiseerd door %s (%s).'),
+				esc_html( siw_meta('organizer.name') ),
+				Links::generate_external_link( siw_meta( 'organizer.url' ) )
+			);
 		}
 	}
 
