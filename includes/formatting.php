@@ -162,7 +162,7 @@ class Formatting {
 	 *
 	 * @return string
 	 */
-	public static function format_month( $date, $year = true ) : string {
+	public static function format_month( string $date, bool $year = true ) : string {
 		$format = $year ? 'F Y' :  'F';
 		return wp_date( $format, strtotime( $date ) );
 	}
