@@ -68,7 +68,7 @@ class Contact extends Widget {
 						sprintf( '%s | %s %s', Properties::ADDRESS, Properties::POSTCODE, Properties::CITY ),
 						sprintf( '%s | %s',
 							Links::generate_tel_link( Properties::PHONE_INTERNATIONAL, Properties::PHONE ),
-							Links::generate_tel_link( Properties::EMAIL )
+							Links::generate_mailto_link( Properties::EMAIL )
 						),
 						Links::generate_link(
 							'https://api.whatsapp.com/send?phone='. Properties::WHATSAPP_FULL,
