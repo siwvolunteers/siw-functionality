@@ -75,7 +75,7 @@ $data = [
 		'color'               => '#25D366',
 		'follow'              => false,
 		'share'               => true,
-		'share_url_template'  => 'https://api.whatsapp.com/send?&text={{ url }}',
+		'share_url_template'  => 'https://api.whatsapp.com/send?text={{ url }}',
 	],
 ];
 
