@@ -51,6 +51,7 @@ class Import_Workcamps extends Import {
 		'descr_accomodation_and_food',
 		'descr_location_and_leisure',
 		'descr_requirements',
+		'descr_appointement',
 		'airport',
 		'train_bus_station',
 		'numvol_m',
