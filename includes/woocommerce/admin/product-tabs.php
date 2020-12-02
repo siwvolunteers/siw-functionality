@@ -17,7 +17,7 @@ class Product_Tabs {
 	public static function init() {
 		$self = new self();
 		add_filter( 'woocommerce_product_data_tabs', [ $self, 'add_tabs'] );
-		add_filter( 'woocommerce_product_data_tabs', [ $self, 'hide_tabs'] );
+		add_filter( 'woocommerce_product_data_tabs', [ $self, 'hide_tabs'], PHP_INT_MAX );
 		
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_description_tab'] );
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_approval_tab'] );
@@ -75,14 +75,15 @@ class Product_Tabs {
 	 * @return array
 	 */
 	public function hide_tabs( array $tabs ) : array {
-		$tabs['advanced']['class'] = [ 'show_if_simple'];
-		$tabs['shipping']['class'] = [ 'show_if_simple'];
-		$tabs['linked_product']['class'] = [ 'show_if_simple'];
-		if ( ! current_user_can( 'manage_options' ) ) {
-			$tabs['inventory']['class'] = [ 'show_if_simple'];
-			$tabs['attribute']['class'] = [ 'show_if_simple'];
-			$tabs['variations']['class'] = [ 'show_if_simple'];
+		$tabs['advanced']['class'] = ['show_if_simple'];
+		$tabs['shipping']['class'] = ['show_if_simple'];
+		$tabs['Mollie']['class'] = ['show_if_simple'];
+		$tabs['linked_product']['class'] = ['show_if_simple'];
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			$tabs['inventory']['class'] = ['show_if_simple'];
+			$tabs['attribute']['class'] = ['show_if_simple'];
+			$tabs['variations']['class'] = ['show_if_simple'];
 		}
 		return $tabs;
 	}
