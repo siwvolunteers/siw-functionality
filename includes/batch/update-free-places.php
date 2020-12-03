@@ -65,7 +65,6 @@ class Update_Free_Places extends Job {
 
 		//Zoek project op basis van project_id
 		$args = [
-			'visibility' => 'visible',
 			'project_id' => $item['project_id'],
 			'return'     => 'objects',
 			'limit'      => -1,
