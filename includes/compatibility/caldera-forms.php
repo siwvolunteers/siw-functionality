@@ -101,7 +101,7 @@ class Caldera_Forms {
 	 * @param string $tag
 	 * @return string
 	 */
-	public function set_summary_magic_table( ?string $value, string $tag ) : string {
+	public function set_summary_magic_table( ?string $value, string $tag ) : ?string {
 		if ( '{summary}' !== $tag ) {
 			return $value;
 		}
