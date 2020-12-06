@@ -124,7 +124,7 @@ abstract class Endpoint {
 	 */
 	public function verify_nonce( \WP_REST_Request $request ) : bool {
 		$nonce = $request->get_header( 'x_wp_nonce' );
-		return wp_verify_nonce( $nonce, 'wp_rest' );
+		return boolval( wp_verify_nonce( $nonce, 'wp_rest' ) );
 	}
 
 	/**
