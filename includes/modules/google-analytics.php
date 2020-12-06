@@ -181,7 +181,7 @@ class Google_Analytics {
 				$product_data,
 				[
 					'variant'  => $variation->get_variation_attributes()['attribute_pa_tarief'],
-					'price'    => number_format( $variation->get_price(), 2 ),
+					'price'    => number_format( floatval( $variation->get_price() ), 2 ),
 					'quantity' => 1,
 				]
 			);
