@@ -23,7 +23,7 @@ class Animation {
 	/**
 	 * Threshold voor animatie
 	 */
-	CONST THRESHOLD = 0.5;
+	CONST THRESHOLD = 0.25;
 
 	/**
 	 * Init
