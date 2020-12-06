@@ -1,6 +1,6 @@
 /*
  * Mapplic - Custom Interactive Map Plugin by @sekler
- * Version 6.0.2
+ * Version 6.1.3
  * https://www.mapplic.com/
  */
 
@@ -55,11 +55,7 @@
 }
 
 /* Map layer */
-.mapplic-layer { visibility: hidden; }
-.mapplic-visible.mapplic-layer { visibility: visible; }
-.mapplic-layer img {
-	width: 100%;
-}
+.mapplic-layer img { width: 100%; }
 
 .mapplic-map .mapplic-map-image {
 	position: absolute;
@@ -70,15 +66,29 @@
 	-ms-user-select: none;
 	user-select: none;
 }
-/* IE Fix END */
 
-.mapplic-map.mapplic-zoomable .mapplic-map-image {
-	cursor: url(images/openhand.cur), default;
+/* Animation and stuff */
+.mapplic-layer {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	/*transform: scale(0.9);*/
+	opacity: 0;
+	transition: transform 0.3s, opacity 0.3s;
+}
+.mapplic-layer.mapplic-visible { 
+	visibility: visible;
+	/*transform: scale(1);*/
+	opacity: 1;
 }
 
-.mapplic-map.mapplic-zoomable.mapplic-dragging .mapplic-map-image {
-	cursor: url(images/closedhand.cur), move;
-}
+.mapplic-layer.mapplic-hidden { visibility: hidden; }
+.mapplic-layer.mapplic-layer-up { transform: /*scale(1.1)*/ translateY(-100px); }
+.mapplic-layer.mapplic-layer-down { transform: /*scale(0.9)*/ translateY(100px); }
+
+/* Hand cursor */
+.mapplic-map.mapplic-zoomable .mapplic-map-image { cursor: url(images/openhand.cur), default; }
+.mapplic-map.mapplic-zoomable.mapplic-dragging .mapplic-map-image { cursor: url(images/closedhand.cur), move; }
 
 /* Marker types */
 .mapplic-pin {
@@ -412,11 +422,19 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	border: none !important;
+	border-radius: 0;
 	cursor: pointer;
 	width: 28px;
 	height: 28px;
-	transition: background-color 0.2s;
+	padding: 0;
 	position: relative;
+	transition: background-color 0.2s;
+}
+
+.mapplic-element button:focus,
+.mapplic-button:hover,
+.mapplic-button:focus {
+	background-color: #fff;
 }
 
 .mapplic-container > .mapplic-button {
@@ -440,6 +458,7 @@
 .mapplic-clear-button {
 	background-size: 16px 16px;
 	display: none;
+	font-size: 0;
 	bottom: 69px;
 	right: 0;
 }
@@ -457,7 +476,7 @@
 	display: block;
 }
 
-.mapplic-zoom-buttons .mapplic-disabled {
+.mapplic-zoom-buttons button:disabled {
 	background-color: #eee;
 	cursor: default;
 }
@@ -505,7 +524,6 @@ button.mapplic-zoomout-button {
 	top: 0;
 	right: 0;
 	margin: 12px;
-	overflow: hidden;
 }
 
 .mapplic-levels > * {
@@ -519,9 +537,10 @@ button.mapplic-zoomout-button {
 	border-radius: 0;
 	color: #2f3435;
 	margin: 0;
-	padding: 10px 8px;
+	padding: 8px;
 	margin-right: 20px;
-	font-size: 13px;
+	font-size: 14px;
+	line-height: 20px;
 	font-weight: 600;
 	outline: none;
 	-webkit-appearance: none;
@@ -533,7 +552,9 @@ button.mapplic-zoomout-button {
 	background-position: center;
 	background-size: 8px 4px;
 	border: none;
+	border-radius: 0;
 	cursor: pointer;
+	padding: 0;
 	height: 50%;
 	width: 20px;
 	position: absolute;
@@ -552,7 +573,7 @@ button.mapplic-zoomout-button {
 	top: 50%;
 }
 
-.mapplic-levels .mapplic-disabled {
+.mapplic-levels button:disabled {
 	background-color: #eee;
 	cursor: default;
 }
@@ -616,13 +637,13 @@ button.mapplic-zoomout-button {
 	padding: 24px 24px 4px 0 !important;
 }
 
-.mapplic-search-input:focus {
-	outline: none !important;
-}
-
 .mapplic-search-input::placeholder {
 	opacity: 0.5;
 	font-weight: 400;
+}
+
+input.mapplic-search-input:focus {
+	outline: none;
 }
 
 .mapplic-search-input::-ms-clear { display: none; width:0; height:0; }
@@ -643,6 +664,11 @@ button.mapplic-zoomout-button {
 	right: 8px;
 	width: 34px;
 	height: 34px;
+}
+
+.mapplic-search-clear:hover,
+.mapplic-search-clear:focus {
+	background-color: transparent;
 }
 
 .mapplic-icon.mapplic-icon-cross {
@@ -672,6 +698,7 @@ button.mapplic-zoomout-button {
 .mapplic-tag {
 	background-color: #2f3434;
 	border-radius: 12px;
+	border: none;
 	color: #fff;
 	cursor: pointer;
 	font-size: 11px;
@@ -761,7 +788,8 @@ button.mapplic-zoomout-button {
 	transition: background-color 0.2s;
 }
 
-.mapplic-list-category > a:hover {
+.mapplic-list-category > a:hover,
+.mapplic-list-category > a:focus {
 	background-color: #f8f8f8;
 }
 
@@ -927,6 +955,10 @@ button.mapplic-zoomout-button {
 	padding: 16px;
 }
 
+.mapplic-tooltip-body:focus {
+	outline: none;
+}
+
 .mapplic-tooltip-body::after {
 	content: '';
 	clear: both;
@@ -999,6 +1031,7 @@ button.mapplic-zoomout-button {
 	box-shadow: 0 0 6px rgba(0, 0, 0, 0.1) !important;
 	color: #fff !important;
 	font-size: 14px;
+	line-height: 20px;
 	font-weight: 600;
 	display: inline-block;
 	float: right;
@@ -1230,7 +1263,8 @@ g.mapplic-clickable > * {
 	pointer-events: none;
 }
 
-[id^=landmarks] .mapplic-clickable {
+[id^=MLOC] .mapplic-clickable,
+[id^=landmark] .mapplic-clickable {
 	cursor: pointer;
 }
 
@@ -1247,6 +1281,37 @@ g.mapplic-clickable > * {
 	left: 50%;
 	pointer-events: none;
 }
+
+/* IE workaround */
+@media all and (-ms-high-contrast:none) {
+	.mapplic-zoomout-button { background: #fff url(images/ie/minus.svg) no-repeat center !important; } 
+	.mapplic-zoomin-button { background: #fff url(images/ie/plus.svg) no-repeat center !important; }
+	.mapplic-clear-button { background: #fff url(images/ie/reset.svg) no-repeat center !important; }
+	.mapplic-fullscreen-button { background: #fff url(images/ie/fullscreen.svg) no-repeat center !important; }
+	.mapplic-fullscreen .mapplic-fullscreen-button { background: #fff url(images/ie/fullscreen-exit.svg) no-repeat center !important; }
+	.mapplic-levels .mapplic-levels-up { background: #fff url(images/ie/arrow-up.svg) no-repeat center !important; } 
+	.mapplic-levels .mapplic-levels-down { background: #fff url(images/ie/arrow-down.svg) no-repeat center !important; }
+	.mapplic-search-clear { background: #fff url(images/ie/cross.svg) no-repeat center !important; }
+}
+
+/* Accessibility */
+.mapplic-accessible.mapplic-element input:focus,
+.mapplic-accessible.mapplic-element button:focus,
+.mapplic-accessible.mapplic-element a:focus,
+.mapplic-accessible.mapplic-element select:focus,
+.mapplic-accessible.mapplic-element *[aria-modal="true"] {
+	z-index: 1000;
+	outline: solid rgba(0, 115, 170, 0.15);
+	outline-offset: 2px;
+}
+
+.mapplic-accessible.mapplic-element input.mapplic-search-input:focus {
+	outline: solid rgba(0, 115, 170, 0.15);
+	outline-offset: 6px;
+}
+
+.mapplic-accessible.mapplic-element input:focus { outline-offset: 6px; }
+.mapplic-accessible.mapplic-element select:focus { position: relative; }
 
 /* SKINS */
 /* mapplic-booking */
@@ -1296,13 +1361,19 @@ g.mapplic-active > * {
 	fill: #4D5E6D !important;
 }
 
+/* Init shape */
+[id^=MLOC] > #init, [id^=landmark] > #init, svg > #items > #init { visibility: hidden; }
+
 /* Highlight */
 .mapplic-filtered .mapplic-pin { opacity: 0.4 !important; }
 .mapplic-filtered .mapplic-pin.mapplic-highlight {
 	display: block !important;
 	opacity: 1 !important;
 }
-.mapplic-filtered svg [id^=landmark] > * { opacity: 0.4 !important; }
+.mapplic-filtered svg [id^=MLOC] > *,
+.mapplic-filtered svg [id^=landmark] > * {
+	opacity: 0.4 !important;
+}
 .mapplic-filtered .mapplic-clickable.mapplic-highlight { opacity: 1 !important; }
 
 /* CUSTOM STYLES */
