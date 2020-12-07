@@ -93,7 +93,7 @@ class Currency {
 		if ( is_null( $exchange_rate ) ) {
 			return null;
 		}
-		$amount_in_euro = (float) $amount * (float) $exchange_rate;
+		$amount_in_euro = $amount * $exchange_rate;
 		return number_format_i18n( $amount_in_euro, $decimals );
 	}
 }

@@ -60,21 +60,6 @@ class Formatting {
 	}
 
 	/**
-	 * Genereert kolommen
-	 *
-	 * @param array $cells
-	 * @return string
-	 */
-	public static function generate_columns( array $cells ) : string {
-		$columns = '<div class="grid-container">';
-		foreach ( $cells as $cell ){
-			$columns .= sprintf( '<div class="grid-%s">%s</div>', $cell['width'], do_shortcode( $cell['content'] ) );
-		}
-		$columns .= '</div>';
-		return $columns;
-	}
-
-	/**
 	 * Parset template o.b.v. variabelen
 	 *
 	 * @param string $template

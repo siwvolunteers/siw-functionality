@@ -59,3 +59,15 @@ function siw_get_social_networks( $context = 'all', string $return = 'objects' )
 
 	return $social_networks;
 }
+
+/**
+ * Haalt gegevens van social network op (o.b.v. slug)
+ *
+ * @param string $slug
+ *
+ * @return Social_Network|null
+ */
+function siw_get_social_network( string $slug ) : ?Social_Network {
+	$social_networks = siw_get_social_networks();
+	return $social_networks[ $slug ] ?? null;
+}
