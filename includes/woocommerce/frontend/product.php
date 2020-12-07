@@ -169,7 +169,7 @@ class Product {
 		?>
 		<div class="participation-fee">
 			<?php printf( esc_html__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s %s.', 'siw' ), $symbol, $amount );?>
-			<?php if ( isset( $amount_in_euro ) && is_float( $amount_in_euro ) ):?>
+			<?php if ( isset( $amount_in_euro ) && ! empty( $amount_in_euro ) ):?>
 				&nbsp;<?php printf ( esc_html__( '(Ca. &euro; %s)', 'siw' ), $amount_in_euro ); ?>
 			<?php endif ?>
 		</div>
