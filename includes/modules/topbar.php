@@ -39,7 +39,7 @@ class Topbar {
 	/**
 	 * Inhoud van de topbar
 	 */
-	protected ?string $content;
+	protected ?array $content;
 
 	/**
 	 * Init
