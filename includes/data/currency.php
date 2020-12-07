@@ -86,9 +86,9 @@ class Currency {
 	 * @param float $amount
 	 * @param int $decimals
 	 *
-	 * @return float|null
+	 * @return string|null
 	 */
-	public function convert_to_euro( float $amount, int $decimals = 0 ) : ?float {
+	public function convert_to_euro( float $amount, int $decimals = 0 ) : ?string {
 		$exchange_rate = $this->get_exchange_rate();
 		if ( is_null( $exchange_rate ) ) {
 			return null;
