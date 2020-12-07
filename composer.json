@@ -13,7 +13,9 @@
 		"kallookoo/wp_parse_args_recursive": "1.*",
 		"deliciousbrains/wp-background-processing": "dev-master",
 		"spatie/array-to-xml": "2.*",
-		"donut/array_dig": "*"
+		"donut/array_dig": "*",
+		"woocommerce/action-scheduler": "3.*",
+		"mustache/mustache": "2.*"
 	},
 	"autoload": {
 		"files": [
