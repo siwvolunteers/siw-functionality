@@ -24,7 +24,6 @@ var siwTablist = (function () {
 		}
 	}
 
-
 })();
 
 siwTablist.init();

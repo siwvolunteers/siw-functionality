@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Plato;
 
@@ -13,26 +13,24 @@ class Import_FPL extends Import {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $endpoint = 'GetAllFreePlaces';
+	protected string $endpoint = 'GetAllFreePlaces';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'importeren FPL';
+	protected string $name = 'importeren FPL';
 
 	/**
-	 * Name van background process
-	 *
-	 * @var string
+	 * {@inheritDoc}
 	 */
-	protected $process_name = 'update_free_places';
+	protected string $process_name = 'update_free_places';
 
 	/**
 	 * Eigenschappen per project
 	 *
 	 * @var array
 	 */
-	protected $properties = [
+	protected array $properties = [
 		'project_id',
 		'code',
 		'free_m',
@@ -51,7 +49,7 @@ class Import_FPL extends Import {
 			foreach ( $this->properties as $property ) {
 				$project_data[ $property ] = (string) $project->$property;
 			}
-			$this->data[] = $project_data;		
+			$this->data[] = $project_data;
 		}
 	}
 }

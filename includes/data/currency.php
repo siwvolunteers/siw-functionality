@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Data;
 
@@ -14,24 +14,18 @@ class Currency {
 
 	/**
 	 * ISO-code
-	 *
-	 * @var string
 	 */
-	protected $iso_code;
+	protected string $iso_code;
 
 	/**
 	 * Naam
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * Valuta-teken
-	 *
-	 * @var string
 	 */
-	protected $symbol;
+	protected string $symbol;
 
 	/**
 	 * @param array $data
@@ -54,7 +48,7 @@ class Currency {
 	 *
 	 * @return string
 	 */
-	public function get_iso_code() {
+	public function get_iso_code() : string {
 		return $this->iso_code;
 	}
 
@@ -63,7 +57,7 @@ class Currency {
 	 *
 	 * @return string
 	 */
-	public function get_name() {
+	public function get_name() : string {
 		return $this->name;
 	}
 
@@ -72,16 +66,16 @@ class Currency {
 	 *
 	 * @return string
 	 */
-	public function get_symbol() {
+	public function get_symbol() : string {
 		return $this->symbol;
 	}
 
 	/**
 	 * Geeft wisselkoers van huidige valuta naar Euro terug
 	 *
-	 * @return float
+	 * @return float|null
 	 */
-	public function get_exchange_rate() {
+	public function get_exchange_rate() : ?float {
 		$exchange_rates = new Exchange_Rates();
 		return $exchange_rates->get_rate( $this->iso_code );
 	}
@@ -91,14 +85,14 @@ class Currency {
 	 *
 	 * @param float $amount
 	 * @param int $decimals
-	 * @return float
+	 *
+	 * @return float|null
 	 */
-	public function convert_to_euro( float $amount, int $decimals = 0 ) {
+	public function convert_to_euro( float $amount, int $decimals = 0 ) : ?float {
 		$exchange_rate = $this->get_exchange_rate();
-		if ( false == $exchange_rate ) {
-			return false;
+		if ( is_null( $exchange_rate ) ) {
+			return null;
 		}
-	
 		$amount_in_euro = (float) $amount * (float) $exchange_rate;
 		return number_format_i18n( $amount_in_euro, $decimals );
 	}

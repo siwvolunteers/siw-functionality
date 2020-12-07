@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -22,12 +22,12 @@ class Quick_Search_Form extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='quick_search_form';
+	protected string $widget_id ='quick_search_form';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'search';
+	protected string $widget_dashicon = 'search';
 
 	/**
 	 * {@inheritDoc}
@@ -60,16 +60,16 @@ class Quick_Search_Form extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string { 
 		$result_page_url = wp_make_link_relative( get_permalink( $instance['result_page'] ) );
 		ob_start();
 		?>
 		<div>
 			<form id="siw_quick_search" method="get" action="<?= esc_url( $result_page_url );?>">
 				<ul>
-					<li><?= HTML::generate_field( 'select', [ 'name' => 'bestemming', 'id' => 'bestemming', 'options' => $this->get_destinations() ] );?></li>
-					<li><?= HTML::generate_field( 'select', [ 'name' => 'maand', 'id' => 'maand', 'options' => $this->get_months() ] );?></li>
-					<li><?= HTML::generate_field( 'submit', [ 'value' => __( 'Zoeken', 'siw' ) ] );?></li>
+					<li><?= HTML::generate_field( 'select', [ 'name' => 'bestemming', 'id' => 'bestemming', 'class' => 'select-css', 'options' => $this->get_destinations() ] );?></li>
+					<li><?= HTML::generate_field( 'select', [ 'name' => 'maand', 'id' => 'maand', 'class' => 'select-css', 'options' => $this->get_months() ] );?></li>
+					<li><?= HTML::generate_field( 'submit', [ 'value' => __( 'Zoeken', 'siw' ), 'class' => 'button' ] );?></li>
 				</ul>
 			</form>
 		</div>
@@ -83,20 +83,25 @@ class Quick_Search_Form extends Widget {
 	 * 
 	 * @return array
 	 */
-	protected function get_destinations() {
+	protected function get_destinations() : array {
 
 		$categories = get_terms( [
 			'taxonomy'   => 'product_cat',
 			'hide_empty' => true,
+			'meta_query' => [
+				[
+					'key'     => 'post_count',
+					'value'   => 0,
+					'compare' => '>',
+				],
+			],
 		] );
 	
 		$destinations = [
 			'' => __( 'Waar wil je heen?', 'siw' ),
 		];
 		foreach ( $categories as $category ) {
-			if ( 'uncategorized' != $category->slug && get_term_meta( $category->term_id, 'project_count', true ) > 0 ) {
-				$destinations[ $category->slug ] = $category->name;
-			}
+			$destinations[ $category->slug ] = $category->name;
 		}
 		return $destinations;
 	}
@@ -106,19 +111,24 @@ class Quick_Search_Form extends Widget {
 	 * 
 	 * @return array
 	 */
-	protected function get_months() {
+	protected function get_months() : array {
 		$terms = get_terms( [
 			'taxonomy'   => 'pa_maand',
 			'hide_empty' => true,
+			'meta_query' => [
+				[
+					'key'     => 'post_count',
+					'value'   => 0,
+					'compare' => '>',
+				],
+			]
 		]);
 	
 		$months = [
 			'' => __( 'Wanneer wil je weg?', 'siw' )
 		];
 		foreach ( $terms as $term ) {
-			if ( get_term_meta( $term->term_id, 'project_count', true ) > 0 ) {
-				$months[ $term->slug ] = $term->name; 
-			}
+			$months[ $term->slug ] = $term->name;
 		}
 		return $months;
 	}

@@ -2,6 +2,22 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.15.0 - 2020-10-29
+
+- add $xmlStandalone as a new parameter (#148)
+
+## 2.14.0 - 2020-09-14
+
+- add support for dropping XML declaration (#145)
+
+## 2.13.0 - 2020-08-24
+
+- add support for custom keys (#140)
+
+## 2.12.1 - 2020-06-17
+
+- add XML prettification (#136)
+
 ## 2.11.2 - 2019-08-21
 
 - fix XML structure when using numeric keys

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Frontend;
 
@@ -27,9 +27,11 @@ class Product {
 		add_filter( 'woocommerce_available_variation', [ $self, 'set_variation_description'] );
 		add_filter( 'woocommerce_sale_flash', [ $self, 'set_sales_flash_text' ] );
 		add_filter( 'woocommerce_display_product_attributes', [ $self, 'display_product_attributes'], 10, 2 );
-
-		add_filter( 'woocommerce_related_products_args', [ $self, 'set_related_products_number'], PHP_INT_MAX );
 		add_action( 'woocommerce_after_add_to_cart_form', [ $self, 'show_local_fee'] );
+		add_filter( 'woocommerce_out_of_stock_message', [ $self, 'set_out_of_stock_message'] );
+		add_filter( 'woocommerce_dropdown_variation_attribute_options_args', [ $self, 'set_variation_dropdown_args'] );
+
+		add_action( 'woocommerce_before_single_product_summary', [ $self, 'show_featured_badge' ], 10 );
 
 		/**
 		 * Verwijderen diverse woocommerce-hooks
@@ -37,7 +39,6 @@ class Product {
 		 * - Prijsrange
 		 * - Trailing zeroes
 		 * - Redundante headers in tabs
-		 * - Meta-informatie (tags, categorie, SKU)
 		 * Altijd prijs van variatie tonen
 		 */
 		add_filter( 'woocommerce_reset_variations_link', '__return_empty_string' );
@@ -45,9 +46,9 @@ class Product {
 		add_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
 		add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
-		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
-		remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
-		add_filter( 'woocommerce_show_variation_price', '__return_true' );
+
+		//SEO
+		add_filter( 'the_seo_framework_post_meta', [ $self, 'set_seo_noindex' ], 10, 2 );
 	}
 
 	/**
@@ -57,17 +58,11 @@ class Product {
 	 * @param \WC_Product $product
 	 * @return bool
 	 */
-	public function set_product_is_purchasable( bool $is_purchasable, \WC_Product $product )  {
+	public function set_product_is_purchasable( bool $is_purchasable, \WC_Product $product ) : bool {
 		$is_purchasable = $product->is_visible();
 		$status = $product->get_status();
 
 		if ( ! $is_purchasable || Import_Product::REVIEW_STATUS == $status ) {
-			
-			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation', 10 ); //TODO: kan weg na switch theme
-			remove_action( 'woocommerce_single_variation', 'kt_woocommerce_single_variation_add_to_cart_button', 20 );
-			
-			remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
-			remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20 );
 			add_filter( 'woocommerce_variation_is_visible', '__return_false');
 		}
 		return $is_purchasable;
@@ -79,7 +74,7 @@ class Product {
 	 * @param array $variations
 	 * @return array
 	 */
-	public function set_variation_description( $variations ) {
+	public function set_variation_description( $variations ) : array {
 		if ( 'student' == $variations['attributes']['attribute_pa_tarief'] ) {
 			$variations['variation_description'] =  __( 'Je komt in aanmerking voor het studententarief als je 17 jaar of jonger bent of als je een bewijs van inschrijving kunt laten zien.', 'siw' );
 		}
@@ -91,7 +86,7 @@ class Product {
 	 *
 	 * @return string
 	 */
-	public function set_sales_flash_text() {
+	public function set_sales_flash_text() : string {
 		return '<span class="onsale">' . __( 'Korting', 'siw' ) . '</span>';
 	}
 
@@ -116,6 +111,7 @@ class Product {
 			'lokale-bijdrage',
 			'pa_taal',
 			'pa_doelgroep',
+			'pa_sdg'
 		];
 
 		$callback = function( &$value, $key ) {
@@ -136,14 +132,12 @@ class Product {
 	}
 	
 	/**
-	 * Zet het aantal related products op 4
+	 * Past melding bij niet meer beschikbaar project aan
 	 *
-	 * @param array $args
-	 * @return array
+	 * @return string
 	 */
-	public function set_related_products_number( $args ) {
-		$args['posts_per_page'] = 4;
-		return $args;
+	public function set_out_of_stock_message() : string {
+		return __( 'Dit project is helaas niet meer beschikbaar', 'siw' );
 	}
 
 	/**
@@ -173,12 +167,54 @@ class Product {
 			}
 		}
 		?>
-		<div class="local-fee">
+		<div class="participation-fee">
 			<?php printf( esc_html__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s %s.', 'siw' ), $symbol, $amount );?>
-			<?php if ( isset( $amount_in_euro ) ):?>
+			<?php if ( isset( $amount_in_euro ) && is_float( $amount_in_euro ) ):?>
 				&nbsp;<?php printf ( esc_html__( '(Ca. &euro; %s)', 'siw' ), $amount_in_euro ); ?>
 			<?php endif ?>
 		</div>
 		<?php
 	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @param array $args
+	 *
+	 * @return array
+	 */
+	public function set_variation_dropdown_args( array $args ) : array {
+		$args['show_option_none'] = __( 'Kies een tarief', 'siw' );
+		$args['class'] = 'select-css';
+		return $args;
+	}
+
+	/**
+	 * Zet SEO noindex als project niet zichtbaar is
+	 *
+	 * @param array $meta
+	 * @param int $post_id
+	 *
+	 * @return array
+	 */
+	function set_seo_noindex( array $meta, int $post_id ) : array {
+		if ( 'product' == get_post_type( $post_id ) ) {
+			$product = wc_get_product( $post_id );
+			$meta['_genesis_noindex'] = intval( ! $product->is_visible() );
+		}
+		return $meta;
+	}
+
+	/**
+	 * Toont badge voor aanbevolen projecten
+	 * 
+	 * @todo template van maken i.v.m. duplicate code in archive
+	 */
+	public function show_featured_badge() {
+		global $product;
+		if ( $product->is_featured() && ! $product->is_on_sale() ) {
+			echo '<span class="product-badge featured-badge">' . esc_html__( 'Aanbevolen', 'siw' ) . '</span>';
+		}
+	}
+
 }

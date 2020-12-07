@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
-use SIW\CSS;
+use SIW\Util\CSS;
 use SIW\Data\Country;
 use SIW\Data\Continent;
 use SIW\HTML;
@@ -17,45 +17,33 @@ class World_Map {
 
 	/**
 	 * Bestandsnaam van wereldkaart
-	 *
-	 * @var string
 	 */
 	protected $map_file = SIW_ASSETS_URL . 'images/maps/world.svg';
 
 	/**
 	 * Land
-	 *
-	 * @var Country
 	 */
-	protected $country;
+	protected Country $country;
 
 	/**
 	 * Continent
-	 *
-	 * @var Continent
 	 */
-	protected $continent;
+	protected Continent $continent;
 
 	/**
 	 * Zoom-niveau
-	 *
-	 * @var int
 	 */
-	protected $zoom = 1;
+	protected int $zoom = 1;
 
 	/**
 	 * Breedte van SVG
-	 *
-	 * @var float
 	 */
-	protected $width = 1200;
+	protected float $width = 1200;
 
 	/**
 	 * Hoogte van SVG
-	 *
-	 * @var float
 	 */
-	protected $height = 760;
+	protected float $height = 760;
 
 	/**
 	 * Constructor
@@ -99,27 +87,22 @@ class World_Map {
 	 * @param int $zoom
 	 * @return string
 	 */
-	public function generate( $country, int $zoom = 1 ) {
+	public function generate( $country, int $zoom = 1 ) : string {
 		if ( false === $this->set_country( $country ) ) {
 			return false;
 		}
 		$this->zoom = $zoom;
 		$this->enqueue_style();
 		
-		$div = HTML::generate_tag(
-			'div',
+		$div = HTML::div(
 			[
 				'data-svg-url' => $this->map_file,
 				'style'        => 'display:none;',
-			],
-			null,
-			true
+			]
 		);
-		$svg = HTML::generate_tag(
-			'svg',
+		$svg = HTML::svg(
 			[ 'viewBox' => $this->get_viewbox() ],
-			'<use xlink:href="#mapplic-world"></use>',
-			true
+			'<use xlink:href="#mapplic-world"></use>'
 		);
 
 		return $div . $svg;
@@ -129,9 +112,9 @@ class World_Map {
 	 * Zet land om in te kleuren
 	 *
 	 * @param string|Country $country
-	 * @return true
+	 * @return bool
 	 */
-	protected function set_country( $country ) {
+	protected function set_country( $country ) : bool {
 		if ( is_string( $country ) ) {
 			$country = siw_get_country( $country );
 		}
@@ -148,7 +131,7 @@ class World_Map {
 	 * 
 	 * @todo refactor
 	 */
-	protected function get_viewbox() {
+	protected function get_viewbox() : string {
 		$x = $this->country->get_world_map_data()->x;
 		$y = $this->country->get_world_map_data()->y;
 	
@@ -166,7 +149,7 @@ class World_Map {
 	 * @param float $coordinate
 	 * @return float
 	 */
-	protected function calculate_offset( float $coordinate ) {
+	protected function calculate_offset( float $coordinate ) : float {
 		$coordinate = min( $coordinate + 1 / ( 2 * $this->zoom ), 1 );
 		$coordinate = max( $coordinate - 1 / ( $this->zoom ), 0 );
 		return $coordinate;

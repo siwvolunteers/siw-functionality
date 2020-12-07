@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Page_Builder;
+
+use SIW\Util\CSS;
 
 /**
  * Zichtbaarheidsopties voor Page Builder
@@ -39,7 +41,7 @@ class Visibility {
 	 * @param array $groups
 	 * @return array
 	 */
-	public function add_style_group( array $groups ) {
+	public function add_style_group( array $groups ) : array {
 		$groups['siw-visibility'] = [
 			'name'     => __( 'Zichtbaarheid', 'siw' ),
 			'priority' => 99,
@@ -53,7 +55,7 @@ class Visibility {
 	 * @param array $fields
 	 * @return array
 	 */
-	public function add_style_fields( array $fields ) {
+	public function add_style_fields( array $fields ) : array {
 		$fields['hide_on_mobile'] = [
 			'name'     => '<span class="dashicons dashicons-smartphone"></span>' . __( 'Mobiel', 'siw'),
 			'label'    => __( 'Verbergen', 'siw'),
@@ -61,12 +63,19 @@ class Visibility {
 			'type'     => 'checkbox',
 			'priority' => 10,
 		];
+		$fields['hide_on_tablet'] = [
+			'name'     => '<span class="dashicons dashicons-tablet"></span>' . __( 'Tablet', 'siw'),
+			'label'    => __( 'Verbergen', 'siw'),
+			'group'    => 'siw-visibility',
+			'type'     => 'checkbox',
+			'priority' => 20,
+		];
 		$fields['hide_on_desktop'] = [
 			'name'     => '<span class="dashicons dashicons-desktop"></span>' . __( 'Desktop', 'siw'),
 			'label'    => __( 'Verbergen', 'siw'),
 			'group'    => 'siw-visibility',
 			'type'     => 'checkbox',
-			'priority' => 20,
+			'priority' => 30,
 		];
 		return $fields;
 	}
@@ -76,16 +85,18 @@ class Visibility {
 	 *
 	 * @param array $style_attributes
 	 * @param array $style_args
+	 * 
 	 * @return array
 	 */
-	public function add_style_attributes( array $style_attributes, array $style_args ) {
+	public function add_style_attributes( array $style_attributes, array $style_args ) : array {
 		if ( isset( $style_args['hide_on_mobile'] ) && 1 == $style_args['hide_on_mobile'] ) {
-			$style_attributes['class'][] = 'hidden-xs';
+			$style_attributes['class'][] = CSS::HIDE_ON_MOBILE_CLASS;
+		}
+		if ( isset( $style_args['hide_on_tablet'] ) && 1 == $style_args['hide_on_tablet'] ) {
+			$style_attributes['class'][] = CSS::HIDE_ON_TABLET_CLASS;
 		}
 		if ( isset( $style_args['hide_on_desktop'] ) && 1 == $style_args['hide_on_desktop'] ) {
-			$style_attributes['class'][] = 'hidden-sm';
-			$style_attributes['class'][] = 'hidden-md';
-			$style_attributes['class'][] = 'hidden-lg';
+			$style_attributes['class'][] = CSS::HIDE_ON_DESKTOP_CLASS;
 		}
 		return $style_attributes;
 	}

@@ -9,6 +9,14 @@
 
 This package provides a very simple class to convert an array to an xml string.
 
+## Support us
+
+[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/array-to-xml.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/array-to-xml)
+
+We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
+
+We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+
 ## Install
 
 You can install this package via composer.
@@ -51,6 +59,7 @@ After running this piece of code `$result` will contain:
 </root>
 ```
 
+
 ### Setting the name of the root element
 
 Optionally you can set the name of the rootElement by passing it as the second argument. If you don't specify
@@ -81,7 +90,7 @@ $array = [
     'Bad guy' => [
         'name' => 'Sauron',
         'weapon' => 'Evil Eye'
-    ]
+    ],
     'The survivor' => [
         '_attributes' => ['house'=>'Hogwarts'],
         '_value' => 'Harry Potter'
@@ -109,6 +118,8 @@ This code will result in:
     </The_survivor>
 </root>
 ```
+
+*Note, that the value of the `_value` field must be a string. [(More)](https://github.com/spatie/array-to-xml/issues/75#issuecomment-413726065)* 
 
 ### Using reserved characters
 
@@ -148,6 +159,25 @@ This code will result in:
 ```
 
 If your input contains something that cannot be parsed a `DOMException` will be thrown.
+
+
+### Customize the XML declaration
+
+You could specify specific values in for:
+ - encoding as the fourth argument (string)
+ - version as the fifth argument (string)
+ - standalone as sixth argument (boolean)
+
+```php
+$result = ArrayToXml::convert($array, [], true, 'UTF-8', '1.1', [], true);
+```
+
+This will result in:
+
+```xml
+<?xml version="1.1" encoding="UTF-8" standalone="yes"?>
+```
+
 
 ### Adding attributes to the root element
 
@@ -248,6 +278,58 @@ This will result in:
 
 You can change key prefix with setter method called `setNumericTagNamePrefix()`.
 
+### Using custom keys
+
+The package can also can handle custom keys:
+
+```php
+$array = [
+    '__custom:custom-key:1' => [
+        'name' => 'Vladimir',
+        'nickname' => 'greeflas',
+    ],
+    '__custom:custom-key:2' => [
+        'name' => 'Marina',
+        'nickname' => 'estacet',
+        'tags' => [
+            '__custom:tag:1' => 'first-tag',
+            '__custom:tag:2' => 'second-tag',
+        ]
+    ],
+];
+
+$result = ArrayToXml::convert($array);
+```
+
+This will result in:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <custom-key>
+        <name>Vladimir</name>
+        <nickname>greeflas</nickname>
+    </custom-key>
+    <custom-key>
+        <name>Marina</name>
+        <nickname>estacet</nickname>
+        <tags>
+            <tag>first-tag</tag>
+            <tag>second-tag</tag>
+        </tags>
+    </custom-key>
+</root>
+```
+
+A custom key contains three, colon-separated parts: "__custom:[custom-tag]:[unique-string]".
+
+- "__custom"
+  - The key always starts with "__custom".
+- [custom-tag]
+  - The string to be rendered as the XML tag.
+- [unique-string]
+  - A unique string that avoids overwriting of duplicate keys in PHP arrays.
+
 ### Setting DOMDocument properties
 
 To set properties of the internal DOMDocument object just pass an array consisting of keys and values. For a full list of valid properties consult https://www.php.net/manual/en/class.domdocument.php.
@@ -274,6 +356,91 @@ $arrayToXml->setDomProperties(['formatOutput' => true]);
 $result = $arrayToXml->toXml();
 ```
 
+### XML Prettification 
+
+Call `$arrayToXml->prettify()` method on ArrayToXml to set XML in pretty form.
+
+Example:
+
+```php
+$array = [
+    'Good guy' => [
+        'name' => 'Luke Skywalker',
+        'weapon' => 'Lightsaber'
+    ],
+    'Bad guy' => [
+        'name' => 'Sauron',
+        'weapon' => 'Evil Eye'
+    ]
+];
+$arrayToXml = new ArrayToXml($array);
+```
+
+With prettification:
+
+```php
+$arrayToXml->prettify()->toXml();
+```
+
+will result in:
+
+```xml
+<?xml version="1.0"?>
+<root>
+    <Good_guy>
+        <name>Luke Skywalker</name>
+        <weapon>Lightsaber</weapon>
+    </Good_guy>
+    <Bad_guy>
+        <name>Sauron</name>
+        <weapon>Evil Eye</weapon>
+    </Bad_guy>
+</root>
+```
+
+Without prettification:
+
+```php
+$arrayToXml->toXml();
+```
+
+will result in:
+
+```xml
+<?xml version="1.0"?>
+<root><Good_guy><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>
+```
+
+### Dropping XML declaration
+
+Call `$arrayToXml->dropXmlDeclaration()` method on ArrayToXml object to omit default XML declaration on top of the generated XML.
+
+Example:
+
+```php
+$root = [
+    'rootElementName' => 'soap:Envelope',
+    '_attributes' => [
+        'xmlns:soap' => 'http://www.w3.org/2003/05/soap-envelope/',
+    ],
+];
+$array = [
+    'soap:Header' => [],
+    'soap:Body' => [
+        'soap:key' => 'soap:value',
+    ],
+];
+$arrayToXml = new ArrayToXml($array, $root);
+
+$result = $arrayToXml->dropXmlDeclaration()->toXml();
+```
+
+This will result in:
+
+```xml
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/"><soap:Header/><soap:Body><soap:key>soap:value</soap:key></soap:Body></soap:Envelope>
+```
+
 ## Testing
 
 ```bash
@@ -296,7 +463,7 @@ If you discover any security related issues, please email freek@spatie.be instea
 
 You're free to use this package, but if it makes it to your production environment we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
 
-Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
+Our address is: Spatie, Kruikstraat 22, 2018 Antwerp, Belgium.
 
 We publish all received postcards [on our company website](https://spatie.be/en/opensource/postcards).
 
@@ -304,13 +471,6 @@ We publish all received postcards [on our company website](https://spatie.be/en/
 
 - [Freek Van der Herten](https://github.com/freekmurze)
 - [All Contributors](../../contributors)
-
-## Support us
-
-Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
-
-Does your business depend on our contributions? Reach out and support us on [Patreon](https://www.patreon.com/spatie). 
-All pledges will be dedicated to allocating workforce on maintenance and new awesome stuff.
 
 ## License
 

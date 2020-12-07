@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
 use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Class om een accordion te genereren
@@ -23,10 +24,8 @@ class Accordion {
 
 	/**
 	 * Panes
-	 *
-	 * @var array
 	 */
-	protected $panes=[];
+	protected array $panes = [];
 
 	/**
 	 * Init
@@ -41,7 +40,7 @@ class Accordion {
 	 *
 	 * @return string
 	 */
-	public function generate() {
+	public function generate() : string {
 		$attributes = [
 			'id'                   => uniqid( 'siw-accordion-' ),
 			'class'                => ['siw-accordion'],
@@ -49,16 +48,16 @@ class Accordion {
 			'data-multiselectable' => 'true',
 
 		];
-		return HTML::generate_tag( 'div', $attributes, $this->generate_panes(), true );
+		return HTML::div( $attributes, $this->generate_panes() );
 	}
 
 	/**
 	 * Voegt scripts toe
 	 */
 	protected function enqueue_scripts() {
-		wp_register_script( 'a11y-accordion', SIW_ASSETS_URL . 'modules/accordion/accordion.js', [], self::ACCORDION_VERSION, true );
+		wp_register_script( 'a11y-accordion', SIW_ASSETS_URL . 'vendor/accordion/accordion.js', [], self::ACCORDION_VERSION, true );
 		wp_register_script( 'siw-accordion', SIW_ASSETS_URL . 'js/elements/siw-accordion.js', ['a11y-accordion'], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( 'siw-accordion');
+		wp_enqueue_script( 'siw-accordion' );
 	}
 
 	/**
@@ -74,13 +73,13 @@ class Accordion {
 	 *
 	 * @return string
 	 */
-	protected function generate_panes() {
+	protected function generate_panes() : string {
 		$output = '';
 		foreach ( $this->panes as $pane ) {
 			$id = uniqid();
 
-			if ( isset( $pane['show_button'] ) && true == $pane['show_button'] ) {
-				$pane['content'] .= wpautop( HTML::generate_link( $pane['button_url'], $pane['button_text'], [ 'class' => 'kad-btn' ] ) );
+			if ( isset( $pane['show_button'] ) && $pane['show_button'] ) {
+				$pane['content'] .= wpautop( Links::generate_button_link( $pane['button_url'], $pane['button_text'] ) );
 			}
 
 			$output .= implode( '', 

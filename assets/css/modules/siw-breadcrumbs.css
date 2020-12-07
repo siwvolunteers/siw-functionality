@@ -1,0 +1,21 @@
+@charset "UTF-8";
+nav.breadcrumb {
+  font-size: 0.9em;
+  text-shadow: 1px 1px #444;
+}
+nav.breadcrumb ol.breadcrumb {
+  margin: 0;
+  list-style: none;
+}
+nav.breadcrumb ol.breadcrumb li {
+  display: inline-block;
+}
+nav.breadcrumb ol.breadcrumb li a {
+  text-decoration: underline;
+  color: #fff;
+}
+nav.breadcrumb ol.breadcrumb li + li:before {
+  padding: 0.9em;
+  color: #fff;
+  content: "/ ";
+}

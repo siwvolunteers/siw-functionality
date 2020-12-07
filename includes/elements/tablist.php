@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
 use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Class om een tablist te genereren
@@ -23,10 +24,8 @@ class Tablist {
 
 	/**
 	 * Panes
-	 *
-	 * @var array
 	 */
-	protected $panes=[];
+	protected array $panes=[];
 
 	/**
 	 * Init
@@ -40,7 +39,7 @@ class Tablist {
 	 * Voegt scripts toe
 	 */
 	protected function enqueue_scripts() {
-		wp_register_script( 'a11y-tablist', SIW_ASSETS_URL . 'modules/tablist/tablist.js', [], self::TABLIST_VERSION, true );
+		wp_register_script( 'a11y-tablist', SIW_ASSETS_URL . 'vendor/tablist/tablist.js', [], self::TABLIST_VERSION, true );
 		wp_register_script( 'siw-tablist', SIW_ASSETS_URL . 'js/elements/siw-tablist.js', ['a11y-tablist'], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-tablist');
 	}
@@ -58,12 +57,12 @@ class Tablist {
 	 *
 	 * @return string
 	 */
-	public function generate() {
+	public function generate() : string {
 		$attributes = [
 			'id'    => uniqid( 'siw-tablist-' ),
 			'class' => ['siw-tablist'],
 		];
-		return HTML::generate_tag( 'div', $attributes ) . $this->generate_panes() . '</div>' ;
+		return HTML::div( $attributes, $this->generate_panes() );
 	} 
 
 	/**
@@ -73,18 +72,18 @@ class Tablist {
 	 * 
 	 * @todo generate_tag/generate_list gebruiken
 	 */
-	protected function generate_panes() {
+	protected function generate_panes() : string {
 		$list = '<ul role="tablist">';
 		$content = '';
 		foreach ( $this->panes as $pane ) {
 			$id = uniqid();
 
-			if ( isset( $pane['show_button'] ) && true == $pane['show_button'] ) {
-				$pane['content'] .= wpautop( HTML::generate_link( $pane['button_url'], $pane['button_text'], [ 'class' => 'kad-btn' ] ) );
+			if ( isset( $pane['show_button'] ) && $pane['show_button'] ) {
+				$pane['content'] .= wpautop( Links::generate_button_link( $pane['button_url'], $pane['button_text'] ) );
 			}
 
-			$list .= sprintf( '<li role="tab" aria-controls="tab-%s">%s</li>', $id, $pane['title'] );
-			$content .= sprintf( '<div role="tabpanel" id="tab-%s">%s</div>', $id, $pane['content'] );
+			$list .= sprintf( '<li role="tab" aria-controls="tab-%s">%s</li>', $id, esc_html( $pane['title'] ) );
+			$content .= sprintf( '<div role="tabpanel" id="tab-%s">%s</div>', $id, wp_kses_post( wpautop( $pane['content'] ) ) );
 		}
 
 		$list .= '</ul>';

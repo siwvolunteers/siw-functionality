@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
-use SIW\Scheduler;
+use SIW\Core\Scheduler;
 use SIW\Admin\Admin_Bar;
 
 /**
@@ -27,45 +27,33 @@ abstract class Job extends \WP_Background_Process {
 
 	/**
 	 * Optie voor logger-context
-	 *
-	 * @var string
 	 */
-	protected $logger_context_option;
+	protected string $logger_context_option;
 
 	/**
 	 * Optie voor teller verwerkte items
-	 *
-	 * @var string
 	 */
-	protected $processed_count_option;
+	protected string $processed_count_option;
 
 	/**
 	 * Naam van proces (voor logging en admin bar)
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * Category (voor admin bar)
-	 *
-	 * @var string
 	 */
-	protected $category;
+	protected string $category;
 
 	/**
 	 * Grootte van batch
-	 * 
-	 * @var int
 	 */
-	protected $batch_size = 500;
+	protected int $batch_size = 500;
 
 	/**
 	 * Geeft aan of deze batch job ingepland moet worden
-	 *
-	 * @var bool
 	 */
-	protected $schedule_job = true;
+	protected bool $schedule_job = true;
 
 	/**
 	 * Initiate new background process
@@ -126,8 +114,7 @@ abstract class Job extends \WP_Background_Process {
 	 * @return array
 	 */
 	protected function get_logger_context() {
-		$logger_context = get_site_option( $this->logger_context_option );
-		return $logger_context;
+		return get_site_option( $this->logger_context_option );
 	}
 
 	/**
@@ -155,7 +142,7 @@ abstract class Job extends \WP_Background_Process {
 	 *
 	 * @param int $processed_count
 	 */
-	protected function set_processed_count( $processed_count ) {
+	protected function set_processed_count( int $processed_count ) {
 		update_site_option( $this->processed_count_option, $processed_count );
 	}
 
@@ -164,9 +151,8 @@ abstract class Job extends \WP_Background_Process {
 	 *
 	 * @return int
 	 */
-	protected function get_processed_count() {
-		$processed_count = get_site_option( $this->processed_count_option );
-		return $processed_count;
+	protected function get_processed_count() : int {
+		return (int) get_site_option( $this->processed_count_option );
 	}
 
 	/**
@@ -183,7 +169,7 @@ abstract class Job extends \WP_Background_Process {
 	 *
 	 * @return array
 	 */
-	protected abstract function select_data();
+	protected abstract function select_data() : array;
 
 	/**
 	 * Starten achtergrondproces

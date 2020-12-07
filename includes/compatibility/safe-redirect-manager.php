@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Compatibility;
 
@@ -24,7 +24,6 @@ class Safe_Redirect_Manager {
 	public static function init() {
 		$self = new self();
 
-		add_filter( 'srm_redirect_only_on_404', '__return_true' );
 		add_filter( 'srm_max_redirects', [ $self, 'set_max_redirects'] );
 		add_filter( 'srm_default_direct_status', [ $self, 'set_default_direct_status'] );
 	}
@@ -34,7 +33,7 @@ class Safe_Redirect_Manager {
 	 *
 	 * @return int
 	 */
-	public function set_max_redirects() {
+	public function set_max_redirects() : int {
 		return self::MAX_REDIRECTS;
 	}
 
@@ -43,7 +42,7 @@ class Safe_Redirect_Manager {
 	 *
 	 * @return int
 	 */
-	public function set_default_direct_status() {
+	public function set_default_direct_status() : int {
 		return \WP_Http::MOVED_PERMANENTLY;
 	}
 }

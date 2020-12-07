@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
-use SIW\Elements\Pie_Chart as Element_Pie_Chart;
-use SIW\HTML;
+use SIW\Elements;
+use SIW\Elements\Charts\Pie as Element_Pie_Chart;
 
 /**
  * Widget met grafiek
@@ -21,17 +21,13 @@ class Pie_Chart extends Widget {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_id = 'pie_chart';
+	protected string $widget_id = 'pie_chart';
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_dashicon = 'chart-pie';
+	protected string $widget_dashicon = 'chart-pie';
 
 	/**
 	 * {@inheritDoc}
@@ -105,7 +101,7 @@ class Pie_Chart extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string { 
 		$content = '';
 		if ( isset( $instance['intro'] ) ) {
 			$content .= wpautop( wp_kses_post( $instance['intro'] ) );
@@ -120,7 +116,7 @@ class Pie_Chart extends Widget {
 				}, 
 				$instance['series']
 			);
-			$content .= HTML::generate_list( $explanation );
+			$content .= Elements::generate_list( $explanation );
 		}
 
 		return $content;

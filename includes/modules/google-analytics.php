@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Modules;
 
@@ -19,17 +19,13 @@ class Google_Analytics {
 
 	/**
 	 * Google Analytics property ID
-	 *
-	 * @var string
 	 */
-	protected $property_id;
+	protected string $property_id;
 
 	/**
 	 * Instellingen voor tracker
-	 *
-	 * @var array
 	 */
-	protected $tracker_settings = [
+	protected array $tracker_settings = [
 		'anonymizeIp' => true,
 		'forceSSL'    => true,
 	];
@@ -58,7 +54,7 @@ class Google_Analytics {
 	 * Haalt het GA property ID op
 	 */
 	protected function set_property_id() {
-		$this->property_id = siw_get_option( 'google_analytics_property_id' );
+		$this->property_id = siw_get_option( 'google_analytics.property_id' );
 	}
 
 	/**
@@ -66,7 +62,7 @@ class Google_Analytics {
 	 *
 	 * @return bool
 	 */
-	protected function tracking_enabled() {
+	protected function tracking_enabled() : bool {
 		if ( ! isset( $this->property_id ) || is_user_logged_in() ) {
 			return false;
 		}
@@ -89,7 +85,7 @@ class Google_Analytics {
 	 * 
 	 * @return string
 	 */
-	protected function generate_snippet() {
+	protected function generate_snippet() : string {
 		$snippet = [
 			"window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;",
 			sprintf( "ga('create','%s',{'siteSpeedSampleRate': 100});", esc_js( $this->property_id ) ),
@@ -110,7 +106,7 @@ class Google_Analytics {
 	 * 
 	 * @return array
 	 */
-	protected function generate_ecommerce_script() {
+	protected function generate_ecommerce_script() : array {
 		if ( is_product() ) {
 			$product = wc_get_product( get_the_ID() );
 			$product_data = $this->get_product_data( $product );
@@ -149,7 +145,7 @@ class Google_Analytics {
 
 			$order_data = [ 
 				'id'     => $order->get_id(),
-				'revenue' => number_format( $order->get_total(), 2 ),
+				'revenue' => number_format( floatval( $order->get_total() ), 2 ),
 				'coupon'  => implode( ',', $order->get_coupon_codes() ),
 			];
 			$ecommerce_script[] = sprintf( "ga('ec:setAction', 'purchase', %s);", json_encode( $order_data ) );
@@ -170,7 +166,7 @@ class Google_Analytics {
 	 * 
 	 * @todo land of partner als brand toevoegen
 	 */
-	protected function get_product_data( \WC_Product $product, \WC_Product_Variation $variation = null ) {
+	protected function get_product_data( \WC_Product $product, \WC_Product_Variation $variation = null ) : array {
 
 		$category_ids = $product->get_category_ids();
 		$category = get_term( $category_ids[0], 'product_cat' );
@@ -185,7 +181,7 @@ class Google_Analytics {
 				$product_data,
 				[
 					'variant'  => $variation->get_variation_attributes()['attribute_pa_tarief'],
-					'price'    => number_format( $variation->get_price(), 2 ),
+					'price'    => number_format( floatval( $variation->get_price() ), 2 ),
 					'quantity' => 1,
 				]
 			);
@@ -243,7 +239,7 @@ class Google_Analytics {
 	 * @param string $cart_item_key
 	 * @return string
 	 */
-	public function add_variation_id_to_cart_item_remove_link( string $link, string $cart_item_key ) {
+	public function add_variation_id_to_cart_item_remove_link( string $link, string $cart_item_key ) : string {
 		$item = WC()->cart->get_cart_item( $cart_item_key );
 		$variation_id = $item['variation_id'];
 
@@ -266,7 +262,7 @@ class Google_Analytics {
 	 * 
 	 * @return array
 	 */
-	protected function get_script_from_session() {
+	protected function get_script_from_session() : array {
 		$script = WC()->session->get( self::SESSION_SCRIPT_KEY );
 		if ( null != $script ) {
 			WC()->session->set( self::SESSION_SCRIPT_KEY, null );
@@ -286,7 +282,7 @@ class Google_Analytics {
 	 * @param array $urls
 	 * @return array
 	 */
-	public function add_ga_url( array $urls ) {
+	public function add_ga_url( array $urls ) : array {
 		$urls[] = 'https://www.google-analytics.com/';
 		return $urls;
 	}
@@ -297,7 +293,7 @@ class Google_Analytics {
 	 * @param array $content
 	 * @return array
 	 */
-	public function set_excluded_inline_js_content( array $content ) {
+	public function set_excluded_inline_js_content( array $content ) : array {
 		$content[] = 'ec:';
 		return $content;
 	}

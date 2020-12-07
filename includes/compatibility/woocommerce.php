@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Compatibility;
+
+use SIW\Formatting;
 
 /**
  * Aanpassingen voor WooCommerce
@@ -45,7 +47,7 @@ class WooCommerce {
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
 		add_filter( 'product_type_selector', [ $self, 'disable_product_types'] );
 		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_project_id_search' ], 10, 2 );
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_max_start_date_search' ], 10, 2 );
+		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_country_search' ], 10, 2 );
 		add_filter( 'woocommerce_product_visibility_options', [ $self, 'remove_product_visibility_options', ] );
 		add_filter( 'woocommerce_products_admin_list_table_filters', [ $self, 'remove_products_admin_list_table_filters'] );
 
@@ -70,8 +72,18 @@ class WooCommerce {
 		//Blocks style niet laden
 		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
 
+		add_action( 'wp', [ $self, 'remove_theme_support'], PHP_INT_MAX );
+		add_filter('woocommerce_single_product_image_thumbnail_html', [ $self, 'remove_link_on_thumbnails'] );
+
 		add_filter( 'woocommerce_layered_nav_count', '__return_empty_string' );
 		add_filter( 'rocket_cache_query_strings', [ $self, 'register_query_vars'] );
+
+		add_filter( 'get_term', [ $self, 'filter_term_name'], 10, 2 );
+
+		add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta'] );
+		add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type' ] );
+		add_filter( 'siw_carousel_post_type_taxonomies', [ $self, 'add_carousel_post_type_taxonomies' ] );
+		add_filter( 'siw_carousel_post_type_templates', [ $self, 'add_carousel_template' ] );
 	}
 
 	/**
@@ -107,7 +119,7 @@ class WooCommerce {
 	 *
 	 * @return array
 	 */
-	public function register_log_handlers() {
+	public function register_log_handlers() : array {
 		$log_handler_db = new \WC_Log_Handler_DB;
 		$log_handler_email = new \WC_Log_Handler_Email;
 		$log_handler_email->set_threshold( 'alert' );
@@ -125,7 +137,7 @@ class WooCommerce {
 	 *
 	 * @return int
 	 */
-	public function set_log_items_per_page() {
+	public function set_log_items_per_page() : int {
 		return self::LOG_ITEMS_PER_PAGE;
 	}
 
@@ -134,7 +146,7 @@ class WooCommerce {
 	 *
 	 * @return int
 	 */
-	public function set_days_to_retain_log() {
+	public function set_days_to_retain_log() : int {
 		return self::DAYS_TO_RETAIN_LOG;
 	}
 
@@ -151,7 +163,7 @@ class WooCommerce {
 		];
 		if ( class_exists( '\WooCommerce' ) ) {
 			if ( $user_id && 0 !== $user_id && $action && ( in_array( $action, $nonces ) ) ) {
-				$user_id = 0;
+				$user_id = get_current_user_id();;
 			}
 		}
 		return $user_id;
@@ -171,7 +183,7 @@ class WooCommerce {
 	 * @param array $product_types
 	 * @return array
 	 */
-	public function disable_product_types( array $product_types ) {
+	public function disable_product_types( array $product_types ) : array {
 		unset( $product_types['simple'] );
 		unset( $product_types['grouped'] );
 		unset( $product_types['external'] );
@@ -196,18 +208,17 @@ class WooCommerce {
 	}
 	
 	/**
-	 * Voegt maximum startdatum als argument toe aan WC queries
+	 * Voegt country argument toe aan WC queries
 	 *
 	 * @param array $query
 	 * @param array $query_vars
 	 * @return array
 	 */
-	public function enable_max_start_date_search( array $query, array $query_vars ) {
-		if ( ! empty( $query_vars['max_start_date'] ) ) {
+	public function enable_country_search( array $query, array $query_vars ) {
+		if ( ! empty( $query_vars['country'] ) ) {
 			$query['meta_query'][] = [
-				'key'     => 'start_date',
-				'value'   => esc_attr( $query_vars['max_start_date'] ),
-				'compare' => '<',
+				'key'   => 'country',
+				'value' => esc_attr( $query_vars['country'] ),
 			];
 		}
 		return $query;
@@ -219,7 +230,7 @@ class WooCommerce {
 	 * @param array $visibility_options
 	 * @return array
 	 */
-	public function remove_product_visibility_options( array $visibility_options ) {
+	public function remove_product_visibility_options( array $visibility_options ) : array {
 		unset( $visibility_options['catalog']);
 		unset( $visibility_options['search']);
 		return $visibility_options;
@@ -231,7 +242,7 @@ class WooCommerce {
 	 * @param array $filters
 	 * @param array
 	 */
-	public function remove_products_admin_list_table_filters( array $filters ) {
+	public function remove_products_admin_list_table_filters( array $filters ) : array {
 		unset( $filters['product_type']);
 		unset( $filters['stock_status']);
 		return $filters;
@@ -243,11 +254,115 @@ class WooCommerce {
 	 * @param array $vars
 	 * @return array
 	 */
-	public function register_query_vars( $vars ) {
+	public function register_query_vars( array $vars ) : array {
 		$taxonomies = wc_get_attribute_taxonomies();
 		foreach ( $taxonomies as $taxonomy ) {
 			$vars[] = "filter_{$taxonomy->attribute_name}";
 		}
 		return $vars;
+	}
+
+	/**
+	 * Verwijdert theme support
+	 * 
+	 * - Zoom
+	 * - Lightbox
+	 * - Slider
+	 */
+	public function remove_theme_support() {
+		remove_theme_support( 'wc-product-gallery-zoom' );
+		remove_theme_support( 'wc-product-gallery-lightbox' );
+		remove_theme_support( 'wc-product-gallery-slider' );
+	}
+
+	/**
+	 * Verwijdert link bij productafbeelding
+	 *
+	 * @param string $html
+	 *
+	 * @return string
+	 */
+	public function remove_link_on_thumbnails( string $html ) : string {
+		return strip_tags( $html, '<img>' );
+	}
+
+	/**
+	 * Zet naam van terms
+	 *
+	 * @param \WP_Term $term
+	 * @param string $taxonomy
+	 *
+	 * @return \WP_Term
+	 */
+	public function filter_term_name( \WP_Term $term, string $taxonomy ) : \WP_Term {
+		if ( 'pa_maand' == $taxonomy ) {
+			$order = get_term_meta( $term->term_id, 'order', true );
+
+			if ( empty( $order ) ) {
+				return $term;
+			}
+
+			$year = substr( $order, 0, 4 );
+			$month = substr( $order, 4, 2 );
+			$current_year = date( 'Y' );
+
+			$term->name = ucfirst(
+				Formatting::format_month(
+					"{$year}-{$month}-1",
+					$year != $current_year
+				)
+			);
+		}
+		return $term;
+	}
+
+	/**
+	 * Zet call to action voor social share links
+	 *
+	 * @param array $post_types
+	 *
+	 * @return array
+	 */
+	public function set_social_share_cta( array $post_types ) : array {
+		$post_types['product'] = __( 'Deel dit project', 'siw' );
+		return $post_types;
+	}
+
+	/**
+	 * Voegt post type toe aan carousel
+	 *
+	 * @param array $post_types
+	 *
+	 * @return array
+	 */
+	public function add_carousel_post_type( array $post_types ) : array {
+		$post_types['product'] = __( 'Groepsprojecten', 'siw' );
+		return $post_types;
+	}
+
+	/**
+	 * Voegt taxonomies toe aan carousel
+	 *
+	 * @param array $taxonomies
+	 *
+	 * @return array
+	 */
+	public function add_carousel_post_type_taxonomies( array $taxonomies ) : array {
+		$taxonomies['product'] = [
+			'product_cat' => __( 'Continent', 'siw' ),
+		];
+		return $taxonomies;
+	}
+
+	/**
+	 * Voegt template toe aan carousel
+	 *
+	 * @param array $templates
+	 *
+	 * @return array
+	 */
+	public function add_carousel_template( array $templates ) : array {
+		$templates['product'] = wc_locate_template( 'content-product.php' );
+		return $templates;
 	}
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Admin;
 
@@ -8,7 +8,7 @@ namespace SIW\Admin;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-class User_Columns extends \MB_Admin_Columns_User {
+class User_Columns extends \MBAC\User {
 
 	/**
 	 * Voegt extra columns toe

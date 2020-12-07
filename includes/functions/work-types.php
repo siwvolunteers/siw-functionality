@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Functies m.b.t. soorten werk
  * 
- * @copyright SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
  */
 
 use SIW\Data\Work_Type;
@@ -17,9 +17,9 @@ use SIW\Data\Work_Type;
  * @param string $context all|dutch_projects|tailor_made_projects
  * @param string $return objects|array
  * 
- * @return Work_Type[]|[]
+ * @return array
  */
-function siw_get_work_types( string $context = 'all', string $index = 'slug', string $return = 'objects' ) {
+function siw_get_work_types( string $context = 'all', string $index = 'slug', string $return = 'objects' ) : array {
 	$work_types = wp_cache_get( "{$context}_{$index}_{$return}", 'siw_work_types' );
 	if ( false !== $work_types ) {
 		return $work_types;
@@ -34,15 +34,13 @@ function siw_get_work_types( string $context = 'all', string $index = 'slug', st
 
 	//Creëer objecten
 	$work_types = array_map(
-		function( $item ) {
-			return new Work_Type( $item );
-		},
+		fn( $item ) => new Work_Type( $item ),
 		$data
 	);
 
 	//Filter op context
 	$work_types = array_filter(
-		$work_types, 
+		$work_types,
 		function( $work_type ) use ( $context ) {
 			return ( 'all' == $context
 				|| ( 'dutch_projects' == $context && $work_type->is_for_dutch_projects() ) 
@@ -52,9 +50,7 @@ function siw_get_work_types( string $context = 'all', string $index = 'slug', st
 	);
 	if ( 'array' == $return ) {
 		$work_types = array_map(
-			function( $work_type ) {
-				return $work_type->get_name();
-			},
+			fn( Work_Type $work_type ) => $work_type->get_name(),
 			$work_types
 		);
 	}
@@ -72,13 +68,7 @@ function siw_get_work_types( string $context = 'all', string $index = 'slug', st
  * @param string $index
  * @return Work_Type
  */
-function siw_get_work_type( string $work_type, string $index = 'slug' ) {
-	
+function siw_get_work_type( string $work_type, string $index = 'slug' ) : ?Work_Type {
 	$work_types = siw_get_work_types( 'all', $index );
-
-	if ( isset( $work_types[ $work_type ] ) ) {
-		return $work_types[ $work_type ];
-	}
-
-	return false;
+	return $work_types[ $work_type ] ?? null;
 }

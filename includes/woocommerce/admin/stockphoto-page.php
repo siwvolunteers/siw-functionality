@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Admin;
 
@@ -18,28 +18,22 @@ class Stockphoto_Page {
 	 *
 	 * @var string
 	 */
-	protected $page_id = 'siw-stockphotos';
+	protected string $page_id = 'siw-stockphotos';
 
 	/**
 	 * Async request voor verwerken van upload
-	 *
-	 * @var Process_Stockphoto_Upload
 	 */
-	protected $process_stockphoto_upload;
+	protected Process_Stockphoto_Upload $process_stockphoto_upload;
 
 	/**
 	 * Upload-subdirectory voor stockfotos
-	 *
-	 * @var string
 	 */
-	protected $upload_subdir = 'groepsprojecten/stockfotos';
+	protected string $upload_subdir = 'groepsprojecten/stockfotos';
 
 	/**
 	 * Tijdelijke directory
-	 *
-	 * @var string
 	 */
-	protected $temp_dir = WP_CONTENT_DIR . '/uploads/temp/';
+	protected string $temp_dir = WP_CONTENT_DIR . '/uploads/temp/';
 
 	/**
 	 * Init
@@ -61,7 +55,7 @@ class Stockphoto_Page {
 	 *
 	 * @return array
 	 */
-	public function add_page( $pages ) {
+	public function add_page( $pages ) : array {
 		$pages[] = [
 			'parent'      => 'edit.php?post_type=product',
 			'id'          => $this->page_id,
@@ -74,7 +68,14 @@ class Stockphoto_Page {
 		return $pages;
 	}
 
-	public function add_metabox( $metaboxes ) {
+	/**
+	 * Voegt metabox toe
+	 *
+	 * @param array $metaboxes
+	 *
+	 * @return array
+	 */
+	public function add_metabox( array $metaboxes ) : array {
 
 		$metaboxes[] = [
 			'id'             => 'stockphotos',

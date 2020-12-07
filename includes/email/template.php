@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Email;
 
 use SIW\Properties;
-use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * E-mail template
@@ -26,7 +26,7 @@ class Template {
 	 * @param array $args
 	 */
 	public function __construct( array $args ) {
-		$defaults = array(
+		$defaults = [
 			'subject'           => '',
 			'message'           => '',
 			'show_summary'      => false,
@@ -34,7 +34,7 @@ class Template {
 			'signature_name'    => '',
 			'signature_title'   => '',
 			'remove_linebreaks' => false,
-		);
+		];
 		$this->args = wp_parse_args( $args, $defaults );	
 	}
 
@@ -43,11 +43,11 @@ class Template {
 	 * 
 	 * @return string
 	 */
-	public function generate() {
+	public function generate() : string {
 
 		$output = $this->get_template();
 		if ( $this->args['remove_linebreaks'] ) {
-			$output = str_replace( array( "\n\r", "\r", "\n" ), '', $output );
+			$output = str_replace( [ "\n\r", "\r", "\n" ], '', $output );
 		}
 		return $output;
 	}
@@ -57,7 +57,7 @@ class Template {
 	 * 
 	 * @return string
 	 */
-	protected function get_template() {
+	protected function get_template() : string {
 		/* Start template */
 		ob_start();
 		?>
@@ -151,18 +151,21 @@ class Template {
 									<td width="40%">&nbsp;</td>
 										<?php foreach ( siw_get_social_networks( 'follow') as $network ) :?>
 										<td width="auto" align="center">
-											<?php echo HTML::generate_link(
-												$network->get_follow_url(),
-												sprintf(
-													'<img src="%s" alt="%s" title="%s" width="20" height="20" border="0" />',
-													SIW_ASSETS_URL . 'images/mail/' . $network->get_slug() . '.png',
-													$network->get_slug(),
-													esc_attr( sprintf( __( 'Volg ons op %s', 'siw' ), $network->get_name() ) )
-												),
-												[
-													'target' => '_blank'
-												]
-											);?>
+										<?php
+													echo Links::generate_image_link(
+														$network->get_follow_url(),
+														[
+															'src'    => SIW_ASSETS_URL . 'images/mail/' . $network->get_slug() . '.png',
+															'alt'    => $network->get_slug(),
+															'title'  =>  sprintf( __( 'Volg ons op %s', 'siw' ), $network->get_name() ),
+															'width'  => 20,
+															'height' => 20,
+														],
+														[
+															'target' => '_blank'
+														]
+													);
+												?>
 										</td>
 										<?php endforeach; ?>
 									<td width="40%">&nbsp;</td>
@@ -182,8 +185,6 @@ class Template {
 		</table>
 		</body>
 		<?php
-		$template = ob_get_clean();
-
-		return $template;
+		return ob_get_clean();
 	}
 }

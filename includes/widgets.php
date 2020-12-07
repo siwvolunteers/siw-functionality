@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW;
 
@@ -12,16 +12,13 @@ class Widgets {
 	
 	/**
 	 * SIW-widgets
-	 *
-	 * @var array
 	 */
-	protected $widgets = [
+	protected array $widgets = [
 		'accordion'            => 'Accordion',
 		'calendar'             => 'Calendar',
 		'carousel'             => 'Carousel',
 		'contact'              => 'Contact',
 		'cta'                  => 'CTA',
-		'dutch-projects'       => 'Dutch_Projects',
 		'features'             => 'Features',
 		'google-maps'          => 'Google_Maps',
 		'infobox'              => 'Infobox',
@@ -37,10 +34,8 @@ class Widgets {
 
 	/**
 	 * Basismap voor widgets
-	 *
-	 * @var string
 	 */
-	protected $widgets_folder_base;
+	protected string $widgets_folder_base;
 
 	/**
 	 * Init
@@ -66,7 +61,7 @@ class Widgets {
 	 * @param array $folders
 	 * @return array
 	 */
-	public function set_widgets_folders( array $folders ) {
+	public function set_widgets_folders( array $folders ) : array {
 		$folders = [];
 		$folders[] = $this->widgets_folder_base . '/';
 		return $folders;
@@ -78,8 +73,8 @@ class Widgets {
 	 * @param array $active_widgets
 	 * @return array
 	 */
-	public function set_active_widgets( array $active_widgets ) {
-		foreach ( $this->widgets as $id_base => $class_base ) {
+	public function set_active_widgets( array $active_widgets ) : array {
+		foreach ( $this->widgets as $id_base => $class_base ) { //TODO: array_keys gebruiken?
 			$active_widgets[ $id_base ] = true;
 		}
 		return $active_widgets;

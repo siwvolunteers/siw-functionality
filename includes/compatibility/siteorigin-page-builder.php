@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Compatibility;
 
@@ -10,8 +10,6 @@ namespace SIW\Compatibility;
  * @since       3.0.0
  */
 class SiteOrigin_Page_Builder {
-
-
 
 	/**
 	 * Init
@@ -52,7 +50,7 @@ class SiteOrigin_Page_Builder {
 	 * 
 	 * @return array
 	 */
-	public function add_widget_tab( array $tabs ) {
+	public function add_widget_tab( array $tabs ) : array {
 		$tabs[] = [
 			'title'  => __( 'SIW Widgets', 'siw' ),
 			'filter' => [

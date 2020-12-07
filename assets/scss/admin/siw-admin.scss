@@ -1,5 +1,36 @@
 @import "../partials/_variables.scss";
-	
+
+#wpadminbar ul li#wp-admin-bar-siw-env {
+	pointer-events: none;
+	background-color: #b92a2a;
+	& > div > span.ab-icon:before {
+		content: "\f339";
+		top: 2px;
+	}
+
+	&.env-production {
+		background-color: #b92a2a;
+		& > div > span.ab-icon:before {
+			content: "\f319";
+			top: 3px;
+		}
+	}
+	&.env-staging {
+		background-color: #d79d00;
+		& > div > span.ab-icon:before {
+			content: "\f111";
+			top: 1px;
+		}
+	}
+	&.env-development, &.env-local {
+		background-color: #3b9843;
+		& > div > span.ab-icon:before {
+			content: "\f107";
+			top: 2px;
+		}
+	}
+}
+
 .siw-logo div {
 	width: 195px !important;
 	background-image: url("#{$assets-path}/images/admin/logo.png") !important;
@@ -10,11 +41,46 @@
 table.wp-list-table {
 	.column-visibility,
 	.column-next_update,
-	.column-exported,
-	.column-siw_agenda_start,
-	.column-siw_agenda_eind,
-	.column-siw_vacature_deadline {
+	.column-exported{
 		width: 10%;
+	}
+
+	.column-selected_for_carousel{
+		width: 48px;
+		text-align: left !important;
+		span.carousel{
+			font-size: 1.6em;
+			cursor: pointer;
+
+			display: block;
+			text-indent: -9999px;
+			position: relative;
+			height: 1em;
+			width: 1em;
+			margin: 0 auto;
+
+			&::before{
+				font-family: Dashicons;
+				speak: none;
+				font-weight: 400;
+				font-variant: normal;
+				text-transform: none;
+				line-height: 1;
+				-webkit-font-smoothing: antialiased;
+				margin: 0;
+				text-indent: 0;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				content: "\f159";
+			}
+			&.show::before{
+				content: "\f12a";
+			}
+		}
 	}
 
 	.column-visibility {
@@ -47,7 +113,7 @@ table.wp-list-table {
 		content: "\f123";
 	}
 	
-	li.plato_options a::before {
+	li.update_options a::before {
 		content: "\f463";
 	}
 	

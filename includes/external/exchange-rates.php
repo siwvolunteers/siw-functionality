@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\External;
+
+use SIW\Core\HTTP_Request;
 
 /**
  * Ophalen wisselkoersen bij fixer.io
@@ -21,26 +23,19 @@ class Exchange_Rates{
 
 	/**
 	 * API key
-	 *
-	 * @var string
 	 */
-	protected $api_key;
+	protected string $api_key;
 
 	/**
 	 * Transient naam
-	 *
-	 * @var string
 	 */
-	protected $transient_name = 'siw_exchange_rates';
+	protected string $transient_name = 'siw_exchange_rates';
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->api_key = siw_get_option( 'exchange_rates_api_key' );
-		if ( empty( $this->api_key ) ) {
-			return;
-		}
+		$this->api_key = siw_get_option( 'fixer.api_key' );
 	}
 
 	/**
@@ -48,13 +43,12 @@ class Exchange_Rates{
 	 * 
 	 * @return array
 	 */
-	public function get_rates() {
+	public function get_rates() : array {
 		$exchange_rates = get_transient( $this->transient_name );
-
-		if ( false === $exchange_rates ) {
+		if ( ! is_array( $exchange_rates ) ) {
 			$exchange_rates = $this->retrieve_rates();
-			if ( false == $exchange_rates ) {
-				return false;
+			if ( is_null( $exchange_rates ) ) {
+				return [];
 			}
 			set_transient( $this->transient_name, $exchange_rates, DAY_IN_SECONDS );
 		}
@@ -68,9 +62,9 @@ class Exchange_Rates{
 	 *
 	 * @return float
 	 */
-	public function get_rate( string $iso_code ) {
+	public function get_rate( string $iso_code ) : ?float {
 		$exchange_rates = $this->get_rates();
-		return $exchange_rates[ $iso_code ] ?? false;
+		return $exchange_rates[ $iso_code ] ?? null;
 	}
 
 	/**
@@ -78,50 +72,19 @@ class Exchange_Rates{
 	 * 
 	 * @return array
 	 */
-	protected function retrieve_rates() {
+	protected function retrieve_rates() : ?array {
 		$url = add_query_arg( [
 			'access_key' => $this->api_key,
 		], self::API_URL );
 
-		$args = [
-			'timeout'     => 10,
-			'redirection' => 0,
-		];
-
-		$response = wp_safe_remote_get( $url, $args );
-
-		if ( false === $this->check_response( $response ) ) {
-			return false;
+		$request = new HTTP_Request( $url );
+		$response = $request->get();
+		
+		if ( is_wp_error( $response ) || false == $response['success'] ) {
+			return null;
 		}
 
-		$body = json_decode( wp_remote_retrieve_body( $response ), true );
-		if ( false == $body['success'] ) {
-			return false;
-		}
-	
-		$exchange_rates = [];
-		foreach ( $body['rates'] as $currency => $rate ) {
-			$exchange_rates[ $currency ] = 1 / $rate;
-		}
-		return $exchange_rates;
+		return array_map( fn( float $rate ) => 1 / $rate, $response['rates'] );
 	}
-
-	/**
-	 * Controleert response
-	 *
-	 * @param array|\WP_Error $response
-	 * @return bool
-	 */
-	protected function check_response( $response ) {
-		if ( is_wp_error( $response ) ) {
-			return false;
-		}
-	
-		$statuscode = wp_remote_retrieve_response_code( $response );
-		if ( \WP_Http::OK != $statuscode ) {
-			return false;
-		}
-		return true;
-	}
-
 }
+

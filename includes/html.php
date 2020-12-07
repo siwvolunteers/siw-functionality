@@ -1,8 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW;
-
-use SIW\Elements;
 
 /**
  * Hulpfuncties voor het genereren van HTML
@@ -13,161 +11,114 @@ use SIW\Elements;
 class HTML {
 
 	/**
-	 * Rendert html-tag
-	 *
-	 * @param string $type
-	 * @param array $attributes
-	 * @return string
+	 * Void tags
 	 */
-	public static function render_tag( string $type, array $attributes, $content = null, $close = false ) {
-		echo self::generate_tag( $type, $attributes, $content, $close );
-	}
+	public static array $void_tags = [
+		'area',
+		'base',
+		'br',
+		'col',
+		'embed',
+		'hr',
+		'img',
+		'input',
+		'keygen',
+		'link',
+		'meta',
+		'param',
+		'source',
+		'track',
+		'wbr',
+	];
 
 	/**
-	 * Genereert html-tag
+	 * Genereert HTML-tag
 	 *
-	 * @param string $type
+	 * @param string $tag
+	 * @param string $content
 	 * @param array $attributes
-	 * @return string
-	 */
-	public static function generate_tag( string $type, array $attributes, $content = null, $close = false ) {
-		$tag = sprintf(
-			'<%s %s>',
-			tag_escape( $type ),
-			self::generate_attributes( $attributes )
-		);
-		if ( null !== $content ) {
-			$tag .= $content;
-		}
-
-		if ( true === $close ) {
-			$tag .= sprintf( '</%s>', tag_escape( $type ) );
-		}
-
-		return $tag;
-	}
-
-	/**
-	 * Genereert tabel
-	 *
-	 * @param array $rows
-	 * @param array $headers
-	 * @param array $attributes
-	 * 
-	 * @return string
-	 */
-	public static function generate_table( array $rows, array $headers = [], $attributes = [] ) {
-
-		$table = sprintf( '<table %s>', self::generate_attributes( $attributes ) );
-		if ( ! empty( $headers ) ) {
-			$table .= '<tr>';
-			foreach ( $headers as $header ) {
-				$table .= '<th>' . wp_kses_post( $header ) . '</th>';
-			}
-			$table .= '</tr>';
-		}
-
-		foreach ( $rows as $row ) {
-			$table .= '<tr>';
-			foreach ( $row as $cell ) {
-				$table .= '<td>' . wp_kses_post( $cell ) . '</td>';
-			}
-			$table .= '</tr>';
-		}
-		$table .= '</table>';
-
-		return $table;
-	}
-
-	/**
-	 * Genereert een `<ol>` of `<ul>` lijst van array
-	 * @param array $items
-	 * @param bool $ordered
 	 *
 	 * @return string
-	 *
-	 * @todo escaping + generate_tag gebruiken + attributes
 	 */
-	public static function generate_list( $items, bool $ordered = false ) {
-		if ( ! is_array( $items ) || empty ( $items ) ) {
-			return false;
-		}
-		$tag = $ordered ? 'ol' : 'ul';
+	public static function tag( string $tag, array $attributes, string $content = '' ) : string {
 
-		$list = "<{$tag}>";
-		foreach ( $items as $item ) {
-			$list .= '<li>' . wp_kses_post( $item ) . '</li>';
-		}
-		$list .= "</{$tag}>";
-
-		return $list;
-	}
-
-	/**
-	 * Genereert link
-	 *
-	 * @todo attributes, target en rel
-	 *
-	 * @param string $url
-	 * @param string $text
-	 * @param array $attributes
-	 * @param array $icon
-	 * @return string
-	 */
-	public static function generate_link( $url, $text = null, array $attributes = [], array $icon = [] ) {
-
-		if ( null === $text ) {
-			$text = $url;
-		}
-
-		if ( ! empty( $icon ) ) {
-			$icon = wp_parse_args(
-				$icon,
-				[
-					'class'      => '',
-					'size'       => 2,
-					'background' => 'none',
-				]
+		//Void tags
+		if ( in_array( $tag, self::$void_tags ) ) {
+			return sprintf(
+				'<%s %s>',
+				tag_escape( $tag ),
+				self::generate_attributes( $attributes )
 			);
-			$icon_html = Elements::generate_icon( $icon['class'], $icon['size'], $icon['background'] );
 		}
-		else { 
-			$icon_html = '';
+		else {
+			return sprintf(
+				'<%s %s>%s</%s>',
+				tag_escape( $tag ),
+				self::generate_attributes( $attributes ),
+				$content, //TODO: escaping met wp_kses_post?
+				tag_escape( $tag )
+			);
 		}
-
-		$link = sprintf(
-			'<a href="%s" %s>%s</a>',
-			esc_url( $url ),
-			self::generate_attributes( $attributes ),
-			wp_kses_post( $text ) . $icon_html
-		);
-		return $link;
 	}
 
 	/**
-	 * Genereert externe link
+	 * Genereert `<div>` tag
 	 *
-	 * @param  string $url
-	 * @param  string $text
+	 * @param array $attributes
+	 * @param string $content
+	 *
 	 * @return string
 	 */
-	public static function generate_external_link( string $url, string $text = null ) {
-		return self::generate_link(
-			$url,
-			$text . '&nbsp;',
-			[
-				'target'           => '_blank',
-				'rel'              => 'noopener external',
-				'data-ga-track'    => 1,
-				'data-ga-type'     => 'event',
-				'data-ga-category' => 'Externe link',
-				'data-ga-action'   => 'Klikken',
-				'data-ga-label'    => $url,
-			],
-			[
-				'class'      => 'siw-icon-external-link-alt',
-			]
-		);
+	public static function div( array $attributes, string $content = '' ) : string {
+		return self::tag( 'div', $attributes, $content );
+	}
+
+	/**
+	 * Genereert `<span>` tag
+	 *
+	 * @param array $attributes
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public static function span(  array $attributes, string $content = '' ) : string {
+		return self::tag( 'span', $attributes, $content );
+	}
+
+	/**
+	 * Genereert `<a>` tag
+	 *
+	 * @param array $attributes
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public static function a( array $attributes, string $content = '') : string {
+		return self::tag( 'a', $attributes, $content );
+	}
+
+	/**
+	 * Genereert `<svg>` tag
+	 *
+	 * @param array $attributes
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public static function svg( array $attributes, string $content = '' ) : string {
+		return self::tag( 'svg', $attributes, $content );
+	}
+
+	/**
+	 * Genereert `<li>` tag
+	 *
+	 * @param array $attributes
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public static function li( array $attributes, string $content = '' ) : string {
+		return self::tag( 'li', $attributes, $content );
 	}
 
 	/**
@@ -196,7 +147,7 @@ class HTML {
 	 * @param array $attributes
 	 * @return string
 	 */
-	public static function generate_attributes( array $attributes ) {
+	public static function generate_attributes( array $attributes ) : string {
 		$rendered_attributes = '';
 		foreach ( $attributes as $key => $value ) {
 			if ( false == $value ) {
@@ -221,6 +172,8 @@ class HTML {
 	 * @param array $input_args
 	 * @param array $wrapper_args
 	 * @return string
+	 * 
+	 * @todo eigen class: Form
 	 */
 	public static function generate_field( string $type, array $input_args, array $wrapper_args = [] ) {
 
@@ -278,11 +231,13 @@ class HTML {
 
 			case 'select':
 				$options = $input_args['options'];
+				$value = $attributes['value'];
+				unset( $attributes['value'] );
 	
 				$field .= sprintf( '<select %s>', self::generate_attributes( $attributes ) );
 				if ( ! empty( $options ) && is_array( $options ) ) {
 					foreach ( $options as $key => $option ) {
-						$selected = selected( $attributes['value'], $key, false );
+						$selected = selected( $value, $key, false );
 						$field .= sprintf('<option value="%s" %s>%s</option>', esc_attr( $key ), $selected, esc_html( $option ) );
 					}
 				}

@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Frontend;
 
 use SIW\Elements;
-use SIW\Formatting;
 use SIW\Elements\Google_Maps;
 
 /**
@@ -12,7 +11,6 @@ use SIW\Elements\Google_Maps;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  * 
- * @todo      reisadvies BuZa
  * @todo      stappenplan
  */
 class Product_Tabs {
@@ -26,8 +24,7 @@ class Product_Tabs {
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_description_tab'] );
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_location_map_tab'] );
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_contact_form_tab'] );
-		//add_filter( 'woocommerce_product_tabs', [ $self, 'add_steps_tab'] );
-		//add_filter( 'woocommerce_product_tabs', [ $self, 'add_travel_advice_tab'] );
+		add_filter( 'woocommerce_product_tabs', [ $self, 'add_steps_tab'] );
 	}
 
 	/**
@@ -36,7 +33,7 @@ class Product_Tabs {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function remove_reviews_tab( array $tabs ) {
+	public function remove_reviews_tab( array $tabs ) : array {
 		unset( $tabs['reviews'] );
 		return $tabs;
 	}
@@ -47,7 +44,7 @@ class Product_Tabs {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function add_project_description_tab( array $tabs ) {
+	public function add_project_description_tab( array $tabs ) : array {
 		global $product;
 		$description = $product->get_meta( 'description' );
 		if ( empty( $description ) ) {
@@ -62,7 +59,6 @@ class Product_Tabs {
 		];
 		return $tabs;
 	}
-
 	
 	/**
 	 * Voegt tab met projectlocatie toe
@@ -70,10 +66,10 @@ class Product_Tabs {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function add_project_location_map_tab( array $tabs ) {
+	public function add_project_location_map_tab( array $tabs ) : array {
 		global $product;
-		$lat = $product->get_meta( 'latitude' );
-		$lng = $product->get_meta( 'longitude' );
+		$lat = (float) $product->get_meta( 'latitude' );
+		$lng = (float) $product->get_meta( 'longitude' );
 	
 		if ( 0 != $lat && 0 != $lng ) {
 			$tabs['location'] = [
@@ -93,7 +89,7 @@ class Product_Tabs {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function add_contact_form_tab( array $tabs ) {
+	public function add_contact_form_tab( array $tabs ) : array {
 		$tabs['enquiry'] = [
 			'title'    => __( 'Stel een vraag', 'siw' ),
 			'priority' => 120,
@@ -108,26 +104,11 @@ class Product_Tabs {
 	 * @param array $tabs
 	 * @return array
 	 */
-	public function add_steps_tab( array $tabs ) {
+	public function add_steps_tab( array $tabs ) : array {
 		$tabs['steps'] = [
 			'title'    => __( 'Zo werkt het', 'siw' ),
 			'priority' => 130,
 			'callback' => [ $this, 'show_product_steps' ],
-		];
-		return $tabs;
-	}
-
-	/**
-	 * Voegt tab met BuZa-reisadvies toe
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
-	public function add_travel_advice_tab( array $tabs ) {
-		$tabs['travel_advice'] = [
-			'title'    => __( 'Reisadvies', 'siw' ),
-			'priority' => 140,
-			'callback' => [ $this, 'show_travel_advice_steps' ],
 		];
 		return $tabs;
 	}
@@ -161,7 +142,7 @@ class Product_Tabs {
 				];
 			}
 		}
-		echo do_shortcode( Elements::generate_accordion( $panes ) );
+		echo Elements::generate_accordion( $panes );
 	}
 
 	/**
@@ -185,33 +166,29 @@ class Product_Tabs {
 	/**
 	 * Toont stappenplan in tab
 	 * 
-	 * @todo stappen uit databestand + loopje maken
+	 * @todo stappen uit instelling
 	 */
 	public function show_product_steps() {
-		$columns = [
+		echo Elements::generate_features(
 			[
-				'width'   => 4,
-				'content' => Elements::generate_icon( 'siw-icon-file-signature', 2, 'circle' ) . '<br><h5>1. Aanmelding</h5>Heb je interesse in dit groepsproject? Meld je dan direct aan via de knop "Aanmelden".'
+				[
+					'icon'    => 'siw-icon-file-signature',
+					'title'   => '1. Aanmelding',
+					'content' => 'Heb je interesse in dit groepsproject? Meld je dan direct aan via de knop "Aanmelden".',
+				],
+				[
+					'icon'    => 'siw-icon-clipboard-check',
+					'title'   => '2. Bevesting',
+					'content' => 'Binnen twee weken na betaling krijg je een bevestiging van plaatsing op het project.',
+				],
+				[
+					'icon'    => 'siw-icon-tasks',
+					'title'   => '3. Voorbereiding',
+					'content' => 'Kom naar de voorbereidingsdag, zodat je goed voorbereid aan je avontuur kan beginnen.',
+				],
 			],
-			[
-				'width'   => 4,
-				'content' => Elements::generate_icon( 'siw-icon-clipboard-check', 2, 'circle' ) . '<br><h5>2. Bevesting</h5>Binnen twee weken na betaling krijg je een bevestiging van plaatsing op het project.'
-			],
-			[
-				'width'   => 4,
-				'content' => Elements::generate_icon( 'siw-icon-tasks', 2, 'circle' ) . '<br><h5>3. Voorbereiding</h5>Kom naar de voorbereidingsdag, zodat je goed voorbereid aan je avontuur kan beginnen.'
-			],
-		];
-		echo '<div style="text-align:center">' . do_shortcode( Formatting::generate_columns( $columns ) ) . '</div>'; //FIXME: geen inline styling
+			3 //TODO: stappen tellen
+		);
 	}
 
-	/**
-	 * Toont reisadvies van BuZa
-	 *
-	 * @param string $tab
-	 * @param array $args
-	 */
-	public function show_travel_advice_tab( string $tab, array $args ) {
-
-	}
 }

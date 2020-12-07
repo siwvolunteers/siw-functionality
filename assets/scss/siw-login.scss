@@ -6,65 +6,47 @@ html{
 	background-attachment: fixed;
 	background-position: center;
 	background-size:cover;
-}
 
-body.login {
-	background-color:rgba(0, 0, 0, 0.0);
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-position: center;
-	background-size:cover;
-}
+	body.login {
+		background: transparent;
 
-#login{
-	padding-top:5%
-}
-
-.login {
-	form{
-		border-radius: 4px;
-	}
-	h1 a {
-		background-image: url('#{$assets-path}/images/login/logo.png');
-		background-size:150px;
-		width: 150px;
-	}
-	label {
-		font-size: 12px;
-		color: #444;
-	}
-	input[type="text"], input[type="password"]{
-		background-color: #ffffff;
-		border-color:#dddddd;
-		border-radius: 4px;
-	}
-	.button-primary {
-		background-color: $primary-color;
-		border-color: $primary-color;
-		color: #fff;
-		box-shadow: none;
-		transition: all 0.3s linear 0s;
-		text-shadow:none;
-		&:hover, &:active{
-			background-color: $primary-color-hover;
-			border-color: $primary-color-hover;
-			color: #fff;
-			box-shadow: none;
+		h1 a {
+			background-image: url('#{$assets-path}/images/login/logo.png');
+			background-size: unset;
+			width: unset;
 		}
-	}
-	#nav a{
-		color:#fff;
-		&:hover{
-			color:#ff9900;
+		.message {
+			border-left-color: $primary-color;
 		}
-	}
-	.message {
-		border-left: 4px solid $primary-color;
-	}
-	input[type="checkbox"]:checked::before{
-		color:$primary-color;
-	}
-	p#backtoblog{
-		display: none;
+		form{
+			input[type="text"], input[type="password"]{
+				border-radius:0;
+				border-color:$button-color;
+			}
+
+			.button-primary {
+				background-color:$button-color;
+				border:none;
+				border-radius:0;
+				color: #fff;
+				transition: all 0.3s linear 0s;
+				&:hover, &:active{
+					background-color:$primary-color;
+					color: #fff;
+				}
+			}
+		}
+
+		#nav a{
+			color:#fff;
+			font-weight: bold;
+			&:hover{
+				color:$primary-color;
+			}
+		}
+	
+		p#backtoblog{
+			display: none;
+		}
 	}
 }

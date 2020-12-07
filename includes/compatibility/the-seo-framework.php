@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Compatibility;
 
@@ -61,7 +61,7 @@ class The_SEO_Framework {
 	 *
 	 * @return string
 	 */
-	public function set_metabox_priority( ) {
+	public function set_metabox_priority() : string {
 		return self::METABOX_PRIORITY;
 	}
 
@@ -71,11 +71,11 @@ class The_SEO_Framework {
 	 * @param array $robots
 	 * @return array
 	 *
-	 * @todo soort_evenement soort_vacature testimonial wpm-testimonial-category
+	 * @todo soort_evenement soort_vacature testimonial wpm-testimonial-category / verplaatsen naar WooCommerce
 	 */
-	public function set_robots( array $robots ) {
+	public function set_robots( array $robots ) : array {
 		if ( function_exists( 'is_product_tag' ) && is_product_tag() ) {
-			$robots['noindex'] = 'noindex';	
+			$robots['noindex'] = 'noindex';
 		}
 		return $robots;
 	}
@@ -85,7 +85,7 @@ class The_SEO_Framework {
 	 *
 	 * @return string
 	 */
-	public function set_sitemap_color_main() {
+	public function set_sitemap_color_main() : string {
 		return Properties::SECONDARY_COLOR;
 	}
 
@@ -94,7 +94,7 @@ class The_SEO_Framework {
 	 *
 	 * @return string
 	 */
-	public function set_sitemap_color_accent() {
+	public function set_sitemap_color_accent() : string {
 		return Properties::FONT_COLOR;
 	}
 
@@ -103,7 +103,7 @@ class The_SEO_Framework {
 	 *
 	 * @return int
 	 */
-	public function set_sitemap_post_limit() {
+	public function set_sitemap_post_limit() : int {
 		return self::SITEMAP_POST_LIMIT;
 	}
 
@@ -113,7 +113,7 @@ class The_SEO_Framework {
 	 * @param string $output
 	 * @return string
 	 */
-	public function set_robots_txt( string $output ) {
+	public function set_robots_txt( string $output ) : string {
 		$bots = siw_get_option( 'blocked_bots');
 
 		if ( empty( $bots ) ) {
@@ -148,8 +148,10 @@ class The_SEO_Framework {
 	 * Productarchieven toevoegen aan de sitemap 
 	 *
 	 * @param array $custom_urls
+	 * 
+	 * @return array
 	 */
-	public function set_sitemap_additional_urls( array $custom_urls ) {
+	public function set_sitemap_additional_urls( array $custom_urls ) : array {
 		
 		if ( ! i18n::is_default_language() ) {
 			return $custom_urls;
@@ -160,6 +162,7 @@ class The_SEO_Framework {
 			'pa_doelgroep',
 			'pa_soort-werk',
 			'pa_taal',
+			'pa_sdg',
 		];
 	
 		foreach ( $taxonomies as $taxonomy ) {

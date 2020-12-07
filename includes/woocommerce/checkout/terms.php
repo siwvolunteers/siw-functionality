@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Checkout;
 
@@ -14,10 +14,8 @@ class Terms{
 
 	/**
 	 * Link naar modal
-	 *
-	 * @var string
 	 */
-	protected $modal_link;
+	protected string $modal_link;
 
 	/**
 	 * Init
@@ -28,7 +26,6 @@ class Terms{
 		remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_checkout_privacy_policy_text', 20 );
 		remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_terms_and_conditions_page_content', 30 );
 		add_action( 'woocommerce_checkout_init', [ $self, 'add_terms_modal'] );
-		add_filter( 'wc_get_template', [ $self, 'set_terms_template'], 10, 5 );
 		add_action( 'wp_enqueue_scripts', [ $self, 'add_script'] );
 	}
 
@@ -37,7 +34,7 @@ class Terms{
 	 *
 	 * @return string
 	 */
-	public function set_term_checkbox_text() {
+	public function set_term_checkbox_text() : string {
 		return sprintf(__( 'Ik heb de %s gelezen en ga akkoord', 'siw' ), $this->modal_link );
 	}
 
@@ -57,23 +54,6 @@ class Terms{
 		if ( is_checkout() && ! is_order_received_page() && ! is_checkout_pay_page() ) {
 			wp_enqueue_script( 'siw-checkout-terms' );
 		}
-	}
-
-	/**
-	 * Overschrijft templates
-	 *
-	 * @param string $located
-	 * @param string $template_name
-	 * @param array $args
-	 * @param string $template_path
-	 * @param string $default_path
-	 * @return string
-	 */
-	public function set_terms_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) {
-		if ( 'checkout/terms.php' === $template_name ) {
-			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
-		}
-		return $located;
 	}
 }
 

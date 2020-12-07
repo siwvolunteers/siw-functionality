@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Admin;
 
@@ -34,7 +34,7 @@ class Coupon {
 	 * @param array $actions
 	 * @return array
 	 */
-	public function add_order_action( array $actions ) {
+	public function add_order_action( array $actions ) : array {
 		global $theorder;
 		if ( $theorder->is_paid() && empty( wc_get_coupon_id_by_code( $theorder->get_order_number() ) ) ) {
 			$actions['siw_create_coupon'] = __( 'Creëer kortingscode', 'siw' );
@@ -61,7 +61,7 @@ class Coupon {
 
 		$application_number = $order->get_order_number();
 
-		//Check of er al een kortingscode voor deze aanmelding bestaat TODO: eventueel kortingscode bijwerken
+		//Check of er al een kortingscode voor deze aanmelding bestaat
 		if ( 0 !== wc_get_coupon_id_by_code( $application_number ) ) {
 			return;
 		}
@@ -71,7 +71,7 @@ class Coupon {
 			'code'               => $application_number,
 			'discount_type'      => self::DISCOUNT_TYPE,
 			'email_restrictions' => $order->get_billing_email(),
-			'amount'             => empty( $order->get_coupon_codes() ) ? Properties::DISCOUNT_SECOND_PROJECT : Properties::DISCOUNT_THIRD_PROJECT,
+			'amount'             => Properties::DISCOUNT_SECOND_PROJECT,
 			'description'        => $order->get_formatted_billing_full_name(),
 			'date_expires'       => '',
 			'usage_limit'        => 1,

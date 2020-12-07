@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW;
 
@@ -15,7 +15,7 @@ class Util {
 	 *
 	 * @return int
 	 */
-	public static function get_mobile_breakpoint() {
+	public static function get_mobile_breakpoint() : int {
 		return function_exists( 'siteorigin_panels_setting') ? siteorigin_panels_setting( 'mobile-width' ) : 780; //TODO: fallback in constante
 	}
 
@@ -24,7 +24,7 @@ class Util {
 	 *
 	 * @return int
 	 */
-	public static function get_tablet_breakpoint() {
+	public static function get_tablet_breakpoint() : int {
 		return function_exists( 'siteorigin_panels_setting') ? siteorigin_panels_setting( 'tablet-width' ) : 1024;  //TODO: fallback in constante
 	}
 
@@ -36,7 +36,7 @@ class Util {
 	 * 
 	 * @todo   patterns verplaatsen naar databestand
 	 */
-	public static function get_pattern( string $type ) {
+	public static function get_pattern( string $type ) : ?string {
 		$patterns = [
 			'date'        => '^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$',
 			'postal_code' => '^[1-9][0-9]{3}\s?[a-zA-Z]{2}$',
@@ -53,10 +53,10 @@ class Util {
 	 * @param string $type
 	 * @return string
 	 */
-	public static function get_regex( string $type ) {
+	public static function get_regex( string $type ) : ?string {
 
 		$pattern = self::get_pattern( $type );
-		if ( null === $pattern ) {
+		if ( is_null( $pattern ) ) {
 			return null;
 		}
 		return sprintf( '/%s/', $pattern );
@@ -69,7 +69,7 @@ class Util {
 	 * 
 	 * @todo https://docs.metabox.io/custom-select-checkbox-tree/
 	 */
-	public static function get_pages() {
+	public static function get_pages() : array {
 		$default_lang = i18n::get_default_language();
 		$current_lang = i18n::get_current_language();
 		do_action( 'wpml_switch_language', $default_lang );
@@ -95,20 +95,10 @@ class Util {
 	 * @param  string $date dd-mm-jjjj
 	 * @return int leeftijd in jaren
 	 */
-	public static function calculate_age( string $date ) {
+	public static function calculate_age( string $date ) : int {
 		$from = new \DateTime( $date );
 		$to   = new \DateTime('today');
 		return $from->diff( $to )->y;
-	}
-
-	/**
-	 * Converteert timestamp met tijdzone naar timestamp in GMT
-	 *
-	 * @param int $timestamp
-	 * @return int
-	 */
-	public static function convert_timestamp_to_gmt( int $timestamp ) {
-		return strtotime( get_gmt_from_date( date( 'Y-m-d H:i:s', $timestamp ) ) . ' GMT' );
 	}
 
 	/**
@@ -116,7 +106,7 @@ class Util {
 	 *
 	 * @return bool
 	 */
-	public static function is_workcamp_sale_active() {
+	public static function is_workcamp_sale_active() : bool {
 		
 		$workcamp_sale = siw_get_option( 'workcamp_sale' );
 		$workcamp_sale_active = false;
@@ -135,7 +125,7 @@ class Util {
 	 *
 	 * @return bool
 	 */
-	public static function is_tailor_made_sale_active() {
+	public static function is_tailor_made_sale_active() : bool {
 		
 		$tailor_made_sale = siw_get_option( 'tailor_made_sale' );
 		
@@ -151,26 +141,6 @@ class Util {
 	}
 
 	/**
-	 * Geeft aan of template bestaat
-	 *
-	 * @param string $template
-	 * @return bool
-	 */
-	public static function template_exists( string $template ) {
-		return file_exists( SIW_TEMPLATES_DIR . "/{$template}" );
-	}
-
-	/**
-	 * Geeft aan of post bestaat op basis van ID
-	 *
-	 * @param int $post_id
-	 * @return string
-	 */
-	public static function post_exists( int $post_id ) {
-		return is_string( get_post_status( $post_id ) );
-	}
-
-	/**
 	 * Geeft parameter uit request terug
 	 *
 	 * @param string $key
@@ -178,7 +148,7 @@ class Util {
 	 *
 	 * @return string
 	 */
-	public static function get_request_parameter( string $key, $default = '' ) {
+	public static function get_request_parameter( string $key, $default = '' ) : string {
 	
 		if ( ! isset( $_REQUEST[ $key ] ) || empty( $_REQUEST[ $key ] ) ) {
 			return $default;
@@ -210,10 +180,19 @@ class Util {
 		}
 
 		//Eventueel volgorde zetten
-		if ( null != $order ) {
-			update_term_meta( $new_term['term_id'], "order_pa_{$taxonomy}", $order ); 
+		if ( ! empty( $order ) ) {
+			update_term_meta( $new_term['term_id'], "order", $order );
 		}
 
 		return $new_term['term_id'];
+	}
+
+	/**
+	 * Geeft aan of het een productieomgeving betreft
+	 *
+	 * @return bool
+	 */
+	public static function is_production() : bool {
+		return 'production' == \wp_get_environment_type();
 	}
 }

@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
-use SIW\CSS;
+use SIW\Util\CSS;
 
 /**
  * Carousel met posts
@@ -19,64 +19,55 @@ class Carousel {
 
 	/**
 	 * Post type
-	 *
-	 * @var string
 	 */
-	protected $post_type;
+	protected string $post_type;
 
 	/**
 	 * Taxonomy voor query
-	 *
-	 * @var string
 	 */
-	protected $taxonomy;
+	protected string $taxonomy;
 
 	/**
 	 * Term voor query
-	 *
-	 * @var string
 	 */
-	protected $term;
+	protected string $term;
+
+	/**
+	 * Meta query
+	 */
+	protected array $meta_query = [];
 
 	/**
 	 * Aantal items in carousel
-	 *
-	 * @var int
 	 */
-	protected $items = 6;
+	protected int $items = 6;
 
 	/**
 	 * Aantal kolommen in carousel
-	 *
-	 * @var int
 	 */
-	protected $columns = 4;
+	protected int $columns = 4;
 
 	/**
 	 * Tekst voor knop
-	 *
-	 * @var string
 	 */
-	protected $button_text;
+	protected string $button_text;
 
 	/**
 	 * Opties voor carousel
-	 *
-	 * @var array
 	 */
-	protected $options = [
+	protected array $options = [
 		'cellAlign'  => 'left',
 		'contain'    => true,
 		'wrapAround' => true,
 		'autoPlay'   => 2000,
-		'pageDots'   => false,
+		'pageDots'   => false, //TODO: styling
 	];
 
 	/**
 	 * Voegt stylesheet toe
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'flickity', SIW_ASSETS_URL . 'modules/flickity/flickity.css', [], self::FLICKITY_VERSION );
+		wp_register_style( 'flickity', SIW_ASSETS_URL . 'vendor/flickity/flickity.css', [], self::FLICKITY_VERSION );
 		wp_enqueue_style( 'flickity' );
 	}
 
@@ -84,7 +75,7 @@ class Carousel {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'flickity', SIW_ASSETS_URL . 'modules/flickity/flickity.js', [], self::FLICKITY_VERSION, true );
+		wp_register_script( 'flickity', SIW_ASSETS_URL . 'vendor/flickity/flickity.pkgd.js', [], self::FLICKITY_VERSION, true );
 		wp_enqueue_script( 'flickity' );
 	}
 
@@ -93,37 +84,29 @@ class Carousel {
 	 * 
 	 * @return string
 	 */
-	protected function get_responsive_class() {
+	protected function get_responsive_classes() : string {
+
+		$desktop_columns = $this->columns;
+		$mobile_columns = 1;
+
 		switch ( $this->columns ) {
 			case 1:
-				$column_size = 12;
-				$tablet_size = 12;
-				$mobile_size = 12;
+				$tablet_columns = 1;
 				break;
 			case 2:
-				$column_size = 6;
-				$tablet_size = 6;
-				$mobile_size = 12;
+				$tablet_columns = 2;
 				break;
 			case 3:
-				$column_size = 4;
-				$tablet_size = 6;
-				$mobile_size = 12;
+				$tablet_columns = 2;
 				break;
 			case 4:
-				$column_size = 3;
-				$tablet_size = 6;
-				$mobile_size = 12;
+				$tablet_columns = 2;
 				break;
 			default:
-				$column_size = 12;
-				$tablet_size = 12;
-				$mobile_size = 12;
-		}
-		$class = CSS::generate_responsive_class( $column_size, $tablet_size, $mobile_size );
-		return $class;
+				$tablet_columns = 1;
+			}
+		return CSS::generate_responsive_classes( $desktop_columns, $tablet_columns, $mobile_columns );
 	}
-
 
 	/**
 	 * Zet post type voor carousel
@@ -164,6 +147,15 @@ class Carousel {
 	}
 
 	/**
+	 * Zet meta query
+	 *
+	 * @param array $meta_query
+	 */
+	public function set_meta_query( array $meta_query ) {
+		$this->meta_query[] = $meta_query;
+	}
+
+	/**
 	 * Zet opties voor carousel
 	 *
 	 * @param array $options
@@ -179,17 +171,12 @@ class Carousel {
 	 * 
 	 * @todo leesbaarder maken
 	 */
-	public function render() {
+	public function render() : string {
 		
 		$this->enqueue_scripts();
 		$this->enqueue_styles();
 
 		$query = $this->generate_query();
-
-		//Lelijkheid ten top, kan hopelijk weg na switch theme
-		global $woocommerce_loop;
-		$columns = $woocommerce_loop['columns'];
-		$woocommerce_loop['columns'] = 1;
 
 		ob_start();
 		?>
@@ -197,12 +184,12 @@ class Carousel {
 		<?php
 		if ( $query->have_posts() ) {
 			?>
-			<div class="main-carousel" data-flickity='<?php echo json_encode( $this->options );?>'>
+			<div class="main-carousel grid-container" data-flickity='<?php echo json_encode( $this->options );?>'>
 			<?php
 			while ( $query->have_posts() ) {
 				$query->the_post();
-				global $post; //Kan weg na switch naar GeneratePress
-				?> <div class="<?php echo esc_attr( $this->get_responsive_class() );?> carousel-cell">
+				?>
+				<div class="<?php echo esc_attr( $this->get_responsive_classes() );?> carousel-cell">
 					<?php include( $this->get_template() );?>
 				</div>
 				<?php
@@ -211,13 +198,9 @@ class Carousel {
 		} else {
 			//TODO: tekst bij geen posts? -> Instelling
 		}
-
 		echo '</div>';
 
 		wp_reset_postdata();
-
-		//Ongedaan maken lelijkheid, kan hopelijk weg na switch theme
-		$woocommerce_loop['columns'] = $columns;
 		return ob_get_clean();
 	}
 
@@ -226,7 +209,7 @@ class Carousel {
 	 * 
 	 * @return \WP_Query
 	 */
-	protected function generate_query() {
+	protected function generate_query() : \WP_Query {
 		$args = [
 			'post_type'      => $this->post_type,
 			'posts_per_page' => $this->items,
@@ -236,15 +219,19 @@ class Carousel {
 		if ( isset( $this->taxonomy ) && isset( $this->term ) ) {
 			$args['tax_query'] = [
 				[
-					'taxonomy'         => $this->taxonomy,
-					'terms'            => $this->term,
-					'field'            => 'slug',
+					'taxonomy' => $this->taxonomy,
+					'terms'    => $this->term,
+					'field'    => 'slug',
 				],
 			];
 		}
 
+		if ( ! empty( $this->meta_query ) ) {
+			$args['meta_query'] = $this->meta_query;
+		}
+
 		//In het geval van Groepsprojecten alleen zichtbare projecten tonen (tenzij er al op product_visibility gefilterd wordt)
-		if ( 'product' == $this->post_type && 'product_visibility' != $this->taxonomy ) {
+		if ( 'product' == $this->post_type && ( ! isset( $this->taxonomy ) || 'product_visibility' != $this->taxonomy ) ) {
 			$args['tax_query'][] = [
 				'taxonomy' => 'product_visibility',
 				'terms'    => [ 'exclude-from-search', 'exclude-from-catalog'],
@@ -252,7 +239,6 @@ class Carousel {
 				'operator' => 'NOT IN'
 			];
 		}
-
 		return new \WP_Query( $args );
 	}
 
@@ -260,16 +246,11 @@ class Carousel {
 	 * Haal templatebestand op voor post type
 	 * 
 	 * @return string
+	 * 
+	 * @todo fallback-bestand
 	 */
-	protected function get_template() {
-		//TODO:filter
-
-		$templates = [
-			'siw_tm_country' => SIW_TEMPLATES_DIR . '/content-tm_country.php',
-			'product'        => wc_locate_template('content-product.php' ),
-		];
-
-		$template = $templates[ $this->post_type ] ?? '';
-		return $template;
+	protected function get_template() : string {
+		$templates = apply_filters( 'siw_carousel_post_type_templates', [] );
+		return $templates[ $this->post_type ] ?? '';
 	}
 }

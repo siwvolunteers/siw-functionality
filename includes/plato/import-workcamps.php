@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Plato;
 
@@ -13,19 +13,17 @@ class Import_Workcamps extends Import {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $endpoint = 'GetAllProjects';
+	protected string $endpoint = 'GetAllProjects';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'importeren groepsprojecten';
+	protected string $name = 'importeren groepsprojecten';
 
 	/**
 	 * Eigenschappen per project
 	 *
 	 * @var array
-	 * 
-	 * @todo verplaatsen naar databestand
 	 */
 	protected $properties = [
 		'project_id',
@@ -53,6 +51,7 @@ class Import_Workcamps extends Import {
 		'descr_accomodation_and_food',
 		'descr_location_and_leisure',
 		'descr_requirements',
+		'descr_appointement',
 		'airport',
 		'train_bus_station',
 		'numvol_m',
@@ -70,6 +69,7 @@ class Import_Workcamps extends Import {
 		'project_summary',
 		'accessibility',
 		'last_update',
+		'sdg_prj',
 	];
 	
 	/**

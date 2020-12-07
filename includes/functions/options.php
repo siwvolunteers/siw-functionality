@@ -1,12 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Functies m.b.t. opties
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  */
 
-use SIW\Options;
+use function Donut\Util\array_dig;
 
 /**
  * Haal optie op
@@ -29,9 +30,8 @@ function siw_get_option( $option, $default = null ) {
 	if ( false !== $value ) {
 		return $value;
 	}
-
-	$options = get_option( Options::OPTION_NAME );
-	$value = $options[ $option ] ?? null;
+	$options = get_option( 'siw_options' );
+	$value = array_dig( $options, explode( '.', $option ) );
 
 	if ( empty( $value ) ) {
 		return $default;
@@ -48,21 +48,4 @@ function siw_get_option( $option, $default = null ) {
 	wp_cache_set( $option, $value, 'siw_options' );
 
 	return $value;
-}
-
-/**
- * Werk optie bij
- *
- * @param string $option
- * @param mixed $value
- */
-function siw_set_option( string $option, $value ) {
-	$options = get_option( Options::OPTION_NAME );
-	if ( null === $value ) {
-		unset( $options[ $option ] );
-	}
-	else {
-		$options[ $option ] = $value;
-	}
-	update_option( Options::OPTION_NAME, $options );
 }

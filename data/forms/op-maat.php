@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -24,7 +24,7 @@ $intro = [
 	__( 'Interesse in een Project Op Maat?', 'siw' ) . SPACE .
 	__( 'Meld je dan aan via onderstaand formulier.', 'siw' ) . SPACE .
 	__( 'Vervolgens zal één van onze regiospecialisten contact met je opnemen voor een kennismakingsgesprek.', 'siw' ) . SPACE .
-	sprintf( __( 'Weet je nog niet precies waar je naar toe wil, meld je dan aan voor één van onze <a href="%s">Infodagen</a> en laat je inspireren.', 'siw' ), i18n::get_translated_page_url( siw_get_option( 'info_days_explanation_page' ) ) )
+	sprintf( __( 'Weet je nog niet precies waar je naar toe wil, meld je dan aan voor één van onze <a href="%s">Infodagen</a> en laat je inspireren.', 'siw' ), i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.info_days', 0 ) ) ) )
 ];
 
 $pages = [
@@ -108,10 +108,7 @@ $fields[1] = [
 ];
 
 
-$volunteer_languages = siw_get_languages('volunteer');
-foreach ( $volunteer_languages as $language ) {
-	$languages[ $language->get_slug() ] = $language->get_name();
-}
+$languages = siw_get_languages( 'volunteer', 'slug', 'array' );
 $language_skill_levels = siw_get_language_skill_levels();
 
 $fields[2] = [
@@ -121,7 +118,8 @@ $fields[2] = [
 			'type'    => 'dropdown',
 			'label'   => __( 'Taal 1', 'siw' ),
 			'config'  => [
-				'option' => $languages,
+				'option'      => $languages,
+				'placeholder' => __( 'Selecteer een taal', 'siw' ),
 			]
 		],
 		[
@@ -140,7 +138,8 @@ $fields[2] = [
 			'type'    => 'dropdown',
 			'label'   => __( 'Taal 2', 'siw' ),
 			'config'  => [
-				'option' => $languages,
+				'option'      => $languages,
+				'placeholder' => __( 'Selecteer een taal', 'siw' ),
 			]
 		],
 		[
@@ -159,7 +158,8 @@ $fields[2] = [
 			'type'    => 'dropdown',
 			'label'   => __( 'Taal 3', 'siw' ),
 			'config'  => [
-				'option' => $languages,
+				'option'      => $languages,
+				'placeholder' => __( 'Selecteer een taal', 'siw' ),
 			]
 		],
 		[

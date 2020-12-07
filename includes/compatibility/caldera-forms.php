@@ -1,8 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Compatibility;
 
-use SIW\Formatting;
 use SIW\Util;
 use SIW\Properties;
 
@@ -13,7 +12,7 @@ use SIW\Properties;
  * @see       https://calderaforms.com/
  * @since     3.0.0
  */
-class Caldera_Forms{ 
+class Caldera_Forms {
 
 	/**
 	 * Init
@@ -39,6 +38,7 @@ class Caldera_Forms{
 
 		add_filter( 'caldera_forms_summary_magic_pattern', [ $self, 'set_summary_magic_pattern' ] );
 		add_filter( 'caldera_forms_field_attributes', [ $self, 'set_validation_field_attributes' ] , 10, 2 );
+		add_filter( 'caldera_forms_field_attributes', [ $self, 'add_field_classes' ], 10, 2 );
 		add_filter( 'caldera_forms_render_assets_minify', '__return_false' );
 		add_filter( 'caldera_forms_render_form_attributes' , [ $self, 'maybe_add_postcode_lookup'], 10, 2 );
 		add_filter( 'rocket_excluded_inline_js_content', [ $self, 'set_excluded_inline_js_content' ] );
@@ -51,7 +51,7 @@ class Caldera_Forms{
 	 * @param array $content
 	 * @return array
 	 */
-	public function set_excluded_inline_js_content( array $content ) {
+	public function set_excluded_inline_js_content( array $content ) : array {
 		$content[] = 'caldera_conditionals';
 		return $content;
 	}
@@ -60,7 +60,7 @@ class Caldera_Forms{
 	 * Verwijdert shortcode knop
 	 */
 	public function remove_shortcode_button() {
-		remove_action( 'media_buttons', array( \Caldera_Forms_Admin::get_instance(), 'shortcode_insert_button' ), 11 );
+		remove_action( 'media_buttons', [ \Caldera_Forms_Admin::get_instance(), 'shortcode_insert_button' ], 11 );
 		add_filter( 'caldera_forms_insert_button_include', '__return_false' );
 	}
 
@@ -70,7 +70,7 @@ class Caldera_Forms{
 	 * @param array $protocols
 	 * @return array
 	 */
-	public function allow_magic_tags( array $protocols ) {
+	public function allow_magic_tags( array $protocols ) : array {
 		$protocols[] = '{embed_post';
 		return $protocols;
 	}
@@ -79,8 +79,8 @@ class Caldera_Forms{
 	 * Verwijdert wpautop van e-mails
 	 */
 	public function disable_wpautop() {
-		remove_filter( 'caldera_forms_mailer', array( \Caldera_Forms::get_instance(), 'format_message' ) );
-		remove_filter( 'caldera_forms_autoresponse_mail', array( 'Caldera_Forms_Email_Filters', 'format_autoresponse_message' ) );
+		remove_filter( 'caldera_forms_mailer', [ \Caldera_Forms::get_instance(), 'format_message' ] );
+		remove_filter( 'caldera_forms_autoresponse_mail', [ 'Caldera_Forms_Email_Filters', 'format_autoresponse_message' ] );
 	}
 
 	/**
@@ -89,8 +89,8 @@ class Caldera_Forms{
 	 * @param string $field_html
 	 * @return string
 	 */
-	public function add_input_markup( string $field_html ) {
-		$field_html = preg_replace( '/<input(.*?)>/s', '<input$1><div class="control-indicator"></div>', $field_html );
+	public function add_input_markup( string $field_html ) : string {
+		$field_html = preg_replace( '/<input(.*?)>/s', '<input$1><span class="checkmark"></span>', $field_html );
 		return $field_html;
 	}
 
@@ -101,11 +101,12 @@ class Caldera_Forms{
 	 * @param string $tag
 	 * @return string
 	 */
-	public function set_summary_magic_table( ?string $value, string $tag ) {
+	public function set_summary_magic_table( ?string $value, string $tag ) : ?string {
 		if ( '{summary}' !== $tag ) {
 			return $value;
 		}
-		$value = Formatting::array_to_text(
+		$value = implode(
+			'',
 			[
 				'<table width="100%" border="0" cellspacing="0" cellpadding="0">',
 					'<tr>',
@@ -118,9 +119,7 @@ class Caldera_Forms{
 					$value,
 				'</table>'
 			],
-			''
 		);
-
 		return $value;
 	}
 
@@ -130,7 +129,7 @@ class Caldera_Forms{
 	 * @param string $pattern
 	 * @return string
 	 */
-	public function set_summary_magic_pattern( string $pattern ) {
+	public function set_summary_magic_pattern( string $pattern ) : string {
 		$pattern = '<tr>
 			<td width="35%%" style="font-family: Verdana, normal; color:' . Properties::FONT_COLOR . '; font-size:0.8em;">%s</td>
 			<td width="5%%"></td>
@@ -151,7 +150,7 @@ class Caldera_Forms{
 	 * 
 	 * @todo verplaatsen naar SIW\Form ?
 	 */
-	public function set_validation_field_attributes( array $attrs, array $field ) {
+	public function set_validation_field_attributes( array $attrs, array $field ) : array {
 		if ( 'geboortedatum' === $field['ID'] ) {
 			$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige datum.', 'siw' );
 			$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'date' );
@@ -160,6 +159,24 @@ class Caldera_Forms{
 		if ( 'postcode' === $field['ID'] ) {
 			$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige postcode.', 'siw' );
 			$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'postal_code' );
+		}
+		return $attrs;
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @param array $attrs
+	 * @param array $field
+	 *
+	 * @return array
+	 */
+	public function add_field_classes( array $attrs, array $field ) : array {
+		if ( 'dropdown' === $field['type'] ) {
+			$attrs['class'] .= SPACE . 'select-css';
+		}
+		if ( 'checkbox' === $field['type'] ) {
+			$attrs['class'] .= SPACE . 'checkbox-css';
 		}
 		return $attrs;
 	}
@@ -174,8 +191,8 @@ class Caldera_Forms{
 	 * 
 	 * @todo verplaatsen naar SIW\Form?
 	 */
-	public function maybe_add_postcode_lookup( array $attributes, array $form ) {
-		$attributes['data-siw-postcode-lookup'] =  isset( $form['postcode_lookup'] ) && $form['postcode_lookup'];
+	public function maybe_add_postcode_lookup( array $attributes, array $form ) : array {
+		$attributes['data-siw-postcode-lookup'] = isset( $form['postcode_lookup'] ) && $form['postcode_lookup'];
 		return $attributes;
 	}
 

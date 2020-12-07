@@ -1,11 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
 use SIW\Elements;
-use SIW\Formatting;
 use SIW\Properties;
-use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Widget met contactinformatie
@@ -24,12 +23,12 @@ class Contact extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id = 'contact';
+	protected string $widget_id = 'contact';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'phone';
+	protected string $widget_dashicon = 'phone';
 
 	/**
 	 * {@inheritDoc}
@@ -56,22 +55,28 @@ class Contact extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 		ob_start();
 		?>
 		<div class="siw-contact">
 			<?php
-			echo wpautop( Formatting::array_to_text(
-				[
-					Properties::NAME,
-					sprintf( '%s | %s %s', Properties::ADDRESS, Properties::POSTCODE, Properties::CITY ),
-					sprintf( '%s | %s',
-						HTML::generate_link( "tel:" . Properties::PHONE_INTERNATIONAL, Properties::PHONE ),
-						HTML::generate_link( "mailto:" . antispambot( Properties::EMAIL ), antispambot( Properties::EMAIL ) )
-					),
-					Elements::generate_opening_hours('table'),
-				],
-				BR2
+			echo wpautop(
+				implode(
+					BR,
+					[
+						Properties::NAME,
+						sprintf( '%s | %s %s', Properties::ADDRESS, Properties::POSTCODE, Properties::CITY ),
+						sprintf( '%s | %s',
+							Links::generate_tel_link( Properties::PHONE_INTERNATIONAL, Properties::PHONE ),
+							Links::generate_mailto_link( Properties::EMAIL )
+						),
+						Links::generate_link(
+							'https://api.whatsapp.com/send?phone='. Properties::WHATSAPP_FULL,
+							Elements::generate_icon( 'siw-icon-whatsapp' ) . SPACE . Properties::WHATSAPP,
+							[ 'class' => 'siw-contact-link'],
+						),
+						Elements::generate_opening_hours('table'),
+					]
 				)
 			);
 			?>
@@ -80,9 +85,12 @@ class Contact extends Widget {
 			<?php
 			$social_networks = siw_get_social_networks( 'follow' );
 			foreach ( $social_networks as $network ) {
-				echo HTML::generate_link(
+				echo Links::generate_icon_link(
 					$network->get_follow_url(),
-					'&shy;',
+					[
+						'class'      => $network->get_icon_class(),
+						'background' => 'circle'
+					],
 					[
 						'class'               => $network->get_slug(),
 						'title'               => $network->get_name(),
@@ -93,18 +101,11 @@ class Contact extends Widget {
 						'data-original-title' => $network->get_name(),
 						'style'               => '--hover-color: ' . $network->get_color(),
 					],
-					[
-						'class'      => $network->get_icon_class(),
-						'size'       => 2,
-						'background' => 'circle'
-					]
 				);
 			}
 			?>
 		</div>
 		<?php
-
-		$html_content = ob_get_clean();
-		return $html_content;
+		return ob_get_clean();
 	}
 }

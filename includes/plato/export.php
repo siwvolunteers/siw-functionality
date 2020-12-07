@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Plato;
+
+use SIW\Util;
 
 /**
  * Export naar Plato
@@ -12,38 +14,19 @@ abstract class Export extends Plato_Interface {
 
 	/**
 	 * Data
-	 *
-	 * @var array
 	 */
-	protected $data;
+	protected array $data;
 
 	/**
 	 * XML-data
-	 *
-	 * @var array
 	 */
-	protected $xml_data;
-
-	/**
-	 * Productiemode
-	 *
-	 * @var bool
-	 */
-	protected $production;
+	protected array $xml_data;
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		parent::__construct();
-		$this->set_production();
-	}
-
-	/**
-	 * Zet productiemode o.b.v. instelling
-	 */
-	protected function set_production() {
-		$this->production = siw_get_option( 'plato_production_mode', false );
 	}
 
 	/**
@@ -51,13 +34,13 @@ abstract class Export extends Plato_Interface {
 	 *
 	 * @return array
 	 */
-	public function run( $data ) {
+	public function run( $data ) : array {
 		
-		if ( ! $this->production ) {
+		if ( ! Util::is_production() ) {
 			return [
 				'success'     => false,
 				'imported_id' => '',
-				'message'     => 'Productiemode staat niet aan',
+				'message'     => 'Geen productieomgeving',
 			];
 		}
 		$this->data = $data;
@@ -92,7 +75,7 @@ abstract class Export extends Plato_Interface {
 	 * 
 	 * @return bool
 	 */
-	protected function send_xml() {
+	protected function send_xml() : bool {
 		$args = [
 			'timeout'     => 60,
 			'redirection' => 0,
@@ -107,7 +90,7 @@ abstract class Export extends Plato_Interface {
 			],
 		];
 		$this->http_response = wp_safe_remote_post( $this->endpoint_url, $args );
-		if ( false == $this->is_valid_response() ) {
+		if ( ! $this->is_valid_response() ) {
 			return false;
 		}
 		$this->xml_response = simplexml_load_string( wp_remote_retrieve_body( $this->http_response ) );

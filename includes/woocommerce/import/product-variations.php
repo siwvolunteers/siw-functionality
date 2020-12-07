@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Import;
 
@@ -14,17 +14,13 @@ class Product_Variations {
 
 	/**
 	 * Product
-	 *
-	 * @var \WC_Product
 	 */
-	protected $product;
+	protected \WC_Product $product;
 
 	/**
 	 * Tarieven
-	 *
-	 * @var array
 	 */
-	protected $tariffs= [];
+	protected array $tariffs;
 
 	/**
 	 * Init
@@ -61,6 +57,10 @@ class Product_Variations {
 	 * Variaties creëren
 	 */
 	public function create() {
+		if ( $this->product->get_meta( 'has_custom_tariff' ) ) {
+			return;
+		}
+
 		$sale = Util::is_workcamp_sale_active();
 		$workcamp_sale = siw_get_option( 'workcamp_sale' );
 

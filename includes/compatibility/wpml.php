@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Compatibility;
 
@@ -20,8 +20,7 @@ class WPML {
 		$self = new self();
 		
 		add_action( 'widgets_init', [ $self, 'unregister_wpml_widget'], 99 );
-		add_action( 'admin_head', [ $self, 'remove_wpml_meta_box'] );
-		add_filter( 'wpml_ls_directories_to_scan', [ $self, 'add_language_switcher_templates_dir'] );
+		add_action( 'admin_head', [ $self, 'remove_wpml_meta_box'], 99 );
 		add_action( 'delete_attachment', [ $self, 'delete_original_attachment' ] );
 	}
 
@@ -41,17 +40,6 @@ class WPML {
 	}
 
 	/**
-	 * Voegt templates voor taalwisselaar toe
-	 *
-	 * @param array $dirs
-	 * @return array
-	 */
-	public function add_language_switcher_templates_dir( array $dirs ) {
-		$dirs[] = SIW_TEMPLATES_DIR .'/wpml/language-switchers';
-		return $dirs;
-	}
-
-	/**
 	 * Verwijder origineel attachment als vertaling verwijderd wordt
 	 *
 	 * @param int $post_id
@@ -62,7 +50,7 @@ class WPML {
 		}
 
 		$original_post_id = apply_filters( 'wpml_object_id', $post_id, 'attachment', false, i18n::get_default_language() );
-		if ( null !== $original_post_id && $post_id !== $original_post_id ) {
+		if ( is_int( $original_post_id ) && $post_id !== $original_post_id ) {
 			wp_delete_attachment( $original_post_id );
 		}
 	}

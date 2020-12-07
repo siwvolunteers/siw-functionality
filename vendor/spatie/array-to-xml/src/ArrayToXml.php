@@ -2,16 +2,18 @@
 
 namespace Spatie\ArrayToXml;
 
-use Exception;
-use DOMElement;
 use DOMDocument;
+use DOMElement;
 use DOMException;
+use Exception;
 
 class ArrayToXml
 {
     protected $document;
 
     protected $replaceSpacesByUnderScoresInKeyNames = true;
+
+    protected $addXmlDeclaration = true;
 
     protected $numericTagNamePrefix = 'numeric_';
 
@@ -21,9 +23,14 @@ class ArrayToXml
         $replaceSpacesByUnderScoresInKeyNames = true,
         $xmlEncoding = null,
         $xmlVersion = '1.0',
-        $domProperties = []
+        $domProperties = [],
+        $xmlStandalone = null
     ) {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
+
+        if (! is_null($xmlStandalone)) {
+            $this->document->xmlStandalone = $xmlStandalone;
+        }
 
         if (! empty($domProperties)) {
             $this->setDomProperties($domProperties);
@@ -53,7 +60,8 @@ class ArrayToXml
         bool $replaceSpacesByUnderScoresInKeyNames = true,
         string $xmlEncoding = null,
         string $xmlVersion = '1.0',
-        array $domProperties = []
+        array $domProperties = [],
+        bool $xmlStandalone = null
     ) {
         $converter = new static(
             $array,
@@ -61,7 +69,8 @@ class ArrayToXml
             $replaceSpacesByUnderScoresInKeyNames,
             $xmlEncoding,
             $xmlVersion,
-            $domProperties
+            $domProperties,
+            $xmlStandalone
         );
 
         return $converter->toXml();
@@ -69,6 +78,10 @@ class ArrayToXml
 
     public function toXml(): string
     {
+        if ($this->addXmlDeclaration === false) {
+            return $this->document->saveXml($this->document->documentElement);
+        }
+
         return $this->document->saveXML();
     }
 
@@ -93,6 +106,21 @@ class ArrayToXml
         foreach ($domProperties as $key => $value) {
             $this->document->{$key} = $value;
         }
+
+        return $this;
+    }
+
+    public function prettify()
+    {
+        $this->document->preserveWhiteSpace = false;
+        $this->document->formatOutput = true;
+
+        return $this;
+    }
+
+    public function dropXmlDeclaration()
+    {
+        $this->addXmlDeclaration = false;
 
         return $this;
     }
@@ -125,6 +153,8 @@ class ArrayToXml
                     $element->appendChild($fragment);
                 } elseif ($key === '__numeric') {
                     $this->addNumericNode($element, $data);
+                } elseif (substr($key, 0, 9) === '__custom:') {
+                    $this->addNode($element, explode(':', $key)[1], $data);
                 } else {
                     $this->addNode($element, $key, $data);
                 }

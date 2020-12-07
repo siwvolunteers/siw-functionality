@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Admin;
 
@@ -66,7 +66,7 @@ class Admin {
 	 *
 	 * @return string
 	 */
-	public function set_admin_footer_text() {
+	public function set_admin_footer_text() : string {
 		return sprintf( '&copy; %s %s', date( 'Y' ), Properties::NAME );
 	}
 
@@ -76,7 +76,7 @@ class Admin {
 	 * @param array $columns
 	 * @return array
 	 */
-	public function remove_pages_columns( array $columns ) {
+	public function remove_pages_columns( array $columns ) : array {
 		unset( $columns['comments'] );
 		unset( $columns['author'] );
 		return $columns;
@@ -98,9 +98,9 @@ class Admin {
 	 *
 	 * @param string $slug
 	 * @param array $menu
-	 * @return string
+	 * @return int|null
 	 */
-	protected function menu_search( string $slug, array $menu ) {
+	protected function menu_search( string $slug, array $menu ) : ?int {
 		$menu_item = wp_list_filter(
 			$menu,
 			[ 2 => $slug ]
@@ -118,21 +118,15 @@ class Admin {
 		if ( $bbq ) {
 			$menu[ $bbq ][6] = 'dashicons-shield-alt';
 		}
-	
-		$kt = $this->menu_search( 'ktoptions', $menu );
-		if ( $kt ) {
-			$menu[ $kt ][6] ='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTZEaa/1AAAA+klEQVRIS+2SsQ7BUBSG27Bgl9jFILGJ3WgzeAlv4DXE0ERsVgw2D+Ad+gTewNDQ1nfqNKQJ7Y0Sw/2SP//Re85/3OJYLK+I47gahuEiiqKaPvoNLJ6hmOVzffR9uOUABbIYD9FIj8qF/IqWsrSBfF0qJrc+UTe1pTwIXaKJ1qt0oZDW+B5zk4EyILCLLioPPbZm4GgqM5T1ZPgTCNvcY/Oh94yNcR+1NMIchvv8fliUvFITMedpjBl8c5eAg97EWCwO8LbGFYehoQSYkO3n81rjisGM3PZouliQmSddUU9j86G5w6va5ok+0U78zXnyT7dYLBaL5d9xnBswdjMy+Bkh/AAAAABJRU5ErkJggg==';
-		}
 	}
 
 	/**
 	 * Voegt extra admin columns toe
 	 */
 	public function add_user_columns() {
-		if ( ! class_exists( '\MB_Admin_Columns_User' ) ) {
+		if ( ! class_exists( '\MBAC\User' ) ) {
 			return;
 		}
 		new User_Columns( 'user', [] );
 	}
-
 }

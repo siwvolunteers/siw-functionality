@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Page_Builder;
 
@@ -46,7 +46,7 @@ class Animation {
 	 * 
 	 * @return array
 	 */
-	public function add_style_group( array $groups ) {
+	public function add_style_group( array $groups ) : array {
 		$groups['siw-animation'] = [
 			'name'     => __( 'Animatie', 'siw' ),
 			'priority' => 110,
@@ -61,7 +61,7 @@ class Animation {
 	 * 
 	 * @return array
 	 */
-	public function add_style_fields( array $fields ) {
+	public function add_style_fields( array $fields ) : array {
 		$fields['siw_animation_type'] = [
 			'name'        => __( 'Type', 'siw' ),
 			'group'       => 'siw-animation',
@@ -99,7 +99,12 @@ class Animation {
 			'options'     => [ 'default' => __( 'Standaard', 'siw' ) ] + SIW_Animation::get_easing_options(),
 			'default'     => 'default',
 		];
-
+		$fields['siw_animation_repeat'] = [
+			'name'        => __( 'Herhalen', 'siw' ),
+			'group'       => 'siw-animation',
+			'type'        => 'checkbox',
+			'priority'    => 50,
+		];
 		return $fields;
 	}
 
@@ -110,7 +115,7 @@ class Animation {
 	 * @param array $style_args
 	 * @return array
 	 */
-	public function add_style_attributes( array $style_attributes, array $style_args ) {
+	public function add_style_attributes( array $style_attributes, array $style_args ) : array {
 
 		//Afbreken als er geen animatie van toepassing is
 		if ( ! isset( $style_args['siw_animation_type'] ) || 'none' === $style_args['siw_animation_type'] ) {
@@ -144,6 +149,11 @@ class Animation {
 			$style_attributes['data-sal-easing'] = $style_args['siw_animation_easing'];
 		}
 
+		//Herhalen
+		if ( isset( $style_args['siw_animation_repeat'] ) && $style_args['siw_animation_repeat'] ) {
+			$style_attributes['data-sal-repeat'] = true;
+		}
+
 		return $style_attributes;
 	}
 
@@ -154,7 +164,7 @@ class Animation {
 	 * 
 	 * @return array
 	 */
-	public function add_settings( array $fields ) {
+	public function add_settings( array $fields ) : array {
 		$fields['siw-animation'] = [
 			'title'  => __( 'Animatie', 'siw' ),
 			'fields' => [
@@ -190,7 +200,7 @@ class Animation {
 	 * 
 	 * @return array
 	 */
-	public function set_settings_defaults( array $defaults)  {
+	public function set_settings_defaults( array $defaults) : array {
 		$defaults['siw_animation_duration'] = '1000';
 		$defaults['siw_animation_delay']    = 'none';
 		$defaults['siw_animation_easing']   = 'ease-out-sine';

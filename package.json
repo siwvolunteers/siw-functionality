@@ -1,89 +1,76 @@
 {
 	"name": "siw-functionality",
-	"version": "3.0.5",
+	"version": "3.1.0",
 	"license": "GPL-2.0-or-later",
 	"description": "Extra functionaliteit voor website SIW",
 	"repository": "https://github.com/siwvolunteers/siw-functionality",
 	"scripts": {
-		"update": "npm update && vendor-copy",
-		"build": "npm run build:icons && npm run build:css",
-		"build:icons": "svg2sprite assets/icons assets/siw-icons.svg -i --stripExtraAttrs ---iconPrefix siw-icon-",
+		"update": "npm update && npm run frontend-dependencies",
+		"build": "npm run build:css",
+		"build:icons": "npm run build:icons:general && npm run build:icons:sdg",
+		"build:icons:general": "svgstore -o assets/icons/siw-general-icons.svg -p siw-icon- --inline assets/icons/general/*.svg",
+		"build:icons:sdg": "svgstore -o assets/icons/siw-sdg-icons.svg -p siw-icon-sdg- --inline assets/icons/sdg/*.svg",
 		"build:css": "npm run scss && npm run autoprefixer",
-		"build:js": "swc assets/js -d assets/dist",
 		"scss": "sass --update --no-source-map assets/scss:assets/css",
-		"autoprefixer": "postcss --no-map -u autoprefixer -r assets/css/*.css"
+		"scss-watch": "sass --watch --no-source-map assets/scss:assets/css",
+		"autoprefixer": "postcss --no-map -u autoprefixer -r assets/css/*.css",
+		"frontend-dependencies": "node ./node_modules/frontend-dependencies/index.js",
+		"postinstall": "npm run frontend-dependencies"
 	},
 	"browserslist": [
 		">0.5% in NL"
 	],
-	"dependencies": {
-		"@accede-web/accordion": "*",
-		"@accede-web/tablist": "*",
-		"balloon-css": "*",
-		"flickity": "^2.2.1",
-		"frappe-charts": "1.*",
-		"js-cookie": "^2.2.1",
-		"micromodal": "^0.4.4",
-		"sal.js": "^0.7.4",
-		"smoothscroll-for-websites": "^1.4.10"
-	},
+	"dependencies": {},
 	"devDependencies": {
-		"@swc/cli": "*",
-		"@swc/core": "^1.1.35",
-		"autoprefixer": "^9.7.5",
-		"postcss-cli": "*",
-		"sass": "^1.26.3",
-		"svg2sprite-cli": "*",
-		"vendor-copy": "2.*"
+		"autoprefixer": "^9.8.6",
+		"frontend-dependencies": "1.*",
+		"postcss-cli": "^7.1.2",
+		"sass": "^1.27.0",
+		"svgstore-cli": "^1.3.2"
 	},
-	"vendorCopy": [
-		{
-			"from": "node_modules/balloon-css/balloon.css",
-			"to": "assets/modules/balloon/balloon.css"
-		},
-		{
-			"from": "node_modules/smoothscroll-for-websites/SmoothScroll.js",
-			"to": "assets/modules/smoothscroll/smoothscroll.js"
-		},
-		{
-			"from": "node_modules/js-cookie/src/js.cookie.js",
-			"to": "assets/modules/js-cookie/js.cookie.js"
-		},
-		{
-			"from": "node_modules/flickity/dist/flickity.pkgd.js",
-			"to": "assets/modules/flickity/flickity.js"
-		},
-		{
-			"from": "node_modules/flickity/dist/flickity.css",
-			"to": "assets/modules/flickity/flickity.css"
-		},
-		{
-			"from": "node_modules/@accede-web/accordion/dist/accordion.js",
-			"to": "assets/modules/accordion/accordion.js"
-		},
-		{
-			"from": "node_modules/@accede-web/tablist/dist/tablist.js",
-			"to": "assets/modules/tablist/tablist.js"
-		},
-		{
-			"from": "node_modules/micromodal/dist/micromodal.js",
-			"to": "assets/modules/micromodal/micromodal.js"
-		},
-		{
-			"from": "node_modules/sal.js/dist/sal.js",
-			"to": "assets/modules/sal/sal.js"
-		},
-		{
-			"from": "node_modules/sal.js/dist/sal.css",
-			"to": "assets/modules/sal/sal.css"
-		},
-		{
-			"from": "node_modules/frappe-charts/dist/frappe-charts.min.iife.js",
-			"to": "assets/modules/frappe-charts/frappe-charts.js"
-		},
-		{
-			"from": "node_modules/frappe-charts/dist/frappe-charts.min.css",
-			"to": "assets/modules/frappe-charts/frappe-charts.css"
+	"frontendDependencies": {
+		"target": "assets/vendor",
+		"packages": {
+			"@accede-web/accordion": {
+				"version": "*",
+				"src": "dist/accordion.js",
+				"target": "assets/vendor/accordion"
+			},
+			"@accede-web/tablist": {
+				"version": "*",
+				"src": "dist/tablist.js",
+				"target": "assets/vendor/tablist"
+			},
+			"balloon-css": {
+				"version": "^1.2.0",
+				"src": "balloon.css",
+				"namespaced": true
+			},
+			"flickity": {
+				"version": "^2.2.1",
+				"src": "{dist/flickity.pkgd.js,dist/flickity.css}",
+				"namespaced": true
+			},
+			"frappe-charts": {
+				"version": "^1.5.2",
+				"src": "{/dist/frappe-charts.min.iife.js,dist/frappe-charts.min.css}",
+				"namespaced": true
+			},
+			"js-cookie": {
+				"version": "^2.2.1",
+				"src": "src/js.cookie.js",
+				"namespaced": true
+			},
+			"micromodal": {
+				"version": "^0.4.6",
+				"src": "dist/micromodal.js",
+				"namespaced": true
+			},
+			"sal.js": {
+				"version": "^0.8.0",
+				"src": "{dist/sal.js,dist/sal.css}",
+				"namespaced": true
+			}
 		}
-	]
+	}
 }

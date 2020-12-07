@@ -1,8 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
-use SIW\HTML;
+use SIW\Elements;
+use SIW\Formatting;
+use SIW\Util\Links;
 
 /**
  * Widget met agenda
@@ -28,12 +30,12 @@ class Calendar extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='calendar';
+	protected string $widget_id ='calendar';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'calendar';
+	protected string $widget_dashicon = 'calendar';
 
 	/**
 	 * {@inheritDoc}
@@ -61,41 +63,50 @@ class Calendar extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 
 		$events = $this->get_upcoming_events();
 
 		if ( empty( $events ) ) {
-			$content = '<p>' . esc_html__( 'Er zijn momenteel geen geplande activiteiten.', 'siw' ) . '</p>';
-			return $content;
+			return wpautop( esc_html__( 'Er zijn momenteel geen geplande activiteiten.', 'siw' ) );
 		}
-		foreach ( $events as $event ) {
+
+		foreach ( $events as $event_id ) {
+
 			ob_start();
 			?>
-			<h5 class="title">
-				<?= HTML::generate_link( $event['permalink'], $event['title'], [ 'class' => 'link' ] ) ?>
-			</h5>
+			<h3 class="title">
+				<?php echo Links::generate_link( get_permalink( $event_id ), get_the_title( $event_id ), [ 'class' => 'link' ] ) ?>
+			</h3>
 			<span class="duration" >
-				<?= esc_html( $event['date_range'] );?> <br/>
-				<?= esc_html( $event['start_time'] . '&nbsp;-&nbsp;' . $event['end_time'] );?><br/>
+				<?php
+					printf(
+						'%s %s-%s',
+						Formatting::format_date( siw_meta( 'event_date', [], $event_id ), false ),
+						siw_meta( 'start_time', [], $event_id ),
+						siw_meta( 'end_time', [], $event_id )
+					)
+				 ?>
 			</span>
+			<br/>
 			<span class="location">
 				<?php 
-					if ( isset( $event['type_evenement'] ) && 'online' == $event['type_evenement'] ) {
+					if ( siw_meta( 'online', [], $event_id ) ) {
 						esc_html_e( 'Online', 'siw' );
 					}
 					else {
-						echo esc_html( $event['location'] . ',&nbsp;' . $event['city'] );
+						$location = siw_meta( 'location', [], $event_id );
+						printf( '%s, %s', $location['name'], $location['city'] );
 					}
 				?>
 			</span>
 			<?php
 			$event_list[] = ob_get_clean();
-			$json_ld[] = $event['json_ld'];
+			$json_ld[] = siw_generate_event_json_ld( $event_id );
 		}
-		$content = HTML::generate_list( $event_list );
+		$content = Elements::generate_list( $event_list );
 		$content .= implode( SPACE, $json_ld );
-		$content .= '<p class="page-link">' . HTML::generate_link( get_page_link( siw_get_option( 'events_archive_page' ) ), __( 'Bekijk de volledige agenda.', 'siw' ) ) . '</p>';
+		$content .= '<p class="page-link">' . Links::generate_link( get_post_type_archive_link( 'siw_event' ) , __( 'Bekijk de volledige agenda.', 'siw' ), ['class' => 'link'] ) . '</p>';
 
 		return $content;
 	}
@@ -105,7 +116,9 @@ class Calendar extends Widget {
 	 * 
 	 * @return array
 	 */
-	protected function get_upcoming_events() {
-		return siw_get_upcoming_events( self::NUMBER_OF_EVENTS );
+	protected function get_upcoming_events() : array {
+		return siw_get_upcoming_events([
+			'number' => self::NUMBER_OF_EVENTS,
+		]);
 	}
 }

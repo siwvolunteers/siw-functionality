@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Data;
 
@@ -12,45 +12,33 @@ class Work_Type {
 	
 	/**
 	 * De slug van het soort werk
-	 *
-	 * @var string
 	 */
-	protected $slug;
+	protected string $slug;
 
 	/**
 	 * Naam van het soort werk
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * De Plato-code van het soort werk
-	 *
-	 * @var string
 	 */
-	protected $plato_code;
+	protected string $plato_code;
 	
 	/**
 	 * CSS-class van icoon
-	 *
-	 * @var string
 	 */
-	protected $icon_class;
+	protected string $icon_class;
 
 	/**
 	 * Geeft aan of dit soort werk gekoppeld kan worden aan een Nederlands project
-	 *
-	 * @var bool
 	 */
-	protected $dutch_projects;
+	protected bool $dutch_projects;
 
 	/**
 	 * Geeft aan of dit soort werk gekoppeld kan worden aan een Op Maat project
-	 *
-	 * @var bool
 	 */
-	protected $tailor_made_projects;
+	protected bool $tailor_made_projects;
 
 	/**
 	 * Constructor
@@ -76,7 +64,6 @@ class Work_Type {
 		$this->dutch_projects = $data[ 'dutch_projects' ];
 		$this->tailor_made_projects = $data[ 'tailor_made_projects' ];
 		$this->icon_class = $data['icon_class'];
-
 	}
 
 	/**
@@ -84,7 +71,7 @@ class Work_Type {
 	 *
 	 * @return string
 	 */
-	public function get_slug() {
+	public function get_slug() : string {
 		return $this->slug;
 	}
 
@@ -93,7 +80,7 @@ class Work_Type {
 	 *
 	 * @return string
 	 */
-	public function get_name() {
+	public function get_name() : string {
 		return $this->name;
 	}
 
@@ -102,7 +89,7 @@ class Work_Type {
 	 *
 	 * @return string
 	 */
-	public function get_plato_code() {
+	public function get_plato_code() : string {
 		return $this->plato_code;
 	}
 
@@ -111,7 +98,7 @@ class Work_Type {
 	 * 
 	 * @return string
 	 */
-	public function get_icon_class() {
+	public function get_icon_class() : string {
 		return $this->icon_class;
 	}
 
@@ -120,7 +107,7 @@ class Work_Type {
 	 *
 	 * @return bool
 	 */
-	public function is_for_dutch_projects() {
+	public function is_for_dutch_projects() : bool {
 		return $this->dutch_projects;
 	}
 
@@ -129,7 +116,7 @@ class Work_Type {
 	 *
 	 * @return bool
 	 */
-	public function is_for_tailor_made_projects() {
+	public function is_for_tailor_made_projects() : bool {
 		return $this->tailor_made_projects;
 	}
 }

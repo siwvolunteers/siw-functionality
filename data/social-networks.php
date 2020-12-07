@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -37,7 +37,7 @@ $data = [
 		'icon_class'          => 'siw-icon-instagram',
 		'color'               => '#dd2a7b',
 		'follow'              => true,
-		'follow_url'          => 'https://www.instagram.com/siwvolunteers/',
+		'follow_url'          => 'https://www.instagram.com/siwvrijwilligersprojecten/',
 		'share'               => false,
 	],
 	[
@@ -75,7 +75,7 @@ $data = [
 		'color'               => '#25D366',
 		'follow'              => false,
 		'share'               => true,
-		'share_url_template'  => 'https://api.whatsapp.com/send?&text={{ url }}',
+		'share_url_template'  => 'https://api.whatsapp.com/send?text={{ url }}',
 	],
 ];
 

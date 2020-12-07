@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -21,12 +21,12 @@ class Accordion extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='accordion';
+	protected string $widget_id ='accordion';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'list-view';
+	protected string $widget_dashicon = 'list-view';
 
 	/**
 	 * {@inheritDoc}
@@ -103,8 +103,7 @@ class Accordion extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
-		$content = Elements::generate_accordion( $instance['panes']);
-		return $content;
+	protected function get_content( $instance, $args, $template_vars, $css_name ) : string { 
+		return Elements::generate_accordion( $instance['panes'] );
 	}
 }

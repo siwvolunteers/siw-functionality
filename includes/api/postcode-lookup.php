@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\API;
 
@@ -16,27 +16,27 @@ class Postcode_Lookup extends Endpoint {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $resource = 'postcode_lookup';
+	protected string $resource = 'postcode_lookup';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $methods = \WP_REST_Server::READABLE;
+	protected array $methods = [ \WP_REST_Server::READABLE ];
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $callback = 'postcode_lookup';
+	protected string $callback = 'postcode_lookup';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $script = 'postcode';
+	protected string $script = 'postcode';
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $script_deps = ['polyfill'];
+	protected array $script_deps = ['polyfill'];
 
 	/**
 	 * {@inheritDoc}
@@ -63,7 +63,7 @@ class Postcode_Lookup extends Endpoint {
 	 * @param string $key
 	 * @return string
 	 */
-	public function sanitize_postcode( string $param, \WP_REST_Request $request, string $key ) {
+	public function sanitize_postcode( string $param, \WP_REST_Request $request, string $key ) : string {
 		return preg_replace( '/[\s\-]/', '', trim( strtoupper( $param ) ) );
 	}
 
@@ -75,7 +75,7 @@ class Postcode_Lookup extends Endpoint {
 	 * @param string $key
 	 * @return string
 	 */
-	public function sanitize_housenumber( string $param, \WP_REST_Request $request, string $key ) {
+	public function sanitize_housenumber( string $param, \WP_REST_Request $request, string $key ) : string {
 		return preg_replace("/[^0-9]/", "", $param );
 	}
 
@@ -87,7 +87,7 @@ class Postcode_Lookup extends Endpoint {
 	 * @param string $key
 	 * @return bool
 	 */
-	public function validate_postcode( string $param, \WP_REST_Request $request, string $key ) {
+	public function validate_postcode( string $param, \WP_REST_Request $request, string $key ) : bool {
 		return (bool) preg_match( Util::get_regex('postal_code'), $param );
 	}
 
@@ -99,7 +99,7 @@ class Postcode_Lookup extends Endpoint {
 	 * @param string $key
 	 * @return bool
 	 */
-	public function validate_housenumber( string $param, \WP_REST_Request $request, string $key ) {
+	public function validate_housenumber( string $param, \WP_REST_Request $request, string $key ) : bool {
 		$housenumber = preg_replace("/[^0-9]/", "", $param );
 		return ! empty( $housenumber );
 	}
@@ -110,7 +110,7 @@ class Postcode_Lookup extends Endpoint {
 	 * @param \WP_REST_Request $request
 	 * @return \WP_REST_Response
 	 */
-	public function postcode_lookup( \WP_REST_Request $request ) {
+	public function postcode_lookup( \WP_REST_Request $request ) : \WP_REST_Response {
 	
 		$postcode = $request->get_param('postcode');
 		$housenumber = $request->get_param('housenumber');
@@ -118,7 +118,7 @@ class Postcode_Lookup extends Endpoint {
 		$postcode_lookup = new External_Postcode_Lookup;
 		$address = $postcode_lookup->get_address( $postcode, $housenumber );
 
-		if ( false === $address ) {
+		if ( ! is_array( $address ) ) {
 			return new \WP_Rest_Response( [
 				'success' => false
 			], \WP_Http::OK );

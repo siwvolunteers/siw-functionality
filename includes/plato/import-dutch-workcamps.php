@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Plato;
 
@@ -13,12 +13,12 @@ class Import_Dutch_Workcamps extends Import_Workcamps {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $endpoint = 'GetPartnerProjects';
+	protected string $endpoint = 'GetPartnerProjects';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'importeren Nederlandse groepsprojecten';
+	protected string $name = 'importeren Nederlandse groepsprojecten';
 
 	/**
 	 * Constructor

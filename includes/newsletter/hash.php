@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Newsletter;
 
@@ -38,7 +38,7 @@ class Hash {
 	 *
 	 * @return string
 	 */
-	public static function generate_hash( string $data ) {
+	public static function generate_hash( string $data ) : string {
 		return hash_hmac(
 			self::HASH_ALGORITHM,
 			$data,
@@ -54,7 +54,7 @@ class Hash {
 	 *
 	 * @return bool
 	 */
-	public static function data_is_valid( string $data, string $hash ) {
+	public static function data_is_valid( string $data, string $hash ) : bool {
 		return hash_equals(
 			self::generate_hash( $data ),
 			$hash
@@ -66,7 +66,7 @@ class Hash {
 	 * 
 	 * @return string
 	 */
-	protected static function get_salt() {
+	protected static function get_salt() : string {
 		$salt = get_option( self::SALT_OPTION_NAME );
 		if ( false === $salt ) {
 			$salt = wp_generate_password( self::PASSWORD_LENGTH, true, true );

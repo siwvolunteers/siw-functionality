@@ -10,6 +10,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	z-index:999;
 }
 
 .modal-container {
@@ -24,7 +25,8 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 15px;
-	border-bottom: 1px solid #e5e5e5;
+	background-color: $button-color;
+	color: #fff;
 	.modal-close:before {
 		content: "\2715";
 	}

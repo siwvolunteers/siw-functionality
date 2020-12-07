@@ -1,4 +1,4 @@
-/** global: siw_postcode */
+/** global: siw_api_postcode, URL */
 
 /**
  * @file      Function t.b.v. postcode lookup
@@ -80,14 +80,14 @@ var siwPostcodeApi = (function () {
 			// Callback voor postcode api
 			var api_callback = function ( success, data ) {
 				if ( true === success ) {
-					street = data.street;
-					city = data.city;
+					var street = data.street;
+					var city = data.city;
 					street_el.setAttribute( 'readonly', true );
 					city_el.setAttribute( 'readonly', true );
 				}
 				else {
-					street = '';
-					city = '';
+					var street = '';
+					var city = '';
 					street_el.removeAttribute( 'readonly' );
 					city_el.removeAttribute( 'readonly' );
 				}

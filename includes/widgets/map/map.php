@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
+
+use SIW\Elements;
 
 /**
  * Widget met interactieve kaart
@@ -19,12 +21,12 @@ class Map extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='map';
+	protected string $widget_id ='map';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'location-alt';
+	protected string $widget_dashicon = 'location-alt';
 
 	/**
 	 * {@inheritDoc}
@@ -47,16 +49,25 @@ class Map extends Widget {
 				'type'    => 'select',
 				'label'   => __( 'Kaart', 'siw' ),
 				'prompt'  => __( 'Kies een kaart', 'siw' ),
-				'options' => siw_get_interactive_maps(),
+				'options' => $this->get_maps(),
 			],
 		];
 		return $widget_form;
 	}
 
 	/**
+	 * Haalt kaarten op
+	 *
+	 * @return array
+	 */
+	protected function get_maps() : array {
+		return wp_list_pluck( Elements::get_interactive_maps(), 'name', 'id' );
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
-		return siw_generate_interactive_map( $instance['map'] );
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
+		return Elements::generate_interactive_map( $instance['map'] );
 	}
 }

@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Newsletter;
 
 use SIW\Email\Template;
 use SIW\Properties;
-use SIW\HTML;
 use SIW\Newsletter\Hash;
+use SIW\Util\Links;
 
 /**
  * Bevestigingsmail voor aanmelding nieuwsbrief
@@ -17,31 +17,23 @@ class Confirmation_Email {
 
 	/**
 	 * E-mailadres
-	 *
-	 * @var string
 	 */
-	protected $email;
+	protected string $email;
 
 	/**
 	 * ID van maillijst
-	 *
-	 * @var int
 	 */
-	protected $list_id;
+	protected int $list_id;
 
 	/**
 	 * Properties voor Mailjet
-	 *
-	 * @var array
 	 */
-	protected $properties;
+	protected array $properties;
 
 	/**
 	 * E-mail instellingen
-	 *
-	 * @var array
 	 */
-	protected $email_settings;
+	protected array $email_settings;
 	
 	/**
 	 * Init
@@ -69,7 +61,7 @@ class Confirmation_Email {
 	/**
 	 * Verstuurt bevestigingsmail
 	 */
-	public function send() {
+	public function send() : bool {
 		$email_hash = sha1( $this->email );
 
 		// Afbreken als bevestigingsmail al verstuurd is
@@ -98,7 +90,7 @@ class Confirmation_Email {
 	 *
 	 * @return string
 	 */
-	protected function generate_message() {
+	protected function generate_message() : string {
 		$template_args = [
 			'subject' => __( 'Aanmelding nieuwsbrief', 'siw' ),
 			'message' => implode(
@@ -107,7 +99,7 @@ class Confirmation_Email {
 					sprintf( __('Beste %s,', 'siw' ), $this->properties['firstname'] ). BR2,
 					__( 'Bedankt voor je aanmelding voor de SIW-nieuwsbrief!', 'siw' ) . SPACE,
 					__( 'Om zeker te weten dat je inschrijving correct is, vragen we je je aanmelding te bevestigen.', 'siw' ) . BR2,
-					HTML::generate_link(
+					Links::generate_link(
 						$this->generate_confirmation_url(),
 						__( 'Klik hier om je aanmelding voor onze nieuwsbrief direct te bevestigen.', 'siw' )
 					) . BR2,
@@ -129,7 +121,7 @@ class Confirmation_Email {
 	 *
 	 * @return string
 	 */
-	protected function generate_confirmation_url() {
+	protected function generate_confirmation_url() : string {
 
 		$data = [
 			'email'      => $this->email,

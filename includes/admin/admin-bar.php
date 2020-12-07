@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Admin;
 
@@ -14,17 +14,13 @@ class Admin_Bar {
 
 	/**
 	 * Nodes
-	 *
-	 * @var array
 	 */
-	protected static $nodes = [];
+	protected static array $nodes = [];
 
 	/**
 	 * Acties
-	 *
-	 * @var array
 	 */
-	protected static $actions = [];
+	protected static array $actions = [];
 
 	/**
 	 * Init
@@ -72,11 +68,17 @@ class Admin_Bar {
 	 * @param \WP_Admin_Bar $wp_admin_bar
 	 */
 	public function add_environment( \WP_Admin_Bar $wp_admin_bar ) {
-		$url_args = [
-			'id'    => 'siw-url',
-			'title' => sprintf( __( 'Je bent ingelogd op: %s', 'siw' ), site_url() ),
+		$env_type = \wp_get_environment_type();
+		$env_args = [
+			'id'    => 'siw-env',
+			'parent'=> 'top-secondary',
+			'title' => '<span class="ab-icon"></span><span class="ab-label">' . esc_html( ucfirst( $env_type ) ) . '</span>',
+			'meta'  => [
+				'title' => __( 'Omgeving', 'siw' ),
+				'class' => 'env-' . sanitize_title( $env_type ),
+			],
 		];
-		$wp_admin_bar->add_node( $url_args );
+		$wp_admin_bar->add_node( $env_args );
 	}
 
 	/**

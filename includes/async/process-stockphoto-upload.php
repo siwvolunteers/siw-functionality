@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Async;
 
@@ -21,31 +21,23 @@ class Process_Stockphoto_Upload extends Request {
 
 	/**
 	 * Subdirectory voor de stockfoto's
-	 *
-	 * @var string
 	 */
-	protected $subdir = 'groepsprojecten/stockfotos';
+	protected string $subdir = 'groepsprojecten/stockfotos';
 
 	/**
 	 * Base voor bestandsnaam
-	 *
-	 * @var string
 	 */
-	protected $filename_base = 'stockfoto';
+	protected string $filename_base = 'stockfoto';
 
 	/**
 	 * Titel voor afbeelding
-	 *
-	 * @var string
 	 */
-	protected $title = 'Stockfoto';
+	protected string $title = 'Stockfoto';
 
 	/**
-	 * Variabelen
-	 *
-	 * @var array
+	 * {@inheritDoc}
 	 */
-	protected $variables = [
+	protected array $variables = [
 		'file' => [
 			'type'     => 'url',
 			'array'    => false,

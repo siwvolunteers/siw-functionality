@@ -1,5 +1,4 @@
-<?php
-
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
@@ -19,12 +18,12 @@ class Delete_Applications extends Job {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'verwijderen aanmeldingen';
+	protected string $name = 'verwijderen aanmeldingen';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'groepsprojecten';
+	protected string $category = 'groepsprojecten';
 	
 	/**
 	 * Selecteer de aanmeldingen van meer dan 1 jaar oud
@@ -34,16 +33,14 @@ class Delete_Applications extends Job {
 	 *
 	 * @return array
 	 */
-	protected function select_data() {
+	protected function select_data() : array {
 		$args = [
 			'limit'        => -1,
 			'return'       => 'ids',
 			'type'         => 'shop_order',
 			'date_created' => '<' . ( time() - YEAR_IN_SECONDS ),
 		];
-		$applications = wc_get_orders( $args );
-
-		return $applications;
+		return wc_get_orders( $args );
 	}
 
 	/**
@@ -59,6 +56,13 @@ class Delete_Applications extends Job {
 		if ( ! $order instanceof \WC_Order ) {
 			return false;
 		}
+
+		//Eventuele refunds verwijderen
+		$refunds = $order->get_refunds();
+		foreach ( $refunds as $refund ) {
+			$refund->delete();
+		}
+
 		$order->delete( true );
 
 		$this->increment_processed_count();

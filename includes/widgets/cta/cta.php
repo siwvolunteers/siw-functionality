@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
 use SIW\i18n;
-use SIW\HTML;
 use SIW\Util;
+use SIW\Util\Links;
 
 /**
  * Widget met Call to Action
@@ -23,12 +23,12 @@ class CTA extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='cta';
+	protected string $widget_id ='cta';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'megaphone';
+	protected string $widget_dashicon = 'megaphone';
 
 	/**
 	 * {@inheritDoc}
@@ -46,14 +46,6 @@ class CTA extends Widget {
 			'headline' => [
 				'type'    => 'text',
 				'label'   => __( 'Headline', 'siw'),
-			],
-			'heading' => [
-				'type'  => 'radio',
-				'label' => __( 'Heading', 'siw'),
-				'options' => [
-					'h2' => 'h2',
-					'h4' => 'h4',
-				],
 			],
 			'button_text' => [
 				'type'    => 'text',
@@ -82,17 +74,18 @@ class CTA extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 		ob_start();
 		?>
-		<div class="title" style="text-align:<?= esc_attr( $instance['align'] ); ?>">
-			<?= sprintf( '<%s>%s</%s>', esc_attr( $instance['heading'] ), esc_html( $instance['headline'] ), esc_attr( $instance['heading'] ) );?>
-		</div>
-		<div class="link" style="text-align:<?= esc_attr( $instance['align'] ); ?>">
-			<?= HTML::generate_link( i18n::get_translated_page_url( $instance['button_page'] ), $instance['button_text'], [ 'class' => 'kad-btn' ] ); ?>
+		<div style="text-align:<?php echo esc_attr( $instance['align'] ); ?>">
+			<div class="headline">
+				<?php echo esc_html( $instance['headline'] );?>
+			</div>
+			<div class="button">
+				<?php echo Links::generate_button_link( i18n::get_translated_page_url( intval( $instance['button_page'] ) ), $instance['button_text'] ); ?>
+			</div>
 		</div>
 		<?php
-		$content = ob_get_clean();
-		return $content;
+		return ob_get_clean();
 	}
 }

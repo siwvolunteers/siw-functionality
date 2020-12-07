@@ -32,7 +32,7 @@ var siwCookieNotice = (function () {
 	 */
 	function _show () {
 		if ( 'yes' !== Cookies.get( 'siw_cookie_consent' ) ) {
-			document.querySelector( '#siw-cookie-notification' ).classList.remove( 'hidden' );
+			document.querySelector( '#siw-cookie-notification' ).removeAttribute( 'hidden' );
 		}
 	};
 
@@ -41,9 +41,8 @@ var siwCookieNotice = (function () {
 	 */
 	function _hide () {
 		Cookies.set( 'siw_cookie_consent', 'yes', { expires: 365, secure: true } );
-		document.querySelector( '#siw-cookie-notification' ).classList.add( 'hidden' );
+		document.querySelector( '#siw-cookie-notification' ).setAttribute( 'hidden', 'hidden' );
 	};
-
 
 })();
 

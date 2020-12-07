@@ -1,4 +1,34 @@
 @charset "UTF-8";
+#wpadminbar ul li#wp-admin-bar-siw-env {
+  pointer-events: none;
+  background-color: #b92a2a;
+}
+#wpadminbar ul li#wp-admin-bar-siw-env > div > span.ab-icon:before {
+  content: "";
+  top: 2px;
+}
+#wpadminbar ul li#wp-admin-bar-siw-env.env-production {
+  background-color: #b92a2a;
+}
+#wpadminbar ul li#wp-admin-bar-siw-env.env-production > div > span.ab-icon:before {
+  content: "";
+  top: 3px;
+}
+#wpadminbar ul li#wp-admin-bar-siw-env.env-staging {
+  background-color: #d79d00;
+}
+#wpadminbar ul li#wp-admin-bar-siw-env.env-staging > div > span.ab-icon:before {
+  content: "";
+  top: 1px;
+}
+#wpadminbar ul li#wp-admin-bar-siw-env.env-development, #wpadminbar ul li#wp-admin-bar-siw-env.env-local {
+  background-color: #3b9843;
+}
+#wpadminbar ul li#wp-admin-bar-siw-env.env-development > div > span.ab-icon:before, #wpadminbar ul li#wp-admin-bar-siw-env.env-local > div > span.ab-icon:before {
+  content: "";
+  top: 2px;
+}
+
 .siw-logo div {
   width: 195px !important;
   background-image: url("/wp-content/plugins/siw-functionality/assets/images/admin/logo.png") !important;
@@ -8,11 +38,43 @@
 
 table.wp-list-table .column-visibility,
 table.wp-list-table .column-next_update,
-table.wp-list-table .column-exported,
-table.wp-list-table .column-siw_agenda_start,
-table.wp-list-table .column-siw_agenda_eind,
-table.wp-list-table .column-siw_vacature_deadline {
+table.wp-list-table .column-exported {
   width: 10%;
+}
+table.wp-list-table .column-selected_for_carousel {
+  width: 48px;
+  text-align: left !important;
+}
+table.wp-list-table .column-selected_for_carousel span.carousel {
+  font-size: 1.6em;
+  cursor: pointer;
+  display: block;
+  text-indent: -9999px;
+  position: relative;
+  height: 1em;
+  width: 1em;
+  margin: 0 auto;
+}
+table.wp-list-table .column-selected_for_carousel span.carousel::before {
+  font-family: Dashicons;
+  speak: none;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  text-indent: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  content: "";
+}
+table.wp-list-table .column-selected_for_carousel span.carousel.show::before {
+  content: "";
 }
 table.wp-list-table .column-visibility .dashicons-visibility {
   color: green;
@@ -33,7 +95,7 @@ table.wp-list-table .column-exported .dashicons-minus {
 #woocommerce-product-data ul.wc-tabs li.description_options a::before {
   content: "";
 }
-#woocommerce-product-data ul.wc-tabs li.plato_options a::before {
+#woocommerce-product-data ul.wc-tabs li.update_options a::before {
   content: "";
 }
 #woocommerce-product-data ul.wc-tabs li.approval_options a::before {

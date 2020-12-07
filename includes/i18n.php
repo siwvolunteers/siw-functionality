@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW;
 
@@ -15,7 +15,7 @@ class i18n {
 	 * @param  int $page_id
 	 * @return string
 	 */
-	public static function get_translated_page_url( int $page_id ) {
+	public static function get_translated_page_url( int $page_id ) : string {
 		$translated_page_id = self::get_translated_page_id( $page_id );
 		return get_page_link( $translated_page_id );
 	}
@@ -25,7 +25,7 @@ class i18n {
 	 * @param  int $page_id
 	 * @return int
 	 */
-	public static function get_translated_page_id( int $page_id ) {
+	public static function get_translated_page_id( int $page_id ) : int {
 		return apply_filters( 'wpml_object_id', $page_id, 'page', true );
 	}
 
@@ -36,7 +36,7 @@ class i18n {
 	 * @param string $language_code
 	 * @return string
 	 */
-	public static function get_translated_permalink( string $permalink, string $language_code ) {
+	public static function get_translated_permalink( string $permalink, string $language_code ) : string {
 		return apply_filters( 'wpml_permalink', $permalink, $language_code );
 	}
 
@@ -45,8 +45,8 @@ class i18n {
 	 *
 	 * @return bool
 	 */
-	public static function is_default_language() {
-		return ( apply_filters( 'wpml_current_language', NULL ) == apply_filters( 'wpml_default_language', NULL ) ); 
+	public static function is_default_language() : bool {
+		return ( self::get_current_language() == self::get_default_language() );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class i18n {
 	 * 
 	 * @return string
 	 */
-	public static function get_current_language() {
+	public static function get_current_language() : string {
 		return apply_filters( 'wpml_current_language', NULL );
 	}
 
@@ -63,7 +63,7 @@ class i18n {
 	 * 
 	 * @return string
 	 */
-	public static function get_default_language() {
+	public static function get_default_language() : string {
 		return apply_filters( 'wpml_default_language', NULL );
 	}
 
@@ -72,7 +72,7 @@ class i18n {
 	 * 
 	 * @return array
 	 */
-	public static function get_active_languages() {
+	public static function get_active_languages() : array {
 		return apply_filters( 'wpml_active_languages', null );
 	}
 }

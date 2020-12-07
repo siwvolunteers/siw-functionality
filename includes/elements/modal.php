@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
 use SIW\HTML;
+use SIW\Util\Links;
 
 /**
  * Class om een Modal te genereren
@@ -21,24 +22,18 @@ class Modal {
 
 	/**
 	 * ID van modal
-	 *
-	 * @var string
 	 */
-	protected $id;
+	protected string $id;
 
 	/**
 	 * Titel van de modal
-	 *
-	 * @var string
 	 */
-	protected $title;
+	protected string $title;
 
 	/**
 	 * Inhoud van de modal
-	 *
-	 * @var string
 	 */
-	protected $content;
+	protected string $content;
 
 	/**
 	 * Init
@@ -48,7 +43,7 @@ class Modal {
 	public function __construct( string $id = null ) {
 		$this->enqueue_styles();
 		$this->enqueue_scripts();
-		$this->id = ( null === $id ) ? uniqid( 'siw-modal-' ) : "siw-modal-{$id}";
+		$this->id = ( is_null( $id ) ) ? uniqid( 'siw-modal-' ) : "siw-modal-{$id}";
 		
 		add_action( 'wp_footer', [ $this, 'render_modal'] );
 	}
@@ -65,7 +60,7 @@ class Modal {
 	 * Voegt scripts toe
 	 */
 	protected function enqueue_scripts() {
-		wp_register_script( 'micromodal', SIW_ASSETS_URL . 'modules/micromodal/micromodal.js', [], self::MICROMODAL_VERSION, true );
+		wp_register_script( 'micromodal', SIW_ASSETS_URL . 'vendor/micromodal/micromodal.js', [], self::MICROMODAL_VERSION, true );
 		wp_register_script( 'siw-modal', SIW_ASSETS_URL . 'js/elements/siw-modal.js', [ 'micromodal' ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			'siw-modal',
@@ -102,9 +97,9 @@ class Modal {
 	 *
 	 * @return string
 	 */
-	protected function generate_header() {
+	protected function generate_header() : string {
 		$header = '<header class="modal-header">';
-		$header .= sprintf( '<h4 class="modal-title" id="%s-title">%s</h4>', $this->id, $this->title );
+		$header .= sprintf( '<h2 class="modal-title" id="%s-title">%s</h2>', $this->id, $this->title );
 		$header .= sprintf( '<button class="modal-close" aria-label="%s" data-micromodal-close></button>', esc_html__( 'Sluiten', 'siw' ) );
 		$header .= '</header>';
 
@@ -116,15 +111,14 @@ class Modal {
 	 *
 	 * @return string
 	 */
-	protected function generate_body() {
-		return HTML::generate_tag(
+	protected function generate_body() : string {
+		return HTML::tag(
 			'main',
 			[
 				'class' => 'modal-body',
 				'id'    => "{$this->id}-content"
 			],
 			wpautop( wp_kses_post( $this->content ) ),
-			true
 		);
 	}
 
@@ -133,13 +127,13 @@ class Modal {
 	 *
 	 * @return string
 	 */
-	protected function generate_footer() {
+	protected function generate_footer() : string {
 		$button = sprintf(
 			'<button class="kad-btn" data-micromodal-close aria-label="%s">%s</button>',
 			esc_html__( 'Sluit deze dialoog', 'siw' ),
 			esc_html__( 'Sluiten', 'siw' )
 		);
-		return HTML::generate_tag( 'footer', [ 'class' => 'modal-footer'], $button, true );
+		return HTML::tag( 'footer', [ 'class' => 'modal-footer'], $button );
 	}
 
 	/**
@@ -159,8 +153,8 @@ class Modal {
 	 *
 	 * @return string
 	 */
-	public function generate_link( string $text, string $link = null ) {
-		$link = HTML::generate_link(
+	public function generate_link( string $text, string $link = null ) : string {
+		$link = Links::generate_link(
 			$link ?? '#',
 			$text,
 			[ 'data-micromodal-trigger' => $this->id, 'target' => '_blank' ] //TODO: optie voor target?
@@ -182,7 +176,7 @@ class Modal {
 	 *
 	 * @return string
 	 */
-	public function get_id() {
+	public function get_id() : string {
 		return $this->id;
 	}
 

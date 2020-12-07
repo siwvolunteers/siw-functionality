@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Newsletter;
 
@@ -16,16 +16,16 @@ class Confirmation_Page {
 
 	/**
 	 * Boodschap voor gebruiker
-	 *
-	 * @var string
 	 */
-	protected $message;
+	protected string $message;
 
 	/**
 	 * Init
 	 */
 	public static function init() {
 		$self = new self();
+
+		add_filter( 'body_class', [ $self, 'maybe_add_body_class' ] );
 		add_action( 'wp', [ $self, 'maybe_process_confirmation'] );
 		add_filter( 'template_include', [ $self, 'load_template' ] );
 		add_action( 'siw_newsletter_confirmation', [ $self, 'show_message'] );
@@ -73,7 +73,7 @@ class Confirmation_Page {
 	 *
 	 * @return string
 	 */
-	public function load_template( $template ) {
+	public function load_template( $template ) : string {
 		if ( $this->is_newsletter_confirmation() ) {
 			$template = SIW_TEMPLATES_DIR . '/newsletter-confirmation.php';
 		}
@@ -92,7 +92,21 @@ class Confirmation_Page {
 	 *
 	 * @return bool
 	 */
-	protected function is_newsletter_confirmation() {
+	protected function is_newsletter_confirmation() : bool {
 		return is_front_page() && (bool) Util::get_request_parameter( 'nl_confirmation');
+	}
+
+	/**
+	 * Voegt body class toe bij bevestigingspagina
+	 *
+	 * @param array $classes
+	 *
+	 * @return array
+	 */
+	public function maybe_add_body_class( array $classes ) : array {
+		if ( $this->is_newsletter_confirmation() ) {
+			$classes[] = 'siw-newsletter-confirmation';
+		}
+		return $classes;
 	}
 }
