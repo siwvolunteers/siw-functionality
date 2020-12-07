@@ -163,7 +163,7 @@ class Product {
 		if ( is_a( $currency, '\SIW\Data\Currency' ) ) {
 			$symbol = $currency->get_symbol();
 			if ( 'EUR' != $currency_code ) {
-				$amount_in_euro = $currency->convert_to_euro( $amount );
+				$amount_in_euro = $currency->convert_to_euro( floatval( $amount ) );
 			}
 		}
 		?>
