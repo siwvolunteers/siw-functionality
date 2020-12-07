@@ -28,8 +28,6 @@ class Configuration {
 		add_action( 'phpmailer_init', [ $self, 'set_dkim_configuration' ], PHP_INT_MAX );
 		add_action( 'phpmailer_init', [ $self, 'set_mailjet_tracking' ], PHP_INT_MAX );
 		add_action( 'phpmailer_init', [ $self, 'set_antispam_header' ], PHP_INT_MAX );
-		add_filter( 'wp_mail_from', [ $self, 'set_mail_from' ] );
-		add_filter( 'wp_mail_from_name', [ $self, 'set_mail_from_name' ] );
 	}
 
 	/**
@@ -89,40 +87,5 @@ class Configuration {
 	 */
 	public function set_antispam_header( PHPMailer $phpmailer ) {
 		$phpmailer->addCustomHeader( 'X-SIW-WebsiteMail', 1 );
-	}
-
-	/**
-	 * Zet het afzenderadres (indien nog niet gezet)
-	 *
-	 * @param string $from
-	 * 
-	 * @return string
-	 */
-	public function set_mail_from( string $from ) : string {
-		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
-		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
-			$sitename = substr( $sitename, 4 );
-		}
-		$default_from = 'wordpress@' . $sitename;
-	
-		if ( $from != $default_from ) {
-			return $from;
-		}
-		return Properties::EMAIL;
-	}
-
-	/**
-	 * Zet de afzendernaam (indien nog niet gezet)
-	 *
-	 * @param string $from_name
-	 * 
-	 * @return string
-	 */
-	public function set_mail_from_name( string $from_name ) : string {
-		$default_from_name = 'WordPress';
-		if ( $from_name != $default_from_name ) {
-			return $from_name;
-		}
-		return Properties::NAME;
 	}
 }
