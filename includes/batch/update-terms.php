@@ -118,18 +118,24 @@ class Update_Terms extends Job {
 		];
 
 		if ( 'products' == $args[ 'query_type'] ) {
+			$visible_posts = wc_get_products(
+				[
+					'limit'      => -1,
+					'return'     => 'ids',
+					'tax_query'  => $tax_query,
+					'visibility' => 'visible',
+				]
+			);
 			$posts = wc_get_products(
 				[
 					'limit'      => -1,
 					'return'     => 'ids',
 					'tax_query'  => $tax_query,
-					'meta_query' => $args['meta_query'],
-					'visibility' => 'visible',
 				]
 			);
 		}
 		else {
-			$posts = get_posts(
+			$visible_posts = get_posts(
 				[
 					'post_type'  => 'any',
 					'tax_query'  => $tax_query,
@@ -138,8 +144,17 @@ class Update_Terms extends Job {
 					'return'     => 'ids',
 				]
 			);
+			$posts = get_posts(
+				[
+					'post_type'  => 'any',
+					'tax_query'  => $tax_query,
+					'limit'      => -1,
+					'return'     => 'ids',
+				]
+			);
 		}
 		$count = count( $posts );
+		$visible_count = count( $visible_posts );
 
 		//Lege terms eventueel weggooien
 		if ( $args['delete_empty'] && 0 === $count ) {
@@ -151,8 +166,8 @@ class Update_Terms extends Job {
 		if ( $args['count'] ) {
 			$current_count = intval( get_term_meta( $term->term_id, 'post_count', true ) );
 
-			if ( $current_count !== $count ) {
-				update_term_meta( $term->term_id, 'post_count', $count );
+			if ( $current_count !== $visible_count ) {
+				update_term_meta( $term->term_id, 'post_count', $visible_count );
 				$this->updated = true;
 			}
 		}
