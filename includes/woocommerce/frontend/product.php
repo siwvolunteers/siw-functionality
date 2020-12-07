@@ -162,7 +162,8 @@ class Product {
 		$symbol = $currency_code;
 		if ( is_a( $currency, '\SIW\Data\Currency' ) ) {
 			$symbol = $currency->get_symbol();
-			if ( 'EUR' != $currency_code ) {
+			
+			if ( get_woocommerce_currency() != $currency_code ) {
 				$amount_in_euro = $currency->convert_to_euro( floatval( $amount ) );
 			}
 		}
