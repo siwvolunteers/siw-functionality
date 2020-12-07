@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 use SIW\External\Mailjet;
 use SIW\Newsletter\Confirmation_Email;
@@ -18,7 +18,7 @@ use SIW\Newsletter\Confirmation_Email;
  * 
  * @return array
  */
-function siw_newsletter_get_lists( bool $include_subscriber_count = true ) {
+function siw_newsletter_get_lists( bool $include_subscriber_count = true ) : array {
 	$mailjet = new Mailjet;
 	$mailjet_lists = $mailjet->get_lists();
 	
@@ -33,11 +33,11 @@ function siw_newsletter_get_lists( bool $include_subscriber_count = true ) {
 /**
  * Geeft aantal abonnees van lijst terug
  *
- * @param int $list_id
+ * @param string $list_id
  *
  * @return int
  */
-function siw_newsletter_get_subscriber_count( int $list_id ) {
+function siw_newsletter_get_subscriber_count( string $list_id ) : int {
 	$mailjet = new Mailjet;
 	$list = $mailjet->get_list( $list_id );
 	return $list['subscriber_count'] ?? 0;
@@ -52,7 +52,7 @@ function siw_newsletter_get_subscriber_count( int $list_id ) {
  *
  * @return bool
  */
-function siw_newsletter_subscribe( string $email, int $list_id, array $properties = [] ) {
+function siw_newsletter_subscribe( string $email, int $list_id, array $properties = [] ) : bool {
 	$mailjet = new Mailjet;
 	return $mailjet->subscribe_user(
 		$email,
@@ -70,7 +70,7 @@ function siw_newsletter_subscribe( string $email, int $list_id, array $propertie
  *
  * @return bool
  */
-function siw_newsletter_send_confirmation_email( string $email, int $list_id, array $properties = [] ) {
+function siw_newsletter_send_confirmation_email( string $email, int $list_id, array $properties = [] ) : bool {
 	$confirmation_mail = new Confirmation_Email( $email, $list_id, $properties, $properties );
 	return $confirmation_mail->send();
 }

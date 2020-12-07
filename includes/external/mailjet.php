@@ -2,6 +2,8 @@
 
 namespace SIW\External;
 
+use SIW\Core\HTTP_Request;
+
 /**
  * Interface met Mailjet
  *
@@ -9,8 +11,6 @@ namespace SIW\External;
  * @since     3.0.0
  * 
  * @link      https://dev.mailjet.com/
- * 
- * @todo      Request class gebruiken
  */
 class Mailjet {
 
@@ -23,31 +23,25 @@ class Mailjet {
 
 	/**
 	 * Api-versie
-	 *
-	 * @var string
 	 */
-	protected $api_version = 'v3';
+	protected string $api_version = 'v3';
 
 	/**
 	 * API key
-	 *
-	 * @var string
 	 */
-	protected $api_key;
+	protected string $api_key;
 
 	/**
 	 * Secret key
-	 *
-	 * @var string
 	 */
-	protected $secret_key;
+	protected string $secret_key;
 
 	/**
 	 * Zet API keys
 	 */
 	public function __construct() {
-		$this->api_key = siw_get_option( 'mailjet_api_key' );
-		$this->secret_key = siw_get_option( 'mailjet_secret_key' );
+		$this->api_key = siw_get_option( 'mailjet.api_key', '' );
+		$this->secret_key = siw_get_option( 'mailjet.secret_key', '' );
 	}
 	
 	/**
@@ -59,7 +53,7 @@ class Mailjet {
 	 *
 	 * @return bool
 	 */
-	public function subscribe_user( string $email, $list_id, array $properties = [] ) {
+	public function subscribe_user( string $email, $list_id, array $properties = [] ) : bool {
 
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist/{$list_id}/managecontact";
 		$body = json_encode( [
@@ -68,23 +62,15 @@ class Mailjet {
 			'Properties' => $properties
 		]);
 
+		$request = new HTTP_Request( $url );
+		$request->add_accepted_response_code( \WP_Http::CREATED );
+		$request->set_basic_auth( $this->api_key, $this->secret_key );
+		$response = $request->post( $body );
 
-		$args = [
-			'timeout'     => 60,
-			'redirection' => 0,
-			'headers'     => [ 
-				'Authorization' => 'Basic ' . base64_encode("{$this->api_key}:{$this->secret_key}"),
-				'accept'       => 'application/json',
-				'content-type' => 'application/json'
-			],
-			'body'        => $body,
-		];
-		$response = wp_safe_remote_post( $url, $args );
-		if ( false == $this->check_response( $response ) ) {
+		if ( is_wp_error( $response ) ) {
 			return false;
 		}
-
-		//TODO: verdere check op response
+		//TODO: verdere check op response?
 		return true;
 	}
 
@@ -93,12 +79,11 @@ class Mailjet {
 	 *
 	 * @return array
 	 */
-	public function get_lists() {
+	public function get_lists() : array {
 		$lists = get_transient( 'siw_newsletter_lists' );
-
-		if ( false === $lists ) {
+		if ( ! is_array( $lists ) ) {
 			$lists = $this->retrieve_lists();
-			if ( false == $lists ) {
+			if ( empty( $lists ) ) {
 				return [];
 			}
 			set_transient( 'siw_newsletter_lists', $lists, HOUR_IN_SECONDS );
@@ -111,53 +96,45 @@ class Mailjet {
 	 *
 	 * @return array
 	 */
-	protected function retrieve_lists() {
+	protected function retrieve_lists() : array {
 
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist";
-		$args = [
-			'timeout'     => 60,
-			'redirection' => 0,
-			'headers'     => [ 
-				'Authorization' =>'Basic ' . base64_encode("{$this->api_key}:{$this->secret_key}"),
-				'accept'       => 'application/json',
-				'content-type' => 'application/json'
-			],
-		];
-
-		$response = wp_safe_remote_get( $url, $args );
-
-		if ( false == $this->check_response( $response ) ) {
+		$request = new HTTP_Request( $url );
+		$request->set_basic_auth( $this->api_key, $this->secret_key );
+		$response = $request->get();
+		if ( is_wp_error( $response ) ) {
 			return [];
 		}
-		$body = json_decode( wp_remote_retrieve_body( $response ), true );
+		
+		//Verwijderde lijst eruit filteren
+		$lists = wp_list_filter( $response['Data'], [ 'IsDeleted' => false ] );
 
-		$lists = [];
-		foreach ( $body['Data'] as $list ) {
-			if ( $list['IsDeleted'] ) {
-				continue;
-			}
-			$lists[] = [
-				'id'               => $list['ID'],
-				'name'             => $list['Name'],
-				'subscriber_count' => $list['SubscriberCount'],
-			];
-		}
-		return $lists;
+		//data omzetten
+		return array_map(
+			function( $list ) {
+				return [
+					'id'               => $list['ID'],
+					'name'             => $list['Name'],
+					'subscriber_count' => $list['SubscriberCount'],
+				];
+			},
+			$lists
+		);
 	}
 
 	/**
 	 * Haalt gegevens van lijst op
 	 *
-	 * @param int $list_id
+	 * @param string $list_id
 	 *
 	 * @return array
 	 */
-	public function get_list( int $list_id ) {
+	public function get_list( string $list_id ) : array {
 		$list = get_transient( "siw_newsletter_list_{$list_id}" );
 
-		if ( false === $list ) {
+		if ( ! is_array( $list ) ) {
 			$list = $this->retrieve_list( $list_id );
-			if ( false == $list ) {
+			if ( empty( $list ) ) {
 				return [];
 			}
 			set_transient( "siw_newsletter_list_{$list_id}", $list, HOUR_IN_SECONDS );
@@ -168,53 +145,25 @@ class Mailjet {
 	/**
 	 * Haalt gegevens van lijst op
 	 *
-	 * @param int $list_id
+	 * @param string $list_id
 	 *
 	 * @return array
 	 */
-	protected function retrieve_list( int $list_id ) {
+	protected function retrieve_list( string $list_id ) : array {
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist/{$list_id}";
-		$args = [
-			'timeout'     => 60,
-			'redirection' => 0,
-			'headers'     => [ 
-				'Authorization' =>'Basic ' . base64_encode("{$this->api_key}:{$this->secret_key}"),
-				'accept'       => 'application/json',
-				'content-type' => 'application/json'
-			],
-		];
 
-		$response = wp_safe_remote_get( $url, $args );
-
-		if ( false == $this->check_response( $response ) ) {
+		$request = new HTTP_Request( $url );
+		$request->set_basic_auth( $this->api_key, $this->secret_key );
+		$response = $request->get();
+		if ( is_wp_error( $response ) ) {
 			return [];
 		}
-		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
-		$list = $body['Data'][0];
+		$list = $response['Data'][0];
 		return [
 			'id'               => $list['ID'],
 			'name'             => $list['Name'],
 			'subscriber_count' => $list['SubscriberCount'],
 		];
 	}
-
-	/**
-	 * Controleert response
-	 *
-	 * @param array|\WP_Error $response
-	 * @return bool
-	 */
-	protected function check_response( $response ) {
-		if ( is_wp_error( $response ) ) {
-			return false;
-		}
-	
-		$statuscode = wp_remote_retrieve_response_code( $response );
-		if ( \WP_Http::OK != $statuscode && \WP_Http::CREATED != $statuscode ) {
-			return false;
-		}
-		return true;
-	}
-
 }

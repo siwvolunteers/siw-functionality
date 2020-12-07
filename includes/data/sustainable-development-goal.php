@@ -12,38 +12,28 @@ class Sustainable_Development_Goal {
 
 	/**
 	 * Slug
-	 *
-	 * @var string
 	 */
-	protected $slug;
+	protected string $slug;
 
 	/**
 	 * Nummer
-	 *
-	 * @var int
 	 */
-	protected $number;
+	protected int $number;
 
 	/**
 	 * Naam
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * Kleurcode
-	 *
-	 * @var string
 	 */
-	protected $color;
+	protected string $color;
 
 	/**
 	 * CSS-class van icoon
-	 *
-	 * @var string
 	 */
-	protected $icon_class;
+	protected string $icon_class;
 
 	/**
 	 * Constructor
@@ -72,7 +62,7 @@ class Sustainable_Development_Goal {
 	 * 
 	 * @return string
 	 */
-	public function get_slug() {
+	public function get_slug() : string {
 		return $this->slug;
 	}
 
@@ -120,5 +110,4 @@ class Sustainable_Development_Goal {
 	public function get_color() : string {
 		return $this->color;
 	}
-
 }

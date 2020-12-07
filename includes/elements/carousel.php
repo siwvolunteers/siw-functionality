@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -19,59 +19,43 @@ class Carousel {
 
 	/**
 	 * Post type
-	 *
-	 * @var string
 	 */
-	protected $post_type;
+	protected string $post_type;
 
 	/**
 	 * Taxonomy voor query
-	 *
-	 * @var string
 	 */
-	protected $taxonomy;
+	protected string $taxonomy;
 
 	/**
 	 * Term voor query
-	 *
-	 * @var string
 	 */
-	protected $term;
+	protected string $term;
 
 	/**
 	 * Meta query
-	 *
-	 * @var array
 	 */
-	protected $meta_query = [];
+	protected array $meta_query = [];
 
 	/**
 	 * Aantal items in carousel
-	 *
-	 * @var int
 	 */
-	protected $items = 6;
+	protected int $items = 6;
 
 	/**
 	 * Aantal kolommen in carousel
-	 *
-	 * @var int
 	 */
-	protected $columns = 4;
+	protected int $columns = 4;
 
 	/**
 	 * Tekst voor knop
-	 *
-	 * @var string
 	 */
-	protected $button_text;
+	protected string $button_text;
 
 	/**
 	 * Opties voor carousel
-	 *
-	 * @var array
 	 */
-	protected $options = [
+	protected array $options = [
 		'cellAlign'  => 'left',
 		'contain'    => true,
 		'wrapAround' => true,
@@ -83,7 +67,7 @@ class Carousel {
 	 * Voegt stylesheet toe
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'flickity', SIW_ASSETS_URL . 'modules/flickity/flickity.css', [], self::FLICKITY_VERSION );
+		wp_register_style( 'flickity', SIW_ASSETS_URL . 'vendor/flickity/flickity.css', [], self::FLICKITY_VERSION );
 		wp_enqueue_style( 'flickity' );
 	}
 
@@ -91,7 +75,7 @@ class Carousel {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'flickity', SIW_ASSETS_URL . 'modules/flickity/flickity.js', [], self::FLICKITY_VERSION, true );
+		wp_register_script( 'flickity', SIW_ASSETS_URL . 'vendor/flickity/flickity.pkgd.js', [], self::FLICKITY_VERSION, true );
 		wp_enqueue_script( 'flickity' );
 	}
 
@@ -187,7 +171,7 @@ class Carousel {
 	 * 
 	 * @todo leesbaarder maken
 	 */
-	public function render() {
+	public function render() : string {
 		
 		$this->enqueue_scripts();
 		$this->enqueue_styles();
@@ -247,7 +231,7 @@ class Carousel {
 		}
 
 		//In het geval van Groepsprojecten alleen zichtbare projecten tonen (tenzij er al op product_visibility gefilterd wordt)
-		if ( 'product' == $this->post_type && 'product_visibility' != $this->taxonomy ) {
+		if ( 'product' == $this->post_type && ( ! isset( $this->taxonomy ) || 'product_visibility' != $this->taxonomy ) ) {
 			$args['tax_query'][] = [
 				'taxonomy' => 'product_visibility',
 				'terms'    => [ 'exclude-from-search', 'exclude-from-catalog'],
@@ -266,10 +250,7 @@ class Carousel {
 	 * @todo fallback-bestand
 	 */
 	protected function get_template() : string {
-		$templates = [
-			'product' => wc_locate_template( 'content-product.php' ),
-		];
-		$templates = apply_filters( 'siw_carousel_post_type_templates', $templates );
+		$templates = apply_filters( 'siw_carousel_post_type_templates', [] );
 		return $templates[ $this->post_type ] ?? '';
 	}
 }

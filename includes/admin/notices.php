@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Admin;
 
@@ -12,17 +12,13 @@ class Notices {
 
 	/**
 	 * Transient naam
-	 *
-	 * @var string $transient_name
 	 */
-	protected $transient_name;
+	protected string $transient_name;
 
 	/**
 	 * Toegestane notice types
-	 *
-	 * @var array
 	 */
-	protected $types = [ 
+	protected array $types = [ 
 		'success',
 		'info',
 		'warning',
@@ -57,7 +53,7 @@ class Notices {
 	public function display_notices() {
 
 		$notices = $this->get_notices();
-		if ( false == $notices ) {
+		if ( ! is_array( $notices ) ) {
 			return;
 		}
 

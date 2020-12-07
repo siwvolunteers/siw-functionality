@@ -56,7 +56,7 @@ var siwNewsletterSignup = (function () {
 		ajax.send( formdata );
 
 		//Formulier verbergen en loading animatie tonen
-		form.classList.add( 'hidden' );
+		form.setAttribute( 'hidden', 'hidden' );
 		message.classList.add( 'loading' );
 
 		//Ajax-response afhandelen

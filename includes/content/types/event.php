@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
@@ -18,42 +18,42 @@ class Event extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $post_type = 'event';
+	protected string $post_type = 'event';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $menu_icon = 'dashicons-calendar-alt';
+	protected string $menu_icon = 'dashicons-calendar-alt';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $slug = 'evenementen';
+	protected string $slug = 'evenementen';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $single_width = 'mobile';
+	protected string $single_width = 'mobile';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $orderby = 'meta_value';
+	protected string $orderby = 'meta_value';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $orderby_meta_key = 'event_date';
+	protected string $orderby_meta_key = 'event_date';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_order = 'ASC';
+	protected string $archive_order = 'ASC';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_meta_box_fields() {
+	public function get_meta_box_fields() : array {
 		$meta_box_fields = [
 			[
 				'type' => 'heading',
@@ -212,6 +212,43 @@ class Event extends Type {
 					],
 				],
 			],
+			[
+				'name'     => __( 'Organisator', 'siw' ),
+				'type'     => 'heading',
+				'visible'   => [ 'info_day', false ],
+			],
+			[
+				'id'        => 'different_organizer',
+				'name'      => __( 'Andere organisator', 'siw' ),
+				'type'      => 'switch',
+				'visible'   => [ 'info_day', false ],
+				'on_label'  => __( 'Ja', 'siw' ),
+				'off_label' => __( 'Nee', 'siw' ),
+			],
+
+			[
+				'id'        => 'organizer',
+				'type'      => 'group',
+				'visible'   => [ 'different_organizer', true ],
+				'fields'    => [
+
+					[
+						'id'       => 'name',
+						'name'     => __( 'Naam', 'siw' ),
+						'type'     => 'text',
+						'required' => true,
+						'binding'  => false,
+					],
+					[
+						'id'       => 'url',
+						'name'     => __( 'Url', 'siw' ),
+						'type'     => 'url',
+						'required' => true,
+						'size'     => 100,
+						'binding'  => false,
+					],
+				],
+			],
 		];
 		return $meta_box_fields;
 	}
@@ -219,14 +256,14 @@ class Event extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_taxonomies() {
+	protected function get_taxonomies() : array {
 		return [];
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_labels() {
+	protected function get_labels() : array {
 		$labels = [
 			'name'               => __( 'Evenementen', 'siw' ),
 			'singular_name'      => __( 'Evenement', 'siw' ),
@@ -243,14 +280,14 @@ class Event extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_social_share_cta() {
+	protected function get_social_share_cta() : string {
 		return __( 'Deel dit evenement', 'siw' );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_seo_noindex( int $post_id ) {
+	protected function get_seo_noindex( int $post_id ) : bool {
 		return siw_meta( 'event_date', [], $post_id ) < date( 'Y-m-d' );
 	}
 
@@ -350,7 +387,17 @@ class Event extends Type {
 			$location_map->set_options(['zoom' => 15 ]);
 
 			echo '<h2>' . esc_html__( 'Locatie', 'siw') . '</h2>';
-			$location_map->render();
+			echo '<p>' . $location_map->generate() . '</p>';
+		}
+
+		//Organisator
+		if ( ! siw_meta( 'info_day' ) && siw_meta( 'different_organizer') ) {
+			echo '<h2>' . esc_html__( 'Organisator', 'siw') . '</h2>';
+			echo sprintf(
+				__( 'Dit evenement wordt georganiseerd door %s (%s).'),
+				esc_html( siw_meta('organizer.name') ),
+				Links::generate_external_link( siw_meta( 'organizer.url' ) )
+			);
 		}
 	}
 

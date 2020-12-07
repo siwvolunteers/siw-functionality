@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Compatibility;
 
@@ -66,7 +66,7 @@ class WordPress {
 	 *
 	 * @return string
 	 */
-	public function set_rest_url_prefix() {
+	public function set_rest_url_prefix() : string {
 		return self::REST_API_PREFIX;
 	}
 

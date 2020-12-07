@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Checkout;
 
@@ -16,7 +16,6 @@ class Form{
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'add_postcode_script' ] );
 		add_filter( 'woocommerce_form_field_args', [ $self, 'add_form_field_classes' ] );
-		//add_filter( 'woocommerce_form_field_radio', [ $self, 'add_form_field_markup' ] );
 		add_filter( 'woocommerce_form_field_checkbox', [ $self, 'add_form_field_markup' ] );
 		add_action( 'woocommerce_multistep_checkout_before_order_info', [ $self, 'show_checkout_partner_fields'] );
 		add_filter( 'woocommerce_checkout_cart_item_quantity', '__return_empty_string' );
@@ -28,7 +27,7 @@ class Form{
 	 * @param array $checkout_fields
 	 * @return array
 	 */
-	protected function get_checkout_fields( $checkout_fields = [] ) {
+	protected function get_checkout_fields( $checkout_fields = [] ) : array {
 		$checkout_fields = wp_parse_args_recursive( siw_get_data( 'workcamps/checkout-fields' ), $checkout_fields );
 		return $checkout_fields;
 	}
@@ -38,7 +37,7 @@ class Form{
 	 *
 	 * @return array
 	 */
-	protected function get_checkout_sections() {
+	protected function get_checkout_sections() : array {
 		$checkout_sections = siw_get_data( 'workcamps/checkout-sections' );
 		return $checkout_sections;
 	}
@@ -90,12 +89,12 @@ class Form{
 	}
 
 	/**
-	 * Voegt extra markup voor gestylde radiobuttons en checkboxes toe
+	 * Voegt extra markup voor gestylde checkboxes toe
 	 *
 	 * @param string $field
 	 * @return string
 	 */
-	public function add_form_field_markup( string $field ) {
+	public function add_form_field_markup( string $field ) : string {
 		$field = preg_replace( '/<input(.*?)>/', '<input$1><span class="checkmark"></span>', $field );
 		return $field;
 	}
@@ -106,7 +105,7 @@ class Form{
 	 * @param array $args
 	 * @return array
 	 */
-	public function add_form_field_classes( array $args ) {
+	public function add_form_field_classes( array $args ) : array {
 		if ( $args['type'] == 'radio' ) {
 			$args['class'][] = 'radio-icon';
 		}

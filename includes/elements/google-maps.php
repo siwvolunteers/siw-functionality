@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -24,31 +24,23 @@ class Google_Maps {
 
 	/**
 	 * Google Maps API-key
-	 *
-	 * @var string
 	 */
-	protected $api_key;
+	protected string $api_key;
 
 	/**
 	 * Hoogt van kaart in pixels
-	 *
-	 * @var int
 	 */
-	protected $height = 300;
+	protected int $height = 300;
 
 	/**
 	 * Markers voor op kaart
-	 *
-	 * @var array
 	 */
-	protected $markers = [];
+	protected array $markers = [];
 
 	/**
 	 * Opties voor kaart
-	 *
-	 * @var array
 	 */
-	protected $options = [
+	protected array $options = [
 		'zoom'              => 6,
 		'zoomControl'       => true,
 		'mapTypeControl'    => false,
@@ -60,14 +52,9 @@ class Google_Maps {
 
 	/**
 	 * Init
-	 *
-	 * @param string $id
 	 */
 	public function __construct() {
-		$this->api_key = siw_get_option( 'google_maps_api_key' );
-		if ( empty( $this->api_key ) ) {
-			return;
-		}
+		$this->api_key = siw_get_option( 'google_maps.api_key' );
 		$this->enqueue_scripts();
 		$this->enqueue_styles();
 		add_filter( 'siw_preconnect_urls', [ $this, 'add_urls'] );
@@ -159,7 +146,7 @@ class Google_Maps {
 	 * 
 	 * @return string
 	 */
-	public function generate() {
+	public function generate() : string {
 		$attributes = [
 			'id'           => uniqid('siw-google-map-'),
 			'class'        => 'siw-google-map',
@@ -201,7 +188,7 @@ class Google_Maps {
 	 * 
 	 * @todo werkt pas als de constructor eerder aangeroepen wordt.
 	 */
-	public function add_urls( array $urls ) {
+	public function add_urls( array $urls ) : array {
 		$urls[] = 'maps.googleapis.com';
 		$urls[] = 'maps.google.com';
 		$urls[] = 'maps.gstatic.com';

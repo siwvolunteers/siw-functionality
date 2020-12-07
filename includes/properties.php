@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW;
 
@@ -165,6 +165,20 @@ class Properties {
 	const TAILOR_MADE_FEE_REGULAR = 399;
 
 	/**
+	 * Inschrijfgeld Op Maat (duo)
+	 *
+	 * @var int
+	 */
+	const TAILOR_MADE_FEE_DUO = 550;
+
+	/**
+	 * Inschrijfgeld Op Maat (familie)
+	 *
+	 * @var int
+	 */
+	const TAILOR_MADE_FEE_FAMILY = 750;
+
+	/**
 	 * Inschrijfgeld Op Maat (student) - korting
 	 *
 	 * @var int
@@ -179,6 +193,13 @@ class Properties {
 	const TAILOR_MADE_FEE_REGULAR_SALE = 374;
 
 	/**
+	 * Inschrijfgeld Schoolproject
+	 *
+	 * @var int
+	 */
+	const SCHOOL_PROJECT_FEE = 125;
+
+	/**
 	 * ESC borg
 	 *
 	 * @var int
@@ -191,13 +212,6 @@ class Properties {
 	 * @var int
 	 */
 	const DISCOUNT_SECOND_PROJECT = 25;
-
-	/**
-	 * Kortingspercentage voor 3e project
-	 *
-	 * @var int
-	 */
-	const DISCOUNT_THIRD_PROJECT = 35;
 
 	/**
 	 * Kleurcode primaire kleur
@@ -246,7 +260,7 @@ class Properties {
 	 *
 	 * @return array
 	 */
-	static public function get_all() {
+	static public function get_all() : array {
 		$reflectionClass = new \ReflectionClass( __CLASS__ );
 		$constants = $reflectionClass->getConstants();
 		$configuration = [];

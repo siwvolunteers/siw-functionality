@@ -12,31 +12,23 @@ class Meta_Box {
 
 	/**
 	 * Post type
-	 *
-	 * @var string
 	 */
-	protected $post_type;
+	protected string $post_type;
 
 	/**
 	 * Velden van de metabox
-	 *
-	 * @var array
 	 */
-	protected $fields;
+	protected array $fields;
 
 	/**
 	 * Titel van de metabox
-	 *
-	 * @var string
 	 */
-	protected $title;
+	protected string $title;
 
 	/**
 	 * Taxonomieën
-	 *
-	 * @var array
 	 */
-	protected $taxonomies;
+	protected array $taxonomies;
 
 	/**
 	 * Init
@@ -69,7 +61,7 @@ class Meta_Box {
 			'priority'    => 'high',
 			'fields'      => $this->get_fields(),
 			'geo'         => [
-				'api_key'   => siw_get_option( 'google_maps_api_key' ), //TODO: conditioneel maken?
+				'api_key'   => siw_get_option( 'google_maps.api_key' ), //TODO: conditioneel maken?
 				'types'     => ['establishment'],
 			],
 		];

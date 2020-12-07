@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Core;
 
@@ -38,7 +38,7 @@ class Login {
 	 *
 	 * @return string
 	 */
-	public function set_login_headerurl() {
+	public function set_login_headerurl() : string {
 		return SIW_SITE_URL;
 	}
 

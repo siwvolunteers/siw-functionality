@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Modules;
 
@@ -14,10 +14,8 @@ class Social_Share {
 
 	/**
 	 * Post type van huidige post
-	 *
-	 * @var string
 	 */
-	protected $post_type;
+	protected string $post_type;
 
 	/**
 	 * Init
@@ -102,10 +100,7 @@ class Social_Share {
 	 * @return array
 	 */
 	protected function get_post_type_settings() : array {
-		$settings = [
-			'product' => __( 'Deel dit project', 'siw' ), //TODO: verplaatsen naar Compat/WooCommerce
-		];
-		return apply_filters( 'siw_social_share_post_types', $settings );
+		return apply_filters( 'siw_social_share_post_types', [] );
 	}
 
 }

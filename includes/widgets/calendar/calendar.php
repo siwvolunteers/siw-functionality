@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -30,12 +30,12 @@ class Calendar extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='calendar';
+	protected string $widget_id ='calendar';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'calendar';
+	protected string $widget_dashicon = 'calendar';
 
 	/**
 	 * {@inheritDoc}
@@ -63,13 +63,12 @@ class Calendar extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 
 		$events = $this->get_upcoming_events();
 
 		if ( empty( $events ) ) {
-			$content = wpautop( esc_html__( 'Er zijn momenteel geen geplande activiteiten.', 'siw' ) );
-			return $content;
+			return wpautop( esc_html__( 'Er zijn momenteel geen geplande activiteiten.', 'siw' ) );
 		}
 
 		foreach ( $events as $event_id ) {
@@ -117,7 +116,7 @@ class Calendar extends Widget {
 	 * 
 	 * @return array
 	 */
-	protected function get_upcoming_events() {
+	protected function get_upcoming_events() : array {
 		return siw_get_upcoming_events([
 			'number' => self::NUMBER_OF_EVENTS,
 		]);

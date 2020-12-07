@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Admin;
 
@@ -79,7 +79,7 @@ class Shortcodes {
 	 * @param array $data
 	 * @return array
 	 */
-	protected function format_attribute( array $data ) {
+	protected function format_attribute( array $data ) : array {
 		switch ( $data['type'] ) {
 			case 'text':
 				$attribute = [
@@ -108,7 +108,7 @@ class Shortcodes {
 	 * @param string $label
 	 * @return array
 	 */
-	protected function format_options( string $value, string $label ) {
+	protected function format_options( string $value, string $label ) : array {
 		return [
 			'value' => $value,
 			'text'  => $label,

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -21,16 +21,16 @@ class Tabs extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='tabs';
+	protected string $widget_id ='tabs';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'index-card';
+	protected string $widget_dashicon = 'index-card';
 
 	/**
 	 * {@inheritDoc}
-	 */	
+	 */
 	protected function set_widget_properties() {
 		$this->widget_name = __( 'Tabs', 'siw');
 		$this->widget_description = __( 'Toont tabs', 'siw' );
@@ -103,7 +103,7 @@ class Tabs extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( $instance, $args, $template_vars, $css_name ) { 
+	protected function get_content( $instance, $args, $template_vars, $css_name ) : string { 
 		return Elements::generate_tabs( $instance['panes'] );
 	}
 }

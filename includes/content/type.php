@@ -19,135 +19,99 @@ abstract class Type {
 
 	/**
 	 * Basis voor post type
-	 *
-	 * @var string
 	 */
-	protected $post_type;
+	protected string $post_type;
 
 	/**
 	 * Dashicon voor post type
-	 *
-	 * @var string
 	 */
-	protected $menu_icon;
+	protected string $menu_icon;
 
 	/**
 	 * Is dit een public post type
-	 *
-	 * @var bool
 	 */
-	protected $public = true;
+	protected bool $public = true;
 
 	/**
 	 * Taxonomieën
-	 *
-	 * @var array
 	 */
-	protected $taxonomies;
+	protected array $taxonomies;
 
 	/**
 	 * Slug
-	 *
-	 * @var string
 	 */
-	protected $slug;
+	protected string $slug;
 
 	/**
 	 * Sidebar layout van single posts
-	 *
-	 * @var string
 	 */
-	protected $single_sidebar_layout = 'no-sidebar';
+	protected string $single_sidebar_layout = 'no-sidebar';
 
 	/**
 	 * Breedte van single post
 	 * 
 	 * desktop|tablet|mobile
-	 *
-	 * @var string
 	 */
-	protected $single_width = 'desktop';
+	protected string $single_width = 'desktop';
 
 	/**
 	 * Heeft post type filter voor taxonomies?
-	 *
-	 * @var bool
 	 */
-	protected $archive_taxonomy_filter = false;
+	protected bool $archive_taxonomy_filter = false;
 
 	/**
 	 * Gebruikt post type masonry?
-	 *
-	 * @var bool
 	 */
-	protected $archive_masonry = false;
+	protected bool $archive_masonry = false;
 
 	/**
 	 * Breedte van kolom in archive
-	 *
-	 * @var int
 	 */
-	protected $archive_column_width = 100;
+	protected int $archive_column_width = 100;
 
 	/**
 	 * Sidebar layout van archive
-	 *
-	 * @var string
 	 */
-	protected $archive_sidebar_layout = 'no-sidebar';
+	protected string $archive_sidebar_layout = 'no-sidebar';
 
 	/**
 	 * Volgorde van posts in archive
 	 * 
 	 * ASC|DESC
-	 *
-	 * @var string
 	 */
-	protected $archive_order = 'DESC';
+	protected string $archive_order = 'DESC';
 
 	/**
 	 * Volgorde van posts in admin
 	 * 
 	 * ASC|DESC
-	 *
-	 * @var string
 	 */
-	protected $admin_order = 'DESC';
+	protected string $admin_order = 'DESC';
 
 	/**
 	 * Waarop moeten posts gesorteerd worden
-	 *
-	 * @var string
 	 */
-	protected $orderby = 'date';
+	protected string $orderby = 'date';
 
 	/**
 	 * Als `orderby` meta_key is, welke meta_key dan
-	 *
-	 * @var string
 	 */
-	protected $orderby_meta_key = '';
+	protected string $orderby_meta_key = '';
 
 	/**
 	 * Meta query om te filteren op 'actieve' posts
-	 *
-	 * @var array
 	 */
-	protected $active_posts_meta_query = [];
+	protected array $active_posts_meta_query = [];
 
 	/**
 	 * Kan post type in carousel gebruikt worden
-	 *
-	 * @var bool
 	 */
-	protected $has_carousel_support = false;
+	protected bool $has_carousel_support = false;
 
 	/**
 	 * Directory voor uploads bij post type
-	 *
-	 * @var string
 	 */
-	protected $upload_subdir;
+	protected string $upload_subdir;
 
 	/**
 	 * Init
@@ -251,21 +215,21 @@ abstract class Type {
 	 *
 	 * @return array
 	 */
-	abstract public function get_meta_box_fields();
+	abstract public function get_meta_box_fields() : array;
 
 	/**
 	 * Haal taxonomieën op
 	 *
 	 * @return array
 	 */
-	abstract protected function get_taxonomies();
+	abstract protected function get_taxonomies() : array;
 
 	/**
 	 * Haalt labels op
 	 *
 	 * @return array
 	 */
-	abstract protected function get_labels();
+	abstract protected function get_labels() : array;
 
 	/**
 	 * Undocumented function
@@ -295,7 +259,7 @@ abstract class Type {
 	 *
 	 * @return array
 	 */
-	protected function get_archive_intro() {
+	protected function get_archive_intro() : array {
 		return [];
 	}
 
@@ -390,7 +354,7 @@ abstract class Type {
 	 *
 	 * @return string
 	 */
-	protected function get_social_share_cta() {
+	protected function get_social_share_cta() : string {
 		return __( 'Deel deze pagina', 'siw' );
 	}
 
@@ -416,7 +380,7 @@ abstract class Type {
 	 *
 	 * @return bool
 	 */
-	protected function get_seo_noindex( int $post_id ) {
+	protected function get_seo_noindex( int $post_id ) : bool {
 		return false;
 	}
 

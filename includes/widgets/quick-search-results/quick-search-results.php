@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -20,17 +20,13 @@ class Quick_Search_Results extends Widget {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_id ='quick_search_results';
+	protected string $widget_id ='quick_search_results';
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_dashicon = 'search';
+	protected string $widget_dashicon = 'search';
 
 	/**
 	 * {@inheritDoc}
@@ -71,7 +67,7 @@ class Quick_Search_Results extends Widget {
 	 * @param array $vars
 	 * @return array
 	 */
-	public function register_query_vars( $vars ) {
+	public function register_query_vars( array $vars ) : array {
 		$vars[] = 'bestemming';
 		$vars[] = 'maand';
 		return $vars;
@@ -80,7 +76,7 @@ class Quick_Search_Results extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string { 
 
 		$url = wc_get_page_permalink( 'shop' );
 		$text = __( 'Bekijk alle projecten', 'siw' );
@@ -107,7 +103,7 @@ class Quick_Search_Results extends Widget {
 			$text      .= SPACE . sprintf( __( 'in %s', 'siw' ), strtolower( $month->name ) );
 		}
 
-		/* Genereer output */
+		/* Genereer output TODO: aantal producten + intro in instance + HTML helpers gebruiken */
 		$content =
 			'<p>' .
 			esc_html__( 'Met een Groepsproject ga je voor 2 tot 3 weken naar een project, de begin- en einddatum van het project staan al vast.', 'siw' ) . SPACE .

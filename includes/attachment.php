@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW;
 
@@ -16,59 +16,43 @@ class Attachment {
 
 	/**
 	 * Path van upload directory
-	 *
-	 * @var string
 	 */
-	protected $upload_dir;
+	protected string $upload_dir;
 
 	/**
 	 * URL van upload directory
-	 *
-	 * @var string
 	 */
-	protected $upload_url;
+	protected string $upload_url;
 
 	/**
 	 * Subdirectory voor upload
-	 *
-	 * @var string
 	 */
-	protected $subdir;
+	protected string $subdir;
 
 	/**
 	 * Minimum breedte van afbeelding
-	 *
-	 * @var int
 	 */
-	protected $minimum_width;
+	protected int $minimum_width;
 
 	/**
 	 * Minimum hoogte van afbeelding
-	 *
-	 * @var int
 	 */
-	protected $minimum_height;
+	protected int $minimum_height;
 
 	/**
 	 * Maximum breedte van afbeelding
-	 *
-	 * @var int
 	 */
-	protected $maximum_width = Properties::MAX_IMAGE_SIZE;
+	protected int $maximum_width = Properties::MAX_IMAGE_SIZE;
 
 	/**
 	 * Maximum hoogte van afbeelding
-	 *
-	 * @var int
 	 */
-	protected $maximum_height = Properties::MAX_IMAGE_SIZE;
+	protected int $maximum_height = Properties::MAX_IMAGE_SIZE;
 
 	/**
 	 * Soort bestand
-	 *
-	 * @var string
 	 */
-	protected $filetype;
+	protected string $filetype;
 
 	/**
 	 * Init
@@ -103,7 +87,7 @@ class Attachment {
 
 		//Verplaats bestand naar upload-directory
 		$relative_path = $this->move_file( $temp_file, $filename );
-		if ( null === $relative_path ) {
+		if ( is_null( $relative_path ) ) {
 			return false;
 		}
 
@@ -125,7 +109,7 @@ class Attachment {
 	 *
 	 * @return string
 	 */
-	protected function move_file( string $temp_file, string $filename ) {
+	protected function move_file( string $temp_file, string $filename ) : ?string {
 		
 		$temp_filename = basename( $temp_file );
 
@@ -162,7 +146,7 @@ class Attachment {
 	 * @param int $width
 	 * @param int $height
 	 */
-	public function set_minimum_resolution( int $width, int $height) {
+	public function set_minimum_resolution( int $width, int $height ) {
 		$this->minimum_width = $width;
 		$this->minimum_height = $height;
 	}
@@ -173,7 +157,7 @@ class Attachment {
 	 * @param int $width
 	 * @param int $height
 	 */
-	public function set_maximimum_resolution( int $width, int $height) {
+	public function set_maximimum_resolution( int $width, int $height ) {
 		$this->maximum_width = abs( $width );
 		$this->maximum_height = abs( $height );
 	}
@@ -262,7 +246,7 @@ class Attachment {
 	 *
 	 * @return string
 	 */
-	public function set_upload_subdir() {
+	public function set_upload_subdir() : string {
 		return $this->subdir;
 	}
 }

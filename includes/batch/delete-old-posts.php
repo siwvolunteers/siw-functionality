@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
@@ -25,12 +25,12 @@ class Delete_Old_Posts extends Job {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'verwijderen oude posts';
+	protected string $name = 'verwijderen oude posts';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'algemeen';
+	protected string $category = 'algemeen';
 
 	/**
 	 * Selecteer alle posts van de relevante post types
@@ -39,7 +39,7 @@ class Delete_Old_Posts extends Job {
 	 * 
 	 * @todo filter voor post_types toevoegen
 	 */
-	protected function select_data() {
+	protected function select_data() : array {
 		$post_types = [
 			'vacatures',
 		];

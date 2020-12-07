@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements\Interactive_Maps;
 
+use SIW\Elements;
 use SIW\Elements\Interactive_Map;
 
 /**
@@ -15,17 +16,17 @@ class ESC extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $id = 'esc';
+	protected string  $id = 'esc';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $file = 'europe';
+	protected string $file = 'europe';
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $data = [
+	protected array $data = [
 		'mapwidth'  => 600,
 		'mapheight' => 600,
 	];
@@ -33,21 +34,21 @@ class ESC extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $options = [
+	protected array $options = [
 		'search' => true,
 	];
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_categories() {
+	protected function get_categories() : array {
 		return [];
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_locations() {
+	protected function get_locations() : array {
 		$countries = siw_get_countries( 'esc_projects' );
 		$locations = [];
 		foreach ( $countries as $country ) {
@@ -68,7 +69,8 @@ class ESC extends Interactive_Map {
 	 * 
 	 * @todo tabel met ESC-landen o.i.d.
 	 */
-	protected function get_mobile_content() {
-		return null;
+	protected function get_mobile_content() : ?string {
+		$countries = siw_get_countries( 'esc_projects', 'slug', 'array' );
+		return Elements::generate_list( array_values( $countries ), 2 );
 	}
 }

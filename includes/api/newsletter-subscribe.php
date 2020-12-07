@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\API;
 
@@ -15,20 +15,22 @@ class Newsletter_Subscribe extends Endpoint {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $resource = 'newsletter_subscribe';
+	protected string $resource = 'newsletter_subscribe';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $callback = 'process';
+	protected string $callback = 'process';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $methods = \WP_REST_Server::CREATABLE;
+	protected array $methods = [ \WP_REST_Server::CREATABLE] ;
 
-
-	protected $script = 'newsletter';
+	/**
+	 * {@inheritDoc}
+	 */
+	protected string $script = 'newsletter';
 
 	/**
 	 * {@inheritDoc}
@@ -48,7 +50,7 @@ class Newsletter_Subscribe extends Endpoint {
 	 * @param string $key
 	 * @return bool
 	 */
-	public function validate_name( string $param, \WP_REST_Request $request, string $key ) {
+	public function validate_name( string $param, \WP_REST_Request $request, string $key ) : bool {
 		return is_string( $param );
 	}
 
@@ -60,7 +62,7 @@ class Newsletter_Subscribe extends Endpoint {
 	 * @param string $key
 	 * @return string
 	 */
-	public function sanitize_name( string $param, \WP_REST_Request $request, string $key ) {
+	public function sanitize_name( string $param, \WP_REST_Request $request, string $key ) : string {
 		return sanitize_text_field( $param );
 	}
 
@@ -72,7 +74,7 @@ class Newsletter_Subscribe extends Endpoint {
 	 * @param string $key
 	 * @return bool
 	 */
-	public function validate_email( string $param, \WP_REST_Request $request, string $key ) {
+	public function validate_email( string $param, \WP_REST_Request $request, string $key ) : bool {
 		return is_email( $param );
 	}
 
@@ -84,7 +86,7 @@ class Newsletter_Subscribe extends Endpoint {
 	 * @param string $key
 	 * @return string
 	 */
-	public function sanitize_email( string $param, \WP_REST_Request $request, string $key ) {
+	public function sanitize_email( string $param, \WP_REST_Request $request, string $key ) : string {
 		return sanitize_email( $param );
 	}
 
@@ -94,7 +96,7 @@ class Newsletter_Subscribe extends Endpoint {
 	 * @param \WP_REST_Request $request
 	 * @return \WP_REST_Response
 	 */
-	public function process( \WP_REST_Request $request ) {
+	public function process( \WP_REST_Request $request ) : \WP_REST_Response {
 
 		$first_name = $request->get_param( 'name' );
 		$email = $request->get_param( 'email' );

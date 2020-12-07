@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Core;
 
@@ -55,8 +55,10 @@ class Shortcodes {
 			'groepsproject_tarief_regulier' => __( 'Groepsprojecten - Regulier tarief', 'siw' ),
 			'op_maat_tarief_student'        => __( 'Op Maat - Studententarief', 'siw' ),
 			'op_maat_tarief_regulier'       => __( 'Op Maat - Regulier tarief', 'siw' ),
+			'op_maat_tarief_duo'            => __( 'Op Maat - Duo-tarief', 'siw' ),
+			'op_maat_tarief_familie'        => __( 'Op Maat - Familie-tarief', 'siw' ),
+			'scholenproject_tarief'         => __( 'Scholenproject - tarief', 'siw' ),
 			'korting_tweede_project'        => __( 'Korting tweede project', 'siw' ),
-			'korting_derde_project'         => __( 'Korting derde project', 'siw' ),
 			'leeftijd'                      => __( 'Leeftijd van SIW', 'siw' ),
 			'laatste_jaarverslag'           => [
 				'title'      => __( 'Laatste jaarverslag', 'siw' ),
@@ -138,7 +140,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_email_link() {
+	public static function render_email_link() : string {
 		return Links::generate_mailto_link( Properties::EMAIL );
 	}
 
@@ -147,7 +149,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_telefoon() {
+	public static function render_telefoon() : string {
 		return Properties::PHONE;
 	}
 
@@ -156,7 +158,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_telefoon_internationaal() {
+	public static function render_telefoon_internationaal() : string {
 		return Properties::PHONE_INTERNATIONAL;
 	}
 
@@ -165,7 +167,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_whatsapp() {
+	public static function render_whatsapp() : string {
 		return Properties::WHATSAPP;
 	}
 
@@ -174,7 +176,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_iban() {
+	public static function render_iban() : string {
 		return Properties::IBAN;
 	}
 
@@ -183,7 +185,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_openingstijden() {
+	public static function render_openingstijden() : string {
 		return Elements::generate_opening_hours( 'list' );
 	}
 
@@ -192,7 +194,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_esc_borg() {
+	public static function render_esc_borg() : string {
 		return Formatting::format_amount( Properties::ESC_DEPOSIT );
 	}
 
@@ -201,7 +203,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_volgende_infodag() {
+	public static function render_volgende_infodag() : string {
 		$info_days = siw_get_upcoming_info_days( 1 );
 		if ( empty( $info_days ) ) {
 			return __( 'nog niet bekend', 'siw' );
@@ -215,7 +217,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_groepsproject_tarief_student() {
+	public static function render_groepsproject_tarief_student() : string {
 		if ( Util::is_workcamp_sale_active() ) {
 			return Formatting::format_sale_amount( Properties::WORKCAMP_FEE_STUDENT, Properties::WORKCAMP_FEE_STUDENT_SALE );
 		}
@@ -227,7 +229,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_groepsproject_tarief_regulier() {
+	public static function render_groepsproject_tarief_regulier() : string {
 		if ( Util::is_workcamp_sale_active() ) {
 			return Formatting::format_sale_amount( Properties::WORKCAMP_FEE_REGULAR, Properties::WORKCAMP_FEE_REGULAR_SALE );
 		}
@@ -239,7 +241,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_op_maat_tarief_student() {
+	public static function render_op_maat_tarief_student() : string {
 		if ( Util::is_tailor_made_sale_active() ) {
 			return Formatting::format_sale_amount( Properties::TAILOR_MADE_FEE_STUDENT, Properties::TAILOR_MADE_FEE_STUDENT_SALE );
 		}
@@ -251,7 +253,7 @@ class Shortcodes {
 	 *
 	 * @return string
 	 */
-	public static function render_op_maat_tarief_regulier() {
+	public static function render_op_maat_tarief_regulier() : string {
 		if ( Util::is_tailor_made_sale_active() ) {
 			return Formatting::format_sale_amount( Properties::TAILOR_MADE_FEE_REGULAR, Properties::TAILOR_MADE_FEE_REGULAR_SALE );
 		}
@@ -259,21 +261,38 @@ class Shortcodes {
 	}
 
 	/**
+	 * Inschrijfgeld Op Maat-project (duo)
+	 *
+	 * @return string
+	 */
+	public static function render_op_maat_tarief_duo() : string {
+		return Formatting::format_amount( Properties::TAILOR_MADE_FEE_DUO );
+	}
+
+	/**
+	 * Inschrijfgeld Op Maat-project (familie)
+	 *
+	 * @return string
+	 */
+	public static function render_op_maat_tarief_familie() : string {
+		return Formatting::format_amount( Properties::TAILOR_MADE_FEE_FAMILY );
+	}
+	/**
+	 * Inschrijfgeld scholenproject
+	 *
+	 * @return string
+	 */
+	public static function render_scholenproject_tarief() : string {
+		return Formatting::format_amount( Properties::SCHOOL_PROJECT_FEE );
+	}
+
+	/**
 	 * Korting tweede Groepsproject
 	 *
 	 * @return string
 	 */
-	public static function render_korting_tweede_project() {
+	public static function render_korting_tweede_project() : string {
 		return Formatting::format_percentage( Properties::DISCOUNT_SECOND_PROJECT );
-	}
-
-	/**
-	 * Korting derde Groepsproject
-	 *
-	 * @return string
-	 */
-	public static function render_korting_derde_project() {
-		return Formatting::format_percentage( Properties::DISCOUNT_THIRD_PROJECT );
 	}
 
 	/**
@@ -282,7 +301,7 @@ class Shortcodes {
 	 * @param array $atts
 	 * @return string
 	 */
-	public static function render_externe_link( array $atts ) {
+	public static function render_externe_link( array $atts ) : string {
 		extract( shortcode_atts( [
 			'url'   => '',
 			'titel' => '',
@@ -351,7 +370,7 @@ class Shortcodes {
 	 * 
 	 * @todo slug als parameter en get page by path gebruiken
 	 */
-	public static function render_pagina_lightbox( array $atts ) {
+	public static function render_pagina_lightbox( array $atts ) : ?string {
 		extract( shortcode_atts( [
 			'link_tekst' => '',
 			'pagina'     => '',
@@ -362,9 +381,9 @@ class Shortcodes {
 			'kinderbeleid' => 'child_policy',
 		];
 		/* Haal pagina id op en breek af als pagina niet ingesteld is */
-		$page_id = siw_get_option( $pages[ $pagina ] . '_page' );
+		$page_id = siw_get_option( "pages.{$pages[$pagina]}" );
 		if ( empty( $page_id ) ) {
-			return;
+			return null;
 		}
 		
 		return Elements::generate_page_modal( $page_id, $link_tekst );
@@ -375,7 +394,7 @@ class Shortcodes {
 	 * 
 	 * @return string
 	 */
-	public static function render_leeftijd() {
-		return Util::calculate_age( Properties::FOUNDING_DATE );
+	public static function render_leeftijd() : string {
+		return strval( Util::calculate_age( Properties::FOUNDING_DATE ) );
 	}
 }

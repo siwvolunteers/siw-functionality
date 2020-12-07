@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Modules;
 
@@ -14,12 +14,9 @@ class Menu_Cart {
 
 	/**
 	 * Menu-locaties
-	 *
-	 * @var array
-	 * 
 	 * @todo verplaatsen naar configuratie
 	 */
-	protected $menu_locations = [
+	protected array $menu_locations = [
 		'primary',
 		'slideout'
 	];
@@ -41,7 +38,7 @@ class Menu_Cart {
 	 * @param \stdClass $args
 	 * @return string
 	 */
-	public function add_cart_to_menu( string $items, \stdClass $args ) {
+	public function add_cart_to_menu( string $items, \stdClass $args ) : string {
 		if ( ! in_array( $args->theme_location, $this->menu_locations ) ) {
 			return $items;
 		}
@@ -51,8 +48,10 @@ class Menu_Cart {
 
 	/**
 	 * Rendert cart
+	 *
+	 * @return string
 	 */
-	protected function render_cart() {
+	protected function render_cart() : string {
 		$cart_count = WC()->cart->get_cart_contents_count();
 		ob_start();
 		?>
@@ -71,7 +70,7 @@ class Menu_Cart {
 	 * @param array $fragments
 	 * @return array
 	 */
-	public function update_cart( array $fragments ) {
+	public function update_cart( array $fragments ) : array {
 		$cart_count = WC()->cart->get_cart_contents_count();
 		$fragments['span.siw-cart-count'] = '<span class="siw-cart-count">' . $cart_count . '</span>';
 		return $fragments;
@@ -81,7 +80,7 @@ class Menu_Cart {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'siw-menu-cart', SIW_ASSETS_URL . 'js/modules/siw-menu-cart.js', [ 'jquery', 'js-cookie' ] , SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-menu-cart', SIW_ASSETS_URL . 'js/modules/siw-menu-cart.js', [ 'jquery', 'js-cookie' ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-menu-cart' );
 	}
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
@@ -27,19 +27,19 @@ class Import_Dutch_Workcamps extends Import_Workcamps {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'importeren Nederlandse Groepsprojecten';
+	protected string $name = 'importeren Nederlandse Groepsprojecten';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'plato';
+	protected string $category = 'plato';
 
 	/**
 	 * Haal Nederlandse Groepsprojecten op uit Plato
 	 *
 	 * @return array
 	 */
-	 protected function select_data() {
+	protected function select_data() : array {
 		$import = new Plato_Import_Dutch_Workcamps;
 		$data = $import->run();
 

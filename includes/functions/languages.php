@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Functies m.b.t. talen
@@ -35,15 +35,13 @@ function siw_get_languages( string $context = 'all', string $index = 'slug', str
 
 	//Creëer objecten
 	$languages = array_map(
-		function( $item ) {
-			return new Language( $item );
-		},
+		fn( $item ) => new Language( $item ),
 		$data
 	);
 
 	//Filter op context
 	$languages = array_filter(
-		$languages, 
+		$languages,
 		function( $language ) use ( $context ) {
 			return ( 'all' == $context 
 				|| ( 'volunteer' == $context && $language->is_volunteer_language() )
@@ -54,9 +52,7 @@ function siw_get_languages( string $context = 'all', string $index = 'slug', str
 
 	if ( 'array' == $return ) {
 		$languages = array_map(
-			function( $language ) {
-				return $language->get_name();
-			},
+			fn( Language $language ) => $language->get_name(),
 			$languages
 		);
 	}
@@ -75,9 +71,9 @@ function siw_get_languages( string $context = 'all', string $index = 'slug', str
  * @param string $index
  * @return Language
  */
-function siw_get_language( string $language, string $index = 'slug' ) {
+function siw_get_language( string $language, string $index = 'slug' ) : ?Language {
 	$languages = siw_get_languages( 'all', $index );
-	return $languages[ $language ] ?? false;
+	return $languages[ $language ] ?? null;
 }
 
 /**

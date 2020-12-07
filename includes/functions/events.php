@@ -1,6 +1,7 @@
 <?php
 
 use SIW\Formatting;
+use SIW\Properties;
 
 /**
  * Functies m.b.t. evenementen
@@ -167,7 +168,23 @@ function siw_generate_event_json_ld( int $event_id ) : string {
 		];
 	}
 
-	//event status TODO: meta toevoegen
+	//Organizer toevoegen
+	if ( siw_meta( 'different_organizer', [], $event_id ) ) {
+		$data['organizer'] = [
+			'@type' => 'Organization',
+			'name'  => siw_meta( 'organizer.name', [], $event_id ),
+			'url'   => siw_meta( 'organizer.url', [], $event_id ),
+		];
+	}
+	else {
+		$data['organizer'] = [
+			'@type' => 'Organization',
+			'name'  => Properties::NAME,
+			'url'   => SIW_SITE_URL,
+		];
+	}
+
+	//event status TODO: meta toevoegen / automatisch afleiden
 	$statuses = [ 
 		'scheduled'    => 'https://schema.org/EventScheduled',
 		'cancelled'    => 'https://schema.org/EventCancelled',

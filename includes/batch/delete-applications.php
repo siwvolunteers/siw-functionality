@@ -1,5 +1,4 @@
-<?php
-
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
@@ -19,12 +18,12 @@ class Delete_Applications extends Job {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'verwijderen aanmeldingen';
+	protected string $name = 'verwijderen aanmeldingen';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'groepsprojecten';
+	protected string $category = 'groepsprojecten';
 	
 	/**
 	 * Selecteer de aanmeldingen van meer dan 1 jaar oud
@@ -34,7 +33,7 @@ class Delete_Applications extends Job {
 	 *
 	 * @return array
 	 */
-	protected function select_data() {
+	protected function select_data() : array {
 		$args = [
 			'limit'        => -1,
 			'return'       => 'ids',

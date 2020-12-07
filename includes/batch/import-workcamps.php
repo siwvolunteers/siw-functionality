@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
@@ -28,29 +28,29 @@ class Import_Workcamps extends Job {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'importeren Groepsprojecten';
+	protected string $name = 'importeren Groepsprojecten';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'plato';
+	protected string $category = 'plato';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $schedule_job = false;
+	protected bool $schedule_job = false;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $batch_size = 50;
+	protected int $batch_size = 50;
 
 	/**
 	 * Haal Groepsprojecten op uit Plato
 	 *
 	 * @return array
 	 */
-	 protected function select_data() {
+	 protected function select_data() : array {
 		$import = new Plato_Import_Workcamps;
 		$data = $import->run();
 
@@ -77,15 +77,4 @@ class Import_Workcamps extends Job {
 
 		return false;
 	}
-
-	/**
-	 * Extra acties bij afronden batch job
-	 */
-	protected function complete() {
-		if ( siw_get_option( 'plato_force_full_update' ) ) {
-			siw_set_option( 'plato_force_full_update', null );
-		}
-		parent::complete();
-	}
-
 }

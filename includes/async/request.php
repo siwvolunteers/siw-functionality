@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Async;
 
@@ -12,18 +12,14 @@ namespace SIW\Async;
 abstract class Request extends \WP_Async_Request {
 	
 	/**
-	 * Prefix
-	 * 
-	 * @var string
+	 * {@inheritDoc}
 	 */
 	protected $prefix = 'siw';
 
 	/**
 	 * Variabelen voor process
-	 *
-	 * @var array
 	 */
-	protected $variables = [];
+	protected array $variables = [];
 
 	/**
 	 * {@inheritDoc}
@@ -41,8 +37,6 @@ abstract class Request extends \WP_Async_Request {
 
 	/**
 	 * Haalt data op uit post request (inclusief sanitizing)
-	 *
-	 * @return array
 	 */
 	protected function get_data() {
 		$data = [];
@@ -60,7 +54,7 @@ abstract class Request extends \WP_Async_Request {
 	 *
 	 * @return bool
 	 */
-	protected function is_data_complete() {
+	protected function is_data_complete() : bool {
 		foreach ( $this->variables as $variable => $settings ) {
 			if ( isset( $settings['required'] ) && $settings['required'] && empty( $this->data[ $variable ] ) ) {
 				return false;

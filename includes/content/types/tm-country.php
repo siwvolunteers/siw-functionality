@@ -1,10 +1,12 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
 use SIW\Elements;
 use SIW\Elements\World_Map;
 use SIW\i18n;
+use SIW\Util\CSS;
 use SIW\Util\Links;
 
 /**
@@ -14,65 +16,66 @@ use SIW\Util\Links;
  * @since     3.1.?
  */
 class TM_Country extends Type {
-	/**
-	 * {@inheritDoc}
-	 */
-	protected $post_type = 'tm_country';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $menu_icon = 'dashicons-location-alt';
+	protected string $post_type = 'tm_country';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $slug = 'vrijwilligerswerk-op-maat';
+	protected string $menu_icon = 'dashicons-location-alt';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected string $slug = 'vrijwilligerswerk-op-maat';
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_taxonomy_filter = true;
+	protected bool $archive_taxonomy_filter = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_masonry = true;
+	protected bool $archive_masonry = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_column_width = 25;
+	protected int $archive_column_width = 25;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $orderby = 'title';
+	protected string $orderby = 'title';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_order = 'ASC';
+	protected string $archive_order = 'ASC';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $admin_order = 'ASC';
+	protected string $admin_order = 'ASC';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $has_carousel_support = true;
+	protected bool $has_carousel_support = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $upload_subdir = 'op-maat';
+	protected string $upload_subdir = 'op-maat';
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_meta_box_fields() {
+	public function get_meta_box_fields() : array {
 		$meta_box_fields = [
 			[
 				'id'          => 'country',
@@ -127,7 +130,7 @@ class TM_Country extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_taxonomies() {
+	protected function get_taxonomies() : array {
 		$taxonomies['continent'] = [
 			'labels' => [
 				'name'                       => _x( 'Continent', 'Taxonomy General Name', 'siw' ),
@@ -152,7 +155,7 @@ class TM_Country extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_labels() {
+	protected function get_labels() : array {
 		$labels = [
 			'name'               => __( 'Op Maat landen', 'siw' ),
 			'singular_name'      => __( 'Op Maat land', 'siw' ),
@@ -180,9 +183,9 @@ class TM_Country extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_archive_intro() {
+	protected function get_archive_intro() : array {
 
-		$url = i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
+		$url = i18n::get_translated_page_url( siw_get_option( 'pages.explanation.tailor_made' ) );
 		$link = Links::generate_link( $url, __( 'Projecten Op Maat', 'siw' ) );
 
 		$intro = [
@@ -229,7 +232,7 @@ class TM_Country extends Type {
 		$country = siw_get_country( siw_meta('country') );
 		$continent = $country->get_continent();
 		?>
-		<div class="grid-50 hide-on-mobile" data-sal="slide-right" data-sal-duration="1800" data-sal-easing="ease-out-sine">
+		<div class="grid-50 <?php echo CSS::HIDE_ON_MOBILE_CLASS; ?>" data-sal="slide-right" data-sal-duration="1800" data-sal-easing="ease-out-sine">
 			
 			<?php 
 				$world_map = new World_Map();
@@ -281,13 +284,13 @@ class TM_Country extends Type {
 				echo esc_html__( 'Word jij hiervan enthousiast, ga dan naar onze pagina over Op Maat projecten.', 'siw' ) . BR2;
 				
 				//TODO: verplaatsen naar init/constructor
-				$tailor_made_page_link = i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
+				$tailor_made_page_link = i18n::get_translated_page_url( siw_get_option( 'pages.explanation.tailor_made' ) );
 				echo Links::generate_button_link( $tailor_made_page_link, __( 'Meld je aan', 'siw' ) );
 				?>
 			</p>
 		</div>
 
-		<!-- Start stappenplan -->
+		<!-- Start stappenplan TODO: naar instellingenmenu verplaatsen -->
 		<div class="grid-100">
 			<h2><?php esc_html_e( 'Zo werkt het', 'siw' );?></h2>
 		</div>
@@ -322,7 +325,7 @@ class TM_Country extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_social_share_cta() {
+	protected function get_social_share_cta() : string {
 		return __( 'Deel deze landenpagina', 'siw' );
 	}
 

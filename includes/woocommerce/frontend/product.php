@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Frontend;
 
@@ -58,7 +58,7 @@ class Product {
 	 * @param \WC_Product $product
 	 * @return bool
 	 */
-	public function set_product_is_purchasable( bool $is_purchasable, \WC_Product $product )  {
+	public function set_product_is_purchasable( bool $is_purchasable, \WC_Product $product ) : bool {
 		$is_purchasable = $product->is_visible();
 		$status = $product->get_status();
 
@@ -74,7 +74,7 @@ class Product {
 	 * @param array $variations
 	 * @return array
 	 */
-	public function set_variation_description( $variations ) {
+	public function set_variation_description( $variations ) : array {
 		if ( 'student' == $variations['attributes']['attribute_pa_tarief'] ) {
 			$variations['variation_description'] =  __( 'Je komt in aanmerking voor het studententarief als je 17 jaar of jonger bent of als je een bewijs van inschrijving kunt laten zien.', 'siw' );
 		}
@@ -86,7 +86,7 @@ class Product {
 	 *
 	 * @return string
 	 */
-	public function set_sales_flash_text() {
+	public function set_sales_flash_text() : string {
 		return '<span class="onsale">' . __( 'Korting', 'siw' ) . '</span>';
 	}
 
@@ -136,7 +136,7 @@ class Product {
 	 *
 	 * @return string
 	 */
-	public function set_out_of_stock_message() {
+	public function set_out_of_stock_message() : string {
 		return __( 'Dit project is helaas niet meer beschikbaar', 'siw' );
 	}
 
@@ -169,7 +169,7 @@ class Product {
 		?>
 		<div class="participation-fee">
 			<?php printf( esc_html__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s %s.', 'siw' ), $symbol, $amount );?>
-			<?php if ( isset( $amount_in_euro ) ):?>
+			<?php if ( isset( $amount_in_euro ) && is_float( $amount_in_euro ) ):?>
 				&nbsp;<?php printf ( esc_html__( '(Ca. &euro; %s)', 'siw' ), $amount_in_euro ); ?>
 			<?php endif ?>
 		</div>

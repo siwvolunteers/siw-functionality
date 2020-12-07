@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
 use SIW\Elements;
-use SIW\HTML;
 
 /**
  * Widget met features
@@ -22,12 +21,12 @@ class Features extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='features';
+	protected string $widget_id ='features';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'yes';
+	protected string $widget_dashicon = 'yes';
 
 	/**
 	 * {@inheritDoc}
@@ -116,9 +115,9 @@ class Features extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 
-		$columns = $instance['columns'];
+		$columns = intval( $instance['columns'] );
 		$rows = array_chunk( $instance['features'], $columns );
 		ob_start();
 		?>

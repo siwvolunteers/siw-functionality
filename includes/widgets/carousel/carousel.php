@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -23,12 +23,12 @@ class Carousel extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id = 'carousel';
+	protected string $widget_id = 'carousel';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'format-gallery';
+	protected string $widget_dashicon = 'format-gallery';
 
 	/**
 	 * {@inheritDoc}
@@ -159,14 +159,14 @@ class Carousel extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 
 		$instance = $this->parse_instance( $instance );
 
 		$carousel = new Element_Carousel();
 		$carousel->set_post_type( $instance['post_type'] );
-		$carousel->set_items( $instance['items'] );
-		$carousel->set_columns( $instance['columns'] );
+		$carousel->set_items( intval( $instance['items'] ) );
+		$carousel->set_columns( intval( $instance['columns'] ) );
 		if ( ! empty( $instance['taxonomy'] ) && ! empty( $instance['term'] ) ) {
 			$carousel->set_taxonomy_term( $instance['taxonomy'], $instance['term'] );
 		}
@@ -195,7 +195,6 @@ class Carousel extends Widget {
 				$this->generate_button( $instance['button_text'], $instance['post_type'], $instance['taxonomy'], $instance['term'] ),
 			);
 		}
-
 		return $content;
 	}
 
@@ -205,7 +204,7 @@ class Carousel extends Widget {
 	 * @param array $instance
 	 * @return array
 	 */
-	protected function parse_instance( $instance ) {
+	protected function parse_instance( array $instance ) : array {
 		$instance = wp_parse_args(
 			$instance,
 			[ 
@@ -219,7 +218,6 @@ class Carousel extends Widget {
 		);
 		$instance['taxonomy'] = $instance["{$instance['post_type']}_taxonomy"] ?? '';
 		$instance['term'] = $instance[ $instance['taxonomy'] ] ?? '';
-
 		return $instance;
 	}
 
@@ -232,7 +230,7 @@ class Carousel extends Widget {
 	 * @param string $term
 	 * @return string
 	 */
-	protected function generate_button( string $button_text, string $post_type, string $taxonomy, string $term ) {
+	protected function generate_button( string $button_text, string $post_type, string $taxonomy, string $term ) : string {
 		if ( ! empty( $taxonomy ) && ! empty( $term ) ) {
 			$link = get_term_link( $term, $taxonomy );
 		}
@@ -247,18 +245,8 @@ class Carousel extends Widget {
 	 * 
 	 * @return array
 	 */
-	protected function get_post_types() {
-		$post_types = [
-			'product' => __( 'Groepsprojecten', 'siw' ), //TODO: verplaatsen naar Compat/WooCommerce
-		];
-		/**
-		 * Custom post types
-		 *
-		 * @param array $post_types
-		 */
-		$post_types = apply_filters( 'siw_carousel_post_types', $post_types );
-
-		return $post_types;
+	protected function get_post_types() : array {
+		return apply_filters( 'siw_carousel_post_types', [] );
 	}
 
 	/**
@@ -266,19 +254,8 @@ class Carousel extends Widget {
 	 * 
 	 * @return array
 	 */
-	protected function get_taxonomies() {
-		$taxonomies = [] ;
-		$taxonomies['product'] = [
-			'product_cat'        => __( 'Continent', 'siw' ), //TODO: verplaatsen naar Compat/WooCommerce
-		];
-		/**
-		 * Taxonomieën per post type
-		 *
-		 * @param array $taxonomies
-		 */
-		$taxonomies = apply_filters( 'siw_carousel_post_type_taxonomies', $taxonomies );
-
-		return $taxonomies;
+	protected function get_taxonomies() : array {
+		return apply_filters( 'siw_carousel_post_type_taxonomies', [] );
 	}
 
 	/**
@@ -287,7 +264,7 @@ class Carousel extends Widget {
 	 * @param string $taxonomy
 	 * @return array
 	 */
-	protected function get_term_options( string $taxonomy ) {
+	protected function get_term_options( string $taxonomy ) : array {
 		$terms = get_terms( $taxonomy );
 		$term_options[''] = __( 'Alle', 'siw' );
 		foreach ( $terms as $term ) {

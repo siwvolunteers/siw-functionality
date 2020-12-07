@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -21,12 +21,12 @@ $data = [
 	'AUS' => __( 'Australische', 'siw' ),
 	'AZB' => __( 'Azerbaidzjaanse', 'siw' ),
 	'BHS' => __( '(Burger van de) Bahama\'s', 'siw' ),
-	'BAH' => __( 'Bahreinse ', 'siw' ),
+	'BAH' => __( 'Bahreinse', 'siw' ),
 	'BBD' => __( 'Barbadaanse', 'siw' ),
 	'BEL' => __( 'Belgische', 'siw' ),
 	'BLZ' => __( 'Belizaanse', 'siw' ),
-	'BYE' => __( 'Belarussische ', 'siw' ),
-	'BGD' => __( 'Bengalese ', 'siw' ),
+	'BYE' => __( 'Belarussische', 'siw' ),
+	'BGD' => __( 'Bengalese', 'siw' ),
 	'BEN' => __( 'Beninse', 'siw' ),
 	'BRM' => __( 'Bermuda', 'siw' ),
 	'BUT' => __( 'Bhutaanse', 'siw' ),

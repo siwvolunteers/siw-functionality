@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Frontend;
 
@@ -94,6 +94,8 @@ class Archive {
 	 *
 	 * @param string $description
 	 * @param \WP_Term $term
+	 * 
+	 * @return string
 	 */
 	public function set_seo_description( string $description, $term ) : string {
 		if ( ! is_a( $term, '\WP_Term') ) {

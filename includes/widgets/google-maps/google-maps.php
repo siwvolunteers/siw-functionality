@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -21,12 +21,12 @@ class Google_Maps extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='google_maps';
+	protected string $widget_id ='google_maps';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'location';
+	protected string $widget_dashicon = 'location';
 
 	/**
 	 * {@inheritDoc}
@@ -128,7 +128,7 @@ class Google_Maps extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 		$output = '';
 		if ( isset( $instance['intro'] ) ) {
 			$output .= wpautop( wp_kses_post( $instance['intro'] ) );

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Email;
 
@@ -43,7 +43,7 @@ class Template {
 	 * 
 	 * @return string
 	 */
-	public function generate() {
+	public function generate() : string {
 
 		$output = $this->get_template();
 		if ( $this->args['remove_linebreaks'] ) {
@@ -57,7 +57,7 @@ class Template {
 	 * 
 	 * @return string
 	 */
-	protected function get_template() {
+	protected function get_template() : string {
 		/* Start template */
 		ob_start();
 		?>
@@ -185,8 +185,6 @@ class Template {
 		</table>
 		</body>
 		<?php
-		$template = ob_get_clean();
-
-		return $template;
+		return ob_get_clean();
 	}
 }

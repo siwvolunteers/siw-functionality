@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Checkout;
 
@@ -41,7 +41,7 @@ class Newsletter{
 	 * @param array $data
 	 * @return array
 	 */
-	public function capture_newsletter_signup( array $data ) {
+	public function capture_newsletter_signup( array $data ) : array {
 		$data['newsletter_signup'] = (int) isset( $_POST['newsletter_signup'] );
 		return $data;
 	}

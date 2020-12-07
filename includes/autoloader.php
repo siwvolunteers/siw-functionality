@@ -1,43 +1,32 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW;
 
 /**
  * Autoloader voor SIW classes
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
 class Autoloader {
 
 	/**
-	 * Basis-namespace
-	 *
-	 * @var string
+	 * Root-namespace
 	 */
-	protected $base_namespace = 'SIW';
+	protected string $root_namespace = 'SIW';
 
 	/**
 	 * Basisdirectory
-	 *
-	 * @var string
 	 */
-	protected $base_dir;
+	protected string $root_directory;
 
 	/**
-	 * Registreert autoloader
+	 * Init
 	 */
-	public function register() {
+	public function __construct( string $root_namespace, string $root_directory ) {
+		$this->root_namespace = $root_namespace;
+		$this->root_directory = $root_directory;
 		spl_autoload_register( [ $this, 'autoload' ] );
-	}
-
-	/**
-	 * Zet base directory
-	 *
-	 * @param string $base_dir
-	 */
-	public function set_base_dir( string $base_dir ) {
-		$this->base_dir = trailingslashit( $base_dir );
 	}
 
 	/**
@@ -47,17 +36,18 @@ class Autoloader {
 	 */
 	public function autoload( string $class ) {
 
-		/* Afbreken als het geen SIW class is */
-		$path = explode( '\\', $class );
-		if ( ! is_array( $path ) || $this->base_namespace !== $path[0] ) {
+		/* Afbreken als het geen relevante class is */
+		if ( strpos( $class, $this->root_namespace ) !== 0 ) {
 			return;
 		}
 
-		//Basis-namespace verwijderen
-		unset( $path[0]);
+		//Root-namespace verwijderen
+		$class = str_replace( $this->root_namespace . '\\', '', $class );
 
 		//Bestandsnaam opbouwen
-		$file = $this->base_dir . implode( '/', $path ) . '.php';
+		$path = str_replace( '\\', '/', $class );
+
+		$file = trailingslashit( $this->root_directory ) . $path . '.php';
 		$file = strtolower( str_replace( '_', '-', $file ) );
 		if ( file_exists( $file ) ) {
 			require_once $file;

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Core;
 
@@ -16,26 +16,19 @@ class Assets {
 	const JSCOOKIE_VERSION = '2.2.1';
 
 	/**
-	 * Versie van SmoothScroll
-	 */
-	const SMOOTHSCROLL_VERSION = '1.4.10';
-
-	/**
 	 * Versie van Balloon.css
 	 */
-	const BALLOON_VERSION = '1.1.0';
+	const BALLOON_VERSION = '1.2.0';
 
 	/**
 	 * Versie van Polyfill.io
 	 */
-	const POLYFILL_VERSION = '3.52.1';
+	const POLYFILL_VERSION = '3.53.1';
 
 	/**
 	 * Features voor Polyfill.io
-	 *
-	 * @var array
 	 */
-	protected $polyfill_features = [
+	protected array $polyfill_features = [
 		'default'
 	];
 
@@ -58,18 +51,16 @@ class Assets {
 		wp_register_style( 'siw', SIW_ASSETS_URL . 'css/siw.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw' );
 
-		wp_register_style( 'balloon', SIW_ASSETS_URL . 'modules/balloon/balloon.css', [], self::BALLOON_VERSION );
+		wp_register_style( 'balloon', SIW_ASSETS_URL . 'vendor/balloon-css/balloon.css', [], self::BALLOON_VERSION );
 		wp_enqueue_style( 'balloon' );
 	}
 
 	/**
 	 * Registreert scripts
-	 * 
-	 * @todo option voor smoothscroll
 	 */
 	public function register_scripts() {
 		//JS-cookie niet zelf enqueuen; is dependency van andere scripts
-		wp_register_script( 'js-cookie', SIW_ASSETS_URL . 'modules/js-cookie/js.cookie.js', [], self::JSCOOKIE_VERSION, true );
+		wp_register_script( 'js-cookie', SIW_ASSETS_URL . 'vendor/js-cookie/js.cookie.js', [], self::JSCOOKIE_VERSION, true );
 
 		//SIW-svg script niet zelf enqueuen, wordt gebruikt door andere classes
 		wp_register_script( 'siw-svg', SIW_ASSETS_URL . 'js/siw-svg.js', [], SIW_PLUGIN_VERSION, true );
@@ -85,10 +76,6 @@ class Assets {
 			);
 		wp_register_script( 'polyfill', $polyfill_url, [], null, true );
 		wp_script_add_data( 'polyfill', 'crossorigin', 'anonymous' );
-
-		//Smoothscroll wel enqueuen 
-		wp_register_script( 'smoothscroll', SIW_ASSETS_URL . 'modules/smoothscroll/smoothscroll.js', [], self::SMOOTHSCROLL_VERSION, true );
-		wp_enqueue_script( 'smoothscroll' );
 	}
 
 	/**
@@ -99,7 +86,7 @@ class Assets {
 	 *
 	 * @return string
 	 */
-	public function set_crossorigin( string $tag, string $handle ) {
+	public function set_crossorigin( string $tag, string $handle ) : string {
 		$crossorigin = wp_scripts()->get_data( $handle, 'crossorigin' );
 		if ( $crossorigin ) {
 			$tag = str_replace(
@@ -118,7 +105,7 @@ class Assets {
 	 *
 	 * @return array
 	 */
-	public function add_polyfill_url( array $urls ) {
+	public function add_polyfill_url( array $urls ) : array {
 		$urls[] = 'https://polyfill.io';
 		return $urls;
 	}

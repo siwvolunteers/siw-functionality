@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -23,12 +23,12 @@ class CTA extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_id ='cta';
+	protected string $widget_id ='cta';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $widget_dashicon = 'megaphone';
+	protected string $widget_dashicon = 'megaphone';
 
 	/**
 	 * {@inheritDoc}
@@ -74,7 +74,7 @@ class CTA extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
 		ob_start();
 		?>
 		<div style="text-align:<?php echo esc_attr( $instance['align'] ); ?>">
@@ -82,7 +82,7 @@ class CTA extends Widget {
 				<?php echo esc_html( $instance['headline'] );?>
 			</div>
 			<div class="button">
-				<?php echo Links::generate_button_link( i18n::get_translated_page_url( $instance['button_page'] ), $instance['button_text'] ); ?>
+				<?php echo Links::generate_button_link( i18n::get_translated_page_url( intval( $instance['button_page'] ) ), $instance['button_text'] ); ?>
 			</div>
 		</div>
 		<?php

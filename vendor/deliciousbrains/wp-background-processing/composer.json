@@ -5,7 +5,10 @@
   "require": {
     "php": ">=5.2"
   },
-  "license": "GPL-2.0-only",
+  "suggest": {
+    "coenjacobs/mozart": "Easily wrap this library with your own prefix, to prevent collisions when multiple plugins use this library"
+  },
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Delicious Brains",

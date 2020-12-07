@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Functies m.b.t. landen
@@ -14,12 +14,10 @@ use SIW\Data\Country;
  * @since     3.0.0
  *
  * @param string $index
- * @param string $context all|workcamps|esc_projects|tailor_made_projects
+ * @param string $context all|workcamps|esc_projects|tailor_made_projects|allowed|{continent_slug}
  * @param string $return objects|array
  * 
  * @return Country[]|array
- * 
- * @todo continent als context toevoegen
  */
 function siw_get_countries( string $context = 'all', string $index = 'slug', string $return = 'objects' ) { 
 
@@ -35,7 +33,7 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 		$continent_data[ $continent ] = siw_get_data( "countries/{$continent}" );
 	}
 	
-	// Continent toevoegen aan elke land en array platslaan TODO: netter
+	// Continent toevoegen aan elke land en array platslaan TODO: netter + refactor
 	$data = [];
 	foreach ( $continent_data as $continent => $countries_data ) {
 		$countries_data = array_map( function( $country_data ) use ( $continent ) {
@@ -53,29 +51,27 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 
 	//Creëer objecten
 	$countries = array_map(
-		function( $item ) {
-			return new Country( $item );
-		},
+		fn( $item ) => new Country( $item ),
 		$data
 	);
 
-	//Filter op context
+	//Filter op context TODO: filter op continent
 	$countries = array_filter(
-		$countries, 
+		$countries,
 		function( $country ) use ( $context ) {
 			return ( 'all' == $context 
 				|| ( 'workcamps' == $context && $country->has_workcamps() )
 				|| ( 'esc_projects' == $context && $country->has_esc_projects() )
 				|| ( 'tailor_made_projects' == $context && $country->has_tailor_made_projects() )
+				|| ( 'allowed' == $context && $country->is_allowed() )
+				|| ( $context == $country->get_continent()->get_slug() )
 			);
 		}
 	);
 
 	if ( 'array' == $return ) {
 		$countries = array_map(
-			function( $country ) {
-				return $country->get_name();
-			},
+			fn( Country $country ) => $country->get_name(),
 			$countries
 		);
 	}
@@ -91,9 +87,9 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
  *
  * @param string $country
  * @param string $index
- * @return Country
+ * @return Country|null
  */
-function siw_get_country( string $country, string $index = 'slug' ) {
+function siw_get_country( string $country, string $index = 'slug' ) : ?Country {
 	$countries = siw_get_countries( 'all', $index );
-	return $countries[ $country ] ?? false;
+	return $countries[ $country ] ?? null;
 }

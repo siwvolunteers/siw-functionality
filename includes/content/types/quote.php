@@ -14,27 +14,27 @@ class Quote extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $post_type = 'quote';
+	protected string $post_type = 'quote';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $public = false;
+	protected bool $public = false;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $menu_icon = 'dashicons-format-quote';
+	protected string $menu_icon = 'dashicons-format-quote';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $slug = 'quotes';
+	protected string $slug = 'quotes';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_meta_box_fields() {
+	public function get_meta_box_fields() : array {
 		$meta_box_fields = [
 			[
 				'type' => 'heading',
@@ -68,7 +68,7 @@ class Quote extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_labels() {
+	protected function get_labels() : array {
 		$labels = [
 			'name'          => __( 'Quotes', 'siw' ),
 			'singular_name' => __( 'Quote', 'siw' ),
@@ -85,7 +85,7 @@ class Quote extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_taxonomies() {
+	protected function get_taxonomies() : array {
 		$taxonomies['continent'] = [
 			'labels' => [
 				'name'          => _x( 'Continent', 'Taxonomy General Name', 'siw' ),
@@ -128,7 +128,7 @@ class Quote extends Type {
 		return sprintf(
 			'%s | %s %s',
 			$postarr['name'],
-			get_term( $postarr['project_type'], 'siw_quote_project_type' )->name,
+			get_term( $postarr['siw_quote_project_type'], 'siw_quote_project_type' )->name,
 			siw_get_country( $postarr['country'] )->get_name()
 		);
 	}

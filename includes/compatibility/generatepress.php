@@ -23,10 +23,8 @@ class GeneratePress{
 
 	/**
 	 * Toegestane lettertypes
-	 *
-	 * @var array
 	 */
-	protected $allowed_fonts = [
+	protected array $allowed_fonts = [
 		'System Stack',
 	];
 
@@ -87,7 +85,7 @@ class GeneratePress{
 	 *
 	 * @return string
 	 */
-	public function set_copyright_message() {
+	public function set_copyright_message() : string {
 		return sprintf( '&copy; %s %s', current_time( 'Y' ), Properties::NAME );
 	}
 

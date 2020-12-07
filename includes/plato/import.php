@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Plato;
 
@@ -12,10 +12,8 @@ abstract class Import extends Plato_Interface {
 
 	/**
 	 * Data voor background process
-	 *
-	 * @var array
 	 */
-	protected $data = [];
+	protected array $data = [];
 
 	/**
 	 * Constructor
@@ -37,12 +35,12 @@ abstract class Import extends Plato_Interface {
 	 *
 	 * @return bool
 	 */
-	protected function retrieve_xml() {
+	protected function retrieve_xml() : bool {
 	
 		$args = [ 'timeout'	=> 60 ];
 		$this->http_response = wp_safe_remote_get( $this->endpoint_url, $args );
 
-		if ( false == $this->is_valid_response() ) {
+		if ( ! $this->is_valid_response() ) {
 			return false;
 		}
 

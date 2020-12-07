@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Core;
 
@@ -26,7 +26,7 @@ class Upload_Subdir {
 	 * @param array $file
 	 * @return array
 	 */
-	public function add_upload_subdir_filter( array $file ) {
+	public function add_upload_subdir_filter( array $file ) : array {
 		add_filter( 'upload_dir', [ $this, 'set_upload_subdir'] );
 		return $file;
 	}
@@ -37,7 +37,7 @@ class Upload_Subdir {
 	 * @param array $fileinfo
 	 * @return array
 	 */
-	public function remove_upload_subdir_filter( array $fileinfo ) {
+	public function remove_upload_subdir_filter( array $fileinfo ) : array {
 		remove_filter( 'upload_dir', [ $this, 'set_upload_subdir'] );
 		return $fileinfo;
 	}
@@ -48,7 +48,7 @@ class Upload_Subdir {
 	 * @param array $path
 	 * @return array
 	 */
-	public function set_upload_subdir( array $path ) {
+	public function set_upload_subdir( array $path ) : array {
 
 		/* Afbreken bij een fout */
 		if ( ! empty( $path['error'] ) ) {
@@ -74,7 +74,7 @@ class Upload_Subdir {
 		$subdir = apply_filters( 'siw_upload_subdir', $subdir );
 
 		// Als er een 
-		if ( null !== $subdir ) {
+		if ( is_string( $subdir ) ) {
 			$subdir = '/'. $subdir;
 
 			$path['path']    = str_replace( $path['subdir'], '', $path['path'] ); //TODO: wp_normalize_path
@@ -90,11 +90,11 @@ class Upload_Subdir {
 	/**
 	 * Bepaal subdirectory op basis van post type
 	 *
-	 * @return string
+	 * @return string|null
 	 */
-	protected function get_post_type_subdir() {
-		$post_id = isset( $_POST['post_id'] ) ? intval( $_POST['post_id'] ): null;
-		if ( null === $post_id ) {
+	protected function get_post_type_subdir() : ?string {
+		$post_id = isset( $_POST['post_id'] ) ? intval( $_POST['post_id'] ) : null;
+		if ( is_null( $post_id ) ) {
 			return null;
 		}
 		$post_type = get_post_type( $post_id );
@@ -112,11 +112,11 @@ class Upload_Subdir {
 	/**
 	 * Bepaal subdirectory op basis van extensie
 	 *
-	 * @return string
+	 * @return string|null
 	 */
-	protected function get_extension_subdir() {
+	protected function get_extension_subdir() : ?string {
 		$name = isset( $_POST['name'] ) ? sanitize_file_name( $_POST['name'] ): null;
-		if ( null === $name ) {
+		if ( is_null( $name ) ) {
 			return null;
 		}
 		$extension = pathinfo( $name, PATHINFO_EXTENSION );

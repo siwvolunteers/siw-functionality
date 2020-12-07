@@ -6,6 +6,13 @@
 /*--------------------------------------------------------------
 ## Algemeen
 --------------------------------------------------------------*/
+:root {
+  --siw-primary-color: $primary-color;
+  --siw-secondary-color: $secondary-color;
+  --siw-font-color: $font-color;
+  --siw-font-color-light: $font-color-light;
+}
+
 /* Fade in voor lazyload */
 img[data-lazy-src] {
   opacity: 0;
@@ -112,6 +119,16 @@ h2 > a:hover:before, .footer-widgets a.link:hover:before {
 }
 .siw-features .feature .siw-icon {
   margin-bottom: 10px;
+}
+
+ul[data-columns="2"] {
+  columns: 2;
+}
+ul[data-columns="3"] {
+  columns: 3;
+}
+ul[data-columns="4"] {
+  columns: 4;
 }
 
 /*--------------------------------------------------------------

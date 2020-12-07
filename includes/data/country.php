@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Data;
 
@@ -14,73 +14,53 @@ class Country {
 
 	/**
 	 * ISO-code van het land
-	 *
-	 * @var string
 	 */
-	protected $iso_code;
+	protected string $iso_code;
 
 	/**
 	 * Naam van het land
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * Slug van het land
-	 *
-	 * @var string
 	 */
-	protected $slug;
+	protected string $slug;
 
 	/**
 	 * Continent van het land
-	 *
-	 * @var string
 	 */
-	protected $continent;
+	protected string $continent;
 
 	/**
 	 * Geeft aan of het land toegestaan is
-	 *
-	 * @var bool
 	 */
-	protected $allowed;
+	protected bool $allowed;
 
 	/**
 	 * Geeft aan of het land groepsprojecten heeft
-	 *
-	 * @var bool
 	 */
-	protected $has_workcamps;
+	protected bool $has_workcamps;
 
 	/**
 	 * Geeft aan of het land ESC-projecten heeft
-	 *
-	 * @var bool
 	 */
-	protected $has_esc_projects;
+	protected bool $has_esc_projects;
 
 	/**
 	 * Geeft aan of het land Op Maat projecten heeft
-	 *
-	 * @var bool
 	 */
-	protected $has_tailor_made_projects;
+	protected bool $has_tailor_made_projects;
 
 	/**
-	 *  Eigenschappen van land voor kaart van de wereld
-	 *
-	 * @var \stdClass
+	 * Eigenschappen van land voor kaart van de wereld
 	 */
-	protected $world_map_data;
+	protected \stdClass $world_map_data;
 
 	/**
 	 * Eigenschappen van land voor kaart van Europa
-	 *
-	 * @var \stdClass
 	 */
-	protected $europe_map_data;
+	protected \stdClass $europe_map_data;
 
 	/**
 	 * Constructor
@@ -120,7 +100,7 @@ class Country {
 	 *
 	 * @return string
 	 */
-	public function get_iso_code() {
+	public function get_iso_code() : string {
 		return $this->iso_code;
 	}
 
@@ -129,7 +109,7 @@ class Country {
 	 *
 	 * @return string
 	 */
-	public function get_slug() {
+	public function get_slug() : string {
 		return $this->slug;
 	}
 
@@ -138,7 +118,7 @@ class Country {
 	 *
 	 * @return string
 	 */
-	public function get_name() {
+	public function get_name() : string {
 		return $this->name;
 	}
 
@@ -147,7 +127,7 @@ class Country {
 	 *
 	 * @return Continent
 	 */
-	public function get_continent() {
+	public function get_continent() : Continent {
 		return siw_get_continent( $this->continent );
 	}
 
@@ -156,7 +136,7 @@ class Country {
 	 *
 	 * @return bool
 	 */
-	public function is_allowed() {
+	public function is_allowed() : bool {
 		return $this->allowed;
 	}
 
@@ -165,7 +145,7 @@ class Country {
 	 *
 	 * @return bool
 	 */
-	public function has_workcamps() {
+	public function has_workcamps() : bool {
 		return $this->has_workcamps;
 	}
 
@@ -174,7 +154,7 @@ class Country {
 	 *
 	 * @return bool
 	 */
-	public function has_esc_projects() {
+	public function has_esc_projects() : bool {
 		return $this->has_esc_projects;
 	}
 
@@ -183,7 +163,7 @@ class Country {
 	 *
 	 * @return bool
 	 */
-	public function has_tailor_made_projects() {
+	public function has_tailor_made_projects() : bool {
 		return $this->has_tailor_made_projects;
 	}
 
@@ -192,8 +172,8 @@ class Country {
 	 *
 	 * @return \stdClass
 	 */
-	public function get_world_map_data() {
-		return (object) $this->world_map_data;
+	public function get_world_map_data() : \stdClass {
+		return $this->world_map_data;
 	}
 	
 	/**
@@ -201,7 +181,7 @@ class Country {
 	 *
 	 * @return \stdClass
 	 */
-	public function get_europe_map_data() {
-		return (object) $this->europe_map_data;
+	public function get_europe_map_data() : \stdClass {
+		return $this->europe_map_data;
 	}
 }

@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Page_Builder;
+
+use SIW\Util\CSS;
 
 /**
  * Zichtbaarheidsopties voor Page Builder
@@ -88,13 +90,13 @@ class Visibility {
 	 */
 	public function add_style_attributes( array $style_attributes, array $style_args ) : array {
 		if ( isset( $style_args['hide_on_mobile'] ) && 1 == $style_args['hide_on_mobile'] ) {
-			$style_attributes['class'][] = 'hide-on-mobile';
+			$style_attributes['class'][] = CSS::HIDE_ON_MOBILE_CLASS;
 		}
 		if ( isset( $style_args['hide_on_tablet'] ) && 1 == $style_args['hide_on_tablet'] ) {
-			$style_attributes['class'][] = 'hide-on-tablet';
+			$style_attributes['class'][] = CSS::HIDE_ON_TABLET_CLASS;
 		}
 		if ( isset( $style_args['hide_on_desktop'] ) && 1 == $style_args['hide_on_desktop'] ) {
-			$style_attributes['class'][] = 'hide-on-desktop';
+			$style_attributes['class'][] = CSS::HIDE_ON_DESKTOP_CLASS;
 		}
 		return $style_attributes;
 	}

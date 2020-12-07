@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\API;
 
@@ -12,80 +12,58 @@ abstract class Endpoint {
 
 	/**
 	 * Namespace
-	 *
-	 * @var string
 	 */
-	protected $namespace = 'siw';
+	protected string $namespace = 'siw';
 
 	/**
 	 * Versie
-	 *
-	 * @var string
 	 */
-	protected $version = 'v1';
+	protected string $version = 'v1';
 
 	/**
 	 * Resource
-	 *
-	 * @var string
 	 */
-	protected $resource;
+	protected string $resource;
 
 	/**
 	 * Toegestane methodes
-	 *
-	 * @var array
 	 */
-	protected $methods;
+	protected array $methods;
 
 	/**
 	 * Naam van callback-functie
-	 *
-	 * @var string
 	 */
-	protected $callback;
+	protected string $callback;
 
 	/**
 	 * Slug voor script
-	 *
-	 * @var string
 	 */
-	protected $script;
+	protected string $script;
 
 	/**
 	 * Dependencies van script
-	 *
-	 * @var array
 	 */
-	protected $script_deps = [];
+	protected array $script_deps = [];
 
 	/**
 	 * Functie om permissie te controleren
-	 *
-	 * @var string
 	 */
-	protected $permission_callback = 'verify_nonce';
+	protected string $permission_callback = 'verify_nonce';
 
 	/**
 	 * Parameters
-	 *
-	 * @var array
 	 */
-	protected $parameters;
+	protected array $parameters;
 
 	/**
 	 * Parameters voor script
-	 *
-	 * @var array
 	 */
-	protected $script_parameters;
+	protected array $script_parameters = [];
 
 	/**
 	 * Args voor route
-	 *
-	 * @var array
 	 */
-	protected $args;
+	protected array $args;
 
 	/**
 	 * Init
@@ -144,9 +122,9 @@ abstract class Endpoint {
 	 * @param \WP_REST_Request $request
 	 * @return bool
 	 */
-	public function verify_nonce( \WP_REST_Request $request ) {
+	public function verify_nonce( \WP_REST_Request $request ) : bool {
 		$nonce = $request->get_header( 'x_wp_nonce' );
-		return wp_verify_nonce( $nonce, 'wp_rest' );
+		return boolval( wp_verify_nonce( $nonce, 'wp_rest' ) );
 	}
 
 	/**

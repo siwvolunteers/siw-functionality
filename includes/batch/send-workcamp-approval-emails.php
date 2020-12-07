@@ -1,10 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
 use SIW\Email\Template;
 use SIW\Util\Links;
 use SIW\WooCommerce\Import\Product as Import_Product;
+use WP_User;
 
 /**
  * Versturen email voor goedkeuren Groepsprojecten
@@ -22,19 +23,19 @@ class Send_Workcamp_Approval_Emails extends Job {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'versturen email goedkeuren groepsprojecten';
+	protected string $name = 'versturen email goedkeuren groepsprojecten';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'groepsprojecten';
+	protected string $category = 'groepsprojecten';
 
 	/**
 	 * Selecteer categorieën
 	 *
 	 * @return array
 	 */
-	protected function select_data() {
+	protected function select_data() : array {
 
 		$categories = get_terms( [
 			'taxonomy'   => 'product_cat',
@@ -76,13 +77,10 @@ class Send_Workcamp_Approval_Emails extends Job {
 		}
 
 		$supervisor = $this->get_supervisor();
-		if ( false === $supervisor ) {
+		if ( is_null( $supervisor ) ) {
 			return false; //TODO:logging
 		}
-		$responsible_user = $this->get_responsible_user( $category['slug'] );
-		if ( false === $responsible_user ) {
-			$responsible_user = $supervisor;
-		}
+		$responsible_user = $this->get_responsible_user( $category['slug'] ) ?? $supervisor;
 
 		$admin_url = add_query_arg(
 			[
@@ -120,28 +118,29 @@ class Send_Workcamp_Approval_Emails extends Job {
 	/**
 	 * Zoekt coordinator voor import Groepsprojecten
 	 * 
-	 * @return \WP_User|bool
+	 * @return WP_User|null
 	 */
-	protected function get_supervisor() {
+	protected function get_supervisor() : ?\WP_User {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval['supervisor'] ) ) {
-			return get_userdata( $workcamp_approval['supervisor'] );
+			$supervisor = get_userdata( $workcamp_approval['supervisor'] );
+			return is_a( $supervisor, '\WP_User' ) ? $supervisor : null ;
 		}
-		return false;
+		return null;
 	}
 
 	/**
 	 * Zoekt verantwoordelijke voor specifiek continent
 	 *
 	 * @param string $category_slug
-	 * @return \WP_User|bool
+	 * @return \WP_User|null
 	 */
-	protected function get_responsible_user( string $category_slug ) {
+	protected function get_responsible_user( string $category_slug ) : ?\WP_User {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval[ "responsible_{$category_slug}" ] ) ) {
 			return get_userdata( $workcamp_approval[ "responsible_{$category_slug}" ] );
 		}
-		return false;
+		return null;
 	}
 
 	/**
@@ -168,5 +167,4 @@ class Send_Workcamp_Approval_Emails extends Job {
 			$headers
 		);
 	}
-
 }

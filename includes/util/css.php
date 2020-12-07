@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Util;
 
@@ -11,6 +11,27 @@ namespace SIW\Util;
 class CSS {
 
 	/**
+	 * CSS klasse om content op mobiel te verbergen
+	 * 
+	 * @var string
+	 */
+	const HIDE_ON_MOBILE_CLASS = 'hide-on-mobile';
+
+	/**
+	 * CSS klasse om content op tablet te verbergen
+	 * 
+	 * @var string
+	 */
+	const HIDE_ON_TABLET_CLASS = 'hide-on-tablet';
+
+	/**
+	 * CSS klasse om content op desktop te verbergen
+	 * 
+	 * @var string
+	 */
+	const HIDE_ON_DESKTOP_CLASS = 'hide-on-desktop';
+
+	/**
 	 * Genereert reponsive classes
 	 *
 	 * @param int $desktop_columns
@@ -20,10 +41,10 @@ class CSS {
 	 */
 	public static function generate_responsive_classes( int $desktop_columns, int $tablet_columns = null, int $mobile_columns = null ) : string {
 		$classes[] = 'grid-'. self::columns_to_grid_width( $desktop_columns );
-		if ( null !== $tablet_columns ) {
+		if ( is_int( $tablet_columns ) ) {
 			$classes[] = 'tablet-grid-'. self::columns_to_grid_width( $tablet_columns );
 		}
-		if ( null !== $mobile_columns  ) {
+		if ( is_int( $mobile_columns ) ) {
 			$classes[] = 'mobile-grid-'. self::columns_to_grid_width( $mobile_columns );
 		}
 		return implode( SPACE, $classes );

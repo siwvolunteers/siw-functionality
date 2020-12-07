@@ -79,6 +79,11 @@ class WooCommerce {
 		add_filter( 'rocket_cache_query_strings', [ $self, 'register_query_vars'] );
 
 		add_filter( 'get_term', [ $self, 'filter_term_name'], 10, 2 );
+
+		add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta'] );
+		add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type' ] );
+		add_filter( 'siw_carousel_post_type_taxonomies', [ $self, 'add_carousel_post_type_taxonomies' ] );
+		add_filter( 'siw_carousel_post_type_templates', [ $self, 'add_carousel_template' ] );
 	}
 
 	/**
@@ -114,7 +119,7 @@ class WooCommerce {
 	 *
 	 * @return array
 	 */
-	public function register_log_handlers() {
+	public function register_log_handlers() : array {
 		$log_handler_db = new \WC_Log_Handler_DB;
 		$log_handler_email = new \WC_Log_Handler_Email;
 		$log_handler_email->set_threshold( 'alert' );
@@ -158,7 +163,7 @@ class WooCommerce {
 		];
 		if ( class_exists( '\WooCommerce' ) ) {
 			if ( $user_id && 0 !== $user_id && $action && ( in_array( $action, $nonces ) ) ) {
-				$user_id = 0;
+				$user_id = get_current_user_id();;
 			}
 		}
 		return $user_id;
@@ -292,6 +297,11 @@ class WooCommerce {
 	public function filter_term_name( \WP_Term $term, string $taxonomy ) : \WP_Term {
 		if ( 'pa_maand' == $taxonomy ) {
 			$order = get_term_meta( $term->term_id, 'order', true );
+
+			if ( empty( $order ) ) {
+				return $term;
+			}
+
 			$year = substr( $order, 0, 4 );
 			$month = substr( $order, 4, 2 );
 			$current_year = date( 'Y' );
@@ -301,8 +311,58 @@ class WooCommerce {
 					"{$year}-{$month}-1",
 					$year != $current_year
 				)
-			); 
+			);
 		}
 		return $term;
+	}
+
+	/**
+	 * Zet call to action voor social share links
+	 *
+	 * @param array $post_types
+	 *
+	 * @return array
+	 */
+	public function set_social_share_cta( array $post_types ) : array {
+		$post_types['product'] = __( 'Deel dit project', 'siw' );
+		return $post_types;
+	}
+
+	/**
+	 * Voegt post type toe aan carousel
+	 *
+	 * @param array $post_types
+	 *
+	 * @return array
+	 */
+	public function add_carousel_post_type( array $post_types ) : array {
+		$post_types['product'] = __( 'Groepsprojecten', 'siw' );
+		return $post_types;
+	}
+
+	/**
+	 * Voegt taxonomies toe aan carousel
+	 *
+	 * @param array $taxonomies
+	 *
+	 * @return array
+	 */
+	public function add_carousel_post_type_taxonomies( array $taxonomies ) : array {
+		$taxonomies['product'] = [
+			'product_cat' => __( 'Continent', 'siw' ),
+		];
+		return $taxonomies;
+	}
+
+	/**
+	 * Voegt template toe aan carousel
+	 *
+	 * @param array $templates
+	 *
+	 * @return array
+	 */
+	public function add_carousel_template( array $templates ) : array {
+		$templates['product'] = wc_locate_template( 'content-product.php' );
+		return $templates;
 	}
 }

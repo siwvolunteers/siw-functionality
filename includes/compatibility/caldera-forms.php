@@ -1,8 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Compatibility;
 
-use SIW\Formatting;
 use SIW\Util;
 use SIW\Properties;
 
@@ -13,7 +12,7 @@ use SIW\Properties;
  * @see       https://calderaforms.com/
  * @since     3.0.0
  */
-class Caldera_Forms{ 
+class Caldera_Forms {
 
 	/**
 	 * Init
@@ -52,7 +51,7 @@ class Caldera_Forms{
 	 * @param array $content
 	 * @return array
 	 */
-	public function set_excluded_inline_js_content( array $content ) {
+	public function set_excluded_inline_js_content( array $content ) : array {
 		$content[] = 'caldera_conditionals';
 		return $content;
 	}
@@ -71,7 +70,7 @@ class Caldera_Forms{
 	 * @param array $protocols
 	 * @return array
 	 */
-	public function allow_magic_tags( array $protocols ) {
+	public function allow_magic_tags( array $protocols ) : array {
 		$protocols[] = '{embed_post';
 		return $protocols;
 	}
@@ -90,7 +89,7 @@ class Caldera_Forms{
 	 * @param string $field_html
 	 * @return string
 	 */
-	public function add_input_markup( string $field_html ) {
+	public function add_input_markup( string $field_html ) : string {
 		$field_html = preg_replace( '/<input(.*?)>/s', '<input$1><span class="checkmark"></span>', $field_html );
 		return $field_html;
 	}
@@ -102,11 +101,12 @@ class Caldera_Forms{
 	 * @param string $tag
 	 * @return string
 	 */
-	public function set_summary_magic_table( ?string $value, string $tag ) {
+	public function set_summary_magic_table( ?string $value, string $tag ) : ?string {
 		if ( '{summary}' !== $tag ) {
 			return $value;
 		}
-		$value = Formatting::array_to_text(
+		$value = implode(
+			'',
 			[
 				'<table width="100%" border="0" cellspacing="0" cellpadding="0">',
 					'<tr>',
@@ -119,9 +119,7 @@ class Caldera_Forms{
 					$value,
 				'</table>'
 			],
-			''
 		);
-
 		return $value;
 	}
 
@@ -131,7 +129,7 @@ class Caldera_Forms{
 	 * @param string $pattern
 	 * @return string
 	 */
-	public function set_summary_magic_pattern( string $pattern ) {
+	public function set_summary_magic_pattern( string $pattern ) : string {
 		$pattern = '<tr>
 			<td width="35%%" style="font-family: Verdana, normal; color:' . Properties::FONT_COLOR . '; font-size:0.8em;">%s</td>
 			<td width="5%%"></td>
@@ -152,7 +150,7 @@ class Caldera_Forms{
 	 * 
 	 * @todo verplaatsen naar SIW\Form ?
 	 */
-	public function set_validation_field_attributes( array $attrs, array $field ) : array{
+	public function set_validation_field_attributes( array $attrs, array $field ) : array {
 		if ( 'geboortedatum' === $field['ID'] ) {
 			$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige datum.', 'siw' );
 			$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'date' );
@@ -193,7 +191,7 @@ class Caldera_Forms{
 	 * 
 	 * @todo verplaatsen naar SIW\Form?
 	 */
-	public function maybe_add_postcode_lookup( array $attributes, array $form ) {
+	public function maybe_add_postcode_lookup( array $attributes, array $form ) : array {
 		$attributes['data-siw-postcode-lookup'] = isset( $form['postcode_lookup'] ) && $form['postcode_lookup'];
 		return $attributes;
 	}

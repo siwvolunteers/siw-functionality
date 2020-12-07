@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Admin;
 
@@ -41,10 +41,19 @@ class Product_Columns extends \MBAC\Post {
 						'class' => $product->is_visible() ? 'dashicons dashicons-visibility' : 'dashicons dashicons-hidden',
 					]
 				);
+				if ( $product->get_meta( 'force_hide' ) ) {
+					echo HTML::span(
+						[
+							'class' => 'dashicons dashicons-lock',
+						]
+					);
+					
+				}
+
 				break;
 			case 'next_update':
 				$product = wc_get_product( $post_id );
-				if ( true == $product->get_meta( 'import_again' ) ) {
+				if ( $product->get_meta( 'import_again' ) ) {
 					echo HTML::span( ['class' => 'dashicons dashicons-update'] ) ;
 				}
 				break;
@@ -53,7 +62,7 @@ class Product_Columns extends \MBAC\Post {
 
 				$url = add_query_arg(
 					[
-						'action' => 'woocommerce_select_for_carousel',
+						'action'     => 'woocommerce_select_for_carousel',
 						'product_id' => $product->get_id()
 					],
 					'admin-ajax.php'
@@ -68,9 +77,9 @@ class Product_Columns extends \MBAC\Post {
 					HTML::span(
 						[
 							'class'    => $product->get_meta( 'selected_for_carousel' ) ? 'carousel show tips' : 'carousel tips',
-							'data-tip' => $product->get_meta( 'selected_for_carousel' ) ? __( 'Yes', 'woocommerce' ) : __( 'No', 'woocommerce' ),
+							'data-tip' => $product->get_meta( 'selected_for_carousel' ) ? __( 'Ja', 'siw' ) : __( 'Nee', 'siw' ),
 						],
-						$product->get_meta( 'selected_for_carousel' ) ? __( 'Yes', 'woocommerce' ) : __( 'No', 'woocommerce' )
+						$product->get_meta( 'selected_for_carousel' ) ? __( 'Ja', 'siw' ) : __( 'Nee', 'siw' )
 					)
 				);
 		}

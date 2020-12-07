@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Plato;
 
@@ -20,17 +20,17 @@ class Download_File extends Plato_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $endpoint = 'DownloadDocumentFile';
+	protected string $endpoint = 'DownloadDocumentFile';
 
 	/**
 	 * Download het bestand
 	 *
 	 * @param string $identifier
-	 * @param string $extensione
+	 * @param string $extension
 	 * 
 	 * @return string
 	 */
-	public function download( string $identifier, string $extension = null ) {
+	public function download( string $identifier, string $extension = null ) : ?string {
 
 		//Download bestand
 		$this->add_query_arg( 'fileIdentifier', $identifier );
@@ -40,12 +40,11 @@ class Download_File extends Plato_Interface {
 		if ( is_wp_error( $temp_file ) ) {
 			return null;
 		}
-		if ( null !== $extension ) {
+		if ( is_string( $extension ) ) {
 			$temp_file_ext = "{$temp_file}.{$extension}";
 			rename( $temp_file, $temp_file_ext );
 			$temp_file = $temp_file_ext; 
 		}
-
 		return $temp_file;
 	}
 }

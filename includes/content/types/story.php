@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
@@ -17,42 +17,42 @@ class Story extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $post_type = 'story';
+	protected string $post_type = 'story';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $menu_icon = 'dashicons-format-gallery';
+	protected string $menu_icon = 'dashicons-format-gallery';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $slug = 'ervaringen';
+	protected string $slug = 'ervaringen';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_taxonomy_filter = true;
+	protected bool $archive_taxonomy_filter = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_masonry = true;
+	protected bool $archive_masonry = true;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $archive_column_width = 33;
+	protected int $archive_column_width = 33;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $upload_subdir = 'ervaringen';
+	protected string $upload_subdir = 'ervaringen';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_meta_box_fields() {
+	public function get_meta_box_fields() : array {
 		$meta_box_fields = [
 			[
 				'type' => 'heading',
@@ -134,7 +134,7 @@ class Story extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_taxonomies() {
+	protected function get_taxonomies() : array {
 		$taxonomies['continent'] = [
 			'labels' => [
 				'name'                       => _x( 'Continent', 'Taxonomy General Name', 'siw' ),
@@ -177,7 +177,7 @@ class Story extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_labels() {
+	protected function get_labels() : array {
 		$labels = [
 			'name'               => __( 'Ervaringsverhalen', 'siw' ),
 			'singular_name'      => __( 'Ervaringsverhaal', 'siw' ),
@@ -267,7 +267,7 @@ class Story extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_archive_intro() {
+	protected function get_archive_intro() : array {
 		$intro = [
 			__( 'Simone organiseerde Nederlandse taalles voor asielzoekers in België, Jacky stak de handen uit de mouwen op een oesterkwekerij in Japan, en Daphne werkte in een herberg voor migranten in Mexico.', 'siw' ),
 			__( 'Waar ga jij het liefst aan de slag?', 'siw' ),
@@ -281,7 +281,7 @@ class Story extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_social_share_cta() {
+	protected function get_social_share_cta() : string {
 		return __( 'Deel dit ervaringsverhaal', 'siw' );
 	}
 
@@ -292,7 +292,7 @@ class Story extends Type {
 		return sprintf(
 			'%s-%s-%s',
 			$postarr['name'],
-			get_term( $postarr['project_type'], 'siw_story_project_type' )->name,
+			get_term( $postarr['siw_story_project_type'], 'siw_story_project_type' )->name,
 			siw_get_country( $postarr['country'] )->get_name()
 		);
 	}

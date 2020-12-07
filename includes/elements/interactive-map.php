@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -22,68 +22,58 @@ abstract class Interactive_Map {
 	 *
 	 * @var string
 	 */
-	const MAPPLIC_VERSION = '6.0.2';
+	const MAPPLIC_VERSION = '6.1.3';
 
 	/**
 	 * URL van Mapplic-bestanden
-	 *
-	 * @var string
 	 */
-	protected $mapplic_url = SIW_ASSETS_URL . 'modules/mapplic/';
+	protected string $mapplic_url = SIW_ASSETS_URL . 'vendor/mapplic/';
 
 	/**
 	 * ID van kaart
-	 *
-	 * @var string
 	 */
-	protected $id;
+	protected string $id;
 
 	/**
 	 * Bestandsnaam van kaart
-	 *
-	 * @var string
 	 */
-	protected $file;
+	protected string $file;
 
 	/**
 	 * Inline CSS-regels
-	 *
-	 * @var array
 	 */
-	protected $inline_css;
+	protected array $inline_css;
 
 	/**
 	 * Gegevens van kaart
-	 *
-	 * @var array
 	 */
-	protected $options;
+	protected array $options;
 
 	/**
 	 * Haalt categorieën op
 	 * 
 	 * @return array
 	 */
-	abstract protected function get_categories();
+	abstract protected function get_categories() : array;
 
 	/**
 	 * Geef locaties terug
 	 * 
 	 * @return array
 	 */
-	abstract protected function get_locations();
+	abstract protected function get_locations() : array;
 
 	/**
 	 * Geeft alternatieve content voor mobiel terug
 	 * 
 	 * @return string
 	 */
-	abstract protected function get_mobile_content();
+	abstract protected function get_mobile_content() : ?string;
 
 	/**
 	 *  Genereert interactieve kaart
 	 */
-	public function generate() {
+	public function generate() : string {
 		$this->set_options();
 
 		$this->enqueue_styles();
@@ -96,8 +86,18 @@ abstract class Interactive_Map {
 		];
 		$content = HTML::div( $attributes );
 
-		$content = '<div class="hide-on-mobile hide-on-tablet">' . $content . '</div>';
-		$content .= '<div class="hide-on-desktop">' . $this->get_mobile_content() . '</div>';
+		$content = HTML::div(
+			[
+				'class' => [ CSS::HIDE_ON_MOBILE_CLASS, CSS::HIDE_ON_TABLET_CLASS ],
+			],
+			$content,
+		);
+		$content .= HTML::div(
+			[
+				'class' => CSS::HIDE_ON_DESKTOP_CLASS,
+			],
+			$this->get_mobile_content(),
+		);
 		return $content;
 	}
 
@@ -121,6 +121,8 @@ abstract class Interactive_Map {
 			'fillcolor'     => Properties::PRIMARY_COLOR,
 			'action'        => 'tooltip',
 			'maxscale'      => 2,
+			'hovertipdesc'  => true,
+			'animation'     => true,
 		];
 		$this->options = wp_parse_args( $this->options, $default_options );
 	}
@@ -130,7 +132,7 @@ abstract class Interactive_Map {
 	 * 
 	 * @return array
 	 */
-	protected function get_map_data() {
+	protected function get_map_data() : array {
 		$default_data = [
 			'mapwidth'  => null,
 			'mapheight' => null,
@@ -157,7 +159,7 @@ abstract class Interactive_Map {
 	 * @param array $category
 	 * @return array
 	 */
-	protected function parse_category( $category ) {
+	protected function parse_category( $category ) : array {
 		$default = [
 			'id'    => false,
 			'title' => false,
@@ -170,7 +172,7 @@ abstract class Interactive_Map {
 	/**
 	 * Parset de gegevens van locatie
 	 */
-	protected function parse_location( $location ) {
+	protected function parse_location( $location ) : array {
 		$default = [
 			'id'            => false,
 			'title'         => false,
@@ -206,9 +208,17 @@ abstract class Interactive_Map {
 		wp_register_script( 'mapplic', $this->mapplic_url . 'js/mapplic.js', $deps, self::MAPPLIC_VERSION, true );
 
 		$mapplic_localization = [
-			'more'     => __( 'Meer', 'siw' ),
-			'search'   => __( 'Zoeken', 'siw' ),
-			'iconfile' => $this->mapplic_url . 'css/images/icons.svg'
+			'more'        => __( 'Meer', 'siw' ),
+			'search'      => __( 'Zoeken', 'siw' ),
+			'zoomin'      => __( 'Zoom in', 'siw' ),
+			'zoomout'     => __( 'Zoom out', 'siw' ),
+			'resetzoom'   => __( 'Reset zoom', 'siw' ),
+			'levelup'     => __( 'Niveau omhoog', 'siw' ),
+			'leveldown'   => __( 'Niveau omlaag', 'siw' ),
+			'clearsearch' => __( 'Verwijder zoekopdracht', 'siw' ),
+			'closepopup'  => __( 'Sluit popup', 'siw' ),
+			'clearfilter' => __( 'Verwijder filter', 'siw' ),
+			'iconfile'    => $this->mapplic_url . 'css/images/icons.svg'
 		];
 		wp_localize_script( 'mapplic', 'mapplic_localization', $mapplic_localization );
 		wp_enqueue_script( 'mapplic' );

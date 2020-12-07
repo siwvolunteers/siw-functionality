@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements\Charts;
 
@@ -15,21 +15,22 @@ class Pie extends Chart {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $type = 'pie';
+	protected string $type = 'pie';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $options = [
+	protected array $options = [
 		'height'          => 400,
 		'truncateLegends' => true,
 		'maxSlices'       => 7,
+		'tooltipOptions'  => [], //TODO: Verwijderen als deze opgelost is: https://github.com/frappe/charts/issues/314
 	];
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function generate_chart_data() {
+	protected function generate_chart_data() : array {
 
 		$data = [
 			'labels'   => wp_list_pluck( $this->data, 'label' ),

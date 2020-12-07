@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -12,10 +12,8 @@ class Taxonomy_Filter {
 
 	/**
 	 * Opties
-	 *
-	 * @var array
 	 */
-	protected $options = [];
+	protected array $options = [];
 
 	/**
 	 * Constructor
@@ -50,7 +48,7 @@ class Taxonomy_Filter {
 	 * @param string $taxonomy
 	 * @return string
 	 */
-	public function generate( string $taxonomy ) {
+	public function generate( string $taxonomy ) : string {
 		$terms = $this->get_terms( $taxonomy );
 		//TODO: afbreken bij fout; ob_start gebruiken
 		$taxonomy_name = get_taxonomy( $taxonomy )->labels->name;
@@ -69,11 +67,10 @@ class Taxonomy_Filter {
 	 * 
 	 * @return array
 	 */
-	protected function get_terms( string $taxonomy ) {
+	protected function get_terms( string $taxonomy ) : array {
 		$term_query = [
 			'taxonomy'   => $taxonomy,
 			'hide_empty' => true,
-
 		];
 
 		if ( $this->options['use_post_count'] ) {

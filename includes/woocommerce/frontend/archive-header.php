@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Frontend;
 
@@ -32,15 +32,15 @@ class Archive_Header {
 			return;
 		}
 
-		$text = Formatting::array_to_text(
+		$text = implode(
+			BR2,
 			array_filter(
 				[
 					$this->get_intro_text(),
 					$this->get_sale_text(),
 					$this->get_teaser_text(),
 				]
-			),
-			BR2
+			)
 		);
 	
 		?>
@@ -58,8 +58,8 @@ class Archive_Header {
 	 * 
 	 * @return bool
 	 */
-	protected function show_archive_header() {
-		return is_shop() || is_product_category() || is_product_taxonomy();
+	protected function show_archive_header() : bool {
+		return \is_shop() || \is_product_category() || \is_product_taxonomy();
 	}
 
 	/**
@@ -67,16 +67,16 @@ class Archive_Header {
 	 * 
 	 * @return string
 	 */
-	protected function get_intro_text() {
+	protected function get_intro_text() : string {
 
-		if ( is_shop() ) {
+		if ( \is_shop() ) {
 			$text = __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten.', 'siw' );
 		}
-		elseif ( is_product_category() ) {
+		elseif ( \is_product_category() ) {
 			$category_name = get_queried_object()->name;
 			$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in %s.', 'siw' ), '<b>' . $category_name . '</b>' );
 		}
-		elseif ( is_product_taxonomy() ) {
+		elseif ( \is_product_taxonomy() ) {
 			$name = get_queried_object()->name;
 			switch ( get_queried_object()->taxonomy ) {
 				case 'pa_land':
@@ -102,7 +102,7 @@ class Archive_Header {
 			}
 		}
 		
-		$workcamps_page_link = i18n::get_translated_page_url( siw_get_option( 'workcamps_explanation_page' ) );
+		$workcamps_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
 
 		$text .= SPACE .
 			__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
@@ -117,7 +117,7 @@ class Archive_Header {
 	 *
 	 * @return bool
 	 */
-	protected function is_teaser_text_active() {
+	protected function is_teaser_text_active() : bool {
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
 		$teaser_text_active = false;
 		if ( isset( $teaser_text['active'] ) &&
@@ -135,7 +135,7 @@ class Archive_Header {
 	 * 
 	 * @return string|null
 	 */
-	protected function get_teaser_text() {
+	protected function get_teaser_text() : ?string {
 
 		if ( ! $this->is_teaser_text_active() ) {
 			return null;
@@ -143,7 +143,7 @@ class Archive_Header {
 
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
 
-		$contact_page_link = i18n::get_translated_page_url( siw_get_option( 'contact_page' ) );
+		$contact_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.contact' ) ) );
 		$end_year = date( 'Y', strtotime( $teaser_text['end_date'] ) );
 		$end_month = date_i18n( 'F', strtotime( $teaser_text['end_date'] ) );
 		$teaser_text = sprintf( __( 'Vanaf %s wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor %s.', 'siw' ), $end_month, $end_year ). SPACE .
@@ -156,9 +156,11 @@ class Archive_Header {
 	/**
 	 * Genereert tekst voor kortingsactie
 	 * 
-	 * @return string|null
+	 * @return string|null 
+	 * 
+	 * @todo refactor
 	 */
-	protected function get_sale_text() {
+	protected function get_sale_text() : ?string {
 
 		if ( ! Util::is_workcamp_sale_active() ) {
 			return null;

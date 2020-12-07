@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Export;
 
@@ -15,17 +15,13 @@ class Order {
 
 	/**
 	 * Aantal gefaalde geexporteerde aanmeldingen
-	 *
-	 * @var int
 	 */
-	protected $failed_count = 0;
+	protected int $failed_count = 0;
 
 	/**
 	 * Aantal succesvol geexporteerde aanmeldingen
-	 *
-	 * @var int
 	 */
-	protected $success_count = 0;
+	protected int $success_count = 0;
 
 	/**
 	 * Init
@@ -87,10 +83,11 @@ class Order {
 	 * Exporteert aanmelding voor 1 project naar Plato
 	 *
 	 * @param array $order_data
-	 * @param array $product
+	 * @param \WC_Product $product
+	 *
 	 * @return array
 	 */
-	protected function export_application( $order_data, $product ) {
+	protected function export_application( array $order_data, \WC_Product $product ) : array {
 		
 		$projectcode = $product->get_sku();
 		$order_data['choice1'] = $projectcode;
@@ -114,7 +111,7 @@ class Order {
 	 * 
 	 * @todo country en occupation uit order halen/uitvragen
 	 */
-	protected function get_order_data( \WC_Order $order ) {
+	protected function get_order_data( \WC_Order $order ) : array {
 		return [
 			'firstname'         => $order->get_billing_first_name(),
 			'lastname'          => $order->get_billing_last_name(),

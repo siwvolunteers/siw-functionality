@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Data;
 
@@ -12,24 +12,18 @@ class Continent {
 
 	/**
 	 * Slug van continent
-	 *
-	 * @var string
 	 */
-	protected $slug;
+	protected string $slug;
 
 	/**
 	 * Naam van het continent
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * Kleurcode van continent op kaart
-	 *
-	 * @var string
 	 */
-	protected $color;
+	protected string $color;
 
 	/**
 	 * Constructor
@@ -51,7 +45,7 @@ class Continent {
 	 *
 	 * @return string
 	 */
-	public function get_slug() {
+	public function get_slug() : string {
 		return $this->slug;
 	}
 
@@ -60,7 +54,7 @@ class Continent {
 	 *
 	 * @return string
 	 */
-	public function get_name() {
+	public function get_name() : string {
 		return $this->name;
 	}
 
@@ -69,25 +63,7 @@ class Continent {
 	 *
 	 * @return string
 	 */
-	public function get_color() {
+	public function get_color() : string {
 		return $this->color;
-	}
-
-	/**
-	 * Geeft landen van dit continent op
-	 * 
-	 * @return \SIW\Data\Country[]
-	 * 
-	 * @todo hoort dit wel hier
-	 * @todo caching
-	 */
-	public function get_countries() {
-		$countries = \siw_get_countries();
-		return array_filter(
-			$countries,
-			function( $country) {
-				return $country->get_continent()->get_slug() == $this->slug;
-			}
-		);
 	}
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Core;
 
@@ -49,11 +49,8 @@ class Scheduler {
 
 	/**
 	 * Jobs
-	 *
-	 * @var array
 	 */
-	protected static $jobs = [];
-
+	protected static array $jobs = [];
 
 	/**
 	 * Init

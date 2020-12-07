@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Content;
 
@@ -12,24 +12,18 @@ class Taxonomy {
 
 	/**
 	 * Taxonomie
-	 *
-	 * @var string
 	 */
-	protected $taxonomy;
+	protected string $taxonomy;
 	
 	/**
 	 * Post type
-	 *
-	 * @var string
 	 */
-	protected $post_type;
+	protected string $post_type;
 
 	/**
 	 * Instellingen
-	 *
-	 * @var array
 	 */
-	protected $settings;
+	protected array $settings;
 
 	/**
 	 * Constructor

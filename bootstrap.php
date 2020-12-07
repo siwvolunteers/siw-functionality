@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace SIW;
 use SIW\Autoloader;
 
@@ -34,6 +35,7 @@ class Bootstrap {
 		$this->load_functions();
 
 		$this->load_core();
+		$this->load_options();
 		$this->load_api();
 		$this->load_modules();
 		$this->load_compatibility();
@@ -84,9 +86,7 @@ class Bootstrap {
 	 */
 	protected function register_autoloader() {
 		require_once SIW_INCLUDES_DIR . '/autoloader.php';
-		$autoloader = new Autoloader();
-		$autoloader->set_base_dir( SIW_INCLUDES_DIR );
-		$autoloader->register();
+		new Autoloader( 'SIW', SIW_INCLUDES_DIR );
 	}
 
 	/**
@@ -112,7 +112,6 @@ class Bootstrap {
 				'Icons',
 				'Login',
 				'Media_Taxonomies',
-				'Options',
 				'Scheduler',
 				'Shortcodes',
 				'Translations',
@@ -134,6 +133,20 @@ class Bootstrap {
 	}
 
 	/**
+	 * Laadt opties
+	 */
+	protected function load_options() {
+		$this->init_classes(
+			'SIW\Options',
+			[ 
+				'Countries',
+				'Configuration',
+				'Settings'
+			]
+		);
+	}
+
+	/**
 	 * Laadt modules
 	 */
 	protected function load_modules() {
@@ -141,9 +154,9 @@ class Bootstrap {
 			'SIW\Modules',
 			[
 				'Breadcrumbs',
-				'Cache_Rebuild',
 				'Cookie_Notice',
 				'Google_Analytics',
+				'Mega_Menu',
 				'Menu_Cart',
 				'Social_Share',
 				'Topbar',
@@ -176,7 +189,6 @@ class Bootstrap {
 				'Admin_Bar',
 				'Notices',
 				'Shortcodes',
-				'Options_Page',
 				'Properties_Page',
 			]
 		);
@@ -193,7 +205,6 @@ class Bootstrap {
 				'GeneratePress',
 				'Meta_Box',
 				'Password_Protected',
-				'Plugins',
 				'Safe_Redirect_Manager',
 				'SiteOrigin_Page_Builder',
 				'The_SEO_Framework',
@@ -309,12 +320,12 @@ class Bootstrap {
 	/**
 	 * Laadt classes 
 	 *
-	 * @param string|null $namespace
+	 * @param string $namespace
 	 * @param array $classes
 	 * @param string $hook
 	 * @param int $priority
 	 */
-	protected function init_classes( ?string $namespace = null, array $classes, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
+	protected function init_classes( string $namespace, array $classes, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
 		foreach ( $classes as $class ) {
 			$this->init_class( $namespace, $class, $hook, $priority );
 		}
@@ -328,11 +339,8 @@ class Bootstrap {
 	 * @param string $hook
 	 * @param int $priority
 	 */
-	protected function init_class( string $namespace = null, string $class, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
-		if ( null !== $namespace ) {
-			$class = $namespace . '\\' . $class;
-		}
-		add_action( $hook, [ $class, 'init' ], $priority );
+	protected function init_class( string $namespace, string $class, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
+		add_action( $hook, [ $namespace . '\\' . $class, 'init' ], $priority );
 	}
 }
 

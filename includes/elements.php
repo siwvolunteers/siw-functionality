@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW;
 
@@ -26,9 +26,9 @@ class Elements {
 	 * 
 	 * @return string
 	 */
-	public static function generate_accordion( array $panes ) {
+	public static function generate_accordion( array $panes ) : ?string {
 		if ( empty( $panes) ) {
-			return;
+			return null;
 		}
 
 		$accordion = new Accordion;
@@ -63,9 +63,9 @@ class Elements {
 	 * 
 	 * @return string
 	 */
-	public static function generate_tabs( array $panes ) {
+	public static function generate_tabs( array $panes ) : ?string {
 		if ( empty( $panes) ) {
-			return;
+			return null;
 		}
 
 		$tablist = new Tablist;
@@ -138,7 +138,7 @@ class Elements {
 	 * 
 	 * @return string
 	 */
-	public static function generate_icon( string $icon_class, int $size = 2, string $background = 'none' ) {
+	public static function generate_icon( string $icon_class, int $size = 2, string $background = 'none' ) : string {
 
 		switch ( $background ) {
 			case 'circle':
@@ -190,7 +190,7 @@ class Elements {
 	 *
 	 * @return string
 	 */
-	public static function generate_quote( string $quote ) {
+	public static function generate_quote( string $quote ) : string {
 		return HTML::div(
 			[ 'class' => 'siw-quote'],
 			self::generate_icon( 'siw-icon-quote-left' ) . SPACE . esc_html( $quote )
@@ -204,7 +204,7 @@ class Elements {
 	 * 
 	 * @return string
 	 */
-	public static function generate_opening_hours( string $type = 'table' ) {
+	public static function generate_opening_hours( string $type = 'table' ) : string {
 		
 		$opening_hours = siw_get_option( 'opening_hours' );
 		$special_opening_hours = siw_get_option( 'special_opening_hours', [] );
@@ -380,20 +380,15 @@ class Elements {
 	 * Genereert lijst o.b.v. array met items
 	 *
 	 * @param array $items
-	 * @param bool $ordered
+	 * @param int $columns
 	 *
 	 * @return string
 	 */
-	public static function generate_list( array $items, bool $ordered = false ) : string {
+	public static function generate_list( array $items, int $columns = 1 ) : string {
 		$callback = function( &$value, $key ) {
 			$value = HTML::li( [], $value );
 		};
 		array_walk( $items, $callback );
-		if ( $ordered ) {
-			return HTML::tag( 'ol', [], implode( '', $items ) );
-		}
-		else {
-			return HTML::tag( 'ul', [], implode( '', $items ) );
-		}
+		return HTML::tag( 'ul', [ 'data-columns' => $columns ], implode( '', $items ) );
 	}
 }

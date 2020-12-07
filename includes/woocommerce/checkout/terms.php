@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Checkout;
 
@@ -14,10 +14,8 @@ class Terms{
 
 	/**
 	 * Link naar modal
-	 *
-	 * @var string
 	 */
-	protected $modal_link;
+	protected string $modal_link;
 
 	/**
 	 * Init
@@ -36,7 +34,7 @@ class Terms{
 	 *
 	 * @return string
 	 */
-	public function set_term_checkbox_text() {
+	public function set_term_checkbox_text() : string {
 		return sprintf(__( 'Ik heb de %s gelezen en ga akkoord', 'siw' ), $this->modal_link );
 	}
 

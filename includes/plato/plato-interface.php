@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Plato;
 
@@ -19,31 +19,23 @@ abstract class Plato_Interface {
 
 	/**
 	 * Naam van import/export (voor logging)
-	 *
-	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * Organization webkey van plato
-	 *
-	 * @var string
 	 */
-	protected $webkey;
+	protected string $webkey;
 
 	/**
 	 * Endpoint van de webservice
-	 * 
-	 * @var string
 	 */
-	protected $endpoint;
+	protected string $endpoint;
 
 	/**
 	 * Endpoint url voor Plato
-	 *
-	 * @var string
 	 */
-	protected $endpoint_url;
+	protected string $endpoint_url;
 
 	/**
 	 * HTTP response van Plato
@@ -57,21 +49,19 @@ abstract class Plato_Interface {
 	 * 
 	 * @var \SimpleXMLElement
 	 */
-	protected $xml_response;
+	protected \SimpleXMLElement $xml_response;
 
 	/**
 	 * Logger-instantie
-	 * 
-	 * @var \WC_Logger
 	 */
-	protected $logger;
+	protected \WC_Logger $logger;
 
 	/**
 	 * Logger context
 	 * 
 	 * @var array
 	 */
-	protected $logger_context;
+	protected array $logger_context;
 
 	/**
 	 * Constructor
@@ -86,7 +76,7 @@ abstract class Plato_Interface {
 	 * Zet Plato-webkey
 	 */
 	protected function set_webkey() {
-		$this->webkey = siw_get_option( 'plato_organization_webkey' );
+		$this->webkey = siw_get_option( 'plato.organization_webkey' );
 	}
 
 	/**
@@ -94,7 +84,7 @@ abstract class Plato_Interface {
 	 *
 	 * @return string
 	 */
-	protected function get_webkey() {
+	protected function get_webkey() : string {
 		return $this->webkey;
 	}
 
@@ -139,7 +129,7 @@ abstract class Plato_Interface {
 	 *
 	 * @return bool
 	 */
-	protected function is_valid_response() {
+	protected function is_valid_response() : bool {
 		/* In het geval van een fout: foutmelding wegschrijven naar log */
 		if ( is_wp_error( $this->http_response ) ) {
 			$this->log('error', 'Verbinding met PLATO mislukt. Response: ' . wc_print_r( $this->http_response ) );

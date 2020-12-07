@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -20,17 +20,13 @@ class Newsletter extends Widget {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_id ='newsletter';
+	protected string $widget_id ='newsletter';
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_dashicon = 'email';
+	protected string $widget_dashicon = 'email';
 
 	/**
 	 * {@inheritDoc}
@@ -58,7 +54,7 @@ class Newsletter extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string { 
 		$subscriber_count = siw_newsletter_get_subscriber_count( siw_get_option( 'newsletter_list' ) );
 
 		$form_id = uniqid( 'newsletter_form_' );

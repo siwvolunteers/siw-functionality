@@ -6,18 +6,21 @@
         "source": {
             "type": "git",
             "url": "https://github.com/deliciousbrains/wp-background-processing.git",
-            "reference": "c8db1b9061904fb30e3d0d06430cb265b7ef829d"
+            "reference": "2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/deliciousbrains/wp-background-processing/zipball/c8db1b9061904fb30e3d0d06430cb265b7ef829d",
-            "reference": "c8db1b9061904fb30e3d0d06430cb265b7ef829d",
+            "url": "https://api.github.com/repos/deliciousbrains/wp-background-processing/zipball/2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800",
+            "reference": "2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800",
             "shasum": ""
         },
         "require": {
             "php": ">=5.2"
         },
-        "time": "2020-02-13T15:24:30+00:00",
+        "suggest": {
+            "coenjacobs/mozart": "Easily wrap this library with your own prefix, to prevent collisions when multiple plugins use this library"
+        },
+        "time": "2020-07-31T07:00:11+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -27,7 +30,7 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "GPL-2.0-only"
+            "GPL-2.0-or-later"
         ],
         "authors": [
             {
@@ -36,6 +39,47 @@
             }
         ],
         "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks."
+    },
+    {
+        "name": "donut/array_dig",
+        "version": "0.1.1",
+        "version_normalized": "0.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/donutclub/php-array_dig.git",
+            "reference": "d21b481d4377f90aef9d969c3a7da9c06f95bcc0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/donutclub/php-array_dig/zipball/d21b481d4377f90aef9d969c3a7da9c06f95bcc0",
+            "reference": "d21b481d4377f90aef9d969c3a7da9c06f95bcc0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.1.0"
+        },
+        "time": "2014-05-28T17:10:26+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "array_dig.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-clause"
+        ],
+        "authors": [
+            {
+                "name": "nkitsune",
+                "email": "nkitsune@mosdef.biz"
+            }
+        ],
+        "description": "recursively fetch nested array keys"
     },
     {
         "name": "kallookoo/wp_parse_args_recursive",
@@ -75,17 +119,17 @@
     },
     {
         "name": "spatie/array-to-xml",
-        "version": "2.12.1",
-        "version_normalized": "2.12.1.0",
+        "version": "2.15.0",
+        "version_normalized": "2.15.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/spatie/array-to-xml.git",
-            "reference": "4831815be245cdc40ed308a334b57ef64433533e"
+            "reference": "1795afad4e5a1f4b7af2e0e09802550eaa00a6f8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/4831815be245cdc40ed308a334b57ef64433533e",
-            "reference": "4831815be245cdc40ed308a334b57ef64433533e",
+            "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/1795afad4e5a1f4b7af2e0e09802550eaa00a6f8",
+            "reference": "1795afad4e5a1f4b7af2e0e09802550eaa00a6f8",
             "shasum": ""
         },
         "require": {
@@ -97,7 +141,7 @@
             "phpunit/phpunit": "^8.0",
             "spatie/phpunit-snapshot-assertions": "^2.0"
         },
-        "time": "2020-06-18T08:47:55+00:00",
+        "time": "2020-10-29T18:11:03+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

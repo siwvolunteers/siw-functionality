@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Admin;
 
@@ -66,7 +66,7 @@ class Admin {
 	 *
 	 * @return string
 	 */
-	public function set_admin_footer_text() {
+	public function set_admin_footer_text() : string {
 		return sprintf( '&copy; %s %s', date( 'Y' ), Properties::NAME );
 	}
 
@@ -76,7 +76,7 @@ class Admin {
 	 * @param array $columns
 	 * @return array
 	 */
-	public function remove_pages_columns( array $columns ) {
+	public function remove_pages_columns( array $columns ) : array {
 		unset( $columns['comments'] );
 		unset( $columns['author'] );
 		return $columns;
@@ -98,9 +98,9 @@ class Admin {
 	 *
 	 * @param string $slug
 	 * @param array $menu
-	 * @return string
+	 * @return int|null
 	 */
-	protected function menu_search( string $slug, array $menu ) {
+	protected function menu_search( string $slug, array $menu ) : ?int {
 		$menu_item = wp_list_filter(
 			$menu,
 			[ 2 => $slug ]

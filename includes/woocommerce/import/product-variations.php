@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Import;
 
@@ -14,17 +14,13 @@ class Product_Variations {
 
 	/**
 	 * Product
-	 *
-	 * @var \WC_Product
 	 */
-	protected $product;
+	protected \WC_Product $product;
 
 	/**
 	 * Tarieven
-	 *
-	 * @var array
 	 */
-	protected $tariffs= [];
+	protected array $tariffs;
 
 	/**
 	 * Init

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Batch;
 
@@ -14,7 +14,9 @@ use SIW\WooCommerce\Import\Product_Image;
  * - Stockfoto's
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.?
+ * @since     3.1.0
+ * 
+ * @todo  Plato-afbeelding verwijderen als project al begonnen is of uit Plato verwijderd is
  */
 class Update_Workcamps extends Job {
 
@@ -47,40 +49,34 @@ class Update_Workcamps extends Job {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $name = 'bijwerken Groepsprojecten';
+	protected string $name = 'bijwerken Groepsprojecten';
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $category = 'groepsprojecten';
+	protected string $category = 'groepsprojecten';
 
 	/**
 	 * Product
-	 *
-	 * @var \WC_Product
 	 */
-	protected $product;
+	protected \WC_Product $product;
 
 	/**
 	 * Is het project bijgewerkt?
-	 *
-	 * @var bool
 	 */
-	protected $updated;
+	protected bool $updated;
 
 	/**
 	 * Is het project verwijderd?
-	 *
-	 * @var bool
 	 */
-	protected $deleted;
+	protected bool $deleted;
 
 	/**
 	 * Selecteer alle projecten
 	 *
 	 * @return array
 	 */
-	protected function select_data() {
+	protected function select_data() : array {
 		$args = [
 			'return'     => 'ids',
 			'limit'      => -1,
@@ -199,7 +195,8 @@ class Update_Workcamps extends Job {
 	 * - Het project in een toegestaan land is
 	 * - Er vrije plaatsen zijn
 	 * - Het project niet afgekeurd is
-	 * - Her project niet uit Plato verwijderd is
+	 * - Het project niet uit Plato verwijderd is
+	 * - Het project niet handmatig verborgen is
 	 */
 	protected function maybe_update_visibility() {
 		$country = siw_get_country( $this->product->get_meta( 'country' ) );
@@ -217,6 +214,8 @@ class Update_Workcamps extends Job {
 			date( 'Y-m-d', time() + ( self::MIN_DAYS_BEFORE_START * DAY_IN_SECONDS ) ) >= $this->product->get_meta( 'start_date' )
 			||
 			$this->product->get_meta( 'deleted_from_plato' )
+			||
+			$this->product->get_meta( 'force_hide' )
 		) {
 			$visibility = 'hidden';
 		}
@@ -254,17 +253,15 @@ class Update_Workcamps extends Job {
 		$work_type_slugs = $attributes['pa_soort-werk']->get_slugs();
 		
 		$work_types = array_map(
-		function( $work_type_slug ) {
-			return siw_get_work_type( $work_type_slug );
-			},
+			fn( string $work_type_slug ) => siw_get_work_type( $work_type_slug ),
 			$work_type_slugs
 		);
-		
+
 		//Stockfoto proberen te vinden
 		$import_image = new Product_Image;
 		$image_id = $import_image->get_stock_image( $country, $work_types );
 
-		if ( null !== $image_id ) {
+		if ( is_int( $image_id ) ) {
 			$this->product->set_image_id( $image_id );
 			$this->product->save();
 			$this->updated = true;
@@ -306,7 +303,7 @@ class Update_Workcamps extends Job {
 		$variations = $this->product->get_children();
 		foreach ( $variations as $variation_id ) {
 			$variation = wc_get_product( $variation_id );
-			if ( false == $variation ) {
+			if ( ! is_a( $variation, '\WC_Product_Variation' ) ) {
 				continue;
 			}
 			$variation->delete( true );

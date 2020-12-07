@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements\Interactive_Maps;
 
@@ -19,17 +19,17 @@ class Destinations extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $id = 'destinations';
+	protected string $id = 'destinations';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $file = 'world';
+	protected string $file = 'world';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $data = [
+	protected array $data = [
 		'mapwidth'  => 1200,
 		'mapheight' => 760,
 	];
@@ -37,7 +37,7 @@ class Destinations extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $options = [
+	protected array $options = [
 		'search'       => true,
 		'searchfields' => ['title', 'about', 'description'],
 		'hidenofilter' => true,
@@ -46,7 +46,7 @@ class Destinations extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_categories() {
+	protected function get_categories() : array {
 		$continents = siw_get_continents();
 
 		$categories = [];
@@ -63,12 +63,12 @@ class Destinations extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_locations() {
+	protected function get_locations() : array {
 		$countries = siw_get_countries();
 		
 		$locations = [];
 		foreach ( $countries as $country ) {
-			if ( true != $country->is_allowed() ) {
+			if ( ! $country->is_allowed() ) {
 				continue;
 			}
 			$continent = $country->get_continent();
@@ -93,7 +93,7 @@ class Destinations extends Interactive_Map {
 	 * @param Country $country
 	 * @return string
 	 */
-	protected function generate_country_description( Country $country ) {
+	protected function generate_country_description( Country $country ) : string {
 
 		/* Groepsprojecten */
 		if ( $country->has_workcamps() ) {
@@ -107,7 +107,7 @@ class Destinations extends Interactive_Map {
 	
 		/* EVS */
 		if ( $country->has_esc_projects() ) {
-			$esc_page_link = i18n::get_translated_page_url( siw_get_option( 'esc_explanation_page' ) );
+			$esc_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.esc' ) ) );
 			$project_types[] = esc_html__( 'ESC', 'siw' ) . SPACE . Links::generate_link( $esc_page_link, __( 'Lees meer', 'siw' ) );
 		}
 
@@ -120,7 +120,7 @@ class Destinations extends Interactive_Map {
 	 * @param Country $country
 	 * @return string
 	 */
-	protected function generate_workcamps_description( Country $country ) {
+	protected function generate_workcamps_description( Country $country ) : string {
 		$country_term = get_term_by( 'slug', $country->get_slug(), 'pa_land' );
 		
 		if ( is_a( $country_term, 'WP_Term' ) ) {
@@ -135,7 +135,7 @@ class Destinations extends Interactive_Map {
 			$text = __( 'Bekijk het aanbod', 'siw' );
 		}
 		else {
-			$url = i18n::get_translated_page_url( siw_get_option( 'workcamps_explanation_page' ) );
+			$url = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
 			$text = __( 'Lees meer', 'siw' );
 		}
 		return esc_html__( 'Groepsprojecten', 'siw' ) . SPACE . Links::generate_link( $url, $text );
@@ -149,7 +149,7 @@ class Destinations extends Interactive_Map {
 	 */
 	public function generate_tailor_made_description( Country $country ) : string {
 
-		$tailor_made_page_link = i18n::get_translated_page_url( siw_get_option( 'tailor_made_explanation_page' ) );
+		$tailor_made_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.tailor_made' ) ) );
 
 		$tailor_made_pages = get_posts( [
 			'posts_per_page'   => -1,
@@ -172,9 +172,10 @@ class Destinations extends Interactive_Map {
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @todo lijst/tabel met aanbod per land
+	 * @todo aanbod per land
 	 */
-	protected function get_mobile_content() {
-		return null;
+	protected function get_mobile_content() : string {
+		$countries = siw_get_countries( 'allowed', 'slug', 'array' );
+		return Elements::generate_list(  array_values( $countries ), 2 );
 	}
 }

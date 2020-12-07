@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW;
 
@@ -12,10 +12,8 @@ class HTML {
 
 	/**
 	 * Void tags
-	 *
-	 * @var array
 	 */
-	public static $void_tags = [
+	public static array $void_tags = [
 		'area',
 		'base',
 		'br',
@@ -233,11 +231,13 @@ class HTML {
 
 			case 'select':
 				$options = $input_args['options'];
+				$value = $attributes['value'];
+				unset( $attributes['value'] );
 	
 				$field .= sprintf( '<select %s>', self::generate_attributes( $attributes ) );
 				if ( ! empty( $options ) && is_array( $options ) ) {
 					foreach ( $options as $key => $option ) {
-						$selected = selected( $attributes['value'], $key, false );
+						$selected = selected( $value, $key, false );
 						$field .= sprintf('<option value="%s" %s>%s</option>', esc_attr( $key ), $selected, esc_html( $option ) );
 					}
 				}

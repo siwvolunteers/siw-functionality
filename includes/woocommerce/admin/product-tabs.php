@@ -17,7 +17,7 @@ class Product_Tabs {
 	public static function init() {
 		$self = new self();
 		add_filter( 'woocommerce_product_data_tabs', [ $self, 'add_tabs'] );
-		add_filter( 'woocommerce_product_data_tabs', [ $self, 'hide_tabs'] );
+		add_filter( 'woocommerce_product_data_tabs', [ $self, 'hide_tabs'], PHP_INT_MAX );
 		
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_description_tab'] );
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_approval_tab'] );
@@ -75,14 +75,15 @@ class Product_Tabs {
 	 * @return array
 	 */
 	public function hide_tabs( array $tabs ) : array {
-		$tabs['advanced']['class'] = [ 'show_if_simple'];
-		$tabs['shipping']['class'] = [ 'show_if_simple'];
-		$tabs['linked_product']['class'] = [ 'show_if_simple'];
-		if ( ! current_user_can( 'manage_options' ) ) {
-			$tabs['inventory']['class'] = [ 'show_if_simple'];
-			$tabs['attribute']['class'] = [ 'show_if_simple'];
-			$tabs['variations']['class'] = [ 'show_if_simple'];
+		$tabs['advanced']['class'] = ['show_if_simple'];
+		$tabs['shipping']['class'] = ['show_if_simple'];
+		$tabs['Mollie']['class'] = ['show_if_simple'];
+		$tabs['linked_product']['class'] = ['show_if_simple'];
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			$tabs['inventory']['class'] = ['show_if_simple'];
+			$tabs['attribute']['class'] = ['show_if_simple'];
+			$tabs['variations']['class'] = ['show_if_simple'];
 		}
 		return $tabs;
 	}
@@ -123,6 +124,14 @@ class Product_Tabs {
 						'cbvalue'     => '1',
 						'label'       => __( 'Heeft afwijkend tarief', 'siw' ),
 						'description' => __( 'Tarief wordt niet automatisch bijgewerkt', 'siw' ),
+					]
+				);
+				woocommerce_wp_checkbox(
+					[
+						'id'      => 'force_hide',
+						'value'   => $product_object->get_meta( 'force_hide' ),
+						'cbvalue' => '1',
+						'label'   => __( 'Geforceerd verbergen', 'siw' ),
 					]
 				);
 				?>
@@ -211,7 +220,7 @@ class Product_Tabs {
 					[
 						'id'       => 'approval_user',
 						'value'    => $product_object->get_meta( 'approval_user' ),
-						'label'    => __('Gebruiker', 'siw'),
+						'label'    => __( 'Gebruiker', 'siw' ),
 						'custom_attributes' => [
 							'readonly' => 'readonly',
 							'disabled' => 'disabled',
@@ -299,6 +308,7 @@ class Product_Tabs {
 		$meta_data = [
 			'import_again'            => isset( $_POST['import_again'] ),
 			'use_stockphoto'          => isset( $_POST['use_stockphoto'] ),
+			'force_hide'              => isset( $_POST['force_hide'] ),
 			'has_custom_tariff'       => isset( $_POST['has_custom_tariff'] ),
 			'dutch_projects_city'     => isset( $_POST['dutch_projects_city'] ) ? wc_clean( $_POST['dutch_projects_city'] ) : '',
 			'dutch_projects_province' => isset( $_POST['dutch_projects_province'] ) ? wc_clean( $_POST['dutch_projects_province'] ) : '',

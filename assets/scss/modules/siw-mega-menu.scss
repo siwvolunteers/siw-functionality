@@ -1,0 +1,57 @@
+@media (min-width: 769px) {
+	nav .main-nav .mega-menu {
+		position: static;
+		> ul {
+			position: absolute;
+			width: 100%;
+			left: 0 !important;
+
+			> li {
+				display: inline-block;
+				vertical-align: top;
+				> a {
+					font-weight: bold;
+				}
+			}
+		}
+
+		&.mega-menu-col-2 > ul > li {
+			width: 50%;
+		}
+		&.mega-menu-col-3 > ul > li {
+			width: 33.3333%;
+		}
+		&.mega-menu-col-4 > ul > li {
+			width: 25%;
+		}
+		&.mega-menu-col-5 > ul > li {
+			width: 20%;
+		}
+
+		> ul > li:hover > a,
+		> ul > li:focus > a,
+		> ul > li[class*="current-"] > a,
+		ul ul {
+			background-color: transparent !important;
+		}
+
+		ul .sub-menu {
+			position: static;
+			display: block;
+			opacity: 1;
+			visibility: visible;
+			width: 100%;
+			box-shadow: 0 0 0;
+			left: 0;
+			height: auto;
+		}
+
+		ul.toggled-on .sub-menu {
+			pointer-events: auto;
+		}
+
+		.sub-menu .menu-item-has-children .dropdown-menu-toggle {
+			display: none;
+		}
+	}
+}

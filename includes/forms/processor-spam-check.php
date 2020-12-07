@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Forms;
 
@@ -25,7 +25,7 @@ class Processor_Spam_Check {
 	 * @param array $processors
 	 * @return array
 	 */
-	public function add_form_processor( array $processors ) {
+	public function add_form_processor( array $processors ) : array {
 		$processors['siw_spam_check'] = [
 			'name'          => __( 'Spam Check', 'siw' ),
 			'description'   => __( 'Spam check bij StopForumSpam.com', 'siw' ),
@@ -63,7 +63,7 @@ class Processor_Spam_Check {
 	 * 
 	 * @todo wp_blacklist_check() gebruiken voor inhoud van bericht / of setting met blacklist van woorden maken
 	 */
-	protected function is_spam( array $config, array $form ) {
+	protected function is_spam( array $config, array $form ) : bool {
 
 		$data = \Caldera_Forms::get_submission_data( $form );
 		$spam_check = new External_Spam_Check();

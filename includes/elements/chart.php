@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Elements;
 
@@ -19,28 +19,22 @@ abstract class Chart {
 	 * 
 	 * @param string
 	 */
-	const FRAPPE_CHARTS_VERSION = '1.5.0';
+	const FRAPPE_CHARTS_VERSION = '1.5.4';
 
 	/**
 	 * Type grafiek
-	 *
-	 * @var string
 	 */
-	protected $type;
+	protected string $type;
 
 	/**
 	 * Data voor grafiek
-	 *
-	 * @var array
 	 */
-	protected $data = [];
+	protected array $data = [];
 
 	/**
 	 * Opties voor grafiek
-	 *
-	 * @var array
 	 */
-	protected $options = [];
+	protected array $options = [];
 
 	/**
 	 * Genereert grafiek
@@ -49,7 +43,7 @@ abstract class Chart {
 	 * @param string $title
 	 * @return string
 	 */
-	public function generate( array $data, array $options = [] ) {
+	public function generate( array $data, array $options = [] ) : string {
 		$this->data = $data;
 		$this->options = wp_parse_args_recursive( $options, $this->options );
 
@@ -68,7 +62,7 @@ abstract class Chart {
 	 * Voegt scripts toe
 	 */
 	protected function enqueue_scripts() {
-		wp_register_script( 'frappe-charts', SIW_ASSETS_URL . 'modules/frappe-charts/frappe-charts.js', ['polyfill'], self::FRAPPE_CHARTS_VERSION, true );
+		wp_register_script( 'frappe-charts', SIW_ASSETS_URL . 'vendor/frappe-charts/frappe-charts.min.iife.js', ['polyfill'], self::FRAPPE_CHARTS_VERSION, true );
 		wp_register_script( 'siw-charts', SIW_ASSETS_URL . 'js/elements/siw-charts.js', ['frappe-charts'], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-charts' );
 	}
@@ -77,7 +71,7 @@ abstract class Chart {
 	 * Voegt styles toe
 	 */
 	protected function enqueue_styles() {
-		wp_register_style( 'frappe-charts', SIW_ASSETS_URL . 'modules/frappe-charts/frappe-charts.css', [], self::FRAPPE_CHARTS_VERSION );
+		wp_register_style( 'frappe-charts', SIW_ASSETS_URL . 'vendor/frappe-charts/frappe-charts.min.css', [], self::FRAPPE_CHARTS_VERSION );
 		wp_enqueue_style( 'frappe-charts' );
 	}
 
@@ -86,7 +80,7 @@ abstract class Chart {
 	 *
 	 * @return array
 	 */
-	protected function generate_chart_options() {
+	protected function generate_chart_options() : array {
 
 		$options = wp_parse_args_recursive(
 			$this->options,
@@ -101,5 +95,5 @@ abstract class Chart {
 	/**
 	 * Genereert data voor grafiek
 	 */
-	abstract protected function generate_chart_data();
+	abstract protected function generate_chart_data() : array;
 }

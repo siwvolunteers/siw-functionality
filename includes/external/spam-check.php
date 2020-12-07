@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\External;
+
+use SIW\Core\HTTP_Request;
 
 /**
  * Opzoeken e-mailadres en IP in SFS-spamdatabase
@@ -42,38 +44,28 @@ class Spam_Check{
 
 	/**
 	 * Geeft aan of IP gecheckt moet worden
-	 *
-	 * @var bool
 	 */
-	protected $check_ip = false;
+	protected bool $check_ip = false;
 
 	/**
 	 * Geeft aan of e-mail gecheckt moet worden
-	 *
-	 * @var bool
 	 */
-	protected $check_email = false;
+	protected bool $check_email = false;
 
 	/**
 	 * IP-adres
-	 *
-	 * @var string
 	 */
-	protected $ip;
+	protected string $ip;
 
 	/**
 	 * E-mailadres
-	 *
-	 * @var string
 	 */
-	protected $email;
+	protected string $email;
 
 	/**
 	 * Hash van e-mailadres
-	 *
-	 * @var string
 	 */
-	protected $email_hash;
+	protected string $email_hash;
 
 	/**
 	 * Zet IP-adres om te controlen
@@ -105,7 +97,7 @@ class Spam_Check{
 	 *
 	 * @return bool
 	 */
-	public function is_spammer() {
+	public function is_spammer() : bool {
 
 		//Afbreken als er niets to controleren is
 		if ( ! $this->check_email && ! $this->check_ip ) {
@@ -164,7 +156,7 @@ class Spam_Check{
 	/**
 	 * Zoek email en IP op in externe database
 	 */
-	protected function external_lookup() {
+	protected function external_lookup() : array {
 
 		$body = [
 			'json'  => true
@@ -176,48 +168,24 @@ class Spam_Check{
 			$body['ip'] = $this->ip;
 		}
 
-		$args = [
-			'body'    => $body,
-			'timeout' => 10,
-		];
+		$request = new HTTP_Request( self::API_URL );
+		$request->set_content_type( 'application/x-www-form-urlencoded' );
+		$response = $request->post( $body );
 
-		$response = wp_safe_remote_post( self::API_URL, $args );
-
-		if ( false == $this->check_response( $response ) ) {
-			return [];
-		}
-
-		$body = json_decode( wp_remote_retrieve_body( $response ), true );
-		if ( false == $body['success'] ) {
+		if ( is_wp_error( $response ) || false == $response['success'] ) {
 			return [];
 		}
 
 		$result = [];
-		if ( $this->check_email && $body['email']['appears'] ) {
-			$result['email'] = $body['email']['confidence'];
+		if ( $this->check_email && $response['email']['appears'] ) {
+			$result['email'] = $response['email']['confidence'];
 		}
 
-		if ( $this->check_ip && $body['ip']['appears'] ) {
-			$result['ip'] = $body['ip']['confidence'];
+		if ( $this->check_ip && $response['ip']['appears'] ) {
+			$result['ip'] = $response['ip']['confidence'];
 		}
 
 		return $result;
 	}
 
-	/**
-	 * Check HTTP response
-	 *
-	 * @param \WP_Error|array $response
-	 * @return bool
-	 */
-	protected function check_response( $response ) {
-		if ( is_wp_error( $response ) ) {
-			return false;
-		}
-		if ( \WP_Http::OK !== wp_remote_retrieve_response_code( $response ) ) {
-			return false;
-		}
-		
-		return true;
-	}
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Compatibility;
 
@@ -60,9 +60,9 @@ class WooCommerce_Multistep_Checkout {
 			'wmc_no_account_btn'              => null,
 			'wmc_coupon_label'                => __( 'Kortingscode', 'siw' ),
 			'wmc_billing_label'               => __( 'Je gegevens', 'siw' ),
-			'wmc_shipping_label'              => __( 'Informatie partnerorganisatie', 'siw' ),
+			'wmc_shipping_label'              => __( 'Informatie voor partnerorganisatie', 'siw' ),
 			'wmc_billing_shipping_label'      => __( 'Je gegevens', 'siw' ),
-			'wmc_orderinfo_label'             => __( 'Overzicht & betalenz', 'siw' ),
+			'wmc_orderinfo_label'             => __( 'Overzicht & betalen', 'siw' ),
 			'wmc_paymentinfo_label'           => __( 'Overzicht & betalen', 'siw' ),
 			'wmc_order_review_label'          => __( 'Overzicht', 'siw' ),
 			'wmc_empty_error'                 => __( 'Dit veld is verplicht', 'siw' ),

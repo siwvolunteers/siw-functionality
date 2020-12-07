@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\WooCommerce\Import;
 
@@ -26,66 +26,54 @@ class Product {
 
 	/**
 	 * Ruwe xml-data uit Plato
-	 *
-	 * @var \stdClass
 	 */
-	protected $xml;
+	protected \stdClass $xml;
 
 	/**
 	 * Geeft aan of het een update van een bestaand product is
-	 *
-	 * @var bool
 	 */
-	protected $is_update = false;
+	protected bool $is_update = false;
 
 	/**
 	 * Project
-	 *
-	 * @var \WC_Product
 	 */
-	protected $product;
+	protected \WC_Product $product;
 
 	/**
 	 * Land van project
-	 *
-	 * @var Country
 	 */
-	protected $country;
+	protected Country $country;
 
 	/**
 	 * Projecttalen
 	 *
 	 * @var Language[]
 	 */
-	protected $languages;
+	protected array $languages;
 
 	/**
 	 * Soort werk van het project
 	 *
 	 * @var Work_Type[]
 	 */
-	protected $work_types;
+	protected array $work_types;
 
 	/**
 	 * Sustainable Development Goals van het project
 	 *
 	 * @var Sustainable_Development_Goal[];
 	 */
-	protected $sustainable_development_goals;
+	protected array $sustainable_development_goals;
 
 	/**
 	 * Tarieven die van toepassing zijn
-	 *
-	 * @var array
 	 */
-	protected $tariffs;
+	protected array $tariffs;
 
 	/**
 	 * Doelgroepen
-	 *
-	 * @var array
 	 */
-	protected $target_audiences = [];
+	protected array $target_audiences = [];
 
 	/**
 	 * Constructor
@@ -94,6 +82,8 @@ class Product {
 		add_filter( 'wc_product_has_unique_sku', '__return_false' );
 		add_filter( 'wp_insert_post_data', [ $this, 'correct_post_slug'], 10, 2 );
 		$this->xml = (object) $data;
+
+		//TODO: Onderstaande uit constructor halen ?
 		$this->set_country();
 		$this->set_languages();
 		$this->set_work_types();
@@ -107,7 +97,7 @@ class Product {
 	 * @param array $postarr
 	 * @return array
 	 */
-	public function correct_post_slug( array $data, array $postarr ) {
+	public function correct_post_slug( array $data, array $postarr ) : array {
 		if ( self::REVIEW_STATUS == $data['post_status'] && 'product' == $data['post_type'] ) {
 			$data['post_name'] = $postarr['post_name'];
 		}
@@ -121,7 +111,7 @@ class Product {
 	 * 
 	 * @todo logging als land/werk/code leeg is
 	 */
-	public function process() {
+	public function process() : bool {
 
 		if ( empty( $this->country ) || empty( $this->work_types ) || empty( $this->xml->code ) ) {
 			return false;
@@ -258,7 +248,7 @@ class Product {
 	 * 
 	 * @return array
 	 */
-	protected function get_category_ids() {
+	protected function get_category_ids() : array {
 		$continent = $this->country->get_continent();
 		$category_ids = [];
 		if ( $category_id = Util::maybe_create_term( 'product_cat', $continent->get_slug(), $continent->get_name() ) ) {
@@ -272,7 +262,7 @@ class Product {
 	 * 
 	 * @return string
 	 */
-	protected function get_name() {
+	protected function get_name() : string {
 		$country = $this->country->get_name();
 		$work_types = array_slice( $this->work_types, 0, 2 );
 		if ( 1 === count( $work_types ) ) {
@@ -290,7 +280,7 @@ class Product {
 	 * Formaat: jaar-projectcode-projectnaam
 	 * @return string
 	 */
-	protected function get_slug() {
+	protected function get_slug() : string {
 		$year = date( 'Y', strtotime( $this->xml->start_date ) );
 		$code = $this->xml->code;
 		$name = $this->get_name();
@@ -306,7 +296,7 @@ class Product {
 	 * 
 	 * @return array
 	 */
-	protected function get_tag_ids() {
+	protected function get_tag_ids() : array {
 		$tags[ $this->country->get_slug() ] = $this->country->get_name();
 		foreach ( $this->work_types as $work_type ) {
 			$tags[ $work_type->get_slug() ] = $work_type->get_name();
@@ -331,7 +321,7 @@ class Product {
 	 * 
 	 * @todo splitsen
 	 */
-	protected function get_attributes() {
+	protected function get_attributes() : array {
 
 		$attributes = [];
 
@@ -425,7 +415,6 @@ class Product {
 				$attributes["pa_{$taxonomy}"] = $this->create_taxonomy_attribute( $taxonomy, $attribute['values'], $attribute['visible'], $attribute['variation'] );
 			}
 		}
-
 		return $attributes;
 	}
 
@@ -434,7 +423,7 @@ class Product {
 	 * 
 	 * @return array
 	 */
-	protected function get_default_attributes() {
+	protected function get_default_attributes() : array {
 		$max_age = (int) $this->xml->max_age;
 		$default_tariff = ( 18 > $max_age ) ? 'student' : 'regulier';
 		return [ 'pa_tarief' => $default_tariff ];
@@ -448,7 +437,7 @@ class Product {
 	 * @param bool $visible
 	 * @return \WC_Product_Attribute
 	 */
-	protected function create_product_attribute( string $name, $options, bool $visible = true ) {
+	protected function create_product_attribute( string $name, $options, bool $visible = true ) : \WC_Product_Attribute {
 		$options = (array) $options;
 		$attribute = new \WC_Product_Attribute;
 		$attribute->set_name( $name );
@@ -467,7 +456,7 @@ class Product {
 	 * 
 	 * @return \WC_Product_Attribute
 	 */
-	protected function create_taxonomy_attribute( string $taxonomy, $values, bool $visible = true, bool $variation = false ) {
+	protected function create_taxonomy_attribute( string $taxonomy, $values, bool $visible = true, bool $variation = false ) : ?\WC_Product_Attribute {
 
 		$wc_attribute_taxonomy_id = wc_attribute_taxonomy_id_by_name( $taxonomy );
 
@@ -483,7 +472,7 @@ class Product {
 				]
 			);
 			if ( is_wp_error( $wc_attribute_taxonomy_id ) ) {
-				return false;
+				return null;
 			}
 		}
 
@@ -508,7 +497,7 @@ class Product {
 	 * @param string $template
 	 * @return string
 	 */
-	protected function parse_description( string $template ) {
+	protected function parse_description( string $template ) : string {
 		$vars = [
 			'project_type' => $this->get_workcamp_type(),
 			'country'      => $this->country->get_name(),
@@ -527,7 +516,7 @@ class Product {
 	 * 
 	 * @todo aparte functie in Formatting
 	 */
-	protected function get_short_description() {
+	protected function get_short_description() : string {
 		$templates = siw_get_data( 'workcamps/description-templates' );
 		$template = implode( SPACE, $templates[ array_rand( $templates, 1 ) ]  );
 
@@ -539,7 +528,7 @@ class Product {
 	 * 
 	 * @return array
 	 */
-	protected function get_meta_data() {
+	protected function get_meta_data() : array {
 		$meta_data = [
 			'project_id'                 => $this->xml->project_id,
 			'latitude'                   => $this->xml->lat_project,
@@ -574,7 +563,7 @@ class Product {
 	 * 
 	 * @todo review als eigenschap van type werk
 	 */
-	protected function get_status() {
+	protected function get_status() : string {
 
 		if ( $this->is_update ) {
 			return $this->product->get_status();
@@ -592,13 +581,13 @@ class Product {
 	/**
 	 * Zet SEO beschrijving
 	 * 
+	 * @return string
+	 * 
 	 * @todo aparte functie Formatting
 	 */
-	protected function get_seo_description() {
-
+	protected function get_seo_description() : string {
 		$templates = siw_get_data( 'workcamps/seo-description-templates' );
 		$template = implode( SPACE, $templates[ array_rand( $templates, 1 ) ] );
-
 		return $this->parse_description( $template );
 	}
 
@@ -607,7 +596,7 @@ class Product {
 	 * 
 	 * @return string
 	 */
-	protected function get_seo_title() {
+	protected function get_seo_title() : string {
 		return sprintf( 'Groepsproject %s - %s', $this->country->get_name(), ucfirst( $this->work_types[0]->get_name() ) );
 	}
 
@@ -629,13 +618,13 @@ class Product {
 
 		// Probeer Plato-afbeelding op te halen ( indien van toepassing )
 		if (
-			siw_get_option( 'plato_download_images' ) &&
+			siw_get_option( 'plato.download_images' ) &&
 			! empty( $this->xml->images ) &&
 			is_array( $this->xml->images ) &&
 			! $this->product->get_meta( 'use_stockphoto' )
 		) {
 			$image_id = $product_image->get_project_image( $this->xml->images, $filename_base, $this->xml->project_id );
-			if ( null != $image_id ) {
+			if ( is_int( $image_id ) ) {
 				$this->product->update_meta_data( 'has_plato_image', true );
 				return $image_id;
 			}
@@ -656,7 +645,7 @@ class Product {
 	 *
 	 * @return bool
 	 */
-	protected function should_be_updated() {
+	protected function should_be_updated() : bool {
 
 		if ( $this->product->get_meta( 'import_again' ) ) {
 			$this->product->update_meta_data( 'import_again', false );
@@ -665,7 +654,7 @@ class Product {
 		elseif ( ( (array) $this->xml ) != $this->product->get_meta( 'xml' ) ) {
 			return true;
 		}
-		elseif ( siw_get_option( 'plato_force_full_update' ) ) {
+		elseif ( siw_get_option( 'plato.force_full_update' ) ) {
 			return true;
 		}
 
@@ -705,7 +694,7 @@ class Product {
 	 * 
 	 * @return string
 	 */
-	protected function get_workcamp_type() {
+	protected function get_workcamp_type() : string {
 		if ( array_key_exists( 'family', $this->target_audiences ) ) {
 			$workcamp_type = 'familieproject';
 		}
@@ -730,7 +719,7 @@ class Product {
 	 *
 	 * @return bool
 	 */
-	protected function is_allowed_project_type() {
+	protected function is_allowed_project_type() : bool {
 		$allowed_project_types = [
 			'STV',
 			'TEEN',

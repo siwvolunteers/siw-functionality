@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace SIW\Widgets;
 
@@ -22,17 +22,13 @@ class Organisation extends Widget {
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_id = 'organisation';
+	protected string $widget_id = 'organisation';
 
 	/**
 	 * {@inheritDoc}
-	 *
-	 * @var string
 	 */
-	protected $widget_dashicon = 'building';
+	protected string $widget_dashicon = 'building';
 
 	/**
 	 * {@inheritDoc}
@@ -65,7 +61,7 @@ class Organisation extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) { 
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string { 
 
 		$output = '';
 		foreach ( $this->get_organisation_properties( $instance ) as $property ) {
@@ -81,12 +77,12 @@ class Organisation extends Widget {
 	/**
 	 * Geeft lijst met bestuursleden terug
 	 * 
-	 * @return string
+	 * @return array|null
 	 */
-	protected function get_board_members_list() {
+	protected function get_board_members_list() : ?array {
 		$board_members = siw_get_option( 'board_members');
 		if ( empty( $board_members ) ) {
-			return;
+			return null;;
 		}
 	
 		$board_members_list = [];
@@ -107,7 +103,7 @@ class Organisation extends Widget {
 		$properties = [
 			[
 				'name'   => __( 'Statutaire naam', 'siw' ),
-				'values' =>Properties::STATUTORY_NAME
+				'values' => Properties::STATUTORY_NAME
 			],
 			[
 				'name'   => __( 'RSIN/fiscaal nummer', 'siw' ),
@@ -137,16 +133,15 @@ class Organisation extends Widget {
 		return $properties;
 	}
 
-
 	/**
 	 * Geeft jaarverslagen terug
 	 * 
-	 * @return string
+	 * @return array
 	 */
-	protected function get_annual_reports() {
+	protected function get_annual_reports() : array {
 		$annual_reports = siw_get_option( 'annual_reports' );
 		if ( empty( $annual_reports ) ) {
-			return;
+			return [];
 		}
 		$reports = [];
 		foreach ( $annual_reports as $report ) {
