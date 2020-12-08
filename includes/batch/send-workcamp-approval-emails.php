@@ -138,7 +138,8 @@ class Send_Workcamp_Approval_Emails extends Job {
 	protected function get_responsible_user( string $category_slug ) : ?\WP_User {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval[ "responsible_{$category_slug}" ] ) ) {
-			return get_userdata( $workcamp_approval[ "responsible_{$category_slug}" ] );
+			$responsible_user = get_userdata( $workcamp_approval[ "responsible_{$category_slug}"] );
+			return is_a( $responsible_user, '\WP_User' ) ? $responsible_user : null ;
 		}
 		return null;
 	}
