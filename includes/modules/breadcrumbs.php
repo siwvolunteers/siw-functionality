@@ -69,6 +69,9 @@ class Breadcrumbs {
 			//$this->current = get_the_archive_title(); //TODO: filter
 			$this->current = single_term_title( '', false );
 		}
+		else {
+			$this->current = '';
+		}
 	}
 
 	/**
