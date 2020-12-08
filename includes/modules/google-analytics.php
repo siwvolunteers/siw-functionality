@@ -88,7 +88,7 @@ class Google_Analytics {
 	protected function generate_snippet() : string {
 		$snippet = [
 			"window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;",
-			sprintf( "ga('create','%s',{'siteSpeedSampleRate': 100});", esc_js( $this->property_id ) ),
+			sprintf( "ga('create','%s',{'siteSpeedSampleRate': 100, 'cookieFlags': 'SameSite=None; Secure'});", esc_js( $this->property_id ) ),
 		];
 		foreach ( $this->tracker_settings as $setting => $value ) {
 			$snippet[] = sprintf( "ga('set', '%s', %s);", esc_js( $setting ), esc_js( $value ) );
