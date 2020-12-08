@@ -75,7 +75,7 @@ class Newsletter_Subscribe extends Endpoint {
 	 * @return bool
 	 */
 	public function validate_email( string $param, \WP_REST_Request $request, string $key ) : bool {
-		return is_email( $param );
+		return is_string( is_email( $param ) );
 	}
 
 	/**
