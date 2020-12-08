@@ -38,6 +38,8 @@ class Download_File extends Plato_Interface {
 	public function download( string $identifier, string $extension = null ) : ?string {
 
 		//Download bestand
+		require_once(ABSPATH . 'wp-admin/includes/file.php');
+
 		$this->add_query_arg( 'fileIdentifier', $identifier );
 		$temp_file = \download_url( $this->endpoint_url, self::TIMEOUT );
 
