@@ -53,7 +53,7 @@
 			},
 			"frappe-charts": {
 				"version": "^1.5.2",
-				"src": "{/dist/frappe-charts.min.iife.js,dist/frappe-charts.min.css}",
+				"src": "{/dist/frappe-charts.min.iife.js,/dist/frappe-charts.min.iife.js.map,dist/frappe-charts.min.css}",
 				"namespaced": true
 			},
 			"js-cookie": {
@@ -68,7 +68,7 @@
 			},
 			"sal.js": {
 				"version": "^0.8.0",
-				"src": "{dist/sal.js,dist/sal.css}",
+				"src": "dist/*",
 				"namespaced": true
 			}
 		}
