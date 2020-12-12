@@ -91,40 +91,50 @@ class Product {
 	 * @param string $redirect_to
 	 * @param string $action
 	 * @param array $post_ids
-	 * @return string
 	 * 
-	 * @todo netjes woocommerce functies gebruiken
+	 * @return string
 	 */
-	public function handle_bulk_actions( string $redirect_to, string $action, $post_ids ) : string {
+	public function handle_bulk_actions( string $redirect_to, string $action, array $post_ids ) : string {
 		$count = count( $post_ids );
-		$add_notice = false;
 		switch ( $action ) {
 			case 'import_again':
-				foreach ( $post_ids as $post_id ) {
-					update_post_meta( $post_id, 'import_again', true );
-				}
+				$products = wc_get_products( ['include' => $post_ids ] );
+				array_walk(
+					$products,
+					function( \WC_Product $product ) {
+						$product->update_meta_data( 'import_again', true );
+						$product->save();
+					}
+				);
 				$message = sprintf( _n( '%s project wordt opnieuw geïmporteerd.', '%s projecten worden opnieuw geïmporteerd.', $count, 'siw' ), $count );
-				$add_notice = true;
 				break;
 			case 'select_for_carousel':
-				foreach ( $post_ids as $post_id ) {
-					update_post_meta( $post_id, 'selected_for_carousel', true );
-				}
+				$products = wc_get_products( ['include' => $post_ids ] );
+				array_walk(
+					$products,
+					function( \WC_Product $product ) {
+						$product->update_meta_data( 'selected_for_carousel', true );
+						$product->save();
+					}
+				);
 				$message = sprintf( _n( '%s project is geselecteerd voor de carousel.', '%s projecten zijn geselecteerd voor de carousel.', $count, 'siw' ), $count );
-				$add_notice = true;
 				break;
 			case 'force_hide':
-				foreach ( $post_ids as $post_id ) {
-					update_post_meta( $post_id, 'force_hide', true );
-					//TODO: project direct verbergen
-				}
+				$products = wc_get_products( ['include' => $post_ids ] );
+				array_walk(
+					$products,
+					function( \WC_Product $product ) {
+						$product->update_meta_data( 'force_hide', true );
+						$product->set_catalog_visibility( 'hidden' );
+						$product->save();
+					}
+				);
 				$message = sprintf( _n( '%s project is verborgen.', '%s projecten zijn verborgen.', $count, 'siw' ), $count );
-				$add_notice = true;
 				break;
 			default:
 		}
 
-		if ( $add_notice ) {
+		if ( isset( $message ) ) {
 			$notices = new Admin_Notices;
 			$notices->add_notice( 'info', $message , true);
 		}
