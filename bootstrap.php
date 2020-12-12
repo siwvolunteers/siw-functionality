@@ -108,7 +108,6 @@ class Bootstrap {
 			[
 				'Assets',
 				'Head',
-				'htaccess',
 				'Icons',
 				'Login',
 				'Media_Taxonomies',
