@@ -168,7 +168,6 @@ class Product {
 			'category_ids'       => $this->get_category_ids(),
 			'attributes'         => $this->get_attributes(),
 			'default_attributes' => $this->get_default_attributes(),
-			'tag_ids'            => $this->get_tag_ids(),
 			'sku'                => $this->xml->code,
 			'sold_individually'  => true,
 			'virtual'            => true,
@@ -285,33 +284,6 @@ class Product {
 		$code = $this->xml->code;
 		$name = $this->get_name();
 		return sanitize_title( sprintf( '%s-%s-%s', $year, $code, $name ) );
-	}
-
-	/**
-	 * Geeft tag-ids van het project terug
-	 *
-	 * - Land
-	 * - Soort werk
-	 * - Doelgroep
-	 * 
-	 * @return array
-	 */
-	protected function get_tag_ids() : array {
-		$tags[ $this->country->get_slug() ] = $this->country->get_name();
-		foreach ( $this->work_types as $work_type ) {
-			$tags[ $work_type->get_slug() ] = $work_type->get_name();
-		}
-		foreach ( $this->target_audiences as $target_audience ) {
-			$tags[ $target_audience['slug'] ] = $target_audience['name'];
-		}
-
-		$tag_ids = [];
-		foreach ( $tags as $slug => $name ) {
-			if ( $tag_id = Util::maybe_create_term( 'product_tag', $slug, $name ) ) {
-				$tag_ids[] = $tag_id;
-			}
-		}
-		return $tag_ids;
 	}
 
 	/**

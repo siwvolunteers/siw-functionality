@@ -24,6 +24,8 @@ class Product {
 
 		add_filter( 'manage_edit-product_columns', [ $self, 'remove_admin_columns'] );
 		add_action( 'admin_init', [ $self, 'add_admin_columns'], 20 );
+		add_action( 'admin_menu', [ $self, 'remove_product_tags_admin_menu'], PHP_INT_MAX );
+		add_filter( 'quick_edit_show_taxonomy', 'hide_product_tags_quick_edit', 10, 2 );
 		add_filter( 'bulk_actions-edit-product', [ $self, 'add_bulk_actions'] );
 		add_filter( 'handle_bulk_actions-edit-product', [ $self, 'handle_bulk_actions'], 10, 3 );
 		
@@ -34,6 +36,13 @@ class Product {
 		Product_Tabs::init();
 
 		add_action( 'wp_ajax_woocommerce_select_for_carousel', [ $self, 'select_for_carousel' ] );
+	}
+	
+	/**
+	 * Verwijdert admin menu voor tags
+	 */
+	public function remove_product_tags_admin_menu() {
+		remove_submenu_page( 'edit.php?post_type=product', 'edit-tags.php?taxonomy=product_tag&amp;post_type=product' );
 	}
 
 	/**
@@ -75,8 +84,6 @@ class Product {
 	 *
 	 * @param array $bulk_actions
 	 * @return array
-	 * 
-	 * @todo handmatig verbergen
 	 */
 	public function add_bulk_actions( array $bulk_actions ) : array {
 		$bulk_actions['import_again'] = __( 'Opnieuw importeren', 'siw' );
@@ -198,13 +205,27 @@ class Product {
 	public function remove_meta_boxes() {
 		remove_meta_box( 'slugdiv', 'product', 'normal' );
 		remove_meta_box( 'postcustom' , 'product' , 'normal' );
+		remove_meta_box( 'tagsdiv-product_tag', 'product', 'side' );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			remove_meta_box( 'woocommerce-product-images' , 'product', 'side' );
-			remove_meta_box( 'tagsdiv-product_tag', 'product', 'normal' );
 			remove_meta_box( 'product_catdiv', 'product', 'normal' );
 		}
 	}
 
+	/**
+	 * Verberg tags in quick edit
+	 *
+	 * @param bool $show
+	 * @param string $taxonomy_name
+	 *
+	 * @return bool
+	 */
+	public function hide_product_tags_quick_edit( bool $show, string $taxonomy_name ) : bool {
+		if ( 'product_tag' == $taxonomy_name ) {
+			$show = false;
+		}
+		return $show;
+	}
 	/**
 	 * Verwerk selecteren voor carousel
 	 */
