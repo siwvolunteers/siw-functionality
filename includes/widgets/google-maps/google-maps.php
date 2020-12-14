@@ -128,11 +128,7 @@ class Google_Maps extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
-		$output = '';
-		if ( isset( $instance['intro'] ) ) {
-			$output .= wpautop( wp_kses_post( $instance['intro'] ) );
-		}
+	public function get_template_parameters( array $instance, array $args, array $template_vars, string $css_name ) : array {
 		$map = new Element_Google_Maps();
 		
 		$map->set_options( ['zoom' => $instance['zoom'] ] );
@@ -145,6 +141,10 @@ class Google_Maps extends Widget {
 				$map->add_marker( $marker['lat'], $marker['lng'], $marker['title'], $marker['description'] );
 			}
 		}
-		return $output . $map->generate();
+
+		return [
+			'intro' => $instance['intro'] ?? null,
+			'map'   => $map->generate(),
+		];
 	}
 }

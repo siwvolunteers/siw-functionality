@@ -2,8 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\HTML;
-use SIW\Util\Links;
+use SIW\Core\Template;
 
 /**
  * Class om een tablist te genereren
@@ -58,37 +57,12 @@ class Tablist {
 	 * @return string
 	 */
 	public function generate() : string {
-		$attributes = [
-			'id'    => uniqid( 'siw-tablist-' ),
-			'class' => ['siw-tablist'],
+		$template = Template::get_template( 'elements/tablist');
+		$parameters = [
+			'id'    => uniqid(),
+			'panes' => $this->panes,
 		];
-		return HTML::div( $attributes, $this->generate_panes() );
-	} 
-
-	/**
-	 * Genereert panes voor tablist
-	 *
-	 * @return string
-	 * 
-	 * @todo generate_tag/generate_list gebruiken
-	 */
-	protected function generate_panes() : string {
-		$list = '<ul role="tablist">';
-		$content = '';
-		foreach ( $this->panes as $pane ) {
-			$id = uniqid();
-
-			if ( isset( $pane['show_button'] ) && $pane['show_button'] ) {
-				$pane['content'] .= wpautop( Links::generate_button_link( $pane['button_url'], $pane['button_text'] ) );
-			}
-
-			$list .= sprintf( '<li role="tab" aria-controls="tab-%s">%s</li>', $id, esc_html( $pane['title'] ) );
-			$content .= sprintf( '<div role="tabpanel" id="tab-%s">%s</div>', $id, wp_kses_post( wpautop( $pane['content'] ) ) );
-		}
-
-		$list .= '</ul>';
-
-		return $list . $content;
+		return $template->render( $parameters );
 	}
 
 	/**
@@ -108,6 +82,7 @@ class Tablist {
 		}
 
 		$this->panes[] = [
+			'id'          => uniqid(),
 			'title'       => $title,
 			'content'     => $content,
 			'show_button' => $show_button,

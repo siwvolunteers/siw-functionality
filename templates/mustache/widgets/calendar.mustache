@@ -1,0 +1,21 @@
+{{# active_events}}
+	<ul>
+	{{# events }}
+		<li>
+			<h3 class="title"><a href="url" class="link">{{title}}</a></h3>
+			<span class="duration">{{duration }}</span><br/>
+			<span class="location">{{location }}</span>
+		</li>
+	{{/ events }}
+	</ul>
+	{{# json_ld }}
+		{{{.}}}
+	{{/ json_ld}}
+	<p class="page-link">
+		<a href="{{agenda_url}}" class="link">{{agenda_text}}</a>
+	</p>
+{{/ active_events}}
+
+{{^ active_events }}
+	<p>{{ no_events_text}}</p>
+{{/ active_events }}

@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\HTML;
+use SIW\Core\Template;
 
 /**
  * Class om een chart te genereren
@@ -50,12 +50,13 @@ abstract class Chart {
 		$this->enqueue_scripts();
 		$this->enqueue_styles();
 
-		$attributes = [
-			'id'           => uniqid( "siw-{$this->type}-chart-"),
-			'class'        => 'siw-chart',
-			'data-options' => $this->generate_chart_options(),
-		];
-		return HTML::div( $attributes ) ;
+		return Template::parse_template(
+			'elements/chart',
+			[
+				'id'      => uniqid( "siw-{$this->type}-chart-"),
+				'options' => $this->generate_chart_options(),
+			]
+		);
 	}
 
 	/**

@@ -2,8 +2,6 @@
 
 namespace SIW\Widgets;
 
-use SIW\Util\Links;
-
 /**
  * Widget met contactinformatie
  *
@@ -76,8 +74,9 @@ class Quick_Search_Results extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string { 
+	protected function get_template_parameters( array $instance, array $args, array $template_vars, string $css_name ) : array {
 
+		//TODO:refactor
 		$url = wc_get_page_permalink( 'shop' );
 		$text = __( 'Bekijk alle projecten', 'siw' );
 
@@ -103,16 +102,15 @@ class Quick_Search_Results extends Widget {
 			$text      .= SPACE . sprintf( __( 'in %s', 'siw' ), strtolower( $month->name ) );
 		}
 
-		/* Genereer output TODO: aantal producten + intro in instance + HTML helpers gebruiken */
-		$content =
-			'<p>' .
-			esc_html__( 'Met een Groepsproject ga je voor 2 tot 3 weken naar een project, de begin- en einddatum van het project staan al vast.', 'siw' ) . SPACE .
-			esc_html__( 'Hieronder zie je een selectie van de mogelijkheden', 'siw' ) .
-			'</p>' .
-			do_shortcode( sprintf( '[products limit="6" columns="3" orderby="rand" visibility="visible" %s %s cache=false]', $category_arg, $month_arg ) ) .
-			'<div style="text-align:center">' .
-			Links::generate_button_link( $url, $text ) .
-			'</div>';
-		return $content;
+		return [
+			'intro'     =>
+				esc_html__( 'Met een Groepsproject ga je voor 2 tot 3 weken naar een project, de begin- en einddatum van het project staan al vast.', 'siw' ) . SPACE .
+				esc_html__( 'Hieronder zie je een selectie van de mogelijkheden', 'siw' ),
+			'shortcode' => sprintf( '[products limit="6" columns="3" orderby="rand" visibility="visible" %s %s cache=false]', $category_arg , $month_arg ),
+			'button' => [
+				'url'  => $url,
+				'text' => $text,
+			]
+		];
 	}
 }

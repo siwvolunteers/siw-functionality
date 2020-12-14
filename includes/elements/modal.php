@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\HTML;
+use SIW\Core\Template;
 use SIW\Util\Links;
 
 /**
@@ -81,59 +81,18 @@ class Modal {
 	 * Rendert modal
 	 */
 	public function render_modal() {
-		$modal = sprintf( '<div class="modal micromodal-slide" id="%s" aria-hidden="true">', $this->id );
-		$modal .= '<div class="modal-overlay" tabindex="-1" data-micromodal-close>';
-		$modal .= sprintf( '<div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="%s-title">', $this->id );
-		$modal .= $this->generate_header() . $this->generate_body() . $this->generate_footer();
-		$modal .= '</div>';
-		$modal .= '</div>';
-		$modal .= '</div>';
-		$modal .= '</div>';
-		echo $modal;
-	}
 
-	/**
-	 * Genereert titel van de modal
-	 *
-	 * @return string
-	 */
-	protected function generate_header() : string {
-		$header = '<header class="modal-header">';
-		$header .= sprintf( '<h2 class="modal-title" id="%s-title">%s</h2>', $this->id, $this->title );
-		$header .= sprintf( '<button class="modal-close" aria-label="%s" data-micromodal-close></button>', esc_html__( 'Sluiten', 'siw' ) );
-		$header .= '</header>';
-
-		return $header;
-	}
-
-	/**
-	 * Genereert body van de modal
-	 *
-	 * @return string
-	 */
-	protected function generate_body() : string {
-		return HTML::tag(
-			'main',
+		Template::render_template(
+			'elements/modal',
 			[
-				'class' => 'modal-body',
-				'id'    => "{$this->id}-content"
-			],
-			wpautop( wp_kses_post( $this->content ) ),
+				'id' => $this->id,
+				'title' => $this->title,
+				'content' => $this->content,
+				'i18n' => [
+					'close' => __( 'Sluiten', 'siw' ),
+				]
+			]
 		);
-	}
-
-	/**
-	 * Genereert footer van de modal
-	 *
-	 * @return string
-	 */
-	protected function generate_footer() : string {
-		$button = sprintf(
-			'<button class="kad-btn" data-micromodal-close aria-label="%s">%s</button>',
-			esc_html__( 'Sluit deze dialoog', 'siw' ),
-			esc_html__( 'Sluiten', 'siw' )
-		);
-		return HTML::tag( 'footer', [ 'class' => 'modal-footer'], $button );
 	}
 
 	/**

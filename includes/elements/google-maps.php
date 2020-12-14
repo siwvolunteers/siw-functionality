@@ -2,8 +2,8 @@
 
 namespace SIW\Elements;
 
+use SIW\Core\Template;
 use SIW\Util\CSS;
-use SIW\HTML;
 
 /**
  * Google Maps kaart
@@ -147,13 +147,14 @@ class Google_Maps {
 	 * @return string
 	 */
 	public function generate() : string {
-		$attributes = [
-			'id'           => uniqid('siw-google-map-'),
-			'class'        => 'siw-google-map',
-			'data-options' => $this->options,
-			'data-markers' => $this->markers,
-		];
-		return HTML::div( $attributes );
+		return Template::parse_template(
+			'elements/google-maps',
+			[
+				'id'      => uniqid( 'siw-google-map-' ),
+				'options' => $this->options,
+				'markers' => $this->markers,
+			]
+		);
 	}
 
 	/**

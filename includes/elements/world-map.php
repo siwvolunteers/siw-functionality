@@ -2,10 +2,10 @@
 
 namespace SIW\Elements;
 
+use SIW\Core\Template;
 use SIW\Util\CSS;
 use SIW\Data\Country;
 use SIW\Data\Continent;
-use SIW\HTML;
 
 /**
  * Wereldkaart
@@ -94,18 +94,13 @@ class World_Map {
 		$this->zoom = $zoom;
 		$this->enqueue_style();
 		
-		$div = HTML::div(
+		return Template::parse_template(
+			'elements/world-map',
 			[
-				'data-svg-url' => $this->map_file,
-				'style'        => 'display:none;',
+				'file'    => $this->map_file,
+				'viewbox' => $this->get_viewbox(),
 			]
 		);
-		$svg = HTML::svg(
-			[ 'viewBox' => $this->get_viewbox() ],
-			'<use xlink:href="#mapplic-world"></use>'
-		);
-
-		return $div . $svg;
 	}
 
 	/**

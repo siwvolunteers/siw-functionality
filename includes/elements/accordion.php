@@ -2,8 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\HTML;
-use SIW\Util\Links;
+use SIW\Core\Template;
 
 /**
  * Class om een accordion te genereren
@@ -41,14 +40,12 @@ class Accordion {
 	 * @return string
 	 */
 	public function generate() : string {
-		$attributes = [
-			'id'                   => uniqid( 'siw-accordion-' ),
-			'class'                => ['siw-accordion'],
-			'data-role'            => 'accordion',
-			'data-multiselectable' => 'true',
-
+		$template = Template::get_template( 'elements/accordion');
+		$parameters = [
+			'id'    => uniqid(),
+			'panes' => $this->panes,
 		];
-		return HTML::div( $attributes, $this->generate_panes() );
+		return $template->render( $parameters );
 	}
 
 	/**
@@ -69,34 +66,6 @@ class Accordion {
 	}
 
 	/**
-	 * Genereert panes voor accordion
-	 *
-	 * @return string
-	 */
-	protected function generate_panes() : string {
-		$output = '';
-		foreach ( $this->panes as $pane ) {
-			$id = uniqid();
-
-			if ( isset( $pane['show_button'] ) && $pane['show_button'] ) {
-				$pane['content'] .= wpautop( Links::generate_button_link( $pane['button_url'], $pane['button_text'] ) );
-			}
-
-			$output .= implode( '', 
-				[
-					'<h5 class="tab">',
-					sprintf('<span id="tab%s" role="button" aria-controls="panel%s">%s</span>', $id, $id, esc_html( $pane['title'] ) ),
-					'</h5>',
-					sprintf( '<div class="panel" id="panel%s" aria-labelledby="tab%s" style="max-height:0px">', $id, $id ),
-					wp_kses_post( wpautop( $pane['content'] ) ),
-					'</div>'
-				]
-			);
-		}
-		return $output;
-	}
-
-	/**
 	 * Voegt pane aan accordion toe
 	 *
 	 * @param string $title
@@ -113,11 +82,12 @@ class Accordion {
 		}
 
 		$this->panes[] = [
-			'title'       => $title,
-			'content'     => $content,
-			'show_button' => $show_button,
-			'button_url'  => $button_url,
-			'button_text' => $button_text,
+			'id'       => uniqid(),
+			'title'    => $title,
+			'content'  => $content,
+			'button'   => $show_button ?
+				[ 'url'  => $button_url, 'text' => $button_text ] :
+				[],
 		];
 	}
 }

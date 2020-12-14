@@ -2,7 +2,6 @@
 
 namespace SIW\Widgets;
 
-use SIW\HTML;
 use SIW\Properties;
 use SIW\Util\Links;
 
@@ -59,22 +58,6 @@ class Organisation extends Widget {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string { 
-
-		$output = '';
-		foreach ( $this->get_organisation_properties( $instance ) as $property ) {
-			$output .= HTML::tag('dt', [], esc_html( $property['name'] ) );
-			$values = (array) $property['values'];
-			foreach ( $values as $value ) {
-				$output .= HTML::tag( 'dd', [], wp_kses_post( $value ) );
-			}
-		}
-		return HTML::tag( 'dl', [], $output );
-	}
-
-	/**
 	 * Geeft lijst met bestuursleden terug
 	 * 
 	 * @return array|null
@@ -93,14 +76,10 @@ class Organisation extends Widget {
 	}
 
 	/**
-	 * Haalt eigenschappen op
-	 *
-	 * @param array $instance
-	 *
-	 * @return array
+	 * {@inheritDoc}
 	 */
-	protected function get_organisation_properties( array $instance ) : array {
-		$properties = [
+	protected function get_template_parameters(array $instance, array $args, array $template_vars, string $css_name): array {
+		$parameters[ 'properties'] = [
 			[
 				'name'   => __( 'Statutaire naam', 'siw' ),
 				'values' => Properties::STATUTORY_NAME
@@ -130,7 +109,8 @@ class Organisation extends Widget {
 				'values' => $this->get_annual_reports(),
 			],
 		];
-		return $properties;
+
+		return $parameters;
 	}
 
 	/**
@@ -150,6 +130,6 @@ class Organisation extends Widget {
 			$reports[ $report['year'] ] = Links::generate_document_link( $url, $text );
 		}
 		krsort( $reports );
-		return $reports;
+		return array_values( $reports );
 	}
 }

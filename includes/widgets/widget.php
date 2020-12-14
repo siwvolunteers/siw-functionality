@@ -2,6 +2,9 @@
 
 namespace SIW\Widgets;
 
+use Mustache_Template;
+use SIW\Core\Template;
+
 /**
  * SIW Widget base class
  *
@@ -41,11 +44,30 @@ abstract class Widget extends \SiteOrigin_Widget {
 	protected array $widget_fields = [];
 
 	/**
+	 * Geeft aan of de wiget een eigen Mustache template heeft
+	 */
+	protected bool $has_template = true;
+
+	/**
+	 * Template
+	 */
+	protected Mustache_Template $template;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
 
 		$this->set_widget_properties();
+
+		//Template laden
+		if ( $this->has_template ) {
+			$template_id = str_replace( '_', '-', $this->widget_id );
+			$this->template = Template::get_template( "widgets/{$template_id}" );
+		}
+		else {
+			$this->template = Template::get_template('content');
+		}
 
 		parent::__construct(
 			"siw_{$this->widget_id}_widget",
@@ -71,7 +93,7 @@ abstract class Widget extends \SiteOrigin_Widget {
 	abstract protected function set_widget_properties();
 
 	/**
-	 * Genereert specifieke inhoud van widget
+	 * Geeft parameters voor Mustache template terug
 	 *
 	 * @param array $instance
 	 * @param array $args
@@ -79,7 +101,9 @@ abstract class Widget extends \SiteOrigin_Widget {
 	 * @param string $css_name
 	 * @return string
 	 */
-	abstract protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string;
+	protected function get_template_parameters( array $instance, array $args, array $template_vars, string $css_name ) : array {
+		return [];
+	}
 
 	/**
 	 * Genereert generieke inhoud van widget
@@ -99,7 +123,9 @@ abstract class Widget extends \SiteOrigin_Widget {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}?>
 		<div class="content">
-			<?= $this->get_content( $instance, $args, $template_vars, $css_name ); ?>
+			<?php
+				echo $this->template->render( $this->get_template_parameters( $instance, $args, $template_vars, $css_name ));
+			?>
 		</div>
 		<?php
 		$html_content = ob_get_clean();

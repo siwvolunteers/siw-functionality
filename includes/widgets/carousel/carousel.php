@@ -3,8 +3,6 @@
 namespace SIW\Widgets;
 
 use SIW\Elements\Carousel as Element_Carousel;
-use SIW\HTML;
-use SIW\Util\Links;
 
 /**
  * Widget met carousel
@@ -159,7 +157,7 @@ class Carousel extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
+	public function get_template_parameters( array $instance, array $args, array $template_vars, string $css_name ) : array {
 
 		$instance = $this->parse_instance( $instance );
 
@@ -179,23 +177,15 @@ class Carousel extends Widget {
 			]);
 		}
 		
-		//Content genereren
-		$content = '';
-		if ( ! empty( $instance['intro'] ) ) {
-			$content .= HTML::div(
-				['class' => 'carousel-intro'],
-				wpautop( wp_kses_post( $instance['intro'] ) )
-			);
-		}
-		$content .= $carousel->render();
-
-		if ( $instance['show_button'] ) {
-			$content .= HTML::div(
-				['class' => 'carousel-button'],
-				$this->generate_button( $instance['button_text'], $instance['post_type'], $instance['taxonomy'], $instance['term'] ),
-			);
-		}
-		return $content;
+		return [
+			'intro'       => $instance['intro'] ?? null,
+			'carousel'    => $carousel->render(),
+			'show_button' => $instance['show_button'],
+			'button'      => [
+				'url'  => ( ! empty( $instance['taxonomy'] ) && ! empty( $instance['term'] ) ) ? get_term_link( $instance['term'], $instance['taxonomy'] ) : get_post_type_archive_link( $instance['post_type'] ),
+				'text' => $instance['button_text'],
+			],
+		];
 	}
 
 	/**
@@ -219,25 +209,6 @@ class Carousel extends Widget {
 		$instance['taxonomy'] = $instance["{$instance['post_type']}_taxonomy"] ?? '';
 		$instance['term'] = $instance[ $instance['taxonomy'] ] ?? '';
 		return $instance;
-	}
-
-	/**
-	 * Genereert knop
-	 *
-	 * @param string $button_text
-	 * @param string $post_type
-	 * @param string $taxonomy
-	 * @param string $term
-	 * @return string
-	 */
-	protected function generate_button( string $button_text, string $post_type, string $taxonomy, string $term ) : string {
-		if ( ! empty( $taxonomy ) && ! empty( $term ) ) {
-			$link = get_term_link( $term, $taxonomy );
-		}
-		else {
-			$link = get_post_type_archive_link( $post_type );
-		}
-		return Links::generate_button_link( $link, $button_text );
 	}
 
 	/**

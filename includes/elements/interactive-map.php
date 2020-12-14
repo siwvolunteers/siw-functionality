@@ -2,8 +2,8 @@
 
 namespace SIW\Elements;
 
+use SIW\Core\Template;
 use SIW\Properties;
-use SIW\HTML;
 use SIW\Util\CSS;
 use SIW\Util;
 
@@ -79,26 +79,17 @@ abstract class Interactive_Map {
 		$this->enqueue_styles();
 		$this->enqueue_scripts();
 
-		$attributes = [
-			'id'           => uniqid( 'siw-interactive-map-' ),
-			'class'        => ['siw-interactive-map', 'mapplic-dark'],
-			'data-options' => $this->options,
-		];
-		$content = HTML::div( $attributes );
-
-		$content = HTML::div(
+		return Template::parse_template(
+			'elements/interactive-map',
 			[
-				'class' => [ CSS::HIDE_ON_MOBILE_CLASS, CSS::HIDE_ON_TABLET_CLASS ],
-			],
-			$content,
+				'id'                    => uniqid(),
+				'options'               => $this->options,
+				'hide_on_desktop_class' => CSS::HIDE_ON_DESKTOP_CLASS,
+				'hide_on_tablet_class'  => CSS::HIDE_ON_TABLET_CLASS,
+				'hide_on_mobile_class'  => CSS::HIDE_ON_MOBILE_CLASS,
+				'mobile_content'        => $this->get_mobile_content(),
+			]
 		);
-		$content .= HTML::div(
-			[
-				'class' => CSS::HIDE_ON_DESKTOP_CLASS,
-			],
-			$this->get_mobile_content(),
-		);
-		return $content;
 	}
 
 	/**

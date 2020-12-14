@@ -2,12 +2,13 @@
 
 namespace SIW;
 
+use SIW\Core\Template;
 use SIW\HTML;
 use SIW\Elements\Accordion;
+use SIW\Elements\Features;
+use SIW\Elements\Infoboxes;
 use SIW\Elements\Tablist;
 use SIW\Elements\Modal;
-use SIW\Util\CSS;
-use SIW\Util\Links;
 
 /**
  * Functies om Elements te genereren
@@ -191,9 +192,15 @@ class Elements {
 	 * @return string
 	 */
 	public static function generate_quote( string $quote ) : string {
-		return HTML::div(
-			[ 'class' => 'siw-quote'],
-			self::generate_icon( 'siw-icon-quote-left' ) . SPACE . esc_html( $quote )
+		return Template::parse_template(
+			'elements/quote',
+			[
+				'icon' => [
+					'size'       => 2,
+					'icon_class' => 'siw-icon-quote-left',
+				],
+				'quote' => $quote
+			]
 		);
 	}
 
@@ -295,55 +302,38 @@ class Elements {
 	 * @return string
 	 */
 	public static function generate_features( array $features, int $columns ) : string {
-		$output = '<div class="grid-container siw-features">';
+
+		$features_obj = new Features( $columns );
 		foreach ( $features as $feature ) {
-			$output .= self::generate_feature(
-				$feature,
-				[
-					'class' => CSS::generate_responsive_classes( $columns ) . ' feature',
-				]
+			$features_obj->add_feature(
+				$feature['icon'],
+				$feature['title'],
+				$feature['content'],
+				$feature['add_link'],
+				$feature['link_url'],
+				__( 'Lees meer', 'siw' )
 			);
 		}
-		$output .= '</div>';
-		return $output;
+		return $features_obj->generate();
 	}
 
 	/**
-	 * Genereert feature met icon
+	 * Genereert infoboxes
 	 *
-	 * @param array $feature
-	 * @param array $attributes
+	 * @param array $infoboxes
 	 *
 	 * @return string
 	 */
-	public static function generate_feature( array $feature, array $attributes ) : string {
-		
-		$feature = wp_parse_args(
-			$feature,
-			[
-				'icon'     => '', //TODO: standaard icoon?
-				'title'    => '',
-				'content'  => '',
-				'add_link' => false,
-				'link_url' => '',
-			]
-		);
-
-		ob_start();
-		?>
-		<div <?php echo HTML::generate_attributes( $attributes);?>>
-			<?php echo Elements::generate_icon( $feature['icon'], 4, 'circle' );?>
-			<br>
-			<h3><?php echo esc_html( $feature['title'] ); ?></h3>
-			<?php echo wpautop( wp_kses_post( $feature['content'] ) );?>
-			<?php 
-			if ( $feature['add_link'] ) {
-				echo Links::generate_button_link( $feature['link_url'], __( 'Lees meer', 'siw' ) );
-			}
-			?>
-		</div>
-		<?php
-		return ob_get_clean();
+	public static function generate_infoboxes( array $infoboxes ) : string {
+		$infoboxes_obj = new Infoboxes();
+		foreach ( $infoboxes as $infobox ) {
+			$infoboxes_obj->add_infobox(
+				$infobox['icon'],
+				$infobox['title'],
+				$infobox['content'],
+			);
+		}
+		return $infoboxes_obj->generate();
 	}
 
 	/**
@@ -355,25 +345,13 @@ class Elements {
 	 * @return string
 	 */
 	public static function generate_table( array $rows, array $headers = [] ) : string {
-
-		$output = '';
-		if ( ! empty( $headers ) ) {
-
-			$th_callback = function( &$value, $key ) {
-				$value = HTML::tag( 'th', [], $value );
-			};
-			array_walk( $headers, $th_callback );
-			$output .= HTML::tag( 'tr', [], implode( '', $headers ) );
-		}
-
-		foreach ( $rows as $row ) {
-			$td_callback = function( &$value, $key ) {
-				$value = HTML::tag( 'td', [], $value );
-			};
-			array_walk( $row, $td_callback );
-			$output .= HTML::tag( 'tr', [], implode( '', $row ) );
-		}
-		return HTML::tag( 'table', [] , $output );
+		return Template::parse_template(
+			'elements/table',
+			[
+				'rows'    => $rows,
+				'headers' => $headers,
+			]
+		);
 	}
 
 	/**
@@ -385,10 +363,12 @@ class Elements {
 	 * @return string
 	 */
 	public static function generate_list( array $items, int $columns = 1 ) : string {
-		$callback = function( &$value, $key ) {
-			$value = HTML::li( [], $value );
-		};
-		array_walk( $items, $callback );
-		return HTML::tag( 'ul', [ 'data-columns' => $columns ], implode( '', $items ) );
+		return Template::parse_template(
+			'elements/list',
+			[
+				'items'   => $items,
+				'columns' => $columns,
+			]
+		);
 	}
 }

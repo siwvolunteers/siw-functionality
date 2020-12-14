@@ -101,24 +101,14 @@ class Pie_Chart extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string { 
-		$content = '';
-		if ( isset( $instance['intro'] ) ) {
-			$content .= wpautop( wp_kses_post( $instance['intro'] ) );
-		}
+	protected function get_template_parameters(array $instance, array $args, array $template_vars, string $css_name): array {
 		$chart = new Element_Pie_Chart();
-		$content .= $chart->generate( $instance['series'] ); //TODO: check of dit series wel gevuld is
-
-		if ( $instance['show_explanation'] ) {
-			$explanation = array_map(
-				function( $data ) {
-					return '<b>' . $data['label'] . '</b>' . wpautop( $data['explanation'] );
-				}, 
-				$instance['series']
-			);
-			$content .= Elements::generate_list( $explanation );
-		}
-
-		return $content;
+		return [
+			'intro'            => $instance['intro'],
+			'chart'            => $chart->generate( $instance['series'] ),
+			'series'           => $instance['series'],
+			'show_explanation' => $instance['show_explanation'],
+		];
+		
 	}
 }

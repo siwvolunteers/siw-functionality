@@ -88,6 +88,30 @@ class Links {
 	}
 
 	/**
+	 * Genereert WhatsApp link
+	 *
+	 * @param string $whatsapp_number
+	 * @param string $text
+	 * @param array $attributes
+	 *
+	 * @return string
+	 */
+	public static function generate_whatsapp_link( string $whatsapp_number, string $text = null, array $attributes = [] ) : string {
+		
+		$url = add_query_arg(
+			[
+				'phone' => $whatsapp_number,
+			],
+			"https://api.whatsapp.com/send"
+		);
+
+		$attributes['href'] = $url;
+		$attributes['class'] = 'siw-contact-link';
+		$text = Elements::generate_icon( 'siw-icon-whatsapp' ) . SPACE . $text;
+		return HTML::a( $attributes, $text );
+	}
+
+	/**
 	 * Genereert link naar document
 	 *
 	 * @param string $url

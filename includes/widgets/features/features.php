@@ -115,19 +115,10 @@ class Features extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
-
-		$columns = intval( $instance['columns'] );
-		$rows = array_chunk( $instance['features'], $columns );
-		ob_start();
-		?>
-		<?php
-		if ( isset( $instance['intro'] ) ) {
-			echo wp_kses_post( $instance['intro'] );
-		}
-		foreach ( $rows as $row ) {
-			echo Elements::generate_features( $row, $columns );
-		}
-		return ob_get_clean();
+	protected function get_template_parameters(array $instance, array $args, array $template_vars, string $css_name): array {
+		return[
+			'intro' => $instance['intro'],
+			'features' => Elements::generate_features( $instance['features'], (int) $instance['columns'] ),
+		];
 	}
 }

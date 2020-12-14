@@ -27,6 +27,11 @@ class Tabs extends Widget {
 	 * {@inheritDoc}
 	 */
 	protected string $widget_dashicon = 'index-card';
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	protected bool $has_template = false;
 
 	/**
 	 * {@inheritDoc}
@@ -103,7 +108,9 @@ class Tabs extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( $instance, $args, $template_vars, $css_name ) : string { 
-		return Elements::generate_tabs( $instance['panes'] );
+	protected function get_template_parameters(array $instance, array $args, array $template_vars, string $css_name): array {
+		return [
+			'content' => Elements::generate_tabs( $instance['panes'] )
+		];
 	}
 }

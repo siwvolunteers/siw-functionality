@@ -2,6 +2,8 @@
 
 namespace SIW\Elements;
 
+use SIW\Core\Template;
+
 /**
  * Taxonomy-filter voor archiefpagina's
  * 
@@ -50,16 +52,21 @@ class Taxonomy_Filter {
 	 */
 	public function generate( string $taxonomy ) : string {
 		$terms = $this->get_terms( $taxonomy );
-		//TODO: afbreken bij fout; ob_start gebruiken
-		$taxonomy_name = get_taxonomy( $taxonomy )->labels->name;
-		$output = sprintf( '<div class="filter-button-group" data-filter-group="%s">', $taxonomy );
-		$output .= '<h5>' . sprintf( esc_html__( 'Filter op %s', 'siw' ), strtolower( $taxonomy_name ) ) . '</h5>';
-		$output .= sprintf ( '<button class="button ghost is-checked" data-filter="">%s</button>', esc_html__( 'Alle', 'siw' ) );
-		foreach ( $terms as $term ) {
-			$output .= sprintf( '<button class="button ghost" data-filter="%s">%s</button>', esc_attr( $term->slug ), esc_html( $term->name ) );
-		}
-		$output .= '</div>';
-		return $output;
+		
+		return Template::parse_template(
+			'elements/taxonomy-filter',
+			[
+				'taxonomy' => [
+					'slug'=> $taxonomy,
+					'name' => get_taxonomy( $taxonomy )->labels->name,
+				],
+				'terms' => $terms,
+				'i18n'  => [
+					'all'    => __( 'Alle', 'siw' ),
+					'filter' => __( 'Filter op', 'siw' )
+				],
+			]
+		);
 	}
 
 	/**
@@ -82,6 +89,11 @@ class Taxonomy_Filter {
 				],
 			];
 		}
-		return get_terms( $term_query );
+		$terms = get_terms( $term_query );
+
+		return array_map(
+			fn( $term ) => [ 'slug' => $term->slug, 'name' => $term->name],
+			$terms
+		);
 	}
 }

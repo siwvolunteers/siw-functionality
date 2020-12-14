@@ -1,0 +1,15 @@
+{{# intro }}
+	<p> {{ . }} </p>
+{{/ intro }}
+
+{{{ chart }}}
+
+{{# show_explanation }}
+	<ul>
+	{{# series }}
+		<li>
+			<b>{{ label }} </b> <p> {{ explanation }} </p>
+		</li>
+	{{/ series }}
+	</ul>
+{{/ show_explanation }}
