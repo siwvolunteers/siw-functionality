@@ -19,7 +19,7 @@ abstract class Chart {
 	 * 
 	 * @param string
 	 */
-	const FRAPPE_CHARTS_VERSION = '1.5.4';
+	const FRAPPE_CHARTS_VERSION = '1.5.5';
 
 	/**
 	 * Type grafiek
