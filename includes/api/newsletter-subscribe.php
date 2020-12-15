@@ -147,7 +147,7 @@ class Newsletter_Subscribe extends Endpoint {
 
 		$result = siw_newsletter_send_confirmation_email(
 			$email,
-			siw_get_option( 'newsletter_list' ),
+			(int) siw_get_option( 'newsletter_list' ),
 			[
 				'firstname' => $first_name
 			]
