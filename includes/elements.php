@@ -305,6 +305,18 @@ class Elements {
 
 		$features_obj = new Features( $columns );
 		foreach ( $features as $feature ) {
+
+			$feature = wp_parse_args(
+				$feature,
+				[ 
+					'icon'     => '',
+					'title'    => '',
+					'content'  => '',
+					'add_link' => false,
+					'link_url' => '',
+				]
+			);
+
 			$features_obj->add_feature(
 				$feature['icon'],
 				$feature['title'],
@@ -327,6 +339,15 @@ class Elements {
 	public static function generate_infoboxes( array $infoboxes ) : string {
 		$infoboxes_obj = new Infoboxes();
 		foreach ( $infoboxes as $infobox ) {
+			$infobox = wp_parse_args(
+				$infobox,
+				[ 
+					'icon'        => '',
+					'title'       => '',
+					'content'     => '',
+				]
+			);
+
 			$infoboxes_obj->add_infobox(
 				$infobox['icon'],
 				$infobox['title'],
