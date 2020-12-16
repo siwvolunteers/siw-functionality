@@ -23,6 +23,11 @@ class Settings extends Option {
 	/**
 	 * {@inheritDoc}
 	 */
+	protected string $capability = 'edit_posts';
+
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function get_title(): string {
 		return __( 'Instellingen', 'siw' );
 	}
