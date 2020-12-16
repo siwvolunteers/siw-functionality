@@ -2,30 +2,48 @@
 
 namespace SIW\Options;
 
+use SIW\Interfaces\Options\Option as Option_Interface;
+
 /**
  * Opties voor landen
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  * @since     3.2.0
  */
-class Countries extends Option {
+class Countries implements Option_Interface {
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected string $id = 'countries';
+	public function get_id(): string {
+		return 'countries';
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_title(): string {
+	public function get_parent_page(): string {
+		return 'options-general.php';
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_capability(): string {
+		return 'manage_options';
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_title(): string {
 		return __( 'Landen', 'siw' );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_tabs() : array {
+	public function get_tabs() : array {
 		$continents = \siw_get_continents();
 
 		$tabs = [];
@@ -41,7 +59,7 @@ class Countries extends Option {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_fields() : array {
+	public function get_fields() : array {
 
 		$countries = \siw_get_countries();
 

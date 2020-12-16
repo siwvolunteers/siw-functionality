@@ -213,11 +213,24 @@ class Elements {
 	 */
 	public static function generate_opening_hours( string $type = 'table' ) : string {
 		
+		//Ophalen openingstijden
 		$opening_hours = siw_get_option( 'opening_hours' );
+		
+		$opening_hours = array_map(
+			fn( array $value ) : string => $value['open'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gezsloten', 'siw' ),
+			array_filter( $opening_hours )
+		);
+
+
+		//Ophalen afwijkende openingstijden
 		$special_opening_hours = siw_get_option( 'special_opening_hours', [] );
+
+		$special_opening_hours = array_map(
+			fn( array $value ) : string => $value['opened'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gezsloten', 'siw' ),
+			array_column( $special_opening_hours , null, 'date' )
+		);
 		
 		$days = siw_get_days();
-
 		for ( $i = 0; $i <= 6; $i++ ) {
 			$timestamp = strtotime( date( 'Y-m-d' ) . "+{$i} days" );
 			$date = date( 'Y-m-d', $timestamp );

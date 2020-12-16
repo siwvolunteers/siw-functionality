@@ -65,14 +65,18 @@ class Organisation extends Widget {
 	protected function get_board_members_list() : ?array {
 		$board_members = siw_get_option( 'board_members');
 		if ( empty( $board_members ) ) {
-			return null;;
+			return null;
 		}
 	
-		$board_members_list = [];
-		foreach ( $board_members as $board_member ) {
-			$board_members_list[] = sprintf('%s %s<br/><i>%s</i>', $board_member['first_name'], $board_member['last_name'], $board_member['title']);
-		}
-		return $board_members_list;
+		return array_map(
+			fn( array $board_member ) : string => sprintf(
+				'%s %s<br/><i>%s</i>',
+				$board_member['first_name'],
+				$board_member['last_name'],
+				siw_get_board_title( $board_member['title'] )
+			),
+			$board_members
+		);
 	}
 
 	/**

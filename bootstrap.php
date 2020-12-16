@@ -35,7 +35,6 @@ class Bootstrap {
 		$this->load_functions();
 
 		$this->load_core();
-		$this->load_options();
 		$this->load_api();
 		$this->load_modules();
 		$this->load_compatibility();
@@ -129,6 +128,8 @@ class Bootstrap {
 				'Newsletter\Confirmation_Page',
 			]
 		);
+
+		$this->init_class( 'SIW\Options', 'Loader');
 	}
 
 	/**

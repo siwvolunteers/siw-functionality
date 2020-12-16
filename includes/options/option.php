@@ -2,53 +2,53 @@
 
 namespace SIW\Options;
 
+use SIW\Interfaces\Options\Option as Option_Interface;
+
 /**
  * Class om opties toe te voegen
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  * @since     3.2.0
  */
-abstract class Option {
+class Option {
 
 	/**
-	 * Prefix voor paginaslug
-	 * 
-	 * @var string
+	 * ID
 	 */
-	const PAGE_PREFIX = 'siw-';
-
-	//protected $option_name = 'siw_options';
+	protected string $id;
 
 	/**
-	 * ID van optie
-	 */
-	protected string $id = 'settings';
-
-	/**
-	 * Titel van optie
+	 * Titel
 	 */
 	protected string $title;
 
 	/**
-	 * Capability voor optie
+	 * Capability voor menu
 	 */
-	protected string $capability = 'manage_options';
+	protected string $capability;
 
 	/**
-	 * Parent pagina van optie
+	 * Parent page voor optiemenu
 	 */
-	protected string $parent_page = 'options-general.php';
+	protected string $parent_page;
 
 	/**
-	 * Init
+	 * Undocumented function
+	 *
+	 * @param Option_Interface $option
 	 */
-	public static function init() {
-		$self = new static();
-		$self->title = $self->get_title();
+	public function __construct( Option_Interface $option ) {
 
-		add_filter( 'rwmb_meta_boxes', [ $self, 'add_settings_meta_boxes'] );
-		add_filter( 'siw_option_value', [ $self, 'format_option_value' ], 10, 2 );
-		add_filter( 'mb_settings_pages', [ $self, 'add_settings_page'] ); //TODO: alleen in admin?
+		$this->id = $option->get_id();
+		$this->title = $option->get_title();
+		$this->capability = $option->get_capability();
+		$this->parent_page = $option->get_parent_page();
+
+		add_filter( 'rwmb_meta_boxes', [ $this, 'add_settings_meta_boxes'] );
+		add_filter( 'mb_settings_pages', [ $this, 'add_settings_page'] );
+
+		add_filter( "siw_option_{$this->id}_tabs", [ $option, 'get_tabs'] );
+		add_filter( "siw_option_{$this->id}_fields", [ $option, 'get_fields' ] );
 	}
 
 	/**
@@ -59,7 +59,7 @@ abstract class Option {
 	 * @return array
 	 */
 	public function add_settings_page( array $settings_pages ) : array {
-		$tabs = apply_filters( "siw_option_{$this->id}_tabs", $this->get_tabs() );
+		$tabs = apply_filters( "siw_option_{$this->id}_tabs", [] );
 		$settings_pages[] = [
 			'option_name'   => 'siw_options',
 			'id'            => "siw-{$this->id}",
@@ -84,12 +84,11 @@ abstract class Option {
 	 * @return array
 	 * 
 	 * @todo validatie van veld naar metabox verplaatsen
-	 * @todo filter voor extensies
 	 */
 	public function add_settings_meta_boxes( array $meta_boxes ) : array {
 		
-		$tabs = apply_filters( "siw_option_{$this->id}_tabs", $this->get_tabs() );
-		$fields = apply_filters( "siw_option_{$this->id}_fields", $this->get_fields() );
+		$tabs = apply_filters( "siw_option_{$this->id}_tabs", [] );
+		$fields = apply_filters( "siw_option_{$this->id}_fields", [] );
 
 		foreach ( $tabs as $tab ) { 
 			$meta_boxes[] = [
@@ -102,38 +101,5 @@ abstract class Option {
 			];
 		}
 		return $meta_boxes;
-	}
-	
-	/**
-	 * Title van de optie
-	 *
-	 * @return string
-	 */
-	abstract protected function get_title() : string;
-
-	/**
-	 * Haal tabs op
-	 *
-	 * @return array
-	 */
-	abstract protected function get_tabs() : array;
-
-	/**
-	 * Haal velden op
-	 *
-	 * @return array
-	 */
-	abstract protected function get_fields() : array;
-
-	/**
-	 * Undocumented function
-	 *
-	 * @param mixed $value
-	 * @param string $option
-	 * 
-	 * @return mixed
-	 */
-	public function format_option_value( $value, string $option ) {
-		return $value;
 	}
 }
