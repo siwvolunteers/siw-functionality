@@ -99,7 +99,7 @@ class Configuration {
 	 * @return string
 	 */
 	public function set_mail_from( string $from ) : string {
-		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
+		$sitename = strtolower( SIW_SITE_NAME );
 		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
 			$sitename = substr( $sitename, 4 );
 		}
