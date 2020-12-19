@@ -13,24 +13,9 @@ use SIW\Interfaces\Options\Option as Option_Interface;
 class Option {
 
 	/**
-	 * ID
+	 * Data van optie
 	 */
-	protected string $id;
-
-	/**
-	 * Titel
-	 */
-	protected string $title;
-
-	/**
-	 * Capability voor menu
-	 */
-	protected string $capability;
-
-	/**
-	 * Parent page voor optiemenu
-	 */
-	protected string $parent_page;
+	protected Option_Interface $option;
 
 	/**
 	 * Undocumented function
@@ -38,17 +23,9 @@ class Option {
 	 * @param Option_Interface $option
 	 */
 	public function __construct( Option_Interface $option ) {
-
-		$this->id = $option->get_id();
-		$this->title = $option->get_title();
-		$this->capability = $option->get_capability();
-		$this->parent_page = $option->get_parent_page();
-
+		$this->option = $option;
 		add_filter( 'rwmb_meta_boxes', [ $this, 'add_settings_meta_boxes'] );
 		add_filter( 'mb_settings_pages', [ $this, 'add_settings_page'] );
-
-		add_filter( "siw_option_{$this->id}_tabs", [ $option, 'get_tabs'] );
-		add_filter( "siw_option_{$this->id}_fields", [ $option, 'get_fields' ] );
 	}
 
 	/**
@@ -59,18 +36,18 @@ class Option {
 	 * @return array
 	 */
 	public function add_settings_page( array $settings_pages ) : array {
-		$tabs = apply_filters( "siw_option_{$this->id}_tabs", [] );
+		$tabs = $this->option->get_tabs();
 		$settings_pages[] = [
 			'option_name'   => 'siw_options',
-			'id'            => "siw-{$this->id}",
-			'menu_title'    => "SIW - {$this->title}",
-			'capability'    => $this->capability,
+			'id'            => "siw-{$this->option->get_id()}",
+			'menu_title'    => "SIW - {$this->option->get_title()}",
+			'capability'    => $this->option->get_capability(),
 			'tabs'          => array_column( $tabs , null, 'id' ),
 			'submit_button' => __( 'Opslaan', 'siw' ),
 			'message'       => __( 'Instellingen opgeslagen', 'siw' ),
 			'columns'       => 1,
 			'tab_style'     => 'left',
-			'parent'        => $this->parent_page,
+			'parent'        => $this->option->get_parent_page(),
 		];
 
 		return $settings_pages;
@@ -87,14 +64,14 @@ class Option {
 	 */
 	public function add_settings_meta_boxes( array $meta_boxes ) : array {
 		
-		$tabs = apply_filters( "siw_option_{$this->id}_tabs", [] );
-		$fields = apply_filters( "siw_option_{$this->id}_fields", [] );
+		$tabs = $this->option->get_tabs();
+		$fields = $this->option->get_fields();
 
-		foreach ( $tabs as $tab ) { 
+		foreach ( $tabs as $tab ) {
 			$meta_boxes[] = [
-				'id'             => "{$this->id}_{$tab['id']}",
+				'id'             => "{$this->option->get_id()}_{$tab['id']}",
 				'title'          => $tab['label'],
-				'settings_pages' => "siw-{$this->id}",
+				'settings_pages' => "siw-{$this->option->get_id()}",
 				'tab'            => $tab['id'],
 				'fields'         => wp_list_filter( $fields, [ 'tab' => $tab['id'] ] ),
 				'toggle_type'    => 'slide',

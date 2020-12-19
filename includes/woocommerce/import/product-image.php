@@ -95,9 +95,10 @@ class Product_Image {
 
 		$continent_slug = $country->get_continent()->get_slug();
 		$country_slug = $country->get_slug();
-		foreach ( $work_types as $work_type ) {
-			$work_type_slugs[] = $work_type->get_slug();
-		}
+		$work_type_slugs = array_map(
+			fn( Work_Type $work_type ) : string => $work_type->get_slug(),
+			$work_types
+		);
 
 		//Haal taxonomy queries op
 		$tax_queries = $this->get_tax_queries( $continent_slug, $country_slug, $work_type_slugs );

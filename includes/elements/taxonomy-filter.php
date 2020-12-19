@@ -92,7 +92,7 @@ class Taxonomy_Filter {
 		$terms = get_terms( $term_query );
 
 		return array_map(
-			fn( $term ) => [ 'slug' => $term->slug, 'name' => $term->name],
+			fn( \WP_Term $term ) : array => [ 'slug' => $term->slug, 'name' => $term->name],
 			$terms
 		);
 	}

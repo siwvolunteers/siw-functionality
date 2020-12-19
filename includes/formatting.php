@@ -2,6 +2,8 @@
 
 namespace SIW;
 
+use SIW\Data\Currency;
+
 /**
  * Hulpfuncties t.b.v. formattering
  *
@@ -35,7 +37,7 @@ class Formatting {
 		$currency = siw_get_currency( $currency_code );
 
 		$currency_symbol = $currency_code;
-		if ( is_a( $currency, '\SIW\Data\Currency' ) ) {
+		if ( is_a( $currency, Currency::class ) ) {
 			$currency_symbol = $currency->get_symbol();
 		}
 		
@@ -197,17 +199,17 @@ class Formatting {
 		if ( 0.0 === $fee || ! is_string( $currency_code ) ) {
 			return '';
 		}
-		$currency = siw_get_currency( $currency_code );
+
 		if ( 'EUR' == $currency_code ) {
-			$local_fee = sprintf( '&euro; %s', $fee );
+			return sprintf( '&euro; %s', $fee );
 		}
-		elseif ( is_a( $currency, '\SIW\Data\Currency' ) ) {
-			$local_fee = sprintf( '%s %d (%s)', $currency->get_symbol(), $fee, $currency->get_name() );
+
+		$currency = siw_get_currency( $currency_code );
+		if ( is_a( $currency, Currency::class ) ) {
+			return sprintf( '%s %d (%s)', $currency->get_symbol(), $fee, $currency->get_name() );
 		}
-		else {
-			$local_fee = sprintf( '%s %d', $currency_code, $fee );
-		}
-		return $local_fee;
+		
+		return sprintf( '%s %d', $currency_code, $fee );
 	}
 
 	/**

@@ -84,7 +84,7 @@ class Exchange_Rates{
 			return null;
 		}
 
-		return array_map( fn( float $rate ) => 1 / $rate, $response['rates'] );
+		return array_map( fn( float $rate ) : float => 1 / $rate, $response['rates'] );
 	}
 }
 

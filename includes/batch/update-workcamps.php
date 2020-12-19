@@ -2,6 +2,7 @@
 
 namespace SIW\Batch;
 
+use SIW\Data\Country;
 use SIW\Util;
 use SIW\WooCommerce\Import\Product_Image;
 
@@ -205,7 +206,7 @@ class Update_Workcamps extends Job {
 		if (
 			'no' === $this->product->get_meta( 'freeplaces' )
 			||
-			false === $country
+			! is_a( $country, Country::class )
 			||
 			! $country->is_allowed()
 			||

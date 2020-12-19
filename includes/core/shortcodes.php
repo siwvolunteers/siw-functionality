@@ -386,7 +386,7 @@ class Shortcodes {
 			return null;
 		}
 		
-		return Elements::generate_page_modal( $page_id, $link_tekst );
+		return Elements::generate_page_modal( (int) $page_id, $link_tekst );
 	}
 
 	/**

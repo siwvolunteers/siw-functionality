@@ -142,6 +142,18 @@ function siw_get_board_titles() : array {
 }
 
 /**
+ * Geeft bestuursfunctie terug obv slug
+ *
+ * @param string $slug
+ *
+ * @return string|null
+ */
+function siw_get_board_title( string $slug ) : ?string {
+	$board_titles = siw_get_board_titles();
+	return $board_titles[ $slug ] ?? null;
+}
+
+/**
  * Geeft array met projectsoorten terug
  * 
  * @since     3.0.0

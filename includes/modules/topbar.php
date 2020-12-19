@@ -115,7 +115,7 @@ class Topbar {
 	protected function get_content() : ?array {
 	
 		$content =
-			$this->get_custom_content() ??
+			$this->get_page_content() ??
 			$this->get_event_content() ??
 			$this->get_sale_content() ??
 			$this->get_job_posting_content() ??
@@ -215,19 +215,19 @@ class Topbar {
 	 *
 	 * @return array|null
 	 */
-	protected function get_custom_content() {
-		if ( ! $this->settings['show_custom_content'] ) {
+	protected function get_page_content() {
+		if ( ! $this->settings['show_page_content'] ) {
 			return null;
 		}
 
-		if ( date( 'Y-m-d' ) < $this->settings['custom_content']['start_date'] || date( 'Y-m-d' ) > $this->settings['custom_content']['end_date'] ) {
+		if ( date( 'Y-m-d' ) < $this->settings['page_content']['start_date'] || date( 'Y-m-d' ) > $this->settings['page_content']['end_date'] ) {
 			return null;
 		}
 
 		return [
-			'intro'     => $this->settings['custom_content']['intro'],
-			'link_url'  => $this->settings['custom_content']['link_url'],
-			'link_text' => $this->settings['custom_content']['link_text'],
+			'intro'     => $this->settings['page_content']['intro'],
+			'link_url'  => $this->settings['page_content']['link_url'],
+			'link_text' => $this->settings['page_content']['link_text'],
 		];
 	}
 }

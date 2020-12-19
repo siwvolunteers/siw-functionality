@@ -2,6 +2,7 @@
 
 namespace SIW\WooCommerce\Frontend;
 
+use SIW\Data\Currency;
 use SIW\WooCommerce\Import\Product as Import_Product;
 use SIW\WooCommerce\Frontend\Product_Tabs;
 
@@ -160,7 +161,7 @@ class Product {
 		
 		$currency = siw_get_currency( $currency_code );
 		$symbol = $currency_code;
-		if ( is_a( $currency, '\SIW\Data\Currency' ) ) {
+		if ( is_a( $currency, Currency::class ) ) {
 			$symbol = $currency->get_symbol();
 			
 			if ( get_woocommerce_currency() != $currency_code ) {

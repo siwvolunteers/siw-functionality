@@ -397,7 +397,7 @@ class Form {
 				'label'   => __( 'Volgende', 'siw' ),
 				'config'  => [
 					'type'         => 'next',
-					'class'        => 'kad-btn kad-btn-primary',
+					'class'        => '',
 				],
 			];
 		}
@@ -410,7 +410,7 @@ class Form {
 				'label'   => __( 'Verzenden', 'siw' ),
 				'config'  => [
 					'type'         => 'submit',
-					'class'        => 'kad-btn kad-btn-primary',
+					'class'        => '',
 				],
 			];
 		}

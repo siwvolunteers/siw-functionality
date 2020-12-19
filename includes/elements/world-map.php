@@ -83,15 +83,15 @@ class World_Map {
 	/**
 	 * Genereert kaart
 	 *
-	 * @param string|Country $country
+	 * @param Country $country
 	 * @param int $zoom
 	 * @return string
 	 */
-	public function generate( $country, int $zoom = 1 ) : string {
-		if ( false === $this->set_country( $country ) ) {
-			return false;
-		}
+	public function generate( Country $country, int $zoom = 1 ) : string {
+		$this->country = $country;
+		$this->continent = $country->get_continent();
 		$this->zoom = $zoom;
+
 		$this->enqueue_style();
 		
 		return Template::parse_template(
@@ -101,24 +101,6 @@ class World_Map {
 				'viewbox' => $this->get_viewbox(),
 			]
 		);
-	}
-
-	/**
-	 * Zet land om in te kleuren
-	 *
-	 * @param string|Country $country
-	 * @return bool
-	 */
-	protected function set_country( $country ) : bool {
-		if ( is_string( $country ) ) {
-			$country = siw_get_country( $country );
-		}
-		if ( ! is_a( $country, '\SIW\Data\Country') ) {
-			return false;
-		}
-		$this->country = $country;
-		$this->continent = $country->get_continent();
-		return true;
 	}
 
 	/**

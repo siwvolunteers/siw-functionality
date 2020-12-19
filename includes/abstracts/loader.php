@@ -3,11 +3,7 @@
 namespace SIW\Abstracts;
 
 /**
- * Class om een custom content type toe te voegen
- * 
- * - Custom post type
- * - Taxonomieën
- * - Archiefpagina (header, layout, filter)
+ * Basisklasse voor loader
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  * @since     3.3.0

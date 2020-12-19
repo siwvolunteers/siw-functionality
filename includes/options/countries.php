@@ -2,6 +2,7 @@
 
 namespace SIW\Options;
 
+use SIW\Data\Continent;
 use SIW\Interfaces\Options\Option as Option_Interface;
 
 /**
@@ -44,16 +45,13 @@ class Countries implements Option_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_tabs() : array {
-		$continents = \siw_get_continents();
-
-		$tabs = [];
-		foreach ( $continents as $continent ) {
-			$tabs[] = [
+		return array_map(
+			fn( Continent $continent ) : array => [
 				'id'    => $continent->get_slug(),
 				'label' => $continent->get_name(),
-			];
-		}
-		return $tabs;
+			],
+			\siw_get_continents()
+		);
 	}
 
 	/**

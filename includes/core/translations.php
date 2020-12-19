@@ -34,7 +34,6 @@ class Translations {
 		foreach ( $translations as $textdomain => $directory ) {
 			load_plugin_textdomain( $textdomain, false, $directory );
 		}
-		load_plugin_textdomain( 'siw', false, 'siw-functionality/languages/' );
 	}
 
 	/**

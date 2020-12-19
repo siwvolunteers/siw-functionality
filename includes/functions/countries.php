@@ -46,7 +46,7 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 
 	//Creëer objecten
 	$countries = array_map(
-		fn( $item ) => new Country( $item ),
+		fn( array $item ) : Country => new Country( $item ),
 		$data
 	);
 
@@ -66,7 +66,7 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 
 	if ( 'array' == $return ) {
 		$countries = array_map(
-			fn( Country $country ) => $country->get_name(),
+			fn( Country $country ) : string => $country->get_name(),
 			$countries
 		);
 	}

@@ -217,16 +217,15 @@ class Elements {
 		$opening_hours = siw_get_option( 'opening_hours' );
 		
 		$opening_hours = array_map(
-			fn( array $value ) : string => $value['open'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gezsloten', 'siw' ),
+			fn( array $value ) : string => $value['open'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' ),
 			array_filter( $opening_hours )
 		);
-
 
 		//Ophalen afwijkende openingstijden
 		$special_opening_hours = siw_get_option( 'special_opening_hours', [] );
 
 		$special_opening_hours = array_map(
-			fn( array $value ) : string => $value['opened'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gezsloten', 'siw' ),
+			fn( array $value ) : string => $value['opened'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' ),
 			array_column( $special_opening_hours , null, 'date' )
 		);
 		
