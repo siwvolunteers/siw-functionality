@@ -61,7 +61,7 @@ class Calendar extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_template_parameters(array $instance, array $args, array $template_vars, string $css_name): array {
+	function get_template_variables( $instance, $args ) {
 		$events = $this->get_upcoming_events();
 
 		$parameters = [

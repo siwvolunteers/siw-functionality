@@ -31,6 +31,11 @@ class Infobox extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
+	protected bool $use_default_template = true;
+
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function set_widget_properties() {
 		$this->widget_name = __( 'Infobox', 'siw');
 		$this->widget_description = __( 'Toont infoboxes met icon', 'siw' );
@@ -85,10 +90,10 @@ class Infobox extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_template_parameters( array $instance, array $args, array $template_vars, string $css_name ): array {
+	function get_template_variables( $instance, $args ) {
 		return [
-			'intro'     => $instance['intro'],
-			'infoboxes' => Elements::generate_infoboxes( $instance['infoboxes'] ),
+			'intro'   => $instance['intro'],
+			'content' => Elements::generate_infoboxes( $instance['infoboxes'] ),
 		];
 	}
 }

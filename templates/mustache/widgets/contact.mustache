@@ -1,14 +1,15 @@
+{{> widget-title}}
 <div class="siw-contact">
 	<p>
 		{{ name }} <br/>
 		{{ address }} | {{ postcode }} {{ city }} <br/>
-		{{{ tel_link }}} | {{{ email_link }}} <br/>
-		{{{ whatsapp_link }}} <br/>
-		{{{ opening_hours }}}
+		{{> links/tel }} | {{> links/email }}  <br/>
+		{{> links/whatsapp }} <br/>
+		{{& opening_hours }}
 	</p>
 </div>
 <div class="siw-social-links clearfix">
-	{{# social_networks }}
-		{{{ . }}}
-	{{/ social_networks }}
+	{{# social_networks}}
+		{{> links/social_network}}
+	{{/ social_networks}}
 </div>

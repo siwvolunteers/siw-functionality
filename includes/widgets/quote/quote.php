@@ -71,7 +71,7 @@ class Quote extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_template_parameters( array $instance, array $args, array $template_vars, string $css_name ): array {
+	function get_template_variables( $instance, $args ) {
 		$quote = $this->get_quote( $instance['continent'], $instance['project_type'] );
 		
 		if ( is_null( $quote ) ) {

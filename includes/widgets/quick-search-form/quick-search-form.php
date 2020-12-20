@@ -59,7 +59,7 @@ class Quick_Search_Form extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_template_parameters( array $instance, array $args, array $template_vars, string $css_name ): array {
+	function get_template_variables( $instance, $args ) {
 
 		return [
 			'result_page_url' => wp_make_link_relative( get_permalink( $instance['result_page'] ) ),

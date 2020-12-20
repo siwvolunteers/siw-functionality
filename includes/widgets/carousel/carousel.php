@@ -157,7 +157,7 @@ class Carousel extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_template_parameters( array $instance, array $args, array $template_vars, string $css_name ) : array {
+	function get_template_variables( $instance, $args ) {
 
 		$instance = $this->parse_instance( $instance );
 

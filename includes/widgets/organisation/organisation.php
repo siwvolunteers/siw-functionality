@@ -58,23 +58,22 @@ class Organisation extends Widget {
 	}
 
 	/**
-	 * Geeft lijst met bestuursleden terug
-	 * 
+	 * Geeft bestuursleden terug
+	 *
 	 * @return array|null
 	 */
-	protected function get_board_members_list() : ?array {
-		$board_members = siw_get_option( 'board_members');
+	protected function get_board_members() : ?array {
+		$board_members = siw_get_option( 'board_members' );
 		if ( empty( $board_members ) ) {
 			return null;
 		}
-	
+
 		return array_map(
-			fn( array $board_member ) : string => sprintf(
-				'%s %s<br/><i>%s</i>',
-				$board_member['first_name'],
-				$board_member['last_name'],
-				siw_get_board_title( $board_member['title'] )
-			),
+			fn( array $board_member ) : array => [
+				'first_name' => $board_member['first_name'],
+				'last_name'  => $board_member['last_name'],
+				'title'      => siw_get_board_title( $board_member['title'] ),
+			],
 			$board_members
 		);
 	}
@@ -82,36 +81,34 @@ class Organisation extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_template_parameters(array $instance, array $args, array $template_vars, string $css_name): array {
-		$parameters[ 'properties'] = [
-			[
-				'name'   => __( 'Statutaire naam', 'siw' ),
-				'values' => Properties::STATUTORY_NAME
+	function get_template_variables( $instance, $args ) {
+		$parameters = [
+			'properties' => [
+				[
+					'name'   => __( 'Statutaire naam', 'siw' ),
+					'values' => Properties::STATUTORY_NAME
+				],
+				[
+					'name'   => __( 'RSIN/fiscaal nummer', 'siw' ),
+					'values' => Properties::RSIN,
+				],
+				[
+					'name'   => __( 'KVK-nummer', 'siw' ),
+					'values' => Properties::KVK,
+				],
+				[
+					'name'   => __( 'Rekeningnummer', 'siw' ),
+					'values' => Properties::IBAN,
+				],
 			],
-			[
-				'name'   => __( 'RSIN/fiscaal nummer', 'siw' ),
-				'values' => Properties::RSIN,
-			],
-			[
-				'name'   => __( 'KVK-nummer', 'siw' ),
-				'values' => Properties::KVK,
-			],
-			[
-				'name'   => __( 'Rekeningnummer', 'siw' ),
-				'values' => Properties::IBAN,
-			],
-			[
-				'name'   => __( 'Bestuurssamenstelling', 'siw' ),
-				'values' => $this->get_board_members_list(),
-			],
-			[
-				'name'   => __( 'Beloningsbeleid', 'siw' ),
-				'values' => $instance['renumeration_policy'],
-			],
-			[
-				'name'   => __( 'Jaarverslagen', 'siw' ),
-				'values' => $this->get_annual_reports(),
-			],
+			'board_members'       => $this->get_board_members(),
+			'annual_reports'      => $this->get_annual_reports(),
+			'renumeration_policy' => $instance['renumeration_policy'],
+			'i18n'                => [
+				'board_members'       => __( 'Bestuurssamenstelling', 'siw' ),
+				'annual_reports'      => __( 'Jaarverslagen', 'siw' ),
+				'renumeration_policy' => __( 'Beloningsbeleid', 'siw' ),
+			]
 		];
 
 		return $parameters;
@@ -127,13 +124,17 @@ class Organisation extends Widget {
 		if ( empty( $annual_reports ) ) {
 			return [];
 		}
-		$reports = [];
-		foreach ( $annual_reports as $report ) {
-			$url = wp_get_attachment_url( $report['file'][0] );
-			$text = sprintf( esc_html__( 'Jaarverslag %s', 'siw' ), $report['year'] );
-			$reports[ $report['year'] ] = Links::generate_document_link( $url, $text );
-		}
-		krsort( $reports );
-		return array_values( $reports );
+		
+		$annual_reports = array_column( $annual_reports , null, 'year' );
+		krsort( $annual_reports );
+
+		$annual_reports = array_map(
+			fn( array $report ) : array => [
+				'url'  => wp_get_attachment_url( $report['file'][0] ),
+				'text' => sprintf( __( 'Jaarverslag %s', 'siw' ), $report['year'] )
+			],
+			$annual_reports
+		);
+		return array_values( $annual_reports );
 	}
 }

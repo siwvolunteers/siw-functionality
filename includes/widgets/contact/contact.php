@@ -4,7 +4,6 @@ namespace SIW\Widgets;
 
 use SIW\Elements;
 use SIW\Properties;
-use SIW\Util\Links;
 
 /**
  * Widget met contactinformatie
@@ -59,26 +58,22 @@ class Contact extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_template_parameters( array $instance, array $args, array $template_vars, string $css_name ) : array {
+	function get_template_variables( $instance, $args ) {
 		$social_networks = siw_get_social_networks( 'follow' );
+
 		foreach ( $social_networks as $network ) {
-			$networks[] = Links::generate_icon_link(
-				$network->get_follow_url(),
-				[
-					'class'      => $network->get_icon_class(),
-					'background' => 'circle'
+			$networks[] = [
+				'url' => $network->get_follow_url(),
+				'name' => $network->get_name(),
+				'label' => sprintf( __( 'Volg ons op %s', 'siw' ), $network->get_name() ),
+				'color' => $network->get_color(),
+				'icon'  => [
+					'icon_class'       => $network->get_icon_class(),
+					'size'             => 2,
+					'has_background'   => true,
+					'background_class' => 'circle',
 				],
-				[
-					'class'               => $network->get_slug(),
-					'title'               => $network->get_name(),
-					'target'              => '_blank',
-					'rel'                 => 'noopener external',
-					'aria-label'          => sprintf( esc_attr__( 'Volg ons op %s', 'siw' ), $network->get_name() ),
-					'data-balloon-pos'    => 'up',
-					'data-original-title' => $network->get_name(),
-					'style'               => '--hover-color: ' . $network->get_color(),
-				],
-			);
+			];
 		}
 
 		return [
@@ -86,9 +81,22 @@ class Contact extends Widget {
 				'address'         => Properties::ADDRESS,
 				'postcode'        => Properties::POSTCODE,
 				'city'            => Properties::CITY,
-				'tel_link'        => Links::generate_tel_link( Properties::PHONE_INTERNATIONAL, Properties::PHONE ),
-				'email_link'      => Links::generate_mailto_link( Properties::EMAIL ),
-				'whatsapp_link'   => Links::generate_whatsapp_link( Properties::WHATSAPP_FULL, Properties::WHATSAPP ),
+				'tel_link'        => [
+					'phone' => Properties::PHONE_INTERNATIONAL,
+					'text'  => Properties::PHONE
+				],
+				'email_link'      => [
+					'email' => Properties::EMAIL,
+					'text'  => Properties::EMAIL,
+				],
+				'whatsapp_link'   => [
+					'url'   => add_query_arg( 'phone', Properties::WHATSAPP_FULL, 'https://api.whatsapp.com/send' ),
+					'phone' => Properties::WHATSAPP,
+					'icon'  => [
+						'size'       => 2,
+						'icon_class' => 'siw-icon-whatsapp'
+					],
+				],
 				'opening_hours'   => Elements::generate_opening_hours('table'),
 				'social_networks' => $networks,
 		];

@@ -52,7 +52,7 @@ class Newsletter extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_template_parameters( array $instance, array $args, array $template_vars, string $css_name ): array {
+	function get_template_variables( $instance, $args ) {
 
 		$subscriber_count = siw_newsletter_get_subscriber_count( siw_get_option( 'newsletter_list' ) );
 		return [

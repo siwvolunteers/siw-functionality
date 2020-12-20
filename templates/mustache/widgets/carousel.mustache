@@ -1,13 +1,14 @@
-{{# intro }}
+{{> widget-title}}
+{{#intro}}
 	<div class="carousel-intro">
-		<p>{{.}}</p>
+		<p>{{ . }}</p>
 	</div>
-{{/ intro}}
+{{/intro}}
 
 {{& carousel }}
 
-{{# show_button }}
+{{#show_button}}
 	<div class="carousel-button">
 		{{> button }}
 	</div>
-{{/ show_button }}
+{{/show_button}}

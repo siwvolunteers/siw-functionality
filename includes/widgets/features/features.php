@@ -31,6 +31,11 @@ class Features extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
+	protected bool $use_default_template = true;
+
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function set_widget_properties() {
 		$this->widget_name = __( 'Features', 'siw');
 		$this->widget_description = __( 'Toont features met toelichting en link', 'siw' );
@@ -115,10 +120,10 @@ class Features extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_template_parameters(array $instance, array $args, array $template_vars, string $css_name): array {
+	function get_template_variables( $instance, $args ) {
 		return[
-			'intro' => $instance['intro'],
-			'features' => Elements::generate_features( $instance['features'], (int) $instance['columns'] ),
+			'intro'   => $instance['intro'],
+			'content' => Elements::generate_features( $instance['features'], (int) $instance['columns'] ),
 		];
 	}
 }

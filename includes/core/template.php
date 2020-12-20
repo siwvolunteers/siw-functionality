@@ -4,16 +4,15 @@ namespace SIW\Core;
 
 use Mustache_Autoloader;
 use Mustache_Engine;
-use Mustache_Loader_ArrayLoader;
 use Mustache_Loader_CascadingLoader;
 use Mustache_Loader_FilesystemLoader;
 use Mustache_Template;
 
 /**
- * SIW Widget base class
+ * Class om Mustache templates te gebruiken
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2020 SIW Internationale Vrijwilligersprojecten
+ * @since     3.3.0
  */
 class Template {
 
@@ -23,52 +22,60 @@ class Template {
 	private static Mustache_Engine $template_engine;
 
 	/**
-	 * Undocumented function
+	 * Geeft gedeelde instantie van Mustache Engine terug
 	 *
 	 * @return Mustache_Engine
 	 */
 	public static function get_engine() : Mustache_Engine {
-		if ( ! isset( self::$template_engine ) ) {
-			Mustache_Autoloader::register();
-			self::$template_engine = new Mustache_Engine(
-				[
-					'template_class_prefix' => '__SIW_',
-					'loader'                => new Mustache_Loader_CascadingLoader( [
-						new Mustache_Loader_FilesystemLoader( SIW_TEMPLATES_DIR . '/mustache' ),
-						new Mustache_Loader_ArrayLoader(
-							[
-								'content' => '{{{ content }}}'
-							]
-						),
-						
-					]),
-					'partials_loader'       => new Mustache_Loader_FilesystemLoader( SIW_TEMPLATES_DIR . '/mustache/partials'),
-					'escape'                => fn( $value ) => esc_html( $value ),
-					'helpers'               => [
-						'json_encode'  => fn( $value ) => json_encode( $value),
-						'esc_url'      => fn( $value ) => esc_url( $value ),
-						'wp'           => [
-							'esc_attr'     => fn( string $value ) => esc_attr( $value ),
-							'wp_kses_post' => fn( string $value ) => wp_kses_post( $value ),
-							'wpautop'      => fn( string $value ) => wpautop( $value ),
-							'do_shortcode' => fn( string $value ) => do_shortcode( $value ),
-						],
-						'case' => [
-							'lower' => fn( string $value ) => strtolower( $value ),
-							'upper' => fn( string $value ) => strtoupper( $value ),
-						],
-					],
-					'pragmas' => [
-						Mustache_Engine::PRAGMA_FILTERS
-					],
-				]
-			);
+
+		if ( isset( self::$template_engine ) ) {
+			return self::$template_engine;
 		}
+
+		Mustache_Autoloader::register();
+		
+		$template_dirs = [
+			SIW_TEMPLATES_DIR . '/mustache',
+		];
+
+		//Filter directories (t.b.v. extensies)
+		$template_dirs = apply_filters( 'siw_mustache_template_dirs', $template_dirs );
+
+		$loaders = array_map(
+			fn( string $dir ) : Mustache_Loader_FilesystemLoader => new Mustache_Loader_FilesystemLoader( $dir ),
+			$template_dirs
+		);
+		
+		self::$template_engine = new Mustache_Engine(
+			[
+				'template_class_prefix' => '__SIW_',
+				'loader'                => new Mustache_Loader_CascadingLoader( $loaders ),
+				'partials_loader'       => new Mustache_Loader_FilesystemLoader( SIW_TEMPLATES_DIR . '/mustache/partials'),
+				'escape'                => fn( $value ) : string => esc_html( $value ),
+				'helpers'               => [
+					'json_encode'  => fn( $value ) : string => json_encode( $value),
+					'esc_url'      => fn( string $value ) : string => esc_url( $value ),
+					'esc_attr'     => fn( string $value ) : string => esc_attr( $value ),
+					'wp_kses_post' => fn( string $value ) : string => wp_kses_post( $value ),
+					'wpautop'      => fn( string $value ) : string => wpautop( $value ),
+					'do_shortcode' => fn( string $value ) : string => do_shortcode( $value ),
+					'antispambot'  => fn( string $value ) : string => antispambot( $value ),
+					'case' => [
+						'lower' => fn( string $value ) : string => strtolower( $value ),
+						'upper' => fn( string $value ) : string => strtoupper( $value ),
+					],
+				],
+				'pragmas' => [
+					Mustache_Engine::PRAGMA_FILTERS,
+					Mustache_Engine::PRAGMA_BLOCKS,
+				],
+			]
+		);
 		return self::$template_engine;
 	}
 
 	/**
-	 * Undocumented function
+	 * Haalt template op
 	 *
 	 * @param string $name
 	 *
@@ -79,7 +86,7 @@ class Template {
 	}
 
 	/**
-	 * Undocumented function
+	 * Rendert template
 	 *
 	 * @param string $name
 	 * @param array $context
@@ -91,7 +98,7 @@ class Template {
 	}
 
 	/**
-	 * Undocumented function
+	 * Geeft geparste template terug
 	 *
 	 * @param string $name
 	 * @param array $context
@@ -101,6 +108,5 @@ class Template {
 	public static function parse_template( string $name, array $context ) : string {
 		return self::get_engine()->loadTemplate( $name )->render( $context );
 	}
-
 }
 

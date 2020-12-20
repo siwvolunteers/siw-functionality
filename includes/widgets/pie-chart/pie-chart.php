@@ -2,7 +2,6 @@
 
 namespace SIW\Widgets;
 
-use SIW\Elements;
 use SIW\Elements\Charts\Pie as Element_Pie_Chart;
 
 /**
@@ -101,7 +100,7 @@ class Pie_Chart extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_template_parameters(array $instance, array $args, array $template_vars, string $css_name): array {
+	function get_template_variables( $instance, $args ) {
 		$chart = new Element_Pie_Chart();
 		return [
 			'intro'            => $instance['intro'],

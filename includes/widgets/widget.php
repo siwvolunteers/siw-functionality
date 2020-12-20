@@ -44,9 +44,9 @@ abstract class Widget extends \SiteOrigin_Widget {
 	protected array $widget_fields = [];
 
 	/**
-	 * Geeft aan of de wiget een eigen Mustache template heeft
+	 * Geeft aan of de widget het default template gebruikt
 	 */
-	protected bool $has_template = true;
+	protected bool $use_default_template = false;
 
 	/**
 	 * Template
@@ -61,13 +61,9 @@ abstract class Widget extends \SiteOrigin_Widget {
 		$this->set_widget_properties();
 
 		//Template laden
-		if ( $this->has_template ) {
-			$template_id = str_replace( '_', '-', $this->widget_id );
-			$this->template = Template::get_template( "widgets/{$template_id}" );
-		}
-		else {
-			$this->template = Template::get_template('content');
-		}
+		$template_id = $this->use_default_template ? 'default' : str_replace( '_', '-', $this->widget_id );
+		$this->template = Template::get_template( "widgets/{$template_id}" );
+
 
 		parent::__construct(
 			"siw_{$this->widget_id}_widget",
@@ -93,19 +89,6 @@ abstract class Widget extends \SiteOrigin_Widget {
 	abstract protected function set_widget_properties();
 
 	/**
-	 * Geeft parameters voor Mustache template terug
-	 *
-	 * @param array $instance
-	 * @param array $args
-	 * @param array $template_vars
-	 * @param string $css_name
-	 * @return string
-	 */
-	protected function get_template_parameters( array $instance, array $args, array $template_vars, string $css_name ) : array {
-		return [];
-	}
-
-	/**
 	 * Genereert generieke inhoud van widget
 	 *
 	 * @param array $instance
@@ -118,17 +101,8 @@ abstract class Widget extends \SiteOrigin_Widget {
 		$title = $instance['title'] ?? '';
 		$title = apply_filters( 'widget_title', $title );
 		
-		ob_start();
-		if ( $title ) {
-			echo $args['before_title'] . $title . $args['after_title'];
-		}?>
-		<div class="content">
-			<?php
-				echo $this->template->render( $this->get_template_parameters( $instance, $args, $template_vars, $css_name ));
-			?>
-		</div>
-		<?php
-		$html_content = ob_get_clean();
-		return $html_content;
+		$template_vars['title'] = $title ? $args['before_title'] . $title . $args['after_title'] : '';
+
+		return $this->template->render( $template_vars );
 	}
 }

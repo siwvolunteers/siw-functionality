@@ -1,8 +1,31 @@
+{{> widget-title}}
 <dl>
-	{{# properties }}
-	<dt>{{name}}</dt>
+	{{! eigenschappen }}
+	{{# properties}}
+		<dt>{{ name }}</dt>
 		{{# values}}
-			<dd>{{{ . }}}</dd>
-		{{/ values }}
-	{{/ properties }}
+			<dd>{{ . }}</dd>
+		{{/ values}}
+	{{/ properties}}
+
+	{{! bestuursleden }}
+	<dt>{{ i18n.board_members }}</dt>
+	{{# board_members}}
+		<dd>
+			{{ first_name }} {{ last_name }}<br/>
+			<i>{{ title }}</i>
+		</dd>
+	{{/ board_members}}
+	
+	{{! beloningsbeleid }}
+	<dt>{{ i18n.renumeration_policy }}</dt>
+	<dd>{{ renumeration_policy }}<dd>
+
+	{{! jaarverslagen }}
+	<dt>{{ i18n.annual_reports }}</dt>
+	{{# annual_reports}}
+	<dd>
+		{{> links/document}}
+	</dd>
+	{{/ annual_reports}}
 </dl>

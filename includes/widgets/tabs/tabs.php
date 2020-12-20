@@ -31,7 +31,7 @@ class Tabs extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected bool $has_template = false;
+	protected bool $use_default_template = true;
 
 	/**
 	 * {@inheritDoc}
@@ -108,7 +108,7 @@ class Tabs extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_template_parameters(array $instance, array $args, array $template_vars, string $css_name): array {
+	function get_template_variables( $instance, $args ) {
 		return [
 			'content' => Elements::generate_tabs( $instance['panes'] )
 		];

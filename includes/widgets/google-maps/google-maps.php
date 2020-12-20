@@ -31,6 +31,11 @@ class Google_Maps extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
+	protected bool $use_default_template = true;
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function set_widget_properties() {
 		$this->widget_name = __( 'Google Maps', 'siw');
 		$this->widget_description = __( 'Toont Google Maps kaart', 'siw' );
@@ -128,7 +133,7 @@ class Google_Maps extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_template_parameters( array $instance, array $args, array $template_vars, string $css_name ) : array {
+	function get_template_variables( $instance, $args ) {
 		$map = new Element_Google_Maps();
 		
 		$map->set_options( ['zoom' => $instance['zoom'] ] );
@@ -143,8 +148,8 @@ class Google_Maps extends Widget {
 		}
 
 		return [
-			'intro' => $instance['intro'] ?? null,
-			'map'   => $map->generate(),
+			'intro'   => $instance['intro'] ?? null,
+			'content' => $map->generate(),
 		];
 	}
 }
