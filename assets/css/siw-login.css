@@ -14,7 +14,7 @@ html body.login h1 a {
   width: unset;
 }
 html body.login .message {
-  border-left-color: #ff9900;
+  border-left-color: var(--siw-primary-color);
 }
 html body.login form input[type=text], html body.login form input[type=password] {
   border-radius: 0;
@@ -28,7 +28,7 @@ html body.login form .button-primary {
   transition: all 0.3s linear 0s;
 }
 html body.login form .button-primary:hover, html body.login form .button-primary:active {
-  background-color: #ff9900;
+  background-color: var(--siw-primary-color);
   color: #fff;
 }
 html body.login #nav a {
@@ -36,7 +36,7 @@ html body.login #nav a {
   font-weight: bold;
 }
 html body.login #nav a:hover {
-  color: #ff9900;
+  color: var(--siw-primary-color);
 }
 html body.login p#backtoblog {
   display: none;

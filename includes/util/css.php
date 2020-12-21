@@ -2,6 +2,8 @@
 
 namespace SIW\Util;
 
+use SIW\Properties;
+
 /**
  * Hulpfuncties t.b.v. css
  *
@@ -107,5 +109,29 @@ class CSS {
 			$css = $rendered_media_query . '{' . $css . '}';
 		}
 		return $css;
+	}
+
+	/**
+	 * Voegt css variabelen toe aan script
+	 *
+	 * @param string $handle
+	 */
+	public static function add_css_variables( string $handle ) {
+		$css_variables = [
+			'--siw-primary-color'    => Properties::PRIMARY_COLOR,
+			'--siw-secondary-color'  => Properties::SECONDARY_COLOR,
+			'--siw-font-color'       => Properties::FONT_COLOR,
+			'--siw-font-color-light' => Properties::FONT_COLOR_LIGHT,
+		];
+		//CSS-variabelen toevoegen als toegestane css properties
+		add_filter(
+			'safe_style_css',
+			fn( array $allowed_attr ) : array => array_merge( $allowed_attr, array_keys( $css_variables ) )
+		);
+
+		wp_add_inline_style(
+			$handle,
+			CSS::generate_inline_css( [':root' => $css_variables])
+		);
 	}
 }

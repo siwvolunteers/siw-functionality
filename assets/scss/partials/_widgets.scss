@@ -14,7 +14,7 @@ html[lang=en-US] #footer-widgets {
 	}
 
 	a.siw-contact-link .siw-icon {
-		fill: $secondary-color;
+		fill: var(--siw-secondary-color);
 	}
 
 	.siw-social-links {
@@ -57,7 +57,7 @@ html[lang=en-US] #footer-widgets {
 		display: block;
 	}
 	.loading {
-		color: $secondary-color;
+		color: var(--siw-secondary-color);
 		font-size: 10px;
 		margin: 10px auto;
 		position: relative;
@@ -110,7 +110,7 @@ html[lang=en-US] #footer-widgets {
 		font-weight: bold;
 		padding-top: 20px;
 		padding-bottom: 20px;
-		text-shadow: 1px 1px $font-color;
+		text-shadow: $text-shadow;
 	}
 	.button {
 		text-align: center;
@@ -130,18 +130,18 @@ html[lang=en-US] #footer-widgets {
 	blockquote {
 		font-size: inherit;
 		font-style: italic;
-		border-left-color: $secondary-color;
+		border-left-color: var(--siw-secondary-color);
 		padding: 5px 5px 5px 15px;
 		margin: inherit;
 		.footer-widgets & {
 			border-left-color: inherit;
 			transition: border 0.6s ease-out 0s;
 			&:hover {
-				border-left-color: $secondary-color;
+				border-left-color: var(--siw-secondary-color);
 			}
 		}
 		footer {
-			color: $font-color-light;
+			color: var(--siw-font-color-light);
 			.footer-widgets &{
 				color: inherit;
 			}

@@ -3,6 +3,7 @@
 namespace SIW\Core;
 
 use SIW\Properties;
+use SIW\Util\CSS;
 
 /**
  * Aanpassingen aan login
@@ -31,6 +32,7 @@ class Login {
 	public function enqueue_style() {
 		wp_register_style( 'siw-login-css', SIW_ASSETS_URL . 'css/siw-login.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-login-css' );
+		CSS::add_css_variables( 'siw-login-css' );
 	}
 
 	/**

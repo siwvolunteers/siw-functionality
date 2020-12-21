@@ -235,6 +235,13 @@ class Properties {
 	const FONT_COLOR = '#444';
 
 	/**
+	 * Kleurcode voor lichte tekst
+	 *
+	 * @var string
+	 */
+	const FONT_COLOR_LIGHT = '#555';
+
+	/**
 	 * Maximale afmeting voor afbeelding
 	 *
 	 * @var int

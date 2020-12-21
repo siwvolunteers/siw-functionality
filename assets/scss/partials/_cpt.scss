@@ -56,12 +56,11 @@
 	}
 }
 
-
 //Agenda
 .siw_event{
 	margin-bottom: 15px;
 	.event-date{
-		color: $font-color-light;
+		color: var(--siw-font-color-light);
 		line-height: 2em;
 		.day{
 			font-size: 4em;
@@ -78,7 +77,7 @@
 		}
 	}
 	.event-location{
-		color: $font-color-light;
+		color: var(--siw-font-color-light);
 		font-size: 1.2em;
 		font-weight: bold;
 	}

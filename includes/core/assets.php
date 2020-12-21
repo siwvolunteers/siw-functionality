@@ -2,6 +2,8 @@
 
 namespace SIW\Core;
 
+use SIW\Util\CSS;
+
 /**
  * Class om scripts en styles te registreren
  * 
@@ -50,6 +52,7 @@ class Assets {
 	public function register_styles() {
 		wp_register_style( 'siw', SIW_ASSETS_URL . 'css/siw.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw' );
+		CSS::add_css_variables( 'siw' );
 
 		wp_register_style( 'balloon', SIW_ASSETS_URL . 'vendor/balloon-css/balloon.css', [], self::BALLOON_VERSION );
 		wp_enqueue_style( 'balloon' );
