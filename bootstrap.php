@@ -203,7 +203,6 @@ class Bootstrap {
 				'Caldera_Forms',
 				'GeneratePress',
 				'Meta_Box',
-				'Password_Protected',
 				'Safe_Redirect_Manager',
 				'SiteOrigin_Page_Builder',
 				'The_SEO_Framework',
