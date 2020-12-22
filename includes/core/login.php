@@ -19,8 +19,8 @@ class Login {
 	public static function init() {
 		$self = new self();
 		add_action( 'login_enqueue_scripts', [ $self, 'enqueue_style' ] );
-		add_filter( 'login_headerurl', [ $self, 'set_login_headerurl' ] );
-		add_filter( 'login_headertext', [ $self, 'set_login_headertext' ] );
+		add_filter( 'login_headerurl', fn() : string => SIW_SITE_URL );
+		add_filter( 'login_headertext', fn() : string => Properties::NAME );
 		add_filter( 'login_message', [ $self, 'set_login_message' ] );
 		add_action( 'login_head', [ $self, 'remove_shake_js'] );
 		add_action( 'wp_login', [ $self, 'log_last_user_login'], 10, 2 );
@@ -33,24 +33,6 @@ class Login {
 		wp_register_style( 'siw-login-css', SIW_ASSETS_URL . 'css/siw-login.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-login-css' );
 		CSS::add_css_variables( 'siw-login-css' );
-	}
-
-	/**
-	 * Zet de url voor het login-logo
-	 *
-	 * @return string
-	 */
-	public function set_login_headerurl() : string {
-		return SIW_SITE_URL;
-	}
-
-	/**
-	 * Zet de title voor het login-logo
-	 *
-	 * @return string
-	 */
-	public function set_login_headertext() : string {
-		return Properties::NAME;
 	}
 
 	/**

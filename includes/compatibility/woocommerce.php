@@ -41,8 +41,8 @@ class WooCommerce {
 
 		$self->set_log_handler();
 		add_filter( 'woocommerce_register_log_handlers', [ $self, 'register_log_handlers' ], PHP_INT_MAX );
-		add_filter( 'woocommerce_status_log_items_per_page', [ $self, 'set_log_items_per_page' ] );
-		add_filter( 'woocommerce_logger_days_to_retain_logs', [ $self, 'set_days_to_retain_log'] );
+		add_filter( 'woocommerce_status_log_items_per_page', fn() : int => self::LOG_ITEMS_PER_PAGE );
+		add_filter( 'woocommerce_logger_days_to_retain_logs', fn() : int => self::DAYS_TO_RETAIN_LOG );
 		add_filter( 'nonce_user_logged_out', [ $self, 'reset_nonce_user_logged_out' ], PHP_INT_MAX, 2 );
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
 		add_filter( 'product_type_selector', [ $self, 'disable_product_types'] );
@@ -51,23 +51,19 @@ class WooCommerce {
 		add_filter( 'woocommerce_product_visibility_options', [ $self, 'remove_product_visibility_options', ] );
 		add_filter( 'woocommerce_products_admin_list_table_filters', [ $self, 'remove_products_admin_list_table_filters'] );
 
-		/* Wachtwoord-reset niet via WooCommerce maar via standaard WordPress-methode */
+		// Wachtwoord-reset niet via WooCommerce maar via standaard WordPress-methode
 		remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
 
-		/* WooCommerce filter kortsluiten: iedereen die mag inloggen mag het dashboard zien */
+		// Verwijder extra gebruikersvelden WooCommerce
+		add_filter( 'woocommerce_customer_meta_fields', '__return_empty_array' );
+		
+		//Diverse admin-features uitschakelen
 		add_filter( 'woocommerce_prevent_admin_access', '__return_false' );
 
-		/* Verwijder extra gebruikersvelden WooCommerce */
-		add_filter( 'woocommerce_customer_meta_fields', '__return_empty_array' );
-
-		add_filter( 'wc_session_use_secure_cookie', '__return_true' );
 		add_filter( 'woocommerce_enable_admin_help_tab', '__return_false' );
 		add_filter( 'woocommerce_allow_marketplace_suggestions', '__return_false' );
 		add_filter( 'woocommerce_show_addons_page', '__return_false' );
-
 		add_filter( 'woocommerce_admin_disabled', '__return_true' );
-		add_filter( 'woocommerce_marketing_menu_items', '__return_empty_array' );
-		add_filter( 'woocommerce_helper_suppress_admin_notices', '__return_true' );
 
 		//Blocks style niet laden
 		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
@@ -130,24 +126,6 @@ class WooCommerce {
 		];
 	
 		return $handlers;
-	}
-
-	/**
-	 * Zet het aantal log items per pagina
-	 *
-	 * @return int
-	 */
-	public function set_log_items_per_page() : int {
-		return self::LOG_ITEMS_PER_PAGE;
-	}
-
-	/**
-	 * Zet aantal dagen dat log bewaard wordt
-	 *
-	 * @return int
-	 */
-	public function set_days_to_retain_log() : int {
-		return self::DAYS_TO_RETAIN_LOG;
 	}
 
 	/**
@@ -283,7 +261,7 @@ class WooCommerce {
 	 * @return string
 	 */
 	public function remove_link_on_thumbnails( string $html ) : string {
-		return strip_tags( $html, '<img>' );
+		return strip_tags( $html, '<img>' ); //TODO: verplaatsen naar product
 	}
 
 	/**

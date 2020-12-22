@@ -55,7 +55,7 @@ class GeneratePress{
 		add_action( 'init', [ $self, 'remove_cart_fragment_hooks'], PHP_INT_MAX );
 
 		//Pas snelheid voor omhoog scrollen aan
-		add_filter( 'generate_back_to_top_scroll_speed', [ $self, 'set_back_to_top_scroll_speed'] );
+		add_filter( 'generate_back_to_top_scroll_speed', fn() : int => self::BACK_TO_TOP_SCROLL_SPEED );
 
 		//
 		add_filter( 'generate_footer_widgets', [ $self, 'set_footer_widgets'] );
@@ -125,15 +125,6 @@ class GeneratePress{
 	public function remove_cart_fragment_hooks() {
 		remove_filter( 'woocommerce_add_to_cart_fragments', 'generatepress_wc_cart_link_fragment' );
 		remove_filter( 'woocommerce_add_to_cart_fragments', 'generatepress_add_to_cart_panel_fragments' );
-	}
-
-	/**
-	 * Zet snelheid van omhoog scrollen
-	 *
-	 * @return int
-	 */
-	public function set_back_to_top_scroll_speed() : int {
-		return self::BACK_TO_TOP_SCROLL_SPEED;
 	}
 
 	/**

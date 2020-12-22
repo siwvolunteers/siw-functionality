@@ -33,15 +33,15 @@ class WordPress {
 		$self = new self();
 		add_action( 'widgets_init', [ $self, 'unregister_widgets'], 99 );
 		add_filter( 'oembed_response_data', [ $self, 'set_oembed_response_data' ] );
-		add_filter( 'rest_url_prefix', [ $self, 'set_rest_url_prefix' ] );
+		add_filter( 'rest_url_prefix', fn() : string => self::REST_API_PREFIX );
 		add_filter( 'user_contactmethods', '__return_empty_array', PHP_INT_MAX );
 		add_action( 'init', [ $self, 'add_page_excerpt_support'] );
 		add_action( 'core_version_check_query_args', [ $self, 'remove_core_version_check_query_args'] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'dequeue_styles' ], PHP_INT_MAX );
-		add_filter( 'wp_default_editor', [ $self, 'set_default_editor'] );
+		add_filter( 'wp_default_editor', fn() : string => self::DEFAULT_EDITOR );
 		add_filter( 'site_status_tests', [ $self, 'remove_update_check'] );
-		add_filter( 'http_headers_useragent', [ $self, 'set_http_headers_useragent'] );
-		add_filter( 'big_image_size_threshold', [ $self, 'set_big_image_size_threshold'] );
+		add_filter( 'http_headers_useragent', fn() : string => Properties::NAME );
+		add_filter( 'big_image_size_threshold', fn() : int => Properties::MAX_IMAGE_SIZE );
 
 		add_action( 'do_feed', [ $self, 'disable_feed' ] , 1 );
 		add_action( 'do_feed_rdf', [ $self, 'disable_feed' ] , 1 );
@@ -59,15 +59,6 @@ class WordPress {
 		//Attachments
 		add_filter( 'disable_months_dropdown', '__return_true' );
 		add_filter( 'manage_media_columns', [ $self, 'manage_media_columns'], 10, 2 );
-	}
-
-	/**
-	 * Past REST-prefix aan
-	 *
-	 * @return string
-	 */
-	public function set_rest_url_prefix() : string {
-		return self::REST_API_PREFIX;
 	}
 
 	/**
@@ -140,33 +131,6 @@ class WordPress {
 	public function disable_feed() {
 		wp_redirect( home_url() );
 		exit;
-	}
-
-	/**
-	 * Zet alle editors standaard op tekst
-	 *
-	 * @return string
-	 */
-	public function set_default_editor() : string {
-		return self::DEFAULT_EDITOR;
-	}
-
-	/**
-	 * Zet useragent voor alle uitgaande http requests
-	 * 
-	 * @return string
-	 */
-	public function set_http_headers_useragent() : string {
-		return Properties::NAME;
-	}
-
-	/**
-	 * Zet grens voor grote afbeelding
-	 *
-	 * @return int
-	 */
-	public function set_big_image_size_threshold() : int {
-		return Properties::MAX_IMAGE_SIZE;;
 	}
 
 	/**

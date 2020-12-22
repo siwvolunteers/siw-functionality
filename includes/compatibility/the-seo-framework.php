@@ -39,30 +39,21 @@ class The_SEO_Framework {
 		$self = new self();
 
 		/* SEO-metabox lagere prioriteit geven */
-		add_filter( 'the_seo_framework_metabox_priority', [ $self, 'set_metabox_priority' ] );
+		add_filter( 'the_seo_framework_metabox_priority', fn() : string => self::METABOX_PRIORITY );
 
 		/* Robots */
 		add_filter( 'the_seo_framework_robots_meta_array', [ $self, 'set_robots' ] );
 		add_filter( 'the_seo_framework_robots_txt_pro', [ $self, 'set_robots_txt' ]) ; 
 
 		/* Sitemap */
-		add_filter( 'the_seo_framework_sitemap_color_main', [ $self, 'set_sitemap_color_main' ] );
-		add_filter( 'the_seo_framework_sitemap_color_accent', [ $self, 'set_sitemap_color_accent' ] );
-		add_filter( 'the_seo_framework_sitemap_post_limit', [ $self, 'set_sitemap_post_limit' ] );
+		add_filter( 'the_seo_framework_sitemap_color_main', fn() : string => Properties::SECONDARY_COLOR );
+		add_filter( 'the_seo_framework_sitemap_color_accent', fn() : string => Properties::FONT_COLOR );
+		add_filter( 'the_seo_framework_sitemap_post_limit', fn() : int => self::SITEMAP_POST_LIMIT );
 		add_filter( 'the_seo_framework_sitemap_supported_post_types', [ $self, 'set_sitemap_supported_post_types'] );
 		add_filter( 'the_seo_framework_sitemap_additional_urls', [ $self, 'set_sitemap_additional_urls' ] );
 
 		/* Naam auteur SEO framework niet in HTML tonen */
 		add_filter( 'sybre_waaijer_<3', '__return_false' );
-	}
-
-	/**
-	 * Past prioriteit van TSF metabox aan
-	 *
-	 * @return string
-	 */
-	public function set_metabox_priority() : string {
-		return self::METABOX_PRIORITY;
 	}
 
 	/**
@@ -78,33 +69,6 @@ class The_SEO_Framework {
 			$robots['noindex'] = 'noindex';
 		}
 		return $robots;
-	}
-
-	/**
-	 * Zet hoofdkleur van sitemap
-	 *
-	 * @return string
-	 */
-	public function set_sitemap_color_main() : string {
-		return Properties::SECONDARY_COLOR;
-	}
-
-	/**
-	 * Zet de accentkleur van de sitemap
-	 *
-	 * @return string
-	 */
-	public function set_sitemap_color_accent() : string {
-		return Properties::FONT_COLOR;
-	}
-
-	/**
-	 * Verhoogt limiet aantal posts voor sitemap
-	 *
-	 * @return int
-	 */
-	public function set_sitemap_post_limit() : int {
-		return self::SITEMAP_POST_LIMIT;
 	}
 
 	/**

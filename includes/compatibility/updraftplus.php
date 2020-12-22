@@ -36,7 +36,7 @@ class UpdraftPlus {
 		$self = new self();
 		add_filter( 'updraftplus_schedule_firsttime_db', [ $self, 'set_time_db_backup'] ) ;
 		add_filter( 'updraftplus_schedule_firsttime_files', [ $self, 'set_time_files_backup'] ) ;
-		add_filter( 'updraftplus_blog_name', [ $self, 'set_backup_name' ] );
+		add_filter( 'updraftplus_blog_name', fn() : string => sanitize_title( SIW_SITE_NAME ) );
 		add_action( 'admin_init', [ $self, 'hide_woocommerce_in_plugin_update_message'], PHP_INT_MAX );
 
 		//Verbergt diverse UpdraftPlus notificaties
@@ -69,15 +69,6 @@ class UpdraftPlus {
 		$tomorrow = strtotime( 'tomorrow' );
 		$backup_files_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
 		return strtotime( $backup_files_day . ' ' . self::TS_BACKUP_FILES . wp_timezone_string() );
-	}
-
-	/**
-	 * Voegt site-url toe aan backupnaam
-	 *
-	 * @return string
-	 */
-	public function set_backup_name() : string {
-		return sanitize_title( SIW_SITE_NAME );
 	}
 
 	/**
