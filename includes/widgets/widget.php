@@ -2,7 +2,6 @@
 
 namespace SIW\Widgets;
 
-use Mustache_Template;
 use SIW\Core\Template;
 
 /**
@@ -49,21 +48,11 @@ abstract class Widget extends \SiteOrigin_Widget {
 	protected bool $use_default_template = false;
 
 	/**
-	 * Template
-	 */
-	protected Mustache_Template $template;
-
-	/**
 	 * Constructor
 	 */
 	public function __construct() {
 
 		$this->set_widget_properties();
-
-		//Template laden
-		$template_id = $this->use_default_template ? 'default' : str_replace( '_', '-', $this->widget_id );
-		$this->template = Template::get_template( "widgets/{$template_id}" );
-
 
 		parent::__construct(
 			"siw_{$this->widget_id}_widget",
@@ -103,6 +92,8 @@ abstract class Widget extends \SiteOrigin_Widget {
 		
 		$template_vars['title'] = $title ? $args['before_title'] . $title . $args['after_title'] : '';
 
-		return $this->template->render( $template_vars );
+		$template_id = $this->use_default_template ? 'default' : str_replace( '_', '-', $this->widget_id );
+
+		return Template::parse_template( "widgets/{$template_id}", $template_vars );
 	}
 }

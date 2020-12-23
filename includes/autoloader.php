@@ -13,7 +13,7 @@ class Autoloader {
 	/**
 	 * Root-namespace
 	 */
-	protected string $root_namespace = 'SIW';
+	protected string $root_namespace;
 
 	/**
 	 * Basisdirectory

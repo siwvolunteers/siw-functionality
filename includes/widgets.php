@@ -74,7 +74,7 @@ class Widgets {
 	 * @return array
 	 */
 	public function set_active_widgets( array $active_widgets ) : array {
-		foreach ( $this->widgets as $id_base => $class_base ) { //TODO: array_keys gebruiken?
+		foreach ( array_keys( $this->widgets ) as $id_base ) {
 			$active_widgets[ $id_base ] = true;
 		}
 		return $active_widgets;
