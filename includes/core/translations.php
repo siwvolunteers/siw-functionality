@@ -23,17 +23,7 @@ class Translations {
 	public static function init() {
 		$self = new self();
 		add_filter( 'load_textdomain_mofile', [ $self, 'load_custom_translations'], 10, 2 );
-
-		$translations = [
-			'siw' => 'siw-functionality/languages/',
-		];
-
-		//Filter t.b.v. extensies
-		$translations = apply_filters( 'siw_translations', $translations );
-
-		foreach ( $translations as $textdomain => $directory ) {
-			load_plugin_textdomain( $textdomain, false, $directory );
-		}
+		load_plugin_textdomain( 'siw', false, 'siw-functionality/languages/' );
 	}
 
 	/**

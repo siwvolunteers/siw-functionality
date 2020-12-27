@@ -17,20 +17,13 @@ use Mustache_Template;
 class Template {
 
 	/**
-	 * Template Engine
-	 */
-	private static Mustache_Engine $template_engine;
-
-	/**
-	 * Geeft gedeelde instantie van Mustache Engine terug
+	 * Geeft Mustache Engine terug
 	 *
 	 * @return Mustache_Engine
+	 * 
+	 * @todo optimalisatie
 	 */
 	public static function get_engine() : Mustache_Engine {
-
-		if ( isset( self::$template_engine ) ) {
-			return self::$template_engine;
-		}
 
 		Mustache_Autoloader::register();
 		
@@ -46,7 +39,7 @@ class Template {
 			$template_dirs
 		);
 		
-		self::$template_engine = new Mustache_Engine(
+		$template_engine = new Mustache_Engine(
 			[
 				'template_class_prefix' => '__SIW_',
 				'loader'                => new Mustache_Loader_CascadingLoader( $loaders ),
@@ -71,7 +64,7 @@ class Template {
 				],
 			]
 		);
-		return self::$template_engine;
+		return $template_engine;
 	}
 
 	/**

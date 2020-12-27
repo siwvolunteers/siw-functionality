@@ -30,7 +30,7 @@ class Bootstrap {
 	 */
 	public function init() {
 
-		do_action( 'siw_register_extensions' );
+		$this->load_extensions();
 
 		$this->define_constants();
 		$this->load_dependencies();
@@ -88,17 +88,7 @@ class Bootstrap {
 	 */
 	protected function register_autoloader() {
 		require_once SIW_INCLUDES_DIR . '/autoloader.php';
-		
-		$autoloaders = [
-			'SIW' => SIW_INCLUDES_DIR
-		];
-		
-		//Filter t.b.v. extensies
-		$autoloaders = apply_filters( 'siw_autoloaders', $autoloaders );
-		
-		foreach ( $autoloaders as $namespace => $directory ) {
-			new Autoloader( $namespace, $directory );
-		}
+		new Autoloader( 'SIW', SIW_INCLUDES_DIR );
 	}
 
 	/**
@@ -145,6 +135,12 @@ class Bootstrap {
 		$this->init_class( 'SIW\Options', 'Loader' );
 	}
 
+	/**
+	 * Laadt extensies
+	 */
+	protected function load_extensions() {
+		$this->init_class( 'SIW', 'Extensions', 'siw_plugin_loaded' );
+	}
 
 	/**
 	 * Laadt modules
