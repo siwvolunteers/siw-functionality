@@ -59,7 +59,6 @@ class WP_Rocket {
 		//Acties t.b.v. cache rebuild
 		add_action( 'siw_update_plugin', [ $self, 'schedule_cache_rebuild' ] );
 		add_action( self::HOOK, [ $self, 'rebuild_cache' ] );
-		add_filter( 'rocket_sitemap_preload_list', [ $self, 'set_sitemaps_for_preload' ] );
 	}
 
 	/**
@@ -89,26 +88,5 @@ class WP_Rocket {
 	public function rebuild_cache() {
 		$this->purge_cache();
 		run_rocket_sitemap_preload();
-	}
-
-	/**
-	 * Voegt alle sitemaps toe aan preload
-	 *
-	 * @param array $sitemaps
-	 * 
-	 * @return array
-	 */
-	public function set_sitemaps_for_preload( array $sitemaps ) : array {
-		if ( ! class_exists( '\The_SEO_Framework\Bridges\Sitemap' ) ) {
-			return $sitemaps;
-		} 
-		if ( get_rocket_option( 'tsf_xml_sitemap', false ) ) {
-			$languages = i18n::get_active_languages();
-			$sitemap_url = \The_SEO_Framework\Bridges\Sitemap::get_instance()->get_expected_sitemap_endpoint_url();
-			foreach ( $languages as $language ) {
-				$sitemaps[] = i18n::get_translated_permalink( $sitemap_url, $language['code'] );
-			}
-		}
-		return $sitemaps;
 	}
 }
