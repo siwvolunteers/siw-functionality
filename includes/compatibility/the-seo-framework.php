@@ -42,7 +42,6 @@ class The_SEO_Framework {
 		add_filter( 'the_seo_framework_metabox_priority', fn() : string => self::METABOX_PRIORITY );
 
 		/* Robots */
-		add_filter( 'the_seo_framework_robots_meta_array', [ $self, 'set_robots' ] );
 		add_filter( 'the_seo_framework_robots_txt_pro', [ $self, 'set_robots_txt' ]) ; 
 
 		/* Sitemap */
@@ -54,21 +53,6 @@ class The_SEO_Framework {
 
 		/* Naam auteur SEO framework niet in HTML tonen */
 		add_filter( 'sybre_waaijer_<3', '__return_false' );
-	}
-
-	/**
-	 * Diverse archieven niet indexeren
-	 *
-	 * @param array $robots
-	 * @return array
-	 *
-	 * @todo soort_evenement soort_vacature testimonial wpm-testimonial-category / verplaatsen naar WooCommerce
-	 */
-	public function set_robots( array $robots ) : array {
-		if ( function_exists( 'is_product_tag' ) && is_product_tag() ) {
-			$robots['noindex'] = 'noindex';
-		}
-		return $robots;
 	}
 
 	/**
