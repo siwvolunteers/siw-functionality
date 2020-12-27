@@ -48,7 +48,7 @@ class Head {
 	 * @return array
 	 */
 	public function add_application_manifest_tag( array $meta_tags ) : array {
-		$meta_tags[] = sprintf( '<link rel="manifest" href="%s">', '/application.manifest' );
+		$meta_tags[] = sprintf( '<link rel="manifest" href="%s" crossorigin="use-credentials">', '/application.manifest' );
 		return $meta_tags;
 	}
 
