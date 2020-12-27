@@ -35,6 +35,7 @@ class Bootstrap {
 		$this->define_constants();
 		$this->load_dependencies();
 		$this->register_autoloader();
+		$this->load_textdomain();
 		$this->load_functions();
 
 		$this->load_core();
@@ -92,6 +93,13 @@ class Bootstrap {
 	}
 
 	/**
+	 * Laadt textdomain voor plugin
+	 */
+	protected function load_textdomain() {
+		load_plugin_textdomain( 'siw', false, 'siw-functionality/languages/' );
+	}
+
+	/**
 	 * Laadt functiebestanden
 	 */
 	protected function load_functions() {
@@ -115,7 +123,6 @@ class Bootstrap {
 				'Media_Taxonomies',
 				'Scheduler',
 				'Shortcodes',
-				'Translations',
 				'Update',
 				'Upload_Subdir',
 			]
