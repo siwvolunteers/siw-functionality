@@ -59,16 +59,16 @@ class Bootstrap {
 	 * Definieer constantes
 	 */
 	protected function define_constants() {
-		$plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/siw-functionality/siw-functionality.php' );
 
-		define ( 'SIW_PLUGIN_VERSION', $plugin_info['Version'] ); 
+		$plugin_info = get_file_data( SIW_FUNCTIONALITY_PLUGIN_FILE , [ 'version' => 'Version'] );
+
+		define ( 'SIW_PLUGIN_VERSION', $plugin_info['version'] ); 
 		define ( 'SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets' );
 		define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates' );
 		define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . 'includes' );
 		define ( 'SIW_DATA_DIR', SIW_PLUGIN_DIR . 'data' );
-		define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-		define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
+		define ( 'SIW_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 		define ( 'SIW_SITE_URL', get_home_url() );
 		define ( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL, PHP_URL_HOST ) );
 		define ( 'BR', '<br/>' );
