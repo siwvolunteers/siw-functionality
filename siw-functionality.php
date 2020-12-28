@@ -25,6 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Requires PHP:      7.4
  */
 
+define( 'SIW_FUNCTIONALITY_PLUGIN_FILE', __FILE__ );
 require_once dirname( __FILE__ ) . '/bootstrap.php';
 $bootstrap = new Bootstrap();
 $bootstrap->init();
