@@ -5,7 +5,7 @@ namespace SIW\Compatibility;
 /**
 * Aanpassingen voor Meta Box
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
  * @see       https://metabox.io/
  * @since     3.0.0
  */
@@ -21,7 +21,6 @@ class Meta_Box {
 		$self = new self();
 		add_filter( 'mb_aio_extensions', [ $self, 'select_extensions'] );
 		add_filter( 'mb_aio_show_settings', '__return_false' );
-		add_action( 'admin_init', [ $self, 'remove_dashboard_widget' ] );
 		add_filter( 'rwmb_normalize_time_field', [ $self, 'set_default_time_options'] );
 		add_filter( 'rwmb_normalize_date_field', [ $self, 'set_default_date_options'] );
 		add_filter( 'rwmb_normalize_switch_field', [ $self, 'set_default_switch_options'] );
@@ -47,13 +46,6 @@ class Meta_Box {
 			'meta-box-text-limiter',
 		];
 		return $extensions;
-	}
-
-	/**
-	 * Verwijdert dashboard widget
-	 */
-	public function remove_dashboard_widget() {
-		remove_meta_box( 'meta_box_dashboard_widget', 'dashboard', 'normal' );
 	}
 
 	/**
