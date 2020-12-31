@@ -43,6 +43,8 @@ class Caldera_Forms {
 		add_filter( 'caldera_forms_render_form_attributes' , [ $self, 'maybe_add_postcode_lookup'], 10, 2 );
 		add_filter( 'rocket_excluded_inline_js_content', [ $self, 'set_excluded_inline_js_content' ] );
 		add_action( 'caldera_forms_render_end', [ $self, 'enqueue_script' ] );
+
+		add_filter( 'caldera_forms_render_grid_settings', [ $self, 'setup_unsemantic_grid' ], 10, 2 );
 	}
 
 	/**
@@ -164,7 +166,7 @@ class Caldera_Forms {
 	}
 
 	/**
-	 * Undocumented function
+	 * Voegt veldklasses toe
 	 *
 	 * @param array $attrs
 	 * @param array $field
@@ -205,5 +207,19 @@ class Caldera_Forms {
 	public function enqueue_script() {
 		wp_register_script( 'siw-cf-caldera-forms', SIW_ASSETS_URL . 'js/siw-caldera-forms.js', ['siw-api-postcode', 'siw-analytics', 'jquery'], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-cf-caldera-forms' );
+	}
+
+	/**
+	 * Voegt responsive classes voor Unsemantic grid toe
+	 *
+	 * @param array $grid
+	 * @param array $form
+	 *
+	 * @return array
+	 */
+	public function setup_unsemantic_grid( array $grid, array $form ) : array {
+		$grid['before'] = '<div %1$s class="grid-container grid-parent %2$s">';
+		$grid['column_before'] = '<div %1$s class="grid-%2$d %3$s">';
+		return $grid;
 	}
 }

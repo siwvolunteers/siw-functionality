@@ -16,7 +16,7 @@ class Form {
 	/**
 	 * Standaard cell-breedte
 	 */
-	const DEFAULT_CELL_WIDTH = 6;
+	const DEFAULT_CELL_WIDTH = 50;
 
 	/**
 	 * ID van het formulier
@@ -278,7 +278,7 @@ class Form {
 						[
 							'slug'   => 'intro',
 							'type'   => 'html',
-							'width'  => 12,
+							'width'  => 100,
 							'config' => [
 								'default' => implode( SPACE, $this->data['intro'] ) . HR,
 							],

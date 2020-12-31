@@ -1,11 +1,11 @@
-.caldera-grid{
-	ol.breadcrumb{
+.caldera-grid {
+	ol.breadcrumb {
 		background-color: #f5f5f5;
 		padding: 6px 12px;
 		margin: 0 0 20px;
-		li{
+		li {
 			display: inline-block;
-			&.active a{
+			&.active a {
 				color: var( --siw-font-color);
 			}
 			a:hover{
@@ -17,6 +17,15 @@
 				color: #ccc;
 			}
 		}
-
+	}
+	.form-control { 
+		width: 100%;
+	}
+	.form-group {
+		margin-bottom: 1em;
+	}
+	hr{
+		margin-top: 20px;
+		margin-bottom: 20px;
 	}
 }

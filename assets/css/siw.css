@@ -411,8 +411,8 @@ body {
   width: 12px;
   border-radius: 50%;
   background: var(--siw-primary-color);
-  left: 4px;
-  top: 7px;
+  left: 5px;
+  top: 8px;
 }
 .radio input[type=radio] + .checkmark::after, .radio-inline input[type=radio] + .checkmark::after {
   content: none;
@@ -858,4 +858,14 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a:hover:before {
   content: "/ ";
   padding: 0 5px;
   color: #ccc;
+}
+.caldera-grid .form-control {
+  width: 100%;
+}
+.caldera-grid .form-group {
+  margin-bottom: 1em;
+}
+.caldera-grid hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
