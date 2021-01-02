@@ -25,7 +25,7 @@ class Product {
 		add_filter( 'manage_edit-product_columns', [ $self, 'remove_admin_columns'] );
 		add_action( 'admin_init', [ $self, 'add_admin_columns'], 20 );
 		add_action( 'admin_menu', [ $self, 'remove_product_tags_admin_menu'], PHP_INT_MAX );
-		add_filter( 'quick_edit_show_taxonomy', 'hide_product_tags_quick_edit', 10, 2 );
+		add_filter( 'quick_edit_show_taxonomy', [ $self, 'hide_product_tags_quick_edit' ], 10, 3 );
 		add_filter( 'bulk_actions-edit-product', [ $self, 'add_bulk_actions'] );
 		add_filter( 'handle_bulk_actions-edit-product', [ $self, 'handle_bulk_actions'], 10, 3 );
 		
@@ -217,10 +217,11 @@ class Product {
 	 *
 	 * @param bool $show
 	 * @param string $taxonomy_name
+	 * @param string $post_type
 	 *
 	 * @return bool
 	 */
-	public function hide_product_tags_quick_edit( bool $show, string $taxonomy_name ) : bool {
+	public function hide_product_tags_quick_edit( bool $show, string $taxonomy_name, string $post_type ) : bool {
 		if ( 'product_tag' == $taxonomy_name ) {
 			$show = false;
 		}
