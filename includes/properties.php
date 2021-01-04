@@ -57,14 +57,14 @@ class Properties {
 	 *
 	 * @var string
 	 */
-	const WHATSAPP = '06-86109029';
+	const WHATSAPP = '06-82208746';
 
 	/**
 	 * Volledig WhatsApp-nummer (voor API)
 	 *
 	 * @var string
 	 */
-	const WHATSAPP_FULL = '0031686109029';
+	const WHATSAPP_FULL = '0031682208746';
 
 	/**
 	 * KVK-nummer
