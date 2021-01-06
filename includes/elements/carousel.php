@@ -15,7 +15,7 @@ class Carousel {
 	/**
 	 * Versienummer 
 	 */
-	const FLICKITY_VERSION = '2.2.1';
+	const FLICKITY_VERSION = '2.2.2';
 
 	/**
 	 * Post type
