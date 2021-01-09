@@ -461,42 +461,6 @@ body {
 }
 
 /*--------------------------------------------------------------
-## Strong Testimonials
---------------------------------------------------------------*/
-.wpm-testimonial h1.entry-title {
-  display: none;
-}
-
-.strong-content {
-  display: flex;
-  flex-wrap: wrap;
-}
-.strong-content .testimonial {
-  float: left;
-  margin: 15px;
-  background-color: #f9f9f9;
-  border-radius: 4px;
-  padding: 10px;
-}
-
-.testimonial .testimonial-inner .testimonial-content .testimonial-image {
-  margin: 10px;
-}
-
-.testimonial .testimonial-inner .readmore a {
-  float: right;
-}
-
-@media (min-width: 780px) {
-  .strong-content .testimonial {
-    width: 45%;
-  }
-
-  .testimonial .testimonial-inner .testimonial-content {
-    display: flex;
-  }
-}
-/*--------------------------------------------------------------
 ## Widgets
 --------------------------------------------------------------*/
 html[lang=en-US] #footer-widgets {
