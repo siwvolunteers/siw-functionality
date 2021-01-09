@@ -2,6 +2,8 @@
 
 namespace SIW\Modules;
 
+use SIW\Util;
+
 /**
  * Mega Menu
  *
@@ -35,7 +37,8 @@ class Mega_Menu {
 	 * Voegt stylesheet toe
 	 */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-mega-menu', SIW_ASSETS_URL . 'css/modules/siw-mega-menu.css', [], SIW_PLUGIN_VERSION );
+		$min_width = Util::get_mobile_breakpoint();
+		wp_register_style( 'siw-mega-menu', SIW_ASSETS_URL . 'css/modules/siw-mega-menu.css', [], SIW_PLUGIN_VERSION, "(min-width: {$min_width}px)" );
 		wp_enqueue_style( 'siw-mega-menu' );
 	}
 
@@ -104,7 +107,7 @@ class Mega_Menu {
 	 */
 	public function add_nav_menu_item_class( array $classes, $item, \stdClass $args, int $depth ) : array {
 		
-		if ( is_a( $item, '\WP_Post' ) && get_post_meta( $item->ID, self::META_KEY, true ) ) {
+		if ( is_a( $item, \WP_Post::class ) && get_post_meta( $item->ID, self::META_KEY, true ) ) {
 			$classes[] = 'mega-menu';
 			$classes[] = sprintf( 'mega-menu-col-%s', esc_attr( get_post_meta( $item->ID, self::META_KEY, true ) ) );
 		}
