@@ -169,7 +169,7 @@ class Util {
 		$term = get_term_by( 'slug', $slug, $taxonomy );
 		
 		//Als term al bestaat zijn we snel klaar
-		if ( is_a( $term, '\WP_Term' ) ) {
+		if ( is_a( $term, \WP_Term::class ) ) {
 			return $term->term_id;
 		}
 

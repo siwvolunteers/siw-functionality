@@ -124,7 +124,7 @@ class Send_Workcamp_Approval_Emails extends Job {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval['supervisor'] ) ) {
 			$supervisor = get_userdata( $workcamp_approval['supervisor'] );
-			return is_a( $supervisor, '\WP_User' ) ? $supervisor : null ;
+			return is_a( $supervisor, \WP_User::class ) ? $supervisor : null ;
 		}
 		return null;
 	}
@@ -139,7 +139,7 @@ class Send_Workcamp_Approval_Emails extends Job {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval[ "responsible_{$category_slug}" ] ) ) {
 			$responsible_user = get_userdata( $workcamp_approval[ "responsible_{$category_slug}"] );
-			return is_a( $responsible_user, '\WP_User' ) ? $responsible_user : null ;
+			return is_a( $responsible_user, \WP_User::class ) ? $responsible_user : null ;
 		}
 		return null;
 	}

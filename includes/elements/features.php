@@ -31,7 +31,7 @@ class Features {
 	/**
 	 * Features
 	 */
-	protected array $features;
+	protected array $features = [];
 
 	/**
 	 * Undocumented function

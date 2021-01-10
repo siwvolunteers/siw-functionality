@@ -53,7 +53,7 @@ class Delete_Applications extends Job {
 	protected function task( $item ) {
 		
 		$order = wc_get_order( $item );
-		if ( ! $order instanceof \WC_Order ) {
+		if ( is_a( $order, \WC_Order::class ) ) {
 			return false;
 		}
 

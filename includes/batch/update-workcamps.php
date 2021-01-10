@@ -96,7 +96,7 @@ class Update_Workcamps extends Job {
 		$this->product = wc_get_product( $product_id );
 		
 		/* Afbreken als product niet meer bestaat */
-		if ( ! $this->product instanceof \WC_Product ) {
+		if ( ! is_a( $this->product, \WC_Product::class ) ) {
 			return false;
 		}
 	
@@ -304,7 +304,7 @@ class Update_Workcamps extends Job {
 		$variations = $this->product->get_children();
 		foreach ( $variations as $variation_id ) {
 			$variation = wc_get_product( $variation_id );
-			if ( ! is_a( $variation, '\WC_Product_Variation' ) ) {
+			if ( ! is_a( $variation, \WC_Product_Variation::class ) ) {
 				continue;
 			}
 			$variation->delete( true );

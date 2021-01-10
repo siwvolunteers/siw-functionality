@@ -26,8 +26,9 @@ class Caldera_Forms {
 
 		add_filter( 'kses_allowed_protocols', [ $self, 'allow_magic_tags' ] );
 
-		$self->disable_wpautop();
-		$self->remove_shortcode_button();
+		//Verwijder wpautop van e-mails
+		remove_filter( 'caldera_forms_mailer', [ \Caldera_Forms::get_instance(), 'format_message' ] );
+		remove_filter( 'caldera_forms_autoresponse_mail', [ 'Caldera_Forms_Email_Filters', 'format_autoresponse_message' ] );
 
 		add_filter( 'caldera_forms_save_revision', '__return_false' );
 		add_filter( 'caldera_forms_magic_summary_should_use_label', '__return_true' );
@@ -41,29 +42,8 @@ class Caldera_Forms {
 		add_filter( 'caldera_forms_field_attributes', [ $self, 'add_field_classes' ], 10, 2 );
 		add_filter( 'caldera_forms_render_assets_minify', '__return_false' );
 		add_filter( 'caldera_forms_render_form_attributes' , [ $self, 'maybe_add_postcode_lookup'], 10, 2 );
-		add_filter( 'rocket_excluded_inline_js_content', [ $self, 'set_excluded_inline_js_content' ] );
 		add_action( 'caldera_forms_render_end', [ $self, 'enqueue_script' ] );
-
 		add_filter( 'caldera_forms_render_grid_settings', [ $self, 'setup_unsemantic_grid' ], 10, 2 );
-	}
-
-	/**
-	 * Sluit inline JS voor conditionals uit van combineren
-	 *
-	 * @param array $content
-	 * @return array
-	 */
-	public function set_excluded_inline_js_content( array $content ) : array {
-		$content[] = 'caldera_conditionals';
-		return $content;
-	}
-
-	/**
-	 * Verwijdert shortcode knop
-	 */
-	public function remove_shortcode_button() {
-		remove_action( 'media_buttons', [ \Caldera_Forms_Admin::get_instance(), 'shortcode_insert_button' ], 11 );
-		add_filter( 'caldera_forms_insert_button_include', '__return_false' );
 	}
 
 	/**
@@ -75,14 +55,6 @@ class Caldera_Forms {
 	public function allow_magic_tags( array $protocols ) : array {
 		$protocols[] = '{embed_post';
 		return $protocols;
-	}
-
-	/**
-	 * Verwijdert wpautop van e-mails
-	 */
-	public function disable_wpautop() {
-		remove_filter( 'caldera_forms_mailer', [ \Caldera_Forms::get_instance(), 'format_message' ] );
-		remove_filter( 'caldera_forms_autoresponse_mail', [ 'Caldera_Forms_Email_Filters', 'format_autoresponse_message' ] );
 	}
 
 	/**

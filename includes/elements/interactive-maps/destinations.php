@@ -123,7 +123,7 @@ class Destinations extends Interactive_Map {
 	protected function generate_workcamps_description( Country $country ) : string {
 		$country_term = get_term_by( 'slug', $country->get_slug(), 'pa_land' );
 		
-		if ( is_a( $country_term, 'WP_Term' ) ) {
+		if ( is_a( $country_term, \WP_Term::class ) ) {
 			$workcamp_count = get_term_meta( $country_term->term_id, 'project_count', true );
 		}
 		else {

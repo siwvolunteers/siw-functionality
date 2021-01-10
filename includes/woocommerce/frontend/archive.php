@@ -61,7 +61,7 @@ class Archive {
 	 */
 	public function set_seo_title( string $title, $term ) : string {
 
-		if ( ! is_a( $term, '\WP_Term') ) {
+		if ( ! is_a( $term, \WP_Term::class ) ) {
 			return $title;
 		}
 
@@ -98,7 +98,7 @@ class Archive {
 	 * @return string
 	 */
 	public function set_seo_description( string $description, $term ) : string {
-		if ( ! is_a( $term, '\WP_Term') ) {
+		if ( ! is_a( $term, \WP_Term::class ) ) {
 			return $description;
 		}
 		

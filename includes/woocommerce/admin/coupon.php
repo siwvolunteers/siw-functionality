@@ -55,7 +55,7 @@ class Coupon {
 			$order = new \WC_Order( $order );
 		}
 
-		if ( ! is_a( $order, '\WC_Order' ) ) {
+		if ( ! is_a( $order, \WC_Order::class ) ) {
 			return;
 		}
 
