@@ -18,7 +18,7 @@ abstract class Loader {
 	/**
 	 * Classes
 	 */
-	protected array $classes;
+	protected array $classes = [];
 
 	/**
 	 * Namespace voor interface
@@ -31,19 +31,28 @@ abstract class Loader {
 	public static function init() {
 		$self = new static();
 
-		$classes = apply_filters( "siw_{$self->id}_loader_classes", $self->classes );
+		$classes = array_map(
+			fn( string $class ) : string => "\\SIW\\{$self->interface_namespace}\\{$class}",
+			$self->classes
+		);
+
+		//Filter voor extensies
+		$classes = apply_filters( "siw_{$self->id}_loader_classes", $classes );
 
 		foreach ( $classes as $class ) {
-			$self->load( $class );
+			if ( class_exists( $class ) ) { //TODO: logging als class niet bestaat?
+				$object = new $class;
+				$self->load( $object );
+			}
 		}
 	}
 
 	/**
 	 * Laadt 1 klasse
 	 *
-	 * @param string $class
+	 * @param object $class
 	 */
-	abstract protected function load( string $class );
+	abstract protected function load( object $class );
 
 	/**
 	 * Controleer of Object een bepaalde interface implementeert
@@ -55,6 +64,18 @@ abstract class Loader {
 	 */
 	protected function implements_interface( Object $object, string $interface ) : bool {
 		return in_array( "SIW\\Interfaces\\{$this->interface_namespace}\\{$interface}", class_implements( $object ) );
+	}
+
+	/**
+	 * Controleer of Object een bepaalde abstracte klasse extend
+	 *
+	 * @param Object $object
+	 * @param string $abstract
+	 *
+	 * @return bool
+	 */
+	protected function extends_abstract( Object $object, string $abstract) : bool {
+		return is_subclass_of( $object, "SIW\\Abstracts\\{$abstract}" );
 	}
 
 }

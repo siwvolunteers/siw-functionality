@@ -26,16 +26,15 @@ class Loader extends Loader_Abstract {
 	 * {@inheritDoc}
 	 */
 	protected array $classes = [
-		'\SIW\Options\Configuration',
-		'\SIW\Options\Countries',
-		'\SIW\Options\Settings'
+		'Configuration',
+		'Countries',
+		'Settings'
 	];
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function load( string $class ) {
-		$option = new $class;
+	protected function load( object $option ) {
 		if( ! $this->implements_interface( $option, 'Option' ) ) {
 			return;
 		}
