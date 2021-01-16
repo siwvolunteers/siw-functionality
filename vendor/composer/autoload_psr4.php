@@ -6,5 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Spatie\\SchemaOrg\\' => array($vendorDir . '/spatie/schema-org/src'),
+    'Spatie\\Enum\\' => array($vendorDir . '/spatie/enum/src'),
     'Spatie\\ArrayToXml\\' => array($vendorDir . '/spatie/array-to-xml/src'),
 );
