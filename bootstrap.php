@@ -245,15 +245,7 @@ class Bootstrap {
 	 * Laadt uitbreidingen voor SiteOrigin Page Builder
 	 */
 	protected function load_page_builder() {
-		$this->init_classes(
-			'SIW\Page_Builder',
-			[
-				'Animation',
-				'Design',
-				'Layout',
-				'Visibility'
-			]
-		);
+		$this->init_class( 'SIW\Page_Builder', 'Loader' );
 	}
 
 	/**

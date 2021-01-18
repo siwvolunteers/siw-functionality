@@ -2,36 +2,25 @@
 
 namespace SIW\Page_Builder;
 
+use SIW\Interfaces\Page_Builder\Row_Style_Fields as Row_Style_Fields_Interface;
+
 /**
  * Layout-opties voor Page Builder
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.1.?
  */
-class Layout {
+class Layout implements Row_Style_Fields_Interface {
+
+	/** style field voor Rij layout */
+	const STYLE_FIELD_ROW_STRETCH = 'siw_row_stretch';
 
 	/**
-	 * Init
+	 * {@inheritDoc}
 	 */
-	public static function init() {
-		if ( ! class_exists( '\SiteOrigin_Panels' ) ) {
-			return;
-		}
-		$self = new self();
-		add_filter( 'siteorigin_panels_row_style_fields', [ $self, 'add_row_style_fields'] );
-		add_filter( 'siteorigin_panels_row_style_attributes', [ $self, 'add_row_style_attributes'], 10, 2 );
-	}
-
-	/**
-	 * Voegt opties voor rij toe
-	 *
-	 * @param array $fields
-	 * 
-	 * @return array
-	 */
-	public function add_row_style_fields( array $fields ) : array {
+	public function add_style_fields( array $fields ) : array {
 		unset( $fields['row_stretch']);
-		$fields['siw_row_stretch'] = [
+		$fields[ self::STYLE_FIELD_ROW_STRETCH ] = [
 			'name'     => __( 'Rij lay-out', 'siw' ),
 			'type'     => 'select',
 			'group'    => 'layout',
@@ -46,22 +35,17 @@ class Layout {
 	}
 
 	/**
-	 * Voegt attributes voor rij toe
-	 *
-	 * @param array $style_attributes
-	 * @param array $style_args
-	 *
-	 * @return array
+	 * {@inheritDoc}
 	 */
-	public function add_row_style_attributes( array $style_attributes, array $style_args ) : array {
-		if ( ! isset( $style_args['siw_row_stretch'] ) ) {
+	public function set_style_attributes( array $style_attributes, array $style_args ) : array {
+		if ( ! isset( $style_args[ self::STYLE_FIELD_ROW_STRETCH ] ) ) {
 			return $style_attributes;
 		}
 
-		if ( 'full_width_background' == $style_args['siw_row_stretch'] ) {
+		if ( 'full_width_background' == $style_args[ self::STYLE_FIELD_ROW_STRETCH ] ) {
 			$style_attributes['class'][] = 'row-full-width-background';
 		}
-		elseif ( 'full_width' == $style_args['siw_row_stretch'] ) {
+		elseif ( 'full_width' == $style_args[ self::STYLE_FIELD_ROW_STRETCH ] ) {
 			$style_attributes['class'][] = 'row-full-width';
 		}
 		return $style_attributes;
