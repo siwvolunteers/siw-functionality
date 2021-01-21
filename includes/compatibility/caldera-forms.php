@@ -14,9 +14,7 @@ use SIW\Properties;
  */
 class Caldera_Forms {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		
 		if ( ! class_exists( '\Caldera_Forms' ) ) {
@@ -46,35 +44,19 @@ class Caldera_Forms {
 		add_filter( 'caldera_forms_render_grid_settings', [ $self, 'setup_unsemantic_grid' ], 10, 2 );
 	}
 
-	/**
-	 * Zorgt ervoor dat Magic tags in links toegestaan zijn
-	 *
-	 * @param array $protocols
-	 * @return array
-	 */
+	/** Zorgt ervoor dat Magic tags in links toegestaan zijn */
 	public function allow_magic_tags( array $protocols ) : array {
 		$protocols[] = '{embed_post';
 		return $protocols;
 	}
 
-	/**
-	 * Voegt markup voor gestylde radiobuttons en checkboxes toe
-	 *
-	 * @param string $field_html
-	 * @return string
-	 */
+	/** Voegt markup voor gestylde radiobuttons en checkboxes toe */
 	public function add_input_markup( string $field_html ) : string {
 		$field_html = preg_replace( '/<input(.*?)>/s', '<input$1><span class="checkmark"></span>', $field_html );
 		return $field_html;
 	}
 
-	/**
-	 * Voegt tabel om samenvatting toe
-	 *
-	 * @param string $value
-	 * @param string $tag
-	 * @return string
-	 */
+	/** Voegt tabel om samenvatting toe */
 	public function set_summary_magic_table( ?string $value, string $tag ) : ?string {
 		if ( '{summary}' !== $tag ) {
 			return $value;
@@ -97,12 +79,7 @@ class Caldera_Forms {
 		return $value;
 	}
 
-	/**
-	 * Zet het patroon voor de samenvatting in e-mails toe
-	 *
-	 * @param string $pattern
-	 * @return string
-	 */
+	/** Zet het patroon voor de samenvatting in e-mails toe */
 	public function set_summary_magic_pattern( string $pattern ) : string {
 		$pattern = '<tr>
 			<td width="35%%" style="font-family: Verdana, normal; color:' . Properties::FONT_COLOR . '; font-size:0.8em;">%s</td>
@@ -117,11 +94,6 @@ class Caldera_Forms {
 	 * 
 	 * - Datum
 	 * - Postcode
-	 *
-	 * @param array $attrs
-	 * @param array $field
-	 * @return array
-	 * 
 	 * @todo verplaatsen naar SIW\Form ?
 	 */
 	public function set_validation_field_attributes( array $attrs, array $field ) : array {
@@ -137,14 +109,7 @@ class Caldera_Forms {
 		return $attrs;
 	}
 
-	/**
-	 * Voegt veldklasses toe
-	 *
-	 * @param array $attrs
-	 * @param array $field
-	 *
-	 * @return array
-	 */
+	/** Voegt veldklasses toe */
 	public function add_field_classes( array $attrs, array $field ) : array {
 		if ( 'dropdown' === $field['type'] ) {
 			$attrs['class'] .= SPACE . 'select-css';
@@ -157,12 +122,6 @@ class Caldera_Forms {
 
 	/**
 	 * Voegt attribute voor postcode lookup toe
-	 *
-	 * @param array $attributes
-	 * @param array $form
-	 * 
-	 * @return array
-	 * 
 	 * @todo verplaatsen naar SIW\Form?
 	 */
 	public function maybe_add_postcode_lookup( array $attributes, array $form ) : array {
@@ -181,14 +140,7 @@ class Caldera_Forms {
 		wp_enqueue_script( 'siw-cf-caldera-forms' );
 	}
 
-	/**
-	 * Voegt responsive classes voor Unsemantic grid toe
-	 *
-	 * @param array $grid
-	 * @param array $form
-	 *
-	 * @return array
-	 */
+	/** Voegt responsive classes voor Unsemantic grid toe */
 	public function setup_unsemantic_grid( array $grid, array $form ) : array {
 		$grid['before'] = '<div %1$s class="grid-container grid-parent %2$s">';
 		$grid['column_before'] = '<div %1$s class="grid-%2$d %3$s">';

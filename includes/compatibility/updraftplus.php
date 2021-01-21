@@ -11,23 +11,13 @@ namespace SIW\Compatibility;
  */
 class UpdraftPlus {
 
-	/**
-	 * Tijdstip backup database
-	 *
-	 * @var string
-	 */
+	/** Tijdstip backup database */
 	const TS_BACKUP_DB = '04:00';
 
-	/**
-	 * Tijdstip backup bestanden
-	 *
-	 * @var string
-	 */
+	/** Tijdstip backup bestanden */
 	const TS_BACKUP_FILES = '04:30';
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 
 		if ( ! class_exists( '\UpdraftPlus' ) ) {
@@ -46,12 +36,7 @@ class UpdraftPlus {
 		define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true );
 	}
 
-	/**
-	 * Zet de tijd voor de database backup
-	 *
-	 * @param int $scheduled_time
-	 * @return int
-	 */
+	/** Zet de tijd voor de database backup */
 	public function set_time_db_backup( int $scheduled_time ) : int {
 		$tomorrow = strtotime( 'tomorrow' );
 		$backup_db_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
@@ -59,21 +44,14 @@ class UpdraftPlus {
 		return strtotime( $backup_db_day . ' ' . self::TS_BACKUP_DB . wp_timezone_string() );
 	}
 
-	/**
-	 * Zet de tijd voor de bestandsbackup
-	 *
-	 * @param int $scheduled_time
-	 * @return int
-	 */
+	/** Zet de tijd voor de bestandsbackup */
 	public function set_time_files_backup( int $scheduled_time ) : int {
 		$tomorrow = strtotime( 'tomorrow' );
 		$backup_files_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
 		return strtotime( $backup_files_day . ' ' . self::TS_BACKUP_FILES . wp_timezone_string() );
 	}
 
-	/**
-	 * Verbergt melding bij WooCommerce plugin updates
-	 */
+	/** Verbergt melding bij WooCommerce plugin updates */
 	public function hide_woocommerce_in_plugin_update_message() {
 		global $updraftplus_admin;
 		remove_filter('woocommerce_in_plugin_update_message', [ $updraftplus_admin, 'woocommerce_in_plugin_update_message' ] );

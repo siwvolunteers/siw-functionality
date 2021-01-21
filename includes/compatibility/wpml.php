@@ -13,9 +13,7 @@ use SIW\i18n;
  */
 class WPML {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		
@@ -24,26 +22,18 @@ class WPML {
 		add_action( 'delete_attachment', [ $self, 'delete_original_attachment' ] );
 	}
 
-	/**
-	 * Verwijdert WPML widget
-	 */
+	/** Verwijdert WPML widget */
 	public function unregister_wpml_widget() {
 		unregister_widget( 'WPML_LS_Widget' );
 	}
 
-	/**
-	 * Verwijdert WPML meta box
-	 */
+	/** Verwijdert WPML meta box */
 	public function remove_wpml_meta_box() {
 		$screen = get_current_screen();
 		remove_meta_box( 'icl_div_config', $screen->post_type, 'normal' );
 	}
 
-	/**
-	 * Verwijder origineel attachment als vertaling verwijderd wordt
-	 *
-	 * @param int $post_id
-	 */
+	/** Verwijder origineel attachment als vertaling verwijderd wordt */
 	public function delete_original_attachment( int $post_id ) {
 		if ( i18n::is_default_language() ) {
 			return;

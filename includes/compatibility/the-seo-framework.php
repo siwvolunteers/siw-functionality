@@ -14,23 +14,13 @@ use SIW\Properties;
  */
 class The_SEO_Framework {
 
-	/**
-	 * Maximaal aantal posts in sitemap
-	 * 
-	 * @var int
-	 */
+	/** Maximaal aantal posts in sitemap */
 	const SITEMAP_POST_LIMIT = 5000;
 
-	/**
-	 * Priority van TSF-metabox
-	 * 
-	 * @var string
-	 */
+	/** Priority van TSF-metabox */
 	const METABOX_PRIORITY = 'default';
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 
 		if ( ! function_exists( 'the_seo_framework' ) ) {
@@ -55,12 +45,7 @@ class The_SEO_Framework {
 		add_filter( 'sybre_waaijer_<3', '__return_false' );
 	}
 
-	/**
-	 * Voegt bots toe aan robot.txt
-	 *
-	 * @param string $output
-	 * @return string
-	 */
+	/** Voegt bots toe aan robot.txt */
 	public function set_robots_txt( string $output ) : string {
 		$bots = siw_get_option( 'blocked_bots');
 
@@ -76,13 +61,7 @@ class The_SEO_Framework {
 		return $output;
 	}
 
-	/**
-	 * Toon alleen pagina's in Engelse sitemap
-	 *
-	 * @param array $post_types
-	 * 
-	 * @return array
-	 */
+	/** Toon alleen pagina's in Engelse sitemap */
 	public function set_sitemap_supported_post_types( array $post_types ) : array {
 
 		if ( ! i18n::is_default_language() ) {
@@ -92,13 +71,7 @@ class The_SEO_Framework {
 		return $post_types;
 	}
 
-	/**
-	 * Productarchieven toevoegen aan de sitemap 
-	 *
-	 * @param array $custom_urls
-	 * 
-	 * @return array
-	 */
+	/** Productarchieven toevoegen aan de sitemap */
 	public function set_sitemap_additional_urls( array $custom_urls ) : array {
 		
 		if ( ! i18n::is_default_language() ) {

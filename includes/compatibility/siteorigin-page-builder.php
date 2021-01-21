@@ -11,9 +11,7 @@ namespace SIW\Compatibility;
  */
 class SiteOrigin_Page_Builder {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 
 		if ( ! class_exists( '\SiteOrigin_Panels' ) ) {
@@ -26,16 +24,12 @@ class SiteOrigin_Page_Builder {
 		add_filter( 'siteorigin_panels_layouts_directory_enabled', '__return_false' );
 	}
 
-	/**
-	 * Verwijdert dashboard widget
-	 */
+	/** Verwijdert dashboard widget */
 	public function remove_dashboard_widget() {
 		remove_meta_box( 'so-dashboard-news', 'dashboard', 'normal' );
 	}
 
-	/**
-	 * Verwijdert Page Builder widgets
-	 */
+	/** Verwijdert Page Builder widgets */
 	public function unregister_widgets() {
 		unregister_widget( 'SiteOrigin_Panels_Widgets_PostContent' );
 		unregister_widget( 'SiteOrigin_Panels_Widgets_PostLoop' );
@@ -43,13 +37,7 @@ class SiteOrigin_Page_Builder {
 		unregister_widget( 'SiteOrigin_Panels_Widgets_Gallery' );
 	}
 
-	/**
-	 * Voegt tab voor SIW-widgets toe
-	 *
-	 * @param array $tabs
-	 * 
-	 * @return array
-	 */
+	/** Voegt tab voor SIW-widgets toe */
 	public function add_widget_tab( array $tabs ) : array {
 		$tabs[] = [
 			'title'  => __( 'SIW Widgets', 'siw' ),

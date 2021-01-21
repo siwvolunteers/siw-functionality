@@ -12,23 +12,13 @@ use SIW\Properties;
  */
 class WordPress {
 
-	/**
-	 * URL-prefix voor WP REST API
-	 * 
-	 * @var string
-	 */
+	/** URL-prefix voor WP REST API */
 	const REST_API_PREFIX = 'api';
 
-	/**
-	 * Default editor mode
-	 * 
-	 * @var string
-	 */
+	/** Default editor mode */
 	const DEFAULT_EDITOR ='html';
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_action( 'widgets_init', [ $self, 'unregister_widgets'], 99 );
@@ -61,9 +51,7 @@ class WordPress {
 		add_filter( 'manage_media_columns', [ $self, 'manage_media_columns'], 10, 2 );
 	}
 
-	/**
-	 * Verwijdert standaard-widgets
-	 */
+	/** Verwijdert standaard-widgets */
 	public function unregister_widgets() {
 		unregister_widget( 'WP_Widget_Pages' );
 		unregister_widget( 'WP_Widget_Recent_Posts' );
@@ -83,32 +71,19 @@ class WordPress {
 		unregister_widget( 'WP_Widget_Media_Gallery' );
 	}
 
-	/**
-	 * Verwijdert auteurgegevens uit oembed
-	 *
-	 * @param  array $data
-	 * 
-	 * @return array
-	 */
+	/** Verwijdert auteurgegevens uit oembed */
 	public function set_oembed_response_data( array $data ) : array {
 		$data['author_name'] = Properties::NAME;
 		$data['author_url'] = SIW_SITE_URL;
 		return $data;
 	}
 
-	/**
-	 * Voegt samenvatting voor pagina's toe
-	 */
+	/** Voegt samenvatting voor pagina's toe */
 	public function add_page_excerpt_support() {
 		add_post_type_support( 'page', 'excerpt' );
 	}
 
-	/**
-	 * Verwijdert niet-essentiele gegevens voor call naar WP update server
-	 *
-	 * @param array $query
-	 * @return array
-	 */
+	/** Verwijdert niet-essentiele gegevens voor call naar WP update server */
 	public function remove_core_version_check_query_args( array $query ) : array {
 		unset( $query['local_package'] );
 		unset( $query['blogs'] );
@@ -118,40 +93,24 @@ class WordPress {
 		return $query;
 	}
 
-	/**
-	 * Gutenberg css uitschakelen
-	 */
+	/** Gutenberg css uitschakelen */
 	public function dequeue_styles() {
 		wp_dequeue_style( 'wp-block-library' );
 	}
 
-	/**
-	 * Schakelt feed uit
-	 */
+	/** Schakelt feed uit */
 	public function disable_feed() {
 		wp_redirect( home_url() );
 		exit;
 	}
 
-	/**
-	 * Verwijdert test voor automatische updates
-	 *
-	 * @param array $tests
-	 * 
-	 * @return array
-	 */
+	/** Verwijdert test voor automatische updates */
 	public function remove_update_check( array $tests ) : array {
 		unset( $tests['async']['background_updates'] );
 		return $tests;
 	}
 
-	/**
-	 * Voegt toegestane css attributen toe
-	 *
-	 * @param array $attributes
-	 *
-	 * @return array
-	 */
+	/** Voegt toegestane css attributen toe */
 	public function add_allowed_css_attributes( array $attributes ) : array {
 		$attributes[] = 'fill';
 		$attributes[] = 'opacity';
@@ -162,13 +121,8 @@ class WordPress {
 
 	/**
 	 * Past YouTube-embed link aan
-	 * 
 	 * - nocookie domein
 	 * - instellingen
-	 *
-	 * @param string $cache
-	 *
-	 * @return string
 	 */
 	public function fix_youtube_embed( string $cache ) : string {
 	
@@ -191,14 +145,7 @@ class WordPress {
 		return str_replace( $matches[1], $url, $cache );
 	}
 
-	/**
-	 * Verberg admin columns bij attachments
-	 *
-	 * @param array $columns
-	 * @param bool $detached
-	 *
-	 * @return void
-	 */
+	/** Verberg admin columns bij attachments */
 	public function manage_media_columns( array $columns, bool $detached ) : array {
 		unset( $columns['author']);
 		unset( $columns['comments']);

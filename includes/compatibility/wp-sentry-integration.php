@@ -10,32 +10,20 @@ namespace SIW\Compatibility;
  */
 class WP_Sentry_Integration {
 
-	/**
-	 * PHP-DSN
-	 *
-	 * @var string
-	 */
+	/** PHP-DSN */
 	const PHP_DSN = 'https://d66e53bd9d3e41199ff984851c98706b@sentry.io/1264830';
 
-	/**
-	 * JS-DSN
-	 *
-	 * @var string
-	 */
+	/** JS-DSN */
 	const JS_DSN = 'https://e8240c08387042d583692b6415c700e3@sentry.io/1264820';
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		$self->define_constants();
 		add_filter( 'rocket_exclude_js', [ $self, 'exclude_js_from_combine' ] );
 	}
 
-	/**
-	 * Definieer constantes voor WP Sentry
-	 */
+	/** Definieer constantes voor WP Sentry */
 	public function define_constants() {
 		$constants = [
 			'WP_SENTRY_VERSION'     => SIW_PLUGIN_VERSION,
@@ -52,15 +40,9 @@ class WP_Sentry_Integration {
 		}
 	}
 
-	/**
-	 * JS-bestanden uitsluiten van minification/concatenation
-	 *
-	 * @param array $excluded_files
-	 * @return array
-	 */
+	/** JS-bestanden uitsluiten van minification/concatenation */
 	public function exclude_js_from_combine( array $excluded_files ) : array {
 		$excluded_files[] = '/wp-content/plugins/wp-sentry-integration/public/(.*).js';
 		return $excluded_files;
 	}
-
 }

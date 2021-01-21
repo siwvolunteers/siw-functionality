@@ -11,9 +11,7 @@ namespace SIW\Compatibility;
  */
 class Meta_Box {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		if ( ! class_exists( '\MBAIO\Loader' ) ) {
 			return;
@@ -28,11 +26,7 @@ class Meta_Box {
 		add_filter( 'rwmb_group_sanitize', [ $self, 'sanitize_group' ], 10, 4 );
 	}
 
-	/**
-	 * Selecteert de gebruikte extensies
-	 *
-	 * @return array
-	 */
+	/** Selecteert de gebruikte extensies */
 	public function select_extensions() {
 		$extensions = [
 			'mb-admin-columns',
@@ -48,12 +42,7 @@ class Meta_Box {
 		return $extensions;
 	}
 
-	/**
-	 * Zet standaardeigenschappen van tijdvelden
-	 *
-	 * @param array $field
-	 * @return array
-	 * 
+	/** Zet standaardeigenschappen van tijdvelden
 	 * @todo kan weg na introductie HTML5 velden
 	 */
 	public function set_default_time_options( array $field ) : array {
@@ -70,12 +59,7 @@ class Meta_Box {
 		return wp_parse_args_recursive( $defaults, $field );
 	}
 
-	/**
-	 * Zet standaardeigenschappen van datumvelden
-	 *
-	 * @param array $field
-	 * @return array
-	 * 
+	/** Zet standaardeigenschappen van datumvelden
 	 * @todo kan weg na introductie HTML5 velden
 	 */
 	public function set_default_date_options( array $field ) : array {
@@ -94,12 +78,7 @@ class Meta_Box {
 		return wp_parse_args_recursive( $defaults, $field );
 	}
 
-	/**
-	 * Zet standaardeigenschappen van switchvelden
-	 *
-	 * @param array $field
-	 * @return array
-	 */
+	/** Zet standaardeigenschappen van switchvelden */
 	public function set_default_switch_options( array $field ) : array {
 		$defaults = [
 			'style' => 'square',
@@ -107,12 +86,7 @@ class Meta_Box {
 		return wp_parse_args_recursive( $defaults, $field );
 	}
 
-	/**
-	 * Zet standaardeigenschappen van wysiwyg
-	 *
-	 * @param array $field
-	 * @return array
-	 */
+	/** Zet standaardeigenschappen van wysiwyg */
 	public function set_default_wysiwyg_options( array $field ) : array {
 		$defaults = [
 			'raw'      => true,
@@ -126,15 +100,7 @@ class Meta_Box {
 		return wp_parse_args_recursive( $field, $defaults );
 	}
 
-	/**
-	 * Sanitize velden in MB Group
-	 *
-	 * @param array $values
-	 * @param array $group
-	 * @param array $old_value
-	 * @param string $object_id
-	 * @return array
-	 */
+	/** Sanitize velden in MB Group */
 	public function sanitize_group( array $values, array $group, $old_value = null, $object_id = null ) : array {
 		foreach ( $group['fields'] as $field ) {
 			$key = $field['id'];
@@ -160,5 +126,4 @@ class Meta_Box {
 		}
 		return $sanitized;
 	}
-
 }

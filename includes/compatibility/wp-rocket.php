@@ -13,37 +13,19 @@ use SIW\i18n;
  */
 class WP_Rocket {
 
-	/**
-	 * Resolutie van YouTube-thumbnail
-	 * 
-	 * @var string
-	 */
+	/** Resolutie van YouTube-thumbnail */
 	const YOUTUBE_THUMBNAIL_RESOLUTION = 'maxresdefault';
 
-	/**
-	 * Levensduur van nonce in seconden
-	 * 
-	 * @var int
-	 */
+	/** Levensduur van nonce in seconden */
 	const NONCE_LIFESPAN = 2 * DAY_IN_SECONDS;
 
-	/**
-	 * Tijdstip cache opnieuw opbouwen
-	 *
-	 * @var string
-	 */
+	/** Tijdstip cache opnieuw opbouwen */
 	const TS_CACHE_REBUILD = '05:00';
 
-	/**
-	 * Hooknaam
-	 * 
-	 * @var string
-	 */
+	/** Hooknaam */
 	const HOOK = 'siw_rebuild_cache';
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 
 		if ( ! class_exists( '\WP_Rocket\Plugin' ) ) {
@@ -70,9 +52,7 @@ class WP_Rocket {
 		rocket_clean_cache_busting();
 	}
 
-	/**
-	* Voegt een scheduled event toe
-	*/
+	/** Voegt een scheduled event toe */
 	public function schedule_cache_rebuild() {
 		/* Cache rebuild schedulen */
 		$cache_rebuild_ts = strtotime( 'tomorrow ' . self::TS_CACHE_REBUILD . wp_timezone_string() );
@@ -82,9 +62,7 @@ class WP_Rocket {
 		wp_schedule_event( $cache_rebuild_ts, 'daily', self::HOOK );
 	}
 
-	/**
-	 * Leegt de cache en start de preload
-	 */
+	/** Leegt de cache en start de preload */
 	public function rebuild_cache() {
 		$this->purge_cache();
 		run_rocket_sitemap_preload();
