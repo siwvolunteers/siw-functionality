@@ -12,35 +12,16 @@ use SIW\Properties;
  */
 class CSS {
 
-	/**
-	 * CSS klasse om content op mobiel te verbergen
-	 * 
-	 * @var string
-	 */
+	/** CSS klasse om content op mobiel te verbergen */
 	const HIDE_ON_MOBILE_CLASS = 'hide-on-mobile';
 
-	/**
-	 * CSS klasse om content op tablet te verbergen
-	 * 
-	 * @var string
-	 */
+	/** CSS klasse om content op tablet te verbergen */
 	const HIDE_ON_TABLET_CLASS = 'hide-on-tablet';
 
-	/**
-	 * CSS klasse om content op desktop te verbergen
-	 * 
-	 * @var string
-	 */
+	/** CSS klasse om content op desktop te verbergen */
 	const HIDE_ON_DESKTOP_CLASS = 'hide-on-desktop';
 
-	/**
-	 * Genereert reponsive classes
-	 *
-	 * @param int $desktop_columns
-	 * @param int $tablet_size
-	 * @param int $mobile_size
-	 * @return string
-	 */
+	/** Genereert reponsive classes */
 	public static function generate_responsive_classes( int $desktop_columns, int $tablet_columns = null, int $mobile_columns = null ) : string {
 		$classes[] = 'grid-'. self::columns_to_grid_width( $desktop_columns );
 		if ( is_int( $tablet_columns ) ) {
@@ -52,13 +33,7 @@ class CSS {
 		return implode( SPACE, $classes );
 	}
 
-	/**
-	 * Undocumented function
-	 *
-	 * @param int $column_count
-	 *
-	 * @return int
-	 */
+	/** Converteert aantal kolommen naar grid breedte */
 	public static function columns_to_grid_width( int $columns ) : int {
 		switch ( $columns ) {
 			case 1:
@@ -82,14 +57,7 @@ class CSS {
 		return $grid_width;
 	}
 
-	/**
-	 * Genereert css o.b.v. array met regels
-	 *
-	 * @param array $rules
-	 * @param array $media_query
-	 *
-	 * @return string
-	 */
+	/** Genereert css o.b.v. array met regels */
 	public static function generate_inline_css( array $rules, array $media_query = [] ) {
 		$css = '';
 		foreach ( $rules as $selector => $styles ) {
@@ -111,11 +79,7 @@ class CSS {
 		return $css;
 	}
 
-	/**
-	 * Voegt css variabelen toe aan script
-	 *
-	 * @param string $handle
-	 */
+	/** Voegt css variabelen toe aan script */
 	public static function add_css_variables( string $handle ) {
 		$css_variables = [
 			'--siw-primary-color'    => Properties::PRIMARY_COLOR,

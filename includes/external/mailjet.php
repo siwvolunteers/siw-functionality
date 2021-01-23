@@ -14,45 +14,25 @@ use SIW\Core\HTTP_Request;
  */
 class Mailjet {
 
-	/**
-	 * API url
-	 *
-	 * @var string
-	 */
+	/** API url */
 	const API_URL = 'https://api.mailjet.com';
 
-	/**
-	 * Api-versie
-	 */
+	/** Api-versie */
 	protected string $api_version = 'v3';
 
-	/**
-	 * API key
-	 */
+	/** API key */
 	protected string $api_key;
 
-	/**
-	 * Secret key
-	 */
+	/** Secret key */
 	protected string $secret_key;
 
-	/**
-	 * Zet API keys
-	 */
+	/** Zet API keys */
 	public function __construct() {
 		$this->api_key = siw_get_option( 'mailjet.api_key', '' );
 		$this->secret_key = siw_get_option( 'mailjet.secret_key', '' );
 	}
 	
-	/**
-	 * Voegt abonnee toe aan maillijst
-	 *
-	 * @param string $email
-	 * @param int $list_id
-	 * @param array $properties
-	 *
-	 * @return bool
-	 */
+	/** Voegt abonnee toe aan maillijst */
 	public function subscribe_user( string $email, $list_id, array $properties = [] ) : bool {
 
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist/{$list_id}/managecontact";
@@ -74,11 +54,7 @@ class Mailjet {
 		return true;
 	}
 
-	/**
-	 * Haalt maillijsten op
-	 *
-	 * @return array
-	 */
+	/** Haalt maillijsten op */
 	public function get_lists() : array {
 		$lists = get_transient( 'siw_newsletter_lists' );
 		if ( ! is_array( $lists ) ) {
@@ -91,11 +67,7 @@ class Mailjet {
 		return $lists;
 	}
 
-	/**
-	 * Haalt maillijsten op
-	 *
-	 * @return array
-	 */
+	/** Haalt maillijsten op */
 	protected function retrieve_lists() : array {
 
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist";
@@ -122,13 +94,7 @@ class Mailjet {
 		);
 	}
 
-	/**
-	 * Haalt gegevens van lijst op
-	 *
-	 * @param string $list_id
-	 *
-	 * @return array
-	 */
+	/** Haalt gegevens van lijst op */
 	public function get_list( string $list_id ) : array {
 		$list = get_transient( "siw_newsletter_list_{$list_id}" );
 
@@ -142,13 +108,7 @@ class Mailjet {
 		return $list;
 	}
 
-	/**
-	 * Haalt gegevens van lijst op
-	 *
-	 * @param string $list_id
-	 *
-	 * @return array
-	 */
+	/** Haalt gegevens van lijst op */
 	protected function retrieve_list( string $list_id ) : array {
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist/{$list_id}";
 

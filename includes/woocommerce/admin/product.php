@@ -38,26 +38,17 @@ class Product {
 		add_action( 'wp_ajax_woocommerce_select_for_carousel', [ $self, 'select_for_carousel' ] );
 	}
 	
-	/**
-	 * Verwijdert admin menu voor tags
-	 */
+	/** Verwijdert admin menu voor tags */
 	public function remove_product_tags_admin_menu() {
 		remove_submenu_page( 'edit.php?post_type=product', 'edit-tags.php?taxonomy=product_tag&amp;post_type=product' );
 	}
 
-	/**
-	 * Verwijdert de texteditor
-	 */
+	/** Verwijdert de texteditor */
 	public function remove_editor() {
 		remove_post_type_support( 'product', 'editor' );
 	}
 
-	/**
-	 * Verwijdert overbodige admin columns
-	 *
-	 * @param array $columns
-	 * @return array
-	 */
+	/** Verwijdert overbodige admin columns */
 	public function remove_admin_columns( array $columns ) : array {
 		unset( $columns['thumb']);
 		unset( $columns['date'] );
@@ -66,9 +57,7 @@ class Product {
 		return $columns;
 	}
 
-	/**
-	 * Voegt extra admin columns toe
-	 */
+	/** Voegt extra admin columns toe */
 	public function add_admin_columns() {
 		if ( ! class_exists( '\MBAC\Post' ) ) {
 			return;
@@ -81,9 +70,6 @@ class Product {
 	 * 
 	 * - Opnieuw importeren
 	 * - Selecteren voor carousel
-	 *
-	 * @param array $bulk_actions
-	 * @return array
 	 */
 	public function add_bulk_actions( array $bulk_actions ) : array {
 		$bulk_actions['import_again'] = __( 'Opnieuw importeren', 'siw' );
@@ -92,15 +78,7 @@ class Product {
 		return $bulk_actions;
 	}
 
-	/**
-	 * Verwerkt bulkacties
-	 *
-	 * @param string $redirect_to
-	 * @param string $action
-	 * @param array $post_ids
-	 * 
-	 * @return string
-	 */
+	/** Verwerkt bulkacties */
 	public function handle_bulk_actions( string $redirect_to, string $action, array $post_ids ) : string {
 		$count = count( $post_ids );
 		switch ( $action ) {
@@ -149,12 +127,8 @@ class Product {
 		return $redirect_to;
 	}
 
-	/**
-	 * Toont optie om nog niet gepubliceerd project af of goed te keuren
-	 *
-	 * @param \WP_Post $post
-	 */
-	public function show_approval_option( $post ) {
+	/** Toont optie om nog niet gepubliceerd project af of goed te keuren */
+	public function show_approval_option( \WP_Post $post ) {
 		if ( 'product' != $post->post_type || Import_Product::REVIEW_STATUS != $post->post_status ) {
 			return;
 		}
@@ -173,11 +147,7 @@ class Product {
 		);
 	}
 	
-	/**
-	 * Slaat het resultaat van de beoordeling op
-	 *
-	 * @param \WC_Product $product
-	 */
+	/** Slaat het resultaat van de beoordeling op */
 	public function save_approval_result( \WC_Product $product ) {
 
 		if ( ! isset( $_POST['approval_result'] ) ) {
@@ -199,9 +169,7 @@ class Product {
 		}
 	}
 
-	/**
-	 * Verwijdert metaboxes
-	 */
+	/** Verwijdert metaboxes */
 	public function remove_meta_boxes() {
 		remove_meta_box( 'slugdiv', 'product', 'normal' );
 		remove_meta_box( 'postcustom' , 'product' , 'normal' );
@@ -212,24 +180,15 @@ class Product {
 		}
 	}
 
-	/**
-	 * Verberg tags in quick edit
-	 *
-	 * @param bool $show
-	 * @param string $taxonomy_name
-	 * @param string $post_type
-	 *
-	 * @return bool
-	 */
+	/** Verberg tags in quick edit */
 	public function hide_product_tags_quick_edit( bool $show, string $taxonomy_name, string $post_type ) : bool {
 		if ( 'product_tag' == $taxonomy_name ) {
 			$show = false;
 		}
 		return $show;
 	}
-	/**
-	 * Verwerk selecteren voor carousel
-	 */
+
+	/** Verwerk selecteren voor carousel */
 	public function select_for_carousel() {
 		if ( current_user_can( 'edit_products' ) && check_admin_referer( 'woocommerce-select-for-carousel' ) && isset( $_GET['product_id'] ) ) {
 			$product = wc_get_product( absint( $_GET['product_id'] ) );

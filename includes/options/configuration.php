@@ -14,34 +14,27 @@ use SIW\Util;
  */
 class Configuration implements Option_Interface {
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_id(): string {
 		return 'configuration';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_capability(): string {
 		return 'manage_options';
 	}
 	
+	/** {@inheritDoc} */
 	public function get_parent_page(): string {
 		return 'options-general.php';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_title(): string {
 		return __( 'Configuratie', 'siw' );
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_tabs() : array {
 		$tabs = [
 			[
@@ -73,9 +66,7 @@ class Configuration implements Option_Interface {
 		return $tabs;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_fields() : array {
 		$fields = [];
 

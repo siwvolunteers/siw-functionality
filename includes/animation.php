@@ -15,28 +15,20 @@ use SIW\Util;
  */
 class Animation {
 
-	/**
-	 * Versie van sal.js
-	 */
+	/** Versie van sal.js */
 	CONST SAL_VERSION = '0.8.2';
 
-	/**
-	 * Threshold voor animatie
-	 */
+	/** Threshold voor animatie */
 	CONST THRESHOLD = 0.25;
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'register_styles' ] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'register_scripts' ] );
 	}
 
-	/**
-	 * Registreert styles
-	 */
+	/** Registreert styles */
 	public function register_styles() {
 		wp_register_style( 'sal', SIW_ASSETS_URL . 'vendor/sal.js/sal.css', null, self::SAL_VERSION );
 		wp_enqueue_style( 'sal' );
@@ -65,9 +57,7 @@ class Animation {
 		);
 	}
 
-	/**
-	 * Registreert scripts
-	 */
+	/** Registreert scripts */
 	public function register_scripts() {
 		wp_register_script( 'sal', SIW_ASSETS_URL . 'vendor/sal.js/sal.js', [], self::SAL_VERSION, true );
 		wp_enqueue_script( 'sal' );
@@ -81,11 +71,7 @@ class Animation {
 		wp_enqueue_script( 'siw-animation' );
 	}
 
-	/**
-	 * Geeft opties voor duur terug
-	 *
-	 * @return array
-	 */
+	/** Geeft opties voor duur terug */
 	public static function get_duration_options() : array {
 		for ( $t = 200; $t <= 2000; $t+=50 ) {
 			$durations[ $t ] = sprintf( __( '%d ms', 'siw' ), $t );
@@ -93,11 +79,7 @@ class Animation {
 		return $durations;
 	}
 
-	/**
-	 * Geeft opties voor vertraging terug
-	 *
-	 * @return array
-	 */
+	/** Geeft opties voor vertraging terug */
 	public static function get_delay_options() : array {
 		$delays['none'] = __( 'Geen', 'siw' );
 		for ( $t = 100; $t <= 1000; $t+=50 ) {
@@ -106,11 +88,7 @@ class Animation {
 		return $delays;
 	}
 
-	/**
-	 * Geeft opties voor easing terug
-	 *
-	 * @return array
-	 */
+	/** Geeft opties voor easing terug */
 	public static function get_easing_options() : array {
 		$easings = [
 			'linear'            => 'linear',
@@ -146,11 +124,7 @@ class Animation {
 		return $easings;
 	}
 
-	/**
-	 * Geeft animatietypes terug
-	 *
-	 * @return array
-	 */
+	/** Geeft animatietypes terug */
 	public static function get_types() : array {
 		$types = [
 			'fade'        => __( 'Fade', 'siw' ),

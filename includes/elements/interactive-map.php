@@ -17,62 +17,34 @@ use SIW\Util;
  */
 abstract class Interactive_Map {
 
-	/**
-	 * Mapplic versie
-	 *
-	 * @var string
-	 */
+	/** Mapplic versie */
 	const MAPPLIC_VERSION = '6.1.3';
 
-	/**
-	 * URL van Mapplic-bestanden
-	 */
+	/** URL van Mapplic-bestanden */
 	protected string $mapplic_url = SIW_ASSETS_URL . 'vendor/mapplic/';
 
-	/**
-	 * ID van kaart
-	 */
+	/** ID van kaart */
 	protected string $id;
 
-	/**
-	 * Bestandsnaam van kaart
-	 */
+	/** Bestandsnaam van kaart */
 	protected string $file;
 
-	/**
-	 * Inline CSS-regels
-	 */
+	/** Inline CSS-regels */
 	protected array $inline_css;
 
-	/**
-	 * Gegevens van kaart
-	 */
+	/** Gegevens van kaart */
 	protected array $options;
 
-	/**
-	 * Haalt categorieën op
-	 * 
-	 * @return array
-	 */
+	/** Haalt categorieën op */
 	abstract protected function get_categories() : array;
 
-	/**
-	 * Geef locaties terug
-	 * 
-	 * @return array
-	 */
+	/** Geef locaties terug */
 	abstract protected function get_locations() : array;
 
-	/**
-	 * Geeft alternatieve content voor mobiel terug
-	 * 
-	 * @return string
-	 */
+	/** Geeft alternatieve content voor mobiel terug */
 	abstract protected function get_mobile_content() : ?string;
 
-	/**
-	 *  Genereert interactieve kaart
-	 */
+	/**  Genereert interactieve kaart */
 	public function generate() : string {
 		$this->set_options();
 
@@ -92,9 +64,7 @@ abstract class Interactive_Map {
 		);
 	}
 
-	/**
-	 * Zet opties van de kaart
-	 */
+	/** Zet opties van de kaart */
 	protected function set_options() {
 		$default_options = [
 			'source'        => $this->get_map_data(),
@@ -118,11 +88,7 @@ abstract class Interactive_Map {
 		$this->options = wp_parse_args( $this->options, $default_options );
 	}
 
-	/**
-	 * Haalt gegevens voor kaart op
-	 * 
-	 * @return array
-	 */
+	/** Haalt gegevens voor kaart op */
 	protected function get_map_data() : array {
 		$default_data = [
 			'mapwidth'  => null,
@@ -144,13 +110,8 @@ abstract class Interactive_Map {
 		return $data;
 	}
 
-	/**
-	 * Parset gegevens van categorie
-	 *
-	 * @param array $category
-	 * @return array
-	 */
-	protected function parse_category( $category ) : array {
+	/** Parset gegevens van categorie */
+	protected function parse_category( array $category ) : array {
 		$default = [
 			'id'    => false,
 			'title' => false,
@@ -160,10 +121,8 @@ abstract class Interactive_Map {
 		return wp_parse_args( $category, $default );
 	}
 
-	/**
-	 * Parset de gegevens van locatie
-	 */
-	protected function parse_location( $location ) : array {
+	/** Parset de gegevens van locatie */
+	protected function parse_location( array $location ) : array {
 		$default = [
 			'id'            => false,
 			'title'         => false,
@@ -183,9 +142,7 @@ abstract class Interactive_Map {
 		return wp_parse_args( $location, $default );
 	}
 
-	/**
-	 * Voegt de benodigde scripts toe
-	 */
+	/** Voegt de benodigde scripts toe */
 	protected function enqueue_scripts() {
 		$deps = [ 'jquery' ];
 		if ( true == $this->options[ 'lightbox' ] ) {
@@ -218,9 +175,7 @@ abstract class Interactive_Map {
 		wp_enqueue_script( 'siw-interactive-maps' );
 	}
 
-	/**
-	 * Voegt benodigde styles toe
-	 */
+	/** Voegt benodigde styles toe */
 	protected function enqueue_styles() {
 		$deps = [];
 		if ( true == $this->options[ 'lightbox' ] ) {

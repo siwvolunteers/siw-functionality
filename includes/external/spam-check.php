@@ -14,64 +14,34 @@ use SIW\Core\HTTP_Request;
  */
 class Spam_Check{
 
-	/**
-	 * API URL
-	 *
-	 * @var string
-	 */
+	/** API URL */
 	const API_URL = 'https://europe.stopforumspam.org/api';
 
-	/**
-	 * Grens voor Spam
-	 *
-	 * @var float
-	 */
+	/** Grens voor Spam */
 	const SPAM_THRESHOLD = 90.00;
 
-	/**
-	 * Geldigheidsduur van transient
-	 *
-	 * @var int
-	 */
+	/** Geldigheidsduur van transient */
 	const TRANSIENT_EXPIRATION = 1 * DAY_IN_SECONDS;
 
-	/**
-	 * Algoritme om email-adress te hashen voor opslag
-	 * 
-	 * @var string
-	 */
+	/**Algoritme om email-adress te hashen voor opslag */
 	const HASH_ALGORITHM = 'sha1';
 
-	/**
-	 * Geeft aan of IP gecheckt moet worden
-	 */
+	/** Geeft aan of IP gecheckt moet worden */
 	protected bool $check_ip = false;
 
-	/**
-	 * Geeft aan of e-mail gecheckt moet worden
-	 */
+	/** Geeft aan of e-mail gecheckt moet worden */
 	protected bool $check_email = false;
 
-	/**
-	 * IP-adres
-	 */
+	/** IP-adres */
 	protected string $ip;
 
-	/**
-	 * E-mailadres
-	 */
+	/** E-mailadres */
 	protected string $email;
 
-	/**
-	 * Hash van e-mailadres
-	 */
+	/** Hash van e-mailadres */
 	protected string $email_hash;
 
-	/**
-	 * Zet IP-adres om te controlen
-	 *
-	 * @param string $ip
-	 */
+	/** Zet IP-adres om te controlen */
 	public function set_ip( string $ip ) {
 		if ( filter_var( $ip, FILTER_VALIDATE_IP ) ) {
 			$this->ip = $ip;
@@ -79,11 +49,7 @@ class Spam_Check{
 		}
 	}
 
-	/**
-	 * Zet e-mailadres om te controleren
-	 *
-	 * @param string $email
-	 */
+	/** Zet e-mailadres om te controleren */
 	public function set_email( string $email ) {
 		if ( is_email( $email ) ) {
 			$this->email = strtolower( $email );
@@ -92,11 +58,7 @@ class Spam_Check{
 		}
 	}
 
-	/**
-	 * Geeft aan of het een spammer betreft
-	 *
-	 * @return bool
-	 */
+	/** Geeft aan of het een spammer betreft */
 	public function is_spammer() : bool {
 
 		//Afbreken als er niets to controleren is
@@ -153,9 +115,7 @@ class Spam_Check{
 		return false;
 	}
 
-	/**
-	 * Zoek email en IP op in externe database
-	 */
+	/** Zoek email en IP op in externe database */
 	protected function external_lookup() : array {
 
 		$body = [
@@ -187,5 +147,4 @@ class Spam_Check{
 
 		return $result;
 	}
-
 }

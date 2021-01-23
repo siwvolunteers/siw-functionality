@@ -13,9 +13,7 @@ use SIW\Properties;
  */
 class Emails {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_filter( 'woocommerce_email_from_name', [ $self, 'set_email_from_name' ], 10, 2 );
@@ -27,34 +25,17 @@ class Emails {
 		add_action( 'siw_woocommerce_email_order_table', [ $self, 'show_order_table' ] );
 	}
 
-	/**
-	 * Zet naam afzender
-	 * 
-	 * @return string
-	 */
+	/** Zet naam afzender */
 	public function set_email_from_name() : string{
 		return Properties::NAME;
 	}
 
-	/**
-	 * Zet e-mailadres afzender
-	 *
-	 * @return string
-	 */
+	/** Zet e-mailadres afzender */
 	public function set_email_from_address() : string {
 		return siw_get_email_settings( 'workcamp')['email'];
 	}
 
-	/**
-	 * Overschrijft header-template
-	 *
-	 * @param string $located
-	 * @param string $template_name
-	 * @param array $args
-	 * @param string $template_path
-	 * @param string $default_path
-	 * @return string
-	 */
+	/** Overschrijft header-template */
 	public function set_header_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) : string {
 		if ( 'emails/email-header.php' === $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
@@ -62,16 +43,7 @@ class Emails {
 		return $located;
 	}
 
-	/**
-	 * Overschrijft footer-template
-	 *
-	 * @param string $located
-	 * @param string $template_name
-	 * @param array $args
-	 * @param string $template_path
-	 * @param string $default_path
-	 * @return string
-	 */
+	/** Overschrijft footer-template */
 	public function set_footer_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) : string {
 		if ( 'emails/email-footer.php' === $template_name ) {
 			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
@@ -80,11 +52,7 @@ class Emails {
 	}
 
 
-	/**
-	 * Toont tabel met aanmeldingsgegevens
-	 *
-	 * @param \WC_Order $order
-	 */
+	/** Toont tabel met aanmeldingsgegevens */
 	public function show_order_table( \WC_Order $order ) {
 		$table_data = $this->get_table_data( $order );
 
@@ -110,12 +78,7 @@ class Emails {
 	<?php
 	}
 
-	/**
-	 * Genereert tabelrij
-	 *
-	 * @param string $label
-	 * @param string $value
-	 */
+	/** Genereert tabelrij */
 	public function show_table_row( string $label, string $value = '&nbsp;' ) {?>
 		<tr>
 			<td width="35%" style="font-family:Verdana, normal; color:<?php echo Properties::FONT_COLOR;?>; font-size:0.8em; ">
@@ -129,11 +92,7 @@ class Emails {
 	<?php
 	}
 
-	/**
-	 * Toont tabel-headerrij
-	 *
-	 * @param string $label
-	 */
+	/** Toont tabel-headerrij */
 	public function show_table_header_row( string $label ) {?>
 		<tr>
 			<td width="35%" style="font-family:Verdana, normal; color:<?php echo Properties::FONT_COLOR;?>; font-size:0.8em; font-weight:bold">
@@ -145,12 +104,7 @@ class Emails {
 	<?php
 	}
 
-	/**
-	 * Haalt data voor tabel op
-	 *
-	 * @param \WC_Order $order
-	 * @return array
-	 */
+	/** Haalt data voor tabel op */
 	protected function get_table_data( \WC_Order $order ) : array {
 
 		//Referentiegegevens
@@ -234,12 +188,7 @@ class Emails {
 		return $table_data;
 	}
 
-	/**
-	 * Geeft aanmeldingsgegevens terug
-	 *
-	 * @param \WC_Order $order
-	 * @return array
-	 */
+	/** Geeft aanmeldingsgegevens terug */
 	protected function get_application_table_data( \WC_Order $order ) : array {
 
 		$application_data['header'] = __( 'Aanmelding', 'siw' );
@@ -281,12 +230,7 @@ class Emails {
 		return $application_data;
 	}
 
-	/**
-	 * Geeft betaalgegevens terug
-	 *
-	 * @param \WC_Order $order
-	 * @return array
-	 */
+	/** Geeft betaalgegevens terug */
 	protected function get_payment_table_data( \WC_Order $order ) : array {
 		$payment_data['header'] = __( 'Betaling', 'siw' );
 		if ( $order->get_total() != $order->get_subtotal() ) {

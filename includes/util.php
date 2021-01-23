@@ -10,30 +10,17 @@ namespace SIW;
  */
 class Util {
 
-	/**
-	 * Geeft breakpoint voor mobile terug
-	 *
-	 * @return int
-	 */
+	/** Geeft breakpoint voor mobile terug */
 	public static function get_mobile_breakpoint() : int {
 		return function_exists( 'siteorigin_panels_setting') ? siteorigin_panels_setting( 'mobile-width' ) : 780; //TODO: fallback in constante
 	}
 
-	/**
-	 * Geeft breakpoint voor tablet terug
-	 *
-	 * @return int
-	 */
+	/** Geeft breakpoint voor tablet terug */
 	public static function get_tablet_breakpoint() : int {
 		return function_exists( 'siteorigin_panels_setting') ? siteorigin_panels_setting( 'tablet-width' ) : 1024;  //TODO: fallback in constante
 	}
 
-	/**
-	 * Geeft validatiepatroon terug
-	 *
-	 * @param string $type
-	 * @return string
-	 * 
+	/** Geeft validatiepatroon terug
 	 * @todo   patterns verplaatsen naar databestand
 	 */
 	public static function get_pattern( string $type ) : ?string {
@@ -47,12 +34,7 @@ class Util {
 		return $patterns[ $type ] ?? null;
 	}
 
-	/**
-	 * Geeft reguliere expressie terug
-	 *
-	 * @param string $type
-	 * @return string
-	 */
+	/** Geeft reguliere expressie terug */
 	public static function get_regex( string $type ) : ?string {
 
 		$pattern = self::get_pattern( $type );
@@ -62,13 +44,7 @@ class Util {
 		return sprintf( '/%s/', $pattern );
 	}
 
-	/**
-	 * Geeft array met pagina's in standaardtaal terug
-	 * 
-	 * @return array
-	 * 
-	 * @todo https://docs.metabox.io/custom-select-checkbox-tree/
-	 */
+	/** Geeft array met pagina's in standaardtaal terug */
 	public static function get_pages() : array {
 		$default_lang = i18n::get_default_language();
 		$current_lang = i18n::get_current_language();
@@ -89,23 +65,14 @@ class Util {
 		return $pages;
 	}
 	
-	/**
-	 * Berekent leeftijd in jaren o.b.v. huidige datum
-	 *
-	 * @param  string $date dd-mm-jjjj
-	 * @return int leeftijd in jaren
-	 */
+	/** Berekent leeftijd in jaren o.b.v. huidige datum */
 	public static function calculate_age( string $date ) : int {
 		$from = new \DateTime( $date );
 		$to   = new \DateTime('today');
 		return $from->diff( $to )->y;
 	}
 
-	/**
-	 * Geeft aan of kortingsactie voor Groepsprojecten actief is
-	 *
-	 * @return bool
-	 */
+	/** Geeft aan of kortingsactie voor Groepsprojecten actief is */
 	public static function is_workcamp_sale_active() : bool {
 		
 		$workcamp_sale = siw_get_option( 'workcamp_sale' );
@@ -120,11 +87,7 @@ class Util {
 		return $workcamp_sale_active;
 	}
 
-	/**
-	 * Geeft aan of kortingsactie voor Projecten Op Maat actief is
-	 *
-	 * @return bool
-	 */
+	/** Geeft aan of kortingsactie voor Projecten Op Maat actief is */
 	public static function is_tailor_made_sale_active() : bool {
 		
 		$tailor_made_sale = siw_get_option( 'tailor_made_sale' );
@@ -140,14 +103,7 @@ class Util {
 		return $tailor_made_sale_active;
 	}
 
-	/**
-	 * Geeft parameter uit request terug
-	 *
-	 * @param string $key
-	 * @param string $default
-	 *
-	 * @return string
-	 */
+	/** Geeft parameter uit request terug */
 	public static function get_request_parameter( string $key, $default = '' ) : string {
 	
 		if ( ! isset( $_REQUEST[ $key ] ) || empty( $_REQUEST[ $key ] ) ) {
@@ -156,14 +112,8 @@ class Util {
 		return strip_tags( (string) wp_unslash( $_REQUEST[ $key ] ) );
 	}
 
-	/**
-	 * Creëert term indien deze nog niet bestaat
-	 *
-	 * @param string $taxonomy
-	 * @param string $slug
-	 * @param string $name
-	 * @param string $order
-	 * @return int|bool
+	/** Creëert term indien deze nog niet bestaat
+	 *  @return int|bool
 	 */
 	public static function maybe_create_term( string $taxonomy, string $slug, string $name, $order = null ) {
 		$term = get_term_by( 'slug', $slug, $taxonomy );
@@ -187,11 +137,7 @@ class Util {
 		return $new_term['term_id'];
 	}
 
-	/**
-	 * Geeft aan of het een productieomgeving betreft
-	 *
-	 * @return bool
-	 */
+	/** Geeft aan of het een productieomgeving betreft */
 	public static function is_production() : bool {
 		return 'production' == \wp_get_environment_type();
 	}

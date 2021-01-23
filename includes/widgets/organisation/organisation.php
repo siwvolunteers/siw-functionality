@@ -19,27 +19,19 @@ use SIW\Util\Links;
  */
 class Organisation extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $widget_id = 'organisation';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $widget_dashicon = 'building';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function set_widget_properties() {
 		$this->widget_name = __( 'Organisatiegegevens', 'siw');
 		$this->widget_description = __( 'Toont organisatiegegevens', 'siw' );
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
 			'title' => [
@@ -57,11 +49,7 @@ class Organisation extends Widget {
 		return $widget_form;
 	}
 
-	/**
-	 * Geeft bestuursleden terug
-	 *
-	 * @return array|null
-	 */
+	/** Geeft bestuursleden terug */
 	protected function get_board_members() : ?array {
 		$board_members = siw_get_option( 'board_members' );
 		if ( empty( $board_members ) ) {
@@ -78,9 +66,7 @@ class Organisation extends Widget {
 		);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 		$parameters = [
 			'properties' => [
@@ -114,11 +100,7 @@ class Organisation extends Widget {
 		return $parameters;
 	}
 
-	/**
-	 * Geeft jaarverslagen terug
-	 * 
-	 * @return array
-	 */
+	/** Geeft jaarverslagen terug */
 	protected function get_annual_reports() : array {
 		$annual_reports = siw_get_option( 'annual_reports' );
 		if ( empty( $annual_reports ) ) {

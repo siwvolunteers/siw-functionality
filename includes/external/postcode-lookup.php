@@ -14,23 +14,10 @@ use SIW\Core\HTTP_Request;
  */
 class Postcode_Lookup{
 
-	/**
-	 * Locatieserver URL voor postcode lookup
-	 *
-	 * @var string
-	 */
+	/** Locatieserver URL voor postcode lookup */
 	const API_URL = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/free';
 
-	/**
-	 * Zoekt straat en woonplaats op basis van postcode en huisnumme
-	 *
-	 * @param string $postcode
-	 * @param string $housenumber
-	 * 
-	 * @return array|null
-	 * 
-	 * @todo sanitize values
-	 */
+	/** Zoekt straat en woonplaats op basis van postcode en huisnummer */
 	public function get_address( string $postcode, string $housenumber ) : ?array {
 		$address = get_transient( "siw_address_{$postcode}_{$housenumber}" );
 		if ( ! is_array( $address ) ) {
@@ -43,14 +30,7 @@ class Postcode_Lookup{
 		return $address;
 	}
 
-	/**
-	 * Haalt adres op bij PostcodeAPI.nu
-	 *
-	 * @param string $postcode
-	 * @param string $housenumber
-	 * 
-	 * @return array|null
-	 */
+	/** Haalt adres op bij PostcodeAPI.nu */
 	protected function retrieve_address( string $postcode, string $housenumber ) : ?array {
 		$url = add_query_arg( [
 			'q'  => "postcode:{$postcode}",

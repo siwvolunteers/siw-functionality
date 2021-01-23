@@ -34,11 +34,7 @@ class Shortcodes {
 		add_shortcode( 'br', function() { return '<br>';});
 	}
 
-	/**
-	 * Geeft lijst met shortcodes terug
-	 *
-	 * @return array
-	 */
+	/** Geeft lijst met shortcodes terug */
 	public static function get_shortcodes(): array {
 		$shortcodes = [
 			'kvk'                           => __( 'KVK-nummer', 'siw' ),
@@ -117,92 +113,52 @@ class Shortcodes {
 		return $shortcodes;
 	}
 
-	/**
-	 * KVK-nummer
-	 *
-	 * @return string
-	 */
-	public static function render_kvk() {
+	/** KVK-nummer */
+	public static function render_kvk() : string {
 		return Properties::KVK;
 	}
 
-	/**
-	 * E-mailadres
-	 *
-	 * @return string
-	 */
-	public static function render_email() {
+	/** E-mailadres */
+	public static function render_email() : string {
 		return antispambot( Properties::EMAIL );
 	}
 
-	/**
-	 * E-mailadres als mailto-link
-	 *
-	 * @return string
-	 */
+	/** E-mailadres als mailto-link */
 	public static function render_email_link() : string {
 		return Links::generate_mailto_link( Properties::EMAIL );
 	}
 
-	/**
-	 * Telefoonnummer
-	 *
-	 * @return string
-	 */
+	/** Telefoonnummer */
 	public static function render_telefoon() : string {
 		return Properties::PHONE;
 	}
 
-	/**
-	 * Internationaal telefoonnummer
-	 *
-	 * @return string
-	 */
+	/** Internationaal telefoonnummer */
 	public static function render_telefoon_internationaal() : string {
 		return Properties::PHONE_INTERNATIONAL;
 	}
 
-	/**
-	 * WhatsApp-nummer
-	 *
-	 * @return string
-	 */
+	/** WhatsApp-nummer */
 	public static function render_whatsapp() : string {
 		return Properties::WHATSAPP;
 	}
 
-	/**
-	 * IBAN
-	 *
-	 * @return string
-	 */
+	/** IBAN */
 	public static function render_iban() : string {
 		return Properties::IBAN;
 	}
 
-	/**
-	 * Openingstijden
-	 *
-	 * @return string
-	 */
+	/** Openingstijden */
 	public static function render_openingstijden() : string {
 		return Elements::generate_opening_hours( 'list' );
 	}
 
-	/**
-	 * ESC-borg
-	 *
-	 * @return string
-	 */
+	/** ESC-borg */
 	public static function render_esc_borg() : string {
 		return Formatting::format_amount( Properties::ESC_DEPOSIT );
 	}
 
-	/**
-	 * Volgende infodag
-	 *
-	 * @return string
-	 */
+	/** Volgende infodag */
 	public static function render_volgende_infodag() : string {
 		$info_days = siw_get_upcoming_info_days( 1 );
 		if ( empty( $info_days ) ) {
@@ -212,11 +168,7 @@ class Shortcodes {
 		return Formatting::format_date( $date, true );
 	}
 
-	/**
-	 * Inschrijfgeld Groepsproject (student)
-	 *
-	 * @return string
-	 */
+	/** Inschrijfgeld Groepsproject (student) */
 	public static function render_groepsproject_tarief_student() : string {
 		if ( Util::is_workcamp_sale_active() ) {
 			return Formatting::format_sale_amount( Properties::WORKCAMP_FEE_STUDENT, Properties::WORKCAMP_FEE_STUDENT_SALE );
@@ -224,11 +176,7 @@ class Shortcodes {
 		return Formatting::format_amount( Properties::WORKCAMP_FEE_STUDENT );
 	}
 
-	/**
-	 * Inschrijfgeld Groepsproject (regulier)
-	 *
-	 * @return string
-	 */
+	/** Inschrijfgeld Groepsproject (regulier) */
 	public static function render_groepsproject_tarief_regulier() : string {
 		if ( Util::is_workcamp_sale_active() ) {
 			return Formatting::format_sale_amount( Properties::WORKCAMP_FEE_REGULAR, Properties::WORKCAMP_FEE_REGULAR_SALE );
@@ -236,11 +184,7 @@ class Shortcodes {
 		return Formatting::format_amount( Properties::WORKCAMP_FEE_REGULAR );
 	}
 
-	/**
-	 * Inschrijfgeld Op Maat-project (student)
-	 *
-	 * @return string
-	 */
+	/** Inschrijfgeld Op Maat-project (student) */
 	public static function render_op_maat_tarief_student() : string {
 		if ( Util::is_tailor_made_sale_active() ) {
 			return Formatting::format_sale_amount( Properties::TAILOR_MADE_FEE_STUDENT, Properties::TAILOR_MADE_FEE_STUDENT_SALE );
@@ -248,11 +192,7 @@ class Shortcodes {
 		return Formatting::format_amount( Properties::TAILOR_MADE_FEE_STUDENT );
 	}
 	
-	/**
-	 * Inschrijfgeld Op Maat-project (regulier)
-	 *
-	 * @return string
-	 */
+	/** Inschrijfgeld Op Maat-project (regulier) */
 	public static function render_op_maat_tarief_regulier() : string {
 		if ( Util::is_tailor_made_sale_active() ) {
 			return Formatting::format_sale_amount( Properties::TAILOR_MADE_FEE_REGULAR, Properties::TAILOR_MADE_FEE_REGULAR_SALE );
@@ -260,47 +200,27 @@ class Shortcodes {
 		return Formatting::format_amount( Properties::TAILOR_MADE_FEE_REGULAR );
 	}
 
-	/**
-	 * Inschrijfgeld Op Maat-project (duo)
-	 *
-	 * @return string
-	 */
+	/** Inschrijfgeld Op Maat-project (duo) */
 	public static function render_op_maat_tarief_duo() : string {
 		return Formatting::format_amount( Properties::TAILOR_MADE_FEE_DUO );
 	}
 
-	/**
-	 * Inschrijfgeld Op Maat-project (familie)
-	 *
-	 * @return string
-	 */
+	/** Inschrijfgeld Op Maat-project (familie) */
 	public static function render_op_maat_tarief_familie() : string {
 		return Formatting::format_amount( Properties::TAILOR_MADE_FEE_FAMILY );
 	}
-	/**
-	 * Inschrijfgeld scholenproject
-	 *
-	 * @return string
-	 */
+
+	/** Inschrijfgeld scholenproject */
 	public static function render_scholenproject_tarief() : string {
 		return Formatting::format_amount( Properties::SCHOOL_PROJECT_FEE );
 	}
 
-	/**
-	 * Korting tweede Groepsproject
-	 *
-	 * @return string
-	 */
+	/** Korting tweede Groepsproject */
 	public static function render_korting_tweede_project() : string {
 		return Formatting::format_percentage( Properties::DISCOUNT_SECOND_PROJECT );
 	}
 
-	/**
-	 * Externe link
-	 *
-	 * @param array $atts
-	 * @return string
-	 */
+	/** Externe link */
 	public static function render_externe_link( array $atts ) : string {
 		extract( shortcode_atts( [
 			'url'   => '',
@@ -312,13 +232,7 @@ class Shortcodes {
 		return Links::generate_external_link( $url, $titel );
 	}
 
-	/**
-	 * Toont laatste jaarverslag
-	 *
-	 * @param array $atts
-	 *
-	 * @return string
-	 */
+	/** Toont laatste jaarverslag */
 	public static function render_laatste_jaarverslag( array $atts ) : string {
 		extract( shortcode_atts( [
 			'titel' => '',
@@ -337,13 +251,7 @@ class Shortcodes {
 		return Links::generate_document_link( $report_url, $titel );
 	}
 
-	/**
-	 * Toont nieuwste NP-programmboekje
-	 *
-	 * @param array $atts
-	 *
-	 * @return string
-	 */
+	/** Toont nieuwste NP-programmboekje */
 	public static function render_nieuwste_programmaboekje_np( array $atts ) : string {
 		extract( shortcode_atts( [
 			'titel' => '',
@@ -364,10 +272,6 @@ class Shortcodes {
 
 	/**
 	 * Lightbox met inhoud van pagina
-	 *
-	 * @param array $atts
-	 * @return string
-	 * 
 	 * @todo slug als parameter en get page by path gebruiken
 	 */
 	public static function render_pagina_lightbox( array $atts ) : ?string {
@@ -389,11 +293,7 @@ class Shortcodes {
 		return Elements::generate_page_modal( (int) $page_id, $link_tekst );
 	}
 
-	/**
-	 * Leeftijd van SIW in jaren
-	 * 
-	 * @return string
-	 */
+	/** Leeftijd van SIW in jaren */
 	public static function render_leeftijd() : string {
 		return strval( Util::calculate_age( Properties::FOUNDING_DATE ) );
 	}

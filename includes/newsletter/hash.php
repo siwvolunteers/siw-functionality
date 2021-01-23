@@ -10,34 +10,16 @@ namespace SIW\Newsletter;
  */
 class Hash {
 	
-	/**
-	 * Optienaam voor salt
-	 * 
-	 * @var string
-	 */
+	/** Optienaam voor salt */
 	const SALT_OPTION_NAME = 'siw_newsletter_salt';
 
-	/**
-	 * Hash-algoritme
-	 * 
-	 * @var string
-	 */
+	/** Hash-algoritme */
 	const HASH_ALGORITHM = 'sha1';
 
-	/**
-	 * Lengte van password voor salt
-	 * 
-	 * @var int
-	 */
+	/** Lengte van password voor salt */
 	const PASSWORD_LENGTH = 64;
 
-	/**
-	 * Genereert hash om later de juistheid van de data te kunnen controleren
-	 *
-	 * @param string $data
-	 *
-	 * @return string
-	 */
+	/** Genereert hash om later de juistheid van de data te kunnen controleren */
 	public static function generate_hash( string $data ) : string {
 		return hash_hmac(
 			self::HASH_ALGORITHM,
@@ -46,14 +28,7 @@ class Hash {
 		);
 	}
 
-	/**
-	 * Controleert of data geldig is o.b.v. hash
-	 *
-	 * @param array $data
-	 * @param string $hash
-	 *
-	 * @return bool
-	 */
+	/** Controleert of data geldig is o.b.v. hash */
 	public static function data_is_valid( string $data, string $hash ) : bool {
 		return hash_equals(
 			self::generate_hash( $data ),
@@ -61,11 +36,7 @@ class Hash {
 		);
 	}
 
-	/**
-	 * Geeft salt terug
-	 * 
-	 * @return string
-	 */
+	/** Geeft salt terug */
 	protected static function get_salt() : string {
 		$salt = get_option( self::SALT_OPTION_NAME );
 		if ( false === $salt ) {

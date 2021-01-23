@@ -14,48 +14,32 @@ use SIW\Core\Template;
  */
 class Tablist {
 	
-	/**
-	 * Versienummer
-	 * 
-	 * @var string
-	 */
+	/** Versienummer */
 	const TABLIST_VERSION = '2.0.1';
 
-	/**
-	 * Panes
-	 */
+	/** Panes */
 	protected array $panes=[];
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public function __construct() {
 		$this->enqueue_styles();
 		$this->enqueue_scripts();
 	}
 
-	/**
-	 * Voegt scripts toe
-	 */
+	/** Voegt scripts toe */
 	protected function enqueue_scripts() {
 		wp_register_script( 'a11y-tablist', SIW_ASSETS_URL . 'vendor/tablist/tablist.js', [], self::TABLIST_VERSION, true );
 		wp_register_script( 'siw-tablist', SIW_ASSETS_URL . 'js/elements/siw-tablist.js', ['a11y-tablist'], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-tablist');
 	}
 
-	/**
-	 * Voegt styles toe
-	 */
+	/** Voegt styles toe */
 	protected function enqueue_styles() {
 		wp_register_style( 'siw-tablist', SIW_ASSETS_URL . 'css/elements/siw-tablist.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-tablist' );
 	}
 
-	/**
-	 * Genereert tablist
-	 *
-	 * @return string
-	 */
+	/** Genereert tablist */
 	public function generate() : string {
 		$template = Template::get_template( 'elements/tablist');
 		$parameters = [
@@ -65,15 +49,7 @@ class Tablist {
 		return $template->render( $parameters );
 	}
 
-	/**
-	 * Voegt pane aan tablist toe
-	 *
-	 * @param string $title
-	 * @param string $content
-	 * @param bool $show_button
-	 * @param string $button_url
-	 * @param string $button_text
-	 */
+	/** Voegt pane aan tablist toe */
 	public function add_pane( string $title, string $content, bool $show_button = false, string $button_url = null, string $button_text = null ) {
 		
 		//Afbreken als content geen zichtbare inhoud bevat

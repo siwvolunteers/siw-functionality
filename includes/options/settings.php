@@ -17,37 +17,27 @@ use SIW\Properties;
  */
 class Settings implements Option_Interface {
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_id(): string {
 		return 'settings';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_title(): string {
 		return __( 'Instellingen', 'siw' );
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_capability() : string {
 		return 'edit_posts';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_parent_page(): string {
 		return 'options-general.php';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_tabs() : array {
 		$tabs = [
 			[
@@ -99,9 +89,7 @@ class Settings implements Option_Interface {
 		return $tabs;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_fields() : array {
 		$fields = [];
 

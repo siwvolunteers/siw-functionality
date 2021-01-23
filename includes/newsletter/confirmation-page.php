@@ -14,14 +14,10 @@ use SIW\Newsletter\Hash;
  */
 class Confirmation_Page {
 
-	/**
-	 * Boodschap voor gebruiker
-	 */
+	/** Boodschap voor gebruiker */
 	protected string $message;
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 
@@ -31,9 +27,7 @@ class Confirmation_Page {
 		add_action( 'siw_newsletter_confirmation', [ $self, 'show_message'] );
 	}
 
-	/**
-	 * Verwerk aanmelding voor nieuwsbrief
-	 */
+	/** Verwerk aanmelding voor nieuwsbrief */
 	public function maybe_process_confirmation() {
 		if ( ! $this->is_newsletter_confirmation() ) {
 			return;
@@ -66,13 +60,7 @@ class Confirmation_Page {
 		}
 	}
 
-	/**
-	 * Laadt template voor bevestigingspagina
-	 *
-	 * @param string $template
-	 *
-	 * @return string
-	 */
+	/** Laadt template voor bevestigingspagina */
 	public function load_template( $template ) : string {
 		if ( $this->is_newsletter_confirmation() ) {
 			$template = SIW_TEMPLATES_DIR . '/newsletter-confirmation.php';
@@ -80,29 +68,17 @@ class Confirmation_Page {
 		return $template;
 	}
 
-	/**
-	 * Toont bevestingsmelding
-	 */
+	/** Toont bevestingsmelding */
 	public function show_message() {
 		echo wp_kses_post( $this->message );
 	}
 
-	/**
-	 * Geeft aan of dit een bevestiging van de nieuwsbrief is
-	 *
-	 * @return bool
-	 */
+	/** Geeft aan of dit een bevestiging van de nieuwsbrief is */
 	protected function is_newsletter_confirmation() : bool {
 		return is_front_page() && (bool) Util::get_request_parameter( 'nl_confirmation');
 	}
 
-	/**
-	 * Voegt body class toe bij bevestigingspagina
-	 *
-	 * @param array $classes
-	 *
-	 * @return array
-	 */
+	/** Voegt body class toe bij bevestigingspagina */
 	public function maybe_add_body_class( array $classes ) : array {
 		if ( $this->is_newsletter_confirmation() ) {
 			$classes[] = 'siw-newsletter-confirmation';

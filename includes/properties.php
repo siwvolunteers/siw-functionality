@@ -10,250 +10,110 @@ namespace SIW;
  */
 class Properties {
 
-	/**
-	 * Naam
-	 *
-	 * @var string
-	 */
+	/** Naam */
 	const NAME = 'SIW Internationale Vrijwilligersprojecten';
 
-	/**
-	 * Statutaire naam
-	 *
-	 * @var string
-	 */
+	/** Statutaire naam */
 	const STATUTORY_NAME = 'Stichting Internationale Werkkampen';
 
-	/**
-	 * E-mailadres
-	 *
-	 * @var string
-	 */
+	/** E-mailadres */
 	const EMAIL = 'info@siw.nl';
 
-	/**
-	 * Oprichtingsdatum
-	 *
-	 * @var string
-	*/
+	/** Oprichtingsdatum */
 	const FOUNDING_DATE = '1953-10-24';
 
-	/**
-	 * Telefoonnummer
-	 *
-	 * @var string
-	 */
+	/** Telefoonnummer */
 	const PHONE = '030-2317721';
 
-	/**
-	 * Internationaal telefoonnummer
-	 *
-	 * @var string
-	 */
+	/** Internationaal telefoonnummer */
 	const PHONE_INTERNATIONAL = '+31 30 2317721';
 
-	/**
-	 * WhatsApp-nummer
-	 *
-	 * @var string
-	 */
+	/** WhatsApp-nummer */
 	const WHATSAPP = '06-82208746';
 
-	/**
-	 * Volledig WhatsApp-nummer (voor API)
-	 *
-	 * @var string
-	 */
+	/** Volledig WhatsApp-nummer (voor API) */
 	const WHATSAPP_FULL = '0031682208746';
 
-	/**
-	 * KVK-nummer
-	 *
-	 * @var string
-	 */
+	/** KVK-nummer */
 	const KVK = '41165368';
 
-	/**
-	 * IBAN
-	 *
-	 * @var string
-	 */
+	/** IBAN */
 	const IBAN = 'NL28 INGB 0000 0040 75';
 
-	/**
-	 * RSIN
-	 *
-	 * @var string
-	 */
+	/** RSIN */
 	const RSIN = '002817482';
 
-	/**
-	 * Adres
-	 *
-	 * @var string
-	 */
+	/** Adres */
 	const ADDRESS = 'Willemstraat 7';
 
-	/**
-	 * Postcode
-	 *
-	 * @var string
-	 */
+	/** Postcode */
 	const POSTCODE = '3511 RJ';
 
-	/**
-	 * Stad
-	 *
-	 * @var string
-	 */
+	/** Stad */
 	const CITY = 'Utrecht';
 
-	/**
-	 * Maximum aantal bestuursleden
-	 *
-	 * @var int
-	 */
+	/** Maximum aantal bestuursleden */
 	const MAX_BOARD_MEMBERS = 9;
 
-	/**
-	 * Maximum aantal jaarverslagen
-	 *
-	 * @var int
-	 */
+	/** Maximum aantal jaarverslagen */
 	const MAX_ANNUAL_REPORTS = 5;
 
-	/**
-	 * Inschrijfgeld Groepsproject (student)
-	 *
-	 * @var int
-	 */
+	/** Inschrijfgeld Groepsproject (student) */
 	const WORKCAMP_FEE_STUDENT = 225;
 
-	/**
-	 * Inschrijfgeld Groepsproject (regulier)
-	 *
-	 * @var int
-	 */
+	/** Inschrijfgeld Groepsproject (regulier) */
 	const WORKCAMP_FEE_REGULAR = 275;
 
-	/**
-	 * Inschrijfgeld Groepsproject (student) - korting
-	 *
-	 * @var int
-	 */
+	/** Inschrijfgeld Groepsproject (student) - korting */
 	const WORKCAMP_FEE_STUDENT_SALE = 149;
 
-	/**
-	 * Inschrijfgeld Groepsproject (regulier) - korting
-	 *
-	 * @var int
-	 */
+	/** Inschrijfgeld Groepsproject (regulier) - korting */
 	const WORKCAMP_FEE_REGULAR_SALE = 199;
 
-	/**
-	 * Inschrijfgeld Op Maat (student)
-	 *
-	 * @var int
-	 */
+	/** Inschrijfgeld Op Maat (student) */
 	const TAILOR_MADE_FEE_STUDENT = 349;
 
-	/**
-	 * Inschrijfgeld Op Maat (regulier)
-	 *
-	 * @var int
-	 */
+	/** Inschrijfgeld Op Maat (regulier) */
 	const TAILOR_MADE_FEE_REGULAR = 399;
 
-	/**
-	 * Inschrijfgeld Op Maat (duo)
-	 *
-	 * @var int
-	 */
+	/** Inschrijfgeld Op Maat (duo) */
 	const TAILOR_MADE_FEE_DUO = 550;
 
-	/**
-	 * Inschrijfgeld Op Maat (familie)
-	 *
-	 * @var int
-	 */
+	/** Inschrijfgeld Op Maat (familie) */
 	const TAILOR_MADE_FEE_FAMILY = 750;
 
-	/**
-	 * Inschrijfgeld Op Maat (student) - korting
-	 *
-	 * @var int
-	 */
+	/** Inschrijfgeld Op Maat (student) - korting */
 	const TAILOR_MADE_FEE_STUDENT_SALE = 324;
 
-	/**
-	 * Inschrijfgeld Op Maat (regulier) - korting
-	 *
-	 * @var int
-	 */
+	/** Inschrijfgeld Op Maat (regulier) - korting */
 	const TAILOR_MADE_FEE_REGULAR_SALE = 374;
 
-	/**
-	 * Inschrijfgeld Schoolproject
-	 *
-	 * @var int
-	 */
+	/** Inschrijfgeld Schoolproject */
 	const SCHOOL_PROJECT_FEE = 125;
 
-	/**
-	 * ESC borg
-	 *
-	 * @var int
-	 */
+	/** ESC borg */
 	const ESC_DEPOSIT = 149;
 
-	/**
-	 * Kortingspercentage voor 2e project
-	 *
-	 * @var int
-	 */
+	/** Kortingspercentage voor 2e project */
 	const DISCOUNT_SECOND_PROJECT = 25;
 
-	/**
-	 * Kleurcode primaire kleur
-	 *
-	 * @var string
-	 */
+	/** Kleurcode primaire kleur */
 	const PRIMARY_COLOR = '#ff9900';
 
-	/**
-	 * Kleurcode secundaire kleur
-	 *
-	 * @var string
-	 */
+	/** Kleurcode secundaire kleur */
 	const SECONDARY_COLOR = '#59ab9c';
 
-	/**
-	 * Kleurcode voor tekst
-	 *
-	 * @var string
-	 */
+	/** Kleurcode voor tekst */
 	const FONT_COLOR = '#444';
 
-	/**
-	 * Kleurcode voor lichte tekst
-	 *
-	 * @var string
-	 */
+	/** Kleurcode voor lichte tekst */
 	const FONT_COLOR_LIGHT = '#555';
 
-	/**
-	 * Maximale afmeting voor afbeelding
-	 *
-	 * @var int
+	/** Maximale afmeting voor afbeelding
 	 */
 	const MAX_IMAGE_SIZE = 1920;
 
-	/**
-	 * Geeft waarde van property terug
-	 *
-	 * @param string $property
-	 * @return string
-	 */
+	/** Geeft waarde van property terug */
 	public static function get( string $property ) {
 		$property = strtoupper( $property );
 		if ( defined( 'self::' . $property ) ) {
@@ -262,11 +122,7 @@ class Properties {
 		return null;
 	}
 
-	/**
-	 * Geeft array met properties terug
-	 *
-	 * @return array
-	 */
+	/** Geeft array met properties terug */
 	static public function get_all() : array {
 		$reflectionClass = new \ReflectionClass( __CLASS__ );
 		$constants = $reflectionClass->getConstants();

@@ -14,35 +14,21 @@ use SIW\Core\HTTP_Request;
  */
 class Exchange_Rates{
 
-	/**
-	 * API url
-	 *
-	 * @var string
-	 */
+	/** API url */
 	const API_URL = 'http://data.fixer.io/api/latest';
 
-	/**
-	 * API key
-	 */
+	/** API key */
 	protected string $api_key;
 
-	/**
-	 * Transient naam
-	 */
+	/** Transient naam */
 	protected string $transient_name = 'siw_exchange_rates';
 
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	public function __construct() {
 		$this->api_key = siw_get_option( 'fixer.api_key' );
 	}
 
-	/**
-	 * Geeft wisselkoersen terug
-	 * 
-	 * @return array
-	 */
+	/** Geeft wisselkoersen terug */
 	public function get_rates() : array {
 		$exchange_rates = get_transient( $this->transient_name );
 		if ( ! is_array( $exchange_rates ) ) {
@@ -55,23 +41,13 @@ class Exchange_Rates{
 		return $exchange_rates;
 	}
 
-	/**
-	 * Geeft wisselkoers voor specifieke valuta terug
-	 *
-	 * @param string $iso_code
-	 *
-	 * @return float
-	 */
+	/** Geeft wisselkoers voor specifieke valuta terug */
 	public function get_rate( string $iso_code ) : ?float {
 		$exchange_rates = $this->get_rates();
 		return $exchange_rates[ $iso_code ] ?? null;
 	}
 
-	/**
-	 * Haalt wisselkoeren op bij fixer.io
-	 * 
-	 * @return array
-	 */
+	/** Haalt wisselkoeren op bij fixer.io */
 	protected function retrieve_rates() : ?array {
 		$url = add_query_arg( [
 			'access_key' => $this->api_key,

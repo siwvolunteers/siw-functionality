@@ -10,26 +10,16 @@ namespace SIW\Plato;
  */
 class Import_FPL extends Import {
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $endpoint = 'GetAllFreePlaces';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $name = 'importeren FPL';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $process_name = 'update_free_places';
 
-	/**
-	 * Eigenschappen per project
-	 *
-	 * @var array
-	 */
+	/** Eigenschappen per project */
 	protected array $properties = [
 		'project_id',
 		'code',
@@ -38,9 +28,7 @@ class Import_FPL extends Import {
 		'no_more_from',
 	];
 
-	/**
-	 * Verwerk xml van Plato
-	 */
+	/** Verwerk xml van Plato */
 	protected function process_xml() {
 
 		$this->data = [];

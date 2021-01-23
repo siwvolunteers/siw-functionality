@@ -15,34 +15,16 @@ use SIW\Plato\Download_File as Plato_Download_File;
  */
 class Product_Image {
 
-	/**
-	 * Minimale breedte voor afbeeldingen
-	 *
-	 * @var int
-	 */
+	/** Minimale breedte voor afbeeldingen */
 	const MIN_IMAGE_WIDTH = 600;
 
-	/**
-	 * Minimale hoogte voor afbeeldingen
-	 *
-	 * @var int
-	 */
+	/** Minimale hoogte voor afbeeldingen */
 	const MIN_IMAGE_HEIGHT = 600;
 
-	/**
-	 * Subdirectory voor projectfoto's
-	 */
+	/** Subdirectory voor projectfoto's */
 	protected string $subdir = 'groepsprojecten/projectfotos';
 
-	/**
-	 * Haal projectafbeelding (uit Plato) op
-	 *
-	 * @param array $identifier
-	 * @param string $filename_base
-	 * @param string $project_id
-	 * 
-	 * @return int|null
-	 */
+	/** Haal projectafbeelding (uit Plato) op */
 	public function get_project_image( array $identifiers, string $filename_base, string $project_id ) : ?int {
 
 		// Kijk of er al een attachment voor 1 van de identifiers is
@@ -84,13 +66,7 @@ class Product_Image {
 		return null;
 	}
 
-	/**
-	 * Zoekt stockfoto op basis van land en soort werk
-	 *
-	 * @param Country $country
-	 * @param Work_Type[] $work_types
-	 * @return int|null
-	 */
+	/** Zoekt stockfoto op basis van land en soort werk */
 	public function get_stock_image( Country $country, array $work_types ) : ?int {
 
 		$continent_slug = $country->get_continent()->get_slug();
@@ -121,15 +97,7 @@ class Product_Image {
 		return null;
 	}
 
-	/**
-	 * Maakt taxonomy queries aan
-	 *
-	 * @param string $continent
-	 * @param string $country
-	 * @param array $work_types
-	 *
-	 * @return array
-	 */
+	/** Maakt taxonomy queries aan */
 	protected function get_tax_queries( string $continent, string $country, array $work_types ) : array {
 
 		//Maak subqueries aan

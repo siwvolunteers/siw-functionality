@@ -10,9 +10,7 @@ namespace SIW;
  */
 class Widgets {
 	
-	/**
-	 * SIW-widgets
-	 */
+	/** SIW-widgets */
 	protected array $widgets = [
 		'accordion'            => 'Accordion',
 		'calendar'             => 'Calendar',
@@ -32,14 +30,10 @@ class Widgets {
 		'tabs'                 => 'Tabs',
 	];
 
-	/**
-	 * Basismap voor widgets
-	 */
+	/** Basismap voor widgets */
 	protected string $widgets_folder_base;
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		if ( ! class_exists( '\SiteOrigin_Widgets_Bundle' ) ) {
 			return;
@@ -55,24 +49,14 @@ class Widgets {
 		$self->register_widgets();
 	}
 
-	/**
-	 * Overschrijf SiteOrigin Widgets met SIW-widgets
-	 *
-	 * @param array $folders
-	 * @return array
-	 */
+	/** Overschrijf SiteOrigin Widgets met SIW-widgets */
 	public function set_widgets_folders( array $folders ) : array {
 		$folders = [];
 		$folders[] = $this->widgets_folder_base . '/';
 		return $folders;
 	}
 
-	/**
-	 * Activeert alle SIW-widgets
-	 *
-	 * @param array $active_widgets
-	 * @return array
-	 */
+	/** Activeert alle SIW-widgets  */
 	public function set_active_widgets( array $active_widgets ) : array {
 		foreach ( array_keys( $this->widgets ) as $id_base ) {
 			$active_widgets[ $id_base ] = true;
@@ -80,21 +64,14 @@ class Widgets {
 		return $active_widgets;
 	}
 
-	/**
-	 * Registreert alle SIW-widgets
-	 */
+	/** Registreert alle SIW-widgets */
 	protected function register_widgets() {
 		foreach ( $this->widgets as $id_base => $class_base ) {
 			siteorigin_widget_register( "siw-{$id_base}-widget", $this->widgets_folder_base . "/{$id_base}/{$id_base}.php", "\\SIW\\Widgets\\{$class_base}");
 		}
 	}
 
-	/**
-	 * Hernoemde widgets corrigeren
-	 *
-	 * @param array $panels_data
-	 * @return array
-	 */
+	/** Hernoemde widgets corrigeren */
 	public function handle_renamed_widgets( $panels_data ) {
 
 		if ( ! is_array( $panels_data ) ) {

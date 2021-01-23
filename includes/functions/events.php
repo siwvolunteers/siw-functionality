@@ -10,13 +10,7 @@ use SIW\Properties;
  */
 
 
-/**
- * Geeft toekomstige infodagen terug
- *
- * @param int $number
- *
- * @return array
- */
+/** Geeft toekomstige infodagen terug */
 function siw_get_upcoming_info_days( int $number = 1 ) : array {
 	$args = [
 		'number'   => $number,
@@ -26,13 +20,7 @@ function siw_get_upcoming_info_days( int $number = 1 ) : array {
 	return siw_get_upcoming_events( $args );
 }
 
-/**
- * Geeft toekomstige infodagen terug
- *
- * @param array $args
- *
- * @return array
- */
+/** Geeft toekomstige infodagen terug */
 function siw_get_upcoming_events( array $args = [] ) : array {
 	$args = wp_parse_args(
 		$args,
@@ -105,14 +93,7 @@ function siw_get_upcoming_events( array $args = [] ) : array {
 	return get_posts( $post_query );
 }
 
-/**
- * Genereer structured data voor evenement
- *
- * @param array $event_id
- * @return string
- * 
- * @todo verplaatsen naar Util/JsonLD
- */
+/** Genereer structured data voor evenement */
 function siw_generate_event_json_ld( int $event_id ) : string {
 
 	$data = [

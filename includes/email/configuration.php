@@ -19,9 +19,7 @@ use PHPMailer\PHPMailer\PHPMailer;
  */
 class Configuration {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_action( 'phpmailer_init', [ $self, 'set_smtp_configuration' ], PHP_INT_MAX );
@@ -32,11 +30,7 @@ class Configuration {
 		add_filter( 'wp_mail_from_name', [ $self, 'set_mail_from_name' ] );
 	}
 
-	/**
-	 * Zet SMTP-instellingen
-	 *
-	 * @param PHPMailer $phpmailer
-	 */
+	/** Zet SMTP-instellingen */
 	public function set_smtp_configuration( PHPMailer $phpmailer ) {
 		/*SMTP-configuratie*/
 		if ( siw_get_option( 'smtp_enabled' ) ) {
@@ -52,11 +46,7 @@ class Configuration {
 		}
 	}
 
-	/**
-	 * Zet DKIM-signing
-	 *
-	 * @param PHPMailer $phpmailer
-	 */
+	/** Zet DKIM-signing */
 	public function set_dkim_configuration( PHPMailer $phpmailer ) {
 		if ( siw_get_option( 'dkim_enabled' ) && defined( 'SIW_DKIM_PASSPHRASE' ) ) {
 			$dkim_settings = siw_get_option( 'dkim_settings');
@@ -68,36 +58,20 @@ class Configuration {
 		}
 	}
 
-	/**
-	 * Zet tracking van Mailjet aan of uit
-	 *
-	 * @param PHPMailer $phpmailer
-	 * 
-	 * @todo optie voor maken
-	 */
+	/** Zet tracking van Mailjet aan of uit
+	 * @todo optie voor maken */
 	public function set_mailjet_tracking( PHPMailer $phpmailer ) {
 		$phpmailer->addCustomHeader( 'X-Mailjet-TrackOpen', 0 );
 		$phpmailer->addCustomHeader( 'X-Mailjet-TrackClick', 0 );
 	}
 	
-	/**
-	 * Zet header t.b.v. spamfilter Office-365
-	 *
-	 * @param PHPMailer $phpmailer
-	 *
-	 * @todo optie voor waarde maken
-	 */
+	/** Zet header t.b.v. spamfilter Office-365
+	 * @todo optie voor waarde maken */
 	public function set_antispam_header( PHPMailer $phpmailer ) {
 		$phpmailer->addCustomHeader( 'X-SIW-WebsiteMail', 1 );
 	}
 
-	/**
-	 * Zet het afzenderadres (indien nog niet gezet)
-	 *
-	 * @param string $from
-	 * 
-	 * @return string
-	 */
+	/** Zet het afzenderadres (indien nog niet gezet) */
 	public function set_mail_from( string $from ) : string {
 		$sitename = strtolower( SIW_SITE_NAME );
 		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
@@ -111,13 +85,7 @@ class Configuration {
 		return Properties::EMAIL;
 	}
 
-	/**
-	 * Zet de afzendernaam (indien nog niet gezet)
-	 *
-	 * @param string $from_name
-	 * 
-	 * @return string
-	 */
+	/** Zet de afzendernaam (indien nog niet gezet) */
 	public function set_mail_from_name( string $from_name ) : string {
 		$default_from_name = 'WordPress';
 		if ( $from_name != $default_from_name ) {

@@ -10,9 +10,7 @@ namespace SIW;
  */
 class Extensions {
 	
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		do_action( 'siw_register_extensions' );
@@ -25,12 +23,7 @@ class Extensions {
 		do_action( 'siw_extensions_loaded' );
 	}
 	
-	/**
-	 * Laadt 1 extensie
-	 *
-	 * @param string $plugin_file
-	 * @param array $extension
-	 */
+	/** Laadt 1 extensie */
 	protected function load_extension( string $plugin_file, array $extension ) {
 		$plugins = get_plugins();
 		$plugin_data = $plugins[ $plugin_file ] ?? [];

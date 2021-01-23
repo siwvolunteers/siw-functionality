@@ -20,13 +20,7 @@ use SIW\Elements\Modal;
  */
 class Elements {
 
-	/**
-	 * Genereer accordion
-	 * 
-	 * @param  array $panes
-	 * 
-	 * @return string
-	 */
+	/** Genereer accordion */
 	public static function generate_accordion( array $panes ) : ?string {
 		if ( empty( $panes) ) {
 			return null;
@@ -57,13 +51,7 @@ class Elements {
 		return $accordion->generate();
 	}
 
-	/**
-	 * Genereer tablist
-	 * 
-	 * @param  array $panes
-	 * 
-	 * @return string
-	 */
+	/** Genereer tablist */
 	public static function generate_tabs( array $panes ) : ?string {
 		if ( empty( $panes) ) {
 			return null;
@@ -94,14 +82,7 @@ class Elements {
 		return $tablist->generate();
 	}
 
-	/**
-	 * Genereert modal voor pagina
-	 *
-	 * @param int $page_id
-	 * @param string $link_text
-	 *
-	 * @return string
-	 */
+	/** Genereert modal voor pagina */
 	public static function generate_page_modal( int $page_id, string $link_text ) : string {
 		$page_id = i18n::get_translated_page_id( $page_id );
 		$page = get_post( $page_id );
@@ -113,15 +94,7 @@ class Elements {
 		return $modal->generate_link( $link_text, get_permalink( $page ) );
 	}
 
-	/**
-	 * Genereert modal
-	 *
-	 * @param string $title
-	 * @param string $content
-	 * @param string $link_text
-	 *
-	 * @return string
-	 */
+	/** Genereert modal */
 	public static function generate_modal( string $title, string $content, string $link_text ) : string {
 		$modal = new Modal;
 		$modal->set_title( $title );
@@ -184,13 +157,7 @@ class Elements {
 		}
 	}
 
-	/**
-	 * Genereert quote
-	 *
-	 * @param string $quote
-	 *
-	 * @return string
-	 */
+	/** Genereert quote */
 	public static function generate_quote( string $quote ) : string {
 		return Template::parse_template(
 			'elements/quote',
@@ -208,8 +175,6 @@ class Elements {
 	 * Genereert lijst of tabel met openingstijden
 	 *
 	 * @param string $type table|list
-	 * 
-	 * @return string
 	 */
 	public static function generate_opening_hours( string $type = 'table' ) : string {
 		
@@ -261,11 +226,7 @@ class Elements {
 		}
 	}
 
-	/**
-	 * Haalt gegevens over interactieve kaarten op
-	 *
-	 * @return array
-	 */
+	/** Haalt gegevens over interactieve kaarten op */
 	public static function get_interactive_maps() : array {
 		$maps = [
 			[
@@ -287,13 +248,7 @@ class Elements {
 		return $maps;
 	}
 
-	/**
-	 * Genereert interactieve kaart
-	 *
-	 * @param string $id
-	 *
-	 * @return string
-	 */
+	/** Genereert interactieve kaart */
 	public static function generate_interactive_map( string $id ) : string {
 		$maps = wp_list_pluck( self::get_interactive_maps(), 'class', 'id' );
 
@@ -305,14 +260,7 @@ class Elements {
 		return $map->generate();
 	}
 
-	/**
-	 * Genereert features
-	 *
-	 * @param array $features
-	 * @param int $columns
-	 *
-	 * @return string
-	 */
+	/** Genereert features */
 	public static function generate_features( array $features, int $columns ) : string {
 
 		$features_obj = new Features( $columns );
@@ -341,13 +289,7 @@ class Elements {
 		return $features_obj->generate();
 	}
 
-	/**
-	 * Genereert infoboxes
-	 *
-	 * @param array $infoboxes
-	 *
-	 * @return string
-	 */
+	/** Genereert infoboxes */
 	public static function generate_infoboxes( array $infoboxes ) : string {
 		$infoboxes_obj = new Infoboxes();
 		foreach ( $infoboxes as $infobox ) {
@@ -369,14 +311,7 @@ class Elements {
 		return $infoboxes_obj->generate();
 	}
 
-	/**
-	 * Genereert tabel
-	 *
-	 * @param array $rows
-	 * @param array $headers
-	 *
-	 * @return string
-	 */
+	/** Genereert tabel */
 	public static function generate_table( array $rows, array $headers = [] ) : string {
 		return Template::parse_template(
 			'elements/table',
@@ -387,14 +322,7 @@ class Elements {
 		);
 	}
 
-	/**
-	 * Genereert lijst o.b.v. array met items
-	 *
-	 * @param array $items
-	 * @param int $columns
-	 *
-	 * @return string
-	 */
+	/** Genereert lijst o.b.v. array met items */
 	public static function generate_list( array $items, int $columns = 1 ) : string {
 		return Template::parse_template(
 			'elements/list',

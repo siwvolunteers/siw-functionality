@@ -12,28 +12,18 @@ use SIW\Util;
  */
 abstract class Export extends Plato_Interface {
 
-	/**
-	 * Data
-	 */
+	/** Data */
 	protected array $data;
 
-	/**
-	 * XML-data
-	 */
+	/** XML-data */
 	protected array $xml_data;
 
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	public function __construct() {
 		parent::__construct();
 	}
 
-	/**
-	 * Voer de Plato-export uit
-	 *
-	 * @return array
-	 */
+	/** Voer de Plato-export uit */
 	public function run( $data ) : array {
 		
 		if ( ! Util::is_production() ) {
@@ -60,21 +50,13 @@ abstract class Export extends Plato_Interface {
 		return $result;
 	}
 
-	/**
-	 * Genereert xml
-	 */
+	/** Genereert xml */
 	abstract protected function generate_xml();
 
-	/**
-	 * Verwerkt xml
-	 */
+	/** Verwerkt xml */
 	abstract protected function process_xml();
 
-	/**
-	 * Verstuurt xml naar plato
-	 * 
-	 * @return bool
-	 */
+	/** Verstuurt xml naar plato */
 	protected function send_xml() : bool {
 		$args = [
 			'timeout'     => 60,

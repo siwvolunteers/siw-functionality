@@ -10,9 +10,7 @@ namespace SIW;
  */
 class HTML {
 
-	/**
-	 * Void tags
-	 */
+	/** Void tags */
 	public static array $void_tags = [
 		'area',
 		'base',
@@ -31,15 +29,7 @@ class HTML {
 		'wbr',
 	];
 
-	/**
-	 * Genereert HTML-tag
-	 *
-	 * @param string $tag
-	 * @param string $content
-	 * @param array $attributes
-	 *
-	 * @return string
-	 */
+	/** Genereert HTML-tag */
 	public static function tag( string $tag, array $attributes, string $content = '' ) : string {
 
 		//Void tags
@@ -61,74 +51,33 @@ class HTML {
 		}
 	}
 
-	/**
-	 * Genereert `<div>` tag
-	 *
-	 * @param array $attributes
-	 * @param string $content
-	 *
-	 * @return string
-	 */
+	/** Genereert `<div>` tag */
 	public static function div( array $attributes, string $content = '' ) : string {
 		return self::tag( 'div', $attributes, $content );
 	}
 
-	/**
-	 * Genereert `<span>` tag
-	 *
-	 * @param array $attributes
-	 * @param string $content
-	 *
-	 * @return string
-	 */
+	/** Genereert `<span>` tag */
 	public static function span(  array $attributes, string $content = '' ) : string {
 		return self::tag( 'span', $attributes, $content );
 	}
 
-	/**
-	 * Genereert `<a>` tag
-	 *
-	 * @param array $attributes
-	 * @param string $content
-	 *
-	 * @return string
-	 */
+	/** Genereert `<a>` tag */
 	public static function a( array $attributes, string $content = '') : string {
 		return self::tag( 'a', $attributes, $content );
 	}
 
-	/**
-	 * Genereert `<svg>` tag
-	 *
-	 * @param array $attributes
-	 * @param string $content
-	 *
-	 * @return string
-	 */
+	/** Genereert `<svg>` tag */
 	public static function svg( array $attributes, string $content = '' ) : string {
 		return self::tag( 'svg', $attributes, $content );
 	}
 
-	/**
-	 * Genereert `<li>` tag
-	 *
-	 * @param array $attributes
-	 * @param string $content
-	 *
-	 * @return string
-	 */
+	/** Genereert `<li>` tag */
 	public static function li( array $attributes, string $content = '' ) : string {
 		return self::tag( 'li', $attributes, $content );
 	}
 
-	/**
-	* sanitize_html_class voor meerdere classes
-	*
-	* @param  mixed $class
-	* @param  string $fallback
-	* @return string
-	*/
-	public static function sanitize_html_classes( $class, $fallback = null ) {
+	/** sanitize_html_class voor meerdere classes*/
+	public static function sanitize_html_classes( $class, string $fallback = null ) : string {
 		if ( is_string( $class ) ) {
 			$class = explode( ' ', $class );
 		}
@@ -141,12 +90,7 @@ class HTML {
 		}
 	}
 
-	/**
-	 * Genereert attributes op basis van array
-	 *
-	 * @param array $attributes
-	 * @return string
-	 */
+	/** Genereert attributes op basis van array */
 	public static function generate_attributes( array $attributes ) : string {
 		$rendered_attributes = '';
 		foreach ( $attributes as $key => $value ) {

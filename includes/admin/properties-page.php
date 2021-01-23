@@ -12,17 +12,13 @@ use SIW\Properties;
  */
 class Properties_Page {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_action( 'admin_menu', [ $self, 'add_properties_page'] ) ;
 	}
 
-	/**
-	 * Voegt adminpagina toe
-	 */
+	/** Voegt adminpagina toe */
 	public function add_properties_page() {
 		add_management_page(
 			__( 'SIW Eigenschappen', 'siw' ),
@@ -33,9 +29,7 @@ class Properties_Page {
 		);
 	}
 
-	/**
-	 * Rendert de adminpagina
-	 */
+	/** Rendert de adminpagina */
 	public function render_properties_page() {
 		?>
 		<h2><?= esc_attr__( 'Eigenschappen', 'siw' ); ?></h2>

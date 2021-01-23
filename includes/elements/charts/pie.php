@@ -12,14 +12,10 @@ use SIW\Elements\Chart;
  */
 class Pie extends Chart {
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $type = 'pie';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected array $options = [
 		'height'          => 400,
 		'truncateLegends' => true,
@@ -27,9 +23,7 @@ class Pie extends Chart {
 		'tooltipOptions'  => [], //TODO: Verwijderen als deze opgelost is: https://github.com/frappe/charts/issues/314
 	];
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function generate_chart_data() : array {
 
 		$data = [

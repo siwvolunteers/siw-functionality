@@ -12,44 +12,28 @@ use SIW\Core\Template;
  */
 abstract class Widget extends \SiteOrigin_Widget {
 
-	/**
-	 * ID van widget
-	 */
+	/** ID van widget */
 	protected string $widget_id;
 
-	/**
-	 * Naam van widget
-	 */
+	/** Naam van widget */
 	protected string $widget_name;
 
-	/**
-	 * Beschrijving van widget
-	 */
+	/** Beschrijving van widget */
 	protected string $widget_description = '';
 
-	/**
-	 * Icon-class van widget voor pagebuilder
-	 */
+	/** Icon-class van widget voor pagebuilder */
 	protected string $widget_dashicon ='admin-generic';
 
-	/**
-	 * Control opties van widget
-	 */
+	/** Control opties van widget */
 	protected array $widget_control_options = [];
 
-	/**
-	 * Formuliervelden van widget
-	 */
+	/** Formuliervelden van widget */
 	protected array $widget_fields = [];
 
-	/**
-	 * Geeft aan of de widget het default template gebruikt
-	 */
+	/** Geeft aan of de widget het default template gebruikt */
 	protected bool $use_default_template = false;
 
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	public function __construct() {
 
 		$this->set_widget_properties();
@@ -74,18 +58,11 @@ abstract class Widget extends \SiteOrigin_Widget {
 	 * 
 	 * - Naam
 	 * - Beschrijving
+	 * @todo splitsen in get_name en get_description
 	 */
 	abstract protected function set_widget_properties();
 
-	/**
-	 * Genereert generieke inhoud van widget
-	 *
-	 * @param array $instance
-	 * @param array $args
-	 * @param array $template_vars
-	 * @param string $css_name
-	 * @return string
-	 */
+	/** Genereert generieke inhoud van widget */
 	protected function get_html_content( array $instance, array $args, array $template_vars, string $css_name ) { 
 		$title = $instance['title'] ?? '';
 		$title = apply_filters( 'widget_title', $title );

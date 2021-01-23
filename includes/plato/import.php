@@ -10,31 +10,21 @@ namespace SIW\Plato;
  */
 abstract class Import extends Plato_Interface {
 
-	/**
-	 * Data voor background process
-	 */
+	/** Data voor background process */
 	protected array $data = [];
 
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	public function __construct() {
 		parent::__construct();
 		$this->add_query_arg_webkey();
 	}
 
-	/**
-	 * Voeg de Plato-webkey toe als query arg
-	 */
+	/** Voeg de Plato-webkey toe als query arg */
 	protected function add_query_arg_webkey() {
 		$this->add_query_arg( 'organizationWebserviceKey', $this->webkey );
 	}
 	
-	/**
-	 * Haal de XML op
-	 *
-	 * @return bool
-	 */
+	/** Haal de XML op */
 	protected function retrieve_xml() : bool {
 	
 		$args = [ 'timeout'	=> 60 ];
@@ -48,16 +38,10 @@ abstract class Import extends Plato_Interface {
 		return true;
 	}
 
-	/**
-	 * Verwerk de XML
-	 */
+	/** Verwerk de XML */
 	abstract protected function process_xml();
 
-	/**
-	 * Voer de Plato-import uit
-	 *
-	 * @return array
-	 */
+	/** Voer de Plato-import uit */
 	public function run() {
 		//Start import
 		$this->log( 'info', sprintf( 'Start %s', $this->name ) );
@@ -72,5 +56,4 @@ abstract class Import extends Plato_Interface {
 
 		return $this->data;
 	}
-	
 }

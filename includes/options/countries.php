@@ -13,37 +13,27 @@ use SIW\Interfaces\Options\Option as Option_Interface;
  */
 class Countries implements Option_Interface {
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_id(): string {
 		return 'countries';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_parent_page(): string {
 		return 'options-general.php';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_capability(): string {
 		return 'manage_options';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_title(): string {
 		return __( 'Landen', 'siw' );
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_tabs() : array {
 		return array_map(
 			fn( Continent $continent ) : array => [
@@ -54,9 +44,7 @@ class Countries implements Option_Interface {
 		);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_fields() : array {
 
 		$countries = \siw_get_countries();
@@ -95,5 +83,4 @@ class Countries implements Option_Interface {
 		}
 		return $fields;
 	}
-
 }

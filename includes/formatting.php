@@ -12,27 +12,13 @@ use SIW\Data\Currency;
  */
 class Formatting {
 
-	/**
-	 * Formatteert getal als percentage
-	 * @param  float $percentage
-	 * @param  int $decimals
-	 * @return string
-	 */
+	/** Formatteert getal als percentage */
 	public static function format_percentage( float $percentage, int $decimals = 0 ) {
 		$percentage = number_format_i18n( $percentage, $decimals );
 		return sprintf( '%s&nbsp;&percnt;', $percentage );
 	}
 
-	/**
-	 * Formatteert getal als bedrag
-	 *
-	 * @param float $amount
-	 * @param int $decimals
-	 * @param string $currency_code
-	 * @return string
-	 * 
-	 * @uses siw_get_currency()
-	 */
+	/** Formatteert getal als bedrag */
 	public static function format_amount( float $amount, int $decimals = 0, string $currency_code = 'EUR' ) : string {
 		$currency = siw_get_currency( $currency_code );
 
@@ -45,14 +31,7 @@ class Formatting {
 		return sprintf( '%s&nbsp;%s', $currency_symbol, $amount );
 	}
 
-	/**
-	 * Formatteert kortingsbedrag
-	 *
-	 * @param float $amount
-	 * @param float $sale_amount
-	 * @param int $decimals
-	 * @param string $currency_code
-	 */
+	/** Formatteert kortingsbedrag */
 	public static function format_sale_amount( float $amount, float $sale_amount, int $decimals = 0, string $currency_code = 'EUR' ) : string {
 		return sprintf(
 			'<del>%s</del>&nbsp;<ins>%s</ins>',
@@ -61,13 +40,7 @@ class Formatting {
 		);
 	}
 
-	/**
-	 * Parset template o.b.v. variabelen
-	 *
-	 * @param string $template
-	 * @param array $vars
-	 * @return string
-	 */
+	/** Parset template o.b.v. variabelen */
 	public static function parse_template( string $template, array $vars ) : string {
 		$variables = [];
 		foreach ( $vars as $key => $value ) {
@@ -76,13 +49,7 @@ class Formatting {
 		return strtr( $template, $variables  );
 	}
 
-	/**
-	 * Genereert script-tag met JSON-LD op basis van array
-	 *
-	 * @param array $data
-	 *
-	 * @return string
-	 */
+	/** Genereert script-tag met JSON-LD op basis van array */
 	public static function generate_json_ld( array $data ) : string {
 		ob_start();
 		?>
@@ -93,38 +60,24 @@ class Formatting {
 		return ob_get_clean();
 	}
 
-	/**
-	 * Formatteert datum als tekst
-	 *
-	 * @param string $date Y-m-d
-	 * @param bool $year jaar toevoegen aan tekst
-	 * @return string
-	 */
-	public static function format_date( $date, bool $year = true ) : string {
-		$format = $year ? 'j F Y' : 'j F';
+	/** Formatteert datum als tekst */
+	public static function format_date( $date, bool $include_year = true ) : string {
+		$format = $include_year ? 'j F Y' : 'j F';
 		return wp_date( $format, strtotime( $date ) );
 	}
 
-	/**
-	 * Formatteert datumrange als tekst
-	 *
-	 * @param string $date_start Y-m-d
-	 * @param string $date_end Y-m-d
-	 * @param bool $year jaar toevoegen aan tekst
-	 *
-	 * @return string
-	 */
-	public static function format_date_range( string $date_start, string $date_end, bool $year = true ) : string {
+	/** Formatteert datumrange als tekst */
+	public static function format_date_range( string $date_start, string $date_end, bool $include_year = true ) : string {
 		
 		if ( $date_start === $date_end ) {
-			return self::format_date( $date_start, $year );
+			return self::format_date( $date_start, $include_year );
 		}
 
 		$date_start_array = date_parse( $date_start );
 		$date_end_array = date_parse( $date_end );
 
-		$format_end = $year ? 'j F Y' :  'j F';
-		if ( $year && ( $date_start_array['year'] != $date_end_array['year'] ) ) {
+		$format_end = $include_year ? 'j F Y' :  'j F';
+		if ( $include_year && ( $date_start_array['year'] != $date_end_array['year'] ) ) {
 			$format_start = 'j F Y';
 		}
 		elseif ( $date_start_array['month'] != $date_end_array['month'] ) {
@@ -141,39 +94,24 @@ class Formatting {
 		);
 	}
 
-	/**
-	 * Formatteert maand uit datum als tekst
-	 *
-	 * @param string $date Y-m-d
-	 * @param bool $year Jaar toevoegen aan tekst
-	 *
-	 * @return string
-	 */
-	public static function format_month( string $date, bool $year = true ) : string {
-		$format = $year ? 'F Y' :  'F';
+	/** Formatteert maand uit datum als tekst */
+	public static function format_month( string $date, bool $include_year = true ) : string {
+		$format = $include_year ? 'F Y' :  'F';
 		return wp_date( $format, strtotime( $date ) );
 	}
 
-	/**
-	 * Formatteert maand-range uit datums als tekst
-	 *
-	 * @param string $date_start Y-m-d
-	 * @param string $date_end Y-m-d
-	 * @param bool $year jaar toevoegen aan tekst
-	 *
-	 * @return string
-	 */
-	public static function format_month_range( string $date_start, string $date_end, bool $year = true ) : string {
+	/** Formatteert maand-range uit datums als tekst */
+	public static function format_month_range( string $date_start, string $date_end, bool $include_year = true ) : string {
 
 		$date_start_array = date_parse( $date_start );
 		$date_end_array = date_parse( $date_end );
 
 		if ( $date_start === $date_end || ( $date_start_array['month'] === $date_end_array['month'] && $date_start_array['year'] === $date_end_array['year'] ) ) {
-			return self::format_month( $date_start, $year );
+			return self::format_month( $date_start, $include_year );
 		}
 
-		$format_end = $year ? 'F Y' :  'F';
-		if ( $year && ( $date_start_array['year'] != $date_end_array['year'] ) ) {
+		$format_end = $include_year ? 'F Y' :  'F';
+		if ( $include_year && ( $date_start_array['year'] != $date_end_array['year'] ) ) {
 			$format_start = 'F Y';
 		}
 		else {
@@ -187,14 +125,7 @@ class Formatting {
 		);
 	}
 
-	/**
-	 * Formatteert lokale bijdrage
-	 *
-	 * @param float $fee
-	 * @param string $currency_code
-	 * 
-	 * @return string
-	 */
+	/** Formatteert lokale bijdrage */
 	public static function format_local_fee( float $fee, string $currency_code ) : string {
 		if ( 0.0 === $fee || ! is_string( $currency_code ) ) {
 			return '';
@@ -212,15 +143,7 @@ class Formatting {
 		return sprintf( '%s %d', $currency_code, $fee );
 	}
 
-	/**
-	 * Formatteert aantal vrijwilligers
-	 *
-	 * @param int $total
-	 * @param int $male
-	 * @param int $female
-	 * 
-	 * @return string
-	 */
+	/** Formatteert aantal vrijwilligers */
 	public static function format_number_of_volunteers( int $total, int $male, int $female ) : string {
 
 		$male_label = ( 1 == $male ) ? 'man' : 'mannen';
@@ -235,14 +158,7 @@ class Formatting {
 		return $number_of_volunteers;
 	}
 
-	/**
-	 * Formatteert leeftijdsrange
-	 *
-	 * @param int $min_age
-	 * @param int $max_age
-	 * 
-	 * @return string
-	 */
+	/** Formatteert leeftijdsrange */
 	public static function format_age_range( int $min_age, int $max_age ) : string {
 		if ( $min_age < 1 ) {
 			$min_age = 18;

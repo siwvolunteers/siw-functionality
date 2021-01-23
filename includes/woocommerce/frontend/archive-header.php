@@ -53,20 +53,12 @@ class Archive_Header {
 		<?php
 	}
 
-	/**
-	 * Geeft aan of header getoond moet worden
-	 * 
-	 * @return bool
-	 */
+	/** Geeft aan of header getoond moet worden */
 	protected function show_archive_header() : bool {
 		return \is_shop() || \is_product_category() || \is_product_taxonomy();
 	}
 
-	/**
-	 * Genereert introtekst
-	 * 
-	 * @return string
-	 */
+	/** Genereert introtekst */
 	protected function get_intro_text() : string {
 
 		if ( \is_shop() ) {
@@ -112,11 +104,7 @@ class Archive_Header {
 		return $text;
 	}
 
-	/**
-	 * Geeft aan of aankondiging nieuwe projecten getoond moet worden
-	 *
-	 * @return bool
-	 */
+	/** Geeft aan of aankondiging nieuwe projecten getoond moet worden */
 	protected function is_teaser_text_active() : bool {
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
 		$teaser_text_active = false;
@@ -130,11 +118,7 @@ class Archive_Header {
 		return $teaser_text_active;
 	}
 
-	/**
-	 * Genereert aankondiging voor nieuwe projecten
-	 * 
-	 * @return string|null
-	 */
+	/** Genereert aankondiging voor nieuwe projecten */
 	protected function get_teaser_text() : ?string {
 
 		if ( ! $this->is_teaser_text_active() ) {
@@ -153,13 +137,7 @@ class Archive_Header {
 		return $teaser_text;
 	}
 
-	/**
-	 * Genereert tekst voor kortingsactie
-	 * 
-	 * @return string|null 
-	 * 
-	 * @todo refactor
-	 */
+	/** Genereert tekst voor kortingsactie */
 	protected function get_sale_text() : ?string {
 
 		if ( ! Util::is_workcamp_sale_active() ) {

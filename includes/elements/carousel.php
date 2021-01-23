@@ -12,49 +12,31 @@ use SIW\Util\CSS;
  */
 class Carousel {
 
-	/**
-	 * Versienummer 
-	 */
+	/** Versienummer */
 	const FLICKITY_VERSION = '2.2.2';
 
-	/**
-	 * Post type
-	 */
+	/** Post type */
 	protected string $post_type;
 
-	/**
-	 * Taxonomy voor query
-	 */
+	/** Taxonomy voor query */
 	protected string $taxonomy;
 
-	/**
-	 * Term voor query
-	 */
+	/** Term voor query */
 	protected string $term;
 
-	/**
-	 * Meta query
-	 */
+	/** Meta query */
 	protected array $meta_query = [];
 
-	/**
-	 * Aantal items in carousel
-	 */
+	/** Aantal items in carousel */
 	protected int $items = 6;
 
-	/**
-	 * Aantal kolommen in carousel
-	 */
+	/** Aantal kolommen in carousel */
 	protected int $columns = 4;
 
-	/**
-	 * Tekst voor knop
-	 */
+	/** Tekst voor knop */
 	protected string $button_text;
 
-	/**
-	 * Opties voor carousel
-	 */
+	/** Opties voor carousel */
 	protected array $options = [
 		'cellAlign'  => 'left',
 		'contain'    => true,
@@ -63,27 +45,19 @@ class Carousel {
 		'pageDots'   => false, //TODO: styling
 	];
 
-	/**
-	 * Voegt stylesheet toe
-	 */
+	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
 		wp_register_style( 'flickity', SIW_ASSETS_URL . 'vendor/flickity/flickity.css', [], self::FLICKITY_VERSION );
 		wp_enqueue_style( 'flickity' );
 	}
 
-	/**
-	 * Voegt scripts toe
-	 */
+	/** Voegt scripts toe */
 	public function enqueue_scripts() {
 		wp_register_script( 'flickity', SIW_ASSETS_URL . 'vendor/flickity/flickity.pkgd.js', [], self::FLICKITY_VERSION, true );
 		wp_enqueue_script( 'flickity' );
 	}
 
-	/**
-	 * Haalt responsive classes op
-	 * 
-	 * @return string
-	 */
+	/** Haalt responsive classes op */
 	protected function get_responsive_classes() : string {
 
 		$desktop_columns = $this->columns;
@@ -108,58 +82,33 @@ class Carousel {
 		return CSS::generate_responsive_classes( $desktop_columns, $tablet_columns, $mobile_columns );
 	}
 
-	/**
-	 * Zet post type voor carousel
-	 *
-	 * @param string $post_type
-	 */
+	/** Zet post type voor carousel */
 	public function set_post_type( string $post_type ) {
 		$this->post_type = $post_type;
 	}
 
-	/**
-	 * Zet aantal items van carousel
-	 *
-	 * @param int $items
-	 */
+	/** Zet aantal items van carousel */
 	public function set_items( int $items ) {
 		$this->items = $items;
 	}
 
-	/**
-	 * Zet aantal kolommen van carousel
-	 *
-	 * @param int $columns
-	 */
+	/** Zet aantal kolommen van carousel */
 	public function set_columns( int $columns ) {
 		$this->columns = $columns;
 	}
 
-	/**
-	 * Zet taxonomy en term voor carousel
-	 *
-	 * @param string $taxonomy
-	 * @param string $term
-	 */
+	/** Zet taxonomy en term voor carousel */
 	public function set_taxonomy_term( string $taxonomy, string $term ) {
 		$this->taxonomy = $taxonomy;
 		$this->term = $term;
 	}
 
-	/**
-	 * Zet meta query
-	 *
-	 * @param array $meta_query
-	 */
+	/** Zet meta query */
 	public function set_meta_query( array $meta_query ) {
 		$this->meta_query[] = $meta_query;
 	}
 
-	/**
-	 * Zet opties voor carousel
-	 *
-	 * @param array $options
-	 */
+	/** Zet opties voor carousel */
 	public function set_options( array $options ) {
 		$this->options = wp_parse_args( $options, $this->options );
 	}
@@ -204,11 +153,7 @@ class Carousel {
 		return ob_get_clean();
 	}
 
-	/**
-	 * Genereert query
-	 * 
-	 * @return \WP_Query
-	 */
+	/** Genereert query */
 	protected function generate_query() : \WP_Query {
 		$args = [
 			'post_type'      => $this->post_type,
@@ -244,9 +189,6 @@ class Carousel {
 
 	/**
 	 * Haal templatebestand op voor post type
-	 * 
-	 * @return string
-	 * 
 	 * @todo fallback-bestand
 	 */
 	protected function get_template() : string {

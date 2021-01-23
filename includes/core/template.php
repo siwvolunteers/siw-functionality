@@ -18,9 +18,6 @@ class Template {
 
 	/**
 	 * Geeft Mustache Engine terug
-	 *
-	 * @return Mustache_Engine
-	 * 
 	 * @todo optimalisatie
 	 */
 	public static function get_engine() : Mustache_Engine {
@@ -67,37 +64,17 @@ class Template {
 		return $template_engine;
 	}
 
-	/**
-	 * Haalt template op
-	 *
-	 * @param string $name
-	 *
-	 * @return Mustache_Template
-	 */
+	/** Haalt template op */
 	public static function get_template( string $name ) : Mustache_Template {
 		return self::get_engine()->loadTemplate( $name );
 	}
 
-	/**
-	 * Rendert template
-	 *
-	 * @param string $name
-	 * @param array $context
-	 *
-	 * @return string
-	 */
+	/** Rendert template */
 	public static function render_template( string $name, array $context ) {
 		echo self::parse_template( $name, $context );
 	}
 
-	/**
-	 * Geeft geparste template terug
-	 *
-	 * @param string $name
-	 * @param array $context
-	 *
-	 * @return string
-	 */
+	/** Geeft geparste template terug */
 	public static function parse_template( string $name, array $context ) : string {
 		return self::get_engine()->loadTemplate( $name )->render( $context );
 	}

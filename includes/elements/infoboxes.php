@@ -3,7 +3,6 @@
 namespace SIW\Elements;
 
 use SIW\Core\Template;
-use SIW\Util\CSS;
 
 /**
  * Class om een overzicht van infoboxes met icon en knop te genereren
@@ -13,30 +12,16 @@ use SIW\Util\CSS;
  */
 class Infoboxes {
 	
-	/**
-	 * Icon size
-	 */
+	/** Icon size */
 	protected int $icon_size = 3;
 
-	/**
-	 * Achtergrond van icon
-	 */
+	/** Achtergrond van icon */
 	protected string $icon_background = 'circle';
 
-	/**
-	 * Infoboxes
-	 */
+	/** Infoboxes */
 	protected array $infoboxes;
 
-	/**
-	 *  function
-	 *
-	 * @param string $icon
-	 * @param string $title
-	 * @param string $content
-	 * @param string $url
-	 * @param string $text
-	 */
+	/** Voegt infobox toe */
 	public function add_infobox( string $icon, string $title, string $content ) {
 	
 		//Afbreken als content geen zichtbare inhoud bevat
@@ -56,11 +41,7 @@ class Infoboxes {
 		];
 	}
 	
-	/**
-	 * Genereert features
-	 *
-	 * @return string
-	 */
+	/** Genereert features */
 	public function generate() : string {
 		return Template::parse_template(
 			'elements/infoboxes',

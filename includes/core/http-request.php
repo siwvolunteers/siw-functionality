@@ -12,43 +12,28 @@ use WP_Error;
  */
 class HTTP_Request {
 
-	/**
-	 * Toegestane methodes TODO: hoe nuttig is dit
-	 */
+	/** Toegestane methodes TODO: hoe nuttig is dit */
 	protected array $allowed_methods = [
 		'POST',
 		'GET',
 		'PATCH'
 	];
 
-	/**
-	 * Geaccepteerde response codes
-	 */
+	/** Geaccepteerde response codes */
 	protected array $accepted_response_codes = [
 		\WP_Http::OK
 	];
 
-	/**
-	 * Url voor request
-	 */
+	/** Url voor request */
 	protected string $url;
 
-	/**
-	 * Args voor request
-	 */
+	/** Args voor request */
 	protected array $args;
 
-	/**
-	 * Fout bij afhandeling van het request
-	 */
+	/** Fout bij afhandeling van het request */
 	protected \WP_Error $error;
 
-	/**
-	 * Init
-	 *
-	 * @param string $url
-	 * @param array $args
-	 */
+	/** Init */
 	public function __construct( string $url, array $args = [] ) {
 		$this->url = $url;
 		$this->args = \wp_parse_args_recursive(
@@ -65,99 +50,48 @@ class HTTP_Request {
 		);
 	}
 
-	/**
-	 * Zet basic auth header
-	 *
-	 * @param string $user
-	 * @param string $password
-	 */
+	/** Zet basic auth header */
 	public function set_basic_auth( string $user, string $password ) {
 		$this->args['headers']['Authorization'] = 'Basic ' . base64_encode("{$user}:{$password}");
 	}
 
-	/**
-	 * Zet bearer auth header
-	 *
-	 * @param string $token
-	 */
+	/** Zet bearer auth header */
 	public function set_bearer_auth( string $token ) {
 		$this->args['headers']['Authorization'] = "Bearer {$token}";
 	}
 
-	/**
-	 * Voegt toegestane response code toe
-	 *
-	 * @param string $method
-	 * 
-	 * @return mixed
-	 */
+	/** Voegt toegestane response code toe */
 	public function add_accepted_response_code( int $response_code ) {
 		$this->accepted_response_codes[] = $response_code;
 	}
 
-	/**
-	 * Zet content type van request
-	 *
-	 * @param string $method
-	 * 
-	 * @return mixed
-	 */
+	/** Zet content type van request */
 	public function set_content_type( string $content_type ) {
 		$this->args['headers']['content-type'] = $content_type;
 	}
 
-	/**
-	 * Zet geaccepteerde formaat van response
-	 *
-	 * @param string $method
-	 * 
-	 * @return mixed
-	 */
+	/** Zet geaccepteerde formaat van response */
 	public function set_accept( string $accept ) {
 		$this->args['headers']['accept'] = $accept;
 	}
 	
-	/**
-	 * Voor POST-request uit
-	 *
-	 * @param string $method
-	 * 
-	 * @return mixed
-	 */
+	/** Voor POST-request uit */
 	public function post( $body = [] ) {
 		$this->args['body'] = $body;
 		return $this->dispatch( 'POST' );
 	}
 
-	/**
-	 * Voert GET-request uit
-	 *
-	 * @param string $method
-	 * 
-	 * @return mixed
-	 */
+	/** Voert GET-request uit */
 	public function get() {
 		return $this->dispatch( 'GET' );
 	}
 
-	/**
-	 * Voert PATCH-request uit
-	 *
-	 * @param string $method
-	 * 
-	 * @return mixed
-	 */
+	/** Voert PATCH-request uit */
 	public function patch() {
 		return $this->dispatch( 'PATCH' );
 	}
 
-	/**
-	 * Verstuur request
-	 *
-	 * @param string $method
-	 * 
-	 * @return mixed
-	 */
+	/** Verstuur request */
 	protected function dispatch( string $method ) {
 		if ( ! in_array( $method, $this->allowed_methods ) ) {
 			return new \WP_Error( 'invalid_method', 'Method is niet toegestaan');
@@ -172,13 +106,7 @@ class HTTP_Request {
 		}
 	}
 
-	/**
-	 * Haal body van response op
-	 *
-	 * @param array $response
-	 * 
-	 * @return mixed
-	 */
+	/** Haal body van response op */
 	protected function retrieve_body( array $response ) {
 		$body = \wp_remote_retrieve_body( $response );
 		switch ( $this->args['headers']['accept'] ) {
@@ -198,8 +126,6 @@ class HTTP_Request {
 	 * Controleert response
 	 *
 	 * @param array|\WP_Error $response
-	 * 
-	 * @return bool
 	 */
 	protected function is_valid_response( $response ) : bool {
 		if ( is_wp_error( $response ) ) {

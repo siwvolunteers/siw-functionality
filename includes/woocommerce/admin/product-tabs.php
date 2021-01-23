@@ -11,9 +11,8 @@ use SIW\i18n;
  * @since     3.1.0
  */
 class Product_Tabs {
-	/**
-	 * Init
-	 */
+
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_filter( 'woocommerce_product_data_tabs', [ $self, 'add_tabs'] );
@@ -27,12 +26,7 @@ class Product_Tabs {
 		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_product_data'] );
 	}
 
-	/**
-	 * Voegt extra product tabs toe
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
+	/** Voegt extra product tabs toe */
 	public function add_tabs( array $tabs ) : array {
 		global $product_object;
 
@@ -67,13 +61,7 @@ class Product_Tabs {
 		return $tabs;
 	}
 
-	/**
-	 * Verbergt overbodige product tabs
-	 *
-	 * @param array $tabs
-	 * 
-	 * @return array
-	 */
+	/** Verbergt overbodige product tabs */
 	public function hide_tabs( array $tabs ) : array {
 		$tabs['advanced']['class'] = ['show_if_simple'];
 		$tabs['shipping']['class'] = ['show_if_simple'];
@@ -88,9 +76,7 @@ class Product_Tabs {
 		return $tabs;
 	}
 
-	/**
-	 * Toont tab met extra opties t.b.v. update
-	 */
+	/** Toont tab met extra opties t.b.v. update */
 	public function show_update_tab() {
 		global $product_object;
 		?>
@@ -141,9 +127,7 @@ class Product_Tabs {
 		<?php
 	}
 
-	/**
-	 * Toont beschrijving van het project
-	 */
+	/** Toont beschrijving van het project */
 	public function show_description_tab() {
 		global $product_object;
 
@@ -183,9 +167,7 @@ class Product_Tabs {
 		<?php
 	}
 
-	/**
-	 * Toont tab met beoordelingsresultaat
-	 */
+	/** Toont tab met beoordelingsresultaat */
 	public function show_approval_tab() {
 		global $product_object;
 
@@ -245,9 +227,7 @@ class Product_Tabs {
 	}
 
 
-	/**
-	 * Toont tab met met instellingen voor nederlandse projecten
-	 */
+	/** Toont tab met met instellingen voor nederlandse projecten */
 	public function show_dutch_projects_tab() {
 		global $product_object;
 
@@ -299,11 +279,7 @@ class Product_Tabs {
 		<?php
 	}
 
-	/**
-	 * Slaat gewijzigde meta-velden op
-	 *
-	 * @param \WC_Product $product
-	 */
+	/** Slaat gewijzigde meta-velden op */
 	public function save_product_data( \WC_Product $product ) {
 		$meta_data = [
 			'import_again'            => isset( $_POST['import_again'] ),

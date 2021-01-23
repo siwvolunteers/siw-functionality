@@ -14,52 +14,31 @@ use SIW\Properties;
  */
 class Attachment {
 
-	/**
-	 * Path van upload directory
-	 */
+	/** Path van upload directory */
 	protected string $upload_dir;
 
-	/**
-	 * URL van upload directory
-	 */
+	/** URL van upload directory */
 	protected string $upload_url;
 
-	/**
-	 * Subdirectory voor upload
-	 */
+	/** Subdirectory voor upload */
 	protected string $subdir;
 
-	/**
-	 * Minimum breedte van afbeelding
-	 */
+	/** Minimum breedte van afbeelding */
 	protected int $minimum_width;
 
-	/**
-	 * Minimum hoogte van afbeelding
-	 */
+	/** Minimum hoogte van afbeelding */
 	protected int $minimum_height;
 
-	/**
-	 * Maximum breedte van afbeelding
-	 */
+	/** Maximum breedte van afbeelding */
 	protected int $maximum_width = Properties::MAX_IMAGE_SIZE;
 
-	/**
-	 * Maximum hoogte van afbeelding
-	 */
+	/** Maximum hoogte van afbeelding */
 	protected int $maximum_height = Properties::MAX_IMAGE_SIZE;
 
-	/**
-	 * Soort bestand
-	 */
+	/** Soort bestand */
 	protected string $filetype;
 
-	/**
-	 * Init
-	 *
-	 * @param string $filetype
-	 * @param string $subdir
-	 */
+	/** Init */
 	public function __construct( string $filetype, string $subdir ) {
 		
 		$this->filetype = $filetype;
@@ -74,41 +53,26 @@ class Attachment {
 		add_filter( 'siw_upload_subdir', [ $this, 'set_upload_subdir'] );
 	}
 
-	/**
-	 * Voegt attachment toe
-	 *
-	 * @param string $temp_file
-	 * @param string $filename
-	 * @param string $title
-	 *
-	 * @return int
-	 */
-	public function add( $temp_file, $filename, $title ) {
+	/** Voegt attachment toe */
+	public function add( $temp_file, $filename, $title ) : ?int {
 
 		//Verplaats bestand naar upload-directory
 		$relative_path = $this->move_file( $temp_file, $filename );
 		if ( is_null( $relative_path ) ) {
-			return false;
+			return null;
 		}
 
 		//Afbeelding controleren op minimale en maximale afmetingen
 		if ( 'image' == $this->filetype ) {
 			$relative_path = $this->check_image( $relative_path );
-			if ( false === $relative_path ) {
-				return false;
+			if ( null === $relative_path ) {
+				return null;
 			}
 		}
 		return $this->create_attachment( $relative_path, $title );
 	}
 
-	/**
-	 * Verplaatst bestand naar upload-directory
-	 *
-	 * @param string $temp_file
-	 * @param string $filename
-	 *
-	 * @return string
-	 */
+	/** Verplaatst bestand naar upload-directory */
 	protected function move_file( string $temp_file, string $filename ) : ?string {
 		
 		$temp_filename = basename( $temp_file );
@@ -140,35 +104,20 @@ class Attachment {
 		return _wp_relative_upload_path( $file_attributes['file'] );
 	}
 
-	/**
-	 * Zet minimum resolutie van afbeelding
-	 *
-	 * @param int $width
-	 * @param int $height
-	 */
+	/** Zet minimum resolutie van afbeelding */
 	public function set_minimum_resolution( int $width, int $height ) {
 		$this->minimum_width = $width;
 		$this->minimum_height = $height;
 	}
 
-	/**
-	 * Zet maximum resolutie van afbeelding
-	 *
-	 * @param int $width
-	 * @param int $height
-	 */
+	/** Zet maximum resolutie van afbeelding */
 	public function set_maximimum_resolution( int $width, int $height ) {
 		$this->maximum_width = abs( $width );
 		$this->maximum_height = abs( $height );
 	}
 
-	/**
-	 * Voegt attachment toe aan database
-	 *
-	 * @param string $relative_path
-	 * @return int
-	 */
-	protected function create_attachment( string $relative_path, string $title ) {
+	/** Voegt attachment toe aan database */
+	protected function create_attachment( string $relative_path, string $title ) : ?int {
 		$file = wp_normalize_path( $this->upload_dir . '/' . $relative_path );
 
 		$attachment_id = wp_insert_attachment( [
@@ -180,7 +129,7 @@ class Attachment {
 		], $relative_path );
 
 		if ( is_wp_error( $attachment_id ) ) {
-			return false;
+			return null;
 		}
 
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
@@ -202,7 +151,7 @@ class Attachment {
 	 *
 	 * @return string|bool
 	 */
-	protected function check_image( string $relative_path ) {
+	protected function check_image( string $relative_path ) : ?string {
 		$file = wp_normalize_path( $this->upload_dir . '/' . $relative_path );
 
 		$image_editor = wp_get_image_editor( $file );
@@ -216,7 +165,7 @@ class Attachment {
 		//Afbeelding weggooien en afbreken als deze te klein is
 		if ( ( isset( $this->minimum_width ) && $dimensions['width'] < $this->minimum_width ) || ( isset( $this->minimum_height ) && $dimensions['height'] < $this->minimum_height ) ) {
 			wp_delete_file( $file );
-			return false;
+			return null;
 		}
 	
 		//Resizen als afbeelding te groot is
@@ -224,11 +173,11 @@ class Attachment {
 			$resize = $image_editor->resize( $this->maximum_width, $this->maximum_height, true );
 			if ( is_wp_error( $resize ) ) {
 				wp_delete_file( $file );
-				return false;
+				return null;
 			}
 			$resized_image = $image_editor->save( $file );
 			if ( is_wp_error( $resized_image ) ) {
-				return false;
+				return null;
 			}
 
 			$path = $resized_image['path'];

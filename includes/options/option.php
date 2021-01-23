@@ -12,29 +12,17 @@ use SIW\Interfaces\Options\Option as Option_Interface;
  */
 class Option {
 
-	/**
-	 * Data van optie
-	 */
+	/** Data van optie */
 	protected Option_Interface $option;
 
-	/**
-	 * Undocumented function
-	 *
-	 * @param Option_Interface $option
-	 */
+	/** Constructor */
 	public function __construct( Option_Interface $option ) {
 		$this->option = $option;
 		add_filter( 'rwmb_meta_boxes', [ $this, 'add_settings_meta_boxes'] );
 		add_filter( 'mb_settings_pages', [ $this, 'add_settings_page'] );
 	}
 
-	/**
-	 * Voegt admin-pagina toe
-	 *
-	 * @param array $settings_pages
-	 *
-	 * @return array
-	 */
+	/** Voegt admin-pagina toe */
 	public function add_settings_page( array $settings_pages ) : array {
 		$tabs = $this->option->get_tabs();
 		$settings_pages[] = [
@@ -53,15 +41,7 @@ class Option {
 		return $settings_pages;
 	}
 	
-	/**
-	 * Voegt metaboxes toe
-	 *
-	 * @param array $meta_boxes
-	 *
-	 * @return array
-	 * 
-	 * @todo validatie van veld naar metabox verplaatsen
-	 */
+	/*** Voegt metaboxes toe */
 	public function add_settings_meta_boxes( array $meta_boxes ) : array {
 		
 		$tabs = $this->option->get_tabs();

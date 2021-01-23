@@ -12,14 +12,10 @@ use SIW\Core\Template;
  */
 class Taxonomy_Filter {
 
-	/**
-	 * Opties
-	 */
+	/** Opties */
 	protected array $options = [];
 
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	public function __construct( array $options = [] ) {
 		$this->options = wp_parse_args(
 			$options,
@@ -31,9 +27,7 @@ class Taxonomy_Filter {
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_script' ] );
 	}
 
-	/**
-	 * Voegt script toe
-	 */
+	/** Voegt script toe */
 	public function enqueue_script(){
 		wp_register_script( 'siw-taxonomy-filter', SIW_ASSETS_URL . 'js/elements/siw-taxonomy-filter.js', [], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
@@ -44,12 +38,7 @@ class Taxonomy_Filter {
 		wp_enqueue_script( 'siw-taxonomy-filter' );
 	}
 
-	/**
-	 * Genereert groep filterknoppen voor één taxonomy
-	 *
-	 * @param string $taxonomy
-	 * @return string
-	 */
+	/** Genereert groep filterknoppen voor één taxonomy */
 	public function generate( string $taxonomy ) : string {
 		$terms = $this->get_terms( $taxonomy );
 		
@@ -69,11 +58,7 @@ class Taxonomy_Filter {
 		);
 	}
 
-	/**
-	 * Haalt terms van één taxonomy op
-	 * 
-	 * @return array
-	 */
+	/** Haalt terms van één taxonomy op */
 	protected function get_terms( string $taxonomy ) : array {
 		$term_query = [
 			'taxonomy'   => $taxonomy,

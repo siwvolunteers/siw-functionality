@@ -13,9 +13,7 @@ use SIW\Util\CSS;
  */
 class Icons {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 
@@ -31,9 +29,7 @@ class Icons {
 		}
 	}
 
-	/**
-	 * Voegt SVG-sprite toe aan header
-	 */
+	/** Voegt SVG-sprite toe aan header */
 	public function add_svg_sprite() {
 		echo HTML::div(
 			[
@@ -43,24 +39,18 @@ class Icons {
 		);
 	}
 
-	/**
-	 * Voegt SVG-script toe
-	 */
+	/** Voegt SVG-script toe */
 	public function enqueue_script() {
 		wp_enqueue_script( 'siw-svg' );
 	}
 
-	/**
-	 * Voegt stylesheet toe
-	 */
+	/** Voegt stylesheet toe */
 	public function enqueue_style() {
 		wp_register_style( 'siw-icons', SIW_ASSETS_URL . 'css/siw-icons.css', null, SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-icons' );
 	}
 
-	/**
-	 * Voegt inline admin style voor icons toe
-	 */
+	/** Voegt inline admin style voor icons toe */
 	public function enqueue_admin_style() {
 		$icons = $this->get_icons();
 
@@ -85,12 +75,7 @@ class Icons {
 		);
 	}
 
-	/**
-	 * Voegt SIW-icon family toe
-	 *
-	 * @param array $icon_families
-	 * @return array
-	 */
+	/** Voegt SIW-icon family toe */
 	public function add_icon_family( array $icon_families ) : array {
 		$icon_families['siw'] = [
 			'name'      => __( 'SIW Icons', 'siw' ),
@@ -99,12 +84,7 @@ class Icons {
 		return $icon_families;
 	}
 
-	/**
-	 * Verwijdert default icon families
-	 *
-	 * @param array $icon_families
-	 * @return array
-	 */
+	/** Verwijdert default icon families */
 	public function remove_icon_families( array $icon_families ) : array {
 		unset( $icon_families['elegantline'] );
 		unset( $icon_families['fontawesome'] );
@@ -116,11 +96,7 @@ class Icons {
 		return $icon_families;
 	}
 
-	/**
-	 * Geeft lijst van icons terug
-	 *
-	 * @return array
-	 */
+	/** Geeft lijst van icons terug */
 	protected function get_icons() : array {
 
 		$icons = wp_cache_get( 'icons', 'siw_icons' );
