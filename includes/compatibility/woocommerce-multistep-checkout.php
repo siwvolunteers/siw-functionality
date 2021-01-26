@@ -70,7 +70,7 @@ class WooCommerce_Multistep_Checkout {
 	}
 
 	/** Zet waarde van optie */
-	public function set_option_value( $value, string $option ) : ?string {
+	public function set_option_value( $value, string $option )  {
 		$option_values = $this->get_option_values();
 		return $option_values[ $option ];
 	}
