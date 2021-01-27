@@ -41,7 +41,9 @@ class Bootstrap {
 		$this->load_core();
 		$this->load_api();
 		$this->load_modules();
-		$this->load_compatibility();
+
+		$this->init_class( 'SIW\Compatibility', 'Loader' );
+
 		$this->load_batch_jobs();
 		$this->load_page_builder();
 		$this->load_woocommerce();
