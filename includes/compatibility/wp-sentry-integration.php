@@ -14,11 +14,18 @@ class WP_Sentry_Integration {
 	public static function init() {
 		$self = new self();
 		add_filter( 'rocket_exclude_js', [ $self, 'exclude_js' ] );
+		add_filter( 'wp_sentry_public_context', [ $self, 'set_context'] );
 	}
 
 	/** JS-bestanden uitsluiten van minification/concatenation */
 	public function exclude_js( array $excluded_files ) : array {
 		$excluded_files[] = '/wp-content/plugins/wp-sentry-integration/public/(.*).js';
 		return $excluded_files;
+	}
+
+	/** Zet taal op correcte waarde */
+	public function set_context( array $context ) : array {
+		$context['tags']['language'] = determine_locale();
+		return $context;
 	}
 }
