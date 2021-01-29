@@ -15,7 +15,6 @@
 		"deliciousbrains/wp-background-processing": "dev-master",
 		"spatie/array-to-xml": "2.*",
 		"spatie/enum": "3.*",
-		"spatie/schema-org": "3.*",
 		"donut/array_dig": "*",
 		"woocommerce/action-scheduler": "3.*",
 		"mustache/mustache": "2.*"

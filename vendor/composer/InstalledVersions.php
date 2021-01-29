@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '9d145b13b760a5e938d767e07b6d58f2e0a25417',
+    'reference' => '92b61769b15eed61878878029e68792e5c53beb4',
     'name' => 'siwvolunteers/siw-functionality',
   ),
   'versions' => 
@@ -78,7 +78,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '9d145b13b760a5e938d767e07b6d58f2e0a25417',
+      'reference' => '92b61769b15eed61878878029e68792e5c53beb4',
     ),
     'spatie/array-to-xml' => 
     array (
@@ -97,15 +97,6 @@ private static $installed = array (
       array (
       ),
       'reference' => '4d4f2ff8d778fcaacbe4c59edeccad9a1fb2bcac',
-    ),
-    'spatie/schema-org' => 
-    array (
-      'pretty_version' => '3.3.0',
-      'version' => '3.3.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'c847dc09c78e8ba8fe3a32e062c05368388671c1',
     ),
     'woocommerce/action-scheduler' => 
     array (

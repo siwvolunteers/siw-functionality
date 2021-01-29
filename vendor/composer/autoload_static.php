@@ -14,17 +14,12 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
-            'Spatie\\SchemaOrg\\' => 17,
             'Spatie\\Enum\\' => 12,
             'Spatie\\ArrayToXml\\' => 18,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Spatie\\SchemaOrg\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/spatie/schema-org/src',
-        ),
         'Spatie\\Enum\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/enum/src',
