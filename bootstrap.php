@@ -50,7 +50,7 @@ class Bootstrap {
 		$this->load_content_types();
 
 		if ( is_admin() ) {
-			$this->load_admin();
+			$this->init_class( 'SIW\Admin', 'Loader' );
 			//$this->load_woocommerce_admin(); //TODO: na splitsen SIW_WC_Order_Admin
 		}
 
@@ -181,23 +181,7 @@ class Bootstrap {
 			]
 		);
 	}
-
-	/**
-	 * Laadt admin
-	 */
-	protected function load_admin() {
-		$this->init_classes(
-			'SIW\Admin',
-			[
-				'Admin',
-				'Admin_Bar',
-				'Notices',
-				'Shortcodes',
-				'Properties_Page',
-			]
-		);
-	}
-
+	
 	/**
 	 * Laadt compatibiliteit met andere plugins
 	 */
