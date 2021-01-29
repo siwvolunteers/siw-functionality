@@ -16,7 +16,7 @@ class Loader extends Class_Loader_Abstract {
 		return [
 			Caldera_Forms::class,
 			GeneratePress::class,
-			MetaBox::class,
+			Meta_Box::class,
 			Safe_Redirect_Manager::class,
 			SiteOrigin_Page_Builder::class,
 			The_SEO_Framework::class,
