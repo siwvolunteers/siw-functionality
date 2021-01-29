@@ -22,11 +22,6 @@ abstract class Class_Loader {
 
 		//Filter voor extensies
 		$classes = apply_filters( "siw_{$self->get_id()}_loader_classes", $self->get_classes() );
-
-		foreach ( $classes as $class ) {
-			if ( class_exists( $class ) ) { //TODO: logging als class niet bestaat?
-				$class::init();
-			}
-		}
+		array_walk( $classes, fn( string $class ) => $class::init() );
 	}
 }
