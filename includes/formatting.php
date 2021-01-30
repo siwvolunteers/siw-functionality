@@ -49,17 +49,6 @@ class Formatting {
 		return strtr( $template, $variables  );
 	}
 
-	/** Genereert script-tag met JSON-LD op basis van array */
-	public static function generate_json_ld( array $data ) : string {
-		ob_start();
-		?>
-		<script type="application/ld+json">
-		<?php echo json_encode( $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);?>
-		</script>
-		<?php
-		return ob_get_clean();
-	}
-
 	/** Formatteert datum als tekst */
 	public static function format_date( $date, bool $include_year = true ) : string {
 		$format = $include_year ? 'j F Y' : 'j F';
