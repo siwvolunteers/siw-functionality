@@ -5,34 +5,23 @@ namespace SIW\Modules;
 /**
  * Google Analytics integratie
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Google_Analytics {
 
-	/**
-	 * Key voor WooCommerce-sessie
-	 * 
-	 * @var string
-	 */
+	/** Key voor WooCommerce-sessie */
 	const SESSION_SCRIPT_KEY = 'siw_enhanced_ecommerce_script';
 
-	/**
-	 * Google Analytics property ID
-	 */
+	/** Google Analytics property ID */
 	protected string $property_id;
 
-	/**
-	 * Instellingen voor tracker
-	 */
+	/** Instellingen voor tracker */
 	protected array $tracker_settings = [
 		'anonymizeIp' => true,
 		'forceSSL'    => true,
 	];
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		$self->set_property_id();
@@ -50,18 +39,12 @@ class Google_Analytics {
 		add_filter( 'rocket_excluded_inline_js_content', [ $self, 'set_excluded_inline_js_content' ] );
 	}
 
-	/**
-	 * Haalt het GA property ID op
-	 */
+	/** Haalt het GA property ID op */
 	protected function set_property_id() {
 		$this->property_id = siw_get_option( 'google_analytics.property_id' );
 	}
 
-	/**
-	 * Geeft aan of tracking ingeschakeld moet worden
-	 *
-	 * @return bool
-	 */
+	/** Geeft aan of tracking ingeschakeld moet worden */
 	protected function tracking_enabled() : bool {
 		if ( ! isset( $this->property_id ) || is_user_logged_in() ) {
 			return false;
@@ -69,9 +52,7 @@ class Google_Analytics {
 		return true;
 	}
 
-	/**
-	 * Voegt scripts toe
-	 */
+	/** Voegt scripts toe */
 	public function enqueue_scripts() {
 		wp_enqueue_script( 'google-analytics', 'https://www.google-analytics.com/analytics.js', [], null, true );
 		wp_register_script( 'siw-analytics', SIW_ASSETS_URL . 'js/modules/siw-analytics.js', [ 'google-analytics' ], SIW_PLUGIN_VERSION, true );
@@ -80,11 +61,7 @@ class Google_Analytics {
 		wp_add_inline_script( 'google-analytics', $this->generate_snippet(), 'after' );
 	}
 
-	/**
-	 * Genereert snippet
-	 * 
-	 * @return string
-	 */
+	/** Genereert snippet */
 	protected function generate_snippet() : string {
 		$snippet = [
 			"window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;",
@@ -101,11 +78,7 @@ class Google_Analytics {
 		return implode( PHP_EOL, $snippet );
 	}
 	
-	/**
-	 * Genereert Enhanced Ecommerce script
-	 * 
-	 * @return array
-	 */
+	/** Genereert Enhanced Ecommerce script */
 	protected function generate_ecommerce_script() : array {
 		if ( is_product() ) {
 			$product = wc_get_product( get_the_ID() );
@@ -156,16 +129,7 @@ class Google_Analytics {
 		return $ecommerce_script;
 	}
 
-	/**
-	 * Geeft productdata voor GA terug
-	 *
-	 * @param \WC_Product $product
-	 * @param \WC_Product_Variation $variation
-	 * 
-	 * @return array
-	 * 
-	 * @todo land of partner als brand toevoegen
-	 */
+	/** Geeft productdata voor GA terug */
 	protected function get_product_data( \WC_Product $product, \WC_Product_Variation $variation = null ) : array {
 
 		$category_ids = $product->get_category_ids();
@@ -190,11 +154,7 @@ class Google_Analytics {
 		return $product_data;
 	}
 
-	/**
-	 * Genereert cart data (om verwijderen uit cart te tracken)
-	 * 
-	 * @return array
-	 */
+	/** Genereert cart data (om verwijderen uit cart te tracken) */
 	protected function generate_cart_data() {
 		$items = WC()->cart->get_cart_contents();
 		$cart_data = [];
@@ -206,16 +166,7 @@ class Google_Analytics {
 		return $cart_data;
 	}
 
-	/**
-	 * Track toevoegen aan cart
-	 *
-	 * @param string $cart_item_key
-	 * @param int $product_id
-	 * @param int $quantity
-	 * @param int $variation_id
-	 * @param array $variation
-	 * @param array $cart_item_data
-	 */
+	/** Track toevoegen aan cart */
 	public function track_add_to_cart( string $cart_item_key, int $product_id, int $quantity, int $variation_id, array $variation, array $cart_item_data ) {
 		$product = wc_get_product( $product_id );
 		$variation = wc_get_product( $variation_id );
@@ -232,13 +183,7 @@ class Google_Analytics {
 		$this->add_script_to_session( $script );
 	}
 
-	/**
-	 * Voegt variatie-id toe aan remove from cart link
-	 *
-	 * @param string $link
-	 * @param string $cart_item_key
-	 * @return string
-	 */
+	/** Voegt variatie-id toe aan remove from cart link */
 	public function add_variation_id_to_cart_item_remove_link( string $link, string $cart_item_key ) : string {
 		$item = WC()->cart->get_cart_item( $cart_item_key );
 		$variation_id = $item['variation_id'];
@@ -247,21 +192,13 @@ class Google_Analytics {
 		return $link;
 	}
 
-	/**
-	 * Sla script op in sessie om na redirect te kunnen tonen
-	 *
-	 * @param array $script
-	 */
+	/** Sla script op in sessie om na redirect te kunnen tonen */
 	protected function add_script_to_session( array $script ) {
 		WC()->session->set( self::SESSION_SCRIPT_KEY, $script );
 		WC()->session->save_data();
 	}
 
-	/**
-	 * Haal opgeslagen script uit WC-sessie
-	 * 
-	 * @return array
-	 */
+	/** Haal opgeslagen script uit WC-sessie */
 	protected function get_script_from_session() : array {
 		$script = WC()->session->get( self::SESSION_SCRIPT_KEY );
 		if ( null != $script ) {
@@ -287,12 +224,7 @@ class Google_Analytics {
 		return $urls;
 	}
 
-	/**
-	 * Sluit inline JS voor Ecommerce uit van combineren
-	 *
-	 * @param array $content
-	 * @return array
-	 */
+	/** Sluit inline JS voor Ecommerce uit van combineren */
 	public function set_excluded_inline_js_content( array $content ) : array {
 		$content[] = 'ec:';
 		return $content;

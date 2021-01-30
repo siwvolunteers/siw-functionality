@@ -29,7 +29,7 @@ class Bootstrap {
 
 		$this->load_core();
 		$this->load_api();
-		$this->load_modules();
+		$this->init_class( 'SIW\Modules', 'Loader', 'init' );
 
 		$this->init_class( 'SIW\Compatibility', 'Loader' );
 
@@ -125,22 +125,6 @@ class Bootstrap {
 	/** Laadt extensies */
 	protected function load_extensions() {
 		$this->init_class( 'SIW', 'Extensions', 'siw_plugin_loaded' );
-	}
-
-	/** Laadt modules */
-	protected function load_modules() {
-		$this->init_classes(
-			'SIW\Modules',
-			[
-				'Breadcrumbs',
-				'Google_Analytics',
-				'Mega_Menu',
-				'Menu_Cart',
-				'Social_Share',
-				'Topbar',
-			],
-			'init'
-		);
 	}
 
 	/** Laadt API-endpoints */
