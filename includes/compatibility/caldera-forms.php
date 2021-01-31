@@ -142,7 +142,7 @@ class Caldera_Forms {
 
 	/** Voegt responsive classes voor Unsemantic grid toe */
 	public function setup_unsemantic_grid( array $grid, array $form ) : array {
-		$grid['before'] = '<div %1$s class="grid-container grid-parent %2$s">';
+		$grid['before'] = '<div %1$s class="row grid-container grid-parent %2$s">';
 		$grid['column_before'] = '<div %1$s class="grid-%2$d %3$s">';
 		return $grid;
 	}
