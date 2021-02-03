@@ -10,31 +10,17 @@ use SIW\External\Exchange_Rates;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-class Currency {
+class Currency extends Data {
 
 	/** ISO-code */
-	protected string $iso_code;
+	protected string $iso_code = '';
 
 	/*** Naam */
-	protected string $name;
+	protected string $name = '';
 
 	/** Valuta-teken */
-	protected string $symbol;
+	protected string $symbol = '';
 
-	/** Init */
-	public function __construct( array $data ) {
-		$defaults = [
-			'iso'    => '',
-			'name'   => '',
-			'symbol' => '',
-		];
-		$data = wp_parse_args( $data, $defaults );
-		$data = wp_array_slice_assoc( $data, array_keys( $defaults ) );
-		
-		foreach( $data as $key => $value ) {
-			$this->$key = $value;
-		}
-	}
 
 	/** Geeft de ISO-code van de valuta terug */
 	public function get_iso_code() : string {
@@ -51,13 +37,13 @@ class Currency {
 		return $this->symbol;
 	}
 
-	/** Geeft wisselkoers van huidige valuta naar Euro terug */
+	/** Geeft wisselkoers van huidige valuta naar Euro terug  TODO: verplaatsen naar Exchange rates klasse */
 	public function get_exchange_rate() : ?float {
 		$exchange_rates = new Exchange_Rates();
 		return $exchange_rates->get_rate( $this->iso_code );
 	}
 
-	/** Rekent bedrag in huidige valuta om naar Euro */
+	/** Rekent bedrag in huidige valuta om naar Euro TODO: dit hoort hier ook niet thuis */
 	public function convert_to_euro( float $amount, int $decimals = 0 ) : ?string {
 		$exchange_rate = $this->get_exchange_rate();
 		if ( is_null( $exchange_rate ) ) {

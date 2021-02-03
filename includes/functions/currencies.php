@@ -29,7 +29,7 @@ function siw_get_currencies( string $return = 'objects' ) : array {
 	$data = wp_list_sort( $data, 'name' );
 
 	//Gebruik iso als index van array
-	$data = array_column( $data , null, 'iso' );
+	$data = array_column( $data , null, 'iso_code' );
 
 	//Creëer objecten
 	$currencies = array_map(
