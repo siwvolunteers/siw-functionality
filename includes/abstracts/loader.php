@@ -10,72 +10,23 @@ namespace SIW\Abstracts;
  */
 abstract class Loader {
 
-	/**
-	 * ID van loader (voor filters)
-	 */
-	protected string $id;
+	/** Geeft ID van loader terug */
+	abstract protected function get_id() : string;
 
-	/**
-	 * Classes
-	 */
-	protected array $classes = [];
+	/** Geeft classes voor loader terug */
+	abstract protected function get_classes() : array;
 
-	/**
-	 * Namespace voor interface
-	 */
-	protected string $interface_namespace;
-
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new static();
 
-		$classes = array_map(
-			fn( string $class ) : string => "\\SIW\\{$self->interface_namespace}\\{$class}",
-			$self->classes
-		);
-
 		//Filter voor extensies
-		$classes = apply_filters( "siw_{$self->id}_loader_classes", $classes );
-
-		foreach ( $classes as $class ) {
-			if ( class_exists( $class ) ) { //TODO: logging als class niet bestaat?
-				$object = new $class;
-				$self->load( $object );
-			}
-		}
+		$classes = apply_filters( "siw_{$self->get_id()}_loader_classes", $self->get_classes() );
+		$self->load_classes( $classes );
 	}
 
-	/**
-	 * Laadt 1 klasse
-	 *
-	 * @param object $class
-	 */
-	abstract protected function load( object $class );
+	/** Laadt klasses */
+	abstract protected function load_classes( array $classes );
 
-	/**
-	 * Controleer of Object een bepaalde interface implementeert
-	 *
-	 * @param Object $object
-	 * @param string $interface
-	 *
-	 * @return bool
-	 */
-	protected function implements_interface( Object $object, string $interface ) : bool {
-		return in_array( "SIW\\Interfaces\\{$this->interface_namespace}\\{$interface}", class_implements( $object ) );
-	}
-
-	/**
-	 * Controleer of Object een bepaalde abstracte klasse extend
-	 *
-	 * @param Object $object
-	 * @param string $abstract
-	 *
-	 * @return bool
-	 */
-	protected function extends_abstract( Object $object, string $abstract) : bool {
-		return is_subclass_of( $object, "SIW\\Abstracts\\{$abstract}" );
-	}
 
 }

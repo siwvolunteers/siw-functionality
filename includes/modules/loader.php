@@ -7,7 +7,7 @@ use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
 /**
  * Loader voor modules
  * 
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Loader extends Class_Loader_Abstract {
 
@@ -26,5 +26,10 @@ class Loader extends Class_Loader_Abstract {
 	/** {@inheritDoc} */
 	public function get_id() : string {
 		return 'modules';
+	}
+
+	/** Laadt 1 klasse */
+	protected function load( string $class ) {
+		$class::init();
 	}
 }

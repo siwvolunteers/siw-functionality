@@ -3,18 +3,17 @@
 namespace SIW\Abstracts;
 
 /**
- * Roept 
+ * Object loader
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.3.0
  */
-abstract class Class_Loader extends Loader {
+abstract class Object_Loader extends Loader {
 
 	/** Laadt klasses */
 	protected function load_classes( array $classes ) {
-		array_walk( $classes, fn( string $class ) => $this->load( $class ) );
+		array_walk( $classes, fn( string $class ) => $this->load( new $class ) );
 	}
 
 	/** Laadt 1 klasse */
-	abstract protected function load( string $class );
+	abstract protected function load( object $object );
 }

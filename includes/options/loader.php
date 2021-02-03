@@ -2,7 +2,8 @@
 
 namespace SIW\Options;
 
-use SIW\Abstracts\Loader as Loader_Abstract;
+use SIW\Abstracts\Object_Loader as Object_Loader_Abstract;
+use SIW\Interfaces\Options\Option as Option_Interface;
 
 /**
  * Class om opties te laden
@@ -10,32 +11,30 @@ use SIW\Abstracts\Loader as Loader_Abstract;
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  * @since     3.2.0
  */
-class Loader extends Loader_Abstract {
+class Loader extends Object_Loader_Abstract {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $id = 'options';
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $interface_namespace = 'Options';
+	/** {@inheritDoc} */
+	public function get_id() : string {
+		return 'options';
+	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected array $classes = [
-		'Configuration',
-		'Countries',
-		'Settings'
-	];
+	/** {@inheritDoc} */
+	public function get_classes() : array {
+		return [
+			Configuration::class,
+			Countries::class,
+			Settings::class,
+		];
+	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
+	public function get_interface_namespace() : string {
+		return 'Options';
+	}
+
+	/** {@inheritDoc} */
 	protected function load( object $option ) {
-		if( ! $this->implements_interface( $option, 'Option' ) ) {
+		if( ! is_a( $option, Option_Interface::class ) ) {
 			return;
 		}
 		new Option( $option );

@@ -34,4 +34,10 @@ class Loader extends Class_Loader_Abstract {
 	public function get_id() : string {
 		return 'compatibility';
 	}
+	
+	/** Laadt 1 klasse */
+	protected function load( string $class ) {
+		$class::init();
+	}
+
 }
