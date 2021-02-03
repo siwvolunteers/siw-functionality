@@ -8,15 +8,14 @@ use SIW\Util;
 /**
  * Class voor animaties
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @see       https://mciastek.github.io/sal/
  */
 class Animation {
 
 	/** Versie van sal.js */
-	CONST SAL_VERSION = '0.8.2';
+	CONST SAL_VERSION = '0.8.3';
 
 	/** Threshold voor animatie */
 	CONST THRESHOLD = 0.25;
