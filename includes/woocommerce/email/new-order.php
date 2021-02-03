@@ -22,7 +22,7 @@ class New_Order {
 	/** Overschrijft template */
 	public function set_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) : string {
 		if ( 'emails/admin-new-order.php' === $template_name ) {
-			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
+			$located = SIW_TEMPLATES_DIR . 'woocommerce/'. $template_name;
 		}
 		return $located;
 	}

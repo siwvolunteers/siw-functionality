@@ -52,11 +52,12 @@ class Bootstrap {
 		$plugin_info = get_file_data( SIW_FUNCTIONALITY_PLUGIN_FILE , [ 'version' => 'Version'] );
 
 		define ( 'SIW_PLUGIN_VERSION', $plugin_info['version'] ); 
-		define ( 'SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-		define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets' );
-		define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates' );
-		define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . 'includes' );
-		define ( 'SIW_DATA_DIR', SIW_PLUGIN_DIR . 'data' );
+		define ( 'SIW_PLUGIN_DIR', wp_normalize_path( plugin_dir_path( __FILE__ ) ) );
+		define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets/' );
+		define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates/' );
+		define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . 'includes/' );
+		define ( 'SIW_WIDGETS_DIR', SIW_INCLUDES_DIR . 'widgets/' );
+		define ( 'SIW_DATA_DIR', SIW_PLUGIN_DIR . 'data/' );
 		define ( 'SIW_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 		define ( 'SIW_SITE_URL', get_home_url() );
 		define ( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL, PHP_URL_HOST ) );
@@ -68,13 +69,13 @@ class Bootstrap {
 
 	/** Externe libraries laden */
 	protected function load_dependencies() {
-		require_once SIW_PLUGIN_DIR . '/vendor/autoload.php';
-		require_once SIW_PLUGIN_DIR . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
+		require_once SIW_PLUGIN_DIR . 'vendor/autoload.php';
+		require_once SIW_PLUGIN_DIR . 'vendor/woocommerce/action-scheduler/action-scheduler.php';
 	}
 
 	/** Registreer autoloaders*/
 	protected function register_autoloader() {
-		require_once SIW_INCLUDES_DIR . '/autoloader.php';
+		require_once SIW_INCLUDES_DIR . 'autoloader.php';
 		new Autoloader( 'SIW', SIW_INCLUDES_DIR );
 	}
 
@@ -85,7 +86,7 @@ class Bootstrap {
 
 	/** Laadt functiebestanden */
 	protected function load_functions() {
-		$files = glob( SIW_INCLUDES_DIR . '/functions/*.php' );
+		$files = glob( SIW_INCLUDES_DIR . 'functions/*.php' );
 		foreach ( $files as $file ) {
 			require_once $file;
 		}

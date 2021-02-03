@@ -12,7 +12,7 @@ use function Donut\Util\array_dig;
 function siw_get_data( string $file ) {
 	$file = strtolower( str_replace( '_', '-', $file ) );
 
-	$data_file = SIW_DATA_DIR . '/' . "{$file}.php";
+	$data_file = SIW_DATA_DIR . "{$file}.php";
 
 	if ( ! file_exists( $data_file ) ) {
 		return null;
@@ -40,7 +40,7 @@ function siw_meta( string $key, array $args = [], int $post_id = null ) {
 /** Geeft data-file id's uit specifieke directory terug */
 function siw_get_data_file_ids( string $directory, bool $include_subdirectories = true ) : array {
 
-	$base_directory = SIW_DATA_DIR . "/{$directory}";
+	$base_directory = SIW_DATA_DIR . $directory;
 	$files = glob( $base_directory . '/*.php' );
 	if ( $include_subdirectories ) {
 		$subdirectories = glob( $base_directory . '/*', GLOB_ONLYDIR );

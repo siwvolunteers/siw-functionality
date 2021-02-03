@@ -38,7 +38,7 @@ class Emails {
 	/** Overschrijft header-template */
 	public function set_header_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) : string {
 		if ( 'emails/email-header.php' === $template_name ) {
-			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
+			$located = SIW_TEMPLATES_DIR . 'woocommerce/'. $template_name;
 		}
 		return $located;
 	}
@@ -46,7 +46,7 @@ class Emails {
 	/** Overschrijft footer-template */
 	public function set_footer_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) : string {
 		if ( 'emails/email-footer.php' === $template_name ) {
-			$located = SIW_TEMPLATES_DIR . '/woocommerce/'. $template_name;
+			$located = SIW_TEMPLATES_DIR . 'woocommerce/'. $template_name;
 		}
 		return $located;
 	}

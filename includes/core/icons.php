@@ -105,10 +105,10 @@ class Icons {
 		}
 
 		//Icon-bestanden zoeken
-		$icon_files = glob( SIW_ASSETS_DIR . '/icons/general/*.svg' );
+		$icon_files = glob( SIW_ASSETS_DIR . 'icons/general/*.svg' );
 		//Relatief pad van maken + extensie verwijderen
 		array_walk( $icon_files, function(&$value, &$key) {
-			$value = str_replace( [ SIW_ASSETS_DIR .'/icons/general/', '.svg'], '', $value );
+			$value = str_replace( [ SIW_ASSETS_DIR .'icons/general/', '.svg'], '', $value );
 		});
 
 		foreach ( $icon_files as $icon_file ) {
