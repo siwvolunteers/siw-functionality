@@ -8,8 +8,6 @@ use SIW\Formatting;
  * Aanpassingen aan overzichtspagina van groepsprojecten
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
- * 
  */
 class Archive {
 
@@ -22,8 +20,6 @@ class Archive {
 
 		add_filter( 'the_seo_framework_the_archive_title', [ $self, 'set_seo_title'], 10, 2 );
 		add_filter( 'the_seo_framework_generated_archive_excerpt', [ $self, 'set_seo_description' ], 10, 2 );
-		
-		Archive_Header::init();
 
 		add_filter( 'woocommerce_default_catalog_orderby_options', [ $self, 'add_catalog_orderby_options' ] );
 		add_filter( 'woocommerce_catalog_orderby', [ $self, 'add_catalog_orderby_options' ] );

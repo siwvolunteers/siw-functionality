@@ -4,24 +4,17 @@ namespace SIW\WooCommerce\Frontend;
 
 use SIW\Data\Currency;
 use SIW\WooCommerce\Import\Product as Import_Product;
-use SIW\WooCommerce\Frontend\Product_Tabs;
 
 /**
  * Aanpassingen aan Groepsproject
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
- * 
- * @uses      siw_get_currency()
  */
 class Product {
 
 	/** Init */
 	public static function init() {
 		$self = new self();
-
-		Product_Tabs::init();
-
 		add_filter( 'woocommerce_is_purchasable', [ $self, 'set_product_is_purchasable'], 10, 2 );
 		add_filter( 'woocommerce_available_variation', [ $self, 'set_variation_description'] );
 		add_filter( 'woocommerce_sale_flash', [ $self, 'set_sales_flash_text' ] );

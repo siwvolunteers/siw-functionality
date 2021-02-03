@@ -15,17 +15,13 @@ use SIW\Properties;
  */
 class Archive_Header {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_action( 'generate_inside_site_container', [ $self, 'add_archive_description'] );
 	}
 
-	/**
-	 * Toont beschrijving van overzichtspagina
-	 */
+	/** Toont beschrijving van overzichtspagina */
 	public function add_archive_description() {
 
 		if ( ! $this->show_archive_header() ) {

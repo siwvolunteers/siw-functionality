@@ -32,9 +32,6 @@ class Product {
 		//Beoordelen projecten
 		add_action( 'post_submitbox_start', [ $self, 'show_approval_option'] );
 		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_approval_result'] );
-
-		Product_Tabs::init();
-
 		add_action( 'wp_ajax_woocommerce_select_for_carousel', [ $self, 'select_for_carousel' ] );
 	}
 	

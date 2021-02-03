@@ -35,12 +35,12 @@ class Bootstrap {
 
 		$this->load_batch_jobs();
 		$this->init_class( 'SIW\Page_Builder', 'Loader' );
-		$this->load_woocommerce();
+		$this->init_class( 'SIW\WooCommerce', 'Loader' );
+
 		$this->load_content_types();
 
 		if ( is_admin() ) {
 			$this->init_class( 'SIW\Admin', 'Loader' );
-			//$this->load_woocommerce_admin(); //TODO: na splitsen SIW_WC_Order_Admin
 		}
 
 		do_action( 'siw_plugin_loaded' );
@@ -169,47 +169,6 @@ class Bootstrap {
 		);
 	}
 
-	/** Laadt uitbreidingen/aanpassingen voor WooCommerce */
-	protected function load_woocommerce() {
-		$this->init_classes(
-			'SIW\Woocommerce',
-			[
-				'Admin\Coupon',
-				'Admin\Order',
-				'Admin\Product',
-				'Admin\Stockphoto_Page',
-				'Checkout\Fields',
-				'Checkout\Form',
-				'Checkout\Discount',
-				'Checkout\Newsletter',
-				'Checkout\Terms',
-				'Checkout\Validation',
-				'Export\Order',
-				'Frontend\Product',
-				'Frontend\Archive',
-			]
-		);
-		$this->init_classes(
-			'SIW\Woocommerce\Email',
-			[
-				'Emails',
-				'New_Order',
-				'Customer_On_Hold_Order',
-				'Customer_Processing_Order',
-			]
-		);
-	}
-
-	/** Laadt uitbreidingen/aanpassingen voor WooCommerce admin */
-	protected function load_woocommerce_admin() {
-		$this->init_classes(
-			'SIW\Woocommerce\Admin',
-			[
-				'Order',
-				'Product',
-			]
-		);
-	}
 
 	/** Laadt classes */
 	protected function init_classes( string $namespace, array $classes, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
