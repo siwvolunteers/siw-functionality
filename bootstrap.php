@@ -115,12 +115,13 @@ class Bootstrap {
 				'Animation',
 				'Email\Configuration',
 				'Forms',
-				'Widgets',
 				'Newsletter\Confirmation_Page',
 			]
 		);
 
 		$this->init_class( 'SIW\Options', 'Loader' );
+
+		$this->init_class( 'SIW\Widgets', 'Loader' );
 	}
 
 	/** Laadt extensies */

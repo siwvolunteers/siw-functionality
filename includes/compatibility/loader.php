@@ -19,6 +19,7 @@ class Loader extends Class_Loader_Abstract {
 			Meta_Box::class,
 			Safe_Redirect_Manager::class,
 			SiteOrigin_Page_Builder::class,
+			SiteOrigin_Widgets_Bundle::class,
 			The_SEO_Framework::class,
 			UpdraftPlus::class,
 			WooCommerce_Multistep_Checkout::class,
