@@ -2,16 +2,15 @@
 
 namespace SIW\WooCommerce\Import;
 
-use SIW\Attachment;
 use SIW\Data\Country;
 use SIW\Data\Work_Type;
+use SIW\Helpers\Attachment;
 use SIW\Plato\Download_File as Plato_Download_File;
 
 /**
  * Selecteren van afbeelding voor een Groepsproject
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
 class Product_Image {
 

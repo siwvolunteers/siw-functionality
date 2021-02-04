@@ -2,15 +2,13 @@
 
 namespace SIW\Async;
 
-use SIW\Attachment;
+use SIW\Helpers\Attachment;
 use SIW\Util;
 
 /**
  * Verwerk upload van stockfoto
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
- * 
  */
 class Process_Stockphoto_Upload extends Request {
 
