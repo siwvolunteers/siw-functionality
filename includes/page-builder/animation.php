@@ -2,7 +2,7 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Animation as SIW_Animation;
+use SIW\Util\Animation as Animation_Util;
 
 use SIW\Interfaces\Page_Builder\Row_Style_Group as Row_Style_Group_Interface;
 use SIW\Interfaces\Page_Builder\Cell_Style_Group as Cell_Style_Group_Interface;
@@ -197,22 +197,22 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 
 	/** Geeft animatie type terug */
 	protected function get_types() : array {
-		return [ 'none' => __( 'Geen', 'siw' ) ] + SIW_Animation::get_types();
+		return [ 'none' => __( 'Geen', 'siw' ) ] + Animation_Util::get_types();
 	}
 
 	/** Geeft easing opties terug */
 	protected function get_easing_options( bool $include_default_option = true ) : array {
-		return $this->maybe_add_default_option( SIW_Animation::get_easing_options(), $include_default_option );
+		return $this->maybe_add_default_option( Animation_Util::get_easing_options(), $include_default_option );
 	}
 
 	/** Geeft vertraging opties terug */
 	protected function get_delay_options( bool $include_default_option = true ) : array {
-		return $this->maybe_add_default_option( SIW_Animation::get_delay_options(), $include_default_option );
+		return $this->maybe_add_default_option( Animation_Util::get_delay_options(), $include_default_option );
 	}
 
 	/** Geeft duur opties terug */
 	protected function get_duration_options( bool $include_default_option = true ) : array {
-		return $this->maybe_add_default_option( SIW_Animation::get_duration_options(), $include_default_option );
+		return $this->maybe_add_default_option( Animation_Util::get_duration_options(), $include_default_option );
 	}
 
 	/** Voegt eventueel default optie toe */
