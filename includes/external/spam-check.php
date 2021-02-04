@@ -2,13 +2,12 @@
 
 namespace SIW\External;
 
-use SIW\Core\HTTP_Request;
+use SIW\Helpers\HTTP_Request;
 
 /**
  * Opzoeken e-mailadres en IP in SFS-spamdatabase
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  * 
  * @link      https://www.stopforumspam.com/usage
  */

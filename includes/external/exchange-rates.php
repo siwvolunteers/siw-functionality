@@ -2,13 +2,12 @@
 
 namespace SIW\External;
 
-use SIW\Core\HTTP_Request;
+use SIW\Helpers\HTTP_Request;
 
 /**
  * Ophalen wisselkoersen bij fixer.io
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  * 
  * @link      https://fixer.io/documentation
  */
@@ -61,6 +60,16 @@ class Exchange_Rates{
 		}
 
 		return array_map( fn( float $rate ) : float => 1 / $rate, $response['rates'] );
+	}
+
+	/** Rekent bedrag om naar Euro's */
+	public function convert_to_euro( string $currency, float $amount, int $decimals = 2 ) : ?float {
+		$exchange_rate = $this->get_rate( $currency );
+		if ( is_null( $exchange_rate ) ) {
+			return null;
+		}
+		$amount_in_euro = $amount * $exchange_rate;
+		return number_format_i18n( $amount_in_euro, $decimals );
 	}
 }
 

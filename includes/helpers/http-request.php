@@ -1,14 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Core;
-
-use WP_Error;
+namespace SIW\Helpers;
 
 /**
  * Class om een HTTP request uit te voeren
  *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.2.0
  */
 class HTTP_Request {
 
@@ -134,7 +131,7 @@ class HTTP_Request {
 		}
 		$statuscode = wp_remote_retrieve_response_code( $response );
 		if ( ! in_array( $statuscode, $this->accepted_response_codes ) ) {
-			$this->error = new WP_Error( 'invalid_status', 'Reponse heeft geen geldige response code' );
+			$this->error = new \WP_Error( 'invalid_status', 'Reponse heeft geen geldige response code' );
 			return false;
 		}
 		return true;
