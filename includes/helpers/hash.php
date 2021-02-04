@@ -1,17 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Newsletter;
+namespace SIW\Helpers;
 
 /**
- * Hash voor bevestiging aanmelding nieuwsbrief
+ * Hash voor controle data-integriteit
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Hash {
 	
 	/** Optienaam voor salt */
-	const SALT_OPTION_NAME = 'siw_newsletter_salt';
+	const SALT_OPTION_NAME = 'siw_hash_salt';
 
 	/** Hash-algoritme */
 	const HASH_ALGORITHM = 'sha1';

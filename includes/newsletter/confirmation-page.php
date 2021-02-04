@@ -2,8 +2,8 @@
 
 namespace SIW\Newsletter;
 
+use SIW\Helpers\Hash;
 use SIW\Util;
-use SIW\Newsletter\Hash;
 
 /**
  * Bevestigingspagina
@@ -63,7 +63,7 @@ class Confirmation_Page {
 	/** Laadt template voor bevestigingspagina */
 	public function load_template( $template ) : string {
 		if ( $this->is_newsletter_confirmation() ) {
-			$template = SIW_TEMPLATES_DIR . '/newsletter-confirmation.php';
+			$template = SIW_TEMPLATES_DIR . 'newsletter-confirmation.php';
 		}
 		return $template;
 	}
