@@ -100,7 +100,7 @@ function siw_generate_job_posting_json_ld( int $job_id ) : string {
 						->set_street_address( Properties::ADDRESS )
 						->set_address_locality( Properties::CITY )
 						->set_postal_code( Properties::POSTCODE )
-						->set_address_locality( 'NL' )
+						->set_address_region( 'NL' )
 						->set_address_country( 'NL' )
 				)
 		);

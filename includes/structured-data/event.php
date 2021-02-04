@@ -27,7 +27,6 @@ class Event extends Thing {
 
 	/** Zet einddatum */
 	public function set_end_date( \DateTime $end_date ) {
-		$end_date->setTimezone( wp_timezone() );
 		return $this->set_property( 'endDate', $end_date );
 	}
 	
@@ -40,10 +39,14 @@ class Event extends Thing {
 	public function set_event_status( Event_Status_Type $event_status ) {
 		return $this->set_property( 'eventStatus', $event_status );
 	}
+
+	/** Voeg status van evenement toe */
+	public function add_event_status( Event_Status_Type $event_status ) {
+		return $this->add_property( 'eventStatus', $event_status );
+	}
 	
-	/** Zet locatie TODO: check of union type  VirtualLocation|Place */
-	public function set_location( $location ) {
+	/** Zet locatie TODO: check, of union type  VirtualLocation|Place */
+	public function set_location( Thing $location ) {
 		return $this->set_property( 'location', $location );
 	}
-
 }

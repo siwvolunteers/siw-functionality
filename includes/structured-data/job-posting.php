@@ -35,6 +35,11 @@ class Job_Posting extends Thing {
 		return $this->set_property( 'employmentType', $employment_type );
 	}
 
+	/** Voeg type baan toe */
+	public function add_employment_type( Employment_Type $employment_type ) {
+		return $this->add_property( 'employmentType', $employment_type );
+	}
+
 	/**	Zet werkgever */
 	public function set_hiring_organization( Organization $hiring_organization ) {
 		return $this->set_property( 'hiringOrganization', $hiring_organization );

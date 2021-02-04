@@ -55,32 +55,53 @@ abstract class Thing {
 
 	/** Zet eigenschap */
 	protected function set_property( string $property, $value ) {
-		if ( is_string( $value ) ) {
-			$this->set_string_property( $property, $value );
-		}
-		elseif ( is_subclass_of( $value, self::class ) ) {
-			$this->set_type_property( $property, $value );
-		}
-		elseif ( is_a( $value, \DateTime::class ) ) {
-			$value->setTimezone( wp_timezone() );
-			$this->set_string_property( $property, $value->format( \DateTimeInterface::ISO8601 ) );
-		}
-		elseif ( is_subclass_of( $value, Enum::class ) ) {
-			$this->set_string_property( $property, $value->value );
-		}
+		$this->data[ $property ] = $this->get_string_value( $value );
 		return $this;
 	}
 
-	/** Zet string property */
-	private function set_string_property( string $property, string $string_value ) {
-		$this->data[ $property ] = esc_attr( $string_value );
+	/** Voeg eigenschap toe */
+	protected function add_property( string $property, $value ) {
+
+		//Huidige waarde casten naar een array indien nodig
+		if ( isset( $this->data[ $property ] ) && ! is_array( $this->data[ $property ] ) ) {
+			$this->data[ $property ] = (array) $this->data[ $property ];
+		}
+
+		$this->data[ $property ][] = $this->get_string_value( $value );
+		return $this;
+	}
+
+	/** Geeft string waarde van input terug */
+	protected function get_string_value( $value ) {
+		if ( is_string( $value ) ) {
+			return wp_kses_post( $value );
+		}
+		elseif ( is_subclass_of( $value, Thing::class) ) {
+			return $this->get_thing_string_value( $value );
+		}
+		elseif ( is_a( $value, \DateTime::class ) ) {
+			return $this->get_date_time_string_value( $value );
+		}
+		elseif ( is_subclass_of( $value, Enum::class ) ) {
+			return $this->get_enum_string_value( $value );
+		}
 	}
 
 	/** Zet type property */
-	private function set_type_property( string $property, self $type_value ) {
-		$this->data[ $property ] = $type_value->get_data();
+	private function get_thing_string_value( self $value ) {
+		return $value->get_data();
 	}
 
+	private function get_date_time_string_value( \Datetime $value ) {
+		$value->setTimezone( wp_timezone() );
+		return $value->format( \DateTimeInterface::ISO8601 );
+	}
+
+	/** Zet type property */
+	private function get_enum_string_value( Enum $value ) {
+		return $value->value;
+	}
+	
 	/** Geeft data van type terug */
 	protected function get_data() : array {
 		return $this->data;
