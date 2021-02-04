@@ -91,8 +91,8 @@ function siw_generate_job_posting_json_ld( int $job_id ) : string {
 		)
 		->set_qualifications( siw_meta( 'description.qualifications', [], $job_id ) )
 		->set_responsibilities( siw_meta( 'description.work', [], $job_id ) )
-		->set_employer_overview( siw_meta( 'description.qualifications', [], $job_id ) )
-		->set_job_benefits( siw_get_option('job_postings_organization_profile') )
+		->set_employer_overview( siw_get_option('job_postings_organization_profile')  )
+		->set_job_benefits( siw_meta( 'description.perks', [], $job_id ) )
 		->set_job_location(
 			Place::create()
 				->set_address(
