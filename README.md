@@ -16,3 +16,5 @@ https://siwvolunteers.github.io/
 - [Convert an array to xml](https://github.com/spatie/array-to-xml)
 - [Sal.js](https://mciastek.github.io/sal/)
 - [Balloon.css](https://kazzkiq.github.io/balloon.css/)
+- [PHP enum](https://github.com/spatie/enum)
+- [Action Scheduler](https://actionscheduler.org/)
