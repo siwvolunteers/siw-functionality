@@ -4,7 +4,7 @@ namespace SIW\Newsletter;
 
 use SIW\Email\Template;
 use SIW\Properties;
-use SIW\Helpers\Hash;
+use SIW\Util\Hash;
 use SIW\Util\Links;
 
 /**

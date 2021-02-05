@@ -2,7 +2,7 @@
 
 namespace SIW\Newsletter;
 
-use SIW\Helpers\Hash;
+use SIW\Util\Hash;
 use SIW\Util;
 
 /**

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Helpers;
+namespace SIW\Util;
 
 /**
  * Hash voor controle data-integriteit
