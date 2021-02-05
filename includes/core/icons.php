@@ -22,7 +22,7 @@ class Icons {
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_script' ] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_style' ] );
 		
-		if ( class_exists( 'SiteOrigin_Widgets_Bundle' ) ) {
+		if ( class_exists( \SiteOrigin_Widgets_Bundle::class ) ) {
 			add_action( 'siteorigin_panel_enqueue_admin_scripts', [ $self, 'enqueue_admin_style' ], PHP_INT_MAX );
 			add_filter( 'siteorigin_widgets_icon_families', [ $self, 'add_icon_family' ] );
 			add_filter( 'siteorigin_widgets_icon_families', [ $self, 'remove_icon_families' ] );
@@ -31,12 +31,7 @@ class Icons {
 
 	/** Voegt SVG-sprite toe aan header */
 	public function add_svg_sprite() {
-		echo HTML::div(
-			[
-				'data-svg-url' => SIW_ASSETS_URL . 'icons/siw-general-icons.svg',
-				'style'        => 'display:none;',
-			]
-		);
+		printf( '<div data-svg-url="%s" style="display:none;"></div>', SIW_ASSETS_URL . 'icons/siw-general-icons.svg' );
 	}
 
 	/** Voegt SVG-script toe */
