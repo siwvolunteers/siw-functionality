@@ -2,7 +2,7 @@
 
 namespace SIW\Modules;
 
-use SIW\Util;
+use SIW\Util\CSS;
 
 /**
  * Mega Menu
@@ -32,7 +32,7 @@ class Mega_Menu {
 
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
-		$min_width = Util::get_mobile_breakpoint();
+		$min_width = CSS::MOBILE_BREAKPOINT + 1;
 		wp_register_style( 'siw-mega-menu', SIW_ASSETS_URL . 'css/modules/siw-mega-menu.css', [], SIW_PLUGIN_VERSION, "(min-width: {$min_width}px)" );
 		wp_enqueue_style( 'siw-mega-menu' );
 	}

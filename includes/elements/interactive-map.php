@@ -5,7 +5,6 @@ namespace SIW\Elements;
 use SIW\Core\Template;
 use SIW\Properties;
 use SIW\Util\CSS;
-use SIW\Util;
 
 /**
  * Class om een Mapplic kaart te genereren
@@ -69,7 +68,7 @@ abstract class Interactive_Map {
 		$default_options = [
 			'source'        => $this->get_map_data(),
 			'landmark'      => null,
-			'portrait'      => Util::get_mobile_breakpoint(),
+			'portrait'      => CSS::MOBILE_BREAKPOINT,
 			'alphabetic'    => true,
 			'search'        => false,
 			'lightbox'      => false,

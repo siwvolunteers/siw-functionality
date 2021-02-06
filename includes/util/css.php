@@ -12,6 +12,12 @@ use SIW\Properties;
  */
 class CSS {
 
+	/** Breakpoint voor mobiel (max-width) */
+	CONST MOBILE_BREAKPOINT = 768;
+
+	/** Breakpoint voor tablet (max-width) */
+	CONST TABLET_BREAKPOINT = 1024;
+
 	/** CSS klasse om content op mobiel te verbergen */
 	const HIDE_ON_MOBILE_CLASS = 'hide-on-mobile';
 

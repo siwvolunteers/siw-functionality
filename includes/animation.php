@@ -3,7 +3,6 @@
 namespace SIW;
 
 use SIW\Util\CSS;
-use SIW\Util;
 
 /**
  * Class voor animaties
@@ -48,7 +47,7 @@ class Animation {
 			],
 		];
 		$media_query = [
-			'max-width' => Util::get_mobile_breakpoint() . 'px',
+			'max-width' => CSS::MOBILE_BREAKPOINT . 'px',
 		];
 		wp_add_inline_style(
 			'sal',
@@ -65,7 +64,7 @@ class Animation {
 		wp_localize_script( 'siw-animation', 'siw_animation', [
 			'threshold'  => self::THRESHOLD,
 			'once'       => true,
-			'breakpoint' => Util::get_mobile_breakpoint(),
+			'breakpoint' => CSS::MOBILE_BREAKPOINT,
 		]);
 		wp_enqueue_script( 'siw-animation' );
 	}
