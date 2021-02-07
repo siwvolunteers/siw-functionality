@@ -10,16 +10,6 @@ namespace SIW;
  */
 class Util {
 
-	/** Geeft breakpoint voor mobile terug */
-	public static function get_mobile_breakpoint() : int {
-		return function_exists( 'siteorigin_panels_setting') ? siteorigin_panels_setting( 'mobile-width' ) : 780; //TODO: fallback in constante
-	}
-
-	/** Geeft breakpoint voor tablet terug */
-	public static function get_tablet_breakpoint() : int {
-		return function_exists( 'siteorigin_panels_setting') ? siteorigin_panels_setting( 'tablet-width' ) : 1024;  //TODO: fallback in constante
-	}
-
 	/** Geeft validatiepatroon terug
 	 * @todo   patterns verplaatsen naar databestand
 	 */
