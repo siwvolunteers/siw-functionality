@@ -15,6 +15,11 @@ class WPML {
 
 	/** Init */
 	public static function init() {
+
+		if ( ! is_plugin_active( 'sitepress-multilingual-cms/sitepress.php' ) ) {
+			return;
+		}
+
 		$self = new self();
 		
 		add_action( 'widgets_init', [ $self, 'unregister_wpml_widget'], 99 );

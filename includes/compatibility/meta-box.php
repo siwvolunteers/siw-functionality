@@ -13,7 +13,7 @@ class Meta_Box {
 
 	/** Init */
 	public static function init() {
-		if ( ! class_exists( '\MBAIO\Loader' ) ) {
+		if ( ! is_plugin_active( 'meta-box-aio/meta-box-aio.php' ) ) {
 			return;
 		}
 		$self = new self();

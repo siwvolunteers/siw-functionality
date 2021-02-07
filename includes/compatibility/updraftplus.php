@@ -20,7 +20,7 @@ class UpdraftPlus {
 	/** Init */
 	public static function init() {
 
-		if ( ! class_exists( '\UpdraftPlus' ) ) {
+		if ( ! is_plugin_active( 'updraftplus/updraftplus.php' ) ) {
 			return;
 		}
 		$self = new self();

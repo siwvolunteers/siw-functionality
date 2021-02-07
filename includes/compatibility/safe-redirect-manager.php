@@ -16,6 +16,11 @@ class Safe_Redirect_Manager {
 
 	/** Init */
 	public static function init() {
+
+		if ( ! is_plugin_active( 'safe-redirect-manager/safe-redirect-manager.php' ) ) {
+			return;
+		}
+
 		add_filter( 'srm_max_redirects', fn() : int => self::MAX_REDIRECTS );
 		add_filter( 'srm_default_direct_status', fn() : int => \WP_Http::MOVED_PERMANENTLY );
 	}

@@ -15,6 +15,11 @@ class WooCommerce_Multistep_Checkout {
 
 	/** Init */
 	public static function init() {
+
+		if ( ! is_plugin_active( 'woocommerce-multistep-checkout/woocommerce-multistep-checkout.php' ) ) {
+			return;
+		}
+
 		$self = new self();
 
 		$options = array_keys( $self->get_option_values() );

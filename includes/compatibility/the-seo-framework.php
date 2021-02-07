@@ -23,7 +23,7 @@ class The_SEO_Framework {
 	/** Init */
 	public static function init() {
 
-		if ( ! function_exists( 'the_seo_framework' ) ) {
+		if ( ! is_plugin_active( 'autodescription/autodescription.php' ) ) {
 			return;
 		}
 		$self = new self();

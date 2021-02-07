@@ -22,7 +22,7 @@ class WooCommerce {
 	/** Init */
 	public static function init() {
 
-		if ( ! class_exists( '\WooCommerce' ) ) {
+		if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 			return;
 		}
 		$self = new self();

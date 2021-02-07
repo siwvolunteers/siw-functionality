@@ -2,14 +2,11 @@
 
 namespace SIW\Compatibility;
 
-use SIW\i18n;
-
 /**
  * Aanpassingen voor WP Rocket
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://wp-rocket.me/
- * @since     3.0.0
  */
 class WP_Rocket {
 
@@ -28,7 +25,7 @@ class WP_Rocket {
 	/** Init */
 	public static function init() {
 
-		if ( ! class_exists( '\WP_Rocket\Plugin' ) ) {
+		if ( ! is_plugin_active( 'wp-rocket/wp-rocket.php' ) ) {
 			return;
 		}
 		$self = new self();

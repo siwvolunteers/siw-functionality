@@ -12,9 +12,11 @@ class SiteOrigin_Widgets_Bundle {
 
 	/** Init */
 	public static function init() {
-		if ( ! class_exists( \SiteOrigin_Widgets_Bundle::class ) ) {
+		
+		if ( ! is_plugin_active( 'so-widgets-bundle/so-widgets-bundle.php' ) ) {
 			return;
 		}
+		
 		$self = new self();
 
 		add_filter( 'siteorigin_widgets_widget_folders', [ $self, 'set_widget_folders' ] );

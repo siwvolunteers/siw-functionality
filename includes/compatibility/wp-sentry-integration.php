@@ -12,6 +12,11 @@ class WP_Sentry_Integration {
 
 	/** Init */
 	public static function init() {
+
+		if ( ! is_plugin_active( 'wp-sentry-integration/wp-sentry.php' ) ) {
+			return;
+		}
+
 		$self = new self();
 		add_filter( 'rocket_exclude_js', [ $self, 'exclude_js' ] );
 		add_filter( 'wp_sentry_public_context', [ $self, 'set_context'] );

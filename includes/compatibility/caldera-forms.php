@@ -17,7 +17,7 @@ class Caldera_Forms {
 	/** Init */
 	public static function init() {
 		
-		if ( ! class_exists( '\Caldera_Forms' ) ) {
+		if ( ! is_plugin_active( 'caldera-forms/caldera-core.php') ) {
 			return;
 		}
 		$self = new self();
