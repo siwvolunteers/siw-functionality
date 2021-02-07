@@ -2,8 +2,6 @@
 
 namespace SIW\Structured_Data;
 
-use \Spatie\Enum\Enum;
-
 /**
  * Status van evenement
  * 
@@ -16,12 +14,6 @@ use \Spatie\Enum\Enum;
  * @method static self EventPostponed()
  * @method static self EventRescheduled()
  */
-class Event_Status_Type extends Enum {
+class Event_Status_Type extends Enumeration {
 
-	/** {@inheritDoc} */
-	protected static function values() : \Closure {
-		return function( string $value ): string {
-			return "https://schema.org/{$value}";
-		};
-	}
 }

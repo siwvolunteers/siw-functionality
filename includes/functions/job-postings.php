@@ -2,6 +2,7 @@
 
 use SIW\Structured_Data\Employment_Type;
 use SIW\Structured_Data\Job_Posting;
+use SIW\Structured_Data\NL_Non_Profit_Type;
 use SIW\Structured_Data\Organization;
 use SIW\Structured_Data\Place;
 use SIW\Structured_Data\Postal_Address;
@@ -88,6 +89,7 @@ function siw_generate_job_posting_json_ld( int $job_id ) : string {
 				->set_name( Properties::NAME )
 				->set_same_as( SIW_SITE_URL )
 				->set_logo( get_site_icon_url() )
+				->set_non_profit_status( NL_Non_Profit_Type::NonprofitANBI() )
 		)
 		->set_qualifications( siw_meta( 'description.qualifications', [], $job_id ) )
 		->set_responsibilities( siw_meta( 'description.work', [], $job_id ) )

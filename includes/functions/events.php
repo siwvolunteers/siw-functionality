@@ -3,6 +3,7 @@
 use SIW\Structured_Data\Event;
 use SIW\Structured_Data\Event_Attendance_Mode;
 use SIW\Structured_Data\Event_Status_Type;
+use SIW\Structured_Data\NL_Non_Profit_Type;
 use SIW\Structured_Data\Organization;
 use SIW\Structured_Data\Place;
 use SIW\Structured_Data\Postal_Address;
@@ -140,8 +141,10 @@ function siw_generate_event_json_ld( int $event_id ) : string {
 	}
 	else {
 		$organizer
-			->set_name( Properties::NAME, )
-			->set_url( SIW_SITE_URL );
+		->set_name( Properties::NAME )
+		->set_same_as( SIW_SITE_URL )
+		->set_logo( get_site_icon_url() )
+		->set_non_profit_status( NL_Non_Profit_Type::NonprofitANBI() );
 	}
 	$event->set_organizer( $organizer );
 

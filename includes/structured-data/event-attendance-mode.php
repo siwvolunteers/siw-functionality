@@ -2,8 +2,6 @@
 
 namespace SIW\Structured_Data;
 
-use \Spatie\Enum\Enum;
-
 /**
  * Type evenement (offline, online of allebei)
  * 
@@ -14,12 +12,6 @@ use \Spatie\Enum\Enum;
  * @method static self OfflineEventAttendanceMode()
  * @method static self OnlineEventAttendanceMode()
  */
-class Event_Attendance_Mode extends Enum {
+class Event_Attendance_Mode extends Enumeration {
 
-	/** {@inheritDoc} */
-	protected static function values() : \Closure {
-		return function( string $value ): string {
-			return "https://schema.org/{$value}";
-		};
-	}
 }

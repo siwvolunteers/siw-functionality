@@ -19,4 +19,10 @@ class Organization extends Thing {
 	public function set_logo( string $logo ) {
 		return $this->set_property( 'logo', $logo );
 	}
+
+	/** Zet non-profit-status */
+	public function set_non_profit_status( Non_Profit_Type $non_profit_status ) {
+		return $this->set_property( 'nonprofitStatus', $non_profit_status );
+	}
+
 }
