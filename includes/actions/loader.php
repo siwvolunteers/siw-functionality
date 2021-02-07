@@ -20,6 +20,7 @@ class Loader extends Object_Loader_Abstract {
 	/** {@inheritDoc} */
 	public function get_classes() : array {
 		return [
+			Delete_Applications::class,
 			Send_Workcamp_Approval_Emails::class,
 		];
 	}

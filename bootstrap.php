@@ -154,7 +154,6 @@ class Bootstrap {
 		$this->init_classes(
 			'SIW\Batch',
 			[
-				'Delete_Applications',
 				'Delete_Old_Posts',
 				'Import_Dutch_Workcamps',
 				'Import_Workcamps',
