@@ -65,7 +65,7 @@ class Database {
 				continue;
 			}
 
-			if ( is_null( $value['value'] ) ) {
+			if ( is_null( $value ) ) {
 				$conditions[] = "`$field` IS NULL";
 				continue;
 			}
