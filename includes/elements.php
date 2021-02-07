@@ -103,15 +103,7 @@ class Elements {
 		return $modal->generate_link( $link_text );
 	}
 
-	/**
-	 * Genereert html voor icon
-	 *
-	 * @param string $icon_class
-	 * @param int $size
-	 * @param string $background
-	 * 
-	 * @return string
-	 */
+	/** Genereert html voor icon */
 	public static function generate_icon( string $icon_class, int $size = 2, string $background = 'none' ) : string {
 
 		switch ( $background ) {
