@@ -128,7 +128,7 @@ class Spam_Check{
 		}
 
 		$request = new HTTP_Request( self::API_URL );
-		$request->set_content_type( 'application/x-www-form-urlencoded' );
+		$request->set_content_type( HTTP_Request::APPLICATION_X_WWW_FORM_URLENCODED );
 		$response = $request->post( $body );
 
 		if ( is_wp_error( $response ) || false == $response['success'] ) {

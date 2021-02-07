@@ -9,6 +9,15 @@ namespace SIW\Helpers;
  */
 class HTTP_Request {
 
+	/** JSON */
+	const APPLICATION_JSON = 'application/json';
+
+	/** XML */
+	const APPLICATION_XML = 'application/xml';
+
+	/** Form */
+	const APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
+
 	/** Toegestane methodes TODO: hoe nuttig is dit */
 	protected array $allowed_methods = [
 		'POST',
@@ -39,8 +48,8 @@ class HTTP_Request {
 				'timeout'     => 60,
 				'redirection' => 0,
 				'headers'     => [ 
-					'accept'       => 'application/json',
-					'content-type' => 'application/json'
+					'accept'       => self::APPLICATION_JSON, //TODO: is een default eigenlijk wel handig?
+					'content-type' => self::APPLICATION_JSON,
 				],
 				'body'        => [],
 			]
@@ -107,10 +116,10 @@ class HTTP_Request {
 	protected function retrieve_body( array $response ) {
 		$body = \wp_remote_retrieve_body( $response );
 		switch ( $this->args['headers']['accept'] ) {
-			case 'application/json':
+			case self::APPLICATION_JSON:
 				$body = \json_decode( $body, true );
 				break;
-			case 'application/xml':
+			case self::APPLICATION_XML:
 				$body = \simplexml_load_string( $body );
 				break;
 			default:
