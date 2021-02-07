@@ -1,74 +1,63 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Batch;
+namespace SIW\Actions;
 
 use SIW\Email\Template;
+use SIW\Interfaces\Actions\Action as Action_Interface;
 use SIW\Util\Links;
 use SIW\WooCommerce\Import\Product as Import_Product;
-use WP_User;
 
 /**
  * Versturen email voor goedkeuren Groepsprojecten
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Send_Workcamp_Approval_Emails extends Job {
+class Send_Workcamp_Approval_Emails implements Action_Interface {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected $action = 'send_workcamp_approval_emails';
+	/** Taxonomie voor continenten */
+	const CONTINENT_TAXONOMY = 'product_cat';
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $name = 'versturen email goedkeuren groepsprojecten';
+	/** {@inheritDoc} */
+	public function get_id(): string {
+		return 'send_workcamp_approval_emails';
+	}
+	
+	/** {@inheritDoc} */
+	public function get_name(): string {
+		return 'Versturen email goedkeuren groepsprojecten';
+	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $category = 'groepsprojecten';
-
-	/**
-	 * Selecteer categorieën
-	 *
-	 * @return array
-	 */
-	protected function select_data() : array {
-
-		$categories = get_terms( [
-			'taxonomy'   => 'product_cat',
-			'hide_empty' => true
+	/** {@inheritDoc} */
+	public function select_data(): array {
+		
+		$data = get_terms( [
+			'taxonomy'   => self::CONTINENT_TAXONOMY,
+			'hide_empty' => true,
+			'fields'     => 'tt_ids'
 		]);
 		
-		if ( empty( $categories ) || is_wp_error( $categories ) ) {
-			return false;
-		}
-
-		foreach ( $categories as $category ) {
-			$data[] = [
-				'slug' => $category->slug,
-				'name' => $category->name,
-			];
+		if ( is_wp_error( $data ) ) {
+			return [];
 		}
 
 		return $data;
 	}
+	
+	/** {@inheritDoc} */
+	public function process( $term_taxonomy_id ) {
+		if ( ! is_int( $term_taxonomy_id ) ) {
+			return;
+		}
 
-	/**
-	 * Versturen van email
-	 *
-	 * @param string $category
-	 *
-	 * @return mixed
-	 */
-	protected function task( $category ) {
-
-		// Zoek te beoordelen projecten per category
+		$term = get_term_by( 'term_taxonomy_id', $term_taxonomy_id );
+		if ( ! is_a( $term, \WP_Term::class ) ) {
+			return;
+		}
+	
+		// Zoek te beoordelen projecten per category (continent)
 		$products = wc_get_products([
 			'return'   => 'ids',
-			'category' => [ $category['slug'] ],
+			'category' => $term->slug,
 			'status'   => Import_Product::REVIEW_STATUS,
 			'limit'    => -1,
 		]);
@@ -80,25 +69,25 @@ class Send_Workcamp_Approval_Emails extends Job {
 		if ( is_null( $supervisor ) ) {
 			return false; //TODO:logging
 		}
-		$responsible_user = $this->get_responsible_user( $category['slug'] ) ?? $supervisor;
+		$responsible_user = $this->get_responsible_user( $term->slug ) ?? $supervisor;
 
 		$admin_url = add_query_arg(
 			[
 				'post_type'   => 'product',
 				'post_status' => Import_Product::REVIEW_STATUS,
-				'product_cat' => $category['slug'],
+				'product_cat' => $term->slug,
 			],
 			admin_url( 'edit.php' )
 		);
 
 		$message = 
 			sprintf( 'Beste %s,', $responsible_user->user_firstname ) . BR2 .
-			sprintf( 'Er wachten nog %d projecten in %s op jouw beoordeling.', count( $products ), $category['name'] ) . BR .
+			sprintf( 'Er wachten nog %d projecten in %s op jouw beoordeling.', count( $products ), $term->name ) . BR .
 			sprintf( 'Klik %s om de projecten te bekijken.', Links::generate_link( $admin_url, 'hier') );
 
 		$template = new Template(
 			[
-				'subject'           => sprintf( 'Nog te beoordelen projecten in %s', $category['name'] ),
+				'subject'           => sprintf( 'Nog te beoordelen projecten in %s', $term->name ),
 				'message'           => $message,
 				'show_signature'    => true,
 				'signature_name'    => $supervisor->display_name
@@ -108,18 +97,12 @@ class Send_Workcamp_Approval_Emails extends Job {
 		$this->send_mail(
 			$responsible_user,
 			$supervisor, 
-			sprintf( 'Nog te beoordelen projecten in %s', $category['name'] ),
+			sprintf( 'Nog te beoordelen projecten in %s', $term->name ),
 			$template->generate()
 		);
-		$this->increment_processed_count();
-		return false;
 	}
 
-	/**
-	 * Zoekt coordinator voor import Groepsprojecten
-	 * 
-	 * @return WP_User|null
-	 */
+	/** Zoekt coordinator voor import Groepsprojecten */
 	protected function get_supervisor() : ?\WP_User {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval['supervisor'] ) ) {
@@ -129,12 +112,7 @@ class Send_Workcamp_Approval_Emails extends Job {
 		return null;
 	}
 
-	/**
-	 * Zoekt verantwoordelijke voor specifiek continent
-	 *
-	 * @param string $category_slug
-	 * @return \WP_User|null
-	 */
+	/** Zoekt verantwoordelijke voor specifiek continent */
 	protected function get_responsible_user( string $category_slug ) : ?\WP_User {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval[ "responsible_{$category_slug}" ] ) ) {
@@ -144,14 +122,7 @@ class Send_Workcamp_Approval_Emails extends Job {
 		return null;
 	}
 
-	/**
-	 * Verstuur e-mail
-	 *
-	 * @param \WP_User $to
-	 * @param \WP_User $from
-	 * @param string $subject
-	 * @param string $message
-	 */
+	/** Verstuur e-mail */
 	protected function send_mail( \WP_User $to, \WP_User $from, string $subject, string $message ) {
 		$headers = [
 			'Content-Type: text/html; charset=UTF-8', 

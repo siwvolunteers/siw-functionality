@@ -142,6 +142,15 @@ class Bootstrap {
 
 	/** Laadt batch jobs */
 	protected function load_batch_jobs() {
+
+		$this->init_classes(
+			'SIW\Actions',
+			[
+				'Loader',
+				'Scheduler'
+			]
+		);
+
 		$this->init_classes(
 			'SIW\Batch',
 			[
@@ -149,7 +158,6 @@ class Bootstrap {
 				'Delete_Old_Posts',
 				'Import_Dutch_Workcamps',
 				'Import_Workcamps',
-				'Send_Workcamp_Approval_Emails',
 				'Update_Free_Places',
 				'Update_Terms',
 				'Update_Workcamps',
