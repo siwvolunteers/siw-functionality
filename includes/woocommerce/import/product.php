@@ -168,7 +168,6 @@ class Product {
 			'category_ids'       => $this->get_category_ids(),
 			'attributes'         => $this->get_attributes(),
 			'default_attributes' => $this->get_default_attributes(),
-			'tag_ids'            => $this->get_tag_ids(),
 			'sku'                => $this->xml->code,
 			'sold_individually'  => true,
 			'virtual'            => true,
@@ -190,7 +189,7 @@ class Product {
 	protected function set_country() {
 		$country_code = strtoupper( $this->xml->country );
 		$country = siw_get_country( $country_code, 'iso' );
-		if ( is_a( $country, '\SIW\Data\Country' ) ) {
+		if ( is_a( $country, Country::class ) ) {
 			$this->country = $country;
 		}
 	}
@@ -206,7 +205,7 @@ class Product {
 		foreach ( $languages as $language_code ) {
 			$language_code = strtoupper( $language_code );
 			$language = siw_get_language( $language_code, 'plato' );
-			if ( is_a( $language, '\SIW\Data\Language' ) ) {
+			if ( is_a( $language, Language::class ) ) {
 				$this->languages[] = $language;
 			}
 		}
@@ -223,7 +222,7 @@ class Product {
 		foreach ( $work_types as $work_type_code ) {
 			$work_type_code = strtoupper( $work_type_code );
 			$work_type = siw_get_work_type( $work_type_code, 'plato' );
-			if ( is_a( $work_type, '\SIW\Data\Work_Type' ) ) {
+			if ( is_a( $work_type, Work_Type::class ) ) {
 				$this->work_types[] = $work_type;
 			}
 		}
@@ -237,7 +236,7 @@ class Product {
 		$goals = wp_parse_slug_list( $this->xml->sdg_prj );
 		foreach ( $goals as $goal_slug ) { 
 			$goal = siw_get_sustainable_development_goal( $goal_slug );
-			if ( is_a( $goal, '\SIW\Data\Sustainable_Development_Goal' ) ) {
+			if ( is_a( $goal, Sustainable_Development_Goal::class ) ) {
 				$this->sustainable_development_goals[] = $goal;
 			}
 		}
@@ -285,33 +284,6 @@ class Product {
 		$code = $this->xml->code;
 		$name = $this->get_name();
 		return sanitize_title( sprintf( '%s-%s-%s', $year, $code, $name ) );
-	}
-
-	/**
-	 * Geeft tag-ids van het project terug
-	 *
-	 * - Land
-	 * - Soort werk
-	 * - Doelgroep
-	 * 
-	 * @return array
-	 */
-	protected function get_tag_ids() : array {
-		$tags[ $this->country->get_slug() ] = $this->country->get_name();
-		foreach ( $this->work_types as $work_type ) {
-			$tags[ $work_type->get_slug() ] = $work_type->get_name();
-		}
-		foreach ( $this->target_audiences as $target_audience ) {
-			$tags[ $target_audience['slug'] ] = $target_audience['name'];
-		}
-
-		$tag_ids = [];
-		foreach ( $tags as $slug => $name ) {
-			if ( $tag_id = Util::maybe_create_term( 'product_tag', $slug, $name ) ) {
-				$tag_ids[] = $tag_id;
-			}
-		}
-		return $tag_ids;
 	}
 
 	/**

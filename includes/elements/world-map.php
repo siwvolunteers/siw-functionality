@@ -2,10 +2,10 @@
 
 namespace SIW\Elements;
 
+use SIW\Core\Template;
 use SIW\Util\CSS;
 use SIW\Data\Country;
 use SIW\Data\Continent;
-use SIW\HTML;
 
 /**
  * Wereldkaart
@@ -15,53 +15,35 @@ use SIW\HTML;
  */
 class World_Map {
 
-	/**
-	 * Bestandsnaam van wereldkaart
-	 */
+	/** Bestandsnaam van wereldkaart */
 	protected $map_file = SIW_ASSETS_URL . 'images/maps/world.svg';
 
-	/**
-	 * Land
-	 */
+	/** Land */
 	protected Country $country;
 
-	/**
-	 * Continent
-	 */
+	/** Continent */
 	protected Continent $continent;
 
-	/**
-	 * Zoom-niveau
-	 */
+	/** Zoom-niveau */
 	protected int $zoom = 1;
 
-	/**
-	 * Breedte van SVG
-	 */
+	/** Breedte van SVG */
 	protected float $width = 1200;
 
-	/**
-	 * Hoogte van SVG
-	 */
+	/** Hoogte van SVG */
 	protected float $height = 760;
 
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	public function __construct() {
 		$this->enqueue_script();
 	}
 
-	/**
-	 * Voegt SVG-script toe
-	 */
+	/** Voegt SVG-script toe */
 	protected function enqueue_script() {
 		wp_enqueue_script( 'siw-svg' );
 	}
 
-	/**
-	 * Voegt (inline) style toe
-	 */
+	/** Voegt (inline) style toe */
 	protected function enqueue_style() {
 		$code = $this->country->get_world_map_data()->code;
 		$inline_css = CSS::generate_inline_css(
@@ -80,57 +62,24 @@ class World_Map {
 		wp_add_inline_style( 'siw-world-map', $inline_css );
 	}
 
-	/**
-	 * Genereert kaart
-	 *
-	 * @param string|Country $country
-	 * @param int $zoom
-	 * @return string
-	 */
-	public function generate( $country, int $zoom = 1 ) : string {
-		if ( false === $this->set_country( $country ) ) {
-			return false;
-		}
-		$this->zoom = $zoom;
-		$this->enqueue_style();
-		
-		$div = HTML::div(
-			[
-				'data-svg-url' => $this->map_file,
-				'style'        => 'display:none;',
-			]
-		);
-		$svg = HTML::svg(
-			[ 'viewBox' => $this->get_viewbox() ],
-			'<use xlink:href="#mapplic-world"></use>'
-		);
-
-		return $div . $svg;
-	}
-
-	/**
-	 * Zet land om in te kleuren
-	 *
-	 * @param string|Country $country
-	 * @return bool
-	 */
-	protected function set_country( $country ) : bool {
-		if ( is_string( $country ) ) {
-			$country = siw_get_country( $country );
-		}
-		if ( ! is_a( $country, '\SIW\Data\Country') ) {
-			return false;
-		}
+	/** Genereert kaart */
+	public function generate( Country $country, int $zoom = 1 ) : string {
 		$this->country = $country;
 		$this->continent = $country->get_continent();
-		return true;
+		$this->zoom = $zoom;
+
+		$this->enqueue_style();
+		
+		return Template::parse_template(
+			'elements/world-map',
+			[
+				'file'    => $this->map_file,
+				'viewbox' => $this->get_viewbox(),
+			]
+		);
 	}
 
-	/**
-	 * Bepaalt viewbox o.b.v. zoom en locatie land
-	 * 
-	 * @todo refactor
-	 */
+	/** Bepaalt viewbox o.b.v. zoom en locatie land */
 	protected function get_viewbox() : string {
 		$x = $this->country->get_world_map_data()->x;
 		$y = $this->country->get_world_map_data()->y;
@@ -143,12 +92,7 @@ class World_Map {
 		return "{$x} {$y} {$vb_width} {$vb_height}";
 	}
 
-	/**
-	 * Berekent offset van coordinaat
-	 *
-	 * @param float $coordinate
-	 * @return float
-	 */
+	/** Berekent offset van coordinaat */
 	protected function calculate_offset( float $coordinate ) : float {
 		$coordinate = min( $coordinate + 1 / ( 2 * $this->zoom ), 1 );
 		$coordinate = max( $coordinate - 1 / ( $this->zoom ), 0 );

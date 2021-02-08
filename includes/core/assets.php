@@ -2,6 +2,8 @@
 
 namespace SIW\Core;
 
+use SIW\Util\CSS;
+
 /**
  * Class om scripts en styles te registreren
  * 
@@ -10,31 +12,21 @@ namespace SIW\Core;
  */
 class Assets {
 
-	/**
-	 * Versie van JS Cookie
-	 */
+	/** Versie van JS Cookie */
 	const JSCOOKIE_VERSION = '2.2.1';
 
-	/**
-	 * Versie van Balloon.css
-	 */
+	/** Versie van Balloon.css */
 	const BALLOON_VERSION = '1.2.0';
 
-	/**
-	 * Versie van Polyfill.io
-	 */
+	/** Versie van Polyfill.io */
 	const POLYFILL_VERSION = '3.53.1';
 
-	/**
-	 * Features voor Polyfill.io
-	 */
+	/** Features voor Polyfill.io */
 	protected array $polyfill_features = [
 		'default'
 	];
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'register_styles' ] );
@@ -44,20 +36,17 @@ class Assets {
 		add_filter( 'siw_preconnect_urls', [ $self, 'add_polyfill_url'] );
 	}
 
-	/**
-	 * Registreert styles
-	 */
+	/** Registreert styles */
 	public function register_styles() {
 		wp_register_style( 'siw', SIW_ASSETS_URL . 'css/siw.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw' );
+		CSS::add_css_variables( 'siw' );
 
 		wp_register_style( 'balloon', SIW_ASSETS_URL . 'vendor/balloon-css/balloon.css', [], self::BALLOON_VERSION );
 		wp_enqueue_style( 'balloon' );
 	}
 
-	/**
-	 * Registreert scripts
-	 */
+	/** Registreert scripts */
 	public function register_scripts() {
 		//JS-cookie niet zelf enqueuen; is dependency van andere scripts
 		wp_register_script( 'js-cookie', SIW_ASSETS_URL . 'vendor/js-cookie/js.cookie.js', [], self::JSCOOKIE_VERSION, true );
@@ -78,14 +67,7 @@ class Assets {
 		wp_script_add_data( 'polyfill', 'crossorigin', 'anonymous' );
 	}
 
-	/**
-	 * Zet crossorigin attribute
-	 *
-	 * @param string $tag
-	 * @param string $handle
-	 *
-	 * @return string
-	 */
+	/** Zet crossorigin attribute */
 	public function set_crossorigin( string $tag, string $handle ) : string {
 		$crossorigin = wp_scripts()->get_data( $handle, 'crossorigin' );
 		if ( $crossorigin ) {
@@ -98,13 +80,7 @@ class Assets {
 		return $tag;
 	}
 
-	/**
-	 * Sluit Polyfill uit van optimalisatie
-	 *
-	 * @param array $urls
-	 *
-	 * @return array
-	 */
+	/** Sluit Polyfill uit van optimalisatie */
 	public function add_polyfill_url( array $urls ) : array {
 		$urls[] = 'https://polyfill.io';
 		return $urls;

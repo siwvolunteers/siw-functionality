@@ -31,13 +31,13 @@ $fields[0] = [
 			'slug'  => 'naam_organisatie',
 			'type'  => 'text',
 			'label' => __( 'Naam organisatie', 'siw' ),
-			'width' => 12,
+			'width' => 100,
 		],
 		[
 			'slug'  => 'naam_contactpersoon',
 			'type'  => 'text',
 			'label' => __( 'Naam contactpersoon', 'siw' ),
-			'width' => 12,
+			'width' => 100,
 		],
 	],
 	[
@@ -52,7 +52,7 @@ $fields[0] = [
 			'config' => [
 				'rows' => 7,
 			],
-			'width' => 12,
+			'width' => 100,
 		]
 	],
 ];

@@ -2,9 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Elements;
 use SIW\Formatting;
-use SIW\Util\Links;
 
 /**
  * Widget met agenda
@@ -63,52 +61,45 @@ class Calendar extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
-
+	function get_template_variables( $instance, $args ) {
 		$events = $this->get_upcoming_events();
 
-		if ( empty( $events ) ) {
-			return wpautop( esc_html__( 'Er zijn momenteel geen geplande activiteiten.', 'siw' ) );
-		}
+		$parameters = [
+			'active_events'  => ! empty( $events ),
+			'events'         => array_map( [ $this, 'parse_event'], $events ),
+			'json_ld'        => array_map( 'siw_generate_event_json_ld', $events ),
+			'agenda_url'     => get_post_type_archive_link( 'siw_event' ),
+			'agenda_text'    => __( 'Bekijk de volledige agenda.', 'siw' ),
+			'no_events_text' => __( 'Er zijn momenteel geen geplande activiteiten.', 'siw' ),
+		];
+		return $parameters;
+	}
 
-		foreach ( $events as $event_id ) {
-
-			ob_start();
-			?>
-			<h3 class="title">
-				<?php echo Links::generate_link( get_permalink( $event_id ), get_the_title( $event_id ), [ 'class' => 'link' ] ) ?>
-			</h3>
-			<span class="duration" >
-				<?php
-					printf(
-						'%s %s-%s',
-						Formatting::format_date( siw_meta( 'event_date', [], $event_id ), false ),
-						siw_meta( 'start_time', [], $event_id ),
-						siw_meta( 'end_time', [], $event_id )
-					)
-				 ?>
-			</span>
-			<br/>
-			<span class="location">
-				<?php 
-					if ( siw_meta( 'online', [], $event_id ) ) {
-						esc_html_e( 'Online', 'siw' );
-					}
-					else {
-						$location = siw_meta( 'location', [], $event_id );
-						printf( '%s, %s', $location['name'], $location['city'] );
-					}
-				?>
-			</span>
-			<?php
-			$event_list[] = ob_get_clean();
-			$json_ld[] = siw_generate_event_json_ld( $event_id );
-		}
-		$content = Elements::generate_list( $event_list );
-		$content .= implode( SPACE, $json_ld );
-		$content .= '<p class="page-link">' . Links::generate_link( get_post_type_archive_link( 'siw_event' ) , __( 'Bekijk de volledige agenda.', 'siw' ), ['class' => 'link'] ) . '</p>';
-
-		return $content;
+	/**
+	 * Parset event data
+	 *
+	 * @param int $event_id
+	 *
+	 * @return array
+	 */
+	protected function parse_event( int $event_id ) : array {
+		return [
+			'title'    => get_the_title( $event_id ),
+			'url'      => get_permalink( $event_id ),
+			'duration' => sprintf(
+				'%s %s-%s',
+				Formatting::format_date( siw_meta( 'event_date', [], $event_id ), false ),
+				siw_meta( 'start_time', [], $event_id ),
+				siw_meta( 'end_time', [], $event_id )
+			),
+			'location' =>
+				siw_meta( 'online', [], $event_id )
+				?
+				esc_html_e( 'Online', 'siw' )
+				:
+				sprintf( '%s, %s', siw_meta( 'location.name', [], $event_id ), siw_meta( 'location.city', [], $event_id ) ),
+			
+		];
 	}
 
 	/**

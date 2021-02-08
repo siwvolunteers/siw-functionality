@@ -13,62 +13,32 @@ use SIW\Email\Template;
  */
 class Form {
 
-	/**
-	 * Standaard cell-breedte
-	 */
-	const DEFAULT_CELL_WIDTH = 6;
+	/** Standaard cell-breedte */
+	const DEFAULT_CELL_WIDTH = 50;
 
-	/**
-	 * ID van het formulier
-	 *
-	 * @var string
-	 */
+	/** ID van het formulier */
 	protected $id;
 
-	/**
-	 * Formulier
-	 *
-	 * @var array
-	 */
+	/** Formulier */
 	protected $form;
 
-	/**
-	 * Data uit configuratiebestand
-	 *
-	 * @var array
-	 */
+	/** Data uit configuratiebestand */
 	protected $data;
 
-	/**
-	 * Standaardvelden
-	 *
-	 * @var array
-	 */
+	/** Standaardvelden */
 	protected $default_fields;
 
-	/**
-	 * Instellingen voor e-mail
-	 *
-	 * @var array
-	 */
+	/** Instellingen voor e-mail */
 	protected $email_settings;
 
-	/**
-	 * Init
-	 *
-	 * @param string $id
-	 */
+	/** Init */
 	public function __construct( string $id ) {
 		$this->id = $id;
 		add_filter( 'caldera_forms_get_forms', [ $this, 'add_to_forms'] );
 		add_filter( "caldera_forms_get_form-{$this->id}", [ $this, 'add_form' ] );
 	}
 
-	/**
-	 * Laadt data uit bestand
-	 * 
-	 * @return bool
-	 */
+	/** Laadt data uit bestand */
 	protected function load_data() {
 
 		
@@ -91,22 +61,13 @@ class Form {
 		return true;
 	}
 
-	/**
-	 * Voegt formulier toe
-	 *
-	 * @param array $forms
-	 */
+	/** Voegt formulier toe */
 	public function add_to_forms( array $forms ) {
 		$forms[ $this->id ] = apply_filters( "caldera_forms_get_form-{$this->id}", [] );
 		return $forms;
 	}
 
-	/**
-	 * Voegt eigenschappen van formulier toe
-	 *
-	 * @param array $form
-	 * @return array
-	 */
+	/** Voegt eigenschappen van formulier toe */
 	public function add_form( array $form ) : array {
 		
 		$form = wp_cache_get( $this->id, 'siw_forms' );
@@ -130,9 +91,7 @@ class Form {
 		return $this->form;
 	}
 
-	/**
-	 * Initialiseer formulier
-	 */
+	/** Initialiseer formulier */
 	protected function init_form() {
 		$form = [
 			'ID'                 => $this->id,
@@ -166,9 +125,7 @@ class Form {
 		);
 	}
 
-	/**
-	 *  Zet instellingen van mailer
-	 */
+	/**  Zet instellingen van mailer */
 	protected function set_mailer() {
 		$notification = $this->data['notification'];
 
@@ -191,9 +148,7 @@ class Form {
 		];
 	}
 
-	/**
-	 * Zet instellingen van autoresponder
-	 */
+	/** Zet instellingen van autoresponder */
 	protected function set_autoresponder() {
 		$confirmation = $this->data['confirmation'];
 
@@ -217,14 +172,7 @@ class Form {
 		$this->add_processor( 'confirmation', 'auto_responder', $config );
 	}
 
-	/**
-	 * Voegt formprocessor toe
-	 *
-	 * @param string $id
-	 * @param string $type
-	 * @param array $config
-	 * @param array $conditions
-	 */
+	/** Voegt formprocessor toe */
 	protected function add_processor( string $id, string $type, array $config, array $conditions = [] ) {
 		$this->form['processors']["fp_{$id}"] = [
 			'ID'         => "fp_{$id}",
@@ -234,18 +182,12 @@ class Form {
 		];
 	}
 
-	/**
-	 * Voegt form processor voor spam check toe
-	 */
+	/** Voegt form processor voor spam check toe */
 	protected function set_spam_check() {
 		$this->add_processor( 'spam_check', 'siw_spam_check', [ 'email' => $this->data['primary_email'] ] );
 	}
 
-	/**
-	 * Voegt pagina's toe
-	 * 
-	 * @todo: naam van formulier gebruiken als fallback
-	 */
+	/** Voegt pagina's toe TODO:naam van formulier gebruiken als fallback */
 	protected function set_pages() {
 		if ( empty( $this->data['pages'] ) ) {
 			$this->form['page_names'] = [
@@ -259,9 +201,7 @@ class Form {
 		}
 	}
 
-	/**
-	 * Zet de velden van het formulier
-	 */
+	/** Zet de velden van het formulier */
 	protected function set_fields() {
 		//Bepaal index van laatste pagina
 		$last_page = count( $this->data['fields'] ) - 1;
@@ -278,7 +218,7 @@ class Form {
 						[
 							'slug'   => 'intro',
 							'type'   => 'html',
-							'width'  => 12,
+							'width'  => 100,
 							'config' => [
 								'default' => implode( SPACE, $this->data['intro'] ) . HR,
 							],
@@ -320,12 +260,7 @@ class Form {
 		];
 	}
 
-	/**
-	 * Undocumented function
-	 *
-	 * @param array|string $field
-	 * @param array
-	 */
+	/** Undocumented function */
 	protected function parse_field( $field ) {
 
 		// Gegevens van standaardvelden gebruiken indien van toepassing
@@ -366,13 +301,7 @@ class Form {
 		return $field;
 	}
 
-	/**
-	 * Genereert knoppenrij
-	 *
-	 * @param int $current_page
-	 * @param int $last_page
-	 * @return array
-	 */
+	/** Genereert knoppenrij */
 	protected function generate_button_row( int $current_page, int $last_page ) {
 		$button_row = [];
 		
@@ -397,7 +326,7 @@ class Form {
 				'label'   => __( 'Volgende', 'siw' ),
 				'config'  => [
 					'type'         => 'next',
-					'class'        => 'kad-btn kad-btn-primary',
+					'class'        => '',
 				],
 			];
 		}
@@ -410,7 +339,7 @@ class Form {
 				'label'   => __( 'Verzenden', 'siw' ),
 				'config'  => [
 					'type'         => 'submit',
-					'class'        => 'kad-btn kad-btn-primary',
+					'class'        => '',
 				],
 			];
 		}
@@ -418,13 +347,7 @@ class Form {
 		return $button_row;
 	}
 
-	/**
-	 * Voegt condities toe
-	 *
-	 * @param string $slug
-	 * @param string $type
-	 * @param array $groups
-	 */
+	/** Voegt condities toe */
 	protected function add_conditional_group( string $slug, string $type, array $groups ) {
 		$condition_groups = [];
 
@@ -446,12 +369,7 @@ class Form {
 		];
 	}
 
-	/**
-	 * Formatteert array met opties
-	 *
-	 * @param array $options
-	 * @return array
-	 */
+	/** Formatteert array met opties */
 	protected function format_options( array $options ) : array {
 
 		$has_values = ( array_values( $options ) !== $options );
@@ -466,12 +384,7 @@ class Form {
 		return $formatted_options;
 	}
 
-	/**
-	 * Haalt e-mailtemplate op
-	 *
-	 * @param array $args
-	 * @return string
-	 */
+	/** Haalt e-mailtemplate op */
 	protected function get_email_template( array $args ) : string {
 		$template = new Template( $args );
 		return $template->generate();

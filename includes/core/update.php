@@ -2,35 +2,59 @@
 
 namespace SIW\Core;
 
+use SIW\Database_Table;
+use SIW\Helpers\Database;
+
 /**
  * Plugin update
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Update {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_action( 'wppusher_plugin_was_updated', [ $self, 'schedule_plugin_update_hook' ] );
-		add_action( 'siw_update_plugin', [ $self, 'flush_rewrite_rules' ] );
+		add_filter( 'woocommerce_debug_tools', [ $self, 'add_database_update_to_wc_debug_tools'] );
+		add_action( 'siw_update_plugin', 'flush_rewrite_rules' );
+		add_action( 'siw_update_plugin', [ $self, 'maybe_update_database'] );
 	}
 
-	/**
-	 * Zet taak klaar om pluginupdate te verwerken
-	 */
+	/** Zet taak klaar om pluginupdate te verwerken */
 	public function schedule_plugin_update_hook() {
 		wp_schedule_single_event( time(), 'siw_update_plugin' );
 	}
 
-	/**
-	 * Rewrite rules flushen
-	 */
-	public function flush_rewrite_rules() {
-		flush_rewrite_rules();
+	/** Voegt update-acties toe aan WooCommerce debug tools (om handmatig te starten) */
+	public function add_database_update_to_wc_debug_tools( array $tools ) : array {
+		$tools[ 'siw_update_database' ] = [
+			'name'     => 'SIW: ' . __( 'Database updaten', 'siw' ),
+			'button'   => __( 'Starten', 'siw' ),
+			'desc'     => __( 'Voer update van database uit', 'siw' ),
+			'callback' => [ $this, 'maybe_update_database'],
+		];
+		return $tools;
 	}
 
+	/**
+	 * Voert eventueel database upgrade uit TODO: versienummer opslaan
+	 */
+	public function maybe_update_database() {
+
+		$tables = [
+			Database_Table::PLATO_PROJECTS(),
+			Database_Table::PLATO_PROJECT_FREE_PLACES(),
+			Database_Table::PLATO_PROJECT_IMAGES(),
+		];
+
+		foreach ( $tables as $table ) {
+			$db = new Database( $table );
+			if ( ! $db->create_table() ) {
+				//Afbreken als tabel aanmaken mislukt
+				return false;
+			};
+		}
+		return true;
+	}
 }

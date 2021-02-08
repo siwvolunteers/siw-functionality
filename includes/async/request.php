@@ -11,19 +11,13 @@ namespace SIW\Async;
  */
 abstract class Request extends \WP_Async_Request {
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected $prefix = 'siw';
 
-	/**
-	 * Variabelen voor process
-	 */
+	/** Variabelen voor process */
 	protected array $variables = [];
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function handle() {
 		//Haal data op
 		$this->get_data();
@@ -35,9 +29,7 @@ abstract class Request extends \WP_Async_Request {
 		$this->process();
 	}
 
-	/**
-	 * Haalt data op uit post request (inclusief sanitizing)
-	 */
+	/** Haalt data op uit post request (inclusief sanitizing) */
 	protected function get_data() {
 		$data = [];
 		foreach ( $this->variables as $variable => $settings ) {
@@ -49,11 +41,7 @@ abstract class Request extends \WP_Async_Request {
 		$this->data = filter_input_array( INPUT_POST, $data );
 	}
 
-	/**
-	 * Controleert of data compleet is
-	 *
-	 * @return bool
-	 */
+	/** Controleert of data compleet is */
 	protected function is_data_complete() : bool {
 		foreach ( $this->variables as $variable => $settings ) {
 			if ( isset( $settings['required'] ) && $settings['required'] && empty( $this->data[ $variable ] ) ) {
@@ -63,14 +51,8 @@ abstract class Request extends \WP_Async_Request {
 		return true;
 	}
 
-	/**
-	 * Geeft filter terug op basis van type
-	 *
-	 * @param string $type
-	 *
-	 * @return int
-	 */
-	protected function get_filter( string $type ) {
+	/** Geeft filter terug op basis van type */
+	protected function get_filter( string $type ) : int {
 		switch ( $type ) {
 			case 'text':
 				return FILTER_SANITIZE_STRING;
@@ -85,8 +67,6 @@ abstract class Request extends \WP_Async_Request {
 		}
 	}
 
-	/**
-	 * Functie om gegevens te verwerken
-	 */
+	/** Functie om gegevens te verwerken */
 	abstract protected function process();
 }

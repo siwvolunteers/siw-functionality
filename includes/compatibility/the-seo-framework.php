@@ -14,41 +14,30 @@ use SIW\Properties;
  */
 class The_SEO_Framework {
 
-	/**
-	 * Maximaal aantal posts in sitemap
-	 * 
-	 * @var int
-	 */
+	/** Maximaal aantal posts in sitemap */
 	const SITEMAP_POST_LIMIT = 5000;
 
-	/**
-	 * Priority van TSF-metabox
-	 * 
-	 * @var string
-	 */
+	/** Priority van TSF-metabox */
 	const METABOX_PRIORITY = 'default';
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 
-		if ( ! function_exists( 'the_seo_framework' ) ) {
+		if ( ! is_plugin_active( 'autodescription/autodescription.php' ) ) {
 			return;
 		}
 		$self = new self();
 
 		/* SEO-metabox lagere prioriteit geven */
-		add_filter( 'the_seo_framework_metabox_priority', [ $self, 'set_metabox_priority' ] );
+		add_filter( 'the_seo_framework_metabox_priority', fn() : string => self::METABOX_PRIORITY );
 
 		/* Robots */
-		add_filter( 'the_seo_framework_robots_meta_array', [ $self, 'set_robots' ] );
 		add_filter( 'the_seo_framework_robots_txt_pro', [ $self, 'set_robots_txt' ]) ; 
 
 		/* Sitemap */
-		add_filter( 'the_seo_framework_sitemap_color_main', [ $self, 'set_sitemap_color_main' ] );
-		add_filter( 'the_seo_framework_sitemap_color_accent', [ $self, 'set_sitemap_color_accent' ] );
-		add_filter( 'the_seo_framework_sitemap_post_limit', [ $self, 'set_sitemap_post_limit' ] );
+		add_filter( 'the_seo_framework_sitemap_color_main', fn() : string => Properties::SECONDARY_COLOR );
+		add_filter( 'the_seo_framework_sitemap_color_accent', fn() : string => Properties::FONT_COLOR );
+		add_filter( 'the_seo_framework_sitemap_post_limit', fn() : int => self::SITEMAP_POST_LIMIT );
 		add_filter( 'the_seo_framework_sitemap_supported_post_types', [ $self, 'set_sitemap_supported_post_types'] );
 		add_filter( 'the_seo_framework_sitemap_additional_urls', [ $self, 'set_sitemap_additional_urls' ] );
 
@@ -56,63 +45,7 @@ class The_SEO_Framework {
 		add_filter( 'sybre_waaijer_<3', '__return_false' );
 	}
 
-	/**
-	 * Past prioriteit van TSF metabox aan
-	 *
-	 * @return string
-	 */
-	public function set_metabox_priority() : string {
-		return self::METABOX_PRIORITY;
-	}
-
-	/**
-	 * Diverse archieven niet indexeren
-	 *
-	 * @param array $robots
-	 * @return array
-	 *
-	 * @todo soort_evenement soort_vacature testimonial wpm-testimonial-category / verplaatsen naar WooCommerce
-	 */
-	public function set_robots( array $robots ) : array {
-		if ( function_exists( 'is_product_tag' ) && is_product_tag() ) {
-			$robots['noindex'] = 'noindex';
-		}
-		return $robots;
-	}
-
-	/**
-	 * Zet hoofdkleur van sitemap
-	 *
-	 * @return string
-	 */
-	public function set_sitemap_color_main() : string {
-		return Properties::SECONDARY_COLOR;
-	}
-
-	/**
-	 * Zet de accentkleur van de sitemap
-	 *
-	 * @return string
-	 */
-	public function set_sitemap_color_accent() : string {
-		return Properties::FONT_COLOR;
-	}
-
-	/**
-	 * Verhoogt limiet aantal posts voor sitemap
-	 *
-	 * @return int
-	 */
-	public function set_sitemap_post_limit() : int {
-		return self::SITEMAP_POST_LIMIT;
-	}
-
-	/**
-	 * Voegt bots toe aan robot.txt
-	 *
-	 * @param string $output
-	 * @return string
-	 */
+	/** Voegt bots toe aan robot.txt */
 	public function set_robots_txt( string $output ) : string {
 		$bots = siw_get_option( 'blocked_bots');
 
@@ -128,13 +61,7 @@ class The_SEO_Framework {
 		return $output;
 	}
 
-	/**
-	 * Toon alleen pagina's in Engelse sitemap
-	 *
-	 * @param array $post_types
-	 * 
-	 * @return array
-	 */
+	/** Toon alleen pagina's in Engelse sitemap */
 	public function set_sitemap_supported_post_types( array $post_types ) : array {
 
 		if ( ! i18n::is_default_language() ) {
@@ -144,13 +71,7 @@ class The_SEO_Framework {
 		return $post_types;
 	}
 
-	/**
-	 * Productarchieven toevoegen aan de sitemap 
-	 *
-	 * @param array $custom_urls
-	 * 
-	 * @return array
-	 */
+	/** Productarchieven toevoegen aan de sitemap */
 	public function set_sitemap_additional_urls( array $custom_urls ) : array {
 		
 		if ( ! i18n::is_default_language() ) {

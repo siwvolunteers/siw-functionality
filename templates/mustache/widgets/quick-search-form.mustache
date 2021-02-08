@@ -1,0 +1,8 @@
+{{> widget-title}}
+<form id="siw_quick_search" method="get" action="{{& result_page_url|esc_url }}">
+	<ul>
+		<li>{{# destinations}} {{> select }} {{/ destinations}}</li>
+		<li>{{# months}} {{> select }} {{/ months}}</li>
+		<li><input type="submit" class="button" value="{{ i18n.search }}"></li>
+	</ul>
+</form>

@@ -13,31 +13,19 @@ use SIW\Async\Process_Stockphoto_Upload;
  */
 class Stockphoto_Page {
 
-	/**
-	 * Pagina-ID
-	 *
-	 * @var string
-	 */
+	/** Pagina-ID */
 	protected string $page_id = 'siw-stockphotos';
 
-	/**
-	 * Async request voor verwerken van upload
-	 */
+	/** Async request voor verwerken van upload */
 	protected Process_Stockphoto_Upload $process_stockphoto_upload;
 
-	/**
-	 * Upload-subdirectory voor stockfotos
-	 */
+	/** Upload-subdirectory voor stockfotos */
 	protected string $upload_subdir = 'groepsprojecten/stockfotos';
 
-	/**
-	 * Tijdelijke directory
-	 */
+	/** Tijdelijke directory */
 	protected string $temp_dir = WP_CONTENT_DIR . '/uploads/temp/';
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		$self->process_stockphoto_upload = new Process_Stockphoto_Upload();
@@ -48,13 +36,7 @@ class Stockphoto_Page {
 		add_action( 'admin_menu', [ $self, 'add_woocommerce_navigation_bar'] );
 	}
 
-	/**
-	 * Voegt admin-pagina toe
-	 *
-	 * @param array $pages
-	 *
-	 * @return array
-	 */
+	/** Voegt admin-pagina toe */
 	public function add_page( $pages ) : array {
 		$pages[] = [
 			'parent'      => 'edit.php?post_type=product',
@@ -68,13 +50,7 @@ class Stockphoto_Page {
 		return $pages;
 	}
 
-	/**
-	 * Voegt metabox toe
-	 *
-	 * @param array $metaboxes
-	 *
-	 * @return array
-	 */
+	/** Voegt metabox toe */
 	public function add_metabox( array $metaboxes ) : array {
 
 		$metaboxes[] = [
@@ -133,13 +109,6 @@ class Stockphoto_Page {
 
 	/**
 	 * Verwerk uploads
-	 *
-	 * @param null $null
-	 * @param array $field
-	 * @param array $new
-	 * @param mixed $old
-	 * @param string $object_id
-	 * 
 	 * @todo check of er tenminste 1 eigenschap gekozen is
 	 */
 	public function process_uploads( $null, array $field, array $new, $old, string $object_id ) {
@@ -164,9 +133,7 @@ class Stockphoto_Page {
 		}
 	}
 
-	/**
-	 * Voegt WooCommerce navigatiebalk toe
-	 */
+	/** Voegt WooCommerce navigatiebalk toe */
 	public function add_woocommerce_navigation_bar() {
 		if ( ! function_exists( 'wc_admin_connect_page' ) ) {
 			return;

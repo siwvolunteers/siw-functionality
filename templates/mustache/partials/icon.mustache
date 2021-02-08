@@ -1,0 +1,18 @@
+{{# icon }}
+	{{# has_background }}
+		<span class="siw-icon siw-icon-background siw-icon-background-{{ size }}x" aria-hidden="true" focusable="false">
+			<svg class="siw-background-icon">
+				<use xlink:href="#siw-icon-{{ background_class }}" />
+			</svg>
+			<svg class="siw-icon-inverse">
+				<use xlink:href="#{{ icon_class }}" />
+			</svg>
+		</span>
+	{{/ has_background }}
+	{{^ has_background }}
+		<svg class="siw-icon siw-icon-{{ size }}x" aria-hidden="true" focusable="false">
+			<use xlink:href="#{{ icon_class }}" />
+		</svg>
+	{{/ has_background }}
+{{/ icon }}
+

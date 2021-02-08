@@ -10,9 +10,7 @@ namespace SIW\Core;
  */
 class Upload_Subdir {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_filter( 'wp_handle_sideload_prefilter', [ $self, 'add_upload_subdir_filter'] );
@@ -20,34 +18,19 @@ class Upload_Subdir {
 		add_filter( 'wp_handle_upload', [ $self, 'remove_upload_subdir_filter'] );
 	}
 
-	/**
-	 * Voegt filter toe
-	 *
-	 * @param array $file
-	 * @return array
-	 */
+	/** Voegt filter toe */
 	public function add_upload_subdir_filter( array $file ) : array {
 		add_filter( 'upload_dir', [ $this, 'set_upload_subdir'] );
 		return $file;
 	}
 
-	/**
-	 * Verwijdert filter weer
-	 *
-	 * @param array $fileinfo
-	 * @return array
-	 */
+	/** Verwijdert filter weer */
 	public function remove_upload_subdir_filter( array $fileinfo ) : array {
 		remove_filter( 'upload_dir', [ $this, 'set_upload_subdir'] );
 		return $fileinfo;
 	}
 
-	/**
-	 * Bepaal upload dir
-	 *
-	 * @param array $path
-	 * @return array
-	 */
+	/** Bepaal upload dir */
 	public function set_upload_subdir( array $path ) : array {
 
 		/* Afbreken bij een fout */
@@ -87,11 +70,7 @@ class Upload_Subdir {
 		return $path;
 	}
 
-	/**
-	 * Bepaal subdirectory op basis van post type
-	 *
-	 * @return string|null
-	 */
+	/** Bepaal subdirectory op basis van post type */
 	protected function get_post_type_subdir() : ?string {
 		$post_id = isset( $_POST['post_id'] ) ? intval( $_POST['post_id'] ) : null;
 		if ( is_null( $post_id ) ) {
@@ -109,11 +88,7 @@ class Upload_Subdir {
 		return $cpt_upload_subdirs[ $post_type ] ?? null;
 	}
 
-	/**
-	 * Bepaal subdirectory op basis van extensie
-	 *
-	 * @return string|null
-	 */
+	/** Bepaal subdirectory op basis van extensie */
 	protected function get_extension_subdir() : ?string {
 		$name = isset( $_POST['name'] ) ? sanitize_file_name( $_POST['name'] ): null;
 		if ( is_null( $name ) ) {

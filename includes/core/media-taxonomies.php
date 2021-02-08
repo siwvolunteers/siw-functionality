@@ -10,9 +10,7 @@ namespace SIW\Core;
  */
 class Media_Taxonomies {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_action( 'init', [ $self, 'register_taxonomies'] );
@@ -20,9 +18,7 @@ class Media_Taxonomies {
 		add_action( 'restrict_manage_posts', [ $self, 'add_taxonomy_filters'] );
 	}
 
-	/**
-	 * Registreert taxonomies voor attachments
-	 */
+	/** Registreert taxonomies voor attachments */
 	public function register_taxonomies() {
 
 		$taxonomies = $this->get_taxonomies();
@@ -44,13 +40,7 @@ class Media_Taxonomies {
 		}
 	}
 
-	/**
-	 * Voegt metabox toe
-	 *
-	 * @param array $metaboxes
-	 *
-	 * @return array
-	 */
+	/** Voegt metabox toe */
 	public function add_metabox( array $metaboxes ) : array {
 
 		$taxonomies = $this->get_taxonomies();
@@ -81,9 +71,6 @@ class Media_Taxonomies {
 
 	/**
 	 * Geeft taxonomies terug
-	 *
-	 * @return array
-	 * 
 	 * @todo verplaatsen naar data-bestand?
 	 */
 	protected function get_taxonomies() : array {
@@ -108,9 +95,7 @@ class Media_Taxonomies {
 		return $taxonomies;
 	}
 
-	/**
-	 * Voegt taxonomy filter toe op admin scherm
-	 */
+	/** Voegt taxonomy filter toe op admin scherm */
 	public function add_taxonomy_filters() {
 		$screen = get_current_screen();
 		if ( 'upload' != $screen->id ) {
