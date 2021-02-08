@@ -8,7 +8,7 @@ namespace SIW\Data;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-class Language {
+class Language extends Data {
 
 	/** Slug */
 	protected string $slug;
@@ -24,23 +24,6 @@ class Language {
 
 	/** Geeft aan of dit een projecttaal kan zijn */
 	protected bool $project_language;
-
-	/** Init */
-	public function __construct( array $data ) {
-		$defaults = [
-			'slug'               => '',
-			'name'               => '',
-			'plato'              => '',
-			'volunteer_language' => false,
-			'project_language'   => false,
-		];
-		$data = wp_parse_args( $data, $defaults );
-		$data = wp_array_slice_assoc( $data, array_keys( $defaults ) );
-		
-		foreach( $data as $key => $value ) {
-			$this->$key = $value;
-		}
-	}
 
 	/** Geeft slug van taal terug */
 	public function get_slug() : string {
