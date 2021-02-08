@@ -15,8 +15,10 @@ abstract class Export extends Plato_Interface {
 	/** Data */
 	protected array $data;
 
-	/** XML-data */
-	protected array $xml_data;
+	/**
+	 * XML-data
+	 */
+	protected string $xml_data;
 
 	/** Constructor */
 	public function __construct() {
