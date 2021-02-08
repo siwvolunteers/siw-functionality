@@ -8,9 +8,10 @@ namespace SIW\WooCommerce\Checkout;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-class Form {
-
-	/** Init */
+class Form{
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'add_postcode_script' ] );
@@ -20,19 +21,32 @@ class Form {
 		add_filter( 'woocommerce_checkout_cart_item_quantity', '__return_empty_string' );
 	}
 
-	/** Haalt checkoutvelden op */
+	/**
+	 * Haalt checkoutvelden op
+	 *
+	 * @param array $checkout_fields
+	 * @return array
+	 */
 	protected function get_checkout_fields( $checkout_fields = [] ) : array {
 		$checkout_fields = wp_parse_args_recursive( siw_get_data( 'workcamps/checkout-fields' ), $checkout_fields );
 		return $checkout_fields;
 	}
 
-	/** Haalt secties voor checkoutvelden op */
+	/**
+	 * Haalt secties voor checkoutvelden op
+	 *
+	 * @return array
+	 */
 	protected function get_checkout_sections() : array {
 		$checkout_sections = siw_get_data( 'workcamps/checkout-sections' );
 		return $checkout_sections;
 	}
 
-	/** Toont de extra checkoutvelden */
+	/**
+	 * Toont de extra checkoutvelden
+	 *
+	 * @param \WC_Checkout $checkout
+	 */
 	public function show_checkout_partner_fields( \WC_Checkout $checkout ) {
 
 		$checkout_sections = $this->get_checkout_sections();
@@ -54,7 +68,9 @@ class Form {
 		<?php
 	}
 
-	/** Voegt inline script voor postcode lookup toe */
+	/**
+	 * Voegt inline script voor postcode lookup toe
+	 */
 	public function add_postcode_script() {
 
 		wp_register_script( 'siw-checkout-postcode-lookup', SIW_ASSETS_URL . 'js/siw-checkout-postcode-lookup.js', ['siw-api-postcode'], SIW_PLUGIN_VERSION, true );
@@ -72,13 +88,23 @@ class Form {
 		}
 	}
 
-	/** Voegt extra markup voor gestylde checkboxes toe */
+	/**
+	 * Voegt extra markup voor gestylde checkboxes toe
+	 *
+	 * @param string $field
+	 * @return string
+	 */
 	public function add_form_field_markup( string $field ) : string {
 		$field = preg_replace( '/<input(.*?)>/', '<input$1><span class="checkmark"></span>', $field );
 		return $field;
 	}
 
-	/** Voegt extra classes voor gestylde radiobuttons, checkboxes en selects toe */
+	/**
+	 * Voegt extra classes voor gestylde radiobuttons, checkboxes en selects toe
+	 *
+	 * @param array $args
+	 * @return array
+	 */
 	public function add_form_field_classes( array $args ) : array {
 		if ( $args['type'] == 'radio' ) {
 			$args['class'][] = 'radio-icon';

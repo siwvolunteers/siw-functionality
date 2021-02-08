@@ -2,19 +2,27 @@
 
 namespace SIW\WooCommerce\Frontend;
 
-use SIW\Data\Currency;
 use SIW\WooCommerce\Import\Product as Import_Product;
+use SIW\WooCommerce\Frontend\Product_Tabs;
 
 /**
  * Aanpassingen aan Groepsproject
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
+ * 
+ * @uses      siw_get_currency()
  */
 class Product {
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
+
+		Product_Tabs::init();
+
 		add_filter( 'woocommerce_is_purchasable', [ $self, 'set_product_is_purchasable'], 10, 2 );
 		add_filter( 'woocommerce_available_variation', [ $self, 'set_variation_description'] );
 		add_filter( 'woocommerce_sale_flash', [ $self, 'set_sales_flash_text' ] );
@@ -43,7 +51,13 @@ class Product {
 		add_filter( 'the_seo_framework_post_meta', [ $self, 'set_seo_noindex' ], 10, 2 );
 	}
 
-	/** Bepaalt of product bestelbaar is */
+	/**
+	 * Bepaalt of product bestelbaar is
+	 *
+	 * @param bool $is_purchasable
+	 * @param \WC_Product $product
+	 * @return bool
+	 */
 	public function set_product_is_purchasable( bool $is_purchasable, \WC_Product $product ) : bool {
 		$is_purchasable = $product->is_visible();
 		$status = $product->get_status();
@@ -54,7 +68,12 @@ class Product {
 		return $is_purchasable;
 	}
 
-	/** Zet de toelichting voor het studententarief */
+	/**
+	 * Zet de toelichting voor het studententarief
+	 *
+	 * @param array $variations
+	 * @return array
+	 */
 	public function set_variation_description( $variations ) : array {
 		if ( 'student' == $variations['attributes']['attribute_pa_tarief'] ) {
 			$variations['variation_description'] =  __( 'Je komt in aanmerking voor het studententarief als je 17 jaar of jonger bent of als je een bewijs van inschrijving kunt laten zien.', 'siw' );
@@ -62,12 +81,23 @@ class Product {
 		return $variations;
 	}
 
-	/** Zet de aanbiedingstekst */
+	/**
+	 * Zet de aanbiedingstekst
+	 *
+	 * @return string
+	 */
 	public function set_sales_flash_text() : string {
 		return '<span class="onsale">' . __( 'Korting', 'siw' ) . '</span>';
 	}
 
-	/** Past weergave van de attributes aan */
+	/**
+	 * Past weergave van de attributes aan
+	 *
+	 * @param array $attributes
+	 * @param \WC_Product $product
+	 *
+	 * @return array
+	 */
 	public function display_product_attributes( array $attributes, \WC_Product $product ) : array {
 		$order = [
 			'projectnaam',
@@ -101,12 +131,18 @@ class Product {
 		return $attributes;
 	}
 	
-	/** Past melding bij niet meer beschikbaar project aan */
+	/**
+	 * Past melding bij niet meer beschikbaar project aan
+	 *
+	 * @return string
+	 */
 	public function set_out_of_stock_message() : string {
 		return __( 'Dit project is helaas niet meer beschikbaar', 'siw' );
 	}
 
-	/** Toont lokale bijdrage indien van toepassing */
+	/**
+	 * Toont lokale bijdrage indien van toepassing
+	 */
 	public function show_local_fee() {
 		global $product;
 
@@ -124,10 +160,9 @@ class Product {
 		
 		$currency = siw_get_currency( $currency_code );
 		$symbol = $currency_code;
-		if ( is_a( $currency, Currency::class ) ) {
+		if ( is_a( $currency, '\SIW\Data\Currency' ) ) {
 			$symbol = $currency->get_symbol();
-			
-			if ( get_woocommerce_currency() != $currency_code ) {
+			if ( 'EUR' != $currency_code ) {
 				$amount_in_euro = $currency->convert_to_euro( floatval( $amount ) );
 			}
 		}
@@ -141,14 +176,27 @@ class Product {
 		<?php
 	}
 
-	/** Zet CSS-klass voor dropdown */
+	/**
+	 * Undocumented function
+	 *
+	 * @param array $args
+	 *
+	 * @return array
+	 */
 	public function set_variation_dropdown_args( array $args ) : array {
 		$args['show_option_none'] = __( 'Kies een tarief', 'siw' );
 		$args['class'] = 'select-css';
 		return $args;
 	}
 
-	/** Zet SEO noindex als project niet zichtbaar is */
+	/**
+	 * Zet SEO noindex als project niet zichtbaar is
+	 *
+	 * @param array $meta
+	 * @param int $post_id
+	 *
+	 * @return array
+	 */
 	function set_seo_noindex( array $meta, int $post_id ) : array {
 		if ( 'product' == get_post_type( $post_id ) ) {
 			$product = wc_get_product( $post_id );

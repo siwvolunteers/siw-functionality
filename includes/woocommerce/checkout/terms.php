@@ -12,10 +12,14 @@ use SIW\Elements;
  */
 class Terms{
 
-	/** Link naar modal */
+	/**
+	 * Link naar modal
+	 */
 	protected string $modal_link;
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 		add_filter( 'woocommerce_get_terms_and_conditions_checkbox_text', [ $self, 'set_term_checkbox_text'] );
@@ -25,18 +29,26 @@ class Terms{
 		add_action( 'wp_enqueue_scripts', [ $self, 'add_script'] );
 	}
 
-	/** Past link naar voorwaarden-modal aan */
+	/**
+	 * Past link naar voorwaarden-modal aan
+	 *
+	 * @return string
+	 */
 	public function set_term_checkbox_text() : string {
 		return sprintf(__( 'Ik heb de %s gelezen en ga akkoord', 'siw' ), $this->modal_link );
 	}
 
-	/** Voegt voorwaarden-modal toe */
+	/**
+	 * Voegt voorwaarden-modal toe
+	 */
 	public function add_terms_modal() {
 		$terms_page_id = wc_terms_and_conditions_page_id();
 		$this->modal_link = Elements::generate_page_modal( $terms_page_id, __( 'inschrijfvoorwaarden', 'siw' ) );
 	}
 	
-	/** Voegt script voor voorwaarden toe */
+	/**
+	 * Voegt script voor voorwaarden toe
+	 */
 	public function add_script() {
 		wp_register_script( 'siw-checkout-terms', SIW_ASSETS_URL . 'js/siw-checkout-terms.js', [ 'siw-modal' ], SIW_PLUGIN_VERSION, true );
 		if ( is_checkout() && ! is_order_received_page() && ! is_checkout_pay_page() ) {

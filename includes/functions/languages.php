@@ -35,7 +35,7 @@ function siw_get_languages( string $context = 'all', string $index = 'slug', str
 
 	//Creëer objecten
 	$languages = array_map(
-		fn( array $item ) : Language => new Language( $item ),
+		fn( $item ) => new Language( $item ),
 		$data
 	);
 
@@ -52,7 +52,7 @@ function siw_get_languages( string $context = 'all', string $index = 'slug', str
 
 	if ( 'array' == $return ) {
 		$languages = array_map(
-			fn( Language $language ) : string => $language->get_name(),
+			fn( Language $language ) => $language->get_name(),
 			$languages
 		);
 	}

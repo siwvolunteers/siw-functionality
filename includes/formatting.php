@@ -2,8 +2,6 @@
 
 namespace SIW;
 
-use SIW\Data\Currency;
-
 /**
  * Hulpfuncties t.b.v. formattering
  *
@@ -12,18 +10,32 @@ use SIW\Data\Currency;
  */
 class Formatting {
 
-	/** Formatteert getal als percentage */
+	/**
+	 * Formatteert getal als percentage
+	 * @param  float $percentage
+	 * @param  int $decimals
+	 * @return string
+	 */
 	public static function format_percentage( float $percentage, int $decimals = 0 ) {
 		$percentage = number_format_i18n( $percentage, $decimals );
 		return sprintf( '%s&nbsp;&percnt;', $percentage );
 	}
 
-	/** Formatteert getal als bedrag */
+	/**
+	 * Formatteert getal als bedrag
+	 *
+	 * @param float $amount
+	 * @param int $decimals
+	 * @param string $currency_code
+	 * @return string
+	 * 
+	 * @uses siw_get_currency()
+	 */
 	public static function format_amount( float $amount, int $decimals = 0, string $currency_code = 'EUR' ) : string {
 		$currency = siw_get_currency( $currency_code );
 
 		$currency_symbol = $currency_code;
-		if ( is_a( $currency, Currency::class ) ) {
+		if ( is_a( $currency, '\SIW\Data\Currency' ) ) {
 			$currency_symbol = $currency->get_symbol();
 		}
 		
@@ -31,7 +43,14 @@ class Formatting {
 		return sprintf( '%s&nbsp;%s', $currency_symbol, $amount );
 	}
 
-	/** Formatteert kortingsbedrag */
+	/**
+	 * Formatteert kortingsbedrag
+	 *
+	 * @param float $amount
+	 * @param float $sale_amount
+	 * @param int $decimals
+	 * @param string $currency_code
+	 */
 	public static function format_sale_amount( float $amount, float $sale_amount, int $decimals = 0, string $currency_code = 'EUR' ) : string {
 		return sprintf(
 			'<del>%s</del>&nbsp;<ins>%s</ins>',
@@ -40,7 +59,28 @@ class Formatting {
 		);
 	}
 
-	/** Parset template o.b.v. variabelen */
+	/**
+	 * Genereert kolommen
+	 *
+	 * @param array $cells
+	 * @return string
+	 */
+	public static function generate_columns( array $cells ) : string {
+		$columns = '<div class="grid-container">';
+		foreach ( $cells as $cell ){
+			$columns .= sprintf( '<div class="grid-%s">%s</div>', $cell['width'], do_shortcode( $cell['content'] ) );
+		}
+		$columns .= '</div>';
+		return $columns;
+	}
+
+	/**
+	 * Parset template o.b.v. variabelen
+	 *
+	 * @param string $template
+	 * @param array $vars
+	 * @return string
+	 */
 	public static function parse_template( string $template, array $vars ) : string {
 		$variables = [];
 		foreach ( $vars as $key => $value ) {
@@ -49,24 +89,55 @@ class Formatting {
 		return strtr( $template, $variables  );
 	}
 
-	/** Formatteert datum als tekst */
-	public static function format_date( $date, bool $include_year = true ) : string {
-		$format = $include_year ? 'j F Y' : 'j F';
+	/**
+	 * Genereert script-tag met JSON-LD op basis van array
+	 *
+	 * @param array $data
+	 *
+	 * @return string
+	 */
+	public static function generate_json_ld( array $data ) : string {
+		ob_start();
+		?>
+		<script type="application/ld+json">
+		<?php echo json_encode( $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);?>
+		</script>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Formatteert datum als tekst
+	 *
+	 * @param string $date Y-m-d
+	 * @param bool $year jaar toevoegen aan tekst
+	 * @return string
+	 */
+	public static function format_date( $date, bool $year = true ) : string {
+		$format = $year ? 'j F Y' : 'j F';
 		return wp_date( $format, strtotime( $date ) );
 	}
 
-	/** Formatteert datumrange als tekst */
-	public static function format_date_range( string $date_start, string $date_end, bool $include_year = true ) : string {
+	/**
+	 * Formatteert datumrange als tekst
+	 *
+	 * @param string $date_start Y-m-d
+	 * @param string $date_end Y-m-d
+	 * @param bool $year jaar toevoegen aan tekst
+	 *
+	 * @return string
+	 */
+	public static function format_date_range( string $date_start, string $date_end, bool $year = true ) : string {
 		
 		if ( $date_start === $date_end ) {
-			return self::format_date( $date_start, $include_year );
+			return self::format_date( $date_start, $year );
 		}
 
 		$date_start_array = date_parse( $date_start );
 		$date_end_array = date_parse( $date_end );
 
-		$format_end = $include_year ? 'j F Y' :  'j F';
-		if ( $include_year && ( $date_start_array['year'] != $date_end_array['year'] ) ) {
+		$format_end = $year ? 'j F Y' :  'j F';
+		if ( $year && ( $date_start_array['year'] != $date_end_array['year'] ) ) {
 			$format_start = 'j F Y';
 		}
 		elseif ( $date_start_array['month'] != $date_end_array['month'] ) {
@@ -83,24 +154,39 @@ class Formatting {
 		);
 	}
 
-	/** Formatteert maand uit datum als tekst */
-	public static function format_month( string $date, bool $include_year = true ) : string {
-		$format = $include_year ? 'F Y' :  'F';
+	/**
+	 * Formatteert maand uit datum als tekst
+	 *
+	 * @param string $date Y-m-d
+	 * @param bool $year Jaar toevoegen aan tekst
+	 *
+	 * @return string
+	 */
+	public static function format_month( string $date, bool $year = true ) : string {
+		$format = $year ? 'F Y' :  'F';
 		return wp_date( $format, strtotime( $date ) );
 	}
 
-	/** Formatteert maand-range uit datums als tekst */
-	public static function format_month_range( string $date_start, string $date_end, bool $include_year = true ) : string {
+	/**
+	 * Formatteert maand-range uit datums als tekst
+	 *
+	 * @param string $date_start Y-m-d
+	 * @param string $date_end Y-m-d
+	 * @param bool $year jaar toevoegen aan tekst
+	 *
+	 * @return string
+	 */
+	public static function format_month_range( string $date_start, string $date_end, bool $year = true ) : string {
 
 		$date_start_array = date_parse( $date_start );
 		$date_end_array = date_parse( $date_end );
 
 		if ( $date_start === $date_end || ( $date_start_array['month'] === $date_end_array['month'] && $date_start_array['year'] === $date_end_array['year'] ) ) {
-			return self::format_month( $date_start, $include_year );
+			return self::format_month( $date_start, $year );
 		}
 
-		$format_end = $include_year ? 'F Y' :  'F';
-		if ( $include_year && ( $date_start_array['year'] != $date_end_array['year'] ) ) {
+		$format_end = $year ? 'F Y' :  'F';
+		if ( $year && ( $date_start_array['year'] != $date_end_array['year'] ) ) {
 			$format_start = 'F Y';
 		}
 		else {
@@ -114,25 +200,40 @@ class Formatting {
 		);
 	}
 
-	/** Formatteert lokale bijdrage */
+	/**
+	 * Formatteert lokale bijdrage
+	 *
+	 * @param float $fee
+	 * @param string $currency_code
+	 * 
+	 * @return string
+	 */
 	public static function format_local_fee( float $fee, string $currency_code ) : string {
 		if ( 0.0 === $fee || ! is_string( $currency_code ) ) {
 			return '';
 		}
-
-		if ( 'EUR' == $currency_code ) {
-			return sprintf( '&euro; %s', $fee );
-		}
-
 		$currency = siw_get_currency( $currency_code );
-		if ( is_a( $currency, Currency::class ) ) {
-			return sprintf( '%s %d (%s)', $currency->get_symbol(), $fee, $currency->get_name() );
+		if ( 'EUR' == $currency_code ) {
+			$local_fee = sprintf( '&euro; %s', $fee );
 		}
-		
-		return sprintf( '%s %d', $currency_code, $fee );
+		elseif ( is_a( $currency, '\SIW\Data\Currency' ) ) {
+			$local_fee = sprintf( '%s %d (%s)', $currency->get_symbol(), $fee, $currency->get_name() );
+		}
+		else {
+			$local_fee = sprintf( '%s %d', $currency_code, $fee );
+		}
+		return $local_fee;
 	}
 
-	/** Formatteert aantal vrijwilligers */
+	/**
+	 * Formatteert aantal vrijwilligers
+	 *
+	 * @param int $total
+	 * @param int $male
+	 * @param int $female
+	 * 
+	 * @return string
+	 */
 	public static function format_number_of_volunteers( int $total, int $male, int $female ) : string {
 
 		$male_label = ( 1 == $male ) ? 'man' : 'mannen';
@@ -147,7 +248,14 @@ class Formatting {
 		return $number_of_volunteers;
 	}
 
-	/** Formatteert leeftijdsrange */
+	/**
+	 * Formatteert leeftijdsrange
+	 *
+	 * @param int $min_age
+	 * @param int $max_age
+	 * 
+	 * @return string
+	 */
 	public static function format_age_range( int $min_age, int $max_age ) : string {
 		if ( $min_age < 1 ) {
 			$min_age = 18;

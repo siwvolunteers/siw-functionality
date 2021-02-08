@@ -12,19 +12,30 @@ use SIW\Util;
  */
 class Product_Variations {
 
-	/** Product */
+	/**
+	 * Product
+	 */
 	protected \WC_Product $product;
 
-	/** Tarieven */
+	/**
+	 * Tarieven
+	 */
 	protected array $tariffs;
 
-	/** Init */
+	/**
+	 * Init
+	 *
+	 * @param \WC_Product $product
+	 * @param array $tariffs
+	 */
 	public function __construct( \WC_Product $product, array $tariffs ) {
 		$this->product = $product;
 		$this->tariffs = $tariffs;
 	}
 
-	/** Bestaande variaties bijwerken */
+	/**
+	 * Bestaande variaties bijwerken
+	 */
 	public function update() {
 		$variations = $this->product->get_children();
 		foreach ( $variations as $variation_id ) {
@@ -42,7 +53,9 @@ class Product_Variations {
 		}
 	}
 
-	/** Variaties creëren */
+	/**
+	 * Variaties creëren
+	 */
 	public function create() {
 		if ( $this->product->get_meta( 'has_custom_tariff' ) ) {
 			return;

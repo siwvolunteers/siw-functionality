@@ -2,8 +2,8 @@
 
 namespace SIW\Elements;
 
-use SIW\Core\Template;
 use SIW\Util\CSS;
+use SIW\HTML;
 
 /**
  * Google Maps kaart
@@ -15,19 +15,31 @@ use SIW\Util\CSS;
  */
 class Google_Maps {
 
-	/** URL voor Google Maps API */
+	/**
+	 * URL voor Google Maps API
+	 *
+	 * @var string
+	 */
 	const API_URL = 'https://maps.googleapis.com/maps/api/js';
 
-	/** Google Maps API-key */
+	/**
+	 * Google Maps API-key
+	 */
 	protected string $api_key;
 
-	/** Hoogt van kaart in pixels */
+	/**
+	 * Hoogt van kaart in pixels
+	 */
 	protected int $height = 300;
 
-	/** Markers voor op kaart */
+	/**
+	 * Markers voor op kaart
+	 */
 	protected array $markers = [];
 
-	/** Opties voor kaart */
+	/**
+	 * Opties voor kaart
+	 */
 	protected array $options = [
 		'zoom'              => 6,
 		'zoomControl'       => true,
@@ -38,7 +50,9 @@ class Google_Maps {
 		'fullscreenControl' => false
 	];
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public function __construct() {
 		$this->api_key = siw_get_option( 'google_maps.api_key' );
 		$this->enqueue_scripts();
@@ -46,30 +60,54 @@ class Google_Maps {
 		add_filter( 'siw_preconnect_urls', [ $this, 'add_urls'] );
 	}
 
-	/** Zet hoogte van de kaart */
+	/**
+	 * Zet hoogte van de kaart
+	 *
+	 * @param int $height
+	 */
 	protected function set_height( int $height ) {
 		$this->height = $height;
 	}
 
-	/** Zet opties voor kaart */
+	/**
+	 * Zet opties voor kaart
+	 *
+	 * @param array $options
+	 */
 	public function set_options( array $options ) {
 		$this->options = wp_parse_args( $options, $this->options );
 	}
 
-	/** Zet het midden van de kaart */
+	/**
+	 * Zet het midden van de kaart
+	 *
+	 * @param float $lat
+	 * @param float $lng
+	 */
 	public function set_center( float $lat, float $lng ) {
 		$this->options['center'] = [ 'lat' => $lat, 'lng' => $lng ];
 	}
 
-	/** Zet het midden van de kaart op basis van een locatie */
+	/**
+	 * Zet het midden van de kaart op basis van een locatie
+	 *
+	 * @param string $location
+	 */
 	public function set_location_center( string $location ) {
 		$this->options['center'] = $location;
 	}
 
-	/** Voegt marker toe */
+	/**
+	 * Voegt marker toe
+	 *
+	 * @param float $lat
+	 * @param float $lng
+	 * @param string $title
+	 * @param string $description
+	 */
 	public function add_marker( float $lat, float $lng, string $title, string $description = '' ) {
 		if ( ! isset( $this->options['center'] ) ) {
-			$this->set_center( $lat, $lng );
+			$this->options['center'] = [ 'lat' => $lat, 'lng' => $lng ];
 		}
 		$this->markers[] = [
 			'title'       => $title,
@@ -78,10 +116,16 @@ class Google_Maps {
 		];
 	}
 
-	/** Voegt marker op locatie toe */
+	/**
+	 * Voegt marker op locatie toe
+	 *
+	 * @param string $location
+	 * @param string $title
+	 * @param string $description
+	 */
 	public function add_location_marker( string $location, string $title, string $description = '' ) {
 		if ( ! isset( $this->options['center'] ) ) {
-			$this->set_location_center( $location );
+			$this->options['center'] = $location;
 		}
 		$this->markers[] = [
 			'title'       => $title,
@@ -90,24 +134,31 @@ class Google_Maps {
 		];
 	}
 
-	/** Rendert de kaart */
+	/**
+	 * Rendert de kaart
+	 */
 	public function render() {
 		echo $this->generate();
 	}
 
-	/** Genereert kaart */
+	/**
+	 * Genereert kaart
+	 * 
+	 * @return string
+	 */
 	public function generate() : string {
-		return Template::parse_template(
-			'elements/google-maps',
-			[
-				'id'      => uniqid( 'siw-google-map-' ),
-				'options' => $this->options,
-				'markers' => $this->markers,
-			]
-		);
+		$attributes = [
+			'id'           => uniqid('siw-google-map-'),
+			'class'        => 'siw-google-map',
+			'data-options' => $this->options,
+			'data-markers' => $this->markers,
+		];
+		return HTML::div( $attributes );
 	}
 
-	/** Voegt scripts toe */
+	/**
+	 * Voegt scripts toe
+	 */
 	public function enqueue_scripts() {
 		$google_maps_url = add_query_arg( [
 			'key'      => $this->api_key,
@@ -116,7 +167,9 @@ class Google_Maps {
 		wp_enqueue_script( 'siw-google-maps', SIW_ASSETS_URL . 'js/elements/siw-google-maps.js', [ 'google-maps'], SIW_PLUGIN_VERSION, true );
 	}
 
-	/** Voegt inline styling toe */
+	/**
+	 * Voegt inline styling toe
+	 */
 	public function enqueue_styles() {
 		wp_register_style( 'siw-google-maps', false );
 		wp_enqueue_style( 'siw-google-maps' );
@@ -127,7 +180,14 @@ class Google_Maps {
 		wp_add_inline_style( 'siw-google-maps', $inline_style );
 	}
 
-	/** Voegt url's toe t.b.v. DNS-prefetch en preconnect TODO: werkt pas als de constructor eerder aangeroepen wordt. */
+	/**
+	 * Voegt url's toe t.b.v. DNS-prefetch en preconnect
+	 *
+	 * @param array $urls
+	 * @return array
+	 * 
+	 * @todo werkt pas als de constructor eerder aangeroepen wordt.
+	 */
 	public function add_urls( array $urls ) : array {
 		$urls[] = 'maps.googleapis.com';
 		$urls[] = 'maps.google.com';

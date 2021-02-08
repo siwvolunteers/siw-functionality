@@ -310,10 +310,10 @@ abstract class Type {
 		}
 		switch ( $this->single_width ) {
 			case 'tablet':
-				$width = CSS::TABLET_BREAKPOINT;
+				$width = Util::get_tablet_breakpoint();
 				break;
 			case 'mobile':
-				$width = CSS::MOBILE_BREAKPOINT;
+				$width = Util::get_mobile_breakpoint();
 				break;
 			default:
 				$width = null;

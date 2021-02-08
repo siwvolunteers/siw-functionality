@@ -12,18 +12,26 @@ use Spatie\ArrayToXml\ArrayToXml;
  */
 class Export_Application extends Export{
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected string $endpoint = 'ImportVolunteer';
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected string $name = 'exporteren aanmelding';
 
-	/** Genereert XML */
+	/**
+	 * Undocumented function
+	 */
 	protected function generate_xml() {
 		$this->xml_data = ArrayToXml::convert( $this->data, 'vef', true, 'UTF-8' );
 	}
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function process_xml() {
 		$projectcode = $this->data['choice1']; //TODO: verplaatsen naar property
 		$success = (bool) $this->xml_response->Success;

@@ -1,6 +1,10 @@
 //Kleuren
+$primary-color: #ff9900;
+$secondary-color: #59ab9c;
+$font-color: #444;
+$font-color-light: #555;
+
 $button-color: #3f3f3f; //TODO: betere naam interaction color ofzo
-$interaction-color: '#3f3f3f';
 
 //Box-shadow voor overlays
 $box-shadow-overlay: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
@@ -11,7 +15,7 @@ $box-shadow-hover: 2px 2px 5px 4px rgba(0, 0, 0, 0.5);
 $box-shadow-transition: box-shadow 0.3s ease-in-out;
 
 //Text-shadow voor text op afbeeldingen
-$text-shadow: 1px 1px var(--siw-font-color);
+$text-shadow: 1px 1px $font-color;
 
 //Breakpoints
 $mobile-width: 780px;

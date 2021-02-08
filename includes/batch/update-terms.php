@@ -102,7 +102,7 @@ class Update_Terms extends Job {
 
 		$term = get_term_by( 'slug', $term_slug, $taxonomy );
 
-		if ( ! is_a( $term, \WP_Term::class) ) {
+		if ( ! is_a( $term, 'WP_Term') ) {
 			return false;
 		}
 

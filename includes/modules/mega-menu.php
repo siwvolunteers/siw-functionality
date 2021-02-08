@@ -2,24 +2,25 @@
 
 namespace SIW\Modules;
 
-use SIW\Util\CSS;
-
 /**
  * Mega Menu
  *
- * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2020 SIW Internationale Vrijwilligersprojecten
+ * @since     3.2.0
  * 
  * @see       https://docs.generatepress.com/article/building-simple-mega-menu/
+ * 
+ * @todo      optioneel maken / css alleen laden als mega menu actief is
  */
 class Mega_Menu {
 
-	/** Meta key */
 	const META_KEY = 'siw_mega_menu';
 
-	/** Nonce naam */
 	const NONCE = 'siw_mega_menu_nonce';
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 
@@ -30,14 +31,22 @@ class Mega_Menu {
 		add_action( 'wp_update_nav_menu_item', [ $self, 'update_nav_menu_item' ], 10, 2 );
 	}
 
-	/** Voegt stylesheet toe */
+	/**
+	 * Voegt stylesheet toe
+	 */
 	public function enqueue_styles() {
-		$min_width = CSS::MOBILE_BREAKPOINT + 1;
-		wp_register_style( 'siw-mega-menu', SIW_ASSETS_URL . 'css/modules/siw-mega-menu.css', [], SIW_PLUGIN_VERSION, "(min-width: {$min_width}px)" );
+		wp_register_style( 'siw-mega-menu', SIW_ASSETS_URL . 'css/modules/siw-mega-menu.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-mega-menu' );
 	}
 
-	/** Voegt velden voor Mega Menu toe aan nav item */
+	/**
+	 * Voegt velden voor Mega Menu toe aan nav item
+	 *
+	 * @param int $item_id
+	 * @param \WP_Post $item
+	 * 
+	 * @todo HTML::generate_field gebruiken
+	 */
 	public function add_nav_menu_item_custom_fields( int $item_id, \WP_Post $item ) {
 		wp_nonce_field( 'siw_set_mega_menu', self::NONCE );
 		$mega_menu = get_post_meta( $item_id, self::META_KEY, true );
@@ -64,7 +73,12 @@ class Mega_Menu {
 		<?php
 	}
 
-	/** Gekozen mega menu opslaan bij menu item */
+	/**
+	 * Gekozen mega menu opslaan bij menu item
+	 *
+	 * @param int $menu_id
+	 * @param int $menu_item_id
+	 */
 	public function update_nav_menu_item( int $menu_id, int $menu_item_id ) {
 
 		if ( ! isset( $_POST[ self::NONCE ] ) || ! wp_verify_nonce( $_POST[ self::NONCE ], 'siw_set_mega_menu' ) ) {
@@ -78,10 +92,19 @@ class Mega_Menu {
 		}
 	}
 
-	/** Voegt css-klasses voor mega menu toe aan menu item */
+	/**
+	 * Voegt css-klasses voor mega menu toe aan menu item
+	 *
+	 * @param array $classes
+	 * @param \WP_Post | \WPML_LS_Menu_Item $item
+	 * @param \stdClass $args
+	 * @param int $depth
+	 *
+	 * @return array
+	 */
 	public function add_nav_menu_item_class( array $classes, $item, \stdClass $args, int $depth ) : array {
 		
-		if ( is_a( $item, \WP_Post::class ) && get_post_meta( $item->ID, self::META_KEY, true ) ) {
+		if ( is_a( $item, '\WP_Post' ) && get_post_meta( $item->ID, self::META_KEY, true ) ) {
 			$classes[] = 'mega-menu';
 			$classes[] = sprintf( 'mega-menu-col-%s', esc_attr( get_post_meta( $item->ID, self::META_KEY, true ) ) );
 		}

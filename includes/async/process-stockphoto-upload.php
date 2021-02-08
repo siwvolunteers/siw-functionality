@@ -2,29 +2,41 @@
 
 namespace SIW\Async;
 
-use SIW\Helpers\Attachment;
+use SIW\Attachment;
 use SIW\Util;
 
 /**
  * Verwerk upload van stockfoto
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
+ * 
  */
 class Process_Stockphoto_Upload extends Request {
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected $action = 'process_stockphoto_upload';
 
-	/** Subdirectory voor de stockfoto's */
+	/**
+	 * Subdirectory voor de stockfoto's
+	 */
 	protected string $subdir = 'groepsprojecten/stockfotos';
 
-	/** Base voor bestandsnaam */
+	/**
+	 * Base voor bestandsnaam
+	 */
 	protected string $filename_base = 'stockfoto';
 
-	/** Titel voor afbeelding */
+	/**
+	 * Titel voor afbeelding
+	 */
 	protected string $title = 'Stockfoto';
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected array $variables = [
 		'file' => [
 			'type'     => 'url',
@@ -45,7 +57,9 @@ class Process_Stockphoto_Upload extends Request {
 		],
 	];
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function process() {
 
 		$attachment = new Attachment( 'image', $this->subdir );
@@ -56,6 +70,9 @@ class Process_Stockphoto_Upload extends Request {
 
 	/**
 	 * Zet taxonomy terms van attachment
+	 *
+	 * @param int $attachment_id
+	 * 
 	 * @todo refactor
 	 */
 	protected function set_taxonomy_terms( int $attachment_id ) {

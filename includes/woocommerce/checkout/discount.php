@@ -12,13 +12,19 @@ use SIW\Properties;
  */
 class Discount{
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 		add_action( 'woocommerce_cart_calculate_fees', [ $self, 'calculate_discounts' ] );
 	}
 
-	/** Past korting toe bij meerdere projecten */
+	/**
+	 * Past korting toe bij meerdere projecten
+	 *
+	 * @param \WC_Cart $cart
+	 */
 	public function calculate_discounts( \WC_Cart $cart ) {
 
 		if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {

@@ -16,7 +16,7 @@ html{
 			width: unset;
 		}
 		.message {
-			border-left-color: var(--siw-primary-color);
+			border-left-color: $primary-color;
 		}
 		form{
 			input[type="text"], input[type="password"]{
@@ -31,7 +31,7 @@ html{
 				color: #fff;
 				transition: all 0.3s linear 0s;
 				&:hover, &:active{
-					background-color: var(--siw-primary-color);
+					background-color:$primary-color;
 					color: #fff;
 				}
 			}
@@ -41,7 +41,7 @@ html{
 			color:#fff;
 			font-weight: bold;
 			&:hover{
-				color: var(--siw-primary-color);
+				color:$primary-color;
 			}
 		}
 	

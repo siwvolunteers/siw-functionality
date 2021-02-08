@@ -13,10 +13,16 @@ use SIW\Forms\Processor_Spam_Check;
  */
 class Forms {
 
-	/** Formulieren */
-	protected array $forms = [];
+	/**
+	 * Formulieren
+	 *
+	 * @var array
+	 */
+	protected $forms = [];
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 		$self->forms = siw_get_data_file_ids( 'forms' );
@@ -25,14 +31,18 @@ class Forms {
 
 	}
 
-	/** Registreert alle formulieren */
+	/**
+	 * Registreert alle formulieren
+	 */
 	public function register_forms() {
 		foreach ( $this->forms as $form_id ) {
 			new Form( $form_id );
 		}
 	}
 
-	/** Voegt formprocessors toe */
+	/**
+	 * Voegt formprocessors toe
+	 */
 	public function register_form_processors() {
 		new Processor_Spam_Check(); 
 	}

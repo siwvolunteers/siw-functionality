@@ -14,18 +14,26 @@ use SIW\Properties;
  */
 class Coupon {
 
-	/** Type korting */
+	/**
+	 * Type korting
+	 */
 	const DISCOUNT_TYPE = 'percent';
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 		add_filter( 'woocommerce_order_actions', [ $self, 'add_order_action'] );
 		add_action( 'woocommerce_order_action_siw_create_coupon', [ $self, 'create_coupon'] );//TODO::
 		add_action( 'woocommerce_order_status_completed', [ $self, 'create_coupon'] );
 	}
-
-	/** Voeg orderactie voor creëren kortingscode toe */
+	/**
+	 * Voeg orderactie voor creëren kortingscode toe
+	 *
+	 * @param array $actions
+	 * @return array
+	 */
 	public function add_order_action( array $actions ) : array {
 		global $theorder;
 		if ( $theorder->is_paid() && empty( wc_get_coupon_id_by_code( $theorder->get_order_number() ) ) ) {
@@ -36,6 +44,9 @@ class Coupon {
 
 	/**
 	 * Maakt kortingscode aan
+	 *
+	 * @param int|\WC_Order $order_id
+	 * 
 	 * @todo return statement?
 	 */
 	function create_coupon( $order ) {
@@ -44,7 +55,7 @@ class Coupon {
 			$order = new \WC_Order( $order );
 		}
 
-		if ( ! is_a( $order, \WC_Order::class ) ) {
+		if ( ! is_a( $order, '\WC_Order' ) ) {
 			return;
 		}
 

@@ -26,16 +26,21 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 		return $countries;
 	}
 
-	//Data van verschillende continenten combineren
-	$continents = siw_get_continents();
+	$continents = siw_get_data_file_ids( 'countries' );
+
 	foreach ( $continents as $continent ) {
-		$data = array_merge(
-			$data ?? [],
-			array_map(
-				fn( $country ) => array_merge( $country, [ 'continent' => $continent->get_slug()]),
-				siw_get_data( "countries/{$continent->get_slug()}" )
-			)
-		);
+		$continent = str_replace( '_', '-', $continent );
+		$continent_data[ $continent ] = siw_get_data( "countries/{$continent}" );
+	}
+	
+	// Continent toevoegen aan elke land en array platslaan TODO: netter + refactor
+	$data = [];
+	foreach ( $continent_data as $continent => $countries_data ) {
+		$countries_data = array_map( function( $country_data ) use ( $continent ) {
+			$country_data['continent'] = $continent;
+			return $country_data;
+		}, $countries_data );
+		$data = array_merge( $data, $countries_data );
 	}
 
 	//Sorteren op naam
@@ -46,11 +51,11 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 
 	//Creëer objecten
 	$countries = array_map(
-		fn( array $item ) : Country => new Country( $item ),
+		fn( $item ) => new Country( $item ),
 		$data
 	);
 
-	//Filter op context
+	//Filter op context TODO: filter op continent
 	$countries = array_filter(
 		$countries,
 		function( $country ) use ( $context ) {
@@ -66,7 +71,7 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 
 	if ( 'array' == $return ) {
 		$countries = array_map(
-			fn( Country $country ) : string => $country->get_name(),
+			fn( Country $country ) => $country->get_name(),
 			$countries
 		);
 	}

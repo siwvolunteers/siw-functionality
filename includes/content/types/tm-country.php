@@ -185,7 +185,7 @@ class TM_Country extends Type {
 	 */
 	protected function get_archive_intro() : array {
 
-		$url = i18n::get_translated_page_url( (int) siw_get_option( 'pages.explanation.tailor_made' ) );
+		$url = i18n::get_translated_page_url( siw_get_option( 'pages.explanation.tailor_made' ) );
 		$link = Links::generate_link( $url, __( 'Projecten Op Maat', 'siw' ) );
 
 		$intro = [
@@ -284,7 +284,7 @@ class TM_Country extends Type {
 				echo esc_html__( 'Word jij hiervan enthousiast, ga dan naar onze pagina over Op Maat projecten.', 'siw' ) . BR2;
 				
 				//TODO: verplaatsen naar init/constructor
-				$tailor_made_page_link = i18n::get_translated_page_url( (int) siw_get_option( 'pages.explanation.tailor_made' ) );
+				$tailor_made_page_link = i18n::get_translated_page_url( siw_get_option( 'pages.explanation.tailor_made' ) );
 				echo Links::generate_button_link( $tailor_made_page_link, __( 'Meld je aan', 'siw' ) );
 				?>
 			</p>

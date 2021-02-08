@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin Name:       SIW Functionaliteit
  * Plugin URI:        https://github.com/siwvolunteers/siw-functionality
  * Description:       Extra functionaliteit t.b.v website SIW
- * Version:           3.2.1
+ * Version:           3.2.0
  * Author:            SIW Internationale Vrijwilligersprojecten
  * Author URI:        https://www.siw.nl
  * Text Domain:       siw
@@ -25,7 +25,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Requires PHP:      7.4
  */
 
-define( 'SIW_FUNCTIONALITY_PLUGIN_FILE', __FILE__ );
 require_once dirname( __FILE__ ) . '/bootstrap.php';
 $bootstrap = new Bootstrap();
 $bootstrap->init();

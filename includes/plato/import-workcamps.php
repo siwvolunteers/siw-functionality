@@ -10,13 +10,21 @@ namespace SIW\Plato;
  */
 class Import_Workcamps extends Import {
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected string $endpoint = 'GetAllProjects';
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected string $name = 'importeren groepsprojecten';
 
-	/** Eigenschappen per project */
+	/**
+	 * Eigenschappen per project
+	 *
+	 * @var array
+	 */
 	protected $properties = [
 		'project_id',
 		'code',

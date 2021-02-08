@@ -2,8 +2,6 @@
 
 namespace SIW\Options;
 
-use SIW\Interfaces\Options\Option as Option_Interface;
-
 use Caldera_Forms_Forms;
 use SIW\Formatting;
 use SIW\Modules\Topbar;
@@ -15,30 +13,29 @@ use SIW\Properties;
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  * @since     3.2.0
  */
-class Settings implements Option_Interface {
+class Settings extends Option {
 
-	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'settings';
-	}
+	/**
+	 * {@inheritDoc}
+	 */
+	protected string $id = 'settings';
 
-	/** {@inheritDoc} */
-	public function get_title(): string {
+	/**
+	 * {@inheritDoc}
+	 */
+	protected string $capability = 'edit_posts';
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_title(): string {
 		return __( 'Instellingen', 'siw' );
 	}
 
-	/** {@inheritDoc} */
-	public function get_capability() : string {
-		return 'edit_posts';
-	}
-
-	/** {@inheritDoc} */
-	public function get_parent_page(): string {
-		return 'options-general.php';
-	}
-
-	/** {@inheritDoc} */
-	public function get_tabs() : array {
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_tabs() : array {
 		$tabs = [
 			[
 				'id'    => 'board',
@@ -89,8 +86,10 @@ class Settings implements Option_Interface {
 		return $tabs;
 	}
 
-	/** {@inheritDoc} */
-	public function get_fields() : array {
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_fields() : array {
 		$fields = [];
 
 		//Bestuur
@@ -677,6 +676,38 @@ class Settings implements Option_Interface {
 				]
 			];
 		}
+
 		return $fields;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function format_option_value( $value, string $option ) {
+		switch ( $option ) {
+			case 'board_members':
+				$titles = siw_get_board_titles();
+				$callback = function( &$value, $key ) use ( $titles ) {
+					$value['title'] = ( isset( $value['title'] ) && isset( $titles[ $value['title'] ] ) ) ? $titles[ $value['title'] ] : '';
+				};
+				array_walk( $value, $callback, $titles );
+				break;
+
+			case 'special_opening_hours':
+				$value = array_column( $value , null, 'date' );
+				$callback = function( &$value, $key ) {
+					$value = $value['opened'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' );
+				};
+				array_walk( $value, $callback );
+				break;
+
+			case 'opening_hours':
+				$callback = function( &$value, $key ) {
+					$value = $value['open'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' );
+				};
+				array_walk( $value, $callback );
+			break;
+		}
+		return $value;
 	}
 }

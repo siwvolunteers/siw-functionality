@@ -10,26 +10,37 @@ namespace SIW\Data;
  */
 class Sustainable_Development_Goal {
 
-	/** Slug */
+	/**
+	 * Slug
+	 */
 	protected string $slug;
 
-	/** Nummer */
+	/**
+	 * Nummer
+	 */
 	protected int $number;
 
-	/** Naam */
+	/**
+	 * Naam
+	 */
 	protected string $name;
 
-	/** Kleurcode */
+	/**
+	 * Kleurcode
+	 */
 	protected string $color;
 
-	/** CSS-class van icoon */
+	/**
+	 * CSS-class van icoon
+	 */
 	protected string $icon_class;
 
 	/**
 	 * Constructor
-
+	 *
+	 * @param array $sdg
 	 */
-	public function __construct( array $data ) {
+	public function __construct( array $sdg ) {
 		$defaults = [
 			'slug'               => '',
 			'number'             => 0,
@@ -37,40 +48,65 @@ class Sustainable_Development_Goal {
 			'icon_class'         => '',
 			'color'              => '',
 		];
-		$data = wp_parse_args( $data, $defaults );
-		$data = wp_array_slice_assoc( $data, array_keys( $defaults ) );
-		
-		foreach( $data as $key => $value ) {
-			$this->$key = $value;
-		}
+		$sdg = wp_parse_args( $sdg, $defaults );
+
+		$this->slug = $sdg['slug'];
+		$this->number = $sdg['number'];
+ 		$this->name = $sdg['name'];
+		$this->icon_class = $sdg['icon_class'];
+		$this->color = $sdg['color'];
 	}
 
-	/** Geeft slug van sdg terug */
+	/**
+	 * Geeft slug van sdg terug
+	 * 
+	 * @return string
+	 */
 	public function get_slug() : string {
 		return $this->slug;
 	}
 
-	/** Geeft de naam van het sdg terug */
+	/**
+	 * Geeft de naam van het sdg terug
+	 * 
+	 * @return int
+	 */
 	public function get_number() : int {
 		return $this->number;
 	}
 
-	/** Geeft de naam van het sdg terug */
+	/**
+	 * Geeft de naam van het sdg terug
+	 * 
+	 * @return string
+	 */
 	public function get_name() : string {
 		return $this->name;
 	}
 
-	/** Geeft volledige naam (nummer + naam) terug */
+	/**
+	 * Geeft volledige naam (nummer + naam) terug
+	 *
+	 * @return string
+	 */
 	public function get_full_name() : string {
 		return sprintf( '%d. %s', $this->number, $this->name );
 	}
 
-	/** Geeft icon class voor voor sdg terug */
+	/**
+	 * Geeft icon class voor voor sdg terug
+	 * 
+	 * @return string
+	 */
 	public function get_icon_class() : string {
 		return $this->icon_class;
 	}
 
-	/** Geeft kleurcode van sdg terug */
+	/**
+	 * Geeft kleurcode van sdg terug
+	 * 
+	 * @return string
+	 */
 	public function get_color() : string {
 		return $this->color;
 	}

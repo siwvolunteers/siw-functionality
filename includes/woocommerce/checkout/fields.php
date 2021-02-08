@@ -7,9 +7,11 @@ namespace SIW\WooCommerce\Checkout;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-class Fields {
+class Fields{
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 
@@ -23,26 +25,46 @@ class Fields {
 		add_action( 'woocommerce_checkout_create_order', [ $self, 'save_checkout_fields'], 10, 2 );
 	}
 
-	/** Verwijdert JS-selectors voor update locale */
+	/**
+	 * Verwijdert JS-selectors voor update locale
+	 *
+	 * @param array $locale_fields
+	 * @return array
+	 */
 	public function remove_locale_field_selectors( array $locale_fields ) : array {
 		unset( $locale_fields['address_2'] );
 		unset( $locale_fields['state'] );
 		return $locale_fields;
 	}
 
-	/** Verwijdert aangepaste prioriteit voor postcode */
+	/**
+	 * Verwijdert aangepaste prioriteit voor postcode
+	 *
+	 * @param array $locale
+	 * @return array
+	 */
 	public function remove_locale_postcode_priority( array $locale ) : array {
 		unset( $locale['NL']['postcode'] );
 		return $locale;
 	}
 	
-	/** Haalt checkoutvelden op */
-	protected function get_checkout_fields( array $checkout_fields = [] ) : array {
+	/**
+	 * Haalt checkoutvelden op
+	 *
+	 * @param array $checkout_fields
+	 * @return array
+	 */
+	protected function get_checkout_fields( $checkout_fields = [] ) : array {
 		$checkout_fields = wp_parse_args_recursive( siw_get_data( 'workcamps/checkout-fields' ), $checkout_fields );
 		return $checkout_fields;
 	}
 
-	/** Slaat de extra checkoutvelden op */
+	/**
+	 * Slaat de extra checkoutvelden op
+	 *
+	 * @param \WC_Order $order
+	 * @param array $data
+	 */
 	public function save_checkout_fields( \WC_Order $order, array $data ) {
 		
 		$checkout_fields = $this->get_checkout_fields();
@@ -59,7 +81,12 @@ class Fields {
 		}
 	}
 	
-	/** Past de volgorde van de adresvelden aan */
+	/**
+	 * Past de volgorde van de adresvelden aan
+	 *
+	 * @param array $address_fields
+	 * @return array
+	 */
 	public function set_default_address_fields( array $standard_address_fields ) : array {
 
 		/* Verwijderen standaardvelden */
@@ -79,14 +106,25 @@ class Fields {
 		return $address_fields;
 	}
 
-	/** Zet de classes voor de billing velden */
+	/**
+	 * Zet de classes voor de billing velden
+	 *
+	 * @param array $billing_fields
+	 * @param string $country
+	 * @return array
+	 */
 	public function set_billing_fields( array $billing_fields, string $country ) : array {
 		$billing_fields['billing_phone']['class'] = ['form-row-first'];
 		$billing_fields['billing_email']['class'] = ['form-row-last'];
 		return $billing_fields;
 	}
 
-	/** Voegt de extra checkoutvelden toe */
+	/**
+	 * Voegt de extra checkoutvelden toe
+	 *
+	 * @param array $checkout_fields
+	 * @return array
+	 */
 	public function add_checkout_fields( $checkout_fields ) : array {
 		$checkout_fields = $this->get_checkout_fields( $checkout_fields );
 		return $checkout_fields;

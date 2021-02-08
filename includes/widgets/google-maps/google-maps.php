@@ -31,11 +31,6 @@ class Google_Maps extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected bool $use_default_template = true;
-	
-	/**
-	 * {@inheritDoc}
-	 */
 	protected function set_widget_properties() {
 		$this->widget_name = __( 'Google Maps', 'siw');
 		$this->widget_description = __( 'Toont Google Maps kaart', 'siw' );
@@ -133,7 +128,11 @@ class Google_Maps extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	function get_template_variables( $instance, $args ) {
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
+		$output = '';
+		if ( isset( $instance['intro'] ) ) {
+			$output .= wpautop( wp_kses_post( $instance['intro'] ) );
+		}
 		$map = new Element_Google_Maps();
 		
 		$map->set_options( ['zoom' => $instance['zoom'] ] );
@@ -146,10 +145,6 @@ class Google_Maps extends Widget {
 				$map->add_marker( $marker['lat'], $marker['lng'], $marker['title'], $marker['description'] );
 			}
 		}
-
-		return [
-			'intro'   => $instance['intro'] ?? null,
-			'content' => $map->generate(),
-		];
+		return $output . $map->generate();
 	}
 }

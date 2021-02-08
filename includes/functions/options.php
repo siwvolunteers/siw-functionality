@@ -9,8 +9,16 @@
 
 use function Donut\Util\array_dig;
 
-/** Haal optie op */
-function siw_get_option( string $option, $default = null ) {
+/**
+ * Haal optie op
+ * 
+ * @since     3.0.0
+ *
+ * @param string $option
+ * @param mixed $default
+ * @return mixed
+ */
+function siw_get_option( $option, $default = null ) {
 
 	//Foutmelding bij aanroepen vóór init
 	if ( 0 === did_action( 'init' ) && WP_DEBUG ) {

@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\Core\Template;
+use SIW\HTML;
 use SIW\Util\Links;
 
 /**
@@ -13,19 +13,33 @@ use SIW\Util\Links;
  */
 class Modal {
 
-	/** Versienummer */
+	/**
+	 * Versienummer
+	 * 
+	 * @var string
+	 */
 	const MICROMODAL_VERSION = '0.4.6';
 
-	/** ID van modal */
+	/**
+	 * ID van modal
+	 */
 	protected string $id;
 
-	/** Titel van de modal */
+	/**
+	 * Titel van de modal
+	 */
 	protected string $title;
 
-	/** Inhoud van de modal */
+	/**
+	 * Inhoud van de modal
+	 */
 	protected string $content;
 
-	/** Init */
+	/**
+	 * Init
+	 *
+	 * @param string $id
+	 */
 	public function __construct( string $id = null ) {
 		$this->enqueue_styles();
 		$this->enqueue_scripts();
@@ -34,13 +48,17 @@ class Modal {
 		add_action( 'wp_footer', [ $this, 'render_modal'] );
 	}
 
-	/** Voegt styles toe */
+	/**
+	 * Voegt styles toe
+	 */
 	protected function enqueue_styles() {
 		wp_register_style( 'siw-modal', SIW_ASSETS_URL . 'css/elements/siw-modal.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-modal' );
 	}
 
-	/** Voegt scripts toe */
+	/**
+	 * Voegt scripts toe
+	 */
 	protected function enqueue_scripts() {
 		wp_register_script( 'micromodal', SIW_ASSETS_URL . 'vendor/micromodal/micromodal.js', [], self::MICROMODAL_VERSION, true );
 		wp_register_script( 'siw-modal', SIW_ASSETS_URL . 'js/elements/siw-modal.js', [ 'micromodal' ], SIW_PLUGIN_VERSION, true );
@@ -59,28 +77,82 @@ class Modal {
 		wp_enqueue_script( 'siw-modal' );
 	}
 
-	/** Rendert modal */
+	/**
+	 * Rendert modal
+	 */
 	public function render_modal() {
+		$modal = sprintf( '<div class="modal micromodal-slide" id="%s" aria-hidden="true">', $this->id );
+		$modal .= '<div class="modal-overlay" tabindex="-1" data-micromodal-close>';
+		$modal .= sprintf( '<div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="%s-title">', $this->id );
+		$modal .= $this->generate_header() . $this->generate_body() . $this->generate_footer();
+		$modal .= '</div>';
+		$modal .= '</div>';
+		$modal .= '</div>';
+		$modal .= '</div>';
+		echo $modal;
+	}
 
-		Template::render_template(
-			'elements/modal',
+	/**
+	 * Genereert titel van de modal
+	 *
+	 * @return string
+	 */
+	protected function generate_header() : string {
+		$header = '<header class="modal-header">';
+		$header .= sprintf( '<h2 class="modal-title" id="%s-title">%s</h2>', $this->id, $this->title );
+		$header .= sprintf( '<button class="modal-close" aria-label="%s" data-micromodal-close></button>', esc_html__( 'Sluiten', 'siw' ) );
+		$header .= '</header>';
+
+		return $header;
+	}
+
+	/**
+	 * Genereert body van de modal
+	 *
+	 * @return string
+	 */
+	protected function generate_body() : string {
+		return HTML::tag(
+			'main',
 			[
-				'id' => $this->id,
-				'title' => $this->title,
-				'content' => $this->content,
-				'i18n' => [
-					'close' => __( 'Sluiten', 'siw' ),
-				]
-			]
+				'class' => 'modal-body',
+				'id'    => "{$this->id}-content"
+			],
+			wpautop( wp_kses_post( $this->content ) ),
 		);
 	}
 
-	/** Zet de titel van de modal */
+	/**
+	 * Genereert footer van de modal
+	 *
+	 * @return string
+	 */
+	protected function generate_footer() : string {
+		$button = sprintf(
+			'<button class="kad-btn" data-micromodal-close aria-label="%s">%s</button>',
+			esc_html__( 'Sluit deze dialoog', 'siw' ),
+			esc_html__( 'Sluiten', 'siw' )
+		);
+		return HTML::tag( 'footer', [ 'class' => 'modal-footer'], $button );
+	}
+
+	/**
+	 * Zet de titel van de modal
+	 *
+	 * @param string $title
+	 */
 	public function set_title( string $title ) {
 		$this->title = $title;
 	}
 
-	/** Genereert link voor modal */
+	/**
+	 * Genereert link voor modal
+	 *
+	 * @param string $text
+	 * @param string $link
+	 *
+	 * @return string
+	 */
 	public function generate_link( string $text, string $link = null ) : string {
 		$link = Links::generate_link(
 			$link ?? '#',
@@ -90,13 +162,22 @@ class Modal {
 		return $link;
 	}
 
-	/** Zet inhoud van modal */
+	/**
+	 * Zet inhoud van modal
+	 *
+	 * @param string $content
+	 */
 	public function set_content( string $content ) {
 		$this->content = $content;
 	}
 
-	/** Geeft gegenereerde id van modal terug */
+	/**
+	 * Geeft gegenereerde id van modal terug
+	 *
+	 * @return string
+	 */
 	public function get_id() : string {
 		return $this->id;
 	}
+
 }

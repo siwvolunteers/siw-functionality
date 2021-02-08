@@ -10,8 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
-
-$languages = [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages( 'volunteer', 'plato', 'array' );
+$volunteer_languages = siw_get_languages( 'volunteer', 'plato' );
+$languages[''] = __( 'Selecteer een taal', 'siw' );
+foreach ( $volunteer_languages as $language ) {
+	$languages[ $language->get_plato_code() ] = $language->get_name();
+}
 
 $language_skill = siw_get_language_skill_levels();
 

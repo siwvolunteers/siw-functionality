@@ -12,7 +12,9 @@ use SIW\Util;
  */
 class Validation{
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'add_validation_script'] );
@@ -21,6 +23,7 @@ class Validation{
 
 	/**
 	 * Voegt extra client-side validatie toe
+	 * 
 	 * - Postcode
 	 * - Datum
 	 */
@@ -46,7 +49,14 @@ class Validation{
 		}
 	}
 
-	/** Voert validatie voor extra checkout velden uit */
+	/**
+	 * Voert validatie voor extra checkout velden uit
+	 *
+	 * @param array $data
+	 * @param \WP_Error $errors
+	 * 
+	 * @todo minimum/maximum-leeftijd van project gebruiken
+	 */
 	public function validate_checkout_fields( array $data, \WP_Error $errors ) {
 
 		$dob = $data['billing_dob'];

@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Elements;
 use SIW\Elements\Charts\Pie as Element_Pie_Chart;
 
 /**
@@ -100,14 +101,24 @@ class Pie_Chart extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	function get_template_variables( $instance, $args ) {
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string { 
+		$content = '';
+		if ( isset( $instance['intro'] ) ) {
+			$content .= wpautop( wp_kses_post( $instance['intro'] ) );
+		}
 		$chart = new Element_Pie_Chart();
-		return [
-			'intro'            => $instance['intro'],
-			'chart'            => $chart->generate( $instance['series'] ),
-			'series'           => $instance['series'],
-			'show_explanation' => $instance['show_explanation'],
-		];
-		
+		$content .= $chart->generate( $instance['series'] ); //TODO: check of dit series wel gevuld is
+
+		if ( $instance['show_explanation'] ) {
+			$explanation = array_map(
+				function( $data ) {
+					return '<b>' . $data['label'] . '</b>' . wpautop( $data['explanation'] );
+				}, 
+				$instance['series']
+			);
+			$content .= Elements::generate_list( $explanation );
+		}
+
+		return $content;
 	}
 }

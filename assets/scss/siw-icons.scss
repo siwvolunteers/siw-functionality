@@ -1,7 +1,9 @@
+@import "partials/_variables.scss";
+
 .siw-icon {
 	display: inline-block;
 	position: relative;
-	fill: var(--siw-font-color);
+	fill: $font-color;
 }
 
 .siw-icon-background {
@@ -29,7 +31,7 @@
 	}
 
 	&:hover .siw-background-icon {
-		fill: var(--siw-primary-color);
+		fill: $primary-color;
 	}
 }
 

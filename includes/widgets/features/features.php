@@ -31,11 +31,6 @@ class Features extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected bool $use_default_template = true;
-
-	/**
-	 * {@inheritDoc}
-	 */
 	protected function set_widget_properties() {
 		$this->widget_name = __( 'Features', 'siw');
 		$this->widget_description = __( 'Toont features met toelichting en link', 'siw' );
@@ -120,10 +115,19 @@ class Features extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	function get_template_variables( $instance, $args ) {
-		return[
-			'intro'   => $instance['intro'],
-			'content' => Elements::generate_features( $instance['features'], (int) $instance['columns'] ),
-		];
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
+
+		$columns = intval( $instance['columns'] );
+		$rows = array_chunk( $instance['features'], $columns );
+		ob_start();
+		?>
+		<?php
+		if ( isset( $instance['intro'] ) ) {
+			echo wp_kses_post( $instance['intro'] );
+		}
+		foreach ( $rows as $row ) {
+			echo Elements::generate_features( $row, $columns );
+		}
+		return ob_get_clean();
 	}
 }

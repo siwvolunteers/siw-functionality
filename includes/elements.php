@@ -2,13 +2,12 @@
 
 namespace SIW;
 
-use SIW\Core\Template;
 use SIW\HTML;
 use SIW\Elements\Accordion;
-use SIW\Elements\Features;
-use SIW\Elements\Infoboxes;
 use SIW\Elements\Tablist;
 use SIW\Elements\Modal;
+use SIW\Util\CSS;
+use SIW\Util\Links;
 
 /**
  * Functies om Elements te genereren
@@ -20,7 +19,13 @@ use SIW\Elements\Modal;
  */
 class Elements {
 
-	/** Genereer accordion */
+	/**
+	 * Genereer accordion
+	 * 
+	 * @param  array $panes
+	 * 
+	 * @return string
+	 */
 	public static function generate_accordion( array $panes ) : ?string {
 		if ( empty( $panes) ) {
 			return null;
@@ -51,7 +56,13 @@ class Elements {
 		return $accordion->generate();
 	}
 
-	/** Genereer tablist */
+	/**
+	 * Genereer tablist
+	 * 
+	 * @param  array $panes
+	 * 
+	 * @return string
+	 */
 	public static function generate_tabs( array $panes ) : ?string {
 		if ( empty( $panes) ) {
 			return null;
@@ -82,7 +93,14 @@ class Elements {
 		return $tablist->generate();
 	}
 
-	/** Genereert modal voor pagina */
+	/**
+	 * Genereert modal voor pagina
+	 *
+	 * @param int $page_id
+	 * @param string $link_text
+	 *
+	 * @return string
+	 */
 	public static function generate_page_modal( int $page_id, string $link_text ) : string {
 		$page_id = i18n::get_translated_page_id( $page_id );
 		$page = get_post( $page_id );
@@ -94,7 +112,15 @@ class Elements {
 		return $modal->generate_link( $link_text, get_permalink( $page ) );
 	}
 
-	/** Genereert modal */
+	/**
+	 * Genereert modal
+	 *
+	 * @param string $title
+	 * @param string $content
+	 * @param string $link_text
+	 *
+	 * @return string
+	 */
 	public static function generate_modal( string $title, string $content, string $link_text ) : string {
 		$modal = new Modal;
 		$modal->set_title( $title );
@@ -103,7 +129,15 @@ class Elements {
 		return $modal->generate_link( $link_text );
 	}
 
-	/** Genereert html voor icon */
+	/**
+	 * Genereert html voor icon
+	 *
+	 * @param string $icon_class
+	 * @param int $size
+	 * @param string $background
+	 * 
+	 * @return string
+	 */
 	public static function generate_icon( string $icon_class, int $size = 2, string $background = 'none' ) : string {
 
 		switch ( $background ) {
@@ -149,17 +183,17 @@ class Elements {
 		}
 	}
 
-	/** Genereert quote */
+	/**
+	 * Genereert quote
+	 *
+	 * @param string $quote
+	 *
+	 * @return string
+	 */
 	public static function generate_quote( string $quote ) : string {
-		return Template::parse_template(
-			'elements/quote',
-			[
-				'icon' => [
-					'size'       => 2,
-					'icon_class' => 'siw-icon-quote-left',
-				],
-				'quote' => $quote
-			]
+		return HTML::div(
+			[ 'class' => 'siw-quote'],
+			self::generate_icon( 'siw-icon-quote-left' ) . SPACE . esc_html( $quote )
 		);
 	}
 
@@ -167,26 +201,16 @@ class Elements {
 	 * Genereert lijst of tabel met openingstijden
 	 *
 	 * @param string $type table|list
+	 * 
+	 * @return string
 	 */
 	public static function generate_opening_hours( string $type = 'table' ) : string {
 		
-		//Ophalen openingstijden
 		$opening_hours = siw_get_option( 'opening_hours' );
-		
-		$opening_hours = array_map(
-			fn( array $value ) : string => $value['open'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' ),
-			array_filter( $opening_hours )
-		);
-
-		//Ophalen afwijkende openingstijden
 		$special_opening_hours = siw_get_option( 'special_opening_hours', [] );
-
-		$special_opening_hours = array_map(
-			fn( array $value ) : string => $value['opened'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' ),
-			array_column( $special_opening_hours , null, 'date' )
-		);
 		
 		$days = siw_get_days();
+
 		for ( $i = 0; $i <= 6; $i++ ) {
 			$timestamp = strtotime( date( 'Y-m-d' ) . "+{$i} days" );
 			$date = date( 'Y-m-d', $timestamp );
@@ -218,7 +242,11 @@ class Elements {
 		}
 	}
 
-	/** Haalt gegevens over interactieve kaarten op */
+	/**
+	 * Haalt gegevens over interactieve kaarten op
+	 *
+	 * @return array
+	 */
 	public static function get_interactive_maps() : array {
 		$maps = [
 			[
@@ -240,7 +268,13 @@ class Elements {
 		return $maps;
 	}
 
-	/** Genereert interactieve kaart */
+	/**
+	 * Genereert interactieve kaart
+	 *
+	 * @param string $id
+	 *
+	 * @return string
+	 */
 	public static function generate_interactive_map( string $id ) : string {
 		$maps = wp_list_pluck( self::get_interactive_maps(), 'class', 'id' );
 
@@ -252,76 +286,109 @@ class Elements {
 		return $map->generate();
 	}
 
-	/** Genereert features */
+	/**
+	 * Genereert features
+	 *
+	 * @param array $features
+	 * @param int $columns
+	 *
+	 * @return string
+	 */
 	public static function generate_features( array $features, int $columns ) : string {
-
-		$features_obj = new Features( $columns );
+		$output = '<div class="grid-container siw-features">';
 		foreach ( $features as $feature ) {
-
-			$feature = wp_parse_args(
+			$output .= self::generate_feature(
 				$feature,
-				[ 
-					'icon'     => '',
-					'title'    => '',
-					'content'  => '',
-					'add_link' => false,
-					'link_url' => '',
+				[
+					'class' => CSS::generate_responsive_classes( $columns ) . ' feature',
 				]
 			);
-
-			$features_obj->add_feature(
-				$feature['icon'],
-				$feature['title'],
-				$feature['content'],
-				$feature['add_link'],
-				$feature['link_url'],
-				__( 'Lees meer', 'siw' )
-			);
 		}
-		return $features_obj->generate();
+		$output .= '</div>';
+		return $output;
 	}
 
-	/** Genereert infoboxes */
-	public static function generate_infoboxes( array $infoboxes ) : string {
-		$infoboxes_obj = new Infoboxes();
-		foreach ( $infoboxes as $infobox ) {
-			$infobox = wp_parse_args(
-				$infobox,
-				[ 
-					'icon'        => '',
-					'title'       => '',
-					'content'     => '',
-				]
-			);
+	/**
+	 * Genereert feature met icon
+	 *
+	 * @param array $feature
+	 * @param array $attributes
+	 *
+	 * @return string
+	 */
+	public static function generate_feature( array $feature, array $attributes ) : string {
+		
+		$feature = wp_parse_args(
+			$feature,
+			[
+				'icon'     => '', //TODO: standaard icoon?
+				'title'    => '',
+				'content'  => '',
+				'add_link' => false,
+				'link_url' => '',
+			]
+		);
 
-			$infoboxes_obj->add_infobox(
-				$infobox['icon'],
-				$infobox['title'],
-				$infobox['content'],
-			);
-		}
-		return $infoboxes_obj->generate();
+		ob_start();
+		?>
+		<div <?php echo HTML::generate_attributes( $attributes);?>>
+			<?php echo Elements::generate_icon( $feature['icon'], 4, 'circle' );?>
+			<br>
+			<h3><?php echo esc_html( $feature['title'] ); ?></h3>
+			<?php echo wpautop( wp_kses_post( $feature['content'] ) );?>
+			<?php 
+			if ( $feature['add_link'] ) {
+				echo Links::generate_button_link( $feature['link_url'], __( 'Lees meer', 'siw' ) );
+			}
+			?>
+		</div>
+		<?php
+		return ob_get_clean();
 	}
 
-	/** Genereert tabel */
+	/**
+	 * Genereert tabel
+	 *
+	 * @param array $rows
+	 * @param array $headers
+	 *
+	 * @return string
+	 */
 	public static function generate_table( array $rows, array $headers = [] ) : string {
-		return Template::parse_template(
-			'elements/table',
-			[
-				'rows'    => $rows,
-				'headers' => $headers,
-			]
-		);
+
+		$output = '';
+		if ( ! empty( $headers ) ) {
+
+			$th_callback = function( &$value, $key ) {
+				$value = HTML::tag( 'th', [], $value );
+			};
+			array_walk( $headers, $th_callback );
+			$output .= HTML::tag( 'tr', [], implode( '', $headers ) );
+		}
+
+		foreach ( $rows as $row ) {
+			$td_callback = function( &$value, $key ) {
+				$value = HTML::tag( 'td', [], $value );
+			};
+			array_walk( $row, $td_callback );
+			$output .= HTML::tag( 'tr', [], implode( '', $row ) );
+		}
+		return HTML::tag( 'table', [] , $output );
 	}
 
-	/** Genereert lijst o.b.v. array met items */
+	/**
+	 * Genereert lijst o.b.v. array met items
+	 *
+	 * @param array $items
+	 * @param int $columns
+	 *
+	 * @return string
+	 */
 	public static function generate_list( array $items, int $columns = 1 ) : string {
-		return Template::parse_template(
-			'elements/list',
-			[
-				'items'   => $items,
-				'columns' => $columns,
-			]
-		);
+		$callback = function( &$value, $key ) {
+			$value = HTML::li( [], $value );
+		};
+		array_walk( $items, $callback );
+		return HTML::tag( 'ul', [ 'data-columns' => $columns ], implode( '', $items ) );
 	}
 }

@@ -12,26 +12,36 @@ use SIW\Properties;
  */
 class WordPress {
 
-	/** URL-prefix voor WP REST API */
+	/**
+	 * URL-prefix voor WP REST API
+	 * 
+	 * @var string
+	 */
 	const REST_API_PREFIX = 'api';
 
-	/** Default editor mode */
+	/**
+	 * Default editor mode
+	 * 
+	 * @var string
+	 */
 	const DEFAULT_EDITOR ='html';
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 		add_action( 'widgets_init', [ $self, 'unregister_widgets'], 99 );
 		add_filter( 'oembed_response_data', [ $self, 'set_oembed_response_data' ] );
-		add_filter( 'rest_url_prefix', fn() : string => self::REST_API_PREFIX );
+		add_filter( 'rest_url_prefix', [ $self, 'set_rest_url_prefix' ] );
 		add_filter( 'user_contactmethods', '__return_empty_array', PHP_INT_MAX );
 		add_action( 'init', [ $self, 'add_page_excerpt_support'] );
 		add_action( 'core_version_check_query_args', [ $self, 'remove_core_version_check_query_args'] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'dequeue_styles' ], PHP_INT_MAX );
-		add_filter( 'wp_default_editor', fn() : string => self::DEFAULT_EDITOR );
+		add_filter( 'wp_default_editor', [ $self, 'set_default_editor'] );
 		add_filter( 'site_status_tests', [ $self, 'remove_update_check'] );
-		add_filter( 'http_headers_useragent', fn() : string => Properties::NAME );
-		add_filter( 'big_image_size_threshold', fn() : int => Properties::MAX_IMAGE_SIZE );
+		add_filter( 'http_headers_useragent', [ $self, 'set_http_headers_useragent'] );
+		add_filter( 'big_image_size_threshold', [ $self, 'set_big_image_size_threshold'] );
 
 		add_action( 'do_feed', [ $self, 'disable_feed' ] , 1 );
 		add_action( 'do_feed_rdf', [ $self, 'disable_feed' ] , 1 );
@@ -51,7 +61,18 @@ class WordPress {
 		add_filter( 'manage_media_columns', [ $self, 'manage_media_columns'], 10, 2 );
 	}
 
-	/** Verwijdert standaard-widgets */
+	/**
+	 * Past REST-prefix aan
+	 *
+	 * @return string
+	 */
+	public function set_rest_url_prefix() : string {
+		return self::REST_API_PREFIX;
+	}
+
+	/**
+	 * Verwijdert standaard-widgets
+	 */
 	public function unregister_widgets() {
 		unregister_widget( 'WP_Widget_Pages' );
 		unregister_widget( 'WP_Widget_Recent_Posts' );
@@ -71,19 +92,32 @@ class WordPress {
 		unregister_widget( 'WP_Widget_Media_Gallery' );
 	}
 
-	/** Verwijdert auteurgegevens uit oembed */
+	/**
+	 * Verwijdert auteurgegevens uit oembed
+	 *
+	 * @param  array $data
+	 * 
+	 * @return array
+	 */
 	public function set_oembed_response_data( array $data ) : array {
 		$data['author_name'] = Properties::NAME;
 		$data['author_url'] = SIW_SITE_URL;
 		return $data;
 	}
 
-	/** Voegt samenvatting voor pagina's toe */
+	/**
+	 * Voegt samenvatting voor pagina's toe
+	 */
 	public function add_page_excerpt_support() {
 		add_post_type_support( 'page', 'excerpt' );
 	}
 
-	/** Verwijdert niet-essentiele gegevens voor call naar WP update server */
+	/**
+	 * Verwijdert niet-essentiele gegevens voor call naar WP update server
+	 *
+	 * @param array $query
+	 * @return array
+	 */
 	public function remove_core_version_check_query_args( array $query ) : array {
 		unset( $query['local_package'] );
 		unset( $query['blogs'] );
@@ -93,24 +127,67 @@ class WordPress {
 		return $query;
 	}
 
-	/** Gutenberg css uitschakelen */
+	/**
+	 * Gutenberg css uitschakelen
+	 */
 	public function dequeue_styles() {
 		wp_dequeue_style( 'wp-block-library' );
 	}
 
-	/** Schakelt feed uit */
+	/**
+	 * Schakelt feed uit
+	 */
 	public function disable_feed() {
 		wp_redirect( home_url() );
 		exit;
 	}
 
-	/** Verwijdert test voor automatische updates */
+	/**
+	 * Zet alle editors standaard op tekst
+	 *
+	 * @return string
+	 */
+	public function set_default_editor() : string {
+		return self::DEFAULT_EDITOR;
+	}
+
+	/**
+	 * Zet useragent voor alle uitgaande http requests
+	 * 
+	 * @return string
+	 */
+	public function set_http_headers_useragent() : string {
+		return Properties::NAME;
+	}
+
+	/**
+	 * Zet grens voor grote afbeelding
+	 *
+	 * @return int
+	 */
+	public function set_big_image_size_threshold() : int {
+		return Properties::MAX_IMAGE_SIZE;;
+	}
+
+	/**
+	 * Verwijdert test voor automatische updates
+	 *
+	 * @param array $tests
+	 * 
+	 * @return array
+	 */
 	public function remove_update_check( array $tests ) : array {
 		unset( $tests['async']['background_updates'] );
 		return $tests;
 	}
 
-	/** Voegt toegestane css attributen toe */
+	/**
+	 * Voegt toegestane css attributen toe
+	 *
+	 * @param array $attributes
+	 *
+	 * @return array
+	 */
 	public function add_allowed_css_attributes( array $attributes ) : array {
 		$attributes[] = 'fill';
 		$attributes[] = 'opacity';
@@ -121,8 +198,13 @@ class WordPress {
 
 	/**
 	 * Past YouTube-embed link aan
+	 * 
 	 * - nocookie domein
 	 * - instellingen
+	 *
+	 * @param string $cache
+	 *
+	 * @return string
 	 */
 	public function fix_youtube_embed( string $cache ) : string {
 	
@@ -145,7 +227,14 @@ class WordPress {
 		return str_replace( $matches[1], $url, $cache );
 	}
 
-	/** Verberg admin columns bij attachments */
+	/**
+	 * Verberg admin columns bij attachments
+	 *
+	 * @param array $columns
+	 * @param bool $detached
+	 *
+	 * @return void
+	 */
 	public function manage_media_columns( array $columns, bool $detached ) : array {
 		unset( $columns['author']);
 		unset( $columns['comments']);
