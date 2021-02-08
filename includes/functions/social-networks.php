@@ -42,7 +42,7 @@ function siw_get_social_networks( $context = 'all', string $return = 'objects' )
 	//Filter op context
 	$social_networks = array_filter(
 		$social_networks, 
-		function( $social_network ) use ( $context ) {
+		function( Social_Network $social_network ) use ( $context ) {
 			return ( 'all' == $context
 				|| ( 'share' == $context && $social_network->is_for_sharing() )
 				|| ( 'follow' == $context && $social_network->is_for_following() )
