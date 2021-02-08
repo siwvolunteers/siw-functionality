@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\HTML;
 use SIW\Util;
 
 /**
@@ -59,25 +60,22 @@ class Quick_Search_Form extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	function get_template_variables( $instance, $args ) {
-
-		return [
-			'result_page_url' => wp_make_link_relative( get_permalink( $instance['result_page'] ) ),
-			'destinations' => [
-				'id'      => 'bestemming',
-				'name'    => 'bestemming',
-				'options' => $this->get_destinations(),
-			],
-			'months'   => [
-				'id'      => 'maand',
-				'name'    => 'maand',
-				'options' => $this->get_months(),
-			],
-			'i18n' => [
-				'search' => __( 'Zoeken', 'siw' )
-			]
-		];
-
+	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string { 
+		$result_page_url = wp_make_link_relative( get_permalink( $instance['result_page'] ) );
+		ob_start();
+		?>
+		<div>
+			<form id="siw_quick_search" method="get" action="<?= esc_url( $result_page_url );?>">
+				<ul>
+					<li><?= HTML::generate_field( 'select', [ 'name' => 'bestemming', 'id' => 'bestemming', 'class' => 'select-css', 'options' => $this->get_destinations() ] );?></li>
+					<li><?= HTML::generate_field( 'select', [ 'name' => 'maand', 'id' => 'maand', 'class' => 'select-css', 'options' => $this->get_months() ] );?></li>
+					<li><?= HTML::generate_field( 'submit', [ 'value' => __( 'Zoeken', 'siw' ), 'class' => 'button' ] );?></li>
+				</ul>
+			</form>
+		</div>
+		<?php
+		$content = ob_get_clean();
+		return $content;
 	}
 
 	/**
@@ -99,16 +97,11 @@ class Quick_Search_Form extends Widget {
 			],
 		] );
 	
-		$destinations[] = [
-			'value'    => '',
-			'label'    => __( 'Waar wil je heen?', 'siw' ),
-			'selected' => true,
+		$destinations = [
+			'' => __( 'Waar wil je heen?', 'siw' ),
 		];
 		foreach ( $categories as $category ) {
-			$destinations[] = [
-				'value' => $category->slug,
-				'label' => $category->name,
-			];
+			$destinations[ $category->slug ] = $category->name;
 		}
 		return $destinations;
 	}
@@ -131,16 +124,11 @@ class Quick_Search_Form extends Widget {
 			]
 		]);
 	
-		$months[] = [
-			'value'    => '',
-			'label'    => __( 'Wanneer wil je weg?', 'siw' ),
-			'selected' => true,
+		$months = [
+			'' => __( 'Wanneer wil je weg?', 'siw' )
 		];
 		foreach ( $terms as $term ) {
-			$months[] =[
-				'value' => $term->slug,
-				'label' => $term->name,
-			];
+			$months[ $term->slug ] = $term->name;
 		}
 		return $months;
 	}

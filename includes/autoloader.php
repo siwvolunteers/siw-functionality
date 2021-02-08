@@ -10,20 +10,30 @@ namespace SIW;
  */
 class Autoloader {
 
-	/** Root-namespace */
-	protected string $root_namespace;
+	/**
+	 * Root-namespace
+	 */
+	protected string $root_namespace = 'SIW';
 
-	/** Basisdirectory */
+	/**
+	 * Basisdirectory
+	 */
 	protected string $root_directory;
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public function __construct( string $root_namespace, string $root_directory ) {
 		$this->root_namespace = $root_namespace;
 		$this->root_directory = $root_directory;
 		spl_autoload_register( [ $this, 'autoload' ] );
 	}
 
-	/** Autoloader */
+	/**
+	 * Autoloader
+	 *
+	 * @param string $class
+	 */
 	public function autoload( string $class ) {
 
 		/* Afbreken als het geen relevante class is */

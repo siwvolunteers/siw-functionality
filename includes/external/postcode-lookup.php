@@ -2,21 +2,35 @@
 
 namespace SIW\External;
 
-use SIW\Helpers\HTTP_Request;
+use SIW\Core\HTTP_Request;
 
 /**
  * Opzoeken adres obv postcode en huisnummer
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  * 
  * @link      https://github.com/PDOK/locatieserver
  */
 class Postcode_Lookup{
 
-	/** Locatieserver URL voor postcode lookup */
+	/**
+	 * Locatieserver URL voor postcode lookup
+	 *
+	 * @var string
+	 */
 	const API_URL = 'https://geodata.nationaalgeoregister.nl/locatieserver/v3/free';
 
-	/** Zoekt straat en woonplaats op basis van postcode en huisnummer */
+	/**
+	 * Zoekt straat en woonplaats op basis van postcode en huisnumme
+	 *
+	 * @param string $postcode
+	 * @param string $housenumber
+	 * 
+	 * @return array|null
+	 * 
+	 * @todo sanitize values
+	 */
 	public function get_address( string $postcode, string $housenumber ) : ?array {
 		$address = get_transient( "siw_address_{$postcode}_{$housenumber}" );
 		if ( ! is_array( $address ) ) {
@@ -29,7 +43,14 @@ class Postcode_Lookup{
 		return $address;
 	}
 
-	/** Haalt adres op bij PostcodeAPI.nu */
+	/**
+	 * Haalt adres op bij PostcodeAPI.nu
+	 *
+	 * @param string $postcode
+	 * @param string $housenumber
+	 * 
+	 * @return array|null
+	 */
 	protected function retrieve_address( string $postcode, string $housenumber ) : ?array {
 		$url = add_query_arg( [
 			'q'  => "postcode:{$postcode}",

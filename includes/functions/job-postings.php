@@ -1,11 +1,6 @@
 <?php declare(strict_types=1);
 
-use SIW\Structured_Data\Employment_Type;
-use SIW\Structured_Data\Job_Posting;
-use SIW\Structured_Data\NL_Non_Profit_Type;
-use SIW\Structured_Data\Organization;
-use SIW\Structured_Data\Place;
-use SIW\Structured_Data\Postal_Address;
+use SIW\Formatting;
 use SIW\Properties;
 
 /**
@@ -14,7 +9,13 @@ use SIW\Properties;
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  */
 
-/** Geeft uitgelichte vacatures terug */
+/**
+ * Geeft uitgelichte vacatures terug
+ *
+ * @param int $number
+ *
+ * @return array
+ */
 function siw_get_featured_job_postings( int $number = 1 ) : array {
 	$args = [
 		'number'   => $number,
@@ -24,7 +25,13 @@ function siw_get_featured_job_postings( int $number = 1 ) : array {
 	return siw_get_active_job_postings( $args );
 }
 
-/** Geeft actieve vacatures terug */
+/**
+ * Geeft actieve vacatures terug
+ *
+ * @param array $args
+ *
+ * @return array
+ */
 function siw_get_active_job_postings( array $args = [] ) : array {
 
 	$args = wp_parse_args(
@@ -75,36 +82,48 @@ function siw_get_active_job_postings( array $args = [] ) : array {
 	return get_posts( $post_query );
 }
 
-/** Genereer structured data voor vacature */
+/**
+ * Genereer structured data voor vacature
+ *
+ * @param array $job_id
+ * @return string
+ * 
+ * @todo verplaatsen naar Util/JsonLD
+ */
 function siw_generate_job_posting_json_ld( int $job_id ) : string {
 
-	$job_posting = Job_Posting::create()
-		->set_title( get_the_title( $job_id ) )
-		->set_description( siw_meta( 'introduction', [], $job_id ) )
-		->set_date_posted( new \DateTime( get_the_modified_date( 'Y-m-d', $job_id ) ) )
-		->set_valid_through( new \DateTime( siw_meta( 'deadline', [], $job_id ) ) )
-		->set_employment_type( Employment_Type::PART_TIME() ) //TODO: betaald/volunteer/intern o.b.v meta paid /intern
-		->set_hiring_organization(
-			Organization::create()
-				->set_name( Properties::NAME )
-				->set_same_as( SIW_SITE_URL )
-				->set_logo( get_site_icon_url() )
-				->set_non_profit_status( NL_Non_Profit_Type::NonprofitANBI() )
-		)
-		->set_qualifications( siw_meta( 'description.qualifications', [], $job_id ) )
-		->set_responsibilities( siw_meta( 'description.work', [], $job_id ) )
-		->set_employer_overview( siw_get_option('job_postings_organization_profile')  )
-		->set_job_benefits( siw_meta( 'description.perks', [], $job_id ) )
-		->set_job_location(
-			Place::create()
-				->set_address(
-					Postal_Address::create()
-						->set_street_address( Properties::ADDRESS )
-						->set_address_locality( Properties::CITY )
-						->set_postal_code( Properties::POSTCODE )
-						->set_address_region( 'NL' )
-						->set_address_country( 'NL' )
-				)
-		);
-	return $job_posting->to_script();
+	$description = siw_meta( 'description', [], $job_id );
+	$job_description = wpautop( siw_meta( 'introduction', [], $job_id ) ) .
+		'<h5><strong>' . __( 'Wat ga je doen?', 'siw' ) . '</strong></h5>' . wpautop( $description['work'] ) .
+		'<h5><strong>' . __( 'Wie ben jij?', 'siw' ) . '</strong></h5>' . wpautop( $description['qualifications'] ) .
+		'<h5><strong>' . __( 'Wat bieden wij jou?', 'siw' ) . '</strong></h5>' . wpautop( $description['perks'] ) .
+		'<h5><strong>' . __( 'Wie zijn wij?', 'siw' ) . '</strong></h5>' . wpautop( siw_get_option('job_postings_organization_profile') );
+
+	$data = [
+		'@context'          => 'https://schema.org/',
+		'@type'             => 'JobPosting',
+		'title'             => esc_attr( get_the_title( $job_id )),
+		'description'       => wp_kses_post( $job_description ),
+		'datePosted'        => esc_attr( get_the_modified_date( 'Y-m-d', $job_id ) ),
+		'validThrough'      => esc_attr( siw_meta( 'deadline', [], $job_id ) ),
+		'employmentType'    => siw_meta( 'paid', [], $job_id ) ? ['PARTTIME'] : ['PARTTIME', 'VOLUNTEER'],
+		'hiringOrganization'=> [
+			'@type' => 'Organization', 
+			'name'  => Properties::NAME,
+			'sameAs'=> SIW_SITE_URL,
+		],
+		'jobLocation' => [
+			'@type'     => 'Place',
+			'address'   => [
+				'@type'             => 'PostalAddress',
+				'streetAddress'     => Properties::ADDRESS,
+				'addressLocality'   => Properties::CITY,
+				'postalCode'        => Properties::POSTCODE,
+				'addressRegion'     => Properties::CITY,
+				'addressCountry'    => 'NL',
+			],
+		],
+	];
+
+	return Formatting::generate_json_ld( $data );
 }

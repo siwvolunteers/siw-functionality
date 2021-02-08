@@ -2,24 +2,35 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Interfaces\Page_Builder\Widget_Style_Fields as Widget_Style_Fields_Interface;
-
 /**
- * Extra Design-opties voor Page Builder
+ * Design-opties voor Page Builder
  *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  * @since     3.1.0
  */
-class Design implements Widget_Style_Fields_Interface {
-
-	/** style field voor uitlijning widget title */
-	const STYLE_FIELD_WIDGET_TITLE_ALIGN = 'siw_widget_title_align';
+class Design {
 
 	/**
-	 * {@inheritDoc}
+	 * Init
 	 */
-	public function add_style_fields( array $fields ) : array {
-		$fields[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] = [
+	public static function init() {
+		if ( ! class_exists( '\SiteOrigin_Panels' ) ) {
+			return;
+		}
+		$self = new self();
+		add_filter( 'siteorigin_panels_widget_style_fields', [ $self, 'add_widget_style_fields'] );
+		add_filter( 'siteorigin_panels_widget_style_attributes', [ $self, 'add_widget_style_attributes'], 10, 2 );
+	}
+
+	/**
+	 * Voegt opties voor widget toe
+	 *
+	 * @param array $fields
+	 * 
+	 * @return array
+	 */
+	public function add_widget_style_fields( array $fields ) : array {
+		$fields['siw_widget_title_align'] = [
 			'name'     => __( 'Uitlijning widget titel', 'siw' ),
 			'type'     => 'select',
 			'group'    => 'design',
@@ -35,13 +46,18 @@ class Design implements Widget_Style_Fields_Interface {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Voegt attributes voor widget toe
+	 *
+	 * @param array $style_attributes
+	 * @param array $style_args
+	 *
+	 * @return array
 	 */
-	public function set_style_attributes( array $style_attributes, array $style_args ) : array {
-		if ( ! isset( $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] ) || '' == $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] ) {
+	public function add_widget_style_attributes( array $style_attributes, array $style_args ) : array {
+		if ( ! isset( $style_args['siw_widget_title_align'] ) || '' == $style_args['siw_widget_title_align'] ) {
 			return $style_attributes;
 		}
-		$style_attributes['class'][] = sprintf( 'widget-title-%s', $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] );
+		$style_attributes['class'][] = "widget-title-{$style_args['siw_widget_title_align']}";
 		return $style_attributes;
 	}
 }

@@ -2,8 +2,6 @@
 
 namespace SIW\Options;
 
-use SIW\Interfaces\Options\Option as Option_Interface;
-
 use SIW\Util;
 
 /**
@@ -12,30 +10,24 @@ use SIW\Util;
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  * @since     3.2.0
  */
-class Configuration implements Option_Interface {
+class Configuration extends Option {
 
-	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'configuration';
-	}
+	/**
+	 * {@inheritDoc}
+	 */
+	protected string $id = 'configuration';
 
-	/** {@inheritDoc} */
-	public function get_capability(): string {
-		return 'manage_options';
-	}
-	
-	/** {@inheritDoc} */
-	public function get_parent_page(): string {
-		return 'options-general.php';
-	}
-
-	/** {@inheritDoc} */
-	public function get_title(): string {
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_title(): string {
 		return __( 'Configuratie', 'siw' );
 	}
 
-	/** {@inheritDoc} */
-	public function get_tabs() : array {
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_tabs() : array {
 		$tabs = [
 			[
 				'id'    => 'api',
@@ -66,8 +58,10 @@ class Configuration implements Option_Interface {
 		return $tabs;
 	}
 
-	/** {@inheritDoc} */
-	public function get_fields() : array {
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_fields() : array {
 		$fields = [];
 
 		//API
@@ -385,5 +379,23 @@ class Configuration implements Option_Interface {
 			'options' => siw_newsletter_get_lists(),
 		];
 		return $fields;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function format_option_value( $value, string $option ) {
+		switch ( $option ) {
+			case 'pages.explanation.workcamps':
+			case 'pages.explanation.info_days':
+			case 'pages.explanation.esc':
+			case 'pages.explanation.tailor_made':
+			case 'pages.contact':
+			case 'pages.child_policy':
+				//Pagina-ID moet integer zijn + fallback naar homepage
+				$value = intval( $value ?? get_option( 'page_on_front' ) );
+				break;
+		}
+		return $value;
 	}
 }

@@ -4,7 +4,7 @@ namespace SIW\Newsletter;
 
 use SIW\Email\Template;
 use SIW\Properties;
-use SIW\Util\Hash;
+use SIW\Newsletter\Hash;
 use SIW\Util\Links;
 
 /**
@@ -15,19 +15,33 @@ use SIW\Util\Links;
  */
 class Confirmation_Email {
 
-	/**  E-mailadres */
+	/**
+	 * E-mailadres
+	 */
 	protected string $email;
 
-	/** ID van maillijst */
+	/**
+	 * ID van maillijst
+	 */
 	protected int $list_id;
 
-	/** Properties voor Mailjet */
+	/**
+	 * Properties voor Mailjet
+	 */
 	protected array $properties;
 
-	/** E-mail instellingen */
+	/**
+	 * E-mail instellingen
+	 */
 	protected array $email_settings;
 	
-	/** Init */
+	/**
+	 * Init
+	 *
+	 * @param string $email
+	 * @param int $list_id
+	 * @param array $properties
+	 */
 	public function __construct( string $email, int $list_id, array $properties ) {
 		$this->email = $email;
 		$this->list_id = $list_id;
@@ -44,7 +58,9 @@ class Confirmation_Email {
 		$this->email_settings = siw_get_email_settings( 'newsletter' );
 	}
 
-	/** Verstuurt bevestigingsmail */
+	/**
+	 * Verstuurt bevestigingsmail
+	 */
 	public function send() : bool {
 		$email_hash = sha1( $this->email );
 
@@ -69,7 +85,11 @@ class Confirmation_Email {
 		return $result;
 	}
 
-	/** Genereert mailtekst */
+	/**
+	 * Genereert mailtekst
+	 *
+	 * @return string
+	 */
 	protected function generate_message() : string {
 		$template_args = [
 			'subject' => __( 'Aanmelding nieuwsbrief', 'siw' ),
@@ -96,7 +116,11 @@ class Confirmation_Email {
 		return $template->generate();
 	}
 
-	/** Genereert url voor bevestingslink */
+	/**
+	 * Genereert url voor bevestingslink
+	 *
+	 * @return string
+	 */
 	protected function generate_confirmation_url() : string {
 
 		$data = [

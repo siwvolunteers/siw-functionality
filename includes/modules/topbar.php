@@ -12,23 +12,38 @@ use SIW\Util\Links;
 /**
  * Topbar
  * 
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  */
 class Topbar {
 
-	/** Toon het evenement x aantal dagen van te voren */
+	/**
+	 * Toon het evenement x aantal dagen van te voren
+	 * 
+	 * @var int
+	 */
 	const EVENT_SHOW_DAYS_BEFORE = 14;
 
-	/** Verberg het evenement y aantal dagen van te voren */
+	/**
+	 * Verberg het evenement y aantal dagen van te voren
+	 * 
+	 * @var int
+	 */
 	const EVENT_HIDE_DAYS_BEFORE = 1;
 
-	/** Instellingen */
+	/**
+	 * Instellingen
+	 */
 	protected array $settings;
 
-	/** Inhoud van de topbar */
+	/**
+	 * Inhoud van de topbar
+	 */
 	protected ?array $content;
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 		if ( ! i18n::is_default_language() ) {
@@ -52,7 +67,9 @@ class Topbar {
 		add_action( 'generate_before_header', [ $self, 'render' ] );
 	}
 
-	/** Rendert de topbar */
+	/**
+	 * Rendert de topbar
+	 */
 	public function render() {
 		$target = isset( $this->content['link_target'] ) ? $this->content['link_target'] : '_self';
 	
@@ -82,17 +99,23 @@ class Topbar {
 	<?php
 	}
 
-	/** Voegt stylesheet toe */
+	/**
+	 * Voegt stylesheet toe
+	 */
 	public function enqueue_styles() {
 		wp_register_style( 'siw-topbar', SIW_ASSETS_URL . 'css/modules/siw-topbar.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-topbar' );
 	}
 
-	/** Haalt de inhoud op */
+	/**
+	 * Haalt de inhoud op
+	 *
+	 * @return array|null
+	 */
 	protected function get_content() : ?array {
 	
 		$content =
-			$this->get_page_content() ??
+			$this->get_custom_content() ??
 			$this->get_event_content() ??
 			$this->get_sale_content() ??
 			$this->get_job_posting_content() ??
@@ -101,7 +124,11 @@ class Topbar {
 		return $content;
 	}
 
-	/** Haalt de evenementen-inhoud op */
+	/**
+	 * Haalt de evenementen-inhoud op
+	 *
+	 * @return array|null
+	 */
 	protected function get_event_content() : ?array {
 		if ( ! $this->settings['show_event_content'] ) {
 			return null;
@@ -133,7 +160,11 @@ class Topbar {
 		];
 	}
 
-	/** Haalt de vacature-inhoud op */
+	/**
+	 * Haalt de vacature-inhoud op
+	 *
+	 * @return array|null
+	 */
 	protected function get_job_posting_content() : ?array {
 		if ( ! $this->settings['show_job_posting_content'] ) {
 			return null;
@@ -153,7 +184,13 @@ class Topbar {
 		];
 	}
 
-	/** Haalt de kortingsactie-inhoud op */
+	/**
+	 * Haalt de kortingsactie-inhoud op
+	 * 
+	 * @return array|null
+	 * 
+	 * @todo kortingsactie Op Maat toevoegen
+	 */
 	protected function get_sale_content() : ?array {
 		if ( ! $this->settings['show_sale_content'] ) {
 			return null;
@@ -173,20 +210,24 @@ class Topbar {
 		];
 	}
 
-	/** Undocumented function */
-	protected function get_page_content() {
-		if ( ! $this->settings['show_page_content'] ) {
+	/**
+	 * Undocumented function
+	 *
+	 * @return array|null
+	 */
+	protected function get_custom_content() {
+		if ( ! $this->settings['show_custom_content'] ) {
 			return null;
 		}
 
-		if ( date( 'Y-m-d' ) < $this->settings['page_content']['start_date'] || date( 'Y-m-d' ) > $this->settings['page_content']['end_date'] ) {
+		if ( date( 'Y-m-d' ) < $this->settings['custom_content']['start_date'] || date( 'Y-m-d' ) > $this->settings['custom_content']['end_date'] ) {
 			return null;
 		}
 
 		return [
-			'intro'     => $this->settings['page_content']['intro'],
-			'link_url'  => $this->settings['page_content']['link_url'],
-			'link_text' => $this->settings['page_content']['link_text'],
+			'intro'     => $this->settings['custom_content']['intro'],
+			'link_url'  => $this->settings['custom_content']['link_url'],
+			'link_text' => $this->settings['custom_content']['link_text'],
 		];
 	}
 }

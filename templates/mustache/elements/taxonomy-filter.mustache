@@ -1,7 +1,0 @@
-<div class="filter-button-group" data-filter-group="{{ taxonomy.slug }}">
-	<h5>{{ i18n.filter }} {{ taxonomy.name | case.lower }}</h5>
-	<button class="button ghost is-checked" data-filter="">{{ i18n.all }}</button>
-	{{# terms }}
-		<button class="button ghost" data-filter="{{ slug }}">{{ name }}</button>
-	{{/ terms }}
-</div>

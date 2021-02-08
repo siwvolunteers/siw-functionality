@@ -31,11 +31,6 @@ class Map extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected bool $use_default_template = true;
-
-	/**
-	 * {@inheritDoc}
-	 */
 	protected function set_widget_properties() {
 		$this->widget_name = __( 'Interactieve kaart', 'siw');
 		$this->widget_description = __( 'Toont interactieve kaart', 'siw' );
@@ -72,9 +67,7 @@ class Map extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	function get_template_variables( $instance, $args ) {
-		return [
-			'content' => Elements::generate_interactive_map( $instance['map'] )
-		];
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
+		return Elements::generate_interactive_map( $instance['map'] );
 	}
 }

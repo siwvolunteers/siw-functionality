@@ -1,3 +1,10 @@
+:root {
+	--siw-primary-color: $primary-color;
+	--siw-secondary-color: $secondary-color;
+	--siw-font-color: $font-color;
+	--siw-font-color-light: $font-color-light;
+}
+
 /* Fade in voor lazyload */
 img[data-lazy-src] {
 	opacity: 0;
@@ -88,7 +95,7 @@ h2 > a, .footer-widgets a.link{
 		height: 2px;
 		bottom: 0;
 		left: 0;
-		background-color: var(--siw-secondary-color);
+		background-color: $secondary-color;
 		visibility: hidden;
 		transform: scaleX(0);
 		transition: all 0.3s ease-in-out 0s;

@@ -13,13 +13,10 @@ use SIW\Properties;
  */
 class WooCommerce_Multistep_Checkout {
 
-	/** Init */
+	/**
+	* Init
+	*/
 	public static function init() {
-
-		if ( ! is_plugin_active( 'woocommerce-multistep-checkout/woocommerce-multistep-checkout.php' ) ) {
-			return;
-		}
-
 		$self = new self();
 
 		$options = array_keys( $self->get_option_values() );
@@ -28,7 +25,11 @@ class WooCommerce_Multistep_Checkout {
 		}
 	}
 
-	/** Geeft waarde voor WMC-opties terug */
+	/**
+	 * Geeft waarde voor WMC-opties terug
+	 *
+	 * @return array
+	 */
 	protected function get_option_values() {
 		$option_values = [
 			'wmc_wizard_type'                 => 'elegant',
@@ -74,8 +75,15 @@ class WooCommerce_Multistep_Checkout {
 		return $option_values;
 	}
 
-	/** Zet waarde van optie */
-	public function set_option_value( $value, string $option )  {
+	/**
+	 * Zet waarde van optie
+	 *
+	 * @param mixed $value
+	 * @param string $option
+	 *
+	 * @return mixed
+	 */
+	public function set_option_value( $value, string $option ) {
 		$option_values = $this->get_option_values();
 		return $option_values[ $option ];
 	}

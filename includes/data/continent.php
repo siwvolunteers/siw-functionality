@@ -10,41 +10,59 @@ namespace SIW\Data;
  */
 class Continent {
 
-	/** Slug van continent */
+	/**
+	 * Slug van continent
+	 */
 	protected string $slug;
 
-	/** Naam van het continent */
+	/**
+	 * Naam van het continent
+	 */
 	protected string $name;
 
-	/** Kleurcode van continent op kaart */
+	/**
+	 * Kleurcode van continent op kaart
+	 */
 	protected string $color;
 
-	/** Constructor */
-	public function __construct( array $data ) {
+	/**
+	 * Constructor
+	 */
+	public function __construct( array $continent ) {
 		$defaults = [
 			'slug'  => '',
 			'name'  => '',
 			'color' => '',
 		];
-		$data = wp_parse_args( $data, $defaults );
-		$data = wp_array_slice_assoc( $data, array_keys( $defaults ) );
-		
-		foreach( $data as $key => $value ) {
-			$this->$key = $value;
-		}
+		$continent = wp_parse_args( $continent, $defaults );
+		$this->slug = $continent['slug'];
+		$this->name = $continent['name'];
+		$this->color = $continent['color'];
 	}
 
-	/** Geeft de slug van het continent terug */
+	/**
+	 * Geeft de slug van het continent terug
+	 *
+	 * @return string
+	 */
 	public function get_slug() : string {
 		return $this->slug;
 	}
 
-	/** Geeft de naam van het continent terug */
+	/**
+	 * Geeft de naam van het continent terug
+	 *
+	 * @return string
+	 */
 	public function get_name() : string {
 		return $this->name;
 	}
 
-	/** Geeft kleurcode van continent op kaart terug */
+	/**
+	 * Geeft kleurcode van continent op kaart terug
+	 *
+	 * @return string
+	 */
 	public function get_color() : string {
 		return $this->color;
 	}

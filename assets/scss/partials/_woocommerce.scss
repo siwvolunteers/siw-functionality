@@ -8,14 +8,14 @@
 		}
 		a {
 			padding: 10px;
-			color: var(--siw-font-color);
+			color: $font-color;
 			.woocommerce-placeholder {
 				border: none;
 			}
 		}
 		.project-code {
 			font-size: 0.9em;
-			color: var(--siw-font-color-light);
+			color: $font-color-light;
 		}
 		span.product-badge.featured-badge {
 			position: absolute;
@@ -38,7 +38,7 @@ span.product-badge.featured-badge {
 //Carousel
 .siw-carousel {
 	margin-bottom: 20px;
-	.flickity-button:hover {
+	.flickity-button:hover{
 		background-color: $button-color;
 	}
 
@@ -58,7 +58,7 @@ span.product-badge.featured-badge {
 			a {
 				padding: 10px;
 				display: block;
-				color: var(--siw-font-color);
+				color: $font-color;
 				.woocommerce-placeholder {
 					border: none;
 				}
@@ -69,7 +69,7 @@ span.product-badge.featured-badge {
 			}
 			.project-code {
 				font-size: 0.9em;
-				color: var(--siw-font-color-light);
+				color: $font-color-light;
 			}
 			span.product-badge.featured-badge {
 				position: absolute;
@@ -90,7 +90,7 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a{
 		height: 2px;
 		bottom: 0;
 		left: 0;
-		background-color: var(--siw-secondary-color);
+		background-color: $secondary-color;
 		visibility: hidden;
 		transform: scaleX(0);
 		transition: all 0.3s ease-in-out 0s;
@@ -110,7 +110,7 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a{
 
 	.woocommerce-variation-description {
 		font-size:0.9em;
-		color: var(--siw-font-color-light);
+		color: $font-color-light;
 		font-style: italic;
 	}
 
@@ -120,7 +120,7 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a{
 	}
 
 	.participation-fee {
-		color: var(--siw-font-color-light);
+		color: $font-color-light;
 		font-style: italic;
 	}
 

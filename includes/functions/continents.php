@@ -31,13 +31,13 @@ function siw_get_continents( string $return = 'objects' ) : array {
 
 	//Creëer objecten
 	$continents = array_map(
-		fn( array $item ) : Continent => new Continent( $item ),
+		fn( $item ) => new Continent( $item ),
 		$data
 	);
 
 	if ( 'array' == $return ) {
 		$continents = array_map(
-			fn( Continent $continent ) : string => $continent->get_name(),
+			fn( Continent $continent ) => $continent->get_name(),
 			$continents
 		);
 	}

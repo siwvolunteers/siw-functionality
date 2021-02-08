@@ -31,13 +31,13 @@ function siw_get_sustainable_development_goals( string $return = 'objects' ) : a
 
 	//Creëer objecten
 	$goals = array_map(
-		fn( array $item ) : Sustainable_Development_Goal => new Sustainable_Development_Goal( $item ),
+		fn( $item ) => new Sustainable_Development_Goal( $item ),
 		$data
 	);
 
 	if ( 'array' == $return ) {
 		$goals = array_map(
-			fn( Sustainable_Development_Goal $goal ) : string => $goal->get_full_name(),
+			fn( Sustainable_Development_Goal $goal ) => $goal->get_full_name(),
 			$goals
 		);
 	}

@@ -27,11 +27,6 @@ class Accordion extends Widget {
 	 * {@inheritDoc}
 	 */
 	protected string $widget_dashicon = 'list-view';
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected bool $use_default_template = true;
 
 	/**
 	 * {@inheritDoc}
@@ -108,9 +103,7 @@ class Accordion extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	function get_template_variables( $instance, $args ) {
-		return [
-			'content' => Elements::generate_accordion( $instance['panes'] )
-		];
+	protected function get_content( $instance, $args, $template_vars, $css_name ) : string { 
+		return Elements::generate_accordion( $instance['panes'] );
 	}
 }

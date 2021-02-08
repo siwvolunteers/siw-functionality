@@ -12,13 +12,17 @@ use SIW\Core\Shortcodes as SIW_Shortcodes;
  */
 class Shortcodes {
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 		add_action( 'wp_enqueue_editor', [ $self, 'enqueue_script'] );
 	}
 
-	/** Script toevoegen */
+	/**
+	 * Script toevoegen
+	 */
 	public function enqueue_script() {
 
 		//FIXME: workaround voor black studio tinymce
@@ -46,7 +50,11 @@ class Shortcodes {
 		wp_enqueue_script( 'siw-admin-shortcodes' );
 	}
 
-	/** Formatteert shortcode voor gebruik in TinyMCE */
+	/**
+	 * Formatteert shortcode voor gebruik in TinyMCE
+	 *
+	 * @param array $value
+	 */
 	protected function format_shortcode( &$value, $key ) {
 
 		//Shortcodes zonder parameter verwerken
@@ -65,7 +73,12 @@ class Shortcodes {
 		}
 	}
 
-	/** Formatteert attribute voor gebruik in TinyMCE */
+	/**
+	 * Formatteert attribute voor gebruik in TinyMCE
+	 *
+	 * @param array $data
+	 * @return array
+	 */
 	protected function format_attribute( array $data ) : array {
 		switch ( $data['type'] ) {
 			case 'text':
@@ -88,7 +101,13 @@ class Shortcodes {
 		return $attribute;
 	}
 
-	/** Formatteert opties voor gebruik in TinyMCE */
+	/**
+	 * Formatteert opties voor gebruik in TinyMCE
+	 *
+	 * @param string $value
+	 * @param string $label
+	 * @return array
+	 */
 	protected function format_options( string $value, string $label ) : array {
 		return [
 			'value' => $value,

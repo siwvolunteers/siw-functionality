@@ -2,28 +2,47 @@
 
 namespace SIW\WooCommerce\Import;
 
+use SIW\Attachment;
 use SIW\Data\Country;
 use SIW\Data\Work_Type;
-use SIW\Helpers\Attachment;
 use SIW\Plato\Download_File as Plato_Download_File;
 
 /**
  * Selecteren van afbeelding voor een Groepsproject
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.0
  */
 class Product_Image {
 
-	/** Minimale breedte voor afbeeldingen */
+	/**
+	 * Minimale breedte voor afbeeldingen
+	 *
+	 * @var int
+	 */
 	const MIN_IMAGE_WIDTH = 600;
 
-	/** Minimale hoogte voor afbeeldingen */
+	/**
+	 * Minimale hoogte voor afbeeldingen
+	 *
+	 * @var int
+	 */
 	const MIN_IMAGE_HEIGHT = 600;
 
-	/** Subdirectory voor projectfoto's */
+	/**
+	 * Subdirectory voor projectfoto's
+	 */
 	protected string $subdir = 'groepsprojecten/projectfotos';
 
-	/** Haal projectafbeelding (uit Plato) op */
+	/**
+	 * Haal projectafbeelding (uit Plato) op
+	 *
+	 * @param array $identifier
+	 * @param string $filename_base
+	 * @param string $project_id
+	 * 
+	 * @return int|null
+	 */
 	public function get_project_image( array $identifiers, string $filename_base, string $project_id ) : ?int {
 
 		// Kijk of er al een attachment voor 1 van de identifiers is
@@ -65,15 +84,20 @@ class Product_Image {
 		return null;
 	}
 
-	/** Zoekt stockfoto op basis van land en soort werk */
+	/**
+	 * Zoekt stockfoto op basis van land en soort werk
+	 *
+	 * @param Country $country
+	 * @param Work_Type[] $work_types
+	 * @return int|null
+	 */
 	public function get_stock_image( Country $country, array $work_types ) : ?int {
 
 		$continent_slug = $country->get_continent()->get_slug();
 		$country_slug = $country->get_slug();
-		$work_type_slugs = array_map(
-			fn( Work_Type $work_type ) : string => $work_type->get_slug(),
-			$work_types
-		);
+		foreach ( $work_types as $work_type ) {
+			$work_type_slugs[] = $work_type->get_slug();
+		}
 
 		//Haal taxonomy queries op
 		$tax_queries = $this->get_tax_queries( $continent_slug, $country_slug, $work_type_slugs );
@@ -96,7 +120,15 @@ class Product_Image {
 		return null;
 	}
 
-	/** Maakt taxonomy queries aan */
+	/**
+	 * Maakt taxonomy queries aan
+	 *
+	 * @param string $continent
+	 * @param string $country
+	 * @param array $work_types
+	 *
+	 * @return array
+	 */
 	protected function get_tax_queries( string $continent, string $country, array $work_types ) : array {
 
 		//Maak subqueries aan

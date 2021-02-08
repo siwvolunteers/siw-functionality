@@ -12,32 +12,52 @@ use SIW\Formatting;
  */
 class Social_Network {
 
-	/** Slug van het netwerk */
+	/**
+	 * Slug van het netwerk
+	 */
 	protected string $slug;
 
-	/** Naam van het netwerk */
+	/**
+	 * Naam van het netwerk
+	 */
 	protected string $name;
 
-	/** CSS-class van icoon */
+	/**
+	 * CSS-class van icoon
+	 */
 	protected string $icon_class;
 
-	/** Kleurcode */
+	/**
+	 * Kleurcode
+	 */
 	protected string $color;
 
-	/** URL van netwerk om te volgen */
+	/**
+	 * URL van netwerk om te volgen
+	 */
 	protected ?string $follow_url;
 
-	/** URL-template voor delen */
+	/**
+	 * URL-template voor delen
+	 */
 	protected ?string $share_url_template;
 
-	/** Is netwerk om te delen? */
+	/**
+	 * Is netwerk om te delen?
+	 */
 	protected bool $share;
 
-	/** Is netwerk om te volgen? */
+	/**
+	 * Is netwerk om te volgen?
+	 */
 	protected bool $follow;
 
-	/** Constructor */
-	public function __construct( array $data ) {
+	/**
+	 * Constructor
+	 *
+	 * @param array $network
+	 */
+	public function __construct( array $network ) {
 		$defaults = [
 			'slug'               => '',
 			'name'               => '',
@@ -48,55 +68,97 @@ class Social_Network {
 			'share'              => false,
 			'share_url_template' => null
 		];
-		$data = wp_parse_args( $data, $defaults );
-		$data = wp_array_slice_assoc( $data, array_keys( $defaults ) );
-		
-		foreach( $data as $key => $value ) {
-			$this->$key = $value;
-		}
+		$network = wp_parse_args( $network, $defaults );
+
+		$this->slug = $network['slug'];
+		$this->name = $network['name'];
+		$this->icon_class = $network['icon_class'];
+		$this->color = $network['color'];
+		$this->follow = $network['follow'];
+		$this->follow_url = $network['follow_url'];
+		$this->share = $network['share'];
+		$this->share_url_template = $network['share_url_template'];
 	}
 
-	/** Geeft slug van netwerk terug */
+	/**
+	 * Geeft slug van netwerk terug
+	 * 
+	 * @return string
+	 */
 	public function get_slug() : string {
 		return $this->slug;
 	}
 
-	/** Geeft de naam van het netwerk terug */
+	/**
+	 * Geeft de naam van het netwerk terug
+	 * 
+	 * @return string
+	 */
 	public function get_name() : string {
 		return $this->name;
 	}
 
-	/** Geeft icon class voor voor netwerk terug */
+	/**
+	 * Geeft icon class voor voor netwerk terug
+	 * 
+	 * @return string
+	 */
 	public function get_icon_class() : string {
 		return $this->icon_class;
 	}
 
-	/** Geeft kleurcode van netwerk terug */
+	/**
+	 * Geeft kleurcode van netwerk terug
+	 * 
+	 * @return string
+	 */
 	public function get_color() : string {
 		return $this->color;
 	}
 
-	/** Geeft aan of via dit netwerk gedeeld kan worden */
+	/**
+	 * Geeft aan of via dit netwerk gedeeld kan worden
+	 *
+	 * @return bool
+	 */
 	public function is_for_sharing() : bool {
 		return $this->share;
 	}
 
-	/** Geeft aan of dit netwerk gevolgd kan worden */
+	/**
+	 * Geeft aan of dit netwerk gevolgd kan worden
+	 *
+	 * @return bool
+	 */
 	public function is_for_following() : bool {
 		return $this->follow;
 	}
 
-	/** Geeft URL van network om te volgen terug */
+	/**
+	 * Geeft URL van network om te volgen terug
+	 *
+	 * @return string
+	 */
 	public function get_follow_url() : string {
 		return $this->follow_url;
 	}
 
-	/** Geeft template voor url om te delen terug */
+	/**
+	 * Geeft template voor url om te delen terug
+	 *
+	 * @return string
+	 */
 	public function get_share_url_template() : string {
 		return $this->share_url_template;
 	}
 
-	/** Genereert link op te delen */
+	/**
+	 * Genereert link op te delen
+	 *
+	 * @param string $url
+	 * @param string $title
+	 * @return string
+	 */
 	public function generate_share_link( string $url, string $title ) :string {
 
 		$template = $this->get_share_url_template();

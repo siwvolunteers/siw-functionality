@@ -14,34 +14,18 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
-            'Spatie\\Enum\\' => 12,
             'Spatie\\ArrayToXml\\' => 18,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Spatie\\Enum\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/spatie/enum/src',
-        ),
         'Spatie\\ArrayToXml\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/array-to-xml/src',
         ),
     );
 
-    public static $prefixesPsr0 = array (
-        'M' => 
-        array (
-            'Mustache' => 
-            array (
-                0 => __DIR__ . '/..' . '/mustache/mustache/src',
-            ),
-        ),
-    );
-
     public static $classMap = array (
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'WP_Async_Request' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-async-request.php',
         'WP_Background_Process' => __DIR__ . '/..' . '/deliciousbrains/wp-background-processing/classes/wp-background-process.php',
     );
@@ -51,7 +35,6 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d::$classMap;
 
         }, null, ClassLoader::class);

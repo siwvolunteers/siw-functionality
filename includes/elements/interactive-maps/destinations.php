@@ -16,26 +16,36 @@ use SIW\Util\Links;
  */
 class Destinations extends Interactive_Map {
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected string $id = 'destinations';
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected string $file = 'world';
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected array $data = [
 		'mapwidth'  => 1200,
 		'mapheight' => 760,
 	];
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected array $options = [
 		'search'       => true,
 		'searchfields' => ['title', 'about', 'description'],
 		'hidenofilter' => true,
 	];
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function get_categories() : array {
 		$continents = siw_get_continents();
 
@@ -50,7 +60,9 @@ class Destinations extends Interactive_Map {
 		return $categories;
 	}
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function get_locations() : array {
 		$countries = siw_get_countries();
 		
@@ -75,7 +87,12 @@ class Destinations extends Interactive_Map {
 		return $locations;
 	}
 
-	/** Genereer beschrijving van aanbod per land */
+	/**
+	 * Genereer beschrijving van aanbod per land
+	 *
+	 * @param Country $country
+	 * @return string
+	 */
 	protected function generate_country_description( Country $country ) : string {
 
 		/* Groepsprojecten */
@@ -97,11 +114,16 @@ class Destinations extends Interactive_Map {
 		return esc_html__( 'In dit land bieden wij de volgende projecten aan:', 'siw' ) . Elements::generate_list( $project_types );
 	}
 
-	/** Genereert beschrijving voor groepsprojecten */
+	/**
+	 * Genereert beschrijving voor groepsprojecten
+	 *
+	 * @param Country $country
+	 * @return string
+	 */
 	protected function generate_workcamps_description( Country $country ) : string {
 		$country_term = get_term_by( 'slug', $country->get_slug(), 'pa_land' );
 		
-		if ( is_a( $country_term, \WP_Term::class ) ) {
+		if ( is_a( $country_term, 'WP_Term' ) ) {
 			$workcamp_count = get_term_meta( $country_term->term_id, 'project_count', true );
 		}
 		else {
@@ -119,7 +141,12 @@ class Destinations extends Interactive_Map {
 		return esc_html__( 'Groepsprojecten', 'siw' ) . SPACE . Links::generate_link( $url, $text );
 	}
 
-	/** Genereert beschrijving voor Op Maat */
+	/**
+	 * Genereert beschrijving voor Op Maat
+	 *
+	 * @param Country $country
+	 * @return string
+	 */
 	public function generate_tailor_made_description( Country $country ) : string {
 
 		$tailor_made_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.tailor_made' ) ) );

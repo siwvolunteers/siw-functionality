@@ -38,7 +38,7 @@ $fields[0] = [
 			'slug'  => 'vraag',
 			'type'  => 'paragraph',
 			'label' => __( 'Vraag', 'siw' ),
-			'width' => 100,
+			'width' => 12,
 		]
 	],
 ];

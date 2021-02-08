@@ -2,9 +2,10 @@
 
 namespace SIW\Elements;
 
-use SIW\Core\Template;
 use SIW\Properties;
+use SIW\HTML;
 use SIW\Util\CSS;
+use SIW\Util;
 
 /**
  * Class om een Mapplic kaart te genereren
@@ -16,59 +17,98 @@ use SIW\Util\CSS;
  */
 abstract class Interactive_Map {
 
-	/** Mapplic versie */
+	/**
+	 * Mapplic versie
+	 *
+	 * @var string
+	 */
 	const MAPPLIC_VERSION = '6.1.3';
 
-	/** URL van Mapplic-bestanden */
+	/**
+	 * URL van Mapplic-bestanden
+	 */
 	protected string $mapplic_url = SIW_ASSETS_URL . 'vendor/mapplic/';
 
-	/** ID van kaart */
+	/**
+	 * ID van kaart
+	 */
 	protected string $id;
 
-	/** Bestandsnaam van kaart */
+	/**
+	 * Bestandsnaam van kaart
+	 */
 	protected string $file;
 
-	/** Inline CSS-regels */
+	/**
+	 * Inline CSS-regels
+	 */
 	protected array $inline_css;
 
-	/** Gegevens van kaart */
+	/**
+	 * Gegevens van kaart
+	 */
 	protected array $options;
 
-	/** Haalt categorieën op */
+	/**
+	 * Haalt categorieën op
+	 * 
+	 * @return array
+	 */
 	abstract protected function get_categories() : array;
 
-	/** Geef locaties terug */
+	/**
+	 * Geef locaties terug
+	 * 
+	 * @return array
+	 */
 	abstract protected function get_locations() : array;
 
-	/** Geeft alternatieve content voor mobiel terug */
+	/**
+	 * Geeft alternatieve content voor mobiel terug
+	 * 
+	 * @return string
+	 */
 	abstract protected function get_mobile_content() : ?string;
 
-	/**  Genereert interactieve kaart */
+	/**
+	 *  Genereert interactieve kaart
+	 */
 	public function generate() : string {
 		$this->set_options();
 
 		$this->enqueue_styles();
 		$this->enqueue_scripts();
 
-		return Template::parse_template(
-			'elements/interactive-map',
+		$attributes = [
+			'id'           => uniqid( 'siw-interactive-map-' ),
+			'class'        => ['siw-interactive-map', 'mapplic-dark'],
+			'data-options' => $this->options,
+		];
+		$content = HTML::div( $attributes );
+
+		$content = HTML::div(
 			[
-				'id'                    => uniqid(),
-				'options'               => $this->options,
-				'hide_on_desktop_class' => CSS::HIDE_ON_DESKTOP_CLASS,
-				'hide_on_tablet_class'  => CSS::HIDE_ON_TABLET_CLASS,
-				'hide_on_mobile_class'  => CSS::HIDE_ON_MOBILE_CLASS,
-				'mobile_content'        => $this->get_mobile_content(),
-			]
+				'class' => [ CSS::HIDE_ON_MOBILE_CLASS, CSS::HIDE_ON_TABLET_CLASS ],
+			],
+			$content,
 		);
+		$content .= HTML::div(
+			[
+				'class' => CSS::HIDE_ON_DESKTOP_CLASS,
+			],
+			$this->get_mobile_content(),
+		);
+		return $content;
 	}
 
-	/** Zet opties van de kaart */
+	/**
+	 * Zet opties van de kaart
+	 */
 	protected function set_options() {
 		$default_options = [
 			'source'        => $this->get_map_data(),
 			'landmark'      => null,
-			'portrait'      => CSS::MOBILE_BREAKPOINT,
+			'portrait'      => Util::get_mobile_breakpoint(),
 			'alphabetic'    => true,
 			'search'        => false,
 			'lightbox'      => false,
@@ -87,7 +127,11 @@ abstract class Interactive_Map {
 		$this->options = wp_parse_args( $this->options, $default_options );
 	}
 
-	/** Haalt gegevens voor kaart op */
+	/**
+	 * Haalt gegevens voor kaart op
+	 * 
+	 * @return array
+	 */
 	protected function get_map_data() : array {
 		$default_data = [
 			'mapwidth'  => null,
@@ -109,8 +153,13 @@ abstract class Interactive_Map {
 		return $data;
 	}
 
-	/** Parset gegevens van categorie */
-	protected function parse_category( array $category ) : array {
+	/**
+	 * Parset gegevens van categorie
+	 *
+	 * @param array $category
+	 * @return array
+	 */
+	protected function parse_category( $category ) : array {
 		$default = [
 			'id'    => false,
 			'title' => false,
@@ -120,8 +169,10 @@ abstract class Interactive_Map {
 		return wp_parse_args( $category, $default );
 	}
 
-	/** Parset de gegevens van locatie */
-	protected function parse_location( array $location ) : array {
+	/**
+	 * Parset de gegevens van locatie
+	 */
+	protected function parse_location( $location ) : array {
 		$default = [
 			'id'            => false,
 			'title'         => false,
@@ -141,7 +192,9 @@ abstract class Interactive_Map {
 		return wp_parse_args( $location, $default );
 	}
 
-	/** Voegt de benodigde scripts toe */
+	/**
+	 * Voegt de benodigde scripts toe
+	 */
 	protected function enqueue_scripts() {
 		$deps = [ 'jquery' ];
 		if ( true == $this->options[ 'lightbox' ] ) {
@@ -174,7 +227,9 @@ abstract class Interactive_Map {
 		wp_enqueue_script( 'siw-interactive-maps' );
 	}
 
-	/** Voegt benodigde styles toe */
+	/**
+	 * Voegt benodigde styles toe
+	 */
 	protected function enqueue_styles() {
 		$deps = [];
 		if ( true == $this->options[ 'lightbox' ] ) {

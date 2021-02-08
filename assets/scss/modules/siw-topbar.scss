@@ -1,7 +1,7 @@
 @import "../partials/_variables.scss";
 
 .topbar{
-	background: var(--siw-secondary-color);
+	background: $secondary-color;
 	color: #fff;
 	text-align: center;
 	.topbar-content{
@@ -14,7 +14,7 @@
 
 		&:hover, &:active{
 			background: #fff;
-			color: var(--siw-secondary-color);
+			color: $secondary-color;
 		}
 	}
 }

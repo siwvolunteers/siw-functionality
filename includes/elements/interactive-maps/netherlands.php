@@ -18,13 +18,19 @@ use WC_Product;
  */
 class Netherlands extends Interactive_Map {
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected string $id = 'nl';
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected string $file = 'netherlands';
 	
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected array $data = [
 		'mapwidth'  => 600,
 		'mapheight' => 600,
@@ -34,19 +40,25 @@ class Netherlands extends Interactive_Map {
 		'rightLng'  => '7.679884929662812',
 	];
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected array $options = [
 		'alphabetic'   => false,
 		'search'       => true,
 		'searchfields' => ['title', 'about', 'description'],
 	];
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function get_categories() : array {
 		return [];
 	}
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function get_locations() : array {
 		$projects = $this->get_projects();
 		$locations = [];
@@ -80,7 +92,9 @@ class Netherlands extends Interactive_Map {
 		return $locations;
 	}
 
-	/** {@inheritDoc} */
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function get_mobile_content() : ?string {
 		
 		$projects = $this->get_projects();
@@ -101,7 +115,11 @@ class Netherlands extends Interactive_Map {
 		return Elements::generate_accordion( $panes );
 	}
 
-	/** Haalt projecten op */
+	/**
+	 * Haalt projecten op
+	 * 
+	 * @return array
+	 */
 	protected function get_projects() : array {
 		$args = [
 			'country'    => 'nederland',
@@ -111,16 +129,19 @@ class Netherlands extends Interactive_Map {
 		return wc_get_products( $args );
 	}
 
-	/** Genereert beschrijving van het project */
+	/**
+	 * Genereert beschrijving van het project
+	 *
+	 * @param \WC_Product $project
+	 * @param bool $project_code
+	 * @return string
+	 */
 	protected function get_project_properties( \WC_Product $project ) : string {
 		//Verzamelen gegevens
 		$attributes = $project->get_attributes();
 		$work_type_slugs = $attributes['pa_soort-werk']->get_slugs();
 		
-		$work_types = array_map(
-			fn( string $work_type_slug ) : string => siw_get_work_type( $work_type_slug )->get_name(),
-			$work_type_slugs
-		);
+		$work_types = array_map( fn( string $work_type_slug ) => siw_get_work_type( $work_type_slug )->get_name(), $work_type_slugs );
 	
 		$duration = Formatting::format_date_range( $project->get_attribute( 'startdatum' ), $project->get_attribute( 'einddatum' ) );
 
@@ -140,7 +161,13 @@ class Netherlands extends Interactive_Map {
 		return wpautop( implode( BR, $description ) );
 	}
 
-	/** Haalt projectbeschrijving op */
+	/**
+	 * Haalt projectbeschrijving op
+	 *
+	 * @param \WC_Product $project
+	 * 
+	 * @return string
+	 */
 	protected function get_project_description( \WC_Product $project ) : ?string {
 		$language = i18n::get_current_language();
 		if ( $project->get_meta( "dutch_projects_name_{$language}" ) ) {
@@ -149,13 +176,25 @@ class Netherlands extends Interactive_Map {
 		return null;
 	}
 
-	/** Haalt projecttitel op */
+	/**
+	 * Haalt projecttitel op
+	 *
+	 * @param \WC_Product $project
+	 * 
+	 * @return string
+	 */
 	protected function get_project_title( \WC_Product $project ) : string {
 		$language = i18n::get_current_language();
 		return ! empty( $project->get_meta( "dutch_projects_name_{$language}" ) ) ? $project->get_meta( "dutch_projects_name_{$language}" ) : $project->get_attribute( 'Projectnaam' );
 	}
 
-	/** Haal knop naar Groepsproject op */
+	/**
+	 * Haal knop naar Groepsproject op
+	 *
+	 * @param \WC_Product $project
+	 *
+	 * @return string
+	 */
 	protected function get_project_button( \WC_Product $project ) : ?string {
 		if ( ! i18n::is_default_language() ) {
 			return null;

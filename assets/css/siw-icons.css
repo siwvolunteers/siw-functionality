@@ -1,7 +1,7 @@
 .siw-icon {
   display: inline-block;
   position: relative;
-  fill: var(--siw-font-color);
+  fill: #444;
 }
 
 .siw-icon-background {
@@ -28,7 +28,7 @@
   transition: all 0.3s linear 0s;
 }
 .siw-icon-background:hover .siw-background-icon {
-  fill: var(--siw-primary-color);
+  fill: #ff9900;
 }
 
 .siw-icon-1x {

@@ -10,23 +10,35 @@ namespace SIW\Data;
  */
 class Language {
 
-	/** Slug */
+	/**
+	 * Slug
+	 */
 	protected string $slug;
 	
-	/** Naam */
+	/**
+	 * Naam
+	 */
 	protected string $name;
 
-	/** PLATO-code */
+	/**
+	 * PLATO-code
+	 */
 	protected string $plato_code;
 
-	/** Geeft dit een taal is die een vrijwilliger kan opgeven */
+	/**
+	 * Geeft dit een taal is die een vrijwilliger kan opgeven
+	 */
 	protected bool $volunteer_language;
 
-	/** Geeft aan of dit een projecttaal kan zijn */
+	/**
+	 * Geeft aan of dit een projecttaal kan zijn
+	 */
 	protected bool $project_language;
 
-	/** Init */
-	public function __construct( array $data ) {
+	/**
+	 * @param array $language
+	 */
+	public function __construct( array $language ) {
 		$defaults = [
 			'slug'               => '',
 			'name'               => '',
@@ -34,35 +46,55 @@ class Language {
 			'volunteer_language' => false,
 			'project_language'   => false,
 		];
-		$data = wp_parse_args( $data, $defaults );
-		$data = wp_array_slice_assoc( $data, array_keys( $defaults ) );
-		
-		foreach( $data as $key => $value ) {
-			$this->$key = $value;
-		}
+		$language = wp_parse_args( $language, $defaults );
+		$this->slug = $language['slug'];
+		$this->name = $language['name'];
+		$this->plato_code = $language[ 'plato'];
+		$this->volunteer_language = $language['volunteer_language']; 
+		$this->project_language = $language['project_language']; 
 	}
 
-	/** Geeft slug van taal terug */
+	/**
+	 * Geeft slug van taal terug
+	 * 
+	 * @return string
+	 */
 	public function get_slug() : string {
 		return $this->slug;
 	}
 
-	/** Geeft naam van taal terug */
+	/**
+	 * Geeft naam van taal terug
+	 * 
+	 * @return string
+	 */
 	public function get_name() : string {
 		return $this->name;
 	}
 
-	/** Geeft PLATO-code van taal terug */
+	/**
+	 * Geeft PLATO-code van taal terug
+	 * 
+	 * @return string
+	 */
 	public function get_plato_code() : string {
 		return $this->plato_code;
 	}
 
-	/** Geeft terug of dit een taal is die een vrijwilliger kan opgeven */
+	/**
+	 * Geeft terug of dit een taal is die een vrijwilliger kan opgeven
+	 *
+	 * @return bool
+	 */
 	public function is_volunteer_language() : bool {
 		return $this->volunteer_language;
 	}
 
-	/** Geeft terug of dit een projecttaal kan zijn */
+	/**
+	 * Geeft terug of dit een projecttaal kan zijn
+	 *
+	 * @return bool
+	 */
 	public function is_project_language() : bool {
 		return $this->project_language;
 	}

@@ -5,27 +5,36 @@ namespace SIW\Modules;
 /**
  * Verversen van de cache
  * 
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @since     3.0.6
  */
 class Breadcrumbs {
 
-	/** Undocumented variable */
+	/**
+	 * Undocumented variable
+	 */
 	protected array $crumbs = [];
 
-	/** Huidige pagina/post */
+	/**
+	 * Huidige pagina/post
+	 */
 	protected string $current;
 
-	/** Init */
+	/**
+	 * Init
+	 */
 	public static function init() {
 		$self = new self();
 		add_shortcode( 'siw_breadcrumbs', [ $self, 'generate_crumbs'] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles'] );
 	}
 
+
 	public function enqueue_styles() {
 		wp_register_style( 'siw-breadcrumbs', SIW_ASSETS_URL . 'css/modules/siw-breadcrumbs.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-breadcrumbs' );
 	}
+
 
 	public function generate_crumbs() : string {
 		$this->set_crumbs();
@@ -43,7 +52,9 @@ class Breadcrumbs {
 		return $output;
 	}
 
-	/** Zet huidige pagina */
+	/**
+	 * Zet huidige pagina
+	 */
 	protected function set_current() {
 		if ( is_front_page() ) {
 			$this->current = __( 'Home', 'siw' );
@@ -63,7 +74,9 @@ class Breadcrumbs {
 		}
 	}
 
-	/** Undocumented function */
+	/**
+	 * Undocumented function
+	 */
 	protected function set_crumbs() {
 		
 		//Als het de homepage is zijn we snel klaar
@@ -108,13 +121,19 @@ class Breadcrumbs {
 		}
 	}
 
-	/** Undocumented function */
+	/**
+	 * Undocumented function
+	 */
 	protected function add_shop_crumb() {
 		$shop_page_id = wc_get_page_id( 'shop' );
 		$this->add_crumb( get_the_title( $shop_page_id ), get_permalink( $shop_page_id ) );
 	}
 
-	/** Undocumented function */
+	/**
+	 * Undocumented function
+	 *
+	 * @param string $taxonomy
+	 */
 	protected function add_taxonomy_crumb( string $taxonomy ) {
 		$terms = wp_get_post_terms(
 			get_the_ID(),
@@ -130,7 +149,12 @@ class Breadcrumbs {
 		}
 	}
 
-	/** Voegt kruimel toe aan pad */
+	/**
+	 * Voegt kruimel toe aan pad
+	 *
+	 * @param string $title
+	 * @param string $url
+	 */
 	protected function add_crumb( string $title, string $url ) {
 		$this->crumbs[] = [
 			'title' => $title,

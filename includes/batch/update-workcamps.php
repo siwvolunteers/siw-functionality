@@ -2,7 +2,6 @@
 
 namespace SIW\Batch;
 
-use SIW\Data\Country;
 use SIW\Util;
 use SIW\WooCommerce\Import\Product_Image;
 
@@ -96,7 +95,7 @@ class Update_Workcamps extends Job {
 		$this->product = wc_get_product( $product_id );
 		
 		/* Afbreken als product niet meer bestaat */
-		if ( ! is_a( $this->product, \WC_Product::class ) ) {
+		if ( ! $this->product instanceof \WC_Product ) {
 			return false;
 		}
 	
@@ -206,7 +205,7 @@ class Update_Workcamps extends Job {
 		if (
 			'no' === $this->product->get_meta( 'freeplaces' )
 			||
-			! is_a( $country, Country::class )
+			false === $country
 			||
 			! $country->is_allowed()
 			||
@@ -304,7 +303,7 @@ class Update_Workcamps extends Job {
 		$variations = $this->product->get_children();
 		foreach ( $variations as $variation_id ) {
 			$variation = wc_get_product( $variation_id );
-			if ( ! is_a( $variation, \WC_Product_Variation::class ) ) {
+			if ( ! is_a( $variation, '\WC_Product_Variation' ) ) {
 				continue;
 			}
 			$variation->delete( true );

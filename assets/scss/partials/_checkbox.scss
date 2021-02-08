@@ -28,8 +28,8 @@
 			display: inline-block;
 			height: 8px;
 			width: 12px;
-			border-left: 3px solid var(--siw-primary-color);
-			border-bottom: 3px solid var(--siw-primary-color);
+			border-left: 3px solid $primary-color;
+			border-bottom: 3px solid $primary-color;
 			transform: rotate(-45deg);
 			left: 4px;
 			top: 6px;

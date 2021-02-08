@@ -1,360 +1,172 @@
-{
-    "packages": [
-        {
-            "name": "deliciousbrains/wp-background-processing",
-            "version": "dev-master",
-            "version_normalized": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/deliciousbrains/wp-background-processing.git",
-                "reference": "2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/deliciousbrains/wp-background-processing/zipball/2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800",
-                "reference": "2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "suggest": {
-                "coenjacobs/mozart": "Easily wrap this library with your own prefix, to prevent collisions when multiple plugins use this library"
-            },
-            "time": "2020-07-31T07:00:11+00:00",
-            "type": "library",
-            "installation-source": "source",
-            "autoload": {
-                "classmap": [
-                    "classes/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Delicious Brains",
-                    "email": "nom@deliciousbrains.com"
-                }
-            ],
-            "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks.",
-            "install-path": "../deliciousbrains/wp-background-processing"
+[
+    {
+        "name": "deliciousbrains/wp-background-processing",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/deliciousbrains/wp-background-processing.git",
+            "reference": "2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800"
         },
-        {
-            "name": "donut/array_dig",
-            "version": "0.1.1",
-            "version_normalized": "0.1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/donutclub/php-array_dig.git",
-                "reference": "d21b481d4377f90aef9d969c3a7da9c06f95bcc0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/donutclub/php-array_dig/zipball/d21b481d4377f90aef9d969c3a7da9c06f95bcc0",
-                "reference": "d21b481d4377f90aef9d969c3a7da9c06f95bcc0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.1.0"
-            },
-            "time": "2014-05-28T17:10:26+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "array_dig.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD 3-clause"
-            ],
-            "authors": [
-                {
-                    "name": "nkitsune",
-                    "email": "nkitsune@mosdef.biz"
-                }
-            ],
-            "description": "recursively fetch nested array keys",
-            "install-path": "../donut/array_dig"
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/deliciousbrains/wp-background-processing/zipball/2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800",
+            "reference": "2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800",
+            "shasum": ""
         },
-        {
-            "name": "kallookoo/wp_parse_args_recursive",
-            "version": "1.2.1",
-            "version_normalized": "1.2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kallookoo/wp_parse_args_recursive.git",
-                "reference": "b42119c04763bab5d4e4701fa39c39ee19c2448f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kallookoo/wp_parse_args_recursive/zipball/b42119c04763bab5d4e4701fa39c39ee19c2448f",
-                "reference": "b42119c04763bab5d4e4701fa39c39ee19c2448f",
-                "shasum": ""
-            },
-            "time": "2018-10-18T16:30:37+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "src/wp-parse-args-recursive.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Sergio (kallookoo)",
-                    "email": "sergio@dsergio.com"
-                }
-            ],
-            "description": "Like wp_parse_args but supports recursivity. By default converts the returned type based on the $args and $defaults",
-            "homepage": "https://github.com/kallookoo/wp_parse_args_recursive",
-            "install-path": "../kallookoo/wp_parse_args_recursive"
+        "require": {
+            "php": ">=5.2"
         },
-        {
-            "name": "mustache/mustache",
-            "version": "v2.13.0",
-            "version_normalized": "2.13.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bobthecow/mustache.php.git",
-                "reference": "e95c5a008c23d3151d59ea72484d4f72049ab7f4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/e95c5a008c23d3151d59ea72484d4f72049ab7f4",
-                "reference": "e95c5a008c23d3151d59ea72484d4f72049ab7f4",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.4"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "~1.11",
-                "phpunit/phpunit": "~3.7|~4.0|~5.0"
-            },
-            "time": "2019-11-23T21:40:31+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-0": {
-                    "Mustache": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Justin Hileman",
-                    "email": "justin@justinhileman.info",
-                    "homepage": "http://justinhileman.com"
-                }
-            ],
-            "description": "A Mustache implementation in PHP.",
-            "homepage": "https://github.com/bobthecow/mustache.php",
-            "keywords": [
-                "mustache",
-                "templating"
-            ],
-            "install-path": "../mustache/mustache"
+        "suggest": {
+            "coenjacobs/mozart": "Easily wrap this library with your own prefix, to prevent collisions when multiple plugins use this library"
         },
-        {
-            "name": "spatie/array-to-xml",
-            "version": "2.16.0",
-            "version_normalized": "2.16.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/array-to-xml.git",
-                "reference": "db39308c5236b69b89cadc3f44f191704814eae2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/db39308c5236b69b89cadc3f44f191704814eae2",
-                "reference": "db39308c5236b69b89cadc3f44f191704814eae2",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "php": "^7.4|^8.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.2",
-                "phpunit/phpunit": "^9.0",
-                "spatie/phpunit-snapshot-assertions": "^4.2"
-            },
-            "time": "2020-11-18T22:03:17+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\ArrayToXml\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://freek.dev",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Convert an array to xml",
-            "homepage": "https://github.com/spatie/array-to-xml",
-            "keywords": [
-                "array",
-                "convert",
-                "xml"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/array-to-xml/issues",
-                "source": "https://github.com/spatie/array-to-xml/tree/2.16.0"
-            },
-            "funding": [
-                {
-                    "url": "https://spatie.be/open-source/support-us",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "install-path": "../spatie/array-to-xml"
+        "time": "2020-07-31T07:00:11+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "classes/"
+            ]
         },
-        {
-            "name": "spatie/enum",
-            "version": "3.7.0",
-            "version_normalized": "3.7.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/enum.git",
-                "reference": "4d4f2ff8d778fcaacbe4c59edeccad9a1fb2bcac"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/enum/zipball/4d4f2ff8d778fcaacbe4c59edeccad9a1fb2bcac",
-                "reference": "4d4f2ff8d778fcaacbe4c59edeccad9a1fb2bcac",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^7.4 || ^8.0"
-            },
-            "require-dev": {
-                "fakerphp/faker": "^1.9.1",
-                "larapack/dd": "^1.1",
-                "phpunit/phpunit": "^9.0",
-                "vimeo/psalm": "^4.3"
-            },
-            "suggest": {
-                "fakerphp/faker": "To use the enum faker provider",
-                "phpunit/phpunit": "To use the enum assertions"
-            },
-            "time": "2021-01-13T12:07:52+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\Enum\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Brent Roose",
-                    "email": "brent@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Tom Witkowski",
-                    "email": "dev@gummibeer.de",
-                    "homepage": "https://gummibeer.de",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHP Enums",
-            "homepage": "https://github.com/spatie/enum",
-            "keywords": [
-                "enum",
-                "enumerable",
-                "spatie"
-            ],
-            "support": {
-                "docs": "https://docs.spatie.be/enum",
-                "issues": "https://github.com/spatie/enum/issues",
-                "source": "https://github.com/spatie/enum"
-            },
-            "funding": [
-                {
-                    "url": "https://spatie.be/open-source/support-us",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "install-path": "../spatie/enum"
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-2.0-or-later"
+        ],
+        "authors": [
+            {
+                "name": "Delicious Brains",
+                "email": "nom@deliciousbrains.com"
+            }
+        ],
+        "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks."
+    },
+    {
+        "name": "donut/array_dig",
+        "version": "0.1.1",
+        "version_normalized": "0.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/donutclub/php-array_dig.git",
+            "reference": "d21b481d4377f90aef9d969c3a7da9c06f95bcc0"
         },
-        {
-            "name": "woocommerce/action-scheduler",
-            "version": "3.1.6",
-            "version_normalized": "3.1.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/woocommerce/action-scheduler.git",
-                "reference": "275d0ba54b1c263dfc62688de2fa9a25a373edf8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/275d0ba54b1c263dfc62688de2fa9a25a373edf8",
-                "reference": "275d0ba54b1c263dfc62688de2fa9a25a373edf8",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.6",
-                "woocommerce/woocommerce-sniffs": "0.0.8",
-                "wp-cli/wp-cli": "~1.5.1"
-            },
-            "time": "2020-05-12T16:22:33+00:00",
-            "type": "wordpress-plugin",
-            "extra": {
-                "scripts-description": {
-                    "test": "Run unit tests",
-                    "phpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
-                    "phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier"
-                }
-            },
-            "installation-source": "dist",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0-or-later"
-            ],
-            "description": "Action Scheduler for WordPress and WooCommerce",
-            "homepage": "https://actionscheduler.org/",
-            "install-path": "../woocommerce/action-scheduler"
-        }
-    ],
-    "dev": true,
-    "dev-package-names": []
-}
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/donutclub/php-array_dig/zipball/d21b481d4377f90aef9d969c3a7da9c06f95bcc0",
+            "reference": "d21b481d4377f90aef9d969c3a7da9c06f95bcc0",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.1.0"
+        },
+        "time": "2014-05-28T17:10:26+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "array_dig.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-clause"
+        ],
+        "authors": [
+            {
+                "name": "nkitsune",
+                "email": "nkitsune@mosdef.biz"
+            }
+        ],
+        "description": "recursively fetch nested array keys"
+    },
+    {
+        "name": "kallookoo/wp_parse_args_recursive",
+        "version": "1.2.1",
+        "version_normalized": "1.2.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kallookoo/wp_parse_args_recursive.git",
+            "reference": "b42119c04763bab5d4e4701fa39c39ee19c2448f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kallookoo/wp_parse_args_recursive/zipball/b42119c04763bab5d4e4701fa39c39ee19c2448f",
+            "reference": "b42119c04763bab5d4e4701fa39c39ee19c2448f",
+            "shasum": ""
+        },
+        "time": "2018-10-18T16:30:37+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/wp-parse-args-recursive.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Sergio (kallookoo)",
+                "email": "sergio@dsergio.com"
+            }
+        ],
+        "description": "Like wp_parse_args but supports recursivity. By default converts the returned type based on the $args and $defaults",
+        "homepage": "https://github.com/kallookoo/wp_parse_args_recursive"
+    },
+    {
+        "name": "spatie/array-to-xml",
+        "version": "2.15.0",
+        "version_normalized": "2.15.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/spatie/array-to-xml.git",
+            "reference": "1795afad4e5a1f4b7af2e0e09802550eaa00a6f8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/1795afad4e5a1f4b7af2e0e09802550eaa00a6f8",
+            "reference": "1795afad4e5a1f4b7af2e0e09802550eaa00a6f8",
+            "shasum": ""
+        },
+        "require": {
+            "ext-dom": "*",
+            "php": "^7.2"
+        },
+        "require-dev": {
+            "mockery/mockery": "^1.0",
+            "phpunit/phpunit": "^8.0",
+            "spatie/phpunit-snapshot-assertions": "^2.0"
+        },
+        "time": "2020-10-29T18:11:03+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Spatie\\ArrayToXml\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Freek Van der Herten",
+                "email": "freek@spatie.be",
+                "homepage": "https://murze.be",
+                "role": "Developer"
+            }
+        ],
+        "description": "Convert an array to xml",
+        "homepage": "https://github.com/spatie/array-to-xml",
+        "keywords": [
+            "array",
+            "convert",
+            "xml"
+        ]
+    }
+]
