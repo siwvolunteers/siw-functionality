@@ -65,7 +65,7 @@ $fields[1] = [
 			'config' => [
 				'rows' => 7,
 			],
-			'width'  => 12,
+			'width'  => 100,
 		],
 	],
 	[
@@ -76,7 +76,7 @@ $fields[1] = [
 			'config' => [
 				'rows' => 7,
 			],
-			'width'  => 12,
+			'width'  => 100,
 		],
 	],
 	[
@@ -87,7 +87,7 @@ $fields[1] = [
 			'config' => [
 				'rows' => 7,
 			],
-			'width'  => 12,
+			'width'  => 100,
 		]
 	],
 	[
@@ -102,7 +102,7 @@ $fields[1] = [
 				'max_upload' => wp_max_upload_size(),
 			],
 			'required' => false,
-			'width'    => 12,
+			'width'    => 100,
 		],
 	],
 ];

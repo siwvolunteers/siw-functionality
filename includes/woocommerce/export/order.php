@@ -13,19 +13,13 @@ use SIW\Properties;
  */
 class Order {
 
-	/**
-	 * Aantal gefaalde geexporteerde aanmeldingen
-	 */
+	/** Aantal gefaalde geexporteerde aanmeldingen */
 	protected int $failed_count = 0;
 
-	/**
-	 * Aantal succesvol geexporteerde aanmeldingen
-	 */
+	/** Aantal succesvol geexporteerde aanmeldingen */
 	protected int $success_count = 0;
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_filter( 'woocommerce_order_actions', [ $self, 'add_order_action'] );
@@ -33,13 +27,8 @@ class Order {
 		add_action( 'woocommerce_order_status_processing', [ $self, 'export_order'] );
 	}
 
-	/**
-	 * Voeg orderactie voor export naar Plato toe
-	 *
-	 * @param array $actions
-	 * @return array
-	 */
-	public function add_order_action( array $actions ) {
+	/** Voeg orderactie voor export naar Plato toe */
+	public function add_order_action( array $actions ) : array {
 		global $theorder;
 		if ( $theorder->is_paid() ) {
 			$actions['siw_export_to_plato'] = __( 'Exporteer naar PLATO', 'siw' );
@@ -79,14 +68,7 @@ class Order {
 		}
 	}
 	
-	/**
-	 * Exporteert aanmelding voor 1 project naar Plato
-	 *
-	 * @param array $order_data
-	 * @param \WC_Product $product
-	 *
-	 * @return array
-	 */
+	/** Exporteert aanmelding voor 1 project naar Plato */
 	protected function export_application( array $order_data, \WC_Product $product ) : array {
 		
 		$projectcode = $product->get_sku();
@@ -103,14 +85,7 @@ class Order {
 		return $result;
 	}
 
-	/**
-	 * Genereert array met gegevens aanmelding voor export-xml
-	 *
-	 * @param \WC_Order $order Aanmelding
-	 * @return array
-	 * 
-	 * @todo country en occupation uit order halen/uitvragen
-	 */
+	/** Genereert array met gegevens aanmelding voor export-xml */
 	protected function get_order_data( \WC_Order $order ) : array {
 		return [
 			'firstname'         => $order->get_billing_first_name(),
@@ -123,8 +98,8 @@ class Order {
 			'address1'          => sprintf( '%s %s', $order->get_billing_address_1(), $order->get_meta( '_billing_housenumber' ) ),
 			'zip'               => $order->get_billing_postcode(),
 			'city'              => $order->get_billing_city(),
-			'country'           => 'NLD',
-			'occupation'        => 'OTH',
+			'country'           => 'NLD', //TODO: uitvragen
+			'occupation'        => 'OTH', //TODO: uitvragen
 			'emergency_contact' => sprintf( '%s %s', $order->get_meta( 'emergencyContactName' ), $order->get_meta( 'emergencyContactPhone' ) ),
 			'language1'         => $order->get_meta( 'language1' ),
 			'language2'         => $order->get_meta( 'language2' ),

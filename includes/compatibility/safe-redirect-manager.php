@@ -11,38 +11,17 @@ namespace SIW\Compatibility;
  */
 class Safe_Redirect_Manager {
 
-	/**
-	 * Maximaal aantal redirects
-	 * 
-	 * @var int
-	 */
+	/** Maximaal aantal redirects */
 	const MAX_REDIRECTS = 250;
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
-		$self = new self();
 
-		add_filter( 'srm_max_redirects', [ $self, 'set_max_redirects'] );
-		add_filter( 'srm_default_direct_status', [ $self, 'set_default_direct_status'] );
-	}
+		if ( ! is_plugin_active( 'safe-redirect-manager/safe-redirect-manager.php' ) ) {
+			return;
+		}
 
-	/**
-	 * Past maximaal aantal redirects aan
-	 *
-	 * @return int
-	 */
-	public function set_max_redirects() : int {
-		return self::MAX_REDIRECTS;
-	}
-
-	/**
-	 * Past standaard redirect statuscode aan
-	 *
-	 * @return int
-	 */
-	public function set_default_direct_status() : int {
-		return \WP_Http::MOVED_PERMANENTLY;
+		add_filter( 'srm_max_redirects', fn() : int => self::MAX_REDIRECTS );
+		add_filter( 'srm_default_direct_status', fn() : int => \WP_Http::MOVED_PERMANENTLY );
 	}
 }

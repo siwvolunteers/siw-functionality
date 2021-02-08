@@ -8,18 +8,11 @@ use function Donut\Util\array_dig;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
-/**
- * Haalt data uit bestand
- * 
- * @since     3.0.0
- *
- * @param string $file
- * @return mixed
- */
+/** Haalt data uit bestand */
 function siw_get_data( string $file ) {
 	$file = strtolower( str_replace( '_', '-', $file ) );
 
-	$data_file = SIW_DATA_DIR . '/' . "{$file}.php";
+	$data_file = SIW_DATA_DIR . "{$file}.php";
 
 	if ( ! file_exists( $data_file ) ) {
 		return null;
@@ -28,16 +21,7 @@ function siw_get_data( string $file ) {
 	return $data;
 }
 
-/**
- * Wrapper om rwmb_meta
- * 
- * @since     3.0.0
- *
- * @param string $key
- * @param array $args
- * @param int $post_id
- * @return mixed
- */
+/** Wrapper om rwmb_meta */
 function siw_meta( string $key, array $args = [], int $post_id = null ) {
 	if ( function_exists( 'rwmb_meta' ) ) {
 		$keys = explode( '.', $key );
@@ -53,17 +37,10 @@ function siw_meta( string $key, array $args = [], int $post_id = null ) {
 	return null;
 }
 
-/**
- * Geeft data-file id's uit specifieke directory terug
- * 
- * @since     3.0.0
- *
- * @param string $directory
- * @return array
- */
+/** Geeft data-file id's uit specifieke directory terug */
 function siw_get_data_file_ids( string $directory, bool $include_subdirectories = true ) : array {
 
-	$base_directory = SIW_DATA_DIR . "/{$directory}";
+	$base_directory = SIW_DATA_DIR . $directory;
 	$files = glob( $base_directory . '/*.php' );
 	if ( $include_subdirectories ) {
 		$subdirectories = glob( $base_directory . '/*', GLOB_ONLYDIR );
@@ -139,6 +116,18 @@ function siw_get_board_titles() : array {
 		'board_member' => __( 'Algemeen bestuurslid' , 'siw' ),
 	];
 	return $titles;
+}
+
+/**
+ * Geeft bestuursfunctie terug obv slug
+ *
+ * @param string $slug
+ *
+ * @return string|null
+ */
+function siw_get_board_title( string $slug ) : ?string {
+	$board_titles = siw_get_board_titles();
+	return $board_titles[ $slug ] ?? null;
 }
 
 /**

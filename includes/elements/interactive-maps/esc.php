@@ -13,41 +13,29 @@ use SIW\Elements\Interactive_Map;
  */
 class ESC extends Interactive_Map {
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string  $id = 'esc';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $file = 'europe';
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected array $data = [
 		'mapwidth'  => 600,
 		'mapheight' => 600,
 	];
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected array $options = [
 		'search' => true,
 	];
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function get_categories() : array {
 		return [];
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function get_locations() : array {
 		$countries = siw_get_countries( 'esc_projects' );
 		$locations = [];

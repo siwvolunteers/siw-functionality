@@ -24,31 +24,28 @@ class Product {
 
 		add_filter( 'manage_edit-product_columns', [ $self, 'remove_admin_columns'] );
 		add_action( 'admin_init', [ $self, 'add_admin_columns'], 20 );
+		add_action( 'admin_menu', [ $self, 'remove_product_tags_admin_menu'], PHP_INT_MAX );
+		add_filter( 'quick_edit_show_taxonomy', [ $self, 'hide_product_tags_quick_edit' ], 10, 3 );
 		add_filter( 'bulk_actions-edit-product', [ $self, 'add_bulk_actions'] );
 		add_filter( 'handle_bulk_actions-edit-product', [ $self, 'handle_bulk_actions'], 10, 3 );
 		
 		//Beoordelen projecten
 		add_action( 'post_submitbox_start', [ $self, 'show_approval_option'] );
 		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_approval_result'] );
-
-		Product_Tabs::init();
-
 		add_action( 'wp_ajax_woocommerce_select_for_carousel', [ $self, 'select_for_carousel' ] );
 	}
+	
+	/** Verwijdert admin menu voor tags */
+	public function remove_product_tags_admin_menu() {
+		remove_submenu_page( 'edit.php?post_type=product', 'edit-tags.php?taxonomy=product_tag&amp;post_type=product' );
+	}
 
-	/**
-	 * Verwijdert de texteditor
-	 */
+	/** Verwijdert de texteditor */
 	public function remove_editor() {
 		remove_post_type_support( 'product', 'editor' );
 	}
 
-	/**
-	 * Verwijdert overbodige admin columns
-	 *
-	 * @param array $columns
-	 * @return array
-	 */
+	/** Verwijdert overbodige admin columns */
 	public function remove_admin_columns( array $columns ) : array {
 		unset( $columns['thumb']);
 		unset( $columns['date'] );
@@ -57,9 +54,7 @@ class Product {
 		return $columns;
 	}
 
-	/**
-	 * Voegt extra admin columns toe
-	 */
+	/** Voegt extra admin columns toe */
 	public function add_admin_columns() {
 		if ( ! class_exists( '\MBAC\Post' ) ) {
 			return;
@@ -72,11 +67,6 @@ class Product {
 	 * 
 	 * - Opnieuw importeren
 	 * - Selecteren voor carousel
-	 *
-	 * @param array $bulk_actions
-	 * @return array
-	 * 
-	 * @todo handmatig verbergen
 	 */
 	public function add_bulk_actions( array $bulk_actions ) : array {
 		$bulk_actions['import_again'] = __( 'Opnieuw importeren', 'siw' );
@@ -85,46 +75,48 @@ class Product {
 		return $bulk_actions;
 	}
 
-	/**
-	 * Verwerkt bulkacties
-	 *
-	 * @param string $redirect_to
-	 * @param string $action
-	 * @param array $post_ids
-	 * @return string
-	 * 
-	 * @todo netjes woocommerce functies gebruiken
-	 */
-	public function handle_bulk_actions( string $redirect_to, string $action, $post_ids ) : string {
+	/** Verwerkt bulkacties */
+	public function handle_bulk_actions( string $redirect_to, string $action, array $post_ids ) : string {
 		$count = count( $post_ids );
-		$add_notice = false;
 		switch ( $action ) {
 			case 'import_again':
-				foreach ( $post_ids as $post_id ) {
-					update_post_meta( $post_id, 'import_again', true );
-				}
+				$products = wc_get_products( ['include' => $post_ids ] );
+				array_walk(
+					$products,
+					function( \WC_Product $product ) {
+						$product->update_meta_data( 'import_again', true );
+						$product->save();
+					}
+				);
 				$message = sprintf( _n( '%s project wordt opnieuw geïmporteerd.', '%s projecten worden opnieuw geïmporteerd.', $count, 'siw' ), $count );
-				$add_notice = true;
 				break;
 			case 'select_for_carousel':
-				foreach ( $post_ids as $post_id ) {
-					update_post_meta( $post_id, 'selected_for_carousel', true );
-				}
+				$products = wc_get_products( ['include' => $post_ids ] );
+				array_walk(
+					$products,
+					function( \WC_Product $product ) {
+						$product->update_meta_data( 'selected_for_carousel', true );
+						$product->save();
+					}
+				);
 				$message = sprintf( _n( '%s project is geselecteerd voor de carousel.', '%s projecten zijn geselecteerd voor de carousel.', $count, 'siw' ), $count );
-				$add_notice = true;
 				break;
 			case 'force_hide':
-				foreach ( $post_ids as $post_id ) {
-					update_post_meta( $post_id, 'force_hide', true );
-					//TODO: project direct verbergen
-				}
+				$products = wc_get_products( ['include' => $post_ids ] );
+				array_walk(
+					$products,
+					function( \WC_Product $product ) {
+						$product->update_meta_data( 'force_hide', true );
+						$product->set_catalog_visibility( 'hidden' );
+						$product->save();
+					}
+				);
 				$message = sprintf( _n( '%s project is verborgen.', '%s projecten zijn verborgen.', $count, 'siw' ), $count );
-				$add_notice = true;
 				break;
 			default:
 		}
 
-		if ( $add_notice ) {
+		if ( isset( $message ) ) {
 			$notices = new Admin_Notices;
 			$notices->add_notice( 'info', $message , true);
 		}
@@ -132,12 +124,8 @@ class Product {
 		return $redirect_to;
 	}
 
-	/**
-	 * Toont optie om nog niet gepubliceerd project af of goed te keuren
-	 *
-	 * @param \WP_Post $post
-	 */
-	public function show_approval_option( $post ) {
+	/** Toont optie om nog niet gepubliceerd project af of goed te keuren */
+	public function show_approval_option( \WP_Post $post ) {
 		if ( 'product' != $post->post_type || Import_Product::REVIEW_STATUS != $post->post_status ) {
 			return;
 		}
@@ -156,11 +144,7 @@ class Product {
 		);
 	}
 	
-	/**
-	 * Slaat het resultaat van de beoordeling op
-	 *
-	 * @param \WC_Product $product
-	 */
+	/** Slaat het resultaat van de beoordeling op */
 	public function save_approval_result( \WC_Product $product ) {
 
 		if ( ! isset( $_POST['approval_result'] ) ) {
@@ -182,22 +166,26 @@ class Product {
 		}
 	}
 
-	/**
-	 * Verwijdert metaboxes
-	 */
+	/** Verwijdert metaboxes */
 	public function remove_meta_boxes() {
 		remove_meta_box( 'slugdiv', 'product', 'normal' );
 		remove_meta_box( 'postcustom' , 'product' , 'normal' );
+		remove_meta_box( 'tagsdiv-product_tag', 'product', 'side' );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			remove_meta_box( 'woocommerce-product-images' , 'product', 'side' );
-			remove_meta_box( 'tagsdiv-product_tag', 'product', 'normal' );
 			remove_meta_box( 'product_catdiv', 'product', 'normal' );
 		}
 	}
 
-	/**
-	 * Verwerk selecteren voor carousel
-	 */
+	/** Verberg tags in quick edit */
+	public function hide_product_tags_quick_edit( bool $show, string $taxonomy_name, string $post_type ) : bool {
+		if ( 'product_tag' == $taxonomy_name ) {
+			$show = false;
+		}
+		return $show;
+	}
+
+	/** Verwerk selecteren voor carousel */
 	public function select_for_carousel() {
 		if ( current_user_can( 'edit_products' ) && check_admin_referer( 'woocommerce-select-for-carousel' ) && isset( $_GET['product_id'] ) ) {
 			$product = wc_get_product( absint( $_GET['product_id'] ) );

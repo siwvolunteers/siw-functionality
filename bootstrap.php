@@ -6,66 +6,59 @@ use SIW\Autoloader;
 /**
  * Class om alle functionaliteit van de plugin te laden
  * 
- * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Bootstrap {
 
-	/**
-	 * Standaard hook voor initialiseren class
-	 * 
-	 * @var string
-	 */
+	/** Standaard hook voor initialiseren class */
 	const DEFAULT_HOOK = 'plugins_loaded';
 
-	/**
-	 * Standaard prioriteit voor initialiseren class
-	 * 
-	 * @var int
-	 */
+	/** Standaard prioriteit voor initialiseren class */
 	const DEFAULT_PRIORITY = 10;
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public function init() {
+
+		$this->load_extensions();
+
 		$this->define_constants();
 		$this->load_dependencies();
 		$this->register_autoloader();
+		$this->load_textdomain();
 		$this->load_functions();
 
 		$this->load_core();
-		$this->load_options();
 		$this->load_api();
-		$this->load_modules();
-		$this->load_compatibility();
+		$this->init_class( 'SIW\Modules', 'Loader', 'init' );
+
+		$this->init_class( 'SIW\Compatibility', 'Loader' );
+
 		$this->load_batch_jobs();
-		$this->load_page_builder();
-		$this->load_woocommerce();
+		$this->init_class( 'SIW\Page_Builder', 'Loader' );
+		$this->init_class( 'SIW\WooCommerce', 'Loader' );
+
 		$this->load_content_types();
 
 		if ( is_admin() ) {
-			$this->load_admin();
-			//$this->load_woocommerce_admin(); //TODO: na splitsen SIW_WC_Order_Admin
+			$this->init_class( 'SIW\Admin', 'Loader' );
 		}
 
 		do_action( 'siw_plugin_loaded' );
 	}
 
-	/**
-	 * Definieer constantes
-	 */
+	/** Definieer constantes */
 	protected function define_constants() {
-		$plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/siw-functionality/siw-functionality.php' );
 
-		define ( 'SIW_PLUGIN_VERSION', $plugin_info['Version'] ); 
-		define ( 'SIW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-		define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets' );
-		define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates' );
-		define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . 'includes' );
-		define ( 'SIW_DATA_DIR', SIW_PLUGIN_DIR . 'data' );
-		define ( 'SIW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-		define ( 'SIW_ASSETS_URL', SIW_PLUGIN_URL . 'assets/' );
+		$plugin_info = get_file_data( SIW_FUNCTIONALITY_PLUGIN_FILE , [ 'version' => 'Version'] );
+
+		define ( 'SIW_PLUGIN_VERSION', $plugin_info['version'] ); 
+		define ( 'SIW_PLUGIN_DIR', wp_normalize_path( plugin_dir_path( __FILE__ ) ) );
+		define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets/' );
+		define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates/' );
+		define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . 'includes/' );
+		define ( 'SIW_WIDGETS_DIR', SIW_INCLUDES_DIR . 'widgets/' );
+		define ( 'SIW_DATA_DIR', SIW_PLUGIN_DIR . 'data/' );
+		define ( 'SIW_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 		define ( 'SIW_SITE_URL', get_home_url() );
 		define ( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL, PHP_URL_HOST ) );
 		define ( 'BR', '<br/>' );
@@ -74,47 +67,43 @@ class Bootstrap {
 		define ( 'HR', '<hr>');
 	}
 
-	/**
-	 * Externe libraries laden
-	 */
+	/** Externe libraries laden */
 	protected function load_dependencies() {
-		require_once SIW_PLUGIN_DIR . '/vendor/autoload.php';
+		require_once SIW_PLUGIN_DIR . 'vendor/autoload.php';
+		require_once SIW_PLUGIN_DIR . 'vendor/woocommerce/action-scheduler/action-scheduler.php';
 	}
 
-	/**
-	 * Zet de eigenschappen van de autoloader
-	 */
+	/** Registreer autoloaders*/
 	protected function register_autoloader() {
-		require_once SIW_INCLUDES_DIR . '/autoloader.php';
+		require_once SIW_INCLUDES_DIR . 'autoloader.php';
 		new Autoloader( 'SIW', SIW_INCLUDES_DIR );
 	}
 
-	/**
-	 * Laadt functiebestanden
-	 */
+	/** Laadt textdomain voor plugin */
+	protected function load_textdomain() {
+		load_plugin_textdomain( 'siw', false, 'siw-functionality/languages/' );
+	}
+
+	/** Laadt functiebestanden */
 	protected function load_functions() {
-		$files = glob( SIW_INCLUDES_DIR . '/functions/*.php' );
+		$files = glob( SIW_INCLUDES_DIR . 'functions/*.php' );
 		foreach ( $files as $file ) {
 			require_once $file;
 		}
 	}
 
-	/**
-	 * Laadt kernfunctionaliteit
-	 */
+	/** Laadt kernfunctionaliteit */
 	protected function load_core() {
 		$this->init_classes(
 			'SIW\Core',
 			[
 				'Assets',
 				'Head',
-				'htaccess',
 				'Icons',
 				'Login',
 				'Media_Taxonomies',
 				'Scheduler',
 				'Shortcodes',
-				'Translations',
 				'Update',
 				'Upload_Subdir',
 			]
@@ -126,48 +115,21 @@ class Bootstrap {
 				'Animation',
 				'Email\Configuration',
 				'Forms',
-				'Widgets',
 				'Newsletter\Confirmation_Page',
 			]
 		);
+
+		$this->init_class( 'SIW\Options', 'Loader' );
+
+		$this->init_class( 'SIW\Widgets', 'Loader' );
 	}
 
-	/**
-	 * Laadt opties
-	 */
-	protected function load_options() {
-		$this->init_classes(
-			'SIW\Options',
-			[ 
-				'Countries',
-				'Configuration',
-				'Settings'
-			]
-		);
+	/** Laadt extensies */
+	protected function load_extensions() {
+		$this->init_class( 'SIW', 'Extensions', 'siw_plugin_loaded' );
 	}
 
-	/**
-	 * Laadt modules
-	 */
-	protected function load_modules() {
-		$this->init_classes(
-			'SIW\Modules',
-			[
-				'Breadcrumbs',
-				'Cookie_Notice',
-				'Google_Analytics',
-				'Mega_Menu',
-				'Menu_Cart',
-				'Social_Share',
-				'Topbar',
-			],
-			'init'
-		);
-	}
-
-	/**
-	 * Laadt API-endpoints
-	 */
+	/** Laadt API-endpoints */
 	protected function load_api() {
 		$this->init_classes(
 			'SIW\API',
@@ -178,61 +140,23 @@ class Bootstrap {
 		);
 	}
 
-	/**
-	 * Laadt admin
-	 */
-	protected function load_admin() {
-		$this->init_classes(
-			'SIW\Admin',
-			[
-				'Admin',
-				'Admin_Bar',
-				'Notices',
-				'Shortcodes',
-				'Properties_Page',
-			]
-		);
-	}
-
-	/**
-	 * Laadt compatibiliteit met andere plugins
-	 */
-	protected function load_compatibility() {
-		$this->init_classes(
-			'SIW\Compatibility',
-			[
-				'Caldera_Forms',
-				'GeneratePress',
-				'Meta_Box',
-				'Password_Protected',
-				'Safe_Redirect_Manager',
-				'SiteOrigin_Page_Builder',
-				'The_SEO_Framework',
-				'UpdraftPlus',
-				'WooCommerce',
-				'WooCommerce_Multistep_Checkout',
-				'WordPress',
-				'WP_Rocket',
-				'WPML',
-			]
-		);
-
-		//Aanpassingen voor WP_Sentry moeten eerder geladen worden
-		$this->init_class( 'SIW\Compatibility', 'WP_Sentry_Integration', 'siw_plugin_loaded' );
-	}
-
-	/**
-	 * Laadt batch jobs
-	 */
+	/** Laadt batch jobs */
 	protected function load_batch_jobs() {
+
+		$this->init_classes(
+			'SIW\Actions',
+			[
+				'Loader',
+				'Scheduler'
+			]
+		);
+
 		$this->init_classes(
 			'SIW\Batch',
 			[
-				'Delete_Applications',
 				'Delete_Old_Posts',
 				'Import_Dutch_Workcamps',
 				'Import_Workcamps',
-				'Send_Workcamp_Approval_Emails',
 				'Update_Free_Places',
 				'Update_Terms',
 				'Update_Workcamps',
@@ -240,24 +164,7 @@ class Bootstrap {
 		);
 	}
 
-	/**
-	 * Laadt uitbreidingen voor SiteOrigin Page Builder
-	 */
-	protected function load_page_builder() {
-		$this->init_classes(
-			'SIW\Page_Builder',
-			[
-				'Animation',
-				'Design',
-				'Layout',
-				'Visibility'
-			]
-		);
-	}
-
-	/**
-	 * Laadt custom content types
-	 */
+	/** Laadt custom content types */
 	protected function load_content_types() {
 		$this->init_classes(
 			'SIW\Content\Types',
@@ -271,76 +178,16 @@ class Bootstrap {
 		);
 	}
 
-	/**
-	 * Laadt uitbreidingen/aanpassingen voor WooCommerce
-	 */
-	protected function load_woocommerce() {
-		$this->init_classes(
-			'SIW\Woocommerce',
-			[
-				'Admin\Coupon',
-				'Admin\Order',
-				'Admin\Product',
-				'Admin\Stockphoto_Page',
-				'Checkout\Fields',
-				'Checkout\Form',
-				'Checkout\Discount',
-				'Checkout\Newsletter',
-				'Checkout\Terms',
-				'Checkout\Validation',
-				'Export\Order',
-				'Frontend\Product',
-				'Frontend\Archive',
-			]
-		);
-		$this->init_classes(
-			'SIW\Woocommerce\Email',
-			[
-				'Emails',
-				'New_Order',
-				'Customer_On_Hold_Order',
-				'Customer_Processing_Order',
-			]
-		);
-	}
 
-	/**
-	 * Laadt uitbreidingen/aanpassingen voor WooCommerce admin
-	 */
-	protected function load_woocommerce_admin() {
-		$this->init_classes(
-			'SIW\Woocommerce\Admin',
-			[
-				'Order',
-				'Product',
-			]
-		);
-	}
-
-	/**
-	 * Laadt classes 
-	 *
-	 * @param string $namespace
-	 * @param array $classes
-	 * @param string $hook
-	 * @param int $priority
-	 */
+	/** Laadt classes */
 	protected function init_classes( string $namespace, array $classes, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
 		foreach ( $classes as $class ) {
 			$this->init_class( $namespace, $class, $hook, $priority );
 		}
 	}
 
-	/**
-	 * Laadt 1 class
-	 *
-	 * @param string $namespace
-	 * @param string $class
-	 * @param string $hook
-	 * @param int $priority
-	 */
+	/** Laadt 1 class */
 	protected function init_class( string $namespace, string $class, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
 		add_action( $hook, [ $namespace . '\\' . $class, 'init' ], $priority );
 	}
 }
-

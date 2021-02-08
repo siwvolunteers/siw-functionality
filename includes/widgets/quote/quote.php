@@ -71,21 +71,19 @@ class Quote extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
+	function get_template_variables( $instance, $args ) {
 		$quote = $this->get_quote( $instance['continent'], $instance['project_type'] );
 		
 		if ( is_null( $quote ) ) {
-			return '';
+			return [];
 		}
 
-		ob_start();
-		?>
-		<blockquote>
-			<p><?php echo esc_html( $quote['quote'] );?></p>
-			<footer><strong><?php echo esc_html( $quote['name'] );?></strong> | <?php echo esc_html( $quote['project_type'] . SPACE . $quote['country'] );?></footer>
-		</blockquote>
-		<?php
-		return ob_get_clean();
+		return [
+			'quote'        => $quote['quote'],
+			'name'         => $quote['name'],
+			'project_type' => $quote['project_type'],
+			'country'      => $quote['country'],
+		];
 	}
 
 	/**

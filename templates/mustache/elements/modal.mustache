@@ -1,0 +1,16 @@
+<div class="modal micromodal-slide" id="{{ id }}" aria-hidden="true">
+	<div class="modal-overlay" tabindex="-1" data-micromodal-close>
+		<div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="{{ id }}-title">
+			<header class="modal-header">
+				<h2 class="modal-title" id="{{ id }}-title">{{ title }}</h2>
+				<button class="modal-close" aria-label="{{ i18n.close }}" data-micromodal-close></button>
+			</header>
+			<main class="modal-body" id="{{ id }}-content">
+				<p>{{& content }}</p>
+			</main>
+			<footer class="modal-footer">
+				<button data-micromodal-close aria-label="{{ i18n.close }}">{{ i18n.close }}</button>
+			</footer>
+		</div>
+	</div>
+</div>

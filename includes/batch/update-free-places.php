@@ -4,6 +4,8 @@ namespace SIW\Batch;
 
 use SIW\Plato\Import_FPL;
 
+use function SIW\Plato\get_project_free_places;
+
 /**
  * Proces om vrije plaatsen van Groepsprojecten bij te werken
  * 
@@ -32,23 +34,12 @@ class Update_Free_Places extends Job {
 	 */
 	protected bool $schedule_job = false;
 
-	/**
-	 * Bepaalt of er nog vrije plaatsen op het project zijn
-	 *
-	 * @param int $free_m
-	 * @param int $free_f
-	 * @param string $no_more_from
-	 * @return string
-	 */
+	/** Bepaalt of er nog vrije plaatsen op het project zijn */
 	protected function has_free_places( int $free_m, int $free_f, string $no_more_from ) : string {
 		return ( ( $free_m + $free_f ) > 0 && ( false === strpos( $no_more_from, 'NLD' ) ) ) ? 'yes' : 'no';
 	}
 
-	/**
-	 * Haalt vrije plaatsen lijst uit Plato op
-	 * 
-	 * @return array
-	 */
+	/** Haalt vrije plaatsen lijst uit Plato op */
 	protected function select_data() : array {
 		$import = new Import_FPL;
 		return $import->run();
@@ -61,11 +52,11 @@ class Update_Free_Places extends Job {
 	 *
 	 * @return bool
 	 */
-	protected function task( $item ) {
+	protected function task( $project_id ) {
 
 		//Zoek project op basis van project_id
 		$args = [
-			'project_id' => $item['project_id'],
+			'project_id' => $project_id,
 			'return'     => 'objects',
 			'limit'      => -1,
 		];
@@ -77,10 +68,15 @@ class Update_Free_Places extends Job {
 		}
 		$product = $products[0];
 
+		$project_free_places = get_project_free_places( $project_id );
+		if ( null == $project_free_places ) {
+			return false;
+		}
+
 		$new_free_places = $this->has_free_places(
-			intval( $item['free_m'] ),
-			intval( $item['free_f'] ),
-			$item['no_more_from']
+			$project_free_places->get_free_m(),
+			$project_free_places->get_free_f(),
+			$project_free_places->get_no_more_from()
 		);
 
 		if ( $new_free_places !== $product->get_meta( 'freeplaces' ) ) {

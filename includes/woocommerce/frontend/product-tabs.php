@@ -15,9 +15,7 @@ use SIW\Elements\Google_Maps;
  */
 class Product_Tabs {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_filter( 'woocommerce_product_tabs', [ $self, 'remove_reviews_tab'], PHP_INT_MAX );
@@ -27,23 +25,13 @@ class Product_Tabs {
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_steps_tab'] );
 	}
 
-	/**
-	 * Verwijdert reviews-tab
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
+	/** Verwijdert reviews-tab */
 	public function remove_reviews_tab( array $tabs ) : array {
 		unset( $tabs['reviews'] );
 		return $tabs;
 	}
 
-	/**
-	 * Voegt tab met projectbeschrijving toe
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
+	/** Voegt tab met projectbeschrijving toe */
 	public function add_project_description_tab( array $tabs ) : array {
 		global $product;
 		$description = $product->get_meta( 'description' );
@@ -60,12 +48,7 @@ class Product_Tabs {
 		return $tabs;
 	}
 	
-	/**
-	 * Voegt tab met projectlocatie toe
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
+	/** Voegt tab met projectlocatie toe */
 	public function add_project_location_map_tab( array $tabs ) : array {
 		global $product;
 		$lat = (float) $product->get_meta( 'latitude' );
@@ -83,12 +66,7 @@ class Product_Tabs {
 		return $tabs;
 	}
 
-	/**
-	 * Voegt tab met contactformulier toe
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
+	/** Voegt tab met contactformulier toe */
 	public function add_contact_form_tab( array $tabs ) : array {
 		$tabs['enquiry'] = [
 			'title'    => __( 'Stel een vraag', 'siw' ),
@@ -98,12 +76,7 @@ class Product_Tabs {
 		return $tabs;
 	}
 
-	/**
-	 * Voegt tab met stappenplan toe
-	 *
-	 * @param array $tabs
-	 * @return array
-	 */
+	/** Voegt tab met stappenplan toe */
 	public function add_steps_tab( array $tabs ) : array {
 		$tabs['steps'] = [
 			'title'    => __( 'Zo werkt het', 'siw' ),
@@ -113,12 +86,7 @@ class Product_Tabs {
 		return $tabs;
 	}
 
-	/**
-	 * Toont projectbeschrijving o.b.v. gegevens uit Plato
-	 *
-	 * @param string $tab
-	 * @param array $args
-	 */
+	/** Toont projectbeschrijving o.b.v. gegevens uit Plato */
 	public function show_project_description( string $tab, array $args ) {
 
 		$description = $args['description'];
@@ -145,29 +113,19 @@ class Product_Tabs {
 		echo Elements::generate_accordion( $panes );
 	}
 
-	/**
-	 * Toont kaart met projectlocatie in tab
-	 * @param string $tab
-	 * @param array $args
-	 */
+	/** Toont kaart met projectlocatie in tab */
 	public function show_project_map( string $tab, array $args ) {
 		$map = new Google_Maps();
 		$map->add_marker( $args['lat'], $args['lng'], __( 'Projectlocatie', 'siw' ) );
 		$map->render();
 	}
 
-	/**
-	 * Toont contactformulier in tab
-	 */
+	/** Toont contactformulier in tab */
 	public function show_product_contact_form() {
 		echo do_shortcode( '[caldera_form id="contact_project"]' );
 	}
 
-	/**
-	 * Toont stappenplan in tab
-	 * 
-	 * @todo stappen uit instelling
-	 */
+	/** Toont stappenplan in tab TODO: stappen uit instelling */
 	public function show_product_steps() {
 		echo Elements::generate_features(
 			[

@@ -1,5 +1,5 @@
 .topbar {
-  background: #59ab9c;
+  background: var(--siw-secondary-color);
   color: #fff;
   text-align: center;
 }
@@ -13,5 +13,5 @@
 }
 .topbar .button.ghost:hover, .topbar .button.ghost:active, .topbar .button.ghost:visited:hover, .topbar .button.ghost:visited:active {
   background: #fff;
-  color: #59ab9c;
+  color: var(--siw-secondary-color);
 }

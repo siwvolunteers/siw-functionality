@@ -1,22 +1,23 @@
 <?php
 
-use SIW\Formatting;
+use SIW\Structured_Data\Event;
+use SIW\Structured_Data\Event_Attendance_Mode;
+use SIW\Structured_Data\Event_Status_Type;
+use SIW\Structured_Data\NL_Non_Profit_Type;
+use SIW\Structured_Data\Organization;
+use SIW\Structured_Data\Place;
+use SIW\Structured_Data\Postal_Address;
+use SIW\Structured_Data\Virtual_Location;
 use SIW\Properties;
+
 
 /**
  * Functies m.b.t. evenementen
  *
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 
-
-/**
- * Geeft toekomstige infodagen terug
- *
- * @param int $number
- *
- * @return array
- */
+/** Geeft toekomstige infodagen terug */
 function siw_get_upcoming_info_days( int $number = 1 ) : array {
 	$args = [
 		'number'   => $number,
@@ -26,13 +27,7 @@ function siw_get_upcoming_info_days( int $number = 1 ) : array {
 	return siw_get_upcoming_events( $args );
 }
 
-/**
- * Geeft toekomstige infodagen terug
- *
- * @param array $args
- *
- * @return array
- */
+/** Geeft toekomstige infodagen terug */
 function siw_get_upcoming_events( array $args = [] ) : array {
 	$args = wp_parse_args(
 		$args,
@@ -105,102 +100,56 @@ function siw_get_upcoming_events( array $args = [] ) : array {
 	return get_posts( $post_query );
 }
 
-/**
- * Genereer structured data voor evenement
- *
- * @param array $event_id
- * @return string
- * 
- * @todo verplaatsen naar Util/JsonLD
- */
+/** Genereer structured data voor evenement */
 function siw_generate_event_json_ld( int $event_id ) : string {
 
-	$data = [
-		'@context'      => 'http://schema.org',
-		'@type'         => 'event',
-		'name'          => esc_attr( get_the_title( $event_id ) ),
-		'description'   => esc_attr( get_the_excerpt( $event_id ) ),
-		'startDate'     => esc_attr(
-			wp_date(
-				'c',
-				strtotime(
-					siw_meta( 'event_date', [], $event_id ) . siw_meta( 'start_time', [], $event_id )
-				)
-			)
-		),
-		'endDate'       => esc_attr(
-			wp_date(
-				'c',
-				strtotime(
-					siw_meta( 'event_date', [], $event_id ) . siw_meta( 'end_time', [], $event_id )
-				)
-			)
-		), 
-		'url'           => esc_url( get_the_permalink( $event_id ) ),
-	];
+	$event = Event::create()
+		->set_name( get_the_title( $event_id ) )
+		->set_description( get_the_excerpt( $event_id ) )
+		->set_start_date( new \DateTime( siw_meta( 'event_date', [], $event_id ) . siw_meta( 'start_time', [], $event_id ) ) )
+		->set_end_date( new \DateTime( siw_meta( 'event_date', [], $event_id ) . siw_meta( 'end_time', [], $event_id ) ) )
+		->set_url( get_the_permalink( $event_id ) );
 
-	//Locatie
+
+	//Locatie toevoegen
 	if ( siw_meta( 'online', [], $event_id ) ) {
+		$event->set_event_attendance_mode( Event_Attendance_Mode::OnlineEventAttendanceMode() );
 		$online_location = siw_meta( 'online_location', [], $event_id );
-
-		$data['eventAttendanceMode'] = 'https://schema.org/OnlineEventAttendanceMode';
-		$data['location'] = [ 
-			'@type' => 'VirtualLocation',
-			'url'   => $online_location['url'],
-		];
-	}
-	else {
+		$location = Virtual_Location::create()
+			->set_url( $online_location['url'] );
+	} else {
+		$event->set_event_attendance_mode( Event_Attendance_Mode::OfflineEventAttendanceMode() );
 		$location = siw_meta( 'location', [], $event_id );
-
-		$data['eventAttendanceMode'] = 'https://schema.org/OfflineEventAttendanceMode';
-		$data['location'] = [
-			'@type'     => 'Place',
-			'name'      => esc_attr( $location['name'] ),
-			'address'   => esc_attr(
-				sprintf(
-					'%s %s, %s %s',
-					$location['street'],
-					$location['house_number'],
-					$location['postcode'],
-					$location['city']
-				)
-			),
-		];
+		$location = Place::create()
+			->set_name( $location['name'] )
+			->set_address(
+				Postal_Address::create()
+					->set_street_address( $location['street'] . ' ' . $location['house_number'] )
+					->set_address_locality( $location['city'] )
+					->set_postal_code( $location['postcode'] )
+					->set_address_country( 'NL' )
+			);
 	}
+	$event->set_location( $location );
 
 	//Organizer toevoegen
+	$organizer = Organization::create();
 	if ( siw_meta( 'different_organizer', [], $event_id ) ) {
-		$data['organizer'] = [
-			'@type' => 'Organization',
-			'name'  => siw_meta( 'organizer.name', [], $event_id ),
-			'url'   => siw_meta( 'organizer.url', [], $event_id ),
-		];
+		$organizer
+			->set_name( siw_meta( 'organizer.name', [], $event_id ) )
+			->set_url( siw_meta( 'organizer.url', [], $event_id ) );
 	}
 	else {
-		$data['organizer'] = [
-			'@type' => 'Organization',
-			'name'  => Properties::NAME,
-			'url'   => SIW_SITE_URL,
-		];
+		$organizer
+		->set_name( Properties::NAME )
+		->set_same_as( SIW_SITE_URL )
+		->set_logo( get_site_icon_url() )
+		->set_non_profit_status( NL_Non_Profit_Type::NonprofitANBI() );
 	}
+	$event->set_organizer( $organizer );
 
-	//event status TODO: meta toevoegen / automatisch afleiden
-	$statuses = [ 
-		'scheduled'    => 'https://schema.org/EventScheduled',
-		'cancelled'    => 'https://schema.org/EventCancelled',
-		'moved_online' => 'https://schema.org/EventMovedOnline',
-		'postponed'    => 'https://schema.org/EventPostponed',
-		'rescheduled'  => 'https://schema.org/EventRescheduled',
-	];
+	//Event status TODO:: meerdere statussen o.b.v. meta event_status
+	$event->set_event_status( Event_Status_Type::EventScheduled() );
 
-	$event_status = siw_meta( 'event_status', [], $event_id );
-	if ( is_array( $event_status) ) {
-		foreach( $event_status as $status ) {
-			$data['eventStatus'][] = $statuses[ $status ];
-		}
-	}
-	else {
-		$data['eventStatus'][] = 'https://schema.org/EventScheduled';
-	}
-	return Formatting::generate_json_ld( $data );
+	return $event->to_script();
 }

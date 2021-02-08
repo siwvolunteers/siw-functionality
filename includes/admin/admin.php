@@ -13,9 +13,7 @@ use SIW\Properties;
  */
 class Admin {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		
@@ -33,26 +31,20 @@ class Admin {
 		remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	}
 
-	/**
-	 * Voegt admin-styling toe
-	 */
+	/** Voegt admin-styling toe */
 	public function enqueue_admin_style() {
 		wp_register_style( 'siw-admin', SIW_ASSETS_URL . 'css/admin/siw-admin.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-admin' );
 	}
 
-	/**
-	 * Verwijdert standaard menu-items
-	 */
+	/** Verwijdert standaard menu-items */
 	public function hide_pages() {
 		remove_menu_page( 'edit-comments.php' );
 		remove_menu_page( 'edit.php' );
 		remove_menu_page( 'link-manager.php' );
 	}
 
-	/**
-	 * Verbergt standaard dashboard widgets
-	 */
+	/** Verbergt standaard dashboard widgets */
 	public function hide_dashboard_widgets() {
 		remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
 		remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
@@ -61,30 +53,19 @@ class Admin {
 		remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' );
 	}
 	
-	/**
-	 * Voegt copyright toe aan admin footer
-	 *
-	 * @return string
-	 */
+	/** Voegt copyright toe aan admin footer */
 	public function set_admin_footer_text() : string {
 		return sprintf( '&copy; %s %s', date( 'Y' ), Properties::NAME );
 	}
 
-	/**
-	 * Verbergt admin-column voor pagina's
-	 *
-	 * @param array $columns
-	 * @return array
-	 */
+	/** Verbergt admin-column voor pagina's */
 	public function remove_pages_columns( array $columns ) : array {
 		unset( $columns['comments'] );
 		unset( $columns['author'] );
 		return $columns;
 	}
 
-	/**
-	 * Verwijdert diverse metaboxes
-	 */
+	/** Verwijdert diverse metaboxes */
 	public function remove_page_metaboxes() {
 		remove_meta_box( 'postcustom' , 'page' , 'normal' ); 
 		remove_meta_box( 'commentstatusdiv' , 'page' , 'normal' ); 
@@ -93,13 +74,7 @@ class Admin {
 		remove_meta_box( 'authordiv' , 'page' , 'normal' ); 
 	}
 
-	/**
-	 * Zoekt menu-item o.b.v. slug
-	 *
-	 * @param string $slug
-	 * @param array $menu
-	 * @return int|null
-	 */
+	/** Zoekt menu-item o.b.v. slug */
 	protected function menu_search( string $slug, array $menu ) : ?int {
 		$menu_item = wp_list_filter(
 			$menu,
@@ -108,9 +83,7 @@ class Admin {
 		return ! empty( $menu_item ) ? key( $menu_item ) : null;
 	}
 
-	/**
-	 * Past diverse menu-items aan
-	 */
+	/** Past diverse menu-items aan */
 	public function change_menu_items() {
 		global $menu;
 	
@@ -120,9 +93,7 @@ class Admin {
 		}
 	}
 
-	/**
-	 * Voegt extra admin columns toe
-	 */
+	/** Voegt extra admin columns toe */
 	public function add_user_columns() {
 		if ( ! class_exists( '\MBAC\User' ) ) {
 			return;
