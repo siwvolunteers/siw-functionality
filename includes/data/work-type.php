@@ -8,7 +8,7 @@ namespace SIW\Data;
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-class Work_Type {
+class Work_Type extends Data{
 	
 	/** De slug van het soort werk */
 	protected string $slug;
@@ -22,37 +22,8 @@ class Work_Type {
 	/** CSS-class van icoon */
 	protected string $icon_class;
 
-	/** Geeft aan of dit soort werk gekoppeld kan worden aan een Nederlands project */
-	protected bool $dutch_projects;
-
 	/** Geeft aan of dit soort werk gekoppeld kan worden aan een Op Maat project */
 	protected bool $tailor_made_projects;
-
-	/** Constructor */
-	public function __construct( array $data ) {
-
-		$defaults = [
-			'slug'                  => '',
-			'plato_code'            => '',
-			'name'                  => '',
-			'icon_class'            => '', 
-			'dutch_projects'        => false,
-			'tailor_made_projects'  => false,
-		];
-		$data = wp_parse_args( $data, $defaults );
-
-		$data = wp_array_slice_assoc( $data, array_keys( $defaults ) );
-		
-		foreach( $data as $key => $value ) {
-			$this->$key = $value;
-		}
-		// $this->slug = $data[ 'slug' ];
-		// $this->plato_code = $data[ 'plato_code' ];
-		// $this->name = $data[ 'name' ];
-		// $this->dutch_projects = $data[ 'dutch_projects' ];
-		// $this->tailor_made_projects = $data[ 'tailor_made_projects' ];
-		// $this->icon_class = $data['icon_class'];
-	}
 
 	/** Geeft de slug van het soort werk terug */
 	public function get_slug() : string {
@@ -72,11 +43,6 @@ class Work_Type {
 	/** Geeft icon class voor voor soort -werk terug */
 	public function get_icon_class() : string {
 		return $this->icon_class;
-	}
-
-	/** Geeft terug of dit soort werk gekoppeld kan worden aan een Nederlands project */
-	public function is_for_dutch_projects() : bool {
-		return $this->dutch_projects;
 	}
 
 	/** Geeft terug of dit soort werk gekoppeld kan worden aan een Op Maat project */
