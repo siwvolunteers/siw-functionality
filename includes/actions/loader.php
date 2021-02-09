@@ -21,6 +21,7 @@ class Loader extends Object_Loader_Abstract {
 	public function get_classes() : array {
 		return [
 			Delete_Applications::class,
+			Delete_Old_Posts::class,
 			Send_Workcamp_Approval_Emails::class,
 		];
 	}
