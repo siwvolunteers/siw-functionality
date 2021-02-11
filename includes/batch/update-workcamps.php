@@ -112,9 +112,6 @@ class Update_Workcamps extends Job {
 			return false;
 		}
 
-		//Bijwerken plato status
-		$this->maybe_update_deleted_from_plato();
-
 		//Bijwerken tarieven
 		$this->maybe_update_tariffs();
 
@@ -128,29 +125,6 @@ class Update_Workcamps extends Job {
 			$this->increment_processed_count();
 		}
 		return false;
-	}
-
-	/**
-	 * Bijwerken of project uit Plato verwijderd is
-	 */
-	protected function maybe_update_deleted_from_plato() {
-
-		$imported_ids = wp_cache_get( 'imported_ids', 'siw_update_workcamps' );
-		if ( false === $imported_ids ) {
-			$imported_ids = array_merge(
-				get_option( Import_Workcamps::IMPORTED_PROJECT_IDS_OPTION, [] ),
-				get_option( Import_Dutch_Workcamps::IMPORTED_DUTCH_PROJECT_IDS_OPTION, [] )
-			);
-			wp_cache_set( 'imported_ids', $imported_ids, 'siw_update_workcamps' );
-		}
-
-		$deleted_from_plato = ! in_array( $this->product->get_meta( 'project_id' ), $imported_ids );
-
-		if ( $deleted_from_plato !== boolval( $this->product->get_meta( 'deleted_from_plato' ) ) ) {
-			$this->product->update_meta_data( 'deleted_from_plato', $deleted_from_plato );
-			$this->product->save();
-			$this->updated = true;
-		}
 	}
 
 	/**

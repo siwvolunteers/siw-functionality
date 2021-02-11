@@ -3,7 +3,6 @@
 namespace SIW\Helpers;
 
 use SIW\Database_Table;
-use wpdb;
 
 /**
  * Database helper voor SIW-tabellen
@@ -13,7 +12,7 @@ use wpdb;
 class Database {
 
 	/** DB-connectie */
-	protected wpdb $wpdb;
+	protected \wpdb $wpdb;
 
 	/** Tabelnaam (inclusief prefix) */
 	protected string $table;
@@ -25,7 +24,7 @@ class Database {
 	public function __construct( Database_Table $table ) {
 		global $wpdb;
 		$this->wpdb = $wpdb;
-		$this->table = $this->wpdb->prefix . 'siw_'. $table->value;
+		$this->table = $this->get_full_table_name( $table->value );
 		$this->columns = siw_get_data( "database/{$table->value}" );
 	}
 
@@ -45,7 +44,7 @@ class Database {
 		//Alleen data van bestaande kolommen gebruiken
 		$data = wp_array_slice_assoc( $data, wp_list_pluck( $this->columns, 'name' ) );
 		
-		$column_types = wp_list_pluck( $this->columns, 'type', 'name' );
+		$column_types = $this->get_column_data_types();
 
 		$values = [];
 		$format = [];
@@ -87,7 +86,7 @@ class Database {
 		}
 
 		// Data casten naar juiste datatype
-		$data_types = wp_list_pluck( $this->columns, 'type', 'name' );
+		$data_types = $this->get_column_data_types();
 		array_walk(
 			$data,
 			fn( &$value, $key, $data_types ) => $value = $this->typecast_value( $value, $data_types[ $key ] ),
@@ -95,6 +94,45 @@ class Database {
 		);
 		return $data;
 	}
+
+	/** Haal kolom uit database (o.b.v. where-array met `column => value` ) */
+	public function get_col( string $col, array $where = [] ) : array {
+		if ( ! in_array( $col, wp_list_pluck( $this->columns, 'name' ) ) ) {
+			return [];
+		}
+
+		//Where clause opbouwen TODO: losse functie
+		foreach ( $where as $field => $value ) {
+			if ( ! in_array( $field, wp_list_pluck( $this->columns, 'name' ) ) ) {
+				continue;
+			}
+
+			if ( is_null( $value ) ) {
+				$conditions[] = "`$field` IS NULL";
+				continue;
+			}
+			$conditions[] = "`$field` = %s"; //TODO: juiste placeholder gebruiken
+			$values[]     = $value;
+		}
+
+		if ( ! empty( $where ) ) {
+			$where_clause = implode( ' AND ', $conditions );
+		}
+		else {
+			$where_clause = '1=1';
+		}
+
+		$data = $this->wpdb->get_col(
+			$this->wpdb->prepare(
+				"SELECT {$col} FROM {$this->table} WHERE $where_clause",
+				$values
+			)
+		);
+
+		//TODO: typecasten
+		return $data;
+	}
+
 
 	/** Verwijder data */
 	public function delete( array $where ) {
@@ -127,6 +165,37 @@ class Database {
 		return empty( $this->wpdb->last_error );
 	}
 
+	/** Voeg foreign key toe */
+	public function add_foreign_key( Database_Table $referenced_table, array $referenced_fields, array $fields ) : bool {
+		//TODO: parameter voor on delete/ on update
+		//TODO: checks op velden en tabel
+		$referenced_table_full_name = $this->get_full_table_name( $referenced_table->value );
+
+
+		//Eerst kijken of de foreign key al bestaat. Zo ja, dan afbreken
+		$check_query = [];
+		$check_query[] = "SELECT CONSTRAINT_NAME";
+		$check_query[] = "FROM information_schema.TABLE_CONSTRAINTS";
+		$check_query[] = sprintf( "WHERE CONSTRAINT_SCHEMA = '%s'", $this->wpdb->dbname );
+		$check_query[] = sprintf("AND CONSTRAINT_NAME = 'fk_%s'", $referenced_table_full_name );
+		$check_query[] = "AND CONSTRAINT_TYPE = 'FOREIGN KEY'";
+		$check_query[] = sprintf( "AND TABLE_NAME = '%s'", $this->table );
+		
+
+		if ( 0 !== $this->wpdb->query( implode( PHP_EOL, $check_query )  ) ) {
+			return false;
+		}
+
+		$fk_query = [];
+		$fk_query[] = sprintf( "ALTER TABLE `%s`", $this->table );
+		$fk_query[] = sprintf( "ADD CONSTRAINT `fk_%s`", $referenced_table_full_name );
+		$fk_query[] = sprintf( "FOREIGN KEY (%s)", implode( ',', $fields ) );
+		$fk_query[] = sprintf( "REFERENCES `%s` (%s)", $referenced_table_full_name, implode( ',', $referenced_fields ) );
+		$fk_query[] = "ON DELETE CASCADE;";
+		
+		return (bool) $this->wpdb->query( implode( PHP_EOL, $fk_query ) );
+	}
+
 	/** Typecase waarde o.b.v. type */
 	protected function typecast_value( $value, string $type ) {
 		switch ( $type ) {
@@ -134,7 +203,7 @@ class Database {
 			case 'VARCHAR':
 			case 'TEXT':
 			case 'DATE':
-				$value = strval( $value );
+				$value = trim( strval( $value ) );
 				break;
 			case 'BOOL':
 				$value = boolval( $value );
@@ -147,7 +216,7 @@ class Database {
 				$value = intval( $value );
 				break;
 			default:
-				$value = strval( $value );
+				$value = trim( strval( $value ) );
 		}
 		return $value;
 	}
@@ -175,5 +244,15 @@ class Database {
 			$placeholder = '%s';
 		}
 		return $placeholder;
+	}
+
+	/** Geeft volledige tabelnaam terug */
+	protected function get_full_table_name( string $table_name ) : string {
+		return $this->wpdb->prefix . 'siw_'. $table_name;
+	}
+
+	/** Geeft data typer kolom terug */
+	protected function get_column_data_types() : array {
+		return wp_list_pluck( $this->columns, 'type', 'name' );
 	}
 }

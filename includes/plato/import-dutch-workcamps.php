@@ -5,8 +5,7 @@ namespace SIW\Plato;
 /**
  * Importeer Nederlandse Groepsprojecten uit Plato
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Import_Dutch_Workcamps extends Import_Workcamps {
 
@@ -15,6 +14,9 @@ class Import_Dutch_Workcamps extends Import_Workcamps {
 
 	/** {@inheritDoc} */
 	protected string $name = 'importeren Nederlandse groepsprojecten';
+
+	/** Geef aan dat dit Nederlandse projecten zijn */
+	protected bool $dutch_project = true;
 
 	/** Constructor */
 	public function __construct() {

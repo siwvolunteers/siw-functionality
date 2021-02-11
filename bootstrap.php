@@ -154,9 +154,6 @@ class Bootstrap {
 		$this->init_classes(
 			'SIW\Batch',
 			[
-				'Import_Dutch_Workcamps',
-				'Import_Workcamps',
-				'Update_Free_Places',
 				'Update_Terms',
 				'Update_Workcamps',
 			]
@@ -176,7 +173,6 @@ class Bootstrap {
 			]
 		);
 	}
-
 
 	/** Laadt classes */
 	protected function init_classes( string $namespace, array $classes, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {

@@ -24,8 +24,8 @@ $data = [
 	],
 	[
 		'name'        => 'project_type',
-		'type'        => 'CHAR',
-		'length'      => 3,
+		'type'        => 'VARCHAR',
+		'length'      => 4,
 	],
 	[
 		'name'        => 'work',
@@ -47,8 +47,7 @@ $data = [
 	],
 	[
 		'name'        => 'location',
-		'type'        => 'VARCHAR',
-		'length'      => 255,
+		'type'        => 'TEXT',
 		'nullable'    => true,
 	],
 	[
@@ -144,8 +143,7 @@ $data = [
 	],
 	[
 		'name'     => 'train_bus_station',
-		'type'     => 'VARCHAR',
-		'length'   => 255,
+		'type'     => 'TEXT',
 		'nullable' => true,
 	],
 	[
@@ -220,6 +218,10 @@ $data = [
 		'type'     => 'VARCHAR',
 		'length'   => 32,
 		'nullable' => true,
+	],
+	[
+		'name'     => 'dutch_project',
+		'type'     => 'BOOL'
 	],
 ];
 return $data;

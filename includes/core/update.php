@@ -48,12 +48,19 @@ class Update {
 			Database_Table::PLATO_PROJECT_IMAGES(),
 		];
 
+		//Tabellen toevoegen
 		foreach ( $tables as $table ) {
 			$db = new Database( $table );
 			if ( ! $db->create_table() ) {
 				//Afbreken als tabel aanmaken mislukt
 				return false;
 			};
+		}
+
+		//Foreign key toevoegen
+		$db = new Database( Database_Table::PLATO_PROJECT_IMAGES() );
+		if (! $db->add_foreign_key( Database_Table::PLATO_PROJECTS(), ['project_id'], ['project_id'] ) ) {
+			return false;
 		}
 		return true;
 	}

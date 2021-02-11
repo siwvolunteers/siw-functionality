@@ -2,11 +2,14 @@
 
 namespace SIW\Plato;
 
+use SIW\Database_Table;
+use SIW\Helpers\Database;
+use SIW\Util;
+
 /**
  * Importeer Groepsprojecten uit Plato
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Import_Workcamps extends Import {
 
@@ -16,76 +19,46 @@ class Import_Workcamps extends Import {
 	/** {@inheritDoc} */
 	protected string $name = 'importeren groepsprojecten';
 
-	/** Eigenschappen per project */
-	protected $properties = [
-		'project_id',
-		'code',
-		'project_type',
-		'work',
-		'start_date',
-		'end_date',
-		'name',
-		'location',
-		'country',
-		'region',
-		'languages',
-		'participation_fee',
-		'participation_fee_currency',
-		'min_age',
-		'max_age',
-		'disabled_vols',
-		'numvol',
-		'vegetarian',
-		'family',
-		'description',
-		'descr_partner',
-		'descr_work',
-		'descr_accomodation_and_food',
-		'descr_location_and_leisure',
-		'descr_requirements',
-		'descr_appointement',
-		'airport',
-		'train_bus_station',
-		'numvol_m',
-		'numvol_f',
-		'max_vols_per_country',
-		'max_teenagers',
-		'max_national_vols',
-		'lat_project',
-		'lng_project',
-		'notes',
-		'lat_station',
-		'lng_station',
-		'bi_tri_multi',
-		'ho_description',
-		'project_summary',
-		'accessibility',
-		'last_update',
-		'sdg_prj',
-	];
-	
-	/**
-	 * Verwerk xml van Plato
-	 * 
-	 * @todo partnerorganisatie opslaan (uit parent)
-	 */
+	/** Geef aan dat dit geen Nederlandse projecten zijn */
+	protected bool $dutch_project = false;
+
+	/** Verwerk xml van Plato */
 	protected function process_xml() {
+		
+		$projects_db = new Database( Database_Table::PLATO_PROJECTS() );
+		$images_db = new Database( Database_Table::PLATO_PROJECT_IMAGES() );
+
+		//Tabel leegmaken
+		$projects_db->delete(['dutch_project' => $this->dutch_project ] );
+
+		//Kolommen ophalen
+		$columns = $projects_db->get_columns();
+
 		$projects = $this->xml_response->xpath( '//project' );
 		foreach ( $projects as $project ) {
-			$project_data = [];
-			foreach ( $this->properties as $property ) {
-				$project_data[ $property ] = (string) $project->$property;
-			}
 
-			//Zoek urls van projectafbeeldingen
-			$image_urls = $project->xpath( "*[starts-with(local-name(),'url_prj_photo')]" ); 
-			$project_data['images'] = [];
-			foreach ( $image_urls as $image_url ) {
-				$url_query = parse_url( (string) $image_url, PHP_URL_QUERY );
-				parse_str( $url_query, $query );
-				$project_data['images'][] = $query['fileIdentifier'];
+			$project_data = [];
+			foreach ( $columns as $column ) {
+				if ( 'dutch_project' == $column['name'] ) {
+					$project_data[ $column['name'] ] = $this->dutch_project;
+				} else {
+					$project_data[ $column['name'] ] = (string) $project->{$column['name']};
+				}
 			}
-			$this->data[] = $project_data;
+			if ( ! $projects_db->insert( $project_data ) ) {
+				continue;
+			}
+			$this->data[] = (string) $project->project_id;
+
+			$image_urls = $project->xpath( "*[starts-with(local-name(),'url_prj_photo')]" );
+			foreach ( $image_urls as $index => $image_url ) {
+				$image_data = [
+					'project_id'      => (string) $project->project_id,
+					'image_id'        => $index,
+					'file_identifier' => Util::get_query_arg( 'fileIdentifier', (string) $image_url ),
+				];
+				$images_db->insert( $image_data );
+			}
 		}
 		return;
 	}

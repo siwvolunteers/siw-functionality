@@ -77,7 +77,7 @@ class Action {
 		array_walk(
 			$data,
 			fn( $item ) => as_schedule_single_action(
-				current_time('timestamp'),
+				current_time( 'timestamp', true ),
 				"siw_action_{$this->action->get_id()}_process",
 				[ 'id' => $item ], self::ACTION_GROUP
 			)
