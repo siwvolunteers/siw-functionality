@@ -65,7 +65,6 @@ class Product_Tabs {
 	public function hide_tabs( array $tabs ) : array {
 		$tabs['advanced']['class'] = ['show_if_simple'];
 		$tabs['shipping']['class'] = ['show_if_simple'];
-		$tabs['Mollie']['class'] = ['show_if_simple'];
 		$tabs['linked_product']['class'] = ['show_if_simple'];
 
 		if ( ! current_user_can( 'manage_options' ) ) {
