@@ -27,20 +27,20 @@ class Bootstrap {
 		$this->load_textdomain();
 		$this->load_functions();
 
+		//Laadt klasses
 		$this->load_core();
+		$this->init_loader( 'Options' );
+		$this->init_loader( 'Widgets' );
 		$this->load_api();
-		$this->init_class( 'SIW\Modules', 'Loader', 'init' );
-
-		$this->init_class( 'SIW\Compatibility', 'Loader' );
-
-		$this->load_batch_jobs();
-		$this->init_class( 'SIW\Page_Builder', 'Loader' );
-		$this->init_class( 'SIW\WooCommerce', 'Loader' );
-
+		$this->init_loader( 'Modules', 'init' );
+		$this->init_loader( 'Compatibility' );
+		$this->load_actions();
+		$this->init_loader( 'Page_Builder');
+		$this->init_loader( 'WooCommerce' );
 		$this->load_content_types();
 
 		if ( is_admin() ) {
-			$this->init_class( 'SIW\Admin', 'Loader' );
+			$this->init_loader( 'Admin' );
 		}
 
 		do_action( 'siw_plugin_loaded' );
@@ -92,6 +92,11 @@ class Bootstrap {
 		}
 	}
 
+	/** Init loader */
+	protected function init_loader( string $namespace, string $hook = self::DEFAULT_HOOK ) {
+		$this->init_class( "SIW\\{$namespace}", 'Loader', $hook );
+	}
+
 	/** Laadt kernfunctionaliteit */
 	protected function load_core() {
 		$this->init_classes(
@@ -117,10 +122,6 @@ class Bootstrap {
 				'Newsletter\Confirmation_Page',
 			]
 		);
-
-		$this->init_class( 'SIW\Options', 'Loader' );
-
-		$this->init_class( 'SIW\Widgets', 'Loader' );
 	}
 
 	/** Laadt extensies */
@@ -140,7 +141,7 @@ class Bootstrap {
 	}
 
 	/** Laadt batch jobs */
-	protected function load_batch_jobs() {
+	protected function load_actions() {
 
 		$this->init_classes(
 			'SIW\Actions',
