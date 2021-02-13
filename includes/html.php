@@ -51,29 +51,9 @@ class HTML {
 		}
 	}
 
-	/** Genereert `<div>` tag */
-	public static function div( array $attributes, string $content = '' ) : string {
-		return self::tag( 'div', $attributes, $content );
-	}
-
-	/** Genereert `<span>` tag */
-	public static function span(  array $attributes, string $content = '' ) : string {
-		return self::tag( 'span', $attributes, $content );
-	}
-
 	/** Genereert `<a>` tag */
 	public static function a( array $attributes, string $content = '') : string {
 		return self::tag( 'a', $attributes, $content );
-	}
-
-	/** Genereert `<svg>` tag */
-	public static function svg( array $attributes, string $content = '' ) : string {
-		return self::tag( 'svg', $attributes, $content );
-	}
-
-	/** Genereert `<li>` tag */
-	public static function li( array $attributes, string $content = '' ) : string {
-		return self::tag( 'li', $attributes, $content );
 	}
 
 	/** sanitize_html_class voor meerdere classes*/

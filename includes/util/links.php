@@ -38,15 +38,6 @@ class Links {
 		return HTML::a( $attributes, $text ?? $url ); //TODO: icon 
 	}
 
-	/** Genereert tel-link */
-	public static function generate_tel_link( string $phone, string $text = null, array $attributes = [] ) : string {
-		$attributes = wp_parse_args( 
-			$attributes,
-			[ 'href' => "tel:{$phone}" ]
-		);
-		return HTML::a( $attributes, $text ?? $phone );
-	}
-
 	/** Genereert mailto-link */
 	public static function generate_mailto_link( string $email, string $text = null, array $attributes = [] ) : string {
 		$email = antispambot( $email );
