@@ -103,50 +103,31 @@ class Elements {
 		return $modal->generate_link( $link_text );
 	}
 
-	/** Genereert html voor icon */
+	/** Genereert html voor icon TODO: aparte templates voor met en zonder background */
 	public static function generate_icon( string $icon_class, int $size = 2, string $background = 'none' ) : string {
 
 		switch ( $background ) {
 			case 'circle':
 			case 'square':
 				$has_background = true;
-				$background_class = "siw-icon-{$background}";
+				$background_class = $background;
 				break;
 			default:
-			$has_background = false;
+				$has_background = false;
+				$background_class = '';
 		}
 
-		if ( $has_background ) {
-			$background_icon = HTML::svg(
-				[ 'class' => 'siw-background-icon' ],
-				sprintf( '<use xlink:href="#%s" />', $background_class )
-			);
-
-			$icon = HTML::svg(
-				[ 'class' => 'siw-icon-inverse' ],
-				sprintf( '<use xlink:href="#%s" />', $icon_class )
-			);
-
-			return HTML::span(
-				[
-					'class'       => sprintf( 'siw-icon siw-icon-background siw-icon-background-%sx', $size ),
-					'aria-hidden' => 'true',
-					'focusable'   => 'false'
+		return  Template::parse_template(
+			'elements/icon',
+			[
+				'icon' => [
+					'size'             => $size,
+					'icon_class'       => $icon_class,
+					'has_background'   => $has_background,
+					'background_class' => $background_class,
 				],
-				$background_icon . $icon
-			);
-
-		}
-		else {
-			return HTML::svg(
-				[
-					'class'       => "siw-icon siw-icon-{$size}x",
-					'aria-hidden' => 'true',
-					'focusable'   => 'false'
-				],
-				sprintf( '<use xlink:href="#%s" />', $icon_class )
-			);
-		}
+			]
+		);
 	}
 
 	/** Genereert quote */
