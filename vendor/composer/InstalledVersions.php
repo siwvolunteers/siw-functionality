@@ -29,19 +29,19 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'd800c47f9a767e09d0d675abcf8a6f43ff89c594',
+    'reference' => 'ba75627458180fd72bbdcbf589f80b7c97ed72d5',
     'name' => 'siwvolunteers/siw-functionality',
   ),
   'versions' => 
   array (
-    'donut/array_dig' => 
+    'adbario/php-dot-notation' => 
     array (
-      'pretty_version' => '0.1.1',
-      'version' => '0.1.1.0',
+      'pretty_version' => '2.2.0',
+      'version' => '2.2.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd21b481d4377f90aef9d969c3a7da9c06f95bcc0',
+      'reference' => 'eee4fc81296531e6aafba4c2bbccfc5adab1676e',
     ),
     'kallookoo/wp_parse_args_recursive' => 
     array (
@@ -68,7 +68,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'd800c47f9a767e09d0d675abcf8a6f43ff89c594',
+      'reference' => 'ba75627458180fd72bbdcbf589f80b7c97ed72d5',
     ),
     'spatie/array-to-xml' => 
     array (

@@ -6,6 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    '21330799d40d10ecb9ec9375884bd45d' => $vendorDir . '/donut/array_dig/array_dig.php',
+    'd767e4fc2dc52fe66584ab8c6684783e' => $vendorDir . '/adbario/php-dot-notation/src/helpers.php',
     '6168384990757e5fc380d01d460961a8' => $vendorDir . '/kallookoo/wp_parse_args_recursive/src/wp-parse-args-recursive.php',
 );

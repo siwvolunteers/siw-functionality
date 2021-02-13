@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
 {
     public static $files = array (
-        '21330799d40d10ecb9ec9375884bd45d' => __DIR__ . '/..' . '/donut/array_dig/array_dig.php',
+        'd767e4fc2dc52fe66584ab8c6684783e' => __DIR__ . '/..' . '/adbario/php-dot-notation/src/helpers.php',
         '6168384990757e5fc380d01d460961a8' => __DIR__ . '/..' . '/kallookoo/wp_parse_args_recursive/src/wp-parse-args-recursive.php',
     );
 
@@ -16,6 +16,10 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         array (
             'Spatie\\Enum\\' => 12,
             'Spatie\\ArrayToXml\\' => 18,
+        ),
+        'A' => 
+        array (
+            'Adbar\\' => 6,
         ),
     );
 
@@ -27,6 +31,10 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         'Spatie\\ArrayToXml\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/array-to-xml/src',
+        ),
+        'Adbar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/adbario/php-dot-notation/src',
         ),
     );
 

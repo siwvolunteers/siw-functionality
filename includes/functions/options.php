@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
+use Adbar\Dot;
+
 /**
  * Functies m.b.t. opties
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-
-use function Donut\Util\array_dig;
 
 /** Haal optie op */
 function siw_get_option( string $option, $default = null ) {
@@ -23,7 +23,9 @@ function siw_get_option( string $option, $default = null ) {
 		return $value;
 	}
 	$options = get_option( 'siw_options' );
-	$value = array_dig( $options, explode( '.', $option ) );
+
+	$dot = new Dot( $options );
+	$value = $dot->get( $option );
 
 	if ( empty( $value ) ) {
 		return $default;

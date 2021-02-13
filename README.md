@@ -17,3 +17,5 @@ https://siwvolunteers.github.io/
 - [Balloon.css](https://kazzkiq.github.io/balloon.css/)
 - [PHP enum](https://github.com/spatie/enum)
 - [Action Scheduler](https://actionscheduler.org/)
+- [Dot](https://github.com/adbario/php-dot-notation)
+- [Mustache.php](https://github.com/bobthecow/mustache.php)
