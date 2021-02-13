@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Email;
+namespace SIW;
 
 use SIW\Properties;
 
@@ -15,9 +15,8 @@ use PHPMailer\PHPMailer\PHPMailer;
  * - Afzender
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
-class Configuration {
+class Email {
 
 	/** Init */
 	public static function init() {

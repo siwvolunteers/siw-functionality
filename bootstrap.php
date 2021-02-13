@@ -112,7 +112,7 @@ class Bootstrap {
 			'SIW',
 			[
 				'Animation',
-				'Email\Configuration',
+				'Email',
 				'Forms',
 				'Newsletter\Confirmation_Page',
 			]
