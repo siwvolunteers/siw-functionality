@@ -81,12 +81,12 @@ private static $installed = array (
     ),
     'spatie/enum' => 
     array (
-      'pretty_version' => '3.7.0',
-      'version' => '3.7.0.0',
+      'pretty_version' => '3.7.1',
+      'version' => '3.7.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '4d4f2ff8d778fcaacbe4c59edeccad9a1fb2bcac',
+      'reference' => 'c86b1fd251ccbb0cc7237d3376a75a6e28ad051c',
     ),
     'woocommerce/action-scheduler' => 
     array (
