@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Actions;
+namespace SIW\Actions\Batch;
 
-use SIW\Interfaces\Actions\Action as Action_Interface;
+use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
 /**
  * Class om actie toe te voegen
@@ -25,10 +25,10 @@ class Action {
 	const ACTION_GROUP = 'siw_process';
 
 	/** Actie */
-	protected Action_Interface $action;
+	protected Batch_Action_Interface $action;
 
 	/** Init */
-	public function __construct( Action_Interface $action ) {
+	public function __construct( Batch_Action_Interface $action ) {
 		$this->action = $action;
 
 		add_filter( 'siw_scheduler_actions', [ $this, 'add_action_to_scheduler'] );

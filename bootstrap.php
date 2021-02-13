@@ -102,7 +102,6 @@ class Bootstrap {
 				'Icons',
 				'Login',
 				'Media_Taxonomies',
-				'Scheduler',
 				'Shortcodes',
 				'Update',
 				'Upload_Subdir',
@@ -148,14 +147,6 @@ class Bootstrap {
 			[
 				'Loader',
 				'Scheduler'
-			]
-		);
-
-		$this->init_classes(
-			'SIW\Batch',
-			[
-				'Update_Terms',
-				'Update_Workcamps',
 			]
 		);
 	}

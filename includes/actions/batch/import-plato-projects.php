@@ -1,19 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Actions;
+namespace SIW\Actions\Batch;
 
-use SIW\Interfaces\Actions\Action as Action_Interface;
+use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 use SIW\Plato\Import_Workcamps as Plato_Import_Workcamps;
 use SIW\WooCommerce\Import\Product as Import_Product;
-
-use function SIW\Plato\get_project;
 
 /**
  * Importeren projecten uit Plato
  * 
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Import_Plato_Projects implements Action_Interface {
+class Import_Plato_Projects implements Batch_Action_Interface {
 
 	/** {@inheritDoc} */
 	public function get_id() : string {
@@ -33,7 +31,7 @@ class Import_Plato_Projects implements Action_Interface {
 
 	/** {@inheritDoc} */
 	public function process( $project_id ) {
-		$plato_project = get_project( $project_id );
+		$plato_project = siw_get_plato_project( $project_id );
 		$import = new Import_Product( $plato_project );
 		$import->process();
 	}

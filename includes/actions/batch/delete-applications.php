@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Actions;
+namespace SIW\Actions\Batch;
 
-use SIW\Interfaces\Actions\Action as Action_Interface;
+use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
 /**
  * Proces om oude aanmeldingen te verwijderen
  * 
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Delete_Applications implements Action_Interface {
+class Delete_Applications implements Batch_Action_Interface {
 
 	/** Maximale leeftijd van aanmeldingen */
 	const MAX_AGE_APPLICATIONS = 12 * MONTH_IN_SECONDS;

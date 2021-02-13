@@ -69,6 +69,9 @@ class WooCommerce {
 
 		add_filter( 'get_term', [ $self, 'filter_term_name'], 10, 2 );
 
+		add_filter( 'siw_update_woocommerce_terms_taxonomies', [ $self, 'set_update_terms_taxonomies'] );
+		add_filter( 'siw_update_woocommerce_terms_delete_empty', [ $self, 'set_update_terms_delete_empty'], 10, 2 );
+
 		add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta'] );
 		add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type' ] );
 		add_filter( 'siw_carousel_post_type_taxonomies', [ $self, 'add_carousel_post_type_taxonomies' ] );
@@ -226,13 +229,22 @@ class WooCommerce {
 		return $term;
 	}
 
-	/**
-	 * Zet call to action voor social share links
-	 *
-	 * @param array $post_types
-	 *
-	 * @return array
-	 */
+	/** Zet taxonomies waarvan terms bijgewerkt moet worden */
+	public function set_update_terms_taxonomies( array $taxonomies ) : array {
+		$taxonomies[] = 'product_cat';
+		$taxonomies[] = 'pa_maand';
+		return $taxonomies;
+	}
+
+	/** Undocumented function */
+	public function set_update_terms_delete_empty( bool $delete_empty, string $taxonomy ) : bool {
+		if ( 'pa_maand' == $taxonomy ) {
+			$delete_empty = true;
+		}
+		return $delete_empty;
+	}
+
+	/** Zet call to action voor social share links */
 	public function set_social_share_cta( array $post_types ) : array {
 		$post_types['product'] = __( 'Deel dit project', 'siw' );
 		return $post_types;

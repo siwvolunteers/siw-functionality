@@ -119,7 +119,8 @@ class Database {
 			$where_clause = implode( ' AND ', $conditions );
 		}
 		else {
-			$where_clause = '1=1';
+			$where_clause = '1 = %d';
+			$values[] = 1;
 		}
 
 		$data = $this->wpdb->get_col(

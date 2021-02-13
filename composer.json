@@ -12,7 +12,6 @@
 	"require": {
 		"php": ">=7.4",
 		"kallookoo/wp_parse_args_recursive": "1.*",
-		"deliciousbrains/wp-background-processing": "dev-master",
 		"spatie/array-to-xml": "2.*",
 		"spatie/enum": "3.*",
 		"donut/array_dig": "*",

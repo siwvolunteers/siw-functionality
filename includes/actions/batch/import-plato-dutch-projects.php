@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Actions;
+namespace SIW\Actions\Batch;
 
-use SIW\Interfaces\Actions\Action as Action_Interface;
-use SIW\Plato\Import_Dutch_Workcamps as Plato_Import_Dutch_Workcamps;
+use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
+use SIW\Import_Dutch_Workcamps as Plato_Import_Dutch_Workcamps;
 
 /**
  * Importeren Nederlande projecten uit Plato
  * 
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Import_Plato_Dutch_Projects extends Import_Plato_Projects implements  Action_Interface  {
+class Import_Plato_Dutch_Projects extends Import_Plato_Projects implements  Batch_Action_Interface  {
 
 	/** {@inheritDoc} */
 	public function get_id() : string {

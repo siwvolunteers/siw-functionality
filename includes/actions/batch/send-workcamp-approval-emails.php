@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Actions;
+namespace SIW\Actions\Batch;
 
 use SIW\Email\Template;
-use SIW\Interfaces\Actions\Action as Action_Interface;
+use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 use SIW\Util\Links;
 use SIW\WooCommerce\Import\Product as Import_Product;
 
@@ -12,7 +12,7 @@ use SIW\WooCommerce\Import\Product as Import_Product;
  * 
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Send_Workcamp_Approval_Emails implements Action_Interface {
+class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 
 	/** Taxonomie voor continenten */
 	const CONTINENT_TAXONOMY = 'product_cat';

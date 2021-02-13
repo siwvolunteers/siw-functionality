@@ -16,9 +16,6 @@ class Stockphoto_Page {
 	/** Pagina-ID */
 	protected string $page_id = 'siw-stockphotos';
 
-	/** Async request voor verwerken van upload */
-	protected Process_Stockphoto_Upload $process_stockphoto_upload;
-
 	/** Upload-subdirectory voor stockfotos */
 	protected string $upload_subdir = 'groepsprojecten/stockfotos';
 
@@ -28,7 +25,6 @@ class Stockphoto_Page {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		$self->process_stockphoto_upload = new Process_Stockphoto_Upload();
 		
 		add_filter( 'mb_settings_pages', [ $self, 'add_page'] ) ;
 		add_filter( 'rwmb_meta_boxes', [ $self, 'add_metabox'] );
@@ -91,7 +87,7 @@ class Stockphoto_Page {
 							
 						],
 						[
-							'id'          => 'work_type',
+							'id'          => 'work_types',
 							'type'        => 'select_advanced',
 							'name'        => __( 'Soort werk', 'siw' ),
 							'placeholder' => __( 'Selecteer soort(en) werk', 'siw '),
@@ -115,31 +111,31 @@ class Stockphoto_Page {
 		foreach ( $new as $group ) {
 			$continent = $group['continent'];
 			$country = $group['country'];
-			$work_type = $group['work_type'];
+			$work_types = $group['work_types'];
 
 			foreach ( $group['file'] as $url ) {
 	
 				$file = wp_normalize_path( trailingslashit( $this->temp_dir ) . basename( $url ) );
 
 				$data = [
-					'file'      => $file,
-					'continent' => $continent,
-					'country'   => $country,
-					'work_type' => $work_type,
+					'file'       => $file,
+					'continent'  => $continent,
+					'country'    => $country,
+					'work_types' => $work_types,
 				];
-				$this->process_stockphoto_upload->data( $data );
-				$this->process_stockphoto_upload->dispatch();
+
+				siw_enqueue_async_action( 'process_stockphoto_upload', $data );
 			}
 		}
 	}
 
 	/** Voegt WooCommerce navigatiebalk toe */
 	public function add_woocommerce_navigation_bar() {
-		if ( ! function_exists( 'wc_admin_connect_page' ) ) {
+		if ( ! function_exists( '\wc_admin_connect_page' ) ) {
 			return;
 		}
 		
-		wc_admin_connect_page(
+		\wc_admin_connect_page(
 			[
 				'id'        => 'siw-stockphotos',
 				'parent'    => 'woocommerce-products',

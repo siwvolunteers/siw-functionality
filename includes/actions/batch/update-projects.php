@@ -1,10 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Batch;
+namespace SIW\Actions\Batch;
+
+use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
 use SIW\Data\Country;
+use SIW\Database_Table;
+use SIW\Helpers\Database;
 use SIW\Util;
-use SIW\WooCommerce\Import\Product_Image;
+use SIW\WooCommerce\Import\Product_Image as Import_Product_Image;
+use SIW\WooCommerce\Import\Free_Places as Import_Free_Places;
 
 /**
  * Proces om Groepsprojecten bij te werken
@@ -14,70 +19,39 @@ use SIW\WooCommerce\Import\Product_Image;
  * - Zichtbaarheid
  * - Stockfoto's
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.0
+ * @copyright 20201 SIW Internationale Vrijwilligersprojecten
  * 
  * @todo  Plato-afbeelding verwijderen als project al begonnen is of uit Plato verwijderd is
  */
-class Update_Workcamps extends Job {
+class Update_Projects implements Batch_Action_Interface {
 
-	/**
-	 * Aantal maanden voordat Groepsproject verwijderd wordt.
-	 * 
-	 * @var int
-	 */
-	const MAX_AGE_WORKCAMP = 6;
+	/** Aantal maanden voordat project verwijderd wordt. */
+	const MAX_AGE_PROJECT = 6;
 
-	/**
-	 * Aantal maanden voordat Nederlands Groepsproject wordt.
-	 * 
-	 * @var int
-	 */
-	const MAX_AGE_DUTCH_WORKCAMP = 9;
+	/** Aantal maanden voordat Nederlands project verwijderd wordt. */
+	const MAX_AGE_DUTCH_PROJECT = 9;
 
-	/**
-	 * Minimaal aantal dagen dat project in toekomst moet starten om zichtbaar te zijn
-	 * 
-	 * @var int
-	 */
+	/** Minimaal aantal dagen dat project in toekomst moet starten om zichtbaar te zijn */
 	const MIN_DAYS_BEFORE_START = 3;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected $action = 'update_workcamps';
+	/** {@inheritDoc} */
+	public function get_id() : string {
+		return 'update_projects';
+	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $name = 'bijwerken Groepsprojecten';
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $category = 'groepsprojecten';
+	/** {@inheritDoc} */
+	public function get_name() : string {
+		return __( 'Bijwerken projecten', 'siw' );
+	}
 
-	/**
-	 * Product
-	 */
+	/** Product */
 	protected \WC_Product $product;
 
-	/**
-	 * Is het project bijgewerkt?
-	 */
+	/** Is het project bijgewerkt? */
 	protected bool $updated;
 
-	/**
-	 * Is het project verwijderd?
-	 */
-	protected bool $deleted;
-
-	/**
-	 * Selecteer alle projecten
-	 *
-	 * @return array
-	 */
-	protected function select_data() : array {
+	/** {@inheritDoc} */
+	public function select_data() : array {
 		$args = [
 			'return'     => 'ids',
 			'limit'      => -1,
@@ -85,32 +59,23 @@ class Update_Workcamps extends Job {
 		return wc_get_products( $args );
 	}
 
-	/**
-	 * Werk tarieven van het groepsproject bij
-	 *
-	 * @param int $product_id
-	 *
-	 * @return mixed
-	 */
-	protected function task( $product_id ) {
-		$this->product = wc_get_product( $product_id );
+	/** {@inheritDoc} */
+	public function process( $product_id ) {
+		$product = wc_get_product( $product_id );
 		
 		/* Afbreken als product niet meer bestaat */
-		if ( ! is_a( $this->product, \WC_Product::class ) ) {
+		if ( ! is_a( $product, \WC_Product::class ) ) {
 			return false;
 		}
-	
-		$this->updated = false;
-		$this->deleted = false;
-
-		//delete oude producten
-		$this->maybe_delete_project();
+		$this->product = $product;
 
 		//Als het project verwijderd is, is de rest niet meer nodig
-		if ( $this->deleted ) {
-			$this->increment_processed_count();
-			return false;
+		if ( $this->maybe_delete_project() ) {
+			return;
 		}
+
+		//Bijwerken plato status
+		$this->maybe_update_deleted_from_plato();
 
 		//Bijwerken tarieven
 		$this->maybe_update_tariffs();
@@ -120,16 +85,30 @@ class Update_Workcamps extends Job {
 
 		//Bijwerken stockfoto
 		$this->maybe_set_stockphoto();
-
-		if ( $this->updated ) {
-			$this->increment_processed_count();
-		}
-		return false;
+		return;
 	}
 
 	/**
-	 * Bijwerken tarieven
+	 * Bijwerken of project uit Plato verwijderd is
 	 */
+	protected function maybe_update_deleted_from_plato() {
+
+		$project_ids = wp_cache_get( 'project_ids', 'siw_update_workcamps' );
+		if ( false === $project_ids ) {
+			$project_db = new Database( Database_Table::PLATO_PROJECTS() );
+			$project_ids = $project_db->get_col( 'project_id' );
+			wp_cache_set( 'project_ids', $project_ids, 'siw_update_workcamps' );
+		}
+
+		$deleted_from_plato = ! in_array( $this->product->get_meta( 'project_id' ), $project_ids );
+
+		if ( $deleted_from_plato !== boolval( $this->product->get_meta( 'deleted_from_plato' ) ) ) {
+			$this->product->update_meta_data( 'deleted_from_plato', $deleted_from_plato );
+			$this->product->save();
+		}
+	}
+
+	/** Bijwerken tarieven */
 	protected function maybe_update_tariffs() {
 		if ( $this->product->get_meta( 'has_custom_tariff' ) ) {
 			return;
@@ -158,9 +137,9 @@ class Update_Workcamps extends Job {
 			]);
 			if ( ! empty( $variation->get_changes() ) ) {
 				$variation->save();
-				$this->updated = true;
 			}
 		}
+		return;
 	}
 
 	/**
@@ -178,7 +157,7 @@ class Update_Workcamps extends Job {
 
 		$visibility = 'visible';
 		if (
-			'no' === $this->product->get_meta( 'freeplaces' )
+			$this->product->get_meta( Import_Free_Places::META_KEY )
 			||
 			! is_a( $country, Country::class )
 			||
@@ -204,13 +183,11 @@ class Update_Workcamps extends Job {
 				$this->product->update_meta_data( 'selected_for_carousel', false );
 			}
 			$this->product->save();
-			$this->updated = true;
 		}
+		return;
 	}
 
-	/**
-	 * Probeer stockfoto toe te wijzen aan project
-	 */
+	/** Probeer stockfoto toe te wijzen aan project */
 	protected function maybe_set_stockphoto() {
 
 		//Afbreken als het project al een afbeelding heeft
@@ -233,28 +210,26 @@ class Update_Workcamps extends Job {
 		);
 
 		//Stockfoto proberen te vinden
-		$import_image = new Product_Image;
+		$import_image = new Import_Product_Image;
 		$image_id = $import_image->get_stock_image( $country, $work_types );
 
 		if ( is_int( $image_id ) ) {
 			$this->product->set_image_id( $image_id );
 			$this->product->save();
-			$this->updated = true;
 		}
+		return;
 	}
 
-	/**
-	 * Oude projecten verwijderen
-	 */
-	protected function maybe_delete_project() {
+	/** Oude projecten verwijderen */
+	protected function maybe_delete_project() : bool {
 	
 		$start_date = $this->product->get_meta( 'start_date');
-		$max_age = ( 'nederland' == $this->product->get_meta( 'country' ) ) ? self::MAX_AGE_DUTCH_WORKCAMP : self::MAX_AGE_WORKCAMP;
+		$max_age = ( 'nederland' == $this->product->get_meta( 'country' ) ) ? self::MAX_AGE_DUTCH_PROJECT : self::MAX_AGE_PROJECT;
 		$min_date = date( 'Y-m-d', time() - ( $max_age * MONTH_IN_SECONDS ) );
 
 		//Afbreken als project nog niet oud genoeg is
 		if ( $start_date > $min_date ) {
-			return;
+			return false;
 		}
 		
 		//Verwijder projectspecifieke afbeeldingen
@@ -286,6 +261,6 @@ class Update_Workcamps extends Job {
 
 		//Verwijder het product zelf
 		$this->product->delete( true );
-		$this->deleted = true;
+		return true;
 	}
 }

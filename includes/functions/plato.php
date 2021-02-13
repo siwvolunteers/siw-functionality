@@ -1,7 +1,5 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Plato;
-
 /**
  * Functies m.b.t. Plato
  * 
@@ -14,7 +12,7 @@ use SIW\Database_Table;
 use SIW\Helpers\Database;
 
 /** Haal Plato FPL op o.b.v. project id */
-function get_project_free_places( string $project_id ) : ?Project_Free_Places {
+function siw_get_plato_project_free_places( string $project_id ) : ?Project_Free_Places {
 
 	$db = new Database( Database_Table::PLATO_PROJECT_FREE_PLACES() );
 	$data = $db->get_row( [ 'project_id' => $project_id ] );
@@ -26,7 +24,7 @@ function get_project_free_places( string $project_id ) : ?Project_Free_Places {
 }
 
 /** Haal Plato project op o.b.v. project id */
-function get_project( string $project_id ) :?Project {
+function siw_get_plato_project( string $project_id ) :?Project {
 
 	//Ophalen projectinformatie
 	$projects_db = new Database( Database_Table::PLATO_PROJECTS() );

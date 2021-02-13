@@ -12,7 +12,6 @@ https://siwvolunteers.github.io/
 - [JavaScript Cookie](https://github.com/js-cookie/js-cookie)
 - [Flickity](https://github.com/metafizzy/flickity)
 - [wp_parse_args_recursive](https://github.com/kallookoo/wp_parse_args_recursive)
-- [WP Background Processing](https://github.com/deliciousbrains/wp-background-processing)
 - [Convert an array to xml](https://github.com/spatie/array-to-xml)
 - [Sal.js](https://mciastek.github.io/sal/)
 - [Balloon.css](https://kazzkiq.github.io/balloon.css/)

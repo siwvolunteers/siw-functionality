@@ -39,17 +39,17 @@ class Attachment {
 
 	/** Init */
 	public function __construct( string $filetype, string $subdir ) {
-		
+		require_once( ABSPATH . 'wp-admin/includes/file.php' );
 		$this->filetype = $filetype;
 
 		//Bepaal standaard upload dir
-		$upload_dir = wp_upload_dir( null, false );
+		$upload_dir = \wp_upload_dir( null, false );
 		$this->upload_dir = $upload_dir['basedir'];
 		$this->upload_url = $upload_dir['baseurl'];
 
 		//Zet subdirectory voor upload
 		$this->subdir = $subdir;
-		add_filter( 'siw_upload_subdir', [ $this, 'set_upload_subdir'] );
+		\add_filter( 'siw_upload_subdir', [ $this, 'set_upload_subdir'] );
 	}
 
 	/** Voegt attachment toe */
@@ -77,15 +77,15 @@ class Attachment {
 		$temp_filename = basename( $temp_file );
 
 		//Controleren bestand
-		$check = wp_check_filetype_and_ext( $temp_file, $temp_filename );
+		$check = \wp_check_filetype_and_ext( $temp_file, $temp_filename );
 		if ( false == $check['type'] || ( null !== $this->filetype && $this->filetype !== wp_ext2type( $check['ext'] ) ) ) {
-			wp_delete_file( $temp_file );
+			\wp_delete_file( $temp_file );
 			return null;
 		}
 
 		//Genereer bestandsnaam
 		$filename .= ".{$check['ext']}";
-		$filename = wp_unique_filename( "{$this->upload_dir}/{$this->subdir}", $filename );
+		$filename = \wp_unique_filename( "{$this->upload_dir}/{$this->subdir}", $filename );
 
 
 		//Bestand verplaatsen naar upload directory
@@ -99,8 +99,8 @@ class Attachment {
 		$overrides = [
 			'test_form' => false,
 		];
-		$file_attributes = wp_handle_sideload( $file, $overrides );
-		return _wp_relative_upload_path( $file_attributes['file'] );
+		$file_attributes = \wp_handle_sideload( $file, $overrides );
+		return \_wp_relative_upload_path( $file_attributes['file'] );
 	}
 
 	/** Zet minimum resolutie van afbeelding */
@@ -117,25 +117,25 @@ class Attachment {
 
 	/** Voegt attachment toe aan database */
 	protected function create_attachment( string $relative_path, string $title ) : ?int {
-		$file = wp_normalize_path( $this->upload_dir . '/' . $relative_path );
+		$file = \wp_normalize_path( $this->upload_dir . '/' . $relative_path );
 
-		$attachment_id = wp_insert_attachment( [
+		$attachment_id = \wp_insert_attachment( [
 			'guid'           => $this->upload_url . '/' . $relative_path, 
-			'post_mime_type' => wp_check_filetype( $file )['type'],
+			'post_mime_type' => \wp_check_filetype( $file )['type'],
 			'post_title'     => $title,
 			'post_content'   => '',
 			'post_status'    => 'inherit'
 		], $relative_path );
 
-		if ( is_wp_error( $attachment_id ) ) {
+		if ( \is_wp_error( $attachment_id ) ) {
 			return null;
 		}
 
 		require_once( ABSPATH . 'wp-admin/includes/image.php' );
 
-		wp_update_attachment_metadata(
+		\wp_update_attachment_metadata(
 			$attachment_id,
-			wp_generate_attachment_metadata( $attachment_id, $file )
+			\wp_generate_attachment_metadata( $attachment_id, $file )
 		);
 		return $attachment_id;
 	}
@@ -145,16 +145,12 @@ class Attachment {
 	 * 
 	 * - Verwijderen en afbreken als afbeelding te klein is
 	 * - Resizen als afbeelding te groot is
-	 *
-	 * @param string $relative_path
-	 *
-	 * @return string|bool
 	 */
 	protected function check_image( string $relative_path ) : ?string {
 		$file = wp_normalize_path( $this->upload_dir . '/' . $relative_path );
 
-		$image_editor = wp_get_image_editor( $file );
-		if ( is_wp_error( $image_editor ) ) {
+		$image_editor = \wp_get_image_editor( $file );
+		if ( \is_wp_error( $image_editor ) ) {
 			return $relative_path;
 		}
 
@@ -163,19 +159,19 @@ class Attachment {
 
 		//Afbeelding weggooien en afbreken als deze te klein is
 		if ( ( isset( $this->minimum_width ) && $dimensions['width'] < $this->minimum_width ) || ( isset( $this->minimum_height ) && $dimensions['height'] < $this->minimum_height ) ) {
-			wp_delete_file( $file );
+			\wp_delete_file( $file );
 			return null;
 		}
 	
 		//Resizen als afbeelding te groot is
 		if ( $dimensions['width'] > $this->maximum_width || $dimensions['height'] > $this->maximum_height ) {
 			$resize = $image_editor->resize( $this->maximum_width, $this->maximum_height, true );
-			if ( is_wp_error( $resize ) ) {
-				wp_delete_file( $file );
+			if ( \is_wp_error( $resize ) ) {
+				\wp_delete_file( $file );
 				return null;
 			}
 			$resized_image = $image_editor->save( $file );
-			if ( is_wp_error( $resized_image ) ) {
+			if ( \is_wp_error( $resized_image ) ) {
 				return null;
 			}
 
@@ -189,11 +185,7 @@ class Attachment {
 		return $relative_path;
 	}
 
-	/**
-	 * Zet upload directory
-	 *
-	 * @return string
-	 */
+	/** Zet upload directory */
 	public function set_upload_subdir() : string {
 		return $this->subdir;
 	}

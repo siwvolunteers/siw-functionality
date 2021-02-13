@@ -29,21 +29,11 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '217e57b2518b1be3f79f1dd2b865eb3cd6115ec1',
+    'reference' => 'd800c47f9a767e09d0d675abcf8a6f43ff89c594',
     'name' => 'siwvolunteers/siw-functionality',
   ),
   'versions' => 
   array (
-    'deliciousbrains/wp-background-processing' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-        0 => '9999999-dev',
-      ),
-      'reference' => '2cbee1abd1b49e1133cd8f611df4d4fc5a8b9800',
-    ),
     'donut/array_dig' => 
     array (
       'pretty_version' => '0.1.1',
@@ -78,7 +68,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '217e57b2518b1be3f79f1dd2b865eb3cd6115ec1',
+      'reference' => 'd800c47f9a767e09d0d675abcf8a6f43ff89c594',
     ),
     'spatie/array-to-xml' => 
     array (
