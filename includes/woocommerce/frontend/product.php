@@ -84,10 +84,10 @@ class Product {
 			'pa_sdg'
 		];
 
-		$callback = function( &$value, $key ) {
-			$value = 'attribute_' . $value;
-		};
-		array_walk( $order, $callback );
+		$order = array_map(
+			fn( string $slug ) : string => "attribute_{$slug}",
+			$order
+		);
 
 		uksort( $attributes, function( $key1, $key2 ) use ( $order ) {
 			return ( array_search( $key1, $order ) > array_search( $key2, $order ) );
