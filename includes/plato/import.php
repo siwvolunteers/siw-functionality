@@ -2,6 +2,8 @@
 
 namespace SIW\Plato;
 
+use SIW\Helpers\HTTP_Request;
+
 /**
  * Import uit Plato
  * 
@@ -26,15 +28,16 @@ abstract class Import extends Plato_Interface {
 	
 	/** Haal de XML op */
 	protected function retrieve_xml() : bool {
-	
-		$args = [ 'timeout'	=> 60 ];
-		$this->http_response = wp_safe_remote_get( $this->endpoint_url, $args );
 
-		if ( ! $this->is_valid_response() ) {
+		$request = new HTTP_Request( $this->endpoint_url );
+		$request->set_accept( HTTP_Request::APPLICATION_XML );
+		$request->set_content_type( HTTP_Request::APPLICATION_XML );
+	
+		$response = $request->get();
+		if ( \is_wp_error( $response ) ) {
 			return false;
 		}
-
-		$this->xml_response = simplexml_load_string( wp_remote_retrieve_body( $this->http_response ) );
+		$this->xml_response = $response;
 		return true;
 	}
 

@@ -7,8 +7,7 @@ use Spatie\ArrayToXml\ArrayToXml;
 /**
  * Exporteert aanmelding Groepsproject naar Plato
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Export_Application extends Export{
 

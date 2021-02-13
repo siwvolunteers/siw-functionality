@@ -2,6 +2,7 @@
 
 namespace SIW\Plato;
 
+use SIW\Helpers\HTTP_Request;
 use SIW\Util;
 
 /**
@@ -15,9 +16,7 @@ abstract class Export extends Plato_Interface {
 	/** Data */
 	protected array $data;
 
-	/**
-	 * XML-data
-	 */
+	/** XML-data */
 	protected string $xml_data;
 
 	/** Constructor */
@@ -73,11 +72,20 @@ abstract class Export extends Plato_Interface {
 				'xmlData'                   => $this->xml_data
 			],
 		];
-		$this->http_response = wp_safe_remote_post( $this->endpoint_url, $args );
-		if ( ! $this->is_valid_response() ) {
+
+		$request = new HTTP_Request( $this->endpoint_url );
+		$request->set_accept( HTTP_Request::APPLICATION_XML );
+		$request->set_content_type( HTTP_Request::APPLICATION_X_WWW_FORM_URLENCODED );
+		$request->post([
+			'organizationWebserviceKey' => $this->webkey,
+			'xmlData'                   => $this->xml_data
+		]);
+
+		$response = $request->get();
+		if ( \is_wp_error( $response ) ) {
 			return false;
 		}
-		$this->xml_response = simplexml_load_string( wp_remote_retrieve_body( $this->http_response ) );
+		$this->xml_response = $response;
 		return true;
 	}
 }

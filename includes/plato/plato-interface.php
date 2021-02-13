@@ -5,8 +5,7 @@ namespace SIW\Plato;
 /**
  * Abstracte klasse voor interface met Plato (import en export)
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 abstract class Plato_Interface {
 
@@ -24,13 +23,6 @@ abstract class Plato_Interface {
 
 	/** Endpoint url voor Plato */
 	protected string $endpoint_url;
-
-	/**
-	 * HTTP response van Plato
-	 * 
-	 * @var array|\WP_Error
-	 */
-	protected $http_response;
 
 	/** XML response van Plato */
 	protected \SimpleXMLElement $xml_response;
@@ -78,22 +70,5 @@ abstract class Plato_Interface {
 	/** Schrijft boodschap naar log */
 	public function log( string $level, string $message ) {
 		$this->logger->log( $level, $message, $this->logger_context );
-	}
-
-	/** Controleert de response van Plato */
-	protected function is_valid_response() : bool {
-		/* In het geval van een fout: foutmelding wegschrijven naar log */
-		if ( is_wp_error( $this->http_response ) ) {
-			$this->log('error', 'Verbinding met PLATO mislukt. Response: ' . wc_print_r( $this->http_response ) );
-			return false;
-		}
-
-		/* Zoek HTML-statuscode en breek af indien ongelijk aan 200 */
-		$status_code = wp_remote_retrieve_response_code( $this->http_response );
-		if ( \WP_Http::OK !== $status_code ) {
-			$this->log( 'error', "Verbinding met PLATO mislukt. Statuscode: {$status_code}" );
-			return false;
-		}
-		return true;
 	}
 }
