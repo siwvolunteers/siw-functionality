@@ -14,7 +14,7 @@ use SIW\Util\CSS;
 class Animation {
 
 	/** Versie van sal.js */
-	CONST SAL_VERSION = '0.8.3';
+	CONST SAL_VERSION = '0.8.4';
 
 	/** Threshold voor animatie */
 	CONST THRESHOLD = 0.25;
