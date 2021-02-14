@@ -3,7 +3,6 @@
 namespace SIW\Newsletter;
 
 use SIW\Util\Hash;
-use SIW\Util;
 
 /**
  * Bevestigingspagina
@@ -34,8 +33,8 @@ class Confirmation_Page {
 		}
 
 		//Haal parameters van request op
-		$hash = urldecode( Util::get_request_parameter( 'nl_hash' ) );
-		$data = base64_decode( urldecode( Util::get_request_parameter( 'nl_data' ) ) );
+		$hash = urldecode( get_query_arg( 'nl_hash') );
+		$data = base64_decode( urldecode( get_query_arg( 'nl_data' ) ) );
 
 		if ( ! Hash::data_is_valid( $data, $hash ) ) {
 			$this->message = __( 'Helaas is er iets misgegaan met de aanmelding.', 'siw' );
@@ -75,7 +74,7 @@ class Confirmation_Page {
 
 	/** Geeft aan of dit een bevestiging van de nieuwsbrief is */
 	protected function is_newsletter_confirmation() : bool {
-		return is_front_page() && (bool) Util::get_request_parameter( 'nl_confirmation');
+		return is_front_page() && (bool) get_query_arg( 'nl_confirmation');
 	}
 
 	/** Voegt body class toe bij bevestigingspagina */

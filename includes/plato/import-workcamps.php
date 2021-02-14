@@ -4,7 +4,6 @@ namespace SIW\Plato;
 
 use SIW\Database_Table;
 use SIW\Helpers\Database;
-use SIW\Util;
 
 /**
  * Importeer Groepsprojecten uit Plato
@@ -55,7 +54,7 @@ class Import_Workcamps extends Import {
 				$image_data = [
 					'project_id'      => (string) $project->project_id,
 					'image_id'        => $index,
-					'file_identifier' => Util::get_query_arg( 'fileIdentifier', (string) $image_url ),
+					'file_identifier' => get_query_arg( 'fileIdentifier', (string) $image_url ),
 				];
 				$images_db->insert( $image_data );
 			}

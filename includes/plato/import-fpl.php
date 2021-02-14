@@ -4,7 +4,6 @@ namespace SIW\Plato;
 
 use SIW\Database_Table;
 use SIW\Helpers\Database;
-use SIW\Util;
 
 /**
  * Importeer FPL uit Plato
@@ -42,7 +41,7 @@ class Import_FPL extends Import {
 				if ( 'file_identifier_infosheet' == $column['name'] ) {
 					$url_infosheet = (string) $project->url_infosheet;
 					if ( ! empty( $url_infosheet ) ) {
-						$value = Util::get_query_arg( 'fileIdentifier', $url_infosheet );
+						$value = get_query_arg( 'fileIdentifier', $url_infosheet );
 					}
 					else {
 						$value = '';
