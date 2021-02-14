@@ -3,7 +3,7 @@
 namespace SIW\Actions\Batch;
 
 use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
-use SIW\Import_Dutch_Workcamps as Plato_Import_Dutch_Workcamps;
+use SIW\Plato\Import_Dutch_Workcamps as Plato_Import_Dutch_Workcamps;
 
 /**
  * Importeren Nederlande projecten uit Plato
