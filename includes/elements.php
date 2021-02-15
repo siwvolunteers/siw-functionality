@@ -3,7 +3,6 @@
 namespace SIW;
 
 use SIW\Core\Template;
-use SIW\HTML;
 use SIW\Elements\Accordion;
 use SIW\Elements\Features;
 use SIW\Elements\Infoboxes;
