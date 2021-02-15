@@ -11,8 +11,7 @@ use SIW\Util\Links;
 /**
  * Class voor shortcodes
  * 
- * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Shortcodes {
 
@@ -170,32 +169,44 @@ class Shortcodes {
 
 	/** Inschrijfgeld Groepsproject (student) */
 	public static function render_groepsproject_tarief_student() : string {
-		if ( Util::is_workcamp_sale_active() ) {
-			return Formatting::format_sale_amount( Properties::WORKCAMP_FEE_STUDENT, Properties::WORKCAMP_FEE_STUDENT_SALE );
+		if ( siw_is_workcamp_sale_active() ) {
+			return Formatting::format_sale_amount(
+				Properties::WORKCAMP_FEE_STUDENT,
+				Properties::WORKCAMP_FEE_STUDENT_SALE
+			);
 		}
 		return Formatting::format_amount( Properties::WORKCAMP_FEE_STUDENT );
 	}
 
 	/** Inschrijfgeld Groepsproject (regulier) */
 	public static function render_groepsproject_tarief_regulier() : string {
-		if ( Util::is_workcamp_sale_active() ) {
-			return Formatting::format_sale_amount( Properties::WORKCAMP_FEE_REGULAR, Properties::WORKCAMP_FEE_REGULAR_SALE );
+		if ( siw_is_workcamp_sale_active() ) {
+			return Formatting::format_sale_amount(
+				Properties::WORKCAMP_FEE_REGULAR,
+				Properties::WORKCAMP_FEE_REGULAR_SALE
+			);
 		}
 		return Formatting::format_amount( Properties::WORKCAMP_FEE_REGULAR );
 	}
 
 	/** Inschrijfgeld Op Maat-project (student) */
 	public static function render_op_maat_tarief_student() : string {
-		if ( Util::is_tailor_made_sale_active() ) {
-			return Formatting::format_sale_amount( Properties::TAILOR_MADE_FEE_STUDENT, Properties::TAILOR_MADE_FEE_STUDENT_SALE );
+		if ( siw_is_tailor_made_sale_active() ) {
+			return Formatting::format_sale_amount(
+				Properties::TAILOR_MADE_FEE_STUDENT,
+				Properties::TAILOR_MADE_FEE_STUDENT_SALE
+			);
 		}
 		return Formatting::format_amount( Properties::TAILOR_MADE_FEE_STUDENT );
 	}
 	
 	/** Inschrijfgeld Op Maat-project (regulier) */
 	public static function render_op_maat_tarief_regulier() : string {
-		if ( Util::is_tailor_made_sale_active() ) {
-			return Formatting::format_sale_amount( Properties::TAILOR_MADE_FEE_REGULAR, Properties::TAILOR_MADE_FEE_REGULAR_SALE );
+		if ( siw_is_tailor_made_sale_active() ) {
+			return Formatting::format_sale_amount(
+				Properties::TAILOR_MADE_FEE_REGULAR,
+				Properties::TAILOR_MADE_FEE_REGULAR_SALE
+			);
 		}
 		return Formatting::format_amount( Properties::TAILOR_MADE_FEE_REGULAR );
 	}

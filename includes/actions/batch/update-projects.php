@@ -7,7 +7,6 @@ use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 use SIW\Data\Country;
 use SIW\Database_Table;
 use SIW\Helpers\Database;
-use SIW\Util;
 use SIW\WooCommerce\Import\Product_Image as Import_Product_Image;
 use SIW\WooCommerce\Import\Free_Places as Import_Free_Places;
 
@@ -115,9 +114,7 @@ class Update_Projects implements Batch_Action_Interface {
 		}
 
 		$tariffs = siw_get_data( 'workcamps/tariffs' );
-		$sale = Util::is_workcamp_sale_active();
-
-		$workcamp_sale = siw_get_option( 'workcamp_sale' );
+		$sale = siw_is_workcamp_sale_active();
 		$variations = $this->product->get_children();
 
 		foreach ( $variations as $variation_id ) {
@@ -132,8 +129,8 @@ class Update_Projects implements Batch_Action_Interface {
 				'regular_price'     => $regular_price,
 				'sale_price'        => $sale ? $sale_price : null,
 				'price'             => $sale ? $sale_price : $regular_price,
-				'date_on_sale_from' => $sale ? date( 'Y-m-d 00:00:00', strtotime( $workcamp_sale['start_date'] ) ) : null,
-				'date_on_sale_to'   => $sale ? date( 'Y-m-d 23:59:59', strtotime( $workcamp_sale['end_date'] ) ) : null,
+				'date_on_sale_from' => $sale ? date( 'Y-m-d 00:00:00', strtotime( siw_get_option( 'workcamp_sale.start_date' ) ) ) : null,
+				'date_on_sale_to'   => $sale ? date( 'Y-m-d 23:59:59', strtotime( siw_get_option( 'workcamp_sale.end_date' ) ) ) : null,
 			]);
 			if ( ! empty( $variation->get_changes() ) ) {
 				$variation->save();

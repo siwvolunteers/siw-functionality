@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'ba75627458180fd72bbdcbf589f80b7c97ed72d5',
+    'reference' => '0d95776622adfb3708317b2485a52e5a8b549026',
     'name' => 'siwvolunteers/siw-functionality',
   ),
   'versions' => 
@@ -45,7 +45,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'ba75627458180fd72bbdcbf589f80b7c97ed72d5',
+      'reference' => '0d95776622adfb3708317b2485a52e5a8b549026',
     ),
     'spatie/array-to-xml' => 
     array (

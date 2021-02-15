@@ -4,7 +4,6 @@ namespace SIW\Modules;
 
 use SIW\i18n;
 use SIW\Formatting;
-use SIW\Util;
 use SIW\Properties;
 use SIW\Util\CSS;
 use SIW\Util\Links;
@@ -159,7 +158,7 @@ class Topbar {
 			return null;
 		}
 
-		if ( ! Util::is_workcamp_sale_active() ) {
+		if ( ! siw_is_workcamp_sale_active() ) {
 			return null;
 		}
 

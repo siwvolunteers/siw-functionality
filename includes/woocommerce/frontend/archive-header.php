@@ -2,7 +2,6 @@
 
 namespace SIW\WooCommerce\Frontend;
 
-use SIW\Util;
 use SIW\i18n;
 use SIW\Formatting;
 use SIW\Properties;
@@ -136,7 +135,7 @@ class Archive_Header {
 	/** Genereert tekst voor kortingsactie */
 	protected function get_sale_text() : ?string {
 
-		if ( ! Util::is_workcamp_sale_active() ) {
+		if ( ! siw_is_workcamp_sale_active() ) {
 			return null;
 		}
 
@@ -144,7 +143,7 @@ class Archive_Header {
 		$regular_sale = Formatting::format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE );
 		$student = Formatting::format_amount( Properties::WORKCAMP_FEE_STUDENT );
 		$student_sale = Formatting::format_amount( Properties::WORKCAMP_FEE_STUDENT_SALE );
-		$end_date = Formatting::format_date( siw_get_option( 'workcamp_sale' )['end_date'], false );
+		$end_date = Formatting::format_date( siw_get_option( 'workcamp_sale.end_date' ), false );
 	
 		$sale_text = sprintf( __( 'Meld je nu aan en betaal geen %s maar %s voor je vrijwilligersproject.', 'siw' ), $regular, '<b>'. $regular_sale .'</b>' ) . SPACE .
 			__( 'Ben je student of jonger dan 18 jaar?', 'siw' ) . SPACE .
