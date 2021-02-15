@@ -42,7 +42,7 @@ $data = [
 	[
 		'slug'                => 'duits',
 		'name'                => __( 'Duits', 'siw' ),
-		'plato'            		=> 'GER',
+		'plato_code'          => 'GER',
 		'volunteer_language'  => true,
 		'project_language'    => true,
 	],
