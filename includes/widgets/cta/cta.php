@@ -4,7 +4,6 @@ namespace SIW\Widgets;
 
 use SIW\i18n;
 use SIW\Util;
-use SIW\Util\Links;
 
 /**
  * Widget met Call to Action
@@ -74,18 +73,14 @@ class CTA extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
-		ob_start();
-		?>
-		<div style="text-align:<?php echo esc_attr( $instance['align'] ); ?>">
-			<div class="headline">
-				<?php echo esc_html( $instance['headline'] );?>
-			</div>
-			<div class="button">
-				<?php echo Links::generate_button_link( i18n::get_translated_page_url( intval( $instance['button_page'] ) ), $instance['button_text'] ); ?>
-			</div>
-		</div>
-		<?php
-		return ob_get_clean();
+	function get_template_variables( $instance, $args ) {
+		return [
+			'headline' => $instance['headline'],
+			'align'    => $instance['align'],
+			'button'   => [
+				'url'  => i18n::get_translated_page_url( intval( $instance['button_page'] ) ),
+				'text' => $instance['button_text'],
+			]
+		];
 	}
 }

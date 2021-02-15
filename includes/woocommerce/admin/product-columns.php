@@ -2,8 +2,6 @@
 
 namespace SIW\WooCommerce\Admin;
 
-use SIW\HTML;
-
 /**
  * Extra admin columns voor Groepsprojecten
  *
@@ -36,25 +34,17 @@ class Product_Columns extends \MBAC\Post {
 		switch ( $column ) {
 			case 'visibility':
 				$product = wc_get_product( $post_id );
-				echo HTML::span(
-					[
-						'class' => $product->is_visible() ? 'dashicons dashicons-visibility' : 'dashicons dashicons-hidden',
-					]
-				);
+				printf( '<span class="dashicons %s"></span>', $product->is_visible() ? 'dashicons-visibility' : 'dashicons-hidden' );
+
 				if ( $product->get_meta( 'force_hide' ) ) {
-					echo HTML::span(
-						[
-							'class' => 'dashicons dashicons-lock',
-						]
-					);
-					
+					echo '<span class="dashicons dashicons-lock"></span>';
 				}
 
 				break;
 			case 'next_update':
 				$product = wc_get_product( $post_id );
 				if ( $product->get_meta( 'import_again' ) ) {
-					echo HTML::span( ['class' => 'dashicons dashicons-update'] ) ;
+					echo '<span class="dashicons dashicons-update"></span>';
 				}
 				break;
 			case 'selected_for_carousel':
@@ -69,18 +59,13 @@ class Product_Columns extends \MBAC\Post {
 				);
 				$url = wp_nonce_url( admin_url( $url ), 'woocommerce-select-for-carousel' );
 
-				echo HTML::a(
-					[
-						'href'       => $url,
-						'aria-label' => __( 'Selecteren voor carousel', 'siw' ),
-					],
-					HTML::span(
-						[
-							'class'    => $product->get_meta( 'selected_for_carousel' ) ? 'carousel show tips' : 'carousel tips',
-							'data-tip' => $product->get_meta( 'selected_for_carousel' ) ? __( 'Ja', 'siw' ) : __( 'Nee', 'siw' ),
-						],
-						$product->get_meta( 'selected_for_carousel' ) ? __( 'Ja', 'siw' ) : __( 'Nee', 'siw' )
-					)
+				echo sprintf (
+					'<a href="%s" aria-label="%s"><span class="carousel tips %s" data-tip="%s">%s</span></a>',
+					esc_url( $url ),
+					esc_attr__( 'Selecteren voor carousel', 'siw' ),
+					$product->get_meta( 'selected_for_carousel' ) ? 'show' : '',
+					$product->get_meta( 'selected_for_carousel' ) ? esc_attr__( 'Ja', 'siw' ) : esc_attr__( 'Nee', 'siw' ),
+					$product->get_meta( 'selected_for_carousel' ) ? esc_html__( 'Ja', 'siw' ) : esc_html__( 'Nee', 'siw' ),
 				);
 		}
 	}

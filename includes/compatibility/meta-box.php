@@ -5,23 +5,20 @@ namespace SIW\Compatibility;
 /**
 * Aanpassingen voor Meta Box
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
  * @see       https://metabox.io/
  * @since     3.0.0
  */
 class Meta_Box {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
-		if ( ! class_exists( '\MBAIO\Loader' ) ) {
+		if ( ! is_plugin_active( 'meta-box-aio/meta-box-aio.php' ) ) {
 			return;
 		}
 		$self = new self();
 		add_filter( 'mb_aio_extensions', [ $self, 'select_extensions'] );
 		add_filter( 'mb_aio_show_settings', '__return_false' );
-		add_action( 'admin_init', [ $self, 'remove_dashboard_widget' ] );
 		add_filter( 'rwmb_normalize_time_field', [ $self, 'set_default_time_options'] );
 		add_filter( 'rwmb_normalize_date_field', [ $self, 'set_default_date_options'] );
 		add_filter( 'rwmb_normalize_switch_field', [ $self, 'set_default_switch_options'] );
@@ -29,11 +26,7 @@ class Meta_Box {
 		add_filter( 'rwmb_group_sanitize', [ $self, 'sanitize_group' ], 10, 4 );
 	}
 
-	/**
-	 * Selecteert de gebruikte extensies
-	 *
-	 * @return array
-	 */
+	/** Selecteert de gebruikte extensies */
 	public function select_extensions() {
 		$extensions = [
 			'mb-admin-columns',
@@ -49,19 +42,7 @@ class Meta_Box {
 		return $extensions;
 	}
 
-	/**
-	 * Verwijdert dashboard widget
-	 */
-	public function remove_dashboard_widget() {
-		remove_meta_box( 'meta_box_dashboard_widget', 'dashboard', 'normal' );
-	}
-
-	/**
-	 * Zet standaardeigenschappen van tijdvelden
-	 *
-	 * @param array $field
-	 * @return array
-	 * 
+	/** Zet standaardeigenschappen van tijdvelden
 	 * @todo kan weg na introductie HTML5 velden
 	 */
 	public function set_default_time_options( array $field ) : array {
@@ -78,12 +59,7 @@ class Meta_Box {
 		return wp_parse_args_recursive( $defaults, $field );
 	}
 
-	/**
-	 * Zet standaardeigenschappen van datumvelden
-	 *
-	 * @param array $field
-	 * @return array
-	 * 
+	/** Zet standaardeigenschappen van datumvelden
 	 * @todo kan weg na introductie HTML5 velden
 	 */
 	public function set_default_date_options( array $field ) : array {
@@ -102,12 +78,7 @@ class Meta_Box {
 		return wp_parse_args_recursive( $defaults, $field );
 	}
 
-	/**
-	 * Zet standaardeigenschappen van switchvelden
-	 *
-	 * @param array $field
-	 * @return array
-	 */
+	/** Zet standaardeigenschappen van switchvelden */
 	public function set_default_switch_options( array $field ) : array {
 		$defaults = [
 			'style' => 'square',
@@ -115,12 +86,7 @@ class Meta_Box {
 		return wp_parse_args_recursive( $defaults, $field );
 	}
 
-	/**
-	 * Zet standaardeigenschappen van wysiwyg
-	 *
-	 * @param array $field
-	 * @return array
-	 */
+	/** Zet standaardeigenschappen van wysiwyg */
 	public function set_default_wysiwyg_options( array $field ) : array {
 		$defaults = [
 			'raw'      => true,
@@ -134,15 +100,7 @@ class Meta_Box {
 		return wp_parse_args_recursive( $field, $defaults );
 	}
 
-	/**
-	 * Sanitize velden in MB Group
-	 *
-	 * @param array $values
-	 * @param array $group
-	 * @param array $old_value
-	 * @param string $object_id
-	 * @return array
-	 */
+	/** Sanitize velden in MB Group */
 	public function sanitize_group( array $values, array $group, $old_value = null, $object_id = null ) : array {
 		foreach ( $group['fields'] as $field ) {
 			$key = $field['id'];
@@ -168,5 +126,4 @@ class Meta_Box {
 		}
 		return $sanitized;
 	}
-
 }

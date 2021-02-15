@@ -172,6 +172,7 @@ $data = [
 		'slug'        => 'verenigd-koninkrijk',
 		'name'        => __( 'Verenigd Koninkrijk', 'siw' ),
 		'allowed'     => true,
+		'workcamps'   => true,
 		'tailor_made' => false,
 		'esc'         => true,
 		'europe_map'  => [ 'code' => 'gb', 'x' => 0.2680, 'y' => 0.4444 ],

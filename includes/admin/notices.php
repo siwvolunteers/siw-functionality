@@ -10,14 +10,10 @@ namespace SIW\Admin;
  */
 class Notices {
 
-	/**
-	 * Transient naam
-	 */
+	/** Transient naam */
 	protected string $transient_name;
 
-	/**
-	 * Toegestane notice types
-	 */
+	/** Toegestane notice types */
 	protected array $types = [ 
 		'success',
 		'info',
@@ -25,31 +21,23 @@ class Notices {
 		'error'
 	];
 
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	public function __construct() {
 		$this->set_transient_name();
 	}
 
-	/**
-	 * Zet de gebruikersspecifieke naam van de tansient
-	 */
+	/** Zet de gebruikersspecifieke naam van de tansient */
 	protected function set_transient_name() {
 		$this->transient_name = 'siw_admin_notices_' . get_current_user_id(); 
 	}
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 		add_action( 'admin_notices', [ $self, 'display_notices' ] );
 	}
 
-	/**
-	 * Toont admin notices
-	 */
+	/** Toont admin notices */
 	public function display_notices() {
 
 		$notices = $this->get_notices();
@@ -72,8 +60,6 @@ class Notices {
 	 * Voegt admin notice toe
 	 *
 	 * @param string $type success|info|error|warning
-	 * @param string $message
-	 * @param bool $dismissable
 	 */
 	public function add_notice( string $type, string $message, bool $dismissable = false ) {
 
@@ -88,27 +74,17 @@ class Notices {
 		$this->set_notices( $notices );
 	}
 
-	/**
-	 * Verwijdert alle notices
-	 */
+	/** Verwijdert alle notices */
 	protected function clear_notices() {
 		delete_transient( $this->transient_name );
 	}
 
-	/**
-	 * Haalt notices op
-	 * 
-	 * @return array
-	 */
+	/** Haalt notices op */
 	protected function get_notices() {
 		return get_transient( $this->transient_name );
 	}
 
-	/**
-	 * Slaat notices op
-	 *
-	 * @param array $notices
-	 */
+	/** Slaat notices op */
 	protected function set_notices( array $notices ) {
 		set_transient( $this->transient_name, $notices, 60 );
 	}

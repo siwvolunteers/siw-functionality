@@ -2,6 +2,8 @@
 
 namespace SIW\Plato;
 
+use SIW\Helpers\HTTP_Request;
+
 /**
  * Import uit Plato
  * 
@@ -10,54 +12,39 @@ namespace SIW\Plato;
  */
 abstract class Import extends Plato_Interface {
 
-	/**
-	 * Data voor background process
-	 */
+	/** Data voor background process */
 	protected array $data = [];
 
-	/**
-	 * Constructor
-	 */
+	/** Constructor */
 	public function __construct() {
 		parent::__construct();
 		$this->add_query_arg_webkey();
 	}
 
-	/**
-	 * Voeg de Plato-webkey toe als query arg
-	 */
+	/** Voeg de Plato-webkey toe als query arg */
 	protected function add_query_arg_webkey() {
 		$this->add_query_arg( 'organizationWebserviceKey', $this->webkey );
 	}
 	
-	/**
-	 * Haal de XML op
-	 *
-	 * @return bool
-	 */
+	/** Haal de XML op */
 	protected function retrieve_xml() : bool {
-	
-		$args = [ 'timeout'	=> 60 ];
-		$this->http_response = wp_safe_remote_get( $this->endpoint_url, $args );
 
-		if ( ! $this->is_valid_response() ) {
+		$request = new HTTP_Request( $this->endpoint_url );
+		$request->set_accept( HTTP_Request::APPLICATION_XML );
+		$request->set_content_type( HTTP_Request::APPLICATION_XML );
+	
+		$response = $request->get();
+		if ( \is_wp_error( $response ) ) {
 			return false;
 		}
-
-		$this->xml_response = simplexml_load_string( wp_remote_retrieve_body( $this->http_response ) );
+		$this->xml_response = $response;
 		return true;
 	}
 
-	/**
-	 * Verwerk de XML
-	 */
+	/** Verwerk de XML */
 	abstract protected function process_xml();
 
-	/**
-	 * Voer de Plato-import uit
-	 *
-	 * @return array
-	 */
+	/** Voer de Plato-import uit */
 	public function run() {
 		//Start import
 		$this->log( 'info', sprintf( 'Start %s', $this->name ) );
@@ -72,5 +59,4 @@ abstract class Import extends Plato_Interface {
 
 		return $this->data;
 	}
-	
 }

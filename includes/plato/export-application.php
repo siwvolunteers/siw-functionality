@@ -7,31 +7,22 @@ use Spatie\ArrayToXml\ArrayToXml;
 /**
  * Exporteert aanmelding Groepsproject naar Plato
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Export_Application extends Export{
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $endpoint = 'ImportVolunteer';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $name = 'exporteren aanmelding';
 
-	/**
-	 * Undocumented function
-	 */
+	/** Genereert XML */
 	protected function generate_xml() {
 		$this->xml_data = ArrayToXml::convert( $this->data, 'vef', true, 'UTF-8' );
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function process_xml() {
 		$projectcode = $this->data['choice1']; //TODO: verplaatsen naar property
 		$success = (bool) $this->xml_response->Success;

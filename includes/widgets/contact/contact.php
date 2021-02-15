@@ -4,7 +4,6 @@ namespace SIW\Widgets;
 
 use SIW\Elements;
 use SIW\Properties;
-use SIW\Util\Links;
 
 /**
  * Widget met contactinformatie
@@ -52,60 +51,54 @@ class Contact extends Widget {
 		return $widget_forms;
 	}
 
+	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
+		return '';
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
-		ob_start();
-		?>
-		<div class="siw-contact">
-			<?php
-			echo wpautop(
-				implode(
-					BR,
-					[
-						Properties::NAME,
-						sprintf( '%s | %s %s', Properties::ADDRESS, Properties::POSTCODE, Properties::CITY ),
-						sprintf( '%s | %s',
-							Links::generate_tel_link( Properties::PHONE_INTERNATIONAL, Properties::PHONE ),
-							Links::generate_mailto_link( Properties::EMAIL )
-						),
-						Links::generate_link(
-							'https://api.whatsapp.com/send?phone='. Properties::WHATSAPP_FULL,
-							Elements::generate_icon( 'siw-icon-whatsapp' ) . SPACE . Properties::WHATSAPP,
-							[ 'class' => 'siw-contact-link'],
-						),
-						Elements::generate_opening_hours('table'),
-					]
-				)
-			);
-			?>
-		</div>
-		<div class="siw-social-links clearfix">
-			<?php
-			$social_networks = siw_get_social_networks( 'follow' );
-			foreach ( $social_networks as $network ) {
-				echo Links::generate_icon_link(
-					$network->get_follow_url(),
-					[
-						'class'      => $network->get_icon_class(),
-						'background' => 'circle'
+	function get_template_variables( $instance, $args ) {
+		$social_networks = siw_get_social_networks( 'follow' );
+
+		foreach ( $social_networks as $network ) {
+			$networks[] = [
+				'url' => $network->get_follow_url(),
+				'name' => $network->get_name(),
+				'label' => sprintf( __( 'Volg ons op %s', 'siw' ), $network->get_name() ),
+				'color' => $network->get_color(),
+				'icon'  => [
+					'icon_class'       => $network->get_icon_class(),
+					'size'             => 2,
+					'has_background'   => true,
+					'background_class' => 'circle',
+				],
+			];
+		}
+
+		return [
+				'name'            => Properties::NAME,
+				'address'         => Properties::ADDRESS,
+				'postcode'        => Properties::POSTCODE,
+				'city'            => Properties::CITY,
+				'tel_link'        => [
+					'phone' => Properties::PHONE_INTERNATIONAL,
+					'text'  => Properties::PHONE
+				],
+				'email_link'      => [
+					'email' => Properties::EMAIL,
+					'text'  => Properties::EMAIL,
+				],
+				'whatsapp_link'   => [
+					'url'   => add_query_arg( 'phone', Properties::WHATSAPP_FULL, 'https://api.whatsapp.com/send' ),
+					'phone' => Properties::WHATSAPP,
+					'icon'  => [
+						'size'       => 2,
+						'icon_class' => 'siw-icon-whatsapp'
 					],
-					[
-						'class'               => $network->get_slug(),
-						'title'               => $network->get_name(),
-						'target'              => '_blank',
-						'rel'                 => 'noopener external',
-						'aria-label'          => sprintf( esc_attr__( 'Volg ons op %s', 'siw' ), $network->get_name() ),
-						'data-balloon-pos'    => 'up',
-						'data-original-title' => $network->get_name(),
-						'style'               => '--hover-color: ' . $network->get_color(),
-					],
-				);
-			}
-			?>
-		</div>
-		<?php
-		return ob_get_clean();
+				],
+				'opening_hours'   => Elements::generate_opening_hours('table'),
+				'social_networks' => $networks,
+		];
 	}
 }

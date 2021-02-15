@@ -12,61 +12,37 @@ use SIW\Data\Continent;
  */
 class Country {
 
-	/**
-	 * ISO-code van het land
-	 */
+	/** ISO-code van het land */
 	protected string $iso_code;
 
-	/**
-	 * Naam van het land
-	 */
+	/** Naam van het land */
 	protected string $name;
 
-	/**
-	 * Slug van het land
-	 */
+	/** Slug van het land */
 	protected string $slug;
 
-	/**
-	 * Continent van het land
-	 */
+	/** Continent van het land */
 	protected string $continent;
 
-	/**
-	 * Geeft aan of het land toegestaan is
-	 */
+	/** Geeft aan of het land toegestaan is */
 	protected bool $allowed;
 
-	/**
-	 * Geeft aan of het land groepsprojecten heeft
-	 */
+	/** Geeft aan of het land groepsprojecten heeft */
 	protected bool $has_workcamps;
 
-	/**
-	 * Geeft aan of het land ESC-projecten heeft
-	 */
+	/** Geeft aan of het land ESC-projecten heeft */
 	protected bool $has_esc_projects;
 
-	/**
-	 * Geeft aan of het land Op Maat projecten heeft
-	 */
+	/** Geeft aan of het land Op Maat projecten heeft */
 	protected bool $has_tailor_made_projects;
 
-	/**
-	 * Eigenschappen van land voor kaart van de wereld
-	 */
+	/** Eigenschappen van land voor kaart van de wereld */
 	protected \stdClass $world_map_data;
 
-	/**
-	 * Eigenschappen van land voor kaart van Europa
-	 */
+	/** Eigenschappen van land voor kaart van Europa */
 	protected \stdClass $europe_map_data;
 
-	/**
-	 * Constructor
-	 *
-	 * @param array $country
-	 */
+	/** Constructor */
 	public function __construct( array $country ) {
 
 		$defaults = [
@@ -95,92 +71,52 @@ class Country {
 		$this->europe_map_data = (object) $country['europe_map'];
 	}
 
-	/**
-	 * Geeft ISO-code van het land terug
-	 *
-	 * @return string
-	 */
+	/** Geeft ISO-code van het land terug */
 	public function get_iso_code() : string {
 		return $this->iso_code;
 	}
 
-	/**
-	 * Geeft slug van het land terug
-	 *
-	 * @return string
-	 */
+	/** Geeft slug van het land terug */
 	public function get_slug() : string {
 		return $this->slug;
 	}
 
-	/**
-	 * Geeft naam van land terug
-	 *
-	 * @return string
-	 */
+	/** Geeft naam van land terug */
 	public function get_name() : string {
 		return $this->name;
 	}
 
-	/**
-	 * Geeft continent van land terug
-	 *
-	 * @return Continent
-	 */
+	/** Geeft continent van land terug */
 	public function get_continent() : Continent {
 		return siw_get_continent( $this->continent );
 	}
 
-	/**
-	 * Geeft aan of land toegestaan is
-	 *
-	 * @return bool
-	 */
+	/** Geeft aan of land toegestaan is */
 	public function is_allowed() : bool {
 		return $this->allowed;
 	}
 
-	/**
-	 * Geeft aan of het land groepsprojecten heeft
-	 *
-	 * @return bool
-	 */
+	/** Geeft aan of het land groepsprojecten heeft */
 	public function has_workcamps() : bool {
 		return $this->has_workcamps;
 	}
 
-	/**
-	 * Geeft aan of het land ESC-projecten heeft
-	 *
-	 * @return bool
-	 */
+	/** Geeft aan of het land ESC-projecten heeft */
 	public function has_esc_projects() : bool {
 		return $this->has_esc_projects;
 	}
 
-	/**
-	 * Geeft aan of het land Op Maat projecten heeft
-	 *
-	 * @return bool
-	 */
+	/** Geeft aan of het land Op Maat projecten heeft */
 	public function has_tailor_made_projects() : bool {
 		return $this->has_tailor_made_projects;
 	}
 
-	/**
-	 * Geeft de gegevens van het land voor de kaart van de wereld terug
-	 *
-	 * @return \stdClass
-	 */
+	/** Geeft de gegevens van het land voor de kaart van de wereld terug */
 	public function get_world_map_data() : \stdClass {
 		return $this->world_map_data;
 	}
 	
-	/**
-	 * Geeft de gegevens van het land voor de kaart van Europa terug
-	 *
-	 * @return \stdClass
-	 */
+	/** Geeft de gegevens van het land voor de kaart van Europa terug */
 	public function get_europe_map_data() : \stdClass {
 		return $this->europe_map_data;
 	}

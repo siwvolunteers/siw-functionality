@@ -34,7 +34,7 @@ function siw_get_work_types( string $context = 'all', string $index = 'slug', st
 
 	//Creëer objecten
 	$work_types = array_map(
-		fn( $item ) => new Work_Type( $item ),
+		fn( array $item ) : Work_Type => new Work_Type( $item ),
 		$data
 	);
 
@@ -43,14 +43,13 @@ function siw_get_work_types( string $context = 'all', string $index = 'slug', st
 		$work_types,
 		function( $work_type ) use ( $context ) {
 			return ( 'all' == $context
-				|| ( 'dutch_projects' == $context && $work_type->is_for_dutch_projects() ) 
 				|| ( 'tailor_made_projects' == $context && $work_type->is_for_tailor_made_projects() )
 			);
 		}
 	);
 	if ( 'array' == $return ) {
 		$work_types = array_map(
-			fn( Work_Type $work_type ) => $work_type->get_name(),
+			fn( Work_Type $work_type ) : string => $work_type->get_name(),
 			$work_types
 		);
 	}

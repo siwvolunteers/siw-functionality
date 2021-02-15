@@ -29,17 +29,17 @@ function siw_get_currencies( string $return = 'objects' ) : array {
 	$data = wp_list_sort( $data, 'name' );
 
 	//Gebruik iso als index van array
-	$data = array_column( $data , null, 'iso' );
+	$data = array_column( $data , null, 'iso_code' );
 
 	//Creëer objecten
 	$currencies = array_map(
-		fn( $item) => new Currency( $item ),
+		fn( array $item ) : Currency => new Currency( $item ),
 		$data
 	);
 
 	if ( 'array' == $return ) {
 		$currencies = array_map(
-			fn( Currency $currency ) => $currency->get_name(),
+			fn( Currency $currency ) : string => $currency->get_name(),
 			$currencies
 		);
 	}

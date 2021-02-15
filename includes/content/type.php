@@ -2,7 +2,6 @@
 
 namespace SIW\Content;
 
-use SIW\Util;
 use SIW\Util\CSS;
 
 /**
@@ -17,34 +16,22 @@ use SIW\Util\CSS;
  */
 abstract class Type {
 
-	/**
-	 * Basis voor post type
-	 */
+	/** Basis voor post type */
 	protected string $post_type;
 
-	/**
-	 * Dashicon voor post type
-	 */
+	/** Dashicon voor post type */
 	protected string $menu_icon;
 
-	/**
-	 * Is dit een public post type
-	 */
+	/** Is dit een public post type */
 	protected bool $public = true;
 
-	/**
-	 * Taxonomieën
-	 */
+	/** Taxonomieën */
 	protected array $taxonomies;
 
-	/**
-	 * Slug
-	 */
+	/** Slug */
 	protected string $slug;
 
-	/**
-	 * Sidebar layout van single posts
-	 */
+	/** Sidebar layout van single posts */
 	protected string $single_sidebar_layout = 'no-sidebar';
 
 	/**
@@ -54,24 +41,16 @@ abstract class Type {
 	 */
 	protected string $single_width = 'desktop';
 
-	/**
-	 * Heeft post type filter voor taxonomies?
-	 */
+	/** Heeft post type filter voor taxonomies? */
 	protected bool $archive_taxonomy_filter = false;
 
-	/**
-	 * Gebruikt post type masonry?
-	 */
+	/** Gebruikt post type masonry? */
 	protected bool $archive_masonry = false;
 
-	/**
-	 * Breedte van kolom in archive
-	 */
+	/** Breedte van kolom in archive */
 	protected int $archive_column_width = 100;
 
-	/**
-	 * Sidebar layout van archive
-	 */
+	/** Sidebar layout van archive */
 	protected string $archive_sidebar_layout = 'no-sidebar';
 
 	/**
@@ -88,19 +67,13 @@ abstract class Type {
 	 */
 	protected string $admin_order = 'DESC';
 
-	/**
-	 * Waarop moeten posts gesorteerd worden
-	 */
+	/** Waarop moeten posts gesorteerd worden */
 	protected string $orderby = 'date';
 
-	/**
-	 * Als `orderby` meta_key is, welke meta_key dan
-	 */
+	/** Als `orderby` meta_key is, welke meta_key dan */
 	protected string $orderby_meta_key = '';
 
-	/**
-	 * Meta query om te filteren op 'actieve' posts
-	 */
+	/** Meta query om te filteren op 'actieve' posts */
 	protected array $active_posts_meta_query = [];
 
 	/**
@@ -108,14 +81,10 @@ abstract class Type {
 	 */
 	protected bool $has_carousel_support = false;
 
-	/**
-	 * Directory voor uploads bij post type
-	 */
+	/** Directory voor uploads bij post type */
 	protected string $upload_subdir;
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new static();
 		$self->taxonomies = $self->get_taxonomies();
@@ -180,6 +149,7 @@ abstract class Type {
 
 			if ( ! empty( $self->active_posts_meta_query ) && ! empty( $self->taxonomies ) ) {
 				add_filter( 'siw_update_terms_taxonomies', [ $self, 'set_update_terms_taxonomies'] );
+				add_filter( 'siw_update_terms_meta_query', [ $self, 'set_update_terms_meta_query'], 10, 2 );
 			}
 
 			if ( ! empty( $self->active_posts_meta_query ) ) {
@@ -205,71 +175,35 @@ abstract class Type {
 		}
 	}
 
-	/**
-	 * Undocumented function
-	 */
+	/** Undocumented function */
 	protected function initialize() {}
 
-	/**
-	 * Haalt metabox velden op
-	 *
-	 * @return array
-	 */
+	/** Haalt metabox velden op */
 	abstract public function get_meta_box_fields() : array;
 
-	/**
-	 * Haal taxonomieën op
-	 *
-	 * @return array
-	 */
+	/** Haal taxonomieën op */
 	abstract protected function get_taxonomies() : array;
 
-	/**
-	 * Haalt labels op
-	 *
-	 * @return array
-	 */
+	/** Haalt labels op */
 	abstract protected function get_labels() : array;
 
-	/**
-	 * Undocumented function
-	 */
+	/** Undocumented function */
 	public function add_single_content() {}
 
-	/**
-	 * Undocumented function
-	 */
+	/** Undocumented function */
 	public function add_archive_content() {}
 
-	/**
-	 * Undocumented function
-	 *
-	 * @param string $archive_type
-	 *
-	 * @return string
-	 */
+	/** Undocumented function */
 	public function set_archive_intro( string $archive_type ) {
 		echo implode( SPACE, $this->get_archive_intro( $archive_type ) );
 	}
 
-	/**
-	 * Undocumented function
-	 *
-	 * @param string $archive_type
-	 *
-	 * @return array
-	 */
+	/** Undocumented function */
 	protected function get_archive_intro() : array {
 		return [];
 	}
 
-	/**
-	 * Zet titel
-	 *
-	 * @param string $archive_title
-	 *
-	 * @return string
-	 */
+	/** Zet titel */
 	public function set_archive_title( string $archive_title ) : string {
 		if (
 			is_post_type_archive( "siw_{$this->post_type}" ) ||
@@ -280,29 +214,17 @@ abstract class Type {
 		return $archive_title;
 	}
 
-	/**
-	 * Undocumented function
-	 *
-	 * @param string $archive_title
-	 *
-	 * @return string
-	 */
+	/** Undocumented function */
 	protected function get_archive_title( string $archive_title ) : string {
 		return $archive_title;
 	}
 
-	/**
-	 * Undocumented function
-	 *
-	 * @return array
-	 */
+	/** Undocumented function */
 	protected function get_active_posts_meta_query() : array {
 		return [];
 	}
 
-	/**
-	 * Zet breedt van single post
-	 */
+	/** Zet breedt van single post */
 	public function set_single_width() {
 
 		if ( ! is_singular( "siw_{$this->post_type}" ) ) {
@@ -310,10 +232,10 @@ abstract class Type {
 		}
 		switch ( $this->single_width ) {
 			case 'tablet':
-				$width = Util::get_tablet_breakpoint();
+				$width = CSS::TABLET_BREAKPOINT;
 				break;
 			case 'mobile':
-				$width = Util::get_mobile_breakpoint();
+				$width = CSS::MOBILE_BREAKPOINT;
 				break;
 			default:
 				$width = null;
@@ -337,35 +259,18 @@ abstract class Type {
 		);
 	}
 
-	/**
-	 * Zet call to action voor social share links
-	 *
-	 * @param array $post_types
-	 *
-	 * @return array
-	 */
+	/** Zet call to action voor social share links */
 	public function set_social_share_cta( array $post_types ) : array {
 		$post_types[ "siw_{$this->post_type}" ] = $this->get_social_share_cta();
 		return $post_types;
 	}
 
-	/**
-	 * Zet social share CTA
-	 *
-	 * @return string
-	 */
+	/** Zet social share CTA */
 	protected function get_social_share_cta() : string {
 		return __( 'Deel deze pagina', 'siw' );
 	}
 
-	/**
-	 * Zet SEO-noindex
-	 *
-	 * @param array $meta
-	 * @param int $post_id
-	 *
-	 * @return array
-	 */
+	/** Zet SEO-noindex */
 	public function set_seo_noindex( array $meta, int $post_id ) : array {
 		if ( "siw_{$this->post_type}" == get_post_type( $post_id ) ) {
 			$meta['_genesis_noindex'] = intval( $this->get_seo_noindex( $post_id ) );
@@ -373,24 +278,12 @@ abstract class Type {
 		return $meta;
 	}
 
-	/**
-	 * Bepaal SEO-noindex
-	 * 
-	 * @param int $post_id
-	 *
-	 * @return bool
-	 */
+	/** Bepaal SEO-noindex */
 	protected function get_seo_noindex( int $post_id ) : bool {
 		return false;
 	}
 
-	/**
-	 * Genereert titel slug op basis van eigenschappen
-	 *
-	 * @param array $data
-	 * @param array $postarr
-	 * @return array
-	 */
+	/** Genereert titel slug op basis van eigenschappen */
 	public function set_post_data( array $data, array $postarr ) : array {
 
 		if ( in_array( $data['post_status'], [ 'draft', 'pending', 'auto-draft' ] ) ) {
@@ -407,34 +300,18 @@ abstract class Type {
 		return $data;
 	}
 
-	/**
-	 * Genereert titel
-	 *
-	 * @param array $data
-	 * @param array $postarr
-	 *
-	 * @return string
-	 */
+	/** Genereert titel */
 	protected function generate_title( array $data, array $postarr ) : string {
 		return $data['post_title'];
 	}
 
-	/**
-	 * Genereert slug
-	 *
-	 * @param array $data
-	 * @param array $postarr
-	 *
-	 * @return string
-	 */
+	/** Genereert slug */
 	protected function generate_slug( array $data, array $postarr ) : string {
 		return $data['post_name'];
 	}
 
 	/**
 	 * Zet standaard volgorde voor admin scherm
-	 *
-	 * @param \WP_Query $query
 	 *
 	 * @todo netjes maken? + inverse van archive
 	 */
@@ -458,9 +335,7 @@ abstract class Type {
 		}
 	}
 
-	/**
-	 * Toon teller met aantal actieve posts
-	 */
+	/** Toon teller met aantal actieve posts */
 	public function add_admin_active_post_count() {
 		global $submenu;
 		
@@ -492,25 +367,13 @@ abstract class Type {
 		}
 	}
 
-	/**
-	 * Voegt post type toe aan carousel widget
-	 *
-	 * @param array $post_types
-	 *
-	 * @return array
-	 */
+	/** Voegt post type toe aan carousel widget */
 	public function add_carousel_post_type( array $post_types ) : array {
 		$post_types["siw_{$this->post_type}" ] = $this->post_type; //TODO: juiste label gebruiken
 		return $post_types;
 	}
 
-	/**
-	 * Voegt taxonomieën toe aan carousel widget
-	 *
-	 * @param array $post_type_taxonomies
-	 *
-	 * @return array
-	 */
+	/** Voegt taxonomieën toe aan carousel widget */
 	public function add_carousel_post_type_taxonomies( array $post_type_taxonomies ) : array {
 		foreach ( $this->taxonomies as $taxonomy => $settings ) {
 			$post_type_taxonomies["siw_{$this->post_type}"]["siw_{$this->post_type}_{$taxonomy}"] = $settings['labels']['name'];
@@ -518,25 +381,13 @@ abstract class Type {
 		return $post_type_taxonomies;
 	}
 
-	/**
-	 * Zet template voor carousel
-	 *
-	 * @param array $post_type_templates
-	 *
-	 * @return array
-	 */
+	/** Zet template voor carousel */
 	public function add_carousel_post_type_template( array $post_type_templates ) : array {
 		$post_type_templates["siw_{$this->post_type}"] = locate_template( "content-siw_{$this->post_type}.php" );
 		return $post_type_templates;
 	}
 
-	/**
-	 * Zet subdirectory voor uploads
-	 *
-	 * @param array $subdirs
-	 *
-	 * @return array
-	 */
+	/** Zet subdirectory voor uploads */
 	public function set_upload_subir( array $subdirs ) : array {
 		if ( isset( $this->upload_subdir ) ) {
 			$subdirs["siw_{$this->post_type}"] = $this->upload_subdir;
@@ -544,22 +395,24 @@ abstract class Type {
 		return $subdirs;
 	}
 
-	/**
-	 * Zet taxonomiën om bij te werken via batch
-	 *
-	 * @param array $taxonomies
-	 *
-	 * @return array
-	 */
+	/** Zet taxonomiën om bij te werken via batch */
 	public function set_update_terms_taxonomies( array $taxonomies ) : array {
 		foreach ( array_keys( $this->taxonomies ) as $taxonomy ) {
-			$taxonomies["siw_{$this->post_type}_{$taxonomy}"] = [
-				'query_type'   => 'posts',
-				'count'        => true,
-				'delete_empty' => false,
-				'meta_query'   => [ $this->active_posts_meta_query ]
-			];
+			$taxonomies[] = "siw_{$this->post_type}_{$taxonomy}";
 		}
 		return $taxonomies;
+	}
+
+	/** Zet meta query voor update van terms*/
+	public function set_update_terms_meta_query( array $meta_query, string $term_taxonomy ) : array {
+
+		foreach ( array_keys( $this->taxonomies ) as $taxonomy ) {
+			if ( $term_taxonomy == "siw_{$this->post_type}_{$taxonomy}" ) {
+				$meta_query = [ $this->active_posts_meta_query ];
+				break;
+			}
+		}
+
+		return $meta_query;
 	}
 }

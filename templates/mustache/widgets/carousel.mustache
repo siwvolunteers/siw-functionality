@@ -1,0 +1,14 @@
+{{> widget-title}}
+{{#intro}}
+	<div class="carousel-intro">
+		<p>{{ . }}</p>
+	</div>
+{{/intro}}
+
+{{& carousel }}
+
+{{#show_button}}
+	<div class="carousel-button">
+		{{> button }}
+	</div>
+{{/show_button}}

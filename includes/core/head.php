@@ -15,9 +15,7 @@ use SIW\Properties;
  */
 class Head {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 
@@ -40,15 +38,9 @@ class Head {
 		remove_action( 'template_redirect', 'rest_output_link_header', 11 ) ;
 	}
 
-	/**
-	 * Voegt tag voor application manifest toe
-	 *
-	 * @param array $meta_tags
-	 *
-	 * @return array
-	 */
+	/** Voegt tag voor application manifest toe */
 	public function add_application_manifest_tag( array $meta_tags ) : array {
-		$meta_tags[] = sprintf( '<link rel="manifest" href="%s">', '/application.manifest' );
+		$meta_tags[] = sprintf( '<link rel="manifest" href="%s" crossorigin="use-credentials">', '/application.manifest' );
 		return $meta_tags;
 	}
 
@@ -90,15 +82,7 @@ class Head {
 		die();
 	}
 
-	/**
-	 * Voegt resource hints (dns-prefetch en preconnect) toe
-	 *
-	 * @param array $urls
-	 * @param string $relation_type
-	 * @return array
-	 * 
-	 * @todo is dns-prefetch wel nodig?
-	 */
+	/** Voegt resource hints (dns-prefetch en preconnect) toe */
 	public function add_resource_hints( array $urls, string $relation_type ) : array {
 		/**
 		 * URL's die gepreconnect en geprefetcht moeten worden

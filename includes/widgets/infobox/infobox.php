@@ -31,6 +31,11 @@ class Infobox extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
+	protected bool $use_default_template = true;
+
+	/**
+	 * {@inheritDoc}
+	 */
 	protected function set_widget_properties() {
 		$this->widget_name = __( 'Infobox', 'siw');
 		$this->widget_description = __( 'Toont infoboxes met icon', 'siw' );
@@ -85,28 +90,10 @@ class Infobox extends Widget {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
-		ob_start();
-		?>
-		<?php
-		if ( isset( $instance['intro'] ) ) {
-			echo wp_kses_post( $instance['intro'] );
-		}
-		foreach ( $instance['infoboxes'] as $infobox ) : ?>
-			<div class="row header">
-				<div class="icon ">
-					<?php echo Elements::generate_icon( $infobox['icon'], 3, 'circle');?>
-				</div>
-				<div class="title">
-				<h4><?php echo esc_html( $infobox['title'] );?></h4>
-				</div>
-			</div>
-			<div class="row">
-				<div class="content col-md-12">
-					<?php echo wpautop( wp_kses_post( $infobox['content'] ) );?>
-				</div>
-			</div>
-		<?php endforeach;
-		return ob_get_clean();
+	function get_template_variables( $instance, $args ) {
+		return [
+			'intro'   => $instance['intro'],
+			'content' => Elements::generate_infoboxes( $instance['infoboxes'] ),
+		];
 	}
 }

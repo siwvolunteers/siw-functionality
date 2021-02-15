@@ -1,0 +1,17 @@
+<table>
+	{{# has_headers }}
+	<tr>
+		{{# headers }}
+		<th>{{{ . }}}</th>
+		{{/ headers }}
+	</tr>
+	{{/ has_headers}}
+	{{# rows }}
+		<tr>
+			{{# . }}
+				<td>{{{ . }}}</td>
+			{{/ . }}
+		</tr>
+	{{/ rows}}
+
+</table>

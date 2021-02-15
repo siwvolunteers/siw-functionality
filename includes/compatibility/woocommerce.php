@@ -13,26 +13,16 @@ use SIW\Formatting;
  */
 class WooCommerce {
 
-	/**
-	 * Aantal log items per pagina
-	 * 
-	 * @var int
-	 */
+	/** Aantal log items per pagina */
 	const LOG_ITEMS_PER_PAGE = 25;
 
-	/**
-	 * Aantal dagen dat log bewaard wordt
-	 * 
-	 * @var int
-	 */
+	/** Aantal dagen dat log bewaard wordt */
 	const DAYS_TO_RETAIN_LOG = 7;
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 
-		if ( ! class_exists( '\WooCommerce' ) ) {
+		if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 			return;
 		}
 		$self = new self();
@@ -41,8 +31,8 @@ class WooCommerce {
 
 		$self->set_log_handler();
 		add_filter( 'woocommerce_register_log_handlers', [ $self, 'register_log_handlers' ], PHP_INT_MAX );
-		add_filter( 'woocommerce_status_log_items_per_page', [ $self, 'set_log_items_per_page' ] );
-		add_filter( 'woocommerce_logger_days_to_retain_logs', [ $self, 'set_days_to_retain_log'] );
+		add_filter( 'woocommerce_status_log_items_per_page', fn() : int => self::LOG_ITEMS_PER_PAGE );
+		add_filter( 'woocommerce_logger_days_to_retain_logs', fn() : int => self::DAYS_TO_RETAIN_LOG );
 		add_filter( 'nonce_user_logged_out', [ $self, 'reset_nonce_user_logged_out' ], PHP_INT_MAX, 2 );
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
 		add_filter( 'product_type_selector', [ $self, 'disable_product_types'] );
@@ -51,23 +41,22 @@ class WooCommerce {
 		add_filter( 'woocommerce_product_visibility_options', [ $self, 'remove_product_visibility_options', ] );
 		add_filter( 'woocommerce_products_admin_list_table_filters', [ $self, 'remove_products_admin_list_table_filters'] );
 
-		/* Wachtwoord-reset niet via WooCommerce maar via standaard WordPress-methode */
+		// Wachtwoord-reset niet via WooCommerce maar via standaard WordPress-methode
 		remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
 
-		/* WooCommerce filter kortsluiten: iedereen die mag inloggen mag het dashboard zien */
+		// Verwijder extra gebruikersvelden WooCommerce
+		add_filter( 'woocommerce_customer_meta_fields', '__return_empty_array' );
+		
+		//Diverse admin-features uitschakelen
 		add_filter( 'woocommerce_prevent_admin_access', '__return_false' );
 
-		/* Verwijder extra gebruikersvelden WooCommerce */
-		add_filter( 'woocommerce_customer_meta_fields', '__return_empty_array' );
-
-		add_filter( 'wc_session_use_secure_cookie', '__return_true' );
 		add_filter( 'woocommerce_enable_admin_help_tab', '__return_false' );
 		add_filter( 'woocommerce_allow_marketplace_suggestions', '__return_false' );
 		add_filter( 'woocommerce_show_addons_page', '__return_false' );
-
 		add_filter( 'woocommerce_admin_disabled', '__return_true' );
-		add_filter( 'woocommerce_marketing_menu_items', '__return_empty_array' );
-		add_filter( 'woocommerce_helper_suppress_admin_notices', '__return_true' );
+
+		//Eigen vertalingen laden
+		add_filter( 'load_textdomain_mofile', [ $self, 'load_custom_translations'], 10, 2 );
 
 		//Blocks style niet laden
 		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
@@ -80,15 +69,16 @@ class WooCommerce {
 
 		add_filter( 'get_term', [ $self, 'filter_term_name'], 10, 2 );
 
+		add_filter( 'siw_update_woocommerce_terms_taxonomies', [ $self, 'set_update_terms_taxonomies'] );
+		add_filter( 'siw_update_woocommerce_terms_delete_empty', [ $self, 'set_update_terms_delete_empty'], 10, 2 );
+
 		add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta'] );
 		add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type' ] );
 		add_filter( 'siw_carousel_post_type_taxonomies', [ $self, 'add_carousel_post_type_taxonomies' ] );
 		add_filter( 'siw_carousel_post_type_templates', [ $self, 'add_carousel_template' ] );
 	}
 
-	/**
-	 * Verwijdert ongebruikte widgets
-	 */
+	/** Verwijdert ongebruikte widgets */
 	public function unregister_widgets() {
 		unregister_widget( 'WC_Widget_Price_Filter' );
 		unregister_widget( 'WC_Widget_Product_Categories' );
@@ -97,16 +87,12 @@ class WooCommerce {
 		unregister_widget( 'WC_Widget_Cart' );
 	}
 
-	/**
-	 * Zet database als de standaard log handler
-	 */
+	/** Zet database als de standaard log handler */
 	public function set_log_handler() {
 		define( 'WC_LOG_HANDLER', 'WC_Log_Handler_DB' );
 	}
 
-	/**
-	 * Verwijdert WooCommerce-blocks style
-	 */
+	/** Verwijdert WooCommerce-blocks style */
 	public function deregister_block_style() {
 		wp_deregister_style( 'wc-block-style' );
 	}
@@ -116,8 +102,6 @@ class WooCommerce {
 	 * 
 	 * - Database
 	 * - E-mail (voor hoge prioriteit)
-	 *
-	 * @return array
 	 */
 	public function register_log_handlers() : array {
 		$log_handler_db = new \WC_Log_Handler_DB;
@@ -132,39 +116,13 @@ class WooCommerce {
 		return $handlers;
 	}
 
-	/**
-	 * Zet het aantal log items per pagina
-	 *
-	 * @return int
-	 */
-	public function set_log_items_per_page() : int {
-		return self::LOG_ITEMS_PER_PAGE;
-	}
-
-	/**
-	 * Zet aantal dagen dat log bewaard wordt
-	 *
-	 * @return int
-	 */
-	public function set_days_to_retain_log() : int {
-		return self::DAYS_TO_RETAIN_LOG;
-	}
-
-	/**
-	 * Maakt het aanpassen van nonce voor logged-out user door WooCommerce ongedaan
-	 *
-	 * @param string $user_id
-	 * @param string $action
-	 * @return string
-	 */
+	/** Maakt het aanpassen van nonce voor logged-out user door WooCommerce ongedaan */
 	public function reset_nonce_user_logged_out( $user_id, string $action ) {
 		$nonces = [
 			'wp_rest',
 		];
-		if ( class_exists( '\WooCommerce' ) ) {
-			if ( $user_id && 0 !== $user_id && $action && ( in_array( $action, $nonces ) ) ) {
-				$user_id = get_current_user_id();;
-			}
+		if ( $user_id && 0 !== $user_id && $action && ( in_array( $action, $nonces ) ) ) {
+			$user_id = get_current_user_id();;
 		}
 		return $user_id;
 	}
@@ -177,12 +135,7 @@ class WooCommerce {
 		remove_meta_box( 'woocommerce_dashboard_status', 'dashboard', 'normal' );
 	}
 
-	/**
-	 * Schakelt ongebruikte product types uit 
-	 *
-	 * @param array $product_types
-	 * @return array
-	 */
+	/** Schakelt ongebruikte product types uit */
 	public function disable_product_types( array $product_types ) : array {
 		unset( $product_types['simple'] );
 		unset( $product_types['grouped'] );
@@ -190,13 +143,7 @@ class WooCommerce {
 		return $product_types;
 	}
 
-	/**
-	 * Voegt project_id als argument toe aan WC queries
-	 *
-	 * @param array $query
-	 * @param array $query_vars
-	 * @return array
-	 */
+	/** Voegt project_id als argument toe aan WC queries */
 	public function enable_project_id_search( array $query, array $query_vars ) {
 		if ( ! empty( $query_vars['project_id'] ) ) {
 			$query['meta_query'][] = [
@@ -207,13 +154,7 @@ class WooCommerce {
 		return $query;
 	}
 	
-	/**
-	 * Voegt country argument toe aan WC queries
-	 *
-	 * @param array $query
-	 * @param array $query_vars
-	 * @return array
-	 */
+	/** Voegt country argument toe aan WC queries */
 	public function enable_country_search( array $query, array $query_vars ) {
 		if ( ! empty( $query_vars['country'] ) ) {
 			$query['meta_query'][] = [
@@ -224,36 +165,21 @@ class WooCommerce {
 		return $query;
 	}
 
-	/**
-	 * Verwijdert overbodige zichtbaarheidsopties
-	 *
-	 * @param array $visibility_options
-	 * @return array
-	 */
+	/** Verwijdert overbodige zichtbaarheidsopties */
 	public function remove_product_visibility_options( array $visibility_options ) : array {
 		unset( $visibility_options['catalog']);
 		unset( $visibility_options['search']);
 		return $visibility_options;
 	}
 
-	/**
-	 * Verwijdert filters op admin-lijst met producten 
-	 *
-	 * @param array $filters
-	 * @param array
-	 */
+	/** Verwijdert filters op admin-lijst met producten  */
 	public function remove_products_admin_list_table_filters( array $filters ) : array {
 		unset( $filters['product_type']);
 		unset( $filters['stock_status']);
 		return $filters;
 	}
 
-	/**
-	 * Registreert query vars voor WP Rocket
-	 *
-	 * @param array $vars
-	 * @return array
-	 */
+	/** Registreert query vars voor WP Rocket */
 	public function register_query_vars( array $vars ) : array {
 		$taxonomies = wc_get_attribute_taxonomies();
 		foreach ( $taxonomies as $taxonomy ) {
@@ -275,25 +201,12 @@ class WooCommerce {
 		remove_theme_support( 'wc-product-gallery-slider' );
 	}
 
-	/**
-	 * Verwijdert link bij productafbeelding
-	 *
-	 * @param string $html
-	 *
-	 * @return string
-	 */
+	/** Verwijdert link bij productafbeelding */
 	public function remove_link_on_thumbnails( string $html ) : string {
-		return strip_tags( $html, '<img>' );
+		return strip_tags( $html, '<img>' ); //TODO: verplaatsen naar product
 	}
 
-	/**
-	 * Zet naam van terms
-	 *
-	 * @param \WP_Term $term
-	 * @param string $taxonomy
-	 *
-	 * @return \WP_Term
-	 */
+	/** Zet naam van terms */
 	public function filter_term_name( \WP_Term $term, string $taxonomy ) : \WP_Term {
 		if ( 'pa_maand' == $taxonomy ) {
 			$order = get_term_meta( $term->term_id, 'order', true );
@@ -316,37 +229,34 @@ class WooCommerce {
 		return $term;
 	}
 
-	/**
-	 * Zet call to action voor social share links
-	 *
-	 * @param array $post_types
-	 *
-	 * @return array
-	 */
+	/** Zet taxonomies waarvan terms bijgewerkt moet worden */
+	public function set_update_terms_taxonomies( array $taxonomies ) : array {
+		$taxonomies[] = 'product_cat';
+		$taxonomies[] = 'pa_maand';
+		return $taxonomies;
+	}
+
+	/** Undocumented function */
+	public function set_update_terms_delete_empty( bool $delete_empty, string $taxonomy ) : bool {
+		if ( 'pa_maand' == $taxonomy ) {
+			$delete_empty = true;
+		}
+		return $delete_empty;
+	}
+
+	/** Zet call to action voor social share links */
 	public function set_social_share_cta( array $post_types ) : array {
 		$post_types['product'] = __( 'Deel dit project', 'siw' );
 		return $post_types;
 	}
 
-	/**
-	 * Voegt post type toe aan carousel
-	 *
-	 * @param array $post_types
-	 *
-	 * @return array
-	 */
+	/** Voegt post type toe aan carousel */
 	public function add_carousel_post_type( array $post_types ) : array {
 		$post_types['product'] = __( 'Groepsprojecten', 'siw' );
 		return $post_types;
 	}
 
-	/**
-	 * Voegt taxonomies toe aan carousel
-	 *
-	 * @param array $taxonomies
-	 *
-	 * @return array
-	 */
+	/** Voegt taxonomies toe aan carousel */
 	public function add_carousel_post_type_taxonomies( array $taxonomies ) : array {
 		$taxonomies['product'] = [
 			'product_cat' => __( 'Continent', 'siw' ),
@@ -354,15 +264,28 @@ class WooCommerce {
 		return $taxonomies;
 	}
 
-	/**
-	 * Voegt template toe aan carousel
-	 *
-	 * @param array $templates
-	 *
-	 * @return array
-	 */
+	/** Voegt template toe aan carousel */
 	public function add_carousel_template( array $templates ) : array {
 		$templates['product'] = wc_locate_template( 'content-product.php' );
 		return $templates;
+	}
+
+	/**
+	 * Laad custom vertalingen voor WooCommerce
+	 * 
+	 * @param string $mofile
+	 * @param string $domain
+	 * @return string
+	 */
+	public function load_custom_translations( string $mofile, string $domain ) : string {
+
+		$locale = determine_locale();
+
+		if ( 'woocommerce' != $domain || 'nl_NL' != $locale ) {
+			return $mofile;
+		}
+		
+		$custom_mofile = SIW_PLUGIN_DIR . "languages/{$domain}/{$locale}.mo";
+		return file_exists( $custom_mofile ) ? $custom_mofile : $mofile;
 	}
 }

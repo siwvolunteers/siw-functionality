@@ -2,46 +2,50 @@
 
 namespace SIW\Options;
 
+use SIW\Data\Continent;
+use SIW\Interfaces\Options\Option as Option_Interface;
+
 /**
  * Opties voor landen
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  * @since     3.2.0
  */
-class Countries extends Option {
+class Countries implements Option_Interface {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $id = 'countries';
+	/** {@inheritDoc} */
+	public function get_id(): string {
+		return 'countries';
+	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function get_title(): string {
+	/** {@inheritDoc} */
+	public function get_parent_page(): string {
+		return 'options-general.php';
+	}
+
+	/** {@inheritDoc} */
+	public function get_capability(): string {
+		return 'manage_options';
+	}
+
+	/** {@inheritDoc} */
+	public function get_title(): string {
 		return __( 'Landen', 'siw' );
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function get_tabs() : array {
-		$continents = \siw_get_continents();
-
-		$tabs = [];
-		foreach ( $continents as $continent ) {
-			$tabs[] = [
+	/** {@inheritDoc} */
+	public function get_tabs() : array {
+		return array_map(
+			fn( Continent $continent ) : array => [
 				'id'    => $continent->get_slug(),
 				'label' => $continent->get_name(),
-			];
-		}
-		return $tabs;
+			],
+			\siw_get_continents()
+		);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function get_fields() : array {
+	/** {@inheritDoc} */
+	public function get_fields() : array {
 
 		$countries = \siw_get_countries();
 
@@ -79,5 +83,4 @@ class Countries extends Option {
 		}
 		return $fields;
 	}
-
 }

@@ -12,9 +12,7 @@ namespace SIW\WooCommerce\Admin;
  */
 class Order {
 
-	/**
-	 * Init
-	 */
+	/** Init */
 	public static function init() {
 		$self = new self();
 
@@ -34,23 +32,14 @@ class Order {
 		add_filter( 'woocommerce_order_actions', [ $self, 'remove_order_actions'] );
 	}
 
-	/**
-	 * Geeft secties met velden terug
-	 *
-	 * @return array
-	 */
+	/** Geeft secties met velden terug */
 	protected function get_checkout_sections() : array {
 		$checkout_sections = siw_get_data( 'workcamps/checkout-sections' );
 		return $checkout_sections;
 	}
 
-	/**
-	 * Geeft velden van 1 sectie terug
-	 *
-	 * @param string $section
-	 * @return string|null
-	 */
-	protected function get_checkout_section( $section ) : ?string {
+	/** Geeft velden van 1 sectie terug */
+	protected function get_checkout_section( string $section ) : ?string {
 		$checkout_sections = $this->get_checkout_sections();
 
 		if ( isset( $checkout_sections[ $section ] ) ) {
@@ -59,13 +48,8 @@ class Order {
 		return null;
 	}
 
-	/**
-	 * Geeft checkout velden terug
-	 *
-	 * @param string $section
-	 * @return array
-	 */
-	protected function get_checkout_fields( $section = '' ) {
+	/** Geeft checkout velden terug */
+	protected function get_checkout_fields( string $section = '' ) : array {
 		$checkout_fields = siw_get_data( 'workcamps/checkout-fields' );
 	
 		if ( ! empty( $section ) && isset( $checkout_fields[ $section ] ) ) {
@@ -74,13 +58,8 @@ class Order {
 		return $checkout_fields;
 	}
 
-	/**
-	 * Undocumented function
-	 *
-	 * @param array $fields
-	 * @return array
-	 */
-	public function set_admin_billing_fields( $fields ) {
+	/** Undocumented function */
+	public function set_admin_billing_fields( array $fields ) : array {
 		//TODO:styling
 
 		//TODO:wp_parse_args_recursive + unset
@@ -122,19 +101,13 @@ class Order {
 	 * @param array $address_formats
 	 * @return array
 	 */
-	public function set_localisation_address_format( $address_formats ) {
+	public function set_localisation_address_format( array $address_formats ) : array {
 		$address_formats['NL'] = "{name}\n{address_1} {housenumber}\n{postcode} {city}\n{country}\n{dob}\n{gender}\n{nationality}";
 		return $address_formats;
 	}
 
-	/**
-	 * Undocumented function
-	 *
-	 * @param array $replace
-	 * @param array $args
-	 * @return array
-	 */
-	public function set_formatted_address_replacements( $replace, $args ) {
+	/** Undocumented function */
+	public function set_formatted_address_replacements( array $replace, array $args ) : array {
 		$replace['{gender}'] = $args['gender'];
 		$replace['{housenumber}'] = $args['housenumber'];
 		$replace['{nationality}'] = $args['nationality'];
@@ -142,13 +115,7 @@ class Order {
 		return $replace;
 	}
 
-	/**
-	 * Toont sectie met velden
-	 *
-	 * @param \WC_Order $order
-	 * @param string $section
-	 * @param bool $edit
-	 */
+	/** Toont sectie met velden */
 	protected function show_section( \WC_Order $order, string $section, bool $edit = false ) {
 		?>
 		<br class="clear" />
@@ -180,12 +147,7 @@ class Order {
 		<?php
 	}
 
-	/**
-	 * Toont waarde van veld
-	 *
-	 * @param \WC_Order $order
-	 * @param array $field
-	 */
+	/** Toont waarde van veld */
 	protected function show_field_value( \WC_Order $order, array $field ) {
 
 		switch ( $field['type'] ) {
@@ -207,12 +169,7 @@ class Order {
 		}
 	}
 
-	/**
-	 * Toont inputveld
-	 *
-	 * @param \WC_Order $order
-	 * @param array $field
-	 */
+	/** Toont inputveld */
 	protected function show_field_input( \WC_Order $order, array $field ) {
 		unset( $field['class']);
 		$field['value'] = $order->get_meta( $field['id'] );
@@ -239,12 +196,7 @@ class Order {
 		}
 	}
 
-	/**
-	 * Formatteert factuuradres
-	 *
-	 * @param array $address
-	 * @param \WC_Order $order
-	 */
+	/** Formatteert factuuradres */
 	public function format_billing_address( array $address, \WC_Order $order ) : array {
 		$address['dob'] = $order->get_meta('_billing_dob');
 		$address['gender'] = siw_get_genders()[ $order->get_meta('_billing_gender') ];
@@ -253,11 +205,7 @@ class Order {
 		return $address;
 	}
 
-	/**
-	 * Toont of gebruiker akkoord met inschrijfvoorwaarden is gegaan
-	 *
-	 * @param \WC_Order $order
-	 */
+	/** Toont of gebruiker akkoord met inschrijfvoorwaarden is gegaan */
 	public function show_terms( \WC_Order $order ) {
 		echo '<br class="clear" />';
 
@@ -276,11 +224,7 @@ class Order {
 		);
 	}
 
-	/**
-	 * Toont taalgegevens
-	 *
-	 * @param \WC_Order $order
-	 */
+	/** Toont taalgegevens */
 	public function show_language_meta( \WC_Order $order ) {
 		$this->show_section( $order, 'language');
 	}
@@ -290,8 +234,6 @@ class Order {
 	 * 
 	 * - Info voor partner
 	 * - Noodcontact
-	 *
-	 * @param \WC_Order $order
 	 */
 	public function show_order_meta( \WC_Order $order ) { 
 		$this->show_terms( $order );
@@ -299,13 +241,8 @@ class Order {
 		$this->show_section( $order, 'emergency_contact');
 	}
 
-	/**
-	 * Slaat extra checkout velden op
-	 *
-	 * @param int $post_id
-	 * @param \WP_Post $post
-	 */
-	public function process_order_meta( int $post_id, $post ) {
+	/** Slaat extra checkout velden op */
+	public function process_order_meta( int $post_id, \WP_Post $post ) {
 
 		$custom_fields = $this->get_checkout_fields();
 		$order = wc_get_order( $post_id );
@@ -320,21 +257,14 @@ class Order {
 		$order->save();
 	}
 
-	/**
-	 * Verwijdert overbodige admin columns
-	 *
-	 * @param array $columns
-	 * @return array
-	 */
+	/** Verwijdert overbodige admin columns */
 	public function remove_admin_columns( array $columns ) : array {
 		unset( $columns['shipping_address'] );
 		unset( $columns['billing_address'] );	
 		return $columns;
 	}
 
-	/**
-	 * Voegt extra admin columns toe
-	 */
+	/** Voegt extra admin columns toe */
 	public function add_admin_columns() {
 		if ( ! class_exists( '\MBAC\Post' ) ) {
 			return;
@@ -342,21 +272,14 @@ class Order {
 		new Order_Columns( 'shop_order', [] );
 	}
 
-	/**
-	 * Verwijdert overbodige order actions
-	 *
-	 * @param array $actions
-	 * @return array
-	 */
-	public function remove_order_actions( $actions ) : array {
+	/** Verwijdert overbodige order actions */
+	public function remove_order_actions( array $actions ) : array {
 		unset( $actions['regenerate_download_permissions']);
 		unset( $actions['send_order_details']);
 		return $actions;
 	}
 
-	/**
-	 * Verwijdert overbodige meta-boxes
-	 */
+	/** Verwijdert overbodige meta-boxes */
 	public function remove_meta_boxes() {
 		remove_meta_box( 'postcustom' , 'shop_order' , 'normal' );
 		remove_meta_box( 'woocommerce-order-downloads', 'shop_order', 'normal' );

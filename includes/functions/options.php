@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use Adbar\Dot;
+
 /**
  * Functies m.b.t. opties
  * 
@@ -7,18 +9,8 @@
  * @since     3.0.0
  */
 
-use function Donut\Util\array_dig;
-
-/**
- * Haal optie op
- * 
- * @since     3.0.0
- *
- * @param string $option
- * @param mixed $default
- * @return mixed
- */
-function siw_get_option( $option, $default = null ) {
+/** Haal optie op */
+function siw_get_option( string $option, $default = null ) {
 
 	//Foutmelding bij aanroepen vóór init
 	if ( 0 === did_action( 'init' ) && WP_DEBUG ) {
@@ -31,7 +23,9 @@ function siw_get_option( $option, $default = null ) {
 		return $value;
 	}
 	$options = get_option( 'siw_options' );
-	$value = array_dig( $options, explode( '.', $option ) );
+
+	$dot = new Dot( $options );
+	$value = $dot->get( $option );
 
 	if ( empty( $value ) ) {
 		return $default;

@@ -2,76 +2,45 @@
 
 namespace SIW\External;
 
-use SIW\Core\HTTP_Request;
+use SIW\Helpers\HTTP_Request;
 
 /**
  * Opzoeken e-mailadres en IP in SFS-spamdatabase
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  * 
  * @link      https://www.stopforumspam.com/usage
  */
 class Spam_Check{
 
-	/**
-	 * API URL
-	 *
-	 * @var string
-	 */
+	/** API URL */
 	const API_URL = 'https://europe.stopforumspam.org/api';
 
-	/**
-	 * Grens voor Spam
-	 *
-	 * @var float
-	 */
+	/** Grens voor Spam */
 	const SPAM_THRESHOLD = 90.00;
 
-	/**
-	 * Geldigheidsduur van transient
-	 *
-	 * @var int
-	 */
+	/** Geldigheidsduur van transient */
 	const TRANSIENT_EXPIRATION = 1 * DAY_IN_SECONDS;
 
-	/**
-	 * Algoritme om email-adress te hashen voor opslag
-	 * 
-	 * @var string
-	 */
+	/**Algoritme om email-adress te hashen voor opslag */
 	const HASH_ALGORITHM = 'sha1';
 
-	/**
-	 * Geeft aan of IP gecheckt moet worden
-	 */
+	/** Geeft aan of IP gecheckt moet worden */
 	protected bool $check_ip = false;
 
-	/**
-	 * Geeft aan of e-mail gecheckt moet worden
-	 */
+	/** Geeft aan of e-mail gecheckt moet worden */
 	protected bool $check_email = false;
 
-	/**
-	 * IP-adres
-	 */
+	/** IP-adres */
 	protected string $ip;
 
-	/**
-	 * E-mailadres
-	 */
+	/** E-mailadres */
 	protected string $email;
 
-	/**
-	 * Hash van e-mailadres
-	 */
+	/** Hash van e-mailadres */
 	protected string $email_hash;
 
-	/**
-	 * Zet IP-adres om te controlen
-	 *
-	 * @param string $ip
-	 */
+	/** Zet IP-adres om te controlen */
 	public function set_ip( string $ip ) {
 		if ( filter_var( $ip, FILTER_VALIDATE_IP ) ) {
 			$this->ip = $ip;
@@ -79,11 +48,7 @@ class Spam_Check{
 		}
 	}
 
-	/**
-	 * Zet e-mailadres om te controleren
-	 *
-	 * @param string $email
-	 */
+	/** Zet e-mailadres om te controleren */
 	public function set_email( string $email ) {
 		if ( is_email( $email ) ) {
 			$this->email = strtolower( $email );
@@ -92,11 +57,7 @@ class Spam_Check{
 		}
 	}
 
-	/**
-	 * Geeft aan of het een spammer betreft
-	 *
-	 * @return bool
-	 */
+	/** Geeft aan of het een spammer betreft */
 	public function is_spammer() : bool {
 
 		//Afbreken als er niets to controleren is
@@ -153,9 +114,7 @@ class Spam_Check{
 		return false;
 	}
 
-	/**
-	 * Zoek email en IP op in externe database
-	 */
+	/** Zoek email en IP op in externe database */
 	protected function external_lookup() : array {
 
 		$body = [
@@ -169,7 +128,7 @@ class Spam_Check{
 		}
 
 		$request = new HTTP_Request( self::API_URL );
-		$request->set_content_type( 'application/x-www-form-urlencoded' );
+		$request->set_content_type( HTTP_Request::APPLICATION_X_WWW_FORM_URLENCODED );
 		$response = $request->post( $body );
 
 		if ( is_wp_error( $response ) || false == $response['success'] ) {
@@ -187,5 +146,4 @@ class Spam_Check{
 
 		return $result;
 	}
-
 }
