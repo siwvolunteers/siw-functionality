@@ -20,11 +20,15 @@ class Bootstrap {
 	public function init() {
 
 		$this->load_extensions();
-
 		$this->define_constants();
+		$this->load_textdomain();
+
+		if ( ! $this->check_requirements() ) {
+			add_action( 'admin_notices', [ $this, 'show_requirements_admin_notice' ] );
+			return;
+		}
 		$this->load_dependencies();
 		$this->register_autoloader();
-		$this->load_textdomain();
 		$this->load_functions();
 
 		//Laadt klasses
@@ -49,9 +53,18 @@ class Bootstrap {
 	/** Definieer constantes */
 	protected function define_constants() {
 
-		$plugin_info = get_file_data( SIW_FUNCTIONALITY_PLUGIN_FILE , [ 'version' => 'Version'] );
+		$plugin_info = get_file_data(
+			SIW_FUNCTIONALITY_PLUGIN_FILE,
+			[
+				'version'         => 'Version',
+				'min_php_version' => 'Requires PHP',
+				'min_wp_version'  => 'Requires at least',
+			]
+		);
 
 		define ( 'SIW_PLUGIN_VERSION', $plugin_info['version'] ); 
+		define ( 'SIW_MIN_PHP_VERSION', $plugin_info['min_php_version'] );
+		define ( 'SIW_MIN_WP_VERSION', $plugin_info['min_wp_version'] );
 		define ( 'SIW_PLUGIN_DIR', wp_normalize_path( plugin_dir_path( __FILE__ ) ) );
 		define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets/' );
 		define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates/' );
@@ -67,6 +80,12 @@ class Bootstrap {
 		define ( 'HR', '<hr>');
 	}
 
+	/** Controleert requirements */
+	protected function check_requirements() {
+		return is_wp_version_compatible( SIW_MIN_WP_VERSION ) && is_php_version_compatible( SIW_MIN_PHP_VERSION );
+	}
+
+
 	/** Externe libraries laden */
 	protected function load_dependencies() {
 		require_once SIW_PLUGIN_DIR . 'vendor/autoload.php';
@@ -77,6 +96,19 @@ class Bootstrap {
 	protected function register_autoloader() {
 		require_once SIW_INCLUDES_DIR . 'autoloader.php';
 		new Autoloader( 'SIW', SIW_INCLUDES_DIR );
+	}
+
+	/**
+	 * Toon melding dat minimum requirements niet gehaald zijn is
+	 */
+	public function show_requirements_admin_notice() {
+		$notice = sprintf(
+			__( 'De SIW plugin vereist WordPress versie %s en PHP versie %s', 'siw' ),
+			SIW_MIN_WP_VERSION,
+			SIW_MIN_PHP_VERSION
+		);
+
+		echo '<div class="notice notice-error"><p><b>' . esc_html( $notice ) . '</b></p></div>';
 	}
 
 	/** Laadt textdomain voor plugin */
