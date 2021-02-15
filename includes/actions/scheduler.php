@@ -30,8 +30,9 @@ class Scheduler {
 		//Huidige start-actions unschedulen
 		$scheduled_actions = as_get_scheduled_actions(
 			[
-				'group'  => self::ACTION_GROUP,
-				'status' => ActionScheduler_Store::STATUS_PENDING
+				'group'    => self::ACTION_GROUP,
+				'status'   => ActionScheduler_Store::STATUS_PENDING,
+				'per_page' => -1,
 			]
 		);
 		array_walk(
