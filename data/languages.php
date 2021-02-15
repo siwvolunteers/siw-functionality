@@ -168,7 +168,7 @@ $data = [
 	[
 		'slug'                => 'spaans',
 		'name'                => __( 'Spaans', 'siw' ),
-		'plato'            	  => 'SPA',
+		'plato_code'          => 'SPA',
 		'volunteer_language'  => true,
 		'project_language'    => true,
 	],
