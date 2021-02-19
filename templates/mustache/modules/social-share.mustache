@@ -1,0 +1,9 @@
+<hr>
+<div class="siw-social">
+	<div class="title"> {{ title }}</div>
+	{{# social_networks}}
+		<a href="{{ share_url }}" aria-label="{{ label }}" data-balloon-pos="down" style="--hover-color: {{ color }}" target="_blank" data-ga-track="1" data-ga-type="social" data-ga-category="{{ name }}" data-ga-action="Delen" data-ga-label="{{ url }}">
+			{{> icon }}
+		</a>
+	{{/ social_networks}}
+</div>
