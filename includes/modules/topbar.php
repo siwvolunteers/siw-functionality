@@ -2,11 +2,11 @@
 
 namespace SIW\Modules;
 
+use SIW\Core\Template;
 use SIW\i18n;
 use SIW\Formatting;
 use SIW\Properties;
 use SIW\Util\CSS;
-use SIW\Util\Links;
 
 /**
  * Topbar
@@ -53,32 +53,18 @@ class Topbar {
 
 	/** Rendert de topbar */
 	public function render() {
-		$target = isset( $this->content['link_target'] ) ? $this->content['link_target'] : '_self';
-	
-		?>
-		<div class="topbar">
-			<div class="topbar-content grid-container">
-				<span class="<?php echo CSS::HIDE_ON_MOBILE_CLASS . ' ' . CSS::HIDE_ON_TABLET_CLASS; ?>"><?php echo esc_html( $this->content['intro'] );?>&nbsp;</span>
-					<?php
-					echo Links::generate_link(
-						$this->content['link_url'],
-						$this->content['link_text'],
-						[
-							'id'               => 'topbar_link',
-							'class'            => 'button ghost',
-							'target'           => $target,
-							'data-ga-track'    => 1,
-							'data-ga-type'     => 'event',
-							'data-ga-category' => 'Topbar',
-							'data-ga-action'   => 'Klikken',
-							'data-ga-label'    => $this->content['link_url'],
-						]
-					);
-				?>
-				
-			</div>
-		</div>
-	<?php
+		Template::render_template(
+			'modules/topbar',
+			[
+				'hide_on_mobile_class' => CSS::HIDE_ON_MOBILE_CLASS,
+				'hide_on_tablet_class' => CSS::HIDE_ON_TABLET_CLASS,
+				'target'               => $this->content['link_target'] ?? '_self',
+				'intro'                => $this->content['intro'],
+				'link_url'             => $this->content['link_url'],
+				'link_text'            => $this->content['link_text'],
+
+			]
+		);
 	}
 
 	/** Voegt stylesheet toe */
