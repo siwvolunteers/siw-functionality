@@ -95,19 +95,4 @@ class Social_Network {
 	public function get_share_url_template() : string {
 		return $this->share_url_template;
 	}
-
-	/** Genereert link op te delen */
-	public function generate_share_link( string $url, string $title ) :string {
-
-		$template = $this->get_share_url_template();
-		$url = urlencode( $url );
-		$title = rawurlencode( html_entity_decode( $title ) );
-
-		$vars = [
-			'title'  => $title,
-			'url'    => $url,
-		];
-	
-		return Formatting::parse_template( $template, $vars );
-	}
 }

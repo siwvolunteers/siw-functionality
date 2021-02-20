@@ -41,7 +41,13 @@ class Social_Share {
 
 		$social_networks = array_map(
 			fn( Social_Network $network ) : array => [
-				'share_url' => $network->generate_share_link( $url, $title ),
+				'share_url' => Template::parse_string_template(
+					$network->get_share_url_template(),
+					[
+						'url'   => urlencode( $url ),
+						'title' => rawurlencode( html_entity_decode( $title ) )
+					]
+				),
 				'label'     => sprintf( esc_attr__( 'Delen via %s', 'siw' ), $network->get_name() ),
 				'color'     => $network->get_color(),
 				'name'      => $network->get_name(),

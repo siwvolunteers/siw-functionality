@@ -78,5 +78,11 @@ class Template {
 	public static function parse_template( string $name, array $context ) : string {
 		return self::get_engine()->loadTemplate( $name )->render( $context );
 	}
+
+	/** Geeft geparste string-template terug */
+	public static function parse_string_template( string $template, array $context ) : string {
+		$template_engine = new Mustache_Engine;
+		return $template_engine->render( $template, $context );
+	}
 }
 
