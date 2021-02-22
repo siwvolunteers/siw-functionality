@@ -7,15 +7,14 @@ use SIW\Core\Template;
 /**
  * Class om een chart te genereren
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @see       https://github.com/apexcharts/apexcharts.js
  */
 abstract class Chart {
 	
 	/** Frappe Charts versie */
-	const FRAPPE_CHARTS_VERSION = '1.5.6';
+	const FRAPPE_CHARTS_VERSION = '1.5.8';
 
 	/** Type grafiek */
 	protected string $type;
