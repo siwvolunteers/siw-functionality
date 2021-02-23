@@ -2,7 +2,6 @@
 
 namespace SIW\WooCommerce\Email;
 
-use SIW\Formatting;
 use SIW\Properties;
 
 /**
@@ -209,7 +208,7 @@ class Emails {
 				$project_details = sprintf('%s<br/><small>Tarief: %s</small>', $item->get_name(), wc_get_order_item_meta( $item_id, 'pa_tarief' ) );
 			}
 			else {
-				$project_duration = Formatting::format_date_range( $parent->get_attribute( 'startdatum' ), $parent->get_attribute( 'einddatum' ), false );
+				$project_duration = siw_format_date_range( $parent->get_attribute( 'startdatum' ), $parent->get_attribute( 'einddatum' ), false );
 				$project_details = sprintf('%s<br/><small>Projectcode: %s<br>Projectduur: %s<br/>Tarief: %s</small>', $parent->get_name(), $parent->get_sku(), $project_duration, $item['pa_tarief'] );
 			}
 	

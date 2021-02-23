@@ -412,7 +412,7 @@ class Product {
 		$vars = [
 			'project_type' => $this->get_workcamp_type(),
 			'country'      => $this->country->get_name(),
-			'dates'        => Formatting::format_date_range(
+			'dates'        => siw_format_date_range(
 				$this->plato_project->get_start_date(),
 				$this->plato_project->get_end_date(),
 				false

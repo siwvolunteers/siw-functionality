@@ -2,8 +2,6 @@
 
 namespace SIW\Widgets;
 
-use SIW\Formatting;
-
 /**
  * Widget met agenda
  *
@@ -88,7 +86,7 @@ class Calendar extends Widget {
 			'url'      => get_permalink( $event_id ),
 			'duration' => sprintf(
 				'%s %s-%s',
-				Formatting::format_date( siw_meta( 'event_date', [], $event_id ), false ),
+				siw_format_date( siw_meta( 'event_date', [], $event_id ), false ),
 				siw_meta( 'start_time', [], $event_id ),
 				siw_meta( 'end_time', [], $event_id )
 			),

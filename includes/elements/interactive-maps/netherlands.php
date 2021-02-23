@@ -5,10 +5,8 @@ namespace SIW\Elements\Interactive_Maps;
 use SIW\Elements;
 use SIW\Elements\Interactive_Map;
 use SIW\i18n;
-use SIW\Formatting;
 use SIW\Properties;
 use SIW\Util\Links;
-use WC_Product;
 
 /**
  * Class om een Mapplic kaart te genereren
@@ -122,7 +120,7 @@ class Netherlands extends Interactive_Map {
 			$work_type_slugs
 		);
 	
-		$duration = Formatting::format_date_range( $project->get_attribute( 'startdatum' ), $project->get_attribute( 'einddatum' ) );
+		$duration = siw_format_date_range( $project->get_attribute( 'startdatum' ), $project->get_attribute( 'einddatum' ) );
 
 		//Opbouwen beschrijving
 		$description[] = sprintf( __( 'Projectcode: %s', 'siw' ), $project->get_sku() );

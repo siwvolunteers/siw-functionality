@@ -288,12 +288,12 @@ class Settings implements Option_Interface {
 							sprintf(
 								'%s: %s',
 								__( 'Regulier', 'siw' ),
-								Formatting::format_sale_amount( Properties::WORKCAMP_FEE_REGULAR, Properties::WORKCAMP_FEE_REGULAR_SALE )
+								siw_format_sale_amount( Properties::WORKCAMP_FEE_REGULAR, Properties::WORKCAMP_FEE_REGULAR_SALE )
 							),
 							sprintf(
 								'%s: %s',
 								__( 'Student', 'siw' ),
-								Formatting::format_sale_amount( Properties::WORKCAMP_FEE_STUDENT, Properties::WORKCAMP_FEE_STUDENT_SALE )
+								siw_format_sale_amount( Properties::WORKCAMP_FEE_STUDENT, Properties::WORKCAMP_FEE_STUDENT_SALE )
 							),
 						]
 					),
@@ -380,12 +380,12 @@ class Settings implements Option_Interface {
 							sprintf(
 								'%s: %s',
 								__( 'Regulier', 'siw' ),
-								Formatting::format_sale_amount( Properties::TAILOR_MADE_FEE_REGULAR, Properties::TAILOR_MADE_FEE_REGULAR_SALE )
+								siw_format_sale_amount( Properties::TAILOR_MADE_FEE_REGULAR, Properties::TAILOR_MADE_FEE_REGULAR_SALE )
 							),
 							sprintf(
 								'%s: %s',
 								__( 'Student', 'siw' ),
-								Formatting::format_sale_amount( Properties::TAILOR_MADE_FEE_STUDENT, Properties::TAILOR_MADE_FEE_STUDENT_SALE )
+								siw_format_sale_amount( Properties::TAILOR_MADE_FEE_STUDENT, Properties::TAILOR_MADE_FEE_STUDENT_SALE )
 							),
 						]
 					),

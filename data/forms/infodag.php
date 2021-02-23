@@ -4,8 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use SIW\Formatting;
-
 /**
  * Gegevens van aanmeldformulier voor Infodag
  * 
@@ -16,7 +14,7 @@ $infodays = siw_get_upcoming_info_days( 3 );
 	
 $callback = function( &$value, $key ) {
 	$date = siw_meta( 'event_date', [], $value );
-	$value = Formatting::format_date( $date, false );
+	$value = siw_format_date( $date, false );
 };
 array_walk( $infodays, $callback );
 

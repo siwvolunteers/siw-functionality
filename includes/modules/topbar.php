@@ -4,7 +4,6 @@ namespace SIW\Modules;
 
 use SIW\Core\Template;
 use SIW\i18n;
-use SIW\Formatting;
 use SIW\Properties;
 use SIW\Util\CSS;
 
@@ -108,7 +107,7 @@ class Topbar {
 		$link_text = sprintf(
 			__( 'Kom naar de %s op %s.', 'siw' ),
 			get_the_title( $event_id ),
-			Formatting::format_date( siw_meta( 'event_date', [], $event_id ), false )
+			siw_format_date( siw_meta( 'event_date', [], $event_id ), false )
 		);
 
 		return [
@@ -148,8 +147,8 @@ class Topbar {
 			return null;
 		}
 
-		$sale_price = Formatting::format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE );
-		$end_date = Formatting::format_date( siw_get_option( 'workcamp_sale.end_date' ), false );
+		$sale_price = siw_format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE );
+		$end_date = siw_format_date( siw_get_option( 'workcamp_sale.end_date' ), false );
 	
 		return [
 			'intro'     => __( 'Grijp je kans en ontvang korting!', 'siw' ),

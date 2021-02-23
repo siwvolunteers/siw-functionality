@@ -3,7 +3,6 @@ namespace SIW\Content\Types;
 
 use SIW\Content\Type;
 use SIW\Elements;
-use SIW\Formatting;
 use SIW\Util\Links;
 
 /**
@@ -362,7 +361,7 @@ class Job_Posting extends Type {
 			wp_kses_post(
 				sprintf(
 					__( 'Je motivatie met cv kun je uiterlijk %s sturen naar: %s (%s), %s', 'siw' ),
-					Formatting::format_date( siw_meta( 'deadline' ), true ),
+					siw_format_date( siw_meta( 'deadline' ), true ),
 					BR . $application_manager['name'],
 					$application_manager['title'],
 					Links::generate_mailto_link( $application_manager['email'] )

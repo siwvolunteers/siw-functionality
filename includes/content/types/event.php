@@ -4,7 +4,6 @@ namespace SIW\Content\Types;
 use SIW\Content\Type;
 use SIW\Elements;
 use SIW\Elements\Google_Maps;
-use SIW\Formatting;
 use SIW\Util\Links;
 
 /**
@@ -306,7 +305,7 @@ class Event extends Type {
 	 * {@inheritDoc}
 	 */
 	protected function generate_slug( array $data, array $postarr ) : string {
-		return sprintf( '%s %s', $data['post_title'], Formatting::format_date( $postarr['event_date'] ) );
+		return sprintf( '%s %s', $data['post_title'], siw_format_date( $postarr['event_date'] ) );
 	}
 	
 	/**
@@ -321,7 +320,7 @@ class Event extends Type {
 		printf(
 			'%s %s %s-%s',
 			Elements::generate_icon( 'siw-icon-clock' ),
-			Formatting::format_date( siw_meta( 'event_date' ), false),
+			siw_format_date( siw_meta( 'event_date' ), false),
 			siw_meta( 'start_time'),
 			siw_meta( 'end_time' )
 		);
@@ -363,7 +362,7 @@ class Event extends Type {
 		}
 
 		elseif ( siw_meta( 'info_day' ) ) {
-			$default_date = sanitize_title( Formatting::format_date( siw_meta('event_date' ), false ) );
+			$default_date = sanitize_title( siw_format_date( siw_meta('event_date' ), false ) );
 			echo do_shortcode( sprintf( '[caldera_form id="infodag" datum="%s"]', $default_date) );
 		}
 		else {
