@@ -214,3 +214,11 @@ function siw_get_email_settings( string $id ) : array {
 	}
 	return $mail_settings;
 }
+
+/** Geeft lijst met formulieren terug */
+function siw_get_forms() : array {
+	if ( ! class_exists( \Caldera_Forms_Forms::class ) ) {
+		return [];
+	}
+	return wp_list_pluck( Caldera_Forms_Forms::get_forms( true, false ), 'name' );
+}
