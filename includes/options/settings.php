@@ -4,16 +4,13 @@ namespace SIW\Options;
 
 use SIW\Interfaces\Options\Option as Option_Interface;
 
-use Caldera_Forms_Forms;
-use SIW\Formatting;
 use SIW\Modules\Topbar;
 use SIW\Properties;
 
 /**
  * Opties voor Configuratie
  * 
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.2.0
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Settings implements Option_Interface {
 
@@ -595,18 +592,9 @@ class Settings implements Option_Interface {
 		];
 
 		//Email
-		$forms = [];
-		if ( class_exists( '\Caldera_Forms_Forms' ) ) {
-			$forms = Caldera_Forms_Forms::get_forms( true );
-		}
-		$forms[] = [
-			'ID'   =>'workcamp',
-			'name' => __( 'Groepsprojecten', 'siw' ),
-		];
-		$forms[] = [
-			'ID'   => 'newsletter',
-			'name' => __( 'Nieuwsbrief', 'siw' ),
-		];
+		$forms = siw_get_forms();
+		$forms['workcamp']   = __( 'Groepsprojecten', 'siw' );
+		$forms['newsletter'] = __( 'Nieuwsbrief', 'siw' );
 
 		$fields[]= [
 			'id'     => 'email_settings',
@@ -636,15 +624,15 @@ class Settings implements Option_Interface {
 			]
 		];
 
-		foreach ( $forms as $form ) {
+		foreach ( $forms as $id => $name ) {
 			$fields[] = [
-				'id'     => "{$form['ID']}_email",
+				'id'     => "{$id}_email",
 				'type'   => 'group',
 				'tab'    => 'email',
 				'fields' => [
 					[
 						'type' => 'heading',
-						'name' => $form['name'],
+						'name' => $name,
 					],
 					[
 						'id'        => 'use_specific',
@@ -658,21 +646,21 @@ class Settings implements Option_Interface {
 						'name'     => __( 'E-mailadres', 'siw' ),
 						'type'     => 'email',
 						'required' => true,
-						'visible'  => [ "{$form['ID']}_email[use_specific]", true ],
+						'visible'  => [ "{$id}_email[use_specific]", true ],
 					],
 					[
 						'id'       => 'name',
 						'name'     => __( 'Naam', 'siw' ),
 						'type'     => 'text',
 						'required' => true,
-						'visible'  => [ "{$form['ID']}_email[use_specific]", true ],
+						'visible'  => [ "{$id}_email[use_specific]", true ],
 					],
 					[
 						'id'       => 'title',
 						'name'     => __( 'Functie', 'siw' ),
 						'type'     => 'text',
 						'required' => true,
-						'visible'  => [ "{$form['ID']}_email[use_specific]", true ],
+						'visible'  => [ "{$id}_email[use_specific]", true ],
 					],
 				]
 			];
