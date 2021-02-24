@@ -5,8 +5,7 @@ namespace SIW\Widgets;
 /**
  * Widget met aanmeldformulier nieuwsbrief
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Nieuwsbrief
@@ -16,27 +15,32 @@ namespace SIW\Widgets;
  */
 class Newsletter extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id ='newsletter';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'email';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Nieuwsbrief', 'siw');
-		$this->widget_description = __( 'Toont aanmeldformulier voor nieuwsbrief', 'siw' );
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'newsletter';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Nieuwsbrief', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont aanmeldformulier voor nieuwsbrief', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return $this->get_id();
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'email';
+	}
+
+	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
 			'title' => [
@@ -49,9 +53,7 @@ class Newsletter extends Widget {
 		return $widget_form;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 
 		$subscriber_count = siw_newsletter_get_subscriber_count( siw_get_option( 'newsletter_list' ) );

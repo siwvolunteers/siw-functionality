@@ -5,8 +5,7 @@ namespace SIW\Widgets;
 /**
  * Widget met quote
  *
- * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Quote
@@ -16,61 +15,60 @@ namespace SIW\Widgets;
  */
 class Quote extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id ='quote';
+	/** Taxonomy voor continent */
+	const CONTINENT_TAXONOMY = 'siw_quote_continent';
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'editor-quote';
+	/** Taxonomy voor projectsoort */
+	const PROJECT_TYPE_TAXONOMY = 'siw_quote_project_type';
 
-	/**
-	 * Taxonomy voor continent
-	 */
-	protected string $continent_taxonomy = 'siw_quote_continent';
-
-	/**
-	 * Taxonomy voor projectsoort
-	 */
-	protected string $project_type_taxonomy = 'siw_quote_project_type';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Quote', 'siw');
-		$this->widget_description = __( 'Toont quote van deelnemer', 'siw' );
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'quote';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Quote', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont quote van deelnemer', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return $this->get_id();
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'editor-quote';
+	}
+
+	/** {@inheritDoc} */
 	function get_widget_form() {
 		$widget_form = [
 			'title' => [
 				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw'),
+				'label'   => __( 'Titel', 'siw' ),
 				'default' => __( 'Ervaringen van deelnemers', 'siw' ),
 			],
 			'continent' => [
 				'type'    => 'select',
 				'label'   => __( 'Continent', 'siw' ),
-				'options' => $this->get_taxonomy_options( $this->continent_taxonomy ),
+				'options' => $this->get_taxonomy_options( self::CONTINENT_TAXONOMY ),
 			],
 			'project_type' => [
 				'type'    => 'select',
-				'label'   => __( 'Projectsoort', 'siw'),
-				'options' => $this->get_taxonomy_options( $this->project_type_taxonomy ),
+				'label'   => __( 'Projectsoort', 'siw' ),
+				'options' => $this->get_taxonomy_options( self::PROJECT_TYPE_TAXONOMY ),
 			]
 		];
 		return $widget_form;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 		$quote = $this->get_quote( $instance['continent'], $instance['project_type'] );
 		
@@ -86,13 +84,7 @@ class Quote extends Widget {
 		];
 	}
 
-	/**
-	 * Geeft lijst met opties terug
-	 *
-	 * @param string $taxonomy
-	 *
-	 * @return array
-	 */
+	/** Geeft lijst met opties terug */
 	protected function get_taxonomy_options( string $taxonomy ) : array {
 		$terms = get_terms( $taxonomy );
 		$options[''] = __( 'Alle', 'siw' );
@@ -110,19 +102,19 @@ class Quote extends Widget {
 	 *
 	 * @return array
 	 */
-	protected function get_quote( $continent, $project_type ) : ?array {
+	protected function get_quote( string $continent, string $project_type ) : ?array {
 		
 		$tax_query = [];
 		if ( ! empty( $continent ) ) {
 			$tax_query[] = [
-				'taxonomy' => $this->continent_taxonomy,
+				'taxonomy' => self::CONTINENT_TAXONOMY,
 				'terms'    => $continent,
 				'field'    => 'slug',
 			];
 		}
 		if ( ! empty( $project_type ) ) {
 			$tax_query[] = [
-				'taxonomy' => $this->project_type_taxonomy,
+				'taxonomy' => self::PROJECT_TYPE_TAXONOMY,
 				'terms'    => $project_type,
 				'field'    => 'slug',
 			];
@@ -146,7 +138,7 @@ class Quote extends Widget {
 			'quote'        => get_post_meta( $post_id, 'quote', true ),
 			'name'         => get_post_meta( $post_id, 'name', true ),
 			'country'      => siw_get_country( get_post_meta( $post_id, 'country', true ) )->get_name(),
-			'project_type' => wp_get_post_terms( $post_id, $this->project_type_taxonomy )[0]->name,
+			'project_type' => wp_get_post_terms( $post_id, self::PROJECT_TYPE_TAXONOMY )[0]->name,
 		];
 		return $quote;
 	}

@@ -3,13 +3,11 @@
 namespace SIW\Widgets;
 
 use SIW\Properties;
-use SIW\Util\Links;
 
 /**
  * Widget met organisatiegegevens
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Organisatiegegevens
@@ -20,15 +18,28 @@ use SIW\Util\Links;
 class Organisation extends Widget {
 
 	/** {@inheritDoc} */
-	protected string $widget_id = 'organisation';
+	protected function get_id(): string {
+		return 'organisation';
+	}
 
 	/** {@inheritDoc} */
-	protected string $widget_dashicon = 'building';
+	protected function get_name(): string {
+		return __( 'Organisatiegegevens', 'siw' );
+	}
 
 	/** {@inheritDoc} */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Organisatiegegevens', 'siw');
-		$this->widget_description = __( 'Toont organisatiegegevens', 'siw' );
+	protected function get_description(): string {
+		return __( 'Toont organisatiegegevens', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return $this->get_id();
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'building';
 	}
 
 	/** {@inheritDoc} */
@@ -36,7 +47,7 @@ class Organisation extends Widget {
 		$widget_form = [
 			'title' => [
 				'type'      => 'text',
-				'label'     => __( 'Titel', 'siw'),
+				'label'     => __( 'Titel', 'siw' ),
 				'default'   => __( 'Gegevens', 'siw' ),
 			],
 			'renumeration_policy' => [

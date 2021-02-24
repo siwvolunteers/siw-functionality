@@ -5,8 +5,7 @@ namespace SIW\Widgets;
 /**
  * Widget met contactinformatie
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Snel Zoeken - resultaten
@@ -16,41 +15,44 @@ namespace SIW\Widgets;
  */
 class Quick_Search_Results extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id ='quick_search_results';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'search';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Snel Zoeken - resultaat', 'siw');
-		$this->widget_description = __( 'Toont zoekresultaten', 'siw' );
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'quick_search_results';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Snel Zoeken - resultaat', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont zoekresultaten', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return $this->get_id();
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'search';
+	}
+
+	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
 			'title' => [
 				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw'),
+				'label'   => __( 'Titel', 'siw' ),
 				'default' => __( 'Groepsprojecten', 'siw' ),
 			],
 		];
 		return $widget_form;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function initialize() {
 		add_filter( 'query_vars', [ $this, 'register_query_vars'] );
 		add_filter( 'rocket_cache_query_strings', [ $this, 'register_query_vars'] );
@@ -61,9 +63,6 @@ class Quick_Search_Results extends Widget {
 	 * 
 	 * - Bestemming
 	 * - Maand
-	 *
-	 * @param array $vars
-	 * @return array
 	 */
 	public function register_query_vars( array $vars ) : array {
 		$vars[] = 'bestemming';
@@ -71,9 +70,7 @@ class Quick_Search_Results extends Widget {
 		return $vars;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 
 		//TODO:refactor

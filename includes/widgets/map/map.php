@@ -7,8 +7,7 @@ use SIW\Elements;
 /**
  * Widget met interactieve kaart
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Interactieve kaart
@@ -18,37 +17,37 @@ use SIW\Elements;
  */
 class Map extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id ='map';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'location-alt';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected bool $use_default_template = true;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Interactieve kaart', 'siw');
-		$this->widget_description = __( 'Toont interactieve kaart', 'siw' );
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'map';
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
+
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Interactieve kaart', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont interactieve kaart', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return 'default';
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'location-alt';
+	}
+
+	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
 			'title' => [
 				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw'),
+				'label'   => __( 'Titel', 'siw' ),
 			],
 			'map' => [
 				'type'    => 'select',
@@ -60,18 +59,12 @@ class Map extends Widget {
 		return $widget_form;
 	}
 
-	/**
-	 * Haalt kaarten op
-	 *
-	 * @return array
-	 */
+	/** Haalt kaarten op */
 	protected function get_maps() : array {
 		return wp_list_pluck( Elements::get_interactive_maps(), 'name', 'id' );
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 		return [
 			'content' => Elements::generate_interactive_map( $instance['map'] )

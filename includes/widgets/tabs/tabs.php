@@ -7,8 +7,7 @@ use SIW\Elements;
 /**
  * Widget met contactinformatie
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Tabs
@@ -18,37 +17,37 @@ use SIW\Elements;
  */
 class Tabs extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id ='tabs';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'index-card';
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected bool $use_default_template = true;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Tabs', 'siw');
-		$this->widget_description = __( 'Toont tabs', 'siw' );
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'tabs';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Tabs', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont tabs', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return 'default';
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'index-card';
+	}
+
+	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
 			'title' => [
 				'type'  => 'text',
-				'label' => __( 'Titel', 'siw'),
+				'label' => __( 'Titel', 'siw' ),
 			],
 			'panes' => [
 				'type'       => 'repeater',
@@ -105,9 +104,7 @@ class Tabs extends Widget {
 		return $widget_form;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 		return [
 			'content' => Elements::generate_tabs( $instance['panes'] )

@@ -7,8 +7,7 @@ use SIW\Util;
 /**
  * Widget met formulier voor Snel Zoeken
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data 
  * Widget Name: SIW: Snel Zoeken - formulier
@@ -18,32 +17,37 @@ use SIW\Util;
  */
 class Quick_Search_Form extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id ='quick_search_form';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'search';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Snel Zoeken - formulier', 'siw');
-		$this->widget_description = __( 'Toont zoekformulier', 'siw' );		
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'quick_search_form';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Snel Zoeken - formulier', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont zoekformulier', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return $this->get_id();
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'search';
+	}
+
+	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_forms = [
 			'title' => [
 				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw'),
+				'label'   => __( 'Titel', 'siw' ),
 				'default' => __( 'Snel Zoeken', 'siw' ),
 			],
 			'result_page' => [
@@ -56,9 +60,7 @@ class Quick_Search_Form extends Widget {
 		return $widget_forms;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 
 		return [
@@ -80,11 +82,7 @@ class Quick_Search_Form extends Widget {
 
 	}
 
-	/**
-	 * Haalt bestemmingen met beschikbare projecten op
-	 * 
-	 * @return array
-	 */
+	/** Haalt bestemmingen met beschikbare projecten op */
 	protected function get_destinations() : array {
 
 		$categories = get_terms( [
@@ -113,11 +111,7 @@ class Quick_Search_Form extends Widget {
 		return $destinations;
 	}
 	
-	/**
-	 * Haalt maanden met beschikbare projecten op
-	 * 
-	 * @return array
-	 */
+	/** Haalt maanden met beschikbare projecten op */
 	protected function get_months() : array {
 		$terms = get_terms( [
 			'taxonomy'   => 'pa_maand',

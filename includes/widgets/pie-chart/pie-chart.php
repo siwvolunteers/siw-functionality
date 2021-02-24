@@ -7,8 +7,7 @@ use SIW\Elements\Charts\Pie as Element_Pie_Chart;
 /**
  * Widget met grafiek
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Grafiek
@@ -18,32 +17,37 @@ use SIW\Elements\Charts\Pie as Element_Pie_Chart;
  */
 class Pie_Chart extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id = 'pie_chart';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'chart-pie';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Taartgrafiek', 'siw' );
-		$this->widget_description = __( 'Toont taartgrafiek', 'siw' );
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'pie_chart';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Taartgrafiek', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont taartgrafiek', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return $this->get_id();
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'chart-pie';
+	}
+
+	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
 			'title' => [
 				'type'      => 'text',
-				'label'     => __( 'Titel', 'siw'),
+				'label'     => __( 'Titel', 'siw' ),
 			],
 			'intro' => [
 				'type'           => 'tinymce',
@@ -97,9 +101,7 @@ class Pie_Chart extends Widget {
 		return $widget_form;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 		$chart = new Element_Pie_Chart();
 		return [

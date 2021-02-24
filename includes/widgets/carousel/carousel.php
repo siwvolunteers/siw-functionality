@@ -7,8 +7,7 @@ use SIW\Elements\Carousel as Element_Carousel;
 /**
  * Widget met carousel
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Carousel
@@ -18,34 +17,38 @@ use SIW\Elements\Carousel as Element_Carousel;
  */
 class Carousel extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id = 'carousel';
+	/** Default aantal kolommen */
+	const DEFAULT_NUMBER_OF_COLUMNS = 4;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'format-gallery';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Carousel', 'siw' );
-		$this->widget_description = __( 'Toont carousel', 'siw' );
+	/** Default aantal items */
+	const DEFAULT_NUMBER_OF_ITEMS = 6;
+	
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'carousel';
 	}
 
-	/**
-	 * Instantie van Carousel
-	 *
-	 * @var Element_Carousel
-	 */
-	protected $carousel;
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Carousel', 'siw' );
+	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont carousel', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return $this->get_id();
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'format-gallery';
+	}
+
+	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
 			'title' => [
@@ -61,14 +64,14 @@ class Carousel extends Widget {
 			'items' => [
 				'type'    => 'slider',
 				'label'   => __( 'Aantal posts in carousel', 'siw' ),
-				'default' => 6,
+				'default' => self::DEFAULT_NUMBER_OF_ITEMS,
 				'min'     => 2,
 				'max'     => 10,
 			],
 			'columns' => [
 				'type'    => 'slider',
 				'label'   => __( 'Aantal kolommen', 'siw' ),
-				'default' => 4,
+				'default' => self::DEFAULT_NUMBER_OF_COLUMNS,
 				'min'     => 1,
 				'max'     => 4,
 			],
@@ -154,9 +157,7 @@ class Carousel extends Widget {
 		return $widget_form;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 
 		$instance = $this->parse_instance( $instance );
@@ -188,20 +189,15 @@ class Carousel extends Widget {
 		];
 	}
 
-	/**
-	 * Parse args voor instance
-	 *
-	 * @param array $instance
-	 * @return array
-	 */
+	/** Parse args voor instance */
 	protected function parse_instance( array $instance ) : array {
 		$instance = wp_parse_args(
 			$instance,
 			[ 
 				'post_type'   => '',
 				'intro'       => '',
-				'columns'     => 4,
-				'items'       => 6,
+				'columns'     => self::DEFAULT_NUMBER_OF_COLUMNS,
+				'items'       => self::DEFAULT_NUMBER_OF_ITEMS,
 				'show_button' => false,
 				'button_text' => '',
 			]
@@ -211,30 +207,17 @@ class Carousel extends Widget {
 		return $instance;
 	}
 
-	/**
-	 * Haalt ondersteunde post types op
-	 * 
-	 * @return array
-	 */
+	/** Haalt ondersteunde post types op */
 	protected function get_post_types() : array {
 		return apply_filters( 'siw_carousel_post_types', [] );
 	}
 
-	/**
-	 * Haalt ondersteunde taxonomieën op
-	 * 
-	 * @return array
-	 */
+	/** Haalt ondersteunde taxonomieën op */
 	protected function get_taxonomies() : array {
 		return apply_filters( 'siw_carousel_post_type_taxonomies', [] );
 	}
 
-	/**
-	 * Haal optielijst van taxonomie op
-	 *
-	 * @param string $taxonomy
-	 * @return array
-	 */
+	/** Haal optielijst van taxonomie op */
 	protected function get_term_options( string $taxonomy ) : array {
 		$terms = get_terms( $taxonomy );
 		$term_options[''] = __( 'Alle', 'siw' );

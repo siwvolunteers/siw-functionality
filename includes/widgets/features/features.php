@@ -7,8 +7,7 @@ use SIW\Elements;
 /**
  * Widget met features
  *
- * @copyright 2019-2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Features
@@ -18,37 +17,37 @@ use SIW\Elements;
  */
 class Features extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id ='features';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'yes';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected bool $use_default_template = true;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Features', 'siw');
-		$this->widget_description = __( 'Toont features met toelichting en link', 'siw' );
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'features';
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
+
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Features', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont features met toelichting en link', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return Widget::DEFAULT_TEMPLATE_ID;
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'yes';
+	}
+
+	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
 			'title' => [
 				'type'  => 'text',
-				'label' => __( 'Titel', 'siw'),
+				'label' => __( 'Titel', 'siw' ),
 			],
 			'intro' => [
 				'type'           => 'tinymce',
@@ -60,7 +59,7 @@ class Features extends Widget {
 				'type'   => 'radio',
 				'label'   => __( 'Aantal kolommen', 'siw' ),
 				'options' => [
-					1 => __( 'Eén', 'siw'),
+					1 => __( 'Eén', 'siw' ),
 					2 => __( 'Twee', 'siw' ),
 					3 => __( 'Drie', 'siw' ),
 					4 => __( 'Vier', 'siw' ),
@@ -117,9 +116,7 @@ class Features extends Widget {
 		return $widget_form;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 		return[
 			'intro'   => $instance['intro'],

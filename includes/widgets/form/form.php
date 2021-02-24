@@ -2,10 +2,6 @@
 
 namespace SIW\Widgets;
 
-use Caldera_Forms_Forms;
-use SIW\i18n;
-use SIW\Util;
-
 /**
  * Widget met Formulier
  *
@@ -20,17 +16,33 @@ use SIW\Util;
 class Form extends Widget {
 
 	/** {@inheritDoc} */
-	protected string $widget_id ='form';
+	protected function get_id(): string {
+		return 'form';
+	}
 
 	/** {@inheritDoc} */
-	protected string $widget_dashicon = 'text-page';
+	protected function get_name(): string {
+		return __( 'Formulier', 'siw' );
+	}
 
 	/** {@inheritDoc} */
-	protected bool $use_default_template = true;
+	protected function get_description(): string {
+		return __( 'Toont formulier', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return 'default';
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'text-page';
+	}
 
 	/** {@inheritDoc} */
 	protected function set_widget_properties() {
-		$this->widget_name = __( 'Formulier', 'siw');
+		$this->widget_name = __( 'Formulier', 'siw' );
 		$this->widget_description = __( 'Toont formulier', 'siw' );
 	}
 
@@ -39,7 +51,7 @@ class Form extends Widget {
 		$widget_form = [
 			'title' => [
 				'type'  => 'text',
-				'label' => __( 'Titel', 'siw'),
+				'label' => __( 'Titel', 'siw' ),
 			],
 			'intro' => [
 				'type'           => 'tinymce',
