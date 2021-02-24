@@ -50,6 +50,7 @@ li.menu-item a:hover .siw-icon {
   fill: #fff;
 }
 
+input[type=button].ghost,
 button.button.ghost,
 a.button.ghost {
   background-color: #fff;
@@ -57,12 +58,16 @@ a.button.ghost {
   color: #3f3f3f;
   transition: all 0.6s ease-out;
 }
+input[type=button].ghost:visited,
 button.button.ghost:visited,
 a.button.ghost:visited {
   color: #3f3f3f;
   background-color: #fff;
 }
-button.button.ghost:hover, button.button.ghost:active, button.button.ghost.is-checked,
+input[type=button].ghost:hover, input[type=button].ghost:active, input[type=button].ghost.is-checked,
+button.button.ghost:hover,
+button.button.ghost:active,
+button.button.ghost.is-checked,
 a.button.ghost:hover,
 a.button.ghost:active,
 a.button.ghost.is-checked {
