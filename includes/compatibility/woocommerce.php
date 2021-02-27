@@ -233,6 +233,7 @@ class WooCommerce {
 	public function set_update_terms_taxonomies( array $taxonomies ) : array {
 		$taxonomies[] = 'product_cat';
 		$taxonomies[] = 'pa_maand';
+		$taxonomies[] = 'pa_land';
 		return $taxonomies;
 	}
 

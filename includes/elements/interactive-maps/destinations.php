@@ -102,7 +102,7 @@ class Destinations extends Interactive_Map {
 		$country_term = get_term_by( 'slug', $country->get_slug(), 'pa_land' );
 		
 		if ( is_a( $country_term, \WP_Term::class ) ) {
-			$workcamp_count = get_term_meta( $country_term->term_id, 'project_count', true );
+			$workcamp_count = get_term_meta( $country_term->term_id, 'post_count', true );
 		}
 		else {
 			$workcamp_count = 0;
