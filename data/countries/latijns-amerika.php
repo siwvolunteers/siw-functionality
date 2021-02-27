@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $data = [
 	[
-		'iso'         => 'ARG',
+		'iso_code'    => 'ARG',
 		'slug'        => 'argentinie',
 		'name'        => __( 'Argentinië', 'siw' ),
 		'allowed'     => true,
@@ -21,7 +21,7 @@ $data = [
 		'world_map'   => [ 'code' => 'ar', 'x' => 0.3221, 'y' => 0.8591 ],
 	],
 	[
-		'iso'         => 'BOL',
+		'iso_code'    => 'BOL',
 		'slug'        => 'bolivia',
 		'name'        => __( 'Bolivia', 'siw' ),
 		'allowed'     => true,
@@ -30,7 +30,7 @@ $data = [
 		'world_map'   => [ 'code' => 'bo', 'x' => 0.3260, 'y' => 0.7684 ],
 	],
 	[
-		'iso'         => 'BRA',
+		'iso_code'    => 'BRA',
 		'slug'        => 'brazilie',
 		'name'        => __( 'Brazilië', 'siw' ),
 		'allowed'     => true,
@@ -39,7 +39,7 @@ $data = [
 		'world_map'   => [ 'code' => 'br', 'x' => 0.3632, 'y' => 0.7413 ],
 	],
 	[
-		'iso'         => 'COL',
+		'iso_code'    => 'COL',
 		'slug'        => 'colombia',
 		'name'        => __( 'Colombia', 'siw' ),
 		'allowed'     => true,
@@ -48,7 +48,7 @@ $data = [
 		'world_map'   => [ 'code' => 'co', 'x' => 0.3050, 'y' => 0.6871 ],
 	],
 	[
-		'iso'         => 'CRI',
+		'iso_code'    => 'CRI',
 		'slug'        => 'costa-rica',
 		'name'        => __( 'Costa Rica', 'siw' ),
 		'allowed'     => true,
@@ -57,7 +57,7 @@ $data = [
 		'world_map'   => [ 'code' => 'cr', 'x' => 0.2757, 'y' => 0.6574 ],
 	],
 	[
-		'iso'         => 'ECU',
+		'iso_code'    => 'ECU',
 		'slug'        => 'ecuador',
 		'name'        => __( 'Ecuador', 'siw' ),
 		'allowed'     => true,
@@ -66,7 +66,7 @@ $data = [
 		'world_map'   => [ 'code' => 'ec', 'x' => 0.2903, 'y' => 0.7052 ],
 	],
 	[
-		'iso'         => 'HTE',
+		'iso_code'    => 'HTE',
 		'slug'        => 'haiti',
 		'name'        => __( 'Haïti', 'siw' ),
 		'allowed'     => false,
@@ -75,7 +75,7 @@ $data = [
 		'world_map'   => [ 'code' => 'ht', 'x' => 0.3060, 'y' => 0.6172 ],
 	],
 	[
-		'iso'         => 'MEX',
+		'iso_code'    => 'MEX',
 		'slug'        => 'mexico',
 		'name'        => __( 'Mexico', 'siw' ),
 		'allowed'     => true,
@@ -84,7 +84,7 @@ $data = [
 		'world_map'   => [ 'code' => 'mx', 'x' => 0.2324, 'y' => 0.6099 ],
 	],
 	[
-		'iso'         => 'PER',
+		'iso_code'    => 'PER',
 		'slug'        => 'peru',
 		'name'        => __( 'Peru', 'siw' ),
 		'allowed'     => true,

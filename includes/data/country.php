@@ -8,9 +8,8 @@ use SIW\Data\Continent;
  * Bevat informatie over een land
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
-class Country {
+class Country extends Data {
 
 	/** ISO-code van het land */
 	protected string $iso_code;
@@ -25,51 +24,22 @@ class Country {
 	protected string $continent;
 
 	/** Geeft aan of het land toegestaan is */
-	protected bool $allowed;
+	protected bool $allowed = false;
 
 	/** Geeft aan of het land groepsprojecten heeft */
-	protected bool $has_workcamps;
+	protected bool $workcamps = false;
 
 	/** Geeft aan of het land ESC-projecten heeft */
-	protected bool $has_esc_projects;
+	protected bool $esc = false;
 
 	/** Geeft aan of het land Op Maat projecten heeft */
-	protected bool $has_tailor_made_projects;
+	protected bool $tailor_made = false;
 
 	/** Eigenschappen van land voor kaart van de wereld */
-	protected \stdClass $world_map_data;
+	protected array $world_map;
 
 	/** Eigenschappen van land voor kaart van Europa */
-	protected \stdClass $europe_map_data;
-
-	/** Constructor */
-	public function __construct( array $country ) {
-
-		$defaults = [
-			'iso'         => '',
-			'slug'        => '',
-			'name'        => '',
-			'continent'   => '',
-			'allowed'     => true,
-			'workcamps'   => false,
-			'tailor_made' => false,
-			'esc'         => false,
-			'world_map'   => [],
-			'europe_map'  => [],
-		];
-		$country = wp_parse_args( $country, $defaults );
-
-		$this->iso_code = $country['iso'];
-		$this->slug = $country['slug'];
-		$this->name = $country['name'];
-		$this->continent = $country['continent'];
-		$this->allowed = $country['allowed'];
-		$this->has_workcamps = $country['workcamps'];
-		$this->has_tailor_made_projects = $country['tailor_made'];
-		$this->has_esc_projects = $country['esc'];
-		$this->world_map_data = (object) $country['world_map'];
-		$this->europe_map_data = (object) $country['europe_map'];
-	}
+	protected array $europe_map;
 
 	/** Geeft ISO-code van het land terug */
 	public function get_iso_code() : string {
@@ -98,26 +68,26 @@ class Country {
 
 	/** Geeft aan of het land groepsprojecten heeft */
 	public function has_workcamps() : bool {
-		return $this->has_workcamps;
+		return $this->workcamps;
 	}
 
 	/** Geeft aan of het land ESC-projecten heeft */
 	public function has_esc_projects() : bool {
-		return $this->has_esc_projects;
+		return $this->esc;
 	}
 
 	/** Geeft aan of het land Op Maat projecten heeft */
 	public function has_tailor_made_projects() : bool {
-		return $this->has_tailor_made_projects;
+		return $this->tailor_made;
 	}
 
 	/** Geeft de gegevens van het land voor de kaart van de wereld terug */
 	public function get_world_map_data() : \stdClass {
-		return $this->world_map_data;
+		return (object) $this->world_map;
 	}
 	
 	/** Geeft de gegevens van het land voor de kaart van Europa terug */
 	public function get_europe_map_data() : \stdClass {
-		return $this->europe_map_data;
+		return (object) $this->europe_map;
 	}
 }

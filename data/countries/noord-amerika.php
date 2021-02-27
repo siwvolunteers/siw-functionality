@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $data = [
 	[
-		'iso'         => 'CAN',
+		'iso_code'    => 'CAN',
 		'slug'        => 'canada',
 		'name'        => __( 'Canada', 'siw' ),
 		'allowed'     => true,
@@ -21,7 +21,7 @@ $data = [
 		'world_map'   => [ 'code' => 'ca', 'x' => 0.2271,'y' => 0.4290 ],
 	],
 	[
-		'iso'         => 'GRL',
+		'iso_code'    => 'GRL',
 		'slug'        => 'groenland',
 		'name'        => __( 'Groenland', 'siw' ),
 		'continent'   => 'noord-amerika',
@@ -31,7 +31,7 @@ $data = [
 		'world_map'   => [ 'code' => 'gl', 'x' => 0.3883,'y' => 0.1851 ],
 	],
 	[
-		'iso'         => 'USA',
+		'iso_code'    => 'USA',
 		'slug'        => 'verenigde-staten',
 		'name'        => __( 'Verenigde Staten', 'siw' ),
 		'continent'   => 'noord-amerika',

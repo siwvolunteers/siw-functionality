@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $data = [
 	[
-		'iso'         => 'ALB',
+		'iso_code'    => 'ALB',
 		'slug'        => 'albanie',
 		'name'        => __( 'Albanië', 'siw' ),
 		'allowed'     => true,
@@ -21,7 +21,7 @@ $data = [
 		'world_map'   => [ 'code' => 'al', 'x' => 0.5536, 'y' => 0.5095 ],
 	],
 	[
-		'iso'         => 'ARM',
+		'iso_code'    => 'ARM',
 		'slug'        => 'armenie',
 		'name'        => __( 'Armenië', 'siw' ),
 		'allowed'     => true,
@@ -30,7 +30,7 @@ $data = [
 		'world_map'   => [ 'code' => 'am', 'x' => 0.6181, 'y' => 0.5107 ],
 	],
 	[
-		'iso'         => 'AUT',
+		'iso_code'    => 'AUT',
 		'slug'        => 'oostenrijk',
 		'name'        => __( 'Oostenrijk', 'siw' ),
 		'allowed'     => true,
@@ -41,7 +41,7 @@ $data = [
 		'world_map'   => [ 'code' => 'at', 'x' => 0.5398, 'y' => 0.4681 ],
 	],
 	[
-		'iso'         => 'BEL',
+		'iso_code'    => 'BEL',
 		'slug'        => 'belgie',
 		'name'        => __( 'België', 'siw' ),
 		'allowed'     => true,
@@ -52,7 +52,7 @@ $data = [
 		'world_map'   => [ 'code' => 'be', 'x' => 0.5148, 'y' => 0.4505 ],
 	],
 	[
-		'iso'         => 'BGR',
+		'iso_code'    => 'BGR',
 		'slug'        => 'bulgarije',
 		'name'        => __( 'Bulgarije', 'siw' ),
 		'allowed'     => true,
@@ -63,7 +63,7 @@ $data = [
 		'world_map'   => [ 'code' => 'bg', 'x' => 0.5672, 'y' => 0.4986 ],
 	],
 	[
-		'iso'         => 'BLR',
+		'iso_code'    => 'BLR',
 		'slug'        => 'wit-rusland',
 		'name'        => __( 'Wit-Rusland', 'siw' ),
 		'allowed'     => true,
@@ -72,7 +72,7 @@ $data = [
 		'world_map'   => [ 'code' => 'by', 'x' => 0.5737, 'y' => 0.4297 ],
 	],
 	[
-		'iso'         => 'CHE',
+		'iso_code'    => 'CHE',
 		'slug'        => 'zwitserland',
 		'name'        => __( 'Zwitserland', 'siw' ),
 		'allowed'     => true,
@@ -81,7 +81,7 @@ $data = [
 		'world_map'   => [ 'code' => 'ch', 'x' => 0.5236, 'y' => 0.4773 ],
 	],
 	[
-		'iso'         => 'CYP',
+		'iso_code'    => 'CYP',
 		'slug'        => 'cyprus',
 		'name'        => __( 'Cyprus', 'siw' ),
 		'allowed'     => true,
@@ -92,7 +92,7 @@ $data = [
 		'world_map'   => [ 'code'	=> 'cy', 'x' => 0.5880, 'y' => 0.5406 ],
 	],
 	[
-		'iso'         => 'CZE',
+		'iso_code'    => 'CZE',
 		'slug'        => 'tsjechie',
 		'name'        => __( 'Tsjechië', 'siw' ),
 		'allowed'     => true,
@@ -102,7 +102,7 @@ $data = [
 		'world_map'   => [ 'code'	=> 'cz', 'x' => 0.5421, 'y' => 0.4588 ],
 	],
 	[
-		'iso'         => 'DEU',
+		'iso_code'    => 'DEU',
 		'slug'        => 'duitsland',
 		'name'        => __( 'Duitsland', 'siw' ),
 		'allowed'     => true,
@@ -113,7 +113,7 @@ $data = [
 		'world_map'   => [ 'code' => 'de', 'x' => 0.5285, 'y' => 0.4509 ],
 	],
 	[
-		'iso'         => 'DNK',
+		'iso_code'    => 'DNK',
 		'slug'        => 'denemarken',
 		'name'        => __( 'Denemarken', 'siw' ),
 		'allowed'     => true,
@@ -124,7 +124,7 @@ $data = [
 		'world_map'   => [ 'code' => 'dk', 'x' => 0.5252, 'y' => 0.4146 ],
 	],
 	[
-		'iso'         => 'ESP',
+		'iso_code'    => 'ESP',
 		'slug'        => 'spanje',
 		'name'        => __( 'Spanje', 'siw' ),
 		'allowed'     => true,
@@ -135,7 +135,7 @@ $data = [
 		'world_map'   => [ 'code' => 'es', 'x' => 0.4931, 'y' => 0.5175 ],
 	],
 	[
-		'iso'         => 'EST',
+		'iso_code'    => 'EST',
 		'slug'        => 'estland',
 		'name'        => __( 'Estland', 'siw' ),
 		'allowed'     => true,
@@ -146,7 +146,7 @@ $data = [
 		'world_map'   => [ 'code'	=> 'ee', 'x' => 0.5687, 'y' => 0.3964 ],
 	],
 	[
-		'iso'         => 'FIN',
+		'iso_code'    => 'FIN',
 		'slug'        => 'finland',
 		'name'        => __( 'Finland', 'siw' ),
 		'allowed'     => true,
@@ -157,7 +157,7 @@ $data = [
 		'world_map'   => [ 'code' => 'fi', 'x' => 0.5723, 'y' => 0.3538 ],
 	],
 	[
-		'iso'         => 'FRA',
+		'iso_code'    => 'FRA',
 		'slug'        => 'frankrijk',
 		'name'        => __( 'Frankrijk', 'siw' ),
 		'allowed'     => true,
@@ -168,7 +168,7 @@ $data = [
 		'world_map'   => [ 'code' => 'fr', 'x' => 0.5087, 'y' => 0.4806 ],
 	],
 	[
-		'iso'         => 'GBR',
+		'iso_code'    => 'GBR',
 		'slug'        => 'verenigd-koninkrijk',
 		'name'        => __( 'Verenigd Koninkrijk', 'siw' ),
 		'allowed'     => true,
@@ -179,7 +179,7 @@ $data = [
 		'world_map'   => [ 'code' => 'gb', 'x' => 0.4974, 'y' => 0.4338 ],
 	],
 	[
-		'iso'         => 'GEO',
+		'iso_code'    => 'GEO',
 		'slug'        => 'georgie',
 		'name'        => __( 'Georgië', 'siw' ),
 		'allowed'     => true,
@@ -188,7 +188,7 @@ $data = [
 		'world_map'   => [ 'code' => 'ge', 'x' => 0.6127, 'y' => 0.5001 ],
 	],
 	[
-		'iso'         => 'GRC',
+		'iso_code'    => 'GRC',
 		'slug'        => 'griekenland',
 		'name'        => __( 'Griekenland', 'siw' ),
 		'allowed'     => true,
@@ -199,7 +199,7 @@ $data = [
 		'world_map'   => [ 'code' => 'gr', 'x' => 0.5589, 'y' => 0.5204 ],
 	],
 	[
-		'iso'         => 'HUN',
+		'iso_code'    => 'HUN',
 		'slug'        => 'hongarije',
 		'name'        => __( 'Hongarije', 'siw' ),
 		'allowed'     => true,
@@ -210,7 +210,7 @@ $data = [
 		'world_map'   => [ 'code' => 'hu', 'x' => 0.5524, 'y' => 0.4751 ],
 	],
 	[
-		'iso'         => 'HRV',
+		'iso_code'    => 'HRV',
 		'slug'        => 'kroatie',
 		'name'        => __( 'Kroatië', 'siw' ),
 		'allowed'     => true,
@@ -221,7 +221,7 @@ $data = [
 		'world_map'   => [ 'code' => 'hr', 'x' => 0.5435, 'y' => 0.4848 ],
 	],
 	[
-		'iso'         => 'IRL',
+		'iso_code'    => 'IRL',
 		'slug'        => 'ierland',
 		'name'        => __( 'Ierland', 'siw' ),
 		'allowed'     => true,
@@ -232,7 +232,7 @@ $data = [
 		'world_map'   => [ 'code' => 'ie', 'x' => 0.4812, 'y' => 0.4345 ],
 	],
 	[
-		'iso'         => 'ISL',
+		'iso_code'    => 'ISL',
 		'slug'        => 'ijsland',
 		'name'        => __( 'IJsland', 'siw' ),
 		'allowed'     => true,
@@ -243,7 +243,7 @@ $data = [
 		'world_map'   => [ 'code' => 'is', 'x' => 0.4504, 'y' => 0.3412 ],
 	],
 	[
-		'iso'         => 'ITA',
+		'iso_code'    => 'ITA',
 		'slug'        => 'italie',
 		'name'        => __( 'Italië', 'siw' ),
 		'allowed'     => true,
@@ -254,7 +254,7 @@ $data = [
 		'world_map'   => [ 'code' => 'it', 'x' => 0.5341, 'y' => 0.5014 ],
 	],
 	[
-		'iso'         => 'LIE',
+		'iso_code'    => 'LIE',
 		'slug'        => 'liechtenstein',
 		'name'        => __( 'Liechtenstein', 'siw' ),
 		'allowed'     => true,      
@@ -265,7 +265,7 @@ $data = [
 		'world_map'   => [ 'code' => 'li', 'x' => 0.5273, 'y' => 0.4742 ],
 	],
 	[
-		'iso'         => 'LTU',
+		'iso_code'    => 'LTU',
 		'slug'        => 'litouwen',
 		'name'        => __( 'Litouwen', 'siw' ),
 		'allowed'     => true,
@@ -276,7 +276,7 @@ $data = [
 		'world_map'   => [ 'code' => 'lt', 'x' => 0.5643, 'y' => 0.4206 ],
 	],
 	[
-		'iso'         => 'LUX',
+		'iso_code'    => 'LUX',
 		'slug'        => 'luxemburg',
 		'name'        => __( 'Luxemburg', 'siw' ),
 		'allowed'     => true,
@@ -287,7 +287,7 @@ $data = [
 		'world_map'   => [ 'code' => 'lu', 'x' => 0.5177, 'y' => 0.4575 ],
 	],
 	[
-		'iso'         => 'LVA',
+		'iso_code'    => 'LVA',
 		'slug'        => 'letland',
 		'name'        => __( 'Letland', 'siw' ),
 		'allowed'     => true,
@@ -298,7 +298,7 @@ $data = [
 		'world_map'   => [ 'code' => 'lv', 'x' => 0.5712, 'y' => 0.4061 ],
 	],
 	[
-		'iso'         => 'MKD',
+		'iso_code'    => 'MKD',
 		'slug'        => 'macedonie',
 		'name'        => __( 'Macedonië', 'siw' ),
 		'allowed'     => true,
@@ -309,7 +309,7 @@ $data = [
 		'world_map'   => [ 'code' => 'mk', 'x' => 0.5592, 'y' => 0.5048 ],
 	],
 	[
-		'iso'         => 'MLT',
+		'iso_code'    => 'MLT',
 		'slug'        => 'malta',
 		'name'        => __( 'Malta', 'siw' ),
 		'allowed'     => true,
@@ -320,7 +320,7 @@ $data = [
 		'world_map'   => [ 'code' => 'mt', 'x' => 0.5390, 'y' => 0.5358 ],
 	],
 	[
-		'iso'         => 'MNE',
+		'iso_code'    => 'MNE',
 		'slug'        => 'montenegro',
 		'name'        => __( 'Montenegro', 'siw' ),
 		'allowed'     => true,
@@ -329,7 +329,7 @@ $data = [
 		'world_map'   => [ 'code' => 'me', 'x' => 0.5516, 'y' => 0.4981 ],
 	],
 	[
-		'iso'         => 'NLD',
+		'iso_code'    => 'NLD',
 		'slug'        => 'nederland',
 		'name'        => __( 'Nederland', 'siw' ),
 		'allowed'     => true,
@@ -338,7 +338,7 @@ $data = [
 		'world_map'   => [ 'code' => 'nl', 'x' => 0.5173, 'y' => 0.4410 ],
 	],
 	[
-		'iso'         => 'NOR',
+		'iso_code'    => 'NOR',
 		'slug'        => 'noorwegen',
 		'name'        => __( 'Noorwegen', 'siw' ),
 		'allowed'     => true,
@@ -349,7 +349,7 @@ $data = [
 		'world_map'   => [ 'code' => 'no', 'x' => 0.5251, 'y' => 0.3675 ],
 	],
 	[
-		'iso'         => 'POL',
+		'iso_code'    => 'POL',
 		'slug'        => 'polen',
 		'name'        => __( 'Polen', 'siw' ),
 		'allowed'     => true,
@@ -360,7 +360,7 @@ $data = [
 		'world_map' 	=> [ 'code' => 'pl', 'x' => 0.5517, 'y' => 0.4426 ],
 	],
 	[
-		'iso'         => 'PRT',
+		'iso_code'    => 'PRT',
 		'slug'        => 'portugal',
 		'name'        => __( 'Portugal', 'siw' ),
 		'allowed'     => true,
@@ -371,7 +371,7 @@ $data = [
 		'world_map'   => [ 'code' => 'pt', 'x' => 0.4810, 'y' => 0.5162 ],
 	],
 	[
-		'iso'         => 'ROU',
+		'iso_code'    => 'ROU',
 		'slug'        => 'roemenie',
 		'name'        => __( 'Roemenië', 'siw' ),
 		'allowed'     => true,
@@ -382,7 +382,7 @@ $data = [
 		'world_map'   => [ 'code'	=> 'ro', 'x' => 0.5668, 'y' => 0.4790 ],
 	],
 	[
-		'iso'         => 'RUS',
+		'iso_code'    => 'RUS',
 		'slug'        => 'rusland',
 		'name'        => __( 'Rusland', 'siw' ),
 		'allowed'     => true,
@@ -391,7 +391,7 @@ $data = [
 		'world_map'   => [ 'code' => 'ru', 'x' => 0.6445, 'y' => 0.3841 ],
 	],
 	[
-		'iso'         => 'SRB',
+		'iso_code'    => 'SRB',
 		'slug'        => 'servie',
 		'name'        => __( 'Servië', 'siw' ),
 		'allowed'     => true,
@@ -400,7 +400,7 @@ $data = [
 		'world_map'   => [ 'code' => 'rs', 'x' => 0.5555, 'y' => 0.4914 ],
 	],
 	[
-		'iso'         => 'SVK',
+		'iso_code'    => 'SVK',
 		'slug'        => 'slowakije',
 		'name'        => __( 'Slowakije', 'siw' ),
 		'allowed'     => true,
@@ -411,7 +411,7 @@ $data = [
 		'world_map'   => [ 'code' => 'sk', 'x' => 0.5526, 'y' => 0.4643 ],
 	],
 	[
-		'iso'         => 'SVN',
+		'iso_code'    => 'SVN',
 		'slug'        => 'slovenie',
 		'name'        => __( 'Slovenië', 'siw' ),
 		'allowed'     => true,
@@ -422,7 +422,7 @@ $data = [
 		'world_map'   => [ 'code' => 'si', 'x' => 0.5399, 'y' => 0.4796 ],
 	],
 	[
-		'iso'         => 'SWE',
+		'iso_code'    => 'SWE',
 		'slug'        => 'zweden',
 		'name'        => __( 'Zweden', 'siw' ),
 		'allowed'     => true,
@@ -433,7 +433,7 @@ $data = [
 		'world_map'   => [ 'code' => 'se', 'x' => 0.5410, 'y' => 0.3618 ],
 	],
 	[
-		'iso'         => 'TUR',
+		'iso_code'    => 'TUR',
 		'slug'        => 'turkije',
 		'name'        => __( 'Turkije', 'siw' ),
 		'allowed'     => true,
@@ -444,7 +444,7 @@ $data = [
 		'world_map'   => [ 'code' => 'tr', 'x' => 0.5926, 'y' => 0.5203 ],
 	],
 	[
-		'iso'         => 'UKR',
+		'iso_code'    => 'UKR',
 		'slug'        => 'oekraine',
 		'name'        => __( 'Oekraïne', 'siw' ),
 		'allowed'     => true,
@@ -453,7 +453,7 @@ $data = [
 		'world_map'   => [ 'code' => 'ua', 'x' => 0.5856, 'y' => 0.4593 ],
 	],
 	[
-		'iso'         => 'XKS',
+		'iso_code'    => 'XKS',
 		'slug'        => 'kosovo',
 		'name'        => __( 'Kosovo', 'siw' ),
 		'allowed'     => true,
