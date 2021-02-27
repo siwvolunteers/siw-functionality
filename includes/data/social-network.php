@@ -2,15 +2,12 @@
 
 namespace SIW\Data;
 
-use SIW\Formatting;
-
 /**
  * Bevat informatie over een sociaal netwerk
  * 
- * @copyright   2019 SIW Internationale Vrijwilligersprojecten
- * @since       3.0.0
+ * @copyright   2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Social_Network {
+class Social_Network extends Data {
 
 	/** Slug van het netwerk */
 	protected string $slug;
@@ -35,26 +32,6 @@ class Social_Network {
 
 	/** Is netwerk om te volgen? */
 	protected bool $follow;
-
-	/** Constructor */
-	public function __construct( array $data ) {
-		$defaults = [
-			'slug'               => '',
-			'name'               => '',
-			'icon_class'         => '',
-			'color'              => null,
-			'follow'             => false,
-			'follow_url'         => null,
-			'share'              => false,
-			'share_url_template' => null
-		];
-		$data = wp_parse_args( $data, $defaults );
-		$data = wp_array_slice_assoc( $data, array_keys( $defaults ) );
-		
-		foreach( $data as $key => $value ) {
-			$this->$key = $value;
-		}
-	}
 
 	/** Geeft slug van netwerk terug */
 	public function get_slug() : string {
