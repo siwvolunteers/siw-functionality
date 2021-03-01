@@ -34,6 +34,7 @@ class Bootstrap {
 		//Laadt klasses
 		$this->load_core();
 		$this->init_loader( 'Options' );
+		$this->init_loader( 'Forms' );
 		$this->init_loader( 'Widgets' );
 		$this->load_api();
 		$this->init_loader( 'Modules', 'init' );
@@ -84,7 +85,6 @@ class Bootstrap {
 	protected function check_requirements() {
 		return is_wp_version_compatible( SIW_MIN_WP_VERSION ) && is_php_version_compatible( SIW_MIN_PHP_VERSION );
 	}
-
 
 	/** Externe libraries laden */
 	protected function load_dependencies() {
@@ -150,7 +150,6 @@ class Bootstrap {
 			[
 				'Animation',
 				'Email',
-				'Forms',
 				'Newsletter\Confirmation_Page',
 			]
 		);

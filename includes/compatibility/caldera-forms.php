@@ -89,22 +89,23 @@ class Caldera_Forms {
 		return $pattern;
 	}
 
-	/**
-	 * Voegt attributes toe voor data-validatie
-	 * 
-	 * - Datum
-	 * - Postcode
-	 * @todo verplaatsen naar SIW\Form ?
-	 */
+	/** Voegt attributes toe voor data-validatie */
 	public function set_validation_field_attributes( array $attrs, array $field ) : array {
-		if ( 'geboortedatum' === $field['ID'] ) {
-			$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige datum.', 'siw' );
-			$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'date' );
+
+		if ( ! isset( $field['config']['validation'] ) ) {
+			return $attrs;
 		}
-	
-		if ( 'postcode' === $field['ID'] ) {
-			$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige postcode.', 'siw' );
-			$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'postal_code' );
+		
+		switch ( $field['config']['validation'] ) {
+			case 'date':
+				$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige datum.', 'siw' );
+				$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'date' );
+				break;
+			case 'postcode':
+				$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige postcode.', 'siw' );
+				$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'postal_code' );
+				break;
+			default:
 		}
 		return $attrs;
 	}
@@ -120,21 +121,13 @@ class Caldera_Forms {
 		return $attrs;
 	}
 
-	/**
-	 * Voegt attribute voor postcode lookup toe
-	 * @todo verplaatsen naar SIW\Form?
-	 */
+	/** Voegt attribute voor postcode lookup toe */
 	public function maybe_add_postcode_lookup( array $attributes, array $form ) : array {
 		$attributes['data-siw-postcode-lookup'] = isset( $form['postcode_lookup'] ) && $form['postcode_lookup'];
 		return $attributes;
 	}
 
-	/**
-	 * Voegt script toe
-	 * 
-	 * - Postcode lookup
-	 * - Google Analytics event
-	 */
+	/** Voegt script toe Postcode lookup en Google Analytics event */
 	public function enqueue_script() {
 		wp_register_script( 'siw-cf-caldera-forms', SIW_ASSETS_URL . 'js/siw-caldera-forms.js', ['siw-api-postcode', 'siw-analytics', 'jquery'], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-cf-caldera-forms' );
