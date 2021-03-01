@@ -3,7 +3,7 @@
 /**
  * Functies m.b.t. talen
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 
 use SIW\Data\Language;
@@ -62,27 +62,21 @@ function siw_get_languages( string $context = 'all', string $index = 'slug', str
 	return $languages;
 }
 
-/**
- * Geeft informatie over een taal terug
- * 
- * @since     3.0.0
- *
- * @param string $language
- * @param string $index
- * @return Language
- */
+/** Geeft lijst van talen terug */
+function siw_get_languages_list( string $context = 'all', string $index = 'slug' ) : array {
+	return array_map(
+		fn( Language $language ) : string => $language->get_name(),
+		siw_get_languages( $context, $index )
+	);
+}
+
+/** Geeft informatie over een taal terug */
 function siw_get_language( string $language, string $index = 'slug' ) : ?Language {
 	$languages = siw_get_languages( 'all', $index );
 	return $languages[ $language ] ?? null;
 }
 
-/**
- * Geeft een array met niveau's van taalvaardigheid terug
- * 
- * @since     3.0.0
- *
- * @return array
- */
+/** Geeft een lijst met niveau's van taalvaardigheid terug */
 function siw_get_language_skill_levels() : array {
 	$language_skill_levels = [
 		'1' => __( 'Matig', 'siw' ),
