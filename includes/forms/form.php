@@ -40,7 +40,7 @@ class Form {
 	public function set_pages( Multi_Page_Form_Interface $multi_page_form ) {
 		add_filter(
 			"siw_form_{$this->form->get_id()}",
-			fn( array $form ) : array => wp_parse_args_recursive( ['page_names' => $multi_page_form->get_pages()], $form )
+			fn( array $form ) : array => wp_parse_args( ['page_names' => $multi_page_form->get_pages()], $form )
 		);
 	}
 
