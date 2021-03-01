@@ -45,6 +45,14 @@ function siw_get_continents( string $return = 'objects' ) : array {
 	return $continents;
 }
 
+/** Geeft lijst van continenten terug */
+function siw_get_continents_list() : array {
+	return array_map(
+		fn( Continent $continent ) : string => $continent->get_name(),
+		siw_get_continents()
+	);
+}
+
 /**
  * Haal gegevens van continent op (op basis van slug)
  * 
