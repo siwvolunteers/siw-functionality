@@ -12,7 +12,6 @@ use SIW\Util\Links;
  * Class om een Mapplic kaart te genereren
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
 class Netherlands extends Interactive_Map {
 
@@ -55,25 +54,25 @@ class Netherlands extends Interactive_Map {
 				'title'         => $this->get_project_title( $project ),
 				'image'         => $project->get_image_id() ? wp_get_attachment_image_src( $project->get_image_id(), 'medium' )[0] : null,
 				'about'         => $project->get_sku(),
-				'lat'           => $project->get_meta( 'latitude') ?? null,
-				'lng'           => $project->get_meta( 'longitude') ?? null,
+				'lat'           => $project->get_meta( 'latitude' ) ?? null,
+				'lng'           => $project->get_meta( 'longitude' ) ?? null,
 				'description'   => $this->get_project_properties( $project ) . $this->get_project_button( $project ),
 				'pin'           => 'pin-classic pin-md',
 				'category'      => 'nl',
 				'fill'          => Properties::PRIMARY_COLOR,
 			];
-			$provinces[] = sprintf( '#nl-%s path', $project->get_meta( 'dutch_projects_province' ) );
+			$provinces[] = $project->get_meta( 'dutch_projects_province' );
 		}
 	
-		/** Inline CSS */
+		//Provincies inkleuren
 		$provinces = array_unique( $provinces );
-		$selectors = implode( ',', $provinces );
-	
-		$this->inline_css = [
-			$selectors => [
-				'fill' => Properties::SECONDARY_COLOR,
-			],
-		];
+		foreach ( $provinces as $province ) {
+			$locations[] = [
+				'id'       => "nl-{$province}",
+				'fill'     => Properties::SECONDARY_COLOR,
+				'action'   => 'disabled',
+			];
+		}
 		
 		return $locations;
 	}

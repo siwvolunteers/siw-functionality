@@ -28,9 +28,6 @@ abstract class Interactive_Map {
 	/** Bestandsnaam van kaart */
 	protected string $file;
 
-	/** Inline CSS-regels */
-	protected array $inline_css;
-
 	/** Gegevens van kaart */
 	protected array $options;
 
@@ -187,10 +184,5 @@ abstract class Interactive_Map {
 
 		wp_register_style( 'siw-interactive-map', SIW_ASSETS_URL . 'css/elements/siw-interactive-map.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-interactive-map' );
-
-		if ( isset( $this->inline_css ) ) {
-			$css = CSS::generate_inline_css( $this->inline_css );
-			wp_add_inline_style( 'siw-interactive-map', $css );
-		}
 	}
 }
