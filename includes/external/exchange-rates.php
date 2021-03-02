@@ -63,7 +63,7 @@ class Exchange_Rates{
 	}
 
 	/** Rekent bedrag om naar Euro's */
-	public function convert_to_euro( string $currency, float $amount, int $decimals = 2 ) : ?float {
+	public function convert_to_euro( string $currency, float $amount, int $decimals = 2 ) : ?string {
 		$exchange_rate = $this->get_rate( $currency );
 		if ( is_null( $exchange_rate ) ) {
 			return null;

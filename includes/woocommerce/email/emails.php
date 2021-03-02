@@ -2,6 +2,7 @@
 
 namespace SIW\WooCommerce\Email;
 
+use SIW\Data\Language;
 use SIW\Properties;
 
 /**
@@ -49,7 +50,6 @@ class Emails {
 		}
 		return $located;
 	}
-
 
 	/** Toont tabel met aanmeldingsgegevens */
 	public function show_order_table( \WC_Order $order ) {
@@ -107,7 +107,7 @@ class Emails {
 	protected function get_table_data( \WC_Order $order ) : array {
 
 		//Referentiegegevens
-		$volunteer_languages = siw_get_languages( 'volunteer', 'plato_code' );
+		$volunteer_languages = \siw_get_languages( Language::VOLUNTEER, 'plato_code' );
 		$languages[''] = __( 'Selecteer een taal', 'siw' );
 		foreach ( $volunteer_languages as $language ) {
 			$languages[ $language->get_plato_code() ] = $language->get_name();

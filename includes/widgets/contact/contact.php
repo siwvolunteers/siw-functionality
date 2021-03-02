@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Social_Network;
 use SIW\Elements;
 use SIW\Properties;
 
@@ -45,7 +46,7 @@ class Contact extends Widget {
 
 	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
-		$social_networks = siw_get_social_networks( 'follow' );
+		$social_networks = \siw_get_social_networks( Social_Network::FOLLOW );
 
 		foreach ( $social_networks as $network ) {
 			$networks[] = [

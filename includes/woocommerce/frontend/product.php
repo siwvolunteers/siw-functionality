@@ -3,6 +3,7 @@
 namespace SIW\WooCommerce\Frontend;
 
 use SIW\Data\Currency;
+use SIW\External\Exchange_Rates;
 use SIW\WooCommerce\Import\Product as Import_Product;
 
 /**
@@ -115,7 +116,7 @@ class Product {
 			return;
 		}
 
-		$amount = $product->get_meta( 'participation_fee' );
+		$amount = (float) $product->get_meta( 'participation_fee' );
 		$currency_code = $product->get_meta( 'participation_fee_currency' );
 
 		if ( empty( $currency_code ) || $amount <= 0 ) {
@@ -127,8 +128,9 @@ class Product {
 		if ( is_a( $currency, Currency::class ) ) {
 			$symbol = $currency->get_symbol();
 			
-			if ( get_woocommerce_currency() != $currency_code ) {
-				$amount_in_euro = $currency->convert_to_euro( floatval( $amount ) );
+			if ( get_woocommerce_currency() != $currency->get_iso_code() ) {
+				$exchange_rates = new Exchange_Rates();
+				$amount_in_euro = $exchange_rates->convert_to_euro( $currency->get_iso_code(), $amount, 0 );
 			}
 		}
 		?>

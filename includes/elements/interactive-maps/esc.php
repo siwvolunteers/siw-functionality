@@ -2,6 +2,7 @@
 
 namespace SIW\Elements\Interactive_Maps;
 
+use SIW\Data\Country;
 use SIW\Elements;
 use SIW\Elements\Interactive_Map;
 
@@ -37,7 +38,7 @@ class ESC extends Interactive_Map {
 
 	/** {@inheritDoc} */
 	protected function get_locations() : array {
-		$countries = siw_get_countries( 'esc_projects' );
+		$countries = siw_get_countries( Country::ESC );
 		$locations = [];
 		foreach ( $countries as $country ) {
 			$europe_map_data = $country->get_europe_map_data();
@@ -58,7 +59,7 @@ class ESC extends Interactive_Map {
 	 * @todo tabel met ESC-landen o.i.d.
 	 */
 	protected function get_mobile_content() : ?string {
-		$countries = siw_get_countries( 'esc_projects', 'slug', 'array' );
+		$countries = siw_get_countries_list( Country::ESC, 'slug' );
 		return Elements::generate_list( array_values( $countries ), 2 );
 	}
 }

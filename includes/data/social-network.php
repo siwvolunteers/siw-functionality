@@ -9,6 +9,15 @@ namespace SIW\Data;
  */
 class Social_Network extends Data {
 
+	/** Alle social networks */
+	const ALL = 'all';
+
+	/** Social networks voor delen */
+	const SHARE = 'share';
+	
+	/** Social networks voor volgen */
+	const FOLLOW = 'follow';
+
 	/** Slug van het netwerk */
 	protected string $slug;
 
@@ -71,5 +80,14 @@ class Social_Network extends Data {
 	/** Geeft template voor url om te delen terug */
 	public function get_share_url_template() : string {
 		return $this->share_url_template;
+	}
+
+	/** Geeft aan of Sociaal netwerk geldig is voor een gegeven context */
+	public function is_valid_for_context( string $context ) : bool {
+		return (
+			self::ALL == $context
+			|| ( self::SHARE == $context && $this->is_for_sharing() )
+			|| ( self::FOLLOW == $context && $this->is_for_following() )
+		);
 	}
 }

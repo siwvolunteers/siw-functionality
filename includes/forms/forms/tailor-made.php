@@ -2,6 +2,7 @@
 
 namespace SIW\Forms\Forms;
 
+use SIW\Data\Language;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Multi_Page_Form as Multi_Page_Form_Interface;
 
@@ -174,7 +175,7 @@ class Tailor_Made implements Form_Interface, Multi_Page_Form_Interface {
 				'type'    => 'dropdown',
 				'label'   => __( 'Taal 1', 'siw' ),
 				'config'  => [
-					'option'      => \siw_get_languages_list( 'volunteer' ),
+					'option'      => \siw_get_languages_list( Language::VOLUNTEER ),
 					'placeholder' => __( 'Selecteer een taal', 'siw' ),
 				],
 				'page'    => 3,
@@ -194,7 +195,7 @@ class Tailor_Made implements Form_Interface, Multi_Page_Form_Interface {
 				'type'    => 'dropdown',
 				'label'   => __( 'Taal 2', 'siw' ),
 				'config'  => [
-					'option'      => \siw_get_languages_list( 'volunteer' ),
+					'option'      => \siw_get_languages_list( Language::VOLUNTEER ),
 					'placeholder' => __( 'Selecteer een taal', 'siw' ),
 				],
 				'page'   => 3,
@@ -214,7 +215,7 @@ class Tailor_Made implements Form_Interface, Multi_Page_Form_Interface {
 				'type'    => 'dropdown',
 				'label'   => __( 'Taal 3', 'siw' ),
 				'config'  => [
-					'option'      => \siw_get_languages_list( 'volunteer' ),
+					'option'      => \siw_get_languages_list( Language::VOLUNTEER ),
 					'placeholder' => __( 'Selecteer een taal', 'siw' ),
 				],
 				'page'   => 3,

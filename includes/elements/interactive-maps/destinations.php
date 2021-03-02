@@ -148,7 +148,7 @@ class Destinations extends Interactive_Map {
 	 * @todo aanbod per land
 	 */
 	protected function get_mobile_content() : string {
-		$countries = siw_get_countries( 'allowed', 'slug', 'array' );
+		$countries = siw_get_countries_list( Country::ALLOWED, 'slug' );
 		return Elements::generate_list(  array_values( $countries ), 2 );
 	}
 }

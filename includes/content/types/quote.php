@@ -2,6 +2,7 @@
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
+use SIW\Data\Country;
 
 /**
  * Evenementen
@@ -57,7 +58,7 @@ class Quote extends Type {
 				'id'          => 'country',
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
-				'options'     => siw_get_countries( 'all', 'slug', 'array' ),
+				'options'     => \siw_get_countries_list( Country::ALL, 'slug' ),
 				'required'    => true,
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],

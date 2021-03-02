@@ -236,7 +236,7 @@ class Settings implements Option_Interface {
 		];
 
 		//Groepsprojecten
-		$continents = siw_get_continents( 'array' );
+		$continents = siw_get_continents_list();
 		$approval_fields = [
 			[
 				'type'       => 'heading',

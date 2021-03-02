@@ -2,6 +2,7 @@
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
+use SIW\Data\Country;
 use SIW\Elements;
 use SIW\HTML;
 use SIW\Util\Links;
@@ -69,7 +70,7 @@ class Story extends Type {
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
 				'required'    => true,
-				'options'     => siw_get_countries( 'all', 'slug', 'array' ),
+				'options'     => \siw_get_countries_list( Country::ALL, 'slug' ),
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],
 			[

@@ -35,7 +35,7 @@ class Social_Share {
 			return;
 		}
 
-		$networks = \siw_get_social_networks( 'share' );
+		$networks = \siw_get_social_networks( Social_Network::SHARE );
 		$title = get_the_title();
 		$url = get_permalink();
 

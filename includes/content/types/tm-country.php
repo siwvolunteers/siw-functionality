@@ -3,6 +3,8 @@
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
+use SIW\Data\Country;
+use SIW\Data\Work_Type;
 use SIW\Elements;
 use SIW\Elements\World_Map;
 use SIW\i18n;
@@ -82,7 +84,7 @@ class TM_Country extends Type {
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
 				'required'    => true,
-				'options'     => siw_get_countries( 'tailor_made_projects', 'slug', 'array' ),
+				'options'     => siw_get_countries_list( Country::TAILOR_MADE, 'slug' ),
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],
 			[
@@ -90,7 +92,7 @@ class TM_Country extends Type {
 				'name'        => __( 'Soort werk', 'siw' ),
 				'type'        => 'checkbox_list',
 				'required'    => true,
-				'options'     => siw_get_work_types( 'tailor_made_projects', 'slug', 'array' ),
+				'options'     => siw_get_work_types_list( Work_Type::TAILOR_MADE, 'slug' ),
 			],
 			[
 				'id'       => 'quote',

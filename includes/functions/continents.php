@@ -10,16 +10,11 @@ use SIW\Data\Continent;
 
 /**
  * Haal gegevens van continenten op
- * 
- * @param string $return objects|array
- * 
- * @return Continent[]|array
- * 
- * @since     3.0.0
+ * @return Continent[]
  */
-function siw_get_continents( string $return = 'objects' ) : array { 
+function siw_get_continents() : array { 
 
-	$continents = wp_cache_get( "continents_{$return}", 'siw_continents' );
+	$continents = wp_cache_get( __FUNCTION__ );
 	if ( false !== $continents ) {
 		return $continents;
 	}
@@ -35,13 +30,7 @@ function siw_get_continents( string $return = 'objects' ) : array {
 		$data
 	);
 
-	if ( 'array' == $return ) {
-		$continents = array_map(
-			fn( Continent $continent ) : string => $continent->get_name(),
-			$continents
-		);
-	}
-	wp_cache_set( "continents_{$return}", $continents, 'siw_continents' );
+	wp_cache_set( __FUNCTION__, $continents );
 	return $continents;
 }
 
@@ -53,14 +42,7 @@ function siw_get_continents_list() : array {
 	);
 }
 
-/**
- * Haal gegevens van continent op (op basis van slug)
- * 
- * @since     3.0.0
- *
- * @param string $slug
- * @return Continent
- */
+/** Haal gegevens van continent op (op basis van slug) */
 function siw_get_continent( string $slug ) : ?Continent {
 	$continents = siw_get_continents();
 	return $continents[ $slug ] ?? null;

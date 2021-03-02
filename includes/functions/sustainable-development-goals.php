@@ -10,14 +10,11 @@ use SIW\Data\Sustainable_Development_Goal;
 
 /**
  * Geeft een array van Sustainable Development Goals terug
- * 
- * @since     3.1.0
- *
  * @return Sustainable_Development_Goal[]
  */
-function siw_get_sustainable_development_goals( string $return = 'objects' ) : array {
+function siw_get_sustainable_development_goals() : array {
 	
-	$goals = wp_cache_get( "{$return}", 'siw_sustainable_development_goals' );
+	$goals = wp_cache_get( __FUNCTION__ );
 	if ( false !== $goals ) {
 		return $goals;
 	}
@@ -35,25 +32,11 @@ function siw_get_sustainable_development_goals( string $return = 'objects' ) : a
 		$data
 	);
 
-	if ( 'array' == $return ) {
-		$goals = array_map(
-			fn( Sustainable_Development_Goal $goal ) : string => $goal->get_full_name(),
-			$goals
-		);
-	}
-	wp_cache_set( "{$return}", $goals, 'siw_sustainable_development_goals' );
+	wp_cache_set( __FUNCTION__, $goals );
 	return $goals;
 }
 
-/**
- * Geeft SDG terug
- * 
- * @since     3.1.0
- *
- * @param string $goal
- *
- * @return Sustainable_Development_Goal|null
- */
+/** Geeft SDG terug */
 function siw_get_sustainable_development_goal( string $goal ) : ?Sustainable_Development_Goal {
 	$goals = siw_get_sustainable_development_goals();
 	return $goals[$goal] ?? null;
