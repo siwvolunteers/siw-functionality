@@ -1,5 +1,5 @@
 <ul data-columns="{{ columns }}">
 	{{# items }}
-	<li>{{{ . }}}</li>
+	<li>{{& . | wp_kses_post }}</li>
 	{{/ items }}
 </ul>

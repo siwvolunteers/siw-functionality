@@ -2,14 +2,14 @@
 	{{# has_headers }}
 	<tr>
 		{{# headers }}
-		<th>{{{ . }}}</th>
+		<th>{{& . | wp_kses_post }}</th>
 		{{/ headers }}
 	</tr>
 	{{/ has_headers}}
 	{{# rows }}
 		<tr>
 			{{# . }}
-				<td>{{{ . }}}</td>
+				<td>{{& . | wp_kses_post }}</td>
 			{{/ . }}
 		</tr>
 	{{/ rows}}

@@ -6,7 +6,7 @@
 				<button class="modal-close" aria-label="{{ i18n.close }}" data-micromodal-close></button>
 			</header>
 			<main class="modal-body" id="{{ id }}-content">
-				<p>{{& content }}</p>
+				<p>{{& content | wp_kses_post }}</p>
 			</main>
 			<footer class="modal-footer">
 				<button data-micromodal-close aria-label="{{ i18n.close }}">{{ i18n.close }}</button>

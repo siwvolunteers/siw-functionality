@@ -6,6 +6,6 @@
 	<h4>{{ title }}</h4>
 </div>
 <div class="content">
-	{{ content }}
+	{{& content | wp_kses_post }}
 </div>
 {{/ infoboxes }}
