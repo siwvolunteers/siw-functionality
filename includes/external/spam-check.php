@@ -3,6 +3,7 @@
 namespace SIW\External;
 
 use SIW\Helpers\HTTP_Request;
+use SIW\Util\Logger;
 
 /**
  * Opzoeken e-mailadres en IP in SFS-spamdatabase
@@ -70,6 +71,7 @@ class Spam_Check{
 			$ip_confidence = get_transient( "siw_spam_ip_{$this->ip}" );
 			if ( false !== $ip_confidence ) {
 				if ( floatval( $ip_confidence ) > self::SPAM_THRESHOLD ) {
+					Logger::info( "Gefilterd als spam: ip {$this->ip} (email {$this->email})", 'siw-spam-check' );
 					return true;
 				}
 				$this->check_ip = false;
@@ -81,6 +83,7 @@ class Spam_Check{
 			$email_confidence = get_transient( "siw_spam_email_{$this->email_hash}" );
 			if ( false !== $email_confidence ) {
 				if ( floatval( $email_confidence ) > self::SPAM_THRESHOLD ) {
+					Logger::info( "Gefilterd als spam: email {$this->email} (ip {$this->ip})", 'siw-spam-check' );
 					return true;
 				}
 				$this->check_email = false;
@@ -103,14 +106,17 @@ class Spam_Check{
 	
 			//Bepaal of het een spammer betreft
 			if ( isset( $email_confidence ) && $email_confidence > self::SPAM_THRESHOLD ) {
+				Logger::info( "Gefilterd als spam: email {$this->email} (ip {$this->ip})", 'siw-spam-check' );
 				return true;
 			}
 			
 			if ( isset( $ip_confidence ) && $ip_confidence > self::SPAM_THRESHOLD ) {
+				Logger::info( "Gefilterd als spam: ip {$this->ip} (email {$this->email})", 'siw-spam-check' );
 				return true;
 			}
 		}
 		
+		Logger::info( "Niet gefilterd als spam: email {$this->email} en IP {$this->ip}", 'siw-spam-check' );
 		return false;
 	}
 
