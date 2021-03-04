@@ -127,7 +127,7 @@ class Spam_Check{
 			'json'  => true
 		];
 		if ( $this->check_email ) {
-			$body['email'] = $this->email;
+			$body['email'] = urlencode( $this->email );
 		}
 		if ( $this->check_ip ) {
 			$body['ip'] = $this->ip;
