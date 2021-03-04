@@ -7,8 +7,8 @@ namespace SIW\Interfaces\Forms;
  * 
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-interface Processor extends Form_Processor {
-
+interface Pre_Processor extends Form_Processor {
+	
 	/** Preprocess callback */
-	public function process( array $config, array $form, string $process_id ) : ?array;
+	public function pre_process( array $config, array $form, string $process_id ) : ?array;
 }

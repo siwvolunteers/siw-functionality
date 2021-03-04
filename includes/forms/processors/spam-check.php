@@ -2,7 +2,7 @@
 
 namespace SIW\Forms\Processors;
 
-use SIW\Interfaces\Forms\Processor as Processor_Interface;
+use SIW\Interfaces\Forms\Pre_Processor as Pre_Processor_Interface;
 
 use SIW\External\Spam_Check as External_Spam_Check;
 
@@ -11,7 +11,7 @@ use SIW\External\Spam_Check as External_Spam_Check;
  * 
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Spam_Check implements Processor_Interface {
+class Spam_Check implements Pre_Processor_Interface {
 
 	/** {@inheritDoc} */
 	public function get_id(): string {
@@ -29,7 +29,7 @@ class Spam_Check implements Processor_Interface {
 	}
 
 	/** Breek formulierverwerking af als het een spammer is */
-	public function preprocess( array $config, array $form, string $process_id ) : ?array {
+	public function pre_process( array $config, array $form, string $process_id ) : ?array {
 		if ( $this->is_spam( $config, $form ) ) {
 			return [
 				'note' => __( 'Er is helaas iets misgegaan.', 'siw' ),
