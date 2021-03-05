@@ -2,8 +2,9 @@
 
 namespace SIW\Elements\Interactive_Maps;
 
+use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
+
 use SIW\Elements\Accordion;
-use SIW\Elements\Interactive_Map;
 use SIW\i18n;
 use SIW\Properties;
 use SIW\Util\Links;
@@ -11,40 +12,48 @@ use SIW\Util\Links;
 /**
  * Class om een Mapplic kaart te genereren
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Netherlands extends Interactive_Map {
+class Netherlands implements Interactive_Map_Interface {
 
 	/** {@inheritDoc} */
-	protected string $id = 'nl';
+	public function get_id(): string {
+		return 'nl';
+	}
 
 	/** {@inheritDoc} */
-	protected string $file = 'netherlands';
-	
-	/** {@inheritDoc} */
-	protected array $data = [
-		'mapwidth'  => 600,
-		'mapheight' => 600,
-		'bottomLat' => '50.67500192979909',
-		'leftLng'   => '2.8680356443589807',
-		'topLat'    => '53.62609096857893',
-		'rightLng'  => '7.679884929662812',
-	];
+	public function get_file(): string {
+		return 'netherlands';
+	}
 
 	/** {@inheritDoc} */
-	protected array $options = [
-		'alphabetic'   => false,
-		'search'       => true,
-		'searchfields' => ['title', 'about', 'description'],
-	];
+	public function get_options(): array {
+		return [
+			'alphabetic'   => false,
+			'search'       => true,
+			'searchfields' => ['title', 'about', 'description'],
+		];
+	}
 
 	/** {@inheritDoc} */
-	protected function get_categories() : array {
+	public function get_map_data(): array {
+		return [
+			'mapwidth'  => 600,
+			'mapheight' => 600,
+			'bottomLat' => '50.67500192979909',
+			'leftLng'   => '2.8680356443589807',
+			'topLat'    => '53.62609096857893',
+			'rightLng'  => '7.679884929662812',
+		];
+	}
+
+	/** {@inheritDoc} */
+	public function get_categories() : array {
 		return [];
 	}
 
 	/** {@inheritDoc} */
-	protected function get_locations() : array {
+	public function get_locations() : array {
 		$projects = $this->get_projects();
 		$locations = [];
 		$provinces = [];
@@ -78,7 +87,7 @@ class Netherlands extends Interactive_Map {
 	}
 
 	/** {@inheritDoc} */
-	protected function get_mobile_content() : ?string {
+	public function get_mobile_content() : ?string {
 		
 		$projects = $this->get_projects();
 		if ( empty( $projects ) ) {

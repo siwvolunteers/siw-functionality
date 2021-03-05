@@ -129,40 +129,6 @@ class Elements {
 		}
 	}
 
-	/** Haalt gegevens over interactieve kaarten op */
-	public static function get_interactive_maps() : array {
-		$maps = [
-			[
-				'id'    => 'nl',
-				'name'  => __( 'Nederland', 'siw' ),
-				'class' => 'Netherlands',
-			],
-			[
-				'id'    => 'destinations',
-				'name'  => __( 'Bestemmingen', 'siw' ),
-				'class' => 'Destinations',
-			],
-			[
-				'id'    => 'esc',
-				'name'  => __( 'ESC', 'siw' ),
-				'class' => 'ESC',
-			],
-		];
-		return $maps;
-	}
-
-	/** Genereert interactieve kaart */
-	public static function generate_interactive_map( string $id ) : string {
-		$maps = wp_list_pluck( self::get_interactive_maps(), 'class', 'id' );
-
-		if ( ! isset( $maps[ $id ] ) ) {
-			return null;
-		}
-		$class = "\SIW\Elements\Interactive_Maps\\{$maps[ $id ]}";
-		$map = new $class;
-		return $map->generate();
-	}
-
 	/** Genereert tabel */
 	public static function generate_table( array $rows, array $headers = [] ) : string {
 		return Template::parse_template(

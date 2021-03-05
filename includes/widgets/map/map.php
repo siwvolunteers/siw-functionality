@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Elements;
+use SIW\Elements\Interactive_Map;
 
 /**
  * Widget met interactieve kaart
@@ -61,13 +61,20 @@ class Map extends Widget {
 
 	/** Haalt kaarten op */
 	protected function get_maps() : array {
-		return wp_list_pluck( Elements::get_interactive_maps(), 'name', 'id' );
+		return wp_list_pluck( siw_get_interactive_maps(), 'name', 'id' );
 	}
 
 	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
+
+		$maps = wp_list_pluck( siw_get_interactive_maps(), 'class', 'id' );
+		if ( ! isset( $maps[ $instance['map'] ] ) ) {
+			return [];
+		}
+		$interactive_map = new Interactive_Map( new $maps[ $instance['map'] ] );
+
 		return [
-			'content' => Elements::generate_interactive_map( $instance['map'] )
+			'content' => $interactive_map->generate(),
 		];
 	}
 }

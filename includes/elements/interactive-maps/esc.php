@@ -2,42 +2,51 @@
 
 namespace SIW\Elements\Interactive_Maps;
 
+use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
+
 use SIW\Data\Country;
 use SIW\Elements;
-use SIW\Elements\Interactive_Map;
 
 /**
  * Class om een Mapplic kaart te genereren
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @since     3.0.0
  */
-class ESC extends Interactive_Map {
+class ESC implements Interactive_Map_Interface {
 
 	/** {@inheritDoc} */
-	protected string  $id = 'esc';
+	public function get_id(): string {
+		return 'esc';
+	}
 
 	/** {@inheritDoc} */
-	protected string $file = 'europe';
+	public function get_file(): string {
+		return 'europe';
+	}
+
+	/** {@inheritDoc} */
+	public function get_options(): array {
+		return [
+			'search' => true,
+		];
+	}
+
+	/** {@inheritDoc} */
+	public function get_map_data(): array {
+		return [
+			'mapwidth'  => 600,
+			'mapheight' => 600,
+		];
+	}
 	
 	/** {@inheritDoc} */
-	protected array $data = [
-		'mapwidth'  => 600,
-		'mapheight' => 600,
-	];
-
-	/** {@inheritDoc} */
-	protected array $options = [
-		'search' => true,
-	];
-	
-	/** {@inheritDoc} */
-	protected function get_categories() : array {
+	public function get_categories() : array {
 		return [];
 	}
 
 	/** {@inheritDoc} */
-	protected function get_locations() : array {
+	public function get_locations() : array {
 		$countries = siw_get_countries( Country::ESC );
 		$locations = [];
 		foreach ( $countries as $country ) {
@@ -53,12 +62,8 @@ class ESC extends Interactive_Map {
 		return $locations;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @todo tabel met ESC-landen o.i.d.
-	 */
-	protected function get_mobile_content() : ?string {
+	/** {@inheritDoc} */
+	public function get_mobile_content() : ?string {
 		$countries = siw_get_countries_list( Country::ESC, 'slug' );
 		return Elements::generate_list( array_values( $countries ), 2 );
 	}

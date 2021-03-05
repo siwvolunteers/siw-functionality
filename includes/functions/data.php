@@ -176,3 +176,25 @@ function siw_get_forms() : array {
 	}
 	return wp_list_pluck( Caldera_Forms_Forms::get_forms( true, false ), 'name' );
 }
+
+/** Haalt gegevens over interactieve kaarten op */
+function siw_get_interactive_maps() : array {
+	$maps = [
+		[
+			'id'    => 'nl',
+			'name'  => __( 'Nederland', 'siw' ),
+			'class' => \SIW\Elements\Interactive_Maps\Netherlands::class,
+		],
+		[
+			'id'    => 'destinations',
+			'name'  => __( 'Bestemmingen', 'siw' ),
+			'class' => \SIW\Elements\Interactive_Maps\Destinations::class,
+		],
+		[
+			'id'    => 'esc',
+			'name'  => __( 'ESC', 'siw' ),
+			'class' => \SIW\Elements\Interactive_Maps\ESC::class,
+		],
+	];
+	return $maps;
+}

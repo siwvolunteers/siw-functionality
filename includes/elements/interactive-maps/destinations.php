@@ -2,41 +2,49 @@
 
 namespace SIW\Elements\Interactive_Maps;
 
+use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
+
 use SIW\i18n;
 use SIW\Data\Country;
 use SIW\Elements;
-use SIW\Elements\Interactive_Map;
 use SIW\Util\Links;
 
 /**
  * Class om een Mapplic kaart te genereren
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Destinations extends Interactive_Map {
+class Destinations implements Interactive_Map_Interface {
 
 	/** {@inheritDoc} */
-	protected string $id = 'destinations';
+	public function get_id(): string {
+		return 'destinations';
+	}
 
 	/** {@inheritDoc} */
-	protected string $file = 'world';
+	public function get_file(): string {
+		return 'world';
+	}
 
 	/** {@inheritDoc} */
-	protected array $data = [
-		'mapwidth'  => 1200,
-		'mapheight' => 760,
-	];
+	public function get_options(): array {
+		return [
+			'search'       => true,
+			'searchfields' => ['title', 'about', 'description'],
+			'hidenofilter' => true,
+		];
+	}
 
 	/** {@inheritDoc} */
-	protected array $options = [
-		'search'       => true,
-		'searchfields' => ['title', 'about', 'description'],
-		'hidenofilter' => true,
-	];
+	public function get_map_data(): array {
+		return [
+			'mapwidth'  => 1200,
+			'mapheight' => 760,
+		];
+	}
 
 	/** {@inheritDoc} */
-	protected function get_categories() : array {
+	public function get_categories() : array {
 		$continents = siw_get_continents();
 
 		$categories = [];
@@ -51,7 +59,7 @@ class Destinations extends Interactive_Map {
 	}
 
 	/** {@inheritDoc} */
-	protected function get_locations() : array {
+	public function get_locations() : array {
 		$countries = siw_get_countries();
 		
 		$locations = [];
@@ -147,8 +155,8 @@ class Destinations extends Interactive_Map {
 	 * 
 	 * @todo aanbod per land
 	 */
-	protected function get_mobile_content() : string {
+	public function get_mobile_content() : string {
 		$countries = siw_get_countries_list( Country::ALLOWED, 'slug' );
-		return Elements::generate_list(  array_values( $countries ), 2 );
+		return Elements::generate_list( array_values( $countries ), 2 );
 	}
 }
