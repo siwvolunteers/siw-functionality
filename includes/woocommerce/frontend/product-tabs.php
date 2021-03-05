@@ -108,9 +108,7 @@ class Product_Tabs {
 				];
 			}
 		}
-		$accordion = new Accordion();
-		$accordion->add_items( $panes );
-		$accordion->render();
+		Accordion::create( $panes )->render();
 	}
 
 	/** Toont kaart met projectlocatie in tab */
