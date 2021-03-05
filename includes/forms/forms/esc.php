@@ -141,7 +141,7 @@ class ESC implements Form_Interface {
 
 	/** {@inheritDoc} */
 	public function get_autoresponder_subject(): string {
-		return __( 'Bevestiging aanmelding', 'siw' );
+		return __( 'Bevestiging aanmelding ESC', 'siw' );
 	}
 
 	/** {@inheritDoc} */
