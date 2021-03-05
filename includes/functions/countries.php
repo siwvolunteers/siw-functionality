@@ -10,7 +10,7 @@ use SIW\Data\Country;
 
 /**
  * Geeft array van gegevens van landen terug
- * @return Country[]|array
+ * @return Country[]
  */
 function siw_get_countries( string $context = Country::ALL, string $index = 'slug' ) { 
 
