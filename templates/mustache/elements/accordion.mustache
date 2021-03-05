@@ -7,7 +7,9 @@
 		<p>
 			{{& content|wp_kses_post }}
 		</p>
-		{{> button }}
-		</div>
+		{{# button }}
+			{{> links/button }}
+		{{/ button }}
+	</div>
 	{{/ panes }}
 </div>

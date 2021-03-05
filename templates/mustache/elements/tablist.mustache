@@ -8,8 +8,10 @@
 		<div role="tabpanel" id="tab-{{ id }}">
 			<p>
 				{{& content | wp_kses_post }}
-				{{> button }}
 			</p>
+			{{# button }}
+				{{> links/button }}
+			{{/ button }}
 		</div>
 	{{/ panes}}
 </div>
