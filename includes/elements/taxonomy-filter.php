@@ -2,13 +2,13 @@
 
 namespace SIW\Elements;
 
+use SIW\Actions\Batch\Update_Terms;
 use SIW\Core\Template;
 
 /**
  * Taxonomy-filter voor archiefpagina's
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Taxonomy_Filter {
 
@@ -68,7 +68,7 @@ class Taxonomy_Filter {
 		if ( $this->options['use_post_count'] ) {
 			$term_query['meta_query'] = [
 				[
-					'key'     => 'post_count',
+					'key'     => Update_Terms::POST_COUNT_TERM_META,
 					'value'   => 0,
 					'compare' => '>',
 				],

@@ -2,6 +2,7 @@
 
 namespace SIW\Elements\Interactive_Maps;
 
+use SIW\Actions\Batch\Update_WooCommerce_Terms;
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
 use SIW\i18n;
@@ -110,7 +111,7 @@ class Destinations implements Interactive_Map_Interface {
 		$country_term = get_term_by( 'slug', $country->get_slug(), 'pa_land' );
 		
 		if ( is_a( $country_term, \WP_Term::class ) ) {
-			$workcamp_count = get_term_meta( $country_term->term_id, 'post_count', true );
+			$workcamp_count = get_term_meta( $country_term->term_id, Update_WooCommerce_Terms::POST_COUNT_TERM_META, true );
 		}
 		else {
 			$workcamp_count = 0;

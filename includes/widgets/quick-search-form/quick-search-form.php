@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Actions\Batch\Update_WooCommerce_Terms;
 use SIW\Util;
 
 /**
@@ -90,7 +91,7 @@ class Quick_Search_Form extends Widget {
 			'hide_empty' => true,
 			'meta_query' => [
 				[
-					'key'     => 'post_count',
+					'key'     => Update_WooCommerce_Terms::POST_COUNT_TERM_META,
 					'value'   => 0,
 					'compare' => '>',
 				],
@@ -118,7 +119,7 @@ class Quick_Search_Form extends Widget {
 			'hide_empty' => true,
 			'meta_query' => [
 				[
-					'key'     => 'post_count',
+					'key'     => Update_WooCommerce_Terms::POST_COUNT_TERM_META,
 					'value'   => 0,
 					'compare' => '>',
 				],

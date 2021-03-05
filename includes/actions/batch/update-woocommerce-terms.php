@@ -11,6 +11,9 @@ use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
  */
 class Update_WooCommerce_Terms implements Batch_Action_Interface {
 
+	/** Term meta voor aantal zichtbare posts */
+	const POST_COUNT_TERM_META = 'post_count';
+
 	/** {@inheritDoc} */
 	public function get_id(): string {
 		return 'update_woocommerce_terms';
@@ -88,9 +91,9 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 			return false;
 		}
 
-		$current_count = intval( get_term_meta( $term->term_id, 'post_count', true ) );
+		$current_count = intval( get_term_meta( $term->term_id, self::POST_COUNT_TERM_META, true ) );
 		if ( $current_count !== $visible_count ) {
-			update_term_meta( $term->term_id, 'post_count', $visible_count );
+			update_term_meta( $term->term_id, self::POST_COUNT_TERM_META, $visible_count );
 		}
 
 		return;

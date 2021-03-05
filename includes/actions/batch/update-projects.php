@@ -33,6 +33,9 @@ class Update_Projects implements Batch_Action_Interface {
 	/** Minimaal aantal dagen dat project in toekomst moet starten om zichtbaar te zijn */
 	const MIN_DAYS_BEFORE_START = 3;
 
+	/** Meta key die aangeeft dat project uit Plato verwijderd is */
+	const DELETED_FROM_PLATO_META = 'deleted_from_plato';
+
 	/** {@inheritDoc} */
 	public function get_id() : string {
 		return 'update_projects';
@@ -101,8 +104,8 @@ class Update_Projects implements Batch_Action_Interface {
 
 		$deleted_from_plato = ! in_array( $this->product->get_meta( 'project_id' ), $project_ids );
 
-		if ( $deleted_from_plato !== boolval( $this->product->get_meta( 'deleted_from_plato' ) ) ) {
-			$this->product->update_meta_data( 'deleted_from_plato', $deleted_from_plato );
+		if ( $deleted_from_plato !== boolval( $this->product->get_meta( self::DELETED_FROM_PLATO_META ) ) ) {
+			$this->product->update_meta_data( self::DELETED_FROM_PLATO_META, $deleted_from_plato );
 			$this->product->save();
 		}
 	}
@@ -164,7 +167,7 @@ class Update_Projects implements Batch_Action_Interface {
 			||
 			date( 'Y-m-d', time() + ( self::MIN_DAYS_BEFORE_START * DAY_IN_SECONDS ) ) >= $this->product->get_meta( 'start_date' )
 			||
-			$this->product->get_meta( 'deleted_from_plato' )
+			$this->product->get_meta( self::DELETED_FROM_PLATO_META )
 			||
 			$this->product->get_meta( 'force_hide' )
 		) {
