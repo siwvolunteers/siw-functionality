@@ -2,6 +2,7 @@
 
 namespace SIW\Email;
 
+use SIW\Data\Social_Network;
 use SIW\Properties;
 use SIW\Util\Links;
 
@@ -149,7 +150,7 @@ class Template {
 							<table width="100%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td width="40%">&nbsp;</td>
-										<?php foreach ( siw_get_social_networks( 'follow') as $network ) :?>
+										<?php foreach ( siw_get_social_networks( Social_Network::FOLLOW ) as $network ) :?>
 										<td width="auto" align="center">
 										<?php
 													echo Links::generate_image_link(
