@@ -14,7 +14,6 @@ class Tablist extends Repeater {
 	/** Versienummer */
 	const TABLIST_VERSION = '2.0.1';
 
-
 	/** {@inheritDoc} */
 	protected function get_id(): string {
 		return 'tablist';

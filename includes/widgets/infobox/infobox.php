@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Elements;
+use SIW\Elements\Infoboxes;
 
 /**
  * Widget met infoboxes
@@ -90,7 +90,7 @@ class Infobox extends Widget {
 	function get_template_variables( $instance, $args ) {
 		return [
 			'intro'   => $instance['intro'],
-			'content' => Elements::generate_infoboxes( $instance['infoboxes'] ),
+			'content' => Infoboxes::create( $instance['infoboxes'] )->generate(),
 		];
 	}
 }

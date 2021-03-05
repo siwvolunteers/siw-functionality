@@ -6,6 +6,7 @@ use SIW\Content\Type;
 use SIW\Data\Country;
 use SIW\Data\Work_Type;
 use SIW\Elements;
+use SIW\Elements\Features;
 use SIW\Elements\World_Map;
 use SIW\i18n;
 use SIW\Util\CSS;
@@ -297,8 +298,10 @@ class TM_Country extends Type {
 			<h2><?php esc_html_e( 'Zo werkt het', 'siw' );?></h2>
 		</div>
 		<?php
-		echo Elements::generate_features(
-			[
+
+		Features::create()
+			->set_columns( 4 )
+			->add_items( [
 				[
 					'icon'    => 'siw-icon-file-signature',
 					'title'   => '1. Aanmelding',
@@ -319,9 +322,7 @@ class TM_Country extends Type {
 					'title'   => '4. Voorbereiding',
 					'content' => 'Kom naar de Infodag zodat je goed voorbereid aan jouw avontuur kan beginnen.',
 				],
-			],
-			4 //TODO:
-		);
+			])->render();
 	}
 
 	/**

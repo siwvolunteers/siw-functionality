@@ -2,16 +2,14 @@
 
 namespace SIW\WooCommerce\Frontend;
 
-use SIW\Elements;
+use SIW\Elements\Accordion;
+use SIW\Elements\Features;
 use SIW\Elements\Google_Maps;
 
 /**
  * Tabs voor Groepsprojecten
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
- * 
- * @todo      stappenplan
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Product_Tabs {
 
@@ -110,7 +108,9 @@ class Product_Tabs {
 				];
 			}
 		}
-		echo Elements::generate_accordion( $panes );
+		$accordion = new Accordion();
+		$accordion->add_items( $panes );
+		$accordion->render();
 	}
 
 	/** Toont kaart met projectlocatie in tab */
@@ -127,8 +127,9 @@ class Product_Tabs {
 
 	/** Toont stappenplan in tab TODO: stappen uit instelling */
 	public function show_product_steps() {
-		echo Elements::generate_features(
-			[
+		Features::create()
+			->set_columns( 3 ) //TODO: stappen tellen
+			->add_items( [
 				[
 					'icon'    => 'siw-icon-file-signature',
 					'title'   => '1. Aanmelding',
@@ -144,9 +145,7 @@ class Product_Tabs {
 					'title'   => '3. Voorbereiding',
 					'content' => 'Kom naar de voorbereidingsdag, zodat je goed voorbereid aan je avontuur kan beginnen.',
 				],
-			],
-			3 //TODO: stappen tellen
-		);
+			])->render();
 	}
 
 }

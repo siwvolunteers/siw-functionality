@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Elements;
+use SIW\Elements\Features as Features_Element;
 
 /**
  * Widget met features
@@ -118,9 +118,9 @@ class Features extends Widget {
 
 	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
-		return[
+		return [
 			'intro'   => $instance['intro'],
-			'content' => Elements::generate_features( $instance['features'], (int) $instance['columns'] ),
+			'content' => Features_Element::create( $instance['features'] )->set_columns( (int) $instance['columns'] )->generate(),
 		];
 	}
 }

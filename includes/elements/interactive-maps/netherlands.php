@@ -2,7 +2,7 @@
 
 namespace SIW\Elements\Interactive_Maps;
 
-use SIW\Elements;
+use SIW\Elements\Accordion;
 use SIW\Elements\Interactive_Map;
 use SIW\i18n;
 use SIW\Properties;
@@ -95,7 +95,7 @@ class Netherlands extends Interactive_Map {
 			];
 
 		}
-		return Elements::generate_accordion( $panes );
+		return Accordion::create( $panes )->generate();
 	}
 
 	/** Haalt projecten op */

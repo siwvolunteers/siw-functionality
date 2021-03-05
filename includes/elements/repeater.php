@@ -12,12 +12,19 @@ use SIW\Core\Template;
 abstract class Repeater {
 	
 	/** Items */
-	protected array $items = [];
+	protected array $items;
 
 	/** Init */
-	public function __construct() {
+	private function __construct() {
 		$this->enqueue_styles();
 		$this->enqueue_scripts();
+	}
+
+	/** Creeert repeater */
+	public static function create( array $items = [] ) {
+		$self = new static();
+		$self->items = $items;
+		return $self;
 	}
 
 	/** Voegt item toe aan repeater */
@@ -29,6 +36,7 @@ abstract class Repeater {
 		);
 
 		$this->items[] = $this->parse_item( $item );
+		return $this;
 	}
 	
 	/** Voegt meerdere items toe aan repeater */
@@ -36,6 +44,7 @@ abstract class Repeater {
 		foreach ( $items as $item ) {
 			$this->add_item( $item );
 		}
+		return $this;
 	}
 
 	/** Genereert repeater */

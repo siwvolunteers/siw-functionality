@@ -3,10 +3,6 @@
 namespace SIW;
 
 use SIW\Core\Template;
-use SIW\Elements\Accordion;
-use SIW\Elements\Features;
-use SIW\Elements\Infoboxes;
-use SIW\Elements\Tablist;
 use SIW\Elements\Modal;
 
 /**
@@ -15,27 +11,6 @@ use SIW\Elements\Modal;
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Elements {
-
-	/** Genereer accordion */
-	public static function generate_accordion( array $panes ) : ?string {
-		if ( empty( $panes) ) {
-			return null;
-		}
-		$accordion = new Accordion;
-		$accordion->add_items( $panes );
-		return $accordion->generate();
-	}
-
-	/** Genereer tablist */
-	public static function generate_tabs( array $panes ) : ?string {
-		if ( empty( $panes) ) {
-			return null;
-		}
-
-		$tablist = new Tablist;
-		$tablist->add_items( $panes );
-		return $tablist->generate();
-	}
 
 	/** Genereert modal voor pagina */
 	public static function generate_page_modal( int $page_id, string $link_text ) : string {
@@ -186,21 +161,6 @@ class Elements {
 		$class = "\SIW\Elements\Interactive_Maps\\{$maps[ $id ]}";
 		$map = new $class;
 		return $map->generate();
-	}
-
-	/** Genereert features */
-	public static function generate_features( array $features, int $columns ) : string {
-		$features_obj = new Features( $columns );
-		$features_obj->set_columns( $columns );
-		$features_obj->add_items( $features );
-		return $features_obj->generate();
-	}
-
-	/** Genereert infoboxes */
-	public static function generate_infoboxes( array $infoboxes ) : string {
-		$infoboxes_obj = new Infoboxes();
-		$infoboxes_obj->add_items( $infoboxes );
-		return $infoboxes_obj->generate();
 	}
 
 	/** Genereert tabel */

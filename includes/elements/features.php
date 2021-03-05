@@ -22,6 +22,7 @@ class Features extends Repeater {
 
 	public function set_columns( int $columns ) {
 		$this->columns = $columns;
+		return $this;
 	}
 
 	/** {@inheritDoc} */

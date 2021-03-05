@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Elements;
+use SIW\Elements\Tablist;
 
 /**
  * Widget met contactinformatie
@@ -107,7 +107,7 @@ class Tabs extends Widget {
 	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 		return [
-			'content' => Elements::generate_tabs( $instance['panes'] )
+			'content' => Tablist::create( $instance['panes'] )->generate(),
 		];
 	}
 }
