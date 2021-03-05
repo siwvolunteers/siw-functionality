@@ -2,15 +2,12 @@
 
 namespace SIW\Elements;
 
-use SIW\Core\Template;
-
 /**
  * Class om een overzicht van infoboxes met icon en knop te genereren
  * 
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.3.0
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Infoboxes {
+class Infoboxes extends Repeater {
 	
 	/** Icon size */
 	protected int $icon_size = 3;
@@ -18,36 +15,38 @@ class Infoboxes {
 	/** Achtergrond van icon */
 	protected string $icon_background = 'circle';
 
-	/** Infoboxes */
-	protected array $infoboxes;
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'infoboxes';
+	}
 
-	/** Voegt infobox toe */
-	public function add_infobox( string $icon, string $title, string $content ) {
-	
-		//Afbreken als content geen zichtbare inhoud bevat
-		if ( 0 === strlen( trim( $content ) ) ) {
-			return;
-		}
+	/** {@inheritDoc} */
+	protected function get_template_variables(): array {
+		return [
+			'infoboxes'  => $this->items,
+		];
+	}
 
-		$this->infoboxes[] = [
+	/** {@inheritDoc} */
+	protected function get_item_defaults(): array {
+		return [
+			'icon'    => '',
+			'title'   => '',
+			'content' => '',
+		];
+	}
+
+	/** {@inheritDoc} */
+	protected function parse_item( array $item ): array {
+		return [
 			'icon'     => [
 				'has_background'   => true,
 				'size'             => $this->icon_size,
-				'icon_class'       => $icon,
+				'icon_class'       => $item['icon'],
 				'background_class' => $this->icon_background,
 			],
-			'title'    => $title,
-			'content'  => $content,
+			'title'    => $item['title'],
+			'content'  => $item['content'],
 		];
-	}
-	
-	/** Genereert features */
-	public function generate() : string {
-		return Template::parse_template(
-			'elements/infoboxes',
-			[
-				'infoboxes'  => $this->infoboxes,
-			]
-		);
 	}
 }

@@ -12,10 +12,7 @@ use SIW\Elements\Modal;
 /**
  * Functies om Elements te genereren
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
- * 
- * @todo      render-functies maken
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Elements {
 
@@ -24,29 +21,8 @@ class Elements {
 		if ( empty( $panes) ) {
 			return null;
 		}
-
 		$accordion = new Accordion;
-		foreach ( $panes as $pane ) {
-
-			$pane = wp_parse_args(
-				$pane,
-				[ 
-					'title'       => '',
-					'content'     => '',
-					'show_button' => false,
-					'button_url'  => '',
-					'button_text' => ''
-				]
-			);
-
-			$accordion->add_pane(
-				$pane['title'],
-				$pane['content'],
-				$pane['show_button'],
-				$pane['button_url'],
-				$pane['button_text']
-			);
-		}
+		$accordion->add_items( $panes );
 		return $accordion->generate();
 	}
 
@@ -57,27 +33,7 @@ class Elements {
 		}
 
 		$tablist = new Tablist;
-		foreach ( $panes as $pane ) {
-
-			$pane = wp_parse_args(
-				$pane,
-				[ 
-					'title'       => '',
-					'content'     => '',
-					'show_button' => false,
-					'button_url'  => '',
-					'button_text' => ''
-				]
-			);
-
-			$tablist->add_pane(
-				$pane['title'],
-				$pane['content'],
-				$pane['show_button'],
-				$pane['button_url'],
-				$pane['button_text']
-			);
-		}
+		$tablist->add_items( $panes );
 		return $tablist->generate();
 	}
 
@@ -234,52 +190,16 @@ class Elements {
 
 	/** Genereert features */
 	public static function generate_features( array $features, int $columns ) : string {
-
 		$features_obj = new Features( $columns );
-		foreach ( $features as $feature ) {
-
-			$feature = wp_parse_args(
-				$feature,
-				[ 
-					'icon'     => '',
-					'title'    => '',
-					'content'  => '',
-					'add_link' => false,
-					'link_url' => '',
-				]
-			);
-
-			$features_obj->add_feature(
-				$feature['icon'],
-				$feature['title'],
-				$feature['content'],
-				$feature['add_link'],
-				$feature['link_url'],
-				__( 'Lees meer', 'siw' )
-			);
-		}
+		$features_obj->set_columns( $columns );
+		$features_obj->add_items( $features );
 		return $features_obj->generate();
 	}
 
 	/** Genereert infoboxes */
 	public static function generate_infoboxes( array $infoboxes ) : string {
 		$infoboxes_obj = new Infoboxes();
-		foreach ( $infoboxes as $infobox ) {
-			$infobox = wp_parse_args(
-				$infobox,
-				[ 
-					'icon'        => '',
-					'title'       => '',
-					'content'     => '',
-				]
-			);
-
-			$infoboxes_obj->add_infobox(
-				$infobox['icon'],
-				$infobox['title'],
-				$infobox['content'],
-			);
-		}
+		$infoboxes_obj->add_items( $infoboxes );
 		return $infoboxes_obj->generate();
 	}
 

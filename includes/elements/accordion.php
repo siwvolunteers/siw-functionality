@@ -2,38 +2,52 @@
 
 namespace SIW\Elements;
 
-use SIW\Core\Template;
-
 /**
  * Class om een accordion te genereren
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @see       https://github.com/AcceDe-Web/accordion
  */
-class Accordion {
+class Accordion extends Repeater {
 
 	/** Versienummer */
 	const ACCORDION_VERSION = '1.1.0';
 
-	/** Panes */
-	protected array $panes = [];
-
-	/** Init */
-	public function __construct() {
-		$this->enqueue_styles();
-		$this->enqueue_scripts();
+	/** {@inheritDoc} */
+	protected function get_id() : string {
+		return 'accordion';
 	}
 
-	/** Genereert accordion */
-	public function generate() : string {
-		$template = Template::get_template( 'elements/accordion');
-		$parameters = [
+	/** {@inheritDoc} */
+	protected function get_template_variables(): array {
+		return [
 			'id'    => uniqid(),
-			'panes' => $this->panes,
+			'panes' => $this->items
 		];
-		return $template->render( $parameters );
+	}
+
+	/** {@inheritDoc} */
+	protected function parse_item( array $item ): array {
+		return [
+			'id'       => uniqid(),
+			'title'    => $item['title'] ?? '',
+			'content'  => $item['content'] ?? '',
+			'button'   => $item['show_button'] ?
+				[ 'url'  => $item['button_url'], 'text' => $item['button_text'] ] :
+				[],
+		];
+	}
+
+	/** {@inheritDoc} */
+	protected function get_item_defaults() : array {
+		return [
+			'title'       => '',
+			'content'     => '',
+			'show_button' => false,
+			'button_text' => '',
+			'button_url'  => '',
+		];
 	}
 
 	/** Voegt scripts toe */
@@ -47,23 +61,5 @@ class Accordion {
 	protected function enqueue_styles() {
 		wp_register_style( 'siw-accordion', SIW_ASSETS_URL . 'css/elements/siw-accordion.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-accordion' );
-	}
-
-	/** Voegt pane aan accordion toe */
-	public function add_pane( string $title, string $content, bool $show_button = false, string $button_url = null, string $button_text = null ) {
-		
-		//Afbreken als content geen zichtbare inhoud bevat
-		if ( 0 === strlen( trim( $content ) ) ) {
-			return;
-		}
-
-		$this->panes[] = [
-			'id'       => uniqid(),
-			'title'    => $title,
-			'content'  => $content,
-			'button'   => $show_button ?
-				[ 'url'  => $button_url, 'text' => $button_text ] :
-				[],
-		];
 	}
 }
