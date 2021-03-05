@@ -55,7 +55,7 @@ abstract class Thing {
 
 	/** Zet eigenschap */
 	protected function set_property( string $property, $value ) {
-		$this->data[ $property ] = $this->get_string_value( $value );
+		$this->data[ $property ] = $this->parse_value( $value );
 		return $this;
 	}
 
@@ -67,38 +67,39 @@ abstract class Thing {
 			$this->data[ $property ] = (array) $this->data[ $property ];
 		}
 
-		$this->data[ $property ][] = $this->get_string_value( $value );
+		$this->data[ $property ][] = $this->parse_value( $value );
 		return $this;
 	}
 
-	/** Geeft string waarde van input terug */
-	protected function get_string_value( $value ) {
+	/** Parset waarde */
+	protected function parse_value( $value ) {
 		if ( is_string( $value ) ) {
 			return wp_kses_post( $value );
 		}
 		elseif ( is_subclass_of( $value, Thing::class) ) {
-			return $this->get_thing_string_value( $value );
+			return $this->get_thing_value( $value );
 		}
 		elseif ( is_a( $value, \DateTime::class ) ) {
-			return $this->get_date_time_string_value( $value );
+			return $this->get_date_time_value( $value );
 		}
 		elseif ( is_subclass_of( $value, Enum::class ) ) {
-			return $this->get_enum_string_value( $value );
+			return $this->get_enum_value( $value );
 		}
 	}
 
-	/** Zet type property */
-	private function get_thing_string_value( self $value ) {
+	/** Geeft waarde van `Thing` terug */
+	private function get_thing_value( self $value ) {
 		return $value->get_data();
 	}
 
-	private function get_date_time_string_value( \Datetime $value ) {
+	/** Geeft waarde van DateTime object terug (inclusief tijdzone) */
+	private function get_date_time_value( \Datetime $value ) {
 		$value->setTimezone( wp_timezone() );
 		return $value->format( \DateTimeInterface::ISO8601 );
 	}
 
-	/** Zet type property */
-	private function get_enum_string_value( Enum $value ) {
+	/** Geeft waarde van Enum terug */
+	private function get_enum_value( Enum $value ) {
 		return $value->value;
 	}
 	
@@ -109,7 +110,7 @@ abstract class Thing {
 
 	/** Geef entiteit als JSON-LD array terug */
 	public function to_array() : array {
-		$this->set_property( '@context', 'http://schema.org' ); //TODO: is dit wel de beste plaats om dit toe te voegen?
+		$this->set_property( '@context', 'http://schema.org' );
 		return $this->data;
 	}
 
