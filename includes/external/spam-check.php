@@ -17,8 +17,8 @@ class Spam_Check{
 	/** API URL */
 	const API_URL = 'https://europe.stopforumspam.org/api';
 
-	/** Grens voor Spam */
-	const SPAM_THRESHOLD = 90.00;
+	/** Grens voor Spam TODO: configurabel maken*/
+	const SPAM_THRESHOLD = 85.00;
 
 	/** Geldigheidsduur van transient */
 	const TRANSIENT_EXPIRATION = 1 * DAY_IN_SECONDS;
