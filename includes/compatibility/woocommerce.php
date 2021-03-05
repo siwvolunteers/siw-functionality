@@ -2,14 +2,11 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Formatting;
-
 /**
  * Aanpassingen voor WooCommerce
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://woocommerce.com/
- * @since     3.0.0
  */
 class WooCommerce {
 
@@ -220,7 +217,7 @@ class WooCommerce {
 			$current_year = date( 'Y' );
 
 			$term->name = ucfirst(
-				Formatting::format_month(
+				siw_format_month(
 					"{$year}-{$month}-1",
 					$year != $current_year
 				)

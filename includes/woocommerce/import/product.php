@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce\Import;
 
-use SIW\Formatting;
+use SIW\Core\Template;
 use SIW\Util;
 use SIW\Data\Country;
 use SIW\Data\Language;
@@ -257,16 +257,16 @@ class Product {
 			'Projectcode'          => $this->plato_project->get_code(),
 			'Startdatum'           => date( 'j-n-Y', strtotime( $this->plato_project->get_start_date() ) ),
 			'Einddatum'            => date( 'j-n-Y', strtotime( $this->plato_project->get_end_date() ) ),
-			'Aantal vrijwilligers' => Formatting::format_number_of_volunteers(
+			'Aantal vrijwilligers' => siw_format_number_of_volunteers(
 				$this->plato_project->get_numvol(),
 				$this->plato_project->get_numvol_m(),
 				$this->plato_project->get_numvol_f()
 			),
-			'Leeftijd'             => Formatting::format_age_range(
+			'Leeftijd'             => siw_format_age_range(
 				$this->plato_project->get_min_age(),
 				$this->plato_project->get_max_age()
 			),
-			'Lokale bijdrage'      => Formatting::format_local_fee(
+			'Lokale bijdrage'      => siw_format_local_fee(
 				$this->plato_project->get_participation_fee(),
 				$this->plato_project->get_participation_fee_currency()
 			),
@@ -301,8 +301,8 @@ class Product {
 		}
 		
 		/* Maand */
-		$month_slug = sanitize_title( Formatting::format_month( $this->plato_project->get_start_date(), true ) );
-		$month_name = ucfirst( Formatting::format_month( $this->plato_project->get_start_date(), false ) );
+		$month_slug = sanitize_title( siw_format_month( $this->plato_project->get_start_date(), true ) );
+		$month_name = ucfirst( siw_format_month( $this->plato_project->get_start_date(), false ) );
 		$taxonomy_attributes['maand']['visible'] = false;
 		$taxonomy_attributes['maand']['values'][] = [
 			'slug'  => $month_slug,
@@ -409,7 +409,7 @@ class Product {
 
 	/** Parset beschrijvingen */
 	protected function parse_description( string $template ) : string {
-		$vars = [
+		$context = [
 			'project_type' => $this->get_workcamp_type(),
 			'country'      => $this->country->get_name(),
 			'dates'        => siw_format_date_range(
@@ -418,19 +418,17 @@ class Product {
 				false
 			),
 			'participants' => $this->plato_project->get_numvol(),
-			'ages'         => Formatting::format_age_range(
+			'ages'         => siw_format_age_range(
 				$this->plato_project->get_min_age(),
 				$this->plato_project->get_max_age()
 			),
 			'work_type'    => strtolower( $this->work_types[0]->get_name() ),
 		];
-		return Formatting::parse_template( $template, $vars );
+		return Template::parse_string_template( $template, $context );
 	}
 
 	/**
 	 * Geneert de korte (Nederlandse) beschrijving van een project op basis van een template
-	 * 
-	 * @todo aparte functie in Formatting
 	 */
 	protected function get_short_description() : string {
 		$templates = siw_get_data( 'workcamps/description-templates' );
@@ -488,11 +486,7 @@ class Product {
 		return $status;
 	}
 
-	/**
-	 * Zet SEO beschrijving
-	 * 
-	 * @todo aparte functie Formatting
-	 */
+	/** Zet SEO beschrijving */
 	protected function get_seo_description() : string {
 		$templates = siw_get_data( 'workcamps/seo-description-templates' );
 		$template = implode( SPACE, $templates[ array_rand( $templates, 1 ) ] );
