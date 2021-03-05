@@ -11,10 +11,12 @@ use Mustache_Template;
 /**
  * Class om Mustache templates te gebruiken
  *
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.3.0
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Template {
+
+	/** Reguliere expressie voor mustache tag */
+	const MUSTACHE_TAG_REGEX = '/{{\s*.*?\s*}}/';
 
 	/**
 	 * Geeft Mustache Engine terug
@@ -54,6 +56,7 @@ class Template {
 						'lower' => fn( string $value ) : string => strtolower( $value ),
 						'upper' => fn( string $value ) : string => strtoupper( $value ),
 					],
+					'__'           => fn( string $value ) : string => self::translate( $value ),
 				],
 				'pragmas' => [
 					Mustache_Engine::PRAGMA_FILTERS,
@@ -84,5 +87,27 @@ class Template {
 		$template_engine = new Mustache_Engine;
 		return $template_engine->render( $template, $context );
 	}
-}
 
+	/** Vertaal string uit template */
+	public static function translate( string $value ) : string {
+
+		//Spaties aan begin en einde weghalen
+		$value = trim( $value );
+
+		// Zoek naar Mustache tags in string
+		if ( preg_match_all( self::MUSTACHE_TAG_REGEX, $value, $matches ) > 0 ) {
+			
+			//Vervang Mustache tags door %s
+			$value = preg_replace( self::MUSTACHE_TAG_REGEX, '%s', $value );
+
+			//Haal vertalingen op
+			$value = __( $value, 'siw' ); 
+
+			// Vervang %s weer door de Mustache tags
+			return vsprintf( $value, $matches[0] );
+		}
+		else {
+			return __( $value, 'siw' );
+		}
+	}
+}
