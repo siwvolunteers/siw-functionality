@@ -30,7 +30,7 @@ class Postcode_Lookup implements Endpoint_Interface {
 			'postcode'    => [
 				'required' => true,
 				'type'     => 'string',
-				'pattern'  => Util::get_pattern( 'postal_code' ),
+				'pattern'  => Util::get_pattern( 'postcode' ),
 			],
 			'housenumber' => [
 				'required' => true,
@@ -47,7 +47,7 @@ class Postcode_Lookup implements Endpoint_Interface {
 			'deps'       => ['polyfill'],
 			'parameters' => [
 				'regex' => [
-					'postcode'    => Util::get_pattern( 'postal_code' ),
+					'postcode'    => Util::get_pattern( 'postcode' ),
 					'housenumber' => Util::get_pattern( 'housenumber' )
 				]
 			],
