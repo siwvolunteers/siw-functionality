@@ -19,7 +19,7 @@ class Bootstrap {
 	/** Init */
 	public function init() {
 
-		$this->load_extensions();
+
 		$this->define_constants();
 		$this->load_textdomain();
 
@@ -27,6 +27,8 @@ class Bootstrap {
 			add_action( 'admin_notices', [ $this, 'show_requirements_admin_notice' ] );
 			return;
 		}
+
+		$this->load_extensions();
 		$this->load_dependencies();
 		$this->register_autoloader();
 		$this->load_functions();
