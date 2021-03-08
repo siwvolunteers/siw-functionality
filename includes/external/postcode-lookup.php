@@ -3,6 +3,7 @@
 namespace SIW\External;
 
 use SIW\Helpers\HTTP_Request;
+use SIW\Util;
 
 /**
  * Opzoeken adres obv postcode en huisnummer
@@ -18,6 +19,19 @@ class Postcode_Lookup{
 
 	/** Zoekt straat en woonplaats op basis van postcode en huisnummer */
 	public function get_address( string $postcode, string $housenumber ) : ?array {
+
+		// Check postcode en huisnummer tegen regex
+		if ( ! preg_match( Util::get_regex( 'postcode' ), $postcode ) || ! preg_match(  Util::get_regex( 'housenumber' ), $housenumber ) ) {
+			return null;
+		}
+
+		//Spaties uit postcode verwijderen en omzetten naar hoofdletters
+		$postcode = preg_replace( '/[\s\-]/', '', trim( strtoupper( $postcode ) ) );
+
+		//Alleen huisnummer gebruiken, zonder toevoeging
+		$housenumber_parts = preg_split("/[^1-9]/", $housenumber); 
+		$housenumber = $housenumber_parts[0];
+		
 		$address = get_transient( "siw_address_{$postcode}_{$housenumber}" );
 		if ( ! is_array( $address ) ) {
 			$address = $this->retrieve_address( $postcode, $housenumber );

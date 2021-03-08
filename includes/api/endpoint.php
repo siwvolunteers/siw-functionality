@@ -2,126 +2,44 @@
 
 namespace SIW\API;
 
-/**
- * Abstracte klasse voor API-endpoint
- *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
- */
-abstract class Endpoint {
+use SIW\Interfaces\API\Endpoint as Endpoint_Interface;
 
-	/**
-	 * Namespace
-	 */
+/**
+ * Klasse voor het registreren van een API Endpoint
+ *
+ * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ */
+class Endpoint {
+
+	/** Namespace */
 	protected string $namespace = 'siw';
 
-	/**
-	 * Versie
-	 */
+	/** Versie */
 	protected string $version = 'v1';
 
-	/**
-	 * Resource
-	 */
-	protected string $resource;
+	/** Route */
+	protected Endpoint_Interface $endpoint;
 
-	/**
-	 * Toegestane methodes
-	 */
-	protected array $methods;
-
-	/**
-	 * Naam van callback-functie
-	 */
-	protected string $callback;
-
-	/**
-	 * Slug voor script
-	 */
-	protected string $script;
-
-	/**
-	 * Dependencies van script
-	 */
-	protected array $script_deps = [];
-
-	/**
-	 * Functie om permissie te controleren
-	 */
-	protected string $permission_callback = 'verify_nonce';
-
-	/**
-	 * Parameters
-	 */
-	protected array $parameters;
-
-	/**
-	 * Parameters voor script
-	 */
-	protected array $script_parameters = [];
-
-	/**
-	 * Args voor route
-	 */
-	protected array $args;
-
-	/**
-	 * Init
-	 */
-	public static function init() {
-		$self = new static();
-		$self->set_parameters();
-		$self->set_args();
-		add_action( 'rest_api_init', [ $self, 'register_route' ] );
-		$self->set_script_parameters();
-		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_script' ] );
+	/** Init */
+	public function __construct( Endpoint_Interface $endpoint ) {
+		$this->endpoint = $endpoint;
+		add_action( 'rest_api_init', [ $this, 'register_route' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_script' ] );
 	}
 
-	/**
-	 * Registreert REST route
-	 */
+	/** Registreert REST route */
 	public function register_route() {
-		register_rest_route( "{$this->namespace}/{$this->version}", $this->resource, [
+		register_rest_route( "{$this->namespace}/{$this->version}", $this->get_handle_id(), [
 			[
-				'methods'             => $this->methods,
-				'callback'            => [ $this, $this->callback ],
-				'args'                => $this->args,
-				'permission_callback' => [ $this, $this->permission_callback ],
+				'methods'             => $this->endpoint->get_methods(),
+				'callback'            => [ $this->endpoint, 'callback' ],
+				'args'                => $this->endpoint->get_args(),
+				'permission_callback' => [ $this, 'verify_nonce' ],
 			],
 		] );
 	}
 
-	/**
-	 * Set de eigenschappen van de parameters
-	 */
-	protected function set_args() {
-		$parameters = $this->parameters;
-		foreach ( $parameters as $parameter => $required ) {
-			$args[ $parameter ] = [
-				'required'          => $required,
-				'validate_callback' => [ $this, "validate_{$parameter}"],
-				'sanitize_callback' => [ $this, "sanitize_{$parameter}"],
-			];
-		}
-		$this->args = $args;
-	}
-
-	/**
-	 * Zet parameters
-	 */
-	abstract protected function set_parameters();
-
-	/**
-	 * Zet extra parameters voor script
-	 */
-	protected function set_script_parameters() {}
-
-	/**
-	 * Valideert nonce
-	 *
-	 * @param \WP_REST_Request $request
-	 * @return bool
-	 */
+	/** Valideert nonce */
 	public function verify_nonce( \WP_REST_Request $request ) : bool {
 		$nonce = $request->get_header( 'x_wp_nonce' );
 		return boolval( wp_verify_nonce( $nonce, 'wp_rest' ) );
@@ -131,15 +49,35 @@ abstract class Endpoint {
 	 * Voegt scripts toe
 	 */
 	public function enqueue_script() {
-		wp_register_script( "siw-api-{$this->script}", SIW_ASSETS_URL . "js/api/siw-{$this->script}.js", $this->script_deps, SIW_PLUGIN_VERSION, true );
-		$script_parameters = wp_parse_args(
-			$this->script_parameters,
+		$script_data = wp_parse_args_recursive(
+			$this->endpoint->get_script_data(),
 			[
-				'nonce'     => wp_create_nonce( 'wp_rest' ),
-				'url'       => get_rest_url( null, "/{$this->namespace}/{$this->version}/{$this->resource}"),
+				'src'        => SIW_ASSETS_URL . "js/api/siw-{$this->get_handle_id()}.js",
+				'deps'       => [],
+				'version'    => SIW_PLUGIN_VERSION,
+				'parameters' => [],
 			]
 		);
-		wp_localize_script( "siw-api-{$this->script}", "siw_api_{$this->script}", $script_parameters );
-		wp_enqueue_script( "siw-api-{$this->script}" );
+
+		wp_register_script( "siw-api-{$this->get_handle_id()}", $script_data['src'], $script_data['deps'], $script_data['version'], true );
+		$script_parameters = wp_parse_args(
+			$script_data['parameters'],
+			[
+				'nonce'     => wp_create_nonce( 'wp_rest' ),
+				'url'       => get_rest_url( null, "/{$this->namespace}/{$this->version}/{$this->get_handle_id()}"),
+			]
+		);
+		wp_localize_script( "siw-api-{$this->get_handle_id()}", "siw_api_{$this->get_object_id()}", $script_parameters );
+		wp_enqueue_script( "siw-api-{$this->get_handle_id()}" );
+	}
+
+	/** Geeft id voor gebruik als handlet terug */
+	protected function get_handle_id() : string {
+		return str_replace( '_', '-', $this->endpoint->get_id() );
+	}
+
+	/** Geeft ID voor gebruik in javascript object terug */
+	protected function get_object_id() : string {
+		return str_replace( '-', '_', $this->endpoint->get_id() );
 	}
 }

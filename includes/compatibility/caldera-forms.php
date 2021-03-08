@@ -103,7 +103,7 @@ class Caldera_Forms {
 				break;
 			case 'postcode':
 				$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige postcode.', 'siw' );
-				$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'postal_code' );
+				$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'postcode' );
 				break;
 			default:
 		}

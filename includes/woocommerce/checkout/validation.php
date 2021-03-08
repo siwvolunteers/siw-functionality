@@ -35,7 +35,7 @@ class Validation{
 			],
 			[
 				'class'   => 'postalcodeNL',
-				'regex'   => Util::get_pattern( 'postal_code' ),
+				'regex'   => Util::get_pattern( 'postcode' ),
 				'message' => esc_html__( 'Dit is geen geldige postcode.', 'siw' ),
 			],
 		];

@@ -36,7 +36,7 @@ class Bootstrap {
 		$this->init_loader( 'Options' );
 		$this->init_loader( 'Forms' );
 		$this->init_loader( 'Widgets' );
-		$this->load_api();
+		$this->init_loader( 'API' );
 		$this->init_loader( 'Modules', 'init' );
 		$this->init_loader( 'Compatibility' );
 		$this->load_actions();
@@ -158,17 +158,6 @@ class Bootstrap {
 	/** Laadt extensies */
 	protected function load_extensions() {
 		$this->init_class( 'SIW', 'Extensions', 'siw_plugin_loaded' );
-	}
-
-	/** Laadt API-endpoints */
-	protected function load_api() {
-		$this->init_classes(
-			'SIW\API',
-			[
-				'Newsletter_Subscribe',
-				'Postcode_Lookup'
-			]
-		);
 	}
 
 	/** Laadt batch jobs */

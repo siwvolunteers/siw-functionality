@@ -28,20 +28,17 @@ class Confirmation_Email {
 	protected array $email_settings;
 	
 	/** Init */
-	public function __construct( string $email, int $list_id, array $properties ) {
-		$this->email = $email;
-		$this->list_id = $list_id;
-
-		//TODO: is dit echt nodig?
-		$properties = wp_parse_args(
-			$properties,
-			[
-				'firstname' => '',
-				'lastname'  => ''
-			]
-		);
-		$this->properties = $properties;
+	protected function __construct() {
 		$this->email_settings = siw_get_email_settings( 'newsletter' );
+	}
+
+	/** Creeert bevestigingsmail */
+	public static function create( string $email, int $list_id, array $properties  ) {
+		$self = new static();
+		$self->email = $email;
+		$self->list_id = $list_id;
+		$self->properties = $properties;
+		return $self;
 	}
 
 	/** Verstuurt bevestigingsmail */
