@@ -19,7 +19,6 @@ class Bootstrap {
 	/** Init */
 	public function init() {
 
-
 		$this->define_constants();
 		$this->load_textdomain();
 
