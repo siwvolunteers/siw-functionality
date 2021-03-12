@@ -88,33 +88,35 @@ class Form {
 			$fields,
 		);
 		
+		$fields = array_column( $fields, 'width', 'slug' );
+
 		$layout_fields = [];
 		$layout_structure = '';
 		$row_index = 1;
 		$cell_index = 0;
 		$row_width = 0;
 
-		foreach ( $fields as $field ) {
+		foreach ( $fields as $slug => $width ) {
 			$new_row = false;
-			$row_width += $field['width'];
+			$row_width += $width;
 			$cell_index++;
 
 			if ( $row_width > Form_Interface::FULL_WIDTH ) {
 				$new_row = true;
 				$row_index++;
-				$row_width = $field['width'];
+				$row_width = $width;
 				$cell_index = 1;
 			}
 
-			$layout_fields[ $field['slug'] ] = "{$row_index}:{$cell_index}";
+			$layout_fields[ $slug ] = "{$row_index}:{$cell_index}";
 			if ( 1 == $row_index && 1 == $cell_index ) {
-				$layout_structure = $field['width'];
+				$layout_structure = $width;
 			}
 			elseif ( $new_row ) {
-				$layout_structure .= "|{$field['width']}";
+				$layout_structure .= "|{$width}";
 			}
 			else {
-				$layout_structure .= ":{$field['width']}";
+				$layout_structure .= ":{$width}";
 			}
 		}
 
@@ -122,7 +124,6 @@ class Form {
 			'fields'    => $layout_fields,
 			'structure' => $layout_structure
 		];
-
 	}
 
 	/** Geeft velden terug */
@@ -163,12 +164,12 @@ class Form {
 	/** Voegt verzendknop toe */
 	protected function add_submit_button( array $fields ) : array {
 		$fields[] = [
-			'slug'       => 'verzenden',
-			'type'       => 'button',
-			'label'      => __( 'Verzenden', 'siw' ),
-			'width'      => Form_Interface::FULL_WIDTH,
-			'config'  => [
-				'type'         => 'submit',
+			'slug'   => 'verzenden',
+			'type'   => 'button',
+			'label'  => __( 'Verzenden', 'siw' ),
+			'width'  => Form_Interface::FULL_WIDTH,
+			'config' => [
+				'type' => 'submit',
 			],
 		];
 		return $fields;
