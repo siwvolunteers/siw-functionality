@@ -88,7 +88,6 @@ class Form {
 				],
 			],
 			'mailer'             => $this->get_mailer(),
-			'postcode_lookup'    => $this->has_postcode_lookup(),
 		];
 		return apply_filters( "siw_form_{$this->form->get_id()}", $form );
 	}
@@ -360,22 +359,6 @@ class Form {
 			];
 		}
 		return $formatted_options;
-	}
-
-	/**
-	 * Voegt attribute voor postcode lookup toe
-	 */
-	public function has_postcode_lookup() : bool {
-
-		$fields = array_filter(
-			$this->get_fields(),
-			fn( array $field ) : bool => isset( $field['config']['postcode_lookup'] )
-		);
-		
-		if ( ! empty( $fields ) ) {
-			return true;
-		}
-		return false;
 	}
 
 	/** Haalt e-mailtemplate op */

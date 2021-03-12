@@ -39,7 +39,6 @@ class Caldera_Forms {
 		add_filter( 'caldera_forms_field_attributes', [ $self, 'set_validation_field_attributes' ] , 10, 2 );
 		add_filter( 'caldera_forms_field_attributes', [ $self, 'add_field_classes' ], 10, 2 );
 		add_filter( 'caldera_forms_render_assets_minify', '__return_false' );
-		add_filter( 'caldera_forms_render_form_attributes' , [ $self, 'maybe_add_postcode_lookup'], 10, 2 );
 		add_action( 'caldera_forms_render_end', [ $self, 'enqueue_script' ] );
 		add_filter( 'caldera_forms_render_grid_settings', [ $self, 'setup_unsemantic_grid' ], 10, 2 );
 	}
@@ -121,15 +120,9 @@ class Caldera_Forms {
 		return $attrs;
 	}
 
-	/** Voegt attribute voor postcode lookup toe */
-	public function maybe_add_postcode_lookup( array $attributes, array $form ) : array {
-		$attributes['data-siw-postcode-lookup'] = isset( $form['postcode_lookup'] ) && $form['postcode_lookup'];
-		return $attributes;
-	}
-
 	/** Voegt script toe Postcode lookup en Google Analytics event */
 	public function enqueue_script() {
-		wp_register_script( 'siw-cf-caldera-forms', SIW_ASSETS_URL . 'js/siw-caldera-forms.js', ['siw-api-postcode', 'siw-analytics', 'jquery'], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-cf-caldera-forms', SIW_ASSETS_URL . 'js/siw-caldera-forms.js', ['siw-analytics', 'jquery'], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-cf-caldera-forms' );
 	}
 
