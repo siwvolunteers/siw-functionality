@@ -59,29 +59,15 @@ abstract class Export extends Plato_Interface {
 
 	/** Verstuurt xml naar plato */
 	protected function send_xml() : bool {
-		$args = [
-			'timeout'     => 60,
-			'redirection' => 0,
-			'headers'     => [ 
-				'accept'       => 'application/xml',
-				'content-type' => 'application/x-www-form-urlencoded',
-			],
-			'user-agent'  => 'siw.nl',
-			'body'        => [
-				'organizationWebserviceKey' => $this->webkey,
-				'xmlData'                   => $this->xml_data
-			],
-		];
 
 		$request = new HTTP_Request( $this->endpoint_url );
 		$request->set_accept( HTTP_Request::APPLICATION_XML );
 		$request->set_content_type( HTTP_Request::APPLICATION_X_WWW_FORM_URLENCODED );
-		$request->post([
+		$response = $request->post([
 			'organizationWebserviceKey' => $this->webkey,
 			'xmlData'                   => $this->xml_data
 		]);
 
-		$response = $request->get();
 		if ( \is_wp_error( $response ) ) {
 			return false;
 		}
