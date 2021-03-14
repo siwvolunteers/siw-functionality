@@ -60,13 +60,13 @@ abstract class Export extends Plato_Interface {
 	/** Verstuurt xml naar plato */
 	protected function send_xml() : bool {
 
-		$request = new HTTP_Request( $this->endpoint_url );
-		$request->set_accept( HTTP_Request::APPLICATION_XML );
-		$request->set_content_type( HTTP_Request::APPLICATION_X_WWW_FORM_URLENCODED );
-		$response = $request->post([
-			'organizationWebserviceKey' => $this->webkey,
-			'xmlData'                   => $this->xml_data
-		]);
+		$response = HTTP_Request::create( $this->endpoint_url )
+			->set_accept( HTTP_Request::APPLICATION_XML )
+			->set_content_type( HTTP_Request::APPLICATION_X_WWW_FORM_URLENCODED )
+			->post([
+				'organizationWebserviceKey' => $this->webkey,
+				'xmlData'                   => $this->xml_data
+			]);
 
 		if ( \is_wp_error( $response ) ) {
 			return false;

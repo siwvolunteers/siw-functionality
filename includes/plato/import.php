@@ -29,11 +29,10 @@ abstract class Import extends Plato_Interface {
 	/** Haal de XML op */
 	protected function retrieve_xml() : bool {
 
-		$request = new HTTP_Request( $this->endpoint_url );
-		$request->set_accept( HTTP_Request::APPLICATION_XML );
-		$request->set_content_type( HTTP_Request::APPLICATION_XML );
-	
-		$response = $request->get();
+		$response = HTTP_Request::create( $this->endpoint_url )
+			->set_accept( HTTP_Request::APPLICATION_XML )
+			->set_content_type( HTTP_Request::APPLICATION_XML )
+			->get();
 		if ( \is_wp_error( $response ) ) {
 			return false;
 		}

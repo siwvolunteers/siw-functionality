@@ -5,7 +5,7 @@ namespace SIW\Helpers;
 /**
  * Class om een HTTP request uit te voeren
  *
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 class HTTP_Request {
 
@@ -56,29 +56,40 @@ class HTTP_Request {
 		);
 	}
 
+	/** Maak request aan */
+	public static function create( string $url, array $args = [] ) : self {
+		$self = new self( $url, $args );
+		return $self;
+	}
+
 	/** Zet basic auth header */
-	public function set_basic_auth( string $user, string $password ) {
+	public function set_basic_auth( string $user, string $password ) : self {
 		$this->args['headers']['Authorization'] = 'Basic ' . base64_encode("{$user}:{$password}");
+		return $this;
 	}
 
 	/** Zet bearer auth header */
-	public function set_bearer_auth( string $token ) {
+	public function set_bearer_auth( string $token ) :self {
 		$this->args['headers']['Authorization'] = "Bearer {$token}";
+		return $this;
 	}
 
 	/** Voegt toegestane response code toe */
-	public function add_accepted_response_code( int $response_code ) {
+	public function add_accepted_response_code( int $response_code ) : self {
 		$this->accepted_response_codes[] = $response_code;
+		return $this;
 	}
 
 	/** Zet content type van request */
-	public function set_content_type( string $content_type ) {
+	public function set_content_type( string $content_type ) : self {
 		$this->args['headers']['content-type'] = $content_type;
+		return $this;
 	}
 
 	/** Zet geaccepteerde formaat van response */
-	public function set_accept( string $accept ) {
+	public function set_accept( string $accept ) : self {
 		$this->args['headers']['accept'] = $accept;
+		return $this;
 	}
 	
 	/** Voor POST-request uit */
