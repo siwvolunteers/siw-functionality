@@ -85,7 +85,7 @@ class Calendar extends Widget {
 			'location' =>
 				siw_meta( 'online', [], $event_id )
 				?
-				esc_html_e( 'Online', 'siw' )
+				esc_html__( 'Online', 'siw' )
 				:
 				sprintf( '%s, %s', siw_meta( 'location.name', [], $event_id ), siw_meta( 'location.city', [], $event_id ) ),
 			
