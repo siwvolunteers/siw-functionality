@@ -18,13 +18,6 @@ class HTTP_Request {
 	/** Form */
 	const APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
-	/** Toegestane methodes TODO: hoe nuttig is dit */
-	protected array $allowed_methods = [
-		'POST',
-		'GET',
-		'PATCH'
-	];
-
 	/** Geaccepteerde response codes */
 	protected array $accepted_response_codes = [
 		\WP_Http::OK
@@ -40,9 +33,13 @@ class HTTP_Request {
 	protected \WP_Error $error;
 
 	/** Init */
-	public function __construct( string $url, array $args = [] ) {
-		$this->url = $url;
-		$this->args = \wp_parse_args_recursive(
+	protected function __construct() {}
+
+	/** Maak request aan */
+	public static function create( string $url, array $args = [] ) : self {
+		$self = new self();
+		$self->url = $url;
+		$self->args = \wp_parse_args_recursive(
 			$args,
 			[
 				'timeout'     => 60,
@@ -54,11 +51,6 @@ class HTTP_Request {
 				'body'        => [],
 			]
 		);
-	}
-
-	/** Maak request aan */
-	public static function create( string $url, array $args = [] ) : self {
-		$self = new self( $url, $args );
 		return $self;
 	}
 
@@ -110,9 +102,6 @@ class HTTP_Request {
 
 	/** Verstuur request */
 	protected function dispatch( string $method ) {
-		if ( ! in_array( $method, $this->allowed_methods ) ) {
-			return new \WP_Error( 'invalid_method', 'Method is niet toegestaan');
-		}
 		$this->args['method'] = $method;
 		$response = \wp_safe_remote_request( $this->url, $this->args );
 		if ( $this->is_valid_response( $response ) ) {
