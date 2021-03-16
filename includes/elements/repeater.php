@@ -23,7 +23,7 @@ abstract class Repeater {
 	/** Creeert repeater */
 	public static function create( array $items = [] ) {
 		$self = new static();
-		$self->items = $items;
+		$self->add_items( $items );
 		return $self;
 	}
 
