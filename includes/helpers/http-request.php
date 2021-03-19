@@ -29,6 +29,9 @@ class HTTP_Request {
 	/** Args voor request */
 	protected array $args;
 
+	/** Body van response */
+	protected $body;
+
 	/** Fout bij afhandeling van het request */
 	protected \WP_Error $error;
 
@@ -104,28 +107,38 @@ class HTTP_Request {
 	protected function dispatch( string $method ) {
 		$this->args['method'] = $method;
 		$response = \wp_safe_remote_request( $this->url, $this->args );
-		if ( $this->is_valid_response( $response ) ) {
-			return $this->retrieve_body( $response );
+		if ( $this->is_valid_response( $response ) && $this->has_valid_body( $response ) ) {
+			return $this->body;
 		}
 		else {
 			return $this->error;
 		}
 	}
 
-	/** Haal body van response op */
-	protected function retrieve_body( array $response ) {
+	/** Geeft aan of de response een geldige body bevat */
+	protected function has_valid_body( $response ) : bool {
 		$body = \wp_remote_retrieve_body( $response );
 		switch ( $this->args['headers']['accept'] ) {
 			case self::APPLICATION_JSON:
-				$body = \json_decode( $body, true );
+				$json = \json_decode( $body, true );
+				if ( null == $json ) {
+					$this->error =  new \WP_Error( 'invalid_json', 'Ongeldige JSON' );
+					return false;
+				}
+				$this->body = $json;
 				break;
 			case self::APPLICATION_XML:
-				$body = \simplexml_load_string( $body );
+				$xml = \simplexml_load_string( $body );
+				if ( false === $xml ) {
+					$this->error = new \WP_Error( 'invalid_xml', 'Ongeldige XML' );
+					return false;
+				}
+				$this->body = $xml;
 				break;
 			default:
-				$body = $body;
+				$this->body = $body;
 		}
-		return $body;
+		return true;
 	}
 
 	/**
