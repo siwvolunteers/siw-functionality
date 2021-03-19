@@ -44,12 +44,12 @@ abstract class Import extends Plato_Interface {
 	abstract protected function process_xml();
 
 	/** Voer de Plato-import uit */
-	public function run() {
+	public function run() : array {
 		//Start import
 		$this->log( 'info', sprintf( 'Start %s', $this->name ) );
 
 		if ( ! $this->retrieve_xml() ) {
-			return false;
+			return [];
 		}
 		$this->process_xml();
 		
