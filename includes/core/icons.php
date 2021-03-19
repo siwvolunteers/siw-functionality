@@ -31,7 +31,9 @@ class Icons {
 
 	/** Voegt SVG-sprite toe aan header */
 	public function add_svg_sprite() {
-		printf( '<div data-svg-url="%s" style="display:none;"></div>', SIW_ASSETS_URL . 'icons/siw-general-icons.svg' );
+		foreach ( array_keys( $this->get_icon_families() ) as $family ) {
+			printf( '<div data-svg-url="%s" style="display:none;"></div>', SIW_ASSETS_URL . "icons/{$family}-icons.svg" );
+		}
 	}
 
 	/** Voegt SVG-script toe */
@@ -47,18 +49,22 @@ class Icons {
 
 	/** Voegt inline admin style voor icons toe */
 	public function enqueue_admin_style() {
-		$icons = $this->get_icons();
+		
+	foreach ( array_keys( $this->get_icon_families() ) as $family ) {
+			$icons = $this->get_icons( $family );
 
-		$rules['.siteorigin-widget-icon-selector-current .sow-icon-siw'] = [
-			'max-width'  => '20px',
-			'max-height' => '20px',
-		];
-		foreach ( $icons as $icon => $code ) {
-			$rules[".sow-icon-siw[data-sow-icon='{$code}']"] = [
-				'cursor' => 'url(' . SIW_ASSETS_URL . "icons/general/{$code}.svg" . ')',
+			$rules[".siteorigin-widget-icon-selector-current .sow-icon-{$family}"] = [
+				'max-width'  => '20px',
+				'max-height' => '20px',
 			];
-		}
 
+
+			foreach ( $icons as $code ) {
+				$rules[".sow-icon-{$family}[data-sow-icon='{$code}']"] = [
+					'cursor' => 'url(' . SIW_ASSETS_URL . "icons/{$family}/{$code}.svg" . ')',
+				];
+			}
+		}
 		$inline_css = CSS::generate_inline_css( $rules );
 
 		//TODO: onderstaande hack toelichten
@@ -70,12 +76,23 @@ class Icons {
 		);
 	}
 
+	/** Geeft icon-families terug */
+	protected function get_icon_families() : array {
+		return [
+			'siw' => __( 'SIW Icons', 'siw' ),
+			'sdg' => __( 'Sustainable Development Goals', 'siw' ),	
+		];
+	}
+
 	/** Voegt SIW-icon family toe */
 	public function add_icon_family( array $icon_families ) : array {
-		$icon_families['siw'] = [
-			'name'      => __( 'SIW Icons', 'siw' ),
-			'icons'     => $this->get_icons(),
-		];
+
+		foreach ( $this->get_icon_families() as $family => $name ) {
+			$icon_families[ $family ] = [
+				'name'      => $name,
+				'icons'     => $this->get_icons( $family ),
+			];
+		}
 		return $icon_families;
 	}
 
@@ -92,24 +109,25 @@ class Icons {
 	}
 
 	/** Geeft lijst van icons terug */
-	protected function get_icons() : array {
+	protected function get_icons( string $family ) : array {
 
-		$icons = wp_cache_get( 'icons', 'siw_icons' );
+		$icons = wp_cache_get( $family, 'siw_icons' );
 		if ( false !== $icons ) {
 			return $icons;
 		}
 
 		//Icon-bestanden zoeken
-		$icon_files = glob( SIW_ASSETS_DIR . 'icons/general/*.svg' );
+		$icon_files = glob( SIW_ASSETS_DIR . "icons/{$family}/*.svg" );
 		//Relatief pad van maken + extensie verwijderen
-		array_walk( $icon_files, function(&$value, &$key) {
-			$value = str_replace( [ SIW_ASSETS_DIR .'icons/general/', '.svg'], '', $value );
-		});
+		array_walk(
+			$icon_files,
+			fn( string &$value ) : string => str_replace( [ SIW_ASSETS_DIR . "icons/{$family}/", '.svg'], '', $value )
+		);
 
 		foreach ( $icon_files as $icon_file ) {
 			$icons[ "icon-{$icon_file}" ] = $icon_file;
 		}
-		wp_cache_set( 'icons', $icons, 'siw_icons' );
+		wp_cache_set( $family, $icons, 'siw_icons' );
 		return $icons;
 	}
 }
