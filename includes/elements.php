@@ -60,20 +60,6 @@ class Elements {
 		);
 	}
 
-	/** Genereert quote */
-	public static function generate_quote( string $quote ) : string {
-		return Template::parse_template(
-			'elements/quote',
-			[
-				'icon' => [
-					'size'       => 2,
-					'icon_class' => 'siw-icon-quote-left',
-				],
-				'quote' => $quote
-			]
-		);
-	}
-
 	/**
 	 * Genereert lijst of tabel met openingstijden
 	 *
