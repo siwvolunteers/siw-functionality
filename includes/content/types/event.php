@@ -377,13 +377,13 @@ class Event extends Type {
 		if ( ! siw_meta( 'online') ) {
 			$location = siw_meta( 'location' );
 
-			$location_map = new Google_Maps;
-			$location_map->add_location_marker(
-				sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] ),
-				$location['name'],
-				sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] )
-			);
-			$location_map->set_options(['zoom' => 15 ]);
+			$location_map = Google_Maps::create()
+				->add_location_marker(
+					sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] ),
+					$location['name'],
+					sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] )
+				)
+				->set_zoom( 15 );
 
 			echo '<h2>' . esc_html__( 'Locatie', 'siw') . '</h2>';
 			echo '<p>' . $location_map->generate() . '</p>';

@@ -113,9 +113,9 @@ class Product_Tabs {
 
 	/** Toont kaart met projectlocatie in tab */
 	public function show_project_map( string $tab, array $args ) {
-		$map = new Google_Maps();
-		$map->add_marker( $args['lat'], $args['lng'], __( 'Projectlocatie', 'siw' ) );
-		$map->render();
+		Google_Maps::create()
+			->add_marker( $args['lat'], $args['lng'], __( 'Projectlocatie', 'siw' ) )
+			->render();
 	}
 
 	/** Toont contactformulier in tab */
