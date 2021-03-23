@@ -7,6 +7,7 @@ use SIW\Data\Country;
 use SIW\Data\Work_Type;
 use SIW\Elements;
 use SIW\Elements\Features;
+use SIW\Elements\Quote;
 use SIW\Elements\World_Map;
 use SIW\i18n;
 use SIW\Util\CSS;
@@ -262,7 +263,7 @@ class TM_Country extends Type {
 			</p>
 		</div>
 		<div class="grid-100" data-sal="fade" data-sal-duration="1850" data-sal-easing="ease-out-sine">
-			<?php echo Elements::generate_quote( rwmb_get_value( 'quote' ) ); ?>
+			<?php Quote::create( rwmb_get_value( 'quote' ) )->render(); ?>
 		</div>
 		<div class="grid-50 push-50" data-sal="slide-left" data-sal-duration="1800" data-sal-easing="ease-out-sine">
 			<?php
