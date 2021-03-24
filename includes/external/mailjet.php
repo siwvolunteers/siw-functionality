@@ -41,10 +41,10 @@ class Mailjet {
 			'Properties' => $properties
 		]);
 
-		$request = new HTTP_Request( $url );
-		$request->add_accepted_response_code( \WP_Http::CREATED );
-		$request->set_basic_auth( $this->api_key, $this->secret_key );
-		$response = $request->post( $body );
+		$response = HTTP_Request::create( $url )
+			->add_accepted_response_code( \WP_Http::CREATED )
+			->set_basic_auth( $this->api_key, $this->secret_key )
+			->post( $body );
 
 		if ( is_wp_error( $response ) ) {
 			return false;
@@ -70,9 +70,9 @@ class Mailjet {
 	protected function retrieve_lists() : array {
 
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist";
-		$request = new HTTP_Request( $url );
-		$request->set_basic_auth( $this->api_key, $this->secret_key );
-		$response = $request->get();
+		$response = HTTP_Request::create( $url )
+			->set_basic_auth( $this->api_key, $this->secret_key )
+			->get();
 		if ( is_wp_error( $response ) ) {
 			return [];
 		}
@@ -111,9 +111,9 @@ class Mailjet {
 	protected function retrieve_list( string $list_id ) : array {
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist/{$list_id}";
 
-		$request = new HTTP_Request( $url );
-		$request->set_basic_auth( $this->api_key, $this->secret_key );
-		$response = $request->get();
+		$response = HTTP_Request::create( $url )
+			->set_basic_auth( $this->api_key, $this->secret_key )
+			->get();
 		if ( is_wp_error( $response ) ) {
 			return [];
 		}

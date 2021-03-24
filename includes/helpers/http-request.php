@@ -5,7 +5,7 @@ namespace SIW\Helpers;
 /**
  * Class om een HTTP request uit te voeren
  *
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 class HTTP_Request {
 
@@ -18,13 +18,6 @@ class HTTP_Request {
 	/** Form */
 	const APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
-	/** Toegestane methodes TODO: hoe nuttig is dit */
-	protected array $allowed_methods = [
-		'POST',
-		'GET',
-		'PATCH'
-	];
-
 	/** Geaccepteerde response codes */
 	protected array $accepted_response_codes = [
 		\WP_Http::OK
@@ -36,13 +29,20 @@ class HTTP_Request {
 	/** Args voor request */
 	protected array $args;
 
+	/** Body van response */
+	protected $body;
+
 	/** Fout bij afhandeling van het request */
 	protected \WP_Error $error;
 
 	/** Init */
-	public function __construct( string $url, array $args = [] ) {
-		$this->url = $url;
-		$this->args = \wp_parse_args_recursive(
+	protected function __construct() {}
+
+	/** Maak request aan */
+	public static function create( string $url, array $args = [] ) : self {
+		$self = new self();
+		$self->url = $url;
+		$self->args = \wp_parse_args_recursive(
 			$args,
 			[
 				'timeout'     => 60,
@@ -54,31 +54,37 @@ class HTTP_Request {
 				'body'        => [],
 			]
 		);
+		return $self;
 	}
 
 	/** Zet basic auth header */
-	public function set_basic_auth( string $user, string $password ) {
+	public function set_basic_auth( string $user, string $password ) : self {
 		$this->args['headers']['Authorization'] = 'Basic ' . base64_encode("{$user}:{$password}");
+		return $this;
 	}
 
 	/** Zet bearer auth header */
-	public function set_bearer_auth( string $token ) {
+	public function set_bearer_auth( string $token ) :self {
 		$this->args['headers']['Authorization'] = "Bearer {$token}";
+		return $this;
 	}
 
 	/** Voegt toegestane response code toe */
-	public function add_accepted_response_code( int $response_code ) {
+	public function add_accepted_response_code( int $response_code ) : self {
 		$this->accepted_response_codes[] = $response_code;
+		return $this;
 	}
 
 	/** Zet content type van request */
-	public function set_content_type( string $content_type ) {
+	public function set_content_type( string $content_type ) : self {
 		$this->args['headers']['content-type'] = $content_type;
+		return $this;
 	}
 
 	/** Zet geaccepteerde formaat van response */
-	public function set_accept( string $accept ) {
+	public function set_accept( string $accept ) : self {
 		$this->args['headers']['accept'] = $accept;
+		return $this;
 	}
 	
 	/** Voor POST-request uit */
@@ -99,33 +105,40 @@ class HTTP_Request {
 
 	/** Verstuur request */
 	protected function dispatch( string $method ) {
-		if ( ! in_array( $method, $this->allowed_methods ) ) {
-			return new \WP_Error( 'invalid_method', 'Method is niet toegestaan');
-		}
 		$this->args['method'] = $method;
 		$response = \wp_safe_remote_request( $this->url, $this->args );
-		if ( $this->is_valid_response( $response ) ) {
-			return $this->retrieve_body( $response );
+		if ( $this->is_valid_response( $response ) && $this->has_valid_body( $response ) ) {
+			return $this->body;
 		}
 		else {
 			return $this->error;
 		}
 	}
 
-	/** Haal body van response op */
-	protected function retrieve_body( array $response ) {
+	/** Geeft aan of de response een geldige body bevat */
+	protected function has_valid_body( $response ) : bool {
 		$body = \wp_remote_retrieve_body( $response );
 		switch ( $this->args['headers']['accept'] ) {
 			case self::APPLICATION_JSON:
-				$body = \json_decode( $body, true );
+				$json = \json_decode( $body, true );
+				if ( null == $json ) {
+					$this->error =  new \WP_Error( 'invalid_json', 'Ongeldige JSON' );
+					return false;
+				}
+				$this->body = $json;
 				break;
 			case self::APPLICATION_XML:
-				$body = \simplexml_load_string( $body );
+				$xml = \simplexml_load_string( $body );
+				if ( false === $xml ) {
+					$this->error = new \WP_Error( 'invalid_xml', 'Ongeldige XML' );
+					return false;
+				}
+				$this->body = $xml;
 				break;
 			default:
-				$body = $body;
+				$this->body = $body;
 		}
-		return $body;
+		return true;
 	}
 
 	/**
