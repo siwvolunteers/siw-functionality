@@ -43,7 +43,7 @@ $email_settings = siw_get_email_settings( 'workcamp' );
 			esc_html_e( 'We doen ons best om ervoor te zorgen dat dit voor jou een onvergetelijke ervaring wordt!', 'siw' ); echo BR2;
 			esc_html_e( 'In verband met het wereldwijde coronavirus is de doorgang van het door jou gekozen project onzeker.', 'siw' ); echo SPACE;
 			esc_html_e( 'Daarom brengen we nu nog geen inschrijfkosten in rekening.', 'siw' ); echo SPACE;
-			esc_html_e( 'Je ontvangt van ons pas een factuur als je plaatsing definitief is. ', 'siw' ); echo BR2;
+			esc_html_e( 'Je ontvangt van ons pas een factuur als je plaatsing definitief is.', 'siw' ); echo BR2;
 		}
 		else {
 			esc_html_e( 'Heel erg bedankt voor je betaling.', 'siw' ); echo BR2;
