@@ -29,10 +29,9 @@ class Quote extends Element {
 		];
 	}
 
-	/** Genereert quote */
-	public static function create( string $quote ) : self {
-		$self = new self();
-		$self->quote = $quote;
-		return $self;
+	/** Zet quote */
+	public function set_quote( string $quote ) : self {
+		$this->quote = $quote;
+		return $this;
 	}
 }

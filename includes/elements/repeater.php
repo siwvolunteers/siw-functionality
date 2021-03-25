@@ -12,12 +12,6 @@ abstract class Repeater extends Element {
 	/** Items */
 	protected array $items;
 
-	/** Init */
-	private function __construct() {
-		$this->enqueue_styles();
-		$this->enqueue_scripts();
-	}
-
 	/** Creeert repeater */
 	public static function create( array $items = [] ) {
 		$self = new static();
@@ -54,10 +48,4 @@ abstract class Repeater extends Element {
 	protected function get_item_defaults() : array {
 		return [];
 	}
-
-	/** Voegt scripts toe */
-	protected function enqueue_scripts() {}
-
-	/** Voegt scripts toe */
-	protected function enqueue_styles() {}
 }
