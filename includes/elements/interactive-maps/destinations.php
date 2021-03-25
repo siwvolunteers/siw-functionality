@@ -7,7 +7,7 @@ use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
 use SIW\i18n;
 use SIW\Data\Country;
-use SIW\Elements;
+use SIW\Elements\List_Columns;
 use SIW\Util\Links;
 
 /**
@@ -103,7 +103,7 @@ class Destinations implements Interactive_Map_Interface {
 			$project_types[] = esc_html__( 'ESC', 'siw' ) . SPACE . Links::generate_link( $esc_page_link, __( 'Lees meer', 'siw' ) );
 		}
 
-		return esc_html__( 'In dit land bieden wij de volgende projecten aan:', 'siw' ) . Elements::generate_list( $project_types );
+		return esc_html__( 'In dit land bieden wij de volgende projecten aan:', 'siw' ) . List_Columns::create()->add_items( $project_types )->generate();
 	}
 
 	/** Genereert beschrijving voor groepsprojecten */
@@ -157,7 +157,7 @@ class Destinations implements Interactive_Map_Interface {
 	 * @todo aanbod per land
 	 */
 	public function get_mobile_content() : string {
-		$countries = siw_get_countries_list( Country::ALLOWED, 'slug' );
-		return Elements::generate_list( array_values( $countries ), 2 );
+		$countries = siw_get_countries_list( Country::ALLOWED );
+		return List_Columns::create()->add_items( array_values( $countries ) )->set_columns( 2 )->generate();
 	}
 }
