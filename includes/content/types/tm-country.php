@@ -237,11 +237,7 @@ class TM_Country extends Type {
 		$continent = $country->get_continent();
 		?>
 		<div class="grid-50 <?php echo CSS::HIDE_ON_MOBILE_CLASS; ?>" data-sal="slide-right" data-sal-duration="1800" data-sal-easing="ease-out-sine">
-			
-			<?php 
-				$world_map = new World_Map();
-				echo $world_map->generate( $country, 2 );
-			?>
+			<?php World_Map::create()->set_country( $country )->set_zoom( 2 )->render(); ?>
 		</div>
 		<div class="grid-50" data-sal="slide-left" data-sal-duration="1800" data-sal-easing="ease-out-sine">
 			<h2><?php printf( esc_html__( 'Projecten Op Maat in %s', 'siw' ), $country->get_name() );  ?></h2>

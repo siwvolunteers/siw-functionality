@@ -2,7 +2,6 @@
 
 namespace SIW\Elements;
 
-use SIW\Core\Template;
 use SIW\Util\CSS;
 use SIW\Data\Country;
 use SIW\Data\Continent;
@@ -11,9 +10,8 @@ use SIW\Data\Continent;
  * Wereldkaart
  * 
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
-class World_Map {
+class World_Map extends Element {
 
 	/** Bestandsnaam van wereldkaart */
 	protected $map_file = SIW_ASSETS_URL . 'images/maps/world.svg';
@@ -33,18 +31,39 @@ class World_Map {
 	/** Hoogte van SVG */
 	protected float $height = 760;
 
-	/** Constructor */
-	public function __construct() {
-		$this->enqueue_script();
+	/** {@inheritDoc} */
+	protected function get_id() : string {
+		return 'world-map';
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_variables(): array {
+		return [
+			'file'    => $this->map_file,
+			'viewbox' => $this->get_viewbox(),
+		];
+	}
+
+	/** Zet land */
+	public function set_country( Country $country ) : self {
+		$this->country = $country;
+		$this->continent = $country->get_continent();
+		return $this;
+	}
+
+	/** Zet zoom-niveau */
+	public function set_zoom( int $zoom ) : self {
+		$this->zoom = $zoom;
+		return $this;
 	}
 
 	/** Voegt SVG-script toe */
-	protected function enqueue_script() {
+	protected function enqueue_scripts() {
 		wp_enqueue_script( 'siw-svg' );
 	}
 
 	/** Voegt (inline) style toe */
-	protected function enqueue_style() {
+	public function enqueue_styles() {
 		$code = $this->country->get_world_map_data()->code;
 		$inline_css = CSS::generate_inline_css(
 			[
@@ -60,23 +79,6 @@ class World_Map {
 		wp_register_style( 'siw-world-map', false );
 		wp_enqueue_style( 'siw-world-map' );
 		wp_add_inline_style( 'siw-world-map', $inline_css );
-	}
-
-	/** Genereert kaart */
-	public function generate( Country $country, int $zoom = 1 ) : string {
-		$this->country = $country;
-		$this->continent = $country->get_continent();
-		$this->zoom = $zoom;
-
-		$this->enqueue_style();
-		
-		return Template::parse_template(
-			'elements/world-map',
-			[
-				'file'    => $this->map_file,
-				'viewbox' => $this->get_viewbox(),
-			]
-		);
 	}
 
 	/** Bepaalt viewbox o.b.v. zoom en locatie land */
