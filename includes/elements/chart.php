@@ -2,8 +2,6 @@
 
 namespace SIW\Elements;
 
-use SIW\Core\Template;
-
 /**
  * Class om een chart te genereren
  * 
@@ -11,7 +9,7 @@ use SIW\Core\Template;
  * 
  * @see       https://github.com/apexcharts/apexcharts.js
  */
-abstract class Chart {
+abstract class Chart extends Element {
 	
 	/** Frappe Charts versie */
 	const FRAPPE_CHARTS_VERSION = '1.5.8';
@@ -25,21 +23,23 @@ abstract class Chart {
 	/** Opties voor grafiek */
 	protected array $options = [];
 
-	/** Genereert grafiek */
-	public function generate( array $data, array $options = [] ) : string {
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'chart';
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_variables(): array {
+		return [
+			'id'      => uniqid( "siw-{$this->type}-chart-"),
+			'options' => $this->generate_chart_options(),
+		];
+	}
+
+	/** Zet data voor grafiek */
+	public function set_data( array $data ) : self {
 		$this->data = $data;
-		$this->options = wp_parse_args_recursive( $options, $this->options );
-
-		$this->enqueue_scripts();
-		$this->enqueue_styles();
-
-		return Template::parse_template(
-			'elements/chart',
-			[
-				'id'      => uniqid( "siw-{$this->type}-chart-"),
-				'options' => $this->generate_chart_options(),
-			]
-		);
+		return $this;
 	}
 
 	/** Voegt scripts toe */

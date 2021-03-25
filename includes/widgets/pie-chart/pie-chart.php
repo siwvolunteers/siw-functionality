@@ -103,10 +103,9 @@ class Pie_Chart extends Widget {
 
 	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
-		$chart = new Element_Pie_Chart();
 		return [
 			'intro'            => $instance['intro'],
-			'chart'            => $chart->generate( $instance['series'] ),
+			'chart'            => Element_Pie_Chart::create()->set_data( $instance['series'] )->generate(),
 			'series'           => $instance['series'],
 			'show_explanation' => $instance['show_explanation'],
 		];
