@@ -15,7 +15,7 @@ use SIW\Util\CSS;
  * 
  * @see       https://www.mapplic.com/plugin/docs/
  */
-class Interactive_Map {
+class Interactive_Map extends Element {
 
 	/** Mapplic versie */
 	const MAPPLIC_VERSION = '6.1.3';
@@ -27,26 +27,26 @@ class Interactive_Map {
 	protected Interactive_Map_Interface $interactive_map;
 
 	/** Init */
-	public function __construct( Interactive_Map_Interface $interactive_map ) {
+	public function set_interactive_map( Interactive_Map_Interface $interactive_map ) {
 		$this->interactive_map = $interactive_map;
+		return $this;
 	}
 
-	/**  Genereert interactieve kaart */
-	public function generate() : string {
-		$this->enqueue_styles();
-		$this->enqueue_scripts();
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'interactive-map';
+	}
 
-		return Template::parse_template(
-			'elements/interactive-map',
-			[
-				'id'                    => uniqid(),
-				'options'               => $this->get_options(),
-				'hide_on_desktop_class' => CSS::HIDE_ON_DESKTOP_CLASS,
-				'hide_on_tablet_class'  => CSS::HIDE_ON_TABLET_CLASS,
-				'hide_on_mobile_class'  => CSS::HIDE_ON_MOBILE_CLASS,
-				'mobile_content'        => $this->interactive_map->get_mobile_content(),
-			]
-		);
+	/** {@inheritDoc} */
+	protected function get_template_variables(): array {
+		return [
+			'id'                    => uniqid(),
+			'options'               => $this->get_options(),
+			'hide_on_desktop_class' => CSS::HIDE_ON_DESKTOP_CLASS,
+			'hide_on_tablet_class'  => CSS::HIDE_ON_TABLET_CLASS,
+			'hide_on_mobile_class'  => CSS::HIDE_ON_MOBILE_CLASS,
+			'mobile_content'        => $this->interactive_map->get_mobile_content(),
+		];
 	}
 
 	/** Zet opties van de kaart */
