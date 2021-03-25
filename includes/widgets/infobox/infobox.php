@@ -90,7 +90,7 @@ class Infobox extends Widget {
 	function get_template_variables( $instance, $args ) {
 		return [
 			'intro'   => $instance['intro'],
-			'content' => Infoboxes::create( $instance['infoboxes'] )->generate(),
+			'content' => Infoboxes::create()->add_items( $instance['infoboxes'] )->generate(),
 		];
 	}
 }

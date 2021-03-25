@@ -104,7 +104,7 @@ class Netherlands implements Interactive_Map_Interface {
 			];
 
 		}
-		return Accordion::create( $panes )->generate();
+		return Accordion::create()->add_items( $panes )->generate();
 	}
 
 	/** Haalt projecten op */

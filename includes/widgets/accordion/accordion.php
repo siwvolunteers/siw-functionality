@@ -107,7 +107,7 @@ class Accordion extends Widget {
 	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 		return [
-			'content' => Accordion_Element::create( $instance['panes'] )->generate(),
+			'content' => Accordion_Element::create()->add_items( $instance['panes'] )->generate(),
 		];
 	}
 }

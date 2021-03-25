@@ -12,13 +12,6 @@ abstract class Repeater extends Element {
 	/** Items */
 	protected array $items;
 
-	/** Creeert repeater */
-	public static function create( array $items = [] ) {
-		$self = new static();
-		$self->add_items( $items );
-		return $self;
-	}
-
 	/** Voegt item toe aan repeater */
 	public function add_item( array $item ) {
 
