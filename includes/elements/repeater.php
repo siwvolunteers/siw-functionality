@@ -13,14 +13,19 @@ abstract class Repeater extends Element {
 	protected array $items;
 
 	/** Voegt item toe aan repeater */
-	public function add_item( array $item ) {
+	public function add_item( $item ) {
 
-		$item = \wp_parse_args_recursive(
-			$item,
-			$this->get_item_defaults(),
-		);
+		if ( is_array( $item ) ) {
+			$item = \wp_parse_args_recursive(
+				$item,
+				$this->get_item_defaults(),
+			);
+			$this->items[] = $this->parse_item( $item );
+		}
 
-		$this->items[] = $this->parse_item( $item );
+		if ( is_scalar( $item ) ) {
+			$this->items[] = $item;
+		}
 		return $this;
 	}
 	
