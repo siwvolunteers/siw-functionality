@@ -3,7 +3,9 @@
 namespace SIW;
 
 use SIW\Core\Template;
+use SIW\Elements\List_Columns;
 use SIW\Elements\Modal;
+use SIW\Elements\Table;
 
 /**
  * Functies om Elements te genereren
@@ -109,31 +111,9 @@ class Elements {
 					$value = implode( ': ', $value );
 				};
 				array_walk( $data, $callback );
-				return self::generate_list( $data );
+				return List_Columns::create()->add_items( $data )->generate();
 			case 'table':
-				return self::generate_table( $data );
+				return Table::create()->add_items( $data )->generate();
 		}
-	}
-
-	/** Genereert tabel */
-	public static function generate_table( array $rows, array $headers = [] ) : string {
-		return Template::parse_template(
-			'elements/table',
-			[
-				'rows'    => $rows,
-				'headers' => $headers,
-			]
-		);
-	}
-
-	/** Genereert lijst o.b.v. array met items */
-	public static function generate_list( array $items, int $columns = 1 ) : string {
-		return Template::parse_template(
-			'elements/list',
-			[
-				'items'   => $items,
-				'columns' => $columns,
-			]
-		);
 	}
 }

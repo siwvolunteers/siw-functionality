@@ -10,7 +10,7 @@ namespace SIW\Elements;
 class List_Columns extends Repeater {
 	
 	/** Aantal kolommen */
-	protected int $columns = 3;
+	protected int $columns = 1;
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {

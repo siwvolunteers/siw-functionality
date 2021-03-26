@@ -1,17 +1,29 @@
-<table>
-	{{# has_headers }}
-	<tr>
-		{{# headers }}
-		<th>{{& . | wp_kses_post }}</th>
-		{{/ headers }}
-	</tr>
-	{{/ has_headers}}
-	{{# rows }}
+<table class="{{ table_class }}">
+	{{# has_header }}
+	<thead>
+		<tr>
+		{{# header }}
+			<th>{{& . | wp_kses_post }}</th>
+		{{/ header }}
+		</tr>
+	</thead>
+	{{/ has_header }}
+	<tbody>
+		{{# rows }}
 		<tr>
 			{{# . }}
 				<td>{{& . | wp_kses_post }}</td>
 			{{/ . }}
 		</tr>
-	{{/ rows}}
-
+		{{/ rows}}
+	</tbody>
+	{{# has_footer}}
+	<tfoot>
+		<tr>
+		{{# footer }}
+			<th>{{& . | wp_kses_post }}</th>
+		{{/ footer }}
+		</tr>
+	</tfoot>
+	{{/ has_footer }}
 </table>

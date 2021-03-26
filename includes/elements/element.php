@@ -26,7 +26,7 @@ abstract class Element {
 		return $self;
 	}
 
-	/** Genereert repeater */
+	/** Genereert element */
 	public function generate() : string {
 		$this->enqueue_scripts();
 		$this->enqueue_styles();
