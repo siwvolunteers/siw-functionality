@@ -95,7 +95,7 @@ abstract class Thing {
 	/** Geeft waarde van DateTime object terug (inclusief tijdzone) */
 	private function get_date_time_value( \Datetime $value ) {
 		$value->setTimezone( wp_timezone() );
-		return $value->format( \DateTimeInterface::ISO8601 );
+		return $value->format( \DateTimeInterface::ATOM );
 	}
 
 	/** Geeft waarde van Enum terug */
