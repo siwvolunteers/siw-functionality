@@ -4,7 +4,6 @@ namespace SIW\Forms;
 
 use SIW\Abstracts\Object_Loader as Object_Loader_Abstract;
 use SIW\Interfaces\Forms\Form as Form_Interface;
-use SIW\Interfaces\Forms\Multi_Page_Form as Multi_Page_Form_Interface;
 use SIw\Interfaces\Forms\Form_Processor as Form_Processor_Interface;
 use SIW\Interfaces\Forms\Pre_Processor as Pre_Processor_Interface;
 use SIW\Interfaces\Forms\Processor as Processor_Interface;
@@ -41,11 +40,6 @@ class Loader extends Object_Loader_Abstract {
 
 		if ( is_a( $object, Form_Interface::class ) ) {
 			$form = new Form( $object );
-			
-			if ( is_a( $object, Multi_Page_Form_Interface::class ) ) {
-				$form->set_pages( $object );
-			}
-			
 			$form->register();
 		}
 

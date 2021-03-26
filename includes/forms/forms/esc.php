@@ -26,9 +26,10 @@ class ESC implements Form_Interface {
 				'recipient_name' => true,
 			],
 			[
-				'slug'  => 'achternaam',
-				'type'  => 'text',
-				'label' => __( 'Achternaam', 'siw' ),
+				'slug'           => 'achternaam',
+				'type'           => 'text',
+				'label'          => __( 'Achternaam', 'siw' ),
+				'recipient_name' => true,
 			],
 			[
 				'slug'   => 'geboortedatum',
@@ -40,13 +41,9 @@ class ESC implements Form_Interface {
 				],
 			],
 			[
-				'slug'   => 'geslacht',
-				'type'   => 'radio',
-				'label'  => __( 'Geslacht', 'siw' ),
-				'config' => [
-					'inline' => true,
-					'option' => siw_get_genders(),
-				]
+				'slug'   => 'woonplaats',
+				'type'   => 'text',
+				'label'  => __( 'Woonplaats', 'siw' ),
 			],
 			[
 				'slug'          => 'emailadres',
@@ -63,40 +60,7 @@ class ESC implements Form_Interface {
 					'type_override' => 'tel',
 				],
 			],
-			[
-				'slug'   => 'postcode',
-				'type'   => 'text',
-				'label'  => __( 'Postcode', 'siw' ),
-				'config' => [
-					'postcode_lookup' => 'postcode',
-					'placeholder'     => '1234 AB',
-					'validation'      => 'postcode',
-				],
-			],
-			[
-				'slug'   => 'huisnummer',
-				'type'   => 'text',
-				'label'  => __( 'Huisnummer', 'siw' ),
-				'config' => [
-					'postcode_lookup' => 'housenumber',
-				],
-			],
-			[
-				'slug'   => 'straat',
-				'type'   => 'text',
-				'label'  => __( 'Straat', 'siw' ),
-				'config' => [
-					'postcode_lookup' => 'street',
-				],
-			],
-			[
-				'slug'   => 'woonplaats',
-				'type'   => 'text',
-				'label'  => __( 'Woonplaats', 'siw' ),
-				'config' => [
-					'postcode_lookup' => 'city',
-				],
-			],
+
 			[
 				'slug'   => 'motivatie',
 				'type'   => 'paragraph',

@@ -32,27 +32,10 @@ class Leader_Dutch_Projects implements Form_Interface {
 				'recipient_name' => true,
 			],
 			[
-				'slug'  => 'achternaam',
-				'type'  => 'text',
-				'label' => __( 'Achternaam', 'siw' ),
-			],
-			[
-				'slug'   => 'geboortedatum',
-				'type'   => 'text',
-				'label'  => __( 'Geboortedatum', 'siw' ),
-				'config' => [
-					'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
-					'validation'  => 'date',
-				],
-			],
-			[
-				'slug'   => 'geslacht',
-				'type'   => 'radio',
-				'label'  => __( 'Geslacht', 'siw' ),
-				'config' => [
-					'inline' => true,
-					'option' => siw_get_genders(),
-				]
+				'slug'           => 'achternaam',
+				'type'           => 'text',
+				'label'          => __( 'Achternaam', 'siw' ),
+				'recipient_name' => true,
 			],
 			[
 				'slug'          => 'emailadres',
@@ -70,46 +53,13 @@ class Leader_Dutch_Projects implements Form_Interface {
 				],
 			],
 			[
-				'slug'   => 'postcode',
+				'slug'   => 'geboortedatum',
 				'type'   => 'text',
-				'label'  => __( 'Postcode', 'siw' ),
+				'label'  => __( 'Geboortedatum', 'siw' ),
 				'config' => [
-					'postcode_lookup' => 'postcode',
-					'placeholder'     => '1234 AB',
-					'validation'      => 'postcode',
+					'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
+					'validation'  => 'date',
 				],
-			],
-			[
-				'slug'   => 'huisnummer',
-				'type'   => 'text',
-				'label'  => __( 'Huisnummer', 'siw' ),
-				'config' => [
-					'postcode_lookup' => 'housenumber',
-				],
-			],
-			[
-				'slug'   => 'straat',
-				'type'   => 'text',
-				'label'  => __( 'Straat', 'siw' ),
-				'config' => [
-					'custom_class' => 'straat',
-				],
-			],
-			[
-				'slug'   => 'woonplaats',
-				'type'   => 'text',
-				'label'  => __( 'Woonplaats', 'siw' ),
-				'config' => [
-					'custom_class' => 'plaats',
-				],
-			],
-			[
-				'slug'   => 'motivatie',
-				'type'   => 'paragraph',
-				'label'  => __( 'Waarom zou je graag een begeleider willen worden voor de Nederlandse vrijwilligersprojecten?', 'siw' ),
-				'config' => [
-					'rows' => 7,
-				]
 			],
 			[
 				'slug'   => 'voorkeur',
@@ -119,12 +69,17 @@ class Leader_Dutch_Projects implements Form_Interface {
 					'option' => $this->get_project_options(),
 				]
 			],
+
 			[
-				'slug'     => 'opmerkingen',
-				'type'     => 'paragraph',
-				'label'    => __( 'Overige opmerkingen?', 'siw' ),
-				'required' => false,
-			]
+				'slug'   => 'motivatie',
+				'type'   => 'paragraph',
+				'label'  => __( 'Waarom zou je graag een begeleider willen worden voor de Nederlandse vrijwilligersprojecten?', 'siw' ),
+				'config' => [
+					'rows' => 7,
+				],
+				'width'  => Form_Interface::FULL_WIDTH,
+			],
+
 		];
 	}
 
@@ -183,4 +138,3 @@ class Leader_Dutch_Projects implements Form_Interface {
 		return $project_options;
 	}
 }
-

@@ -2,9 +2,7 @@
 
 namespace SIW\Forms\Forms;
 
-use SIW\Data\Language;
 use SIW\Interfaces\Forms\Form as Form_Interface;
-use SIW\Interfaces\Forms\Multi_Page_Form as Multi_Page_Form_Interface;
 
 use SIW\Properties;
 
@@ -13,7 +11,7 @@ use SIW\Properties;
  * 
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Tailor_Made implements Form_Interface, Multi_Page_Form_Interface {
+class Tailor_Made implements Form_Interface {
 
 	/** {@inheritDoc} */
 	public function get_id(): string {
@@ -26,30 +24,19 @@ class Tailor_Made implements Form_Interface, Multi_Page_Form_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_pages(): array {
-		return [
-			__( 'Personalia', 'siw' ),
-			__( 'Project', 'siw' ),
-			__( 'Talenkennis', 'siw' ),
-		];
-	}
-
-	/** {@inheritDoc} */
 	public function get_fields(): array {
 		return [
 			[
-				'slug'  => 'voornaam',
-				'type'  => 'text',
-				'label' => __( 'Voornaam', 'siw' ),
+				'slug'           => 'voornaam',
+				'type'           => 'text',
+				'label'          => __( 'Voornaam', 'siw' ),
 				'recipient_name' => true,
-				'page'  => 1,
 			],
 			[
-				'slug'  => 'achternaam',
-				'type'  => 'text',
-				'label' => __( 'Achternaam', 'siw' ),
+				'slug'           => 'achternaam',
+				'type'           => 'text',
+				'label'          => __( 'Achternaam', 'siw' ),
 				'recipient_name' => true,
-				'page'  => 1,
 			],
 			[
 				'slug'   => 'geboortedatum',
@@ -59,24 +46,17 @@ class Tailor_Made implements Form_Interface, Multi_Page_Form_Interface {
 					'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
 					'validation'  => 'date',
 				],
-				'page'  => 1,
 			],
 			[
-				'slug'   => 'geslacht',
-				'type'   => 'radio',
-				'label'  => __( 'Geslacht', 'siw' ),
-				'config' => [
-					'inline' => true,
-					'option' => \siw_get_genders(),
-				],
-				'page'  => 1,
+				'slug'   => 'woonplaats',
+				'type'   => 'text',
+				'label'  => __( 'Woonplaats', 'siw' ),
 			],
 			[
 				'slug'          => 'emailadres',
 				'type'          => 'email',
 				'label'         => __( 'Emailadres', 'siw' ),
 				'primary_email' => true,
-				'page'          => 1,
 			],
 			[
 				'slug'     => 'telefoonnummer',
@@ -86,45 +66,6 @@ class Tailor_Made implements Form_Interface, Multi_Page_Form_Interface {
 				'config'   => [
 					'type_override' => 'tel',
 				],
-				'page'  => 1,
-			],
-			[
-				'slug'   => 'postcode',
-				'type'   => 'text',
-				'label'  => __( 'Postcode', 'siw' ),
-				'config' => [
-					'postcode_lookup' => 'postcode',
-					'placeholder'     => '1234 AB',
-					'validation'      => 'postcode',
-				],
-				'page'  => 1,
-			],
-			[
-				'slug'   => 'huisnummer',
-				'type'   => 'text',
-				'label'  => __( 'Huisnummer', 'siw' ),
-				'config' => [
-					'postcode_lookup' => 'city',
-				],
-				'page'   => 1,
-			],
-			[
-				'slug'   => 'straat',
-				'type'   => 'text',
-				'label'  => __( 'Straat', 'siw' ),
-				'config' => [
-					'postcode_lookup' => 'street',
-				],
-				'page'   => 1,
-			],
-			[
-				'slug'   => 'woonplaats',
-				'type'   => 'text',
-				'label'  => __( 'Woonplaats', 'siw' ),
-				'config' => [
-					'postcode_lookup' => 'city',
-				],
-				'page'   => 1,
 			],
 			[
 				'slug'   => 'motivatie',
@@ -133,28 +74,22 @@ class Tailor_Made implements Form_Interface, Multi_Page_Form_Interface {
 				'config' => [
 					'rows' => 7,
 				],
-				'width'  => Form_Interface::FULL_WIDTH,
-				'page'   => 2,
 			],
 			[
 				'slug'   => 'bestemming',
-				'type'   => 'paragraph',
-				'label'  => __( 'In welk land of welke regio zou je graag vrijwilligerswerk willen doen?', 'siw' ),
-				'config' => [
-					'rows' => 7,
+				'type'   => 'checkbox',
+				'label'  => __( 'In welke regio zou je graag vrijwilligerswerk willen doen?', 'siw' ),
+				'config'   => [
+					'option' => \siw_get_continents_list(),
 				],
-				'width'  => Form_Interface::FULL_WIDTH,
-				'page'   => 2,
 			],
 			[
-				'slug'   => 'periode',
-				'type'   => 'paragraph',
-				'label'  => __( 'In welke periode zou je op avontuur willen?', 'siw' ),
+				'slug'   => 'duur',
+				'type'   => 'radio',
+				'label'  => __( 'Hoe lang zou je weg willen?', 'siw' ),
 				'config' => [
-					'rows' => 7,
+					'option' => $this->get_duration_options(),
 				],
-				'width'  => Form_Interface::FULL_WIDTH,
-				'page'   => 2,
 			],
 			[
 				'slug'   => 'cv',
@@ -167,76 +102,22 @@ class Tailor_Made implements Form_Interface, Multi_Page_Form_Interface {
 					'max_upload' => \wp_max_upload_size(),
 				],
 				'required' => false,
-				'width'    => Form_Interface::FULL_WIDTH,
-				'page'     => 2,
 			],
-			[
-				'slug'    => 'taal_1',
-				'type'    => 'dropdown',
-				'label'   => __( 'Taal 1', 'siw' ),
-				'config'  => [
-					'option'      => \siw_get_languages_list( Language::VOLUNTEER ),
-					'placeholder' => __( 'Selecteer een taal', 'siw' ),
-				],
-				'page'    => 3,
-			],
-			[
-				'slug'   => 'taal_1_niveau',
-				'type'   => 'radio',
-				'label'  => __( 'Niveau taal 1', 'siw' ),
-				'config' => [
-					'inline' => true,
-					'option' => \siw_get_language_skill_levels(),
-				],
-				'page'   => 3,
-			],
-			[
-				'slug'    => 'taal_2',
-				'type'    => 'dropdown',
-				'label'   => __( 'Taal 2', 'siw' ),
-				'config'  => [
-					'option'      => \siw_get_languages_list( Language::VOLUNTEER ),
-					'placeholder' => __( 'Selecteer een taal', 'siw' ),
-				],
-				'page'   => 3,
-			],
-			[
-				'slug'   => 'taal_2_niveau',
-				'type'   => 'radio',
-				'label'  => __( 'Niveau taal 2', 'siw' ),
-				'config' => [
-					'inline' => true,
-					'option' => \siw_get_language_skill_levels(),
-				],
-				'page'   => 3,
-			],
-			[
-				'slug'    => 'taal_3',
-				'type'    => 'dropdown',
-				'label'   => __( 'Taal 3', 'siw' ),
-				'config'  => [
-					'option'      => \siw_get_languages_list( Language::VOLUNTEER ),
-					'placeholder' => __( 'Selecteer een taal', 'siw' ),
-				],
-				'page'   => 3,
-			],
-			[
-				'slug'   => 'taal_3_niveau',
-				'type'   => 'radio',
-				'label'  => __( 'Niveau taal 3', 'siw' ),
-				'config' => [
-					'inline' => true,
-					'option' => \siw_get_language_skill_levels(),
-				],
-				'page'   => 3,
-			],
+		];
+	}
+
+	/** Geeft opties voor projectduur terug */
+	protected function get_duration_options() : array {
+		return [
+			'1-3'  => __( '1-3 maanden', 'siw' ),
+			'3-6'  => __( '4-6 maanden', 'siw' ),
+			'7-12' => __( '7-12 maanden', 'siw' ),
 		];
 	}
 
 	/** {@inheritDoc} */
 	public function get_notification_subject(): string {
 		return 'Aanmelding Vrijwilligerswerk Op Maat';
-
 	}
 
 	/** {@inheritDoc} */
@@ -246,7 +127,7 @@ class Tailor_Made implements Form_Interface, Multi_Page_Form_Interface {
 
 	/** {@inheritDoc} */
 	public function get_autoresponder_subject(): string {
-		return __( 'Aanmelding Vrijwilligerswerk Op Maat', 'siw' );
+		return __( 'Bevestiging aanmelding Vrijwilligerswerk Op Maat', 'siw' );
 	}
 
 	/** {@inheritDoc} */
@@ -280,8 +161,4 @@ class Tailor_Made implements Form_Interface, Multi_Page_Form_Interface {
 		'</span>' . BR .
 		sprintf( __( 'Als je nog vragen hebt, aarzel dan niet om contact op te nemen met ons kantoor via %s of via het nummer %s.', 'siw' ), Properties::EMAIL, Properties::PHONE );
 	}
-
-
 }
-
-

@@ -133,9 +133,9 @@ class Spam_Check{
 			$body['ip'] = $this->ip;
 		}
 
-		$request = new HTTP_Request( self::API_URL );
-		$request->set_content_type( HTTP_Request::APPLICATION_X_WWW_FORM_URLENCODED );
-		$response = $request->post( $body );
+		$response = HTTP_Request::create( self::API_URL )
+			->set_content_type( HTTP_Request::APPLICATION_X_WWW_FORM_URLENCODED )
+			->post( $body );
 
 		if ( is_wp_error( $response ) || false == $response['success'] ) {
 			return [];

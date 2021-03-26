@@ -50,8 +50,7 @@ class Postcode_Lookup{
 			'fq' => "huisnummer:{$housenumber}",
 		], self::API_URL );
 
-		$request = new HTTP_Request( $url );
-		$response = $request->get();
+		$response = HTTP_Request::create( $url )->get();
 
 		if ( is_wp_error( $response ) || 0 === $response['response']['numFound'] ) {
 			return null;
