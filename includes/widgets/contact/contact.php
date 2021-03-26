@@ -3,7 +3,7 @@
 namespace SIW\Widgets;
 
 use SIW\Data\Social_Network;
-use SIW\Elements;
+use SIW\Elements\Table;
 use SIW\Properties;
 
 /**
@@ -84,7 +84,7 @@ class Contact extends Widget {
 						'icon_class' => 'siw-icon-whatsapp'
 					],
 				],
-				'opening_hours'   => Elements::generate_opening_hours('table'),
+				'opening_hours'   => Table::create()->add_items( siw_get_opening_hours())->generate(),
 				'social_networks' => $networks,
 		];
 	}

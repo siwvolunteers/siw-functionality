@@ -2,7 +2,7 @@
 
 namespace SIW\Core;
 
-use SIW\Elements;
+use SIW\Elements\List_Columns;
 use SIW\Elements\Modal;
 use SIW\Properties;
 use SIW\Util;
@@ -149,7 +149,11 @@ class Shortcodes {
 
 	/** Openingstijden */
 	public static function render_openingstijden() : string {
-		return Elements::generate_opening_hours( 'list' );
+		$data = array_map(
+			fn( array $value ) : string => implode( ': ', $value ),
+			siw_get_opening_hours()
+		);
+		return List_Columns::create()->add_items( $data )->generate();
 	}
 
 	/** ESC-borg */

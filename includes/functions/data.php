@@ -140,24 +140,6 @@ function siw_get_nationalities() : array {
 }
 
 /**
- * Geeft array met dagen terug
- * 
- * Nummering volgens ISO-8601 (Maandag = 1, Zondag = 7)
- */
-function siw_get_days() : array {
-	$days = [
-		1 => __( 'Maandag', 'siw' ),
-		2 => __( 'Dinsdag', 'siw' ),
-		3 => __( 'Woensdag', 'siw' ),
-		4 => __( 'Donderdag', 'siw' ),
-		5 => __( 'Vrijdag', 'siw' ),
-		6 => __( 'Zaterdag', 'siw' ),
-		7 => __( 'Zondag', 'siw' ),
-	];
-	return $days;
-}
-
-/**
  * Haalt email-instellingen op
  * @todo fallback naar admin-email
  */
@@ -197,4 +179,45 @@ function siw_get_interactive_maps() : array {
 		],
 	];
 	return $maps;
+}
+
+/** Geeft openingstijden van SIW terug */
+function siw_get_opening_hours() : array {
+	global $wp_locale;
+
+	//Ophalen openingstijden
+	$opening_hours = siw_get_option( 'opening_hours' );
+
+	$opening_hours = array_map(
+		fn( array $value ) : string => $value['open'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' ),
+		array_filter( $opening_hours )
+	);
+
+	//Ophalen afwijkende openingstijden
+	$special_opening_hours = siw_get_option( 'special_opening_hours', [] );
+
+	$special_opening_hours = array_map(
+		fn( array $value ) : string => $value['opened'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' ),
+		array_column( $special_opening_hours , null, 'date' )
+	);
+
+	$daterange = new \DatePeriod( new \DateTime( 'today' ), new \DateInterval( 'P1D' ), 6 );
+	foreach ( $daterange as $date ) {
+		$day_number = $date->format( 'w' );
+		$day_name = ucfirst( $wp_locale->get_weekday( $day_number ) );
+		$opening_times = $opening_hours[ "day_{$day_number}" ];
+
+		
+		// Bepaal afwijkende openingstijden (indien van toepassing)
+		if ( isset( $special_opening_hours[ $date->format( 'Y-m-d' ) ] ) ) {
+			$opening_times = sprintf( '<del>%s</del> <ins>%s</ins>', $opening_times, $special_opening_hours[ $date->format( 'Y-m-d' ) ] );
+		}
+		//Huidige dag bold maken 
+		$data[] = [
+			( $daterange->start == $date ) ? '<b>' . $day_name . '</b>' : $day_name,
+			( $daterange->start == $date ) ? '<b>' . $opening_times . '</b>' : $opening_times,
+		];
+		
+	}
+	return $data;
 }
