@@ -31,14 +31,15 @@ class Enquiry_General implements Form_Interface {
 				'recipient_name' => true,
 			],
 			[
-				'slug'  => 'achternaam',
-				'type'  => 'text',
-				'label' => __( 'Achternaam', 'siw' ),
+				'slug'           => 'achternaam',
+				'type'           => 'text',
+				'label'          => __( 'Achternaam', 'siw' ),
+				'recipient_name' => true,
 			],
 			[
-				'slug'  => 'emailadres',
-				'type'  => 'email',
-				'label' => __( 'Emailadres', 'siw' ),
+				'slug'          => 'emailadres',
+				'type'          => 'email',
+				'label'         => __( 'Emailadres', 'siw' ),
 				'primary_email' => true,
 			],
 			[

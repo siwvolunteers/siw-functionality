@@ -3,11 +3,9 @@
 namespace SIW\Forms;
 
 use SIW\Interfaces\Forms\Form as Form_Interface;
-use SIW\Interfaces\Forms\Multi_Page_Form as Multi_Page_Form_Interface;
 
 use SIW\Email\Template;
 use SIW\Properties;
-use SIW\Util;
 
 /**
  * Class om een Caldera Forms formulier toe te voegen
@@ -22,9 +20,6 @@ class Form {
 	/** Formulier */
 	protected Form_Interface $form;
 
-	/** Pagina's */
-	protected array $pages;
-
 	/** Init */
 	public function __construct( Form_Interface $form ) {
 		$this->form = $form;
@@ -34,14 +29,6 @@ class Form {
 	public function register() {
 		add_filter( 'caldera_forms_get_forms', [ $this, 'add_to_forms'] );
 		add_filter( "caldera_forms_get_form-{$this->form->get_id()}", [ $this, 'add_form' ] );
-	}
-
-	/** Zet pagina's */
-	public function set_pages( Multi_Page_Form_Interface $multi_page_form ) {
-		add_filter(
-			"siw_form_{$this->form->get_id()}",
-			fn( array $form ) : array => wp_parse_args( ['page_names' => $multi_page_form->get_pages()], $form )
-		);
 	}
 
 	/** Voegt formulier toe */
@@ -88,7 +75,6 @@ class Form {
 				],
 			],
 			'mailer'             => $this->get_mailer(),
-			'postcode_lookup'    => $this->has_postcode_lookup(),
 		];
 		return apply_filters( "siw_form_{$this->form->get_id()}", $form );
 	}
@@ -96,64 +82,59 @@ class Form {
 	/** Genereer layout grid */
 	protected function get_layout_grid() : array {
 		$fields = $this->get_fields();
-		$keys = ['slug', 'page', 'width'];
+		$keys = ['slug', 'width'];
 		$fields = array_map(
 			fn( array $field ) : array => wp_array_slice_assoc( $field, $keys ),
 			$fields,
 		);
 		
+		$fields = array_column( $fields, 'width', 'slug' );
+
 		$layout_fields = [];
 		$layout_structure = '';
 		$row_index = 1;
 		$cell_index = 0;
 		$row_width = 0;
-		$last_page = 1;
 
-		foreach ( $fields as $field ) {
-			
-			$current_page = $field['page'];
+		foreach ( $fields as $slug => $width ) {
 			$new_row = false;
-			$row_width += $field['width'];
+			$row_width += $width;
 			$cell_index++;
 
 			if ( $row_width > Form_Interface::FULL_WIDTH ) {
 				$new_row = true;
 				$row_index++;
-				$row_width = $field['width'];
+				$row_width = $width;
 				$cell_index = 1;
 			}
 
-			$layout_fields[ $field['slug'] ] = "{$row_index}:{$cell_index}";
+			$layout_fields[ $slug ] = "{$row_index}:{$cell_index}";
 			if ( 1 == $row_index && 1 == $cell_index ) {
-				$layout_structure = $field['width'];
-			}
-			elseif ( $current_page != $last_page ) {
-				$layout_structure .= "#{$field['width']}";
+				$layout_structure = $width;
 			}
 			elseif ( $new_row ) {
-				$layout_structure .= "|{$field['width']}";
+				$layout_structure .= "|{$width}";
 			}
 			else {
-				$layout_structure .= ":{$field['width']}";
+				$layout_structure .= ":{$width}";
 			}
-			$last_page = $current_page;
 		}
 
 		return [
 			'fields'    => $layout_fields,
 			'structure' => $layout_structure
 		];
-
 	}
 
 	/** Geeft velden terug */
 	protected function get_fields() {
+		$fields = $this->form->get_fields();
+		$fields = apply_filters( "siw_form_{$this->form->get_id()}_fields", $fields );
+		$fields = $this->add_submit_button( $fields );
 		$fields = array_map(
 			[$this, 'parse_field'],
 			$this->form->get_fields()
 		);
-
-		$fields = $this->add_buttons( $fields );
 		$fields = array_column( $fields, null, 'slug' );
 		return $fields;
 	}
@@ -164,7 +145,6 @@ class Form {
 			'label'      => '',
 			'required'   => true,
 			'width'      => Form_Interface::HALF_WIDTH,
-			'page'       => 1,
 			'conditions' => [ 'type' => ''],
 
 		];
@@ -181,66 +161,17 @@ class Form {
 		return $field;
 	}
 
-	/** Voegt knoppen toe */
-	protected function add_buttons( $fields ) : array {
-		$fields_per_page = $this->group_fields_by_page( $fields );
-		$fields = [];
-
-		$last_page = sizeof( $fields_per_page );
-		foreach ( $fields_per_page as $page => $page_fields ) {
-			// 'Vorige'-knop toevoegen
-			if ( 1 !== $page ) {
-				$page_fields[] = [
-					'ID'      => "from_page_{$page}_to_previous",
-					'slug'    => "from_page_{$page}_to_previous",
-					'type'    => 'button',
-					'label'   => __( 'Vorige', 'siw' ),
-					'page'    => $page,
-					'width'   => Form_Interface::HALF_WIDTH,
-					'conditions' => [ 'type' => ''],
-					'config'  => [
-						'type'         => 'prev',
-						'class'        => 'ghost',
-					],
-				];
-			}
-
-			// 'Volgende'-knop toevoegen
-			if ( $last_page != $page ) {
-				$page_fields[] = [
-					'ID'      => "from_page_{$page}_to_next",
-					'slug'    => "from_page_{$page}_to_next",
-					'type'    => 'button',
-					'label'   => __( 'Volgende', 'siw' ),
-					'page'    => $page,
-					'width'   => ( 1 == $page ) ? Form_Interface::FULL_WIDTH : Form_Interface::HALF_WIDTH,
-					'conditions' => [ 'type' => ''],
-					'config'  => [
-						'type'         => 'next',
-						'class'        => '',
-					],
-				];
-			}
-
-			// 'Verzenden'-knop toevoegen
-			if ( $last_page == $page ) {
-				$page_fields[] = [
-					'ID'      => 'verzenden',
-					'slug'       => 'verzenden',
-					'type'       => 'button',
-					'label'      => __( 'Verzenden', 'siw' ),
-					'page'       => $page,
-					'width'      => ( 1 == $page ) ? Form_Interface::FULL_WIDTH : Form_Interface::HALF_WIDTH,
-					'conditions' => [ 'type' => ''],
-					'config'  => [
-						'type'         => 'submit',
-						'class'        => '',
-					],
-				];
-			}
-
-			$fields = array_merge( $fields, $page_fields );
-		}
+	/** Voegt verzendknop toe */
+	protected function add_submit_button( array $fields ) : array {
+		$fields[] = [
+			'slug'   => 'verzenden',
+			'type'   => 'button',
+			'label'  => __( 'Verzenden', 'siw' ),
+			'width'  => Form_Interface::FULL_WIDTH,
+			'config' => [
+				'type' => 'submit',
+			],
+		];
 		return $fields;
 	}
 
@@ -335,20 +266,6 @@ class Form {
 		return implode( SPACE, $slugs );
 	}
 
-	/** Groepeer velden per pagina */
-	function group_fields_by_page( array $fields ) : array {
-		$fields_by_page = [];
-
-		foreach ( $fields as $field ) {
-			if ( array_key_exists( 'page', $field ) ) {
-				$fields_by_page[ $field['page'] ][] = $field;
-			} else {
-				$fields_by_page[""][] = $field;
-			}
-		}
-		return $fields_by_page;
-	}
-
 	/** Formatteert array met opties */
 	protected function format_options( array $options ) : array {
 		$has_values = ! wp_is_numeric_array( $options ); //TODO: is dit echt nodig
@@ -360,22 +277,6 @@ class Form {
 			];
 		}
 		return $formatted_options;
-	}
-
-	/**
-	 * Voegt attribute voor postcode lookup toe
-	 */
-	public function has_postcode_lookup() : bool {
-
-		$fields = array_filter(
-			$this->get_fields(),
-			fn( array $field ) : bool => isset( $field['config']['postcode_lookup'] )
-		);
-		
-		if ( ! empty( $fields ) ) {
-			return true;
-		}
-		return false;
 	}
 
 	/** Haalt e-mailtemplate op */

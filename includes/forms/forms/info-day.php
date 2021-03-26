@@ -25,14 +25,16 @@ class Info_Day implements Form_Interface {
 	public function get_fields(): array {
 		return [
 			[
-				'slug'  => 'voornaam',
-				'type'  => 'text',
-				'label' => __( 'Voornaam', 'siw' ),
+				'slug'           => 'voornaam',
+				'type'           => 'text',
+				'label'          => __( 'Voornaam', 'siw' ),
+				'recipient_name' => true,
 			],
 			[
-				'slug'  => 'achternaam',
-				'type'  => 'text',
-				'label' => __( 'Achternaam', 'siw' ),
+				'slug'           => 'achternaam',
+				'type'           => 'text',
+				'label'          => __( 'Achternaam', 'siw' ),
+				'recipient_name' => true,
 			],
 			[
 				'slug'          => 'emailadres',
