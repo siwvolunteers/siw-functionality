@@ -2,7 +2,7 @@
 
 namespace SIW\Modules;
 
-use SIW\Elements;
+use SIW\Elements\Icon;
 
 /**
  * Voegt cart toe aan menu
@@ -41,7 +41,7 @@ class Menu_Cart {
 		?>
 		<a class="siw-cart" href="<?php echo wc_get_cart_url(); ?>" title="<?php esc_attr_e( 'Winkelmand', 'siw') ?>">
 			<span class="hide-on-desktop hide-on-tablet"><?php esc_html_e( 'Je winkelmand', 'siw' );?></span>
-			<?php echo Elements::generate_icon( 'siw-icon-suitcase');?>
+			<?php Icon::create()->set_icon_class( 'siw-icon-suitcase' )->render();?>
 			<span class="siw-cart-count"><?php echo $cart_count; ?></span>
 		</a>
 		<?php

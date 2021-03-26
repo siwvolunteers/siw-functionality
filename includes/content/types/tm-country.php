@@ -5,8 +5,8 @@ namespace SIW\Content\Types;
 use SIW\Content\Type;
 use SIW\Data\Country;
 use SIW\Data\Work_Type;
-use SIW\Elements;
 use SIW\Elements\Features;
+use SIW\Elements\Icon;
 use SIW\Elements\Quote;
 use SIW\Elements\World_Map;
 use SIW\i18n;
@@ -253,7 +253,7 @@ class TM_Country extends Type {
 						$has_child_projects = true; //TODO: misschien array_key_exists gebruiken?
 					}
 
-					printf( '%s %s<br>', Elements::generate_icon( $work_type->get_icon_class(), 2, 'circle' ), $work_type->get_name() );
+					printf( '%s %s<br>', Icon::create()->set_icon_class( $work_type->get_icon_class() )->set_has_background(true)->generate(), $work_type->get_name() );
 				}
 				?>
 			</p>
