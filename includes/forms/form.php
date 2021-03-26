@@ -131,10 +131,7 @@ class Form {
 		$fields = $this->form->get_fields();
 		$fields = apply_filters( "siw_form_{$this->form->get_id()}_fields", $fields );
 		$fields = $this->add_submit_button( $fields );
-		$fields = array_map(
-			[$this, 'parse_field'],
-			$this->form->get_fields()
-		);
+		$fields = array_map( [ $this, 'parse_field'], $fields );
 		$fields = array_column( $fields, null, 'slug' );
 		return $fields;
 	}
