@@ -3,6 +3,7 @@
 namespace SIW\Core;
 
 use SIW\Elements;
+use SIW\Elements\Modal;
 use SIW\Properties;
 use SIW\Util;
 use SIW\Util\Links;
@@ -300,7 +301,7 @@ class Shortcodes {
 			return null;
 		}
 		
-		return Elements::generate_page_modal( (int) $page_id, $link_tekst );
+		return Modal::create()->set_page( (int) $page_id )->generate_link( $link_tekst );
 	}
 
 	/** Leeftijd van SIW in jaren */

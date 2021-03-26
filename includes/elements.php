@@ -4,7 +4,6 @@ namespace SIW;
 
 use SIW\Core\Template;
 use SIW\Elements\List_Columns;
-use SIW\Elements\Modal;
 use SIW\Elements\Table;
 
 /**
@@ -13,27 +12,6 @@ use SIW\Elements\Table;
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Elements {
-
-	/** Genereert modal voor pagina */
-	public static function generate_page_modal( int $page_id, string $link_text ) : string {
-		$page_id = i18n::get_translated_page_id( $page_id );
-		$page = get_post( $page_id );
-
-		$modal = new Modal( "page-{$page_id}");
-		$modal->set_title( $page->post_title );
-		$modal->set_content( do_shortcode( $page->post_content ) );
-
-		return $modal->generate_link( $link_text, get_permalink( $page ) );
-	}
-
-	/** Genereert modal */
-	public static function generate_modal( string $title, string $content, string $link_text ) : string {
-		$modal = new Modal;
-		$modal->set_title( $title );
-		$modal->set_content( $content );
-
-		return $modal->generate_link( $link_text );
-	}
 
 	/** Genereert html voor icon TODO: aparte templates voor met en zonder background */
 	public static function generate_icon( string $icon_class, int $size = 2, string $background = 'none' ) : string {
