@@ -166,7 +166,8 @@ class Form {
 			'label'  => __( 'Verzenden', 'siw' ),
 			'width'  => Form_Interface::FULL_WIDTH,
 			'config' => [
-				'type' => 'submit',
+				'type'  => 'submit',
+				'class' => '',
 			],
 		];
 		return $fields;
