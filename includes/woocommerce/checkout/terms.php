@@ -2,13 +2,12 @@
 
 namespace SIW\WooCommerce\Checkout;
 
-use SIW\Elements;
+use SIW\Elements\Modal;
 
 /**
  * Voorwaarden tijdens checkout
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Terms{
 
@@ -33,7 +32,7 @@ class Terms{
 	/** Voegt voorwaarden-modal toe */
 	public function add_terms_modal() {
 		$terms_page_id = wc_terms_and_conditions_page_id();
-		$this->modal_link = Elements::generate_page_modal( $terms_page_id, __( 'inschrijfvoorwaarden', 'siw' ) );
+		$this->modal_link = Modal::create()->set_page( $terms_page_id )->generate_link( __( 'inschrijfvoorwaarden', 'siw' ) );
 	}
 	
 	/** Voegt script voor voorwaarden toe */

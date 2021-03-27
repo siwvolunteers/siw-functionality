@@ -3,7 +3,7 @@ namespace SIW\Content\Types;
 
 use SIW\Content\Type;
 use SIW\Data\Country;
-use SIW\Elements;
+use SIW\Elements\Quote;
 use SIW\HTML;
 use SIW\Util\Links;
 
@@ -241,7 +241,7 @@ class Story extends Type {
 			$animation_attributes_2 = $even ? $animation_right : $animation_left;
 			?>
 			<div class="grid-100" <?php echo $animation_fade;?> >
-				<?php echo Elements::generate_quote( $row['quote'] );?>
+				<?php Quote::create()->set_quote( $row['quote'] )->render();?>
 			</div>
 	
 			<div class="grid-40 <?php echo $push_class;?>" <?php echo $animation_attributes_1;?>>

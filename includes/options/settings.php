@@ -405,7 +405,8 @@ class Settings implements Option_Interface {
 		];
 
 		//Openingstijden
-		$days = siw_get_days();
+		global $wp_locale;
+		$days = $wp_locale->weekday;
 
 		/* Reguliere openingstijden */
 		$opening_hours_fields[] = [
@@ -419,7 +420,7 @@ class Settings implements Option_Interface {
 				'fields' => [
 					[
 						'type'     =>'custom_html',
-						'std'      => $name,
+						'std'      => ucfirst( $name ),
 						'columns'  => 2,
 					],
 					[

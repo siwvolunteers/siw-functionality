@@ -71,10 +71,10 @@ class Map extends Widget {
 		if ( ! isset( $maps[ $instance['map'] ] ) ) {
 			return [];
 		}
-		$interactive_map = new Interactive_Map( new $maps[ $instance['map'] ] );
+		$interactive_map = new $maps[ $instance['map'] ];
 
 		return [
-			'content' => $interactive_map->generate(),
+			'content' => Interactive_Map::create()->set_interactive_map( $interactive_map )->generate(),
 		];
 	}
 }

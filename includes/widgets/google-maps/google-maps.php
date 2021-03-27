@@ -131,9 +131,8 @@ class Google_Maps extends Widget {
 
 	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
-		$map = new Element_Google_Maps();
-		
-		$map->set_options( ['zoom' => $instance['zoom'] ] );
+		$map = Element_Google_Maps::create()
+			->set_zoom( (int) $instance['zoom'] );
 
 		foreach ( $instance['markers'] as $marker ) {
 			if ( 'address' == $marker['location'] ) {

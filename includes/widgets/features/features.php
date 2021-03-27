@@ -120,7 +120,7 @@ class Features extends Widget {
 	function get_template_variables( $instance, $args ) {
 		return [
 			'intro'   => $instance['intro'],
-			'content' => Features_Element::create( $instance['features'] )->set_columns( (int) $instance['columns'] )->generate(),
+			'content' => Features_Element::create()->add_items( $instance['features'] )->set_columns( (int) $instance['columns'] )->generate(),
 		];
 	}
 }
