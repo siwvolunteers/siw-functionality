@@ -2,12 +2,10 @@
 
 namespace SIW\Modules;
 
+use SIW\Core\Template;
 use SIW\i18n;
-use SIW\Formatting;
-use SIW\Util;
 use SIW\Properties;
 use SIW\Util\CSS;
-use SIW\Util\Links;
 
 /**
  * Topbar
@@ -54,32 +52,18 @@ class Topbar {
 
 	/** Rendert de topbar */
 	public function render() {
-		$target = isset( $this->content['link_target'] ) ? $this->content['link_target'] : '_self';
-	
-		?>
-		<div class="topbar">
-			<div class="topbar-content grid-container">
-				<span class="<?php echo CSS::HIDE_ON_MOBILE_CLASS . ' ' . CSS::HIDE_ON_TABLET_CLASS; ?>"><?php echo esc_html( $this->content['intro'] );?>&nbsp;</span>
-					<?php
-					echo Links::generate_link(
-						$this->content['link_url'],
-						$this->content['link_text'],
-						[
-							'id'               => 'topbar_link',
-							'class'            => 'button ghost',
-							'target'           => $target,
-							'data-ga-track'    => 1,
-							'data-ga-type'     => 'event',
-							'data-ga-category' => 'Topbar',
-							'data-ga-action'   => 'Klikken',
-							'data-ga-label'    => $this->content['link_url'],
-						]
-					);
-				?>
-				
-			</div>
-		</div>
-	<?php
+		Template::render_template(
+			'modules/topbar',
+			[
+				'hide_on_mobile_class' => CSS::HIDE_ON_MOBILE_CLASS,
+				'hide_on_tablet_class' => CSS::HIDE_ON_TABLET_CLASS,
+				'target'               => $this->content['link_target'] ?? '_self',
+				'intro'                => $this->content['intro'],
+				'link_url'             => $this->content['link_url'],
+				'link_text'            => $this->content['link_text'],
+
+			]
+		);
 	}
 
 	/** Voegt stylesheet toe */
@@ -123,7 +107,7 @@ class Topbar {
 		$link_text = sprintf(
 			__( 'Kom naar de %s op %s.', 'siw' ),
 			get_the_title( $event_id ),
-			Formatting::format_date( siw_meta( 'event_date', [], $event_id ), false )
+			siw_format_date( siw_meta( 'event_date', [], $event_id ), false )
 		);
 
 		return [
@@ -159,12 +143,12 @@ class Topbar {
 			return null;
 		}
 
-		if ( ! Util::is_workcamp_sale_active() ) {
+		if ( ! siw_is_workcamp_sale_active() ) {
 			return null;
 		}
 
-		$sale_price = Formatting::format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE );
-		$end_date = Formatting::format_date( siw_get_option( 'workcamp_sale.end_date' ), false );
+		$sale_price = siw_format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE );
+		$end_date = siw_format_date( siw_get_option( 'workcamp_sale.end_date' ), false );
 	
 		return [
 			'intro'     => __( 'Grijp je kans en ontvang korting!', 'siw' ),

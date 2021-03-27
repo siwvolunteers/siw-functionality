@@ -2,13 +2,12 @@
 
 namespace SIW\Widgets;
 
-use SIW\Elements;
+use SIW\Elements\Accordion as Accordion_Element;
 
 /**
  * Widget met contactinformatie
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Accordion
@@ -18,37 +17,37 @@ use SIW\Elements;
  */
 class Accordion extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id ='accordion';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'list-view';
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected bool $use_default_template = true;
-
-	/**
-	 * {@inheritDoc}
-	 */	
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Accordion', 'siw');
-		$this->widget_description = __( 'Toont accordion', 'siw' );
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'accordion';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Accordion', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont accordion', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return Widget::DEFAULT_TEMPLATE_ID;
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'list-view';
+	}
+
+	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
 			'title' => [
 				'type'  => 'text',
-				'label' => __( 'Titel', 'siw'),
+				'label' => __( 'Titel', 'siw' ),
 			],
 			'panes' => [
 				'type'       => 'repeater',
@@ -105,12 +104,10 @@ class Accordion extends Widget {
 		return $widget_form;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 		return [
-			'content' => Elements::generate_accordion( $instance['panes'] )
+			'content' => Accordion_Element::create()->add_items( $instance['panes'] )->generate(),
 		];
 	}
 }

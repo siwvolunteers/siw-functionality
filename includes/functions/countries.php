@@ -9,19 +9,12 @@
 use SIW\Data\Country;
 
 /**
- * Geeft array van landen terug op basis van zoekterm (slug of ISO-code)
- * 
- * @since     3.0.0
- *
- * @param string $index
- * @param string $context all|workcamps|esc_projects|tailor_made_projects|allowed|{continent_slug}
- * @param string $return objects|array
- * 
- * @return Country[]|array
+ * Geeft array van gegevens van landen terug
+ * @return Country[]
  */
-function siw_get_countries( string $context = 'all', string $index = 'slug', string $return = 'objects' ) { 
+function siw_get_countries( string $context = Country::ALL, string $index = 'slug' ) { 
 
-	$countries = wp_cache_get( "{$context}_{$index}_{$return}", 'siw_countries' );
+	$countries = wp_cache_get( "{$context}_{$index}", __FUNCTION__ );
 	if ( false !== $countries ) {
 		return $countries;
 	}
@@ -53,38 +46,23 @@ function siw_get_countries( string $context = 'all', string $index = 'slug', str
 	//Filter op context
 	$countries = array_filter(
 		$countries,
-		function( $country ) use ( $context ) {
-			return ( 'all' == $context 
-				|| ( 'workcamps' == $context && $country->has_workcamps() )
-				|| ( 'esc_projects' == $context && $country->has_esc_projects() )
-				|| ( 'tailor_made_projects' == $context && $country->has_tailor_made_projects() )
-				|| ( 'allowed' == $context && $country->is_allowed() )
-				|| ( $context == $country->get_continent()->get_slug() )
-			);
-		}
+		fn( Country $country ) : bool => $country->is_valid_for_context( $context )
 	);
 
-	if ( 'array' == $return ) {
-		$countries = array_map(
-			fn( Country $country ) : string => $country->get_name(),
-			$countries
-		);
-	}
-	wp_cache_set( "{$context}_{$index}_{$return}", $countries, 'siw_countries' );
-
+	wp_cache_set( "{$context}_{$index}", $countries, __FUNCTION__ );
 	return $countries;
 }
 
-/**
- * Geeft land terug op basis van zoekterm (slug of ISO-code)
- * 
- * @since     3.0.0
- *
- * @param string $country
- * @param string $index
- * @return Country|null
- */
+/** Geeft lijst van landen terug */
+function siw_get_countries_list( string $context = Country::ALL, string $index = 'slug' ) : array {
+	return array_map(
+		fn( Country $country ) : string => $country->get_name(),
+		siw_get_countries( $context, $index )
+	);
+}
+
+/** Geeft land terug op basis van zoekterm */
 function siw_get_country( string $country, string $index = 'slug' ) : ?Country {
-	$countries = siw_get_countries( 'all', $index );
+	$countries = siw_get_countries( Country::ALL, $index );
 	return $countries[ $country ] ?? null;
 }

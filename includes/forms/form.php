@@ -2,100 +2,58 @@
 
 namespace SIW\Forms;
 
-use SIW\Properties;
+use SIW\Interfaces\Forms\Form as Form_Interface;
+
 use SIW\Email\Template;
+use SIW\Properties;
 
 /**
  * Class om een Caldera Forms formulier toe te voegen
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Form {
 
-	/** Standaard cell-breedte */
-	const DEFAULT_CELL_WIDTH = 50;
-
-	/** ID van het formulier */
-	protected $id;
+	/** Key voor cache group */
+	const CACHE_GROUP = 'siw_forms';
 
 	/** Formulier */
-	protected $form;
-
-	/** Data uit configuratiebestand */
-	protected $data;
-
-	/** Standaardvelden */
-	protected $default_fields;
-
-	/** Instellingen voor e-mail */
-	protected $email_settings;
+	protected Form_Interface $form;
 
 	/** Init */
-	public function __construct( string $id ) {
-		$this->id = $id;
-		add_filter( 'caldera_forms_get_forms', [ $this, 'add_to_forms'] );
-		add_filter( "caldera_forms_get_form-{$this->id}", [ $this, 'add_form' ] );
+	public function __construct( Form_Interface $form ) {
+		$this->form = $form;
 	}
 
-	/** Laadt data uit bestand */
-	protected function load_data() {
-
-		
-		$data = siw_get_data( "forms/{$this->id}" );
-		if ( null === $data ) {
-			return false;
-		}
-		$this->data = wp_parse_args_recursive( $data, [
-			'args'          => [],
-			'intro'         => '',
-			'pages'         => [],
-			'fields'        => [],
-			'confirmation'  => [],
-			'notification'  => [],
-			'email_option'  => '',
-		]);
-
-		$this->default_fields = siw_get_data( 'form-fields' );
-
-		return true;
+	/** Registreer formulier */
+	public function register() {
+		add_filter( 'caldera_forms_get_forms', [ $this, 'add_to_forms'] );
+		add_filter( "caldera_forms_get_form-{$this->form->get_id()}", [ $this, 'add_form' ] );
 	}
 
 	/** Voegt formulier toe */
 	public function add_to_forms( array $forms ) {
-		$forms[ $this->id ] = apply_filters( "caldera_forms_get_form-{$this->id}", [] );
+		$forms[ $this->form->get_id() ] = apply_filters( "caldera_forms_get_form-{$this->form->get_id()}", [] );
 		return $forms;
 	}
 
 	/** Voegt eigenschappen van formulier toe */
 	public function add_form( array $form ) : array {
-		
-		$form = wp_cache_get( $this->id, 'siw_forms' );
+		$form = wp_cache_get( $this->form->get_id(), self::CACHE_GROUP );
 		if ( false !== $form ) {
 			return $form;
 		}
+		$form = $this->get_form();
 
-		if ( false === $this->load_data() ) {
-			return [];
-		}
-		$this->email_settings = siw_get_email_settings( $this->id );
-		$this->init_form();
-		$this->set_pages();
-		$this->set_fields();
-		$this->set_mailer();
-		$this->set_autoresponder();
-		$this->set_spam_check();
-
-		wp_cache_set( $this->id, $this->form, 'siw_forms' );
-
-		return $this->form;
+		wp_cache_set( $this->form->get_id(), $form, self::CACHE_GROUP );
+		return $form;
 	}
 
-	/** Initialiseer formulier */
-	protected function init_form() {
+	/** Geef formulier terug */
+	protected function get_form() : array {
 		$form = [
-			'ID'                 => $this->id,
-			'name'               => __( 'Formulier', 'siw' ),
+			'ID'                 => $this->form->get_id(),
+			'name'               => $this->form->get_name(),
 			'db_support'         => false,
 			'pinned'             => false,
 			'pin_roles'          => [],
@@ -105,42 +63,130 @@ class Form {
 			'form_ajax'          => true,
 			'scroll_top'         => true,
 			'has_ajax_callback'  => true,
-			//'custom_callback'    => 'siwGoogleAnalytics.trackFormSubmission',
-			'layout_grid'        => [],
-			'fields'             => [],
-			'page_names'         => [],
+			'layout_grid'        => $this->get_layout_grid(),
+			'fields'             => $this->get_fields(),
+			'page_names'         => [ $this->form->get_name() ],
 			'auto_progress'      => true,
-			'processors'         => [],
+			'processors'         => $this->get_processors(),
 			'conditional_groups' => [],
 			'settings'           => [
 				'responsive' => [
 					'break_point' => 'sm',
 				],
 			],
-			'mailer'             => []
+			'mailer'             => $this->get_mailer(),
 		];
-		$this->form = wp_parse_args_recursive(
-			$this->data['args'],
-			$form
-		);
+		return apply_filters( "siw_form_{$this->form->get_id()}", $form );
 	}
 
-	/**  Zet instellingen van mailer */
-	protected function set_mailer() {
-		$notification = $this->data['notification'];
+	/** Genereer layout grid */
+	protected function get_layout_grid() : array {
+		$fields = $this->get_fields();
+		$keys = ['slug', 'width'];
+		$fields = array_map(
+			fn( array $field ) : array => wp_array_slice_assoc( $field, $keys ),
+			$fields,
+		);
+		
+		$fields = array_column( $fields, 'width', 'slug' );
 
-		$this->form['mailer'] = [
+		$layout_fields = [];
+		$layout_structure = '';
+		$row_index = 1;
+		$cell_index = 0;
+		$row_width = 0;
+
+		foreach ( $fields as $slug => $width ) {
+			$new_row = false;
+			$row_width += $width;
+			$cell_index++;
+
+			if ( $row_width > Form_Interface::FULL_WIDTH ) {
+				$new_row = true;
+				$row_index++;
+				$row_width = $width;
+				$cell_index = 1;
+			}
+
+			$layout_fields[ $slug ] = "{$row_index}:{$cell_index}";
+			if ( 1 == $row_index && 1 == $cell_index ) {
+				$layout_structure = $width;
+			}
+			elseif ( $new_row ) {
+				$layout_structure .= "|{$width}";
+			}
+			else {
+				$layout_structure .= ":{$width}";
+			}
+		}
+
+		return [
+			'fields'    => $layout_fields,
+			'structure' => $layout_structure
+		];
+	}
+
+	/** Geeft velden terug */
+	protected function get_fields() {
+		$fields = $this->form->get_fields();
+		$fields = apply_filters( "siw_form_{$this->form->get_id()}_fields", $fields );
+		$fields = $this->add_submit_button( $fields );
+		$fields = array_map( [ $this, 'parse_field'], $fields );
+		$fields = array_column( $fields, null, 'slug' );
+		return $fields;
+	}
+
+	/** Parset veld */
+	protected function parse_field( array $field ) : array {
+		$defaults = [
+			'label'      => '',
+			'required'   => true,
+			'width'      => Form_Interface::HALF_WIDTH,
+			'conditions' => [ 'type' => ''],
+
+		];
+		$field = wp_parse_args_recursive( $field, $defaults );
+
+		//Zet slug als ID
+		$field['ID'] = $field['slug'];
+		
+		//Formatteer opties
+		if ( isset( $field['config']['option'] ) ) {
+			$field['config']['option'] = $this->format_options( $field['config']['option'] );
+		}
+
+		return $field;
+	}
+
+	/** Voegt verzendknop toe */
+	protected function add_submit_button( array $fields ) : array {
+		$fields[] = [
+			'slug'   => 'verzenden',
+			'type'   => 'button',
+			'label'  => __( 'Verzenden', 'siw' ),
+			'width'  => Form_Interface::FULL_WIDTH,
+			'config' => [
+				'type'  => 'submit',
+				'class' => '',
+			],
+		];
+		return $fields;
+	}
+
+	/** Geeft mailer instellingen teug */
+	protected function get_mailer() : array {
+		return [
 			'on_insert'     => true,
 			'sender_name'   => __( 'Website', 'siw' ),
-			'sender_email'  => $this->email_settings['email'],
-			'reply_to'      => "%{$this->data['primary_email']}%",
+			'sender_email'  => $this->get_email_setting( 'email' ),
+			'reply_to'      => "%{$this->get_primary_email()}%",
 			'email_type'    => 'html',
-			'recipients'    => $this->email_settings['email'],
-			'email_subject' => $notification['subject'],
+			'recipients'    => $this->get_email_setting( 'email' ),
+			'email_subject' => $this->form->get_notification_subject(),
 			'email_message' => $this->get_email_template(
 				[
-					'subject'         => $notification['subject'],
-					'message'         => $notification['message'],
+					'subject'         => $this->form->get_notification_subject(),
+					'message'         => $this->form->get_notification_message(),
 					'show_signature'  => false,
 					'show_summary'    => true,
 				]
@@ -148,232 +194,79 @@ class Form {
 		];
 	}
 
-	/** Zet instellingen van autoresponder */
-	protected function set_autoresponder() {
-		$confirmation = $this->data['confirmation'];
+	/** Voegt processors toe */
+	protected function get_processors() : array {
+		$processors = [];
 
+		//Autoresponder
+		$processors['fp_confirmation'] = [
+			'ID'         => 'fp_confirmation',
+			'type'       => 'auto_responder',
+			'config'     => $this->get_confirmation_config(),
+			'conditions' => [],
+		];
+
+		//Spam check
+		$processors['fp_spam_check'] = [
+			'ID'         => 'fp_spam_check',
+			'type'       => 'siw_spam_check',
+			'config'     => [ 'email' => $this->get_primary_email() ],
+			'conditions' => [],
+		];
+		
+		return $processors;
+	}
+
+	/** Geeft configuratie van bevestigingsmail terug */
+	protected function get_confirmation_config() : array {
 		$config = [
 			'sender_name'     => Properties::NAME,
-			'sender_email'    => $this->email_settings['email'],
-			'subject'         => $confirmation['subject'],
-			'recipient_name'  => $confirmation['recipient_name'],
-			'recipient_email' => "%{$this->data['primary_email']}%",
+			'sender_email'    => $this->get_email_setting( 'email' ),
+			'subject'         => $this->form->get_autoresponder_subject(),
+			'recipient_name'  => $this->get_recipient_name(),
+			'recipient_email' => "%{$this->get_primary_email()}%",
 			'message'         => $this->get_email_template(
 				[
-					'subject'         => $confirmation['subject'],
-					'message'         => $confirmation['message'],
+					'subject'         => $this->form->get_autoresponder_subject(),
+					'message'         => $this->form->get_autoresponder_message(),
 					'show_signature'  => true,
-					'signature_name'  => $this->email_settings['name'],
-					'signature_title' => $this->email_settings['title'],
+					'signature_name'  => $this->get_email_setting( 'name' ),
+					'signature_title' => $this->get_email_setting( 'title' ),
 					'show_summary'    => true,
 				]
 			),
 		];
-		$this->add_processor( 'confirmation', 'auto_responder', $config );
+		return $config;
 	}
 
-	/** Voegt formprocessor toe */
-	protected function add_processor( string $id, string $type, array $config, array $conditions = [] ) {
-		$this->form['processors']["fp_{$id}"] = [
-			'ID'         => "fp_{$id}",
-			'type'       => $type,
-			'config'     => $config,
-			'conditions' => $conditions,
-		];
+	/** Geeft slug van primary email adres terug TODO: fallback naar eerste email veld? */
+	protected function get_primary_email() : string {
+		$primary_email_fields = wp_list_filter( $this->form->get_fields(), [ 'primary_email' => true ] );
+		$slugs = wp_list_pluck( $primary_email_fields, 'slug' );
+		return reset( $slugs );
 	}
 
-	/** Voegt form processor voor spam check toe */
-	protected function set_spam_check() {
-		$this->add_processor( 'spam_check', 'siw_spam_check', [ 'email' => $this->data['primary_email'] ] );
+	/** Haal e-mail instelling op */
+	protected function get_email_setting( string $setting ) : string {
+		$email_settings = siw_get_email_settings( $this->form->get_id() );
+		return $email_settings[ $setting ] ?? '';
 	}
 
-	/** Voegt pagina's toe TODO:naam van formulier gebruiken als fallback */
-	protected function set_pages() {
-		if ( empty( $this->data['pages'] ) ) {
-			$this->form['page_names'] = [
-				__( 'Formulier', 'siw' ),
-			];
-		}
-		else {
-			foreach ( $this->data['pages'] as $page ) {
-				$this->form['page_names'][] = $page;
-			}
-		}
-	}
-
-	/** Zet de velden van het formulier */
-	protected function set_fields() {
-		//Bepaal index van laatste pagina
-		$last_page = count( $this->data['fields'] ) - 1;
-
-		$form_structure = [];
-		$row_index = 0;
-		foreach ( $this->data['fields'] as $page_index => $rows ) {
-
-			// Introtekst toevoegen als veld op eerste pagina
-			if ( 0 === $page_index && ! empty( $this->data['intro'] ) ) {
-				array_unshift(
-					$rows,
-					[
-						[
-							'slug'   => 'intro',
-							'type'   => 'html',
-							'width'  => 100,
-							'config' => [
-								'default' => implode( SPACE, $this->data['intro'] ) . HR,
-							],
-						],
-					]
-				);
-			}
-
-			//Knoppen toevoegen
-			$button_row = $this->generate_button_row( $page_index, $last_page );
-			if ( ! empty( $button_row ) ) {
-				array_push( $rows, $button_row );
-			}
-
-			$page_structure = [];
-			foreach ( $rows as $row ) {
-				$row_structure = [];
-				$row_index ++;
-				$cell_index = 0;
-				foreach ( $row as $field ) {
-					$field = $this->parse_field( $field );
-					$this->form['fields'][ $field['slug'] ] = $field;
-					
-					if ( ! isset( $field['same_cell'] ) ) {
-						$cell_index++;
-						$row_structure[] = $field['width'] ?? self::DEFAULT_CELL_WIDTH;
-					}
-					$layout_fields[ $field['slug'] ] = "{$row_index}:{$cell_index}";
-				}
-				$page_structure[] = implode( ':', $row_structure );
-
-			}
-			$form_structure[] = implode( '|', $page_structure );
-		}
-
-		$this->form['layout_grid'] = [
-			'fields'    => $layout_fields,
-			'structure' => implode( '#', $form_structure ) . '|12',
-		];
-	}
-
-	/** Undocumented function */
-	protected function parse_field( $field ) {
-
-		// Gegevens van standaardvelden gebruiken indien van toepassing
-		if ( isset( $field['slug'] ) && isset(  $this->default_fields[ $field['slug'] ] ) ) {
-			$field = wp_parse_args_recursive( $field, $this->default_fields[ $field['slug'] ] );
-		}
-
-		if ( is_string( $field ) && isset(  $this->default_fields[ $field ] ) ) {
-			$field = $this->default_fields[ $field ];
-		}
-
-		//Formatteer opties
-		if ( isset( $field['config']['option'] ) ) {
-			$field['config']['option'] = $this->format_options( $field['config']['option'] );
-		}
-
-		//Voeg condities toe
-		if ( isset( $field['condition'] ) ) {
-			$this->add_conditional_group( $field['slug'], $field['condition']['type'], $field['condition']['groups'] );
-			$field['conditions'] = [ 'type' => "con_{$field['slug']}" ];
-			unset( $field['condition'] );
-		}
-
-		$field = wp_parse_args_recursive(
-			$field,
-			[
-				'ID'         => $field['slug'],
-				'label'      => '',
-				'required'   => true,
-				'caption'    => '',
-				'config'     => [
-					'custom_class' => '',
-					'default'      => '',
-				],
-				'conditions' => [ 'type' => ''],
-			]
+	/** Haal naam voor bevestigingsmail op */
+	protected function get_recipient_name() : string {
+		$recipient_name_fields = wp_list_filter( $this->form->get_fields(), [ 'recipient_name' => true ] );
+		$slugs = wp_list_pluck( $recipient_name_fields, 'slug' );
+		$slugs = array_map(
+			fn( string $slug ) : string => "%{$slug}%",
+			$slugs
 		);
-		return $field;
-	}
 
-	/** Genereert knoppenrij */
-	protected function generate_button_row( int $current_page, int $last_page ) {
-		$button_row = [];
-		
-		// 'Vorige'-knop toevoegen
-		if ( 0 != $current_page ) {
-			$button_row[] = [
-				'slug'    => "from_page_{$current_page}_to_previous",
-				'type'    => 'button',
-				'label'   => __( 'Vorige', 'siw' ),
-				'config'  => [
-					'type'         => 'prev',
-					'class'        => 'kad-btn',
-				],
-			];
-		}
-
-		// 'Volgende'-knop toevoegen
-		if ( $last_page != $current_page ) {
-			$button_row[] = [
-				'slug'    => "from_page_{$current_page}_to_next",
-				'type'    => 'button',
-				'label'   => __( 'Volgende', 'siw' ),
-				'config'  => [
-					'type'         => 'next',
-					'class'        => '',
-				],
-			];
-		}
-
-		// 'Verzenden'-knop toevoegen
-		if ( $last_page == $current_page  ) {
-			$button_row[] = [
-				'slug'    => 'verzenden',
-				'type'    => 'button',
-				'label'   => __( 'Verzenden', 'siw' ),
-				'config'  => [
-					'type'         => 'submit',
-					'class'        => '',
-				],
-			];
-		}
-
-		return $button_row;
-	}
-
-	/** Voegt condities toe */
-	protected function add_conditional_group( string $slug, string $type, array $groups ) {
-		$condition_groups = [];
-
-		foreach ( $groups as $group_index => $group ) {
-			$condition_lines = [];
-
-			foreach ( $group as $line_index => $line ) {
-				$line['parent'] = "con_{$slug}_group_{$group_index}";
-				$condition_lines["con_{$slug}_group_{$group_index}_line_{$line_index}"] = $line;
-			}
-			$condition_groups["con_{$slug}_group_{$group_index}"] = $condition_lines;;
-		}
-
-		$this->form['conditional_groups']['conditions'][ "con_{$slug}" ] = [
-			'id'    => "con_{$slug}",
-			'name'  => $slug,
-			'type'  => $type,
-			'group' => $condition_groups,
-		];
+		return implode( SPACE, $slugs );
 	}
 
 	/** Formatteert array met opties */
 	protected function format_options( array $options ) : array {
-
-		$has_values = ( array_values( $options ) !== $options );
-
+		$has_values = ! wp_is_numeric_array( $options ); //TODO: is dit echt nodig
 		foreach ( $options as $value => $label ) {
 			$slug = $has_values ? sanitize_title( $value ) : sanitize_title( $label );
 			$formatted_options[ $slug ] = [

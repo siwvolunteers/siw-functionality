@@ -49,9 +49,9 @@ var siwNewsletterSignup = (function () {
 
 		//Ajax-request sturen
 		var ajax = new XMLHttpRequest();
-		ajax.open( 'POST', siw_api_newsletter.url, true );
+		ajax.open( 'POST', siw_api_newsletter_signup.url, true );
 		ajax.setRequestHeader( 'X-Requested-With', 'XMLHttpRequest' );
-		ajax.setRequestHeader( 'X-WP-Nonce', siw_api_newsletter.nonce );
+		ajax.setRequestHeader( 'X-WP-Nonce', siw_api_newsletter_signup.nonce );
 		ajax.responseType = 'json';
 		ajax.send( formdata );
 
@@ -64,12 +64,12 @@ var siwNewsletterSignup = (function () {
 			//Loading animatie verbergen en boodschap tonen
 			message.classList.remove('loading');
 			message.innerHTML = ajax.response.message;
+			//Als er een mail aangemaakt is stuur dan en GA event
+			if ( 201 == ajax.status && 'function' == typeof ga ) {
+				ga( 'send', 'event', 'Nieuwsbrief', 'Aanmelden' );
+			}
+			else {
 
-			//GA-event bij succesvolle aanmelding
-			if ( true === ajax.response.success ) {
-				if ( 'function' == typeof ga ) {
-					ga( 'send', 'event', 'Nieuwsbrief', 'Aanmelden' );
-				}
 			}
 		};
 	}

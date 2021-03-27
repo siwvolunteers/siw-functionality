@@ -42,6 +42,7 @@ class Admin {
 		remove_menu_page( 'edit-comments.php' );
 		remove_menu_page( 'edit.php' );
 		remove_menu_page( 'link-manager.php' );
+		remove_menu_page( 'limit-login-attempts' );
 	}
 
 	/** Verbergt standaard dashboard widgets */

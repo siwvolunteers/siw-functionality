@@ -10,16 +10,11 @@ use SIW\Data\Currency;
 
 /**
  * Geeft een array met valuta's terug
- * 
- * @since     3.0.0
- *
- * @param string $return
- *
- * @return Currency[]|array
+ * @return Currency[]
  */
-function siw_get_currencies( string $return = 'objects' ) : array {
+function siw_get_currencies() : array {
 
-	$currencies = wp_cache_get( "{$return}", 'siw_currencies' );
+	$currencies = wp_cache_get( __FUNCTION__ );
 	if ( false !== $currencies ) {
 		return $currencies;
 	}
@@ -37,24 +32,19 @@ function siw_get_currencies( string $return = 'objects' ) : array {
 		$data
 	);
 
-	if ( 'array' == $return ) {
-		$currencies = array_map(
-			fn( Currency $currency ) : string => $currency->get_name(),
-			$currencies
-		);
-	}
-	wp_cache_set( "{$return}", $currencies, 'siw_currencies' );
-
+	wp_cache_set( __FUNCTION__ , $currencies );
 	return $currencies;
 }
 
-/**
- * Geeft informatie over een valuta terug
- * 
- * @since  3.0.0
- *
- * @return Currency|null
- */
+/** Geeft lijst van valuta's terug */
+function siw_get_currencies_list() : array {
+	return array_map(
+		fn( Currency $currency ) : string => $currency->get_name(),
+		siw_get_currencies()
+	);
+}
+
+/** Geeft informatie over een valuta terug */
 function siw_get_currency( string $currency ) : ?Currency {
 	$currencies = siw_get_currencies();
 	return $currencies[ $currency ] ?? null;

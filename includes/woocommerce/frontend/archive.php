@@ -2,8 +2,6 @@
 
 namespace SIW\WooCommerce\Frontend;
 
-use SIW\Formatting;
-
 /**
  * Aanpassingen aan overzichtspagina van groepsprojecten
  *
@@ -31,7 +29,7 @@ class Archive {
 	/** Toont datums */
 	public function show_dates() {
 		global $product;
-		$duration = Formatting::format_date_range( $product->get_attribute('startdatum'), $product->get_attribute('einddatum'), false );
+		$duration = siw_format_date_range( $product->get_attribute('startdatum'), $product->get_attribute('einddatum'), false );
 		echo wpautop( esc_html( $duration ) );
 	}
 

@@ -1,5 +1,5 @@
 {{> widget-title}}
 {{# intro}}
-<p>{{ . }}</p>
+<p>{{& . | wp_kses_post }}</p>
 {{/ intro}}
 {{& content }}

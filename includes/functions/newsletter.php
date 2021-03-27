@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 
 use SIW\External\Mailjet;
-use SIW\Newsletter\Confirmation_Email;
 
 /**
  * Functies m.b.t. nieuwsbrief
@@ -39,10 +38,4 @@ function siw_newsletter_subscribe( string $email, int $list_id, array $propertie
 		$list_id,
 		$properties
 	);
-}
-
-/** Verstuur bevestigingsmail */
-function siw_newsletter_send_confirmation_email( string $email, int $list_id, array $properties = [] ) : bool {
-	$confirmation_mail = new Confirmation_Email( $email, $list_id, $properties, $properties );
-	return $confirmation_mail->send();
 }

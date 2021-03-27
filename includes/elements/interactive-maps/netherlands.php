@@ -2,52 +2,58 @@
 
 namespace SIW\Elements\Interactive_Maps;
 
-use SIW\Elements;
-use SIW\Elements\Interactive_Map;
+use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
+
+use SIW\Elements\Accordion;
 use SIW\i18n;
-use SIW\Formatting;
 use SIW\Properties;
 use SIW\Util\Links;
-use WC_Product;
 
 /**
  * Class om een Mapplic kaart te genereren
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Netherlands extends Interactive_Map {
+class Netherlands implements Interactive_Map_Interface {
 
 	/** {@inheritDoc} */
-	protected string $id = 'nl';
+	public function get_id(): string {
+		return 'nl';
+	}
 
 	/** {@inheritDoc} */
-	protected string $file = 'netherlands';
-	
-	/** {@inheritDoc} */
-	protected array $data = [
-		'mapwidth'  => 600,
-		'mapheight' => 600,
-		'bottomLat' => '50.67500192979909',
-		'leftLng'   => '2.8680356443589807',
-		'topLat'    => '53.62609096857893',
-		'rightLng'  => '7.679884929662812',
-	];
+	public function get_file(): string {
+		return 'netherlands';
+	}
 
 	/** {@inheritDoc} */
-	protected array $options = [
-		'alphabetic'   => false,
-		'search'       => true,
-		'searchfields' => ['title', 'about', 'description'],
-	];
+	public function get_options(): array {
+		return [
+			'alphabetic'   => false,
+			'search'       => true,
+			'searchfields' => ['title', 'about', 'description'],
+		];
+	}
 
 	/** {@inheritDoc} */
-	protected function get_categories() : array {
+	public function get_map_data(): array {
+		return [
+			'mapwidth'  => 600,
+			'mapheight' => 600,
+			'bottomLat' => '50.67500192979909',
+			'leftLng'   => '2.8680356443589807',
+			'topLat'    => '53.62609096857893',
+			'rightLng'  => '7.679884929662812',
+		];
+	}
+
+	/** {@inheritDoc} */
+	public function get_categories() : array {
 		return [];
 	}
 
 	/** {@inheritDoc} */
-	protected function get_locations() : array {
+	public function get_locations() : array {
 		$projects = $this->get_projects();
 		$locations = [];
 		$provinces = [];
@@ -57,31 +63,31 @@ class Netherlands extends Interactive_Map {
 				'title'         => $this->get_project_title( $project ),
 				'image'         => $project->get_image_id() ? wp_get_attachment_image_src( $project->get_image_id(), 'medium' )[0] : null,
 				'about'         => $project->get_sku(),
-				'lat'           => $project->get_meta( 'latitude') ?? null,
-				'lng'           => $project->get_meta( 'longitude') ?? null,
+				'lat'           => $project->get_meta( 'latitude' ) ?? null,
+				'lng'           => $project->get_meta( 'longitude' ) ?? null,
 				'description'   => $this->get_project_properties( $project ) . $this->get_project_button( $project ),
 				'pin'           => 'pin-classic pin-md',
 				'category'      => 'nl',
 				'fill'          => Properties::PRIMARY_COLOR,
 			];
-			$provinces[] = sprintf( '#nl-%s path', $project->get_meta( 'dutch_projects_province' ) );
+			$provinces[] = $project->get_meta( 'dutch_projects_province' );
 		}
 	
-		/** Inline CSS */
+		//Provincies inkleuren
 		$provinces = array_unique( $provinces );
-		$selectors = implode( ',', $provinces );
-	
-		$this->inline_css = [
-			$selectors => [
-				'fill' => Properties::SECONDARY_COLOR,
-			],
-		];
+		foreach ( $provinces as $province ) {
+			$locations[] = [
+				'id'       => "nl-{$province}",
+				'fill'     => Properties::SECONDARY_COLOR,
+				'action'   => 'disabled',
+			];
+		}
 		
 		return $locations;
 	}
 
 	/** {@inheritDoc} */
-	protected function get_mobile_content() : ?string {
+	public function get_mobile_content() : ?string {
 		
 		$projects = $this->get_projects();
 		if ( empty( $projects ) ) {
@@ -98,7 +104,7 @@ class Netherlands extends Interactive_Map {
 			];
 
 		}
-		return Elements::generate_accordion( $panes );
+		return Accordion::create()->add_items( $panes )->generate();
 	}
 
 	/** Haalt projecten op */
@@ -122,7 +128,7 @@ class Netherlands extends Interactive_Map {
 			$work_type_slugs
 		);
 	
-		$duration = Formatting::format_date_range( $project->get_attribute( 'startdatum' ), $project->get_attribute( 'einddatum' ) );
+		$duration = siw_format_date_range( $project->get_attribute( 'startdatum' ), $project->get_attribute( 'einddatum' ) );
 
 		//Opbouwen beschrijving
 		$description[] = sprintf( __( 'Projectcode: %s', 'siw' ), $project->get_sku() );

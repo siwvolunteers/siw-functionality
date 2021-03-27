@@ -10,7 +10,7 @@
 	{{# series}}
 	<li>
 		<b>{{ label }}</b>
-		<p>{{ explanation }}</p>
+		<p>{{& explanation | wp_kses_post }}</p>
 	</li>
 	{{/ series}}
 </ul>

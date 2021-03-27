@@ -12,6 +12,7 @@
 		"build:icons": "npm run build:icons:general && npm run build:icons:sdg",
 		"build:icons:general": "svgstore -o assets/icons/siw-general-icons.svg -p siw-icon- --inline assets/icons/general/*.svg",
 		"build:icons:sdg": "svgstore -o assets/icons/siw-sdg-icons.svg -p siw-icon-sdg- --inline assets/icons/sdg/*.svg",
+		"build:translations": "wp-pot --domain siw --dest-file languages/siw.pot --relative-to ./ --package 'SIW Internationale Vrijwilligersprojecten' --team 'SIW <webmaster@siw.nl>'",
 		"scss": "sass --update --no-source-map assets/scss:assets/css",
 		"scss-watch": "sass --watch --no-source-map assets/scss:assets/css",
 		"autoprefixer": "postcss --no-map -u autoprefixer -r assets/css/*.css",
@@ -23,12 +24,13 @@
 	],
 	"dependencies": {},
 	"devDependencies": {
-		"autoprefixer": "^9.8.6",
-		"frontend-dependencies": "1.*",
+		"autoprefixer": "^10.0.0",
+		"frontend-dependencies": "^2.0.0",
 		"mjml": "^4.8.1",
-		"postcss-cli": "^7.1.2",
+		"postcss-cli": "^8.0.0",
 		"sass": "^1.32.6",
-		"svgstore-cli": "^1.3.2"
+		"svgstore-cli": "^2.0.0",
+		"wp-pot-cli": "^1.5.0"
 	},
 	"frontendDependencies": {
 		"target": "assets/vendor",

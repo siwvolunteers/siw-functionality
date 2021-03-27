@@ -2,28 +2,29 @@
 
 namespace SIW\Elements;
 
-use SIW\Core\Template;
-
 /**
  * Class om een tablist te genereren
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @see       https://github.com/AcceDe-Web/tablist
  */
-class Tablist {
+class Tablist extends Repeater {
 	
 	/** Versienummer */
 	const TABLIST_VERSION = '2.0.1';
 
-	/** Panes */
-	protected array $panes=[];
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'tablist';
+	}
 
-	/** Init */
-	public function __construct() {
-		$this->enqueue_styles();
-		$this->enqueue_scripts();
+	/** {@inheritDoc} */
+	protected function get_template_variables(): array {
+		return [
+			'id'    => uniqid(),
+			'panes' => $this->items,
+		];
 	}
 
 	/** Voegt scripts toe */
@@ -39,31 +40,27 @@ class Tablist {
 		wp_enqueue_style( 'siw-tablist' );
 	}
 
-	/** Genereert tablist */
-	public function generate() : string {
-		$template = Template::get_template( 'elements/tablist');
-		$parameters = [
-			'id'    => uniqid(),
-			'panes' => $this->panes,
-		];
-		return $template->render( $parameters );
-	}
-
-	/** Voegt pane aan tablist toe */
-	public function add_pane( string $title, string $content, bool $show_button = false, string $button_url = null, string $button_text = null ) {
-		
-		//Afbreken als content geen zichtbare inhoud bevat
-		if ( 0 === strlen( trim( $content ) ) ) {
-			return;
-		}
-
-		$this->panes[] = [
-			'id'          => uniqid(),
-			'title'       => $title,
-			'content'     => $content,
-			'show_button' => $show_button,
-			'button_url'  => $button_url,
-			'button_text' => $button_text,
+	/** {@inheritDoc} */
+	protected function get_item_defaults(): array {
+		return [ 
+			'title'       => '',
+			'content'     => '',
+			'show_button' => false,
+			'button_url'  => '',
+			'button_text' => ''
 		];
 	}
+
+	/** {@inheritDoc} */
+	protected function parse_item( array $item ): array {
+		return [
+			'id'       => uniqid(),
+			'title'    => $item['title'] ?? '',
+			'content'  => $item['content'] ?? '',
+			'button'   => $item['show_button'] ?
+				[ 'url'  => $item['button_url'], 'text' => $item['button_text'] ] :
+				[],
+		];
+	}
+
 }

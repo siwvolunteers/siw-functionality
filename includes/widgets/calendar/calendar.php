@@ -2,13 +2,10 @@
 
 namespace SIW\Widgets;
 
-use SIW\Formatting;
-
 /**
  * Widget met agenda
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data 
  * Widget Name: SIW: Agenda
@@ -18,49 +15,48 @@ use SIW\Formatting;
  */
 class Calendar extends Widget {
 
-	/**
-	 * Aantal events wat in widget getoond wordt
-	 * 
-	 * @var int
-	 */
+	/** Aantal events wat in widget getoond wordt */
 	const NUMBER_OF_EVENTS = 2;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id ='calendar';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'calendar';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Agenda', 'siw');
-		$this->widget_description = __( 'Toont eerstvolgende evenementen', 'siw' );
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'calendar';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Agenda', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont eerstvolgende evenementen', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return $this->get_id();
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'calendar';
+	}
+
+	/** {@inheritDoc} */
 	public function get_widget_form() {
 
 		$widget_form = [
 			'title' => [
 				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw'),
+				'label'   => __( 'Titel', 'siw' ),
 				'default' => __( 'Agenda', 'siw' ),
 			],
 		];
 		return $widget_form;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
 		$events = $this->get_upcoming_events();
 
@@ -75,38 +71,28 @@ class Calendar extends Widget {
 		return $parameters;
 	}
 
-	/**
-	 * Parset event data
-	 *
-	 * @param int $event_id
-	 *
-	 * @return array
-	 */
+	/** Parset event data */
 	protected function parse_event( int $event_id ) : array {
 		return [
 			'title'    => get_the_title( $event_id ),
 			'url'      => get_permalink( $event_id ),
 			'duration' => sprintf(
 				'%s %s-%s',
-				Formatting::format_date( siw_meta( 'event_date', [], $event_id ), false ),
+				siw_format_date( siw_meta( 'event_date', [], $event_id ), false ),
 				siw_meta( 'start_time', [], $event_id ),
 				siw_meta( 'end_time', [], $event_id )
 			),
 			'location' =>
 				siw_meta( 'online', [], $event_id )
 				?
-				esc_html_e( 'Online', 'siw' )
+				esc_html__( 'Online', 'siw' )
 				:
 				sprintf( '%s, %s', siw_meta( 'location.name', [], $event_id ), siw_meta( 'location.city', [], $event_id ) ),
 			
 		];
 	}
 
-	/**
-	 * Haalt toekomstige evenementen op
-	 * 
-	 * @return array
-	 */
+	/** Haalt toekomstige evenementen op */
 	protected function get_upcoming_events() : array {
 		return siw_get_upcoming_events([
 			'number' => self::NUMBER_OF_EVENTS,

@@ -5,11 +5,16 @@ namespace SIW\Data;
 /**
  * Bevat informatie over een soort werk
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Work_Type extends Data{
 	
+	/** Alle soorten werk */
+	const ALL = 'all';
+
+	/** Soorten werk voor Op Maat projecten*/
+	const TAILOR_MADE = 'tailor_made_projects';
+
 	/** De slug van het soort werk */
 	protected string $slug;
 
@@ -48,5 +53,13 @@ class Work_Type extends Data{
 	/** Geeft terug of dit soort werk gekoppeld kan worden aan een Op Maat project */
 	public function is_for_tailor_made_projects() : bool {
 		return $this->tailor_made_projects;
+	}
+
+	/** Geeft aan of soort werk geldig is voor context */
+	public function is_valid_for_context( string $context ) : bool {
+		return (
+			self::ALL == $context
+			|| ( self::TAILOR_MADE == $context && $this->is_for_tailor_made_projects() )
+		);
 	}
 }

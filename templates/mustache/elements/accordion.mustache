@@ -5,9 +5,11 @@
 	</h5>
 	<div class="panel" id="panel-{{id}}" aria-labelledby="tab-{{id}}" style="max-height:0px">
 		<p>
-			{{{ content|wp_kses_post }}}
+			{{& content|wp_kses_post }}
 		</p>
-		{{> button }}
-		</div>
+		{{# button }}
+			{{> links/button }}
+		{{/ button }}
+	</div>
 	{{/ panes }}
 </div>

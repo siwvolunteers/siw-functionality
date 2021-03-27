@@ -2,9 +2,8 @@
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
-use SIW\Elements;
 use SIW\Elements\Google_Maps;
-use SIW\Formatting;
+use SIW\Elements\Icon;
 use SIW\Util\Links;
 
 /**
@@ -306,7 +305,7 @@ class Event extends Type {
 	 * {@inheritDoc}
 	 */
 	protected function generate_slug( array $data, array $postarr ) : string {
-		return sprintf( '%s %s', $data['post_title'], Formatting::format_date( $postarr['event_date'] ) );
+		return sprintf( '%s %s', $data['post_title'], siw_format_date( $postarr['event_date'] ) );
 	}
 	
 	/**
@@ -320,8 +319,8 @@ class Event extends Type {
 		//Tijd
 		printf(
 			'%s %s %s-%s',
-			Elements::generate_icon( 'siw-icon-clock' ),
-			Formatting::format_date( siw_meta( 'event_date' ), false),
+			Icon::create()->set_icon_class( 'siw-icon-clock' )->generate(),
+			siw_format_date( siw_meta( 'event_date' ), false),
 			siw_meta( 'start_time'),
 			siw_meta( 'end_time' )
 		);
@@ -332,7 +331,7 @@ class Event extends Type {
 
 			printf(
 				'%s %s %s',
-				Elements::generate_icon( 'siw-icon-globe'),
+				Icon::create()->set_icon_class( 'siw-icon-globe' )->generate(),
 				$online_location['name'],
 				Links::generate_external_link( $online_location['url'] )
 			);
@@ -342,7 +341,7 @@ class Event extends Type {
 			$location = siw_meta( 'location' );
 			printf(
 				'%s %s, %s, %s %s',
-				Elements::generate_icon( 'siw-icon-map-marker-alt'),
+				Icon::create()->set_icon_class( 'siw-icon-map-marker-alt' )->generate(),
 				$location['name'],
 				$location['street'],
 				$location['postcode'],
@@ -363,7 +362,7 @@ class Event extends Type {
 		}
 
 		elseif ( siw_meta( 'info_day' ) ) {
-			$default_date = sanitize_title( Formatting::format_date( siw_meta('event_date' ), false ) );
+			$default_date = sanitize_title( siw_format_date( siw_meta('event_date' ), false ) );
 			echo do_shortcode( sprintf( '[caldera_form id="infodag" datum="%s"]', $default_date) );
 		}
 		else {
@@ -378,13 +377,13 @@ class Event extends Type {
 		if ( ! siw_meta( 'online') ) {
 			$location = siw_meta( 'location' );
 
-			$location_map = new Google_Maps;
-			$location_map->add_location_marker(
-				sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] ),
-				$location['name'],
-				sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] )
-			);
-			$location_map->set_options(['zoom' => 15 ]);
+			$location_map = Google_Maps::create()
+				->add_location_marker(
+					sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] ),
+					$location['name'],
+					sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] )
+				)
+				->set_zoom( 15 );
 
 			echo '<h2>' . esc_html__( 'Locatie', 'siw') . '</h2>';
 			echo '<p>' . $location_map->generate() . '</p>';
@@ -421,7 +420,7 @@ class Event extends Type {
 					<?php
 						printf(
 							'%s %s-%s',
-							Elements::generate_icon( 'siw-icon-clock' ),
+							Icon::create()->set_icon_class( 'siw-icon-clock' )->generate(),
 							siw_meta( 'start_time'),
 							siw_meta( 'end_time' )
 						);
@@ -437,7 +436,7 @@ class Event extends Type {
 		
 					printf(
 						'%s %s %s',
-						Elements::generate_icon( 'siw-icon-globe'),
+						Icon::create()->set_icon_class( 'siw-icon-globe' )->generate(),
 						$online_location['name'],
 						Links::generate_external_link( $online_location['url'] )
 					);
@@ -447,7 +446,7 @@ class Event extends Type {
 					$location = siw_meta( 'location' );
 					printf(
 						'%s %s, %s, %s %s',
-						Elements::generate_icon( 'siw-icon-map-marker-alt'),
+						Icon::create()->set_icon_class( 'siw-icon-map-marker-alt' )->generate(),
 						$location['name'],
 						$location['street'],
 						$location['postcode'],

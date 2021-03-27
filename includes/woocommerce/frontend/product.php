@@ -3,6 +3,7 @@
 namespace SIW\WooCommerce\Frontend;
 
 use SIW\Data\Currency;
+use SIW\External\Exchange_Rates;
 use SIW\WooCommerce\Import\Product as Import_Product;
 
 /**
@@ -17,10 +18,8 @@ class Product {
 		$self = new self();
 		add_filter( 'woocommerce_is_purchasable', [ $self, 'set_product_is_purchasable'], 10, 2 );
 		add_filter( 'woocommerce_available_variation', [ $self, 'set_variation_description'] );
-		add_filter( 'woocommerce_sale_flash', [ $self, 'set_sales_flash_text' ] );
 		add_filter( 'woocommerce_display_product_attributes', [ $self, 'display_product_attributes'], 10, 2 );
 		add_action( 'woocommerce_after_add_to_cart_form', [ $self, 'show_local_fee'] );
-		add_filter( 'woocommerce_out_of_stock_message', [ $self, 'set_out_of_stock_message'] );
 		add_filter( 'woocommerce_dropdown_variation_attribute_options_args', [ $self, 'set_variation_dropdown_args'] );
 
 		add_action( 'woocommerce_before_single_product_summary', [ $self, 'show_featured_badge' ], 10 );
@@ -62,11 +61,6 @@ class Product {
 		return $variations;
 	}
 
-	/** Zet de aanbiedingstekst */
-	public function set_sales_flash_text() : string {
-		return '<span class="onsale">' . __( 'Korting', 'siw' ) . '</span>';
-	}
-
 	/** Past weergave van de attributes aan */
 	public function display_product_attributes( array $attributes, \WC_Product $product ) : array {
 		$order = [
@@ -101,11 +95,6 @@ class Product {
 		return $attributes;
 	}
 	
-	/** Past melding bij niet meer beschikbaar project aan */
-	public function set_out_of_stock_message() : string {
-		return __( 'Dit project is helaas niet meer beschikbaar', 'siw' );
-	}
-
 	/** Toont lokale bijdrage indien van toepassing */
 	public function show_local_fee() {
 		global $product;
@@ -115,7 +104,7 @@ class Product {
 			return;
 		}
 
-		$amount = $product->get_meta( 'participation_fee' );
+		$amount = (float) $product->get_meta( 'participation_fee' );
 		$currency_code = $product->get_meta( 'participation_fee_currency' );
 
 		if ( empty( $currency_code ) || $amount <= 0 ) {
@@ -127,8 +116,9 @@ class Product {
 		if ( is_a( $currency, Currency::class ) ) {
 			$symbol = $currency->get_symbol();
 			
-			if ( get_woocommerce_currency() != $currency_code ) {
-				$amount_in_euro = $currency->convert_to_euro( floatval( $amount ) );
+			if ( get_woocommerce_currency() != $currency->get_iso_code() ) {
+				$exchange_rates = new Exchange_Rates();
+				$amount_in_euro = $exchange_rates->convert_to_euro( $currency->get_iso_code(), $amount, 0 );
 			}
 		}
 		?>

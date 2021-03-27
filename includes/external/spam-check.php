@@ -3,6 +3,7 @@
 namespace SIW\External;
 
 use SIW\Helpers\HTTP_Request;
+use SIW\Util\Logger;
 
 /**
  * Opzoeken e-mailadres en IP in SFS-spamdatabase
@@ -16,8 +17,8 @@ class Spam_Check{
 	/** API URL */
 	const API_URL = 'https://europe.stopforumspam.org/api';
 
-	/** Grens voor Spam */
-	const SPAM_THRESHOLD = 90.00;
+	/** Grens voor Spam TODO: configurabel maken*/
+	const SPAM_THRESHOLD = 85.00;
 
 	/** Geldigheidsduur van transient */
 	const TRANSIENT_EXPIRATION = 1 * DAY_IN_SECONDS;
@@ -70,6 +71,7 @@ class Spam_Check{
 			$ip_confidence = get_transient( "siw_spam_ip_{$this->ip}" );
 			if ( false !== $ip_confidence ) {
 				if ( floatval( $ip_confidence ) > self::SPAM_THRESHOLD ) {
+					Logger::info( "Gefilterd als spam: ip {$this->ip} (email {$this->email})", 'siw-spam-check' );
 					return true;
 				}
 				$this->check_ip = false;
@@ -81,6 +83,7 @@ class Spam_Check{
 			$email_confidence = get_transient( "siw_spam_email_{$this->email_hash}" );
 			if ( false !== $email_confidence ) {
 				if ( floatval( $email_confidence ) > self::SPAM_THRESHOLD ) {
+					Logger::info( "Gefilterd als spam: email {$this->email} (ip {$this->ip})", 'siw-spam-check' );
 					return true;
 				}
 				$this->check_email = false;
@@ -103,14 +106,17 @@ class Spam_Check{
 	
 			//Bepaal of het een spammer betreft
 			if ( isset( $email_confidence ) && $email_confidence > self::SPAM_THRESHOLD ) {
+				Logger::info( "Gefilterd als spam: email {$this->email} (ip {$this->ip})", 'siw-spam-check' );
 				return true;
 			}
 			
 			if ( isset( $ip_confidence ) && $ip_confidence > self::SPAM_THRESHOLD ) {
+				Logger::info( "Gefilterd als spam: ip {$this->ip} (email {$this->email})", 'siw-spam-check' );
 				return true;
 			}
 		}
 		
+		Logger::info( "Niet gefilterd als spam: email {$this->email} en IP {$this->ip}", 'siw-spam-check' );
 		return false;
 	}
 
@@ -121,15 +127,15 @@ class Spam_Check{
 			'json'  => true
 		];
 		if ( $this->check_email ) {
-			$body['email'] = $this->email;
+			$body['email'] = urlencode( $this->email );
 		}
 		if ( $this->check_ip ) {
 			$body['ip'] = $this->ip;
 		}
 
-		$request = new HTTP_Request( self::API_URL );
-		$request->set_content_type( HTTP_Request::APPLICATION_X_WWW_FORM_URLENCODED );
-		$response = $request->post( $body );
+		$response = HTTP_Request::create( self::API_URL )
+			->set_content_type( HTTP_Request::APPLICATION_X_WWW_FORM_URLENCODED )
+			->post( $body );
 
 		if ( is_wp_error( $response ) || false == $response['success'] ) {
 			return [];

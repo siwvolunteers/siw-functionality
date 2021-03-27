@@ -5,10 +5,9 @@ namespace SIW\Data;
 /**
  * Bevat informatie over een continent
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Continent {
+class Continent extends Data {
 
 	/** Slug van continent */
 	protected string $slug;
@@ -18,21 +17,6 @@ class Continent {
 
 	/** Kleurcode van continent op kaart */
 	protected string $color;
-
-	/** Constructor */
-	public function __construct( array $data ) {
-		$defaults = [
-			'slug'  => '',
-			'name'  => '',
-			'color' => '',
-		];
-		$data = wp_parse_args( $data, $defaults );
-		$data = wp_array_slice_assoc( $data, array_keys( $defaults ) );
-		
-		foreach( $data as $key => $value ) {
-			$this->$key = $value;
-		}
-	}
 
 	/** Geeft de slug van het continent terug */
 	public function get_slug() : string {

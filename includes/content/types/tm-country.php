@@ -3,7 +3,11 @@
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
-use SIW\Elements;
+use SIW\Data\Country;
+use SIW\Data\Work_Type;
+use SIW\Elements\Features;
+use SIW\Elements\Icon;
+use SIW\Elements\Quote;
 use SIW\Elements\World_Map;
 use SIW\i18n;
 use SIW\Util\CSS;
@@ -82,7 +86,7 @@ class TM_Country extends Type {
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
 				'required'    => true,
-				'options'     => siw_get_countries( 'tailor_made_projects', 'slug', 'array' ),
+				'options'     => siw_get_countries_list( Country::TAILOR_MADE, 'slug' ),
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],
 			[
@@ -90,7 +94,7 @@ class TM_Country extends Type {
 				'name'        => __( 'Soort werk', 'siw' ),
 				'type'        => 'checkbox_list',
 				'required'    => true,
-				'options'     => siw_get_work_types( 'tailor_made_projects', 'slug', 'array' ),
+				'options'     => siw_get_work_types_list( Work_Type::TAILOR_MADE, 'slug' ),
 			],
 			[
 				'id'       => 'quote',
@@ -233,11 +237,7 @@ class TM_Country extends Type {
 		$continent = $country->get_continent();
 		?>
 		<div class="grid-50 <?php echo CSS::HIDE_ON_MOBILE_CLASS; ?>" data-sal="slide-right" data-sal-duration="1800" data-sal-easing="ease-out-sine">
-			
-			<?php 
-				$world_map = new World_Map();
-				echo $world_map->generate( $country, 2 );
-			?>
+			<?php World_Map::create()->set_country( $country )->set_zoom( 2 )->render(); ?>
 		</div>
 		<div class="grid-50" data-sal="slide-left" data-sal-duration="1800" data-sal-easing="ease-out-sine">
 			<h2><?php printf( esc_html__( 'Projecten Op Maat in %s', 'siw' ), $country->get_name() );  ?></h2>
@@ -253,13 +253,13 @@ class TM_Country extends Type {
 						$has_child_projects = true; //TODO: misschien array_key_exists gebruiken?
 					}
 
-					printf( '%s %s<br>', Elements::generate_icon( $work_type->get_icon_class(), 2, 'circle' ), $work_type->get_name() );
+					printf( '%s %s<br>', Icon::create()->set_icon_class( $work_type->get_icon_class() )->set_has_background(true)->generate(), $work_type->get_name() );
 				}
 				?>
 			</p>
 		</div>
 		<div class="grid-100" data-sal="fade" data-sal-duration="1850" data-sal-easing="ease-out-sine">
-			<?php echo Elements::generate_quote( rwmb_get_value( 'quote' ) ); ?>
+			<?php Quote::create()->set_quote( rwmb_get_value( 'quote' ) )->render(); ?>
 		</div>
 		<div class="grid-50 push-50" data-sal="slide-left" data-sal-duration="1800" data-sal-easing="ease-out-sine">
 			<?php
@@ -295,8 +295,10 @@ class TM_Country extends Type {
 			<h2><?php esc_html_e( 'Zo werkt het', 'siw' );?></h2>
 		</div>
 		<?php
-		echo Elements::generate_features(
-			[
+
+		Features::create()
+			->set_columns( 4 )
+			->add_items( [
 				[
 					'icon'    => 'siw-icon-file-signature',
 					'title'   => '1. Aanmelding',
@@ -317,9 +319,7 @@ class TM_Country extends Type {
 					'title'   => '4. Voorbereiding',
 					'content' => 'Kom naar de Infodag zodat je goed voorbereid aan jouw avontuur kan beginnen.',
 				],
-			],
-			4 //TODO:
-		);
+			])->render();
 	}
 
 	/**

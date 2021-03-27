@@ -16,7 +16,8 @@ class Util {
 	public static function get_pattern( string $type ) : ?string {
 		$patterns = [
 			'date'        => '^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$',
-			'postal_code' => '^[1-9][0-9]{3}\s?[a-zA-Z]{2}$',
+			'postcode'    => '^[1-9][0-9]{3}\s?[a-zA-Z]{2}$',
+			'housenumber' => '^(\d+)\s*[\s\w\-\/]*$',
 			'latitude'    => '^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$',
 			'longitude'   => '^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$',
 			'ip'          => '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$',
@@ -60,37 +61,6 @@ class Util {
 		$from = new \DateTime( $date );
 		$to   = new \DateTime('today');
 		return $from->diff( $to )->y;
-	}
-
-	/** Geeft aan of kortingsactie voor Groepsprojecten actief is */
-	public static function is_workcamp_sale_active() : bool {
-		
-		$workcamp_sale = siw_get_option( 'workcamp_sale' );
-		$workcamp_sale_active = false;
-
-		if ( isset( $workcamp_sale['active'] ) &&
-			date( 'Y-m-d' ) >= $workcamp_sale['start_date'] &&
-			date( 'Y-m-d' ) <= $workcamp_sale['end_date']
-			) {
-				$workcamp_sale_active = true;
-		}
-		return $workcamp_sale_active;
-	}
-
-	/** Geeft aan of kortingsactie voor Projecten Op Maat actief is */
-	public static function is_tailor_made_sale_active() : bool {
-		
-		$tailor_made_sale = siw_get_option( 'tailor_made_sale' );
-		
-		$tailor_made_sale_active = false;
-
-		if ( isset( $tailor_made_sale['active'] ) &&
-			date( 'Y-m-d' ) >= $tailor_made_sale['start_date'] &&
-			date( 'Y-m-d' ) <= $tailor_made_sale['end_date']
-			) {
-				$tailor_made_sale_active = true;
-		}
-		return $tailor_made_sale_active;
 	}
 
 	/** Creëert term indien deze nog niet bestaat

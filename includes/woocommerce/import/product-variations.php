@@ -2,8 +2,6 @@
 
 namespace SIW\WooCommerce\Import;
 
-use SIW\Util;
-
 /**
  * Functies voor het genereren van productvariaties
  *
@@ -48,9 +46,7 @@ class Product_Variations {
 			return;
 		}
 
-		$sale = Util::is_workcamp_sale_active();
-		$workcamp_sale = siw_get_option( 'workcamp_sale' );
-
+		$sale = siw_is_workcamp_sale_active();
 		foreach ( $this->tariffs as $slug => $tariff ) {
 			$variation = new \WC_Product_Variation;
 			$variation->set_props( [
@@ -60,8 +56,8 @@ class Product_Variations {
 				'regular_price'     => $tariff['regular_price'],
 				'sale_price'        => $sale ? $tariff['sale_price'] : null,
 				'price'             => $sale ? $tariff['sale_price'] : $tariff['regular_price'],
-				'date_on_sale_from' => $sale ? date( 'Y-m-d 00:00:00', strtotime( $workcamp_sale['start_date'] ) ) : null,
-				'date_on_sale_to'   => $sale ? date( 'Y-m-d 23:59:59', strtotime( $workcamp_sale['end_date'] ) ) : null,
+				'date_on_sale_from' => $sale ? date( 'Y-m-d 00:00:00', strtotime( siw_get_option( 'workcamp_sale.start_date' ) ) ) : null,
+				'date_on_sale_to'   => $sale ? date( 'Y-m-d 23:59:59', strtotime( siw_get_option( 'workcamp_sale.end_date' ) ) ) : null,
 			]);
 			$variation->save();
 		}

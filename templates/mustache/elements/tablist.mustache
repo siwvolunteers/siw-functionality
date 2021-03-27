@@ -1,15 +1,17 @@
 <div id="{{ id }}" class="siw-tablist" >
 	<ul role="tablist">
 		{{# panes}}
-			<li role="tab" aria-controls="tab-{{id}}">{{ title }}</li>
+			<li role="tab" aria-controls="tab-{{ id }}">{{ title }}</li>
 		{{/ panes}}
 	</ul>
 	{{# panes}}
-		<div role="tabpanel" id="tab-{{id}}">
+		<div role="tabpanel" id="tab-{{ id }}">
 			<p>
-				{{ content }}
-				{{> button }}
+				{{& content | wp_kses_post }}
 			</p>
+			{{# button }}
+				{{> links/button }}
+			{{/ button }}
 		</div>
 	{{/ panes}}
 </div>

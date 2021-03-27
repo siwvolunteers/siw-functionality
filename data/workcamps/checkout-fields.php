@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use SIW\Data\Language;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -11,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 
-$languages = [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages( 'volunteer', 'plato_code', 'array' );
+$languages = [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages_list( Language::VOLUNTEER, 'plato_code' );
 
 $language_skill = siw_get_language_skill_levels();
 

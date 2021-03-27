@@ -63,26 +63,6 @@ class Links {
 		return HTML::a( $attributes, $text ); //TODO: icon
 	}
 
-	/** Genereert icon-link */
-	public static function generate_icon_link( string $url, array $icon, array $attributes = [] ) : string {
-		$icon = wp_parse_args(
-			$icon,
-			[
-				'class'      => '',
-				'size'       => 2,
-				'background' => 'none',
-			]
-		);
-		$attributes = wp_parse_args( 
-			$attributes,
-			[ 'href' => $url ]
-		);
-		return HTML::a(
-			$attributes,
-			Elements::generate_icon( $icon['class'], $icon['size'], $icon['background'] )
-		);
-	}
-
 	/** Genereert link in ghost buttons */
 	public static function generate_button_link( string $url, string $text, array $attributes = [] ) : string {
 		$attributes = wp_parse_args(

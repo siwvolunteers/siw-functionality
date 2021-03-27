@@ -109,8 +109,7 @@ class Properties {
 	/** Kleurcode voor lichte tekst */
 	const FONT_COLOR_LIGHT = '#555';
 
-	/** Maximale afmeting voor afbeelding
-	 */
+	/** Maximale afmeting voor afbeelding */
 	const MAX_IMAGE_SIZE = 1920;
 
 	/** Geeft waarde van property terug */
@@ -131,14 +130,15 @@ class Properties {
 			$reflectionConstant = new \ReflectionClassConstant( __CLASS__, $name );
 			$comment = $reflectionConstant->getDocComment();
 			
-			//Haal naam uit docblock
-			$description = trim(
-				str_replace(
-					'*',
-					'',
-					explode( PHP_EOL, $comment)[1]
-				)
-			);
+			//Haal beschrijving uit docblock
+			$regex = '/\/\*\*\s*(.*)\s\*\//m';
+			if ( 1 == preg_match( $regex, $comment, $matches ) ) {
+				$description = $matches[1];
+			}
+			else {
+				$description = '';
+			}
+
 			$configuration[ $name ] = [ 'name' => $name, 'value' => $value, 'description' => $description ];
 		}
 

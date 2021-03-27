@@ -39,7 +39,6 @@ class Caldera_Forms {
 		add_filter( 'caldera_forms_field_attributes', [ $self, 'set_validation_field_attributes' ] , 10, 2 );
 		add_filter( 'caldera_forms_field_attributes', [ $self, 'add_field_classes' ], 10, 2 );
 		add_filter( 'caldera_forms_render_assets_minify', '__return_false' );
-		add_filter( 'caldera_forms_render_form_attributes' , [ $self, 'maybe_add_postcode_lookup'], 10, 2 );
 		add_action( 'caldera_forms_render_end', [ $self, 'enqueue_script' ] );
 		add_filter( 'caldera_forms_render_grid_settings', [ $self, 'setup_unsemantic_grid' ], 10, 2 );
 	}
@@ -89,22 +88,23 @@ class Caldera_Forms {
 		return $pattern;
 	}
 
-	/**
-	 * Voegt attributes toe voor data-validatie
-	 * 
-	 * - Datum
-	 * - Postcode
-	 * @todo verplaatsen naar SIW\Form ?
-	 */
+	/** Voegt attributes toe voor data-validatie */
 	public function set_validation_field_attributes( array $attrs, array $field ) : array {
-		if ( 'geboortedatum' === $field['ID'] ) {
-			$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige datum.', 'siw' );
-			$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'date' );
+
+		if ( ! isset( $field['config']['validation'] ) ) {
+			return $attrs;
 		}
-	
-		if ( 'postcode' === $field['ID'] ) {
-			$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige postcode.', 'siw' );
-			$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'postal_code' );
+		
+		switch ( $field['config']['validation'] ) {
+			case 'date':
+				$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige datum.', 'siw' );
+				$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'date' );
+				break;
+			case 'postcode':
+				$attrs[ 'data-parsley-pattern-message' ] = __( 'Dit is geen geldige postcode.', 'siw' );
+				$attrs[ 'data-parsley-pattern' ] = Util::get_regex( 'postcode' );
+				break;
+			default:
 		}
 		return $attrs;
 	}
@@ -120,23 +120,9 @@ class Caldera_Forms {
 		return $attrs;
 	}
 
-	/**
-	 * Voegt attribute voor postcode lookup toe
-	 * @todo verplaatsen naar SIW\Form?
-	 */
-	public function maybe_add_postcode_lookup( array $attributes, array $form ) : array {
-		$attributes['data-siw-postcode-lookup'] = isset( $form['postcode_lookup'] ) && $form['postcode_lookup'];
-		return $attributes;
-	}
-
-	/**
-	 * Voegt script toe
-	 * 
-	 * - Postcode lookup
-	 * - Google Analytics event
-	 */
+	/** Voegt script toe Postcode lookup en Google Analytics event */
 	public function enqueue_script() {
-		wp_register_script( 'siw-cf-caldera-forms', SIW_ASSETS_URL . 'js/siw-caldera-forms.js', ['siw-api-postcode', 'siw-analytics', 'jquery'], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-cf-caldera-forms', SIW_ASSETS_URL . 'js/siw-caldera-forms.js', ['siw-analytics', 'jquery'], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-cf-caldera-forms' );
 	}
 

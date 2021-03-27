@@ -52,8 +52,7 @@ class Exchange_Rates{
 			'access_key' => $this->api_key,
 		], self::API_URL );
 
-		$request = new HTTP_Request( $url );
-		$response = $request->get();
+		$response = HTTP_Request::create( $url )->get();
 		
 		if ( is_wp_error( $response ) || false == $response['success'] ) {
 			return null;
@@ -63,7 +62,7 @@ class Exchange_Rates{
 	}
 
 	/** Rekent bedrag om naar Euro's */
-	public function convert_to_euro( string $currency, float $amount, int $decimals = 2 ) : ?float {
+	public function convert_to_euro( string $currency, float $amount, int $decimals = 2 ) : ?string {
 		$exchange_rate = $this->get_rate( $currency );
 		if ( is_null( $exchange_rate ) ) {
 			return null;

@@ -2,13 +2,13 @@
 
 namespace SIW\Admin;
 
+use SIW\Elements\Table;
 use SIW\Properties;
 
 /**
  * Overzichtspagina met configuratie
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Properties_Page {
 
@@ -31,36 +31,28 @@ class Properties_Page {
 
 	/** Rendert de adminpagina */
 	public function render_properties_page() {
+		
+		$properties = array_map(
+			fn( array $property ) : array => [ $property['description'], $property['value'], $property['name'] ],
+			Properties::get_all()
+		);
+
 		?>
 		<h2><?= esc_attr__( 'Eigenschappen', 'siw' ); ?></h2>
-
-	<table class="wp-list-table widefat">
-		<thead>
-			<tr>
-				<th class="row-title"><?= esc_attr__( 'Eigenschap', 'siw' ); ?></th>
-				<th class="row-title"><?= esc_attr__( 'Waarde', 'siw' ); ?></th>
-				<th class="row-title"><?= esc_attr__( 'Constante', 'siw' ); ?></th>
-			</tr>
-		</thead>
-		<tfoot>
-			<tr>
-				<th class="row-title"><?= esc_attr__( 'Eigenschap', 'siw' ); ?></th>
-				<th class="row-title"><?= esc_attr__( 'Waarde', 'siw' ); ?></th>
-				<th class="row-title"><?= esc_attr__( 'Constante', 'siw' ); ?></th>
-			</tr>
-		</tfoot>
-		<tbody>
-			<?php
-			$configuration = Properties::get_all();
-			$alternate = false;
-			foreach ( $configuration as $item ) {
-				$class = ( $alternate ) ? 'class = "alternate"' : ''; 
-				printf('<tr %s><td>%s</td><td>%s</td><td>%s</td></tr>', $class, esc_html( $item['description'] ), esc_html( $item['value'] ), esc_html( $item['name'] ) );
-				$alternate = ! $alternate;
-			}
-			?>
-		</tbody>
-	</table>
-	<?php
+		<?php
+		Table::create()
+			->set_table_class( 'wp-list-table widefat striped' )
+			->set_header([
+				__( 'Eigenschap', 'siw' ),
+				__( 'Waarde', 'siw' ),
+				__( 'Constante', 'siw' )
+			])
+			->add_items( $properties )
+			->set_footer([
+				__( 'Eigenschap', 'siw' ),
+				__( 'Waarde', 'siw' ),
+				__( 'Constante', 'siw' )
+			])
+			->render();
 	}
 }

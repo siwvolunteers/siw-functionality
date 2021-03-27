@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $data = [
 	[
-		'iso'         => 'CHN',
+		'iso_code'    => 'CHN',
 		'slug'        => 'china',
 		'name'        => __( 'China', 'siw' ),
 		'allowed'     => true,
@@ -21,7 +21,7 @@ $data = [
 		'world_map'   => [ 'code' => 'cn', 'x' => 0.7782, 'y' => 0.5319 ],
 	],
 	[
-		'iso'         => 'HKG',
+		'iso_code'    => 'HKG',
 		'slug'        => 'hong-kong',
 		'name'        => __( 'Hong Kong', 'siw' ),
 		'allowed'     => true,
@@ -30,7 +30,7 @@ $data = [
 		'world_map'   => [ 'code' => 'hk', 'x' => 0.7990, 'y' => 0.5998 ],
 	],
 	[
-		'iso'         => 'IDN',
+		'iso_code'    => 'IDN',
 		'slug'        => 'indonesie',
 		'name'        => __( 'Indonesië', 'siw' ),
 		'allowed'     => true,
@@ -39,7 +39,7 @@ $data = [
 		'world_map'   => [ 'code' => 'id', 'x' => 0.7697, 'y' => 0.7041 ],
 	],
 	[
-		'iso'         => 'IND',
+		'iso_code'    => 'IND',
 		'slug'        => 'india',
 		'name'        => __( 'India', 'siw' ),
 		'allowed'     => true,
@@ -48,7 +48,7 @@ $data = [
 		'world_map'   => [ 'code' => 'in', 'x' => 0.7066, 'y' => 0.6063 ],
 	],
 	[
-		'iso'         => 'JPN',
+		'iso_code'    => 'JPN',
 		'slug'        => 'japan',
 		'name'        => __( 'Japan', 'siw' ),
 		'allowed'     => true,
@@ -57,7 +57,7 @@ $data = [
 		'world_map'   => [ 'code' => 'jp', 'x' => 0.8628, 'y' => 0.5337 ],
 	],
 	[
-		'iso'         => 'KGZ',
+		'iso_code'    => 'KGZ',
 		'slug'        => 'kirgizie',
 		'name'        => __( 'Kirgizië', 'siw' ),
 		'allowed'     => false,
@@ -66,7 +66,7 @@ $data = [
 		'world_map'   => [ 'code' => 'kg', 'x' => 0.6964, 'y' => 0.5047 ],
 	],
 	[
-		'iso'         => 'KHM',
+		'iso_code'    => 'KHM',
 		'slug'        => 'cambodja',
 		'name'        => __( 'Cambodja', 'siw' ),
 		'allowed'     => true,
@@ -75,7 +75,7 @@ $data = [
 		'world_map'   => [ 'code' => 'kh', 'x' => 0.7765, 'y' => 0.6398 ],
 	],
 	[
-		'iso'         => 'KOR',
+		'iso_code'    => 'KOR',
 		'slug'        => 'zuid-korea',
 		'name'        => __( 'Zuid-Korea', 'siw' ),
 		'allowed'     => true,
@@ -84,7 +84,7 @@ $data = [
 		'world_map'   => [ 'code' => 'kr', 'x' => 0.8348, 'y' => 0.5326 ],
 	],
 	[
-		'iso'         => 'LKA',
+		'iso_code'    => 'LKA',
 		'slug'        => 'sri-lanka',
 		'name'        => __( 'Sri Lanka', 'siw' ),
 		'allowed'     => true,
@@ -93,7 +93,7 @@ $data = [
 		'world_map'   => [ 'code' => 'lk', 'x' => 0.7117, 'y' => 0.6624 ],
 	],
 	[
-		'iso'         => 'LAO',
+		'iso_code'    => 'LAO',
 		'slug'        => 'laos',
 		'name'        => __( 'Laos', 'siw' ),
 		'allowed'     => true,
@@ -102,7 +102,7 @@ $data = [
 		'world_map'   => [ 'code' => 'la', 'x' => 0.7691, 'y' => 0.6171 ],
 	],
 	[
-		'iso'         => 'MNG',
+		'iso_code'    => 'MNG',
 		'slug'        => 'mongolie',
 		'name'        => __( 'Mongolië', 'siw' ),
 		'allowed'     => true,
@@ -111,7 +111,7 @@ $data = [
 		'world_map'   => [ 'code' => 'mn', 'x' => 0.7721, 'y' => 0.4785 ],
 	],
 	[
-		'iso'         => 'MYS',
+		'iso_code'    => 'MYS',
 		'slug'        => 'maleisie',
 		'name'        => __( 'Maleisië', 'siw' ),
 		'allowed'     => true,
@@ -121,7 +121,7 @@ $data = [
 	],
 	
 	[
-		'iso'         => 'NPL',
+		'iso_code'    => 'NPL',
 		'slug'        => 'nepal',
 		'name'        => __( 'Nepal', 'siw' ),
 		'allowed'     => true,
@@ -130,7 +130,7 @@ $data = [
 		'world_map'   => [ 'code' => 'np', 'x' => 0.7200, 'y' => 0.5725 ]
 	],
 	[
-		'iso'         => 'THA',
+		'iso_code'    => 'THA',
 		'slug'        => 'thailand',
 		'name'        => __( 'Thailand', 'siw' ),
 		'allowed'     => true,
@@ -139,7 +139,7 @@ $data = [
 		'world_map'   => [ 'code' => 'th', 'x' => 0.7655, 'y' => 0.6310 ],
 	],
 	[
-		'iso'         => 'TWN',
+		'iso_code'    => 'TWN',
 		'slug'        => 'taiwan',
 		'name'        => __( 'Taiwan', 'siw' ),
 		'allowed'     => true,
@@ -148,7 +148,7 @@ $data = [
 		'world_map'   => [ 'code' => 'tw', 'x' => 0.8170, 'y' => 0.5941 ],
 	],
 	[
-		'iso'         => 'VNM',
+		'iso_code'    => 'VNM',
 		'slug'        => 'vietnam',
 		'name'        => __( 'Vietnam', 'siw' ),
 		'allowed'     => true,
@@ -157,7 +157,7 @@ $data = [
 		'world_map'   => [ 'code' => 'vn', 'x' => 0.7836, 'y' => 0.6352 ],
 	],
 	[
-		'iso'         => 'PHL',
+		'iso_code'    => 'PHL',
 		'slug'        => 'filipijnen',
 		'name'        => __( 'Filipijnen', 'siw' ),
 		'allowed'     => true,

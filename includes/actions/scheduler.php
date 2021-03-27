@@ -15,13 +15,16 @@ class Scheduler {
 	/** Group voor starten */
 	const ACTION_GROUP = 'siw_start';
 
+	/** Tijdslimiet voor queue runner (default is 30 seconden) */
+	const TIME_LIMIT = 2 * MINUTE_IN_SECONDS;
+
 	/** Init */
 	public static function init() {
 		$self = new self();
 		add_action( 'siw_update_plugin', [ $self, 'schedule_actions'] );
 
-		//TODO: hoort dit hier wel?
 		add_filter( 'action_scheduler_retention_period', fn() : int => DAY_IN_SECONDS );
+		add_filter( 'action_scheduler_queue_runner_time_limit', fn() : int => self::TIME_LIMIT );
 	}
 
 	/**  Schedule acties */
@@ -30,8 +33,9 @@ class Scheduler {
 		//Huidige start-actions unschedulen
 		$scheduled_actions = as_get_scheduled_actions(
 			[
-				'group'  => self::ACTION_GROUP,
-				'status' => ActionScheduler_Store::STATUS_PENDING
+				'group'    => self::ACTION_GROUP,
+				'status'   => ActionScheduler_Store::STATUS_PENDING,
+				'per_page' => -1,
 			]
 		);
 		array_walk(
@@ -53,6 +57,4 @@ class Scheduler {
 			)
 		);
 	}
-
-
 }

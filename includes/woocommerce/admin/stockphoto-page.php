@@ -2,7 +2,8 @@
 
 namespace SIW\WooCommerce\Admin;
 
-use SIW\Async\Process_Stockphoto_Upload;
+use SIW\Data\Country;
+use SIW\Data\Work_Type;
 
 /**
  * Aanpassing aan admin t.b.v. aanmeldingen
@@ -75,14 +76,14 @@ class Stockphoto_Page {
 							'type'        => 'select_advanced',
 							'name'        => __( 'Continent', 'siw' ),
 							'placeholder' => __( 'Selecteer een continent', 'siw '),
-							'options'     => \siw_get_continents( 'array' ),
+							'options'     => \siw_get_continents_list(),
 						],
 						[
 							'id'          => 'country',
 							'type'        => 'select_advanced',
 							'name'        => __( 'Land', 'siw' ),
 							'placeholder' => __( 'Selecteer een land', 'siw '),
-							'options'     => \siw_get_countries( 'all', 'slug', 'array' ),
+							'options'     => \siw_get_countries_list( Country::ALL, 'slug' ),
 							'required'    => true,
 							
 						],
@@ -91,7 +92,7 @@ class Stockphoto_Page {
 							'type'        => 'select_advanced',
 							'name'        => __( 'Soort werk', 'siw' ),
 							'placeholder' => __( 'Selecteer soort(en) werk', 'siw '),
-							'options'     => \siw_get_work_types( 'all', 'slug', 'array' ),
+							'options'     => \siw_get_work_types_list( Work_Type::ALL, 'slug' ),
 							'multiple'    => true,
 							'required'    => true,
 						],

@@ -2,15 +2,21 @@
 
 namespace SIW\Data;
 
-use SIW\Formatting;
-
 /**
  * Bevat informatie over een sociaal netwerk
  * 
- * @copyright   2019 SIW Internationale Vrijwilligersprojecten
- * @since       3.0.0
+ * @copyright   2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Social_Network {
+class Social_Network extends Data {
+
+	/** Alle social networks */
+	const ALL = 'all';
+
+	/** Social networks voor delen */
+	const SHARE = 'share';
+	
+	/** Social networks voor volgen */
+	const FOLLOW = 'follow';
 
 	/** Slug van het netwerk */
 	protected string $slug;
@@ -35,26 +41,6 @@ class Social_Network {
 
 	/** Is netwerk om te volgen? */
 	protected bool $follow;
-
-	/** Constructor */
-	public function __construct( array $data ) {
-		$defaults = [
-			'slug'               => '',
-			'name'               => '',
-			'icon_class'         => '',
-			'color'              => null,
-			'follow'             => false,
-			'follow_url'         => null,
-			'share'              => false,
-			'share_url_template' => null
-		];
-		$data = wp_parse_args( $data, $defaults );
-		$data = wp_array_slice_assoc( $data, array_keys( $defaults ) );
-		
-		foreach( $data as $key => $value ) {
-			$this->$key = $value;
-		}
-	}
 
 	/** Geeft slug van netwerk terug */
 	public function get_slug() : string {
@@ -96,18 +82,12 @@ class Social_Network {
 		return $this->share_url_template;
 	}
 
-	/** Genereert link op te delen */
-	public function generate_share_link( string $url, string $title ) :string {
-
-		$template = $this->get_share_url_template();
-		$url = urlencode( $url );
-		$title = rawurlencode( html_entity_decode( $title ) );
-
-		$vars = [
-			'title'  => $title,
-			'url'    => $url,
-		];
-	
-		return Formatting::parse_template( $template, $vars );
+	/** Geeft aan of Sociaal netwerk geldig is voor een gegeven context */
+	public function is_valid_for_context( string $context ) : bool {
+		return (
+			self::ALL == $context
+			|| ( self::SHARE == $context && $this->is_for_sharing() )
+			|| ( self::FOLLOW == $context && $this->is_for_following() )
+		);
 	}
 }

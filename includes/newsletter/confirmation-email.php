@@ -3,6 +3,7 @@
 namespace SIW\Newsletter;
 
 use SIW\Email\Template;
+use SIW\Helpers\Email;
 use SIW\Properties;
 use SIW\Util\Hash;
 use SIW\Util\Links;
@@ -10,8 +11,7 @@ use SIW\Util\Links;
 /**
  * Bevestigingsmail voor aanmelding nieuwsbrief
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Confirmation_Email {
 
@@ -28,20 +28,17 @@ class Confirmation_Email {
 	protected array $email_settings;
 	
 	/** Init */
-	public function __construct( string $email, int $list_id, array $properties ) {
-		$this->email = $email;
-		$this->list_id = $list_id;
-
-		//TODO: is dit echt nodig?
-		$properties = wp_parse_args(
-			$properties,
-			[
-				'firstname' => '',
-				'lastname'  => ''
-			]
-		);
-		$this->properties = $properties;
+	protected function __construct() {
 		$this->email_settings = siw_get_email_settings( 'newsletter' );
+	}
+
+	/** Creeert bevestigingsmail */
+	public static function create( string $email, int $list_id, array $properties  ) {
+		$self = new static();
+		$self->email = $email;
+		$self->list_id = $list_id;
+		$self->properties = $properties;
+		return $self;
 	}
 
 	/** Verstuurt bevestigingsmail */
@@ -53,18 +50,15 @@ class Confirmation_Email {
 			return false;
 		}
 
-		$headers = [
-			'Content-Type: text/html; charset=UTF-8',
-			sprintf( 'From: %s <%s>', Properties::NAME, $this->email_settings['email'] ),
-		];
-
-		$result = wp_mail(
-			$this->email,
+		$result = Email::create(
 			__( 'Bevestig je aanmelding voor onze nieuwsbrief', 'siw' ),
 			$this->generate_message(),
-			$headers
-		);
-
+			$this->email,
+			$this->properties['firstname']
+		)
+		->set_from( $this->email_settings['email'], Properties::NAME )
+		->set_content_type( Email::TEXT_HTML )
+		->send();
 		set_transient( "siw_newsletter_email_{$email_hash}", true, HOUR_IN_SECONDS );
 		return $result;
 	}

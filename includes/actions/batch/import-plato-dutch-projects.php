@@ -14,7 +14,7 @@ class Import_Plato_Dutch_Projects extends Import_Plato_Projects implements  Batc
 
 	/** {@inheritDoc} */
 	public function get_id() : string {
-		return 'import_plato_dutchy_projects';
+		return 'import_plato_dutch_projects';
 	}
 
 	/** {@inheritDoc} */

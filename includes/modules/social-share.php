@@ -2,7 +2,8 @@
 
 namespace SIW\Modules;
 
-use SIW\Util\Links;
+use SIW\Core\Template;
+use SIW\Data\Social_Network;
 
 /**
  * Voegt share-links toe voor social netwerken
@@ -33,37 +34,40 @@ class Social_Share {
 		if ( ! is_single() || ! $this->is_supported_post_type() ) {
 			return;
 		}
-		?>
-		<hr>
-		<div class="siw-social">
-			<div class="title"><?php echo esc_html( $this->get_title() ) ?> </div>
-			<?php
-				$networks = \siw_get_social_networks('share');
-				$title = get_the_title();
-				$url = get_permalink();
-				
-				foreach ( $networks as $network ) {
-					echo Links::generate_icon_link(
-						$network->generate_share_link( $url, $title ),
-						[
-							'class' => $network->get_icon_class(),
-						],
-						[
-							'class'               => $network->get_slug(),
-							'aria-label'          => sprintf( esc_attr__( 'Delen via %s', 'siw' ), $network->get_name() ),
-							'data-balloon-pos'    => 'down',
-							'style'               => '--hover-color: ' . $network->get_color(),
-							'target'              => '_blank',
-							'data-ga-track'       => 1,
-							'data-ga-type'        => 'social',
-							'data-ga-category'    => $network->get_name(),
-							'data-ga-action'      => 'Delen',
-							'data-ga-label'       => $url,
-						]
-					);
-				}
-			?>
-		</div><?php
+
+		$networks = \siw_get_social_networks( Social_Network::SHARE );
+		$title = get_the_title();
+		$url = get_permalink();
+
+		$social_networks = array_map(
+			fn( Social_Network $network ) : array => [
+				'share_url' => Template::parse_string_template(
+					$network->get_share_url_template(),
+					[
+						'url'   => urlencode( $url ),
+						'title' => rawurlencode( html_entity_decode( $title ) )
+					]
+				),
+				'label'     => sprintf( esc_attr__( 'Delen via %s', 'siw' ), $network->get_name() ),
+				'color'     => $network->get_color(),
+				'name'      => $network->get_name(),
+				'url'       => $url,
+				'icon'      => [
+					'size'             => 2,
+					'icon_class'       => $network->get_icon_class(),
+					'has_background'   => false,
+				]
+			],
+			$networks
+		);
+
+		Template::render_template(
+			'modules/social-share',
+			[
+				'title'           => $this->get_title(),
+				'social_networks' => array_values( $social_networks ),
+			]
+		);
 	}
 
 	/** Genereert de titel */

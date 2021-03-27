@@ -42,6 +42,8 @@ class Loader extends Class_Loader_Abstract {
 			Frontend\Archive_Header::class,
 			Frontend\Product::class,
 			Frontend\Product_Tabs::class,
+
+			Translations::class,
 		];
 	}
 

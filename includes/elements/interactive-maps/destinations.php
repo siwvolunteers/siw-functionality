@@ -2,41 +2,50 @@
 
 namespace SIW\Elements\Interactive_Maps;
 
+use SIW\Actions\Batch\Update_WooCommerce_Terms;
+use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
+
 use SIW\i18n;
 use SIW\Data\Country;
-use SIW\Elements;
-use SIW\Elements\Interactive_Map;
+use SIW\Elements\List_Columns;
 use SIW\Util\Links;
 
 /**
  * Class om een Mapplic kaart te genereren
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Destinations extends Interactive_Map {
+class Destinations implements Interactive_Map_Interface {
 
 	/** {@inheritDoc} */
-	protected string $id = 'destinations';
+	public function get_id(): string {
+		return 'destinations';
+	}
 
 	/** {@inheritDoc} */
-	protected string $file = 'world';
+	public function get_file(): string {
+		return 'world';
+	}
 
 	/** {@inheritDoc} */
-	protected array $data = [
-		'mapwidth'  => 1200,
-		'mapheight' => 760,
-	];
+	public function get_options(): array {
+		return [
+			'search'       => true,
+			'searchfields' => ['title', 'about', 'description'],
+			'hidenofilter' => true,
+		];
+	}
 
 	/** {@inheritDoc} */
-	protected array $options = [
-		'search'       => true,
-		'searchfields' => ['title', 'about', 'description'],
-		'hidenofilter' => true,
-	];
+	public function get_map_data(): array {
+		return [
+			'mapwidth'  => 1200,
+			'mapheight' => 760,
+		];
+	}
 
 	/** {@inheritDoc} */
-	protected function get_categories() : array {
+	public function get_categories() : array {
 		$continents = siw_get_continents();
 
 		$categories = [];
@@ -51,7 +60,7 @@ class Destinations extends Interactive_Map {
 	}
 
 	/** {@inheritDoc} */
-	protected function get_locations() : array {
+	public function get_locations() : array {
 		$countries = siw_get_countries();
 		
 		$locations = [];
@@ -94,7 +103,7 @@ class Destinations extends Interactive_Map {
 			$project_types[] = esc_html__( 'ESC', 'siw' ) . SPACE . Links::generate_link( $esc_page_link, __( 'Lees meer', 'siw' ) );
 		}
 
-		return esc_html__( 'In dit land bieden wij de volgende projecten aan:', 'siw' ) . Elements::generate_list( $project_types );
+		return esc_html__( 'In dit land bieden wij de volgende projecten aan:', 'siw' ) . List_Columns::create()->add_items( $project_types )->generate();
 	}
 
 	/** Genereert beschrijving voor groepsprojecten */
@@ -102,7 +111,7 @@ class Destinations extends Interactive_Map {
 		$country_term = get_term_by( 'slug', $country->get_slug(), 'pa_land' );
 		
 		if ( is_a( $country_term, \WP_Term::class ) ) {
-			$workcamp_count = get_term_meta( $country_term->term_id, 'project_count', true );
+			$workcamp_count = get_term_meta( $country_term->term_id, Update_WooCommerce_Terms::POST_COUNT_TERM_META, true );
 		}
 		else {
 			$workcamp_count = 0;
@@ -147,8 +156,8 @@ class Destinations extends Interactive_Map {
 	 * 
 	 * @todo aanbod per land
 	 */
-	protected function get_mobile_content() : string {
-		$countries = siw_get_countries( 'allowed', 'slug', 'array' );
-		return Elements::generate_list(  array_values( $countries ), 2 );
+	public function get_mobile_content() : string {
+		$countries = siw_get_countries_list( Country::ALLOWED );
+		return List_Columns::create()->add_items( array_values( $countries ) )->set_columns( 2 )->generate();
 	}
 }

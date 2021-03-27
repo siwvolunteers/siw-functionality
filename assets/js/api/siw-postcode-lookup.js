@@ -24,12 +24,16 @@ var siwPostcodeApi = (function () {
 	function lookup( postcode, housenumber, callback ) {
 
 		//Check input
-		if ( ! RegExp( siw_api_postcode.regex ).test( postcode ) || ! housenumber || typeof callback !== 'function' ) {
+		if (
+			! RegExp( siw_api_postcode_lookup.regex.postcode ).test( postcode )
+			|| ! RegExp( siw_api_postcode_lookup.regex.housenumber ).test( housenumber )
+			|| typeof callback !== 'function'
+			) {
 			return;
 		}
 
 		//URL opbouwen
-		var url = new URL( siw_api_postcode.url );
+		var url = new URL( siw_api_postcode_lookup.url );
 		url.searchParams.set( 'postcode', postcode );
 		url.searchParams.set( 'housenumber', housenumber );
 
@@ -37,15 +41,15 @@ var siwPostcodeApi = (function () {
 		var ajax = new XMLHttpRequest();
 		ajax.open( 'GET', url, true );
 		ajax.setRequestHeader( 'X-Requested-With', 'XMLHttpRequest' );
-		ajax.setRequestHeader( 'X-WP-Nonce', siw_api_postcode.nonce );
+		ajax.setRequestHeader( 'X-WP-Nonce', siw_api_postcode_lookup.nonce );
 		ajax.responseType = 'json';
 		ajax.send();
 
 		ajax.onload = function() {
-			callback( ajax.response.success, ajax.response.data );
+			callback( ajax.status, ajax.response.data );
 		}
 		ajax.onerror = function() {
-			callback( false, null );
+			callback( ajax.status, null );
 		}
 	}
 
@@ -78,8 +82,8 @@ var siwPostcodeApi = (function () {
 			city_el.setAttribute( 'readonly', true );
 			
 			// Callback voor postcode api
-			var api_callback = function ( success, data ) {
-				if ( true === success ) {
+			var api_callback = function ( status, data ) {
+				if ( 200 === status ) {
 					var street = data.street;
 					var city = data.city;
 					street_el.setAttribute( 'readonly', true );

@@ -7,8 +7,7 @@ use SIW\Elements\Google_Maps as Element_Google_Maps;
 /**
  * Widget met Google Maps kaart
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Google Maps
@@ -18,38 +17,38 @@ use SIW\Elements\Google_Maps as Element_Google_Maps;
  */
 class Google_Maps extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id ='google_maps';
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'google_maps';
+	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'location';
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Google Maps', 'siw' );
+	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected bool $use_default_template = true;
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Google Maps', 'siw');
-		$this->widget_description = __( 'Toont Google Maps kaart', 'siw' );
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont Google Maps kaart', 'siw' );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return Widget::DEFAULT_TEMPLATE_ID;
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'location';
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_widget_form() {
 
 		$widget_form = [
 			'title' => [
 				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw'),
+				'label'   => __( 'Titel', 'siw' ),
 			],
 			'intro' => [
 				'type'           => 'tinymce',
@@ -130,13 +129,10 @@ class Google_Maps extends Widget {
 		return $widget_form;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
-		$map = new Element_Google_Maps();
-		
-		$map->set_options( ['zoom' => $instance['zoom'] ] );
+		$map = Element_Google_Maps::create()
+			->set_zoom( (int) $instance['zoom'] );
 
 		foreach ( $instance['markers'] as $marker ) {
 			if ( 'address' == $marker['location'] ) {

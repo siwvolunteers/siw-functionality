@@ -7,7 +7,6 @@ use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 use SIW\Data\Country;
 use SIW\Database_Table;
 use SIW\Helpers\Database;
-use SIW\Util;
 use SIW\WooCommerce\Import\Product_Image as Import_Product_Image;
 use SIW\WooCommerce\Import\Free_Places as Import_Free_Places;
 
@@ -33,6 +32,9 @@ class Update_Projects implements Batch_Action_Interface {
 
 	/** Minimaal aantal dagen dat project in toekomst moet starten om zichtbaar te zijn */
 	const MIN_DAYS_BEFORE_START = 3;
+
+	/** Meta key die aangeeft dat project uit Plato verwijderd is */
+	const DELETED_FROM_PLATO_META = 'deleted_from_plato';
 
 	/** {@inheritDoc} */
 	public function get_id() : string {
@@ -102,8 +104,8 @@ class Update_Projects implements Batch_Action_Interface {
 
 		$deleted_from_plato = ! in_array( $this->product->get_meta( 'project_id' ), $project_ids );
 
-		if ( $deleted_from_plato !== boolval( $this->product->get_meta( 'deleted_from_plato' ) ) ) {
-			$this->product->update_meta_data( 'deleted_from_plato', $deleted_from_plato );
+		if ( $deleted_from_plato !== boolval( $this->product->get_meta( self::DELETED_FROM_PLATO_META ) ) ) {
+			$this->product->update_meta_data( self::DELETED_FROM_PLATO_META, $deleted_from_plato );
 			$this->product->save();
 		}
 	}
@@ -115,9 +117,7 @@ class Update_Projects implements Batch_Action_Interface {
 		}
 
 		$tariffs = siw_get_data( 'workcamps/tariffs' );
-		$sale = Util::is_workcamp_sale_active();
-
-		$workcamp_sale = siw_get_option( 'workcamp_sale' );
+		$sale = siw_is_workcamp_sale_active();
 		$variations = $this->product->get_children();
 
 		foreach ( $variations as $variation_id ) {
@@ -132,8 +132,8 @@ class Update_Projects implements Batch_Action_Interface {
 				'regular_price'     => $regular_price,
 				'sale_price'        => $sale ? $sale_price : null,
 				'price'             => $sale ? $sale_price : $regular_price,
-				'date_on_sale_from' => $sale ? date( 'Y-m-d 00:00:00', strtotime( $workcamp_sale['start_date'] ) ) : null,
-				'date_on_sale_to'   => $sale ? date( 'Y-m-d 23:59:59', strtotime( $workcamp_sale['end_date'] ) ) : null,
+				'date_on_sale_from' => $sale ? date( 'Y-m-d 00:00:00', strtotime( siw_get_option( 'workcamp_sale.start_date' ) ) ) : null,
+				'date_on_sale_to'   => $sale ? date( 'Y-m-d 23:59:59', strtotime( siw_get_option( 'workcamp_sale.end_date' ) ) ) : null,
 			]);
 			if ( ! empty( $variation->get_changes() ) ) {
 				$variation->save();
@@ -167,7 +167,7 @@ class Update_Projects implements Batch_Action_Interface {
 			||
 			date( 'Y-m-d', time() + ( self::MIN_DAYS_BEFORE_START * DAY_IN_SECONDS ) ) >= $this->product->get_meta( 'start_date' )
 			||
-			$this->product->get_meta( 'deleted_from_plato' )
+			$this->product->get_meta( self::DELETED_FROM_PLATO_META )
 			||
 			$this->product->get_meta( 'force_hide' )
 		) {

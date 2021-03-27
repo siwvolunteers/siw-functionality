@@ -3,24 +3,18 @@
 /**
  * Functies m.b.t. talen
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 
 use SIW\Data\Language;
 
 /**
  * Geeft array met gegevens van talen terug
- * 
- * @since     3.0.0
  *
- * @param string $context all|volunteer|project
- * @param string $index
- * @param string $return
- *
- * @return array
+ * @return Language[]
  */
-function siw_get_languages( string $context = 'all', string $index = 'slug', string $return = 'objects' ) : array {
-	$languages = wp_cache_get( "{$context}_{$index}_{$return}", 'siw_languages' );
+function siw_get_languages( string $context = Language::ALL, string $index = 'slug' ) : array {
+	$languages = wp_cache_get( "{$context}_{$index}", __FUNCTION__ );
 
 	if ( false !== $languages ) {
 		return $languages;
@@ -42,47 +36,29 @@ function siw_get_languages( string $context = 'all', string $index = 'slug', str
 	//Filter op context
 	$languages = array_filter(
 		$languages,
-		function( $language ) use ( $context ) {
-			return ( 'all' == $context 
-				|| ( 'volunteer' == $context && $language->is_volunteer_language() )
-				|| ( 'project' == $context && $language->is_project_language() )
-			);
-		}
+		fn( Language $language ) : bool => $language->is_valid_for_context( $context )
 	);
 
-	if ( 'array' == $return ) {
-		$languages = array_map(
-			fn( Language $language ) : string => $language->get_name(),
-			$languages
-		);
-	}
-
-	wp_cache_set( "{$context}_{$index}_{$return}", $languages, 'siw_languages' );
+	wp_cache_set( "{$context}_{$index}", $languages, __FUNCTION__ );
 
 	return $languages;
 }
 
-/**
- * Geeft informatie over een taal terug
- * 
- * @since     3.0.0
- *
- * @param string $language
- * @param string $index
- * @return Language
- */
+/** Geeft lijst van talen terug */
+function siw_get_languages_list( string $context = Language::ALL, string $index = 'slug' ) : array {
+	return array_map(
+		fn( Language $language ) : string => $language->get_name(),
+		siw_get_languages( $context, $index )
+	);
+}
+
+/** Geeft informatie over een taal terug */
 function siw_get_language( string $language, string $index = 'slug' ) : ?Language {
-	$languages = siw_get_languages( 'all', $index );
+	$languages = siw_get_languages( Language::ALL, $index );
 	return $languages[ $language ] ?? null;
 }
 
-/**
- * Geeft een array met niveau's van taalvaardigheid terug
- * 
- * @since     3.0.0
- *
- * @return array
- */
+/** Geeft een lijst met niveau's van taalvaardigheid terug */
 function siw_get_language_skill_levels() : array {
 	$language_skill_levels = [
 		'1' => __( 'Matig', 'siw' ),

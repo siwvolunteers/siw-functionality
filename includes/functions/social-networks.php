@@ -10,18 +10,12 @@
 use SIW\Data\Social_Network;
 
 /**
- * Geeft een array van sociale netwerken terug
- * 
- * @since     3.0.0
- *
- * @param string $context all|share|follow
- * @param string $return objects|array
- * 
+ * Geeft een lijst met gegevens van sociale netwerken terug
  * @return Social_Network[]
  */
-function siw_get_social_networks( $context = 'all', string $return = 'objects' ) : array {
+function siw_get_social_networks( $context = Social_Network::ALL ) : array {
 
-	$social_networks = wp_cache_get( "{$context}_{$return}", 'siw_social_networks' );
+	$social_networks = wp_cache_get( $context, __FUNCTION__ );
 	if ( false !== $social_networks ) {
 		return $social_networks;
 	}
@@ -42,31 +36,23 @@ function siw_get_social_networks( $context = 'all', string $return = 'objects' )
 	//Filter op context
 	$social_networks = array_filter(
 		$social_networks, 
-		function( Social_Network $social_network ) use ( $context ) {
-			return ( 'all' == $context
-				|| ( 'share' == $context && $social_network->is_for_sharing() )
-				|| ( 'follow' == $context && $social_network->is_for_following() )
-			);
-		}
+		fn( Social_Network $social_network ) : bool => $social_network->is_valid_for_context( $context )
 	);
-	if ( 'array' == $return ) {
-		$social_networks = array_map(
-			fn( Social_Network $social_network ) : string => $social_network->get_name(),
-			$social_networks
-		);
-	}
-	wp_cache_set( "{$context}_{$return}", $social_networks, 'siw_social_networks' );
+	wp_cache_set( $context, $social_networks, __FUNCTION__ );
 
 	return $social_networks;
 }
 
-/**
- * Haalt gegevens van social network op (o.b.v. slug)
- *
- * @param string $slug
- *
- * @return Social_Network|null
- */
+/** Geeft lijst van sociale netwerken terug */
+function siw_get_social_networks_list( string $context = Social_Network::ALL ) : array {
+	return array_map(
+		fn( Social_Network $social_network ) : string => $social_network->get_name(),
+		siw_get_social_networks( $context )
+	);
+}
+
+
+/** Haalt gegevens van social network op (o.b.v. slug) */
 function siw_get_social_network( string $slug ) : ?Social_Network {
 	$social_networks = siw_get_social_networks();
 	return $social_networks[ $slug ] ?? null;

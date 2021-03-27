@@ -2,22 +2,21 @@
 
 namespace SIW\Elements;
 
-use SIW\Core\Template;
 use SIW\Util\Links;
 
 /**
  * Class om een Modal te genereren
  * 
- * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @see       https://micromodal.now.sh/
  */
-class Modal {
+class Modal extends Element {
 
 	/** Versienummer */
 	const MICROMODAL_VERSION = '0.4.6';
 
-	/** ID van modal */
-	protected string $id;
+	/** ID van pagina voor modal */
+	protected string $modal_id;
 
 	/** Titel van de modal */
 	protected string $title;
@@ -26,12 +25,57 @@ class Modal {
 	protected string $content;
 
 	/** Init */
-	public function __construct( string $id = null ) {
-		$this->enqueue_styles();
-		$this->enqueue_scripts();
-		$this->id = ( is_null( $id ) ) ? uniqid( 'siw-modal-' ) : "siw-modal-{$id}";
-		
-		add_action( 'wp_footer', [ $this, 'render_modal'] );
+	protected function __construct() {
+		$this->modal_id = uniqid( 'siw-modal-' );
+		add_action( 'wp_footer', [ $this, 'render'] );
+	}
+
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'modal';
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_variables(): array {
+		return [
+			'id'      => $this->modal_id,
+			'title'   => $this->title,
+			'content' => $this->content,
+			'i18n'    => [
+				'close' => __( 'Sluiten', 'siw' ),
+			]
+		];
+	}
+
+	/** Zet de titel van de modal */
+	public function set_title( string $title ) {
+		$this->title = $title;
+	}
+
+	/** Zet inhoud van modal */
+	public function set_content( string $content ) {
+		$this->content = $content;
+	}
+
+	/** Zet pagina van de modal */
+	public function set_page( int $page_id ) : self {
+		$page = get_post( $page_id );
+		$this->title = $page->post_title;
+		$this->content = do_shortcode( $page->post_content );
+
+		//Overschrijf modal id
+		$this->modal_id = "siw-modal-{$page_id}";
+		return $this;
+	}
+
+	/** Genereert link voor modal */
+	public function generate_link( string $text, string $link = null ) : string {
+		$link = Links::generate_link(
+			$link ?? '#',
+			$text,
+			[ 'data-micromodal-trigger' => $this->modal_id, 'target' => '_blank' ] //TODO: optie voor target?
+		);
+		return $link;
 	}
 
 	/** Voegt styles toe */
@@ -57,46 +101,5 @@ class Modal {
 				'debugMode'           => defined( 'WP_DEBUG' ) && WP_DEBUG,
 		]);
 		wp_enqueue_script( 'siw-modal' );
-	}
-
-	/** Rendert modal */
-	public function render_modal() {
-
-		Template::render_template(
-			'elements/modal',
-			[
-				'id' => $this->id,
-				'title' => $this->title,
-				'content' => $this->content,
-				'i18n' => [
-					'close' => __( 'Sluiten', 'siw' ),
-				]
-			]
-		);
-	}
-
-	/** Zet de titel van de modal */
-	public function set_title( string $title ) {
-		$this->title = $title;
-	}
-
-	/** Genereert link voor modal */
-	public function generate_link( string $text, string $link = null ) : string {
-		$link = Links::generate_link(
-			$link ?? '#',
-			$text,
-			[ 'data-micromodal-trigger' => $this->id, 'target' => '_blank' ] //TODO: optie voor target?
-		);
-		return $link;
-	}
-
-	/** Zet inhoud van modal */
-	public function set_content( string $content ) {
-		$this->content = $content;
-	}
-
-	/** Geeft gegenereerde id van modal terug */
-	public function get_id() : string {
-		return $this->id;
 	}
 }

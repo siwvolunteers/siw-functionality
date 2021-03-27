@@ -2,14 +2,14 @@
 
 namespace SIW\Widgets;
 
-use SIW\Elements;
+use SIW\Data\Social_Network;
+use SIW\Elements\Table;
 use SIW\Properties;
 
 /**
  * Widget met contactinformatie
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Contactinformatie
@@ -19,47 +19,34 @@ use SIW\Properties;
  */
 class Contact extends Widget {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_id = 'contact';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $widget_dashicon = 'phone';
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Contactinformatie', 'siw');
-		$this->widget_description = __( 'Toont contactinformatie', 'siw' );
+	/** {@inheritDoc} */
+	protected function get_id(): string {
+		return 'contact';
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function get_widget_form() {
-		$widget_forms = [
-			'title' => [
-				'type'      => 'text',
-				'label'     => __( 'Titel', 'siw'),
-				'default'   => __( 'Contact', 'siw' ),
-			],
-		];
-		return $widget_forms;
+	/** {@inheritDoc} */
+	protected function get_name(): string {
+		return __( 'Contactinformatie', 'siw' );
 	}
 
-	public function get_content( array $instance, array $args, array $template_vars, string $css_name ) : string {
-		return '';
+	/** {@inheritDoc} */
+	protected function get_description(): string {
+		return __( 'Toont contactinformatie', 'siw' );
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
+	protected function get_template_id(): string {
+		return $this->get_id();
+	}
+
+	/** {@inheritDoc} */
+	protected function get_dashicon(): string {
+		return 'phone';
+	}
+
+	/** {@inheritDoc} */
 	function get_template_variables( $instance, $args ) {
-		$social_networks = siw_get_social_networks( 'follow' );
+		$social_networks = \siw_get_social_networks( Social_Network::FOLLOW );
 
 		foreach ( $social_networks as $network ) {
 			$networks[] = [
@@ -97,7 +84,7 @@ class Contact extends Widget {
 						'icon_class' => 'siw-icon-whatsapp'
 					],
 				],
-				'opening_hours'   => Elements::generate_opening_hours('table'),
+				'opening_hours'   => Table::create()->add_items( siw_get_opening_hours())->generate(),
 				'social_networks' => $networks,
 		];
 	}

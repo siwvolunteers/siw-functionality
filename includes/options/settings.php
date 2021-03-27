@@ -4,16 +4,13 @@ namespace SIW\Options;
 
 use SIW\Interfaces\Options\Option as Option_Interface;
 
-use Caldera_Forms_Forms;
-use SIW\Formatting;
 use SIW\Modules\Topbar;
 use SIW\Properties;
 
 /**
  * Opties voor Configuratie
  * 
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.2.0
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Settings implements Option_Interface {
 
@@ -239,7 +236,7 @@ class Settings implements Option_Interface {
 		];
 
 		//Groepsprojecten
-		$continents = siw_get_continents( 'array' );
+		$continents = siw_get_continents_list();
 		$approval_fields = [
 			[
 				'type'       => 'heading',
@@ -288,12 +285,12 @@ class Settings implements Option_Interface {
 							sprintf(
 								'%s: %s',
 								__( 'Regulier', 'siw' ),
-								Formatting::format_sale_amount( Properties::WORKCAMP_FEE_REGULAR, Properties::WORKCAMP_FEE_REGULAR_SALE )
+								siw_format_sale_amount( Properties::WORKCAMP_FEE_REGULAR, Properties::WORKCAMP_FEE_REGULAR_SALE )
 							),
 							sprintf(
 								'%s: %s',
 								__( 'Student', 'siw' ),
-								Formatting::format_sale_amount( Properties::WORKCAMP_FEE_STUDENT, Properties::WORKCAMP_FEE_STUDENT_SALE )
+								siw_format_sale_amount( Properties::WORKCAMP_FEE_STUDENT, Properties::WORKCAMP_FEE_STUDENT_SALE )
 							),
 						]
 					),
@@ -380,12 +377,12 @@ class Settings implements Option_Interface {
 							sprintf(
 								'%s: %s',
 								__( 'Regulier', 'siw' ),
-								Formatting::format_sale_amount( Properties::TAILOR_MADE_FEE_REGULAR, Properties::TAILOR_MADE_FEE_REGULAR_SALE )
+								siw_format_sale_amount( Properties::TAILOR_MADE_FEE_REGULAR, Properties::TAILOR_MADE_FEE_REGULAR_SALE )
 							),
 							sprintf(
 								'%s: %s',
 								__( 'Student', 'siw' ),
-								Formatting::format_sale_amount( Properties::TAILOR_MADE_FEE_STUDENT, Properties::TAILOR_MADE_FEE_STUDENT_SALE )
+								siw_format_sale_amount( Properties::TAILOR_MADE_FEE_STUDENT, Properties::TAILOR_MADE_FEE_STUDENT_SALE )
 							),
 						]
 					),
@@ -408,7 +405,8 @@ class Settings implements Option_Interface {
 		];
 
 		//Openingstijden
-		$days = siw_get_days();
+		global $wp_locale;
+		$days = $wp_locale->weekday;
 
 		/* Reguliere openingstijden */
 		$opening_hours_fields[] = [
@@ -422,7 +420,7 @@ class Settings implements Option_Interface {
 				'fields' => [
 					[
 						'type'     =>'custom_html',
-						'std'      => $name,
+						'std'      => ucfirst( $name ),
 						'columns'  => 2,
 					],
 					[
@@ -595,18 +593,9 @@ class Settings implements Option_Interface {
 		];
 
 		//Email
-		$forms = [];
-		if ( class_exists( '\Caldera_Forms_Forms' ) ) {
-			$forms = Caldera_Forms_Forms::get_forms( true );
-		}
-		$forms[] = [
-			'ID'   =>'workcamp',
-			'name' => __( 'Groepsprojecten', 'siw' ),
-		];
-		$forms[] = [
-			'ID'   => 'newsletter',
-			'name' => __( 'Nieuwsbrief', 'siw' ),
-		];
+		$forms = siw_get_forms();
+		$forms['workcamp']   = __( 'Groepsprojecten', 'siw' );
+		$forms['newsletter'] = __( 'Nieuwsbrief', 'siw' );
 
 		$fields[]= [
 			'id'     => 'email_settings',
@@ -636,15 +625,15 @@ class Settings implements Option_Interface {
 			]
 		];
 
-		foreach ( $forms as $form ) {
+		foreach ( $forms as $id => $name ) {
 			$fields[] = [
-				'id'     => "{$form['ID']}_email",
+				'id'     => "{$id}_email",
 				'type'   => 'group',
 				'tab'    => 'email',
 				'fields' => [
 					[
 						'type' => 'heading',
-						'name' => $form['name'],
+						'name' => $name,
 					],
 					[
 						'id'        => 'use_specific',
@@ -658,21 +647,21 @@ class Settings implements Option_Interface {
 						'name'     => __( 'E-mailadres', 'siw' ),
 						'type'     => 'email',
 						'required' => true,
-						'visible'  => [ "{$form['ID']}_email[use_specific]", true ],
+						'visible'  => [ "{$id}_email[use_specific]", true ],
 					],
 					[
 						'id'       => 'name',
 						'name'     => __( 'Naam', 'siw' ),
 						'type'     => 'text',
 						'required' => true,
-						'visible'  => [ "{$form['ID']}_email[use_specific]", true ],
+						'visible'  => [ "{$id}_email[use_specific]", true ],
 					],
 					[
 						'id'       => 'title',
 						'name'     => __( 'Functie', 'siw' ),
 						'type'     => 'text',
 						'required' => true,
-						'visible'  => [ "{$form['ID']}_email[use_specific]", true ],
+						'visible'  => [ "{$id}_email[use_specific]", true ],
 					],
 				]
 			];

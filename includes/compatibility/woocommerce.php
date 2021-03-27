@@ -2,14 +2,11 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Formatting;
-
 /**
  * Aanpassingen voor WooCommerce
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://woocommerce.com/
- * @since     3.0.0
  */
 class WooCommerce {
 
@@ -54,9 +51,6 @@ class WooCommerce {
 		add_filter( 'woocommerce_allow_marketplace_suggestions', '__return_false' );
 		add_filter( 'woocommerce_show_addons_page', '__return_false' );
 		add_filter( 'woocommerce_admin_disabled', '__return_true' );
-
-		//Eigen vertalingen laden
-		add_filter( 'load_textdomain_mofile', [ $self, 'load_custom_translations'], 10, 2 );
 
 		//Blocks style niet laden
 		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
@@ -127,9 +121,7 @@ class WooCommerce {
 		return $user_id;
 	}
 
-	/**
-	 * Verwijdert dashboard widgets
-	 */
+	/** Verwijdert dashboard widgets */
 	public function remove_dashboard_widgets() {
 		remove_meta_box( 'woocommerce_dashboard_recent_reviews', 'dashboard', 'normal' );
 		remove_meta_box( 'woocommerce_dashboard_status', 'dashboard', 'normal' );
@@ -220,7 +212,7 @@ class WooCommerce {
 			$current_year = date( 'Y' );
 
 			$term->name = ucfirst(
-				Formatting::format_month(
+				siw_format_month(
 					"{$year}-{$month}-1",
 					$year != $current_year
 				)
@@ -233,6 +225,7 @@ class WooCommerce {
 	public function set_update_terms_taxonomies( array $taxonomies ) : array {
 		$taxonomies[] = 'product_cat';
 		$taxonomies[] = 'pa_maand';
+		$taxonomies[] = 'pa_land';
 		return $taxonomies;
 	}
 
@@ -270,22 +263,6 @@ class WooCommerce {
 		return $templates;
 	}
 
-	/**
-	 * Laad custom vertalingen voor WooCommerce
-	 * 
-	 * @param string $mofile
-	 * @param string $domain
-	 * @return string
-	 */
-	public function load_custom_translations( string $mofile, string $domain ) : string {
 
-		$locale = determine_locale();
 
-		if ( 'woocommerce' != $domain || 'nl_NL' != $locale ) {
-			return $mofile;
-		}
-		
-		$custom_mofile = SIW_PLUGIN_DIR . "languages/{$domain}/{$locale}.mo";
-		return file_exists( $custom_mofile ) ? $custom_mofile : $mofile;
-	}
 }

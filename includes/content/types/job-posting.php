@@ -2,8 +2,7 @@
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
-use SIW\Elements;
-use SIW\Formatting;
+use SIW\Elements\Accordion;
 use SIW\Util\Links;
 
 /**
@@ -317,24 +316,25 @@ class Job_Posting extends Type {
 		$description = siw_meta( 'description' );
 		echo '<h2>' . esc_html__( 'Wat houdt deze vacature in?', 'siw' ) . '</h2>';
 		echo '<p>';
-		echo Elements::generate_accordion([
-			[
-				'title'   => __( 'Wat ga je doen?', 'siw' ),
-				'content' => $description['work'],
-			],
-			[
-				'title'   => __( 'Wie ben jij?', 'siw' ),
-				'content' => $description['qualifications'],
-			],
-			[
-				'title'   => __( 'Wat bieden wij jou?', 'siw' ),
-				'content' => $description['perks'],
-			],
-			[
-				'title'   => __( 'Wie zijn wij?', 'siw' ),
-				'content' => siw_get_option( 'job_postings_organization_profile' ),
-			],
-		]);
+		Accordion::create()
+			->add_items( [
+				[
+					'title'   => __( 'Wat ga je doen?', 'siw' ),
+					'content' => $description['work'],
+				],
+				[
+					'title'   => __( 'Wie ben jij?', 'siw' ),
+					'content' => $description['qualifications'],
+				],
+				[
+					'title'   => __( 'Wat bieden wij jou?', 'siw' ),
+					'content' => $description['perks'],
+				],
+				[
+					'title'   => __( 'Wie zijn wij?', 'siw' ),
+					'content' => siw_get_option( 'job_postings_organization_profile' ),
+				],
+			])->render();
 		echo '</p>';
 
 		//Meer informatie
@@ -362,7 +362,7 @@ class Job_Posting extends Type {
 			wp_kses_post(
 				sprintf(
 					__( 'Je motivatie met cv kun je uiterlijk %s sturen naar: %s (%s), %s', 'siw' ),
-					Formatting::format_date( siw_meta( 'deadline' ), true ),
+					siw_format_date( siw_meta( 'deadline' ), true ),
 					BR . $application_manager['name'],
 					$application_manager['title'],
 					Links::generate_mailto_link( $application_manager['email'] )

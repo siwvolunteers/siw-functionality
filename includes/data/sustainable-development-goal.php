@@ -5,10 +5,9 @@ namespace SIW\Data;
 /**
  * Bevat informatie over een Sustainable Development Goal
  * 
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.0
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Sustainable_Development_Goal {
+class Sustainable_Development_Goal extends Data {
 
 	/** Slug */
 	protected string $slug;
@@ -24,26 +23,6 @@ class Sustainable_Development_Goal {
 
 	/** CSS-class van icoon */
 	protected string $icon_class;
-
-	/**
-	 * Constructor
-
-	 */
-	public function __construct( array $data ) {
-		$defaults = [
-			'slug'               => '',
-			'number'             => 0,
-			'name'               => '',
-			'icon_class'         => '',
-			'color'              => '',
-		];
-		$data = wp_parse_args( $data, $defaults );
-		$data = wp_array_slice_assoc( $data, array_keys( $defaults ) );
-		
-		foreach( $data as $key => $value ) {
-			$this->$key = $value;
-		}
-	}
 
 	/** Geeft slug van sdg terug */
 	public function get_slug() : string {

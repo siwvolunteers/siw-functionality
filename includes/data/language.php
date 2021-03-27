@@ -10,6 +10,15 @@ namespace SIW\Data;
  */
 class Language extends Data {
 
+	/** Alle talen */
+	const ALL = 'all';
+
+	/** Talen voor vrijwilligers */
+	const VOLUNTEER = 'volunteer';
+
+	/** Projecttalen */
+	const PROJECT = 'project';
+
 	/** Slug */
 	protected string $slug;
 	
@@ -48,5 +57,14 @@ class Language extends Data {
 	/** Geeft terug of dit een projecttaal kan zijn */
 	public function is_project_language() : bool {
 		return $this->project_language;
+	}
+
+	/** Geeft aan of taal geldig is voor context */
+	public function is_valid_for_context( string $context ) : bool {
+		return (
+			self::ALL == $context 
+			|| ( self::VOLUNTEER == $context && $this->is_volunteer_language() )
+			|| ( self::PROJECT == $context && $this->is_project_language() )
+		);
 	}
 }

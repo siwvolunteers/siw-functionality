@@ -1,7 +1,7 @@
 {{> widget-title}}
 {{#intro}}
 	<div class="carousel-intro">
-		<p>{{ . }}</p>
+		<p>{{& . | wp_kses_post }}</p>
 	</div>
 {{/intro}}
 
