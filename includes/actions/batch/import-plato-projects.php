@@ -24,6 +24,16 @@ class Import_Plato_Projects implements Batch_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
+	public function must_be_scheduled(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function must_be_run_on_update(): bool {
+		return false;
+	}
+
+	/** {@inheritDoc} */
 	public function select_data() : array {
 		$import = new Plato_Import_Workcamps;
 		return $import->run();

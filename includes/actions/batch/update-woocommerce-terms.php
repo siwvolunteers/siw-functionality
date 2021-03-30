@@ -25,6 +25,16 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
+	public function must_be_scheduled(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function must_be_run_on_update(): bool {
+		return false;
+	}
+
+	/** {@inheritDoc} */
 	public function select_data() : array {
 
 		//Filter om taxonomieen toe te voegen
@@ -78,7 +88,6 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 			]
 		);
 		
-
 		$count = count( $posts );
 		$visible_count = count( $visible_posts );
 

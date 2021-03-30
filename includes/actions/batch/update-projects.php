@@ -36,6 +36,9 @@ class Update_Projects implements Batch_Action_Interface {
 	/** Meta key die aangeeft dat project uit Plato verwijderd is */
 	const DELETED_FROM_PLATO_META = 'deleted_from_plato';
 
+	/** Product */
+	protected \WC_Product $product;
+
 	/** {@inheritDoc} */
 	public function get_id() : string {
 		return 'update_projects';
@@ -46,11 +49,15 @@ class Update_Projects implements Batch_Action_Interface {
 		return __( 'Bijwerken projecten', 'siw' );
 	}
 
-	/** Product */
-	protected \WC_Product $product;
+	/** {@inheritDoc} */
+	public function must_be_scheduled(): bool {
+		return true;
+	}
 
-	/** Is het project bijgewerkt? */
-	protected bool $updated;
+	/** {@inheritDoc} */
+	public function must_be_run_on_update(): bool {
+		return false;
+	}
 
 	/** {@inheritDoc} */
 	public function select_data() : array {
