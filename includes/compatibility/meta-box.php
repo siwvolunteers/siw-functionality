@@ -31,6 +31,7 @@ class Meta_Box {
 	public function select_extensions(): array {
 		$extensions = [
 			'mb-admin-columns',
+			'mb-frontend-submission',
 			'mb-settings-page',
 			'meta-box-columns',
 			'meta-box-conditional-logic',
