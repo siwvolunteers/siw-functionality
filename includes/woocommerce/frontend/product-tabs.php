@@ -100,7 +100,7 @@ class Product_Tabs {
 		];
 
 		foreach ( $topics as $topic => $title ) {
-			if ( isset( $description[ $topic ] ) ) {
+			if ( isset( $description[ $topic ] ) && ! empty( $description[ $topic ] ) ) {
 
 				$panes[] = [
 					'title'   => $title,
