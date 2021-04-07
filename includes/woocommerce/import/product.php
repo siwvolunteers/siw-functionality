@@ -163,7 +163,7 @@ class Product {
 	 */
 	protected function set_country() {
 		$country_code = strtoupper( $this->plato_project->get_country() );
-		$country = siw_get_country( $country_code, 'iso' );
+		$country = siw_get_country( $country_code, 'iso_code' );
 		if ( is_a( $country, Country::class ) ) {
 			$this->country = $country;
 		}
