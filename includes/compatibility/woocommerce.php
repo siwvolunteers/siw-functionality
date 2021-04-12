@@ -30,7 +30,6 @@ class WooCommerce {
 		add_filter( 'woocommerce_register_log_handlers', [ $self, 'register_log_handlers' ], PHP_INT_MAX );
 		add_filter( 'woocommerce_status_log_items_per_page', fn() : int => self::LOG_ITEMS_PER_PAGE );
 		add_filter( 'woocommerce_logger_days_to_retain_logs', fn() : int => self::DAYS_TO_RETAIN_LOG );
-		add_filter( 'nonce_user_logged_out', [ $self, 'reset_nonce_user_logged_out' ], PHP_INT_MAX, 2 );
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
 		add_filter( 'product_type_selector', [ $self, 'disable_product_types'] );
 		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_project_id_search' ], 10, 2 );
@@ -108,17 +107,6 @@ class WooCommerce {
 		];
 	
 		return $handlers;
-	}
-
-	/** Maakt het aanpassen van nonce voor logged-out user door WooCommerce ongedaan */
-	public function reset_nonce_user_logged_out( $user_id, string $action ) {
-		$nonces = [
-			'wp_rest',
-		];
-		if ( $user_id && 0 !== $user_id && $action && ( in_array( $action, $nonces ) ) ) {
-			$user_id = get_current_user_id();;
-		}
-		return $user_id;
 	}
 
 	/** Verwijdert dashboard widgets */
