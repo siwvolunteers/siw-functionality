@@ -15,8 +15,10 @@ class Database_Tables_Page {
 	/** Slug voor menu-pagina */
 	const MENU_SLUG = 'siw-database-tables';
 
+	/** Tabellen */
 	protected array $tables;
 
+	/** Instantie van Database_List_Table */
 	protected Database_List_Table $list_table;
 
 	/** Init */
@@ -25,18 +27,6 @@ class Database_Tables_Page {
 		$self->tables = Database_Table::toArray();
 		add_action( 'admin_menu', [ $self, 'admin_menu' ] );
 		add_filter( 'set-screen-option', [ $self, 'set_screen_option'], 10, 3);
-		add_action('admin_enqueue_scripts', [ $self, 'enqueue_modal_window_assets']);
-	}
-
-
-	function enqueue_modal_window_assets()
-	{
-	  // Check that we are on the right screen
-	  if (get_current_screen()->id == 'my_menu_page') {
-		// Enqueue the assets
-		wp_enqueue_style('thickbox');
-		wp_enqueue_script('plugin-install');
-	  }
 	}
 
 	/** Toevoegen submenu */
