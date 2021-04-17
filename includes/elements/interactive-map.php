@@ -4,7 +4,6 @@ namespace SIW\Elements;
 
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
-use SIW\Core\Template;
 use SIW\Properties;
 use SIW\Util\CSS;
 
@@ -18,7 +17,7 @@ use SIW\Util\CSS;
 class Interactive_Map extends Element {
 
 	/** Mapplic versie */
-	const MAPPLIC_VERSION = '6.1.3';
+	const MAPPLIC_VERSION = '7.0.1';
 
 	/** URL van Mapplic-bestanden */
 	protected string $mapplic_url = SIW_ASSETS_URL . 'vendor/mapplic/';
@@ -76,7 +75,7 @@ class Interactive_Map extends Element {
 	/** Geeft optie terug */
 	protected function get_option( string $option ) {
 		$options = $this->get_options();
-		return $options['option'] ?? null;
+		return $options[ $option ] ?? null;
 	}
 
 	/** Haalt gegevens voor kaart op */

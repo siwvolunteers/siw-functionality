@@ -77,9 +77,10 @@ class Netherlands implements Interactive_Map_Interface {
 		$provinces = array_unique( $provinces );
 		foreach ( $provinces as $province ) {
 			$locations[] = [
-				'id'       => "nl-{$province}",
-				'fill'     => Properties::SECONDARY_COLOR,
-				'action'   => 'disabled',
+				'id'     => "nl-{$province}",
+				'fill'   => Properties::SECONDARY_COLOR,
+				'action' => 'disabled',
+				'hide'   => true,
 			];
 		}
 		
