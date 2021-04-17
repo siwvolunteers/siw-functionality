@@ -83,8 +83,20 @@ function siw_generate_job_posting_json_ld( int $job_id ) : string {
 		->set_description( siw_meta( 'introduction', [], $job_id ) )
 		->set_date_posted( new \DateTime( get_the_modified_date( 'Y-m-d', $job_id ) ) )
 		->set_valid_through( new \DateTime( siw_meta( 'deadline', [], $job_id ) ) )
-		->set_employment_type( Employment_Type::PART_TIME() ) //TODO: betaald/volunteer/intern o.b.v meta paid /intern
-		->set_hiring_organization(
+		->set_employment_type( Employment_Type::PART_TIME() );
+		
+	switch ( siw_meta( 'job_type', [], $job_id ) ) {
+		case 'paid':
+			break;
+		case 'internship':
+			$job_posting->add_employment_type( Employment_Type::INTERN() );
+			break;
+		case 'volunteer':
+		default:
+			$job_posting->add_employment_type( Employment_Type::VOLUNTEER() );
+	}
+
+	$job_posting->set_hiring_organization(
 			Organization::create()
 				->set_name( Properties::NAME )
 				->set_same_as( SIW_SITE_URL )

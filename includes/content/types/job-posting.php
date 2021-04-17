@@ -47,11 +47,6 @@ class Job_Posting extends Type {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected bool $archive_taxonomy_filter = true;
-
-	/**
-	 * {@inheritDoc}
-	 */
 	protected bool $archive_masonry = true;
 
 	/**
@@ -80,6 +75,19 @@ class Job_Posting extends Type {
 				'name' => __( 'Gegevens', 'siw' ),
 			],
 			[
+				'id'       => 'job_type',
+				'name'     => __( 'Soort functie', 'siw' ),
+				'type'     => 'button_group',
+				'required' => true,
+				'options' => [
+					'volunteer' => __( 'Vrijwillig', 'siw' ),
+					'paid'      => __( 'Betaald', 'siw' ),
+					'internship' => __( 'Stage', 'siw' ),
+				],
+				'std' => 'volunteer',
+				'admin_columns' => 'after title',
+			],
+			[
 				'id'       => 'hours',
 				'name'     => __( 'Aantal uur per week', 'siw' ),
 				'type'     => 'text',
@@ -92,14 +100,7 @@ class Job_Posting extends Type {
 				'name'          => __( 'Deadline', 'siw' ),
 				'type'          => 'date',
 				'required'      => true,
-				'admin_columns' => 'after title',
-			],
-			[
-				'id'        => 'paid',
-				'name'      => __( 'Betaalde vacature', 'siw' ),
-				'type'      => 'switch',
-				'on_label'  => __( 'Ja', 'siw' ),
-				'off_label' => __( 'Nee', 'siw'),
+				'admin_columns' => 'after job_type',
 			],
 			[
 				'id'            => 'featured',
@@ -242,29 +243,9 @@ class Job_Posting extends Type {
 		return $labels;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function get_taxonomies() : array {
-		$taxonomies['type'] = [
-			'labels' => [
-				'name'                       => _x( 'Soort vacature', 'Taxonomy General Name', 'siw' ),
-				'singular_name'              => _x( 'Soort vacature', 'Taxonomy Singular Name', 'siw' ),
-				'menu_name'                  => __( 'Soort vacature', 'siw' ),
-				'all_items'                  => __( 'Alle vacaturesoorten', 'siw' ),
-				'add_new_item'               => __( 'Soort vacature toevoegen', 'siw' ),
-				'update_item'                => __( 'Soort vacatures bijwerken', 'siw' ),
-				'view_item'                  => __( 'Bekijk soort vacature', 'siw' ),
-				'search_items'               => __( 'Zoek vacaturesoorten', 'siw' ),
-				'not_found'                  => __( 'Geen vacaturesoorten gevonden', 'siw' ),
-			],
-			'args' => [
-				'public' => true,
-			],
-			'slug'   => 'vacatures-voor',
-			'filter' => true,
-		];
-		return $taxonomies;
+		return [];
 	}
 
 	/**
@@ -301,11 +282,16 @@ class Job_Posting extends Type {
 		
 		//Eigenschappen TODO: subtitle oid
 		echo '<h5>';
-		if ( siw_meta( 'paid' ) ) {
-			echo sprintf( esc_html__( 'Betaalde functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
-		}
-		else {
-			echo sprintf( esc_html__( 'Vrijwillige functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
+
+		switch ( siw_meta( 'job_type' ) ) {
+			case 'paid':
+				printf( esc_html__( 'Betaalde functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
+				break;
+			case 'internship':
+				printf( esc_html__( 'Stage (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
+				break;
+			default:
+				printf( esc_html__( 'Vrijwillige functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
 		}
 		echo '</h5>';
 		echo '<hr>';
@@ -423,14 +409,16 @@ class Job_Posting extends Type {
 	 * {@inheritDoc}
 	 */
 	public function add_archive_content() {
-		$type = siw_meta( 'siw_job_posting_type' );
-		$subtitle = siw_meta( 'paid' ) ? sprintf( __( 'Betaalde functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) ) : sprintf( __( 'Vrijwillige functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
-		?>
-		<div class="grid-100">
-			<h5>
-			<?php echo esc_html( $subtitle ); ?>
-			<h5>
-		<?php
+		switch ( siw_meta( 'job_type' ) ) {
+			case 'paid':
+				$subtitle = sprintf( __( 'Betaalde functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
+				break;
+			case 'internship':
+				$subtitle = sprintf( __( 'Stage (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
+				break;
+			default:
+				$subtitle = sprintf( __( 'Vrijwillige functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
+		}
 		?>
 		</div>
 		<div class="grid-100">
@@ -441,7 +429,7 @@ class Job_Posting extends Type {
 		</div>
 		<hr>
 		<div class="grid-100">
-			<?php printf( '%s', esc_html( $type->name ) ); ?>
+			<?php echo esc_html( $subtitle ); ?>
 		</div>
 		<?php
 	}
