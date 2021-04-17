@@ -2,7 +2,6 @@
 
 namespace SIW\Actions\Batch;
 
-use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 use SIW\Plato\Import_Dutch_Workcamps as Plato_Import_Dutch_Workcamps;
 
 /**
@@ -10,7 +9,7 @@ use SIW\Plato\Import_Dutch_Workcamps as Plato_Import_Dutch_Workcamps;
  * 
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Import_Plato_Dutch_Projects extends Import_Plato_Projects implements  Batch_Action_Interface  {
+class Import_Plato_Dutch_Projects extends Import_Plato_Projects  {
 
 	/** {@inheritDoc} */
 	public function get_id() : string {

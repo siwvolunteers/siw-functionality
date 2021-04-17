@@ -27,6 +27,16 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 	public function get_name(): string {
 		return 'Versturen email goedkeuren groepsprojecten';
 	}
+	
+	/** {@inheritDoc} */
+	public function must_be_scheduled(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function must_be_run_on_update(): bool {
+		return false;
+	}
 
 	/** {@inheritDoc} */
 	public function select_data(): array {

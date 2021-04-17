@@ -2,9 +2,6 @@
 
 namespace SIW\Actions;
 
-use ActionScheduler_Action;
-use ActionScheduler_Store;
-
 /**
  * Scheduler voor cron jobs
  * 
@@ -13,10 +10,19 @@ use ActionScheduler_Store;
 class Scheduler {
 
 	/** Group voor starten */
-	const ACTION_GROUP = 'siw_start';
+	const START_GROUP = 'siw_start';
 
 	/** Tijdslimiet voor queue runner (default is 30 seconden) */
 	const TIME_LIMIT = 2 * MINUTE_IN_SECONDS;
+
+	/** Starttijd van acties */
+	const START_TIME_GENERAL = '03:00';
+
+	/** Starttijd van FPL-import */
+	const START_TIME_IMPORT_FPL = '02:00';
+
+	/** Starttijdvan project-import */
+	const START_TIME_IMPORT_PROJECTS = '01:00';
 
 	/** Init */
 	public static function init() {
@@ -33,14 +39,14 @@ class Scheduler {
 		//Huidige start-actions unschedulen
 		$scheduled_actions = as_get_scheduled_actions(
 			[
-				'group'    => self::ACTION_GROUP,
-				'status'   => ActionScheduler_Store::STATUS_PENDING,
+				'group'    => self::START_GROUP,
+				'status'   => \ActionScheduler_Store::STATUS_PENDING,
 				'per_page' => -1,
 			]
 		);
 		array_walk(
 			$scheduled_actions,
-			fn( ActionScheduler_Action $action ) => as_unschedule_all_actions( $action->get_hook() )
+			fn( \ActionScheduler_Action $action ) => as_unschedule_all_actions( $action->get_hook() )
 		);
 
 		//Nieuw start-actions schedulen
@@ -48,13 +54,29 @@ class Scheduler {
 
 		array_walk(
 			$actions,
-			fn( string $start_time, string $action_id ) => as_schedule_recurring_action(
-				strtotime( 'tomorrow ' . $start_time . wp_timezone_string() ),
+			fn( string $action_id ) => as_schedule_recurring_action(
+				$this->determine_start_time( $action_id ),
 				DAY_IN_SECONDS,
 				"siw_action_{$action_id}_start",
 				[],
-				self::ACTION_GROUP
+				self::START_GROUP
 			)
 		);
+	}
+
+	/** Bepaal starttijd obv ID */
+	protected function determine_start_time( string $id ) : int {
+		switch ( $id ) {
+			case 'import_plato_projects':
+			case 'import_plato_dutch_projects':
+				$start_time = self::START_TIME_IMPORT_PROJECTS;
+				break;
+			case 'import_plato_project_free_places':
+				$start_time = self::START_TIME_IMPORT_FPL;
+				break;
+			default:
+				$start_time = self::START_TIME_GENERAL;
+		}
+		return strtotime( 'tomorrow ' . $start_time . wp_timezone_string() );
 	}
 }

@@ -24,6 +24,16 @@ class Delete_Applications implements Batch_Action_Interface {
 		return __( 'Verwijder aanmeldingen', 'siw' );
 	}
 	
+	/** {@inheritDoc} */
+	public function must_be_scheduled(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function must_be_run_on_update(): bool {
+		return false;
+	}
+
 	/**
 	 * Selecteer de aanmeldingen van meer dan 1 jaar oud
 	 * 

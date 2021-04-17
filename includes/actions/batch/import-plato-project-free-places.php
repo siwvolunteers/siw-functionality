@@ -22,6 +22,16 @@ class Import_Plato_Project_Free_Places implements Batch_Action_Interface {
 	public function get_name(): string {
 		return __( 'Importeren vrije plaatsen uit Plato', 'siw' );
 	}
+	
+	/** {@inheritDoc} */
+	public function must_be_scheduled(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function must_be_run_on_update(): bool {
+		return false;
+	}
 
 	/** {@inheritDoc} */
 	public function select_data() : array {
