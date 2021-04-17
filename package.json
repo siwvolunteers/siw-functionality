@@ -57,7 +57,7 @@
 			},
 			"frappe-charts": {
 				"version": "^1.5.2",
-				"src": "{/dist/frappe-charts.min.iife.js,/dist/frappe-charts.min.iife.js.map,dist/frappe-charts.min.css}",
+				"src": "{/dist/frappe-charts.min.umd.js,/dist/frappe-charts.min.umd.js.map}",
 				"namespaced": true
 			},
 			"js-cookie": {
