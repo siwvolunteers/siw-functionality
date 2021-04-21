@@ -1,7 +1,9 @@
-@charset "UTF-8";
 nav.breadcrumb {
+  padding: 10px;
+  background-color: rgba(63, 63, 63, 0.75);
   font-size: 0.9em;
   text-shadow: 1px 1px var(--siw-font-color);
+  width: fit-content;
 }
 nav.breadcrumb ol.breadcrumb {
   margin: 0;
@@ -15,7 +17,7 @@ nav.breadcrumb ol.breadcrumb li a {
   color: #fff;
 }
 nav.breadcrumb ol.breadcrumb li + li:before {
-  padding: 0.9em;
+  padding: 0.5em;
   color: #fff;
-  content: "/ ";
+  content: ">";
 }
