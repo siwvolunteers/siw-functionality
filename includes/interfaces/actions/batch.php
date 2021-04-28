@@ -14,4 +14,10 @@ interface Batch extends Action {
 
 	/** Verwerk item */
 	public function process( $item );
+
+	/** Moet actie toegevoegd worden aan scheduler */
+	public function must_be_scheduled() : bool;
+
+	/** Moet actie uitgevoerd worden bij update van plugin */
+	public function must_be_run_on_update() : bool;
 }

@@ -25,6 +25,16 @@ class Delete_Old_Posts implements Batch_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
+	public function must_be_scheduled(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function must_be_run_on_update(): bool {
+		return false;
+	}
+
+	/** {@inheritDoc} */
 	public function select_data() : array {
 
 		$post_types = apply_filters( 'siw_delete_old_posts_post_types', [] );

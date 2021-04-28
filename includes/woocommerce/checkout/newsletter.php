@@ -5,8 +5,7 @@ namespace SIW\WooCommerce\Checkout;
 /**
  * Aanmelding voor nieuwsbrief tijdens WooCommerce checkout
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Newsletter{
 
@@ -44,7 +43,7 @@ class Newsletter{
 		}
 		siw_newsletter_subscribe( 
 			$order->get_billing_email(),
-			siw_get_option( 'newsletter_list' ),
+			(int) siw_get_option( 'newsletter_list' ),
 			[
 				'firstname' => $order->get_billing_first_name(),
 				'lastname'  => $order->get_billing_last_name(),

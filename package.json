@@ -22,11 +22,11 @@
 	"browserslist": [
 		">0.5% in NL"
 	],
-	"dependencies": {},
 	"devDependencies": {
 		"autoprefixer": "^10.0.0",
 		"frontend-dependencies": "^2.0.0",
 		"mjml": "^4.8.1",
+		"postcss": "^8.0.0",
 		"postcss-cli": "^8.0.0",
 		"sass": "^1.32.6",
 		"svgstore-cli": "^2.0.0",
@@ -57,7 +57,7 @@
 			},
 			"frappe-charts": {
 				"version": "^1.5.2",
-				"src": "{/dist/frappe-charts.min.iife.js,/dist/frappe-charts.min.iife.js.map,dist/frappe-charts.min.css}",
+				"src": "{/dist/frappe-charts.min.umd.js,/dist/frappe-charts.min.umd.js.map}",
 				"namespaced": true
 			},
 			"js-cookie": {
