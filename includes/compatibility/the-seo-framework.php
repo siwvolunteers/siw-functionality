@@ -4,6 +4,7 @@ namespace SIW\Compatibility;
 
 use SIW\i18n;
 use SIW\Properties;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Aanpassingen voor The SEO Framework
@@ -71,23 +72,23 @@ class The_SEO_Framework {
 		return $post_types;
 	}
 
-	/** Productarchieven toevoegen aan de sitemap */
+	/** Productarchieven toevoegen aan de sitemap TODO: verplaatsen naar WooCommerce*/
 	public function set_sitemap_additional_urls( array $custom_urls ) : array {
 		
 		if ( ! i18n::is_default_language() ) {
 			return $custom_urls;
 		}
 		$taxonomies = [
-			'product_cat',
-			'pa_land',
-			'pa_doelgroep',
-			'pa_soort-werk',
-			'pa_taal',
-			'pa_sdg',
+			Taxonomy_Attribute::CONTINENT(),
+			Taxonomy_Attribute::COUNTRY(),
+			Taxonomy_Attribute::TARGET_AUDIENCE(),
+			Taxonomy_Attribute::WORK_TYPE(),
+			Taxonomy_Attribute::LANGUAGE(),
+			Taxonomy_Attribute::SDG(),
 		];
 	
 		foreach ( $taxonomies as $taxonomy ) {
-			$terms = get_terms( $taxonomy, [ 'hide_empty' => true ] );
+			$terms = get_terms( $taxonomy->value, [ 'hide_empty' => true ] );
 			foreach ( $terms as $term ) {
 				$custom_urls[] = get_term_link( $term->slug, $term->taxonomy );
 			}

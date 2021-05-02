@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Frontend;
 
+use SIW\WooCommerce\Taxonomy_Attribute;
+
 /**
  * Aanpassingen aan overzichtspagina van groepsprojecten
  *
@@ -48,23 +50,23 @@ class Archive {
 		}
 
 		switch ( $term->taxonomy ) {
-			case 'pa_land':
-			case 'product_cat':
+			case Taxonomy_Attribute::CONTINENT():
+			case Taxonomy_Attribute::COUNTRY():
 				$title = sprintf( __( 'Groepsprojecten in %s', 'siw' ), $term->name );
 				break;
-			case 'pa_doelgroep':
+			case Taxonomy_Attribute::TARGET_AUDIENCE():
 				$title = sprintf( __( 'Groepsprojecten voor %s', 'siw' ), $term->name );
 				break;
-			case 'pa_taal':
+			case Taxonomy_Attribute::LANGUAGE():
 				$title = sprintf( __( 'Groepsprojecten met voertaal %s', 'siw' ), $term->name );
 				break;
-			case 'pa_soort-werk':
+			case Taxonomy_Attribute::WORK_TYPE():
 				$title = sprintf( __( 'Groepsprojecten met werk gericht op %s', 'siw' ), strtolower( $term->name ) );
 				break;
-			case 'pa_sdg':
+			case Taxonomy_Attribute::SDG():
 				$title = sprintf( __( 'Groepsprojecten met werk gericht op het SDG %s', 'siw' ), strtolower( $term->name ) );
 				break;
-			case 'pa_maand':
+			case Taxonomy_Attribute::MONTH():
 				$title = sprintf( __( 'Groepsprojecten in de maand %s', 'siw' ), $term->name );
 				break;
 		}
@@ -79,17 +81,18 @@ class Archive {
 		}
 		
 		switch ( $term->taxonomy ) {
-			case 'pa_land':
+			case Taxonomy_Attribute::CONTINENT():
+			case Taxonomy_Attribute::COUNTRY():
 				$description =
 					sprintf( __( 'Wil je graag vrijwilligerswerk doen in %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name ) . SPACE .
 					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
 				break;
-			case 'pa_soort-werk':
+			case Taxonomy_Attribute::WORK_TYPE():
 				$description =
 					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), strtolower( $term->name ) ) . SPACE .
 					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
 				break;
-			case 'pa_sdg':
+			case Taxonomy_Attribute::SDG():
 				$description =
 					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op het Sustainable Development Goal %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name ) . SPACE .
 					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );

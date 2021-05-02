@@ -4,12 +4,12 @@ namespace SIW\WooCommerce\Frontend;
 
 use SIW\i18n;
 use SIW\Properties;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Header voor overzichtspagina van groepsprojecten
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
 class Archive_Header {
 
@@ -65,22 +65,23 @@ class Archive_Header {
 		elseif ( \is_product_taxonomy() ) {
 			$name = get_queried_object()->name;
 			switch ( get_queried_object()->taxonomy ) {
-				case 'pa_land':
+				case Taxonomy_Attribute::CONTINENT():
+				case Taxonomy_Attribute::COUNTRY():
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in %s.', 'siw' ), '<b>' . $name . '</b>' );
 					break;
-				case 'pa_soort-werk':
+				case Taxonomy_Attribute::WORK_TYPE():
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
 					break;
-				case 'pa_sdg':
+				case Taxonomy_Attribute::SDG():
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op het Sustainable Development Goal %s.', 'siw' ), '<b>' . $name . '</b>' );
 					break;
-				case 'pa_doelgroep':
+				case Taxonomy_Attribute::TARGET_AUDIENCE():
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten voor de doelgroep %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
 					break;
-				case 'pa_taal':
+				case Taxonomy_Attribute::LANGUAGE():
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met de voertaal %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
-				case 'pa_maand':
+				case Taxonomy_Attribute::MONTH():
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
 				default:

@@ -5,6 +5,9 @@ namespace SIW\WooCommerce\Frontend;
 use SIW\Data\Currency;
 use SIW\External\Exchange_Rates;
 use SIW\WooCommerce\Import\Product as Import_Product;
+use SIW\WooCommerce\Product_Attribute;
+use SIW\WooCommerce\Taxonomy_Attribute;
+use Spatie\Enum\Enum;
 
 /**
  * Aanpassingen aan Groepsproject
@@ -64,22 +67,22 @@ class Product {
 	/** Past weergave van de attributes aan */
 	public function display_product_attributes( array $attributes, \WC_Product $product ) : array {
 		$order = [
-			'projectnaam',
-			'projectcode',
-			'pa_land',
-			'pa_soort-werk',
-			'startdatum',
-			'einddatum',
-			'aantal-vrijwilligers',
-			'leeftijd',
-			'lokale-bijdrage',
-			'pa_taal',
-			'pa_doelgroep',
-			'pa_sdg'
+			Product_Attribute::PROJECT_NAME(),
+			Product_Attribute::PROJECT_CODE(),
+			Taxonomy_Attribute::COUNTRY(),
+			Taxonomy_Attribute::WORK_TYPE(),
+			Product_Attribute::START_DATE(),
+			Product_Attribute::END_DATE(),
+			Product_Attribute::NUMBER_OF_VOLUNTEERS(),
+			Product_Attribute::AGE_RANGE(),
+			Product_Attribute::PARTICIPATION_FEE(),
+			Taxonomy_Attribute::LANGUAGE(),
+			Taxonomy_Attribute::TARGET_AUDIENCE(),
+			Taxonomy_Attribute::SDG(),
 		];
 
 		$order = array_map(
-			fn( string $slug ) : string => "attribute_{$slug}",
+			fn( Enum $attribute ) : string => "attribute_{$attribute->value}",
 			$order
 		);
 
