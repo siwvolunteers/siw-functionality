@@ -420,7 +420,6 @@ class Job_Posting extends Type {
 				$subtitle = sprintf( __( 'Vrijwillige functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
 		}
 		?>
-		</div>
 		<div class="grid-100">
 			<?php the_excerpt(); ?>
 		</div>
