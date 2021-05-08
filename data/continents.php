@@ -7,34 +7,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Data van continenten
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 
 $data = [
 	[
 		'slug'  => 'europa',
 		'name'  => __( 'Europa', 'siw' ),
-		'color' => '#007499',
+		'color' => '#67bdd3',
 	],
 	[
 		'slug'  => 'azie',
 		'name'  => __( 'Azië', 'siw' ),
-		'color' => '#008e3f',
+		'color' => '#7fc31b',
 	],
 	[
 		'slug'  => 'afrika',
 		'name'  => __( 'Afrika', 'siw' ),
-		'color' => '#e30613',
+		'color' => '#e74052',
 	],
 	[
 		'slug'  => 'latijns-amerika',
 		'name'  => __( 'Latijns-Amerika', 'siw' ),
-		'color' => '#c7017f',
+		'color' => '#623981',
 	],
 	[
 		'slug'  => 'noord-amerika',
 		'name'  => __( 'Noord-Amerika', 'siw' ),
-		'color' => '#fbba00',
+		'color' => '#f4d416',
 	],
 ];
 
