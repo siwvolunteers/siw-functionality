@@ -98,7 +98,7 @@ class Properties {
 	const DISCOUNT_SECOND_PROJECT = 25;
 
 	/** Kleurcode primaire kleur */
-	const PRIMARY_COLOR = '#ff9900';
+	const PRIMARY_COLOR = '#f67820';
 
 	/** Kleurcode secundaire kleur */
 	const SECONDARY_COLOR = '#59ab9c';
