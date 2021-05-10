@@ -10,8 +10,8 @@ html body.login {
 }
 html body.login h1 a {
   background-image: url("/wp-content/plugins/siw-functionality/assets/images/login/logo.png");
-  background-size: unset;
-  width: unset;
+  background-size: contain;
+  width: auto;
 }
 html body.login .message {
   border-left-color: var(--siw-primary-color);

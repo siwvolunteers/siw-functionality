@@ -5,15 +5,15 @@ html{
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center;
-	background-size:cover;
+	background-size: cover;
 
 	body.login {
 		background: transparent;
 
 		h1 a {
 			background-image: url('#{$assets-path}/images/login/logo.png');
-			background-size: unset;
-			width: unset;
+			background-size: contain;
+			width: auto;
 		}
 		.message {
 			border-left-color: var(--siw-primary-color);
