@@ -2,15 +2,15 @@
 
 namespace SIW\Compatibility;
 
+use SIW\Data\Continent;
 use SIW\i18n;
 use SIW\Properties;
 
 /**
  * Aanpassingen voor GeneratePress
  * 
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://generatepress.com/
- * @since     3.1.0
  */
 class GeneratePress{
 
@@ -49,8 +49,10 @@ class GeneratePress{
 		//Pas snelheid voor omhoog scrollen aan
 		add_filter( 'generate_back_to_top_scroll_speed', fn() : int => self::BACK_TO_TOP_SCROLL_SPEED );
 
-		//
 		add_filter( 'generate_footer_widgets', [ $self, 'set_footer_widgets'] );
+
+		//Default instellingen zetten
+		add_filter( 'generate_default_color_palettes', [ $self, 'set_default_color_palettes'] );
 	}
 
 	/** Voeg menu order toe een GP Elements */
@@ -97,5 +99,27 @@ class GeneratePress{
 			$widgets = '1';
 		}
 		return $widgets;
+	}
+
+	/** Zet default kleurenpalet */
+	public function set_default_color_palettes() : array {
+
+		$continent_colors = wp_cache_get( 'siw_continent_colors' );
+		if ( false == $continent_colors ) {
+			$continent_colors = array_values(
+				array_map(
+				fn( Continent $continent ) : string => $continent->get_color(),
+				\siw_get_continents()
+			));
+			wp_cache_set( 'siw_continent_colors', $continent_colors );
+		}
+
+		return [
+			Properties::PRIMARY_COLOR,
+			Properties::SECONDARY_COLOR,
+			Properties::FONT_COLOR,
+			...$continent_colors,
+			'#fefefe',
+		];
 	}
 }

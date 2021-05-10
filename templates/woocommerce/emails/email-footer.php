@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									</tr>
 									<tr>
 										<td width="10%">&nbsp;</td>
-										<td width="80%" height="20" style="border-bottom:thin solid #ff9900"></td>
+										<td width="80%" height="20" style="border-bottom:thin solid <?= Properties::PRIMARY_COLOR;?>"></td>
 										<td width="10%">&nbsp;</td>
 									</tr>
 								</table>
