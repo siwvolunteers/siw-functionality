@@ -28,5 +28,5 @@ interface Interactive_Map {
 	public function get_locations() : array;
 
 	/** Geeft alternatieve content voor mobiel terug */
-	public function get_mobile_content() : ?string;
+	public function get_mobile_content() : string;
 }
