@@ -32,7 +32,61 @@ class Database {
 	public function get_columns() : array {
 		return $this->columns;
 	}
-
+	#
+	# get the columns to be shown in admin table view
+	# returns e.g. ['project_id'    => 'header text column','code' => 'heder text column']
+	public function get_showcolumns() : array {
+		$columns = $this->columns;
+		$showcolumns = array();
+		foreach($columns as $column)
+		{
+			if(array_key_exists("show",$column))
+			{
+				$showcolumns=array_merge($showcolumns,[$column['name'] => $column['show']]);
+			}
+		}
+		return($showcolumns);
+	}
+		#
+	# get the columns to be sorted in admin table view
+	# returns e.g. ['project_id'    => array('code',true), .....]
+	public function get_sortcolumns() : array {
+		$columns = $this->columns;
+		$sortcolumns = array();
+		foreach($columns as $column)
+		{
+			if(array_key_exists("sort",$column))
+			{
+				$sortcolumns=array_merge($sortcolumns,[$column['name'] => array ( $column['name'],$column['sort']) ]);
+			}
+		}
+		return($sortcolumns);
+	}
+	# kolommen waarop gezocht wordt bij invoeren zoekveld
+	# 
+	public function get_searchcolumns() : array {
+		$columns = $this->columns;
+		$searchcolumns = array();
+		foreach($columns as $column)
+		{
+			if(array_key_exists("search",$column))
+			{
+				array_push($searchcolumns,$column['name']);
+			}
+		}
+		return($searchcolumns);
+	}
+	public function get_primary_key() : string {
+		$columns = $this->columns;
+		foreach($columns as $column)
+		{
+			if(array_key_exists("primary_key",$column))
+			{
+				return($column['name']);
+			}
+		}
+	}
+	
 	/** Truncate tabel */
 	public function truncate() : bool {
 		return (bool) $this->wpdb->query( "TRUNCATE TABLE {$this->table}");
@@ -255,5 +309,194 @@ class Database {
 	/** Geeft data typer kolom terug */
 	protected function get_column_data_types() : array {
 		return wp_list_pluck( $this->columns, 'type', 'name' );
+	}
+	# ReadRecords 
+	# $args['table'] - databasetable
+	# $args['sort'] - column to be sorted
+	# $args['prefilter'] - overall filter defined in call (columnname:value)
+	# $args['filters'] - Array ( [column1] => value [column2] => value ........ ) 
+	# 					value may be preceded by:
+	#					# : search on full content
+	#					< : content should be <= value
+	#					> : content should be >= value
+	# $args["search'] - array(array ('column1','column2' ....),$value)
+	#					- match $value in the given columns
+	# $args['page'} - current pagenumber
+	# $args['maxlines'] - maxlines per page
+	# $args['output'] - (string) (Optional) Any of ARRAY_A | ARRAY_N | OBJECT | OBJECT_K constants. default=OBJECT
+	public function ReadRecords($args)
+	{
+		global $wpdb;
+		$wptable = isset($args["table"]) ? $wpdb->prefix . $args["table"] : $this->table;;	
+		#echo "wptable=".$wptable;	
+		$sort = isset($args["sort"]) ? $args["sort"] : "";
+		$prefilter = isset($args["prefilter"]) ? $args["prefilter"] : "";
+		$filters = isset($args["filters"]) ? $args["filters"] : "";
+		$search = isset($args["search"]) ? $args["search"] : "";
+		$page = isset($args["page"]) ? $args["page"] : "";
+		$maxlines = isset($args["maxlines"]) ? $args["maxlines"] : "";
+		$output = isset($args["output"]) ? $args["output"] : "OBJECT";
+		#
+		# make conditions for the query
+		#
+		$conditions='';
+		#
+		# translate filters to query conditions
+		#
+		#
+		# first check prefilter
+		#
+		if($prefilter)
+		{
+			foreach($prefilter as $i => $value) 
+			{
+				if($conditions) {$conditions .= ' and '; }
+				$conditions .= '('. $i . '="' . $value . '")';
+			}
+		}
+		#
+		# search value in given columns
+		#
+		if($search)
+		{
+			$columns = $search[0];
+			$value = $search[1];
+			
+			foreach ($columns as $f)
+			{
+				$key = "%" . $value . "%"; #match on content
+				if($conditions) {$conditions .= ' or '; }
+				$conditions .= '('. $f . ' LIKE "' . $key . '")';
+			}
+		}
+		if($filters)
+		{
+			foreach($filters as $f => $value)
+			{
+				if($conditions) {$conditions .= ' and '; }
+				#
+				# If < or > before value search on <= resp >=
+				#
+				if(preg_match('/^>(.*)/',$value,$match))   
+				{
+					$value = $match[1];
+					$conditions .= '('. $f . ' >= "' . $value . '")';
+				}
+				#
+				# when prefix of filter is max_ then the key  the maximum value of a field.
+				#
+				elseif(preg_match('/^<(.*)/',$value,$match))   
+				{
+					$value = $match[1];
+					$conditions .= '('. $f . ' <= "' . $value . '")';
+				}
+				# if key numerical search on full field or word in field
+				#
+				#
+				elseif(is_numeric($value))
+				{
+					$conditions .= '('. $f . ' = "' . $value . '"';
+					$conditions .= ' or ';
+					$key = '"' . $value . '" ';
+					$conditions .= $f . ' LIKE ' . $key;
+					$conditions .= " or ";
+					$key = ' "' . $value . '" ';
+					$conditions .= $f . " LIKE " . $key;
+					$conditions .= " or ";
+					$key = ' "' . $value . '"';
+					$conditions .= $f . ' LIKE ' . $key . ')';
+				}
+				else
+				{
+					if(preg_match("/#/",$value))
+					{
+						$key=substr($value,1);   #search on full content
+					}
+					else
+					{
+						$key = "%" . $value . "%"; #match on content
+					}
+					$conditions .= '('. $f . ' LIKE "' . $key . '")';
+				}
+			}
+		}
+		#
+		# start the query
+		#
+		#echo "<br>conditions=" . $conditions;
+		#global $wpdb;
+		#$wptable = $wpdb->prefix . $table;
+		#$wptable = $this->table;
+		$query='SELECT * FROM '. $wptable;
+		if($conditions) { $query .= ' WHERE ' . $conditions;}
+		#
+		# sort argument
+		# translate to query sort field
+		#
+		#echo "<br>sort=" . $sort;
+		if($sort &&  $sort != "no")
+		{
+			$query .= ' ORDER BY ' . $sort;
+		}
+		#
+		# $limit is maximum number of rows to be displayed
+		# $page = current pagenumber
+		# so calculate offset
+		#
+		if($maxlines)
+		{
+			$offset=0;
+			if(is_numeric($maxlines)) { $offset=($page-1)*$maxlines; }
+			$query .= ' LIMIT '.$offset.','. $maxlines;
+		}
+		#
+		#echo '<br>' . $query;
+		$rows=$wpdb->get_results( $query , $output );
+		return($rows);
+	}
+	#
+	# read a record with unique key
+	# $args['table'] - databasetable
+	# $args['key'] - name of unique key
+	# $args['value'] - value of unique key
+	public function ReadUniqueRecord($args)
+	{
+		global $wpdb;
+		$wptable = isset($args["table"]) ? $wpdb->prefix . $args["table"] : $this->table;;	
+		$table = isset($args["table"]) ? $args["table"] : "";
+		$query='SELECT * FROM '. $wptable .' WHERE ' . $args["key"] . ' ="' . $args["value"] .'"';
+		$row=$wpdb->get_row( $query );
+		return($row);
+	}
+	#
+	# display all fields of a record
+	# $args['table'] - databasetable
+	# $args['key'] - name of unique key
+	# $args['value'] - value of unique key
+	public function DisplayAllFields($args)
+	{
+		global $wp;
+		global $wpdb;
+		$wptable = isset($args["table"]) ? $wpdb->prefix . $args["table"] : $this->table;;	
+		$table = isset($args["table"]) ? $args["table"] : "";
+		$html = '';
+		#
+		# get the column names in the table
+		#
+		$columns = $wpdb->get_col("DESC {$wptable}", 0);
+		$p=$this->ReadUniqueRecord($args);
+		#
+		# display content of all fields
+		#
+		$html .= '<table>';
+		foreach($columns as $c)
+		{
+			$html .= '<tr>';
+			$html .= '<td>'.$c.'</td>';
+			$html .= '<td>'.$p->$c.'</td>';
+			$html .= '</tr>';
+		}
+		$html .= '</table>';
+		return($html);
 	}
 }
