@@ -16,6 +16,7 @@ $data = [
 		'type'        => 'CHAR',
 		'length'      => 32,
 		'primary_key' => true,
+		'show'		  => __('project id','siw'),
 	],
 	[
 		'name'        => 'image_id',
@@ -26,6 +27,7 @@ $data = [
 		'name'        => 'file_identifier',
 		'type'        => 'CHAR',
 		'length'      => 32,
+		'show'		  => __('file identifier','siw'),
 	],
 
 ];
