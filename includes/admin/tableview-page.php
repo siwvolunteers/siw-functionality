@@ -14,8 +14,7 @@ class Tableview_Page
 	public array $tables;
 	public array $names;
 
-	function init()
-	{
+	function init() {
 		$self = new self();
 		if ( ! class_exists( 'WP_List_Table' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
@@ -26,13 +25,11 @@ class Tableview_Page
 		add_filter( 'set-screen-option', [$self,'set_option'], 10, 3 );
 		add_action('admin_menu', array($self,'MakePage') );
 	}
-	function MakePage() 
-	{
+	function MakePage() {
 		//create new top-level menu
 		
 		$self = new self();
-		$hook=add_menu_page
-		(
+		$hook=add_menu_page (
 			'plato table view',
 			'plato table view',
 			'manage_options',
@@ -43,8 +40,7 @@ class Tableview_Page
 		$self->tables[$hook] = $table;		#save table for function Displaytable
 		$self->names[$hook] = $name;		#save name for function Displaytable
 		add_action( "load-$hook", [ $self, 'add_screen_options' ] );
-		foreach ($this->dbtables as $table => $name)
-		{
+		foreach ($this->dbtables as $table => $name) {
 			#$args = array('table'=>$name);
 			$hook=add_submenu_page
 			(
@@ -66,8 +62,7 @@ class Tableview_Page
 	/**
 	 * Display the table
 	 */
-	public function DisplayTable() 
-	{
+	public function DisplayTable() {
 		global $title;
 		$displayrecords = $this->displayclass;
 		$table = $this->tables[current_filter()];
@@ -90,8 +85,7 @@ class Tableview_Page
 		$html .= '</form></div></div></div><br class="clear"></div></div>';
 		echo $html;
 	}
-	public function TableOptions()
-	{
+	public function TableOptions() {
 		$displayrecords = $this->displayclass;
 		$currenttable = $this->tables[current_filter()];
 		$currentname = $this->names[current_filter()];
@@ -110,8 +104,7 @@ class Tableview_Page
 	 * First you have to make sure that the screen options are displayed only on the current page:
 	 * Screen options called when menu is loaded (see adminpage.php)
 	 */
-	public function add_screen_options() 
-	{
+	public function add_screen_options() {
 		$this->displayclass = new DisplayRecords();
 		#
 		# Database table object bepalen
@@ -121,16 +114,14 @@ class Tableview_Page
 		$option = 'per_page';
 		$args   = [
 			'label'   => __('records','siw'),
-			'default' => 5,
-			'option'  => $currenttable . '_per_page'
+			'default' => 10,
+			'option'  => 'records_per_page'
 		];
 		add_screen_option( $option, $args ); #Register and configure an admin screen option
 		$table = Database_Table::make($currentname);
 		$this->displayclass->dbtable=new Database( $table);
 	}
-	function set_option( $status, $option, $value ) 
-	{
-		#echo "option =". $option;
+	function set_option( $status, $option, $value ) {
 		return($value);
 	}
 }

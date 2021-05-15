@@ -9,14 +9,9 @@ class DisplayRecords extends \WP_List_Table {
 	/** Class constructor */
 	public $dbtable;			# current Database table object
 	public $primary_key;	# primary key of the table
-	#public $search_columns;	# columns to be filtered by search box
 	public $current_table;	#the current table to be displayed
-	#public $show_columns;	# columns te be displayed
-	#public $sortable_columns;	# columns te be sorted
 	public $single_name;		# singular name of listed records
 	public $plural_name;		# plural name of listed records
-	#public $per_page_label;		# label voor records per pagina
-	#public $per_page_option;	# option voor records per pagina
 
 	public function __construct() {
 
@@ -260,7 +255,7 @@ class DisplayRecords extends \WP_List_Table {
 		/** Process bulk action */
 		$this->process_bulk_action();
 
-		$per_page     = $this->get_items_per_page( 'records_per_page', 5 );
+		$per_page     = $this->get_items_per_page( 'records_per_page', 15 );
 		$current_page = $this->get_pagenum();
 		$total_items  = self::record_count();
 
