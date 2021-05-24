@@ -2,7 +2,6 @@
 namespace SIW\Admin;
 
 use SIW\Admin\Database_List_Table;
-use SIW\Helpers\dbio;
 use SIW\Database_Table;
 use SIW\Helpers\Database;
 
@@ -14,56 +13,59 @@ class Tableview_Page
 	public array $tables;
 	public array $names;
 
-	function init() {
+	public static function init() {
 		$self = new self();
 		if ( ! class_exists( 'WP_List_Table' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 		}
 		$self->dbtables = Database_Table::toArray();  #[plato_project_free_places] => PLATO_PROJECT_FREE_PLACES [plato_project_images] => PLATO_PROJECT_IMAGES )		
 		// create custom plugin settings menu
-		#add_filter( 'set-screen-option', [ __CLASS__, 'set_screen' ], 10, 3 );
 		add_filter( 'set-screen-option', [$self,'set_option'], 10, 3 );
 		add_action('admin_menu', array($self,'MakePage') );
 	}
 	function MakePage() {
 		//create new top-level menu
 		
-		$self = new self();
 		$hook=add_menu_page (
-			'plato table view',
-			'plato table view',
+			'tableview',
+			'tableview',
 			'manage_options',
-			'platoprojects_slug',
-			array($self, 'DisplayTable'),
-			plugins_url('/images/icon.png', __FILE__) 
+			'tableview_slug',
+			[ $this, 'DisplayNone' ],
+			'dashicons-database-export'
 		);
-		$self->tables[$hook] = $table;		#save table for function Displaytable
-		$self->names[$hook] = $name;		#save name for function Displaytable
-		add_action( "load-$hook", [ $self, 'add_screen_options' ] );
 		foreach ($this->dbtables as $table => $name) {
-			#$args = array('table'=>$name);
 			$hook=add_submenu_page
 			(
-				'platoprojects_slug',
+				'tableview_slug',
 				$table,
 				$table,
 				'administrator',
 				$table.'_slug',
-				[ $self, 'DisplayTable' ],
-				plugins_url('/images/icon.png', __FILE__) 
+				[ $this, 'DisplayTable' ],
+				NULL
 			);
-			$self->tables[$hook] = $table;		#save table for function Displaytable
-			$self->names[$hook] = $name;		#save name for function Displaytable
-			$self->names["load-$hook"] = $name;		#save name for function Displaytable
-			$self->tables["load-$hook"] = $table;		#save name for function Displaytable
-			add_action( "load-$hook", [ $self, 'add_screen_options' ] );
+			$this->tables[$hook] = $table;		#save table for function Displaytable
+			$this->names[$hook] = $name;		#save name for function Displaytable
+			$this->names["load-$hook"] = $name;		#save name for function Displaytable
+			$this->tables["load-$hook"] = $table;		#save name for function Displaytable
+			add_action( "load-$hook", [ $this, 'add_screen_options' ] );
 		}
+		remove_submenu_page('tableview_slug','tableview_slug');	#verwijder het hoofdmenu als submenu
+	}
+	/**
+	 * Todo: main menu not cliclable
+	 */
+	public function DisplayNone() 
+	{
+		echo __('klik op een submenu','siw');
 	}
 	/**
 	 * Display the table
 	 */
 	public function DisplayTable() {
 		global $title;
+		add_thickbox();		# Wordt gebruikt om content van een record te tonen
 		$displayrecords = $this->displayclass;
 		$table = $this->tables[current_filter()];
 		$name = $this->names[current_filter()];
@@ -72,7 +74,7 @@ class Tableview_Page
 
 		$html .= '<div class="wrap">';
 
-		$hmtl .= '<div id="poststuff">';
+		#$html .= '<div id="poststuff">';
 		$html .= 	'<div id="post-body" class="metabox-holder columns-2">';
 		$html .= 		'<div id="post-body-content">';
 		$html .=			'<div class="meta-box-sortables ui-sortable">';
@@ -82,7 +84,7 @@ class Tableview_Page
 		$displayrecords->prepare_items();
 		$displayrecords->search_box('search', 'search_id');
 		$displayrecords->display();
-		$html .= '</form></div></div></div><br class="clear"></div></div>';
+		$html = '</form></div></div></div><br class="clear"></div>';
 		echo $html;
 	}
 	public function TableOptions() {
@@ -114,7 +116,7 @@ class Tableview_Page
 		$option = 'per_page';
 		$args   = [
 			'label'   => __('records','siw'),
-			'default' => 10,
+			'default' => $this->displayclass->records_per_page,
 			'option'  => 'records_per_page'
 		];
 		add_screen_option( $option, $args ); #Register and configure an admin screen option

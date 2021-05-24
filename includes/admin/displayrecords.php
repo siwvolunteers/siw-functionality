@@ -12,6 +12,7 @@ class DisplayRecords extends \WP_List_Table {
 	public $current_table;	#the current table to be displayed
 	public $single_name;		# singular name of listed records
 	public $plural_name;		# plural name of listed records
+	public $records_per_page = 20;	# default number of records per page
 
 	public function __construct() {
 
@@ -25,118 +26,44 @@ class DisplayRecords extends \WP_List_Table {
 
 
 	/**
-	 * Retrieve projects data from the database
+	 * get_records
+	 * Lees de records en kolommen in die getoond moeten worden
+	 * rekening houdend met paginannummer, aantal records per pagina, sortering en zoeksleutel
+	 * Het veld met de primary key wordt een link naar een popup om de inhoud van het gehele record te tonen.
 	 *
 	 * @param int $per_page
 	 * @param int $page_number
 	 *
 	 * @return mixed
 	 */
-	public function get_records( $per_page = 5, $page_number = 1 ) 
-	{
-		add_thickbox();
-
-		$html = '';
-		$html .= '<div id="my-content-id" style="display:none;">';
-     	$html .= '<p>';
-        $html .= ' This is hidden content! It will appear in Popup when the link is clicked.';
-     	$html .= '</p>';
-		$html .= '</div>';
-		echo $html;
-
+	public function get_records( $per_page , $page_number = 1 ) {
 		$searchcolumns = $this->dbtable->get_searchcolumns();
 		$search = isset($_POST['s']) && $_POST['s'] ? array($searchcolumns,$_POST['s']) : "";
+		$sort = isset($_REQUEST['orderby']) ? esc_sql($_REQUEST['orderby']) : '';
 		$args = array(
 			"maxlines"=>$per_page,
 			"page"=>$page_number,
 			"search"=>$search,
-			"sort"=>esc_sql($_REQUEST['orderby']),
+			"sort"=>$sort,
 			"output"=>"ARRAY_A"
 		);
-		$result = $this->dbtable->ReadRecords($args);	#lees records uit database
-		#
-		# maak de content om alle velden van een record te kunnen bekijken
-		# Dat kan als het veld dat de primary key is van een record wordt getoond.
-		# Door hier op te klikken wordt in een popup de inhoud van alle velden getoond
-		#
-		$detailkey=$this->dbtable->get_primary_key();
-		$newresult = array();
-		foreach ($result as $record)
-		{
-			$newrecord = array();
-			foreach ($record as $key=>$value)
-			{
-				if($key == $detailkey)
-				{
-					$this->HiddenContent($key,$value);
-					$linkvalue = '<a href="#TB_inline?&width=1000&height=1000&inlineId=' . $value . '" class="thickbox">' . $value . '</a>';
-					$newrecord[$detailkey] = $linkvalue;
-				}
-				else
-				{
-					$newrecord[$key] = $value;
-				}
-			}
-			array_push($newresult,$newrecord);
-		}
-		return $newresult;
-	}
-	#
-	# @param string $key
-	# @param string $value
-	#
-	# Maakt een tabel van de inhoud van alle velden van een record.
-	# $key = de naam van het veld met de primary key
-	# $value = inhoud van dat veld
-	#
-	public function HiddenContent($key,$value)
-	{
-		$args = array(
-			"key"=>$key,
-			"value"=>$value
-		);
-		$html = '';
-		$html .= '<div id="'. $value . '" style="display:none;">';
-     	$html .= '<p>';
-        $html .= $this->dbtable->DisplayAllFields($args);
-     	$html .= '</p>';
-		$html .= '</div>';
-		echo $html;
+		$result = $this->dbtable->get_rows($args);	#lees records uit database
+		return($result);
 	}
 	
-
-
-	/**
-	 * Delete a record.
-	 *
-	 * @param int $id project ID
-	 */
-	public static function delete_record( $id ) 
-	{
-		echo "to be implemented";
-		global $wpdb;
-
-	}
-
-
 	/**
 	 * Returns the count of records in the database.
 	 *
 	 * @return null|string
 	 */
+	
 	public function record_count() {
-		global $wpdb;
-
-		$wptable = $wpdb->prefix . $this->current_table;
-		$sql = "SELECT COUNT(*) FROM $wptable";
-
-		return $wpdb->get_var( $sql );
+		return $this->dbtable->count_rows();
 	}
-
 
 	/** Text displayed when no project data is available */
 	public function no_items() {
-		_e( 'No records avaliable.', 'sp' );
+		_e( 'Tabel is leeg.', 'siw' );
 	}
 
 
@@ -148,32 +75,77 @@ class DisplayRecords extends \WP_List_Table {
 	 *
 	 * @return mixed
 	 */
-	public function column_default( $item, $column_name ) 
-	{
-		if (array_key_exists($column_name,$this->dbtable->get_showcolumns()))		# komt een k0lom voor in de opgegeven te printen kolommen
-		{
-			return $item[ $column_name ];
-		}
-		else
-		{
-			return print_r( $item, true ); //Show the whole array for troubleshooting purposes
-		}
+	public function column_default( $item, $column_name ) {
+			if($column_name == $this->dbtable->get_primary_key())
+			{
+				#
+				# maak de content om alle velden van een record te kunnen bekijken
+				# Dat kan als het veld dat de primary key is van een record wordt getoond.
+				# Door hier op te klikken wordt in een popup de inhoud van alle velden getoond
+				#
+				$this->HiddenContent($column_name,$item[$column_name]);
+				$linkvalue = '<a href="#TB_inline?&width=1000&height=1000&inlineId=' . $item[$column_name] . '" class="thickbox">' . $item[$column_name] . '</a>';
+				return($linkvalue);
+			}
+			else
+			{
+				return $item[ $column_name ];
+			}
 	}
-
-	/**
-	 * Render the bulk edit checkbox
-	 *
-	 * @param array $item
-	 *
-	 * @return string
-	 */
-	function column_cb( $item ) {
-		return sprintf(
-			'<input type="checkbox" name="bulk-delete[]" value="%s" />', $item[$this->primary_key]
+	#
+	# @param string $key
+	# @param string $value
+	#
+	# Maakt een tabel van de inhoud van alle velden van een record.
+	# $key = de naam van het veld met de primary key
+	# $value = inhoud van dat veld
+	#
+	public function HiddenContent($key,$value) {
+		$args = array(
+			"key"=>$key,
+			"value"=>$value
 		);
+		$html = '';
+		$html .= '<div id="'. $value . '" style="display:none;">';
+     	$html .= '<p>';
+        $html .= $this->display_all_fields($args);
+     	$html .= '</p>';
+		$html .= '</div>';
+		echo $html;
 	}
-
-
+	/**
+	 * display_all_fields of a record
+	 * Maak een tabel van de content van alle velden in een record
+	 * @param $args
+	 * $args['key'] - name of unique key
+	 * $args['value'] - value of unique key
+	 *
+	 * @return HTML tabel : veldnaam | inhoud
+	 */
+	public function display_all_fields($args)
+	{
+		global $wp;
+		global $wpdb;
+		$html = '';
+		#
+		# get the column names in the table
+		#
+		$columns = $this->dbtable->column_names();
+		$p=$this->dbtable->get_row([$args['key']=>$args['value']]);
+		#
+		# display content of all fields
+		#
+		$html .= '<table>';
+		foreach($columns as $c)
+		{
+			$html .= '<tr>';
+			$html .= '<td>'.$c.'</td>';
+			$html .= '<td>'.$p[$c].'</td>';
+			$html .= '</tr>';
+		}
+		$html .= '</table>';
+		return($html);
+	}
 	/**
 	 * Method for name column
 	 *
@@ -206,14 +178,11 @@ class DisplayRecords extends \WP_List_Table {
 	function get_columns() 
 	{
 		$columns = $this->dbtable->get_showcolumns();
-		$cb = [
-			'cb'      => '<input type="checkbox" />'
-		];
+		
 		if(!$columns)
 		{
 			echo "show_columns is empty";
 		}
-		$columns=array_merge($cb,$columns);
 		return $columns;
 	}
 
@@ -225,39 +194,19 @@ class DisplayRecords extends \WP_List_Table {
 	 */
 	public function get_sortable_columns() 
 	{
-		#return $this->sortable_columns;
 		return $this->dbtable->get_sortcolumns();
 	}
-
-	/**
-	 * Returns an associative array containing the bulk action
-	 *
-	 * @return array
-	 */
-	public function get_bulk_actions() {
-		$actions = [
-			'bulk-delete' => 'Delete'
-		];
-
-		return $actions;
-	}
-
-
 	/**
 	 * Handles data query and filter, sorting, and pagination.
 	 */
 	public function prepare_items() 
 	{
 		$this->_column_headers = $this->get_column_info();
-		#echo "<br>";
-		#print_r($this->column_headers);
 
-		/** Process bulk action */
-		$this->process_bulk_action();
 
-		$per_page     = $this->get_items_per_page( 'records_per_page', 15 );
+		$per_page     = $this->get_items_per_page( 'records_per_page', $this->records_per_page );
 		$current_page = $this->get_pagenum();
-		$total_items  = self::record_count();
+		$total_items  = $this->record_count();
 
 		$this->set_pagination_args( [
 			'total_items' => $total_items, //WE have to calculate the total number of items
@@ -266,48 +215,4 @@ class DisplayRecords extends \WP_List_Table {
 
 		$this->items = $this->get_records( $per_page, $current_page );
 	}
-
-	public function process_bulk_action() {
-
-		//Detect when a bulk action is being triggered...
-		if ( 'delete' === $this->current_action() ) {
-
-			// In our file that handles the request, verify the nonce.
-			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
-
-			if ( ! wp_verify_nonce( $nonce, 'sp_delete_record' ) ) {
-				die( 'Go get a life script kiddies' );
-			}
-			else {
-				self::delete_record( absint( $_GET['record'] ) );
-
-		                // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
-		                // add_query_arg() return the current url
-		                wp_redirect( esc_url_raw(add_query_arg()) );
-				exit;
-			}
-
-		}
-
-		// If the delete bulk action is triggered
-		if ( ( isset( $_POST['action'] ) && $_POST['action'] == 'bulk-delete' )
-		     || ( isset( $_POST['action2'] ) && $_POST['action2'] == 'bulk-delete' )
-		) {
-
-			$delete_ids = esc_sql( $_POST['bulk-delete'] );
-
-			// loop over the array of record IDs and delete them
-			foreach ( $delete_ids as $id ) {
-				self::delete_record( $id );
-
-			}
-
-			// esc_url_raw() is used to prevent converting ampersand in url to "#038;"
-		        // add_query_arg() return the current url
-		        wp_redirect( esc_url_raw(add_query_arg()) );
-			exit;
-		}
-	}
-
 }
-?>

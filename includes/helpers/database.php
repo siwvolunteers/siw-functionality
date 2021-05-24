@@ -32,9 +32,12 @@ class Database {
 	public function get_columns() : array {
 		return $this->columns;
 	}
-	#
-	# get the columns to be shown in admin table view
-	# returns e.g. ['project_id'    => 'header text column','code' => 'heder text column']
+	/**
+	 * get_showcolumns
+	 * geeft de kolommen terug die getoond moeten worden met de titel die boven de kolom getoond moet worden.
+	 *
+	 * @return array(kolom,array(kolom,kop)......)
+	 */
 	public function get_showcolumns() : array {
 		$columns = $this->columns;
 		$showcolumns = array();
@@ -47,44 +50,44 @@ class Database {
 		}
 		return($showcolumns);
 	}
-		#
-	# get the columns to be sorted in admin table view
-	# returns e.g. ['project_id'    => array('code',true), .....]
-	public function get_sortcolumns() : array {
-		$columns = $this->columns;
+	/**
+	 * get_sortcolumns
+	 * kolommen waarop gesorteerd moet kunnen worden
+	 *
+	 * @return array(kolom,array(kolom,true)......)
+	 */
+	public function get_sortcolumns() : array {		
+		$sort_columns = wp_list_filter( $this->columns, [ 'sort' => true ] );
+		$sort_columns = wp_list_pluck(  $sort_columns, 'name');
 		$sortcolumns = array();
-		foreach($columns as $column)
+		foreach($sort_columns as $sort)
 		{
-			if(array_key_exists("sort",$column))
-			{
-				$sortcolumns=array_merge($sortcolumns,[$column['name'] => array ( $column['name'],$column['sort']) ]);
-			}
+			$sortcolumns=array_merge($sortcolumns,[$sort => array ( $sort,TRUE) ]);
 		}
 		return($sortcolumns);
 	}
-	# kolommen waarop gezocht wordt bij invoeren zoekveld
-	# 
+	/**
+	 * get_searchcolumns
+	 * kolommen waarin wordt gezocht naar de waarde die is ingevuld in het zoekveld
+	 *
+	 * @return array(kolom,kolom,.....)
+	 */
 	public function get_searchcolumns() : array {
-		$columns = $this->columns;
-		$searchcolumns = array();
-		foreach($columns as $column)
-		{
-			if(array_key_exists("search",$column))
-			{
-				array_push($searchcolumns,$column['name']);
-			}
-		}
-		return($searchcolumns);
+		$search_columns = wp_list_filter( $this->columns, [ 'search' => true ] );
+		$search_columns = wp_list_pluck(  $search_columns, 'name');
+		return($search_columns);
 	}
+	/**
+	 * get_primary_key
+	 * geeft de naam van het veld met de primary key terug
+	 *
+	 * @return string
+	 */
 	public function get_primary_key() : string {
-		$columns = $this->columns;
-		foreach($columns as $column)
-		{
-			if(array_key_exists("primary_key",$column))
-			{
-				return($column['name']);
-			}
-		}
+		$primary_keys = wp_list_filter( $this->columns, [ 'primary_key' => true ] );
+		$primary_keys = wp_list_pluck(  $primary_keys, 'name');
+		$primary_key = reset($primary_keys);
+		return($primary_key);
 	}
 	
 	/** Truncate tabel */
@@ -310,10 +313,25 @@ class Database {
 	protected function get_column_data_types() : array {
 		return wp_list_pluck( $this->columns, 'type', 'name' );
 	}
-	# ReadRecords 
+
+	/**
+	 * count_rows
+	 * Returns the count of records in the database.
+	 *
+	 * @return null|string
+	 */
+
+	public function count_rows()
+	{
+		global $wpdb;
+		$sql = "SELECT COUNT(*) FROM $this->table";
+
+		return $wpdb->get_var( $sql );
+	}
+	# get-rows
 	# $args['table'] - databasetable
 	# $args['sort'] - column to be sorted
-	# $args['prefilter'] - overall filter defined in call (columnname:value)
+	# $args['prefilter'] - overall filter
 	# $args['filters'] - Array ( [column1] => value [column2] => value ........ ) 
 	# 					value may be preceded by:
 	#					# : search on full content
@@ -324,18 +342,20 @@ class Database {
 	# $args['page'} - current pagenumber
 	# $args['maxlines'] - maxlines per page
 	# $args['output'] - (string) (Optional) Any of ARRAY_A | ARRAY_N | OBJECT | OBJECT_K constants. default=OBJECT
-	public function ReadRecords($args)
+	public function get_rows($args)
 	{
 		global $wpdb;
-		$wptable = isset($args["table"]) ? $wpdb->prefix . $args["table"] : $this->table;;	
-		#echo "wptable=".$wptable;	
-		$sort = isset($args["sort"]) ? $args["sort"] : "";
-		$prefilter = isset($args["prefilter"]) ? $args["prefilter"] : "";
-		$filters = isset($args["filters"]) ? $args["filters"] : "";
-		$search = isset($args["search"]) ? $args["search"] : "";
-		$page = isset($args["page"]) ? $args["page"] : "";
-		$maxlines = isset($args["maxlines"]) ? $args["maxlines"] : "";
-		$output = isset($args["output"]) ? $args["output"] : "OBJECT";
+		$defaults = array(
+			'sort' => '',
+			'prefilter' => '',
+			'filters' => '',
+			'search' => '',
+			'page' => '',
+			'maxlines' => '',
+			'output' => 'OBJECT',
+		  );
+		$args = wp_parse_args( $args, $defaults );
+		$values=[];
 		#
 		# make conditions for the query
 		#
@@ -346,9 +366,9 @@ class Database {
 		#
 		# first check prefilter
 		#
-		if($prefilter)
+		if($args['prefilter'])
 		{
-			foreach($prefilter as $i => $value) 
+			foreach($args['prefilter'] as $i => $value) 
 			{
 				if($conditions) {$conditions .= ' and '; }
 				$conditions .= '('. $i . '="' . $value . '")';
@@ -357,10 +377,10 @@ class Database {
 		#
 		# search value in given columns
 		#
-		if($search)
+		if($args['search'])
 		{
-			$columns = $search[0];
-			$value = $search[1];
+			$columns = $args['search'][0];
+			$value = $args['search'][1];
 			
 			foreach ($columns as $f)
 			{
@@ -369,9 +389,9 @@ class Database {
 				$conditions .= '('. $f . ' LIKE "' . $key . '")';
 			}
 		}
-		if($filters)
+		if($args['filters'])
 		{
-			foreach($filters as $f => $value)
+			foreach($args['filters'] as $f => $value)
 			{
 				if($conditions) {$conditions .= ' and '; }
 				#
@@ -423,80 +443,40 @@ class Database {
 		#
 		# start the query
 		#
-		#echo "<br>conditions=" . $conditions;
-		#global $wpdb;
-		#$wptable = $wpdb->prefix . $table;
-		#$wptable = $this->table;
-		$query='SELECT * FROM '. $wptable;
+		$query='SELECT * FROM '. $this->table;
 		if($conditions) { $query .= ' WHERE ' . $conditions;}
 		#
 		# sort argument
 		# translate to query sort field
 		#
-		#echo "<br>sort=" . $sort;
-		if($sort &&  $sort != "no")
+		if($args['sort'] &&  $args['sort'] != "no")
 		{
-			$query .= ' ORDER BY ' . $sort;
+			$query .= ' ORDER BY ' . $args['sort'];
 		}
 		#
 		# $limit is maximum number of rows to be displayed
 		# $page = current pagenumber
 		# so calculate offset
 		#
-		if($maxlines)
+		if($args['maxlines'])
 		{
 			$offset=0;
-			if(is_numeric($maxlines)) { $offset=($page-1)*$maxlines; }
-			$query .= ' LIMIT '.$offset.','. $maxlines;
+			if(is_numeric($args['maxlines'])) { $offset=($args['page']-1)*$args['maxlines']; }
+			$query .= ' LIMIT %d,%d';
+			$values[] = $offset;
+			$values[] = $args['maxlines'];
 		}
 		#
-		#echo '<br>' . $query;
-		$rows=$wpdb->get_results( $query , $output );
+		$query =  $wpdb->prepare($query,$values);
+		$rows=$wpdb->get_results( $query , $args['output'] );
 		return($rows);
 	}
-	#
-	# read a record with unique key
-	# $args['table'] - databasetable
-	# $args['key'] - name of unique key
-	# $args['value'] - value of unique key
-	public function ReadUniqueRecord($args)
-	{
+	/**
+	* column_names
+	* get the column names of the table
+	*/
+	public function column_names() {
 		global $wpdb;
-		$wptable = isset($args["table"]) ? $wpdb->prefix . $args["table"] : $this->table;;	
-		$table = isset($args["table"]) ? $args["table"] : "";
-		$query='SELECT * FROM '. $wptable .' WHERE ' . $args["key"] . ' ="' . $args["value"] .'"';
-		$row=$wpdb->get_row( $query );
-		return($row);
-	}
-	#
-	# display all fields of a record
-	# $args['table'] - databasetable
-	# $args['key'] - name of unique key
-	# $args['value'] - value of unique key
-	public function DisplayAllFields($args)
-	{
-		global $wp;
-		global $wpdb;
-		$wptable = isset($args["table"]) ? $wpdb->prefix . $args["table"] : $this->table;;	
-		$table = isset($args["table"]) ? $args["table"] : "";
-		$html = '';
-		#
-		# get the column names in the table
-		#
-		$columns = $wpdb->get_col("DESC {$wptable}", 0);
-		$p=$this->ReadUniqueRecord($args);
-		#
-		# display content of all fields
-		#
-		$html .= '<table>';
-		foreach($columns as $c)
-		{
-			$html .= '<tr>';
-			$html .= '<td>'.$c.'</td>';
-			$html .= '<td>'.$p->$c.'</td>';
-			$html .= '</tr>';
-		}
-		$html .= '</table>';
-		return($html);
+		return($wpdb->get_col("DESC {$this->table}", 0));
 	}
 }
