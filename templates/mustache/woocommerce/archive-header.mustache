@@ -1,0 +1,25 @@
+<div class="grid-container">
+	<div class="siw-archive-intro">
+		<p>
+			{{& intro_text | wp_kses_post }}
+			{{#__}} Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag. {{/__}}
+			{{#__}} De projecten hebben vaste begin- en einddata.{{/__}}
+			{{#__}} We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="{{ explanation_page_url | esc_url }}">Groepsprojecten</a>{{/__}}
+		</p>
+		{{# sale.is_active }}
+			<p>
+				{{#__}} Meld je nu aan en betaal geen {{ tariffs.regular }} maar <b> {{ tariffs.regular_sale }} </b> voor je vrijwilligersproject. {{/__}}
+				{{#__}} Ben je student of jonger dan 18 jaar? {{/__}}
+				{{#__}} Dan betaal je in plaats van {{ tariffs.student }} nog maar <b>{{ tariffs.student_sale }} {{/__}}</b><br/>
+				<b>{{#__}} Let op: {{/__}} </b> {{#__}} Deze actie duurt nog maar t/m {{ sale.end_date }}, dus wees er snel bij.{{/__}}
+			</p>
+		{{/ sale.is_active}}
+		{{# teaser.is_active }}
+			<p>
+				{{#__}} Vanaf {{ teaser.month }} wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor {{ teaser.year }}. {{/__}}
+				{{#__}} Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW? {{/__}}
+				{{#__}} <a href="{{ contact__page_url }}">Bel of mail ons</a> en we denken graag met je mee! {{/__}}
+			</p>
+		{{/ teaser.is_active}}
+	</div>
+</div>

@@ -2,6 +2,7 @@
 
 namespace SIW\WooCommerce\Frontend;
 
+use SIW\Core\Template;
 use SIW\i18n;
 use SIW\Properties;
 use SIW\WooCommerce\Taxonomy_Attribute;
@@ -9,7 +10,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 /**
  * Header voor overzichtspagina van groepsprojecten
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Archive_Header {
 
@@ -22,34 +23,34 @@ class Archive_Header {
 	/** Toont beschrijving van overzichtspagina */
 	public function add_archive_description() {
 
-		if ( ! $this->show_archive_header() ) {
+		if ( ! ( \is_shop() || \is_product_category() || \is_product_taxonomy() ) ) {
 			return;
 		}
 
-		$text = implode(
-			BR2,
-			array_filter(
-				[
-					$this->get_intro_text(),
-					$this->get_sale_text(),
-					$this->get_teaser_text(),
-				]
-			)
-		);
-	
-		?>
-		<div class="grid-container">
-			<div class="siw-archive-intro">
-				<?php echo wp_kses_post( $text ); ?>
-			</div>
-		</div>
-		
-		<?php
-	}
+		Template::render_template(
+			'woocommerce/archive-header',
+			[
+				'intro_text'           => $this->get_intro_text(),
+				'explanation_page_url' => i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) ),
+				'sale' => [
+					'is_active' => \siw_is_workcamp_sale_active(),
+					'end_date'  => \siw_is_workcamp_sale_active() ? \siw_format_date( siw_get_option( 'workcamp_sale.end_date' ), false ) : '',
+				],
+				'tariffs' => [
+					'regular'      => \siw_format_amount( Properties::WORKCAMP_FEE_REGULAR ),
+					'regular_sale' => siw_format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE ),
+					'student'      => siw_format_amount( Properties::WORKCAMP_FEE_STUDENT ),
+					'student_sale' => siw_format_amount( Properties::WORKCAMP_FEE_STUDENT_SALE ),
+				],
+				'contact_page_url' => i18n::get_translated_page_url( intval( siw_get_option( 'pages.contact' ) ) ),
+				'teaser' => [
+					'active' => $this->is_teaser_text_active(),
+					'month'  => $this->is_teaser_text_active() ? date_i18n( 'F', siw_get_option( 'workcamp_teaser_text.end_date' ) ) : '',
+					'year'   => $this->is_teaser_text_active() ? date( 'Y', strtotime( siw_get_option( 'workcamp_teaser_text.end_date' ) ) ) : '',
+				],
 
-	/** Geeft aan of header getoond moet worden */
-	protected function show_archive_header() : bool {
-		return \is_shop() || \is_product_category() || \is_product_taxonomy();
+			]
+		);
 	}
 
 	/** Genereert introtekst */
@@ -88,14 +89,6 @@ class Archive_Header {
 					$text = __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten.', 'siw' );
 			}
 		}
-		
-		$workcamps_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
-
-		$text .= SPACE .
-			__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
-			__( 'De projecten hebben vaste begin- en einddata.', 'siw' ) . SPACE .
-			sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">Groepsprojecten</a>.', 'siw' ), esc_url( $workcamps_page_link ) );
-
 		return $text;
 	}
 
@@ -111,46 +104,5 @@ class Archive_Header {
 				$teaser_text_active = true;
 		}
 		return $teaser_text_active;
-	}
-
-	/** Genereert aankondiging voor nieuwe projecten */
-	protected function get_teaser_text() : ?string {
-
-		if ( ! $this->is_teaser_text_active() ) {
-			return null;
-		}
-
-		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
-
-		$contact_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.contact' ) ) );
-		$end_year = date( 'Y', strtotime( $teaser_text['end_date'] ) );
-		$end_month = date_i18n( 'F', strtotime( $teaser_text['end_date'] ) );
-		$teaser_text = sprintf( __( 'Vanaf %s wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor %s.', 'siw' ), $end_month, $end_year ). SPACE .
-			__( 'Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW?', 'siw' ) . SPACE .
-			sprintf( __( '<a href="%s">Bel of mail ons</a> en we denken graag met je mee!', 'siw' ), esc_url( $contact_page_link ) );
-		
-		return $teaser_text;
-	}
-
-	/** Genereert tekst voor kortingsactie */
-	protected function get_sale_text() : ?string {
-
-		if ( ! siw_is_workcamp_sale_active() ) {
-			return null;
-		}
-
-		$regular = siw_format_amount( Properties::WORKCAMP_FEE_REGULAR );
-		$regular_sale = siw_format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE );
-		$student = siw_format_amount( Properties::WORKCAMP_FEE_STUDENT );
-		$student_sale = siw_format_amount( Properties::WORKCAMP_FEE_STUDENT_SALE );
-		$end_date = siw_format_date( siw_get_option( 'workcamp_sale.end_date' ), false );
-	
-		$sale_text = sprintf( __( 'Meld je nu aan en betaal geen %s maar %s voor je vrijwilligersproject.', 'siw' ), $regular, '<b>'. $regular_sale .'</b>' ) . SPACE .
-			__( 'Ben je student of jonger dan 18 jaar?', 'siw' ) . SPACE .
-			sprintf( __( 'Dan betaal je in plaats van %s nog maar %s.', 'siw' ), $student, '<b>'. $student_sale .'</b>' ) . BR  .
-			'<b>' . __( 'Let op:', 'siw' ) . '</b>' . SPACE .
-			sprintf( __( 'Deze actie duurt nog maar t/m %s, dus wees er snel bij.', 'siw' ), $end_date );
-
-		return $sale_text;
 	}
 }
