@@ -5,8 +5,7 @@ namespace SIW\WooCommerce\Admin;
 /**
  * Extra admin columns voor Groepsprojecten
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Product_Columns extends \MBAC\Post {
 
@@ -20,7 +19,6 @@ class Product_Columns extends \MBAC\Post {
 		$columns = parent::columns( $columns );
 		$this->add( $columns, 'visibility', __( 'Zichtbaarheid', 'siw' ), 'after', 'sku' );
 		$this->add( $columns, 'selected_for_carousel', __( 'Selecteren voor carousel', 'siw' ), 'after', 'featured' );
-		$this->add( $columns, 'next_update', __( 'Volgende update', 'siw' ), 'after', 'selected_for_carousel' );
 		return $columns;
 	}
 
@@ -38,13 +36,6 @@ class Product_Columns extends \MBAC\Post {
 
 				if ( $product->get_meta( 'force_hide' ) ) {
 					echo '<span class="dashicons dashicons-lock"></span>';
-				}
-
-				break;
-			case 'next_update':
-				$product = wc_get_product( $post_id );
-				if ( $product->get_meta( 'import_again' ) ) {
-					echo '<span class="dashicons dashicons-update"></span>';
 				}
 				break;
 			case 'selected_for_carousel':

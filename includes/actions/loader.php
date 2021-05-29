@@ -24,6 +24,7 @@ class Loader extends Object_Loader_Abstract {
 	public function get_classes() : array {
 		return [
 			Async\Process_Stockphoto_Upload::class,
+			Async\Import_Plato_Project::class,
 			Batch\Delete_Applications::class,
 			Batch\Delete_Old_Posts::class,
 			Batch\Import_Plato_Dutch_Projects::class,
