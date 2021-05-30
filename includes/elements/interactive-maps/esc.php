@@ -62,7 +62,7 @@ class ESC implements Interactive_Map_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_mobile_content() : ?string {
+	public function get_mobile_content() : string {
 		$countries = siw_get_countries_list( Country::ESC );
 		return List_Columns::create()->add_items( array_values( $countries ) )->set_columns( 2 )->generate();
 	}

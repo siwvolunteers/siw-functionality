@@ -391,9 +391,10 @@ class Job_Posting extends Type {
 		$hr_manager = siw_get_option( 'hr_manager' );
 
 		$intro = [
-			__( 'SIW ontvangt al ruim zestig jaar buitenlandse vrijwilligers op diverse projecten in Nederland en zendt Nederlandse vrijwilligers uit naar projecten over de hele wereld.', 'siw' ),
+			__( 'SIW ontvangt al ruim vijfenzestig jaar buitenlandse vrijwilligers op diverse projecten in Nederland en zendt Nederlandse vrijwilligers uit naar projecten over de hele wereld.', 'siw' ),
 			__( 'Ruim 70 vrijwilligere medewerkers zetten zich hier vol overgave voor in.', 'siw' ),
 			__( "Regelmatig zijn we op zoek naar nieuwe collega's.", 'siw' ),
+			__( "Ook stagiaires en afstudeerders kunnen bij ons terecht.", "siw"),
 			__( 'Ben jij op zoek naar een functie bij een organisatie met een internationaal speelveld en kom jij graag in aanraking met andere culturen?', 'siw' ),
 			__( 'Wellicht heeft SIW Internationale Vrijwilligersprojecten dan een vacature voor jou.', 'siw' ),
 			BR2 . __( 'Is er op dit moment geen geschikte vacature voor jou bij SIW?', 'siw' ),

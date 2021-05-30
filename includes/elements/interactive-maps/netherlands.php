@@ -88,11 +88,11 @@ class Netherlands implements Interactive_Map_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_mobile_content() : ?string {
+	public function get_mobile_content() : string {
 		
 		$projects = $this->get_projects();
 		if ( empty( $projects ) ) {
-			return null;
+			return '';
 		}
 		$panes = [];
 		foreach ( $projects as $project ) {

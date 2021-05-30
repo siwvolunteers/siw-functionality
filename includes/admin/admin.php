@@ -40,7 +40,6 @@ class Admin {
 	/** Verwijdert standaard menu-items */
 	public function hide_pages() {
 		remove_menu_page( 'edit-comments.php' );
-		remove_menu_page( 'edit.php' );
 		remove_menu_page( 'link-manager.php' );
 	}
 

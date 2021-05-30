@@ -40,9 +40,6 @@ class GeneratePress{
 		add_filter( 'generate_404_title', [ $self, 'set_404_title' ] );
 		add_filter( 'generate_404_text', [ $self, 'set_404_text' ] );
 
-		//Toon title //TODO: conditioneel maken?
-		add_filter( 'generate_show_title', '__return_false' );
-
 		//Verwijder cart fragments van plugin
 		add_action( 'init', [ $self, 'remove_cart_fragment_hooks'], PHP_INT_MAX );
 
