@@ -2,6 +2,8 @@
 
 namespace SIW\Widgets;
 
+use SIW\WooCommerce\Taxonomy_Attribute;
+
 /**
  * Widget met contactinformatie
  *
@@ -80,7 +82,7 @@ class Quick_Search_Results extends Widget {
 		/* Verwerk zoekargument bestemming*/
 		$category_arg   = '';
 		$category_slug  = sanitize_key( get_query_var( 'bestemming', false ) );
-		$category       = get_term_by( 'slug', $category_slug, 'product_cat' );
+		$category       = get_term_by( 'slug', $category_slug, Taxonomy_Attribute::CONTINENT()->value );
 
 		if ( is_a( $category, \WP_Term::class ) ) {
 			$category_arg = sprintf( 'category="%s"', $category_slug );
@@ -91,7 +93,7 @@ class Quick_Search_Results extends Widget {
 		/* Verwerk zoekargument maand*/
 		$month_arg  = '';
 		$month_slug = sanitize_key( get_query_var( 'maand', false ) );
-		$month      = get_term_by( 'slug', $month_slug, 'pa_maand');
+		$month      = get_term_by( 'slug', $month_slug, Taxonomy_Attribute::MONTH()->value );
 		if ( is_a( $month, \WP_Term::class ) ) {
 			$month_id  = $month->term_id; 
 			$month_arg = sprintf( 'attribute="maand" terms="%s"', $month_id );

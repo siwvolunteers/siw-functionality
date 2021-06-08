@@ -84,8 +84,10 @@ class Product {
 				array_walk(
 					$products,
 					function( \WC_Product $product ) {
-						$product->update_meta_data( 'import_again', true );
-						$product->save();
+						$data = [
+							'product_id' => $product->get_meta( 'project_id' ),
+						];
+						siw_enqueue_async_action( 'import_plato_project', $data );
 					}
 				);
 				$message = sprintf( _n( '%s project wordt opnieuw geïmporteerd.', '%s projecten worden opnieuw geïmporteerd.', $count, 'siw' ), $count );

@@ -34,6 +34,7 @@ class WordPress {
 		add_filter( 'big_image_size_threshold', fn() : int => Properties::MAX_IMAGE_SIZE );
 
 		add_filter( 'wp_is_application_passwords_available', '__return_false' );
+		add_filter( 'comments_open', '__return_false' );
 
 		add_action( 'do_feed', [ $self, 'disable_feed' ] , 1 );
 		add_action( 'do_feed_rdf', [ $self, 'disable_feed' ] , 1 );

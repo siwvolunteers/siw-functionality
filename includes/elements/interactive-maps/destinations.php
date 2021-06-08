@@ -9,6 +9,7 @@ use SIW\i18n;
 use SIW\Data\Country;
 use SIW\Elements\List_Columns;
 use SIW\Util\Links;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Class om een Mapplic kaart te genereren
@@ -108,7 +109,7 @@ class Destinations implements Interactive_Map_Interface {
 
 	/** Genereert beschrijving voor groepsprojecten */
 	protected function generate_workcamps_description( Country $country ) : string {
-		$country_term = get_term_by( 'slug', $country->get_slug(), 'pa_land' );
+		$country_term = get_term_by( 'slug', $country->get_slug(), Taxonomy_Attribute::COUNTRY()->value );
 		
 		if ( is_a( $country_term, \WP_Term::class ) ) {
 			$workcamp_count = get_term_meta( $country_term->term_id, Update_WooCommerce_Terms::POST_COUNT_TERM_META, true );
@@ -118,7 +119,7 @@ class Destinations implements Interactive_Map_Interface {
 		}
 
 		if ( $workcamp_count > 0 ) {
-			$url = get_term_link( $country->get_slug(), 'pa_land' );
+			$url = get_term_link( $country->get_slug(), Taxonomy_Attribute::COUNTRY()->value );
 			$text = __( 'Bekijk het aanbod', 'siw' );
 		}
 		else {

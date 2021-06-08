@@ -2,6 +2,7 @@
 
 namespace SIW\Actions\Batch;
 
+use SIW\Data\Plato\Project;
 use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 use SIW\Plato\Import_Workcamps as Plato_Import_Workcamps;
 use SIW\WooCommerce\Import\Product as Import_Product;
@@ -42,6 +43,10 @@ class Import_Plato_Projects implements Batch_Action_Interface {
 	/** {@inheritDoc} */
 	public function process( $project_id ) {
 		$plato_project = siw_get_plato_project( $project_id );
+		if ( ! is_a( $plato_project, Project::class ) ) {
+			return;
+		}
+
 		$import = new Import_Product( $plato_project );
 		$import->process();
 	}

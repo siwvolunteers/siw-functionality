@@ -82,14 +82,6 @@ class Product_Tabs {
 		<div id="update_product_data" class="panel woocommerce_options_panel">
 			<div class="options_group">
 				<?php
-				woocommerce_wp_checkbox(
-					[
-						'id'      => 'import_again',
-						'value'   => $product_object->get_meta( 'import_again' ),
-						'cbvalue' => '1',
-						'label'   => __( 'Opnieuw importeren', 'siw' ),
-					]
-				);
 				//Alleen tonen als het project een afbeelding uit Plato heeft of als de optie al aangevinkt is
 				if ( $product_object->get_meta( 'has_plato_image', true ) || $product_object->get_meta( 'use_stockphoto' ) ) {
 					woocommerce_wp_checkbox(
@@ -281,7 +273,6 @@ class Product_Tabs {
 	/** Slaat gewijzigde meta-velden op */
 	public function save_product_data( \WC_Product $product ) {
 		$meta_data = [
-			'import_again'            => isset( $_POST['import_again'] ),
 			'use_stockphoto'          => isset( $_POST['use_stockphoto'] ),
 			'force_hide'              => isset( $_POST['force_hide'] ),
 			'has_custom_tariff'       => isset( $_POST['has_custom_tariff'] ),

@@ -4,6 +4,7 @@ namespace SIW\Widgets;
 
 use SIW\Actions\Batch\Update_WooCommerce_Terms;
 use SIW\Util;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Widget met formulier voor Snel Zoeken
@@ -87,7 +88,7 @@ class Quick_Search_Form extends Widget {
 	protected function get_destinations() : array {
 
 		$categories = get_terms( [
-			'taxonomy'   => 'product_cat',
+			'taxonomy'   => Taxonomy_Attribute::CONTINENT()->value,
 			'hide_empty' => true,
 			'meta_query' => [
 				[
@@ -115,7 +116,7 @@ class Quick_Search_Form extends Widget {
 	/** Haalt maanden met beschikbare projecten op */
 	protected function get_months() : array {
 		$terms = get_terms( [
-			'taxonomy'   => 'pa_maand',
+			'taxonomy'   => Taxonomy_Attribute::MONTH()->value,
 			'hide_empty' => true,
 			'meta_query' => [
 				[
