@@ -20,6 +20,7 @@ class Product {
 		add_filter( 'woocommerce_available_variation', [ $self, 'set_variation_description'] );
 		add_filter( 'woocommerce_display_product_attributes', [ $self, 'display_product_attributes'], 10, 2 );
 		add_action( 'woocommerce_after_add_to_cart_form', [ $self, 'show_local_fee'] );
+		add_action( 'woocommerce_after_add_to_cart_form', [ $self, 'payment_alert'] );	/* tidelijke alert text na aanmelden knop */
 		add_filter( 'woocommerce_dropdown_variation_attribute_options_args', [ $self, 'set_variation_dropdown_args'] );
 
 		add_action( 'woocommerce_before_single_product_summary', [ $self, 'show_featured_badge' ], 10 );
@@ -94,7 +95,19 @@ class Product {
 
 		return $attributes;
 	}
-	
+	/**
+	 * tijdelijke tekst voor post corona tijd
+	 */
+	public function payment_alert()
+	{
+		$html = '';
+		$html .= '<b>'. __('BELANGRIJK:','siw') . '</b>';
+		$html .= __('Je kan je gerust aanmelden.','siw') . BR;
+		$html .= __('Wij kijken dan of het project inderdaad doorgaat en of je geplaatst kan worden.','siw') . BR;
+		$html .= __('Pas als het zeker is dat je ook daadwerkelijk naar de plaats van bestemming kan afreizen, doe je de betaling aan SIW. Niet eerder!','siw');
+		echo $html;
+	}
+
 	/** Toont lokale bijdrage indien van toepassing */
 	public function show_local_fee() {
 		global $product;

@@ -45,6 +45,18 @@ class Archive_Header {
 		</div>
 		
 		<?php
+		/** 
+		*alert text tonen? */
+		if ( ! $text = $this->get_alert_text()) {
+			return;
+		}
+		?>
+		<div class="grid-container">
+			<div class="siw-archive-alert">
+				<?php echo wp_kses_post( $text ); ?>
+			</div>
+		</div>
+		<?php
 	}
 
 	/** Geeft aan of header getoond moet worden */
@@ -97,7 +109,34 @@ class Archive_Header {
 
 		return $text;
 	}
-
+	/**
+	*	tijdelijke alert voor europareizen
+	*/
+	protected function get_alert_text() : ?string {
+		$text = "";
+		if ( \is_product_category() ) {
+			$category_name = get_queried_object()->name;
+			if($category_name == "Europa")
+			{
+				$text .= SPACE .
+				__('Eindelijk mag er weer (een beetje) gereisd worden deze zomer in Europa.', 'siw' ) . SPACE .
+				__('Als SIW zenden wij uit naar landen die op "geel" staan. ', 'siw' ) . SPACE .
+				__('Dat worden er steeds meer en het verandert dagelijks. ', 'siw' ) . SPACE .
+				__('Veel (actuele) informatie is te vinden op de web-app "vakantieplanner" van de NOS <a href="https://app.nos.nl/op3/vakantieplanner"> vakantieplanner</a>. ', 'siw' ) . SPACE .
+				__('Daar kun je ook de actuele coronaregels per land vinden.', 'siw' ) . BR .
+				'<b>' .
+				__('Kan je je nu al aanmelden voor een project deze zomer?','siw') . SPACE .
+				'</b>' .
+				__('Ja, dat kan zeker.','siw') . SPACE .
+				__('Wij kijken dan of het project inderdaad doorgaat en of je geplaatst kan worden.','siw') . SPACE .
+				__('Pas als het zeker is dat je ook daadwerkelijk naar de plaats van bestemming kan afreizen, doe je de betaling aan SIW. Niet eerder!','siw') . BR .
+				'<i>'.
+				__('Mocht het door jou gekozen project niet doorgaan, dan kunnen we natuurlijk samen kijken naar een ander gelijksoortig project waaraan je wel kunt deelnemen.','siw') .
+				'</i>';
+			}
+		}
+		return($text);
+	}
 	/** Geeft aan of aankondiging nieuwe projecten getoond moet worden */
 	protected function is_teaser_text_active() : bool {
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );

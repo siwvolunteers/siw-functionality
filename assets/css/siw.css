@@ -42,6 +42,12 @@ dl dd {
   margin: 15px;
 }
 
+.siw-archive-alert {
+  font-size: 1.3em;
+  padding: 15px;
+  margin: 15px;
+}
+
 li.menu-item a .siw-icon {
   margin-right: 5px;
   transition: all 0.3s linear 0s;
