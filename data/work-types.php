@@ -18,6 +18,7 @@ $data = [
 		'plato_code'            => 'RENO',
 		'name'                  => __( 'Restauratie', 'siw' ),
 		'icon_class'            => 'siw-icon-house-damage',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -25,6 +26,7 @@ $data = [
 		'plato_code'            => 'ENVI',
 		'name'                  => __( 'Natuur', 'siw' ),
 		'icon_class'            => 'siw-icon-tree',
+		'needs_review'          => false,
 		'tailor_made_projects'  => true,
 	],
 	[
@@ -32,6 +34,7 @@ $data = [
 		'plato_code'            => 'CONS',
 		'name'                  => __( 'Constructie', 'siw' ),
 		'icon_class'            => 'siw-icon-tools',
+		'needs_review'          => false,
 		'tailor_made_projects'  => true,
 	],
 	[
@@ -39,6 +42,7 @@ $data = [
 		'plato_code'            => 'ARCH',
 		'name'                  => __( 'Archeologie', 'siw' ),
 		'icon_class'            => 'siw-icon-archway',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -46,6 +50,7 @@ $data = [
 		'plato_code'            => 'SOCI',
 		'name'                  => __( 'Sociaal', 'siw' ),
 		'icon_class'            => 'siw-icon-hands-helping',
+		'needs_review'          => false,
 		'tailor_made_projects'  => true,
 	],
 	[
@@ -53,6 +58,7 @@ $data = [
 		'plato_code'            => 'KIDS',
 		'name'                  => __( 'Kinderen', 'siw' ),
 		'icon_class'            => 'siw-icon-child',
+		'needs_review'          => true,
 		'tailor_made_projects'  => true,
 	],
 	[
@@ -60,6 +66,7 @@ $data = [
 		'plato_code'            => 'STUD',
 		'name'                  => __( 'Thema', 'siw' ),
 		'icon_class'            => 'siw-icon-camera',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -67,6 +74,7 @@ $data = [
 		'plato_code'            => 'DISA',
 		'name'                  => __( 'Gehandicapten', 'siw' ),
 		'icon_class'            => 'siw-icon-wheelchair',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -74,6 +82,7 @@ $data = [
 		'plato_code'            => 'MANU',
 		'name'                  => __( 'Handarbeid', 'siw' ),
 		'icon_class'            => 'siw-icon-paint-roller',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -81,6 +90,7 @@ $data = [
 		'plato_code'            => 'EDU',
 		'name'                  => __( 'Onderwijs', 'siw' ),
 		'icon_class'            => 'siw-icon-book-reader',
+		'needs_review'          => true,
 		'tailor_made_projects'  => true,
 	],
 	[
@@ -88,6 +98,7 @@ $data = [
 		'plato_code'            => 'ELDE',
 		'name'                  => __( 'Ouderen', 'siw' ),
 		'icon_class'            => 'siw-icon-blind',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -95,6 +106,7 @@ $data = [
 		'plato_code'            => 'FEST',
 		'name'                  => __( 'Festival', 'siw' ),
 		'icon_class'            => 'siw-icon-music',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -102,6 +114,7 @@ $data = [
 		'plato_code'            => 'CULT',
 		'name'                  => __( 'Cultuur', 'siw' ),
 		'icon_class'            => 'siw-icon-gopuram',
+		'needs_review'          => false,
 		'tailor_made_projects'  => true,
 	],
 	[
@@ -109,6 +122,7 @@ $data = [
 		'plato_code'            => 'AGRI',
 		'name'                  => __( 'Landbouw', 'siw' ),
 		'icon_class'            => 'siw-icon-leaf',
+		'needs_review'          => false,
 		'tailor_made_projects'  => true,
 	],
 	[
@@ -116,6 +130,7 @@ $data = [
 		'plato_code'            => 'ART',
 		'name'                  => __( 'Kunst', 'siw' ),
 		'icon_class'            => 'siw-icon-theater-masks',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -123,6 +138,7 @@ $data = [
 		'plato_code'            => 'SPOR',
 		'name'                  => __( 'Sport', 'siw' ),
 		'icon_class'            => 'siw-icon-futbol',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -130,6 +146,7 @@ $data = [
 		'plato_code'            => 'YOGA',
 		'name'                  => __( 'Yoga', 'siw' ),
 		'icon_class'            => 'siw-icon-praying-hands',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -137,6 +154,7 @@ $data = [
 		'plato_code'            => 'LANG',
 		'name'                  => __( 'Taalcursus', 'siw' ),
 		'icon_class'            => 'siw-icon-comments',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -144,6 +162,7 @@ $data = [
 		'plato_code'            => 'TRAS',
 		'name'                  => __( 'Taal', 'siw' ),
 		'icon_class'            => 'siw-icon-language',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -151,6 +170,7 @@ $data = [
 		'plato_code'            => 'ZOO',
 		'name'                  => __( 'Dieren', 'siw' ),
 		'icon_class'            => 'siw-icon-paw',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -158,6 +178,7 @@ $data = [
 		'plato_code'            => 'LEAD',
 		'name'                  => __( 'Projectbegeleider', 'siw' ),
 		'icon_class'            => 'siw-icon-campground',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -165,6 +186,7 @@ $data = [
 		'plato_code'            => 'HERI',
 		'name'                  => __( 'Erfgoed', 'siw' ),
 		'icon_class'            => 'siw-icon-landmark',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 	[
@@ -172,6 +194,7 @@ $data = [
 		'plato_code'            => 'REFU',
 		'name'                  => __( 'Vluchtelingen', 'siw' ),
 		'icon_class'            => 'siw-icon-hand-holding-heart',
+		'needs_review'          => false,
 		'tailor_made_projects'  => false,
 	],
 ];

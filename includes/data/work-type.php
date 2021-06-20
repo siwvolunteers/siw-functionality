@@ -27,6 +27,9 @@ class Work_Type extends Data{
 	/** CSS-class van icoon */
 	protected string $icon_class;
 
+	/** Moeten projecten met dit soort werk gereviewed worden */
+	protected bool $needs_review;
+
 	/** Geeft aan of dit soort werk gekoppeld kan worden aan een Op Maat project */
 	protected bool $tailor_made_projects;
 
@@ -48,6 +51,11 @@ class Work_Type extends Data{
 	/** Geeft icon class voor voor soort -werk terug */
 	public function get_icon_class() : string {
 		return $this->icon_class;
+	}
+
+	/** Geeft aan of een project met dit soort werk gereviewed moet worden */
+	public function needs_review(): bool {
+		return $this->needs_review;
 	}
 
 	/** Geeft terug of dit soort werk gekoppeld kan worden aan een Op Maat project */
