@@ -1,5 +1,7 @@
 <?php
 
+use SIW\Data\Currency;
+
 /**
  * Functies t.b.v. formattering
  *
