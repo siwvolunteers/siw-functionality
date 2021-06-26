@@ -160,15 +160,10 @@ class Update_Projects implements Batch_Action_Interface {
 	 * - Het project niet handmatig verborgen is
 	 */
 	protected function maybe_update_visibility() {
-		$country = siw_get_country( $this->product->get_meta( 'country' ) );
-
+	
 		$visibility = 'visible';
 		if (
 			$this->product->get_meta( Import_Free_Places::META_KEY )
-			||
-			! is_a( $country, Country::class )
-			||
-			! $country->is_allowed()
 			||
 			'rejected' === $this->product->get_meta( 'approval_result' )
 			||
