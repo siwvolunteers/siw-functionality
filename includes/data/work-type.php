@@ -9,6 +9,12 @@ namespace SIW\Data;
  */
 class Work_Type extends Data{
 	
+	/** Slug */
+	const SLUG = 'slug';
+
+	/** Plato code */
+	const PLATO_CODE = 'plato_code';
+
 	/** Alle soorten werk */
 	const ALL = 'all';
 
@@ -34,22 +40,22 @@ class Work_Type extends Data{
 	protected bool $tailor_made_projects;
 
 	/** Geeft de slug van het soort werk terug */
-	public function get_slug() : string {
+	public function get_slug(): string {
 		return $this->slug;
 	}
 
 	/** Geeft de naam van het soort werk terug */
-	public function get_name() : string {
+	public function get_name(): string {
 		return $this->name;
 	}
 
 	/** Geeft de Plato-code van het soort werk terug */
-	public function get_plato_code() : string {
+	public function get_plato_code(): string {
 		return $this->plato_code;
 	}
 
-	/** Geeft icon class voor voor soort -werk terug */
-	public function get_icon_class() : string {
+	/** Geeft icon class voor voor soort werk terug */
+	public function get_icon_class(): string {
 		return $this->icon_class;
 	}
 
@@ -59,12 +65,12 @@ class Work_Type extends Data{
 	}
 
 	/** Geeft terug of dit soort werk gekoppeld kan worden aan een Op Maat project */
-	public function is_for_tailor_made_projects() : bool {
+	public function is_for_tailor_made_projects(): bool {
 		return $this->tailor_made_projects;
 	}
 
 	/** Geeft aan of soort werk geldig is voor context */
-	public function is_valid_for_context( string $context ) : bool {
+	public function is_valid_for_context( string $context ): bool {
 		return (
 			self::ALL == $context
 			|| ( self::TAILOR_MADE == $context && $this->is_for_tailor_made_projects() )

@@ -5,10 +5,15 @@ namespace SIW\Data;
 /**
  * Bevat informatie over een taal
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Language extends Data {
+
+	/** Slug */
+	const SLUG = 'slug';
+
+	/** Plato-code */
+	const PLATO_CODE = 'plato_code';
 
 	/** Alle talen */
 	const ALL = 'all';
@@ -28,10 +33,10 @@ class Language extends Data {
 	/** PLATO-code */
 	protected string $plato_code;
 
-	/** Geeft dit een taal is die een vrijwilliger kan opgeven */
+	/** Is dit een taal is die een vrijwilliger kan opgeven */
 	protected bool $volunteer_language;
 
-	/** Geeft aan of dit een projecttaal kan zijn */
+	/** Kan dit een projecttaal zijn */
 	protected bool $project_language;
 
 	/** Geeft slug van taal terug */
