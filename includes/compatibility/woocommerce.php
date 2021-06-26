@@ -37,7 +37,6 @@ class WooCommerce {
 		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_project_id_search' ], 10, 2 );
 		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_country_search' ], 10, 2 );
 		add_filter( 'woocommerce_product_visibility_options', [ $self, 'remove_product_visibility_options', ] );
-		add_filter( 'woocommerce_products_admin_list_table_filters', [ $self, 'remove_products_admin_list_table_filters'] );
 
 		// Wachtwoord-reset niet via WooCommerce maar via standaard WordPress-methode
 		remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
@@ -152,13 +151,6 @@ class WooCommerce {
 		unset( $visibility_options['catalog']);
 		unset( $visibility_options['search']);
 		return $visibility_options;
-	}
-
-	/** Verwijdert filters op admin-lijst met producten  */
-	public function remove_products_admin_list_table_filters( array $filters ) : array {
-		unset( $filters['product_type']);
-		unset( $filters['stock_status']);
-		return $filters;
 	}
 
 	/** Registreert query vars voor WP Rocket */
