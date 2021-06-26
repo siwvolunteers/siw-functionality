@@ -34,8 +34,8 @@ class ESC implements Interactive_Map_Interface {
 	/** {@inheritDoc} */
 	public function get_map_data(): array {
 		return [
-			'mapwidth'  => 600,
-			'mapheight' => 600,
+			'mapwidth'  => 1200,
+			'mapheight' => 1200,
 		];
 	}
 	
@@ -49,12 +49,9 @@ class ESC implements Interactive_Map_Interface {
 		$countries = siw_get_countries( Country::ESC );
 		$locations = [];
 		foreach ( $countries as $country ) {
-			$europe_map_data = $country->get_europe_map_data();
 			$locations[] = [
-				'id'        => $europe_map_data->code,
+				'id'        => $country->get_iso_code(),
 				'title'     => $country->get_name(),
-				'x'         => $europe_map_data->x,
-				'y'         => $europe_map_data->y,
 				'category'  => 'bestemmingen'
 			];
 		}

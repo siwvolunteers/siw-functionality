@@ -61,22 +61,19 @@ class Destinations implements Interactive_Map_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_locations() : array {
-		$countries = siw_get_countries();
+	public function get_locations(): array {
+		$countries = siw_get_countries( Country::PROJECTS );
 		
 		$locations = [];
 		foreach ( $countries as $country ) {
-			if ( ! $country->is_allowed() ) {
-				continue;
-			}
 			$continent = $country->get_continent();
-			$world_map_data = $country->get_world_map_data();
+			$world_map_data = $country->get_world_map_coordinates();
 
 			$locations[] = [
-				'id'            => $world_map_data->code,
+				'id'            => $country->get_iso_code(),
 				'title'         => $country->get_name(),
-				'x'             => $world_map_data->x,
-				'y'             => $world_map_data->y,
+				'x'             => $world_map_data->x ?? null,
+				'y'             => $world_map_data->y ?? null,
 				'category'      => $continent->get_slug(),
 				'fill'          => $continent->get_color(),
 				'description'   => $this->generate_country_description( $country ),
@@ -158,7 +155,7 @@ class Destinations implements Interactive_Map_Interface {
 	 * @todo aanbod per land
 	 */
 	public function get_mobile_content() : string {
-		$countries = siw_get_countries_list( Country::ALLOWED );
+		$countries = siw_get_countries_list( Country::PROJECTS );
 		return List_Columns::create()->add_items( array_values( $countries ) )->set_columns( 2 )->generate();
 	}
 }

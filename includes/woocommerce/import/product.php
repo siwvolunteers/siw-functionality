@@ -114,8 +114,8 @@ class Product {
 			
 		}
 		else {
-			//Niet importeren als het geen groepsproject is, niet in een toegestaan land is of al begonnen is
-			if ( ! $this->is_allowed_project_type() || ! $this->country->is_allowed() || date( 'Y-m-d' ) > $this->plato_project->get_start_date() ) {
+			//Niet importeren als het geen toegestane projectsoort is, we geen groepsprojecten in dit land aanbieden is of het project al begonnen is
+			if ( ! $this->is_allowed_project_type() || ! $this->country->has_workcamps() || date( 'Y-m-d' ) > $this->plato_project->get_start_date() ) {
 				return false;
 			}
 			$this->product = new \WC_Product_Variable;
@@ -163,7 +163,7 @@ class Product {
 	 */
 	protected function set_country() {
 		$country_code = strtoupper( $this->plato_project->get_country() );
-		$country = siw_get_country( $country_code, 'iso_code' );
+		$country = siw_get_country( $country_code, Country::PLATO_CODE );
 		if ( is_a( $country, Country::class ) ) {
 			$this->country = $country;
 		}

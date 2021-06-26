@@ -12,7 +12,7 @@ use SIW\Data\Country;
  * Geeft array van gegevens van landen terug
  * @return Country[]
  */
-function siw_get_countries( string $context = Country::ALL, string $index = 'slug' ) { 
+function siw_get_countries( string $context = Country::ALL, string $index = Country::SLUG ) { 
 
 	$countries = wp_cache_get( "{$context}_{$index}", __FUNCTION__ );
 	if ( false !== $countries ) {
@@ -54,7 +54,7 @@ function siw_get_countries( string $context = Country::ALL, string $index = 'slu
 }
 
 /** Geeft lijst van landen terug */
-function siw_get_countries_list( string $context = Country::ALL, string $index = 'slug' ) : array {
+function siw_get_countries_list( string $context = Country::ALL, string $index = Country::SLUG ): array {
 	return array_map(
 		fn( Country $country ) : string => $country->get_name(),
 		siw_get_countries( $context, $index )
@@ -62,7 +62,7 @@ function siw_get_countries_list( string $context = Country::ALL, string $index =
 }
 
 /** Geeft land terug op basis van zoekterm */
-function siw_get_country( string $country, string $index = 'slug' ) : ?Country {
+function siw_get_country( string $country, string $index = Country::SLUG ): ?Country {
 	$countries = siw_get_countries( Country::ALL, $index );
 	return $countries[ $country ] ?? null;
 }
