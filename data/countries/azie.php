@@ -146,6 +146,7 @@ $data = [
 		'plato_code'  => 'PHL',
 		'iso_code'    => 'ph',
 		'slug'        => 'filipijnen',
+		'name'        => __( 'Filipijnen', 'siw' ),
 		'workcamps'   => true,
 		'tailor_made' => false,
 	],
