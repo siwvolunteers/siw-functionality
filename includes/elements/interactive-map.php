@@ -17,7 +17,7 @@ use SIW\Util\CSS;
 class Interactive_Map extends Element {
 
 	/** Mapplic versie */
-	const MAPPLIC_VERSION = '7.0.1';
+	const MAPPLIC_VERSION = '7.1';
 
 	/** URL van Mapplic-bestanden */
 	protected string $mapplic_url = SIW_ASSETS_URL . 'vendor/mapplic/';

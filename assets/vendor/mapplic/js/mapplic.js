@@ -1,6 +1,6 @@
 /*
  * Mapplic - Custom Interactive Map Plugin by @sekler
- * Version 7.0.1
+ * Version 7.1
  * https://www.mapplic.com/
  */
 
@@ -96,6 +96,9 @@
 			if (self.o.iconfile) self.loc.iconfile = self.o.iconfile;
 
 			self.el.addClass('mapplic-element mapplic-loading');
+
+			// trigger event
+			self.el.trigger('mapload', self);
 			
 			// scope
 			if (self.o.scope) self.scope = $(self.o.scope);
@@ -692,7 +695,7 @@
 					else { // multi-group support
 						var groups = attr.split(','),
 							show = false;
-						groups.forEach(function(g) { if ($('.mapplic-toggle > input[data-group="' + g + '"]')[0].checked) show = true; });
+						groups.forEach(function(g) { if ($('.mapplic-toggle > input[data-group="' + g + '"]')[0] && $('.mapplic-toggle > input[data-group="' + g + '"]')[0].checked) show = true; });
 						$(this).toggle(show);
 					}
 				});
@@ -708,6 +711,7 @@
 					var circle = $('<span></span>').addClass('mapplic-toggle-circle').appendTo(toggle);
 					if (title) $('<span></span>').addClass('mapplic-legend-label').text(group.title).appendTo(toggle);
 					if (group.switchoff == 'true') input.prop('checked', false);
+					if (group.color) circle.css('background-color', group.color);
 					
 					input.change(function() {
 						$('.mapplic-toggle > input[data-group="' + group.id + '"]', self.el).prop('checked', this.checked);
@@ -954,7 +958,7 @@
 			}
 
 			this.normalizeString = function(s) {
-				if (s) return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+				if (s) return s.toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 				else return '';
 			}
 
@@ -988,6 +992,7 @@
 		function Sidebar() {
 			this.el = null;
 			this.header = null;
+			this.clear = null;
 			this.input = null;
 			this.list = null;
 			this.tags = null;
@@ -1033,7 +1038,8 @@
 				}
 
 				if (self.o.search) {
-					this.header = $('<div></div>').addClass('mapplic-sidebar-header').append(getIcon('icon-magnifier')).appendTo(this.el)
+					this.header = $('<div></div>').addClass('mapplic-sidebar-header').append(getIcon('icon-magnifier')).appendTo(this.el);
+					this.clear = $('<button></button>').addClass('mapplic-search-clear').append(getIcon('icon-cross')).appendTo(this.header);
 					this.headerwrap = $('<div></div>').appendTo(this.header);
 
 					this.input = $('<input>').attr({'type': 'text', 'spellcheck': 'false', 'placeholder': self.loc.search}).addClass('mapplic-search-input').keyup(function(e) {
@@ -1058,6 +1064,17 @@
 					});
 
 					this.input.appendTo(this.headerwrap);
+
+					// clear search
+					this.clear.on('click touchstart', function(e) {
+						e.preventDefault();
+						s.input.val('');
+						s.tags.empty();
+						if (s.tags.children().length < 1) s.el.removeClass('mapplic-sidebar-tagsrow');
+						self.directory.filters = {};
+
+						s.search();
+					});
 
 					this.toggle = $('<button></button>').append(getIcon('icon-filter')).addClass('mapplic-search-toggle').click(function(e) {
 						e.preventDefault();
@@ -1225,7 +1242,9 @@
 
 				if (!$.isEmptyObject(self.directory.filters)) {
 					if (self.o.highlight) self.map.addClass('mapplic-filtered');
+					self.el.addClass('mapplic-search-active');
 				}
+				else self.el.removeClass('mapplic-search-active');
 			}
 		}
 
@@ -1967,9 +1986,6 @@
 			// separate location array
 			self.addLocations(self.data.locations);
 
-			// trigger event
-			self.el.trigger('mapready', self);
-
 			// apply toggle
 			self.legend.applyToggles();
 
@@ -2002,6 +2018,9 @@
 				self.o.deeplinking = false;
 				self.showLocation(self.o.landmark, 0, true);
 			}
+
+			// trigger event
+			self.el.trigger('mapready', self);
 		}
 
 		/* PRIVATE METHODS */
@@ -2153,26 +2172,30 @@
 			if (layer.hasClass('mapplic-visible')) return;
 
 			// show target layer
-			var old = $('.mapplic-layer.mapplic-visible', self.map).removeClass('mapplic-visible');
-			
-			clearTimeout(levelTimeout);
-			levelTimeout = setTimeout(function() { 
-				$('.mapplic-layer:not([data-floor="' + target + '"])', self.map).addClass('mapplic-hidden');
-			}, 300);
-			layer.removeClass('mapplic-hidden').addClass('mapplic-visible');
+			layer.removeClass('mapplic-hidden');
 
-			// slide animation
-			if (self.o.animations) {
-				var found = false;
-				$('.mapplic-layer', self.map).each(function() {
-					if ($(this).data('floor') == target) {
-						$(this).removeClass('mapplic-layer-up').removeClass('mapplic-layer-down');
-						found = true;
-					}
-					else if (found) $(this).addClass('mapplic-layer-up');
-					else $(this).addClass('mapplic-layer-down');
-				});
-			}
+			setTimeout(function() {
+				var old = $('.mapplic-layer.mapplic-visible', self.map).removeClass('mapplic-visible');
+				layer.addClass('mapplic-visible');
+				
+				clearTimeout(levelTimeout);
+				levelTimeout = setTimeout(function() { 
+					$('.mapplic-layer:not([data-floor="' + target + '"])', self.map).addClass('mapplic-hidden');
+				}, 300);
+
+				// slide animation
+				if (self.o.animations) {
+					var found = false;
+					$('.mapplic-layer', self.map).each(function() {
+						if ($(this).data('floor') == target) {
+							$(this).removeClass('mapplic-layer-up').removeClass('mapplic-layer-down');
+							found = true;
+						}
+						else if (found) $(this).addClass('mapplic-layer-up');
+						else $(this).addClass('mapplic-layer-down');
+					});
+				}
+			}, 1);
 
 			// show target minimap layer
 			if (self.minimap) self.minimap.show(target);
@@ -2326,7 +2349,9 @@
 			var marker = $('<a></a>').addClass('mapplic-pin').addClass(location.pin.replace('hidden', '')).attr('aria-label', location.title + ' marker').css({'top': (location.y * 100) + '%', 'left': (location.x * 100) + '%'}).appendTo(parent);
 			marker.on('click touchend', function(e) {
 				if (e.cancelable) e.preventDefault();
-				if (!self.dragging) self.showLocation(location.id, 600);
+
+				var shift = Math.abs(self.firstcoord.x - self.lastcoord.x) + Math.abs(self.firstcoord.y - self.lastcoord.y);
+				if (!self.dragging || shift < 4) self.showLocation(location.id, 600);
 			});
 
 			if (location.label) {

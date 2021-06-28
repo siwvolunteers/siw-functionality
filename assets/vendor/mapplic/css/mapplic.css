@@ -1,6 +1,6 @@
 /*
  * Mapplic - Custom Interactive Map Plugin by @sekler
- * Version 7.0.1
+ * Version 7.1
  * https://www.mapplic.com/
  */
 
@@ -100,16 +100,19 @@
 	width: 100%;
 	position: absolute;
 	opacity: 0;
+	display: block;
 	transition: transform 0.3s, opacity 0.3s;
 }
 .mapplic-layer.mapplic-visible { 
 	visibility: visible;
 	opacity: 1;
+	transform: translateY(0);
 }
 
 .mapplic-layer.mapplic-hidden {
 	pointer-events: none;
-	visibility: hidden;
+	display: none;
+
 }
 .mapplic-layer.mapplic-layer-up { transform: /*scale(1.1)*/ translateY(-100px); }
 .mapplic-layer.mapplic-layer-down { transform: /*scale(0.9)*/ translateY(100px); }
@@ -133,7 +136,7 @@
 	height: 12px;
 	margin-left: -6px;
 	margin-top: -6px;
-	position: absolute;
+	position: absolute !important;
 	transform-origin: 50% 50%;
 
 	-webkit-user-select: none;
@@ -637,7 +640,7 @@ button.mapplic-zoomout-button {
 .mapplic-fullscreen .mapplic-container { width: 80%; }
 .mapplic-fullscreen .mapplic-sidebar { width: 20%; }
 
-/* Levels */
+/* Levels (old) */
 .mapplic-levels {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.04);
 	position: absolute;
@@ -727,6 +730,9 @@ button.mapplic-zoomout-button {
 	transition: transform 0.2s;
 	position: relative;
 }
+
+.mapplic-level-switcher button:hover { background-color: #f8f8f8; }
+.mapplic-level-switcher button:focus { outline: none; }
 
 .mapplic-level-switcher button.mapplic-selected {
 	box-shadow: 0 0 12px rgba(0, 0, 0, 0.06);
@@ -883,32 +889,44 @@ button.mapplic-zoomout-button {
 }
 
 input.mapplic-search-input:focus {
-	outline: none;
+	outline: none !important;
 }
 
 .mapplic-search-input::-ms-clear { display: none; width:0; height:0; }
 
 .mapplic-search-clear {
-	background-size: 8px 8px;
-	background-repeat: no-repeat;
-	background-color: transparent;
-	background-position: center;
+	background: none;
 	box-shadow: none;
 	border: none;
 	cursor: pointer;
+	display: none;
 	position: absolute;
 	margin: 0;
 	padding: 0;
-	top: 22px;
-	right: 8px;
-	width: 34px;
-	height: 34px;
+	top: 28px;
+	left: 16px;
+	width: 24px;
+	height: 24px;
 }
 
+.mapplic-search-active .mapplic-search-clear { display: block; }
+.mapplic-search-active .mapplic-icon.mapplic-icon-magnifier { display: none; }
+
 .mapplic-search-clear:hover,
+.mapplic-search-clear:active,
 .mapplic-search-clear:focus {
-	background-color: transparent !important;
+	background: none;
+	outline: none;
 }
+
+.mapplic-search-clear .mapplic-icon.mapplic-icon-cross {
+	width: 12px;
+	height: 12px;
+	padding: 0;
+	transition: transform 0.4s;
+}
+
+/* .mapplic-search-clear:hover .mapplic-icon-cross { transform: rotate(180deg); } */
 
 .mapplic-search-toggle {
 	background: transparent;
@@ -1015,7 +1033,7 @@ input.mapplic-search-input:focus {
 
 /* Filters */
 .mapplic-filter {
-	margin: 10px -20px -10px -20px;
+	margin: 10px -20px -6px -20px;
 	overflow-y: auto;
 	opacity: 0;
 	transition: opacity 0.2s;
@@ -1034,6 +1052,9 @@ input.mapplic-search-input:focus {
 	margin: 5px 20px;
 	font-weight: 400;
 }
+
+
+.mapplic-list-category { margin: 0 !important; }
 
 .mapplic-list-category > a {
 	border-radius: 4px;
@@ -1248,7 +1269,7 @@ input.mapplic-search-input:focus {
 .mapplic-dir-item h4 {
 	color: #222;
 	font-size: 14px;
-	margin: 4px 0;
+	margin: 4px 0 !important;
 	font-weight: 600;
 	line-height: 20px !important;
 	display: inline-block;
@@ -1460,7 +1481,7 @@ input.mapplic-search-input:focus {
 .mapplic-tooltip-description,
 .mapplic-tooltip p {
 	font-size: 13px;
-	line-height: 20px;
+	line-height: 22px;
 	margin: 0;
 }
 
@@ -1540,6 +1561,12 @@ input.mapplic-search-input:focus {
 	content: '';
 	display: block;
 	clear: both;
+}
+
+.mapplic-lightbox-description,
+.mapplic-lightbox p {
+	font-size:  18px;
+	line-height: 28px;
 }
 
 .mapplic-popup-image {
