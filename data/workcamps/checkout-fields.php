@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 
-$languages = [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages_list( Language::VOLUNTEER, 'plato_code' );
+$languages = [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages_list( Language::VOLUNTEER, Language::PLATO_CODE );
 
 $language_skill = siw_get_language_skill_levels();
 
