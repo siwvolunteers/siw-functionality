@@ -2,6 +2,7 @@
 
 use Adbar\Dot;
 use SIW\Data\Board_Title;
+use SIW\Data\Dutch_Province;
 use SIW\Data\Gender;
 
 /**
@@ -70,27 +71,13 @@ function siw_get_data_file_ids( string $directory, bool $include_subdirectories 
 
 /** Geeft lijst met provincies van Nederland terug */
 function siw_get_dutch_provinces() : array {
-	$dutch_provinces = [
-		'nb' => __( 'Brabant', 'siw' ),
-		'dr' => __( 'Drenthe', 'siw' ),
-		'fl' => __( 'Flevoland', 'siw' ),
-		'fr' => __( 'Friesland', 'siw' ),
-		'ge' => __( 'Gelderland', 'siw' ),
-		'gr' => __( 'Groningen', 'siw' ),
-		'li' => __( 'Limburg', 'siw' ),
-		'nh' => __( 'Noord-Holland', 'siw' ),
-		'ov' => __( 'Overijssel', 'siw' ),
-		'ut' => __( 'Utrecht', 'siw' ),
-		'ze' => __( 'Zeeland', 'siw' ),
-		'zh' => __( 'Zuid-Holland', 'siw' ),
-	];
-	return $dutch_provinces;
+	return Dutch_Province::toArray();
 }
 
 /** Geeft naam van provincie van Nederland terug o.b.v. slug */
 function siw_get_dutch_province( string $slug ) : ?string {
-	$provinces = siw_get_dutch_provinces();
-	return $provinces[ $slug ] ?? null;
+	$province = Dutch_Province::tryFrom( $slug );
+	return $province ? $province->label : null;
 }
 
 /** Geeft lijst met bestuursfuncties terug */
