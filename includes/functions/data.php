@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use Adbar\Dot;
+use SIW\Data\Board_Title;
 use SIW\Data\Gender;
 
 /**
@@ -94,19 +95,13 @@ function siw_get_dutch_province( string $slug ) : ?string {
 
 /** Geeft lijst met bestuursfuncties terug */
 function siw_get_board_titles() : array {
-	$titles = [
-		'chair'        => __( 'Voorzitter', 'siw' ),
-		'secretary'    => __( 'Secretaris' , 'siw' ),
-		'treasurer'    => __( 'Penningmeester' , 'siw' ),
-		'board_member' => __( 'Algemeen bestuurslid' , 'siw' ),
-	];
-	return $titles;
+	return Board_Title::toArray();
 }
 
 /** Geeft bestuursfunctie terug obv slug */
 function siw_get_board_title( string $slug ) : ?string {
-	$board_titles = siw_get_board_titles();
-	return $board_titles[ $slug ] ?? null;
+	$board_title = Board_Title::tryFrom( $slug );
+	return $board_title ? $board_title->label : null;
 }
 
 /**
