@@ -42,33 +42,6 @@ function siw_meta( string $key, array $args = [], int $post_id = null ) {
 	return null;
 }
 
-/** Geeft data-file id's uit specifieke directory terug */
-function siw_get_data_file_ids( string $directory, bool $include_subdirectories = true ) : array {
-
-	$base_directory = SIW_DATA_DIR . $directory;
-	$files = glob( $base_directory . '/*.php' );
-	if ( $include_subdirectories ) {
-		$subdirectories = glob( $base_directory . '/*', GLOB_ONLYDIR );
-		foreach ( $subdirectories as $subdirectory ) {
-			$files = array_merge(
-				$files,
-				glob( $subdirectory . '/*.php' )
-			);
-		}
-	}
-
-	array_walk( $files, function( &$value, &$key, $base_directory) {
-		$value = str_replace(
-			[ $base_directory . '/', '.php', '-'],
-			[ '', '', '_'],
-			$value
-		);
-		$value = strtolower( $value );
-	}, $base_directory );
-
-	return $files;
-}
-
 /** Geeft lijst met provincies van Nederland terug */
 function siw_get_dutch_provinces() : array {
 	return Dutch_Province::toArray();
