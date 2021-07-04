@@ -37,7 +37,6 @@
 }
 
 table.wp-list-table .column-visibility,
-table.wp-list-table .column-next_update,
 table.wp-list-table .column-exported {
   width: 10%;
 }
