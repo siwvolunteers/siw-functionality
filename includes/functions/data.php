@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use Adbar\Dot;
+use SIW\Data\Gender;
 
 /**
  * Functies m.b.t. referentiegegevens
@@ -125,11 +126,7 @@ function siw_get_project_types() : array {
 
 /** Geeft een lijst met geslachten terug */
 function siw_get_genders() : array {
-	$genders = [
-		'M' => __( 'Man', 'siw' ),
-		'F' => __( 'Vrouw', 'siw' ),
-	];
-	return $genders;
+	return Gender::toArray();
 }
 
 /** Geeft een lijst met nationaliteiten terug */
