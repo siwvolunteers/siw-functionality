@@ -113,6 +113,6 @@ class ESC implements Form_Interface {
 		return sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
 		__( 'Bedankt voor je ESC-aanmelding.', 'siw' ) . SPACE .
 		__( 'Onderaan deze mail staan de gegevens die je hebt ingevuld.', 'siw' ) . BR .
-		__( 'We nemen zo snel mogelijk contact met je op om in een gesprek verder met je kennis te maken en op zoek te gaan naar een leuk en geschikt project!', 'siw' );
+		__( 'We nemen zo snel mogelijk contact met je op om in een gesprek verder met je kennis te maken!', 'siw' );
 	}
 }
