@@ -2,8 +2,10 @@
 
 namespace SIW\Modules;
 
+use SIW\Core\Template;
+
 /**
- * Verversen van de cache
+ * Breadcrumbs
  * 
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
@@ -22,25 +24,24 @@ class Breadcrumbs {
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles'] );
 	}
 
+	/** Styles */
 	public function enqueue_styles() {
 		wp_register_style( 'siw-breadcrumbs', SIW_ASSETS_URL . 'css/modules/siw-breadcrumbs.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-breadcrumbs' );
 	}
 
+	/** Genereer breadcrumbs */
 	public function generate_crumbs() : string {
 		$this->set_crumbs();
 		$this->set_current();
 
-		$output = '<nav aria-label="Breadcrumb" class="breadcrumb">';
-		$output .= '<ol class="breadcrumb">';
-
-		foreach ( $this->crumbs as $crumb ) {
-			$output .= sprintf( '<li class="breadcrumb-item"><a href="%s">%s</a></li>', $crumb['url'], $crumb['title'] );
-		}
-		$output .= sprintf( '<li class="breadcrumb-item">%s</li>', $this->current );
-		$output .= '</ol>';
-		$output .= '</nav>';
-		return $output;
+		return Template::parse_template(
+			'modules/breadcrumbs',
+			[
+				'crumbs' => $this->crumbs,
+				'current' => $this->current,
+			]
+		);
 	}
 
 	/** Zet huidige pagina */
