@@ -16,6 +16,7 @@ class Loader extends Class_Loader_Abstract {
 		return [
 			Admin_Bar::class,
 			Admin::class,
+			Database_Tables_Page::class,
 			Notices::class,
 			Properties_Page::class,
 			Shortcodes::class,
