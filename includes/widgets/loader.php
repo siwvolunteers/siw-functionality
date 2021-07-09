@@ -51,7 +51,7 @@ class Loader extends Class_Loader_Abstract {
 			$widget_folder = trailingslashit( $widget_folder ); 
 			if ( file_exists( "{$widget_folder}/{$id_base}/{$id_base}.php" ) ) {
 				siteorigin_widget_register(
-					"siw-{$id_base}-widget",
+					"siw_{$id_base}_widget",
 					"{$widget_folder}/{$id_base}/{$id_base}.php",
 					"\\{$class}"
 				);
@@ -65,6 +65,6 @@ class Loader extends Class_Loader_Abstract {
 	/** Zet FQN om naar id-base */
 	protected function get_id_base_from_class( string $class ) : string {
 		$id_base = explode( '\\', $class );
-		return strtolower( str_replace( '_', '-', end( $id_base ) ) );
+		return strtolower( end( $id_base ) );
 	}
 }
