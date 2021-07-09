@@ -51,7 +51,7 @@ class Loader extends Class_Loader_Abstract {
 			$widget_folder = trailingslashit( $widget_folder ); 
 			if ( file_exists( "{$widget_folder}/{$id_base}/{$id_base}.php" ) ) {
 				siteorigin_widget_register(
-					"siw_{$id_base}_widget",
+					"sow-siw_{$id_base}_widget",
 					"{$widget_folder}/{$id_base}/{$id_base}.php",
 					"\\{$class}"
 				);
