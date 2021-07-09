@@ -4,6 +4,7 @@ use Adbar\Dot;
 use SIW\Data\Board_Title;
 use SIW\Data\Dutch_Province;
 use SIW\Data\Gender;
+use SIW\Data\Nationality;
 
 /**
  * Functies m.b.t. referentiegegevens
@@ -87,7 +88,7 @@ function siw_get_genders() : array {
 /** Geeft een lijst met nationaliteiten terug */
 function siw_get_nationalities() : array {
 	$nationalities = [ '' => __( 'Selecteer een nationaliteit', 'siw' ) ];
-	$nationalities = $nationalities + siw_get_data( 'nationalities' );
+	$nationalities += Nationality::toArray();
 	return $nationalities;
 }
 
