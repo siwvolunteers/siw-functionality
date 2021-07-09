@@ -5,8 +5,7 @@ namespace SIW;
 /**
  * Properties
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Properties {
 
@@ -93,6 +92,9 @@ class Properties {
 
 	/** ESC borg */
 	const ESC_DEPOSIT = 149;
+
+	/** Studentenkorting (in EUR) */
+	const STUDENT_DISCOUNT = 50;
 
 	/** Kortingspercentage voor 2e project */
 	const DISCOUNT_SECOND_PROJECT = 25;
