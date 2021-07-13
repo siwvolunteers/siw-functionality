@@ -51,7 +51,7 @@ class WordPress {
 		//Attachments
 		add_filter( 'disable_months_dropdown', '__return_true' );
 		add_filter( 'manage_media_columns', [ $self, 'manage_media_columns'], 10, 2 );
-		add_filter( 'wp_trim_excerpt', [$self,'tu_excerpt_metabox_more' ]);	#lees meer knop voor berichten
+		add_filter( 'wp_trim_excerpt', [$self,'excerpt_metabox_more' ]);	// lees meer knop voor berichten
 	}
 
 	/** Verwijdert standaard-widgets */
@@ -154,14 +154,14 @@ class WordPress {
 		unset( $columns['comments']);
 		return $columns;
 	}
-	function tu_excerpt_metabox_more( $excerpt ) {
+	function excerpt_metabox_more( $excerpt ) {
         $output = $excerpt;
 
         if ( has_excerpt() ) {
             $output = sprintf( '%1$s <p class="read-more-button-container"><a class="button" href="%2$s">%3$s</a></p>',
             $excerpt,
             get_permalink(),
-            __( 'Verder lezen', 'siw' ));
+            __( 'Lees meer', 'siw' ));
         }
         return $output;
     }
