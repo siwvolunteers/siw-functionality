@@ -154,10 +154,12 @@ class WordPress {
 		unset( $columns['comments']);
 		return $columns;
 	}
+	/** Plaats Lees meer button als gekozen is voor samenvatting */
 	function excerpt_metabox_more( $excerpt ) {
         $output = $excerpt;
-
-        if ( has_excerpt() ) {
+		$post = get_post_type();
+		if($post != "post") { return($output);} // alleen bij de blog
+        if ( has_excerpt()) {
             $output = sprintf( '%1$s <p class="read-more-button-container"><a class="button" href="%2$s">%3$s</a></p>',
             $excerpt,
             get_permalink(),
