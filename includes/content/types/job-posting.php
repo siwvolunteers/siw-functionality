@@ -4,6 +4,7 @@ namespace SIW\Content\Types;
 use SIW\Content\Type;
 use SIW\Elements\Accordion;
 use SIW\Util\Links;
+use SIW\Core\Template;
 
 /**
  * Vacatures
@@ -272,6 +273,30 @@ class Job_Posting extends Type {
 			'compare' => '>'
 		];
 	}
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function get_content_labels() : array {
+		$labels = [
+			'paid'					=> __( 'Betaalde functie', 'siw'),
+			'internship'			=> __( 'Stage', 'siw' ),
+			'volunteer'				=> __( 'Vrijwillige functie', 'siw' ),
+			'label_work'   			=> __( 'Wat ga je doen?', 'siw' ),
+			'label_qualifications'	=> __( 'Wie ben jij?', 'siw' ),
+			'label_perks'   		=> __( 'Wat bieden wij jou?', 'siw' ),
+			'label_profile'   		=> __( 'Wie zijn wij?', 'siw' ),
+			'label_function'		=> __( 'Wat houdt deze vacature in?', 'siw' ),
+		];
+		return $labels;
+	}
+	/**
+	 * regel voor type baan met uren per week
+	 */
+	protected function get_job() : string {	
+		$jobtype = siw_meta('job_type') ? siw_meta('job_type') : "volunteer";
+		$job = '<hr>'.$this->get_content_labels()[$jobtype] . ' ' . siw_meta('hours') . ' ' . __('uur/week','siw');
+		return($job);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -281,85 +306,71 @@ class Job_Posting extends Type {
 	public function add_single_content() {
 		
 		//Eigenschappen TODO: subtitle oid
-		echo '<h5>';
-
-		switch ( siw_meta( 'job_type' ) ) {
-			case 'paid':
-				printf( esc_html__( 'Betaalde functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
-				break;
-			case 'internship':
-				printf( esc_html__( 'Stage (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
-				break;
-			default:
-				printf( esc_html__( 'Vrijwillige functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
-		}
-		echo '</h5>';
-		echo '<hr>';
-		//Inleiding
-		echo wpautop( wp_kses_post( siw_meta( 'introduction' ) ) );
-
-		//Inhoud
+		$labels = $this->get_content_labels();
 		$description = siw_meta( 'description' );
-		echo '<h2>' . esc_html__( 'Wat houdt deze vacature in?', 'siw' ) . '</h2>';
-		echo '<p>';
-		Accordion::create()
-			->add_items( [
-				[
-					'title'   => __( 'Wat ga je doen?', 'siw' ),
-					'content' => $description['work'],
-				],
-				[
-					'title'   => __( 'Wie ben jij?', 'siw' ),
-					'content' => $description['qualifications'],
-				],
-				[
-					'title'   => __( 'Wat bieden wij jou?', 'siw' ),
-					'content' => $description['perks'],
-				],
-				[
-					'title'   => __( 'Wie zijn wij?', 'siw' ),
-					'content' => siw_get_option( 'job_postings_organization_profile' ),
-				],
-			])->render();
-		echo '</p>';
-
-		//Meer informatie
+		$vars = [
+							"job" => $this->get_job(),
+							"intro"=>wpautop( wp_kses_post( siw_meta( 'introduction' ) ) ),
+							"profile"=>siw_get_option( 'job_postings_organization_profile' ),
+							];
+		$template_vars = $vars;
+		$template_vars += $labels;
+		// accordeon functie beschrijving
+		$items = $this->accordeon_items();
+		$template_vars += ['content'=> Accordion::create()->add_items($items)->generate()];
+		// contacpersoon testen of contacperson is ingevuld.
+		$contactperson = array();
 		if ( siw_meta( 'different_contact_person' ) ) {
-			$contact_person = $this->get_contact_person();
-
-			echo '<h2>' . esc_html__('Meer weten?', 'siw') . '</h2>';
-			echo wpautop(
-				wp_kses_post(
-					sprintf(
-						__( 'Voor meer informatie kun je contact opnemen met: %s (%s), %s', 'siw' ),
-						BR . $contact_person['name'],
-						$contact_person['title'],
-						Links::generate_mailto_link( $contact_person['email'] )
-					)
-				)
-			);
+			$contactperson = $this->get_contact_person();
+			$contactperson += [
+							'emaillink'=>Links::generate_mailto_link( $this->get_contact_person()['email']),
+							'header' =>__('Meer weten?', 'siw'),
+							'more' => __( 'Voor meer informatie kun je contact opnemen met: ', 'siw' ),
+			];
 		}
-		
-		//Soliciteren
-		$application_manager = $this->get_application_manager();
-
-		echo '<h2>' . esc_html__( 'Solliciteren?', 'siw') . '</h2>';
-		echo wpautop(
-			wp_kses_post(
-				sprintf(
-					__( 'Je motivatie met cv kun je uiterlijk %s sturen naar: %s (%s), %s', 'siw' ),
-					siw_format_date( siw_meta( 'deadline' ), true ),
-					BR . $application_manager['name'],
-					$application_manager['title'],
-					Links::generate_mailto_link( $application_manager['email'] )
-				)
-			)
-		);
+		// naar wie moet de sollicitatie
+		$contactmanager = $this->get_application_manager();
+		$contactmanager += [
+						'emaillink'=>Links::generate_mailto_link( $this->get_application_manager()['email']),
+						'header' =>__('Solliciteren?', 'siw'),
+						'more' => sprintf(__( 'Je motivatie met cv kun je uiterlijk %s sturen naar: ', 'siw' ),siw_format_date( siw_meta( 'deadline' ), true )),
+		];
+		$contacts = $contactperson ? array($contactperson,$contactmanager) : array($contactmanager);
+		#$contacts = array($contactperson,$contactmanager);
+		//$template_vars += array( 'contacts'=> array ($contactperson,$contactmanager));
+		$template_vars += array('contacts'=>$contacts);
+		$html=Template::parse_template( "types/job_posting", $template_vars );
+		echo $html;
 
 		//JSON_LD toevoegen
 		echo siw_generate_job_posting_json_ld( get_the_ID() );
 	}
-
+	/**
+	 * beschrijving vacature als accordeon
+	 */
+	protected function accordeon_items() : array{
+		$labels = $this->get_content_labels();
+		$description = siw_meta( 'description' );
+		$items = [
+				[
+					'title'   => $labels['label_work'],
+					'content' => $description['work'],
+				],
+				[
+					'title'   => $labels['label_qualifications'],
+					'content' => $description['qualifications'],
+				],
+				[
+					'title'   => $labels['label_perks'],
+					'content' => $description['perks'],
+				],
+				[
+					'title'   => $labels['label_profile'],
+					'content' => siw_get_option( 'job_postings_organization_profile' ),
+				],
+			];
+		return($items);
+	}
 	/**
 	 * Haal gegevens van 
 	 *
@@ -410,6 +421,7 @@ class Job_Posting extends Type {
 	 * {@inheritDoc}
 	 */
 	public function add_archive_content() {
+		/*
 		switch ( siw_meta( 'job_type' ) ) {
 			case 'paid':
 				$subtitle = sprintf( __( 'Betaalde functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
@@ -420,9 +432,25 @@ class Job_Posting extends Type {
 			default:
 				$subtitle = sprintf( __( 'Vrijwillige functie (%s uur/week)', 'siw' ), siw_meta( 'hours' ) );
 		}
+		*/
+		$labels = $this->get_content_labels();
+		#echo '<br> jobtype' . siw_meta('job_type');
+		$jobtype = siw_meta('job_type') ? siw_meta('job_type') : "volunteer";
+		$job = '<hr>'.$labels[$jobtype] . ' ' . siw_meta('hours') . ' ' . __('uur/week','siw');
+		$labels += array(
+					'archive' => array (
+						array('meta'   => apply_filters( 'the_excerpt', get_the_excerpt() )),
+						array('meta'   => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) )),
+						array('meta'   => $this->get_job()),
+			)
+		);
+		$html=Template::parse_template( "types/job_posting_archive", $labels );
+		echo $html;
+		/*
 		?>
 		<div class="grid-100">
-			<?php the_excerpt(); ?>
+			<!-- <?php the_excerpt(); // metabeschijving?> -->
+			<?php echo apply_filters( 'the_excerpt', get_the_excerpt() ); ?>
 		</div>
 		<div class="grid-100">
 			<?php echo Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) );?>
@@ -432,6 +460,7 @@ class Job_Posting extends Type {
 			<?php echo esc_html( $subtitle ); ?>
 		</div>
 		<?php
+		*/
 	}
 
 	/**
