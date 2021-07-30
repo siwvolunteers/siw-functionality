@@ -135,26 +135,29 @@ class Product_Tabs {
 		];
 
 		?>
-		<div id="description_product_data" class="panel woocommerce_options_panel">
+		<div id="description_product_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper">
 			<div class="options_group">
-			<?php
-				foreach ( $topics as $topic => $title ) {
-					if ( isset( $description[ $topic ] ) ) {
-						printf('<h4>%s</h4><p>%s<p>', esc_html( $title ), wp_kses_post( $description[ $topic]) );
-					}
-				}
-				
-				//Legacy code, kan uiteindelijk weg
-				if ( empty( $description ) ) {
-					$content = $product_object->get_description();
-					$content = preg_replace( '/\[pane title="(.*?)"\]/', '<h4>$1</h4><p>', $content );
-					$content = preg_replace( '/\[\/pane\]/', '</p><hr>', $content );
-					$content = preg_replace( '/\[(.*?)\]/', '', $content );
-					echo wp_kses_post( $content );
-				}
-			?>
+				<div class="wc-metaboxes">
+				<?php
+					foreach ( $topics as $topic => $title ) {
+						if ( ! isset( $description[ $topic ] ) || empty( $description[ $topic ] ) ) {
+							continue;
+						}
+					?>
+					<div class="wc-metabox postbox closed">
+						<h3><div class="handlediv"></div>
+							<strong><?php echo esc_html( $title ); ?></strong>
+						</h3>
+						<div class="wc-metabox-content hidden">
+							<hr>
+							<p><?php echo wp_kses_post( $description[ $topic]);?></p>
+						</div>
+					</div>
+					<?php } ?>
+				</div>
 			</div>
 		</div>
+
 		<?php
 	}
 
