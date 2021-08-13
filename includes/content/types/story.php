@@ -6,6 +6,7 @@ use SIW\Data\Country;
 use SIW\Elements\Quote;
 use SIW\HTML;
 use SIW\Util\Links;
+use SIW\Core\Template;
 
 /**
  * Ervaringsverhalen
@@ -200,23 +201,17 @@ class Story extends Type {
 		$rows = siw_meta( 'rows' );
 		$continent = siw_meta( 'siw_story_continent');
 		$project_type = siw_meta( 'siw_story_project_type');
+		$template_vars = array(
+			"image" => wp_get_attachment_image( $rows[0]['image'][0], 'large'),
+			"link" => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
+			"project" => esc_html( $project_type->name ),
+			"continent" => esc_html( $continent->name ),
+			'excerpt' => apply_filters( 'the_excerpt', get_the_excerpt() ),
 
-		?>
-		<div class="grid-100">
-			<?php echo wp_get_attachment_image( $rows[0]['image'][0], 'large'); ?>
-		</div>
-		<div class="grid-100">
-			<?php the_excerpt(); ?>
-		</div>
-		<div class="grid-100">
-			<?php echo Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) );?>
-		</div>
-		<hr>
-		<div class="grid-100">
-			<?php printf( '%s | %s', esc_html( $continent->name ), esc_html( $project_type->name ) ); ?>
-		</div>
-		<?php
+		);
+		echo Template::parse_template( "types/story_archive", $template_vars );
 	}
+	
 
 	/**
 	 * {@inheritDoc}
@@ -232,39 +227,34 @@ class Story extends Type {
 		foreach ( $rows as $row ) {
 			$push_class = $even ? 'push-60' : '';
 			$pull_class = $even ? 'pull-40' : '';
-			
-			//TODO: fatsoenlijk
+
 			$animation_fade = HTML::generate_attributes( ['data-sal' => 'fade', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
 			$animation_left = HTML::generate_attributes( ['data-sal' => 'slide-left', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
 			$animation_right = HTML::generate_attributes( ['data-sal' => 'slide-right', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
 			$animation_attributes_1 = $even ? $animation_left : $animation_right;
 			$animation_attributes_2 = $even ? $animation_right : $animation_left;
-			?>
-			<div class="grid-100" <?php echo $animation_fade;?> >
-				<?php Quote::create()->set_quote( $row['quote'] )->render();?>
-			</div>
-	
-			<div class="grid-40 <?php echo $push_class;?>" <?php echo $animation_attributes_1;?>>
-				<?php echo wp_get_attachment_image( $row['image'][0], 'large'); ?>
-			</div>
-			<div class="grid-60 <?php echo $pull_class;?>"<?php echo $animation_attributes_2;?> >
-				<?php foreach ( $row['content'] as $paragraph ) : ?>
-				<b><?php echo esc_html( $paragraph['title'] );?></b>
-				<?php echo wpautop( wp_kses_post( $paragraph['text'] ) ); ?>
-				<?php endforeach; ?>
-			</div>
-			<?php 
-				$even = ! $even;
+			
+			//TODO: fatsoenlijk
+			$template_vars = array(
+				"animation_fade" => $animation_fade,
+				"quote" => Quote::create()->set_quote( $row['quote'] )->generate(),
+				"push_class" => $push_class,
+				"pull_class" => $pull_class,
+				"annimation_attributes_1" => $animation_attributes_1,
+				"annimation_attributes_2" => $animation_attributes_2,
+				"image" => wp_get_attachment_image( $row['image'][0], 'large'),
+				"contents" => array()
+			);
+			foreach ( $row['content'] as $paragraph ) :
+				array_push($template_vars["contents"],array("content" => '<b>' . esc_html( $paragraph['title'] ) . '</b>' . wpautop( wp_kses_post( $paragraph['text'] ) )));
+			endforeach;
+			echo Template::parse_template( "types/story_single", $template_vars );
+			$even = ! $even;
 		}
-		?>
-		<!-- Start CTA (TODO) -->
-
-
-
-		<!-- Eind -->
-		<?php
+		/*
+		Start CTA (TODO)
+		*/
 	}
-
 	/**
 	 * {@inheritDoc}
 	 */
