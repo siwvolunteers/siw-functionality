@@ -259,14 +259,8 @@ class Story extends Type {
 	 * {@inheritDoc}
 	 */
 	protected function get_archive_intro() : array {
-		$intro = [
-			__( 'Simone organiseerde Nederlandse taalles voor asielzoekers in België, Jacky stak de handen uit de mouwen op een oesterkwekerij in Japan, en Daphne werkte in een herberg voor migranten in Mexico.', 'siw' ),
-			__( 'Waar ga jij het liefst aan de slag?', 'siw' ),
-			__( 'We vinden het belangrijk om onze vrijwilligers zo goed mogelijk voor te bereiden op hun avontuur in een andere cultuur.', 'siw' ),
-			__( 'En wie kunnen nu beter uitleggen hoe onze projecten in elkaar zitten dan onze oud-deelnemers?', 'siw' ),
-			__( 'Lees hier per regio of per type project de ervaringsverhalen van oud-deelnemers en laat je inspireren!', 'siw' ),
-		];
-		return $intro;
+		$intro = siw_get_option('story_intro');
+		return [$intro];
 	}
 
 	/**

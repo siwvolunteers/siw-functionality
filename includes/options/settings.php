@@ -82,6 +82,11 @@ class Settings implements Option_Interface {
 				'label' => __( 'Vacatures', 'siw' ),
 				'icon'  => 'dashicons-clipboard'
 			],
+			[
+				'id'    => 'story',
+				'label' => __( 'Ervaringsverhalen', 'siw' ),
+				'icon'  => 'dashicons-clipboard'
+			],
 		];
 		return $tabs;
 	}
@@ -198,6 +203,13 @@ class Settings implements Option_Interface {
 			'tab'      => 'job_postings',
 		];
 		$fields[] = [
+			'id'       => 'job_postings_intro',
+			'name'     => __( 'Introtekst', 'siw' ),
+			'type'     => 'wysiwyg',
+			'tab'      => 'job_postings',
+			'required' => true,
+		];
+		$fields[] = [
 			'id'       => 'job_postings_organization_profile',
 			'name'     => __( 'Wie zijn wij', 'siw' ),
 			'type'     => 'wysiwyg',
@@ -234,7 +246,14 @@ class Settings implements Option_Interface {
 				],
 			],
 		];
-
+		// Ervaringsverhalen
+		$fields[] = [
+			'id'       => 'story_intro',
+			'name'     => __( 'Introtekst', 'siw' ),
+			'type'     => 'wysiwyg',
+			'tab'      => 'story',
+			'required' => true,
+		];
 		//Groepsprojecten
 		$continents = siw_get_continents_list();
 		$approval_fields = [
