@@ -221,6 +221,12 @@ class Job_Posting extends Type {
 						'type'     => 'wysiwyg',
 						'required' => true,
 					],
+					[
+						'id'       => 'abstract',
+						'name'     => __( 'Korte samenvatting', 'siw' ),
+						'type'     => 'wysiwyg',
+						'required' => true,
+					],
 				]
 			],
 		];
@@ -396,10 +402,12 @@ class Job_Posting extends Type {
 	 * {@inheritDoc}
 	 */
 	public function add_archive_content() {
+		$description = siw_meta( 'description' );
 		$vars = [
 			"job" => $this->get_job(),
 			"hours" => siw_meta('hours'),
 			'excerpt' => apply_filters( 'the_excerpt', get_the_excerpt() ),
+			'abstract' => $description['abstract'],
 			'link' => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) )
 			];
 		echo Template::parse_template( "types/job_posting_archive", $vars );

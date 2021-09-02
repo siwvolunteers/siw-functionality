@@ -5,6 +5,7 @@ use SIW\Content\Type;
 use SIW\Elements\Google_Maps;
 use SIW\Elements\Icon;
 use SIW\Util\Links;
+use SIW\Core\Template;
 
 /**
  * Evenementen
@@ -314,6 +315,104 @@ class Event extends Type {
 	 * @todo refactor enzo
 	 */
 	public function add_single_content() {
+		// bij een informatie bijeenkomst een invulformulier tonen
+		$infoform=$application_explanation=$application_link='';
+		if ( siw_meta( 'info_day' ) ) {
+			$default_date = sanitize_title( siw_format_date( siw_meta('event_date' ), false ) );
+			$infoform=do_shortcode( sprintf( '[caldera_form id="infodag" datum="%s"]', $default_date) );
+		}
+		// anders  tonen hoe je kunt aanmelden.
+		else
+		{
+			$application = siw_meta( 'application' );
+			$application_explanation = wp_kses_post( $application['explanation'] );
+			if ( $application['has_link'] ) {
+				$application_link = Links::generate_external_link( $application['url'] );
+			}
+		}
+		$template_vars = $this->TemplateVars();
+		$template_vars += array(
+			"infoform" => $infoform,
+			"application_explanation" => $application_explanation,
+			"application_link" => $application_link,
+		);
+		echo Template::parse_template( "types/event_single", $template_vars );
+	}
+	/**
+	 * {@inheritDoc}
+	 */
+	public function add_archive_content() {
+		
+		echo Template::parse_template( "types/event_archive", $this->TemplateVars() );
+	}
+	/**
+	 * TemplateVars
+	 * Maakt een array van variabelen voor de mustache template
+	 */
+	public function TemplateVars() : array {
+		
+		$template_vars = array(
+			"format" => function($text) {
+				#return wpautop( wp_kses_post( $text)); # Dit werkt niet bij $text = {{{text}}} wel bij {{text}}, maar dan is output met html tags
+				return($text); # voorlopig maar even zo.
+			  },
+			'link' => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
+			'excerpt' => apply_filters( 'the_excerpt', get_the_excerpt() ),			// samenvatting todo:in metadata opnemen
+			"icon_map-marker-alt" => Icon::create()->set_icon_class( 'siw-icon-map-marker-alt' )->generate(),
+			"icon_globe" => Icon::create()->set_icon_class( 'siw-icon-globe' )->generate(),
+			"icon_clock" => Icon::create()->set_icon_class( 'siw-icon-clock' )->generate(),
+			"event_day" => wp_date( 'd', strtotime( siw_meta( 'event_date' ) ) ),
+			"event_month" => wp_date( 'F', strtotime( siw_meta( 'event_date' ) ) ),
+			"start_time" => siw_meta( 'start_time'),
+			"end_time" => siw_meta( 'end_time'),
+			"event_date" => siw_meta( 'event_date' ),
+			"description" => siw_meta('description'),
+			"infodag" => siw_meta( 'info_day' ),
+			"verlopen"	=> siw_meta( 'event_date' ) < date( 'Y-m-d' ),
+		);
+		// online evenement
+		if(siw_meta('online')) {
+			$online_location = siw_meta( 'online_location' );
+			$template_vars += array(
+				"online"	=> TRUE,
+				"location_name" => $online_location['name'],
+				"location_link" => Links::generate_external_link( $online_location['url']),
+			);
+		}
+		// evenement op locatie
+		else {
+			//Locatie gegevens
+				$location = siw_meta( 'location' );
+				// locatie op kaart
+				$location_map = Google_Maps::create()
+				->add_location_marker(
+					sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] ),
+					$location['name'],
+					sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] )
+				)
+				->set_zoom( 15 );
+				$template_vars += array(
+					"location"	=> TRUE,
+					"location_name" => $location['name'],
+					"location_street" => $location['street'],
+					"location_postcode" => $location['postcode'],
+					"location_city" => $location['city'],
+					"location_map" => $location_map->generate(),
+				);
+		}
+		//Organisator
+		if(siw_meta( 'different_organizer'))
+		{
+			$template_vars += array(
+				"organizer"		=> TRUE,
+				"organizer_name" => siw_meta('organizer_name'),
+				"organizer_link" => Links::generate_external_link( siw_meta( 'organizer.url' )),
+			);
+		}
+		return($template_vars);
+	}
+	/*
+		public function add_single_content_old() {
 
 		echo '<h4>';
 		//Tijd
@@ -400,10 +499,7 @@ class Event extends Type {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function add_archive_content() {
+	public function add_archive_content_old() {
 		$event_date = siw_meta( 'event_date' );
 		?>
 		<div class="grid-20">
@@ -463,5 +559,6 @@ class Event extends Type {
 
 		<?php
 	}
+	*/
 
 }

@@ -1,0 +1,37 @@
+<h2>{{&icon_clock}} {{&event_date}} {{&start_time}} - {{&end_time}}</h2>
+<h2>
+{{#online}}
+    {{&icon_globe}} {{&location_name}} {{&location_link}}</h2>
+{{/online}}
+{{#location}}
+    {{&icon_map-marker-alt}} {{&location_name}} {{&location_street}} {{&location_postcode}} {{&location_city}}
+{{/location}}
+</h2>
+{{#format}}{{&description}}{{/format}}
+<h2>{{#__}}Aanmelden{{/__}}</h2>
+{{#verlopen}}
+    {{#__}}Dit evenement is helaas al afgelopen{{/__}}
+{{/verlopen}}
+{{^verlopen}}
+    {{#infodag}}
+        {{&infoform}}
+    {{/infodag}}
+    {{^infodag}}
+        {{&application_explanation}}
+        {{#application_link}}
+            {{&application_link}}
+        {{/application_link}}
+    {{/infodag}}
+{{/verlopen}}
+{{^online}}
+    <h2>{{#__}}Locatie{{/__}}</h2>
+    {{&location_map}}
+{{/online}}
+{{^infodag}}
+    {{#organizer}}
+        <h2>{{#__}}Organisator{{/__}}</h2>
+        {{#__}}Dit evenement wordt georganiseerd door {{/__}}
+        {{&organizer_name}}
+        {{&organizer_link}}
+    {{/organizer}}
+{{/infodag}}

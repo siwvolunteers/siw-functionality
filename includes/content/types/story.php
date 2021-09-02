@@ -204,8 +204,8 @@ class Story extends Type {
 		$template_vars = array(
 			"image" => wp_get_attachment_image( $rows[0]['image'][0], 'large'),
 			"link" => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
-			"project" => esc_html( $project_type->name ),
-			"continent" => esc_html( $continent->name ),
+			"project" => $project_type->name,
+			"continent" => $continent->name,
 			'excerpt' => apply_filters( 'the_excerpt', get_the_excerpt() ),
 
 		);
@@ -233,9 +233,22 @@ class Story extends Type {
 			$animation_right = HTML::generate_attributes( ['data-sal' => 'slide-right', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
 			$animation_attributes_1 = $even ? $animation_left : $animation_right;
 			$animation_attributes_2 = $even ? $animation_right : $animation_left;
-			
-			//TODO: fatsoenlijk
+			/*
+			$project_type = siw_meta( 'siw_story_project_type');
+			$cta = '';
+			if($project_type->name == "ESC") { 
+				$url = get_home_url() . '/' . "zo-werkt-het/esc";
+				$url = 'https://www.siw.nl' . '/' . "zo-werkt-het/esc";
+				if( $this->valid_url($url) !== false ) {
+					$cta = '<a href="' . $url. '">' . __('mogelijkheden', 'siw') . '</a>';
+				}
+				#$cta = '<a href="' . $url. '">' . __('mogelijkheden', 'siw') . '</a>';
+				
+			}
+			*/
+			$cta = $this->get_cta_url();
 			$template_vars = array(
+				"cta" =>   $cta,
 				"animation_fade" => $animation_fade,
 				"quote" => Quote::create()->set_quote( $row['quote'] )->generate(),
 				"push_class" => $push_class,
@@ -246,7 +259,8 @@ class Story extends Type {
 				"contents" => array()
 			);
 			foreach ( $row['content'] as $paragraph ) :
-				array_push($template_vars["contents"],array("content" => '<b>' . esc_html( $paragraph['title'] ) . '</b>' . wpautop( wp_kses_post( $paragraph['text'] ) )));
+				array_push($template_vars["contents"],array("title" => $paragraph['title'] ));
+				array_push($template_vars["contents"],array("text" => $paragraph['text'] ));
 			endforeach;
 			echo Template::parse_template( "types/story_single", $template_vars );
 			$even = ! $even;
@@ -254,6 +268,36 @@ class Story extends Type {
 		/*
 		Start CTA (TODO)
 		*/
+	}
+	/**
+	 * get_cta_url
+	 * Bepaal een call to action link ahv projecttype of continent
+	 */
+	protected function get_cta_url() :string {
+		$urls = array(
+			"ESC" => "zo-werkt-het/esc",
+			"Scholenproject" =>"zo-werkt-het/scholenprojecten",
+		);
+		$project_type = siw_meta( 'siw_story_project_type');
+		if(isset($urls[$project_type->name])) 
+		{ 
+			$url='https://www.siw.nl' . '/' . $urls[$project_type->name];
+			#$url= get_home_url() . '/' . $urls[$project_type->name];
+			if($this->valid_url($url))
+			{
+				return('<a href="' . $url. '">' . __('mogelijkheden', 'siw') . '</a>');
+			}
+		}
+		return(FALSE);
+	}
+	protected function valid_url($url) {
+		$headers = @get_headers($url);
+		if($headers && strpos($headers[0], '200')) {
+			return TRUE;
+		}
+		else {
+			return FALSE;
+		}
 	}
 	/**
 	 * {@inheritDoc}
