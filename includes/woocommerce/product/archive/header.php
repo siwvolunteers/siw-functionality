@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\WooCommerce\Frontend;
+namespace SIW\WooCommerce\Product\Archive;
 
 use SIW\Core\Template;
 use SIW\i18n;
@@ -12,7 +12,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Archive_Header {
+class Header {
 
 	/** Init */
 	public static function init() {
@@ -38,9 +38,9 @@ class Archive_Header {
 				],
 				'tariffs' => [
 					'regular'      => \siw_format_amount( Properties::WORKCAMP_FEE_REGULAR ),
-					'regular_sale' => siw_format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE ),
-					'student'      => siw_format_amount( Properties::WORKCAMP_FEE_STUDENT ),
-					'student_sale' => siw_format_amount( Properties::WORKCAMP_FEE_STUDENT_SALE ),
+					'regular_sale' => \siw_format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE ),
+					'student'      => \siw_format_amount( Properties::WORKCAMP_FEE_STUDENT ),
+					'student_sale' => \siw_format_amount( Properties::WORKCAMP_FEE_STUDENT_SALE ),
 				],
 				'contact_page_url' => i18n::get_translated_page_url( intval( siw_get_option( 'pages.contact' ) ) ),
 				'teaser' => [

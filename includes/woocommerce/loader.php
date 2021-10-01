@@ -38,11 +38,11 @@ class Loader extends Class_Loader_Abstract {
 			Email\New_Order::class,
 
 			Export\Order::class,
-			Frontend\Archive::class,
-			Frontend\Archive_Header::class,
 			Frontend\Product::class,
 			Frontend\Product_Tabs::class,
 
+			Product\Archive\Header::class,
+			Product\Archive\Ordering::class,
 			Product_Type::class,
 			Translations::class,
 		];
