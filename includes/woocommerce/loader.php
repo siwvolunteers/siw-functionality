@@ -43,6 +43,7 @@ class Loader extends Class_Loader_Abstract {
 
 			Product\Archive\Header::class,
 			Product\Archive\Ordering::class,
+			Log::class,
 			Product_Type::class,
 			Translations::class,
 		];
