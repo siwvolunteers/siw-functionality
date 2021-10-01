@@ -35,7 +35,7 @@ class Import_Plato_Project implements Async_Action_Interface {
 			return;
 		}
 
-		$import = new Import_Product( $plato_project );
+		$import = new Import_Product( $plato_project, true );
 		$import->process();
 	}
 }

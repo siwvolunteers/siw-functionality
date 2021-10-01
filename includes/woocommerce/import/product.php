@@ -27,6 +27,9 @@ class Product {
 	/** Plato project */
 	protected Plato_Project $plato_project;
 
+	/** Forceer update van project */
+	protected bool $force_update = false;
+
 	/** Geeft aan of het een update van een bestaand product is */
 	protected bool $is_update = false;
 
@@ -64,10 +67,11 @@ class Product {
 	protected array $target_audiences = [];
 
 	/** Constructor */
-	public function __construct( Plato_Project $plato_project ) {
+	public function __construct( Plato_Project $plato_project, bool $force_update = false ) {
 		add_filter( 'wc_product_has_unique_sku', '__return_false' );
 		add_filter( 'wp_insert_post_data', [ $this, 'correct_post_slug'], 10, 2 );
 		$this->plato_project = $plato_project;
+		$this->force_update = $force_update;
 	}
 
 	/** Corrigeert slug van product als het ter review staat */
@@ -536,24 +540,19 @@ class Product {
 	/**
 	 * Geeft aan of project bijgewerkt moet worden
 	 * 
-	 * - Als dit bij het project is aangegeven
+	 * - Als meegegeven is dat het het project bijgewerkt moet worden
 	 * - Als Plato-data veranderd is
 	 * - Bij geforceerde volledige update
 	 */
 	protected function should_be_updated() : bool {
+		return (
+			$this->force_update
+			||
+			$this->plato_project->get_checksum() != $this->product->get_meta( 'checksum' )
+			||
+			siw_get_option( 'plato.force_full_update' ) 
 
-		if ( $this->product->get_meta( 'import_again' ) ) {
-			$this->product->update_meta_data( 'import_again', false );
-			return true;
-		}
-		elseif ( $this->plato_project->get_checksum() != $this->product->get_meta( 'checksum' ) ) {
-			return true;
-		}
-		elseif ( siw_get_option( 'plato.force_full_update' ) ) {
-			return true;
-		}
-
-		return false;
+		);
 	}
 
 	/**
