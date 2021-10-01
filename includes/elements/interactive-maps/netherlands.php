@@ -4,10 +4,13 @@ namespace SIW\Elements\Interactive_Maps;
 
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
+use SIW\Data\Sustainable_Development_Goal;
+use SIW\Data\Work_Type;
 use SIW\Elements\Accordion;
 use SIW\i18n;
 use SIW\Properties;
 use SIW\Util\Links;
+use SIW\WooCommerce\WC_Product_Project;
 
 /**
  * Class om een Mapplic kaart te genereren
@@ -48,23 +51,23 @@ class Netherlands implements Interactive_Map_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_categories() : array {
+	public function get_categories(): array {
 		return [];
 	}
 
 	/** {@inheritDoc} */
-	public function get_locations() : array {
+	public function get_locations(): array {
 		$projects = $this->get_projects();
 		$locations = [];
 		$provinces = [];
 		foreach ( $projects as $project ) {
 			$locations[] = [
 				'id'            => sanitize_title( $project->get_sku() ),
-				'title'         => $this->get_project_title( $project ),
+				'title'         => $project->get_name(),
 				'image'         => $project->get_image_id() ? wp_get_attachment_image_src( $project->get_image_id(), 'medium' )[0] : null,
 				'about'         => $project->get_sku(),
-				'lat'           => $project->get_meta( 'latitude' ) ?? null,
-				'lng'           => $project->get_meta( 'longitude' ) ?? null,
+				'lat'           => $project->get_latitude() ?? null,
+				'lng'           => $project->get_longitude() ?? null,
 				'description'   => $this->get_project_properties( $project ) . $this->get_project_button( $project ),
 				'pin'           => 'pin-classic pin-md',
 				'category'      => 'nl',
@@ -88,17 +91,17 @@ class Netherlands implements Interactive_Map_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_mobile_content() : ?string {
+	public function get_mobile_content(): ?string {
 		
 		$projects = $this->get_projects();
 		if ( empty( $projects ) ) {
-			return null;
+			return '';
 		}
 		$panes = [];
 		foreach ( $projects as $project ) {
 			$panes[] = [
-				'title'       => $this->get_project_title( $project ),
-				'content'     => $this->get_project_properties( $project ) . $this->get_project_description( $project ),
+				'title'       => $project->get_name(),
+				'content'     => $this->get_project_properties( $project ),
 				'show_button' => i18n::is_default_language(),
 				'button_url'  => $project->get_permalink(),
 				'button_text' => __( 'Bekijk project', 'siw' ),
@@ -108,35 +111,42 @@ class Netherlands implements Interactive_Map_Interface {
 		return Accordion::create()->add_items( $panes )->generate();
 	}
 
-	/** Haalt projecten op */
-	protected function get_projects() : array {
+	/**
+	 * Haalt projecten op
+	 * @return WC_Product_Project[]
+	*/
+	protected function get_projects(): array {
 		$args = [
 			'country'    => 'nederland',
-			'return'     => 'objects',
-			'limit'      => -1,
 		];
-		return wc_get_products( $args );
+		return \siw_get_products( $args );
 	}
 
 	/** Genereert beschrijving van het project */
-	protected function get_project_properties( \WC_Product $project ) : string {
+	protected function get_project_properties( WC_Product_Project $project ) : string {
 		//Verzamelen gegevens
-		$attributes = $project->get_attributes();
-		$work_type_slugs = $attributes['pa_soort-werk']->get_slugs();
-		
-		$work_types = array_map(
-			fn( string $work_type_slug ) : string => siw_get_work_type( $work_type_slug )->get_name(),
-			$work_type_slugs
+		$work_type_names = array_map(
+			fn( Work_Type $work_type ) : string => $work_type->get_name(),
+			$project->get_work_types()
 		);
-	
-		$duration = siw_format_date_range( $project->get_attribute( 'startdatum' ), $project->get_attribute( 'einddatum' ) );
+		
+		$sdg_names = array_map(
+			fn( Sustainable_Development_Goal $sdg ): string => $sdg->get_full_name(),
+			$project->get_sustainable_development_goals()
+		);
+
+		$duration = siw_format_date_range( $project->get_start_date(), $project->get_end_date() );
 
 		//Opbouwen beschrijving
 		$description[] = sprintf( __( 'Projectcode: %s', 'siw' ), $project->get_sku() );
 		$description[] = sprintf( __( 'Data: %s', 'siw' ), $duration );
-		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), implode( ', ', $work_types ) );
-		
-		//Locatie tonen indien bekend
+		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), implode( ', ', $work_type_names ) );
+		if ( ! empty( $sdg_names ) ) {
+			$description[] = sprintf( __( 'Sustainable development goals: %s', 'siw' ), implode( ', ', $sdg_names ) ); //TODO: icons gebruiken
+		}
+
+	
+		//Locatie tonen indien bekend TODO: Google Maps API gebruiken?
 		if ( $project->get_meta( 'dutch_projects_city' ) && $project->get_meta( 'dutch_projects_province' ) ) {
 			$description[] = sprintf(
 				__( 'Locatie: %s, provincie %s', 'siw' ),
@@ -147,23 +157,8 @@ class Netherlands implements Interactive_Map_Interface {
 		return wpautop( implode( BR, $description ) );
 	}
 
-	/** Haalt projectbeschrijving op */
-	protected function get_project_description( \WC_Product $project ) : ?string {
-		$language = i18n::get_current_language();
-		if ( $project->get_meta( "dutch_projects_name_{$language}" ) ) {
-			return wpautop( $project->get_meta( "dutch_projects_description_{$language}" ) );
-		}
-		return null;
-	}
-
-	/** Haalt projecttitel op */
-	protected function get_project_title( \WC_Product $project ) : string {
-		$language = i18n::get_current_language();
-		return ! empty( $project->get_meta( "dutch_projects_name_{$language}" ) ) ? $project->get_meta( "dutch_projects_name_{$language}" ) : $project->get_attribute( 'Projectnaam' );
-	}
-
 	/** Haal knop naar Groepsproject op */
-	protected function get_project_button( \WC_Product $project ) : ?string {
+	protected function get_project_button( \WC_Product $project ): ?string {
 		if ( ! i18n::is_default_language() ) {
 			return null;
 		}

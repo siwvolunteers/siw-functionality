@@ -46,7 +46,7 @@ class Destinations implements Interactive_Map_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_categories() : array {
+	public function get_categories(): array {
 		$continents = siw_get_continents();
 
 		$categories = [];
@@ -83,7 +83,7 @@ class Destinations implements Interactive_Map_Interface {
 	}
 
 	/** Genereer beschrijving van aanbod per land */
-	protected function generate_country_description( Country $country ) : string {
+	protected function generate_country_description( Country $country ): string {
 
 		/* Groepsprojecten */
 		if ( $country->has_workcamps() ) {

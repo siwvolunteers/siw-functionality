@@ -190,10 +190,10 @@ class Product {
 	/** Verwerk selecteren voor carousel */
 	public function select_for_carousel() {
 		if ( current_user_can( 'edit_products' ) && check_admin_referer( 'woocommerce-select-for-carousel' ) && isset( $_GET['product_id'] ) ) {
-			$product = wc_get_product( absint( $_GET['product_id'] ) );
+			$product = \siw_get_product( absint( $_GET['product_id'] ) );
 
-			if ( $product ) {
-				$product->update_meta_data( 'selected_for_carousel', ! $product->get_meta( 'selected_for_carousel') );
+			if ( null != $product ) {
+				$product->set_selected_for_carousel( ! $product->is_selected_for_carousel() );
 				$product->save();
 			}
 		}

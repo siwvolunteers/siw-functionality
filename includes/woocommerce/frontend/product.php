@@ -65,7 +65,7 @@ class Product {
 	}
 
 	/** Past weergave van de attributes aan */
-	public function display_product_attributes( array $attributes, \WC_Product $product ) : array {
+	public function display_product_attributes( array $attributes, WC_Product_Project $product ) : array {
 		$order = [
 			Product_Attribute::PROJECT_NAME(),
 			Product_Attribute::PROJECT_CODE(),
@@ -91,7 +91,7 @@ class Product {
 		} );
 
 		//Local fee verbergen voor nederlandse projecten
-		if ( 'nederland' === $product->get_meta( 'country' ) ) {
+		if ( 'nederland' === $product->get_country()->get_slug() ) {
 			unset( $attributes['attribute_lokale-bijdrage']);
 		}
 
@@ -100,15 +100,16 @@ class Product {
 	
 	/** Toont lokale bijdrage indien van toepassing */
 	public function show_local_fee() {
-		global $product;
+		global $post;
 
-		//Local fee niet tonen voor nederlandse projecten
-		if ( 'nederland' === $product->get_meta( 'country' ) ) {
+		$product = siw_get_product( $post );
+		//Local fee niet tonen voor nederlandse projecten FIXME:
+		if ( null == $product || null == $product->get_country() || 'nederland' === $product->get_country()->get_slug() ) {
 			return;
 		}
 
-		$amount = (float) $product->get_meta( 'participation_fee' );
-		$currency_code = $product->get_meta( 'participation_fee_currency' );
+		$amount = $product->get_participation_fee();
+		$currency_code = $product->get_participation_fee_currency();
 
 		if ( empty( $currency_code ) || $amount <= 0 ) {
 			return;

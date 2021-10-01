@@ -72,18 +72,14 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 			],
 		];
 
-		$visible_posts = wc_get_products(
+		$visible_posts = \siw_get_product_ids(
 			[
-				'limit'      => -1,
-				'return'     => 'ids',
 				'tax_query'  => $tax_query,
 				'visibility' => 'visible',
 			]
 		);
-		$posts = wc_get_products(
+		$posts = \siw_get_product_ids(
 			[
-				'limit'      => -1,
-				'return'     => 'ids',
 				'tax_query'  => $tax_query,
 			]
 		);

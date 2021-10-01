@@ -36,12 +36,7 @@
   background-repeat: no-repeat !important;
 }
 
-table.wp-list-table .column-visibility,
-table.wp-list-table .column-exported {
-  width: 10%;
-}
 table.wp-list-table .column-selected_for_carousel {
-  width: 48px;
   text-align: left !important;
 }
 table.wp-list-table .column-selected_for_carousel span.carousel {

@@ -23,14 +23,14 @@ class Taxonomy_Attribute extends Enum {
 	/** {@inheritDoc} */
 	protected static function values(): array {
 		return [
-			'CONTINENT'       => 'product_cat', //'pa_continent',
+			'CONTINENT'       => 'product_cat',
 			'COUNTRY'         => 'pa_land',
 			'WORK_TYPE'       => 'pa_soort-werk',
 			'LANGUAGE'        => 'pa_taal',
 			'TARGET_AUDIENCE' => 'pa_doelgroep',
 			'SDG'             => 'pa_sdg',
 			'MONTH'           => 'pa_maand',
-			//'DURATION'        => 'pa_projectduur',
+			'DURATION'        => 'pa_projectduur',
 		];
 	}
 
