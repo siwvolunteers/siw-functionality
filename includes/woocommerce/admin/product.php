@@ -25,9 +25,6 @@ class Product {
 		add_action( 'admin_init', [ $self, 'add_admin_columns'], 20 );
 		add_action( 'admin_menu', [ $self, 'remove_product_tags_admin_menu'], PHP_INT_MAX );
 		add_filter( 'quick_edit_show_taxonomy', [ $self, 'hide_product_tags_quick_edit' ], 10, 3 );
-		add_filter( 'bulk_actions-edit-product', [ $self, 'add_bulk_actions'] );
-		add_filter( 'handle_bulk_actions-edit-product', [ $self, 'handle_bulk_actions'], 10, 3 );
-		
 		//Beoordelen projecten
 		add_action( 'wp_ajax_woocommerce_select_for_carousel', [ $self, 'select_for_carousel' ] );
 	}
@@ -59,69 +56,7 @@ class Product {
 		new Product_Columns( 'product', [] );
 	}
 
-	/**
-	 * Voegt bulk acties toe
-	 * 
-	 * - Opnieuw importeren
-	 * - Selecteren voor carousel
-	 */
-	public function add_bulk_actions( array $bulk_actions ) : array {
-		$bulk_actions['import_again'] = __( 'Opnieuw importeren', 'siw' );
-		$bulk_actions['select_for_carousel'] = __( 'Selecteren voor carousel', 'siw' );
-		$bulk_actions['force_hide'] = __( 'Verbergen', 'siw' );
-		return $bulk_actions;
-	}
 
-	/** Verwerkt bulkacties */
-	public function handle_bulk_actions( string $redirect_to, string $action, array $post_ids ) : string {
-		$count = count( $post_ids );
-		switch ( $action ) {
-			case 'import_again':
-				$products = wc_get_products( ['include' => $post_ids ] );
-				array_walk(
-					$products,
-					function( \WC_Product $product ) {
-						$data = [
-							'product_id' => $product->get_meta( 'project_id' ),
-						];
-						siw_enqueue_async_action( 'import_plato_project', $data );
-					}
-				);
-				$message = sprintf( _n( '%s project wordt opnieuw geïmporteerd.', '%s projecten worden opnieuw geïmporteerd.', $count, 'siw' ), $count );
-				break;
-			case 'select_for_carousel':
-				$products = wc_get_products( ['include' => $post_ids ] );
-				array_walk(
-					$products,
-					function( \WC_Product $product ) {
-						$product->update_meta_data( 'selected_for_carousel', true );
-						$product->save();
-					}
-				);
-				$message = sprintf( _n( '%s project is geselecteerd voor de carousel.', '%s projecten zijn geselecteerd voor de carousel.', $count, 'siw' ), $count );
-				break;
-			case 'force_hide':
-				$products = wc_get_products( ['include' => $post_ids ] );
-				array_walk(
-					$products,
-					function( \WC_Product $product ) {
-						$product->update_meta_data( 'force_hide', true );
-						$product->set_catalog_visibility( 'hidden' );
-						$product->save();
-					}
-				);
-				$message = sprintf( _n( '%s project is verborgen.', '%s projecten zijn verborgen.', $count, 'siw' ), $count );
-				break;
-			default:
-		}
-
-		if ( isset( $message ) ) {
-			$notices = new Admin_Notices;
-			$notices->add_notice( 'info', $message , true);
-		}
-
-		return $redirect_to;
-	}
 	/** Verwijdert metaboxes */
 	public function remove_meta_boxes() {
 		remove_meta_box( 'slugdiv', 'product', 'normal' );
