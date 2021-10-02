@@ -41,6 +41,7 @@ class Loader extends Class_Loader_Abstract {
 			Frontend\Product::class,
 			Frontend\Product_Tabs::class,
 
+			Product\Approval::class,
 			Product\Archive\Header::class,
 			Product\Archive\Ordering::class,
 			Log::class,

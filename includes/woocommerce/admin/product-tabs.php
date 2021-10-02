@@ -19,7 +19,6 @@ class Product_Tabs {
 		add_filter( 'woocommerce_product_data_tabs', [ $self, 'hide_tabs'], PHP_INT_MAX );
 		
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_description_tab'] );
-		add_action( 'woocommerce_product_data_panels', [ $self, 'show_approval_tab'] );
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_update_tab'] );
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_dutch_projects_tab'] );
 
@@ -36,14 +35,6 @@ class Product_Tabs {
 			'class'    => [],
 			'priority' => 1,
 		];
-		if ( ! empty( $product_object->get_meta('approval_result') ) ) {
-			$tabs['approval'] = [
-				'label'    => __( 'Beoordeling', 'siw' ),
-				'target'   => 'approval_product_data',
-				'class'    => [],
-				'priority' => 110,
-			];
-		}
 		$tabs['update'] = [
 			'label'    => __( 'Update', 'siw' ),
 			'target'   => 'update_product_data',
@@ -158,65 +149,6 @@ class Product_Tabs {
 			</div>
 		</div>
 
-		<?php
-	}
-
-	/** Toont tab met beoordelingsresultaat */
-	public function show_approval_tab() {
-		global $product_object;
-
-		if ( empty( $product_object->get_meta( 'approval_result' ) ) ) {
-			return;
-		}
-
-		$approval_results = [
-			'approved' => __( 'Goedgekeurd', 'siw' ),
-			'rejected' => __( 'Afgewezen', 'siw' ),
-		];
-		?>
-		<div id="approval_product_data" class="panel woocommerce_options_panel">
-			<div class="options_group">
-				<?php
-				woocommerce_wp_text_input(
-					[
-						'id'          => 'approval_result',
-						'value'       => $approval_results[$product_object->get_meta( 'approval_result' )],
-						'label'       => __( 'Resultaat', 'siw' ),
-						'options'     => [
-							'approved' => __( 'Goedgekeurd', 'siw' ),
-							'rejected' => __( 'Afgewezen', 'siw' ),
-						],
-						'custom_attributes' => [
-							'readonly' => 'readonly',
-							'disabled' => 'disabled',
-						],
-					]
-				);
-				woocommerce_wp_text_input(
-					[
-						'id'       => 'approval_user',
-						'value'    => $product_object->get_meta( 'approval_user' ),
-						'label'    => __( 'Gebruiker', 'siw' ),
-						'custom_attributes' => [
-							'readonly' => 'readonly',
-							'disabled' => 'disabled',
-						],
-					]
-				);
-				woocommerce_wp_text_input(
-					[
-						'id'       => 'approval_date',
-						'value'    => $product_object->get_meta( 'approval_date' ),
-						'label'    => __( 'Datum', 'siw' ),
-						'custom_attributes' => [
-							'readonly' => 'readonly',
-							'disabled' => 'disabled',
-						],
-					]
-				);
-				?>
-			</div>
-		</div>
 		<?php
 	}
 
