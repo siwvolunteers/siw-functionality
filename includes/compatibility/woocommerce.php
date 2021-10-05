@@ -45,7 +45,6 @@ class WooCommerce {
 		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
 
 		add_action( 'wp', [ $self, 'remove_theme_support'], PHP_INT_MAX );
-		add_filter('woocommerce_single_product_image_thumbnail_html', [ $self, 'remove_link_on_thumbnails'] );
 
 		add_filter( 'woocommerce_layered_nav_count', '__return_empty_string' );
 		add_filter( 'rocket_cache_query_strings', [ $self, 'register_query_vars'] );
@@ -59,6 +58,9 @@ class WooCommerce {
 		add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type' ] );
 		add_filter( 'siw_carousel_post_type_taxonomies', [ $self, 'add_carousel_post_type_taxonomies' ] );
 		add_filter( 'siw_carousel_post_type_templates', [ $self, 'add_carousel_template' ] );
+
+		add_filter( 'woocommerce_price_trim_zeros', '__return_true' );
+		add_filter( 'woocommerce_show_page_title', '__return_false' );
 	}
 
 	/** Verwijdert ongebruikte widgets */
@@ -85,7 +87,7 @@ class WooCommerce {
 	public function enable_project_id_search( array $query, array $query_vars ) {
 		if ( ! empty( $query_vars['project_id'] ) ) {
 			$query['meta_query'][] = [
-				'key'   => 'project_id',
+				'key'   => '_project_id',
 				'value' => esc_attr( $query_vars['project_id'] ),
 			];
 		}
@@ -95,9 +97,12 @@ class WooCommerce {
 	/** Voegt country argument toe aan WC queries */
 	public function enable_country_search( array $query, array $query_vars ) {
 		if ( ! empty( $query_vars['country'] ) ) {
-			$query['meta_query'][] = [
-				'key'   => 'country',
-				'value' => esc_attr( $query_vars['country'] ),
+			$query['tax_query'][] = [
+				[
+					'taxonomy' => Taxonomy_Attribute::COUNTRY()->value,
+					'field'    => 'slug',
+					'terms'    => esc_attr( $query_vars['country'] ),
+				],
 			];
 		}
 		return $query;
@@ -130,11 +135,6 @@ class WooCommerce {
 		remove_theme_support( 'wc-product-gallery-zoom' );
 		remove_theme_support( 'wc-product-gallery-lightbox' );
 		remove_theme_support( 'wc-product-gallery-slider' );
-	}
-
-	/** Verwijdert link bij productafbeelding */
-	public function remove_link_on_thumbnails( string $html ) : string {
-		return strip_tags( $html, '<img>' ); //TODO: verplaatsen naar product
 	}
 
 	/** Zet naam van terms */
@@ -184,7 +184,7 @@ class WooCommerce {
 
 	/** Voegt post type toe aan carousel */
 	public function add_carousel_post_type( array $post_types ) : array {
-		$post_types['product'] = __( 'Groepsprojecten', 'siw' );
+		$post_types['product'] = __( 'Projecten', 'siw' );
 		return $post_types;
 	}
 

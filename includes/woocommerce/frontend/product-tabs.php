@@ -20,16 +20,21 @@ class Product_Tabs {
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_location_map_tab'] );
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_contact_form_tab'] );
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_steps_tab'] );
+
+		//TODO: tarief tab toevoegen
 	}
 
 	/** Voegt tab met projectbeschrijving toe */
 	public function add_project_description_tab( array $tabs ) : array {
-		global $product;
-		$description = $product->get_meta( 'description' );
-		if ( empty( $description ) ) {
+		unset( $tabs['description']);
+		
+		global $post;
+		$product = siw_get_product( $post );
+		if ( null == $product ) {
 			return $tabs;
 		}
-		unset( $tabs['description']);
+		$description = $product->get_project_description();
+
 		$tabs['project_description'] = [
 			'title'       => __( 'Beschrijving', 'siw' ),
 			'priority'    => 1,
@@ -41,17 +46,21 @@ class Product_Tabs {
 	
 	/** Voegt tab met projectlocatie toe */
 	public function add_project_location_map_tab( array $tabs ) : array {
-		global $product;
-		$lat = (float) $product->get_meta( 'latitude' );
-		$lng = (float) $product->get_meta( 'longitude' );
+		global $post;
+		$product = siw_get_product( $post );
+		if ( null == $product ) {
+			return $tabs;
+		}
+		$latitude = $product->get_latitude();
+		$longitude = $product->get_longitude();
 	
-		if ( 0 != $lat && 0 != $lng ) {
+		if ( 0 != $latitude && 0 != $longitude ) {
 			$tabs['location'] = [
 				'title'     => __( 'Projectlocatie', 'siw' ),
 				'priority'  => 110,
 				'callback'  => [ $this, 'show_project_map'],
-				'lat'       => $lat,
-				'lng'       => $lng,
+				'latitude'  => $latitude,
+				'longitude' => $longitude,
 			];
 		}
 		return $tabs;
@@ -107,7 +116,7 @@ class Product_Tabs {
 	/** Toont kaart met projectlocatie in tab */
 	public function show_project_map( string $tab, array $args ) {
 		Google_Maps::create()
-			->add_marker( $args['lat'], $args['lng'], __( 'Projectlocatie', 'siw' ) )
+			->add_marker( $args['latitude'], $args['longitude'], __( 'Projectlocatie', 'siw' ) )
 			->render();
 	}
 

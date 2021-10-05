@@ -2,6 +2,8 @@
 
 namespace SIW\Modules;
 
+use SIW\WooCommerce\WC_Product_Project;
+
 /**
  * Google Analytics integratie
  * 
@@ -31,7 +33,6 @@ class Google_Analytics {
 		}
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_scripts' ] );
 		add_action( 'woocommerce_add_to_cart', [ $self, 'track_add_to_cart'], 10, 6 );
-		add_filter( 'woocommerce_cart_item_remove_link', [ $self, 'add_variation_id_to_cart_item_remove_link' ], 10 ,2 );
 
 		add_filter( 'rocket_minify_excluded_external_js', [ $self, 'add_ga_url' ] );
 		add_filter( 'rocket_exclude_defer_js', [ $self, 'add_ga_url'] );
@@ -80,8 +81,13 @@ class Google_Analytics {
 	
 	/** Genereert Enhanced Ecommerce script */
 	protected function generate_ecommerce_script() : array {
+
 		if ( is_product() ) {
-			$product = wc_get_product( get_the_ID() );
+			$product = siw_get_product( get_the_ID() );
+			if ( null == $product ) {
+				return [];
+			}
+
 			$product_data = $this->get_product_data( $product );
 			$ecommerce_script = [
 				"ga('require', 'ec');",
@@ -96,8 +102,7 @@ class Google_Analytics {
 
 			foreach ( $items as $item ) {
 				$product = wc_get_product( $item['product_id'] );
-				$variation = wc_get_product( $item['variation_id'] );
-				$product_data = $this->get_product_data( $product, $variation );
+				$product_data = $this->get_product_data( $product );
 				$ecommerce_script[] = sprintf( "ga('ec:addProduct', %s);", json_encode( $product_data ) );
 			}
 			$ecommerce_script[] = "ga('ec:setAction','checkout')";
@@ -111,8 +116,7 @@ class Google_Analytics {
 			$items = $order->get_items();
 			foreach ( $items as $item ) {
 				$product = wc_get_product( $item['product_id'] );
-				$variation = wc_get_product( $item['variation_id'] );
-				$product_data = $this->get_product_data( $product, $variation );
+				$product_data = $this->get_product_data( $product );
 				$ecommerce_script[] = sprintf( "ga('ec:addProduct', %s);", json_encode( $product_data ) );
 			}
 
@@ -130,7 +134,7 @@ class Google_Analytics {
 	}
 
 	/** Geeft productdata voor GA terug */
-	protected function get_product_data( \WC_Product $product, \WC_Product_Variation $variation = null ) : array {
+	protected function get_product_data( WC_Product_Project $product ) : array {
 
 		$category_ids = $product->get_category_ids();
 		$category = get_term( $category_ids[0], 'product_cat' );
@@ -139,17 +143,9 @@ class Google_Analytics {
 			'id'       => esc_js( $product->get_sku() ),
 			'name'     => esc_js( $product->get_title() ),
 			'category' => esc_js( $category->name ),
+			'price'    => number_format( (float) $product->get_price(), 2 ),
+			'quantity' => 1,
 		];
-		if ( null != $variation ) {
-			$product_data = array_merge(
-				$product_data,
-				[
-					'variant'  => $variation->get_variation_attributes()['attribute_pa_tarief'],
-					'price'    => number_format( floatval( $variation->get_price() ), 2 ),
-					'quantity' => 1,
-				]
-			);
-		}
 
 		return $product_data;
 	}
@@ -160,18 +156,19 @@ class Google_Analytics {
 		$cart_data = [];
 		foreach ( $items as $key => $item ) {
 			$product = wc_get_product( $item['product_id'] );
-			$variation = wc_get_product( $item['variation_id'] );
-			$cart_data[ $item['variation_id'] ] = $this->get_product_data( $product, $variation );
+			//$cart_data[ $item['variation_id'] ] = $this->get_product_data( $product );
 		}
 		return $cart_data;
 	}
 
 	/** Track toevoegen aan cart */
 	public function track_add_to_cart( string $cart_item_key, int $product_id, int $quantity, int $variation_id, array $variation, array $cart_item_data ) {
-		$product = wc_get_product( $product_id );
-		$variation = wc_get_product( $variation_id );
+		$product = siw_get_product( $product_id );
+		if ( null == $product ) {
+			return;
+		}
 
-		$product_data = $this->get_product_data( $product, $variation );
+		$product_data = $this->get_product_data( $product );
 		
 		$script = [
 			"ga('require', 'ec');",
@@ -183,19 +180,10 @@ class Google_Analytics {
 		$this->add_script_to_session( $script );
 	}
 
-	/** Voegt variatie-id toe aan remove from cart link */
-	public function add_variation_id_to_cart_item_remove_link( string $link, string $cart_item_key ) : string {
-		$item = WC()->cart->get_cart_item( $cart_item_key );
-		$variation_id = $item['variation_id'];
-
-		$link = str_replace( 'data-product_sku', 'data-variation_id="'. $variation_id . '" data-product_sku', $link );
-		return $link;
-	}
-
 	/** Sla script op in sessie om na redirect te kunnen tonen */
 	protected function add_script_to_session( array $script ) {
 		WC()->session->set( self::SESSION_SCRIPT_KEY, $script );
-		WC()->session->save_data();
+		WC()-> session->save_data();
 	}
 
 	/** Haal opgeslagen script uit WC-sessie */

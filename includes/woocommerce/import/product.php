@@ -9,6 +9,13 @@ use SIW\Data\Language;
 use SIW\Data\Plato\Project as Plato_Project;
 use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Work_Type;
+use SIW\Util\Logger;
+use SIW\WooCommerce\Product_Attribute;
+use SIW\WooCommerce\Plato_Project_Type;
+use SIW\WooCommerce\Project_Duration;
+use SIW\WooCommerce\Target_Audience;
+use SIW\WooCommerce\Taxonomy_Attribute;
+use SIW\WooCommerce\WC_Product_Project;
 
 /**
  * Import van een Groepsproject
@@ -19,9 +26,10 @@ use SIW\Data\Work_Type;
  */
 class Product {
 
-	/**
-	 * Post-status van projecten die beoordeeld moeten worden
-	 */
+	/** Post-status van projecten die gepubliceerd kunnen worden */
+	const PUBLISH_STATUS = 'publish';
+
+	/** Post-status van projecten die beoordeeld moeten worden */
 	const REVIEW_STATUS = 'pending';
 
 	/** Plato project */
@@ -34,7 +42,10 @@ class Product {
 	protected bool $is_update = false;
 
 	/** Project */
-	protected \WC_Product $product;
+	protected WC_Product_Project $product;
+
+	/** Project type */
+	protected Plato_Project_Type $project_type;
 
 	/** Land van project */
 	protected Country $country;
@@ -60,10 +71,11 @@ class Product {
 	 */
 	protected array $sustainable_development_goals;
 
-	/** Tarieven die van toepassing zijn */
-	protected array $tariffs;
-
-	/** Doelgroepen */
+	/**
+	 * Doelgroepen
+	 * 
+	 * @var Target_Audience[];
+	 * */
 	protected array $target_audiences = [];
 
 	/** Constructor */
@@ -75,43 +87,35 @@ class Product {
 	}
 
 	/** Corrigeert slug van product als het ter review staat */
-	public function correct_post_slug( array $data, array $postarr ) : array {
+	public function correct_post_slug( array $data, array $postarr ): array {
 		if ( self::REVIEW_STATUS == $data['post_status'] && 'product' == $data['post_type'] ) {
 			$data['post_name'] = $postarr['post_name'];
 		}
 		return $data;
 	}
 
-	/**
-	 * Verwerk item
-	 * 
-	 * @todo logging als land/werk/code leeg is
-	 */
-	public function process() : bool {
+	/** Verwerk item */
+	public function process(): bool {
 
 		/* Voorbereiden */
-		$this->set_country();
-		$this->set_languages();
-		$this->set_work_types();
-		$this->set_sustainable_development_goals();
-		$this->set_target_audiences();
-		$this->set_tariffs();
-
-		if ( empty( $this->country ) || empty( $this->work_types ) || empty( $this->plato_project->get_code() ) ) {
-			return false;
+		if ( ! $this->set_project_type()
+			|| ! $this->set_country()
+			|| ! $this->set_languages()
+			|| ! $this->set_work_types()
+		) {
+			Logger::info( sprintf( 'Project met id %s wordt niet geïmporteerd', $this->plato_project->get_project_id() ), 'importeren-projecten' );
+			return false; //TODO: logging
 		}
 
-		/* Zoek project */
-		$args = [
-			'project_id' => $this->plato_project->get_project_id(),
-			'return'     => 'objects',
-			'limit'      => -1,
-		];
-		$products = wc_get_products( $args );
+		$this->set_sustainable_development_goals();
+		$this->set_target_audiences();
 
-		if ( ! empty( $products ) ) {
+		/* Zoek project op basis van project id */
+		$product = \siw_get_product_by_project_id( $this->plato_project->get_project_id() );
+
+		if ( null !== $product ) {
 			$this->is_update = true;
-			$this->product = $products[0];
+			$this->product = $product;
 			if ( ! $this->should_be_updated() ) {
 				return false;
 			}
@@ -122,17 +126,10 @@ class Product {
 			if ( ! $this->is_allowed_project_type() || ! $this->country->has_workcamps() || date( 'Y-m-d' ) > $this->plato_project->get_start_date() ) {
 				return false;
 			}
-			$this->product = new \WC_Product_Variable;
+			$this->product = new WC_Product_Project();
 		}
 
 		$this->set_product();
-
-		//Variaties bijwerken (indien nodig) en creëren
-		$variations = new Product_Variations( $this->product, $this->tariffs );
-		if ( $this->is_update ) {
-			$variations->update();
-		}
-		$variations->create();
 
 		return true;
 	}
@@ -140,110 +137,127 @@ class Product {
 	/** Zet de eigenschappen van het product */
 	public function set_product() {
 		$this->product->set_props( [
-			'name'               => $this->get_name(),
-			'slug'               => $this->get_slug(),
-			'short_description'  => $this->get_short_description(),
-			'category_ids'       => $this->get_category_ids(),
-			'attributes'         => $this->get_attributes(),
-			'default_attributes' => $this->get_default_attributes(),
-			'sku'                => $this->plato_project->get_code(),
-			'sold_individually'  => true,
-			'virtual'            => true,
-			'status'             => $this->get_status(),
-			'image_id'           => $this->get_image_id(),
-			'xml'                => null, //Legacy, kan uiteindelijk weg
+			//Default WooCommerce props
+			'name'                       => $this->plato_project->get_name(),
+			'slug'                       => $this->get_slug(),
+			'short_description'          => $this->get_short_description(),
+			'category_ids'               => $this->get_category_ids(),
+			'attributes'                 => $this->get_attributes(),
+			'sku'                        => $this->plato_project->get_code(),
+			'status'                     => $this->get_status(),
+			'image_id'                   => $this->get_image_id(),
 
+			//Extra props
+			'checksum'                   => $this->plato_project->get_checksum(),
+			'project_id'                 => $this->plato_project->get_project_id(),
+			'latitude'                   => $this->plato_project->get_lat_project(),
+			'longitude'                  => $this->plato_project->get_lng_project(),
+			'start_date'                 => $this->plato_project->get_start_date(),
+			'end_date'                   => $this->plato_project->get_end_date(),
+			'min_age'                    => $this->plato_project->get_min_age(),
+			'max_age'                    => $this->plato_project->get_max_age(),
+			'participation_fee_currency' => $this->plato_project->get_participation_fee_currency(),
+			'participation_fee'          => $this->plato_project->get_participation_fee(),
+			'project_description'        => $this->get_project_description() 
 		]);
-		foreach ( $this->get_meta_data() as $key => $value ) {
-			if ( ! empty( $value ) ) {
-				$this->product->update_meta_data( $key, $value );
-			}
-		}
 		$this->product->save();
 	}
 
+	/** Zet project type */
+	protected function set_project_type(): bool {
+		$project_type = Plato_Project_Type::tryFrom( $this->plato_project->get_project_type());
+		if ( null == $project_type ) {
+			Logger::error( sprintf( 'Project type %s niet gevonden', $this->plato_project->get_project_type() ), 'Importeren projecten' );
+			return false;
+		}
+		$this->project_type = $project_type;
+		return true;
+	}
+
 	/**
-	 * Zet land op basis van ISO-code
+	 * Zet land op basis van Plato-code
 	 */
-	protected function set_country() {
+	protected function set_country(): bool {
 		$country_code = strtoupper( $this->plato_project->get_country() );
 		$country = siw_get_country( $country_code, Country::PLATO_CODE );
-		if ( is_a( $country, Country::class ) ) {
-			$this->country = $country;
+		if ( ! is_a( $country, Country::class ) ) {
+			Logger::error( sprintf( 'Land met code %s niet gevonden', $country_code ), 'Importeren projecten' );
+			return false;
 		}
+		$this->country = $country;
+		return true;
 	}
 
 	/** Zet talen op basis van Plato-code */
-	protected function set_languages() {
+	protected function set_languages(): bool {
 		$this->languages = [];
 		$languages = wp_parse_slug_list( $this->plato_project->get_languages() );
 		foreach ( $languages as $language_code ) {
 			$language_code = strtoupper( $language_code );
-			$language = siw_get_language( $language_code, 'plato_code' );
-			if ( is_a( $language, Language::class ) ) {
-				$this->languages[] = $language;
+			$language = siw_get_language( $language_code, Language::PLATO_CODE );
+			if (  ! is_a( $language, Language::class ) ) {
+				Logger::error( sprintf( 'Taal met code %s niet gevonden', $language_code ), 'Importeren projecten' );
+				return false;
 			}
+			$this->languages[] = $language;
 		}
+		return true;
 	}
 
 	/** Zet soorten werk op basis van Plato-code */
-	protected function set_work_types() {
+	protected function set_work_types(): bool {
 		$this->work_types = [];
 		$work_types = wp_parse_slug_list( $this->plato_project->get_work() );
 		foreach ( $work_types as $work_type_code ) {
 			$work_type_code = strtoupper( $work_type_code );
-			$work_type = siw_get_work_type( $work_type_code, 'plato_code' );
-			if ( is_a( $work_type, Work_Type::class ) ) {
-				$this->work_types[] = $work_type;
+			$work_type = siw_get_work_type( $work_type_code, Work_Type::PLATO_CODE );
+			if ( ! is_a( $work_type, Work_Type::class ) ) {
+				Logger::error( sprintf( 'Soort werk met code %s niet gevonden', $work_type_code ), 'Importeren projecten' );
+				return false;
 			}
+			$this->work_types[] = $work_type;
 		}
+		return true;
 	}
 
 	/** Zet sustainable development goals */
-	protected function set_sustainable_development_goals() {
+	protected function set_sustainable_development_goals(): bool {
 		$this->sustainable_development_goals = [];
 		$goals = wp_parse_slug_list( $this->plato_project->get_sdg_prj() );
 		foreach ( $goals as $goal_slug ) {
+				//continue als slug = 0
+
 			$goal = siw_get_sustainable_development_goal( $goal_slug );
-			if ( is_a( $goal, Sustainable_Development_Goal::class ) ) {
-				$this->sustainable_development_goals[] = $goal;
+			if ( ! is_a( $goal, Sustainable_Development_Goal::class ) ) {
+				Logger::warning( sprintf( 'SDG met code %s niet gevonden', $goal_slug ), 'Importeren projecten' );
+				return false;
 			}
+			$this->sustainable_development_goals[] = $goal;
 		}
+		return true;
 	}
 
 	/** Geeft de category (continent) van het project terug */
-	protected function get_category_ids() : array {
+	protected function get_category_ids(): array {
 		$continent = $this->country->get_continent();
 		$category_ids = [];
-		if ( $category_id = Util::maybe_create_term( 'product_cat', $continent->get_slug(), $continent->get_name() ) ) {
+		if ( $category_id = Util::maybe_create_term( Taxonomy_Attribute::CONTINENT()->value, $continent->get_slug(), $continent->get_name() ) ) {
 			$category_ids[] = $category_id;
 		}
 		return $category_ids;
 	}
 
-	/** Geeft naam van het project terug */
-	protected function get_name() : string {
-		$country = $this->country->get_name();
-		$work_types = array_slice( $this->work_types, 0, 2 );
-		if ( 1 === count( $work_types ) ) {
-			$work = $work_types[0]->get_name();
-		}
-		else {
-			$work = sprintf( '%s en %s', $work_types[0]->get_name(), strtolower( $work_types[1]->get_name() ) );
-		}
-		return sprintf( '%s | %s', $country, ucfirst( $work ) );
-	}
-
 	/**
 	 * Zet de url-slug van het project
 	 * 
-	 * Formaat: jaar-projectcode-projectnaam
+	 * Formaat: jaar-projectcode-land-werk
 	 */
 	protected function get_slug() : string {
 		$year = date( 'Y', strtotime( $this->plato_project->get_start_date() ) );
 		$code = $this->plato_project->get_code();
-		$name = $this->get_name();
-		return sanitize_title( sprintf( '%s-%s-%s', $year, $code, $name ) );
+		$country = $this->country->get_name();
+		$work = $this->work_types[0]->get_name();
+		return sanitize_title( sprintf( '%s-%s-%s-%s', $year, $code, $country, $work ) );
 	}
 
 	/**
@@ -251,26 +265,26 @@ class Product {
 	 * 
 	 * @todo splitsen
 	 */
-	protected function get_attributes() : array {
+	protected function get_attributes(): array {
 
 		$attributes = [];
 
 		/* Product attributes */
 		$product_attributes = [
-			'Projectnaam'          => $this->plato_project->get_name(),
-			'Projectcode'          => $this->plato_project->get_code(),
-			'Startdatum'           => date( 'j-n-Y', strtotime( $this->plato_project->get_start_date() ) ),
-			'Einddatum'            => date( 'j-n-Y', strtotime( $this->plato_project->get_end_date() ) ),
-			'Aantal vrijwilligers' => siw_format_number_of_volunteers(
+			Product_Attribute::PROJECT_NAME()->label         => $this->plato_project->get_name(),
+			Product_Attribute::PROJECT_CODE()->label         => $this->plato_project->get_code(),
+			Product_Attribute::START_DATE()->label           => date( 'j-n-Y', strtotime( $this->plato_project->get_start_date() ) ),
+			Product_Attribute::END_DATE()->label             => date( 'j-n-Y', strtotime( $this->plato_project->get_end_date() ) ),
+			Product_Attribute::NUMBER_OF_VOLUNTEERS()->label => siw_format_number_of_volunteers(
 				$this->plato_project->get_numvol(),
 				$this->plato_project->get_numvol_m(),
 				$this->plato_project->get_numvol_f()
 			),
-			'Leeftijd'             => siw_format_age_range(
+			Product_Attribute::AGE_RANGE()->label             => siw_format_age_range(
 				$this->plato_project->get_min_age(),
 				$this->plato_project->get_max_age()
 			),
-			'Lokale bijdrage'      => siw_format_local_fee(
+			Product_Attribute::PARTICIPATION_FEE()->label      => siw_format_local_fee(
 				$this->plato_project->get_participation_fee(),
 				$this->plato_project->get_participation_fee_currency()
 			),
@@ -282,91 +296,109 @@ class Product {
 			}
 		}
 
+		/** Projectduur */
+		$start_date_time      = new \DateTime( $this->plato_project->get_start_date() );
+		$end_date_time        = new \DateTime( $this->plato_project->get_end_date() );
+			
+		$duration = $start_date_time->diff( $end_date_time )->days;
+		if ( $duration < 30 ) { //TODO: magic number vervangen?
+			$project_duration = Project_Duration::STV();
+		} elseif ( $duration < 90 ) { //TODO: magic number vervangen?
+			$project_duration = Project_Duration::MTV();
+		} else {
+			$project_duration = Project_Duration::LTV();
+		}
+
+		$taxonomy_attributes[] = [
+			'taxonomy' => Taxonomy_Attribute::DURATION(),
+			'visible'  => false,
+			'values'   => [
+				$project_duration->value => $project_duration->label
+			]
+		];
+
 		/* Land */
-		$taxonomy_attributes['land']['values'][] = [
-			'slug' => $this->country->get_slug(),
-			'name' => $this->country->get_name(),
+		$taxonomy_attributes[] = [
+			'taxonomy' => Taxonomy_Attribute::COUNTRY(),
+			'values'   => [
+				$this->country->get_slug() => $this->country->get_name(),
+			],
 		];
 
 		/* Werk */
+		$work_type_values = [];
 		foreach ( $this->work_types as $work_type ) {
-			$taxonomy_attributes['soort-werk']['values'][] = [
-				'slug' => $work_type->get_slug(),
-				'name' => $work_type->get_name(),
-			];
+			$work_type_values[ $work_type->get_slug() ] = $work_type->get_name();
 		}
+		$taxonomy_attributes[] = [
+			'taxonomy' => Taxonomy_Attribute::WORK_TYPE(),
+			'values'   => $work_type_values,
+		];
 
 		/* Taal */
+		$language_values = [];
 		foreach ( $this->languages as $language ) {
-			$taxonomy_attributes['taal']['values'][] = [
-				'slug' => $language->get_slug(),
-				'name' => $language->get_name(),
-			];
+			$language_values[ $language->get_slug() ] = $language->get_name();
 		}
+		$taxonomy_attributes[] = [
+			'taxonomy' => Taxonomy_Attribute::LANGUAGE(),
+			'values'   => $language_values,
+		];
+
 		
 		/* Maand */
 		$month_slug = sanitize_title( siw_format_month( $this->plato_project->get_start_date(), true ) );
 		$month_name = ucfirst( siw_format_month( $this->plato_project->get_start_date(), false ) );
-		$taxonomy_attributes['maand']['visible'] = false;
-		$taxonomy_attributes['maand']['values'][] = [
-			'slug'  => $month_slug,
-			'name'  => $month_name,
-			'order' => date( 'Ym', strtotime( $this->plato_project->get_start_date() ) ),
+		$taxonomy_attributes[] = [
+			'taxonomy' => Taxonomy_Attribute::MONTH(),
+			'visible'  => false,
+			'values'   => [
+				$month_slug => [
+					'name'  => $month_name,
+					'order' => date( 'Ym', strtotime( $this->plato_project->get_start_date() ) ),
+				],
+			],
 		];
 
-		/* Tarieven */
-		$taxonomy_attributes['tarief']['visible'] = false;
-		$taxonomy_attributes['tarief']['variation'] = true;
-		foreach ( $this->tariffs as $slug => $tariff ) {
-			$taxonomy_attributes['tarief']['values'][] = [
-				'slug' => $slug,
-				'name' => $tariff['name'],
-			];
-		}
-
 		/* Doelgroepen */
+		$target_audience_values = [];
 		foreach ( $this->target_audiences as $target_audience ) {
-			$taxonomy_attributes['doelgroep']['values'][] = [
-				'slug' => $target_audience['slug'],
-				'name' => $target_audience['name'],
-			];
+			$target_audience_values[ $target_audience->value ] = $target_audience->label;
 		}
+		$taxonomy_attributes[] = [
+			'taxonomy' => Taxonomy_Attribute::TARGET_AUDIENCE(),
+			'values'   => $target_audience_values,
+		];
 
 		/* Sustainable development goals */
+		$sdg_values = [];
 		foreach ( $this->sustainable_development_goals as $goal ) {
-			$taxonomy_attributes['sdg']['values'][] = [
-				'slug' => $goal->get_slug(),
-				'name' => $goal->get_full_name(),
-			];
+			$sdg_values[$goal->get_slug()] = $goal->get_full_name();
 		}
+		$taxonomy_attributes[] = [
+			'taxonomy' => Taxonomy_Attribute::SDG(),
+			'values'   => $sdg_values,
+		];
 
 		//Attributes aanmaken
-		foreach ( $taxonomy_attributes as $taxonomy => $attribute ) {
+		foreach ( $taxonomy_attributes as $attribute ) {
 			$attribute = wp_parse_args(
 				$attribute,
 				[
 					'visible'   => true,
-					'variation' => false,
 					'values'    => [],
 				]
 			);
 
 			if ( ! empty( $attribute['values'] ) ) {
-				$attributes["pa_{$taxonomy}"] = $this->create_taxonomy_attribute( $taxonomy, $attribute['values'], $attribute['visible'], $attribute['variation'] );
+				$attributes[ $attribute['taxonomy']->value ] = $this->create_taxonomy_attribute( $attribute['taxonomy'], $attribute['values'], $attribute['visible'] );
 			}
 		}
 		return $attributes;
 	}
 
-	/** Geeft default eigenschappen terug */
-	protected function get_default_attributes() : array {
-		$max_age = $this->plato_project->get_max_age();
-		$default_tariff = ( 18 > $max_age ) ? 'student' : 'regulier';
-		return [ 'pa_tarief' => $default_tariff ];
-	}
-
 	/** Creëert product attribute */
-	protected function create_product_attribute( string $name, $options, bool $visible = true ) : \WC_Product_Attribute {
+	protected function create_product_attribute( string $name, $options, bool $visible = true ): \WC_Product_Attribute {
 		$options = (array) $options;
 		$attribute = new \WC_Product_Attribute;
 		$attribute->set_name( $name );
@@ -376,18 +408,18 @@ class Product {
 	}
 
 	/** Creëert taxonomy attribute */
-	protected function create_taxonomy_attribute( string $taxonomy, $values, bool $visible = true, bool $variation = false ) : ?\WC_Product_Attribute {
+	protected function create_taxonomy_attribute( Taxonomy_Attribute $taxonomy, array $values, bool $visible = true ): ?\WC_Product_Attribute {
 
-		$wc_attribute_taxonomy_id = wc_attribute_taxonomy_id_by_name( $taxonomy );
+		$wc_attribute_taxonomy_id = wc_attribute_taxonomy_id_by_name( $taxonomy->value );
 
 		//TODO: maybe_create_taxonomy
 		if ( 0 === $wc_attribute_taxonomy_id ) {
 			$wc_attribute_taxonomy_id = wc_create_attribute(
 				[
-					'name'         => $taxonomy, //TODO: juiste naam gebruiken
-					'slug'         => $taxonomy,
+					'name'         => $taxonomy->label,
+					'slug'         => $taxonomy->value,
 					'type'         => 'select',
-					'order_by'     => 'name', //TODO: juiste waarde gebruiken
+					'order_by'     => 'name',
 					'has_archives' => true,
 				]
 			);
@@ -396,23 +428,29 @@ class Product {
 			}
 		}
 
-		foreach ( $values as $value ) {
-			$order = $value['order'] ?? null;
-			$options[] = Util::maybe_create_term( "pa_{$taxonomy}", $value['slug'], $value['name'], $order );
+		foreach ( $values as $slug => $value ) {
+			if ( is_array( $value ) ) {
+				$name = $value['name'] ?? $slug;
+				$order = $value['order'] ?? null;
+			}
+			else {
+				$name = $value;
+				$order = null;
+			}
+			$options[] = Util::maybe_create_term( "{$taxonomy->value}", (string) $slug, $name, $order );
 		}
 
 		$attribute = new \WC_Product_Attribute;
 		$attribute->set_id( $wc_attribute_taxonomy_id );
 		$attribute->set_options( $options );
-		$attribute->set_name( "pa_{$taxonomy}" );
+		$attribute->set_name( $taxonomy->value );
 		$attribute->set_visible( $visible );
-		$attribute->set_variation( $variation );
 
 		return $attribute;
 	}
 
 	/** Parset beschrijvingen */
-	protected function parse_description( string $template ) : string {
+	protected function parse_description( string $template ): string {
 		$context = [
 			'project_type' => $this->get_workcamp_type(),
 			'country'      => $this->country->get_name(),
@@ -434,7 +472,7 @@ class Product {
 	/**
 	 * Geneert de korte (Nederlandse) beschrijving van een project op basis van een template
 	 */
-	protected function get_short_description() : string {
+	protected function get_short_description(): string {
 		$templates = siw_get_data( 'workcamps/description-templates' );
 		$template = implode( SPACE, $templates[ array_rand( $templates, 1 ) ]  );
 
@@ -442,64 +480,31 @@ class Product {
 	}
 
 	/** Zet meta properties van product */
-	protected function get_meta_data() : array {
-		$meta_data = [
-			'checksum'                   => $this->plato_project->get_checksum(),
-			'project_id'                 => $this->plato_project->get_project_id(),
-			'latitude'                   => $this->plato_project->get_lat_project(),
-			'longitude'                  => $this->plato_project->get_lng_project(),
-			'country'                    => $this->country->get_slug(),
-			'start_date'                 => $this->plato_project->get_start_date(),
-			'min_age'                    => $this->plato_project->get_min_age(),
-			'max_age'                    => $this->plato_project->get_max_age(),
-			'participation_fee_currency' => $this->plato_project->get_participation_fee_currency(),
-			'participation_fee'          => $this->plato_project->get_participation_fee(),
-			'_genesis_title'             => $this->get_seo_title(),
-			'_genesis_description'       => $this->get_seo_description(),
-			'description'                => [
+	protected function get_project_description(): array {
+		return [
 				'description'              => $this->plato_project->get_description(),
 				'work'                     => $this->plato_project->get_descr_work(),
 				'accomodation_and_food'    => $this->plato_project->get_descr_accomodation_and_food(),
 				'location_and_leisure'     => $this->plato_project->get_descr_location_and_leisure(),
-				'partner     '             => $this->plato_project->get_descr_partner(),
+				'partner'                  => $this->plato_project->get_descr_partner(),
 				'requirements'             => $this->plato_project->get_descr_requirements(),
 				'notes'                    => $this->plato_project->get_notes(),
-			],
 		];
-
-		return $meta_data;
 	}
 
-	/**
-	 * Bepaalt de status van het project
-	 * 
-	 * @todo review als eigenschap van type werk
-	 */
-	protected function get_status() : string {
-
+	/** Bepaalt de status van het project */
+	protected function get_status(): string {
 		if ( $this->is_update ) {
 			return $this->product->get_status();
 		}
 
-		$status = 'publish';
+		$status = self::PUBLISH_STATUS;
 		foreach ( $this->work_types as $work_type ) {
-			if ( 'kinderen' === $work_type->get_slug() ) {
+			if ( $work_type->needs_review() ) {
 				$status = self::REVIEW_STATUS;
 			}
 		}
 		return $status;
-	}
-
-	/** Zet SEO beschrijving */
-	protected function get_seo_description() : string {
-		$templates = siw_get_data( 'workcamps/seo-description-templates' );
-		$template = implode( SPACE, $templates[ array_rand( $templates, 1 ) ] );
-		return $this->parse_description( $template );
-	}
-
-	/** Geeft SEO titel terug */
-	protected function get_seo_title() : string {
-		return sprintf( 'Groepsproject %s - %s', $this->country->get_name(), ucfirst( $this->work_types[0]->get_name() ) );
 	}
 
 	/** Geeft id van featured afbeelding terug */
@@ -518,7 +523,7 @@ class Product {
 		if (
 			siw_get_option( 'plato.download_images' ) &&
 			! empty( $this->plato_project->get_image_file_identifiers() ) &&
-			! $this->product->get_meta( 'use_stockphoto' )
+			! $this->product->use_stockfoto()
 		) {
 			$image_id = $product_image->get_project_image(
 				$this->plato_project->get_image_file_identifiers(),
@@ -526,7 +531,7 @@ class Product {
 				$this->plato_project->get_project_id()
 			);
 			if ( is_int( $image_id ) ) {
-				$this->product->update_meta_data( 'has_plato_image', true );
+				$this->product->set_has_plato_image( true );
 				return $image_id;
 			}
 		}
@@ -548,69 +553,44 @@ class Product {
 		return (
 			$this->force_update
 			||
-			$this->plato_project->get_checksum() != $this->product->get_meta( 'checksum' )
+			$this->plato_project->get_checksum() != $this->product->get_checksum()
 			||
 			siw_get_option( 'plato.force_full_update' ) 
-
 		);
 	}
 
-	/**
-	 * Zet speciale doelgroepen voor projecten
-	 * 
-	 * @todo extra doelgroepen toevoegen / verplaatsen naar referentiegegevens /refactor
-	 */
+	/** Zet speciale doelgroepen voor projecten */
 	protected function set_target_audiences() {
-
-		$target_audiences = [
-			'family' => [
-				'slug' => 'families',
-				'name' => __( 'Families', 'siw' ),
-			],
-			'teens' => [
-				'slug' => 'tieners',
-				'name' => __( 'Tieners', 'siw' ),
-			],
-		];
-
-		$this->target_audiences = [];
-
-		if ( $this->plato_project->get_family() || ( 'FAM' == $this->plato_project->get_project_type() ) ) {
-			$this->target_audiences['family'] = $target_audiences['family'];
+		if ( $this->plato_project->get_family() || $this->project_type->equals( Plato_Project_Type::FAM() ) ) {
+			$this->target_audiences[] = Target_Audience::FAMILIES();
 		}
-		if ( $this->plato_project->get_max_age() <= 20 || 'TEEN' == $this->plato_project->get_project_type() ) {
-			$this->target_audiences['teens'] = $target_audiences['teens'];
+		if ( $this->plato_project->get_max_age() <= 19 || $this->project_type->equals( Plato_Project_Type::TEEN() ) ) {
+			$this->target_audiences[] = Target_Audience::TEENAGERS();
 		}
 	}
 
-	/** Geeft type groepsproject terug */
-	protected function get_workcamp_type() : string {
-		if ( array_key_exists( 'family', $this->target_audiences ) ) {
+	/** Geeft type groepsproject terug TODO: project type gebruiken */
+	protected function get_workcamp_type(): string {
+		
+		if ( Target_Audience::FAMILIES()->equals( ...$this->target_audiences ) ) {
 			$workcamp_type = 'familieproject';
 		}
-		elseif ( array_key_exists( 'teens', $this->target_audiences ) ) {
+		elseif ( Target_Audience::TEENAGERS()->equals( ...$this->target_audiences ) ) {
 			$workcamp_type = 'tienerproject';
 		}
 		else {
-			$workcamp_type = 'groepsproject';
+			$workcamp_type = 'project';
 		}
 		return $workcamp_type;
-	}
-
-	/** Zet de tarief die van toepassing zijn voor dit project */
-	protected function set_tariffs() {
-		$this->tariffs = siw_get_data( 'workcamps/tariffs' );
 	}
 
 	/** Geeft aan het het een toegestaan type project is */
 	protected function is_allowed_project_type() : bool {
 		$allowed_project_types = [
-			'STV',
-			'TEEN',
-			'FAM',
-			'LNG',
-			'SEN'
+			Plato_Project_Type::STV(),
+			Plato_Project_Type::TEEN(),
+			Plato_Project_Type::FAM(),
 		];
-		return in_array( $this->plato_project->get_project_type(), $allowed_project_types );
+		return $this->project_type->equals( ...$allowed_project_types );
 	}
 }

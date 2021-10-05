@@ -5,8 +5,7 @@ namespace SIW\WooCommerce\Checkout;
 /**
  * WooCommerce checkout formulier
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Form {
 
@@ -57,7 +56,7 @@ class Form {
 	/** Voegt inline script voor postcode lookup toe */
 	public function add_postcode_script() {
 
-		wp_register_script( 'siw-checkout-postcode-lookup', SIW_ASSETS_URL . 'js/siw-checkout-postcode-lookup.js', ['siw-api-postcode'], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-checkout-postcode-lookup', SIW_ASSETS_URL . 'js/siw-checkout-postcode-lookup.js', ['siw-api-postcode-lookup'], SIW_PLUGIN_VERSION, true );
 
 		$postcode_selectors = [
 			'postcode'    => "billing_postcode",

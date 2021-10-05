@@ -2,10 +2,6 @@
 
 namespace SIW\WooCommerce\Admin;
 
-use SIW\Admin\Notices as Admin_Notices;
-use SIW\WooCommerce\Import\Product as Import_Product;
-use SIW\WooCommerce\Admin\Product_Tabs;
-
 /**
  * Aanpassingen aan admin-scherm voor producten
  *
@@ -26,6 +22,8 @@ class Product {
 		add_action( 'admin_menu', [ $self, 'remove_product_tags_admin_menu'], PHP_INT_MAX );
 		add_filter( 'quick_edit_show_taxonomy', [ $self, 'hide_product_tags_quick_edit' ], 10, 3 );
 		//Beoordelen projecten
+		add_filter( 'woocommerce_products_admin_list_table_filters', [ $self, 'remove_products_admin_list_table_filters'] );
+		
 		add_action( 'wp_ajax_woocommerce_select_for_carousel', [ $self, 'select_for_carousel' ] );
 	}
 	
@@ -37,6 +35,13 @@ class Product {
 	/** Verwijdert de texteditor */
 	public function remove_editor() {
 		remove_post_type_support( 'product', 'editor' );
+	}
+
+	/** Verwijdert filters op admin-lijst met producten  */
+	public function remove_products_admin_list_table_filters( array $filters ) : array {
+		unset( $filters['product_type']);
+		unset( $filters['stock_status']);
+		return $filters;
 	}
 
 	/** Verwijdert overbodige admin columns */

@@ -2,13 +2,13 @@
 
 namespace SIW\WooCommerce\Admin;
 
-use SIW\i18n;
+use SIW\Properties;
+use SIW\WooCommerce\WC_Product_Project;
 
 /**
  * Tabs voor Groepsprojecten
  *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.0
  */
 class Product_Tabs {
 
@@ -28,6 +28,11 @@ class Product_Tabs {
 	public function add_tabs( array $tabs ) : array {
 		global $product_object;
 
+		$product = \siw_get_product( $product_object );
+		if ( null == $product ) {
+			return $tabs;
+		}
+
 		$tabs['description'] = [
 			'label'    => __( 'Omschrijving', 'siw' ),
 			'target'   => 'description_product_data',
@@ -45,14 +50,14 @@ class Product_Tabs {
 
 	/** Verbergt overbodige product tabs */
 	public function hide_tabs( array $tabs ) : array {
-		$tabs['advanced']['class'] = ['show_if_simple'];
-		$tabs['shipping']['class'] = ['show_if_simple'];
-		$tabs['linked_product']['class'] = ['show_if_simple'];
+		$tabs['general']['class'] = ['show_if_project'];
+		$tabs['advanced']['class'] = ['hide_if_project'];
+		$tabs['shipping']['class'] = ['hide_if_project'];
+		$tabs['linked_product']['class'] = ['hide_if_project'];
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			$tabs['inventory']['class'] = ['show_if_simple'];
-			$tabs['attribute']['class'] = ['show_if_simple'];
-			$tabs['variations']['class'] = ['show_if_simple'];
+			//$tabs['inventory']['class'] = ['hide_if_project'];
+			//$tabs['attribute']['class'] = ['hide_if_project'];
 		}
 		return $tabs;
 	}
@@ -60,37 +65,49 @@ class Product_Tabs {
 	/** Toont tab met extra opties t.b.v. update */
 	public function show_update_tab() {
 		global $product_object;
+		$product = \siw_get_product( $product_object );
+		if ( null == $product ) {
+			return;
+		}
 		?>
 		<div id="update_product_data" class="panel woocommerce_options_panel">
 			<div class="options_group">
 				<?php
 				//Alleen tonen als het project een afbeelding uit Plato heeft of als de optie al aangevinkt is
-				if ( $product_object->get_meta( 'has_plato_image', true ) || $product_object->get_meta( 'use_stockphoto' ) ) {
+				if ( $product->has_plato_image() || $product->use_stockfoto() ) {
 					woocommerce_wp_checkbox(
 						[
-							'id'          => 'use_stockphoto',
-							'value'       => $product_object->get_meta( 'use_stockphoto' ),
+							'id'          => '_use_stockphoto',
+							'value'       => $product->use_stockfoto(),
 							'cbvalue'     => '1',
 							'label'       => __( 'Stockfoto gebruiken', 'siw' ),
 							'description' => __( 'Bijvoorbeeld indien projectfoto niet geschikt is.', 'siw' ),
 						]
 					);
 				}
+				woocommerce_wp_text_input(
+					[
+						'id'          => 'tariff',
+						'value'       => $product->get_meta( 'tariff'),
+						'label'       => __( 'Tarief', 'siw' ),
+						'placeholder' => wc_format_localized_price( Properties::WORKCAMP_FEE_REGULAR),
+						'type'        => 'price'
+					]
+					);
 				woocommerce_wp_checkbox(
 					[
-						'id'          => 'has_custom_tariff',
-						'value'       => $product_object->get_meta( 'has_custom_tariff' ),
+						'id'          => '_hidden',
+						'value'       => $product->is_hidden(),
 						'cbvalue'     => '1',
-						'label'       => __( 'Heeft afwijkend tarief', 'siw' ),
-						'description' => __( 'Tarief wordt niet automatisch bijgewerkt', 'siw' ),
+						'label'       => __( 'Verbergen', 'siw' ),
 					]
 				);
 				woocommerce_wp_checkbox(
 					[
-						'id'      => 'force_hide',
-						'value'   => $product_object->get_meta( 'force_hide' ),
-						'cbvalue' => '1',
-						'label'   => __( 'Geforceerd verbergen', 'siw' ),
+						'id'          => '_selected_for_carousel',
+						'value'       => $product->is_selected_for_carousel(),
+						'cbvalue'     => '1',
+						'label'       => __( 'Geselecteerd voor carousel', 'siw' ),
 					]
 				);
 				?>
@@ -103,9 +120,13 @@ class Product_Tabs {
 	/** Toont beschrijving van het project */
 	public function show_description_tab() {
 		global $product_object;
+		$product = \siw_get_product( $product_object );
+		if ( null == $product ) {
+			return;
+		}
+		$description = $product->get_project_description();
 
-		$description = $product_object->get_meta( 'description' );
-
+		 //TODO: verplaatsen naar WC_Product_Project
 		$topics = [
 			'description'           => __( 'Beschrijving', 'siw' ),
 			'work'                  => __( 'Werk', 'siw' ),
@@ -116,6 +137,7 @@ class Product_Tabs {
 			'notes'                 => __( 'Opmerkingen', 'siw' ),
 		];
 
+		//TODO: Mustache template van maken
 		?>
 		<div id="description_product_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper">
 			<div class="options_group">
@@ -144,24 +166,15 @@ class Product_Tabs {
 	}
 
 	/** Slaat gewijzigde meta-velden op */
-	public function save_product_data( \WC_Product $product ) {
-		$meta_data = [
-			'use_stockphoto'          => isset( $_POST['use_stockphoto'] ),
-			'force_hide'              => isset( $_POST['force_hide'] ),
-			'has_custom_tariff'       => isset( $_POST['has_custom_tariff'] ),
-			'dutch_projects_city'     => isset( $_POST['dutch_projects_city'] ) ? wc_clean( $_POST['dutch_projects_city'] ) : '',
-			'dutch_projects_province' => isset( $_POST['dutch_projects_province'] ) ? wc_clean( $_POST['dutch_projects_province'] ) : '',
-		];
+	public function save_product_data( WC_Product_Project $product ) {
 
 		//Als stockfoto gebruikt moet worden, verwijder dan de huidige foto TODO: Plato-foto echt verwijderen?/
-		if ( $meta_data['use_stockphoto'] && ! $product->get_meta( 'use_stockphoto' ) ) {
+		if (  isset( $_POST['_use_stockphoto'] ) && ! $product->use_stockfoto() ) {
 			$product->set_image_id( null );
-			$product->update_meta_data( 'has_plato_image', false );
+			$product->set_has_plato_image( false );
 		}
-
-		foreach ( $meta_data as $key => $value ) {
-			$product->update_meta_data( $key, $value );
-		}
+		$product->set_use_stockphoto( isset( $_POST['_use_stockphoto'] ) );
+		$product->set_selected_for_carousel( isset( $_POST['_selected_for_carousel'] ) );
+		$product->set_hidden( isset( $_POST['_hidden'] ) );
 	}
-
 }

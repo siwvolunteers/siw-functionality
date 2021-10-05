@@ -21,7 +21,7 @@ class Product_Type {
 		unset( $product_types['simple'] );
 		unset( $product_types['grouped'] );
 		unset( $product_types['external'] );
-
+		unset( $product_types['variable'] );
 		$product_types[ WC_Product_Project::PRODUCT_TYPE ] = __( 'Project', 'siw' );
 		return $product_types;
 	}

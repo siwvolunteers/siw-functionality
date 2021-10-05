@@ -723,15 +723,6 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a:hover:before {
   font-size: 30px;
   line-height: 40px;
 }
-.woocommerce div.product .woocommerce-variation-description {
-  font-size: 0.9em;
-  color: var(--siw-font-color-light);
-  font-style: italic;
-}
-.woocommerce div.product .woocommerce-variation-price {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
 .woocommerce div.product .participation-fee {
   color: var(--siw-font-color-light);
   font-style: italic;

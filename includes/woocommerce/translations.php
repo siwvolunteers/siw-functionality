@@ -13,8 +13,6 @@ class Translations {
 	public static function init() {
 		$self = new self();
 		
-		add_filter( 'woocommerce_get_script_data', [ $self, 'set_script_data'], 10, 2 );
-
 		add_filter( 'woocommerce_register_post_type_product', [ $self, 'set_product_labels'] );
 		add_filter( 'woocommerce_register_post_type_shop_order', [ $self, 'set_shop_order_labels'] );
 		add_filter( 'woocommerce_taxonomy_args_product_cat', [ $self, 'set_product_category_labels'] );
@@ -99,17 +97,6 @@ class Translations {
 		$columns['sku'] = __( 'Projectcode', 'woocommerce' );
 		$columns['product_cat']  = __( 'Continent', 'woocommerce' );
 		return $columns;
-	}
-
-	/** Zet vertalingen voor scripts */
-	public function set_script_data( $params, string $handle )  {
-		switch ( $handle ) {
-			case 'wc-add-to-cart-variation':
-				$params['i18n_make_a_selection_text'] = __( 'Selecteer eerst een tarief', 'siw' );
-				break;
-
-		}
-		return $params;
 	}
 
 	/** Overschrijf vertalingen via gettext */
