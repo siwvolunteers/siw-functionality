@@ -9,55 +9,35 @@ use SIW\Core\Template;
 /**
  * Vacatures
  * 
- * 
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.0
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Job_Posting extends Type {
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $post_type = 'job_posting';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $menu_icon = 'dashicons-nametag';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $slug = 'vacatures';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $single_width = 'mobile';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $orderby = 'meta_value';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $orderby_meta_key = 'deadline';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected bool $archive_masonry = true;
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected int $archive_column_width = 33;
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_meta_box_fields() : array {
 		$hr_manager = siw_get_option( 'hr_manager');
 		//TODO: verplaatsen naar options?
@@ -76,16 +56,23 @@ class Job_Posting extends Type {
 				'name' => __( 'Gegevens', 'siw' ),
 			],
 			[
+				'id'                => 'abstract',
+				'name'              => __( 'Korte samenvatting', 'siw' ),
+				'label_description' => __( 'Wordt getoond op overzichtspagina', 'siw' ),
+				'type'              => 'wysiwyg',
+				'required'          => true,
+			],
+			[
 				'id'       => 'job_type',
 				'name'     => __( 'Soort functie', 'siw' ),
 				'type'     => 'button_group',
 				'required' => true,
 				'options' => [
-					'volunteer' => __( 'Vrijwillig', 'siw' ),
-					'paid'      => __( 'Betaald', 'siw' ),
+					'volunteer'  => __( 'Vrijwillig', 'siw' ),
+					'paid'       => __( 'Betaald', 'siw' ),
 					'internship' => __( 'Stage', 'siw' ),
 				],
-				'std' => 'volunteer',
+				'std'           => 'volunteer',
 				'admin_columns' => 'after title',
 			],
 			[
@@ -221,22 +208,14 @@ class Job_Posting extends Type {
 						'type'     => 'wysiwyg',
 						'required' => true,
 					],
-					[
-						'id'       => 'abstract',
-						'name'     => __( 'Korte samenvatting', 'siw' ),
-						'type'     => 'wysiwyg',
-						'required' => true,
-					],
 				]
 			],
 		];
 		return $metabox_fields;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function get_labels() : array {
+	/** {@inheritDoc} */
+	protected function get_labels(): array {
 		$labels = [
 			'name'               => __( 'Vacatures', 'siw' ),
 			'singular_name'      => __( 'Vacature', 'siw' ),
@@ -251,124 +230,101 @@ class Job_Posting extends Type {
 	}
 	
 	/** {@inheritDoc} */
-	protected function get_taxonomies() : array {
+	protected function get_taxonomies(): array {
 		return [];
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function get_social_share_cta() : string {
+	/** {@inheritDoc} */
+	protected function get_social_share_cta(): string {
 		return __( 'Deel deze vacature', 'siw' );
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	function get_seo_noindex( int $post_id ) : bool {
+	/** {@inheritDoc} */
+	function get_seo_noindex( int $post_id ): bool {
 		return siw_meta( 'deadline', [], $post_id ) < date( 'Y-m-d' );
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function get_active_posts_meta_query() : array {
+	/** {@inheritDoc} */
+	protected function get_active_posts_meta_query(): array {
 		return [
 			'key'     => 'deadline',
 			'value'   => date('Y-m-d'),
 			'compare' => '>'
 		];
 	}
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function get_content_labels() : array {
-		$labels = [
-			'paid'					=> __( 'Betaalde functie', 'siw'),
-			'internship'			=> __( 'Stage', 'siw' ),
-			'volunteer'				=> __( 'Vrijwillige functie', 'siw' ),
-			'label_work'   			=> __( 'Wat ga je doen?', 'siw' ),
-			'label_qualifications'	=> __( 'Wie ben jij?', 'siw' ),
-			'label_perks'   		=> __( 'Wat bieden wij jou?', 'siw' ),
-			'label_profile'   		=> __( 'Wie zijn wij?', 'siw' ),
-			'label_function'		=> __( 'Wat houdt deze vacature in?', 'siw' ),
-		];
-		return $labels;
-	}
-	/**
-	 * regel voor type baan
-	 */
-	protected function get_job() : string {	
-		$jobtype = siw_meta('job_type') ? siw_meta('job_type') : "volunteer";
-		$job = $this->get_content_labels()[$jobtype];
-		return($job);
+
+	/** Geeft type vacature terug */
+	protected function get_job_type() : string {
+		switch ( siw_meta( 'job_type' ) ) {
+			case 'paid':
+				$job_type = __( 'Betaalde functie', 'siw' );
+				break;
+			case 'internship':
+				$job_type = __( 'Stage', 'siw' );
+				break;
+			default:
+				$job_type = __( 'Vrijwillige functie', 'siw' );
+		}
+		return $job_type;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @todo refactor enzo
-	 */
+	/** {@inheritDoc} */
 	public function add_single_content() {
 		$template_vars = [
-							"job" => $this->get_job(),
-							"hours" => siw_meta('hours'),
-							"intro"=>wpautop( wp_kses_post( siw_meta( 'introduction' ) ) ),
-							"profile"=>siw_get_option( 'job_postings_organization_profile' ),
-							];
-		$items = $this->accordeon_items();
-		$template_vars += ['content'=> Accordion::create()->add_items($items)->generate()];
+			'job_type'  => $this->get_job_type(),
+			'hours'     => siw_meta( 'hours' ),
+			'intro'     => siw_meta( 'introduction' ) ,
+			'deadline'  => siw_format_date( siw_meta( 'deadline' ) ),
+			'accordion' => Accordion::create()->add_items( $this->get_accordion_items() )->generate(),
+		];
+
 		// contactpersoon voor informatie
 		if ( siw_meta( 'different_contact_person' ) ) {
-			$template_vars += 	[
-									"contact" =>  $this->get_contact_person()['name'],
-									"contacttitle" => $this->get_contact_person()['title'],
-									"contactemail" => Links::generate_mailto_link( $this->get_contact_person()['email'])
-								];
+			$contact_person = $this->get_contact_person();
+
+			$template_vars['contact_person'] = [
+				'name'  => $contact_person['name'],
+				'title' => $contact_person['title'],
+				'email' => Links::generate_mailto_link( $contact_person['email'] ), //TODO: link verplaatsen naar template
+			];
 		}
-		// sollicitatie sturen naar
-		$applicationmanager = $this->get_application_manager();
-			$template_vars += 	[
-									"application" =>  $this->get_application_manager()['name'],
-									"applicationtitle" => $this->get_application_manager()['title'],
-									"applicationemail" => Links::generate_mailto_link( $this->get_application_manager()['email']),
-									"applicationdate" => siw_format_date( siw_meta( 'deadline' ))
-								];
-		echo Template::parse_template( "types/job_posting_single", $template_vars );
+		$application_manager = $this->get_application_manager();
+		$template_vars['application_manager'] = [
+			'name'  => $application_manager['name'],
+			'title' => $application_manager['title'],
+			'email' => Links::generate_mailto_link( $application_manager['email'] ), //TODO: link verplaatsen naar template
+		];
+		Template::render_template( "types/job_posting_single", $template_vars );
+
 		//JSON_LD toevoegen
 		echo siw_generate_job_posting_json_ld( get_the_ID() );
 	}
-	/**
-	 * beschrijving vacature als accordeon
-	 */
-	protected function accordeon_items() : array{
-		$labels = $this->get_content_labels();
+
+	/** Geeft items voor accordion terug */
+	protected function get_accordion_items() : array{
 		$description = siw_meta( 'description' );
 		$items = [
-				[
-					'title'   => $labels['label_work'],
-					'content' => $description['work'],
-				],
-				[
-					'title'   => $labels['label_qualifications'],
-					'content' => $description['qualifications'],
-				],
-				[
-					'title'   => $labels['label_perks'],
-					'content' => $description['perks'],
-				],
-				[
-					'title'   => $labels['label_profile'],
-					'content' => siw_get_option( 'job_postings_organization_profile' ),
-				],
-			];
-		return($items);
+			[
+				'title'   => __( 'Wat ga je doen?', 'siw' ),
+				'content' => $description['work'],
+			],
+			[
+				'title'   => __( 'Wie ben jij?', 'siw' ),
+				'content' => $description['qualifications'],
+			],
+			[
+				'title'   => __( 'Wat bieden wij jou?', 'siw' ),
+				'content' => $description['perks'],
+			],
+			[
+				'title'   => __( 'Wie zijn wij?', 'siw' ),
+				'content' => siw_get_option( 'job_postings_organization_profile' ),
+			],
+		];
+		return $items;
 	}
-	/**
-	 * Haal gegevens van 
-	 *
-	 * @return array
-	 */
+
+	/** Haal gegevens van hr manager op */
 	protected function get_application_manager() : array {
 		if ( siw_meta( 'different_application_manager' ) ) {
 			return siw_meta( 'application_manager' );
@@ -376,11 +332,7 @@ class Job_Posting extends Type {
 		return siw_get_option( 'hr_manager');
 	}
 
-	/**
-	 * Haal gegevens van contactpersoon op
-	 *
-	 * @return array
-	 */
+	/** Haal gegevens van contactpersoon op */
 	protected function get_contact_person() : array {
 		if ( siw_meta( 'different_contact_person' ) ) {
 			return siw_meta( 'contact_person' );
@@ -388,9 +340,7 @@ class Job_Posting extends Type {
 		return $this->get_application_manager();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function get_archive_intro() : array {
 		$hr_manager = siw_get_option( 'hr_manager' );
 		$intro = siw_get_option('job_postings_intro');
@@ -398,26 +348,19 @@ class Job_Posting extends Type {
 		return [$intro];
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function add_archive_content() {
-		$description = siw_meta( 'description' );
-		$vars = [
-			"job" => $this->get_job(),
-			"hours" => siw_meta('hours'),
-			'excerpt' => apply_filters( 'the_excerpt', get_the_excerpt() ),
-			'abstract' => $description['abstract'],
-			'link' => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) )
-			];
-		echo Template::parse_template( "types/job_posting_archive", $vars );
+		$template_vars = [
+			'job_type' => $this->get_job_type(),
+			'hours'    => siw_meta( 'hours' ),
+			'abstract' => siw_meta( 'abstract' ),
+			'link'     => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ), //TODO: link verplaatsen naar template
+		];
+		Template::render_template( "types/job_posting_archive", $template_vars );
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function generate_slug( array $data, array $postarr ): string {
 		return $data['post_title'];
 	}
-
 }

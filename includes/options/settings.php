@@ -198,16 +198,22 @@ class Settings implements Option_Interface {
 
 		//Vacatures TODO: group voor vacaturetekst
 		$fields[] = [
+			'id'        => 'job_posting',
+			'type'      => 'group',
+			'tab'       => 'job_postings',
+			'fields'    => [
+				[
+					'id'       => 'archive_intro',
+					'name'     => __( 'Introtekst', 'siw' ),
+					'type'     => 'wysiwyg',
+					'required' => true,
+				],
+			],
+		];
+		$fields[] = [
 			'type'     => 'heading',
 			'name'     => __( 'Vacaturetekst', 'siw' ),
 			'tab'      => 'job_postings',
-		];
-		$fields[] = [
-			'id'       => 'job_postings_intro',
-			'name'     => __( 'Introtekst', 'siw' ),
-			'type'     => 'wysiwyg',
-			'tab'      => 'job_postings',
-			'required' => true,
 		];
 		$fields[] = [
 			'id'       => 'job_postings_organization_profile',
