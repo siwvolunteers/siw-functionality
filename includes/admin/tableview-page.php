@@ -42,7 +42,7 @@ class Tableview_Page {
 			'manage_options',
 			self::MENU_SLUG,
 			null,
-			'dashicons-database-export'
+			'dashicons-database'
 		);
 
 		foreach ( Database_Table::toArray() as $table => $name ) {
