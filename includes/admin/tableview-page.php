@@ -1,130 +1,105 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace SIW\Admin;
 
 use SIW\Admin\Database_List_Table;
 use SIW\Database_Table;
-use SIW\Helpers\Database;
 
-class Tableview_Page
-{
-	public $displayclass;
+/**
+ * Database tabel viewer
+ * 
+ * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ */
+class Tableview_Page {
 
-	protected array $dbtables;
+	/** Slug voor menu-pagina */
+	const MENU_SLUG = 'siw-database-tables';
+
+	/** Instantie van List table */
+	public Database_List_Table $database_list_table;
+
+	/** Huidige database tabel */
+	protected Database_Table $current_table;
+
+	/** Array voor afleiden van tabel uit page hook */
 	public array $tables;
-	public array $names;
 
+	/** Init */
 	public static function init() {
 		$self = new self();
-		if ( ! class_exists( 'WP_List_Table' ) ) {
+		if ( ! class_exists( \WP_List_Table::class ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 		}
-		$self->dbtables = Database_Table::toArray();  #[plato_project_free_places] => PLATO_PROJECT_FREE_PLACES [plato_project_images] => PLATO_PROJECT_IMAGES )		
-		// create custom plugin settings menu
-		add_filter( 'set-screen-option', [$self,'set_option'], 10, 3 );
-		add_action('admin_menu', array($self,'MakePage') );
+		add_filter( 'set-screen-option', [ $self, 'set_screen_option'], 10, 3 );
+		add_action( 'admin_menu', [ $self,'add_menu_pages' ] );
 	}
-	function MakePage() {
-		//create new top-level menu
-		
-		$hook=add_menu_page (
-			'tableview',
-			'tableview',
+
+	/** Voegt menupagina's toe */
+	function add_menu_pages() {
+		add_menu_page(
+			__( 'Database tabellen', 'siw' ),
+			__( 'Database tabellen', 'siw' ),
 			'manage_options',
-			'tableview_slug',
-			[ $this, 'DisplayNone' ],
+			self::MENU_SLUG,
+			null,
 			'dashicons-database-export'
 		);
-		foreach ($this->dbtables as $table => $name) {
-			$hook=add_submenu_page
-			(
-				'tableview_slug',
-				$table,
-				$table,
-				'administrator',
-				$table.'_slug',
-				[ $this, 'DisplayTable' ],
-				NULL
+
+		foreach ( Database_Table::toArray() as $table => $name ) {
+			$hook = add_submenu_page(
+				self::MENU_SLUG,
+				$name,
+				$name,
+				'manage_options',
+				'siw-database-table-'. $table,
+				[ $this, 'display_table' ],
+				null
 			);
-			$this->tables[$hook] = $table;		#save table for function Displaytable
-			$this->names[$hook] = $name;		#save name for function Displaytable
-			$this->names["load-$hook"] = $name;		#save name for function Displaytable
-			$this->tables["load-$hook"] = $table;		#save name for function Displaytable
+			$this->tables["load-$hook"] = $table;
 			add_action( "load-$hook", [ $this, 'add_screen_options' ] );
 		}
-		remove_submenu_page('tableview_slug','tableview_slug');	#verwijder het hoofdmenu als submenu
-	}
-	/**
-	 * Todo: main menu not cliclable
-	 */
-	public function DisplayNone() 
-	{
-		echo __('klik op een submenu','siw');
-	}
-	/**
-	 * Display the table
-	 */
-	public function DisplayTable() {
-		global $title;
-		add_thickbox();		# Wordt gebruikt om content van een record te tonen
-		$displayrecords = $this->displayclass;
-		$table = $this->tables[current_filter()];
-		$name = $this->names[current_filter()];
-		$html = '';
-		$html .= '<h2>' . __('tabel: ','siw') . $name . '</h2>';
 
-		$html .= '<div class="wrap">';
+		//verwijder het hoofdmenu als submenu
+		remove_submenu_page( self::MENU_SLUG, self::MENU_SLUG );
+	}
 
-		#$html .= '<div id="poststuff">';
-		$html .= 	'<div id="post-body" class="metabox-holder columns-2">';
-		$html .= 		'<div id="post-body-content">';
-		$html .=			'<div class="meta-box-sortables ui-sortable">';
-		$html .=				'<form method="post">';
-		echo $html;
-		$this->TableOptions();
-		$displayrecords->prepare_items();
-		$displayrecords->search_box('search', 'search_id');
-		$displayrecords->display();
-		$html = '</form></div></div></div><br class="clear"></div>';
-		echo $html;
+	/** Toon de tabel */
+	public function display_table() {
+		add_thickbox();
+		?>
+		<div class="wrap">
+			<h2><?php echo esc_html( $this->current_table->label); ?> </h2>
+			<?php $this->database_list_table->prepare_items(); ?>
+			<form method="get">
+				<input type="hidden" name="page" value="siw-database-table-<?php echo $this->current_table->value ?>"/>
+				<?php $this->database_list_table->search_box( esc_attr__( 'Zoeken', 'siw' ), 'search' ); ?>
+			</form>
+			<?php $this->database_list_table->display(); ?>
+		</div>
+
+		<?php
 	}
-	public function TableOptions() {
-		$displayrecords = $this->displayclass;
-		$currenttable = $this->tables[current_filter()];
-		$currentname = $this->names[current_filter()];
-		$displayrecords->current_table="siw_" . $currenttable;
-		$table = Database_Table::make($currentname);
-		$dbtable = new Database( $table);
-		$displayrecords->dbtable=$dbtable;
-		$displayrecords->single_name = $currenttable; //singular name of the listed records
-		$displayrecords->plural_name = "{$currenttable}s"; //plural name of the listed records
-		$displayrecords->show_columns=$dbtable->get_showcolumns();
-	}
-	/**
-	 * All core backend pages containing a WP_List_Table provide a “Screen Options” slide-
-	 * in where the user can adjust the columns to be shown and the number of rows to be displayed.
-	 * To add options to your plugin you need to change your current code. 
-	 * First you have to make sure that the screen options are displayed only on the current page:
-	 * Screen options called when menu is loaded (see adminpage.php)
-	 */
+
+	/** Voegt optie voor aantal recores per pagina toe */
 	public function add_screen_options() {
-		$this->displayclass = new DisplayRecords();
-		#
-		# Database table object bepalen
-		#
-		$currentname = $this->names[current_filter()];
-		$currenttable = $this->tables[current_filter()];
-		$option = 'per_page';
+		$this->current_table = Database_Table::make( $this->tables[current_filter()] );
+		$this->database_list_table = new Database_List_Table( $this->current_table );
+
 		$args   = [
-			'label'   => __('records','siw'),
-			'default' => $this->displayclass->records_per_page,
-			'option'  => 'records_per_page'
+			'label'   => __( 'Records per pagina','siw'),
+			'default' => Database_List_Table::DEFAULT_ITEMS_PER_PAGE,
+			'option'  => $this->current_table->value . '_records_per_page'
 		];
-		add_screen_option( $option, $args ); #Register and configure an admin screen option
-		$table = Database_Table::make($currentname);
-		$this->displayclass->dbtable=new Database( $table);
+		add_screen_option( 'per_page', $args );
 	}
-	function set_option( $status, $option, $value ) {
-		return($value);
+
+	/** Sla schermoptie op */
+	function set_screen_option( $keep, $option, $value ) {
+		foreach ( Database_Table::toValues() as $table ) {
+			if ( $option === "{$table}_records_per_page" ) {
+				$keep = $value;
+			}
+		}
+		return $keep;
 	}
 }
-?>

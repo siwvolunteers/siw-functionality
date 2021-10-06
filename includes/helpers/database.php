@@ -32,64 +32,7 @@ class Database {
 	public function get_columns() : array {
 		return $this->columns;
 	}
-	/**
-	 * get_showcolumns
-	 * geeft de kolommen terug die getoond moeten worden met de titel die boven de kolom getoond moet worden.
-	 *
-	 * @return array(kolom,array(kolom,kop)......)
-	 */
-	public function get_showcolumns() : array {
-		$columns = $this->columns;
-		$showcolumns = array();
-		foreach($columns as $column)
-		{
-			if(array_key_exists("show",$column))
-			{
-				$showcolumns=array_merge($showcolumns,[$column['name'] => $column['show']]);
-			}
-		}
-		return($showcolumns);
-	}
-	/**
-	 * get_sortcolumns
-	 * kolommen waarop gesorteerd moet kunnen worden
-	 *
-	 * @return array(kolom,array(kolom,true)......)
-	 */
-	public function get_sortcolumns() : array {		
-		$sort_columns = wp_list_filter( $this->columns, [ 'sort' => true ] );
-		$sort_columns = wp_list_pluck(  $sort_columns, 'name');
-		$sortcolumns = array();
-		foreach($sort_columns as $sort)
-		{
-			$sortcolumns=array_merge($sortcolumns,[$sort => array ( $sort,TRUE) ]);
-		}
-		return($sortcolumns);
-	}
-	/**
-	 * get_searchcolumns
-	 * kolommen waarin wordt gezocht naar de waarde die is ingevuld in het zoekveld
-	 *
-	 * @return array(kolom,kolom,.....)
-	 */
-	public function get_searchcolumns() : array {
-		$search_columns = wp_list_filter( $this->columns, [ 'search' => true ] );
-		$search_columns = wp_list_pluck(  $search_columns, 'name');
-		return($search_columns);
-	}
-	/**
-	 * get_primary_key
-	 * geeft de naam van het veld met de primary key terug
-	 *
-	 * @return string
-	 */
-	public function get_primary_key() : string {
-		$primary_keys = wp_list_filter( $this->columns, [ 'primary_key' => true ] );
-		$primary_keys = wp_list_pluck(  $primary_keys, 'name');
-		$primary_key = reset($primary_keys);
-		return($primary_key);
-	}
-	
+
 	/** Truncate tabel */
 	public function truncate() : bool {
 		return (bool) $this->wpdb->query( "TRUNCATE TABLE {$this->table}");
@@ -314,169 +257,67 @@ class Database {
 		return wp_list_pluck( $this->columns, 'type', 'name' );
 	}
 
-	/**
-	 * count_rows
-	 * Returns the count of records in the database.
-	 *
-	 * @return null|string
-	 */
-
-	public function count_rows()
-	{
-		global $wpdb;
-		$sql = "SELECT COUNT(*) FROM $this->table";
-
-		return $wpdb->get_var( $sql );
+	/** Geeft het aantal records in de tabel terug */
+	public function get_row_count(): ?int{
+		$sql = "SELECT COUNT(1) FROM $this->table";
+		return (int) $this->wpdb->get_var( $sql );
 	}
-	# get-rows
-	# $args['table'] - databasetable
-	# $args['sort'] - column to be sorted
-	# $args['prefilter'] - overall filter
-	# $args['filters'] - Array ( [column1] => value [column2] => value ........ ) 
-	# 					value may be preceded by:
-	#					# : search on full content
-	#					< : content should be <= value
-	#					> : content should be >= value
-	# $args["search'] - array(array ('column1','column2' ....),$value)
-	#					- match $value in the given columns
-	# $args['page'} - current pagenumber
-	# $args['maxlines'] - maxlines per page
-	# $args['output'] - (string) (Optional) Any of ARRAY_A | ARRAY_N | OBJECT | OBJECT_K constants. default=OBJECT
-	public function get_rows($args)
-	{
-		global $wpdb;
-		$defaults = array(
-			'sort' => '',
-			'prefilter' => '',
-			'filters' => '',
-			'search' => '',
-			'page' => '',
-			'maxlines' => '',
-			'output' => 'OBJECT',
-		  );
+
+	/** Haalt rijen uit database op */
+	public function get_rows( array $args ): ?array {
+		$defaults = [
+			'orderby'        => null,
+			'order'          => null,
+			'search'         => null,
+			'search_columns' => [],
+			'page'           => 1,
+			'per_page'       => null,
+			'output'         => OBJECT,
+		];
 		$args = wp_parse_args( $args, $defaults );
-		$values=[];
-		#
-		# make conditions for the query
-		#
-		$conditions='';
-		#
-		# translate filters to query conditions
-		#
-		#
-		# first check prefilter
-		#
-		if($args['prefilter'])
-		{
-			foreach($args['prefilter'] as $i => $value) 
-			{
-				if($conditions) {$conditions .= ' and '; }
-				$conditions .= '('. $i . '="' . $value . '")';
-			}
-		}
-		#
-		# search value in given columns
-		#
-		if($args['search'])
-		{
-			$columns = $args['search'][0];
-			$value = $args['search'][1];
+		
+		//Array met waarden voor wpdb->prepare
+		$values = [];
+
+	
+		//TODO: where clause genereren (net als in https://developer.wordpress.org/reference/classes/wp_meta_query/) en search verplaatsen naar database list -table
+
+		//Zoek in de opgegeven kolommen
+		if( null != $args['search'] && ! empty( $args['search_columns'] ) ) {
+			$search = $args['search'];
 			
-			foreach ($columns as $f)
-			{
-				$key = "%" . $value . "%"; #match on content
-				if($conditions) {$conditions .= ' or '; }
-				$conditions .= '('. $f . ' LIKE "' . $key . '")';
+			foreach ( $args['search_columns'] as $column ) {
+				$search_conditions[] = "`$column` LIKE '%s'";
+				$values[] = '%' . $this->wpdb->esc_like( $search ) . '%';
+				
+			}
+			$conditions[] = '(' . implode( ' OR ', $search_conditions ) . ')';
+		}
+
+		//start de query
+		$query[] ='SELECT * FROM '. $this->table;
+
+		//Voeg wehere clause toe
+		if ( isset( $conditions) ) {
+			$query[] = 'WHERE ' .  implode( ' AND ', $conditions );;
+		}
+
+		// Voeg sortering toe
+		if( ! empty( $args['orderby'] ) ) {
+			$query[] = 'ORDER BY ' . $args['orderby'];
+			if ( ! empty(  $args['order'] ) ) {
+				$query[] = ' ' . strtoupper( $args['order'] ) == 'ASC' ? 'ASC' : 'DESC';
 			}
 		}
-		if($args['filters'])
-		{
-			foreach($args['filters'] as $f => $value)
-			{
-				if($conditions) {$conditions .= ' and '; }
-				#
-				# If < or > before value search on <= resp >=
-				#
-				if(preg_match('/^>(.*)/',$value,$match))   
-				{
-					$value = $match[1];
-					$conditions .= '('. $f . ' >= "' . $value . '")';
-				}
-				#
-				# when prefix of filter is max_ then the key  the maximum value of a field.
-				#
-				elseif(preg_match('/^<(.*)/',$value,$match))   
-				{
-					$value = $match[1];
-					$conditions .= '('. $f . ' <= "' . $value . '")';
-				}
-				# if key numerical search on full field or word in field
-				#
-				#
-				elseif(is_numeric($value))
-				{
-					$conditions .= '('. $f . ' = "' . $value . '"';
-					$conditions .= ' or ';
-					$key = '"' . $value . '" ';
-					$conditions .= $f . ' LIKE ' . $key;
-					$conditions .= " or ";
-					$key = ' "' . $value . '" ';
-					$conditions .= $f . " LIKE " . $key;
-					$conditions .= " or ";
-					$key = ' "' . $value . '"';
-					$conditions .= $f . ' LIKE ' . $key . ')';
-				}
-				else
-				{
-					if(preg_match("/#/",$value))
-					{
-						$key=substr($value,1);   #search on full content
-					}
-					else
-					{
-						$key = "%" . $value . "%"; #match on content
-					}
-					$conditions .= '('. $f . ' LIKE "' . $key . '")';
-				}
-			}
+
+		// Voeg limit en offset toe
+		if ( ! empty( $args['per_page'] ) ) {
+			$query[] = 'LIMIT %d, %d';
+			$values[] = ( $args['page'] - 1 ) * $args['per_page'];
+			$values[] = $args['per_page'];
 		}
-		#
-		# start the query
-		#
-		$query='SELECT * FROM '. $this->table;
-		if($conditions) { $query .= ' WHERE ' . $conditions;}
-		#
-		# sort argument
-		# translate to query sort field
-		#
-		if($args['sort'] &&  $args['sort'] != "no")
-		{
-			$query .= ' ORDER BY ' . $args['sort'];
-		}
-		#
-		# $limit is maximum number of rows to be displayed
-		# $page = current pagenumber
-		# so calculate offset
-		#
-		if($args['maxlines'])
-		{
-			$offset=0;
-			if(is_numeric($args['maxlines'])) { $offset=($args['page']-1)*$args['maxlines']; }
-			$query .= ' LIMIT %d,%d';
-			$values[] = $offset;
-			$values[] = $args['maxlines'];
-		}
-		#
-		$query =  $wpdb->prepare($query,$values);
-		$rows=$wpdb->get_results( $query , $args['output'] );
-		return($rows);
-	}
-	/**
-	* column_names
-	* get the column names of the table
-	*/
-	public function column_names() {
-		global $wpdb;
-		return($wpdb->get_col("DESC {$this->table}", 0));
+		
+		$query = $this->wpdb->prepare( implode( PHP_EOL, $query ), $values );
+		return $this->wpdb->get_results( $query , $args['output'] );
 	}
 }

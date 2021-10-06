@@ -16,19 +16,19 @@ $data = [
 		'type'        => 'CHAR',
 		'length'      => 32,
 		'primary_key' => true,
-		'show'		  => __('project id','siw'),
+		'show'        => true,
 	],
 	[
 		'name'        => 'image_id',
 		'type'        => 'TINYINT',
 		'primary_key' => true,
+		'show'        => true,
 	],
 	[
 		'name'        => 'file_identifier',
 		'type'        => 'CHAR',
 		'length'      => 32,
-		'show'		  => __('file identifier','siw'),
+		'show'        => true,
 	],
-
 ];
 return $data;
