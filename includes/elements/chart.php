@@ -12,7 +12,7 @@ namespace SIW\Elements;
 abstract class Chart extends Element {
 	
 	/** Frappe Charts versie */
-	const FRAPPE_CHARTS_VERSION = '1.6.0';
+	const FRAPPE_CHARTS_VERSION = '1.6.2';
 
 	/** Type grafiek */
 	protected string $type;
