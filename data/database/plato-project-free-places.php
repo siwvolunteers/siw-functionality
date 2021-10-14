@@ -16,23 +16,32 @@ $data = [
 		'type'         => 'CHAR',
 		'length'       => 32,
 		'primary_key'  => true,
+		'show'         => true,
+		'search'       => true,
 	],
 	[
 		'name'         => 'code',
 		'type'         => 'VARCHAR',
 		'length'       => 255,
+		'show'         => true,
+		'search'       => true,
 	],
 	[
 		'name'         => 'start_date',
 		'type'         => 'DATE',
+		'show'         => true,
+		'sort'         => true,
 	],
 	[
 		'name'         => 'end_date',
 		'type'         => 'DATE',
+		'show'         => true,
+		'sort'         => true,
 	],
 	[
 		'name'         => 'numvol',
 		'type'         => 'TINYINT',
+		'show'         => true,
 	],
 	[
 		'name'         => 'free_m',
@@ -55,6 +64,7 @@ $data = [
 		'type'         => 'VARCHAR',
 		'length'       => 255,
 		'nullable'     => true,
+		'show'         => true,
 	],
 	[
 		'name'         => 'remarks',

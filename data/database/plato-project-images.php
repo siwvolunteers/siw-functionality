@@ -16,17 +16,19 @@ $data = [
 		'type'        => 'CHAR',
 		'length'      => 32,
 		'primary_key' => true,
+		'show'        => true,
 	],
 	[
 		'name'        => 'image_id',
 		'type'        => 'TINYINT',
 		'primary_key' => true,
+		'show'        => true,
 	],
 	[
 		'name'        => 'file_identifier',
 		'type'        => 'CHAR',
 		'length'      => 32,
+		'show'        => true,
 	],
-
 ];
 return $data;
