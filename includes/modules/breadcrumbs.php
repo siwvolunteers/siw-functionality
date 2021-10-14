@@ -11,7 +11,7 @@ use SIW\Core\Template;
  */
 class Breadcrumbs {
 
-	/** Undocumented variable */
+	/** Array met crumbs */
 	protected array $crumbs = [];
 
 	/** Huidige pagina/post */
@@ -52,8 +52,11 @@ class Breadcrumbs {
 		elseif ( is_single() || is_page() ) {
 			$this->current = get_the_title();
 		}
+		elseif ( is_home() ) {
+			$this->current = get_the_title( get_option( 'page_for_posts', true ) );
+		}
 		elseif ( is_post_type_archive() ) {
-			$this->current = post_type_archive_title( '', false); //TODO: filter
+			$this->current = post_type_archive_title( '', false ); //TODO: filter
 		}
 		elseif ( is_archive() ) {
 			//$this->current = get_the_archive_title(); //TODO: filter
@@ -64,7 +67,7 @@ class Breadcrumbs {
 		}
 	}
 
-	/** Undocumented function */
+	/** Zet kruimels */
 	protected function set_crumbs() {
 		
 		//Als het de homepage is zijn we snel klaar
@@ -95,7 +98,15 @@ class Breadcrumbs {
 		elseif ( function_exists( 'is_product_taxonomy' ) && is_product_taxonomy() ) {
 			$this->add_shop_crumb(); //TODO: kan wel samen met de vorige toch?
 		}
+		elseif ( is_singular( 'post' ) ) {
+			$this->add_crumb(
+				get_the_title( get_option( 'page_for_posts', true ) ),
+				get_permalink( get_option( 'page_for_posts', true ) )
+			);
+		}
 		elseif ( is_single() ) {
+
+
 			$post_type = get_post_type();
 			$post_type_object= get_post_type_object( $post_type );
 			$title = apply_filters( 'post_type_archive_title', $post_type_object->labels->name );
@@ -104,18 +115,21 @@ class Breadcrumbs {
 				$title,
 				get_post_type_archive_link( $post_type )
 			);
-			//get_archive
-			//get_taxonomy
+
+			//TODO: overige post types?
+			if ( is_singular( 'siw_tm_country' ) ) {
+				$this->add_taxonomy_crumb( 'siw_tm_country_continent');
+			}
 		}
 	}
 
-	/** Undocumented function */
+	/** Voegt winkel crumb toe */
 	protected function add_shop_crumb() {
 		$shop_page_id = wc_get_page_id( 'shop' );
 		$this->add_crumb( get_the_title( $shop_page_id ), get_permalink( $shop_page_id ) );
 	}
 
-	/** Undocumented function */
+	/** Voegt crumb voor taxonomy toe */
 	protected function add_taxonomy_crumb( string $taxonomy ) {
 		$terms = wp_get_post_terms(
 			get_the_ID(),
