@@ -30,17 +30,17 @@ class Meta_Box {
 	public function select_extensions() {
 		$extensions = [
 			'mb-admin-columns',
-			'mb-frontend-submission',
+			'mb-custom-table',
 			'mb-settings-page',
 			'meta-box-columns',
 			'meta-box-conditional-logic',
 			'meta-box-geolocation',
 			'meta-box-group',
 			'meta-box-include-exclude',
-			'meta-box-tabs',
+			is_admin() ? 'meta-box-tabs' : null,
 			'meta-box-text-limiter',
 		];
-		return $extensions;
+		return array_filter( $extensions );
 	}
 
 	/** Zet standaardeigenschappen van tijdvelden
