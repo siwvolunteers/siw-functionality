@@ -120,12 +120,11 @@ class Archive_Header {
 			{
 				$text .= SPACE .
 				__('Als SIW zenden wij uit naar landen die op "groen" of "geel" staan.', 'siw' ) . SPACE .
-				__('Actuele informatie is te vinden op de website Nederland wereldwijd van de Rijksoverheid <a href="https://www.nederlandwereldwijd.nl/reizen/reisadviezen">reisadviezen oveheid</a>','siw') .SPACE .
+				__('Actuele informatie is te vinden op de website Nederland wereldwijd van de Rijksoverheid <a href="https://www.nederlandwereldwijd.nl/reizen/reisadviezen">reisadviezen overheid</a>','siw') .SPACE .
 				__('Je hoeft nu niet direct te betalen.','siw') .SPACE .
 				__('Wij kijken na aanmelding of het project doorgaat en of je geplaatst kan worden.','siw') .SPACE .
 				__('Pas als het zeker is dat je ook daadwerkelijk naar de plaats van bestemming kan afreizen, doe je de betaling aan SIW. Niet eerder!','siw') .SPACE .
-				__('Mocht het door jou gekozen project niet doorgaan, dan kunnen we natuurlijk samen kijken naar een ander gelijksoortig project waaraan je wel kunt deelnemen.','siw') .SPACE .
-				'<i>';
+				__('Mocht het door jou gekozen project niet doorgaan, dan kunnen we natuurlijk samen kijken naar een ander gelijksoortig project waaraan je wel kunt deelnemen.','siw') .SPACE;
 			}
 		}
 		return($text);
