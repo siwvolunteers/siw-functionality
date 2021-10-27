@@ -14,9 +14,18 @@ use \Spatie\Enum\Enum;
  * @method static self PLATO_PROJECT_IMAGES()
  */
 class Database_Table extends Enum {
+
 	protected static function values(): \Closure {
 		return function( string $value ): string {
 			return strtolower( $value );
 		};
+	}
+
+	protected static function labels(): array {
+		return [
+			'PLATO_PROJECTS'            => 'Plato projecten',
+			'PLATO_PROJECT_FREE_PLACES' => 'Plato project vrije plaatsen',
+			'PLATO_PROJECT_IMAGES'      => 'Plato projectafbeeldingen',
+		];
 	}
 }

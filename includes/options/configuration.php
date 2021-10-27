@@ -99,7 +99,13 @@ class Configuration implements Option_Interface {
 				],
 				[
 					'id'        => 'api_key',
-					'name'      => __( 'API Key', 'siw' ),
+					'name'      => __( 'Client side API Key', 'siw' ),
+					'type'      => 'text',
+					'size'      => 60,
+				],
+				[
+					'id'        => 'server_side_api_key',
+					'name'      => __( 'Server side API Key', 'siw' ),
 					'type'      => 'text',
 					'size'      => 60,
 				],

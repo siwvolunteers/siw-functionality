@@ -17,6 +17,7 @@ class Loader extends Class_Loader_Abstract {
 			Admin_Bar::class,
 			Admin::class,
 			Notices::class,
+			Tableview_Page::class,
 			Properties_Page::class,
 			Shortcodes::class,
 		];

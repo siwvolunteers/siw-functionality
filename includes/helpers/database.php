@@ -256,4 +256,68 @@ class Database {
 	protected function get_column_data_types() : array {
 		return wp_list_pluck( $this->columns, 'type', 'name' );
 	}
+
+	/** Geeft het aantal records in de tabel terug */
+	public function get_row_count(): ?int{
+		$sql = "SELECT COUNT(1) FROM $this->table";
+		return (int) $this->wpdb->get_var( $sql );
+	}
+
+	/** Haalt rijen uit database op */
+	public function get_rows( array $args ): ?array {
+		$defaults = [
+			'orderby'        => null,
+			'order'          => null,
+			'search'         => null,
+			'search_columns' => [],
+			'page'           => 1,
+			'per_page'       => null,
+			'output'         => OBJECT,
+		];
+		$args = wp_parse_args( $args, $defaults );
+		
+		//Array met waarden voor wpdb->prepare
+		$values = [];
+
+	
+		//TODO: where clause genereren (net als in https://developer.wordpress.org/reference/classes/wp_meta_query/) en search verplaatsen naar database list -table
+
+		//Zoek in de opgegeven kolommen
+		if( null != $args['search'] && ! empty( $args['search_columns'] ) ) {
+			$search = $args['search'];
+			
+			foreach ( $args['search_columns'] as $column ) {
+				$search_conditions[] = "`$column` LIKE '%s'";
+				$values[] = '%' . $this->wpdb->esc_like( $search ) . '%';
+				
+			}
+			$conditions[] = '(' . implode( ' OR ', $search_conditions ) . ')';
+		}
+
+		//start de query
+		$query[] ='SELECT * FROM '. $this->table;
+
+		//Voeg wehere clause toe
+		if ( isset( $conditions) ) {
+			$query[] = 'WHERE ' .  implode( ' AND ', $conditions );;
+		}
+
+		// Voeg sortering toe
+		if( ! empty( $args['orderby'] ) ) {
+			$query[] = 'ORDER BY ' . $args['orderby'];
+			if ( ! empty(  $args['order'] ) ) {
+				$query[] = ' ' . strtoupper( $args['order'] ) == 'ASC' ? 'ASC' : 'DESC';
+			}
+		}
+
+		// Voeg limit en offset toe
+		if ( ! empty( $args['per_page'] ) ) {
+			$query[] = 'LIMIT %d, %d';
+			$values[] = ( $args['page'] - 1 ) * $args['per_page'];
+			$values[] = $args['per_page'];
+		}
+		
+		$query = $this->wpdb->prepare( implode( PHP_EOL, $query ), $values );
+		return $this->wpdb->get_results( $query , $args['output'] );
+	}
 }
