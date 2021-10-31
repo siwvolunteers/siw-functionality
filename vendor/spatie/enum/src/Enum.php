@@ -98,12 +98,6 @@ abstract class Enum implements JsonSerializable
      */
     final public static function from($value): Enum
     {
-        if (! (is_string($value) || is_int($value))) {
-            $enumClass = static::class;
-
-            throw new TypeError("Only string and integer are allowed values for enum {$enumClass}.");
-        }
-
         $enum = new static($value);
 
         if (!isset(self::$instances[static::class][$enum->value])) {
@@ -114,16 +108,26 @@ abstract class Enum implements JsonSerializable
     }
 
     /**
-     * @param string|int $value
+     * @param string|int|mixed $value
      *
-     * @return static
+     * @return static|null
      */
     final public static function tryFrom($value): ?Enum
     {
         try {
             return static::from($value);
-        } catch (BadMethodCallException $dummy) {
+        } catch (BadMethodCallException $exception) {
             return null;
+        } catch (TypeError $exception) {
+            if (
+                $value === null
+                || is_scalar($value)
+                || (is_object($value) && method_exists($value, '__toString'))
+            ) {
+                return null;
+            }
+
+            throw $exception;
         }
     }
 
@@ -134,7 +138,11 @@ abstract class Enum implements JsonSerializable
      */
     public function __construct($value)
     {
-        if (! (is_string($value) || is_int($value))) {
+        if (is_object($value) && method_exists($value, '__toString')) {
+            $value = (string)$value;
+        }
+
+        if (! (is_int($value) || is_string($value))) {
             $enumClass = static::class;
 
             throw new TypeError("Only string and integer are allowed values for enum {$enumClass}.");
@@ -180,7 +188,7 @@ abstract class Enum implements JsonSerializable
      */
     public static function __callStatic(string $name, array $arguments)
     {
-        return static::make($name);
+        return static::from($name);
     }
 
     /**
@@ -194,7 +202,7 @@ abstract class Enum implements JsonSerializable
     public function __call(string $name, array $arguments)
     {
         if (strpos($name, 'is') === 0) {
-            $other = static::make(substr($name, 2));
+            $other = static::from(substr($name, 2));
 
             return $this->equals($other);
         }

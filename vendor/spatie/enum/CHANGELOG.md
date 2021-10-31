@@ -2,6 +2,11 @@
 
 All notable changes to `enum` will be documented in this file
 
+## 3.10.0 - 2021-10-20
+
+- Fix `from()` and `tryFrom()` methods to do PHP type-juggling (string to integer) - [#108](https://github.com/spatie/enum/pull/108)
+- Fix `tryFrom()` method to catch scalar type-errors - [#105](https://github.com/spatie/enum/pull/105)
+
 ## 3.9.0 - 2021-05-10
 
 - Add `from()` and `tryFrom()` methods to get closer to PHP8.1 native enums - [#94](https://github.com/spatie/enum/pull/94)

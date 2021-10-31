@@ -1,6 +1,6 @@
 {
 	"name": "siw-functionality",
-	"version": "3.3.0",
+	"version": "3.4.8",
 	"license": "GPL-2.0-or-later",
 	"description": "Extra functionaliteit voor website SIW",
 	"repository": "https://github.com/siwvolunteers/siw-functionality",
@@ -25,7 +25,6 @@
 	"devDependencies": {
 		"autoprefixer": "^10.0.0",
 		"frontend-dependencies": "^2.0.0",
-		"mjml": "^4.8.1",
 		"postcss": "^8.0.0",
 		"postcss-cli": "^8.0.0",
 		"sass": "^1.32.6",
