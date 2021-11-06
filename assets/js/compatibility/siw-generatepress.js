@@ -11,12 +11,12 @@
 	 */
 	function updateMenuCartVisibility() {
 		if ( Cookies.get( 'woocommerce_items_in_cart' ) > 0 ) {
-			$( '.main-navigation .wc-menu-item' ).show();
-			$( '.mobile-bar-items.wc-mobile-cart-items' ).show();
+			$( '.main-navigation .wc-menu-item' ).css( 'visibility', 'visible' );
+			$( '.mobile-bar-items.wc-mobile-cart-items' ).css( 'visibility', 'visible' );
 
 		}else {
-			$( '.main-navigation .wc-menu-item' ).hide();
-			$( '.mobile-bar-items.wc-mobile-cart-items' ).hide();
+			$( '.main-navigation .wc-menu-item' ).css( 'visibility', 'hidden' );
+			$( '.mobile-bar-items.wc-mobile-cart-items' ).css( 'visibility', 'hidden' );
 		}
 	}
 
