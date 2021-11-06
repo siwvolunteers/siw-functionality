@@ -1,9 +1,8 @@
 /** global: Cookies */
 
 /**
- * @file      Functies t.b.v cart menu
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @file      Functies t.b.v GeneratePress
+ * @copyright 21 SIW Internationale Vrijwilligersprojecten
  */
 
 (function( $ ) {
@@ -12,9 +11,12 @@
 	 */
 	function updateMenuCartVisibility() {
 		if ( Cookies.get( 'woocommerce_items_in_cart' ) > 0 ) {
-			$( 'li.menu-cart' ).show();
+			$( '.main-navigation .wc-menu-item' ).show();
+			$( '.mobile-bar-items.wc-mobile-cart-items' ).show();
+
 		}else {
-			$( 'li.menu-cart' ).hide();
+			$( '.main-navigation .wc-menu-item' ).hide();
+			$( '.mobile-bar-items.wc-mobile-cart-items' ).hide();
 		}
 	}
 

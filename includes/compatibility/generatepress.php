@@ -40,9 +40,6 @@ class GeneratePress{
 		add_filter( 'generate_404_title', [ $self, 'set_404_title' ] );
 		add_filter( 'generate_404_text', [ $self, 'set_404_text' ] );
 
-		//Verwijder cart fragments van plugin
-		add_action( 'init', [ $self, 'remove_cart_fragment_hooks'], PHP_INT_MAX );
-
 		//Pas snelheid voor omhoog scrollen aan
 		add_filter( 'generate_back_to_top_scroll_speed', fn() : int => self::BACK_TO_TOP_SCROLL_SPEED );
 
@@ -50,6 +47,7 @@ class GeneratePress{
 
 		//Default instellingen zetten
 		add_filter( 'generate_default_color_palettes', [ $self, 'set_default_color_palettes'] );
+		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_scripts' ]);
 	}
 
 	/** Voeg menu order toe een GP Elements */
@@ -84,12 +82,6 @@ class GeneratePress{
 		return esc_html__( 'Oeps! Helaas kunnen we de pagina die je zoekt niet vinden. Controleer of de spelling correct is en doe nog een poging via onderstaande zoekfunctie.', 'siw' );
 	}
 
-	/** Verwijder cart fragments hook van het thema */
-	public function remove_cart_fragment_hooks() {
-		remove_filter( 'woocommerce_add_to_cart_fragments', 'generatepress_wc_cart_link_fragment' );
-		remove_filter( 'woocommerce_add_to_cart_fragments', 'generatepress_add_to_cart_panel_fragments' );
-	}
-
 	/** Zet het aantal footer-widgets op 1 voor andere talen dan Nederlands */
 	public function set_footer_widgets( string $widgets ) : string {
 		if ( ! i18n::is_default_language() ) {
@@ -119,4 +111,11 @@ class GeneratePress{
 			'#fefefe',
 		];
 	}
+
+	/** Voegt script toe */
+	public function enqueue_scripts(): void {
+		wp_register_script( 'siw-generatepress', SIW_ASSETS_URL . 'js/compatibility/siw-generatepress.js', [ 'jquery', 'js-cookie' ], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( 'siw-generatepress' );
+	}
+
 }
