@@ -5,9 +5,8 @@ namespace SIW\Compatibility;
 /**
  * Aanpassingen voor UpdraftPlus
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://updraftplus.com/
- * @since     3.0.0
  */
 class UpdraftPlus {
 
@@ -37,15 +36,14 @@ class UpdraftPlus {
 	}
 
 	/** Zet de tijd voor de database backup */
-	public function set_time_db_backup( int $scheduled_time ) : int {
+	public function set_time_db_backup( int $scheduled_time ): int {
 		$tomorrow = strtotime( 'tomorrow' );
 		$backup_db_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
-	
 		return strtotime( $backup_db_day . ' ' . self::TS_BACKUP_DB . wp_timezone_string() );
 	}
 
 	/** Zet de tijd voor de bestandsbackup */
-	public function set_time_files_backup( int $scheduled_time ) : int {
+	public function set_time_files_backup( int $scheduled_time ): int {
 		$tomorrow = strtotime( 'tomorrow' );
 		$backup_files_day = date( 'Y-m-d', max( $scheduled_time, $tomorrow ) );
 		return strtotime( $backup_files_day . ' ' . self::TS_BACKUP_FILES . wp_timezone_string() );

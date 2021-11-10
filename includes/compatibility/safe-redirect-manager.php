@@ -5,9 +5,8 @@ namespace SIW\Compatibility;
 /**
  * Aanpassingen voor Safe Redirect Manager
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://wordpress.org/plugins/safe-redirect-manager/
- * @since     3.0.0
  */
 class Safe_Redirect_Manager {
 
@@ -21,7 +20,7 @@ class Safe_Redirect_Manager {
 			return;
 		}
 
-		add_filter( 'srm_max_redirects', fn() : int => self::MAX_REDIRECTS );
-		add_filter( 'srm_default_direct_status', fn() : int => \WP_Http::MOVED_PERMANENTLY );
+		add_filter( 'srm_max_redirects', fn(): int => self::MAX_REDIRECTS );
+		add_filter( 'srm_default_direct_status', fn(): int => \WP_Http::MOVED_PERMANENTLY );
 	}
 }

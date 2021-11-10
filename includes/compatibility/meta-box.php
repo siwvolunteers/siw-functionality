@@ -27,7 +27,7 @@ class Meta_Box {
 	}
 
 	/** Selecteert de gebruikte extensies */
-	public function select_extensions() {
+	public function select_extensions(): array {
 		$extensions = [
 			'mb-admin-columns',
 			'mb-settings-page',
@@ -45,7 +45,7 @@ class Meta_Box {
 	/** Zet standaardeigenschappen van tijdvelden
 	 * @todo kan weg na introductie HTML5 velden
 	 */
-	public function set_default_time_options( array $field ) : array {
+	public function set_default_time_options( array $field ): array {
 		$defaults = [
 			'pattern'    => '([01]?[0-9]|2[0-3]):[0-5][0-9]',
 			'inline'     => false,
@@ -62,7 +62,7 @@ class Meta_Box {
 	/** Zet standaardeigenschappen van datumvelden
 	 * @todo kan weg na introductie HTML5 velden
 	 */
-	public function set_default_date_options( array $field ) : array {
+	public function set_default_date_options( array $field ): array {
 		$defaults = [
 			'label_description' => 'jjjj-mm-dd',
 			'placeholder'       => 'jjjj-mm-dd',
@@ -79,7 +79,7 @@ class Meta_Box {
 	}
 
 	/** Zet standaardeigenschappen van switchvelden */
-	public function set_default_switch_options( array $field ) : array {
+	public function set_default_switch_options( array $field ): array {
 		$defaults = [
 			'style' => 'square',
 		];
@@ -87,7 +87,7 @@ class Meta_Box {
 	}
 
 	/** Zet standaardeigenschappen van wysiwyg */
-	public function set_default_wysiwyg_options( array $field ) : array {
+	public function set_default_wysiwyg_options( array $field ): array {
 		$defaults = [
 			'raw'      => true,
 			'options'  => [
@@ -101,7 +101,7 @@ class Meta_Box {
 	}
 
 	/** Sanitize velden in MB Group */
-	public function sanitize_group( array $values, array $group, $old_value = null, $object_id = null ) : array {
+	public function sanitize_group( array $values, array $group, $old_value = null, $object_id = null ): array {
 		foreach ( $group['fields'] as $field ) {
 			$key = $field['id'];
 			$old = isset( $old_value[ $key ] ) ? $old_value[ $key ] : null;

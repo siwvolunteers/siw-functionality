@@ -8,9 +8,8 @@ use SIW\Properties;
 /**
  * Aanpassingen voor The SEO Framework
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://theseoframework.com/
- * @since     3.0.0
  */
 class The_SEO_Framework {
 
@@ -29,15 +28,15 @@ class The_SEO_Framework {
 		$self = new self();
 
 		/* SEO-metabox lagere prioriteit geven */
-		add_filter( 'the_seo_framework_metabox_priority', fn() : string => self::METABOX_PRIORITY );
+		add_filter( 'the_seo_framework_metabox_priority', fn(): string => self::METABOX_PRIORITY );
 
 		/* Robots */
 		add_filter( 'the_seo_framework_robots_txt_pro', [ $self, 'set_robots_txt' ]) ; 
 
 		/* Sitemap */
-		add_filter( 'the_seo_framework_sitemap_color_main', fn() : string => Properties::SECONDARY_COLOR );
-		add_filter( 'the_seo_framework_sitemap_color_accent', fn() : string => Properties::FONT_COLOR );
-		add_filter( 'the_seo_framework_sitemap_post_limit', fn() : int => self::SITEMAP_POST_LIMIT );
+		add_filter( 'the_seo_framework_sitemap_color_main', fn(): string => Properties::SECONDARY_COLOR );
+		add_filter( 'the_seo_framework_sitemap_color_accent', fn(): string => Properties::FONT_COLOR );
+		add_filter( 'the_seo_framework_sitemap_post_limit', fn(): int => self::SITEMAP_POST_LIMIT );
 		add_filter( 'the_seo_framework_sitemap_supported_post_types', [ $self, 'set_sitemap_supported_post_types'] );
 		add_filter( 'the_seo_framework_sitemap_additional_urls', [ $self, 'set_sitemap_additional_urls' ] );
 
@@ -46,7 +45,7 @@ class The_SEO_Framework {
 	}
 
 	/** Voegt bots toe aan robot.txt */
-	public function set_robots_txt( string $output ) : string {
+	public function set_robots_txt( string $output ): string {
 		$bots = siw_get_option( 'blocked_bots');
 
 		if ( empty( $bots ) ) {
@@ -62,7 +61,7 @@ class The_SEO_Framework {
 	}
 
 	/** Toon alleen pagina's in Engelse sitemap */
-	public function set_sitemap_supported_post_types( array $post_types ) : array {
+	public function set_sitemap_supported_post_types( array $post_types ): array {
 
 		if ( ! i18n::is_default_language() ) {
 			$post_types = [];
@@ -72,7 +71,7 @@ class The_SEO_Framework {
 	}
 
 	/** Productarchieven toevoegen aan de sitemap */
-	public function set_sitemap_additional_urls( array $custom_urls ) : array {
+	public function set_sitemap_additional_urls( array $custom_urls ): array {
 		
 		if ( ! i18n::is_default_language() ) {
 			return $custom_urls;

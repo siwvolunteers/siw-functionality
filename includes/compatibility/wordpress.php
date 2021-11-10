@@ -7,8 +7,7 @@ use SIW\Properties;
 /**
  * Aanpassingen voor WordPress
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class WordPress {
 
@@ -23,15 +22,15 @@ class WordPress {
 		$self = new self();
 		add_action( 'widgets_init', [ $self, 'unregister_widgets'], 99 );
 		add_filter( 'oembed_response_data', [ $self, 'set_oembed_response_data' ] );
-		add_filter( 'rest_url_prefix', fn() : string => self::REST_API_PREFIX );
+		add_filter( 'rest_url_prefix', fn(): string => self::REST_API_PREFIX );
 		add_filter( 'user_contactmethods', '__return_empty_array', PHP_INT_MAX );
 		add_action( 'init', [ $self, 'add_page_excerpt_support'] );
 		add_action( 'core_version_check_query_args', [ $self, 'remove_core_version_check_query_args'] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'dequeue_styles' ], PHP_INT_MAX );
-		add_filter( 'wp_default_editor', fn() : string => self::DEFAULT_EDITOR );
+		add_filter( 'wp_default_editor', fn(): string => self::DEFAULT_EDITOR );
 		add_filter( 'site_status_tests', [ $self, 'remove_update_check'] );
-		add_filter( 'http_headers_useragent', fn() : string => Properties::NAME );
-		add_filter( 'big_image_size_threshold', fn() : int => Properties::MAX_IMAGE_SIZE );
+		add_filter( 'http_headers_useragent', fn(): string => Properties::NAME );
+		add_filter( 'big_image_size_threshold', fn(): int => Properties::MAX_IMAGE_SIZE );
 
 		add_filter( 'wp_is_application_passwords_available', '__return_false' );
 		add_filter( 'comments_open', '__return_false' );
@@ -52,31 +51,31 @@ class WordPress {
 		//Attachments
 		add_filter( 'disable_months_dropdown', '__return_true' );
 		add_filter( 'manage_media_columns', [ $self, 'manage_media_columns'], 10, 2 );
-		add_filter( 'wp_trim_excerpt', [$self,'excerpt_metabox_more' ]);	// lees meer knop voor berichten
+		add_filter( 'wp_trim_excerpt', [ $self, 'show_read_more_button' ]);
 	}
 
 	/** Verwijdert standaard-widgets */
 	public function unregister_widgets() {
-		unregister_widget( 'WP_Widget_Pages' );
-		unregister_widget( 'WP_Widget_Recent_Posts' );
-		unregister_widget( 'WP_Widget_Calendar' );
-		unregister_widget( 'WP_Widget_Archives' );
+		unregister_widget( \WP_Widget_Pages::class );
+		unregister_widget( \WP_Widget_Recent_Posts::class );
+		unregister_widget( \WP_Widget_Calendar::class );
+		unregister_widget( \WP_Widget_Archives::class );
 		if ( get_option( 'link_manager_enabled' ) ) {
-			unregister_widget( 'WP_Widget_Links' );
+			unregister_widget( \WP_Widget_Links::class );
 		}
-		unregister_widget( 'WP_Widget_Meta' );
-		unregister_widget( 'WP_Widget_Categories' );
-		unregister_widget( 'WP_Widget_Recent_Comments' );
-		unregister_widget( 'WP_Widget_RSS' );
-		unregister_widget( 'WP_Widget_Tag_Cloud' );
-		unregister_widget( 'WP_Widget_Custom_HTML' );
-		unregister_widget( 'WP_Widget_Media_Audio' );
-		unregister_widget( 'WP_Widget_Media_Video' );
-		unregister_widget( 'WP_Widget_Media_Gallery' );
+		unregister_widget( \WP_Widget_Meta::class );
+		unregister_widget( \WP_Widget_Categories::class );
+		unregister_widget( \WP_Widget_Recent_Comments::class );
+		unregister_widget( \WP_Widget_RSS::class );
+		unregister_widget( \WP_Widget_Tag_Cloud::class );
+		unregister_widget( \WP_Widget_Custom_HTML::class );
+		unregister_widget( \WP_Widget_Media_Audio::class );
+		unregister_widget( \WP_Widget_Media_Video::class );
+		unregister_widget( \WP_Widget_Media_Gallery::class );
 	}
 
 	/** Verwijdert auteurgegevens uit oembed */
-	public function set_oembed_response_data( array $data ) : array {
+	public function set_oembed_response_data( array $data ): array {
 		$data['author_name'] = Properties::NAME;
 		$data['author_url'] = SIW_SITE_URL;
 		return $data;
@@ -88,7 +87,7 @@ class WordPress {
 	}
 
 	/** Verwijdert niet-essentiele gegevens voor call naar WP update server */
-	public function remove_core_version_check_query_args( array $query ) : array {
+	public function remove_core_version_check_query_args( array $query ): array {
 		unset( $query['local_package'] );
 		unset( $query['blogs'] );
 		unset( $query['users'] );
@@ -109,13 +108,13 @@ class WordPress {
 	}
 
 	/** Verwijdert test voor automatische updates */
-	public function remove_update_check( array $tests ) : array {
+	public function remove_update_check( array $tests ): array {
 		unset( $tests['async']['background_updates'] );
 		return $tests;
 	}
 
 	/** Voegt toegestane css attributen toe */
-	public function add_allowed_css_attributes( array $attributes ) : array {
+	public function add_allowed_css_attributes( array $attributes ): array {
 		$attributes[] = 'fill';
 		$attributes[] = 'opacity';
 		$attributes[] = 'transform';
@@ -128,7 +127,7 @@ class WordPress {
 	 * - nocookie domein
 	 * - instellingen
 	 */
-	public function fix_youtube_embed( string $cache ) : string {
+	public function fix_youtube_embed( string $cache ): string {
 	
 		$regex = '/<iframe[^>]*(?<=src=")(https:\/\/www\.youtube\.com\/embed.*?)(?=[\"])/m';
 
@@ -150,22 +149,25 @@ class WordPress {
 	}
 
 	/** Verberg admin columns bij attachments */
-	public function manage_media_columns( array $columns, bool $detached ) : array {
+	public function manage_media_columns( array $columns, bool $detached ): array {
 		unset( $columns['author']);
 		unset( $columns['comments']);
 		return $columns;
 	}
+	
 	/** Plaats Lees meer button als gekozen is voor samenvatting */
-	function excerpt_metabox_more( $excerpt ) {
-        $output = $excerpt;
-		$post = get_post_type();
-		if($post != "post") { return($output);} // alleen bij de blog
-        if ( has_excerpt()) {
-            $output = sprintf( '%1$s <p class="read-more-button-container"><a class="button" href="%2$s">%3$s</a></p>',
-            $excerpt,
-            get_permalink(),
-            __( 'Lees meer', 'siw' ));
-        }
-        return $output;
-    }
+	function show_read_more_button( string $excerpt ): string {
+	 
+		// alleen bij de blog
+		if ( get_post_type() !== 'post' || ! has_excerpt() ) {
+			return $excerpt;
+		}
+
+		return sprintf( '%1$s <p class="read-more-button-container"><a class="button" href="%2$s">%3$s</a></p>',
+			$excerpt,
+			get_permalink(),
+			__( 'Lees meer', 'siw' )
+		);
+		
+	}
 }
