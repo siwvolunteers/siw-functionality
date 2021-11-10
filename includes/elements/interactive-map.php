@@ -50,6 +50,11 @@ class Interactive_Map extends Element {
 
 	/** Zet opties van de kaart */
 	protected function get_options() : array {
+		$options = wp_cache_get( $this->interactive_map->get_id(), __METHOD__ );
+		if ( false !== $options ) {
+			return $options;
+		}
+
 		$default_options = [
 			'source'        => $this->get_source_data(),
 			'landmark'      => null,
@@ -69,7 +74,10 @@ class Interactive_Map extends Element {
 			'hovertipdesc'  => true,
 			'animation'     => true,
 		];
-		return wp_parse_args( $this->interactive_map->get_options(), $default_options );
+
+		$options = wp_parse_args( $this->interactive_map->get_options(), $default_options );
+		wp_cache_set( $this->interactive_map->get_id(), $options, __METHOD__ );
+		return $options;
 	}
 
 	/** Geeft optie terug */
