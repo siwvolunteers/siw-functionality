@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /**
  * siw.css
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
@@ -312,13 +311,13 @@ body {
 }
 
 .row-full-width {
-  margin-left: calc(50% - 50vw );
+  margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 }
 
 .row-full-width-background {
-  margin-left: calc(50% - 50vw );
-  margin-right: calc(50% - 50vw );
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
   padding-left: calc(50vw - 50%);
   padding-right: calc(50vw - 50%);
 }
@@ -800,10 +799,10 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a:hover:before {
   padding-right: 5px;
 }
 .woocommerce-checkout .radio-icon input[type=radio] + label::before {
-  content: "";
+  content: "\e039";
 }
 .woocommerce-checkout .radio-icon input[type=radio]:checked + label::before {
-  content: "";
+  content: "\e03c";
 }
 .woocommerce-checkout .country .woocommerce-input-wrapper {
   display: block;
