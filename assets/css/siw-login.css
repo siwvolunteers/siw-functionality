@@ -14,21 +14,22 @@ html body.login h1 a {
   width: auto;
 }
 html body.login .message {
-  border-left-color: var(--siw-primary-color);
+  border-left-color: #444;
 }
 html body.login form input[type=text], html body.login form input[type=password] {
   border-radius: 0;
-  border-color: #3f3f3f;
+  border-color: #444;
 }
 html body.login form .button-primary {
-  background-color: #3f3f3f;
-  border: none;
+  background-color: #fff;
+  border: 2px solid #444;
+  color: #444;
   border-radius: 0;
-  color: #fff;
   transition: all 0.3s linear 0s;
 }
 html body.login form .button-primary:hover, html body.login form .button-primary:active {
-  background-color: var(--siw-primary-color);
+  border: 2px solid #444;
+  background-color: #444;
   color: #fff;
 }
 html body.login #nav a {
@@ -36,7 +37,8 @@ html body.login #nav a {
   font-weight: bold;
 }
 html body.login #nav a:hover {
-  color: var(--siw-primary-color);
+  color: #fff;
+  text-decoration: underline;
 }
 html body.login p#backtoblog {
   display: none;

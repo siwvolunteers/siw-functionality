@@ -8,8 +8,7 @@ use SIW\Util\CSS;
 /**
  * Aanpassingen aan login
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Login {
 
@@ -28,7 +27,6 @@ class Login {
 	public function enqueue_style() {
 		wp_register_style( 'siw-login-css', SIW_ASSETS_URL . 'css/siw-login.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( 'siw-login-css' );
-		CSS::add_css_variables( 'siw-login-css' );
 	}
 
 	/** Zet de login-boodschap */
