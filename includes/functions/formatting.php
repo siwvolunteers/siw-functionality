@@ -6,6 +6,8 @@
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 
+use SIW\Data\Currency;
+
 /** Formatteert getal als percentage */
 function siw_format_percentage( float $percentage, int $decimals = 0 ) : string {
 	$percentage = number_format_i18n( $percentage, $decimals );
