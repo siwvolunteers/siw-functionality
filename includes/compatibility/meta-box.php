@@ -5,9 +5,8 @@ namespace SIW\Compatibility;
 /**
 * Aanpassingen voor Meta Box
  * 
- * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://metabox.io/
- * @since     3.0.0
  */
 class Meta_Box {
 
@@ -24,6 +23,7 @@ class Meta_Box {
 		add_filter( 'rwmb_normalize_switch_field', [ $self, 'set_default_switch_options'] );
 		add_filter( 'rwmb_normalize_wysiwyg_field', [ $self, 'set_default_wysiwyg_options'] );
 		add_filter( 'rwmb_group_sanitize', [ $self, 'sanitize_group' ], 10, 4 );
+		add_filter( 'rwmb_get_value', [ $self, 'render_shortcodes'], 10, 4 );
 	}
 
 	/** Selecteert de gebruikte extensies */
@@ -125,5 +125,13 @@ class Meta_Box {
 			$sanitized[ $key ] = \RWMB_Field::filter( 'value', $new, $field, $old, $object_id );
 		}
 		return $sanitized;
+	}
+
+	/** Render shortcodes in wyswyg editor */
+	public function render_shortcodes( $value, array $field, array $args, $object_id ) {
+		if ( 'wysiwyg' === $field['type'] ) {
+			$value = do_shortcode( $value );
+		}
+		return $value;
 	}
 }
