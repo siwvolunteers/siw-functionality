@@ -10,12 +10,6 @@ namespace SIW\Compatibility;
  */
 class WooCommerce {
 
-	/** Aantal log items per pagina */
-	const LOG_ITEMS_PER_PAGE = 25;
-
-	/** Aantal dagen dat log bewaard wordt */
-	const DAYS_TO_RETAIN_LOG = 7;
-
 	/** Init */
 	public static function init() {
 
@@ -26,10 +20,6 @@ class WooCommerce {
 
 		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
 
-		$self->set_log_handler();
-		add_filter( 'woocommerce_register_log_handlers', [ $self, 'register_log_handlers' ], PHP_INT_MAX );
-		add_filter( 'woocommerce_status_log_items_per_page', fn() : int => self::LOG_ITEMS_PER_PAGE );
-		add_filter( 'woocommerce_logger_days_to_retain_logs', fn() : int => self::DAYS_TO_RETAIN_LOG );
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
 		add_filter( 'product_type_selector', [ $self, 'disable_product_types'] );
 		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_project_id_search' ], 10, 2 );
@@ -80,33 +70,9 @@ class WooCommerce {
 		unregister_widget( \WC_Widget_Cart::class );
 	}
 
-	/** Zet database als de standaard log handler */
-	public function set_log_handler() {
-		define( 'WC_LOG_HANDLER', 'WC_Log_Handler_DB' );
-	}
-
 	/** Verwijdert WooCommerce-blocks style */
 	public function deregister_block_style() {
 		wp_deregister_style( 'wc-block-style' );
-	}
-
-	/**
-	 * Registreert log handlers
-	 * 
-	 * - Database
-	 * - E-mail (voor hoge prioriteit)
-	 */
-	public function register_log_handlers(): array {
-		$log_handler_db = new \WC_Log_Handler_DB;
-		$log_handler_email = new \WC_Log_Handler_Email;
-		$log_handler_email->set_threshold( 'alert' );
-	
-		$handlers = [
-			$log_handler_db,
-			$log_handler_email,
-		];
-	
-		return $handlers;
 	}
 
 	/** Verwijdert dashboard widgets */
