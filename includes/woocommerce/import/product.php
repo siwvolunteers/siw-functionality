@@ -479,7 +479,7 @@ class Product {
 
 		$status = 'publish';
 		foreach ( $this->work_types as $work_type ) {
-			if ( 'kinderen' === $work_type->get_slug() ) {
+			if ( $work_type->needs_review() ) {
 				$status = self::REVIEW_STATUS;
 			}
 		}
