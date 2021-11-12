@@ -2,7 +2,6 @@
 
 namespace SIW\Forms\Forms;
 
-use SIW\i18n;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 
 /**
@@ -119,8 +118,7 @@ class Leader_Dutch_Projects implements Form_Interface {
 	}
 
 	/** Geeft lijst met Nederlandse projecten terug */
-	protected function get_project_options() : array {
-		$language = i18n::get_current_language();
+	protected function get_project_options(): array {
 		$project_options[''] = __( 'Geen voorkeur', 'siw' );
 		
 		$args = [
@@ -131,9 +129,7 @@ class Leader_Dutch_Projects implements Form_Interface {
 		$projects = wc_get_products( $args );
 		
 		foreach ( $projects as $project ) {
-			$slug = sanitize_title( $project->get_sku() );
-			$name = ! empty( $project->get_meta( "dutch_projects_name_{$language}" ) ) ? $project->get_meta( "dutch_projects_name_{$language}" ) : $project->get_attribute( 'Projectnaam' );
-			$project_options[ $slug ] = $name;
+			$project_options[ sanitize_title( $project->get_sku() ) ] = $project->get_attribute( 'Projectnaam' );
 		}
 		return $project_options;
 	}

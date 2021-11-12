@@ -70,7 +70,7 @@ class Netherlands implements Interactive_Map_Interface {
 				'category'      => 'nl',
 				'fill'          => Properties::PRIMARY_COLOR,
 			];
-			$provinces[] = $project->get_meta( 'dutch_projects_province' );
+			$provinces[] = null; // TODO: provincie uit Google Maps halen
 		}
 	
 		//Provincies inkleuren
@@ -98,7 +98,7 @@ class Netherlands implements Interactive_Map_Interface {
 		foreach ( $projects as $project ) {
 			$panes[] = [
 				'title'       => $this->get_project_title( $project ),
-				'content'     => $this->get_project_properties( $project ) . $this->get_project_description( $project ),
+				'content'     => $this->get_project_properties( $project ),
 				'show_button' => i18n::is_default_language(),
 				'button_url'  => $project->get_permalink(),
 				'button_text' => __( 'Bekijk project', 'siw' ),
@@ -136,30 +136,13 @@ class Netherlands implements Interactive_Map_Interface {
 		$description[] = sprintf( __( 'Data: %s', 'siw' ), $duration );
 		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), implode( ', ', $work_types ) );
 		
-		//Locatie tonen indien bekend
-		if ( $project->get_meta( 'dutch_projects_city' ) && $project->get_meta( 'dutch_projects_province' ) ) {
-			$description[] = sprintf(
-				__( 'Locatie: %s, provincie %s', 'siw' ),
-				$project->get_meta('dutch_projects_city'),
-				siw_get_dutch_province( $project->get_meta( 'dutch_projects_province' ) )
-			);
-		}
+		//TODO: Locatie (Locatie: %s, provincie %s) tonen indien bekend, afleiden van coördinaten m.b.v Google Maps API
 		return wpautop( implode( BR, $description ) );
-	}
-
-	/** Haalt projectbeschrijving op */
-	protected function get_project_description( \WC_Product $project ) : ?string {
-		$language = i18n::get_current_language();
-		if ( $project->get_meta( "dutch_projects_name_{$language}" ) ) {
-			return wpautop( $project->get_meta( "dutch_projects_description_{$language}" ) );
-		}
-		return null;
 	}
 
 	/** Haalt projecttitel op */
 	protected function get_project_title( \WC_Product $project ) : string {
-		$language = i18n::get_current_language();
-		return ! empty( $project->get_meta( "dutch_projects_name_{$language}" ) ) ? $project->get_meta( "dutch_projects_name_{$language}" ) : $project->get_attribute( 'Projectnaam' );
+		return $project->get_attribute( 'Projectnaam' );
 	}
 
 	/** Haal knop naar Groepsproject op */
