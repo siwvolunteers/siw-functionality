@@ -20,7 +20,6 @@ class Product_Columns extends \MBAC\Post {
 		$columns = parent::columns( $columns );
 		$this->add( $columns, 'visibility', __( 'Zichtbaarheid', 'siw' ), 'after', 'sku' );
 		$this->add( $columns, 'selected_for_carousel', __( 'Selecteren voor carousel', 'siw' ), 'after', 'featured' );
-		$this->add( $columns, 'next_update', __( 'Volgende update', 'siw' ), 'after', 'selected_for_carousel' );
 		return $columns;
 	}
 
@@ -40,12 +39,6 @@ class Product_Columns extends \MBAC\Post {
 					echo '<span class="dashicons dashicons-lock"></span>';
 				}
 
-				break;
-			case 'next_update':
-				$product = wc_get_product( $post_id );
-				if ( $product->get_meta( 'import_again' ) ) {
-					echo '<span class="dashicons dashicons-update"></span>';
-				}
 				break;
 			case 'selected_for_carousel':
 				$product = wc_get_product( $post_id );
