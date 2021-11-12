@@ -34,7 +34,7 @@ class Import_Plato_Project_Free_Places implements Batch_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function select_data() : array {
+	public function select_data(): array {
 		$import = new Import_FPL;
 		return $import->run();
 	}
@@ -43,7 +43,7 @@ class Import_Plato_Project_Free_Places implements Batch_Action_Interface {
 	public function process( $project_id ) {
 
 		$project_free_places = siw_get_plato_project_free_places( $project_id );
-		if ( null == $project_free_places ) {
+		if ( null === $project_free_places ) {
 			return;
 		}
 

@@ -34,7 +34,7 @@ class Import_Plato_Projects implements Batch_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function select_data() : array {
+	public function select_data(): array {
 		$import = new Plato_Import_Workcamps;
 		return $import->run();
 	}
@@ -42,6 +42,9 @@ class Import_Plato_Projects implements Batch_Action_Interface {
 	/** {@inheritDoc} */
 	public function process( $project_id ) {
 		$plato_project = siw_get_plato_project( $project_id );
+		if ( null === $plato_project ) {
+			return;
+		}
 		$import = new Import_Product( $plato_project );
 		$import->process();
 	}
