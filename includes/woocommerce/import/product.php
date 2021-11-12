@@ -188,7 +188,7 @@ class Product {
 		$work_types = wp_parse_slug_list( $this->plato_project->get_work() );
 		foreach ( $work_types as $work_type_code ) {
 			$work_type_code = strtoupper( $work_type_code );
-			$work_type = siw_get_work_type( $work_type_code, 'plato_code' );
+			$work_type = siw_get_work_type( $work_type_code, Work_Type::PLATO_CODE );
 			if ( is_a( $work_type, Work_Type::class ) ) {
 				$this->work_types[] = $work_type;
 			}

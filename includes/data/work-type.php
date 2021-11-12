@@ -8,6 +8,12 @@ namespace SIW\Data;
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Work_Type extends Data{
+
+	/** Slug */
+	const SLUG = 'slug';
+
+	/** Plato code */
+	const PLATO_CODE = 'plato_code';
 	
 	/** Alle soorten werk */
 	const ALL = 'all';
