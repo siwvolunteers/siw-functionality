@@ -175,7 +175,7 @@ class Product {
 		$languages = wp_parse_slug_list( $this->plato_project->get_languages() );
 		foreach ( $languages as $language_code ) {
 			$language_code = strtoupper( $language_code );
-			$language = siw_get_language( $language_code, 'plato_code' );
+			$language = siw_get_language( $language_code, Language::PLATO_CODE );
 			if ( is_a( $language, Language::class ) ) {
 				$this->languages[] = $language;
 			}

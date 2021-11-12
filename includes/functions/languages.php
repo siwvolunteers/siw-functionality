@@ -13,7 +13,7 @@ use SIW\Data\Language;
  *
  * @return Language[]
  */
-function siw_get_languages( string $context = Language::ALL, string $index = 'slug' ) : array {
+function siw_get_languages( string $context = Language::ALL, string $index = Language::SLUG ) : array {
 	$languages = wp_cache_get( "{$context}_{$index}", __FUNCTION__ );
 
 	if ( false !== $languages ) {
@@ -45,7 +45,7 @@ function siw_get_languages( string $context = Language::ALL, string $index = 'sl
 }
 
 /** Geeft lijst van talen terug */
-function siw_get_languages_list( string $context = Language::ALL, string $index = 'slug' ) : array {
+function siw_get_languages_list( string $context = Language::ALL, string $index = Language::SLUG ) : array {
 	return array_map(
 		fn( Language $language ) : string => $language->get_name(),
 		siw_get_languages( $context, $index )
@@ -53,7 +53,7 @@ function siw_get_languages_list( string $context = Language::ALL, string $index 
 }
 
 /** Geeft informatie over een taal terug */
-function siw_get_language( string $language, string $index = 'slug' ) : ?Language {
+function siw_get_language( string $language, string $index = Language::SLUG ) : ?Language {
 	$languages = siw_get_languages( Language::ALL, $index );
 	return $languages[ $language ] ?? null;
 }
