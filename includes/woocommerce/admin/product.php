@@ -3,8 +3,6 @@
 namespace SIW\WooCommerce\Admin;
 
 use SIW\Admin\Notices as Admin_Notices;
-use SIW\WooCommerce\Import\Product as Import_Product;
-use SIW\WooCommerce\Admin\Product_Tabs;
 
 /**
  * Aanpassingen aan admin-scherm voor producten
@@ -28,10 +26,6 @@ class Product {
 		add_filter( 'quick_edit_show_taxonomy', [ $self, 'hide_product_tags_quick_edit' ], 10, 3 );
 		add_filter( 'bulk_actions-edit-product', [ $self, 'add_bulk_actions'] );
 		add_filter( 'handle_bulk_actions-edit-product', [ $self, 'handle_bulk_actions'], 10, 3 );
-		
-		//Beoordelen projecten
-		add_action( 'post_submitbox_start', [ $self, 'show_approval_option'] );
-		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_approval_result'] );
 		add_action( 'wp_ajax_woocommerce_select_for_carousel', [ $self, 'select_for_carousel' ] );
 	}
 	
@@ -124,48 +118,6 @@ class Product {
 		}
 
 		return $redirect_to;
-	}
-
-	/** Toont optie om nog niet gepubliceerd project af of goed te keuren */
-	public function show_approval_option( \WP_Post $post ) {
-		if ( 'product' != $post->post_type || Import_Product::REVIEW_STATUS != $post->post_status ) {
-			return;
-		}
-		$product = wc_get_product( $post->ID );
-		$approval_result = $product->get_meta( 'approval_result' );
-		woocommerce_wp_radio(
-			[
-				'id'          => 'approval_result',
-				'value'       => ! empty( $approval_result ) ? $approval_result : 'approved',
-				'label'       => __( 'Beoordeling project', 'siw' ),
-				'options'     => [
-					'approved' => __( 'Goedkeuren', 'siw' ),
-					'rejected' => __( 'Afkeuren', 'siw' ),
-				],
-			]
-		);
-	}
-	
-	/** Slaat het resultaat van de beoordeling op */
-	public function save_approval_result( \WC_Product $product ) {
-
-		if ( ! isset( $_POST['approval_result'] ) ) {
-			return;
-		}
-
-		$meta_data = [
-			'approval_result' => wc_clean( $_POST['approval_result'] ),
-			'approval_user'   => wp_get_current_user()->display_name,
-			'approval_date'   => current_time( 'Y-m-d' ),
-		];
-
-		foreach ( $meta_data as $key => $value ) {
-			$product->update_meta_data( $key, $value );
-		}
-
-		if ( 'rejected' == $meta_data['approval_result'] ) {
-			$product->set_catalog_visibility( 'hidden' );
-		}
 	}
 
 	/** Verwijdert metaboxes */
