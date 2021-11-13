@@ -22,7 +22,6 @@ class Admin {
 		add_filter( 'admin_footer_text', [ $self, 'set_admin_footer_text'] );
 		add_filter( 'manage_pages_columns', [ $self, 'remove_pages_columns'] );
 		add_action( 'admin_menu', [ $self, 'remove_page_metaboxes' ] ); 
-		add_action( 'admin_menu', [ $self, 'change_menu_items' ], PHP_INT_MAX );
 		add_filter( 'show_admin_bar', '__return_false' );
 		add_action( 'admin_init', [ $self, 'add_user_columns'], 20 );
 		
