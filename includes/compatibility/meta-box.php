@@ -24,6 +24,7 @@ class Meta_Box {
 		add_filter( 'rwmb_normalize_wysiwyg_field', [ $self, 'set_default_wysiwyg_options'] );
 		add_filter( 'rwmb_group_sanitize', [ $self, 'sanitize_group' ], 10, 4 );
 		add_filter( 'rwmb_get_value', [ $self, 'render_shortcodes'], 10, 4 );
+		add_action( 'rwmb_enqueue_scripts', [ $self, 'enqueue_script'] );
 	}
 
 	/** Selecteert de gebruikte extensies */
@@ -133,5 +134,12 @@ class Meta_Box {
 			$value = do_shortcode( $value );
 		}
 		return $value;
+	}
+
+	/** Voegt script toe */
+	public function enqueue_script() {
+		wp_register_script( 'siw-meta-box', SIW_ASSETS_URL . 'js/compatibility/siw-meta-box.js', [ 'jquery' ], SIW_PLUGIN_VERSION, true );
+		//TODO: localize_script voor meldingen
+		wp_enqueue_script( 'siw-meta-box' );
 	}
 }
