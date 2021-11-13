@@ -5,8 +5,7 @@ namespace SIW\WooCommerce\Admin;
 /**
  * Extra admin columns voor Groepsprojecten
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Product_Columns extends \MBAC\Post {
 
@@ -19,7 +18,6 @@ class Product_Columns extends \MBAC\Post {
 	public function columns( $columns ) {
 		$columns = parent::columns( $columns );
 		$this->add( $columns, 'visibility', __( 'Zichtbaarheid', 'siw' ), 'after', 'sku' );
-		$this->add( $columns, 'selected_for_carousel', __( 'Selecteren voor carousel', 'siw' ), 'after', 'featured' );
 		return $columns;
 	}
 
@@ -38,28 +36,7 @@ class Product_Columns extends \MBAC\Post {
 				if ( $product->get_meta( 'force_hide' ) ) {
 					echo '<span class="dashicons dashicons-lock"></span>';
 				}
-
 				break;
-			case 'selected_for_carousel':
-				$product = wc_get_product( $post_id );
-
-				$url = add_query_arg(
-					[
-						'action'     => 'woocommerce_select_for_carousel',
-						'product_id' => $product->get_id()
-					],
-					'admin-ajax.php'
-				);
-				$url = wp_nonce_url( admin_url( $url ), 'woocommerce-select-for-carousel' );
-
-				echo sprintf (
-					'<a href="%s" aria-label="%s"><span class="carousel tips %s" data-tip="%s">%s</span></a>',
-					esc_url( $url ),
-					esc_attr__( 'Selecteren voor carousel', 'siw' ),
-					$product->get_meta( 'selected_for_carousel' ) ? 'show' : '',
-					$product->get_meta( 'selected_for_carousel' ) ? esc_attr__( 'Ja', 'siw' ) : esc_attr__( 'Nee', 'siw' ),
-					$product->get_meta( 'selected_for_carousel' ) ? esc_html__( 'Ja', 'siw' ) : esc_html__( 'Nee', 'siw' ),
-				);
 		}
 	}
 }

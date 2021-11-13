@@ -41,7 +41,7 @@ class Archive {
 	}
 
 	/** Past de SEO titel aan */
-	public function set_seo_title( string $title, $term ) : string {
+	public function set_seo_title( string $title, $term ): string {
 
 		if ( ! is_a( $term, \WP_Term::class ) ) {
 			return $title;
@@ -73,7 +73,7 @@ class Archive {
 
 	/**
 	 * Past SEO-beschrijving aan */
-	public function set_seo_description( string $description, $term ) : string {
+	public function set_seo_description( string $description, $term ): string {
 		if ( ! is_a( $term, \WP_Term::class ) ) {
 			return $description;
 		}
@@ -100,7 +100,7 @@ class Archive {
 	}
 
 	/** Voegt extra sorteeroptie (startdatum) toe voor archive */
-	public function add_catalog_orderby_options( array $options ) : array {
+	public function add_catalog_orderby_options( array $options ): array {
 		unset( $options['menu_order'] );
 		unset( $options['popularity'] );
 		unset( $options['rating'] );
@@ -112,7 +112,7 @@ class Archive {
 	}
 
 	/** Verwerkt extra sorteeroptie voor archive */
-	public function process_catalog_ordering_args( array $args, string $orderby, string $order ) : array {
+	public function process_catalog_ordering_args( array $args, string $orderby, string $order ): array {
 		if ( 'startdate' == $orderby ) {
 			$args['orderby']  = 'meta_value';
 			$args['meta_key'] = 'start_date';
@@ -123,6 +123,9 @@ class Archive {
 	/** Toont badge voor aanbevolen projecten */
 	public function show_featured_badge() {
 		global $product;
+		if ( ! \is_shop() && ! \is_product_category() && ! \is_product_taxonomy() ) {
+			return;
+		}
 		if ( $product->is_featured() && ! $product->is_on_sale() ) {
 			echo '<span class="product-badge featured-badge">' . esc_html__( 'Aanbevolen', 'siw' ) . '</span>';
 		}

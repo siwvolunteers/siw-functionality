@@ -21,7 +21,6 @@ class Product {
 		add_action( 'admin_init', [ $self, 'add_admin_columns'], 20 );
 		add_action( 'admin_menu', [ $self, 'remove_product_tags_admin_menu'], PHP_INT_MAX );
 		add_filter( 'quick_edit_show_taxonomy', [ $self, 'hide_product_tags_quick_edit' ], 10, 3 );
-		add_action( 'wp_ajax_woocommerce_select_for_carousel', [ $self, 'select_for_carousel' ] );
 	}
 	
 	/** Verwijdert admin menu voor tags */
@@ -68,20 +67,5 @@ class Product {
 			$show = false;
 		}
 		return $show;
-	}
-
-	/** Verwerk selecteren voor carousel */
-	public function select_for_carousel() {
-		if ( current_user_can( 'edit_products' ) && check_admin_referer( 'woocommerce-select-for-carousel' ) && isset( $_GET['product_id'] ) ) {
-			$product = wc_get_product( absint( $_GET['product_id'] ) );
-
-			if ( $product ) {
-				$product->update_meta_data( 'selected_for_carousel', ! $product->get_meta( 'selected_for_carousel') );
-				$product->save();
-			}
-		}
-
-		wp_safe_redirect( wp_get_referer() ? remove_query_arg( ['trashed', 'untrashed', 'deleted', 'ids'], wp_get_referer() ) : admin_url( 'edit.php?post_type=product' ) );
-		exit;
 	}
 }
