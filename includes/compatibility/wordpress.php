@@ -149,14 +149,14 @@ class WordPress {
 	}
 
 	/** Verberg admin columns bij attachments */
-	public function manage_media_columns( array $columns, bool $detached ): array {
+	public function manage_media_columns( array $columns ): array {
 		unset( $columns['author']);
 		unset( $columns['comments']);
 		return $columns;
 	}
 	
 	/** Plaats Lees meer button als gekozen is voor samenvatting */
-	function show_read_more_button( string $excerpt ): string {
+	public function show_read_more_button( string $excerpt ): string {
 	 
 		// alleen bij de blog
 		if ( get_post_type() !== 'post' || ! has_excerpt() ) {
@@ -168,6 +168,5 @@ class WordPress {
 			get_permalink(),
 			__( 'Lees meer', 'siw' )
 		);
-		
 	}
 }

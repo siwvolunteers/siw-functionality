@@ -82,7 +82,7 @@ class Tableview_Page {
 
 	/** Voegt optie voor aantal recores per pagina toe */
 	public function add_screen_options() {
-		$this->current_table = Database_Table::make( $this->tables[current_filter()] );
+		$this->current_table = Database_Table::from( $this->tables[current_filter()] );
 		$this->database_list_table = new Database_List_Table( $this->current_table );
 
 		$args   = [

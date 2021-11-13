@@ -81,7 +81,7 @@ class Database {
 			),
 			ARRAY_A
 		);
-		if ( null == $data ) {
+		if ( null === $data ) {
 			return null;
 		}
 

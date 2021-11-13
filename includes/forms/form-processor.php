@@ -33,9 +33,7 @@ class Form_Processor {
 	}
 	
 	/** Voegt processer toe */
-	public function add_form_processor( array $processors ) : array {
-
-		$text = 1;
+	public function add_form_processor( array $processors ): array {
 
 		$processors[ "siw_{$this->form_processor->get_id()}" ] = [
 			'name'           => $this->form_processor->get_name(),

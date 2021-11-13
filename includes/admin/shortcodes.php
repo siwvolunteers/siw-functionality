@@ -7,8 +7,7 @@ use SIW\Core\Shortcodes as SIW_Shortcodes;
 /**
  * Shortcodes in admin
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Shortcodes {
 
@@ -21,7 +20,6 @@ class Shortcodes {
 	/** Script toevoegen */
 	public function enqueue_script() {
 
-		//FIXME: workaround voor black studio tinymce
 		if ( did_action( 'wp_enqueue_editor' ) > 1 ) {
 			return;
 		}
@@ -66,7 +64,7 @@ class Shortcodes {
 	}
 
 	/** Formatteert attribute voor gebruik in TinyMCE */
-	protected function format_attribute( array $data ) : array {
+	protected function format_attribute( array $data ): array {
 		switch ( $data['type'] ) {
 			case 'text':
 				$attribute = [
@@ -89,7 +87,7 @@ class Shortcodes {
 	}
 
 	/** Formatteert opties voor gebruik in TinyMCE */
-	protected function format_options( string $value, string $label ) : array {
+	protected function format_options( string $value, string $label ): array {
 		return [
 			'value' => $value,
 			'text'  => $label,
