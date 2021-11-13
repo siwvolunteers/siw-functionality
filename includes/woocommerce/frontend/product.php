@@ -9,7 +9,7 @@ use SIW\WooCommerce\Import\Product as Import_Product;
 /**
  * Aanpassingen aan Groepsproject
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Product {
 
@@ -44,7 +44,7 @@ class Product {
 	}
 
 	/** Bepaalt of product bestelbaar is */
-	public function set_product_is_purchasable( bool $is_purchasable, \WC_Product $product ) : bool {
+	public function set_product_is_purchasable( bool $is_purchasable, \WC_Product $product ): bool {
 		$is_purchasable = $product->is_visible();
 		$status = $product->get_status();
 
@@ -55,7 +55,7 @@ class Product {
 	}
 
 	/** Zet de toelichting voor het studententarief */
-	public function set_variation_description( $variations ) : array {
+	public function set_variation_description( $variations ): array {
 		if ( 'student' == $variations['attributes']['attribute_pa_tarief'] ) {
 			$variations['variation_description'] =  __( 'Je komt in aanmerking voor het studententarief als je 17 jaar of jonger bent of als je een bewijs van inschrijving kunt laten zien.', 'siw' );
 		}
@@ -63,7 +63,7 @@ class Product {
 	}
 
 	/** Past weergave van de attributes aan */
-	public function display_product_attributes( array $attributes, \WC_Product $product ) : array {
+	public function display_product_attributes( array $attributes, \WC_Product $product ): array {
 		$order = [
 			'projectnaam',
 			'projectcode',
@@ -85,7 +85,7 @@ class Product {
 		);
 
 		uksort( $attributes, function( $key1, $key2 ) use ( $order ) {
-			return ( array_search( $key1, $order ) > array_search( $key2, $order ) );
+			return ( array_search( $key1, $order ) <=> array_search( $key2, $order ) );
 		} );
 
 		//Local fee verbergen voor nederlandse projecten
@@ -145,14 +145,14 @@ class Product {
 	}
 
 	/** Zet CSS-klass voor dropdown */
-	public function set_variation_dropdown_args( array $args ) : array {
+	public function set_variation_dropdown_args( array $args ): array {
 		$args['show_option_none'] = __( 'Kies een tarief', 'siw' );
 		$args['class'] = 'select-css';
 		return $args;
 	}
 
 	/** Zet SEO noindex als project niet zichtbaar is */
-	function set_seo_noindex( array $meta, int $post_id ) : array {
+	function set_seo_noindex( array $meta, int $post_id ): array {
 		if ( 'product' == get_post_type( $post_id ) ) {
 			$product = wc_get_product( $post_id );
 			$meta['_genesis_noindex'] = intval( ! $product->is_visible() );
@@ -171,5 +171,4 @@ class Product {
 			echo '<span class="product-badge featured-badge">' . esc_html__( 'Aanbevolen', 'siw' ) . '</span>';
 		}
 	}
-
 }
