@@ -77,7 +77,6 @@ class WooCommerce {
 
 	/** Verwijdert dashboard widgets */
 	public function remove_dashboard_widgets() {
-		remove_meta_box( 'woocommerce_dashboard_recent_reviews', 'dashboard', 'normal' );
 		remove_meta_box( 'woocommerce_dashboard_status', 'dashboard', 'normal' );
 	}
 
