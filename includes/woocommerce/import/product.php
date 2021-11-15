@@ -7,8 +7,10 @@ use SIW\Util;
 use SIW\Data\Country;
 use SIW\Data\Language;
 use SIW\Data\Plato\Project as Plato_Project;
+use SIW\Data\Plato\Project_Type as Plato_Project_Type;
 use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Work_Type;
+use SIW\Util\Logger;
 
 /**
  * Import van een Groepsproject
@@ -25,6 +27,8 @@ class Product {
 	/** Post-status van projecten die beoordeeld moeten worden */
 	const REVIEW_STATUS = 'pending';
 
+	const LOGGER_SOURCE = 'importeren-projecten';
+
 	/** Plato project */
 	protected Plato_Project $plato_project;
 
@@ -36,6 +40,9 @@ class Product {
 
 	/** Project */
 	protected \WC_Product $product;
+
+	/** Project type */
+	protected Plato_Project_Type $project_type;
 
 	/** Land van project */
 	protected Country $country;
@@ -88,9 +95,14 @@ class Product {
 	 * 
 	 * @todo logging als land/werk/code leeg is
 	 */
-	public function process() : bool {
+	public function process(): bool {
 
 		/* Voorbereiden */
+		if ( ! $this->set_project_type() ) {
+			Logger::info( sprintf( 'Project met id %s wordt niet geïmporteerd', $this->plato_project->get_project_id() ), self::LOGGER_SOURCE );
+			return false;
+		}
+
 		$this->set_country();
 		$this->set_languages();
 		$this->set_work_types();
@@ -161,6 +173,17 @@ class Product {
 			}
 		}
 		$this->product->save();
+	}
+
+	/** Zet project type */
+	protected function set_project_type(): bool {
+		$project_type = Plato_Project_Type::tryFrom( $this->plato_project->get_project_type());
+		if ( null === $project_type ) {
+			Logger::error( sprintf( 'Project type %s niet gevonden', $this->plato_project->get_project_type() ), self::LOGGER_SOURCE );
+			return false;
+		}
+		$this->project_type = $project_type;
+		return true;
 	}
 
 	/**
@@ -480,7 +503,7 @@ class Product {
 			return $this->product->get_status();
 		}
 
-		$status = 'publish';
+		$status = self::PUBLISH_STATUS;
 		foreach ( $this->work_types as $work_type ) {
 			if ( $work_type->needs_review() ) {
 				$status = self::REVIEW_STATUS;
@@ -562,10 +585,10 @@ class Product {
 
 		$this->target_audiences = [];
 
-		if ( $this->plato_project->get_family() || ( 'FAM' == $this->plato_project->get_project_type() ) ) {
+		if ( $this->plato_project->get_family() || $this->project_type->equals( Plato_Project_Type::FAM()  ) ) {
 			$this->target_audiences['family'] = $target_audiences['family'];
 		}
-		if ( $this->plato_project->get_max_age() <= 20 || 'TEEN' == $this->plato_project->get_project_type() ) {
+		if ( $this->plato_project->get_max_age() <= 20 || $this->project_type->equals( Plato_Project_Type::TEEN() ) ) {
 			$this->target_audiences['teens'] = $target_audiences['teens'];
 		}
 	}
@@ -592,12 +615,10 @@ class Product {
 	/** Geeft aan het het een toegestaan type project is */
 	protected function is_allowed_project_type() : bool {
 		$allowed_project_types = [
-			'STV',
-			'TEEN',
-			'FAM',
-			'LNG',
-			'SEN'
+			Plato_Project_Type::STV(),
+			Plato_Project_Type::TEEN(),
+			Plato_Project_Type::FAM(),
 		];
-		return in_array( $this->plato_project->get_project_type(), $allowed_project_types );
+		return $this->project_type->equals(...$allowed_project_types);
 	}
 }
