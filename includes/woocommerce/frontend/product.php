@@ -38,9 +38,6 @@ class Product {
 		add_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
 		add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
-
-		//SEO
-		add_filter( 'the_seo_framework_post_meta', [ $self, 'set_seo_noindex' ], 10, 2 );
 	}
 
 	/** Bepaalt of product bestelbaar is */
@@ -149,15 +146,6 @@ class Product {
 		$args['show_option_none'] = __( 'Kies een tarief', 'siw' );
 		$args['class'] = 'select-css';
 		return $args;
-	}
-
-	/** Zet SEO noindex als project niet zichtbaar is */
-	function set_seo_noindex( array $meta, int $post_id ): array {
-		if ( 'product' == get_post_type( $post_id ) ) {
-			$product = wc_get_product( $post_id );
-			$meta['_genesis_noindex'] = intval( ! $product->is_visible() );
-		}
-		return $meta;
 	}
 
 	/**

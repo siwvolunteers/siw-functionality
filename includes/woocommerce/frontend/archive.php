@@ -16,9 +16,6 @@ class Archive {
 		add_action( 'woocommerce_after_shop_loop_item_title', [ $self, 'show_dates'] );
 		add_action( 'woocommerce_after_shop_loop_item', [ $self, 'show_project_code'], 1 );
 
-		add_filter( 'the_seo_framework_the_archive_title', [ $self, 'set_seo_title'], 10, 2 );
-		add_filter( 'the_seo_framework_generated_archive_excerpt', [ $self, 'set_seo_description' ], 10, 2 );
-
 		add_filter( 'woocommerce_default_catalog_orderby_options', [ $self, 'add_catalog_orderby_options' ] );
 		add_filter( 'woocommerce_catalog_orderby', [ $self, 'add_catalog_orderby_options' ] );
 		add_filter( 'woocommerce_get_catalog_ordering_args', [ $self, 'process_catalog_ordering_args' ], 10, 3 );
@@ -38,65 +35,6 @@ class Archive {
 		global $product;
 		echo '<hr>';
 		echo '<span class="project-code">' . esc_html( $product->get_sku() ) . '</span>';
-	}
-
-	/** Past de SEO titel aan */
-	public function set_seo_title( string $title, $term ): string {
-
-		if ( ! is_a( $term, \WP_Term::class ) ) {
-			return $title;
-		}
-
-		switch ( $term->taxonomy ) {
-			case 'pa_land':
-			case 'product_cat':
-				$title = sprintf( __( 'Groepsprojecten in %s', 'siw' ), $term->name );
-				break;
-			case 'pa_doelgroep':
-				$title = sprintf( __( 'Groepsprojecten voor %s', 'siw' ), $term->name );
-				break;
-			case 'pa_taal':
-				$title = sprintf( __( 'Groepsprojecten met voertaal %s', 'siw' ), $term->name );
-				break;
-			case 'pa_soort-werk':
-				$title = sprintf( __( 'Groepsprojecten met werk gericht op %s', 'siw' ), strtolower( $term->name ) );
-				break;
-			case 'pa_sdg':
-				$title = sprintf( __( 'Groepsprojecten met werk gericht op het SDG %s', 'siw' ), strtolower( $term->name ) );
-				break;
-			case 'pa_maand':
-				$title = sprintf( __( 'Groepsprojecten in de maand %s', 'siw' ), $term->name );
-				break;
-		}
-		return $title;
-	}
-
-	/**
-	 * Past SEO-beschrijving aan */
-	public function set_seo_description( string $description, $term ): string {
-		if ( ! is_a( $term, \WP_Term::class ) ) {
-			return $description;
-		}
-		
-		switch ( $term->taxonomy ) {
-			case 'pa_land':
-				$description =
-					sprintf( __( 'Wil je graag vrijwilligerswerk doen in %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name ) . SPACE .
-					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
-				break;
-			case 'pa_soort-werk':
-				$description =
-					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), strtolower( $term->name ) ) . SPACE .
-					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
-				break;
-			case 'pa_sdg':
-				$description =
-					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op het Sustainable Development Goal %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name ) . SPACE .
-					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
-				break;
-		}
-
-		return $description;
 	}
 
 	/** Voegt extra sorteeroptie (startdatum) toe voor archive */

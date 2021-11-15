@@ -454,8 +454,6 @@ class Product {
 			'max_age'                    => $this->plato_project->get_max_age(),
 			'participation_fee_currency' => $this->plato_project->get_participation_fee_currency(),
 			'participation_fee'          => $this->plato_project->get_participation_fee(),
-			'_genesis_title'             => $this->get_seo_title(),
-			'_genesis_description'       => $this->get_seo_description(),
 			'description'                => [
 				'description'              => $this->plato_project->get_description(),
 				'work'                     => $this->plato_project->get_descr_work(),
@@ -488,18 +486,6 @@ class Product {
 			}
 		}
 		return $status;
-	}
-
-	/** Zet SEO beschrijving */
-	protected function get_seo_description() : string {
-		$templates = siw_get_data( 'workcamps/seo-description-templates' );
-		$template = implode( SPACE, $templates[ array_rand( $templates, 1 ) ] );
-		return $this->parse_description( $template );
-	}
-
-	/** Geeft SEO titel terug */
-	protected function get_seo_title() : string {
-		return sprintf( 'Groepsproject %s - %s', $this->country->get_name(), ucfirst( $this->work_types[0]->get_name() ) );
 	}
 
 	/** Geeft id van featured afbeelding terug */
