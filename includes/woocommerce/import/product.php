@@ -19,9 +19,10 @@ use SIW\Data\Work_Type;
  */
 class Product {
 
-	/**
-	 * Post-status van projecten die beoordeeld moeten worden
-	 */
+	/** Post-status van projecten die gepubliceerd kunnen worden */
+	const PUBLISH_STATUS = 'publish';
+
+	/** Post-status van projecten die beoordeeld moeten worden */
 	const REVIEW_STATUS = 'pending';
 
 	/** Plato project */
