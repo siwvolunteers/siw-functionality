@@ -1,37 +1,39 @@
-<h2>{{&icon_clock}} {{&event_date}} {{&start_time}} - {{&end_time}}</h2>
-<h2>
-{{#online}}
-    {{&icon_globe}} {{&location_name}} {{&location_link}}</h2>
-{{/online}}
-{{#location}}
-    {{&icon_map-marker-alt}} {{&location_name}} {{&location_street}} {{&location_postcode}} {{&location_city}}
-{{/location}}
-</h2>
-{{#format}}{{&description}}{{/format}}
+<h4>{{& icons.clock }} {{ event_date }} {{ start_time }} - {{ end_time }}</h4>
+<h4>
+	{{# online_location }}
+		{{& icons.globe }} {{ name}} {{& link }}
+	{{/ online_location }}
+	{{# location}}
+		{{& icons.map }} {{ name }}, {{ street }} {{ house_number }}, {{ postcode }} {{ city }}
+	{{/location}}
+</h4>
+<br>
+<p>
+	{{& description|wp_kses_post }}
+</p>
 <h2>{{#__}}Aanmelden{{/__}}</h2>
-{{#verlopen}}
-    {{#__}}Dit evenement is helaas al afgelopen{{/__}}
-{{/verlopen}}
-{{^verlopen}}
-    {{#infodag}}
-        {{&infoform}}
-    {{/infodag}}
-    {{^infodag}}
-        {{&application_explanation}}
-        {{#application_link}}
-            {{&application_link}}
-        {{/application_link}}
-    {{/infodag}}
-{{/verlopen}}
-{{^online}}
-    <h2>{{#__}}Locatie{{/__}}</h2>
-    {{&location_map}}
-{{/online}}
-{{^infodag}}
-    {{#organizer}}
-        <h2>{{#__}}Organisator{{/__}}</h2>
-        {{#__}}Dit evenement wordt georganiseerd door {{/__}}
-        {{&organizer_name}}
-        {{&organizer_link}}
-    {{/organizer}}
-{{/infodag}}
+{{# is_past_event }}
+	{{#__}}Dit evenement is helaas al afgelopen{{/__}}
+{{/ is_past_event }}
+{{^ is_past_event }}
+	{{! aanmeldformulier infodag }}
+	{{# form_shortcode }}
+		{{& .|do_shortcode }}
+	{{/ form_shortcode }}
+
+	{{! aanmeldinformatie }}
+	{{# application }}
+		{{& explanation|wp_kses_post }}
+		{{# has_link }}
+			{{& link }}
+		{{/ has_link }}
+	{{/ application }}
+{{/ is_past_event }}
+{{# location }}
+	<h2>{{#__}}Locatie{{/__}}</h2>
+	{{& location.map }}
+{{/ location }}
+{{# organizer }}
+	<h2>{{#__}}Organisator{{/__}}</h2>
+	{{#__}}Dit evenement wordt georganiseerd door {{ name }} ({{& link }}) {{/__}}
+{{/ organizer }}

@@ -87,6 +87,11 @@ class Settings implements Option_Interface {
 				'label' => __( 'Ervaringsverhalen', 'siw' ),
 				'icon'  => 'dashicons-clipboard'
 			],
+			[
+				'id'    => 'event',
+				'label' => __( 'Evenementen', 'siw' ),
+				'icon'  => 'dashicons-calendar'
+			],
 		];
 		return $tabs;
 	}
@@ -267,6 +272,22 @@ class Settings implements Option_Interface {
 			'tab'      => 'story',
 			'required' => true,
 		];
+
+		//Evenementen
+		$fields[] = [
+			'id'   => 'event',
+			'type' => 'group',
+			'tab'  => 'event',
+			'fields' => [
+				[
+					'id'       => 'archive_intro',
+					'name'     => __( 'Introtekst', 'siw' ),
+					'type'     => 'wysiwyg',
+					'required' => true,
+				],
+			]
+		];
+
 		//Groepsprojecten
 		$continents = siw_get_continents_list();
 		$approval_fields = [
