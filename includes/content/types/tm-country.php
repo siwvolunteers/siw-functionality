@@ -12,6 +12,7 @@ use SIW\Elements\World_Map;
 use SIW\i18n;
 use SIW\Util\CSS;
 use SIW\Util\Links;
+use SIW\Core\Template;
 
 /**
  * Op Maat landen
@@ -191,16 +192,11 @@ class TM_Country extends Type {
 
 		$url = i18n::get_translated_page_url( (int) siw_get_option( 'pages.explanation.tailor_made' ) );
 		$link = Links::generate_link( $url, __( 'Projecten Op Maat', 'siw' ) );
-
-		$intro = [
-			__( 'Hieronder zie je de landenpagina’s van de Projecten op Maat.', 'siw' ),
-			__( 'Per land leggen we uit welke type projecten wij aanbieden.', 'siw' ),
-			__( 'Tijdens onze Projecten Op Maat bepaal je samen met een regiospecialist wat je gaat doen en hoe lang jouw project duurt.', 'siw' ),
-			sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina %s.', 'siw' ), $link ),
-		];
-		return $intro;
+		$introtekst = siw_get_option('tailor_intro');
+		$intro = sprintf($introtekst,$link);
+		return ([$intro]);
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -210,93 +206,61 @@ class TM_Country extends Type {
 		$image = reset( $images );
 
 		$continent = siw_meta( 'siw_tm_country_continent');
-
-		?>
-		<div class="grid-100">
-			<?php echo wp_get_attachment_image( $image['ID'], 'large'); ?>
-		</div>
-		<div class="grid-100">
-			<?php echo wpautop( esc_html( rwmb_get_value( 'quote' ) ) ); ?>
-		</div>
-		<div class="grid-100">
-			<?php echo Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) );?>
-		</div>
-		<hr>
-		<div class="grid-100">
-			<?php echo esc_html( $continent->name ); ?>
-		</div>
-		<?php
+		$template_vars = array(
+			"image" => wp_get_attachment_image( $image['ID'], 'large'),
+			"quote" => wpautop( esc_html( rwmb_get_value( 'quote' ) ) ),
+			"link" => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
+			"continent" => $continent->name,
+		);
+		Template::render_template( "types/tm_country_archive", $template_vars );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function add_single_content() {
+		
+		$images = siw_meta( 'image', ['limit' => 1 ] );
+		$image = reset( $images );
+		
 		//TODO: verplaatsen naar init?
 		$country = siw_get_country( siw_meta('country') );
 		$continent = $country->get_continent();
-		?>
-		<div class="grid-50 <?php echo CSS::HIDE_ON_MOBILE_CLASS; ?>" data-sal="slide-right" data-sal-duration="1800" data-sal-easing="ease-out-sine">
-			<?php World_Map::create()->set_country( $country )->set_zoom( 2 )->render(); ?>
-		</div>
-		<div class="grid-50" data-sal="slide-left" data-sal-duration="1800" data-sal-easing="ease-out-sine">
-			<h2><?php printf( esc_html__( 'Projecten Op Maat in %s', 'siw' ), $country->get_name() );  ?></h2>
-			<p><?php echo wp_kses_post( rwmb_get_value( 'introduction' ) );?></p>
-			<b><?php esc_html_e( 'Dit is het type projecten dat we hier aanbieden:', 'siw' );?></b>
-			<p>
-				<?php
-				$work_types = siw_meta( 'work_type' );
-				$has_child_projects = false;
-				foreach ( $work_types as $work_type ) {
-					$work_type = siw_get_work_type( $work_type );
-					if ( 'kinderen' == $work_type->get_slug() ) {
-						$has_child_projects = true; //TODO: misschien array_key_exists gebruiken?
-					}
+		$tailor_made_page_link = i18n::get_translated_page_url( (int) siw_get_option( 'pages.explanation.tailor_made' ) );
 
-					printf( '%s %s<br>', Icon::create()->set_icon_class( $work_type->get_icon_class() )->set_has_background(true)->generate(), $work_type->get_name() );
-				}
-				?>
-			</p>
-		</div>
-		<div class="grid-100" data-sal="fade" data-sal-duration="1850" data-sal-easing="ease-out-sine">
-			<?php Quote::create()->set_quote( rwmb_get_value( 'quote' ) )->render(); ?>
-		</div>
-		<div class="grid-50 push-50" data-sal="slide-left" data-sal-duration="1800" data-sal-easing="ease-out-sine">
-			<?php
-				$images = siw_meta( 'image', ['limit' => 1 ] );
-				$image = reset( $images );
-				echo wp_get_attachment_image( $image['ID'], 'large'); ?>
-		</div>
-
-		<div class="grid-50 pull-50" data-sal="slide-right" data-sal-duration="1800" data-sal-easing="ease-out-sine">
-			<p><?php echo wp_kses_post( rwmb_get_value( 'description' ) );?></p>
-			<?php if ( $has_child_projects ) : ?>
-			<p>
-				<?php
-					esc_html_e( 'Goed om te weten: SIW beoordeelt projecten met kinderen volgens de richtlijnen van het Better Care Network.', 'siw' );
-					echo do_shortcode(' [siw_pagina_lightbox link_tekst="Lees meer over ons beleid." pagina="kinderbeleid"]');
-				?>
-			</p>
-			<?php endif ?>
-			<p>
-			<?php 
-				echo sprintf( esc_html__( 'Samen met de regiospecialist %s ga je aan de slag om van jouw idee werkelijkheid te maken.', 'siw' ), $continent->get_name() ) . SPACE; 
-				echo esc_html__( 'Word jij hiervan enthousiast, ga dan naar onze pagina over Op Maat projecten.', 'siw' ) . BR2;
-				
-				//TODO: verplaatsen naar init/constructor
-				$tailor_made_page_link = i18n::get_translated_page_url( (int) siw_get_option( 'pages.explanation.tailor_made' ) );
-				echo Links::generate_button_link( $tailor_made_page_link, __( 'Meld je aan', 'siw' ) );
-				?>
-			</p>
-		</div>
-
-		<!-- Start stappenplan TODO: naar instellingenmenu verplaatsen -->
-		<div class="grid-100">
-			<h2><?php esc_html_e( 'Zo werkt het', 'siw' );?></h2>
-		</div>
-		<?php
-
-		Features::create()
+		$template_vars = array(
+			"image" => wp_get_attachment_image( $image['ID'], 'large'),
+			"mapcss" => CSS::HIDE_ON_MOBILE_CLASS,
+			"worldmap" => World_Map::create()->set_country( $country )->set_zoom( 2 )->generate(),
+			"country" => $country->get_name(),
+			"introduction" => rwmb_get_value( 'introduction' ),
+			"description" => rwmb_get_value( 'description' ),
+			"quote" => Quote::create()->set_quote( rwmb_get_value( 'quote' ) )->generate(),
+			"sign_up_link" => Links::generate_button_link( $tailor_made_page_link, __( 'Meld je aan', 'siw' ) ),
+			"child_policy_link" => do_shortcode(' [siw_pagina_lightbox link_tekst="Lees meer over ons beleid." pagina="kinderbeleid"]'),
+			"features" => $this->country_features(),
+			"worktypes" => array(),
+		);
+		/*
+			welke type projecten zijn er
+		*/
+		$work_types = siw_meta( 'work_type' );
+		foreach ( $work_types as $work_type ) {
+			$worktype = siw_get_work_type( $work_type );
+			$name = sprintf( '%s %s', Icon::create()->set_icon_class( $worktype->get_icon_class() )->set_has_background(true)->generate(), $worktype->get_name() );
+			array_push($template_vars["worktypes"],array("name" => $name ));
+		}
+		/*
+			plaats opmerking als er kinderprojecten zijn
+		*/
+		if(in_array("kinderen",$work_types)) { $template_vars += array("has_child_projects" => "yes" ); }
+		Template::render_template( "types/tm_country_single", $template_vars );
+	}
+	/**
+	 * Maak features voor te kijken hoe het werkt
+	 */
+	public function country_features() : string {
+	 	$features = Features::create()
 			->set_columns( 4 )
 			->add_items( [
 				[
@@ -319,8 +283,10 @@ class TM_Country extends Type {
 					'title'   => '4. Voorbereiding',
 					'content' => 'Kom naar de Infodag zodat je goed voorbereid aan jouw avontuur kan beginnen.',
 				],
-			])->render();
+			])->generate();
+		return ($features);
 	}
+	
 
 	/**
 	 * {@inheritDoc}

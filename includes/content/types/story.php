@@ -206,10 +206,10 @@ class Story extends Type {
 			"link" => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
 			"project" => $project_type->name,
 			"continent" => $continent->name,
-			'excerpt' => apply_filters( 'the_excerpt', get_the_excerpt() ),
+			'excerpt' => apply_filters( 'the_excerpt', get_the_excerpt() ),		/* samenvatting */
 
 		);
-		echo Template::parse_template( "types/story_archive", $template_vars );
+		Template::render_template( "types/story_archive", $template_vars );
 	}
 	
 
@@ -218,57 +218,42 @@ class Story extends Type {
 	 * 
 	 * @todo refactor enzo
 	 */
+	
 	public function add_single_content() {
+		
+		$cta = $this->get_cta_url();	#Verwijzen naar 'zo werkt het' pagina als je meer wilt weten
+		$animation_fade = HTML::generate_attributes( ['data-sal' => 'fade', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
+		$animation_left = HTML::generate_attributes( ['data-sal' => 'slide-left', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
+		$animation_right = HTML::generate_attributes( ['data-sal' => 'slide-right', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
+		$template_vars = array(
+			"cta" => "cta",
+			"animation_fade" => $animation_fade,
+		);
+		$stories = array();
 		$rows = siw_meta( 'rows' );
-	
 		$even = false;
-	
-		//TODO: classes niet hardcoden enzo
 		foreach ( $rows as $row ) {
-			$push_class = $even ? 'push-60' : '';
-			$pull_class = $even ? 'pull-40' : '';
-
-			$animation_fade = HTML::generate_attributes( ['data-sal' => 'fade', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
-			$animation_left = HTML::generate_attributes( ['data-sal' => 'slide-left', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
-			$animation_right = HTML::generate_attributes( ['data-sal' => 'slide-right', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
-			$animation_attributes_1 = $even ? $animation_left : $animation_right;
-			$animation_attributes_2 = $even ? $animation_right : $animation_left;
-			/*
-			$project_type = siw_meta( 'siw_story_project_type');
-			$cta = '';
-			if($project_type->name == "ESC") { 
-				$url = get_home_url() . '/' . "zo-werkt-het/esc";
-				$url = 'https://www.siw.nl' . '/' . "zo-werkt-het/esc";
-				if( $this->valid_url($url) !== false ) {
-					$cta = '<a href="' . $url. '">' . __('mogelijkheden', 'siw') . '</a>';
-				}
-				#$cta = '<a href="' . $url. '">' . __('mogelijkheden', 'siw') . '</a>';
-				
-			}
-			*/
-			$cta = $this->get_cta_url();
-			$template_vars = array(
-				"cta" =>   $cta,
-				"animation_fade" => $animation_fade,
+			$story = array(
 				"quote" => Quote::create()->set_quote( $row['quote'] )->generate(),
-				"push_class" => $push_class,
-				"pull_class" => $pull_class,
-				"annimation_attributes_1" => $animation_attributes_1,
-				"annimation_attributes_2" => $animation_attributes_2,
+				"push_class" => $even ? 'push-60' : '',
+				"pull_class" => $even ? 'pull-40' : '',
+				"annimation_attributes_1" => $even ? $animation_left : $animation_right,
+				"annimation_attributes_2" => $even ? $animation_right : $animation_left,
 				"image" => wp_get_attachment_image( $row['image'][0], 'large'),
-				"contents" => array()
 			);
-			foreach ( $row['content'] as $paragraph ) :
-				array_push($template_vars["contents"],array("title" => $paragraph['title'] ));
-				array_push($template_vars["contents"],array("text" => $paragraph['text'] ));
-			endforeach;
-			echo Template::parse_template( "types/story_single", $template_vars );
+			$content = array();
+			foreach ( $row['content'] as $paragraph ) {
+				array_push($content,array("title" => $paragraph['title'] , "text" => $paragraph['text'] ));
+			}
+			$story += array("content"=>$content);
+			array_push($stories,$story);
 			$even = ! $even;
 		}
-		/*
-		Start CTA (TODO)
-		*/
+		$template_vars += array("stories"=>$stories);
+		#print_r($template_vars);
+		Template::render_template( "types/story_single", $template_vars );
 	}
+	
 	/**
 	 * get_cta_url
 	 * Bepaal een call to action link ahv projecttype of continent

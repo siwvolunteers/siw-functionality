@@ -119,6 +119,24 @@ class Archive_Header {
 			if($category_name == "Europa")
 			{
 				$text .= SPACE .
+				__('Als SIW zenden wij uit naar landen die op "groen" of "geel" staan.', 'siw' ) . SPACE .
+				__('Actuele informatie is te vinden op de website Nederland wereldwijd van de Rijksoverheid <a href="https://www.nederlandwereldwijd.nl/reizen/reisadviezen">reisadviezen overheid</a>','siw') .SPACE .
+				__('Je hoeft nu niet direct te betalen.','siw') .SPACE .
+				__('Wij kijken na aanmelding of het project doorgaat en of je geplaatst kan worden.','siw') .SPACE .
+				__('Pas als het zeker is dat je ook daadwerkelijk naar de plaats van bestemming kan afreizen, doe je de betaling aan SIW. Niet eerder!','siw') .SPACE .
+				__('Mocht het door jou gekozen project niet doorgaan, dan kunnen we natuurlijk samen kijken naar een ander gelijksoortig project waaraan je wel kunt deelnemen.','siw') .SPACE;
+			}
+		}
+		return($text);
+	}
+	/* old
+	protected function get_alert_text() : ?string {
+		$text = "";
+		if ( \is_product_category() ) {
+			$category_name = get_queried_object()->name;
+			if($category_name == "Europa")
+			{
+				$text .= SPACE .
 				__('Eindelijk mag er weer (een beetje) gereisd worden deze zomer in Europa.', 'siw' ) . SPACE .
 				__('Als SIW zenden wij uit naar landen die op "geel" staan. ', 'siw' ) . SPACE .
 				__('Dat worden er steeds meer en het verandert dagelijks. ', 'siw' ) . SPACE .
@@ -131,12 +149,12 @@ class Archive_Header {
 				__('Wij kijken dan of het project inderdaad doorgaat en of je geplaatst kan worden.','siw') . SPACE .
 				__('Pas als het zeker is dat je ook daadwerkelijk naar de plaats van bestemming kan afreizen, doe je de betaling aan SIW. Niet eerder!','siw') . BR .
 				'<i>'.
-				__('Mocht het door jou gekozen project niet doorgaan, dan kunnen we natuurlijk samen kijken naar een ander gelijksoortig project waaraan je wel kunt deelnemen.','siw') .
-				'</i>';
+				__('Mocht het door jou gekozen project niet doorgaan, dan kunnen we natuurlijk samen kijken naar een ander gelijksoortig project waaraan je wel kunt deelnemen.','siw');
 			}
 		}
 		return($text);
 	}
+	*/
 	/** Geeft aan of aankondiging nieuwe projecten getoond moet worden */
 	protected function is_teaser_text_active() : bool {
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
