@@ -100,15 +100,16 @@ class Product {
 	public function process(): bool {
 
 		/* Voorbereiden */
-		if ( ! $this->set_project_type() ) {
+		if ( ! $this->set_project_type()
+			|| ! $this->set_country()
+			|| ! $this->set_work_types()
+			|| ! $this->set_languages()
+			|| ! $this->set_sustainable_development_goals()
+		) {
 			Logger::info( sprintf( 'Project met id %s wordt niet geïmporteerd', $this->plato_project->get_project_id() ), self::LOGGER_SOURCE );
 			return false;
 		}
 
-		$this->set_country();
-		$this->set_languages();
-		$this->set_work_types();
-		$this->set_sustainable_development_goals();
 		$this->set_target_audiences();
 		$this->set_tariffs();
 
@@ -190,50 +191,63 @@ class Product {
 	/**
 	 * Zet land op basis van ISO-code
 	 */
-	protected function set_country() {
+	protected function set_country(): bool {
 		$country_code = strtoupper( $this->plato_project->get_country() );
 		$country = siw_get_country( $country_code, 'iso_code' );
-		if ( is_a( $country, Country::class ) ) {
-			$this->country = $country;
+		if ( ! is_a( $country, Country::class ) ) {
+			Logger::error( sprintf( 'Land met code %s niet gevonden', $country_code ), self::LOGGER_SOURCE );
+			return false;
 		}
+		$this->country = $country;
+		return true;
 	}
 
 	/** Zet talen op basis van Plato-code */
-	protected function set_languages() {
+	protected function set_languages(): bool {
 		$this->languages = [];
 		$languages = wp_parse_slug_list( $this->plato_project->get_languages() );
 		foreach ( $languages as $language_code ) {
 			$language_code = strtoupper( $language_code );
 			$language = siw_get_language( $language_code, Language::PLATO_CODE );
-			if ( is_a( $language, Language::class ) ) {
-				$this->languages[] = $language;
+			if (  ! is_a( $language, Language::class ) ) {
+				Logger::error( sprintf( 'Taal met code %s niet gevonden', $language_code ), self::LOGGER_SOURCE );
+				return false;
 			}
+			$this->languages[] = $language;
 		}
+		return isset( $this->languages );
 	}
 
-	/** Zet soorten werk op basis van Plato-code */
-	protected function set_work_types() {
+	/** Zet soorten werk op basis van Plato-code TODO: is niet gevonden een error en wat als er geen werk is? */
+	protected function set_work_types(): bool {
 		$this->work_types = [];
 		$work_types = wp_parse_slug_list( $this->plato_project->get_work() );
 		foreach ( $work_types as $work_type_code ) {
 			$work_type_code = strtoupper( $work_type_code );
 			$work_type = siw_get_work_type( $work_type_code, Work_Type::PLATO_CODE );
-			if ( is_a( $work_type, Work_Type::class ) ) {
-				$this->work_types[] = $work_type;
+			if ( ! is_a( $work_type, Work_Type::class ) ) {
+				Logger::error( sprintf( 'Soort werk met code %s niet gevonden', $work_type_code ), self::LOGGER_SOURCE );
+				return false;
 			}
+			$this->work_types[] = $work_type;
 		}
+		return isset( $this->work_types );
 	}
 
 	/** Zet sustainable development goals */
-	protected function set_sustainable_development_goals() {
+	protected function set_sustainable_development_goals(): bool {
 		$this->sustainable_development_goals = [];
 		$goals = wp_parse_slug_list( $this->plato_project->get_sdg_prj() );
 		foreach ( $goals as $goal_slug ) {
+			//TODO: continue als slug = 0
 			$goal = siw_get_sustainable_development_goal( $goal_slug );
-			if ( is_a( $goal, Sustainable_Development_Goal::class ) ) {
-				$this->sustainable_development_goals[] = $goal;
+			if ( ! is_a( $goal, Sustainable_Development_Goal::class ) ) {
+				Logger::warning( sprintf( 'SDG met code %s niet gevonden', $goal_slug ), 'Importeren projecten' );
+				return false;
 			}
+			$this->sustainable_development_goals[] = $goal;
 		}
+		return true;
 	}
 
 	/** Geeft de category (continent) van het project terug */
