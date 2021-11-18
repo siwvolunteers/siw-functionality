@@ -2,7 +2,6 @@
 
 namespace SIW\Compatibility;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\Tax;
 use SIW\i18n;
 use SIW\Properties;
 use SIW\WooCommerce\Taxonomy_Attribute;
