@@ -86,7 +86,7 @@ class TM_Country extends Type {
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
 				'required'    => true,
-				'options'     => siw_get_countries_list( Country::TAILOR_MADE, 'slug' ),
+				'options'     => siw_get_countries_list( Country::TAILOR_MADE ),
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],
 			[

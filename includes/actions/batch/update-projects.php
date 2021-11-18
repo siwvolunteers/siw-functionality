@@ -169,7 +169,7 @@ class Update_Projects implements Batch_Action_Interface {
 			||
 			! is_a( $country, Country::class )
 			||
-			! $country->is_allowed()
+			! $country->has_workcamps()
 			||
 			'rejected' === $this->product->get_meta( 'approval_result' )
 			||

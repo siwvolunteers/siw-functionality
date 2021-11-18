@@ -46,7 +46,7 @@ class Destinations implements Interactive_Map_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_categories() : array {
+	public function get_categories(): array {
 		$continents = siw_get_continents();
 
 		$categories = [];
@@ -61,22 +61,19 @@ class Destinations implements Interactive_Map_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_locations() : array {
-		$countries = siw_get_countries();
+	public function get_locations(): array {
+		$countries = siw_get_countries( Country::PROJECTS );
 		
 		$locations = [];
 		foreach ( $countries as $country ) {
-			if ( ! $country->is_allowed() ) {
-				continue;
-			}
 			$continent = $country->get_continent();
-			$world_map_data = $country->get_world_map_data();
+			$world_map_coordinates = $country->get_world_map_coordinates();
 
 			$locations[] = [
-				'id'            => $world_map_data->code,
+				'id'            => $country->get_iso_code(),
 				'title'         => $country->get_name(),
-				'x'             => $world_map_data->x,
-				'y'             => $world_map_data->y,
+				'x'             => $world_map_coordinates->x ?? null,
+				'y'             => $world_map_coordinates->y ?? null,
 				'category'      => $continent->get_slug(),
 				'fill'          => $continent->get_color(),
 				'description'   => $this->generate_country_description( $country ),
@@ -86,7 +83,7 @@ class Destinations implements Interactive_Map_Interface {
 	}
 
 	/** Genereer beschrijving van aanbod per land */
-	protected function generate_country_description( Country $country ) : string {
+	protected function generate_country_description( Country $country ): string {
 
 		/* Groepsprojecten */
 		if ( $country->has_workcamps() ) {
@@ -108,7 +105,7 @@ class Destinations implements Interactive_Map_Interface {
 	}
 
 	/** Genereert beschrijving voor groepsprojecten */
-	protected function generate_workcamps_description( Country $country ) : string {
+	protected function generate_workcamps_description( Country $country ): string {
 		$country_term = get_term_by( 'slug', $country->get_slug(), Taxonomy_Attribute::COUNTRY()->value );
 		
 		if ( is_a( $country_term, \WP_Term::class ) ) {
@@ -130,7 +127,7 @@ class Destinations implements Interactive_Map_Interface {
 	}
 
 	/** Genereert beschrijving voor Op Maat */
-	public function generate_tailor_made_description( Country $country ) : string {
+	public function generate_tailor_made_description( Country $country ): string {
 
 		$tailor_made_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.tailor_made' ) ) );
 
@@ -158,7 +155,7 @@ class Destinations implements Interactive_Map_Interface {
 	 * @todo aanbod per land
 	 */
 	public function get_mobile_content() : string {
-		$countries = siw_get_countries_list( Country::ALLOWED );
+		$countries = siw_get_countries_list( Country::PROJECTS );
 		return List_Columns::create()->add_items( array_values( $countries ) )->set_columns( 2 )->generate();
 	}
 }

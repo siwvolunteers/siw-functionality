@@ -7,38 +7,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Gegevens van landen in Noord-Amerika
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 
 $data = [
 	[
-		'iso_code'    => 'CAN',
+		'plato_code'  => 'CAN',
+		'iso_code'    => 'ca',
 		'slug'        => 'canada',
 		'name'        => __( 'Canada', 'siw' ),
-		'allowed'     => true,
 		'workcamps'   => true,
 		'tailor_made' => false,
-		'world_map'   => [ 'code' => 'ca', 'x' => 0.2271,'y' => 0.4290 ],
 	],
 	[
-		'iso_code'    => 'GRL',
+		'plato_code'  => 'GRL',
+		'iso_code'    => 'gl',
 		'slug'        => 'groenland',
 		'name'        => __( 'Groenland', 'siw' ),
 		'continent'   => 'noord-amerika',
-		'allowed'     => true,
 		'workcamps'   => true,
 		'tailor_made' => false,
-		'world_map'   => [ 'code' => 'gl', 'x' => 0.3883,'y' => 0.1851 ],
 	],
 	[
-		'iso_code'    => 'USA',
+		'plato_code'  => 'USA',
+		'iso_code'    => 'us',
 		'slug'        => 'verenigde-staten',
 		'name'        => __( 'Verenigde Staten', 'siw' ),
 		'continent'   => 'noord-amerika',
-		'allowed'     => true,
 		'workcamps'   => true,
 		'tailor_made' => false,
-		'world_map'   => [ 'code' => 'us', 'x' => 0.2338,'y' => 0.5232 ],
 	],
 ];
 
