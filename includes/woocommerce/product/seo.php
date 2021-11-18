@@ -16,7 +16,7 @@ class SEO {
 		$self = new self();
 
 		//Archive
-		add_filter( 'the_seo_framework_the_archive_title', [ $self, 'set_archive_seo_title'], 10, 2 );
+		add_filter( 'the_seo_framework_generated_archive_title', [ $self, 'set_archive_seo_title'], 10, 2 );
 		add_filter( 'the_seo_framework_generated_archive_excerpt', [ $self, 'set_archive_seo_description' ], 10, 2 );
 
 		//Single product
@@ -96,57 +96,32 @@ class SEO {
 	/** Zet SEO-titel van project */
 	public function set_single_seo_title( string $title, ?array $args ): string {
 
-		// Zet de beschrijving als we op de pagina zitten
-		if ( null === $args ) {
-			global $post;
-			$post_id = $post->ID;
-		}
-		// Of als we op het post edit scherm zitten
-		elseif ( isset( $args['id'] ) ) {
-			$post_id = $args['id'];
-		}
-		// Geef anders gewoon de beschrijving terug
-		else {
+		if ( ! is_a( get_queried_object(), \WP_Post::class ) && ! isset( $args['id'] ) ) {
 			return $title;
 		}
+
+		$post_id = $args['id'] ?? get_queried_object_id();
 
 		$product = wc_get_product( $post_id );
 		if ( ! is_a( $product, \WC_Product::class ) ) {
 			return $title;
 		}
 
-		$attributes = $product->get_attributes();
-		$country_slug = $attributes['pa_land']->get_slugs()[0];
-		$country = siw_get_country( $country_slug );
-		$work_type_slugs = $attributes['pa_soort-werk']->get_slugs();
-		
-		$work_types = array_map(
-			fn( string $work_type_slug ) => siw_get_work_type( $work_type_slug ),
-			$work_type_slugs
-		);
-
 		return sprintf(
 			'Vrijwilligersproject %s | %s',
-			$country->get_name(),
-			ucfirst( $work_types[0]->get_name() ) );
+			$product->get_attribute( 'pa_land' ),
+			$product->get_attribute( 'pa_soort-werk' )
+		);
 	}
 
 	/** Zet SEO-beschrijving van project */
 	public function set_single_seo_description( string $description, ?array $args ): string {
 
-		// Zet de beschrijving als we op de pagina zitten
-		if ( null === $args ) {
-			global $post;
-			$post_id = $post->ID;
-		}
-		// Of als we op het post edit scherm zitten
-		elseif ( isset( $args['id'] ) ) {
-			$post_id = $args['id'];
-		}
-		// Geef anders gewoon de beschrijving terug
-		else {
+		if ( ! is_a( get_queried_object(), \WP_Post::class ) && ! isset( $args['id'] ) ) {
 			return $description;
 		}
+
+		$post_id = $args['id'] ?? get_queried_object_id();
 
 		$product = wc_get_product( $post_id );
 		if ( ! is_a( $product, \WC_Product::class ) ) {
