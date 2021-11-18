@@ -8,6 +8,7 @@ use SIW\Elements\Accordion;
 use SIW\i18n;
 use SIW\Properties;
 use SIW\Util\Links;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Class om een Mapplic kaart te genereren
@@ -121,20 +122,12 @@ class Netherlands implements Interactive_Map_Interface {
 	/** Genereert beschrijving van het project */
 	protected function get_project_properties( \WC_Product $project ) : string {
 		//Verzamelen gegevens
-		$attributes = $project->get_attributes();
-		$work_type_slugs = $attributes['pa_soort-werk']->get_slugs();
-		
-		$work_types = array_map(
-			fn( string $work_type_slug ) : string => siw_get_work_type( $work_type_slug )->get_name(),
-			$work_type_slugs
-		);
-	
 		$duration = siw_format_date_range( $project->get_attribute( 'startdatum' ), $project->get_attribute( 'einddatum' ) );
 
 		//Opbouwen beschrijving
 		$description[] = sprintf( __( 'Projectcode: %s', 'siw' ), $project->get_sku() );
 		$description[] = sprintf( __( 'Data: %s', 'siw' ), $duration );
-		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), implode( ', ', $work_types ) );
+		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), $project->get_attribute( Taxonomy_Attribute::WORK_TYPE()->value ) );
 		
 		//TODO: Locatie (Locatie: %s, provincie %s) tonen indien bekend, afleiden van coördinaten m.b.v Google Maps API
 		return wpautop( implode( BR, $description ) );

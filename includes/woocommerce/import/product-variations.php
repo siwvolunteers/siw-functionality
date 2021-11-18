@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Import;
 
+use SIW\WooCommerce\Taxonomy_Attribute;
+
 /**
  * Functies voor het genereren van productvariaties
  *
@@ -30,7 +32,7 @@ class Product_Variations {
 			if ( false === $variation ) {
 				continue;
 			}
-			$variation_tariff = $variation->get_attributes()['pa_tarief'];
+			$variation_tariff = $variation->get_attributes()[Taxonomy_Attribute::TARIFF()->value];
 			if ( isset( $this->tariffs[ $variation_tariff ] ) ) {
 				unset( $this->tariffs[ $variation_tariff ] );
 			}
@@ -51,7 +53,7 @@ class Product_Variations {
 			$variation = new \WC_Product_Variation;
 			$variation->set_props( [
 				'parent_id'         => $this->product->get_id(),
-				'attributes'        => [ 'pa_tarief' => $slug ],
+				'attributes'        => [ Taxonomy_Attribute::TARIFF()->value => $slug ],
 				'virtual'           => true,
 				'regular_price'     => $tariff['regular_price'],
 				'sale_price'        => $sale ? $tariff['sale_price'] : null,

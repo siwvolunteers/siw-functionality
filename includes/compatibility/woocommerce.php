@@ -2,6 +2,8 @@
 
 namespace SIW\Compatibility;
 
+use SIW\WooCommerce\Taxonomy_Attribute;
+
 /**
  * Aanpassingen voor WooCommerce
  * 
@@ -153,7 +155,7 @@ class WooCommerce {
 
 	/** Zet naam van terms */
 	public function filter_term_name( \WP_Term $term, string $taxonomy ): \WP_Term {
-		if ( 'pa_maand' == $taxonomy ) {
+		if ( Taxonomy_Attribute::MONTH()->value === $taxonomy ) {
 			$order = get_term_meta( $term->term_id, 'order', true );
 
 			if ( empty( $order ) ) {
@@ -176,15 +178,15 @@ class WooCommerce {
 
 	/** Zet taxonomies waarvan terms bijgewerkt moet worden */
 	public function set_update_terms_taxonomies( array $taxonomies ): array {
-		$taxonomies[] = 'product_cat';
-		$taxonomies[] = 'pa_maand';
-		$taxonomies[] = 'pa_land';
+		$taxonomies[] = Taxonomy_Attribute::CONTINENT()->value;
+		$taxonomies[] = Taxonomy_Attribute::MONTH()->value;
+		$taxonomies[] = Taxonomy_Attribute::COUNTRY()->value;
 		return $taxonomies;
 	}
 
 	/** Undocumented function */
 	public function set_update_terms_delete_empty( bool $delete_empty, string $taxonomy ): bool {
-		if ( 'pa_maand' == $taxonomy ) {
+		if ( Taxonomy_Attribute::MONTH()->value === $taxonomy ) {
 			$delete_empty = true;
 		}
 		return $delete_empty;

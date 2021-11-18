@@ -9,6 +9,7 @@ use SIW\Database_Table;
 use SIW\Helpers\Database;
 use SIW\WooCommerce\Import\Product_Image as Import_Product_Image;
 use SIW\WooCommerce\Import\Free_Places as Import_Free_Places;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Proces om Groepsprojecten bij te werken
@@ -129,7 +130,7 @@ class Update_Projects implements Batch_Action_Interface {
 
 		foreach ( $variations as $variation_id ) {
 			$variation = wc_get_product( $variation_id );
-			$variation_tariff = $variation->get_attributes()['pa_tarief'];
+			$variation_tariff = $variation->get_attributes()[Taxonomy_Attribute::TARIFF()->value];
 			$tariff = $tariffs[ $variation_tariff ] ?? $tariffs['regulier'];
 
 			$regular_price = $tariff['regular_price'];
@@ -203,12 +204,12 @@ class Update_Projects implements Batch_Action_Interface {
 		
 		//Eigenschappen van project ophalen: land en soort(en) werk
 		$attributes = $this->product->get_attributes();
-		if ( ! isset( $attributes['pa_land'] ) ) {
+		if ( ! isset( $attributes[ Taxonomy_Attribute::COUNTRY()->value ] ) ) {
 			return;
 		}
-		$country_slug = $attributes['pa_land']->get_slugs()[0];
+		$country_slug = $attributes[Taxonomy_Attribute::COUNTRY()->value]->get_slugs()[0];
 		$country = siw_get_country( $country_slug );
-		$work_type_slugs = $attributes['pa_soort-werk']->get_slugs();
+		$work_type_slugs = $attributes[Taxonomy_Attribute::WORK_TYPE()->value]->get_slugs();
 		
 		$work_types = array_map(
 			fn( string $work_type_slug ) => siw_get_work_type( $work_type_slug ),

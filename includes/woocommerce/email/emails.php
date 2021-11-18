@@ -4,6 +4,7 @@ namespace SIW\WooCommerce\Email;
 
 use SIW\Data\Language;
 use SIW\Properties;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Aanpassingen t.b.v. WooCommerce e-mails
@@ -201,11 +202,11 @@ class Emails {
 			
 			/* Als project niet meer bestaan alleen de gegevens bij de aanmelding tonen */
 			if ( ! is_a( $parent, \WC_Product::class ) ) {
-				$project_details = sprintf('%s<br/><small>Tarief: %s</small>', $item->get_name(), wc_get_order_item_meta( $item_id, 'pa_tarief' ) );
+				$project_details = sprintf('%s<br/><small>Tarief: %s</small>', $item->get_name(), wc_get_order_item_meta( $item_id, Taxonomy_Attribute::TARIFF()->value ) );
 			}
 			else {
 				$project_duration = siw_format_date_range( $parent->get_attribute( 'startdatum' ), $parent->get_attribute( 'einddatum' ), false );
-				$project_details = sprintf('%s<br/><small>Projectcode: %s<br>Projectduur: %s<br/>Tarief: %s</small>', $parent->get_name(), $parent->get_sku(), $project_duration, $item['pa_tarief'] );
+				$project_details = sprintf('%s<br/><small>Projectcode: %s<br>Projectduur: %s<br/>Tarief: %s</small>', $parent->get_name(), $parent->get_sku(), $project_duration, $item[Taxonomy_Attribute::TARIFF()->value] );
 			}
 	
 			if ( 1 === $project_count ) {

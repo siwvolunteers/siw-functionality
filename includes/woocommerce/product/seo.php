@@ -3,6 +3,7 @@
 namespace SIW\WooCommerce\Product;
 
 use SIW\Core\Template;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * SEO aanpassingen
@@ -33,23 +34,23 @@ class SEO {
 		}
 
 		switch ( $term->taxonomy ) {
-			case 'pa_land':
-			case 'product_cat':
+			case Taxonomy_Attribute::CONTINENT()->value:
+			case Taxonomy_Attribute::COUNTRY()->value:
 				$title = sprintf( __( 'Groepsprojecten in %s', 'siw' ), $term->name );
 				break;
-			case 'pa_doelgroep':
+			case Taxonomy_Attribute::TARGET_AUDIENCE()->value:
 				$title = sprintf( __( 'Groepsprojecten voor %s', 'siw' ), $term->name );
 				break;
-			case 'pa_taal':
+			case Taxonomy_Attribute::LANGUAGE()->value:
 				$title = sprintf( __( 'Groepsprojecten met voertaal %s', 'siw' ), $term->name );
 				break;
-			case 'pa_soort-werk':
+			case Taxonomy_Attribute::WORK_TYPE()->value:
 				$title = sprintf( __( 'Groepsprojecten met werk gericht op %s', 'siw' ), strtolower( $term->name ) );
 				break;
-			case 'pa_sdg':
+			case Taxonomy_Attribute::SDG()->value:
 				$title = sprintf( __( 'Groepsprojecten met werk gericht op het SDG %s', 'siw' ), strtolower( $term->name ) );
 				break;
-			case 'pa_maand':
+			case Taxonomy_Attribute::MONTH()->value:
 				$title = sprintf( __( 'Groepsprojecten in de maand %s', 'siw' ), $term->name );
 				break;
 		}
@@ -64,17 +65,18 @@ class SEO {
 		}
 		
 		switch ( $term->taxonomy ) {
-			case 'pa_land':
+			case Taxonomy_Attribute::CONTINENT()->value:
+			case Taxonomy_Attribute::COUNTRY()->value:
 				$description =
 					sprintf( __( 'Wil je graag vrijwilligerswerk doen in %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name ) . SPACE .
 					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
 				break;
-			case 'pa_soort-werk':
+			case Taxonomy_Attribute::WORK_TYPE()->value:
 				$description =
 					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), strtolower( $term->name ) ) . SPACE .
 					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
 				break;
-			case 'pa_sdg':
+			case Taxonomy_Attribute::SDG()->value:
 				$description =
 					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op het Sustainable Development Goal %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name ) . SPACE .
 					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
@@ -109,8 +111,8 @@ class SEO {
 
 		return sprintf(
 			'Vrijwilligersproject %s | %s',
-			$product->get_attribute( 'pa_land' ),
-			$product->get_attribute( 'pa_soort-werk' )
+			$product->get_attribute( Taxonomy_Attribute::COUNTRY()->value ),
+			$product->get_attribute( Taxonomy_Attribute::WORK_TYPE()->value )
 		);
 	}
 
@@ -136,8 +138,8 @@ class SEO {
 		$template = $templates[ array_rand( $templates, 1 ) ];
 
 		$context = [
-			'country'      => $product->get_attribute('pa_land'),
-			'work_type'    => $product->get_attribute('pa_soort-werk'),
+			'country'      => $product->get_attribute(Taxonomy_Attribute::COUNTRY()->value),
+			'work_type'    => $product->get_attribute(Taxonomy_Attribute::WORK_TYPE()->value),
 		];
 		return Template::parse_string_template( $template, $context );
 	}
