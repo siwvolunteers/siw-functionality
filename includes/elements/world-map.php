@@ -64,7 +64,7 @@ class World_Map extends Element {
 
 	/** Voegt (inline) style toe */
 	public function enqueue_styles() {
-		$code = $this->country->get_world_map_data()->code;
+		$code = $this->country->get_iso_code();
 		$inline_css = CSS::generate_inline_css(
 			[
 				'svg' => [
@@ -83,8 +83,8 @@ class World_Map extends Element {
 
 	/** Bepaalt viewbox o.b.v. zoom en locatie land */
 	protected function get_viewbox() : string {
-		$x = $this->country->get_world_map_data()->x;
-		$y = $this->country->get_world_map_data()->y;
+		$x = $this->country->get_world_map_coordinates()->x;
+		$y = $this->country->get_world_map_coordinates()->y;
 	
 		$x = $this->calculate_offset( $x ) * $this->width;
 		$y = $this->calculate_offset( $y ) * $this->height;
