@@ -2,6 +2,9 @@
 
 namespace SIW\WooCommerce\Admin;
 
+use SIW\WooCommerce\Product_Attribute;
+use SIW\WooCommerce\Taxonomy_Attribute;
+
 /**
  * Extra admin columns voor Groepsprojecten
  *
@@ -17,7 +20,9 @@ class Product_Columns extends \MBAC\Post {
 	 */
 	public function columns( $columns ) {
 		$columns = parent::columns( $columns );
-		$this->add( $columns, 'visibility', __( 'Zichtbaarheid', 'siw' ), 'after', 'sku' );
+		$this->add( $columns, 'country', __( 'Land', 'siw'), 'after', 'sku' );
+		$this->add( $columns, 'start_date', __( 'Startdatum', 'siw'), 'after', 'product_cat' );
+		$this->add( $columns, 'visibility', __( 'Zichtbaarheid', 'siw' ), 'after', 'start_date' );
 		return $columns;
 	}
 
@@ -30,13 +35,33 @@ class Product_Columns extends \MBAC\Post {
 	public function show( $column, $post_id ) {
 		switch ( $column ) {
 			case 'visibility':
-				$product = wc_get_product( $post_id );
+				$product = $this->get_product( $post_id );
 				printf( '<span class="dashicons %s"></span>', $product->is_visible() ? 'dashicons-visibility' : 'dashicons-hidden' );
 
 				if ( $product->get_meta( 'force_hide' ) ) {
 					echo '<span class="dashicons dashicons-lock"></span>';
 				}
 				break;
+			case 'start_date':
+				$product = $this->get_product( $post_id );
+				echo $product->get_attribute( Product_Attribute::START_DATE()->value );
+				break;
+			case 'country':
+				$product = $this->get_product( $post_id );
+				echo $product->get_attribute( Taxonomy_Attribute::COUNTRY()->value );
+				break;
 		}
+	}
+
+	/** Haalt het product op  */
+	protected function get_product( int $post_id ): ?\WC_Product {
+		$product = wp_cache_get( $post_id, __METHOD__ );
+		if ( false !== $product ) {
+			return $product;
+		}
+		$product = wc_get_product( $post_id );
+		wp_cache_set( $post_id, $product, __METHOD__ );
+
+		return $product;
 	}
 }
