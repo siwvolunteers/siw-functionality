@@ -36,7 +36,7 @@ class Bulk_Actions {
 		$count = count( $post_ids );
 		switch ( $action ) {
 			case 'import_again':
-				$products = wc_get_products( ['include' => $post_ids ] );
+				$products = siw_get_products( ['include' => $post_ids ] );
 				array_walk(
 					$products,
 					function( \WC_Product $product ) {
@@ -49,7 +49,7 @@ class Bulk_Actions {
 				$message = sprintf( _n( '%s project wordt opnieuw geïmporteerd.', '%s projecten worden opnieuw geïmporteerd.', $count, 'siw' ), $count );
 				break;
 			case 'force_hide':
-				$products = wc_get_products( ['include' => $post_ids ] );
+				$products = siw_get_products( ['include' => $post_ids ] );
 				array_walk(
 					$products,
 					function( \WC_Product $product ) {
@@ -61,7 +61,7 @@ class Bulk_Actions {
 				$message = sprintf( _n( '%s project is verborgen.', '%s projecten zijn verborgen.', $count, 'siw' ), $count );
 				break;
 			case 'mark_as_featured':
-				$products = wc_get_products( ['include' => $post_ids ] );
+				$products = siw_get_products( ['include' => $post_ids ] );
 				array_walk(
 					$products,
 					function( \WC_Product $product ) {

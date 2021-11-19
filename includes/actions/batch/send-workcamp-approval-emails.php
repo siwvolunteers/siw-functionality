@@ -66,11 +66,9 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 		}
 	
 		// Zoek te beoordelen projecten per category (continent)
-		$products = wc_get_products([
-			'return'   => 'ids',
+		$products = siw_get_product_ids([
 			'category' => $term->slug,
 			'status'   => Import_Product::REVIEW_STATUS,
-			'limit'    => -1,
 		]);
 		if ( empty( $products ) ) {
 			return false;

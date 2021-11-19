@@ -112,11 +112,9 @@ class Netherlands implements Interactive_Map_Interface {
 	/** Haalt projecten op */
 	protected function get_projects() : array {
 		$args = [
-			'country'    => 'nederland',
-			'return'     => 'objects',
-			'limit'      => -1,
+			'country' => 'nederland',
 		];
-		return wc_get_products( $args );
+		return siw_get_products( $args );
 	}
 
 	/** Genereert beschrijving van het project */

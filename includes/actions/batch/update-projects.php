@@ -62,16 +62,12 @@ class Update_Projects implements Batch_Action_Interface {
 
 	/** {@inheritDoc} */
 	public function select_data() : array {
-		$args = [
-			'return'     => 'ids',
-			'limit'      => -1,
-		];
-		return wc_get_products( $args );
+		return siw_get_product_ids();
 	}
 
 	/** {@inheritDoc} */
 	public function process( $product_id ) {
-		$product = wc_get_product( $product_id );
+		$product = siw_get_product( $product_id );
 		
 		/* Afbreken als product niet meer bestaat */
 		if ( ! is_a( $product, \WC_Product::class ) ) {
@@ -129,7 +125,7 @@ class Update_Projects implements Batch_Action_Interface {
 		$variations = $this->product->get_children();
 
 		foreach ( $variations as $variation_id ) {
-			$variation = wc_get_product( $variation_id );
+			$variation = siw_get_product( $variation_id );
 			$variation_tariff = $variation->get_attributes()[Taxonomy_Attribute::TARIFF()->value];
 			$tariff = $tariffs[ $variation_tariff ] ?? $tariffs['regulier'];
 
@@ -259,7 +255,7 @@ class Update_Projects implements Batch_Action_Interface {
 		//Verwijder alle variaties
 		$variations = $this->product->get_children();
 		foreach ( $variations as $variation_id ) {
-			$variation = wc_get_product( $variation_id );
+			$variation = siw_get_product( $variation_id );
 			if ( ! is_a( $variation, \WC_Product_Variation::class ) ) {
 				continue;
 			}

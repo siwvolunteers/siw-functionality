@@ -118,16 +118,11 @@ class Product {
 		}
 
 		/* Zoek project */
-		$args = [
-			'project_id' => $this->plato_project->get_project_id(),
-			'return'     => 'objects',
-			'limit'      => -1,
-		];
-		$products = wc_get_products( $args );
+		$product = siw_get_product_by_project_id( $this->plato_project->get_project_id() );
 
-		if ( ! empty( $products ) ) {
+		if ( is_a( $product, \WC_Product::class ) ) {
 			$this->is_update = true;
-			$this->product = $products[0];
+			$this->product = $product;
 			if ( ! $this->should_be_updated() ) {
 				return false;
 			}

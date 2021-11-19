@@ -122,11 +122,9 @@ class Leader_Dutch_Projects implements Form_Interface {
 		$project_options[''] = __( 'Geen voorkeur', 'siw' );
 		
 		$args = [
-			'country'    => 'nederland',
-			'return'     => 'objects',
-			'limit'      => -1,
+			'country' => 'nederland',
 		];
-		$projects = wc_get_products( $args );
+		$projects = siw_get_products( $args );
 		
 		foreach ( $projects as $project ) {
 			$project_options[ sanitize_title( $project->get_sku() ) ] = $project->get_attribute( 'Projectnaam' );

@@ -30,7 +30,7 @@ class Approval {
 		if ( 'product' != $post->post_type || Import_Product::REVIEW_STATUS != $post->post_status ) {
 			return;
 		}
-		$product = wc_get_product( $post->ID );
+		$product = siw_get_product( $post->ID );
 		$approval_result = $product->get_meta( 'approval_result' );
 		woocommerce_wp_radio(
 			[
@@ -47,7 +47,7 @@ class Approval {
 
 	/** Toont beoordelingsresultaat */
 	public function show_approval_result( \WP_Post $post ) {
-		$product = wc_get_product( $post );
+		$product = siw_get_product( $post );
 		if ( null == $product || empty( $product->get_meta( 'approval_result' ) ) ) {
 			return;
 		}

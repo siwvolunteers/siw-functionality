@@ -89,7 +89,7 @@ class SEO {
 	/** Zet SEO noindex als project niet zichtbaar is */
 	function set_single_seo_noindex( array $meta, int $post_id ): array {
 		if ( 'product' == get_post_type( $post_id ) ) {
-			$product = wc_get_product( $post_id );
+			$product = siw_get_product( $post_id );
 			$meta['_genesis_noindex'] = intval( ! $product->is_visible() );
 		}
 		return $meta;
@@ -104,7 +104,7 @@ class SEO {
 
 		$post_id = $args['id'] ?? get_queried_object_id();
 
-		$product = wc_get_product( $post_id );
+		$product = siw_get_product( $post_id );
 		if ( ! is_a( $product, \WC_Product::class ) ) {
 			return $title;
 		}
@@ -125,7 +125,7 @@ class SEO {
 
 		$post_id = $args['id'] ?? get_queried_object_id();
 
-		$product = wc_get_product( $post_id );
+		$product = siw_get_product( $post_id );
 		if ( ! is_a( $product, \WC_Product::class ) ) {
 			return $description;
 		}

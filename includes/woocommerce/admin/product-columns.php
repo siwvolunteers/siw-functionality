@@ -59,7 +59,7 @@ class Product_Columns extends \MBAC\Post {
 		if ( false !== $product ) {
 			return $product;
 		}
-		$product = wc_get_product( $post_id );
+		$product = siw_get_product( $post_id );
 		wp_cache_set( $post_id, $product, __METHOD__ );
 
 		return $product;

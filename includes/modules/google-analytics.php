@@ -81,7 +81,7 @@ class Google_Analytics {
 	/** Genereert Enhanced Ecommerce script */
 	protected function generate_ecommerce_script() : array {
 		if ( is_product() ) {
-			$product = wc_get_product( get_the_ID() );
+			$product = siw_get_product( get_the_ID() );
 			$product_data = $this->get_product_data( $product );
 			$ecommerce_script = [
 				"ga('require', 'ec');",
@@ -95,8 +95,8 @@ class Google_Analytics {
 			$items = WC()->cart->get_cart_contents();
 
 			foreach ( $items as $item ) {
-				$product = wc_get_product( $item['product_id'] );
-				$variation = wc_get_product( $item['variation_id'] );
+				$product = siw_get_product( $item['product_id'] );
+				$variation = siw_get_product( $item['variation_id'] );
 				$product_data = $this->get_product_data( $product, $variation );
 				$ecommerce_script[] = sprintf( "ga('ec:addProduct', %s);", json_encode( $product_data ) );
 			}
@@ -110,8 +110,8 @@ class Google_Analytics {
 
 			$items = $order->get_items();
 			foreach ( $items as $item ) {
-				$product = wc_get_product( $item['product_id'] );
-				$variation = wc_get_product( $item['variation_id'] );
+				$product = siw_get_product( $item['product_id'] );
+				$variation = siw_get_product( $item['variation_id'] );
 				$product_data = $this->get_product_data( $product, $variation );
 				$ecommerce_script[] = sprintf( "ga('ec:addProduct', %s);", json_encode( $product_data ) );
 			}
@@ -159,8 +159,8 @@ class Google_Analytics {
 		$items = WC()->cart->get_cart_contents();
 		$cart_data = [];
 		foreach ( $items as $key => $item ) {
-			$product = wc_get_product( $item['product_id'] );
-			$variation = wc_get_product( $item['variation_id'] );
+			$product = siw_get_product( $item['product_id'] );
+			$variation = siw_get_product( $item['variation_id'] );
 			$cart_data[ $item['variation_id'] ] = $this->get_product_data( $product, $variation );
 		}
 		return $cart_data;
@@ -168,8 +168,8 @@ class Google_Analytics {
 
 	/** Track toevoegen aan cart */
 	public function track_add_to_cart( string $cart_item_key, int $product_id, int $quantity, int $variation_id, array $variation, array $cart_item_data ) {
-		$product = wc_get_product( $product_id );
-		$variation = wc_get_product( $variation_id );
+		$product = siw_get_product( $product_id );
+		$variation = siw_get_product( $variation_id );
 
 		$product_data = $this->get_product_data( $product, $variation );
 		

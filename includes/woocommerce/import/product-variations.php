@@ -7,8 +7,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 /**
  * Functies voor het genereren van productvariaties
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Product_Variations {
 
@@ -28,8 +27,8 @@ class Product_Variations {
 	public function update() {
 		$variations = $this->product->get_children();
 		foreach ( $variations as $variation_id ) {
-			$variation = wc_get_product( $variation_id );
-			if ( false === $variation ) {
+			$variation = siw_get_product( $variation_id );
+			if ( null === $variation ) {
 				continue;
 			}
 			$variation_tariff = $variation->get_attributes()[Taxonomy_Attribute::TARIFF()->value];

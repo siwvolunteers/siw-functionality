@@ -9,8 +9,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 /**
  * Aanpassingen t.b.v. WooCommerce e-mails
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Emails {
 
@@ -193,12 +192,14 @@ class Emails {
 			'value' => $order->get_order_number(),
 		];
 		
+		/** @var \WC_Order_Item_Product[] */
 		$order_items = $order->get_items();
+
 		$project_count = count( $order_items );
 		$count = 0;
 		foreach ( $order_items as $item_id => $item ) {
 			$count++;
-			$parent = wc_get_product( $item->get_product_id() );
+			$parent = siw_get_product( $item->get_product_id() );
 			
 			/* Als project niet meer bestaan alleen de gegevens bij de aanmelding tonen */
 			if ( ! is_a( $parent, \WC_Product::class ) ) {
@@ -235,7 +236,7 @@ class Emails {
 				'value' => $order->get_subtotal_to_display(),
 			];
 			/* Toon kortingscodes */
-			if ( $coupons = $order->get_items( 'coupon' ) ) {
+			if ( $coupons = $order->get_coupons() ) {
 				foreach ( $coupons as $coupon ) {
 					$payment_data['rows'][] = [
 						'label' => sprintf( __( 'Kortingscode: %s', 'siw' ), $coupon->get_code() ),
@@ -245,7 +246,7 @@ class Emails {
 			}
 			/* Toon automatische kortingen */
 			if ( $fees = $order->get_fees() ) {
-				foreach ( $fees as $id => $fee ) {
+				foreach ( $fees as $fee ) {
 					$payment_data['rows'][] = [
 						'label' => $fee->get_name(),
 						'value' => wc_price( $fee->get_total() ),
