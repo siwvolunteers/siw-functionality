@@ -2,7 +2,6 @@
 
 namespace SIW\Elements\Interactive_Maps;
 
-use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\Tax;
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
 use SIW\Elements\Accordion;
