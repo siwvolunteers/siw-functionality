@@ -2,6 +2,7 @@
 
 namespace SIW\Elements\Interactive_Maps;
 
+use Automattic\WooCommerce\Admin\Features\OnboardingTasks\Tasks\Tax;
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
 use SIW\Elements\Accordion;
@@ -126,6 +127,11 @@ class Netherlands implements Interactive_Map_Interface {
 		$description[] = sprintf( __( 'Projectcode: %s', 'siw' ), $project->get_sku() );
 		$description[] = sprintf( __( 'Data: %s', 'siw' ), $duration );
 		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), $project->get_attribute( Taxonomy_Attribute::WORK_TYPE()->value ) );
+		$sdgs = $project->get_attribute( Taxonomy_Attribute::SDG()->value );
+		if ( !empty( $sdgs ) ) {
+			$description[] = sprintf( __( 'Sustainable Development Goals: %s', 'siw' ), $sdgs );
+		}
+
 		
 		//TODO: Locatie (Locatie: %s, provincie %s) tonen indien bekend, afleiden van coördinaten m.b.v Google Maps API
 		return wpautop( implode( BR, $description ) );
