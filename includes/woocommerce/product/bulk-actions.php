@@ -2,8 +2,6 @@
 
 namespace SIW\WooCommerce\Product;
 
-use SIW\Admin\Notices as Admin_Notices;
-
 /**
  * Bulk acties
  * 
@@ -11,11 +9,19 @@ use SIW\Admin\Notices as Admin_Notices;
  */
 class Bulk_Actions {
 
+	//Constantes
+	const ACTION_IMPORT_AGAIN = 'import_again';
+	const ACTION_MARK_AS_FEATURED = 'mark_as_featured';
+	const ACTION_HIDE = 'hide';
+	const QUERY_ARG_ACTION = 'siw-action';
+	const QUERY_ARG_COUNT = 'siw-count';
+
 	/** Init */
 	public static function init() {
 		$self = new self();
 		add_filter( 'bulk_actions-edit-product', [ $self, 'add_bulk_actions'] );
 		add_filter( 'handle_bulk_actions-edit-product', [ $self, 'handle_bulk_actions'], 10, 3 );
+		add_action( 'admin_notices', [ $self, 'show_admin_notice'] );
 	}
 
 	/**
@@ -25,17 +31,17 @@ class Bulk_Actions {
 	 * - Selecteren voor carousel
 	 */
 	public function add_bulk_actions( array $bulk_actions ): array {
-		$bulk_actions['import_again'] = __( 'Opnieuw importeren', 'siw' );
-		$bulk_actions['mark_as_featured'] = __( 'Markeren als aanbevolen', 'siw' );
-		$bulk_actions['force_hide'] = __( 'Verbergen', 'siw' );
+		$bulk_actions[ self::ACTION_IMPORT_AGAIN ] = __( 'Opnieuw importeren', 'siw' );
+		$bulk_actions[ self::ACTION_MARK_AS_FEATURED ] = __( 'Markeren als aanbevolen', 'siw' );
+		$bulk_actions[ self::ACTION_HIDE ] = __( 'Verbergen', 'siw' );
 		return $bulk_actions;
 	}
 
 	/** Verwerkt bulkacties */
-	public function handle_bulk_actions( string $redirect_to, string $action, array $post_ids ): string {
-		$count = count( $post_ids );
+	public function handle_bulk_actions( string $redirect_url, string $action, array $post_ids ): string {
+		
 		switch ( $action ) {
-			case 'import_again':
+			case self::ACTION_IMPORT_AGAIN:
 				$products = siw_get_products( ['include' => $post_ids ] );
 				array_walk(
 					$products,
@@ -46,9 +52,8 @@ class Bulk_Actions {
 						siw_enqueue_async_action( 'import_plato_project', $data );
 					}
 				);
-				$message = sprintf( _n( '%s project wordt opnieuw geïmporteerd.', '%s projecten worden opnieuw geïmporteerd.', $count, 'siw' ), $count );
 				break;
-			case 'force_hide':
+			case self::ACTION_HIDE:
 				$products = siw_get_products( ['include' => $post_ids ] );
 				array_walk(
 					$products,
@@ -58,9 +63,8 @@ class Bulk_Actions {
 						$product->save();
 					}
 				);
-				$message = sprintf( _n( '%s project is verborgen.', '%s projecten zijn verborgen.', $count, 'siw' ), $count );
 				break;
-			case 'mark_as_featured':
+			case self::ACTION_MARK_AS_FEATURED:
 				$products = siw_get_products( ['include' => $post_ids ] );
 				array_walk(
 					$products,
@@ -69,16 +73,47 @@ class Bulk_Actions {
 						$product->save();
 					}
 				);
-				$message = sprintf( _n( '%s project is gemarkeerd als aanbevolen.', '%s projecten zijn gemarkeerd als aanbevolen.', $count, 'siw' ), $count );
 				break;
 			default:
+				//Afbreken
+				return $redirect_url;
 		}
 
-		if ( isset( $message ) ) {
-			$notices = new Admin_Notices;
-			$notices->add_notice( 'info', $message , true);
+		return add_query_arg(
+			[
+				self::QUERY_ARG_ACTION => $action,
+				self::QUERY_ARG_COUNT  => count( $post_ids ),
+			],
+			$redirect_url
+		);
+	}
+
+	/** Toon admin notice */
+	public function show_admin_notice() {
+
+		$action = get_query_arg( self::QUERY_ARG_ACTION );
+		$count = (int) get_query_arg( self::QUERY_ARG_COUNT );
+
+		switch ( $action ) {
+			case self::ACTION_IMPORT_AGAIN:
+				$message = sprintf( _n( '%s project wordt opnieuw geïmporteerd.', '%s projecten worden opnieuw geïmporteerd.', $count, 'siw' ), $count );
+				break;
+			case self::ACTION_MARK_AS_FEATURED:
+				$message = sprintf( _n( '%s project is gemarkeerd als aanbevolen.', '%s projecten zijn gemarkeerd als aanbevolen.', $count, 'siw' ), $count );
+				break;
+			case self::ACTION_HIDE:
+				$message = sprintf( _n( '%s project is verborgen.', '%s projecten zijn verborgen.', $count, 'siw' ), $count );
+				break;
+			default:
+				//Afbreken
+				return;
 		}
 
-		return $redirect_to;
+		//TODO: admin element van maken?
+		?>
+			<div class="notice notice-info is-dismissible">
+				<p><?php echo esc_html( $message ); ?></p>
+			</div>
+		<?php
 	}
 }
