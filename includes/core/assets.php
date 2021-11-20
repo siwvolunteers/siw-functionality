@@ -7,8 +7,7 @@ use SIW\Util\CSS;
 /**
  * Class om scripts en styles te registreren
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Assets {
 
@@ -19,7 +18,7 @@ class Assets {
 	const BALLOON_VERSION = '1.2.0';
 
 	/** Versie van Polyfill.io */
-	const POLYFILL_VERSION = '3.53.1';
+	const POLYFILL_VERSION = '3.108.0';
 
 	/** Features voor Polyfill.io */
 	protected array $polyfill_features = [
@@ -68,7 +67,7 @@ class Assets {
 	}
 
 	/** Zet crossorigin attribute */
-	public function set_crossorigin( string $tag, string $handle ) : string {
+	public function set_crossorigin( string $tag, string $handle ): string {
 		$crossorigin = wp_scripts()->get_data( $handle, 'crossorigin' );
 		if ( $crossorigin ) {
 			$tag = str_replace(
@@ -81,7 +80,7 @@ class Assets {
 	}
 
 	/** Sluit Polyfill uit van optimalisatie */
-	public function add_polyfill_url( array $urls ) : array {
+	public function add_polyfill_url( array $urls ): array {
 		$urls[] = 'https://polyfill.io';
 		return $urls;
 	}
