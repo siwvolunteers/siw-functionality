@@ -1,31 +1,30 @@
 <div class="grid-20">
 	<span class="event-date">
 		<span class="day">
-			{{ event_day }}
-		</span>
+            {{&event_day}}
+        </span>
 		<br>
 		<span class="month">
-			{{ event_month }}
-		</span>
+            {{&event_month}}
+        </span>
 		<br>
 		<span class="time">
-			{{& icons.clock }} {{ start_time }} - {{ end_time }}
-		</span>
-	</span>
+            {{&icon_clock}} {{{start_time}}} - {{{end_time}}}
+        </span>
+    </span>
 </div>
 <div class="grid-60">
 	<span class="event-location">
-		{{# online_location }}
-			{{& icons.globe }} {{ name }} {{& link }}</h2>
-		{{/ online_location }}
-		{{# location }}
-			{{& icons.map }} {{ name}}, {{ street }} {{ house_number }}, {{ postcode}} {{ city }}
-		{{/ location }}
-	</span>
-<p>
-{{& abstract|wp_kses_post }}
-</p>
+        {{#online}}
+        {{{icon_globe}}} {{onlinelocation_name}} {{{onlinelocation_link}}}
+        {{/online}}
+        {{^online}}
+            {{{icon_map-marker-alt}}} {{location_name}} {{location_street}} {{location_postcode}} {{location_city}}
+        {{/online}}
+    </span>
+<br><br>
+{{{abstract|wp_kses_post}}}
 </div>
 <div class="grid-20">
-{{& permalink }}
+{{&link}}
 </div>

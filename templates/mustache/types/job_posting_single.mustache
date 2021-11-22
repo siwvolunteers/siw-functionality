@@ -1,12 +1,14 @@
 <h5>{{#__ }}{{job_type}} {{hours}} uur per week{{/__}}</h5>
 <hr>
 <p>
-	{{& intro|wp_kses_post }}
+	{{{intro|wp_kses_post }}}
 </p>
+{{!accordion met inhoud functie }}
 <h2>{{#__}}Wat houdt deze vacature in?{{/__}}</h2>
 <p>
-	{{& accordion }}
+	{{{accordion }}}
 </p>
+{{!Is er een contactperoon }}
 <p>
 	{{# contact_person}}
 		<h2>{{#__}}Meer weten?{{/__}}</h2>
@@ -14,6 +16,7 @@
 		{{name}} ({{title}}), {{&email}}
 	{{/ contact_person}}
 </p>
+{{!Waarnaar kan er worden gesolliciteerd}}
 <h2>{{#__}}Solliciteren?{{/__}}</h2>
 <p>
 	{{#__}}Je motivatie met cv kun je uiterlijk {{ deadline }} sturen naar:{{/__}}<br>

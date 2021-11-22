@@ -286,106 +286,103 @@ class Event extends Type {
 	protected function generate_slug( array $data, array $postarr ) : string {
 		return sprintf( '%s %s', $data['post_title'], siw_format_date( $postarr['event_date'] ) );
 	}
-	
-	/** {@inheritDoc} */
+	/** * {@inheritDoc} */
 	public function add_single_content() {
-		$template_vars = [
-			'icons' => [
-				'clock' => Icon::create()->set_icon_class( 'siw-icon-clock' )->generate(),
-				'map'   => Icon::create()->set_icon_class( 'siw-icon-map-marker-alt' )->generate(),
-				'globe' => Icon::create()->set_icon_class( 'siw-icon-globe' )->generate(),
-			],
-			'event_date'     => siw_format_date( siw_meta( 'event_date' ), false),
-			'start_time'     => siw_meta( 'start_time' ),
-			'end_time'       => siw_meta( 'end_time' ),
-			'online'         => siw_meta( 'online' ),
-			'is_past_event'  => siw_meta( 'event_date' ) < date( 'Y-m-d' ),
-			'is_info_day'    => siw_meta( 'info_day' ),
-		];
+		// bij een informatie bijeenkomst een invulformulier tonen
+		$infoform=$application_explanation=$application_link='';
 		if ( siw_meta( 'info_day' ) ) {
-			$template_vars['form_shortcode'] = sprintf( '[caldera_form id="infodag" datum="%s"]', sanitize_title( siw_format_date( siw_meta('event_date' ), false ) ) );
-		} else {
-			$template_vars['application'] = [
-				'explanation'    => siw_meta( 'application.explanation' ),
-				'has_link'       => siw_meta( 'application.has_link' ),
-				'link'           => siw_meta( 'application.has_link' ) ? Links::generate_external_link( siw_meta( 'application.url' ) ) : null,
-			];
+			$default_date = sanitize_title( siw_format_date( siw_meta('event_date' ), false ) );
+			$infoform=do_shortcode( sprintf( '[caldera_form id="infodag" datum="%s"]', $default_date) );
 		}
-
-		//Locatie bepalen
-		if ( siw_meta( 'online' ) ) {
-			$template_vars['online_location'] = [
-				'name' => siw_meta( 'online_location.name' ),
-				'link' => Links::generate_external_link( siw_meta( 'online_location.url' ) ),
-			];
-		} else {
-			$location = siw_meta( 'location' );
-			$location_map = Google_Maps::create()
-			->add_location_marker(
-				sprintf( '%s %s, %s %s', $location['street'], $location['house_number'], $location['postcode'], $location['city'] ),
-				$location['name'],
-				sprintf( '%s %s, %s %s', $location['street'], $location['house_number'], $location['postcode'], $location['city'] )
-			)
-			->set_zoom( 15 )
-			->generate();
-		
-			$template_vars['location'] = [
-				'name'         => $location['name'],
-				'street'       => $location['street'],
-				'house_number' => $location['house_number'],
-				'postcode'     => $location['postcode'],
-				'city'         => $location['city'],
-				'map'          => $location_map,
-			];
+		// anders  tonen hoe je kunt aanmelden.
+		else
+		{
+			$application = siw_meta( 'application' );
+			$application_explanation = wp_kses_post( $application['explanation'] );
+			if ( $application['has_link'] ) {
+				$application_link = Links::generate_external_link( $application['url'] );
+			}
 		}
-
-		//Organisator toevoegen
-		if ( siw_meta( 'different_organizer') ) {
-			$template_vars['organizer'] = [
-				'name' => siw_meta( 'organizer.name' ),
-				'link' => Links::generate_external_link( siw_meta( 'organizer.url' ) ),
-			];
-		}
-		Template::render_template( 'types/event_single', $template_vars );
+		$template_vars = $this->TemplateVars();
+		$template_vars += array(
+			"infoform" => $infoform,
+			"application_explanation" => $application_explanation,
+			"application_link" => $application_link,
+		);
+		Template::render_template( "types/event_single", $template_vars );
 	}
-
-	/** {@inheritDoc} */
+	/*** {@inheritDoc}*/
 	public function add_archive_content() {
-
-		$template_vars = [
-			'event_day'   => wp_date( 'd', strtotime( siw_meta( 'event_date' ) ) ),
-			'event_month' => wp_date( 'F', strtotime( siw_meta( 'event_date' ) ) ),
-			'start_time'  => siw_meta( 'start_time' ),
-			'end_time'    => siw_meta( 'end_time' ),
-			'icons' => [
-				'clock' => Icon::create()->set_icon_class( 'siw-icon-clock' )->generate(),
-				'map'   => Icon::create()->set_icon_class( 'siw-icon-map-marker-alt' )->generate(),
-				'globe' => Icon::create()->set_icon_class( 'siw-icon-globe' )->generate(),
-			],
-			'abstract'  => siw_meta( 'abstract' ),
-			'permalink' => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
-
-		];
-		if ( siw_meta( 'online' ) ) {
-			
-			$online_location = siw_meta( 'online_location' );
-			$template_vars['online_location'] = [
-				'name' => $online_location['name'],
-				'link' => Links::generate_external_link( $online_location['url']),
-			];
-		} else {
-			$location = siw_meta( 'location' );
-			$template_vars['location']  = [
-				'name'         => $location['name'],
-				'street'       => $location['street'],
-				'house_number' => $location['house_number'],
-				'postcode'     => $location['postcode'],
-				'city'         => $location['city'],
-			];
-		}
-		Template::render_template( 'types/event_archive', $template_vars );
+		$template_vars = $this->TemplateVars();
+		Template::render_template( "types/event_archive", $template_vars );
 	}
-
+	/**
+	 * TemplateVars
+	 * Maakt een array van variabelen voor de mustache template
+	 */
+	public function TemplateVars() : array {
+		
+		$template_vars = array(
+			"format" => function($text) {
+				#return wpautop( wp_kses_post( $text)); # Dit werkt niet bij $text = {{{text}}} wel bij {{text}}, maar dan is output met html tags
+				return($text); # voorlopig maar even zo.
+			  },
+			'link' => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
+			'abstract'  => siw_meta( 'abstract' ),	//samenvatting
+			"icon_map-marker-alt" => Icon::create()->set_icon_class( 'siw-icon-map-marker-alt' )->generate(),
+			"icon_globe" => Icon::create()->set_icon_class( 'siw-icon-globe' )->generate(),
+			"icon_clock" => Icon::create()->set_icon_class( 'siw-icon-clock' )->generate(),
+			"event_day" => wp_date( 'd', strtotime( siw_meta( 'event_date' ) ) ),
+			"event_month" => wp_date( 'F', strtotime( siw_meta( 'event_date' ) ) ),
+			"start_time" => siw_meta( 'start_time'),
+			"end_time" => siw_meta( 'end_time'),
+			'event_date' => siw_format_date( siw_meta( 'event_date' ), false),
+			"description" => siw_meta('description'),
+			"infodag" => siw_meta( 'info_day' ),
+			"verlopen"	=> siw_meta( 'event_date' ) < date( 'Y-m-d' ),
+		);
+		// online evenement
+		if(siw_meta('online')) {
+			$online_location = siw_meta( 'online_location' );
+			$template_vars += array(
+				"online"	=> TRUE,
+				"onlinelocation_name" => $online_location['name'],
+				"onlinelocation_link" => Links::generate_external_link( $online_location['url']),
+			);
+		}
+		// evenement op locatie
+		else {
+			//Locatie gegevens
+				$location = siw_meta( 'location' );
+				// locatie op kaart
+				$location_map = Google_Maps::create()
+				->add_location_marker(
+					sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] ),
+					$location['name'],
+					sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] )
+				)
+				->set_zoom( 15 );
+				$template_vars += array(
+					"location"	=> TRUE,
+					"location_name" => $location['name'],
+					"location_street" => $location['street'],
+					"location_postcode" => $location['postcode'],
+					"location_city" => $location['city'],
+					"location_map" => $location_map->generate(),
+				);
+		}
+		//Organisator
+		if(siw_meta( 'different_organizer'))
+		{
+			$template_vars += array(
+				"organizer"		=> TRUE,
+				"organizer_name" => siw_meta('organizer_name'),
+				"organizer_link" => Links::generate_external_link( siw_meta( 'organizer.url' )),
+			);
+		}
+		return($template_vars);
+	}
+	
 	/** {@inheritDoc} */
 	protected function get_archive_intro() : array {
 		$intro = siw_get_option( 'event.archive_intro' );

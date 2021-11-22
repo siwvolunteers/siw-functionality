@@ -201,14 +201,13 @@ class TM_Country extends Type {
 	 * {@inheritDoc}
 	 */
 	public function add_archive_content() {
-		//TODO: verplaatsen naar init?
 		$images = siw_meta( 'image', ['limit' => 1 ] );
 		$image = reset( $images );
 
 		$continent = siw_meta( 'siw_tm_country_continent');
 		$template_vars = array(
 			"image" => wp_get_attachment_image( $image['ID'], 'large'),
-			"quote" => wpautop( esc_html( rwmb_get_value( 'quote' ) ) ),
+			"quote" => wpautop( esc_html( \rwmb_get_value( 'quote' ) ) ),
 			"link" => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
 			"continent" => $continent->name,
 		);
@@ -223,7 +222,6 @@ class TM_Country extends Type {
 		$images = siw_meta( 'image', ['limit' => 1 ] );
 		$image = reset( $images );
 		
-		//TODO: verplaatsen naar init?
 		$country = siw_get_country( siw_meta('country') );
 		$continent = $country->get_continent();
 		$tailor_made_page_link = i18n::get_translated_page_url( (int) siw_get_option( 'pages.explanation.tailor_made' ) );

@@ -226,7 +226,7 @@ class Story extends Type {
 		$animation_left = HTML::generate_attributes( ['data-sal' => 'slide-left', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
 		$animation_right = HTML::generate_attributes( ['data-sal' => 'slide-right', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
 		$template_vars = array(
-			"cta" => "cta",
+			"cta" => $cta,
 			"animation_fade" => $animation_fade,
 		);
 		$stories = array();
