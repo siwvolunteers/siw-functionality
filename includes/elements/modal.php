@@ -13,7 +13,7 @@ use SIW\Util\Links;
 class Modal extends Element {
 
 	/** Versienummer */
-	const MICROMODAL_VERSION = '0.4.6';
+	const MICROMODAL_VERSION = '0.4.9';
 
 	/** ID van pagina voor modal */
 	protected string $modal_id;
