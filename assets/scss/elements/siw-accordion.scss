@@ -10,7 +10,7 @@
 			width: 100%;
 			display: block;
 			padding: 10px;
-			border: solid 3px $button-color;
+			border: solid 3px --var(--siw-contrast);
 			cursor: pointer;
 	
 			&:after {
@@ -21,11 +21,11 @@
 			}
 
 			&[aria-expanded="true"] {
-				background-color: $button-color;
-				color: #fff;
+				background-color: --var(--siw-contrast);
+				color: var(--siw-base);
 				&:after {
 					content: "-";
-					color:#fff;
+					color: var(--siw-base);
 				}
 			}
 		}

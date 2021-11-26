@@ -4,7 +4,6 @@ namespace SIW\Elements;
 
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
-use SIW\Properties;
 use SIW\Util\CSS;
 
 /**
@@ -68,7 +67,7 @@ class Interactive_Map extends Element {
 			'mousewheel'    => false,
 			'fullscreen'    => false,
 			'developer'     => defined( 'WP_DEBUG' ) && WP_DEBUG,
-			'fillcolor'     => Properties::PRIMARY_COLOR,
+			'fillcolor'     => CSS::ACCENT_COLOR,
 			'action'        => 'tooltip',
 			'maxscale'      => 2,
 			'hovertipdesc'  => true,
@@ -113,7 +112,7 @@ class Interactive_Map extends Element {
 		$default = [
 			'id'    => false,
 			'title' => false,
-			'color' => Properties::PRIMARY_COLOR,
+			'color' => CSS::ACCENT_COLOR,
 			'show'  => 'false',
 		];
 		return wp_parse_args( $category, $default );
@@ -129,7 +128,7 @@ class Interactive_Map extends Element {
 			'description'   => false,
 			'action'        => 'tooltip',
 			'pin'           => 'hidden',
-			'fill'          => Properties::PRIMARY_COLOR,
+			'fill'          => CSS::ACCENT_COLOR,
 			'x'             => null,
 			'y'             => null,
 			'lat'           => false,

@@ -6,7 +6,7 @@ use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
 use SIW\Elements\Accordion;
 use SIW\i18n;
-use SIW\Properties;
+use SIW\Util\CSS;
 use SIW\Util\Links;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
@@ -69,7 +69,7 @@ class Netherlands implements Interactive_Map_Interface {
 				'description'   => $this->get_project_properties( $project ) . $this->get_project_button( $project ),
 				'pin'           => 'pin-classic pin-md',
 				'category'      => 'nl',
-				'fill'          => Properties::PRIMARY_COLOR,
+				'fill'          => CSS::ACCENT_COLOR,
 			];
 			$provinces[] = null; // TODO: provincie uit Google Maps halen
 		}
@@ -79,7 +79,7 @@ class Netherlands implements Interactive_Map_Interface {
 		foreach ( $provinces as $province ) {
 			$locations[] = [
 				'id'     => "nl-{$province}",
-				'fill'   => Properties::SECONDARY_COLOR,
+				'fill'   => CSS::CONTRAST_COLOR,
 				'action' => 'disabled',
 				'hide'   => true,
 			];

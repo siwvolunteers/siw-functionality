@@ -2,7 +2,7 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Properties;
+use SIW\Util\CSS;
 
 /**
  * Aanpassingen voor WooCommerce Multistep Checkout
@@ -41,15 +41,15 @@ class WooCommerce_Multistep_Checkout {
 			'wmc_animation'                   => 'fade',
 			'wmc_orientation'                 => 'vertical',
 			'wmc_remove_numbers'              => 'false',
-			'wmc_spinner_color'               => Properties::FONT_COLOR,
+			'wmc_spinner_color'               => CSS::ACCENT_COLOR,
 			'wmc_scroll_to_error'             => 'yes',
 			'wmc_scroll_offset'               => 30,
-			'wmc_tabs_color'                  => Properties::PRIMARY_COLOR,
+			'wmc_tabs_color'                  => CSS::ACCENT_COLOR,
 			'wmc_inactive_tabs_color'         => null,
-			'wmc_font_color'                  => '#fff',
+			'wmc_font_color'                  => CSS::BASE_COLOR,
 			'wmc_completed_tabs_color'        => '#eee',
 			'wmc_completed_font_color'        => null,
-			'wmc_buttons_bg_color'            => Properties::PRIMARY_COLOR,
+			'wmc_buttons_bg_color'            => CSS::ACCENT_COLOR,
 			'wmc_buttons_font_color'          => null,
 			'wmc_form_labels_color'           => null,
 			'wmc_btn_next'                    => __( 'Volgende', 'siw' ),

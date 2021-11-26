@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use SIW\Properties;
+use SIW\Util\CSS;
 
 /*
  * @hooked WC_Emails::email_header() Output the email header
@@ -29,7 +29,7 @@ do_action( 'woocommerce_email_header', $email_heading, $email );
 $email_settings = siw_get_email_settings( 'workcamp' );
 
 ?>
-<div style="font-family:Verdana, normal; color:<?= Properties::FONT_COLOR;?>; font-size:0.9em; ">
+<div style="font-family:Verdana, normal; color:<?= CSS::CONTRAST_COLOR;?>; font-size:0.9em; ">
 	<p>
 		<?php
 		printf( esc_html__( 'Beste %s,', 'siw'), $order->get_billing_first_name() ); echo BR2;

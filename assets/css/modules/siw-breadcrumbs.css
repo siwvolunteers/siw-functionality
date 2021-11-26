@@ -13,11 +13,10 @@ nav.breadcrumb ol.breadcrumb li {
   display: inline-block;
 }
 nav.breadcrumb ol.breadcrumb li a {
-  text-decoration: underline;
-  color: #fff;
+  color: var(--siw-base);
 }
 nav.breadcrumb ol.breadcrumb li + li:before {
   padding: 0.5em;
-  color: #fff;
+  color: var(--siw-base);
   content: ">";
 }

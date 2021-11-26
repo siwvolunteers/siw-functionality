@@ -1,23 +1,24 @@
 @import "../partials/_variables.scss";
 
-.siw-social{
+.siw-social {
 	text-align: center;
-	.title{
+	.title {
 		padding-bottom: 15px;
 		font-weight: bold;
 	}
 
-	a{
+	a {
 		padding: 5px;
 		margin: 5px;
 		font-size: 18px;
 		border-top: 3px solid;
-		color: #ccc;
+		color: var(--siw-contrast-light);
+		text-decoration: none;
 		.siw-icon {
-			fill: #ccc;
+			fill: var(--siw-contrast-light);
 		}
 
-		&:hover{
+		&:hover {
 			color: var(--hover-color);
 			.siw-icon {
 				fill: var(--hover-color);

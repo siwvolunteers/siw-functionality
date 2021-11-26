@@ -9,11 +9,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 99999;
 }
 
 .modal-container {
-  background-color: #fff;
+  background-color: var(--siw-base);
   margin: 30px;
   max-width: 600px;
   box-sizing: border-box;
@@ -24,8 +24,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  background-color: #3f3f3f;
-  color: #fff;
+  background-color: var(--siw-contrast);
+  color: var(--siw-base);
 }
 .modal-header .modal-close:before {
   content: "✕";
@@ -47,7 +47,6 @@
   margin-top: 15px;
   padding: 10px;
   text-align: right;
-  border-top: 1px solid #e5e5e5;
 }
 
 .modal-close {

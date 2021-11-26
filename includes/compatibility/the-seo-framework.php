@@ -3,7 +3,7 @@
 namespace SIW\Compatibility;
 
 use SIW\i18n;
-use SIW\Properties;
+use SIW\Util\CSS;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -35,8 +35,8 @@ class The_SEO_Framework {
 		add_filter( 'the_seo_framework_robots_txt_pro', [ $self, 'set_robots_txt' ]) ; 
 
 		/* Sitemap */
-		add_filter( 'the_seo_framework_sitemap_color_main', fn(): string => Properties::SECONDARY_COLOR );
-		add_filter( 'the_seo_framework_sitemap_color_accent', fn(): string => Properties::FONT_COLOR );
+		add_filter( 'the_seo_framework_sitemap_color_main', fn(): string => CSS::CONTRAST_COLOR );
+		add_filter( 'the_seo_framework_sitemap_color_accent', fn(): string => CSS::ACCENT_COLOR );
 		add_filter( 'the_seo_framework_sitemap_post_limit', fn(): int => self::SITEMAP_POST_LIMIT );
 		add_filter( 'the_seo_framework_sitemap_supported_post_types', [ $self, 'set_sitemap_supported_post_types'] );
 		add_filter( 'the_seo_framework_sitemap_additional_urls', [ $self, 'set_sitemap_additional_urls' ] );

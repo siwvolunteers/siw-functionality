@@ -11,7 +11,7 @@
 			display: table;
 		}
 		li[role=tab] {
-			border: solid 3px $button-color;
+			border: solid 3px var(--siw-contrast);
 			padding: 10px;
 			float: left;
 			font-weight: bold;
@@ -21,8 +21,8 @@
 			list-style-type: none;
 
 			&[aria-selected=true] {
-				background-color: $button-color;
-				color: #fff;
+				background-color: var(--siw-contrast);
+				color: var(--siw-base);
 			}
 		}
 	}

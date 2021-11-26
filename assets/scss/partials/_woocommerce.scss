@@ -8,14 +8,14 @@
 		}
 		a {
 			padding: 10px;
-			color: var(--siw-font-color);
+			color: var(--siw-contrast);
 			.woocommerce-placeholder {
 				border: none;
 			}
 		}
 		.project-code {
 			font-size: 0.9em;
-			color: var(--siw-font-color-light);
+			color: var(--siw-contrast-light);
 		}
 		span.product-badge.featured-badge {
 			position: absolute;
@@ -27,8 +27,8 @@
 
 //Featured badge
 span.product-badge.featured-badge {
-	background-color: #222;
-	color: #fff;
+	background-color: var(--siw-contrast);
+	color: var(--siw-base);
 	padding: 5px 10px;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -39,7 +39,7 @@ span.product-badge.featured-badge {
 .siw-carousel {
 	margin-bottom: 20px;
 	.flickity-button:hover {
-		background-color: $button-color;
+		background-color: var(--siw-contrast-light);
 	}
 
 	.carousel-cell {
@@ -58,7 +58,7 @@ span.product-badge.featured-badge {
 			a {
 				padding: 10px;
 				display: block;
-				color: var(--siw-font-color);
+				color: var(--siw-contrast);
 				.woocommerce-placeholder {
 					border: none;
 				}
@@ -69,7 +69,7 @@ span.product-badge.featured-badge {
 			}
 			.project-code {
 				font-size: 0.9em;
-				color: var(--siw-font-color-light);
+				color: var(--siw-contrast-light);
 			}
 			span.product-badge.featured-badge {
 				position: absolute;
@@ -77,27 +77,6 @@ span.product-badge.featured-badge {
 				right: 0;
 			}
 		}
-	}
-}
-
-//Widgets
-ul.woocommerce-widget-layered-nav-list li:not(.chosen) a{
-	position: relative;
-	&:before {
-		content: "";
-		position: absolute;
-		width: 100%;
-		height: 2px;
-		bottom: 0;
-		left: 0;
-		background-color: var(--siw-secondary-color);
-		visibility: hidden;
-		transform: scaleX(0);
-		transition: all 0.3s ease-in-out 0s;
-	}
-	&:hover:before {
-		visibility: visible;
-		transform: scaleX(1);
 	}
 }
 
@@ -110,17 +89,17 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a{
 
 	.woocommerce-variation-description {
 		font-size:0.9em;
-		color: var(--siw-font-color-light);
+		color: var(--siw-contrast-light);
 		font-style: italic;
 	}
 
 	.woocommerce-variation-price {
-		margin-top:20px;
-		margin-bottom:10px;
+		margin-top: 20px;
+		margin-bottom: 10px;
 	}
 
 	.participation-fee {
-		color: var(--siw-font-color-light);
+		color: var(--siw-contrast-light);
 		font-style: italic;
 	}
 
@@ -128,27 +107,27 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a{
 		ul.tabs.wc-tabs {
 			li {
 				border-width: 3px;
-				border-color: $button-color;
+				border-color: var(--siw-contrast);
 				margin-bottom: 2px;
 				margin-right: 2px;
-				background-color: #fff;
+				background-color: var(--siw-base);
 				&:first-child{
 					border-left-width: 3px;
 					border-bottom-width: 3px;
 				}
 
 				&:last-child{
-					border-bottom-color: $button-color;
+					border-bottom-color: var(--siw-contrast);
 				}
 
 				a:hover{
-					color: $button-color;
+					color: var(--siw-contrast);
 				}
 
 				&.active{
-					background-color: $button-color;
+					background-color: var(--siw-contrast);
 					a{
-						color: #fff;
+						color: var(--siw-base);
 					}
 				}
 			}
@@ -194,6 +173,7 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a{
 		label.radio-label {
 			display: block;
 		}
+
 		label.radio-label.radio {
 			display: inline-block;
 			padding-right: 5px;
@@ -210,7 +190,6 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a{
 		input[type="radio"]:checked + label::before {
 			content: "\e03c";
 		}
-
 	}
 
 	.country .woocommerce-input-wrapper{

@@ -4,6 +4,7 @@ namespace SIW\WooCommerce\Email;
 
 use SIW\Data\Language;
 use SIW\Properties;
+use SIW\Util\CSS;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -26,17 +27,17 @@ class Emails {
 	}
 
 	/** Zet naam afzender */
-	public function set_email_from_name() : string{
+	public function set_email_from_name(): string{
 		return Properties::NAME;
 	}
 
 	/** Zet e-mailadres afzender */
-	public function set_email_from_address() : string {
+	public function set_email_from_address(): string {
 		return siw_get_email_settings( 'workcamp')['email'];
 	}
 
 	/** Overschrijft header-template */
-	public function set_header_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) : string {
+	public function set_header_template( string $located, string $template_name, array $args, string $template_path, string $default_path ): string {
 		if ( 'emails/email-header.php' === $template_name ) {
 			$located = SIW_TEMPLATES_DIR . 'woocommerce/'. $template_name;
 		}
@@ -44,7 +45,7 @@ class Emails {
 	}
 
 	/** Overschrijft footer-template */
-	public function set_footer_template( string $located, string $template_name, array $args, string $template_path, string $default_path ) : string {
+	public function set_footer_template( string $located, string $template_name, array $args, string $template_path, string $default_path ): string {
 		if ( 'emails/email-footer.php' === $template_name ) {
 			$located = SIW_TEMPLATES_DIR . 'woocommerce/'. $template_name;
 		}
@@ -58,7 +59,7 @@ class Emails {
 		?>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td colspan="3" height="20" style="font-family:Verdana, normal; color:<?php echo Properties::FONT_COLOR;?>; font-size:0.8em; font-weight:bold; border-top:thin solid <?php echo Properties::PRIMARY_COLOR;?>" >
+				<td colspan="3" height="20" style="font-family:Verdana, normal; color:<?php echo CSS::CONTRAST_COLOR;?>; font-size:0.8em; font-weight:bold; border-top:thin solid <?php echo CSS::ACCENT_COLOR;?>" >
 					&nbsp;
 				</td>
 			</tr>
@@ -80,11 +81,11 @@ class Emails {
 	/** Genereert tabelrij */
 	public function show_table_row( string $label, string $value = '&nbsp;' ) {?>
 		<tr>
-			<td width="35%" style="font-family:Verdana, normal; color:<?php echo Properties::FONT_COLOR;?>; font-size:0.8em; ">
+			<td width="35%" style="font-family:Verdana, normal; color:<?php echo CSS::CONTRAST_COLOR;?>; font-size:0.8em; ">
 				<?= wp_kses_post( $label ); ?>
 			</td>
 			<td width="5%"></td>
-			<td width="50%" style="font-family:Verdana, normal; color:<?php echo Properties::FONT_COLOR;?>; font-size:0.8em; font-style:italic">
+			<td width="50%" style="font-family:Verdana, normal; color:<?php echo CSS::CONTRAST_COLOR;?>; font-size:0.8em; font-style:italic">
 				<?= wp_kses_post( $value ); ?>
 			</td>
 		</tr>
@@ -94,7 +95,7 @@ class Emails {
 	/** Toont tabel-headerrij */
 	public function show_table_header_row( string $label ) {?>
 		<tr>
-			<td width="35%" style="font-family:Verdana, normal; color:<?php echo Properties::FONT_COLOR;?>; font-size:0.8em; font-weight:bold">
+			<td width="35%" style="font-family:Verdana, normal; color:<?php echo CSS::CONTRAST_COLOR;?>; font-size:0.8em; font-weight:bold">
 				<?= esc_html( $label ); ?>
 			</td>
 			<td width="5%">&nbsp;</td>
@@ -104,7 +105,7 @@ class Emails {
 	}
 
 	/** Haalt data voor tabel op */
-	protected function get_table_data( \WC_Order $order ) : array {
+	protected function get_table_data( \WC_Order $order ): array {
 
 		//Referentiegegevens
 		$languages = [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages_list( Language::VOLUNTEER, Language::PLATO_CODE );
@@ -184,7 +185,7 @@ class Emails {
 	}
 
 	/** Geeft aanmeldingsgegevens terug */
-	protected function get_application_table_data( \WC_Order $order ) : array {
+	protected function get_application_table_data( \WC_Order $order ): array {
 
 		$application_data['header'] = __( 'Aanmelding', 'siw' );
 		$application_data['rows'][] = [
@@ -228,7 +229,7 @@ class Emails {
 	}
 
 	/** Geeft betaalgegevens terug */
-	protected function get_payment_table_data( \WC_Order $order ) : array {
+	protected function get_payment_table_data( \WC_Order $order ): array {
 		$payment_data['header'] = __( 'Betaling', 'siw' );
 		if ( $order->get_total() != $order->get_subtotal() ) {
 			$payment_data['rows'][] = [

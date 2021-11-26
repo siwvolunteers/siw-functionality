@@ -22,12 +22,12 @@ body.home .site-content {
 .siw-quote {
   padding: 40px;
   font-size: 1.3em;
-  color: #777;
+  color: var(--siw-contrast-light);
   font-style: italic;
   text-align: center;
 }
 .siw-quote .siw-icon {
-  fill: #777;
+  fill: var(--siw-contrast-light);
 }
 
 dl dd {
@@ -35,8 +35,8 @@ dl dd {
 }
 
 .siw-archive-intro {
-  background-color: #3f3f3f;
-  color: #fff;
+  background-color: var(--siw-contrast);
+  color: var(--siw-base);
   padding: 15px;
   margin: 15px;
 }
@@ -51,22 +51,22 @@ li.menu-item a .siw-icon {
   transition: all 0.3s linear 0s;
 }
 li.menu-item a:hover .siw-icon {
-  fill: #fff;
+  fill: var(--siw-base);
 }
 
 input[type=button].ghost,
 button.button.ghost,
 a.button.ghost {
-  background-color: #fff;
-  border: 2px solid #3f3f3f;
-  color: #3f3f3f;
+  background-color: var(--siw-base);
+  border: 2px solid var(--siw-contrast);
+  color: var(--siw-contrast);
   transition: all 0.6s ease-out;
 }
 input[type=button].ghost:visited,
 button.button.ghost:visited,
 a.button.ghost:visited {
-  color: #3f3f3f;
-  background-color: #fff;
+  color: var(--siw-contrast);
+  background-color: var(--siw-base);
 }
 input[type=button].ghost:hover, input[type=button].ghost:active, input[type=button].ghost.is-checked,
 button.button.ghost:hover,
@@ -75,8 +75,8 @@ button.button.ghost.is-checked,
 a.button.ghost:hover,
 a.button.ghost:active,
 a.button.ghost.is-checked {
-  background: #3f3f3f;
-  color: #fff;
+  background: var(--siw-contrast);
+  color: var(--siw-base);
   border: 2px solid transparent;
 }
 
@@ -91,24 +91,9 @@ h1.hero-title {
   text-shadow: 1px 1px var(--siw-font-color);
 }
 
-h2 > a, .footer-widgets a.link {
-  position: relative;
-}
-h2 > a:before, .footer-widgets a.link:before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: var(--siw-secondary-color);
-  visibility: hidden;
-  transform: scaleX(0);
-  transition: all 0.3s ease-in-out 0s;
-}
-h2 > a:hover:before, .footer-widgets a.link:hover:before {
-  visibility: visible;
-  transform: scaleX(1);
+a:hover {
+  -webkit-text-decoration-color: var(--siw-accent);
+          text-decoration-color: var(--siw-accent);
 }
 
 .siw-features {
@@ -142,7 +127,7 @@ ul[data-columns="4"] {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  color: #fff;
+  color: var(--siw-base);
   max-width: unset;
 }
 .error404 .container .site-content {
@@ -259,7 +244,7 @@ ul[data-columns="4"] {
   margin-bottom: 15px;
 }
 .siw_event .event-date {
-  color: var(--siw-font-color-light);
+  color: var(--siw-contrast-light);
   line-height: 2em;
 }
 .siw_event .event-date .day {
@@ -275,7 +260,7 @@ ul[data-columns="4"] {
   font-weight: bold;
 }
 .siw_event .event-location {
-  color: var(--siw-font-color-light);
+  color: var(--siw-contrast-light);
   font-size: 1.2em;
   font-weight: bold;
 }
@@ -289,7 +274,7 @@ ul[data-columns="4"] {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  color: #fff;
+  color: var(--siw-base);
   max-width: unset;
 }
 .siw-newsletter-confirmation .container .site-content {
@@ -366,7 +351,7 @@ body {
   display: inline-block;
   height: 20px;
   width: 20px;
-  border: 1px solid #b9b9b9;
+  border: 1px solid var(--siw-contrast-light);
   top: 2px;
 }
 .checkbox .checkmark::after, .checkbox-css .checkmark::after {
@@ -374,8 +359,8 @@ body {
   display: inline-block;
   height: 8px;
   width: 12px;
-  border-left: 3px solid var(--siw-primary-color);
-  border-bottom: 3px solid var(--siw-primary-color);
+  border-left: 3px solid var(--siw-accent);
+  border-bottom: 3px solid var(--siw-accent);
   transform: rotate(-45deg);
   left: 4px;
   top: 6px;
@@ -409,7 +394,7 @@ body {
   display: inline-block;
   height: 20px;
   width: 20px;
-  border: 1px solid #b9b9b9;
+  border: 1px solid var(--siw-contrast-light);
   border-radius: 50%;
   top: 3px;
 }
@@ -419,7 +404,7 @@ body {
   height: 12px;
   width: 12px;
   border-radius: 50%;
-  background: var(--siw-primary-color);
+  background: var(--siw-accent);
   left: 5px;
   top: 8px;
 }
@@ -440,15 +425,15 @@ body {
   max-width: 100%;
   box-sizing: border-box;
   margin: 0;
-  border: 2px solid #666;
+  border: 2px solid var(--siw-contrast-light);
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  background-color: #fff;
+  background-color: var(--siw-base);
   /* note: bg image below uses 2 urls. The first is an svg data uri for the arrow icon, and the second is the gradient. 
   	for the icon, if you want to change the color, be sure to use `%23` instead of `#`, since it's a url. You can also swap in a different svg icon or an external image reference
   */
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23F67820%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"), linear-gradient(to bottom, #ffffff 0%, #ffffff 100%);
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23F67820%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"), linear-gradient(to bottom, var(--siw-base) 0%, var(--siw-base) 100%);
   background-repeat: no-repeat, repeat;
   /* arrow icon position (1em from the right, 50% vertical) , then gradient position*/
   background-position: right 0.7em top 50%, 0 0;
@@ -462,10 +447,10 @@ body {
   display: none;
 }
 .select-css:hover {
-  border-color: #3f3f3f;
+  border-color: var(--siw-contrast);
 }
 .select-css:focus {
-  border-color: #3f3f3f;
+  border-color: var(--siw-contrast);
   outline: none;
 }
 
@@ -486,7 +471,7 @@ html[lang=en-US] #footer-widgets {
   border: none;
 }
 .widget_siw_contact_widget a.siw-contact-link .siw-icon {
-  fill: var(--siw-secondary-color);
+  fill: var(--siw-accent);
 }
 .widget_siw_contact_widget .siw-social-links {
   text-align: center;
@@ -494,6 +479,7 @@ html[lang=en-US] #footer-widgets {
 }
 .widget_siw_contact_widget .siw-social-links a {
   padding: 5px;
+  text-decoration: none;
 }
 .widget_siw_contact_widget .siw-social-links a:hover .siw-background-icon {
   fill: var(--hover-color);
@@ -502,7 +488,7 @@ html[lang=en-US] #footer-widgets {
 /* Snel zoeken widget */
 .so-widget-siw_quick_search_form_widget {
   display: inline-block;
-  background: #fff;
+  background: var(--siw-base);
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   padding: 20px 30px;
   text-align: center;
@@ -523,7 +509,7 @@ html[lang=en-US] #footer-widgets {
   display: block;
 }
 .so-widget-siw_newsletter_widget .loading {
-  color: var(--siw-secondary-color);
+  color: var(--siw-accent);
   font-size: 10px;
   margin: 10px auto;
   position: relative;
@@ -569,7 +555,7 @@ html[lang=en-US] #footer-widgets {
 
 /* Call to action*/
 .so-widget-siw_cta_widget .headline {
-  color: #fff;
+  color: var(--siw-base);
   font-size: calc(1em + 3vw);
   line-height: 1em;
   font-weight: bold;
@@ -584,7 +570,7 @@ html[lang=en-US] #footer-widgets {
 /*Quote*/
 .so-widget-siw_quote_widget {
   padding: 25px;
-  background: #fff;
+  background: var(--siw-base);
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 .footer-widgets .so-widget-siw_quote_widget {
@@ -595,7 +581,7 @@ html[lang=en-US] #footer-widgets {
 .so-widget-siw_quote_widget blockquote {
   font-size: inherit;
   font-style: italic;
-  border-left-color: var(--siw-secondary-color);
+  border-left-color: var(--siw-accent);
   padding: 5px 5px 5px 15px;
   margin: inherit;
 }
@@ -604,10 +590,10 @@ html[lang=en-US] #footer-widgets {
   transition: border 0.6s ease-out 0s;
 }
 .footer-widgets .so-widget-siw_quote_widget blockquote:hover {
-  border-left-color: var(--siw-secondary-color);
+  border-left-color: var(--siw-accent);
 }
 .so-widget-siw_quote_widget blockquote footer {
-  color: var(--siw-font-color-light);
+  color: var(--siw-accent);
 }
 .footer-widgets .so-widget-siw_quote_widget blockquote footer {
   color: inherit;
@@ -635,14 +621,14 @@ html[lang=en-US] #footer-widgets {
 }
 .woocommerce ul.products li.product a {
   padding: 10px;
-  color: var(--siw-font-color);
+  color: var(--siw-contrast);
 }
 .woocommerce ul.products li.product a .woocommerce-placeholder {
   border: none;
 }
 .woocommerce ul.products li.product .project-code {
   font-size: 0.9em;
-  color: var(--siw-font-color-light);
+  color: var(--siw-contrast-light);
 }
 .woocommerce ul.products li.product span.product-badge.featured-badge {
   position: absolute;
@@ -651,8 +637,8 @@ html[lang=en-US] #footer-widgets {
 }
 
 span.product-badge.featured-badge {
-  background-color: #222;
-  color: #fff;
+  background-color: var(--siw-contrast);
+  color: var(--siw-base);
   padding: 5px 10px;
   font-weight: 700;
   text-transform: uppercase;
@@ -663,7 +649,7 @@ span.product-badge.featured-badge {
   margin-bottom: 20px;
 }
 .siw-carousel .flickity-button:hover {
-  background-color: #3f3f3f;
+  background-color: var(--siw-contrast-light);
 }
 .siw-carousel .carousel-cell li.product {
   list-style: none;
@@ -681,7 +667,7 @@ span.product-badge.featured-badge {
 .siw-carousel .carousel-cell li.product a {
   padding: 10px;
   display: block;
-  color: var(--siw-font-color);
+  color: var(--siw-contrast);
 }
 .siw-carousel .carousel-cell li.product a .woocommerce-placeholder {
   border: none;
@@ -692,32 +678,12 @@ span.product-badge.featured-badge {
 }
 .siw-carousel .carousel-cell li.product .project-code {
   font-size: 0.9em;
-  color: var(--siw-font-color-light);
+  color: var(--siw-contrast-light);
 }
 .siw-carousel .carousel-cell li.product span.product-badge.featured-badge {
   position: absolute;
   top: 0;
   right: 0;
-}
-
-ul.woocommerce-widget-layered-nav-list li:not(.chosen) a {
-  position: relative;
-}
-ul.woocommerce-widget-layered-nav-list li:not(.chosen) a:before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: var(--siw-secondary-color);
-  visibility: hidden;
-  transform: scaleX(0);
-  transition: all 0.3s ease-in-out 0s;
-}
-ul.woocommerce-widget-layered-nav-list li:not(.chosen) a:hover:before {
-  visibility: visible;
-  transform: scaleX(1);
 }
 
 .woocommerce div.product .product_title {
@@ -726,7 +692,7 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a:hover:before {
 }
 .woocommerce div.product .woocommerce-variation-description {
   font-size: 0.9em;
-  color: var(--siw-font-color-light);
+  color: var(--siw-contrast-light);
   font-style: italic;
 }
 .woocommerce div.product .woocommerce-variation-price {
@@ -734,31 +700,31 @@ ul.woocommerce-widget-layered-nav-list li:not(.chosen) a:hover:before {
   margin-bottom: 10px;
 }
 .woocommerce div.product .participation-fee {
-  color: var(--siw-font-color-light);
+  color: var(--siw-contrast-light);
   font-style: italic;
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li {
   border-width: 3px;
-  border-color: #3f3f3f;
+  border-color: var(--siw-contrast);
   margin-bottom: 2px;
   margin-right: 2px;
-  background-color: #fff;
+  background-color: var(--siw-base);
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li:first-child {
   border-left-width: 3px;
   border-bottom-width: 3px;
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li:last-child {
-  border-bottom-color: #3f3f3f;
+  border-bottom-color: var(--siw-contrast);
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li a:hover {
-  color: #3f3f3f;
+  color: var(--siw-contrast);
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li.active {
-  background-color: #3f3f3f;
+  background-color: var(--siw-contrast);
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li.active a {
-  color: #fff;
+  color: var(--siw-base);
 }
 .woocommerce div.product .woocommerce-product-attributes {
   border-top: none;

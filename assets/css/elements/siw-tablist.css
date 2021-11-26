@@ -9,7 +9,7 @@
   display: table;
 }
 .siw-tablist ul[role=tablist] li[role=tab] {
-  border: solid 3px #3f3f3f;
+  border: solid 3px var(--siw-contrast);
   padding: 10px;
   float: left;
   font-weight: bold;
@@ -19,8 +19,8 @@
   list-style-type: none;
 }
 .siw-tablist ul[role=tablist] li[role=tab][aria-selected=true] {
-  background-color: #3f3f3f;
-  color: #fff;
+  background-color: var(--siw-contrast);
+  color: var(--siw-base);
 }
 .siw-tablist [role=tabpanel] {
   display: block;

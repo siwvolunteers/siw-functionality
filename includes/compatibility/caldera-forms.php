@@ -3,7 +3,7 @@
 namespace SIW\Compatibility;
 
 use SIW\Util;
-use SIW\Properties;
+use SIW\Util\CSS;
 
 /**
  * Aanpassingen voor Caldera Forms
@@ -65,7 +65,7 @@ class Caldera_Forms {
 				'<table width="100%" border="0" cellspacing="0" cellpadding="0">',
 					'<tr>',
 						sprintf(
-							'<td colspan="3" height="20" style="font-family:Verdana, normal; color:%s; font-size:0.8em; font-weight:bold; border-top:thin solid %s" >', Properties::FONT_COLOR, Properties::PRIMARY_COLOR
+							'<td colspan="3" height="20" style="font-family:Verdana, normal; color:%s; font-size:0.8em; font-weight:bold; border-top:thin solid %s" >', CSS::CONTRAST_COLOR, CSS::ACCENT_COLOR
 						),
 							esc_html__( 'Ingevulde gegevens', 'siw' ),
 						'</td>',
@@ -80,9 +80,9 @@ class Caldera_Forms {
 	/** Zet het patroon voor de samenvatting in e-mails toe */
 	public function set_summary_magic_pattern( string $pattern ): string {
 		$pattern = '<tr>
-			<td width="35%%" style="font-family: Verdana, normal; color:' . Properties::FONT_COLOR . '; font-size:0.8em;">%s</td>
+			<td width="35%%" style="font-family: Verdana, normal; color:' . CSS::CONTRAST_COLOR . '; font-size:0.8em;">%s</td>
 			<td width="5%%"></td>
-			<td width="50%%" style="font-family: Verdana, normal; color:' . Properties::FONT_COLOR . '; font-size:0.8em; font-style:italic">%s</td>
+			<td width="50%%" style="font-family: Verdana, normal; color:' . CSS::CONTRAST_COLOR . '; font-size:0.8em; font-style:italic">%s</td>
 		</tr>';
 		return $pattern;
 	}
