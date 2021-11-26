@@ -313,9 +313,7 @@ abstract class Enum implements JsonSerializable
         return count($array) > count(array_unique($array));
     }
 
-    /**
-     * @return int|string
-     */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->value;
