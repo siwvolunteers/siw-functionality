@@ -22,6 +22,8 @@ class Bulk_Actions {
 		add_filter( 'bulk_actions-edit-product', [ $self, 'add_bulk_actions'] );
 		add_filter( 'handle_bulk_actions-edit-product', [ $self, 'handle_bulk_actions'], 10, 3 );
 		add_action( 'admin_notices', [ $self, 'show_admin_notice'] );
+		add_filter( 'removable_query_args', [ $self, 'add_removable_query_args'] );
+
 	}
 
 	/**
@@ -115,5 +117,12 @@ class Bulk_Actions {
 				<p><?php echo esc_html( $message ); ?></p>
 			</div>
 		<?php
+	}
+
+	/** Zet verwijderbare query arg */
+	public function add_removable_query_args( array $removable_query_args ): array {
+		$removable_query_args[] = self::QUERY_ARG_ACTION;
+		$removable_query_args[] = self::QUERY_ARG_COUNT;
+		return $removable_query_args;
 	}
 }
