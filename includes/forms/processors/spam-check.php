@@ -14,6 +14,9 @@ use SIW\Util\Logger;
  */
 class Spam_Check implements Pre_Processor_Interface {
 
+	/** Regex voor url */
+	CONST URL_REGEX = '/([\w+]+\:\/\/)?([\w\d-]+\.)*[\w-]+[\.\:]\w+([\/\?\=\&\#\.]?[\w-]+)*\/?/';
+
 	/** {@inheritDoc} */
 	public function get_id(): string {
 		return 'spam_check';
@@ -47,12 +50,18 @@ class Spam_Check implements Pre_Processor_Interface {
 	protected function is_spam( array $config, array $form ) : bool {
 		$data = \Caldera_Forms::get_submission_data( $form );
 
-		//FIXME:: tijdelijke check om spam te voorkomen: bots vullen bij voor- en achternaam hetzelfde in
+		//Simpele check om spam te voorkomen: bots vullen bij voor- en achternaam hetzelfde in
 		$first_name = $data['voornaam'] ?? null;
 		$last_name = $data['achternaam'] ?? null;
 		
 		if ( null != $first_name && null != $last_name && $first_name == $last_name ) {
 			Logger::info( "Gefilterd als spam: voornaam gelijk aan achternaam", 'spam-check-processor' );
+			return true;
+		}
+
+		// Filter berichten die een url bevatten
+		if ( preg_match_all( self::URL_REGEX, $data['vraag'] ?? '', $matches ) > 0 ) {
+			Logger::info( "Gefilterd als spam: bericht bevat links", 'spam-check-processor' );
 			return true;
 		}
 
