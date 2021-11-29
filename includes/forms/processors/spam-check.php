@@ -4,7 +4,7 @@ namespace SIW\Forms\Processors;
 
 use SIW\Interfaces\Forms\Pre_Processor as Pre_Processor_Interface;
 
-use SIW\External\Spam_Check as External_Spam_Check;
+use SIW\Helpers\Spam_Check as Spam_Check_Helper;
 use SIW\Util\Logger;
 
 /**
@@ -56,10 +56,9 @@ class Spam_Check implements Pre_Processor_Interface {
 			return true;
 		}
 
-		$spam_check = new External_Spam_Check();
-		$spam_check->set_email( $data[ $config['email'] ] );
-		$spam_check->set_ip( $_SERVER['REMOTE_ADDR'] );
-		
-		return $spam_check->is_spammer();
+		return Spam_Check_Helper::create()
+			->set_email( $data[ $config['email'] ] )
+			->set_ip( $_SERVER['REMOTE_ADDR'] )
+			->is_spam();
 	}
 }
