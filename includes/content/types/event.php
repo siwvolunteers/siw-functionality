@@ -309,6 +309,21 @@ class Event extends Type {
 			'application_explanation' => $application_explanation,
 			'application_link'        => $application_link,
 		];
+
+		// locatie op kaart toevoegen
+		if ( ! siw_meta( 'online' ) ) {
+			$location = siw_meta( 'location' );
+			$location_map = Google_Maps::create()
+			->add_location_marker(
+				sprintf( '%s, %s %s %s', $location['street'], $location['house_number'], $location['postcode'], $location['city'] ),
+				$location['name'],
+				sprintf( '%s, %s %s %s', $location['street'], $location['house_number'], $location['postcode'], $location['city'] )
+			)
+			->set_zoom( 15 );
+			$template_vars['location_map'] = $location_map->generate();
+		}
+		
+
 		Template::render_template( 'types/event_single', $template_vars );
 	}
 
@@ -351,21 +366,13 @@ class Event extends Type {
 		else {
 			//Locatie gegevens
 			$location = siw_meta( 'location' );
-			// locatie op kaart
-			$location_map = Google_Maps::create()
-			->add_location_marker(
-				sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] ),
-				$location['name'],
-				sprintf( '%s, %s %s', $location['street'], $location['postcode'], $location['city'] )
-			)
-			->set_zoom( 15 );
 			$template_vars += [
-				'location'          => true,
-				'location_name'     => $location['name'],
-				'location_street'   => $location['street'],
-				'location_postcode' => $location['postcode'],
-				'location_city'     => $location['city'],
-				'location_map'      => $location_map->generate(),
+				'location'              => true,
+				'location_name'         => $location['name'],
+				'location_street'       => $location['street'],
+				'location_house_number' => $location['house_number'],
+				'location_postcode'     => $location['postcode'],
+				'location_city'         => $location['city'],
 			];
 		}
 		//Organisator
