@@ -1,20 +1,22 @@
 {{#stories}}
-    {{!korte quote van het verhaal}}
-    <div class="grid-100" {{{animation_fade}}} >
-        {{{quote}}}
-    </div>
-    {{!plaatje tonen aan ene kant}}
-    <div class="grid-40 {{push_class}}" {{{animation_attributes_1}}} >
-        {{{image}}}
-    </div>
-    {{!verhaaltjes toenen aan andere kant}}
-    <div class="grid-60 {{pull_class}}" {{{animation_attributes_2}}} >
-        {{# content}}
-            <b>{{&title}}</b>
-            {{&text}}
-        {{/ content}}
-    </div>
+	{{!korte quote van het verhaal}}
+	<div class="grid-100" {{ animation_fade }} >
+		{{& quote }}
+	</div>
+	{{!plaatje tonen aan ene kant}}
+	<div class="grid-40 {{push_class}}" {{ animation_attributes_1 }} >
+		{{{image}}}
+	</div>
+	{{!verhaaltjes toenen aan andere kant}}
+	<div class="grid-60 {{pull_class}}" {{ animation_attributes_2 }} >
+		{{# content }}
+			<b>{{ title}}</b>
+			{{& text|wp_kses_post }}
+		{{/ content }}
+	</div>
 {{/stories}}
 {{#cta}}
-    <h4>{{#__}}Wilt je meer weten over zo'n soort project, bekijk de {{/__}} {{&cta}} </h4>
+	<div class="grid-100" {{ animation_fade }} >
+		<h4>{{#__}}Wilt je meer weten over zo'n soort project, bekijk de {{/__}} {{&cta}} </h4>
+	</div>
 {{/cta}}
