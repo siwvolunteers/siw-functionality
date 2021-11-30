@@ -3,6 +3,7 @@
 namespace SIW\Core;
 
 use SIW\Properties;
+use SIW\Util\CSS;
 
 /**
  * Class om head aan te passen
@@ -10,8 +11,7 @@ use SIW\Properties;
  * - Application manifest
  * - Optimalisatie
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Head {
 
@@ -44,30 +44,25 @@ class Head {
 		return $meta_tags;
 	}
 
-	/**
-	 * Toont application.manifest json
-	 * 
-	 * @todo Properties::PRIMARY_COLOR gebruiken voor theme_color, maar alleen als topbar niet actief is, kan dat?
-	 */
+	/** Toont application.manifest json */
 	public function show_application_manifest() {
 		$request = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : false;
 
-		if ( '/application.manifest' !== $request ) {
+		if ( '/application.manifest' !== $request && '/en/application.manifest' !== $request ) {
 			return;
 		}
 
-		header( 'Content-Type: application/json' );
-		echo json_encode([
+		$data = [
 			'short_name'       => 'SIW',
 			'name'             => Properties::NAME,
 			'description'      => esc_attr( get_bloginfo( 'description') ),
-			'lang'             => 'nl-NL',
+			'lang'             => get_locale(),
 			'start_url'        => '/',
 			'display'          => 'browser',
 			'orientation'      => 'any',
 			'dir'              => 'ltr',
-			'theme_color'      => '#fff',
-			'background_color' => '#fff',
+			'theme_color'      => CSS::ACCENT_COLOR,
+			'background_color' => CSS::BASE_COLOR,
 			'icons'            => [
 				[
 					'src'   => get_site_icon_url( 192 ),
@@ -78,12 +73,12 @@ class Head {
 					'sizes' => '512x512',
 				],
 			]
-		]);
-		die();
+		];
+		wp_send_json( $data, 200 );
 	}
 
 	/** Voegt resource hints (dns-prefetch en preconnect) toe */
-	public function add_resource_hints( array $urls, string $relation_type ) : array {
+	public function add_resource_hints( array $urls, string $relation_type ): array {
 		/**
 		 * URL's die gepreconnect en geprefetcht moeten worden
 		 * 
