@@ -3,7 +3,6 @@
 namespace SIW\Core;
 
 use SIW\Properties;
-use SIW\Util\CSS;
 
 /**
  * Aanpassingen aan login
@@ -30,7 +29,7 @@ class Login {
 	}
 
 	/** Zet de login-boodschap */
-	public function set_login_message ( string $message ) : string {
+	public function set_login_message ( string $message ): string {
 		if ( empty( $message ) ) {
 			$message = '<p class="message">' . esc_html__( 'Welkom bij SIW. Log in om verder te gaan.', 'siw' ) . '</p>';
 		}
