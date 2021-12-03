@@ -471,7 +471,7 @@ html[lang=en-US] #footer-widgets {
   border: none;
 }
 .widget_siw_contact_widget a.siw-contact-link .siw-icon {
-  fill: var(--siw-accent);
+  fill: var(--siw-base);
 }
 .widget_siw_contact_widget .siw-social-links {
   text-align: center;
