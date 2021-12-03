@@ -1,0 +1,25 @@
+#siw-cookie-notification {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  z-index: 99999;
+  padding: 10px;
+  background-color: var(--siw-contrast-light);
+  color: var(--siw-base);
+  text-align: left;
+  font-size: 0.9em;
+}
+#siw-cookie-notification .cookie-button {
+  text-align: center;
+}
+#siw-cookie-notification .cookie-button button.ghost {
+  font-size: 0.9em;
+  background-color: var(--siw-contrast-light);
+  color: var(--siw-base);
+  border: 2px solid var(--siw-base);
+}
+#siw-cookie-notification .cookie-button button.ghost:hover, #siw-cookie-notification .cookie-button button.ghost:active, #siw-cookie-notification .cookie-button button.ghost.is-checked {
+  color: var(--siw-contrast-light);
+  background-color: var(--siw-base);
+}

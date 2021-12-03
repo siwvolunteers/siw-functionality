@@ -25,9 +25,8 @@ class SiteOrigin_Widgets_Bundle {
 	}
 
 	/** Overschrijf SiteOrigin Widgets met SIW-widgets */
-	public function set_widget_folders( array $widget_folders ): array {
-		$widget_folders = [ SIW_WIDGETS_DIR ];
-		return apply_filters( 'siw_widget_folders', $widget_folders );
+	public function set_widget_folders(): array {
+		return [ SIW_WIDGETS_DIR ];
 	}
 
 	/** Hernoemde widgets corrigeren */
