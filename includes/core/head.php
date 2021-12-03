@@ -8,19 +8,22 @@ use SIW\Util\CSS;
 /**
  * Class om head aan te passen
  *
- * - Application manifest
+ * - Web app manifest
  * - Optimalisatie
  * 
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Head {
 
+	/** Bestandsnaam van web app manifest */
+	const WEB_APP_MANIFEST_FILENAME = 'manifest.json';
+
 	/** Init */
 	public static function init() {
 		$self = new self();
 
-		add_filter( 'site_icon_meta_tags', [ $self, 'add_application_manifest_tag']);
-		add_action( 'init', [ $self, 'show_application_manifest'] );
+		add_filter( 'site_icon_meta_tags', [ $self, 'add_manifest_tag']);
+		add_action( 'init', [ $self, 'show_web_app_manifest'] );
 
 		add_filter( 'wp_resource_hints', [ $self, 'add_resource_hints' ], 10 , 2 );
 
@@ -38,17 +41,18 @@ class Head {
 		remove_action( 'template_redirect', 'rest_output_link_header', 11 ) ;
 	}
 
-	/** Voegt tag voor application manifest toe */
-	public function add_application_manifest_tag( array $meta_tags ) : array {
-		$meta_tags[] = sprintf( '<link rel="manifest" href="%s" crossorigin="use-credentials">', '/application.manifest' );
+	/** Voegt tag voor web app manifest toe */
+	public function add_manifest_tag( array $meta_tags ) : array {
+		$meta_tags[] = sprintf( '<link rel="manifest" href="%s" crossorigin="use-credentials">', get_home_url( null, self::WEB_APP_MANIFEST_FILENAME ) );
 		return $meta_tags;
 	}
 
-	/** Toont application.manifest json */
-	public function show_application_manifest() {
+	/** Toont web app manifest */
+	public function show_web_app_manifest() {
 		$request = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : false;
 
-		if ( '/application.manifest' !== $request && '/en/application.manifest' !== $request ) {
+		//TODO: vervangen door str_ends_with() bij upgrade naar php8
+		if ( false === strpos( $request, self::WEB_APP_MANIFEST_FILENAME ) ) {
 			return;
 		}
 
@@ -56,8 +60,9 @@ class Head {
 			'short_name'       => 'SIW',
 			'name'             => Properties::NAME,
 			'description'      => esc_attr( get_bloginfo( 'description') ),
-			'lang'             => get_locale(),
-			'start_url'        => '/',
+			'lang'             => str_replace( '_', '-', get_locale() ),
+			'start_url'        => '.',
+			'scope'            => '/',
 			'display'          => 'browser',
 			'orientation'      => 'any',
 			'dir'              => 'ltr',
