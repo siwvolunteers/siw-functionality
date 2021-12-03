@@ -49,7 +49,7 @@ class Head {
 
 	/** Toont web app manifest */
 	public function show_web_app_manifest() {
-		$request = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : false;
+		$request = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 
 		//TODO: vervangen door str_ends_with() bij upgrade naar php8
 		if ( false === strpos( $request, self::WEB_APP_MANIFEST_FILENAME ) ) {
