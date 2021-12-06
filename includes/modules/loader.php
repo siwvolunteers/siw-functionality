@@ -15,7 +15,7 @@ class Loader extends Class_Loader_Abstract {
 	public function get_classes() : array {
 		return [
 			Breadcrumbs::class,
-			//Google_Analytics::class,
+			Google_Analytics::class,
 			Mega_Menu::class,
 			Social_Share::class,
 			Topbar::class
