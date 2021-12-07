@@ -6,41 +6,11 @@ namespace SIW\Content;
  * Class om een custom post type toe te voegen
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.0
  */
 class Post_Type {
-	/**
-	 * Post type
-	 */
-	protected string $post_type;
 
-	/**
-	 * Labels
-	 */
-	protected array $labels;
-
-	/**
-	 * Undocumented variable
-	 */
-	protected array $args = [];
-
-	/**
-	 * Slug voor losse post
-	 */
-	protected string $single_slug;
-
-	/**
-	 * Slug voor archiefpagina
-	 */
-	protected string $archive_slug;
-
-	public function __construct( string $post_type, array $args, array $labels, string $single_slug, string $archive_slug ) {
-		$this->post_type = $post_type;
-		$this->args = $args;
-		$this->labels = $labels;
-		$this->single_slug = $single_slug;
-		$this->archive_slug = $archive_slug;
-
+	/** Init */
+	public function __construct( protected string $post_type, protected array $args, protected array $labels, protected string $single_slug, protected string $archive_slug ) {
 		add_action( 'init', [ $this, 'register_post_type'] );
 	}
 

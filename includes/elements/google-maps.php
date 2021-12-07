@@ -25,12 +25,8 @@ class Google_Maps extends Element {
 	/** Markers voor op kaart */
 	protected array $markers = [];
 
-	/**
-	 * Center van kaart
-	 * 
-	 * @var string|array
-	 */
-	protected $center;
+	/** Center van kaart */
+	protected string|array $center;
 
 	/** Zoom-niveau */
 	protected int $zoom = 6;
@@ -85,73 +81,73 @@ class Google_Maps extends Element {
 	}
 
 	/** Creëer map */
-	public static function create() : self {
+	public static function create(): self {
 		$self = new self();
 		return $self;
 	}
 
 	/** Zet hoogte van de kaart */
-	protected function set_height( int $height ) : self {
+	protected function set_height( int $height ): self {
 		$this->height = $height;
 		return $this;
 	}
 
 	/** Zet zoom-niveau */
-	public function set_zoom( int $zoom ) : self {
+	public function set_zoom( int $zoom ): self {
 		$this->zoom = $zoom;
 		return $this;
 	}
 
 	/** Zet zoom-control */
-	public function set_zoom_control( bool $zoom_control ) : self {
+	public function set_zoom_control( bool $zoom_control ): self {
 		$this->zoom_control = $zoom_control;
 		return $this;
 	}
 
 	/** Zet map type control */
-	public function set_map_type_control( bool $map_type_control ) : self {
+	public function set_map_type_control( bool $map_type_control ): self {
 		$this->map_type_control = $map_type_control;
 		return $this;
 	}
 
 	/** Zet scale control */
-	public function set_scale_control( bool $scale_control ) : self {
+	public function set_scale_control( bool $scale_control ): self {
 		$this->scale_control = $scale_control;
 		return $this;
 	}
 
 	/** Zet street view control */
-	public function set_street_view_control( bool $street_view_control ) : self {
+	public function set_street_view_control( bool $street_view_control ): self {
 		$this->street_view_control = $street_view_control;
 		return $this;
 	}
 
 	/** Zet rotate control */
-	public function set_rotate_control( bool $rotate_control ) : self {
+	public function set_rotate_control( bool $rotate_control ): self {
 		$this->rotate_control = $rotate_control;
 		return $this;
 	}
 
 	/** Zet fullscreen control */
-	public function set_fullscreen_control( bool $fullscreen_control ) : self {
+	public function set_fullscreen_control( bool $fullscreen_control ): self {
 		$this->fullscreen_control = $fullscreen_control;
 		return $this;
 	}
 
 	/** Zet het midden van de kaart */
-	public function set_center( float $lat, float $lng ) : self {
+	public function set_center( float $lat, float $lng ): self {
 		$this->center = [ 'lat' => $lat, 'lng' => $lng ];
 		return $this;
 	}
 
 	/** Zet het midden van de kaart op basis van een locatie */
-	public function set_location_center( string $location ) : self {
+	public function set_location_center( string $location ): self {
 		$this->center = $location;
 		return $this;
 	}
 
 	/** Voegt marker toe */
-	public function add_marker( float $lat, float $lng, string $title, string $description = '' ) : self {
+	public function add_marker( float $lat, float $lng, string $title, string $description = '' ): self {
 		if ( ! isset( $this->center ) ) {
 			$this->set_center( $lat, $lng );
 		}
@@ -164,7 +160,7 @@ class Google_Maps extends Element {
 	}
 
 	/** Voegt marker op locatie toe */
-	public function add_location_marker( string $location, string $title, string $description = '' ) : self {
+	public function add_location_marker( string $location, string $title, string $description = '' ): self {
 		if ( ! isset( $this->center ) ) {
 			$this->set_location_center( $location );
 		}
@@ -197,7 +193,7 @@ class Google_Maps extends Element {
 	}
 
 	/** Voegt url's toe t.b.v. DNS-prefetch en preconnect TODO: werkt pas als de constructor eerder aangeroepen wordt. */
-	public function add_urls( array $urls ) : array {
+	public function add_urls( array $urls ): array {
 		$urls[] = 'maps.googleapis.com';
 		$urls[] = 'maps.google.com';
 		$urls[] = 'maps.gstatic.com';

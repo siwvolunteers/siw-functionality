@@ -39,7 +39,7 @@ class HTTP_Request {
 	protected function __construct() {}
 
 	/** Maak request aan */
-	public static function create( string $url, array $args = [] ) : self {
+	public static function create( string $url, array $args = [] ): self {
 		$self = new self();
 		$self->url = $url;
 		$self->args = \wp_parse_args_recursive(
@@ -58,31 +58,31 @@ class HTTP_Request {
 	}
 
 	/** Zet basic auth header */
-	public function set_basic_auth( string $user, string $password ) : self {
+	public function set_basic_auth( string $user, string $password ): self {
 		$this->args['headers']['Authorization'] = 'Basic ' . base64_encode("{$user}:{$password}");
 		return $this;
 	}
 
 	/** Zet bearer auth header */
-	public function set_bearer_auth( string $token ) :self {
+	public function set_bearer_auth( string $token ): self {
 		$this->args['headers']['Authorization'] = "Bearer {$token}";
 		return $this;
 	}
 
 	/** Voegt toegestane response code toe */
-	public function add_accepted_response_code( int $response_code ) : self {
+	public function add_accepted_response_code( int $response_code ): self {
 		$this->accepted_response_codes[] = $response_code;
 		return $this;
 	}
 
 	/** Zet content type van request */
-	public function set_content_type( string $content_type ) : self {
+	public function set_content_type( string $content_type ): self {
 		$this->args['headers']['content-type'] = $content_type;
 		return $this;
 	}
 
 	/** Zet geaccepteerde formaat van response */
-	public function set_accept( string $accept ) : self {
+	public function set_accept( string $accept ): self {
 		$this->args['headers']['accept'] = $accept;
 		return $this;
 	}
@@ -116,12 +116,12 @@ class HTTP_Request {
 	}
 
 	/** Geeft aan of de response een geldige body bevat */
-	protected function has_valid_body( $response ) : bool {
+	protected function has_valid_body( array|\WP_Error $response ): bool {
 		$body = \wp_remote_retrieve_body( $response );
 		switch ( $this->args['headers']['accept'] ) {
 			case self::APPLICATION_JSON:
 				$json = \json_decode( $body, true );
-				if ( null == $json ) {
+				if ( null === $json ) {
 					$this->error =  new \WP_Error( 'invalid_json', 'Ongeldige JSON' );
 					return false;
 				}
@@ -141,12 +141,8 @@ class HTTP_Request {
 		return true;
 	}
 
-	/**
-	 * Controleert response
-	 *
-	 * @param array|\WP_Error $response
-	 */
-	protected function is_valid_response( $response ) : bool {
+	/** Controleert response */
+	protected function is_valid_response( array|\WP_Error $response ): bool {
 		if ( is_wp_error( $response ) ) {
 			$this->error = $response;
 			return false;

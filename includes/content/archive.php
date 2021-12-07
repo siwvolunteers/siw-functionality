@@ -8,44 +8,16 @@ use SIW\Util\CSS;
 /**
  * Archiefpagina
  * 
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Archive {
 
-	/**
-	 * Post type
-	 */
-	protected string $post_type;
-
-	/**
-	 * Taxonomieën
-	 */
-	protected array $taxonomies;
-
-	/**
-	 * Opties voor archief-pagina
-	 */
-	protected array $archive_options;
-
-	/**
-	 * Instantie van Taxonomy Filter
-	 */
+	/** Instantie van Taxonomy Filter */
 	protected Taxonomy_Filter $taxonomy_filter;
 
-	/**
-	 * Init
-	 *
-	 * @param string $post_type
-	 * @param array $taxonomies
-	 * @param array $archive_options
-	 */
-	public function __construct( string $post_type, array $taxonomies, array $archive_options ) {
-
-		$this->post_type = $post_type;
-		$this->taxonomies = $taxonomies;
-		$this->archive_options = $archive_options;
-		
+	/** Init */
+	public function __construct( protected string $post_type, protected array $taxonomies, protected array $archive_options ) {
+	
 		//Archive-opties
 		add_filter( 'generate_blog_columns', [ $this, 'set_archive_columns' ] );
 		add_filter( 'generate_blog_get_column_count', [ $this, 'set_archive_column_count'] );
@@ -90,9 +62,7 @@ class Archive {
 		<?php
 	}
 
-	/**
-	 * Voegt taxonomy filter toe
-	 */
+	/** Voegt taxonomy filter toe */
 	public function add_taxonomy_filter() {
 		if ( ! $this->is_archive_query() ) {
 			return;
@@ -112,11 +82,7 @@ class Archive {
 		echo '</div>';
 	}
 
-	/**
-	 * Toont alle posts op archiefpagina
-	 *
-	 * @param \WP_Query $query
-	 */
+	/** Toont alle posts op archiefpagina */
 	public function show_all_posts_on_archive( \WP_Query $query ) {
 		if ( ! $this->is_archive_query( $query ) ) {
 			return;
@@ -124,11 +90,7 @@ class Archive {
 		$query->set( 'posts_per_page', -1 );
 	}
 
-	/**
-	 * Zet sorteereigenschappen
-	 *
-	 * @param \WP_Query $query
-	 */
+	/** Zet sorteereigenschappen */
 	public function set_orderby( \WP_Query $query ) {
 		if ( ! $this->is_archive_query( $query ) ) {
 			return;
@@ -140,11 +102,7 @@ class Archive {
 		}
 	}
 
-	/**
-	 * Zet meta query voor archive
-	 *
-	 * @param \WP_Query $query
-	 */
+	/** Zet meta query voor archive */
 	public function set_filter( \WP_Query $query ) {
 		if ( ! $this->is_archive_query( $query ) || empty( $this->archive_options['meta_query'] ) ) {
 			return;
@@ -154,14 +112,9 @@ class Archive {
 		$query->set( 'meta_query', $meta_query );
 	}
 
-	/**
-	 * Geeft aan of het een query voor een relevant archief is
-	 *
-	 * @param \WP_Query $query
-	 * @return bool
-	 */
-	protected function is_archive_query( \WP_Query $query = null ) : bool {
-		if ( null == $query ) {
+	/** Geeft aan of het een query voor een relevant archief is */
+	protected function is_archive_query( \WP_Query $query = null ): bool {
+		if ( null === $query ) {
 			global $wp_the_query;
 			$query = $wp_the_query;
 		}
@@ -180,12 +133,8 @@ class Archive {
 		return false;
 	}
 
-	/**
-	 * Bepaal archive type 
-	 * 
-	 * @return string|bool
-	 */
-	protected function get_archive_type() {
+	/** Bepaal archive type */
+	protected function get_archive_type(): string|bool {
 		if ( is_post_type_archive( "siw_{$this->post_type}" ) ) {
 			return 'post_type';
 		}
@@ -204,7 +153,7 @@ class Archive {
 	 *
 	 * @return bool
 	 */
-	public function set_archive_columns( $columns ) {
+	public function set_archive_columns( bool $columns ): bool {
 		if ( $this->is_archive_query() ) {
 			return 100 !== $this->archive_options['column_count'];
 		}
@@ -212,14 +161,8 @@ class Archive {
 		return $columns;
 	}
 
-	/**
-	 * Zet het aantal kolommen
-	 *
-	 * @param int $count
-	 *
-	 * @return int
-	 */
-	public function set_archive_column_count( $count ) {
+	/** Zet het aantal kolommen */
+	public function set_archive_column_count( int $count ): int {
 		if ( $this->is_archive_query() ) {
 			return $this->archive_options['column_count'];
 		}
@@ -227,28 +170,16 @@ class Archive {
 		return $count;
 	}
 
-	/**
-	 * Zet Masonry aan voor archief
-	 *
-	 * @param mixed $masonry
-	 *
-	 * @return mixed
-	 */
-	public function set_archive_masonry( $masonry ) {
+	/** Zet Masonry aan voor archief */
+	public function set_archive_masonry( string|bool $masonry ): string|bool {
 		if ( $this->is_archive_query() ) {
 			return $this->archive_options['masonry'];
 		}
 		return $masonry;
 	}
 
-	/**
-	 * Zet sitebar-layout voor archive
-	 *
-	 * @param string $layout
-	 *
-	 * @return string
-	 */
-	public function set_sidebar_layout( string $layout ) : string {
+	/** Zet sitebar-layout voor archive */
+	public function set_sidebar_layout( string $layout ): string {
 		if ( $this->is_archive_query() ) {
 			return $this->archive_options['sidebar_layout'];
 		}

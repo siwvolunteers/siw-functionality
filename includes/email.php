@@ -71,23 +71,23 @@ class Email {
 	}
 
 	/** Zet het afzenderadres (indien nog niet gezet) */
-	public function set_mail_from( string $from ) : string {
+	public function set_mail_from( string $from ): string {
 		$sitename = strtolower( SIW_SITE_NAME );
-		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
+		if ( str_starts_with( $sitename, 'www.' ) ) {
 			$sitename = substr( $sitename, 4 );
 		}
 		$default_from = 'wordpress@' . $sitename;
 	
-		if ( $from != $default_from ) {
+		if ( $from !== $default_from ) {
 			return $from;
 		}
 		return Properties::EMAIL;
 	}
 
 	/** Zet de afzendernaam (indien nog niet gezet) */
-	public function set_mail_from_name( string $from_name ) : string {
+	public function set_mail_from_name( string $from_name ): string {
 		$default_from_name = 'WordPress';
-		if ( $from_name != $default_from_name ) {
+		if ( $from_name !== $default_from_name ) {
 			return $from_name;
 		}
 		return Properties::NAME;

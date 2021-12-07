@@ -54,27 +54,16 @@ class Carousel {
 	}
 
 	/** Haalt responsive classes op */
-	protected function get_responsive_classes() : string {
+	protected function get_responsive_classes(): string {
 
 		$desktop_columns = $this->columns;
 		$mobile_columns = 1;
 
-		switch ( $this->columns ) {
-			case 1:
-				$tablet_columns = 1;
-				break;
-			case 2:
-				$tablet_columns = 2;
-				break;
-			case 3:
-				$tablet_columns = 2;
-				break;
-			case 4:
-				$tablet_columns = 2;
-				break;
-			default:
-				$tablet_columns = 1;
-			}
+		$tablet_columns = match( $this->columns ) {
+			1       => 1,
+			2,3,4   => 2,
+			default => 1,
+		};
 		return CSS::generate_responsive_classes( $desktop_columns, $tablet_columns, $mobile_columns );
 	}
 
@@ -110,7 +99,6 @@ class Carousel {
 
 	/**
 	 * Genereert carousel
-
 	 * 
 	 * @todo leesbaarder maken
 	 */
@@ -164,7 +152,7 @@ class Carousel {
 		}
 
 		//In het geval van Groepsprojecten alleen zichtbare projecten tonen
-		if ( 'product' == $this->post_type ) {
+		if ( 'product' === $this->post_type ) {
 			$args['tax_query'][] = [
 				'taxonomy' => 'product_visibility',
 				'terms'    => [ 'exclude-from-search', 'exclude-from-catalog'],
@@ -179,7 +167,7 @@ class Carousel {
 	 * Haal templatebestand op voor post type
 	 * @todo fallback-bestand
 	 */
-	protected function get_template() : string {
+	protected function get_template(): string {
 		$templates = apply_filters( 'siw_carousel_post_type_templates', [] );
 		return $templates[ $this->post_type ] ?? '';
 	}

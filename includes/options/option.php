@@ -8,22 +8,17 @@ use SIW\Interfaces\Options\Option as Option_Interface;
  * Class om opties toe te voegen
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.2.0
  */
 class Option {
 
-	/** Data van optie */
-	protected Option_Interface $option;
-
 	/** Constructor */
-	public function __construct( Option_Interface $option ) {
-		$this->option = $option;
+	public function __construct( protected Option_Interface $option ) {
 		add_filter( 'rwmb_meta_boxes', [ $this, 'add_settings_meta_boxes'] );
 		add_filter( 'mb_settings_pages', [ $this, 'add_settings_page'] );
 	}
 
 	/** Voegt admin-pagina toe */
-	public function add_settings_page( array $settings_pages ) : array {
+	public function add_settings_page( array $settings_pages ): array {
 		$tabs = $this->option->get_tabs();
 		$settings_pages[] = [
 			'option_name'   => 'siw_options',
@@ -42,7 +37,7 @@ class Option {
 	}
 	
 	/*** Voegt metaboxes toe */
-	public function add_settings_meta_boxes( array $meta_boxes ) : array {
+	public function add_settings_meta_boxes( array $meta_boxes ): array {
 		
 		$tabs = $this->option->get_tabs();
 		$fields = $this->option->get_fields();

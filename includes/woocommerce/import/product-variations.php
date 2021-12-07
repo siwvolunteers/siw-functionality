@@ -11,17 +11,8 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  */
 class Product_Variations {
 
-	/** Product */
-	protected \WC_Product $product;
-
-	/** Tarieven */
-	protected array $tariffs;
-
 	/** Init */
-	public function __construct( \WC_Product $product, array $tariffs ) {
-		$this->product = $product;
-		$this->tariffs = $tariffs;
-	}
+	public function __construct( protected \WC_Product $product, protected array $tariffs ) {}
 
 	/** Bestaande variaties bijwerken */
 	public function update() {

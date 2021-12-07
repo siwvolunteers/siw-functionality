@@ -42,17 +42,17 @@ class Head {
 	}
 
 	/** Voegt tag voor web app manifest toe */
-	public function add_manifest_tag( array $meta_tags ) : array {
+	public function add_manifest_tag( array $meta_tags ): array {
 		$meta_tags[] = sprintf( '<link rel="manifest" href="%s" crossorigin="use-credentials">', get_home_url( null, self::WEB_APP_MANIFEST_FILENAME ) );
 		return $meta_tags;
 	}
 
 	/** Toont web app manifest */
-	public function show_web_app_manifest() {
+	public function show_web_app_manifest(): never {
 		$request = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 
 		//TODO: vervangen door str_ends_with() bij upgrade naar php8
-		if ( false === strpos( $request, self::WEB_APP_MANIFEST_FILENAME ) ) {
+		if ( ! str_ends_with( $request, self::WEB_APP_MANIFEST_FILENAME ) ) {
 			return;
 		}
 

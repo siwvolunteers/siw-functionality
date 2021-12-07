@@ -18,12 +18,8 @@ class Action {
 	/** Group voor update */
 	const UPDATE_GROUP = 'siw_update';
 
-	/** Actie */
-	protected Batch_Action_Interface $action;
-
 	/** Init */
-	public function __construct( Batch_Action_Interface $action ) {
-		$this->action = $action;
+	public function __construct( protected Batch_Action_Interface $action ) {
 
 		if ( $this->action->must_be_scheduled() ) {
 			add_filter( 'siw_scheduler_actions', [ $this, 'add_action_to_scheduler'] );
@@ -40,7 +36,7 @@ class Action {
 	}
 
 	/** Voegt actie aan scheduler toe */
-	public function add_action_to_scheduler( array $actions ) : array {
+	public function add_action_to_scheduler( array $actions ): array {
 		$actions[] = $this->action->get_id();
 		return $actions;
 	}
@@ -56,7 +52,7 @@ class Action {
 	}
 
 	/** Voegt actie toe aan WooCommerce debug tools (om handmatig te starten) */
-	public function add_action_to_wc_debug_tools( array $tools ) : array {
+	public function add_action_to_wc_debug_tools( array $tools ): array {
 		$tools[ "siw_{$this->action->get_id()}" ] = [
 			'name'     => "SIW: {$this->action->get_name()}",
 			'button'   => __( 'Starten', 'siw' ),
@@ -67,7 +63,7 @@ class Action {
 	}
 
 	/** Start actie */
-	public function start() : string {
+	public function start(): string {
 		$data = $this->action->select_data();
 
 		array_walk(

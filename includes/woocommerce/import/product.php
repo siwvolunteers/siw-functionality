@@ -29,16 +29,11 @@ class Product {
 	/** Post-status van projecten die beoordeeld moeten worden */
 	const REVIEW_STATUS = 'pending';
 
+	/** Logger source */
 	const LOGGER_SOURCE = 'importeren-projecten';
-
-	/** Plato project */
-	protected Plato_Project $plato_project;
 
 	/** Geeft aan of het een update van een bestaand product is */
 	protected bool $is_update = false;
-
-	/** Forceer update van project */
-	protected bool $force_update;
 
 	/** Project */
 	protected \WC_Product $product;
@@ -77,16 +72,14 @@ class Product {
 	protected array $target_audiences = [];
 
 	/** Constructor */
-	public function __construct( Plato_Project $plato_project, bool $force_update = false ) {
+	public function __construct( protected Plato_Project $plato_project, protected bool $force_update = false ) {
 		add_filter( 'wc_product_has_unique_sku', '__return_false' );
 		add_filter( 'wp_insert_post_data', [ $this, 'correct_post_slug'], 10, 2 );
-		$this->plato_project = $plato_project;
-		$this->force_update = $force_update;
 	}
 
 	/** Corrigeert slug van product als het ter review staat */
 	public function correct_post_slug( array $data, array $postarr ): array {
-		if ( self::REVIEW_STATUS == $data['post_status'] && 'product' == $data['post_type'] ) {
+		if ( self::REVIEW_STATUS === $data['post_status'] && 'product' === $data['post_type'] ) {
 			$data['post_name'] = $postarr['post_name'];
 		}
 		return $data;

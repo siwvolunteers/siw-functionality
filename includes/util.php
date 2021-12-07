@@ -35,7 +35,7 @@ class Util {
 	}
 
 	/** Geeft array met pagina's in standaardtaal terug */
-	public static function get_pages() : array {
+	public static function get_pages(): array {
 		$default_lang = i18n::get_default_language();
 		$current_lang = i18n::get_current_language();
 		do_action( 'wpml_switch_language', $default_lang );
@@ -62,10 +62,8 @@ class Util {
 		return $from->diff( $to )->y;
 	}
 
-	/** Creëert term indien deze nog niet bestaat
-	 *  @return int|bool
-	 */
-	public static function maybe_create_term( string $taxonomy, string $slug, string $name, $order = null ) {
+	/** Creëert term indien deze nog niet bestaat */
+	public static function maybe_create_term( string $taxonomy, string $slug, string $name, $order = null ): int|bool {
 		$term = get_term_by( 'slug', $slug, $taxonomy );
 		
 		//Als term al bestaat zijn we snel klaar
@@ -89,6 +87,6 @@ class Util {
 
 	/** Geeft aan of het een productieomgeving betreft */
 	public static function is_production(): bool {
-		return 'production' == \wp_get_environment_type();
+		return 'production'=== \wp_get_environment_type();
 	}
 }

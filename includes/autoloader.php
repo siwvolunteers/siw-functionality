@@ -5,21 +5,12 @@ namespace SIW;
 /**
  * Autoloader voor SIW classes
  * 
- * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Autoloader {
 
-	/** Root-namespace */
-	protected string $root_namespace;
-
-	/** Basisdirectory */
-	protected string $root_directory;
-
 	/** Init */
-	public function __construct( string $root_namespace, string $root_directory ) {
-		$this->root_namespace = $root_namespace;
-		$this->root_directory = $root_directory;
+	public function __construct( protected string $root_namespace, protected string $root_directory ) {
 		spl_autoload_register( [ $this, 'autoload' ] );
 	}
 
@@ -27,7 +18,7 @@ class Autoloader {
 	public function autoload( string $class ) {
 
 		/* Afbreken als het geen relevante class is */
-		if ( strpos( $class, $this->root_namespace ) !== 0 ) {
+		if ( ! str_starts_with( $class, $this->root_namespace ) ) {
 			return;
 		}
 

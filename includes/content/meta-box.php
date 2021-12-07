@@ -6,52 +6,16 @@ namespace SIW\Content;
  * Voegt metabox toe bij CPT
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.0
  */
 class Meta_Box {
 
-	/**
-	 * Post type
-	 */
-	protected string $post_type;
-
-	/**
-	 * Velden van de metabox
-	 */
-	protected array $fields;
-
-	/**
-	 * Titel van de metabox
-	 */
-	protected string $title;
-
-	/**
-	 * Taxonomieën
-	 */
-	protected array $taxonomies;
-
-	/**
-	 * Init
-	 *
-	 * @param string $post_type
-	 * @param string $title
-	 * @param array $taxonomies
-	 */
-	public function __construct( string $post_type, string $title, array $taxonomies = [] ) {
-		$this->post_type = $post_type;
-		$this->title = $title;
-		$this->taxonomies = $taxonomies;
+	/** Init */
+	public function __construct( protected string $post_type, protected string $title, protected array $taxonomies = [] ) {
 		add_filter( 'rwmb_meta_boxes', [ $this, 'add_meta_box' ] );
 	}
 
-	/**
-	 * Voegt meta box toe
-	 *
-	 * @param array $meta_boxes
-	 * 
-	 * @return array
-	 */
-	public function add_meta_box( array $meta_boxes ) : array {
+	/** Voegt meta box toe */
+	public function add_meta_box( array $meta_boxes ): array {
 		$meta_boxes[] = [
 			'id'          => "siw_{$this->post_type}",
 			'title'       => $this->title,
@@ -68,12 +32,8 @@ class Meta_Box {
 		return $meta_boxes;
 	}
 
-	/**
-	 * Haal velden op
-	 *
-	 * @return array
-	 */
-	protected function get_fields() : array {
+	/** Haal velden op */
+	protected function get_fields(): array {
 		$fields = apply_filters( "siw_{$this->post_type}_meta_box_fields", [] );
 		if ( ! empty( $this->taxonomies ) ) {
 			$fields = array_merge( $this->get_taxonomy_fields(), $fields );
@@ -81,12 +41,8 @@ class Meta_Box {
 		return $fields;
 	}
 
-	/**
-	 * Haalt taxonomy-velden op
-	 *
-	 * @return array
-	 */
-	protected function get_taxonomy_fields() : array{
+	/** Haalt taxonomy-velden op */
+	protected function get_taxonomy_fields(): array{
 		$taxonomy_fields = [
 			[
 				'name' => __( 'Categorieën', 'siw' ),

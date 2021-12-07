@@ -17,13 +17,8 @@ class Form {
 	/** Key voor cache group */
 	const CACHE_GROUP = 'siw_forms';
 
-	/** Formulier */
-	protected Form_Interface $form;
-
 	/** Init */
-	public function __construct( Form_Interface $form ) {
-		$this->form = $form;
-	}
+	public function __construct( protected Form_Interface $form ) {}
 
 	/** Registreer formulier */
 	public function register() {
@@ -109,7 +104,7 @@ class Form {
 			}
 
 			$layout_fields[ $slug ] = "{$row_index}:{$cell_index}";
-			if ( 1 == $row_index && 1 == $cell_index ) {
+			if ( 1 === $row_index && 1 === $cell_index ) {
 				$layout_structure = $width;
 			}
 			elseif ( $new_row ) {

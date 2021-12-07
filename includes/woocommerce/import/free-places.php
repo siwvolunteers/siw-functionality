@@ -14,13 +14,8 @@ class Free_Places {
 	/** Meta om aan te geven dat een project vol is */
 	const META_KEY = 'project_is_full';
 
-	/** Vrije plaatsen van een project */
-	protected Plato_Project_Free_Places $plato_project_free_places;
-
 	/** Init */
-	public function __construct( Plato_Project_Free_Places $plato_project_free_places ) {
-		$this->plato_project_free_places = $plato_project_free_places;
-	}
+	public function __construct( protected Plato_Project_Free_Places $plato_project_free_places ) {}
 
 	/** Verwerk fpl  */
 	public function process() {

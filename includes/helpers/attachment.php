@@ -19,9 +19,6 @@ class Attachment {
 	/** URL van upload directory */
 	protected string $upload_url;
 
-	/** Subdirectory voor upload */
-	protected string $subdir;
-
 	/** Minimum breedte van afbeelding */
 	protected int $minimum_width;
 
@@ -34,13 +31,9 @@ class Attachment {
 	/** Maximum hoogte van afbeelding */
 	protected int $maximum_height = Properties::MAX_IMAGE_SIZE;
 
-	/** Soort bestand */
-	protected string $filetype;
-
 	/** Init */
-	public function __construct( string $filetype, string $subdir ) {
+	public function __construct( protected string $filetype, protected string $subdir ) {
 		require_once( ABSPATH . 'wp-admin/includes/file.php' );
-		$this->filetype = $filetype;
 
 		//Bepaal standaard upload dir
 		$upload_dir = \wp_upload_dir( null, false );
@@ -48,12 +41,11 @@ class Attachment {
 		$this->upload_url = $upload_dir['baseurl'];
 
 		//Zet subdirectory voor upload
-		$this->subdir = $subdir;
 		\add_filter( 'siw_upload_subdir', [ $this, 'set_upload_subdir'] );
 	}
 
 	/** Voegt attachment toe */
-	public function add( $temp_file, $filename, $title ) : ?int {
+	public function add( $temp_file, $filename, $title ): ?int {
 
 		//Verplaats bestand naar upload-directory
 		$relative_path = $this->move_file( $temp_file, $filename );
@@ -62,7 +54,7 @@ class Attachment {
 		}
 
 		//Afbeelding controleren op minimale en maximale afmetingen
-		if ( 'image' == $this->filetype ) {
+		if ( 'image' === $this->filetype ) {
 			$relative_path = $this->check_image( $relative_path );
 			if ( null === $relative_path ) {
 				return null;
@@ -72,13 +64,13 @@ class Attachment {
 	}
 
 	/** Verplaatst bestand naar upload-directory */
-	protected function move_file( string $temp_file, string $filename ) : ?string {
+	protected function move_file( string $temp_file, string $filename ): ?string {
 		
 		$temp_filename = basename( $temp_file );
 
 		//Controleren bestand
 		$check = \wp_check_filetype_and_ext( $temp_file, $temp_filename );
-		if ( false == $check['type'] || ( null !== $this->filetype && $this->filetype !== wp_ext2type( $check['ext'] ) ) ) {
+		if ( false === $check['type'] || ( null !== $this->filetype && $this->filetype !== wp_ext2type( $check['ext'] ) ) ) {
 			\wp_delete_file( $temp_file );
 			return null;
 		}
@@ -86,7 +78,6 @@ class Attachment {
 		//Genereer bestandsnaam
 		$filename .= ".{$check['ext']}";
 		$filename = \wp_unique_filename( "{$this->upload_dir}/{$this->subdir}", $filename );
-
 
 		//Bestand verplaatsen naar upload directory
 		$file = [
@@ -116,7 +107,7 @@ class Attachment {
 	}
 
 	/** Voegt attachment toe aan database */
-	protected function create_attachment( string $relative_path, string $title ) : ?int {
+	protected function create_attachment( string $relative_path, string $title ): ?int {
 		$file = \wp_normalize_path( $this->upload_dir . '/' . $relative_path );
 
 		$attachment_id = \wp_insert_attachment( [
@@ -146,7 +137,7 @@ class Attachment {
 	 * - Verwijderen en afbreken als afbeelding te klein is
 	 * - Resizen als afbeelding te groot is
 	 */
-	protected function check_image( string $relative_path ) : ?string {
+	protected function check_image( string $relative_path ): ?string {
 		$file = wp_normalize_path( $this->upload_dir . '/' . $relative_path );
 
 		$image_editor = \wp_get_image_editor( $file );
@@ -176,7 +167,7 @@ class Attachment {
 			}
 
 			$path = $resized_image['path'];
-			if ( 0 === strpos( $path, $this->upload_dir ) ) {
+			if ( str_starts_with( $path, $this->upload_dir ) ) {
 				$relative_path = str_replace( $this->upload_dir, '', $path );
 				$relative_path = ltrim( $relative_path, '/' );
 			}
@@ -186,7 +177,7 @@ class Attachment {
 	}
 
 	/** Zet upload directory */
-	public function set_upload_subdir() : string {
+	public function set_upload_subdir(): string {
 		return $this->subdir;
 	}
 }

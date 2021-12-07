@@ -8,8 +8,7 @@ use SIW\Properties;
 /**
  * Exporteert aanmelding naar Plato
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Order {
 
@@ -36,12 +35,8 @@ class Order {
 		return $actions;
 	}
 
-	/**
-	 * Exporteert aanmelding naar plato
-	 *
-	 * @param int|\WC_Order $order_id
-	 */
-	function export_order( $order ) {
+	/** Exporteert aanmelding naar plato */
+	function export_order( int|\WC_Order $order ) {
 
 		if ( ! is_object( $order ) ) {
 			$order = new \WC_Order( $order );
@@ -58,25 +53,25 @@ class Order {
 		}
 	
 		/* Resultaat opslaan bij aanmelding */
-		if ( 0 != $this->failed_count ) {
+		if ( 0 !== $this->failed_count ) {
 			$order->update_meta_data( '_exported_to_plato', 'failed' );
 			$order->save();
 		}
-		elseif ( 0 != $this->success_count ) {
+		elseif ( 0 !== $this->success_count ) {
 			$order->update_meta_data( '_exported_to_plato', 'success' );
 			$order->save();
 		}
 	}
 	
 	/** Exporteert aanmelding voor 1 project naar Plato */
-	protected function export_application( array $order_data, \WC_Product $product ) : array {
+	protected function export_application( array $order_data, \WC_Product $product ): array {
 		
 		$projectcode = $product->get_sku();
 		$order_data['choice1'] = $projectcode;
 		$export = new Plato_Export_Application;
 		$result = $export->run( $order_data );
 
-		if ( true == $result['success'] ) {
+		if ( true === $result['success'] ) {
 			$this->success_count++;
 		}
 		else {
@@ -86,7 +81,7 @@ class Order {
 	}
 
 	/** Genereert array met gegevens aanmelding voor export-xml */
-	protected function get_order_data( \WC_Order $order ) : array {
+	protected function get_order_data( \WC_Order $order ): array {
 		return [
 			'firstname'         => $order->get_billing_first_name(),
 			'lastname'          => $order->get_billing_last_name(),

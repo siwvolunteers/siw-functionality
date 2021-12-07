@@ -14,9 +14,6 @@ use SIW\Interfaces\Forms\Post_Processor as Post_Processor_Interface;
  */
 class Form_Processor {
 
-	/** Zet formprocessor */
-	protected Form_Processor_Interface $form_processor;
-
 	/** Zet preprocessor */
 	protected Pre_Processor_Interface $pre_processor;
 
@@ -27,8 +24,7 @@ class Form_Processor {
 	protected Post_Processor_Interface $post_processor;
 	
 	/** Init */
-	public function __construct( Form_Processor_Interface $form_processor ) {
-		$this->form_processor = $form_processor;
+	public function __construct( protected Form_Processor_Interface $form_processor ) {
 		add_filter( 'caldera_forms_get_form_processors', [ $this, 'add_form_processor'] );
 	}
 	

@@ -17,12 +17,8 @@ class Endpoint {
 	/** Versie */
 	protected string $version = 'v1';
 
-	/** Route */
-	protected Endpoint_Interface $endpoint;
-
 	/** Init */
-	public function __construct( Endpoint_Interface $endpoint ) {
-		$this->endpoint = $endpoint;
+	public function __construct( protected Endpoint_Interface $endpoint ) {
 		add_action( 'rest_api_init', [ $this, 'register_route' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_script' ] );
 	}
@@ -40,14 +36,12 @@ class Endpoint {
 	}
 
 	/** Valideert nonce */
-	public function verify_nonce( \WP_REST_Request $request ) : bool {
+	public function verify_nonce( \WP_REST_Request $request ): bool {
 		$nonce = $request->get_header( 'x_wp_nonce' );
 		return boolval( wp_verify_nonce( $nonce, 'wp_rest' ) );
 	}
 
-	/**
-	 * Voegt scripts toe
-	 */
+	/** Voegt scripts toe */
 	public function enqueue_script() {
 		$script_data = wp_parse_args_recursive(
 			$this->endpoint->get_script_data(),
