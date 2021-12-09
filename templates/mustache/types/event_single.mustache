@@ -1,0 +1,41 @@
+{{! tijd en locatie}}
+<h4>{{& icon_clock }} {{ event_date }} {{ start_time }} - {{ end_time }}</h4>
+<h4>
+	{{#online}}
+		{{{icon_globe }}} {{ onlinelocation_name }} {{{ onlinelocation_link }}}
+	{{/ online}}
+	{{#location}}
+		{{& icon_map-marker-alt }} {{ location_name }}, {{ location_street }} {{ location_house_number }}, {{ location_postcode }} {{ location_city }}
+	{{/location}}
+</h4>
+{{!beschrijving van evenement}}
+<br>
+<p>{{& description | wp_kses_post }}</p>
+
+{{! aanmeldformulier}}
+<h2>{{#__}}Aanmelden{{/__}}</h2>
+{{#verlopen}}
+	{{#__}}Dit evenement is helaas al afgelopen{{/__}}
+{{/verlopen}}
+{{^verlopen}}
+	{{#infodag}}
+		{{& infoform }}
+	{{/infodag}}
+	{{^infodag}}
+		{{& application_explanation }}
+		{{#application_link}}
+			{{& application_link }}
+		{{/application_link}}
+	{{/infodag}}
+{{/verlopen}}
+{{! locatie op kaart tonen}}
+{{#location}}
+	<h2>{{#__}}Locatie{{/__}}</h2>
+	{{& location_map }}
+{{/location}}
+{{! link naar organisator tonen}}
+{{#organizer}}
+	<h2>{{#__}}Organisator{{/__}}</h2>
+	{{#__}}Dit evenement wordt georganiseerd door {{/__}}
+	{{ organizer_name }} | {{& organizer_link }}
+{{/organizer}}

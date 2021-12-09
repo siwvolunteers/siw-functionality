@@ -82,6 +82,16 @@ class Settings implements Option_Interface {
 				'label' => __( 'Vacatures', 'siw' ),
 				'icon'  => 'dashicons-clipboard'
 			],
+			[
+				'id'    => 'story',
+				'label' => __( 'Ervaringsverhalen', 'siw' ),
+				'icon'  => 'dashicons-format-gallery'
+			],
+			[
+				'id'    => 'event',
+				'label' => __( 'Evenementen', 'siw' ),
+				'icon'  => 'dashicons-calendar'
+			],
 		];
 		return $tabs;
 	}
@@ -193,6 +203,19 @@ class Settings implements Option_Interface {
 
 		//Vacatures TODO: group voor vacaturetekst
 		$fields[] = [
+			'id'        => 'job_posting',
+			'type'      => 'group',
+			'tab'       => 'job_postings',
+			'fields'    => [
+				[
+					'id'       => 'archive_intro',
+					'name'     => __( 'Introtekst', 'siw' ),
+					'type'     => 'wysiwyg',
+					'required' => true,
+				],
+			],
+		];
+		$fields[] = [
 			'type'     => 'heading',
 			'name'     => __( 'Vacaturetekst', 'siw' ),
 			'tab'      => 'job_postings',
@@ -200,6 +223,13 @@ class Settings implements Option_Interface {
 		$fields[] = [
 			'id'       => 'job_postings_organization_profile',
 			'name'     => __( 'Wie zijn wij', 'siw' ),
+			'type'     => 'wysiwyg',
+			'tab'      => 'job_postings',
+			'required' => true,
+		];
+		$fields[] = [
+			'id'       => 'job_postings_intro',
+			'name'     => __( 'Introtekst', 'siw' ),
 			'type'     => 'wysiwyg',
 			'tab'      => 'job_postings',
 			'required' => true,
@@ -233,6 +263,36 @@ class Settings implements Option_Interface {
 					'required' => true,
 				],
 			],
+		];
+		// Ervaringsverhalen
+
+		$fields[] = [
+			'id'        => 'story',
+			'type'      => 'group',
+			'tab'       => 'story',
+			'fields'    => [
+				[
+					'id'       => 'archive_intro',
+					'name'     => __( 'Introtekst', 'siw' ),
+					'type'     => 'wysiwyg',
+					'required' => true,
+				],
+			],
+		];
+
+		//Evenementen
+		$fields[] = [
+			'id'   => 'event',
+			'type' => 'group',
+			'tab'  => 'event',
+			'fields' => [
+				[
+					'id'       => 'archive_intro',
+					'name'     => __( 'Introtekst', 'siw' ),
+					'type'     => 'wysiwyg',
+					'required' => true,
+				],
+			]
 		];
 
 		//Groepsprojecten
@@ -352,6 +412,19 @@ class Settings implements Option_Interface {
 		];
 
 		//Op Maat
+		$fields[] = [
+			'id'        => 'tm_country',
+			'type'      => 'group',
+			'tab'       => 'tailor_made',
+			'fields'    => [
+				[
+					'id'       => 'archive_intro',
+					'name'     => __( 'Introtekst', 'siw' ),
+					'type'     => 'wysiwyg',
+					'required' => true,
+				],
+			],
+		];
 		$fields[] = [
 			'id'      => 'tailor_made_sale',
 			'type'    => 'group',
