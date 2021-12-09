@@ -6,8 +6,9 @@ use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
 use SIW\Elements\Accordion;
 use SIW\i18n;
-use SIW\Properties;
+use SIW\Util\CSS;
 use SIW\Util\Links;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Class om een Mapplic kaart te genereren
@@ -68,9 +69,9 @@ class Netherlands implements Interactive_Map_Interface {
 				'description'   => $this->get_project_properties( $project ) . $this->get_project_button( $project ),
 				'pin'           => 'pin-classic pin-md',
 				'category'      => 'nl',
-				'fill'          => Properties::PRIMARY_COLOR,
+				'fill'          => CSS::ACCENT_COLOR,
 			];
-			$provinces[] = $project->get_meta( 'dutch_projects_province' );
+			$provinces[] = null; // TODO: provincie uit Google Maps halen
 		}
 	
 		//Provincies inkleuren
@@ -78,7 +79,7 @@ class Netherlands implements Interactive_Map_Interface {
 		foreach ( $provinces as $province ) {
 			$locations[] = [
 				'id'     => "nl-{$province}",
-				'fill'   => Properties::SECONDARY_COLOR,
+				'fill'   => CSS::CONTRAST_COLOR,
 				'action' => 'disabled',
 				'hide'   => true,
 			];
@@ -98,7 +99,7 @@ class Netherlands implements Interactive_Map_Interface {
 		foreach ( $projects as $project ) {
 			$panes[] = [
 				'title'       => $this->get_project_title( $project ),
-				'content'     => $this->get_project_properties( $project ) . $this->get_project_description( $project ),
+				'content'     => $this->get_project_properties( $project ),
 				'show_button' => i18n::is_default_language(),
 				'button_url'  => $project->get_permalink(),
 				'button_text' => __( 'Bekijk project', 'siw' ),
@@ -111,55 +112,33 @@ class Netherlands implements Interactive_Map_Interface {
 	/** Haalt projecten op */
 	protected function get_projects() : array {
 		$args = [
-			'country'    => 'nederland',
-			'return'     => 'objects',
-			'limit'      => -1,
+			'country' => 'nederland',
 		];
-		return wc_get_products( $args );
+		return siw_get_products( $args );
 	}
 
 	/** Genereert beschrijving van het project */
 	protected function get_project_properties( \WC_Product $project ) : string {
 		//Verzamelen gegevens
-		$attributes = $project->get_attributes();
-		$work_type_slugs = $attributes['pa_soort-werk']->get_slugs();
-		
-		$work_types = array_map(
-			fn( string $work_type_slug ) : string => siw_get_work_type( $work_type_slug )->get_name(),
-			$work_type_slugs
-		);
-	
 		$duration = siw_format_date_range( $project->get_attribute( 'startdatum' ), $project->get_attribute( 'einddatum' ) );
 
 		//Opbouwen beschrijving
 		$description[] = sprintf( __( 'Projectcode: %s', 'siw' ), $project->get_sku() );
 		$description[] = sprintf( __( 'Data: %s', 'siw' ), $duration );
-		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), implode( ', ', $work_types ) );
-		
-		//Locatie tonen indien bekend
-		if ( $project->get_meta( 'dutch_projects_city' ) && $project->get_meta( 'dutch_projects_province' ) ) {
-			$description[] = sprintf(
-				__( 'Locatie: %s, provincie %s', 'siw' ),
-				$project->get_meta('dutch_projects_city'),
-				siw_get_dutch_province( $project->get_meta( 'dutch_projects_province' ) )
-			);
+		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), $project->get_attribute( Taxonomy_Attribute::WORK_TYPE()->value ) );
+		$sdgs = $project->get_attribute( Taxonomy_Attribute::SDG()->value );
+		if ( !empty( $sdgs ) ) {
+			$description[] = sprintf( __( 'Sustainable Development Goals: %s', 'siw' ), $sdgs );
 		}
-		return wpautop( implode( BR, $description ) );
-	}
 
-	/** Haalt projectbeschrijving op */
-	protected function get_project_description( \WC_Product $project ) : ?string {
-		$language = i18n::get_current_language();
-		if ( $project->get_meta( "dutch_projects_name_{$language}" ) ) {
-			return wpautop( $project->get_meta( "dutch_projects_description_{$language}" ) );
-		}
-		return null;
+		
+		//TODO: Locatie (Locatie: %s, provincie %s) tonen indien bekend, afleiden van coördinaten m.b.v Google Maps API
+		return wpautop( implode( BR, $description ) );
 	}
 
 	/** Haalt projecttitel op */
 	protected function get_project_title( \WC_Product $project ) : string {
-		$language = i18n::get_current_language();
-		return ! empty( $project->get_meta( "dutch_projects_name_{$language}" ) ) ? $project->get_meta( "dutch_projects_name_{$language}" ) : $project->get_attribute( 'Projectnaam' );
+		return $project->get_attribute( 'Projectnaam' );
 	}
 
 	/** Haal knop naar Groepsproject op */

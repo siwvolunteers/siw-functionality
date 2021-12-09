@@ -25,8 +25,8 @@ class Free_Places {
 	/** Verwerk fpl  */
 	public function process() {
 
-		$product = $this->find_project( $this->plato_project_free_places->get_project_id() );
-		if ( null == $product ) {
+		$product = siw_get_product_by_project_id( $this->plato_project_free_places->get_project_id() );
+		if ( null === $product ) {
 			return;
 		}
 
@@ -47,15 +47,4 @@ class Free_Places {
 		return in_array( 'NLD', wp_parse_slug_list( $no_more_from ) ) || ( ( $free_m + $free_f ) <= 0 );
 	}
 
-	/** Zoek project op basis van project_id TODO: util-functie van maken? */
-	protected function find_project( string $project_id ) : ?\WC_Product {
-			$args = [
-			'project_id' => $project_id,
-			'return'     => 'objects',
-			'limit'      => -1,
-		];
-		$products = wc_get_products( $args );
-	
-		return ! empty( $products ) ? reset( $products ) : null;
-	}
 }

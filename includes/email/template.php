@@ -4,6 +4,7 @@ namespace SIW\Email;
 
 use SIW\Data\Social_Network;
 use SIW\Properties;
+use SIW\Util\CSS;
 use SIW\Util\Links;
 
 /**
@@ -81,7 +82,7 @@ class Template {
 									<td width="20%">
 										<img src="<?= SIW_ASSETS_URL;?>images/mail/logo.png" style="display: block; border: 0px; outline: none; width: 100%; height: auto; max-width: 144px;" width="144" border="0" alt="logo" />
 									</td>
-									<td width="60%" style="vertical-align:bottom;border-bottom: solid <?= Properties::PRIMARY_COLOR;?>;font-family:Verdana, normal; color:#666666; font-size:0.95m; font-weight:bold;" align="center">
+									<td width="60%" style="vertical-align:bottom;border-bottom: solid <?= CSS::ACCENT_COLOR;?>;font-family:Verdana, normal; color:#666666; font-size:0.95m; font-weight:bold;" align="center">
 										<?= esc_html( $this->args['subject'] );?>
 									</td>
 									<td width="10%">&nbsp;</td>
@@ -98,7 +99,7 @@ class Template {
 								<tr>
 									<td width="10%">&nbsp;</td>
 									<td width="80%">
-										<div style="font-family:Verdana, normal; color:<?php echo Properties::FONT_COLOR;?>; font-size:0.9em; ">
+										<div style="font-family:Verdana, normal; color:<?php echo CSS::CONTRAST_COLOR;?>; font-size:0.9em; ">
 											<p>
 											<?= wp_kses_post( $this->args['message'] );?>
 											<?php if ( $this->args['show_signature'] ) :?>
@@ -121,7 +122,7 @@ class Template {
 								</tr>
 								<tr>
 									<td width="10%">&nbsp;</td>
-									<td width="80%" height="20" style="border-bottom:thin solid <?= Properties::PRIMARY_COLOR;?>">&nbsp;</td>
+									<td width="80%" height="20" style="border-bottom:thin solid <?= CSS::ACCENT_COLOR;?>">&nbsp;</td>
 									<td width="10%">&nbsp;</td>
 								</tr>
 							</table>

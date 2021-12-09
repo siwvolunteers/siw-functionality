@@ -16,22 +16,23 @@ html{
 			width: auto;
 		}
 		.message {
-			border-left-color: var(--siw-primary-color);
+			border-left-color: #444;
 		}
 		form{
 			input[type="text"], input[type="password"]{
 				border-radius:0;
-				border-color:$button-color;
+				border-color: #444;
 			}
 
 			.button-primary {
-				background-color:$button-color;
-				border:none;
+				background-color: #fff;
+				border: 2px solid #444;
+				color: #444;
 				border-radius:0;
-				color: #fff;
 				transition: all 0.3s linear 0s;
 				&:hover, &:active{
-					background-color: var(--siw-primary-color);
+					border: 2px solid #444;
+					background-color: #444;
 					color: #fff;
 				}
 			}
@@ -41,7 +42,8 @@ html{
 			color:#fff;
 			font-weight: bold;
 			&:hover{
-				color: var(--siw-primary-color);
+				color: #fff;
+				text-decoration: underline;
 			}
 		}
 	

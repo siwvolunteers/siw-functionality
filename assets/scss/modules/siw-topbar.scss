@@ -1,20 +1,20 @@
 @import "../partials/_variables.scss";
 
 .topbar{
-	background: var(--siw-secondary-color);
-	color: #fff;
+	background: var(--siw-accent);
+	color: var(--siw-base );
 	text-align: center;
 	.topbar-content{
 		padding: 10px;
 	}
 	.button.ghost, .button.ghost:visited {
-		border: 2px solid #fff;
-		color: #fff;
+		border: 2px solid var(--siw-base);
+		color: var(--siw-base);
 		background: transparent;
 
 		&:hover, &:active{
-			background: #fff;
-			color: var(--siw-secondary-color);
+			background: var(--siw-base);
+			color: var(--siw-accent)
 		}
 	}
 }

@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use SIW\Properties;
+use SIW\Util\CSS;
 use SIW\Util\Links;
 
 /*
@@ -37,7 +37,7 @@ $admin_link_url = admin_url( sprintf('post.php?post=%s&action=edit', $order->get
 $admin_link_text = sprintf( __( 'Aanmelding %s', 'siw' ), $order->get_order_number() );
 
 ?>
-<div style="font-family:Verdana, normal; color:<?= Properties::FONT_COLOR;?>; font-size:14px; ">
+<div style="font-family:Verdana, normal; color:<?= CSS::CONTRAST_COLOR;?>; font-size:14px; ">
 	<p>
 		<?php
 		printf( esc_html__( 'Er is een nieuwe aanmelding (%s) binnengekomen:', 'siw' ),  $application_status ); echo BR;

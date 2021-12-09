@@ -19,7 +19,7 @@
 			display: inline-block;
 			height: 20px;
 			width: 20px;
-			border: 1px solid #b9b9b9;
+			border: 1px solid var(--siw-contrast-light);
 			top: 2px;
 		}
 
@@ -28,8 +28,8 @@
 			display: inline-block;
 			height: 8px;
 			width: 12px;
-			border-left: 3px solid var(--siw-primary-color);
-			border-bottom: 3px solid var(--siw-primary-color);
+			border-left: 3px solid var(--siw-accent);
+			border-bottom: 3px solid var(--siw-accent);
 			transform: rotate(-45deg);
 			left: 4px;
 			top: 6px;

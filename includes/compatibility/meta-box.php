@@ -5,9 +5,8 @@ namespace SIW\Compatibility;
 /**
 * Aanpassingen voor Meta Box
  * 
- * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://metabox.io/
- * @since     3.0.0
  */
 class Meta_Box {
 
@@ -24,10 +23,12 @@ class Meta_Box {
 		add_filter( 'rwmb_normalize_switch_field', [ $self, 'set_default_switch_options'] );
 		add_filter( 'rwmb_normalize_wysiwyg_field', [ $self, 'set_default_wysiwyg_options'] );
 		add_filter( 'rwmb_group_sanitize', [ $self, 'sanitize_group' ], 10, 4 );
+		add_filter( 'rwmb_get_value', [ $self, 'render_shortcodes'], 10, 4 );
+		add_action( 'rwmb_enqueue_scripts', [ $self, 'enqueue_script'] );
 	}
 
 	/** Selecteert de gebruikte extensies */
-	public function select_extensions() {
+	public function select_extensions(): array {
 		$extensions = [
 			'mb-admin-columns',
 			'mb-settings-page',
@@ -45,7 +46,7 @@ class Meta_Box {
 	/** Zet standaardeigenschappen van tijdvelden
 	 * @todo kan weg na introductie HTML5 velden
 	 */
-	public function set_default_time_options( array $field ) : array {
+	public function set_default_time_options( array $field ): array {
 		$defaults = [
 			'pattern'    => '([01]?[0-9]|2[0-3]):[0-5][0-9]',
 			'inline'     => false,
@@ -62,7 +63,7 @@ class Meta_Box {
 	/** Zet standaardeigenschappen van datumvelden
 	 * @todo kan weg na introductie HTML5 velden
 	 */
-	public function set_default_date_options( array $field ) : array {
+	public function set_default_date_options( array $field ): array {
 		$defaults = [
 			'label_description' => 'jjjj-mm-dd',
 			'placeholder'       => 'jjjj-mm-dd',
@@ -79,7 +80,7 @@ class Meta_Box {
 	}
 
 	/** Zet standaardeigenschappen van switchvelden */
-	public function set_default_switch_options( array $field ) : array {
+	public function set_default_switch_options( array $field ): array {
 		$defaults = [
 			'style' => 'square',
 		];
@@ -87,7 +88,7 @@ class Meta_Box {
 	}
 
 	/** Zet standaardeigenschappen van wysiwyg */
-	public function set_default_wysiwyg_options( array $field ) : array {
+	public function set_default_wysiwyg_options( array $field ): array {
 		$defaults = [
 			'raw'      => true,
 			'options'  => [
@@ -101,7 +102,7 @@ class Meta_Box {
 	}
 
 	/** Sanitize velden in MB Group */
-	public function sanitize_group( array $values, array $group, $old_value = null, $object_id = null ) : array {
+	public function sanitize_group( array $values, array $group, $old_value = null, $object_id = null ): array {
 		foreach ( $group['fields'] as $field ) {
 			$key = $field['id'];
 			$old = isset( $old_value[ $key ] ) ? $old_value[ $key ] : null;
@@ -125,5 +126,20 @@ class Meta_Box {
 			$sanitized[ $key ] = \RWMB_Field::filter( 'value', $new, $field, $old, $object_id );
 		}
 		return $sanitized;
+	}
+
+	/** Render shortcodes in wyswyg editor */
+	public function render_shortcodes( $value, array $field, array $args, $object_id ) {
+		if ( 'wysiwyg' === $field['type'] ) {
+			$value = do_shortcode( $value );
+		}
+		return $value;
+	}
+
+	/** Voegt script toe */
+	public function enqueue_script() {
+		wp_register_script( 'siw-meta-box', SIW_ASSETS_URL . 'js/compatibility/siw-meta-box.js', [ 'jquery' ], SIW_PLUGIN_VERSION, true );
+		//TODO: localize_script voor meldingen
+		wp_enqueue_script( 'siw-meta-box' );
 	}
 }

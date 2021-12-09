@@ -5,11 +5,14 @@ namespace SIW\WooCommerce\Frontend;
 use SIW\Data\Currency;
 use SIW\External\Exchange_Rates;
 use SIW\WooCommerce\Import\Product as Import_Product;
+use SIW\WooCommerce\Product_Attribute;
+use SIW\WooCommerce\Taxonomy_Attribute;
+use Spatie\Enum\Enum;
 
 /**
  * Aanpassingen aan Groepsproject
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Product {
 
@@ -38,13 +41,10 @@ class Product {
 		add_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
 		add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
 		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
-
-		//SEO
-		add_filter( 'the_seo_framework_post_meta', [ $self, 'set_seo_noindex' ], 10, 2 );
 	}
 
 	/** Bepaalt of product bestelbaar is */
-	public function set_product_is_purchasable( bool $is_purchasable, \WC_Product $product ) : bool {
+	public function set_product_is_purchasable( bool $is_purchasable, \WC_Product $product ): bool {
 		$is_purchasable = $product->is_visible();
 		$status = $product->get_status();
 
@@ -55,7 +55,7 @@ class Product {
 	}
 
 	/** Zet de toelichting voor het studententarief */
-	public function set_variation_description( $variations ) : array {
+	public function set_variation_description( $variations ): array {
 		if ( 'student' == $variations['attributes']['attribute_pa_tarief'] ) {
 			$variations['variation_description'] =  __( 'Je komt in aanmerking voor het studententarief als je 17 jaar of jonger bent of als je een bewijs van inschrijving kunt laten zien.', 'siw' );
 		}
@@ -63,29 +63,29 @@ class Product {
 	}
 
 	/** Past weergave van de attributes aan */
-	public function display_product_attributes( array $attributes, \WC_Product $product ) : array {
+	public function display_product_attributes( array $attributes, \WC_Product $product ): array {
 		$order = [
-			'projectnaam',
-			'projectcode',
-			'pa_land',
-			'pa_soort-werk',
-			'startdatum',
-			'einddatum',
-			'aantal-vrijwilligers',
-			'leeftijd',
-			'lokale-bijdrage',
-			'pa_taal',
-			'pa_doelgroep',
-			'pa_sdg'
+			Product_Attribute::PROJECT_NAME(),
+			Product_Attribute::PROJECT_CODE(),
+			Taxonomy_Attribute::COUNTRY(),
+			Taxonomy_Attribute::WORK_TYPE(),
+			Product_Attribute::START_DATE(),
+			Product_Attribute::END_DATE(),
+			Product_Attribute::NUMBER_OF_VOLUNTEERS(),
+			Product_Attribute::AGE_RANGE(),
+			Product_Attribute::PARTICIPATION_FEE(),
+			Taxonomy_Attribute::LANGUAGE(),
+			Taxonomy_Attribute::TARGET_AUDIENCE(),
+			Taxonomy_Attribute::SDG(),
 		];
 
 		$order = array_map(
-			fn( string $slug ) : string => "attribute_{$slug}",
+			fn( Enum $attribute ) : string => "attribute_{$attribute->value}",
 			$order
 		);
 
 		uksort( $attributes, function( $key1, $key2 ) use ( $order ) {
-			return ( array_search( $key1, $order ) > array_search( $key2, $order ) );
+			return ( array_search( $key1, $order ) <=> array_search( $key2, $order ) );
 		} );
 
 		//Local fee verbergen voor nederlandse projecten
@@ -145,19 +145,10 @@ class Product {
 	}
 
 	/** Zet CSS-klass voor dropdown */
-	public function set_variation_dropdown_args( array $args ) : array {
+	public function set_variation_dropdown_args( array $args ): array {
 		$args['show_option_none'] = __( 'Kies een tarief', 'siw' );
 		$args['class'] = 'select-css';
 		return $args;
-	}
-
-	/** Zet SEO noindex als project niet zichtbaar is */
-	function set_seo_noindex( array $meta, int $post_id ) : array {
-		if ( 'product' == get_post_type( $post_id ) ) {
-			$product = wc_get_product( $post_id );
-			$meta['_genesis_noindex'] = intval( ! $product->is_visible() );
-		}
-		return $meta;
 	}
 
 	/**
@@ -171,5 +162,4 @@ class Product {
 			echo '<span class="product-badge featured-badge">' . esc_html__( 'Aanbevolen', 'siw' ) . '</span>';
 		}
 	}
-
 }

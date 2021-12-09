@@ -10,10 +10,11 @@
   margin: 5px;
   font-size: 18px;
   border-top: 3px solid;
-  color: #ccc;
+  color: var(--siw-contrast-light);
+  text-decoration: none;
 }
 .siw-social a .siw-icon {
-  fill: #ccc;
+  fill: var(--siw-contrast-light);
 }
 .siw-social a:hover {
   color: var(--hover-color);

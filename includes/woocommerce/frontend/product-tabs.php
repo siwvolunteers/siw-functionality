@@ -16,17 +16,10 @@ class Product_Tabs {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_filter( 'woocommerce_product_tabs', [ $self, 'remove_reviews_tab'], PHP_INT_MAX );
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_description_tab'] );
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_location_map_tab'] );
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_contact_form_tab'] );
 		add_filter( 'woocommerce_product_tabs', [ $self, 'add_steps_tab'] );
-	}
-
-	/** Verwijdert reviews-tab */
-	public function remove_reviews_tab( array $tabs ) : array {
-		unset( $tabs['reviews'] );
-		return $tabs;
 	}
 
 	/** Voegt tab met projectbeschrijving toe */

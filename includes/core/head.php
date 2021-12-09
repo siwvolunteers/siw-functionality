@@ -3,24 +3,27 @@
 namespace SIW\Core;
 
 use SIW\Properties;
+use SIW\Util\CSS;
 
 /**
  * Class om head aan te passen
  *
- * - Application manifest
+ * - Web app manifest
  * - Optimalisatie
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Head {
+
+	/** Bestandsnaam van web app manifest */
+	const WEB_APP_MANIFEST_FILENAME = 'manifest.json';
 
 	/** Init */
 	public static function init() {
 		$self = new self();
 
-		add_filter( 'site_icon_meta_tags', [ $self, 'add_application_manifest_tag']);
-		add_action( 'init', [ $self, 'show_application_manifest'] );
+		add_filter( 'site_icon_meta_tags', [ $self, 'add_manifest_tag']);
+		add_action( 'init', [ $self, 'show_web_app_manifest'] );
 
 		add_filter( 'wp_resource_hints', [ $self, 'add_resource_hints' ], 10 , 2 );
 
@@ -38,36 +41,33 @@ class Head {
 		remove_action( 'template_redirect', 'rest_output_link_header', 11 ) ;
 	}
 
-	/** Voegt tag voor application manifest toe */
-	public function add_application_manifest_tag( array $meta_tags ) : array {
-		$meta_tags[] = sprintf( '<link rel="manifest" href="%s" crossorigin="use-credentials">', '/application.manifest' );
+	/** Voegt tag voor web app manifest toe */
+	public function add_manifest_tag( array $meta_tags ) : array {
+		$meta_tags[] = sprintf( '<link rel="manifest" href="%s" crossorigin="use-credentials">', get_home_url( null, self::WEB_APP_MANIFEST_FILENAME ) );
 		return $meta_tags;
 	}
 
-	/**
-	 * Toont application.manifest json
-	 * 
-	 * @todo Properties::PRIMARY_COLOR gebruiken voor theme_color, maar alleen als topbar niet actief is, kan dat?
-	 */
-	public function show_application_manifest() {
-		$request = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : false;
+	/** Toont web app manifest */
+	public function show_web_app_manifest() {
+		$request = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 
-		if ( '/application.manifest' !== $request ) {
+		//TODO: vervangen door str_ends_with() bij upgrade naar php8
+		if ( false === strpos( $request, self::WEB_APP_MANIFEST_FILENAME ) ) {
 			return;
 		}
 
-		header( 'Content-Type: application/json' );
-		echo json_encode([
+		$data = [
 			'short_name'       => 'SIW',
 			'name'             => Properties::NAME,
 			'description'      => esc_attr( get_bloginfo( 'description') ),
-			'lang'             => 'nl-NL',
-			'start_url'        => '/',
+			'lang'             => str_replace( '_', '-', get_locale() ),
+			'start_url'        => '.',
+			'scope'            => '/',
 			'display'          => 'browser',
 			'orientation'      => 'any',
 			'dir'              => 'ltr',
-			'theme_color'      => '#fff',
-			'background_color' => '#fff',
+			'theme_color'      => CSS::ACCENT_COLOR,
+			'background_color' => CSS::BASE_COLOR,
 			'icons'            => [
 				[
 					'src'   => get_site_icon_url( 192 ),
@@ -78,12 +78,12 @@ class Head {
 					'sizes' => '512x512',
 				],
 			]
-		]);
-		die();
+		];
+		wp_send_json( $data, 200 );
 	}
 
 	/** Voegt resource hints (dns-prefetch en preconnect) toe */
-	public function add_resource_hints( array $urls, string $relation_type ) : array {
+	public function add_resource_hints( array $urls, string $relation_type ): array {
 		/**
 		 * URL's die gepreconnect en geprefetcht moeten worden
 		 * 

@@ -58,7 +58,7 @@ class Quote extends Type {
 				'id'          => 'country',
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
-				'options'     => \siw_get_countries_list( Country::ALL, 'slug' ),
+				'options'     => \siw_get_countries_list( Country::ALL ),
 				'required'    => true,
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],

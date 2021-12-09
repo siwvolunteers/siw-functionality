@@ -14,15 +14,16 @@ html[lang=en-US] #footer-widgets {
 	}
 
 	a.siw-contact-link .siw-icon {
-		fill: var(--siw-secondary-color);
+		fill: var(--siw-base);
 	}
 
 	.siw-social-links {
 		text-align: center;
-		margin-top:10px;
+		margin-top: 10px;
 		a{
-			padding:5px;
-			&:hover{
+			padding: 5px;
+			text-decoration: none;
+			&:hover {
 				.siw-background-icon {
 					fill: var(--hover-color);
 				}
@@ -34,7 +35,7 @@ html[lang=en-US] #footer-widgets {
 /* Snel zoeken widget */
 .so-widget-siw_quick_search_form_widget {
 	display: inline-block;
-	background: #fff;
+	background: var(--siw-base);
 	box-shadow: $box-shadow-overlay;
 	padding: 20px 30px;
 	text-align: center;
@@ -57,7 +58,7 @@ html[lang=en-US] #footer-widgets {
 		display: block;
 	}
 	.loading {
-		color: var(--siw-secondary-color);
+		color: var(--siw-accent);
 		font-size: 10px;
 		margin: 10px auto;
 		position: relative;
@@ -104,7 +105,7 @@ html[lang=en-US] #footer-widgets {
 /* Call to action*/
 .so-widget-siw_cta_widget {
 	.headline {
-		color: #fff;
+		color: var(--siw-base);
 		font-size: calc(1em + 3vw);
 		line-height: 1em;
 		font-weight: bold;
@@ -120,7 +121,7 @@ html[lang=en-US] #footer-widgets {
 /*Quote*/
 .so-widget-siw_quote_widget {
 	padding: 25px;
-	background: #fff;
+	background: var(--siw-base);
 	box-shadow: $box-shadow-overlay;
 	.footer-widgets & {
 		padding: inherit;
@@ -130,18 +131,18 @@ html[lang=en-US] #footer-widgets {
 	blockquote {
 		font-size: inherit;
 		font-style: italic;
-		border-left-color: var(--siw-secondary-color);
+		border-left-color: var(--siw-accent);
 		padding: 5px 5px 5px 15px;
 		margin: inherit;
 		.footer-widgets & {
 			border-left-color: inherit;
 			transition: border 0.6s ease-out 0s;
 			&:hover {
-				border-left-color: var(--siw-secondary-color);
+				border-left-color: var(--siw-accent);
 			}
 		}
 		footer {
-			color: var(--siw-font-color-light);
+			color: var(--siw-accent);
 			.footer-widgets &{
 				color: inherit;
 			}

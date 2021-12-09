@@ -7,7 +7,7 @@
  * @version 2.4.0
  */
 
-use SIW\Properties;
+use SIW\Util\CSS;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<td width="20%">
 											<img src="<?php echo SIW_ASSETS_URL;?>images/mail/logo.png" style="display: block; border: 0px; outline: none; width: 100%; height: auto; max-width: 144px;" width="144" border="0" alt="logo" />
 										</td>
-										<td width="60%" style="vertical-align:bottom;border-bottom: solid <?= Properties::PRIMARY_COLOR;?>;font-family:Verdana, normal; color:#666666; font-size:0.95em; font-weight:bold;" align="center">
+										<td width="60%" style="vertical-align:bottom;border-bottom: solid <?= CSS::ACCENT_COLOR;?>;font-family:Verdana, normal; color:#666666; font-size:0.95em; font-weight:bold;" align="center">
 											<?php esc_html_e( $email_heading ); ?>
 										</td>
 										<td width="10%">&nbsp;</td>

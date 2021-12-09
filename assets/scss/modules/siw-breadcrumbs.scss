@@ -1,6 +1,6 @@
 @import "../partials/_variables.scss";
 
-nav.breadcrumb{
+nav.breadcrumb {
 	padding: 10px;
 	background-color: rgba(63,63,63,0.75);
 	font-size: 0.9em;
@@ -10,15 +10,14 @@ nav.breadcrumb{
 		margin:0;
 		list-style: none;
 		li{
-			display:inline-block;
+			display: inline-block;
 			a{
-				text-decoration: underline;
-				color: #fff;
+				color: var(--siw-base);
 			}
 		}
 		li+li:before {
 			padding: 0.5em;
-			color: #fff;
+			color: var(--siw-base);
 			content: "\003E";
 		}
 	}

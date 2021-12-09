@@ -123,10 +123,10 @@ class Carousel extends Widget {
 				];
 			}
 		}
-		$widget_form['show_selected_products'] = [
+		$widget_form['show_featured_products'] = [
 			'type'          => 'checkbox',
-			'label'         => __( 'Geselecteerde Groepsprojecten', 'siw' ),
-			'description'   => __( 'Toon alleen voor de carousel geselecteerde Groepsprojecten', 'siw' ),
+			'label'         => __( 'Aanbevolen projecten', 'siw' ),
+			'description'   => __( 'Toon alleen aanbevolen projecten', 'siw' ),
 			'default'       => false,
 			'state_handler' => [
 				"post_type[product]" => ['show'],
@@ -167,15 +167,28 @@ class Carousel extends Widget {
 		$carousel->set_items( intval( $instance['items'] ) );
 		$carousel->set_columns( intval( $instance['columns'] ) );
 		if ( ! empty( $instance['taxonomy'] ) && ! empty( $instance['term'] ) ) {
-			$carousel->set_taxonomy_term( $instance['taxonomy'], $instance['term'] );
+			$carousel->add_tax_query([
+				'taxonomy' => $instance['taxonomy'],
+				'terms'    => [$instance['term']],
+				'field'    => 'slug',
+			]);
 		}
 
-		if ( 'product' == $instance['post_type'] && isset( $instance['show_selected_products'] ) && $instance['show_selected_products'] ) {
-			$carousel->set_meta_query([
-				'key'     => 'selected_for_carousel',
-				'value'   => true,
-				'compare' => '='
+		//Aparte logica voor producten
+		if ( 'product' == $instance['post_type'] ) {
+			$carousel->add_tax_query( [
+				'taxonomy' => 'product_visibility',
+				'terms'    => [ 'exclude-from-search', 'exclude-from-catalog'],
+				'field'    => 'slug',
+				'operator' => 'NOT IN'
 			]);
+			if ( isset( $instance['show_featured_products'] ) && $instance['show_featured_products'] ) {
+				$carousel->add_tax_query( [
+					'taxonomy' => 'product_visibility',
+					'terms'    => [ 'featured'],
+					'field'    => 'slug',
+				]);
+			}
 		}
 		
 		return [
@@ -208,17 +221,17 @@ class Carousel extends Widget {
 	}
 
 	/** Haalt ondersteunde post types op */
-	protected function get_post_types() : array {
+	protected function get_post_types(): array {
 		return apply_filters( 'siw_carousel_post_types', [] );
 	}
 
 	/** Haalt ondersteunde taxonomieën op */
-	protected function get_taxonomies() : array {
+	protected function get_taxonomies(): array {
 		return apply_filters( 'siw_carousel_post_type_taxonomies', [] );
 	}
 
 	/** Haal optielijst van taxonomie op */
-	protected function get_term_options( string $taxonomy ) : array {
+	protected function get_term_options( string $taxonomy ): array {
 		$terms = get_terms( $taxonomy );
 		$term_options[''] = __( 'Alle', 'siw' );
 		foreach ( $terms as $term ) {

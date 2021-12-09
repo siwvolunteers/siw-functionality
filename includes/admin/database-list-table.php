@@ -82,7 +82,7 @@ class Database_List_Table extends \WP_List_Table {
 	}
 
 	/** {@inheritDoc} */
-	function get_columns(): array {
+	public function get_columns(): array {
 		$all_columns = $this->database->get_columns();
 		$columns = wp_list_filter( $all_columns, [ 'show' => true ] );
 		$columns = wp_list_pluck(  $columns, 'name', 'name' );

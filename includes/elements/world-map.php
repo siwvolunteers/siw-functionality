@@ -9,7 +9,7 @@ use SIW\Data\Continent;
 /**
  * Wereldkaart
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class World_Map extends Element {
 
@@ -40,7 +40,7 @@ class World_Map extends Element {
 	protected function get_template_variables(): array {
 		return [
 			'file'    => $this->map_file,
-			'viewbox' => $this->get_viewbox(),
+			'viewbox' => "0 0 {$this->width} {$this->height}",
 		];
 	}
 
@@ -64,7 +64,7 @@ class World_Map extends Element {
 
 	/** Voegt (inline) style toe */
 	public function enqueue_styles() {
-		$code = $this->country->get_world_map_data()->code;
+		$code = $this->country->get_iso_code();
 		$inline_css = CSS::generate_inline_css(
 			[
 				'svg' => [
@@ -79,25 +79,5 @@ class World_Map extends Element {
 		wp_register_style( 'siw-world-map', false );
 		wp_enqueue_style( 'siw-world-map' );
 		wp_add_inline_style( 'siw-world-map', $inline_css );
-	}
-
-	/** Bepaalt viewbox o.b.v. zoom en locatie land */
-	protected function get_viewbox() : string {
-		$x = $this->country->get_world_map_data()->x;
-		$y = $this->country->get_world_map_data()->y;
-	
-		$x = $this->calculate_offset( $x ) * $this->width;
-		$y = $this->calculate_offset( $y ) * $this->height;
-
-		$vb_width = $this->width / $this->zoom;
-		$vb_height = $this->height / $this->zoom;
-		return "{$x} {$y} {$vb_width} {$vb_height}";
-	}
-
-	/** Berekent offset van coordinaat */
-	protected function calculate_offset( float $coordinate ) : float {
-		$coordinate = min( $coordinate + 1 / ( 2 * $this->zoom ), 1 );
-		$coordinate = max( $coordinate - 1 / ( $this->zoom ), 0 );
-		return $coordinate;
 	}
 }

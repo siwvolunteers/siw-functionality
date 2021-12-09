@@ -11,6 +11,15 @@ use SIW\Data\Continent;
  */
 class Country extends Data {
 
+	/** Slug */
+	const SLUG = 'slug';
+
+	/** ISO-code */
+	const ISO_CODE = 'iso_code';
+
+	/** Plato-code */
+	const PLATO_CODE = 'plato_code';
+
 	/** Alle landen */
 	const ALL = 'all';
 	
@@ -23,8 +32,8 @@ class Country extends Data {
 	/** Landen met projecten op maat */
 	const TAILOR_MADE = 'tailor_made_projects';
 
-	/** Toegestane landen */
-	const ALLOWED = 'allowed';
+	/** Landen met projecten */
+	const PROJECTS = 'projects';
 
 	/** Landen in Afrika */
 	const AFRICA = 'afrika';
@@ -43,6 +52,9 @@ class Country extends Data {
 
 	/** ISO-code van het land */
 	protected string $iso_code;
+
+	/** Plato code van het land */
+	protected string $plato_code;
 
 	/** Naam van het land */
 	protected string $name;
@@ -66,74 +78,80 @@ class Country extends Data {
 	protected bool $tailor_made = false;
 
 	/** Eigenschappen van land voor kaart van de wereld */
-	protected array $world_map;
+	protected array $world_map = [];
 
-	/** Eigenschappen van land voor kaart van Europa */
-	protected array $europe_map;
+	/** Geeft Plato-code van het land terug */
+	public function get_plato_code(): string {
+		return $this->plato_code;
+	}
 
 	/** Geeft ISO-code van het land terug */
-	public function get_iso_code() : string {
+	public function get_iso_code(): string {
 		return $this->iso_code;
 	}
 
 	/** Geeft slug van het land terug */
-	public function get_slug() : string {
+	public function get_slug(): string {
 		return $this->slug;
 	}
 
 	/** Geeft naam van land terug */
-	public function get_name() : string {
+	public function get_name(): string {
 		return $this->name;
 	}
 
 	/** Geeft continent van land terug */
-	public function get_continent() : Continent {
+	public function get_continent(): Continent {
 		return siw_get_continent( $this->continent );
 	}
 
-	/** Geeft aan of land toegestaan is */
-	public function is_allowed() : bool {
-		return $this->allowed;
+	/** Geeft aan of het land projecten heeft */
+	public function has_projects(): bool {
+		return $this->has_workcamps() || $this->has_tailor_made_projects() || $this->has_esc_projects();
 	}
-
+	
 	/** Geeft aan of het land groepsprojecten heeft */
-	public function has_workcamps() : bool {
+	public function has_workcamps(): bool {
 		return $this->workcamps;
 	}
 
 	/** Geeft aan of het land ESC-projecten heeft */
-	public function has_esc_projects() : bool {
+	public function has_esc_projects(): bool {
 		return $this->esc;
 	}
 
 	/** Geeft aan of het land Op Maat projecten heeft */
-	public function has_tailor_made_projects() : bool {
+	public function has_tailor_made_projects(): bool {
 		return $this->tailor_made;
 	}
 
-	/** Geeft de gegevens van het land voor de kaart van de wereld terug */
-	public function get_world_map_data() : \stdClass {
+	/** Geeft de coördinaten van het land voor de kaart van de wereld terug indien het niet (goed) op de kaart staat. */
+	public function get_world_map_coordinates(): \stdClass {
 		return (object) $this->world_map;
 	}
 	
-	/** Geeft de gegevens van het land voor de kaart van Europa terug */
-	public function get_europe_map_data() : \stdClass {
-		return (object) $this->europe_map;
-	}
-
 	/** Geeft aan of land geldig is voor context */
-	public function is_valid_for_context( string $context ) : bool {
-		return (
-			self::ALL == $context
-			|| ( self::WORKCAMPS == $context && $this->has_workcamps() )
-			|| ( self::ESC == $context && $this->has_esc_projects() )
-			|| ( self::TAILOR_MADE == $context && $this->has_tailor_made_projects() )
-			|| ( self::ALLOWED == $context && $this->is_allowed() )
-			|| ( self::AFRICA == $context && $context == $this->get_continent()->get_slug() )
-			|| ( self::ASIA == $context && $context == $this->get_continent()->get_slug() )
-			|| ( self::EUROPE == $context && $context == $this->get_continent()->get_slug() )
-			|| ( self::NORTH_AMERICA == $context && $context == $this->get_continent()->get_slug() )
-			|| ( self::LATIN_AMERICA == $context && $context == $this->get_continent()->get_slug() )
-		);
+	public function is_valid_for_context( string $context ): bool {
+
+		switch ( $context ) {
+			case self::ALL:
+				return true;
+			case self::WORKCAMPS:
+				return $this->has_workcamps();
+			case self::ESC:
+				return $this->has_esc_projects();
+			case self::TAILOR_MADE:
+				return $this->has_tailor_made_projects();
+			case self::PROJECTS:
+				return $this->has_projects();
+			case self::AFRICA:
+			case self::ASIA:
+			case self::EUROPE:
+			case self::NORTH_AMERICA:
+			case self::LATIN_AMERICA:
+				return $context === $this->get_continent()->get_slug();
+			default:
+				return false;
+		}
 	}
 }
