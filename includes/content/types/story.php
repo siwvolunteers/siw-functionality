@@ -7,54 +7,38 @@ use SIW\Elements\Quote;
 use SIW\HTML;
 use SIW\Util\Links;
 use SIW\Core\Template;
+use SIW\i18n;
 
 /**
  * Ervaringsverhalen
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.?
  */
 class Story extends Type {
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $post_type = 'story';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $menu_icon = 'dashicons-format-gallery';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $slug = 'ervaringen';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected bool $archive_taxonomy_filter = true;
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected bool $archive_masonry = true;
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected int $archive_column_width = 33;
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $upload_subdir = 'ervaringen';
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function get_meta_box_fields() : array {
+	/** {@inheritDoc} */
+	public function get_meta_box_fields(): array {
 		$meta_box_fields = [
 			[
 				'type' => 'heading',
@@ -133,10 +117,8 @@ class Story extends Type {
 		return $meta_box_fields;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function get_taxonomies() : array {
+	/** {@inheritDoc} */
+	protected function get_taxonomies(): array {
 		$taxonomies['continent'] = [
 			'labels' => [
 				'name'                       => _x( 'Continent', 'Taxonomy General Name', 'siw' ),
@@ -176,10 +158,8 @@ class Story extends Type {
 		return $taxonomies;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function get_labels() : array {
+	/** {@inheritDoc} */
+	protected function get_labels(): array {
 		$labels = [
 			'name'               => __( 'Ervaringsverhalen', 'siw' ),
 			'singular_name'      => __( 'Ervaringsverhaal', 'siw' ),
@@ -193,115 +173,92 @@ class Story extends Type {
 		return $labels;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function add_archive_content() {
 
 		$rows = siw_meta( 'rows' );
 		$continent = siw_meta( 'siw_story_continent');
 		$project_type = siw_meta( 'siw_story_project_type');
-		$template_vars = array(
-			"image" => wp_get_attachment_image( $rows[0]['image'][0], 'large'),
-			"link" => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
-			"project" => $project_type->name,
-			"continent" => $continent->name,
-			'excerpt' => apply_filters( 'the_excerpt', get_the_excerpt() ),		/* samenvatting */
-
-		);
-		Template::render_template( "types/story_archive", $template_vars );
+		$template_vars = [
+			'image'     => wp_get_attachment_image( $rows[0]['image'][0], 'large'),
+			'link'      => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
+			'project'   => $project_type->name,
+			'continent' => $continent->name,
+			'excerpt'   => apply_filters( 'the_excerpt', get_the_excerpt() ),
+		];
+		Template::render_template( 'types/story_archive', $template_vars );
 	}
-	
 
 	/**
 	 * {@inheritDoc}
 	 * 
 	 * @todo refactor enzo
 	 */
-	
 	public function add_single_content() {
-		
-		$cta = $this->get_cta_url();	#Verwijzen naar 'zo werkt het' pagina als je meer wilt weten
 		$animation_fade = HTML::generate_attributes( ['data-sal' => 'fade', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
 		$animation_left = HTML::generate_attributes( ['data-sal' => 'slide-left', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
 		$animation_right = HTML::generate_attributes( ['data-sal' => 'slide-right', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
-		$template_vars = array(
-			"cta" => $cta,
-			"animation_fade" => $animation_fade,
-		);
-		$stories = array();
+		$template_vars = [
+			'cta'            => $this->get_cta_url(),
+			'animation_fade' => $animation_fade,
+		];
+		$stories = [];
 		$rows = siw_meta( 'rows' );
 		$even = false;
 		foreach ( $rows as $row ) {
-			$story = array(
-				"quote" => Quote::create()->set_quote( $row['quote'] )->generate(),
-				"push_class" => $even ? 'push-60' : '',
-				"pull_class" => $even ? 'pull-40' : '',
-				"annimation_attributes_1" => $even ? $animation_left : $animation_right,
-				"annimation_attributes_2" => $even ? $animation_right : $animation_left,
-				"image" => wp_get_attachment_image( $row['image'][0], 'large'),
-			);
-			$content = array();
+			$story = [
+				'quote'                   => Quote::create()->set_quote( $row['quote'] )->generate(),
+				'push_class'              => $even ? 'push-60' : '',
+				'pull_class'              => $even ? 'pull-40' : '',
+				'annimation_attributes_1' => $even ? $animation_left : $animation_right,
+				'annimation_attributes_2' => $even ? $animation_right : $animation_left,
+				'image'                   => wp_get_attachment_image( $row['image'][0], 'large'),
+			];
+			$content = [];
 			foreach ( $row['content'] as $paragraph ) {
-				array_push($content,array("title" => $paragraph['title'] , "text" => $paragraph['text'] ));
+				array_push( $content, [ 'title' => $paragraph['title'] , 'text' => $paragraph['text'] ] );
 			}
-			$story += array("content"=>$content);
-			array_push($stories,$story);
+			$story += [ 'content' => $content ];
+			array_push( $stories, $story );
 			$even = ! $even;
 		}
-		$template_vars += array("stories"=>$stories);
-		#print_r($template_vars);
-		Template::render_template( "types/story_single", $template_vars );
+		$template_vars += array( 'stories' => $stories );
+		Template::render_template( 'types/story_single', $template_vars );
 	}
 	
-	/**
-	 * get_cta_url
-	 * Bepaal een call to action link ahv projecttype of continent
-	 */
-	protected function get_cta_url() :string {
-		$urls = array(
-			"ESC" => "zo-werkt-het/esc",
-			"Scholenproject" =>"zo-werkt-het/scholenprojecten",
-		);
+	/** Bepaal een call to action link ahv projecttype of continent */
+	protected function get_cta_url(): ?string {
+
+		$pages = [
+			'esc'             => 'esc',
+			'project-op-maat' => 'tailor_made',
+			'scholenproject'  => 'school_projects',
+			'groepsproject'   => 'workcamps',
+		];
+
 		$project_type = siw_meta( 'siw_story_project_type');
-		if(isset($urls[$project_type->name])) 
-		{ 
-			$url='https://www.siw.nl' . '/' . $urls[$project_type->name];
-			#$url= get_home_url() . '/' . $urls[$project_type->name];
-			if($this->valid_url($url))
-			{
-				return('<a href="' . $url. '">' . __('mogelijkheden', 'siw') . '</a>');
-			}
+		$page = $pages[$project_type->slug] ?? '';
+
+		$page_url = i18n::get_translated_page_url( (int) siw_get_option( "pages.explanation.{$page}", 1 ) );
+
+		if ( ! empty( $page_url ) ) {
+			return Links::generate_link( $page_url, __( 'mogelijkheden', 'siw' ) );
 		}
-		return(FALSE);
+		return null;
 	}
-	protected function valid_url($url) {
-		$headers = @get_headers($url);
-		if($headers && strpos($headers[0], '200')) {
-			return TRUE;
-		}
-		else {
-			return FALSE;
-		}
-	}
-	/**
-	 * {@inheritDoc}
-	 */
+
+	/** {@inheritDoc} */
 	protected function get_archive_intro() : array {
-		$intro = siw_get_option('story_intro');
+		$intro = siw_get_option( 'story.archive_intro' );
 		return [$intro];
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function get_social_share_cta() : string {
 		return __( 'Deel dit ervaringsverhaal', 'siw' );
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function generate_slug( array $data, array $postarr ): string {
 		return sprintf(
 			'%s-%s-%s',

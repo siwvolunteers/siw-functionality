@@ -85,7 +85,7 @@ class Settings implements Option_Interface {
 			[
 				'id'    => 'story',
 				'label' => __( 'Ervaringsverhalen', 'siw' ),
-				'icon'  => 'dashicons-clipboard'
+				'icon'  => 'dashicons-format-gallery'
 			],
 			[
 				'id'    => 'event',
@@ -265,12 +265,19 @@ class Settings implements Option_Interface {
 			],
 		];
 		// Ervaringsverhalen
+
 		$fields[] = [
-			'id'       => 'story_intro',
-			'name'     => __( 'Introtekst', 'siw' ),
-			'type'     => 'wysiwyg',
-			'tab'      => 'story',
-			'required' => true,
+			'id'        => 'story',
+			'type'      => 'group',
+			'tab'       => 'story',
+			'fields'    => [
+				[
+					'id'       => 'archive_intro',
+					'name'     => __( 'Introtekst', 'siw' ),
+					'type'     => 'wysiwyg',
+					'required' => true,
+				],
+			],
 		];
 
 		//Evenementen
@@ -406,11 +413,17 @@ class Settings implements Option_Interface {
 
 		//Op Maat
 		$fields[] = [
-			'id'       => 'tailor_intro',
-			'name'     => __( 'Introtekst', 'siw' ),
-			'type'     => 'wysiwyg',
-			'tab'      => 'tailor_made',
-			'required' => true,
+			'id'        => 'tm_country',
+			'type'      => 'group',
+			'tab'       => 'tailor_made',
+			'fields'    => [
+				[
+					'id'       => 'archive_intro',
+					'name'     => __( 'Introtekst', 'siw' ),
+					'type'     => 'wysiwyg',
+					'required' => true,
+				],
+			],
 		];
 		$fields[] = [
 			'id'      => 'tailor_made_sale',
