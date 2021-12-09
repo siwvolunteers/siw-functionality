@@ -130,7 +130,6 @@ class Archive_Header {
 		return($text);
 	}
   
-	*/
 	/** Geeft aan of aankondiging nieuwe projecten getoond moet worden */
 	protected function is_teaser_text_active() : bool {
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
