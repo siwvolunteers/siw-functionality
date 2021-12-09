@@ -17,7 +17,6 @@ class Loader extends Class_Loader_Abstract {
 			Breadcrumbs::class,
 			Google_Analytics::class,
 			Mega_Menu::class,
-			Menu_Cart::class,
 			Social_Share::class,
 			Topbar::class
 		];

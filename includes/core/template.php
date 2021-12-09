@@ -26,22 +26,10 @@ class Template {
 
 		Mustache_Autoloader::register();
 		
-		$template_dirs = [
-			SIW_TEMPLATES_DIR . 'mustache',
-		];
-
-		//Filter directories (t.b.v. extensies)
-		$template_dirs = apply_filters( 'siw_mustache_template_dirs', $template_dirs );
-
-		$loaders = array_map(
-			fn( string $dir ) : Mustache_Loader_FilesystemLoader => new Mustache_Loader_FilesystemLoader( $dir ),
-			$template_dirs
-		);
-		
 		$template_engine = new Mustache_Engine(
 			[
 				'template_class_prefix' => '__SIW_',
-				'loader'                => new Mustache_Loader_CascadingLoader( $loaders ),
+				'loader'                => new Mustache_Loader_FilesystemLoader( SIW_TEMPLATES_DIR . 'mustache', ),
 				'partials_loader'       => new Mustache_Loader_FilesystemLoader( SIW_TEMPLATES_DIR . 'mustache/partials'),
 				'escape'                => fn( $value ) : string => esc_html( $value ),
 				'helpers'               => [
@@ -68,7 +56,7 @@ class Template {
 	}
 
 	/** Haalt template op */
-	public static function get_template( string $name ) : Mustache_Template {
+	public static function get_template( string $name ): Mustache_Template {
 		return self::get_engine()->loadTemplate( $name );
 	}
 
@@ -78,12 +66,12 @@ class Template {
 	}
 
 	/** Geeft geparste template terug */
-	public static function parse_template( string $name, array $context ) : string {
+	public static function parse_template( string $name, array $context ): string {
 		return self::get_engine()->loadTemplate( $name )->render( $context );
 	}
 
 	/** Geeft geparste string-template terug */
-	public static function parse_string_template( string $template, array $context ) : string {
+	public static function parse_string_template( string $template, array $context ): string {
 		$template_engine = new Mustache_Engine;
 		return $template_engine->render( $template, $context );
 	}

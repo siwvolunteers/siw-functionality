@@ -16,16 +16,24 @@ $data = [
 		'type'        => 'CHAR',
 		'length'      => 32,
 		'primary_key' => true,
+		'show'        => true,
+		'search'      => true,
 	],
 	[
 		'name'        => 'code',
 		'type'        => 'VARCHAR',
 		'length'      => 255,
+		'show'        => true,
+		'show'        => true,
+		'search'      => true,
 	],
 	[
 		'name'        => 'project_type',
 		'type'        => 'VARCHAR',
 		'length'      => 4,
+		'show'        => true,
+		'sort'        => true,
+		'search'      => true,
 	],
 	[
 		'name'        => 'work',
@@ -35,10 +43,14 @@ $data = [
 	[
 		'name'        => 'start_date',
 		'type'        => 'DATE',
+		'show'        => true,
+		'sort'        => true,
 	],
 	[
 		'name'        => 'end_date',
 		'type'        => 'DATE',
+		'show'        => __( 'Eind datum', 'siw' ),
+		'sort'        => true,
 	],
 	[
 		'name'        => 'name',

@@ -3,14 +3,13 @@
 namespace SIW\Compatibility;
 
 use SIW\Util;
-use SIW\Properties;
+use SIW\Util\CSS;
 
 /**
  * Aanpassingen voor Caldera Forms
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://calderaforms.com/
- * @since     3.0.0
  */
 class Caldera_Forms {
 
@@ -26,7 +25,7 @@ class Caldera_Forms {
 
 		//Verwijder wpautop van e-mails
 		remove_filter( 'caldera_forms_mailer', [ \Caldera_Forms::get_instance(), 'format_message' ] );
-		remove_filter( 'caldera_forms_autoresponse_mail', [ 'Caldera_Forms_Email_Filters', 'format_autoresponse_message' ] );
+		remove_filter( 'caldera_forms_autoresponse_mail', [ \Caldera_Forms_Email_Filters::class, 'format_autoresponse_message' ] );
 
 		add_filter( 'caldera_forms_save_revision', '__return_false' );
 		add_filter( 'caldera_forms_magic_summary_should_use_label', '__return_true' );
@@ -44,7 +43,7 @@ class Caldera_Forms {
 	}
 
 	/** Zorgt ervoor dat Magic tags in links toegestaan zijn */
-	public function allow_magic_tags( array $protocols ) : array {
+	public function allow_magic_tags( array $protocols ): array {
 		$protocols[] = '{embed_post';
 		return $protocols;
 	}
@@ -56,7 +55,7 @@ class Caldera_Forms {
 	}
 
 	/** Voegt tabel om samenvatting toe */
-	public function set_summary_magic_table( ?string $value, string $tag ) : ?string {
+	public function set_summary_magic_table( ?string $value, string $tag ): ?string {
 		if ( '{summary}' !== $tag ) {
 			return $value;
 		}
@@ -66,7 +65,7 @@ class Caldera_Forms {
 				'<table width="100%" border="0" cellspacing="0" cellpadding="0">',
 					'<tr>',
 						sprintf(
-							'<td colspan="3" height="20" style="font-family:Verdana, normal; color:%s; font-size:0.8em; font-weight:bold; border-top:thin solid %s" >', Properties::FONT_COLOR, Properties::PRIMARY_COLOR
+							'<td colspan="3" height="20" style="font-family:Verdana, normal; color:%s; font-size:0.8em; font-weight:bold; border-top:thin solid %s" >', CSS::CONTRAST_COLOR, CSS::ACCENT_COLOR
 						),
 							esc_html__( 'Ingevulde gegevens', 'siw' ),
 						'</td>',
@@ -79,17 +78,17 @@ class Caldera_Forms {
 	}
 
 	/** Zet het patroon voor de samenvatting in e-mails toe */
-	public function set_summary_magic_pattern( string $pattern ) : string {
+	public function set_summary_magic_pattern( string $pattern ): string {
 		$pattern = '<tr>
-			<td width="35%%" style="font-family: Verdana, normal; color:' . Properties::FONT_COLOR . '; font-size:0.8em;">%s</td>
+			<td width="35%%" style="font-family: Verdana, normal; color:' . CSS::CONTRAST_COLOR . '; font-size:0.8em;">%s</td>
 			<td width="5%%"></td>
-			<td width="50%%" style="font-family: Verdana, normal; color:' . Properties::FONT_COLOR . '; font-size:0.8em; font-style:italic">%s</td>
+			<td width="50%%" style="font-family: Verdana, normal; color:' . CSS::CONTRAST_COLOR . '; font-size:0.8em; font-style:italic">%s</td>
 		</tr>';
 		return $pattern;
 	}
 
 	/** Voegt attributes toe voor data-validatie */
-	public function set_validation_field_attributes( array $attrs, array $field ) : array {
+	public function set_validation_field_attributes( array $attrs, array $field ): array {
 
 		if ( ! isset( $field['config']['validation'] ) ) {
 			return $attrs;
@@ -110,7 +109,7 @@ class Caldera_Forms {
 	}
 
 	/** Voegt veldklasses toe */
-	public function add_field_classes( array $attrs, array $field ) : array {
+	public function add_field_classes( array $attrs, array $field ): array {
 		if ( 'dropdown' === $field['type'] ) {
 			$attrs['class'] .= SPACE . 'select-css';
 		}
@@ -127,7 +126,7 @@ class Caldera_Forms {
 	}
 
 	/** Voegt responsive classes voor Unsemantic grid toe */
-	public function setup_unsemantic_grid( array $grid, array $form ) : array {
+	public function setup_unsemantic_grid( array $grid, array $form ): array {
 		$grid['before'] = '<div %1$s class="row grid-container grid-parent %2$s">';
 		$grid['column_before'] = '<div %1$s class="grid-%2$d %3$s">';
 		return $grid;

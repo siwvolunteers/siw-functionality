@@ -4,7 +4,6 @@ namespace SIW\Elements;
 
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
-use SIW\Properties;
 use SIW\Util\CSS;
 
 /**
@@ -17,7 +16,7 @@ use SIW\Util\CSS;
 class Interactive_Map extends Element {
 
 	/** Mapplic versie */
-	const MAPPLIC_VERSION = '7.0.1';
+	const MAPPLIC_VERSION = '7.1';
 
 	/** URL van Mapplic-bestanden */
 	protected string $mapplic_url = SIW_ASSETS_URL . 'vendor/mapplic/';
@@ -50,6 +49,11 @@ class Interactive_Map extends Element {
 
 	/** Zet opties van de kaart */
 	protected function get_options() : array {
+		$options = wp_cache_get( $this->interactive_map->get_id(), __METHOD__ );
+		if ( false !== $options ) {
+			return $options;
+		}
+
 		$default_options = [
 			'source'        => $this->get_source_data(),
 			'landmark'      => null,
@@ -63,13 +67,16 @@ class Interactive_Map extends Element {
 			'mousewheel'    => false,
 			'fullscreen'    => false,
 			'developer'     => defined( 'WP_DEBUG' ) && WP_DEBUG,
-			'fillcolor'     => Properties::PRIMARY_COLOR,
+			'fillcolor'     => CSS::ACCENT_COLOR,
 			'action'        => 'tooltip',
 			'maxscale'      => 2,
 			'hovertipdesc'  => true,
 			'animation'     => true,
 		];
-		return wp_parse_args( $this->interactive_map->get_options(), $default_options );
+
+		$options = wp_parse_args( $this->interactive_map->get_options(), $default_options );
+		wp_cache_set( $this->interactive_map->get_id(), $options, __METHOD__ );
+		return $options;
 	}
 
 	/** Geeft optie terug */
@@ -105,7 +112,7 @@ class Interactive_Map extends Element {
 		$default = [
 			'id'    => false,
 			'title' => false,
-			'color' => Properties::PRIMARY_COLOR,
+			'color' => CSS::ACCENT_COLOR,
 			'show'  => 'false',
 		];
 		return wp_parse_args( $category, $default );
@@ -121,7 +128,7 @@ class Interactive_Map extends Element {
 			'description'   => false,
 			'action'        => 'tooltip',
 			'pin'           => 'hidden',
-			'fill'          => Properties::PRIMARY_COLOR,
+			'fill'          => CSS::ACCENT_COLOR,
 			'x'             => null,
 			'y'             => null,
 			'lat'           => false,

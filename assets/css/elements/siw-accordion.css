@@ -9,7 +9,7 @@
   width: 100%;
   display: block;
   padding: 10px;
-  border: solid 3px #3f3f3f;
+  border: solid 3px --var(--siw-contrast);
   cursor: pointer;
 }
 .siw-accordion h5 span:after {
@@ -19,12 +19,12 @@
   font-weight: bold;
 }
 .siw-accordion h5 span[aria-expanded=true] {
-  background-color: #3f3f3f;
-  color: #fff;
+  background-color: --var(--siw-contrast);
+  color: var(--siw-base);
 }
 .siw-accordion h5 span[aria-expanded=true]:after {
   content: "-";
-  color: #fff;
+  color: var(--siw-base);
 }
 .siw-accordion .panel {
   max-width: 85ch;

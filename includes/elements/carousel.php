@@ -7,8 +7,7 @@ use SIW\Util\CSS;
 /**
  * Carousel met posts
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Carousel {
 
@@ -18,11 +17,8 @@ class Carousel {
 	/** Post type */
 	protected string $post_type;
 
-	/** Taxonomy voor query */
-	protected string $taxonomy;
-
-	/** Term voor query */
-	protected string $term;
+	/** Tax-query */
+	protected array $tax_query;
 
 	/** Meta query */
 	protected array $meta_query = [];
@@ -97,14 +93,13 @@ class Carousel {
 		$this->columns = $columns;
 	}
 
-	/** Zet taxonomy en term voor carousel */
-	public function set_taxonomy_term( string $taxonomy, string $term ) {
-		$this->taxonomy = $taxonomy;
-		$this->term = $term;
+	/** Voegt tax query toe*/
+	public function add_tax_query( array $tax_query ) {
+		$this->tax_query[] = $tax_query;
 	}
 
-	/** Zet meta query */
-	public function set_meta_query( array $meta_query ) {
+	/** Voeg meta query toe */
+	public function add_meta_query( array $meta_query ) {
 		$this->meta_query[] = $meta_query;
 	}
 
@@ -115,12 +110,11 @@ class Carousel {
 
 	/**
 	 * Genereert carousel
-	 * 
-	 * @return string
+
 	 * 
 	 * @todo leesbaarder maken
 	 */
-	public function render() : string {
+	public function render(): string {
 		
 		$this->enqueue_scripts();
 		$this->enqueue_styles();
@@ -154,29 +148,23 @@ class Carousel {
 	}
 
 	/** Genereert query */
-	protected function generate_query() : \WP_Query {
+	protected function generate_query(): \WP_Query {
 		$args = [
 			'post_type'      => $this->post_type,
 			'posts_per_page' => $this->items,
 			'orderby'        => 'rand',
 		];
 
-		if ( isset( $this->taxonomy ) && isset( $this->term ) ) {
-			$args['tax_query'] = [
-				[
-					'taxonomy' => $this->taxonomy,
-					'terms'    => $this->term,
-					'field'    => 'slug',
-				],
-			];
+		if ( isset( $this->tax_query ) ) {
+			$args['tax_query'] = $this->tax_query;
 		}
 
 		if ( ! empty( $this->meta_query ) ) {
 			$args['meta_query'] = $this->meta_query;
 		}
 
-		//In het geval van Groepsprojecten alleen zichtbare projecten tonen (tenzij er al op product_visibility gefilterd wordt)
-		if ( 'product' == $this->post_type && ( ! isset( $this->taxonomy ) || 'product_visibility' != $this->taxonomy ) ) {
+		//In het geval van Groepsprojecten alleen zichtbare projecten tonen
+		if ( 'product' == $this->post_type ) {
 			$args['tax_query'][] = [
 				'taxonomy' => 'product_visibility',
 				'terms'    => [ 'exclude-from-search', 'exclude-from-catalog'],

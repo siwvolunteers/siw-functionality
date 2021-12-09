@@ -5,15 +5,14 @@ namespace SIW;
 /**
  * Hulpfuncties
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Util {
 
 	/** Geeft validatiepatroon terug
-	 * @todo   patterns verplaatsen naar databestand
+	 * @todo   patterns verplaatsen naar databestand of enum
 	 */
-	public static function get_pattern( string $type ) : ?string {
+	public static function get_pattern( string $type ): ?string {
 		$patterns = [
 			'date'        => '^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$',
 			'postcode'    => '^[1-9][0-9]{3}\s?[a-zA-Z]{2}$',
@@ -26,7 +25,7 @@ class Util {
 	}
 
 	/** Geeft reguliere expressie terug */
-	public static function get_regex( string $type ) : ?string {
+	public static function get_regex( string $type ): ?string {
 
 		$pattern = self::get_pattern( $type );
 		if ( is_null( $pattern ) ) {
@@ -46,7 +45,7 @@ class Util {
 		$pages = [];
 		foreach ( $results as $result ) {
 			$ancestors = array_reverse( get_ancestors( $result->ID, 'page') );
-			$callback = function( &$value, $key ) {
+			$callback = function( &$value ) {
 				$value = get_the_title( $value );
 			};
 			array_walk( $ancestors, $callback );
@@ -57,7 +56,7 @@ class Util {
 	}
 	
 	/** Berekent leeftijd in jaren o.b.v. huidige datum */
-	public static function calculate_age( string $date ) : int {
+	public static function calculate_age( string $date ): int {
 		$from = new \DateTime( $date );
 		$to   = new \DateTime('today');
 		return $from->diff( $to )->y;
@@ -89,7 +88,7 @@ class Util {
 	}
 
 	/** Geeft aan of het een productieomgeving betreft */
-	public static function is_production() : bool {
+	public static function is_production(): bool {
 		return 'production' == \wp_get_environment_type();
 	}
 }

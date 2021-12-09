@@ -34,14 +34,14 @@ class SiteOrigin_Page_Builder {
 
 	/** Verwijdert Page Builder widgets */
 	public function unregister_widgets() {
-		unregister_widget( 'SiteOrigin_Panels_Widgets_PostContent' );
-		unregister_widget( 'SiteOrigin_Panels_Widgets_PostLoop' );
-		unregister_widget( 'SiteOrigin_Panels_Widgets_Layout' );
-		unregister_widget( 'SiteOrigin_Panels_Widgets_Gallery' );
+		unregister_widget( \SiteOrigin_Panels_Widgets_PostContent::class );
+		unregister_widget( \SiteOrigin_Panels_Widgets_PostLoop::class );
+		unregister_widget( \SiteOrigin_Panels_Widgets_Layout::class );
+		unregister_widget( \SiteOrigin_Panels_Widgets_Gallery::class );
 	}
 
 	/** Voegt tab voor SIW-widgets toe */
-	public function add_widget_tab( array $tabs ) : array {
+	public function add_widget_tab( array $tabs ): array {
 		$tabs[] = [
 			'title'  => __( 'SIW Widgets', 'siw' ),
 			'filter' => [
@@ -52,7 +52,7 @@ class SiteOrigin_Page_Builder {
 	}
 
 	/** Zet breakpoint-instellingen */
-	public function set_breakpoint_settings( array $settings ) : array {
+	public function set_breakpoint_settings( array $settings ): array {
 		$settings['mobile-width'] = CSS::MOBILE_BREAKPOINT;
 		$settings['tablet-width'] = CSS::TABLET_BREAKPOINT;
 		return $settings;

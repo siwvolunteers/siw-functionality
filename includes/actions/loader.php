@@ -16,13 +16,14 @@ use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 class Loader extends Object_Loader_Abstract {
 
 	/** {@inheritDoc} */
-	public function get_id() : string {
+	public function get_id(): string {
 		return 'actions';
 	}
 
 	/** {@inheritDoc} */
-	public function get_classes() : array {
+	public function get_classes(): array {
 		return [
+			Async\Import_Plato_Project::class,
 			Async\Process_Stockphoto_Upload::class,
 			Batch\Delete_Applications::class,
 			Batch\Delete_Old_Posts::class,

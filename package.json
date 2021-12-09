@@ -1,20 +1,18 @@
 {
 	"name": "siw-functionality",
-	"version": "3.3.0",
+	"version": "3.4.8",
 	"license": "GPL-2.0-or-later",
 	"description": "Extra functionaliteit voor website SIW",
 	"repository": "https://github.com/siwvolunteers/siw-functionality",
 	"scripts": {
 		"update": "npm update && npm run frontend-dependencies",
-		"build": "npm run build:css && npm run build:email && npm run build:icons",
+		"build": "npm run build:css && npm run build:icons",
 		"build:css": "npm run scss && npm run autoprefixer",
-		"build:email": "mjml templates/mjml/*.mjml.mustache -o templates/mustache/email/ --config.stack false --config.beautify true",
 		"build:icons": "npm run build:icons:general && npm run build:icons:sdg",
 		"build:icons:general": "svgstore -o assets/icons/siw-general-icons.svg -p siw-icon- --inline assets/icons/general/*.svg",
 		"build:icons:sdg": "svgstore -o assets/icons/siw-sdg-icons.svg -p siw-icon-sdg- --inline assets/icons/sdg/*.svg",
 		"build:translations": "wp-pot --domain siw --dest-file languages/siw.pot --relative-to ./ --package 'SIW Internationale Vrijwilligersprojecten' --team 'SIW <webmaster@siw.nl>'",
 		"scss": "sass --update --no-source-map assets/scss:assets/css",
-		"scss-watch": "sass --watch --no-source-map assets/scss:assets/css",
 		"autoprefixer": "postcss --no-map -u autoprefixer -r assets/css/*.css",
 		"frontend-dependencies": "node ./node_modules/frontend-dependencies/index.js",
 		"postinstall": "npm run frontend-dependencies"
@@ -25,7 +23,6 @@
 	"devDependencies": {
 		"autoprefixer": "^10.0.0",
 		"frontend-dependencies": "^2.0.0",
-		"mjml": "^4.8.1",
 		"postcss": "^8.0.0",
 		"postcss-cli": "^8.0.0",
 		"sass": "^1.32.6",

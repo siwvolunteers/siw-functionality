@@ -9,6 +9,7 @@ use SIW\Database_Table;
 use SIW\Helpers\Database;
 use SIW\WooCommerce\Import\Product_Image as Import_Product_Image;
 use SIW\WooCommerce\Import\Free_Places as Import_Free_Places;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Proces om Groepsprojecten bij te werken
@@ -61,16 +62,12 @@ class Update_Projects implements Batch_Action_Interface {
 
 	/** {@inheritDoc} */
 	public function select_data() : array {
-		$args = [
-			'return'     => 'ids',
-			'limit'      => -1,
-		];
-		return wc_get_products( $args );
+		return siw_get_product_ids();
 	}
 
 	/** {@inheritDoc} */
 	public function process( $product_id ) {
-		$product = wc_get_product( $product_id );
+		$product = siw_get_product( $product_id );
 		
 		/* Afbreken als product niet meer bestaat */
 		if ( ! is_a( $product, \WC_Product::class ) ) {
@@ -128,8 +125,8 @@ class Update_Projects implements Batch_Action_Interface {
 		$variations = $this->product->get_children();
 
 		foreach ( $variations as $variation_id ) {
-			$variation = wc_get_product( $variation_id );
-			$variation_tariff = $variation->get_attributes()['pa_tarief'];
+			$variation = siw_get_product( $variation_id );
+			$variation_tariff = $variation->get_attributes()[Taxonomy_Attribute::TARIFF()->value];
 			$tariff = $tariffs[ $variation_tariff ] ?? $tariffs['regulier'];
 
 			$regular_price = $tariff['regular_price'];
@@ -168,7 +165,7 @@ class Update_Projects implements Batch_Action_Interface {
 			||
 			! is_a( $country, Country::class )
 			||
-			! $country->is_allowed()
+			! $country->has_workcamps()
 			||
 			'rejected' === $this->product->get_meta( 'approval_result' )
 			||
@@ -184,10 +181,9 @@ class Update_Projects implements Batch_Action_Interface {
 		if ( $visibility !== $this->product->get_catalog_visibility() ) {
 			$this->product->set_catalog_visibility( $visibility );
 
-			//Als het project verborgen wordt, moet het ook niet meer aanbevolen zijn en in de carousel getoond worden
+			//Als het project verborgen wordt, moet het ook niet meer aanbevolen zijn
 			if ( 'hidden' === $visibility ) {
 				$this->product->set_featured( false );
-				$this->product->update_meta_data( 'selected_for_carousel', false );
 			}
 			$this->product->save();
 		}
@@ -204,12 +200,12 @@ class Update_Projects implements Batch_Action_Interface {
 		
 		//Eigenschappen van project ophalen: land en soort(en) werk
 		$attributes = $this->product->get_attributes();
-		if ( ! isset( $attributes['pa_land'] ) ) {
+		if ( ! isset( $attributes[ Taxonomy_Attribute::COUNTRY()->value ] ) ) {
 			return;
 		}
-		$country_slug = $attributes['pa_land']->get_slugs()[0];
+		$country_slug = $attributes[Taxonomy_Attribute::COUNTRY()->value]->get_slugs()[0];
 		$country = siw_get_country( $country_slug );
-		$work_type_slugs = $attributes['pa_soort-werk']->get_slugs();
+		$work_type_slugs = $attributes[Taxonomy_Attribute::WORK_TYPE()->value]->get_slugs();
 		
 		$work_types = array_map(
 			fn( string $work_type_slug ) => siw_get_work_type( $work_type_slug ),
@@ -259,7 +255,7 @@ class Update_Projects implements Batch_Action_Interface {
 		//Verwijder alle variaties
 		$variations = $this->product->get_children();
 		foreach ( $variations as $variation_id ) {
-			$variation = wc_get_product( $variation_id );
+			$variation = siw_get_product( $variation_id );
 			if ( ! is_a( $variation, \WC_Product_Variation::class ) ) {
 				continue;
 			}

@@ -27,7 +27,6 @@ class Bootstrap {
 			return;
 		}
 
-		$this->load_extensions();
 		$this->load_dependencies();
 		$this->register_autoloader();
 		$this->load_functions();
@@ -152,13 +151,9 @@ class Bootstrap {
 				'Animation',
 				'Email',
 				'Newsletter\Confirmation_Page',
+				'Cookie_Notice',
 			]
 		);
-	}
-
-	/** Laadt extensies */
-	protected function load_extensions() {
-		$this->init_class( 'SIW', 'Extensions', 'siw_plugin_loaded' );
 	}
 
 	/** Laadt batch jobs */

@@ -2,13 +2,10 @@
 
 namespace SIW\WooCommerce\Admin;
 
-use SIW\i18n;
-
 /**
  * Tabs voor Groepsprojecten
  *
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.0
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Product_Tabs {
 
@@ -19,9 +16,7 @@ class Product_Tabs {
 		add_filter( 'woocommerce_product_data_tabs', [ $self, 'hide_tabs'], PHP_INT_MAX );
 		
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_description_tab'] );
-		add_action( 'woocommerce_product_data_panels', [ $self, 'show_approval_tab'] );
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_update_tab'] );
-		add_action( 'woocommerce_product_data_panels', [ $self, 'show_dutch_projects_tab'] );
 
 		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_product_data'] );
 	}
@@ -36,28 +31,12 @@ class Product_Tabs {
 			'class'    => [],
 			'priority' => 1,
 		];
-		if ( ! empty( $product_object->get_meta('approval_result') ) ) {
-			$tabs['approval'] = [
-				'label'    => __( 'Beoordeling', 'siw' ),
-				'target'   => 'approval_product_data',
-				'class'    => [],
-				'priority' => 110,
-			];
-		}
 		$tabs['update'] = [
 			'label'    => __( 'Update', 'siw' ),
 			'target'   => 'update_product_data',
 			'class'    => [],
 			'priority' => 120,
 		];
-		if ( 'nederland' == $product_object->get_meta( 'country' ) ) {
-			$tabs['dutch_projects'] = [
-				'label'    => __( 'Nederlandse Projecten', 'siw' ),
-				'target'   => 'dutch_projects_product_data',
-				'class'    => [],
-				'priority' => 120,
-			];
-		}
 		return $tabs;
 	}
 
@@ -82,14 +61,6 @@ class Product_Tabs {
 		<div id="update_product_data" class="panel woocommerce_options_panel">
 			<div class="options_group">
 				<?php
-				woocommerce_wp_checkbox(
-					[
-						'id'      => 'import_again',
-						'value'   => $product_object->get_meta( 'import_again' ),
-						'cbvalue' => '1',
-						'label'   => __( 'Opnieuw importeren', 'siw' ),
-					]
-				);
 				//Alleen tonen als het project een afbeelding uit Plato heeft of als de optie al aangevinkt is
 				if ( $product_object->get_meta( 'has_plato_image', true ) || $product_object->get_meta( 'use_stockphoto' ) ) {
 					woocommerce_wp_checkbox(
@@ -143,136 +114,26 @@ class Product_Tabs {
 		];
 
 		?>
-		<div id="description_product_data" class="panel woocommerce_options_panel">
+		<div id="description_product_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper">
 			<div class="options_group">
-			<?php
-				foreach ( $topics as $topic => $title ) {
-					if ( isset( $description[ $topic ] ) ) {
-						printf('<h4>%s</h4><p>%s<p>', esc_html( $title ), wp_kses_post( $description[ $topic]) );
-					}
-				}
-				
-				//Legacy code, kan uiteindelijk weg
-				if ( empty( $description ) ) {
-					$content = $product_object->get_description();
-					$content = preg_replace( '/\[pane title="(.*?)"\]/', '<h4>$1</h4><p>', $content );
-					$content = preg_replace( '/\[\/pane\]/', '</p><hr>', $content );
-					$content = preg_replace( '/\[(.*?)\]/', '', $content );
-					echo wp_kses_post( $content );
-				}
-			?>
-			</div>
-		</div>
-		<?php
-	}
-
-	/** Toont tab met beoordelingsresultaat */
-	public function show_approval_tab() {
-		global $product_object;
-
-		if ( empty( $product_object->get_meta( 'approval_result' ) ) ) {
-			return;
-		}
-
-		$approval_results = [
-			'approved' => __( 'Goedgekeurd', 'siw' ),
-			'rejected' => __( 'Afgewezen', 'siw' ),
-		];
-		?>
-		<div id="approval_product_data" class="panel woocommerce_options_panel">
-			<div class="options_group">
+				<div class="wc-metaboxes">
 				<?php
-				woocommerce_wp_text_input(
-					[
-						'id'          => 'approval_result',
-						'value'       => $approval_results[$product_object->get_meta( 'approval_result' )],
-						'label'       => __( 'Resultaat', 'siw' ),
-						'options'     => [
-							'approved' => __( 'Goedgekeurd', 'siw' ),
-							'rejected' => __( 'Afgewezen', 'siw' ),
-						],
-						'custom_attributes' => [
-							'readonly' => 'readonly',
-							'disabled' => 'disabled',
-						],
-					]
-				);
-				woocommerce_wp_text_input(
-					[
-						'id'       => 'approval_user',
-						'value'    => $product_object->get_meta( 'approval_user' ),
-						'label'    => __( 'Gebruiker', 'siw' ),
-						'custom_attributes' => [
-							'readonly' => 'readonly',
-							'disabled' => 'disabled',
-						],
-					]
-				);
-				woocommerce_wp_text_input(
-					[
-						'id'       => 'approval_date',
-						'value'    => $product_object->get_meta( 'approval_date' ),
-						'label'    => __( 'Datum', 'siw' ),
-						'custom_attributes' => [
-							'readonly' => 'readonly',
-							'disabled' => 'disabled',
-						],
-					]
-				);
-				?>
-			</div>
-		</div>
-		<?php
-	}
-
-
-	/** Toont tab met met instellingen voor nederlandse projecten */
-	public function show_dutch_projects_tab() {
-		global $product_object;
-
-		if ( 'nederland' !== $product_object->get_meta( 'country' ) ) {
-			return;
-		}
-
-		$languages = i18n::get_active_languages();
-		$provinces = [ '' => __( 'Selecteer een provincie', 'siw' ) ] + siw_get_dutch_provinces();
-
-		?>
-		<div id="dutch_projects_product_data" class="panel woocommerce_options_panel">
-			<div class="options_group">
-				<?php
-				foreach ( $languages as $code => $language ) {
-					woocommerce_wp_text_input(
-						[
-							'id'          => "dutch_projects_name_{$code}",
-							'value'       => $product_object->get_meta( "dutch_projects_name_{$code}" ),
-							'label'       => sprintf( __( 'Naam (%s)', 'siw' ), $language['translated_name'] ),
-						]
-					);
-					woocommerce_wp_textarea_input(
-						[
-							'id'          => "dutch_projects_description_{$code}",
-							'value'       => $product_object->get_meta( "dutch_projects_description_{$code}" ),
-							'label'       => sprintf( __( 'Beschrijving (%s)', 'siw' ), $language['translated_name'] ),
-						]
-					);
-				}
-				woocommerce_wp_text_input(
-					[
-						'id'          => 'dutch_projects_city',
-						'value'       => $product_object->get_meta( 'dutch_projects_city' ),
-						'label'       => __( 'Plaats', 'siw' ),
-					]
-				);
-				woocommerce_wp_select(
-					[
-						'id'         => 'dutch_projects_province',
-						'value'      => $provinces[ $product_object->get_meta( 'dutch_projects_province' ) ] ?  $product_object->get_meta( 'dutch_projects_province' ) : '',
-						'label'      => __( 'Provincie', 'siw' ),
-						'options'    => $provinces,
-					]
-				);
+					foreach ( $topics as $topic => $title ) {
+						if ( ! isset( $description[ $topic ] ) || empty( $description[ $topic ] ) ) {
+							continue;
+						}
 					?>
+					<div class="wc-metabox postbox closed">
+						<h3><div class="handlediv"></div>
+							<strong><?php echo esc_html( $title ); ?></strong>
+						</h3>
+						<div class="wc-metabox-content hidden">
+							<hr>
+							<p><?php echo wp_kses_post( $description[ $topic]);?></p>
+						</div>
+					</div>
+					<?php } ?>
+				</div>
 			</div>
 		</div>
 		<?php
@@ -281,19 +142,10 @@ class Product_Tabs {
 	/** Slaat gewijzigde meta-velden op */
 	public function save_product_data( \WC_Product $product ) {
 		$meta_data = [
-			'import_again'            => isset( $_POST['import_again'] ),
 			'use_stockphoto'          => isset( $_POST['use_stockphoto'] ),
 			'force_hide'              => isset( $_POST['force_hide'] ),
 			'has_custom_tariff'       => isset( $_POST['has_custom_tariff'] ),
-			'dutch_projects_city'     => isset( $_POST['dutch_projects_city'] ) ? wc_clean( $_POST['dutch_projects_city'] ) : '',
-			'dutch_projects_province' => isset( $_POST['dutch_projects_province'] ) ? wc_clean( $_POST['dutch_projects_province'] ) : '',
 		];
-
-		$languages = i18n::get_active_languages();
-		foreach ( $languages as $code => $language ) {
-			$meta_data["dutch_projects_name_{$code}"] = isset( $_POST["dutch_projects_name_{$code}"] ) ? wc_clean( $_POST["dutch_projects_name_{$code}"] ) : '';
-			$meta_data["dutch_projects_description_{$code}"] = isset( $_POST["dutch_projects_description_{$code}"] ) ? wc_clean( $_POST["dutch_projects_description_{$code}"] ) : '';
-		}
 		//Als stockfoto gebruikt moet worden, verwijder dan de huidige foto TODO: Plato-foto echt verwijderen?/
 		if ( $meta_data['use_stockphoto'] && ! $product->get_meta( 'use_stockphoto' ) ) {
 			$product->set_image_id( null );

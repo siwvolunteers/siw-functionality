@@ -1,7 +1,9 @@
-@charset "UTF-8";
 nav.breadcrumb {
+  padding: 10px;
+  background-color: rgba(63, 63, 63, 0.75);
   font-size: 0.9em;
   text-shadow: 1px 1px var(--siw-font-color);
+  width: fit-content;
 }
 nav.breadcrumb ol.breadcrumb {
   margin: 0;
@@ -11,11 +13,10 @@ nav.breadcrumb ol.breadcrumb li {
   display: inline-block;
 }
 nav.breadcrumb ol.breadcrumb li a {
-  text-decoration: underline;
-  color: #fff;
+  color: var(--siw-base);
 }
 nav.breadcrumb ol.breadcrumb li + li:before {
-  padding: 0.9em;
-  color: #fff;
-  content: "/ ";
+  padding: 0.5em;
+  color: var(--siw-base);
+  content: ">";
 }

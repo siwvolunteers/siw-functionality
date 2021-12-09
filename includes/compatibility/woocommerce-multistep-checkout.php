@@ -2,14 +2,13 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Properties;
+use SIW\Util\CSS;
 
 /**
  * Aanpassingen voor WooCommerce Multistep Checkout
  * 
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  * @see       http://woocommerce-multistep-checkout.com/documentation/
- * @since     3.1.0
  */
 class WooCommerce_Multistep_Checkout {
 
@@ -29,7 +28,7 @@ class WooCommerce_Multistep_Checkout {
 	}
 
 	/** Geeft waarde voor WMC-opties terug */
-	protected function get_option_values() {
+	protected function get_option_values(): array {
 		$option_values = [
 			'wmc_wizard_type'                 => 'elegant',
 			'wmc_add_login_form'              => 'false',
@@ -42,15 +41,15 @@ class WooCommerce_Multistep_Checkout {
 			'wmc_animation'                   => 'fade',
 			'wmc_orientation'                 => 'vertical',
 			'wmc_remove_numbers'              => 'false',
-			'wmc_spinner_color'               => Properties::FONT_COLOR,
+			'wmc_spinner_color'               => CSS::ACCENT_COLOR,
 			'wmc_scroll_to_error'             => 'yes',
 			'wmc_scroll_offset'               => 30,
-			'wmc_tabs_color'                  => Properties::PRIMARY_COLOR,
+			'wmc_tabs_color'                  => CSS::ACCENT_COLOR,
 			'wmc_inactive_tabs_color'         => null,
-			'wmc_font_color'                  => '#fff',
+			'wmc_font_color'                  => CSS::BASE_COLOR,
 			'wmc_completed_tabs_color'        => '#eee',
 			'wmc_completed_font_color'        => null,
-			'wmc_buttons_bg_color'            => Properties::PRIMARY_COLOR,
+			'wmc_buttons_bg_color'            => CSS::ACCENT_COLOR,
 			'wmc_buttons_font_color'          => null,
 			'wmc_form_labels_color'           => null,
 			'wmc_btn_next'                    => __( 'Volgende', 'siw' ),
@@ -75,7 +74,7 @@ class WooCommerce_Multistep_Checkout {
 	}
 
 	/** Zet waarde van optie */
-	public function set_option_value( $value, string $option )  {
+	public function set_option_value( $value, string $option ) {
 		$option_values = $this->get_option_values();
 		return $option_values[ $option ];
 	}

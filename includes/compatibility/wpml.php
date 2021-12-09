@@ -7,9 +7,8 @@ use SIW\i18n;
 /**
  * Aanpassingen voor WPML
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://wpml.org/
- * @since     3.0.0
  */
 class WPML {
 
@@ -29,7 +28,7 @@ class WPML {
 
 	/** Verwijdert WPML widget */
 	public function unregister_wpml_widget() {
-		unregister_widget( 'WPML_LS_Widget' );
+		unregister_widget( \WPML_LS_Widget::class );
 	}
 
 	/** Verwijdert WPML meta box */

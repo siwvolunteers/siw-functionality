@@ -4,10 +4,10 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	color: #fff;
+	color: var(--siw-base);
 	max-width: unset;
 	.site-content{
-		height:100vh;
+		height: 100vh;
 		background-color: rgba(0, 0, 0, 0.5);
 		text-align: center;
 		main{

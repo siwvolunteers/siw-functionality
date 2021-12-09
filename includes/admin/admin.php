@@ -8,8 +8,7 @@ use SIW\Properties;
 /**
  * Aanpassingen aan Admin
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Admin {
 
@@ -23,7 +22,6 @@ class Admin {
 		add_filter( 'admin_footer_text', [ $self, 'set_admin_footer_text'] );
 		add_filter( 'manage_pages_columns', [ $self, 'remove_pages_columns'] );
 		add_action( 'admin_menu', [ $self, 'remove_page_metaboxes' ] ); 
-		add_action( 'admin_menu', [ $self, 'change_menu_items' ], PHP_INT_MAX );
 		add_filter( 'show_admin_bar', '__return_false' );
 		add_action( 'admin_init', [ $self, 'add_user_columns'], 20 );
 		
@@ -53,12 +51,12 @@ class Admin {
 	}
 	
 	/** Voegt copyright toe aan admin footer */
-	public function set_admin_footer_text() : string {
+	public function set_admin_footer_text(): string {
 		return sprintf( '&copy; %s %s', date( 'Y' ), Properties::NAME );
 	}
 
 	/** Verbergt admin-column voor pagina's */
-	public function remove_pages_columns( array $columns ) : array {
+	public function remove_pages_columns( array $columns ): array {
 		unset( $columns['comments'] );
 		unset( $columns['author'] );
 		return $columns;
@@ -71,25 +69,6 @@ class Admin {
 		remove_meta_box( 'commentsdiv' , 'page' , 'normal' ); 
 		remove_meta_box( 'slugdiv' , 'page' , 'normal' ); 
 		remove_meta_box( 'authordiv' , 'page' , 'normal' ); 
-	}
-
-	/** Zoekt menu-item o.b.v. slug */
-	protected function menu_search( string $slug, array $menu ) : ?int {
-		$menu_item = wp_list_filter(
-			$menu,
-			[ 2 => $slug ]
-		);
-		return ! empty( $menu_item ) ? key( $menu_item ) : null;
-	}
-
-	/** Past diverse menu-items aan */
-	public function change_menu_items() {
-		global $menu;
-	
-		$bbq = $this->menu_search( 'bbq_settings', $menu );
-		if ( $bbq ) {
-			$menu[ $bbq ][6] = 'dashicons-shield-alt';
-		}
 	}
 
 	/** Voegt extra admin columns toe */

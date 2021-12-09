@@ -92,7 +92,7 @@ class Stockphoto_Page {
 							'type'        => 'select_advanced',
 							'name'        => __( 'Soort werk', 'siw' ),
 							'placeholder' => __( 'Selecteer soort(en) werk', 'siw '),
-							'options'     => \siw_get_work_types_list( Work_Type::ALL, 'slug' ),
+							'options'     => \siw_get_work_types_list( Work_Type::ALL, Work_Type::SLUG ),
 							'multiple'    => true,
 							'required'    => true,
 						],

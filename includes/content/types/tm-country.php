@@ -62,7 +62,7 @@ class TM_Country extends Type {
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
 				'required'    => true,
-				'options'     => siw_get_countries_list( Country::TAILOR_MADE, 'slug' ),
+				'options'     => siw_get_countries_list( Country::TAILOR_MADE ),
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],
 			[
@@ -70,7 +70,7 @@ class TM_Country extends Type {
 				'name'        => __( 'Soort werk', 'siw' ),
 				'type'        => 'checkbox_list',
 				'required'    => true,
-				'options'     => siw_get_work_types_list( Work_Type::TAILOR_MADE, 'slug' ),
+				'options'     => siw_get_work_types_list( Work_Type::TAILOR_MADE, Work_Type::SLUG ),
 			],
 			[
 				'id'       => 'quote',

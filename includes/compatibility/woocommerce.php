@@ -2,6 +2,8 @@
 
 namespace SIW\Compatibility;
 
+use SIW\WooCommerce\Taxonomy_Attribute;
+
 /**
  * Aanpassingen voor WooCommerce
  * 
@@ -9,12 +11,6 @@ namespace SIW\Compatibility;
  * @see       https://woocommerce.com/
  */
 class WooCommerce {
-
-	/** Aantal log items per pagina */
-	const LOG_ITEMS_PER_PAGE = 25;
-
-	/** Aantal dagen dat log bewaard wordt */
-	const DAYS_TO_RETAIN_LOG = 7;
 
 	/** Init */
 	public static function init() {
@@ -26,10 +22,6 @@ class WooCommerce {
 
 		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
 
-		$self->set_log_handler();
-		add_filter( 'woocommerce_register_log_handlers', [ $self, 'register_log_handlers' ], PHP_INT_MAX );
-		add_filter( 'woocommerce_status_log_items_per_page', fn() : int => self::LOG_ITEMS_PER_PAGE );
-		add_filter( 'woocommerce_logger_days_to_retain_logs', fn() : int => self::DAYS_TO_RETAIN_LOG );
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
 		add_filter( 'product_type_selector', [ $self, 'disable_product_types'] );
 		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_project_id_search' ], 10, 2 );
@@ -73,16 +65,11 @@ class WooCommerce {
 
 	/** Verwijdert ongebruikte widgets */
 	public function unregister_widgets() {
-		unregister_widget( 'WC_Widget_Price_Filter' );
-		unregister_widget( 'WC_Widget_Product_Categories' );
-		unregister_widget( 'WC_Widget_Product_Tag_Cloud' );
-		unregister_widget( 'WC_Widget_Products' );
-		unregister_widget( 'WC_Widget_Cart' );
-	}
-
-	/** Zet database als de standaard log handler */
-	public function set_log_handler() {
-		define( 'WC_LOG_HANDLER', 'WC_Log_Handler_DB' );
+		unregister_widget( \WC_Widget_Price_Filter::class );
+		unregister_widget( \WC_Widget_Product_Categories::class );
+		unregister_widget( \WC_Widget_Product_Tag_Cloud::class );
+		unregister_widget( \WC_Widget_Products::class );
+		unregister_widget( \WC_Widget_Cart::class );
 	}
 
 	/** Verwijdert WooCommerce-blocks style */
@@ -90,33 +77,13 @@ class WooCommerce {
 		wp_deregister_style( 'wc-block-style' );
 	}
 
-	/**
-	 * Registreert log handlers
-	 * 
-	 * - Database
-	 * - E-mail (voor hoge prioriteit)
-	 */
-	public function register_log_handlers() : array {
-		$log_handler_db = new \WC_Log_Handler_DB;
-		$log_handler_email = new \WC_Log_Handler_Email;
-		$log_handler_email->set_threshold( 'alert' );
-	
-		$handlers = [
-			$log_handler_db,
-			$log_handler_email,
-		];
-	
-		return $handlers;
-	}
-
 	/** Verwijdert dashboard widgets */
 	public function remove_dashboard_widgets() {
-		remove_meta_box( 'woocommerce_dashboard_recent_reviews', 'dashboard', 'normal' );
 		remove_meta_box( 'woocommerce_dashboard_status', 'dashboard', 'normal' );
 	}
 
 	/** Schakelt ongebruikte product types uit */
-	public function disable_product_types( array $product_types ) : array {
+	public function disable_product_types( array $product_types ): array {
 		unset( $product_types['simple'] );
 		unset( $product_types['grouped'] );
 		unset( $product_types['external'] );
@@ -124,7 +91,7 @@ class WooCommerce {
 	}
 
 	/** Voegt project_id als argument toe aan WC queries */
-	public function enable_project_id_search( array $query, array $query_vars ) {
+	public function enable_project_id_search( array $query, array $query_vars ): array {
 		if ( ! empty( $query_vars['project_id'] ) ) {
 			$query['meta_query'][] = [
 				'key'   => 'project_id',
@@ -135,7 +102,7 @@ class WooCommerce {
 	}
 	
 	/** Voegt country argument toe aan WC queries */
-	public function enable_country_search( array $query, array $query_vars ) {
+	public function enable_country_search( array $query, array $query_vars ): array {
 		if ( ! empty( $query_vars['country'] ) ) {
 			$query['meta_query'][] = [
 				'key'   => 'country',
@@ -146,21 +113,21 @@ class WooCommerce {
 	}
 
 	/** Verwijdert overbodige zichtbaarheidsopties */
-	public function remove_product_visibility_options( array $visibility_options ) : array {
+	public function remove_product_visibility_options( array $visibility_options ): array {
 		unset( $visibility_options['catalog']);
 		unset( $visibility_options['search']);
 		return $visibility_options;
 	}
 
 	/** Verwijdert filters op admin-lijst met producten  */
-	public function remove_products_admin_list_table_filters( array $filters ) : array {
+	public function remove_products_admin_list_table_filters( array $filters ): array {
 		unset( $filters['product_type']);
 		unset( $filters['stock_status']);
 		return $filters;
 	}
 
 	/** Registreert query vars voor WP Rocket */
-	public function register_query_vars( array $vars ) : array {
+	public function register_query_vars( array $vars ): array {
 		$taxonomies = wc_get_attribute_taxonomies();
 		foreach ( $taxonomies as $taxonomy ) {
 			$vars[] = "filter_{$taxonomy->attribute_name}";
@@ -182,13 +149,13 @@ class WooCommerce {
 	}
 
 	/** Verwijdert link bij productafbeelding */
-	public function remove_link_on_thumbnails( string $html ) : string {
+	public function remove_link_on_thumbnails( string $html ): string {
 		return strip_tags( $html, '<img>' ); //TODO: verplaatsen naar product
 	}
 
 	/** Zet naam van terms */
-	public function filter_term_name( \WP_Term $term, string $taxonomy ) : \WP_Term {
-		if ( 'pa_maand' == $taxonomy ) {
+	public function filter_term_name( \WP_Term $term, string $taxonomy ): \WP_Term {
+		if ( Taxonomy_Attribute::MONTH()->value === $taxonomy ) {
 			$order = get_term_meta( $term->term_id, 'order', true );
 
 			if ( empty( $order ) ) {
@@ -210,35 +177,35 @@ class WooCommerce {
 	}
 
 	/** Zet taxonomies waarvan terms bijgewerkt moet worden */
-	public function set_update_terms_taxonomies( array $taxonomies ) : array {
-		$taxonomies[] = 'product_cat';
-		$taxonomies[] = 'pa_maand';
-		$taxonomies[] = 'pa_land';
+	public function set_update_terms_taxonomies( array $taxonomies ): array {
+		$taxonomies[] = Taxonomy_Attribute::CONTINENT()->value;
+		$taxonomies[] = Taxonomy_Attribute::MONTH()->value;
+		$taxonomies[] = Taxonomy_Attribute::COUNTRY()->value;
 		return $taxonomies;
 	}
 
 	/** Undocumented function */
-	public function set_update_terms_delete_empty( bool $delete_empty, string $taxonomy ) : bool {
-		if ( 'pa_maand' == $taxonomy ) {
+	public function set_update_terms_delete_empty( bool $delete_empty, string $taxonomy ): bool {
+		if ( Taxonomy_Attribute::MONTH()->value === $taxonomy ) {
 			$delete_empty = true;
 		}
 		return $delete_empty;
 	}
 
 	/** Zet call to action voor social share links */
-	public function set_social_share_cta( array $post_types ) : array {
+	public function set_social_share_cta( array $post_types ): array {
 		$post_types['product'] = __( 'Deel dit project', 'siw' );
 		return $post_types;
 	}
 
 	/** Voegt post type toe aan carousel */
-	public function add_carousel_post_type( array $post_types ) : array {
+	public function add_carousel_post_type( array $post_types ): array {
 		$post_types['product'] = __( 'Groepsprojecten', 'siw' );
 		return $post_types;
 	}
 
 	/** Voegt taxonomies toe aan carousel */
-	public function add_carousel_post_type_taxonomies( array $taxonomies ) : array {
+	public function add_carousel_post_type_taxonomies( array $taxonomies ): array {
 		$taxonomies['product'] = [
 			'product_cat' => __( 'Continent', 'siw' ),
 		];
@@ -246,11 +213,8 @@ class WooCommerce {
 	}
 
 	/** Voegt template toe aan carousel */
-	public function add_carousel_template( array $templates ) : array {
+	public function add_carousel_template( array $templates ): array {
 		$templates['product'] = wc_locate_template( 'content-product.php' );
 		return $templates;
 	}
-
-
-
 }

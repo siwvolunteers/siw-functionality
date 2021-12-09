@@ -5,8 +5,7 @@ namespace SIW\WooCommerce\Admin;
 /**
  * Extra Admin columns voor aanmeldingen
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Order_Columns extends \MBAC\Post {
 
@@ -34,6 +33,8 @@ class Order_Columns extends \MBAC\Post {
 
 			case 'projects':
 				$order = wc_get_order( $post_id );
+				
+				/** @var \WC_Order_Item_Product[] */
 				$order_items = $order->get_items();
 		 
 				foreach ( $order_items as $order_item ) {

@@ -2,14 +2,12 @@
 
 namespace SIW\Core;
 
-use SIW\HTML;
 use SIW\Util\CSS;
 
 /**
  * Class voor SIW icons
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Icons {
 
@@ -71,7 +69,7 @@ class Icons {
 	}
 
 	/** Voegt SIW-icon family toe */
-	public function add_icon_family( array $icon_families ) : array {
+	public function add_icon_family( array $icon_families ): array {
 		$icon_families['siw'] = [
 			'name'      => __( 'SIW Icons', 'siw' ),
 			'icons'     => $this->get_icons(),
@@ -80,7 +78,7 @@ class Icons {
 	}
 
 	/** Verwijdert default icon families */
-	public function remove_icon_families( array $icon_families ) : array {
+	public function remove_icon_families( array $icon_families ): array {
 		unset( $icon_families['elegantline'] );
 		unset( $icon_families['fontawesome'] );
 		unset( $icon_families['genericons'] );
@@ -92,7 +90,7 @@ class Icons {
 	}
 
 	/** Geeft lijst van icons terug */
-	protected function get_icons() : array {
+	protected function get_icons(): array {
 
 		$icons = wp_cache_get( 'icons', 'siw_icons' );
 		if ( false !== $icons ) {
@@ -102,7 +100,7 @@ class Icons {
 		//Icon-bestanden zoeken
 		$icon_files = glob( SIW_ASSETS_DIR . 'icons/general/*.svg' );
 		//Relatief pad van maken + extensie verwijderen
-		array_walk( $icon_files, function(&$value, &$key) {
+		array_walk( $icon_files, function( string &$value ) {
 			$value = str_replace( [ SIW_ASSETS_DIR .'icons/general/', '.svg'], '', $value );
 		});
 

@@ -55,7 +55,7 @@ class Story extends Type {
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
 				'required'    => true,
-				'options'     => \siw_get_countries_list( Country::ALL, 'slug' ),
+				'options'     => \siw_get_countries_list( Country::ALL ),
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],
 			[

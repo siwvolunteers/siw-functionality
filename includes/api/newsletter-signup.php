@@ -4,7 +4,7 @@ namespace SIW\API;
 
 use SIW\Interfaces\API\Endpoint as Endpoint_Interface;
 
-use SIW\External\Spam_Check as External_Spam_Check;
+use SIW\Helpers\Spam_Check as Spam_Check_Helper;
 use SIW\Newsletter\Confirmation_Email;
 
 /**
@@ -57,13 +57,13 @@ class Newsletter_Signup implements Endpoint_Interface {
 		}
 		
 		//Spam check
-		$spam_check = new External_Spam_Check();
-		$spam_check->set_email( $email );
+		$spam_check = Spam_Check_Helper::create()
+			->set_email( $email );
 		if ( isset( $_SERVER['REMOTE_ADDR'] ) ){
 			$spam_check->set_ip( $_SERVER['REMOTE_ADDR']);
 		}
 	
-		if ( $spam_check->is_spammer() ) {
+		if ( $spam_check->is_spam() ) {
 			return new \WP_REST_Response( [
 				'message' => __( 'Het is niet mogelijk om je aan te melden met dit e-mailadres.', 'siw' ),
 			], \WP_Http::BAD_REQUEST );

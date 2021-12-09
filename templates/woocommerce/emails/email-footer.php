@@ -9,6 +9,7 @@
 
 use SIW\Data\Social_Network;
 use SIW\Properties;
+use SIW\Util\CSS;
 use SIW\Util\Links;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									</tr>
 									<tr>
 										<td width="10%">&nbsp;</td>
-										<td width="80%" height="20" style="border-bottom:thin solid <?= Properties::PRIMARY_COLOR;?>"></td>
+										<td width="80%" height="20" style="border-bottom:thin solid <?= CSS::ACCENT_COLOR;?>"></td>
 										<td width="10%">&nbsp;</td>
 									</tr>
 								</table>

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'df75e67ed86d8ad67e0ec64e0e01a23efee69aa6',
+    'reference' => 'f705def33733cb8d81eefb268301e0be164e0e57',
     'name' => 'siwvolunteers/siw-functionality',
   ),
   'versions' => 
@@ -45,7 +45,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'df75e67ed86d8ad67e0ec64e0e01a23efee69aa6',
+      'reference' => 'f705def33733cb8d81eefb268301e0be164e0e57',
     ),
     'spatie/array-to-xml' => 
     array (
@@ -58,21 +58,21 @@
     ),
     'spatie/enum' => 
     array (
-      'pretty_version' => '3.9.0',
-      'version' => '3.9.0.0',
+      'pretty_version' => '3.11.1',
+      'version' => '3.11.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5870275f3811dc63c08200b1536ab2f8618b6a52',
+      'reference' => '4afe5f06bb4c3cf46d8b02328bcc34c0de652ad4',
     ),
     'woocommerce/action-scheduler' => 
     array (
-      'pretty_version' => '3.1.6',
-      'version' => '3.1.6.0',
+      'pretty_version' => '3.4.0',
+      'version' => '3.4.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '275d0ba54b1c263dfc62688de2fa9a25a373edf8',
+      'reference' => '3218a33ff14b968f8cb05de9656c2efa1eeb1330',
     ),
   ),
 );

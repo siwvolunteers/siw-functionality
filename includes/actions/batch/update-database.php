@@ -48,7 +48,7 @@ class Update_Database implements Batch_Action_Interface {
 
 	/** {@inheritDoc} */
 	public function process( $item ) {
-		$table = Database_Table::make( $item );
+		$table = Database_Table::from( $item );
 		$database = new Database( $table );
 		if ( ! $database->create_table() ) {
 			return false;

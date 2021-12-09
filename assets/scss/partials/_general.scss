@@ -15,11 +15,11 @@ body.home .site-content {
 .siw-quote {
 	padding: 40px;
 	font-size: 1.3em;
-	color: #777;
+	color: var(--siw-contrast-light);
 	font-style: italic;
 	text-align: center;
 	.siw-icon {
-		fill: #777;
+		fill: var(--siw-contrast-light);
 	}
 }
 dl{
@@ -29,8 +29,8 @@ dl{
 }
 
 .siw-archive-intro{
-	background-color: $button-color;
-	color: #fff;
+	background-color: var(--siw-contrast);
+	color: var(--siw-base);
 	padding: 15px;
 	margin: 15px;
 }
@@ -47,7 +47,7 @@ li.menu-item a {
 		transition: all 0.3s linear 0s;	
 	}
 	&:hover .siw-icon {
-		fill: #fff;
+		fill: var(--siw-base);
 	}
 }
 
@@ -55,19 +55,19 @@ li.menu-item a {
 input[type=button].ghost,
 button.button.ghost,
 a.button.ghost {
-	background-color: #fff;
-	border: 2px solid $button-color;
-	color: $button-color;
+	background-color: var(--siw-base);
+	border: 2px solid var(--siw-contrast);
+	color: var(--siw-contrast);
 	transition: all .6s ease-out;
 	&:visited{
-		color: $button-color;
-		background-color: #fff;
+		color: var(--siw-contrast);
+		background-color: var(--siw-base);
 	}
 	&:hover,
 	&:active,
 	&.is-checked {
-		background: $button-color;
-		color: #fff;
+		background: var(--siw-contrast);
+		color: var(--siw-base);
 		border: 2px solid transparent; 
 	}
 }
@@ -84,27 +84,9 @@ h1.hero-title{
 	text-shadow: $text-shadow;
 }
 
-//Header-links animatie
-h2 > a, .footer-widgets a.link{
-	position: relative;
-	&:before {
-		content: "";
-		position: absolute;
-		width: 100%;
-		height: 2px;
-		bottom: 0;
-		left: 0;
-		background-color: var(--siw-secondary-color);
-		visibility: hidden;
-		transform: scaleX(0);
-		transition: all 0.3s ease-in-out 0s;
-	}
-	&:hover:before {
-		visibility: visible;
-		transform: scaleX(1);
-	}
+a:hover {
+	text-decoration-color: var(--siw-accent);
 }
-
 
 //Features
 .siw-features {

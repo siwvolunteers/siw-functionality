@@ -5,6 +5,8 @@ nav .main-nav .mega-menu > ul {
   position: absolute;
   width: 100%;
   left: 0 !important;
+  display: flex;
+  flex-wrap: wrap;
 }
 nav .main-nav .mega-menu > ul > li {
   display: inline-block;
@@ -30,6 +32,7 @@ nav .main-nav .mega-menu > ul > li:focus > a,
 nav .main-nav .mega-menu > ul > li[class*=current-] > a,
 nav .main-nav .mega-menu ul ul {
   background-color: transparent !important;
+  color: inherit !important;
 }
 nav .main-nav .mega-menu ul .sub-menu {
   position: static;
@@ -40,6 +43,8 @@ nav .main-nav .mega-menu ul .sub-menu {
   box-shadow: 0 0 0;
   left: 0;
   height: auto;
+  pointer-events: auto;
+  transform: scale(1);
 }
 nav .main-nav .mega-menu ul.toggled-on .sub-menu {
   pointer-events: auto;

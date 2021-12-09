@@ -97,18 +97,6 @@ class Properties {
 	/** Kortingspercentage voor 2e project */
 	const DISCOUNT_SECOND_PROJECT = 25;
 
-	/** Kleurcode primaire kleur */
-	const PRIMARY_COLOR = '#f67820';
-
-	/** Kleurcode secundaire kleur */
-	const SECONDARY_COLOR = '#59ab9c';
-
-	/** Kleurcode voor tekst */
-	const FONT_COLOR = '#444';
-
-	/** Kleurcode voor lichte tekst */
-	const FONT_COLOR_LIGHT = '#555';
-
 	/** Maximale afmeting voor afbeelding */
 	const MAX_IMAGE_SIZE = 1920;
 

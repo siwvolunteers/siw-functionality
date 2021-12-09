@@ -4,6 +4,8 @@ nav .main-nav .mega-menu {
 		position: absolute;
 		width: 100%;
 		left: 0 !important;
+		display: flex;
+		flex-wrap: wrap;
 
 		> li {
 			display: inline-block;
@@ -32,6 +34,7 @@ nav .main-nav .mega-menu {
 	> ul > li[class*="current-"] > a,
 	ul ul {
 		background-color: transparent !important;
+		color: inherit !important;
 	}
 
 	ul .sub-menu {
@@ -43,6 +46,8 @@ nav .main-nav .mega-menu {
 		box-shadow: 0 0 0;
 		left: 0;
 		height: auto;
+		pointer-events: auto;
+		transform: scale(1);
 	}
 
 	ul.toggled-on .sub-menu {

@@ -4,12 +4,12 @@ namespace SIW\WooCommerce\Frontend;
 
 use SIW\i18n;
 use SIW\Properties;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Header voor overzichtspagina van groepsprojecten
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Archive_Header {
 
@@ -77,22 +77,22 @@ class Archive_Header {
 		elseif ( \is_product_taxonomy() ) {
 			$name = get_queried_object()->name;
 			switch ( get_queried_object()->taxonomy ) {
-				case 'pa_land':
+				case Taxonomy_Attribute::COUNTRY()->value:
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in %s.', 'siw' ), '<b>' . $name . '</b>' );
 					break;
-				case 'pa_soort-werk':
+				case Taxonomy_Attribute::WORK_TYPE()->value:
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
 					break;
-				case 'pa_sdg':
+				case Taxonomy_Attribute::SDG()->value:
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op het Sustainable Development Goal %s.', 'siw' ), '<b>' . $name . '</b>' );
 					break;
-				case 'pa_doelgroep':
+				case Taxonomy_Attribute::TARGET_AUDIENCE()->value:
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten voor de doelgroep %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
 					break;
-				case 'pa_taal':
+				case Taxonomy_Attribute::LANGUAGE()->value:
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met de voertaal %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
-				case 'pa_maand':
+				case Taxonomy_Attribute::MONTH()->value:
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
 				default:
@@ -129,31 +129,7 @@ class Archive_Header {
 		}
 		return($text);
 	}
-	/* old
-	protected function get_alert_text() : ?string {
-		$text = "";
-		if ( \is_product_category() ) {
-			$category_name = get_queried_object()->name;
-			if($category_name == "Europa")
-			{
-				$text .= SPACE .
-				__('Eindelijk mag er weer (een beetje) gereisd worden deze zomer in Europa.', 'siw' ) . SPACE .
-				__('Als SIW zenden wij uit naar landen die op "geel" staan. ', 'siw' ) . SPACE .
-				__('Dat worden er steeds meer en het verandert dagelijks. ', 'siw' ) . SPACE .
-				__('Veel (actuele) informatie is te vinden op de web-app "vakantieplanner" van de NOS <a href="https://app.nos.nl/op3/vakantieplanner"> vakantieplanner</a>. ', 'siw' ) . SPACE .
-				__('Daar kun je ook de actuele coronaregels per land vinden.', 'siw' ) . BR .
-				'<b>' .
-				__('Kan je je nu al aanmelden voor een project deze zomer?','siw') . SPACE .
-				'</b>' .
-				__('Ja, dat kan zeker.','siw') . SPACE .
-				__('Wij kijken dan of het project inderdaad doorgaat en of je geplaatst kan worden.','siw') . SPACE .
-				__('Pas als het zeker is dat je ook daadwerkelijk naar de plaats van bestemming kan afreizen, doe je de betaling aan SIW. Niet eerder!','siw') . BR .
-				'<i>'.
-				__('Mocht het door jou gekozen project niet doorgaan, dan kunnen we natuurlijk samen kijken naar een ander gelijksoortig project waaraan je wel kunt deelnemen.','siw');
-			}
-		}
-		return($text);
-	}
+  
 	*/
 	/** Geeft aan of aankondiging nieuwe projecten getoond moet worden */
 	protected function is_teaser_text_active() : bool {

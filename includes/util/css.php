@@ -7,8 +7,7 @@ use SIW\Properties;
 /**
  * Hulpfuncties t.b.v. css
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class CSS {
 
@@ -26,6 +25,18 @@ class CSS {
 
 	/** CSS klasse om content op desktop te verbergen */
 	const HIDE_ON_DESKTOP_CLASS = 'hide-on-desktop';
+
+	/** Accentkleur */
+	const ACCENT_COLOR = '#f67820';
+
+	/** Contrastkleur (tekst) */
+	const CONTRAST_COLOR = '#222';
+
+	/** Contrastkleur licht (tekst) */
+	const CONTRAST_COLOR_LIGHT = '#555';
+
+	/** Basekleur (achtergrondkleur) */	
+	const BASE_COLOR = '#fefefe';
 
 	/** Genereert reponsive classes */
 	public static function generate_responsive_classes( int $desktop_columns, int $tablet_columns = null, int $mobile_columns = null ) : string {
@@ -83,25 +94,5 @@ class CSS {
 			$css = $rendered_media_query . '{' . $css . '}';
 		}
 		return $css;
-	}
-
-	/** Voegt css variabelen toe aan script */
-	public static function add_css_variables( string $handle ) {
-		$css_variables = [
-			'--siw-primary-color'    => Properties::PRIMARY_COLOR,
-			'--siw-secondary-color'  => Properties::SECONDARY_COLOR,
-			'--siw-font-color'       => Properties::FONT_COLOR,
-			'--siw-font-color-light' => Properties::FONT_COLOR_LIGHT,
-		];
-		//CSS-variabelen toevoegen als toegestane css properties
-		add_filter(
-			'safe_style_css',
-			fn( array $allowed_attr ) : array => array_merge( $allowed_attr, array_keys( $css_variables ) )
-		);
-
-		wp_add_inline_style(
-			$handle,
-			CSS::generate_inline_css( [':root' => $css_variables])
-		);
 	}
 }

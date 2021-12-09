@@ -106,7 +106,7 @@ class Info_Day implements Form_Interface {
 	}
 
 	/** {@inheritDoc} */
-	protected function get_info_days() : array {
+	protected function get_info_days(): array {
 		$info_days = siw_get_upcoming_info_days( 3 );
 	
 		//Fallback voor als er nog geen infodagen bekend zijn
@@ -114,7 +114,7 @@ class Info_Day implements Form_Interface {
 			return [ __( 'Nog niet bekend', 'siw' ) ];
 		}
 
-		$callback = function( &$value, $key ) {
+		$callback = function( &$value ) {
 			$date = siw_meta( 'event_date', [], $value );
 			$value = siw_format_date( $date, false );
 		};

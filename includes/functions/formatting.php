@@ -6,6 +6,8 @@
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 
+use SIW\Data\Currency;
+
 /** Formatteert getal als percentage */
 function siw_format_percentage( float $percentage, int $decimals = 0 ) : string {
 	$percentage = number_format_i18n( $percentage, $decimals );
@@ -75,7 +77,7 @@ function siw_format_month( string $date, bool $include_year = true ) : string {
 
 /** Formatteert lokale bijdrage */
 function siw_format_local_fee( float $fee, string $currency_code ) : string {
-	if ( 0.0 === $fee || ! is_string( $currency_code ) ) {
+	if ( 0.0 === $fee || empty( $currency_code ) ) {
 		return '';
 	}
 
