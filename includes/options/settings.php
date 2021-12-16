@@ -228,13 +228,6 @@ class Settings implements Option_Interface {
 			'required' => true,
 		];
 		$fields[] = [
-			'id'       => 'job_postings_intro',
-			'name'     => __( 'Introtekst', 'siw' ),
-			'type'     => 'wysiwyg',
-			'tab'      => 'job_postings',
-			'required' => true,
-		];
-		$fields[] = [
 			'id'        => 'hr_manager',
 			'type'      => 'group',
 			'tab'       => 'job_postings',
