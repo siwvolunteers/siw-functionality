@@ -22,6 +22,7 @@ class Head {
 	public static function init() {
 		$self = new self();
 
+		add_filter( 'site_icon_meta_tags', [ $self, 'add_theme_color_tag']);
 		add_filter( 'site_icon_meta_tags', [ $self, 'add_manifest_tag']);
 		add_action( 'init', [ $self, 'show_web_app_manifest'] );
 
@@ -41,8 +42,14 @@ class Head {
 		remove_action( 'template_redirect', 'rest_output_link_header', 11 ) ;
 	}
 
+	/** Voegt tag voor theme color toe */
+	public function add_theme_color_tag( array $meta_tags ): array {
+		$meta_tags[] = sprintf( '<link rel="theme-color" content="%s">', CSS::ACCENT_COLOR );
+		return $meta_tags;
+	}
+
 	/** Voegt tag voor web app manifest toe */
-	public function add_manifest_tag( array $meta_tags ) : array {
+	public function add_manifest_tag( array $meta_tags ): array {
 		$meta_tags[] = sprintf( '<link rel="manifest" href="%s" crossorigin="use-credentials">', get_home_url( null, self::WEB_APP_MANIFEST_FILENAME ) );
 		return $meta_tags;
 	}
