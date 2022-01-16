@@ -2,7 +2,9 @@
 
 namespace SIW\Forms\Forms;
 
+use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
 use SIW\Interfaces\Forms\Form as Form_Interface;
+use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
 use SIW\Properties;
 
@@ -11,97 +13,73 @@ use SIW\Properties;
  * 
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Tailor_Made implements Form_Interface {
+class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface{
 
 	/** {@inheritDoc} */
-	public function get_id(): string {
+	public function get_form_id(): string {
 		return 'op_maat';
 	}
 
 	/** {@inheritDoc} */
-	public function get_name(): string {
+	public function get_form_name(): string {
 		return __( 'Op Maat', 'siw' );
 	}
 
 	/** {@inheritDoc} */
-	public function get_fields(): array {
+	public function get_form_fields(): array {
 		return [
 			[
-				'slug'           => 'voornaam',
-				'type'           => 'text',
-				'label'          => __( 'Voornaam', 'siw' ),
-				'recipient_name' => true,
+				'id'   => 'first_name',
+				'type' => 'text',
+				'name' => __( 'Voornaam', 'siw' ),
 			],
 			[
-				'slug'           => 'achternaam',
-				'type'           => 'text',
-				'label'          => __( 'Achternaam', 'siw' ),
-				'recipient_name' => true,
+				'id'   => 'last_name',
+				'type' => 'text',
+				'name' => __( 'Achternaam', 'siw' ),
 			],
 			[
-				'slug'   => 'geboortedatum',
-				'type'   => 'text',
-				'label'  => __( 'Geboortedatum', 'siw' ),
-				'config' => [
-					'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
-					'validation'  => 'date',
+				'id'          => 'date_of_birth',
+				'type'        => 'text',
+				'name'        => __( 'Geboortedatum', 'siw' ),
+				'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
+				'attributes'  => [
+					'data-rule-dateNL' => true,
 				],
 			],
 			[
-				'slug'   => 'woonplaats',
-				'type'   => 'text',
-				'label'  => __( 'Woonplaats', 'siw' ),
+				'id'   => 'city',
+				'type' => 'text',
+				'name' => __( 'Woonplaats', 'siw' ),
 			],
 			[
-				'slug'          => 'emailadres',
-				'type'          => 'email',
-				'label'         => __( 'Emailadres', 'siw' ),
-				'primary_email' => true,
+				'id'   => 'email',
+				'type' => 'email',
+				'name' => __( 'Emailadres', 'siw' ),
 			],
 			[
-				'slug'     => 'telefoonnummer',
-				'type'     => 'text',
-				'label'    => __( 'Telefoonnummer', 'siw' ),
+				'id'       => 'phone',
+				'type'     => 'tel',
+				'name'     => __( 'Telefoonnummer', 'siw' ),
 				'required' => false,
-				'config'   => [
-					'type_override' => 'tel',
-				],
 			],
 			[
-				'slug'   => 'motivatie',
-				'type'   => 'paragraph',
-				'label'  => __( 'Waarom zou je graag vrijwilligerswerk willen doen?', 'siw' ),
-				'config' => [
-					'rows' => 7,
-				],
+				'id'   => 'motivation',
+				'type' => 'textearea',
+				'name' => __( 'Waarom zou je graag vrijwilligerswerk willen doen?', 'siw' ),
+				'rows' => 7,
 			],
 			[
-				'slug'   => 'bestemming',
-				'type'   => 'checkbox',
-				'label'  => __( 'In welke regio zou je graag vrijwilligerswerk willen doen?', 'siw' ),
-				'config'   => [
-					'option' => \siw_get_continents_list(),
-				],
+				'id'      => 'destination',
+				'type'    => 'checkbox_list',
+				'name'    => __( 'In welke regio zou je graag vrijwilligerswerk willen doen?', 'siw' ),
+				'options' => \siw_get_continents_list(),
 			],
 			[
-				'slug'   => 'duur',
+				'id'     => 'duration',
 				'type'   => 'radio',
-				'label'  => __( 'Hoe lang zou je weg willen?', 'siw' ),
-				'config' => [
-					'option' => $this->get_duration_options(),
-				],
-			],
-			[
-				'slug'   => 'cv',
-				'type'   => 'file',
-				'label'  => __( 'Upload hier je CV (optioneel)', 'siw'),
-				'config' => [
-					'attach'     => true,
-					'media_lib'  => false,
-					'allowed'    => 'pdf,docx',
-					'max_upload' => \wp_max_upload_size(),
-				],
-				'required' => false,
+				'name'   => __( 'Hoe lang zou je weg willen?', 'siw' ),
+				'options' => $this->get_duration_options(),
 			],
 		];
 	}
@@ -116,23 +94,23 @@ class Tailor_Made implements Form_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_notification_subject(): string {
+	public function get_notification_mail_subject(): string {
 		return 'Aanmelding Vrijwilligerswerk Op Maat';
 	}
 
 	/** {@inheritDoc} */
-	public function get_notification_message(): string {
+	public function get_notification_mail_message(): string {
 		return 'Via de website is onderstaande aanmelding voor Vrijwilligerswerk Op Maat binnengekomen:';
 	}
 
 	/** {@inheritDoc} */
-	public function get_autoresponder_subject(): string {
+	public function get_confirmation_mail_subject(): string {
 		return __( 'Bevestiging aanmelding Vrijwilligerswerk Op Maat', 'siw' );
 	}
 
 	/** {@inheritDoc} */
-	public function get_autoresponder_message(): string {
-		return sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
+	public function get_confirmation_mail_message(): string {
+		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
 		__( 'Bedankt voor je aanmelding!', 'siw' ) . SPACE .
 		 __( 'Leuk dat je hebt gekozen via SIW een Project Op Maat te doen.', 'siw' ) . SPACE .
 		__( 'Wij zullen ons best gaan doen om ervoor te zorgen dat dit voor jou een onvergetelijke ervaring wordt.', 'siw' ) . BR2 .

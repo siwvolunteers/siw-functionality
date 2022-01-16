@@ -31,7 +31,6 @@ class Meta_Box {
 	public function select_extensions(): array {
 		$extensions = [
 			'mb-admin-columns',
-			'mb-custom-table',
 			'mb-settings-page',
 			'meta-box-columns',
 			'meta-box-conditional-logic',
@@ -39,7 +38,6 @@ class Meta_Box {
 			'meta-box-group',
 			'meta-box-include-exclude',
 			is_admin() ? 'meta-box-tabs' : null,
-			'meta-box-text-limiter',
 		];
 		return array_filter( $extensions );
 	}

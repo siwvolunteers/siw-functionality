@@ -2,83 +2,79 @@
 
 namespace SIW\Forms\Forms;
 
+use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
 use SIW\Interfaces\Forms\Form as Form_Interface;
+use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
 /**
  * Contactformulier algemeen
  * 
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Enquiry_General implements Form_Interface {
+class Enquiry_General implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
 	/** {@inheritDoc} */
-	public function get_id() : string {
+	public function get_form_id() : string {
 		return 'contact_algemeen';
 	}
 
 	/** {@inheritDoc} */
-	public function get_name() : string {
+	public function get_form_name() : string {
 		return __( 'Infoverzoek algemeen', 'siw' );
 	}
 
 	/** {@inheritDoc} */
-	public function get_fields(): array {
+	public function get_form_fields(): array {
 		return [
 			[
-				'slug'  => 'voornaam',
-				'type'  => 'text',
-				'label' => __( 'Voornaam', 'siw' ),
-				'recipient_name' => true,
+				'id'   => 'first_name',
+				'type' => 'text',
+				'name' => __( 'Voornaam', 'siw' ),
 			],
 			[
-				'slug'           => 'achternaam',
-				'type'           => 'text',
-				'label'          => __( 'Achternaam', 'siw' ),
-				'recipient_name' => true,
+				'id'   => 'last_name',
+				'type' => 'text',
+				'name' => __( 'Achternaam', 'siw' ),
 			],
 			[
-				'slug'          => 'emailadres',
-				'type'          => 'email',
-				'label'         => __( 'Emailadres', 'siw' ),
-				'primary_email' => true,
+				'id'   => 'email',
+				'type' => 'email',
+				'name' => __( 'Emailadres', 'siw' ),
 			],
 			[
-				'slug'     => 'telefoonnummer',
-				'type'     => 'text',
-				'label'    => __( 'Telefoonnummer', 'siw' ),
+				'id'       => 'phone',
+				'type'     => 'tel',
+				'name'     => __( 'Telefoonnummer', 'siw' ),
 				'required' => false,
-				'config'   => [
-					'type_override' => 'tel',
-				],
 			],
 			[
-				'slug'  => 'vraag',
-				'type'  => 'paragraph',
-				'label' => __( 'Vraag', 'siw' ),
-				'width' => Form_Interface::FULL_WIDTH,
+				'id'      => 'question',
+				'type'    => 'textarea',
+				'name'    => __( 'Vraag', 'siw' ),
+				'columns' => Form_Interface::FULL_WIDTH,
 			]
 		];
 	}
 
 	/** {@inheritDoc} */
-	public function get_notification_message(): string {
+	public function get_notification_mail_message(): string {
 		return 'Via de website is een vraag gesteld:';
 	}
 
 	/** {@inheritDoc} */
-	public function get_notification_subject(): string {
-		return 'Informatieverzoek %voornaam% %achternaam%';
+	public function get_notification_mail_subject(): string {
+		return 'Informatieverzoek {{ first_name }} {{ last_name }}';
 	}
 
 	/** {@inheritDoc} */
-	public function get_autoresponder_message(): string{
-		return sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
+	public function get_confirmation_mail_message(): string{
+		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
 		__( 'Bedankt voor het invullen van ons contactformulier.', 'siw' ) . SPACE .
 		__( 'Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je op.', 'siw' );
 	}
 
 	/** {@inheritDoc} */
-	public function get_autoresponder_subject(): string {
+	public function get_confirmation_mail_subject(): string {
 		return __( 'Bevestiging informatieverzoek', 'siw' );
 	}
 }

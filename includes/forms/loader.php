@@ -4,10 +4,6 @@ namespace SIW\Forms;
 
 use SIW\Abstracts\Object_Loader as Object_Loader_Abstract;
 use SIW\Interfaces\Forms\Form as Form_Interface;
-use SIw\Interfaces\Forms\Form_Processor as Form_Processor_Interface;
-use SIW\Interfaces\Forms\Pre_Processor as Pre_Processor_Interface;
-use SIW\Interfaces\Forms\Processor as Processor_Interface;
-use SIW\Interfaces\Forms\Post_Processor as Post_Processor_Interface;
 
 /**
  * Loader voor formulieren
@@ -30,30 +26,18 @@ class Loader extends Object_Loader_Abstract {
 			Forms\Enquiry_Project::class,
 			Forms\Info_Day::class,
 			Forms\Leader_Dutch_Projects::class,
+			Forms\Newsletter::class,
 			Forms\Tailor_Made::class,
-			Processors\Spam_Check::class,
 		];
 	}
 
 	/** {@inheritDoc} */
 	protected function load( object $object ) {
 
-		if ( is_a( $object, Form_Interface::class ) ) {
-			$form = new Form( $object );
-			$form->register();
+		if ( ! is_a( $object, Form_Interface::class ) ) {
+			return;
 		}
-
-		if ( is_a( $object, Form_Processor_Interface::class ) ) {
-			$processor = new Form_Processor( $object );
-			if ( is_a( $object, Pre_Processor_Interface::class ) ) {
-				$processor->set_pre_processor( $object );
-			}
-			if ( is_a( $object, Processor_Interface::class ) ) {
-				$processor->set_processor( $object );
-			}
-			if ( is_a( $object, Post_Processor_Interface::class ) ) {
-				$processor->set_post_processor( $object );
-			}
-		}
+		$form = new Form( $object );
+		$form->register();
 	}
 }

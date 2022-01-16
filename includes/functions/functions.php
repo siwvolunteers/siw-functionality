@@ -41,3 +41,8 @@ if ( ! function_exists( 'get_query_arg' ) ) {
 		return $query_args[ $key ];
 	}
 }
+
+/** Wrapper om wp_hash */
+function siw_hash( string $data ): string {
+	return wp_hash( $data, 'siw' );
+}

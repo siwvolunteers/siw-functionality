@@ -2,8 +2,8 @@
 
 namespace SIW\Actions\Batch;
 
-use SIW\Email\Template;
 use SIW\Helpers\Email;
+use SIW\Helpers\Email_Template;
 use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 use SIW\Util\Links;
 use SIW\WooCommerce\Import\Product as Import_Product;
@@ -94,20 +94,16 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 			sprintf( 'Er wachten nog %d projecten in %s op jouw beoordeling.', count( $products ), $term->name ) . BR .
 			sprintf( 'Klik %s om de projecten te bekijken.', Links::generate_link( $admin_url, 'hier') );
 
-		$template = new Template(
-			[
-				'subject'           => sprintf( 'Nog te beoordelen projecten in %s', $term->name ),
-				'message'           => $message,
-				'show_signature'    => true,
-				'signature_name'    => $supervisor->display_name
-			]
-		);
+		$template = Email_Template::create()
+			->set_message( $message )
+			->set_subject( sprintf( 'Nog te beoordelen projecten in %s', $term->name ) )
+			->generate();
 
 		$this->send_mail(
 			$responsible_user,
 			$supervisor, 
 			sprintf( 'Nog te beoordelen projecten in %s', $term->name ),
-			$template->generate()
+			$template
 		);
 	}
 
@@ -134,14 +130,12 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 	/** Verstuur e-mail */
 	protected function send_mail( \WP_User $to, \WP_User $from, string $subject, string $message ) {
 
-		$email = Email::create(
-			$subject,
-			$message,
-			$to->user_email,
-			$to->display_name
-		)
-		->set_content_type( Email::TEXT_HTML )
-		->set_from( $from->user_email, $from->display_name );
+		$email = Email::create()
+			->set_subject( $subject )
+			->set_message( $message )
+			->add_recipient( $to->user_email, $to->display_name )
+			->set_content_type( Email::TEXT_HTML )
+			->set_from( $from->user_email, $from->display_name );
 
 		if ( $to != $from ) {
 			$email->add_cc( $from->user_email, $from->display_name );

@@ -12,6 +12,7 @@ use Mustache_Template;
  * Class om Mustache templates te gebruiken
  *
  * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
+ * @deprecated gebruik SIW\Helpers\Template
  */
 class Template {
 

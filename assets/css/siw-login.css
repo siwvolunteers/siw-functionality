@@ -27,7 +27,7 @@ html body.login form .button-primary {
   border-radius: 0;
   transition: all 0.3s linear 0s;
 }
-html body.login form .button-primary:hover, html body.login form .button-primary:active {
+html body.login form .button-primary:hover, html body.login form .button-primary:active, html body.login form .button-primary:focus {
   border: 2px solid #444;
   background-color: #444;
   color: #fff;

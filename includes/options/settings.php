@@ -2,6 +2,7 @@
 
 namespace SIW\Options;
 
+use SIW\Data\Pattern;
 use SIW\Interfaces\Options\Option as Option_Interface;
 
 use SIW\Modules\Topbar;
@@ -594,43 +595,14 @@ class Settings implements Option_Interface {
 
 		//Email
 		$forms = siw_get_forms();
-		$forms['workcamp']   = __( 'Groepsprojecten', 'siw' );
-		$forms['newsletter'] = __( 'Nieuwsbrief', 'siw' );
-
-		$fields[]= [
-			'id'     => 'email_settings',
-			'type'   => 'group',
-			'tab'    => 'email',
-			'fields' => [
-				[
-					'type' => 'heading',
-					'name' => __( 'Standaardinstellingen', 'siw' ),
-					'desc' => __( 'Afzender en ontvanger van bevestigingsmail', 'siw' ),
-				],
-				[
-					'id'      => 'email',
-					'name'    => __( 'E-mailadres', 'siw' ),
-					'type'    => 'email',
-				],
-				[
-					'id'      => 'name',
-					'name'    => __( 'Naam', 'siw' ),
-					'type'    => 'text',
-				],
-				[
-					'id'      => 'title',
-					'name'    => __( 'Functie', 'siw' ),
-					'type'    => 'text',
-				],
-			]
-		];
+		$forms['workcamp'] = __( 'Groepsprojecten', 'siw' );
 
 		foreach ( $forms as $id => $name ) {
-			$fields[] = [
-				'id'     => "{$id}_email",
-				'type'   => 'group',
-				'tab'    => 'email',
-				'fields' => [
+			$email_setting_fields[] = [
+				'id'            => "{$id}",
+				'type'          => 'group',
+				'tab'           => 'email',
+				'fields'        => [
 					[
 						'type' => 'heading',
 						'name' => $name,
@@ -639,33 +611,94 @@ class Settings implements Option_Interface {
 						'id'        => 'use_specific',
 						'name'      => __( 'Gebruik afwijkende instellingen', 'siw' ),
 						'type'      => 'switch',
+						'std'       => true,
+						'columns'   => 12,
 						'on_label'  => __( 'Ja', 'siw' ),
 						'off_label' => __( 'Nee', 'siw' ),
 					],
 					[
-						'id'       => 'email',
-						'name'     => __( 'E-mailadres', 'siw' ),
-						'type'     => 'email',
-						'required' => true,
-						'visible'  => [ "{$id}_email[use_specific]", true ],
-					],
-					[
-						'id'       => 'name',
-						'name'     => __( 'Naam', 'siw' ),
+						'id'       => 'confirmation_mail_sender',
+						'name'     => __( 'Afzender bevestigingsmail', 'siw' ),
 						'type'     => 'text',
 						'required' => true,
-						'visible'  => [ "{$id}_email[use_specific]", true ],
+						'pattern'  => Pattern::EMAIL_LOCAL_PART()->value,
+						'append'   => '@siw.nl',
+						'columns'  => 4,
+						'visible'  => [ "email_settings[{$id}][use_specific]", true ],
 					],
 					[
-						'id'       => 'title',
-						'name'     => __( 'Functie', 'siw' ),
+						'id'       => 'notification_mail_recipient',
+						'name'     => __( 'Ontvanger notificatiemail', 'siw' ),
 						'type'     => 'text',
 						'required' => true,
-						'visible'  => [ "{$id}_email[use_specific]", true ],
+						'pattern'  => Pattern::EMAIL_LOCAL_PART()->value,
+						'append'   => '@siw.nl',
+						'columns'  => 4,
+						'visible'  => [ "email_settings[{$id}][use_specific]", true ],
 					],
-				]
+					[
+						'id'      => 'notification_mail_cc',
+						'name'    => __( 'CC notificatiemail', 'siw' ),
+						'type'    => 'text',
+						'pattern' => Pattern::EMAIL_LOCAL_PART()->value,
+						'clone'   => true,
+						'append'  => '@siw.nl',
+						'columns' => 4,
+						'visible' => [ "email_settings[{$id}][use_specific]", true ],
+					],
+				],
 			];
 		}
+
+		$fields[]= [
+			'id'            => 'email_settings',
+			'type'          => 'group',
+			'tab'           => 'email',
+			'fields' => [
+				[
+					'type' => 'heading',
+					'name' => __( 'E-mailinstellingen', 'siw' ),
+				],
+				[
+					'id'            => 'default',
+					'type'          => 'group',
+					'collapsible'   => true,
+					'default_state' => 'expanded',
+					'group_title'   => __( 'Standaardinstellingen', 'siw' ),
+					'fields'        => [
+						[
+							'id'       => 'confirmation_mail_sender',
+							'name'     => __( 'Afzender bevestigingsmail', 'siw' ),
+							'type'     => 'text',
+							'required' => true,
+							'pattern'  => Pattern::EMAIL_LOCAL_PART()->value,
+							'append'   => '@siw.nl',
+							'columns'  => 4,
+						],
+						[
+							'id'       => 'notification_mail_recipient',
+							'name'     => __( 'Ontvanger notificatiemail', 'siw' ),
+							'type'     => 'text',
+							'required' => true,
+							'pattern'  => Pattern::EMAIL_LOCAL_PART()->value,
+							'append'   => '@siw.nl',
+							'columns'  => 4,
+						],
+						[
+							'id'      => 'notification_mail_cc',
+							'name'    => __( 'CC notificatiemail', 'siw' ),
+							'type'    => 'text',
+							'pattern' => Pattern::EMAIL_LOCAL_PART()->value,
+							'clone'   => true,
+							'append'  => '@siw.nl',
+							'columns'  => 4,
+						],
+					],
+				],
+				...$email_setting_fields,
+			]
+		];
+
 		return $fields;
 	}
 }

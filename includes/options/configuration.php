@@ -348,6 +348,12 @@ class Configuration implements Option_Interface {
 					'type'    => 'select_advanced',
 					'options' => Util::get_pages(),
 				],
+				[
+					'id'      => 'newsletter_confirmation',
+					'name'    => __( 'Bevestiging aanmelding nieuwsbrief', 'siw' ),
+					'type'    => 'select_advanced',
+					'options' => Util::get_pages(),
+				]
 			],
 		];
 
@@ -368,13 +374,6 @@ class Configuration implements Option_Interface {
 			'type'       => 'heading',
 			'tab'        => 'blacklists',
 			'name'       => __( 'Domein blacklist', 'siw' ),
-		];
-		$fields[] = [
-			'id'         => 'blocked_domains',
-			'type'       => 'text',
-			'tab'        => 'blacklists',
-			'clone'      => true,
-			'add_button' => __( 'Domein toevoegen', 'siw' ),
 		];
 
 		//Overig
