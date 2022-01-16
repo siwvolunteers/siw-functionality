@@ -65,16 +65,6 @@ class Shortcodes {
 					],
 				]
 			],
-			'nieuwste_programmaboekje_np' => [
-				'title'      => __( 'Nieuwste programmaboekje NP', 'siw' ),
-				'attributes' => [
-					[
-						'attr'  => 'titel',
-						'type'  => 'text',
-						'title' => __( 'Titel', 'siw' ),
-					],
-				]
-			],
 			'externe_link' => [
 				'title'      => __( 'Externe link', 'siw' ),
 				'attributes' => [
@@ -264,25 +254,6 @@ class Shortcodes {
 		$report_url = wp_get_attachment_url( $report['file'][0] );
 
 		return Links::generate_document_link( $report_url, $titel );
-	}
-
-	/** Toont nieuwste NP-programmboekje */
-	public static function render_nieuwste_programmaboekje_np( array $atts ) : string {
-		extract( shortcode_atts( [
-			'titel' => '',
-			], $atts, 'siw_nieuwste_programmaboekje_np' )
-		);
-
-		$booklets = siw_get_option( 'dutch_projects_booklets' );
-		if ( empty( $booklets ) ) {
-			return '';
-		}
-
-		$booklets = wp_list_sort( $booklets, 'year', 'DESC' );
-		$booklet = reset( $booklets );
-		$booklet_url = wp_get_attachment_url( $booklet['file'][0] );
-
-		return Links::generate_document_link( $booklet_url, $titel );
 	}
 
 	/**

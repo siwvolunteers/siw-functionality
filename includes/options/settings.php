@@ -58,11 +58,6 @@ class Settings implements Option_Interface {
 				'icon'  => 'dashicons-media-document',
 			],
 			[
-				'id'    => 'dutch_projects',
-				'label' => __( 'Nederlandse projecten', 'siw' ),
-				'icon'  => 'dashicons-admin-home'
-			],
-			[
 				'id'    => 'notifications',
 				'label' => __( 'Notificaties', 'siw' ),
 				'icon'  => 'dashicons-megaphone',
@@ -155,39 +150,6 @@ class Settings implements Option_Interface {
 					'required' => true,
 					'min'      => intval( date( 'Y', strtotime( Properties::FOUNDING_DATE ) ) ),
 					'max'      => intval(date( 'Y' ) )
-				],
-				[
-					'id'               => 'file',
-					'name'             => __( 'Bestand', 'siw' ),
-					'type'             => 'file_advanced',
-					'required'         => true,
-					'max_file_uploads' => 1,
-					'mime_type'        => 'application/pdf',
-					'force_delete'     => false,
-				],
-			],
-		];
-
-		//Nederlandse projecten
-		$fields[] = [
-			'id'            => 'dutch_projects_booklets',
-			'type'          => 'group',
-			'tab'           => 'dutch_projects',
-			'clone'         => true,
-			'sort_clone'    => true,
-			'max_clone'     => 5,
-			'collapsible'   => true,
-			'default_state' => 'collapsed',
-			'group_title'   => 'Programmaboekje {year}',
-			'add_button'    => __( 'Programmaboekje toevoegen', 'siw' ),
-			'fields'        => [
-				[
-					'id'       => 'year',
-					'name'     => __( 'Jaar', 'siw' ),
-					'type'     => 'number',
-					'required' => true,
-					'min'      => intval( date( 'Y', strtotime( Properties::FOUNDING_DATE ) ) ),
-					'max'      => intval( date( 'Y' ) )
 				],
 				[
 					'id'               => 'file',
