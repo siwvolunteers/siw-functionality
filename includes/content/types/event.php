@@ -377,11 +377,10 @@ class Event extends Type {
 		}
 		//Organisator
 		if ( siw_meta( 'different_organizer') ) {
-			$template_vars += array(
-				'organizer'      => TRUE,
-				'organizer_name' => siw_meta('organizer_name'),
-				'organizer_link' => Links::generate_external_link( siw_meta( 'organizer.url' )),
-			);
+			$template_vars['organizer'] = [
+				'name' => siw_meta('organizer.name'),
+				'link' => Links::generate_external_link( siw_meta( 'organizer.url' ) )
+			];
 		}
 		return($template_vars);
 	}
