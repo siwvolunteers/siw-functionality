@@ -197,6 +197,7 @@ class Story extends Type {
 		$animation_left = HTML::generate_attributes( ['data-sal' => 'slide-left', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
 		$animation_right = HTML::generate_attributes( ['data-sal' => 'slide-right', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
 		$template_vars = [
+			'project_type'   => siw_meta( 'siw_story_project_type')->name,
 			'cta'            => $this->get_cta_url(),
 			'animation_fade' => $animation_fade,
 		];
@@ -240,7 +241,7 @@ class Story extends Type {
 		$page_url = i18n::get_translated_page_url( (int) siw_get_option( "pages.explanation.{$page}", 1 ) );
 
 		if ( ! empty( $page_url ) ) {
-			return Links::generate_link( $page_url, __( 'mogelijkheden', 'siw' ) );
+			return Links::generate_button_link( $page_url, __( 'Bekijk de mogelijkheden', 'siw' ) );
 		}
 		return null;
 	}
