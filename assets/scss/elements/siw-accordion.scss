@@ -10,7 +10,7 @@
 			width: 100%;
 			display: block;
 			padding: 10px;
-			border: solid 3px --var(--siw-contrast);
+			border: solid 3px var(--siw-contrast);
 			cursor: pointer;
 	
 			&:after {
@@ -21,7 +21,7 @@
 			}
 
 			&[aria-expanded="true"] {
-				background-color: --var(--siw-contrast);
+				background-color: var(--siw-contrast);
 				color: var(--siw-base);
 				&:after {
 					content: "-";
