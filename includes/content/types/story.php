@@ -175,16 +175,14 @@ class Story extends Type {
 
 	/** {@inheritDoc} */
 	public function add_archive_content() {
-
 		$rows = siw_meta( 'rows' );
 		$continent = siw_meta( 'siw_story_continent');
 		$project_type = siw_meta( 'siw_story_project_type');
 		$template_vars = [
-			'image'     => wp_get_attachment_image( $rows[0]['image'][0], 'large'),
+			'image'     => wp_get_attachment_image( $rows[0]['image'][0], 'large' ),
 			'link'      => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
 			'project'   => $project_type->name,
 			'continent' => $continent->name,
-			'excerpt'   => apply_filters( 'the_excerpt', get_the_excerpt() ),
 		];
 		Template::render_template( 'types/story_archive', $template_vars );
 	}
