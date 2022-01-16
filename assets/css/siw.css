@@ -40,6 +40,12 @@ dl dd {
   padding: 15px;
   margin: 15px;
 }
+.siw-archive-intro a {
+  color: var(--siw-base);
+}
+.siw-archive-intro a:hover {
+  color: var(--siw-base);
+}
 
 .siw-archive-alert {
   padding: 15px;
@@ -592,12 +598,6 @@ html[lang=en-US] #footer-widgets {
 .footer-widgets .so-widget-siw_quote_widget blockquote:hover {
   border-left-color: var(--siw-accent);
 }
-.so-widget-siw_quote_widget blockquote footer {
-  color: var(--siw-accent);
-}
-.footer-widgets .so-widget-siw_quote_widget blockquote footer {
-  color: inherit;
-}
 
 .so-widget-siw_infobox_widget .header {
   display: inline-flex;
@@ -645,6 +645,22 @@ span.product-badge.featured-badge {
   font-size: 0.8em;
 }
 
+.woocommerce nav.woocommerce-pagination ul.page-numbers {
+  border: 2px solid var(--siw-contrast);
+  border-right: unset;
+}
+.woocommerce nav.woocommerce-pagination ul.page-numbers li {
+  border-right: 2px solid var(--siw-contrast);
+}
+.woocommerce nav.woocommerce-pagination ul.page-numbers li a:hover {
+  background: var(--siw-contrast);
+  color: var(--siw-base);
+}
+.woocommerce nav.woocommerce-pagination ul.page-numbers li span.current {
+  background: var(--siw-contrast);
+  color: var(--siw-base);
+}
+
 .siw-carousel {
   margin-bottom: 20px;
 }
@@ -668,6 +684,7 @@ span.product-badge.featured-badge {
   padding: 10px;
   display: block;
   color: var(--siw-contrast);
+  text-decoration: none;
 }
 .siw-carousel .carousel-cell li.product a .woocommerce-placeholder {
   border: none;

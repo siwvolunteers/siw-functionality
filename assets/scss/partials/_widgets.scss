@@ -141,12 +141,6 @@ html[lang=en-US] #footer-widgets {
 				border-left-color: var(--siw-accent);
 			}
 		}
-		footer {
-			color: var(--siw-accent);
-			.footer-widgets &{
-				color: inherit;
-			}
-		}
 	}
 }
 

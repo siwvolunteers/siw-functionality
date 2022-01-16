@@ -35,6 +35,26 @@ span.product-badge.featured-badge {
 	font-size: 0.8em;
 }
 
+//Paginanummering
+.woocommerce nav.woocommerce-pagination {
+	ul.page-numbers {
+		border: 2px solid var(--siw-contrast);
+		border-right: unset;
+		li {
+			border-right: 2px solid var(--siw-contrast);
+			a:hover {
+				background: var(--siw-contrast);
+				color: var(--siw-base);
+			}
+			span.current {
+				background: var(--siw-contrast);
+				color: var(--siw-base);
+			}
+		}
+	}
+}
+
+
 //Carousel
 .siw-carousel {
 	margin-bottom: 20px;
@@ -59,6 +79,7 @@ span.product-badge.featured-badge {
 				padding: 10px;
 				display: block;
 				color: var(--siw-contrast);
+				text-decoration: none;
 				.woocommerce-placeholder {
 					border: none;
 				}
