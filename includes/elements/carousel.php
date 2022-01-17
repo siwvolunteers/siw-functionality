@@ -7,12 +7,16 @@ use SIW\Util\CSS;
 /**
  * Carousel met posts
  * 
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Carousel {
 
 	/** Versienummer */
-	const FLICKITY_VERSION = '2.2.2';
+	const FLICKITY_VERSION = '2.3.0';
+
+	const SCRIPT_HANDLE = 'flickity';
+
+	const STYLE_HANDLE = 'flickity';
 
 	/** Post type */
 	protected string $post_type;
@@ -43,14 +47,14 @@ class Carousel {
 
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
-		wp_register_style( 'flickity', SIW_ASSETS_URL . 'vendor/flickity/flickity.css', [], self::FLICKITY_VERSION );
-		wp_enqueue_style( 'flickity' );
+		wp_register_style( self::STYLE_HANDLE, SIW_ASSETS_URL . 'vendor/flickity/flickity.css', [], self::FLICKITY_VERSION );
+		wp_enqueue_style( self::STYLE_HANDLE );
 	}
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_register_script( 'flickity', SIW_ASSETS_URL . 'vendor/flickity/flickity.pkgd.js', [], self::FLICKITY_VERSION, true );
-		wp_enqueue_script( 'flickity' );
+		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'vendor/flickity/flickity.pkgd.js', [], self::FLICKITY_VERSION, true );
+		wp_enqueue_script( self::SCRIPT_HANDLE );
 	}
 
 	/** Haalt responsive classes op */
