@@ -44,7 +44,7 @@ class Head {
 
 	/** Voegt tag voor theme color toe */
 	public function add_theme_color_tag( array $meta_tags ): array {
-		$meta_tags[] = sprintf( '<link rel="theme-color" content="%s">', CSS::ACCENT_COLOR );
+		$meta_tags[] = sprintf( '<meta name="theme-color" content="%s">', CSS::ACCENT_COLOR );
 		return $meta_tags;
 	}
 
