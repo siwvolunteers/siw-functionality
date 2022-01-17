@@ -9,7 +9,7 @@
 	{{/location}}
 </h4>
 {{!beschrijving van evenement}}
-<br>
+<hr>
 <p>{{& description | wp_kses_post }}</p>
 
 {{! aanmeldformulier}}
@@ -31,7 +31,7 @@
 {{! locatie op kaart tonen}}
 {{#location}}
 	<h2>{{#__}}Locatie{{/__}}</h2>
-	{{& location_map }}
+	{{& location.map }}
 {{/location}}
 {{! link naar organisator tonen}}
 {{#organizer}}
