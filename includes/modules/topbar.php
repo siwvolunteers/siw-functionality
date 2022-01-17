@@ -9,7 +9,7 @@ use SIW\Properties;
 /**
  * Topbar
  * 
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Topbar {
 
@@ -75,7 +75,6 @@ class Topbar {
 			$this->get_page_content() ??
 			$this->get_event_content() ??
 			$this->get_sale_content() ??
-			$this->get_job_posting_content() ??
 			null;
 
 		return $content;
@@ -109,25 +108,6 @@ class Topbar {
 		return [
 			'link_url'  => get_the_permalink( $event_id ),
 			'link_text' => $link_text,
-		];
-	}
-
-	/** Haalt de vacature-inhoud op */
-	protected function get_job_posting_content() : ?array {
-		if ( ! $this->settings['show_job_posting_content'] ) {
-			return null;
-		}
-
-		$jobs = siw_get_featured_job_postings();
-		if ( empty ( $jobs ) ) {
-			return null;
-		}
-		$job_id = $jobs[0];
-
-		$job_title = lcfirst( get_the_title( $job_id) );
-		return [
-			'link_url'  => get_the_permalink( $job_id ),
-			'link_text' => sprintf( __( 'Wij zoeken een %s.', 'siw' ), $job_title ),
 		];
 	}
 

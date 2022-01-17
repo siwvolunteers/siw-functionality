@@ -599,17 +599,6 @@ class Settings implements Option_Interface {
 					'on_label'          => __( 'Ja', 'siw' ),
 					'off_label'         => __( 'Nee', 'siw'),
 				],
-				[
-					'type'              => 'divider',
-				],
-				[
-					'id'                => 'show_job_posting_content',
-					'name'              => __( 'Vacature tonen', 'siw' ),
-					'label_description' => __( 'Indien er een actieve vacature uitgelicht is', 'siw' ),
-					'type'              => 'switch',
-					'on_label'          => __( 'Ja', 'siw' ),
-					'off_label'         => __( 'Nee', 'siw'),
-				],
 			],
 		];
 

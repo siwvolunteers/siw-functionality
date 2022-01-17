@@ -14,15 +14,6 @@ use SIW\Properties;
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  */
 
-/** Geeft uitgelichte vacatures terug */
-function siw_get_featured_job_postings( int $number = 1 ) : array {
-	$args = [
-		'number'   => $number,
-		'featured' => true,
-		
-	];
-	return siw_get_active_job_postings( $args );
-}
 
 /** Geeft actieve vacatures terug */
 function siw_get_active_job_postings( array $args = [] ) : array {
@@ -49,17 +40,6 @@ function siw_get_active_job_postings( array $args = [] ) : array {
 			'compare' => '>'
 		],
 	];
-
-	//Zoeken op uitgelichte vacatures
-	if ( null !== $args['featured'] ) {
-		$meta_query[] = [
-			[
-				'key'     => 'featured',
-				'value'   => $args['featured'],
-				'compare' => '=',
-			]
-		];
-	}
 
 	$post_query = [
 		'post_type'           => 'siw_job_posting',

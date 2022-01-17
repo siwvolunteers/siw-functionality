@@ -91,14 +91,6 @@ class Job_Posting extends Type {
 				'admin_columns' => 'after job_type',
 			],
 			[
-				'id'            => 'featured',
-				'name'          => __( 'Uitgelichte vacature', 'siw' ),
-				'type'          => 'switch',
-				'on_label'      => __( 'Ja', 'siw' ),
-				'off_label'     => __( 'Nee', 'siw'),
-				'admin_columns' => 'after deadline',
-			],
-			[
 				'name'     => __( 'Contactpersoon voor sollicitaties', 'siw' ),
 				'type'     => 'heading',
 				'desc'     => sprintf(
