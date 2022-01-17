@@ -552,13 +552,6 @@ class Settings implements Option_Interface {
 					'visible' => [ 'topbar[show_page_content]', true ],
 					'fields' => [
 						[
-							'id'                => 'intro',
-							'name'              => __( 'Intro', 'siw' ),
-							'type'              => 'text',
-							'required'          => true,
-							'label_description' => __( 'Wordt verborgen op mobiel', 'siw' ),
-						],
-						[
 							'id'       => 'link_text',
 							'name'     => __( 'Tekst voor link', 'siw' ),
 							'type'     => 'text',

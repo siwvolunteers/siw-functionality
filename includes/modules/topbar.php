@@ -5,7 +5,6 @@ namespace SIW\Modules;
 use SIW\Core\Template;
 use SIW\i18n;
 use SIW\Properties;
-use SIW\Util\CSS;
 
 /**
  * Topbar
@@ -55,10 +54,7 @@ class Topbar {
 		Template::render_template(
 			'modules/topbar',
 			[
-				'hide_on_mobile_class' => CSS::HIDE_ON_MOBILE_CLASS,
-				'hide_on_tablet_class' => CSS::HIDE_ON_TABLET_CLASS,
 				'target'               => $this->content['link_target'] ?? '_self',
-				'intro'                => $this->content['intro'],
 				'link_url'             => $this->content['link_url'],
 				'link_text'            => $this->content['link_text'],
 
@@ -111,7 +107,6 @@ class Topbar {
 		);
 
 		return [
-			'intro'     => __( 'Maak kennis met SIW.', 'siw' ),
 			'link_url'  => get_the_permalink( $event_id ),
 			'link_text' => $link_text,
 		];
@@ -131,7 +126,6 @@ class Topbar {
 
 		$job_title = lcfirst( get_the_title( $job_id) );
 		return [
-			'intro'     => __( 'Word actief voor SIW.', 'siw' ),
 			'link_url'  => get_the_permalink( $job_id ),
 			'link_text' => sprintf( __( 'Wij zoeken een %s.', 'siw' ), $job_title ),
 		];
@@ -151,7 +145,6 @@ class Topbar {
 		$end_date = siw_format_date( siw_get_option( 'workcamp_sale.end_date' ), false );
 	
 		return [
-			'intro'     => __( 'Grijp je kans en ontvang korting!', 'siw' ),
 			'link_url'  => wc_get_page_permalink( 'shop' ),
 			'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_price ) ,
 		];
@@ -168,7 +161,6 @@ class Topbar {
 		}
 
 		return [
-			'intro'     => $this->settings['page_content']['intro'],
 			'link_url'  => $this->settings['page_content']['link_url'],
 			'link_text' => $this->settings['page_content']['link_text'],
 		];
