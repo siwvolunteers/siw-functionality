@@ -333,11 +333,8 @@ class Job_Posting extends Type {
 	}
 
 	/** {@inheritDoc} */
-	protected function get_archive_intro() : array {
-		$hr_manager = siw_get_option( 'hr_manager' );
-		$introgroup = siw_get_option('job_posting');
-		$intro = $introgroup['archive_intro'];
-		$intro .= $hr_manager['name'] . " email: " . $hr_manager['email'];
+	protected function get_archive_intro(): array {
+		$intro = siw_get_option('job_posting.archive_intro');
 		return [$intro];
 	}
 
