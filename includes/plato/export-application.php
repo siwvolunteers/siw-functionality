@@ -2,6 +2,7 @@
 
 namespace SIW\Plato;
 
+use SIW\Util\Logger;
 use Spatie\ArrayToXml\ArrayToXml;
 
 /**
@@ -29,13 +30,12 @@ class Export_Application extends Export{
 		if ( $success ) {
 			$imported_id = (string) $this->xml_response->ImportedIds->string;
 			$log_message = sprintf( 'Aanmelding voor %s succesvol geëxporteerd naar PLATO als %s.', $projectcode, $imported_id );
-			$this->log( 'info', $log_message );
 		}
 		else {
 			$error_messages = $this->xml_response->ErrorMessages->string;
 			$note = sprintf( 'Export naar PLATO van aanmelding voor %s mislukt.', $projectcode );
 			$log_message = $note . wc_print_r( $error_messages );
-			$this->log( 'error', $log_message );
+			Logger::error( $log_message, 'siw_export_application' );
 		}
 		return [
 			'success'     => $success,
