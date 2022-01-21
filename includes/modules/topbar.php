@@ -36,9 +36,6 @@ class Topbar {
 			return;
 		}
 
-		//Instellingen ophalen
-		$self->settings = siw_get_option( 'topbar' );
-
 		//Content zetten
 		$self->content = $self->get_content();
 		if ( is_null( $self->content ) ) {
