@@ -1,10 +1,10 @@
 //Archive
 .woocommerce ul.products {
 	li.product {
-		box-shadow: $box-shadow;
+		box-shadow: var(--siw-box-shadow);
 		transition: 0.3s;
 		&:hover {
-			box-shadow: $box-shadow-hover;
+			box-shadow: var(--siw-box-shadow-hover);
 		}
 		a {
 			padding: 10px;
@@ -69,10 +69,10 @@ span.product-badge.featured-badge {
 				font-weight: 400;
 				font-size: 20px;
 			}
-			box-shadow: $box-shadow;
+			box-shadow: var(--siw-box-shadow);
 			transition: 0.3s;
 			&:hover {
-				box-shadow: $box-shadow-hover;
+				box-shadow: var(--siw-box-shadow-hover);
 			}
 			text-align: center;
 			a {
@@ -171,13 +171,6 @@ span.product-badge.featured-badge {
 .woocommerce-checkout {
 	.form-row-first, h3{
 		clear:left;
-	}
-
-	@media only screen and (max-width: $mobile-width) {
-		form .form-row.form-row-first, form .form-row.form-row-last{
-			float: none;
-			width: 98%;
-		}
 	}
 
 	span.optional {

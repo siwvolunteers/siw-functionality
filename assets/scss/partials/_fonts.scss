@@ -1,3 +1,5 @@
+@use "_variables" as variables;
+
 $font-weights: (
 	"Thin": 100,
 	"ExtraLight": 200,
@@ -15,7 +17,6 @@ $font-styles: (
 	italic: 'Italic',
 );
 
-
 @each $name, $weight in $font-weights {
 
 	@each $style, $suffix in $font-styles {
@@ -23,8 +24,8 @@ $font-styles: (
 			font-family: 'Metropolis';
 			font-style: $style;
 			font-weight: $weight;
-			src: url('#{$assets-path}/fonts/Metropolis/woff2/Metropolis-#{$name}#{$suffix}.woff2') format('woff2'),
-				url('#{$assets-path}/fonts/Metropolis/woff/Metropolis-#{$name}#{$suffix}.woff') format('woff');
+			src: url('#{variables.$assets-path}/fonts/Metropolis/woff2/Metropolis-#{$name}#{$suffix}.woff2') format('woff2'),
+				 url('#{variables.$assets-path}/fonts/Metropolis/woff/Metropolis-#{$name}#{$suffix}.woff') format('woff');
 		}
 	}
 

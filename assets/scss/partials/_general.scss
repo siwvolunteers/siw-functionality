@@ -1,3 +1,11 @@
+:root {
+	--siw-text-shadow: 1px 1px var(--siw-contrast);
+	--siw-box-shadow-overlay: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+	--siw-box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.5);
+	--siw-box-shadow-hover: 2px 2px 5px 4px rgba(0, 0, 0, 0.5);
+	--siw-box-shadow-transition: box-shadow 0.3s ease-in-out;
+}
+
 /* Fade in voor lazyload */
 img[data-lazy-src] {
 	opacity: 0;
@@ -86,8 +94,8 @@ a.button.ghost {
 }
 
 //Header
-h1.hero-title{
-	text-shadow: $text-shadow;
+h1.hero-title {
+	text-shadow: var(--siw-text-shadow);
 }
 
 a:hover {

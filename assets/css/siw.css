@@ -1,7 +1,3 @@
-/**
- * siw.css
- * @copyright 2020-2022 SIW Internationale Vrijwilligersprojecten
- */
 @font-face {
   font-family: "Metropolis";
   font-style: normal;
@@ -110,9 +106,21 @@
   font-weight: 900;
   src: url("/wp-content/plugins/siw-functionality/assets/fonts/Metropolis/woff2/Metropolis-BlackItalic.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/Metropolis/woff/Metropolis-BlackItalic.woff") format("woff");
 }
+/**
+ * siw.css
+ * @copyright 2020-2022 SIW Internationale Vrijwilligersprojecten
+ */
 /*--------------------------------------------------------------
 ## Algemeen
 --------------------------------------------------------------*/
+:root {
+  --siw-text-shadow: 1px 1px var(--siw-contrast);
+  --siw-box-shadow-overlay: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+  --siw-box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.5);
+  --siw-box-shadow-hover: 2px 2px 5px 4px rgba(0, 0, 0, 0.5);
+  --siw-box-shadow-transition: box-shadow 0.3s ease-in-out;
+}
+
 /* Fade in voor lazyload */
 img[data-lazy-src] {
   opacity: 0;
@@ -202,7 +210,7 @@ a.button.ghost.is-checked {
 }
 
 h1.hero-title {
-  text-shadow: 1px 1px var(--siw-font-color);
+  text-shadow: var(--siw-text-shadow);
 }
 
 a:hover {
@@ -241,18 +249,19 @@ ul[data-columns="4"] {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  color: var(--siw-base);
   max-width: unset;
 }
 .error404 .container .site-content {
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
   text-align: center;
 }
 .error404 .container .site-content main {
   padding-top: 50px;
-  max-width: 780px;
+  max-width: 85ch;
   display: inline-block;
+  background-color: var(--siw-base);
+  box-shadow: var(--siw-box-shadow-overlay);
+  padding: 2%;
 }
 
 /*--------------------------------------------------------------
@@ -277,7 +286,7 @@ ul[data-columns="4"] {
 .siw-carousel article.siw_event .inside-article,
 .siw-carousel article.siw_story .inside-article,
 .siw-carousel article.siw_tm_country .inside-article {
-  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--siw-box-shadow);
   padding: 15px;
   position: relative;
   transition: all 0.3s ease-in-out;
@@ -329,7 +338,7 @@ ul[data-columns="4"] {
   right: 0;
   bottom: 0;
   left: 0;
-  box-shadow: 2px 2px 5px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--siw-box-shadow-hover);
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
@@ -398,7 +407,7 @@ ul[data-columns="4"] {
 }
 .siw-newsletter-confirmation .container .site-content main {
   padding-top: 50px;
-  max-width: 780px;
+  max-width: 85ch;
   display: inline-block;
 }
 
@@ -603,7 +612,7 @@ html[lang=en-US] #footer-widgets {
 .so-widget-siw_quick_search_form_widget {
   display: inline-block;
   background: var(--siw-base);
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--siw-box-shadow-overlay);
   padding: 20px 30px;
   text-align: center;
   margin-left: 20%;
@@ -675,7 +684,7 @@ html[lang=en-US] #footer-widgets {
   font-weight: bold;
   padding-top: 20px;
   padding-bottom: 20px;
-  text-shadow: 1px 1px var(--siw-font-color);
+  text-shadow: var(--siw-text-shadow);
 }
 .so-widget-siw_cta_widget .button {
   text-align: center;
@@ -685,7 +694,7 @@ html[lang=en-US] #footer-widgets {
 .so-widget-siw_quote_widget {
   padding: 25px;
   background: var(--siw-base);
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--siw-box-shadow-overlay);
 }
 .footer-widgets .so-widget-siw_quote_widget {
   padding: inherit;
@@ -721,11 +730,11 @@ html[lang=en-US] #footer-widgets {
 ## WooCommerce
 --------------------------------------------------------------*/
 .woocommerce ul.products li.product {
-  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--siw-box-shadow);
   transition: 0.3s;
 }
 .woocommerce ul.products li.product:hover {
-  box-shadow: 2px 2px 5px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--siw-box-shadow-hover);
 }
 .woocommerce ul.products li.product a {
   padding: 10px;
@@ -777,7 +786,7 @@ span.product-badge.featured-badge {
 }
 .siw-carousel .carousel-cell li.product {
   list-style: none;
-  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--siw-box-shadow);
   transition: 0.3s;
   text-align: center;
 }
@@ -786,7 +795,7 @@ span.product-badge.featured-badge {
   font-size: 20px;
 }
 .siw-carousel .carousel-cell li.product:hover {
-  box-shadow: 2px 2px 5px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--siw-box-shadow-hover);
 }
 .siw-carousel .carousel-cell li.product a {
   padding: 10px;
@@ -863,12 +872,6 @@ span.product-badge.featured-badge {
 
 .woocommerce-checkout .form-row-first, .woocommerce-checkout h3 {
   clear: left;
-}
-@media only screen and (max-width: 780px) {
-  .woocommerce-checkout form .form-row.form-row-first, .woocommerce-checkout form .form-row.form-row-last {
-    float: none;
-    width: 98%;
-  }
 }
 .woocommerce-checkout span.optional {
   display: none;

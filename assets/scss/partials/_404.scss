@@ -1,19 +1,22 @@
+@use "_variables" as variables;
+
 .error404 .container {
 	height: 100vh;
-	background-image: url('#{$assets-path}/images/404/groep.jpg');
+	background-image: url('#{variables.$assets-path}/images/404/groep.jpg');
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	color: var(--siw-base);
 	max-width: unset;
-	.site-content{
+	.site-content {
 		height:100vh;
-		background-color: rgba(0, 0, 0, 0.5);
 		text-align: center;
-		main{
+		main {
 			padding-top: 50px;
-			max-width: $mobile-width;
+			max-width: 85ch;
 			display: inline-block;
+			background-color: var(--siw-base);
+			box-shadow: var(--siw-box-shadow-overlay);
+			padding: 2%;
 		}
 	}
 }

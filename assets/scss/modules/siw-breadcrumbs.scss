@@ -1,17 +1,15 @@
-@import "../partials/_variables.scss";
-
 nav.breadcrumb {
 	padding: 10px;
 	background-color: rgba(63,63,63,0.75);
 	font-size: 0.9em;
-	text-shadow: $text-shadow;
+	text-shadow: var(--siw-text-shadow);
 	width: fit-content;
 	ol.breadcrumb {
 		margin:0;
 		list-style: none;
-		li{
+		li {
 			display: inline-block;
-			a{
+			a {
 				color: var(--siw-base);
 			}
 		}
