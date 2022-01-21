@@ -13,17 +13,16 @@ use SIW\Properties;
  */
 class Topbar {
 
+	const STYLE_HANDLE = 'siw-topbar';
+
 	/** Toon het evenement x aantal dagen van te voren */
 	const EVENT_SHOW_DAYS_BEFORE = 14;
 
 	/** Verberg het evenement y aantal dagen van te voren */
 	const EVENT_HIDE_DAYS_BEFORE = 1;
 
-	/** Instellingen */
-	protected array $settings;
-
 	/** Inhoud van de topbar */
-	protected ?array $content;
+	protected array $content;
 
 	/** Init */
 	public static function init() {
@@ -64,15 +63,13 @@ class Topbar {
 
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-topbar', SIW_ASSETS_URL . 'css/modules/siw-topbar.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( 'siw-topbar' );
+		wp_register_style( self::STYLE_HANDLE, SIW_ASSETS_URL . 'css/modules/siw-topbar.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::STYLE_HANDLE );
 	}
 
 	/** Haalt de inhoud op */
 	protected function get_content() : ?array {
-	
 		$content =
-			$this->get_page_content() ??
 			$this->get_event_content() ??
 			$this->get_sale_content() ??
 			null;
@@ -82,9 +79,6 @@ class Topbar {
 
 	/** Haalt de evenementen-inhoud op */
 	protected function get_event_content() : ?array {
-		if ( ! $this->settings['show_event_content'] ) {
-			return null;
-		}
 		
 		$upcoming_events = siw_get_upcoming_events(
 			[
@@ -113,9 +107,6 @@ class Topbar {
 
 	/** Haalt de kortingsactie-inhoud op */
 	protected function get_sale_content() : ?array {
-		if ( ! $this->settings['show_sale_content'] ) {
-			return null;
-		}
 
 		if ( ! siw_is_workcamp_sale_active() ) {
 			return null;
@@ -127,22 +118,6 @@ class Topbar {
 		return [
 			'link_url'  => wc_get_page_permalink( 'shop' ),
 			'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_price ) ,
-		];
-	}
-
-	/** Undocumented function */
-	protected function get_page_content() {
-		if ( ! $this->settings['show_page_content'] ) {
-			return null;
-		}
-
-		if ( date( 'Y-m-d' ) < $this->settings['page_content']['start_date'] || date( 'Y-m-d' ) > $this->settings['page_content']['end_date'] ) {
-			return null;
-		}
-
-		return [
-			'link_url'  => $this->settings['page_content']['link_url'],
-			'link_text' => $this->settings['page_content']['link_text'],
 		];
 	}
 }

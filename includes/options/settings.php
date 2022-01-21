@@ -58,11 +58,6 @@ class Settings implements Option_Interface {
 				'icon'  => 'dashicons-media-document',
 			],
 			[
-				'id'    => 'notifications',
-				'label' => __( 'Notificaties', 'siw' ),
-				'icon'  => 'dashicons-megaphone',
-			],
-			[
 				'id'    => 'tailor_made',
 				'label' => __( 'Op Maat', 'siw' ),
 				'icon'  => 'dashicons-admin-settings',
@@ -527,79 +522,6 @@ class Settings implements Option_Interface {
 			'tab'    => 'opening_hours',
 			'clone'  => true,
 			'fields' => $special_opening_hours_fields,
-		];
-
-		//Notificaties
-		$fields[] = [
-			'id'      => 'topbar',
-			'type'    => 'group',
-			'tab'     => 'notifications',
-			'fields'  => [
-				[
-					'type'      => 'heading',
-					'name'      => __( 'Banner', 'siw' ),
-				],
-				[
-					'id'        => 'show_page_content',
-					'name'      => __( 'Link naar pagina tonen', 'siw' ),
-					'type'      => 'switch',
-					'on_label'  => __( 'Ja', 'siw' ),
-					'off_label' => __( 'Nee', 'siw'),
-				],
-				[
-					'id'      => 'page_content',
-					'type'    => 'group',
-					'visible' => [ 'topbar[show_page_content]', true ],
-					'fields' => [
-						[
-							'id'       => 'link_text',
-							'name'     => __( 'Tekst voor link', 'siw' ),
-							'type'     => 'text',
-							'required' => true,
-						],
-						[
-							'id'       => 'link_url',
-							'name'     => __( 'URL voor link', 'siw' ),
-							'type'     => 'url',
-							'required' => true,
-						],
-						[
-							'id'        => 'start_date',
-							'name'      => __( 'Startdatum', 'siw' ),
-							'type'      => 'date',
-							'required'  => true,
-						],
-						[
-							'id'        => 'end_date',
-							'name'      => __( 'Einddatum', 'siw' ),
-							'type'      => 'date',
-							'required'  => true,
-						],
-					],
-				],
-				[
-					'type'              => 'divider',
-				],
-				[
-					'id'                => 'show_sale_content', //TODO: preview van gekozen items
-					'name'              => __( 'Kortingsactie tonen', 'siw' ),
-					'label_description' => __( 'Indien de kortingsactie actief is', 'siw' ),
-					'type'              => 'switch',
-					'on_label'          => __( 'Ja', 'siw' ),
-					'off_label'         => __( 'Nee', 'siw'),
-				],
-				[
-					'type'              => 'divider',
-				],
-				[
-					'id'                => 'show_event_content',
-					'name'              => __( 'Evenement tonen', 'siw' ),
-					'label_description' => sprintf( __( 'Als er een evenement binnen %s dagen begint', 'siw' ), Topbar::EVENT_SHOW_DAYS_BEFORE ),
-					'type'              => 'switch',
-					'on_label'          => __( 'Ja', 'siw' ),
-					'off_label'         => __( 'Nee', 'siw'),
-				],
-			],
 		];
 
 		//Email
