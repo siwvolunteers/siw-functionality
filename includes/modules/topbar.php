@@ -22,7 +22,7 @@ class Topbar {
 	const EVENT_HIDE_DAYS_BEFORE = 1;
 
 	/** Inhoud van de topbar */
-	protected array $content;
+	protected ?array $content;
 
 	/** Init */
 	public static function init() {
