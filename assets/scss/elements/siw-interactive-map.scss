@@ -1,11 +1,9 @@
-@import "../partials/_variables.scss";
-
 li.mapplic-list-location > a {
 	padding:5px;
 }
 
 li.mapplic-list-category {
-	.mapplic-thumbnail{
+	.mapplic-thumbnail {
 		display: none;
 	}
 	> a {
