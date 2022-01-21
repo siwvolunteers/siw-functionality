@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'fd82dea5ecbabb07254e90e2145398c429b51439',
+    'reference' => 'd350978891b4421838bf9bca1c3c21945a38ad25',
     'name' => 'siwvolunteers/siw-functionality',
   ),
   'versions' => 
@@ -54,12 +54,12 @@ private static $installed = array (
     ),
     'mustache/mustache' => 
     array (
-      'pretty_version' => 'v2.14.0',
-      'version' => '2.14.0.0',
+      'pretty_version' => 'v2.14.1',
+      'version' => '2.14.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '4e2724dd40ae9499a55e7db7df82665be0ab7e34',
+      'reference' => '579ffa5c96e1d292c060b3dd62811ff01ad8c24e',
     ),
     'siwvolunteers/siw-functionality' => 
     array (
@@ -68,7 +68,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'fd82dea5ecbabb07254e90e2145398c429b51439',
+      'reference' => 'd350978891b4421838bf9bca1c3c21945a38ad25',
     ),
     'spatie/array-to-xml' => 
     array (
