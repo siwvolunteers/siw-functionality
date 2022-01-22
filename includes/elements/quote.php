@@ -21,11 +21,6 @@ class Quote extends Element {
 	protected function get_template_variables(): array {
 		return [
 			'quote' => $this->quote,
-			'icon'  => [
-				'size'       => 2,
-				'icon_class' => 'siw-icon-quote-left',
-			],
-			
 		];
 	}
 
