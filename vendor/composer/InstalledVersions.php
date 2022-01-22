@@ -29,20 +29,11 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'd350978891b4421838bf9bca1c3c21945a38ad25',
+    'reference' => '9688400af3200eb269597ef6f5a2e22442d7cdd9',
     'name' => 'siwvolunteers/siw-functionality',
   ),
   'versions' => 
   array (
-    'adbario/php-dot-notation' => 
-    array (
-      'pretty_version' => '2.2.0',
-      'version' => '2.2.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'eee4fc81296531e6aafba4c2bbccfc5adab1676e',
-    ),
     'kallookoo/wp_parse_args_recursive' => 
     array (
       'pretty_version' => '1.2.1',
@@ -61,6 +52,15 @@ private static $installed = array (
       ),
       'reference' => '579ffa5c96e1d292c060b3dd62811ff01ad8c24e',
     ),
+    'noj/dot' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'bb2e71fa9c1404521fe1bb2dd19452d771c7278a',
+    ),
     'siwvolunteers/siw-functionality' => 
     array (
       'pretty_version' => 'dev-master',
@@ -68,7 +68,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'd350978891b4421838bf9bca1c3c21945a38ad25',
+      'reference' => '9688400af3200eb269597ef6f5a2e22442d7cdd9',
     ),
     'spatie/array-to-xml' => 
     array (

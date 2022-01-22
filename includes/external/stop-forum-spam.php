@@ -2,7 +2,7 @@
 
 namespace SIW\External;
 
-use Adbar\Dot;
+use Noj\Dot\Dot;
 use SIW\Helpers\HTTP_Request;
 
 /**
@@ -53,12 +53,12 @@ class Stop_Forum_Spam {
 			->post( $body );
 
 		if ( is_wp_error( $response ) || false == $response['success'] ) {
-			return new Dot();
+			return new Dot([]);
 		}
 
 		$response = new Dot( $response );
 
-		$results = new Dot();
+		$results = new Dot([]);
 		if ( (bool) $response->has( 'email.confidence' ) ) {
 			$results->set('email', (float) $response->get( 'email.confidence') > self::SPAM_THRESHOLD);
 		}

@@ -1,12 +1,11 @@
 <?php declare(strict_types=1);
 
-use Adbar\Dot;
+use Noj\Dot\Dot;
 
 /**
  * Functies m.b.t. opties
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 
 /** Haal optie op */

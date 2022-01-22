@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use Adbar\Dot;
+use Noj\Dot\Dot;
 
 /**
  * Functies m.b.t. referentiegegevens

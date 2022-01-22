@@ -2,7 +2,7 @@
 
 namespace SIW\External;
 
-use Adbar\Dot;
+use Noj\Dot\Dot;
 use SIW\Helpers\HTTP_Request;
 use SIW\Util\Logger;
 
