@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Metropolis";
   font-style: normal;
@@ -142,8 +143,12 @@ body.home .site-content {
   font-style: italic;
   text-align: center;
 }
-.siw-quote .siw-icon {
-  fill: var(--siw-contrast-light);
+.siw-quote::before {
+  content: "❝";
+  font-size: 2em;
+  font-style: normal;
+  font-weight: bold;
+  vertical-align: -0.3em;
 }
 
 dl dd {

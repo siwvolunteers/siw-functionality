@@ -26,10 +26,15 @@ body.home .site-content {
 	color: var(--siw-contrast-light);
 	font-style: italic;
 	text-align: center;
-	.siw-icon {
-		fill: var(--siw-contrast-light);
+	&::before {
+		content: "\0275D";
+		font-size: 2em;
+		font-style: normal;
+		font-weight: bold;
+		vertical-align: -0.3em;
 	}
 }
+
 dl{
 	dd {
 		margin: 0 1em 1em;
