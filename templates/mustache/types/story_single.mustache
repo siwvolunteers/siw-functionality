@@ -1,22 +1,22 @@
 {{#stories}}
 	{{!korte quote van het verhaal}}
-	<div class="grid-100" {{ animation_fade }} >
+	<div class="grid-100" {{& animation_fade }} >
 		{{& quote }}
 	</div>
 	{{!plaatje tonen aan ene kant}}
-	<div class="grid-40 {{push_class}}" {{ animation_attributes_1 }} >
+	<div class="grid-40 {{push_class}}" {{& animation_attributes_1 }} >
 		{{{image}}}
 	</div>
 	{{!verhaaltjes toenen aan andere kant}}
-	<div class="grid-60 {{pull_class}}" {{ animation_attributes_2 }} >
+	<div class="grid-60 {{pull_class}}" {{& animation_attributes_2 }} >
 		{{# content }}
-			<b>{{ title}}</b>
+			<b>{{ title }}</b>
 			{{& text|wp_kses_post }}
 		{{/ content }}
 	</div>
 {{/stories}}
 {{#cta}}
-	<div class="grid-100" {{ animation_fade }} >
+	<div class="grid-100" {{& animation_fade }} >
 		<h2>{{#__}}Zelf op avontuur?{{/__}}</h2>
 		<p> {{#__}} Wil je meer weten over {{ project_type }}?{{/__}}</p>
 		{{&cta}}

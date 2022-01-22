@@ -209,8 +209,8 @@ class Story extends Type {
 				'quote'                   => Quote::create()->set_quote( $row['quote'] )->generate(),
 				'push_class'              => $even ? 'push-60' : '',
 				'pull_class'              => $even ? 'pull-40' : '',
-				'annimation_attributes_1' => $even ? $animation_left : $animation_right,
-				'annimation_attributes_2' => $even ? $animation_right : $animation_left,
+				'animation_attributes_1'  => $even ? $animation_left : $animation_right,
+				'animation_attributes_2'  => $even ? $animation_right : $animation_left,
 				'image'                   => wp_get_attachment_image( $row['image'][0], 'large'),
 			];
 			$content = [];
