@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     '6168384990757e5fc380d01d460961a8' => $vendorDir . '/kallookoo/wp_parse_args_recursive/src/wp-parse-args-recursive.php',
-    'bbf2391d92638d4d995d717651f269b3' => $vendorDir . '/noj/dot/src/functions.php',
+    'ba75162b0a7adabdce2c95bb9e844752' => $vendorDir . '/pharaonic/php-dot-array/src/helper.php',
 );

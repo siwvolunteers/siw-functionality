@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use Noj\Dot\Dot;
+use Pharaonic\DotArray\DotArray;
 
 /**
  * Functies m.b.t. referentiegegevens
@@ -29,7 +29,7 @@ function siw_meta( string $key, array $args = [], int $post_id = null ) {
 
 		unset( $keys[0]);
 		if ( ! empty( $keys ) ) {
-			$dot = new Dot( $value );
+			$dot = new DotArray( $value );
 			$key = implode( '.', $keys );
 			$value = $dot->get( $key );
 		}

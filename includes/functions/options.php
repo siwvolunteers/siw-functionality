@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use Noj\Dot\Dot;
+use Pharaonic\DotArray\DotArray;
 
 /**
  * Functies m.b.t. opties
@@ -23,7 +23,7 @@ function siw_get_option( string $option, $default = null ) {
 	}
 	$options = get_option( 'siw_options' );
 
-	$dot = new Dot( $options );
+	$dot = new DotArray( $options );
 	$value = $dot->get( $option );
 
 	if ( empty( $value ) ) {

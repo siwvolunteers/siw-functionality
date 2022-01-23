@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6453709926d9c20df85cab7e39a11c46",
+    "content-hash": "8de7c8e15fab886ca7ba5a8d5edf0cc4",
     "packages": [
         {
             "name": "kallookoo/wp_parse_args_recursive",
@@ -95,33 +95,33 @@
             "time": "2022-01-21T06:08:36+00:00"
         },
         {
-            "name": "noj/dot",
-            "version": "1.0.1",
+            "name": "pharaonic/php-dot-array",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jonnyynnoj/dot.git",
-                "reference": "bb2e71fa9c1404521fe1bb2dd19452d771c7278a"
+                "url": "https://github.com/Pharaonic/php-dot-array.git",
+                "reference": "8daa057aa491490ed8806bb5424fa1a4201b440e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jonnyynnoj/dot/zipball/bb2e71fa9c1404521fe1bb2dd19452d771c7278a",
-                "reference": "bb2e71fa9c1404521fe1bb2dd19452d771c7278a",
+                "url": "https://api.github.com/repos/Pharaonic/php-dot-array/zipball/8daa057aa491490ed8806bb5424fa1a4201b440e",
+                "reference": "8daa057aa491490ed8806bb5424fa1a4201b440e",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0|^8.0"
+                "php": ">=7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.5|^7.5"
+                "phpunit/phpunit": ">=6.5"
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Noj\\Dot\\": "src/"
-                },
                 "files": [
-                    "src/functions.php"
-                ]
+                    "src/helper.php"
+                ],
+                "psr-4": {
+                    "Pharaonic\\DotArray\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -129,16 +129,25 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Taylor",
-                    "email": "jonny.taylor5@gmail.com"
+                    "name": "Raggi",
+                    "email": "support@pharaonic.io"
                 }
             ],
-            "description": "Nested array/object access through dot notation",
+            "description": "Access array data quickly/easily using dot-notation and asterisk.",
+            "keywords": [
+                "array",
+                "asterisk",
+                "dot notation",
+                "pharaonic",
+                "php",
+                "php array",
+                "php dot array"
+            ],
             "support": {
-                "issues": "https://github.com/jonnyynnoj/dot/issues",
-                "source": "https://github.com/jonnyynnoj/dot/tree/1.0.1"
+                "issues": "https://github.com/Pharaonic/php-dot-array/issues",
+                "source": "https://github.com/Pharaonic/php-dot-array/tree/1.0.0"
             },
-            "time": "2021-10-04T11:12:13+00:00"
+            "time": "2020-11-07T19:20:14+00:00"
         },
         {
             "name": "spatie/array-to-xml",

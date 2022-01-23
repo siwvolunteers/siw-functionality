@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '9688400af3200eb269597ef6f5a2e22442d7cdd9',
+    'reference' => 'ee81d693156cac4e76c2ab29e3a6c6b6a2f97f61',
     'name' => 'siwvolunteers/siw-functionality',
   ),
   'versions' => 
@@ -52,14 +52,14 @@ private static $installed = array (
       ),
       'reference' => '579ffa5c96e1d292c060b3dd62811ff01ad8c24e',
     ),
-    'noj/dot' => 
+    'pharaonic/php-dot-array' => 
     array (
-      'pretty_version' => '1.0.1',
-      'version' => '1.0.1.0',
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'bb2e71fa9c1404521fe1bb2dd19452d771c7278a',
+      'reference' => '8daa057aa491490ed8806bb5424fa1a4201b440e',
     ),
     'siwvolunteers/siw-functionality' => 
     array (
@@ -68,7 +68,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '9688400af3200eb269597ef6f5a2e22442d7cdd9',
+      'reference' => 'ee81d693156cac4e76c2ab29e3a6c6b6a2f97f61',
     ),
     'spatie/array-to-xml' => 
     array (
