@@ -38,7 +38,7 @@ class Quote extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_template_id(): string {
-		return $this->get_id();
+		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
 	/** {@inheritDoc} */
@@ -76,11 +76,13 @@ class Quote extends Widget {
 			return [];
 		}
 
+		$blockquote = Blockquote::create()
+			->set_quote($quote['quote'])
+			->set_name($quote['name'])
+			->set_source( "{$quote['project_type']} {$quote['country']}");
+
 		return [
-			'quote'        => $quote['quote'],
-			'name'         => $quote['name'],
-			'project_type' => $quote['project_type'],
-			'country'      => $quote['country'],
+			'content' => $blockquote->generate()
 		];
 	}
 

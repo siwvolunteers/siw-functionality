@@ -151,6 +151,14 @@ body.home .site-content {
   vertical-align: -0.3em;
 }
 
+blockquote.siw-blockquote {
+  font-size: inherit;
+  font-style: italic;
+  border-left-color: var(--siw-accent);
+  padding: 5px 5px 5px 15px;
+  margin: inherit;
+}
+
 dl dd {
   margin: 0 1em 1em;
 }
@@ -705,13 +713,6 @@ html[lang=en-US] #footer-widgets {
   padding: inherit;
   background: inherit;
   box-shadow: none;
-}
-.so-widget-siw_quote_widget blockquote {
-  font-size: inherit;
-  font-style: italic;
-  border-left-color: var(--siw-accent);
-  padding: 5px 5px 5px 15px;
-  margin: inherit;
 }
 .footer-widgets .so-widget-siw_quote_widget blockquote {
   border-left-color: inherit;
