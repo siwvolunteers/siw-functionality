@@ -53,7 +53,7 @@ class Stop_Forum_Spam {
 			->post( $body );
 
 		if ( is_wp_error( $response ) || false == $response['success'] ) {
-			return null;
+			return new DotArray();
 		}
 
 		$response = new DotArray( $response );
