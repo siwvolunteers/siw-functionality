@@ -2,6 +2,8 @@
 
 namespace SIW\Widgets;
 
+use SIW\Elements\Blockquote;
+
 /**
  * Widget met quote
  *
