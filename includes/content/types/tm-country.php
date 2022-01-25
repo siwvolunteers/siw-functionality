@@ -156,10 +156,7 @@ class TM_Country extends Type {
 
 	/** {@inheritDoc} */
 	protected function get_archive_intro(): array {
-		$url = i18n::get_translated_page_url( (int) siw_get_option( 'pages.explanation.tailor_made' ) );
-		$link = Links::generate_link( $url, __( 'Projecten Op Maat', 'siw' ) );
-		$introtekst = siw_get_option( 'tm_country.archive_intro' );
-		$intro = sprintf($introtekst,$link);
+		$intro = siw_get_option( 'tm_country.archive_intro' );
 		return [$intro];
 	}
 	
