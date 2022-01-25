@@ -19,7 +19,7 @@ class Blockquote extends Element {
 	protected string $source;
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
+	protected static function get_type(): string {
 		return 'blockquote';
 	}
 
@@ -33,16 +33,19 @@ class Blockquote extends Element {
 		];
 	}
 
+	/** Zet de quote */
 	public function set_quote( string $quote ) {
 		$this->quote = $quote;
 		return $this;
 	}
 
+	/** Zet de naam */
 	public function set_name( string $name ) {
 		$this->name = $name;
 		return $this;
 	}
 
+	/** Zet de bron */
 	public function set_source( string $source ) {
 		$this->source = $source;
 		return $this;

@@ -27,7 +27,7 @@ class Features extends Repeater {
 	}
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
+	protected static function get_type(): string {
 		return 'features';
 	}
 

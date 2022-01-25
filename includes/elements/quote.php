@@ -13,7 +13,7 @@ class Quote extends Element {
 	protected string $quote;
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
+	protected static function get_type(): string {
 		return 'quote';
 	}
 
@@ -25,7 +25,7 @@ class Quote extends Element {
 	}
 
 	/** Zet quote */
-	public function set_quote( string $quote ) : self {
+	public function set_quote( string $quote ): self {
 		$this->quote = $quote;
 		return $this;
 	}

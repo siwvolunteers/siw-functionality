@@ -9,7 +9,7 @@ use SIW\Util\CSS;
  * 
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
-class Carousel {
+class Carousel extends Element {
 
 	/** Versienummer */
 	const FLICKITY_VERSION = '2.3.0';
@@ -45,13 +45,26 @@ class Carousel {
 		'pageDots'   => false, //TODO: styling
 	];
 
-	/** Voegt stylesheet toe */
+	/** {@inheritDoc} */
+	protected static function get_type(): string {
+		return 'carousel';
+	}
+
+	/** {@inheritDoc} */
+	protected function get_template_variables(): array {
+		return [
+			'content' => $this->generate_content(),
+		];
+	}
+
+
+	/** {@inheritDoc} */
 	public function enqueue_styles() {
 		wp_register_style( self::STYLE_HANDLE, SIW_ASSETS_URL . 'vendor/flickity/flickity.css', [], self::FLICKITY_VERSION );
 		wp_enqueue_style( self::STYLE_HANDLE );
 	}
 
-	/** Voegt scripts toe */
+	/** {@inheritDoc} */
 	public function enqueue_scripts() {
 		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'vendor/flickity/flickity.pkgd.js', [], self::FLICKITY_VERSION, true );
 		wp_enqueue_script( self::SCRIPT_HANDLE );
@@ -85,31 +98,37 @@ class Carousel {
 	/** Zet post type voor carousel */
 	public function set_post_type( string $post_type ) {
 		$this->post_type = $post_type;
+		return $this;
 	}
 
 	/** Zet aantal items van carousel */
 	public function set_items( int $items ) {
 		$this->items = $items;
+		return $this;
 	}
 
 	/** Zet aantal kolommen van carousel */
 	public function set_columns( int $columns ) {
 		$this->columns = $columns;
+		return $this;
 	}
 
 	/** Voegt tax query toe*/
 	public function add_tax_query( array $tax_query ) {
 		$this->tax_query[] = $tax_query;
+		return $this;
 	}
 
 	/** Voeg meta query toe */
 	public function add_meta_query( array $meta_query ) {
 		$this->meta_query[] = $meta_query;
+		return $this;
 	}
 
 	/** Zet opties voor carousel */
 	public function set_options( array $options ) {
 		$this->options = wp_parse_args( $options, $this->options );
+		return $this;
 	}
 
 	/**
@@ -118,16 +137,13 @@ class Carousel {
 	 * 
 	 * @todo leesbaarder maken
 	 */
-	public function render(): string {
+	public function generate_content(): string {
 		
-		$this->enqueue_scripts();
-		$this->enqueue_styles();
-
 		$query = $this->generate_query();
 
 		ob_start();
 		?>
-		<div class="siw-carousel">
+
 		<?php
 		if ( $query->have_posts() ) {
 			?>
@@ -145,7 +161,6 @@ class Carousel {
 		} else {
 			//TODO: tekst bij geen posts? -> Instelling
 		}
-		echo '</div>';
 
 		wp_reset_postdata();
 		return ob_get_clean();

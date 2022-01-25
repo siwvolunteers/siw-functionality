@@ -39,7 +39,7 @@ class Interactive_Map extends Element {
 	}
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
+	protected static function get_type(): string {
 		return 'interactive-map';
 	}
 

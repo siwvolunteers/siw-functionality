@@ -16,7 +16,7 @@ class Infoboxes extends Repeater {
 	protected string $icon_background = 'circle';
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
+	protected static function get_type(): string {
 		return 'infoboxes';
 	}
 

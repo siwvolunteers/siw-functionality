@@ -3,69 +3,69 @@
 namespace SIW\Elements;
 
 use SIW\Actions\Batch\Update_Terms;
-use SIW\Core\Template;
 
 /**
  * Taxonomy-filter voor archiefpagina's
  * 
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
-class Taxonomy_Filter {
+class Taxonomy_Filter extends Element {
 
-	/** Opties */
-	protected array $options = [];
+	//Constantes voor assets handle
+	const SCRIPT_HANDLE = 'siw-taxonomy-filter';
 
-	/** Constructor */
-	public function __construct( array $options = [] ) {
-		$this->options = wp_parse_args(
-			$options,
-			[
-				'masonry'        => true,
-				'use_post_count' => true,
-			]
-		);
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_script' ] );
+	/** Taxonomie */
+	protected string $taxonomy;
+
+	/** Moet het aantal actieve posts gebruikt worden */
+	protected bool $use_post_count = false;
+
+	/** {@inheritDoc} */
+	protected static function get_type(): string {
+		return 'taxonomy-filter';
 	}
 
-	/** Voegt script toe */
-	public function enqueue_script(){
-		wp_register_script( 'siw-taxonomy-filter', SIW_ASSETS_URL . 'js/elements/siw-taxonomy-filter.js', [], SIW_PLUGIN_VERSION, true );
-		wp_localize_script(
-			'siw-taxonomy-filter',
-			'siw_taxonomy_filter',
-			[]
-		);
-		wp_enqueue_script( 'siw-taxonomy-filter' );
+	/** {@inheritDoc} */
+	protected function get_template_variables(): array {
+		return [
+			'taxonomy' => [
+				'slug'=> $this->taxonomy,
+				'name' => get_taxonomy( $this->taxonomy )->labels->name,
+			],
+			'terms' => $this->get_terms(),
+			'i18n'  => [
+				'all'    => __( 'Alle', 'siw' ),
+				'filter' => __( 'Filter op', 'siw' )
+			],
+		];
+	}
+	
+	/** Zet de taxonomie */
+	public function set_taxonomy( string $taxonomy ) {
+		$this->taxonomy = $taxonomy;
+		return $this;
 	}
 
-	/** Genereert groep filterknoppen voor één taxonomy */
-	public function generate( string $taxonomy ) : string {
-		$terms = $this->get_terms( $taxonomy );
-		
-		return Template::parse_template(
-			'elements/taxonomy-filter',
-			[
-				'taxonomy' => [
-					'slug'=> $taxonomy,
-					'name' => get_taxonomy( $taxonomy )->labels->name,
-				],
-				'terms' => $terms,
-				'i18n'  => [
-					'all'    => __( 'Alle', 'siw' ),
-					'filter' => __( 'Filter op', 'siw' )
-				],
-			]
-		);
+	/** Zet of het aantal actieve posts geteld moet worden */
+	public function set_use_post_count( bool $use_post_count ) {
+		$this->use_post_count = $use_post_count;
+		return $this;
+	}
+
+	/** {@inheritDoc}*/
+	public function enqueue_scripts() {
+		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-taxonomy-filter.js', [], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::SCRIPT_HANDLE );
 	}
 
 	/** Haalt terms van één taxonomy op */
-	protected function get_terms( string $taxonomy ) : array {
+	protected function get_terms(): array {
 		$term_query = [
-			'taxonomy'   => $taxonomy,
+			'taxonomy'   => $this->taxonomy,
 			'hide_empty' => true,
 		];
 
-		if ( $this->options['use_post_count'] ) {
+		if ( $this->use_post_count ) {
 			$term_query['meta_query'] = [
 				[
 					'key'     => Update_Terms::POST_COUNT_TERM_META,
@@ -77,7 +77,7 @@ class Taxonomy_Filter {
 		$terms = get_terms( $term_query );
 
 		return array_map(
-			fn( \WP_Term $term ) : array => [ 'slug' => $term->slug, 'name' => $term->name],
+			fn( \WP_Term $term ): array => [ 'slug' => $term->slug, 'name' => $term->name],
 			$terms
 		);
 	}
