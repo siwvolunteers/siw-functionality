@@ -107,8 +107,11 @@ function siw_get_email_settings( string $id ): Email_Settings {
 }
 
 /** Geeft lijst met formulieren terug */
-function siw_get_forms() : array {
-	return apply_filters( 'siw_forms', [] );
+function siw_get_forms(): array {
+	$forms = apply_filters( 'siw_forms', [] );
+	asort( $forms );
+
+	return $forms;
 }
 
 /** Haalt gegevens over interactieve kaarten op */
