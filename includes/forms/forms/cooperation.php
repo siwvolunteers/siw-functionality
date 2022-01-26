@@ -20,7 +20,7 @@ class Cooperation implements Form_Interface, Confirmation_Mail_Interface, Notifi
 
 	/** {@inheritDoc} */
 	public function get_form_name(): string {
-		return __( 'Infoverzoek samenwerking', 'siw' );
+		return __( 'Interesse samenwerking', 'siw' );
 	}
 
 	/** {@inheritDoc} */
