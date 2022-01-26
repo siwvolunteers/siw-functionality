@@ -8,7 +8,7 @@ use SIW\Interfaces\Forms\Form as Form_Interface;
 /**
  * Loader voor formulieren
  *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Loader extends Object_Loader_Abstract {
 

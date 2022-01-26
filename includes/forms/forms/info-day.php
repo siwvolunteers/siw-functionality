@@ -7,9 +7,9 @@ use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
 /**
- * Aanmeldformulier infodag
+ * Aanmelding infodag
  * 
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
@@ -18,12 +18,12 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
-		return 'infodag';
+		return 'info_day';
 	}
 
 	/** {@inheritDoc} */
 	public function get_form_name(): string {
-		return __( 'Infodag', 'siw' );
+		return __( 'Aanmelding infodag', 'siw' );
 	}
 
 	/** {@inheritDoc} */
@@ -50,6 +50,13 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 				'name'     => __( 'Telefoonnummer', 'siw' ),
 				'required' => false,
 			],
+			[ 
+				'id'    => 'age',
+				'type'  => 'radio',
+				'inline' => true,
+				'name'   => __( 'In welke leeftijdscategorie val je?', 'siw' ),
+				'options' => $this->get_age_ranges(),
+			],
 			[
 				'id'      => 'info_day_date',
 				'type'    => 'radio',
@@ -70,6 +77,19 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 				'name'     => __( 'Heb je interesse in een bepaalde bestemming?', 'siw' ),
 				'required' => false,
 				'options'  => \siw_get_continents_list(),
+			],
+			[
+				'id'      => 'referal',
+				'type'    => 'radio',
+				'name'    => __( 'Hoe ben je op de website van SIW gekomen?', 'siw' ),
+				'options' => $this->get_referral_options(),
+			],
+			[
+				'id'       => 'referel_other',
+				'type'     => 'text',
+				'name'     => __( 'Namelijk', 'siw' ),
+				'required' => false, //TODO: conditioneel verplicht maken in REST API
+				'visible'  => [ 'referal', 'other'],
 			],
 		];
 	}
@@ -113,5 +133,26 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 		}
 
 		return $info_days;
+	}
+
+	/** Opties voor leeftijdsranges */
+	protected function get_age_ranges(): array {
+		return [
+			'16-25',
+			'26-30',
+			'31-50',
+			'50 en ouder',
+		];
+	}
+
+	/** Opties voor referral */
+	protected function get_referral_options(): array {
+		return [
+			'google'    => __('Via Google', 'siw' ),
+			'facebook'  => __('Via Google', 'siw' ),
+			'instagram' => __('Via Instagram', 'siw' ),
+			'fair'      => __('Via een beurs', 'siw' ),
+			'other'     => __( 'Via iemand anders', 'siw' ),
+		];
 	}
 }

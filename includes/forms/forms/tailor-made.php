@@ -9,20 +9,20 @@ use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 use SIW\Properties;
 
 /**
- * Contactformulier algemeen
+ * Aanmelding Op Maat
  * 
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface{
 
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
-		return 'op_maat';
+		return 'tailor_made';
 	}
 
 	/** {@inheritDoc} */
 	public function get_form_name(): string {
-		return __( 'Op Maat', 'siw' );
+		return __( 'Aanmelding Op Maat', 'siw' );
 	}
 
 	/** {@inheritDoc} */

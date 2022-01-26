@@ -7,20 +7,20 @@ use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
 /**
- * Aanmeldformulier infodag
+ * Aanmelding projectbegeleider NP
  * 
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
-		return 'begeleider_np';
+		return 'leader_dutch_projects';
 	}
 
 	/** {@inheritDoc} */
 	public function get_form_name(): string {
-		return __( 'Projectbegeleider NP', 'siw' );
+		return __( 'Aanmelding projectbegeleider NP', 'siw' );
 	}
 
 	/** {@inheritDoc} */

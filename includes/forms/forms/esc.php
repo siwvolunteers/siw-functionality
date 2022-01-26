@@ -6,6 +6,11 @@ use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
+/**
+ * Aanmelding ESC
+ * 
+ * @copyright 2022 SIW Internationale Vrijwilligersprojecten
+ */
 class ESC implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 	
 	/** {@inheritDoc} */
@@ -15,7 +20,7 @@ class ESC implements Form_Interface, Confirmation_Mail_Interface, Notification_M
 	
 	/** {@inheritDoc} */
 	public function get_form_name(): string {
-		return __( 'ESC', 'siw' );
+		return __( 'Aanmelding ESC', 'siw' );
 	}
 
 	/** {@inheritDoc} */

@@ -7,19 +7,19 @@ use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
 /**
- * Contactformulier algemeen
+ * Infoverzoek algemeen
  * 
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Enquiry_General implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
 	/** {@inheritDoc} */
-	public function get_form_id() : string {
-		return 'contact_algemeen';
+	public function get_form_id(): string {
+		return 'enquiry_general';
 	}
 
 	/** {@inheritDoc} */
-	public function get_form_name() : string {
+	public function get_form_name(): string {
 		return __( 'Infoverzoek algemeen', 'siw' );
 	}
 
@@ -67,7 +67,7 @@ class Enquiry_General implements Form_Interface, Confirmation_Mail_Interface, No
 	}
 
 	/** {@inheritDoc} */
-	public function get_confirmation_mail_message(): string{
+	public function get_confirmation_mail_message(): string {
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
 		__( 'Bedankt voor het invullen van ons contactformulier.', 'siw' ) . SPACE .
 		__( 'Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je op.', 'siw' );

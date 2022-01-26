@@ -9,18 +9,18 @@ use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 /**
  * Samenwerkingsformulier
  * 
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Cooperation implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
-		return 'samenwerking';
+		return 'cooperation';
 	}
 
 	/** {@inheritDoc} */
 	public function get_form_name(): string {
-		return __( 'Samenwerking', 'siw' );
+		return __( 'Infoverzoek samenwerking', 'siw' );
 	}
 
 	/** {@inheritDoc} */
