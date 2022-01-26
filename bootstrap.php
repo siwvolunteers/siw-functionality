@@ -150,7 +150,6 @@ class Bootstrap {
 			[
 				'Animation',
 				'Email',
-				'Newsletter\Confirmation_Page',
 				'Cookie_Notice',
 			]
 		);

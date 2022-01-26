@@ -24,6 +24,6 @@
 		max: $.validator.format( "Vul hier een waarde in kleiner dan of gelijk aan {0}." ),
 		min: $.validator.format( "Vul hier een waarde in groter dan of gelijk aan {0}." ),
 		step: $.validator.format( "Vul hier een veelvoud van {0} in." ),
-
+		accept: $.validator.format( "Kies een bestand van het juiste type" ),
 	} );
 })( jQuery );

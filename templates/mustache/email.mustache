@@ -1,0 +1,122 @@
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" bgcolor="{{ colors.base }}">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#eeeeee">
+		<tr>
+			<td align="center">&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="center" valign="top">
+				<table border="0" cellpadding="0" cellspacing="0" width="600" bgcolor="{{ colors.base }}" style="border-radius:3px !important;">
+					<tr>
+						<td align="center">&nbsp;</td>
+					</tr>
+					<tr>
+						<td>
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="20%">
+										<img src="{{& properties.assets_url|esc_url }}images/mail/logo.png" style="display: block; border: 0px; outline: none; width: 100%; height: auto; max-width: 144px;" width="144" border="0" alt="logo" />
+									</td>
+									<td width="60%" style="vertical-align:bottom;border-bottom: solid {{ colors.accent }};font-family:Verdana, normal; color:{{ colors.contrast_light }}; font-size:0.95m; font-weight:bold;" align="center">
+										{{ subject }}
+									</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">&nbsp;</td>
+					</tr>
+					<tr>
+						<td>
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="80%">
+										<div style="font-family:Verdana, normal; color:{{ colors.contrast }}; font-size:0.9em;">
+											<p>
+											{{& message|wp_kses_post }}
+										
+											{{# signature }}
+												<br/><br/>
+												{{ i18n.with_kind_regards }},<br/><br/>
+												{{ name }}<br/>
+											{{/ signature }}
+											</p>
+										</div>
+										{{# summary.show }}
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tr>
+												<td colspan="3" height="20" style="font-family:Verdana, normal; color:{{ colors.contrast }}; font-size:0.8em; font-weight:bold; border-top:thin solid {{ colors.accent }};" >
+													{{ i18n.entered_data }}
+												</td>
+											</tr>
+											{{# summary.data }}
+											<tr>
+												<td width="35%" style="font-family: Verdana, normal; color:{{ colors.contrast }}; font-size:0.8em;">{{ label }}</td>
+												<td width="5%"></td>
+												<td width="50%" style="font-family: Verdana, normal; color:{{ colors.contrast }}; font-size:0.8em; font-style:italic">{{ value }}</td>
+											</tr>
+											{{/ summary.data }}
+										</table>
+										{{/ summary.show }}
+									</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="80%" height="20" style="border-bottom:thin solid {{ colors.accent }};">&nbsp;</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" height="20">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="auto" align="center" style="font-family:Verdana, normal; color:{{colors.contrast_light}}; font-size:0.7em; font-weight:bold">
+										{{ properties.name }}
+									</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="auto" align="center" style="font-family:Verdana, normal; color:{{ colors.contrast_light }}; font-size:0.7em; font-weight:bold">
+										<a href="{{ properties.site_url }}" target="_blank" style="color:{{ colors.contrast_light }}; text-decoration:none" title="{{ i18n.visit_our_website }}">{{ properties.site_name }}</a> | <a href="tel:{{ properties.phone_international;" style="color:{{ colors.contrast_light }}; text-decoration:none">{{ properties.phone }}</a> | <a href="mailto:{{ properties.email }}" style="color:{{ colors.contrast_light }}; text-decoration:none">{{ properties.email }}</a>
+									</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td height="30">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="40%">&nbsp;</td>
+										{{# social_networks }}
+										<td width="auto" align="center">
+											<a href="{{ follow_url }}" target="_blank">
+												<img src="{{ image_url }}" width="20" heigth="20" alt="{{ slug }}"/>
+											</a>
+										</td>
+										{{/ social_networks}}
+									<td width="40%">&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">&nbsp;</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">&nbsp;</td>
+		</tr>
+	</table>
+</body>

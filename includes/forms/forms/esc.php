@@ -2,115 +2,96 @@
 
 namespace SIW\Forms\Forms;
 
+use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
 use SIW\Interfaces\Forms\Form as Form_Interface;
+use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
-class ESC implements Form_Interface {
+/**
+ * Aanmelding ESC
+ * 
+ * @copyright 2022 SIW Internationale Vrijwilligersprojecten
+ */
+class ESC implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 	
 	/** {@inheritDoc} */
-	public function get_id(): string {
+	public function get_form_id(): string {
 		return 'esc';
 	}
 	
 	/** {@inheritDoc} */
-	public function get_name(): string {
-		return __( 'ESC', 'siw' );
+	public function get_form_name(): string {
+		return __( 'Aanmelding ESC', 'siw' );
 	}
 
 	/** {@inheritDoc} */
-	public function get_fields(): array {
+	public function get_form_fields(): array {
 		return [
 			[
-				'slug'           => 'voornaam',
-				'type'           => 'text',
-				'label'          => __( 'Voornaam', 'siw' ),
-				'recipient_name' => true,
+				'id'   => 'first_name',
+				'type' => 'text',
+				'name' => __( 'Voornaam', 'siw' ),
 			],
 			[
-				'slug'           => 'achternaam',
-				'type'           => 'text',
-				'label'          => __( 'Achternaam', 'siw' ),
-				'recipient_name' => true,
+				'id'   => 'last_name',
+				'type' => 'text',
+				'name' => __( 'Achternaam', 'siw' ),
 			],
 			[
-				'slug'   => 'geboortedatum',
-				'type'   => 'text',
-				'label'  => __( 'Geboortedatum', 'siw' ),
-				'config' => [
-					'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
-					'validation'  => 'date',
+				'id'          => 'geboortedatum',
+				'type'        => 'text',
+				'name'        => __( 'Geboortedatum', 'siw' ),
+				'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
+				'attributes' => [
+					'data-rule-dateNL' => true,
 				],
 			],
 			[
-				'slug'   => 'woonplaats',
-				'type'   => 'text',
-				'label'  => __( 'Woonplaats', 'siw' ),
+				'id'   => 'city',
+				'type' => 'text',
+				'name' => __( 'Woonplaats', 'siw' ),
 			],
 			[
-				'slug'          => 'emailadres',
-				'type'          => 'email',
-				'label'         => __( 'Emailadres', 'siw' ),
-				'primary_email' => true,
+				'id'   => 'email',
+				'type' => 'email',
+				'name' => __( 'Emailadres', 'siw' ),
 			],
 			[
-				'slug'     => 'telefoonnummer',
-				'type'     => 'text',
-				'label'    => __( 'Telefoonnummer', 'siw' ),
+				'id'       => 'phone',
+				'type'     => 'tel',
+				'name'     => __( 'Telefoonnummer', 'siw' ),
 				'required' => false,
-				'config'   => [
-					'type_override' => 'tel',
-				],
-			],
-
-			[
-				'slug'   => 'motivatie',
-				'type'   => 'paragraph',
-				'label'  => __( 'Waarom wil je graag aan een ESC-project deelnemen?', 'siw' ),
-				'config' => [
-					'rows' => 7,
-				]
 			],
 			[
-				'slug'   => 'periode',
-				'type'   => 'paragraph',
-				'label'  => __( 'In welke periode zou je graag een ESC project willen doen?', 'siw' ),
-				'config' => [
-					'rows' => 7,
-				],
+				'id'   => 'motivation',
+				'type' => 'textarea',
+				'name' => __( 'Waarom wil je graag aan een ESC-project deelnemen?', 'siw' ),
 			],
 			[
-				'slug'   => 'cv',
-				'type'   => 'file',
-				'label'  => __( 'Upload hier je CV (optioneel)', 'siw' ),
-				'config' => [
-					'attach'     => true,
-					'media_lib'  => false,
-					'allowed'    => 'pdf,docx',
-					'max_upload' => wp_max_upload_size(),
-				],
-				'required' => false,
+				'id'   => 'period',
+				'type' => 'textarea',
+				'name' => __( 'In welke periode zou je graag een ESC project willen doen?', 'siw' ),
 			],
 		];
 	}
 
 	/** {@inheritDoc} */
-	public function get_notification_subject(): string {
+	public function get_notification_mail_subject(): string {
 		return 'Aanmelding ESC';
-
 	}
 
 	/** {@inheritDoc} */
-	public function get_notification_message(): string {
+	public function get_notification_mail_message(): string {
 		return 'Via de website is onderstaande ESC-aanmelding binnengekomen:';
 	}
 
 	/** {@inheritDoc} */
-	public function get_autoresponder_subject(): string {
+	public function get_confirmation_mail_subject(): string {
 		return __( 'Bevestiging aanmelding ESC', 'siw' );
 	}
 
 	/** {@inheritDoc} */
-	public function get_autoresponder_message(): string {
-		return sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
+	public function get_confirmation_mail_message(): string {
+		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
 		__( 'Bedankt voor je ESC-aanmelding.', 'siw' ) . SPACE .
 		__( 'Onderaan deze mail staan de gegevens die je hebt ingevuld.', 'siw' ) . BR .
 		__( 'We nemen zo snel mogelijk contact met je op om in een gesprek verder met je kennis te maken!', 'siw' );

@@ -20,7 +20,6 @@ class Loader extends Object_Loader_Abstract {
 	/** {@inheritDoc} */
 	protected function get_classes(): array {
 		return [
-			Newsletter_Signup::class,
 			Postcode_Lookup::class,
 		];
 	}

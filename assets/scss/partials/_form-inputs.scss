@@ -1,0 +1,153 @@
+form,
+form.rwmb-form {
+
+	input[type=text],
+	input[type=email],
+	input[type=url],
+	input[type=password],
+	input[type=search],
+	input[type=number],
+	input[type=tel],
+	input[type=time],
+	input[type=select],
+	button[type=submit],
+	textarea,
+	select {
+		border-width: 2px;
+		&:focus {
+			outline-offset: 2px;
+			outline: 2px dotted var(--siw-contrast-light);
+		}
+
+		.footer-widgets & {
+			color: var(--siw-base);
+			background-color: var(--siw-contrast);
+			border-color: var(--siw-base);
+			&:focus {
+				outline-color: var(--siw-base);
+			}
+		}
+	}
+
+	select {
+		appearance: none;
+		width: auto;
+		padding: 10px 30px 10px 10px;
+
+		//Let op: oranje kleurcode zit in fill
+		background: var(--siw-base) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%23f67820'><polygon points='0,0 10,0 5,5'/></svg>") no-repeat;
+		background-position: right 10px top 60%;
+
+		&:hover, &:focus {
+			border-color: var(--siw-contrast);
+		}
+	}
+
+	ul.rwmb-input-list {
+		margin: 0;
+		li {
+			list-style-type: none;
+		}
+	}
+
+	button[type=submit] {
+		background-color: var(--siw-base);
+		border: 2px solid var(--siw-contrast);
+		color: var(--siw-contrast);
+		transition: all .6s ease-out;
+
+		&:hover,
+		&:active,
+		&:focus {
+			color: var(--siw-base);
+			background-color: var(--siw-contrast);
+		}
+
+		.footer-widgets & {
+			background-color: var(--siw-contrast);
+			border: 2px solid var(--siw-base);
+			color: var(--siw-base);
+			&:hover,
+			&:active,
+			&:focus {
+				color: var(--siw-contrast);
+				background-color: var(--siw-base);
+			}
+		}
+	}
+
+	&[data-single-column="1"] .rwmb-column,
+	.footer-widgets & .rwmb-column {
+		width: 100%;
+		margin-right: 0;
+	}
+
+	.footer-widgets & .rwmb-column .rwmb-field {
+		margin-bottom: 12px;
+	}
+
+	@supports (appearance: none) {
+
+		input[type=checkbox],
+		input[type=radio] {
+			appearance: none;
+			position: relative;
+			width: 25px;
+			height: 25px;
+			border: 2px solid var(--siw-contrast-light);
+			background: var(--siw-base);
+			margin-right: 5px;
+
+			&:disabled{
+				opacity: 0.7;
+			}
+			&:checked:after {
+				opacity: 1;
+			}
+
+			&:focus {
+				outline-offset: 2px;
+				outline: 2px dotted var(--siw-contrast-light);
+			}
+		}
+
+		input[type=checkbox] {
+			&:after {
+				content: "";
+				opacity: 0;
+				display: block;
+				left: 5px;
+				top: 1px;
+				position: absolute;
+				width: 7px;
+				height: 13px;
+				border: 3px solid var(--siw-accent);
+				border-top: 0;
+				border-left: 0;
+				transform: rotate(30deg);
+			}
+	
+			&:checked {
+				color: var(--siw-accent);
+			}
+		}
+
+		input[type=radio] {
+			border-radius: 50%;
+
+			&:after {
+				content: "";
+				opacity: 0;
+				display: block;
+				left: 4px;
+				top: 4px;
+				position: absolute;
+				width: 13px;
+				height: 13px;
+				border-radius: 50%;
+				background: var(--siw-accent);
+			}
+		}
+	}
+}
+

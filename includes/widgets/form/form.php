@@ -2,6 +2,8 @@
 
 namespace SIW\Widgets;
 
+use SIW\Elements\Form as Form_Element;
+
 /**
  * Widget met Formulier
  *
@@ -65,6 +67,11 @@ class Form extends Widget {
 				'prompt'  => __( 'Selecteer een formulier', 'siw' ),
 				'options' => \siw_get_forms(),
 			],
+			'single_column' => [
+				'type'    => 'checkbox',
+				'label'   => __( 'Enkele kolom', 'siw' ),
+				'default' => false,
+			],
 		];
 		return $widget_form;
 	}
@@ -73,7 +80,7 @@ class Form extends Widget {
 	function get_template_variables( $instance, $args ) {
 		return [
 			'intro'   => $instance['intro'],
-			'content' => sprintf( '[caldera_form id="%s"]', $instance['form'] )
+			'content' => Form_Element::create()->set_form_id( $instance['form'] )->set_single_column( $instance['single_column'] )->generate()
 		];
 	}
 }

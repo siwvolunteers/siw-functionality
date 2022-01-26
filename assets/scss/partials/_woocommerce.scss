@@ -212,5 +212,13 @@ span.product-badge.featured-badge {
 		padding-bottom: 15px;
 	}
 
+	.wizard > .content > .body input {
+		border-width: 2px;
+		border-color: var(--siw-contrast-light);
+		&:hover, &:focus {
+			border-color: var(--siw-contrast);
+		}
+	}
+
 }
 

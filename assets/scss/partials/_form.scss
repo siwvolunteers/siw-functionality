@@ -1,0 +1,53 @@
+.siw-form {
+
+	.message, #rwmb-validation-message {
+		padding: 20px;
+		margin-bottom: 20px;
+		border-left: 10px solid rgba(0,0,0,.3);
+		&.error, &.notice-error {
+			background-color: #d63638;
+			color: var(--siw-base);
+		}
+		&.success {
+			background-color: #00a32a;
+			color: var(--siw-base);
+		}
+		p {
+			margin-bottom: unset;
+		}
+	}
+
+	.overlay {
+		position: relative;
+	}
+
+	&.processing {
+		cursor: not-allowed;
+		.overlay {
+			pointer-events: none;
+			form {
+				opacity: 0.4;
+			}
+		}
+		.overlay::before {
+			content: "";
+			display: block;
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			border-width: 2px;
+			border-style: solid;
+			border-color: transparent var(--siw-accent) var(--siw-accent) var(--siw-accent);
+			position: absolute;
+			top: calc(50% - 75px);
+			left: calc(50% - 75px);
+			will-change: transform;
+			animation: spin .75s infinite ease-in-out; 
+		}
+	}
+}
+
+@keyframes spin {
+	0% { transform:translateZ(0) rotate(0deg); }
+	100% { transform:translateZ(0) rotate(360deg); }
+}

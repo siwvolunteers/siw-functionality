@@ -10,7 +10,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 /**
  * Aanpassingen t.b.v. WooCommerce e-mails
  *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Emails {
 
@@ -33,7 +33,7 @@ class Emails {
 
 	/** Zet e-mailadres afzender */
 	public function set_email_from_address(): string {
-		return siw_get_email_settings( 'workcamp')['email'];
+		return siw_get_email_settings( 'workcamp' )->get_confirmation_mail_sender();
 	}
 
 	/** Overschrijft header-template */

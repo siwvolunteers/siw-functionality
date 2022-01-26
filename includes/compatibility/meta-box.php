@@ -37,10 +37,9 @@ class Meta_Box {
 			'meta-box-geolocation',
 			'meta-box-group',
 			'meta-box-include-exclude',
-			'meta-box-tabs',
-			'meta-box-text-limiter',
+			is_admin() ? 'meta-box-tabs' : null,
 		];
-		return $extensions;
+		return array_filter( $extensions );
 	}
 
 	/** Zet standaardeigenschappen van tijdvelden

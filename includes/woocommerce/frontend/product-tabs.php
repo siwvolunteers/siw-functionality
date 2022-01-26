@@ -4,6 +4,7 @@ namespace SIW\WooCommerce\Frontend;
 
 use SIW\Elements\Accordion;
 use SIW\Elements\Features;
+use SIW\Elements\Form;
 use SIW\Elements\Google_Maps;
 
 /**
@@ -12,6 +13,9 @@ use SIW\Elements\Google_Maps;
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Product_Tabs {
+
+	/** Formulier */
+	const CONTACT_FORM_ID = 'enquiry_project';
 
 	/** Init */
 	public static function init() {
@@ -113,7 +117,7 @@ class Product_Tabs {
 
 	/** Toont contactformulier in tab */
 	public function show_product_contact_form() {
-		echo do_shortcode( '[caldera_form id="contact_project"]' );
+		Form::create()->set_form_id( self::CONTACT_FORM_ID )->render();
 	}
 
 	/** Toont stappenplan in tab TODO: stappen uit instelling */

@@ -2,104 +2,91 @@
 
 namespace SIW\Forms\Forms;
 
+use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
 use SIW\Interfaces\Forms\Form as Form_Interface;
+use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
 /**
- * Aanmeldformulier infodag
+ * Aanmelding projectbegeleider NP
  * 
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class Leader_Dutch_Projects implements Form_Interface {
+class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
 	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'begeleider_np';
+	public function get_form_id(): string {
+		return 'leader_dutch_projects';
 	}
 
 	/** {@inheritDoc} */
-	public function get_name(): string {
-		return __( 'Projectbegeleider NP', 'siw' );
+	public function get_form_name(): string {
+		return __( 'Aanmelding projectbegeleider NP', 'siw' );
 	}
 
 	/** {@inheritDoc} */
-	public function get_fields(): array {
+	public function get_form_fields(): array {
 		return [
 			[
-				'slug'           => 'voornaam',
-				'type'           => 'text',
-				'label'          => __( 'Voornaam', 'siw' ),
-				'recipient_name' => true,
+				'id'   => 'first_name',
+				'type' => 'text',
+				'name' => __( 'Voornaam', 'siw' ),
 			],
 			[
-				'slug'           => 'achternaam',
-				'type'           => 'text',
-				'label'          => __( 'Achternaam', 'siw' ),
-				'recipient_name' => true,
+				'id'   => 'last_name',
+				'type' => 'text',
+				'name' => __( 'Achternaam', 'siw' ),
 			],
 			[
-				'slug'          => 'emailadres',
-				'type'          => 'email',
-				'label'         => __( 'Emailadres', 'siw' ),
-				'primary_email' => true,
+				'id'   => 'email',
+				'type' => 'email',
+				'name' => __( 'Emailadres', 'siw' ),
 			],
 			[
-				'slug'     => 'telefoonnummer',
-				'type'     => 'text',
-				'label'    => __( 'Telefoonnummer', 'siw' ),
+				'id'       => 'phone',
+				'type'     => 'tel',
+				'name'     => __( 'Telefoonnummer', 'siw' ),
 				'required' => false,
-				'config'   => [
-					'type_override' => 'tel',
-				],
 			],
 			[
-				'slug'   => 'geboortedatum',
-				'type'   => 'text',
-				'label'  => __( 'Geboortedatum', 'siw' ),
-				'config' => [
-					'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
-					'validation'  => 'date',
-				],
+				'id'          => 'date_of_birth',
+				'type'        => 'text',
+				'name'        => __( 'Geboortedatum', 'siw' ),
+				'placeholder' => __( 'dd-mm-jjjj', 'siw' )
 			],
 			[
-				'slug'   => 'voorkeur',
-				'type'   => 'checkbox',
-				'label'  => __( 'Heb je een voorkeur om een bepaald Nederlands vrijwilligersproject te begeleiden?', 'siw' ),
-				'config' => [
-					'option' => $this->get_project_options(),
-				]
+				'id'     => 'project_preference',
+				'type'   => 'checkbox_list',
+				'name'   => __( 'Heb je een voorkeur om een bepaald Nederlands vrijwilligersproject te begeleiden?', 'siw' ),
+				'options' => $this->get_project_options(),
 			],
-
 			[
-				'slug'   => 'motivatie',
-				'type'   => 'paragraph',
-				'label'  => __( 'Waarom zou je graag een begeleider willen worden voor de Nederlandse vrijwilligersprojecten?', 'siw' ),
-				'config' => [
-					'rows' => 7,
-				],
-				'width'  => Form_Interface::FULL_WIDTH,
+				'id'      => 'motivation',
+				'type'    => 'paragraph',
+				'name'    => __( 'Waarom zou je graag een begeleider willen worden voor de Nederlandse vrijwilligersprojecten?', 'siw' ),
+				'rows'    => 7,
+				'columns' => Form_Interface::FULL_WIDTH,
 			],
-
 		];
 	}
 
 	/** {@inheritDoc} */
-	public function get_notification_subject(): string {
+	public function get_notification_mail_subject(): string {
 		return 'Aanmelding projectbegeleider';
 	}
 
 	/** {@inheritDoc} */
-	public function get_notification_message(): string {
+	public function get_notification_mail_message(): string {
 		return 'Via de website is onderstaande aanmelding voor begeleider NP binnengekomen:';
 	}
 
 	/** {@inheritDoc} */
-	public function get_autoresponder_subject(): string {
+	public function get_confirmation_mail_subject(): string {
 		return __( 'Bevestiging aanmelding', 'siw' );
 	}
 
 	/** {@inheritDoc} */
-	public function get_autoresponder_message(): string {
-		return sprintf( __( 'Beste %s,', 'siw' ), '%voornaam%' ) . BR2 .
+	public function get_confirmation_mail_message(): string {
+		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
 			__( 'Bedankt voor jouw aanmelding.', 'siw') . SPACE .
 			__( 'Wat leuk dat je interesse hebt om projectbegeleider te worden voor de Nederlandse vrijwilligersprojecten.', 'siw' ) . SPACE .
 			__( 'Een creatieve uitdaging die je nooit meer zal vergeten!', 'siw' ) . SPACE .
