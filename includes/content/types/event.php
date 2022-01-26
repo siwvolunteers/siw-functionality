@@ -6,6 +6,7 @@ use SIW\Elements\Google_Maps;
 use SIW\Elements\Icon;
 use SIW\Util\Links;
 use SIW\Core\Template;
+use SIW\Elements\Form;
 
 /**
  * Evenementen
@@ -291,8 +292,7 @@ class Event extends Type {
 		// bij een informatie bijeenkomst een invulformulier tonen
 		$infoform = $application_explanation = $application_link = '';
 		if ( siw_meta( 'info_day' ) ) {
-			$default_date = sanitize_title( siw_format_date( siw_meta( 'event_date' ), false ) );
-			$infoform = do_shortcode( sprintf( '[caldera_form id="infodag" datum="%s"]', $default_date) );
+			$infoform = Form::create()->set_form_id( 'info_day' )->generate();
 		}
 		// anders  tonen hoe je kunt aanmelden.
 		else
