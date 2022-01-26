@@ -2,14 +2,13 @@
 
 namespace SIW\Forms;
 
-use SIW\Interfaces\Forms\Confirmation_Mail;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Util\Meta_Box;
 
 /**
  * Class om een formulier via MetaBox te genereren
  * 
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Form {
 
@@ -19,7 +18,7 @@ class Form {
 	/** Formulier */
 	protected Form_Interface $form;
 	
-	/** Constructor TODO: php8 constructor property promotion */
+	/** Constructor */
 	public function __construct( Form_Interface $form ) {
 		$this->form = $form;
 	}
@@ -126,16 +125,6 @@ class Form {
 			'required' => true,
 			'columns'  => Form_Interface::HALF_WIDTH,
 		];
-
-		// TODO: verplaatsen naar Compatibility/MetaBox
-		if ( 'file' == $field['type'] ) {
-
-			$field['max_file_uploads'] = 1;
-			$field['attributes'] = [
-				'accept' => 'application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-				'maxsize' => 10 * MB_IN_BYTES, //Maximum attachment size van MailJet TODO: verplaatsen naar MailJet klasse
-			];
-		}
 		return wp_parse_args_recursive( $field, $defaults );
 	}
 }

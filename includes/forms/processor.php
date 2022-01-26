@@ -16,7 +16,7 @@ use SIW\Util\Meta_Box;
 /**
  * Class om een formulieraanmelding te verwerken
  * 
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Processor {
 
@@ -53,7 +53,7 @@ class Processor {
 		if ( $this->is_spam() ) {
 			return new \WP_REST_Response( [
 				'message' => __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
-			], \WP_Http::OK );
+			], \WP_Http::BAD_REQUEST );
 		}
 
 		// TODO: Verwerk file uploads
@@ -118,7 +118,7 @@ class Processor {
 		return $this->request->get_param( $customer_email_field['id'] );
 	}
 
-	/** Haal e-mail instelling op TODO: verplaatsen naar Form? */
+	/** Haal e-mail instelling op */
 	protected function get_email_settings(): Email_Settings {
 		$email_settings = siw_get_email_settings( $this->form->get_form_id() );
 		return $email_settings;
@@ -175,6 +175,7 @@ class Processor {
 		if ( null !== $ip ) {
 			$spam_check->set_ip( $ip );
 		}
+		//TODO: check inhoud van bepaalde velden op links
 		return $spam_check->is_spam();
 	}
 }
