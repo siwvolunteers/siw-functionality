@@ -1,10 +1,10 @@
 //Archive
 .woocommerce ul.products {
 	li.product {
-		box-shadow: $box-shadow;
+		box-shadow: var(--siw-box-shadow);
 		transition: 0.3s;
 		&:hover {
-			box-shadow: $box-shadow-hover;
+			box-shadow: var(--siw-box-shadow-hover);
 		}
 		a {
 			padding: 10px;
@@ -35,6 +35,26 @@ span.product-badge.featured-badge {
 	font-size: 0.8em;
 }
 
+//Paginanummering
+.woocommerce nav.woocommerce-pagination {
+	ul.page-numbers {
+		border: 2px solid var(--siw-contrast);
+		border-right: unset;
+		li {
+			border-right: 2px solid var(--siw-contrast);
+			a:hover {
+				background: var(--siw-contrast);
+				color: var(--siw-base);
+			}
+			span.current {
+				background: var(--siw-contrast);
+				color: var(--siw-base);
+			}
+		}
+	}
+}
+
+
 //Carousel
 .siw-carousel {
 	margin-bottom: 20px;
@@ -49,16 +69,17 @@ span.product-badge.featured-badge {
 				font-weight: 400;
 				font-size: 20px;
 			}
-			box-shadow: $box-shadow;
+			box-shadow: var(--siw-box-shadow);
 			transition: 0.3s;
 			&:hover {
-				box-shadow: $box-shadow-hover;
+				box-shadow: var(--siw-box-shadow-hover);
 			}
 			text-align: center;
 			a {
 				padding: 10px;
 				display: block;
 				color: var(--siw-contrast);
+				text-decoration: none;
 				.woocommerce-placeholder {
 					border: none;
 				}
@@ -150,13 +171,6 @@ span.product-badge.featured-badge {
 .woocommerce-checkout {
 	.form-row-first, h3{
 		clear:left;
-	}
-
-	@media only screen and (max-width: $mobile-width) {
-		form .form-row.form-row-first, form .form-row.form-row-last{
-			float: none;
-			width: 98%;
-		}
 	}
 
 	span.optional {

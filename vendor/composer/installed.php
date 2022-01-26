@@ -6,20 +6,11 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'f705def33733cb8d81eefb268301e0be164e0e57',
+    'reference' => 'ee81d693156cac4e76c2ab29e3a6c6b6a2f97f61',
     'name' => 'siwvolunteers/siw-functionality',
   ),
   'versions' => 
   array (
-    'adbario/php-dot-notation' => 
-    array (
-      'pretty_version' => '2.2.0',
-      'version' => '2.2.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'eee4fc81296531e6aafba4c2bbccfc5adab1676e',
-    ),
     'kallookoo/wp_parse_args_recursive' => 
     array (
       'pretty_version' => '1.2.1',
@@ -31,12 +22,21 @@
     ),
     'mustache/mustache' => 
     array (
-      'pretty_version' => 'v2.13.0',
-      'version' => '2.13.0.0',
+      'pretty_version' => 'v2.14.1',
+      'version' => '2.14.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e95c5a008c23d3151d59ea72484d4f72049ab7f4',
+      'reference' => '579ffa5c96e1d292c060b3dd62811ff01ad8c24e',
+    ),
+    'pharaonic/php-dot-array' => 
+    array (
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8daa057aa491490ed8806bb5424fa1a4201b440e',
     ),
     'siwvolunteers/siw-functionality' => 
     array (
@@ -45,7 +45,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'f705def33733cb8d81eefb268301e0be164e0e57',
+      'reference' => 'ee81d693156cac4e76c2ab29e3a6c6b6a2f97f61',
     ),
     'spatie/array-to-xml' => 
     array (

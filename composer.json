@@ -14,7 +14,7 @@
 		"kallookoo/wp_parse_args_recursive": "1.*",
 		"spatie/array-to-xml": "2.*",
 		"spatie/enum": "3.*",
-		"adbario/php-dot-notation": "2.*",
+		"pharaonic/php-dot-array": "1.*",
 		"woocommerce/action-scheduler": "3.*",
 		"mustache/mustache": "2.*"
 	},

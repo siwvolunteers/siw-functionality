@@ -1,10 +1,9 @@
-@import "../partials/_variables.scss";
-
 .siw-social {
 	text-align: center;
 	.title {
 		padding-bottom: 15px;
 		font-weight: bold;
+		color: var(--siw-contrast-light);
 	}
 
 	a {

@@ -1,3 +1,11 @@
+:root {
+	--siw-text-shadow: 1px 1px var(--siw-contrast);
+	--siw-box-shadow-overlay: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+	--siw-box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.5);
+	--siw-box-shadow-hover: 2px 2px 5px 4px rgba(0, 0, 0, 0.5);
+	--siw-box-shadow-transition: box-shadow 0.3s ease-in-out;
+}
+
 /* Fade in voor lazyload */
 img[data-lazy-src] {
 	opacity: 0;
@@ -18,10 +26,23 @@ body.home .site-content {
 	color: var(--siw-contrast-light);
 	font-style: italic;
 	text-align: center;
-	.siw-icon {
-		fill: var(--siw-contrast-light);
+	&::before {
+		content: "\0275D";
+		font-size: 2em;
+		font-style: normal;
+		font-weight: bold;
+		vertical-align: -0.3em;
 	}
 }
+
+blockquote.siw-blockquote {
+	font-size: inherit;
+	font-style: italic;
+	border-left-color: var(--siw-accent);
+	padding: 5px 5px 5px 15px;
+	margin: inherit;
+}
+
 dl{
 	dd {
 		margin: 0 1em 1em;
@@ -33,13 +54,19 @@ dl{
 	color: var(--siw-base);
 	padding: 15px;
 	margin: 15px;
+	a {
+		color: var(--siw-base);
+		&:hover {
+			color: var(--siw-base);
+		}
+	}
 }
 // alert text bij groepsprojecten
 .siw-archive-alert {
 	padding: 15px;
 	margin: 15px;
-  }
-  
+}
+
 //Icon in menu wit bij hover
 li.menu-item a {
 	.siw-icon {
@@ -81,8 +108,8 @@ a.button.ghost {
 }
 
 //Header
-h1.hero-title{
-	text-shadow: $text-shadow;
+h1.hero-title {
+	text-shadow: var(--siw-text-shadow);
 }
 
 a:hover {

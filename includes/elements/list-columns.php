@@ -13,7 +13,7 @@ class List_Columns extends Repeater {
 	protected int $columns = 1;
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
+	protected static function get_type(): string {
 		return 'list';
 	}
 

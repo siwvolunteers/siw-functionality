@@ -8,38 +8,23 @@ use SIW\Util\CSS;
 /**
  * Archiefpagina
  * 
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2020-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Archive {
 
-	/**
-	 * Post type
-	 */
+	/** Post type */
 	protected string $post_type;
 
-	/**
-	 * Taxonomieën
-	 */
+	/** Taxonomieën */
 	protected array $taxonomies;
 
-	/**
-	 * Opties voor archief-pagina
-	 */
+	/** Opties voor archief-pagina */
 	protected array $archive_options;
 
-	/**
-	 * Instantie van Taxonomy Filter
-	 */
+	/** Instantie van Taxonomy Filter */
 	protected Taxonomy_Filter $taxonomy_filter;
 
-	/**
-	 * Init
-	 *
-	 * @param string $post_type
-	 * @param array $taxonomies
-	 * @param array $archive_options
-	 */
+	/** Init */
 	public function __construct( string $post_type, array $taxonomies, array $archive_options ) {
 
 		$this->post_type = $post_type;
@@ -55,11 +40,7 @@ class Archive {
 		// Header voor archiefpagina toevoegen
 		add_action( 'generate_inside_site_container', [ $this, 'add_archive_intro' ], 10 );
 		if ( $this->archive_options['taxonomy_filter'] ) {
-			$taxonomy_filter_options = [
-				'use_post_count' => ! empty( $this->archive_options['meta_query'] )
-			];
-
-			$this->taxonomy_filter = new Taxonomy_Filter( $taxonomy_filter_options );
+			$this->taxonomy_filter = Taxonomy_Filter::create()->set_use_post_count( ! empty( $this->archive_options['meta_query'] ) );
 			add_action( 'generate_inside_site_container', [ $this, 'add_taxonomy_filter' ], 20 );
 		}
 
@@ -90,9 +71,7 @@ class Archive {
 		<?php
 	}
 
-	/**
-	 * Voegt taxonomy filter toe
-	 */
+	/** Voegt taxonomy filter toe */
 	public function add_taxonomy_filter() {
 		if ( ! $this->is_archive_query() ) {
 			return;
@@ -106,17 +85,13 @@ class Archive {
 		echo '<div class="grid-container">';
 		foreach ( $taxonomies as $taxonomy ) {
 			echo "<div class='grid-{$grid_size}'>"; 
-			echo $this->taxonomy_filter->generate( "siw_{$this->post_type}_{$taxonomy}" );
+			echo $this->taxonomy_filter->set_taxonomy( "siw_{$this->post_type}_{$taxonomy}" )->generate();
 			echo '</div>';
 		}
 		echo '</div>';
 	}
 
-	/**
-	 * Toont alle posts op archiefpagina
-	 *
-	 * @param \WP_Query $query
-	 */
+	/** Toont alle posts op archiefpagina */
 	public function show_all_posts_on_archive( \WP_Query $query ) {
 		if ( ! $this->is_archive_query( $query ) ) {
 			return;
@@ -124,11 +99,7 @@ class Archive {
 		$query->set( 'posts_per_page', -1 );
 	}
 
-	/**
-	 * Zet sorteereigenschappen
-	 *
-	 * @param \WP_Query $query
-	 */
+	/** Zet sorteereigenschappen */
 	public function set_orderby( \WP_Query $query ) {
 		if ( ! $this->is_archive_query( $query ) ) {
 			return;
@@ -140,11 +111,7 @@ class Archive {
 		}
 	}
 
-	/**
-	 * Zet meta query voor archive
-	 *
-	 * @param \WP_Query $query
-	 */
+	/** Zet meta query voor archive */
 	public function set_filter( \WP_Query $query ) {
 		if ( ! $this->is_archive_query( $query ) || empty( $this->archive_options['meta_query'] ) ) {
 			return;
@@ -154,13 +121,8 @@ class Archive {
 		$query->set( 'meta_query', $meta_query );
 	}
 
-	/**
-	 * Geeft aan of het een query voor een relevant archief is
-	 *
-	 * @param \WP_Query $query
-	 * @return bool
-	 */
-	protected function is_archive_query( \WP_Query $query = null ) : bool {
+	/** Geeft aan of het een query voor een relevant archief is */
+	protected function is_archive_query( \WP_Query $query = null ): bool {
 		if ( null == $query ) {
 			global $wp_the_query;
 			$query = $wp_the_query;
@@ -241,13 +203,7 @@ class Archive {
 		return $masonry;
 	}
 
-	/**
-	 * Zet sitebar-layout voor archive
-	 *
-	 * @param string $layout
-	 *
-	 * @return string
-	 */
+	/** Zet sitebar-layout voor archive */
 	public function set_sidebar_layout( string $layout ) : string {
 		if ( $this->is_archive_query() ) {
 			return $this->archive_options['sidebar_layout'];

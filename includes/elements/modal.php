@@ -12,11 +12,12 @@ use SIW\Util\Links;
  */
 class Modal extends Element {
 
+	const STYLE_HANDLE = 'siw-modal';
+	const SCRIPT_HANDLE = 'siw-modal';
+	const MICROMODAL_SCRIPT_HANDLE = 'micromodal';
+
 	/** Versienummer */
 	const MICROMODAL_VERSION = '0.4.10';
-
-	/** ID van pagina voor modal */
-	protected string $modal_id;
 
 	/** Titel van de modal */
 	protected string $title;
@@ -25,20 +26,19 @@ class Modal extends Element {
 	protected string $content;
 
 	/** Init */
-	protected function __construct() {
-		$this->modal_id = uniqid( 'siw-modal-' );
+	protected function initialize() {
 		add_action( 'wp_footer', [ $this, 'render'] );
 	}
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
+	protected static function get_type(): string {
 		return 'modal';
 	}
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
-			'id'      => $this->modal_id,
+			'id'      => $this->get_element_id(),
 			'title'   => $this->title,
 			'content' => $this->content,
 			'i18n'    => [
@@ -58,38 +58,38 @@ class Modal extends Element {
 	}
 
 	/** Zet pagina van de modal */
-	public function set_page( int $page_id ) : self {
+	public function set_page( int $page_id ) {
 		$page = get_post( $page_id );
 		$this->title = $page->post_title;
 		$this->content = do_shortcode( $page->post_content );
 
 		//Overschrijf modal id
-		$this->modal_id = "siw-modal-{$page_id}";
+		$this->element_id = "siw-modal-{$page_id}";
 		return $this;
 	}
 
 	/** Genereert link voor modal */
-	public function generate_link( string $text, string $link = null ) : string {
+	public function generate_link( string $text, string $link = null ): string {
 		$link = Links::generate_link(
 			$link ?? '#',
 			$text,
-			[ 'data-micromodal-trigger' => $this->modal_id, 'target' => '_blank' ] //TODO: optie voor target?
+			[ 'data-micromodal-trigger' => $this->get_element_id(), 'target' => '_blank' ] //TODO: optie voor target?
 		);
 		return $link;
 	}
 
 	/** Voegt styles toe */
 	protected function enqueue_styles() {
-		wp_register_style( 'siw-modal', SIW_ASSETS_URL . 'css/elements/siw-modal.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( 'siw-modal' );
+		wp_register_style( self::STYLE_HANDLE, SIW_ASSETS_URL . 'css/elements/siw-modal.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::STYLE_HANDLE );
 	}
 
 	/** Voegt scripts toe */
 	protected function enqueue_scripts() {
-		wp_register_script( 'micromodal', SIW_ASSETS_URL . 'vendor/micromodal/micromodal.js', [], self::MICROMODAL_VERSION, true );
-		wp_register_script( 'siw-modal', SIW_ASSETS_URL . 'js/elements/siw-modal.js', [ 'micromodal' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::MICROMODAL_SCRIPT_HANDLE, SIW_ASSETS_URL . 'vendor/micromodal/micromodal.js', [], self::MICROMODAL_VERSION, true );
+		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-modal.js', [ self::MICROMODAL_SCRIPT_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
-			'siw-modal',
+			self::SCRIPT_HANDLE,
 			'siw_modal',
 			[
 				'openTrigger'         => 'data-modal-open',
@@ -100,6 +100,6 @@ class Modal extends Element {
 				'awaitCloseAnimation' => true,
 				'debugMode'           => defined( 'WP_DEBUG' ) && WP_DEBUG,
 		]);
-		wp_enqueue_script( 'siw-modal' );
+		wp_enqueue_script( self::SCRIPT_HANDLE );
 	}
 }

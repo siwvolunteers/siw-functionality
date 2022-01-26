@@ -2,10 +2,12 @@
 
 namespace SIW\Widgets;
 
+use SIW\Elements\Blockquote;
+
 /**
  * Widget met quote
  *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  * 
  * @widget_data
  * Widget Name: SIW: Quote
@@ -16,10 +18,10 @@ namespace SIW\Widgets;
 class Quote extends Widget {
 
 	/** Taxonomy voor continent */
-	const CONTINENT_TAXONOMY = 'siw_quote_continent';
+	const CONTINENT_TAXONOMY = 'siw_story_continent';
 
 	/** Taxonomy voor projectsoort */
-	const PROJECT_TYPE_TAXONOMY = 'siw_quote_project_type';
+	const PROJECT_TYPE_TAXONOMY = 'siw_story_project_type';
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
@@ -38,7 +40,7 @@ class Quote extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_template_id(): string {
-		return $this->get_id();
+		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
 	/** {@inheritDoc} */
@@ -76,16 +78,18 @@ class Quote extends Widget {
 			return [];
 		}
 
+		$blockquote = Blockquote::create()
+			->set_quote( $quote['quote'] )
+			->set_name( $quote['name']) 
+			->set_source( "{$quote['project_type']} {$quote['country']}" );
+
 		return [
-			'quote'        => $quote['quote'],
-			'name'         => $quote['name'],
-			'project_type' => $quote['project_type'],
-			'country'      => $quote['country'],
+			'content' => $blockquote->generate()
 		];
 	}
 
 	/** Geeft lijst met opties terug */
-	protected function get_taxonomy_options( string $taxonomy ) : array {
+	protected function get_taxonomy_options( string $taxonomy ): array {
 		$terms = get_terms( $taxonomy );
 		$options[''] = __( 'Alle', 'siw' );
 		foreach ( $terms as $term ) {
@@ -94,15 +98,8 @@ class Quote extends Widget {
 		return $options;
 	}
 
-	/**
-	 * Haalt gegevens van quote op
-	 *
-	 * @param string $continent
-	 * @param string $project_type
-	 *
-	 * @return array
-	 */
-	protected function get_quote( string $continent, string $project_type ) : ?array {
+	/** Haalt gegevens van quote op */
+	protected function get_quote( string $continent, string $project_type ): ?array {
 		
 		$tax_query = [];
 		if ( ! empty( $continent ) ) {
@@ -121,7 +118,7 @@ class Quote extends Widget {
 		}
 
 		$query_args = [
-			'post_type'      => 'siw_quote',
+			'post_type'      => 'siw_story',
 			'posts_per_page' => 1,
 			'orderby'        => 'rand',
 			'fields'         => 'ids',
@@ -134,10 +131,14 @@ class Quote extends Widget {
 		}
 
 		$post_id = $post_ids[0];
+		$rows = siw_meta( 'rows', [], $post_id );
+		
+		$quotes = dot( $rows )->get('*.quote');
+
 		$quote = [
-			'quote'        => get_post_meta( $post_id, 'quote', true ),
-			'name'         => get_post_meta( $post_id, 'name', true ),
-			'country'      => siw_get_country( get_post_meta( $post_id, 'country', true ) )->get_name(),
+			'quote'        => $quotes[array_rand( $quotes, 1 )],
+			'name'         => siw_meta( 'name', [], $post_id ),
+			'country'      => siw_get_country( siw_meta( 'country', [], $post_id ) )->get_name(),
 			'project_type' => wp_get_post_terms( $post_id, self::PROJECT_TYPE_TAXONOMY )[0]->name,
 		];
 		return $quote;

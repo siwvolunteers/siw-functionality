@@ -18,7 +18,7 @@ class Icon extends Element {
 	protected bool $has_background = false;
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
+	protected static function get_type(): string {
 		return 'icon';
 	}
 

@@ -167,7 +167,7 @@ $data = [
 	],
 	[
 		'slug'                  => 'dieren',
-		'plato_code'            => 'ZOO',
+		'plato_code'            => 'ANIM',
 		'name'                  => __( 'Dieren', 'siw' ),
 		'icon_class'            => 'siw-icon-paw',
 		'needs_review'          => false,

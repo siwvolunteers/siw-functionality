@@ -330,6 +330,12 @@ class Configuration implements Option_Interface {
 							'type'    => 'select_advanced',
 							'options' => Util::get_pages(),
 						],
+						[
+							'id'      => 'school_projects',
+							'name'    => __( 'Scholenprojecten', 'siw' ),
+							'type'    => 'select_advanced',
+							'options' => Util::get_pages(),
+						],
 					],
 				],
 				[

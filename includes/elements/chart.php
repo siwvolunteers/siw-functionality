@@ -11,6 +11,9 @@ namespace SIW\Elements;
  */
 abstract class Chart extends Element {
 	
+	const SCRIPT_HANDLE = 'siw-charts';
+	const FRAPPE_CHARTS_SCRIPT_HANDLE = 'frappe-charts';
+
 	/** Frappe Charts versie */
 	const FRAPPE_CHARTS_VERSION = '1.6.2';
 
@@ -24,33 +27,32 @@ abstract class Chart extends Element {
 	protected array $options = [];
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
+	protected static function get_type(): string {
 		return 'chart';
 	}
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
-			'id'      => uniqid( "siw-{$this->type}-chart-"),
 			'options' => $this->generate_chart_options(),
 		];
 	}
 
 	/** Zet data voor grafiek */
-	public function set_data( array $data ) : self {
+	public function set_data( array $data ) {
 		$this->data = $data;
 		return $this;
 	}
 
 	/** Voegt scripts toe */
 	protected function enqueue_scripts() {
-		wp_register_script( 'frappe-charts', SIW_ASSETS_URL . 'vendor/frappe-charts/frappe-charts.min.umd.js', ['polyfill'], self::FRAPPE_CHARTS_VERSION, true );
-		wp_register_script( 'siw-charts', SIW_ASSETS_URL . 'js/elements/siw-charts.js', ['frappe-charts'], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( 'siw-charts' );
+		wp_register_script( self::FRAPPE_CHARTS_SCRIPT_HANDLE, SIW_ASSETS_URL . 'vendor/frappe-charts/frappe-charts.min.umd.js', ['polyfill'], self::FRAPPE_CHARTS_VERSION, true );
+		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-charts.js', [ self::FRAPPE_CHARTS_SCRIPT_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::SCRIPT_HANDLE );
 	}
 
 	/** Genereert opties voor grafiek */
-	protected function generate_chart_options() : array {
+	protected function generate_chart_options(): array {
 
 		$options = wp_parse_args_recursive(
 			$this->options,
@@ -63,5 +65,5 @@ abstract class Chart extends Element {
 	}
 
 	/** Genereert data voor grafiek */
-	abstract protected function generate_chart_data() : array;
+	abstract protected function generate_chart_data(): array;
 }

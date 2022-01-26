@@ -105,7 +105,7 @@ function siw_generate_event_json_ld( int $event_id ) : string {
 
 	$event = Event::create()
 		->set_name( get_the_title( $event_id ) )
-		->set_description( get_the_excerpt( $event_id ) )
+		->set_description( siw_meta( 'abstract', [], $event_id ) )
 		->set_start_date( new \DateTime( siw_meta( 'event_date', [], $event_id ) . siw_meta( 'start_time', [], $event_id ) ) )
 		->set_end_date( new \DateTime( siw_meta( 'event_date', [], $event_id ) . siw_meta( 'end_time', [], $event_id ) ) )
 		->set_url( get_the_permalink( $event_id ) );

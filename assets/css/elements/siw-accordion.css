@@ -1,5 +1,5 @@
 .siw-accordion {
-  max-width: 780px;
+  max-width: fit-content;
 }
 .siw-accordion h5 {
   margin-top: 1px;
@@ -9,7 +9,7 @@
   width: 100%;
   display: block;
   padding: 10px;
-  border: solid 3px --var(--siw-contrast);
+  border: solid 3px var(--siw-contrast);
   cursor: pointer;
 }
 .siw-accordion h5 span:after {
@@ -19,7 +19,7 @@
   font-weight: bold;
 }
 .siw-accordion h5 span[aria-expanded=true] {
-  background-color: --var(--siw-contrast);
+  background-color: var(--siw-contrast);
   color: var(--siw-base);
 }
 .siw-accordion h5 span[aria-expanded=true]:after {

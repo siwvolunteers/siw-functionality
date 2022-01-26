@@ -162,10 +162,10 @@ class Carousel extends Widget {
 
 		$instance = $this->parse_instance( $instance );
 
-		$carousel = new Element_Carousel();
-		$carousel->set_post_type( $instance['post_type'] );
-		$carousel->set_items( intval( $instance['items'] ) );
-		$carousel->set_columns( intval( $instance['columns'] ) );
+		$carousel = Element_Carousel::create()
+			->set_post_type( $instance['post_type'] )
+			->set_items( intval( $instance['items'] ) )
+			->set_columns( intval( $instance['columns'] ) );
 		if ( ! empty( $instance['taxonomy'] ) && ! empty( $instance['term'] ) ) {
 			$carousel->add_tax_query([
 				'taxonomy' => $instance['taxonomy'],
@@ -193,7 +193,7 @@ class Carousel extends Widget {
 		
 		return [
 			'intro'       => $instance['intro'] ?? null,
-			'carousel'    => $carousel->render(),
+			'carousel'    => $carousel->generate(),
 			'show_button' => $instance['show_button'],
 			'button'      => [
 				'url'  => ( ! empty( $instance['taxonomy'] ) && ! empty( $instance['term'] ) ) ? get_term_link( $instance['term'], $instance['taxonomy'] ) : get_post_type_archive_link( $instance['post_type'] ),

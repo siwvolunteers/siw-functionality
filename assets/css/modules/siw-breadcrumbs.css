@@ -2,7 +2,7 @@ nav.breadcrumb {
   padding: 10px;
   background-color: rgba(63, 63, 63, 0.75);
   font-size: 0.9em;
-  text-shadow: 1px 1px var(--siw-font-color);
+  text-shadow: var(--siw-text-shadow);
   width: fit-content;
 }
 nav.breadcrumb ol.breadcrumb {

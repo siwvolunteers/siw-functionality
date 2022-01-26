@@ -59,16 +59,6 @@ class Settings implements Option_Interface {
 				'icon'  => 'dashicons-media-document',
 			],
 			[
-				'id'    => 'dutch_projects',
-				'label' => __( 'Nederlandse projecten', 'siw' ),
-				'icon'  => 'dashicons-admin-home'
-			],
-			[
-				'id'    => 'notifications',
-				'label' => __( 'Notificaties', 'siw' ),
-				'icon'  => 'dashicons-megaphone',
-			],
-			[
 				'id'    => 'tailor_made',
 				'label' => __( 'Op Maat', 'siw' ),
 				'icon'  => 'dashicons-admin-settings',
@@ -82,6 +72,16 @@ class Settings implements Option_Interface {
 				'id'    => 'job_postings',
 				'label' => __( 'Vacatures', 'siw' ),
 				'icon'  => 'dashicons-clipboard'
+			],
+			[
+				'id'    => 'story',
+				'label' => __( 'Ervaringsverhalen', 'siw' ),
+				'icon'  => 'dashicons-format-gallery'
+			],
+			[
+				'id'    => 'event',
+				'label' => __( 'Evenementen', 'siw' ),
+				'icon'  => 'dashicons-calendar'
 			],
 		];
 		return $tabs;
@@ -159,40 +159,20 @@ class Settings implements Option_Interface {
 			],
 		];
 
-		//Nederlandse projecten
+		//Vacatures TODO: group voor vacaturetekst
 		$fields[] = [
-			'id'            => 'dutch_projects_booklets',
-			'type'          => 'group',
-			'tab'           => 'dutch_projects',
-			'clone'         => true,
-			'sort_clone'    => true,
-			'max_clone'     => 5,
-			'collapsible'   => true,
-			'default_state' => 'collapsed',
-			'group_title'   => 'Programmaboekje {year}',
-			'add_button'    => __( 'Programmaboekje toevoegen', 'siw' ),
-			'fields'        => [
+			'id'        => 'job_posting',
+			'type'      => 'group',
+			'tab'       => 'job_postings',
+			'fields'    => [
 				[
-					'id'       => 'year',
-					'name'     => __( 'Jaar', 'siw' ),
-					'type'     => 'number',
+					'id'       => 'archive_intro',
+					'name'     => __( 'Introtekst', 'siw' ),
+					'type'     => 'wysiwyg',
 					'required' => true,
-					'min'      => intval( date( 'Y', strtotime( Properties::FOUNDING_DATE ) ) ),
-					'max'      => intval( date( 'Y' ) )
-				],
-				[
-					'id'               => 'file',
-					'name'             => __( 'Bestand', 'siw' ),
-					'type'             => 'file_advanced',
-					'required'         => true,
-					'max_file_uploads' => 1,
-					'mime_type'        => 'application/pdf',
-					'force_delete'     => false,
 				],
 			],
 		];
-
-		//Vacatures TODO: group voor vacaturetekst
 		$fields[] = [
 			'type'     => 'heading',
 			'name'     => __( 'Vacaturetekst', 'siw' ),
@@ -234,6 +214,36 @@ class Settings implements Option_Interface {
 					'required' => true,
 				],
 			],
+		];
+		// Ervaringsverhalen
+
+		$fields[] = [
+			'id'        => 'story',
+			'type'      => 'group',
+			'tab'       => 'story',
+			'fields'    => [
+				[
+					'id'       => 'archive_intro',
+					'name'     => __( 'Introtekst', 'siw' ),
+					'type'     => 'wysiwyg',
+					'required' => true,
+				],
+			],
+		];
+
+		//Evenementen
+		$fields[] = [
+			'id'   => 'event',
+			'type' => 'group',
+			'tab'  => 'event',
+			'fields' => [
+				[
+					'id'       => 'archive_intro',
+					'name'     => __( 'Introtekst', 'siw' ),
+					'type'     => 'wysiwyg',
+					'required' => true,
+				],
+			]
 		];
 
 		//Groepsprojecten
@@ -353,6 +363,19 @@ class Settings implements Option_Interface {
 		];
 
 		//Op Maat
+		$fields[] = [
+			'id'        => 'tm_country',
+			'type'      => 'group',
+			'tab'       => 'tailor_made',
+			'fields'    => [
+				[
+					'id'       => 'archive_intro',
+					'name'     => __( 'Introtekst', 'siw' ),
+					'type'     => 'wysiwyg',
+					'required' => true,
+				],
+			],
+		];
 		$fields[] = [
 			'id'      => 'tailor_made_sale',
 			'type'    => 'group',
@@ -500,97 +523,6 @@ class Settings implements Option_Interface {
 			'tab'    => 'opening_hours',
 			'clone'  => true,
 			'fields' => $special_opening_hours_fields,
-		];
-
-		//Notificaties
-		$fields[] = [
-			'id'      => 'topbar',
-			'type'    => 'group',
-			'tab'     => 'notifications',
-			'fields'  => [
-				[
-					'type'      => 'heading',
-					'name'      => __( 'Banner', 'siw' ),
-				],
-				[
-					'id'        => 'show_page_content',
-					'name'      => __( 'Link naar pagina tonen', 'siw' ),
-					'type'      => 'switch',
-					'on_label'  => __( 'Ja', 'siw' ),
-					'off_label' => __( 'Nee', 'siw'),
-				],
-				[
-					'id'      => 'page_content',
-					'type'    => 'group',
-					'visible' => [ 'topbar[show_page_content]', true ],
-					'fields' => [
-						[
-							'id'                => 'intro',
-							'name'              => __( 'Intro', 'siw' ),
-							'type'              => 'text',
-							'required'          => true,
-							'label_description' => __( 'Wordt verborgen op mobiel', 'siw' ),
-						],
-						[
-							'id'       => 'link_text',
-							'name'     => __( 'Tekst voor link', 'siw' ),
-							'type'     => 'text',
-							'required' => true,
-						],
-						[
-							'id'       => 'link_url',
-							'name'     => __( 'URL voor link', 'siw' ),
-							'type'     => 'url',
-							'required' => true,
-						],
-						[
-							'id'        => 'start_date',
-							'name'      => __( 'Startdatum', 'siw' ),
-							'type'      => 'date',
-							'required'  => true,
-						],
-						[
-							'id'        => 'end_date',
-							'name'      => __( 'Einddatum', 'siw' ),
-							'type'      => 'date',
-							'required'  => true,
-						],
-					],
-				],
-				[
-					'type'              => 'divider',
-				],
-				[
-					'id'                => 'show_sale_content', //TODO: preview van gekozen items
-					'name'              => __( 'Kortingsactie tonen', 'siw' ),
-					'label_description' => __( 'Indien de kortingsactie actief is', 'siw' ),
-					'type'              => 'switch',
-					'on_label'          => __( 'Ja', 'siw' ),
-					'off_label'         => __( 'Nee', 'siw'),
-				],
-				[
-					'type'              => 'divider',
-				],
-				[
-					'id'                => 'show_event_content',
-					'name'              => __( 'Evenement tonen', 'siw' ),
-					'label_description' => sprintf( __( 'Als er een evenement binnen %s dagen begint', 'siw' ), Topbar::EVENT_SHOW_DAYS_BEFORE ),
-					'type'              => 'switch',
-					'on_label'          => __( 'Ja', 'siw' ),
-					'off_label'         => __( 'Nee', 'siw'),
-				],
-				[
-					'type'              => 'divider',
-				],
-				[
-					'id'                => 'show_job_posting_content',
-					'name'              => __( 'Vacature tonen', 'siw' ),
-					'label_description' => __( 'Indien er een actieve vacature uitgelicht is', 'siw' ),
-					'type'              => 'switch',
-					'on_label'          => __( 'Ja', 'siw' ),
-					'off_label'         => __( 'Nee', 'siw'),
-				],
-			],
 		];
 
 		//Email

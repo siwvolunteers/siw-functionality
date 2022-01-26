@@ -5,23 +5,21 @@ namespace SIW\Modules;
 use SIW\Core\Template;
 use SIW\i18n;
 use SIW\Properties;
-use SIW\Util\CSS;
 
 /**
  * Topbar
  * 
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Topbar {
+
+	const STYLE_HANDLE = 'siw-topbar';
 
 	/** Toon het evenement x aantal dagen van te voren */
 	const EVENT_SHOW_DAYS_BEFORE = 14;
 
 	/** Verberg het evenement y aantal dagen van te voren */
 	const EVENT_HIDE_DAYS_BEFORE = 1;
-
-	/** Instellingen */
-	protected array $settings;
 
 	/** Inhoud van de topbar */
 	protected ?array $content;
@@ -38,9 +36,6 @@ class Topbar {
 			return;
 		}
 
-		//Instellingen ophalen
-		$self->settings = siw_get_option( 'topbar' );
-
 		//Content zetten
 		$self->content = $self->get_content();
 		if ( is_null( $self->content ) ) {
@@ -55,10 +50,7 @@ class Topbar {
 		Template::render_template(
 			'modules/topbar',
 			[
-				'hide_on_mobile_class' => CSS::HIDE_ON_MOBILE_CLASS,
-				'hide_on_tablet_class' => CSS::HIDE_ON_TABLET_CLASS,
 				'target'               => $this->content['link_target'] ?? '_self',
-				'intro'                => $this->content['intro'],
 				'link_url'             => $this->content['link_url'],
 				'link_text'            => $this->content['link_text'],
 
@@ -68,18 +60,15 @@ class Topbar {
 
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-topbar', SIW_ASSETS_URL . 'css/modules/siw-topbar.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( 'siw-topbar' );
+		wp_register_style( self::STYLE_HANDLE, SIW_ASSETS_URL . 'css/modules/siw-topbar.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::STYLE_HANDLE );
 	}
 
 	/** Haalt de inhoud op */
 	protected function get_content() : ?array {
-	
 		$content =
-			$this->get_page_content() ??
 			$this->get_event_content() ??
 			$this->get_sale_content() ??
-			$this->get_job_posting_content() ??
 			null;
 
 		return $content;
@@ -87,9 +76,6 @@ class Topbar {
 
 	/** Haalt de evenementen-inhoud op */
 	protected function get_event_content() : ?array {
-		if ( ! $this->settings['show_event_content'] ) {
-			return null;
-		}
 		
 		$upcoming_events = siw_get_upcoming_events(
 			[
@@ -111,37 +97,13 @@ class Topbar {
 		);
 
 		return [
-			'intro'     => __( 'Maak kennis met SIW.', 'siw' ),
 			'link_url'  => get_the_permalink( $event_id ),
 			'link_text' => $link_text,
 		];
 	}
 
-	/** Haalt de vacature-inhoud op */
-	protected function get_job_posting_content() : ?array {
-		if ( ! $this->settings['show_job_posting_content'] ) {
-			return null;
-		}
-
-		$jobs = siw_get_featured_job_postings();
-		if ( empty ( $jobs ) ) {
-			return null;
-		}
-		$job_id = $jobs[0];
-
-		$job_title = lcfirst( get_the_title( $job_id) );
-		return [
-			'intro'     => __( 'Word actief voor SIW.', 'siw' ),
-			'link_url'  => get_the_permalink( $job_id ),
-			'link_text' => sprintf( __( 'Wij zoeken een %s.', 'siw' ), $job_title ),
-		];
-	}
-
 	/** Haalt de kortingsactie-inhoud op */
 	protected function get_sale_content() : ?array {
-		if ( ! $this->settings['show_sale_content'] ) {
-			return null;
-		}
 
 		if ( ! siw_is_workcamp_sale_active() ) {
 			return null;
@@ -151,26 +113,8 @@ class Topbar {
 		$end_date = siw_format_date( siw_get_option( 'workcamp_sale.end_date' ), false );
 	
 		return [
-			'intro'     => __( 'Grijp je kans en ontvang korting!', 'siw' ),
 			'link_url'  => wc_get_page_permalink( 'shop' ),
 			'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_price ) ,
-		];
-	}
-
-	/** Undocumented function */
-	protected function get_page_content() {
-		if ( ! $this->settings['show_page_content'] ) {
-			return null;
-		}
-
-		if ( date( 'Y-m-d' ) < $this->settings['page_content']['start_date'] || date( 'Y-m-d' ) > $this->settings['page_content']['end_date'] ) {
-			return null;
-		}
-
-		return [
-			'intro'     => $this->settings['page_content']['intro'],
-			'link_url'  => $this->settings['page_content']['link_url'],
-			'link_text' => $this->settings['page_content']['link_text'],
 		];
 	}
 }

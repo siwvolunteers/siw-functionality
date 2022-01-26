@@ -27,15 +27,8 @@ abstract class Plato_Interface {
 	/** XML response van Plato */
 	protected \SimpleXMLElement $xml_response;
 
-	/** Logger-instantie */
-	protected \WC_Logger $logger;
-
-	/** Logger context */
-	protected array $logger_context;
-
 	/** Constructor */
 	public function __construct() {
-		$this->set_logger();
 		$this->set_webkey();
 		$this->set_endpoint_url();
 	}
@@ -58,17 +51,5 @@ abstract class Plato_Interface {
 	/** Voegt query argument toe aan endpoint URL */
 	protected function add_query_arg( string $key, string $value ) {
 		$this->endpoint_url = add_query_arg( $key, $value, $this->endpoint_url );
-	}
-
-	/** Zet (WooCommerce-)logger */
-	private function set_logger() {
-		$this->logger = wc_get_logger();
-		$source = sanitize_title( "siw-{$this->name}" );
-		$this->logger_context = [ 'source' => $source ];
-	}
-
-	/** Schrijft boodschap naar log */
-	public function log( string $level, string $message ) {
-		$this->logger->log( $level, $message, $this->logger_context );
 	}
 }

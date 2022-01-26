@@ -13,6 +13,8 @@ use SIW\Data\Continent;
  */
 class World_Map extends Element {
 
+	const STYLE_HANDLE = 'siw-world-map';
+
 	/** Bestandsnaam van wereldkaart */
 	protected $map_file = SIW_ASSETS_URL . 'images/maps/world.svg';
 
@@ -32,7 +34,7 @@ class World_Map extends Element {
 	protected float $height = 760;
 
 	/** {@inheritDoc} */
-	protected function get_id() : string {
+	protected static function get_type(): string {
 		return 'world-map';
 	}
 
@@ -67,17 +69,17 @@ class World_Map extends Element {
 		$code = $this->country->get_iso_code();
 		$inline_css = CSS::generate_inline_css(
 			[
-				'svg' => [
+				"#{$this->get_element_id()} svg" => [
 					'width' => '100%',
 					'height' => 'auto',
 				],
-				"#{$code} path, path#{$code}" => [
+				"#{$this->get_element_id()} #{$code} path, #{$this->get_element_id()} path#{$code}" => [
 					'fill' => $this->continent->get_color(),
 				],
 			]
 		);
-		wp_register_style( 'siw-world-map', false );
-		wp_enqueue_style( 'siw-world-map' );
-		wp_add_inline_style( 'siw-world-map', $inline_css );
+		wp_register_style( self::STYLE_HANDLE, false );
+		wp_enqueue_style( self::STYLE_HANDLE );
+		wp_add_inline_style( self::STYLE_HANDLE, $inline_css );
 	}
 }

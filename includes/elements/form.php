@@ -22,7 +22,7 @@ class Form extends Element {
 	protected \RW_Meta_Box $meta_box;
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
+	protected static function get_type(): string {
 		return 'form';
 	}
 

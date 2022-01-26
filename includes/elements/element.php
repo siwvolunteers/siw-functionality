@@ -11,14 +11,30 @@ use SIW\Core\Template;
  */
 abstract class Element {
 
-	/** Geeft id terug */
-	abstract protected function get_id() : string;
+	/** Uniek ID van element */
+	protected string $element_id;
+
+	/** Geeft type van element terug */
+	abstract protected static function get_type(): string;
 
 	/** Geeft template variabelen voor Mustache-template terug */
 	abstract protected function get_template_variables() : array;
 
+	/** Geeft uniek id voor element terug terug */
+	protected function get_element_id(): string {
+		return $this->element_id;
+	}
+
+	/** Geeft standaard css klasse voor element terug */
+	protected static function get_element_class(): string {
+		return "siw-" . static::get_type();
+	}
+
 	/** Init */
-	protected function __construct() {}
+	protected function __construct() {
+		$this->element_id = wp_unique_id( "siw-{$this::get_type()}-" );
+		$this->initialize();
+	}
 
 	/** Genereert element */
 	public static function create() {
@@ -30,9 +46,21 @@ abstract class Element {
 	public function generate() : string {
 		$this->enqueue_scripts();
 		$this->enqueue_styles();
+
+		$template_variables = wp_parse_args(
+			$this->get_template_variables(),
+			[
+				'element' => [
+					'id'    => $this->get_element_id(),
+					'class' => static::get_element_class(),
+					'type'  => static::get_type(),
+				],
+			]
+		);
+
 		return Template::parse_template(
-			"elements/{$this->get_id()}",
-			$this->get_template_variables()
+			"elements/{$this::get_type()}",
+			$template_variables
 		);
 	}
 
@@ -46,4 +74,7 @@ abstract class Element {
 
 	/** Voegt scripts toe */
 	protected function enqueue_styles() {}
+
+	/** Initialiseert element */
+	protected function initialize() {}
 }

@@ -2,7 +2,7 @@
 
 namespace SIW\External;
 
-use Adbar\Dot;
+use Pharaonic\DotArray\DotArray;
 use SIW\Helpers\HTTP_Request;
 
 /**
@@ -37,7 +37,7 @@ class Stop_Forum_Spam {
 	}
 
 	/** Check ip en e-mail bij SFS */
-	public function check(): Dot {
+	public function check(): DotArray {
 		$body = [
 			'json' => true
 		];
@@ -53,12 +53,11 @@ class Stop_Forum_Spam {
 			->post( $body );
 
 		if ( is_wp_error( $response ) || false == $response['success'] ) {
-			return new Dot();
+			return new DotArray();
 		}
 
-		$response = new Dot( $response );
-
-		$results = new Dot();
+		$response = new DotArray( $response );
+		$results = new DotArray();
 		if ( (bool) $response->has( 'email.confidence' ) ) {
 			$results->set('email', (float) $response->get( 'email.confidence') > self::SPAM_THRESHOLD);
 		}

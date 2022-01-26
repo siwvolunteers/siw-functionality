@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use Adbar\Dot;
+use Pharaonic\DotArray\DotArray;
 
 /**
  * Wrapper functions om MetaBox functies
@@ -33,7 +33,7 @@ function siw_meta( string $key, array $args = [], int $post_id = null ) {
 
 	unset( $keys[0]);
 	if ( ! empty( $keys ) ) {
-		$dot = new Dot( $value );
+		$dot = new DotArray( $value );
 		$key = implode( '.', $keys );
 		$value = $dot->get( $key );
 	}

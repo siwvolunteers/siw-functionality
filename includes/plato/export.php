@@ -36,7 +36,6 @@ abstract class Export extends Plato_Interface {
 		}
 		$this->data = $data;
 
-		$this->log( 'info', sprintf( 'Start %s', $this->name ) );
 		$this->generate_xml();
 		if ( ! $this->send_xml() ) {
 			return [
@@ -46,7 +45,6 @@ abstract class Export extends Plato_Interface {
 			];
 		}
 		$result = $this->process_xml();
-		$this->log( 'info', sprintf( 'Eind %s', $this->name ) );
 
 		return $result;
 	}

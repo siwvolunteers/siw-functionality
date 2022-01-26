@@ -4,6 +4,7 @@
 .siw-social .title {
   padding-bottom: 15px;
   font-weight: bold;
+  color: var(--siw-contrast-light);
 }
 .siw-social a {
   padding: 5px;

@@ -27,7 +27,6 @@ class Loader extends Class_Loader_Abstract {
 			Features::class,
 			Form::class,
 			Google_Maps::class,
-			Infobox::class,
 			Map::class,
 			Newsletter_Confirmation::class,
 			Organisation::class,

@@ -19,7 +19,7 @@ class Table extends Repeater {
 	protected array $footer = [];
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
+	protected static function get_type(): string {
 		return 'table';
 	}
 
@@ -36,19 +36,19 @@ class Table extends Repeater {
 	}
 
 	/** Zet klasse van table */
-	public function set_table_class( string $table_class ) : self {
+	public function set_table_class( string $table_class ): self {
 		$this->table_class = $table_class;
 		return $this;
 	}
 
 	/** Zet headers van tabel */
-	public function set_header( array $header ) : self {
+	public function set_header( array $header ): self {
 		$this->header = $header;
 		return $this;
 	}
 
 	/** Zet footer van tabel */
-	public function set_footer( array $footer ) : self {
+	public function set_footer( array $footer ): self {
 		$this->footer = $footer;
 		return $this;
 	}
