@@ -50,7 +50,7 @@ class Loader extends Class_Loader_Abstract {
 				"{$widget_folder}/{$file_base}/{$file_base}.php",
 				"\\{$class}"
 			);
-			//require_once "{$widget_folder}/{$file_base}/{$file_base}.php";
+			require_once "{$widget_folder}/{$file_base}/{$file_base}.php";
 		}
 		
 		add_filter( 'siteorigin_widgets_active_widgets', fn( $active_widgets ) => wp_parse_args( [ $id_base => true ], $active_widgets ) );
