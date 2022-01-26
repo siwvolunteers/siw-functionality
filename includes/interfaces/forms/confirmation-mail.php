@@ -9,8 +9,9 @@ namespace SIW\Interfaces\Forms;
  */
 interface Confirmation_Mail {
 
+	/** Onderwerp van bevestigingsmail */
 	public function get_confirmation_mail_subject(): string;
 
+	/** Inhoud van bevestigingsmail */
 	public function get_confirmation_mail_message(): string;
-
 }
