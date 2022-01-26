@@ -3,7 +3,7 @@
 namespace SIW\Widgets;
 
 /**
- * Widget met 
+ * Widget met bevesting voor aanmelding nieuwsbrief
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  * 
