@@ -15,7 +15,7 @@ use SIW\Elements\Google_Maps;
 class Product_Tabs {
 
 	/** Formulier */
-	const CONTACT_FORM_ID = 'contact_project';
+	const CONTACT_FORM_ID = 'enquiry_project';
 
 	/** Init */
 	public static function init() {
