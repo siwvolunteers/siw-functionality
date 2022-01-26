@@ -58,6 +58,7 @@ class Meta_Box {
 			case 'select':
 			case 'button_group':
 				$arg['enum'] = array_keys( $field['options'] );
+				$arg['type'] = wp_is_numeric_array( $field['options'] ) ? 'integer' : 'string';
 				break;
 		}
 
