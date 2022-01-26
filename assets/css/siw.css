@@ -722,16 +722,6 @@ html[lang=en-US] #footer-widgets {
   border-left-color: var(--siw-accent);
 }
 
-.so-widget-siw_infobox_widget .header {
-  display: inline-flex;
-}
-.so-widget-siw_infobox_widget .siw-icon {
-  margin-right: 10px;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: 10px;
-}
-
 /*--------------------------------------------------------------
 ## WooCommerce
 --------------------------------------------------------------*/
