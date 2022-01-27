@@ -11,9 +11,10 @@ namespace SIW\Elements;
  */
 class Accordion extends Repeater {
 
-	const SCRIPT_HANDLE = 'siw-tablist';
-	const STYLE_HANDLE = 'siw-tablist';
-	const A11Y_TABLIST_SCRIPT_HANLDE = 'a11y-tablist';
+	// Constantes voor asset handles
+	const SCRIPT_HANDLE = 'siw-accordion';
+	const STYLE_HANDLE = 'siw-accordion';
+	const ACCORDION_SCRIPT_HANDLE = 'accordion';
 
 	/** Versienummer */
 	const ACCORDION_VERSION = '1.1.0';
@@ -55,8 +56,8 @@ class Accordion extends Repeater {
 
 	/** Voegt scripts toe */
 	protected function enqueue_scripts() {
-		wp_register_script( self::A11Y_TABLIST_SCRIPT_HANLDE, SIW_ASSETS_URL . 'vendor/accordion/accordion.js', [], self::ACCORDION_VERSION, true );
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-accordion.js', [self::A11Y_TABLIST_SCRIPT_HANLDE], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ACCORDION_SCRIPT_HANDLE, SIW_ASSETS_URL . 'vendor/accordion/accordion.js', [], self::ACCORDION_VERSION, true );
+		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-accordion.js', [self::ACCORDION_SCRIPT_HANDLE], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( self::SCRIPT_HANDLE );
 	}
 

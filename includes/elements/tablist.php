@@ -11,9 +11,10 @@ namespace SIW\Elements;
  */
 class Tablist extends Repeater {
 	
+	// Constantes voor asset handles
 	const SCRIPT_HANDLE = 'siw-tablist';
 	const STYLE_HANDLE = 'siw-tablist';
-	const A11Y_TABLIST_SCRIPT_HANLDE = 'a11y-tablist';
+	const TABLIST_SCRIPT_HANDLE = 'tablist';
 
 	/** Versienummer */
 	const TABLIST_VERSION = '2.0.1';
@@ -32,8 +33,8 @@ class Tablist extends Repeater {
 
 	/** Voegt scripts toe */
 	protected function enqueue_scripts() {
-		wp_register_script( self::A11Y_TABLIST_SCRIPT_HANLDE, SIW_ASSETS_URL . 'vendor/tablist/tablist.js', [], self::TABLIST_VERSION, true );
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-tablist.js', [self::A11Y_TABLIST_SCRIPT_HANLDE], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::TABLIST_SCRIPT_HANDLE, SIW_ASSETS_URL . 'vendor/tablist/tablist.js', [], self::TABLIST_VERSION, true );
+		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-tablist.js', [self::TABLIST_SCRIPT_HANDLE], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( self::SCRIPT_HANDLE );
 	}
 
