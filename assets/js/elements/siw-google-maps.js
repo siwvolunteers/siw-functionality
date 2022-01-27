@@ -18,7 +18,6 @@ var siwGoogleMaps = (function () {
 	function init() {
 		//Zoek alle kaarten
 		var maps = document.querySelectorAll( '.siw-google-maps' );
-		console.log(maps);
 
 		//Intialiseer elke kaart
 		for ( var i=0, len = maps.length; i < len; i++ ) {

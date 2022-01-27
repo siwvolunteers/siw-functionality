@@ -14,7 +14,7 @@ class Accordion extends Repeater {
 	// Constantes voor asset handles
 	const SCRIPT_HANDLE = 'siw-accordion';
 	const STYLE_HANDLE = 'siw-accordion';
-	const ACCORDION_SCRIPT_HANDLE = 'accordion';
+	const ACCORDION_SCRIPT_HANDLE = 'a11y-accordion';
 
 	/** Versienummer */
 	const ACCORDION_VERSION = '1.1.0';

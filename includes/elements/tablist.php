@@ -14,7 +14,7 @@ class Tablist extends Repeater {
 	// Constantes voor asset handles
 	const SCRIPT_HANDLE = 'siw-tablist';
 	const STYLE_HANDLE = 'siw-tablist';
-	const TABLIST_SCRIPT_HANDLE = 'tablist';
+	const TABLIST_SCRIPT_HANDLE = 'a11y-tablist';
 
 	/** Versienummer */
 	const TABLIST_VERSION = '2.0.1';
