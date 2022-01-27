@@ -58,34 +58,49 @@ class Properties {
 	/** Maximum aantal jaarverslagen */
 	const MAX_ANNUAL_REPORTS = 5;
 
-	/** Inschrijfgeld Groepsproject (student) */
+	/** Fee voor STV-projecten */
+	const STV_FEE = 295;
+
+	/** Fee voor MTV-projecten */
+	const MTV_FEE = 375;
+
+	/** Fee voor LTV-projecten */
+	const LTV_FEE = 475;
+
+	/** Fee voor Nederlandse projecten */
+	const DUTCH_PROJECTS_FEE = 195;
+
+	/** Bedrag studentenkorting  */
+	const STUDENT_DISCOUNT_AMOUNT = 50;
+
+	/** @deprecated */
 	const WORKCAMP_FEE_STUDENT = 225;
 
-	/** Inschrijfgeld Groepsproject (regulier) */
+	/** @deprecated */
 	const WORKCAMP_FEE_REGULAR = 275;
 
-	/** Inschrijfgeld Groepsproject (student) - korting */
+	/** @deprecated */
 	const WORKCAMP_FEE_STUDENT_SALE = 149;
 
-	/** Inschrijfgeld Groepsproject (regulier) - korting */
+	/** @deprecated */
 	const WORKCAMP_FEE_REGULAR_SALE = 199;
 
-	/** Inschrijfgeld Op Maat (student) */
+	/** @deprecated */
 	const TAILOR_MADE_FEE_STUDENT = 349;
 
-	/** Inschrijfgeld Op Maat (regulier) */
+	/** @deprecated */
 	const TAILOR_MADE_FEE_REGULAR = 399;
 
-	/** Inschrijfgeld Op Maat (duo) */
+	/** @deprecated */
 	const TAILOR_MADE_FEE_DUO = 550;
 
-	/** Inschrijfgeld Op Maat (familie) */
+	/** @deprecated */
 	const TAILOR_MADE_FEE_FAMILY = 750;
 
-	/** Inschrijfgeld Op Maat (student) - korting */
+	/** @deprecated */
 	const TAILOR_MADE_FEE_STUDENT_SALE = 324;
 
-	/** Inschrijfgeld Op Maat (regulier) - korting */
+	/** @deprecated */
 	const TAILOR_MADE_FEE_REGULAR_SALE = 374;
 
 	/** Inschrijfgeld Schoolproject */
