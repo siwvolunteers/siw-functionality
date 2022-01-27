@@ -114,7 +114,7 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
 		sprintf( __( 'Bedankt voor je aanmelding voor de Infodag van %s!', 'siw' ), '{{ info_day_date }}' )  . SPACE .
 		__( 'Onderaan deze mail staan de gegevens die je hebt ingevuld.', 'siw' ) . BR .
-		__( 'Uiterlijk één week van te voren ontvang je de uitnodiging met de definitieve locatie en tijden.', 'siw' ) . BR2 .
+		__( 'Een paar dagen van tevoren ontvang je de uitnodiging met de definitieve locatie en tijden.', 'siw' ) . BR2 .
 		__( 'Als je nog vragen hebt, neem dan gerust contact met ons op.', 'siw' );
 	}
 
