@@ -1,11 +1,11 @@
 nav.breadcrumb {
   padding: 10px;
-  background-color: rgba(63, 63, 63, 0.75);
-  font-size: 0.9em;
-  text-shadow: var(--siw-text-shadow);
+  background-color: var(--siw-base);
+  box-shadow: var(--siw-box-shadow-overlay);
   width: fit-content;
 }
 nav.breadcrumb ol.breadcrumb {
+  color: var(--siw-contrast);
   margin: 0;
   list-style: none;
 }
@@ -13,10 +13,9 @@ nav.breadcrumb ol.breadcrumb li {
   display: inline-block;
 }
 nav.breadcrumb ol.breadcrumb li a {
-  color: var(--siw-base);
+  color: var(--siw-contrast);
 }
 nav.breadcrumb ol.breadcrumb li + li:before {
   padding: 0.5em;
-  color: var(--siw-base);
   content: ">";
 }

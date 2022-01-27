@@ -115,7 +115,7 @@
 ## Algemeen
 --------------------------------------------------------------*/
 :root {
-  --siw-text-shadow: 1px 1px var(--siw-contrast);
+  --siw-text-shadow: 2px 2px 2px var(--siw-contrast);
   --siw-box-shadow-overlay: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
   --siw-box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.5);
   --siw-box-shadow-hover: 2px 2px 5px 4px rgba(0, 0, 0, 0.5);
@@ -960,6 +960,9 @@ span.product-badge.featured-badge {
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li.active a {
   color: var(--siw-base);
+}
+.woocommerce div.product .woocommerce-tabs .panel {
+  max-width: 85ch;
 }
 .woocommerce div.product .woocommerce-product-attributes {
   border-top: none;

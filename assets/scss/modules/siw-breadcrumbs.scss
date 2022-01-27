@@ -1,21 +1,20 @@
 nav.breadcrumb {
 	padding: 10px;
-	background-color: rgba(63,63,63,0.75);
-	font-size: 0.9em;
-	text-shadow: var(--siw-text-shadow);
+	background-color: var(--siw-base);
+	box-shadow: var(--siw-box-shadow-overlay);
 	width: fit-content;
 	ol.breadcrumb {
+		color: var(--siw-contrast);
 		margin:0;
 		list-style: none;
 		li {
 			display: inline-block;
 			a {
-				color: var(--siw-base);
+				color: var(--siw-contrast);
 			}
 		}
 		li+li:before {
 			padding: 0.5em;
-			color: var(--siw-base);
 			content: "\003E";
 		}
 	}
