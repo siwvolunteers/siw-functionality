@@ -110,7 +110,7 @@ class Archive_Header {
 		return $text;
 	}
 	/**
-	*	tijdelijke alert voor europareizen
+	*	alert text todo: bij instellingen opnemen
 	*/
 	protected function get_alert_text() : ?string {
 		$text = "";
@@ -118,13 +118,7 @@ class Archive_Header {
 			$category_name = get_queried_object()->name;
 			if($category_name == "Europa")
 			{
-				$text .= SPACE .
-				__('Als SIW zenden wij uit naar landen die op "groen" of "geel" staan.', 'siw' ) . SPACE .
-				__('Actuele informatie is te vinden op de website Nederland wereldwijd van de Rijksoverheid <a href="https://www.nederlandwereldwijd.nl/reizen/reisadviezen">reisadviezen overheid</a>','siw') .SPACE .
-				__('Je hoeft nu niet direct te betalen.','siw') .SPACE .
-				__('Wij kijken na aanmelding of het project doorgaat en of je geplaatst kan worden.','siw') .SPACE .
-				__('Pas als het zeker is dat je ook daadwerkelijk naar de plaats van bestemming kan afreizen, doe je de betaling aan SIW. Niet eerder!','siw') .SPACE .
-				__('Mocht het door jou gekozen project niet doorgaan, dan kunnen we natuurlijk samen kijken naar een ander gelijksoortig project waaraan je wel kunt deelnemen.','siw') .SPACE;
+				$text .= ''; // tijdelijk tekst voor europareizen verwijderd.
 			}
 		}
 		return($text);
