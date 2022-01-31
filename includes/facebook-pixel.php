@@ -22,12 +22,17 @@ class Facebook_Pixel {
 
 	/** Voeg script toe */
 	public function enqueue_script() {
+		$pixel_id = siw_get_option( 'facebook.pixel_id' );
+		if ( null === $pixel_id ) {
+			return;
+		}
+
 		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/siw-facebook-pixel.js', [ 'js-cookie' ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			self::SCRIPT_HANDLE,
 			'siw_facebook_pixel',
 			[
-				'pixel_id'    => siw_get_option( 'facebook.pixel_id', '' ),
+				'pixel_id'    => $pixel_id,
 				'cookie_name' => Cookie_Notice::COOKIE_NAME,
 			]
 		);

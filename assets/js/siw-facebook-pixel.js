@@ -5,6 +5,7 @@
  */
 
 var siwFacebookPixel = (function () {
+
 	/* Public methodes */
 	return {
 		init: init,
@@ -29,20 +30,18 @@ var siwFacebookPixel = (function () {
 		fbq('track', 'PageView');
 	}
 
+	/** Eventueel consent zetten */
 	function maybeGrantConsent() {
-		console.log( 'hoi');
 		if ( _isConsentGiven() ) {
 			fbq( 'consent', 'grant' );
 		}
 	}
-
+	/** Bepaal op basis van cookie of toestemming gegeven is voor marketing cookies  */
 	function _isConsentGiven() {
 		cookieSettings = Cookies.get(siw_facebook_pixel.cookie_name );
-		console.log(cookieSettings);
 		if ( 'string' !== typeof cookieSettings ) {
 			return false;
 		}
-		console.log(JSON.parse( cookieSettings ).marketing === '1');
 		return JSON.parse( cookieSettings ).marketing === '1';
 	}
 
