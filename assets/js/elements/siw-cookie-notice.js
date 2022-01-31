@@ -48,7 +48,7 @@ var siwCookieNotice = (function () {
 		document.querySelector( '#' + siw_cookie_notice.notice_id ).setAttribute( 'hidden', 'hidden' );
 
 
-		if ( 'function' == typeof siwFacebookPixel.maybeGrantConsent) {
+		if ( 'undefined' !== typeof( siwFacebookPixel ) && 'function' == typeof( siwFacebookPixel.maybeGrantConsent ) ) {
 			siwFacebookPixel.maybeGrantConsent();
 		}
 	};
