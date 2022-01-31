@@ -72,6 +72,23 @@ class Configuration implements Option_Interface {
 
 		//API
 		$fields[] = [
+			'id'        => 'facebook',
+			'type'      => 'group',
+			'tab'       => 'api',
+			'fields'    => [
+				[
+					'type'      => 'heading',
+					'name'      => __( 'Facebook', 'siw' ),
+				],
+				[
+					'id'        => 'pixel_id',
+					'name'      => __( 'Pixel ID', 'siw' ),
+					'type'      => 'text',
+					'size'      => 60,
+				],
+			],
+		];
+		$fields[] = [
 			'id'        => 'google_analytics',
 			'type'      => 'group',
 			'tab'       => 'api',

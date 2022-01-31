@@ -683,7 +683,7 @@ form.rwmb-form input[type=radio] {
 form input[type=radio]:disabled,
 form.rwmb-form input[type=checkbox]:disabled,
 form.rwmb-form input[type=radio]:disabled {
-    opacity: 0.7;
+    opacity: 0.3;
   }
   form input[type=checkbox]:checked:after,
 form input[type=radio]:checked:after,

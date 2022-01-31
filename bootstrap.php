@@ -151,6 +151,7 @@ class Bootstrap {
 				'Animation',
 				'Email',
 				'Cookie_Notice',
+				'Facebook_Pixel',
 			]
 		);
 	}

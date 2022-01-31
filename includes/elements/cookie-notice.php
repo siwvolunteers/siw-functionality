@@ -10,17 +10,12 @@ namespace SIW\Elements;
  */
 class Cookie_Notice extends Element {
 
+	// Asset handles
 	const SCRIPT_HANDLE = 'siw-cookie-notice';
 	const STYLE_HANDLE = 'siw-cookie-notice';
 
-	/** HTML id van cookie notice */
-	const NOTICE_ID = 'siw-cookie-notification';
-
-	/** HTML id van cookie knop */
-	const BUTTON_ID = 'siw-cookie-consent';
-
 	/** Cookienaam */
-	const COOKIE_NAME = 'siw_cookie_consent';
+	const COOKIE_NAME = 'siw_cookie_choices';
 
 	/** Levensduur van cookie in dagen */
 	const COOKIE_LIFESPAN = 365;
@@ -33,11 +28,11 @@ class Cookie_Notice extends Element {
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
-			'notice_id' => self::NOTICE_ID,
-			'button_id' => self::BUTTON_ID,
 			'i18n'      => [
 				'cookie_text' => __( 'We gebruiken cookies om ervoor te zorgen dat onze website optimaal werkt en om het gebruik van onze website te analyseren. Door gebruik te blijven maken van onze website, ga je hiermee akkoord.', 'siw-cookie-notice' ),
-				'button_text' => __( 'Ik ga akkoord', 'siw-cookie-notice' ),
+				'i_agree'     => __( 'Ik ga akkoord', 'siw-cookie-notice' ),
+				'analytical'  => __( 'Analytisch', 'siw' ),
+				'marketing'   => __( 'Marketing', 'siw' ),
 			],
 		];
 	}
@@ -52,10 +47,8 @@ class Cookie_Notice extends Element {
 				'cookie' => [
 					'name'    => self::COOKIE_NAME,
 					'expires' => self::COOKIE_LIFESPAN,
-					'value'   => 1,
 				],
-				'notice_id'   => self::NOTICE_ID,
-				'button_id'   => self::BUTTON_ID,
+				'notice_id'   => $this->get_element_id(),
 			]
 		);
 		wp_enqueue_script( self::SCRIPT_HANDLE );
