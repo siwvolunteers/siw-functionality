@@ -5,8 +5,7 @@ namespace SIW;
 /**
  * Properties
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Properties {
 
@@ -59,25 +58,25 @@ class Properties {
 	const MAX_ANNUAL_REPORTS = 5;
 
 	/** Fee voor STV-projecten */
-	const STV_FEE = 295;
+	const STV_PROJECT_FEE = 295;
 
 	/** Fee voor MTV-projecten */
-	const MTV_FEE = 375;
+	const MTV_PROJECT_FEE = 375;
 
 	/** Fee voor LTV-projecten */
-	const LTV_FEE = 475;
+	const LTV_PROJECT_FEE = 475;
 
 	/** Fee voor Nederlandse projecten */
-	const DUTCH_PROJECTS_FEE = 195;
+	const DUTCH_PROJECT_FEE = 195;
 
 	/** Bedrag studentenkorting  */
 	const STUDENT_DISCOUNT_AMOUNT = 50;
 
 	/** @deprecated */
-	const WORKCAMP_FEE_STUDENT = 225;
+	const WORKCAMP_FEE_STUDENT = self::STV_PROJECT_FEE - self::STUDENT_DISCOUNT_AMOUNT;
 
 	/** @deprecated */
-	const WORKCAMP_FEE_REGULAR = 275;
+	const WORKCAMP_FEE_REGULAR = self::STV_PROJECT_FEE;
 
 	/** @deprecated */
 	const WORKCAMP_FEE_STUDENT_SALE = 149;
