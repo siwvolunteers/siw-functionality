@@ -29,8 +29,8 @@ class Cookie_Notice extends Element {
 	protected function get_template_variables(): array {
 		return [
 			'i18n'      => [
-				'cookie_text' => __( 'We gebruiken cookies om ervoor te zorgen dat onze website optimaal werkt en om het gebruik van onze website te analyseren. Door gebruik te blijven maken van onze website, ga je hiermee akkoord.', 'siw-cookie-notice' ),
-				'i_agree'     => __( 'Ik ga akkoord', 'siw-cookie-notice' ),
+				'cookie_text' => __( 'We gebruiken cookies om ervoor te zorgen dat onze website optimaal werkt en om het gebruik van onze website te analyseren. Door gebruik te blijven maken van onze website, ga je hiermee akkoord.', 'siw' ),
+				'i_agree'     => __( 'Ik ga akkoord', 'siw' ),
 				'analytical'  => __( 'Analytisch', 'siw' ),
 				'marketing'   => __( 'Marketing', 'siw' ),
 			],
