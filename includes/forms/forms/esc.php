@@ -37,7 +37,7 @@ class ESC implements Form_Interface, Confirmation_Mail_Interface, Notification_M
 				'name' => __( 'Achternaam', 'siw' ),
 			],
 			[
-				'id'          => 'geboortedatum',
+				'id'          => 'date_of_birth',
 				'type'        => 'text',
 				'name'        => __( 'Geboortedatum', 'siw' ),
 				'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
