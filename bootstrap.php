@@ -175,7 +175,6 @@ class Bootstrap {
 			[
 				'Event',
 				'Job_Posting',
-				'Quote',
 				'Story',
 				'TM_Country'
 			]
