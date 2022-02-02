@@ -81,7 +81,7 @@ class Quote extends Widget {
 		$blockquote = Blockquote::create()
 			->set_quote( $quote['quote'] )
 			->set_name( $quote['name']) 
-			->set_source( "{$quote['project_type']} {$quote['country']}" );
+			->set_source( "{$quote['project_type']} | {$quote['country']}" );
 
 		return [
 			'content' => $blockquote->generate()
