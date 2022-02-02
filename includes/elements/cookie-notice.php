@@ -15,7 +15,7 @@ class Cookie_Notice extends Element {
 	const STYLE_HANDLE = 'siw-cookie-notice';
 
 	/** Cookienaam */
-	const COOKIE_NAME = 'siw_cookie_choices';
+	const COOKIE_NAME = 'siw_cookie';
 
 	/** Levensduur van cookie in dagen */
 	const COOKIE_LIFESPAN = 365;

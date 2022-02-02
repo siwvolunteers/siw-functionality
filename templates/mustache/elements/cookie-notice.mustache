@@ -1,17 +1,12 @@
 <div id="{{ element.id }}" class="{{ element.class }}" hidden>
 	<form>
 		<div class="grid-container">
-			<div class="grid-50">
+			<div class="grid-80">
 				{{ i18n.cookie_text }}
 			</div>
-			<div class="grid-15">
-				<label><input type="checkbox" disabled checked/>{{ i18n.analytical }}</label>
-				<input type="hidden" name="analytical" value="1"/>
-			</div>
-			<div class="grid-15">
-				<label><input type="checkbox" id="marketing" name="marketing" value="1" checked/>{{ i18n.marketing }}</label>
-			</div>
+
 			<div class="grid-20">
+				<input type="hidden" name="analytical" value="1"/>
 				<button type="submit" class="hide-if-no-js" name="submit">{{ i18n.i_agree }}</button>
 			</div>
 		</div>
