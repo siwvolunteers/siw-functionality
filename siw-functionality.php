@@ -9,14 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * SIW Functionaliteit
  *
- * @copyright   2017-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright   2017-2022 SIW Internationale Vrijwilligersprojecten
  * @license     GPL-2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       SIW Functionaliteit
  * Plugin URI:        https://github.com/siwvolunteers/siw-functionality
  * Description:       Extra functionaliteit t.b.v website SIW
- * Version:           3.4.9
+ * Version:           3.4.10
  * Author:            SIW Internationale Vrijwilligersprojecten
  * Author URI:        https://www.siw.nl
  * Text Domain:       siw
