@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\Core\Template;
+use SIW\Helpers\Template;
 
 /**
  * Class om een element te genereren
@@ -43,7 +43,7 @@ abstract class Element {
 	}
 
 	/** Genereert element */
-	public function generate() : string {
+	public function generate(): string {
 		$this->enqueue_scripts();
 		$this->enqueue_styles();
 
@@ -58,10 +58,10 @@ abstract class Element {
 			]
 		);
 
-		return Template::parse_template(
-			"elements/{$this::get_type()}",
-			$template_variables
-		);
+		return Template::create()
+			->set_template( "elements/{$this::get_type()}" )
+			->set_context( $template_variables )
+			->parse_template();
 	}
 
 	/** Rendert repeater */
