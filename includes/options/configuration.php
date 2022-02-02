@@ -393,11 +393,6 @@ class Configuration implements Option_Interface {
 			'clone'      => true,
 			'add_button' => __( 'User agent toevoegen', 'siw' ),
 		];
-		$fields[] = [
-			'type'       => 'heading',
-			'tab'        => 'blacklists',
-			'name'       => __( 'Domein blacklist', 'siw' ),
-		];
 
 		//Overig
 		$fields[] = [
