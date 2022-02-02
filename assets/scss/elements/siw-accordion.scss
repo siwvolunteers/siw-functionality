@@ -1,7 +1,5 @@
-@import "../partials/_variables.scss";
-
 .siw-accordion {
-	max-width: $mobile-width;
+	max-width: fit-content;
 	h5 {
 		margin-top:1px;
 		margin-bottom:1px;
@@ -10,7 +8,7 @@
 			width: 100%;
 			display: block;
 			padding: 10px;
-			border: solid 3px --var(--siw-contrast);
+			border: solid 3px var(--siw-contrast);
 			cursor: pointer;
 	
 			&:after {
@@ -21,7 +19,7 @@
 			}
 
 			&[aria-expanded="true"] {
-				background-color: --var(--siw-contrast);
+				background-color: var(--siw-contrast);
 				color: var(--siw-base);
 				&:after {
 					content: "-";
@@ -32,7 +30,7 @@
 	}
 
 	.panel {
-		max-width: 85ch; //TODO: caniuse?
+		max-width: 85ch;
 		overflow: hidden;
 		transition: max-height 0.3s ease;
 		&[aria-hidden=true] {

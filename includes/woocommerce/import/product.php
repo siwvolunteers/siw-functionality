@@ -234,7 +234,9 @@ class Product {
 		$this->sustainable_development_goals = [];
 		$goals = wp_parse_slug_list( $this->plato_project->get_sdg_prj() );
 		foreach ( $goals as $goal_slug ) {
-			//TODO: continue als slug = 0
+			if ( '0' === $goal_slug ) {
+				continue;
+			}
 			$goal = siw_get_sustainable_development_goal( $goal_slug );
 			if ( ! is_a( $goal, Sustainable_Development_Goal::class ) ) {
 				Logger::warning( sprintf( 'SDG met code %s niet gevonden', $goal_slug ), 'Importeren projecten' );

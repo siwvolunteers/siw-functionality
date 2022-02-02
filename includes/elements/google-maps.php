@@ -7,11 +7,15 @@ use SIW\Util\CSS;
 /**
  * Google Maps kaart
  * 
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  * 
  * @see       https://developers.google.com/maps/documentation/javascript/tutorial
  */
 class Google_Maps extends Element {
+
+	const SCRIPT_HANDLE = 'siw-google-maps';
+	const STYLE_HANDLE = 'siw-google-maps';
+	const GOOGLE_MAPS_SCRIPT_HANDLE = 'google-maps';
 
 	/** URL voor Google Maps API */
 	const API_URL = 'https://maps.googleapis.com/maps/api/js';
@@ -54,22 +58,19 @@ class Google_Maps extends Element {
 	protected bool $fullscreen_control = false;
 
 	/** Init */
-	protected function __construct() {
+	protected function initialize() {
 		$this->api_key = siw_get_option( 'google_maps.api_key' );
-		$this->enqueue_scripts();
-		$this->enqueue_styles();
 		add_filter( 'siw_preconnect_urls', [ $this, 'add_urls'] );
 	}
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
+	protected static function get_type(): string {
 		return 'google-maps';
 	}
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
-			'id'      => uniqid( 'siw-google-map-' ),
 			'options' => [
 				'center'            => $this->center,
 				'zoom'              => $this->zoom,
@@ -85,73 +86,73 @@ class Google_Maps extends Element {
 	}
 
 	/** Creëer map */
-	public static function create() : self {
+	public static function create(): self {
 		$self = new self();
 		return $self;
 	}
 
 	/** Zet hoogte van de kaart */
-	protected function set_height( int $height ) : self {
+	protected function set_height( int $height ): self {
 		$this->height = $height;
 		return $this;
 	}
 
 	/** Zet zoom-niveau */
-	public function set_zoom( int $zoom ) : self {
+	public function set_zoom( int $zoom ): self {
 		$this->zoom = $zoom;
 		return $this;
 	}
 
 	/** Zet zoom-control */
-	public function set_zoom_control( bool $zoom_control ) : self {
+	public function set_zoom_control( bool $zoom_control ): self {
 		$this->zoom_control = $zoom_control;
 		return $this;
 	}
 
 	/** Zet map type control */
-	public function set_map_type_control( bool $map_type_control ) : self {
+	public function set_map_type_control( bool $map_type_control ): self {
 		$this->map_type_control = $map_type_control;
 		return $this;
 	}
 
 	/** Zet scale control */
-	public function set_scale_control( bool $scale_control ) : self {
+	public function set_scale_control( bool $scale_control ): self {
 		$this->scale_control = $scale_control;
 		return $this;
 	}
 
 	/** Zet street view control */
-	public function set_street_view_control( bool $street_view_control ) : self {
+	public function set_street_view_control( bool $street_view_control ): self {
 		$this->street_view_control = $street_view_control;
 		return $this;
 	}
 
 	/** Zet rotate control */
-	public function set_rotate_control( bool $rotate_control ) : self {
+	public function set_rotate_control( bool $rotate_control ): self {
 		$this->rotate_control = $rotate_control;
 		return $this;
 	}
 
 	/** Zet fullscreen control */
-	public function set_fullscreen_control( bool $fullscreen_control ) : self {
+	public function set_fullscreen_control( bool $fullscreen_control ): self {
 		$this->fullscreen_control = $fullscreen_control;
 		return $this;
 	}
 
 	/** Zet het midden van de kaart */
-	public function set_center( float $lat, float $lng ) : self {
+	public function set_center( float $lat, float $lng ): self {
 		$this->center = [ 'lat' => $lat, 'lng' => $lng ];
 		return $this;
 	}
 
 	/** Zet het midden van de kaart op basis van een locatie */
-	public function set_location_center( string $location ) : self {
+	public function set_location_center( string $location ): self {
 		$this->center = $location;
 		return $this;
 	}
 
 	/** Voegt marker toe */
-	public function add_marker( float $lat, float $lng, string $title, string $description = '' ) : self {
+	public function add_marker( float $lat, float $lng, string $title, string $description = '' ): self {
 		if ( ! isset( $this->center ) ) {
 			$this->set_center( $lat, $lng );
 		}
@@ -164,7 +165,7 @@ class Google_Maps extends Element {
 	}
 
 	/** Voegt marker op locatie toe */
-	public function add_location_marker( string $location, string $title, string $description = '' ) : self {
+	public function add_location_marker( string $location, string $title, string $description = '' ): self {
 		if ( ! isset( $this->center ) ) {
 			$this->set_location_center( $location );
 		}
@@ -181,23 +182,23 @@ class Google_Maps extends Element {
 		$google_maps_url = add_query_arg( [
 			'key'      => $this->api_key,
 		], self::API_URL );
-		wp_enqueue_script( 'google-maps', $google_maps_url, [], null, true );
-		wp_enqueue_script( 'siw-google-maps', SIW_ASSETS_URL . 'js/elements/siw-google-maps.js', [ 'google-maps'], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::GOOGLE_MAPS_SCRIPT_HANDLE, $google_maps_url, [], null, true );
+		wp_enqueue_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-google-maps.js', [ self::GOOGLE_MAPS_SCRIPT_HANDLE ], SIW_PLUGIN_VERSION, true );
 	}
 
 	/** Voegt inline styling toe */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-google-maps', false );
-		wp_enqueue_style( 'siw-google-maps' );
+		wp_register_style( self::STYLE_HANDLE, false );
+		wp_enqueue_style( self::STYLE_HANDLE );
 
 		$inline_style = CSS::generate_inline_css( [
-			'.siw-google-map' => [ 'height' => "{$this->height}px" ],
+			"#{$this->get_element_id()}" => [ 'height' => "{$this->height}px" ],
 		]);
-		wp_add_inline_style( 'siw-google-maps', $inline_style );
+		wp_add_inline_style( self::STYLE_HANDLE, $inline_style );
 	}
 
 	/** Voegt url's toe t.b.v. DNS-prefetch en preconnect TODO: werkt pas als de constructor eerder aangeroepen wordt. */
-	public function add_urls( array $urls ) : array {
+	public function add_urls( array $urls ): array {
 		$urls[] = 'maps.googleapis.com';
 		$urls[] = 'maps.google.com';
 		$urls[] = 'maps.gstatic.com';

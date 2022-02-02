@@ -8,5 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'Spatie\\Enum\\' => array($vendorDir . '/spatie/enum/src'),
     'Spatie\\ArrayToXml\\' => array($vendorDir . '/spatie/array-to-xml/src'),
-    'Adbar\\' => array($vendorDir . '/adbario/php-dot-notation/src'),
+    'Pharaonic\\DotArray\\' => array($vendorDir . '/pharaonic/php-dot-array/src'),
 );

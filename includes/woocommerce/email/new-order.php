@@ -5,8 +5,7 @@ namespace SIW\WooCommerce\Email;
 /**
  * Notificatiemail voor nieuwe aanmelding
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class New_Order {
 
@@ -29,7 +28,7 @@ class New_Order {
 
 	/** Past ontvanger aan */
 	public function set_recipient() : string {
-		return siw_get_email_settings( 'workcamp')['email'];
+		return siw_get_email_settings( 'workcamp' )->get_notification_mail_recipient();
 	}
 
 	/** Past onderwerp aan */

@@ -7,8 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
 {
     public static $files = array (
-        'd767e4fc2dc52fe66584ab8c6684783e' => __DIR__ . '/..' . '/adbario/php-dot-notation/src/helpers.php',
         '6168384990757e5fc380d01d460961a8' => __DIR__ . '/..' . '/kallookoo/wp_parse_args_recursive/src/wp-parse-args-recursive.php',
+        'ba75162b0a7adabdce2c95bb9e844752' => __DIR__ . '/..' . '/pharaonic/php-dot-array/src/helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -17,9 +17,9 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
             'Spatie\\Enum\\' => 12,
             'Spatie\\ArrayToXml\\' => 18,
         ),
-        'A' => 
+        'P' => 
         array (
-            'Adbar\\' => 6,
+            'Pharaonic\\DotArray\\' => 19,
         ),
     );
 
@@ -32,9 +32,9 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         array (
             0 => __DIR__ . '/..' . '/spatie/array-to-xml/src',
         ),
-        'Adbar\\' => 
+        'Pharaonic\\DotArray\\' => 
         array (
-            0 => __DIR__ . '/..' . '/adbario/php-dot-notation/src',
+            0 => __DIR__ . '/..' . '/pharaonic/php-dot-array/src',
         ),
     );
 

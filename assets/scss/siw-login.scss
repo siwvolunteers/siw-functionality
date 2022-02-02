@@ -1,7 +1,7 @@
-@import "partials/_variables.scss";
+@use "partials/variables" as variables;
 
-html{
-	background-image: url('#{$assets-path}/images/login/background-greyscale.jpg');
+html {
+	background-image: url('#{variables.$assets-path}/images/login/background-greyscale.jpg');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center;
@@ -11,15 +11,15 @@ html{
 		background: transparent;
 
 		h1 a {
-			background-image: url('#{$assets-path}/images/login/logo.png');
+			background-image: url('#{variables.$assets-path}/images/login/logo.png');
 			background-size: contain;
 			width: auto;
 		}
 		.message {
 			border-left-color: #444;
 		}
-		form{
-			input[type="text"], input[type="password"]{
+		form {
+			input[type="text"], input[type="password"] {
 				border-radius:0;
 				border-color: #444;
 			}
@@ -28,9 +28,11 @@ html{
 				background-color: #fff;
 				border: 2px solid #444;
 				color: #444;
-				border-radius:0;
+				border-radius: 0;
 				transition: all 0.3s linear 0s;
-				&:hover, &:active{
+				&:hover,
+				&:active,
+				&:focus {
 					border: 2px solid #444;
 					background-color: #444;
 					color: #fff;
@@ -38,16 +40,16 @@ html{
 			}
 		}
 
-		#nav a{
+		#nav a {
 			color:#fff;
 			font-weight: bold;
-			&:hover{
+			&:hover {
 				color: #fff;
 				text-decoration: underline;
 			}
 		}
 	
-		p#backtoblog{
+		p#backtoblog {
 			display: none;
 		}
 	}

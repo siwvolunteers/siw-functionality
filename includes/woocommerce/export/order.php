@@ -8,8 +8,7 @@ use SIW\Properties;
 /**
  * Exporteert aanmelding naar Plato
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Order {
 
@@ -22,15 +21,14 @@ class Order {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_filter( 'woocommerce_order_actions', [ $self, 'add_order_action'] );
+		add_filter( 'woocommerce_order_actions', [ $self, 'add_order_action'], 10, 2 );
 		add_action( 'woocommerce_order_action_siw_export_to_plato', [ $self, 'export_order'] );
 		add_action( 'woocommerce_order_status_processing', [ $self, 'export_order'] );
 	}
 
 	/** Voeg orderactie voor export naar Plato toe */
-	public function add_order_action( array $actions ) : array {
-		global $theorder;
-		if ( $theorder->is_paid() ) {
+	public function add_order_action( array $actions, \WC_Order $order ): array {
+		if ( $order->is_paid() ) {
 			$actions['siw_export_to_plato'] = __( 'Exporteer naar PLATO', 'siw' );
 		}
 		return $actions;

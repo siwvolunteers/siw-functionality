@@ -8,33 +8,22 @@ use SIW\Data\Country;
  * Evenementen
  * 
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.0
  */
 class Quote extends Type {
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $post_type = 'quote';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected bool $public = false;
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $menu_icon = 'dashicons-format-quote';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected string $slug = 'quotes';
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function get_meta_box_fields() : array {
 		$meta_box_fields = [
 			[
@@ -66,9 +55,7 @@ class Quote extends Type {
 		return $meta_box_fields;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function get_labels() : array {
 		$labels = [
 			'name'          => __( 'Quotes', 'siw' ),
@@ -83,9 +70,7 @@ class Quote extends Type {
 		return $labels;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function get_taxonomies() : array {
 		$taxonomies['continent'] = [
 			'labels' => [
@@ -122,9 +107,7 @@ class Quote extends Type {
 		return $taxonomies;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	protected function generate_title(array $data, array $postarr): string {
 		return sprintf(
 			'%s | %s %s',
@@ -133,5 +116,4 @@ class Quote extends Type {
 			siw_get_country( $postarr['country'] )->get_name()
 		);
 	}
-
 }

@@ -2,8 +2,7 @@
 
 /**
  * @file      Functies t.b.v. Google Analytics
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 
 var siwGoogleAnalytics = (function () {
@@ -14,9 +13,7 @@ var siwGoogleAnalytics = (function () {
 		trackFormSubmission: trackFormSubmission
 	};
 
-	/**
-	 * Voegt listeners toe
-	 */
+	/** Voegt listeners toe */
 	function init() {
 
 		var tracking_links = document.querySelectorAll( '[data-ga-track="1"]' );
@@ -50,12 +47,12 @@ var siwGoogleAnalytics = (function () {
 	}
 
 	/**
-	 * Stuurt GA event bij het versturen van een Caldera Form
+	 * Stuurt GA event bij het versturen van een Formulier
 	 *
-	 * @param {*} obj
+	 * @param {string} form_id
 	 */
-	function trackFormSubmission( obj ) {
-		ga( 'send', 'event', obj.form_id, 'Verzenden' );
+	function trackFormSubmission( form_id ) {
+		ga( 'send', 'event', 'form', 'send', form_id );
 	}
 
 	/**

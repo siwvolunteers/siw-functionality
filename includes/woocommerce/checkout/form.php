@@ -5,8 +5,7 @@ namespace SIW\WooCommerce\Checkout;
 /**
  * WooCommerce checkout formulier
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Form {
 
@@ -15,19 +14,18 @@ class Form {
 		$self = new self();
 		add_action( 'wp_enqueue_scripts', [ $self, 'add_postcode_script' ] );
 		add_filter( 'woocommerce_form_field_args', [ $self, 'add_form_field_classes' ] );
-		add_filter( 'woocommerce_form_field_checkbox', [ $self, 'add_form_field_markup' ] );
 		add_action( 'woocommerce_multistep_checkout_before_order_info', [ $self, 'show_checkout_partner_fields'] );
 		add_filter( 'woocommerce_checkout_cart_item_quantity', '__return_empty_string' );
 	}
 
 	/** Haalt checkoutvelden op */
-	protected function get_checkout_fields( $checkout_fields = [] ) : array {
+	protected function get_checkout_fields( $checkout_fields = [] ): array {
 		$checkout_fields = wp_parse_args_recursive( siw_get_data( 'workcamps/checkout-fields' ), $checkout_fields );
 		return $checkout_fields;
 	}
 
 	/** Haalt secties voor checkoutvelden op */
-	protected function get_checkout_sections() : array {
+	protected function get_checkout_sections(): array {
 		$checkout_sections = siw_get_data( 'workcamps/checkout-sections' );
 		return $checkout_sections;
 	}
@@ -72,24 +70,11 @@ class Form {
 		}
 	}
 
-	/** Voegt extra markup voor gestylde checkboxes toe */
-	public function add_form_field_markup( string $field ) : string {
-		$field = preg_replace( '/<input(.*?)>/', '<input$1><span class="checkmark"></span>', $field );
-		return $field;
-	}
-
 	/** Voegt extra classes voor gestylde radiobuttons, checkboxes en selects toe */
 	public function add_form_field_classes( array $args ) : array {
 		if ( $args['type'] == 'radio' ) {
 			$args['class'][] = 'radio-icon';
 		}
-		if ( $args['type'] == 'checkbox' ) {
-			$args['class'][] = 'checkbox-css';
-		}
-		if ( $args['type'] == 'select') {
-			$args['input_class'][] = 'select-css';
-		}
-		
 		return $args;
 	}
 }

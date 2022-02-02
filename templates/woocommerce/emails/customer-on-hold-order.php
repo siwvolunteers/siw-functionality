@@ -27,8 +27,6 @@ use SIW\Util\CSS;
  */
 do_action( 'woocommerce_email_header', $email_heading, $email );
 
-$email_settings = siw_get_email_settings( 'workcamp' );
-
 ?>
 <div style="font-family:Verdana, normal; color:<?= CSS::CONTRAST_COLOR;?>; font-size:0.9em; ">
 	<p>
@@ -43,10 +41,8 @@ $email_settings = siw_get_email_settings( 'workcamp' );
 		}
 		esc_html_e( 'Als je nog vragen hebt, aarzel dan niet om contact met ons op te nemen.', 'siw'); echo BR2;
 		esc_html_e( 'Met vriendelijke groet,', 'siw' ); echo BR2;
-		echo esc_html( $email_settings['name'] )
+		esc_html_e( 'SIW' );
 		?>
-		<br/>
-		<span style="color:#808080"><?php echo esc_html( $email_settings['title'] )?> </span>
 	</p>
 </div>
 <?php

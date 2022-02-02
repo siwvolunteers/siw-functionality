@@ -1,62 +1,6 @@
 {
     "packages": [
         {
-            "name": "adbario/php-dot-notation",
-            "version": "2.2.0",
-            "version_normalized": "2.2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/adbario/php-dot-notation.git",
-                "reference": "eee4fc81296531e6aafba4c2bbccfc5adab1676e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/adbario/php-dot-notation/zipball/eee4fc81296531e6aafba4c2bbccfc5adab1676e",
-                "reference": "eee4fc81296531e6aafba4c2bbccfc5adab1676e",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": ">=5.5"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.0|^5.0|^6.0",
-                "squizlabs/php_codesniffer": "^3.0"
-            },
-            "time": "2019-01-01T23:59:15+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Adbar\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Riku Särkinen",
-                    "email": "riku@adbar.io"
-                }
-            ],
-            "description": "PHP dot notation access to arrays",
-            "homepage": "https://github.com/adbario/php-dot-notation",
-            "keywords": [
-                "ArrayAccess",
-                "dotnotation"
-            ],
-            "support": {
-                "issues": "https://github.com/adbario/php-dot-notation/issues",
-                "source": "https://github.com/adbario/php-dot-notation/tree/2.x"
-            },
-            "install-path": "../adbario/php-dot-notation"
-        },
-        {
             "name": "kallookoo/wp_parse_args_recursive",
             "version": "1.2.1",
             "version_normalized": "1.2.1.0",
@@ -95,17 +39,17 @@
         },
         {
             "name": "mustache/mustache",
-            "version": "v2.13.0",
-            "version_normalized": "2.13.0.0",
+            "version": "v2.14.1",
+            "version_normalized": "2.14.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/mustache.php.git",
-                "reference": "e95c5a008c23d3151d59ea72484d4f72049ab7f4"
+                "reference": "579ffa5c96e1d292c060b3dd62811ff01ad8c24e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/e95c5a008c23d3151d59ea72484d4f72049ab7f4",
-                "reference": "e95c5a008c23d3151d59ea72484d4f72049ab7f4",
+                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/579ffa5c96e1d292c060b3dd62811ff01ad8c24e",
+                "reference": "579ffa5c96e1d292c060b3dd62811ff01ad8c24e",
                 "shasum": ""
             },
             "require": {
@@ -115,7 +59,7 @@
                 "friendsofphp/php-cs-fixer": "~1.11",
                 "phpunit/phpunit": "~3.7|~4.0|~5.0"
             },
-            "time": "2019-11-23T21:40:31+00:00",
+            "time": "2022-01-21T06:08:36+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -140,7 +84,69 @@
                 "mustache",
                 "templating"
             ],
+            "support": {
+                "issues": "https://github.com/bobthecow/mustache.php/issues",
+                "source": "https://github.com/bobthecow/mustache.php/tree/v2.14.1"
+            },
             "install-path": "../mustache/mustache"
+        },
+        {
+            "name": "pharaonic/php-dot-array",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Pharaonic/php-dot-array.git",
+                "reference": "8daa057aa491490ed8806bb5424fa1a4201b440e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Pharaonic/php-dot-array/zipball/8daa057aa491490ed8806bb5424fa1a4201b440e",
+                "reference": "8daa057aa491490ed8806bb5424fa1a4201b440e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=6.5"
+            },
+            "time": "2020-11-07T19:20:14+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "src/helper.php"
+                ],
+                "psr-4": {
+                    "Pharaonic\\DotArray\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raggi",
+                    "email": "support@pharaonic.io"
+                }
+            ],
+            "description": "Access array data quickly/easily using dot-notation and asterisk.",
+            "keywords": [
+                "array",
+                "asterisk",
+                "dot notation",
+                "pharaonic",
+                "php",
+                "php array",
+                "php dot array"
+            ],
+            "support": {
+                "issues": "https://github.com/Pharaonic/php-dot-array/issues",
+                "source": "https://github.com/Pharaonic/php-dot-array/tree/1.0.0"
+            },
+            "install-path": "../pharaonic/php-dot-array"
         },
         {
             "name": "spatie/array-to-xml",

@@ -2,7 +2,7 @@
 
 namespace SIW\External;
 
-use Adbar\Dot;
+use Pharaonic\DotArray\DotArray;
 use SIW\Helpers\HTTP_Request;
 use SIW\Util\Logger;
 
@@ -79,7 +79,7 @@ class Google_Maps {
 			return null;
 		}
 
-		$results = new Dot( $response['results'][0] );
+		$results = new DotArray( $response['results'][0] );
 
 		return [
 			'latitude'  => $results->get('geometry.location.lat'),
@@ -101,7 +101,7 @@ class Google_Maps {
 			return null;
 		}
 
-		$address_components = new Dot( $response['results'][0]['address_components'] );
+		$address_components = new DotArray( $response['results'][0]['address_components'] );
 
 		//TODO: meerder resultaten teruggeven + formattering
 		$address = [];

@@ -72,6 +72,23 @@ class Configuration implements Option_Interface {
 
 		//API
 		$fields[] = [
+			'id'        => 'facebook',
+			'type'      => 'group',
+			'tab'       => 'api',
+			'fields'    => [
+				[
+					'type'      => 'heading',
+					'name'      => __( 'Facebook', 'siw' ),
+				],
+				[
+					'id'        => 'pixel_id',
+					'name'      => __( 'Pixel ID', 'siw' ),
+					'type'      => 'text',
+					'size'      => 60,
+				],
+			],
+		];
+		$fields[] = [
 			'id'        => 'google_analytics',
 			'type'      => 'group',
 			'tab'       => 'api',
@@ -330,6 +347,12 @@ class Configuration implements Option_Interface {
 							'type'    => 'select_advanced',
 							'options' => Util::get_pages(),
 						],
+						[
+							'id'      => 'school_projects',
+							'name'    => __( 'Scholenprojecten', 'siw' ),
+							'type'    => 'select_advanced',
+							'options' => Util::get_pages(),
+						],
 					],
 				],
 				[
@@ -348,6 +371,12 @@ class Configuration implements Option_Interface {
 					'type'    => 'select_advanced',
 					'options' => Util::get_pages(),
 				],
+				[
+					'id'      => 'newsletter_confirmation',
+					'name'    => __( 'Bevestiging aanmelding nieuwsbrief', 'siw' ),
+					'type'    => 'select_advanced',
+					'options' => Util::get_pages(),
+				]
 			],
 		];
 
@@ -363,18 +392,6 @@ class Configuration implements Option_Interface {
 			'tab'        => 'blacklists',
 			'clone'      => true,
 			'add_button' => __( 'User agent toevoegen', 'siw' ),
-		];
-		$fields[] = [
-			'type'       => 'heading',
-			'tab'        => 'blacklists',
-			'name'       => __( 'Domein blacklist', 'siw' ),
-		];
-		$fields[] = [
-			'id'         => 'blocked_domains',
-			'type'       => 'text',
-			'tab'        => 'blacklists',
-			'clone'      => true,
-			'add_button' => __( 'Domein toevoegen', 'siw' ),
 		];
 
 		//Overig

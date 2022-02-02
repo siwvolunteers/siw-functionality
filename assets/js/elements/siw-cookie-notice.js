@@ -2,7 +2,7 @@
 
 /**
  * @file      Functies t.b.v. de cookie notice
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 
 var siwCookieNotice = (function () {
@@ -23,14 +23,14 @@ var siwCookieNotice = (function () {
 			document.addEventListener( 'DOMContentLoaded', _show );
 		}
 		//Verbergen na klikken op knop
-		document.querySelector( '#' + siw_cookie_notice.button_id ).addEventListener( 'click', _hide );
+		document.querySelector( '#' + siw_cookie_notice.notice_id + ' button[name="submit"]' ).addEventListener( 'click', _handleClick );
 	}
 
 	/**
 	 * Toont de cookie notice als deze nog niet geaccepteerd is
 	 */
 	function _show () {
-		if ( siw_cookie_notice.cookie.value != Cookies.get( siw_cookie_notice.cookie.name ) ) {
+		if ( 'undefined' === typeof Cookies.get( siw_cookie_notice.cookie.name ) ) {
 			document.querySelector( '#' + siw_cookie_notice.notice_id ).removeAttribute( 'hidden' );
 		}
 	};
@@ -38,9 +38,19 @@ var siwCookieNotice = (function () {
 	/**
 	 * Verberg cookie notice en zet cookie
 	 */
-	function _hide () {
-		Cookies.set( siw_cookie_notice.cookie.name, siw_cookie_notice.cookie.value, { expires: Number( siw_cookie_notice.cookie.expires ), secure: true } );
+	function _handleClick ( element ) {
+		element.preventDefault();
+		formData = new FormData(document.querySelector( '#' + siw_cookie_notice.notice_id + ' form' ) );
+
+		const data = {};
+		formData.forEach((value, key) => (data[key] = value));
+		Cookies.set( siw_cookie_notice.cookie.name, JSON.stringify(data), { expires: Number( siw_cookie_notice.cookie.expires ), secure: true } );
 		document.querySelector( '#' + siw_cookie_notice.notice_id ).setAttribute( 'hidden', 'hidden' );
+
+
+		if ( 'undefined' !== typeof( siwFacebookPixel ) && 'function' == typeof( siwFacebookPixel.maybeGrantConsent ) ) {
+			siwFacebookPixel.maybeGrantConsent();
+		}
 	};
 
 })();

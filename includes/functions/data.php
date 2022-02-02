@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use Adbar\Dot;
+use SIW\Data\Email_Settings;
 
 /**
  * Functies m.b.t. referentiegegevens
@@ -19,51 +19,6 @@ function siw_get_data( string $file ) {
 	}
 	$data = require $data_file;
 	return $data;
-}
-
-/** Wrapper om rwmb_meta */
-function siw_meta( string $key, array $args = [], int $post_id = null ) {
-	if ( function_exists( 'rwmb_meta' ) ) {
-		$keys = explode( '.', $key );
-		$value = rwmb_meta( $keys[0], $args, $post_id );
-
-		unset( $keys[0]);
-		if ( ! empty( $keys ) ) {
-			$dot = new Dot( $value );
-			$key = implode( '.', $keys );
-			$value = $dot->get( $key );
-		}
-
-		return $value;
-	}
-	return null;
-}
-
-/** Geeft data-file id's uit specifieke directory terug */
-function siw_get_data_file_ids( string $directory, bool $include_subdirectories = true ) : array {
-
-	$base_directory = SIW_DATA_DIR . $directory;
-	$files = glob( $base_directory . '/*.php' );
-	if ( $include_subdirectories ) {
-		$subdirectories = glob( $base_directory . '/*', GLOB_ONLYDIR );
-		foreach ( $subdirectories as $subdirectory ) {
-			$files = array_merge(
-				$files,
-				glob( $subdirectory . '/*.php' )
-			);
-		}
-	}
-
-	array_walk( $files, function( &$value, &$key, $base_directory) {
-		$value = str_replace(
-			[ $base_directory . '/', '.php', '-'],
-			[ '', '', '_'],
-			$value
-		);
-		$value = strtolower( $value );
-	}, $base_directory );
-
-	return $files;
 }
 
 /** Geeft lijst met provincies van Nederland terug */
@@ -143,20 +98,20 @@ function siw_get_nationalities() : array {
  * Haalt email-instellingen op
  * @todo fallback naar admin-email
  */
-function siw_get_email_settings( string $id ) : array {
-	$mail_settings = siw_get_option( "{$id}_email" );
+function siw_get_email_settings( string $id ): Email_Settings {
+	$mail_settings = siw_get_option( "email_settings.{$id}" );
 	if ( ! isset( $mail_settings['use_specific'] ) || ! $mail_settings['use_specific'] ) {
-		$mail_settings = siw_get_option( 'email_settings' );
+		$mail_settings = siw_get_option( 'email_settings.default' );
 	}
-	return $mail_settings;
+	return new Email_Settings( $mail_settings );
 }
 
 /** Geeft lijst met formulieren terug */
-function siw_get_forms() : array {
-	if ( ! class_exists( \Caldera_Forms_Forms::class ) ) {
-		return [];
-	}
-	return wp_list_pluck( Caldera_Forms_Forms::get_forms( true, false ), 'name' );
+function siw_get_forms(): array {
+	$forms = apply_filters( 'siw_forms', [] );
+	asort( $forms );
+
+	return $forms;
 }
 
 /** Haalt gegevens over interactieve kaarten op */

@@ -1,6 +1,6 @@
 /**
  * @file      Functies t.b.v. svgs
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 
 var siwSvg = (function () {
@@ -40,6 +40,10 @@ var siwSvg = (function () {
 		// Zet SVG inline
 		ajax.onload = function(e) {
 			target.innerHTML = ajax.response;
+			if ( typeof target.dataset.viewbox !== 'undefined' ) {
+				let svg = target.querySelector('svg');
+				svg.setAttribute('viewBox', target.dataset.viewbox );
+			}
 		}
 	}
 

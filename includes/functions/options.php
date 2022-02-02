@@ -1,12 +1,11 @@
 <?php declare(strict_types=1);
 
-use Adbar\Dot;
+use Pharaonic\DotArray\DotArray;
 
 /**
  * Functies m.b.t. opties
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 
 /** Haal optie op */
@@ -24,7 +23,7 @@ function siw_get_option( string $option, $default = null ) {
 	}
 	$options = get_option( 'siw_options' );
 
-	$dot = new Dot( $options );
+	$dot = new DotArray( $options );
 	$value = $dot->get( $option );
 
 	if ( empty( $value ) ) {

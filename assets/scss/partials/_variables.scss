@@ -1,17 +1,2 @@
-//Box-shadow voor overlays
-$box-shadow-overlay: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
-
-//Box-shadow voor cards
-$box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.5);
-$box-shadow-hover: 2px 2px 5px 4px rgba(0, 0, 0, 0.5);
-$box-shadow-transition: box-shadow 0.3s ease-in-out;
-
-//Text-shadow voor text op afbeeldingen
-$text-shadow: 1px 1px var(--siw-font-color);
-
-//Breakpoints
-$mobile-width: 780px;
-$tablet-width: 1024px;
-
 //Pad voor assets
 $assets-path: "/wp-content/plugins/siw-functionality/assets";

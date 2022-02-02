@@ -2,8 +2,7 @@
 
 /**
  * @file      Functies t.b.v. Google Maps
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 
 var siwGoogleMaps = (function () {
@@ -18,7 +17,7 @@ var siwGoogleMaps = (function () {
 	 */
 	function init() {
 		//Zoek alle kaarten
-		var maps = document.querySelectorAll( '.siw-google-map' );
+		var maps = document.querySelectorAll( '.siw-google-maps' );
 
 		//Intialiseer elke kaart
 		for ( var i=0, len = maps.length; i < len; i++ ) {

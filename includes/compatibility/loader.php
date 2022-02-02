@@ -14,7 +14,6 @@ class Loader extends Class_Loader_Abstract {
 	/** {@inheritDoc} */
 	public function get_classes() : array {
 		return [
-			Caldera_Forms::class,
 			GeneratePress::class,
 			Meta_Box::class,
 			Safe_Redirect_Manager::class,
