@@ -29,7 +29,6 @@ class Loader extends Class_Loader_Abstract {
 			Checkout\Fields::class,
 			Checkout\Form::class,
 			Checkout\Newsletter::class,
-			Checkout\Terms::class,
 			Checkout\Validation::class,
 
 			Email\Customer_On_Hold_Order::class,

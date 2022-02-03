@@ -16,6 +16,7 @@ class Form {
 		add_filter( 'woocommerce_form_field_args', [ $self, 'add_form_field_classes' ] );
 		add_action( 'woocommerce_multistep_checkout_before_order_info', [ $self, 'show_checkout_partner_fields'] );
 		add_filter( 'woocommerce_checkout_cart_item_quantity', '__return_empty_string' );
+		remove_action( 'woocommerce_checkout_terms_and_conditions', 'wc_checkout_privacy_policy_text', 20 );
 	}
 
 	/** Haalt checkoutvelden op */
