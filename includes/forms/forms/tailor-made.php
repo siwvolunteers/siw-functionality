@@ -65,7 +65,7 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 			],
 			[
 				'id'   => 'motivation',
-				'type' => 'textearea',
+				'type' => 'textarea',
 				'name' => __( 'Waarom zou je graag vrijwilligerswerk willen doen?', 'siw' ),
 				'rows' => 7,
 			],
