@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: bootstrap.php:106
+#: bootstrap.php:107
 msgid "De SIW plugin vereist WordPress versie %s en PHP versie %s"
 msgstr ""
 
@@ -1378,7 +1378,7 @@ msgstr ""
 msgid "Niveau taal 3"
 msgstr ""
 
-#: data/workcamps/checkout-fields.php:73, includes/options/settings.php:200, includes/content/types/event.php:113, includes/content/types/event.php:159, includes/content/types/event.php:228, includes/content/types/job-posting.php:117, includes/content/types/job-posting.php:153, includes/content/types/quote.php:42, includes/woocommerce/email/emails.php:137
+#: data/workcamps/checkout-fields.php:73, includes/options/settings.php:200, includes/content/types/event.php:113, includes/content/types/event.php:159, includes/content/types/event.php:228, includes/content/types/job-posting.php:117, includes/content/types/job-posting.php:153, includes/woocommerce/email/emails.php:137
 msgid "Naam"
 msgstr ""
 
@@ -1630,7 +1630,7 @@ msgstr ""
 msgid "Media taxonomieën"
 msgstr ""
 
-#: includes/core/media-taxonomies.php:86, includes/woocommerce/taxonomy-attribute.php:43, includes/content/types/quote.php:48, includes/content/types/story.php:55, includes/content/types/tm-country.php:62, includes/woocommerce/admin/product-columns.php:23, includes/woocommerce/admin/stockphoto-page.php:84
+#: includes/core/media-taxonomies.php:86, includes/woocommerce/taxonomy-attribute.php:43, includes/content/types/story.php:55, includes/content/types/tm-country.php:62, includes/woocommerce/admin/product-columns.php:23, includes/woocommerce/admin/stockphoto-page.php:84
 msgid "Land"
 msgstr ""
 
@@ -2182,15 +2182,11 @@ msgstr ""
 msgid "User agent toevoegen"
 msgstr ""
 
-#: includes/options/configuration.php:399
-msgid "Domein blacklist"
-msgstr ""
-
-#: includes/options/configuration.php:405
+#: includes/options/configuration.php:400
 msgid "Nieuwsbrief"
 msgstr ""
 
-#: includes/options/configuration.php:410
+#: includes/options/configuration.php:405
 msgid "Lijst"
 msgstr ""
 
@@ -2665,7 +2661,7 @@ msgstr ""
 msgid "Filter aanmeldingen"
 msgstr ""
 
-#: includes/woocommerce/translations.php:82, includes/woocommerce/translations.php:84, includes/content/types/quote.php:79, includes/content/types/story.php:126, includes/content/types/tm-country.php:116
+#: includes/woocommerce/translations.php:82, includes/woocommerce/translations.php:84, includes/content/types/story.php:126, includes/content/types/tm-country.php:116
 msgid "Continenten"
 msgstr ""
 
@@ -2674,11 +2670,11 @@ msgctxt "Admin menu name"
 msgid "Continenten"
 msgstr ""
 
-#: includes/woocommerce/translations.php:87, includes/content/types/quote.php:84, includes/content/types/story.php:131, includes/content/types/tm-country.php:121
+#: includes/woocommerce/translations.php:87, includes/content/types/story.php:131, includes/content/types/tm-country.php:121
 msgid "Zoek continenten"
 msgstr ""
 
-#: includes/woocommerce/translations.php:88, includes/content/types/quote.php:80, includes/content/types/story.php:127, includes/content/types/tm-country.php:117
+#: includes/woocommerce/translations.php:88, includes/content/types/story.php:127, includes/content/types/tm-country.php:117
 msgid "Alle continenten"
 msgstr ""
 
@@ -2754,7 +2750,7 @@ msgstr ""
 msgid "Bijwerken projecten"
 msgstr ""
 
-#: includes/content/types/event.php:44, includes/content/types/job-posting.php:56, includes/content/types/quote.php:31, includes/content/types/story.php:45, includes/widgets/organisation/organisation.php:51, includes/woocommerce/email/emails.php:117
+#: includes/content/types/event.php:44, includes/content/types/job-posting.php:56, includes/content/types/story.php:45, includes/widgets/organisation/organisation.php:51, includes/woocommerce/email/emails.php:117
 msgid "Gegevens"
 msgstr ""
 
@@ -2970,104 +2966,8 @@ msgstr ""
 msgid "Wie zijn wij?"
 msgstr ""
 
-#: includes/content/types/quote.php:35, includes/content/types/quote.php:62, includes/content/types/story.php:74, includes/content/types/tm-country.php:77, includes/widgets/quote/quote.php:33
-msgid "Quote"
-msgstr ""
-
-#: includes/content/types/quote.php:52, includes/content/types/story.php:59, includes/content/types/tm-country.php:66
+#: includes/content/types/story.php:59, includes/content/types/tm-country.php:66
 msgid "Selecteer een land"
-msgstr ""
-
-#: includes/content/types/quote.php:61
-msgid "Quotes"
-msgstr ""
-
-#: includes/content/types/quote.php:63
-msgid "Nieuwe quote"
-msgstr ""
-
-#: includes/content/types/quote.php:64
-msgid "Nieuwe quote toevoegen"
-msgstr ""
-
-#: includes/content/types/quote.php:65
-msgid "Quote bewerken"
-msgstr ""
-
-#: includes/content/types/quote.php:66
-msgid "Alle quotes"
-msgstr ""
-
-#: includes/content/types/quote.php:67
-msgid "Quotes zoeken"
-msgstr ""
-
-#: includes/content/types/quote.php:68
-msgid "Geen quotes gevonden"
-msgstr ""
-
-#: includes/content/types/quote.php:77, includes/content/types/story.php:124, includes/content/types/tm-country.php:114
-msgctxt "Taxonomy General Name"
-msgid "Continent"
-msgstr ""
-
-#: includes/content/types/quote.php:78, includes/content/types/story.php:125, includes/content/types/tm-country.php:115
-msgctxt "Taxonomy Singular Name"
-msgid "Continent"
-msgstr ""
-
-#: includes/content/types/quote.php:81, includes/content/types/story.php:128, includes/content/types/tm-country.php:118
-msgid "Continent toevoegen"
-msgstr ""
-
-#: includes/content/types/quote.php:82, includes/content/types/story.php:129, includes/content/types/tm-country.php:119
-msgid "Continent bijwerken"
-msgstr ""
-
-#: includes/content/types/quote.php:83, includes/content/types/story.php:130, includes/content/types/tm-country.php:120
-msgid "View Item"
-msgstr ""
-
-#: includes/content/types/quote.php:85, includes/content/types/story.php:132, includes/content/types/tm-country.php:122
-msgid "Geen continenten gevonden"
-msgstr ""
-
-#: includes/content/types/quote.php:93, includes/content/types/story.php:142
-msgctxt "Taxonomy General Name"
-msgid "Projectsoort"
-msgstr ""
-
-#: includes/content/types/quote.php:94, includes/content/types/story.php:143
-msgctxt "Taxonomy Singular Name"
-msgid "Projectsoort"
-msgstr ""
-
-#: includes/content/types/quote.php:95, includes/content/types/story.php:144, includes/widgets/quote/quote.php:66
-msgid "Projectsoort"
-msgstr ""
-
-#: includes/content/types/quote.php:96, includes/content/types/story.php:145
-msgid "Alle projectsoorten"
-msgstr ""
-
-#: includes/content/types/quote.php:97, includes/content/types/story.php:146
-msgid "Projectsoort toevoegen"
-msgstr ""
-
-#: includes/content/types/quote.php:98, includes/content/types/story.php:147
-msgid "Projectsoort bijwerken"
-msgstr ""
-
-#: includes/content/types/quote.php:99, includes/content/types/story.php:148
-msgid "Bekijk projectsoort"
-msgstr ""
-
-#: includes/content/types/quote.php:100, includes/content/types/story.php:149
-msgid "Zoek projectsoorten"
-msgstr ""
-
-#: includes/content/types/quote.php:101, includes/content/types/story.php:150
-msgid "Geen projectsoorten gevonden"
 msgstr ""
 
 #: includes/content/types/story.php:63, includes/content/types/story.php:91, includes/widgets/accordion/accordion.php:68, includes/widgets/features/features.php:88, includes/widgets/tabs/tabs.php:68
@@ -3076,6 +2976,10 @@ msgstr ""
 
 #: includes/content/types/story.php:70
 msgid "Rij toevoegen"
+msgstr ""
+
+#: includes/content/types/story.php:74, includes/content/types/tm-country.php:77, includes/widgets/quote/quote.php:33
+msgid "Quote"
 msgstr ""
 
 #: includes/content/types/story.php:81, includes/content/types/tm-country.php:98, includes/woocommerce/admin/stockphoto-page.php:69
@@ -3088,6 +2992,70 @@ msgstr ""
 
 #: includes/content/types/story.php:108
 msgid "Tekst"
+msgstr ""
+
+#: includes/content/types/story.php:124, includes/content/types/tm-country.php:114
+msgctxt "Taxonomy General Name"
+msgid "Continent"
+msgstr ""
+
+#: includes/content/types/story.php:125, includes/content/types/tm-country.php:115
+msgctxt "Taxonomy Singular Name"
+msgid "Continent"
+msgstr ""
+
+#: includes/content/types/story.php:128, includes/content/types/tm-country.php:118
+msgid "Continent toevoegen"
+msgstr ""
+
+#: includes/content/types/story.php:129, includes/content/types/tm-country.php:119
+msgid "Continent bijwerken"
+msgstr ""
+
+#: includes/content/types/story.php:130, includes/content/types/tm-country.php:120
+msgid "View Item"
+msgstr ""
+
+#: includes/content/types/story.php:132, includes/content/types/tm-country.php:122
+msgid "Geen continenten gevonden"
+msgstr ""
+
+#: includes/content/types/story.php:142
+msgctxt "Taxonomy General Name"
+msgid "Projectsoort"
+msgstr ""
+
+#: includes/content/types/story.php:143
+msgctxt "Taxonomy Singular Name"
+msgid "Projectsoort"
+msgstr ""
+
+#: includes/content/types/story.php:144, includes/widgets/quote/quote.php:66
+msgid "Projectsoort"
+msgstr ""
+
+#: includes/content/types/story.php:145
+msgid "Alle projectsoorten"
+msgstr ""
+
+#: includes/content/types/story.php:146
+msgid "Projectsoort toevoegen"
+msgstr ""
+
+#: includes/content/types/story.php:147
+msgid "Projectsoort bijwerken"
+msgstr ""
+
+#: includes/content/types/story.php:148
+msgid "Bekijk projectsoort"
+msgstr ""
+
+#: includes/content/types/story.php:149
+msgid "Zoek projectsoorten"
+msgstr ""
+
+#: includes/content/types/story.php:150
+msgid "Geen projectsoorten gevonden"
 msgstr ""
 
 #: includes/content/types/story.php:165
