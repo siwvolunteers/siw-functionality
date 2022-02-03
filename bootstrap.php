@@ -33,6 +33,7 @@ class Bootstrap {
 
 		//Laadt klasses
 		$this->load_core();
+		$this->init_class( 'SIW', 'Loader' );
 		$this->init_loader( 'Options' );
 		$this->init_loader( 'Forms' );
 		$this->init_loader( 'Widgets' );
@@ -142,16 +143,6 @@ class Bootstrap {
 				'Shortcodes',
 				'Update',
 				'Upload_Subdir',
-			]
-		);
-
-		$this->init_classes(
-			'SIW',
-			[
-				'Animation',
-				'Email',
-				'Cookie_Notice',
-				'Facebook_Pixel',
 			]
 		);
 	}
