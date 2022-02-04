@@ -16,10 +16,6 @@ class Archive {
 		add_action( 'woocommerce_after_shop_loop_item_title', [ $self, 'show_dates'] );
 		add_action( 'woocommerce_after_shop_loop_item', [ $self, 'show_project_code'], 1 );
 
-		add_filter( 'woocommerce_default_catalog_orderby_options', [ $self, 'add_catalog_orderby_options' ] );
-		add_filter( 'woocommerce_catalog_orderby', [ $self, 'add_catalog_orderby_options' ] );
-		add_filter( 'woocommerce_get_catalog_ordering_args', [ $self, 'process_catalog_ordering_args' ], 10, 3 );
-
 		add_action( 'woocommerce_before_shop_loop_item_title', [ $self, 'show_featured_badge' ], 10 );
 	}
 
@@ -35,27 +31,6 @@ class Archive {
 		global $product;
 		echo '<hr>';
 		echo '<span class="project-code">' . esc_html( $product->get_sku() ) . '</span>';
-	}
-
-	/** Voegt extra sorteeroptie (startdatum) toe voor archive */
-	public function add_catalog_orderby_options( array $options ): array {
-		unset( $options['menu_order'] );
-		unset( $options['popularity'] );
-		unset( $options['rating'] );
-		unset( $options['date'] );
-		unset( $options['price'] );
-		unset( $options['price-desc'] );
-		$options['startdate'] = __( 'Startdatum', 'siw' );
-		return $options;
-	}
-
-	/** Verwerkt extra sorteeroptie voor archive */
-	public function process_catalog_ordering_args( array $args, string $orderby, string $order ): array {
-		if ( 'startdate' == $orderby ) {
-			$args['orderby']  = 'meta_value';
-			$args['meta_key'] = 'start_date';
-		}
-		return $args;
 	}
 
 	/** Toont badge voor aanbevolen projecten */
