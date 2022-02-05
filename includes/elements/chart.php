@@ -2,20 +2,16 @@
 
 namespace SIW\Elements;
 
+use SIW\Assets\Frappe_Charts;
+
 /**
  * Class om een chart te genereren
  * 
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
- * @see       https://github.com/apexcharts/apexcharts.js
  */
 abstract class Chart extends Element {
 	
 	const SCRIPT_HANDLE = 'siw-charts';
-	const FRAPPE_CHARTS_SCRIPT_HANDLE = 'frappe-charts';
-
-	/** Frappe Charts versie */
-	const FRAPPE_CHARTS_VERSION = '1.6.2';
 
 	/** Type grafiek */
 	protected string $type;
@@ -45,9 +41,8 @@ abstract class Chart extends Element {
 	}
 
 	/** Voegt scripts toe */
-	protected function enqueue_scripts() {
-		wp_register_script( self::FRAPPE_CHARTS_SCRIPT_HANDLE, SIW_ASSETS_URL . 'vendor/frappe-charts/frappe-charts.min.umd.js', ['polyfill'], self::FRAPPE_CHARTS_VERSION, true );
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-charts.js', [ self::FRAPPE_CHARTS_SCRIPT_HANDLE ], SIW_PLUGIN_VERSION, true );
+	public function enqueue_scripts() {
+		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-charts.js', [ Frappe_Charts::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( self::SCRIPT_HANDLE );
 	}
 

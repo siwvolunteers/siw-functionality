@@ -10,7 +10,7 @@ namespace SIW\Elements;
 class Form extends Element {
 
 	/** Handle voor script */
-	const SCRIPT_HANDLE = 'siw-forms';
+	const ASSETS_HANDLE = 'siw-forms';
 
 	/** ID van formulier */
 	protected string $form_id;
@@ -60,10 +60,9 @@ class Form extends Element {
 	}
 
 	/** {@inheritDoc} */
-	protected function enqueue_scripts() {
+	public function enqueue_scripts() {
 		$this->meta_box->enqueue();
-
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/siw-forms.js', [ 'jquery', 'wp-api-request' ], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( self::SCRIPT_HANDLE );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/siw-forms.js', [ 'jquery', 'wp-api-request' ], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 }

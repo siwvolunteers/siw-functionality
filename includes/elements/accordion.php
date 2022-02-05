@@ -2,22 +2,17 @@
 
 namespace SIW\Elements;
 
+use SIW\Assets\A11Y_Accordion;
+
 /**
  * Class om een accordion te genereren
  * 
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- * 
- * @see       https://github.com/AcceDe-Web/accordion
  */
 class Accordion extends Repeater {
 
-	// Constantes voor asset handles
-	const SCRIPT_HANDLE = 'siw-accordion';
-	const STYLE_HANDLE = 'siw-accordion';
-	const ACCORDION_SCRIPT_HANDLE = 'a11y-accordion';
-
-	/** Versienummer */
-	const ACCORDION_VERSION = '1.1.0';
+	/** Asset handle */
+	const ASSETS_HANDLE = 'siw-accordion';
 
 	/** {@inheritDoc} */
 	protected static function get_type(): string {
@@ -55,15 +50,14 @@ class Accordion extends Repeater {
 	}
 
 	/** Voegt scripts toe */
-	protected function enqueue_scripts() {
-		wp_register_script( self::ACCORDION_SCRIPT_HANDLE, SIW_ASSETS_URL . 'vendor/accordion/accordion.js', [], self::ACCORDION_VERSION, true );
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-accordion.js', [self::ACCORDION_SCRIPT_HANDLE], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( self::SCRIPT_HANDLE );
+	public function enqueue_scripts() {
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-accordion.js', [ A11Y_Accordion::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 
 	/** Voegt styles toe */
-	protected function enqueue_styles() {
-		wp_register_style( self::STYLE_HANDLE, SIW_ASSETS_URL . 'css/elements/siw-accordion.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( self::STYLE_HANDLE );
+	public function enqueue_styles() {
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/siw-accordion.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 }

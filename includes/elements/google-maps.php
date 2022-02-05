@@ -2,26 +2,17 @@
 
 namespace SIW\Elements;
 
+use SIW\Assets\Google_Maps as Google_Maps_Asset;
 use SIW\Util\CSS;
 
 /**
  * Google Maps kaart
  * 
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- * 
- * @see       https://developers.google.com/maps/documentation/javascript/tutorial
  */
 class Google_Maps extends Element {
 
-	const SCRIPT_HANDLE = 'siw-google-maps';
-	const STYLE_HANDLE = 'siw-google-maps';
-	const GOOGLE_MAPS_SCRIPT_HANDLE = 'google-maps';
-
-	/** URL voor Google Maps API */
-	const API_URL = 'https://maps.googleapis.com/maps/api/js';
-
-	/** Google Maps API-key */
-	protected string $api_key;
+	const ASSETS_HANDLE = 'siw-google-maps';
 
 	/** Hoogt van kaart in pixels */
 	protected int $height = 300;
@@ -56,12 +47,6 @@ class Google_Maps extends Element {
 	
 	/** Is fullscreen control actief */
 	protected bool $fullscreen_control = false;
-
-	/** Init */
-	protected function initialize() {
-		$this->api_key = siw_get_option( 'google_maps.api_key' );
-		add_filter( 'siw_preconnect_urls', [ $this, 'add_urls'] );
-	}
 
 	/** {@inheritDoc} */
 	protected static function get_type(): string {
@@ -179,30 +164,17 @@ class Google_Maps extends Element {
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		$google_maps_url = add_query_arg( [
-			'key'      => $this->api_key,
-		], self::API_URL );
-		wp_register_script( self::GOOGLE_MAPS_SCRIPT_HANDLE, $google_maps_url, [], null, true );
-		wp_enqueue_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-google-maps.js', [ self::GOOGLE_MAPS_SCRIPT_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-google-maps.js', [ Google_Maps_Asset::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 	}
 
 	/** Voegt inline styling toe */
 	public function enqueue_styles() {
-		wp_register_style( self::STYLE_HANDLE, false );
-		wp_enqueue_style( self::STYLE_HANDLE );
+		wp_register_style( self::ASSETS_HANDLE, false );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 
 		$inline_style = CSS::generate_inline_css( [
 			"#{$this->get_element_id()}" => [ 'height' => "{$this->height}px" ],
 		]);
-		wp_add_inline_style( self::STYLE_HANDLE, $inline_style );
-	}
-
-	/** Voegt url's toe t.b.v. DNS-prefetch en preconnect TODO: werkt pas als de constructor eerder aangeroepen wordt. */
-	public function add_urls( array $urls ): array {
-		$urls[] = 'maps.googleapis.com';
-		$urls[] = 'maps.google.com';
-		$urls[] = 'maps.gstatic.com';
-		$urls[] = 'csi.gstatic.com';
-		return $urls;
+		wp_add_inline_style( self::ASSETS_HANDLE, $inline_style );
 	}
 }

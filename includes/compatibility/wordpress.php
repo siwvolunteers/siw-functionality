@@ -52,6 +52,8 @@ class WordPress {
 		add_filter( 'disable_months_dropdown', '__return_true' );
 		add_filter( 'manage_media_columns', [ $self, 'manage_media_columns'], 10, 2 );
 		add_filter( 'wp_trim_excerpt', [ $self, 'show_read_more_button' ]);
+
+		add_filter( 'script_loader_tag', [ $self, 'set_crossorigin' ], 10, 2 );
 	}
 
 	/** Verwijdert standaard-widgets */
@@ -168,5 +170,18 @@ class WordPress {
 			get_permalink(),
 			__( 'Lees meer', 'siw' )
 		);
+	}
+
+	/** Zet crossorigin attribute */
+	public function set_crossorigin( string $tag, string $handle ): string {
+		$crossorigin = wp_scripts()->get_data( $handle, 'crossorigin' );
+		if ( $crossorigin ) {
+			$tag = str_replace(
+				'></',
+				sprintf( ' crossorigin="%s"></', esc_attr( $crossorigin ) ),
+				$tag
+			);
+		}
+		return $tag;
 	}
 }

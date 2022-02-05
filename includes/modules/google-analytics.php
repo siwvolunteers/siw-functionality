@@ -2,6 +2,8 @@
 
 namespace SIW\Modules;
 
+use SIW\Assets\Google_Analytics as Google_Analytics_Asset;
+
 /**
  * Google Analytics integratie
  * 
@@ -33,9 +35,7 @@ class Google_Analytics {
 		add_action( 'woocommerce_add_to_cart', [ $self, 'track_add_to_cart'], 10, 6 );
 		add_filter( 'woocommerce_cart_item_remove_link', [ $self, 'add_variation_id_to_cart_item_remove_link' ], 10 ,2 );
 
-		add_filter( 'rocket_minify_excluded_external_js', [ $self, 'add_ga_url' ] );
 		add_filter( 'rocket_exclude_defer_js', [ $self, 'add_ga_url'] );
-		add_filter( 'siw_preconnect_urls', [ $self, 'add_ga_url'] );
 		add_filter( 'rocket_excluded_inline_js_content', [ $self, 'set_excluded_inline_js_content' ] );
 	}
 
@@ -54,11 +54,10 @@ class Google_Analytics {
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'google-analytics', 'https://www.google-analytics.com/analytics.js', [], null, true );
-		wp_register_script( 'siw-analytics', SIW_ASSETS_URL . 'js/modules/siw-analytics.js', [ 'google-analytics' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-analytics', SIW_ASSETS_URL . 'js/modules/siw-analytics.js', [ Google_Analytics_Asset::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script( 'siw-analytics', 'siw_analytics_cart', $this->generate_cart_data() );
 		wp_enqueue_script( 'siw-analytics' );
-		wp_add_inline_script( 'google-analytics', $this->generate_snippet(), 'after' );
+		wp_add_inline_script( Google_Analytics_Asset::ASSETS_HANDLE, $this->generate_snippet(), 'after' );
 	}
 
 	/** Genereert snippet */
