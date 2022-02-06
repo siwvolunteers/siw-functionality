@@ -59,7 +59,7 @@ class Job_Posting extends Type {
 				'id'                => 'abstract',
 				'name'              => __( 'Korte samenvatting', 'siw' ),
 				'label_description' => __( 'Wordt getoond op overzichtspagina', 'siw' ),
-				'type'              => 'wysiwyg',
+				'type'              => 'textarea',
 				'required'          => true,
 			],
 			[
