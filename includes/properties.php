@@ -31,7 +31,7 @@ class Properties {
 	const WHATSAPP = '06-82208746';
 
 	/** Volledig WhatsApp-nummer (voor API) */
-	const WHATSAPP_FULL = '0031682208746';
+	const WHATSAPP_FULL = '31682208746';
 
 	/** KVK-nummer */
 	const KVK = '41165368';
