@@ -215,16 +215,16 @@
         },
         {
             "name": "spatie/enum",
-            "version": "3.11.1",
+            "version": "3.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/enum.git",
-                "reference": "4afe5f06bb4c3cf46d8b02328bcc34c0de652ad4"
+                "reference": "c0180f1de7c5d06e4b84efbc751ea19167140173"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/enum/zipball/4afe5f06bb4c3cf46d8b02328bcc34c0de652ad4",
-                "reference": "4afe5f06bb4c3cf46d8b02328bcc34c0de652ad4",
+                "url": "https://api.github.com/repos/spatie/enum/zipball/c0180f1de7c5d06e4b84efbc751ea19167140173",
+                "reference": "c0180f1de7c5d06e4b84efbc751ea19167140173",
                 "shasum": ""
             },
             "require": {
@@ -287,7 +287,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-25T11:30:17+00:00"
+            "time": "2022-02-05T09:44:52+00:00"
         },
         {
             "name": "woocommerce/action-scheduler",
