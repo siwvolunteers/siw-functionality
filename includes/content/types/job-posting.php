@@ -3,8 +3,8 @@ namespace SIW\Content\Types;
 
 use SIW\Content\Type;
 use SIW\Elements\Accordion;
+use SIW\Helpers\Template;
 use SIW\Util\Links;
-use SIW\Core\Template;
 
 /**
  * Vacatures
@@ -286,7 +286,8 @@ class Job_Posting extends Type {
 			'title' => $application_manager['title'],
 			'email' => Links::generate_mailto_link( $application_manager['email'] ), //TODO: link verplaatsen naar template
 		];
-		Template::render_template( "types/job_posting_single", $template_vars );
+
+		Template::create()->set_template( 'types/job_posting_single' )->set_context( $template_vars )->render_template();
 
 		//JSON_LD toevoegen
 		echo siw_generate_job_posting_json_ld( get_the_ID() );
@@ -346,7 +347,7 @@ class Job_Posting extends Type {
 			'abstract' => siw_meta( 'abstract' ),
 			'link'     => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ), //TODO: link verplaatsen naar template
 		];
-		Template::render_template( "types/job_posting_archive", $template_vars );
+		Template::create()->set_template( 'types/job_posting_archive' )->set_context( $template_vars )->render_template();
 	}
 	
 	/** {@inheritDoc} */

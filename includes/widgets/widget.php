@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Core\Template;
+use SIW\Helpers\Template;
 
 /**
  * SIW Widget base class
@@ -15,19 +15,19 @@ abstract class Widget extends \SiteOrigin_Widget {
 	const DEFAULT_TEMPLATE_ID = 'default';
 
 	/** Geeft ID terug */
-	abstract protected function get_id() : string;
+	abstract protected function get_id(): string;
 
 	/** Geeft naam terug */
-	abstract protected function get_name() : string;
+	abstract protected function get_name(): string;
 
 	/** Geeft beschrijving terug */
-	abstract protected function get_description() : string;
+	abstract protected function get_description(): string;
 
 	/** Geeft Mustache template-ID terug */
-	abstract protected function get_template_id() : string;
+	abstract protected function get_template_id(): string;
 
 	/** Geeft dashicon terug */
-	abstract protected function get_dashicon() : string;
+	abstract protected function get_dashicon(): string;
 
 	/** Constructor */
 	public function __construct() {
@@ -56,6 +56,6 @@ abstract class Widget extends \SiteOrigin_Widget {
 
 		$template_id = str_replace( '_', '-', $this->get_template_id() );
 
-		return Template::parse_template( "widgets/{$template_id}", $template_vars );
+		return Template::create()->set_template( "widgets/{$template_id}" )->set_context( $template_vars )->parse_template();
 	}
 }

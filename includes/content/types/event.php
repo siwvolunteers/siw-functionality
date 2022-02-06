@@ -5,8 +5,8 @@ use SIW\Content\Type;
 use SIW\Elements\Google_Maps;
 use SIW\Elements\Icon;
 use SIW\Util\Links;
-use SIW\Core\Template;
 use SIW\Elements\Form;
+use SIW\Helpers\Template;
 
 /**
  * Evenementen
@@ -323,14 +323,13 @@ class Event extends Type {
 			$template_vars['location_map'] = $location_map->generate();
 		}
 		
-
-		Template::render_template( 'types/event_single', $template_vars );
+		Template::create()->set_template( 'types/event_single' )->set_context( $template_vars )->render_template();
 	}
 
 	/*** {@inheritDoc}*/
 	public function add_archive_content() {
 		$template_vars = $this->get_template_vars();
-		Template::render_template( 'types/event_archive', $template_vars );
+		Template::create()->set_template( 'types/event_archive' )->set_context( $template_vars )->render_template();
 	}
 	/**
 	 * TemplateVars
@@ -382,7 +381,7 @@ class Event extends Type {
 				'link' => Links::generate_external_link( siw_meta( 'organizer.url' ) )
 			];
 		}
-		return($template_vars);
+		return $template_vars;
 	}
 	
 	/** {@inheritDoc} */

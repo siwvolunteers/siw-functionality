@@ -2,8 +2,8 @@
 
 namespace SIW\Modules;
 
-use SIW\Core\Template;
 use SIW\Data\Social_Network;
+use SIW\Helpers\Template;
 
 /**
  * Voegt share-links toe voor social netwerken
@@ -11,6 +11,8 @@ use SIW\Data\Social_Network;
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Social_Share {
+
+	const ASSETS_HANDLE = 'siw-social-share';
 
 	/** Post type van huidige post */
 	protected string $post_type;
@@ -24,8 +26,8 @@ class Social_Share {
 
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-social-share', SIW_ASSETS_URL . 'css/modules/siw-social-share.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( 'siw-social-share' );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/siw-social-share.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Toont de share links */
@@ -41,13 +43,13 @@ class Social_Share {
 
 		$social_networks = array_map(
 			fn( Social_Network $network ) : array => [
-				'share_url' => Template::parse_string_template(
-					$network->get_share_url_template(),
-					[
+				'share_url' => Template::create()
+					->set_template( $network->get_share_url_template() )
+					->set_context( [
 						'url'   => urlencode( $url ),
 						'title' => rawurlencode( html_entity_decode( $title ) )
-					]
-				),
+					])
+					->parse_template(),
 				'label'     => sprintf( esc_attr__( 'Delen via %s', 'siw' ), $network->get_name() ),
 				'color'     => $network->get_color(),
 				'name'      => $network->get_name(),
@@ -61,13 +63,13 @@ class Social_Share {
 			$networks
 		);
 
-		Template::render_template(
-			'modules/social-share',
-			[
+		Template::create()
+			->set_template( 'modules/social-share' )
+			->set_context( [
 				'title'           => $this->get_title(),
 				'social_networks' => array_values( $social_networks ),
-			]
-		);
+			] )
+			->render_template();
 	}
 
 	/** Genereert de titel */
@@ -76,13 +78,13 @@ class Social_Share {
 	}
 
 	/** Geeft aan of dit een ondersteunde post type is */
-	protected function is_supported_post_type() : bool {
+	protected function is_supported_post_type(): bool {
 		$this->post_type = get_post_type();
 		return in_array( $this->post_type, array_keys( $this->get_post_type_settings() ) );
 	}
 
 	/** Haal instelling van post type op */
-	protected function get_post_type_settings() : array {
+	protected function get_post_type_settings(): array {
 		return apply_filters( 'siw_social_share_post_types', [] );
 	}
 
