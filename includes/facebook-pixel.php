@@ -33,7 +33,7 @@ class Facebook_Pixel {
 			self::SCRIPT_HANDLE,
 			'siw_facebook_pixel',
 			[
-				'pixel_id'    => $pixel_id,
+				'pixel_id'    => esc_js( $pixel_id ) ,
 				'cookie_name' => Cookie_Notice::COOKIE_NAME,
 			]
 		);

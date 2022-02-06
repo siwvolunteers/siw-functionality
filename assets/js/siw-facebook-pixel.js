@@ -26,8 +26,9 @@ var siwFacebookPixel = (function () {
 		if ( ! _isConsentGiven() ) {
 			fbq('consent', 'revoke');
 		}
-		fbq('init', siw_facebook_pixel.pixel_id);
-		fbq('track', 'PageView');
+		fbq( 'set', 'autoConfig', 'false', siw_facebook_pixel.pixel_id )
+		fbq( 'init', siw_facebook_pixel.pixel_id) ;
+		fbq( 'track', 'PageView' );
 	}
 
 	/** Eventueel consent zetten */
