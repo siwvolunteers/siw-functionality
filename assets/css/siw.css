@@ -506,7 +506,7 @@ form input[type=password],
 form input[type=search],
 form input[type=number],
 form input[type=tel],
-form input[type=time],
+form input[type=date] input[type=time],
 form input[type=select],
 form button[type=submit],
 form textarea,
@@ -518,7 +518,7 @@ form.rwmb-form input[type=password],
 form.rwmb-form input[type=search],
 form.rwmb-form input[type=number],
 form.rwmb-form input[type=tel],
-form.rwmb-form input[type=time],
+form.rwmb-form input[type=date] input[type=time],
 form.rwmb-form input[type=select],
 form.rwmb-form button[type=submit],
 form.rwmb-form textarea,
@@ -532,7 +532,7 @@ form input[type=password]:focus,
 form input[type=search]:focus,
 form input[type=number]:focus,
 form input[type=tel]:focus,
-form input[type=time]:focus,
+form input[type=date] input[type=time]:focus,
 form input[type=select]:focus,
 form button[type=submit]:focus,
 form textarea:focus,
@@ -544,7 +544,7 @@ form.rwmb-form input[type=password]:focus,
 form.rwmb-form input[type=search]:focus,
 form.rwmb-form input[type=number]:focus,
 form.rwmb-form input[type=tel]:focus,
-form.rwmb-form input[type=time]:focus,
+form.rwmb-form input[type=date] input[type=time]:focus,
 form.rwmb-form input[type=select]:focus,
 form.rwmb-form button[type=submit]:focus,
 form.rwmb-form textarea:focus,
@@ -559,7 +559,7 @@ form.rwmb-form select:focus {
 .footer-widgets form input[type=search],
 .footer-widgets form input[type=number],
 .footer-widgets form input[type=tel],
-.footer-widgets form input[type=time],
+.footer-widgets form input[type=date] input[type=time],
 .footer-widgets form input[type=select],
 .footer-widgets form button[type=submit],
 .footer-widgets form textarea,
@@ -571,7 +571,7 @@ form.rwmb-form select:focus {
 .footer-widgets form.rwmb-form input[type=search],
 .footer-widgets form.rwmb-form input[type=number],
 .footer-widgets form.rwmb-form input[type=tel],
-.footer-widgets form.rwmb-form input[type=time],
+.footer-widgets form.rwmb-form input[type=date] input[type=time],
 .footer-widgets form.rwmb-form input[type=select],
 .footer-widgets form.rwmb-form button[type=submit],
 .footer-widgets form.rwmb-form textarea,
@@ -587,7 +587,7 @@ form.rwmb-form select:focus {
 .footer-widgets form input[type=search]:focus,
 .footer-widgets form input[type=number]:focus,
 .footer-widgets form input[type=tel]:focus,
-.footer-widgets form input[type=time]:focus,
+.footer-widgets form input[type=date] input[type=time]:focus,
 .footer-widgets form input[type=select]:focus,
 .footer-widgets form button[type=submit]:focus,
 .footer-widgets form textarea:focus,
@@ -599,12 +599,18 @@ form.rwmb-form select:focus {
 .footer-widgets form.rwmb-form input[type=search]:focus,
 .footer-widgets form.rwmb-form input[type=number]:focus,
 .footer-widgets form.rwmb-form input[type=tel]:focus,
-.footer-widgets form.rwmb-form input[type=time]:focus,
+.footer-widgets form.rwmb-form input[type=date] input[type=time]:focus,
 .footer-widgets form.rwmb-form input[type=select]:focus,
 .footer-widgets form.rwmb-form button[type=submit]:focus,
 .footer-widgets form.rwmb-form textarea:focus,
 .footer-widgets form.rwmb-form select:focus {
   outline-color: var(--siw-base);
+}
+form input[type=date],
+form.rwmb-form input[type=date] {
+  background: var(--siw-base);
+  color: var(--siw-contrast);
+  padding: 10px 15px;
 }
 form select,
 form.rwmb-form select {
@@ -977,33 +983,20 @@ span.product-badge.featured-badge {
 .woocommerce-checkout .form-row-first, .woocommerce-checkout h3 {
   clear: left;
 }
+.woocommerce-checkout label.radio {
+  margin-right: 5px;
+}
 .woocommerce-checkout span.optional {
   display: none;
 }
-.woocommerce-checkout .radio-icon input[type=radio] {
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
+.woocommerce-checkout .woocommerce form .form-row input.input-text:focus, .woocommerce-checkout .woocommerce form .form-row textarea:focus {
+  outline-offset: 2px;
+  outline: 2px dotted var(--siw-contrast-light);
 }
-.woocommerce-checkout .radio-icon label.radio-label {
+.woocommerce-checkout span.woocommerce-input-wrapper {
   display: block;
-}
-.woocommerce-checkout .radio-icon label.radio-label.radio {
-  display: inline-block;
-  padding-right: 5px;
-}
-.woocommerce-checkout .radio-icon label.radio-label.radio:before {
-  font-family: WooCommerce;
-  padding-right: 5px;
-}
-.woocommerce-checkout .radio-icon input[type=radio] + label::before {
-  content: "\e039";
-}
-.woocommerce-checkout .radio-icon input[type=radio]:checked + label::before {
-  content: "\e03c";
 }
 .woocommerce-checkout .country .woocommerce-input-wrapper {
-  display: block;
   padding-top: 15px;
   padding-bottom: 15px;
 }
