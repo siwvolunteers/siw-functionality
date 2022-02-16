@@ -28,6 +28,10 @@ form.rwmb-form {
 				outline-color: var(--siw-base);
 			}
 		}
+	}
+	
+	input,
+	textarea {
 		&:disabled,
 		&:read-only {
 			background-color: #ccc;
