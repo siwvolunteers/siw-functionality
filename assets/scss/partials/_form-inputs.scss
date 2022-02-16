@@ -28,6 +28,11 @@ form.rwmb-form {
 				outline-color: var(--siw-base);
 			}
 		}
+		&:disabled,
+		&:read-only {
+			background-color: #ccc;
+			opacity: 0.8;
+		}
 	}
 
 	input[type=date] {
