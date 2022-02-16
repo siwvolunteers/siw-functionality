@@ -22,9 +22,8 @@ $data = [
 	'dob' => [
 		'label'       => __( 'Geboortedatum', 'siw' ),
 		'required'    => true,
-		'type'        => 'text',
+		'type'        => 'date',
 		'class'       => ['form-row-first'],
-		'input_class' => ['dateNL'],
 		'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
 		'priority'    => 30,
 	],

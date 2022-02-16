@@ -82,6 +82,7 @@ class Order {
 			'dob'         => [
 				'label'     => __( 'Geboortedatum', 'siw' ),
 				'show'      => false,
+				'type'      => 'date',
 			],
 			'nationality' => [
 				'label'     => __( 'Nationaliteit', 'siw' ),

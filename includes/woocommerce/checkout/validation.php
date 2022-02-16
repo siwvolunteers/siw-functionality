@@ -50,7 +50,7 @@ class Validation{
 	public function validate_checkout_fields( array $data, \WP_Error $errors ) {
 
 		$dob = $data['billing_dob'];
-		if ( ! (bool) preg_match( Util::get_regex('date'), $dob ) ) {
+		if ( ! (bool) date_parse( $dob ) ) {
 			$errors->add( 'validation', sprintf( __( '%s bevat geen geldige datum.', 'siw' ), '<strong>' . esc_html__( 'Geboortedatum','siw' ) . '</strong>' ) );
 		}
 		else {
