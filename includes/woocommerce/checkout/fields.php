@@ -13,9 +13,7 @@ class Fields {
 	public static function init() {
 		$self = new self();
 
-		add_filter( 'woocommerce_default_address_fields', [ $self , 'set_default_address_fields'], 10, 2 );
-		add_filter( 'woocommerce_billing_fields', [ $self, 'set_billing_fields'], 10, 2 );
-		add_filter( 'woocommerce_shipping_fields', '__return_empty_array' );
+
 		add_filter( 'woocommerce_checkout_fields', [ $self, 'add_checkout_fields'] );
 		add_filter( 'woocommerce_enable_order_notes_field', '__return_false' );
 		add_action( 'woocommerce_checkout_create_order', [ $self, 'save_checkout_fields'], 10, 2 );
@@ -45,36 +43,7 @@ class Fields {
 		}
 	}
 	
-	/** Past de volgorde van de adresvelden aan */
-	public function set_default_address_fields( array $standard_address_fields ) : array {
 
-		/* Verwijderen standaardvelden */
-		unset( $standard_address_fields['address_1'] );
-		unset( $standard_address_fields['address_2'] );
-		unset( $standard_address_fields['postcode'] );
-		unset( $standard_address_fields['city'] );
-		unset( $standard_address_fields['company'] );
-		unset( $standard_address_fields['state'] );
-		unset( $standard_address_fields['country']);
-
-		/* Reset alle classes */
-		$standard_address_fields = array_map( function( $field ) {
-			$field['class'] = array_diff( $field['class'], ['form-row-first', 'form-row-last', 'form-row-wide']);
-			return $field;
-		}, $standard_address_fields);
-
-		$address_fields = siw_get_data( 'workcamps/address-fields' );
-		$address_fields = wp_parse_args_recursive( $address_fields, $standard_address_fields );
-
-		return $address_fields;
-	}
-
-	/** Zet de classes voor de billing velden */
-	public function set_billing_fields( array $billing_fields, string $country ) : array {
-		$billing_fields['billing_phone']['class'] = ['form-row-first'];
-		$billing_fields['billing_email']['class'] = ['form-row-last'];
-		return $billing_fields;
-	}
 
 	/** Voegt de extra checkoutvelden toe */
 	public function add_checkout_fields( $checkout_fields ) : array {
