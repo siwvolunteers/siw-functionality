@@ -9,28 +9,30 @@ namespace SIW\WooCommerce\Checkout;
  */
 class Newsletter{
 
+	CONST CHECKOUT_FIELD_KEY = 'newsletter_signup';
+
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_action( 'woocommerce_after_checkout_billing_form', [ $self, 'show_newsletter_signup_checkbox'] );
+		add_action( 'woocommerce_checkout_after_terms_and_conditions', [ $self, 'show_newsletter_signup_checkbox'] );
 		add_filter( 'woocommerce_checkout_posted_data', [ $self, 'capture_newsletter_signup'] );
 		add_action( 'woocommerce_checkout_order_processed', [ $self, 'process_newsletter_signup'], 10, 3 );
 	}
 
 	/** Toont checkbox voor aanmelden nieuwsbrief */
-	public function show_newsletter_signup_checkbox( \WC_Checkout $checkout ) {
-		woocommerce_form_field( 'newsletter_signup', [
+	public function show_newsletter_signup_checkbox( ) {
+		woocommerce_form_field( self::CHECKOUT_FIELD_KEY, [
 			'type'  => 'checkbox',
 			'class' => ['form-row-wide'],
 			'clear' => true,
 			'label' => __( 'Ja, ik wil graag de SIW nieuwsbrief ontvangen', 'siw' ),
-			], $checkout->get_value( 'newsletter_signup' )
+			], isset( $_POST[ self::CHECKOUT_FIELD_KEY ] )
 		);
 	}
 
 	/** Voegt aanmelding voor nieuwsbrief toe aan posted data */
 	public function capture_newsletter_signup( array $data ) : array {
-		$data['newsletter_signup'] = (int) isset( $_POST['newsletter_signup'] );
+		$data[ self::CHECKOUT_FIELD_KEY] = (bool) isset( $_POST[ self::CHECKOUT_FIELD_KEY ] );
 		return $data;
 	}
 
@@ -38,7 +40,7 @@ class Newsletter{
 	 * @todo tekst aan bevestigingsmail toevoegen */
 	public function process_newsletter_signup( int $order_id, array $posted_data, \WC_Order $order ) {
 
-		if ( 1 != $posted_data['newsletter_signup'] ) {
+		if ( true !== $posted_data[ self::CHECKOUT_FIELD_KEY ] ) {
 			return;
 		}
 		siw_newsletter_subscribe( 
