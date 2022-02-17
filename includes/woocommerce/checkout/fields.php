@@ -18,23 +18,9 @@ class Fields {
 		add_filter( 'woocommerce_shipping_fields', '__return_empty_array' );
 		add_filter( 'woocommerce_checkout_fields', [ $self, 'add_checkout_fields'] );
 		add_filter( 'woocommerce_enable_order_notes_field', '__return_false' );
-		add_filter( 'woocommerce_get_country_locale', [ $self, 'remove_locale_postcode_priority'] );
-		add_filter( 'woocommerce_country_locale_field_selectors', [ $self, 'remove_locale_field_selectors']);
 		add_action( 'woocommerce_checkout_create_order', [ $self, 'save_checkout_fields'], 10, 2 );
 	}
 
-	/** Verwijdert JS-selectors voor update locale */
-	public function remove_locale_field_selectors( array $locale_fields ) : array {
-		unset( $locale_fields['address_2'] );
-		unset( $locale_fields['state'] );
-		return $locale_fields;
-	}
-
-	/** Verwijdert aangepaste prioriteit voor postcode */
-	public function remove_locale_postcode_priority( array $locale ) : array {
-		unset( $locale['NL']['postcode'] );
-		return $locale;
-	}
 	
 	/** Haalt checkoutvelden op */
 	protected function get_checkout_fields( array $checkout_fields = [] ) : array {
@@ -63,13 +49,17 @@ class Fields {
 	public function set_default_address_fields( array $standard_address_fields ) : array {
 
 		/* Verwijderen standaardvelden */
+		unset( $standard_address_fields['address_1'] );
 		unset( $standard_address_fields['address_2'] );
+		unset( $standard_address_fields['postcode'] );
+		unset( $standard_address_fields['city'] );
 		unset( $standard_address_fields['company'] );
 		unset( $standard_address_fields['state'] );
+		unset( $standard_address_fields['country']);
 
 		/* Reset alle classes */
 		$standard_address_fields = array_map( function( $field ) {
-			unset( $field['class']);
+			$field['class'] = array_diff( $field['class'], ['form-row-first', 'form-row-last', 'form-row-wide']);
 			return $field;
 		}, $standard_address_fields);
 

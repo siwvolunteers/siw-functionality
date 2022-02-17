@@ -72,13 +72,6 @@ class Order {
 			],
 			'first_name'  => $fields['first_name'],
 			'last_name'   => $fields['last_name'],
-			'address_1'   => $fields['address_1'],
-			'housenumber' => [
-				'label'     => __( 'Huisnummer', 'siw' ),
-				'show'      => false,
-			],
-			'postcode'    => $fields['postcode'],
-			'city'        => $fields['city'],
 			'dob'         => [
 				'label'     => __( 'Geboortedatum', 'siw' ),
 				'show'      => false,
@@ -96,21 +89,15 @@ class Order {
 		return $billing_fields;
 	}
 
-	/**
-	 * Zet het gelokaliseerde adresformaat (van Nederland)
-	 *
-	 * @param array $address_formats
-	 * @return array
-	 */
-	public function set_localisation_address_format( array $address_formats ) : array {
-		$address_formats['NL'] = "{name}\n{address_1} {housenumber}\n{postcode} {city}\n{country}\n{dob}\n{gender}\n{nationality}";
+	/** Zet het gelokaliseerde adresformaat (van Nederland) */
+	public function set_localisation_address_format( array $address_formats ): array {
+		$address_formats['NL'] = "{name}\n{dob}\n{gender}\n{nationality}";
 		return $address_formats;
 	}
 
 	/** Undocumented function */
-	public function set_formatted_address_replacements( array $replace, array $args ) : array {
+	public function set_formatted_address_replacements( array $replace, array $args ): array {
 		$replace['{gender}'] = $args['gender'] ?? '';
-		$replace['{housenumber}'] = $args['housenumber'] ?? '';
 		$replace['{nationality}'] = $args['nationality'] ?? '';
 		$replace['{dob}'] = $args['dob'] ?? '';
 		return $replace;

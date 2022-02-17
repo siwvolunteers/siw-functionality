@@ -28,7 +28,6 @@ class Loader extends Class_Loader_Abstract {
 			Checkout\Discount::class,
 			Checkout\Fields::class,
 			Checkout\Form::class,
-			Checkout\Postcode_Lookup::class,
 			Checkout\Newsletter::class,
 			Checkout\Validation::class,
 

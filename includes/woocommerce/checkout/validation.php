@@ -15,35 +15,7 @@ class Validation{
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_action( 'wp_enqueue_scripts', [ $self, 'add_validation_script'] );
 		add_action( 'woocommerce_after_checkout_validation', [ $self, 'validate_checkout_fields' ], 10, 2 );
-	}
-
-	/**
-	 * Voegt extra client-side validatie toe
-	 * - Postcode
-	 * - Datum
-	 */
-	public function add_validation_script() {
-
-		wp_register_script( 'siw-checkout-validation', SIW_ASSETS_URL . 'js/siw-checkout-validation.js', ['jquery-validate'], SIW_PLUGIN_VERSION, true );
-		$validation = [
-			[
-				'class'   => 'dateNL',
-				'regex'   => Util::get_pattern( 'date' ),
-				'message' => esc_html__( 'Dit is geen geldige datum.', 'siw' ),
-			],
-			[
-				'class'   => 'postalcodeNL',
-				'regex'   => Util::get_pattern( 'postcode' ),
-				'message' => esc_html__( 'Dit is geen geldige postcode.', 'siw' ),
-			],
-		];
-
-		wp_localize_script( 'siw-checkout-validation', 'siw_checkout_validation', $validation );
-		if ( is_checkout() && ! is_order_received_page() && ! is_checkout_pay_page() ) {
-			wp_enqueue_script( 'siw-checkout-validation' );
-		}
 	}
 
 	/** Voert validatie voor extra checkout velden uit */
