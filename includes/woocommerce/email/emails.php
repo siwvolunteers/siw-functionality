@@ -236,24 +236,23 @@ class Emails {
 				'label' => __( 'Subtotaal', 'siw' ),
 				'value' => $order->get_subtotal_to_display(),
 			];
+			
 			/* Toon kortingscodes */
-			if ( $coupons = $order->get_coupons() ) {
-				foreach ( $coupons as $coupon ) {
-					$payment_data['rows'][] = [
-						'label' => sprintf( __( 'Kortingscode: %s', 'siw' ), $coupon->get_code() ),
-						'value' => '-' . wc_price( $coupon->get_discount() ),
-					];
-				}
+			foreach ( $order->get_coupons() as $coupon ) {
+				$payment_data['rows'][] = [
+					'label' => sprintf( __( 'Kortingscode: %s', 'siw' ), $coupon->get_code() ),
+					'value' => '-' . wc_price( $coupon->get_discount() ),
+				];
 			}
+			
 			/* Toon automatische kortingen */
-			if ( $fees = $order->get_fees() ) {
-				foreach ( $fees as $fee ) {
-					$payment_data['rows'][] = [
-						'label' => $fee->get_name(),
-						'value' => wc_price( $fee->get_total() ),
-					];
-				}
+			foreach ( $order->get_fees() as $fee ) {
+				$payment_data['rows'][] = [
+					'label' => $fee->get_name(),
+					'value' => wc_price( $fee->get_total() ),
+				];
 			}
+
 		}
 		$payment_data['rows'][] = [
 			'label' => __( 'Totaal', 'siw' ),
