@@ -24,7 +24,6 @@ $data = [
 		'required'    => true,
 		'type'        => 'date',
 		'class'       => ['form-row-first', 'update_totals_on_change' ],
-		'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
 		'priority'    => 30,
 	],
 	'gender' => [
@@ -41,7 +40,6 @@ $data = [
 		'class'       => ['form-row-first', 'update_totals_on_change'],
 		'priority'    => 50,
 	],
-
 	'nationality' => [
 		'label'       => __( 'Nationaliteit', 'siw' ),
 		'required'    => true,
@@ -49,7 +47,7 @@ $data = [
 		'options'     => siw_get_nationalities(),
 		'default'     => 'HOL',
 		'class'       => ['form-row-last'],
-		'priority'    => 90,
+		'priority'    => 60,
 	],
 ];
 
