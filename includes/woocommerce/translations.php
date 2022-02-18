@@ -124,6 +124,9 @@ class Translations {
 			case 'Your order':
 				$translation = __( 'Je aanmelding', 'siw' );
 				break;
+			case 'Billing &amp; Shipping':
+				$translation = __( 'Je gegevens', 'siw' );
+				break;
 		}
 		return $translation;
 	}
