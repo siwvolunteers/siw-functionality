@@ -17,8 +17,7 @@ class Product {
 
 		add_action( 'init', [ $self, 'remove_editor'], PHP_INT_MAX ); 
 
-		add_filter( 'manage_edit-product_columns', [ $self, 'remove_admin_columns'] );
-		add_action( 'admin_init', [ $self, 'add_admin_columns'], 20 );
+		add_action( 'admin_init', [ $self, 'manage_admin_columns'], 20 );
 		add_action( 'admin_menu', [ $self, 'remove_product_tags_admin_menu'], PHP_INT_MAX );
 		add_filter( 'quick_edit_show_taxonomy', [ $self, 'hide_product_tags_quick_edit' ], 10, 3 );
 	}
@@ -33,17 +32,8 @@ class Product {
 		remove_post_type_support( 'product', 'editor' );
 	}
 
-	/** Verwijdert overbodige admin columns */
-	public function remove_admin_columns( array $columns ) : array {
-		unset( $columns['thumb']);
-		unset( $columns['date'] );
-		unset( $columns['product_tag'] );
-		unset( $columns['price'] );
-		return $columns;
-	}
-
 	/** Voegt extra admin columns toe */
-	public function add_admin_columns() {
+	public function manage_admin_columns() {
 		if ( ! class_exists( '\MBAC\Post' ) ) {
 			return;
 		}

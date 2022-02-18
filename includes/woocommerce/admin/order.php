@@ -6,7 +6,6 @@ namespace SIW\WooCommerce\Admin;
  * Aanpassing aan admin t.b.v. aanmeldingen
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  * 
  * @todo      splitsen in Order en Admin_Order + refactor enzo
  */
@@ -26,8 +25,7 @@ class Order {
 		add_filter( 'woocommerce_admin_billing_fields', [ $self, 'set_admin_billing_fields' ] );
 		add_action( 'woocommerce_process_shop_order_meta', [ $self, 'process_order_meta'], 10, 2 );
 
-		add_filter( 'manage_edit-shop_order_columns', [ $self, 'remove_admin_columns'] );
-		add_action( 'admin_init', [ $self, 'add_admin_columns'], 20 );
+		add_action( 'admin_init', [ $self, 'manage_admin_columns'], 20 );
 	}
 
 	/** Geeft secties met velden terug */
@@ -243,15 +241,8 @@ class Order {
 		$order->save();
 	}
 
-	/** Verwijdert overbodige admin columns */
-	public function remove_admin_columns( array $columns ) : array {
-		unset( $columns['shipping_address'] );
-		unset( $columns['billing_address'] );	
-		return $columns;
-	}
-
 	/** Voegt extra admin columns toe */
-	public function add_admin_columns() {
+	public function manage_admin_columns() {
 		if ( ! class_exists( '\MBAC\Post' ) ) {
 			return;
 		}

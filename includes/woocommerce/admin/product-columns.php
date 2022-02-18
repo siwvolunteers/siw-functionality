@@ -23,6 +23,10 @@ class Product_Columns extends \MBAC\Post {
 		$this->add( $columns, 'country', __( 'Land', 'siw'), 'after', 'sku' );
 		$this->add( $columns, 'start_date', __( 'Startdatum', 'siw'), 'after', 'product_cat' );
 		$this->add( $columns, 'visibility', __( 'Zichtbaarheid', 'siw' ), 'after', 'start_date' );
+		unset( $columns['thumb']);
+		unset( $columns['date'] );
+		unset( $columns['product_tag'] );
+		unset( $columns['price'] );
 		return $columns;
 	}
 
