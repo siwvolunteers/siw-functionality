@@ -23,6 +23,7 @@ class Loader extends Object_Loader_Abstract {
 	/** {@inheritDoc} */
 	public function get_classes(): array {
 		return [
+			Async\Export_Plato_Application::class,
 			Async\Import_Plato_Project::class,
 			Async\Process_Stockphoto_Upload::class,
 			Batch\Delete_Applications::class,

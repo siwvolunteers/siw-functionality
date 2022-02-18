@@ -37,11 +37,13 @@ class Loader extends Class_Loader_Abstract {
 			Email\Emails::class,
 			Email\New_Order::class,
 
-			Export\Order::class,
 			Frontend\Archive::class,
 			Frontend\Archive_Header::class,
 			Frontend\Product::class,
 			Frontend\Product_Tabs::class,
+
+			Order\Admin\Order_Actions::class,
+			Order\Status_Transitions::class,
 
 			Product\Archive\Ordering::class,
 			Product\Approval::class,

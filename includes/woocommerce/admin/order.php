@@ -28,8 +28,6 @@ class Order {
 
 		add_filter( 'manage_edit-shop_order_columns', [ $self, 'remove_admin_columns'] );
 		add_action( 'admin_init', [ $self, 'add_admin_columns'], 20 );
-
-		add_filter( 'woocommerce_order_actions', [ $self, 'remove_order_actions'] );
 	}
 
 	/** Geeft secties met velden terug */
@@ -258,13 +256,6 @@ class Order {
 			return;
 		}
 		new Order_Columns( 'shop_order', [] );
-	}
-
-	/** Verwijdert overbodige order actions */
-	public function remove_order_actions( array $actions ) : array {
-		unset( $actions['regenerate_download_permissions']);
-		unset( $actions['send_order_details']);
-		return $actions;
 	}
 
 	/** Verwijdert overbodige meta-boxes */
