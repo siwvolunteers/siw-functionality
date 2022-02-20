@@ -173,16 +173,21 @@ span.product-badge.featured-badge {
 }
 //Checkout
 .woocommerce-checkout {
-	.form-row-first, h3 {
+	.form-row-first {
 		clear: left;
 	}
-
-	label.radio {
+	
+	.form-row label.radio {
 		margin-right: 5px;
+		display: inline-block;
 	}
 
 	span.optional {
 		display: none;
+	}
+
+	.woocommerce form .form-row .input-checkbox {
+		display: inline-block;
 	}
 
 	.woocommerce form .form-row input.input-text, .woocommerce form .form-row textarea {

@@ -990,14 +990,18 @@ span.product-badge.featured-badge {
   border: none;
 }
 
-.woocommerce-checkout .form-row-first, .woocommerce-checkout h3 {
+.woocommerce-checkout .form-row-first {
   clear: left;
 }
-.woocommerce-checkout label.radio {
+.woocommerce-checkout .form-row label.radio {
   margin-right: 5px;
+  display: inline-block;
 }
 .woocommerce-checkout span.optional {
   display: none;
+}
+.woocommerce-checkout .woocommerce form .form-row .input-checkbox {
+  display: inline-block;
 }
 .woocommerce-checkout .woocommerce form .form-row input.input-text:focus, .woocommerce-checkout .woocommerce form .form-row textarea:focus {
   outline-offset: 2px;

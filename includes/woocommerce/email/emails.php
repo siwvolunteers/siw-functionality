@@ -147,16 +147,16 @@ class Emails {
 			'header' => __( 'Talenkennis', 'siw' ),
 			'rows'   => [
 				[
-					'label' => $languages[ $order->get_meta( 'language1' ) ] ?? '',
-					'value' => $language_skill[ $order->get_meta( 'language1Skill' ) ] ?? '',
+					'label' => $languages[ $order->get_meta( 'language_1' ) ] ?? '',
+					'value' => $language_skill[ $order->get_meta( 'language_1_skill' ) ] ?? '',
 				],
 				[
-					'label' => $languages[ $order->get_meta( 'language2' ) ] ?? '',
-					'value' => $language_skill[ $order->get_meta( 'language2Skill' ) ] ?? '',
+					'label' => $languages[ $order->get_meta( 'language_2' ) ] ?? '',
+					'value' => $language_skill[ $order->get_meta( 'language_2_skill' ) ] ?? '',
 				],
 				[
-					'label' => $languages[ $order->get_meta( 'language3' ) ] ?? '',
-					'value' => $language_skill[ $order->get_meta( 'language3Skill' ) ] ?? '',
+					'label' => $languages[ $order->get_meta( 'language_3' ) ] ?? '',
+					'value' => $language_skill[ $order->get_meta( 'language_3_skill' ) ] ?? '',
 				],
 			]
 		];
@@ -169,15 +169,15 @@ class Emails {
 				],
 				[
 					'label' => __( 'Health issues', 'siw' ),
-					'value' => $order->get_meta( 'healthIssues' ),
+					'value' => $order->get_meta( 'health_issues' ),
 				],
 				[
 					'label' => __( 'Volunteer experience', 'siw' ),
-					'value' => $order->get_meta( 'volunteerExperience' ),
+					'value' => $order->get_meta( 'volunteer_experience' ),
 				],
 				[
 					'label' => __( 'Together with', 'siw' ),
-					'value' => $order->get_meta( 'togetherWith' )
+					'value' => $order->get_meta( 'together_with' )
 				],
 			]
 		];

@@ -26,25 +26,6 @@ $data = [
 		'class'       => ['form-row-first', 'update_totals_on_change' ],
 		'priority'    => 30,
 	],
-	'gender' => [
-		'label'       => __( 'Geslacht', 'siw' ),
-		'required'    => true,
-		'type'        => 'radio',
-		'options'     => siw_get_genders(),
-		'class'       => ['form-row-last'],
-		'priority'    => 40,
-	],
-	'student' => [
-		'label'       => __( 'Ben je student?', 'siw' ),
-		'type'        => 'radio',
-		'class'       => ['form-row-first', 'update_totals_on_change'],
-		'options'     => [
-			'yes' => __( 'Ja', 'siw'),
-			'no'  => __( 'Nee', 'siw' ),
-		],
-		'default'  => 'no',
-		'priority'    => 50,
-	],
 	'nationality' => [
 		'label'       => __( 'Nationaliteit', 'siw' ),
 		'required'    => true,
@@ -52,8 +33,28 @@ $data = [
 		'options'     => siw_get_nationalities(),
 		'default'     => 'HOL',
 		'class'       => ['form-row-last'],
-		'priority'    => 60,
+		'priority'    => 40,
 	],
+	'gender' => [
+		'label'       => __( 'Geslacht', 'siw' ),
+		'required'    => true,
+		'type'        => 'radio',
+		'options'     => siw_get_genders(),
+		'class'       => ['form-row-first'],
+		'priority'    => 50,
+	],
+	'student' => [
+		'label'       => __( 'Ben je student?', 'siw' ),
+		'type'        => 'radio',
+		'class'       => ['form-row-last', 'update_totals_on_change'],
+		'options'     => [
+			'yes' => __( 'Ja', 'siw'),
+			'no'  => __( 'Nee', 'siw' ),
+		],
+		'default'  => 'no',
+		'priority' => 60,
+	],
+
 ];
 
 return $data;

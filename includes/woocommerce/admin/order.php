@@ -185,7 +185,6 @@ class Order {
 		$address['dob'] = $order->get_meta('_billing_dob');
 		$address['gender'] = siw_get_genders()[ $order->get_meta('_billing_gender') ];
 		$address['nationality'] = siw_get_nationalities() [$order->get_meta('_billing_nationality') ];
-		$address['housenumber'] = $order->get_meta( '_billing_housenumber' );
 		return $address;
 	}
 
