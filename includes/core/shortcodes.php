@@ -50,7 +50,7 @@ class Shortcodes {
 			'mtv_tarief'                    => __( 'MTV tarief', 'siw' ),
 			'ltv_tarief'                    => __( 'LTV tarief', 'siw' ),
 			'np_tarief'                     => __( 'Tarief Nederlandse projecten', 'siw' ),
-			'studententkorting'             => __( 'Studentenkorting', 'siw' ),
+			'studentenkorting'              => __( 'Studentenkorting', 'siw' ),
 			'groepsproject_tarief_student'  => __( 'Groepsprojecten - Studententarief', 'siw' ),
 			'groepsproject_tarief_regulier' => __( 'Groepsprojecten - Regulier tarief', 'siw' ),
 			'scholenproject_tarief'         => __( 'Scholenproject - tarief', 'siw' ),
