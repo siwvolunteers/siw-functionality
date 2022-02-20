@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'b4e7af4058de4c275440610e1673da4bfcb57d91',
+    'reference' => '71f579afa571d5ff0f31735f8cc9ee8e85a5cc0e',
     'name' => 'siwvolunteers/siw-functionality',
   ),
   'versions' => 
@@ -31,12 +31,12 @@
     ),
     'pharaonic/php-dot-array' => 
     array (
-      'pretty_version' => '1.0.0',
-      'version' => '1.0.0.0',
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8daa057aa491490ed8806bb5424fa1a4201b440e',
+      'reference' => 'b5da25a121b0fd03e6c495f77ee585b360ee6f73',
     ),
     'siwvolunteers/siw-functionality' => 
     array (
@@ -45,7 +45,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'b4e7af4058de4c275440610e1673da4bfcb57d91',
+      'reference' => '71f579afa571d5ff0f31735f8cc9ee8e85a5cc0e',
     ),
     'spatie/array-to-xml' => 
     array (
