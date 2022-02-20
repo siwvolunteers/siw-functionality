@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Order\Admin;
 
+use SIW\WooCommerce\Coupon;
+
 /**
  * Acties bij order
  *
@@ -15,6 +17,7 @@ class Order_Actions {
 		add_filter( 'woocommerce_order_actions', [ $self, 'remove_order_actions'] );
 		add_filter( 'woocommerce_order_actions', [ $self, 'add_order_action'], 10, 2 );
 		add_action( 'woocommerce_order_action_siw_export_to_plato', [ $self, 'export_order_to_plato'] );
+		add_action( 'woocommerce_order_action_siw_create_coupon', [ $self, 'create_coupon'] );
 	}
 
 	/** Verwijdert overbodige order actions */
@@ -25,19 +28,27 @@ class Order_Actions {
 		return $actions;
 	}
 
-	/** Voeg orderactie voor export naar Plato toe */
+	/** Voeg orderacties toe */
 	public function add_order_action( array $actions, \WC_Order $order ): array {
 		if ( $order->is_paid() ) {
 			$actions['siw_export_to_plato'] = __( 'Exporteer naar PLATO', 'siw' );
+		}
+		if ( $order->is_paid() && empty( wc_get_coupon_id_by_code( $order->get_order_number() ) ) ) {
+			$actions['siw_create_coupon'] = __( 'Creëer kortingscode', 'siw' );
 		}
 		return $actions;
 	}
 	
 	/** Exporteert aanmelding naar plato */
-	function export_order_to_plato( \WC_Order $order ) {
+	public function export_order_to_plato( \WC_Order $order ) {
 		$data = [
 			'order_id' => $order->get_id(),
 		];
 		siw_enqueue_async_action( 'export_plato_application', $data );
+	}
+
+	/** Maakt kortingscode aan */
+	public function create_coupon( \WC_Order $order ) {
+		Coupon::init()->create_for_order( $order->get_id() );
 	}
 }

@@ -19,7 +19,6 @@ class Loader extends Class_Loader_Abstract {
 	/** {@inheritDoc} */
 	public function get_classes() : array {
 		return [
-			Admin\Coupon::class,
 			Admin\Order::class,
 			Admin\Product_Tabs::class,
 			Admin\Product::class,
