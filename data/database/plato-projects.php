@@ -49,7 +49,7 @@ $data = [
 	[
 		'name'        => 'end_date',
 		'type'        => 'DATE',
-		'show'        => __( 'Eind datum', 'siw' ),
+		'show'        => true,
 		'sort'        => true,
 	],
 	[
