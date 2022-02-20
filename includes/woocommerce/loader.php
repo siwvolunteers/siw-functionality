@@ -3,6 +3,7 @@
 namespace SIW\WooCommerce;
 
 use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
+use SIW\WooCommerce\Admin\Product;
 
 /**
  * Loader voor WooCommerce
@@ -37,7 +38,6 @@ class Loader extends Class_Loader_Abstract {
 			Email\New_Order::class,
 
 			Frontend\Archive::class,
-			Frontend\Archive_Header::class,
 			Frontend\Product::class,
 			Frontend\Product_Tabs::class,
 
@@ -46,6 +46,7 @@ class Loader extends Class_Loader_Abstract {
 
 			Product\Admin\Approval::class,
 			Product\Admin\Bulk_Actions::class,
+			Product\Archive\Header::class,
 			Product\Archive\Ordering::class,
 			Product\SEO::class,
 

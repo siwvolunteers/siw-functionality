@@ -1,9 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace SIW\WooCommerce\Frontend;
+namespace SIW\WooCommerce\Product\Archive;
 
 use SIW\i18n;
-use SIW\Properties;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -11,7 +10,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Archive_Header {
+class Header {
 
 	/** Init */
 	public static function init() {
