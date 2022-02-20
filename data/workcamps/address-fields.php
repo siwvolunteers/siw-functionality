@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Adresvelden voor checkout groepsprojecten
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 
 $data = [
@@ -35,9 +35,14 @@ $data = [
 		'priority'    => 40,
 	],
 	'student' => [
-		'label'       => __( 'Student', 'siw' ),
-		'type'        => 'checkbox',
+		'label'       => __( 'Ben je student?', 'siw' ),
+		'type'        => 'radio',
 		'class'       => ['form-row-first', 'update_totals_on_change'],
+		'options'     => [
+			'yes' => __( 'Ja', 'siw'),
+			'no'  => __( 'Nee', 'siw' ),
+		],
+		'default'  => 'no',
 		'priority'    => 50,
 	],
 	'nationality' => [

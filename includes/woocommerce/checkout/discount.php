@@ -58,7 +58,7 @@ class Discount{
 		$student_discount_applicable = false;
 
 		$under_18 = isset( $data['billing_dob'] ) && ! empty( $data['billing_dob'] ) && Util::calculate_age( $data['billing_dob'] ) < 18;
-		$student = isset( $data['billing_student'] ) && '1' == $data['billing_student'];
+		$student = isset( $data['billing_student'] ) && 'yes' == $data['billing_student'];
 
 		if ( $under_18 || $student ) {
 			$this->maybe_create_coupon();
