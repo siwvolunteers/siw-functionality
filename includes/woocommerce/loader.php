@@ -44,9 +44,9 @@ class Loader extends Class_Loader_Abstract {
 			Order\Admin\Order_Actions::class,
 			Order\Status_Transitions::class,
 
+			Product\Admin\Approval::class,
+			Product\Admin\Bulk_Actions::class,
 			Product\Archive\Ordering::class,
-			Product\Approval::class,
-			Product\Bulk_Actions::class,
 			Product\SEO::class,
 
 			Log::class,
