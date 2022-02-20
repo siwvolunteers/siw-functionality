@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'ee81d693156cac4e76c2ab29e3a6c6b6a2f97f61',
+    'reference' => '71f579afa571d5ff0f31735f8cc9ee8e85a5cc0e',
     'name' => 'siwvolunteers/siw-functionality',
   ),
   'versions' => 
@@ -31,12 +31,12 @@
     ),
     'pharaonic/php-dot-array' => 
     array (
-      'pretty_version' => '1.0.0',
-      'version' => '1.0.0.0',
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8daa057aa491490ed8806bb5424fa1a4201b440e',
+      'reference' => 'b5da25a121b0fd03e6c495f77ee585b360ee6f73',
     ),
     'siwvolunteers/siw-functionality' => 
     array (
@@ -45,7 +45,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'ee81d693156cac4e76c2ab29e3a6c6b6a2f97f61',
+      'reference' => '71f579afa571d5ff0f31735f8cc9ee8e85a5cc0e',
     ),
     'spatie/array-to-xml' => 
     array (
@@ -58,12 +58,12 @@
     ),
     'spatie/enum' => 
     array (
-      'pretty_version' => '3.11.1',
-      'version' => '3.11.1.0',
+      'pretty_version' => '3.12.0',
+      'version' => '3.12.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '4afe5f06bb4c3cf46d8b02328bcc34c0de652ad4',
+      'reference' => 'c0180f1de7c5d06e4b84efbc751ea19167140173',
     ),
     'woocommerce/action-scheduler' => 
     array (

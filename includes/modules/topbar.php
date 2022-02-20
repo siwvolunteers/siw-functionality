@@ -2,7 +2,7 @@
 
 namespace SIW\Modules;
 
-use SIW\Core\Template;
+use SIW\Helpers\Template;
 use SIW\i18n;
 use SIW\Properties;
 
@@ -47,15 +47,14 @@ class Topbar {
 
 	/** Rendert de topbar */
 	public function render() {
-		Template::render_template(
-			'modules/topbar',
-			[
+		Template::create()
+			->set_template( 'modules/topbar' )
+			->set_context( [
 				'target'               => $this->content['link_target'] ?? '_self',
 				'link_url'             => $this->content['link_url'],
 				'link_text'            => $this->content['link_text'],
-
-			]
-		);
+			])
+			->render_template();
 	}
 
 	/** Voegt stylesheet toe */

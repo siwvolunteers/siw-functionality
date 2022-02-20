@@ -82,6 +82,7 @@ class Order {
 			'dob'         => [
 				'label'     => __( 'Geboortedatum', 'siw' ),
 				'show'      => false,
+				'type'      => 'date',
 			],
 			'nationality' => [
 				'label'     => __( 'Nationaliteit', 'siw' ),
@@ -108,10 +109,10 @@ class Order {
 
 	/** Undocumented function */
 	public function set_formatted_address_replacements( array $replace, array $args ) : array {
-		$replace['{gender}'] = $args['gender'];
-		$replace['{housenumber}'] = $args['housenumber'];
-		$replace['{nationality}'] = $args['nationality'];
-		$replace['{dob}'] = $args['dob'];
+		$replace['{gender}'] = $args['gender'] ?? '';
+		$replace['{housenumber}'] = $args['housenumber'] ?? '';
+		$replace['{nationality}'] = $args['nationality'] ?? '';
+		$replace['{dob}'] = $args['dob'] ?? '';
 		return $replace;
 	}
 

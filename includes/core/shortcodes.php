@@ -46,12 +46,13 @@ class Shortcodes {
 			'openingstijden'                => __( 'Openingstijden', 'siw' ),
 			'esc_borg'                      => __( 'ESC-borg', 'siw' ),
 			'volgende_infodag'              => __( 'Volgende infodag', 'siw' ),
+			'stv_tarief'                    => __( 'STV tarief', 'siw' ),
+			'mtv_tarief'                    => __( 'MTV tarief', 'siw' ),
+			'ltv_tarief'                    => __( 'LTV tarief', 'siw' ),
+			'np_tarief'                     => __( 'Tarief Nederlandse projecten', 'siw' ),
+			'studentenkorting'              => __( 'Studentenkorting', 'siw' ),
 			'groepsproject_tarief_student'  => __( 'Groepsprojecten - Studententarief', 'siw' ),
 			'groepsproject_tarief_regulier' => __( 'Groepsprojecten - Regulier tarief', 'siw' ),
-			'op_maat_tarief_student'        => __( 'Op Maat - Studententarief', 'siw' ),
-			'op_maat_tarief_regulier'       => __( 'Op Maat - Regulier tarief', 'siw' ),
-			'op_maat_tarief_duo'            => __( 'Op Maat - Duo-tarief', 'siw' ),
-			'op_maat_tarief_familie'        => __( 'Op Maat - Familie-tarief', 'siw' ),
 			'scholenproject_tarief'         => __( 'Scholenproject - tarief', 'siw' ),
 			'korting_tweede_project'        => __( 'Korting tweede project', 'siw' ),
 			'leeftijd'                      => __( 'Leeftijd van SIW', 'siw' ),
@@ -161,6 +162,31 @@ class Shortcodes {
 		return siw_format_date( $date, true );
 	}
 
+	/** STV tarief */
+	public static function render_stv_tarief(): string {
+		return siw_format_amount( Properties::STV_PROJECT_FEE );
+	}
+
+	/** MTV tarief */
+	public static function render_mtv_tarief(): string {
+		return siw_format_amount( Properties::MTV_PROJECT_FEE );
+	}
+	
+	/** LTV tarief */
+	public static function render_ltv_tarief(): string {
+		return siw_format_amount( Properties::LTV_PROJECT_FEE );
+	}
+
+	/** NP tarief */
+	public static function render_np_tarief(): string {
+		return siw_format_amount( Properties::DUTCH_PROJECT_FEE );
+	}
+	
+	/** Studentenkorting */
+	public static function render_studentenkorting(): string {
+		return siw_format_amount( Properties::STUDENT_DISCOUNT_AMOUNT );
+	}
+
 	/** Inschrijfgeld Groepsproject (student) */
 	public static function render_groepsproject_tarief_student() : string {
 		if ( siw_is_workcamp_sale_active() ) {
@@ -181,38 +207,6 @@ class Shortcodes {
 			);
 		}
 		return siw_format_amount( Properties::WORKCAMP_FEE_REGULAR );
-	}
-
-	/** Inschrijfgeld Op Maat-project (student) */
-	public static function render_op_maat_tarief_student() : string {
-		if ( siw_is_tailor_made_sale_active() ) {
-			return siw_format_sale_amount(
-				Properties::TAILOR_MADE_FEE_STUDENT,
-				Properties::TAILOR_MADE_FEE_STUDENT_SALE
-			);
-		}
-		return siw_format_amount( Properties::TAILOR_MADE_FEE_STUDENT );
-	}
-	
-	/** Inschrijfgeld Op Maat-project (regulier) */
-	public static function render_op_maat_tarief_regulier() : string {
-		if ( siw_is_tailor_made_sale_active() ) {
-			return siw_format_sale_amount(
-				Properties::TAILOR_MADE_FEE_REGULAR,
-				Properties::TAILOR_MADE_FEE_REGULAR_SALE
-			);
-		}
-		return siw_format_amount( Properties::TAILOR_MADE_FEE_REGULAR );
-	}
-
-	/** Inschrijfgeld Op Maat-project (duo) */
-	public static function render_op_maat_tarief_duo() : string {
-		return siw_format_amount( Properties::TAILOR_MADE_FEE_DUO );
-	}
-
-	/** Inschrijfgeld Op Maat-project (familie) */
-	public static function render_op_maat_tarief_familie() : string {
-		return siw_format_amount( Properties::TAILOR_MADE_FEE_FAMILY );
 	}
 
 	/** Inschrijfgeld scholenproject */

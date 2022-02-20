@@ -2,6 +2,7 @@
 
 namespace SIW\Elements;
 
+use SIW\Assets\Micromodal;
 use SIW\Util\Links;
 
 /**
@@ -12,12 +13,8 @@ use SIW\Util\Links;
  */
 class Modal extends Element {
 
-	const STYLE_HANDLE = 'siw-modal';
-	const SCRIPT_HANDLE = 'siw-modal';
-	const MICROMODAL_SCRIPT_HANDLE = 'micromodal';
-
-	/** Versienummer */
-	const MICROMODAL_VERSION = '0.4.10';
+	/** Handle voor assets */
+	const ASSETS_HANDLE = 'siw-modal';
 
 	/** Titel van de modal */
 	protected string $title;
@@ -79,17 +76,16 @@ class Modal extends Element {
 	}
 
 	/** Voegt styles toe */
-	protected function enqueue_styles() {
-		wp_register_style( self::STYLE_HANDLE, SIW_ASSETS_URL . 'css/elements/siw-modal.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( self::STYLE_HANDLE );
+	public function enqueue_styles() {
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/siw-modal.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Voegt scripts toe */
-	protected function enqueue_scripts() {
-		wp_register_script( self::MICROMODAL_SCRIPT_HANDLE, SIW_ASSETS_URL . 'vendor/micromodal/micromodal.js', [], self::MICROMODAL_VERSION, true );
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-modal.js', [ self::MICROMODAL_SCRIPT_HANDLE ], SIW_PLUGIN_VERSION, true );
+	public function enqueue_scripts() {
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-modal.js', [ Micromodal::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
-			self::SCRIPT_HANDLE,
+			self::ASSETS_HANDLE,
 			'siw_modal',
 			[
 				'openTrigger'         => 'data-modal-open',
@@ -100,6 +96,6 @@ class Modal extends Element {
 				'awaitCloseAnimation' => true,
 				'debugMode'           => defined( 'WP_DEBUG' ) && WP_DEBUG,
 		]);
-		wp_enqueue_script( self::SCRIPT_HANDLE );
+		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 }

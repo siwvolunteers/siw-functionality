@@ -9,10 +9,11 @@ use SIW\Elements\Features;
 use SIW\Elements\Icon;
 use SIW\Elements\Quote;
 use SIW\Elements\World_Map;
+use SIW\Helpers\Template;
 use SIW\i18n;
 use SIW\Util\CSS;
 use SIW\Util\Links;
-use SIW\Core\Template;
+
 
 /**
  * Op Maat landen
@@ -172,7 +173,7 @@ class TM_Country extends Type {
 			'link'      => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
 			'continent' => $continent->name,
 		];
-		Template::render_template( 'types/tm_country_archive', $template_vars );
+		Template::create()->set_template( 'types/tm_country_archive' )->set_context( $template_vars )->render_template();
 	}
 
 	/** {@inheritDoc} */
@@ -212,7 +213,7 @@ class TM_Country extends Type {
 		if ( in_array('kinderen', $work_types ) ) {
 			$template_vars += [ 'has_child_projects' => true ];
 		}
-		Template::render_template( 'types/tm_country_single', $template_vars );
+		Template::create()->set_template( 'types/tm_country_single' )->set_context( $template_vars )->render_template();
 	}
 
 	/**Maak features voor te kijken hoe het werkt */

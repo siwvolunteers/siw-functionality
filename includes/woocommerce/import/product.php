@@ -2,7 +2,6 @@
 
 namespace SIW\WooCommerce\Import;
 
-use SIW\Core\Template;
 use SIW\Util;
 use SIW\Data\Country;
 use SIW\Data\Language;
@@ -10,6 +9,7 @@ use SIW\Data\Plato\Project as Plato_Project;
 use SIW\Data\Plato\Project_Type as Plato_Project_Type;
 use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Work_Type;
+use SIW\Helpers\Template;
 use SIW\Util\Logger;
 use SIW\WooCommerce\Product_Attribute;
 use SIW\WooCommerce\Taxonomy_Attribute;
@@ -508,7 +508,7 @@ class Product {
 			),
 			'work_type'    => strtolower( $this->work_types[0]->get_name() ),
 		];
-		return Template::parse_string_template( $template, $context );
+		return Template::create()->set_template( $template )->set_context( $context )->parse_template();
 	}
 
 	/**

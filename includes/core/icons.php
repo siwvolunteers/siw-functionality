@@ -2,6 +2,7 @@
 
 namespace SIW\Core;
 
+use SIW\Assets\SIW_SVG;
 use SIW\Util\CSS;
 
 /**
@@ -34,7 +35,7 @@ class Icons {
 
 	/** Voegt SVG-script toe */
 	public function enqueue_script() {
-		wp_enqueue_script( 'siw-svg' );
+		wp_enqueue_script( SIW_SVG::ASSETS_HANDLE );
 	}
 
 	/** Voegt stylesheet toe */

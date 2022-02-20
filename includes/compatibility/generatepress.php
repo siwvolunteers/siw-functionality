@@ -2,6 +2,7 @@
 
 namespace SIW\Compatibility;
 
+use SIW\Assets\JS_Cookie;
 use SIW\i18n;
 use SIW\Properties;
 use SIW\Util\CSS;
@@ -118,7 +119,7 @@ class GeneratePress {
 
 	/** Voegt script toe */
 	public function enqueue_scripts(): void {
-		wp_register_script( 'siw-generatepress', SIW_ASSETS_URL . 'js/compatibility/siw-generatepress.js', [ 'jquery', 'js-cookie' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( 'siw-generatepress', SIW_ASSETS_URL . 'js/compatibility/siw-generatepress.js', [ 'jquery', JS_Cookie::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'siw-generatepress' );
 	}
 }

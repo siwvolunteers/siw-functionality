@@ -376,57 +376,6 @@ class Settings implements Option_Interface {
 				],
 			],
 		];
-		$fields[] = [
-			'id'      => 'tailor_made_sale',
-			'type'    => 'group',
-			'tab'     => 'tailor_made',
-			'fields'  => [
-				[
-					'type'      => 'heading',
-					'name'      => __( 'Kortingsactie', 'siw' ),
-				],
-				[
-					'id'        => 'active',
-					'name'      => __( 'Actief', 'siw' ),
-					'type'      => 'switch',
-					'on_label'  => __( 'Ja', 'siw' ),
-					'off_label' => __( 'Nee', 'siw'),
-				],
-				[
-					'type'      => 'custom_html',
-					'visible'   => [ 'tailor_made_sale[active]', true ],
-					'std'       => implode(
-						BR,
-						[
-							sprintf(
-								'%s: %s',
-								__( 'Regulier', 'siw' ),
-								siw_format_sale_amount( Properties::TAILOR_MADE_FEE_REGULAR, Properties::TAILOR_MADE_FEE_REGULAR_SALE )
-							),
-							sprintf(
-								'%s: %s',
-								__( 'Student', 'siw' ),
-								siw_format_sale_amount( Properties::TAILOR_MADE_FEE_STUDENT, Properties::TAILOR_MADE_FEE_STUDENT_SALE )
-							),
-						]
-					),
-				],
-				[
-					'id'        => 'start_date',
-					'name'      => __( 'Startdatum', 'siw' ),
-					'type'      => 'date',
-					'required'  => true,
-					'visible'   => [ 'tailor_made_sale[active]', true ],
-				],
-				[
-					'id'        => 'end_date',
-					'name'      => __( 'Einddatum', 'siw' ),
-					'type'      => 'date',
-					'required'  => true,
-					'visible'   => [ 'tailor_made_sale[active]', true ],
-				],
-			],
-		];
 
 		//Openingstijden
 		global $wp_locale;

@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
 namespace SIW;
+
+use SIW\Assets\SIW_Functionality;
 use SIW\Autoloader;
 
 /**
@@ -21,6 +23,7 @@ class Bootstrap {
 
 		$this->define_constants();
 		$this->load_textdomain();
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_plugin_style'] );
 
 		if ( ! $this->check_requirements() ) {
 			add_action( 'admin_notices', [ $this, 'show_requirements_admin_notice' ] );
@@ -33,6 +36,8 @@ class Bootstrap {
 
 		//Laadt klasses
 		$this->load_core();
+		$this->init_class( 'SIW', 'Loader' );
+		$this->init_loader( 'Assets' );
 		$this->init_loader( 'Options' );
 		$this->init_loader( 'Forms' );
 		$this->init_loader( 'Widgets' );
@@ -66,7 +71,7 @@ class Bootstrap {
 		define ( 'SIW_PLUGIN_VERSION', $plugin_info['version'] ); 
 		define ( 'SIW_MIN_PHP_VERSION', $plugin_info['min_php_version'] );
 		define ( 'SIW_MIN_WP_VERSION', $plugin_info['min_wp_version'] );
-		define ( 'SIW_PLUGIN_DIR', wp_normalize_path( plugin_dir_path( __FILE__ ) ) );
+		define ( 'SIW_PLUGIN_DIR', wp_normalize_path( plugin_dir_path( SIW_FUNCTIONALITY_PLUGIN_FILE ) ) );
 		define ( 'SIW_ASSETS_DIR', SIW_PLUGIN_DIR . 'assets/' );
 		define ( 'SIW_TEMPLATES_DIR', SIW_PLUGIN_DIR . 'templates/' );
 		define ( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . 'includes/' );
@@ -98,9 +103,7 @@ class Bootstrap {
 		new Autoloader( 'SIW', SIW_INCLUDES_DIR );
 	}
 
-	/**
-	 * Toon melding dat minimum requirements niet gehaald zijn is
-	 */
+	/** Toon melding dat minimum requirements niet gehaald zijn is */
 	public function show_requirements_admin_notice() {
 		$notice = sprintf(
 			__( 'De SIW plugin vereist WordPress versie %s en PHP versie %s', 'siw' ),
@@ -114,6 +117,11 @@ class Bootstrap {
 	/** Laadt textdomain voor plugin */
 	protected function load_textdomain() {
 		load_plugin_textdomain( 'siw', false, 'siw-functionality/languages/' );
+	}
+
+	/** Laadt plugin style */
+	public function enqueue_plugin_style() {
+		wp_enqueue_style( SIW_Functionality::ASSETS_HANDLE );
 	}
 
 	/** Laadt functiebestanden */
@@ -134,7 +142,6 @@ class Bootstrap {
 		$this->init_classes(
 			'SIW\Core',
 			[
-				'Assets',
 				'Head',
 				'Icons',
 				'Login',
@@ -142,16 +149,6 @@ class Bootstrap {
 				'Shortcodes',
 				'Update',
 				'Upload_Subdir',
-			]
-		);
-
-		$this->init_classes(
-			'SIW',
-			[
-				'Animation',
-				'Email',
-				'Cookie_Notice',
-				'Facebook_Pixel',
 			]
 		);
 	}
@@ -175,7 +172,6 @@ class Bootstrap {
 			[
 				'Event',
 				'Job_Posting',
-				'Quote',
 				'Story',
 				'TM_Country'
 			]

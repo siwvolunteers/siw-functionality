@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce\Product;
 
-use SIW\Core\Template;
+use SIW\Helpers\Template;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -88,7 +88,7 @@ class SEO {
 
 	/** Zet SEO noindex als project niet zichtbaar is */
 	function set_single_seo_noindex( array $meta, int $post_id ): array {
-		if ( 'product' == get_post_type( $post_id ) ) {
+		if ( 'product' === get_post_type( $post_id ) ) {
 			$product = siw_get_product( $post_id );
 			$meta['_genesis_noindex'] = intval( ! $product->is_visible() );
 		}
@@ -141,6 +141,6 @@ class SEO {
 			'country'      => $product->get_attribute(Taxonomy_Attribute::COUNTRY()->value),
 			'work_type'    => $product->get_attribute(Taxonomy_Attribute::WORK_TYPE()->value),
 		];
-		return Template::parse_string_template( $template, $context );
+		return Template::create()->set_template( $template )->set_context( $context )->parse_template();
 	}
 }

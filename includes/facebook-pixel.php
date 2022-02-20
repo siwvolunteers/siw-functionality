@@ -2,6 +2,7 @@
 
 namespace SIW;
 
+use SIW\Assets\JS_Cookie;
 use SIW\Elements\Cookie_Notice;
 
 /**
@@ -27,12 +28,12 @@ class Facebook_Pixel {
 			return;
 		}
 
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/siw-facebook-pixel.js', [ 'js-cookie' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/siw-facebook-pixel.js', [ JS_Cookie::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			self::SCRIPT_HANDLE,
 			'siw_facebook_pixel',
 			[
-				'pixel_id'    => $pixel_id,
+				'pixel_id'    => esc_js( $pixel_id ) ,
 				'cookie_name' => Cookie_Notice::COOKIE_NAME,
 			]
 		);

@@ -96,23 +96,23 @@
         },
         {
             "name": "pharaonic/php-dot-array",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Pharaonic/php-dot-array.git",
-                "reference": "8daa057aa491490ed8806bb5424fa1a4201b440e"
+                "reference": "b5da25a121b0fd03e6c495f77ee585b360ee6f73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Pharaonic/php-dot-array/zipball/8daa057aa491490ed8806bb5424fa1a4201b440e",
-                "reference": "8daa057aa491490ed8806bb5424fa1a4201b440e",
+                "url": "https://api.github.com/repos/Pharaonic/php-dot-array/zipball/b5da25a121b0fd03e6c495f77ee585b360ee6f73",
+                "reference": "b5da25a121b0fd03e6c495f77ee585b360ee6f73",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": ">=6.5"
+                "phpunit/phpunit": ">=5.0"
             },
             "type": "library",
             "autoload": {
@@ -145,9 +145,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Pharaonic/php-dot-array/issues",
-                "source": "https://github.com/Pharaonic/php-dot-array/tree/1.0.0"
+                "source": "https://github.com/Pharaonic/php-dot-array/tree/1.0.1"
             },
-            "time": "2020-11-07T19:20:14+00:00"
+            "time": "2022-02-14T10:17:11+00:00"
         },
         {
             "name": "spatie/array-to-xml",
@@ -215,16 +215,16 @@
         },
         {
             "name": "spatie/enum",
-            "version": "3.11.1",
+            "version": "3.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/enum.git",
-                "reference": "4afe5f06bb4c3cf46d8b02328bcc34c0de652ad4"
+                "reference": "c0180f1de7c5d06e4b84efbc751ea19167140173"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/enum/zipball/4afe5f06bb4c3cf46d8b02328bcc34c0de652ad4",
-                "reference": "4afe5f06bb4c3cf46d8b02328bcc34c0de652ad4",
+                "url": "https://api.github.com/repos/spatie/enum/zipball/c0180f1de7c5d06e4b84efbc751ea19167140173",
+                "reference": "c0180f1de7c5d06e4b84efbc751ea19167140173",
                 "shasum": ""
             },
             "require": {
@@ -287,7 +287,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-25T11:30:17+00:00"
+            "time": "2022-02-05T09:44:52+00:00"
         },
         {
             "name": "woocommerce/action-scheduler",

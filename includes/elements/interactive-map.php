@@ -2,6 +2,7 @@
 
 namespace SIW\Elements;
 
+use SIW\Assets\Mapplic;
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
 use SIW\Util\CSS;
@@ -16,15 +17,7 @@ use SIW\Util\CSS;
 class Interactive_Map extends Element {
 
 	// Constantes voor script/style handles
-	const SCRIPT_HANDLE = 'siw-interactive-maps';
-	const MAPPLIC_SCRIPT_HANDLE = 'mapplic';
-	const MAPPLIC_STYLE_HANDLE = 'mapplic';
-	const MAGNIFIC_POPUP_SCRIPT_HANDLE = 'magnific-popup';
-	const MAGNIFIC_POPUP_STYLE_HANDLE = 'magnific-popup';
-	const MOUSEWHEEL_SCRIPT_HANDLE = 'mousewheel';
-
-	/** Mapplic versie */
-	const MAPPLIC_VERSION = '7.1';
+	const ASSETS_HANDLE = 'siw-interactive-maps';
 
 	/** URL van Mapplic-bestanden */
 	protected string $mapplic_url = SIW_ASSETS_URL . 'vendor/mapplic/';
@@ -148,46 +141,13 @@ class Interactive_Map extends Element {
 	}
 
 	/** Voegt de benodigde scripts toe */
-	protected function enqueue_scripts() {
-		$deps = [ 'jquery' ];
-		if ( true == $this->get_option( 'lightbox' ) ) {
-			wp_register_script( self::MAGNIFIC_POPUP_SCRIPT_HANDLE, $this->mapplic_url . 'js/magnific-popup.js', [ 'jquery' ], self::MAPPLIC_VERSION, true );
-			$deps[] = self::MAGNIFIC_POPUP_SCRIPT_HANDLE;
-		}
-		if ( true == $this->get_option( 'mousewheel' ) ) {
-			wp_register_script( self::MOUSEWHEEL_SCRIPT_HANDLE, $this->mapplic_url . 'js/jquery.mousewheel.js', [ 'jquery' ], self::MAPPLIC_VERSION, true );
-			$deps[] = self::MOUSEWHEEL_SCRIPT_HANDLE;
-		}
-		wp_register_script( self::MAPPLIC_SCRIPT_HANDLE, $this->mapplic_url . 'js/mapplic.js', $deps, self::MAPPLIC_VERSION, true );
-
-		$mapplic_localization = [
-			'more'        => __( 'Meer', 'siw' ),
-			'search'      => __( 'Zoeken', 'siw' ),
-			'zoomin'      => __( 'Zoom in', 'siw' ),
-			'zoomout'     => __( 'Zoom out', 'siw' ),
-			'resetzoom'   => __( 'Reset zoom', 'siw' ),
-			'levelup'     => __( 'Niveau omhoog', 'siw' ),
-			'leveldown'   => __( 'Niveau omlaag', 'siw' ),
-			'clearsearch' => __( 'Verwijder zoekopdracht', 'siw' ),
-			'closepopup'  => __( 'Sluit popup', 'siw' ),
-			'clearfilter' => __( 'Verwijder filter', 'siw' ),
-			'iconfile'    => $this->mapplic_url . 'css/images/icons.svg'
-		];
-		wp_localize_script( self::MAPPLIC_SCRIPT_HANDLE, 'mapplic_localization', $mapplic_localization );
-		wp_enqueue_script( self::MAPPLIC_SCRIPT_HANDLE );
-
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-interactive-maps.js', [ self::MAPPLIC_SCRIPT_HANDLE, 'jquery' ], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( self::SCRIPT_HANDLE );
+	public function enqueue_scripts() {
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-interactive-maps.js', [ Mapplic::ASSETS_HANDLE, 'jquery' ], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 
 	/** Voegt benodigde styles toe */
-	protected function enqueue_styles() {
-		$deps = [];
-		if ( true == $this->get_option( 'lightbox' ) ) {
-			wp_register_style( self::MAGNIFIC_POPUP_STYLE_HANDLE, $this->mapplic_url . 'css/magnific-popup.css', [], self::MAPPLIC_VERSION );
-			$deps[] = self::MAGNIFIC_POPUP_STYLE_HANDLE;
-		}
-		wp_register_style( self::MAPPLIC_STYLE_HANDLE, $this->mapplic_url . 'css/mapplic.css', $deps, self::MAPPLIC_VERSION );
-		wp_enqueue_style( self::MAPPLIC_STYLE_HANDLE );
+	public function enqueue_styles() {
+		wp_enqueue_style( Mapplic::ASSETS_HANDLE );
 	}
 }

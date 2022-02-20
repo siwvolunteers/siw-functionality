@@ -2,6 +2,8 @@
 
 namespace SIW\Elements;
 
+use SIW\Assets\JS_Cookie;
+
 /**
  * Class om een cookie notice
  * 
@@ -10,9 +12,8 @@ namespace SIW\Elements;
  */
 class Cookie_Notice extends Element {
 
-	// Asset handles
-	const SCRIPT_HANDLE = 'siw-cookie-notice';
-	const STYLE_HANDLE = 'siw-cookie-notice';
+	/** Handle voor assets */
+	const ASSETS_HANDLE = 'siw-cookie-notice';
 
 	/** Cookienaam */
 	const COOKIE_NAME = 'siw_cookie';
@@ -38,10 +39,10 @@ class Cookie_Notice extends Element {
 	}
 
 	/** {@inheritDoc} */
-	protected function enqueue_scripts() {
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-cookie-notice.js', [ 'js-cookie' ], SIW_PLUGIN_VERSION, true );
+	public function enqueue_scripts() {
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-cookie-notice.js', [  JS_Cookie::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
-			self::SCRIPT_HANDLE,
+			self::ASSETS_HANDLE,
 			'siw_cookie_notice',
 			[
 				'cookie' => [
@@ -51,12 +52,12 @@ class Cookie_Notice extends Element {
 				'notice_id'   => $this->get_element_id(),
 			]
 		);
-		wp_enqueue_script( self::SCRIPT_HANDLE );
+		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 
 	/** {@inheritDoc} */
-	protected function enqueue_styles() {
-		wp_register_style( self::STYLE_HANDLE, SIW_ASSETS_URL . 'css/elements/siw-cookie-notice.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( self::STYLE_HANDLE );
+	public function enqueue_styles() {
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/siw-cookie-notice.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 }

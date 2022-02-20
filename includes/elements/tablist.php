@@ -2,22 +2,18 @@
 
 namespace SIW\Elements;
 
+use SIW\Assets\A11Y_Tablist;
+
 /**
  * Class om een tablist te genereren
  * 
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
- * @see       https://github.com/AcceDe-Web/tablist
  */
 class Tablist extends Repeater {
 	
 	// Constantes voor asset handles
-	const SCRIPT_HANDLE = 'siw-tablist';
-	const STYLE_HANDLE = 'siw-tablist';
-	const TABLIST_SCRIPT_HANDLE = 'a11y-tablist';
+	const ASSETS_HANDLE = 'siw-tablist';
 
-	/** Versienummer */
-	const TABLIST_VERSION = '2.0.1';
 
 	/** {@inheritDoc} */
 	protected static function get_type(): string {
@@ -32,16 +28,15 @@ class Tablist extends Repeater {
 	}
 
 	/** Voegt scripts toe */
-	protected function enqueue_scripts() {
-		wp_register_script( self::TABLIST_SCRIPT_HANDLE, SIW_ASSETS_URL . 'vendor/tablist/tablist.js', [], self::TABLIST_VERSION, true );
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-tablist.js', [self::TABLIST_SCRIPT_HANDLE], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( self::SCRIPT_HANDLE );
+	public function enqueue_scripts() {
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-tablist.js', [ A11Y_Tablist::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 
 	/** Voegt styles toe */
-	protected function enqueue_styles() {
-		wp_register_style( self::STYLE_HANDLE, SIW_ASSETS_URL . 'css/elements/siw-tablist.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( self::STYLE_HANDLE );
+	public function enqueue_styles() {
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/siw-tablist.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** {@inheritDoc} */

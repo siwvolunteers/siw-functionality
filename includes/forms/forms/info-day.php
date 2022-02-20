@@ -50,13 +50,7 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 				'name'     => __( 'Telefoonnummer', 'siw' ),
 				'required' => false,
 			],
-			[ 
-				'id'    => 'age',
-				'type'  => 'radio',
-				'inline' => true,
-				'name'   => __( 'In welke leeftijdscategorie val je?', 'siw' ),
-				'options' => $this->get_age_ranges(),
-			],
+
 			[
 				'id'      => 'info_day_date',
 				'type'    => 'radio',
@@ -79,8 +73,16 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 				'options'  => \siw_get_continents_list(),
 			],
 			[
+				'id'    => 'age',
+				'type'   => 'radio',
+				'inline' => false,
+				'name'    => __( 'In welke leeftijdscategorie val je?', 'siw' ),
+				'options' => $this->get_age_ranges(),
+			],
+			[
 				'id'      => 'referal',
 				'type'    => 'radio',
+				'inline'  => false,
 				'name'    => __( 'Hoe ben je op de website van SIW gekomen?', 'siw' ),
 				'options' => $this->get_referral_options(),
 			],
@@ -129,7 +131,8 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 
 		foreach ( $upcoming_info_days as $info_day ) {
 			$date = siw_meta( 'event_date', [], $info_day );
-			$info_days[ $date ] = siw_format_date( $date, false );
+			$online = siw_meta( 'online', [], $info_day );
+			$info_days[ $date ] = $online ? sprintf( '%s (%s)', siw_format_date( $date, false ), __( 'online', 'siw' ) ) : siw_format_date( $date, false );
 		}
 
 		return $info_days;

@@ -28,8 +28,8 @@ class Loader extends Class_Loader_Abstract {
 			Checkout\Discount::class,
 			Checkout\Fields::class,
 			Checkout\Form::class,
+			Checkout\Postcode_Lookup::class,
 			Checkout\Newsletter::class,
-			Checkout\Terms::class,
 			Checkout\Validation::class,
 
 			Email\Customer_On_Hold_Order::class,
@@ -43,6 +43,7 @@ class Loader extends Class_Loader_Abstract {
 			Frontend\Product::class,
 			Frontend\Product_Tabs::class,
 
+			Product\Archive\Ordering::class,
 			Product\Approval::class,
 			Product\Bulk_Actions::class,
 			Product\SEO::class,

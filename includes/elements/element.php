@@ -44,8 +44,14 @@ abstract class Element {
 
 	/** Genereert element */
 	public function generate(): string {
-		$this->enqueue_scripts();
-		$this->enqueue_styles();
+
+		if ( did_action( 'wp_enqueue_scripts' ) ) {
+			$this->enqueue_scripts();
+			$this->enqueue_styles();
+		} else {
+			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
+			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		}
 
 		$template_variables = wp_parse_args(
 			$this->get_template_variables(),
@@ -70,10 +76,10 @@ abstract class Element {
 	}
 
 	/** Voegt scripts toe */
-	protected function enqueue_scripts() {}
+	public function enqueue_scripts() {}
 
 	/** Voegt scripts toe */
-	protected function enqueue_styles() {}
+	public function enqueue_styles() {}
 
 	/** Initialiseert element */
 	protected function initialize() {}

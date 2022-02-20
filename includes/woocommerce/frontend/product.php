@@ -147,7 +147,6 @@ class Product {
 	/** Zet CSS-klass voor dropdown */
 	public function set_variation_dropdown_args( array $args ): array {
 		$args['show_option_none'] = __( 'Kies een tarief', 'siw' );
-		$args['class'] = 'select-css';
 		return $args;
 	}
 

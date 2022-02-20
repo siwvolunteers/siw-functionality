@@ -2,6 +2,7 @@
 
 namespace SIW\Elements;
 
+use SIW\Assets\SIW_SVG;
 use SIW\Util\CSS;
 use SIW\Data\Country;
 use SIW\Data\Continent;
@@ -13,7 +14,8 @@ use SIW\Data\Continent;
  */
 class World_Map extends Element {
 
-	const STYLE_HANDLE = 'siw-world-map';
+	/** Handle voor assets */
+	const ASSETS_HANDLE = 'siw-world-map';
 
 	/** Bestandsnaam van wereldkaart */
 	protected $map_file = SIW_ASSETS_URL . 'images/maps/world.svg';
@@ -47,21 +49,21 @@ class World_Map extends Element {
 	}
 
 	/** Zet land */
-	public function set_country( Country $country ) : self {
+	public function set_country( Country $country ): self {
 		$this->country = $country;
 		$this->continent = $country->get_continent();
 		return $this;
 	}
 
 	/** Zet zoom-niveau */
-	public function set_zoom( int $zoom ) : self {
+	public function set_zoom( int $zoom ): self {
 		$this->zoom = $zoom;
 		return $this;
 	}
 
 	/** Voegt SVG-script toe */
-	protected function enqueue_scripts() {
-		wp_enqueue_script( 'siw-svg' );
+	public function enqueue_scripts() {
+		wp_enqueue_script( SIW_SVG::ASSETS_HANDLE );
 	}
 
 	/** Voegt (inline) style toe */
@@ -78,8 +80,8 @@ class World_Map extends Element {
 				],
 			]
 		);
-		wp_register_style( self::STYLE_HANDLE, false );
-		wp_enqueue_style( self::STYLE_HANDLE );
-		wp_add_inline_style( self::STYLE_HANDLE, $inline_css );
+		wp_register_style( self::ASSETS_HANDLE, false );
+		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_add_inline_style( self::ASSETS_HANDLE, $inline_css );
 	}
 }

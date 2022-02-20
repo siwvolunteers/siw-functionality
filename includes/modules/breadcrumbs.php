@@ -2,7 +2,7 @@
 
 namespace SIW\Modules;
 
-use SIW\Core\Template;
+use SIW\Helpers\Template;
 
 /**
  * Breadcrumbs
@@ -10,6 +10,8 @@ use SIW\Core\Template;
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Breadcrumbs {
+
+	const ASSETS_HANDLE = 'siw-breadcrumbs';
 
 	/** Array met crumbs */
 	protected array $crumbs = [];
@@ -26,8 +28,8 @@ class Breadcrumbs {
 
 	/** Styles */
 	public function enqueue_styles() {
-		wp_register_style( 'siw-breadcrumbs', SIW_ASSETS_URL . 'css/modules/siw-breadcrumbs.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( 'siw-breadcrumbs' );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/siw-breadcrumbs.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Genereer breadcrumbs */
@@ -35,13 +37,13 @@ class Breadcrumbs {
 		$this->set_crumbs();
 		$this->set_current();
 
-		return Template::parse_template(
-			'modules/breadcrumbs',
-			[
+		return Template::create()
+			->set_template( 'modules/breadcrumbs' )
+			->set_context( [
 				'crumbs' => $this->crumbs,
 				'current' => $this->current,
-			]
-		);
+			])
+			->parse_template();
 	}
 
 	/** Zet huidige pagina */

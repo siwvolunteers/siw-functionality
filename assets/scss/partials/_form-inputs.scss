@@ -8,6 +8,7 @@ form.rwmb-form {
 	input[type=search],
 	input[type=number],
 	input[type=tel],
+	input[type=date]
 	input[type=time],
 	input[type=select],
 	button[type=submit],
@@ -27,6 +28,21 @@ form.rwmb-form {
 				outline-color: var(--siw-base);
 			}
 		}
+	}
+	
+	input,
+	textarea {
+		&:disabled,
+		&:read-only {
+			background-color: #ccc;
+			opacity: 0.8;
+		}
+	}
+
+	input[type=date] {
+		background: var(--siw-base);
+		color: var(--siw-contrast);
+		padding: 10px 15px;
 	}
 
 	select {

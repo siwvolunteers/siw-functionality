@@ -4,6 +4,7 @@ namespace SIW\API;
 
 use SIW\Interfaces\API\Endpoint as Endpoint_Interface;
 
+use SIW\Assets\Polyfill;
 use SIW\Util;
 use SIW\External\Postcode_Lookup as External_Postcode_Lookup;
 
@@ -44,7 +45,7 @@ class Postcode_Lookup implements Endpoint_Interface {
 	/** {@inheritDoc} */
 	public function get_script_data(): array {
 		return [
-			'deps'       => ['polyfill'],
+			'deps'       => [ Polyfill::ASSETS_HANDLE ],
 			'parameters' => [
 				'regex' => [
 					'postcode'    => Util::get_pattern( 'postcode' ),

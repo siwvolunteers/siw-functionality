@@ -61,7 +61,7 @@ class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interfa
 			],
 			[
 				'id'      => 'motivation',
-				'type'    => 'paragraph',
+				'type'    => 'textarea',
 				'name'    => __( 'Waarom zou je graag een begeleider willen worden voor de Nederlandse vrijwilligersprojecten?', 'siw' ),
 				'rows'    => 7,
 				'columns' => Form_Interface::FULL_WIDTH,

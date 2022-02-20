@@ -173,45 +173,30 @@ span.product-badge.featured-badge {
 }
 //Checkout
 .woocommerce-checkout {
-	.form-row-first, h3{
-		clear:left;
+	.form-row-first, h3 {
+		clear: left;
+	}
+
+	label.radio {
+		margin-right: 5px;
 	}
 
 	span.optional {
 		display: none;
 	}
 
-	.radio-icon {
-		input[type="radio"] {
-			position: absolute;
-			z-index: -1;
-			opacity: 0;
-		}
-
-		label.radio-label {
-			display: block;
-		}
-
-		label.radio-label.radio {
-			display: inline-block;
-			padding-right: 5px;
-			&:before{
-				font-family: WooCommerce;
-				padding-right: 5px;
-			}
-		}
-
-		input[type="radio"] + label::before {
-			content: "\e039";
-		}
-
-		input[type="radio"]:checked + label::before {
-			content: "\e03c";
+	.woocommerce form .form-row input.input-text, .woocommerce form .form-row textarea {
+		&:focus {
+			outline-offset: 2px;
+			outline: 2px dotted var(--siw-contrast-light);
 		}
 	}
 
-	.country .woocommerce-input-wrapper{
+	span.woocommerce-input-wrapper {
 		display: block;
+	}
+
+	.country .woocommerce-input-wrapper{
 		padding-top: 15px;
 		padding-bottom: 15px;
 	}
@@ -223,6 +208,4 @@ span.product-badge.featured-badge {
 			border-color: var(--siw-contrast);
 		}
 	}
-
 }
-

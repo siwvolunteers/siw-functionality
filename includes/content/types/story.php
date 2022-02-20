@@ -4,9 +4,9 @@ namespace SIW\Content\Types;
 use SIW\Content\Type;
 use SIW\Data\Country;
 use SIW\Elements\Quote;
+use SIW\Helpers\Template;
 use SIW\HTML;
 use SIW\Util\Links;
-use SIW\Core\Template;
 use SIW\i18n;
 
 /**
@@ -184,7 +184,7 @@ class Story extends Type {
 			'project'   => $project_type->name,
 			'continent' => $continent->name,
 		];
-		Template::render_template( 'types/story_archive', $template_vars );
+		Template::create()->set_template( 'types/story_archive' )->set_context( $template_vars )->render_template();
 	}
 
 	/**
@@ -222,7 +222,7 @@ class Story extends Type {
 			$even = ! $even;
 		}
 		$template_vars += array( 'stories' => $stories );
-		Template::render_template( 'types/story_single', $template_vars );
+		Template::create()->set_template( 'types/story_single' )->set_context( $template_vars )->render_template();
 	}
 	
 	/** Bepaal een call to action link ahv projecttype of continent */

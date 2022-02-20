@@ -26,8 +26,6 @@ class Head {
 		add_filter( 'site_icon_meta_tags', [ $self, 'add_manifest_tag']);
 		add_action( 'init', [ $self, 'show_web_app_manifest'] );
 
-		add_filter( 'wp_resource_hints', [ $self, 'add_resource_hints' ], 10 , 2 );
-
 		/* Optimalisatie HEAD */
 		add_filter( 'the_generator', '__return_false' );
 		remove_action( 'wp_head', 'wp_generator' );
@@ -50,7 +48,7 @@ class Head {
 
 	/** Voegt tag voor web app manifest toe */
 	public function add_manifest_tag( array $meta_tags ): array {
-		$meta_tags[] = sprintf( '<link rel="manifest" href="%s" crossorigin="use-credentials">', get_home_url( null, self::WEB_APP_MANIFEST_FILENAME ) );
+		$meta_tags[] = sprintf( '<link rel="manifest" href="%s" crossorigin="use-credentials">', wp_make_link_relative( get_home_url( null, self::WEB_APP_MANIFEST_FILENAME ) ) );
 		return $meta_tags;
 	}
 
@@ -87,22 +85,5 @@ class Head {
 			]
 		];
 		wp_send_json( $data, 200 );
-	}
-
-	/** Voegt resource hints (dns-prefetch en preconnect) toe */
-	public function add_resource_hints( array $urls, string $relation_type ): array {
-		/**
-		 * URL's die gepreconnect en geprefetcht moeten worden
-		 * 
-		 * @param array $urls
-		 */
-		$preconnect_urls = apply_filters( 'siw_preconnect_urls', [] );
-
-		if ( in_array( $relation_type, [ 'preconnect', 'dns-prefetch' ] ) ) {
-			foreach ( $preconnect_urls as $preconnect_url ) {
-				$urls[] = $preconnect_url;
-			}
-		}
-		return $urls;
 	}
 }
