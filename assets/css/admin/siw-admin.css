@@ -35,10 +35,6 @@
   background-repeat: no-repeat !important;
 }
 
-table.wp-list-table .column-visibility,
-table.wp-list-table .column-exported {
-  width: 10%;
-}
 table.wp-list-table .column-visibility .dashicons-visibility {
   color: green;
 }
