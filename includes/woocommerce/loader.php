@@ -3,7 +3,6 @@
 namespace SIW\WooCommerce;
 
 use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
-use SIW\WooCommerce\Admin\Product;
 
 /**
  * Loader voor WooCommerce
