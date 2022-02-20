@@ -67,7 +67,6 @@ class Topbar {
 	protected function get_content() : ?array {
 		$content =
 			$this->get_event_content() ??
-			$this->get_sale_content() ??
 			null;
 
 		return $content;
@@ -98,22 +97,6 @@ class Topbar {
 		return [
 			'link_url'  => get_the_permalink( $event_id ),
 			'link_text' => $link_text,
-		];
-	}
-
-	/** Haalt de kortingsactie-inhoud op */
-	protected function get_sale_content() : ?array {
-
-		if ( ! siw_is_workcamp_sale_active() ) {
-			return null;
-		}
-
-		$sale_price = siw_format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE );
-		$end_date = siw_format_date( siw_get_option( 'workcamp_sale.end_date' ), false );
-	
-		return [
-			'link_url'  => wc_get_page_permalink( 'shop' ),
-			'link_text' => sprintf( __( 'Meld je uiterlijk %s aan voor een project en betaal slechts %s.' , 'siw' ), $end_date, $sale_price ) ,
 		];
 	}
 }

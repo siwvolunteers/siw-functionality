@@ -121,7 +121,6 @@ class Update_Projects implements Batch_Action_Interface {
 		}
 
 		$tariffs = siw_get_data( 'workcamps/tariffs' );
-		$sale = siw_is_workcamp_sale_active();
 		$variations = $this->product->get_children();
 
 		foreach ( $variations as $variation_id ) {
@@ -130,14 +129,13 @@ class Update_Projects implements Batch_Action_Interface {
 			$tariff = $tariffs[ $variation_tariff ] ?? $tariffs['regulier'];
 
 			$regular_price = $tariff['regular_price'];
-			$sale_price = $tariff['sale_price'];
 
 			$variation->set_props([
 				'regular_price'     => $regular_price,
-				'sale_price'        => $sale ? $sale_price : null,
-				'price'             => $sale ? $sale_price : $regular_price,
-				'date_on_sale_from' => $sale ? date( 'Y-m-d 00:00:00', strtotime( siw_get_option( 'workcamp_sale.start_date' ) ) ) : null,
-				'date_on_sale_to'   => $sale ? date( 'Y-m-d 23:59:59', strtotime( siw_get_option( 'workcamp_sale.end_date' ) ) ) : null,
+				'sale_price'        => null,
+				'price'             => $regular_price,
+				'date_on_sale_from' => null,
+				'date_on_sale_to'   => null,
 			]);
 			if ( ! empty( $variation->get_changes() ) ) {
 				$variation->save();
