@@ -135,11 +135,11 @@ class Emails {
 			'rows'   => [
 				[
 					'label' => __( 'Naam', 'siw' ),
-					'value' => $order->get_meta( 'emergencyContactName' ),
+					'value' => $order->get_meta( 'emergency_contact_name' ),
 				],
 				[
 					'label' => __( 'Telefoonnummer', 'siw' ),
-					'value' => $order->get_meta( 'emergencyContactPhone' ),
+					'value' => $order->get_meta( 'emergency_contact_phone' ),
 				]
 			]
 		];
