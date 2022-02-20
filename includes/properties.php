@@ -84,24 +84,6 @@ class Properties {
 	/** @deprecated */
 	const WORKCAMP_FEE_REGULAR_SALE = 199;
 
-	/** @deprecated */
-	const TAILOR_MADE_FEE_STUDENT = 349;
-
-	/** @deprecated */
-	const TAILOR_MADE_FEE_REGULAR = 399;
-
-	/** @deprecated */
-	const TAILOR_MADE_FEE_DUO = 550;
-
-	/** @deprecated */
-	const TAILOR_MADE_FEE_FAMILY = 750;
-
-	/** @deprecated */
-	const TAILOR_MADE_FEE_STUDENT_SALE = 324;
-
-	/** @deprecated */
-	const TAILOR_MADE_FEE_REGULAR_SALE = 374;
-
 	/** Inschrijfgeld Schoolproject */
 	const SCHOOL_PROJECT_FEE = 125;
 
