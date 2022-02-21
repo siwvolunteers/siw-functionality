@@ -1,20 +1,15 @@
 {{> widget-title}}
 <form id="siw_quick_search" method="get" action="{{& result_page_url|esc_url }}">
 	<ul>
+		{{# search_fields }}
 		<li>
-			<select id="{{ destinations.id }}" name="{{ destinations.name }}">
-			{{# destinations.options }}
+			<select id="{{ id }}" name="{{ name }}">
+			{{# options }}
 				<option value="{{ value }}" {{# selected}} selected="selected" {{/ selected}}>{{ label }}</option>
-			{{/ destinations.options}}
+			{{/ options}}
 			</select>
 		</li>
-		<li>
-			<select id="{{ months.id }}" name="{{ months.name }}">
-			{{# months.options }}
-				<option value="{{ value }}" {{# selected}} selected="selected" {{/ selected}}>{{ label }}</option>
-			{{/ months.options}}
-			</select>
-		</li>
+		{{/ search_fields }}
 		<li>
 			<button type="submit" class="button">{{ i18n.search }}
 		</li>

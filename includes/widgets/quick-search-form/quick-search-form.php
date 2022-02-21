@@ -67,77 +67,54 @@ class Quick_Search_Form extends Widget {
 
 		return [
 			'result_page_url' => wp_make_link_relative( get_permalink( $instance['result_page'] ) ),
-			'destinations' => [
-				'id'      => 'bestemming',
-				'name'    => 'bestemming',
-				'options' => $this->get_destinations(),
-			],
-			'months'   => [
-				'id'      => 'maand',
-				'name'    => 'maand',
-				'options' => $this->get_months(),
+			'search_fields' => [
+				[
+					'id'      => Quick_Search_Results::DESTINATION,
+					'name'    => Quick_Search_Results::DESTINATION,
+					'options' => $this->get_taxonomy_options( Taxonomy_Attribute::CONTINENT()->value, __( 'Waar wil je heen?', 'siw' ) ),
+				],
+				[
+					'id'      => Quick_Search_Results::MONTH,
+					'name'    => Quick_Search_Results::MONTH,
+					'options' => $this->get_taxonomy_options( Taxonomy_Attribute::MONTH()->value, __( 'Wanneer wil je weg?', 'siw' ) ),
+				],
+				[
+					'id'     => Quick_Search_Results::DESTINATION,
+					'name'   => Quick_Search_Results::DESTINATION,
+					'options' => $this->get_taxonomy_options( Taxonomy_Attribute::DURATION()->value, __( 'Hoe lang wil je weg?', 'siw' ) ),
+				]
 			],
 			'i18n' => [
 				'search' => __( 'Zoeken', 'siw' )
 			]
 		];
-
 	}
 
-	/** Haalt bestemmingen met beschikbare projecten op */
-	protected function get_destinations() : array {
-
-		$categories = get_terms( [
-			'taxonomy'   => Taxonomy_Attribute::CONTINENT()->value,
-			'hide_empty' => true,
-			'meta_query' => [
-				[
-					'key'     => Update_WooCommerce_Terms::POST_COUNT_TERM_META,
-					'value'   => 0,
-					'compare' => '>',
-				],
-			],
-		] );
-	
-		$destinations[] = [
-			'value'    => '',
-			'label'    => __( 'Waar wil je heen?', 'siw' ),
-			'selected' => true,
-		];
-		foreach ( $categories as $category ) {
-			$destinations[] = [
-				'value' => $category->slug,
-				'label' => $category->name,
-			];
-		}
-		return $destinations;
-	}
-	
-	/** Haalt maanden met beschikbare projecten op */
-	protected function get_months() : array {
+	/** Haalt lijst met opties per taxonomy op */
+	protected function get_taxonomy_options( string $taxonomy, string $placeholder ): array {
 		$terms = get_terms( [
-			'taxonomy'   => Taxonomy_Attribute::MONTH()->value,
-			'hide_empty' => true,
-			'meta_query' => [
-				[
-					'key'     => Update_WooCommerce_Terms::POST_COUNT_TERM_META,
-					'value'   => 0,
-					'compare' => '>',
-				],
-			]
+			'taxonomy'   => $taxonomy,
+			'hide_empty' => false,
+			// 'meta_query' => [
+			// 	[
+			// 		'key'     => Update_WooCommerce_Terms::POST_COUNT_TERM_META,
+			// 		'value'   => 0,
+			// 		'compare' => '>',
+			// 	],
+			// ]
 		]);
 	
-		$months[] = [
+		$term_options[] = [
 			'value'    => '',
-			'label'    => __( 'Wanneer wil je weg?', 'siw' ),
+			'label'    => $placeholder,
 			'selected' => true,
 		];
 		foreach ( $terms as $term ) {
-			$months[] =[
+			$term_options[] =[
 				'value' => $term->slug,
 				'label' => $term->name,
 			];
 		}
-		return $months;
+		return $term_options;
 	}
 }
