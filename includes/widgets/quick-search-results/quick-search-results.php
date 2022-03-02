@@ -90,7 +90,7 @@ class Quick_Search_Results extends Widget {
 		];
 
 		/* Verwerk zoekargument bestemming*/
-		$category_slug  = sanitize_key( get_query_var( self::DURATION, false ) );
+		$category_slug  = sanitize_key( get_query_var( self::DESTINATION, false ) );
 		$category       = get_term_by( 'slug', $category_slug, Taxonomy_Attribute::CONTINENT()->value );
 
 		if ( is_a( $category, \WP_Term::class ) ) {

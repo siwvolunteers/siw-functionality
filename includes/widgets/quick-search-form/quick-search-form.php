@@ -79,8 +79,8 @@ class Quick_Search_Form extends Widget {
 					'options' => $this->get_taxonomy_options( Taxonomy_Attribute::MONTH()->value, __( 'Wanneer wil je weg?', 'siw' ) ),
 				],
 				[
-					'id'     => Quick_Search_Results::DESTINATION,
-					'name'   => Quick_Search_Results::DESTINATION,
+					'id'      => Quick_Search_Results::DURATION,
+					'name'    => Quick_Search_Results::DURATION,
 					'options' => $this->get_taxonomy_options( Taxonomy_Attribute::DURATION()->value, __( 'Hoe lang wil je weg?', 'siw' ) ),
 				]
 			],
@@ -95,13 +95,13 @@ class Quick_Search_Form extends Widget {
 		$terms = get_terms( [
 			'taxonomy'   => $taxonomy,
 			'hide_empty' => false,
-			// 'meta_query' => [
-			// 	[
-			// 		'key'     => Update_WooCommerce_Terms::POST_COUNT_TERM_META,
-			// 		'value'   => 0,
-			// 		'compare' => '>',
-			// 	],
-			// ]
+			'meta_query' => [
+				[
+					'key'     => Update_WooCommerce_Terms::POST_COUNT_TERM_META,
+					'value'   => 0,
+					'compare' => '>',
+				],
+			]
 		]);
 	
 		$term_options[] = [
