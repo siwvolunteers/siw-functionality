@@ -23,8 +23,6 @@ class WooCommerce {
 		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
 
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_project_id_search' ], 10, 2 );
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_country_search' ], 10, 2 );
 		add_filter( 'woocommerce_product_visibility_options', [ $self, 'remove_product_visibility_options', ] );
 		add_filter( 'woocommerce_products_admin_list_table_filters', [ $self, 'remove_products_admin_list_table_filters'] );
 
@@ -78,28 +76,6 @@ class WooCommerce {
 	/** Verwijdert dashboard widgets */
 	public function remove_dashboard_widgets() {
 		remove_meta_box( 'woocommerce_dashboard_status', 'dashboard', 'normal' );
-	}
-
-	/** Voegt project_id als argument toe aan WC queries */
-	public function enable_project_id_search( array $query, array $query_vars ): array {
-		if ( ! empty( $query_vars['project_id'] ) ) {
-			$query['meta_query'][] = [
-				'key'   => 'project_id',
-				'value' => esc_attr( $query_vars['project_id'] ),
-			];
-		}
-		return $query;
-	}
-	
-	/** Voegt country argument toe aan WC queries */
-	public function enable_country_search( array $query, array $query_vars ): array {
-		if ( ! empty( $query_vars['country'] ) ) {
-			$query['meta_query'][] = [
-				'key'   => 'country',
-				'value' => esc_attr( $query_vars['country'] ),
-			];
-		}
-		return $query;
 	}
 
 	/** Verwijdert overbodige zichtbaarheidsopties */

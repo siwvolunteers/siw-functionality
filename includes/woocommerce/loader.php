@@ -48,6 +48,7 @@ class Loader extends Class_Loader_Abstract {
 			Product\Archive\Header::class,
 			Product\Archive\Ordering::class,
 			Product\Product_Type::class,
+			Product\Query::class,
 			Product\SEO::class,
 			Product\Shortcode::class,
 
