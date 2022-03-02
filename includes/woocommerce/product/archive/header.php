@@ -93,6 +93,9 @@ class Header {
 				case Taxonomy_Attribute::MONTH()->value:
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
+				case Taxonomy_Attribute::DURATION()->value:
+					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met een duur van %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' ); 
+					break;
 				default:
 					$text = __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten.', 'siw' );
 			}

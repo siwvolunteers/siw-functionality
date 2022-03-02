@@ -20,59 +20,51 @@ class Product_Tabs {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_description_tab'] );
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_location_map_tab'] );
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_contact_form_tab'] );
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_steps_tab'] );
+		add_filter( 'woocommerce_product_tabs', [ $self, 'add_and_rename_and_remove_product_tabs'] );
+		add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
 	}
 
 	/** Voegt tab met projectbeschrijving toe */
-	public function add_project_description_tab( array $tabs ) : array {
-		global $product;
-		$description = $product->get_meta( 'description' );
-		if ( empty( $description ) ) {
+	public function add_and_rename_and_remove_product_tabs( array $tabs ) : array {
+		global $post;
+		$product = siw_get_product( $post );
+		if ( null === $product ) {
 			return $tabs;
 		}
+
+		$tabs['additional_information']['title'] = __( 'Eigenschappen', 'siw' );
+
 		unset( $tabs['description']);
-		$tabs['project_description'] = [
-			'title'       => __( 'Beschrijving', 'siw' ),
-			'priority'    => 1,
-			'callback'    => [ $this, 'show_project_description' ],
-			'description' => $description,
-		];
-		return $tabs;
-	}
+
+		$project_description = $product->get_project_description();
+		if ( ! empty( $project_description ) ) {
+			$tabs['project_description'] = [
+				'title'       => __( 'Beschrijving', 'siw' ),
+				'priority'    => 1,
+				'callback'    => [ $this, 'show_project_description' ],
+				'description' => $project_description,
+			];
+		}
+
+		$latitude = $product->get_latitude();
+		$longitude = $product->get_longitude();
 	
-	/** Voegt tab met projectlocatie toe */
-	public function add_project_location_map_tab( array $tabs ) : array {
-		global $product;
-		$lat = (float) $product->get_meta( 'latitude' );
-		$lng = (float) $product->get_meta( 'longitude' );
-	
-		if ( 0 != $lat && 0 != $lng ) {
+		if ( 0 != $latitude && 0 != $longitude ) {
 			$tabs['location'] = [
 				'title'     => __( 'Projectlocatie', 'siw' ),
 				'priority'  => 110,
 				'callback'  => [ $this, 'show_project_map'],
-				'lat'       => $lat,
-				'lng'       => $lng,
+				'latitude'  => $latitude,
+				'longitude' => $longitude,
 			];
 		}
-		return $tabs;
-	}
 
-	/** Voegt tab met contactformulier toe */
-	public function add_contact_form_tab( array $tabs ) : array {
 		$tabs['enquiry'] = [
 			'title'    => __( 'Stel een vraag', 'siw' ),
 			'priority' => 120,
 			'callback' => [ $this, 'show_product_contact_form' ],
 		];
-		return $tabs;
-	}
 
-	/** Voegt tab met stappenplan toe */
-	public function add_steps_tab( array $tabs ) : array {
 		$tabs['steps'] = [
 			'title'    => __( 'Zo werkt het', 'siw' ),
 			'priority' => 130,
@@ -111,7 +103,7 @@ class Product_Tabs {
 	/** Toont kaart met projectlocatie in tab */
 	public function show_project_map( string $tab, array $args ) {
 		Google_Maps::create()
-			->add_marker( $args['lat'], $args['lng'], __( 'Projectlocatie', 'siw' ) )
+			->add_marker( $args['latitude'], $args['longitude'], __( 'Projectlocatie', 'siw' ) )
 			->render();
 	}
 

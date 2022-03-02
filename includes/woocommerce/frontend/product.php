@@ -4,7 +4,8 @@ namespace SIW\WooCommerce\Frontend;
 
 use SIW\Data\Currency;
 use SIW\External\Exchange_Rates;
-use SIW\WooCommerce\Import\Product as Import_Product;
+use SIW\Properties;
+use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Product_Attribute;
 use SIW\WooCommerce\Taxonomy_Attribute;
 use Spatie\Enum\Enum;
@@ -19,51 +20,29 @@ class Product {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_filter( 'woocommerce_is_purchasable', [ $self, 'set_product_is_purchasable'], 10, 2 );
-		add_filter( 'woocommerce_available_variation', [ $self, 'set_variation_description'] );
 		add_filter( 'woocommerce_display_product_attributes', [ $self, 'display_product_attributes'], 10, 2 );
+		add_action( 'woocommerce_project_add_to_cart', 'woocommerce_simple_add_to_cart', 30 );
+
+		
+		add_action( 'woocommerce_single_product_summary', [ $self, 'show_project_summary'], 20 );
 		add_action( 'woocommerce_after_add_to_cart_form', [ $self, 'show_local_fee'] );
 		add_action( 'woocommerce_after_add_to_cart_form', [ $self, 'payment_alert'] );	/* tidelijke alert text na aanmelden knop */
-		add_filter( 'woocommerce_dropdown_variation_attribute_options_args', [ $self, 'set_variation_dropdown_args'] );
 
 		add_action( 'woocommerce_before_single_product_summary', [ $self, 'show_featured_badge' ], 10 );
-
-		/**
-		 * Verwijderen diverse woocommerce-hooks
-		 * - "Reset variations"-link
-		 * - Prijsrange
-		 * - Trailing zeroes
-		 * - Redundante headers in tabs
-		 * Altijd prijs van variatie tonen
-		 */
-		add_filter( 'woocommerce_reset_variations_link', '__return_empty_string' );
 		add_filter( 'woocommerce_price_trim_zeros', '__return_true' );
-		add_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
-		add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
-		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+		
+		//remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 ); //TODO: studentenkorting tonen
+		add_action( 'woocommerce_single_product_summary', [ $self, 'show_student_discount_info'], 10 );
+		add_filter('woocommerce_single_product_image_thumbnail_html', [ $self, 'remove_link_on_thumbnails'] );
 	}
 
-	/** Bepaalt of product bestelbaar is */
-	public function set_product_is_purchasable( bool $is_purchasable, \WC_Product $product ): bool {
-		$is_purchasable = $product->is_visible();
-		$status = $product->get_status();
-
-		if ( ! $is_purchasable || Import_Product::REVIEW_STATUS == $status ) {
-			add_filter( 'woocommerce_variation_is_visible', '__return_false');
-		}
-		return $is_purchasable;
-	}
-
-	/** Zet de toelichting voor het studententarief */
-	public function set_variation_description( $variations ): array {
-		if ( 'student' == $variations['attributes']['attribute_pa_tarief'] ) {
-			$variations['variation_description'] =  __( 'Je komt in aanmerking voor het studententarief als je 17 jaar of jonger bent of als je een bewijs van inschrijving kunt laten zien.', 'siw' );
-		}
-		return $variations;
+	/** Verwijdert link bij productafbeelding */
+	public function remove_link_on_thumbnails( string $html ): string {
+		return strip_tags( $html, '<img>' );
 	}
 
 	/** Past weergave van de attributes aan */
-	public function display_product_attributes( array $attributes, \WC_Product $product ): array {
+	public function display_product_attributes( array $attributes, WC_Product_Project $product ): array {
 		$order = [
 			Product_Attribute::PROJECT_NAME(),
 			Product_Attribute::PROJECT_CODE(),
@@ -89,7 +68,7 @@ class Product {
 		} );
 
 		//Local fee verbergen voor nederlandse projecten
-		if ( 'nederland' === $product->get_meta( 'country' ) ) {
+		if ( $product->is_dutch_project() ) {
 			unset( $attributes['attribute_lokale-bijdrage']);
 		}
 
@@ -108,17 +87,57 @@ class Product {
 		echo $html;
 	}
 
-	/** Toont lokale bijdrage indien van toepassing */
-	public function show_local_fee() {
-		global $product;
-
-		//Local fee niet tonen voor nederlandse projecten
-		if ( 'nederland' === $product->get_meta( 'country' ) ) {
+	public function show_project_summary() {
+		global $post;
+		$product = \siw_get_product( $post );
+		if ( null == $product ) {
 			return;
 		}
 
-		$amount = (float) $product->get_meta( 'participation_fee' );
-		$currency_code = $product->get_meta( 'participation_fee_currency' );
+		esc_html_e( 'In het kort:', 'siw' );
+
+
+		$duration = siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false );
+		echo '<p>';
+		echo $product->get_country()->get_name() . BR;
+		echo implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE()->value, ['fields' => 'names' ] ) ) . BR;
+		echo esc_html( $duration ) . BR;
+		echo implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::SDG()->value, ['fields' => 'names' ] ) ) . BR;
+		echo $product->get_attribute( Product_Attribute::NUMBER_OF_VOLUNTEERS()->value );
+		echo '</p>';
+		
+
+
+
+	}
+
+
+	/** Toont infotekst over studentenkorting TODO: 1 tarieven blok van maken met tarief en local fee? */
+	public function show_student_discount_info() {
+		global $post;
+
+		$product = siw_get_product( $post );
+
+		if ( null == $product ) {
+			return;
+		}
+		echo sprintf( esc_html__( 'Exclusief %s studenten/jongerenkorting', 'siw'), siw_format_amount( Properties::STUDENT_DISCOUNT_AMOUNT ) );
+	}
+
+
+	/** Toont lokale bijdrage indien van toepassing */
+	public function show_local_fee() {
+		global $post;
+
+		$product = siw_get_product( $post );
+
+		//Local fee niet tonen voor nederlandse projecten
+		if ( null == $product || $product->is_dutch_project() ) {
+			return;
+		}
+
+		$amount = $product->get_participation_fee();
+		$currency_code = $product->get_participation_fee_currency();
 
 		if ( empty( $currency_code ) || $amount <= 0 ) {
 			return;
@@ -144,17 +163,7 @@ class Product {
 		<?php
 	}
 
-	/** Zet CSS-klass voor dropdown */
-	public function set_variation_dropdown_args( array $args ): array {
-		$args['show_option_none'] = __( 'Kies een tarief', 'siw' );
-		return $args;
-	}
-
-	/**
-	 * Toont badge voor aanbevolen projecten
-	 * 
-	 * @todo template van maken i.v.m. duplicate code in archive
-	 */
+	/** Toont badge voor aanbevolen projecten */
 	public function show_featured_badge() {
 		global $product;
 		if ( $product->is_featured() && ! $product->is_on_sale() ) {

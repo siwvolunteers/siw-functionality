@@ -8,6 +8,7 @@ use SIW\Elements\Accordion;
 use SIW\i18n;
 use SIW\Util\CSS;
 use SIW\Util\Links;
+use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -61,11 +62,11 @@ class Netherlands implements Interactive_Map_Interface {
 		foreach ( $projects as $project ) {
 			$locations[] = [
 				'id'            => sanitize_title( $project->get_sku() ),
-				'title'         => $this->get_project_title( $project ),
+				'title'         => $project->get_name(),
 				'image'         => $project->get_image_id() ? wp_get_attachment_image_src( $project->get_image_id(), 'medium' )[0] : null,
 				'about'         => $project->get_sku(),
-				'lat'           => $project->get_meta( 'latitude' ) ?? null,
-				'lng'           => $project->get_meta( 'longitude' ) ?? null,
+				'lat'           => $project->get_latitude() ?? null,
+				'lng'           => $project->get_longitude() ?? null,
 				'description'   => $this->get_project_properties( $project ) . $this->get_project_button( $project ),
 				'pin'           => 'pin-classic pin-md',
 				'category'      => 'nl',
@@ -98,7 +99,7 @@ class Netherlands implements Interactive_Map_Interface {
 		$panes = [];
 		foreach ( $projects as $project ) {
 			$panes[] = [
-				'title'       => $this->get_project_title( $project ),
+				'title'       => $project->get_name(),
 				'content'     => $this->get_project_properties( $project ),
 				'show_button' => i18n::is_default_language(),
 				'button_url'  => $project->get_permalink(),
@@ -109,8 +110,12 @@ class Netherlands implements Interactive_Map_Interface {
 		return Accordion::create()->add_items( $panes )->generate();
 	}
 
-	/** Haalt projecten op */
-	protected function get_projects() : array {
+	/**
+	 * Haalt projecten op
+	 * 
+	 * @return WC_Product_Project[]
+	*/
+	protected function get_projects(): array {
 		$args = [
 			'country' => 'nederland',
 		];
@@ -118,17 +123,18 @@ class Netherlands implements Interactive_Map_Interface {
 	}
 
 	/** Genereert beschrijving van het project */
-	protected function get_project_properties( \WC_Product $project ) : string {
+	protected function get_project_properties( WC_Product_Project $project ) : string {
 		//Verzamelen gegevens
-		$duration = siw_format_date_range( $project->get_attribute( 'startdatum' ), $project->get_attribute( 'einddatum' ) );
+		$duration = siw_format_date_range( $project->get_start_date(), $project->get_end_date() );
 
 		//Opbouwen beschrijving
 		$description[] = sprintf( __( 'Projectcode: %s', 'siw' ), $project->get_sku() );
 		$description[] = sprintf( __( 'Data: %s', 'siw' ), $duration );
 		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), $project->get_attribute( Taxonomy_Attribute::WORK_TYPE()->value ) );
 		$sdgs = $project->get_attribute( Taxonomy_Attribute::SDG()->value );
-		if ( !empty( $sdgs ) ) {
+		if ( ! empty( $sdgs ) ) { 
 			$description[] = sprintf( __( 'Sustainable Development Goals: %s', 'siw' ), $sdgs );
+			//TODO: icons gebruiken?
 		}
 
 		
@@ -136,13 +142,8 @@ class Netherlands implements Interactive_Map_Interface {
 		return wpautop( implode( BR, $description ) );
 	}
 
-	/** Haalt projecttitel op */
-	protected function get_project_title( \WC_Product $project ) : string {
-		return $project->get_attribute( 'Projectnaam' );
-	}
-
 	/** Haal knop naar Groepsproject op */
-	protected function get_project_button( \WC_Product $project ) : ?string {
+	protected function get_project_button( WC_Product_Project $project ) : ?string {
 		if ( ! i18n::is_default_language() ) {
 			return null;
 		}

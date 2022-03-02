@@ -2,6 +2,7 @@
 
 namespace SIW\WooCommerce\Admin;
 
+use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Product_Attribute;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
@@ -40,25 +41,34 @@ class Product_Columns extends \MBAC\Post {
 		switch ( $column ) {
 			case 'visibility':
 				$product = $this->get_product( $post_id );
+				if ( null == $product ) {
+					return;
+				}
 				printf( '<span class="dashicons %s"></span>', $product->is_visible() ? 'dashicons-visibility' : 'dashicons-hidden' );
 
-				if ( $product->get_meta( 'force_hide' ) ) {
+				if ( $product->is_hidden() ) {
 					echo '<span class="dashicons dashicons-lock"></span>';
 				}
 				break;
 			case 'start_date':
 				$product = $this->get_product( $post_id );
-				echo $product->get_attribute( Product_Attribute::START_DATE()->value );
+				if ( null == $product ) {
+					return;
+				}
+				echo $product->get_start_date();
 				break;
 			case 'country':
 				$product = $this->get_product( $post_id );
-				echo $product->get_attribute( Taxonomy_Attribute::COUNTRY()->value );
+				if ( null == $product ) {
+					return;
+				}
+				echo $product->get_country()->get_name();
 				break;
 		}
 	}
 
 	/** Haalt het product op  */
-	protected function get_product( int $post_id ): ?\WC_Product {
+	protected function get_product( int $post_id ): ?WC_Product_Project {
 		$product = wp_cache_get( $post_id, __METHOD__ );
 		if ( false !== $product ) {
 			return $product;

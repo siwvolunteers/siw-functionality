@@ -31,7 +31,12 @@ class Approval {
 			return;
 		}
 		$product = siw_get_product( $post->ID );
-		$approval_result = $product->get_meta( 'approval_result' );
+
+		if ( null === $product ) {
+			return;
+		}
+
+		$approval_result = $product->get_approval_result();
 		woocommerce_wp_radio(
 			[
 				'id'          => '_approval_result',

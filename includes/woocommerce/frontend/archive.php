@@ -2,10 +2,12 @@
 
 namespace SIW\WooCommerce\Frontend;
 
+use SIW\WooCommerce\Taxonomy_Attribute;
+
 /**
  * Aanpassingen aan overzichtspagina van groepsprojecten
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Archive {
 
@@ -13,17 +15,25 @@ class Archive {
 	public static function init() {
 		$self = new self();
 
-		add_action( 'woocommerce_after_shop_loop_item_title', [ $self, 'show_dates'] );
+		add_action( 'woocommerce_after_shop_loop_item_title', [ $self, 'show_project_data'] );
 		add_action( 'woocommerce_after_shop_loop_item', [ $self, 'show_project_code'], 1 );
-
 		add_action( 'woocommerce_before_shop_loop_item_title', [ $self, 'show_featured_badge' ], 10 );
 	}
 
 	/** Toont datums */
-	public function show_dates() {
-		global $product;
-		$duration = siw_format_date_range( $product->get_attribute('startdatum'), $product->get_attribute('einddatum'), false );
-		echo wpautop( esc_html( $duration ) );
+	public function show_project_data() {
+		global $post;
+		$product = siw_get_product( $post );
+		if ( null === $product ) {
+			return;
+		}
+
+		$duration = siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false );
+		echo '<p>';
+		echo $product->get_country()->get_name() . BR;
+		echo implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE()->value, ['fields' => 'names' ] ) ) . BR;
+		echo esc_html( $duration );
+		echo '</p>';
 	}
 
 	/** Toont projectcode */

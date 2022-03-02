@@ -23,7 +23,6 @@ class WooCommerce {
 		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
 
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
-		add_filter( 'product_type_selector', [ $self, 'disable_product_types'] );
 		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_project_id_search' ], 10, 2 );
 		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_country_search' ], 10, 2 );
 		add_filter( 'woocommerce_product_visibility_options', [ $self, 'remove_product_visibility_options', ] );
@@ -47,7 +46,6 @@ class WooCommerce {
 		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
 
 		add_action( 'wp', [ $self, 'remove_theme_support'], PHP_INT_MAX );
-		add_filter('woocommerce_single_product_image_thumbnail_html', [ $self, 'remove_link_on_thumbnails'] );
 
 		add_filter( 'woocommerce_layered_nav_count', '__return_empty_string' );
 		add_filter( 'rocket_cache_query_strings', [ $self, 'register_query_vars'] );
@@ -80,14 +78,6 @@ class WooCommerce {
 	/** Verwijdert dashboard widgets */
 	public function remove_dashboard_widgets() {
 		remove_meta_box( 'woocommerce_dashboard_status', 'dashboard', 'normal' );
-	}
-
-	/** Schakelt ongebruikte product types uit */
-	public function disable_product_types( array $product_types ): array {
-		unset( $product_types['simple'] );
-		unset( $product_types['grouped'] );
-		unset( $product_types['external'] );
-		return $product_types;
 	}
 
 	/** Voegt project_id als argument toe aan WC queries */
@@ -126,7 +116,7 @@ class WooCommerce {
 		return $filters;
 	}
 
-	/** Registreert query vars voor WP Rocket */
+	/** Registreert query vars voor WP Rocket TODO: naar archive*/
 	public function register_query_vars( array $vars ): array {
 		$taxonomies = wc_get_attribute_taxonomies();
 		foreach ( $taxonomies as $taxonomy ) {
@@ -146,11 +136,6 @@ class WooCommerce {
 		remove_theme_support( 'wc-product-gallery-zoom' );
 		remove_theme_support( 'wc-product-gallery-lightbox' );
 		remove_theme_support( 'wc-product-gallery-slider' );
-	}
-
-	/** Verwijdert link bij productafbeelding */
-	public function remove_link_on_thumbnails( string $html ): string {
-		return strip_tags( $html, '<img>' ); //TODO: verplaatsen naar product
 	}
 
 	/** Zet naam van terms */

@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Admin;
 
+use SIW\WooCommerce\Product\WC_Product_Project;
+
 /**
  * Tabs voor Groepsprojecten
  *
@@ -22,9 +24,7 @@ class Product_Tabs {
 	}
 
 	/** Voegt extra product tabs toe */
-	public function add_tabs( array $tabs ) : array {
-		global $product_object;
-
+	public function add_tabs( array $tabs ): array {
 		$tabs['description'] = [
 			'label'    => __( 'Omschrijving', 'siw' ),
 			'target'   => 'description_product_data',
@@ -41,15 +41,15 @@ class Product_Tabs {
 	}
 
 	/** Verbergt overbodige product tabs */
-	public function hide_tabs( array $tabs ) : array {
-		$tabs['advanced']['class'] = ['show_if_simple'];
-		$tabs['shipping']['class'] = ['show_if_simple'];
-		$tabs['linked_product']['class'] = ['show_if_simple'];
+	public function hide_tabs( array $tabs ): array {
+		$tabs['general']['class'] = ['show_if_project'];
+		$tabs['advanced']['class'] = ['hide_if_project'];
+		$tabs['shipping']['class'] = ['hide_if_project'];
+		$tabs['linked_product']['class'] = ['hide_if_project'];
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			$tabs['inventory']['class'] = ['show_if_simple'];
-			$tabs['attribute']['class'] = ['show_if_simple'];
-			$tabs['variations']['class'] = ['show_if_simple'];
+			//$tabs['inventory']['class'] = ['hide_if_project'];
+			//$tabs['attribute']['class'] = ['hide_if_project'];
 		}
 		return $tabs;
 	}
@@ -57,16 +57,20 @@ class Product_Tabs {
 	/** Toont tab met extra opties t.b.v. update */
 	public function show_update_tab() {
 		global $product_object;
+		$product = \siw_get_product( $product_object );
+		if ( null == $product ) {
+			return;
+		}
 		?>
 		<div id="update_product_data" class="panel woocommerce_options_panel">
 			<div class="options_group">
 				<?php
 				//Alleen tonen als het project een afbeelding uit Plato heeft of als de optie al aangevinkt is
-				if ( $product_object->get_meta( 'has_plato_image', true ) || $product_object->get_meta( 'use_stockphoto' ) ) {
+				if ( $product->has_plato_image() || $product->use_stockfoto() ) {
 					woocommerce_wp_checkbox(
 						[
 							'id'          => 'use_stockphoto',
-							'value'       => $product_object->get_meta( 'use_stockphoto' ),
+							'value'       => $product->use_stockfoto(),
 							'cbvalue'     => '1',
 							'label'       => __( 'Stockfoto gebruiken', 'siw' ),
 							'description' => __( 'Bijvoorbeeld indien projectfoto niet geschikt is.', 'siw' ),
@@ -75,19 +79,10 @@ class Product_Tabs {
 				}
 				woocommerce_wp_checkbox(
 					[
-						'id'          => 'has_custom_tariff',
-						'value'       => $product_object->get_meta( 'has_custom_tariff' ),
-						'cbvalue'     => '1',
-						'label'       => __( 'Heeft afwijkend tarief', 'siw' ),
-						'description' => __( 'Tarief wordt niet automatisch bijgewerkt', 'siw' ),
-					]
-				);
-				woocommerce_wp_checkbox(
-					[
-						'id'      => 'force_hide',
-						'value'   => $product_object->get_meta( 'force_hide' ),
+						'id'      => '_hidden',
+						'value'   => $product->is_hidden(),
 						'cbvalue' => '1',
-						'label'   => __( 'Geforceerd verbergen', 'siw' ),
+						'label'   => __( 'Verbergen', 'siw' ),
 					]
 				);
 				?>
@@ -100,8 +95,12 @@ class Product_Tabs {
 	/** Toont beschrijving van het project */
 	public function show_description_tab() {
 		global $product_object;
-
-		$description = $product_object->get_meta( 'description' );
+		$product = \siw_get_product( $product_object );
+		if ( null == $product ) {
+			return;
+		}
+		$description = $product->get_project_description();
+		//TODO: verplaatsen naar WC_Product_Project
 
 		$topics = [
 			'description'           => __( 'Beschrijving', 'siw' ),
@@ -140,21 +139,15 @@ class Product_Tabs {
 	}
 
 	/** Slaat gewijzigde meta-velden op */
-	public function save_product_data( \WC_Product $product ) {
-		$meta_data = [
-			'use_stockphoto'          => isset( $_POST['use_stockphoto'] ),
-			'force_hide'              => isset( $_POST['force_hide'] ),
-			'has_custom_tariff'       => isset( $_POST['has_custom_tariff'] ),
-		];
+	public function save_product_data( WC_Product_Project $product ) {
+
 		//Als stockfoto gebruikt moet worden, verwijder dan de huidige foto TODO: Plato-foto echt verwijderen?/
-		if ( $meta_data['use_stockphoto'] && ! $product->get_meta( 'use_stockphoto' ) ) {
+		if ( isset( $_POST['_use_stockphoto'] ) && ! $product->use_stockfoto() ) {
 			$product->set_image_id( null );
-			$product->update_meta_data( 'has_plato_image', false );
+			$product->set_has_plato_image( false );
 		}
 
-		foreach ( $meta_data as $key => $value ) {
-			$product->update_meta_data( $key, $value );
-		}
+		$product->set_use_stockphoto( isset( $_POST['_use_stockphoto'] ) );
+		$product->set_hidden( isset( $_POST['_hidden'] ) );
 	}
-
 }

@@ -941,15 +941,6 @@ span.product-badge.featured-badge {
   font-size: 30px;
   line-height: 40px;
 }
-.woocommerce div.product .woocommerce-variation-description {
-  font-size: 0.9em;
-  color: var(--siw-contrast-light);
-  font-style: italic;
-}
-.woocommerce div.product .woocommerce-variation-price {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
 .woocommerce div.product .participation-fee {
   color: var(--siw-contrast-light);
   font-style: italic;
