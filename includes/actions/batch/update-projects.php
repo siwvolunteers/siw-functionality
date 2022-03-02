@@ -204,16 +204,6 @@ class Update_Projects implements Batch_Action_Interface {
 			wp_delete_attachment( $project_image, true );
 		}
 
-		//Verwijder alle variaties
-		$variations = $this->product->get_children();
-		foreach ( $variations as $variation_id ) {
-			$variation = siw_get_product( $variation_id );
-			if ( ! is_a( $variation, \WC_Product_Variation::class ) ) {
-				continue;
-			}
-			$variation->delete( true );
-		}
-
 		//Verwijder het product zelf
 		$this->product->delete( true );
 		return true;
