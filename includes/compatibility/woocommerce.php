@@ -44,8 +44,6 @@ class WooCommerce {
 		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
 
 		add_action( 'wp', [ $self, 'remove_theme_support'], PHP_INT_MAX );
-
-		add_filter( 'woocommerce_layered_nav_count', '__return_empty_string' );
 		add_filter( 'rocket_cache_query_strings', [ $self, 'register_query_vars'] );
 
 		add_filter( 'get_term', [ $self, 'filter_term_name'], 10, 2 );
