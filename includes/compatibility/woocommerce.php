@@ -50,9 +50,6 @@ class WooCommerce {
 
 		add_filter( 'get_term', [ $self, 'filter_term_name'], 10, 2 );
 
-		add_filter( 'siw_update_woocommerce_terms_taxonomies', [ $self, 'set_update_terms_taxonomies'] );
-		add_filter( 'siw_update_woocommerce_terms_delete_empty', [ $self, 'set_update_terms_delete_empty'], 10, 2 );
-
 		add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta'] );
 		add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type' ] );
 		add_filter( 'siw_carousel_post_type_taxonomies', [ $self, 'add_carousel_post_type_taxonomies' ] );
@@ -135,22 +132,6 @@ class WooCommerce {
 			);
 		}
 		return $term;
-	}
-
-	/** Zet taxonomies waarvan terms bijgewerkt moet worden */
-	public function set_update_terms_taxonomies( array $taxonomies ): array {
-		$taxonomies[] = Taxonomy_Attribute::CONTINENT()->value;
-		$taxonomies[] = Taxonomy_Attribute::MONTH()->value;
-		$taxonomies[] = Taxonomy_Attribute::COUNTRY()->value;
-		return $taxonomies;
-	}
-
-	/** Undocumented function */
-	public function set_update_terms_delete_empty( bool $delete_empty, string $taxonomy ): bool {
-		if ( Taxonomy_Attribute::MONTH()->value === $taxonomy ) {
-			$delete_empty = true;
-		}
-		return $delete_empty;
 	}
 
 	/** Zet call to action voor social share links */

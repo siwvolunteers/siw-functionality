@@ -3,6 +3,7 @@
 namespace SIW\Actions\Batch;
 
 use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Bijwerken WooCommerce terms
@@ -37,12 +38,10 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 	/** {@inheritDoc} */
 	public function select_data() : array {
 
-		//Filter om taxonomieen toe te voegen
-		$taxonomies = apply_filters( 'siw_update_woocommerce_terms_taxonomies', [] );
-		
 		$data = get_terms( [
-			'taxonomy'   => $taxonomies,
-			'fields'     => 'tt_ids'
+			'taxonomy'   => Taxonomy_Attribute::toValues(),
+			'fields'     => 'tt_ids',
+			'hide_empty' => false,
 		]);
 
 		if ( is_wp_error( $data ) ) {
@@ -87,8 +86,8 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 		$count = count( $posts );
 		$visible_count = count( $visible_posts );
 
-		//Filter om aan te geven of lege terms verwijderd mogen worden
-		$delete_empty = apply_filters( 'siw_update_woocommerce_terms_delete_empty', false, $term->taxonomy );
+		//Alleen van maand moeten lege waardes verwijderd worden
+		$delete_empty = $term->taxonomy === Taxonomy_Attribute::MONTH()->value;
 
 		//Lege terms eventueel weggooien
 		if ( $delete_empty && 0 === $count ) {
