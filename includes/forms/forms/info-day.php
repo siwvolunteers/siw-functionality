@@ -151,10 +151,10 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 	/** Opties voor referral */
 	protected function get_referral_options(): array {
 		return [
-			'google'    => __('Via Google', 'siw' ),
-			'facebook'  => __('Via Google', 'siw' ),
-			'instagram' => __('Via Instagram', 'siw' ),
-			'fair'      => __('Via een beurs', 'siw' ),
+			'google'    => __( 'Via Google', 'siw' ),
+			'facebook'  => __( 'Via Facebook', 'siw' ),
+			'instagram' => __( 'Via Instagram', 'siw' ),
+			'fair'      => __( 'Via een beurs', 'siw' ),
 			'other'     => __( 'Via iemand anders', 'siw' ),
 		];
 	}
