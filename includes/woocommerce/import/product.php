@@ -409,7 +409,6 @@ class Product {
 				$attribute,
 				[
 					'visible'   => true,
-					'variation' => false,
 					'values'    => [],
 				]
 			);
