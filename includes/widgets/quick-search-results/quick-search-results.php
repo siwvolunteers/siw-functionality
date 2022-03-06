@@ -40,7 +40,7 @@ class Quick_Search_Results extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_template_id(): string {
-		return $this->get_id();
+		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
 	/** {@inheritDoc} */
@@ -117,15 +117,15 @@ class Quick_Search_Results extends Widget {
 			$text      .= SPACE . sprintf( __( 'van %s', 'siw' ), strtolower( $duration->name ) );
 		}
 
+		$attributes['show_button'] = 'true';
+		$attributes['button_url'] = $url;
+		$attributes['button_text'] = $text;
+
 		return [
 			'intro'     =>
 				esc_html__( 'Met een Groepsproject ga je voor 2 tot 3 weken naar een project, de begin- en einddatum van het project staan al vast.', 'siw' ) . SPACE .
 				esc_html__( 'Hieronder zie je een selectie van de mogelijkheden', 'siw' ),
-			'shortcode' => sprintf( '[products %s]', HTML::generate_attributes( $attributes ) ),
-			'button' => [
-				'url'  => $url,
-				'text' => $text,
-			]
+			'content' => sprintf( '[products %s]', HTML::generate_attributes( $attributes ) ),
 		];
 	}
 }
