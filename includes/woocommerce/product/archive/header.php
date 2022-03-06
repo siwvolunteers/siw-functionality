@@ -43,18 +43,6 @@ class Header {
 		</div>
 		
 		<?php
-		/** 
-		*alert text tonen? */
-		if ( ! $text = $this->get_alert_text()) {
-			return;
-		}
-		?>
-		<div class="grid-container">
-			<div class="siw-archive-alert">
-				<?php echo wp_kses_post( $text ); ?>
-			</div>
-		</div>
-		<?php
 	}
 
 	/** Geeft aan of header getoond moet worden */
@@ -110,21 +98,7 @@ class Header {
 
 		return $text;
 	}
-	/**
-	*	alert text todo: bij instellingen opnemen
-	*/
-	protected function get_alert_text() : ?string {
-		$text = "";
-		if ( \is_product_category() ) {
-			$category_name = get_queried_object()->name;
-			if($category_name == "Europa")
-			{
-				$text .= ''; // tijdelijk tekst voor europareizen verwijderd.
-			}
-		}
-		return($text);
-	}
-  
+
 	/** Geeft aan of aankondiging nieuwe projecten getoond moet worden */
 	protected function is_teaser_text_active() : bool {
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
