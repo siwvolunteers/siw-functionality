@@ -92,7 +92,7 @@ class Form {
 		$meta_boxes[] = [
 			'id'          => "siw_form_{$this->form->get_form_id()}",
 			'title'       => "{$this->form->get_form_name()}",
-			'object_type' => 'form',
+			'post_types'  => [],
 			'toggle_type' => 'slide',
 			'fields'      => $this->get_fields(),
 		];
