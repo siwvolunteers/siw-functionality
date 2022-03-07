@@ -1,41 +1,41 @@
 {{! tijd en locatie}}
 <h4>{{& icon_clock }} {{ event_date }} {{ start_time }} - {{ end_time }}</h4>
 <h4>
-	{{#online}}
-		{{{icon_globe }}} {{ onlinelocation_name }} {{{ onlinelocation_link }}}
-	{{/ online}}
-	{{#location}}
-		{{& icon_map-marker-alt }} {{ location_name }}, {{ location_street }} {{ location_house_number }}, {{ location_postcode }} {{ location_city }}
-	{{/location}}
+	{{# online }}
+		{{& icon_globe }} {{ i18n.online }}
+	{{/ online }}
+	{{^ online }}
+		{{& icon_map-marker-alt }} {{ location.name }}, {{ location.street }} {{ location.house_number }}, {{ location.postcode }} {{ location.city }}
+	{{/ online }}
 </h4>
-{{!beschrijving van evenement}}
+{{! beschrijving van evenement}}
 <hr>
 <p>{{& description | wp_kses_post }}</p>
 
 {{! aanmeldformulier}}
 <h2>{{#__}}Aanmelden{{/__}}</h2>
-{{#verlopen}}
+{{# verlopen }}
 	{{#__}}Dit evenement is helaas al afgelopen{{/__}}
-{{/verlopen}}
-{{^verlopen}}
-	{{#infodag}}
+{{/ verlopen }}
+{{^ verlopen }}
+	{{# infodag }}
 		{{& infoform }}
-	{{/infodag}}
-	{{^infodag}}
+	{{/ infodag }}
+	{{^ infodag }}
 		{{& application_explanation }}
-		{{#application_link}}
-			{{& application_link }}
-		{{/application_link}}
-	{{/infodag}}
-{{/verlopen}}
+		{{# application_link }}
+			{{& . }}
+		{{/ application_link }}
+	{{/ infodag }}
+{{/ verlopen }}
 {{! locatie op kaart tonen}}
-{{#location}}
+{{# location }}
 	<h2>{{#__}}Locatie{{/__}}</h2>
-	{{& location.map }}
-{{/location}}
+	{{& map }}
+{{/ location }}
 {{! link naar organisator tonen}}
-{{#organizer}}
+{{# organizer }}
 	<h2>{{#__}}Organisator{{/__}}</h2>
 	{{#__}}Dit evenement wordt georganiseerd door {{/__}}
 	{{ name }} | {{& link }}
-{{/organizer}}
+{{/ organizer }}

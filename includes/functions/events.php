@@ -114,9 +114,8 @@ function siw_generate_event_json_ld( int $event_id ) : string {
 	//Locatie toevoegen
 	if ( siw_meta( 'online', [], $event_id ) ) {
 		$event->set_event_attendance_mode( Event_Attendance_Mode::OnlineEventAttendanceMode() );
-		$online_location = siw_meta( 'online_location', [], $event_id );
 		$location = Virtual_Location::create()
-			->set_url( $online_location['url'] );
+			->set_url( get_the_permalink( $event_id ) ); //TODO: of externe aanmeldlink
 	} else {
 		$event->set_event_attendance_mode( Event_Attendance_Mode::OfflineEventAttendanceMode() );
 		$location = siw_meta( 'location', [], $event_id );
