@@ -116,10 +116,4 @@ class GeneratePress {
 		];
 		update_option( 'generate_settings', $generate_settings );
 	}
-
-	/** Voegt script toe */
-	public function enqueue_scripts(): void {
-		wp_register_script( 'siw-generatepress', SIW_ASSETS_URL . 'js/compatibility/siw-generatepress.js', [ 'jquery', JS_Cookie::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( 'siw-generatepress' );
-	}
 }
