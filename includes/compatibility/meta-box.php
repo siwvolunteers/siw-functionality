@@ -32,6 +32,7 @@ class Meta_Box {
 		$extensions = [
 			'mb-admin-columns',
 			'mb-settings-page',
+			'mb-blocks',
 			'meta-box-columns',
 			'meta-box-conditional-logic',
 			'meta-box-geolocation',

@@ -24,9 +24,9 @@ class Bootstrap {
 		$this->define_constants();
 		$this->load_textdomain();
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_plugin_style'] );
-
 		if ( ! $this->check_requirements() ) {
 			add_action( 'admin_notices', [ $this, 'show_requirements_admin_notice' ] );
+			echo "siw plugin not loaded";
 			return;
 		}
 
@@ -41,6 +41,7 @@ class Bootstrap {
 		$this->init_loader( 'Options' );
 		$this->init_loader( 'Forms' );
 		$this->init_loader( 'Widgets' );
+		$this->init_loader( 'Blocks' );
 		$this->init_loader( 'API' );
 		$this->init_loader( 'Modules', 'init' );
 		$this->init_loader( 'Compatibility' );

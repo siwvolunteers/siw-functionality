@@ -4,7 +4,7 @@ namespace SIW\Blocks;
 
 use SIW\Interfaces\Blocks\Block as Block_Interface;
 use SIW\Util\Meta_Box;
-use SIW\Core\Template;
+use SIW\Helpers\Template;
 
 /**
  * Class om een Blockulier via MetaBox te genereren
@@ -73,30 +73,11 @@ class Block {
         {
             return;
         }
-        /*
-        Template::render_template( "{$this->block->get_template()}", $this->block->get_template_vars());
-        */
-        // Unique HTML ID if available.
-        $id = 'siw-' . ( $attributes['id'] ?? '' );
-        if ( ! empty( $attributes['anchor'] ) ) 
-        {
-            $id = $attributes['anchor'];
-        }
         $html ='';
-        $v = $this->block->get_template_vars($attributes);
-        #print_r($attributes);
-        #print_r($v);
-        $html .= Template::parse_template( 'blocks/' . $this->block->get_template(), $this->block->get_template_vars($attributes));
+        $vars = $this->block->get_template_vars($attributes);
+        #$html .= $vars['content'];
+        $template = $this->block->get_template();
+        $html .= Template::parse_template( 'blocks/' . $template , $vars);
         echo $html;
-        /*
-        $paneel = $this->block->get_template();
-        echo "<br>" . $attributes['id'];
-        $data = $attributes['data'];
-        $panelen = $data['paneel'];
-        foreach($panelen as $paneel)
-        {
-            echo '<br>' . $paneel['subtitel']  . ':' . $paneel['inhoud'];
-        }
-        */
     }
 }

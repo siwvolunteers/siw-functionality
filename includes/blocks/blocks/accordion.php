@@ -90,9 +90,9 @@ class Accordion implements Block_Interface {
 	/** {@inheritDoc} */
 	function get_template_vars( $attributes) : array{
 		$data = $attributes["data"];
+		$content = Accordion_Element::create()->add_items( $data['paneel'] )->generate();
 		return [
-			#'content' => 'acoordion test foreground',
-			'content' => Accordion_Element::create()->add_items( $data['paneel'] )->generate(),
+			'content' => $content
 		];
 	}
 }
