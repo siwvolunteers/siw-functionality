@@ -92,6 +92,7 @@ class Accordion implements Block_Interface {
 		$data = $attributes["data"];
 		$content = Accordion_Element::create()->add_items( $data['paneel'] )->generate();
 		return [
+			'title'	=> $data['titel'],
 			'content' => $content
 		];
 	}
