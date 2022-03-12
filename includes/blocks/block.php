@@ -77,7 +77,8 @@ class Block {
         $vars = $this->block->get_template_vars($attributes);
         #$html .= $vars['content'];
         $template = $this->block->get_template();
-        $html .= Template::parse_template( 'blocks/' . $template , $vars);
-        echo $html;
+        #$html .= Template::parse_template( 'blocks/' . $template , $vars);
+        Template::create()->set_template( 'blocks/' . $template )->set_context( $vars )->render_template();
+        #echo $html;
     }
 }
