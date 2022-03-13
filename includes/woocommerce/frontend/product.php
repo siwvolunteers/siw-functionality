@@ -22,17 +22,14 @@ class Product {
 		$self = new self();
 		add_filter( 'woocommerce_display_product_attributes', [ $self, 'display_product_attributes'], 10, 2 );
 		add_action( 'woocommerce_project_add_to_cart', 'woocommerce_simple_add_to_cart', 30 );
-
 		
 		add_action( 'woocommerce_single_product_summary', [ $self, 'show_project_summary'], 20 );
-		add_action( 'woocommerce_after_add_to_cart_form', [ $self, 'show_local_fee'] );
 
 		add_action( 'woocommerce_before_single_product_summary', [ $self, 'show_featured_badge' ], 10 );
-		add_filter( 'woocommerce_price_trim_zeros', '__return_true' );
+		add_filter( 'woocommerce_price_trim_zeros', '__return_true' ); //TODO: verplaatsen naar compat
 		
-		//remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 ); //TODO: studentenkorting tonen
-		add_action( 'woocommerce_single_product_summary', [ $self, 'show_student_discount_info'], 10 );
-		add_filter('woocommerce_single_product_image_thumbnail_html', [ $self, 'remove_link_on_thumbnails'] );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 ); //TODO: in theme uitschakelen
+		add_filter( 'woocommerce_single_product_image_thumbnail_html', [ $self, 'remove_link_on_thumbnails'] );
 	}
 
 	/** Verwijdert link bij productafbeelding */
@@ -92,62 +89,6 @@ class Product {
 		echo implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::SDG()->value, ['fields' => 'names' ] ) ) . BR;
 		echo $product->get_attribute( Product_Attribute::NUMBER_OF_VOLUNTEERS()->value );
 		echo '</p>';
-		
-
-
-
-	}
-
-
-	/** Toont infotekst over studentenkorting TODO: 1 tarieven blok van maken met tarief en local fee? */
-	public function show_student_discount_info() {
-		global $post;
-
-		$product = siw_get_product( $post );
-
-		if ( null == $product ) {
-			return;
-		}
-		echo sprintf( esc_html__( 'Exclusief %s studenten/jongerenkorting', 'siw'), siw_format_amount( Properties::STUDENT_DISCOUNT_AMOUNT ) );
-	}
-
-
-	/** Toont lokale bijdrage indien van toepassing */
-	public function show_local_fee() {
-		global $post;
-
-		$product = siw_get_product( $post );
-
-		//Local fee niet tonen voor nederlandse projecten
-		if ( null == $product || $product->is_dutch_project() ) {
-			return;
-		}
-
-		$amount = $product->get_participation_fee();
-		$currency_code = $product->get_participation_fee_currency();
-
-		if ( empty( $currency_code ) || $amount <= 0 ) {
-			return;
-		}
-		
-		$currency = siw_get_currency( $currency_code );
-		$symbol = $currency_code;
-		if ( is_a( $currency, Currency::class ) ) {
-			$symbol = $currency->get_symbol();
-			
-			if ( get_woocommerce_currency() != $currency->get_iso_code() ) {
-				$exchange_rates = new Exchange_Rates();
-				$amount_in_euro = $exchange_rates->convert_to_euro( $currency->get_iso_code(), $amount, 0 );
-			}
-		}
-		?>
-		<div class="participation-fee">
-			<?php printf( esc_html__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s %s.', 'siw' ), $symbol, $amount );?>
-			<?php if ( isset( $amount_in_euro ) && ! empty( $amount_in_euro ) ):?>
-				&nbsp;<?php printf ( esc_html__( '(Ca. &euro; %s)', 'siw' ), $amount_in_euro ); ?>
-			<?php endif ?>
-		</div>
-		<?php
 	}
 
 	/** Toont badge voor aanbevolen projecten */

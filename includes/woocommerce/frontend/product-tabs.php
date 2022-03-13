@@ -3,9 +3,11 @@
 namespace SIW\WooCommerce\Frontend;
 
 use SIW\Elements\Accordion;
-use SIW\Elements\Features;
 use SIW\Elements\Form;
 use SIW\Elements\Google_Maps;
+use SIW\External\Exchange_Rates;
+use SIW\Properties;
+use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
  * Tabs voor Groepsprojecten
@@ -65,10 +67,11 @@ class Product_Tabs {
 			'callback' => [ $this, 'show_product_contact_form' ],
 		];
 
-		$tabs['steps'] = [
-			'title'    => __( 'Zo werkt het', 'siw' ),
+		$tabs['costs'] = [
+			'title'    => __( 'Kosten', 'siw' ),
 			'priority' => 130,
-			'callback' => [ $this, 'show_product_steps' ],
+			'callback' => [ $this, 'show_product_costs' ],
+			'product'  => $product,
 		];
 		return $tabs;
 	}
@@ -113,26 +116,41 @@ class Product_Tabs {
 	}
 
 	/** Toont stappenplan in tab TODO: stappen uit instelling */
-	public function show_product_steps() {
-		Features::create()
-			->set_columns( 3 ) //TODO: stappen tellen
-			->add_items( [
-				[
-					'icon'    => 'siw-icon-file-signature',
-					'title'   => '1. Aanmelding',
-					'content' => 'Heb je interesse in dit groepsproject? Meld je dan direct aan via de knop "Aanmelden".',
-				],
-				[
-					'icon'    => 'siw-icon-clipboard-check',
-					'title'   => '2. Bevesting',
-					'content' => 'Binnen twee weken na betaling krijg je een bevestiging van plaatsing op het project.',
-				],
-				[
-					'icon'    => 'siw-icon-tasks',
-					'title'   => '3. Voorbereiding',
-					'content' => 'Kom naar de voorbereidingsdag, zodat je goed voorbereid aan je avontuur kan beginnen.',
-				],
-			])->render();
-	}
+	public function show_product_costs( string $tab, array $args ) {
 
+		/**@var WC_Product_Project */
+		$product = $args['product'];
+		
+		printf(
+			__( 'De inschrijfkosten voor dit project bedragen %s, exclusief %s studentenkorting.' ),
+			siw_format_amount( (float) $product->get_price() ),
+			siw_format_amount( Properties::STUDENT_DISCOUNT_AMOUNT )
+		);
+
+		$amount = $product->get_participation_fee();
+		$currency_code = $product->get_participation_fee_currency();
+
+
+		//Local fee niet tonen voor nederlandse projecten
+		if ( ! empty( $currency_code ) && $amount > 0 && ! $product->is_dutch_project() ) {
+
+			if ( get_woocommerce_currency() !== $currency_code ) {
+				$exchange_rates = new Exchange_Rates();
+				$amount_in_euro = $exchange_rates->convert_to_euro( $currency_code, $amount, 0 );
+			}
+			echo BR;
+			printf(
+				__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s.' ),
+				siw_format_amount( (float) $product->get_price(), 0, $currency_code )
+			);
+			if ( isset( $amount_in_euro ) ) {
+				echo SPACE;
+				printf(
+					esc_html__( '(Ca. %s)', 'siw' ),
+					siw_format_amount( (float) $amount_in_euro, 0 )
+				);
+			}
+		}
+
+	}
 }
