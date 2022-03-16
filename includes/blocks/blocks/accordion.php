@@ -4,10 +4,9 @@ namespace SIW\Blocks\Blocks;
 
 use SIW\Interfaces\Blocks\Block as Block_Interface;
 use SIW\Elements\Accordion as Accordion_Element;
-use SIW\Core\Template;
 
 /**
- * Demo MB block
+ * Accordion block
  * 
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
@@ -30,70 +29,65 @@ class Accordion implements Block_Interface {
 
 	/** {@inheritDoc} */
 	public function get_template(): string {
-		return "default";
+		return 'default';
 	}
 	
 	/** {@inheritDoc} */
-	public function get_fields() : array{
+	public function get_fields(): array{
 		$fields = [
-			'title' => [
-				'id'	=> 'titel',
-				'type'  => 'text',
+			[
+				'id'   => 'title',
+				'type' => 'text',
 				'name' => __( 'Titel accordion', 'siw' ),
 			],
-			'child_fields' => [
-				'id'		=>	'paneel',
+			[
+				'id'         => 'panes',
 				'type'       => 'group',
-				'clone'		=> TRUE,
-				'add_button'	=>	'+ Paneel',
-				'name'      => __( 'Accordeon' , 'siw' ),
-				'fields' => [
-					'title' => [
-						'id'	=> 'title',
-						'type'  => 'text',
-						'name' => __( 'Titel', 'siw' )
+				'clone'      => true,
+				'add_button' => '+ Paneel',
+				'name'       => __( 'Accordion' , 'siw' ),
+				'fields'     => [
+					[
+						'id'   => 'title',
+						'type' => 'text',
+						'name' => __( 'Titel', 'siw' ),
 					],
-					'content' => [
-						'id'			=> 'content',
-						'type'           => 'textarea',
-						'name'          => __( 'Inhoud', 'siw' ),
-						'rows'           => 10,
-						'default_editor' => 'html',
+					[
+						'id'   => 'content',
+						'type' => 'wysiwyg',
+						'name' => __( 'Inhoud', 'siw' ),
 					],
-					'show_button' => [
-						'id'			=>	'show_button',
-						'type'          => 'checkbox',
-						'name'         => __( 'Toon een knop', 'siw' ),
-						'default'       => false,
+					[
+						'id'      => 'show_button',
+						'type'    => 'checkbox',
+						'name'    => __( 'Toon een knop', 'siw' ),
+						'default' => false,
 					],
-					'button_text' => [
-						'id'			=> 'button_text',
-						'type'          => 'text',
-						'name'         => __( 'Knoptekst', 'siw' ),
-						'hidden' => array( 'show_button', '=', false )
+					[
+						'id'      => 'button_text',
+						'type'    => 'text',
+						'name'    => __( 'Knoptekst', 'siw' ),
+						'visible' => [ 'show_button', '=', true ],
 					],
-					'button_url' => [
-						'id'			=> 'button_url',
-						'type'          => 'text',
-						'name'         => __( 'URL', 'siw' ),
-						'description'   => __( 'Relatief', 'siw' ),
-						'hidden' => array( 'show_button', '=', false )
+					[
+						'id'      => 'button_url',
+						'type'    => 'text',
+						'name'    => __( 'URL', 'siw' ),
+						'desc'    => __( 'Relatief', 'siw' ),
+						'visible' => [ 'show_button', '=', true ]
 					],
 				]
 			]
 		];
 		return $fields;
 	}
-   /**
-     * derfinieer moustache tamplate
-     */
+
 	/** {@inheritDoc} */
-	function get_template_vars( $attributes) : array{
-		$data = $attributes["data"];
-		$content = Accordion_Element::create()->add_items( $data['paneel'] )->generate();
+	function get_template_vars( array $attributes): array{
+		
 		return [
-			'title'	=> $data['titel'],
-			'content' => $content
+			'title'   => mb_get_block_field( 'title' ),
+			'content' => Accordion_Element::create()->add_items( (array) mb_get_block_field( 'panes' ) )->generate()
 		];
 	}
 }

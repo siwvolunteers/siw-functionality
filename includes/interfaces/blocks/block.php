@@ -9,8 +9,7 @@ namespace SIW\Interfaces\Blocks;
  */
 interface Block {
 
-
-	/** Geeft ID van Block terug */
+	/** Geeft ID van block terug */
 	public function get_id() : string;
 
 	/** Geeft naam van block terug */
@@ -19,10 +18,10 @@ interface Block {
 	/** Geeft velden van block terug */
 	public function get_fields() : array;
 
-    /** Geeft naam van moustache template terug */
+	/** Geeft naam van Mustache template terug */
 	public function get_template() : string;
 	
-	/** Geeft  moustache template varioabelen terug*/
-	public function get_template_vars($attributes) : array;
+	/** Geeft Mustache template variabelen terug*/
+	public function get_template_vars( array $attributes ): array;
 
 }
