@@ -146,32 +146,6 @@ class Event extends Type {
 				],
 			],
 			[
-				'id'        => 'online_location',
-				'type'      => 'group',
-				'visible'   => [ 'online', true ],
-				'fields'    => [
-					[
-						'name'     => __( 'Online locatie', 'siw' ),
-						'type'     => 'heading',
-					],
-					[
-						'id'       => 'name',
-						'name'     => __( 'Naam', 'siw' ),
-						'type'     => 'text',
-						'required' => true,
-						'binding'  => false,
-					],
-					[
-						'id'       => 'url',
-						'name'     => __( 'Url', 'siw' ),
-						'type'     => 'url',
-						'required' => true,
-						'size'     => 100,
-						'binding'  => false,
-					],
-				],
-			],
-			[
 				'id'        => 'application',
 				'type'      => 'group',
 				'visible'   => [ 'info_day', false ],
@@ -295,8 +269,7 @@ class Event extends Type {
 			$infoform = Form::create()->set_form_id( 'info_day' )->generate();
 		}
 		// anders  tonen hoe je kunt aanmelden.
-		else
-		{
+		else {
 			$application = siw_meta( 'application' );
 			$application_explanation = wp_kses_post( $application['explanation'] );
 			if ( $application['has_link'] ) {
@@ -320,7 +293,7 @@ class Event extends Type {
 				sprintf( '%s, %s %s %s', $location['street'], $location['house_number'], $location['postcode'], $location['city'] )
 			)
 			->set_zoom( 15 );
-			$template_vars['location_map'] = $location_map->generate();
+			$template_vars['location']['map'] = $location_map->generate();
 		}
 		
 		Template::create()->set_template( 'types/event_single' )->set_context( $template_vars )->render_template();
@@ -331,6 +304,7 @@ class Event extends Type {
 		$template_vars = $this->get_template_vars();
 		Template::create()->set_template( 'types/event_archive' )->set_context( $template_vars )->render_template();
 	}
+	
 	/**
 	 * TemplateVars
 	 * Maakt een array van variabelen voor de mustache template
@@ -345,37 +319,29 @@ class Event extends Type {
 			'icon_clock'          => Icon::create()->set_icon_class( 'siw-icon-clock' )->generate(),
 			'event_day'           => wp_date( 'd', strtotime( siw_meta( 'event_date' ) ) ),
 			'event_month'         => wp_date( 'F', strtotime( siw_meta( 'event_date' ) ) ),
-			'start_time'          => siw_meta( 'start_time'),
+			'start_time'          => siw_meta( 'start_time' ),
 			'end_time'            => siw_meta( 'end_time'),
 			'event_date'          => siw_format_date( siw_meta( 'event_date' ), false),
-			'description'         => siw_meta('description'),
+			'description'         => siw_meta( 'description' ),
 			'infodag'             => siw_meta( 'info_day' ),
 			'verlopen'            => siw_meta( 'event_date' ) < date( 'Y-m-d' ),
+			'online'              => siw_meta( 'online' ),
+			'i18n'                => [
+				'online' => __( 'Online', 'siw' ),
+			],
 		];
-		// online evenement
-		if ( siw_meta( 'online' ) ) {
-			$online_location = siw_meta( 'online_location' );
-			$template_vars += [
-				'online'              => true,
-				'onlinelocation_name' => $online_location['name'],
-				'onlinelocation_link' => Links::generate_external_link( $online_location['url'] ),
-			];
-		}
-		// evenement op locatie
-		else {
-			//Locatie gegevens
+		if ( ! siw_meta( 'online' ) ) {
 			$location = siw_meta( 'location' );
-			$template_vars += [
-				'location'              => true,
-				'location_name'         => $location['name'],
-				'location_street'       => $location['street'],
-				'location_house_number' => $location['house_number'],
-				'location_postcode'     => $location['postcode'],
-				'location_city'         => $location['city'],
+			$template_vars ['location'] = [
+				'name'         => $location['name'],
+				'street'       => $location['street'],
+				'house_number' => $location['house_number'],
+				'postcode'     => $location['postcode'],
+				'city'         => $location['city'],
 			];
 		}
 		//Organisator
-		if ( siw_meta( 'different_organizer') ) {
+		if ( siw_meta( 'different_organizer' ) ) {
 			$template_vars['organizer'] = [
 				'name' => siw_meta('organizer.name'),
 				'link' => Links::generate_external_link( siw_meta( 'organizer.url' ) )

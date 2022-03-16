@@ -39,7 +39,6 @@ class GeneratePress {
 
 		//Default instellingen zetten
 		add_filter( 'generate_default_color_palettes', [ $self, 'set_default_color_palettes'] );
-		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_scripts' ]);
 		add_action( 'customize_save_after', [ $self, 'set_global_colors'], 1 );
 		add_action( 'siw_update_plugin', [ $self, 'set_global_colors'], 1 );
 		add_action( 'siw_update_plugin', 'generate_update_dynamic_css_cache' );
@@ -115,11 +114,5 @@ class GeneratePress {
 			],
 		];
 		update_option( 'generate_settings', $generate_settings );
-	}
-
-	/** Voegt script toe */
-	public function enqueue_scripts(): void {
-		wp_register_script( 'siw-generatepress', SIW_ASSETS_URL . 'js/compatibility/siw-generatepress.js', [ 'jquery', JS_Cookie::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( 'siw-generatepress' );
 	}
 }
