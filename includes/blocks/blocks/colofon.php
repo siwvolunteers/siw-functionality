@@ -22,6 +22,16 @@ class Colofon implements Block_Interface {
 	}
 
 	/** {@inheritDoc} */
+	public function get_description(): string {
+		return 'beschrijving';
+	}
+
+		/** {@inheritDoc} */
+	public function get_icon(): string {
+		return 'bank';
+	}
+
+	/** {@inheritDoc} */
 	public function get_fields(): array {
 		return [
 			[

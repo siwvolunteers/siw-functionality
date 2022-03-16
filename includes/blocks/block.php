@@ -3,7 +3,6 @@
 namespace SIW\Blocks;
 
 use SIW\Interfaces\Blocks\Block as Block_Interface;
-use SIW\Util\Meta_Box;
 use SIW\Helpers\Template;
 
 /**
@@ -32,8 +31,9 @@ class Block {
 		$meta_boxes[] = [
 			'id'              => $this->block->get_id(),
 			'title'           => $this->block->get_name(),
+			'description'     => $this->block->get_description(),
 			'type'            => 'block',
-			'icon'            => 'awards',
+			'icon'            => $this->block->get_icon(),
 			'category'        => 'siw',
 			#'context'         => 'side',
 			'fields'          => $this->block->get_fields(),

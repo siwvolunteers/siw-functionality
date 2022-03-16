@@ -10,18 +10,23 @@ namespace SIW\Interfaces\Blocks;
 interface Block {
 
 	/** Geeft ID van block terug */
-	public function get_id() : string;
+	public function get_id(): string;
 
 	/** Geeft naam van block terug */
-	public function get_name() : string;
-	
+	public function get_name(): string;
+
+	/** Geeft (Dash)icon van block terug */
+	public function get_icon(): string;
+
+	/** Geeft beschrijving van block terug */
+	public function get_description(): string;
+
 	/** Geeft velden van block terug */
-	public function get_fields() : array;
+	public function get_fields(): array;
 
 	/** Geeft naam van Mustache template terug */
-	public function get_template() : string;
+	public function get_template(): string;
 	
 	/** Geeft Mustache template variabelen terug*/
 	public function get_template_vars( array $attributes ): array;
-
 }

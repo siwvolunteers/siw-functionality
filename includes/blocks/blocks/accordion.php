@@ -28,6 +28,11 @@ class Accordion implements Block_Interface {
 	}
 
 	/** {@inheritDoc} */
+	public function get_icon(): string {
+		return 'list-view';
+	}
+
+	/** {@inheritDoc} */
 	public function get_template(): string {
 		return 'default';
 	}
