@@ -43,9 +43,6 @@ class WooCommerce {
 		add_filter( 'woocommerce_show_addons_page', '__return_false' );
 		add_filter( 'woocommerce_admin_disabled', '__return_true' );
 
-		//Blocks style niet laden
-		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
-
 		add_action( 'wp', [ $self, 'remove_theme_support'], PHP_INT_MAX );
 		add_filter('woocommerce_single_product_image_thumbnail_html', [ $self, 'remove_link_on_thumbnails'] );
 
@@ -70,11 +67,6 @@ class WooCommerce {
 		unregister_widget( \WC_Widget_Product_Tag_Cloud::class );
 		unregister_widget( \WC_Widget_Products::class );
 		unregister_widget( \WC_Widget_Cart::class );
-	}
-
-	/** Verwijdert WooCommerce-blocks style */
-	public function deregister_block_style() {
-		wp_deregister_style( 'wc-block-style' );
 	}
 
 	/** Verwijdert dashboard widgets */
