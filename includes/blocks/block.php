@@ -22,7 +22,6 @@ class Block {
 
 	/** Registreer Block */
 	public function register() {
-		add_filter( 'block_categories_all', [ $this, 'gwg_block_categories'] );
 		add_filter( 'rwmb_meta_boxes', [ $this, 'add_meta_box' ] );
 	}
 
@@ -40,21 +39,6 @@ class Block {
 			'render_callback' => [$this , 'render_block'],
 		];
 		return $meta_boxes;
-	}
-
-	/** Add a block category for "Get With Gutenberg" if it doesn't exist already. TODO: verplaatsen naar Compat/WP */
-	public function gwg_block_categories( array $categories ): array {
-		$category_slugs = wp_list_pluck( $categories, 'slug' );
-		return in_array( 'siw', $category_slugs, true ) ? $categories : array_merge(
-			$categories,
-			[
-				[
-					'slug'  => 'siw',
-					'title' => __( 'SIW blocks', 'siw' ),
-					'icon'  => null,
-				],
-			]
-		);
 	}
 
 	/** Render block */

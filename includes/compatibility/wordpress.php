@@ -53,6 +53,7 @@ class WordPress {
 		add_filter( 'wp_trim_excerpt', [ $self, 'show_read_more_button' ]);
 
 		add_filter( 'script_loader_tag', [ $self, 'set_crossorigin' ], 10, 2 );
+		add_filter( 'block_categories_all', [ $self, 'add_block_category'] );
 	}
 
 	/** Verwijdert standaard-widgets */
@@ -178,4 +179,16 @@ class WordPress {
 		}
 		return $tag;
 	}
+
+	/** Block categorie toevoegen */
+	public function add_block_category( array $categories ): array {
+		$categories[] = [
+			'slug'  => 'siw',
+			'title' => __( 'SIW blocks', 'siw' ),
+			'icon'  => null,
+		];
+		
+		return $categories;
+	}
+
 }
