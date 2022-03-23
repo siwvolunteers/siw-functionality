@@ -22,6 +22,7 @@ class Loader extends Object_Loader_Abstract {
 		return [
 			Blocks\Colofon::class,
 			Blocks\Accordion::class,
+			Blocks\Opening_Hours::class,
 		];
 	}
 
