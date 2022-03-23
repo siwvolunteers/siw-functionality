@@ -41,17 +41,13 @@ class Accordion implements Block_Interface {
 	public function get_fields(): array{
 		$fields = [
 			[
-				'id'   => 'title',
-				'type' => 'text',
-				'name' => __( 'Titel accordion', 'siw' ),
-			],
-			[
-				'id'         => 'panes',
-				'type'       => 'group',
-				'clone'      => true,
-				'add_button' => '+ Paneel',
-				'name'       => __( 'Accordion' , 'siw' ),
-				'fields'     => [
+				'id'            => 'panes',
+				'type'          => 'group',
+				'clone'         => true,
+				'collapsible'   => true,
+				'default_state' => 'collapsed',
+				'group_title'   => '{title}',
+				'fields'        => [
 					[
 						'id'   => 'title',
 						'type' => 'text',
@@ -88,10 +84,9 @@ class Accordion implements Block_Interface {
 	}
 
 	/** {@inheritDoc} */
-	function get_template_vars( array $attributes): array{
+	function get_template_vars( array $attributes ): array{
 		
 		return [
-			'title'   => mb_get_block_field( 'title' ),
 			'content' => Accordion_Element::create()->add_items( (array) mb_get_block_field( 'panes' ) )->generate()
 		];
 	}
