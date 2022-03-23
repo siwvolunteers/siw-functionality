@@ -9,6 +9,9 @@ namespace SIW\Interfaces\Blocks;
  */
 interface Block {
 
+	/** Default template ID */
+	const DEFAULT_TEMPLATE_ID = 'default';
+
 	/** Geeft ID van block terug */
 	public function get_id(): string;
 

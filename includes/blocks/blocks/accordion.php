@@ -34,7 +34,7 @@ class Accordion implements Block_Interface {
 
 	/** {@inheritDoc} */
 	public function get_template(): string {
-		return 'default';
+		return Block_Interface::DEFAULT_TEMPLATE_ID;
 	}
 	
 	/** {@inheritDoc} */
