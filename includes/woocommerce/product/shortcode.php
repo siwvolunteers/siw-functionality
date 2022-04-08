@@ -29,7 +29,6 @@ class Shortcode {
 		return [
 			'continent'   => Taxonomy_Attribute::CONTINENT(),
 			'land'        => Taxonomy_Attribute::COUNTRY(),
-			'projectduur' => Taxonomy_Attribute::DURATION(),
 			'sdg'         => Taxonomy_Attribute::SDG(),
 			'maand'       => Taxonomy_Attribute::MONTH(),
 			'soort-werk'  => Taxonomy_Attribute::WORK_TYPE(),

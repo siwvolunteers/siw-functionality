@@ -6,7 +6,6 @@ use SIW\Data\Country;
 use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Work_Type;
 use SIW\Properties;
-use SIW\WooCommerce\Project_Duration;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -88,19 +87,11 @@ class WC_Product_Project extends \WC_Product_Simple {
 
 	/** {@inheritDoc} */
 	public function get_regular_price( $context = 'view' ) {
-		$attributes = $this->get_attributes();
-		if ( ! isset( $attributes[ Taxonomy_Attribute::DURATION()->value ] ) ) {
-			return (string) Properties::STV_PROJECT_FEE;
+
+		if ( $this->is_dutch_project() ) {
+			return (string) Properties::DUTCH_PROJECT_FEE;
 		}
-		$duration =  $attributes[ Taxonomy_Attribute::DURATION()->value ]->get_slugs()[0];
-		switch ( $duration ) {
-			case Project_Duration::STV()->value:
-				return (string) Properties::STV_PROJECT_FEE;
-			case Project_Duration::MTV()->value:
-				return (string) Properties::MTV_PROJECT_FEE;
-			case Project_Duration::LTV()->value:
-				return (string) Properties::LTV_PROJECT_FEE;
-		}
+
 		return (string) Properties::STV_PROJECT_FEE;
 	}
 

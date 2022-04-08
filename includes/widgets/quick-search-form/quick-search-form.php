@@ -78,11 +78,6 @@ class Quick_Search_Form extends Widget {
 					'name'    => Quick_Search_Results::MONTH,
 					'options' => $this->get_taxonomy_options( Taxonomy_Attribute::MONTH()->value, __( 'Wanneer wil je weg?', 'siw' ) ),
 				],
-				[
-					'id'      => Quick_Search_Results::DURATION,
-					'name'    => Quick_Search_Results::DURATION,
-					'options' => $this->get_taxonomy_options( Taxonomy_Attribute::DURATION()->value, __( 'Hoe lang wil je weg?', 'siw' ) ),
-				]
 			],
 			'i18n' => [
 				'search' => __( 'Zoeken', 'siw' )

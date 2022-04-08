@@ -20,8 +20,6 @@ class Quick_Search_Results extends Widget {
 
 	const DESTINATION = 'bestemming';
 	const MONTH = 'maand';
-	const DURATION = 'projectduur';
-
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
@@ -70,7 +68,6 @@ class Quick_Search_Results extends Widget {
 	public function register_query_vars( array $vars ): array {
 		$vars[] = self::DESTINATION;
 		$vars[] = self::MONTH;
-		$vars[] = self::DURATION;
 		return $vars;
 	}
 
@@ -106,15 +103,6 @@ class Quick_Search_Results extends Widget {
 			$attributes['maand'] = $month_slug;
 			$url       = add_query_arg( 'filter_maand', $month_slug, $url );
 			$text      .= SPACE . sprintf( __( 'in %s', 'siw' ), strtolower( $month->name ) );
-		}
-
-		/* Verwerk zoekargument projectduur*/
-		$duration_slug = sanitize_key( get_query_var( self::DURATION, false ) );
-		$duration      = get_term_by( 'slug', $duration_slug, Taxonomy_Attribute::DURATION()->value );
-		if ( is_a( $duration, \WP_Term::class ) ) {
-			$attributes['projectduur'] = $duration_slug;
-			$url       = add_query_arg( 'filter_projectduur', $duration_slug, $url );
-			$text      .= SPACE . sprintf( __( 'van %s', 'siw' ), strtolower( $duration->name ) );
 		}
 
 		$attributes['show_button'] = 'true';

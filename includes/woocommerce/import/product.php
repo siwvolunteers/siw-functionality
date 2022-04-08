@@ -12,7 +12,6 @@ use SIW\Data\Work_Type;
 use SIW\Util\Logger;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Product_Attribute;
-use SIW\WooCommerce\Project_Duration;
 use SIW\WooCommerce\Target_Audience;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
@@ -319,27 +318,6 @@ class Product {
 				$attributes[ sanitize_title( $product_attribute['attribute']->label )] = $this->create_product_attribute( $product_attribute['attribute'], $product_attribute['value'] );
 			}
 		}
-
-		/** Projectduur */
-		$start_date_time      = new \DateTime( $this->plato_project->get_start_date() );
-		$end_date_time        = new \DateTime( $this->plato_project->get_end_date() );
-
-		$duration = $start_date_time->diff( $end_date_time )->days;
-		if ( $duration < 30 ) { //TODO: magic number vervangen?
-			$project_duration = Project_Duration::STV();
-		} elseif ( $duration < 90 ) { //TODO: magic number vervangen?
-			$project_duration = Project_Duration::MTV();
-		} else {
-			$project_duration = Project_Duration::LTV();
-		}
-
-		$taxonomy_attributes[] = [
-			'taxonomy' => Taxonomy_Attribute::DURATION(),
-			'visible'  => false,
-			'values'   => [
-				$project_duration->value => $project_duration->label
-			]
-		];
 
 		/* Land */
 		$taxonomy_attributes[] = [
