@@ -18,7 +18,7 @@ use SIW\WooCommerce\Product\WC_Product_Project;
  * - Zichtbaarheid
  * - Stockfoto's
  * 
- * @copyright 20201 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2021-2022 SIW Internationale Vrijwilligersprojecten
  * 
  * @todo  Plato-afbeelding verwijderen als project al begonnen is of uit Plato verwijderd is
  */
@@ -27,23 +27,19 @@ class Update_Projects implements Batch_Action_Interface {
 	/** Aantal maanden voordat project verwijderd wordt. */
 	const MAX_AGE_PROJECT = 6;
 
-	/** Aantal maanden voordat Nederlands project verwijderd wordt. */
-	const MAX_AGE_DUTCH_PROJECT = 9;
-
 	/** Minimaal aantal dagen dat project in toekomst moet starten om zichtbaar te zijn */
 	const MIN_DAYS_BEFORE_START = 3;
-
 
 	/** Product */
 	protected WC_Product_Project $product;
 
 	/** {@inheritDoc} */
-	public function get_id() : string {
+	public function get_id(): string {
 		return 'update_projects';
 	}
 
 	/** {@inheritDoc} */
-	public function get_name() : string {
+	public function get_name(): string {
 		return __( 'Bijwerken projecten', 'siw' );
 	}
 
@@ -58,7 +54,7 @@ class Update_Projects implements Batch_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function select_data() : array {
+	public function select_data(): array {
 		return siw_get_product_ids();
 	}
 
@@ -85,7 +81,6 @@ class Update_Projects implements Batch_Action_Interface {
 
 		//Bijwerken stockfoto
 		$this->maybe_set_stockphoto();
-		return;
 	}
 
 	/**
@@ -176,11 +171,10 @@ class Update_Projects implements Batch_Action_Interface {
 	}
 
 	/** Oude projecten verwijderen */
-	protected function maybe_delete_project() : bool {
+	protected function maybe_delete_project(): bool {
 	
 		$start_date = $this->product->get_start_date();
-		$max_age = $this->product->is_dutch_project() ? self::MAX_AGE_DUTCH_PROJECT : self::MAX_AGE_PROJECT;
-		$min_date = date( 'Y-m-d', time() - ( $max_age * MONTH_IN_SECONDS ) );
+		$min_date = date( 'Y-m-d', time() - ( self::MAX_AGE_PROJECT * MONTH_IN_SECONDS ) );
 
 		//Afbreken als project nog niet oud genoeg is
 		if ( $start_date > $min_date ) {
