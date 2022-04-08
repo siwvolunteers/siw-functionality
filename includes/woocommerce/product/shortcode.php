@@ -108,7 +108,7 @@ class Shortcode {
 		printf(
 			'<a href="%s" class="button ghost">%s</a>',
 			wc_get_page_permalink( 'shop' ),
-			esc_html__( __( 'Bekijk alle projecten', 'siw') )
+			esc_html__( 'Bekijk alle projecten', 'siw' )
 		);
 	}
 
