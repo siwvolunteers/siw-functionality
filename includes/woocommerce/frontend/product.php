@@ -2,9 +2,6 @@
 
 namespace SIW\WooCommerce\Frontend;
 
-use SIW\Data\Currency;
-use SIW\External\Exchange_Rates;
-use SIW\Properties;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Product_Attribute;
 use SIW\WooCommerce\Taxonomy_Attribute;
@@ -71,23 +68,36 @@ class Product {
 		return $attributes;
 	}
 
+	/** Toont samenvatting van project TODO: mustache template gebruiken en leuker maken met landenvlag en SDG icons */
 	public function show_project_summary() {
 		global $post;
 		$product = \siw_get_product( $post );
-		if ( null == $product ) {
+		if ( null === $product ) {
 			return;
 		}
 
-		esc_html_e( 'In het kort:', 'siw' );
+		$summary = [
+			__( 'Land', 'siw' ) => $product->get_country()->get_name(),
+			__( 'Soort werk', 'siw' ) => $product->get_attribute( Taxonomy_Attribute::WORK_TYPE()->value ),
+			__( 'Projectduur', 'siw' ) => siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false ),
+			__( 'Sustainable Development Goals', 'siw' ) => $product->get_attribute( Taxonomy_Attribute::SDG()->value ),
+			__( 'Aantal deelnemers' , 'siw' ) => $product->get_attribute( Product_Attribute::NUMBER_OF_VOLUNTEERS()->value ),
+		];
 
-
-		$duration = siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false );
 		echo '<p>';
-		echo $product->get_country()->get_name() . BR;
-		echo implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE()->value, ['fields' => 'names' ] ) ) . BR;
-		echo esc_html( $duration ) . BR;
-		echo implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::SDG()->value, ['fields' => 'names' ] ) ) . BR;
-		echo $product->get_attribute( Product_Attribute::NUMBER_OF_VOLUNTEERS()->value );
+		esc_html_e( 'In het kort:', 'siw' );
+		echo '</p>';
+		echo '<dl>';
+		foreach ( $summary as $label => $value ) {
+			printf( '<dt>%s</dt><dd>%s</dd>', $label, $value );
+		}
+		echo '</dl>';
+		echo '<p>';
+		esc_html_e( 'Lees snel verder voor meer informatie over de werkzaamheden, de accommodatie, de projectlocatie en de kosten.', 'siw' );
+		echo SPACE;
+		echo esc_html_e( 'Heb je een vraag over dit project?', 'siw' );
+		echo SPACE;
+		echo esc_html_e( 'Laat je gegevens achter bij "Stel een vraag" en we nemen zo snel mogelijk contact met je op.', 'siw' );
 		echo '</p>';
 	}
 
