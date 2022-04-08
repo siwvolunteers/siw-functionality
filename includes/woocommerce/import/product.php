@@ -551,8 +551,6 @@ class Product {
 	protected function is_allowed_project_type(): bool {
 		$allowed_project_types = [
 			Plato_Project_Type::STV(),
-			Plato_Project_Type::MTV(),
-			Plato_Project_Type::LTV(),
 			Plato_Project_Type::TEEN(),
 			Plato_Project_Type::FAM(),
 		];
