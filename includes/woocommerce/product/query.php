@@ -22,7 +22,7 @@ class Query {
 	public function enable_project_id_search( array $query, array $query_vars ): array {
 		if ( ! empty( $query_vars['project_id'] ) ) {
 			$query['meta_query'][] = [
-				'key'   => 'project_id',
+				'key'   => '_project_id',
 				'value' => esc_attr( $query_vars['project_id'] ),
 			];
 		}
