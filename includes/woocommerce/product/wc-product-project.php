@@ -82,6 +82,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 
 	/** {@inheritDoc} */
 	public function get_sale_price( $context = 'view' ) {
+		//Eventueel overschrijven als er weer kortingsacties nodig zijn
 		return null;
 	}
 
@@ -96,27 +97,13 @@ class WC_Product_Project extends \WC_Product_Simple {
 	}
 
 	/** {@inheritDoc} */
-	public function is_on_sale( $context = 'view' ): bool {
-		$on_sale = false;
-		if ( $this->get_date_on_sale_from( $context ) && $this->get_date_on_sale_from( $context )->getTimestamp() <= time() ) {
-			$on_sale = true;
-		}
-
-		if ( $this->get_date_on_sale_to( $context ) && $this->get_date_on_sale_to( $context )->getTimestamp() >= time() ) {
-			$on_sale = true;
-		}
-
-		return $on_sale;
-	}
-
-	/** {@inheritDoc} */
-	public function get_date_on_sale_from($context = 'view'): ?\WC_DateTime {
+	public function get_date_on_sale_from( $context = 'view' ): ?\WC_DateTime {
 		//Eventueel overschrijven als er weer kortingsacties nodig zijn
 		return null;
 	}
 
 	/** {@inheritDoc} */
-	public function get_date_on_sale_to($context = 'view'): ?\WC_DateTime {
+	public function get_date_on_sale_to( $context = 'view' ): ?\WC_DateTime {
 		//Eventueel overschrijven als er weer kortingsacties nodig zijn
 		return null;
 	}
