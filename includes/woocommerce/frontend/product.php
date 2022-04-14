@@ -89,7 +89,9 @@ class Product {
 		echo '</p>';
 		echo '<dl>';
 		foreach ( $summary as $label => $value ) {
-			printf( '<dt>%s</dt><dd>%s</dd>', $label, $value );
+			if ( ! empty( $value ) ) {
+				printf( '<dt>%s</dt><dd>%s</dd>', $label, $value );
+			}
 		}
 		echo '</dl>';
 		echo '<p>';
