@@ -38,7 +38,7 @@ class WooCommerce {
 		add_filter( 'woocommerce_enable_admin_help_tab', '__return_false' );
 		add_filter( 'woocommerce_allow_marketplace_suggestions', '__return_false' );
 		add_filter( 'woocommerce_show_addons_page', '__return_false' );
-		add_filter( 'woocommerce_admin_disabled', '__return_true' );
+		add_filter( 'woocommerce_admin_get_feature_config', [ $self, 'disable_admin_features' ] );
 
 		//Blocks style niet laden
 		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
@@ -66,6 +66,13 @@ class WooCommerce {
 	/** Verwijdert WooCommerce-blocks style */
 	public function deregister_block_style() {
 		wp_deregister_style( 'wc-block-style' );
+	}
+
+	/** Schakel sommige admin features uit */
+	public function disable_admin_features( array $features ): array {
+		$features['onboarding'] = false;
+		$features['remote-free-extensions'] = false;
+		return $features;
 	}
 
 	/** Verwijdert dashboard widgets */
