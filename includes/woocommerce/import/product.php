@@ -259,6 +259,9 @@ class Product {
 		$code = $this->plato_project->get_code();
 		$country = $this->country->get_name();
 		$work = $this->work_types[0]->get_name();
+		if ( count( $this->work_types ) > 1 ) {
+			$work .= ' en ' . $this->work_types[1]->get_name();
+		}
 		return sanitize_title( sprintf( '%s-%s-%s-%s', $year, $code, $country, $work ) );
 	}
 
