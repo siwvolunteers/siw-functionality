@@ -76,6 +76,11 @@ class WC_Product_Project extends \WC_Product_Simple {
 	}
 
 	/** {@inheritDoc} */
+	public function is_in_stock(): bool {
+		return $this->is_visible();
+	}
+
+	/** {@inheritDoc} */
 	public function get_price( $context = 'view' ) {
 		return $this->is_on_sale() ? $this->get_sale_price() : $this->get_regular_price();
 	}
