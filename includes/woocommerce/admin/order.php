@@ -87,7 +87,7 @@ class Order {
 
 	/** Zet het gelokaliseerde adresformaat (van Nederland) */
 	public function set_localisation_address_format( array $address_formats ): array {
-		$address_formats['NL'] = "{name}\n{dob}\n{gender}\n{nationality}";
+		$address_formats['default'] = "{name}\n{dob}\n{gender}\n{nationality}";
 		return $address_formats;
 	}
 
@@ -95,7 +95,7 @@ class Order {
 	public function set_formatted_address_replacements( array $replace, array $args ): array {
 		$replace['{gender}'] = $args['gender'] ?? '';
 		$replace['{nationality}'] = $args['nationality'] ?? '';
-		$replace['{dob}'] = $args['dob'] ?? '';
+		$replace['{dob}'] = $args['dob'] ? siw_format_date( $args['dob'] ): '';
 		return $replace;
 	}
 
