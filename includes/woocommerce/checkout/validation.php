@@ -3,14 +3,17 @@
 namespace SIW\WooCommerce\Checkout;
 
 use SIW\Util;
+use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
  * Validatie tijdens checkout van Groepsprojecten
  * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
-class Validation{
+class Validation {
+
+	const MIN_AGE = 14;
+	const MAX_AGE = 99;
 
 	/** Init */
 	public static function init() {
@@ -21,15 +24,52 @@ class Validation{
 	/** Voert validatie voor extra checkout velden uit */
 	public function validate_checkout_fields( array $data, \WP_Error $errors ) {
 
+		$has_required_field_error = false;
+		foreach ( $errors->get_error_codes() as $code ) {
+			if ( false !== strpos( $code, '_required' ) ) {
+				$has_required_field_error = true;
+				$errors->remove( $code );
+			}
+		}
+
+		if ( $has_required_field_error == true ) {
+			$errors->add( 'validation', __( 'Vul de verplichte velden in.', 'siw' ) );
+		}
+
 		$dob = $data['billing_dob'];
 		if ( ! (bool) date_parse( $dob ) ) {
 			$errors->add( 'validation', sprintf( __( '%s bevat geen geldige datum.', 'siw' ), '<strong>' . esc_html__( 'Geboortedatum','siw' ) . '</strong>' ) );
 		}
 		else {
-			$min_age = 14; //TODO: property / projecteigenschap
 			$age = Util::calculate_age( $dob );
-			if ( $age < $min_age ) {
-				$errors->add( 'validation', sprintf( __( 'De minimumleeftijd voor deelname is %s jaar.', 'siw' ), '<strong>' . esc_html( $min_age ) . '</strong>' ) );
+
+			foreach ( WC()->cart->get_cart() as $cart_item ) {
+				/** @var WC_Product_Project */
+				$product = $cart_item['data'];
+
+				$min_age = max( self::MIN_AGE, $product->get_min_age() );
+				$max_age = min( self::MAX_AGE, $product->get_max_age() );
+
+				if ( $age < $min_age ) {
+					$errors->add(
+						'validation',
+						sprintf(
+							__( 'De minimumleeftijd voor deelname aan het project %s is %s jaar.', 'siw' ),
+							'<strong>' . esc_html( $product->get_name() ) . '</strong>',
+							'<strong>' . esc_html( $min_age ) . '</strong>'
+						)
+					);
+				}
+				else if ( $age > $max_age ) {
+					$errors->add(
+						'validation',
+						sprintf(
+							__( 'De maximumleeftijd voor deelname aan het project %s is %s jaar.', 'siw' ),
+							'<strong>' . esc_html( $product->get_name() ) . '</strong>',
+							'<strong>' . esc_html( $max_age ) . '</strong>'
+						)
+					);
+				}
 			}
 		}
 	}
