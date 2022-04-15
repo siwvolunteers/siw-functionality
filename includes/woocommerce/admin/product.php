@@ -9,6 +9,7 @@ namespace SIW\WooCommerce\Admin;
  */
 class Product {
 
+	/** Init */
 	public static function init() {
 		$self = new self();
 
@@ -45,6 +46,7 @@ class Product {
 		remove_meta_box( 'slugdiv', 'product', 'normal' );
 		remove_meta_box( 'postcustom' , 'product' , 'normal' );
 		remove_meta_box( 'tagsdiv-product_tag', 'product', 'side' );
+		remove_meta_box( 'postexcerpt', 'product', 'normal' );
 		if ( ! current_user_can( 'manage_options' ) ) {
 			remove_meta_box( 'woocommerce-product-images' , 'product', 'side' );
 			remove_meta_box( 'product_catdiv', 'product', 'normal' );

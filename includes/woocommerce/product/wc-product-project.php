@@ -37,6 +37,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 		'approval_result'            => null,
 		'has_plato_image'            => false,
 		'project_description'        => [],
+		'custom_price'               => null,
 	];
 
 	/** {@inheritDoc } */
@@ -93,6 +94,11 @@ class WC_Product_Project extends \WC_Product_Simple {
 
 	/** {@inheritDoc} */
 	public function get_regular_price( $context = 'view' ) {
+
+		if ( !empty( $this->get_custom_price() ) ) {
+			return (string) $this->get_custom_price();
+		}
+
 
 		if ( $this->is_dutch_project() ) {
 			return (string) Properties::DUTCH_PROJECT_FEE;
@@ -185,7 +191,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 	}
 
 	/** Geeft het plato project id terug */
-	public function get_project_id() : string {
+	public function get_project_id(): string {
 		return $this->get_prop( 'project_id' );
 	}
 
@@ -195,7 +201,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 	}
 
 	/** Geeft checksum van het project terug */
-	public function get_checksum() : string {
+	public function get_checksum(): string {
 		return $this->get_prop( 'checksum' );
 	}
 
@@ -206,7 +212,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 
 	/** Geef breedtegraad van het project terug */
 	public function get_latitude(): ?float {
-		return (float) $this->get_prop( 'latitude' );
+		return ! empty( $this->get_prop( 'latitude' ) ) ? (float) $this->get_prop( 'latitude' ) : null;
 	}
 
 	/** Zet lengtegraad van het project */
@@ -216,7 +222,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 
 	/** Geef lengtegraad van het project terug */
 	public function get_longitude(): ?float {
-		return (float) $this->get_prop( 'longitude' );
+		return ! empty( $this->get_prop( 'longitude' ) ) ? (float) $this->get_prop( 'longitude' ) : null;
 	}
 
 	/** Zet de startdatum van het project */
@@ -266,7 +272,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 
 	/** Geeft de lokale bijdrage van het project terug */
 	public function get_participation_fee(): ?float {
-		return (float) $this->get_prop( 'participation_fee' );
+		return ! empty( $this->get_prop( 'participation_fee' ) ) ? (float) $this->get_prop( 'participation_fee' ) : null;
 	}
 
 	/** Zet de valuta(code) van de lokale bijdrage */
@@ -279,6 +285,11 @@ class WC_Product_Project extends \WC_Product_Simple {
 		return $this->get_prop( 'participation_fee_currency' );
 	}
 	
+	/** Geeft aan of die project een lokale bijdrage heeft */
+	public function has_participation_fee(): bool {
+		return null !== $this->get_participation_fee() && ! empty( $this->get_participation_fee_currency() );
+	}
+
 	/** Zet of of project vol is */
 	public function set_full( bool $full ) {
 		$this->set_prop( 'full', $full );
@@ -372,5 +383,15 @@ class WC_Product_Project extends \WC_Product_Simple {
 	/** Geeft het beoordelingsresultaat van dit project terug */
 	public function get_approval_result(): ?string {
 		return $this->get_prop( 'approval_result' );
+	}
+
+	/** Zet de afwijkende prijs van dit project */
+	public function set_custom_price( $custom_price ) {
+		$this->set_prop( 'custom_price', (float) $custom_price );
+	}
+
+	/** Geeft de afwijkende prijs van dit project terug */
+	public function get_custom_price(): ?float {
+		return ! empty( $this->get_prop( 'custom_price' ) ) ? (float) $this->get_prop( 'custom_price' ) : null;
 	}
 }

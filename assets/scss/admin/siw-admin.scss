@@ -65,16 +65,12 @@ table.wp-list-table {
 }
 
 #woocommerce-product-data ul.wc-tabs {
-	li.description_options a::before {
+	li.siw_description_options a::before {
 		content: "\f123";
 	}
 	
-	li.update_options a::before {
-		content: "\f463";
-	}
-	
-	li.approval_options a::before {
-		content:"\f529";
+	li.siw_extra_options_options a::before {
+		content: "\f108";
 	}
 }
 

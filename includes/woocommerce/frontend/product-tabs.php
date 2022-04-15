@@ -51,7 +51,7 @@ class Product_Tabs {
 		$latitude = $product->get_latitude();
 		$longitude = $product->get_longitude();
 	
-		if ( 0 != $latitude && 0 != $longitude ) {
+		if ( null !== $latitude && null !== $longitude ) {
 			$tabs['location'] = [
 				'title'     => __( 'Projectlocatie', 'siw' ),
 				'priority'  => 110,
@@ -115,33 +115,31 @@ class Product_Tabs {
 		Form::create()->set_form_id( self::CONTACT_FORM_ID )->render();
 	}
 
-	/** Toont stappenplan in tab TODO: stappen uit instelling */
+	/** Toont overzicht van kosten voor het project */
 	public function show_product_costs( string $tab, array $args ) {
 
 		/**@var WC_Product_Project */
 		$product = $args['product'];
 		
 		printf(
-			__( 'De inschrijfkosten voor dit project bedragen %s, exclusief %s studentenkorting.' ),
+			__( 'Het inschrijfgeld voor dit project bedraagt %s, exclusief %s studentenkorting.' ),
 			siw_format_amount( (float) $product->get_price() ),
 			siw_format_amount( Properties::STUDENT_DISCOUNT_AMOUNT )
 		);
 
-		$amount = $product->get_participation_fee();
-		$currency_code = $product->get_participation_fee_currency();
-
-
 		//Local fee niet tonen voor nederlandse projecten
-		if ( ! empty( $currency_code ) && $amount > 0 && ! $product->is_dutch_project() ) {
+		if ( $product->has_participation_fee() && ! $product->is_dutch_project() ) {
+
+			$currency_code = $product->get_participation_fee_currency();
 
 			if ( get_woocommerce_currency() !== $currency_code ) {
 				$exchange_rates = new Exchange_Rates();
-				$amount_in_euro = $exchange_rates->convert_to_euro( $currency_code, $amount, 0 );
+				$amount_in_euro = $exchange_rates->convert_to_euro( $currency_code, $product->get_participation_fee(), 0 );
 			}
 			echo BR;
 			printf(
 				__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s.' ),
-				siw_format_amount( (float) $product->get_price(), 0, $currency_code )
+				siw_format_amount( $product->get_participation_fee(), 0, $currency_code )
 			);
 			if ( isset( $amount_in_euro ) ) {
 				echo SPACE;

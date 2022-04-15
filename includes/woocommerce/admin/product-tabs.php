@@ -18,22 +18,22 @@ class Product_Tabs {
 		add_filter( 'woocommerce_product_data_tabs', [ $self, 'hide_tabs'], PHP_INT_MAX );
 		
 		add_action( 'woocommerce_product_data_panels', [ $self, 'show_description_tab'] );
-		add_action( 'woocommerce_product_data_panels', [ $self, 'show_update_tab'] );
+		add_action( 'woocommerce_product_data_panels', [ $self, 'show_extra_settings_tab'] );
 
 		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_product_data'] );
 	}
 
 	/** Voegt extra product tabs toe */
 	public function add_tabs( array $tabs ): array {
-		$tabs['description'] = [
+		$tabs['siw_description'] = [
 			'label'    => __( 'Omschrijving', 'siw' ),
-			'target'   => 'description_product_data',
+			'target'   => 'siw_description_product_data',
 			'class'    => [],
 			'priority' => 1,
 		];
-		$tabs['update'] = [
-			'label'    => __( 'Update', 'siw' ),
-			'target'   => 'update_product_data',
+		$tabs['siw_extra_settings'] = [
+			'label'    => __( 'Extra instellingen', 'siw' ),
+			'target'   => 'siw_extra_settings_product_data',
 			'class'    => [],
 			'priority' => 120,
 		];
@@ -48,21 +48,20 @@ class Product_Tabs {
 		$tabs['linked_product']['class'] = ['hide_if_project'];
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			//$tabs['inventory']['class'] = ['hide_if_project'];
 			//$tabs['attribute']['class'] = ['hide_if_project'];
 		}
 		return $tabs;
 	}
 
-	/** Toont tab met extra opties t.b.v. update */
-	public function show_update_tab() {
+	/** Toont tab met extra opties */
+	public function show_extra_settings_tab() {
 		global $product_object;
 		$product = \siw_get_product( $product_object );
 		if ( null == $product ) {
 			return;
 		}
 		?>
-		<div id="update_product_data" class="panel woocommerce_options_panel">
+		<div id="siw_extra_settings_product_data" class="panel woocommerce_options_panel">
 			<div class="options_group">
 				<?php
 				//Alleen tonen als het project een afbeelding uit Plato heeft of als de optie al aangevinkt is
@@ -83,6 +82,15 @@ class Product_Tabs {
 						'value'   => $product->is_hidden(),
 						'cbvalue' => '1',
 						'label'   => __( 'Verbergen', 'siw' ),
+					]
+				);
+				woocommerce_wp_text_input(
+					[
+						'id'          => '_custom_price',
+						'value'       => $product->get_custom_price(),
+						'placeholder' => $product->get_price(),
+						'type'        => 'price',
+						'label'       => __( 'Afwijkend tarief', 'siw' ),
 					]
 				);
 				?>
@@ -113,7 +121,7 @@ class Product_Tabs {
 		];
 
 		?>
-		<div id="description_product_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper">
+		<div id="siw_description_product_data" class="panel woocommerce_options_panel wc-metaboxes-wrapper">
 			<div class="options_group">
 				<div class="wc-metaboxes">
 				<?php
@@ -146,7 +154,7 @@ class Product_Tabs {
 			$product->set_image_id( null );
 			$product->set_has_plato_image( false );
 		}
-
+		$product->set_custom_price( wc_clean( $_POST['_custom_price'] ) );
 		$product->set_use_stockphoto( isset( $_POST['_use_stockphoto'] ) );
 		$product->set_hidden( isset( $_POST['_hidden'] ) );
 	}
