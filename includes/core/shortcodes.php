@@ -51,8 +51,6 @@ class Shortcodes {
 			'ltv_tarief'                    => __( 'LTV tarief', 'siw' ),
 			'np_tarief'                     => __( 'Tarief Nederlandse projecten', 'siw' ),
 			'studentenkorting'              => __( 'Studentenkorting', 'siw' ),
-			'groepsproject_tarief_student'  => __( 'Groepsprojecten - Studententarief', 'siw' ),
-			'groepsproject_tarief_regulier' => __( 'Groepsprojecten - Regulier tarief', 'siw' ),
 			'scholenproject_tarief'         => __( 'Scholenproject - tarief', 'siw' ),
 			'korting_tweede_project'        => __( 'Korting tweede project', 'siw' ),
 			'leeftijd'                      => __( 'Leeftijd van SIW', 'siw' ),
@@ -185,28 +183,6 @@ class Shortcodes {
 	/** Studentenkorting */
 	public static function render_studentenkorting(): string {
 		return siw_format_amount( Properties::STUDENT_DISCOUNT_AMOUNT );
-	}
-
-	/** Inschrijfgeld Groepsproject (student) */
-	public static function render_groepsproject_tarief_student() : string {
-		if ( siw_is_workcamp_sale_active() ) {
-			return siw_format_sale_amount(
-				Properties::WORKCAMP_FEE_STUDENT,
-				Properties::WORKCAMP_FEE_STUDENT_SALE
-			);
-		}
-		return siw_format_amount( Properties::WORKCAMP_FEE_STUDENT );
-	}
-
-	/** Inschrijfgeld Groepsproject (regulier) */
-	public static function render_groepsproject_tarief_regulier() : string {
-		if ( siw_is_workcamp_sale_active() ) {
-			return siw_format_sale_amount(
-				Properties::WORKCAMP_FEE_REGULAR,
-				Properties::WORKCAMP_FEE_REGULAR_SALE
-			);
-		}
-		return siw_format_amount( Properties::WORKCAMP_FEE_REGULAR );
 	}
 
 	/** Inschrijfgeld scholenproject */

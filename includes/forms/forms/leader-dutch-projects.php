@@ -114,7 +114,7 @@ class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interfa
 		$projects = siw_get_products( $args );
 		
 		foreach ( $projects as $project ) {
-			$project_options[ sanitize_title( $project->get_sku() ) ] = $project->get_attribute( 'Projectnaam' );
+			$project_options[ sanitize_title( $project->get_sku() ) ] = $project->get_formatted_name();
 		}
 		return $project_options;
 	}

@@ -33,7 +33,7 @@ class Ordering {
 	public function process_catalog_ordering_args( array $args, string $orderby, string $order ): array {
 		if ( 'startdate' === $orderby ) {
 			$args['orderby']  = 'meta_value';
-			$args['meta_key'] = 'start_date';
+			$args['meta_key'] = '_start_date';
 		}
 		return $args;
 	}

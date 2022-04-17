@@ -941,15 +941,6 @@ span.product-badge.featured-badge {
   font-size: 30px;
   line-height: 40px;
 }
-.woocommerce div.product .woocommerce-variation-description {
-  font-size: 0.9em;
-  color: var(--siw-contrast-light);
-  font-style: italic;
-}
-.woocommerce div.product .woocommerce-variation-price {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
 .woocommerce div.product .participation-fee {
   color: var(--siw-contrast-light);
   font-style: italic;
@@ -990,14 +981,18 @@ span.product-badge.featured-badge {
   border: none;
 }
 
-.woocommerce-checkout .form-row-first, .woocommerce-checkout h3 {
+.woocommerce-checkout .form-row-first {
   clear: left;
 }
-.woocommerce-checkout label.radio {
+.woocommerce-checkout .form-row label.radio {
   margin-right: 5px;
+  display: inline-block;
 }
 .woocommerce-checkout span.optional {
   display: none;
+}
+.woocommerce-checkout .woocommerce form .form-row .input-checkbox {
+  display: inline-block;
 }
 .woocommerce-checkout .woocommerce form .form-row input.input-text:focus, .woocommerce-checkout .woocommerce form .form-row textarea:focus {
   outline-offset: 2px;

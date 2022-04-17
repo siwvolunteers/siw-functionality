@@ -5,8 +5,7 @@ namespace SIW\WooCommerce\Email;
 /**
  * E-mail voor betaalde aanmeldingen
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Customer_Processing_Order {
 
@@ -25,7 +24,7 @@ class Customer_Processing_Order {
 
 	/** Past heading aan */
 	public function set_heading( string $heading, \WC_Order $order ) : string {
-		if ( 'mollie_wc_gateway_ideal' == $order->get_payment_method() || 'cod' == $order->get_payment_method() ) {
+		if ( 'mollie_wc_gateway_ideal' === $order->get_payment_method() ) {
 			$heading = sprintf( __( 'Bevestiging aanmelding #%s', 'siw' ), $order->get_order_number() );
 		}
 		else {
