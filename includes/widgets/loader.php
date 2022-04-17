@@ -6,15 +6,10 @@ use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
 
 /**
  * Loader voor Widgets
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Loader extends Class_Loader_Abstract {
-
-	/** {@inheritDoc} */
-	public function get_id() : string {
-		return 'widgets';
-	}
 
 	/** {@inheritDoc} */
 	public function get_classes() : array {
@@ -43,7 +38,7 @@ class Loader extends Class_Loader_Abstract {
 		$id_base = $this->get_id_base_from_class( $class );
 		$file_base = $this->get_file_base_from_id_base( $id_base );
 
-		$widget_folder = untrailingslashit( SIW_WIDGETS_DIR ); 
+		$widget_folder = untrailingslashit( SIW_WIDGETS_DIR );
 		if ( function_exists('siteorigin_widget_register') && file_exists( "{$widget_folder}/{$file_base}/{$file_base}.php" ) ) {
 			siteorigin_widget_register(
 				"sow-siw_{$id_base}_widget",
@@ -52,7 +47,7 @@ class Loader extends Class_Loader_Abstract {
 			);
 			require_once "{$widget_folder}/{$file_base}/{$file_base}.php";
 		}
-		
+
 		add_filter( 'siteorigin_widgets_active_widgets', fn( $active_widgets ) => wp_parse_args( [ $id_base => true ], $active_widgets ) );
 		//Widget activeren, kan pas bij init-hook
 		if ( class_exists(\SiteOrigin_Widgets_Bundle::class ) ) {

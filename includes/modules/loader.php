@@ -6,7 +6,7 @@ use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
 
 /**
  * Loader voor modules
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Loader extends Class_Loader_Abstract {
@@ -20,11 +20,6 @@ class Loader extends Class_Loader_Abstract {
 			Social_Share::class,
 			Topbar::class
 		];
-	}
-
-	/** {@inheritDoc} */
-	public function get_id() : string {
-		return 'modules';
 	}
 
 	/** Laadt 1 klasse */

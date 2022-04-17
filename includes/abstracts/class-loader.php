@@ -3,10 +3,9 @@
 namespace SIW\Abstracts;
 
 /**
- * Roept 
- * 
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.3.0
+ * Roept load functie aan voor class
+ *
+ * @copyright 2020-2022 SIW Internationale Vrijwilligersprojecten
  */
 abstract class Class_Loader extends Loader {
 

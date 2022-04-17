@@ -9,7 +9,7 @@ use SIW\Interfaces\Assets\Style;
 
 /**
  * Loader voor assets
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Loader extends Object_Loader {
@@ -32,11 +32,6 @@ class Loader extends Object_Loader {
 			SIW_Functionality::class,
 			SIW_SVG::class,
 		];
-	}
-
-	/** {@inheritDoc} */
-	public function get_id() : string {
-		return 'assets';
 	}
 
 	/** {@inheritDoc} */

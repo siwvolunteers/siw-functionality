@@ -13,11 +13,6 @@ use SIW\Interfaces\Forms\Form as Form_Interface;
 class Loader extends Object_Loader_Abstract {
 
 	/** {@inheritDoc} */
-	protected function get_id(): string {
-		return 'forms';
-	}
-
-	/** {@inheritDoc} */
 	protected function get_classes(): array {
 		return [
 			Forms\Cooperation::class,

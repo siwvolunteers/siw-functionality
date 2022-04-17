@@ -10,15 +10,10 @@ use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
 /**
  * Loader voor actions
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Loader extends Object_Loader_Abstract {
-
-	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'actions';
-	}
 
 	/** {@inheritDoc} */
 	public function get_classes(): array {
