@@ -7,8 +7,8 @@ use SIW\Autoloader;
 
 /**
  * Class om alle functionaliteit van de plugin te laden
- * 
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ *
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Bootstrap {
 
@@ -41,7 +41,7 @@ class Bootstrap {
 		$this->init_loader( 'Options' );
 		$this->init_loader( 'Forms' );
 		$this->init_loader( 'Widgets' );
-		$this->init_loader( 'Modules', 'init' );
+		$this->init_loader( 'Modules', 'init', 11 );
 		$this->init_loader( 'Compatibility' );
 		$this->load_actions();
 		$this->init_loader( 'Page_Builder');
@@ -67,7 +67,7 @@ class Bootstrap {
 			]
 		);
 
-		define ( 'SIW_PLUGIN_VERSION', $plugin_info['version'] ); 
+		define ( 'SIW_PLUGIN_VERSION', $plugin_info['version'] );
 		define ( 'SIW_MIN_PHP_VERSION', $plugin_info['min_php_version'] );
 		define ( 'SIW_MIN_WP_VERSION', $plugin_info['min_wp_version'] );
 		define ( 'SIW_PLUGIN_DIR', wp_normalize_path( plugin_dir_path( SIW_FUNCTIONALITY_PLUGIN_FILE ) ) );
@@ -132,8 +132,8 @@ class Bootstrap {
 	}
 
 	/** Init loader */
-	protected function init_loader( string $namespace, string $hook = self::DEFAULT_HOOK ) {
-		$this->init_class( "SIW\\{$namespace}", 'Loader', $hook );
+	protected function init_loader( string $namespace, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
+		$this->init_class( "SIW\\{$namespace}", 'Loader', $hook, $priority );
 	}
 
 	/** Laadt kernfunctionaliteit */
