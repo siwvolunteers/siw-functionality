@@ -50,8 +50,6 @@ class Bootstrap {
 		if ( is_admin() ) {
 			$this->init_loader( 'Admin' );
 		}
-
-		do_action( 'siw_plugin_loaded' );
 	}
 
 	/** Definieer constantes */
