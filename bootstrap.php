@@ -35,7 +35,6 @@ class Bootstrap {
 		$this->load_functions();
 
 		//Laadt klasses
-		$this->load_core();
 		$this->init_class( 'SIW', 'Loader' );
 		$this->init_loader( 'Assets' );
 		$this->init_loader( 'Options' );
@@ -134,22 +133,6 @@ class Bootstrap {
 	/** Init loader */
 	protected function init_loader( string $namespace, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
 		$this->init_class( "SIW\\{$namespace}", 'Loader', $hook, $priority );
-	}
-
-	/** Laadt kernfunctionaliteit */
-	protected function load_core() {
-		$this->init_classes(
-			'SIW\Core',
-			[
-				'Head',
-				'Icons',
-				'Login',
-				'Media_Taxonomies',
-				'Shortcodes',
-				'Update',
-				'Upload_Subdir',
-			]
-		);
 	}
 
 	/** Laadt batch jobs */

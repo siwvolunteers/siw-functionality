@@ -1,12 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Core;
+namespace SIW;
 
 /**
  * Taxonomies voor attachments
- * 
+ *
  * @copyright   2019 SIW Internationale Vrijwilligersprojecten
- * @since       3.0.0
  */
 class Media_Taxonomies {
 
@@ -41,7 +40,7 @@ class Media_Taxonomies {
 	}
 
 	/** Voegt metabox toe */
-	public function add_metabox( array $metaboxes ) : array {
+	public function add_metabox( array $metaboxes ): array {
 
 		$taxonomies = $this->get_taxonomies();
 		$fields = [];
@@ -73,8 +72,8 @@ class Media_Taxonomies {
 	 * Geeft taxonomies terug
 	 * @todo verplaatsen naar data-bestand?
 	 */
-	protected function get_taxonomies() : array {
-		
+	protected function get_taxonomies(): array {
+
 		$taxonomies = [
 			[
 				'slug'     => 'continent',

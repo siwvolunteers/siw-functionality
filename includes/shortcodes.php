@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Core;
+namespace SIW;
 
 use SIW\Elements\List_Columns;
 use SIW\Elements\Modal;
@@ -10,14 +10,14 @@ use SIW\Util\Links;
 
 /**
  * Class voor shortcodes
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Shortcodes {
 
 	/**
 	 * Init
-	 * 
+	 *
 	 * @todo logging als functie voor shortcode niet bestaat
 	 */
 	public static function init() {
@@ -102,56 +102,56 @@ class Shortcodes {
 	}
 
 	/** KVK-nummer */
-	public static function render_kvk() : string {
+	public static function render_kvk(): string {
 		return Properties::KVK;
 	}
 
 	/** E-mailadres */
-	public static function render_email() : string {
+	public static function render_email(): string {
 		return antispambot( Properties::EMAIL );
 	}
 
 	/** E-mailadres als mailto-link */
-	public static function render_email_link() : string {
+	public static function render_email_link(): string {
 		return Links::generate_mailto_link( Properties::EMAIL );
 	}
 
 	/** Telefoonnummer */
-	public static function render_telefoon() : string {
+	public static function render_telefoon(): string {
 		return Properties::PHONE;
 	}
 
 	/** Internationaal telefoonnummer */
-	public static function render_telefoon_internationaal() : string {
+	public static function render_telefoon_internationaal(): string {
 		return Properties::PHONE_INTERNATIONAL;
 	}
 
 	/** WhatsApp-nummer */
-	public static function render_whatsapp() : string {
+	public static function render_whatsapp(): string {
 		return Properties::WHATSAPP;
 	}
 
 	/** IBAN */
-	public static function render_iban() : string {
+	public static function render_iban(): string {
 		return Properties::IBAN;
 	}
 
 	/** Openingstijden */
-	public static function render_openingstijden() : string {
+	public static function render_openingstijden(): string {
 		$data = array_map(
-			fn( array $value ) : string => implode( ': ', $value ),
+			fn( array $value ): string => implode( ': ', $value ),
 			siw_get_opening_hours()
 		);
 		return List_Columns::create()->add_items( $data )->generate();
 	}
 
 	/** ESC-borg */
-	public static function render_esc_borg() : string {
+	public static function render_esc_borg(): string {
 		return siw_format_amount( Properties::ESC_DEPOSIT );
 	}
 
 	/** Volgende infodag */
-	public static function render_volgende_infodag() : string {
+	public static function render_volgende_infodag(): string {
 		$info_days = siw_get_upcoming_info_days( 1 );
 		if ( empty( $info_days ) ) {
 			return __( 'nog niet bekend', 'siw' );
@@ -169,7 +169,7 @@ class Shortcodes {
 	public static function render_mtv_tarief(): string {
 		return siw_format_amount( Properties::MTV_PROJECT_FEE );
 	}
-	
+
 	/** LTV tarief */
 	public static function render_ltv_tarief(): string {
 		return siw_format_amount( Properties::LTV_PROJECT_FEE );
@@ -179,36 +179,36 @@ class Shortcodes {
 	public static function render_np_tarief(): string {
 		return siw_format_amount( Properties::DUTCH_PROJECT_FEE );
 	}
-	
+
 	/** Studentenkorting */
 	public static function render_studentenkorting(): string {
 		return siw_format_amount( Properties::STUDENT_DISCOUNT_AMOUNT );
 	}
 
 	/** Inschrijfgeld scholenproject */
-	public static function render_scholenproject_tarief() : string {
+	public static function render_scholenproject_tarief(): string {
 		return siw_format_amount( Properties::SCHOOL_PROJECT_FEE );
 	}
 
 	/** Korting tweede Groepsproject */
-	public static function render_korting_tweede_project() : string {
+	public static function render_korting_tweede_project(): string {
 		return siw_format_percentage( Properties::DISCOUNT_SECOND_PROJECT );
 	}
 
 	/** Externe link */
-	public static function render_externe_link( array $atts ) : string {
+	public static function render_externe_link( array $atts ): string {
 		extract( shortcode_atts( [
 			'url'   => '',
 			'titel' => '',
 			], $atts, 'siw_externe_link' )
 		);
 		$titel = ( $titel ) ? $titel : $url;
-	
+
 		return Links::generate_external_link( $url, $titel );
 	}
 
 	/** Toont laatste jaarverslag */
-	public static function render_laatste_jaarverslag( array $atts ) : string {
+	public static function render_laatste_jaarverslag( array $atts ): string {
 		extract( shortcode_atts( [
 			'titel' => '',
 			], $atts, 'siw_laatste_jaarverslag' )
@@ -230,13 +230,13 @@ class Shortcodes {
 	 * Lightbox met inhoud van pagina
 	 * @todo slug als parameter en get page by path gebruiken
 	 */
-	public static function render_pagina_lightbox( array $atts ) : ?string {
+	public static function render_pagina_lightbox( array $atts ): ?string {
 		extract( shortcode_atts( [
 			'link_tekst' => '',
 			'pagina'     => '',
 			], $atts, 'siw_pagina_lightbox' )
 		);
-	
+
 		$pages = [
 			'kinderbeleid' => 'child_policy',
 		];
@@ -245,12 +245,12 @@ class Shortcodes {
 		if ( empty( $page_id ) ) {
 			return null;
 		}
-		
+
 		return Modal::create()->set_page( (int) $page_id )->generate_link( $link_tekst );
 	}
 
 	/** Leeftijd van SIW in jaren */
-	public static function render_leeftijd() : string {
+	public static function render_leeftijd(): string {
 		return strval( Util::calculate_age( Properties::FOUNDING_DATE ) );
 	}
 }

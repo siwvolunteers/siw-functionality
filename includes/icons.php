@@ -1,16 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Core;
+namespace SIW;
 
 use SIW\Assets\SIW_SVG;
 use SIW\Util\CSS;
 
 /**
  * Class voor SIW icons
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Icons {
+
+	const ASSETS_HANDLE = 'siw-icons';
 
 	/** Init */
 	public static function init() {
@@ -20,7 +22,7 @@ class Icons {
 
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_script' ] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_style' ] );
-		
+
 		if ( class_exists( \SiteOrigin_Widgets_Bundle::class ) ) {
 			add_action( 'siteorigin_panel_enqueue_admin_scripts', [ $self, 'enqueue_admin_style' ], PHP_INT_MAX );
 			add_filter( 'siteorigin_widgets_icon_families', [ $self, 'add_icon_family' ] );
@@ -40,8 +42,8 @@ class Icons {
 
 	/** Voegt stylesheet toe */
 	public function enqueue_style() {
-		wp_register_style( 'siw-icons', SIW_ASSETS_URL . 'css/siw-icons.css', null, SIW_PLUGIN_VERSION );
-		wp_enqueue_style( 'siw-icons' );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/siw-icons.css', null, SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Voegt inline admin style voor icons toe */
@@ -86,7 +88,7 @@ class Icons {
 		unset( $icon_families['icomoon'] );
 		unset( $icon_families['typicons'] );
 		unset( $icon_families['ionicons'] );
-		
+
 		return $icon_families;
 	}
 
