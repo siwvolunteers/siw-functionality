@@ -2,14 +2,16 @@
 
 namespace SIW\Admin;
 
-use SIW\Core\Shortcodes as SIW_Shortcodes;
+use SIW\Shortcodes as SIW_Shortcodes;
 
 /**
  * Shortcodes in admin
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Shortcodes {
+
+	const ASSETS_HANDLE = 'siw-admin-shortcodes';
 
 	/** Init */
 	public static function init() {
@@ -24,8 +26,8 @@ class Shortcodes {
 			return;
 		}
 
-		wp_register_script( 'siw-admin-shortcodes', SIW_ASSETS_URL . 'js/admin/siw-shortcodes.js', [], SIW_PLUGIN_VERSION, true );
-		
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/admin/siw-shortcodes.js', [], SIW_PLUGIN_VERSION, true );
+
 		//Shortcodes ophalen
 		$shortcodes = SIW_Shortcodes::get_shortcodes();
 		array_walk( $shortcodes, [ $this, 'format_shortcode' ] );
@@ -37,11 +39,11 @@ class Shortcodes {
 		];
 
 		wp_localize_script(
-			'siw-admin-shortcodes',
+			self::ASSETS_HANDLE,
 			'siw_shortcodes',
 			$siw_shortcodes
 		);
-		wp_enqueue_script( 'siw-admin-shortcodes' );
+		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 
 	/** Formatteert shortcode voor gebruik in TinyMCE */
