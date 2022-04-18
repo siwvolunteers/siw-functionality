@@ -3,10 +3,11 @@
 namespace SIW\Actions\Batch;
 
 use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
+use SIW\Update;
 
 /**
  * Class om actie toe te voegen
- * 
+ *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  * @since     3.2.0
  */
@@ -30,7 +31,7 @@ class Action {
 		}
 
 		if ( $this->action->must_be_run_on_update() ) {
-			add_action( 'siw_update_plugin', [ $this, 'add_action_to_update'] );
+			add_action( Update::PLUGIN_UPDATED_HOOK, [ $this, 'add_action_to_update'] );
 		}
 
 		add_filter( 'woocommerce_debug_tools', [ $this, 'add_action_to_wc_debug_tools'] );
@@ -56,7 +57,7 @@ class Action {
 	}
 
 	/** Voegt actie toe aan WooCommerce debug tools (om handmatig te starten) */
-	public function add_action_to_wc_debug_tools( array $tools ) : array {
+	public function add_action_to_wc_debug_tools( array $tools ): array {
 		$tools[ "siw_{$this->action->get_id()}" ] = [
 			'name'     => "SIW: {$this->action->get_name()}",
 			'button'   => __( 'Starten', 'siw' ),
@@ -67,7 +68,7 @@ class Action {
 	}
 
 	/** Start actie */
-	public function start() : string {
+	public function start(): string {
 		$data = $this->action->select_data();
 
 		array_walk(
@@ -79,7 +80,7 @@ class Action {
 				self::PROCESS_GROUP
 			)
 		);
-		
+
 		return sprintf( __( 'Actie gestart: %s', 'siw' ), $this->action->get_name() );
 	}
 }

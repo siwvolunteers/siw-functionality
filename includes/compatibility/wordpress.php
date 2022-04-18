@@ -3,10 +3,11 @@
 namespace SIW\Compatibility;
 
 use SIW\Properties;
+use SIW\Update;
 
 /**
  * Aanpassingen voor WordPress
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class WordPress {
@@ -54,6 +55,7 @@ class WordPress {
 		add_filter( 'wp_trim_excerpt', [ $self, 'show_read_more_button' ]);
 
 		add_filter( 'script_loader_tag', [ $self, 'set_crossorigin' ], 10, 2 );
+		add_action( Update::PLUGIN_UPDATED_HOOK, 'flush_rewrite_rules' );
 	}
 
 	/** Verwijdert standaard-widgets */
@@ -130,17 +132,17 @@ class WordPress {
 	 * - instellingen
 	 */
 	public function fix_youtube_embed( string $cache ): string {
-	
+
 		$regex = '/<iframe[^>]*(?<=src=")(https:\/\/www\.youtube\.com\/embed.*?)(?=[\"])/m';
 
 		preg_match( $regex, $cache, $matches );
 		if ( ! isset( $matches[1] ) ) {
 			return $cache;
 		}
-		
+
 		$url_parts = parse_url( $matches[1] );
 		$url = $url_parts['scheme'] . '://' . 'www.youtube-nocookie.com' . $url_parts['path'];
-		$url = add_query_arg( [ 
+		$url = add_query_arg( [
 			'rel'            => false,
 			'modestbranding' => true,
 			'controls'       => true,
@@ -156,10 +158,10 @@ class WordPress {
 		unset( $columns['comments']);
 		return $columns;
 	}
-	
+
 	/** Plaats Lees meer button als gekozen is voor samenvatting */
 	public function show_read_more_button( string $excerpt ): string {
-	 
+
 		// alleen bij de blog
 		if ( get_post_type() !== 'post' || ! has_excerpt() ) {
 			return $excerpt;

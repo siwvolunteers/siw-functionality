@@ -5,11 +5,12 @@ namespace SIW\Compatibility;
 use SIW\Assets\JS_Cookie;
 use SIW\i18n;
 use SIW\Properties;
+use SIW\Update;
 use SIW\Util\CSS;
 
 /**
  * Aanpassingen voor GeneratePress
- * 
+ *
  * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://generatepress.com/
  */
@@ -20,7 +21,7 @@ class GeneratePress {
 
 	/** Init */
 	public static function init() {
-		
+
 		$self = new self();
 		add_filter( 'generate_copyright', [ $self, 'set_copyright_message' ] );
 
@@ -40,8 +41,8 @@ class GeneratePress {
 		//Default instellingen zetten
 		add_filter( 'generate_default_color_palettes', [ $self, 'set_default_color_palettes'] );
 		add_action( 'customize_save_after', [ $self, 'set_global_colors'], 1 );
-		add_action( 'siw_update_plugin', [ $self, 'set_global_colors'], 1 );
-		add_action( 'siw_update_plugin', 'generate_update_dynamic_css_cache' );
+		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'set_global_colors'], 1 );
+		add_action( Update::PLUGIN_UPDATED_HOOK, 'generate_update_dynamic_css_cache' );
 	}
 
 	/** Voeg menu order toe een GP Elements */

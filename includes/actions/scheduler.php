@@ -2,9 +2,11 @@
 
 namespace SIW\Actions;
 
+use SIW\Update;
+
 /**
  * Scheduler voor cron jobs
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Scheduler {
@@ -27,7 +29,7 @@ class Scheduler {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_action( 'siw_update_plugin', [ $self, 'schedule_actions'] );
+		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'schedule_actions'] );
 
 		add_filter( 'action_scheduler_retention_period', fn() : int => DAY_IN_SECONDS );
 		add_filter( 'action_scheduler_queue_runner_time_limit', fn() : int => self::TIME_LIMIT );
