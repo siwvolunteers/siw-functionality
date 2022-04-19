@@ -7,13 +7,13 @@ use SIW\Util;
 
 /**
  * Korting
- * 
+ *
  * - bij meerdere projecten tegelijk
  * - studenten/jongeren
- * 
+ *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
-class Discount{
+class Discount {
 
 	const STUDENT_DISCOUNT_COUPON_CODE = 'studentenkorting';
 	const STUDENT_DISCOUNT_COUPON_DISCOUNT_TYPE = 'fixed_product';
@@ -25,6 +25,7 @@ class Discount{
 		add_action( 'woocommerce_checkout_update_order_review', [ $self, 'maybe_set_student_discount'] );
 		add_filter( 'woocommerce_cart_totals_coupon_label', [ $self, 'set_coupon_label'], 10, 2 );
 		add_filter( 'woocommerce_cart_totals_coupon_html', [ $self, 'set_coupon_html'], 20, 2 );
+		add_filter( 'woocommerce_coupon_message', [ $self, 'set_coupon_message'], 10, 3 );
 	}
 
 	/** Past eventueel korting bij meerdere projecten toe */
@@ -75,25 +76,34 @@ class Discount{
 
 	/** Zet het label van de kortingscode */
 	public function set_coupon_label( string $label, \WC_Coupon $coupon ): string {
-		if ( self::STUDENT_DISCOUNT_COUPON_CODE === $coupon->get_code() ) {
-			$label = $coupon->get_description();
+		if ( self::STUDENT_DISCOUNT_COUPON_CODE !== $coupon->get_code() ) {
+			return $label;
 		}
-		return $label;
+		return $coupon->get_description();;
 	}
 
 	/** Zet de html voor het bedrag van de kortingscode */
 	public function set_coupon_html( string $coupon_html, \WC_Coupon $coupon ): string {
-		if ( self::STUDENT_DISCOUNT_COUPON_CODE === $coupon->get_code() ) {
-			$amount = WC()->cart->get_coupon_discount_amount( $coupon->get_code() );
-			$coupon_html = '-' . wc_price( $amount );
+		if ( self::STUDENT_DISCOUNT_COUPON_CODE !== $coupon->get_code() ) {
+			return $coupon_html;
 		}
-
+		$amount = WC()->cart->get_coupon_discount_amount( $coupon->get_code() );
+		$coupon_html = '-' . wc_price( $amount );
 		return $coupon_html;
 	}
 
+	/** Onderdruk message bij toevoegen verwijderen coupon */
+	public function set_coupon_message( string $message, int $message_code, \WC_Coupon $coupon ): ?string {
+		if ( self::STUDENT_DISCOUNT_COUPON_CODE !== $coupon->get_code() ) {
+			return $message;
+		}
+		return null;
+	}
+
+
 	/** Maak indien nodig kortingscode voor studentenkorting aan TODO: updaten bij gewijzigd percentage?*/
 	protected function maybe_create_coupon() {
-		
+
 		if ( 0 !== wc_get_coupon_id_by_code( self::STUDENT_DISCOUNT_COUPON_CODE ) ) {
 			return;
 		}
