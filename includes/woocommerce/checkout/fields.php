@@ -3,7 +3,7 @@ namespace SIW\WooCommerce\Checkout;
 
 /**
  * WooCommerce checkout
- * 
+ *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Fields {
@@ -16,7 +16,7 @@ class Fields {
 		add_action( 'woocommerce_checkout_create_order', [ $self, 'save_checkout_fields'], 10, 2 );
 		add_action( 'woocommerce_after_checkout_billing_form', [ $self, 'show_checkout_fields'] );
 	}
-	
+
 	/** Haalt checkoutvelden op */
 	protected function get_checkout_fields(): array {
 		return siw_get_data( 'workcamps/checkout-fields' );
@@ -33,16 +33,14 @@ class Fields {
 		return $checkout_fields;
 	}
 
-
+	/** Toont checkoutvelden */
 	public function show_checkout_fields( \WC_Checkout $checkout ) {
 		$checkout_sections = siw_get_data( 'workcamps/checkout-sections' );
 		?>
 		<div class="woocommerce-extra-fields">
 			<?php foreach ( $checkout_sections as $section => $header ) :?>
-			<div id="woocommerce-<?= esc_attr( $section );?>-fields">
-			<p class="form-row form-row-wide">
-				<h3><?= esc_html( $header );?></h3>
-			</p>
+			<div class="woocommerce-billing-fields__field-wrapper">
+				<h3 class="form-row form-row-wide"><?= esc_html( $header );?></h3>
 				<?php
 				foreach ( $checkout->get_checkout_fields( $section ) as $key => $field ) {
 					woocommerce_form_field( $key, $field, $checkout->get_value( $key ) );
