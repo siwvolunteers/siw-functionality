@@ -27,7 +27,6 @@ class WordPress {
 		add_filter( 'user_contactmethods', '__return_empty_array', PHP_INT_MAX );
 		add_action( 'init', [ $self, 'add_page_excerpt_support'] );
 		add_action( 'core_version_check_query_args', [ $self, 'remove_core_version_check_query_args'] );
-		add_action( 'wp_enqueue_scripts', [ $self, 'dequeue_styles' ], PHP_INT_MAX );
 		add_filter( 'wp_default_editor', fn(): string => self::DEFAULT_EDITOR );
 		add_filter( 'site_status_tests', [ $self, 'remove_update_check'] );
 		add_filter( 'http_headers_useragent', fn(): string => Properties::NAME );
@@ -98,11 +97,6 @@ class WordPress {
 		unset( $query['multisite_enabled'] );
 		unset( $query['initial_db_version'] );
 		return $query;
-	}
-
-	/** Gutenberg css uitschakelen */
-	public function dequeue_styles() {
-		wp_dequeue_style( 'wp-block-library' );
 	}
 
 	/** Schakelt feed uit */

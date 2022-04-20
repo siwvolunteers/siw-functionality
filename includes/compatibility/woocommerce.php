@@ -6,7 +6,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Aanpassingen voor WooCommerce
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://woocommerce.com/
  */
@@ -31,7 +31,7 @@ class WooCommerce {
 
 		// Verwijder extra gebruikersvelden WooCommerce
 		add_filter( 'woocommerce_customer_meta_fields', '__return_empty_array' );
-		
+
 		//Diverse admin-features uitschakelen
 		add_filter( 'woocommerce_prevent_admin_access', '__return_false' );
 
@@ -40,8 +40,6 @@ class WooCommerce {
 		add_filter( 'woocommerce_show_addons_page', '__return_false' );
 		add_filter( 'woocommerce_admin_get_feature_config', [ $self, 'disable_admin_features' ] );
 
-		//Blocks style niet laden
-		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
 
 		add_action( 'wp', [ $self, 'remove_theme_support'], PHP_INT_MAX );
 		add_filter( 'rocket_cache_query_strings', [ $self, 'register_query_vars'] );
@@ -61,11 +59,6 @@ class WooCommerce {
 		unregister_widget( \WC_Widget_Product_Tag_Cloud::class );
 		unregister_widget( \WC_Widget_Products::class );
 		unregister_widget( \WC_Widget_Cart::class );
-	}
-
-	/** Verwijdert WooCommerce-blocks style */
-	public function deregister_block_style() {
-		wp_deregister_style( 'wc-block-style' );
 	}
 
 	/** Schakel sommige admin features uit */
@@ -105,7 +98,7 @@ class WooCommerce {
 
 	/**
 	 * Verwijdert theme support
-	 * 
+	 *
 	 * - Zoom
 	 * - Lightbox
 	 * - Slider
