@@ -1381,7 +1381,7 @@ msgstr "No"
 msgid "Naam"
 msgstr "Name"
 
-#: data/workcamps/checkout-fields.php:24, includes/shortcodes.php:42,
+#: data/workcamps/checkout-fields.php:24, includes/shortcodes.php:41,
 #: includes/forms/forms/cooperation.php:47,
 #: includes/forms/forms/enquiry-general.php:47,
 #: includes/forms/forms/enquiry-project.php:47,
@@ -1517,81 +1517,97 @@ msgstr "Type of work"
 msgid "Alle"
 msgstr "All"
 
-#: includes/shortcodes.php:39,
+#: includes/shortcodes.php:38,
 #: includes/widgets/organisation/organisation.php:93
 msgid "KVK-nummer"
 msgstr "COC number"
 
-#: includes/shortcodes.php:40, includes/forms/forms/newsletter.php:39,
+#: includes/shortcodes.php:39, includes/forms/forms/newsletter.php:39,
 #: includes/woocommerce/email/emails.php:124
 msgid "E-mailadres"
 msgstr "Email address"
 
-#: includes/shortcodes.php:41
+#: includes/shortcodes.php:40
 msgid "E-mailadres (link)"
 msgstr "Email address (link)"
 
-#: includes/shortcodes.php:43
+#: includes/shortcodes.php:42
 msgid "Telefoonnummer (internationaal)"
 msgstr "Phone number (international)"
 
-#: includes/shortcodes.php:44
+#: includes/shortcodes.php:43
 msgid "WhatsApp-nummer"
 msgstr "WhatsApp number"
 
-#: includes/shortcodes.php:45
+#: includes/shortcodes.php:44
 msgid "IBAN"
 msgstr "IBAN"
 
-#: includes/shortcodes.php:46, includes/options/settings.php:68
+#: includes/shortcodes.php:45, includes/options/settings.php:68
 msgid "Openingstijden"
 msgstr "Opening hours"
 
-#: includes/shortcodes.php:47
+#: includes/shortcodes.php:46
 msgid "ESC-borg"
 msgstr "ESC deposit"
 
-#: includes/shortcodes.php:48
+#: includes/shortcodes.php:47
 msgid "Volgende infodag"
 msgstr "Next info day"
 
-#: includes/shortcodes.php:49
+#: includes/shortcodes.php:48
 msgid "STV tarief"
 msgstr "STV fee"
+
+#: includes/shortcodes.php:49
+msgid "STV tarief inclusief studentenkorting"
+msgstr "STV fee including student discount"
 
 #: includes/shortcodes.php:50
 msgid "MTV tarief"
 msgstr "MTV fee"
 
 #: includes/shortcodes.php:51
+msgid "MTV tarief inclusief studentenkorting"
+msgstr "MTV fee including student discount"
+
+#: includes/shortcodes.php:52
 msgid "LTV tarief"
 msgstr "LTV fee"
 
-#: includes/shortcodes.php:52
+#: includes/shortcodes.php:53
+msgid "LTV tarief inclusief studentenkorting"
+msgstr "LTV fee including student discount"
+
+#: includes/shortcodes.php:54
 msgid "Tarief Nederlandse projecten"
 msgstr "Fee Dutch projects"
 
-#: includes/shortcodes.php:53
+#: includes/shortcodes.php:55
+msgid "Tarief Nederlandse projecten inclusief studentenkorting"
+msgstr "Fee Dutch projects including student discount"
+
+#: includes/shortcodes.php:56
 msgid "Studentenkorting"
 msgstr "Student discount"
 
-#: includes/shortcodes.php:54
+#: includes/shortcodes.php:57
 msgid "Scholenproject - tarief"
 msgstr "School Projects - Rate"
 
-#: includes/shortcodes.php:55
+#: includes/shortcodes.php:58
 msgid "Korting tweede project"
 msgstr "Discount second project"
 
-#: includes/shortcodes.php:56
+#: includes/shortcodes.php:59
 msgid "Leeftijd van SIW"
 msgstr "Age of SIW"
 
-#: includes/shortcodes.php:58
+#: includes/shortcodes.php:61
 msgid "Laatste jaarverslag"
 msgstr "Latest annual report"
 
-#: includes/shortcodes.php:63, includes/shortcodes.php:78,
+#: includes/shortcodes.php:66, includes/shortcodes.php:81,
 #: includes/content/types/story.php:101,
 #: includes/widgets/accordion/accordion.php:50,
 #: includes/widgets/accordion/accordion.php:64,
@@ -1613,32 +1629,32 @@ msgstr "Latest annual report"
 msgid "Titel"
 msgstr "Title"
 
-#: includes/shortcodes.php:68
+#: includes/shortcodes.php:71
 msgid "Externe link"
 msgstr "External link"
 
-#: includes/shortcodes.php:73, includes/content/types/event.php:171,
+#: includes/shortcodes.php:76, includes/content/types/event.php:171,
 #: includes/content/types/event.php:209
 msgid "Url"
 msgstr "Url"
 
-#: includes/shortcodes.php:83
+#: includes/shortcodes.php:86
 msgid "Pagina-lightbox"
 msgstr "Page lightbox"
 
-#: includes/shortcodes.php:88
+#: includes/shortcodes.php:91
 msgid "Linktekst"
 msgstr "Link text"
 
-#: includes/shortcodes.php:93
+#: includes/shortcodes.php:96
 msgid "Pagina"
 msgstr "Page"
 
-#: includes/shortcodes.php:95
+#: includes/shortcodes.php:98
 msgid "Beleid kinderprojecten"
 msgstr "Policy children’s projects"
 
-#: includes/shortcodes.php:157
+#: includes/shortcodes.php:160
 msgid "nog niet bekend"
 msgstr "not yet known"
 
@@ -1792,14 +1808,13 @@ msgstr ""
 
 #: includes/elements/cookie-notice.php:38
 msgid ""
-"Lees meer over hoe wij cookies gebruiken en hoe je ze kunt beheren in onze "
-"%s."
+"Lees meer over hoe wij cookies gebruiken en hoe je ze kunt beheren in ons %s."
 msgstr ""
 "Read more about how we use cookies and how you can manage them in our %s."
 
 #: includes/elements/cookie-notice.php:38
-msgid "privacyverklaring"
-msgstr "privacy statement"
+msgid "privacybeleid"
+msgstr "privacy policy"
 
 #: includes/elements/cookie-notice.php:39
 msgid "Selectie toestaan"
@@ -3564,10 +3579,8 @@ msgid "Via Google"
 msgstr "Via Google"
 
 #: includes/forms/forms/info-day.php:155
-#, fuzzy
-#| msgid "Facebook"
 msgid "Via Facebook"
-msgstr "Facebook"
+msgstr "Via Facebook"
 
 #: includes/forms/forms/info-day.php:156
 msgid "Via Instagram"
@@ -4104,7 +4117,7 @@ msgstr "Show confirmation for newsletter"
 #: includes/widgets/newsletter-confirmation/newsletter-confirmation.php:90,
 #: includes/widgets/newsletter-confirmation/newsletter-confirmation.php:108
 msgid "Helaas is er iets misgegaan met de aanmelding."
-msgstr ""
+msgstr "Unfortunately something went wrong with your subscription."
 
 #: includes/widgets/newsletter-confirmation/newsletter-confirmation.php:95
 msgid "Je bent al aangemeld voor de SIW-nieuwsbrief."
@@ -4260,10 +4273,8 @@ msgid "Omschrijving"
 msgstr "Description"
 
 #: includes/woocommerce/admin/product-tabs.php:35
-#, fuzzy
-#| msgid "E-mailinstellingen"
 msgid "Extra instellingen"
-msgstr "Email settings"
+msgstr "Extra settings"
 
 #: includes/woocommerce/admin/product-tabs.php:74
 msgid "Stockfoto gebruiken"
@@ -4274,10 +4285,8 @@ msgid "Bijvoorbeeld indien projectfoto niet geschikt is."
 msgstr "For example if project photo not suitable."
 
 #: includes/woocommerce/admin/product-tabs.php:93
-#, fuzzy
-#| msgid "Heeft afwijkend tarief"
 msgid "Afwijkend tarief"
-msgstr "Has deviating tariff"
+msgstr "Custom fee"
 
 #: includes/woocommerce/admin/product-tabs.php:115,
 #: includes/woocommerce/frontend/product-tabs.php:86
