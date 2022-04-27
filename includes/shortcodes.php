@@ -7,25 +7,24 @@ use SIW\Elements\Modal;
 use SIW\Properties;
 use SIW\Util;
 use SIW\Util\Links;
+use SIW\Util\Logger;
 
 /**
  * Class voor shortcodes
  *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Shortcodes {
 
-	/**
-	 * Init
-	 *
-	 * @todo logging als functie voor shortcode niet bestaat
-	 */
+	/** Init */
 	public static function init() {
 		$shortcodes = self::get_shortcodes();
 
 		foreach ( array_keys( $shortcodes ) as $shortcode ) {
 			if ( is_callable( __CLASS__ . '::render_' . $shortcode ) ) {
 				add_shortcode( "siw_{$shortcode}", __CLASS__ . '::render_' . $shortcode );
+			} else {
+				Logger::warning( sprintf( 'Shortcode %s heeft geen callback functie.', $shortcode ), __CLASS__ );
 			}
 		}
 
@@ -47,9 +46,13 @@ class Shortcodes {
 			'esc_borg'                      => __( 'ESC-borg', 'siw' ),
 			'volgende_infodag'              => __( 'Volgende infodag', 'siw' ),
 			'stv_tarief'                    => __( 'STV tarief', 'siw' ),
+			'stv_tarief_student'            => __( 'STV tarief inclusief studentenkorting', 'siw' ),
 			'mtv_tarief'                    => __( 'MTV tarief', 'siw' ),
+			'mtv_tarief_student'            => __( 'MTV tarief inclusief studentenkorting', 'siw' ),
 			'ltv_tarief'                    => __( 'LTV tarief', 'siw' ),
+			'ltv_tarief_student'            => __( 'LTV tarief inclusief studentenkorting', 'siw' ),
 			'np_tarief'                     => __( 'Tarief Nederlandse projecten', 'siw' ),
+			'np_tarief_student'             => __( 'Tarief Nederlandse projecten inclusief studentenkorting', 'siw' ),
 			'studentenkorting'              => __( 'Studentenkorting', 'siw' ),
 			'scholenproject_tarief'         => __( 'Scholenproject - tarief', 'siw' ),
 			'korting_tweede_project'        => __( 'Korting tweede project', 'siw' ),
@@ -165,9 +168,19 @@ class Shortcodes {
 		return siw_format_amount( Properties::STV_PROJECT_FEE );
 	}
 
+	/** STV tarief inclusief studentenkorting */
+	public static function render_stv_tarief_student(): string {
+		return siw_format_amount( Properties::STV_PROJECT_FEE - Properties::STUDENT_DISCOUNT_AMOUNT );
+	}
+
 	/** MTV tarief */
 	public static function render_mtv_tarief(): string {
 		return siw_format_amount( Properties::MTV_PROJECT_FEE );
+	}
+
+	/** MTV tarief inclusief studentenkorting */
+	public static function render_mtv_tarief_student(): string {
+		return siw_format_amount( Properties::MTV_PROJECT_FEE - Properties::STUDENT_DISCOUNT_AMOUNT );
 	}
 
 	/** LTV tarief */
@@ -175,9 +188,19 @@ class Shortcodes {
 		return siw_format_amount( Properties::LTV_PROJECT_FEE );
 	}
 
+	/** LTV tarief inclusief studentenkorting */
+	public static function render_ltv_tarief_student(): string {
+		return siw_format_amount( Properties::LTV_PROJECT_FEE - Properties::STUDENT_DISCOUNT_AMOUNT );
+	}
+
 	/** NP tarief */
 	public static function render_np_tarief(): string {
 		return siw_format_amount( Properties::DUTCH_PROJECT_FEE );
+	}
+
+	/** NP tarief inclusief studentenkorting */
+	public static function render_np_tarief_student(): string {
+		return siw_format_amount( Properties::DUTCH_PROJECT_FEE - Properties::STUDENT_DISCOUNT_AMOUNT );
 	}
 
 	/** Studentenkorting */
