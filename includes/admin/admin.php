@@ -7,7 +7,7 @@ use SIW\Properties;
 
 /**
  * Aanpassingen aan Admin
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Admin {
@@ -15,17 +15,16 @@ class Admin {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		
+
 		add_action( 'admin_enqueue_scripts', [ $self, 'enqueue_admin_style'] );
 		add_action( 'admin_menu', [ $self, 'hide_pages'], PHP_INT_MAX );
 		add_action( 'admin_init', [ $self, 'hide_dashboard_widgets'] );
 		add_filter( 'admin_footer_text', [ $self, 'set_admin_footer_text'] );
 		add_filter( 'manage_pages_columns', [ $self, 'remove_pages_columns'] );
-		add_action( 'admin_menu', [ $self, 'remove_page_metaboxes' ] ); 
+		add_action( 'admin_menu', [ $self, 'remove_page_metaboxes' ] );
 		add_filter( 'show_admin_bar', '__return_false' );
 		add_action( 'admin_init', [ $self, 'add_user_columns'], 20 );
-		
-		remove_action( 'try_gutenberg_panel', 'wp_try_gutenberg_panel' );
+
 		remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	}
 
@@ -49,7 +48,7 @@ class Admin {
 		remove_meta_box( 'dashboard_primary', 'dashboard', 'normal' );
 		remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' );
 	}
-	
+
 	/** Voegt copyright toe aan admin footer */
 	public function set_admin_footer_text(): string {
 		return sprintf( '&copy; %s %s', date( 'Y' ), Properties::NAME );
@@ -64,11 +63,11 @@ class Admin {
 
 	/** Verwijdert diverse metaboxes */
 	public function remove_page_metaboxes() {
-		remove_meta_box( 'postcustom' , 'page' , 'normal' ); 
-		remove_meta_box( 'commentstatusdiv' , 'page' , 'normal' ); 
-		remove_meta_box( 'commentsdiv' , 'page' , 'normal' ); 
-		remove_meta_box( 'slugdiv' , 'page' , 'normal' ); 
-		remove_meta_box( 'authordiv' , 'page' , 'normal' ); 
+		remove_meta_box( 'postcustom' , 'page' , 'normal' );
+		remove_meta_box( 'commentstatusdiv' , 'page' , 'normal' );
+		remove_meta_box( 'commentsdiv' , 'page' , 'normal' );
+		remove_meta_box( 'slugdiv' , 'page' , 'normal' );
+		remove_meta_box( 'authordiv' , 'page' , 'normal' );
 	}
 
 	/** Voegt extra admin columns toe */

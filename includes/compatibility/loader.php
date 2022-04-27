@@ -6,7 +6,7 @@ use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
 
 /**
  * Loader voor compatibility classes
- * 
+ *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  */
 class Loader extends Class_Loader_Abstract {
@@ -21,7 +21,6 @@ class Loader extends Class_Loader_Abstract {
 			SiteOrigin_Widgets_Bundle::class,
 			The_SEO_Framework::class,
 			UpdraftPlus::class,
-			WooCommerce_Multistep_Checkout::class,
 			WooCommerce::class,
 			WordPress::class,
 			WP_Rocket::class,
@@ -30,11 +29,6 @@ class Loader extends Class_Loader_Abstract {
 		];
 	}
 
-	/** {@inheritDoc} */
-	public function get_id() : string {
-		return 'compatibility';
-	}
-	
 	/** Laadt 1 klasse */
 	protected function load( string $class ) {
 		$class::init();

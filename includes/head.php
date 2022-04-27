@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Core;
+namespace SIW;
 
 use SIW\Properties;
 use SIW\Util\CSS;
@@ -10,7 +10,7 @@ use SIW\Util\CSS;
  *
  * - Web app manifest
  * - Optimalisatie
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Head {

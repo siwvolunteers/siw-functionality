@@ -1,9 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace SIW\WooCommerce\Frontend;
+namespace SIW\WooCommerce\Product\Archive;
 
 use SIW\i18n;
-use SIW\Properties;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -11,7 +10,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Archive_Header {
+class Header {
 
 	/** Init */
 	public static function init() {
@@ -31,7 +30,6 @@ class Archive_Header {
 			array_filter(
 				[
 					$this->get_intro_text(),
-					$this->get_sale_text(),
 					$this->get_teaser_text(),
 				]
 			)
@@ -44,18 +42,6 @@ class Archive_Header {
 			</div>
 		</div>
 		
-		<?php
-		/** 
-		*alert text tonen? */
-		if ( ! $text = $this->get_alert_text()) {
-			return;
-		}
-		?>
-		<div class="grid-container">
-			<div class="siw-archive-alert">
-				<?php echo wp_kses_post( $text ); ?>
-			</div>
-		</div>
 		<?php
 	}
 
@@ -95,6 +81,9 @@ class Archive_Header {
 				case Taxonomy_Attribute::MONTH()->value:
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
+				case Taxonomy_Attribute::DURATION()->value:
+					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met een duur van %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' ); 
+					break;
 				default:
 					$text = __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten.', 'siw' );
 			}
@@ -109,21 +98,7 @@ class Archive_Header {
 
 		return $text;
 	}
-	/**
-	*	alert text todo: bij instellingen opnemen
-	*/
-	protected function get_alert_text() : ?string {
-		$text = "";
-		if ( \is_product_category() ) {
-			$category_name = get_queried_object()->name;
-			if($category_name == "Europa")
-			{
-				$text .= ''; // tijdelijk tekst voor europareizen verwijderd.
-			}
-		}
-		return($text);
-	}
-  
+
 	/** Geeft aan of aankondiging nieuwe projecten getoond moet worden */
 	protected function is_teaser_text_active() : bool {
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
@@ -157,25 +132,4 @@ class Archive_Header {
 		return $teaser_text;
 	}
 
-	/** Genereert tekst voor kortingsactie */
-	protected function get_sale_text() : ?string {
-
-		if ( ! siw_is_workcamp_sale_active() ) {
-			return null;
-		}
-
-		$regular = siw_format_amount( Properties::WORKCAMP_FEE_REGULAR );
-		$regular_sale = siw_format_amount( Properties::WORKCAMP_FEE_REGULAR_SALE );
-		$student = siw_format_amount( Properties::WORKCAMP_FEE_STUDENT );
-		$student_sale = siw_format_amount( Properties::WORKCAMP_FEE_STUDENT_SALE );
-		$end_date = siw_format_date( siw_get_option( 'workcamp_sale.end_date' ), false );
-	
-		$sale_text = sprintf( __( 'Meld je nu aan en betaal geen %s maar %s voor je vrijwilligersproject.', 'siw' ), $regular, '<b>'. $regular_sale .'</b>' ) . SPACE .
-			__( 'Ben je student of jonger dan 18 jaar?', 'siw' ) . SPACE .
-			sprintf( __( 'Dan betaal je in plaats van %s nog maar %s.', 'siw' ), $student, '<b>'. $student_sale .'</b>' ) . BR  .
-			'<b>' . __( 'Let op:', 'siw' ) . '</b>' . SPACE .
-			sprintf( __( 'Deze actie duurt nog maar t/m %s, dus wees er snel bij.', 'siw' ), $end_date );
-
-		return $sale_text;
-	}
 }

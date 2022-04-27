@@ -17,7 +17,6 @@ use \Spatie\Enum\Enum;
  * @method static self SDG()
  * @method static self MONTH()
  * @method static self DURATION()
- * @method static self TARIFF()
  */
 class Taxonomy_Attribute extends Enum {
 
@@ -32,7 +31,6 @@ class Taxonomy_Attribute extends Enum {
 			'SDG'             => 'pa_sdg',
 			'MONTH'           => 'pa_maand',
 			'DURATION'        => 'pa_projectduur',
-			'TARIFF'          => 'pa_tarief',
 		];
 	}
 
@@ -47,7 +45,6 @@ class Taxonomy_Attribute extends Enum {
 			'SDG'             => __( 'Sustainable Development Goal', 'siw' ),
 			'MONTH'           => __( 'Maand', 'siw' ),
 			'DURATION'        => __( 'Projectduur', 'siw' ),
-			'TARIFF'          => __( 'Tarief', 'siw' ),
 		];
 	}
 }

@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Adresvelden voor checkout groepsprojecten
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 
 $data = [
@@ -23,46 +23,8 @@ $data = [
 		'label'       => __( 'Geboortedatum', 'siw' ),
 		'required'    => true,
 		'type'        => 'date',
-		'class'       => ['form-row-first'],
-		'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
+		'class'       => ['form-row-first', 'update_totals_on_change' ],
 		'priority'    => 30,
-	],
-	'gender' => [
-		'label'       => __( 'Geslacht', 'siw' ),
-		'required'    => true,
-		'type'        => 'radio',
-		'options'     => siw_get_genders(),
-		'class'       => ['form-row-last'],
-		'label_class' => ['radio-label'],
-		'priority'    => 40,
-	],
-	'postcode' => [
-		'class'       => ['form-row-first'],
-		'input_class' => ['postalcodeNL'],
-		'placeholder' => '1234 AB',
-		'priority'    => 65,
-	],
-	'housenumber' => [
-		'label'       => __( 'Huisnummer', 'siw' ),
-		'required'    => true,
-		'type'        => 'text',
-		'class'       => ['form-row-last'],
-		'priority'    => 70,
-	],
-	'address_1' => [
-		'label'       => __( 'Straat', 'siw' ),
-		'class'       => ['form-row-first'],
-		'placeholder' => '',
-		'priority'    => 75,
-	],
-	'city' => [
-		'class'       => ['form-row-last'],
-		'priority'    => 80,
-	],
-	'country' => [
-		'class'       => ['form-row-first', 'country', 'select'],
-		'label_class' => ['select-label'],
-		'priority'    => 85,
 	],
 	'nationality' => [
 		'label'       => __( 'Nationaliteit', 'siw' ),
@@ -70,10 +32,29 @@ $data = [
 		'type'        => 'select',
 		'options'     => siw_get_nationalities(),
 		'default'     => 'HOL',
-		'class'       => ['form-row-last', 'select'],
-		'label_class' => ['select-label'],
-		'priority'    => 90,
+		'class'       => ['form-row-last'],
+		'priority'    => 40,
 	],
+	'gender' => [
+		'label'       => __( 'Geslacht', 'siw' ),
+		'required'    => true,
+		'type'        => 'radio',
+		'options'     => siw_get_genders(),
+		'class'       => ['form-row-first'],
+		'priority'    => 50,
+	],
+	'student' => [
+		'label'       => __( 'Ben je student?', 'siw' ),
+		'type'        => 'radio',
+		'class'       => ['form-row-last', 'update_totals_on_change'],
+		'options'     => [
+			'yes' => __( 'Ja', 'siw'),
+			'no'  => __( 'Nee', 'siw' ),
+		],
+		'default'  => 'no',
+		'priority' => 60,
+	],
+
 ];
 
 return $data;

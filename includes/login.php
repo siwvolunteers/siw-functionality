@@ -1,15 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Core;
+namespace SIW;
 
 use SIW\Properties;
 
 /**
  * Aanpassingen aan login
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Login {
+
+	const ASSETS_HANDLE = 'siw-login-css';
 
 	/** Init */
 	public static function init() {
@@ -24,8 +26,8 @@ class Login {
 
 	/** Voegt de styling voor de login toe */
 	public function enqueue_style() {
-		wp_register_style( 'siw-login-css', SIW_ASSETS_URL . 'css/siw-login.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( 'siw-login-css' );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/siw-login.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Zet de login-boodschap */

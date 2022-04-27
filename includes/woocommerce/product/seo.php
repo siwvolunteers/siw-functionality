@@ -88,10 +88,17 @@ class SEO {
 
 	/** Zet SEO noindex als project niet zichtbaar is */
 	function set_single_seo_noindex( array $meta, int $post_id ): array {
-		if ( 'product' === get_post_type( $post_id ) ) {
-			$product = siw_get_product( $post_id );
-			$meta['_genesis_noindex'] = intval( ! $product->is_visible() );
+		if ( 'product' !== get_post_type( $post_id ) ) {
+			return $meta;
 		}
+		
+		$product = siw_get_product( $post_id );
+		if ( ! is_a( $product, WC_Product_Project::class ) ) {
+			return $meta;
+		}
+
+		$meta['_genesis_noindex'] = intval( ! $product->is_visible() );
+		
 		return $meta;
 	}
 
@@ -105,7 +112,7 @@ class SEO {
 		$post_id = $args['id'] ?? get_queried_object_id();
 
 		$product = siw_get_product( $post_id );
-		if ( ! is_a( $product, \WC_Product::class ) ) {
+		if ( ! is_a( $product, WC_Product_Project::class ) ) {
 			return $title;
 		}
 
@@ -126,7 +133,7 @@ class SEO {
 		$post_id = $args['id'] ?? get_queried_object_id();
 
 		$product = siw_get_product( $post_id );
-		if ( ! is_a( $product, \WC_Product::class ) ) {
+		if ( ! is_a( $product, WC_Product_Project::class ) ) {
 			return $description;
 		}
 
@@ -138,8 +145,8 @@ class SEO {
 		$template = $templates[ array_rand( $templates, 1 ) ];
 
 		$context = [
-			'country'      => $product->get_attribute(Taxonomy_Attribute::COUNTRY()->value),
-			'work_type'    => $product->get_attribute(Taxonomy_Attribute::WORK_TYPE()->value),
+			'country'   => $product->get_attribute( Taxonomy_Attribute::COUNTRY()->value ),
+			'work_type' => $product->get_attribute( Taxonomy_Attribute::WORK_TYPE()->value ),
 		];
 		return Template::create()->set_template( $template )->set_context( $context )->parse_template();
 	}

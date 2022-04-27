@@ -270,58 +270,6 @@ class Settings implements Option_Interface {
 				'field_type'        => 'select_advanced',
 			];
 		}
-
-		$fields[] = [
-			'id'      => 'workcamp_sale',
-			'type'    => 'group',
-			'tab'     => 'workcamps',
-			'fields'  => [
-				[
-					'type'      => 'heading',
-					'name'      => __( 'Kortingsactie', 'siw' ),
-				],
-				[
-					'id'        => 'active',
-					'name'      => __( 'Actief', 'siw' ),
-					'type'      => 'switch',
-					'on_label'  => __( 'Ja', 'siw' ),
-					'off_label' => __( 'Nee', 'siw'),
-				],
-				[
-					'type'      => 'custom_html',
-					'visible'   => [ 'workcamp_sale[active]', true ],
-					'std'       => implode(
-						BR,
-						[
-							sprintf(
-								'%s: %s',
-								__( 'Regulier', 'siw' ),
-								siw_format_sale_amount( Properties::WORKCAMP_FEE_REGULAR, Properties::WORKCAMP_FEE_REGULAR_SALE )
-							),
-							sprintf(
-								'%s: %s',
-								__( 'Student', 'siw' ),
-								siw_format_sale_amount( Properties::WORKCAMP_FEE_STUDENT, Properties::WORKCAMP_FEE_STUDENT_SALE )
-							),
-						]
-					),
-				],
-				[
-					'id'        => 'start_date',
-					'name'      => __( 'Startdatum', 'siw' ),
-					'type'      => 'date',
-					'required'  => true,
-					'visible'   => [ 'workcamp_sale[active]', true ],
-				],
-				[
-					'id'        => 'end_date',
-					'name'      => __( 'Einddatum', 'siw' ),
-					'type'      => 'date',
-					'required'  => true,
-					'visible'   => [ 'workcamp_sale[active]', true ],
-				],
-			],
-		];
 		$fields[] = [
 			'id'      => 'workcamp_teaser_text',
 			'type'    => 'group',

@@ -27,7 +27,6 @@ var siwGoogleAnalytics = (function () {
 			var remove_from_cart_link = remove_from_cart_links[i];
 			remove_from_cart_link.addEventListener( 'click', _trackRemoveFromCart );
 		}
-
 	}
 
 	/**
@@ -43,7 +42,6 @@ var siwGoogleAnalytics = (function () {
 		var action = dataset.gaAction || '';
 		var label = dataset.gaLabel || '';
 		ga( 'send', type, category, action, label);
-		
 	}
 
 	/**
@@ -62,8 +60,8 @@ var siwGoogleAnalytics = (function () {
 	 */
 	function _trackRemoveFromCart( event ) {
 		event.preventDefault();
-		var variation_id = this.dataset.variation_id;
-		ga( 'ec:addProduct', siw_analytics_cart[variation_id]);
+		var product_id = this.dataset.product_id;
+		ga( 'ec:addProduct', siw_analytics_cart[product_id]);
 		ga( 'ec:setAction', 'remove' );
 		ga( 'send', 'event', 'Ecommerce', 'remove', 'remove from cart' );	
 	}

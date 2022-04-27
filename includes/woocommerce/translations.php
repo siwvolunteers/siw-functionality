@@ -13,8 +13,6 @@ class Translations {
 	public static function init() {
 		$self = new self();
 		
-		add_filter( 'woocommerce_get_script_data', [ $self, 'set_script_data'], 10, 2 );
-
 		add_filter( 'woocommerce_register_post_type_product', [ $self, 'set_product_labels'] );
 		add_filter( 'woocommerce_register_post_type_shop_order', [ $self, 'set_shop_order_labels'] );
 		add_filter( 'woocommerce_taxonomy_args_product_cat', [ $self, 'set_product_category_labels'] );
@@ -32,7 +30,7 @@ class Translations {
 	}
 
 	/** Zet labels voor producten (projecten) */
-	public function set_product_labels( array $args ) : array {
+	public function set_product_labels( array $args ): array {
 		$args['labels'] = [
 			'name'                  => __( 'Projecten', 'siw' ),
 			'singular_name'         => __( 'Project', 'siw' ),
@@ -58,7 +56,7 @@ class Translations {
 	}
 
 	/** Zet labels voor orders (aanmeldingen) */
-	public function set_shop_order_labels( array $args ) : array {
+	public function set_shop_order_labels( array $args ): array {
 		$args['labels'] = [
 			'name'                  => __( 'Aanmeldingen', 'siw' ),
 			'singular_name'         => _x( 'Aanmelding', 'shop_order post type singular name', 'siw' ),
@@ -78,7 +76,7 @@ class Translations {
 	}
 
 	/** Labels voor product category (continenten) */
-	public function set_product_category_labels( array $args ) : array {
+	public function set_product_category_labels( array $args ): array {
 		$args['label'] = __( 'Continenten', 'siw' );
 		$args['labels'] = [
 			'name'              => __( 'Continenten', 'siw' ),
@@ -95,25 +93,14 @@ class Translations {
 	}
 
 	/** Labels van admin columns */
-	public function set_product_column_labels( array $columns ) : array {
+	public function set_product_column_labels( array $columns ): array {
 		$columns['sku'] = __( 'Projectcode', 'woocommerce' );
 		$columns['product_cat']  = __( 'Continent', 'woocommerce' );
 		return $columns;
 	}
 
-	/** Zet vertalingen voor scripts */
-	public function set_script_data( $params, string $handle )  {
-		switch ( $handle ) {
-			case 'wc-add-to-cart-variation':
-				$params['i18n_make_a_selection_text'] = __( 'Selecteer eerst een tarief', 'siw' );
-				break;
-
-		}
-		return $params;
-	}
-
 	/** Overschrijf vertalingen via gettext */
-	public function override_translations( string $translation, string $text ) : string {
+	public function override_translations( string $translation, string $text ): string {
 		switch ( $text ) {
 			case 'Product':
 				$translation = __( 'Project', 'siw' );
@@ -123,6 +110,9 @@ class Translations {
 				break;
 			case 'Your order':
 				$translation = __( 'Je aanmelding', 'siw' );
+				break;
+			case 'Billing &amp; Shipping':
+				$translation = __( 'Je gegevens', 'siw' );
 				break;
 		}
 		return $translation;

@@ -71,7 +71,7 @@ class The_SEO_Framework {
 		return $post_types;
 	}
 
-	/** Productarchieven toevoegen aan de sitemap */
+	/** Productarchieven toevoegen aan de sitemap TODO: verplaatsen naar WooCommerce*/
 	public function set_sitemap_additional_urls( array $custom_urls ): array {
 		
 		if ( ! i18n::is_default_language() ) {
@@ -84,6 +84,7 @@ class The_SEO_Framework {
 			Taxonomy_Attribute::WORK_TYPE(),
 			Taxonomy_Attribute::LANGUAGE(),
 			Taxonomy_Attribute::SDG(),
+			Taxonomy_Attribute::DURATION(),
 		];
 	
 		foreach ( $taxonomies as $taxonomy ) {

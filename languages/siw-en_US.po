@@ -25,7 +25,7 @@ msgstr ""
 "X-Poedit-SearchPath-1: plugins/siw-functionality\n"
 "X-Poedit-SearchPath-2: themes/siw\n"
 
-#: bootstrap.php:109
+#: bootstrap.php:105
 msgid "De SIW plugin vereist WordPress versie %s en PHP versie %s"
 msgstr "The SIW plugin requires WordPress version %s en PHP version %s"
 
@@ -929,7 +929,7 @@ msgstr "Yoga"
 msgid "Taalcursus"
 msgstr "Language course"
 
-#: data/work-types.php:163, includes/woocommerce/taxonomy-attribute.php:45
+#: data/work-types.php:163, includes/woocommerce/taxonomy-attribute.php:43
 msgid "Taal"
 msgstr "Language"
 
@@ -1336,75 +1336,52 @@ msgstr "United States"
 #: data/workcamps/address-fields.php:23, includes/forms/forms/esc.php:42,
 #: includes/forms/forms/leader-dutch-projects.php:53,
 #: includes/forms/forms/tailor-made.php:44,
-#: includes/woocommerce/admin/order.php:83,
-#: includes/woocommerce/checkout/validation.php:54
+#: includes/woocommerce/admin/order.php:72,
+#: includes/woocommerce/checkout/validation.php:41
 msgid "Geboortedatum"
 msgstr "Date of birth"
 
-#: data/workcamps/address-fields.php:27, includes/forms/forms/esc.php:43,
-#: includes/forms/forms/leader-dutch-projects.php:54,
-#: includes/forms/forms/tailor-made.php:45
-msgid "dd-mm-jjjj"
-msgstr "dd-mm-yyyy"
-
-#: data/workcamps/address-fields.php:31,
-#: includes/woocommerce/admin/order.php:68
-msgid "Geslacht"
-msgstr "Gender"
-
-#: data/workcamps/address-fields.php:46, includes/content/types/event.php:127,
+#: data/workcamps/address-fields.php:30,
 #: includes/woocommerce/admin/order.php:77
-msgid "Huisnummer"
-msgstr "House number"
-
-#: data/workcamps/address-fields.php:53, includes/content/types/event.php:120
-msgid "Straat"
-msgstr "Street"
-
-#: data/workcamps/address-fields.php:68,
-#: includes/woocommerce/admin/order.php:88
 msgid "Nationaliteit"
 msgstr "Nationality"
 
-#: data/workcamps/checkout-fields.php:16,
-#: includes/woocommerce/email/emails.php:111
-msgid "Selecteer een taal"
-msgstr "Select a language"
+#: data/workcamps/address-fields.php:39,
+#: includes/woocommerce/admin/order.php:64
+msgid "Geslacht"
+msgstr "Gender"
 
-#: data/workcamps/checkout-fields.php:23
-msgid "Taal 1"
-msgstr "Language 1"
+#: data/workcamps/address-fields.php:47
+msgid "Ben je student?"
+msgstr "Are you a student?"
 
-#: data/workcamps/checkout-fields.php:31
-msgid "Niveau taal 1"
-msgstr "Level language 1"
+#: data/workcamps/address-fields.php:51, includes/options/settings.php:287,
+#: includes/options/settings.php:445, includes/util/meta-box.php:116,
+#: includes/content/types/event.php:84, includes/content/types/event.php:92,
+#: includes/content/types/event.php:166, includes/content/types/event.php:190,
+#: includes/content/types/job-posting.php:107,
+#: includes/content/types/job-posting.php:143
+msgid "Ja"
+msgstr "Yes"
 
-#: data/workcamps/checkout-fields.php:39
-msgid "Taal 2"
-msgstr "Language 2"
+#: data/workcamps/address-fields.php:52, includes/options/settings.php:288,
+#: includes/options/settings.php:446, includes/util/meta-box.php:116,
+#: includes/content/types/event.php:85, includes/content/types/event.php:93,
+#: includes/content/types/event.php:167, includes/content/types/event.php:191,
+#: includes/content/types/job-posting.php:108,
+#: includes/content/types/job-posting.php:144
+msgid "Nee"
+msgstr "No"
 
-#: data/workcamps/checkout-fields.php:47
-msgid "Niveau taal 2"
-msgstr "Level language 2"
-
-#: data/workcamps/checkout-fields.php:55
-msgid "Taal 3"
-msgstr "Language 3"
-
-#: data/workcamps/checkout-fields.php:63
-msgid "Niveau taal 3"
-msgstr "Level language 3"
-
-#: data/workcamps/checkout-fields.php:73, includes/options/settings.php:200,
-#: includes/content/types/event.php:113, includes/content/types/event.php:159,
-#: includes/content/types/event.php:228,
+#: data/workcamps/checkout-fields.php:18, includes/options/settings.php:200,
+#: includes/content/types/event.php:113, includes/content/types/event.php:202,
 #: includes/content/types/job-posting.php:117,
 #: includes/content/types/job-posting.php:153,
 #: includes/woocommerce/email/emails.php:137
 msgid "Naam"
 msgstr "Name"
 
-#: data/workcamps/checkout-fields.php:79, includes/core/shortcodes.php:42,
+#: data/workcamps/checkout-fields.php:24, includes/shortcodes.php:41,
 #: includes/forms/forms/cooperation.php:47,
 #: includes/forms/forms/enquiry-general.php:47,
 #: includes/forms/forms/enquiry-project.php:47,
@@ -1416,12 +1393,25 @@ msgstr "Name"
 msgid "Telefoonnummer"
 msgstr "Phone number"
 
-#: data/workcamps/checkout-fields.php:88,
+#: data/workcamps/checkout-fields.php:34
+msgid "Taal %d"
+msgstr "Language %d"
+
+#: data/workcamps/checkout-fields.php:38,
+#: includes/woocommerce/email/emails.php:111
+msgid "Selecteer een taal"
+msgstr "Select a language"
+
+#: data/workcamps/checkout-fields.php:41
+msgid "Niveau taal %d"
+msgstr "Level language %d"
+
+#: data/workcamps/checkout-fields.php:52,
 #: includes/woocommerce/email/emails.php:167
 msgid "Motivation"
 msgstr "Motivation"
 
-#: data/workcamps/checkout-fields.php:92
+#: data/workcamps/checkout-fields.php:56
 msgid ""
 "Vul hier (in het Engels) in waarom je graag aan je gekozen project wil "
 "deelnemen."
@@ -1429,12 +1419,12 @@ msgstr ""
 "Fill in here (in English) the reason why you want to join your chosen "
 "project."
 
-#: data/workcamps/checkout-fields.php:95,
+#: data/workcamps/checkout-fields.php:59,
 #: includes/woocommerce/email/emails.php:171
 msgid "Health issues"
 msgstr "Health issues"
 
-#: data/workcamps/checkout-fields.php:99
+#: data/workcamps/checkout-fields.php:63
 msgid ""
 "Heb je een allergie, gebruik je medicijnen of volg je een diëet, vul dat dan "
 "hier in (in het Engels)."
@@ -1442,12 +1432,12 @@ msgstr ""
 "In case of allergy, usage of medicines or following a diet, please provide "
 "the information here (in English)."
 
-#: data/workcamps/checkout-fields.php:102,
+#: data/workcamps/checkout-fields.php:66,
 #: includes/woocommerce/email/emails.php:175
 msgid "Volunteer experience"
 msgstr "Volunteer experience"
 
-#: data/workcamps/checkout-fields.php:106
+#: data/workcamps/checkout-fields.php:70
 msgid ""
 "Heb je eerder vrijwilligerswerk gedaan? Beschrijf dat dan hier (in het "
 "Engels)."
@@ -1455,12 +1445,12 @@ msgstr ""
 "Have you done volunteer work before? If the answer is yes, describe your "
 "experience here (in English)."
 
-#: data/workcamps/checkout-fields.php:109,
+#: data/workcamps/checkout-fields.php:73,
 #: includes/woocommerce/email/emails.php:179
 msgid "Together with"
 msgstr "Together with"
 
-#: data/workcamps/checkout-fields.php:113
+#: data/workcamps/checkout-fields.php:77
 msgid ""
 "Wil je graag met iemand aan een project deelnemen. Vul zijn of haar naam dan "
 "hier in."
@@ -1469,84 +1459,204 @@ msgstr ""
 "her name here."
 
 #: data/workcamps/checkout-sections.php:13,
-#: includes/woocommerce/checkout/form.php:38
-msgid "Informatie voor partner"
-msgstr "Information for partner"
+#: includes/woocommerce/email/emails.php:134
+msgid "Noodcontact"
+msgstr "Emergency contact"
 
 #: data/workcamps/checkout-sections.php:14,
 #: includes/woocommerce/email/emails.php:147
 msgid "Talenkennis"
 msgstr "Language skills"
 
-#: data/workcamps/checkout-sections.php:15,
-#: includes/woocommerce/email/emails.php:134
-msgid "Noodcontact"
-msgstr "Emergency contact"
+#: data/workcamps/checkout-sections.php:15
+msgid "Informatie voor partner"
+msgstr "Information for partner"
 
-#: data/workcamps/description-templates.php:15
-msgid "Zet je in voor een {{ project_type }} in {{ country }}."
-msgstr ""
+#: includes/icons.php:77
+msgid "SIW Icons"
+msgstr "SIW Icons"
 
-#: data/workcamps/description-templates.php:16,
-#: data/workcamps/description-templates.php:24,
-#: data/workcamps/description-templates.php:32
-msgid ""
-"Dit project vindt plaats van {{ dates }} en biedt ruimte aan "
-"{{ participants }} deelnemers in de leeftijd van {{ ages }}."
-msgstr ""
+#: includes/login.php:36
+msgid "Welkom bij SIW. Log in om verder te gaan."
+msgstr "Welcome to SIW. Log in to proceed."
 
-#: data/workcamps/description-templates.php:17
-msgid ""
-"Als vrijwilliger zal je werkzaamheden gaan uitvoeren gericht op "
-"{{ work_type }}."
-msgstr ""
+#: includes/media-taxonomies.php:61
+msgid "Media taxonomieën"
+msgstr "Media taxonomies"
 
-#: data/workcamps/description-templates.php:18
-msgid ""
-"Lees snel verder voor meer informatie over de kosten, de werkzaamheden, de "
-"accommodatie en projectlocatie."
-msgstr ""
+#: includes/media-taxonomies.php:80,
+#: includes/compatibility/woocommerce.php:157,
+#: includes/woocommerce/taxonomy-attribute.php:40,
+#: includes/woocommerce/translations.php:83,
+#: includes/widgets/quote/quote.php:61,
+#: includes/woocommerce/admin/stockphoto-page.php:77
+msgid "Continent"
+msgstr "Continent"
 
-#: data/workcamps/description-templates.php:19,
-#: data/workcamps/description-templates.php:27,
-#: data/workcamps/description-templates.php:35
-msgid "Heb je een vraag over dit project?"
-msgstr "Do you have a question about this project?"
+#: includes/media-taxonomies.php:85,
+#: includes/woocommerce/taxonomy-attribute.php:41,
+#: includes/content/types/story.php:55,
+#: includes/content/types/tm-country.php:63,
+#: includes/woocommerce/admin/product-columns.php:24,
+#: includes/woocommerce/admin/stockphoto-page.php:84,
+#: includes/woocommerce/frontend/product.php:80
+msgid "Land"
+msgstr "Country"
 
-#: data/workcamps/description-templates.php:20,
-#: data/workcamps/description-templates.php:28,
-#: data/workcamps/description-templates.php:36
-msgid ""
-"Laat je gegevens achter bij \"Stel een vraag\" en we nemen zo snel mogelijk "
-"contact met je op."
-msgstr ""
+#: includes/media-taxonomies.php:90,
+#: includes/woocommerce/taxonomy-attribute.php:42,
+#: includes/content/types/tm-country.php:71,
+#: includes/woocommerce/admin/stockphoto-page.php:93,
+#: includes/woocommerce/frontend/product.php:81
+msgid "Soort werk"
+msgstr "Type of work"
 
-#: data/workcamps/description-templates.php:23
-msgid ""
-"Steek je handen uit de mouwen tijdens een {{ project_type }} in "
-"{{ country }}."
-msgstr ""
+#: includes/media-taxonomies.php:113, includes/elements/taxonomy-filter.php:37,
+#: includes/widgets/carousel/carousel.php:236,
+#: includes/widgets/quote/quote.php:94
+msgid "Alle"
+msgstr "All"
 
-#: data/workcamps/description-templates.php:25
-msgid "Jouw werkzaamheden richten zich op {{ work_type }}."
-msgstr ""
+#: includes/shortcodes.php:38,
+#: includes/widgets/organisation/organisation.php:93
+msgid "KVK-nummer"
+msgstr "COC number"
 
-#: data/workcamps/description-templates.php:26,
-#: data/workcamps/description-templates.php:34
-msgid ""
-"Lees snel verder voor meer informatie over het tarief, werk, accommodatie en "
-"projectlocatie."
-msgstr ""
+#: includes/shortcodes.php:39, includes/forms/forms/newsletter.php:39,
+#: includes/woocommerce/email/emails.php:124
+msgid "E-mailadres"
+msgstr "Email address"
 
-#: data/workcamps/description-templates.php:31
-msgid ""
-"Ga aan de slag als vrijwilliger tijdens een {{ project_type }} in "
-"{{ country }}."
-msgstr ""
+#: includes/shortcodes.php:40
+msgid "E-mailadres (link)"
+msgstr "Email address (link)"
 
-#: data/workcamps/description-templates.php:33
-msgid "Je gaat werkzaamheden uitvoeren gericht op {{ work_type }}."
-msgstr ""
+#: includes/shortcodes.php:42
+msgid "Telefoonnummer (internationaal)"
+msgstr "Phone number (international)"
+
+#: includes/shortcodes.php:43
+msgid "WhatsApp-nummer"
+msgstr "WhatsApp number"
+
+#: includes/shortcodes.php:44
+msgid "IBAN"
+msgstr "IBAN"
+
+#: includes/shortcodes.php:45, includes/options/settings.php:68
+msgid "Openingstijden"
+msgstr "Opening hours"
+
+#: includes/shortcodes.php:46
+msgid "ESC-borg"
+msgstr "ESC deposit"
+
+#: includes/shortcodes.php:47
+msgid "Volgende infodag"
+msgstr "Next info day"
+
+#: includes/shortcodes.php:48
+msgid "STV tarief"
+msgstr "STV fee"
+
+#: includes/shortcodes.php:49
+msgid "STV tarief inclusief studentenkorting"
+msgstr "STV fee including student discount"
+
+#: includes/shortcodes.php:50
+msgid "MTV tarief"
+msgstr "MTV fee"
+
+#: includes/shortcodes.php:51
+msgid "MTV tarief inclusief studentenkorting"
+msgstr "MTV fee including student discount"
+
+#: includes/shortcodes.php:52
+msgid "LTV tarief"
+msgstr "LTV fee"
+
+#: includes/shortcodes.php:53
+msgid "LTV tarief inclusief studentenkorting"
+msgstr "LTV fee including student discount"
+
+#: includes/shortcodes.php:54
+msgid "Tarief Nederlandse projecten"
+msgstr "Fee Dutch projects"
+
+#: includes/shortcodes.php:55
+msgid "Tarief Nederlandse projecten inclusief studentenkorting"
+msgstr "Fee Dutch projects including student discount"
+
+#: includes/shortcodes.php:56
+msgid "Studentenkorting"
+msgstr "Student discount"
+
+#: includes/shortcodes.php:57
+msgid "Scholenproject - tarief"
+msgstr "School Projects - Rate"
+
+#: includes/shortcodes.php:58
+msgid "Korting tweede project"
+msgstr "Discount second project"
+
+#: includes/shortcodes.php:59
+msgid "Leeftijd van SIW"
+msgstr "Age of SIW"
+
+#: includes/shortcodes.php:61
+msgid "Laatste jaarverslag"
+msgstr "Latest annual report"
+
+#: includes/shortcodes.php:66, includes/shortcodes.php:81,
+#: includes/content/types/story.php:101,
+#: includes/widgets/accordion/accordion.php:50,
+#: includes/widgets/accordion/accordion.php:64,
+#: includes/widgets/calendar/calendar.php:52,
+#: includes/widgets/carousel/carousel.php:56,
+#: includes/widgets/features/features.php:50,
+#: includes/widgets/features/features.php:84,
+#: includes/widgets/form/form.php:56,
+#: includes/widgets/google-maps/google-maps.php:51,
+#: includes/widgets/google-maps/google-maps.php:79,
+#: includes/widgets/map/map.php:50,
+#: includes/widgets/newsletter-confirmation/newsletter-confirmation.php:54,
+#: includes/widgets/organisation/organisation.php:50,
+#: includes/widgets/pie-chart/pie-chart.php:50,
+#: includes/widgets/quick-search-form/quick-search-form.php:52,
+#: includes/widgets/quick-search-results/quick-search-results.php:54,
+#: includes/widgets/quote/quote.php:56, includes/widgets/tabs/tabs.php:50,
+#: includes/widgets/tabs/tabs.php:64
+msgid "Titel"
+msgstr "Title"
+
+#: includes/shortcodes.php:71
+msgid "Externe link"
+msgstr "External link"
+
+#: includes/shortcodes.php:76, includes/content/types/event.php:171,
+#: includes/content/types/event.php:209
+msgid "Url"
+msgstr "Url"
+
+#: includes/shortcodes.php:86
+msgid "Pagina-lightbox"
+msgstr "Page lightbox"
+
+#: includes/shortcodes.php:91
+msgid "Linktekst"
+msgstr "Link text"
+
+#: includes/shortcodes.php:96
+msgid "Pagina"
+msgstr "Page"
+
+#: includes/shortcodes.php:98
+msgid "Beleid kinderprojecten"
+msgstr "Policy children’s projects"
+
+#: includes/shortcodes.php:160
+msgid "nog niet bekend"
+msgstr "not yet known"
 
 #: includes/admin/admin-bar.php:49
 msgid "Omgeving"
@@ -1569,7 +1679,8 @@ msgstr "Details"
 msgid "SIW Eigenschappen"
 msgstr "SIW Properties"
 
-#: includes/admin/properties-page.php:41
+#: includes/admin/properties-page.php:41,
+#: includes/woocommerce/frontend/product-tabs.php:37
 msgid "Eigenschappen"
 msgstr "Properties"
 
@@ -1587,7 +1698,7 @@ msgstr "Value"
 msgid "Constante"
 msgstr "Constant"
 
-#: includes/admin/shortcodes.php:35
+#: includes/admin/shortcodes.php:37
 msgid "SIW Shortcodes"
 msgstr "SIW Shortcodes"
 
@@ -1596,7 +1707,7 @@ msgid "Database tabellen"
 msgstr "Database tables"
 
 #: includes/admin/tableview-page.php:75, includes/assets/mapplic.php:50,
-#: includes/widgets/quick-search-form/quick-search-form.php:81
+#: includes/widgets/quick-search-form/quick-search-form.php:83
 msgid "Zoeken"
 msgstr "Search"
 
@@ -1656,83 +1767,20 @@ msgstr ""
 msgid "SIW Widgets"
 msgstr "SIW Widgets"
 
-#: includes/compatibility/woocommerce-multistep-checkout.php:55
-msgid "Volgende"
-msgstr "Next"
-
-#: includes/compatibility/woocommerce-multistep-checkout.php:56
-msgid "Vorige"
-msgstr "Previous"
-
-#: includes/compatibility/woocommerce-multistep-checkout.php:57,
-#: includes/woocommerce/translations.php:28,
-#: includes/woocommerce/translations.php:29,
-#: includes/content/types/event.php:180
-msgid "Aanmelden"
-msgstr "Register"
-
-#: includes/compatibility/woocommerce-multistep-checkout.php:59
-msgid "Kortingscode"
-msgstr "Coupon"
-
-#: includes/compatibility/woocommerce-multistep-checkout.php:60,
-#: includes/compatibility/woocommerce-multistep-checkout.php:62
-msgid "Je gegevens"
-msgstr "Your data"
-
-#: includes/compatibility/woocommerce-multistep-checkout.php:61,
-#: includes/woocommerce/email/emails.php:164
-msgid "Informatie voor partnerorganisatie"
-msgstr "Information for partner organizations"
-
-#: includes/compatibility/woocommerce-multistep-checkout.php:63,
-#: includes/compatibility/woocommerce-multistep-checkout.php:64
-msgid "Overzicht & betalen"
-msgstr "Overview & payment"
-
-#: includes/compatibility/woocommerce-multistep-checkout.php:65
-msgid "Overzicht"
-msgstr "Overview"
-
-#: includes/compatibility/woocommerce-multistep-checkout.php:66
-msgid "Dit veld is verplicht"
-msgstr "This field is required"
-
-#: includes/compatibility/woocommerce-multistep-checkout.php:67
-msgid "Dit is geen geldig e-mailadres"
-msgstr "This is not a valid email address"
-
-#: includes/compatibility/woocommerce-multistep-checkout.php:68
-msgid "Dit is geen geldig telefoonnummer"
-msgstr "This is not a valid phone number"
-
-#: includes/compatibility/woocommerce-multistep-checkout.php:69
-msgid "Je moet akkoord gaan met onze inschrijfvoorwaarden"
-msgstr "You have to agree with our conditions"
-
-#: includes/compatibility/woocommerce.php:197
+#: includes/compatibility/woocommerce.php:144
 msgid "Deel dit project"
 msgstr "Share this project"
 
-#: includes/compatibility/woocommerce.php:203,
+#: includes/compatibility/woocommerce.php:150,
 #: includes/options/configuration.php:328, includes/options/countries.php:54,
-#: includes/options/settings.php:53, includes/options/settings.php:479,
+#: includes/options/settings.php:53, includes/options/settings.php:427,
 #: includes/elements/interactive-maps/destinations.php:126,
-#: includes/widgets/quick-search-results/quick-search-results.php:51
+#: includes/widgets/quick-search-results/quick-search-results.php:55
 msgid "Groepsprojecten"
 msgstr "Volunteer projects"
 
-#: includes/compatibility/woocommerce.php:210,
-#: includes/core/media-taxonomies.php:81,
-#: includes/woocommerce/taxonomy-attribute.php:42,
-#: includes/woocommerce/translations.php:85,
-#: includes/widgets/quote/quote.php:61,
-#: includes/woocommerce/admin/stockphoto-page.php:77
-msgid "Continent"
-msgstr "Continent"
-
-#: includes/compatibility/wordpress.php:171, includes/elements/features.php:50,
-#: includes/content/types/event.php:341,
+#: includes/compatibility/wordpress.php:173, includes/elements/features.php:50,
+#: includes/content/types/event.php:315,
 #: includes/content/types/job-posting.php:348,
 #: includes/content/types/story.php:183,
 #: includes/content/types/tm-country.php:173,
@@ -1750,196 +1798,37 @@ msgstr "Categories"
 msgid "Deel deze pagina"
 msgstr "Share this page"
 
-#: includes/core/icons.php:75
-msgid "SIW Icons"
-msgstr "SIW Icons"
-
-#: includes/core/login.php:34
-msgid "Welkom bij SIW. Log in om verder te gaan."
-msgstr "Welcome to SIW. Log in to proceed."
-
-#: includes/core/media-taxonomies.php:62
-msgid "Media taxonomieën"
-msgstr "Media taxonomies"
-
-#: includes/core/media-taxonomies.php:86,
-#: includes/woocommerce/taxonomy-attribute.php:43,
-#: includes/content/types/story.php:55,
-#: includes/content/types/tm-country.php:63,
-#: includes/woocommerce/admin/product-columns.php:23,
-#: includes/woocommerce/admin/stockphoto-page.php:84
-msgid "Land"
-msgstr "Country"
-
-#: includes/core/media-taxonomies.php:91,
-#: includes/woocommerce/taxonomy-attribute.php:44,
-#: includes/content/types/tm-country.php:71,
-#: includes/woocommerce/admin/stockphoto-page.php:93
-msgid "Soort werk"
-msgstr "Type of work"
-
-#: includes/core/media-taxonomies.php:114,
-#: includes/elements/taxonomy-filter.php:37,
-#: includes/widgets/carousel/carousel.php:236,
-#: includes/widgets/quote/quote.php:94
-msgid "Alle"
-msgstr "All"
-
-#: includes/core/shortcodes.php:39,
-#: includes/widgets/organisation/organisation.php:93
-msgid "KVK-nummer"
-msgstr "COC number"
-
-#: includes/core/shortcodes.php:40, includes/forms/forms/newsletter.php:39,
-#: includes/woocommerce/email/emails.php:124
-msgid "E-mailadres"
-msgstr "Email address"
-
-#: includes/core/shortcodes.php:41
-msgid "E-mailadres (link)"
-msgstr "Email address (link)"
-
-#: includes/core/shortcodes.php:43
-msgid "Telefoonnummer (internationaal)"
-msgstr "Phone number (international)"
-
-#: includes/core/shortcodes.php:44
-msgid "WhatsApp-nummer"
-msgstr "WhatsApp number"
-
-#: includes/core/shortcodes.php:45
-msgid "IBAN"
-msgstr "IBAN"
-
-#: includes/core/shortcodes.php:46, includes/options/settings.php:68
-msgid "Openingstijden"
-msgstr "Opening hours"
-
-#: includes/core/shortcodes.php:47
-msgid "ESC-borg"
-msgstr "ESC deposit"
-
-#: includes/core/shortcodes.php:48
-msgid "Volgende infodag"
-msgstr "Next info day"
-
-#: includes/core/shortcodes.php:49
-msgid "STV tarief"
-msgstr "STV fee"
-
-#: includes/core/shortcodes.php:50
-msgid "MTV tarief"
-msgstr "MTV fee"
-
-#: includes/core/shortcodes.php:51
-msgid "LTV tarief"
-msgstr "LTV fee"
-
-#: includes/core/shortcodes.php:52
-msgid "Tarief Nederlandse projecten"
-msgstr "Fee Dutch projects"
-
-#: includes/core/shortcodes.php:53
-msgid "Studentenkorting"
-msgstr "Student discount"
-
-#: includes/core/shortcodes.php:54
-msgid "Groepsprojecten - Studententarief"
-msgstr "Workcamps - Student rate"
-
-#: includes/core/shortcodes.php:55
-msgid "Groepsprojecten - Regulier tarief"
-msgstr "Workcamps - Regular rate"
-
-#: includes/core/shortcodes.php:56
-msgid "Scholenproject - tarief"
-msgstr "School Projects - Rate"
-
-#: includes/core/shortcodes.php:57
-msgid "Korting tweede project"
-msgstr "Discount second project"
-
-#: includes/core/shortcodes.php:58
-msgid "Leeftijd van SIW"
-msgstr "Age of SIW"
-
-#: includes/core/shortcodes.php:60
-msgid "Laatste jaarverslag"
-msgstr "Latest annual report"
-
-#: includes/core/shortcodes.php:65, includes/core/shortcodes.php:80,
-#: includes/content/types/story.php:101,
-#: includes/widgets/accordion/accordion.php:50,
-#: includes/widgets/accordion/accordion.php:64,
-#: includes/widgets/calendar/calendar.php:52,
-#: includes/widgets/carousel/carousel.php:56,
-#: includes/widgets/features/features.php:50,
-#: includes/widgets/features/features.php:84,
-#: includes/widgets/form/form.php:56,
-#: includes/widgets/google-maps/google-maps.php:51,
-#: includes/widgets/google-maps/google-maps.php:79,
-#: includes/widgets/map/map.php:50,
-#: includes/widgets/newsletter-confirmation/newsletter-confirmation.php:54,
-#: includes/widgets/organisation/organisation.php:50,
-#: includes/widgets/pie-chart/pie-chart.php:50,
-#: includes/widgets/quick-search-form/quick-search-form.php:52,
-#: includes/widgets/quick-search-results/quick-search-results.php:50,
-#: includes/widgets/quote/quote.php:56, includes/widgets/tabs/tabs.php:50,
-#: includes/widgets/tabs/tabs.php:64
-msgid "Titel"
-msgstr "Title"
-
-#: includes/core/shortcodes.php:70
-msgid "Externe link"
-msgstr "External link"
-
-#: includes/core/shortcodes.php:75, includes/content/types/event.php:166,
-#: includes/content/types/event.php:197, includes/content/types/event.php:235
-msgid "Url"
-msgstr "Url"
-
-#: includes/core/shortcodes.php:85
-msgid "Pagina-lightbox"
-msgstr "Page lightbox"
-
-#: includes/core/shortcodes.php:90
-msgid "Linktekst"
-msgstr "Link text"
-
-#: includes/core/shortcodes.php:95
-msgid "Pagina"
-msgstr "Page"
-
-#: includes/core/shortcodes.php:97
-msgid "Beleid kinderprojecten"
-msgstr "Policy children’s projects"
-
-#: includes/core/shortcodes.php:159
-msgid "nog niet bekend"
-msgstr "not yet known"
-
-#: includes/elements/cookie-notice.php:33
-#, fuzzy
-#| msgid ""
-#| "We gebruiken cookies om ervoor te zorgen dat onze website optimaal werkt "
-#| "en om het gebruik van onze website te analyseren."
+#: includes/elements/cookie-notice.php:37
 msgid ""
-"We gebruiken cookies om ervoor te zorgen dat onze website optimaal werkt en "
-"om het gebruik van onze website te analyseren. Door gebruik te blijven maken "
-"van onze website, ga je hiermee akkoord."
+"Wij gebruiken cookies om je gebruikservaring te optimaliseren, het "
+"webverkeer te analyseren en voor persoonlijke advertentiedoeleinden."
 msgstr ""
-"We use cookies to ensure that our website works optimally and to analyze the "
-"use of our website."
+"We use cookies to optimize your user experience, to analyze web traffic and "
+"for personal advertising purposes."
 
-#: includes/elements/cookie-notice.php:34
-msgid "Ik ga akkoord"
-msgstr "I agree"
+#: includes/elements/cookie-notice.php:38
+msgid ""
+"Lees meer over hoe wij cookies gebruiken en hoe je ze kunt beheren in ons %s."
+msgstr ""
+"Read more about how we use cookies and how you can manage them in our %s."
 
-#: includes/elements/cookie-notice.php:35
+#: includes/elements/cookie-notice.php:38
+msgid "privacybeleid"
+msgstr "privacy policy"
+
+#: includes/elements/cookie-notice.php:39
+msgid "Selectie toestaan"
+msgstr "Allow selection"
+
+#: includes/elements/cookie-notice.php:40
+msgid "Alle cookies toestaan"
+msgstr "Allow all cookies"
+
+#: includes/elements/cookie-notice.php:41
 msgid "Analytisch"
 msgstr "Analytical"
 
-#: includes/elements/cookie-notice.php:36
+#: includes/elements/cookie-notice.php:42
 msgid "Marketing"
 msgstr "Marketing"
 
@@ -1964,7 +1853,7 @@ msgid "Je bericht werd succesvol verzonden."
 msgstr "Your message was sent successfully."
 
 #: includes/forms/processor.php:132,
-#: templates/woocommerce/emails/customer-processing-order.php:60
+#: templates/woocommerce/emails/customer-processing-order.php:52
 msgid "SIW"
 msgstr "SIW"
 
@@ -2145,13 +2034,9 @@ msgstr "Mega Menu"
 msgid "Delen via %s"
 msgstr "Share via  %s"
 
-#: includes/modules/topbar.php:93
+#: includes/modules/topbar.php:92
 msgid "Kom naar de %s op %s."
 msgstr "Join the %s on %s."
-
-#: includes/modules/topbar.php:116
-msgid "Meld je uiterlijk %s aan voor een project en betaal slechts %s."
-msgstr ""
 
 #: includes/options/configuration.php:34
 msgid "Configuratie"
@@ -2313,8 +2198,7 @@ msgstr "Domein"
 msgid "Key"
 msgstr "Key"
 
-#: includes/options/configuration.php:324,
-#: includes/woocommerce/frontend/product-tabs.php:77
+#: includes/options/configuration.php:324
 msgid "Zo werkt het"
 msgstr "How it works"
 
@@ -2399,7 +2283,7 @@ msgstr "Vacancies"
 msgid "Ervaringsverhalen"
 msgstr "Stories"
 
-#: includes/options/settings.php:83, includes/content/types/event.php:255
+#: includes/options/settings.php:83, includes/content/types/event.php:229
 msgid "Evenementen"
 msgstr "Events"
 
@@ -2445,7 +2329,7 @@ msgid "Bestand"
 msgstr "File"
 
 #: includes/options/settings.php:170, includes/options/settings.php:227,
-#: includes/options/settings.php:242, includes/options/settings.php:373
+#: includes/options/settings.php:242, includes/options/settings.php:321
 msgid "Introtekst"
 msgstr "Introduction text"
 
@@ -2483,109 +2367,75 @@ msgstr "Coordinator"
 msgid "Staat op cc van alle mails"
 msgstr ""
 
+#: includes/options/settings.php:280
+msgid "Aankondiging nieuw seizoen"
+msgstr "Announcement new season"
+
 #: includes/options/settings.php:281
-msgid "Kortingsactie"
-msgstr "Sale"
+msgid "Wordt getoond op overzichten van Groepsprojecten."
+msgstr "Is shown on the overview page of Workcamps."
 
 #: includes/options/settings.php:285
-msgid "Actief"
-msgstr "Active"
+msgid "Tonen"
+msgstr "Show"
 
-#: includes/options/settings.php:287, includes/options/settings.php:339,
-#: includes/options/settings.php:497, includes/util/meta-box.php:116,
-#: includes/content/types/event.php:84, includes/content/types/event.php:92,
-#: includes/content/types/event.php:192, includes/content/types/event.php:216,
-#: includes/content/types/job-posting.php:107,
-#: includes/content/types/job-posting.php:143
-msgid "Ja"
-msgstr "Yes"
-
-#: includes/options/settings.php:288, includes/options/settings.php:340,
-#: includes/options/settings.php:498, includes/util/meta-box.php:116,
-#: includes/content/types/event.php:85, includes/content/types/event.php:93,
-#: includes/content/types/event.php:193, includes/content/types/event.php:217,
-#: includes/content/types/job-posting.php:108,
-#: includes/content/types/job-posting.php:144
-msgid "Nee"
-msgstr "No"
-
-#: includes/options/settings.php:298
-msgid "Regulier"
-msgstr "Regular"
-
-#: includes/options/settings.php:303
-msgid "Student"
-msgstr "Student"
-
-#: includes/options/settings.php:311, includes/options/settings.php:344,
+#: includes/options/settings.php:292,
 #: includes/woocommerce/product-attribute.php:40,
-#: includes/woocommerce/admin/product-columns.php:24,
+#: includes/woocommerce/admin/product-columns.php:25,
 #: includes/woocommerce/product/archive/ordering.php:28
 msgid "Startdatum"
 msgstr "Start date"
 
-#: includes/options/settings.php:318, includes/options/settings.php:351,
+#: includes/options/settings.php:299,
 #: includes/woocommerce/product-attribute.php:41
 msgid "Einddatum"
 msgstr "End date"
 
-#: includes/options/settings.php:332
-msgid "Aankondiging nieuw seizoen"
-msgstr "Announcement new season"
-
-#: includes/options/settings.php:333
-msgid "Wordt getoond op overzichten van Groepsprojecten."
-msgstr "Is shown on the overview page of Workcamps."
-
-#: includes/options/settings.php:337
-msgid "Tonen"
-msgstr "Show"
-
-#: includes/options/settings.php:387
+#: includes/options/settings.php:335
 msgid "Reguliere openingstijden"
 msgstr "Regular opening hours"
 
-#: includes/options/settings.php:402, includes/options/settings.php:437
+#: includes/options/settings.php:350, includes/options/settings.php:385
 msgid "Geopend"
 msgstr "Opened"
 
-#: includes/options/settings.php:403, includes/options/settings.php:438
+#: includes/options/settings.php:351, includes/options/settings.php:386
 msgid "Gesloten"
 msgstr "Close"
 
-#: includes/options/settings.php:410, includes/options/settings.php:445
+#: includes/options/settings.php:358, includes/options/settings.php:393
 msgid "Van"
 msgstr "From"
 
-#: includes/options/settings.php:418, includes/options/settings.php:453
+#: includes/options/settings.php:366, includes/options/settings.php:401
 msgid "Tot"
 msgstr "Until"
 
-#: includes/options/settings.php:466
+#: includes/options/settings.php:414
 msgid "Afwijkende openingstijden"
 msgstr "Special opening hours"
 
-#: includes/options/settings.php:493
+#: includes/options/settings.php:441
 msgid "Gebruik afwijkende instellingen"
 msgstr "Use specific settings"
 
-#: includes/options/settings.php:502, includes/options/settings.php:552
+#: includes/options/settings.php:450, includes/options/settings.php:500
 msgid "Afzender bevestigingsmail"
 msgstr "Sender confirmation mail"
 
-#: includes/options/settings.php:512, includes/options/settings.php:561
+#: includes/options/settings.php:460, includes/options/settings.php:509
 msgid "Ontvanger notificatiemail"
 msgstr "Recipient notification mail"
 
-#: includes/options/settings.php:522, includes/options/settings.php:570
+#: includes/options/settings.php:470, includes/options/settings.php:518
 msgid "CC notificatiemail"
 msgstr "CC notification mail"
 
-#: includes/options/settings.php:541
+#: includes/options/settings.php:489
 msgid "E-mailinstellingen"
 msgstr "Email settings"
 
-#: includes/options/settings.php:548
+#: includes/options/settings.php:496
 msgid "Standaardinstellingen"
 msgstr "Default settings"
 
@@ -2670,7 +2520,7 @@ msgid "Volledige breedte"
 msgstr "Full width"
 
 #: includes/page-builder/visibility.php:36,
-#: includes/woocommerce/admin/product-columns.php:25
+#: includes/woocommerce/admin/product-columns.php:26
 msgid "Zichtbaarheid"
 msgstr "Visibility"
 
@@ -2681,7 +2531,8 @@ msgstr "Mobile"
 #: includes/page-builder/visibility.php:48,
 #: includes/page-builder/visibility.php:55,
 #: includes/page-builder/visibility.php:62,
-#: includes/woocommerce/product/bulk-actions.php:38
+#: includes/woocommerce/admin/product-tabs.php:84,
+#: includes/woocommerce/product/admin/bulk-actions.php:38
 msgid "Verbergen"
 msgstr "Hide"
 
@@ -2717,218 +2568,234 @@ msgstr "Age"
 msgid "Lokale bijdrage"
 msgstr "Local fee"
 
-#: includes/woocommerce/taxonomy-attribute.php:46
+#: includes/woocommerce/target-audience.php:29
+msgid "Families"
+msgstr "Families"
+
+#: includes/woocommerce/target-audience.php:30
+msgid "Tieners"
+msgstr "Teenagers"
+
+#: includes/woocommerce/taxonomy-attribute.php:44
 msgid "Doelgroep"
 msgstr "Target audience"
 
-#: includes/woocommerce/taxonomy-attribute.php:47
+#: includes/woocommerce/taxonomy-attribute.php:45
 msgid "Sustainable Development Goal"
 msgstr "Sustainable Development Goal"
 
-#: includes/woocommerce/taxonomy-attribute.php:48
+#: includes/woocommerce/taxonomy-attribute.php:46
 msgid "Maand"
 msgstr "Month"
 
-#: includes/woocommerce/taxonomy-attribute.php:49
+#: includes/woocommerce/taxonomy-attribute.php:47,
+#: includes/woocommerce/frontend/product.php:82
 msgid "Projectduur"
 msgstr "Project duration"
 
-#: includes/woocommerce/taxonomy-attribute.php:50
-msgid "Tarief"
-msgstr "Tariff"
+#: includes/woocommerce/translations.php:26,
+#: includes/woocommerce/translations.php:27,
+#: includes/content/types/event.php:154
+msgid "Aanmelden"
+msgstr "Register"
 
-#: includes/woocommerce/translations.php:30
+#: includes/woocommerce/translations.php:28
 msgid "Dit project is helaas niet meer beschikbaar"
 msgstr "Unfortunately this project is no longer available"
 
-#: includes/woocommerce/translations.php:31
+#: includes/woocommerce/translations.php:29
 msgid "Korting"
 msgstr "Discount"
 
-#: includes/woocommerce/translations.php:37,
+#: includes/woocommerce/translations.php:35,
 #: includes/woocommerce/admin/order-columns.php:20
 msgid "Projecten"
 msgstr "Projects"
 
-#: includes/woocommerce/translations.php:38,
-#: includes/woocommerce/translations.php:119,
-#: includes/woocommerce/email/emails.php:216
+#: includes/woocommerce/translations.php:36,
+#: includes/woocommerce/translations.php:106,
+#: includes/woocommerce/email/emails.php:217,
+#: includes/woocommerce/product/product-type.php:25
 msgid "Project"
 msgstr "Project"
 
-#: includes/woocommerce/translations.php:39
+#: includes/woocommerce/translations.php:37
 msgid "Alle projecten"
 msgstr "All projects"
 
-#: includes/woocommerce/translations.php:40
+#: includes/woocommerce/translations.php:38
 msgctxt "Admin menu name"
 msgid "Projecten"
 msgstr "Projects"
 
-#: includes/woocommerce/translations.php:41
+#: includes/woocommerce/translations.php:39
 msgid "Voeg nieuwe toe"
 msgstr "Add project"
 
-#: includes/woocommerce/translations.php:42
+#: includes/woocommerce/translations.php:40
 msgid "Voeg nieuw project toe"
 msgstr "Add new project"
 
-#: includes/woocommerce/translations.php:43,
-#: includes/woocommerce/translations.php:67
+#: includes/woocommerce/translations.php:41,
+#: includes/woocommerce/translations.php:65
 msgid "Bewerk"
 msgstr "Edit"
 
-#: includes/woocommerce/translations.php:44
+#: includes/woocommerce/translations.php:42
 msgid "Bewerk project"
 msgstr "Edit project"
 
-#: includes/woocommerce/translations.php:45
+#: includes/woocommerce/translations.php:43
 msgid "Nieuw project"
 msgstr "New project"
 
-#: includes/woocommerce/translations.php:46,
-#: includes/elements/interactive-maps/netherlands.php:105,
-#: includes/elements/interactive-maps/netherlands.php:149
+#: includes/woocommerce/translations.php:44,
+#: includes/elements/interactive-maps/netherlands.php:106,
+#: includes/elements/interactive-maps/netherlands.php:150
 msgid "Bekijk project"
 msgstr "View project"
 
-#: includes/woocommerce/translations.php:47
+#: includes/woocommerce/translations.php:45
 msgid "Bekijk projecten"
 msgstr "View projects"
 
-#: includes/woocommerce/translations.php:48
+#: includes/woocommerce/translations.php:46
 msgid "Zoek projecten"
 msgstr "Search projects"
 
-#: includes/woocommerce/translations.php:49
+#: includes/woocommerce/translations.php:47
 msgid "Geen projecten gevonden"
 msgstr "No projects"
 
-#: includes/woocommerce/translations.php:50
+#: includes/woocommerce/translations.php:48
 msgid "Geen projecten gevonden in de prullenbak"
 msgstr "No projects found in trash"
 
-#: includes/woocommerce/translations.php:51
+#: includes/woocommerce/translations.php:49
 msgid "Projectafbeelding"
 msgstr "Project image"
 
-#: includes/woocommerce/translations.php:52
+#: includes/woocommerce/translations.php:50
 msgid "Zet projectafbeelding"
 msgstr "Set project image"
 
-#: includes/woocommerce/translations.php:53
+#: includes/woocommerce/translations.php:51
 msgid "Verwijder projectafbeelding"
 msgstr "Remove project image"
 
-#: includes/woocommerce/translations.php:54
+#: includes/woocommerce/translations.php:52
 msgid "Gebruik als projectafbeelding"
 msgstr "Use as project image"
 
-#: includes/woocommerce/translations.php:55
+#: includes/woocommerce/translations.php:53
 msgid "Filter projecten"
 msgstr "Filter projects"
 
-#: includes/woocommerce/translations.php:63
+#: includes/woocommerce/translations.php:61
 msgid "Aanmeldingen"
 msgstr "Applications"
 
-#: includes/woocommerce/translations.php:64
+#: includes/woocommerce/translations.php:62
 msgctxt "shop_order post type singular name"
 msgid "Aanmelding"
 msgstr "Application"
 
-#: includes/woocommerce/translations.php:65
+#: includes/woocommerce/translations.php:63
 msgid "Voeg aanmelding toe"
 msgstr "Add application"
 
-#: includes/woocommerce/translations.php:66
+#: includes/woocommerce/translations.php:64
 msgid "Voeg nieuwe aanmelding toe"
 msgstr "Add new application"
 
-#: includes/woocommerce/translations.php:68
+#: includes/woocommerce/translations.php:66
 msgid "Bewerk aanmelding"
 msgstr "Edit application"
 
-#: includes/woocommerce/translations.php:69
+#: includes/woocommerce/translations.php:67
 msgid "Nieuwe aanmelding"
 msgstr "New application"
 
-#: includes/woocommerce/translations.php:70
+#: includes/woocommerce/translations.php:68
 msgid "Bekijk aanmelding"
 msgstr "View application"
 
-#: includes/woocommerce/translations.php:71
+#: includes/woocommerce/translations.php:69
 msgid "Zoek aanmeldingen"
 msgstr "Search applications"
 
-#: includes/woocommerce/translations.php:72
+#: includes/woocommerce/translations.php:70
 msgid "Geen aanmeldingen gevonden"
 msgstr "No applications found"
 
-#: includes/woocommerce/translations.php:73
+#: includes/woocommerce/translations.php:71
 msgid "Geen aanmeldingen gevonden in de prullenbak"
 msgstr "No applications found in trash"
 
-#: includes/woocommerce/translations.php:74
+#: includes/woocommerce/translations.php:72
 msgctxt "Admin menu name"
 msgid "Aanmeldingen"
 msgstr "Applications"
 
-#: includes/woocommerce/translations.php:75
+#: includes/woocommerce/translations.php:73
 msgid "Filter aanmeldingen"
 msgstr "Filter applications"
 
+#: includes/woocommerce/translations.php:80,
 #: includes/woocommerce/translations.php:82,
-#: includes/woocommerce/translations.php:84,
 #: includes/content/types/story.php:126,
 #: includes/content/types/tm-country.php:117
 msgid "Continenten"
 msgstr "Continents"
 
-#: includes/woocommerce/translations.php:86
+#: includes/woocommerce/translations.php:84
 msgctxt "Admin menu name"
 msgid "Continenten"
 msgstr "Continents"
 
-#: includes/woocommerce/translations.php:87,
+#: includes/woocommerce/translations.php:85,
 #: includes/content/types/story.php:131,
 #: includes/content/types/tm-country.php:122
 msgid "Zoek continenten"
 msgstr "Find continents"
 
-#: includes/woocommerce/translations.php:88,
+#: includes/woocommerce/translations.php:86,
 #: includes/content/types/story.php:127,
 #: includes/content/types/tm-country.php:118
 msgid "Alle continenten"
 msgstr "All continents"
 
-#: includes/woocommerce/translations.php:89
+#: includes/woocommerce/translations.php:87
 msgid "Bewerk continent"
 msgstr "Edit continent"
 
-#: includes/woocommerce/translations.php:90
+#: includes/woocommerce/translations.php:88
 msgid "Werk continent bij"
 msgstr "Update continents"
 
-#: includes/woocommerce/translations.php:91
+#: includes/woocommerce/translations.php:89
 msgid "Voeg nieuw continent toe"
 msgstr "Add new continent"
 
-#: includes/woocommerce/translations.php:92
+#: includes/woocommerce/translations.php:90
 msgid "New category name"
 msgstr ""
 
-#: includes/woocommerce/translations.php:108
-msgid "Selecteer eerst een tarief"
-msgstr "Select a tariff first"
-
-#: includes/woocommerce/translations.php:122
+#: includes/woocommerce/translations.php:109
 msgid "Door naar aanmelden"
 msgstr "Continue to application"
 
-#: includes/woocommerce/translations.php:125
+#: includes/woocommerce/translations.php:112
 msgid "Je aanmelding"
 msgstr "You application"
+
+#: includes/woocommerce/translations.php:115
+msgid "Je gegevens"
+msgstr "Your data"
+
+#: includes/actions/async/export-plato-application.php:30
+msgid "Exporteren aanmelding naar Plato"
+msgstr "Export application to Plato"
 
 #: includes/actions/async/import-plato-project.php:22
 msgid "Importeren project uit Plato"
@@ -2938,11 +2805,11 @@ msgstr "Import projects from Plato"
 msgid "Verwerk stockfoto upload"
 msgstr "Process stockphoto upload"
 
-#: includes/actions/batch/action.php:62
+#: includes/actions/batch/action.php:63
 msgid "Starten"
 msgstr "Start"
 
-#: includes/actions/batch/action.php:83
+#: includes/actions/batch/action.php:84
 msgid "Actie gestart: %s"
 msgstr "Action started: %s"
 
@@ -2966,11 +2833,19 @@ msgstr "Import fee places from Plato"
 msgid "Importeren projecten uit Plato"
 msgstr "Import projects from Plato"
 
+#: includes/actions/batch/migrate-order-meta.php:21
+msgid "Migreer order meta"
+msgstr "Migrate order meta"
+
 #: includes/actions/batch/update-database.php:23
 msgid "Database updaten"
 msgstr "Update database"
 
-#: includes/actions/batch/update-projects.php:50
+#: includes/actions/batch/update-product-type.php:23
+msgid "Product type updaten"
+msgstr "Update product type"
+
+#: includes/actions/batch/update-projects.php:43
 msgid "Bijwerken projecten"
 msgstr "Update projects"
 
@@ -2995,9 +2870,9 @@ msgstr "Is shown on overview pages"
 #: includes/content/types/event.php:55,
 #: includes/content/types/tm-country.php:92,
 #: includes/widgets/google-maps/google-maps.php:83,
-#: includes/woocommerce/admin/product-tabs.php:107,
-#: includes/woocommerce/frontend/product-tabs.php:38,
-#: includes/woocommerce/frontend/product-tabs.php:90
+#: includes/woocommerce/admin/product-tabs.php:114,
+#: includes/woocommerce/frontend/product-tabs.php:44,
+#: includes/woocommerce/frontend/product-tabs.php:85
 msgid "Beschrijving"
 msgstr "Description"
 
@@ -3026,6 +2901,14 @@ msgstr "Online event"
 msgid "Locatie"
 msgstr "Location"
 
+#: includes/content/types/event.php:120
+msgid "Straat"
+msgstr "Street"
+
+#: includes/content/types/event.php:127
+msgid "Huisnummer"
+msgstr "House number"
+
 #: includes/content/types/event.php:134
 msgid "Postcode"
 msgstr "Postal code"
@@ -3034,58 +2917,59 @@ msgstr "Postal code"
 msgid "Plaats"
 msgstr "City"
 
-#: includes/content/types/event.php:154
-msgid "Online locatie"
-msgstr "Online location"
-
-#: includes/content/types/event.php:185,
+#: includes/content/types/event.php:159,
 #: includes/widgets/pie-chart/pie-chart.php:90
 msgid "Toelichting"
 msgstr "Explanation"
 
-#: includes/content/types/event.php:190
+#: includes/content/types/event.php:164
 msgid "Heeft link"
 msgstr "Has link"
 
-#: includes/content/types/event.php:207
+#: includes/content/types/event.php:181
 msgid "Organisator"
 msgstr "Organiser"
 
-#: includes/content/types/event.php:213
+#: includes/content/types/event.php:187
 msgid "Andere organisator"
 msgstr "Different organiser"
 
-#: includes/content/types/event.php:256
+#: includes/content/types/event.php:230
 msgid "Evenement"
 msgstr "Event"
 
-#: includes/content/types/event.php:257
+#: includes/content/types/event.php:231
 msgid "Nieuw evenement"
 msgstr "New event"
 
-#: includes/content/types/event.php:258
+#: includes/content/types/event.php:232
 msgid "Nieuw evenement toevoegen"
 msgstr "Add new event"
 
-#: includes/content/types/event.php:259
+#: includes/content/types/event.php:233
 msgid "Evenement bewerken"
 msgstr "Edit event"
 
-#: includes/content/types/event.php:260
+#: includes/content/types/event.php:234
 msgid "Alle evenementen"
 msgstr "All events"
 
-#: includes/content/types/event.php:261
+#: includes/content/types/event.php:235
 msgid "Evenementen zoeken"
 msgstr "Search events"
 
-#: includes/content/types/event.php:262
+#: includes/content/types/event.php:236
 msgid "Geen evenementen gevonden"
 msgstr "No events found"
 
-#: includes/content/types/event.php:269
+#: includes/content/types/event.php:243
 msgid "Deel dit evenement"
 msgstr "Share this event"
+
+#: includes/content/types/event.php:330,
+#: includes/widgets/calendar/calendar.php:88
+msgid "Online"
+msgstr "Online"
 
 #: includes/content/types/job-posting.php:67
 msgid "Soort functie"
@@ -3462,19 +3346,19 @@ msgstr "View the range"
 msgid "Projecten Op Maat"
 msgstr "Everything about customized projects"
 
-#: includes/elements/interactive-maps/netherlands.php:126
+#: includes/elements/interactive-maps/netherlands.php:131
 msgid "Projectcode: %s"
 msgstr "Projectcode: %s"
 
-#: includes/elements/interactive-maps/netherlands.php:127
+#: includes/elements/interactive-maps/netherlands.php:132
 msgid "Data: %s"
 msgstr "Dates: %s"
 
-#: includes/elements/interactive-maps/netherlands.php:128
+#: includes/elements/interactive-maps/netherlands.php:133
 msgid "Soort werk: %s"
 msgstr "Type of work: %s"
 
-#: includes/elements/interactive-maps/netherlands.php:131
+#: includes/elements/interactive-maps/netherlands.php:136
 msgid "Sustainable Development Goals: %s"
 msgstr "Sustainable Development Goals: %s"
 
@@ -3596,6 +3480,12 @@ msgstr "We will reach out to you as soon as possible."
 msgid "Aanmelding ESC"
 msgstr "Application ESC"
 
+#: includes/forms/forms/esc.php:43,
+#: includes/forms/forms/leader-dutch-projects.php:54,
+#: includes/forms/forms/tailor-made.php:45
+msgid "dd-mm-jjjj"
+msgstr "dd-mm-yyyy"
+
 #: includes/forms/forms/esc.php:51, includes/forms/forms/tailor-made.php:53
 msgid "Woonplaats"
 msgstr "City"
@@ -3684,9 +3574,13 @@ msgstr "Not yet known"
 msgid "online"
 msgstr "online"
 
-#: includes/forms/forms/info-day.php:154, includes/forms/forms/info-day.php:155
+#: includes/forms/forms/info-day.php:154
 msgid "Via Google"
 msgstr "Via Google"
+
+#: includes/forms/forms/info-day.php:155
+msgid "Via Facebook"
+msgstr "Via Facebook"
 
 #: includes/forms/forms/info-day.php:156
 msgid "Via Instagram"
@@ -4028,10 +3922,6 @@ msgstr "Check the full agenda."
 msgid "Er zijn momenteel geen geplande activiteiten."
 msgstr "There are no planned activities at the moment."
 
-#: includes/widgets/calendar/calendar.php:88
-msgid "Online"
-msgstr "Online"
-
 #: includes/widgets/carousel/carousel.php:33
 msgid "Carousel"
 msgstr "Carousel"
@@ -4227,7 +4117,7 @@ msgstr "Show confirmation for newsletter"
 #: includes/widgets/newsletter-confirmation/newsletter-confirmation.php:90,
 #: includes/widgets/newsletter-confirmation/newsletter-confirmation.php:108
 msgid "Helaas is er iets misgegaan met de aanmelding."
-msgstr ""
+msgstr "Unfortunately something went wrong with your subscription."
 
 #: includes/widgets/newsletter-confirmation/newsletter-confirmation.php:95
 msgid "Je bent al aangemeld voor de SIW-nieuwsbrief."
@@ -4310,38 +4200,39 @@ msgstr "Quick Search"
 msgid "Resultatenpagina"
 msgstr "Result page"
 
-#: includes/widgets/quick-search-form/quick-search-form.php:104
+#: includes/widgets/quick-search-form/quick-search-form.php:74
 msgid "Waar wil je heen?"
 msgstr "Where do you want to go?"
 
-#: includes/widgets/quick-search-form/quick-search-form.php:132
+#: includes/widgets/quick-search-form/quick-search-form.php:79
 msgid "Wanneer wil je weg?"
 msgstr "When do you want to leave?"
 
-#: includes/widgets/quick-search-results/quick-search-results.php:27
+#: includes/widgets/quick-search-results/quick-search-results.php:31
 msgid "Snel Zoeken - resultaat"
 msgstr "Quick Search - result"
 
-#: includes/widgets/quick-search-results/quick-search-results.php:32
+#: includes/widgets/quick-search-results/quick-search-results.php:36
 msgid "Toont zoekresultaten"
 msgstr "Show search results"
 
-#: includes/widgets/quick-search-results/quick-search-results.php:80
+#: includes/widgets/quick-search-results/quick-search-results.php:79,
+#: includes/woocommerce/product/shortcode.php:111
 msgid "Bekijk alle projecten"
 msgstr "View all projects"
 
-#: includes/widgets/quick-search-results/quick-search-results.php:90,
-#: includes/widgets/quick-search-results/quick-search-results.php:101
+#: includes/widgets/quick-search-results/quick-search-results.php:96,
+#: includes/widgets/quick-search-results/quick-search-results.php:105
 msgid "in %s"
 msgstr "in %s"
 
-#: includes/widgets/quick-search-results/quick-search-results.php:106
+#: includes/widgets/quick-search-results/quick-search-results.php:114
 msgid ""
 "Met een Groepsproject ga je voor 2 tot 3 weken naar een project, de begin- "
 "en einddatum van het project staan al vast."
 msgstr ""
 
-#: includes/widgets/quick-search-results/quick-search-results.php:107
+#: includes/widgets/quick-search-results/quick-search-results.php:115
 msgid "Hieronder zie je een selectie van de mogelijkheden"
 msgstr "Below you can see a selection of the possibilities"
 
@@ -4365,19 +4256,15 @@ msgstr "Show tabs"
 msgid "Tab"
 msgstr "Tab"
 
-#: includes/woocommerce/admin/coupon.php:32
-msgid "Creëer kortingscode"
-msgstr "Create discount code"
-
 #: includes/woocommerce/admin/order-columns.php:21
 msgid "Export naar PLATO"
 msgstr "Export to PLATO"
 
-#: includes/woocommerce/admin/order.php:126
+#: includes/woocommerce/admin/order.php:109
 msgid "Bewerken"
 msgstr "Edit"
 
-#: includes/woocommerce/admin/order.php:218
+#: includes/woocommerce/admin/order.php:200
 msgid "Akkoord met inschrijfvoorwaarden"
 msgstr "Agreed with the registration conditions"
 
@@ -4386,56 +4273,48 @@ msgid "Omschrijving"
 msgstr "Description"
 
 #: includes/woocommerce/admin/product-tabs.php:35
-msgid "Update"
-msgstr "Update"
+msgid "Extra instellingen"
+msgstr "Extra settings"
 
-#: includes/woocommerce/admin/product-tabs.php:71
+#: includes/woocommerce/admin/product-tabs.php:74
 msgid "Stockfoto gebruiken"
 msgstr "Use stockphoto"
 
-#: includes/woocommerce/admin/product-tabs.php:72
+#: includes/woocommerce/admin/product-tabs.php:75
 msgid "Bijvoorbeeld indien projectfoto niet geschikt is."
 msgstr "For example if project photo not suitable."
 
-#: includes/woocommerce/admin/product-tabs.php:81
-msgid "Heeft afwijkend tarief"
-msgstr "Has deviating tariff"
+#: includes/woocommerce/admin/product-tabs.php:93
+msgid "Afwijkend tarief"
+msgstr "Custom fee"
 
-#: includes/woocommerce/admin/product-tabs.php:82
-msgid "Tarief wordt niet automatisch bijgewerkt"
-msgstr "Tariff is not updated automatically"
-
-#: includes/woocommerce/admin/product-tabs.php:90
-msgid "Geforceerd verbergen"
-msgstr "Forced hide"
-
-#: includes/woocommerce/admin/product-tabs.php:108,
-#: includes/woocommerce/frontend/product-tabs.php:91
+#: includes/woocommerce/admin/product-tabs.php:115,
+#: includes/woocommerce/frontend/product-tabs.php:86
 msgid "Werk"
 msgstr "Work"
 
-#: includes/woocommerce/admin/product-tabs.php:109,
-#: includes/woocommerce/frontend/product-tabs.php:92
+#: includes/woocommerce/admin/product-tabs.php:116,
+#: includes/woocommerce/frontend/product-tabs.php:87
 msgid "Accommodatie en maaltijden"
 msgstr "Accommodation and meals"
 
-#: includes/woocommerce/admin/product-tabs.php:110,
-#: includes/woocommerce/frontend/product-tabs.php:93
+#: includes/woocommerce/admin/product-tabs.php:117,
+#: includes/woocommerce/frontend/product-tabs.php:88
 msgid "Locatie en vrije tijd"
 msgstr "Location and leisure time"
 
-#: includes/woocommerce/admin/product-tabs.php:111,
-#: includes/woocommerce/frontend/product-tabs.php:94
+#: includes/woocommerce/admin/product-tabs.php:118,
+#: includes/woocommerce/frontend/product-tabs.php:89
 msgid "Organisatie"
 msgstr "Organisation"
 
-#: includes/woocommerce/admin/product-tabs.php:112,
-#: includes/woocommerce/frontend/product-tabs.php:95
+#: includes/woocommerce/admin/product-tabs.php:119,
+#: includes/woocommerce/frontend/product-tabs.php:90
 msgid "Vereisten"
 msgstr "Requirements"
 
-#: includes/woocommerce/admin/product-tabs.php:113,
-#: includes/woocommerce/frontend/product-tabs.php:96
+#: includes/woocommerce/admin/product-tabs.php:120,
+#: includes/woocommerce/frontend/product-tabs.php:91
 msgid "Opmerkingen"
 msgstr "Remarks"
 
@@ -4456,48 +4335,52 @@ msgstr "Add stockphotos"
 msgid "Stockfoto toevoegen"
 msgstr "Add stockphoto"
 
-#: includes/woocommerce/checkout/discount.php:34
+#: includes/woocommerce/checkout/discount.php:44
 msgid "Korting %de project"
 msgstr "Discount %dth project"
 
-#: includes/woocommerce/checkout/newsletter.php:26
+#: includes/woocommerce/checkout/newsletter.php:28
 msgid "Ja, ik wil graag de SIW nieuwsbrief ontvangen"
 msgstr "Yes, I want to sign up for the SIW newsletter"
 
-#: includes/woocommerce/checkout/validation.php:34
-msgid "Dit is geen geldige datum."
-msgstr "This is not a valid date."
+#: includes/woocommerce/checkout/validation.php:36
+msgid "Vul de verplichte velden in."
+msgstr "Fill out the required fields."
 
-#: includes/woocommerce/checkout/validation.php:39
-msgid "Dit is geen geldige postcode."
-msgstr "This is not a valid postal code."
+#: includes/woocommerce/checkout/validation.php:67
+msgid "De maximumleeftijd voor deelname aan het project %s is %s jaar."
+msgstr "The minimum age for participation in project %s is %s year."
 
-#: includes/woocommerce/checkout/validation.php:60
-msgid "De minimumleeftijd voor deelname is %s jaar."
-msgstr "The minimum age for participation is %s year."
+#: includes/woocommerce/checkout/validation.php:57
+msgid "De minimumleeftijd voor deelname aan het project %s is %s jaar."
+msgstr "The minimum age for participation in project %s is %s year."
 
-#: includes/woocommerce/checkout/validation.php:54
+#: includes/woocommerce/checkout/validation.php:41
 msgid "%s bevat geen geldige datum."
 msgstr "%s is not a valid date."
 
 #: includes/woocommerce/email/customer-on-hold-order.php:23,
-#: includes/woocommerce/email/customer-processing-order.php:23,
+#: includes/woocommerce/email/customer-processing-order.php:22,
 #: templates/woocommerce/emails/admin-new-order.php:37
 msgid "Aanmelding %s"
 msgstr "Application %s"
 
 #: includes/woocommerce/email/customer-on-hold-order.php:28,
-#: includes/woocommerce/email/customer-processing-order.php:29
+#: includes/woocommerce/email/customer-processing-order.php:28
 msgid "Bevestiging aanmelding #%s"
 msgstr "Application confirmed #%s"
 
-#: includes/woocommerce/email/customer-processing-order.php:32
+#: includes/woocommerce/email/customer-processing-order.php:31
 msgid "Bevestiging betaling aanmelding #%s"
 msgstr "Application payment confirmed #%s"
 
 #: includes/woocommerce/email/emails.php:120
 msgid "Persoongsgegevens"
 msgstr "Personal data"
+
+#: includes/woocommerce/email/emails.php:164
+msgid "Informatie voor partnerorganisatie"
+msgstr "Information for partner organizations"
 
 #: includes/woocommerce/email/emails.php:190
 msgid "Aanmelding"
@@ -4507,19 +4390,19 @@ msgstr "Application"
 msgid "Aanmeldnummer"
 msgstr "Application number"
 
-#: includes/woocommerce/email/emails.php:222
+#: includes/woocommerce/email/emails.php:223
 msgid "Project %d"
 msgstr "Project %d"
 
-#: includes/woocommerce/email/emails.php:233
+#: includes/woocommerce/email/emails.php:234
 msgid "Betaling"
 msgstr "Payment"
 
-#: includes/woocommerce/email/emails.php:236
+#: includes/woocommerce/email/emails.php:237
 msgid "Subtotaal"
 msgstr "Subtotal"
 
-#: includes/woocommerce/email/emails.php:243
+#: includes/woocommerce/email/emails.php:244
 msgid "Kortingscode: %s"
 msgstr "Coupon: %s"
 
@@ -4543,210 +4426,57 @@ msgstr "New application (not yet paid)"
 msgid "Nieuwe aanmelding (betaald)"
 msgstr "New application (paid)"
 
-#: includes/woocommerce/export/order.php:32
-msgid "Exporteer naar PLATO"
-msgstr "Export to PLATO"
-
-#: includes/woocommerce/frontend/archive-header.php:81,
-#: includes/woocommerce/frontend/archive-header.php:75
-msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten in %s."
-msgstr "Below you can see the available Workcamps in %s."
-
-#: includes/woocommerce/frontend/archive-header.php:84
-msgid ""
-"Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden "
-"gericht op %s."
-msgstr "Below you can see the available Workcamps with work related to %s."
-
-#: includes/woocommerce/frontend/archive-header.php:87
-msgid ""
-"Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden "
-"gericht op het Sustainable Development Goal %s."
-msgstr ""
-"Below you can see the available Workcamps with work related to the "
-"Sustainable Development Goal %s."
-
-#: includes/woocommerce/frontend/archive-header.php:90
-msgid ""
-"Hieronder zie je het beschikbare aanbod Groepsprojecten voor de doelgroep %s."
-msgstr "Below you can see the available Workcamps for %s."
-
-#: includes/woocommerce/frontend/archive-header.php:93
-msgid ""
-"Hieronder zie je het beschikbare aanbod Groepsprojecten met de voertaal %s."
-msgstr "Below you can see the available Workcamps with the %s language."
-
-#: includes/woocommerce/frontend/archive-header.php:96
-msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s."
-msgstr "Below you can see the available Workcamps in the month %s."
-
-#: includes/woocommerce/frontend/archive-header.php:99,
-#: includes/woocommerce/frontend/archive-header.php:71
-msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten."
-msgstr "Below you can see the available Workcamps."
-
-#: includes/woocommerce/frontend/archive-header.php:106
-msgid ""
-"Tijdens onze Groepsprojecten ga je samen met een internationale groep "
-"vrijwilligers voor 2 á 3 weken aan de slag."
-msgstr ""
-
-#: includes/woocommerce/frontend/archive-header.php:107
-msgid "De projecten hebben vaste begin- en einddata."
-msgstr ""
-
-#: includes/woocommerce/frontend/archive-header.php:108
-msgid ""
-"We vertellen je meer over de werkwijze van deze projecten op onze pagina <a "
-"href=\"%s\">Groepsprojecten</a>."
-msgstr ""
-
-#: includes/woocommerce/frontend/archive-header.php:153
-msgid ""
-"Vanaf %s wordt het aanbod aangevuld met honderden nieuwe "
-"vrijwilligersprojecten voor %s."
-msgstr ""
-
-#: includes/woocommerce/frontend/archive-header.php:154
-msgid "Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW?"
-msgstr ""
-
-#: includes/woocommerce/frontend/archive-header.php:155
-msgid "<a href=\"%s\">Bel of mail ons</a> en we denken graag met je mee!"
-msgstr ""
-"<a href=\"%s\">Call or email us</a> and we are happy to think along with you!"
-
-#: includes/woocommerce/frontend/archive-header.php:173
-msgid "Meld je nu aan en betaal geen %s maar %s voor je vrijwilligersproject."
-msgstr ""
-
-#: includes/woocommerce/frontend/archive-header.php:174
-msgid "Ben je student of jonger dan 18 jaar?"
-msgstr "Are you a student or younger than 18 years?"
-
-#: includes/woocommerce/frontend/archive-header.php:175
-msgid "Dan betaal je in plaats van %s nog maar %s."
-msgstr ""
-
-#: includes/woocommerce/frontend/archive-header.php:176
-msgid "Let op:"
-msgstr "Pay attention:"
-
-#: includes/woocommerce/frontend/archive-header.php:177
-msgid "Deze actie duurt nog maar t/m %s, dus wees er snel bij."
-msgstr ""
-
-#: includes/woocommerce/frontend/archive.php:43,
-#: includes/woocommerce/frontend/product.php:161
+#: includes/woocommerce/frontend/archive.php:45,
+#: includes/woocommerce/frontend/product.php:110
 msgid "Aanbevolen"
 msgstr "Recommended"
 
-#: includes/woocommerce/frontend/product-tabs.php:54,
-#: includes/woocommerce/frontend/product-tabs.php:114
+#: includes/woocommerce/frontend/product-tabs.php:56,
+#: includes/woocommerce/frontend/product-tabs.php:109
 msgid "Projectlocatie"
 msgstr "Project location"
 
-#: includes/woocommerce/frontend/product-tabs.php:67
+#: includes/woocommerce/frontend/product-tabs.php:65
 msgid "Stel een vraag"
 msgstr "Ask a question"
 
-#: includes/woocommerce/frontend/product.php:60
+#: includes/woocommerce/frontend/product-tabs.php:71
+msgid "Kosten"
+msgstr "Costs"
+
+#: includes/woocommerce/frontend/product-tabs.php:147
+msgid "(Ca. %s)"
+msgstr "(About %s)"
+
+#: includes/woocommerce/frontend/product.php:83
+msgid "Sustainable Development Goals"
+msgstr "Sustainable Development Goals"
+
+#: includes/woocommerce/frontend/product.php:84
+msgid "Aantal deelnemers"
+msgstr "Number of participants"
+
+#: includes/woocommerce/frontend/product.php:88
+msgid "In het kort:"
+msgstr "In short:"
+
+#: includes/woocommerce/frontend/product.php:98
 msgid ""
-"Je komt in aanmerking voor het studententarief als je 17 jaar of jonger bent "
-"of als je een bewijs van inschrijving kunt laten zien."
+"Lees snel verder voor meer informatie over de werkzaamheden, de "
+"accommodatie, de projectlocatie en de kosten."
 msgstr ""
-"You are eligible for the student discount if you are 17 or younger, or if "
-"you can show us a proof of registration."
+"Read on for more information about the work, the accommodation, the project "
+"location and the costs."
 
-#: includes/woocommerce/frontend/product.php:104
-msgid "BELANGRIJK:"
-msgstr "IMPORTANT:"
+#: includes/woocommerce/frontend/product.php:100
+msgid "Heb je een vraag over dit project?"
+msgstr "Do you have a question about this project?"
 
-#: includes/woocommerce/frontend/product.php:105
-msgid "Je kan je gerust aanmelden."
-msgstr ""
-
-#: includes/woocommerce/frontend/product.php:106
+#: includes/woocommerce/frontend/product.php:102
 msgid ""
-"Wij kijken dan of het project inderdaad doorgaat en of je geplaatst kan "
-"worden."
+"Laat je gegevens achter bij \"Stel een vraag\" en we nemen zo snel mogelijk "
+"contact met je op."
 msgstr ""
-
-#: includes/woocommerce/frontend/product.php:107
-msgid ""
-"Pas als het zeker is dat je ook daadwerkelijk naar de plaats van bestemming "
-"kan afreizen, doe je de betaling aan SIW. Niet eerder!"
-msgstr ""
-
-#: includes/woocommerce/frontend/product.php:139
-msgid ""
-"Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage "
-"van %s %s."
-msgstr ""
-"Pay attention: in addition to the registration fee, on sight you will also "
-"pay a local contribution of %s %s."
-
-#: includes/woocommerce/frontend/product.php:141
-msgid "(Ca. &euro; %s)"
-msgstr "(About &euro; %s)"
-
-#: includes/woocommerce/frontend/product.php:149
-msgid "Kies een tarief"
-msgstr "Select a tariff"
-
-#: includes/woocommerce/import/product.php:634
-msgid "Families"
-msgstr "Families"
-
-#: includes/woocommerce/import/product.php:638
-msgid "Tieners"
-msgstr "Teenagers"
-
-#: includes/woocommerce/product/approval.php:39
-msgid "Beoordeling project"
-msgstr "Project assessment"
-
-#: includes/woocommerce/product/approval.php:41
-msgid "Goedkeuren"
-msgstr "Approve"
-
-#: includes/woocommerce/product/approval.php:42
-msgid "Afkeuren"
-msgstr "Reject"
-
-#: includes/woocommerce/product/approval.php:56
-msgid "Goedgekeurd"
-msgstr "Approved"
-
-#: includes/woocommerce/product/approval.php:60
-msgid "Afgekeurd"
-msgstr "Rejected"
-
-#: includes/woocommerce/product/bulk-actions.php:36
-msgid "Opnieuw importeren"
-msgstr "Import again"
-
-#: includes/woocommerce/product/bulk-actions.php:37
-msgid "Markeren als aanbevolen"
-msgstr "Mark as recommended"
-
-#: includes/woocommerce/product/bulk-actions.php:101
-msgid "%s project wordt opnieuw geïmporteerd."
-msgid_plural "%s projecten worden opnieuw geïmporteerd."
-msgstr[0] "%s project will be imported again."
-msgstr[1] "%s projects will be imported again."
-
-#: includes/woocommerce/product/bulk-actions.php:104
-msgid "%s project is gemarkeerd als aanbevolen."
-msgid_plural "%s projecten zijn gemarkeerd als aanbevolen."
-msgstr[0] "%s project is marked as recommended."
-msgstr[1] "%s projects are marked as recommended."
-
-#: includes/woocommerce/product/bulk-actions.php:107
-msgid "%s project is verborgen."
-msgid_plural "%s projecten zijn verborgen."
-msgstr[0] "%s project is hidden."
-msgstr[1] "%s projects are hidden."
 
 #: includes/woocommerce/product/seo.php:39
 msgid "Groepsprojecten in %s"
@@ -4797,6 +4527,138 @@ msgid ""
 "internationale vrijwilligers?"
 msgstr ""
 
+#: includes/woocommerce/product/shortcode.php:106
+msgid "Er zijn helaas geen projecten gevonden die aan je zoekcriteria voelden."
+msgstr ""
+
+#: includes/woocommerce/order/admin/order-actions.php:34
+msgid "Exporteer naar PLATO"
+msgstr "Export to PLATO"
+
+#: includes/woocommerce/order/admin/order-actions.php:37
+msgid "Creëer kortingscode"
+msgstr "Create discount code"
+
+#: includes/woocommerce/product/admin/approval.php:44
+msgid "Beoordeling project"
+msgstr "Project assessment"
+
+#: includes/woocommerce/product/admin/approval.php:46
+msgid "Goedkeuren"
+msgstr "Approve"
+
+#: includes/woocommerce/product/admin/approval.php:47
+msgid "Afkeuren"
+msgstr "Reject"
+
+#: includes/woocommerce/product/admin/approval.php:61
+msgid "Goedgekeurd"
+msgstr "Approved"
+
+#: includes/woocommerce/product/admin/approval.php:65
+msgid "Afgekeurd"
+msgstr "Rejected"
+
+#: includes/woocommerce/product/admin/bulk-actions.php:36
+msgid "Opnieuw importeren"
+msgstr "Import again"
+
+#: includes/woocommerce/product/admin/bulk-actions.php:37
+msgid "Markeren als aanbevolen"
+msgstr "Mark as recommended"
+
+#: includes/woocommerce/product/admin/bulk-actions.php:101
+msgid "%s project wordt opnieuw geïmporteerd."
+msgid_plural "%s projecten worden opnieuw geïmporteerd."
+msgstr[0] "%s project will be imported again."
+msgstr[1] "%s projects will be imported again."
+
+#: includes/woocommerce/product/admin/bulk-actions.php:104
+msgid "%s project is gemarkeerd als aanbevolen."
+msgid_plural "%s projecten zijn gemarkeerd als aanbevolen."
+msgstr[0] "%s project is marked as recommended."
+msgstr[1] "%s projects are marked as recommended."
+
+#: includes/woocommerce/product/admin/bulk-actions.php:107
+msgid "%s project is verborgen."
+msgid_plural "%s projecten zijn verborgen."
+msgstr[0] "%s project is hidden."
+msgstr[1] "%s projects are hidden."
+
+#: includes/woocommerce/product/archive/header.php:67,
+#: includes/woocommerce/product/archive/header.php:61
+msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten in %s."
+msgstr "Below you can see the available Workcamps in %s."
+
+#: includes/woocommerce/product/archive/header.php:70
+msgid ""
+"Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden "
+"gericht op %s."
+msgstr "Below you can see the available Workcamps with work related to %s."
+
+#: includes/woocommerce/product/archive/header.php:73
+msgid ""
+"Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden "
+"gericht op het Sustainable Development Goal %s."
+msgstr ""
+"Below you can see the available Workcamps with work related to the "
+"Sustainable Development Goal %s."
+
+#: includes/woocommerce/product/archive/header.php:76
+msgid ""
+"Hieronder zie je het beschikbare aanbod Groepsprojecten voor de doelgroep %s."
+msgstr "Below you can see the available Workcamps for %s."
+
+#: includes/woocommerce/product/archive/header.php:79
+msgid ""
+"Hieronder zie je het beschikbare aanbod Groepsprojecten met de voertaal %s."
+msgstr "Below you can see the available Workcamps with the %s language."
+
+#: includes/woocommerce/product/archive/header.php:82
+msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s."
+msgstr "Below you can see the available Workcamps in the month %s."
+
+#: includes/woocommerce/product/archive/header.php:85
+msgid ""
+"Hieronder zie je het beschikbare aanbod Groepsprojecten met een duur van %s."
+msgstr "Below you can see the available Workcamps with a duration of  %s."
+
+#: includes/woocommerce/product/archive/header.php:88,
+#: includes/woocommerce/product/archive/header.php:57
+msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten."
+msgstr "Below you can see the available Workcamps."
+
+#: includes/woocommerce/product/archive/header.php:95
+msgid ""
+"Tijdens onze Groepsprojecten ga je samen met een internationale groep "
+"vrijwilligers voor 2 á 3 weken aan de slag."
+msgstr ""
+
+#: includes/woocommerce/product/archive/header.php:96
+msgid "De projecten hebben vaste begin- en einddata."
+msgstr ""
+
+#: includes/woocommerce/product/archive/header.php:97
+msgid ""
+"We vertellen je meer over de werkwijze van deze projecten op onze pagina <a "
+"href=\"%s\">Groepsprojecten</a>."
+msgstr ""
+
+#: includes/woocommerce/product/archive/header.php:128
+msgid ""
+"Vanaf %s wordt het aanbod aangevuld met honderden nieuwe "
+"vrijwilligersprojecten voor %s."
+msgstr ""
+
+#: includes/woocommerce/product/archive/header.php:129
+msgid "Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW?"
+msgstr ""
+
+#: includes/woocommerce/product/archive/header.php:130
+msgid "<a href=\"%s\">Bel of mail ons</a> en we denken graag met je mee!"
+msgstr ""
+"<a href=\"%s\">Call or email us</a> and we are happy to think along with you!"
+
 #: templates/woocommerce/emails/admin-new-order.php:34
 msgid "nog niet betaald"
 msgstr "not yet payed"
@@ -4809,15 +4671,13 @@ msgstr "including payment"
 msgid "Er is een nieuwe aanmelding (%s) binnengekomen:"
 msgstr "Received a new application (%s):"
 
-#: templates/woocommerce/emails/customer-on-hold-order.php:37,
-#: templates/woocommerce/emails/customer-processing-order.php:40
+#: templates/woocommerce/emails/customer-on-hold-order.php:37
 msgid ""
 "Heel erg bedankt voor je aanmelding voor een vrijwilligersproject via SIW!"
 msgstr ""
 "Thank you very much for your application to a volunteer project through SIW!"
 
 #: templates/woocommerce/emails/customer-on-hold-order.php:38,
-#: templates/woocommerce/emails/customer-processing-order.php:41,
 #: templates/woocommerce/emails/customer-processing-order.php:37
 msgid ""
 "We doen ons best om ervoor te zorgen dat dit voor jou een onvergetelijke "
@@ -4837,34 +4697,18 @@ msgid "Je kunt je betaling overmaken naar %s o.v.v. je aanmeldnummer (%s)."
 msgstr "You can make the payment to %s indicating the application number (%s)."
 
 #: templates/woocommerce/emails/customer-on-hold-order.php:42,
-#: templates/woocommerce/emails/customer-processing-order.php:58
+#: templates/woocommerce/emails/customer-processing-order.php:50
 msgid "Als je nog vragen hebt, aarzel dan niet om contact met ons op te nemen."
 msgstr "If you still have questions do not hesitate to get in contact with us."
 
 #: templates/woocommerce/emails/customer-on-hold-order.php:43,
-#: templates/woocommerce/emails/customer-processing-order.php:59
+#: templates/woocommerce/emails/customer-processing-order.php:51
 msgid "Met vriendelijke groet,"
 msgstr "With kind regards,"
 
-#: templates/woocommerce/emails/customer-processing-order.php:47
+#: templates/woocommerce/emails/customer-processing-order.php:40
 msgid "Heel erg bedankt voor je betaling."
 msgstr "Thank you very much for your payment."
-
-#: templates/woocommerce/emails/customer-processing-order.php:42
-msgid ""
-"In verband met het wereldwijde coronavirus is de doorgang van het door jou "
-"gekozen project onzeker."
-msgstr ""
-"Due the worldwide corona virus the continuation of the project you've chose "
-"is unsure."
-
-#: templates/woocommerce/emails/customer-processing-order.php:43
-msgid "Daarom brengen we nu nog geen inschrijfkosten in rekening."
-msgstr "Therefore we won't charge an inscription fee yet."
-
-#: templates/woocommerce/emails/customer-processing-order.php:44
-msgid "Je ontvangt van ons pas een factuur als je plaatsing definitief is."
-msgstr "You only receive an invoice from us when your placement is definitive."
 
 #: templates/woocommerce/emails/customer-processing-order.php:36
 msgid ""
@@ -4874,7 +4718,7 @@ msgstr ""
 "Thank you very much for your application and payment to a volunteer project "
 "through SIW!"
 
-#: templates/woocommerce/emails/customer-processing-order.php:49
+#: templates/woocommerce/emails/customer-processing-order.php:42
 msgid ""
 "We gaan je aanmelding doorzetten naar onze partnerorganisatie en nemen "
 "contact met je op zodra we bericht hebben ontvangen over je plaatsing."
@@ -4882,7 +4726,7 @@ msgstr ""
 "We will share your application with our partner organization. We will "
 "contact you as soon as we have received a message about your placement."
 
-#: templates/woocommerce/emails/customer-processing-order.php:50
+#: templates/woocommerce/emails/customer-processing-order.php:43
 msgid ""
 "Gemiddeld duurt het 5 werkdagen om een aanmelding voor een project binnen "
 "Europa te verwerken."
@@ -4890,7 +4734,7 @@ msgstr ""
 "It takes an average of 5 working days for an application to a project inside "
 "Europe to be processed."
 
-#: templates/woocommerce/emails/customer-processing-order.php:51
+#: templates/woocommerce/emails/customer-processing-order.php:44
 msgid ""
 "Voor een projectaanmelding buiten Europa duurt het ongeveer 2 weken voor je "
 "van ons hoort of je definitief geplaatst bent."
@@ -4898,7 +4742,7 @@ msgstr ""
 "For an application for a project outside Europe it takes approx. 2 week "
 "before we let je know if your application is confirmed."
 
-#: templates/woocommerce/emails/customer-processing-order.php:53
+#: templates/woocommerce/emails/customer-processing-order.php:45
 msgid ""
 "We willen je er nadrukkelijk op wijzen dat deze email nog geen bevestiging "
 "is van deelname, maar een bevestiging van ontvangst van je betaling."
@@ -4906,7 +4750,7 @@ msgstr ""
 "We want to emphasis that this email is no confirmation of participation, but "
 "a confirmation that we have received your payment."
 
-#: templates/woocommerce/emails/customer-processing-order.php:55
+#: templates/woocommerce/emails/customer-processing-order.php:47
 msgid ""
 "Boek nog geen tickets, totdat je van ons ook een bevestiging hebt ontvangen "
 "van je plaatsing."
@@ -4914,15 +4758,10 @@ msgstr ""
 "Do not book any tickets before you receive a confirmation from us about your "
 "placement."
 
-#: templates/woocommerce/emails/customer-processing-order.php:56
+#: templates/woocommerce/emails/customer-processing-order.php:48
 msgid ""
 "Het kan zijn dat in de tussentijd het maximale deelnemersaantal op het "
 "project is bereikt."
 msgstr ""
 "In the meantime, it may happen that the maximum number of participants is "
 "reached."
-
-#, fuzzy
-#~| msgid "Einddatum"
-#~ msgid "Eind datum"
-#~ msgstr "End date"

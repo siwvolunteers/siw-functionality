@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Core;
+namespace SIW;
 
 /**
  * Class om upload subdirectory te zetten op basis van content en bestandstype
- * 
+ *
  * @copyright   2019 SIW Internationale Vrijwilligersprojecten
  * @since       3.0.0
  */
@@ -40,7 +40,7 @@ class Upload_Subdir {
 
 		/**
 		 * Zet upload dir op basis van:
-		 * 
+		 *
 		 * - Extensie
 		 * - Post type
 		 */
@@ -56,7 +56,7 @@ class Upload_Subdir {
 		 */
 		$subdir = apply_filters( 'siw_upload_subdir', $subdir );
 
-		// Als er een 
+		// Als er een
 		if ( is_string( $subdir ) ) {
 			$subdir = '/'. $subdir;
 
@@ -66,7 +66,7 @@ class Upload_Subdir {
 			$path['path']   .= $subdir;
 			$path['url']    .= $subdir;
 		}
-		
+
 		return $path;
 	}
 

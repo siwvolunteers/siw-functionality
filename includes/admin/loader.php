@@ -6,7 +6,7 @@ use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
 
 /**
  * Loader voor admin classes
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Loader extends Class_Loader_Abstract {
@@ -20,11 +20,6 @@ class Loader extends Class_Loader_Abstract {
 			Properties_Page::class,
 			Shortcodes::class,
 		];
-	}
-
-	/** {@inheritDoc} */
-	public function get_id() : string {
-		return 'admin';
 	}
 
 	/** Laadt 1 klasse */

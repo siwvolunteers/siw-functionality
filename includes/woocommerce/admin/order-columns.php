@@ -19,6 +19,8 @@ class Order_Columns extends \MBAC\Post {
 		$columns = parent::columns( $columns );
 		$this->add( $columns, 'projects', __( 'Projecten', 'siw' ), 'after', 'order_total' );
 		$this->add( $columns, 'exported', __( 'Export naar PLATO', 'siw' ), 'after', 'projects' );
+		unset( $columns['billing_address'] );
+		unset( $columns['shipping_address'] );
 		return $columns;
 	}
 
@@ -38,7 +40,8 @@ class Order_Columns extends \MBAC\Post {
 				$order_items = $order->get_items();
 		 
 				foreach ( $order_items as $order_item ) {
-						echo '<a href="' . admin_url('post.php?post=' . $order_item->get_product_id() . '&action=edit' ) . '">'. $order_item->get_name() .'</a><br />';
+					//TODO: SKU gebruiken indien beschikbaar
+					echo '<a href="' . admin_url('post.php?post=' . $order_item->get_product_id() . '&action=edit' ) . '">'. $order_item->get_name() .'</a><br />';
 				}
 				break;
 

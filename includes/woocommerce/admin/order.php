@@ -6,7 +6,6 @@ namespace SIW\WooCommerce\Admin;
  * Aanpassing aan admin t.b.v. aanmeldingen
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  * 
  * @todo      splitsen in Order en Admin_Order + refactor enzo
  */
@@ -26,10 +25,7 @@ class Order {
 		add_filter( 'woocommerce_admin_billing_fields', [ $self, 'set_admin_billing_fields' ] );
 		add_action( 'woocommerce_process_shop_order_meta', [ $self, 'process_order_meta'], 10, 2 );
 
-		add_filter( 'manage_edit-shop_order_columns', [ $self, 'remove_admin_columns'] );
-		add_action( 'admin_init', [ $self, 'add_admin_columns'], 20 );
-
-		add_filter( 'woocommerce_order_actions', [ $self, 'remove_order_actions'] );
+		add_action( 'admin_init', [ $self, 'manage_admin_columns'], 20 );
 	}
 
 	/** Geeft secties met velden terug */
@@ -72,13 +68,6 @@ class Order {
 			],
 			'first_name'  => $fields['first_name'],
 			'last_name'   => $fields['last_name'],
-			'address_1'   => $fields['address_1'],
-			'housenumber' => [
-				'label'     => __( 'Huisnummer', 'siw' ),
-				'show'      => false,
-			],
-			'postcode'    => $fields['postcode'],
-			'city'        => $fields['city'],
 			'dob'         => [
 				'label'     => __( 'Geboortedatum', 'siw' ),
 				'show'      => false,
@@ -96,23 +85,17 @@ class Order {
 		return $billing_fields;
 	}
 
-	/**
-	 * Zet het gelokaliseerde adresformaat (van Nederland)
-	 *
-	 * @param array $address_formats
-	 * @return array
-	 */
-	public function set_localisation_address_format( array $address_formats ) : array {
-		$address_formats['NL'] = "{name}\n{address_1} {housenumber}\n{postcode} {city}\n{country}\n{dob}\n{gender}\n{nationality}";
+	/** Zet het gelokaliseerde adresformaat (van Nederland) */
+	public function set_localisation_address_format( array $address_formats ): array {
+		$address_formats['default'] = "{name}\n{dob}\n{gender}\n{nationality}";
 		return $address_formats;
 	}
 
 	/** Undocumented function */
-	public function set_formatted_address_replacements( array $replace, array $args ) : array {
+	public function set_formatted_address_replacements( array $replace, array $args ): array {
 		$replace['{gender}'] = $args['gender'] ?? '';
-		$replace['{housenumber}'] = $args['housenumber'] ?? '';
 		$replace['{nationality}'] = $args['nationality'] ?? '';
-		$replace['{dob}'] = $args['dob'] ?? '';
+		$replace['{dob}'] = $args['dob'] ? siw_format_date( $args['dob'] ): '';
 		return $replace;
 	}
 
@@ -202,7 +185,6 @@ class Order {
 		$address['dob'] = $order->get_meta('_billing_dob');
 		$address['gender'] = siw_get_genders()[ $order->get_meta('_billing_gender') ];
 		$address['nationality'] = siw_get_nationalities() [$order->get_meta('_billing_nationality') ];
-		$address['housenumber'] = $order->get_meta( '_billing_housenumber' );
 		return $address;
 	}
 
@@ -258,26 +240,12 @@ class Order {
 		$order->save();
 	}
 
-	/** Verwijdert overbodige admin columns */
-	public function remove_admin_columns( array $columns ) : array {
-		unset( $columns['shipping_address'] );
-		unset( $columns['billing_address'] );	
-		return $columns;
-	}
-
 	/** Voegt extra admin columns toe */
-	public function add_admin_columns() {
+	public function manage_admin_columns() {
 		if ( ! class_exists( '\MBAC\Post' ) ) {
 			return;
 		}
 		new Order_Columns( 'shop_order', [] );
-	}
-
-	/** Verwijdert overbodige order actions */
-	public function remove_order_actions( array $actions ) : array {
-		unset( $actions['regenerate_download_permissions']);
-		unset( $actions['send_order_details']);
-		return $actions;
 	}
 
 	/** Verwijdert overbodige meta-boxes */

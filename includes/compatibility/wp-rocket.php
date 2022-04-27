@@ -2,9 +2,11 @@
 
 namespace SIW\Compatibility;
 
+use SIW\Update;
+
 /**
  * Aanpassingen voor WP Rocket
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://wp-rocket.me/
  */
@@ -30,19 +32,17 @@ class WP_Rocket {
 		}
 		$self = new self();
 
-		add_action( 'siw_update_plugin', [ $self, 'purge_cache' ] );
+		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'purge_cache' ] );
 		add_filter( 'rocket_lazyload_youtube_thumbnail_resolution', fn() : string => self::YOUTUBE_THUMBNAIL_RESOLUTION );
 		define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true );
 		add_filter( 'nonce_life', fn() : int => self::NONCE_LIFESPAN );
 
 		//Acties t.b.v. cache rebuild
-		add_action( 'siw_update_plugin', [ $self, 'schedule_cache_rebuild' ] );
+		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'schedule_cache_rebuild' ] );
 		add_action( self::HOOK, [ $self, 'rebuild_cache' ] );
 	}
 
-	/**
-	 * Cache legen na update plugin
-	 */
+	/** Cache legen na update plugin */
 	public function purge_cache() {
 		rocket_clean_domain();
 		rocket_clean_minify();

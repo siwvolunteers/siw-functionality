@@ -6,29 +6,23 @@ use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
 
 /**
  * Loader voor WooCommerce
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Loader extends Class_Loader_Abstract {
 
 	/** {@inheritDoc} */
-	public function get_id() : string {
-		return 'woocommerce';
-	}
-
-	/** {@inheritDoc} */
 	public function get_classes() : array {
 		return [
-			Admin\Coupon::class,
 			Admin\Order::class,
 			Admin\Product_Tabs::class,
 			Admin\Product::class,
 			Admin\Stockphoto_Page::class,
 
+			Checkout\Address_Fields::class,
 			Checkout\Discount::class,
 			Checkout\Fields::class,
 			Checkout\Form::class,
-			Checkout\Postcode_Lookup::class,
 			Checkout\Newsletter::class,
 			Checkout\Validation::class,
 
@@ -37,16 +31,21 @@ class Loader extends Class_Loader_Abstract {
 			Email\Emails::class,
 			Email\New_Order::class,
 
-			Export\Order::class,
 			Frontend\Archive::class,
-			Frontend\Archive_Header::class,
 			Frontend\Product::class,
 			Frontend\Product_Tabs::class,
 
+			Order\Admin\Order_Actions::class,
+			Order\Status_Transitions::class,
+
+			Product\Admin\Approval::class,
+			Product\Admin\Bulk_Actions::class,
+			Product\Archive\Header::class,
 			Product\Archive\Ordering::class,
-			Product\Approval::class,
-			Product\Bulk_Actions::class,
+			Product\Product_Type::class,
+			Product\Query::class,
 			Product\SEO::class,
+			Product\Shortcode::class,
 
 			Log::class,
 			Translations::class,

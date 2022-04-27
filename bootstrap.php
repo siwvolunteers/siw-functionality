@@ -7,8 +7,8 @@ use SIW\Autoloader;
 
 /**
  * Class om alle functionaliteit van de plugin te laden
- * 
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ *
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Bootstrap {
 
@@ -35,14 +35,12 @@ class Bootstrap {
 		$this->load_functions();
 
 		//Laadt klasses
-		$this->load_core();
 		$this->init_class( 'SIW', 'Loader' );
 		$this->init_loader( 'Assets' );
 		$this->init_loader( 'Options' );
 		$this->init_loader( 'Forms' );
 		$this->init_loader( 'Widgets' );
-		$this->init_loader( 'API' );
-		$this->init_loader( 'Modules', 'init' );
+		$this->init_loader( 'Modules', 'init', 11 );
 		$this->init_loader( 'Compatibility' );
 		$this->load_actions();
 		$this->init_loader( 'Page_Builder');
@@ -52,8 +50,6 @@ class Bootstrap {
 		if ( is_admin() ) {
 			$this->init_loader( 'Admin' );
 		}
-
-		do_action( 'siw_plugin_loaded' );
 	}
 
 	/** Definieer constantes */
@@ -68,7 +64,7 @@ class Bootstrap {
 			]
 		);
 
-		define ( 'SIW_PLUGIN_VERSION', $plugin_info['version'] ); 
+		define ( 'SIW_PLUGIN_VERSION', $plugin_info['version'] );
 		define ( 'SIW_MIN_PHP_VERSION', $plugin_info['min_php_version'] );
 		define ( 'SIW_MIN_WP_VERSION', $plugin_info['min_wp_version'] );
 		define ( 'SIW_PLUGIN_DIR', wp_normalize_path( plugin_dir_path( SIW_FUNCTIONALITY_PLUGIN_FILE ) ) );
@@ -133,24 +129,8 @@ class Bootstrap {
 	}
 
 	/** Init loader */
-	protected function init_loader( string $namespace, string $hook = self::DEFAULT_HOOK ) {
-		$this->init_class( "SIW\\{$namespace}", 'Loader', $hook );
-	}
-
-	/** Laadt kernfunctionaliteit */
-	protected function load_core() {
-		$this->init_classes(
-			'SIW\Core',
-			[
-				'Head',
-				'Icons',
-				'Login',
-				'Media_Taxonomies',
-				'Shortcodes',
-				'Update',
-				'Upload_Subdir',
-			]
-		);
+	protected function init_loader( string $namespace, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
+		$this->init_class( "SIW\\{$namespace}", 'Loader', $hook, $priority );
 	}
 
 	/** Laadt batch jobs */

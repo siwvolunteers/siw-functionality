@@ -23,9 +23,6 @@ class WooCommerce {
 		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
 
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
-		add_filter( 'product_type_selector', [ $self, 'disable_product_types'] );
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_project_id_search' ], 10, 2 );
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_country_search' ], 10, 2 );
 		add_filter( 'woocommerce_product_visibility_options', [ $self, 'remove_product_visibility_options', ] );
 		add_filter( 'woocommerce_products_admin_list_table_filters', [ $self, 'remove_products_admin_list_table_filters'] );
 
@@ -41,21 +38,15 @@ class WooCommerce {
 		add_filter( 'woocommerce_enable_admin_help_tab', '__return_false' );
 		add_filter( 'woocommerce_allow_marketplace_suggestions', '__return_false' );
 		add_filter( 'woocommerce_show_addons_page', '__return_false' );
-		add_filter( 'woocommerce_admin_disabled', '__return_true' );
+		add_filter( 'woocommerce_admin_get_feature_config', [ $self, 'disable_admin_features' ] );
 
 		//Blocks style niet laden
 		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
 
 		add_action( 'wp', [ $self, 'remove_theme_support'], PHP_INT_MAX );
-		add_filter('woocommerce_single_product_image_thumbnail_html', [ $self, 'remove_link_on_thumbnails'] );
-
-		add_filter( 'woocommerce_layered_nav_count', '__return_empty_string' );
 		add_filter( 'rocket_cache_query_strings', [ $self, 'register_query_vars'] );
 
 		add_filter( 'get_term', [ $self, 'filter_term_name'], 10, 2 );
-
-		add_filter( 'siw_update_woocommerce_terms_taxonomies', [ $self, 'set_update_terms_taxonomies'] );
-		add_filter( 'siw_update_woocommerce_terms_delete_empty', [ $self, 'set_update_terms_delete_empty'], 10, 2 );
 
 		add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta'] );
 		add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type' ] );
@@ -77,39 +68,16 @@ class WooCommerce {
 		wp_deregister_style( 'wc-block-style' );
 	}
 
+	/** Schakel sommige admin features uit */
+	public function disable_admin_features( array $features ): array {
+		$features['onboarding'] = false;
+		$features['remote-free-extensions'] = false;
+		return $features;
+	}
+
 	/** Verwijdert dashboard widgets */
 	public function remove_dashboard_widgets() {
 		remove_meta_box( 'woocommerce_dashboard_status', 'dashboard', 'normal' );
-	}
-
-	/** Schakelt ongebruikte product types uit */
-	public function disable_product_types( array $product_types ): array {
-		unset( $product_types['simple'] );
-		unset( $product_types['grouped'] );
-		unset( $product_types['external'] );
-		return $product_types;
-	}
-
-	/** Voegt project_id als argument toe aan WC queries */
-	public function enable_project_id_search( array $query, array $query_vars ): array {
-		if ( ! empty( $query_vars['project_id'] ) ) {
-			$query['meta_query'][] = [
-				'key'   => 'project_id',
-				'value' => esc_attr( $query_vars['project_id'] ),
-			];
-		}
-		return $query;
-	}
-	
-	/** Voegt country argument toe aan WC queries */
-	public function enable_country_search( array $query, array $query_vars ): array {
-		if ( ! empty( $query_vars['country'] ) ) {
-			$query['meta_query'][] = [
-				'key'   => 'country',
-				'value' => esc_attr( $query_vars['country'] ),
-			];
-		}
-		return $query;
 	}
 
 	/** Verwijdert overbodige zichtbaarheidsopties */
@@ -126,7 +94,7 @@ class WooCommerce {
 		return $filters;
 	}
 
-	/** Registreert query vars voor WP Rocket */
+	/** Registreert query vars voor WP Rocket TODO: naar archive*/
 	public function register_query_vars( array $vars ): array {
 		$taxonomies = wc_get_attribute_taxonomies();
 		foreach ( $taxonomies as $taxonomy ) {
@@ -146,11 +114,6 @@ class WooCommerce {
 		remove_theme_support( 'wc-product-gallery-zoom' );
 		remove_theme_support( 'wc-product-gallery-lightbox' );
 		remove_theme_support( 'wc-product-gallery-slider' );
-	}
-
-	/** Verwijdert link bij productafbeelding */
-	public function remove_link_on_thumbnails( string $html ): string {
-		return strip_tags( $html, '<img>' ); //TODO: verplaatsen naar product
 	}
 
 	/** Zet naam van terms */
@@ -174,22 +137,6 @@ class WooCommerce {
 			);
 		}
 		return $term;
-	}
-
-	/** Zet taxonomies waarvan terms bijgewerkt moet worden */
-	public function set_update_terms_taxonomies( array $taxonomies ): array {
-		$taxonomies[] = Taxonomy_Attribute::CONTINENT()->value;
-		$taxonomies[] = Taxonomy_Attribute::MONTH()->value;
-		$taxonomies[] = Taxonomy_Attribute::COUNTRY()->value;
-		return $taxonomies;
-	}
-
-	/** Undocumented function */
-	public function set_update_terms_delete_empty( bool $delete_empty, string $taxonomy ): bool {
-		if ( Taxonomy_Attribute::MONTH()->value === $taxonomy ) {
-			$delete_empty = true;
-		}
-		return $delete_empty;
 	}
 
 	/** Zet call to action voor social share links */

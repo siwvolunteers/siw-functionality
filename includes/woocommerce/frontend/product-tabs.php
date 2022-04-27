@@ -3,9 +3,11 @@
 namespace SIW\WooCommerce\Frontend;
 
 use SIW\Elements\Accordion;
-use SIW\Elements\Features;
 use SIW\Elements\Form;
 use SIW\Elements\Google_Maps;
+use SIW\External\Exchange_Rates;
+use SIW\Properties;
+use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
  * Tabs voor Groepsprojecten
@@ -20,63 +22,56 @@ class Product_Tabs {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_description_tab'] );
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_project_location_map_tab'] );
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_contact_form_tab'] );
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_steps_tab'] );
+		add_filter( 'woocommerce_product_tabs', [ $self, 'add_and_rename_and_remove_product_tabs'] );
+		add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
 	}
 
 	/** Voegt tab met projectbeschrijving toe */
-	public function add_project_description_tab( array $tabs ) : array {
-		global $product;
-		$description = $product->get_meta( 'description' );
-		if ( empty( $description ) ) {
+	public function add_and_rename_and_remove_product_tabs( array $tabs ) : array {
+		global $post;
+		$product = siw_get_product( $post );
+		if ( null === $product ) {
 			return $tabs;
 		}
+
+		$tabs['additional_information']['title'] = __( 'Eigenschappen', 'siw' );
+
 		unset( $tabs['description']);
-		$tabs['project_description'] = [
-			'title'       => __( 'Beschrijving', 'siw' ),
-			'priority'    => 1,
-			'callback'    => [ $this, 'show_project_description' ],
-			'description' => $description,
-		];
-		return $tabs;
-	}
+
+		$project_description = $product->get_project_description();
+		if ( ! empty( $project_description ) ) {
+			$tabs['project_description'] = [
+				'title'       => __( 'Beschrijving', 'siw' ),
+				'priority'    => 1,
+				'callback'    => [ $this, 'show_project_description' ],
+				'description' => $project_description,
+			];
+		}
+
+		$latitude = $product->get_latitude();
+		$longitude = $product->get_longitude();
 	
-	/** Voegt tab met projectlocatie toe */
-	public function add_project_location_map_tab( array $tabs ) : array {
-		global $product;
-		$lat = (float) $product->get_meta( 'latitude' );
-		$lng = (float) $product->get_meta( 'longitude' );
-	
-		if ( 0 != $lat && 0 != $lng ) {
+		if ( null !== $latitude && null !== $longitude ) {
 			$tabs['location'] = [
 				'title'     => __( 'Projectlocatie', 'siw' ),
 				'priority'  => 110,
 				'callback'  => [ $this, 'show_project_map'],
-				'lat'       => $lat,
-				'lng'       => $lng,
+				'latitude'  => $latitude,
+				'longitude' => $longitude,
 			];
 		}
-		return $tabs;
-	}
 
-	/** Voegt tab met contactformulier toe */
-	public function add_contact_form_tab( array $tabs ) : array {
 		$tabs['enquiry'] = [
 			'title'    => __( 'Stel een vraag', 'siw' ),
 			'priority' => 120,
 			'callback' => [ $this, 'show_product_contact_form' ],
 		];
-		return $tabs;
-	}
 
-	/** Voegt tab met stappenplan toe */
-	public function add_steps_tab( array $tabs ) : array {
-		$tabs['steps'] = [
-			'title'    => __( 'Zo werkt het', 'siw' ),
+		$tabs['costs'] = [
+			'title'    => __( 'Kosten', 'siw' ),
 			'priority' => 130,
-			'callback' => [ $this, 'show_product_steps' ],
+			'callback' => [ $this, 'show_product_costs' ],
+			'product'  => $product,
 		];
 		return $tabs;
 	}
@@ -111,7 +106,7 @@ class Product_Tabs {
 	/** Toont kaart met projectlocatie in tab */
 	public function show_project_map( string $tab, array $args ) {
 		Google_Maps::create()
-			->add_marker( $args['lat'], $args['lng'], __( 'Projectlocatie', 'siw' ) )
+			->add_marker( $args['latitude'], $args['longitude'], __( 'Projectlocatie', 'siw' ) )
 			->render();
 	}
 
@@ -120,27 +115,40 @@ class Product_Tabs {
 		Form::create()->set_form_id( self::CONTACT_FORM_ID )->render();
 	}
 
-	/** Toont stappenplan in tab TODO: stappen uit instelling */
-	public function show_product_steps() {
-		Features::create()
-			->set_columns( 3 ) //TODO: stappen tellen
-			->add_items( [
-				[
-					'icon'    => 'siw-icon-file-signature',
-					'title'   => '1. Aanmelding',
-					'content' => 'Heb je interesse in dit groepsproject? Meld je dan direct aan via de knop "Aanmelden".',
-				],
-				[
-					'icon'    => 'siw-icon-clipboard-check',
-					'title'   => '2. Bevesting',
-					'content' => 'Binnen twee weken na betaling krijg je een bevestiging van plaatsing op het project.',
-				],
-				[
-					'icon'    => 'siw-icon-tasks',
-					'title'   => '3. Voorbereiding',
-					'content' => 'Kom naar de voorbereidingsdag, zodat je goed voorbereid aan je avontuur kan beginnen.',
-				],
-			])->render();
-	}
+	/** Toont overzicht van kosten voor het project */
+	public function show_product_costs( string $tab, array $args ) {
 
+		/**@var WC_Product_Project */
+		$product = $args['product'];
+		
+		printf(
+			__( 'Het inschrijfgeld voor dit project bedraagt %s, exclusief %s studentenkorting.' ),
+			siw_format_amount( (float) $product->get_price() ),
+			siw_format_amount( Properties::STUDENT_DISCOUNT_AMOUNT )
+		);
+
+		//Local fee niet tonen voor nederlandse projecten
+		if ( $product->has_participation_fee() && ! $product->is_dutch_project() ) {
+
+			$currency_code = $product->get_participation_fee_currency();
+
+			if ( get_woocommerce_currency() !== $currency_code ) {
+				$exchange_rates = new Exchange_Rates();
+				$amount_in_euro = $exchange_rates->convert_to_euro( $currency_code, $product->get_participation_fee(), 0 );
+			}
+			echo BR;
+			printf(
+				__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s.' ),
+				siw_format_amount( $product->get_participation_fee(), 0, $currency_code )
+			);
+			if ( isset( $amount_in_euro ) ) {
+				echo SPACE;
+				printf(
+					esc_html__( '(Ca. %s)', 'siw' ),
+					siw_format_amount( (float) $amount_in_euro, 0 )
+				);
+			}
+		}
+
+	}
 }
