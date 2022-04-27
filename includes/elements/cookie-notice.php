@@ -3,10 +3,11 @@
 namespace SIW\Elements;
 
 use SIW\Assets\JS_Cookie;
+use SIW\Util\Links;
 
 /**
  * Class om een cookie notice
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  * @todo omschrijving naar generieke notice class
  */
@@ -16,7 +17,9 @@ class Cookie_Notice extends Element {
 	const ASSETS_HANDLE = 'siw-cookie-notice';
 
 	/** Cookienaam */
-	const COOKIE_NAME = 'siw_cookie';
+	const COOKIE_NAME = 'siw_cookie_choices';
+
+	const EVENT_NAME = 'siw_cookie_choices';
 
 	/** Levensduur van cookie in dagen */
 	const COOKIE_LIFESPAN = 365;
@@ -30,10 +33,13 @@ class Cookie_Notice extends Element {
 	protected function get_template_variables(): array {
 		return [
 			'i18n'      => [
-				'cookie_text' => __( 'We gebruiken cookies om ervoor te zorgen dat onze website optimaal werkt en om het gebruik van onze website te analyseren. Door gebruik te blijven maken van onze website, ga je hiermee akkoord.', 'siw' ),
-				'i_agree'     => __( 'Ik ga akkoord', 'siw' ),
-				'analytical'  => __( 'Analytisch', 'siw' ),
-				'marketing'   => __( 'Marketing', 'siw' ),
+				'cookie_text' =>
+					__( 'Wij gebruiken cookies om je gebruikservaring te optimaliseren, het webverkeer te analyseren en voor persoonlijke advertentiedoeleinden.', 'siw' ) . SPACE .
+					sprintf( __( 'Lees meer over hoe wij cookies gebruiken en hoe je ze kunt beheren in onze %s.', 'siw' ), Links::generate_link( get_privacy_policy_url(), __( 'privacyverklaring', 'siw' ) ) ),
+				'accept_selection' => __( 'Selectie toestaan', 'siw' ),
+				'accept_all'       => __( 'Alle cookies toestaan', 'siw' ),
+				'analytical'       => __( 'Analytisch', 'siw' ),
+				'marketing'        => __( 'Marketing', 'siw' ),
 			],
 		];
 	}
@@ -50,6 +56,7 @@ class Cookie_Notice extends Element {
 					'expires' => self::COOKIE_LIFESPAN,
 				],
 				'notice_id'   => $this->get_element_id(),
+				'event_name'  => self::EVENT_NAME,
 			]
 		);
 		wp_enqueue_script( self::ASSETS_HANDLE );

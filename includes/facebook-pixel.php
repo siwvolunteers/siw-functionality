@@ -7,7 +7,7 @@ use SIW\Elements\Cookie_Notice;
 
 /**
  * Configuratie van Facebook pixel
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Facebook_Pixel {
@@ -35,6 +35,7 @@ class Facebook_Pixel {
 			[
 				'pixel_id'    => esc_js( $pixel_id ) ,
 				'cookie_name' => Cookie_Notice::COOKIE_NAME,
+				'event_name'  => Cookie_Notice::EVENT_NAME,
 			]
 		);
 		wp_enqueue_script( self::SCRIPT_HANDLE );

@@ -9,7 +9,6 @@ var siwFacebookPixel = (function () {
 	/* Public methodes */
 	return {
 		init: init,
-		maybeGrantConsent: maybeGrantConsent,
 	};
 
 	/** Init */
@@ -24,15 +23,18 @@ var siwFacebookPixel = (function () {
 		s.parentNode.insertBefore(t,s)}(window, document,'script',
 		'https://connect.facebook.net/nl_NL/fbevents.js');
 		if ( ! _isConsentGiven() ) {
-			fbq('consent', 'revoke');
+			fbq( 'consent', 'revoke' );
 		}
 		fbq( 'set', 'autoConfig', 'false', siw_facebook_pixel.pixel_id )
 		fbq( 'init', siw_facebook_pixel.pixel_id) ;
 		fbq( 'track', 'PageView' );
+
+		// Event listener voor update van cookie choices
+		document.body.addEventListener( siw_facebook_pixel.event_name, _maybeGrantConsent );
 	}
 
 	/** Eventueel consent zetten */
-	function maybeGrantConsent() {
+	function _maybeGrantConsent() {
 		if ( _isConsentGiven() ) {
 			fbq( 'consent', 'grant' );
 		}

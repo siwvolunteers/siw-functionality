@@ -20,3 +20,6 @@
   color: var(--siw-contrast-light);
   background-color: var(--siw-base);
 }
+.siw-cookie-notice a {
+  color: var(--siw-base);
+}

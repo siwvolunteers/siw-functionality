@@ -22,8 +22,10 @@ var siwCookieNotice = (function () {
 		} else {
 			document.addEventListener( 'DOMContentLoaded', _show );
 		}
-		//Verbergen na klikken op knop
-		document.querySelector( '#' + siw_cookie_notice.notice_id + ' button[name="submit"]' ).addEventListener( 'click', _handleClick );
+
+		// Voeg event listeners voor knoppen toe
+		document.querySelector( '#' + siw_cookie_notice.notice_id + ' button[name="accept_selection"]' ).addEventListener( 'click', _handleAcceptSelection );
+		document.querySelector( '#' + siw_cookie_notice.notice_id + ' button[name="accept_all"]' ).addEventListener( 'click', _handleAcceptAll );
 	}
 
 	/**
@@ -35,23 +37,39 @@ var siwCookieNotice = (function () {
 		}
 	};
 
+	/** Handelt klik op 'Accepteer selectie' af */
+	 function _handleAcceptSelection( element ) {
+		_handleAccept(element, false);
+	}
+
+	/** Handelt klik op 'Accepteer alles' af */
+	function _handleAcceptAll( element ) {
+		_handleAccept(element, true);
+	}
+
 	/**
-	 * Verberg cookie notice en zet cookie
+	 * Zet cookie, verberg notice en update Facebook pixel consent
+	 *
+	 * @param {Element} element
+	 * @param {boolean} accept_all
 	 */
-	function _handleClick ( element ) {
+	function _handleAccept( element, accept_all ) {
 		element.preventDefault();
 		formData = new FormData(document.querySelector( '#' + siw_cookie_notice.notice_id + ' form' ) );
 
 		const data = {};
-		formData.forEach((value, key) => (data[key] = value));
+
+		if ( accept_all ) {
+			data['analytical'] = '1';
+			data['marketing'] = '1';
+		} else {
+			formData.forEach((value, key) => (data[key] = value));
+		}
 		Cookies.set( siw_cookie_notice.cookie.name, JSON.stringify(data), { expires: Number( siw_cookie_notice.cookie.expires ), secure: true } );
 		document.querySelector( '#' + siw_cookie_notice.notice_id ).setAttribute( 'hidden', 'hidden' );
 
-
-		if ( 'undefined' !== typeof( siwFacebookPixel ) && 'function' == typeof( siwFacebookPixel.maybeGrantConsent ) ) {
-			siwFacebookPixel.maybeGrantConsent();
-		}
-	};
+		document.body.dispatchEvent( new Event( siw_cookie_notice.event_name ) );
+	}
 
 })();
 
