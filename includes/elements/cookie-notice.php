@@ -35,7 +35,7 @@ class Cookie_Notice extends Element {
 			'i18n'      => [
 				'cookie_text' =>
 					__( 'Wij gebruiken cookies om je gebruikservaring te optimaliseren, het webverkeer te analyseren en voor persoonlijke advertentiedoeleinden.', 'siw' ) . SPACE .
-					sprintf( __( 'Lees meer over hoe wij cookies gebruiken en hoe je ze kunt beheren in onze %s.', 'siw' ), Links::generate_link( get_privacy_policy_url(), __( 'privacyverklaring', 'siw' ) ) ),
+					sprintf( __( 'Lees meer over hoe wij cookies gebruiken en hoe je ze kunt beheren in ons %s.', 'siw' ), Links::generate_link( get_privacy_policy_url(), __( 'privacybeleid', 'siw' ) ) ),
 				'accept_selection' => __( 'Selectie toestaan', 'siw' ),
 				'accept_all'       => __( 'Alle cookies toestaan', 'siw' ),
 				'analytical'       => __( 'Analytisch', 'siw' ),
