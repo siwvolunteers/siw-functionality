@@ -34,14 +34,14 @@ class Header {
 				]
 			)
 		);
-	
+
 		?>
 		<div class="grid-container">
 			<div class="siw-archive-intro">
 				<?php echo wp_kses_post( $text ); ?>
 			</div>
 		</div>
-		
+
 		<?php
 	}
 
@@ -81,14 +81,11 @@ class Header {
 				case Taxonomy_Attribute::MONTH()->value:
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
-				case Taxonomy_Attribute::DURATION()->value:
-					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met een duur van %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' ); 
-					break;
 				default:
 					$text = __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten.', 'siw' );
 			}
 		}
-		
+
 		$workcamps_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
 
 		$text .= SPACE .
@@ -128,7 +125,7 @@ class Header {
 		$teaser_text = sprintf( __( 'Vanaf %s wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor %s.', 'siw' ), $end_month, $end_year ). SPACE .
 			__( 'Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW?', 'siw' ) . SPACE .
 			sprintf( __( '<a href="%s">Bel of mail ons</a> en we denken graag met je mee!', 'siw' ), esc_url( $contact_page_link ) );
-		
+
 		return $teaser_text;
 	}
 
