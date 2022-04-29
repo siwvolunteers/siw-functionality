@@ -4,16 +4,20 @@ namespace SIW\Util;
 
 /**
  * Logger (wrapper om WC_Logger)
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Logger {
-	
+
 	/** Schrijf naar log */
 	public static function log( string $message, string $level, string $source = 'siw' ) {
 		if ( ! \WC_Log_Levels::is_valid_level( $level ) ) {
 			$level = \WC_Log_Levels::INFO;
 		}
+		if ( ! function_exists( '\wc_get_logger' ) ) {
+			return;
+		}
+
 		$logger = \wc_get_logger();
 		$logger->log( $level, $message, [ 'source'=> $source ] );
 	}
