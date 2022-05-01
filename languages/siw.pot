@@ -18,8 +18,9 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: bootstrap.php:105
-msgid "De SIW plugin vereist WordPress versie %s en PHP versie %s"
+#. translators: %1$s is WordPress versienummer %2$s is PHP versienummer
+#: bootstrap.php:109
+msgid "De SIW plugin vereist WordPress versie %1$s en PHP versie %2$s"
 msgstr ""
 
 #: data/continents.php:16
@@ -922,7 +923,7 @@ msgstr ""
 msgid "Taalcursus"
 msgstr ""
 
-#: data/work-types.php:163, includes/woocommerce/taxonomy-attribute.php:43
+#: data/work-types.php:163, includes/woocommerce/taxonomy-attribute.php:41
 msgid "Taal"
 msgstr ""
 
@@ -1426,15 +1427,15 @@ msgstr ""
 msgid "Media taxonomieën"
 msgstr ""
 
-#: includes/media-taxonomies.php:80, includes/compatibility/woocommerce.php:157, includes/woocommerce/taxonomy-attribute.php:40, includes/woocommerce/translations.php:83, includes/widgets/quote/quote.php:61, includes/woocommerce/admin/stockphoto-page.php:77
+#: includes/media-taxonomies.php:80, includes/compatibility/woocommerce.php:157, includes/woocommerce/taxonomy-attribute.php:38, includes/woocommerce/translations.php:83, includes/widgets/quote/quote.php:61, includes/woocommerce/admin/stockphoto-page.php:77
 msgid "Continent"
 msgstr ""
 
-#: includes/media-taxonomies.php:85, includes/woocommerce/taxonomy-attribute.php:41, includes/content/types/story.php:55, includes/content/types/tm-country.php:63, includes/woocommerce/admin/product-columns.php:24, includes/woocommerce/admin/stockphoto-page.php:84, includes/woocommerce/frontend/product.php:80
+#: includes/media-taxonomies.php:85, includes/woocommerce/taxonomy-attribute.php:39, includes/content/types/story.php:55, includes/content/types/tm-country.php:63, includes/woocommerce/admin/product-columns.php:24, includes/woocommerce/admin/stockphoto-page.php:84, includes/woocommerce/frontend/product.php:80
 msgid "Land"
 msgstr ""
 
-#: includes/media-taxonomies.php:90, includes/woocommerce/taxonomy-attribute.php:42, includes/content/types/tm-country.php:71, includes/woocommerce/admin/stockphoto-page.php:93, includes/woocommerce/frontend/product.php:81
+#: includes/media-taxonomies.php:90, includes/woocommerce/taxonomy-attribute.php:40, includes/content/types/tm-country.php:71, includes/woocommerce/admin/stockphoto-page.php:93, includes/woocommerce/frontend/product.php:81
 msgid "Soort werk"
 msgstr ""
 
@@ -2402,20 +2403,16 @@ msgstr ""
 msgid "Tieners"
 msgstr ""
 
-#: includes/woocommerce/taxonomy-attribute.php:44
+#: includes/woocommerce/taxonomy-attribute.php:42
 msgid "Doelgroep"
 msgstr ""
 
-#: includes/woocommerce/taxonomy-attribute.php:45
+#: includes/woocommerce/taxonomy-attribute.php:43
 msgid "Sustainable Development Goal"
 msgstr ""
 
-#: includes/woocommerce/taxonomy-attribute.php:46
+#: includes/woocommerce/taxonomy-attribute.php:44
 msgid "Maand"
-msgstr ""
-
-#: includes/woocommerce/taxonomy-attribute.php:47, includes/woocommerce/frontend/product.php:82
-msgid "Projectduur"
 msgstr ""
 
 #: includes/woocommerce/translations.php:26, includes/woocommerce/translations.php:27, includes/content/types/event.php:154
@@ -4066,6 +4063,10 @@ msgstr ""
 msgid "(Ca. %s)"
 msgstr ""
 
+#: includes/woocommerce/frontend/product.php:82
+msgid "Projectduur"
+msgstr ""
+
 #: includes/woocommerce/frontend/product.php:83
 msgid "Sustainable Development Goals"
 msgstr ""
@@ -4212,35 +4213,31 @@ msgstr ""
 msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s."
 msgstr ""
 
-#: includes/woocommerce/product/archive/header.php:85
-msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten met een duur van %s."
-msgstr ""
-
-#: includes/woocommerce/product/archive/header.php:88, includes/woocommerce/product/archive/header.php:57
+#: includes/woocommerce/product/archive/header.php:85, includes/woocommerce/product/archive/header.php:57
 msgid "Hieronder zie je het beschikbare aanbod Groepsprojecten."
 msgstr ""
 
-#: includes/woocommerce/product/archive/header.php:95
+#: includes/woocommerce/product/archive/header.php:92
 msgid "Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag."
 msgstr ""
 
-#: includes/woocommerce/product/archive/header.php:96
+#: includes/woocommerce/product/archive/header.php:93
 msgid "De projecten hebben vaste begin- en einddata."
 msgstr ""
 
-#: includes/woocommerce/product/archive/header.php:97
+#: includes/woocommerce/product/archive/header.php:94
 msgid "We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href=\"%s\">Groepsprojecten</a>."
 msgstr ""
 
-#: includes/woocommerce/product/archive/header.php:128
+#: includes/woocommerce/product/archive/header.php:125
 msgid "Vanaf %s wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor %s."
 msgstr ""
 
-#: includes/woocommerce/product/archive/header.php:129
+#: includes/woocommerce/product/archive/header.php:126
 msgid "Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW?"
 msgstr ""
 
-#: includes/woocommerce/product/archive/header.php:130
+#: includes/woocommerce/product/archive/header.php:127
 msgid "<a href=\"%s\">Bel of mail ons</a> en we denken graag met je mee!"
 msgstr ""
 
