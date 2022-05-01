@@ -82,7 +82,7 @@ class Bootstrap {
 		define ( 'HR', '<hr>');
 
 		//De log handler moet zo vroeg mogelijk overschreven worden
-		define( 'WC_LOG_HANDLER', \WC_Log_Handler_DB::class );
+		define( 'WC_LOG_HANDLER', \WC_Log_Handler_DB::class ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 	}
 
 	/** Controleert requirements */
