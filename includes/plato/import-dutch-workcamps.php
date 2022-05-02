@@ -4,7 +4,7 @@ namespace SIW\Plato;
 
 /**
  * Importeer Nederlandse Groepsprojecten uit Plato
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Import_Dutch_Workcamps extends Import_Workcamps {

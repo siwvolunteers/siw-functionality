@@ -4,7 +4,7 @@ namespace SIW\Plato;
 
 /**
  * Abstracte klasse voor interface met Plato (import en export)
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 abstract class Plato_Interface {
@@ -47,7 +47,7 @@ abstract class Plato_Interface {
 	protected function set_endpoint_url() {
 		$this->endpoint_url = self::API_URL . $this->endpoint;
 	}
-	
+
 	/** Voegt query argument toe aan endpoint URL */
 	protected function add_query_arg( string $key, string $value ) {
 		$this->endpoint_url = add_query_arg( $key, $value, $this->endpoint_url );

@@ -7,9 +7,8 @@ use SIW\Util;
 
 /**
  * Export naar Plato
- * 
+ *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
 abstract class Export extends Plato_Interface {
 
@@ -19,14 +18,9 @@ abstract class Export extends Plato_Interface {
 	/** XML-data */
 	protected string $xml_data;
 
-	/** Constructor */
-	public function __construct() {
-		parent::__construct();
-	}
-
 	/** Voer de Plato-export uit */
 	public function run( $data ) : array {
-		
+
 		if ( ! Util::is_production() ) {
 			return [
 				'success'     => false,
@@ -61,10 +55,12 @@ abstract class Export extends Plato_Interface {
 		$response = HTTP_Request::create( $this->endpoint_url )
 			->set_accept( HTTP_Request::APPLICATION_XML )
 			->set_content_type( HTTP_Request::APPLICATION_X_WWW_FORM_URLENCODED )
-			->post([
-				'organizationWebserviceKey' => $this->webkey,
-				'xmlData'                   => $this->xml_data
-			]);
+			->post(
+				[
+					'organizationWebserviceKey' => $this->webkey,
+					'xmlData'                   => $this->xml_data,
+				]
+			);
 
 		if ( \is_wp_error( $response ) ) {
 			return false;
