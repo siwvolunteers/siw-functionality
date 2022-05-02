@@ -8,7 +8,7 @@ use SIW\Elements\Carousel as Element_Carousel;
  * Widget met carousel
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @widget_data
  * Widget Name: SIW: Carousel
  * Description: Toont carousel.
@@ -22,7 +22,7 @@ class Carousel extends Widget {
 
 	/** Default aantal items */
 	const DEFAULT_NUMBER_OF_ITEMS = 6;
-	
+
 	/** {@inheritDoc} */
 	protected function get_id(): string {
 		return 'carousel';
@@ -51,24 +51,24 @@ class Carousel extends Widget {
 	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
-			'title' => [
+			'title'     => [
 				'type'  => 'text',
 				'label' => __( 'Titel', 'siw' ),
 			],
-			'intro' => [
+			'intro'     => [
 				'type'           => 'tinymce',
 				'label'          => __( 'Intro', 'siw' ),
 				'rows'           => 4,
 				'default_editor' => 'html',
 			],
-			'items' => [
+			'items'     => [
 				'type'    => 'slider',
 				'label'   => __( 'Aantal posts in carousel', 'siw' ),
 				'default' => self::DEFAULT_NUMBER_OF_ITEMS,
 				'min'     => 2,
 				'max'     => 10,
 			],
-			'columns' => [
+			'columns'   => [
 				'type'    => 'slider',
 				'label'   => __( 'Aantal kolommen', 'siw' ),
 				'default' => self::DEFAULT_NUMBER_OF_COLUMNS,
@@ -82,7 +82,7 @@ class Carousel extends Widget {
 				'options'       => $this->get_post_types(),
 				'state_emitter' => [
 					'callback' => 'select',
-					'args'     => ['post_type'],
+					'args'     => [ 'post_type' ],
 				],
 			],
 		];
@@ -94,18 +94,18 @@ class Carousel extends Widget {
 				$taxonomy_options[ $taxonomy ] = $label;
 			}
 
-			$widget_form["{$post_type}_taxonomy"] = [
+			$widget_form[ "{$post_type}_taxonomy" ] = [
 				'type'          => 'select',
 				'label'         => __( 'Taxonomy', 'siw' ),
 				'default'       => '',
 				'options'       => $taxonomy_options,
 				'state_handler' => [
-					"post_type[{$post_type}]" => ['show'],
-					'_else[post_type]'        => ['hide'],
+					"post_type[{$post_type}]" => [ 'show' ],
+					'_else[post_type]'        => [ 'hide' ],
 				],
 				'state_emitter' => [
 					'callback' => 'select',
-					'args'     => ["{$post_type}_taxonomy"],
+					'args'     => [ "{$post_type}_taxonomy" ],
 				],
 			];
 			foreach ( $taxonomies as $taxonomy => $label ) {
@@ -115,10 +115,10 @@ class Carousel extends Widget {
 					'default'       => '',
 					'options'       => $this->get_term_options( $taxonomy ),
 					'state_handler' => [
-						"{$post_type}_taxonomy[{$taxonomy}]" => ['show'],
-						"_else[{$post_type}_taxonomy]" => ['hide'],
-						"post_type[{$post_type}]" => ['show'],
-						'_else[post_type]'        => ['hide'],
+						"{$post_type}_taxonomy[{$taxonomy}]" => [ 'show' ],
+						"_else[{$post_type}_taxonomy]" => [ 'hide' ],
+						"post_type[{$post_type}]"      => [ 'show' ],
+						'_else[post_type]'             => [ 'hide' ],
 					],
 				];
 			}
@@ -129,8 +129,8 @@ class Carousel extends Widget {
 			'description'   => __( 'Toon alleen aanbevolen projecten', 'siw' ),
 			'default'       => false,
 			'state_handler' => [
-				"post_type[product]" => ['show'],
-				'_else[post_type]'   => ['hide'],
+				'post_type[product]' => [ 'show' ],
+				'_else[post_type]'   => [ 'hide' ],
 			],
 		];
 		$widget_form['show_button'] = [
@@ -138,10 +138,10 @@ class Carousel extends Widget {
 			'label'         => __( 'Toon een knop', 'siw' ),
 			'default'       => false,
 			'state_emitter' => [
-				'callback'    => 'conditional',
-				'args'        => [
+				'callback' => 'conditional',
+				'args'     => [
 					'button[show]: val',
-					'button[hide]: ! val'
+					'button[hide]: ! val',
 				],
 			],
 		];
@@ -153,12 +153,12 @@ class Carousel extends Widget {
 				'button[hide]' => [ 'hide' ],
 			],
 		];
-	
+
 		return $widget_form;
 	}
 
 	/** {@inheritDoc} */
-	function get_template_variables( $instance, $args ) {
+	public function get_template_variables( $instance, $args ) {
 
 		$instance = $this->parse_instance( $instance );
 
@@ -167,30 +167,36 @@ class Carousel extends Widget {
 			->set_items( intval( $instance['items'] ) )
 			->set_columns( intval( $instance['columns'] ) );
 		if ( ! empty( $instance['taxonomy'] ) && ! empty( $instance['term'] ) ) {
-			$carousel->add_tax_query([
-				'taxonomy' => $instance['taxonomy'],
-				'terms'    => [$instance['term']],
-				'field'    => 'slug',
-			]);
+			$carousel->add_tax_query(
+				[
+					'taxonomy' => $instance['taxonomy'],
+					'terms'    => [ $instance['term'] ],
+					'field'    => 'slug',
+				]
+			);
 		}
 
-		//Aparte logica voor producten
-		if ( 'product' == $instance['post_type'] ) {
-			$carousel->add_tax_query( [
-				'taxonomy' => 'product_visibility',
-				'terms'    => [ 'exclude-from-search', 'exclude-from-catalog'],
-				'field'    => 'slug',
-				'operator' => 'NOT IN'
-			]);
-			if ( isset( $instance['show_featured_products'] ) && $instance['show_featured_products'] ) {
-				$carousel->add_tax_query( [
+		// Aparte logica voor producten
+		if ( 'product' === $instance['post_type'] ) {
+			$carousel->add_tax_query(
+				[
 					'taxonomy' => 'product_visibility',
-					'terms'    => [ 'featured'],
+					'terms'    => [ 'exclude-from-search', 'exclude-from-catalog' ],
 					'field'    => 'slug',
-				]);
+					'operator' => 'NOT IN',
+				]
+			);
+			if ( isset( $instance['show_featured_products'] ) && $instance['show_featured_products'] ) {
+				$carousel->add_tax_query(
+					[
+						'taxonomy' => 'product_visibility',
+						'terms'    => [ 'featured' ],
+						'field'    => 'slug',
+					]
+				);
 			}
 		}
-		
+
 		return [
 			'intro'       => $instance['intro'] ?? null,
 			'carousel'    => $carousel->generate(),
@@ -206,7 +212,7 @@ class Carousel extends Widget {
 	protected function parse_instance( array $instance ) : array {
 		$instance = wp_parse_args(
 			$instance,
-			[ 
+			[
 				'post_type'   => '',
 				'intro'       => '',
 				'columns'     => self::DEFAULT_NUMBER_OF_COLUMNS,
@@ -215,7 +221,7 @@ class Carousel extends Widget {
 				'button_text' => '',
 			]
 		);
-		$instance['taxonomy'] = $instance["{$instance['post_type']}_taxonomy"] ?? '';
+		$instance['taxonomy'] = $instance[ "{$instance['post_type']}_taxonomy" ] ?? '';
 		$instance['term'] = $instance[ $instance['taxonomy'] ] ?? '';
 		return $instance;
 	}

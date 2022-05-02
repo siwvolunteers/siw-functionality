@@ -8,7 +8,7 @@ use SIW\Elements\Tablist;
  * Widget met contactinformatie
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @widget_data
  * Widget Name: SIW: Tabs
  * Description: Toont tabs.
@@ -51,19 +51,19 @@ class Tabs extends Widget {
 			],
 			'panes' => [
 				'type'       => 'repeater',
-				'label'      => __( 'Tab' , 'siw' ),
+				'label'      => __( 'Tab', 'siw' ),
 				'item_name'  => __( 'Paneel', 'siw' ),
 				'item_label' => [
 					'selector'     => "[id*='title']",
 					'update_event' => 'change',
-					'value_method' => 'val'
+					'value_method' => 'val',
 				],
-				'fields' => [
-					'title' => [
+				'fields'     => [
+					'title'       => [
 						'type'  => 'text',
-						'label' => __( 'Titel', 'siw' )
+						'label' => __( 'Titel', 'siw' ),
 					],
-					'content' => [
+					'content'     => [
 						'type'           => 'tinymce',
 						'label'          => __( 'Inhoud', 'siw' ),
 						'rows'           => 10,
@@ -74,10 +74,10 @@ class Tabs extends Widget {
 						'label'         => __( 'Toon een knop', 'siw' ),
 						'default'       => false,
 						'state_emitter' => [
-							'callback'    => 'conditional',
-							'args'        => [
+							'callback' => 'conditional',
+							'args'     => [
 								'button_{$repeater}[show]: val',
-								'button_{$repeater}[hide]: ! val'
+								'button_{$repeater}[hide]: ! val',
 							],
 						],
 					],
@@ -89,7 +89,7 @@ class Tabs extends Widget {
 							'button_{$repeater}[hide]' => [ 'hide' ],
 						],
 					],
-					'button_url' => [
+					'button_url'  => [
 						'type'          => 'text',
 						'label'         => __( 'URL', 'siw' ),
 						'description'   => __( 'Relatief', 'siw' ),
@@ -98,14 +98,14 @@ class Tabs extends Widget {
 							'button_{$repeater}[hide]' => [ 'hide' ],
 						],
 					],
-				]
-			]
+				],
+			],
 		];
 		return $widget_form;
 	}
 
 	/** {@inheritDoc} */
-	function get_template_variables( $instance, $args ) {
+	public function get_template_variables( $instance, $args ) {
 		return [
 			'content' => Tablist::create()->add_items( $instance['panes'] )->generate(),
 		];
