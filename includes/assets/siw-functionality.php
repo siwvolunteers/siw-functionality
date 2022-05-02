@@ -6,7 +6,7 @@ use SIW\Interfaces\Assets\Style;
 
 /**
  * Plugin style
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class SIW_Functionality implements Style {

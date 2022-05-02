@@ -7,12 +7,12 @@ use SIW\Interfaces\Assets\Style;
 
 /**
  * Sal.js
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see https://mciastek.github.io/sal/
  */
-class Sal implements Style, Script{
+class Sal implements Style, Script {
 
 	/** Versienummer */
 	const VERSION = '0.8.5';

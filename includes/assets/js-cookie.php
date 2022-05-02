@@ -6,9 +6,9 @@ use SIW\Interfaces\Assets\Script;
 
 /**
  * JavaScript Cookie
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see https://github.com/js-cookie/js-cookie
  */
 class JS_Cookie implements Script {
