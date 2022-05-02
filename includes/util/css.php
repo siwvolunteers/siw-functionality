@@ -12,10 +12,10 @@ use SIW\Properties;
 class CSS {
 
 	/** Breakpoint voor mobiel (max-width) */
-	CONST MOBILE_BREAKPOINT = 768;
+	const MOBILE_BREAKPOINT = 768;
 
 	/** Breakpoint voor tablet (max-width) */
-	CONST TABLET_BREAKPOINT = 1024;
+	const TABLET_BREAKPOINT = 1024;
 
 	/** CSS klasse om content op mobiel te verbergen */
 	const HIDE_ON_MOBILE_CLASS = 'hide-on-mobile';
@@ -35,17 +35,17 @@ class CSS {
 	/** Contrastkleur licht (tekst) */
 	const CONTRAST_COLOR_LIGHT = '#555';
 
-	/** Basekleur (achtergrondkleur) */	
+	/** Basekleur (achtergrondkleur) */
 	const BASE_COLOR = '#fefefe';
 
 	/** Genereert reponsive classes */
 	public static function generate_responsive_classes( int $desktop_columns, int $tablet_columns = null, int $mobile_columns = null ) : string {
-		$classes[] = 'grid-'. self::columns_to_grid_width( $desktop_columns );
+		$classes[] = 'grid-' . self::columns_to_grid_width( $desktop_columns );
 		if ( is_int( $tablet_columns ) ) {
-			$classes[] = 'tablet-grid-'. self::columns_to_grid_width( $tablet_columns );
+			$classes[] = 'tablet-grid-' . self::columns_to_grid_width( $tablet_columns );
 		}
 		if ( is_int( $mobile_columns ) ) {
-			$classes[] = 'mobile-grid-'. self::columns_to_grid_width( $mobile_columns );
+			$classes[] = 'mobile-grid-' . self::columns_to_grid_width( $mobile_columns );
 		}
 		return implode( SPACE, $classes );
 	}
