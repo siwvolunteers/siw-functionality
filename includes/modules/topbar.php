@@ -8,7 +8,7 @@ use SIW\Properties;
 
 /**
  * Topbar
- * 
+ *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Topbar {
@@ -31,12 +31,12 @@ class Topbar {
 			return;
 		}
 
-		//Alleen in front-end tonen
+		// Alleen in front-end tonen
 		if ( is_admin() ) {
 			return;
 		}
 
-		//Content zetten
+		// Content zetten
 		$self->content = $self->get_content();
 		if ( is_null( $self->content ) ) {
 			return;
@@ -49,11 +49,13 @@ class Topbar {
 	public function render() {
 		Template::create()
 			->set_template( 'modules/topbar' )
-			->set_context( [
-				'target'               => $this->content['link_target'] ?? '_self',
-				'link_url'             => $this->content['link_url'],
-				'link_text'            => $this->content['link_text'],
-			])
+			->set_context(
+				[
+					'target'    => $this->content['link_target'] ?? '_self',
+					'link_url'  => $this->content['link_url'],
+					'link_text' => $this->content['link_text'],
+				]
+			)
 			->render_template();
 	}
 
@@ -74,22 +76,23 @@ class Topbar {
 
 	/** Haalt de evenementen-inhoud op */
 	protected function get_event_content() : ?array {
-		
+
 		$upcoming_events = siw_get_upcoming_events(
 			[
 				'number'      => 1,
-				'date_before' => date( 'Y-m-d', strtotime( '+' . self::EVENT_SHOW_DAYS_BEFORE . ' days') ),
-				'date_after'  => date( 'Y-m-d', strtotime( '+' . self::EVENT_HIDE_DAYS_BEFORE . ' days') ),
+				'date_before' => gmdate( 'Y-m-d', strtotime( '+' . self::EVENT_SHOW_DAYS_BEFORE . ' days' ) ),
+				'date_after'  => gmdate( 'Y-m-d', strtotime( '+' . self::EVENT_HIDE_DAYS_BEFORE . ' days' ) ),
 			]
 		);
 
-		if ( empty ( $upcoming_events ) ) {
+		if ( empty( $upcoming_events ) ) {
 			return null;
 		}
 		$event_id = $upcoming_events[0];
 
 		$link_text = sprintf(
-			__( 'Kom naar de %s op %s.', 'siw' ),
+			// translators: %1$s is de naam van het evenement, %2$s is de datum
+			__( 'Kom naar de %1$s op %2$s.', 'siw' ),
 			get_the_title( $event_id ),
 			siw_format_date( siw_meta( 'event_date', [], $event_id ), false )
 		);

@@ -6,7 +6,7 @@ use SIW\Helpers\Template;
 
 /**
  * Breadcrumbs
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Breadcrumbs {
@@ -22,8 +22,8 @@ class Breadcrumbs {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_shortcode( 'siw_breadcrumbs', [ $self, 'generate_crumbs'] );
-		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles'] );
+		add_shortcode( 'siw_breadcrumbs', [ $self, 'generate_crumbs' ] );
+		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles' ] );
 	}
 
 	/** Styles */
@@ -39,10 +39,12 @@ class Breadcrumbs {
 
 		return Template::create()
 			->set_template( 'modules/breadcrumbs' )
-			->set_context( [
-				'crumbs' => $this->crumbs,
-				'current' => $this->current,
-			])
+			->set_context(
+				[
+					'crumbs'  => $this->crumbs,
+					'current' => $this->current,
+				]
+			)
 			->parse_template();
 	}
 
@@ -50,77 +52,65 @@ class Breadcrumbs {
 	protected function set_current() {
 		if ( is_front_page() ) {
 			$this->current = __( 'Home', 'siw' );
-		}
-		elseif ( is_single() || is_page() ) {
+		} elseif ( is_single() || is_page() ) {
 			$this->current = get_the_title();
-		}
-		elseif ( is_home() ) {
+		} elseif ( is_home() ) {
 			$this->current = get_the_title( get_option( 'page_for_posts', true ) );
-		}
-		elseif ( is_post_type_archive() ) {
-			$this->current = post_type_archive_title( '', false ); //TODO: filter
-		}
-		elseif ( is_archive() ) {
-			//$this->current = get_the_archive_title(); //TODO: filter
+		} elseif ( is_post_type_archive() ) {
+			$this->current = post_type_archive_title( '', false ); // TODO: filter
+		} elseif ( is_archive() ) {
+			// $this->current = get_the_archive_title(); //TODO: filter
 			$this->current = single_term_title( '', false );
-		}
-		else {
+		} else {
 			$this->current = '';
 		}
 	}
 
 	/** Zet kruimels */
 	protected function set_crumbs() {
-		
-		//Als het de homepage is zijn we snel klaar
+
+		// Als het de homepage is zijn we snel klaar
 		if ( is_front_page() ) {
 			return;
 		}
-		
-		//Anders beginnen we met home
-		$this->add_crumb( __( 'Home', 'siw' ), home_url('/') );
 
-		//
+		// Anders beginnen we met home
+		$this->add_crumb( __( 'Home', 'siw' ), home_url( '/' ) );
+
 		if ( is_page() ) {
-			$ancestors = get_ancestors( get_the_ID(), 'page');
+			$ancestors = get_ancestors( get_the_ID(), 'page' );
 			$ancestors = array_reverse( $ancestors );
 			if ( count( $ancestors ) > 0 ) {
-				foreach ( $ancestors as $page_id) {
-					$this->add_crumb( get_the_title( $page_id ), get_permalink ( $page_id));
+				foreach ( $ancestors as $page_id ) {
+					$this->add_crumb( get_the_title( $page_id ), get_permalink( $page_id ) );
 				}
 			}
-		}
-		elseif ( function_exists( 'is_product' ) && is_product() ) {
+		} elseif ( function_exists( 'is_product' ) && is_product() ) {
 			$this->add_shop_crumb();
-			$this->add_taxonomy_crumb( 'product_cat');
-		}
-		elseif ( function_exists( 'is_product_category' ) && is_product_category() ) {
+			$this->add_taxonomy_crumb( 'product_cat' );
+		} elseif ( function_exists( 'is_product_category' ) && is_product_category() ) {
 			$this->add_shop_crumb();
-		}
-		elseif ( function_exists( 'is_product_taxonomy' ) && is_product_taxonomy() ) {
-			$this->add_shop_crumb(); //TODO: kan wel samen met de vorige toch?
-		}
-		elseif ( is_singular( 'post' ) ) {
+		} elseif ( function_exists( 'is_product_taxonomy' ) && is_product_taxonomy() ) {
+			$this->add_shop_crumb(); // TODO: kan wel samen met de vorige toch?
+		} elseif ( is_singular( 'post' ) ) {
 			$this->add_crumb(
 				get_the_title( get_option( 'page_for_posts', true ) ),
 				get_permalink( get_option( 'page_for_posts', true ) )
 			);
-		}
-		elseif ( is_single() ) {
-
+		} elseif ( is_single() ) {
 
 			$post_type = get_post_type();
-			$post_type_object= get_post_type_object( $post_type );
-			$title = apply_filters( 'post_type_archive_title', $post_type_object->labels->name );
+			$post_type_object = get_post_type_object( $post_type );
+			$title = apply_filters( 'post_type_archive_title', $post_type_object->labels->name ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			$this->add_crumb(
 				$title,
 				get_post_type_archive_link( $post_type )
 			);
 
-			//TODO: overige post types?
+			// TODO: overige post types?
 			if ( is_singular( 'siw_tm_country' ) ) {
-				$this->add_taxonomy_crumb( 'siw_tm_country_continent');
+				$this->add_taxonomy_crumb( 'siw_tm_country_continent' );
 			}
 		}
 	}
@@ -151,7 +141,7 @@ class Breadcrumbs {
 	protected function add_crumb( string $title, string $url ) {
 		$this->crumbs[] = [
 			'title' => $title,
-			'url'   => $url
+			'url'   => $url,
 		];
 	}
 }
