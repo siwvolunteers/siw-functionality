@@ -4,7 +4,7 @@ namespace SIW\Compatibility;
 
 /**
  * Aanpassingen voor WP Sentry Integration
- * 
+ *
  * @copyright   2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class WP_Sentry_Integration {
@@ -18,7 +18,7 @@ class WP_Sentry_Integration {
 
 		$self = new self();
 		add_filter( 'rocket_exclude_js', [ $self, 'exclude_js' ] );
-		add_filter( 'wp_sentry_public_context', [ $self, 'set_context'] );
+		add_filter( 'wp_sentry_public_context', [ $self, 'set_context' ] );
 	}
 
 	/** JS-bestanden uitsluiten van minification/concatenation */

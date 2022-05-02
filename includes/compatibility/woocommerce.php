@@ -6,7 +6,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Aanpassingen voor WooCommerce
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://woocommerce.com/
  */
@@ -23,16 +23,16 @@ class WooCommerce {
 		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
 
 		add_action( 'wp_dashboard_setup', [ $self, 'remove_dashboard_widgets' ] );
-		add_filter( 'woocommerce_product_visibility_options', [ $self, 'remove_product_visibility_options', ] );
-		add_filter( 'woocommerce_products_admin_list_table_filters', [ $self, 'remove_products_admin_list_table_filters'] );
+		add_filter( 'woocommerce_product_visibility_options', [ $self, 'remove_product_visibility_options' ] );
+		add_filter( 'woocommerce_products_admin_list_table_filters', [ $self, 'remove_products_admin_list_table_filters' ] );
 
 		// Wachtwoord-reset niet via WooCommerce maar via standaard WordPress-methode
 		remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
 
 		// Verwijder extra gebruikersvelden WooCommerce
 		add_filter( 'woocommerce_customer_meta_fields', '__return_empty_array' );
-		
-		//Diverse admin-features uitschakelen
+
+		// Diverse admin-features uitschakelen
 		add_filter( 'woocommerce_prevent_admin_access', '__return_false' );
 
 		add_filter( 'woocommerce_enable_admin_help_tab', '__return_false' );
@@ -40,15 +40,15 @@ class WooCommerce {
 		add_filter( 'woocommerce_show_addons_page', '__return_false' );
 		add_filter( 'woocommerce_admin_get_feature_config', [ $self, 'disable_admin_features' ] );
 
-		//Blocks style niet laden
+		// Blocks style niet laden
 		add_action( 'enqueue_block_assets', [ $self, 'deregister_block_style' ], PHP_INT_MAX );
 
-		add_action( 'wp', [ $self, 'remove_theme_support'], PHP_INT_MAX );
-		add_filter( 'rocket_cache_query_strings', [ $self, 'register_query_vars'] );
+		add_action( 'wp', [ $self, 'remove_theme_support' ], PHP_INT_MAX );
+		add_filter( 'rocket_cache_query_strings', [ $self, 'register_query_vars' ] );
 
-		add_filter( 'get_term', [ $self, 'filter_term_name'], 10, 2 );
+		add_filter( 'get_term', [ $self, 'filter_term_name' ], 10, 2 );
 
-		add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta'] );
+		add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta' ] );
 		add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type' ] );
 		add_filter( 'siw_carousel_post_type_taxonomies', [ $self, 'add_carousel_post_type_taxonomies' ] );
 		add_filter( 'siw_carousel_post_type_templates', [ $self, 'add_carousel_template' ] );
@@ -82,15 +82,15 @@ class WooCommerce {
 
 	/** Verwijdert overbodige zichtbaarheidsopties */
 	public function remove_product_visibility_options( array $visibility_options ): array {
-		unset( $visibility_options['catalog']);
-		unset( $visibility_options['search']);
+		unset( $visibility_options['catalog'] );
+		unset( $visibility_options['search'] );
 		return $visibility_options;
 	}
 
 	/** Verwijdert filters op admin-lijst met producten  */
 	public function remove_products_admin_list_table_filters( array $filters ): array {
-		unset( $filters['product_type']);
-		unset( $filters['stock_status']);
+		unset( $filters['product_type'] );
+		unset( $filters['stock_status'] );
 		return $filters;
 	}
 
@@ -105,7 +105,7 @@ class WooCommerce {
 
 	/**
 	 * Verwijdert theme support
-	 * 
+	 *
 	 * - Zoom
 	 * - Lightbox
 	 * - Slider
@@ -127,12 +127,12 @@ class WooCommerce {
 
 			$year = substr( $order, 0, 4 );
 			$month = substr( $order, 4, 2 );
-			$current_year = date( 'Y' );
+			$current_year = gmdate( 'Y' );
 
 			$term->name = ucfirst(
 				siw_format_month(
 					"{$year}-{$month}-1",
-					$year != $current_year
+					$year !== $current_year
 				)
 			);
 		}

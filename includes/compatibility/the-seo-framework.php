@@ -32,13 +32,13 @@ class The_SEO_Framework {
 		add_filter( 'the_seo_framework_metabox_priority', fn(): string => self::METABOX_PRIORITY );
 
 		/* Robots */
-		add_filter( 'the_seo_framework_robots_txt_pro', [ $self, 'set_robots_txt' ]) ;
+		add_filter( 'the_seo_framework_robots_txt_pro', [ $self, 'set_robots_txt' ] );
 
 		/* Sitemap */
 		add_filter( 'the_seo_framework_sitemap_color_main', fn(): string => CSS::CONTRAST_COLOR );
 		add_filter( 'the_seo_framework_sitemap_color_accent', fn(): string => CSS::ACCENT_COLOR );
 		add_filter( 'the_seo_framework_sitemap_post_limit', fn(): int => self::SITEMAP_POST_LIMIT );
-		add_filter( 'the_seo_framework_sitemap_supported_post_types', [ $self, 'set_sitemap_supported_post_types'] );
+		add_filter( 'the_seo_framework_sitemap_supported_post_types', [ $self, 'set_sitemap_supported_post_types' ] );
 		add_filter( 'the_seo_framework_sitemap_additional_urls', [ $self, 'set_sitemap_additional_urls' ] );
 
 		/* Naam auteur SEO framework niet in HTML tonen */
@@ -47,7 +47,7 @@ class The_SEO_Framework {
 
 	/** Voegt bots toe aan robot.txt */
 	public function set_robots_txt( string $output ): string {
-		$bots = siw_get_option( 'blocked_bots');
+		$bots = siw_get_option( 'blocked_bots' );
 
 		if ( empty( $bots ) ) {
 			return $output;
@@ -55,8 +55,8 @@ class The_SEO_Framework {
 		$output .= PHP_EOL;
 
 		foreach ( $bots as $bot ) {
-			$output .= "User-agent: " . esc_attr( $bot ) . PHP_EOL;
-			$output .= "Disallow: /" . PHP_EOL . PHP_EOL;
+			$output .= 'User-agent: ' . esc_attr( $bot ) . PHP_EOL;
+			$output .= 'Disallow: /' . PHP_EOL . PHP_EOL;
 		}
 		return $output;
 	}
@@ -88,7 +88,7 @@ class The_SEO_Framework {
 
 		foreach ( $taxonomies as $taxonomy ) {
 			$terms = get_terms( $taxonomy->value, [ 'hide_empty' => true ] );
-			if ( is_wp_error( $terms) ) {
+			if ( is_wp_error( $terms ) ) {
 				continue;
 			}
 

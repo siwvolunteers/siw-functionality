@@ -6,7 +6,7 @@ use SIW\i18n;
 
 /**
  * Aanpassingen voor WPML
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://wpml.org/
  */
@@ -20,9 +20,9 @@ class WPML {
 		}
 
 		$self = new self();
-		
-		add_action( 'widgets_init', [ $self, 'unregister_wpml_widget'], 99 );
-		add_action( 'admin_head', [ $self, 'remove_wpml_meta_box'], 99 );
+
+		add_action( 'widgets_init', [ $self, 'unregister_wpml_widget' ], 99 );
+		add_action( 'admin_head', [ $self, 'remove_wpml_meta_box' ], 99 );
 		add_action( 'delete_attachment', [ $self, 'delete_original_attachment' ] );
 	}
 
@@ -43,7 +43,7 @@ class WPML {
 			return;
 		}
 
-		$original_post_id = apply_filters( 'wpml_object_id', $post_id, 'attachment', false, i18n::get_default_language() );
+		$original_post_id = apply_filters( 'wpml_object_id', $post_id, 'attachment', false, i18n::get_default_language() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		if ( is_int( $original_post_id ) && $post_id !== $original_post_id ) {
 			wp_delete_attachment( $original_post_id );
 		}
