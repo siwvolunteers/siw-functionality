@@ -11,7 +11,7 @@ use SIW\i18n;
 
 /**
  * Ervaringsverhalen
- * 
+ *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  */
 class Story extends Type {
@@ -121,17 +121,17 @@ class Story extends Type {
 	protected function get_taxonomies(): array {
 		$taxonomies['continent'] = [
 			'labels' => [
-				'name'                       => _x( 'Continent', 'Taxonomy General Name', 'siw' ),
-				'singular_name'              => _x( 'Continent', 'Taxonomy Singular Name', 'siw' ),
-				'menu_name'                  => __( 'Continenten', 'siw' ),
-				'all_items'                  => __( 'Alle continenten', 'siw' ),
-				'add_new_item'               => __( 'Continent toevoegen', 'siw' ),
-				'update_item'                => __( 'Continent bijwerken', 'siw' ),
-				'view_item'                  => __( 'View Item', 'siw' ),
-				'search_items'               => __( 'Zoek continenten', 'siw' ),
-				'not_found'                  => __( 'Geen continenten gevonden', 'siw' ),
+				'name'          => _x( 'Continent', 'Taxonomy General Name', 'siw' ),
+				'singular_name' => _x( 'Continent', 'Taxonomy Singular Name', 'siw' ),
+				'menu_name'     => __( 'Continenten', 'siw' ),
+				'all_items'     => __( 'Alle continenten', 'siw' ),
+				'add_new_item'  => __( 'Continent toevoegen', 'siw' ),
+				'update_item'   => __( 'Continent bijwerken', 'siw' ),
+				'view_item'     => __( 'View Item', 'siw' ),
+				'search_items'  => __( 'Zoek continenten', 'siw' ),
+				'not_found'     => __( 'Geen continenten gevonden', 'siw' ),
 			],
-			'args' => [
+			'args'   => [
 				'public' => true,
 			],
 			'slug'   => 'ervaringen-uit',
@@ -139,17 +139,17 @@ class Story extends Type {
 		];
 		$taxonomies['project_type'] = [
 			'labels' => [
-				'name'                       => _x( 'Projectsoort', 'Taxonomy General Name', 'siw' ),
-				'singular_name'              => _x( 'Projectsoort', 'Taxonomy Singular Name', 'siw' ),
-				'menu_name'                  => __( 'Projectsoort', 'siw' ),
-				'all_items'                  => __( 'Alle projectsoorten', 'siw' ),
-				'add_new_item'               => __( 'Projectsoort toevoegen', 'siw' ),
-				'update_item'                => __( 'Projectsoort bijwerken', 'siw' ),
-				'view_item'                  => __( 'Bekijk projectsoort', 'siw' ),
-				'search_items'               => __( 'Zoek projectsoorten', 'siw' ),
-				'not_found'                  => __( 'Geen projectsoorten gevonden', 'siw' ),
+				'name'          => _x( 'Projectsoort', 'Taxonomy General Name', 'siw' ),
+				'singular_name' => _x( 'Projectsoort', 'Taxonomy Singular Name', 'siw' ),
+				'menu_name'     => __( 'Projectsoort', 'siw' ),
+				'all_items'     => __( 'Alle projectsoorten', 'siw' ),
+				'add_new_item'  => __( 'Projectsoort toevoegen', 'siw' ),
+				'update_item'   => __( 'Projectsoort bijwerken', 'siw' ),
+				'view_item'     => __( 'Bekijk projectsoort', 'siw' ),
+				'search_items'  => __( 'Zoek projectsoorten', 'siw' ),
+				'not_found'     => __( 'Geen projectsoorten gevonden', 'siw' ),
 			],
-			'args' => [
+			'args'   => [
 				'public' => true,
 			],
 			'slug'   => 'ervaringen-over',
@@ -161,14 +161,14 @@ class Story extends Type {
 	/** {@inheritDoc} */
 	protected function get_labels(): array {
 		$labels = [
-			'name'               => __( 'Ervaringsverhalen', 'siw' ),
-			'singular_name'      => __( 'Ervaringsverhaal', 'siw' ),
-			'add_new'            => __( 'Nieuw ervaringsverhaal', 'siw' ),
-			'add_new_item'       => __( 'Nieuw ervaringsverhaal toevoegen', 'siw' ),
-			'edit_item'          => __( 'Ervaringsverhaal bewerken', 'siw' ),
-			'all_items'          => __( 'Alle ervaringsverhalen', 'siw' ),
-			'search_items'       => __( 'Ervaringsverhalen zoeken', 'siw' ),
-			'not_found'          => __( 'Geen ervaringsverhalen gevonden', 'siw' ),
+			'name'          => __( 'Ervaringsverhalen', 'siw' ),
+			'singular_name' => __( 'Ervaringsverhaal', 'siw' ),
+			'add_new'       => __( 'Nieuw ervaringsverhaal', 'siw' ),
+			'add_new_item'  => __( 'Nieuw ervaringsverhaal toevoegen', 'siw' ),
+			'edit_item'     => __( 'Ervaringsverhaal bewerken', 'siw' ),
+			'all_items'     => __( 'Alle ervaringsverhalen', 'siw' ),
+			'search_items'  => __( 'Ervaringsverhalen zoeken', 'siw' ),
+			'not_found'     => __( 'Geen ervaringsverhalen gevonden', 'siw' ),
 		];
 		return $labels;
 	}
@@ -176,11 +176,11 @@ class Story extends Type {
 	/** {@inheritDoc} */
 	public function add_archive_content() {
 		$rows = siw_meta( 'rows' );
-		$continent = siw_meta( 'siw_story_continent');
-		$project_type = siw_meta( 'siw_story_project_type');
+		$continent = siw_meta( 'siw_story_continent' );
+		$project_type = siw_meta( 'siw_story_project_type' );
 		$template_vars = [
 			'image'     => wp_get_attachment_image( $rows[0]['image'][0], 'large' ),
-			'link'      => Links::generate_button_link( get_permalink() , __( 'Lees meer', 'siw' ) ),
+			'link'      => Links::generate_button_link( get_permalink(), __( 'Lees meer', 'siw' ) ),
 			'project'   => $project_type->name,
 			'continent' => $continent->name,
 		];
@@ -189,15 +189,36 @@ class Story extends Type {
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * @todo refactor enzo
 	 */
 	public function add_single_content() {
-		$animation_fade = HTML::generate_attributes( ['data-sal' => 'fade', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
-		$animation_left = HTML::generate_attributes( ['data-sal' => 'slide-left', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
-		$animation_right = HTML::generate_attributes( ['data-sal' => 'slide-right', 'data-sal-duration' => 1800, 'data-sal-easing' => 'ease-out-sine', 'data-sal-delay' => 'none']);
+		$animation_fade = HTML::generate_attributes(
+			[
+				'data-sal'          => 'fade',
+				'data-sal-duration' => 1800,
+				'data-sal-easing'   => 'ease-out-sine',
+				'data-sal-delay'    => 'none',
+			]
+		);
+		$animation_left = HTML::generate_attributes(
+			[
+				'data-sal'          => 'slide-left',
+				'data-sal-duration' => 1800,
+				'data-sal-easing'   => 'ease-out-sine',
+				'data-sal-delay'    => 'none',
+			]
+		);
+		$animation_right = HTML::generate_attributes(
+			[
+				'data-sal'          => 'slide-right',
+				'data-sal-duration' => 1800,
+				'data-sal-easing'   => 'ease-out-sine',
+				'data-sal-delay'    => 'none',
+			]
+		);
 		$template_vars = [
-			'project_type'   => siw_meta( 'siw_story_project_type')->name,
+			'project_type'   => siw_meta( 'siw_story_project_type' )->name,
 			'cta'            => $this->get_cta_url(),
 			'animation_fade' => $animation_fade,
 		];
@@ -206,25 +227,31 @@ class Story extends Type {
 		$even = false;
 		foreach ( $rows as $row ) {
 			$story = [
-				'quote'                   => Quote::create()->set_quote( $row['quote'] )->generate(),
-				'push_class'              => $even ? 'push-60' : '',
-				'pull_class'              => $even ? 'pull-40' : '',
-				'animation_attributes_1'  => $even ? $animation_left : $animation_right,
-				'animation_attributes_2'  => $even ? $animation_right : $animation_left,
-				'image'                   => wp_get_attachment_image( $row['image'][0], 'large'),
+				'quote'                  => Quote::create()->set_quote( $row['quote'] )->generate(),
+				'push_class'             => $even ? 'push-60' : '',
+				'pull_class'             => $even ? 'pull-40' : '',
+				'animation_attributes_1' => $even ? $animation_left : $animation_right,
+				'animation_attributes_2' => $even ? $animation_right : $animation_left,
+				'image'                  => wp_get_attachment_image( $row['image'][0], 'large' ),
 			];
 			$content = [];
 			foreach ( $row['content'] as $paragraph ) {
-				array_push( $content, [ 'title' => $paragraph['title'] , 'text' => $paragraph['text'] ] );
+				array_push(
+					$content,
+					[
+						'title' => $paragraph['title'],
+						'text'  => $paragraph['text'],
+					]
+				);
 			}
 			$story += [ 'content' => $content ];
 			array_push( $stories, $story );
 			$even = ! $even;
 		}
-		$template_vars += array( 'stories' => $stories );
+		$template_vars += [ 'stories' => $stories ];
 		Template::create()->set_template( 'types/story_single' )->set_context( $template_vars )->render_template();
 	}
-	
+
 	/** Bepaal een call to action link ahv projecttype of continent */
 	protected function get_cta_url(): ?string {
 
@@ -235,8 +262,8 @@ class Story extends Type {
 			'groepsproject'   => 'workcamps',
 		];
 
-		$project_type = siw_meta( 'siw_story_project_type');
-		$page = $pages[$project_type->slug] ?? '';
+		$project_type = siw_meta( 'siw_story_project_type' );
+		$page = $pages[ $project_type->slug ] ?? '';
 
 		$page_url = i18n::get_translated_page_url( (int) siw_get_option( "pages.explanation.{$page}", 1 ) );
 
@@ -249,7 +276,7 @@ class Story extends Type {
 	/** {@inheritDoc} */
 	protected function get_archive_intro() : array {
 		$intro = siw_get_option( 'story.archive_intro' );
-		return [$intro];
+		return [ $intro ];
 	}
 
 	/** {@inheritDoc} */

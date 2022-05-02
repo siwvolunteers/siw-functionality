@@ -4,10 +4,11 @@ namespace SIW\Content;
 
 /**
  * Class om een custom post type toe te voegen
- * 
+ *
  * @copyright 2020-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Post_Type {
+
 	/** Post type */
 	protected string $post_type;
 
@@ -31,7 +32,7 @@ class Post_Type {
 		$this->single_slug = $single_slug;
 		$this->archive_slug = $archive_slug;
 
-		add_action( 'init', [ $this, 'register_post_type'] );
+		add_action( 'init', [ $this, 'register_post_type' ] );
 	}
 
 	/** Registreert post type */
@@ -41,7 +42,7 @@ class Post_Type {
 			'description'         => '',
 			'labels'              => $this->labels,
 			'menu_icon'           => null,
-			'supports'            => ['title'],
+			'supports'            => [ 'title' ],
 			'taxonomies'          => [],
 			'hierarchical'        => false,
 			'public'              => true,
@@ -64,6 +65,6 @@ class Post_Type {
 		];
 		$args = wp_parse_args( $this->args, $defaults );
 
-		register_post_type( "siw_{$this->post_type}", $args );
+		register_post_type( "siw_{$this->post_type}", $args ); // phpcs:ignore WordPress.NamingConventions.ValidPostTypeSlug.PartiallyDynamic
 	}
 }
