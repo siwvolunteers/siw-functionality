@@ -4,7 +4,7 @@ namespace SIW\Interfaces\Page_Builder;
 
 /**
  * Interface voor PageBuilder extensie met cell style fields en group
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 interface Cell_Style_Group extends Cell_Style_Fields {

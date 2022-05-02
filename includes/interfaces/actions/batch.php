@@ -4,7 +4,7 @@ namespace SIW\Interfaces\Actions;
 
 /**
  * Interface voor batchacties
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 interface Batch extends Action {
