@@ -7,9 +7,8 @@ use SIW\Interfaces\Options\Option as Option_Interface;
 
 /**
  * Opties voor landen
- * 
+ *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.2.0
  */
 class Countries implements Option_Interface {
 
@@ -49,7 +48,7 @@ class Countries implements Option_Interface {
 
 		$countries = \siw_get_countries();
 
-		//TODO: siw_get_project_types gebruiken?
+		// TODO: siw_get_project_types gebruiken?
 		$available_projects = [
 			'workcamps'   => __( 'Groepsprojecten', 'siw' ),
 			'tailor_made' => __( 'Projecten op maat', 'siw' ),
@@ -66,11 +65,11 @@ class Countries implements Option_Interface {
 				'default_state' => 'collapsed',
 				'fields'        => [
 					[
-						'id'      => 'available_projects',
-						'type'    => 'checkbox_list',
-						'name'    => __( 'Aanbod', 'siw' ),
-						'options' => $available_projects,
-						'std'     => [
+						'id'       => 'available_projects',
+						'type'     => 'checkbox_list',
+						'name'     => __( 'Aanbod', 'siw' ),
+						'options'  => $available_projects,
+						'std'      => [
 							$country->has_workcamps() ? 'workcamps' : '',
 							$country->has_tailor_made_projects() ? 'tailor_made' : '',
 							$country->has_esc_projects() ? 'esc' : '',

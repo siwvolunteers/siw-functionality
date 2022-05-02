@@ -6,9 +6,8 @@ use SIW\Interfaces\Options\Option as Option_Interface;
 
 /**
  * Class om opties toe te voegen
- * 
+ *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.2.0
  */
 class Option {
 
@@ -18,8 +17,8 @@ class Option {
 	/** Constructor */
 	public function __construct( Option_Interface $option ) {
 		$this->option = $option;
-		add_filter( 'rwmb_meta_boxes', [ $this, 'add_settings_meta_boxes'] );
-		add_filter( 'mb_settings_pages', [ $this, 'add_settings_page'] );
+		add_filter( 'rwmb_meta_boxes', [ $this, 'add_settings_meta_boxes' ] );
+		add_filter( 'mb_settings_pages', [ $this, 'add_settings_page' ] );
 	}
 
 	/** Voegt admin-pagina toe */
@@ -30,7 +29,7 @@ class Option {
 			'id'            => "siw-{$this->option->get_id()}",
 			'menu_title'    => "SIW - {$this->option->get_title()}",
 			'capability'    => $this->option->get_capability(),
-			'tabs'          => array_column( $tabs , null, 'id' ),
+			'tabs'          => array_column( $tabs, null, 'id' ),
 			'submit_button' => __( 'Opslaan', 'siw' ),
 			'message'       => __( 'Instellingen opgeslagen', 'siw' ),
 			'columns'       => 1,
@@ -40,10 +39,10 @@ class Option {
 
 		return $settings_pages;
 	}
-	
+
 	/*** Voegt metaboxes toe */
 	public function add_settings_meta_boxes( array $meta_boxes ) : array {
-		
+
 		$tabs = $this->option->get_tabs();
 		$fields = $this->option->get_fields();
 
