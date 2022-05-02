@@ -21,6 +21,7 @@
 	<rule ref="WordPress">
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
 		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
+		<exclude name="Generic.Commenting.DocComment.MissingShort"/>
 	</rule>
 	<rule ref="WordPress.WP.I18n">
 		<properties>
@@ -65,6 +66,6 @@
 			<property name="absoluteComplexity" value="30"/>
 		</properties>
 	</rule>
-<rule ref="Squiz.PHP.LowercasePHPFunctions"/>
+	<rule ref="Squiz.PHP.LowercasePHPFunctions"/>
 
 </ruleset>
