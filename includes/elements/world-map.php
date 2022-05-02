@@ -9,7 +9,7 @@ use SIW\Data\Continent;
 
 /**
  * Wereldkaart
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class World_Map extends Element {
@@ -72,7 +72,7 @@ class World_Map extends Element {
 		$inline_css = CSS::generate_inline_css(
 			[
 				"#{$this->get_element_id()} svg" => [
-					'width' => '100%',
+					'width'  => '100%',
 					'height' => 'auto',
 				],
 				"#{$this->get_element_id()} #{$code} path, #{$this->get_element_id()} path#{$code}" => [
@@ -80,7 +80,7 @@ class World_Map extends Element {
 				],
 			]
 		);
-		wp_register_style( self::ASSETS_HANDLE, false );
+		wp_register_style( self::ASSETS_HANDLE, false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		wp_enqueue_style( self::ASSETS_HANDLE );
 		wp_add_inline_style( self::ASSETS_HANDLE, $inline_css );
 	}

@@ -9,9 +9,9 @@ use SIW\Util\CSS;
 
 /**
  * Class om een Mapplic kaart te genereren
- * 
+ *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see       https://www.mapplic.com/plugin/docs/
  */
 class Interactive_Map extends Element {
@@ -56,23 +56,23 @@ class Interactive_Map extends Element {
 		}
 
 		$default_options = [
-			'source'        => $this->get_source_data(),
-			'landmark'      => null,
-			'portrait'      => CSS::MOBILE_BREAKPOINT,
-			'alphabetic'    => true,
-			'search'        => false,
-			'lightbox'      => false,
-			'deeplinking'   => false,
-			'zoombuttons'   => false,
-			'zoomoutclose'  => true,
-			'mousewheel'    => false,
-			'fullscreen'    => false,
-			'developer'     => defined( 'WP_DEBUG' ) && WP_DEBUG,
-			'fillcolor'     => CSS::ACCENT_COLOR,
-			'action'        => 'tooltip',
-			'maxscale'      => 2,
-			'hovertipdesc'  => true,
-			'animation'     => true,
+			'source'       => $this->get_source_data(),
+			'landmark'     => null,
+			'portrait'     => CSS::MOBILE_BREAKPOINT,
+			'alphabetic'   => true,
+			'search'       => false,
+			'lightbox'     => false,
+			'deeplinking'  => false,
+			'zoombuttons'  => false,
+			'zoomoutclose' => true,
+			'mousewheel'   => false,
+			'fullscreen'   => false,
+			'developer'    => defined( 'WP_DEBUG' ) && WP_DEBUG,
+			'fillcolor'    => CSS::ACCENT_COLOR,
+			'action'       => 'tooltip',
+			'maxscale'     => 2,
+			'hovertipdesc' => true,
+			'animation'    => true,
 		];
 
 		$options = wp_parse_args( $this->interactive_map->get_options(), $default_options );
@@ -97,13 +97,13 @@ class Interactive_Map extends Element {
 			'rightLng'  => '',
 		];
 		$data = wp_parse_args( $this->interactive_map->get_map_data(), $default_data );
-		
-		$data['categories'] = array_map( [ $this, 'parse_category'], $this->interactive_map->get_categories() );
+
+		$data['categories'] = array_map( [ $this, 'parse_category' ], $this->interactive_map->get_categories() );
 		$data['levels'][] = [
 			'id'        => $this->interactive_map->get_id(),
 			'title'     => $this->interactive_map->get_id(),
-			'map'       => $this->mapplic_url . 'maps/' . $this->interactive_map->get_file() . '.svg', 
-			'locations' => array_map( [ $this, 'parse_location'], $this->interactive_map->get_locations() ),
+			'map'       => $this->mapplic_url . 'maps/' . $this->interactive_map->get_file() . '.svg',
+			'locations' => array_map( [ $this, 'parse_location' ], $this->interactive_map->get_locations() ),
 		];
 		return $data;
 	}
@@ -122,20 +122,20 @@ class Interactive_Map extends Element {
 	/** Parset de gegevens van locatie */
 	protected function parse_location( array $location ) : array {
 		$default = [
-			'id'            => false,
-			'title'         => false,
-			'image'         => null,
-			'about'         => false,
-			'description'   => false,
-			'action'        => 'tooltip',
-			'pin'           => 'hidden',
-			'fill'          => CSS::ACCENT_COLOR,
-			'x'             => null,
-			'y'             => null,
-			'lat'           => false,
-			'lng'           => false,
-			'pin'           => 'hidden',
-			'category'      => false,
+			'id'          => false,
+			'title'       => false,
+			'image'       => null,
+			'about'       => false,
+			'description' => false,
+			'action'      => 'tooltip',
+			'pin'         => 'hidden',
+			'fill'        => CSS::ACCENT_COLOR,
+			'x'           => null,
+			'y'           => null,
+			'lat'         => false,
+			'lng'         => false,
+			'pin'         => 'hidden',
+			'category'    => false,
 		];
 		return wp_parse_args( $location, $default );
 	}

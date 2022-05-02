@@ -9,7 +9,7 @@ use SIW\Elements\List_Columns;
 
 /**
  * Class om een Mapplic kaart te genereren
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class ESC implements Interactive_Map_Interface {
@@ -38,7 +38,7 @@ class ESC implements Interactive_Map_Interface {
 			'mapheight' => 1200,
 		];
 	}
-	
+
 	/** {@inheritDoc} */
 	public function get_categories(): array {
 		return [];
@@ -50,9 +50,9 @@ class ESC implements Interactive_Map_Interface {
 		$locations = [];
 		foreach ( $countries as $country ) {
 			$locations[] = [
-				'id'        => $country->get_iso_code(),
-				'title'     => $country->get_name(),
-				'category'  => 'bestemmingen'
+				'id'       => $country->get_iso_code(),
+				'title'    => $country->get_name(),
+				'category' => 'bestemmingen',
 			];
 		}
 		return $locations;

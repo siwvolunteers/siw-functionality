@@ -6,12 +6,12 @@ use SIW\Actions\Batch\Update_Terms;
 
 /**
  * Taxonomy-filter voor archiefpagina's
- * 
+ *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Taxonomy_Filter extends Element {
 
-	//Constantes voor assets handle
+	// Constantes voor assets handle
 	const SCRIPT_HANDLE = 'siw-taxonomy-filter';
 
 	/** Taxonomie */
@@ -29,17 +29,17 @@ class Taxonomy_Filter extends Element {
 	protected function get_template_variables(): array {
 		return [
 			'taxonomy' => [
-				'slug'=> $this->taxonomy,
+				'slug' => $this->taxonomy,
 				'name' => get_taxonomy( $this->taxonomy )->labels->name,
 			],
-			'terms' => $this->get_terms(),
-			'i18n'  => [
+			'terms'    => $this->get_terms(),
+			'i18n'     => [
 				'all'    => __( 'Alle', 'siw' ),
-				'filter' => __( 'Filter op', 'siw' )
+				'filter' => __( 'Filter op', 'siw' ),
 			],
 		];
 	}
-	
+
 	/** Zet de taxonomie */
 	public function set_taxonomy( string $taxonomy ) {
 		$this->taxonomy = $taxonomy;
@@ -66,7 +66,7 @@ class Taxonomy_Filter extends Element {
 		];
 
 		if ( $this->use_post_count ) {
-			$term_query['meta_query'] = [
+			$term_query['meta_query'] = [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				[
 					'key'     => Update_Terms::POST_COUNT_TERM_META,
 					'value'   => 0,
@@ -77,7 +77,10 @@ class Taxonomy_Filter extends Element {
 		$terms = get_terms( $term_query );
 
 		return array_map(
-			fn( \WP_Term $term ): array => [ 'slug' => $term->slug, 'name' => $term->name],
+			fn( \WP_Term $term ): array => [
+				'slug' => $term->slug,
+				'name' => $term->name,
+			],
 			$terms
 		);
 	}

@@ -6,11 +6,11 @@ use SIW\Assets\A11Y_Tablist;
 
 /**
  * Class om een tablist te genereren
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Tablist extends Repeater {
-	
+
 	// Constantes voor asset handles
 	const ASSETS_HANDLE = 'siw-tablist';
 
@@ -41,23 +41,26 @@ class Tablist extends Repeater {
 
 	/** {@inheritDoc} */
 	protected function get_item_defaults(): array {
-		return [ 
+		return [
 			'title'       => '',
 			'content'     => '',
 			'show_button' => false,
 			'button_url'  => '',
-			'button_text' => ''
+			'button_text' => '',
 		];
 	}
 
 	/** {@inheritDoc} */
 	protected function parse_item( array $item ): array {
 		return [
-			'id'       => wp_unique_id(),
-			'title'    => $item['title'] ?? '',
-			'content'  => $item['content'] ?? '',
-			'button'   => $item['show_button'] ?
-				[ 'url'  => $item['button_url'], 'text' => $item['button_text'] ] :
+			'id'      => wp_unique_id(),
+			'title'   => $item['title'] ?? '',
+			'content' => $item['content'] ?? '',
+			'button'  => $item['show_button'] ?
+				[
+					'url'  => $item['button_url'],
+					'text' => $item['button_text'],
+				] :
 				[],
 		];
 	}

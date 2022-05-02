@@ -4,7 +4,7 @@ namespace SIW\Elements;
 
 /**
  * Class om een quote te genereren
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Quote extends Element {

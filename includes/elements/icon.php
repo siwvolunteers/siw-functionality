@@ -4,7 +4,7 @@ namespace SIW\Elements;
 
 /**
  * Class om een icon te genereren
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Icon extends Element {
@@ -15,6 +15,7 @@ class Icon extends Element {
 	/** Grootte van icon */
 	protected int $size = 2;
 
+	/** Geeft aan of het icon een achtergrond heeft */
 	protected bool $has_background = false;
 
 	/** {@inheritDoc} */
@@ -23,7 +24,7 @@ class Icon extends Element {
 	}
 
 	/** {@inheritDoc} */
-	protected function get_template_variables(): array { 
+	protected function get_template_variables(): array {
 		return [
 			'icon' => [
 				'icon_class'       => $this->icon_class,
@@ -46,6 +47,7 @@ class Icon extends Element {
 		return $this;
 	}
 
+	/** Zet of het icoon een achtergrond heeft */
 	public function set_has_background( bool $has_background ) : self {
 		$this->has_background = $has_background;
 		return $this;

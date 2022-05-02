@@ -6,7 +6,7 @@ use SIW\Assets\A11Y_Accordion;
 
 /**
  * Class om een accordion te genereren
- * 
+ *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Accordion extends Repeater {
@@ -22,18 +22,21 @@ class Accordion extends Repeater {
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
-			'panes' => $this->items
+			'panes' => $this->items,
 		];
 	}
 
 	/** {@inheritDoc} */
 	protected function parse_item( array $item ): array {
 		return [
-			'id'       => wp_unique_id(),
-			'title'    => $item['title'] ?? '',
-			'content'  => $item['content'] ?? '',
-			'button'   => $item['show_button'] ?
-				[ 'url'  => $item['button_url'], 'text' => $item['button_text'] ] :
+			'id'      => wp_unique_id(),
+			'title'   => $item['title'] ?? '',
+			'content' => $item['content'] ?? '',
+			'button'  => $item['show_button'] ?
+				[
+					'url'  => $item['button_url'],
+					'text' => $item['button_text'],
+				] :
 				[],
 		];
 	}

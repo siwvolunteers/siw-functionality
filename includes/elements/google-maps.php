@@ -7,7 +7,7 @@ use SIW\Util\CSS;
 
 /**
  * Google Maps kaart
- * 
+ *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Google_Maps extends Element {
@@ -22,7 +22,7 @@ class Google_Maps extends Element {
 
 	/**
 	 * Center van kaart
-	 * 
+	 *
 	 * @var string|array
 	 */
 	protected $center;
@@ -32,19 +32,19 @@ class Google_Maps extends Element {
 
 	/** Is zoom control actief */
 	protected bool $zoom_control = true;
-	
+
 	/** Is map ty pe control actief */
 	protected bool $map_type_control = false;
-	
+
 	/** Is scale control actief */
 	protected bool $scale_control = false;
-	
+
 	/** Is street view control actief */
 	protected bool $street_view_control = false;
-	
+
 	/** Is rotate control actief */
 	protected bool $rotate_control = false;
-	
+
 	/** Is fullscreen control actief */
 	protected bool $fullscreen_control = false;
 
@@ -126,7 +126,10 @@ class Google_Maps extends Element {
 
 	/** Zet het midden van de kaart */
 	public function set_center( float $lat, float $lng ): self {
-		$this->center = [ 'lat' => $lat, 'lng' => $lng ];
+		$this->center = [
+			'lat' => $lat,
+			'lng' => $lng,
+		];
 		return $this;
 	}
 
@@ -144,7 +147,10 @@ class Google_Maps extends Element {
 		$this->markers[] = [
 			'title'       => $title,
 			'description' => $description,
-			'position'    => [ 'lat' => $lat, 'lng' => $lng ],
+			'position'    => [
+				'lat' => $lat,
+				'lng' => $lng,
+			],
 		];
 		return $this;
 	}
@@ -169,12 +175,14 @@ class Google_Maps extends Element {
 
 	/** Voegt inline styling toe */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, false );
+		wp_register_style( self::ASSETS_HANDLE, false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		wp_enqueue_style( self::ASSETS_HANDLE );
 
-		$inline_style = CSS::generate_inline_css( [
-			"#{$this->get_element_id()}" => [ 'height' => "{$this->height}px" ],
-		]);
+		$inline_style = CSS::generate_inline_css(
+			[
+				"#{$this->get_element_id()}" => [ 'height' => "{$this->height}px" ],
+			]
+		);
 		wp_add_inline_style( self::ASSETS_HANDLE, $inline_style );
 	}
 }

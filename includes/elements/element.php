@@ -6,7 +6,7 @@ use SIW\Helpers\Template;
 
 /**
  * Class om een element te genereren
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 abstract class Element {
@@ -27,7 +27,7 @@ abstract class Element {
 
 	/** Geeft standaard css klasse voor element terug */
 	protected static function get_element_class(): string {
-		return "siw-" . static::get_type();
+		return 'siw-' . static::get_type();
 	}
 
 	/** Init */
@@ -72,7 +72,7 @@ abstract class Element {
 
 	/** Rendert repeater */
 	public function render() {
-		echo $this->generate();
+		echo $this->generate(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/** Voegt scripts toe */
