@@ -8,7 +8,7 @@ use SIW\Helpers\HTTP_Request;
  * Interface met Mailjet
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @link      https://dev.mailjet.com/
  */
 class Mailjet {
@@ -30,16 +30,18 @@ class Mailjet {
 		$this->api_key = siw_get_option( 'mailjet.api_key', '' );
 		$this->secret_key = siw_get_option( 'mailjet.secret_key', '' );
 	}
-	
+
 	/** Voegt abonnee toe aan maillijst */
 	public function subscribe_user( string $email, $list_id, array $properties = [] ) : bool {
 
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist/{$list_id}/managecontact";
-		$body = json_encode( [
-			'Email'      => $email,
-			'Action'     => 'addnoforce',
-			'Properties' => $properties
-		]);
+		$body = wp_json_encode(
+			[
+				'Email'      => $email,
+				'Action'     => 'addnoforce',
+				'Properties' => $properties,
+			]
+		);
 
 		$response = HTTP_Request::create( $url )
 			->add_accepted_response_code( \WP_Http::CREATED )
@@ -49,7 +51,7 @@ class Mailjet {
 		if ( is_wp_error( $response ) ) {
 			return false;
 		}
-		//TODO: verdere check op response?
+		// TODO: verdere check op response?
 		return true;
 	}
 
@@ -76,11 +78,11 @@ class Mailjet {
 		if ( is_wp_error( $response ) ) {
 			return [];
 		}
-		
-		//Verwijderde lijst eruit filteren
+
+		// Verwijderde lijst eruit filteren
 		$lists = wp_list_filter( $response['Data'], [ 'IsDeleted' => false ] );
 
-		//data omzetten
+		// data omzetten
 		return array_map(
 			function( $list ) {
 				return [
