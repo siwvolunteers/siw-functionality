@@ -4,20 +4,20 @@ use Pharaonic\DotArray\DotArray;
 
 /**
  * Functies m.b.t. opties
- * 
+ *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 
 /** Haal optie op */
 function siw_get_option( string $option, $default = null ) {
 
-	//Foutmelding bij aanroepen vóór init
+	// Foutmelding bij aanroepen vóór init
 	if ( 0 === did_action( 'init' ) && WP_DEBUG ) {
-		trigger_error( 'siw_get_option werd te vroeg aangeroepen', E_USER_ERROR );
+		trigger_error( 'siw_get_option werd te vroeg aangeroepen', E_USER_ERROR ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 	}
 
-	//Probeer waarde uit cache te halen
-	$value = wp_cache_get( $option, 'siw_options');
+	// Probeer waarde uit cache te halen
+	$value = wp_cache_get( $option, 'siw_options' );
 	if ( false !== $value ) {
 		return $value;
 	}
@@ -32,7 +32,7 @@ function siw_get_option( string $option, $default = null ) {
 
 	/**
 	 * Waarde van optie
-	 * 
+	 *
 	 * @param mixed $value
 	 * @param string $option
 	 */

@@ -4,7 +4,7 @@ use SIW\Data\Email_Settings;
 
 /**
  * Functies m.b.t. referentiegegevens
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 
@@ -22,7 +22,7 @@ function siw_get_data( string $file ) {
 }
 
 /** Geeft lijst met provincies van Nederland terug */
-function siw_get_dutch_provinces() : array {
+function siw_get_dutch_provinces(): array {
 	$dutch_provinces = [
 		'nb' => __( 'Brabant', 'siw' ),
 		'dr' => __( 'Drenthe', 'siw' ),
@@ -41,33 +41,34 @@ function siw_get_dutch_provinces() : array {
 }
 
 /** Geeft naam van provincie van Nederland terug o.b.v. slug */
-function siw_get_dutch_province( string $slug ) : ?string {
+function siw_get_dutch_province( string $slug ): ?string {
 	$provinces = siw_get_dutch_provinces();
 	return $provinces[ $slug ] ?? null;
 }
 
 /** Geeft lijst met bestuursfuncties terug */
-function siw_get_board_titles() : array {
+function siw_get_board_titles(): array {
 	$titles = [
 		'chair'        => __( 'Voorzitter', 'siw' ),
-		'secretary'    => __( 'Secretaris' , 'siw' ),
-		'treasurer'    => __( 'Penningmeester' , 'siw' ),
-		'board_member' => __( 'Algemeen bestuurslid' , 'siw' ),
+		'secretary'    => __( 'Secretaris', 'siw' ),
+		'treasurer'    => __( 'Penningmeester', 'siw' ),
+		'board_member' => __( 'Algemeen bestuurslid', 'siw' ),
 	];
 	return $titles;
 }
 
 /** Geeft bestuursfunctie terug obv slug */
-function siw_get_board_title( string $slug ) : ?string {
+function siw_get_board_title( string $slug ): ?string {
 	$board_titles = siw_get_board_titles();
 	return $board_titles[ $slug ] ?? null;
 }
 
 /**
  * Geeft lijst met projectsoorten terug
+ *
  * @todo moet hier altijd de duur/uitleg bij?
  */
-function siw_get_project_types() : array {
+function siw_get_project_types(): array {
 
 	$project_types = [
 		'groepsprojecten' => __( 'Groepsvrijwilligerswerk (2 - 3 weken)', 'siw' ),
@@ -79,7 +80,7 @@ function siw_get_project_types() : array {
 }
 
 /** Geeft een lijst met geslachten terug */
-function siw_get_genders() : array {
+function siw_get_genders(): array {
 	$genders = [
 		'M' => __( 'Man', 'siw' ),
 		'F' => __( 'Vrouw', 'siw' ),
@@ -88,7 +89,7 @@ function siw_get_genders() : array {
 }
 
 /** Geeft een lijst met nationaliteiten terug */
-function siw_get_nationalities() : array {
+function siw_get_nationalities(): array {
 	$nationalities = [ '' => __( 'Selecteer een nationaliteit', 'siw' ) ];
 	$nationalities = $nationalities + siw_get_data( 'nationalities' );
 	return $nationalities;
@@ -96,6 +97,7 @@ function siw_get_nationalities() : array {
 
 /**
  * Haalt email-instellingen op
+ *
  * @todo fallback naar admin-email
  */
 function siw_get_email_settings( string $id ): Email_Settings {
@@ -115,7 +117,7 @@ function siw_get_forms(): array {
 }
 
 /** Haalt gegevens over interactieve kaarten op */
-function siw_get_interactive_maps() : array {
+function siw_get_interactive_maps(): array {
 	$maps = [
 		[
 			'id'    => 'nl',
@@ -137,23 +139,23 @@ function siw_get_interactive_maps() : array {
 }
 
 /** Geeft openingstijden van SIW terug */
-function siw_get_opening_hours() : array {
+function siw_get_opening_hours(): array {
 	global $wp_locale;
 
-	//Ophalen openingstijden
+	// Ophalen openingstijden
 	$opening_hours = siw_get_option( 'opening_hours' );
 
 	$opening_hours = array_map(
-		fn( array $value ) : string => $value['open'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' ),
+		fn( array $value ): string => $value['open'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' ),
 		array_filter( $opening_hours )
 	);
 
-	//Ophalen afwijkende openingstijden
+	// Ophalen afwijkende openingstijden
 	$special_opening_hours = siw_get_option( 'special_opening_hours', [] );
 
 	$special_opening_hours = array_map(
-		fn( array $value ) : string => $value['opened'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' ),
-		array_column( $special_opening_hours , null, 'date' )
+		fn( array $value ): string => $value['opened'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' ),
+		array_column( $special_opening_hours, null, 'date' )
 	);
 
 	$daterange = new \DatePeriod( new \DateTime( 'today' ), new \DateInterval( 'P1D' ), 6 );
@@ -162,17 +164,16 @@ function siw_get_opening_hours() : array {
 		$day_name = ucfirst( $wp_locale->get_weekday( $day_number ) );
 		$opening_times = $opening_hours[ "day_{$day_number}" ];
 
-		
 		// Bepaal afwijkende openingstijden (indien van toepassing)
 		if ( isset( $special_opening_hours[ $date->format( 'Y-m-d' ) ] ) ) {
 			$opening_times = sprintf( '<del>%s</del> <ins>%s</ins>', $opening_times, $special_opening_hours[ $date->format( 'Y-m-d' ) ] );
 		}
-		//Huidige dag bold maken 
+		// Huidige dag bold maken
 		$data[] = [
-			( $daterange->start == $date ) ? '<b>' . $day_name . '</b>' : $day_name,
-			( $daterange->start == $date ) ? '<b>' . $opening_times . '</b>' : $opening_times,
+			( $daterange->start === $date ) ? '<b>' . $day_name . '</b>' : $day_name,
+			( $daterange->start === $date ) ? '<b>' . $opening_times . '</b>' : $opening_times,
 		];
-		
+
 	}
 	return $data;
 }

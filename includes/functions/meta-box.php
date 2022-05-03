@@ -4,7 +4,7 @@ use Pharaonic\DotArray\DotArray;
 
 /**
  * Wrapper functions om MetaBox functies
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 
@@ -31,7 +31,7 @@ function siw_meta( string $key, array $args = [], int $post_id = null ) {
 	$keys = explode( '.', $key );
 	$value = rwmb_meta( $keys[0], $args, $post_id );
 
-	unset( $keys[0]);
+	unset( $keys[0] );
 	if ( ! empty( $keys ) ) {
 		$dot = new DotArray( $value );
 		$key = implode( '.', $keys );
