@@ -4,7 +4,7 @@ namespace SIW\Structured_Data;
 
 /**
  * Adres
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://schema.org/PostalAddress
  */
@@ -34,7 +34,7 @@ class Postal_Address extends Thing {
 	public function set_address_region( string $address_region ) {
 		return $this->set_property( 'addressRegion', $address_region );
 	}
-	
+
 	/** Zet land */
 	public function set_address_country( string $address_country ) {
 		return $this->set_property( 'addressCountry', $address_country );

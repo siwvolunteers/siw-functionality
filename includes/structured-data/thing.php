@@ -6,13 +6,13 @@ use Spatie\Enum\Enum;
 
 /**
  * Basisklasse voor Structured Data
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://schema.org/Thing
  */
 abstract class Thing {
 
-	/** Data  */
+	/** Data */
 	protected array $data;
 
 	/** Init */
@@ -29,7 +29,7 @@ abstract class Thing {
 	abstract protected function get_type() : string;
 
 	/** Zet naam */
-	public function set_name( string $name )  {
+	public function set_name( string $name ) {
 		return $this->set_property( 'name', $name );
 	}
 
@@ -62,7 +62,7 @@ abstract class Thing {
 	/** Voeg eigenschap toe */
 	protected function add_property( string $property, $value ) {
 
-		//Huidige waarde casten naar een array indien nodig
+		// Huidige waarde casten naar een array indien nodig
 		if ( isset( $this->data[ $property ] ) && ! is_array( $this->data[ $property ] ) ) {
 			$this->data[ $property ] = (array) $this->data[ $property ];
 		}
@@ -75,14 +75,11 @@ abstract class Thing {
 	protected function parse_value( $value ) {
 		if ( is_string( $value ) ) {
 			return wp_kses_post( $value );
-		}
-		elseif ( is_subclass_of( $value, Thing::class) ) {
+		} elseif ( is_subclass_of( $value, self::class ) ) {
 			return $this->get_thing_value( $value );
-		}
-		elseif ( is_a( $value, \DateTime::class ) ) {
+		} elseif ( is_a( $value, \DateTime::class ) ) {
 			return $this->get_date_time_value( $value );
-		}
-		elseif ( is_subclass_of( $value, Enum::class ) ) {
+		} elseif ( is_subclass_of( $value, Enum::class ) ) {
 			return $this->get_enum_value( $value );
 		}
 	}
@@ -102,7 +99,7 @@ abstract class Thing {
 	private function get_enum_value( Enum $value ) {
 		return $value->value;
 	}
-	
+
 	/** Geeft data van type terug */
 	protected function get_data() : array {
 		return $this->data;
@@ -116,6 +113,6 @@ abstract class Thing {
 
 	/** Geef entiteit als JSON-LD script-tag terug*/
 	public function to_script() : string {
-		return '<script type="application/ld+json">' . json_encode( $this->to_array(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>';
+		return '<script type="application/ld+json">' . wp_json_encode( $this->to_array(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>';
 	}
 }

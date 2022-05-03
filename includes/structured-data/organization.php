@@ -4,7 +4,7 @@ namespace SIW\Structured_Data;
 
 /**
  * Organisatie
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://schema.org/Organization
  */
