@@ -6,7 +6,7 @@ use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
 /**
  * Proces om oude aanmeldingen te verwijderen
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Delete_Applications implements Batch_Action_Interface {
@@ -23,7 +23,7 @@ class Delete_Applications implements Batch_Action_Interface {
 	public function get_name(): string {
 		return __( 'Verwijder aanmeldingen', 'siw' );
 	}
-	
+
 	/** {@inheritDoc} */
 	public function must_be_scheduled(): bool {
 		return true;
@@ -36,11 +36,11 @@ class Delete_Applications implements Batch_Action_Interface {
 
 	/**
 	 * Selecteer de aanmeldingen van meer dan 1 jaar oud
-	 * 
+	 *
 	 * @todo geannuleerde aanmeldingen van meer dan 1 maand oud
 	 * @todo configuratieconstantes voor verwijdertermijnen
 	 */
-	public function select_data() : array {
+	public function select_data(): array {
 		$args = [
 			'limit'        => -1,
 			'return'       => 'ids',
@@ -52,13 +52,13 @@ class Delete_Applications implements Batch_Action_Interface {
 
 	/** {@inheritDoc} */
 	public function process( $item ) {
-		
+
 		$order = wc_get_order( $item );
 		if ( ! is_a( $order, \WC_Order::class ) ) {
 			return false;
 		}
 
-		//Eventuele refunds verwijderen
+		// Eventuele refunds verwijderen
 		$refunds = $order->get_refunds();
 		foreach ( $refunds as $refund ) {
 			$refund->delete();

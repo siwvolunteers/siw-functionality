@@ -10,7 +10,7 @@ use SIW\WooCommerce\Import\Product as Import_Product;
 
 /**
  * Versturen email voor goedkeuren Groepsprojecten
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
@@ -22,12 +22,12 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 	public function get_id(): string {
 		return 'send_workcamp_approval_emails';
 	}
-	
+
 	/** {@inheritDoc} */
 	public function get_name(): string {
 		return 'Versturen email goedkeuren groepsprojecten';
 	}
-	
+
 	/** {@inheritDoc} */
 	public function must_be_scheduled(): bool {
 		return true;
@@ -40,20 +40,22 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 
 	/** {@inheritDoc} */
 	public function select_data(): array {
-		
-		$data = get_terms( [
-			'taxonomy'   => self::CONTINENT_TAXONOMY,
-			'hide_empty' => true,
-			'fields'     => 'tt_ids'
-		]);
-		
+
+		$data = get_terms(
+			[
+				'taxonomy'   => self::CONTINENT_TAXONOMY,
+				'hide_empty' => true,
+				'fields'     => 'tt_ids',
+			]
+		);
+
 		if ( is_wp_error( $data ) ) {
 			return [];
 		}
 
 		return $data;
 	}
-	
+
 	/** {@inheritDoc} */
 	public function process( $term_taxonomy_id ) {
 		if ( ! is_int( $term_taxonomy_id ) ) {
@@ -64,19 +66,21 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 		if ( ! is_a( $term, \WP_Term::class ) ) {
 			return;
 		}
-	
+
 		// Zoek te beoordelen projecten per category (continent)
-		$products = siw_get_product_ids([
-			'category' => $term->slug,
-			'status'   => Import_Product::REVIEW_STATUS,
-		]);
+		$products = siw_get_product_ids(
+			[
+				'category' => $term->slug,
+				'status'   => Import_Product::REVIEW_STATUS,
+			]
+		);
 		if ( empty( $products ) ) {
 			return false;
 		}
 
 		$supervisor = $this->get_supervisor();
 		if ( is_null( $supervisor ) ) {
-			return false; //TODO:logging
+			return false; // TODO:logging
 		}
 		$responsible_user = $this->get_responsible_user( $term->slug ) ?? $supervisor;
 
@@ -89,10 +93,10 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 			admin_url( 'edit.php' )
 		);
 
-		$message = 
+		$message =
 			sprintf( 'Beste %s,', $responsible_user->user_firstname ) . BR2 .
 			sprintf( 'Er wachten nog %d projecten in %s op jouw beoordeling.', count( $products ), $term->name ) . BR .
-			sprintf( 'Klik %s om de projecten te bekijken.', Links::generate_link( $admin_url, 'hier') );
+			sprintf( 'Klik %s om de projecten te bekijken.', Links::generate_link( $admin_url, 'hier' ) );
 
 		$template = Email_Template::create()
 			->set_message( $message )
@@ -101,28 +105,28 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 
 		$this->send_mail(
 			$responsible_user,
-			$supervisor, 
+			$supervisor,
 			sprintf( 'Nog te beoordelen projecten in %s', $term->name ),
 			$template
 		);
 	}
 
 	/** Zoekt coordinator voor import Groepsprojecten */
-	protected function get_supervisor() : ?\WP_User {
+	protected function get_supervisor(): ?\WP_User {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval['supervisor'] ) ) {
 			$supervisor = get_userdata( $workcamp_approval['supervisor'] );
-			return is_a( $supervisor, \WP_User::class ) ? $supervisor : null ;
+			return is_a( $supervisor, \WP_User::class ) ? $supervisor : null;
 		}
 		return null;
 	}
 
 	/** Zoekt verantwoordelijke voor specifiek continent */
-	protected function get_responsible_user( string $category_slug ) : ?\WP_User {
+	protected function get_responsible_user( string $category_slug ): ?\WP_User {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval[ "responsible_{$category_slug}" ] ) ) {
-			$responsible_user = get_userdata( $workcamp_approval[ "responsible_{$category_slug}"] );
-			return is_a( $responsible_user, \WP_User::class ) ? $responsible_user : null ;
+			$responsible_user = get_userdata( $workcamp_approval[ "responsible_{$category_slug}" ] );
+			return is_a( $responsible_user, \WP_User::class ) ? $responsible_user : null;
 		}
 		return null;
 	}
@@ -137,7 +141,7 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 			->set_content_type( Email::TEXT_HTML )
 			->set_from( $from->user_email, $from->display_name );
 
-		if ( $to != $from ) {
+		if ( $to !== $from ) {
 			$email->add_cc( $from->user_email, $from->display_name );
 		}
 		$email->send();
