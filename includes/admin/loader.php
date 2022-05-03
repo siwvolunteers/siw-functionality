@@ -23,7 +23,7 @@ class Loader extends Class_Loader_Abstract {
 	}
 
 	/** Laadt 1 klasse */
-	 protected function load( string $class ) {
+	protected function load( string $class ) {
 		$class::init();
 	}
 
