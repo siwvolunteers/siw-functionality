@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	[
 		'name'        => 'project_id',
 		'type'        => 'CHAR',
@@ -20,67 +20,67 @@ $data = [
 		'search'      => true,
 	],
 	[
-		'name'        => 'code',
-		'type'        => 'VARCHAR',
-		'length'      => 255,
-		'show'        => true,
-		'show'        => true,
-		'search'      => true,
+		'name'   => 'code',
+		'type'   => 'VARCHAR',
+		'length' => 255,
+		'show'   => true,
+		'show'   => true,
+		'search' => true,
 	],
 	[
-		'name'        => 'project_type',
-		'type'        => 'VARCHAR',
-		'length'      => 4,
-		'show'        => true,
-		'sort'        => true,
-		'search'      => true,
+		'name'   => 'project_type',
+		'type'   => 'VARCHAR',
+		'length' => 4,
+		'show'   => true,
+		'sort'   => true,
+		'search' => true,
 	],
 	[
-		'name'        => 'work',
-		'type'        => 'VARCHAR',
-		'length'      => 32,
+		'name'   => 'work',
+		'type'   => 'VARCHAR',
+		'length' => 32,
 	],
 	[
-		'name'        => 'start_date',
-		'type'        => 'DATE',
-		'show'        => true,
-		'sort'        => true,
+		'name' => 'start_date',
+		'type' => 'DATE',
+		'show' => true,
+		'sort' => true,
 	],
 	[
-		'name'        => 'end_date',
-		'type'        => 'DATE',
-		'show'        => true,
-		'sort'        => true,
+		'name' => 'end_date',
+		'type' => 'DATE',
+		'show' => true,
+		'sort' => true,
 	],
 	[
-		'name'        => 'name',
-		'type'        => 'VARCHAR',
-		'length'      => 255,
+		'name'   => 'name',
+		'type'   => 'VARCHAR',
+		'length' => 255,
 	],
 	[
-		'name'        => 'location',
-		'type'        => 'TEXT',
-		'nullable'    => true,
+		'name'     => 'location',
+		'type'     => 'TEXT',
+		'nullable' => true,
 	],
 	[
-		'name'        => 'country',
-		'type'        => 'CHAR',
-		'length'      => 3,
+		'name'   => 'country',
+		'type'   => 'CHAR',
+		'length' => 3,
 	],
 	[
-		'name'        => 'region',
-		'type'        => 'VARCHAR',
-		'length'      => 255,
-		'nullable'    => true,
+		'name'     => 'region',
+		'type'     => 'VARCHAR',
+		'length'   => 255,
+		'nullable' => true,
 	],
 	[
-		'name'    => 'languages',
-		'type'    => 'VARCHAR',
-		'length'   => 32,
+		'name'   => 'languages',
+		'type'   => 'VARCHAR',
+		'length' => 32,
 	],
 	[
-		'name'    => 'participation_fee',
-		'type'    => 'FLOAT',
+		'name' => 'participation_fee',
+		'type' => 'FLOAT',
 	],
 	[
 		'name'     => 'participation_fee_currency',
@@ -89,28 +89,28 @@ $data = [
 		'nullable' => true,
 	],
 	[
-		'name'     => 'min_age',
-		'type'     => 'TINYINT',
+		'name' => 'min_age',
+		'type' => 'TINYINT',
 	],
 	[
-		'name'     => 'max_age',
-		'type'     => 'TINYINT',
+		'name' => 'max_age',
+		'type' => 'TINYINT',
 	],
 	[
-		'name'     => 'disabled_vols',
-		'type'     => 'BOOL',
+		'name' => 'disabled_vols',
+		'type' => 'BOOL',
 	],
 	[
-		'name'     => 'numvol',
-		'type'     => 'TINYINT',
+		'name' => 'numvol',
+		'type' => 'TINYINT',
 	],
 	[
-		'name'     => 'vegetarian',
-		'type'     => 'BOOL',
+		'name' => 'vegetarian',
+		'type' => 'BOOL',
 	],
 	[
-		'name'     => 'family',
-		'type'     => 'BOOL',
+		'name' => 'family',
+		'type' => 'BOOL',
 	],
 	[
 		'name'     => 'description',
@@ -159,24 +159,24 @@ $data = [
 		'nullable' => true,
 	],
 	[
-		'name'     => 'numvol_m',
-		'type'     => 'TINYINT',
+		'name' => 'numvol_m',
+		'type' => 'TINYINT',
 	],
 	[
-		'name'     => 'numvol_f',
-		'type'     => 'TINYINT',
+		'name' => 'numvol_f',
+		'type' => 'TINYINT',
 	],
 	[
-		'name'     => 'max_vols_per_country',
-		'type'     => 'TINYINT',
+		'name' => 'max_vols_per_country',
+		'type' => 'TINYINT',
 	],
 	[
-		'name'     => 'max_teenagers',
-		'type'     => 'TINYINT',
+		'name' => 'max_teenagers',
+		'type' => 'TINYINT',
 	],
 	[
-		'name'     => 'max_national_vols',
-		'type'     => 'TINYINT',
+		'name' => 'max_national_vols',
+		'type' => 'TINYINT',
 	],
 	[
 		'name'     => 'lat_project',
@@ -204,8 +204,8 @@ $data = [
 		'nullable' => true,
 	],
 	[
-		'name'     => 'bi_tri_multi',
-		'type'     => 'BOOL',
+		'name' => 'bi_tri_multi',
+		'type' => 'BOOL',
 	],
 	[
 		'name'     => 'ho_description',
@@ -218,12 +218,12 @@ $data = [
 		'nullable' => true,
 	],
 	[
-		'name'     => 'accessibility',
-		'type'     => 'BOOL',
+		'name' => 'accessibility',
+		'type' => 'BOOL',
 	],
 	[
-		'name'     => 'last_update',
-		'type'     => 'DATE',
+		'name' => 'last_update',
+		'type' => 'DATE',
 	],
 	[
 		'name'     => 'sdg_prj',
@@ -232,8 +232,8 @@ $data = [
 		'nullable' => true,
 	],
 	[
-		'name'     => 'dutch_project',
-		'type'     => 'BOOL'
+		'name' => 'dutch_project',
+		'type' => 'BOOL',
 	],
 ];
-return $data;
+return $siw_data;

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	'fade'        => __( 'Fade', 'siw' ),
 	'slide-up'    => __( 'Slide up', 'siw' ),
 	'slide-down'  => __( 'Slide down', 'siw' ),
@@ -23,4 +23,4 @@ $data = [
 	'flip-left'   => __( 'Flip left', 'siw' ),
 	'flip-right'  => __( 'Flip right', 'siw' ),
 ];
-return $data;
+return $siw_data;

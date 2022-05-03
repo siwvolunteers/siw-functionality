@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	'linear'            => 'linear',
 	'ease'              => 'ease',
 	'ease-in'           => 'easeIn',
@@ -41,4 +41,4 @@ $data = [
 	'ease-out-back'     => 'easeOutBack',
 	'ease-in-out-back'  => 'easeInOutBack',
 ];
-return $data;
+return $siw_data;

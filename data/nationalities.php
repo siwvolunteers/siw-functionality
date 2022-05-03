@@ -6,11 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Nationaliteiten
- * 
+ *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	'AFG' => __( 'Afghaanse', 'siw' ),
 	'ALB' => __( 'Albanese', 'siw' ),
 	'ALG' => __( 'Algerijnse', 'siw' ),
@@ -64,11 +64,13 @@ $data = [
 	'GEO' => __( 'Georgische', 'siw' ),
 	'GHA' => __( 'Ghanese', 'siw' ),
 	'GRE' => __( 'Griekse', 'siw' ),
-	//'GL' => __( 'Groenland', 'siw' ), //TODO: geen nationaliteit volgens IND
+	// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
+	// 'GL' => __( 'Groenland', 'siw' ), //TODO: geen nationaliteit volgens IND
 	'GAT' => __( 'Guatemalteekse', 'siw' ),
 	'HT'  => __( 'Haïtiaanse', 'siw' ),
 	'HON' => __( 'Hondurese', 'siw' ),
-	//'HKG' => __( 'Hongkong', 'siw' ), //TODO: geen nationaliteit volgens IND
+	// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
+	// 'HKG' => __( 'Hongkong', 'siw' ), //TODO: geen nationaliteit volgens IND
 	'HUN' => __( 'Hongaarse', 'siw' ),
 	'EIR' => __( 'Ierse', 'siw' ),
 	'ISL' => __( 'IJslandse', 'siw' ),
@@ -83,7 +85,8 @@ $data = [
 	'YEM' => __( 'Jemenitische', 'siw' ),
 	'JOR' => __( 'Jordaanse', 'siw' ),
 	'CVD' => __( 'Kaapverdische', 'siw' ),
-	//'CYD' => __( 'Kaaimaneilanden', 'siw' ), //TODO:geen nationaliteit volgens IND
+	// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
+	// 'CYD' => __( 'Kaaimaneilanden', 'siw' ), //TODO:geen nationaliteit volgens IND
 	'CMR' => __( 'Kameroense', 'siw' ),
 	'KZ'  => __( 'Kazachstaanse', 'siw' ),
 	'KEN' => __( 'Keniaanse', 'siw' ),
@@ -114,14 +117,16 @@ $data = [
 	'NIC' => __( 'Nicaraguaanse', 'siw' ),
 	'NGR' => __( 'Nigerese', 'siw' ),
 	'NIG' => __( 'Nigeriaanse', 'siw' ),
-	//'NI' => __( 'Noord-Ierland', 'siw' ), //TODO: geen nationaliteit volgens IND
+	// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
+	// 'NI' => __( 'Noord-Ierland', 'siw' ), //TODO: geen nationaliteit volgens IND
 	'NOR' => __( 'Noorse', 'siw' ),
 	'UGA' => __( 'Oegandese', 'siw' ),
 	'UKR' => __( 'Oekraïense', 'siw' ),
 	'UZB' => __( 'Oezbeekse', 'siw' ),
 	'AT'  => __( 'Oostenrijkse', 'siw' ),
 	'PK'  => __( 'Pakistaanse', 'siw' ),
-	//'PS'  => __( 'Palestina', 'siw' ), //TODO: geen nationaliteit volgens IND
+	// phpcs:ignore Squiz.PHP.CommentedOutCode.Found
+	// 'PS'  => __( 'Palestina', 'siw' ), //TODO: geen nationaliteit volgens IND
 	'PAR' => __( 'Paraguayaanse', 'siw' ),
 	'PER' => __( 'Peruaanse', 'siw' ),
 	'POL' => __( 'Poolse', 'siw' ),
@@ -157,4 +162,4 @@ $data = [
 	'CH'  => __( 'Zwitserse', 'siw' ),
 ];
 
-return $data;
+return $siw_data;
