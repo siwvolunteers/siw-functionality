@@ -6,9 +6,9 @@ use \Spatie\Enum\Enum;
 
 /**
  * WooCommerce taxonomy attributes
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @method static self DATE()
  * @method static self POSTCODE()
  * @method static self HOUSENUMBER()

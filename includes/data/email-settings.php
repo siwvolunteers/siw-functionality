@@ -4,7 +4,7 @@ namespace SIW\Data;
 
 /**
  * Bevat email instellingen
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Email_Settings extends Data {

@@ -6,7 +6,7 @@ use SIW\Data\Data;
 
 /**
  * Class om vrije plaatsen van een Plato-project te modelleren
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Project_Free_Places extends Data {
@@ -50,43 +50,55 @@ class Project_Free_Places extends Data {
 	/** URL van infosheet */
 	protected string $file_identifier_infosheet;
 
-
 	/** Geeft project id terug */
-	public function get_project_id() : string { return $this->project_id;}
-	
+	public function get_project_id(): string {
+		return $this->project_id;}
+
 	/** Geeft de code van het project terug */
-	public function get_code() : string { return $this->code;}
+	public function get_code(): string {
+		return $this->code;}
 
 	/** Geeft de startdatum van het project terug */
-	public function get_start_date() : string { return $this->start_date;}
+	public function get_start_date(): string {
+		return $this->start_date;}
 
 	/** Geeft de einddatum van het project terug */
-	public function get_end_date() : string { return $this->end_date;}
+	public function get_end_date(): string {
+		return $this->end_date;}
 
 	/** Geeft de code van het project terug */
-	public function get_numvol() : int { return $this->numvol;}
+	public function get_numvol(): int {
+		return $this->numvol;}
 
 	/** Geeft het aantal vrij plaatsen voor mannen terug */
-	public function get_free_m() : int { return $this->free_m;}
+	public function get_free_m(): int {
+		return $this->free_m;}
 
 	/** Geeft het aantal vrij plaatsen voor vrouwen terug */
-	public function get_free_f() : int { return $this->free_f;}
+	public function get_free_f(): int {
+		return $this->free_f;}
 
 	/** Geeft het aantal vrij plaatsen voor tieners terug */
-	public function get_free_teen() : int { return $this->free_teen;}
+	public function get_free_teen(): int {
+		return $this->free_teen;}
 
 	/** Geeft het aantal gereserveerde plaatsen terug */
-	public function get_reserved() : int { return $this->reserved;}
+	public function get_reserved(): int {
+		return $this->reserved;}
 
 	/** Geeft terug voor vrijwilligers uit welke landen er geen plaats meer is */
-	public function get_no_more_from() : string { return $this->no_more_from;}
-	
+	public function get_no_more_from(): string {
+		return $this->no_more_from;}
+
 	/** Geeft opmerkingen terug */
-	public function get_remarks() : string { return $this->remarks;}
+	public function get_remarks(): string {
+		return $this->remarks;}
 
 	/** Geeft datum van laatste update terug */
-	public function get_last_update() : string { return $this->last_update;}
+	public function get_last_update(): string {
+		return $this->last_update;}
 
 	/** Geeft fileIdentifier van de infosheet terug */
-	public function get_file_identifier_infosheet() : string { return $this->file_identifier_infosheet;}
+	public function get_file_identifier_infosheet(): string {
+		return $this->file_identifier_infosheet;}
 }

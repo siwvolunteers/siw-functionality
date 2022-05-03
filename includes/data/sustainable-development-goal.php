@@ -4,7 +4,7 @@ namespace SIW\Data;
 
 /**
  * Bevat informatie over een Sustainable Development Goal
- * 
+ *
  * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Sustainable_Development_Goal extends Data {
