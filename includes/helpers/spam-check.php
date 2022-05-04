@@ -76,14 +76,13 @@ class Spam_Check {
 	/** Check of het om spam gaat */
 	public function is_spam(): bool {
 
-		//Check message (op links e.d.)
-		
+		// Check message (op links e.d.)
 
 		// Check of IP-adres uit transient beschikbaar is en direct afbreken als het vrijwel zeker een spammer is
 		if ( $this->check_ip ) {
 			$ip_spam = get_transient( "siw_spam_ip_{$this->ip}" );
 			if ( false !== $ip_spam ) {
-				if ( (boolean) $ip_spam ) {
+				if ( (bool) $ip_spam ) {
 					Logger::info( "Gefilterd als spam: ip {$this->ip}", self::LOGGER_CONTEXT );
 					return true;
 				}
@@ -107,7 +106,7 @@ class Spam_Check {
 			return false;
 		}
 
-		//Externe spamcheck bij StopForumSpam
+		// Externe spamcheck bij StopForumSpam
 		$sfs = new Stop_Forum_Spam();
 		if ( $this->check_email ) {
 			$sfs->set_email( $this->email );
@@ -123,7 +122,7 @@ class Spam_Check {
 			set_transient( "siw_spam_ip_{$this->ip}", (int) $result->get( 'ip' ), self::TRANSIENT_EXPIRATION );
 		}
 
-		//Bepaal of het een spammer betreft
+		// Bepaal of het een spammer betreft
 		if ( $result->get( 'email' ) ) {
 			Logger::info( "Gefilterd als spam: email {$this->email}", self::LOGGER_CONTEXT );
 			return true;

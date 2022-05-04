@@ -13,7 +13,7 @@ use SIW\Util\CSS;
  */
 class Email_Template {
 
-	//TODO: integreren in email helper?
+	// TODO: integreren in email helper?
 
 	/** Context voor Mustache template */
 	protected array $context = [];
@@ -26,7 +26,7 @@ class Email_Template {
 		$self = new self();
 
 		$self->context = [
-			'properties' => [
+			'properties'      => [
 				'name'                => Properties::NAME,
 				'phone'               => Properties::PHONE,
 				'phone_international' => Properties::PHONE_INTERNATIONAL,
@@ -35,25 +35,27 @@ class Email_Template {
 				'site_name'           => SIW_SITE_NAME,
 				'assets_url'          => SIW_ASSETS_URL,
 			],
-			'colors' => [
+			'colors'          => [
 				'accent'         => CSS::ACCENT_COLOR,
 				'contrast'       => CSS::CONTRAST_COLOR,
 				'contrast_light' => CSS::CONTRAST_COLOR_LIGHT,
 				'base'           => CSS::BASE_COLOR,
 			],
-			'i18n' => [
+			'i18n'            => [
 				'with_kind_regards' => __( 'Met vriendelijke groet', 'siw' ),
 				'entered_data'      => __( 'Ingevulde gegevens', 'siw' ),
 				'visit_our_website' => __( 'Bezoek onze website', 'siw' ),
 			],
-			'social_networks' => array_values( array_map(
-				fn( Social_Network $network ): array => [
-					'follow_url' => $network->get_follow_url(),
-					'image_url'  => SIW_ASSETS_URL . 'images/mail/' . $network->get_slug() . '.png',
-					'slug'       => $network->get_slug(),
-				],
-				siw_get_social_networks( Social_Network::FOLLOW )
-			)),
+			'social_networks' => array_values(
+				array_map(
+					fn( Social_Network $network ): array => [
+						'follow_url' => $network->get_follow_url(),
+						'image_url'  => SIW_ASSETS_URL . 'images/mail/' . $network->get_slug() . '.png',
+						'slug'       => $network->get_slug(),
+					],
+					siw_get_social_networks( Social_Network::FOLLOW )
+				)
+			),
 
 		];
 		return $self;
@@ -83,7 +85,10 @@ class Email_Template {
 	public function set_summary_data( array $summary_data ): self {
 		if ( ! wp_is_numeric_array( $summary_data ) ) {
 			$summary_data = array_map(
-				fn( string $label, string $value ): array => [ 'label' => $label, 'value' => $value ],
+				fn( string $label, string $value ): array => [
+					'label' => $label,
+					'value' => $value,
+				],
 				array_keys( $summary_data ),
 				$summary_data
 			);
