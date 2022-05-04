@@ -29,35 +29,40 @@ class Shortcodes {
 		}
 
 		/* Shortcode voor line-break */
-		add_shortcode( 'br', function() { return '<br>';});
+		add_shortcode(
+			'br',
+			function() {
+				return '<br>';
+			}
+		);
 	}
 
 	/** Geeft lijst met shortcodes terug */
 	public static function get_shortcodes(): array {
 		$shortcodes = [
-			'kvk'                           => __( 'KVK-nummer', 'siw' ),
-			'email'                         => __( 'E-mailadres', 'siw' ),
-			'email_link'                    => __( 'E-mailadres (link)', 'siw' ),
-			'telefoon'                      => __( 'Telefoonnummer', 'siw' ),
-			'telefoon_internationaal'       => __( 'Telefoonnummer (internationaal)', 'siw' ),
-			'whatsapp'                      => __( 'WhatsApp-nummer', 'siw' ),
-			'iban'                          => __( 'IBAN', 'siw' ),
-			'openingstijden'                => __( 'Openingstijden', 'siw' ),
-			'esc_borg'                      => __( 'ESC-borg', 'siw' ),
-			'volgende_infodag'              => __( 'Volgende infodag', 'siw' ),
-			'stv_tarief'                    => __( 'STV tarief', 'siw' ),
-			'stv_tarief_student'            => __( 'STV tarief inclusief studentenkorting', 'siw' ),
-			'mtv_tarief'                    => __( 'MTV tarief', 'siw' ),
-			'mtv_tarief_student'            => __( 'MTV tarief inclusief studentenkorting', 'siw' ),
-			'ltv_tarief'                    => __( 'LTV tarief', 'siw' ),
-			'ltv_tarief_student'            => __( 'LTV tarief inclusief studentenkorting', 'siw' ),
-			'np_tarief'                     => __( 'Tarief Nederlandse projecten', 'siw' ),
-			'np_tarief_student'             => __( 'Tarief Nederlandse projecten inclusief studentenkorting', 'siw' ),
-			'studentenkorting'              => __( 'Studentenkorting', 'siw' ),
-			'scholenproject_tarief'         => __( 'Scholenproject - tarief', 'siw' ),
-			'korting_tweede_project'        => __( 'Korting tweede project', 'siw' ),
-			'leeftijd'                      => __( 'Leeftijd van SIW', 'siw' ),
-			'laatste_jaarverslag'           => [
+			'kvk'                     => __( 'KVK-nummer', 'siw' ),
+			'email'                   => __( 'E-mailadres', 'siw' ),
+			'email_link'              => __( 'E-mailadres (link)', 'siw' ),
+			'telefoon'                => __( 'Telefoonnummer', 'siw' ),
+			'telefoon_internationaal' => __( 'Telefoonnummer (internationaal)', 'siw' ),
+			'whatsapp'                => __( 'WhatsApp-nummer', 'siw' ),
+			'iban'                    => __( 'IBAN', 'siw' ),
+			'openingstijden'          => __( 'Openingstijden', 'siw' ),
+			'esc_borg'                => __( 'ESC-borg', 'siw' ),
+			'volgende_infodag'        => __( 'Volgende infodag', 'siw' ),
+			'stv_tarief'              => __( 'STV tarief', 'siw' ),
+			'stv_tarief_student'      => __( 'STV tarief inclusief studentenkorting', 'siw' ),
+			'mtv_tarief'              => __( 'MTV tarief', 'siw' ),
+			'mtv_tarief_student'      => __( 'MTV tarief inclusief studentenkorting', 'siw' ),
+			'ltv_tarief'              => __( 'LTV tarief', 'siw' ),
+			'ltv_tarief_student'      => __( 'LTV tarief inclusief studentenkorting', 'siw' ),
+			'np_tarief'               => __( 'Tarief Nederlandse projecten', 'siw' ),
+			'np_tarief_student'       => __( 'Tarief Nederlandse projecten inclusief studentenkorting', 'siw' ),
+			'studentenkorting'        => __( 'Studentenkorting', 'siw' ),
+			'scholenproject_tarief'   => __( 'Scholenproject - tarief', 'siw' ),
+			'korting_tweede_project'  => __( 'Korting tweede project', 'siw' ),
+			'leeftijd'                => __( 'Leeftijd van SIW', 'siw' ),
+			'laatste_jaarverslag'     => [
 				'title'      => __( 'Laatste jaarverslag', 'siw' ),
 				'attributes' => [
 					[
@@ -65,9 +70,9 @@ class Shortcodes {
 						'type'  => 'text',
 						'title' => __( 'Titel', 'siw' ),
 					],
-				]
+				],
 			],
-			'externe_link' => [
+			'externe_link'            => [
 				'title'      => __( 'Externe link', 'siw' ),
 				'attributes' => [
 					[
@@ -82,7 +87,7 @@ class Shortcodes {
 					],
 				],
 			],
-			'pagina_lightbox' => [
+			'pagina_lightbox'         => [
 				'title'      => __( 'Pagina-lightbox', 'siw' ),
 				'attributes' => [
 					[
@@ -220,10 +225,15 @@ class Shortcodes {
 
 	/** Externe link */
 	public static function render_externe_link( array $atts ): string {
-		extract( shortcode_atts( [
-			'url'   => '',
-			'titel' => '',
-			], $atts, 'siw_externe_link' )
+		extract( // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
+			shortcode_atts(
+				[
+					'url'   => '',
+					'titel' => '',
+				],
+				$atts,
+				'siw_externe_link'
+			)
 		);
 		$titel = ( $titel ) ? $titel : $url;
 
@@ -232,9 +242,14 @@ class Shortcodes {
 
 	/** Toont laatste jaarverslag */
 	public static function render_laatste_jaarverslag( array $atts ): string {
-		extract( shortcode_atts( [
-			'titel' => '',
-			], $atts, 'siw_laatste_jaarverslag' )
+		extract( // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
+			shortcode_atts(
+				[
+					'titel' => '',
+				],
+				$atts,
+				'siw_laatste_jaarverslag'
+			)
 		);
 
 		$annual_reports = siw_get_option( 'annual_reports' );
@@ -251,13 +266,19 @@ class Shortcodes {
 
 	/**
 	 * Lightbox met inhoud van pagina
+	 *
 	 * @todo slug als parameter en get page by path gebruiken
 	 */
 	public static function render_pagina_lightbox( array $atts ): ?string {
-		extract( shortcode_atts( [
-			'link_tekst' => '',
-			'pagina'     => '',
-			], $atts, 'siw_pagina_lightbox' )
+		extract( // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
+			shortcode_atts(
+				[
+					'link_tekst' => '',
+					'pagina'     => '',
+				],
+				$atts,
+				'siw_pagina_lightbox'
+			)
 		);
 
 		$pages = [

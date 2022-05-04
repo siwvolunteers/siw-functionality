@@ -4,9 +4,8 @@ namespace SIW;
 
 /**
  * Autoloader voor SIW classes
- * 
+ *
  * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
 class Autoloader {
 
@@ -31,10 +30,10 @@ class Autoloader {
 			return;
 		}
 
-		//Root-namespace verwijderen
+		// Root-namespace verwijderen
 		$class = str_replace( $this->root_namespace . '\\', '', $class );
 
-		//Bestandsnaam opbouwen
+		// Bestandsnaam opbouwen
 		$path = str_replace( '\\', '/', $class );
 
 		$file = trailingslashit( $this->root_directory ) . $path . '.php';
