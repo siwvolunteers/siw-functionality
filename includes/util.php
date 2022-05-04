@@ -38,8 +38,8 @@ class Util {
 
 	/** Geeft array met pagina's in standaardtaal terug */
 	public static function get_pages(): array {
-		$default_lang = i18n::get_default_language();
-		$current_lang = i18n::get_current_language();
+		$default_lang = I18n::get_default_language();
+		$current_lang = I18n::get_current_language();
 		do_action( 'wpml_switch_language', $default_lang ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		$results = get_pages();
 		do_action( 'wpml_switch_language', $current_lang ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound

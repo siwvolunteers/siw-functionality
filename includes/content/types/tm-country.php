@@ -10,7 +10,7 @@ use SIW\Elements\Icon;
 use SIW\Elements\Quote;
 use SIW\Elements\World_Map;
 use SIW\Helpers\Template;
-use SIW\i18n;
+use SIW\I18n;
 use SIW\Util\CSS;
 use SIW\Util\Links;
 
@@ -183,7 +183,7 @@ class TM_Country extends Type {
 		$image = reset( $images );
 
 		$country = siw_get_country( siw_meta( 'country' ) );
-		$tailor_made_page_link = i18n::get_translated_page_url( (int) siw_get_option( 'pages.explanation.tailor_made' ) );
+		$tailor_made_page_link = I18n::get_translated_page_url( (int) siw_get_option( 'pages.explanation.tailor_made' ) );
 
 		$template_vars = [
 			'image'             => wp_get_attachment_image( $image['ID'], 'large' ),

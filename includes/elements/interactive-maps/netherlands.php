@@ -5,7 +5,7 @@ namespace SIW\Elements\Interactive_Maps;
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
 use SIW\Elements\Accordion;
-use SIW\i18n;
+use SIW\I18n;
 use SIW\Util\CSS;
 use SIW\Util\Links;
 use SIW\WooCommerce\Product\WC_Product_Project;
@@ -101,7 +101,7 @@ class Netherlands implements Interactive_Map_Interface {
 			$panes[] = [
 				'title'       => $project->get_name(),
 				'content'     => $this->get_project_properties( $project ),
-				'show_button' => i18n::is_default_language(),
+				'show_button' => I18n::is_default_language(),
 				'button_url'  => $project->get_permalink(),
 				'button_text' => __( 'Bekijk project', 'siw' ),
 			];
@@ -143,7 +143,7 @@ class Netherlands implements Interactive_Map_Interface {
 
 	/** Haal knop naar Groepsproject op */
 	protected function get_project_button( WC_Product_Project $project ) : ?string {
-		if ( ! i18n::is_default_language() ) {
+		if ( ! I18n::is_default_language() ) {
 			return null;
 		}
 		return Links::generate_button_link( $project->get_permalink(), __( 'Bekijk project', 'siw' ) );

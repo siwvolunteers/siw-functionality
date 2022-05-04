@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce\Product\Archive;
 
-use SIW\i18n;
+use SIW\I18n;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -91,7 +91,7 @@ class Header {
 			}
 		}
 
-		$workcamps_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
+		$workcamps_page_link = I18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
 
 		$text .= SPACE .
 			__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
@@ -125,7 +125,7 @@ class Header {
 
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
 
-		$contact_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.contact' ) ) );
+		$contact_page_link = I18n::get_translated_page_url( intval( siw_get_option( 'pages.contact' ) ) );
 		$end_year = gmdate( 'Y', strtotime( $teaser_text['end_date'] ) );
 		$end_month = date_i18n( 'F', strtotime( $teaser_text['end_date'] ) );
 		// translators: %1$s is een maand,  %2$s is een jaar

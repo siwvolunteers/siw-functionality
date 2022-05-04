@@ -3,7 +3,7 @@
 namespace SIW\Modules;
 
 use SIW\Helpers\Template;
-use SIW\i18n;
+use SIW\I18n;
 use SIW\Properties;
 
 /**
@@ -27,7 +27,7 @@ class Topbar {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		if ( ! i18n::is_default_language() ) {
+		if ( ! I18n::is_default_language() ) {
 			return;
 		}
 

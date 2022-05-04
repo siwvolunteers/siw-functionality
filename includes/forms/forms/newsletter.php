@@ -2,7 +2,7 @@
 
 namespace SIW\Forms\Forms;
 
-use SIW\i18n;
+use SIW\I18n;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
 
@@ -63,7 +63,7 @@ class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 	/** Genereert url voor bevestingslink TODO: verplaatsen naar Newsletter Util klasse */
 	protected function generate_confirmation_url(): string {
 
-		$confirmation_page = i18n::get_translated_page_url( (int) siw_get_option( 'pages.newsletter_confirmation' ) );
+		$confirmation_page = I18n::get_translated_page_url( (int) siw_get_option( 'pages.newsletter_confirmation' ) );
 
 		return add_query_arg(
 			[

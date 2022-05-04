@@ -2,7 +2,7 @@
 
 namespace SIW\Compatibility;
 
-use SIW\i18n;
+use SIW\I18n;
 use SIW\Util\CSS;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
@@ -64,7 +64,7 @@ class The_SEO_Framework {
 	/** Toon alleen pagina's in Engelse sitemap */
 	public function set_sitemap_supported_post_types( array $post_types ): array {
 
-		if ( ! i18n::is_default_language() ) {
+		if ( ! I18n::is_default_language() ) {
 			$post_types = [];
 			$post_types[] = 'page';
 		}
@@ -74,7 +74,7 @@ class The_SEO_Framework {
 	/** Productarchieven toevoegen aan de sitemap TODO: verplaatsen naar WooCommerce*/
 	public function set_sitemap_additional_urls( array $custom_urls ): array {
 
-		if ( ! i18n::is_default_language() ) {
+		if ( ! I18n::is_default_language() ) {
 			return $custom_urls;
 		}
 		$taxonomies = [

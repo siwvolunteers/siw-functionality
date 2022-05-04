@@ -5,7 +5,7 @@ namespace SIW\Elements\Interactive_Maps;
 use SIW\Actions\Batch\Update_WooCommerce_Terms;
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
-use SIW\i18n;
+use SIW\I18n;
 use SIW\Data\Country;
 use SIW\Elements\List_Columns;
 use SIW\Util\Links;
@@ -97,7 +97,7 @@ class Destinations implements Interactive_Map_Interface {
 
 		/* EVS */
 		if ( $country->has_esc_projects() ) {
-			$esc_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.esc' ) ) );
+			$esc_page_link = I18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.esc' ) ) );
 			$project_types[] = esc_html__( 'ESC', 'siw' ) . SPACE . Links::generate_link( $esc_page_link, __( 'Lees meer', 'siw' ) );
 		}
 
@@ -118,7 +118,7 @@ class Destinations implements Interactive_Map_Interface {
 			$url = get_term_link( $country->get_slug(), Taxonomy_Attribute::COUNTRY()->value );
 			$text = __( 'Bekijk het aanbod', 'siw' );
 		} else {
-			$url = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
+			$url = I18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
 			$text = __( 'Lees meer', 'siw' );
 		}
 		return esc_html__( 'Groepsprojecten', 'siw' ) . SPACE . Links::generate_link( $url, $text );
@@ -127,7 +127,7 @@ class Destinations implements Interactive_Map_Interface {
 	/** Genereert beschrijving voor Op Maat */
 	public function generate_tailor_made_description( Country $country ): string {
 
-		$tailor_made_page_link = i18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.tailor_made' ) ) );
+		$tailor_made_page_link = I18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.tailor_made' ) ) );
 
 		$tailor_made_pages = get_posts(
 			[

@@ -3,7 +3,7 @@
 namespace SIW\Compatibility;
 
 use SIW\Assets\JS_Cookie;
-use SIW\i18n;
+use SIW\I18n;
 use SIW\Properties;
 use SIW\Update;
 use SIW\Util\CSS;
@@ -73,7 +73,7 @@ class GeneratePress {
 
 	/** Zet het aantal footer-widgets op 1 voor andere talen dan Nederlands */
 	public function set_footer_widgets( string $widgets ): string {
-		if ( ! i18n::is_default_language() ) {
+		if ( ! I18n::is_default_language() ) {
 			$widgets = '1';
 		}
 		return $widgets;

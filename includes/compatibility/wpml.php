@@ -2,7 +2,7 @@
 
 namespace SIW\Compatibility;
 
-use SIW\i18n;
+use SIW\I18n;
 
 /**
  * Aanpassingen voor WPML
@@ -39,11 +39,11 @@ class WPML {
 
 	/** Verwijder origineel attachment als vertaling verwijderd wordt */
 	public function delete_original_attachment( int $post_id ) {
-		if ( i18n::is_default_language() ) {
+		if ( I18n::is_default_language() ) {
 			return;
 		}
 
-		$original_post_id = apply_filters( 'wpml_object_id', $post_id, 'attachment', false, i18n::get_default_language() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		$original_post_id = apply_filters( 'wpml_object_id', $post_id, 'attachment', false, I18n::get_default_language() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		if ( is_int( $original_post_id ) && $post_id !== $original_post_id ) {
 			wp_delete_attachment( $original_post_id );
 		}

@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\i18n;
+use SIW\I18n;
 use SIW\Util;
 
 /**
@@ -80,7 +80,7 @@ class CTA extends Widget {
 			'headline' => $instance['headline'],
 			'align'    => $instance['align'],
 			'button'   => [
-				'url'  => i18n::get_translated_page_url( intval( $instance['button_page'] ) ),
+				'url'  => I18n::get_translated_page_url( intval( $instance['button_page'] ) ),
 				'text' => $instance['button_text'],
 			],
 		];

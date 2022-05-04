@@ -7,7 +7,7 @@ namespace SIW;
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
-class i18n {
+class I18n {
 
 	/** Zoekt url van vertaalde pagina op basis van id */
 	public static function get_translated_page_url( int $page_id ): string {

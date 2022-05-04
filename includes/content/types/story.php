@@ -7,7 +7,7 @@ use SIW\Elements\Quote;
 use SIW\Helpers\Template;
 use SIW\HTML;
 use SIW\Util\Links;
-use SIW\i18n;
+use SIW\I18n;
 
 /**
  * Ervaringsverhalen
@@ -265,7 +265,7 @@ class Story extends Type {
 		$project_type = siw_meta( 'siw_story_project_type' );
 		$page = $pages[ $project_type->slug ] ?? '';
 
-		$page_url = i18n::get_translated_page_url( (int) siw_get_option( "pages.explanation.{$page}", 1 ) );
+		$page_url = I18n::get_translated_page_url( (int) siw_get_option( "pages.explanation.{$page}", 1 ) );
 
 		if ( ! empty( $page_url ) ) {
 			return Links::generate_button_link( $page_url, __( 'Bekijk de mogelijkheden', 'siw' ) );
