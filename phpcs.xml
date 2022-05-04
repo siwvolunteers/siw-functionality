@@ -19,6 +19,7 @@
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
 		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
 		<exclude name="Generic.Commenting.DocComment.MissingShort"/>
+		<exclude name="Generic.Files.LineEndings"/>
 		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_tax_query"/>
 		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_query"/>
 		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_key"/>
@@ -59,11 +60,11 @@
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax" />
 	<rule ref="Generic.PHP.RequireStrictTypes"/>
 
-	<rule ref="Generic.Files.LineEndings">
+	<!-- <rule ref="Generic.Files.LineEndings">
 		<properties>
 			<property name="eolChar" value="\r\n"/>
 		</properties>
-	</rule>
+	</rule> -->
 
 	<rule ref="Generic.Metrics.CyclomaticComplexity">
 		<properties>
