@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Gegevens van valuta's
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 
 $siw_data = [
