@@ -6,7 +6,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Aanpassingen voor product query
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Query {
@@ -28,7 +28,7 @@ class Query {
 		}
 		return $query;
 	}
-	
+
 	/** Voegt country argument toe aan WC queries */
 	public function enable_country_search( array $query, array $query_vars ): array {
 		if ( ! empty( $query_vars['country'] ) ) {

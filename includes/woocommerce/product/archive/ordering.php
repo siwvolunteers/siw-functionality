@@ -4,7 +4,7 @@ namespace SIW\WooCommerce\Product\Archive;
 
 /**
  * Sortering van projecten in frontend
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Ordering {

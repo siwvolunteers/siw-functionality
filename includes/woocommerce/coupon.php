@@ -29,20 +29,22 @@ class Coupon {
 			return false;
 		}
 
-		//Check of er al een kortingscode voor deze aanmelding bestaat
+		// Check of er al een kortingscode voor deze aanmelding bestaat
 		if ( 0 !== wc_get_coupon_id_by_code( $order->get_order_number() ) ) {
 			return false;
 		}
 		$coupon = new \WC_Coupon();
-		$coupon->set_props( [
-			'code'               => $order->get_order_number(),
-			'discount_type'      => self::DISCOUNT_TYPE,
-			'email_restrictions' => $order->get_billing_email(),
-			'amount'             => Properties::DISCOUNT_SECOND_PROJECT,
-			'description'        => $order->get_formatted_billing_full_name(),
-			'date_expires'       => '',
-			'usage_limit'        => 1,
-		]);
+		$coupon->set_props(
+			[
+				'code'               => $order->get_order_number(),
+				'discount_type'      => self::DISCOUNT_TYPE,
+				'email_restrictions' => $order->get_billing_email(),
+				'amount'             => Properties::DISCOUNT_SECOND_PROJECT,
+				'description'        => $order->get_formatted_billing_full_name(),
+				'date_expires'       => '',
+				'usage_limit'        => 1,
+			]
+		);
 		$coupon->save();
 		$order->add_order_note( 'Kortingscode aangemaakt' );
 		return true;

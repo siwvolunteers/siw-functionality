@@ -14,17 +14,17 @@ class Order_Actions {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_filter( 'woocommerce_order_actions', [ $self, 'remove_order_actions'] );
-		add_filter( 'woocommerce_order_actions', [ $self, 'add_order_action'], 10, 2 );
-		add_action( 'woocommerce_order_action_siw_export_to_plato', [ $self, 'export_order_to_plato'] );
-		add_action( 'woocommerce_order_action_siw_create_coupon', [ $self, 'create_coupon'] );
+		add_filter( 'woocommerce_order_actions', [ $self, 'remove_order_actions' ] );
+		add_filter( 'woocommerce_order_actions', [ $self, 'add_order_action' ], 10, 2 );
+		add_action( 'woocommerce_order_action_siw_export_to_plato', [ $self, 'export_order_to_plato' ] );
+		add_action( 'woocommerce_order_action_siw_create_coupon', [ $self, 'create_coupon' ] );
 	}
 
 	/** Verwijdert overbodige order actions */
-	public function remove_order_actions( array $actions ) : array {
-		unset( $actions['regenerate_download_permissions']);
-		unset( $actions['send_order_details_admin']);
-		unset( $actions['send_order_details']);
+	public function remove_order_actions( array $actions ): array {
+		unset( $actions['regenerate_download_permissions'] );
+		unset( $actions['send_order_details_admin'] );
+		unset( $actions['send_order_details'] );
 		return $actions;
 	}
 
@@ -38,7 +38,7 @@ class Order_Actions {
 		}
 		return $actions;
 	}
-	
+
 	/** Exporteert aanmelding naar plato */
 	public function export_order_to_plato( \WC_Order $order ) {
 		$data = [

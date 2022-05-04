@@ -4,7 +4,7 @@ namespace SIW\WooCommerce\Product;
 
 /**
  * Toevoegen project type
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Product_Type {
@@ -15,7 +15,7 @@ class Product_Type {
 		add_filter( 'product_type_selector', [ $self, 'set_product_types' ] );
 		add_filter( 'woocommerce_product_class', [ $self, 'set_product_class' ], 10, 2 );
 	}
- 
+
 	/** Voegt product type toe */
 	public function set_product_types( array $product_types ): array {
 		unset( $product_types['simple'] );
@@ -28,7 +28,7 @@ class Product_Type {
 
 	/** Zet class voor product type */
 	public function set_product_class( string $class, string $product_type ): string {
-		if ( WC_Product_Project::PRODUCT_TYPE == $product_type ) {
+		if ( WC_Product_Project::PRODUCT_TYPE === $product_type ) {
 			$class = WC_Product_Project::class;
 		}
 		return $class;
