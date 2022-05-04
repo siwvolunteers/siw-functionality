@@ -66,7 +66,7 @@ class Taxonomy_Filter extends Element {
 		];
 
 		if ( $this->use_post_count ) {
-			$term_query['meta_query'] = [ // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			$term_query['meta_query'] = [
 				[
 					'key'     => Update_Terms::POST_COUNT_TERM_META,
 					'value'   => 0,

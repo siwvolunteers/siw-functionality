@@ -135,8 +135,8 @@ abstract class Type {
 					'column_count'    => $self->archive_column_width,
 					'order'           => $self->archive_order,
 					'orderby'         => $self->orderby,
-					'meta_key'        => $self->orderby_meta_key, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-					'meta_query'      => $self->active_posts_meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					'meta_key'        => $self->orderby_meta_key,
+					'meta_query'      => $self->active_posts_meta_query,
 					'sidebar_layout'  => $self->archive_sidebar_layout,
 				]
 			);

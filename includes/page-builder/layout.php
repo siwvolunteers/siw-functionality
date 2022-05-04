@@ -39,9 +39,9 @@ class Layout implements Row_Style_Fields_Interface {
 			return $style_attributes;
 		}
 
-		if ( 'full_width_background' == $style_args[ self::STYLE_FIELD_ROW_STRETCH ] ) {
+		if ( 'full_width_background' === $style_args[ self::STYLE_FIELD_ROW_STRETCH ] ) {
 			$style_attributes['class'][] = 'row-full-width-background';
-		} elseif ( 'full_width' == $style_args[ self::STYLE_FIELD_ROW_STRETCH ] ) {
+		} elseif ( 'full_width' === $style_args[ self::STYLE_FIELD_ROW_STRETCH ] ) {
 			$style_attributes['class'][] = 'row-full-width';
 		}
 		return $style_attributes;

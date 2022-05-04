@@ -6,22 +6,24 @@
 
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
-	<exclude-pattern>*/dist*/*</exclude-pattern>
+	<exclude-pattern>*/templates/*</exclude-pattern>
 
 	<arg value="sp"/>
 	<arg name="colors"/>
 	<arg name="parallel" value="50"/>
 	<arg name="extensions" value="php"/>
 
-	<!-- Rules: Check PHP version compatibility - see https://github.com/PHPCompatibility/PHPCompatibilityWP -->
-	<!-- <rule ref="PHPCompatibility"/>
-	<config name="testVersion" value="7.0-"/>
-	<config name="minimum_supported_wp_version" value="5.2"/> -->
-
 	<rule ref="WordPress">
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
 		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
 		<exclude name="Generic.Commenting.DocComment.MissingShort"/>
+		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_tax_query"/>
+		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_query"/>
+		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_key"/>
+		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_value"/>
+		<!-- Volgende twee sniffs uitschakelen totdat deze bug opgelost is: https://github.com/WordPress/WordPress-Coding-Standards/issues/1589 -->
+		<exclude name="WordPress.DB.PreparedSQL.NotPrepared"/>
+		<exclude name="WordPress.DB.PreparedSQL.InterpolatedNotPrepared"/>
 	</rule>
 	<rule ref="WordPress.WP.I18n">
 		<properties>

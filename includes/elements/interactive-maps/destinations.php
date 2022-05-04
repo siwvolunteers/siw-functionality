@@ -132,8 +132,8 @@ class Destinations implements Interactive_Map_Interface {
 		$tailor_made_pages = get_posts(
 			[
 				'posts_per_page' => -1,
-				'meta_key'       => 'country', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-				'meta_value'     => $country->get_slug(), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				'meta_key'       => 'country',
+				'meta_value'     => $country->get_slug(),
 				'post_type'      => 'siw_tm_country',
 			]
 		);

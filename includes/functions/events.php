@@ -89,10 +89,10 @@ function siw_get_upcoming_events( array $args = [] ): array {
 		'post_type'      => 'siw_event',
 		'posts_per_page' => $args['number'],
 		'post_status'    => 'publish',
-		'meta_key'       => 'event_date', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+		'meta_key'       => 'event_date',
 		'orderby'        => 'meta_value',
 		'order'          => 'ASC',
-		'meta_query'     => $meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+		'meta_query'     => $meta_query,
 		'fields'         => $args['return'],
 	];
 

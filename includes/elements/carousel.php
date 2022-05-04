@@ -165,11 +165,11 @@ class Carousel extends Element {
 		];
 
 		if ( isset( $this->tax_query ) ) {
-			$args['tax_query'] = $this->tax_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+			$args['tax_query'] = $this->tax_query;
 		}
 
 		if ( ! empty( $this->meta_query ) ) {
-			$args['meta_query'] = $this->meta_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			$args['meta_query'] = $this->meta_query;
 		}
 
 		// In het geval van Groepsprojecten alleen zichtbare projecten tonen
