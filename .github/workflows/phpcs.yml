@@ -12,4 +12,3 @@ jobs:
           uses: 10up/wpcs-action@stable
           with:
             use_local_config: 'true'
-            paths: '.'
