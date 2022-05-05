@@ -8,7 +8,7 @@ use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
 /**
  * Aanmelding infodag
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
@@ -56,7 +56,7 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 				'type'    => 'radio',
 				'inline'  => false,
 				'name'    => __( 'Naar welke Infodag wil je komen?', 'siw' ),
-				'options' => $this->get_info_days()
+				'options' => $this->get_info_days(),
 			],
 			[
 				'id'       => 'project_type',
@@ -73,9 +73,9 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 				'options'  => \siw_get_continents_list(),
 			],
 			[
-				'id'    => 'age',
-				'type'   => 'radio',
-				'inline' => false,
+				'id'      => 'age',
+				'type'    => 'radio',
+				'inline'  => false,
 				'name'    => __( 'In welke leeftijdscategorie val je?', 'siw' ),
 				'options' => $this->get_age_ranges(),
 			],
@@ -90,8 +90,8 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 				'id'       => 'referel_other',
 				'type'     => 'text',
 				'name'     => __( 'Namelijk', 'siw' ),
-				'required' => false, //TODO: conditioneel verplicht maken in REST API
-				'visible'  => [ 'referal', 'other'],
+				'required' => false, // TODO: conditioneel verplicht maken in REST API
+				'visible'  => [ 'referal', 'other' ],
 			],
 		];
 	}
@@ -108,13 +108,16 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 
 	/** {@inheritDoc} */
 	public function get_confirmation_mail_subject(): string {
+		// translators: %s is de datum van de infodag
 		return sprintf( __( 'Aanmelding Infodag %s', 'siw' ), '{{ info_day_date }}' );
 	}
 
 	/** {@inheritDoc} */
 	public function get_confirmation_mail_message(): string {
+		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
-		sprintf( __( 'Bedankt voor je aanmelding voor de Infodag van %s!', 'siw' ), '{{ info_day_date }}' )  . SPACE .
+		// translators: %s is de datum van de infodag
+		sprintf( __( 'Bedankt voor je aanmelding voor de Infodag van %s!', 'siw' ), '{{ info_day_date }}' ) . SPACE .
 		__( 'Onderaan deze mail staan de gegevens die je hebt ingevuld.', 'siw' ) . BR .
 		__( 'Een paar dagen van tevoren ontvang je de uitnodiging met de definitieve locatie en tijden.', 'siw' ) . BR2 .
 		__( 'Als je nog vragen hebt, neem dan gerust contact met ons op.', 'siw' );
@@ -123,8 +126,8 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 	/** {@inheritDoc} */
 	protected function get_info_days(): array {
 		$upcoming_info_days = siw_get_upcoming_info_days( self::NUMBER_OF_INFO_DAYS );
-	
-		//Fallback voor als er nog geen infodagen bekend zijn
+
+		// Fallback voor als er nog geen infodagen bekend zijn
 		if ( empty( $upcoming_info_days ) ) {
 			return [ 'unknown' => __( 'Nog niet bekend', 'siw' ) ];
 		}

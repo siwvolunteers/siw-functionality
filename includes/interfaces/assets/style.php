@@ -4,7 +4,7 @@ namespace SIW\Interfaces\Assets;
 
 /**
  * Interface voor het registreren van een style
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 interface Style {

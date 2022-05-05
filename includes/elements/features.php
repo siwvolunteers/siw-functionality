@@ -6,11 +6,11 @@ use SIW\Util\CSS;
 
 /**
  * Class om een overzicht van features met icon en knop te genereren
- * 
+ *
  * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Features extends Repeater {
-	
+
 	/** Aantal kolommen */
 	protected int $columns = 3;
 
@@ -35,7 +35,7 @@ class Features extends Repeater {
 	protected function get_template_variables(): array {
 		return [
 			'responsive_classes' => CSS::generate_responsive_classes( $this->columns ),
-			'features'           => $this->items
+			'features'           => $this->items,
 		];
 	}
 
@@ -54,16 +54,19 @@ class Features extends Repeater {
 	/** {@inheritDoc} */
 	protected function parse_item( array $item ): array {
 		return [
-			'icon'     => [
+			'icon'    => [
 				'has_background'   => true,
 				'size'             => $this->icon_size,
 				'icon_class'       => $item['icon'],
 				'background_class' => $this->icon_background,
 			],
-			'title'    => $item['title'],
-			'content'  => $item['content'],
-			'button'   => $item['add_link'] ?
-				[ 'url'  => $item['link_url'], 'text' => $item['link_text'] ] :
+			'title'   => $item['title'],
+			'content' => $item['content'],
+			'button'  => $item['add_link'] ?
+				[
+					'url'  => $item['link_url'],
+					'text' => $item['link_text'],
+				] :
 				[],
 		];
 	}

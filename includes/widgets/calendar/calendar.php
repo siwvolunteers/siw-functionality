@@ -6,8 +6,8 @@ namespace SIW\Widgets;
  * Widget met agenda
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
- * @widget_data 
+ *
+ * @widget_data
  * Widget Name: SIW: Agenda
  * Description: Toont eerstvolgende evenementen
  * Author: SIW Internationale Vrijwilligersprojecten
@@ -57,12 +57,12 @@ class Calendar extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	function get_template_variables( $instance, $args ) {
+	public function get_template_variables( $instance, $args ) {
 		$events = $this->get_upcoming_events();
 
 		$parameters = [
 			'active_events'  => ! empty( $events ),
-			'events'         => array_map( [ $this, 'parse_event'], $events ),
+			'events'         => array_map( [ $this, 'parse_event' ], $events ),
 			'json_ld'        => array_map( 'siw_generate_event_json_ld', $events ),
 			'agenda_url'     => get_post_type_archive_link( 'siw_event' ),
 			'agenda_text'    => __( 'Bekijk de volledige agenda.', 'siw' ),
@@ -88,14 +88,16 @@ class Calendar extends Widget {
 				esc_html__( 'Online', 'siw' )
 				:
 				sprintf( '%s, %s', siw_meta( 'location.name', [], $event_id ), siw_meta( 'location.city', [], $event_id ) ),
-			
+
 		];
 	}
 
 	/** Haalt toekomstige evenementen op */
 	protected function get_upcoming_events() : array {
-		return siw_get_upcoming_events([
-			'number' => self::NUMBER_OF_EVENTS,
-		]);
+		return siw_get_upcoming_events(
+			[
+				'number' => self::NUMBER_OF_EVENTS,
+			]
+		);
 	}
 }

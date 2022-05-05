@@ -4,7 +4,7 @@ namespace SIW\Interfaces\Assets;
 
 /**
  * Interface voor externe assets (t.b.v. DNS-prefetch en uitsluiten van optimalisatie)
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 interface External {

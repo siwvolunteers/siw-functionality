@@ -8,8 +8,8 @@ use SIW\Elements\Form as Form_Element;
  * Widget met Formulier
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- * 
- * @widget_data 
+ *
+ * @widget_data
  * Widget Name: SIW: Form
  * Description: Toont formulier
  * Author: SIW Internationale Vrijwilligersprojecten
@@ -51,17 +51,17 @@ class Form extends Widget {
 	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
-			'title' => [
+			'title'         => [
 				'type'  => 'text',
 				'label' => __( 'Titel', 'siw' ),
 			],
-			'intro' => [
+			'intro'         => [
 				'type'           => 'tinymce',
 				'label'          => __( 'Intro', 'siw' ),
 				'rows'           => 5,
 				'default_editor' => 'html',
 			],
-			'form' => [
+			'form'          => [
 				'type'    => 'select',
 				'label'   => __( 'Formulier', 'siw' ),
 				'prompt'  => __( 'Selecteer een formulier', 'siw' ),
@@ -77,10 +77,10 @@ class Form extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	function get_template_variables( $instance, $args ) {
+	public function get_template_variables( $instance, $args ) {
 		return [
 			'intro'   => $instance['intro'],
-			'content' => Form_Element::create()->set_form_id( $instance['form'] )->set_single_column( $instance['single_column'] )->generate()
+			'content' => Form_Element::create()->set_form_id( $instance['form'] )->set_single_column( $instance['single_column'] )->generate(),
 		];
 	}
 }

@@ -15,7 +15,7 @@ class Archive {
 	public static function init() {
 		$self = new self();
 		add_action( 'woocommerce_before_shop_loop_item_title', [ $self, 'show_featured_badge' ] );
-		add_action( 'woocommerce_after_shop_loop_item_title', [ $self, 'show_project_data'] );
+		add_action( 'woocommerce_after_shop_loop_item_title', [ $self, 'show_project_data' ] );
 	}
 
 	/** Toont projectgegevens */
@@ -26,11 +26,11 @@ class Archive {
 			return;
 		}
 
-		//TODO: vlag en icons voor datum/soort-werk
+		// TODO: vlag en icons voor datum/soort-werk
 		$duration = siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false );
 		echo '<p>';
-		echo $product->get_country()->get_name() . BR;
-		echo implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE()->value, ['fields' => 'names' ] ) ) . BR;
+		echo esc_html( $product->get_country()->get_name() . BR );
+		echo esc_html( implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE()->value, [ 'fields' => 'names' ] ) ) . BR );
 		echo esc_html( $duration );
 		echo '</p>';
 	}

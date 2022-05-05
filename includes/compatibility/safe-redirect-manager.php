@@ -4,7 +4,7 @@ namespace SIW\Compatibility;
 
 /**
  * Aanpassingen voor Safe Redirect Manager
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://wordpress.org/plugins/safe-redirect-manager/
  */

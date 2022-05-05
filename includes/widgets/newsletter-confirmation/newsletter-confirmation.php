@@ -6,7 +6,7 @@ namespace SIW\Widgets;
  * Widget met bevesting voor aanmelding nieuwsbrief
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @widget_data
  * Widget Name: SIW: Nieuwsbrief - bevestiging aanmelding
  * Description: TODO
@@ -15,11 +15,11 @@ namespace SIW\Widgets;
  */
 class Newsletter_Confirmation extends Widget {
 
-	//Constantes voor query args
-	CONST QUERY_ARG_EMAIL = 'nl_email';
-	CONST QUERY_ARG_EMAIL_HASH = 'nl_email_hash';
-	CONST QUERY_ARG_FIRST_NAME = 'nl_first_name';
-	CONST QUERY_ARG_FIRST_NAME_HASH = 'nl_first_name_hash';
+	// Constantes voor query args
+	const QUERY_ARG_EMAIL = 'nl_email';
+	const QUERY_ARG_EMAIL_HASH = 'nl_email_hash';
+	const QUERY_ARG_FIRST_NAME = 'nl_first_name';
+	const QUERY_ARG_FIRST_NAME_HASH = 'nl_first_name_hash';
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
@@ -50,15 +50,15 @@ class Newsletter_Confirmation extends Widget {
 	public function get_widget_form() {
 		$widget_form = [
 			'title' => [
-				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw' ),
+				'type'  => 'text',
+				'label' => __( 'Titel', 'siw' ),
 			],
 		];
 		return $widget_form;
 	}
 
 	/** {@inheritDoc} */
-	function get_template_variables( $instance, $args ) {
+	public function get_template_variables( $instance, $args ) {
 		return [
 			'content' => $this->process_confirmation(),
 		];
@@ -66,7 +66,7 @@ class Newsletter_Confirmation extends Widget {
 
 	/** Verwerk aanmelding voor de nieuwsbrief */
 	protected function process_confirmation(): string {
-		
+
 		// Haal parameters van request op
 		$email_raw = get_query_arg( self::QUERY_ARG_EMAIL ) ?? '';
 		$email_hash_raw = get_query_arg( self::QUERY_ARG_EMAIL_HASH ) ?? '';
@@ -80,9 +80,9 @@ class Newsletter_Confirmation extends Widget {
 		}
 
 		// Decode de parameters
-		$email = base64_decode( urldecode( $email_raw ) );
+		$email = base64_decode( urldecode( $email_raw ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 		$email_hash = urldecode( $email_hash_raw );
-		$first_name = base64_decode( urldecode( $first_name_raw ) );
+		$first_name = base64_decode( urldecode( $first_name_raw ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 		$first_name_hash = urldecode( $first_name_hash_raw );
 
 		// Check of hashes correct zijn
@@ -90,7 +90,7 @@ class Newsletter_Confirmation extends Widget {
 			return __( 'Helaas is er iets misgegaan met de aanmelding.', 'siw' );
 		}
 
-		//Afbreken als aanmelding al gedaan is TODO:: transient verplaatsen naar Mailjet-class?
+		// Afbreken als aanmelding al gedaan is TODO:: transient verplaatsen naar Mailjet-class?
 		if ( get_transient( "siw_newsletter_confirm_{$email_hash}" ) ) {
 			return __( 'Je bent al aangemeld voor de SIW-nieuwsbrief.', 'siw' );
 		}
@@ -100,10 +100,10 @@ class Newsletter_Confirmation extends Widget {
 		];
 
 		if ( siw_newsletter_subscribe( $email, (int) siw_get_option( 'newsletter_list' ), $properties ) ) {
-			
-			//Transient zetten zodat aanmelding niet nog een keer verwerkt wordt bij opnieuw bezoeken pagina
+
+			// Transient zetten zodat aanmelding niet nog een keer verwerkt wordt bij opnieuw bezoeken pagina
 			set_transient( "siw_newsletter_confirm_{$email_hash}", true, DAY_IN_SECONDS );
-			return  __( 'Gefeliciteerd! Je bent nu aangemeld voor de SIW-nieuwsbrief.', 'siw' );
+			return __( 'Gefeliciteerd! Je bent nu aangemeld voor de SIW-nieuwsbrief.', 'siw' );
 		}
 		return __( 'Helaas is er iets misgegaan met de aanmelding.', 'siw' );
 	}

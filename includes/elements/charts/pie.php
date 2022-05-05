@@ -6,9 +6,8 @@ use SIW\Elements\Chart;
 
 /**
  * Class om een piechart te genereren
- * 
+ *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
 class Pie extends Chart {
 
@@ -20,7 +19,7 @@ class Pie extends Chart {
 		'height'          => 400,
 		'truncateLegends' => true,
 		'maxSlices'       => 7,
-		'tooltipOptions'  => [], //TODO: Verwijderen als deze opgelost is: https://github.com/frappe/charts/issues/314
+		'tooltipOptions'  => [], // TODO: Verwijderen als deze opgelost is: https://github.com/frappe/charts/issues/314
 	];
 
 	/** {@inheritDoc} */
@@ -31,7 +30,7 @@ class Pie extends Chart {
 			'datasets' => [
 				[
 					'values' => wp_list_pluck( $this->data, 'value' ),
-				]
+				],
 			],
 		];
 		return $data;

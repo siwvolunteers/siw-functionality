@@ -8,9 +8,8 @@ use SIW\Util;
 
 /**
  * Opties voor Configuratie
- * 
+ *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.2.0
  */
 class Configuration implements Option_Interface {
 
@@ -23,7 +22,7 @@ class Configuration implements Option_Interface {
 	public function get_capability(): string {
 		return 'manage_options';
 	}
-	
+
 	/** {@inheritDoc} */
 	public function get_parent_page(): string {
 		return 'options-general.php';
@@ -70,142 +69,142 @@ class Configuration implements Option_Interface {
 	public function get_fields() : array {
 		$fields = [];
 
-		//API
+		// API
 		$fields[] = [
-			'id'        => 'facebook',
-			'type'      => 'group',
-			'tab'       => 'api',
-			'fields'    => [
+			'id'     => 'facebook',
+			'type'   => 'group',
+			'tab'    => 'api',
+			'fields' => [
 				[
-					'type'      => 'heading',
-					'name'      => __( 'Facebook', 'siw' ),
+					'type' => 'heading',
+					'name' => __( 'Facebook', 'siw' ),
 				],
 				[
-					'id'        => 'pixel_id',
-					'name'      => __( 'Pixel ID', 'siw' ),
-					'type'      => 'text',
-					'size'      => 60,
+					'id'   => 'pixel_id',
+					'name' => __( 'Pixel ID', 'siw' ),
+					'type' => 'text',
+					'size' => 60,
 				],
 			],
 		];
 		$fields[] = [
-			'id'        => 'google_analytics',
-			'type'      => 'group',
-			'tab'       => 'api',
-			'fields'    => [
+			'id'     => 'google_analytics',
+			'type'   => 'group',
+			'tab'    => 'api',
+			'fields' => [
 				[
-					'type'      => 'heading',
-					'name'      => __( 'Google Analytics', 'siw' ),
+					'type' => 'heading',
+					'name' => __( 'Google Analytics', 'siw' ),
 				],
 				[
-					'id'        => 'property_id',
-					'name'      => __( 'Property ID', 'siw' ),
-					'type'      => 'text',
-					'size'      => 60,
-				],
-			],
-		];
-		$fields[] = [
-			'id'        => 'google_maps',
-			'type'      => 'group',
-			'tab'       => 'api',
-			'fields'    => [
-				[
-					'type'      => 'heading',
-					'name'      => __( 'Google Maps', 'siw' ),
-				],
-				[
-					'id'        => 'api_key',
-					'name'      => __( 'Client side API Key', 'siw' ),
-					'type'      => 'text',
-					'size'      => 60,
-				],
-				[
-					'id'        => 'server_side_api_key',
-					'name'      => __( 'Server side API Key', 'siw' ),
-					'type'      => 'text',
-					'size'      => 60,
+					'id'   => 'property_id',
+					'name' => __( 'Property ID', 'siw' ),
+					'type' => 'text',
+					'size' => 60,
 				],
 			],
 		];
 		$fields[] = [
-			'id'        => 'fixer',
-			'type'      => 'group',
-			'tab'       => 'api',
-			'fields'    => [
+			'id'     => 'google_maps',
+			'type'   => 'group',
+			'tab'    => 'api',
+			'fields' => [
 				[
-					'type'      => 'heading',
-					'name'      => __( 'Fixer.io', 'siw' ),
-					'desc'      => __( 'Wisselkoersen', 'siw' ),
+					'type' => 'heading',
+					'name' => __( 'Google Maps', 'siw' ),
 				],
 				[
-					'id'        => 'api_key',
-					'name'      => __( 'API Key', 'siw' ),
-					'type'      => 'text',
-					'size'      => 60,
-				],
-			],
-		];
-		$fields[] = [
-			'id'        => 'mailjet',
-			'type'      => 'group',
-			'tab'       => 'api',
-			'fields'    => [
-				[
-					'type'      => 'heading',
-					'name'      => __( 'Mailjet', 'siw' ),
+					'id'   => 'api_key',
+					'name' => __( 'Client side API Key', 'siw' ),
+					'type' => 'text',
+					'size' => 60,
 				],
 				[
-					'id'        => 'api_key',
-					'name'      => __( 'API Key', 'siw' ),
-					'type'      => 'text',
-					'size'      => 60,
-				],
-				[
-					'id'        => 'secret_key',
-					'name'      => __( 'Secret Key', 'siw' ),
-					'type'      => 'text',
-					'size'      => 60,
+					'id'   => 'server_side_api_key',
+					'name' => __( 'Server side API Key', 'siw' ),
+					'type' => 'text',
+					'size' => 60,
 				],
 			],
 		];
 		$fields[] = [
-			'id'        => 'plato',
-			'type'      => 'group',
-			'tab'       => 'api',
-			'fields'    => [
+			'id'     => 'fixer',
+			'type'   => 'group',
+			'tab'    => 'api',
+			'fields' => [
 				[
-					'type'      => 'heading',
-					'name'      => __( 'Plato', 'siw' ),
+					'type' => 'heading',
+					'name' => __( 'Fixer.io', 'siw' ),
+					'desc' => __( 'Wisselkoersen', 'siw' ),
 				],
 				[
-					'id'        => 'organization_webkey',
-					'name'      => __( 'Organization webkey', 'siw' ),
-					'type'      => 'text',
-					'size'      => 60,
+					'id'   => 'api_key',
+					'name' => __( 'API Key', 'siw' ),
+					'type' => 'text',
+					'size' => 60,
+				],
+			],
+		];
+		$fields[] = [
+			'id'     => 'mailjet',
+			'type'   => 'group',
+			'tab'    => 'api',
+			'fields' => [
+				[
+					'type' => 'heading',
+					'name' => __( 'Mailjet', 'siw' ),
+				],
+				[
+					'id'   => 'api_key',
+					'name' => __( 'API Key', 'siw' ),
+					'type' => 'text',
+					'size' => 60,
+				],
+				[
+					'id'   => 'secret_key',
+					'name' => __( 'Secret Key', 'siw' ),
+					'type' => 'text',
+					'size' => 60,
+				],
+			],
+		];
+		$fields[] = [
+			'id'     => 'plato',
+			'type'   => 'group',
+			'tab'    => 'api',
+			'fields' => [
+				[
+					'type' => 'heading',
+					'name' => __( 'Plato', 'siw' ),
+				],
+				[
+					'id'   => 'organization_webkey',
+					'name' => __( 'Organization webkey', 'siw' ),
+					'type' => 'text',
+					'size' => 60,
 				],
 				[
 					'id'        => 'force_full_update',
 					'name'      => __( 'Forceer volledige update', 'siw' ),
 					'type'      => 'switch',
 					'on_label'  => __( 'Aan', 'siw' ),
-					'off_label' => __( 'Uit', 'siw'),
+					'off_label' => __( 'Uit', 'siw' ),
 				],
 				[
 					'id'        => 'download_images',
 					'name'      => __( 'Download afbeeldingen', 'siw' ),
 					'type'      => 'switch',
 					'on_label'  => __( 'Aan', 'siw' ),
-					'off_label' => __( 'Uit', 'siw'),
+					'off_label' => __( 'Uit', 'siw' ),
 				],
 			],
 		];
 
-		//Email
+		// Email
 		$fields[] = [
-			'name'      => __( 'SMTP', 'siw' ),
-			'type'      => 'heading',
-			'tab'       => 'email',
+			'name' => __( 'SMTP', 'siw' ),
+			'type' => 'heading',
+			'tab'  => 'email',
 		];
 		$fields[] = [
 			'id'        => 'smtp_enabled',
@@ -213,14 +212,14 @@ class Configuration implements Option_Interface {
 			'tab'       => 'email',
 			'type'      => 'switch',
 			'on_label'  => __( 'Aan', 'siw' ),
-			'off_label' => __( 'Uit', 'siw'),
+			'off_label' => __( 'Uit', 'siw' ),
 		];
 		$fields[] = [
-			'id'        => 'smtp_settings',
-			'type'      => 'group',
-			'tab'       => 'email',
-			'visible'   => [ 'smtp_enabled', true ],
-			'fields'    => [
+			'id'      => 'smtp_settings',
+			'type'    => 'group',
+			'tab'     => 'email',
+			'visible' => [ 'smtp_enabled', true ],
+			'fields'  => [
 				[
 					'id'       => 'host',
 					'name'     => __( 'Host', 'siw' ),
@@ -239,10 +238,10 @@ class Configuration implements Option_Interface {
 					'type'     => 'button_group',
 					'required' => true,
 					'options'  => [
-						'none'  => __( 'Geen', 'siw' ),
-						'ssl'   => __( 'SSL', 'siw' ),
-						'tls'   => __( 'TLS', 'siw' ),
-					]
+						'none' => __( 'Geen', 'siw' ),
+						'ssl'  => __( 'SSL', 'siw' ),
+						'tls'  => __( 'TLS', 'siw' ),
+					],
 				],
 				[
 					'id'        => 'authentication',
@@ -250,28 +249,28 @@ class Configuration implements Option_Interface {
 					'type'      => 'switch',
 					'tab'       => 'email',
 					'on_label'  => __( 'Aan', 'siw' ),
-					'off_label' => __( 'Uit', 'siw'),
+					'off_label' => __( 'Uit', 'siw' ),
 				],
 				[
-					'id'      => 'username',
-					'name'    => __( 'Gebruikersnaam', 'siw' ),
-					'type'    => 'text',
+					'id'       => 'username',
+					'name'     => __( 'Gebruikersnaam', 'siw' ),
+					'type'     => 'text',
 					'required' => true,
-					'visible' => [ 'smtp_settings[authentication]', true ],
+					'visible'  => [ 'smtp_settings[authentication]', true ],
 				],
 				[
-					'id'      => 'password',
-					'name'    => __( 'Wachtwoord', 'siw' ),
-					'type'    => 'text',
+					'id'       => 'password',
+					'name'     => __( 'Wachtwoord', 'siw' ),
+					'type'     => 'text',
 					'required' => true,
-					'visible' => [ 'smtp_settings[authentication]', true ],
+					'visible'  => [ 'smtp_settings[authentication]', true ],
 				],
 			],
 		];
 		$fields[] = [
-			'name'      => __( 'DKIM', 'siw' ),
-			'type'      => 'heading',
-			'tab'       => 'email',
+			'name' => __( 'DKIM', 'siw' ),
+			'type' => 'heading',
+			'tab'  => 'email',
 		];
 		$fields[] = [
 			'id'        => 'dkim_enabled',
@@ -279,7 +278,7 @@ class Configuration implements Option_Interface {
 			'type'      => 'switch',
 			'tab'       => 'email',
 			'on_label'  => __( 'Aan', 'siw' ),
-			'off_label' => __( 'Uit', 'siw'),
+			'off_label' => __( 'Uit', 'siw' ),
 		];
 		$fields[] = [
 			'id'      => 'dkim_settings',
@@ -311,17 +310,17 @@ class Configuration implements Option_Interface {
 			],
 		];
 		$fields[] = [
-			'id'        => 'pages',
-			'type'      => 'group',
-			'tab'       => 'pages',
-			'fields'    => [
-				[ 
+			'id'     => 'pages',
+			'type'   => 'group',
+			'tab'    => 'pages',
+			'fields' => [
+				[
 					'id'     => 'explanation',
 					'type'   => 'group',
 					'fields' => [
 						[
-							'type'    => 'heading',
-							'name'    => __( 'Zo werkt het', 'siw' ),
+							'type' => 'heading',
+							'name' => __( 'Zo werkt het', 'siw' ),
 						],
 						[
 							'id'      => 'workcamps',
@@ -376,15 +375,15 @@ class Configuration implements Option_Interface {
 					'name'    => __( 'Bevestiging aanmelding nieuwsbrief', 'siw' ),
 					'type'    => 'select_advanced',
 					'options' => Util::get_pages(),
-				]
+				],
 			],
 		];
 
-		//Blacklists
+		// Blacklists
 		$fields[] = [
-			'type'       => 'heading',
-			'name'       => __( 'Bot blacklist', 'siw' ),
-			'tab'        => 'blacklists',
+			'type' => 'heading',
+			'name' => __( 'Bot blacklist', 'siw' ),
+			'tab'  => 'blacklists',
 		];
 		$fields[] = [
 			'id'         => 'blocked_bots',
@@ -394,11 +393,11 @@ class Configuration implements Option_Interface {
 			'add_button' => __( 'User agent toevoegen', 'siw' ),
 		];
 
-		//Overig
+		// Overig
 		$fields[] = [
-			'type'    => 'heading',
-			'name'    => __( 'Nieuwsbrief', 'siw' ),
-			'tab'     => 'other',
+			'type' => 'heading',
+			'name' => __( 'Nieuwsbrief', 'siw' ),
+			'tab'  => 'other',
 		];
 		$fields[] = [
 			'id'      => 'newsletter_list',

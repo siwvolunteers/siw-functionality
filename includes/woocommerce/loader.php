@@ -12,7 +12,7 @@ use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
 class Loader extends Class_Loader_Abstract {
 
 	/** {@inheritDoc} */
-	public function get_classes() : array {
+	public function get_classes(): array {
 		return [
 			Admin\Order::class,
 			Admin\Product_Tabs::class,

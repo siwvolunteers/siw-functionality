@@ -7,7 +7,7 @@ use SIW\Util\Links;
 
 /**
  * Class om een Modal te genereren
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://micromodal.now.sh/
  */
@@ -24,7 +24,7 @@ class Modal extends Element {
 
 	/** Init */
 	protected function initialize() {
-		add_action( 'wp_footer', [ $this, 'render'] );
+		add_action( 'wp_footer', [ $this, 'render' ] );
 	}
 
 	/** {@inheritDoc} */
@@ -40,7 +40,7 @@ class Modal extends Element {
 			'content' => $this->content,
 			'i18n'    => [
 				'close' => __( 'Sluiten', 'siw' ),
-			]
+			],
 		];
 	}
 
@@ -60,7 +60,7 @@ class Modal extends Element {
 		$this->title = $page->post_title;
 		$this->content = do_shortcode( $page->post_content );
 
-		//Overschrijf modal id
+		// Overschrijf modal id
 		$this->element_id = "siw-modal-{$page_id}";
 		return $this;
 	}
@@ -70,7 +70,10 @@ class Modal extends Element {
 		$link = Links::generate_link(
 			$link ?? '#',
 			$text,
-			[ 'data-micromodal-trigger' => $this->get_element_id(), 'target' => '_blank' ] //TODO: optie voor target?
+			[
+				'data-micromodal-trigger' => $this->get_element_id(),
+				'target'                  => '_blank',
+			] // TODO: optie voor target?
 		);
 		return $link;
 	}
@@ -95,7 +98,8 @@ class Modal extends Element {
 				'awaitOpenAnimation'  => true,
 				'awaitCloseAnimation' => true,
 				'debugMode'           => defined( 'WP_DEBUG' ) && WP_DEBUG,
-		]);
+			]
+		);
 		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 }

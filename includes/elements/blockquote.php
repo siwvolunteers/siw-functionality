@@ -4,7 +4,7 @@ namespace SIW\Elements;
 
 /**
  * Class om een blockquote te genereren
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Blockquote extends Element {
@@ -14,7 +14,7 @@ class Blockquote extends Element {
 
 	/** Naam */
 	protected string $name;
-	
+
 	/** Bron/toelichting */
 	protected string $source;
 
@@ -28,8 +28,11 @@ class Blockquote extends Element {
 		return [
 			'quote'  => $this->quote,
 			'footer' => ( isset( $this->name ) && isset( $this->source ) ) ?
-				[ 'name' => $this->name, 'source' => $this->source ] :
-				[]
+				[
+					'name'   => $this->name,
+					'source' => $this->source,
+				] :
+				[],
 		];
 	}
 

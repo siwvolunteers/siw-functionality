@@ -7,7 +7,7 @@ use SIW\WooCommerce\Import\Product as Import_Product;
 
 /**
  * Importeren projecten uit Plato
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Import_Plato_Project implements Async_Action_Interface {

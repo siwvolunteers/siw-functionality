@@ -36,7 +36,7 @@ class Loader extends Object_Loader {
 
 	/** {@inheritDoc} */
 	protected function load( object $object ) {
-		$asset = new Asset;
+		$asset = new Asset();
 		if ( is_a( $object, Style::class ) ) {
 			$asset->register_style( $object );
 		}

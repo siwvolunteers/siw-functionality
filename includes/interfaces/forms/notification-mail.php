@@ -4,7 +4,7 @@ namespace SIW\Interfaces\Forms;
 
 /**
  * Interface voor formulier via MetaBox
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 interface Notification_Mail {

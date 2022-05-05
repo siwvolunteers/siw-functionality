@@ -7,7 +7,7 @@ use SIW\Util\Meta_Box;
 
 /**
  * Class om een formulier via MetaBox te genereren
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Form {
@@ -17,7 +17,7 @@ class Form {
 
 	/** Formulier */
 	protected Form_Interface $form;
-	
+
 	/** Constructor */
 	public function __construct( Form_Interface $form ) {
 		$this->form = $form;
@@ -25,21 +25,21 @@ class Form {
 
 	/** Registreer formulier */
 	public function register() {
-		add_filter( 'siw_forms', [ $this, 'register_form'] );
-		add_filter( 'siw_rest_urls', [ $this, 'register_rest_urls'] );
+		add_filter( 'siw_forms', [ $this, 'register_form' ] );
+		add_filter( 'siw_rest_urls', [ $this, 'register_rest_urls' ] );
 		add_filter( 'rwmb_meta_boxes', [ $this, 'add_meta_box' ] );
 		add_action( 'rest_api_init', [ $this, 'register_route' ] );
 	}
 
 	/** Registreer formulier TODO: registry ipv filter*/
 	public function register_form( array $forms ): array {
-		$forms[$this->form->get_form_id()] = $this->form->get_form_name();
+		$forms[ $this->form->get_form_id() ] = $this->form->get_form_name();
 		return $forms;
 	}
 
 	/** Registreert REST route */
 	public function register_route() {
-		register_rest_route( 
+		register_rest_route(
 			$this->get_namespace(),
 			$this->get_route(),
 			[
@@ -79,11 +79,11 @@ class Form {
 	/** Geeft REST API args terug TODO: add nonce en _wp_http_referer? */
 	protected function get_args(): array {
 		$args = array_map(
-			[ Meta_Box::class, 'convert_field_to_rest_api_arg'],
+			[ Meta_Box::class, 'convert_field_to_rest_api_arg' ],
 			array_column( $this->form->get_form_fields(), null, 'id' )
 		);
 
-		//Lege waardes verwijderen
+		// Lege waardes verwijderen
 		return array_filter( $args );
 	}
 
@@ -96,26 +96,26 @@ class Form {
 			'toggle_type' => 'slide',
 			'fields'      => $this->get_fields(),
 		];
-		
+
 		return $meta_boxes;
 	}
 
 	/** Haalt formuliervelden op */
 	protected function get_fields(): array {
 		$fields = $this->form->get_form_fields();
-		$fields = array_map( [ $this, 'parse_field'], $fields );
+		$fields = array_map( [ $this, 'parse_field' ], $fields );
 
 		// Voeg verzenden knop toe TODO: tekst configureerbaar maken?
 		$fields[] = [
 			'type'       => 'button',
 			'columns'    => Form_Interface::FULL_WIDTH,
 			'std'        => __( 'Verzenden', 'siw' ),
-			'attributes' => [ 
+			'attributes' => [
 				'type' => 'submit',
-				'name' => 'rwmb_submit'
+				'name' => 'rwmb_submit',
 			],
 		];
-		
+
 		return $fields;
 	}
 

@@ -9,7 +9,7 @@ use SIW\Util;
 
 /**
  * Proces om stockfoto's te uploaden
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Process_Stockphoto_Upload implements Async_Action_Interface {
@@ -34,7 +34,7 @@ class Process_Stockphoto_Upload implements Async_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_argument_count(): int { 
+	public function get_argument_count(): int {
 		return 4;
 	}
 
@@ -43,7 +43,7 @@ class Process_Stockphoto_Upload implements Async_Action_Interface {
 		$attachment = new Attachment( 'image', $this->subdir );
 		$attachment_id = $attachment->add( $file, $this->filename_base, $this->title );
 
-		//Continent
+		// Continent
 		if ( ! empty( $continent ) ) {
 			$continent = siw_get_continent( $continent );
 			$term_id = Util::maybe_create_term( 'siw_attachment_continent', $continent->get_slug(), $continent->get_name() );
@@ -56,7 +56,7 @@ class Process_Stockphoto_Upload implements Async_Action_Interface {
 			}
 		}
 
-		//Land
+		// Land
 		if ( ! empty( $country ) ) {
 			$country = siw_get_country( $country );
 			$term_id = Util::maybe_create_term( 'siw_attachment_country', $country->get_slug(), $country->get_name() );
@@ -69,7 +69,7 @@ class Process_Stockphoto_Upload implements Async_Action_Interface {
 			}
 		}
 
-		//Soort werk
+		// Soort werk
 		if ( ! empty( $work_types ) ) {
 			foreach ( $work_types as $type ) {
 				$work_type = siw_get_work_type( $type );

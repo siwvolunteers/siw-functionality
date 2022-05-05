@@ -10,7 +10,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Class om een project als WooCommerce product te modelleren
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class WC_Product_Project extends \WC_Product_Simple {
@@ -88,17 +88,16 @@ class WC_Product_Project extends \WC_Product_Simple {
 
 	/** {@inheritDoc} */
 	public function get_sale_price( $context = 'view' ) {
-		//Eventueel overschrijven als er weer kortingsacties nodig zijn
+		// Eventueel overschrijven als er weer kortingsacties nodig zijn
 		return null;
 	}
 
 	/** {@inheritDoc} */
 	public function get_regular_price( $context = 'view' ) {
 
-		if ( !empty( $this->get_custom_price() ) ) {
+		if ( ! empty( $this->get_custom_price() ) ) {
 			return (string) $this->get_custom_price();
 		}
-
 
 		if ( $this->is_dutch_project() ) {
 			return (string) Properties::DUTCH_PROJECT_FEE;
@@ -109,13 +108,13 @@ class WC_Product_Project extends \WC_Product_Simple {
 
 	/** {@inheritDoc} */
 	public function get_date_on_sale_from( $context = 'view' ): ?\WC_DateTime {
-		//Eventueel overschrijven als er weer kortingsacties nodig zijn
+		// Eventueel overschrijven als er weer kortingsacties nodig zijn
 		return null;
 	}
 
 	/** {@inheritDoc} */
 	public function get_date_on_sale_to( $context = 'view' ): ?\WC_DateTime {
-		//Eventueel overschrijven als er weer kortingsacties nodig zijn
+		// Eventueel overschrijven als er weer kortingsacties nodig zijn
 		return null;
 	}
 
@@ -142,12 +141,12 @@ class WC_Product_Project extends \WC_Product_Simple {
 			return false;
 		}
 
-		return 'nederland' == $attributes[ Taxonomy_Attribute::COUNTRY()->value ]->get_slugs()[0];
+		return 'nederland' === $attributes[ Taxonomy_Attribute::COUNTRY()->value ]->get_slugs()[0];
 	}
 
 	/**
 	 * Geeft soorten werk van project terug
-	 * 
+	 *
 	 * @return Work_Type[]
 	 */
 	public function get_work_types(): array {
@@ -155,16 +154,16 @@ class WC_Product_Project extends \WC_Product_Simple {
 		if ( ! isset( $attributes[ Taxonomy_Attribute::WORK_TYPE()->value ] ) ) {
 			return [];
 		}
-		
+
 		return array_map(
 			fn( string $work_type_slug ): ?Work_Type => siw_get_work_type( $work_type_slug ),
-			$attributes[Taxonomy_Attribute::WORK_TYPE()->value]->get_slugs()
+			$attributes[ Taxonomy_Attribute::WORK_TYPE()->value ]->get_slugs()
 		);
 	}
 
 	/**
 	 * Geeft SDG's van het project terug
-	 * 
+	 *
 	 * @return Sustainable_Development_Goal[]
 	 */
 	public function get_sustainable_development_goals(): array {
@@ -172,10 +171,10 @@ class WC_Product_Project extends \WC_Product_Simple {
 		if ( ! isset( $attributes[ Taxonomy_Attribute::SDG()->value ] ) ) {
 			return [];
 		}
-		
+
 		return array_map(
 			fn( string $sdg_slug ): ?Sustainable_Development_Goal => siw_get_sustainable_development_goal( $sdg_slug ),
-			$attributes[Taxonomy_Attribute::SDG()->value]->get_slugs()
+			$attributes[ Taxonomy_Attribute::SDG()->value ]->get_slugs()
 		);
 	}
 
@@ -284,7 +283,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 	public function get_participation_fee_currency(): ?string {
 		return $this->get_prop( 'participation_fee_currency' );
 	}
-	
+
 	/** Geeft aan of die project een lokale bijdrage heeft */
 	public function has_participation_fee(): bool {
 		return null !== $this->get_participation_fee() && ! empty( $this->get_participation_fee_currency() );
@@ -334,7 +333,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 	public function is_hidden(): bool {
 		return $this->get_hidden();
 	}
-	
+
 	/** Zet of dit project verborgen moet worden*/
 	public function set_use_stockphoto( bool $hidden ) {
 		$this->set_prop( 'use_stockphoto', $hidden );

@@ -8,7 +8,7 @@ use SIW\Properties;
  * Widget met organisatiegegevens
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @widget_data
  * Widget Name: SIW: Organisatiegegevens
  * Description: Toont organisatiegegevens.
@@ -45,10 +45,10 @@ class Organisation extends Widget {
 	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
-			'title' => [
-				'type'      => 'text',
-				'label'     => __( 'Titel', 'siw' ),
-				'default'   => __( 'Gegevens', 'siw' ),
+			'title'               => [
+				'type'    => 'text',
+				'label'   => __( 'Titel', 'siw' ),
+				'default' => __( 'Gegevens', 'siw' ),
 			],
 			'renumeration_policy' => [
 				'type'           => 'tinymce',
@@ -78,12 +78,12 @@ class Organisation extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	function get_template_variables( $instance, $args ) {
+	public function get_template_variables( $instance, $args ) {
 		$parameters = [
-			'properties' => [
+			'properties'          => [
 				[
 					'name'   => __( 'Statutaire naam', 'siw' ),
-					'values' => Properties::STATUTORY_NAME
+					'values' => Properties::STATUTORY_NAME,
 				],
 				[
 					'name'   => __( 'RSIN/fiscaal nummer', 'siw' ),
@@ -105,7 +105,7 @@ class Organisation extends Widget {
 				'board_members'       => __( 'Bestuurssamenstelling', 'siw' ),
 				'annual_reports'      => __( 'Jaarverslagen', 'siw' ),
 				'renumeration_policy' => __( 'Beloningsbeleid', 'siw' ),
-			]
+			],
 		];
 
 		return $parameters;
@@ -117,14 +117,15 @@ class Organisation extends Widget {
 		if ( empty( $annual_reports ) ) {
 			return [];
 		}
-		
-		$annual_reports = array_column( $annual_reports , null, 'year' );
+
+		$annual_reports = array_column( $annual_reports, null, 'year' );
 		krsort( $annual_reports );
 
 		$annual_reports = array_map(
 			fn( array $report ) : array => [
 				'url'  => wp_get_attachment_url( $report['file'][0] ),
-				'text' => sprintf( __( 'Jaarverslag %s', 'siw' ), $report['year'] )
+				// translators: %s is een jaartal
+				'text' => sprintf( __( 'Jaarverslag %s', 'siw' ), $report['year'] ),
 			],
 			$annual_reports
 		);

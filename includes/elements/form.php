@@ -4,7 +4,7 @@ namespace SIW\Elements;
 
 /**
  * Class om een formulier te genereren (o.b.v. een MetaBox)
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Form extends Element {
@@ -28,7 +28,7 @@ class Form extends Element {
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
-		//Meta box genereren
+		// Meta box genereren
 		ob_start();
 		$this->meta_box->show();
 		$meta_box = ob_get_clean();
@@ -46,10 +46,10 @@ class Form extends Element {
 	/** Zet id van het formulier */
 	public function set_form_id( string $form_id ): self {
 		$this->form_id = $form_id;
-		$this->meta_box = siw_get_meta_box( "siw_form_{$form_id}" ) ?? new \RW_Meta_Box([]);
+		$this->meta_box = siw_get_meta_box( "siw_form_{$form_id}" ) ?? new \RW_Meta_Box( [] );
 
-		//Zet dummy id zodat er nooit per ongeluk gegevens getoond worden
-		$this->meta_box->set_object_id(-1);
+		// Zet dummy id zodat er nooit per ongeluk gegevens getoond worden
+		$this->meta_box->set_object_id( -1 );
 		return $this;
 	}
 

@@ -15,14 +15,14 @@ use SIW\Util\Meta_Box;
 
 /**
  * Class om een formulieraanmelding te verwerken
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Processor {
 
 	/** Formulier */
 	protected Form_Interface $form;
-	
+
 	/** Bevestigingsmail */
 	protected Confirmation_Mail $confirmation_mail;
 
@@ -48,30 +48,35 @@ class Processor {
 
 	/** Verwerken */
 	public function process(): \WP_REST_Response {
-		
+
 		// Afbreken als het spam is
 		if ( $this->is_spam() ) {
-			return new \WP_REST_Response( [
-				'message' => __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
-			], \WP_Http::BAD_REQUEST );
+			return new \WP_REST_Response(
+				[
+					'message' => __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
+				],
+				\WP_Http::BAD_REQUEST
+			);
 		}
 
 		// TODO: Verwerk file uploads
-	
 
-		//TODO: onderstaande async actie(s) van maken?
+		// TODO: onderstaande async actie(s) van maken?
 		if ( isset( $this->confirmation_mail ) ) {
 			$this->send_confirmation_mail();
 		}
 
-		if ( isset ($this->notification_mail ) ) {
+		if ( isset( $this->notification_mail ) ) {
 			$this->send_notification_mail();
 		}
-		//TODO: Verwijder file uploads
-		
-		return new \WP_REST_Response( [
-			'message' => __( 'Je bericht werd succesvol verzonden.', 'siw' ),
-		], \WP_Http::OK );
+		// TODO: Verwijder file uploads
+
+		return new \WP_REST_Response(
+			[
+				'message' => __( 'Je bericht werd succesvol verzonden.', 'siw' ),
+			],
+			\WP_Http::OK
+		);
 	}
 
 	/** Parset Mustache string template */
@@ -107,12 +112,12 @@ class Processor {
 			$context['page_url'] = get_permalink( $post_id );
 			$context['page_title'] = get_the_title( $post_id );
 		}
-		
+
 		return $context;
 	}
 
 	/** Geef email adres van klant terug */
-	protected function get_customer_email(): string {
+	protected function get_customer_email(): ?string {
 		$email_fields = wp_list_filter( $this->form->get_form_fields(), [ 'type' => 'email' ] );
 		$customer_email_field = reset( $email_fields );
 		return $this->request->get_param( $customer_email_field['id'] );
@@ -126,7 +131,7 @@ class Processor {
 
 	/** Verstuurt bevestigingsmail naar klant */
 	protected function send_confirmation_mail() {
-		
+
 		// Bevestigings email naar klant
 		$confirmation_message = Email_Template::create()
 			->set_signature( __( 'SIW', 'siw' ) )
@@ -165,17 +170,17 @@ class Processor {
 
 	/** Check of het spam betreft */
 	protected function is_spam() {
-		$ip = $_SERVER['REMOTE_ADDR'] ?? null;
+		$ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
 		$email = $this->get_customer_email() ?? null;
 
 		$spam_check = Spam_Check::create();
 		if ( null !== $email ) {
 			$spam_check->set_email( $email );
 		}
-		if ( null !== $ip ) {
+		if ( ! empty( $ip ) ) {
 			$spam_check->set_ip( $ip );
 		}
-		//TODO: check inhoud van bepaalde velden op links
+		// TODO: check inhoud van bepaalde velden op links
 		return $spam_check->is_spam();
 	}
 }

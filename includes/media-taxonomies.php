@@ -12,9 +12,9 @@ class Media_Taxonomies {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_action( 'init', [ $self, 'register_taxonomies'] );
-		add_filter( 'rwmb_meta_boxes', [ $self, 'add_metabox'] );
-		add_action( 'restrict_manage_posts', [ $self, 'add_taxonomy_filters'] );
+		add_action( 'init', [ $self, 'register_taxonomies' ] );
+		add_filter( 'rwmb_meta_boxes', [ $self, 'add_metabox' ] );
+		add_action( 'restrict_manage_posts', [ $self, 'add_taxonomy_filters' ] );
 	}
 
 	/** Registreert taxonomies voor attachments */
@@ -59,7 +59,7 @@ class Media_Taxonomies {
 		$metaboxes[] = [
 			'id'         => 'siw_attachment_taxonomies',
 			'title'      => __( 'Media taxonomieën', 'siw' ),
-			'post_types' => ['attachment'],
+			'post_types' => [ 'attachment' ],
 			'context'    => 'side',
 			'priority'   => 'low',
 			'fields'     => $fields,
@@ -70,6 +70,7 @@ class Media_Taxonomies {
 
 	/**
 	 * Geeft taxonomies terug
+	 *
 	 * @todo verplaatsen naar data-bestand?
 	 */
 	protected function get_taxonomies(): array {
@@ -97,7 +98,7 @@ class Media_Taxonomies {
 	/** Voegt taxonomy filter toe op admin scherm */
 	public function add_taxonomy_filters() {
 		$screen = get_current_screen();
-		if ( 'upload' != $screen->id ) {
+		if ( 'upload' !== $screen->id ) {
 			return;
 		}
 
@@ -108,7 +109,7 @@ class Media_Taxonomies {
 				'taxonomy'        => "siw_attachment_{$taxonomy['slug']}",
 				'name'            => "siw_attachment_{$taxonomy['slug']}",
 				'value_field'     => 'slug',
-				'hide_empty'      => false, //TODO: uitzoeken waarom dit nodig is
+				'hide_empty'      => false, // TODO: uitzoeken waarom dit nodig is
 				'orderby'         => 'name',
 				'show_option_all' => __( 'Alle', 'siw' ),
 			];

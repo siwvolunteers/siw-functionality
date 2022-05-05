@@ -6,11 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Gegevens van landen in Latijns-Amerika
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	[
 		'plato_code'  => 'ARG',
 		'iso_code'    => 'ar',
@@ -85,4 +85,4 @@ $data = [
 	],
 ];
 
-return $data;
+return $siw_data;

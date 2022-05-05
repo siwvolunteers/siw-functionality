@@ -19,15 +19,15 @@ class Emails {
 		$self = new self();
 		add_filter( 'woocommerce_email_from_name', [ $self, 'set_email_from_name' ], 10, 2 );
 		add_filter( 'woocommerce_email_from_address', [ $self, 'set_email_from_address' ], 10, 2 );
-		add_filter( 'wc_get_template', [ $self, 'set_header_template'], 10, 5 );
-		add_filter( 'wc_get_template', [ $self, 'set_footer_template'], 10, 5 );
-		//add_filter( 'woocommerce_defer_transactional_emails', '__return_true' );
+		add_filter( 'wc_get_template', [ $self, 'set_header_template' ], 10, 5 );
+		add_filter( 'wc_get_template', [ $self, 'set_footer_template' ], 10, 5 );
+		// add_filter( 'woocommerce_defer_transactional_emails', '__return_true' );
 
 		add_action( 'siw_woocommerce_email_order_table', [ $self, 'show_order_table' ] );
 	}
 
 	/** Zet naam afzender */
-	public function set_email_from_name(): string{
+	public function set_email_from_name(): string {
 		return Properties::NAME;
 	}
 
@@ -39,7 +39,7 @@ class Emails {
 	/** Overschrijft header-template */
 	public function set_header_template( string $located, string $template_name, array $args, string $template_path, string $default_path ): string {
 		if ( 'emails/email-header.php' === $template_name ) {
-			$located = SIW_TEMPLATES_DIR . 'woocommerce/'. $template_name;
+			$located = SIW_TEMPLATES_DIR . 'woocommerce/' . $template_name;
 		}
 		return $located;
 	}
@@ -47,7 +47,7 @@ class Emails {
 	/** Overschrijft footer-template */
 	public function set_footer_template( string $located, string $template_name, array $args, string $template_path, string $default_path ): string {
 		if ( 'emails/email-footer.php' === $template_name ) {
-			$located = SIW_TEMPLATES_DIR . 'woocommerce/'. $template_name;
+			$located = SIW_TEMPLATES_DIR . 'woocommerce/' . $template_name;
 		}
 		return $located;
 	}
@@ -59,7 +59,7 @@ class Emails {
 		?>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td colspan="3" height="20" style="font-family:Verdana, normal; color:<?php echo CSS::CONTRAST_COLOR;?>; font-size:0.8em; font-weight:bold; border-top:thin solid <?php echo CSS::ACCENT_COLOR;?>" >
+				<td colspan="3" height="20" style="font-family:Verdana, normal; color:<?php echo esc_attr( CSS::CONTRAST_COLOR ); ?>; font-size:0.8em; font-weight:bold; border-top:thin solid <?php echo esc_attr( CSS::CONTRAST_COLOR ); ?>" >
 					&nbsp;
 				</td>
 			</tr>
@@ -71,43 +71,45 @@ class Emails {
 						$this->show_table_row( $row['label'], $row['value'] );
 					}
 				}
-				$this->show_table_row( '&nbsp;', '&nbsp;');
+				$this->show_table_row( '&nbsp;', '&nbsp;' );
 			}
 			?>
 		</table>
-	<?php
+		<?php
 	}
 
 	/** Genereert tabelrij */
-	public function show_table_row( string $label, string $value = '&nbsp;' ) {?>
+	public function show_table_row( string $label, string $value = '&nbsp;' ) {
+		?>
 		<tr>
-			<td width="35%" style="font-family:Verdana, normal; color:<?php echo CSS::CONTRAST_COLOR;?>; font-size:0.8em; ">
-				<?= wp_kses_post( $label ); ?>
+			<td width="35%" style="font-family:Verdana, normal; color:<?php echo esc_attr( CSS::CONTRAST_COLOR ); ?>; font-size:0.8em; ">
+				<?php echo wp_kses_post( $label ); ?>
 			</td>
 			<td width="5%"></td>
-			<td width="50%" style="font-family:Verdana, normal; color:<?php echo CSS::CONTRAST_COLOR;?>; font-size:0.8em; font-style:italic">
-				<?= wp_kses_post( $value ); ?>
+			<td width="50%" style="font-family:Verdana, normal; color:<?php echo esc_attr( CSS::CONTRAST_COLOR ); ?>; font-size:0.8em; font-style:italic">
+				<?php echo wp_kses_post( $value ); ?>
 			</td>
 		</tr>
-	<?php
+		<?php
 	}
 
 	/** Toont tabel-headerrij */
-	public function show_table_header_row( string $label ) {?>
+	public function show_table_header_row( string $label ) {
+		?>
 		<tr>
-			<td width="35%" style="font-family:Verdana, normal; color:<?php echo CSS::CONTRAST_COLOR;?>; font-size:0.8em; font-weight:bold">
-				<?= esc_html( $label ); ?>
+			<td width="35%" style="font-family:Verdana, normal; color:<?php echo esc_attr( CSS::CONTRAST_COLOR ); ?>; font-size:0.8em; font-weight:bold">
+				<?php echo esc_html( $label ); ?>
 			</td>
 			<td width="5%">&nbsp;</td>
 			<td width="50%">&nbsp;</td>
 		</tr>
-	<?php
+		<?php
 	}
 
 	/** Haalt data voor tabel op */
 	protected function get_table_data( \WC_Order $order ): array {
 
-		//Referentiegegevens
+		// Referentiegegevens
 		$languages = [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages_list( Language::VOLUNTEER, Language::PLATO_CODE );
 		$language_skill = siw_get_language_skill_levels();
 
@@ -128,7 +130,7 @@ class Emails {
 					'label' => __( 'Telefoonnummer', 'siw' ),
 					'value' => $order->get_billing_phone(),
 				],
-			]
+			],
 		];
 		$table_data['emergency_contact'] = [
 			'header' => __( 'Noodcontact', 'siw' ),
@@ -140,8 +142,8 @@ class Emails {
 				[
 					'label' => __( 'Telefoonnummer', 'siw' ),
 					'value' => $order->get_meta( 'emergency_contact_phone' ),
-				]
-			]
+				],
+			],
 		];
 		$table_data['language'] = [
 			'header' => __( 'Talenkennis', 'siw' ),
@@ -158,9 +160,9 @@ class Emails {
 					'label' => $languages[ $order->get_meta( 'language_3' ) ] ?? '',
 					'value' => $language_skill[ $order->get_meta( 'language_3_skill' ) ] ?? '',
 				],
-			]
+			],
 		];
-		$table_data[ 'info_for_partner' ] = [
+		$table_data['info_for_partner'] = [
 			'header' => __( 'Informatie voor partnerorganisatie', 'siw' ),
 			'rows'   => [
 				[
@@ -177,9 +179,9 @@ class Emails {
 				],
 				[
 					'label' => __( 'Together with', 'siw' ),
-					'value' => $order->get_meta( 'together_with' )
+					'value' => $order->get_meta( 'together_with' ),
 				],
-			]
+			],
 		];
 		return $table_data;
 	}
@@ -192,7 +194,7 @@ class Emails {
 			'label' => __( 'Aanmeldnummer', 'siw' ),
 			'value' => $order->get_order_number(),
 		];
-		
+
 		/** @var \WC_Order_Item_Product[] */
 		$order_items = $order->get_items();
 
@@ -201,30 +203,32 @@ class Emails {
 		foreach ( $order_items as $item ) {
 			$count++;
 			$product = siw_get_product( $item->get_product_id() );
-			
+
 			/* Als project niet meer bestaan alleen de gegevens bij de aanmelding tonen */
 			if ( ! is_a( $product, WC_Product_Project::class ) ) {
 				$project_details = $item->get_name();
-			}
-			else {
+			} else {
 				$project_duration = siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false );
 				$project_details = sprintf(
-					'%s<br/><small>Projectcode: %s<br>Projectduur: %s</small>', $product->get_name(), $product->get_sku(), $project_duration );
+					'%s<br/><small>Projectcode: %s<br>Projectduur: %s</small>',
+					$product->get_name(),
+					$product->get_sku(),
+					$project_duration
+				);
 			}
-	
+
 			if ( 1 === $project_count ) {
 				$application_data['rows'][] = [
 					'label' => __( 'Project', 'siw' ),
 					'value' => $project_details,
 				];
-			}
-			else {
+			} else {
 				$application_data['rows'][] = [
+					// translators: %d is een geheel getal
 					'label' => sprintf( __( 'Project %d', 'siw' ), $count ),
 					'value' => $project_details,
 				];
 			}
-			
 		}
 		return $application_data;
 	}
@@ -232,20 +236,21 @@ class Emails {
 	/** Geeft betaalgegevens terug */
 	protected function get_payment_table_data( \WC_Order $order ): array {
 		$payment_data['header'] = __( 'Betaling', 'siw' );
-		if ( $order->get_total() != $order->get_subtotal() ) {
+		if ( $order->get_total() !== $order->get_subtotal() ) {
 			$payment_data['rows'][] = [
 				'label' => __( 'Subtotaal', 'siw' ),
 				'value' => $order->get_subtotal_to_display(),
 			];
-			
+
 			/* Toon kortingscodes */
 			foreach ( $order->get_coupons() as $coupon ) {
 				$payment_data['rows'][] = [
+					// translators: %s is de kortingscode
 					'label' => sprintf( __( 'Kortingscode: %s', 'siw' ), $coupon->get_code() ),
 					'value' => '-' . wc_price( $coupon->get_discount() ),
 				];
 			}
-			
+
 			/* Toon automatische kortingen */
 			foreach ( $order->get_fees() as $fee ) {
 				$payment_data['rows'][] = [
@@ -253,7 +258,6 @@ class Emails {
 					'value' => wc_price( $fee->get_total() ),
 				];
 			}
-
 		}
 		$payment_data['rows'][] = [
 			'label' => __( 'Totaal', 'siw' ),

@@ -4,7 +4,7 @@ namespace SIW\Structured_Data;
 
 /**
  * Vacature
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://schema.org/Event
  */
@@ -24,12 +24,12 @@ class Job_Posting extends Thing {
 	public function set_date_posted( \DateTime $date_posted ) {
 		return $this->set_property( 'datePosted', $date_posted );
 	}
-	
+
 	/** Zet deadline */
-	public function set_valid_through( \DateTime $valid_through )  {
+	public function set_valid_through( \DateTime $valid_through ) {
 		return $this->set_property( 'validThrough', $valid_through );
 	}
-	
+
 	/** Zet type baan */
 	public function set_employment_type( Employment_Type $employment_type ) {
 		return $this->set_property( 'employmentType', $employment_type );
@@ -40,7 +40,7 @@ class Job_Posting extends Thing {
 		return $this->add_property( 'employmentType', $employment_type );
 	}
 
-	/**	Zet werkgever */
+	/** Zet werkgever */
 	public function set_hiring_organization( Organization $hiring_organization ) {
 		return $this->set_property( 'hiringOrganization', $hiring_organization );
 	}
@@ -65,6 +65,7 @@ class Job_Posting extends Thing {
 		return $this->set_property( 'employerOverview', $employer_overview );
 	}
 
+	/** Zet beschrijving van voordelen */
 	public function set_job_benefits( string $job_benefits ) {
 		return $this->set_property( 'jobBenefits', $job_benefits );
 	}

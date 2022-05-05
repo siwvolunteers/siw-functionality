@@ -6,7 +6,7 @@ use SIW\Data\Continent;
 
 /**
  * Bevat informatie over een land
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Country extends Data {
@@ -22,7 +22,7 @@ class Country extends Data {
 
 	/** Alle landen */
 	const ALL = 'all';
-	
+
 	/** Landen met groepsprojecten */
 	const WORKCAMPS = 'workcamps';
 
@@ -109,7 +109,7 @@ class Country extends Data {
 	public function has_projects(): bool {
 		return $this->has_workcamps() || $this->has_tailor_made_projects() || $this->has_esc_projects();
 	}
-	
+
 	/** Geeft aan of het land groepsprojecten heeft */
 	public function has_workcamps(): bool {
 		return $this->workcamps;
@@ -129,7 +129,7 @@ class Country extends Data {
 	public function get_world_map_coordinates(): \stdClass {
 		return (object) $this->world_map;
 	}
-	
+
 	/** Geeft aan of land geldig is voor context */
 	public function is_valid_for_context( string $context ): bool {
 

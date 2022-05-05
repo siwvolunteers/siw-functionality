@@ -6,32 +6,31 @@ namespace SIW;
  * Class om upload subdirectory te zetten op basis van content en bestandstype
  *
  * @copyright   2019 SIW Internationale Vrijwilligersprojecten
- * @since       3.0.0
  */
 class Upload_Subdir {
 
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_filter( 'wp_handle_sideload_prefilter', [ $self, 'add_upload_subdir_filter'] );
-		add_filter( 'wp_handle_upload_prefilter', [ $self, 'add_upload_subdir_filter'] );
-		add_filter( 'wp_handle_upload', [ $self, 'remove_upload_subdir_filter'] );
+		add_filter( 'wp_handle_sideload_prefilter', [ $self, 'add_upload_subdir_filter' ] );
+		add_filter( 'wp_handle_upload_prefilter', [ $self, 'add_upload_subdir_filter' ] );
+		add_filter( 'wp_handle_upload', [ $self, 'remove_upload_subdir_filter' ] );
 	}
 
 	/** Voegt filter toe */
-	public function add_upload_subdir_filter( array $file ) : array {
-		add_filter( 'upload_dir', [ $this, 'set_upload_subdir'] );
+	public function add_upload_subdir_filter( array $file ): array {
+		add_filter( 'upload_dir', [ $this, 'set_upload_subdir' ] );
 		return $file;
 	}
 
 	/** Verwijdert filter weer */
-	public function remove_upload_subdir_filter( array $fileinfo ) : array {
-		remove_filter( 'upload_dir', [ $this, 'set_upload_subdir'] );
+	public function remove_upload_subdir_filter( array $fileinfo ): array {
+		remove_filter( 'upload_dir', [ $this, 'set_upload_subdir' ] );
 		return $fileinfo;
 	}
 
 	/** Bepaal upload dir */
-	public function set_upload_subdir( array $path ) : array {
+	public function set_upload_subdir( array $path ): array {
 
 		/* Afbreken bij een fout */
 		if ( ! empty( $path['error'] ) ) {
@@ -58,9 +57,9 @@ class Upload_Subdir {
 
 		// Als er een
 		if ( is_string( $subdir ) ) {
-			$subdir = '/'. $subdir;
+			$subdir = '/' . $subdir;
 
-			$path['path']    = str_replace( $path['subdir'], '', $path['path'] ); //TODO: wp_normalize_path
+			$path['path']    = str_replace( $path['subdir'], '', $path['path'] ); // TODO: wp_normalize_path
 			$path['url']     = str_replace( $path['subdir'], '', $path['url'] );
 			$path['subdir']  = $subdir;
 			$path['path']   .= $subdir;
@@ -71,8 +70,8 @@ class Upload_Subdir {
 	}
 
 	/** Bepaal subdirectory op basis van post type */
-	protected function get_post_type_subdir() : ?string {
-		$post_id = isset( $_POST['post_id'] ) ? intval( $_POST['post_id'] ) : null;
+	protected function get_post_type_subdir(): ?string {
+		$post_id = isset( $_POST['post_id'] ) ? intval( $_POST['post_id'] ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		if ( is_null( $post_id ) ) {
 			return null;
 		}
@@ -81,6 +80,7 @@ class Upload_Subdir {
 		$cpt_upload_subdirs = [];
 		/**
 		 * Upload subdir
+		 *
 		 * @param array $cpt_upload_dirs
 		 */
 		$cpt_upload_subdirs = apply_filters( 'siw_cpt_upload_subdirs', $cpt_upload_subdirs );
@@ -89,8 +89,8 @@ class Upload_Subdir {
 	}
 
 	/** Bepaal subdirectory op basis van extensie */
-	protected function get_extension_subdir() : ?string {
-		$name = isset( $_POST['name'] ) ? sanitize_file_name( $_POST['name'] ): null;
+	protected function get_extension_subdir(): ?string {
+		$name = isset( $_POST['name'] ) ? sanitize_file_name( wp_unslash( $_POST['name'] ) ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		if ( is_null( $name ) ) {
 			return null;
 		}

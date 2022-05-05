@@ -7,19 +7,19 @@ use SIW\Interfaces\Assets\Script;
 
 /**
  * Google Analytics JS API
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see       https://developers.google.com/analytics/devguides/collection/analyticsjs
  */
-class Google_Analytics implements Script, External{
-	
+class Google_Analytics implements Script, External {
+
 	/** Handle voor assets */
 	const ASSETS_HANDLE = 'google-analytics';
 
 	/** {@inheritDoc} */
 	public function register_script() {
-		wp_register_script( self::ASSETS_HANDLE, 'https://www.google-analytics.com/analytics.js', [], null, true );
+		wp_register_script( self::ASSETS_HANDLE, 'https://www.google-analytics.com/analytics.js', [], null, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 	}
 
 	/** {@inheritDoc} */

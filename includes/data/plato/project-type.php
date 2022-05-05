@@ -6,9 +6,9 @@ use \Spatie\Enum\Enum;
 
 /**
  * Plato project types
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @method static self STV()
  * @method static self MTV()
  * @method static self LTV()

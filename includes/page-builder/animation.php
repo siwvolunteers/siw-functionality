@@ -13,7 +13,6 @@ use SIW\Interfaces\Page_Builder\Settings as Settings_Interface;
  * Animaties voor Page Builder
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
 class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface, Widget_Style_Group_Interface, Settings_Interface {
 
@@ -43,7 +42,7 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 
 	/** Option field voor animatie vertraging */
 	const OPTION_FIELD_DELAY = 'siw_animation_delay';
-	
+
 	/** Option field voor animatie easing */
 	const OPTION_FIELD_EASING = 'siw_animation_easing';
 
@@ -63,15 +62,16 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 	 */
 	public function add_style_fields( array $fields ) : array {
 		$fields[ self::STYLE_FIELD_TYPE ] = [
-			'name'        => __( 'Type', 'siw' ),
-			'group'       => self::STYLE_GROUP,
-			'type'        => 'select',
-			'priority'    => 10,
-			'options'     => $this->get_types(),
-			'default'     => 'none',
+			'name'     => __( 'Type', 'siw' ),
+			'group'    => self::STYLE_GROUP,
+			'type'     => 'select',
+			'priority' => 10,
+			'options'  => $this->get_types(),
+			'default'  => 'none',
 		];
 		$fields[ self::STYLE_FIELD_DURATION ] = [
 			'name'        => __( 'Duur', 'siw' ),
+			// translators: %s is de standaard instelling
 			'description' => sprintf( __( 'Standaard: %s', 'siw' ), $this->get_default_duration() ),
 			'group'       => self::STYLE_GROUP,
 			'type'        => 'select',
@@ -81,6 +81,7 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 		];
 		$fields[ self::STYLE_FIELD_DELAY ] = [
 			'name'        => __( 'Vertraging', 'siw' ),
+			// translators: %s is de standaard instelling
 			'description' => sprintf( __( 'Standaard: %s', 'siw' ), $this->get_default_delay() ),
 			'group'       => self::STYLE_GROUP,
 			'type'        => 'select',
@@ -91,6 +92,7 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 		$fields[ self::STYLE_FIELD_EASING ] = [
 			'name'        => __( 'Easing', 'siw' ),
 			'description' =>
+				// translators: %s is de standaard instelling
 				sprintf( __( 'Standaard: %s', 'siw' ), $this->get_default_easing() ) . BR .
 				wp_targeted_link_rel( links_add_target( make_clickable( 'https://easings.net/' ) ) ),
 			'group'       => self::STYLE_GROUP,
@@ -100,10 +102,10 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 			'default'     => 'default',
 		];
 		$fields[ self::STYLE_FIELD_REPEAT ] = [
-			'name'        => __( 'Herhalen', 'siw' ),
-			'group'       => self::STYLE_GROUP,
-			'type'        => 'checkbox',
-			'priority'    => 50,
+			'name'     => __( 'Herhalen', 'siw' ),
+			'group'    => self::STYLE_GROUP,
+			'type'     => 'checkbox',
+			'priority' => 50,
 		];
 		return $fields;
 	}
@@ -113,39 +115,36 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 	 */
 	public function set_style_attributes( array $style_attributes, array $style_args ) : array {
 
-		//Afbreken als er geen animatie van toepassing is
+		// Afbreken als er geen animatie van toepassing is
 		if ( ! isset( $style_args[ self::STYLE_FIELD_TYPE ] ) || 'none' === $style_args[ self::STYLE_FIELD_TYPE ] ) {
 			return $style_attributes;
 		}
 
-		//Type animatie
+		// Type animatie
 		$style_attributes['data-sal'] = $style_args[ self::STYLE_FIELD_TYPE ];
 
-		//Duur van animatie
+		// Duur van animatie
 		if ( ! isset( $style_args[ self::STYLE_FIELD_DURATION ] ) || 'default' === $style_args[ self::STYLE_FIELD_DURATION ] ) {
 			$style_attributes['data-sal-duration'] = siteorigin_panels_setting( self::OPTION_FIELD_DURATION );
-		}
-		else {
+		} else {
 			$style_attributes['data-sal-duration'] = $style_args[ self::STYLE_FIELD_DURATION ];
 		}
 
-		//Vertraging van animatie
-		if ( ! isset( $style_args[ self::STYLE_FIELD_DELAY] ) || 'default' === $style_args[ self::STYLE_FIELD_DELAY ] ) {
+		// Vertraging van animatie
+		if ( ! isset( $style_args[ self::STYLE_FIELD_DELAY ] ) || 'default' === $style_args[ self::STYLE_FIELD_DELAY ] ) {
 			$style_attributes['data-sal-delay'] = siteorigin_panels_setting( 'siw_animation_delay' );
-		}
-		else {
+		} else {
 			$style_attributes['data-sal-delay'] = $style_args[ self::STYLE_FIELD_DELAY ];
 		}
 
-		//Easing van animatie
+		// Easing van animatie
 		if ( ! isset( $style_args[ self::STYLE_FIELD_EASING ] ) || 'default' === $style_args[ self::STYLE_FIELD_EASING ] ) {
 			$style_attributes['data-sal-easing'] = siteorigin_panels_setting( 'siw_animation_easing' );
-		}
-		else {
+		} else {
 			$style_attributes['data-sal-easing'] = $style_args[ self::STYLE_FIELD_EASING ];
 		}
 
-		//Herhalen
+		// Herhalen
 		if ( isset( $style_args[ self::STYLE_FIELD_REPEAT ] ) && $style_args[ self::STYLE_FIELD_REPEAT ] ) {
 			$style_attributes['data-sal-repeat'] = true;
 		}
@@ -164,22 +163,22 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 					'label'       => __( 'Duur', 'siw' ),
 					'description' => __( 'Standaard duur van de animatie', 'siw' ),
 					'type'        => 'select',
-					'options'     => $this->get_duration_options( false )
+					'options'     => $this->get_duration_options( false ),
 				],
-				self::OPTION_FIELD_DELAY => [
+				self::OPTION_FIELD_DELAY    => [
 					'label'       => __( 'Vertraging', 'siw' ),
 					'description' => __( 'Standaard vertraging van de animatie', 'siw' ),
 					'type'        => 'select',
 					'options'     => $this->get_delay_options( false ),
 				],
-				self::OPTION_FIELD_EASING => [
+				self::OPTION_FIELD_EASING   => [
 					'label'       => __( 'Easing', 'siw' ),
 					'description' =>
 						__( 'Standaard easing van de animatie', 'siw' ),
-						wp_targeted_link_rel( links_add_target( make_clickable( 'https://easings.net/' ) ) ),
+					wp_targeted_link_rel( links_add_target( make_clickable( 'https://easings.net/' ) ) ),
 					'type'        => 'select',
-					'options'     => $this->get_easing_options( false )
-				]
+					'options'     => $this->get_easing_options( false ),
+				],
 			],
 		];
 		return $fields;
@@ -188,7 +187,7 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 	/**
 	 * {@inheritDoc}
 	 */
-	public function set_settings_defaults( array $defaults) : array {
+	public function set_settings_defaults( array $defaults ) : array {
 		$defaults[ self::OPTION_FIELD_DURATION ] = '1000';
 		$defaults[ self::OPTION_FIELD_DELAY ]    = 'none';
 		$defaults[ self::OPTION_FIELD_EASING ]   = 'ease-out-sine';

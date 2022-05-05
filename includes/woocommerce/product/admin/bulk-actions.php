@@ -4,12 +4,12 @@ namespace SIW\WooCommerce\Product\Admin;
 
 /**
  * Bulk acties
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Bulk_Actions {
 
-	//Constantes
+	// Constantes
 	const ACTION_IMPORT_AGAIN = 'import_again';
 	const ACTION_MARK_AS_FEATURED = 'mark_as_featured';
 	const ACTION_HIDE = 'hide';
@@ -19,16 +19,15 @@ class Bulk_Actions {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_filter( 'bulk_actions-edit-product', [ $self, 'add_bulk_actions'] );
-		add_filter( 'handle_bulk_actions-edit-product', [ $self, 'handle_bulk_actions'], 10, 3 );
-		add_action( 'admin_notices', [ $self, 'show_admin_notice'] );
-		add_filter( 'removable_query_args', [ $self, 'add_removable_query_args'] );
-
+		add_filter( 'bulk_actions-edit-product', [ $self, 'add_bulk_actions' ] );
+		add_filter( 'handle_bulk_actions-edit-product', [ $self, 'handle_bulk_actions' ], 10, 3 );
+		add_action( 'admin_notices', [ $self, 'show_admin_notice' ] );
+		add_filter( 'removable_query_args', [ $self, 'add_removable_query_args' ] );
 	}
 
 	/**
 	 * Voegt bulk acties toe
-	 * 
+	 *
 	 * - Opnieuw importeren
 	 * - Selecteren voor carousel
 	 */
@@ -41,22 +40,22 @@ class Bulk_Actions {
 
 	/** Verwerkt bulkacties */
 	public function handle_bulk_actions( string $redirect_url, string $action, array $post_ids ): string {
-		
+
 		switch ( $action ) {
 			case self::ACTION_IMPORT_AGAIN:
-				$products = siw_get_products( ['include' => $post_ids ] );
+				$products = siw_get_products( [ 'include' => $post_ids ] );
 				array_walk(
 					$products,
 					function( \WC_Product $product ) {
 						$data = [
-							'product_id' => $product->get_meta( 'project_id' )
+							'product_id' => $product->get_meta( 'project_id' ),
 						];
 						siw_enqueue_async_action( 'import_plato_project', $data );
 					}
 				);
 				break;
 			case self::ACTION_HIDE:
-				$products = siw_get_products( ['include' => $post_ids ] );
+				$products = siw_get_products( [ 'include' => $post_ids ] );
 				array_walk(
 					$products,
 					function( \WC_Product $product ) {
@@ -67,7 +66,7 @@ class Bulk_Actions {
 				);
 				break;
 			case self::ACTION_MARK_AS_FEATURED:
-				$products = siw_get_products( ['include' => $post_ids ] );
+				$products = siw_get_products( [ 'include' => $post_ids ] );
 				array_walk(
 					$products,
 					function( \WC_Product $product ) {
@@ -77,7 +76,7 @@ class Bulk_Actions {
 				);
 				break;
 			default:
-				//Afbreken
+				// Afbreken
 				return $redirect_url;
 		}
 
@@ -98,20 +97,23 @@ class Bulk_Actions {
 
 		switch ( $action ) {
 			case self::ACTION_IMPORT_AGAIN:
-				$message = sprintf( _n( '%s project wordt opnieuw geïmporteerd.', '%s projecten worden opnieuw geïmporteerd.', $count, 'siw' ), $count );
+				// translators: %d is het aantal projecten
+				$message = sprintf( _n( '%d project wordt opnieuw geïmporteerd.', '%d projecten worden opnieuw geïmporteerd.', $count, 'siw' ), $count );
 				break;
 			case self::ACTION_MARK_AS_FEATURED:
-				$message = sprintf( _n( '%s project is gemarkeerd als aanbevolen.', '%s projecten zijn gemarkeerd als aanbevolen.', $count, 'siw' ), $count );
+				// translators: %d is het aantal projecten
+				$message = sprintf( _n( '%d project is gemarkeerd als aanbevolen.', '%d projecten zijn gemarkeerd als aanbevolen.', $count, 'siw' ), $count );
 				break;
 			case self::ACTION_HIDE:
-				$message = sprintf( _n( '%s project is verborgen.', '%s projecten zijn verborgen.', $count, 'siw' ), $count );
+				// translators: %d is het aantal projecten
+				$message = sprintf( _n( '%d project is verborgen.', '%d projecten zijn verborgen.', $count, 'siw' ), $count );
 				break;
 			default:
-				//Afbreken
+				// Afbreken
 				return;
 		}
 
-		//TODO: admin element van maken?
+		// TODO: admin element van maken?
 		?>
 			<div class="notice notice-info is-dismissible">
 				<p><?php echo esc_html( $message ); ?></p>

@@ -6,9 +6,9 @@ use SIW\Interfaces\Assets\Style;
 
 /**
  * Balloon.css
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see https://kazzkiq.github.io/balloon.css/
  */
 class Balloon implements Style {

@@ -6,7 +6,7 @@ use SIW\External\Exchange_Rates;
 
 /**
  * Bevat informatie over een valuta
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Currency extends Data {

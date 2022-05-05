@@ -7,7 +7,7 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
  * Google Analytics integratie
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Google_Analytics {
@@ -33,9 +33,9 @@ class Google_Analytics {
 			return;
 		}
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_scripts' ] );
-		add_action( 'woocommerce_add_to_cart', [ $self, 'track_add_to_cart'], 10, 6 );
+		add_action( 'woocommerce_add_to_cart', [ $self, 'track_add_to_cart' ], 10, 6 );
 
-		add_filter( 'rocket_exclude_defer_js', [ $self, 'add_ga_url'] );
+		add_filter( 'rocket_exclude_defer_js', [ $self, 'add_ga_url' ] );
 		add_filter( 'rocket_excluded_inline_js_content', [ $self, 'set_excluded_inline_js_content' ] );
 	}
 
@@ -63,7 +63,7 @@ class Google_Analytics {
 	/** Genereert snippet */
 	protected function generate_snippet(): string {
 		$snippet = [
-			"window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;",
+			'window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;',
 			sprintf( "ga('create','%s',{'siteSpeedSampleRate': 100, 'cookieFlags': 'SameSite=None; Secure'});", esc_js( $this->property_id ) ),
 		];
 		foreach ( $this->tracker_settings as $setting => $value ) {
@@ -73,10 +73,10 @@ class Google_Analytics {
 		$snippet = array_merge( $snippet, $this->generate_ecommerce_script() );
 		$snippet[] = "ga('send','pageview');";
 		$snippet = array_merge( $snippet, $this->get_script_from_session() );
-		
+
 		return implode( PHP_EOL, $snippet );
 	}
-	
+
 	/** Genereert Enhanced Ecommerce script */
 	protected function generate_ecommerce_script(): array {
 		if ( is_product() ) {
@@ -84,43 +84,40 @@ class Google_Analytics {
 			$product_data = $this->get_product_data( $product );
 			$ecommerce_script = [
 				"ga('require', 'ec');",
-				sprintf( "ga('ec:addProduct', %s);", json_encode( $product_data ) ),
+				sprintf( "ga('ec:addProduct', %s);", wp_json_encode( $product_data ) ),
 				"ga('ec:setAction', 'detail');",
 			];
-		}
-		elseif ( is_checkout() && ! is_order_received_page() ) {
-			$ecommerce_script = ["ga('require', 'ec');"];
-			
+		} elseif ( is_checkout() && ! is_order_received_page() ) {
+			$ecommerce_script = [ "ga('require', 'ec');" ];
+
 			$items = WC()->cart->get_cart_contents();
 
 			foreach ( $items as $item ) {
 				$product = siw_get_product( $item['product_id'] );
 				$product_data = $this->get_product_data( $product );
-				$ecommerce_script[] = sprintf( "ga('ec:addProduct', %s);", json_encode( $product_data ) );
+				$ecommerce_script[] = sprintf( "ga('ec:addProduct', %s);", wp_json_encode( $product_data ) );
 			}
 			$ecommerce_script[] = "ga('ec:setAction','checkout')";
-		}
-		elseif ( is_order_received_page() ) {
-			$order_id = get_query_var('order-received');
+		} elseif ( is_order_received_page() ) {
+			$order_id = get_query_var( 'order-received' );
 			$order = wc_get_order( $order_id );
 
-			$ecommerce_script = ["ga('require', 'ec');"];
+			$ecommerce_script = [ "ga('require', 'ec');" ];
 
 			$items = $order->get_items();
 			foreach ( $items as $item ) {
 				$product = siw_get_product( $item['product_id'] );
 				$product_data = $this->get_product_data( $product );
-				$ecommerce_script[] = sprintf( "ga('ec:addProduct', %s);", json_encode( $product_data ) );
+				$ecommerce_script[] = sprintf( "ga('ec:addProduct', %s);", wp_json_encode( $product_data ) );
 			}
 
-			$order_data = [ 
-				'id'     => $order->get_id(),
+			$order_data = [
+				'id'      => $order->get_id(),
 				'revenue' => number_format( floatval( $order->get_total() ), 2 ),
 				'coupon'  => implode( ',', $order->get_coupon_codes() ),
 			];
-			$ecommerce_script[] = sprintf( "ga('ec:setAction', 'purchase', %s);", json_encode( $order_data ) );
-		}
-		else {
+			$ecommerce_script[] = sprintf( "ga('ec:setAction', 'purchase', %s);", wp_json_encode( $order_data ) );
+		} else {
 			return [];
 		}
 		return $ecommerce_script;
@@ -156,10 +153,10 @@ class Google_Analytics {
 	public function track_add_to_cart( string $cart_item_key, int $product_id, int $quantity, int $variation_id, array $variation, array $cart_item_data ) {
 		$product = siw_get_product( $product_id );
 		$product_data = $this->get_product_data( $product );
-		
+
 		$script = [
 			"ga('require', 'ec');",
-			sprintf( "ga('ec:addProduct', %s);", json_encode( $product_data ) ),
+			sprintf( "ga('ec:addProduct', %s);", wp_json_encode( $product_data ) ),
 			"ga('ec:setAction', 'add');",
 			"ga('send', 'event', 'Ecommerce', 'add', 'add to cart');",
 		];
@@ -176,7 +173,7 @@ class Google_Analytics {
 	/** Haal opgeslagen script uit WC-sessie */
 	protected function get_script_from_session() : array {
 		$script = WC()->session->get( self::SESSION_SCRIPT_KEY );
-		if ( null != $script ) {
+		if ( null !== $script ) {
 			WC()->session->set( self::SESSION_SCRIPT_KEY, null );
 			WC()->session->save_data();
 		}
@@ -186,7 +183,7 @@ class Google_Analytics {
 
 	/**
 	 * Voegt GA-domein aan array toe t.b.v. filters
-	 * 
+	 *
 	 * - Uitsluiten van minification
 	 * - Uitsluiten van defer
 	 * - Resource hints (dns-prefetch + preconnect)

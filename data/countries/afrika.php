@@ -6,11 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Gegevens van landen in Afrika
- * 
+ *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	[
 		'plato_code'  => 'BDI',
 		'iso_code'    => 'bd',
@@ -59,7 +59,7 @@ $data = [
 		'workcamps'   => true,
 		'tailor_made' => false,
 	],
-	
+
 	[
 		'plato_code'  => 'SEN',
 		'iso_code'    => 'sn',
@@ -126,4 +126,4 @@ $data = [
 	],
 ];
 
-return $data;
+return $siw_data;

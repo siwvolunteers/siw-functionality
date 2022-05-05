@@ -41,7 +41,7 @@ class Free_Places {
 
 	/** Bepaalt of project vol is */
 	protected function is_full( int $free_m, int $free_f, string $no_more_from ): bool {
-		return in_array( 'NLD', wp_parse_slug_list( $no_more_from ) ) || ( ( $free_m + $free_f ) <= 0 );
+		return in_array( 'NLD', wp_parse_slug_list( $no_more_from ), true ) || ( ( $free_m + $free_f ) <= 0 );
 	}
 
 }

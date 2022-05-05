@@ -6,10 +6,10 @@ use SIW\Interfaces\Assets\Script;
 
 /**
  * SVG functies
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class SIW_SVG implements Script{
+class SIW_SVG implements Script {
 
 	/** Handle voor assets */
 	const ASSETS_HANDLE = 'siw-svg';

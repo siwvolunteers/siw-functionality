@@ -8,7 +8,7 @@ use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
 /**
  * Proces om database te updaten
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Update_Database implements Batch_Action_Interface {
@@ -32,7 +32,7 @@ class Update_Database implements Batch_Action_Interface {
 	public function must_be_run_on_update(): bool {
 		return true;
 	}
-	
+
 	/** {@inheritDoc} */
 	public function select_data(): array {
 		$tables = [
@@ -54,9 +54,9 @@ class Update_Database implements Batch_Action_Interface {
 			return false;
 		};
 
-		//TODO: verplaatsen naar tabel-definitie + methode create_table() uitbreiden
+		// TODO: verplaatsen naar tabel-definitie + methode create_table() uitbreiden
 		if ( $table->equals( Database_Table::PLATO_PROJECT_IMAGES() ) ) {
-			$database->add_foreign_key( Database_Table::PLATO_PROJECTS(), ['project_id'], ['project_id'] );
+			$database->add_foreign_key( Database_Table::PLATO_PROJECTS(), [ 'project_id' ], [ 'project_id' ] );
 		}
 	}
 }

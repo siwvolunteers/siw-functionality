@@ -34,10 +34,10 @@ class WP_Rocket {
 
 		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'purge_cache' ] );
 		add_filter( 'rocket_lazyload_youtube_thumbnail_resolution', fn() : string => self::YOUTUBE_THUMBNAIL_RESOLUTION );
-		define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true );
+		define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 		add_filter( 'nonce_life', fn() : int => self::NONCE_LIFESPAN );
 
-		//Acties t.b.v. cache rebuild
+		// Acties t.b.v. cache rebuild
 		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'schedule_cache_rebuild' ] );
 		add_action( self::HOOK, [ $self, 'rebuild_cache' ] );
 	}

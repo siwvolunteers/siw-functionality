@@ -4,10 +4,10 @@ namespace SIW\Structured_Data;
 
 /**
  * Status van evenement
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  * @see https://schema.org/NLNonprofitType
- * 
+ *
  * @method static self NonprofitANBI() https://schema.org/NonprofitANBI
  * @method static self NonprofitSBBI() https://schema.org/NonprofitSBBI
  */

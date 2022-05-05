@@ -8,18 +8,18 @@ use SIW\WooCommerce\Import\Product as Import_Product;
 
 /**
  * Importeren projecten uit Plato
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Import_Plato_Projects implements Batch_Action_Interface {
 
 	/** {@inheritDoc} */
-	public function get_id() : string {
+	public function get_id(): string {
 		return 'import_plato_projects';
 	}
 
 	/** {@inheritDoc} */
-	public function get_name() : string {
+	public function get_name(): string {
 		return __( 'Importeren projecten uit Plato', 'siw' );
 	}
 
@@ -35,7 +35,7 @@ class Import_Plato_Projects implements Batch_Action_Interface {
 
 	/** {@inheritDoc} */
 	public function select_data(): array {
-		$import = new Plato_Import_Workcamps;
+		$import = new Plato_Import_Workcamps();
 		return $import->run();
 	}
 

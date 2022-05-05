@@ -6,11 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Gegevens van Sustainable Development Goals
- * 
+ *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	[
 		'slug'       => '1',
 		'number'     => 1,
@@ -132,4 +132,4 @@ $data = [
 	],
 ];
 
-return $data;
+return $siw_data;

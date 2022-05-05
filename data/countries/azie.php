@@ -6,11 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Gegevens van landen in Azië
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	[
 		'plato_code'  => 'CHN',
 		'iso_code'    => 'cn',
@@ -18,7 +18,10 @@ $data = [
 		'name'        => __( 'China', 'siw' ),
 		'workcamps'   => true,
 		'tailor_made' => false,
-		'world_map'   => [ 'x' => 0.7782, 'y' => 0.5319 ], //TODO: kan weg na mapplic fix
+		'world_map'   => [
+			'x' => 0.7782,
+			'y' => 0.5319,
+		], // TODO: kan weg na mapplic fix
 	],
 	[
 		'plato_code'  => 'HKG',
@@ -27,7 +30,10 @@ $data = [
 		'name'        => __( 'Hong Kong', 'siw' ),
 		'workcamps'   => true,
 		'tailor_made' => false,
-		'world_map'   => [ 'x' => 0.7990, 'y' => 0.5998 ], //FIXME: staat eigenlijk niet op de kaart
+		'world_map'   => [
+			'x' => 0.7990,
+			'y' => 0.5998,
+		], // FIXME: staat eigenlijk niet op de kaart
 	],
 	[
 		'plato_code'  => 'IDN',
@@ -109,7 +115,7 @@ $data = [
 		'workcamps'   => true,
 		'tailor_made' => false,
 	],
-	
+
 	[
 		'plato_code'  => 'NPL',
 		'iso_code'    => 'np',
@@ -152,4 +158,4 @@ $data = [
 	],
 ];
 
-return $data;
+return $siw_data;

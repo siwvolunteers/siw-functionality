@@ -4,7 +4,7 @@ namespace SIW\Interfaces\Actions;
 
 /**
  * Interface voor async acties
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 interface Async extends Action {

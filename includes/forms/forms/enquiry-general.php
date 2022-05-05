@@ -8,7 +8,7 @@ use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
 /**
  * Infoverzoek algemeen
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Enquiry_General implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
@@ -52,7 +52,7 @@ class Enquiry_General implements Form_Interface, Confirmation_Mail_Interface, No
 				'type'    => 'textarea',
 				'name'    => __( 'Vraag', 'siw' ),
 				'columns' => Form_Interface::FULL_WIDTH,
-			]
+			],
 		];
 	}
 
@@ -68,6 +68,7 @@ class Enquiry_General implements Form_Interface, Confirmation_Mail_Interface, No
 
 	/** {@inheritDoc} */
 	public function get_confirmation_mail_message(): string {
+		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
 		__( 'Bedankt voor het invullen van ons contactformulier.', 'siw' ) . SPACE .
 		__( 'Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je op.', 'siw' );

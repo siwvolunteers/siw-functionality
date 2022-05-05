@@ -6,11 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Gegevens van landen in Noord-Amerika
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	[
 		'plato_code'  => 'CAN',
 		'iso_code'    => 'ca',
@@ -39,4 +39,4 @@ $data = [
 	],
 ];
 
-return $data;
+return $siw_data;

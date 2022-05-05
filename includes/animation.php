@@ -7,7 +7,7 @@ use SIW\Util\CSS;
 
 /**
  * Class voor animaties
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Animation {
@@ -16,7 +16,7 @@ class Animation {
 	const ASSETS_HANDLE = 'siw-animation';
 
 	/** Threshold voor animatie */
-	CONST THRESHOLD = 0.25;
+	const THRESHOLD = 0.25;
 
 	/** Init */
 	public static function init() {
@@ -28,31 +28,35 @@ class Animation {
 	/** Registreert scripts */
 	public function register_script() {
 		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/siw-animation.js', [ Sal::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
-		wp_localize_script( self::ASSETS_HANDLE, 'siw_animation', [
-			'threshold'  => self::THRESHOLD,
-			'once'       => true,
-			'breakpoint' => CSS::MOBILE_BREAKPOINT,
-		]);
+		wp_localize_script(
+			self::ASSETS_HANDLE,
+			'siw_animation',
+			[
+				'threshold'  => self::THRESHOLD,
+				'once'       => true,
+				'breakpoint' => CSS::MOBILE_BREAKPOINT,
+			]
+		);
 		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 
 	/** Registreert styles */
 	public function register_style() {
 		wp_enqueue_style( SAL::ASSETS_HANDLE );
-		
+
 		$inline_css = [
-			"[data-sal|='fade']" => [
+			"[data-sal|='fade']"  => [
 				'opacity' => 1,
 			],
-			"[data-sal|='slide']"=> [
+			"[data-sal|='slide']" => [
 				'opacity'   => 1,
 				'transform' => 'none',
 			],
-			"[data-sal|='zoom']" => [
+			"[data-sal|='zoom']"  => [
 				'opacity'   => 1,
 				'transform' => 'none',
 			],
-			"[data-sal|='flip']" => [
+			"[data-sal|='flip']"  => [
 				'transform' => 'none',
 			],
 		];

@@ -10,8 +10,8 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  * Widget met formulier voor Snel Zoeken
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
- * @widget_data 
+ *
+ * @widget_data
  * Widget Name: SIW: Snel Zoeken - formulier
  * Description: Toont zoekformulier
  * Author: SIW Internationale Vrijwilligersprojecten
@@ -47,7 +47,7 @@ class Quick_Search_Form extends Widget {
 	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_forms = [
-			'title' => [
+			'title'       => [
 				'type'    => 'text',
 				'label'   => __( 'Titel', 'siw' ),
 				'default' => __( 'Snel Zoeken', 'siw' ),
@@ -56,18 +56,18 @@ class Quick_Search_Form extends Widget {
 				'type'    => 'select',
 				'label'   => __( 'Resultatenpagina', 'siw' ),
 				'prompt'  => __( 'Selecteer een pagina', 'siw' ),
-				'options' => Util::get_pages(), 
+				'options' => Util::get_pages(),
 			],
 		];
 		return $widget_forms;
 	}
-	
+
 	/** {@inheritDoc} */
-	function get_template_variables( $instance, $args ) {
+	public function get_template_variables( $instance, $args ) {
 
 		return [
 			'result_page_url' => wp_make_link_relative( get_permalink( $instance['result_page'] ) ),
-			'search_fields' => [
+			'search_fields'   => [
 				[
 					'id'      => Quick_Search_Results::DESTINATION,
 					'name'    => Quick_Search_Results::DESTINATION,
@@ -79,33 +79,35 @@ class Quick_Search_Form extends Widget {
 					'options' => $this->get_taxonomy_options( Taxonomy_Attribute::MONTH()->value, __( 'Wanneer wil je weg?', 'siw' ) ),
 				],
 			],
-			'i18n' => [
-				'search' => __( 'Zoeken', 'siw' )
-			]
+			'i18n'            => [
+				'search' => __( 'Zoeken', 'siw' ),
+			],
 		];
 	}
 
 	/** Haalt lijst met opties per taxonomy op */
 	protected function get_taxonomy_options( string $taxonomy, string $placeholder ): array {
-		$terms = get_terms( [
-			'taxonomy'   => $taxonomy,
-			'hide_empty' => false,
-			'meta_query' => [
-				[
-					'key'     => Update_WooCommerce_Terms::POST_COUNT_TERM_META,
-					'value'   => 0,
-					'compare' => '>',
+		$terms = get_terms(
+			[
+				'taxonomy'   => $taxonomy,
+				'hide_empty' => false,
+				'meta_query' => [
+					[
+						'key'     => Update_WooCommerce_Terms::POST_COUNT_TERM_META,
+						'value'   => 0,
+						'compare' => '>',
+					],
 				],
 			]
-		]);
-	
+		);
+
 		$term_options[] = [
 			'value'    => '',
 			'label'    => $placeholder,
 			'selected' => true,
 		];
 		foreach ( $terms as $term ) {
-			$term_options[] =[
+			$term_options[] = [
 				'value' => $term->slug,
 				'label' => $term->name,
 			];

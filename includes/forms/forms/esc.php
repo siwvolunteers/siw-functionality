@@ -8,16 +8,16 @@ use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
 /**
  * Aanmelding ESC
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class ESC implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
-	
+
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
 		return 'esc';
 	}
-	
+
 	/** {@inheritDoc} */
 	public function get_form_name(): string {
 		return __( 'Aanmelding ESC', 'siw' );
@@ -41,7 +41,7 @@ class ESC implements Form_Interface, Confirmation_Mail_Interface, Notification_M
 				'type'        => 'text',
 				'name'        => __( 'Geboortedatum', 'siw' ),
 				'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
-				'attributes' => [
+				'attributes'  => [
 					'data-rule-dateNL' => true,
 				],
 			],
@@ -91,6 +91,7 @@ class ESC implements Form_Interface, Confirmation_Mail_Interface, Notification_M
 
 	/** {@inheritDoc} */
 	public function get_confirmation_mail_message(): string {
+		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
 		__( 'Bedankt voor je ESC-aanmelding.', 'siw' ) . SPACE .
 		__( 'Onderaan deze mail staan de gegevens die je hebt ingevuld.', 'siw' ) . BR .

@@ -8,7 +8,7 @@ use SIW\Elements\Features as Features_Element;
  * Widget met features
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @widget_data
  * Widget Name: SIW: Features
  * Description: Toont features met toelichting en link
@@ -45,18 +45,18 @@ class Features extends Widget {
 	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
-			'title' => [
+			'title'    => [
 				'type'  => 'text',
 				'label' => __( 'Titel', 'siw' ),
 			],
-			'intro' => [
+			'intro'    => [
 				'type'           => 'tinymce',
 				'label'          => __( 'Intro', 'siw' ),
 				'rows'           => 10,
 				'default_editor' => 'html',
 			],
-			'columns' => [
-				'type'   => 'radio',
+			'columns'  => [
+				'type'    => 'radio',
 				'label'   => __( 'Aantal kolommen', 'siw' ),
 				'options' => [
 					1 => __( 'Eén', 'siw' ),
@@ -67,23 +67,23 @@ class Features extends Widget {
 			],
 			'features' => [
 				'type'       => 'repeater',
-				'label'      => __( 'Features' , 'siw' ),
+				'label'      => __( 'Features', 'siw' ),
 				'item_name'  => __( 'Feature', 'siw' ),
 				'item_label' => [
 					'selector'     => "[id*='title']",
 					'update_event' => 'change',
-					'value_method' => 'val'
+					'value_method' => 'val',
 				],
-				'fields' => [
-					'icon' => [
+				'fields'     => [
+					'icon'     => [
 						'type'  => 'icon',
 						'label' => __( 'Icoon', 'siw' ),
 					],
-					'title' => [
+					'title'    => [
 						'type'  => 'text',
-						'label' => __( 'Titel', 'siw' )
+						'label' => __( 'Titel', 'siw' ),
 					],
-					'content' => [
+					'content'  => [
 						'type'           => 'tinymce',
 						'label'          => __( 'Inhoud', 'siw' ),
 						'rows'           => 10,
@@ -94,10 +94,10 @@ class Features extends Widget {
 						'label'         => __( 'Voeg link toe', 'siw' ),
 						'default'       => false,
 						'state_emitter' => [
-							'callback'    => 'conditional',
-							'args'        => [
+							'callback' => 'conditional',
+							'args'     => [
 								'link_{$repeater}[show]: val',
-								'link_{$repeater}[hide]: ! val'
+								'link_{$repeater}[hide]: ! val',
 							],
 						],
 					],
@@ -117,7 +117,7 @@ class Features extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	function get_template_variables( $instance, $args ) {
+	public function get_template_variables( $instance, $args ) {
 		return [
 			'intro'   => $instance['intro'],
 			'content' => Features_Element::create()->add_items( $instance['features'] )->set_columns( (int) $instance['columns'] )->generate(),

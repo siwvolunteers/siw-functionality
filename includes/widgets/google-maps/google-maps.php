@@ -8,7 +8,7 @@ use SIW\Elements\Google_Maps as Element_Google_Maps;
  * Widget met Google Maps kaart
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @widget_data
  * Widget Name: SIW: Google Maps
  * Description: Toont Google Maps kaart
@@ -41,42 +41,42 @@ class Google_Maps extends Widget {
 	protected function get_dashicon(): string {
 		return 'location';
 	}
-	
+
 	/** {@inheritDoc} */
 	public function get_widget_form() {
 
 		$widget_form = [
-			'title' => [
-				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw' ),
+			'title'   => [
+				'type'  => 'text',
+				'label' => __( 'Titel', 'siw' ),
 			],
-			'intro' => [
+			'intro'   => [
 				'type'           => 'tinymce',
 				'label'          => __( 'Intro', 'siw' ),
 				'rows'           => 5,
 				'default_editor' => 'html',
 			],
-			'zoom' => [
+			'zoom'    => [
 				'type'    => 'slider',
 				'label'   => __( 'Zoomniveau', 'siw' ),
 				'default' => 10,
 				'min'     => 1,
 				'max'     => 20,
-				'integer' => true
+				'integer' => true,
 			],
 			'markers' => [
 				'type'       => 'repeater',
-				'label'      => __( 'Markers' , 'siw' ),
+				'label'      => __( 'Markers', 'siw' ),
 				'item_name'  => __( 'Marker', 'siw' ),
 				'item_label' => [
 					'selector'     => "[id*='title']",
 					'update_event' => 'change',
-					'value_method' => 'val'
+					'value_method' => 'val',
 				],
-				'fields' => [
-					'title' => [
+				'fields'     => [
+					'title'       => [
 						'type'  => 'text',
-						'label' => __( 'Titel', 'siw' )
+						'label' => __( 'Titel', 'siw' ),
 					],
 					'description' => [
 						'type'           => 'tinymce',
@@ -84,43 +84,43 @@ class Google_Maps extends Widget {
 						'rows'           => 10,
 						'default_editor' => 'html',
 					],
-					'location' => [
-						'type'    => 'radio',
-						'label'   => __( 'Locatie', 'siw' ),
-						'default' => 'address',
-						'options' => [
+					'location'    => [
+						'type'          => 'radio',
+						'label'         => __( 'Locatie', 'siw' ),
+						'default'       => 'address',
+						'options'       => [
 							'address'     => __( 'Adres', 'siw' ),
 							'coordinates' => __( 'Coördinaten', 'siw' ),
 						],
 						'state_emitter' => [
-							'callback'  => 'select',
-							'args'      => [ 'location_{$repeater}' ],
+							'callback' => 'select',
+							'args'     => [ 'location_{$repeater}' ],
 						],
 					],
-					'address' => [
+					'address'     => [
 						'type'          => 'textarea',
 						'label'         => __( 'Adres', 'siw' ),
 						'rows'          => 4,
 						'state_handler' => [
-							'location_{$repeater}[address]' => ['show'],
-							'_else[location_{$repeater}]'   => ['hide'],
+							'location_{$repeater}[address]' => [ 'show' ],
+							'_else[location_{$repeater}]' => [ 'hide' ],
 						],
 
 					],
-					'lat' => [
+					'lat'         => [
 						'type'          => 'number',
 						'label'         => __( 'Latitude', 'siw' ),
 						'state_handler' => [
-							'location_{$repeater}[coordinates]' => ['show'],
-							'_else[location_{$repeater}]'       => ['hide'],
+							'location_{$repeater}[coordinates]' => [ 'show' ],
+							'_else[location_{$repeater}]' => [ 'hide' ],
 						],
 					],
-					'lng' => [
+					'lng'         => [
 						'type'          => 'number',
 						'label'         => __( 'Latitude', 'siw' ),
 						'state_handler' => [
-							'location_{$repeater}[coordinates]' => ['show'],
-							'_else[location_{$repeater}]'       => ['hide'],
+							'location_{$repeater}[coordinates]' => [ 'show' ],
+							'_else[location_{$repeater}]' => [ 'hide' ],
 						],
 					],
 				],
@@ -130,15 +130,14 @@ class Google_Maps extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	function get_template_variables( $instance, $args ) {
+	public function get_template_variables( $instance, $args ) {
 		$map = Element_Google_Maps::create()
 			->set_zoom( (int) $instance['zoom'] );
 
 		foreach ( $instance['markers'] as $marker ) {
-			if ( 'address' == $marker['location'] ) {
+			if ( 'address' === $marker['location'] ) {
 				$map->add_location_marker( $marker['address'], $marker['title'], $marker['description'] );
-			}
-			elseif ( 'coordinates' == $marker['location'] ) {
+			} elseif ( 'coordinates' === $marker['location'] ) {
 				$map->add_marker( $marker['lat'], $marker['lng'], $marker['title'], $marker['description'] );
 			}
 		}

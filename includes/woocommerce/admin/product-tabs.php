@@ -14,13 +14,13 @@ class Product_Tabs {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_filter( 'woocommerce_product_data_tabs', [ $self, 'add_tabs'] );
-		add_filter( 'woocommerce_product_data_tabs', [ $self, 'hide_tabs'], PHP_INT_MAX );
-		
-		add_action( 'woocommerce_product_data_panels', [ $self, 'show_description_tab'] );
-		add_action( 'woocommerce_product_data_panels', [ $self, 'show_extra_settings_tab'] );
+		add_filter( 'woocommerce_product_data_tabs', [ $self, 'add_tabs' ] );
+		add_filter( 'woocommerce_product_data_tabs', [ $self, 'hide_tabs' ], PHP_INT_MAX );
 
-		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_product_data'] );
+		add_action( 'woocommerce_product_data_panels', [ $self, 'show_description_tab' ] );
+		add_action( 'woocommerce_product_data_panels', [ $self, 'show_extra_settings_tab' ] );
+
+		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_product_data' ] );
 	}
 
 	/** Voegt extra product tabs toe */
@@ -42,13 +42,13 @@ class Product_Tabs {
 
 	/** Verbergt overbodige product tabs */
 	public function hide_tabs( array $tabs ): array {
-		$tabs['general']['class'] = ['show_if_project'];
-		$tabs['advanced']['class'] = ['hide_if_project'];
-		$tabs['shipping']['class'] = ['hide_if_project'];
-		$tabs['linked_product']['class'] = ['hide_if_project'];
+		$tabs['general']['class'] = [ 'show_if_project' ];
+		$tabs['advanced']['class'] = [ 'hide_if_project' ];
+		$tabs['shipping']['class'] = [ 'hide_if_project' ];
+		$tabs['linked_product']['class'] = [ 'hide_if_project' ];
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			//$tabs['attribute']['class'] = ['hide_if_project'];
+			$tabs['attribute']['class'] = [ 'hide_if_project' ];
 		}
 		return $tabs;
 	}
@@ -57,14 +57,14 @@ class Product_Tabs {
 	public function show_extra_settings_tab() {
 		global $product_object;
 		$product = \siw_get_product( $product_object );
-		if ( null == $product ) {
+		if ( null === $product ) {
 			return;
 		}
 		?>
 		<div id="siw_extra_settings_product_data" class="panel woocommerce_options_panel">
 			<div class="options_group">
 				<?php
-				//Alleen tonen als het project een afbeelding uit Plato heeft of als de optie al aangevinkt is
+				// Alleen tonen als het project een afbeelding uit Plato heeft of als de optie al aangevinkt is
 				if ( $product->has_plato_image() || $product->use_stockfoto() ) {
 					woocommerce_wp_checkbox(
 						[
@@ -104,11 +104,11 @@ class Product_Tabs {
 	public function show_description_tab() {
 		global $product_object;
 		$product = \siw_get_product( $product_object );
-		if ( null == $product ) {
+		if ( null === $product ) {
 			return;
 		}
 		$description = $product->get_project_description();
-		//TODO: verplaatsen naar WC_Product_Project
+		// TODO: verplaatsen naar WC_Product_Project
 
 		$topics = [
 			'description'           => __( 'Beschrijving', 'siw' ),
@@ -125,10 +125,10 @@ class Product_Tabs {
 			<div class="options_group">
 				<div class="wc-metaboxes">
 				<?php
-					foreach ( $topics as $topic => $title ) {
-						if ( ! isset( $description[ $topic ] ) || empty( $description[ $topic ] ) ) {
-							continue;
-						}
+				foreach ( $topics as $topic => $title ) {
+					if ( ! isset( $description[ $topic ] ) || empty( $description[ $topic ] ) ) {
+						continue;
+					}
 					?>
 					<div class="wc-metabox postbox closed">
 						<h3><div class="handlediv"></div>
@@ -136,7 +136,7 @@ class Product_Tabs {
 						</h3>
 						<div class="wc-metabox-content hidden">
 							<hr>
-							<p><?php echo wp_kses_post( $description[ $topic]);?></p>
+							<p><?php echo wp_kses_post( $description[ $topic ] ); ?></p>
 						</div>
 					</div>
 					<?php } ?>
@@ -149,13 +149,13 @@ class Product_Tabs {
 	/** Slaat gewijzigde meta-velden op */
 	public function save_product_data( WC_Product_Project $product ) {
 
-		//Als stockfoto gebruikt moet worden, verwijder dan de huidige foto TODO: Plato-foto echt verwijderen?/
-		if ( isset( $_POST['_use_stockphoto'] ) && ! $product->use_stockfoto() ) {
+		// Als stockfoto gebruikt moet worden, verwijder dan de huidige foto TODO: Plato-foto echt verwijderen?/
+		if ( isset( $_POST['_use_stockphoto'] ) && ! $product->use_stockfoto() ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$product->set_image_id( null );
 			$product->set_has_plato_image( false );
 		}
-		$product->set_custom_price( wc_clean( $_POST['_custom_price'] ) );
-		$product->set_use_stockphoto( isset( $_POST['_use_stockphoto'] ) );
-		$product->set_hidden( isset( $_POST['_hidden'] ) );
+		$product->set_custom_price( sanitize_text_field( wp_unslash( $_POST['_custom_price'] ?? '' ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$product->set_use_stockphoto( isset( $_POST['_use_stockphoto'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$product->set_hidden( isset( $_POST['_hidden'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 	}
 }

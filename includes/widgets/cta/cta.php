@@ -2,15 +2,15 @@
 
 namespace SIW\Widgets;
 
-use SIW\i18n;
+use SIW\I18n;
 use SIW\Util;
 
 /**
  * Widget met Call to Action
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
- * @widget_data 
+ *
+ * @widget_data
  * Widget Name: SIW: CTA
  * Description: Toont call to action
  * Author: SIW Internationale Vrijwilligersprojecten
@@ -46,23 +46,23 @@ class CTA extends Widget {
 	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
-			'headline' => [
-				'type'    => 'text',
-				'label'   => __( 'Headline', 'siw' ),
+			'headline'    => [
+				'type'  => 'text',
+				'label' => __( 'Headline', 'siw' ),
 			],
 			'button_text' => [
-				'type'    => 'text',
-				'label'   => __( 'Tekst voor knop', 'siw' ),
+				'type'  => 'text',
+				'label' => __( 'Tekst voor knop', 'siw' ),
 			],
 			'button_page' => [
 				'type'    => 'select',
 				'label'   => __( 'Pagina voor knop', 'siw' ),
 				'prompt'  => __( 'Selecteer een pagina', 'siw' ),
-				'options' => Util::get_pages(), 
+				'options' => Util::get_pages(),
 			],
-			'align' => [
-				'type' => 'select',
-				'label' => __( 'Uitlijning', 'siw' ),
+			'align'       => [
+				'type'    => 'select',
+				'label'   => __( 'Uitlijning', 'siw' ),
 				'options' => [
 					'left'   => __( 'Links', 'siw' ),
 					'center' => __( 'Midden', 'siw' ),
@@ -75,14 +75,14 @@ class CTA extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	function get_template_variables( $instance, $args ) {
+	public function get_template_variables( $instance, $args ) {
 		return [
 			'headline' => $instance['headline'],
 			'align'    => $instance['align'],
 			'button'   => [
-				'url'  => i18n::get_translated_page_url( intval( $instance['button_page'] ) ),
+				'url'  => I18n::get_translated_page_url( intval( $instance['button_page'] ) ),
 				'text' => $instance['button_text'],
-			]
+			],
 		];
 	}
 }

@@ -6,9 +6,9 @@ use SIW\Interfaces\Assets\Script;
 
 /**
  * Micromodal
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see       https://micromodal.now.sh/
  */
 class Micromodal implements Script {

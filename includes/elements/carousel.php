@@ -7,7 +7,7 @@ use SIW\Util\CSS;
 
 /**
  * Carousel met posts
- * 
+ *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Carousel extends Element {
@@ -36,7 +36,7 @@ class Carousel extends Element {
 		'contain'    => true,
 		'wrapAround' => true,
 		'autoPlay'   => 2000,
-		'pageDots'   => false, //TODO: styling
+		'pageDots'   => false, // TODO: styling
 	];
 
 	/** {@inheritDoc} */
@@ -82,7 +82,7 @@ class Carousel extends Element {
 				break;
 			default:
 				$tablet_columns = 1;
-			}
+		}
 		return CSS::generate_responsive_classes( $desktop_columns, $tablet_columns, $mobile_columns );
 	}
 
@@ -124,12 +124,11 @@ class Carousel extends Element {
 
 	/**
 	 * Genereert carousel
-
-	 * 
+	 *
 	 * @todo leesbaarder maken
 	 */
 	public function generate_content(): string {
-		
+
 		$query = $this->generate_query();
 
 		ob_start();
@@ -138,20 +137,20 @@ class Carousel extends Element {
 		<?php
 		if ( $query->have_posts() ) {
 			?>
-			<div class="main-carousel grid-container" data-flickity='<?php echo json_encode( $this->options );?>'>
+			<div class="main-carousel grid-container" data-flickity='<?php echo wp_json_encode( $this->options ); ?>'>
 			<?php
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				?>
-				<div class="<?php echo esc_attr( $this->get_responsive_classes() );?> carousel-cell">
-					<?php include( $this->get_template() );?>
+				<div class="<?php echo esc_attr( $this->get_responsive_classes() ); ?> carousel-cell">
+					<?php include $this->get_template(); ?>
 				</div>
 				<?php
 			}
 			echo '</div>';
-		} else {
-			//TODO: tekst bij geen posts? -> Instelling
 		}
+
+		// TODO: tekst bij geen posts? -> Instelling
 
 		wp_reset_postdata();
 		return ob_get_clean();
@@ -173,13 +172,13 @@ class Carousel extends Element {
 			$args['meta_query'] = $this->meta_query;
 		}
 
-		//In het geval van Groepsprojecten alleen zichtbare projecten tonen
-		if ( 'product' == $this->post_type ) {
+		// In het geval van Groepsprojecten alleen zichtbare projecten tonen
+		if ( 'product' === $this->post_type ) {
 			$args['tax_query'][] = [
 				'taxonomy' => 'product_visibility',
-				'terms'    => [ 'exclude-from-search', 'exclude-from-catalog'],
+				'terms'    => [ 'exclude-from-search', 'exclude-from-catalog' ],
 				'field'    => 'slug',
-				'operator' => 'NOT IN'
+				'operator' => 'NOT IN',
 			];
 		}
 		return new \WP_Query( $args );
@@ -187,6 +186,7 @@ class Carousel extends Element {
 
 	/**
 	 * Haal templatebestand op voor post type
+	 *
 	 * @todo fallback-bestand
 	 */
 	protected function get_template() : string {

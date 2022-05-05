@@ -6,9 +6,8 @@ use SIW\Helpers\HTTP_Request;
 
 /**
  * Import uit Plato
- * 
+ *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
 abstract class Import extends Plato_Interface {
 
@@ -25,7 +24,7 @@ abstract class Import extends Plato_Interface {
 	protected function add_query_arg_webkey() {
 		$this->add_query_arg( 'organizationWebserviceKey', $this->webkey );
 	}
-	
+
 	/** Haal de XML op */
 	protected function retrieve_xml() : bool {
 
@@ -45,13 +44,13 @@ abstract class Import extends Plato_Interface {
 
 	/** Voer de Plato-import uit */
 	public function run() : array {
-		//Start import
+		// Start import
 		if ( ! $this->retrieve_xml() ) {
 			return [];
 		}
 		$this->process_xml();
-		
-		//Eind import
+
+		// Eind import
 		return $this->data;
 	}
 }

@@ -4,7 +4,7 @@ namespace SIW\Interfaces\Elements;
 
 /**
  * Interface voor een Mapplic kaart
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 interface Interactive_Map {

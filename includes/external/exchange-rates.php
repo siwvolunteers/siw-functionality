@@ -8,10 +8,10 @@ use SIW\Helpers\HTTP_Request;
  * Ophalen wisselkoersen bij fixer.io
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @link      https://fixer.io/documentation
  */
-class Exchange_Rates{
+class Exchange_Rates {
 
 	/** API url */
 	const API_URL = 'http://data.fixer.io/api/latest';
@@ -48,13 +48,16 @@ class Exchange_Rates{
 
 	/** Haalt wisselkoeren op bij fixer.io */
 	protected function retrieve_rates() : ?array {
-		$url = add_query_arg( [
-			'access_key' => $this->api_key,
-		], self::API_URL );
+		$url = add_query_arg(
+			[
+				'access_key' => $this->api_key,
+			],
+			self::API_URL
+		);
 
 		$response = HTTP_Request::create( $url )->get();
-		
-		if ( is_wp_error( $response ) || false == $response['success'] ) {
+
+		if ( is_wp_error( $response ) || false === $response['success'] ) {
 			return null;
 		}
 

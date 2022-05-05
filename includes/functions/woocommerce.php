@@ -4,13 +4,13 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
  * Wrapper functions om WooCommerce functies
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 
 /** Wrapper om wc_get_product */
 function siw_get_product( $product ): ?WC_Product_Project {
-	if ( ! function_exists( '\wc_get_product') ) {
+	if ( ! function_exists( '\wc_get_product' ) ) {
 		return null;
 	}
 	$product = wc_get_product( $product );
@@ -19,11 +19,11 @@ function siw_get_product( $product ): ?WC_Product_Project {
 
 /**
  * Wrapper om wc_get_products
- * 
+ *
  * @return WC_Product_Project[]
  */
 function siw_get_products( array $args = [] ): array {
-	if ( ! function_exists( '\wc_get_products') ) {
+	if ( ! function_exists( '\wc_get_products' ) ) {
 		return [];
 	}
 	$args = wp_parse_args(
@@ -39,11 +39,11 @@ function siw_get_products( array $args = [] ): array {
 
 /**
  * Wrapper om wc_get_products
- * 
+ *
  * @return int[]
  */
 function siw_get_product_ids( array $args = [] ): array {
-	if ( ! function_exists( '\wc_get_products') ) {
+	if ( ! function_exists( '\wc_get_products' ) ) {
 		return [];
 	}
 

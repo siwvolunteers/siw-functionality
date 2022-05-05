@@ -6,9 +6,9 @@ use SIW\Interfaces\Assets\Script;
 
 /**
  * AcceDe Web accordion
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see       https://github.com/AcceDe-Web/accordion
  */
 class A11Y_Accordion implements Script {

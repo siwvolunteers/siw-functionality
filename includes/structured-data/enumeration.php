@@ -6,7 +6,7 @@ use \Spatie\Enum\Enum;
 
 /**
  * Enum voor structured data
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  * @see https://schema.org/Enumeration
  */

@@ -7,9 +7,9 @@ use SIW\Interfaces\Assets\Style;
 
 /**
  * Flickity carousel
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see https://flickity.metafizzy.co/
  */
 class Flickity implements Style, Script {

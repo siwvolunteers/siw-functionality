@@ -3,7 +3,7 @@
 namespace SIW\Compatibility;
 
 use SIW\Assets\JS_Cookie;
-use SIW\i18n;
+use SIW\I18n;
 use SIW\Properties;
 use SIW\Update;
 use SIW\Util\CSS;
@@ -25,23 +25,23 @@ class GeneratePress {
 		$self = new self();
 		add_filter( 'generate_copyright', [ $self, 'set_copyright_message' ] );
 
-		//Elements
-		add_action( 'init', [ $self, 'add_elements_menu_order'] );
-		add_filter( 'generate_elements_custom_args', [ $self, 'set_elements_orderby'] );
+		// Elements
+		add_action( 'init', [ $self, 'add_elements_menu_order' ] );
+		add_filter( 'generate_elements_custom_args', [ $self, 'set_elements_orderby' ] );
 
-		//404
+		// 404
 		add_filter( 'generate_404_title', [ $self, 'set_404_title' ] );
 		add_filter( 'generate_404_text', [ $self, 'set_404_text' ] );
 
-		//Pas snelheid voor omhoog scrollen aan
+		// Pas snelheid voor omhoog scrollen aan
 		add_filter( 'generate_back_to_top_scroll_speed', fn() : int => self::BACK_TO_TOP_SCROLL_SPEED );
 
-		add_filter( 'generate_footer_widgets', [ $self, 'set_footer_widgets'] );
+		add_filter( 'generate_footer_widgets', [ $self, 'set_footer_widgets' ] );
 
-		//Default instellingen zetten
-		add_filter( 'generate_default_color_palettes', [ $self, 'set_default_color_palettes'] );
-		add_action( 'customize_save_after', [ $self, 'set_global_colors'], 1 );
-		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'set_global_colors'], 1 );
+		// Default instellingen zetten
+		add_filter( 'generate_default_color_palettes', [ $self, 'set_default_color_palettes' ] );
+		add_action( 'customize_save_after', [ $self, 'set_global_colors' ], 1 );
+		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'set_global_colors' ], 1 );
 		add_action( Update::PLUGIN_UPDATED_HOOK, 'generate_update_dynamic_css_cache' );
 	}
 
@@ -63,7 +63,7 @@ class GeneratePress {
 
 	/** Zet titel van 404-pagina */
 	public function set_404_title(): string {
-		return esc_html__( 'Pagina niet gevonden', 'siw');
+		return esc_html__( 'Pagina niet gevonden', 'siw' );
 	}
 
 	/** Zet tekst van 404-pagina */
@@ -73,7 +73,7 @@ class GeneratePress {
 
 	/** Zet het aantal footer-widgets op 1 voor andere talen dan Nederlands */
 	public function set_footer_widgets( string $widgets ): string {
-		if ( ! i18n::is_default_language() ) {
+		if ( ! I18n::is_default_language() ) {
 			$widgets = '1';
 		}
 		return $widgets;
@@ -101,12 +101,12 @@ class GeneratePress {
 			[
 				'name'  => 'Contrast',
 				'slug'  => 'siw-contrast',
-				'color' => CSS::CONTRAST_COLOR
+				'color' => CSS::CONTRAST_COLOR,
 			],
 			[
 				'name'  => 'Contrast 2',
 				'slug'  => 'siw-contrast-light',
-				'color' => CSS::CONTRAST_COLOR_LIGHT
+				'color' => CSS::CONTRAST_COLOR_LIGHT,
 			],
 			[
 				'name'  => 'Base',

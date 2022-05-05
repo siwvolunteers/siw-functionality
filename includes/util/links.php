@@ -9,7 +9,7 @@ use SIW\HTML;
  * Hulpfuncties t.b.v. links
  *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @todo      escaping met wp_kses_post + regels voor svg
  */
 class Links {
@@ -35,7 +35,7 @@ class Links {
 				'data-ga-label'    => $url,
 			]
 		);
-		return HTML::a( $attributes, $text ?? $url ); //TODO: icon 
+		return HTML::a( $attributes, $text ?? $url ); // TODO: icon
 	}
 
 	/** Genereert mailto-link */
@@ -60,7 +60,7 @@ class Links {
 				'data-ga-label'    => $url,
 			]
 		);
-		return HTML::a( $attributes, $text ); //TODO: icon
+		return HTML::a( $attributes, $text ); // TODO: icon
 	}
 
 	/** Genereert link in ghost buttons */
@@ -85,20 +85,20 @@ class Links {
 				'title'  => null,
 				'width'  => null,
 				'height' => null,
-				'border' => 0
+				'border' => 0,
 			]
 		);
 
 		$attributes = wp_parse_args(
 			$attributes,
 			[
-				'href'  => $url,
+				'href' => $url,
 			]
 		);
 
 		return HTML::a(
 			$attributes,
-			HTML::tag('img', $image )
+			HTML::tag( 'img', $image )
 		);
 	}
 }

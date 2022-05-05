@@ -4,17 +4,17 @@ namespace SIW\Data;
 
 /**
  * Bevat informatie over een soort werk
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Work_Type extends Data{
+class Work_Type extends Data {
 
 	/** Slug */
 	const SLUG = 'slug';
 
 	/** Plato code */
 	const PLATO_CODE = 'plato_code';
-	
+
 	/** Alle soorten werk */
 	const ALL = 'all';
 
@@ -29,7 +29,7 @@ class Work_Type extends Data{
 
 	/** De Plato-code van het soort werk */
 	protected string $plato_code;
-	
+
 	/** CSS-class van icoon */
 	protected string $icon_class;
 
@@ -72,8 +72,8 @@ class Work_Type extends Data{
 	/** Geeft aan of soort werk geldig is voor context */
 	public function is_valid_for_context( string $context ): bool {
 		return (
-			self::ALL == $context
-			|| ( self::TAILOR_MADE == $context && $this->is_for_tailor_made_projects() )
+			self::ALL === $context
+			|| ( self::TAILOR_MADE === $context && $this->is_for_tailor_made_projects() )
 		);
 	}
 }

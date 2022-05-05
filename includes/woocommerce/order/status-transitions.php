@@ -14,8 +14,8 @@ class Status_Transitions {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_action( 'woocommerce_order_status_processing', [ $self, 'export_order_to_plato'] );
-		add_action( 'woocommerce_order_status_completed', [ $self, 'create_coupon'] );
+		add_action( 'woocommerce_order_status_processing', [ $self, 'export_order_to_plato' ] );
+		add_action( 'woocommerce_order_status_completed', [ $self, 'create_coupon' ] );
 	}
 
 	/** Exporteer betaalde aanmelding naar plato */
@@ -32,4 +32,3 @@ class Status_Transitions {
 	}
 
 }
-

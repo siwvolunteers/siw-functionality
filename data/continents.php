@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	[
 		'slug'  => 'europa',
 		'name'  => __( 'Europa', 'siw' ),
@@ -38,4 +38,4 @@ $data = [
 	],
 ];
 
-return $data;
+return $siw_data;

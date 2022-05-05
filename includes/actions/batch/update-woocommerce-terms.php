@@ -7,7 +7,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Bijwerken WooCommerce terms
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Update_WooCommerce_Terms implements Batch_Action_Interface {
@@ -19,7 +19,7 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 	public function get_id(): string {
 		return 'update_woocommerce_terms';
 	}
-	
+
 	/** {@inheritDoc} */
 	public function get_name(): string {
 		return 'Bijwerken WooCommerce terms';
@@ -38,11 +38,13 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 	/** {@inheritDoc} */
 	public function select_data() : array {
 
-		$data = get_terms( [
-			'taxonomy'   => Taxonomy_Attribute::toValues(),
-			'fields'     => 'tt_ids',
-			'hide_empty' => false,
-		]);
+		$data = get_terms(
+			[
+				'taxonomy'   => Taxonomy_Attribute::toValues(),
+				'fields'     => 'tt_ids',
+				'hide_empty' => false,
+			]
+		);
 
 		if ( is_wp_error( $data ) ) {
 			return [];
@@ -62,7 +64,7 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 			return;
 		}
 
-		//Taxonomy subquery
+		// Taxonomy subquery
 		$tax_query = [
 			[
 				'taxonomy' => $term->taxonomy,
@@ -79,17 +81,17 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 		);
 		$posts = siw_get_product_ids(
 			[
-				'tax_query'  => $tax_query,
+				'tax_query' => $tax_query,
 			]
 		);
-		
+
 		$count = count( $posts );
 		$visible_count = count( $visible_posts );
 
-		//Alleen van maand moeten lege waardes verwijderd worden
-		$delete_empty = $term->taxonomy === Taxonomy_Attribute::MONTH()->value;
+		// Alleen van maand moeten lege waardes verwijderd worden
+		$delete_empty = Taxonomy_Attribute::MONTH()->value === $term->taxonomy;
 
-		//Lege terms eventueel weggooien
+		// Lege terms eventueel weggooien
 		if ( $delete_empty && 0 === $count ) {
 			wp_delete_term( $term->term_id, $term->taxonomy );
 			return false;
@@ -99,7 +101,5 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 		if ( $current_count !== $visible_count ) {
 			update_term_meta( $term->term_id, self::POST_COUNT_TERM_META, $visible_count );
 		}
-
-		return;
 	}
 }

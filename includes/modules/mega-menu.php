@@ -8,7 +8,7 @@ use SIW\Util\CSS;
  * Mega Menu
  *
  * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see       https://docs.generatepress.com/article/building-simple-mega-menu/
  */
 class Mega_Menu {
@@ -52,13 +52,15 @@ class Mega_Menu {
 
 		?>
 		<p class="field-siw_mega_menu description description-wide">
-			<label for="siw_mega_menu_for_<?php echo $item_id ;?>"><?php esc_html_e( 'Mega Menu', 'siw' ); ?></label>
+			<label for="siw_mega_menu_for_<?php echo esc_attr( $item_id ); ?>"><?php esc_html_e( 'Mega Menu', 'siw' ); ?></label>
 			<br />
-			<input type="hidden" class="nav-menu-id" value="<?php echo $item_id ;?>" />
-			<select name="<?php echo self::META_KEY;?>[<?php echo $item_id ;?>]" id="siw_mega_menu_for_<?php echo $item_id ;?>"><?php
-			foreach ( $mega_menu_options as $value => $label ) {
-				printf( '<option value="%s" %s>%s</option>', esc_attr( $value ), selected( $value, $mega_menu, false ), esc_html( $label ) );
-			}?>
+			<input type="hidden" class="nav-menu-id" value="<?php echo esc_attr( $item_id ); ?>" />
+			<select name="<?php echo esc_attr( self::META_KEY ); ?>[<?php echo esc_attr( $item_id ); ?>]" id="siw_mega_menu_for_<?php echo esc_attr( $item_id ); ?>">
+				<?php
+				foreach ( $mega_menu_options as $value => $label ) {
+					printf( '<option value="%s" %s>%s</option>', esc_attr( $value ), selected( $value, $mega_menu, false ), esc_html( $label ) );
+				}
+				?>
 			</select>
 		</p>
 		<?php
@@ -67,11 +69,11 @@ class Mega_Menu {
 	/** Gekozen mega menu opslaan bij menu item */
 	public function update_nav_menu_item( int $menu_id, int $menu_item_id ) {
 
-		if ( ! isset( $_POST[ self::NONCE ] ) || ! wp_verify_nonce( $_POST[ self::NONCE ], 'siw_set_mega_menu' ) ) {
+		if ( ! isset( $_POST[ self::NONCE ] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ self::NONCE ] ) ), 'siw_set_mega_menu' ) ) {
 			return $menu_id;
 		}
 		if ( isset( $_POST[ self::META_KEY ][ $menu_item_id ] ) && ! empty( $_POST[ self::META_KEY ][ $menu_item_id ] ) ) {
-			$sanitized_data = sanitize_text_field( $_POST[ self::META_KEY ][ $menu_item_id ] );
+			$sanitized_data = sanitize_text_field( wp_unslash( $_POST[ self::META_KEY ] )[ $menu_item_id ] );
 			update_post_meta( $menu_item_id, self::META_KEY, $sanitized_data );
 		} else {
 			delete_post_meta( $menu_item_id, self::META_KEY );
@@ -80,7 +82,7 @@ class Mega_Menu {
 
 	/** Voegt css-klasses voor mega menu toe aan menu item */
 	public function add_nav_menu_item_class( array $classes, $item, \stdClass $args, int $depth ) : array {
-		
+
 		if ( is_a( $item, \WP_Post::class ) && get_post_meta( $item->ID, self::META_KEY, true ) ) {
 			$classes[] = 'mega-menu';
 			$classes[] = sprintf( 'mega-menu-col-%s', esc_attr( get_post_meta( $item->ID, self::META_KEY, true ) ) );

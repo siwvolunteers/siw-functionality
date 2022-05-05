@@ -7,13 +7,13 @@ use SIW\Interfaces\Assets\Script;
 
 /**
  * Google Maps JS API
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see       https://developers.google.com/maps/documentation/javascript/tutorial
  */
-class Google_Maps implements Script, External{
-	
+class Google_Maps implements Script, External {
+
 	/** Handle voor assets */
 	const ASSETS_HANDLE = 'google-maps';
 
@@ -22,10 +22,13 @@ class Google_Maps implements Script, External{
 
 	/** {@inheritDoc} */
 	public function register_script() {
-		$google_maps_url = add_query_arg( [
-			'key' => siw_get_option( 'google_maps.api_key', '' )
-		], self::API_URL );
-		wp_register_script( self::ASSETS_HANDLE, $google_maps_url, [], null, true );
+		$google_maps_url = add_query_arg(
+			[
+				'key' => siw_get_option( 'google_maps.api_key', '' ),
+			],
+			self::API_URL
+		);
+		wp_register_script( self::ASSETS_HANDLE, $google_maps_url, [], null, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 	}
 
 	/** {@inheritDoc} */

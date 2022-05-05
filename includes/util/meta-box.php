@@ -4,7 +4,7 @@ namespace SIW\Util;
 
 /**
  * Meta Box util functies
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Meta_Box {
@@ -12,8 +12,8 @@ class Meta_Box {
 	/** Zet meta box veld om naar rest api arg */
 	public static function convert_field_to_rest_api_arg( array $field ): array {
 
-		if ( in_array(  $field['type'], [ 'button', 'file', 'heading'] ) ) {
-			//Dit type velden kan geen REST API arg zijn
+		if ( in_array( $field['type'], [ 'button', 'file', 'heading' ], true ) ) {
+			// Dit type velden kan geen REST API arg zijn
 			return [];
 		}
 
@@ -26,7 +26,7 @@ class Meta_Box {
 			'pattern'     => $field['pattern'] ?? null,
 		];
 
-		//Zet type -> match (php8)
+		// Zet type -> match (php8)
 		switch ( $field['type'] ) {
 			case 'text':
 			case 'textarea':
@@ -49,7 +49,7 @@ class Meta_Box {
 				$arg['type'] = 'number';
 				break;
 			default:
-				//TODO: warning
+				// TODO: warning
 		}
 
 		// zet enum -> match (php8)
@@ -67,7 +67,7 @@ class Meta_Box {
 			case 'checkbox_list':
 				$arg['items'] = [
 					'type' => wp_is_numeric_array( $field['options'] ) ? 'integer' : 'string',
-					'enum' => array_keys( $field['options']),
+					'enum' => array_keys( $field['options'] ),
 				];
 				break;
 		}
@@ -103,17 +103,17 @@ class Meta_Box {
 	/** Geeft weergave waarde terug */
 	public static function get_display_value( array $field, $raw_value ) {
 		switch ( $field['type'] ) {
-			case 'radio';
+			case 'radio':
 			case 'select':
-			case 'button_group';
+			case 'button_group':
 				$value = $field['options'][ $raw_value ] ?? '';
 				break;
 			case 'checkbox_list':
-				$value = implode( ', ', array_map( fn( string $value ): string => $field['options'][$value], $raw_value ) );
+				$value = implode( ', ', array_map( fn( string $value ): string => $field['options'][ $value ], $raw_value ) );
 				break;
 			case 'checkbox':
 			case 'switch':
-				$value = boolval( $raw_value ) ? __( 'Ja', 'siw' ) : __( 'Nee', 'siw' ); //TODO: on_label en off_label gebruiken voor switch
+				$value = boolval( $raw_value ) ? __( 'Ja', 'siw' ) : __( 'Nee', 'siw' ); // TODO: on_label en off_label gebruiken voor switch
 				break;
 			default:
 				$value = $raw_value;

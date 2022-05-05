@@ -4,7 +4,7 @@ namespace SIW\Data;
 
 /**
  * Bevat informatie over een taal
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Language extends Data {
@@ -26,7 +26,7 @@ class Language extends Data {
 
 	/** Slug */
 	protected string $slug;
-	
+
 	/** Naam */
 	protected string $name;
 
@@ -67,9 +67,9 @@ class Language extends Data {
 	/** Geeft aan of taal geldig is voor context */
 	public function is_valid_for_context( string $context ) : bool {
 		return (
-			self::ALL == $context 
-			|| ( self::VOLUNTEER == $context && $this->is_volunteer_language() )
-			|| ( self::PROJECT == $context && $this->is_project_language() )
+			self::ALL === $context
+			|| ( self::VOLUNTEER === $context && $this->is_volunteer_language() )
+			|| ( self::PROJECT === $context && $this->is_project_language() )
 		);
 	}
 }
