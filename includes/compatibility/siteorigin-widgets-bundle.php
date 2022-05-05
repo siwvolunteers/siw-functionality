@@ -37,7 +37,7 @@ class SiteOrigin_Widgets_Bundle {
 		}
 
 		foreach ( $panels_data['widgets'] as &$widget ) {
-			if ( 0 === strpos( $widget['panels_info']['class'], 'SIW_Widget_' ) ) {
+			if ( str_starts_with( $widget['panels_info']['class'], 'SIW_Widget_' ) ) {
 				$widget['panels_info']['class'] = str_replace( 'SIW_Widget_', '\\SIW\\Widgets\\', $widget['panels_info']['class'] );
 			}
 		}

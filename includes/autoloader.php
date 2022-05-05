@@ -26,7 +26,7 @@ class Autoloader {
 	public function autoload( string $class ) {
 
 		/* Afbreken als het geen relevante class is */
-		if ( strpos( $class, $this->root_namespace ) !== 0 ) {
+		if ( str_starts_with( $class, $this->root_namespace ) ) {
 			return;
 		}
 

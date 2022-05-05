@@ -178,7 +178,7 @@ class Attachment {
 			}
 
 			$path = $resized_image['path'];
-			if ( 0 === strpos( $path, $this->upload_dir ) ) {
+			if ( str_starts_with( $path, $this->upload_dir ) ) {
 				$relative_path = str_replace( $this->upload_dir, '', $path );
 				$relative_path = ltrim( $relative_path, '/' );
 			}
