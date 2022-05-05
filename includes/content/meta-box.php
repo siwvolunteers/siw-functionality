@@ -9,23 +9,11 @@ namespace SIW\Content;
  */
 class Meta_Box {
 
-	/** Post type */
-	protected string $post_type;
-
 	/** Velden van de metabox */
 	protected array $fields;
 
-	/** Titel van de metabox */
-	protected string $title;
-
-	/** Taxonomieën */
-	protected array $taxonomies;
-
 	/** Init */
-	public function __construct( string $post_type, string $title, array $taxonomies = [] ) {
-		$this->post_type = $post_type;
-		$this->title = $title;
-		$this->taxonomies = $taxonomies;
+	public function __construct( protected string $post_type, protected string $title, protected array $taxonomies = [] ) {
 		add_filter( 'rwmb_meta_boxes', [ $this, 'add_meta_box' ] );
 	}
 

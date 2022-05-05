@@ -9,16 +9,8 @@ namespace SIW;
  */
 class Autoloader {
 
-	/** Root-namespace */
-	protected string $root_namespace;
-
-	/** Basisdirectory */
-	protected string $root_directory;
-
 	/** Init */
-	public function __construct( string $root_namespace, string $root_directory ) {
-		$this->root_namespace = $root_namespace;
-		$this->root_directory = $root_directory;
+	public function __construct( protected string $root_namespace, protected string $root_directory ) {
 		spl_autoload_register( [ $this, 'autoload' ] );
 	}
 

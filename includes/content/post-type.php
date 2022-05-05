@@ -9,29 +9,8 @@ namespace SIW\Content;
  */
 class Post_Type {
 
-	/** Post type */
-	protected string $post_type;
-
-	/** Labels */
-	protected array $labels;
-
-	/** Args */
-	protected array $args = [];
-
-	/** Slug voor losse post */
-	protected string $single_slug;
-
-	/** Slug voor archiefpagina */
-	protected string $archive_slug;
-
 	/** Constructor */
-	public function __construct( string $post_type, array $args, array $labels, string $single_slug, string $archive_slug ) {
-		$this->post_type = $post_type;
-		$this->args = $args;
-		$this->labels = $labels;
-		$this->single_slug = $single_slug;
-		$this->archive_slug = $archive_slug;
-
+	public function __construct( protected string $post_type, protected array $args, protected array $labels, protected string $single_slug, protected string $archive_slug ) {
 		add_action( 'init', [ $this, 'register_post_type' ] );
 	}
 

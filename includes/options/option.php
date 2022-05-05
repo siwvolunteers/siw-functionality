@@ -11,12 +11,8 @@ use SIW\Interfaces\Options\Option as Option_Interface;
  */
 class Option {
 
-	/** Data van optie */
-	protected Option_Interface $option;
-
 	/** Constructor */
-	public function __construct( Option_Interface $option ) {
-		$this->option = $option;
+	public function __construct( protected Option_Interface $option ) {
 		add_filter( 'rwmb_meta_boxes', [ $this, 'add_settings_meta_boxes' ] );
 		add_filter( 'mb_settings_pages', [ $this, 'add_settings_page' ] );
 	}

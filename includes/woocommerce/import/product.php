@@ -32,14 +32,8 @@ class Product {
 
 	const LOGGER_SOURCE = 'importeren-projecten';
 
-	/** Plato project */
-	protected Plato_Project $plato_project;
-
 	/** Geeft aan of het een update van een bestaand product is */
 	protected bool $is_update = false;
-
-	/** Forceer update van project */
-	protected bool $force_update;
 
 	/** Project */
 	protected WC_Product_Project $product;
@@ -79,11 +73,9 @@ class Product {
 	protected array $target_audiences = [];
 
 	/** Constructor */
-	public function __construct( Plato_Project $plato_project, bool $force_update = false ) {
+	public function __construct( protected Plato_Project $plato_project, protected bool $force_update = false ) {
 		add_filter( 'wc_product_has_unique_sku', '__return_false' );
 		add_filter( 'wp_insert_post_data', [ $this, 'correct_post_slug' ], 10, 2 );
-		$this->plato_project = $plato_project;
-		$this->force_update = $force_update;
 	}
 
 	/** Corrigeert slug van product als het ter review staat */

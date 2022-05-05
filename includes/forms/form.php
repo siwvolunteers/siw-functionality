@@ -15,13 +15,8 @@ class Form {
 	/** API versie */
 	const API_VERSION = 'v1';
 
-	/** Formulier */
-	protected Form_Interface $form;
-
 	/** Constructor */
-	public function __construct( Form_Interface $form ) {
-		$this->form = $form;
-	}
+	public function __construct( protected Form_Interface $form ) {}
 
 	/** Registreer formulier */
 	public function register() {

@@ -12,24 +12,11 @@ use SIW\Util\CSS;
  */
 class Archive {
 
-	/** Post type */
-	protected string $post_type;
-
-	/** Taxonomieën */
-	protected array $taxonomies;
-
-	/** Opties voor archief-pagina */
-	protected array $archive_options;
-
 	/** Instantie van Taxonomy Filter */
 	protected Taxonomy_Filter $taxonomy_filter;
 
 	/** Init */
-	public function __construct( string $post_type, array $taxonomies, array $archive_options ) {
-
-		$this->post_type = $post_type;
-		$this->taxonomies = $taxonomies;
-		$this->archive_options = $archive_options;
+	public function __construct( protected string $post_type, protected array $taxonomies, protected array $archive_options ) {
 
 		// Archive-opties
 		add_filter( 'generate_blog_columns', [ $this, 'set_archive_columns' ] );
