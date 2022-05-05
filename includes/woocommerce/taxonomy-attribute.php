@@ -6,9 +6,9 @@ use \Spatie\Enum\Enum;
 
 /**
  * WooCommerce taxonomy attributes
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @method static self CONTINENT()
  * @method static self COUNTRY()
  * @method static self WORK_TYPE()
@@ -16,7 +16,6 @@ use \Spatie\Enum\Enum;
  * @method static self TARGET_AUDIENCE()
  * @method static self SDG()
  * @method static self MONTH()
- * @method static self DURATION()
  */
 class Taxonomy_Attribute extends Enum {
 
@@ -30,7 +29,6 @@ class Taxonomy_Attribute extends Enum {
 			'TARGET_AUDIENCE' => 'pa_doelgroep',
 			'SDG'             => 'pa_sdg',
 			'MONTH'           => 'pa_maand',
-			'DURATION'        => 'pa_projectduur',
 		];
 	}
 
@@ -44,7 +42,6 @@ class Taxonomy_Attribute extends Enum {
 			'TARGET_AUDIENCE' => __( 'Doelgroep', 'siw' ),
 			'SDG'             => __( 'Sustainable Development Goal', 'siw' ),
 			'MONTH'           => __( 'Maand', 'siw' ),
-			'DURATION'        => __( 'Projectduur', 'siw' ),
 		];
 	}
 }

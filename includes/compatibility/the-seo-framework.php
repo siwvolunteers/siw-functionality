@@ -8,7 +8,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Aanpassingen voor The SEO Framework
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://theseoframework.com/
  */
@@ -32,7 +32,7 @@ class The_SEO_Framework {
 		add_filter( 'the_seo_framework_metabox_priority', fn(): string => self::METABOX_PRIORITY );
 
 		/* Robots */
-		add_filter( 'the_seo_framework_robots_txt_pro', [ $self, 'set_robots_txt' ]) ; 
+		add_filter( 'the_seo_framework_robots_txt_pro', [ $self, 'set_robots_txt' ]) ;
 
 		/* Sitemap */
 		add_filter( 'the_seo_framework_sitemap_color_main', fn(): string => CSS::CONTRAST_COLOR );
@@ -53,7 +53,7 @@ class The_SEO_Framework {
 			return $output;
 		}
 		$output .= PHP_EOL;
-	
+
 		foreach ( $bots as $bot ) {
 			$output .= "User-agent: " . esc_attr( $bot ) . PHP_EOL;
 			$output .= "Disallow: /" . PHP_EOL . PHP_EOL;
@@ -73,7 +73,7 @@ class The_SEO_Framework {
 
 	/** Productarchieven toevoegen aan de sitemap TODO: verplaatsen naar WooCommerce*/
 	public function set_sitemap_additional_urls( array $custom_urls ): array {
-		
+
 		if ( ! i18n::is_default_language() ) {
 			return $custom_urls;
 		}
@@ -84,11 +84,14 @@ class The_SEO_Framework {
 			Taxonomy_Attribute::WORK_TYPE(),
 			Taxonomy_Attribute::LANGUAGE(),
 			Taxonomy_Attribute::SDG(),
-			Taxonomy_Attribute::DURATION(),
 		];
-	
+
 		foreach ( $taxonomies as $taxonomy ) {
 			$terms = get_terms( $taxonomy->value, [ 'hide_empty' => true ] );
+			if ( is_wp_error( $terms) ) {
+				continue;
+			}
+
 			foreach ( $terms as $term ) {
 				$custom_urls[] = get_term_link( $term->slug, $term->taxonomy );
 			}
