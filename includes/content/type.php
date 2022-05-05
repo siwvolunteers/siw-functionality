@@ -228,16 +228,12 @@ abstract class Type {
 		if ( ! is_singular( "siw_{$this->post_type}" ) ) {
 			return;
 		}
-		switch ( $this->single_width ) {
-			case 'tablet':
-				$width = CSS::TABLET_BREAKPOINT;
-				break;
-			case 'mobile':
-				$width = CSS::MOBILE_BREAKPOINT;
-				break;
-			default:
-				$width = null;
-		}
+
+		$width = match ( $this->single_width ) {
+			'tablet' => CSS::TABLET_BREAKPOINT,
+			'mobile' => CSS::MOBILE_BREAKPOINT,
+			default  => null
+		};
 
 		if ( ! is_int( $width ) ) {
 			return;

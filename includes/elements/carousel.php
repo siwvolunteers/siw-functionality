@@ -67,22 +67,12 @@ class Carousel extends Element {
 		$desktop_columns = $this->columns;
 		$mobile_columns = 1;
 
-		switch ( $this->columns ) {
-			case 1:
-				$tablet_columns = 1;
-				break;
-			case 2:
-				$tablet_columns = 2;
-				break;
-			case 3:
-				$tablet_columns = 2;
-				break;
-			case 4:
-				$tablet_columns = 2;
-				break;
-			default:
-				$tablet_columns = 1;
-		}
+		$tablet_columns = match ( $this->columns ) {
+			1       => 1,
+			2,3,4   => 2,
+			default => 1,
+		};
+
 		return CSS::generate_responsive_classes( $desktop_columns, $tablet_columns, $mobile_columns );
 	}
 

@@ -197,51 +197,34 @@ class Database {
 
 	/** Typecase waarde o.b.v. type */
 	protected function typecast_value( $value, string $type ) {
-		switch ( $type ) {
-			case 'CHAR':
-			case 'VARCHAR':
-			case 'TEXT':
-			case 'DATE':
-				$value = trim( strval( $value ) );
-				break;
-			case 'BOOL':
-				$value = boolval( $value );
-				break;
-			case 'FLOAT':
-				$value = floatval( $value );
-				break;
-			case 'INT':
-			case 'TINYINT':
-				$value = intval( $value );
-				break;
-			default:
-				$value = trim( strval( $value ) );
-		}
-		return $value;
+		$value = match ( $type ) {
+			'CHAR',
+			'VARCHAR',
+			'TEXT',
+			'DATE'    => trim( strval( $value ) ),
+			'BOOL'    => boolval( $value ),
+			'FLOAT'   => floatval( $value ),
+			'INT',
+			'TINYINT' => intval( $value ),
+			default   => trim( strval( $value ) ),
+		};
 	}
 
 	/** Zet mysql type om naar placeholder voor wpdb->prepare */
 	protected function type_to_placeholder( string $type ) {
-		switch ( $type ) {
-			case 'CHAR':
-			case 'VARCHAR':
-			case 'TEXT':
-			case 'DATE':
-				$placeholder = '%s';
-				break;
-			case 'BOOL':
-				$placeholder = '%d';
-				break;
-			case 'FLOAT':
-				$placeholder = '%f';
-				break;
-			case 'INT':
-			case 'TINYINT':
-				$placeholder = '%d';
-				break;
-			default:
-				$placeholder = '%s';
-		}
+
+		$placeholder = match ( $type ) {
+			'CHAR',
+			'VARCHAR',
+			'TEXT',
+			'DATE'  => '%s',
+			'BOOL'  => '%d',
+			'FLOAT' => '%f',
+			'INT',
+			'TINYINT' => '%d',
+			default   => '%s',
+		};
+
 		return $placeholder;
 	}
 
