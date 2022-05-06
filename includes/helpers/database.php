@@ -208,6 +208,7 @@ class Database {
 			'TINYINT' => intval( $value ),
 			default   => trim( strval( $value ) ),
 		};
+		return $value;
 	}
 
 	/** Zet mysql type om naar placeholder voor wpdb->prepare */
