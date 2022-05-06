@@ -11,32 +11,32 @@ namespace SIW\Structured_Data;
 class Postal_Address extends Thing {
 
 	/** {@inheritDoc} */
-	protected function get_type() : string {
+	protected function get_type(): string {
 		return 'PostalAddress';
 	}
 
 	/** Zet adres (straat + huisnummer) */
-	public function set_street_address( string $street_address ) {
+	public function set_street_address( string $street_address ): static {
 		return $this->set_property( 'streetAddress', $street_address );
 	}
 
 	/** Zet plaats */
-	public function set_address_locality( string $address_locality ) {
+	public function set_address_locality( string $address_locality ): static {
 		return $this->set_property( 'addressLocality', $address_locality );
 	}
 
 	/** Zet postcode */
-	public function set_postal_code( string $postal_code ) {
+	public function set_postal_code( string $postal_code ): static {
 		return $this->set_property( 'postalCode', $postal_code );
 	}
 
 	/** Zet regio (land) */
-	public function set_address_region( string $address_region ) {
+	public function set_address_region( string $address_region ): static {
 		return $this->set_property( 'addressRegion', $address_region );
 	}
 
 	/** Zet land */
-	public function set_address_country( string $address_country ) {
+	public function set_address_country( string $address_country ): static {
 		return $this->set_property( 'addressCountry', $address_country );
 	}
 }

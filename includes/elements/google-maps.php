@@ -20,12 +20,8 @@ class Google_Maps extends Element {
 	/** Markers voor op kaart */
 	protected array $markers = [];
 
-	/**
-	 * Center van kaart
-	 *
-	 * @var string|array
-	 */
-	protected $center;
+	/** Center van kaart */
+	protected string|array $center; // phpcs:ignore Squiz.Commenting.VariableComment.Missing
 
 	/** Zoom-niveau */
 	protected int $zoom = 6;

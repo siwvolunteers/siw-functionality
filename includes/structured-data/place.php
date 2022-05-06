@@ -16,7 +16,7 @@ class Place extends Thing {
 	}
 
 	/** Zet adres */
-	public function set_address( Postal_Address $postal_address ) {
+	public function set_address( Postal_Address $postal_address ): static {
 		return $this->set_property( 'address', $postal_address );
 	}
 

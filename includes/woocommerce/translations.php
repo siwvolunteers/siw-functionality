@@ -107,7 +107,7 @@ class Translations {
 			'Proceed to checkout'    => __( 'Door naar aanmelden', 'siw' ),
 			'Your order'             => __( 'Je aanmelding', 'siw' ),
 			'Billing &amp; Shipping' => __( 'Je gegevens', 'siw' ),
-			default                  => $text,
+			default                  => $translation,
 		};
 
 		return $translation;

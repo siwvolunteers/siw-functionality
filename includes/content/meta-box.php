@@ -35,11 +35,7 @@ class Meta_Box {
 		return $meta_boxes;
 	}
 
-	/**
-	 * Haal velden op
-	 *
-	 * @return array
-	 */
+	/** Haal velden op */
 	protected function get_fields(): array {
 		$fields = apply_filters( "siw_{$this->post_type}_meta_box_fields", [] );
 		if ( ! empty( $this->taxonomies ) ) {
@@ -48,11 +44,7 @@ class Meta_Box {
 		return $fields;
 	}
 
-	/**
-	 * Haalt taxonomy-velden op
-	 *
-	 * @return array
-	 */
+	/** Haalt taxonomy-velden op */
 	protected function get_taxonomy_fields(): array {
 		$taxonomy_fields = [
 			[

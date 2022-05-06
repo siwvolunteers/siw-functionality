@@ -196,7 +196,7 @@ class Database {
 	}
 
 	/** Typecase waarde o.b.v. type */
-	protected function typecast_value( $value, string $type ) {
+	protected function typecast_value( $value, string $type ): mixed {
 		$value = match ( $type ) {
 			'CHAR',
 			'VARCHAR',
@@ -212,7 +212,7 @@ class Database {
 	}
 
 	/** Zet mysql type om naar placeholder voor wpdb->prepare */
-	protected function type_to_placeholder( string $type ) {
+	protected function type_to_placeholder( string $type ): string {
 
 		$placeholder = match ( $type ) {
 			'CHAR',
@@ -230,12 +230,12 @@ class Database {
 	}
 
 	/** Geeft volledige tabelnaam terug */
-	protected function get_full_table_name( string $table_name ) : string {
+	protected function get_full_table_name( string $table_name ): string {
 		return $this->wpdb->prefix . 'siw_' . $table_name;
 	}
 
 	/** Geeft data typer kolom terug */
-	protected function get_column_data_types() : array {
+	protected function get_column_data_types(): array {
 		return wp_list_pluck( $this->columns, 'type', 'name' );
 	}
 

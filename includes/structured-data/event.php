@@ -11,42 +11,42 @@ namespace SIW\Structured_Data;
 class Event extends Thing {
 
 	/** {@inheritDoc} */
-	protected function get_type() : string {
+	protected function get_type(): string {
 		return 'Event';
 	}
 
 	/** Zet organisator */
-	public function set_organizer( Organization $organizer ) {
+	public function set_organizer( Organization $organizer ): static {
 		return $this->set_property( 'organizer', $organizer );
 	}
 
 	/** Zet startdatum */
-	public function set_start_date( \DateTime $start_date ) {
+	public function set_start_date( \DateTime $start_date ): static {
 		return $this->set_property( 'startDate', $start_date );
 	}
 
 	/** Zet einddatum */
-	public function set_end_date( \DateTime $end_date ) {
+	public function set_end_date( \DateTime $end_date ): static {
 		return $this->set_property( 'endDate', $end_date );
 	}
 
 	/** Zet soort evenement */
-	public function set_event_attendance_mode( Event_Attendance_Mode $event_attendance_mode ) {
+	public function set_event_attendance_mode( Event_Attendance_Mode $event_attendance_mode ): static {
 		return $this->set_property( 'eventAttendanceMode', $event_attendance_mode );
 	}
 
 	/** Zet status van evenement */
-	public function set_event_status( Event_Status_Type $event_status ) {
+	public function set_event_status( Event_Status_Type $event_status ): static {
 		return $this->set_property( 'eventStatus', $event_status );
 	}
 
 	/** Voeg status van evenement toe */
-	public function add_event_status( Event_Status_Type $event_status ) {
+	public function add_event_status( Event_Status_Type $event_status ): static {
 		return $this->add_property( 'eventStatus', $event_status );
 	}
 
 	/** Zet locatie TODO: check, of union type  VirtualLocation|Place */
-	public function set_location( Thing $location ) {
+	public function set_location( Thing $location ): static {
 		return $this->set_property( 'location', $location );
 	}
 }

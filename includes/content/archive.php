@@ -131,12 +131,8 @@ class Archive {
 		return false;
 	}
 
-	/**
-	 * Bepaal archive type
-	 *
-	 * @return string|bool
-	 */
-	protected function get_archive_type() {
+	/** Bepaal archive type */
+	protected function get_archive_type(): string|bool {
 		if ( is_post_type_archive( "siw_{$this->post_type}" ) ) {
 			return 'post_type';
 		}
@@ -148,14 +144,8 @@ class Archive {
 		return false;
 	}
 
-	/**
-	 * Zet columns aan als er meer dan 1 column is
-	 *
-	 * @param bool $columns
-	 *
-	 * @return bool
-	 */
-	public function set_archive_columns( $columns ) {
+	/** Zet columns aan als er meer dan 1 column is */
+	public function set_archive_columns( bool $columns ): bool {
 		if ( $this->is_archive_query() ) {
 			return 100 !== $this->archive_options['column_count'];
 		}
@@ -163,14 +153,8 @@ class Archive {
 		return $columns;
 	}
 
-	/**
-	 * Zet het aantal kolommen
-	 *
-	 * @param int $count
-	 *
-	 * @return int
-	 */
-	public function set_archive_column_count( $count ) {
+	/** Zet het aantal kolommen */
+	public function set_archive_column_count( int $count ): int {
 		if ( $this->is_archive_query() ) {
 			return $this->archive_options['column_count'];
 		}
@@ -178,14 +162,8 @@ class Archive {
 		return $count;
 	}
 
-	/**
-	 * Zet Masonry aan voor archief
-	 *
-	 * @param mixed $masonry
-	 *
-	 * @return mixed
-	 */
-	public function set_archive_masonry( $masonry ) {
+	/** Zet Masonry aan voor archief */
+	public function set_archive_masonry( mixed $masonry ): mixed {
 		if ( $this->is_archive_query() ) {
 			return $this->archive_options['masonry'];
 		}
