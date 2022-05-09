@@ -45,8 +45,8 @@ class Event extends Thing {
 		return $this->add_property( 'eventStatus', $event_status );
 	}
 
-	/** Zet locatie TODO: check, of union type  VirtualLocation|Place */
-	public function set_location( Thing $location ): static {
+	/** Zet locatie */
+	public function set_location( Place|Virtual_Location $location ): static {
 		return $this->set_property( 'location', $location );
 	}
 }
