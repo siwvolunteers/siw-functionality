@@ -28,11 +28,14 @@ class Archive {
 
 		// TODO: vlag en icons voor datum/soort-werk
 		$duration = siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false );
-		echo '<p>';
-		echo esc_html( $product->get_country()->get_name() . BR );
-		echo esc_html( implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE()->value, [ 'fields' => 'names' ] ) ) . BR );
-		echo esc_html( $duration );
-		echo '</p>';
+		echo wp_kses_post(
+			sprintf(
+				'<p>%s<br/>%s<br/>%s</p>',
+				$product->get_country()->get_name(),
+				implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE()->value, [ 'fields' => 'names' ] ) ),
+				siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false )
+			)
+		);
 	}
 
 	/** Toont badge voor aanbevolen projecten */
