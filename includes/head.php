@@ -84,6 +84,6 @@ class Head {
 				],
 			],
 		];
-		wp_send_json( $data, 200 );
+		wp_send_json( $data, \WP_Http::OK );
 	}
 }
