@@ -103,7 +103,7 @@ class Shortcode {
 		}
 		printf(
 			'<p class="woocommerce-info">%s</p>',
-			esc_html__( 'Er zijn helaas geen projecten gevonden die aan je zoekcriteria voelden.', 'siw' )
+			esc_html__( 'Er zijn helaas geen projecten gevonden die aan je zoekcriteria voldoen.', 'siw' )
 		);
 		printf(
 			'<a href="%s" class="button ghost">%s</a>',
