@@ -26,6 +26,7 @@ class Discount {
 		add_filter( 'woocommerce_cart_totals_coupon_label', [ $self, 'set_coupon_label' ], 10, 2 );
 		add_filter( 'woocommerce_cart_totals_coupon_html', [ $self, 'set_coupon_html' ], 20, 2 );
 		add_filter( 'woocommerce_coupon_message', [ $self, 'set_coupon_message' ], 10, 3 );
+		add_filter( 'woocommerce_get_shop_coupon_data', [ $self, 'add_virtual_coupon' ], 10, 3 );
 	}
 
 	/** Past eventueel korting bij meerdere projecten toe */
@@ -63,7 +64,6 @@ class Discount {
 		$student = isset( $data['billing_student'] ) && 'yes' === $data['billing_student'];
 
 		if ( $under_18 || $student ) {
-			$this->maybe_create_coupon();
 			$student_discount_applicable = true;
 		}
 
@@ -101,19 +101,15 @@ class Discount {
 		return null;
 	}
 
-
-	/** Maak indien nodig kortingscode voor studentenkorting aan TODO: updaten bij gewijzigd percentage?*/
-	protected function maybe_create_coupon() {
-
-		if ( 0 !== wc_get_coupon_id_by_code( self::STUDENT_DISCOUNT_COUPON_CODE ) ) {
-			return;
+	/** Voegt virtuele coupon toe */
+	public function add_virtual_coupon( mixed $data, string|array $code, \WC_Coupon $coupon ): mixed {
+		if ( ! is_string( $code ) || self::STUDENT_DISCOUNT_COUPON_CODE !== $code ) {
+			return $data;
 		}
-
-		$coupon = new \WC_Coupon();
-		$coupon->set_code( self::STUDENT_DISCOUNT_COUPON_CODE );
-		$coupon->set_discount_type( self::STUDENT_DISCOUNT_COUPON_DISCOUNT_TYPE );
-		$coupon->set_amount( Properties::STUDENT_DISCOUNT_AMOUNT );
-		$coupon->set_description( 'Studentenkorting' );
-		$coupon->save();
+		return [
+			'discount_type' => self::STUDENT_DISCOUNT_COUPON_DISCOUNT_TYPE,
+			'amount'        => Properties::STUDENT_DISCOUNT_AMOUNT,
+			'description'   => 'Studentenkorting',
+		];
 	}
 }
