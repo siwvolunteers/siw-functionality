@@ -34,7 +34,7 @@ class Export_Application extends Export {
 			$error_messages = $this->xml_response->ErrorMessages->string;
 			$note = sprintf( 'Export naar PLATO van aanmelding voor %s mislukt.', $projectcode );
 			$log_message = $note . wc_print_r( $error_messages );
-			Logger::error( $log_message, 'siw_export_application' );
+			Logger::error( $log_message );
 		}
 		return [
 			'success'     => $success,

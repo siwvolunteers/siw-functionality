@@ -18,9 +18,6 @@ class Spam_Check {
 	/**Algoritme om email-adress te hashen voor opslag */
 	const HASH_ALGORITHM = 'sha1';
 
-	/** Context voor logger */
-	const LOGGER_CONTEXT = 'siw-spam-check';
-
 	/** IP-adres om te checken */
 	protected string $ip;
 
@@ -83,7 +80,7 @@ class Spam_Check {
 			$ip_spam = get_transient( "siw_spam_ip_{$this->ip}" );
 			if ( false !== $ip_spam ) {
 				if ( (bool) $ip_spam ) {
-					Logger::info( "Gefilterd als spam: ip {$this->ip}", self::LOGGER_CONTEXT );
+					Logger::info( "Gefilterd als spam: ip {$this->ip}" );
 					return true;
 				}
 				$this->check_ip = false;
@@ -95,7 +92,7 @@ class Spam_Check {
 			$email_is_spam = get_transient( "siw_spam_email_{$this->email_hash}" );
 			if ( false !== $email_is_spam ) {
 				if ( (bool) $email_is_spam ) {
-					Logger::info( "Gefilterd als spam: email {$this->email}", self::LOGGER_CONTEXT );
+					Logger::info( "Gefilterd als spam: email {$this->email}" );
 					return true;
 				}
 				$this->check_email = false;
@@ -124,12 +121,12 @@ class Spam_Check {
 
 		// Bepaal of het een spammer betreft
 		if ( $result->get( 'email' ) ) {
-			Logger::info( "Gefilterd als spam: email {$this->email}", self::LOGGER_CONTEXT );
+			Logger::info( "Gefilterd als spam: email {$this->email}" );
 			return true;
 		}
 
 		if ( $result->get( 'ip' ) ) {
-			Logger::info( "Gefilterd als spam: IP {$this->ip}", self::LOGGER_CONTEXT );
+			Logger::info( "Gefilterd als spam: IP {$this->ip}" );
 			return true;
 		}
 

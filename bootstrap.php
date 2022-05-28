@@ -4,6 +4,7 @@ namespace SIW;
 
 use SIW\Assets\SIW_Functionality;
 use SIW\Autoloader;
+use SIW\Util\Logger;
 
 /**
  * Class om alle functionaliteit van de plugin te laden

@@ -122,7 +122,7 @@ class Google_Maps {
 		if ( self::STATUS_OK === $response['status'] ) {
 			return true;
 		}
-		Logger::error( $response['error_message'], 'siw-google-maps' );
+		Logger::error( $response['error_message'] );
 		return false;
 	}
 

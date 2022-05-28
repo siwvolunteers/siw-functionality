@@ -30,8 +30,6 @@ class Product {
 	/** Post-status van projecten die beoordeeld moeten worden */
 	const REVIEW_STATUS = 'pending';
 
-	const LOGGER_SOURCE = 'importeren-projecten';
-
 	/** Plato project */
 	protected Plato_Project $plato_project;
 
@@ -104,7 +102,7 @@ class Product {
 			|| ! $this->set_languages()
 			|| ! $this->set_sustainable_development_goals()
 		) {
-			Logger::info( sprintf( 'Project met id %s wordt niet geïmporteerd', $this->plato_project->get_project_id() ), self::LOGGER_SOURCE );
+			Logger::info( sprintf( 'Project met id %s wordt niet geïmporteerd', $this->plato_project->get_project_id() ) );
 			return false;
 		}
 
@@ -170,7 +168,7 @@ class Product {
 	protected function set_project_type(): bool {
 		$project_type = Plato_Project_Type::tryFrom( $this->plato_project->get_project_type() );
 		if ( null === $project_type ) {
-			Logger::error( sprintf( 'Project type %s niet gevonden', $this->plato_project->get_project_type() ), self::LOGGER_SOURCE );
+			Logger::error( sprintf( 'Project type %s niet gevonden', $this->plato_project->get_project_type() ) );
 			return false;
 		}
 		$this->project_type = $project_type;
@@ -182,7 +180,7 @@ class Product {
 		$country_code = strtoupper( $this->plato_project->get_country() );
 		$country = siw_get_country( $country_code, Country::PLATO_CODE );
 		if ( ! is_a( $country, Country::class ) ) {
-			Logger::error( sprintf( 'Land met code %s niet gevonden', $country_code ), self::LOGGER_SOURCE );
+			Logger::error( sprintf( 'Land met code %s niet gevonden', $country_code ) );
 			return false;
 		}
 		$this->country = $country;
@@ -197,7 +195,7 @@ class Product {
 			$language_code = strtoupper( $language_code );
 			$language = siw_get_language( $language_code, Language::PLATO_CODE );
 			if ( ! is_a( $language, Language::class ) ) {
-				Logger::error( sprintf( 'Taal met code %s niet gevonden', $language_code ), self::LOGGER_SOURCE );
+				Logger::error( sprintf( 'Taal met code %s niet gevonden', $language_code ) );
 				return false;
 			}
 			$this->languages[] = $language;
@@ -213,7 +211,7 @@ class Product {
 			$work_type_code = strtoupper( $work_type_code );
 			$work_type = siw_get_work_type( $work_type_code, Work_Type::PLATO_CODE );
 			if ( ! is_a( $work_type, Work_Type::class ) ) {
-				Logger::error( sprintf( 'Soort werk met code %s niet gevonden', $work_type_code ), self::LOGGER_SOURCE );
+				Logger::error( sprintf( 'Soort werk met code %s niet gevonden', $work_type_code ) );
 				return false;
 			}
 			$this->work_types[] = $work_type;
