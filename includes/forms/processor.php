@@ -20,29 +20,21 @@ use SIW\Util\Meta_Box;
  */
 class Processor {
 
-	/** Formulier */
-	protected Form_Interface $form;
-
 	/** Bevestigingsmail */
 	protected Confirmation_Mail $confirmation_mail;
 
 	/** Notificatiemail */
 	protected Notification_Mail $notification_mail;
 
-	/** Request */
-	protected \WP_REST_Request $request;
-
 	/** Init */
-	public function __construct( Form_Interface $form, \WP_REST_Request $request ) {
-		$this->form = $form;
-		$this->request = $request;
+	public function __construct( protected Form_Interface $form, protected \WP_REST_Request $request ) {
 
 		if ( is_a( $form, Confirmation_Mail::class ) ) {
-			$this->confirmation_mail = $form;
+			$this->confirmation_mail = $this->form;
 		}
 
 		if ( is_a( $form, Notification_Mail::class ) ) {
-			$this->notification_mail = $form;
+			$this->notification_mail = $this->form;
 		}
 	}
 

@@ -68,17 +68,13 @@ class Scheduler {
 
 	/** Bepaal starttijd obv ID */
 	protected function determine_start_time( string $id ): int {
-		switch ( $id ) {
-			case 'import_plato_projects':
-			case 'import_plato_dutch_projects':
-				$start_time = self::START_TIME_IMPORT_PROJECTS;
-				break;
-			case 'import_plato_project_free_places':
-				$start_time = self::START_TIME_IMPORT_FPL;
-				break;
-			default:
-				$start_time = self::START_TIME_GENERAL;
-		}
+
+		$start_time = match ( $id ) {
+			'import_plato_projects',
+			'import_plato_dutch_projects'      => self::START_TIME_IMPORT_PROJECTS,
+			'import_plato_project_free_places' => self::START_TIME_IMPORT_FPL,
+			default                            => self::START_TIME_GENERAL,
+		};
 		return strtotime( 'tomorrow ' . $start_time . wp_timezone_string() );
 	}
 }

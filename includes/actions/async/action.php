@@ -14,12 +14,8 @@ class Action {
 	/** Group */
 	const ACTION_GROUP = 'siw_async';
 
-	/** Actie */
-	protected Async_Action_Interface $action;
-
 	/** Init */
-	public function __construct( Async_Action_Interface $action ) {
-		$this->action = $action;
+	public function __construct( protected Async_Action_Interface $action ) {
 		add_action( "siw_async_action_{$this->action->get_id()}_enqueue", [ $this, 'enqueue' ] );
 		add_action( "siw_async_action_{$this->action->get_id()}_process", [ $this->action, 'process' ], 10, $this->action->get_argument_count() );
 	}

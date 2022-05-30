@@ -19,9 +19,6 @@ class Attachment {
 	/** URL van upload directory */
 	protected string $upload_url;
 
-	/** Subdirectory voor upload */
-	protected string $subdir;
-
 	/** Minimum breedte van afbeelding */
 	protected int $minimum_width;
 
@@ -34,13 +31,9 @@ class Attachment {
 	/** Maximum hoogte van afbeelding */
 	protected int $maximum_height = Properties::MAX_IMAGE_SIZE;
 
-	/** Soort bestand */
-	protected string $filetype;
-
 	/** Init */
-	public function __construct( string $filetype, string $subdir ) {
+	public function __construct( protected string $filetype, protected string $subdir ) {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
-		$this->filetype = $filetype;
 
 		// Bepaal standaard upload dir
 		$upload_dir = \wp_upload_dir( null, false );
@@ -48,7 +41,6 @@ class Attachment {
 		$this->upload_url = $upload_dir['baseurl'];
 
 		// Zet subdirectory voor upload
-		$this->subdir = $subdir;
 		\add_filter( 'siw_upload_subdir', [ $this, 'set_upload_subdir' ] );
 	}
 
@@ -178,7 +170,7 @@ class Attachment {
 			}
 
 			$path = $resized_image['path'];
-			if ( 0 === strpos( $path, $this->upload_dir ) ) {
+			if ( str_starts_with( $path, $this->upload_dir ) ) {
 				$relative_path = str_replace( $this->upload_dir, '', $path );
 				$relative_path = ltrim( $relative_path, '/' );
 			}

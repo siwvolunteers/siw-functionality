@@ -248,16 +248,12 @@ class Job_Posting extends Type {
 
 	/** Geeft type vacature terug */
 	protected function get_job_type() : string {
-		switch ( siw_meta( 'job_type' ) ) {
-			case 'paid':
-				$job_type = __( 'Betaalde functie', 'siw' );
-				break;
-			case 'internship':
-				$job_type = __( 'Stage', 'siw' );
-				break;
-			default:
-				$job_type = __( 'Vrijwillige functie', 'siw' );
-		}
+
+		$job_type = match ( siw_meta( 'job_type' ) ) {
+			'paid'       => __( 'Betaalde functie', 'siw' ),
+			'internship' => __( 'Stage', 'siw' ),
+			default      => __( 'Vrijwillige functie', 'siw' ),
+		};
 		return $job_type;
 	}
 

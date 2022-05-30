@@ -26,50 +26,34 @@ class Meta_Box {
 			'pattern'     => $field['pattern'] ?? null,
 		];
 
-		// Zet type -> match (php8)
-		switch ( $field['type'] ) {
-			case 'text':
-			case 'textarea':
-			case 'email':
-			case 'tel':
-			case 'radio':
-			case 'select':
-			case 'select_advanced':
-			case 'button_group':
-				$arg['type'] = 'string';
-				break;
-			case 'checkbox_list':
-				$arg['type'] = 'array';
-				break;
-			case 'checkbox':
-			case 'switch':
-				$arg['type'] = 'boolean';
-				break;
-			case 'number':
-				$arg['type'] = 'number';
-				break;
-			default:
-				// TODO: warning
+		// Zet type
+		$arg['type'] = match ( $field['type'] ) {
+			'text',
+			'textarea',
+			'email',
+			'tel',
+			'radio',
+			'select',
+			'select_advanced',
+			'button_group'    => 'string',
+			'checkbox_list'   => 'array',
+			'checkbox',
+			'switch'          => 'boolean',
+			'number'          =>'number',
+		};
+
+		// zet enum
+		if ( in_array( $field['type'], [ 'radio', 'select', 'button_group' ], true ) ) {
+			$arg['enum'] = array_keys( $field['options'] );
+			$arg['type'] = wp_is_numeric_array( $field['options'] ) ? 'integer' : 'string';
 		}
 
-		// zet enum -> match (php8)
-		switch ( $field['type'] ) {
-			case 'radio':
-			case 'select':
-			case 'button_group':
-				$arg['enum'] = array_keys( $field['options'] );
-				$arg['type'] = wp_is_numeric_array( $field['options'] ) ? 'integer' : 'string';
-				break;
-		}
-
-		// Zet items
-		switch ( $field['type'] ) {
-			case 'checkbox_list':
-				$arg['items'] = [
-					'type' => wp_is_numeric_array( $field['options'] ) ? 'integer' : 'string',
-					'enum' => array_keys( $field['options'] ),
-				];
-				break;
+		// Zet items voor checkbox lijst
+		if ( 'checkbox_list' === $field['type'] ) {
+			$arg['items'] = [
+				'type' => wp_is_numeric_array( $field['options'] ) ? 'integer' : 'string',
+				'enum' => array_keys( $field['options'] ),
+			];
 		}
 
 		// Zet dataformat -> match (php8)
@@ -102,22 +86,18 @@ class Meta_Box {
 
 	/** Geeft weergave waarde terug */
 	public static function get_display_value( array $field, $raw_value ) {
-		switch ( $field['type'] ) {
-			case 'radio':
-			case 'select':
-			case 'button_group':
-				$value = $field['options'][ $raw_value ] ?? '';
-				break;
-			case 'checkbox_list':
-				$value = implode( ', ', array_map( fn( string $value ): string => $field['options'][ $value ], $raw_value ) );
-				break;
-			case 'checkbox':
-			case 'switch':
-				$value = boolval( $raw_value ) ? __( 'Ja', 'siw' ) : __( 'Nee', 'siw' ); // TODO: on_label en off_label gebruiken voor switch
-				break;
-			default:
-				$value = $raw_value;
-		}
+
+		// TODO: escaping?
+		$value = match ( $field['type']  ) {
+			'radio',
+			'select',
+			'button_group'  => $field['options'][ $raw_value ] ?? '',
+			'checkbox_list' => implode( ', ', array_map( fn( string $value ): string => $field['options'][ $value ], $raw_value ) ),
+			'checkbox',
+			'switch'        => boolval( $raw_value ) ? __( 'Ja', 'siw' ) : __( 'Nee', 'siw' ), // TODO: on_label en off_label gebruiken voor switch
+			default         => $raw_value,
+		};
+
 		return $value;
 	}
 

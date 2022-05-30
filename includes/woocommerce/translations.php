@@ -101,20 +101,15 @@ class Translations {
 
 	/** Overschrijf vertalingen via gettext */
 	public function override_translations( string $translation, string $text ): string {
-		switch ( $text ) {
-			case 'Product':
-				$translation = __( 'Project', 'siw' );
-				break;
-			case 'Proceed to checkout':
-				$translation = __( 'Door naar aanmelden', 'siw' );
-				break;
-			case 'Your order':
-				$translation = __( 'Je aanmelding', 'siw' );
-				break;
-			case 'Billing &amp; Shipping':
-				$translation = __( 'Je gegevens', 'siw' );
-				break;
-		}
+
+		$translation = match ( $text ) {
+			'Product'                => __( 'Project', 'siw' ),
+			'Proceed to checkout'    => __( 'Door naar aanmelden', 'siw' ),
+			'Your order'             => __( 'Je aanmelding', 'siw' ),
+			'Billing &amp; Shipping' => __( 'Je gegevens', 'siw' ),
+			default                  => $translation,
+		};
+
 		return $translation;
 	}
 }

@@ -18,12 +18,8 @@ class Action {
 	/** Group voor update */
 	const UPDATE_GROUP = 'siw_update';
 
-	/** Actie */
-	protected Batch_Action_Interface $action;
-
 	/** Init */
-	public function __construct( Batch_Action_Interface $action ) {
-		$this->action = $action;
+	public function __construct( protected Batch_Action_Interface $action ) {
 
 		if ( $this->action->must_be_scheduled() ) {
 			add_filter( 'siw_scheduler_actions', [ $this, 'add_action_to_scheduler' ] );

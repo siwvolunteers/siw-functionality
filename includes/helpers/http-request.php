@@ -2,6 +2,8 @@
 
 namespace SIW\Helpers;
 
+use WP_Http;
+
 /**
  * Class om een HTTP request uit te voeren
  *
@@ -30,7 +32,7 @@ class HTTP_Request {
 	protected array $args;
 
 	/** Body van response */
-	protected $body;
+	protected \SimpleXMLElement|array $body; // phpcs:ignore Squiz.Commenting.VariableComment.Missing
 
 	/** Fout bij afhandeling van het request */
 	protected \WP_Error $error;

@@ -9,22 +9,8 @@ namespace SIW\Content;
  */
 class Taxonomy {
 
-	/** Taxonomie */
-	protected string $taxonomy;
-
-	/** Post type */
-	protected string $post_type;
-
-	/** Instellingen */
-	protected array $settings;
-
 	/** Constructor */
-	public function __construct( string $taxonomy, string $post_type, array $settings ) {
-
-		$this->taxonomy = $taxonomy;
-		$this->post_type = $post_type;
-		$this->settings = $settings;
-
+	public function __construct( protected string $taxonomy, protected string $post_type, protected array $settings ) {
 		add_action( 'init', [ $this, 'register' ] );
 		add_filter( 'taxonomy_template', [ $this, 'set_archive_template' ], 10, 3 );
 	}

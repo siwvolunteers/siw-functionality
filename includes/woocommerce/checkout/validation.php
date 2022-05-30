@@ -26,7 +26,7 @@ class Validation {
 
 		$has_required_field_error = false;
 		foreach ( $errors->get_error_codes() as $code ) {
-			if ( false !== strpos( $code, '_required' ) ) {
+			if ( str_ends_with( $code, '_required' ) ) {
 				$has_required_field_error = true;
 				$errors->remove( $code );
 			}

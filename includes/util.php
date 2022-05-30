@@ -64,11 +64,8 @@ class Util {
 		return $from->diff( $to )->y;
 	}
 
-	/** Creëert term indien deze nog niet bestaat
-	 *
-	 *  @return int|bool
-	 */
-	public static function maybe_create_term( string $taxonomy, string $slug, string $name, $order = null ) {
+	/** Creëert term indien deze nog niet bestaat */
+	public static function maybe_create_term( string $taxonomy, string $slug, string $name, $order = null ): int|bool {
 		$term = get_term_by( 'slug', $slug, $taxonomy );
 
 		// Als term al bestaat zijn we snel klaar

@@ -18,7 +18,7 @@ class World_Map extends Element {
 	const ASSETS_HANDLE = 'siw-world-map';
 
 	/** Bestandsnaam van wereldkaart */
-	protected $map_file = SIW_ASSETS_URL . 'images/maps/world.svg';
+	protected string $map_file = SIW_ASSETS_URL . 'images/maps/world.svg';
 
 	/** Land */
 	protected Country $country;
