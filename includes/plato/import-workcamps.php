@@ -18,6 +18,9 @@ class Import_Workcamps extends Import {
 	/** {@inheritDoc} */
 	protected string $name = 'importeren groepsprojecten';
 
+	/** {@inheritDoc} */
+	protected string $xsd_file = SIW_PLUGIN_DIR . 'xsd/plato/projects.xsd';
+
 	/** Geef aan dat dit geen Nederlandse projecten zijn */
 	protected bool $dutch_project = false;
 

@@ -21,6 +21,9 @@ class Import_FPL extends Import {
 	/** {@inheritDoc} */
 	protected string $process_name = 'update_free_places';
 
+	/** {@inheritDoc} */
+	protected string $xsd_file = SIW_PLUGIN_DIR . 'xsd/plato/free-places.xsd';
+
 	/** Verwerk xml van Plato */
 	protected function process_xml() {
 
