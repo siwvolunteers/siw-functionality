@@ -2,6 +2,8 @@
 
 namespace SIW\Elements\Interactive_Maps;
 
+use SIW\Data\Sustainable_Development_Goal;
+use SIW\Data\Work_Type;
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
 use SIW\Elements\Accordion;
@@ -126,14 +128,23 @@ class Netherlands implements Interactive_Map_Interface {
 	protected function get_project_properties( WC_Product_Project $project ) : string {
 		// Verzamelen gegevens
 		$duration = siw_format_date_range( $project->get_start_date(), $project->get_end_date() );
+		$work_types = array_map(
+			fn( Work_Type $work_type ): string => $work_type->get_name(),
+			$project->get_work_types()
+		);
+
+		$sdgs = array_map(
+			fn( Sustainable_Development_Goal $sdg ): string => $sdg->get_name(),
+			$project->get_sustainable_development_goals()
+		);
 
 		// Opbouwen beschrijving
 		$description[] = sprintf( __( 'Projectcode: %s', 'siw' ), $project->get_sku() ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 		$description[] = sprintf( __( 'Data: %s', 'siw' ), $duration ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
-		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), $project->get_attribute( Taxonomy_Attribute::WORK_TYPE()->value ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
-		$sdgs = $project->get_attribute( Taxonomy_Attribute::SDG()->value );
+		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), implode( ', ', $work_types ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
+
 		if ( ! empty( $sdgs ) ) {
-			$description[] = sprintf( __( 'Sustainable Development Goals: %s', 'siw' ), $sdgs ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
+			$description[] = sprintf( __( 'Sustainable Development Goals: %s', 'siw' ), implode( ', ', $sdgs ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 			// TODO: icons gebruiken?
 		}
 
