@@ -72,18 +72,6 @@ class Properties {
 	/** Bedrag studentenkorting  */
 	const STUDENT_DISCOUNT_AMOUNT = 50;
 
-	/** @deprecated */
-	const WORKCAMP_FEE_STUDENT = self::STV_PROJECT_FEE - self::STUDENT_DISCOUNT_AMOUNT;
-
-	/** @deprecated */
-	const WORKCAMP_FEE_REGULAR = self::STV_PROJECT_FEE;
-
-	/** @deprecated */
-	const WORKCAMP_FEE_STUDENT_SALE = 149;
-
-	/** @deprecated */
-	const WORKCAMP_FEE_REGULAR_SALE = 199;
-
 	/** Inschrijfgeld Schoolproject */
 	const SCHOOL_PROJECT_FEE = 125;
 
