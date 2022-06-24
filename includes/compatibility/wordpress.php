@@ -56,6 +56,9 @@ class WordPress {
 
 		add_filter( 'script_loader_tag', [ $self, 'set_crossorigin' ], 10, 2 );
 		add_action( Update::PLUGIN_UPDATED_HOOK, 'flush_rewrite_rules' );
+
+		// Block editor uitschakelen voor widgets
+		add_filter( 'use_widgets_block_editor', '__return_false' );
 	}
 
 	/** Verwijdert standaard-widgets */
