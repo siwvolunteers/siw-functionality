@@ -982,17 +982,3 @@ span.product-badge.featured-badge {
   outline-offset: 2px;
   outline: 2px dotted var(--siw-contrast-light);
 }
-.woocommerce-checkout span.woocommerce-input-wrapper {
-  display: block;
-}
-.woocommerce-checkout .country .woocommerce-input-wrapper {
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-.woocommerce-checkout .wizard > .content > .body input {
-  border-width: 2px;
-  border-color: var(--siw-contrast-light);
-}
-.woocommerce-checkout .wizard > .content > .body input:hover, .woocommerce-checkout .wizard > .content > .body input:focus {
-  border-color: var(--siw-contrast);
-}
