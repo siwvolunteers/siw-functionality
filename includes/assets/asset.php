@@ -16,11 +16,13 @@ class Asset {
 	/** Voegt style toe */
 	public function register_style( Style $style ) {
 		add_action( 'wp_enqueue_scripts', [ $style, 'register_style' ] );
+		add_action( 'admin_enqueue_scripts', [ $style, 'register_style' ] );
 	}
 
 	/** Voegt script toe */
 	public function register_script( Script $script ) {
 		add_action( 'wp_enqueue_scripts', [ $script, 'register_script' ] );
+		add_action( 'admin_enqueue_scripts', [ $script, 'register_script' ] );
 	}
 
 	/** Registeer asset als extern (voor prefetch en uitsluiten van optimalisatie) */
