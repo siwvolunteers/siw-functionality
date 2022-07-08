@@ -11,7 +11,7 @@ class Post_Type {
 
 	/** Constructor */
 	public function __construct( protected string $post_type, protected array $args, protected array $labels, protected string $single_slug, protected string $archive_slug ) {
-		add_action( 'init', [ $this, 'register_post_type' ] );
+		add_action( 'init', [ $this, 'register_post_type' ], 1 );
 	}
 
 	/** Registreert post type */

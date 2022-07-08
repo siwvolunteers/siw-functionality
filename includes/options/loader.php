@@ -18,16 +18,17 @@ class Loader extends Object_Loader_Abstract {
 	}
 
 	/** {@inheritDoc} */
-	public function get_classes() : array {
+	public function get_classes(): array {
 		return [
 			Configuration::class,
 			Countries::class,
+			Help::class,
 			Settings::class,
 		];
 	}
 
 	/** {@inheritDoc} */
-	public function get_interface_namespace() : string {
+	public function get_interface_namespace(): string {
 		return 'Options';
 	}
 
