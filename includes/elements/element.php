@@ -47,7 +47,7 @@ abstract class Element {
 
 		$asset_hook = is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts';
 
-		if ( did_action( $asset_hook ) ) {
+		if ( did_action( $asset_hook ) > 0 ) {
 			$this->enqueue_scripts();
 			$this->enqueue_styles();
 		} else {
