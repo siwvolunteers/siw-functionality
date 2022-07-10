@@ -7,9 +7,9 @@ use SIW\Interfaces\Assets\Script;
 
 /**
  * Polyfill.io
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see https://polyfill.io/v3/
  */
 class Polyfill implements Script, External {
@@ -22,7 +22,7 @@ class Polyfill implements Script, External {
 
 	/** Features voor Polyfill.io */
 	protected array $polyfill_features = [
-		'default'
+		'default',
 	];
 
 	/** {@inheritDoc} */
@@ -30,12 +30,12 @@ class Polyfill implements Script, External {
 		$polyfill_url = add_query_arg(
 			[
 				'version'  => self::VERSION,
-				'features' => implode( ',', $this->polyfill_features ), //TODO: filter?
-				'flags'    => 'gated'
+				'features' => implode( ',', $this->polyfill_features ), // TODO: filter?
+				'flags'    => 'gated',
 			],
 			'https://polyfill.io/v3/polyfill.min.js'
-			);
-		wp_register_script( self::ASSETS_HANDLE, $polyfill_url, [], null, true );
+		);
+		wp_register_script( self::ASSETS_HANDLE, $polyfill_url, [], null, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		wp_script_add_data( self::ASSETS_HANDLE, 'crossorigin', 'anonymous' );
 	}
 
@@ -43,6 +43,4 @@ class Polyfill implements Script, External {
 	public function get_external_domain(): string {
 		return 'https://polyfill.io';
 	}
-	
-
 }

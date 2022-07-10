@@ -24,7 +24,6 @@ class Loader extends Object_Loader_Abstract {
 		return [
 			Animation::class,
 			Design::class,
-			Layout::class,
 			Visibility::class,
 		];
 	}
@@ -32,9 +31,9 @@ class Loader extends Object_Loader_Abstract {
 	/** {@inheritDoc} */
 	protected function load( object $extension ) {
 
-		$builder = new Builder;
+		$builder = new Builder();
 
-		//Voeg row style toe (eventueel met groep)
+		// Voeg row style toe (eventueel met groep)
 		if ( is_a( $extension, Row_Style_Group_Interface::class ) ) {
 			$builder->add_row_style_group( $extension );
 		}
@@ -42,7 +41,7 @@ class Loader extends Object_Loader_Abstract {
 			$builder->add_row_style_fields( $extension );
 		}
 
-		//Voeg cell style toe (eventueel met groep)
+		// Voeg cell style toe (eventueel met groep)
 		if ( is_a( $extension, Cell_Style_Group_Interface::class ) ) {
 			$builder->add_cell_style_group( $extension );
 		}
@@ -50,7 +49,7 @@ class Loader extends Object_Loader_Abstract {
 			$builder->add_cell_style_fields( $extension );
 		}
 
-		//Voeg widget style toe (eventueel met groep)
+		// Voeg widget style toe (eventueel met groep)
 		if ( is_a( $extension, Widget_Style_Group_Interface::class ) ) {
 			$builder->add_widget_style_group( $extension );
 		}
@@ -58,7 +57,7 @@ class Loader extends Object_Loader_Abstract {
 			$builder->add_widget_style_fields( $extension );
 		}
 
-		//Voeg settings toe
+		// Voeg settings toe
 		if ( is_a( $extension, Settings_Interface::class ) ) {
 			$builder->add_settings( $extension );
 		}

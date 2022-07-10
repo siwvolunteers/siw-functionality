@@ -165,7 +165,7 @@ span.product-badge.featured-badge {
 	.form-row-first {
 		clear: left;
 	}
-	
+
 	.form-row label.radio {
 		margin-right: 5px;
 		display: inline-block;
@@ -183,23 +183,6 @@ span.product-badge.featured-badge {
 		&:focus {
 			outline-offset: 2px;
 			outline: 2px dotted var(--siw-contrast-light);
-		}
-	}
-
-	span.woocommerce-input-wrapper {
-		display: block;
-	}
-
-	.country .woocommerce-input-wrapper{
-		padding-top: 15px;
-		padding-bottom: 15px;
-	}
-
-	.wizard > .content > .body input {
-		border-width: 2px;
-		border-color: var(--siw-contrast-light);
-		&:hover, &:focus {
-			border-color: var(--siw-contrast);
 		}
 	}
 }

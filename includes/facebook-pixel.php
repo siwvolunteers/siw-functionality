@@ -12,7 +12,7 @@ use SIW\Elements\Cookie_Notice;
  */
 class Facebook_Pixel {
 
-	//Script handle
+	// Script handle
 	const SCRIPT_HANDLE = 'siw-facebook-pixel';
 
 	/** Init */
@@ -33,7 +33,7 @@ class Facebook_Pixel {
 			self::SCRIPT_HANDLE,
 			'siw_facebook_pixel',
 			[
-				'pixel_id'    => esc_js( $pixel_id ) ,
+				'pixel_id'    => esc_js( $pixel_id ),
 				'cookie_name' => Cookie_Notice::COOKIE_NAME,
 				'event_name'  => Cookie_Notice::EVENT_NAME,
 			]

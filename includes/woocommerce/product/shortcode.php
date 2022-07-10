@@ -6,9 +6,9 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Breidt WooCommerce shortcode uit met extra attributen
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @todo meta_query toevoegen: leeftijd, etc.
  */
 class Shortcode {
@@ -17,23 +17,23 @@ class Shortcode {
 	public static function init() {
 		$self = new self();
 
-		add_filter( 'shortcode_atts_products', [ $self, 'add_shortcode_atts'], 10, 4 );
+		add_filter( 'shortcode_atts_products', [ $self, 'add_shortcode_atts' ], 10, 4 );
 		add_filter( 'woocommerce_shortcode_products_query', [ $self, 'edit_shortcode_products_query' ], 10, 3 );
-		
+
 		add_action( 'woocommerce_shortcode_after_products_loop', [ $self, 'add_archive_button' ] );
-		add_action( 'woocommerce_shortcode_products_loop_no_results', [ $self, 'add_no_results_text_and_button'] );
+		add_action( 'woocommerce_shortcode_products_loop_no_results', [ $self, 'add_no_results_text_and_button' ] );
 	}
 
 	/** Geeft extra taxonomy attributes terug */
 	protected function get_taxonomy_attributes(): array {
 		return [
-			'continent'   => Taxonomy_Attribute::CONTINENT(),
-			'land'        => Taxonomy_Attribute::COUNTRY(),
-			'sdg'         => Taxonomy_Attribute::SDG(),
-			'maand'       => Taxonomy_Attribute::MONTH(),
-			'soort-werk'  => Taxonomy_Attribute::WORK_TYPE(),
-			'taal'        => Taxonomy_Attribute::LANGUAGE(),
-			'doelgroep'   => Taxonomy_Attribute::TARGET_AUDIENCE(),
+			'continent'  => Taxonomy_Attribute::CONTINENT(),
+			'land'       => Taxonomy_Attribute::COUNTRY(),
+			'sdg'        => Taxonomy_Attribute::SDG(),
+			'maand'      => Taxonomy_Attribute::MONTH(),
+			'soort-werk' => Taxonomy_Attribute::WORK_TYPE(),
+			'taal'       => Taxonomy_Attribute::LANGUAGE(),
+			'doelgroep'  => Taxonomy_Attribute::TARGET_AUDIENCE(),
 		];
 	}
 
@@ -48,7 +48,7 @@ class Shortcode {
 
 	/** Voegt extra attributen toe aan shortcode */
 	public function add_shortcode_atts( array $out, array $pairs, array $atts, string $shortcode ): array {
-		if ( $shortcode !== 'products' ) {
+		if ( 'products' !== $shortcode ) {
 			return $out;
 		}
 		foreach ( array_keys( $this->get_taxonomy_attributes() ) as $attribute ) {
@@ -64,7 +64,7 @@ class Shortcode {
 
 	/** Past extra attributen toe in query */
 	public function edit_shortcode_products_query( array $query_args, array $attributes, string $type ): array {
-		if ( $type !== 'products' ) {
+		if ( 'products' !== $type ) {
 			return $query_args;
 		}
 
@@ -91,8 +91,8 @@ class Shortcode {
 
 		printf(
 			'<a href="%s" class="button ghost">%s</a>',
-			$attributes['button_url'],
-			$attributes['button_text'],
+			esc_url( $attributes['button_url'] ),
+			esc_html( $attributes['button_text'] ),
 		);
 	}
 
@@ -103,11 +103,11 @@ class Shortcode {
 		}
 		printf(
 			'<p class="woocommerce-info">%s</p>',
-			esc_html__( 'Er zijn helaas geen projecten gevonden die aan je zoekcriteria voelden.', 'siw')
+			esc_html__( 'Er zijn helaas geen projecten gevonden die aan je zoekcriteria voldoen.', 'siw' )
 		);
 		printf(
 			'<a href="%s" class="button ghost">%s</a>',
-			wc_get_page_permalink( 'shop' ),
+			esc_url( wc_get_page_permalink( 'shop' ) ),
 			esc_html__( 'Bekijk alle projecten', 'siw' )
 		);
 	}

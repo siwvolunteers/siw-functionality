@@ -8,7 +8,7 @@ use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
 /**
  * Infoverzoek project
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Enquiry_Project implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
@@ -52,7 +52,7 @@ class Enquiry_Project implements Form_Interface, Confirmation_Mail_Interface, No
 				'type'    => 'textarea',
 				'name'    => __( 'Vraag', 'siw' ),
 				'columns' => Form_Interface::FULL_WIDTH,
-			]
+			],
 		];
 	}
 
@@ -60,7 +60,7 @@ class Enquiry_Project implements Form_Interface, Confirmation_Mail_Interface, No
 	public function get_notification_mail_subject(): string {
 		return 'Informatieverzoek project {{ first_name }} {{ last_name }}';
 	}
-	
+
 	/** {@inheritDoc} */
 	public function get_notification_mail_message(): string {
 		return sprintf(
@@ -76,8 +76,10 @@ class Enquiry_Project implements Form_Interface, Confirmation_Mail_Interface, No
 
 	/** {@inheritDoc} */
 	public function get_confirmation_mail_message(): string {
+		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
-			sprintf( __( 'Leuk om te zien dat je interesse hebt getoond in het project %s.', 'siw' ), '<a href="{{ page_url }}" target="_blank" style="text-decoration:none">{{ page_title }}<a/>') . SPACE .
+		// translators: %s is link naar het project
+			sprintf( __( 'Leuk om te zien dat je interesse hebt getoond in het project %s.', 'siw' ), '<a href="{{ page_url }}" target="_blank" style="text-decoration:none">{{ page_title }}<a/>' ) . SPACE .
 			__( 'Je hebt ons een vraag gesteld.', 'siw' ) . SPACE .
 			__( 'Wellicht was er iets niet helemaal duidelijk of wil je graag meer informatie ontvangen.', 'siw' ) . SPACE .
 			__( 'Wat de reden ook was, wij helpen je graag verder.', 'siw' ) . SPACE .

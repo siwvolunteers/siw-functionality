@@ -3,8 +3,8 @@
 namespace SIW\Compatibility;
 
 /**
-* Aanpassingen voor Meta Box
- * 
+ * Aanpassingen voor Meta Box
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://metabox.io/
  */
@@ -16,15 +16,15 @@ class Meta_Box {
 			return;
 		}
 		$self = new self();
-		add_filter( 'mb_aio_extensions', [ $self, 'select_extensions'] );
+		add_filter( 'mb_aio_extensions', [ $self, 'select_extensions' ] );
 		add_filter( 'mb_aio_show_settings', '__return_false' );
-		add_filter( 'rwmb_normalize_time_field', [ $self, 'set_default_time_options'] );
-		add_filter( 'rwmb_normalize_date_field', [ $self, 'set_default_date_options'] );
-		add_filter( 'rwmb_normalize_switch_field', [ $self, 'set_default_switch_options'] );
-		add_filter( 'rwmb_normalize_wysiwyg_field', [ $self, 'set_default_wysiwyg_options'] );
+		add_filter( 'rwmb_normalize_time_field', [ $self, 'set_default_time_options' ] );
+		add_filter( 'rwmb_normalize_date_field', [ $self, 'set_default_date_options' ] );
+		add_filter( 'rwmb_normalize_switch_field', [ $self, 'set_default_switch_options' ] );
+		add_filter( 'rwmb_normalize_wysiwyg_field', [ $self, 'set_default_wysiwyg_options' ] );
 		add_filter( 'rwmb_group_sanitize', [ $self, 'sanitize_group' ], 10, 4 );
-		add_filter( 'rwmb_get_value', [ $self, 'render_shortcodes'], 10, 4 );
-		add_action( 'rwmb_enqueue_scripts', [ $self, 'enqueue_script'] );
+		add_filter( 'rwmb_get_value', [ $self, 'render_shortcodes' ], 10, 4 );
+		add_action( 'rwmb_enqueue_scripts', [ $self, 'enqueue_script' ] );
 	}
 
 	/** Selecteert de gebruikte extensies */
@@ -43,6 +43,7 @@ class Meta_Box {
 	}
 
 	/** Zet standaardeigenschappen van tijdvelden
+	 *
 	 * @todo kan weg na introductie HTML5 velden
 	 */
 	public function set_default_time_options( array $field ): array {
@@ -60,6 +61,7 @@ class Meta_Box {
 	}
 
 	/** Zet standaardeigenschappen van datumvelden
+	 *
 	 * @todo kan weg na introductie HTML5 velden
 	 */
 	public function set_default_date_options( array $field ): array {
@@ -70,8 +72,8 @@ class Meta_Box {
 				'dateFormat'      => 'yy-mm-dd',
 				'showButtonPanel' => false,
 			],
-			'pattern'    =>'(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))',
-			'attributes' => [
+			'pattern'           => '(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))',
+			'attributes'        => [
 				'autocomplete' => 'off',
 			],
 		];
@@ -89,8 +91,8 @@ class Meta_Box {
 	/** Zet standaardeigenschappen van wysiwyg */
 	public function set_default_wysiwyg_options( array $field ): array {
 		$defaults = [
-			'raw'      => true,
-			'options'  => [
+			'raw'     => true,
+			'options' => [
 				'teeny'         => true,
 				'dfw'           => false,
 				'media_buttons' => false,
@@ -109,16 +111,14 @@ class Meta_Box {
 
 			if ( $field['clone'] ) {
 				$new = \RWMB_Clone::value( $new, $old, $object_id, $field );
-			}
-			elseif ( in_array( $field['type'], ['date', 'datetime'] ) && is_array( $new ) ) {
+			} elseif ( in_array( $field['type'], [ 'date', 'datetime' ] ) && is_array( $new ) ) {
 				if ( isset( $new['timestamp'] ) ) {
 					$new['timestamp'] = floor( abs( (float) $new['timestamp'] ) );
 				}
 				if ( isset( $new['formatted'] ) ) {
 					$new['formatted'] = sanitize_text_field( $new['formatted'] );
 				}
-			}
-			else {
+			} else {
 				$new = \RWMB_Field::call( $field, 'value', $new, $old, $object_id );
 				$new = \RWMB_Field::filter( 'sanitize', $new, $field, $old, $object_id );
 			}
@@ -138,7 +138,7 @@ class Meta_Box {
 	/** Voegt script toe */
 	public function enqueue_script() {
 		wp_register_script( 'siw-meta-box', SIW_ASSETS_URL . 'js/compatibility/siw-meta-box.js', [ 'jquery' ], SIW_PLUGIN_VERSION, true );
-		//TODO: localize_script voor meldingen
+		// TODO: localize_script voor meldingen
 		wp_enqueue_script( 'siw-meta-box' );
 	}
 }

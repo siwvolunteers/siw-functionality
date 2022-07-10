@@ -15,14 +15,15 @@ class Animation {
 			'data-sal'          => $type,
 			'data-sal-duration' => $duration,
 			'data-sal-delay'    => $delay,
-			'data-sal-easing'   => $easing
+			'data-sal-easing'   => $easing,
 		];
 		return $data_attributes;
 	}
 
 	/** Geeft opties voor duur terug */
 	public static function get_duration_options() : array {
-		for ( $t = 200; $t <= 2000; $t+=50 ) {
+		for ( $t = 200; $t <= 2000; $t += 50 ) {
+			// translators: %d is het aantal miliseconden
 			$durations[ $t ] = sprintf( __( '%d ms', 'siw' ), $t );
 		}
 		return $durations;
@@ -31,7 +32,8 @@ class Animation {
 	/** Geeft opties voor vertraging terug */
 	public static function get_delay_options() : array {
 		$delays['none'] = __( 'Geen', 'siw' );
-		for ( $t = 100; $t <= 1000; $t+=50 ) {
+		for ( $t = 100; $t <= 1000; $t += 50 ) {
+			// translators: %d is het aantal miliseconden
 			$delays[ $t ] = sprintf( __( '%d ms', 'siw' ), $t );
 		}
 		return $delays;

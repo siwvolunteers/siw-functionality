@@ -6,10 +6,10 @@ use \Spatie\Enum\Enum;
 
 /**
  * Soort baan
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  * @see https://developers.google.com/search/docs/data-types/job-posting
- * 
+ *
  * @method static self EMPLOYMENT_TYPE_UNSPECIFIED()
  * @method static self FULL_TIME()
  * @method static self PART_TIME()

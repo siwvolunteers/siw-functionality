@@ -16,46 +16,49 @@ class WordPress {
 	const REST_API_PREFIX = 'api';
 
 	/** Default editor mode */
-	const DEFAULT_EDITOR ='html';
+	const DEFAULT_EDITOR = 'html';
 
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_action( 'widgets_init', [ $self, 'unregister_widgets'], 99 );
+		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
 		add_filter( 'oembed_response_data', [ $self, 'set_oembed_response_data' ] );
 		add_filter( 'rest_url_prefix', fn(): string => self::REST_API_PREFIX );
 		add_filter( 'user_contactmethods', '__return_empty_array', PHP_INT_MAX );
-		add_action( 'init', [ $self, 'add_page_excerpt_support'] );
-		add_action( 'core_version_check_query_args', [ $self, 'remove_core_version_check_query_args'] );
+		add_action( 'init', [ $self, 'add_page_excerpt_support' ] );
+		add_action( 'core_version_check_query_args', [ $self, 'remove_core_version_check_query_args' ] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'dequeue_styles' ], PHP_INT_MAX );
 		add_filter( 'wp_default_editor', fn(): string => self::DEFAULT_EDITOR );
-		add_filter( 'site_status_tests', [ $self, 'remove_update_check'] );
+		add_filter( 'site_status_tests', [ $self, 'remove_update_check' ] );
 		add_filter( 'http_headers_useragent', fn(): string => Properties::NAME );
 		add_filter( 'big_image_size_threshold', fn(): int => Properties::MAX_IMAGE_SIZE );
 
 		add_filter( 'wp_is_application_passwords_available', '__return_false' );
 		add_filter( 'comments_open', '__return_false' );
 
-		add_action( 'do_feed', [ $self, 'disable_feed' ] , 1 );
-		add_action( 'do_feed_rdf', [ $self, 'disable_feed' ] , 1 );
-		add_action( 'do_feed_rss', [ $self, 'disable_feed' ] , 1 );
-		add_action( 'do_feed_rss2', [ $self, 'disable_feed' ] , 1 );
-		add_action( 'do_feed_atom', [ $self, 'disable_feed' ] , 1 );
-		add_action( 'do_feed_rss2_comments', [ $self, 'disable_feed' ] , 1 );
-		add_action( 'do_feed_atom_comments', [ $self, 'disable_feed' ] , 1 );
+		add_action( 'do_feed', [ $self, 'disable_feed' ], 1 );
+		add_action( 'do_feed_rdf', [ $self, 'disable_feed' ], 1 );
+		add_action( 'do_feed_rss', [ $self, 'disable_feed' ], 1 );
+		add_action( 'do_feed_rss2', [ $self, 'disable_feed' ], 1 );
+		add_action( 'do_feed_atom', [ $self, 'disable_feed' ], 1 );
+		add_action( 'do_feed_rss2_comments', [ $self, 'disable_feed' ], 1 );
+		add_action( 'do_feed_atom_comments', [ $self, 'disable_feed' ], 1 );
 
 		add_filter( 'widget_text', 'do_shortcode' );
 
 		add_filter( 'safe_style_css', [ $self, 'add_allowed_css_attributes' ] );
 		add_filter( 'embed_oembed_html', [ $self, 'fix_youtube_embed' ] );
 
-		//Attachments
+		// Attachments
 		add_filter( 'disable_months_dropdown', '__return_true' );
-		add_filter( 'manage_media_columns', [ $self, 'manage_media_columns'], 10, 2 );
-		add_filter( 'wp_trim_excerpt', [ $self, 'show_read_more_button' ]);
+		add_filter( 'manage_media_columns', [ $self, 'manage_media_columns' ], 10, 2 );
+		add_filter( 'wp_trim_excerpt', [ $self, 'show_read_more_button' ] );
 
 		add_filter( 'script_loader_tag', [ $self, 'set_crossorigin' ], 10, 2 );
 		add_action( Update::PLUGIN_UPDATED_HOOK, 'flush_rewrite_rules' );
+
+		// Block editor uitschakelen voor widgets
+		add_filter( 'use_widgets_block_editor', '__return_false' );
 	}
 
 	/** Verwijdert standaard-widgets */
@@ -107,7 +110,7 @@ class WordPress {
 
 	/** Schakelt feed uit */
 	public function disable_feed() {
-		wp_redirect( home_url() );
+		wp_safe_redirect( home_url() );
 		exit;
 	}
 
@@ -140,22 +143,25 @@ class WordPress {
 			return $cache;
 		}
 
-		$url_parts = parse_url( $matches[1] );
-		$url = $url_parts['scheme'] . '://' . 'www.youtube-nocookie.com' . $url_parts['path'];
-		$url = add_query_arg( [
-			'rel'            => false,
-			'modestbranding' => true,
-			'controls'       => true,
-			'fs'             => false,
-		], $url );
+		$url_parts = wp_parse_url( $matches[1] );
+		$url = $url_parts['scheme'] . '://www.youtube-nocookie.com' . $url_parts['path'];
+		$url = add_query_arg(
+			[
+				'rel'            => false,
+				'modestbranding' => true,
+				'controls'       => true,
+				'fs'             => false,
+			],
+			$url
+		);
 
 		return str_replace( $matches[1], $url, $cache );
 	}
 
 	/** Verberg admin columns bij attachments */
 	public function manage_media_columns( array $columns ): array {
-		unset( $columns['author']);
-		unset( $columns['comments']);
+		unset( $columns['author'] );
+		unset( $columns['comments'] );
 		return $columns;
 	}
 
@@ -167,7 +173,8 @@ class WordPress {
 			return $excerpt;
 		}
 
-		return sprintf( '%1$s <p class="read-more-button-container"><a class="button" href="%2$s">%3$s</a></p>',
+		return sprintf(
+			'%1$s <p class="read-more-button-container"><a class="button" href="%2$s">%3$s</a></p>',
 			$excerpt,
 			get_permalink(),
 			__( 'Lees meer', 'siw' )

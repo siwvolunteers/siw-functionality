@@ -3,17 +3,20 @@
 namespace SIW\Plato;
 
 use SIW\Helpers\HTTP_Request;
+use SIW\Util\Logger;
 
 /**
  * Import uit Plato
- * 
+ *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
 abstract class Import extends Plato_Interface {
 
 	/** Data voor background process */
 	protected array $data = [];
+
+	/** Xsd bestand */
+	protected string $xsd_file;
 
 	/** Constructor */
 	public function __construct() {
@@ -25,7 +28,7 @@ abstract class Import extends Plato_Interface {
 	protected function add_query_arg_webkey() {
 		$this->add_query_arg( 'organizationWebserviceKey', $this->webkey );
 	}
-	
+
 	/** Haal de XML op */
 	protected function retrieve_xml() : bool {
 
@@ -43,15 +46,39 @@ abstract class Import extends Plato_Interface {
 	/** Verwerk de XML */
 	abstract protected function process_xml();
 
+	/** Valideert XML tegen XSD */
+	protected function validate_xml(): bool {
+		$dom_element = dom_import_simplexml( $this->xml_response );
+		if ( null === $dom_element ) {
+			return false;
+		}
+
+		libxml_use_internal_errors( true );
+		$dom = $dom_element->ownerDocument; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+
+		if ( ! $dom->schemaValidate( $this->xsd_file ) ) {
+			Logger::error(
+				sprintf( 'Fout tijdens schema validatie: %s', libxml_get_last_error()->message ),
+				static::class
+			);
+			libxml_use_internal_errors( false );
+
+			return false;
+		}
+
+		libxml_use_internal_errors( false );
+		return true;
+	}
+
 	/** Voer de Plato-import uit */
 	public function run() : array {
-		//Start import
-		if ( ! $this->retrieve_xml() ) {
+		// Start import
+		if ( ! $this->retrieve_xml() || ! $this->validate_xml() ) {
 			return [];
 		}
 		$this->process_xml();
-		
-		//Eind import
+
+		// Eind import
 		return $this->data;
 	}
 }

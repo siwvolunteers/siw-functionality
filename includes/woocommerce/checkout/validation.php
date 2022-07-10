@@ -7,7 +7,7 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
  * Validatie tijdens checkout van Groepsprojecten
- * 
+ *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Validation {
@@ -26,21 +26,21 @@ class Validation {
 
 		$has_required_field_error = false;
 		foreach ( $errors->get_error_codes() as $code ) {
-			if ( false !== strpos( $code, '_required' ) ) {
+			if ( str_ends_with( $code, '_required' ) ) {
 				$has_required_field_error = true;
 				$errors->remove( $code );
 			}
 		}
 
-		if ( $has_required_field_error == true ) {
+		if ( true === $has_required_field_error ) {
 			$errors->add( 'validation', __( 'Vul de verplichte velden in.', 'siw' ) );
 		}
 
 		$dob = $data['billing_dob'];
 		if ( ! (bool) date_parse( $dob ) ) {
-			$errors->add( 'validation', sprintf( __( '%s bevat geen geldige datum.', 'siw' ), '<strong>' . esc_html__( 'Geboortedatum','siw' ) . '</strong>' ) );
-		}
-		else {
+			// translators: %s is 'Geboortedatum'
+			$errors->add( 'validation', sprintf( __( '%s bevat geen geldige datum.', 'siw' ), '<strong>' . esc_html__( 'Geboortedatum', 'siw' ) . '</strong>' ) );
+		} else {
 			$age = Util::calculate_age( $dob );
 
 			foreach ( WC()->cart->get_cart() as $cart_item ) {
@@ -54,17 +54,18 @@ class Validation {
 					$errors->add(
 						'validation',
 						sprintf(
-							__( 'De minimumleeftijd voor deelname aan het project %s is %s jaar.', 'siw' ),
+							// translators: %1$s is de projectnaam, %2$s een geheel getal
+							__( 'De minimumleeftijd voor deelname aan het project %1$s is %2$s jaar.', 'siw' ),
 							'<strong>' . esc_html( $product->get_name() ) . '</strong>',
 							'<strong>' . esc_html( $min_age ) . '</strong>'
 						)
 					);
-				}
-				else if ( $age > $max_age ) {
+				} elseif ( $age > $max_age ) {
 					$errors->add(
 						'validation',
 						sprintf(
-							__( 'De maximumleeftijd voor deelname aan het project %s is %s jaar.', 'siw' ),
+							// translators: %1$s is de projectnaam, %2$s een geheel getal
+							__( 'De maximumleeftijd voor deelname aan het project %1$s is %2$s jaar.', 'siw' ),
 							'<strong>' . esc_html( $product->get_name() ) . '</strong>',
 							'<strong>' . esc_html( $max_age ) . '</strong>'
 						)

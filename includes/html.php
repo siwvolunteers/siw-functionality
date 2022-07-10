@@ -6,7 +6,6 @@ namespace SIW;
  * Hulpfuncties voor het genereren van HTML
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
  */
 class HTML {
 
@@ -32,31 +31,30 @@ class HTML {
 	/** Genereert HTML-tag */
 	public static function tag( string $tag, array $attributes, string $content = '' ) : string {
 
-		//Void tags
-		if ( in_array( $tag, self::$void_tags ) ) {
+		// Void tags
+		if ( in_array( $tag, self::$void_tags, true ) ) {
 			return sprintf(
 				'<%s %s>',
 				tag_escape( $tag ),
 				self::generate_attributes( $attributes )
 			);
-		}
-		else {
+		} else {
 			return sprintf(
 				'<%s %s>%s</%s>',
 				tag_escape( $tag ),
 				self::generate_attributes( $attributes ),
-				$content, //TODO: escaping met wp_kses_post?
+				$content, // TODO: escaping met wp_kses_post?
 				tag_escape( $tag )
 			);
 		}
 	}
 
 	/** Genereert `<a>` tag */
-	public static function a( array $attributes, string $content = '') : string {
+	public static function a( array $attributes, string $content = '' ) : string {
 		return self::tag( 'a', $attributes, $content );
 	}
 
-	/** sanitize_html_class voor meerdere classes*/
+	/** Versie van sanitize_html_class voor meerdere classes*/
 	public static function sanitize_html_classes( $class, string $fallback = null ) : string {
 		if ( is_string( $class ) ) {
 			$class = explode( ' ', $class );
@@ -64,8 +62,7 @@ class HTML {
 		if ( is_array( $class ) && count( $class ) > 0 ) {
 			$class = array_map( 'sanitize_html_class', $class );
 			return implode( ' ', $class );
-		}
-		else {
+		} else {
 			return sanitize_html_class( $class, $fallback );
 		}
 	}
@@ -74,14 +71,14 @@ class HTML {
 	public static function generate_attributes( array $attributes ) : string {
 		$rendered_attributes = '';
 		foreach ( $attributes as $key => $value ) {
-			if ( false == $value ) {
+			if ( false === $value ) {
 				continue;
 			}
-			if ( 'class' == $key ) {
+			if ( 'class' === $key ) {
 				$value = self::sanitize_html_classes( $value );
 			}
 			if ( is_array( $value ) ) {
-				$value = json_encode( $value );
+				$value = wp_json_encode( $value );
 			}
 
 			$rendered_attributes .= sprintf( true === $value ? ' %s' : ' %s="%s"', $key, esc_attr( $value ) );

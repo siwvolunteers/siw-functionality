@@ -8,7 +8,7 @@ use SIW\Elements\Interactive_Map;
  * Widget met interactieve kaart
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @widget_data
  * Widget Name: SIW: Interactieve kaart
  * Description: Toont interactieve kaart
@@ -46,10 +46,10 @@ class Map extends Widget {
 	public function get_widget_form() {
 		$widget_form = [
 			'title' => [
-				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw' ),
+				'type'  => 'text',
+				'label' => __( 'Titel', 'siw' ),
 			],
-			'map' => [
+			'map'   => [
 				'type'    => 'select',
 				'label'   => __( 'Kaart', 'siw' ),
 				'prompt'  => __( 'Kies een kaart', 'siw' ),
@@ -65,13 +65,13 @@ class Map extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	function get_template_variables( $instance, $args ) {
+	public function get_template_variables( $instance, $args ) {
 
 		$maps = wp_list_pluck( siw_get_interactive_maps(), 'class', 'id' );
 		if ( ! isset( $maps[ $instance['map'] ] ) ) {
 			return [];
 		}
-		$interactive_map = new $maps[ $instance['map'] ];
+		$interactive_map = new $maps[ $instance['map'] ]();
 
 		return [
 			'content' => Interactive_Map::create()->set_interactive_map( $interactive_map )->generate(),

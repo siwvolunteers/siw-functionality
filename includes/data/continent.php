@@ -4,7 +4,7 @@ namespace SIW\Data;
 
 /**
  * Bevat informatie over een continent
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Continent extends Data {

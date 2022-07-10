@@ -4,7 +4,7 @@ namespace SIW\Data;
 
 /**
  * Bevat informatie over een sociaal netwerk
- * 
+ *
  * @copyright   2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Social_Network extends Data {
@@ -14,7 +14,7 @@ class Social_Network extends Data {
 
 	/** Social networks voor delen */
 	const SHARE = 'share';
-	
+
 	/** Social networks voor volgen */
 	const FOLLOW = 'follow';
 
@@ -85,9 +85,9 @@ class Social_Network extends Data {
 	/** Geeft aan of Sociaal netwerk geldig is voor een gegeven context */
 	public function is_valid_for_context( string $context ) : bool {
 		return (
-			self::ALL == $context
-			|| ( self::SHARE == $context && $this->is_for_sharing() )
-			|| ( self::FOLLOW == $context && $this->is_for_following() )
+			self::ALL === $context
+			|| ( self::SHARE === $context && $this->is_for_sharing() )
+			|| ( self::FOLLOW === $context && $this->is_for_following() )
 		);
 	}
 }

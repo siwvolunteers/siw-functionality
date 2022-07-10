@@ -8,7 +8,7 @@ use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
 /**
  * Samenwerkingsformulier
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Cooperation implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
@@ -27,19 +27,19 @@ class Cooperation implements Form_Interface, Confirmation_Mail_Interface, Notifi
 	public function get_form_fields(): array {
 		return [
 			[
-				'id'      => 'organisation',
-				'type'    => 'text',
-				'name'    => __( 'Naam organisatie', 'siw' ),
+				'id'   => 'organisation',
+				'type' => 'text',
+				'name' => __( 'Naam organisatie', 'siw' ),
 			],
 			[
-				'id'      => 'contact_person',
-				'type'    => 'text',
-				'name'    => __( 'Naam contactpersoon', 'siw' ),
+				'id'   => 'contact_person',
+				'type' => 'text',
+				'name' => __( 'Naam contactpersoon', 'siw' ),
 			],
 			[
-				'id'      => 'email',
-				'type'    => 'email',
-				'name'    => __( 'Emailadres', 'siw' ),
+				'id'   => 'email',
+				'type' => 'email',
+				'name' => __( 'Emailadres', 'siw' ),
 			],
 			[
 				'id'       => 'phone',
@@ -53,7 +53,7 @@ class Cooperation implements Form_Interface, Confirmation_Mail_Interface, Notifi
 				'name'     => __( 'Beschrijf kort op welke manier u wilt samenwerken met SIW', 'siw' ),
 				'required' => true,
 				'columns'  => Form_Interface::FULL_WIDTH,
-			]
+			],
 		];
 	}
 
@@ -74,6 +74,7 @@ class Cooperation implements Form_Interface, Confirmation_Mail_Interface, Notifi
 
 	/** {@inheritDoc} */
 	public function get_confirmation_mail_message(): string {
+		// translators: %s is de naam van de contactpersoon
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ contact_person }}' ) . BR2 .
 		__( 'Wat leuk dat u interesse heeft in een samenwerking met SIW Internationale Vrijwilligersprojecten!', 'siw' ) . SPACE .
 		__( 'Wij willen u bedanken voor het achterlaten van uw contactgegevens en wensen.', 'siw' ) . SPACE .

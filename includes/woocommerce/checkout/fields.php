@@ -11,10 +11,10 @@ class Fields {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_filter( 'woocommerce_checkout_fields', [ $self, 'add_checkout_fields'] );
+		add_filter( 'woocommerce_checkout_fields', [ $self, 'add_checkout_fields' ] );
 		add_filter( 'woocommerce_enable_order_notes_field', '__return_false' );
-		add_action( 'woocommerce_checkout_create_order', [ $self, 'save_checkout_fields'], 10, 2 );
-		add_action( 'woocommerce_after_checkout_billing_form', [ $self, 'show_checkout_fields'] );
+		add_action( 'woocommerce_checkout_create_order', [ $self, 'save_checkout_fields' ], 10, 2 );
+		add_action( 'woocommerce_after_checkout_billing_form', [ $self, 'show_checkout_fields' ] );
 	}
 
 	/** Haalt checkoutvelden op */
@@ -28,7 +28,7 @@ class Fields {
 	}
 
 	/** Voegt de extra checkoutvelden toe */
-	public function add_checkout_fields( $checkout_fields ) : array {
+	public function add_checkout_fields( $checkout_fields ): array {
 		$checkout_fields = wp_parse_args_recursive( $this->get_checkout_fields(), $checkout_fields );
 		return $checkout_fields;
 	}
@@ -38,14 +38,14 @@ class Fields {
 		$checkout_sections = siw_get_data( 'workcamps/checkout-sections' );
 		?>
 		<div class="woocommerce-extra-fields">
-			<?php foreach ( $checkout_sections as $section => $header ) :?>
+			<?php foreach ( $checkout_sections as $section => $header ) : ?>
 			<div class="woocommerce-billing-fields__field-wrapper">
-				<h3 class="form-row form-row-wide"><?= esc_html( $header );?></h3>
+				<h3 class="form-row form-row-wide"><?php echo esc_html( $header ); ?></h3>
 				<?php
 				foreach ( $checkout->get_checkout_fields( $section ) as $key => $field ) {
 					woocommerce_form_field( $key, $field, $checkout->get_value( $key ) );
 				}
-			?>
+				?>
 			</div>
 			<?php endforeach ?>
 		</div>

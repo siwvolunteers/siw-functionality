@@ -8,7 +8,7 @@ namespace SIW\Elements;
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 abstract class Repeater extends Element {
-	
+
 	/** Items */
 	protected array $items;
 
@@ -28,7 +28,7 @@ abstract class Repeater extends Element {
 		}
 		return $this;
 	}
-	
+
 	/** Voegt meerdere items toe aan repeater */
 	public function add_items( array $items ) {
 		foreach ( $items as $item ) {
@@ -41,7 +41,7 @@ abstract class Repeater extends Element {
 	protected function parse_item( array $item ) : array {
 		return $item;
 	}
-	
+
 	/** Geeft default waardes van item terug TODO: abstract maken? */
 	protected function get_item_defaults() : array {
 		return [];

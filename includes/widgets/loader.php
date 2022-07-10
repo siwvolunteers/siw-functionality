@@ -39,7 +39,7 @@ class Loader extends Class_Loader_Abstract {
 		$file_base = $this->get_file_base_from_id_base( $id_base );
 
 		$widget_folder = untrailingslashit( SIW_WIDGETS_DIR );
-		if ( function_exists('siteorigin_widget_register') && file_exists( "{$widget_folder}/{$file_base}/{$file_base}.php" ) ) {
+		if ( function_exists( 'siteorigin_widget_register' ) && file_exists( "{$widget_folder}/{$file_base}/{$file_base}.php" ) ) {
 			siteorigin_widget_register(
 				"sow-siw_{$id_base}_widget",
 				"{$widget_folder}/{$file_base}/{$file_base}.php",
@@ -49,8 +49,8 @@ class Loader extends Class_Loader_Abstract {
 		}
 
 		add_filter( 'siteorigin_widgets_active_widgets', fn( $active_widgets ) => wp_parse_args( [ $id_base => true ], $active_widgets ) );
-		//Widget activeren, kan pas bij init-hook
-		if ( class_exists(\SiteOrigin_Widgets_Bundle::class ) ) {
+		// Widget activeren, kan pas bij init-hook
+		if ( class_exists( \SiteOrigin_Widgets_Bundle::class ) ) {
 			add_action( 'init', fn() => \SiteOrigin_Widgets_Bundle::single()->activate_widget( $file_base ) );
 		}
 	}

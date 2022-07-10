@@ -22,12 +22,12 @@ class Product_Tabs {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_and_rename_and_remove_product_tabs'] );
+		add_filter( 'woocommerce_product_tabs', [ $self, 'add_and_rename_and_remove_product_tabs' ] );
 		add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
 	}
 
 	/** Voegt tab met projectbeschrijving toe */
-	public function add_and_rename_and_remove_product_tabs( array $tabs ) : array {
+	public function add_and_rename_and_remove_product_tabs( array $tabs ): array {
 		global $post;
 		$product = siw_get_product( $post );
 		if ( null === $product ) {
@@ -36,7 +36,7 @@ class Product_Tabs {
 
 		$tabs['additional_information']['title'] = __( 'Eigenschappen', 'siw' );
 
-		unset( $tabs['description']);
+		unset( $tabs['description'] );
 
 		$project_description = $product->get_project_description();
 		if ( ! empty( $project_description ) ) {
@@ -50,12 +50,12 @@ class Product_Tabs {
 
 		$latitude = $product->get_latitude();
 		$longitude = $product->get_longitude();
-	
+
 		if ( null !== $latitude && null !== $longitude ) {
 			$tabs['location'] = [
 				'title'     => __( 'Projectlocatie', 'siw' ),
 				'priority'  => 110,
-				'callback'  => [ $this, 'show_project_map'],
+				'callback'  => [ $this, 'show_project_map' ],
 				'latitude'  => $latitude,
 				'longitude' => $longitude,
 			];
@@ -120,14 +120,15 @@ class Product_Tabs {
 
 		/**@var WC_Product_Project */
 		$product = $args['product'];
-		
+
 		printf(
-			__( 'Het inschrijfgeld voor dit project bedraagt %s, exclusief %s studentenkorting.' ),
-			siw_format_amount( (float) $product->get_price() ),
-			siw_format_amount( Properties::STUDENT_DISCOUNT_AMOUNT )
+			// translators: %1$s is het inschrijfgeld %2$s is het bedrag studentenkorting
+			esc_html__( 'Het inschrijfgeld voor dit project bedraagt %1$s, exclusief %2$s studentenkorting.', 'siw' ),
+			esc_html( siw_format_amount( (float) $product->get_price() ) ),
+			esc_html( siw_format_amount( Properties::STUDENT_DISCOUNT_AMOUNT ) )
 		);
 
-		//Local fee niet tonen voor nederlandse projecten
+		// Local fee niet tonen voor nederlandse projecten
 		if ( $product->has_participation_fee() && ! $product->is_dutch_project() ) {
 
 			$currency_code = $product->get_participation_fee_currency();
@@ -136,16 +137,18 @@ class Product_Tabs {
 				$exchange_rates = new Exchange_Rates();
 				$amount_in_euro = $exchange_rates->convert_to_euro( $currency_code, $product->get_participation_fee(), 0 );
 			}
-			echo BR;
+			echo BR; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			printf(
-				__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s.' ),
-				siw_format_amount( $product->get_participation_fee(), 0, $currency_code )
+				// translators: %s is een bedrag
+				esc_html__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s.', 'siw' ),
+				esc_html( siw_format_amount( $product->get_participation_fee(), 0, $currency_code ) )
 			);
 			if ( isset( $amount_in_euro ) ) {
-				echo SPACE;
+				echo SPACE; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				printf(
+					// translators: %s is het bedrag lokale bijdrage
 					esc_html__( '(Ca. %s)', 'siw' ),
-					siw_format_amount( (float) $amount_in_euro, 0 )
+					esc_html( siw_format_amount( (float) $amount_in_euro, 0 ) )
 				);
 			}
 		}

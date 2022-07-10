@@ -6,7 +6,7 @@ use SIW\WooCommerce\Import\Product as Import_Product;
 
 /**
  * Goedkeuring van projecten
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Approval {
@@ -20,14 +20,14 @@ class Approval {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_action( 'post_submitbox_misc_actions', [ $self, 'show_approval_result'] );
-		add_action( 'post_submitbox_start', [ $self, 'show_approval_option'] );
-		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_approval_result'] );
+		add_action( 'post_submitbox_misc_actions', [ $self, 'show_approval_result' ] );
+		add_action( 'post_submitbox_start', [ $self, 'show_approval_option' ] );
+		add_action( 'woocommerce_admin_process_product_object', [ $self, 'save_approval_result' ] );
 	}
 
 	/** Toont optie om nog niet gepubliceerd project af of goed te keuren */
 	public function show_approval_option( \WP_Post $post ) {
-		if ( 'product' != $post->post_type || Import_Product::REVIEW_STATUS != $post->post_status ) {
+		if ( 'product' !== $post->post_type || Import_Product::REVIEW_STATUS !== $post->post_status ) {
 			return;
 		}
 		$product = siw_get_product( $post->ID );
@@ -39,10 +39,10 @@ class Approval {
 		$approval_result = $product->get_approval_result();
 		woocommerce_wp_radio(
 			[
-				'id'          => '_approval_result',
-				'value'       => ! empty( $approval_result ) ? $approval_result : self::APPROVED,
-				'label'       => __( 'Beoordeling project', 'siw' ),
-				'options'     => [
+				'id'      => '_approval_result',
+				'value'   => ! empty( $approval_result ) ? $approval_result : self::APPROVED,
+				'label'   => __( 'Beoordeling project', 'siw' ),
+				'options' => [
 					self::APPROVED => __( 'Goedkeuren', 'siw' ),
 					self::REJECTED => __( 'Afkeuren', 'siw' ),
 				],
@@ -53,7 +53,7 @@ class Approval {
 	/** Toont beoordelingsresultaat */
 	public function show_approval_result( \WP_Post $post ) {
 		$product = siw_get_product( $post );
-		if ( null == $product || empty( $product->get_meta( 'approval_result' ) ) ) {
+		if ( null === $product || empty( $product->get_meta( 'approval_result' ) ) ) {
 			return;
 		}
 		switch ( $product->get_meta( 'approval_result' ) ) {
@@ -61,13 +61,13 @@ class Approval {
 				$message = __( 'Goedgekeurd', 'siw' );
 				$class = 'success';
 				break;
-			case self::REJECTED;
+			case self::REJECTED:
 				$message = __( 'Afgekeurd', 'siw' );
 				$class = 'error';
 				break;
 		}
 
-		printf (
+		printf(
 			'<div class="notice notice-%s notice-alt inline">%s</div>',
 			esc_attr( $class ),
 			esc_html( $message )
@@ -77,13 +77,16 @@ class Approval {
 	/** Slaat het resultaat van de beoordeling op */
 	public function save_approval_result( \WC_Product $product ) {
 
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+
 		if ( ! isset( $_POST['_approval_result'] ) ) {
 			return;
 		}
-		$product->update_meta_data( 'approval_result', wc_clean( $_POST['_approval_result'] ) );
+		$product->update_meta_data( 'approval_result', sanitize_text_field( wp_unslash( $_POST['_approval_result'] ) ) );
 
-		if ( self::REJECTED == wc_clean( $_POST['_approval_result'] ) ) {
+		if ( self::REJECTED === sanitize_text_field( wp_unslash( $_POST['_approval_result'] ) ) ) {
 			$product->set_catalog_visibility( 'hidden' );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 }

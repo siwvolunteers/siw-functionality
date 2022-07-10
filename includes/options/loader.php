@@ -7,9 +7,8 @@ use SIW\Interfaces\Options\Option as Option_Interface;
 
 /**
  * Class om opties te laden
- * 
+ *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.2.0
  */
 class Loader extends Object_Loader_Abstract {
 
@@ -19,22 +18,23 @@ class Loader extends Object_Loader_Abstract {
 	}
 
 	/** {@inheritDoc} */
-	public function get_classes() : array {
+	public function get_classes(): array {
 		return [
 			Configuration::class,
 			Countries::class,
+			Help::class,
 			Settings::class,
 		];
 	}
 
 	/** {@inheritDoc} */
-	public function get_interface_namespace() : string {
+	public function get_interface_namespace(): string {
 		return 'Options';
 	}
 
 	/** {@inheritDoc} */
 	protected function load( object $option ) {
-		if( ! is_a( $option, Option_Interface::class ) ) {
+		if ( ! is_a( $option, Option_Interface::class ) ) {
 			return;
 		}
 		new Option( $option );

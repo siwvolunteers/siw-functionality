@@ -6,7 +6,7 @@ use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
 /**
  * Proces om order meta te migreren
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Migrate_Order_Meta implements Batch_Action_Interface {
@@ -34,9 +34,9 @@ class Migrate_Order_Meta implements Batch_Action_Interface {
 	/** {@inheritDoc} */
 	public function select_data(): array {
 		$args = [
-			'limit'        => -1,
-			'return'       => 'ids',
-			'type'         => 'shop_order',
+			'limit'  => -1,
+			'return' => 'ids',
+			'type'   => 'shop_order',
 		];
 		return wc_get_orders( $args );
 	}
@@ -49,7 +49,7 @@ class Migrate_Order_Meta implements Batch_Action_Interface {
 			return;
 		}
 
-		//Meta migreren
+		// Meta migreren
 		$meta_keys = [
 			'emergencyContactName'  => 'emergency_contact_name',
 			'emergencyContactPhone' => 'emergency_contact_phone',

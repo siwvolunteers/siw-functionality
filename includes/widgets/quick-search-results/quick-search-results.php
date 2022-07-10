@@ -9,7 +9,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  * Widget met contactinformatie
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @widget_data
  * Widget Name: SIW: Snel Zoeken - resultaten
  * Description: Toont zoekformulier
@@ -60,8 +60,8 @@ class Quick_Search_Results extends Widget {
 
 	/** {@inheritDoc} */
 	public function initialize() {
-		add_filter( 'query_vars', [ $this, 'register_query_vars'] );
-		add_filter( 'rocket_cache_query_strings', [ $this, 'register_query_vars'] );
+		add_filter( 'query_vars', [ $this, 'register_query_vars' ] );
+		add_filter( 'rocket_cache_query_strings', [ $this, 'register_query_vars' ] );
 	}
 
 	/** Registreert query vars */
@@ -72,9 +72,9 @@ class Quick_Search_Results extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	function get_template_variables( $instance, $args ) {
+	public function get_template_variables( $instance, $args ) {
 
-		//TODO:refactor
+		// TODO:refactor
 		$url = wc_get_page_permalink( 'shop' );
 		$text = __( 'Bekijk alle projecten', 'siw' );
 
@@ -83,7 +83,7 @@ class Quick_Search_Results extends Widget {
 			'columns'    => 3,
 			'orderby'    => 'rand',
 			'visibility' => 'visible',
-			'cache'      => 'false'
+			'cache'      => 'false',
 		];
 
 		/* Verwerk zoekargument bestemming*/
@@ -93,6 +93,7 @@ class Quick_Search_Results extends Widget {
 		if ( is_a( $category, \WP_Term::class ) ) {
 			$attributes['continent'] = $category_slug;
 			$url = get_term_link( $category->term_id );
+			// translators: %s is een continent
 			$text .= SPACE . sprintf( __( 'in %s', 'siw' ), $category->name );
 		}
 
@@ -102,7 +103,8 @@ class Quick_Search_Results extends Widget {
 		if ( is_a( $month, \WP_Term::class ) ) {
 			$attributes['maand'] = $month_slug;
 			$url       = add_query_arg( 'filter_maand', $month_slug, $url );
-			$text      .= SPACE . sprintf( __( 'in %s', 'siw' ), strtolower( $month->name ) );
+			// translators: %s is een maand
+			$text .= SPACE . sprintf( __( 'in %s', 'siw' ), strtolower( $month->name ) );
 		}
 
 		$attributes['show_button'] = 'true';
@@ -110,7 +112,7 @@ class Quick_Search_Results extends Widget {
 		$attributes['button_text'] = $text;
 
 		return [
-			'intro'     =>
+			'intro'   =>
 				esc_html__( 'Met een Groepsproject ga je voor 2 tot 3 weken naar een project, de begin- en einddatum van het project staan al vast.', 'siw' ) . SPACE .
 				esc_html__( 'Hieronder zie je een selectie van de mogelijkheden', 'siw' ),
 			'content' => sprintf( '[products %s]', HTML::generate_attributes( $attributes ) ),

@@ -6,7 +6,7 @@ use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
 /**
  * Bijwerken terms
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Update_Terms implements Batch_Action_Interface {
@@ -18,7 +18,7 @@ class Update_Terms implements Batch_Action_Interface {
 	public function get_id(): string {
 		return 'update_terms';
 	}
-	
+
 	/** {@inheritDoc} */
 	public function get_name(): string {
 		return 'Bijwerken terms';
@@ -37,13 +37,15 @@ class Update_Terms implements Batch_Action_Interface {
 	/** {@inheritDoc} */
 	public function select_data() : array {
 
-		//Filter om taxonomieën toe te voegen
+		// Filter om taxonomieën toe te voegen
 		$taxonomies = apply_filters( 'siw_update_terms_taxonomies', [] );
-		
-		$data = get_terms( [
-			'taxonomy'   => $taxonomies,
-			'fields'     => 'tt_ids'
-		]);
+
+		$data = get_terms(
+			[
+				'taxonomy' => $taxonomies,
+				'fields'   => 'tt_ids',
+			]
+		);
 
 		if ( is_wp_error( $data ) ) {
 			return [];
@@ -54,7 +56,7 @@ class Update_Terms implements Batch_Action_Interface {
 	/** {@inheritDoc} */
 	public function process( $term_taxonomy_id ) {
 
-	if ( ! is_int( $term_taxonomy_id ) ) {
+		if ( ! is_int( $term_taxonomy_id ) ) {
 			return;
 		}
 
@@ -63,7 +65,7 @@ class Update_Terms implements Batch_Action_Interface {
 			return;
 		}
 
-		//Taxonomy subquery
+		// Taxonomy subquery
 		$tax_query = [
 			[
 				'taxonomy' => $term->taxonomy,
@@ -71,8 +73,8 @@ class Update_Terms implements Batch_Action_Interface {
 				'terms'    => $term->slug,
 			],
 		];
-		
-		//Filter om meta query voor actieve posts te zetten
+
+		// Filter om meta query voor actieve posts te zetten
 		$meta_query = apply_filters( 'siw_update_terms_meta_query', [], $term->taxonomy );
 
 		$posts = get_posts(
@@ -87,12 +89,9 @@ class Update_Terms implements Batch_Action_Interface {
 
 		$count = count( $posts );
 
-
 		$current_count = intval( get_term_meta( $term->term_id, self::POST_COUNT_TERM_META, true ) );
 		if ( $current_count !== $count ) {
 			update_term_meta( $term->term_id, self::POST_COUNT_TERM_META, $count );
 		}
-
-		return;
 	}
 }

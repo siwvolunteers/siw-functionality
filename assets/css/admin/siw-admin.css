@@ -1,3 +1,32 @@
+body {
+  --siw-base: #fff;
+  --siw-contrast: #0073aa;
+}
+body.admin-color-blue {
+  --siw-contrast: #e1a948;
+}
+body.admin-color-coffee {
+  --siw-contrast: #c7a589;
+}
+body.admin-color-ectoplasm {
+  --siw-contrast: #a3b745;
+}
+body.admin-color-light {
+  --siw-contrast: #04a4cc;
+}
+body.admin-color-midnight {
+  --siw-contrast: #e14d43;
+}
+body.admin-color-modern {
+  --siw-contrast: #3858e9;
+}
+body.admin-color-ocean {
+  --siw-contrast: #9ebaa0;
+}
+body.admin-color-sunrise {
+  --siw-contrast: #dd823b;
+}
+
 #wpadminbar ul li#wp-admin-bar-siw-env {
   pointer-events: none;
   background-color: #b92a2a;

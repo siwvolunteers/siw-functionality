@@ -6,9 +6,9 @@ use SIW\Interfaces\Assets\Script;
 
 /**
  * AcceDe Web accordion
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see       https://github.com/AcceDe-Web/tablist
  */
 class A11Y_Tablist implements Script {

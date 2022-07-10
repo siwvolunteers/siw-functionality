@@ -8,7 +8,7 @@ use SIW\WooCommerce\Import\Free_Places as Import_Free_Places;
 
 /**
  * Importeren vrije plaatsen per project uit Plato
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Import_Plato_Project_Free_Places implements Batch_Action_Interface {
@@ -17,12 +17,12 @@ class Import_Plato_Project_Free_Places implements Batch_Action_Interface {
 	public function get_id(): string {
 		return 'import_plato_project_free_places';
 	}
-	
+
 	/** {@inheritDoc} */
 	public function get_name(): string {
 		return __( 'Importeren vrije plaatsen uit Plato', 'siw' );
 	}
-	
+
 	/** {@inheritDoc} */
 	public function must_be_scheduled(): bool {
 		return true;
@@ -35,10 +35,10 @@ class Import_Plato_Project_Free_Places implements Batch_Action_Interface {
 
 	/** {@inheritDoc} */
 	public function select_data(): array {
-		$import = new Import_FPL;
+		$import = new Import_FPL();
 		return $import->run();
 	}
-	
+
 	/** {@inheritDoc} */
 	public function process( $project_id ) {
 
@@ -49,6 +49,5 @@ class Import_Plato_Project_Free_Places implements Batch_Action_Interface {
 
 		$import = new Import_Free_Places( $project_free_places );
 		$import->process();
-		return;
 	}
 }

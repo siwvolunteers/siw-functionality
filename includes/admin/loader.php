@@ -16,6 +16,8 @@ class Loader extends Class_Loader_Abstract {
 		return [
 			Admin_Bar::class,
 			Admin::class,
+			Help_Page::class,
+			Help_Tabs::class,
 			Tableview_Page::class,
 			Properties_Page::class,
 			Shortcodes::class,
@@ -23,7 +25,7 @@ class Loader extends Class_Loader_Abstract {
 	}
 
 	/** Laadt 1 klasse */
-	 protected function load( string $class ) {
+	protected function load( string $class ) {
 		$class::init();
 	}
 

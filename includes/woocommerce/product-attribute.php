@@ -6,9 +6,9 @@ use \Spatie\Enum\Enum;
 
 /**
  * WooCommerce product attributes
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @method static self PROJECT_NAME()
  * @method static self PROJECT_CODE()
  * @method static self START_DATE()

@@ -6,9 +6,9 @@ use SIW\Interfaces\Assets\Script;
 
 /**
  * Frappe Charts
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @see https://frappe.io/charts
  */
 class Frappe_Charts implements Script {

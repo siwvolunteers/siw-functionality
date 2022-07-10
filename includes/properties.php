@@ -72,18 +72,6 @@ class Properties {
 	/** Bedrag studentenkorting  */
 	const STUDENT_DISCOUNT_AMOUNT = 50;
 
-	/** @deprecated */
-	const WORKCAMP_FEE_STUDENT = self::STV_PROJECT_FEE - self::STUDENT_DISCOUNT_AMOUNT;
-
-	/** @deprecated */
-	const WORKCAMP_FEE_REGULAR = self::STV_PROJECT_FEE;
-
-	/** @deprecated */
-	const WORKCAMP_FEE_STUDENT_SALE = 149;
-
-	/** @deprecated */
-	const WORKCAMP_FEE_REGULAR_SALE = 199;
-
 	/** Inschrijfgeld Schoolproject */
 	const SCHOOL_PROJECT_FEE = 125;
 
@@ -100,30 +88,33 @@ class Properties {
 	public static function get( string $property ) {
 		$property = strtoupper( $property );
 		if ( defined( 'self::' . $property ) ) {
-			return constant('self::' . $property );
+			return constant( 'self::' . $property );
 		}
 		return null;
 	}
 
 	/** Geeft array met properties terug */
-	static public function get_all() : array {
-		$reflectionClass = new \ReflectionClass( __CLASS__ );
-		$constants = $reflectionClass->getConstants();
+	public static function get_all() : array {
+		$reflection_class = new \ReflectionClass( __CLASS__ );
+		$constants = $reflection_class->getConstants();
 		$configuration = [];
 		foreach ( $constants as $name => $value ) {
-			$reflectionConstant = new \ReflectionClassConstant( __CLASS__, $name );
-			$comment = $reflectionConstant->getDocComment();
-			
-			//Haal beschrijving uit docblock
+			$reflection_constant = new \ReflectionClassConstant( __CLASS__, $name );
+			$comment = $reflection_constant->getDocComment();
+
+			// Haal beschrijving uit docblock
 			$regex = '/\/\*\*\s*(.*)\s\*\//m';
-			if ( 1 == preg_match( $regex, $comment, $matches ) ) {
+			if ( 1 === preg_match( $regex, $comment, $matches ) ) {
 				$description = $matches[1];
-			}
-			else {
+			} else {
 				$description = '';
 			}
 
-			$configuration[ $name ] = [ 'name' => $name, 'value' => $value, 'description' => $description ];
+			$configuration[ $name ] = [
+				'name'        => $name,
+				'value'       => $value,
+				'description' => $description,
+			];
 		}
 
 		return $configuration;

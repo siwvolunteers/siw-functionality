@@ -4,10 +4,10 @@ namespace SIW\Structured_Data;
 
 /**
  * Status van evenement
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  * @see https://schema.org/EventStatusType
- * 
+ *
  * @method static self EventScheduled()
  * @method static self EventCancelled()
  * @method static self EventMovedOnline()

@@ -6,11 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Gegevens van landen in Europa
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	[
 		'plato_code'  => 'ALB',
 		'iso_code'    => 'al',
@@ -203,7 +203,10 @@ $data = [
 		'workcamps'   => true,
 		'tailor_made' => false,
 		'esc'         => true,
-		'world_map'   => [ 'x' => 0.4504, 'y' => 0.3412 ], //TODO: kan weg na mapplic fix
+		'world_map'   => [
+			'x' => 0.4504,
+			'y' => 0.3412,
+		], // TODO: kan weg na mapplic fix
 	],
 	[
 		'plato_code'  => 'ITA',
@@ -222,7 +225,11 @@ $data = [
 		'workcamps'   => false,
 		'tailor_made' => false,
 		'esc'         => true,
-		'world_map'   => [ 'code' => 'li', 'x' => 0.5273, 'y' => 0.4742 ], //FIXME: staat eigenlijk niet op de kaart
+		'world_map'   => [
+			'code' => 'li',
+			'x'    => 0.5273,
+			'y'    => 0.4742,
+		], // FIXME: staat eigenlijk niet op de kaart
 	],
 	[
 		'plato_code'  => 'LTU',
@@ -276,7 +283,10 @@ $data = [
 		'workcamps'   => false,
 		'tailor_made' => false,
 		'esc'         => true,
-		'world_map'   => [ 'x' => 0.5390, 'y' => 0.5358 ], //FIXME: staat eigenlijk niet op de kaart
+		'world_map'   => [
+			'x' => 0.5390,
+			'y' => 0.5358,
+		], // FIXME: staat eigenlijk niet op de kaart
 	],
 	[
 		'plato_code'  => 'MNE',
@@ -399,4 +409,4 @@ $data = [
 		'tailor_made' => false,
 	],
 ];
-return $data;
+return $siw_data;

@@ -19,7 +19,7 @@ class Logger {
 		}
 
 		$logger = \wc_get_logger();
-		$logger->log( $level, $message, [ 'source'=> $source ] );
+		$logger->log( $level, $message, [ 'source' => $source ] );
 	}
 
 	/** Schrijf naar log met niveau debug */

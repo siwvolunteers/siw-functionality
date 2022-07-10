@@ -8,7 +8,7 @@ use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
 /**
  * Aanmelding projectbegeleider NP
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
 class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
@@ -51,12 +51,12 @@ class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interfa
 				'id'          => 'date_of_birth',
 				'type'        => 'text',
 				'name'        => __( 'Geboortedatum', 'siw' ),
-				'placeholder' => __( 'dd-mm-jjjj', 'siw' )
+				'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
 			],
 			[
-				'id'     => 'project_preference',
-				'type'   => 'checkbox_list',
-				'name'   => __( 'Heb je een voorkeur om een bepaald Nederlands vrijwilligersproject te begeleiden?', 'siw' ),
+				'id'      => 'project_preference',
+				'type'    => 'checkbox_list',
+				'name'    => __( 'Heb je een voorkeur om een bepaald Nederlands vrijwilligersproject te begeleiden?', 'siw' ),
 				'options' => $this->get_project_options(),
 			],
 			[
@@ -86,12 +86,13 @@ class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interfa
 
 	/** {@inheritDoc} */
 	public function get_confirmation_mail_message(): string {
+		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
-			__( 'Bedankt voor jouw aanmelding.', 'siw') . SPACE .
+			__( 'Bedankt voor jouw aanmelding.', 'siw' ) . SPACE .
 			__( 'Wat leuk dat je interesse hebt om projectbegeleider te worden voor de Nederlandse vrijwilligersprojecten.', 'siw' ) . SPACE .
 			__( 'Een creatieve uitdaging die je nooit meer zal vergeten!', 'siw' ) . SPACE .
 			__( 'Zoals oud-projectbegeleider Diederik (project in Friesland) het omschreef:', 'siw' ) . BR .
-			'<span style="font-style:italic">"'.
+			'<span style="font-style:italic">"' .
 			__( 'Het is ontzettend leerzaam om met zoveel verschillende mensen om te gaan, iedereen gemotiveerd te houden en te zorgen dat iedereen zich op zijn gemak voelt.', 'siw' ) . SPACE .
 			__( 'Daarnaast zie je hoe de groep zich ontwikkelt, een prachtig proces om van zo dichtbij mee te mogen maken.', 'siw' ) .
 			'"</span>' . BR2 .
@@ -107,12 +108,12 @@ class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interfa
 	/** Geeft lijst met Nederlandse projecten terug */
 	protected function get_project_options(): array {
 		$project_options[''] = __( 'Geen voorkeur', 'siw' );
-		
+
 		$args = [
 			'country' => 'nederland',
 		];
 		$projects = siw_get_products( $args );
-		
+
 		foreach ( $projects as $project ) {
 			$project_options[ sanitize_title( $project->get_sku() ) ] = $project->get_formatted_name();
 		}

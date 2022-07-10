@@ -22,9 +22,9 @@ class Head {
 	public static function init() {
 		$self = new self();
 
-		add_filter( 'site_icon_meta_tags', [ $self, 'add_theme_color_tag']);
-		add_filter( 'site_icon_meta_tags', [ $self, 'add_manifest_tag']);
-		add_action( 'init', [ $self, 'show_web_app_manifest'] );
+		add_filter( 'site_icon_meta_tags', [ $self, 'add_theme_color_tag' ] );
+		add_filter( 'site_icon_meta_tags', [ $self, 'add_manifest_tag' ] );
+		add_action( 'init', [ $self, 'show_web_app_manifest' ] );
 
 		/* Optimalisatie HEAD */
 		add_filter( 'the_generator', '__return_false' );
@@ -37,7 +37,7 @@ class Head {
 		remove_action( 'wp_head', 'feed_links_extra', 3 );
 		remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10 );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
-		remove_action( 'template_redirect', 'rest_output_link_header', 11 ) ;
+		remove_action( 'template_redirect', 'rest_output_link_header', 11 );
 	}
 
 	/** Voegt tag voor theme color toe */
@@ -56,15 +56,14 @@ class Head {
 	public function show_web_app_manifest() {
 		$request = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 
-		//TODO: vervangen door str_ends_with() bij upgrade naar php8
-		if ( false === strpos( $request, self::WEB_APP_MANIFEST_FILENAME ) ) {
+		if ( ! str_ends_with( $request, self::WEB_APP_MANIFEST_FILENAME ) ) {
 			return;
 		}
 
 		$data = [
 			'short_name'       => 'SIW',
 			'name'             => Properties::NAME,
-			'description'      => esc_attr( get_bloginfo( 'description') ),
+			'description'      => esc_attr( get_bloginfo( 'description' ) ),
 			'lang'             => str_replace( '_', '-', get_locale() ),
 			'start_url'        => '.',
 			'scope'            => '/',
@@ -82,8 +81,8 @@ class Head {
 					'src'   => get_site_icon_url( 512 ),
 					'sizes' => '512x512',
 				],
-			]
+			],
 		];
-		wp_send_json( $data, 200 );
+		wp_send_json( $data, \WP_Http::OK );
 	}
 }

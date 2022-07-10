@@ -12,10 +12,10 @@ use SIW\Properties;
 class CSS {
 
 	/** Breakpoint voor mobiel (max-width) */
-	CONST MOBILE_BREAKPOINT = 768;
+	const MOBILE_BREAKPOINT = 768;
 
 	/** Breakpoint voor tablet (max-width) */
-	CONST TABLET_BREAKPOINT = 1024;
+	const TABLET_BREAKPOINT = 1024;
 
 	/** CSS klasse om content op mobiel te verbergen */
 	const HIDE_ON_MOBILE_CLASS = 'hide-on-mobile';
@@ -35,47 +35,36 @@ class CSS {
 	/** Contrastkleur licht (tekst) */
 	const CONTRAST_COLOR_LIGHT = '#555';
 
-	/** Basekleur (achtergrondkleur) */	
+	/** Basekleur (achtergrondkleur) */
 	const BASE_COLOR = '#fefefe';
 
 	/** Genereert reponsive classes */
-	public static function generate_responsive_classes( int $desktop_columns, int $tablet_columns = null, int $mobile_columns = null ) : string {
-		$classes[] = 'grid-'. self::columns_to_grid_width( $desktop_columns );
+	public static function generate_responsive_classes( int $desktop_columns, int $tablet_columns = null, int $mobile_columns = null ): string {
+		$classes[] = 'grid-' . self::columns_to_grid_width( $desktop_columns );
 		if ( is_int( $tablet_columns ) ) {
-			$classes[] = 'tablet-grid-'. self::columns_to_grid_width( $tablet_columns );
+			$classes[] = 'tablet-grid-' . self::columns_to_grid_width( $tablet_columns );
 		}
 		if ( is_int( $mobile_columns ) ) {
-			$classes[] = 'mobile-grid-'. self::columns_to_grid_width( $mobile_columns );
+			$classes[] = 'mobile-grid-' . self::columns_to_grid_width( $mobile_columns );
 		}
 		return implode( SPACE, $classes );
 	}
 
 	/** Converteert aantal kolommen naar grid breedte */
-	public static function columns_to_grid_width( int $columns ) : int {
-		switch ( $columns ) {
-			case 1:
-				$grid_width = 100;
-				break;
-			case 2:
-				$grid_width = 50;
-				break;
-			case 3:
-				$grid_width = 33;
-				break;
-			case 4:
-				$grid_width = 25;
-				break;
-			case 5:
-				$grid_width = 20;
-				break;
-			default:
-				$grid_width = 100;
-		}
+	public static function columns_to_grid_width( int $columns ): int {
+
+		$grid_width = match ( $columns ) {
+			1 => 100,
+			2 => 50,
+			3 => 33,
+			4 => 25,
+			5 => 20,
+		};
 		return $grid_width;
 	}
 
 	/** Genereert css o.b.v. array met regels */
-	public static function generate_inline_css( array $rules, array $media_query = [] ) {
+	public static function generate_inline_css( array $rules, array $media_query = [] ): string {
 		$css = '';
 		foreach ( $rules as $selector => $styles ) {
 			$css .= $selector . '{' . PHP_EOL;

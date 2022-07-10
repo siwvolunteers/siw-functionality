@@ -7,7 +7,7 @@ use SIW\Helpers\Database;
 
 /**
  * Importeer FPL uit Plato
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Import_FPL extends Import {
@@ -21,33 +21,34 @@ class Import_FPL extends Import {
 	/** {@inheritDoc} */
 	protected string $process_name = 'update_free_places';
 
+	/** {@inheritDoc} */
+	protected string $xsd_file = SIW_PLUGIN_DIR . 'xsd/plato/free-places.xsd';
+
 	/** Verwerk xml van Plato */
 	protected function process_xml() {
 
 		$db = new Database( Database_Table::PLATO_PROJECT_FREE_PLACES() );
 
-		//Tabel leegmaken
+		// Tabel leegmaken
 		$db->truncate();
 
-		//Kolommen ophalen
+		// Kolommen ophalen
 		$columns = $db->get_columns();
 
 		foreach ( $this->xml_response->project as $project ) {
 
 			$data = [];
 			foreach ( $columns as $column ) {
-				
-				//Uitzondering voor url van de infosheet
-				if ( 'file_identifier_infosheet' == $column['name'] ) {
+
+				// Uitzondering voor url van de infosheet
+				if ( 'file_identifier_infosheet' === $column['name'] ) {
 					$url_infosheet = (string) $project->url_infosheet;
 					if ( ! empty( $url_infosheet ) ) {
 						$value = get_query_arg( 'fileIdentifier', $url_infosheet );
-					}
-					else {
+					} else {
 						$value = '';
 					}
-				}
-				else {
+				} else {
 					$value = (string) $project->{$column['name']};
 				}
 				$data[ $column['name'] ] = $value;

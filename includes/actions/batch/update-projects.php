@@ -13,13 +13,13 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
  * Proces om Groepsprojecten bij te werken
- * 
+ *
  * - Oude projecten verwijderen
  * - Zichtbaarheid
  * - Stockfoto's
- * 
+ *
  * @copyright 2021-2022 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @todo  Plato-afbeelding verwijderen als project al begonnen is of uit Plato verwijderd is
  */
 class Update_Projects implements Batch_Action_Interface {
@@ -61,25 +61,25 @@ class Update_Projects implements Batch_Action_Interface {
 	/** {@inheritDoc} */
 	public function process( $product_id ) {
 		$product = siw_get_product( $product_id );
-		
+
 		/* Afbreken als product niet meer bestaat */
 		if ( ! is_a( $product, WC_Product_Project::class ) ) {
 			return false;
 		}
 		$this->product = $product;
 
-		//Als het project verwijderd is, is de rest niet meer nodig
+		// Als het project verwijderd is, is de rest niet meer nodig
 		if ( $this->maybe_delete_project() ) {
 			return;
 		}
 
-		//Bijwerken plato status
+		// Bijwerken plato status
 		$this->maybe_update_deleted_from_plato();
 
-		//Bijwerken zichtbaarheid
+		// Bijwerken zichtbaarheid
 		$this->maybe_update_visibility();
 
-		//Bijwerken stockfoto
+		// Bijwerken stockfoto
 		$this->maybe_set_stockphoto();
 	}
 
@@ -95,9 +95,9 @@ class Update_Projects implements Batch_Action_Interface {
 			wp_cache_set( 'project_ids', $project_ids, 'siw_update_workcamps' );
 		}
 
-		$deleted_from_plato = ! in_array( $this->product->get_project_id(), $project_ids );
+		$deleted_from_plato = ! in_array( $this->product->get_project_id(), $project_ids, true );
 
-		if ( $deleted_from_plato !== boolval( $this->product->is_deleted_from_plato() ) ) {
+		if ( boolval( $this->product->is_deleted_from_plato() ) !== $deleted_from_plato ) {
 			$this->product->set_deleted_from_plato( $deleted_from_plato );
 			$this->product->save();
 		}
@@ -105,7 +105,7 @@ class Update_Projects implements Batch_Action_Interface {
 
 	/**
 	 * Projecten zijn alleen zichtbaar als
-	 * 
+	 *
 	 * - Het project over meer dan 3 dagen begint
 	 * - Het project in een toegestaan land is
 	 * - Er vrije plaatsen zijn
@@ -126,7 +126,7 @@ class Update_Projects implements Batch_Action_Interface {
 			||
 			Approval::REJECTED === $this->product->get_approval_result()
 			||
-			date( 'Y-m-d', time() + ( self::MIN_DAYS_BEFORE_START * DAY_IN_SECONDS ) ) >= $this->product->get_start_date()
+			gmdate( 'Y-m-d', time() + ( self::MIN_DAYS_BEFORE_START * DAY_IN_SECONDS ) ) >= $this->product->get_start_date()
 			||
 			$this->product->is_deleted_from_plato()
 			||
@@ -138,67 +138,67 @@ class Update_Projects implements Batch_Action_Interface {
 		if ( $visibility !== $this->product->get_catalog_visibility() ) {
 			$this->product->set_catalog_visibility( $visibility );
 
-			//Als het project verborgen wordt, moet het ook niet meer aanbevolen zijn
+			// Als het project verborgen wordt, moet het ook niet meer aanbevolen zijn
 			if ( 'hidden' === $visibility ) {
 				$this->product->set_featured( false );
 			}
 			$this->product->save();
 		}
-		return;
 	}
 
 	/** Probeer stockfoto toe te wijzen aan project */
 	protected function maybe_set_stockphoto() {
 
-		//Afbreken als het project al een afbeelding heeft
+		// Afbreken als het project al een afbeelding heeft
 		if ( $this->product->get_image_id() ) {
 			return false;
 		}
-		
-		//Eigenschappen van project ophalen: land en soort(en) werk
-		$country =  $this->product->get_country();
-		$work_types= $this->product->get_work_types();
-		
-		//Stockfoto proberen te vinden
-		$import_image = new Import_Product_Image;
+
+		// Eigenschappen van project ophalen: land en soort(en) werk
+		$country = $this->product->get_country();
+		$work_types = $this->product->get_work_types();
+
+		// Stockfoto proberen te vinden
+		$import_image = new Import_Product_Image();
 		$image_id = $import_image->get_stock_image( $country, $work_types );
 
 		if ( is_int( $image_id ) ) {
 			$this->product->set_image_id( $image_id );
 			$this->product->save();
 		}
-		return;
 	}
 
 	/** Oude projecten verwijderen */
 	protected function maybe_delete_project(): bool {
-	
-		$start_date = $this->product->get_start_date();
-		$min_date = date( 'Y-m-d', time() - ( self::MAX_AGE_PROJECT * MONTH_IN_SECONDS ) );
 
-		//Afbreken als project nog niet oud genoeg is
+		$start_date = $this->product->get_start_date();
+		$min_date = gmdate( 'Y-m-d', time() - ( self::MAX_AGE_PROJECT * MONTH_IN_SECONDS ) );
+
+		// Afbreken als project nog niet oud genoeg is
 		if ( $start_date > $min_date ) {
 			return false;
 		}
-		
-		//Verwijder projectspecifieke afbeeldingen
-		$project_images = get_posts([
-			'post_type'   => 'attachment',
-			'post_status' => 'inherit',
-			'fields'      => 'ids',
-			'meta_query'  => [
-				[
-					'key'     => 'plato_project_id',
-					'value'   => $this->product->get_project_id(),
-					'compare' => '='
+
+		// Verwijder projectspecifieke afbeeldingen
+		$project_images = get_posts(
+			[
+				'post_type'   => 'attachment',
+				'post_status' => 'inherit',
+				'fields'      => 'ids',
+				'meta_query'  => [
+					[
+						'key'     => 'plato_project_id',
+						'value'   => $this->product->get_project_id(),
+						'compare' => '=',
+					],
 				],
-			],
-		]);
+			]
+		);
 		foreach ( $project_images as $project_image ) {
 			wp_delete_attachment( $project_image, true );
 		}
 
-		//Verwijder het product zelf
+		// Verwijder het product zelf
 		$this->product->delete( true );
 		return true;
 	}

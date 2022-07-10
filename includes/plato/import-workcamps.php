@@ -7,7 +7,7 @@ use SIW\Helpers\Database;
 
 /**
  * Importeer Groepsprojecten uit Plato
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Import_Workcamps extends Import {
@@ -18,19 +18,22 @@ class Import_Workcamps extends Import {
 	/** {@inheritDoc} */
 	protected string $name = 'importeren groepsprojecten';
 
+	/** {@inheritDoc} */
+	protected string $xsd_file = SIW_PLUGIN_DIR . 'xsd/plato/projects.xsd';
+
 	/** Geef aan dat dit geen Nederlandse projecten zijn */
 	protected bool $dutch_project = false;
 
 	/** Verwerk xml van Plato */
 	protected function process_xml() {
-		
+
 		$projects_db = new Database( Database_Table::PLATO_PROJECTS() );
 		$images_db = new Database( Database_Table::PLATO_PROJECT_IMAGES() );
 
-		//Tabel leegmaken
-		$projects_db->delete(['dutch_project' => $this->dutch_project ] );
+		// Tabel leegmaken
+		$projects_db->delete( [ 'dutch_project' => $this->dutch_project ] );
 
-		//Kolommen ophalen
+		// Kolommen ophalen
 		$columns = $projects_db->get_columns();
 
 		$projects = $this->xml_response->xpath( '//project' );
@@ -38,7 +41,7 @@ class Import_Workcamps extends Import {
 
 			$project_data = [];
 			foreach ( $columns as $column ) {
-				if ( 'dutch_project' == $column['name'] ) {
+				if ( 'dutch_project' === $column['name'] ) {
 					$project_data[ $column['name'] ] = $this->dutch_project;
 				} else {
 					$project_data[ $column['name'] ] = (string) $project->{$column['name']};
@@ -59,6 +62,5 @@ class Import_Workcamps extends Import {
 				$images_db->insert( $image_data );
 			}
 		}
-		return;
 	}
 }

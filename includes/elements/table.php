@@ -4,7 +4,7 @@ namespace SIW\Elements;
 
 /**
  * Class om een lijst met kolommen te genereren
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Table extends Repeater {

@@ -6,11 +6,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Gegevens van valuta's
- * 
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ *
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	[
 		'iso_code' => 'CAD',
 		'symbol'   => 'C$',
@@ -88,4 +88,4 @@ $data = [
 	],
 ];
 
-return $data;
+return $siw_data;

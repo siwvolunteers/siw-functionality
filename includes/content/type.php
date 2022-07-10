@@ -6,13 +6,12 @@ use SIW\Util\CSS;
 
 /**
  * Class om een custom content type toe te voegen
- * 
+ *
  * - Custom post type
  * - Taxonomieën
  * - Archiefpagina (header, layout, filter)
- * 
+ *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- * @since     3.1.0
  */
 abstract class Type {
 
@@ -36,8 +35,8 @@ abstract class Type {
 
 	/**
 	 * Breedte van single post
-	 * 
-	 * desktop|tablet|mobile
+	 *
+	 * Desktop|tablet|mobile
 	 */
 	protected string $single_width = 'desktop';
 
@@ -55,14 +54,14 @@ abstract class Type {
 
 	/**
 	 * Volgorde van posts in archive
-	 * 
+	 *
 	 * ASC|DESC
 	 */
 	protected string $archive_order = 'DESC';
 
 	/**
 	 * Volgorde van posts in admin
-	 * 
+	 *
 	 * ASC|DESC
 	 */
 	protected string $admin_order = 'DESC';
@@ -89,7 +88,7 @@ abstract class Type {
 		$self = new static();
 		$self->taxonomies = $self->get_taxonomies();
 
-		//CPT registreren
+		// CPT registreren
 		new Post_Type(
 			$self->post_type,
 			[
@@ -101,33 +100,33 @@ abstract class Type {
 			$self->slug
 		);
 
-		//Taxonomieën registreren
+		// Taxonomieën registreren
 		foreach ( $self->taxonomies as $taxonomy => $settings ) {
 			new Taxonomy( $taxonomy, $self->post_type, $settings );
 		}
 
-		//Metabox registreren
-		add_filter( "siw_{$self->post_type}_meta_box_fields", [ $self, 'get_meta_box_fields'] );
+		// Metabox registreren
+		add_filter( "siw_{$self->post_type}_meta_box_fields", [ $self, 'get_meta_box_fields' ] );
 		new Meta_Box(
 			$self->post_type,
 			$self->get_labels()['singular_name'],
 			$self->taxonomies
 		);
 
-		//Standaard volgorde in Admin scherm
-		add_action( 'pre_get_posts', [ $self, 'set_default_orderby'] );
+		// Standaard volgorde in Admin scherm
+		add_action( 'pre_get_posts', [ $self, 'set_default_orderby' ] );
 
-		//Instellingen voor publieke post types
+		// Instellingen voor publieke post types
 		if ( $self->public ) {
-			//Single post
-			add_action( "siw_{$self->post_type}_content", [ $self, 'add_single_content'] );
-			add_action( 'wp_enqueue_scripts', [ $self, 'set_single_width'], 50 );
-			add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta'] );
+			// Single post
+			add_action( "siw_{$self->post_type}_content", [ $self, 'add_single_content' ] );
+			add_action( 'wp_enqueue_scripts', [ $self, 'set_single_width' ], 50 );
+			add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta' ] );
 
 			$self->active_posts_meta_query = $self->get_active_posts_meta_query();
 
-			//Archive
-			new Archive( 
+			// Archive
+			new Archive(
 				$self->post_type,
 				$self->taxonomies,
 				[
@@ -141,37 +140,36 @@ abstract class Type {
 					'sidebar_layout'  => $self->archive_sidebar_layout,
 				]
 			);
-			add_filter( 'post_type_archive_title', [ $self, 'set_archive_title'] );
+			add_filter( 'post_type_archive_title', [ $self, 'set_archive_title' ] );
 
-			add_action( "siw_{$self->post_type}_archive_intro", [ $self, 'set_archive_intro'] );
-			add_action( "siw_{$self->post_type}_archive_content", [ $self, 'add_archive_content'] );
-
+			add_action( "siw_{$self->post_type}_archive_intro", [ $self, 'set_archive_intro' ] );
+			add_action( "siw_{$self->post_type}_archive_content", [ $self, 'add_archive_content' ] );
 
 			if ( ! empty( $self->active_posts_meta_query ) && ! empty( $self->taxonomies ) ) {
-				add_filter( 'siw_update_terms_taxonomies', [ $self, 'set_update_terms_taxonomies'] );
-				add_filter( 'siw_update_terms_meta_query', [ $self, 'set_update_terms_meta_query'], 10, 2 );
+				add_filter( 'siw_update_terms_taxonomies', [ $self, 'set_update_terms_taxonomies' ] );
+				add_filter( 'siw_update_terms_meta_query', [ $self, 'set_update_terms_meta_query' ], 10, 2 );
 			}
 
 			if ( ! empty( $self->active_posts_meta_query ) ) {
 				add_action( 'admin_menu', [ $self, 'add_admin_active_post_count' ], PHP_INT_MAX );
 			}
 
-			//Carousel
+			// Carousel
 			if ( $self->has_carousel_support ) {
-				add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type'] );
-				add_filter( 'siw_carousel_post_type_templates', [ $self, 'add_carousel_post_type_template'] );
-				add_filter( 'siw_carousel_post_type_taxonomies', [ $self, 'add_carousel_post_type_taxonomies'] );
+				add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type' ] );
+				add_filter( 'siw_carousel_post_type_templates', [ $self, 'add_carousel_post_type_template' ] );
+				add_filter( 'siw_carousel_post_type_taxonomies', [ $self, 'add_carousel_post_type_taxonomies' ] );
 			}
-			
-			//SEO TODO: titles enzo
+
+			// SEO TODO: titles enzo
 			add_filter( 'the_seo_framework_post_meta', [ $self, 'set_seo_noindex' ], 10, 2 );
 
-			//TODO:Help tabs
-			
-			//genereren slug en titel
+			// TODO:Help tabs
+
+			// genereren slug en titel
 			add_filter( 'wp_insert_post_data', [ $self, 'set_post_data' ], 10, 2 );
 
-			add_filter( 'siw_cpt_upload_subdirs', [ $self, 'set_upload_subir'] );
+			add_filter( 'siw_cpt_upload_subdirs', [ $self, 'set_upload_subir' ] );
 		}
 	}
 
@@ -195,7 +193,7 @@ abstract class Type {
 
 	/** Undocumented function */
 	public function set_archive_intro( string $archive_type ) {
-		echo implode( SPACE, $this->get_archive_intro( $archive_type ) );
+		echo wp_kses_post( implode( SPACE, $this->get_archive_intro( $archive_type ) ) );
 	}
 
 	/** Undocumented function */
@@ -230,16 +228,12 @@ abstract class Type {
 		if ( ! is_singular( "siw_{$this->post_type}" ) ) {
 			return;
 		}
-		switch ( $this->single_width ) {
-			case 'tablet':
-				$width = CSS::TABLET_BREAKPOINT;
-				break;
-			case 'mobile':
-				$width = CSS::MOBILE_BREAKPOINT;
-				break;
-			default:
-				$width = null;
-		}
+
+		$width = match ( $this->single_width ) {
+			'tablet' => CSS::TABLET_BREAKPOINT,
+			'mobile' => CSS::MOBILE_BREAKPOINT,
+			default  => null
+		};
 
 		if ( ! is_int( $width ) ) {
 			return;
@@ -250,7 +244,7 @@ abstract class Type {
 					'max-width'    => "{$width}px",
 					'margin-left'  => 'auto',
 					'margin-right' => 'auto',
-				]
+				],
 			]
 		);
 		wp_add_inline_style(
@@ -272,7 +266,7 @@ abstract class Type {
 
 	/** Zet SEO-noindex */
 	public function set_seo_noindex( array $meta, int $post_id ) : array {
-		if ( "siw_{$this->post_type}" == get_post_type( $post_id ) ) {
+		if ( "siw_{$this->post_type}" === get_post_type( $post_id ) ) {
 			$meta['_genesis_noindex'] = intval( $this->get_seo_noindex( $post_id ) );
 		}
 		return $meta;
@@ -286,11 +280,11 @@ abstract class Type {
 	/** Genereert titel slug op basis van eigenschappen */
 	public function set_post_data( array $data, array $postarr ) : array {
 
-		if ( in_array( $data['post_status'], [ 'draft', 'pending', 'auto-draft' ] ) ) {
+		if ( in_array( $data['post_status'], [ 'draft', 'pending', 'auto-draft' ], true ) ) {
 			return $data;
 		}
 
-		if ( "siw_{$this->post_type}" != $data['post_type'] ) {
+		if ( "siw_{$this->post_type}" !== $data['post_type'] ) {
 			return $data;
 		}
 
@@ -317,20 +311,20 @@ abstract class Type {
 	 */
 	public function set_default_orderby( \WP_Query $query ) {
 
-		//Afbreken
+		// Afbreken
 		if ( ! $query->is_admin || "siw_{$this->post_type}" !== $query->get( 'post_type' ) ) {
 			return;
 		}
 
-		if ( '' == $query->get( 'orderby' ) ) {
+		if ( empty( $query->get( 'orderby' ) ) ) {
 			$query->set( 'orderby', $this->orderby );
 		}
 
-		if ( '' == $query->get( 'meta_key' ) && 'meta_value' == $this->orderby ) {
+		if ( empty( $query->get( 'meta_key' ) ) && 'meta_value' === $this->orderby ) {
 			$query->set( 'meta_key', $this->orderby_meta_key );
 		}
 
-		if ( '' == $query->get( 'order' ) ) {
+		if ( empty( $query->get( 'order' ) ) ) {
 			$query->set( 'order', $this->admin_order );
 		}
 	}
@@ -338,7 +332,7 @@ abstract class Type {
 	/** Toon teller met aantal actieve posts */
 	public function add_admin_active_post_count() {
 		global $submenu;
-		
+
 		$submenu_index = "edit.php?post_type=siw_{$this->post_type}";
 
 		if ( ! isset( $submenu[ $submenu_index ] ) ) {
@@ -355,7 +349,7 @@ abstract class Type {
 		$posts = get_posts(
 			[
 				'post_type'  => "siw_{$this->post_type}",
-				'meta_query' => [ $this->active_posts_meta_query ],
+				'meta_query' => [ $this->active_posts_meta_query ], // phpcs:ignore
 				'limit'      => -1,
 				'return'     => 'ids',
 			]
@@ -363,34 +357,34 @@ abstract class Type {
 
 		$count = count( $posts );
 		if ( $count > 0 && $menu_item_index ) {
-			$submenu[ $submenu_index ][ $menu_item_index ][0] .= ' <span class="awaiting-mod">' . number_format_i18n( $count ) . '</span>';
+			$submenu[ $submenu_index ][ $menu_item_index ][0] .= ' <span class="awaiting-mod">' . number_format_i18n( $count ) . '</span>'; //phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		}
 	}
 
 	/** Voegt post type toe aan carousel widget */
 	public function add_carousel_post_type( array $post_types ) : array {
-		$post_types["siw_{$this->post_type}" ] = $this->post_type; //TODO: juiste label gebruiken
+		$post_types[ "siw_{$this->post_type}" ] = $this->post_type; // TODO: juiste label gebruiken
 		return $post_types;
 	}
 
 	/** Voegt taxonomieën toe aan carousel widget */
 	public function add_carousel_post_type_taxonomies( array $post_type_taxonomies ) : array {
 		foreach ( $this->taxonomies as $taxonomy => $settings ) {
-			$post_type_taxonomies["siw_{$this->post_type}"]["siw_{$this->post_type}_{$taxonomy}"] = $settings['labels']['name'];
+			$post_type_taxonomies[ "siw_{$this->post_type}" ][ "siw_{$this->post_type}_{$taxonomy}" ] = $settings['labels']['name'];
 		}
 		return $post_type_taxonomies;
 	}
 
 	/** Zet template voor carousel */
 	public function add_carousel_post_type_template( array $post_type_templates ) : array {
-		$post_type_templates["siw_{$this->post_type}"] = locate_template( "content-siw_{$this->post_type}.php" );
+		$post_type_templates[ "siw_{$this->post_type}" ] = locate_template( "content-siw_{$this->post_type}.php" );
 		return $post_type_templates;
 	}
 
 	/** Zet subdirectory voor uploads */
 	public function set_upload_subir( array $subdirs ) : array {
 		if ( isset( $this->upload_subdir ) ) {
-			$subdirs["siw_{$this->post_type}"] = $this->upload_subdir;
+			$subdirs[ "siw_{$this->post_type}" ] = $this->upload_subdir;
 		}
 		return $subdirs;
 	}
@@ -407,7 +401,7 @@ abstract class Type {
 	public function set_update_terms_meta_query( array $meta_query, string $term_taxonomy ) : array {
 
 		foreach ( array_keys( $this->taxonomies ) as $taxonomy ) {
-			if ( $term_taxonomy == "siw_{$this->post_type}_{$taxonomy}" ) {
+			if ( "siw_{$this->post_type}_{$taxonomy}" === $term_taxonomy ) {
 				$meta_query = [ $this->active_posts_meta_query ];
 				break;
 			}

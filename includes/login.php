@@ -17,11 +17,11 @@ class Login {
 	public static function init() {
 		$self = new self();
 		add_action( 'login_enqueue_scripts', [ $self, 'enqueue_style' ] );
-		add_filter( 'login_headerurl', fn() : string => SIW_SITE_URL );
-		add_filter( 'login_headertext', fn() : string => Properties::NAME );
+		add_filter( 'login_headerurl', fn(): string => SIW_SITE_URL );
+		add_filter( 'login_headertext', fn(): string => Properties::NAME );
 		add_filter( 'login_message', [ $self, 'set_login_message' ] );
-		add_action( 'login_head', [ $self, 'remove_shake_js'] );
-		add_action( 'wp_login', [ $self, 'log_last_user_login'], 10, 2 );
+		add_action( 'login_head', [ $self, 'remove_shake_js' ] );
+		add_action( 'wp_login', [ $self, 'log_last_user_login' ], 10, 2 );
 	}
 
 	/** Voegt de styling voor de login toe */
@@ -31,7 +31,7 @@ class Login {
 	}
 
 	/** Zet de login-boodschap */
-	public function set_login_message ( string $message ): string {
+	public function set_login_message( string $message ): string {
 		if ( empty( $message ) ) {
 			$message = '<p class="message">' . esc_html__( 'Welkom bij SIW. Log in om verder te gaan.', 'siw' ) . '</p>';
 		}

@@ -9,8 +9,6 @@ use SIW\Data\Work_Type;
  * Aanpassing aan admin t.b.v. aanmeldingen
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
- * 
  */
 class Stockphoto_Page {
 
@@ -26,11 +24,11 @@ class Stockphoto_Page {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		
-		add_filter( 'mb_settings_pages', [ $self, 'add_page'] ) ;
-		add_filter( 'rwmb_meta_boxes', [ $self, 'add_metabox'] );
-		add_filter( 'rwmb_stockphotos_after_save_field', [ $self, 'process_uploads'], 10 ,5 );
-		add_action( 'admin_menu', [ $self, 'add_woocommerce_navigation_bar'] );
+
+		add_filter( 'mb_settings_pages', [ $self, 'add_page' ] );
+		add_filter( 'rwmb_meta_boxes', [ $self, 'add_metabox' ] );
+		add_filter( 'rwmb_stockphotos_after_save_field', [ $self, 'process_uploads' ], 10, 5 );
+		add_action( 'admin_menu', [ $self, 'add_woocommerce_navigation_bar' ] );
 	}
 
 	/** Voegt admin-pagina toe */
@@ -54,11 +52,11 @@ class Stockphoto_Page {
 			'id'             => 'stockphotos',
 			'title'          => __( "Stockfoto's toevoegen", 'siw' ),
 			'settings_pages' => $this->page_id,
-			'fields' => [
+			'fields'         => [
 				[
 					'id'         => 'stockphotos',
 					'type'       => 'group',
-					'clone'      => true, //TODO: of lager
+					'clone'      => true, // TODO: of lager
 					'max_clone'  => 5,
 					'save_field' => false,
 					'add_button' => __( 'Stockfoto toevoegen', 'siw' ),
@@ -75,23 +73,23 @@ class Stockphoto_Page {
 							'id'          => 'continent',
 							'type'        => 'select_advanced',
 							'name'        => __( 'Continent', 'siw' ),
-							'placeholder' => __( 'Selecteer een continent', 'siw '),
+							'placeholder' => __( 'Selecteer een continent', 'siw' ),
 							'options'     => \siw_get_continents_list(),
 						],
 						[
 							'id'          => 'country',
 							'type'        => 'select_advanced',
 							'name'        => __( 'Land', 'siw' ),
-							'placeholder' => __( 'Selecteer een land', 'siw '),
+							'placeholder' => __( 'Selecteer een land', 'siw' ),
 							'options'     => \siw_get_countries_list( Country::ALL, 'slug' ),
 							'required'    => true,
-							
+
 						],
 						[
 							'id'          => 'work_types',
 							'type'        => 'select_advanced',
 							'name'        => __( 'Soort werk', 'siw' ),
-							'placeholder' => __( 'Selecteer soort(en) werk', 'siw '),
+							'placeholder' => __( 'Selecteer soort(en) werk', 'siw' ),
 							'options'     => \siw_get_work_types_list( Work_Type::ALL, Work_Type::SLUG ),
 							'multiple'    => true,
 							'required'    => true,
@@ -106,6 +104,7 @@ class Stockphoto_Page {
 
 	/**
 	 * Verwerk uploads
+	 *
 	 * @todo check of er tenminste 1 eigenschap gekozen is
 	 */
 	public function process_uploads( $null, array $field, array $new, $old, string $object_id ) {
@@ -115,7 +114,7 @@ class Stockphoto_Page {
 			$work_types = $group['work_types'];
 
 			foreach ( $group['file'] as $url ) {
-	
+
 				$file = wp_normalize_path( trailingslashit( $this->temp_dir ) . basename( $url ) );
 
 				$data = [
@@ -135,7 +134,7 @@ class Stockphoto_Page {
 		if ( ! function_exists( '\wc_admin_connect_page' ) ) {
 			return;
 		}
-		
+
 		\wc_admin_connect_page(
 			[
 				'id'        => 'siw-stockphotos',

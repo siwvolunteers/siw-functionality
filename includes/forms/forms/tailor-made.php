@@ -10,10 +10,10 @@ use SIW\Properties;
 
 /**
  * Aanmelding Op Maat
- * 
+ *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface{
+class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
@@ -76,9 +76,9 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 				'options' => \siw_get_continents_list(),
 			],
 			[
-				'id'     => 'duration',
-				'type'   => 'radio',
-				'name'   => __( 'Hoe lang zou je weg willen?', 'siw' ),
+				'id'      => 'duration',
+				'type'    => 'radio',
+				'name'    => __( 'Hoe lang zou je weg willen?', 'siw' ),
 				'options' => $this->get_duration_options(),
 			],
 		];
@@ -110,9 +110,10 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 
 	/** {@inheritDoc} */
 	public function get_confirmation_mail_message(): string {
+		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
 		__( 'Bedankt voor je aanmelding!', 'siw' ) . SPACE .
-		 __( 'Leuk dat je hebt gekozen via SIW een Project Op Maat te doen.', 'siw' ) . SPACE .
+		__( 'Leuk dat je hebt gekozen via SIW een Project Op Maat te doen.', 'siw' ) . SPACE .
 		__( 'Wij zullen ons best gaan doen om ervoor te zorgen dat dit voor jou een onvergetelijke ervaring wordt.', 'siw' ) . BR2 .
 		__( 'Onderaan deze e-mail vind je een overzicht van de gegevens zoals je die op het inschrijfformulier hebt ingevuld.', 'siw' ) . BR2 .
 		'<span style="font-weight:bold">' .
@@ -137,6 +138,7 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 		'<span style="font-weight:bold">' .
 		__( 'Meer informatie', 'siw' ) .
 		'</span>' . BR .
-		sprintf( __( 'Als je nog vragen hebt, aarzel dan niet om contact op te nemen met ons kantoor via %s of via het nummer %s.', 'siw' ), Properties::EMAIL, Properties::PHONE );
+		// translators: %1$s is het emailadres van SIW, %2$s is het telefoonnummer
+		sprintf( __( 'Als je nog vragen hebt, aarzel dan niet om contact op te nemen met ons kantoor via %1$s of via het nummer %2$s.', 'siw' ), Properties::EMAIL, Properties::PHONE );
 	}
 }

@@ -6,11 +6,11 @@ use SIW\Assets\Frappe_Charts;
 
 /**
  * Class om een chart te genereren
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 abstract class Chart extends Element {
-	
+
 	const SCRIPT_HANDLE = 'siw-charts';
 
 	/** Type grafiek */
@@ -52,8 +52,8 @@ abstract class Chart extends Element {
 		$options = wp_parse_args_recursive(
 			$this->options,
 			[
-				'data'  => $this->generate_chart_data(),
-				'type'  => $this->type,
+				'data' => $this->generate_chart_data(),
+				'type' => $this->type,
 			]
 		);
 		return $options;

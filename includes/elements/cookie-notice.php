@@ -32,9 +32,10 @@ class Cookie_Notice extends Element {
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
-			'i18n'      => [
-				'cookie_text' =>
+			'i18n' => [
+				'cookie_text'      =>
 					__( 'Wij gebruiken cookies om je gebruikservaring te optimaliseren, het webverkeer te analyseren en voor persoonlijke advertentiedoeleinden.', 'siw' ) . SPACE .
+					// translators: %s is de link naar het privacybeleid
 					sprintf( __( 'Lees meer over hoe wij cookies gebruiken en hoe je ze kunt beheren in ons %s.', 'siw' ), Links::generate_link( get_privacy_policy_url(), __( 'privacybeleid', 'siw' ) ) ),
 				'accept_selection' => __( 'Selectie toestaan', 'siw' ),
 				'accept_all'       => __( 'Alle cookies toestaan', 'siw' ),
@@ -46,17 +47,17 @@ class Cookie_Notice extends Element {
 
 	/** {@inheritDoc} */
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-cookie-notice.js', [  JS_Cookie::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-cookie-notice.js', [ JS_Cookie::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			self::ASSETS_HANDLE,
 			'siw_cookie_notice',
 			[
-				'cookie' => [
+				'cookie'     => [
 					'name'    => self::COOKIE_NAME,
 					'expires' => self::COOKIE_LIFESPAN,
 				],
-				'notice_id'   => $this->get_element_id(),
-				'event_name'  => self::EVENT_NAME,
+				'notice_id'  => $this->get_element_id(),
+				'event_name' => self::EVENT_NAME,
 			]
 		);
 		wp_enqueue_script( self::ASSETS_HANDLE );

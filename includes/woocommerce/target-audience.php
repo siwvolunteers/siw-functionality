@@ -6,9 +6,9 @@ use \Spatie\Enum\Enum;
 
 /**
  * Doelgroepen
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @method static self FAMILIES()
  * @method static self TEENAGERS()
  */

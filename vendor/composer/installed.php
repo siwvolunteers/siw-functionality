@@ -1,78 +1,77 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => 'c6d19e9660659750066ca2fc9af6d9bd004254d7',
+        'name' => 'siwvolunteers/siw-functionality',
+        'dev' => true,
     ),
-    'reference' => '71f579afa571d5ff0f31735f8cc9ee8e85a5cc0e',
-    'name' => 'siwvolunteers/siw-functionality',
-  ),
-  'versions' => 
-  array (
-    'kallookoo/wp_parse_args_recursive' => 
-    array (
-      'pretty_version' => '1.2.1',
-      'version' => '1.2.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'b42119c04763bab5d4e4701fa39c39ee19c2448f',
+    'versions' => array(
+        'kallookoo/wp_parse_args_recursive' => array(
+            'pretty_version' => '1.2.1',
+            'version' => '1.2.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../kallookoo/wp_parse_args_recursive',
+            'aliases' => array(),
+            'reference' => 'b42119c04763bab5d4e4701fa39c39ee19c2448f',
+            'dev_requirement' => false,
+        ),
+        'mustache/mustache' => array(
+            'pretty_version' => 'v2.14.1',
+            'version' => '2.14.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mustache/mustache',
+            'aliases' => array(),
+            'reference' => '579ffa5c96e1d292c060b3dd62811ff01ad8c24e',
+            'dev_requirement' => false,
+        ),
+        'pharaonic/php-dot-array' => array(
+            'pretty_version' => '1.0.1',
+            'version' => '1.0.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../pharaonic/php-dot-array',
+            'aliases' => array(),
+            'reference' => 'b5da25a121b0fd03e6c495f77ee585b360ee6f73',
+            'dev_requirement' => false,
+        ),
+        'siwvolunteers/siw-functionality' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => 'c6d19e9660659750066ca2fc9af6d9bd004254d7',
+            'dev_requirement' => false,
+        ),
+        'spatie/array-to-xml' => array(
+            'pretty_version' => '2.16.0',
+            'version' => '2.16.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/array-to-xml',
+            'aliases' => array(),
+            'reference' => 'db39308c5236b69b89cadc3f44f191704814eae2',
+            'dev_requirement' => false,
+        ),
+        'spatie/enum' => array(
+            'pretty_version' => '3.13.0',
+            'version' => '3.13.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/enum',
+            'aliases' => array(),
+            'reference' => 'f1a0f464ba909491a53e60a955ce84ad7cd93a2c',
+            'dev_requirement' => false,
+        ),
+        'woocommerce/action-scheduler' => array(
+            'pretty_version' => '3.4.2',
+            'version' => '3.4.2.0',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../woocommerce/action-scheduler',
+            'aliases' => array(),
+            'reference' => '7d8e830b6387410ccf11708194d3836f01cb2942',
+            'dev_requirement' => false,
+        ),
     ),
-    'mustache/mustache' => 
-    array (
-      'pretty_version' => 'v2.14.1',
-      'version' => '2.14.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '579ffa5c96e1d292c060b3dd62811ff01ad8c24e',
-    ),
-    'pharaonic/php-dot-array' => 
-    array (
-      'pretty_version' => '1.0.1',
-      'version' => '1.0.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'b5da25a121b0fd03e6c495f77ee585b360ee6f73',
-    ),
-    'siwvolunteers/siw-functionality' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '71f579afa571d5ff0f31735f8cc9ee8e85a5cc0e',
-    ),
-    'spatie/array-to-xml' => 
-    array (
-      'pretty_version' => '2.16.0',
-      'version' => '2.16.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'db39308c5236b69b89cadc3f44f191704814eae2',
-    ),
-    'spatie/enum' => 
-    array (
-      'pretty_version' => '3.12.0',
-      'version' => '3.12.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'c0180f1de7c5d06e4b84efbc751ea19167140173',
-    ),
-    'woocommerce/action-scheduler' => 
-    array (
-      'pretty_version' => '3.4.0',
-      'version' => '3.4.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '3218a33ff14b968f8cb05de9656c2efa1eeb1330',
-    ),
-  ),
 );

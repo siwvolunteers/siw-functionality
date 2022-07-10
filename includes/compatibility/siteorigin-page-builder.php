@@ -6,7 +6,7 @@ use SIW\Util\CSS;
 
 /**
  * Aanpassingen voor SiteOrigin Page Builder
- * 
+ *
  * @copyright   2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see         https://siteorigin.com/page-builder/
  */
@@ -18,13 +18,25 @@ class SiteOrigin_Page_Builder {
 		if ( ! is_plugin_active( 'siteorigin-panels/siteorigin-panels.php' ) ) {
 			return;
 		}
-		
+
 		$self = new self();
 		add_action( 'admin_init', [ $self, 'remove_dashboard_widget' ] );
 		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
-		add_filter( 'siteorigin_panels_widget_dialog_tabs', [ $self, 'add_widget_tab'] );
+		add_filter( 'siteorigin_panels_widget_dialog_tabs', [ $self, 'add_widget_tab' ] );
 		add_filter( 'siteorigin_panels_layouts_directory_enabled', '__return_false' );
-		add_filter( 'siteorigin_panels_settings', [ $self, 'set_breakpoint_settings'] );
+		add_filter( 'siteorigin_panels_settings', [ $self, 'set_breakpoint_settings' ] );
+		add_filter( 'siteorigin_panels_theme_container_width', [ $self, 'set_container_width' ] );
+		add_filter( 'siteorigin_panels_theme_container_selector', fn(): string => '.container.grid-container' );
+	}
+
+	/** Zet container breedte obv theme setting */
+	public function set_container_width(): string {
+		if ( ! function_exists( 'generate_get_option' ) ) {
+			return '';
+		}
+		$width = \generate_get_option( 'container_width' );
+
+		return "{$width}px";
 	}
 
 	/** Verwijdert dashboard widget */

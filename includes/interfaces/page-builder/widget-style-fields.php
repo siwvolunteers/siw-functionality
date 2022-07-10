@@ -4,7 +4,7 @@ namespace SIW\Interfaces\Page_Builder;
 
 /**
  * Interface voor PageBuilder extensie met widget style
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 interface Widget_Style_Fields {

@@ -16,7 +16,7 @@ class Shortcodes {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_action( 'wp_enqueue_editor', [ $self, 'enqueue_script'] );
+		add_action( 'wp_enqueue_editor', [ $self, 'enqueue_script' ] );
 	}
 
 	/** Script toevoegen */
@@ -28,7 +28,7 @@ class Shortcodes {
 
 		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/admin/siw-shortcodes.js', [], SIW_PLUGIN_VERSION, true );
 
-		//Shortcodes ophalen
+		// Shortcodes ophalen
 		$shortcodes = SIW_Shortcodes::get_shortcodes();
 		array_walk( $shortcodes, [ $this, 'format_shortcode' ] );
 		$shortcodes = array_values( $shortcodes );
@@ -49,19 +49,19 @@ class Shortcodes {
 	/** Formatteert shortcode voor gebruik in TinyMCE */
 	protected function format_shortcode( &$value, $key ) {
 
-		//Shortcodes zonder parameter verwerken
+		// hortcodes zonder parameter verwerken
 		if ( is_string( $value ) ) {
 			$value = [
-				'title' => $value
+				'title' => $value,
 			];
 		}
 		$value['shortcode'] = $key;
 
-		//TODO: klop dit wel?
-		$properties = ['shortcode', 'title', 'attributes'];
+		// TODO: klop dit wel?
+		$properties = [ 'shortcode', 'title', 'attributes' ];
 		$value = array_intersect_key( $value, array_flip( $properties ) );
 		if ( isset( $value['attributes'] ) ) {
-			$value['attributes'] = array_map( [ $this, 'format_attribute'], $value['attributes'] );
+			$value['attributes'] = array_map( [ $this, 'format_attribute' ], $value['attributes'] );
 		}
 	}
 
@@ -80,7 +80,7 @@ class Shortcodes {
 					'type'   => 'listbox',
 					'name'   => $data['attr'],
 					'label'  => $data['title'],
-					'values' => array_map( [ $this, 'format_options'], array_keys( $data['options'] ), $data['options'] ),
+					'values' => array_map( [ $this, 'format_options' ], array_keys( $data['options'] ), $data['options'] ),
 				];
 				break;
 			default:

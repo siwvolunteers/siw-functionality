@@ -20,7 +20,7 @@ class Social_Share {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles'] );
+		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles' ] );
 		add_action( 'generate_after_content', [ $self, 'render' ] );
 	}
 
@@ -45,30 +45,35 @@ class Social_Share {
 			fn( Social_Network $network ) : array => [
 				'share_url' => Template::create()
 					->set_template( $network->get_share_url_template() )
-					->set_context( [
-						'url'   => urlencode( $url ),
-						'title' => rawurlencode( html_entity_decode( $title ) )
-					])
+					->set_context(
+						[
+							'url'   => rawurlencode( $url ),
+							'title' => rawurlencode( html_entity_decode( $title ) ),
+						]
+					)
 					->parse_template(),
+				// translators: %s is de naam van een sociaal netwerk
 				'label'     => sprintf( esc_attr__( 'Delen via %s', 'siw' ), $network->get_name() ),
 				'color'     => $network->get_color(),
 				'name'      => $network->get_name(),
 				'url'       => $url,
 				'icon'      => [
-					'size'             => 2,
-					'icon_class'       => $network->get_icon_class(),
-					'has_background'   => false,
-				]
+					'size'           => 2,
+					'icon_class'     => $network->get_icon_class(),
+					'has_background' => false,
+				],
 			],
 			$networks
 		);
 
 		Template::create()
 			->set_template( 'modules/social-share' )
-			->set_context( [
-				'title'           => $this->get_title(),
-				'social_networks' => array_values( $social_networks ),
-			] )
+			->set_context(
+				[
+					'title'           => $this->get_title(),
+					'social_networks' => array_values( $social_networks ),
+				]
+			)
 			->render_template();
 	}
 
@@ -80,7 +85,7 @@ class Social_Share {
 	/** Geeft aan of dit een ondersteunde post type is */
 	protected function is_supported_post_type(): bool {
 		$this->post_type = get_post_type();
-		return in_array( $this->post_type, array_keys( $this->get_post_type_settings() ) );
+		return in_array( $this->post_type, array_keys( $this->get_post_type_settings() ), true );
 	}
 
 	/** Haal instelling van post type op */

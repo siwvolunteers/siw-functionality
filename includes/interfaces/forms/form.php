@@ -4,11 +4,11 @@ namespace SIW\Interfaces\Forms;
 
 /**
  * Interface voor formulier via MetaBox
- * 
+ *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 interface Form {
-	
+
 	/** Volledige breedte */
 	const FULL_WIDTH = 12;
 

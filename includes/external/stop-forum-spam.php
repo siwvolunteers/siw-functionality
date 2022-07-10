@@ -9,7 +9,7 @@ use SIW\Helpers\HTTP_Request;
  * Opzoeken e-mailadres en IP in SFS-spamdatabase
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * 
+ *
  * @link      https://www.stopforumspam.com/usage
  */
 class Stop_Forum_Spam {
@@ -39,10 +39,10 @@ class Stop_Forum_Spam {
 	/** Check ip en e-mail bij SFS */
 	public function check(): DotArray {
 		$body = [
-			'json' => true
+			'json' => true,
 		];
 		if ( isset( $this->email ) ) {
-			$body['email'] = urlencode( $this->email );
+			$body['email'] = rawurlencode( $this->email );
 		}
 		if ( isset( $this->ip ) ) {
 			$body['ip'] = $this->ip;
@@ -52,18 +52,18 @@ class Stop_Forum_Spam {
 			->set_content_type( HTTP_Request::APPLICATION_X_WWW_FORM_URLENCODED )
 			->post( $body );
 
-		if ( is_wp_error( $response ) || false == $response['success'] ) {
+		if ( is_wp_error( $response ) || false === $response['success'] ) {
 			return new DotArray();
 		}
 
 		$response = new DotArray( $response );
 		$results = new DotArray();
 		if ( (bool) $response->has( 'email.confidence' ) ) {
-			$results->set('email', (float) $response->get( 'email.confidence') > self::SPAM_THRESHOLD);
+			$results->set( 'email', (float) $response->get( 'email.confidence' ) > self::SPAM_THRESHOLD );
 		}
 
 		if ( (bool) $response->has( 'ip.confidence' ) ) {
-			$results->set('ip', (float) $response->get( 'ip.confidence') > self::SPAM_THRESHOLD);
+			$results->set( 'ip', (float) $response->get( 'ip.confidence' ) > self::SPAM_THRESHOLD );
 		}
 
 		return $results;

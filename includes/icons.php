@@ -18,7 +18,7 @@ class Icons {
 	public static function init() {
 		$self = new self();
 
-		add_action( 'wp_body_open', [ $self, 'add_svg_sprite']);
+		add_action( 'wp_body_open', [ $self, 'add_svg_sprite' ] );
 
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_script' ] );
 		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_style' ] );
@@ -32,7 +32,7 @@ class Icons {
 
 	/** Voegt SVG-sprite toe aan header */
 	public function add_svg_sprite() {
-		printf( '<div data-svg-url="%s" style="display:none;"></div>', SIW_ASSETS_URL . 'icons/siw-general-icons.svg' );
+		printf( '<div data-svg-url="%s" style="display:none;"></div>', esc_url( SIW_ASSETS_URL . 'icons/siw-general-icons.svg' ) );
 	}
 
 	/** Voegt SVG-script toe */
@@ -55,15 +55,15 @@ class Icons {
 			'max-height' => '20px',
 		];
 		foreach ( $icons as $icon => $code ) {
-			$rules[".sow-icon-siw[data-sow-icon='{$code}']"] = [
+			$rules[ ".sow-icon-siw[data-sow-icon='{$code}']" ] = [
 				'cursor' => 'url(' . SIW_ASSETS_URL . "icons/general/{$code}.svg" . ')',
 			];
 		}
 
 		$inline_css = CSS::generate_inline_css( $rules );
 
-		//TODO: onderstaande hack toelichten
-		$inline_css = str_replace( 'cursor', 'content', $inline_css);
+		// TODO: onderstaande hack toelichten
+		$inline_css = str_replace( 'cursor', 'content', $inline_css );
 
 		wp_add_inline_style(
 			'so-icon-field',
@@ -74,8 +74,8 @@ class Icons {
 	/** Voegt SIW-icon family toe */
 	public function add_icon_family( array $icon_families ): array {
 		$icon_families['siw'] = [
-			'name'      => __( 'SIW Icons', 'siw' ),
-			'icons'     => $this->get_icons(),
+			'name'  => __( 'SIW Icons', 'siw' ),
+			'icons' => $this->get_icons(),
 		];
 		return $icon_families;
 	}
@@ -100,12 +100,15 @@ class Icons {
 			return $icons;
 		}
 
-		//Icon-bestanden zoeken
+		// Icon-bestanden zoeken
 		$icon_files = glob( SIW_ASSETS_DIR . 'icons/general/*.svg' );
-		//Relatief pad van maken + extensie verwijderen
-		array_walk( $icon_files, function( string &$value ) {
-			$value = str_replace( [ SIW_ASSETS_DIR .'icons/general/', '.svg'], '', $value );
-		});
+		// Relatief pad van maken + extensie verwijderen
+		array_walk(
+			$icon_files,
+			function( string &$value ) {
+				$value = str_replace( [ SIW_ASSETS_DIR . 'icons/general/', '.svg' ], '', $value );
+			}
+		);
 
 		foreach ( $icon_files as $icon_file ) {
 			$icons[ "icon-{$icon_file}" ] = $icon_file;

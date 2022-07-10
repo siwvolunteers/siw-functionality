@@ -4,7 +4,7 @@ namespace SIW\WooCommerce\Checkout;
 
 /**
  * WooCommerce checkout formulier
- * 
+ *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Form {

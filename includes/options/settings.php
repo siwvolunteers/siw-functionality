@@ -5,12 +5,11 @@ namespace SIW\Options;
 use SIW\Data\Pattern;
 use SIW\Interfaces\Options\Option as Option_Interface;
 
-use SIW\Modules\Topbar;
 use SIW\Properties;
 
 /**
  * Opties voor Configuratie
- * 
+ *
  * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Settings implements Option_Interface {
@@ -51,7 +50,7 @@ class Settings implements Option_Interface {
 			[
 				'id'    => 'workcamps',
 				'label' => __( 'Groepsprojecten', 'siw' ),
-				'icon'  => 'dashicons-groups'
+				'icon'  => 'dashicons-groups',
 			],
 			[
 				'id'    => 'annual_reports',
@@ -71,17 +70,17 @@ class Settings implements Option_Interface {
 			[
 				'id'    => 'job_postings',
 				'label' => __( 'Vacatures', 'siw' ),
-				'icon'  => 'dashicons-clipboard'
+				'icon'  => 'dashicons-clipboard',
 			],
 			[
 				'id'    => 'story',
 				'label' => __( 'Ervaringsverhalen', 'siw' ),
-				'icon'  => 'dashicons-format-gallery'
+				'icon'  => 'dashicons-format-gallery',
 			],
 			[
 				'id'    => 'event',
 				'label' => __( 'Evenementen', 'siw' ),
-				'icon'  => 'dashicons-calendar'
+				'icon'  => 'dashicons-calendar',
 			],
 		];
 		return $tabs;
@@ -91,8 +90,8 @@ class Settings implements Option_Interface {
 	public function get_fields() : array {
 		$fields = [];
 
-		//Bestuur
-		$fields[] =  [
+		// Bestuur
+		$fields[] = [
 			'id'            => 'board_members',
 			'type'          => 'group',
 			'tab'           => 'board',
@@ -101,7 +100,7 @@ class Settings implements Option_Interface {
 			'max_clone'     => Properties::MAX_BOARD_MEMBERS,
 			'collapsible'   => true,
 			'default_state' => 'collapsed',
-			'group_title'   => [ 'field' => 'first_name, last_name'],
+			'group_title'   => [ 'field' => 'first_name, last_name' ],
 			'add_button'    => __( 'Bestuurslid toevoegen', 'siw' ),
 			'fields'        => [
 				[
@@ -123,10 +122,10 @@ class Settings implements Option_Interface {
 					'required' => true,
 					'options'  => \siw_get_board_titles(),
 				],
-			]
+			],
 		];
 
-		//Jaarverslagen
+		// Jaarverslagen
 		$fields[] = [
 			'id'            => 'annual_reports',
 			'type'          => 'group',
@@ -136,7 +135,7 @@ class Settings implements Option_Interface {
 			'max_clone'     => Properties::MAX_ANNUAL_REPORTS,
 			'collapsible'   => true,
 			'default_state' => 'collapsed',
-			'group_title'   => [ 'field' => 'year'],
+			'group_title'   => [ 'field' => 'year' ],
 			'add_button'    => __( 'Jaarverslag toevoegen', 'siw' ),
 			'fields'        => [
 				[
@@ -144,8 +143,8 @@ class Settings implements Option_Interface {
 					'name'     => __( 'Jaar', 'siw' ),
 					'type'     => 'number',
 					'required' => true,
-					'min'      => intval( date( 'Y', strtotime( Properties::FOUNDING_DATE ) ) ),
-					'max'      => intval(date( 'Y' ) )
+					'min'      => intval( gmdate( 'Y', strtotime( Properties::FOUNDING_DATE ) ) ),
+					'max'      => intval( gmdate( 'Y' ) ),
 				],
 				[
 					'id'               => 'file',
@@ -159,12 +158,12 @@ class Settings implements Option_Interface {
 			],
 		];
 
-		//Vacatures TODO: group voor vacaturetekst
+		// Vacatures TODO: group voor vacaturetekst
 		$fields[] = [
-			'id'        => 'job_posting',
-			'type'      => 'group',
-			'tab'       => 'job_postings',
-			'fields'    => [
+			'id'     => 'job_posting',
+			'type'   => 'group',
+			'tab'    => 'job_postings',
+			'fields' => [
 				[
 					'id'       => 'archive_intro',
 					'name'     => __( 'Introtekst', 'siw' ),
@@ -174,9 +173,9 @@ class Settings implements Option_Interface {
 			],
 		];
 		$fields[] = [
-			'type'     => 'heading',
-			'name'     => __( 'Vacaturetekst', 'siw' ),
-			'tab'      => 'job_postings',
+			'type' => 'heading',
+			'name' => __( 'Vacaturetekst', 'siw' ),
+			'tab'  => 'job_postings',
 		];
 		$fields[] = [
 			'id'       => 'job_postings_organization_profile',
@@ -186,14 +185,14 @@ class Settings implements Option_Interface {
 			'required' => true,
 		];
 		$fields[] = [
-			'id'        => 'hr_manager',
-			'type'      => 'group',
-			'tab'       => 'job_postings',
-			'fields'    => [
+			'id'     => 'hr_manager',
+			'type'   => 'group',
+			'tab'    => 'job_postings',
+			'fields' => [
 				[
-					'type'     => 'heading',
-					'name'     => __( 'P&O manager', 'siw' ),
-					'desc'     => __( 'Standaard contactpersoon voor sollicitaties', 'siw' ),
+					'type' => 'heading',
+					'name' => __( 'P&O manager', 'siw' ),
+					'desc' => __( 'Standaard contactpersoon voor sollicitaties', 'siw' ),
 				],
 				[
 					'id'       => 'name',
@@ -218,10 +217,10 @@ class Settings implements Option_Interface {
 		// Ervaringsverhalen
 
 		$fields[] = [
-			'id'        => 'story',
-			'type'      => 'group',
-			'tab'       => 'story',
-			'fields'    => [
+			'id'     => 'story',
+			'type'   => 'group',
+			'tab'    => 'story',
+			'fields' => [
 				[
 					'id'       => 'archive_intro',
 					'name'     => __( 'Introtekst', 'siw' ),
@@ -231,11 +230,11 @@ class Settings implements Option_Interface {
 			],
 		];
 
-		//Evenementen
+		// Evenementen
 		$fields[] = [
-			'id'   => 'event',
-			'type' => 'group',
-			'tab'  => 'event',
+			'id'     => 'event',
+			'type'   => 'group',
+			'tab'    => 'event',
 			'fields' => [
 				[
 					'id'       => 'archive_intro',
@@ -243,16 +242,16 @@ class Settings implements Option_Interface {
 					'type'     => 'wysiwyg',
 					'required' => true,
 				],
-			]
+			],
 		];
 
-		//Groepsprojecten
+		// Groepsprojecten
 		$continents = siw_get_continents_list();
 		$approval_fields = [
 			[
-				'type'       => 'heading',
-				'name'       => __( 'Beoordelen projecten', 'siw' ),
-				'desc'       => __( 'Ontvangers van mail over te beoordelen projecten')
+				'type' => 'heading',
+				'name' => __( 'Beoordelen projecten', 'siw' ),
+				'desc' => __( 'Ontvangers van mail over te beoordelen projecten', 'siw' ),
 			],
 			[
 				'id'         => 'supervisor',
@@ -262,60 +261,60 @@ class Settings implements Option_Interface {
 				'field_type' => 'select_advanced',
 			],
 		];
-		foreach ( $continents as $slug =>$name ) {
+		foreach ( $continents as $slug => $name ) {
 			$approval_fields[] = [
-				'id'                => "responsible_{$slug}",
-				'name'              => $name,
-				'type'              => 'user',
-				'field_type'        => 'select_advanced',
+				'id'         => "responsible_{$slug}",
+				'name'       => $name,
+				'type'       => 'user',
+				'field_type' => 'select_advanced',
 			];
 		}
 		$fields[] = [
-			'id'      => 'workcamp_teaser_text',
-			'type'    => 'group',
-			'tab'     => 'workcamps',
-			'fields'  => [
+			'id'     => 'workcamp_teaser_text',
+			'type'   => 'group',
+			'tab'    => 'workcamps',
+			'fields' => [
 				[
-					'type'      => 'heading',
-					'name'      => __( 'Aankondiging nieuw seizoen', 'siw' ),
-					'desc'      => __( 'Wordt getoond op overzichten van Groepsprojecten.', 'siw' ),
+					'type' => 'heading',
+					'name' => __( 'Aankondiging nieuw seizoen', 'siw' ),
+					'desc' => __( 'Wordt getoond op overzichten van Groepsprojecten.', 'siw' ),
 				],
 				[
 					'id'        => 'active',
 					'name'      => __( 'Tonen', 'siw' ),
 					'type'      => 'switch',
 					'on_label'  => __( 'Ja', 'siw' ),
-					'off_label' => __( 'Nee', 'siw'),
+					'off_label' => __( 'Nee', 'siw' ),
 				],
 				[
-					'id'        => 'start_date',
-					'name'      => __( 'Startdatum', 'siw' ),
-					'type'      => 'date',
-					'required'  => true,
-					'visible'   => [ 'workcamp_teaser_text[active]', true ],
+					'id'       => 'start_date',
+					'name'     => __( 'Startdatum', 'siw' ),
+					'type'     => 'date',
+					'required' => true,
+					'visible'  => [ 'workcamp_teaser_text[active]', true ],
 				],
 				[
-					'id'        => 'end_date',
-					'name'      => __( 'Einddatum', 'siw' ),
-					'type'      => 'date',
-					'required'  => true,
-					'visible'   => [ 'workcamp_teaser_text[active]', true ],
+					'id'       => 'end_date',
+					'name'     => __( 'Einddatum', 'siw' ),
+					'type'     => 'date',
+					'required' => true,
+					'visible'  => [ 'workcamp_teaser_text[active]', true ],
 				],
 			],
 		];
 		$fields[] = [
-			'id'      => 'workcamp_approval',
-			'type'    => 'group',
-			'tab'     => 'workcamps',
-			'fields'  => $approval_fields
+			'id'     => 'workcamp_approval',
+			'type'   => 'group',
+			'tab'    => 'workcamps',
+			'fields' => $approval_fields,
 		];
 
-		//Op Maat
+		// Op Maat
 		$fields[] = [
-			'id'        => 'tm_country',
-			'type'      => 'group',
-			'tab'       => 'tailor_made',
-			'fields'    => [
+			'id'     => 'tm_country',
+			'type'   => 'group',
+			'tab'    => 'tailor_made',
+			'fields' => [
 				[
 					'id'       => 'archive_intro',
 					'name'     => __( 'Introtekst', 'siw' ),
@@ -325,24 +324,24 @@ class Settings implements Option_Interface {
 			],
 		];
 
-		//Openingstijden
+		// Openingstijden
 		global $wp_locale;
 		$days = $wp_locale->weekday;
 
 		/* Reguliere openingstijden */
 		$opening_hours_fields[] = [
-			'type'   => 'heading',
-			'name'   => __( 'Reguliere openingstijden', 'siw' ),
+			'type' => 'heading',
+			'name' => __( 'Reguliere openingstijden', 'siw' ),
 		];
 		foreach ( $days as $slug => $name ) {
 			$day_fields = [
-				'id'    => "day_{$slug}",
-				'type'  => 'group',
+				'id'     => "day_{$slug}",
+				'type'   => 'group',
 				'fields' => [
 					[
-						'type'     =>'custom_html',
-						'std'      => ucfirst( $name ),
-						'columns'  => 2,
+						'type'    => 'custom_html',
+						'std'     => ucfirst( $name ),
+						'columns' => 2,
 					],
 					[
 						'id'        => 'open',
@@ -355,7 +354,7 @@ class Settings implements Option_Interface {
 						'id'       => 'opening_time',
 						'type'     => 'time',
 						'columns'  => 4,
-						'prepend'  => __('Van', 'siw' ),
+						'prepend'  => __( 'Van', 'siw' ),
 						'required' => true,
 						'visible'  => [ "opening_hours[day_{$slug}][open]", true ],
 					],
@@ -363,7 +362,7 @@ class Settings implements Option_Interface {
 						'id'       => 'closing_time',
 						'type'     => 'time',
 						'columns'  => 4,
-						'prepend'  => __('Tot', 'siw' ),
+						'prepend'  => __( 'Tot', 'siw' ),
 						'required' => true,
 						'visible'  => [ "opening_hours[day_{$slug}][open]", true ],
 					],
@@ -375,9 +374,9 @@ class Settings implements Option_Interface {
 		/* Afwijkende openingstijden */
 		$special_opening_hours_fields = [
 			[
-				'id'        => 'date',
-				'type'      => 'date',
-				'columns'   => 2,
+				'id'      => 'date',
+				'type'    => 'date',
+				'columns' => 2,
 			],
 			[
 				'id'        => 'opened',
@@ -410,9 +409,9 @@ class Settings implements Option_Interface {
 			'fields' => $opening_hours_fields,
 		];
 		$fields[] = [
-			'type'   => 'heading',
-			'name'   => __( 'Afwijkende openingstijden', 'siw' ),
-			'tab'    => 'opening_hours',
+			'type' => 'heading',
+			'name' => __( 'Afwijkende openingstijden', 'siw' ),
+			'tab'  => 'opening_hours',
 		];
 		$fields[] = [
 			'id'     => 'special_opening_hours',
@@ -422,16 +421,16 @@ class Settings implements Option_Interface {
 			'fields' => $special_opening_hours_fields,
 		];
 
-		//Email
+		// Email
 		$forms = siw_get_forms();
 		$forms['workcamp'] = __( 'Groepsprojecten', 'siw' );
 
 		foreach ( $forms as $id => $name ) {
 			$email_setting_fields[] = [
-				'id'            => "{$id}",
-				'type'          => 'group',
-				'tab'           => 'email',
-				'fields'        => [
+				'id'     => "{$id}",
+				'type'   => 'group',
+				'tab'    => 'email',
+				'fields' => [
 					[
 						'type' => 'heading',
 						'name' => $name,
@@ -479,10 +478,10 @@ class Settings implements Option_Interface {
 			];
 		}
 
-		$fields[]= [
-			'id'            => 'email_settings',
-			'type'          => 'group',
-			'tab'           => 'email',
+		$fields[] = [
+			'id'     => 'email_settings',
+			'type'   => 'group',
+			'tab'    => 'email',
 			'fields' => [
 				[
 					'type' => 'heading',
@@ -520,12 +519,12 @@ class Settings implements Option_Interface {
 							'pattern' => Pattern::EMAIL_LOCAL_PART()->value,
 							'clone'   => true,
 							'append'  => '@siw.nl',
-							'columns'  => 4,
+							'columns' => 4,
 						],
 					],
 				],
 				...$email_setting_fields,
-			]
+			],
 		];
 
 		return $fields;

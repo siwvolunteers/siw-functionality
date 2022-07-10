@@ -2,6 +2,8 @@
 
 namespace SIW\Helpers;
 
+use WP_Http;
+
 /**
  * Class om een HTTP request uit te voeren
  *
@@ -20,7 +22,7 @@ class HTTP_Request {
 
 	/** Geaccepteerde response codes */
 	protected array $accepted_response_codes = [
-		\WP_Http::OK
+		\WP_Http::OK,
 	];
 
 	/** Url voor request */
@@ -30,7 +32,7 @@ class HTTP_Request {
 	protected array $args;
 
 	/** Body van response */
-	protected $body;
+	protected \SimpleXMLElement|array $body; // phpcs:ignore Squiz.Commenting.VariableComment.Missing
 
 	/** Fout bij afhandeling van het request */
 	protected \WP_Error $error;
@@ -47,8 +49,8 @@ class HTTP_Request {
 			[
 				'timeout'     => 60,
 				'redirection' => 0,
-				'headers'     => [ 
-					'accept'       => self::APPLICATION_JSON, //TODO: is een default eigenlijk wel handig?
+				'headers'     => [
+					'accept'       => self::APPLICATION_JSON, // TODO: is een default eigenlijk wel handig?
 					'content-type' => self::APPLICATION_JSON,
 				],
 				'body'        => [],
@@ -59,7 +61,7 @@ class HTTP_Request {
 
 	/** Zet basic auth header */
 	public function set_basic_auth( string $user, string $password ) : self {
-		$this->args['headers']['Authorization'] = 'Basic ' . base64_encode("{$user}:{$password}");
+		$this->args['headers']['Authorization'] = 'Basic ' . base64_encode( "{$user}:{$password}" ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 		return $this;
 	}
 
@@ -86,7 +88,7 @@ class HTTP_Request {
 		$this->args['headers']['accept'] = $accept;
 		return $this;
 	}
-	
+
 	/** Voor POST-request uit */
 	public function post( $body = [] ) {
 		$this->args['body'] = $body;
@@ -109,8 +111,7 @@ class HTTP_Request {
 		$response = \wp_safe_remote_request( $this->url, $this->args );
 		if ( $this->is_valid_response( $response ) && $this->has_valid_body( $response ) ) {
 			return $this->body;
-		}
-		else {
+		} else {
 			return $this->error;
 		}
 	}
@@ -121,8 +122,8 @@ class HTTP_Request {
 		switch ( $this->args['headers']['accept'] ) {
 			case self::APPLICATION_JSON:
 				$json = \json_decode( $body, true );
-				if ( null == $json ) {
-					$this->error =  new \WP_Error( 'invalid_json', 'Ongeldige JSON' );
+				if ( null === $json ) {
+					$this->error = new \WP_Error( 'invalid_json', 'Ongeldige JSON' );
 					return false;
 				}
 				$this->body = $json;
@@ -152,7 +153,7 @@ class HTTP_Request {
 			return false;
 		}
 		$statuscode = wp_remote_retrieve_response_code( $response );
-		if ( ! in_array( $statuscode, $this->accepted_response_codes ) ) {
+		if ( ! in_array( $statuscode, $this->accepted_response_codes, true ) ) {
 			$this->error = new \WP_Error( 'invalid_status', 'Reponse heeft geen geldige response code' );
 			return false;
 		}

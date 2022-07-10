@@ -1,5 +1,27 @@
 @import "../partials/_variables.scss";
 
+body {
+	--siw-base: #fff;
+	--siw-contrast: #0073aa;
+
+	$theme-colors: (
+		"blue": #e1a948,
+		"coffee": #c7a589,
+		"ectoplasm": #a3b745,
+		"light": #04a4cc,
+		"midnight": #e14d43,
+		"modern": #3858e9,
+		"ocean": #9ebaa0,
+		"sunrise": #dd823b,
+	);
+
+	@each $theme, $color in $theme-colors {
+		&.admin-color-#{$theme} {
+			--siw-contrast: #{$color};
+		}
+	}
+}
+
 #wpadminbar ul li#wp-admin-bar-siw-env {
 	pointer-events: none;
 	background-color: #b92a2a;
@@ -68,7 +90,7 @@ table.wp-list-table {
 	li.siw_description_options a::before {
 		content: "\f123";
 	}
-	
+
 	li.siw_extra_options_options a::before {
 		content: "\f108";
 	}

@@ -14,7 +14,7 @@ class Cookie_Notice {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_action( 'wp_footer', [ $self, 'add_cookie_notice'] );
+		add_action( 'wp_footer', [ $self, 'add_cookie_notice' ] );
 	}
 
 	/** Voegt cookie notice toe aan footer */

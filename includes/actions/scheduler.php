@@ -29,16 +29,16 @@ class Scheduler {
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'schedule_actions'] );
+		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'schedule_actions' ] );
 
-		add_filter( 'action_scheduler_retention_period', fn() : int => DAY_IN_SECONDS );
-		add_filter( 'action_scheduler_queue_runner_time_limit', fn() : int => self::TIME_LIMIT );
+		add_filter( 'action_scheduler_retention_period', fn(): int => DAY_IN_SECONDS );
+		add_filter( 'action_scheduler_queue_runner_time_limit', fn(): int => self::TIME_LIMIT );
 	}
 
 	/**  Schedule acties */
 	public function schedule_actions() {
 
-		//Huidige start-actions unschedulen
+		// Huidige start-actions unschedulen
 		$scheduled_actions = as_get_scheduled_actions(
 			[
 				'group'    => self::START_GROUP,
@@ -51,7 +51,7 @@ class Scheduler {
 			fn( \ActionScheduler_Action $action ) => as_unschedule_all_actions( $action->get_hook() )
 		);
 
-		//Nieuw start-actions schedulen
+		// Nieuw start-actions schedulen
 		$actions = apply_filters( 'siw_scheduler_actions', [] );
 
 		array_walk(
@@ -67,18 +67,14 @@ class Scheduler {
 	}
 
 	/** Bepaal starttijd obv ID */
-	protected function determine_start_time( string $id ) : int {
-		switch ( $id ) {
-			case 'import_plato_projects':
-			case 'import_plato_dutch_projects':
-				$start_time = self::START_TIME_IMPORT_PROJECTS;
-				break;
-			case 'import_plato_project_free_places':
-				$start_time = self::START_TIME_IMPORT_FPL;
-				break;
-			default:
-				$start_time = self::START_TIME_GENERAL;
-		}
+	protected function determine_start_time( string $id ): int {
+
+		$start_time = match ( $id ) {
+			'import_plato_projects',
+			'import_plato_dutch_projects'      => self::START_TIME_IMPORT_PROJECTS,
+			'import_plato_project_free_places' => self::START_TIME_IMPORT_FPL,
+			default                            => self::START_TIME_GENERAL,
+		};
 		return strtotime( 'tomorrow ' . $start_time . wp_timezone_string() );
 	}
 }

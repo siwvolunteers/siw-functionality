@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="freeplaceslists">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="project" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="project_id"/>
+              <xs:element type="xs:string" name="code"/>
+              <xs:element type="xs:date" name="start_date"/>
+              <xs:element type="xs:date" name="end_date"/>
+              <xs:element type="xs:integer" name="numvol"/>
+              <xs:element type="xs:integer" name="free_m"/>
+              <xs:element type="xs:integer" name="free_f"/>
+              <xs:element type="xs:integer" name="free_teen"/>
+              <xs:element type="xs:integer" name="reserved"/>
+              <xs:element type="xs:string" name="no_more_from" minOccurs="0"/>
+              <xs:element type="xs:string" name="remarks"/>
+              <xs:element type="xs:date" name="last_update"/>
+              <xs:element type="xs:string" name="url_infosheet" minOccurs="0"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

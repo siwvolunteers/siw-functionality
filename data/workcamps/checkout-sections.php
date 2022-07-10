@@ -9,10 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
-$data = [
+$siw_data = [
 	'emergency_contact' => __( 'Noodcontact', 'siw' ),
 	'language'          => __( 'Talenkennis', 'siw' ),
 	'info_for_partner'  => __( 'Informatie voor partner', 'siw' ),
 ];
 
-return $data;
+return $siw_data;

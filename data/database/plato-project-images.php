@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 
-$data = [
+$siw_data = [
 	[
 		'name'        => 'project_id',
 		'type'        => 'CHAR',
@@ -25,10 +25,10 @@ $data = [
 		'show'        => true,
 	],
 	[
-		'name'        => 'file_identifier',
-		'type'        => 'CHAR',
-		'length'      => 32,
-		'show'        => true,
+		'name'   => 'file_identifier',
+		'type'   => 'CHAR',
+		'length' => 32,
+		'show'   => true,
 	],
 ];
-return $data;
+return $siw_data;
