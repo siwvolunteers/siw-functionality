@@ -92,17 +92,17 @@
         },
         {
             "name": "pharaonic/php-dot-array",
-            "version": "1.0.1",
-            "version_normalized": "1.0.1.0",
+            "version": "1.0.2",
+            "version_normalized": "1.0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Pharaonic/php-dot-array.git",
-                "reference": "b5da25a121b0fd03e6c495f77ee585b360ee6f73"
+                "reference": "394edf46a6c40430a13f38f4189cdccff9696573"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Pharaonic/php-dot-array/zipball/b5da25a121b0fd03e6c495f77ee585b360ee6f73",
-                "reference": "b5da25a121b0fd03e6c495f77ee585b360ee6f73",
+                "url": "https://api.github.com/repos/Pharaonic/php-dot-array/zipball/394edf46a6c40430a13f38f4189cdccff9696573",
+                "reference": "394edf46a6c40430a13f38f4189cdccff9696573",
                 "shasum": ""
             },
             "require": {
@@ -111,7 +111,7 @@
             "require-dev": {
                 "phpunit/phpunit": ">=5.0"
             },
-            "time": "2022-02-14T10:17:11+00:00",
+            "time": "2022-07-10T14:15:43+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -144,7 +144,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Pharaonic/php-dot-array/issues",
-                "source": "https://github.com/Pharaonic/php-dot-array/tree/1.0.1"
+                "source": "https://github.com/Pharaonic/php-dot-array/tree/1.0.2"
             },
             "install-path": "../pharaonic/php-dot-array"
         },
