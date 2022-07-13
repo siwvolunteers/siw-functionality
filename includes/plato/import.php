@@ -57,13 +57,14 @@ abstract class Import extends Plato_Interface {
 		$dom = $dom_element->ownerDocument; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 		if ( ! $dom->schemaValidate( $this->xsd_file ) ) {
-			Logger::error(
+			Logger::warning(
 				sprintf( 'Fout tijdens schema validatie: %s', libxml_get_last_error()->message ),
 				static::class
 			);
 			libxml_use_internal_errors( false );
 
-			return false;
+			// TODO: dit moet false teruggeven zodra Plato wat betrouwbaarder is
+			return true;
 		}
 
 		libxml_use_internal_errors( false );
