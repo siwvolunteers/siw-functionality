@@ -27,6 +27,7 @@ class SiteOrigin_Page_Builder {
 		add_filter( 'siteorigin_panels_settings', [ $self, 'set_breakpoint_settings' ] );
 		add_filter( 'siteorigin_panels_theme_container_width', [ $self, 'set_container_width' ] );
 		add_filter( 'siteorigin_panels_theme_container_selector', fn(): string => '.container.grid-container' );
+		add_filter( 'so_panels_show_add_new_dropdown_for_type', '__return_false' );
 	}
 
 	/** Zet container breedte obv theme setting */
