@@ -70,13 +70,13 @@ class Visibility implements Row_Style_Group_Interface, Cell_Style_Group_Interfac
 	 * {@inheritDoc}
 	 */
 	public function set_style_attributes( array $style_attributes, array $style_args ) : array {
-		if ( isset( $style_args[ self::STYLE_FIELD_HIDE_ON_MOBILE ] ) && 1 === $style_args[ self::STYLE_FIELD_HIDE_ON_MOBILE ] ) {
+		if ( isset( $style_args[ self::STYLE_FIELD_HIDE_ON_MOBILE ] ) && true === $style_args[ self::STYLE_FIELD_HIDE_ON_MOBILE ] ) {
 			$style_attributes['class'][] = CSS::HIDE_ON_MOBILE_CLASS;
 		}
-		if ( isset( $style_args[ self::STYLE_FIELD_HIDE_ON_TABLET ] ) && 1 === $style_args[ self::STYLE_FIELD_HIDE_ON_TABLET ] ) {
+		if ( isset( $style_args[ self::STYLE_FIELD_HIDE_ON_TABLET ] ) && true === $style_args[ self::STYLE_FIELD_HIDE_ON_TABLET ] ) {
 			$style_attributes['class'][] = CSS::HIDE_ON_TABLET_CLASS;
 		}
-		if ( isset( $style_args[ self::STYLE_FIELD_HIDE_ON_DESKTOP ] ) && 1 === $style_args[ self::STYLE_FIELD_HIDE_ON_DESKTOP ] ) {
+		if ( isset( $style_args[ self::STYLE_FIELD_HIDE_ON_DESKTOP ] ) && true === $style_args[ self::STYLE_FIELD_HIDE_ON_DESKTOP ] ) {
 			$style_attributes['class'][] = CSS::HIDE_ON_DESKTOP_CLASS;
 		}
 		return $style_attributes;
