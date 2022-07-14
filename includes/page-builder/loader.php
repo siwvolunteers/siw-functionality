@@ -24,6 +24,7 @@ class Loader extends Object_Loader_Abstract {
 		return [
 			Animation::class,
 			Design::class,
+			Layout::class,
 			Visibility::class,
 		];
 	}
