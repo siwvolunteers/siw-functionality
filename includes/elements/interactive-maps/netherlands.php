@@ -134,7 +134,7 @@ class Netherlands implements Interactive_Map_Interface {
 		);
 
 		$sdgs = array_map(
-			fn( Sustainable_Development_Goal $sdg ): string => $sdg->get_name(),
+			fn( Sustainable_Development_Goal $sdg ): string => $sdg->get_full_name(),
 			$project->get_sustainable_development_goals()
 		);
 

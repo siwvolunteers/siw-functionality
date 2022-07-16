@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c6d19e9660659750066ca2fc9af6d9bd004254d7',
+        'reference' => '67be87e5648218a5db368e3a9e0ae163c959b25e',
         'name' => 'siwvolunteers/siw-functionality',
         'dev' => true,
     ),
@@ -29,12 +29,12 @@
             'dev_requirement' => false,
         ),
         'pharaonic/php-dot-array' => array(
-            'pretty_version' => '1.0.1',
-            'version' => '1.0.1.0',
+            'pretty_version' => '1.0.2',
+            'version' => '1.0.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../pharaonic/php-dot-array',
             'aliases' => array(),
-            'reference' => 'b5da25a121b0fd03e6c495f77ee585b360ee6f73',
+            'reference' => '394edf46a6c40430a13f38f4189cdccff9696573',
             'dev_requirement' => false,
         ),
         'siwvolunteers/siw-functionality' => array(
@@ -43,7 +43,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c6d19e9660659750066ca2fc9af6d9bd004254d7',
+            'reference' => '67be87e5648218a5db368e3a9e0ae163c959b25e',
             'dev_requirement' => false,
         ),
         'spatie/array-to-xml' => array(
