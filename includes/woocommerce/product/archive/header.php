@@ -37,7 +37,7 @@ class Header {
 
 		?>
 		<div class="grid-container">
-			<div class="siw-archive-intro">
+			<div class="siw-intro">
 				<?php echo wp_kses_post( $text ); ?>
 			</div>
 		</div>

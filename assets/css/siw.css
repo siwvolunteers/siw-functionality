@@ -163,16 +163,16 @@ dl dd {
   margin: 0 1em 1em;
 }
 
-.siw-archive-intro {
+.siw-intro {
   background-color: var(--siw-contrast);
   color: var(--siw-base);
   padding: 15px;
   margin: 15px;
 }
-.siw-archive-intro a {
+.siw-intro a {
   color: var(--siw-base);
 }
-.siw-archive-intro a:hover {
+.siw-intro a:hover {
   color: var(--siw-base);
 }
 

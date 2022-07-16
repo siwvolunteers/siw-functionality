@@ -49,7 +49,7 @@ dl{
 	}
 }
 
-.siw-archive-intro{
+.siw-intro{
 	background-color: var(--siw-contrast);
 	color: var(--siw-base);
 	padding: 15px;
@@ -71,7 +71,7 @@ dl{
 li.menu-item a {
 	.siw-icon {
 		margin-right:5px;
-		transition: all 0.3s linear 0s;	
+		transition: all 0.3s linear 0s;
 	}
 	&:hover .siw-icon {
 		fill: var(--siw-base);
@@ -96,7 +96,7 @@ a.button.ghost {
 	&.is-checked {
 		background: var(--siw-contrast);
 		color: var(--siw-base);
-		border: 2px solid transparent; 
+		border: 2px solid transparent;
 	}
 }
 

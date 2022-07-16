@@ -49,7 +49,7 @@ class Archive {
 
 		?>
 		<div class="grid-container">
-			<div class="siw-archive-intro">
+			<div class="siw-intro">
 				<?php
 					do_action( "siw_{$this->post_type}_archive_intro", $this->get_archive_type() );
 				?>
