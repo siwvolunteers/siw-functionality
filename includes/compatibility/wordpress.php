@@ -59,6 +59,9 @@ class WordPress {
 
 		// Block editor uitschakelen voor widgets
 		add_filter( 'use_widgets_block_editor', '__return_false' );
+
+		add_action( 'template_redirect', [ $self, 'disable_author_archive' ] );
+
 	}
 
 	/** Verwijdert standaard-widgets */
@@ -193,4 +196,13 @@ class WordPress {
 		}
 		return $tag;
 	}
+
+	/** Author archives doorsturen naar home page */
+	public function disable_author_archive() {
+		if ( is_author() ) {
+			wp_safe_redirect( home_url() );
+			exit;
+		}
+	}
+
 }
