@@ -90,7 +90,7 @@ class Google_Analytics {
 		} elseif ( is_checkout() && ! is_order_received_page() ) {
 			$ecommerce_script = [ "ga('require', 'ec');" ];
 
-			$items = WC()->cart->get_cart_contents();
+			$items = WC()->cart?->get_cart_contents() ?? [];
 
 			foreach ( $items as $item ) {
 				$product = siw_get_product( $item['product_id'] );
@@ -140,7 +140,7 @@ class Google_Analytics {
 
 	/** Genereert cart data (om verwijderen uit cart te tracken) */
 	protected function generate_cart_data(): array {
-		$items = WC()->cart->get_cart_contents();
+		$items = WC()->cart?->get_cart_contents() ?? [];
 		$cart_data = [];
 		foreach ( $items as $key => $item ) {
 			$product = siw_get_product( $item['product_id'] );
@@ -172,7 +172,7 @@ class Google_Analytics {
 
 	/** Haal opgeslagen script uit WC-sessie */
 	protected function get_script_from_session() : array {
-		$script = WC()->session->get( self::SESSION_SCRIPT_KEY );
+		$script = WC()->session?->get( self::SESSION_SCRIPT_KEY );
 		if ( null !== $script ) {
 			WC()->session->set( self::SESSION_SCRIPT_KEY, null );
 			WC()->session->save_data();
