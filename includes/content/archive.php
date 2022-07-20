@@ -77,7 +77,7 @@ class Archive {
 		echo '<div class="grid-container">';
 		foreach ( $taxonomies as $taxonomy ) {
 			printf(
-				"<div class='grid-{%s}'>%s</div>",
+				'<div class="grid-%s">%s</div>',
 				esc_attr( $grid_size ),
 				$this->taxonomy_filter->set_taxonomy( "siw_{$this->post_type}_{$taxonomy}" )->generate() // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			);
