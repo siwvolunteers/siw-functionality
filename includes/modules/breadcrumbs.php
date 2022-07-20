@@ -58,7 +58,7 @@ class Breadcrumbs {
 			$this->current = get_the_title( get_option( 'page_for_posts', true ) );
 		} elseif ( is_post_type_archive() ) {
 			$this->current = post_type_archive_title( '', false ); // TODO: filter
-		} elseif ( is_archive() ) {
+		} elseif ( is_tax() ) {
 			// $this->current = get_the_archive_title(); //TODO: filter
 			$this->current = single_term_title( '', false );
 		} else {
