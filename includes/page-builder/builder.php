@@ -2,12 +2,9 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Interfaces\Page_Builder\Row_Style_Group as Row_Style_Group_Interface;
-use SIW\Interfaces\Page_Builder\Row_Style_Fields as Row_Style_Fields_Interface;
-use SIW\Interfaces\Page_Builder\Cell_Style_Group as Cell_Style_Group_Interface;
-use SIW\Interfaces\Page_Builder\Cell_Style_Fields as Cell_Style_Fields_Interface;
-use SIW\Interfaces\Page_Builder\Widget_Style_Group as Widget_Style_Group_Interface;
-use SIW\Interfaces\Page_Builder\Widget_Style_Fields as Widget_Style_Fields_Interface;
+use SIW\Interfaces\Page_Builder\Style_Group as Style_Group_Interface;
+use SIW\Interfaces\Page_Builder\Style_Fields as Style_Fields_Interface;
+
 use SIW\Interfaces\Page_Builder\Settings as Settings_Interface;
 
 /**
@@ -17,37 +14,38 @@ use SIW\Interfaces\Page_Builder\Settings as Settings_Interface;
  */
 class Builder {
 
-	/** Voegt row style group toe */
-	public function add_row_style_group( Row_Style_Group_Interface $extension ) {
-		add_filter( 'siteorigin_panels_row_style_groups', [ $extension, 'add_style_group' ] );
+	/** Voegt style group toe */
+	public function add_style_group( Style_Group_Interface $extension ) {
+
+		if ( $extension->supports_widgets() ) {
+			add_filter( 'siteorigin_panels_widget_style_groups', [ $extension, 'add_style_group' ], 10, 3 );
+		}
+
+		if ( $extension->supports_cells() ) {
+			add_filter( 'siteorigin_panels_cell_style_groups', [ $extension, 'add_style_group' ], 10, 3 );
+		}
+
+		if ( $extension->supports_rows() ) {
+			add_filter( 'siteorigin_panels_row_style_groups', [ $extension, 'add_style_group' ], 10, 3 );
+		}
 	}
 
-	/** Voegt row style fields toe */
-	public function add_row_style_fields( Row_Style_Fields_Interface $extension ) {
-		add_filter( 'siteorigin_panels_row_style_fields', [ $extension, 'add_style_fields' ] );
-		add_filter( 'siteorigin_panels_row_style_attributes', [ $extension, 'set_style_attributes' ], 10, 2 );
-	}
+	/** Voegt style fields toe */
+	public function add_style_fields( Style_Fields_Interface $extension ) {
+		if ( $extension->supports_widgets() ) {
+			add_filter( 'siteorigin_panels_widget_style_fields', [ $extension, 'add_style_fields' ], 10, 3 );
+			add_filter( 'siteorigin_panels_widget_style_attributes', [ $extension, 'set_style_attributes' ], 10, 2 );
+		}
 
-	/** Voegt cell style group toe */
-	public function add_cell_style_group( Cell_Style_Group_Interface $extension ) {
-		add_filter( 'siteorigin_panels_cell_style_groups', [ $extension, 'add_style_group' ] );
-	}
+		if ( $extension->supports_cells() ) {
+			add_filter( 'siteorigin_panels_cell_style_fields', [ $extension, 'add_style_fields' ], 10, 3 );
+			add_filter( 'siteorigin_panels_cell_style_attributes', [ $extension, 'set_style_attributes' ], 10, 2 );
+		}
 
-	/** Voegt cell style fields toe */
-	public function add_cell_style_fields( Cell_Style_Fields_Interface $extension ) {
-		add_filter( 'siteorigin_panels_cell_style_fields', [ $extension, 'add_style_fields' ] );
-		add_filter( 'siteorigin_panels_cell_style_attributes', [ $extension, 'set_style_attributes' ], 10, 2 );
-	}
-
-	/** Voegt widget style group toe */
-	public function add_widget_style_group( Widget_Style_Group_Interface $extension ) {
-		add_filter( 'siteorigin_panels_widget_style_groups', [ $extension, 'add_style_group' ] );
-	}
-
-	/** Voegt widget style fields toe */
-	public function add_widget_style_fields( Widget_Style_Fields_Interface $extension ) {
-		add_filter( 'siteorigin_panels_widget_style_fields', [ $extension, 'add_style_fields' ] );
-		add_filter( 'siteorigin_panels_widget_style_attributes', [ $extension, 'set_style_attributes' ], 10, 2 );
+		if ( $extension->supports_rows() ) {
+			add_filter( 'siteorigin_panels_row_style_fields', [ $extension, 'add_style_fields' ], 10, 3 );
+			add_filter( 'siteorigin_panels_row_style_attributes', [ $extension, 'set_style_attributes' ], 10, 2 );
+		}
 	}
 
 	/** Voeg settings toe */

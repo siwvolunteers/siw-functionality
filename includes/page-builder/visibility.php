@@ -2,9 +2,7 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Interfaces\Page_Builder\Row_Style_Group as Row_Style_Group_Interface;
-use SIW\Interfaces\Page_Builder\Cell_Style_Group as Cell_Style_Group_Interface;
-use SIW\Interfaces\Page_Builder\Widget_Style_Group as Widget_Style_Group_Interface;
+use SIW\Interfaces\Page_Builder\Style_Group as Style_Group_Interface;
 
 use SIW\Util\CSS;
 
@@ -13,7 +11,7 @@ use SIW\Util\CSS;
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Visibility implements Row_Style_Group_Interface, Cell_Style_Group_Interface, Widget_Style_Group_Interface {
+class Visibility implements Style_Group_Interface {
 
 	/** Style groep */
 	const STYLE_GROUP = 'siw-visibility';
@@ -27,10 +25,23 @@ class Visibility implements Row_Style_Group_Interface, Cell_Style_Group_Interfac
 	/** Style fields voor verbergen op desktop */
 	const STYLE_FIELD_HIDE_ON_DESKTOP = 'hide_on_desktop';
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function add_style_group( array $groups ) : array {
+	/** {@inheritDoc} */
+	public function supports_widgets(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function supports_cells(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function supports_rows(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ) : array {
 		$groups[ self::STYLE_GROUP ] = [
 			'name'     => __( 'Zichtbaarheid', 'siw' ),
 			'priority' => 99,
@@ -41,7 +52,7 @@ class Visibility implements Row_Style_Group_Interface, Cell_Style_Group_Interfac
 	/**
 	 * {@inheritDoc}
 	 */
-	public function add_style_fields( array $fields ) : array {
+	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ) : array {
 		$fields[ self::STYLE_FIELD_HIDE_ON_MOBILE ] = [
 			'name'     => '<span class="dashicons dashicons-smartphone"></span>' . __( 'Mobiel', 'siw' ),
 			'label'    => __( 'Verbergen', 'siw' ),
