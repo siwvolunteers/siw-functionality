@@ -2,6 +2,7 @@
 
 namespace SIW\Page_Builder;
 
+use SIW\Interfaces\Page_Builder\Style_Attributes as Style_Attributes_Interface;
 use SIW\Interfaces\Page_Builder\Style_Group as Style_Group_Interface;
 
 use SIW\Util\CSS;
@@ -11,7 +12,7 @@ use SIW\Util\CSS;
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Visibility implements Style_Group_Interface {
+class Visibility implements Style_Group_Interface, Style_Attributes_Interface {
 
 	/** Style groep */
 	const STYLE_GROUP = 'siw-visibility';
@@ -41,7 +42,7 @@ class Visibility implements Style_Group_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ) : array {
+	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ): array {
 		$groups[ self::STYLE_GROUP ] = [
 			'name'     => __( 'Zichtbaarheid', 'siw' ),
 			'priority' => 99,
@@ -49,10 +50,8 @@ class Visibility implements Style_Group_Interface {
 		return $groups;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ) : array {
+	/** {@inheritDoc} */
+	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ): array {
 		$fields[ self::STYLE_FIELD_HIDE_ON_MOBILE ] = [
 			'name'     => '<span class="dashicons dashicons-smartphone"></span>' . __( 'Mobiel', 'siw' ),
 			'label'    => __( 'Verbergen', 'siw' ),
@@ -77,10 +76,8 @@ class Visibility implements Style_Group_Interface {
 		return $fields;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function set_style_attributes( array $style_attributes, array $style_args ) : array {
+	/** {@inheritDoc} */
+	public function set_style_attributes( array $style_attributes, array $style_args ): array {
 		if ( isset( $style_args[ self::STYLE_FIELD_HIDE_ON_MOBILE ] ) && true === $style_args[ self::STYLE_FIELD_HIDE_ON_MOBILE ] ) {
 			$style_attributes['class'][] = CSS::HIDE_ON_MOBILE_CLASS;
 		}

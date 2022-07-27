@@ -2,6 +2,7 @@
 
 namespace SIW\Page_Builder;
 
+use SIW\Interfaces\Page_Builder\Style_Attributes as Style_Attributes_Interface;
 use SIW\Interfaces\Page_Builder\Style_Fields as Style_Fields_Interface;
 
 /**
@@ -9,7 +10,7 @@ use SIW\Interfaces\Page_Builder\Style_Fields as Style_Fields_Interface;
  *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  */
-class Design implements Style_Fields_Interface {
+class Design implements Style_Fields_Interface, Style_Attributes_Interface {
 
 	/** Style field voor uitlijning widget title */
 	const STYLE_FIELD_WIDGET_TITLE_ALIGN = 'siw_widget_title_align';

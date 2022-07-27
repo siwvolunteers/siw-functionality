@@ -4,6 +4,8 @@ namespace SIW\Page_Builder;
 
 use SIW\Abstracts\Object_Loader as Object_Loader_Abstract;
 
+use SIW\Interfaces\Page_Builder\Style_Attributes as Style_Attributes_Interface;
+use SIW\Interfaces\Page_Builder\Style_CSS as Style_CSS_Interface;
 use SIW\Interfaces\Page_Builder\Style_Fields as Style_Fields_Interface;
 use SIW\Interfaces\Page_Builder\Style_Group as Style_Group_Interface;
 use SIW\Interfaces\Page_Builder\Settings as Settings_Interface;
@@ -36,6 +38,14 @@ class Loader extends Object_Loader_Abstract {
 		}
 		if ( is_a( $extension, Style_Fields_Interface::class ) ) {
 			$builder->add_style_fields( $extension );
+		}
+
+		if ( is_a( $extension, Style_Attributes_Interface::class ) ) {
+			$builder->add_style_attributes( $extension );
+		}
+
+		if ( is_a( $extension, Style_CSS_Interface::class ) ) {
+			$builder->add_style_css( $extension );
 		}
 
 		// Voeg settings toe

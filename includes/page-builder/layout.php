@@ -2,6 +2,7 @@
 
 namespace SIW\Page_Builder;
 
+use SIW\Interfaces\Page_Builder\Style_Attributes as Style_Attributes_Interface;
 use SIW\Interfaces\Page_Builder\Style_Fields as Style_Fields_Interface;
 
 /**
@@ -9,7 +10,7 @@ use SIW\Interfaces\Page_Builder\Style_Fields as Style_Fields_Interface;
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
-class Layout implements Style_Fields_Interface {
+class Layout implements Style_Fields_Interface, Style_Attributes_Interface {
 
 	/** Style field voor Rij layout */
 	const STYLE_FIELD_ROW_STRETCH = 'siw_row_stretch';
@@ -30,7 +31,7 @@ class Layout implements Style_Fields_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ) : array {
+	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ): array {
 		unset( $fields['row_stretch'] );
 		$fields[ self::STYLE_FIELD_ROW_STRETCH ] = [
 			'name'     => __( 'Rij lay-out', 'siw' ),
@@ -47,7 +48,7 @@ class Layout implements Style_Fields_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function set_style_attributes( array $style_attributes, array $style_args ) : array {
+	public function set_style_attributes( array $style_attributes, array $style_args ): array {
 		if ( ! isset( $style_args[ self::STYLE_FIELD_ROW_STRETCH ] ) ) {
 			return $style_attributes;
 		}
