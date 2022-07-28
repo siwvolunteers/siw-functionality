@@ -21,6 +21,7 @@ class Loader extends Object_Loader_Abstract {
 	public function get_classes() : array {
 		return [
 			Animation::class,
+			CSS_Filters::class,
 			Design::class,
 			Layout::class,
 			Visibility::class,
