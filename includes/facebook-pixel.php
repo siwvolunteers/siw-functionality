@@ -3,6 +3,7 @@
 namespace SIW;
 
 use SIW\Assets\JS_Cookie;
+use SIW\Assets\Meta_Pixel;
 use SIW\Elements\Cookie_Notice;
 
 /**
@@ -39,5 +40,6 @@ class Facebook_Pixel {
 			]
 		);
 		wp_enqueue_script( self::SCRIPT_HANDLE );
+		wp_enqueue_script( Meta_Pixel::ASSETS_HANDLE );
 	}
 }
