@@ -22,7 +22,7 @@ class I18n {
 
 	/** Geeft vertaalde permalink in meegegeven taal terug */
 	public static function get_translated_permalink( string $permalink, string $language_code ): string {
-		return apply_filters( 'wpml_permalink', $permalink, $language_code ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		return apply_filters( 'wpml_permalink', $permalink, $language_code, true ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/** Geeft terug of de huidige taal gelijk is aan de standaardtaal */
