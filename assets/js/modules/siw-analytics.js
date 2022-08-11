@@ -1,8 +1,8 @@
-/** global: ga, siw_analytics_cart */
+/** global: ga, siw_analytics */
 
 /**
  * @file      Functies t.b.v. Google Analytics
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 
 var siwGoogleAnalytics = (function () {
@@ -16,17 +16,50 @@ var siwGoogleAnalytics = (function () {
 	/** Voegt listeners toe */
 	function init() {
 
-		var tracking_links = document.querySelectorAll( '[data-ga-track="1"]' );
-		for ( var i=0, len = tracking_links.length; i < len; i++ ) {
-			var tracking_link = tracking_links[i];
+		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+		ga('create', siw_analytics.property_id, siw_analytics.tracker_settings);
+
+		for ( const [key, value] of Object.entries(siw_analytics.tracker_options ) ) {
+			ga( 'set', key, value );
+		}
+
+		// Ecommerce tracking
+		if ( 'undefined' !== typeof( siw_analytics.ecommerce_data ) ) {
+			ga( 'require', 'ec' );
+
+			// Impressions
+			if ( 'undefined' !== typeof( siw_analytics.ecommerce_data.impressions) ) {
+				for ( let i=0, len = siw_analytics.ecommerce_data.impressions.length; i < len; i++ ) {
+					ga( 'ec:addImpression', siw_analytics.ecommerce_data.impressions[ i ]);
+				}
+			}
+
+			// Producten
+			if ( 'undefined' !== typeof( siw_analytics.ecommerce_data.products ) ) {
+				for ( let i=0, len = siw_analytics.ecommerce_data.products.length; i < len; i++ ) {
+					ga( 'ec:addProduct', siw_analytics.ecommerce_data.products[ i ] );
+				}
+			}
+
+			if ( 'undefined' !== typeof( siw_analytics.ecommerce_data.action ) ) {
+				if ( 'undefined' !== typeof siw_analytics.ecommerce_data.action_data ) {
+					ga( 'ec:setAction', siw_analytics.ecommerce_data.action, siw_analytics.ecommerce_data.action_data );
+				} else {
+					ga( 'ec:setAction', siw_analytics.ecommerce_data.action );
+				}
+			}
+
+		}
+
+		ga('send', 'pageview');
+
+		// Voeg eventlisteners voor links toe
+		let tracking_links = document.querySelectorAll( '[data-ga-track="1"]' );
+		for ( let i=0, len = tracking_links.length; i < len; i++ ) {
+			let tracking_link = tracking_links[i];
 			tracking_link.addEventListener( 'click', _trackClick );
 		}
 
-		var remove_from_cart_links = document.querySelectorAll( '.woocommerce-cart-form .product-remove > a' );
-		for ( var i = 0, len = remove_from_cart_links.length; i < len; i++ ) {
-			var remove_from_cart_link = remove_from_cart_links[i];
-			remove_from_cart_link.addEventListener( 'click', _trackRemoveFromCart );
-		}
 	}
 
 	/**
@@ -35,13 +68,29 @@ var siwGoogleAnalytics = (function () {
 	 * @param {Event} event
 	 */
 	function _trackClick( event ) {
-		var dataset = event.target.dataset;
+		let dataset = event.currentTarget.dataset;
 
-		var type = dataset.gaType || '';
-		var category = dataset.gaCategory || '';
-		var action = dataset.gaAction || '';
-		var label = dataset.gaLabel || '';
-		ga( 'send', type, category, action, label);
+		let type = dataset.gaType || '';
+		let category = dataset.gaCategory || '';
+		let action = dataset.gaAction || '';
+		let label = dataset.gaLabel || '';
+
+		let ec_product = dataset.ecProduct;
+		let ec_action = dataset.ecAction;
+		let ec_action_data = dataset.ecActionData;
+
+		if ( 'undefined' !== typeof( ec_product ) ) {
+			ga( 'ec:addProduct', JSON.parse( ec_product ) );
+		}
+		if ( 'undefined' !== typeof( ec_action ) ) {
+			if ( 'undefined' !== typeof( ec_action_data ) ) {
+				ga( 'ec:setAction', ec_action, JSON.parse( ec_action_data ) );
+			} else {
+				ga( 'ec:setAction', ec_action );
+			}
+
+		}
+		ga( 'send', type, category, action, label );
 	}
 
 	/**
@@ -51,19 +100,6 @@ var siwGoogleAnalytics = (function () {
 	 */
 	function trackFormSubmission( form_id ) {
 		ga( 'send', 'event', 'form', 'send', form_id );
-	}
-
-	/**
-	 * Verstuurt GA-event voor verwijderen uit cart
-	 *
-	 * @param {Event} event
-	 */
-	function _trackRemoveFromCart( event ) {
-		event.preventDefault();
-		var product_id = this.dataset.product_id;
-		ga( 'ec:addProduct', siw_analytics_cart[product_id]);
-		ga( 'ec:setAction', 'remove' );
-		ga( 'send', 'event', 'Ecommerce', 'remove', 'remove from cart' );	
 	}
 
 })();
