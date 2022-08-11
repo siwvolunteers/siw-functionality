@@ -17,9 +17,9 @@ var siwGoogleAnalytics = (function () {
 	function init() {
 
 		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-		ga('create', siw_analytics.property_id, siw_analytics.tracker_settings);
+		ga( 'create', siw_analytics.property_id, siw_analytics.tracker_settings );
 
-		for ( const [key, value] of Object.entries(siw_analytics.tracker_options ) ) {
+		for ( const [key, value] of Object.entries( siw_analytics.tracker_options ) ) {
 			ga( 'set', key, value );
 		}
 
@@ -30,7 +30,7 @@ var siwGoogleAnalytics = (function () {
 			// Impressions
 			if ( 'undefined' !== typeof( siw_analytics.ecommerce_data.impressions) ) {
 				for ( let i=0, len = siw_analytics.ecommerce_data.impressions.length; i < len; i++ ) {
-					ga( 'ec:addImpression', siw_analytics.ecommerce_data.impressions[ i ]);
+					ga( 'ec:addImpression', siw_analytics.ecommerce_data.impressions[ i ] );
 				}
 			}
 

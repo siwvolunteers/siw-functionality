@@ -19,7 +19,8 @@ class Google_Analytics implements Script, External {
 
 	/** {@inheritDoc} */
 	public function register_script() {
-		wp_register_script( self::ASSETS_HANDLE, 'https://www.google-analytics.com/analytics.js', [], null, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+		$filename = defined( 'WP_DEBUG' ) && WP_DEBUG ? 'analytics_debug.js' : 'analytics.js';
+		wp_register_script( self::ASSETS_HANDLE, "https://www.google-analytics.com/{$filename}", [], null, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 	}
 
 	/** {@inheritDoc} */
