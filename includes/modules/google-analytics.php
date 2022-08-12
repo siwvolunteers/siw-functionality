@@ -185,7 +185,7 @@ class Google_Analytics {
 			$taxonomy = get_taxonomy( $queried_object->taxonomy );
 			$product_list = sprintf(
 				'Projecten per %s: %s',
-				lcfirst( $taxonomy->labels->singular_name ),
+				$taxonomy->labels->singular_name,
 				$queried_object->name
 			);
 		} elseif ( is_page() ) {
