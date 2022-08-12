@@ -14,7 +14,6 @@ class Customer_Processing_Order {
 		$self = new self();
 		add_filter( 'woocommerce_email_subject_customer_processing_order', [ $self, 'set_subject' ], 10, 2 );
 		add_filter( 'woocommerce_email_heading_customer_processing_order', [ $self, 'set_heading' ], 10, 2 );
-		add_filter( 'wc_get_template', [ $self, 'set_template' ], 10, 5 );
 	}
 
 	/** Past onderwerp aan */
@@ -33,13 +32,5 @@ class Customer_Processing_Order {
 			$heading = sprintf( __( 'Bevestiging betaling aanmelding #%s', 'siw' ), $order->get_order_number() );
 		}
 		return $heading;
-	}
-
-	/** Overschrijft template */
-	public function set_template( string $located, string $template_name, array $args, string $template_path, string $default_path ): string {
-		if ( 'emails/customer-processing-order.php' === $template_name ) {
-			$located = SIW_TEMPLATES_DIR . 'woocommerce/' . $template_name;
-		}
-		return $located;
 	}
 }

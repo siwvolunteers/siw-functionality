@@ -22,8 +22,6 @@ class Product {
 
 		add_action( 'woocommerce_single_product_summary', [ $self, 'show_project_summary' ], 20 );
 
-		add_filter( 'wc_get_template', [ $self, 'set_template' ], 10, 5 ); // TODO: generiek maken
-
 		add_action( 'woocommerce_before_single_product_summary', [ $self, 'show_featured_badge' ], 10 );
 		add_filter( 'woocommerce_price_trim_zeros', '__return_true' ); // TODO: verplaatsen naar compat
 
@@ -123,13 +121,5 @@ class Product {
 	/** Voegt Add to cart button toe */
 	public function project_add_to_cart() {
 		wc_get_template( 'single-product/add-to-cart/project.php' );
-	}
-
-	/** Overschrijft template */
-	public function set_template( string $located, string $template_name, array $args, string $template_path, string $default_path ): string {
-		if ( 'single-product/add-to-cart/project.php' === $template_name ) {
-			$located = SIW_TEMPLATES_DIR . 'woocommerce/' . $template_name;
-		}
-		return $located;
 	}
 }

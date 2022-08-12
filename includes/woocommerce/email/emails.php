@@ -19,10 +19,7 @@ class Emails {
 		$self = new self();
 		add_filter( 'woocommerce_email_from_name', [ $self, 'set_email_from_name' ], 10, 2 );
 		add_filter( 'woocommerce_email_from_address', [ $self, 'set_email_from_address' ], 10, 2 );
-		add_filter( 'wc_get_template', [ $self, 'set_header_template' ], 10, 5 );
-		add_filter( 'wc_get_template', [ $self, 'set_footer_template' ], 10, 5 );
 		// add_filter( 'woocommerce_defer_transactional_emails', '__return_true' );
-
 		add_action( 'siw_woocommerce_email_order_table', [ $self, 'show_order_table' ] );
 	}
 
@@ -34,22 +31,6 @@ class Emails {
 	/** Zet e-mailadres afzender */
 	public function set_email_from_address(): string {
 		return siw_get_email_settings( 'workcamp' )->get_confirmation_mail_sender();
-	}
-
-	/** Overschrijft header-template */
-	public function set_header_template( string $located, string $template_name, array $args, string $template_path, string $default_path ): string {
-		if ( 'emails/email-header.php' === $template_name ) {
-			$located = SIW_TEMPLATES_DIR . 'woocommerce/' . $template_name;
-		}
-		return $located;
-	}
-
-	/** Overschrijft footer-template */
-	public function set_footer_template( string $located, string $template_name, array $args, string $template_path, string $default_path ): string {
-		if ( 'emails/email-footer.php' === $template_name ) {
-			$located = SIW_TEMPLATES_DIR . 'woocommerce/' . $template_name;
-		}
-		return $located;
 	}
 
 	/** Toont tabel met aanmeldingsgegevens */
