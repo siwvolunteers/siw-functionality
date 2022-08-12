@@ -26,6 +26,7 @@ $font-styles: (
 			font-weight: $weight;
 			src: url('#{variables.$assets-path}/fonts/Metropolis/woff2/Metropolis-#{$name}#{$suffix}.woff2') format('woff2'),
 				 url('#{variables.$assets-path}/fonts/Metropolis/woff/Metropolis-#{$name}#{$suffix}.woff') format('woff');
+			font-display: swap;
 		}
 	}
 
