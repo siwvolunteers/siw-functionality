@@ -15,7 +15,7 @@ use SIW\Interfaces\Assets\Script;
 class Meta_Pixel implements Script, External {
 
 	/** Handle voor assets */
-	const ASSETS_HANDLE = 'facebook-pixel';
+	const ASSETS_HANDLE = 'meta-pixel';
 
 	/** {@inheritDoc} */
 	public function register_script() {
