@@ -15,7 +15,7 @@ use SIW\Interfaces\Assets\Script;
 class Polyfill implements Script, External {
 
 	/** Versienummer */
-	const VERSION = '3.108.0';
+	const VERSION = '3.111.0';
 
 	/** Handle voor assets */
 	const ASSETS_HANDLE = 'polyfill';
