@@ -118,6 +118,11 @@ class WC_Product_Project extends \WC_Product_Simple {
 		return null;
 	}
 
+	/** {@inheritDoc} */
+	public function single_add_to_cart_text(): string {
+		return __( 'Aanmelden', 'siw' );
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Getters voor attributes
