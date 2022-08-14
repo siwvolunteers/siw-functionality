@@ -100,7 +100,9 @@ class Form {
 		$fields = $this->form->get_form_fields();
 		$fields = array_map( [ $this, 'parse_field' ], $fields );
 
-		// Voeg verzenden knop toe TODO: tekst configureerbaar maken?
+		$fields = $this->add_quiz( $fields );
+
+		// Voeg verzenden knop toe
 		$fields[] = [
 			'type'       => 'button',
 			'columns'    => Form_Interface::FULL_WIDTH,
@@ -109,6 +111,37 @@ class Form {
 				'type' => 'submit',
 				'name' => 'rwmb_submit',
 			],
+		];
+
+		return $fields;
+	}
+
+	/** Voeg quiz toe om bots af te schrikken */
+	protected function add_quiz( array $fields ): array {
+
+		$one = wp_rand( 2, 10 );
+		$two = wp_rand( 2, 10 );
+
+		if ( $one > $two ) {
+			$operator = __( 'min', 'siw' );
+			$answer = $one - $two;
+		} else {
+			$operator = __( 'plus', 'siw' );
+			$answer = $one + $two;
+		}
+
+		$fields[] = [
+			'id'       => 'quiz',
+			'type'     => 'number',
+			'required' => true,
+			/* translators: %1$d en %3$d twee zijn allebei getallen, %2$s is de operator (plus of min) */
+			'name'     => sprintf( __( 'Hoeveel is %1$d %2$s %3$d?', 'siw' ), $one, $operator, $two ),
+			'columns'  => Form_Interface::HALF_WIDTH,
+		];
+		$fields[] = [
+			'id'   => 'quiz_hash',
+			'type' => 'hidden',
+			'std'  => siw_hash( (string) $answer ),
 		];
 
 		return $fields;
