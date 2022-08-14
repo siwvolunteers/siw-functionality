@@ -61,7 +61,7 @@ class CSS_Filters implements Style_Group_Interface, Style_Fields_Interface, Styl
 
 		$fields[ self::STYLE_FIELD_BLUR ] = [
 			'name'        => __( 'Blur', 'siw' ),
-			'description' => __( 'px', 'siw' ),
+			'description' => 'px',
 			'group'       => self::STYLE_GROUP,
 			'type'        => 'number',
 			'default'     => 0,
@@ -70,7 +70,7 @@ class CSS_Filters implements Style_Group_Interface, Style_Fields_Interface, Styl
 
 		$fields[ self::STYLE_FIELD_BRIGHTNESS ] = [
 			'name'        => __( 'Helderheid', 'siw' ),
-			'description' => __( '%', 'siw' ),
+			'description' => '%',
 			'group'       => self::STYLE_GROUP,
 			'type'        => 'number',
 			'default'     => 100,
@@ -79,7 +79,7 @@ class CSS_Filters implements Style_Group_Interface, Style_Fields_Interface, Styl
 
 		$fields[ self::STYLE_FIELD_CONTRAST ] = [
 			'name'        => __( 'Contrast', 'siw' ),
-			'description' => __( '%', 'siw' ),
+			'description' => '%',
 			'group'       => self::STYLE_GROUP,
 			'type'        => 'number',
 			'default'     => 100,
@@ -88,7 +88,7 @@ class CSS_Filters implements Style_Group_Interface, Style_Fields_Interface, Styl
 
 		$fields[ self::STYLE_FIELD_GRAYSCALE ] = [
 			'name'        => __( 'Grayscale', 'siw' ),
-			'description' => __( '%', 'siw' ),
+			'description' => '%',
 			'group'       => self::STYLE_GROUP,
 			'type'        => 'number',
 			'default'     => 0,
@@ -96,7 +96,7 @@ class CSS_Filters implements Style_Group_Interface, Style_Fields_Interface, Styl
 		];
 		$fields[ self::STYLE_FIELD_SEPIA ] = [
 			'name'        => __( 'Sepia', 'siw' ),
-			'description' => __( '%', 'siw' ),
+			'description' => '%',
 			'group'       => self::STYLE_GROUP,
 			'type'        => 'number',
 			'default'     => 0,
@@ -105,7 +105,7 @@ class CSS_Filters implements Style_Group_Interface, Style_Fields_Interface, Styl
 
 		$fields[ self::STYLE_FIELD_SATURATE ] = [
 			'name'        => __( 'Verzadigen', 'siw' ),
-			'description' => __( '%', 'siw' ),
+			'description' => '%',
 			'group'       => self::STYLE_GROUP,
 			'type'        => 'number',
 			'default'     => 100,
