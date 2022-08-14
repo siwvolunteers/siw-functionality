@@ -11,6 +11,7 @@ use SIW\Interfaces\Forms\Confirmation_Mail;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Notification_Mail;
 use SIW\Properties;
+use SIW\Util\Logger;
 use SIW\Util\Meta_Box;
 
 /**
@@ -188,8 +189,12 @@ class Processor {
 	protected function check_quiz_answer(): bool {
 		$quiz = sanitize_text_field( $this->request->get_param( 'quiz' ) );
 		$quiz_hash = sanitize_text_field( $this->request->get_param( 'quiz_hash' ) );
+		if ( siw_hash( $quiz ) !== $quiz_hash ) {
+			Logger::info( "Quiz verkeerd ingevuld in formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip}", static::class );
+			return false;
+		}
 
-		return siw_hash( $quiz ) === $quiz_hash;
+		return true;
 	}
 
 	/** Checkt de rate limite */
@@ -199,12 +204,12 @@ class Processor {
 		if ( $submission_count > 0 ) {
 			$submission_count ++;
 			set_transient( $transient_name, $submission_count, $submission_count * HOUR_IN_SECONDS );
+			Logger::info( "Meerdere aanmeldingen ({$submission_count}) in korte tijd voor formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip}", static::class );
 			return false;
 		}
 		set_transient( $transient_name, 1, HOUR_IN_SECONDS );
 		return true;
 	}
-
 
 	/** Check of het spam betreft */
 	protected function is_spam(): bool {
@@ -220,6 +225,12 @@ class Processor {
 			$spam_check->set_ip( $this->ip );
 		}
 		// TODO: check inhoud van bepaalde velden op links
-		return $spam_check->is_spam();
+		if ( $spam_check->is_spam() ) {
+			Logger::info( "Aanmelding voor formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip} en email {$email} gemarkeerd als spam", static::class );
+			return true;
+		}
+		Logger::debug( "Aanmelding voor formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip} en email {$email} niet gemarkeerd als spam", static::class );
+
+		return false;
 	}
 }
