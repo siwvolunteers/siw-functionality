@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '67be87e5648218a5db368e3a9e0ae163c959b25e',
+        'reference' => 'bfa293c5d1490d26b9aafa28d9a8b889fb5a6774',
         'name' => 'siwvolunteers/siw-functionality',
         'dev' => true,
     ),
@@ -43,7 +43,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '67be87e5648218a5db368e3a9e0ae163c959b25e',
+            'reference' => 'bfa293c5d1490d26b9aafa28d9a8b889fb5a6774',
             'dev_requirement' => false,
         ),
         'spatie/array-to-xml' => array(

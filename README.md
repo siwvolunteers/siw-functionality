@@ -2,8 +2,6 @@
 
 Extra functionaliteit t.b.v. www.siw.nl
 
-### Documentatie:
-https://siwvolunteers.github.io/
 
 ### Maakt gebruikt van:
 - [Frappe Charts ](https://github.com/frappe/charts)
@@ -17,3 +15,4 @@ https://siwvolunteers.github.io/
 - [Action Scheduler](https://actionscheduler.org/)
 - [Dot](https://github.com/adbario/php-dot-notation)
 - [Mustache.php](https://github.com/bobthecow/mustache.php)
+- [Enum] (https://github.com/spatie/enum)
