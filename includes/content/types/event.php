@@ -103,10 +103,11 @@ class Event extends Type {
 						'type' => 'heading',
 					],
 					[
-						'id'   => 'address_search',
-						'name' => 'Zoeken',
-						'type' => 'text',
-						'size' => 100,
+						'id'         => 'address_search',
+						'name'       => 'Zoeken',
+						'type'       => 'text',
+						'save_field' => false,
+						'size'       => 100,
 					],
 					[
 						'id'       => 'name',

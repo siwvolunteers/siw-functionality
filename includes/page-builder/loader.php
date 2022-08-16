@@ -4,12 +4,10 @@ namespace SIW\Page_Builder;
 
 use SIW\Abstracts\Object_Loader as Object_Loader_Abstract;
 
-use SIW\Interfaces\Page_Builder\Cell_Style_Fields as Cell_Style_Fields_Interface;
-use SIW\Interfaces\Page_Builder\Cell_Style_Group as Cell_Style_Group_Interface;
-use SIW\Interfaces\Page_Builder\Row_Style_Fields as Row_Style_Fields_Interface;
-use SIW\Interfaces\Page_Builder\Row_Style_Group as Row_Style_Group_Interface;
-use SIW\Interfaces\Page_Builder\Widget_Style_Fields as Widget_Style_Fields_Interface;
-use SIW\Interfaces\Page_Builder\Widget_Style_Group as Widget_Style_Group_Interface;
+use SIW\Interfaces\Page_Builder\Style_Attributes as Style_Attributes_Interface;
+use SIW\Interfaces\Page_Builder\Style_CSS as Style_CSS_Interface;
+use SIW\Interfaces\Page_Builder\Style_Fields as Style_Fields_Interface;
+use SIW\Interfaces\Page_Builder\Style_Group as Style_Group_Interface;
 use SIW\Interfaces\Page_Builder\Settings as Settings_Interface;
 
 /**
@@ -23,6 +21,7 @@ class Loader extends Object_Loader_Abstract {
 	public function get_classes() : array {
 		return [
 			Animation::class,
+			CSS_Filters::class,
 			Design::class,
 			Layout::class,
 			Visibility::class,
@@ -34,28 +33,20 @@ class Loader extends Object_Loader_Abstract {
 
 		$builder = new Builder();
 
-		// Voeg row style toe (eventueel met groep)
-		if ( is_a( $extension, Row_Style_Group_Interface::class ) ) {
-			$builder->add_row_style_group( $extension );
+		// Voeg style toe (eventueel met groep)
+		if ( is_a( $extension, Style_Group_Interface::class ) ) {
+			$builder->add_style_group( $extension );
 		}
-		if ( is_a( $extension, Row_Style_Fields_Interface::class ) ) {
-			$builder->add_row_style_fields( $extension );
-		}
-
-		// Voeg cell style toe (eventueel met groep)
-		if ( is_a( $extension, Cell_Style_Group_Interface::class ) ) {
-			$builder->add_cell_style_group( $extension );
-		}
-		if ( is_a( $extension, Cell_Style_Fields_Interface::class ) ) {
-			$builder->add_cell_style_fields( $extension );
+		if ( is_a( $extension, Style_Fields_Interface::class ) ) {
+			$builder->add_style_fields( $extension );
 		}
 
-		// Voeg widget style toe (eventueel met groep)
-		if ( is_a( $extension, Widget_Style_Group_Interface::class ) ) {
-			$builder->add_widget_style_group( $extension );
+		if ( is_a( $extension, Style_Attributes_Interface::class ) ) {
+			$builder->add_style_attributes( $extension );
 		}
-		if ( is_a( $extension, Widget_Style_Fields_Interface::class ) ) {
-			$builder->add_widget_style_fields( $extension );
+
+		if ( is_a( $extension, Style_CSS_Interface::class ) ) {
+			$builder->add_style_css( $extension );
 		}
 
 		// Voeg settings toe

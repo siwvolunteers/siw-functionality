@@ -24,7 +24,6 @@ class Translations {
 
 		// Losse teksten
 		add_filter( 'woocommerce_order_button_text', fn(): string => __( 'Aanmelden', 'siw' ) );
-		add_filter( 'woocommerce_product_single_add_to_cart_text', fn(): string => __( 'Aanmelden', 'siw' ) );
 		add_filter( 'woocommerce_out_of_stock_message', fn(): string => __( 'Dit project is helaas niet meer beschikbaar', 'siw' ) );
 		add_filter( 'woocommerce_sale_flash', fn(): string => '<span class="onsale">' . esc_html__( 'Korting', 'siw' ) . '</span>' );
 	}

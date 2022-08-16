@@ -52,6 +52,8 @@ class WooCommerce {
 		add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type' ] );
 		add_filter( 'siw_carousel_post_type_taxonomies', [ $self, 'add_carousel_post_type_taxonomies' ] );
 		add_filter( 'siw_carousel_post_type_templates', [ $self, 'add_carousel_template' ] );
+
+		add_action( 'init', [ $self, 'remove_legacy_image_sizes' ], 20 );
 	}
 
 	/** Verwijdert ongebruikte widgets */
@@ -163,5 +165,16 @@ class WooCommerce {
 	public function add_carousel_template( array $templates ): array {
 		$templates['product'] = wc_locate_template( 'content-product.php' );
 		return $templates;
+	}
+
+	/**
+	 * Verwijdert legacy image sizes van WooCommerce
+	 *
+	 * @see https://github.com/woocommerce/woocommerce/issues/28139
+	 */
+	public function remove_legacy_image_sizes() {
+		remove_image_size( 'shop_catalog' );
+		remove_image_size( 'shop_single' );
+		remove_image_size( 'shop_thumbnail' );
 	}
 }

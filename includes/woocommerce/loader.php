@@ -48,6 +48,7 @@ class Loader extends Class_Loader_Abstract {
 			Product\Shortcode::class,
 
 			Log::class,
+			Templates::class,
 			Translations::class,
 		];
 	}

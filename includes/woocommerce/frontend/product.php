@@ -18,7 +18,7 @@ class Product {
 	public static function init() {
 		$self = new self();
 		add_filter( 'woocommerce_display_product_attributes', [ $self, 'display_product_attributes' ], 10, 2 );
-		add_action( 'woocommerce_project_add_to_cart', 'woocommerce_simple_add_to_cart', 30 );
+		add_action( 'woocommerce_project_add_to_cart', [ $self, 'project_add_to_cart' ], 30 );
 
 		add_action( 'woocommerce_single_product_summary', [ $self, 'show_project_summary' ], 20 );
 
@@ -116,5 +116,10 @@ class Product {
 		if ( $product->is_featured() && ! $product->is_on_sale() ) {
 			echo '<span class="product-badge featured-badge">' . esc_html__( 'Aanbevolen', 'siw' ) . '</span>';
 		}
+	}
+
+	/** Voegt Add to cart button toe */
+	public function project_add_to_cart() {
+		wc_get_template( 'single-product/add-to-cart/project.php' );
 	}
 }

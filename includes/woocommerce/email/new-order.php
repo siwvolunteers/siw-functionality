@@ -15,15 +15,6 @@ class New_Order {
 		add_filter( 'woocommerce_email_recipient_new_order', [ $self, 'set_recipient' ], 10, 2 );
 		add_filter( 'woocommerce_email_subject_new_order', [ $self, 'set_subject' ], 10, 2 );
 		add_filter( 'woocommerce_email_heading_new_order', [ $self, 'set_heading' ], 10, 2 );
-		add_filter( 'wc_get_template', [ $self, 'set_template' ], 10, 5 );
-	}
-
-	/** Overschrijft template */
-	public function set_template( string $located, string $template_name, array $args, string $template_path, string $default_path ): string {
-		if ( 'emails/admin-new-order.php' === $template_name ) {
-			$located = SIW_TEMPLATES_DIR . 'woocommerce/' . $template_name;
-		}
-		return $located;
 	}
 
 	/** Past ontvanger aan */

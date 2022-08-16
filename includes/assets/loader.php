@@ -26,6 +26,7 @@ class Loader extends Object_Loader {
 			Google_Maps::class,
 			JS_Cookie::class,
 			Mapplic::class,
+			Meta_Pixel::class,
 			Micromodal::class,
 			Polyfill::class,
 			Sal::class,

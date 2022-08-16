@@ -11,6 +11,7 @@ use SIW\Interfaces\Forms\Confirmation_Mail;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Notification_Mail;
 use SIW\Properties;
+use SIW\Util\Logger;
 use SIW\Util\Meta_Box;
 
 /**
@@ -26,6 +27,9 @@ class Processor {
 	/** Notificatiemail */
 	protected Notification_Mail $notification_mail;
 
+	/** IP adres */
+	protected string $ip;
+
 	/** Init */
 	public function __construct( protected Form_Interface $form, protected \WP_REST_Request $request ) {
 
@@ -40,6 +44,27 @@ class Processor {
 
 	/** Verwerken */
 	public function process(): \WP_REST_Response {
+
+		$this->ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+
+		// Afbreken als het antwoord op de quiz niet klopt
+		if ( ! $this->check_quiz_answer() ) {
+			return new \WP_REST_Response(
+				[
+					'message' => __( 'Dat is helaas niet het goede antwoord.', 'siw' ),
+				],
+				\WP_Http::BAD_REQUEST
+			);
+		}
+
+		if ( ! $this->check_rate_limit() ) {
+			return new \WP_REST_Response(
+				[
+					'message' => __( 'Je hebt dit formulier al ingevuld.', 'siw' ),
+				],
+				\WP_Http::BAD_REQUEST
+			);
+		}
 
 		// Afbreken als het spam is
 		if ( $this->is_spam() ) {
@@ -160,19 +185,52 @@ class Processor {
 		$notification_mail->send();
 	}
 
+	/** Controleer het antwoord van de quiz */
+	protected function check_quiz_answer(): bool {
+		$quiz = sanitize_text_field( $this->request->get_param( 'quiz' ) );
+		$quiz_hash = sanitize_text_field( $this->request->get_param( 'quiz_hash' ) );
+		if ( siw_hash( $quiz ) !== $quiz_hash ) {
+			Logger::info( "Quiz verkeerd ingevuld in formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip}", static::class );
+			return false;
+		}
+
+		return true;
+	}
+
+	/** Checkt de rate limite */
+	protected function check_rate_limit(): bool {
+		$transient_name = "siw_form_{$this->form->get_form_id()}_{$this->ip}";
+		$submission_count = (int) get_transient( $transient_name );
+		if ( $submission_count > 0 ) {
+			$submission_count ++;
+			set_transient( $transient_name, $submission_count, $submission_count * HOUR_IN_SECONDS );
+			Logger::info( "Meerdere aanmeldingen ({$submission_count}) in korte tijd voor formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip}", static::class );
+			return false;
+		}
+		set_transient( $transient_name, 1, HOUR_IN_SECONDS );
+		return true;
+	}
+
 	/** Check of het spam betreft */
-	protected function is_spam() {
-		$ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+	protected function is_spam(): bool {
+
+		// Haal email adres op voor spam_check
 		$email = $this->get_customer_email() ?? null;
 
 		$spam_check = Spam_Check::create();
 		if ( null !== $email ) {
 			$spam_check->set_email( $email );
 		}
-		if ( ! empty( $ip ) ) {
-			$spam_check->set_ip( $ip );
+		if ( ! empty( $this->ip ) ) {
+			$spam_check->set_ip( $this->ip );
 		}
 		// TODO: check inhoud van bepaalde velden op links
-		return $spam_check->is_spam();
+		if ( $spam_check->is_spam() ) {
+			Logger::info( "Aanmelding voor formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip} en email {$email} gemarkeerd als spam", static::class );
+			return true;
+		}
+		Logger::debug( "Aanmelding voor formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip} en email {$email} niet gemarkeerd als spam", static::class );
+
+		return false;
 	}
 }

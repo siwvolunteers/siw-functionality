@@ -20,7 +20,7 @@
 
 		function handleSubmitClick( element ) {
 			element.preventDefault();
-	
+
 			$( '#rwmb-validation-message' ).remove();
 			if ( ! $.validator || ! $form.valid() ) {
 				return;

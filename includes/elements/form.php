@@ -35,7 +35,6 @@ class Form extends Element {
 
 		$form_handle = str_replace( '_', '-', $this->form_id );
 		return [
-			'id'            => wp_unique_id( 'siw-form-' ),
 			'form_id'       => $this->form_id,
 			'meta_box'      => $meta_box,
 			'api_path'      => "siw/v1/form/{$form_handle}",

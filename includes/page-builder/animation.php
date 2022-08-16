@@ -4,9 +4,8 @@ namespace SIW\Page_Builder;
 
 use SIW\Util\Animation as Animation_Util;
 
-use SIW\Interfaces\Page_Builder\Row_Style_Group as Row_Style_Group_Interface;
-use SIW\Interfaces\Page_Builder\Cell_Style_Group as Cell_Style_Group_Interface;
-use SIW\Interfaces\Page_Builder\Widget_Style_Group as Widget_Style_Group_Interface;
+use SIW\Interfaces\Page_Builder\Style_Attributes as Style_Attributes_Interface;
+use SIW\Interfaces\Page_Builder\Style_Group as Style_Group_Interface;
 use SIW\Interfaces\Page_Builder\Settings as Settings_Interface;
 
 /**
@@ -14,7 +13,7 @@ use SIW\Interfaces\Page_Builder\Settings as Settings_Interface;
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface, Widget_Style_Group_Interface, Settings_Interface {
+class Animation implements Style_Group_Interface, Style_Attributes_Interface, Settings_Interface {
 
 	/** Style group */
 	const STYLE_GROUP = 'siw_animation';
@@ -46,10 +45,23 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 	/** Option field voor animatie easing */
 	const OPTION_FIELD_EASING = 'siw_animation_easing';
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function add_style_group( array $groups ) : array {
+	/** {@inheritDoc} */
+	public function supports_widgets(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function supports_cells(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function supports_rows(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ): array {
 		$groups[ self::STYLE_GROUP ] = [
 			'name'     => __( 'Animatie', 'siw' ),
 			'priority' => 110,
@@ -57,10 +69,8 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 		return $groups;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function add_style_fields( array $fields ) : array {
+	/** {@inheritDoc} */
+	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ): array {
 		$fields[ self::STYLE_FIELD_TYPE ] = [
 			'name'     => __( 'Type', 'siw' ),
 			'group'    => self::STYLE_GROUP,
@@ -110,10 +120,8 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 		return $fields;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function set_style_attributes( array $style_attributes, array $style_args ) : array {
+	/** {@inheritDoc} */
+	public function set_style_attributes( array $style_attributes, array $style_args ): array {
 
 		// Afbreken als er geen animatie van toepassing is
 		if ( ! isset( $style_args[ self::STYLE_FIELD_TYPE ] ) || 'none' === $style_args[ self::STYLE_FIELD_TYPE ] ) {
@@ -152,10 +160,8 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 		return $style_attributes;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function add_settings( array $fields ) : array {
+	/** {@inheritDoc} */
+	public function add_settings( array $fields ): array {
 		$fields[ self::OPTION_GROUP ] = [
 			'title'  => __( 'Animatie', 'siw' ),
 			'fields' => [
@@ -184,9 +190,7 @@ class Animation implements Row_Style_Group_Interface, Cell_Style_Group_Interface
 		return $fields;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	/** {@inheritDoc} */
 	public function set_settings_defaults( array $defaults ) : array {
 		$defaults[ self::OPTION_FIELD_DURATION ] = '1000';
 		$defaults[ self::OPTION_FIELD_DELAY ]    = 'none';

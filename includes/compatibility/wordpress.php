@@ -59,6 +59,16 @@ class WordPress {
 
 		// Block editor uitschakelen voor widgets
 		add_filter( 'use_widgets_block_editor', '__return_false' );
+
+		add_action( 'template_redirect', [ $self, 'disable_author_archive' ] );
+
+		// Workaround voor https://github.com/WordPress/gutenberg/issues/38299
+		remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
+		remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
+		remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
+
+		add_filter( 'wp_upload_image_mime_transforms', '__return_empty_array' );
+		add_filter( 'admin_email_check_interval', '__return_zero' );
 	}
 
 	/** Verwijdert standaard-widgets */
@@ -193,4 +203,13 @@ class WordPress {
 		}
 		return $tag;
 	}
+
+	/** Author archives doorsturen naar home page */
+	public function disable_author_archive() {
+		if ( is_author() ) {
+			wp_safe_redirect( home_url() );
+			exit;
+		}
+	}
+
 }
