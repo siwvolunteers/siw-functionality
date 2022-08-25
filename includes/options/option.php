@@ -19,7 +19,7 @@ class Option {
 
 	/** Voegt admin-pagina toe */
 	public function add_settings_page( array $settings_pages ) : array {
-		$tabs = $this->option->get_tabs();
+		$tabs = $this->get_tabs();
 		$settings_pages[] = [
 			'option_name'   => 'siw_options',
 			'id'            => "siw-{$this->option->get_id()}",
@@ -39,8 +39,8 @@ class Option {
 	/*** Voegt metaboxes toe */
 	public function add_settings_meta_boxes( array $meta_boxes ) : array {
 
-		$tabs = $this->option->get_tabs();
-		$fields = $this->option->get_fields();
+		$tabs = $this->get_tabs();
+		$fields = $this->get_fields();
 
 		foreach ( $tabs as $tab ) {
 			$meta_boxes[] = [
@@ -54,4 +54,15 @@ class Option {
 		}
 		return $meta_boxes;
 	}
+
+	/** Geeft tabs terug */
+	protected function get_tabs(): array {
+		return apply_filters( "siw_option_{$this->option->get_id()}_tabs", $this->option->get_tabs() );
+	}
+
+	/** Geeft velden terug */
+	protected function get_fields(): array {
+		return apply_filters( "siw_option_{$this->option->get_id()}_fields", $this->option->get_fields() );
+	}
+
 }
