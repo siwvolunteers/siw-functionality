@@ -9,7 +9,7 @@ use Attribute;
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-#[Attribute( Attribute::TARGET_METHOD | Attribute::TARGET_FUNCTION | Attribute::IS_REPEATABLE )]
+#[Attribute( Attribute::TARGET_METHOD | Attribute::TARGET_FUNCTION | Attribute::TARGET_CLASS_CONSTANT | Attribute::IS_REPEATABLE )]
 class Filter {
 
 	/** Constructor */
