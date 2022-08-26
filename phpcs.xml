@@ -38,6 +38,11 @@
 			<property name="prefixes" type="array" value="SIW" />
 		</properties>
 	</rule>
+	<rule ref="WordPress.NamingConventions.ValidHookName">
+		<properties>
+			<property name="additionalWordDelimiters" value="/"/>
+		</properties>
+	</rule>
 	<rule ref="WordPress.Files.FileName">
 		<properties>
 			<property name="strict_class_file_names" value="false" />
