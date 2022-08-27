@@ -37,7 +37,7 @@ class Properties {
 	const KVK = '41165368';
 
 	/** IBAN */
-	const IBAN = 'NL28 INGB 0000 0040 75';
+	const IBAN = 'NL65 TRIO 0320 4721 24';
 
 	/** RSIN */
 	const RSIN = '002817482';
