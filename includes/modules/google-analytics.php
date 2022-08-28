@@ -177,10 +177,7 @@ class Google_Analytics {
 
 		$product_list = 'Onbekend';
 
-		if ( \is_shop() ) {
-			$queried_object = get_queried_object();
-			$product_list = $queried_object->label;
-		} elseif ( is_shop() || is_product_category() || is_product_taxonomy() ) {
+		if ( is_product_category() || is_product_taxonomy() ) {
 			$queried_object = get_queried_object();
 			$taxonomy = get_taxonomy( $queried_object->taxonomy );
 			$product_list = sprintf(
@@ -188,11 +185,13 @@ class Google_Analytics {
 				$taxonomy->labels->singular_name,
 				$queried_object->name
 			);
+		} elseif ( \is_shop() ) {
+			$queried_object = get_queried_object();
+			$product_list = $queried_object->label;
 		} elseif ( is_page() ) {
 			$queried_object = get_queried_object();
 			$product_list = sprintf( 'Pagina: %s', $queried_object->post_title );
 		}
-
 		return $product_list;
 	}
 
