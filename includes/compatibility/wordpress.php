@@ -44,8 +44,6 @@ class WordPress {
 		add_action( 'do_feed_rss2_comments', [ $self, 'disable_feed' ], 1 );
 		add_action( 'do_feed_atom_comments', [ $self, 'disable_feed' ], 1 );
 
-		add_filter( 'widget_text', 'do_shortcode' );
-
 		add_filter( 'safe_style_css', [ $self, 'add_allowed_css_attributes' ] );
 		add_filter( 'embed_oembed_html', [ $self, 'fix_youtube_embed' ] );
 
