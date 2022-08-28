@@ -2,20 +2,20 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Interfaces\Page_Builder\Style_Attributes as Style_Attributes_Interface;
-use SIW\Interfaces\Page_Builder\Style_Group as Style_Group_Interface;
+use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
+use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
 
 use SIW\Util\CSS;
 
 /**
  * Zichtbaarheidsopties voor Page Builder
  *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2021-2022 SIW Internationale Vrijwilligersprojecten
  */
-class Visibility implements Style_Group_Interface, Style_Attributes_Interface {
+class Visibility implements I_Style_Group, I_Style_Attributes {
 
 	/** Style groep */
-	const STYLE_GROUP = 'siw-visibility';
+	const STYLE_GROUP = 'siw_visibility';
 
 	/** Style fields voor verbergen op mobiel */
 	const STYLE_FIELD_HIDE_ON_MOBILE = 'hide_on_mobile';

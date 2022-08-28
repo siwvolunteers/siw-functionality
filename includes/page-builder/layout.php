@@ -2,15 +2,15 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Interfaces\Page_Builder\Style_Attributes as Style_Attributes_Interface;
-use SIW\Interfaces\Page_Builder\Style_Fields as Style_Fields_Interface;
+use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
+use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
 
 /**
  * Layout-opties voor Page Builder
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
-class Layout implements Style_Fields_Interface, Style_Attributes_Interface {
+class Layout implements I_Style_Fields, I_Style_Attributes {
 
 	/** Style field voor Rij layout */
 	const STYLE_FIELD_ROW_STRETCH = 'siw_row_stretch';
