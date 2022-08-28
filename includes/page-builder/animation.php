@@ -4,16 +4,17 @@ namespace SIW\Page_Builder;
 
 use SIW\Util\Animation as Animation_Util;
 
-use SIW\Interfaces\Page_Builder\Style_Attributes as Style_Attributes_Interface;
-use SIW\Interfaces\Page_Builder\Style_Group as Style_Group_Interface;
-use SIW\Interfaces\Page_Builder\Settings as Settings_Interface;
+use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
+use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
+use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
+use SIW\Interfaces\Page_Builder\Settings as I_Settings;
 
 /**
  * Animaties voor Page Builder
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Animation implements Style_Group_Interface, Style_Attributes_Interface, Settings_Interface {
+class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_Settings {
 
 	/** Style group */
 	const STYLE_GROUP = 'siw_animation';
