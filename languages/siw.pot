@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: SIW <webmaster@siw.nl>\n"
-"POT-Creation-Date: 2022-08-14 10:46+0000\n"
+"POT-Creation-Date: 2022-08-28 20:38+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -38,66 +38,6 @@ msgstr ""
 
 #: data/continents.php:36
 msgid "Noord-Amerika"
-msgstr ""
-
-#: data/currencies.php:17
-msgid "Canadese dollar"
-msgstr ""
-
-#: data/currencies.php:22
-msgid "Zwitserse frank"
-msgstr ""
-
-#: data/currencies.php:27
-msgid "Deense kroon"
-msgstr ""
-
-#: data/currencies.php:32
-msgid "Euro"
-msgstr ""
-
-#: data/currencies.php:37
-msgid "Britse Pond"
-msgstr ""
-
-#: data/currencies.php:42
-msgid "Indonesische roepia"
-msgstr ""
-
-#: data/currencies.php:47
-msgid "Indiase roepie"
-msgstr ""
-
-#: data/currencies.php:52
-msgid "Japanse yen"
-msgstr ""
-
-#: data/currencies.php:57
-msgid "Keniaanse shilling"
-msgstr ""
-
-#: data/currencies.php:62
-msgid "Mexicaanse peso"
-msgstr ""
-
-#: data/currencies.php:67
-msgid "Maleisische ringgit"
-msgstr ""
-
-#: data/currencies.php:72
-msgid "Russische roebel"
-msgstr ""
-
-#: data/currencies.php:77
-msgid "Thaise baht"
-msgstr ""
-
-#: data/currencies.php:82
-msgid "Amerikaanse dollar"
-msgstr ""
-
-#: data/currencies.php:87
-msgid "Vietnamese dong"
 msgstr ""
 
 #: data/languages.php:16
@@ -1340,15 +1280,15 @@ msgstr ""
 msgid "Ben je student?"
 msgstr ""
 
-#: data/workcamps/address-fields.php:51, includes/options/help.php:68, includes/options/help.php:118, includes/options/help.php:160, includes/options/settings.php:286, includes/options/settings.php:444, includes/content/types/event.php:84, includes/content/types/event.php:92, includes/content/types/event.php:166, includes/content/types/event.php:190, includes/content/types/job-posting.php:108, includes/content/types/job-posting.php:144
+#: data/workcamps/address-fields.php:51, includes/options/help.php:68, includes/options/help.php:118, includes/options/help.php:160, includes/options/settings.php:286, includes/options/settings.php:444, includes/content/types/event.php:84, includes/content/types/event.php:92, includes/content/types/event.php:167, includes/content/types/event.php:191, includes/content/types/job-posting.php:108, includes/content/types/job-posting.php:144
 msgid "Ja"
 msgstr ""
 
-#: data/workcamps/address-fields.php:52, includes/options/help.php:69, includes/options/help.php:119, includes/options/help.php:161, includes/options/settings.php:287, includes/options/settings.php:445, includes/content/types/event.php:85, includes/content/types/event.php:93, includes/content/types/event.php:167, includes/content/types/event.php:191, includes/content/types/job-posting.php:109, includes/content/types/job-posting.php:145
+#: data/workcamps/address-fields.php:52, includes/options/help.php:69, includes/options/help.php:119, includes/options/help.php:161, includes/options/settings.php:287, includes/options/settings.php:445, includes/content/types/event.php:85, includes/content/types/event.php:93, includes/content/types/event.php:168, includes/content/types/event.php:192, includes/content/types/job-posting.php:109, includes/content/types/job-posting.php:145
 msgid "Nee"
 msgstr ""
 
-#: data/workcamps/checkout-fields.php:17, includes/options/settings.php:199, includes/content/types/event.php:113, includes/content/types/event.php:202, includes/content/types/job-posting.php:118, includes/content/types/job-posting.php:154, includes/woocommerce/email/emails.php:120
+#: data/workcamps/checkout-fields.php:17, includes/options/settings.php:199, includes/content/types/event.php:114, includes/content/types/event.php:203, includes/content/types/job-posting.php:118, includes/content/types/job-posting.php:154, includes/woocommerce/email/emails.php:120
 msgid "Naam"
 msgstr ""
 
@@ -1538,7 +1478,7 @@ msgstr ""
 msgid "Externe link"
 msgstr ""
 
-#: includes/shortcodes.php:81, includes/content/types/event.php:171, includes/content/types/event.php:209
+#: includes/shortcodes.php:81, includes/content/types/event.php:172, includes/content/types/event.php:210
 msgid "Url"
 msgstr ""
 
@@ -1678,7 +1618,7 @@ msgstr ""
 msgid "Groepsprojecten"
 msgstr ""
 
-#: includes/compatibility/wordpress.php:190, includes/elements/features.php:50, includes/content/types/event.php:320, includes/content/types/job-posting.php:345, includes/content/types/story.php:183, includes/content/types/tm-country.php:173, includes/elements/interactive-maps/destinations.php:101, includes/elements/interactive-maps/destinations.php:122, includes/elements/interactive-maps/destinations.php:145
+#: includes/compatibility/wordpress.php:187, includes/elements/features.php:50, includes/content/types/event.php:321, includes/content/types/job-posting.php:345, includes/content/types/story.php:183, includes/content/types/tm-country.php:173, includes/elements/interactive-maps/destinations.php:101, includes/elements/interactive-maps/destinations.php:122, includes/elements/interactive-maps/destinations.php:145
 msgid "Lees meer"
 msgstr ""
 
@@ -1744,27 +1684,27 @@ msgstr ""
 msgid "Hoeveel is %1$d %2$s %3$d?"
 msgstr ""
 
-#: includes/forms/processor.php:53
+#: includes/forms/processor.php:54
 msgid "Dat is helaas niet het goede antwoord."
 msgstr ""
 
-#: includes/forms/processor.php:62
+#: includes/forms/processor.php:63
 msgid "Je hebt dit formulier al ingevuld."
 msgstr ""
 
-#: includes/forms/processor.php:72
+#: includes/forms/processor.php:73
 msgid "Er is helaas iets misgegaan. Probeer het later nog eens."
 msgstr ""
 
-#: includes/forms/processor.php:92
+#: includes/forms/processor.php:93
 msgid "Je bericht werd succesvol verzonden."
 msgstr ""
 
-#: includes/forms/processor.php:153, templates/woocommerce/emails/customer-processing-order.php:52
+#: includes/forms/processor.php:154, templates/woocommerce/emails/customer-processing-order.php:52
 msgid "SIW"
 msgstr ""
 
-#: includes/forms/processor.php:180
+#: includes/forms/processor.php:181
 msgid "Website"
 msgstr ""
 
@@ -1909,7 +1849,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: includes/modules/mega-menu.php:46, includes/options/configuration.php:241, includes/page-builder/animation.php:203, includes/util/animation.php:34, includes/widgets/carousel/carousel.php:91
+#: includes/modules/mega-menu.php:46, includes/options/configuration.php:241, includes/util/animation.php:34, includes/widgets/carousel/carousel.php:91
 msgid "Geen"
 msgstr ""
 
@@ -2211,7 +2151,7 @@ msgstr ""
 msgid "Ervaringsverhalen"
 msgstr ""
 
-#: includes/options/settings.php:82, includes/content/types/event.php:229
+#: includes/options/settings.php:82, includes/content/types/event.php:230
 msgid "Evenementen"
 msgstr ""
 
@@ -2351,64 +2291,64 @@ msgstr ""
 msgid "Standaardinstellingen"
 msgstr ""
 
-#: includes/page-builder/animation.php:66, includes/page-builder/animation.php:166
+#: includes/page-builder/animation.php:67, includes/page-builder/animation.php:77, includes/page-builder/animation.php:161
 msgid "Animatie"
 msgstr ""
 
-#: includes/page-builder/animation.php:75, includes/widgets/carousel/carousel.php:80
+#: includes/page-builder/animation.php:83, includes/widgets/carousel/carousel.php:80
 msgid "Type"
 msgstr ""
 
-#: includes/page-builder/animation.php:83, includes/page-builder/animation.php:169
+#: includes/page-builder/animation.php:90, includes/page-builder/animation.php:164
 msgid "Duur"
 msgstr ""
 
 #. translators: %s is de standaard instelling
-#: includes/page-builder/animation.php:85, includes/page-builder/animation.php:95, includes/page-builder/animation.php:106
+#: includes/page-builder/animation.php:92, includes/page-builder/animation.php:101, includes/page-builder/animation.php:111
 msgid "Standaard: %s"
 msgstr ""
 
-#: includes/page-builder/animation.php:93, includes/page-builder/animation.php:175
+#: includes/page-builder/animation.php:99, includes/page-builder/animation.php:170
 msgid "Vertraging"
 msgstr ""
 
-#: includes/page-builder/animation.php:103, includes/page-builder/animation.php:181
+#: includes/page-builder/animation.php:108, includes/page-builder/animation.php:176
 msgid "Easing"
 msgstr ""
 
-#: includes/page-builder/animation.php:115
+#: includes/page-builder/animation.php:119
 msgid "Herhalen"
 msgstr ""
 
-#: includes/page-builder/animation.php:170
+#: includes/page-builder/animation.php:165
 msgid "Standaard duur van de animatie"
 msgstr ""
 
-#: includes/page-builder/animation.php:176
+#: includes/page-builder/animation.php:171
 msgid "Standaard vertraging van de animatie"
 msgstr ""
 
-#: includes/page-builder/animation.php:183
+#: includes/page-builder/animation.php:178
 msgid "Standaard easing van de animatie"
 msgstr ""
 
-#: includes/page-builder/animation.php:224, includes/page-builder/design.php:41, includes/page-builder/layout.php:42
+#: includes/page-builder/animation.php:219, includes/page-builder/design.php:41, includes/page-builder/layout.php:42
 msgid "Standaard"
 msgstr ""
 
-#: includes/page-builder/css-filters.php:49
+#: includes/page-builder/css-filters.php:49, includes/page-builder/css-filters.php:63
 msgid "CSS filters"
 msgstr ""
 
-#: includes/page-builder/css-filters.php:63
+#: includes/page-builder/css-filters.php:69
 msgid "Blur"
 msgstr ""
 
-#: includes/page-builder/css-filters.php:72
+#: includes/page-builder/css-filters.php:76
 msgid "Helderheid"
 msgstr ""
 
-#: includes/page-builder/css-filters.php:81
+#: includes/page-builder/css-filters.php:83
 msgid "Contrast"
 msgstr ""
 
@@ -2416,11 +2356,11 @@ msgstr ""
 msgid "Grayscale"
 msgstr ""
 
-#: includes/page-builder/css-filters.php:98
+#: includes/page-builder/css-filters.php:97
 msgid "Sepia"
 msgstr ""
 
-#: includes/page-builder/css-filters.php:107
+#: includes/page-builder/css-filters.php:104
 msgid "Verzadigen"
 msgstr ""
 
@@ -2517,7 +2457,7 @@ msgstr ""
 msgid "Maand"
 msgstr ""
 
-#: includes/woocommerce/translations.php:26, includes/content/types/event.php:154, includes/woocommerce/product/wc-product-project.php:123
+#: includes/woocommerce/translations.php:26, includes/content/types/event.php:155, includes/woocommerce/product/wc-product-project.php:123
 msgid "Aanmelden"
 msgstr ""
 
@@ -2786,71 +2726,71 @@ msgstr ""
 msgid "Locatie"
 msgstr ""
 
-#: includes/content/types/event.php:120
+#: includes/content/types/event.php:121
 msgid "Straat"
 msgstr ""
 
-#: includes/content/types/event.php:127
+#: includes/content/types/event.php:128
 msgid "Huisnummer"
 msgstr ""
 
-#: includes/content/types/event.php:134
+#: includes/content/types/event.php:135
 msgid "Postcode"
 msgstr ""
 
-#: includes/content/types/event.php:141
+#: includes/content/types/event.php:142
 msgid "Plaats"
 msgstr ""
 
-#: includes/content/types/event.php:159, includes/widgets/pie-chart/pie-chart.php:90
+#: includes/content/types/event.php:160, includes/widgets/pie-chart/pie-chart.php:90
 msgid "Toelichting"
 msgstr ""
 
-#: includes/content/types/event.php:164
+#: includes/content/types/event.php:165
 msgid "Heeft link"
 msgstr ""
 
-#: includes/content/types/event.php:181
+#: includes/content/types/event.php:182
 msgid "Organisator"
 msgstr ""
 
-#: includes/content/types/event.php:187
+#: includes/content/types/event.php:188
 msgid "Andere organisator"
 msgstr ""
 
-#: includes/content/types/event.php:230
+#: includes/content/types/event.php:231
 msgid "Evenement"
 msgstr ""
 
-#: includes/content/types/event.php:231
+#: includes/content/types/event.php:232
 msgid "Nieuw evenement"
 msgstr ""
 
-#: includes/content/types/event.php:232
+#: includes/content/types/event.php:233
 msgid "Nieuw evenement toevoegen"
 msgstr ""
 
-#: includes/content/types/event.php:233
+#: includes/content/types/event.php:234
 msgid "Evenement bewerken"
 msgstr ""
 
-#: includes/content/types/event.php:234
+#: includes/content/types/event.php:235
 msgid "Alle evenementen"
 msgstr ""
 
-#: includes/content/types/event.php:235
+#: includes/content/types/event.php:236
 msgid "Evenementen zoeken"
 msgstr ""
 
-#: includes/content/types/event.php:236
+#: includes/content/types/event.php:237
 msgid "Geen evenementen gevonden"
 msgstr ""
 
-#: includes/content/types/event.php:243
+#: includes/content/types/event.php:244
 msgid "Deel dit evenement"
 msgstr ""
 
-#: includes/content/types/event.php:335, includes/widgets/calendar/calendar.php:88
+#: includes/content/types/event.php:336, includes/widgets/calendar/calendar.php:88
 msgid "Online"
 msgstr ""
 
