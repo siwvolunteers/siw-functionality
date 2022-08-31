@@ -12,7 +12,9 @@ use SIW\Interfaces\Assets\Script;
  *
  * @see       https://developers.facebook.com/docs/meta-pixel/get-started
  */
-class Meta_Pixel implements Script, External {
+class Meta_Pixel implements Script {
+
+	// TODO: External weer implementeren als er een fix is voor de volgorde
 
 	/** Handle voor assets */
 	const ASSETS_HANDLE = 'meta-pixel';
