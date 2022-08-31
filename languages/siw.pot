@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: SIW <webmaster@siw.nl>\n"
-"POT-Creation-Date: 2022-08-28 20:38+0000\n"
+"POT-Creation-Date: 2022-08-31 11:22+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -220,7 +220,7 @@ msgstr ""
 msgid "(Burger van) Bosnië-Herzegovina"
 msgstr ""
 
-#: data/nationalities.php:35, data/countries/afrika.php:26
+#: data/nationalities.php:35
 msgid "Botswana"
 msgstr ""
 
@@ -456,7 +456,7 @@ msgstr ""
 msgid "Litouwse"
 msgstr ""
 
-#: data/nationalities.php:100, data/countries/europa.php:247
+#: data/nationalities.php:100
 msgid "Luxemburg"
 msgstr ""
 
@@ -924,344 +924,8 @@ msgstr ""
 msgid "Flip right"
 msgstr ""
 
-#: data/countries/afrika.php:18
-msgid "Burundi"
-msgstr ""
-
-#: data/countries/afrika.php:34
-msgid "Ghana"
-msgstr ""
-
-#: data/countries/afrika.php:42
-msgid "Kenia"
-msgstr ""
-
-#: data/countries/afrika.php:50
-msgid "Marokko"
-msgstr ""
-
-#: data/countries/afrika.php:58
-msgid "Mozambique"
-msgstr ""
-
-#: data/countries/afrika.php:67
-msgid "Senegal"
-msgstr ""
-
-#: data/countries/afrika.php:75
-msgid "Togo"
-msgstr ""
-
-#: data/countries/afrika.php:83
-msgid "Tunesië"
-msgstr ""
-
-#: data/countries/afrika.php:91
-msgid "Tanzania"
-msgstr ""
-
-#: data/countries/afrika.php:99
-msgid "Uganda"
-msgstr ""
-
-#: data/countries/afrika.php:107
-msgid "Zuid-Afrika"
-msgstr ""
-
-#: data/countries/afrika.php:115
-msgid "Zambia"
-msgstr ""
-
-#: data/countries/afrika.php:123
-msgid "Zimbabwe"
-msgstr ""
-
-#: data/countries/azie.php:18
-msgid "China"
-msgstr ""
-
-#: data/countries/azie.php:30
-msgid "Hong Kong"
-msgstr ""
-
-#: data/countries/azie.php:42
-msgid "Indonesië"
-msgstr ""
-
-#: data/countries/azie.php:50
-msgid "India"
-msgstr ""
-
-#: data/countries/azie.php:58
-msgid "Japan"
-msgstr ""
-
-#: data/countries/azie.php:66
-msgid "Kirgizië"
-msgstr ""
-
-#: data/countries/azie.php:74
-msgid "Cambodja"
-msgstr ""
-
-#: data/countries/azie.php:82
-msgid "Zuid-Korea"
-msgstr ""
-
-#: data/countries/azie.php:90
-msgid "Sri Lanka"
-msgstr ""
-
-#: data/countries/azie.php:98
-msgid "Laos"
-msgstr ""
-
-#: data/countries/azie.php:106
-msgid "Mongolië"
-msgstr ""
-
-#: data/countries/azie.php:114
-msgid "Maleisië"
-msgstr ""
-
-#: data/countries/azie.php:123
-msgid "Nepal"
-msgstr ""
-
-#: data/countries/azie.php:131
-msgid "Thailand"
-msgstr ""
-
-#: data/countries/azie.php:139
-msgid "Taiwan"
-msgstr ""
-
-#: data/countries/azie.php:147
-msgid "Vietnam"
-msgstr ""
-
-#: data/countries/azie.php:155
-msgid "Filipijnen"
-msgstr ""
-
-#: data/countries/europa.php:18
-msgid "Albanië"
-msgstr ""
-
-#: data/countries/europa.php:26
-msgid "Armenië"
-msgstr ""
-
-#: data/countries/europa.php:34
-msgid "Oostenrijk"
-msgstr ""
-
-#: data/countries/europa.php:43
-msgid "België"
-msgstr ""
-
-#: data/countries/europa.php:52
-msgid "Bulgarije"
-msgstr ""
-
-#: data/countries/europa.php:61
-msgid "Wit-Rusland"
-msgstr ""
-
-#: data/countries/europa.php:69
-msgid "Zwitserland"
-msgstr ""
-
-#: data/countries/europa.php:77
-msgid "Cyprus"
-msgstr ""
-
-#: data/countries/europa.php:86
-msgid "Tsjechië"
-msgstr ""
-
-#: data/countries/europa.php:94
-msgid "Duitsland"
-msgstr ""
-
-#: data/countries/europa.php:103
-msgid "Denemarken"
-msgstr ""
-
-#: data/countries/europa.php:112
-msgid "Spanje"
-msgstr ""
-
-#: data/countries/europa.php:121
-msgid "Estland"
-msgstr ""
-
-#: data/countries/europa.php:130
-msgid "Finland"
-msgstr ""
-
-#: data/countries/europa.php:139
-msgid "Frankrijk"
-msgstr ""
-
-#: data/countries/europa.php:148
-msgid "Verenigd Koninkrijk"
-msgstr ""
-
-#: data/countries/europa.php:157
-msgid "Georgië"
-msgstr ""
-
-#: data/countries/europa.php:165
-msgid "Griekenland"
-msgstr ""
-
-#: data/countries/europa.php:174
-msgid "Hongarije"
-msgstr ""
-
-#: data/countries/europa.php:183
-msgid "Kroatië"
-msgstr ""
-
-#: data/countries/europa.php:192
-msgid "Ierland"
-msgstr ""
-
-#: data/countries/europa.php:202
-msgid "IJsland"
-msgstr ""
-
-#: data/countries/europa.php:215
-msgid "Italië"
-msgstr ""
-
-#: data/countries/europa.php:224
-msgid "Liechtenstein"
-msgstr ""
-
-#: data/countries/europa.php:238
-msgid "Litouwen"
-msgstr ""
-
-#: data/countries/europa.php:256
-msgid "Letland"
-msgstr ""
-
-#: data/countries/europa.php:265
-msgid "Moldavië"
-msgstr ""
-
-#: data/countries/europa.php:273
-msgid "Noord-Macedonië"
-msgstr ""
-
-#: data/countries/europa.php:282
-msgid "Malta"
-msgstr ""
-
-#: data/countries/europa.php:295
-msgid "Montenegro"
-msgstr ""
-
-#: data/countries/europa.php:303, includes/functions/data.php:124
-msgid "Nederland"
-msgstr ""
-
-#: data/countries/europa.php:311
-msgid "Noorwegen"
-msgstr ""
-
-#: data/countries/europa.php:320
-msgid "Polen"
-msgstr ""
-
-#: data/countries/europa.php:329
-msgid "Portugal"
-msgstr ""
-
-#: data/countries/europa.php:338
-msgid "Roemenië"
-msgstr ""
-
-#: data/countries/europa.php:347
-msgid "Rusland"
-msgstr ""
-
-#: data/countries/europa.php:355
-msgid "Servië"
-msgstr ""
-
-#: data/countries/europa.php:363
-msgid "Slowakije"
-msgstr ""
-
-#: data/countries/europa.php:372
-msgid "Slovenië"
-msgstr ""
-
-#: data/countries/europa.php:381
-msgid "Zweden"
-msgstr ""
-
-#: data/countries/europa.php:390
-msgid "Turkije"
-msgstr ""
-
-#: data/countries/europa.php:399
-msgid "Oekraïne"
-msgstr ""
-
 #: data/countries/europa.php:407
 msgid "Kosovo"
-msgstr ""
-
-#: data/countries/latijns-amerika.php:18
-msgid "Argentinië"
-msgstr ""
-
-#: data/countries/latijns-amerika.php:26
-msgid "Bolivia"
-msgstr ""
-
-#: data/countries/latijns-amerika.php:34
-msgid "Brazilië"
-msgstr ""
-
-#: data/countries/latijns-amerika.php:42
-msgid "Colombia"
-msgstr ""
-
-#: data/countries/latijns-amerika.php:50
-msgid "Costa Rica"
-msgstr ""
-
-#: data/countries/latijns-amerika.php:58
-msgid "Ecuador"
-msgstr ""
-
-#: data/countries/latijns-amerika.php:66
-msgid "Haïti"
-msgstr ""
-
-#: data/countries/latijns-amerika.php:74
-msgid "Mexico"
-msgstr ""
-
-#: data/countries/latijns-amerika.php:82
-msgid "Peru"
-msgstr ""
-
-#: data/countries/noord-amerika.php:18
-msgid "Canada"
-msgstr ""
-
-#: data/countries/noord-amerika.php:26
-msgid "Groenland"
-msgstr ""
-
-#: data/countries/noord-amerika.php:35
-msgid "Verenigde Staten"
 msgstr ""
 
 #: data/workcamps/address-fields.php:23, includes/forms/forms/esc.php:42, includes/forms/forms/leader-dutch-projects.php:53, includes/forms/forms/tailor-made.php:44, includes/woocommerce/admin/order.php:72, includes/woocommerce/checkout/validation.php:42
@@ -1798,6 +1462,10 @@ msgstr ""
 
 #: includes/functions/data.php:93
 msgid "Selecteer een nationaliteit"
+msgstr ""
+
+#: includes/functions/data.php:124
+msgid "Nederland"
 msgstr ""
 
 #: includes/functions/data.php:129
