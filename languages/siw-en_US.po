@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2022-08-14 10:46+0000\n"
+"POT-Creation-Date: 2022-08-31 11:56+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,7 +20,7 @@ msgstr ""
 "esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
 "_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ../../../..\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 "X-Poedit-SearchPath-0: plugins/siw-functionality/languages\n"
 "X-Poedit-SearchPath-1: plugins/siw-functionality\n"
 "X-Poedit-SearchPath-2: themes/siw\n"
@@ -49,66 +49,6 @@ msgstr "Latin America"
 #: data/continents.php:36
 msgid "Noord-Amerika"
 msgstr "North America"
-
-#: data/currencies.php:17
-msgid "Canadese dollar"
-msgstr "Canadian dollar"
-
-#: data/currencies.php:22
-msgid "Zwitserse frank"
-msgstr "Swiss franc"
-
-#: data/currencies.php:27
-msgid "Deense kroon"
-msgstr "Danish krone"
-
-#: data/currencies.php:32
-msgid "Euro"
-msgstr "Euro"
-
-#: data/currencies.php:37
-msgid "Britse Pond"
-msgstr "Pound sterling"
-
-#: data/currencies.php:42
-msgid "Indonesische roepia"
-msgstr "Indonesian rupiah"
-
-#: data/currencies.php:47
-msgid "Indiase roepie"
-msgstr "Indian rupee"
-
-#: data/currencies.php:52
-msgid "Japanse yen"
-msgstr "Japanese yen"
-
-#: data/currencies.php:57
-msgid "Keniaanse shilling"
-msgstr "Kenyan shilling"
-
-#: data/currencies.php:62
-msgid "Mexicaanse peso"
-msgstr "Mexican peso"
-
-#: data/currencies.php:67
-msgid "Maleisische ringgit"
-msgstr "Malaysian ringgit"
-
-#: data/currencies.php:72
-msgid "Russische roebel"
-msgstr "Russian ruble"
-
-#: data/currencies.php:77
-msgid "Thaise baht"
-msgstr "Thai baht"
-
-#: data/currencies.php:82
-msgid "Amerikaanse dollar"
-msgstr "US dollar"
-
-#: data/currencies.php:87
-msgid "Vietnamese dong"
-msgstr "Vietnamese dong"
 
 #: data/languages.php:16
 msgid "Arabisch"
@@ -205,562 +145,6 @@ msgstr "Turkish"
 #: data/languages.php:191
 msgid "Zweeds"
 msgstr "Swedish"
-
-#: data/nationalities.php:14
-msgid "Afghaanse"
-msgstr "Afghan"
-
-#: data/nationalities.php:15
-msgid "Albanese"
-msgstr "Albanian"
-
-#: data/nationalities.php:16
-msgid "Algerijnse"
-msgstr "Algerian"
-
-#: data/nationalities.php:17
-msgid "Amerikaanse"
-msgstr "American"
-
-#: data/nationalities.php:18
-msgid "Angolese"
-msgstr "Angolan"
-
-#: data/nationalities.php:19
-msgid "Argentijnse"
-msgstr "Argentinian"
-
-#: data/nationalities.php:20
-msgid "Armeense"
-msgstr "Armenian"
-
-#: data/nationalities.php:21
-msgid "Australische"
-msgstr "Australian"
-
-#: data/nationalities.php:22
-msgid "Azerbaidzjaanse"
-msgstr "Azerbaijani"
-
-#: data/nationalities.php:23
-msgid "(Burger van de) Bahama's"
-msgstr "(Citizen of the) Bahamas"
-
-#: data/nationalities.php:24
-msgid "Bahreinse"
-msgstr "Bahraini"
-
-#: data/nationalities.php:25
-msgid "Barbadaanse"
-msgstr "Barbadian"
-
-#: data/nationalities.php:26
-msgid "Belgische"
-msgstr "Belgian"
-
-#: data/nationalities.php:27
-msgid "Belizaanse"
-msgstr "Belizeans"
-
-#: data/nationalities.php:28
-msgid "Belarussische"
-msgstr "Belarusian"
-
-#: data/nationalities.php:29
-msgid "Bengalese"
-msgstr "Bengalesi"
-
-#: data/nationalities.php:30
-msgid "Beninse"
-msgstr "Beninese"
-
-#: data/nationalities.php:31
-msgid "Bermuda"
-msgstr "Bermuda"
-
-#: data/nationalities.php:32
-msgid "Bhutaanse"
-msgstr "Bhutanese"
-
-#: data/nationalities.php:33
-msgid "Boliviaanse"
-msgstr "Bolivian"
-
-#: data/nationalities.php:34
-msgid "(Burger van) Bosnië-Herzegovina"
-msgstr "(Citizen of) Bosnia and Herzegovina"
-
-#: data/nationalities.php:35, data/countries/afrika.php:26
-msgid "Botswana"
-msgstr "Botswanan"
-
-#: data/nationalities.php:36
-msgid "Braziliaanse"
-msgstr "Brezilian"
-
-#: data/nationalities.php:37
-msgid "Britse"
-msgstr "British"
-
-#: data/nationalities.php:38
-msgid "Bulgaarse"
-msgstr "Bulgarian"
-
-#: data/nationalities.php:39
-msgid "Burkina Faso"
-msgstr "Burkina Faso"
-
-#: data/nationalities.php:40
-msgid "Burundese"
-msgstr "Burundian"
-
-#: data/nationalities.php:41
-msgid "Cambodjaanse"
-msgstr "Cambodian"
-
-#: data/nationalities.php:42
-msgid "Canadese"
-msgstr "Canedian"
-
-#: data/nationalities.php:43
-msgid "Centraalafrikaanse"
-msgstr "Central Africans"
-
-#: data/nationalities.php:44
-msgid "Chileense"
-msgstr "Chilean"
-
-#: data/nationalities.php:45
-msgid "Chinese"
-msgstr "Chinese"
-
-#: data/nationalities.php:46
-msgid "Colombiaanse"
-msgstr "Colombian"
-
-#: data/nationalities.php:47
-msgid "Comorese"
-msgstr "Comorian"
-
-#: data/nationalities.php:48
-msgid "Congolese (Republiek Congo)"
-msgstr "Congolese (Republic of Congo)"
-
-#: data/nationalities.php:49
-msgid "Congolese (DR Congo)"
-msgstr "Congolese (DR Congo)"
-
-#: data/nationalities.php:50
-msgid "Costaricaanse"
-msgstr "Costa Rican"
-
-#: data/nationalities.php:51
-msgid "Cubaanse"
-msgstr "Cuban"
-
-#: data/nationalities.php:52
-msgid "Cypriotische"
-msgstr "Cypriot"
-
-#: data/nationalities.php:53
-msgid "Deense"
-msgstr "Danish"
-
-#: data/nationalities.php:54
-msgid "Dominicaanse"
-msgstr "Dominican"
-
-#: data/nationalities.php:55
-msgid "Dominicase"
-msgstr "Dominican"
-
-#: data/nationalities.php:56
-msgid "Duitse"
-msgstr "German"
-
-#: data/nationalities.php:57
-msgid "Ecuadoraanse"
-msgstr "Ecuadorian"
-
-#: data/nationalities.php:58
-msgid "Egyptische"
-msgstr "Egyptian"
-
-#: data/nationalities.php:59
-msgid "Estlandse"
-msgstr "Estonian"
-
-#: data/nationalities.php:60
-msgid "Ethiopische"
-msgstr "Ethiopian"
-
-#: data/nationalities.php:61
-msgid "Filipijnse"
-msgstr "Filipino"
-
-#: data/nationalities.php:62
-msgid "Finse"
-msgstr "Finnish"
-
-#: data/nationalities.php:63
-msgid "Franse"
-msgstr "French"
-
-#: data/nationalities.php:64
-msgid "Georgische"
-msgstr "Georgian"
-
-#: data/nationalities.php:65
-msgid "Ghanese"
-msgstr "Ghanaian"
-
-#: data/nationalities.php:66
-msgid "Griekse"
-msgstr "Greek"
-
-#: data/nationalities.php:69
-msgid "Guatemalteekse"
-msgstr "Guatemalan"
-
-#: data/nationalities.php:70
-msgid "Haïtiaanse"
-msgstr "Haitian"
-
-#: data/nationalities.php:71
-msgid "Hondurese"
-msgstr "Honduran"
-
-#: data/nationalities.php:74
-msgid "Hongaarse"
-msgstr "Hungarian"
-
-#: data/nationalities.php:75
-msgid "Ierse"
-msgstr "Irish"
-
-#: data/nationalities.php:76
-msgid "IJslandse"
-msgstr "Icelander"
-
-#: data/nationalities.php:77
-msgid "Indiase"
-msgstr "Indian"
-
-#: data/nationalities.php:78
-msgid "Indonesische"
-msgstr "Indonesian"
-
-#: data/nationalities.php:79
-msgid "Iraanse"
-msgstr "Iranian"
-
-#: data/nationalities.php:80
-msgid "Israëlische"
-msgstr "Israeli"
-
-#: data/nationalities.php:81
-msgid "Italiaanse"
-msgstr "Italian"
-
-#: data/nationalities.php:82
-msgid "Ivoriaanse"
-msgstr "Ivorian"
-
-#: data/nationalities.php:83
-msgid "Jamaicaanse"
-msgstr "Jamaican"
-
-#: data/nationalities.php:84
-msgid "Japanse"
-msgstr "Japanese"
-
-#: data/nationalities.php:85
-msgid "Jemenitische"
-msgstr "Yemeni"
-
-#: data/nationalities.php:86
-msgid "Jordaanse"
-msgstr "Jordanian"
-
-#: data/nationalities.php:87
-msgid "Kaapverdische"
-msgstr "Cape Verdean"
-
-#: data/nationalities.php:90
-msgid "Kameroense"
-msgstr "Cameroonian"
-
-#: data/nationalities.php:91
-msgid "Kazachstaanse"
-msgstr "Kazakhstani"
-
-#: data/nationalities.php:92
-msgid "Keniaanse"
-msgstr "Kenyan"
-
-#: data/nationalities.php:93
-msgid "Kirgizische"
-msgstr "Kyrgyzstani"
-
-#: data/nationalities.php:94
-msgid "Kroatische"
-msgstr "Croatian"
-
-#: data/nationalities.php:95
-msgid "Laotiaanse"
-msgstr "Laotian"
-
-#: data/nationalities.php:96
-msgid "Letse"
-msgstr "Latvian"
-
-#: data/nationalities.php:97
-msgid "Lesothaanse"
-msgstr "Lesothan"
-
-#: data/nationalities.php:98
-msgid "Libanese"
-msgstr "Lebanese"
-
-#: data/nationalities.php:99
-msgid "Litouwse"
-msgstr "Lithuanian"
-
-#: data/nationalities.php:100, data/countries/europa.php:247
-msgid "Luxemburg"
-msgstr "Luxembourg"
-
-#: data/nationalities.php:101
-msgid "Macedonische"
-msgstr "Macedonian"
-
-#: data/nationalities.php:102
-msgid "Malagassische"
-msgstr "Malagasy"
-
-#: data/nationalities.php:103
-msgid "Malawische"
-msgstr "Malawian"
-
-#: data/nationalities.php:104
-msgid "Maleisische"
-msgstr "Malaysian"
-
-#: data/nationalities.php:105
-msgid "Malinese"
-msgstr "Malian"
-
-#: data/nationalities.php:106
-msgid "Mauritiaanse"
-msgstr "Mauritian"
-
-#: data/nationalities.php:107
-msgid "Mexicaanse"
-msgstr "Mexican"
-
-#: data/nationalities.php:108
-msgid "Moldavische"
-msgstr "Moldavian"
-
-#: data/nationalities.php:109
-msgid "Mongoolse"
-msgstr "Mongolian"
-
-#: data/nationalities.php:110
-msgid "Montenegrijnse"
-msgstr "Montenegrin"
-
-#: data/nationalities.php:111
-msgid "Marokkaanse"
-msgstr "Moroccan"
-
-#: data/nationalities.php:112
-msgid "Mozambikaanse"
-msgstr "Mozambican"
-
-#: data/nationalities.php:113
-msgid "(Burger van) Myanmar"
-msgstr "(Citizen of) Myanmar"
-
-#: data/nationalities.php:114
-msgid "Nederlandse"
-msgstr "Dutch"
-
-#: data/nationalities.php:115
-msgid "Nepalese"
-msgstr "Nepalese"
-
-#: data/nationalities.php:116
-msgid "Nieuw-Zeelandse"
-msgstr "New Zealander"
-
-#: data/nationalities.php:117
-msgid "Nicaraguaanse"
-msgstr "Nicaraguan"
-
-#: data/nationalities.php:118
-msgid "Nigerese"
-msgstr "Nigerien"
-
-#: data/nationalities.php:119
-msgid "Nigeriaanse"
-msgstr "Nigerian"
-
-#: data/nationalities.php:122
-msgid "Noorse"
-msgstr "Norwegian"
-
-#: data/nationalities.php:123
-msgid "Oegandese"
-msgstr "Ugandan"
-
-#: data/nationalities.php:124
-msgid "Oekraïense"
-msgstr "Ukrainian"
-
-#: data/nationalities.php:125
-msgid "Oezbeekse"
-msgstr "Uzbek"
-
-#: data/nationalities.php:126
-msgid "Oostenrijkse"
-msgstr "Austrian"
-
-#: data/nationalities.php:127
-msgid "Pakistaanse"
-msgstr "Pakistani"
-
-#: data/nationalities.php:130
-msgid "Paraguayaanse"
-msgstr "Paraguayan"
-
-#: data/nationalities.php:131
-msgid "Peruaanse"
-msgstr "Peruvian"
-
-#: data/nationalities.php:132
-msgid "Poolse"
-msgstr "Polish"
-
-#: data/nationalities.php:133
-msgid "Portugese"
-msgstr "Portuguese"
-
-#: data/nationalities.php:134
-msgid "Roemeense"
-msgstr "Romanian"
-
-#: data/nationalities.php:135
-msgid "Russische"
-msgstr "Russian"
-
-#: data/nationalities.php:136
-msgid "Salvadoraanse"
-msgstr "Salvadoran"
-
-#: data/nationalities.php:137
-msgid "Senegalese"
-msgstr "Senegalese"
-
-#: data/nationalities.php:138
-msgid "Servische"
-msgstr "Serbian"
-
-#: data/nationalities.php:139
-msgid "Sierra Leoonse"
-msgstr "Sierra Leoneans"
-
-#: data/nationalities.php:140
-msgid "Singaporaanse"
-msgstr "Singaporeans"
-
-#: data/nationalities.php:141
-msgid "Sloveense"
-msgstr "Slovenian"
-
-#: data/nationalities.php:142
-msgid "Slowaakse"
-msgstr "Slovak"
-
-#: data/nationalities.php:143
-msgid "Spaanse"
-msgstr "Spanish"
-
-#: data/nationalities.php:144
-msgid "Srilankaanse"
-msgstr "Sri Lankan"
-
-#: data/nationalities.php:145
-msgid "Taiwanese"
-msgstr "Taiwanese"
-
-#: data/nationalities.php:146
-msgid "Tanzaniaanse"
-msgstr "Tanzanian"
-
-#: data/nationalities.php:147
-msgid "Thaise"
-msgstr "Thai"
-
-#: data/nationalities.php:148
-msgid "Toerkmenistaanse"
-msgstr "Turkmen"
-
-#: data/nationalities.php:149
-msgid "Togolese"
-msgstr "Togolese"
-
-#: data/nationalities.php:150
-msgid "Tsjadische"
-msgstr "Chadian"
-
-#: data/nationalities.php:151
-msgid "Tsjechische"
-msgstr "Czech"
-
-#: data/nationalities.php:152
-msgid "Tunesische"
-msgstr "Tunisian"
-
-#: data/nationalities.php:153
-msgid "Turkse"
-msgstr "Turkish"
-
-#: data/nationalities.php:154
-msgid "Uruguayaanse"
-msgstr "Uruguayan"
-
-#: data/nationalities.php:155
-msgid "Venezolaanse"
-msgstr "Venezuelan"
-
-#: data/nationalities.php:156
-msgid "Vietnamese"
-msgstr "Vietnamese"
-
-#: data/nationalities.php:157
-msgid "Zambiaanse"
-msgstr "Zambian"
-
-#: data/nationalities.php:158
-msgid "Zimbabwaanse"
-msgstr "Zimbabwean"
-
-#: data/nationalities.php:159
-msgid "Zuid-Afrikaanse"
-msgstr "South African"
-
-#: data/nationalities.php:160
-msgid "Zuid-Koreaanse"
-msgstr "South Korean"
-
-#: data/nationalities.php:161
-msgid "Zweedse"
-msgstr "Swedish"
-
-#: data/nationalities.php:162
-msgid "Zwitserse"
-msgstr "Swiss"
 
 #: data/social-networks.php:16, includes/options/configuration.php:80
 msgid "Facebook"
@@ -994,345 +378,9 @@ msgstr "Flip left"
 msgid "Flip right"
 msgstr "Flip right"
 
-#: data/countries/afrika.php:18
-msgid "Burundi"
-msgstr "Burundi"
-
-#: data/countries/afrika.php:34
-msgid "Ghana"
-msgstr "Ghana"
-
-#: data/countries/afrika.php:42
-msgid "Kenia"
-msgstr "Kenya"
-
-#: data/countries/afrika.php:50
-msgid "Marokko"
-msgstr "Morocco"
-
-#: data/countries/afrika.php:58
-msgid "Mozambique"
-msgstr "Mozambique"
-
-#: data/countries/afrika.php:67
-msgid "Senegal"
-msgstr "Senegal"
-
-#: data/countries/afrika.php:75
-msgid "Togo"
-msgstr "Togo"
-
-#: data/countries/afrika.php:83
-msgid "Tunesië"
-msgstr "Tunesia"
-
-#: data/countries/afrika.php:91
-msgid "Tanzania"
-msgstr "Tanzania"
-
-#: data/countries/afrika.php:99
-msgid "Uganda"
-msgstr "Uganda"
-
-#: data/countries/afrika.php:107
-msgid "Zuid-Afrika"
-msgstr "South America"
-
-#: data/countries/afrika.php:115
-msgid "Zambia"
-msgstr "Zambia"
-
-#: data/countries/afrika.php:123
-msgid "Zimbabwe"
-msgstr "Zimbabwe"
-
-#: data/countries/azie.php:18
-msgid "China"
-msgstr "China"
-
-#: data/countries/azie.php:30
-msgid "Hong Kong"
-msgstr "Hong Kong"
-
-#: data/countries/azie.php:42
-msgid "Indonesië"
-msgstr "Indonesia"
-
-#: data/countries/azie.php:50
-msgid "India"
-msgstr "India"
-
-#: data/countries/azie.php:58
-msgid "Japan"
-msgstr "Japan"
-
-#: data/countries/azie.php:66
-msgid "Kirgizië"
-msgstr "Kyrgyzstan"
-
-#: data/countries/azie.php:74
-msgid "Cambodja"
-msgstr "Cambodia"
-
-#: data/countries/azie.php:82
-msgid "Zuid-Korea"
-msgstr "South Korea"
-
-#: data/countries/azie.php:90
-msgid "Sri Lanka"
-msgstr "Sri Lanka"
-
-#: data/countries/azie.php:98
-msgid "Laos"
-msgstr "Laos"
-
-#: data/countries/azie.php:106
-msgid "Mongolië"
-msgstr "Mongolia"
-
-#: data/countries/azie.php:114
-msgid "Maleisië"
-msgstr "Malaysia"
-
-#: data/countries/azie.php:123
-msgid "Nepal"
-msgstr "Nepal"
-
-#: data/countries/azie.php:131
-msgid "Thailand"
-msgstr "Thailand"
-
-#: data/countries/azie.php:139
-msgid "Taiwan"
-msgstr "Taiwan"
-
-#: data/countries/azie.php:147
-msgid "Vietnam"
-msgstr "Vietnam"
-
-#: data/countries/azie.php:155
-msgid "Filipijnen"
-msgstr "Philippines"
-
-#: data/countries/europa.php:18
-msgid "Albanië"
-msgstr "Albany"
-
-#: data/countries/europa.php:26
-msgid "Armenië"
-msgstr "Armenia"
-
-#: data/countries/europa.php:34
-msgid "Oostenrijk"
-msgstr "Austria"
-
-#: data/countries/europa.php:43
-msgid "België"
-msgstr "Belgium"
-
-#: data/countries/europa.php:52
-msgid "Bulgarije"
-msgstr "Bulgary"
-
-#: data/countries/europa.php:61
-msgid "Wit-Rusland"
-msgstr "Belarus"
-
-#: data/countries/europa.php:69
-msgid "Zwitserland"
-msgstr "Switzerland"
-
-#: data/countries/europa.php:77
-msgid "Cyprus"
-msgstr "Cyprus"
-
-#: data/countries/europa.php:86
-msgid "Tsjechië"
-msgstr "Czech Republic"
-
-#: data/countries/europa.php:94
-msgid "Duitsland"
-msgstr "Germany"
-
-#: data/countries/europa.php:103
-msgid "Denemarken"
-msgstr "Denmark"
-
-#: data/countries/europa.php:112
-msgid "Spanje"
-msgstr "Spain"
-
-#: data/countries/europa.php:121
-msgid "Estland"
-msgstr "Estonia"
-
-#: data/countries/europa.php:130
-msgid "Finland"
-msgstr "Finland"
-
-#: data/countries/europa.php:139
-msgid "Frankrijk"
-msgstr "France"
-
-#: data/countries/europa.php:148
-msgid "Verenigd Koninkrijk"
-msgstr "United Kingdom"
-
-#: data/countries/europa.php:157
-msgid "Georgië"
-msgstr "Georgia"
-
-#: data/countries/europa.php:165
-msgid "Griekenland"
-msgstr "Greece"
-
-#: data/countries/europa.php:174
-msgid "Hongarije"
-msgstr "Hungary"
-
-#: data/countries/europa.php:183
-msgid "Kroatië"
-msgstr "Croatia"
-
-#: data/countries/europa.php:192
-msgid "Ierland"
-msgstr "Ireland"
-
-#: data/countries/europa.php:202
-msgid "IJsland"
-msgstr "Iceland"
-
-#: data/countries/europa.php:215
-msgid "Italië"
-msgstr "Italy"
-
-#: data/countries/europa.php:224
-msgid "Liechtenstein"
-msgstr "Liechtenstein"
-
-#: data/countries/europa.php:238
-msgid "Litouwen"
-msgstr "Lithuania"
-
-#: data/countries/europa.php:256
-msgid "Letland"
-msgstr "Latvia"
-
-#: data/countries/europa.php:265
-msgid "Moldavië"
-msgstr "Moldavia"
-
-#: data/countries/europa.php:273
-msgid "Noord-Macedonië"
-msgstr "North Macedonia"
-
-#: data/countries/europa.php:282
-msgid "Malta"
-msgstr "Malta"
-
-#: data/countries/europa.php:295
-msgid "Montenegro"
-msgstr "Montenegro"
-
-#: data/countries/europa.php:303, includes/functions/data.php:124
-msgid "Nederland"
-msgstr "Netherlands"
-
-#: data/countries/europa.php:311
-msgid "Noorwegen"
-msgstr "Norway"
-
-#: data/countries/europa.php:320
-msgid "Polen"
-msgstr "Poland"
-
-#: data/countries/europa.php:329
-msgid "Portugal"
-msgstr "Portugal"
-
-#: data/countries/europa.php:338
-msgid "Roemenië"
-msgstr "Romania"
-
-#: data/countries/europa.php:347
-msgid "Rusland"
-msgstr "Russia"
-
-#: data/countries/europa.php:355
-msgid "Servië"
-msgstr "Serbia"
-
-#: data/countries/europa.php:363
-msgid "Slowakije"
-msgstr "Slovakia"
-
-#: data/countries/europa.php:372
-msgid "Slovenië"
-msgstr "Slovenia"
-
-#: data/countries/europa.php:381
-msgid "Zweden"
-msgstr "Sweden"
-
-#: data/countries/europa.php:390
-msgid "Turkije"
-msgstr "Turkey"
-
-#: data/countries/europa.php:399
-msgid "Oekraïne"
-msgstr "Ukraine"
-
 #: data/countries/europa.php:407
 msgid "Kosovo"
 msgstr "Kosovo"
-
-#: data/countries/latijns-amerika.php:18
-msgid "Argentinië"
-msgstr "Argentina"
-
-#: data/countries/latijns-amerika.php:26
-msgid "Bolivia"
-msgstr "Bolivia"
-
-#: data/countries/latijns-amerika.php:34
-msgid "Brazilië"
-msgstr "Brazil"
-
-#: data/countries/latijns-amerika.php:42
-msgid "Colombia"
-msgstr "Colombia"
-
-#: data/countries/latijns-amerika.php:50
-msgid "Costa Rica"
-msgstr "Costa Rica"
-
-#: data/countries/latijns-amerika.php:58
-msgid "Ecuador"
-msgstr "Ecuador"
-
-#: data/countries/latijns-amerika.php:66
-msgid "Haïti"
-msgstr "Haiti"
-
-#: data/countries/latijns-amerika.php:74
-msgid "Mexico"
-msgstr "Mexico"
-
-#: data/countries/latijns-amerika.php:82
-msgid "Peru"
-msgstr "Peru"
-
-#: data/countries/noord-amerika.php:18
-msgid "Canada"
-msgstr "Canada"
-
-#: data/countries/noord-amerika.php:26
-msgid "Groenland"
-msgstr "Greenland"
-
-#: data/countries/noord-amerika.php:35
-msgid "Verenigde Staten"
-msgstr "United States"
 
 #: data/workcamps/address-fields.php:23, includes/forms/forms/esc.php:42,
 #: includes/forms/forms/leader-dutch-projects.php:53,
@@ -1360,7 +408,7 @@ msgstr "Are you a student?"
 #: includes/options/help.php:118, includes/options/help.php:160,
 #: includes/options/settings.php:286, includes/options/settings.php:444,
 #: includes/content/types/event.php:84, includes/content/types/event.php:92,
-#: includes/content/types/event.php:166, includes/content/types/event.php:190,
+#: includes/content/types/event.php:167, includes/content/types/event.php:191,
 #: includes/content/types/job-posting.php:108,
 #: includes/content/types/job-posting.php:144
 msgid "Ja"
@@ -1370,14 +418,14 @@ msgstr "Yes"
 #: includes/options/help.php:119, includes/options/help.php:161,
 #: includes/options/settings.php:287, includes/options/settings.php:445,
 #: includes/content/types/event.php:85, includes/content/types/event.php:93,
-#: includes/content/types/event.php:167, includes/content/types/event.php:191,
+#: includes/content/types/event.php:168, includes/content/types/event.php:192,
 #: includes/content/types/job-posting.php:109,
 #: includes/content/types/job-posting.php:145
 msgid "Nee"
 msgstr "No"
 
 #: data/workcamps/checkout-fields.php:17, includes/options/settings.php:199,
-#: includes/content/types/event.php:113, includes/content/types/event.php:202,
+#: includes/content/types/event.php:114, includes/content/types/event.php:203,
 #: includes/content/types/job-posting.php:118,
 #: includes/content/types/job-posting.php:154,
 #: includes/woocommerce/email/emails.php:120
@@ -1640,8 +688,8 @@ msgstr "Title"
 msgid "Externe link"
 msgstr "External link"
 
-#: includes/shortcodes.php:81, includes/content/types/event.php:171,
-#: includes/content/types/event.php:209
+#: includes/shortcodes.php:81, includes/content/types/event.php:172,
+#: includes/content/types/event.php:210
 msgid "Url"
 msgstr "Url"
 
@@ -1795,8 +843,8 @@ msgstr "Share this project"
 msgid "Groepsprojecten"
 msgstr "Volunteer projects"
 
-#: includes/compatibility/wordpress.php:190, includes/elements/features.php:50,
-#: includes/content/types/event.php:320,
+#: includes/compatibility/wordpress.php:187, includes/elements/features.php:50,
+#: includes/content/types/event.php:321,
 #: includes/content/types/job-posting.php:345,
 #: includes/content/types/story.php:183,
 #: includes/content/types/tm-country.php:173,
@@ -1874,28 +922,28 @@ msgstr "minus"
 msgid "Hoeveel is %1$d %2$s %3$d?"
 msgstr "How much is %1$d %2$s %3$d?"
 
-#: includes/forms/processor.php:53
+#: includes/forms/processor.php:54
 msgid "Dat is helaas niet het goede antwoord."
 msgstr "This is not the correct answer."
 
-#: includes/forms/processor.php:62
+#: includes/forms/processor.php:63
 msgid "Je hebt dit formulier al ingevuld."
 msgstr "You have already filled out this form."
 
-#: includes/forms/processor.php:72
+#: includes/forms/processor.php:73
 msgid "Er is helaas iets misgegaan. Probeer het later nog eens."
 msgstr "Unfortunately something went wrong. Please try again later."
 
-#: includes/forms/processor.php:92
+#: includes/forms/processor.php:93
 msgid "Je bericht werd succesvol verzonden."
 msgstr "Your message was sent successfully."
 
-#: includes/forms/processor.php:153,
+#: includes/forms/processor.php:154,
 #: templates/woocommerce/emails/customer-processing-order.php:52
 msgid "SIW"
 msgstr "SIW"
 
-#: includes/forms/processor.php:180
+#: includes/forms/processor.php:181
 msgid "Website"
 msgstr "Website"
 
@@ -1991,17 +1039,21 @@ msgstr "Female"
 msgid "Selecteer een nationaliteit"
 msgstr "Select a nationality"
 
-#: includes/functions/data.php:129
+#: includes/functions/data.php:125
+msgid "Nederland"
+msgstr "Netherlands"
+
+#: includes/functions/data.php:130
 msgid "Bestemmingen"
 msgstr "Destinations"
 
-#: includes/functions/data.php:134, includes/options/configuration.php:339,
+#: includes/functions/data.php:135, includes/options/configuration.php:339,
 #: includes/options/countries.php:55,
 #: includes/elements/interactive-maps/destinations.php:101
 msgid "ESC"
 msgstr "ESC"
 
-#: includes/functions/data.php:149, includes/functions/data.php:157
+#: includes/functions/data.php:150, includes/functions/data.php:158
 msgid "gesloten"
 msgstr "closed"
 
@@ -2044,8 +1096,7 @@ msgid "Home"
 msgstr "Home"
 
 #: includes/modules/mega-menu.php:46, includes/options/configuration.php:241,
-#: includes/page-builder/animation.php:203, includes/util/animation.php:34,
-#: includes/widgets/carousel/carousel.php:91
+#: includes/util/animation.php:34, includes/widgets/carousel/carousel.php:91
 msgid "Geen"
 msgstr "None"
 
@@ -2364,7 +1415,7 @@ msgstr "Vacancies"
 msgid "Ervaringsverhalen"
 msgstr "Stories"
 
-#: includes/options/settings.php:82, includes/content/types/event.php:229
+#: includes/options/settings.php:82, includes/content/types/event.php:230
 msgid "Evenementen"
 msgstr "Events"
 
@@ -2524,72 +1575,74 @@ msgstr "Email settings"
 msgid "Standaardinstellingen"
 msgstr "Default settings"
 
-#: includes/page-builder/animation.php:66,
-#: includes/page-builder/animation.php:166
+#: includes/page-builder/animation.php:67,
+#: includes/page-builder/animation.php:77,
+#: includes/page-builder/animation.php:161
 msgid "Animatie"
 msgstr "Animation"
 
-#: includes/page-builder/animation.php:75,
+#: includes/page-builder/animation.php:83,
 #: includes/widgets/carousel/carousel.php:80
 msgid "Type"
 msgstr "Type"
 
-#: includes/page-builder/animation.php:83,
-#: includes/page-builder/animation.php:169
+#: includes/page-builder/animation.php:90,
+#: includes/page-builder/animation.php:164
 msgid "Duur"
 msgstr "Duration"
 
 #. translators: %s is de standaard instelling
-#: includes/page-builder/animation.php:85,
-#: includes/page-builder/animation.php:95,
-#: includes/page-builder/animation.php:106
+#: includes/page-builder/animation.php:92,
+#: includes/page-builder/animation.php:101,
+#: includes/page-builder/animation.php:111
 msgid "Standaard: %s"
 msgstr "Default: %s"
 
-#: includes/page-builder/animation.php:93,
-#: includes/page-builder/animation.php:175
+#: includes/page-builder/animation.php:99,
+#: includes/page-builder/animation.php:170
 msgid "Vertraging"
 msgstr "Delay"
 
-#: includes/page-builder/animation.php:103,
-#: includes/page-builder/animation.php:181
+#: includes/page-builder/animation.php:108,
+#: includes/page-builder/animation.php:176
 msgid "Easing"
 msgstr "Easing"
 
-#: includes/page-builder/animation.php:115
+#: includes/page-builder/animation.php:119
 msgid "Herhalen"
 msgstr "Repeat"
 
-#: includes/page-builder/animation.php:170
+#: includes/page-builder/animation.php:165
 msgid "Standaard duur van de animatie"
 msgstr "Standard duration of animation"
 
-#: includes/page-builder/animation.php:176
+#: includes/page-builder/animation.php:171
 msgid "Standaard vertraging van de animatie"
 msgstr "Standard delay of animation"
 
-#: includes/page-builder/animation.php:183
+#: includes/page-builder/animation.php:178
 msgid "Standaard easing van de animatie"
 msgstr "Standard easing of animation"
 
-#: includes/page-builder/animation.php:224,
+#: includes/page-builder/animation.php:219,
 #: includes/page-builder/design.php:41, includes/page-builder/layout.php:42
 msgid "Standaard"
 msgstr "Default"
 
-#: includes/page-builder/css-filters.php:49
+#: includes/page-builder/css-filters.php:49,
+#: includes/page-builder/css-filters.php:63
 msgid "CSS filters"
 msgstr "CSS filters"
 
-#: includes/page-builder/css-filters.php:63
+#: includes/page-builder/css-filters.php:69
 msgid "Blur"
 msgstr "Blur"
 
-#: includes/page-builder/css-filters.php:72
+#: includes/page-builder/css-filters.php:76
 msgid "Helderheid"
 msgstr "Brightness"
 
-#: includes/page-builder/css-filters.php:81
+#: includes/page-builder/css-filters.php:83
 msgid "Contrast"
 msgstr "Contrast"
 
@@ -2597,11 +1650,11 @@ msgstr "Contrast"
 msgid "Grayscale"
 msgstr "Grayscale"
 
-#: includes/page-builder/css-filters.php:98
+#: includes/page-builder/css-filters.php:97
 msgid "Sepia"
 msgstr "Sepia"
 
-#: includes/page-builder/css-filters.php:107
+#: includes/page-builder/css-filters.php:104
 msgid "Verzadigen"
 msgstr "Saturate"
 
@@ -2705,7 +1758,7 @@ msgid "Maand"
 msgstr "Month"
 
 #: includes/woocommerce/translations.php:26,
-#: includes/content/types/event.php:154,
+#: includes/content/types/event.php:155,
 #: includes/woocommerce/product/wc-product-project.php:123
 msgid "Aanmelden"
 msgstr "Register"
@@ -3000,72 +2053,72 @@ msgstr "Online event"
 msgid "Locatie"
 msgstr "Location"
 
-#: includes/content/types/event.php:120
+#: includes/content/types/event.php:121
 msgid "Straat"
 msgstr "Street"
 
-#: includes/content/types/event.php:127
+#: includes/content/types/event.php:128
 msgid "Huisnummer"
 msgstr "House number"
 
-#: includes/content/types/event.php:134
+#: includes/content/types/event.php:135
 msgid "Postcode"
 msgstr "Postal code"
 
-#: includes/content/types/event.php:141
+#: includes/content/types/event.php:142
 msgid "Plaats"
 msgstr "City"
 
-#: includes/content/types/event.php:159,
+#: includes/content/types/event.php:160,
 #: includes/widgets/pie-chart/pie-chart.php:90
 msgid "Toelichting"
 msgstr "Explanation"
 
-#: includes/content/types/event.php:164
+#: includes/content/types/event.php:165
 msgid "Heeft link"
 msgstr "Has link"
 
-#: includes/content/types/event.php:181
+#: includes/content/types/event.php:182
 msgid "Organisator"
 msgstr "Organiser"
 
-#: includes/content/types/event.php:187
+#: includes/content/types/event.php:188
 msgid "Andere organisator"
 msgstr "Different organiser"
 
-#: includes/content/types/event.php:230
+#: includes/content/types/event.php:231
 msgid "Evenement"
 msgstr "Event"
 
-#: includes/content/types/event.php:231
+#: includes/content/types/event.php:232
 msgid "Nieuw evenement"
 msgstr "New event"
 
-#: includes/content/types/event.php:232
+#: includes/content/types/event.php:233
 msgid "Nieuw evenement toevoegen"
 msgstr "Add new event"
 
-#: includes/content/types/event.php:233
+#: includes/content/types/event.php:234
 msgid "Evenement bewerken"
 msgstr "Edit event"
 
-#: includes/content/types/event.php:234
+#: includes/content/types/event.php:235
 msgid "Alle evenementen"
 msgstr "All events"
 
-#: includes/content/types/event.php:235
+#: includes/content/types/event.php:236
 msgid "Evenementen zoeken"
 msgstr "Search events"
 
-#: includes/content/types/event.php:236
+#: includes/content/types/event.php:237
 msgid "Geen evenementen gevonden"
 msgstr "No events found"
 
-#: includes/content/types/event.php:243
+#: includes/content/types/event.php:244
 msgid "Deel dit evenement"
 msgstr "Share this event"
 
-#: includes/content/types/event.php:335,
+#: includes/content/types/event.php:336,
 #: includes/widgets/calendar/calendar.php:88
 msgid "Online"
 msgstr "Online"

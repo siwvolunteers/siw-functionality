@@ -67,7 +67,7 @@ class WooCommerce {
 
 	/** Verwijdert WooCommerce-blocks style */
 	public function deregister_block_style() {
-		wp_deregister_style( 'wc-block-style' );
+		wp_deregister_style( 'wc-blocks-style' );
 	}
 
 	/** Schakel sommige admin features uit */

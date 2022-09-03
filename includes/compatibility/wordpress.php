@@ -30,7 +30,6 @@ class WordPress {
 		add_action( 'wp_enqueue_scripts', [ $self, 'dequeue_styles' ], PHP_INT_MAX );
 		add_filter( 'wp_default_editor', fn(): string => self::DEFAULT_EDITOR );
 		add_filter( 'site_status_tests', [ $self, 'remove_update_check' ] );
-		add_filter( 'http_headers_useragent', fn(): string => Properties::NAME );
 		add_filter( 'big_image_size_threshold', fn(): int => Properties::MAX_IMAGE_SIZE );
 
 		add_filter( 'wp_is_application_passwords_available', '__return_false' );
@@ -43,8 +42,6 @@ class WordPress {
 		add_action( 'do_feed_atom', [ $self, 'disable_feed' ], 1 );
 		add_action( 'do_feed_rss2_comments', [ $self, 'disable_feed' ], 1 );
 		add_action( 'do_feed_atom_comments', [ $self, 'disable_feed' ], 1 );
-
-		add_filter( 'widget_text', 'do_shortcode' );
 
 		add_filter( 'safe_style_css', [ $self, 'add_allowed_css_attributes' ] );
 		add_filter( 'embed_oembed_html', [ $self, 'fix_youtube_embed' ] );

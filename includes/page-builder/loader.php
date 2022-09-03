@@ -4,11 +4,11 @@ namespace SIW\Page_Builder;
 
 use SIW\Abstracts\Object_Loader as Object_Loader_Abstract;
 
-use SIW\Interfaces\Page_Builder\Style_Attributes as Style_Attributes_Interface;
-use SIW\Interfaces\Page_Builder\Style_CSS as Style_CSS_Interface;
-use SIW\Interfaces\Page_Builder\Style_Fields as Style_Fields_Interface;
-use SIW\Interfaces\Page_Builder\Style_Group as Style_Group_Interface;
-use SIW\Interfaces\Page_Builder\Settings as Settings_Interface;
+use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
+use SIW\Interfaces\Page_Builder\Style_CSS as I_Style_CSS;
+use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
+use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
+use SIW\Interfaces\Page_Builder\Settings as I_Settings;
 
 /**
  * Loader voor PageBuilder-extensies
@@ -34,23 +34,23 @@ class Loader extends Object_Loader_Abstract {
 		$builder = new Builder();
 
 		// Voeg style toe (eventueel met groep)
-		if ( is_a( $extension, Style_Group_Interface::class ) ) {
+		if ( is_a( $extension, I_Style_Group::class ) ) {
 			$builder->add_style_group( $extension );
 		}
-		if ( is_a( $extension, Style_Fields_Interface::class ) ) {
+		if ( is_a( $extension, I_Style_Fields::class ) ) {
 			$builder->add_style_fields( $extension );
 		}
 
-		if ( is_a( $extension, Style_Attributes_Interface::class ) ) {
+		if ( is_a( $extension, I_Style_Attributes::class ) ) {
 			$builder->add_style_attributes( $extension );
 		}
 
-		if ( is_a( $extension, Style_CSS_Interface::class ) ) {
+		if ( is_a( $extension, I_Style_CSS::class ) ) {
 			$builder->add_style_css( $extension );
 		}
 
 		// Voeg settings toe
-		if ( is_a( $extension, Settings_Interface::class ) ) {
+		if ( is_a( $extension, I_Settings::class ) ) {
 			$builder->add_settings( $extension );
 		}
 	}

@@ -92,6 +92,7 @@ function siw_get_genders(): array {
 function siw_get_nationalities(): array {
 	$nationalities = [ '' => __( 'Selecteer een nationaliteit', 'siw' ) ];
 	$nationalities = $nationalities + siw_get_data( 'nationalities' );
+	asort( $nationalities );
 	return $nationalities;
 }
 

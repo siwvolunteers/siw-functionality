@@ -9,83 +9,84 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
-
+// phpcs:disable WordPress.WP.I18n.TextDomainMismatch
 $siw_data = [
 	[
 		'iso_code' => 'CAD',
 		'symbol'   => 'C$',
-		'name'     => __( 'Canadese dollar', 'siw' ),
+		'name'     => __( 'Canadian dollar', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'CHF',
 		'symbol'   => 'CHF',
-		'name'     => __( 'Zwitserse frank', 'siw' ),
+		'name'     => __( 'Swiss franc', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'DKK',
 		'symbol'   => 'kr.',
-		'name'     => __( 'Deense kroon', 'siw' ),
+		'name'     => __( 'Danish krone', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'EUR',
 		'symbol'   => '&euro;',
-		'name'     => __( 'Euro', 'siw' ),
+		'name'     => __( 'Euro', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'GBP',
 		'symbol'   => '&pound;',
-		'name'     => __( 'Britse Pond', 'siw' ),
+		'name'     => __( 'Pound sterling', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'IDR',
 		'symbol'   => 'Rp',
-		'name'     => __( 'Indonesische roepia', 'siw' ),
+		'name'     => __( 'Indonesian rupiah', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'INR',
 		'symbol'   => '&#x20B9;',
-		'name'     => __( 'Indiase roepie', 'siw' ),
+		'name'     => __( 'Indian rupee', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'JPY',
 		'symbol'   => '&yen;',
-		'name'     => __( 'Japanse yen', 'siw' ),
+		'name'     => __( 'Japanese yen', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'KES',
 		'symbol'   => 'Ksh',
-		'name'     => __( 'Keniaanse shilling', 'siw' ),
+		'name'     => __( 'Kenyan shilling', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'MXN',
 		'symbol'   => '$',
-		'name'     => __( 'Mexicaanse peso', 'siw' ),
+		'name'     => __( 'Mexican peso', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'MYR',
 		'symbol'   => 'RM',
-		'name'     => __( 'Maleisische ringgit', 'siw' ),
+		'name'     => __( 'Malaysian ringgit', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'RUB',
 		'symbol'   => '&#8381;',
-		'name'     => __( 'Russische roebel', 'siw' ),
+		'name'     => __( 'Russian ruble', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'THB',
 		'symbol'   => '&#x0E3F;',
-		'name'     => __( 'Thaise baht', 'siw' ),
+		'name'     => __( 'Thai baht', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'USD',
 		'symbol'   => '$',
-		'name'     => __( 'Amerikaanse dollar', 'siw' ),
+		'name'     => __( 'United States (US) dollar', 'woocommerce' ),
 	],
 	[
 		'iso_code' => 'VND',
 		'symbol'   => '&#x20ab;',
-		'name'     => __( 'Vietnamese dong', 'siw' ),
+		'name'     => __( 'Vietnamese &#x111;&#x1ed3;ng', 'woocommerce' ),
 	],
 ];
+// phpcs:enable WordPress.WP.I18n.TextDomainMismatch
 
 return $siw_data;

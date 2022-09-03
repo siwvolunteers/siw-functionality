@@ -3,7 +3,7 @@
 namespace SIW\Interfaces\Page_Builder;
 
 /**
- * Generieke interface voor PageBuilder extensie met style css
+ * Interface voor PageBuilder extensie met style css
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */

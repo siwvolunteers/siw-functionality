@@ -3,7 +3,7 @@
 namespace SIW\Interfaces\Page_Builder;
 
 /**
- * Generieke interface voor PageBuilder extensie met style fields
+ * Interface voor PageBuilder extensie met style fields
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */

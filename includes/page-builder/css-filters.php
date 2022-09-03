@@ -2,19 +2,19 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Interfaces\Page_Builder\Style_CSS as Style_CSS_Interface;
-use SIW\Interfaces\Page_Builder\Style_Fields as Style_Fields_Interface;
-use SIW\Interfaces\Page_Builder\Style_Group as Style_Group_Interface;
+use SIW\Interfaces\Page_Builder\Style_CSS as I_Style_CSS;
+use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
+use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
 
 /**
  * Zichtbaarheidsopties voor Page Builder
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class CSS_Filters implements Style_Group_Interface, Style_Fields_Interface, Style_CSS_Interface {
+class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 
 	/** Style groep */
-	const STYLE_GROUP = 'siw-css-filters';
+	const STYLE_GROUP = 'siw_css_filters';
 
 	const STYLE_FIELD_BLUR = 'blur';
 	const STYLE_FIELD_BRIGHTNESS = 'brightness';
@@ -59,99 +59,94 @@ class CSS_Filters implements Style_Group_Interface, Style_Fields_Interface, Styl
 			return $fields;
 		}
 
-		$fields[ self::STYLE_FIELD_BLUR ] = [
-			'name'        => __( 'Blur', 'siw' ),
-			'description' => 'px',
-			'group'       => self::STYLE_GROUP,
-			'type'        => 'number',
-			'default'     => 0,
-			'priority'    => 10,
+		$fields[ self::STYLE_GROUP ] = [
+			'name'     => __( 'CSS filters', 'siw' ),
+			'type'     => 'toggle',
+			'group'    => self::STYLE_GROUP,
+			'priority' => 10,
+			'fields'   => [
+				self::STYLE_FIELD_BLUR       => [
+					'name'        => __( 'Blur', 'siw' ),
+					'description' => 'px',
+					'type'        => 'number',
+					'default'     => 0,
+					'priority'    => 10,
+				],
+				self::STYLE_FIELD_BRIGHTNESS => [
+					'name'        => __( 'Helderheid', 'siw' ),
+					'description' => '%',
+					'type'        => 'number',
+					'default'     => 100,
+					'priority'    => 20,
+				],
+				self::STYLE_FIELD_CONTRAST   => [
+					'name'        => __( 'Contrast', 'siw' ),
+					'description' => '%',
+					'type'        => 'number',
+					'default'     => 100,
+					'priority'    => 30,
+				],
+				self::STYLE_FIELD_GRAYSCALE  => [
+					'name'        => __( 'Grayscale', 'siw' ),
+					'description' => '%',
+					'type'        => 'number',
+					'default'     => 0,
+					'priority'    => 40,
+				],
+				self::STYLE_FIELD_SEPIA      => [
+					'name'        => __( 'Sepia', 'siw' ),
+					'description' => '%',
+					'type'        => 'number',
+					'default'     => 0,
+					'priority'    => 50,
+				],
+				self::STYLE_FIELD_SATURATE   => [
+					'name'        => __( 'Verzadigen', 'siw' ),
+					'description' => '%',
+					'type'        => 'number',
+					'default'     => 100,
+					'priority'    => 60,
+				],
+			],
 		];
-
-		$fields[ self::STYLE_FIELD_BRIGHTNESS ] = [
-			'name'        => __( 'Helderheid', 'siw' ),
-			'description' => '%',
-			'group'       => self::STYLE_GROUP,
-			'type'        => 'number',
-			'default'     => 100,
-			'priority'    => 20,
-		];
-
-		$fields[ self::STYLE_FIELD_CONTRAST ] = [
-			'name'        => __( 'Contrast', 'siw' ),
-			'description' => '%',
-			'group'       => self::STYLE_GROUP,
-			'type'        => 'number',
-			'default'     => 100,
-			'priority'    => 30,
-		];
-
-		$fields[ self::STYLE_FIELD_GRAYSCALE ] = [
-			'name'        => __( 'Grayscale', 'siw' ),
-			'description' => '%',
-			'group'       => self::STYLE_GROUP,
-			'type'        => 'number',
-			'default'     => 0,
-			'priority'    => 40,
-		];
-		$fields[ self::STYLE_FIELD_SEPIA ] = [
-			'name'        => __( 'Sepia', 'siw' ),
-			'description' => '%',
-			'group'       => self::STYLE_GROUP,
-			'type'        => 'number',
-			'default'     => 0,
-			'priority'    => 50,
-		];
-
-		$fields[ self::STYLE_FIELD_SATURATE ] = [
-			'name'        => __( 'Verzadigen', 'siw' ),
-			'description' => '%',
-			'group'       => self::STYLE_GROUP,
-			'type'        => 'number',
-			'default'     => 100,
-			'priority'    => 60,
-		];
-
 		return $fields;
 	}
 
 	/** {@inheritDoc} */
 	public function set_style_css( array $style_css, array $style_args ): array {
 
-		$filter = [];
-
-		if ( isset( $style_args[ self::STYLE_FIELD_BLUR ] ) && '0' !== $style_args[ self::STYLE_FIELD_BLUR ] ) {
-			$filter[] = sprintf( 'blur(%spx)', $style_args[ self::STYLE_FIELD_BLUR ] );
-		}
-
-		if ( isset( $style_args[ self::STYLE_FIELD_BRIGHTNESS ] ) && '100' !== $style_args[ self::STYLE_FIELD_BRIGHTNESS ] ) {
-			$filter[] = sprintf( 'brightness(%s%%)', $style_args[ self::STYLE_FIELD_BRIGHTNESS ] );
-		}
-
-		if ( isset( $style_args[ self::STYLE_FIELD_CONTRAST ] ) && '100' !== $style_args[ self::STYLE_FIELD_CONTRAST ] ) {
-			$filter[] = sprintf( 'contrast(%s%%)', $style_args[ self::STYLE_FIELD_CONTRAST ] );
-		}
-
-		if ( isset( $style_args[ self::STYLE_FIELD_GRAYSCALE ] ) && '0' !== $style_args[ self::STYLE_FIELD_GRAYSCALE ] ) {
-			$filter[] = sprintf( 'grayscale(%s%%)', $style_args[ self::STYLE_FIELD_GRAYSCALE ] );
-		}
-
-		if ( isset( $style_args[ self::STYLE_FIELD_SEPIA ] ) && '0' !== $style_args[ self::STYLE_FIELD_SEPIA ] ) {
-			$filter[] = sprintf( 'sepia(%s%%)', $style_args[ self::STYLE_FIELD_SEPIA ] );
-		}
-
-		if ( isset( $style_args[ self::STYLE_FIELD_SATURATE ] ) && '100' !== $style_args[ self::STYLE_FIELD_SATURATE ] ) {
-			$filter[] = sprintf( 'saturate(%s%%)', $style_args[ self::STYLE_FIELD_SATURATE ] );
-		}
-
-		if ( empty( $filter ) ) {
+		if ( empty( $style_args[ self::STYLE_GROUP ] ) ) {
 			return $style_css;
 		}
 
-		$style_css['filter'] = implode( ' ', $filter );
-		$style_css['-webkit-filter'] = implode( ' ', $filter );
+		$css_filter = [
+			$this->generate_filter( $style_args, self::STYLE_FIELD_BLUR, self::STYLE_GROUP, '0', 'px' ),
+			$this->generate_filter( $style_args, self::STYLE_FIELD_BRIGHTNESS, self::STYLE_GROUP, '100', '%' ),
+			$this->generate_filter( $style_args, self::STYLE_FIELD_CONTRAST, self::STYLE_GROUP, '100', '%' ),
+			$this->generate_filter( $style_args, self::STYLE_FIELD_GRAYSCALE, self::STYLE_GROUP, '0', '%' ),
+			$this->generate_filter( $style_args, self::STYLE_FIELD_SEPIA, self::STYLE_GROUP, '0', '%' ),
+			$this->generate_filter( $style_args, self::STYLE_FIELD_SATURATE, self::STYLE_GROUP, '100', '%' ),
+		];
+
+		array_filter( $css_filter );
+
+		if ( empty( $css_filter ) ) {
+			return $style_css;
+		}
+
+		$style_css['filter'] = implode( ' ', $css_filter );
+		$style_css['-webkit-filter'] = implode( ' ', $css_filter );
 
 		return $style_css;
+	}
+
+	/** Genereert filter  */
+	protected function generate_filter( array $style_args, string $field, string $prefix, string $default, string $unit ): ?string {
+		if ( ! isset( $style_args[ "{$prefix}_{$field}" ] ) || $default === $style_args[ "{$prefix}_{$field}" ] ) {
+			return null;
+		}
+		$value = $style_args[ "{$prefix}_{$field}" ];
+		return "{$field}({$value}{$unit})";
 	}
 
 }
