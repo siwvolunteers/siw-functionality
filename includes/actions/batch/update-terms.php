@@ -38,7 +38,7 @@ class Update_Terms implements Batch_Action_Interface {
 	public function select_data() : array {
 
 		// Filter om taxonomieën toe te voegen
-		$taxonomies = apply_filters( 'siw_update_terms_taxonomies', [] );
+		$taxonomies = apply_filters( 'siw/update_terms/taxonomies', [] );
 
 		$data = get_terms(
 			[
@@ -75,7 +75,7 @@ class Update_Terms implements Batch_Action_Interface {
 		];
 
 		// Filter om meta query voor actieve posts te zetten
-		$meta_query = apply_filters( 'siw_update_terms_meta_query', [], $term->taxonomy );
+		$meta_query = apply_filters( 'siw/update_terms/meta_query', [], $term->taxonomy );
 
 		$posts = get_posts(
 			[
