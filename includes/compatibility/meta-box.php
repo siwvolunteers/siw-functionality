@@ -39,7 +39,7 @@ class Meta_Box {
 			'meta-box-geolocation',
 			'meta-box-group',
 			'meta-box-include-exclude',
-			is_admin() ? 'meta-box-tabs' : null,
+			'meta-box-tabs',
 		];
 		return array_filter( $extensions );
 	}

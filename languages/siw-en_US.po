@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2022-09-14 10:28+0000\n"
+"POT-Creation-Date: 2022-09-14 10:38+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -860,47 +860,43 @@ msgid "Vul hier alleen getallen in."
 msgstr "Please enter only digits."
 
 #: includes/compatibility/meta-box.php:153
-msgid "Vul hier een geldig creditcardnummer in."
-msgstr ""
-
-#: includes/compatibility/meta-box.php:154
 msgid "Vul hier dezelfde waarde in."
 msgstr "Please enter the same value again."
 
-#: includes/compatibility/meta-box.php:155
+#: includes/compatibility/meta-box.php:154
 msgid "Vul hier een waarde in met een geldige extensie."
 msgstr "Please enter a value with a valid extension"
 
-#: includes/compatibility/meta-box.php:156
+#: includes/compatibility/meta-box.php:155
 msgid "Vul hier maximaal {0} tekens in."
 msgstr "Please enter no more than {0} characters."
 
-#: includes/compatibility/meta-box.php:157
+#: includes/compatibility/meta-box.php:156
 msgid "Vul hier minimaal {0} tekens in."
 msgstr "Please enter at least {0} characters."
 
-#: includes/compatibility/meta-box.php:158
+#: includes/compatibility/meta-box.php:157
 msgid "Vul hier een waarde in van minimaal {0} en maximaal {1} tekens."
 msgstr "Please enter a value between {0} and {1} characters long."
 
-#: includes/compatibility/meta-box.php:159
+#: includes/compatibility/meta-box.php:158
 msgid "Vul hier een waarde in van minimaal {0} en maximaal {1}."
 msgstr "Please enter a value between {0} and {1}."
 
-#: includes/compatibility/meta-box.php:160
+#: includes/compatibility/meta-box.php:159
 msgid "Vul hier een waarde in kleiner dan of gelijk aan {0}."
 msgstr "Please enter a value less than or equal to {0}."
 
-#: includes/compatibility/meta-box.php:161
+#: includes/compatibility/meta-box.php:160
 msgid "Vul hier een waarde in groter dan of gelijk aan {0}."
 msgstr "Please enter a value greater than or equal to {0}."
 
-#: includes/compatibility/meta-box.php:162
+#: includes/compatibility/meta-box.php:161
 msgid "Vul hier een veelvoud van {0} in."
 msgstr "Please enter a multiple of {0}."
 
-#: includes/compatibility/meta-box.php:163
-msgid "Kies een bestand van het juiste type"
+#: includes/compatibility/meta-box.php:162
+msgid "Kies een bestand van het juiste type."
 msgstr "Please enter a value with a valid mimetype."
 
 #: includes/compatibility/siteorigin-page-builder.php:47
@@ -4024,12 +4020,3 @@ msgid ""
 msgstr ""
 "In the meantime, it may happen that the maximum number of participants is "
 "reached."
-
-#~ msgid "Er is helaas iets misgegaan. Probeer het later nog eens."
-#~ msgstr "Unfortunately something went wrong. Please try again later."
-
-#~ msgid "Migreer order meta"
-#~ msgstr "Migrate order meta"
-
-#~ msgid "Product type updaten"
-#~ msgstr "Update product type"
