@@ -2,7 +2,6 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Assets\JS_Cookie;
 use SIW\I18n;
 use SIW\Properties;
 use SIW\Update;

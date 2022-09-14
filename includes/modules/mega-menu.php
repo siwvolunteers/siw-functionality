@@ -13,11 +13,17 @@ use SIW\Util\CSS;
  */
 class Mega_Menu {
 
+	/** Assets handle */
+	const ASSETS_HANDLE = 'siw-mega-menu';
+
 	/** Meta key */
 	const META_KEY = 'siw_mega_menu';
 
+	/** Nonce actie */
+	const NONCE_ACTION = 'siw_set_mega_menu';
+
 	/** Nonce naam */
-	const NONCE = 'siw_mega_menu_nonce';
+	const NONCE_NAME = 'siw_mega_menu_nonce';
 
 	/** Init */
 	public static function init() {
@@ -33,13 +39,13 @@ class Mega_Menu {
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
 		$min_width = CSS::MOBILE_BREAKPOINT + 1;
-		wp_register_style( 'siw-mega-menu', SIW_ASSETS_URL . 'css/modules/siw-mega-menu.css', [], SIW_PLUGIN_VERSION, "(min-width: {$min_width}px)" );
-		wp_enqueue_style( 'siw-mega-menu' );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/siw-mega-menu.css', [], SIW_PLUGIN_VERSION, "(min-width: {$min_width}px)" );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Voegt velden voor Mega Menu toe aan nav item */
 	public function add_nav_menu_item_custom_fields( int $item_id, \WP_Post $item ) {
-		wp_nonce_field( 'siw_set_mega_menu', self::NONCE );
+		wp_nonce_field( self::NONCE_ACTION, self::NONCE_NAME );
 		$mega_menu = get_post_meta( $item_id, self::META_KEY, true );
 
 		$mega_menu_options = [
@@ -69,7 +75,7 @@ class Mega_Menu {
 	/** Gekozen mega menu opslaan bij menu item */
 	public function update_nav_menu_item( int $menu_id, int $menu_item_id ) {
 
-		if ( ! isset( $_POST[ self::NONCE ] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ self::NONCE ] ) ), 'siw_set_mega_menu' ) ) {
+		if ( ! isset( $_POST[ self::NONCE_NAME ] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST[ self::NONCE_NAME ] ) ), self::NONCE_ACTION ) ) {
 			return $menu_id;
 		}
 		if ( isset( $_POST[ self::META_KEY ][ $menu_item_id ] ) && ! empty( $_POST[ self::META_KEY ][ $menu_item_id ] ) ) {
