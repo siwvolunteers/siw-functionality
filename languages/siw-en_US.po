@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2022-08-31 11:56+0000\n"
+"POT-Creation-Date: 2022-09-14 10:28+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -815,17 +815,93 @@ msgstr "Close popup"
 msgid "Verwijder filter"
 msgstr "Remove filter"
 
-#: includes/compatibility/generatepress.php:66
+#: includes/compatibility/generatepress.php:65
 msgid "Pagina niet gevonden"
 msgstr "Page not found"
 
-#: includes/compatibility/generatepress.php:71
+#: includes/compatibility/generatepress.php:70
 msgid ""
 "Oeps! Helaas kunnen we de pagina die je zoekt niet vinden. Controleer of de "
 "spelling correct is en doe nog een poging via onderstaande zoekfunctie."
 msgstr ""
 "Oops! Unfortunately, we can not find the page you are looking for. Check "
 "that the spelling is correct and try again using the search function below."
+
+#: includes/compatibility/meta-box.php:145
+msgid "Dit is een verplicht veld."
+msgstr "This field is required."
+
+#: includes/compatibility/meta-box.php:146
+msgid "Controleer dit veld."
+msgstr "Check this field."
+
+#: includes/compatibility/meta-box.php:147
+msgid "Vul hier een geldig e-mailadres in."
+msgstr "Please enter a valid email address."
+
+#: includes/compatibility/meta-box.php:148
+msgid "Vul hier een geldige URL in."
+msgstr "Please enter a valid URL."
+
+#: includes/compatibility/meta-box.php:149
+msgid "Vul hier een geldige datum in."
+msgstr "Please enter a valid date."
+
+#: includes/compatibility/meta-box.php:150
+msgid "Vul hier een geldige datum in (ISO-formaat)."
+msgstr "Enter a valid date (ISO format)"
+
+#: includes/compatibility/meta-box.php:151
+msgid "Vul hier een geldig getal in."
+msgstr "Please enter a valid number."
+
+#: includes/compatibility/meta-box.php:152
+msgid "Vul hier alleen getallen in."
+msgstr "Please enter only digits."
+
+#: includes/compatibility/meta-box.php:153
+msgid "Vul hier een geldig creditcardnummer in."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:154
+msgid "Vul hier dezelfde waarde in."
+msgstr "Please enter the same value again."
+
+#: includes/compatibility/meta-box.php:155
+msgid "Vul hier een waarde in met een geldige extensie."
+msgstr "Please enter a value with a valid extension"
+
+#: includes/compatibility/meta-box.php:156
+msgid "Vul hier maximaal {0} tekens in."
+msgstr "Please enter no more than {0} characters."
+
+#: includes/compatibility/meta-box.php:157
+msgid "Vul hier minimaal {0} tekens in."
+msgstr "Please enter at least {0} characters."
+
+#: includes/compatibility/meta-box.php:158
+msgid "Vul hier een waarde in van minimaal {0} en maximaal {1} tekens."
+msgstr "Please enter a value between {0} and {1} characters long."
+
+#: includes/compatibility/meta-box.php:159
+msgid "Vul hier een waarde in van minimaal {0} en maximaal {1}."
+msgstr "Please enter a value between {0} and {1}."
+
+#: includes/compatibility/meta-box.php:160
+msgid "Vul hier een waarde in kleiner dan of gelijk aan {0}."
+msgstr "Please enter a value less than or equal to {0}."
+
+#: includes/compatibility/meta-box.php:161
+msgid "Vul hier een waarde in groter dan of gelijk aan {0}."
+msgstr "Please enter a value greater than or equal to {0}."
+
+#: includes/compatibility/meta-box.php:162
+msgid "Vul hier een veelvoud van {0} in."
+msgstr "Please enter a multiple of {0}."
+
+#: includes/compatibility/meta-box.php:163
+msgid "Kies een bestand van het juiste type"
+msgstr "Please enter a value with a valid mimetype."
 
 #: includes/compatibility/siteorigin-page-builder.php:47
 msgid "SIW Widgets"
@@ -922,28 +998,24 @@ msgstr "minus"
 msgid "Hoeveel is %1$d %2$s %3$d?"
 msgstr "How much is %1$d %2$s %3$d?"
 
-#: includes/forms/processor.php:54
+#: includes/forms/processor.php:53
 msgid "Dat is helaas niet het goede antwoord."
 msgstr "This is not the correct answer."
 
-#: includes/forms/processor.php:63
+#: includes/forms/processor.php:62
 msgid "Je hebt dit formulier al ingevuld."
 msgstr "You have already filled out this form."
 
-#: includes/forms/processor.php:73
-msgid "Er is helaas iets misgegaan. Probeer het later nog eens."
-msgstr "Unfortunately something went wrong. Please try again later."
-
-#: includes/forms/processor.php:93
+#: includes/forms/processor.php:82
 msgid "Je bericht werd succesvol verzonden."
 msgstr "Your message was sent successfully."
 
-#: includes/forms/processor.php:154,
+#: includes/forms/processor.php:143,
 #: templates/woocommerce/emails/customer-processing-order.php:52
 msgid "SIW"
 msgstr "SIW"
 
-#: includes/forms/processor.php:181
+#: includes/forms/processor.php:170
 msgid "Website"
 msgstr "Website"
 
@@ -1095,28 +1167,28 @@ msgstr "Visit our website"
 msgid "Home"
 msgstr "Home"
 
-#: includes/modules/mega-menu.php:46, includes/options/configuration.php:241,
+#: includes/modules/mega-menu.php:52, includes/options/configuration.php:241,
 #: includes/util/animation.php:34, includes/widgets/carousel/carousel.php:91
 msgid "Geen"
 msgstr "None"
 
-#: includes/modules/mega-menu.php:47
+#: includes/modules/mega-menu.php:53
 msgid "2 kolommen"
 msgstr "2 columns"
 
-#: includes/modules/mega-menu.php:48
+#: includes/modules/mega-menu.php:54
 msgid "3 kolommen"
 msgstr "3 columns"
 
-#: includes/modules/mega-menu.php:49
+#: includes/modules/mega-menu.php:55
 msgid "4 kolommen"
 msgstr "4 kolommen"
 
-#: includes/modules/mega-menu.php:50
+#: includes/modules/mega-menu.php:56
 msgid "5 kolommen"
 msgstr "5 kolommen"
 
-#: includes/modules/mega-menu.php:55
+#: includes/modules/mega-menu.php:61
 msgid "Mega Menu"
 msgstr "Mega Menu"
 
@@ -1961,7 +2033,7 @@ msgid "Starten"
 msgstr "Start"
 
 #. translators: %s is de naam van de actie
-#: includes/actions/batch/action.php:80
+#: includes/actions/batch/action.php:79
 msgid "Actie gestart: %s"
 msgstr "Action started: %s"
 
@@ -1985,17 +2057,9 @@ msgstr "Import fee places from Plato"
 msgid "Importeren projecten uit Plato"
 msgstr "Import projects from Plato"
 
-#: includes/actions/batch/migrate-order-meta.php:21
-msgid "Migreer order meta"
-msgstr "Migrate order meta"
-
 #: includes/actions/batch/update-database.php:23
 msgid "Database updaten"
 msgstr "Update database"
-
-#: includes/actions/batch/update-product-type.php:23
-msgid "Product type updaten"
-msgstr "Update product type"
 
 #: includes/actions/batch/update-projects.php:43
 msgid "Bijwerken projecten"
@@ -3960,3 +4024,12 @@ msgid ""
 msgstr ""
 "In the meantime, it may happen that the maximum number of participants is "
 "reached."
+
+#~ msgid "Er is helaas iets misgegaan. Probeer het later nog eens."
+#~ msgstr "Unfortunately something went wrong. Please try again later."
+
+#~ msgid "Migreer order meta"
+#~ msgstr "Migrate order meta"
+
+#~ msgid "Product type updaten"
+#~ msgstr "Update product type"

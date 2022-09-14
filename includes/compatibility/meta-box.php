@@ -10,6 +10,8 @@ namespace SIW\Compatibility;
  */
 class Meta_Box {
 
+	const ASSETS_HANDLE = 'siw-meta-box';
+
 	/** Init */
 	public static function init() {
 		if ( ! is_plugin_active( 'meta-box-aio/meta-box-aio.php' ) ) {
@@ -111,7 +113,7 @@ class Meta_Box {
 
 			if ( $field['clone'] ) {
 				$new = \RWMB_Clone::value( $new, $old, $object_id, $field );
-			} elseif ( in_array( $field['type'], [ 'date', 'datetime' ] ) && is_array( $new ) ) {
+			} elseif ( in_array( $field['type'], [ 'date', 'datetime' ], true ) && is_array( $new ) ) {
 				if ( isset( $new['timestamp'] ) ) {
 					$new['timestamp'] = floor( abs( (float) $new['timestamp'] ) );
 				}
@@ -137,8 +139,34 @@ class Meta_Box {
 
 	/** Voegt script toe */
 	public function enqueue_script() {
-		wp_register_script( 'siw-meta-box', SIW_ASSETS_URL . 'js/compatibility/siw-meta-box.js', [ 'jquery' ], SIW_PLUGIN_VERSION, true );
-		// TODO: localize_script voor meldingen
-		wp_enqueue_script( 'siw-meta-box' );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/compatibility/siw-meta-box.js', [ 'jquery' ], SIW_PLUGIN_VERSION, true );
+
+		$validation_messages = [
+			'required'    => __( 'Dit is een verplicht veld.', 'siw' ),
+			'remote'      => __( 'Controleer dit veld.', 'siw' ),
+			'email'       => __( 'Vul hier een geldig e-mailadres in.', 'siw' ),
+			'url'         => __( 'Vul hier een geldige URL in.', 'siw' ),
+			'date'        => __( 'Vul hier een geldige datum in.', 'siw' ),
+			'dateISO'     => __( 'Vul hier een geldige datum in (ISO-formaat).', 'siw' ),
+			'number'      => __( 'Vul hier een geldig getal in.', 'siw' ),
+			'digits'      => __( 'Vul hier alleen getallen in.', 'siw' ),
+			'equalTo'     => __( 'Vul hier dezelfde waarde in.', 'siw' ),
+			'extension'   => __( 'Vul hier een waarde in met een geldige extensie.', 'siw' ),
+			'maxlength'   => __( 'Vul hier maximaal {0} tekens in.', 'siw' ),
+			'minlength'   => __( 'Vul hier minimaal {0} tekens in.', 'siw' ),
+			'rangelength' => __( 'Vul hier een waarde in van minimaal {0} en maximaal {1} tekens.', 'siw' ),
+			'range'       => __( 'Vul hier een waarde in van minimaal {0} en maximaal {1}.', 'siw' ),
+			'max'         => __( 'Vul hier een waarde in kleiner dan of gelijk aan {0}.', 'siw' ),
+			'min'         => __( 'Vul hier een waarde in groter dan of gelijk aan {0}.', 'siw' ),
+			'step'        => __( 'Vul hier een veelvoud van {0} in.', 'siw' ),
+			'accept'      => __( 'Kies een bestand van het juiste type.', 'siw' ),
+		];
+
+		wp_localize_script(
+			self::ASSETS_HANDLE,
+			'siw_meta_box',
+			[ 'validation_messages' => $validation_messages ]
+		);
+		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 }

@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: SIW <webmaster@siw.nl>\n"
-"POT-Creation-Date: 2022-08-31 11:56+0000\n"
+"POT-Creation-Date: 2022-09-14 10:38+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -706,12 +706,84 @@ msgstr ""
 msgid "Verwijder filter"
 msgstr ""
 
-#: includes/compatibility/generatepress.php:66
+#: includes/compatibility/generatepress.php:65
 msgid "Pagina niet gevonden"
 msgstr ""
 
-#: includes/compatibility/generatepress.php:71
+#: includes/compatibility/generatepress.php:70
 msgid "Oeps! Helaas kunnen we de pagina die je zoekt niet vinden. Controleer of de spelling correct is en doe nog een poging via onderstaande zoekfunctie."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:145
+msgid "Dit is een verplicht veld."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:146
+msgid "Controleer dit veld."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:147
+msgid "Vul hier een geldig e-mailadres in."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:148
+msgid "Vul hier een geldige URL in."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:149
+msgid "Vul hier een geldige datum in."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:150
+msgid "Vul hier een geldige datum in (ISO-formaat)."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:151
+msgid "Vul hier een geldig getal in."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:152
+msgid "Vul hier alleen getallen in."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:153
+msgid "Vul hier dezelfde waarde in."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:154
+msgid "Vul hier een waarde in met een geldige extensie."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:155
+msgid "Vul hier maximaal {0} tekens in."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:156
+msgid "Vul hier minimaal {0} tekens in."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:157
+msgid "Vul hier een waarde in van minimaal {0} en maximaal {1} tekens."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:158
+msgid "Vul hier een waarde in van minimaal {0} en maximaal {1}."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:159
+msgid "Vul hier een waarde in kleiner dan of gelijk aan {0}."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:160
+msgid "Vul hier een waarde in groter dan of gelijk aan {0}."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:161
+msgid "Vul hier een veelvoud van {0} in."
+msgstr ""
+
+#: includes/compatibility/meta-box.php:162
+msgid "Kies een bestand van het juiste type."
 msgstr ""
 
 #: includes/compatibility/siteorigin-page-builder.php:47
@@ -792,27 +864,23 @@ msgstr ""
 msgid "Hoeveel is %1$d %2$s %3$d?"
 msgstr ""
 
-#: includes/forms/processor.php:54
+#: includes/forms/processor.php:53
 msgid "Dat is helaas niet het goede antwoord."
 msgstr ""
 
-#: includes/forms/processor.php:63
+#: includes/forms/processor.php:62
 msgid "Je hebt dit formulier al ingevuld."
 msgstr ""
 
-#: includes/forms/processor.php:73
-msgid "Er is helaas iets misgegaan. Probeer het later nog eens."
-msgstr ""
-
-#: includes/forms/processor.php:93
+#: includes/forms/processor.php:82
 msgid "Je bericht werd succesvol verzonden."
 msgstr ""
 
-#: includes/forms/processor.php:154, templates/woocommerce/emails/customer-processing-order.php:52
+#: includes/forms/processor.php:143, templates/woocommerce/emails/customer-processing-order.php:52
 msgid "SIW"
 msgstr ""
 
-#: includes/forms/processor.php:181
+#: includes/forms/processor.php:170
 msgid "Website"
 msgstr ""
 
@@ -961,27 +1029,27 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: includes/modules/mega-menu.php:46, includes/options/configuration.php:241, includes/util/animation.php:34, includes/widgets/carousel/carousel.php:91
+#: includes/modules/mega-menu.php:52, includes/options/configuration.php:241, includes/util/animation.php:34, includes/widgets/carousel/carousel.php:91
 msgid "Geen"
 msgstr ""
 
-#: includes/modules/mega-menu.php:47
+#: includes/modules/mega-menu.php:53
 msgid "2 kolommen"
 msgstr ""
 
-#: includes/modules/mega-menu.php:48
+#: includes/modules/mega-menu.php:54
 msgid "3 kolommen"
 msgstr ""
 
-#: includes/modules/mega-menu.php:49
+#: includes/modules/mega-menu.php:55
 msgid "4 kolommen"
 msgstr ""
 
-#: includes/modules/mega-menu.php:50
+#: includes/modules/mega-menu.php:56
 msgid "5 kolommen"
 msgstr ""
 
-#: includes/modules/mega-menu.php:55
+#: includes/modules/mega-menu.php:61
 msgid "Mega Menu"
 msgstr ""
 
@@ -1758,7 +1826,7 @@ msgid "Starten"
 msgstr ""
 
 #. translators: %s is de naam van de actie
-#: includes/actions/batch/action.php:80
+#: includes/actions/batch/action.php:79
 msgid "Actie gestart: %s"
 msgstr ""
 
@@ -1782,16 +1850,8 @@ msgstr ""
 msgid "Importeren projecten uit Plato"
 msgstr ""
 
-#: includes/actions/batch/migrate-order-meta.php:21
-msgid "Migreer order meta"
-msgstr ""
-
 #: includes/actions/batch/update-database.php:23
 msgid "Database updaten"
-msgstr ""
-
-#: includes/actions/batch/update-product-type.php:23
-msgid "Product type updaten"
 msgstr ""
 
 #: includes/actions/batch/update-projects.php:43
