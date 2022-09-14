@@ -68,8 +68,7 @@ class Action {
 
 		array_walk(
 			$data,
-			fn( $item ) => as_schedule_single_action(
-				time(),
+			fn( $item ) => as_enqueue_async_action(
 				"siw_action_{$this->action->get_id()}_process",
 				[ 'id' => $item ],
 				self::PROCESS_GROUP
