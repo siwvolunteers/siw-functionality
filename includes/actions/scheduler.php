@@ -14,8 +14,14 @@ class Scheduler {
 	/** Group voor starten */
 	const START_GROUP = 'siw_start';
 
+	/** Retentie-periode voor uitgevoerde acties */
+	const RETENTION_PERIOD = MINUTE_IN_SECONDS;
+
+	/** Aantal concurrent batches voor AS */
+	const CONCURRENT_BATCHES = 2;
+
 	/** Tijdslimiet voor queue runner (default is 30 seconden) */
-	const TIME_LIMIT = 2 * MINUTE_IN_SECONDS;
+	const TIME_LIMIT = MINUTE_IN_SECONDS;
 
 	/** Starttijd van acties */
 	const START_TIME_GENERAL = '03:00';
@@ -31,8 +37,9 @@ class Scheduler {
 		$self = new self();
 		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'schedule_actions' ] );
 
-		add_filter( 'action_scheduler_retention_period', fn(): int => DAY_IN_SECONDS );
+		add_filter( 'action_scheduler_retention_period', fn(): int => self::RETENTION_PERIOD );
 		add_filter( 'action_scheduler_queue_runner_time_limit', fn(): int => self::TIME_LIMIT );
+		add_filter( 'action_scheduler_queue_runner_concurrent_batches', fn(): int => self::CONCURRENT_BATCHES );
 	}
 
 	/**  Schedule acties */
