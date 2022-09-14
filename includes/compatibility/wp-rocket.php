@@ -18,11 +18,11 @@ class WP_Rocket {
 	/** Levensduur van nonce in seconden */
 	const NONCE_LIFESPAN = 2 * DAY_IN_SECONDS;
 
-	/** Tijdstip cache opnieuw opbouwen */
-	const TS_CACHE_REBUILD = '05:00';
+	/** Tijdstip cache legen */
+	const TS_CACHE_CLEAR = '05:00';
 
 	/** Hooknaam */
-	const HOOK = 'siw_rebuild_cache';
+	const CACHE_CLEAR_HOOK = 'siw_rebuild_cache';
 
 	/** Init */
 	public static function init() {
@@ -32,36 +32,31 @@ class WP_Rocket {
 		}
 		$self = new self();
 
-		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'purge_cache' ] );
+		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'clear_cache' ] );
 		add_filter( 'rocket_lazyload_youtube_thumbnail_resolution', fn() : string => self::YOUTUBE_THUMBNAIL_RESOLUTION );
 		define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 		add_filter( 'nonce_life', fn() : int => self::NONCE_LIFESPAN );
 
 		// Acties t.b.v. cache rebuild
-		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'schedule_cache_rebuild' ] );
-		add_action( self::HOOK, [ $self, 'rebuild_cache' ] );
+		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'schedule_cache_clear' ] );
+		add_action( self::CACHE_CLEAR_HOOK, [ $self, 'clear_cache' ] );
 	}
 
-	/** Cache legen na update plugin */
-	public function purge_cache() {
+	/** Cache legen */
+	public function clear_cache() {
 		rocket_clean_domain();
 		rocket_clean_minify();
 		rocket_clean_cache_busting();
 	}
 
 	/** Voegt een scheduled event toe */
-	public function schedule_cache_rebuild() {
+	public function schedule_cache_clear() {
 		/* Cache rebuild schedulen */
-		$cache_rebuild_ts = strtotime( 'tomorrow ' . self::TS_CACHE_REBUILD . wp_timezone_string() );
-		if ( wp_next_scheduled( self::HOOK ) ) {
-			wp_clear_scheduled_hook( self::HOOK );
+		$cache_rebuild_ts = strtotime( 'tomorrow ' . self::TS_CACHE_CLEAR . wp_timezone_string() );
+		if ( wp_next_scheduled( self::CACHE_CLEAR_HOOK ) ) {
+			wp_clear_scheduled_hook( self::CACHE_CLEAR_HOOK );
 		}
-		wp_schedule_event( $cache_rebuild_ts, 'daily', self::HOOK );
+		wp_schedule_event( $cache_rebuild_ts, 'daily', self::CACHE_CLEAR_HOOK );
 	}
 
-	/** Leegt de cache en start de preload */
-	public function rebuild_cache() {
-		$this->purge_cache();
-		run_rocket_sitemap_preload();
-	}
 }
