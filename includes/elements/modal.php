@@ -80,7 +80,8 @@ class Modal extends Element {
 
 	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/siw-modal.css', [], SIW_PLUGIN_VERSION );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/modal.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/modal.css' );
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
