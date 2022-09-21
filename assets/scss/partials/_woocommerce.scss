@@ -136,6 +136,7 @@ span.product-badge.featured-badge {
 
 				&.active{
 					background-color: var(--siw-contrast);
+					border-bottom-color: var(--siw-contrast);
 					a{
 						color: var(--siw-base);
 					}

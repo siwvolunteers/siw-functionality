@@ -845,6 +845,7 @@ span.product-badge.featured-badge {
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li.active {
   background-color: var(--siw-contrast);
+  border-bottom-color: var(--siw-contrast);
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li.active a {
   color: var(--siw-base);
