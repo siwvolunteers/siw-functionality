@@ -1,0 +1,17 @@
+[data-sal|=fade] {
+  opacity: 1;
+}
+
+[data-sal|=slide] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-sal|=zoom] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-sal|=flip] {
+  transform: none;
+}
