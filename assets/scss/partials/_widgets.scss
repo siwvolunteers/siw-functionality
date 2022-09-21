@@ -16,20 +16,6 @@ html[lang=en-US] #footer-widgets {
 	a.siw-contact-link .siw-icon {
 		fill: var(--siw-base);
 	}
-
-	.siw-social-links {
-		text-align: center;
-		margin-top: 10px;
-		a{
-			padding: 5px;
-			text-decoration: none;
-			&:hover {
-				.siw-background-icon {
-					fill: var(--hover-color);
-				}
-			}
-		}
-	}
 }
 
 /* Snel zoeken widget */

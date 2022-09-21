@@ -3,6 +3,7 @@
 namespace SIW\Modules;
 
 use SIW\Data\Social_Network;
+use SIW\Elements\Social_Links;
 use SIW\Helpers\Template;
 
 /**
@@ -12,22 +13,13 @@ use SIW\Helpers\Template;
  */
 class Social_Share {
 
-	const ASSETS_HANDLE = 'siw-social-share';
-
 	/** Post type van huidige post */
 	protected string $post_type;
 
 	/** Init */
 	public static function init() {
 		$self = new self();
-		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles' ] );
 		add_action( 'generate_after_content', [ $self, 'render' ] );
-	}
-
-	/** Voegt stylesheet toe */
-	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/siw-social-share.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Toont de share links */
@@ -37,41 +29,19 @@ class Social_Share {
 			return;
 		}
 
-		$networks = \siw_get_social_networks( Social_Network::SHARE );
 		$title = get_the_title();
 		$url = get_permalink();
-
-		$social_networks = array_map(
-			fn( Social_Network $network ) : array => [
-				'share_url' => Template::create()
-					->set_template( $network->get_share_url_template() )
-					->set_context(
-						[
-							'url'   => rawurlencode( $url ),
-							'title' => rawurlencode( html_entity_decode( $title ) ),
-						]
-					)
-					->parse_template(),
-				// translators: %s is de naam van een sociaal netwerk
-				'label'     => sprintf( esc_attr__( 'Delen via %s', 'siw' ), $network->get_name() ),
-				'color'     => $network->get_color(),
-				'name'      => $network->get_name(),
-				'url'       => $url,
-				'icon'      => [
-					'size'           => 2,
-					'icon_class'     => $network->get_icon_class(),
-					'has_background' => false,
-				],
-			],
-			$networks
-		);
 
 		Template::create()
 			->set_template( 'modules/social-share' )
 			->set_context(
 				[
-					'title'           => $this->get_title(),
-					'social_networks' => array_values( $social_networks ),
+					'content' => Social_Links::create()
+						->set_context( Social_Network::SHARE )
+						->set_header( $this->get_title() )
+						->set_title( $title )
+						->set_url( $url )
+						->generate(),
 				]
 			)
 			->render_template();
