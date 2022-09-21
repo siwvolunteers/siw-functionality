@@ -209,7 +209,6 @@ li.menu-item a:hover .siw-icon {
 
 input[type=button].ghost,
 input[type=submit].ghost,
-button.button.ghost,
 a.button.ghost {
   background-color: var(--siw-base);
   border: 2px solid var(--siw-contrast);
@@ -218,31 +217,18 @@ a.button.ghost {
 }
 input[type=button].ghost:visited,
 input[type=submit].ghost:visited,
-button.button.ghost:visited,
 a.button.ghost:visited {
   color: var(--siw-contrast);
   background-color: var(--siw-base);
 }
-input[type=button].ghost:hover, input[type=button].ghost:active, input[type=button].ghost.is-checked,
+input[type=button].ghost:hover, input[type=button].ghost:active,
 input[type=submit].ghost:hover,
 input[type=submit].ghost:active,
-input[type=submit].ghost.is-checked,
-button.button.ghost:hover,
-button.button.ghost:active,
-button.button.ghost.is-checked,
 a.button.ghost:hover,
-a.button.ghost:active,
-a.button.ghost.is-checked {
+a.button.ghost:active {
   background: var(--siw-contrast);
   color: var(--siw-base);
   border: 2px solid transparent;
-}
-
-.filter-button-group {
-  text-align: center;
-}
-.filter-button-group button {
-  margin: 2px;
 }
 
 h1.hero-title {
