@@ -20,28 +20,6 @@ body.home .site-content {
 	padding-top: 0;
 }
 
-.siw-quote {
-	padding: 40px;
-	font-size: 1.3em;
-	color: var(--siw-contrast-light);
-	font-style: italic;
-	text-align: center;
-	&::before {
-		content: "\0275D";
-		font-size: 2em;
-		font-style: normal;
-		font-weight: bold;
-		vertical-align: -0.3em;
-	}
-}
-
-blockquote.siw-blockquote {
-	font-size: inherit;
-	font-style: italic;
-	border-left-color: var(--siw-accent);
-	padding: 5px 5px 5px 15px;
-	margin: inherit;
-}
 
 dl{
 	dd {
@@ -105,30 +83,4 @@ h1.hero-title {
 
 a:hover {
 	text-decoration-color: var(--siw-accent);
-}
-
-//Features
-.siw-features {
-	text-align:center;
-	.feature {
-		margin-top: 5px;
-		margin-bottom: 5px;
-		padding: 10px;
-
-		.siw-icon{
-			margin-bottom: 10px;
-		}
-	}
-}
-
-ul{
-	&[data-columns="2"] {
-		columns: 2;
-	}
-	&[data-columns="3"] {
-		columns: 3;
-	}
-	&[data-columns="4"] {
-		columns: 4;
-	}
 }

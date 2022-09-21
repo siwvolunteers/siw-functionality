@@ -11,6 +11,8 @@ use SIW\Util\CSS;
  */
 class Features extends Repeater {
 
+	const ASSETS_HANDLE = 'siw-features';
+
 	/** Aantal kolommen */
 	protected int $columns = 3;
 
@@ -69,5 +71,12 @@ class Features extends Repeater {
 				] :
 				[],
 		];
+	}
+
+	/** Voegt styles toe */
+	public function enqueue_styles() {
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/features.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/features.css' );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 }

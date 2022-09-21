@@ -1,0 +1,14 @@
+.siw-quote {
+	padding: 40px;
+	font-size: 1.3em;
+	color: var(--siw-contrast-light);
+	font-style: italic;
+	text-align: center;
+	&::before {
+		content: "\0275D";
+		font-size: 2em;
+		font-style: normal;
+		font-weight: bold;
+		vertical-align: -0.3em;
+	}
+}

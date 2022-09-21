@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: "Metropolis";
   font-style: normal;
@@ -154,29 +153,6 @@ body.home .site-content {
   padding-top: 0;
 }
 
-.siw-quote {
-  padding: 40px;
-  font-size: 1.3em;
-  color: var(--siw-contrast-light);
-  font-style: italic;
-  text-align: center;
-}
-.siw-quote::before {
-  content: "❝";
-  font-size: 2em;
-  font-style: normal;
-  font-weight: bold;
-  vertical-align: -0.3em;
-}
-
-blockquote.siw-blockquote {
-  font-size: inherit;
-  font-style: italic;
-  border-left-color: var(--siw-accent);
-  padding: 5px 5px 5px 15px;
-  margin: inherit;
-}
-
 dl dd {
   margin: 0 1em 1em;
 }
@@ -236,30 +212,7 @@ h1.hero-title {
 }
 
 a:hover {
-  -webkit-text-decoration-color: var(--siw-accent);
-          text-decoration-color: var(--siw-accent);
-}
-
-.siw-features {
-  text-align: center;
-}
-.siw-features .feature {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  padding: 10px;
-}
-.siw-features .feature .siw-icon {
-  margin-bottom: 10px;
-}
-
-ul[data-columns="2"] {
-  columns: 2;
-}
-ul[data-columns="3"] {
-  columns: 3;
-}
-ul[data-columns="4"] {
-  columns: 4;
+  text-decoration-color: var(--siw-accent);
 }
 
 /*--------------------------------------------------------------
@@ -722,17 +675,6 @@ html[lang=en-US] #footer-widgets {
 }
 .widget_siw_contact_widget a.siw-contact-link .siw-icon {
   fill: var(--siw-base);
-}
-.widget_siw_contact_widget .siw-social-links {
-  text-align: center;
-  margin-top: 10px;
-}
-.widget_siw_contact_widget .siw-social-links a {
-  padding: 5px;
-  text-decoration: none;
-}
-.widget_siw_contact_widget .siw-social-links a:hover .siw-background-icon {
-  fill: var(--hover-color);
 }
 
 /* Snel zoeken widget */

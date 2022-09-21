@@ -9,6 +9,8 @@ namespace SIW\Elements;
  */
 class Blockquote extends Element {
 
+	const ASSETS_HANDLE = 'siw-blockquote';
+
 	/** Quote */
 	protected string $quote;
 
@@ -52,5 +54,12 @@ class Blockquote extends Element {
 	public function set_source( string $source ) {
 		$this->source = $source;
 		return $this;
+	}
+
+	/** Voegt styles toe */
+	public function enqueue_styles() {
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/blockquote.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/blockquote.css' );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 }

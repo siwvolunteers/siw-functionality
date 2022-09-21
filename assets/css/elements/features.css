@@ -1,0 +1,11 @@
+.siw-features {
+  text-align: center;
+}
+.siw-features .feature {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+.siw-features .feature .siw-icon {
+  margin-bottom: 10px;
+}
