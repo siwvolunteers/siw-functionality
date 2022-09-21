@@ -465,58 +465,6 @@ body {
 /*--------------------------------------------------------------
 ## Gestylede inputs
 --------------------------------------------------------------*/
-.siw-form .message, .siw-form #rwmb-validation-message {
-  padding: 20px;
-  margin-bottom: 20px;
-  border-left: 10px solid rgba(0, 0, 0, 0.3);
-}
-.siw-form .message.error, .siw-form .message.notice-error, .siw-form #rwmb-validation-message.error, .siw-form #rwmb-validation-message.notice-error {
-  background-color: #d63638;
-  color: var(--siw-base);
-}
-.siw-form .message.success, .siw-form #rwmb-validation-message.success {
-  background-color: #00a32a;
-  color: var(--siw-base);
-}
-.siw-form .message p, .siw-form #rwmb-validation-message p {
-  margin-bottom: unset;
-}
-.siw-form .overlay {
-  position: relative;
-}
-.siw-form.processing {
-  cursor: not-allowed;
-}
-.siw-form.processing .overlay {
-  pointer-events: none;
-}
-.siw-form.processing .overlay form {
-  opacity: 0.4;
-}
-.siw-form.processing .overlay::before {
-  content: "";
-  display: block;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border-width: 2px;
-  border-style: solid;
-  border-color: transparent var(--siw-accent) var(--siw-accent) var(--siw-accent);
-  position: absolute;
-  top: calc(50% - 75px);
-  left: calc(50% - 75px);
-  will-change: transform;
-  animation: spin 0.75s infinite ease-in-out;
-}
-
-@keyframes spin {
-  0% {
-    transform: translateZ(0) rotate(0deg);
-  }
-  100% {
-    transform: translateZ(0) rotate(360deg);
-  }
-}
 form input[type=text],
 form input[type=email],
 form input[type=url],
