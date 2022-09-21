@@ -27,7 +27,7 @@ dl{
 	}
 }
 
-.siw-intro{
+.siw-intro {
 	background-color: var(--siw-contrast);
 	color: var(--siw-base);
 	padding: 15px;
@@ -37,22 +37,6 @@ dl{
 		&:hover {
 			color: var(--siw-base);
 		}
-	}
-}
-// alert text bij groepsprojecten
-.siw-archive-alert {
-	padding: 15px;
-	margin: 15px;
-}
-
-//Icon in menu wit bij hover
-li.menu-item a {
-	.siw-icon {
-		margin-right:5px;
-		transition: all 0.3s linear 0s;
-	}
-	&:hover .siw-icon {
-		fill: var(--siw-base);
 	}
 }
 

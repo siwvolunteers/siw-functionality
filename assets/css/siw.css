@@ -170,19 +170,6 @@ dl dd {
   color: var(--siw-base);
 }
 
-.siw-archive-alert {
-  padding: 15px;
-  margin: 15px;
-}
-
-li.menu-item a .siw-icon {
-  margin-right: 5px;
-  transition: all 0.3s linear 0s;
-}
-li.menu-item a:hover .siw-icon {
-  fill: var(--siw-base);
-}
-
 input[type=button].ghost,
 input[type=submit].ghost,
 a.button.ghost {
