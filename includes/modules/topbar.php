@@ -4,7 +4,6 @@ namespace SIW\Modules;
 
 use SIW\Helpers\Template;
 use SIW\I18n;
-use SIW\Properties;
 
 /**
  * Topbar
@@ -13,7 +12,7 @@ use SIW\Properties;
  */
 class Topbar {
 
-	const STYLE_HANDLE = 'siw-topbar';
+	const ASSETS_HANDLE = 'siw-topbar';
 
 	/** Toon het evenement x aantal dagen van te voren */
 	const EVENT_SHOW_DAYS_BEFORE = 14;
@@ -61,8 +60,9 @@ class Topbar {
 
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
-		wp_register_style( self::STYLE_HANDLE, SIW_ASSETS_URL . 'css/modules/siw-topbar.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( self::STYLE_HANDLE );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/topbar.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/modules/topbar.css' );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Haalt de inhoud op */
