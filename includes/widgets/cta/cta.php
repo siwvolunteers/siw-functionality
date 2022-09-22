@@ -85,4 +85,18 @@ class CTA extends Widget {
 			],
 		];
 	}
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		$this->register_frontend_styles(
+			[
+				[
+					'siw-widget-cta',
+					SIW_ASSETS_URL . 'css/widgets/cta.css',
+					[],
+					SIW_PLUGIN_VERSION,
+				],
+			]
+		);
+	}
 }
