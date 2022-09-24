@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Actions;
+namespace SIW;
 
 use SIW\Update;
 
@@ -13,9 +13,6 @@ class Scheduler {
 
 	/** Group voor starten */
 	const START_GROUP = 'siw_start';
-
-	/** Tijdslimiet voor queue runner (default is 30 seconden) */
-	const TIME_LIMIT = 2 * MINUTE_IN_SECONDS;
 
 	/** Starttijd van acties */
 	const START_TIME_GENERAL = '03:00';
@@ -30,9 +27,6 @@ class Scheduler {
 	public static function init() {
 		$self = new self();
 		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'schedule_actions' ] );
-
-		add_filter( 'action_scheduler_retention_period', fn(): int => DAY_IN_SECONDS );
-		add_filter( 'action_scheduler_queue_runner_time_limit', fn(): int => self::TIME_LIMIT );
 	}
 
 	/**  Schedule acties */

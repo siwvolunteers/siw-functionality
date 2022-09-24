@@ -28,7 +28,8 @@ class Breadcrumbs {
 
 	/** Styles */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/siw-breadcrumbs.css', [], SIW_PLUGIN_VERSION );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/breadcrumbs.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/modules/breadcrumbs.css' );
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 

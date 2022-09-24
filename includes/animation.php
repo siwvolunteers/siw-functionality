@@ -27,7 +27,7 @@ class Animation {
 
 	/** Registreert scripts */
 	public function register_script() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/siw-animation.js', [ Sal::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/animation.js', [ Sal::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			self::ASSETS_HANDLE,
 			'siw_animation',
@@ -42,30 +42,8 @@ class Animation {
 
 	/** Registreert styles */
 	public function register_style() {
-		wp_enqueue_style( SAL::ASSETS_HANDLE );
-
-		$inline_css = [
-			"[data-sal|='fade']"  => [
-				'opacity' => 1,
-			],
-			"[data-sal|='slide']" => [
-				'opacity'   => 1,
-				'transform' => 'none',
-			],
-			"[data-sal|='zoom']"  => [
-				'opacity'   => 1,
-				'transform' => 'none',
-			],
-			"[data-sal|='flip']"  => [
-				'transform' => 'none',
-			],
-		];
-		$media_query = [
-			'max-width' => CSS::MOBILE_BREAKPOINT . 'px',
-		];
-		wp_add_inline_style(
-			SAL::ASSETS_HANDLE,
-			CSS::generate_inline_css( $inline_css, $media_query )
-		);
+		$max_width = CSS::MOBILE_BREAKPOINT;
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/animation.css', [ SAL::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, "(max-width: {$max_width}px)" );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 }

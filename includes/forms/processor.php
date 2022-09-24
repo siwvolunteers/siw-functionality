@@ -5,7 +5,6 @@ namespace SIW\Forms;
 use SIW\Data\Email_Settings;
 use SIW\Helpers\Email;
 use SIW\Helpers\Email_Template;
-use SIW\Helpers\Spam_Check;
 use SIW\Helpers\Template;
 use SIW\Interfaces\Forms\Confirmation_Mail;
 use SIW\Interfaces\Forms\Form as Form_Interface;
@@ -61,16 +60,6 @@ class Processor {
 			return new \WP_REST_Response(
 				[
 					'message' => __( 'Je hebt dit formulier al ingevuld.', 'siw' ),
-				],
-				\WP_Http::BAD_REQUEST
-			);
-		}
-
-		// Afbreken als het spam is
-		if ( $this->is_spam() ) {
-			return new \WP_REST_Response(
-				[
-					'message' => __( 'Er is helaas iets misgegaan. Probeer het later nog eens.', 'siw' ),
 				],
 				\WP_Http::BAD_REQUEST
 			);
@@ -209,28 +198,5 @@ class Processor {
 		}
 		set_transient( $transient_name, 1, HOUR_IN_SECONDS );
 		return true;
-	}
-
-	/** Check of het spam betreft */
-	protected function is_spam(): bool {
-
-		// Haal email adres op voor spam_check
-		$email = $this->get_customer_email() ?? null;
-
-		$spam_check = Spam_Check::create();
-		if ( null !== $email ) {
-			$spam_check->set_email( $email );
-		}
-		if ( ! empty( $this->ip ) ) {
-			$spam_check->set_ip( $this->ip );
-		}
-		// TODO: check inhoud van bepaalde velden op links
-		if ( $spam_check->is_spam() ) {
-			Logger::info( "Aanmelding voor formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip} en email {$email} gemarkeerd als spam", static::class );
-			return true;
-		}
-		Logger::debug( "Aanmelding voor formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip} en email {$email} niet gemarkeerd als spam", static::class );
-
-		return false;
 	}
 }

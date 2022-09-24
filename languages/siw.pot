@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: SIW <webmaster@siw.nl>\n"
-"POT-Creation-Date: 2022-08-31 11:56+0000\n"
+"POT-Creation-Date: 2022-09-24 10:02+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -462,7 +462,7 @@ msgstr ""
 msgid "Informatie voor partner"
 msgstr ""
 
-#: includes/icons.php:77
+#: includes/icons.php:83
 msgid "SIW Icons"
 msgstr ""
 
@@ -486,7 +486,7 @@ msgstr ""
 msgid "Soort werk"
 msgstr ""
 
-#: includes/media-taxonomies.php:114, includes/elements/taxonomy-filter.php:37, includes/widgets/carousel/carousel.php:242, includes/widgets/quote/quote.php:94
+#: includes/media-taxonomies.php:114, includes/elements/taxonomy-filter.php:37, includes/widgets/carousel/carousel.php:242, includes/widgets/quote/quote.php:108
 msgid "Alle"
 msgstr ""
 
@@ -706,11 +706,11 @@ msgstr ""
 msgid "Verwijder filter"
 msgstr ""
 
-#: includes/compatibility/generatepress.php:66
+#: includes/compatibility/generatepress.php:65
 msgid "Pagina niet gevonden"
 msgstr ""
 
-#: includes/compatibility/generatepress.php:71
+#: includes/compatibility/generatepress.php:70
 msgid "Oeps! Helaas kunnen we de pagina die je zoekt niet vinden. Controleer of de spelling correct is en doe nog een poging via onderstaande zoekfunctie."
 msgstr ""
 
@@ -726,7 +726,7 @@ msgstr ""
 msgid "Groepsprojecten"
 msgstr ""
 
-#: includes/compatibility/wordpress.php:187, includes/elements/features.php:50, includes/content/types/event.php:321, includes/content/types/job-posting.php:345, includes/content/types/story.php:183, includes/content/types/tm-country.php:173, includes/elements/interactive-maps/destinations.php:101, includes/elements/interactive-maps/destinations.php:122, includes/elements/interactive-maps/destinations.php:145
+#: includes/compatibility/wordpress.php:187, includes/elements/features.php:52, includes/content/types/event.php:321, includes/content/types/job-posting.php:345, includes/content/types/story.php:183, includes/content/types/tm-country.php:173, includes/elements/interactive-maps/destinations.php:101, includes/elements/interactive-maps/destinations.php:122, includes/elements/interactive-maps/destinations.php:145
 msgid "Lees meer"
 msgstr ""
 
@@ -734,7 +734,7 @@ msgstr ""
 msgid "Categorieën"
 msgstr ""
 
-#: includes/content/type.php:264
+#: includes/content/type.php:270
 msgid "Deel deze pagina"
 msgstr ""
 
@@ -771,6 +771,15 @@ msgstr ""
 msgid "Sluiten"
 msgstr ""
 
+#. translators: %s is de naam van een sociaal netwerk
+#: includes/elements/social-links.php:46
+msgid "Delen via %s"
+msgstr ""
+
+#: includes/elements/social-links.php:46, templates/woocommerce/emails/email-footer.php:63
+msgid "Volg ons op %s"
+msgstr ""
+
 #: includes/elements/taxonomy-filter.php:38
 msgid "Filter op"
 msgstr ""
@@ -792,27 +801,23 @@ msgstr ""
 msgid "Hoeveel is %1$d %2$s %3$d?"
 msgstr ""
 
-#: includes/forms/processor.php:54
+#: includes/forms/processor.php:53
 msgid "Dat is helaas niet het goede antwoord."
 msgstr ""
 
-#: includes/forms/processor.php:63
+#: includes/forms/processor.php:62
 msgid "Je hebt dit formulier al ingevuld."
 msgstr ""
 
-#: includes/forms/processor.php:73
-msgid "Er is helaas iets misgegaan. Probeer het later nog eens."
-msgstr ""
-
-#: includes/forms/processor.php:93
+#: includes/forms/processor.php:82
 msgid "Je bericht werd succesvol verzonden."
 msgstr ""
 
-#: includes/forms/processor.php:154, templates/woocommerce/emails/customer-processing-order.php:52
+#: includes/forms/processor.php:143, templates/woocommerce/emails/customer-processing-order.php:52
 msgid "SIW"
 msgstr ""
 
-#: includes/forms/processor.php:181
+#: includes/forms/processor.php:170
 msgid "Website"
 msgstr ""
 
@@ -957,37 +962,32 @@ msgstr ""
 msgid "Bezoek onze website"
 msgstr ""
 
-#: includes/modules/breadcrumbs.php:54, includes/modules/breadcrumbs.php:78
+#: includes/modules/breadcrumbs.php:55, includes/modules/breadcrumbs.php:79
 msgid "Home"
 msgstr ""
 
-#: includes/modules/mega-menu.php:46, includes/options/configuration.php:241, includes/util/animation.php:34, includes/widgets/carousel/carousel.php:91
+#: includes/modules/mega-menu.php:54, includes/options/configuration.php:241, includes/util/animation.php:34, includes/widgets/carousel/carousel.php:91
 msgid "Geen"
 msgstr ""
 
-#: includes/modules/mega-menu.php:47
+#: includes/modules/mega-menu.php:55
 msgid "2 kolommen"
 msgstr ""
 
-#: includes/modules/mega-menu.php:48
+#: includes/modules/mega-menu.php:56
 msgid "3 kolommen"
 msgstr ""
 
-#: includes/modules/mega-menu.php:49
+#: includes/modules/mega-menu.php:57
 msgid "4 kolommen"
 msgstr ""
 
-#: includes/modules/mega-menu.php:50
+#: includes/modules/mega-menu.php:58
 msgid "5 kolommen"
 msgstr ""
 
-#: includes/modules/mega-menu.php:55
+#: includes/modules/mega-menu.php:63
 msgid "Mega Menu"
-msgstr ""
-
-#. translators: %s is de naam van een sociaal netwerk
-#: includes/modules/social-share.php:56
-msgid "Delen via %s"
 msgstr ""
 
 #. translators: %1$s is de naam van het evenement, %2$s is de datum
@@ -1758,7 +1758,7 @@ msgid "Starten"
 msgstr ""
 
 #. translators: %s is de naam van de actie
-#: includes/actions/batch/action.php:80
+#: includes/actions/batch/action.php:79
 msgid "Actie gestart: %s"
 msgstr ""
 
@@ -1782,16 +1782,8 @@ msgstr ""
 msgid "Importeren projecten uit Plato"
 msgstr ""
 
-#: includes/actions/batch/migrate-order-meta.php:21
-msgid "Migreer order meta"
-msgstr ""
-
 #: includes/actions/batch/update-database.php:23
 msgid "Database updaten"
-msgstr ""
-
-#: includes/actions/batch/update-product-type.php:23
-msgid "Product type updaten"
 msgstr ""
 
 #: includes/actions/batch/update-projects.php:43
@@ -1902,7 +1894,7 @@ msgstr ""
 msgid "Deel dit evenement"
 msgstr ""
 
-#: includes/content/types/event.php:336, includes/widgets/calendar/calendar.php:88
+#: includes/content/types/event.php:336, includes/widgets/calendar/calendar.php:102
 msgid "Online"
 msgstr ""
 
@@ -2737,17 +2729,12 @@ msgstr ""
 msgid "Toon alleen aanbevolen projecten"
 msgstr ""
 
-#: includes/widgets/contact/contact.php:29
+#: includes/widgets/contact/contact.php:30
 msgid "Contactinformatie"
 msgstr ""
 
-#: includes/widgets/contact/contact.php:34
+#: includes/widgets/contact/contact.php:35
 msgid "Toont contactinformatie"
-msgstr ""
-
-#. translators: %s is de naam van een sociaal netwerk
-#: includes/widgets/contact/contact.php:56, templates/woocommerce/emails/email-footer.php:63
-msgid "Volg ons op %s"
 msgstr ""
 
 #: includes/widgets/cta/cta.php:28

@@ -36,13 +36,13 @@ class Bootstrap {
 
 		// Laadt klasses
 		$this->init_class( 'SIW', 'Loader' );
+		$this->init_loader( 'Actions' );
 		$this->init_loader( 'Assets' );
 		$this->init_loader( 'Options' );
 		$this->init_loader( 'Forms' );
 		$this->init_loader( 'Widgets' );
 		$this->init_loader( 'Modules', 'init', 11 );
 		$this->init_loader( 'Compatibility' );
-		$this->load_actions();
 		$this->init_loader( 'Page_Builder' );
 		$this->init_loader( 'WooCommerce' );
 		$this->load_content_types();
@@ -135,18 +135,6 @@ class Bootstrap {
 	/** Init loader */
 	protected function init_loader( string $namespace, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
 		$this->init_class( "SIW\\{$namespace}", 'Loader', $hook, $priority );
-	}
-
-	/** Laadt batch jobs */
-	protected function load_actions() {
-
-		$this->init_classes(
-			'SIW\Actions',
-			[
-				'Loader',
-				'Scheduler',
-			]
-		);
 	}
 
 	/** Laadt custom content types */

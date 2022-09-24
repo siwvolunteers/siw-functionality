@@ -38,6 +38,56 @@
             "install-path": "../kallookoo/wp_parse_args_recursive"
         },
         {
+            "name": "luizbills/css-generator",
+            "version": "v4.0.1",
+            "version_normalized": "4.0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/luizbills/css-generator.php.git",
+                "reference": "e3807da033c2f300775a002358e026c3c33f8bdb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/luizbills/css-generator.php/zipball/e3807da033c2f300775a002358e026c3c33f8bdb",
+                "reference": "e3807da033c2f300775a002358e026c3c33f8bdb",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=7.4.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "^4.2",
+                "codeception/module-asserts": "^1.0.0",
+                "phpstan/phpstan": "^1.8",
+                "phpstan/phpstan-strict-rules": "^1.4"
+            },
+            "time": "2022-09-12T18:52:50+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "luizbills\\CSS_Generator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luiz Bills",
+                    "email": "luizpbills@gmail.com"
+                }
+            ],
+            "description": "Write CSS programatically using PHP.",
+            "support": {
+                "issues": "https://github.com/luizbills/css-generator.php/issues",
+                "source": "https://github.com/luizbills/css-generator.php/tree/v4.0.1"
+            },
+            "install-path": "../luizbills/css-generator"
+        },
+        {
             "name": "mustache/mustache",
             "version": "v2.14.2",
             "version_normalized": "2.14.2.0",
@@ -296,17 +346,17 @@
         },
         {
             "name": "woocommerce/action-scheduler",
-            "version": "3.5.0",
-            "version_normalized": "3.5.0.0",
+            "version": "3.5.2",
+            "version_normalized": "3.5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/action-scheduler.git",
-                "reference": "2f013f99dbea83933431a10f2a92c3388545ea43"
+                "reference": "519cfa20db89eb85511cad08301d3fa33522ed8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/2f013f99dbea83933431a10f2a92c3388545ea43",
-                "reference": "2f013f99dbea83933431a10f2a92c3388545ea43",
+                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/519cfa20db89eb85511cad08301d3fa33522ed8b",
+                "reference": "519cfa20db89eb85511cad08301d3fa33522ed8b",
                 "shasum": ""
             },
             "require-dev": {
@@ -315,7 +365,7 @@
                 "wp-cli/wp-cli": "~2.5.0",
                 "yoast/phpunit-polyfills": "^1.0"
             },
-            "time": "2022-08-25T20:43:08+00:00",
+            "time": "2022-09-16T15:31:00+00:00",
             "type": "wordpress-plugin",
             "extra": {
                 "scripts-description": {
@@ -333,7 +383,7 @@
             "homepage": "https://actionscheduler.org/",
             "support": {
                 "issues": "https://github.com/woocommerce/action-scheduler/issues",
-                "source": "https://github.com/woocommerce/action-scheduler/tree/3.5.0"
+                "source": "https://github.com/woocommerce/action-scheduler/tree/3.5.2"
             },
             "install-path": "../woocommerce/action-scheduler"
         }

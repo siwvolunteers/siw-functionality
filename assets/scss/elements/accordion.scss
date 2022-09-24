@@ -4,13 +4,13 @@
 		margin-top:1px;
 		margin-bottom:1px;
 
-		span{
+		span {
 			width: 100%;
 			display: block;
 			padding: 10px;
 			border: solid 3px var(--siw-contrast);
 			cursor: pointer;
-	
+
 			&:after {
 				content: "+";
 				float: right;

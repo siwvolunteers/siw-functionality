@@ -71,6 +71,20 @@ class Calendar extends Widget {
 		return $parameters;
 	}
 
+	/** {@inheritDoc} */
+	public function initialize() {
+		$this->register_frontend_styles(
+			[
+				[
+					'siw-widget-calendar',
+					SIW_ASSETS_URL . 'css/widgets/calendar.css',
+					[],
+					SIW_PLUGIN_VERSION,
+				],
+			]
+		);
+	}
+
 	/** Parset event data */
 	protected function parse_event( int $event_id ) : array {
 		return [

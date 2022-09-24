@@ -45,17 +45,19 @@ class Modal extends Element {
 	}
 
 	/** Zet de titel van de modal */
-	public function set_title( string $title ) {
+	public function set_title( string $title ): self {
 		$this->title = $title;
+		return $this;
 	}
 
 	/** Zet inhoud van modal */
-	public function set_content( string $content ) {
+	public function set_content( string $content ): self {
 		$this->content = $content;
+		return $this;
 	}
 
 	/** Zet pagina van de modal */
-	public function set_page( int $page_id ) {
+	public function set_page( int $page_id ): self {
 		$page = get_post( $page_id );
 		$this->title = $page->post_title;
 		$this->content = do_shortcode( $page->post_content );
@@ -80,13 +82,14 @@ class Modal extends Element {
 
 	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/siw-modal.css', [], SIW_PLUGIN_VERSION );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/modal.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/modal.css' );
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-modal.js', [ Micromodal::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/modal.js', [ Micromodal::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			self::ASSETS_HANDLE,
 			'siw_modal',

@@ -12,7 +12,7 @@ use SIW\Actions\Batch\Update_Terms;
 class Taxonomy_Filter extends Element {
 
 	// Constantes voor assets handle
-	const SCRIPT_HANDLE = 'siw-taxonomy-filter';
+	const ASSETS_HANDLE = 'siw-taxonomy-filter';
 
 	/** Taxonomie */
 	protected string $taxonomy;
@@ -41,21 +41,28 @@ class Taxonomy_Filter extends Element {
 	}
 
 	/** Zet de taxonomie */
-	public function set_taxonomy( string $taxonomy ) {
+	public function set_taxonomy( string $taxonomy ): self {
 		$this->taxonomy = $taxonomy;
 		return $this;
 	}
 
 	/** Zet of het aantal actieve posts geteld moet worden */
-	public function set_use_post_count( bool $use_post_count ) {
+	public function set_use_post_count( bool $use_post_count ): self {
 		$this->use_post_count = $use_post_count;
 		return $this;
 	}
 
 	/** {@inheritDoc}*/
 	public function enqueue_scripts() {
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-taxonomy-filter.js', [], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( self::SCRIPT_HANDLE );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/taxonomy-filter.js', [], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::ASSETS_HANDLE );
+	}
+
+	/** Voegt styles toe */
+	public function enqueue_styles() {
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/taxonomy-filter.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/taxonomy-filter.css' );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Haalt terms van één taxonomy op */

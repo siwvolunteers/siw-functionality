@@ -13,7 +13,7 @@ abstract class Repeater extends Element {
 	protected array $items;
 
 	/** Voegt item toe aan repeater */
-	public function add_item( $item ) {
+	final public function add_item( $item ): static {
 
 		if ( is_array( $item ) ) {
 			$item = \wp_parse_args_recursive(
@@ -30,7 +30,7 @@ abstract class Repeater extends Element {
 	}
 
 	/** Voegt meerdere items toe aan repeater */
-	public function add_items( array $items ) {
+	final public function add_items( array $items ): static {
 		foreach ( $items as $item ) {
 			$this->add_item( $item );
 		}
@@ -38,12 +38,12 @@ abstract class Repeater extends Element {
 	}
 
 	/** Parset item*/
-	protected function parse_item( array $item ) : array {
+	protected function parse_item( array $item ): array {
 		return $item;
 	}
 
 	/** Geeft default waardes van item terug TODO: abstract maken? */
-	protected function get_item_defaults() : array {
+	protected function get_item_defaults(): array {
 		return [];
 	}
 }

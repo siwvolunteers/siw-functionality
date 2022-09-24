@@ -16,7 +16,8 @@
 		"spatie/enum": "3.*",
 		"pharaonic/php-dot-array": "1.*",
 		"woocommerce/action-scheduler": "3.*",
-		"mustache/mustache": "2.*"
+		"mustache/mustache": "2.*",
+		"luizbills/css-generator": "4.*"
 	},
 	"autoload": {
 		"files": [

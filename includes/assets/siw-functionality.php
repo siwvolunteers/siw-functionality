@@ -16,6 +16,6 @@ class SIW_Functionality implements Style {
 
 	/** {@inheritDoc */
 	public function register_style() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/siw.css', [ Balloon::ASSETS_HANDLE ], SIW_PLUGIN_VERSION );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/siw.css', [], SIW_PLUGIN_VERSION );
 	}
 }

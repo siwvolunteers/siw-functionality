@@ -24,7 +24,7 @@ var siwTaxonomyFilter = (function () {
 	 * Init
 	 */
 	function init () {
-		var button_groups = document.querySelectorAll('.filter-button-group');
+		var button_groups = document.querySelectorAll('.siw-taxonomy-filter');
 		for ( var i=0, len = button_groups.length; i < len; i++ ) {
 			var button_group = button_groups[i];
 			_addButtonGroupHandlers( button_group );
@@ -33,8 +33,8 @@ var siwTaxonomyFilter = (function () {
 
 	/**
 	 * Voegt event handlers voor button group toe
-	 * 
-	 * @param {*} button_group 
+	 *
+	 * @param {*} button_group
 	 */
 	function _addButtonGroupHandlers( buttonGroup ) {
 		var buttons = buttonGroup.querySelectorAll( 'button' );
@@ -47,8 +47,8 @@ var siwTaxonomyFilter = (function () {
 
 	/**
 	 * Handelt klikken op knop af
-	 * 
-	 * @param {Event} event 
+	 *
+	 * @param {Event} event
 	 */
 	function _buttonHandler( event ) {
 
@@ -75,7 +75,7 @@ var siwTaxonomyFilter = (function () {
 		//TODO: verplaatsen, dan hoeft dit maar 1 keer
 		var grid = document.querySelector('.masonry-container' )
 		msnry = Masonry.data( grid );
-		
+
 
 		//Queryselector ophalen
 		var querySelector = _getQuerySelector();

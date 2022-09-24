@@ -1,0 +1,15 @@
+.siw-taxonomy-filter {
+  text-align: center;
+}
+.siw-taxonomy-filter button {
+  margin: 2px;
+  background-color: var(--siw-base);
+  border: 2px solid var(--siw-contrast);
+  color: var(--siw-contrast);
+  transition: all 0.6s ease-out;
+}
+.siw-taxonomy-filter button.is-checked {
+  background: var(--siw-contrast);
+  color: var(--siw-base);
+  border: 2px solid transparent;
+}

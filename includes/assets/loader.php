@@ -24,6 +24,7 @@ class Loader extends Object_Loader {
 			Frappe_Charts::class,
 			Google_Analytics::class,
 			Google_Maps::class,
+			JQuery_Validation_Messages_NL::class,
 			JS_Cookie::class,
 			Mapplic::class,
 			Meta_Pixel::class,

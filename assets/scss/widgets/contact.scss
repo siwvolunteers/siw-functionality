@@ -1,0 +1,14 @@
+.widget_siw_contact_widget {
+	p {
+		margin-bottom: 10px;
+	}
+	table,
+	td {
+		padding: 0px 10px 0px 0px;
+		border: none;
+	}
+
+	a.siw-contact-link .siw-icon {
+		fill: var(--siw-base);
+	}
+}

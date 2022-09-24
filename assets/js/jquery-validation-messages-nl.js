@@ -1,10 +1,11 @@
-/**
- * @file      Functies t.b.v MetaBox
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+/*
+ * Translated default messages for the jQuery validation plugin.
+ * Locale: NL (Dutch; Nederlands, Vlaams)
  */
 
 //Validatiemelding toevoegen
 (function( $ ) {
+
 	$.extend( $.validator.messages, {
 		required: "Dit is een verplicht veld.",
 		remote: "Controleer dit veld.",
@@ -24,6 +25,17 @@
 		max: $.validator.format( "Vul hier een waarde in kleiner dan of gelijk aan {0}." ),
 		min: $.validator.format( "Vul hier een waarde in groter dan of gelijk aan {0}." ),
 		step: $.validator.format( "Vul hier een veelvoud van {0} in." ),
-		accept: $.validator.format( "Kies een bestand van het juiste type" ),
+
+		// For validations in additional-methods.js
+		iban: "Vul hier een geldig IBAN in.",
+		dateNL: "Vul hier een geldige datum in.",
+		phoneNL: "Vul hier een geldig Nederlands telefoonnummer in.",
+		mobileNL: "Vul hier een geldig Nederlands mobiel telefoonnummer in.",
+		postalcodeNL: "Vul hier een geldige postcode in.",
+		bankaccountNL: "Vul hier een geldig bankrekeningnummer in.",
+		giroaccountNL: "Vul hier een geldig gironummer in.",
+		bankorgiroaccountNL: "Vul hier een geldig bank- of gironummer in."
 	} );
 })( jQuery );
+
+

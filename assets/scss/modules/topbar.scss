@@ -5,12 +5,14 @@
 	.topbar-content{
 		padding: 10px;
 	}
-	.button.ghost, .button.ghost:visited {
+	.button.ghost,
+	.button.ghost:visited {
 		border: 2px solid var(--siw-base);
 		color: var(--siw-base);
 		background: transparent;
 
-		&:hover, &:active{
+		&:hover,
+		&:active{
 			background: var(--siw-base);
 			color: var(--siw-accent)
 		}

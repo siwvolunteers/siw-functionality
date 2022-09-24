@@ -85,6 +85,20 @@ class Quick_Search_Form extends Widget {
 		];
 	}
 
+	/** {@inheritDoc} */
+	public function initialize() {
+		$this->register_frontend_styles(
+			[
+				[
+					'siw-widget-quick-search-form',
+					SIW_ASSETS_URL . 'css/widgets/quick-search-form.css',
+					[],
+					SIW_PLUGIN_VERSION,
+				],
+			]
+		);
+	}
+
 	/** Haalt lijst met opties per taxonomy op */
 	protected function get_taxonomy_options( string $taxonomy, string $placeholder ): array {
 		$terms = get_terms(

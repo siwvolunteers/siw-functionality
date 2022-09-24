@@ -21,29 +21,29 @@ abstract class Element {
 	abstract protected function get_template_variables() : array;
 
 	/** Geeft uniek id voor element terug terug */
-	protected function get_element_id(): string {
+	final protected function get_element_id(): string {
 		return $this->element_id;
 	}
 
 	/** Geeft standaard css klasse voor element terug */
-	protected static function get_element_class(): string {
+	final protected static function get_element_class(): string {
 		return 'siw-' . static::get_type();
 	}
 
 	/** Init */
-	protected function __construct() {
+	final protected function __construct() {
 		$this->element_id = wp_unique_id( "siw-{$this::get_type()}-" );
 		$this->initialize();
 	}
 
 	/** Genereert element */
-	public static function create() {
+	final public static function create(): static {
 		$self = new static();
 		return $self;
 	}
 
 	/** Genereert element */
-	public function generate(): string {
+	final public function generate(): string {
 
 		$asset_hook = is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts';
 
@@ -73,7 +73,7 @@ abstract class Element {
 	}
 
 	/** Rendert repeater */
-	public function render() {
+	final public function render() {
 		echo $this->generate(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 

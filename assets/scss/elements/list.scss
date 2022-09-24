@@ -1,0 +1,7 @@
+ul {
+	@for $i from 2 through 4 {
+		&[data-columns="#{$i}"] {
+			columns: #{$i};
+		}
+	}
+}

@@ -61,7 +61,15 @@ class Form extends Element {
 	/** {@inheritDoc} */
 	public function enqueue_scripts() {
 		$this->meta_box->enqueue();
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/siw-forms.js', [ 'jquery', 'wp-api-request' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/form.js', [ 'jquery', 'wp-api-request' ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
+
+	/** {@inheritDoc} */
+	public function enqueue_styles() {
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/form.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/form.css' );
+		wp_enqueue_style( self::ASSETS_HANDLE );
+	}
+
 }

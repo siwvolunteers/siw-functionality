@@ -1,6 +1,8 @@
-.siw-social {
+.siw-social-links {
+
 	text-align: center;
-	.title {
+
+	.header {
 		padding-bottom: 15px;
 		font-weight: bold;
 		color: var(--siw-contrast-light);
@@ -9,16 +11,18 @@
 	a {
 		padding: 5px;
 		margin: 5px;
-		font-size: 18px;
-		border-top: 3px solid;
-		color: var(--siw-contrast-light);
+		font-size: 1.3em;
 		text-decoration: none;
+
 		.siw-icon {
 			fill: var(--siw-contrast-light);
+
+			.footer-widgets & {
+				fill: var(--siw-base);
+			}
 		}
 
 		&:hover {
-			color: var(--hover-color);
 			.siw-icon {
 				fill: var(--hover-color);
 			}

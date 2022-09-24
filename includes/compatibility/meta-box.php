@@ -2,6 +2,9 @@
 
 namespace SIW\Compatibility;
 
+use SIW\Assets\JQuery_Validation_Messages_NL;
+use SIW\I18n;
+
 /**
  * Aanpassingen voor Meta Box
  *
@@ -37,7 +40,7 @@ class Meta_Box {
 			'meta-box-geolocation',
 			'meta-box-group',
 			'meta-box-include-exclude',
-			is_admin() ? 'meta-box-tabs' : null,
+			'meta-box-tabs',
 		];
 		return array_filter( $extensions );
 	}
@@ -111,7 +114,7 @@ class Meta_Box {
 
 			if ( $field['clone'] ) {
 				$new = \RWMB_Clone::value( $new, $old, $object_id, $field );
-			} elseif ( in_array( $field['type'], [ 'date', 'datetime' ] ) && is_array( $new ) ) {
+			} elseif ( in_array( $field['type'], [ 'date', 'datetime' ], true ) && is_array( $new ) ) {
 				if ( isset( $new['timestamp'] ) ) {
 					$new['timestamp'] = floor( abs( (float) $new['timestamp'] ) );
 				}
@@ -137,8 +140,8 @@ class Meta_Box {
 
 	/** Voegt script toe */
 	public function enqueue_script() {
-		wp_register_script( 'siw-meta-box', SIW_ASSETS_URL . 'js/compatibility/siw-meta-box.js', [ 'jquery' ], SIW_PLUGIN_VERSION, true );
-		// TODO: localize_script voor meldingen
-		wp_enqueue_script( 'siw-meta-box' );
+		if ( I18n::is_default_language() ) {
+			wp_enqueue_script( JQuery_Validation_Messages_NL::ASSETS_HANDLE );
+		}
 	}
 }

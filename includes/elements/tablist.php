@@ -29,13 +29,14 @@ class Tablist extends Repeater {
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-tablist.js', [ A11Y_Tablist::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/tablist.js', [ A11Y_Tablist::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 
 	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/siw-tablist.css', [], SIW_PLUGIN_VERSION );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/tablist.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/tablist.css' );
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
