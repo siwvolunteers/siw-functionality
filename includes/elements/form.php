@@ -61,7 +61,7 @@ class Form extends Element {
 	/** {@inheritDoc} */
 	public function enqueue_scripts() {
 		$this->meta_box->enqueue();
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/siw-forms.js', [ 'jquery', 'wp-api-request' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/form.js', [ 'jquery', 'wp-api-request' ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 

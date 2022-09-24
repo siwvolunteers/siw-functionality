@@ -87,7 +87,7 @@ class Modal extends Element {
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-modal.js', [ Micromodal::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/modal.js', [ Micromodal::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			self::ASSETS_HANDLE,
 			'siw_modal',

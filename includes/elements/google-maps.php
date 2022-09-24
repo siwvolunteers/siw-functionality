@@ -165,7 +165,7 @@ class Google_Maps extends Element {
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_enqueue_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-google-maps.js', [ Google_Maps_Asset::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/google-maps.js', [ Google_Maps_Asset::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 	}
 
 	/** Voegt inline styling toe */

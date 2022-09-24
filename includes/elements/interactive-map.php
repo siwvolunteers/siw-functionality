@@ -142,7 +142,7 @@ class Interactive_Map extends Element {
 
 	/** Voegt de benodigde scripts toe */
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-interactive-maps.js', [ Mapplic::ASSETS_HANDLE, 'jquery' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/interactive-maps.js', [ Mapplic::ASSETS_HANDLE, 'jquery' ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 
