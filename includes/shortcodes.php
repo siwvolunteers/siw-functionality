@@ -49,7 +49,6 @@ class Shortcodes {
 			'iban'                    => __( 'IBAN', 'siw' ),
 			'openingstijden'          => __( 'Openingstijden', 'siw' ),
 			'esc_borg'                => __( 'ESC-borg', 'siw' ),
-			'volgende_infodag'        => __( 'Volgende infodag', 'siw' ),
 			'stv_tarief'              => __( 'STV tarief', 'siw' ),
 			'stv_tarief_student'      => __( 'STV tarief inclusief studentenkorting', 'siw' ),
 			'mtv_tarief'              => __( 'MTV tarief', 'siw' ),
@@ -62,16 +61,6 @@ class Shortcodes {
 			'scholenproject_tarief'   => __( 'Scholenproject - tarief', 'siw' ),
 			'korting_tweede_project'  => __( 'Korting tweede project', 'siw' ),
 			'leeftijd'                => __( 'Leeftijd van SIW', 'siw' ),
-			'laatste_jaarverslag'     => [
-				'title'      => __( 'Laatste jaarverslag', 'siw' ),
-				'attributes' => [
-					[
-						'attr'  => 'titel',
-						'type'  => 'text',
-						'title' => __( 'Titel', 'siw' ),
-					],
-				],
-			],
 			'externe_link'            => [
 				'title'      => __( 'Externe link', 'siw' ),
 				'attributes' => [
@@ -158,16 +147,6 @@ class Shortcodes {
 		return siw_format_amount( Properties::ESC_DEPOSIT );
 	}
 
-	/** Volgende infodag */
-	public static function render_volgende_infodag(): string {
-		$info_days = siw_get_upcoming_info_days( 1 );
-		if ( empty( $info_days ) ) {
-			return __( 'nog niet bekend', 'siw' );
-		}
-		$date = siw_meta( 'event_date', [], reset( $info_days ) );
-		return siw_format_date( $date, true );
-	}
-
 	/** STV tarief */
 	public static function render_stv_tarief(): string {
 		return siw_format_amount( Properties::STV_PROJECT_FEE );
@@ -238,30 +217,6 @@ class Shortcodes {
 		$titel = ( $titel ) ? $titel : $url;
 
 		return Links::generate_external_link( $url, $titel );
-	}
-
-	/** Toont laatste jaarverslag */
-	public static function render_laatste_jaarverslag( array $atts ): string {
-		extract( // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
-			shortcode_atts(
-				[
-					'titel' => '',
-				],
-				$atts,
-				'siw_laatste_jaarverslag'
-			)
-		);
-
-		$annual_reports = siw_get_option( 'annual_reports' );
-		if ( empty( $annual_reports ) ) {
-			return '';
-		}
-
-		$annual_reports = wp_list_sort( $annual_reports, 'year', 'DESC' );
-		$report = reset( $annual_reports );
-		$report_url = wp_get_attachment_url( $report['file'][0] );
-
-		return Links::generate_document_link( $report_url, $titel );
 	}
 
 	/**
