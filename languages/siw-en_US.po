@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2022-09-14 10:38+0000\n"
+"POT-Creation-Date: 2022-09-24 10:02+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -525,7 +525,7 @@ msgstr "Language skills"
 msgid "Informatie voor partner"
 msgstr "Information for partner"
 
-#: includes/icons.php:77
+#: includes/icons.php:83
 msgid "SIW Icons"
 msgstr "SIW Icons"
 
@@ -567,7 +567,7 @@ msgstr "Type of work"
 
 #: includes/media-taxonomies.php:114, includes/elements/taxonomy-filter.php:37,
 #: includes/widgets/carousel/carousel.php:242,
-#: includes/widgets/quote/quote.php:94
+#: includes/widgets/quote/quote.php:108
 msgid "Alle"
 msgstr "All"
 
@@ -827,78 +827,6 @@ msgstr ""
 "Oops! Unfortunately, we can not find the page you are looking for. Check "
 "that the spelling is correct and try again using the search function below."
 
-#: includes/compatibility/meta-box.php:145
-msgid "Dit is een verplicht veld."
-msgstr "This field is required."
-
-#: includes/compatibility/meta-box.php:146
-msgid "Controleer dit veld."
-msgstr "Check this field."
-
-#: includes/compatibility/meta-box.php:147
-msgid "Vul hier een geldig e-mailadres in."
-msgstr "Please enter a valid email address."
-
-#: includes/compatibility/meta-box.php:148
-msgid "Vul hier een geldige URL in."
-msgstr "Please enter a valid URL."
-
-#: includes/compatibility/meta-box.php:149
-msgid "Vul hier een geldige datum in."
-msgstr "Please enter a valid date."
-
-#: includes/compatibility/meta-box.php:150
-msgid "Vul hier een geldige datum in (ISO-formaat)."
-msgstr "Enter a valid date (ISO format)"
-
-#: includes/compatibility/meta-box.php:151
-msgid "Vul hier een geldig getal in."
-msgstr "Please enter a valid number."
-
-#: includes/compatibility/meta-box.php:152
-msgid "Vul hier alleen getallen in."
-msgstr "Please enter only digits."
-
-#: includes/compatibility/meta-box.php:153
-msgid "Vul hier dezelfde waarde in."
-msgstr "Please enter the same value again."
-
-#: includes/compatibility/meta-box.php:154
-msgid "Vul hier een waarde in met een geldige extensie."
-msgstr "Please enter a value with a valid extension"
-
-#: includes/compatibility/meta-box.php:155
-msgid "Vul hier maximaal {0} tekens in."
-msgstr "Please enter no more than {0} characters."
-
-#: includes/compatibility/meta-box.php:156
-msgid "Vul hier minimaal {0} tekens in."
-msgstr "Please enter at least {0} characters."
-
-#: includes/compatibility/meta-box.php:157
-msgid "Vul hier een waarde in van minimaal {0} en maximaal {1} tekens."
-msgstr "Please enter a value between {0} and {1} characters long."
-
-#: includes/compatibility/meta-box.php:158
-msgid "Vul hier een waarde in van minimaal {0} en maximaal {1}."
-msgstr "Please enter a value between {0} and {1}."
-
-#: includes/compatibility/meta-box.php:159
-msgid "Vul hier een waarde in kleiner dan of gelijk aan {0}."
-msgstr "Please enter a value less than or equal to {0}."
-
-#: includes/compatibility/meta-box.php:160
-msgid "Vul hier een waarde in groter dan of gelijk aan {0}."
-msgstr "Please enter a value greater than or equal to {0}."
-
-#: includes/compatibility/meta-box.php:161
-msgid "Vul hier een veelvoud van {0} in."
-msgstr "Please enter a multiple of {0}."
-
-#: includes/compatibility/meta-box.php:162
-msgid "Kies een bestand van het juiste type."
-msgstr "Please enter a value with a valid mimetype."
-
 #: includes/compatibility/siteorigin-page-builder.php:47
 msgid "SIW Widgets"
 msgstr "SIW Widgets"
@@ -915,7 +843,7 @@ msgstr "Share this project"
 msgid "Groepsprojecten"
 msgstr "Volunteer projects"
 
-#: includes/compatibility/wordpress.php:187, includes/elements/features.php:50,
+#: includes/compatibility/wordpress.php:187, includes/elements/features.php:52,
 #: includes/content/types/event.php:321,
 #: includes/content/types/job-posting.php:345,
 #: includes/content/types/story.php:183,
@@ -930,7 +858,7 @@ msgstr "Read more"
 msgid "Categorieën"
 msgstr "Categories"
 
-#: includes/content/type.php:264
+#: includes/content/type.php:270
 msgid "Deel deze pagina"
 msgstr "Share this page"
 
@@ -972,6 +900,16 @@ msgstr "Marketing"
 #: includes/elements/modal.php:42
 msgid "Sluiten"
 msgstr "Close"
+
+#. translators: %s is de naam van een sociaal netwerk
+#: includes/elements/social-links.php:46
+msgid "Delen via %s"
+msgstr "Share via  %s"
+
+#: includes/elements/social-links.php:46,
+#: templates/woocommerce/emails/email-footer.php:63
+msgid "Volg ons op %s"
+msgstr "Follow us on %s"
 
 #: includes/elements/taxonomy-filter.php:38
 msgid "Filter op"
@@ -1159,39 +1097,34 @@ msgstr "Entered data"
 msgid "Bezoek onze website"
 msgstr "Visit our website"
 
-#: includes/modules/breadcrumbs.php:54, includes/modules/breadcrumbs.php:78
+#: includes/modules/breadcrumbs.php:55, includes/modules/breadcrumbs.php:79
 msgid "Home"
 msgstr "Home"
 
-#: includes/modules/mega-menu.php:52, includes/options/configuration.php:241,
+#: includes/modules/mega-menu.php:54, includes/options/configuration.php:241,
 #: includes/util/animation.php:34, includes/widgets/carousel/carousel.php:91
 msgid "Geen"
 msgstr "None"
 
-#: includes/modules/mega-menu.php:53
+#: includes/modules/mega-menu.php:55
 msgid "2 kolommen"
 msgstr "2 columns"
 
-#: includes/modules/mega-menu.php:54
+#: includes/modules/mega-menu.php:56
 msgid "3 kolommen"
 msgstr "3 columns"
 
-#: includes/modules/mega-menu.php:55
+#: includes/modules/mega-menu.php:57
 msgid "4 kolommen"
 msgstr "4 kolommen"
 
-#: includes/modules/mega-menu.php:56
+#: includes/modules/mega-menu.php:58
 msgid "5 kolommen"
 msgstr "5 kolommen"
 
-#: includes/modules/mega-menu.php:61
+#: includes/modules/mega-menu.php:63
 msgid "Mega Menu"
 msgstr "Mega Menu"
-
-#. translators: %s is de naam van een sociaal netwerk
-#: includes/modules/social-share.php:56
-msgid "Delen via %s"
-msgstr "Share via  %s"
 
 #. translators: %1$s is de naam van het evenement, %2$s is de datum
 #: includes/modules/topbar.php:95
@@ -2179,7 +2112,7 @@ msgid "Deel dit evenement"
 msgstr "Share this event"
 
 #: includes/content/types/event.php:336,
-#: includes/widgets/calendar/calendar.php:88
+#: includes/widgets/calendar/calendar.php:102
 msgid "Online"
 msgstr "Online"
 
@@ -3163,19 +3096,13 @@ msgstr "Recommended projects"
 msgid "Toon alleen aanbevolen projecten"
 msgstr "Show only recommended projects"
 
-#: includes/widgets/contact/contact.php:29
+#: includes/widgets/contact/contact.php:30
 msgid "Contactinformatie"
 msgstr "Contact information"
 
-#: includes/widgets/contact/contact.php:34
+#: includes/widgets/contact/contact.php:35
 msgid "Toont contactinformatie"
 msgstr "Shows contact information"
-
-#. translators: %s is de naam van een sociaal netwerk
-#: includes/widgets/contact/contact.php:56,
-#: templates/woocommerce/emails/email-footer.php:63
-msgid "Volg ons op %s"
-msgstr "Follow us on %s"
 
 #: includes/widgets/cta/cta.php:28
 msgid "CTA"
