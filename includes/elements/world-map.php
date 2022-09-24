@@ -3,7 +3,6 @@
 namespace SIW\Elements;
 
 use SIW\Assets\SIW_SVG;
-use SIW\Util\CSS;
 use SIW\Data\Country;
 use SIW\Data\Continent;
 
@@ -69,19 +68,27 @@ class World_Map extends Element {
 	/** Voegt (inline) style toe */
 	public function enqueue_styles() {
 		$code = $this->country->get_iso_code();
-		$inline_css = CSS::generate_inline_css(
+
+		$css = siw_get_css_generator();
+		$css->add_rule(
+			"#{$this->get_element_id()} svg",
 			[
-				"#{$this->get_element_id()} svg" => [
-					'width'  => '100%',
-					'height' => 'auto',
-				],
-				"#{$this->get_element_id()} #{$code} path, #{$this->get_element_id()} path#{$code}" => [
-					'fill' => $this->continent->get_color(),
-				],
+				'width'  => '100%',
+				'height' => 'auto',
 			]
 		);
+		$css->add_rule(
+			[
+				"#{$this->get_element_id()} #{$code} path",
+				"#{$this->get_element_id()} path#{$code}",
+			],
+			[
+				'fill' => $this->continent->get_color(),
+			]
+		);
+
 		wp_register_style( self::ASSETS_HANDLE, false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		wp_enqueue_style( self::ASSETS_HANDLE );
-		wp_add_inline_style( self::ASSETS_HANDLE, $inline_css );
+		wp_add_inline_style( self::ASSETS_HANDLE, $css->get_output() );
 	}
 }
