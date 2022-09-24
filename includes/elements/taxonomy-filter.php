@@ -41,13 +41,13 @@ class Taxonomy_Filter extends Element {
 	}
 
 	/** Zet de taxonomie */
-	public function set_taxonomy( string $taxonomy ) {
+	public function set_taxonomy( string $taxonomy ): self {
 		$this->taxonomy = $taxonomy;
 		return $this;
 	}
 
 	/** Zet of het aantal actieve posts geteld moet worden */
-	public function set_use_post_count( bool $use_post_count ) {
+	public function set_use_post_count( bool $use_post_count ): self {
 		$this->use_post_count = $use_post_count;
 		return $this;
 	}

@@ -62,7 +62,7 @@ class Carousel extends Element {
 	}
 
 	/** Haalt responsive classes op */
-	protected function get_responsive_classes() : string {
+	protected function get_responsive_classes(): string {
 
 		$desktop_columns = $this->columns;
 		$mobile_columns = 1;
@@ -77,37 +77,37 @@ class Carousel extends Element {
 	}
 
 	/** Zet post type voor carousel */
-	public function set_post_type( string $post_type ) {
+	public function set_post_type( string $post_type ): self {
 		$this->post_type = $post_type;
 		return $this;
 	}
 
 	/** Zet aantal items van carousel */
-	public function set_items( int $items ) {
+	public function set_items( int $items ): self {
 		$this->items = $items;
 		return $this;
 	}
 
 	/** Zet aantal kolommen van carousel */
-	public function set_columns( int $columns ) {
+	public function set_columns( int $columns ): self {
 		$this->columns = $columns;
 		return $this;
 	}
 
 	/** Voegt tax query toe*/
-	public function add_tax_query( array $tax_query ) {
+	public function add_tax_query( array $tax_query ): self {
 		$this->tax_query[] = $tax_query;
 		return $this;
 	}
 
 	/** Voeg meta query toe */
-	public function add_meta_query( array $meta_query ) {
+	public function add_meta_query( array $meta_query ): self {
 		$this->meta_query[] = $meta_query;
 		return $this;
 	}
 
 	/** Zet opties voor carousel */
-	public function set_options( array $options ) {
+	public function set_options( array $options ): self {
 		$this->options = wp_parse_args( $options, $this->options );
 		return $this;
 	}

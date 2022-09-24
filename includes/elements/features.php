@@ -23,7 +23,7 @@ class Features extends Repeater {
 	protected string $icon_background = 'circle';
 
 	/** Zet aantal kolommen */
-	public function set_columns( int $columns ) {
+	public function set_columns( int $columns ): self {
 		$this->columns = $columns;
 		return $this;
 	}

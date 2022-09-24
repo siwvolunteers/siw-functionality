@@ -65,12 +65,6 @@ class Google_Maps extends Element {
 		];
 	}
 
-	/** Creëer map */
-	public static function create(): self {
-		$self = new self();
-		return $self;
-	}
-
 	/** Zet hoogte van de kaart */
 	protected function set_height( int $height ): self {
 		$this->height = $height;

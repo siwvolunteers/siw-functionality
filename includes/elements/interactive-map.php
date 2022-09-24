@@ -87,7 +87,7 @@ class Interactive_Map extends Element {
 	}
 
 	/** Haalt gegevens voor kaart op */
-	protected function get_source_data() : array {
+	protected function get_source_data(): array {
 		$default_data = [
 			'mapwidth'  => null,
 			'mapheight' => null,
@@ -109,7 +109,7 @@ class Interactive_Map extends Element {
 	}
 
 	/** Parset gegevens van categorie */
-	protected function parse_category( array $category ) : array {
+	protected function parse_category( array $category ): array {
 		$default = [
 			'id'    => false,
 			'title' => false,
@@ -120,7 +120,7 @@ class Interactive_Map extends Element {
 	}
 
 	/** Parset de gegevens van locatie */
-	protected function parse_location( array $location ) : array {
+	protected function parse_location( array $location ): array {
 		$default = [
 			'id'          => false,
 			'title'       => false,

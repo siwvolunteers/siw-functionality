@@ -28,7 +28,7 @@ class List_Columns extends Repeater {
 	}
 
 	/** Zet aantal kolommen */
-	public function set_columns( int $columns ) {
+	public function set_columns( int $columns ): self {
 		$this->columns = $columns;
 		return $this;
 	}

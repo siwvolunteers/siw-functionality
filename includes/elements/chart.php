@@ -35,7 +35,7 @@ abstract class Chart extends Element {
 	}
 
 	/** Zet data voor grafiek */
-	public function set_data( array $data ) {
+	public function set_data( array $data ): static {
 		$this->data = $data;
 		return $this;
 	}

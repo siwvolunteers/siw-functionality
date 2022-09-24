@@ -45,17 +45,19 @@ class Modal extends Element {
 	}
 
 	/** Zet de titel van de modal */
-	public function set_title( string $title ) {
+	public function set_title( string $title ): self {
 		$this->title = $title;
+		return $this;
 	}
 
 	/** Zet inhoud van modal */
-	public function set_content( string $content ) {
+	public function set_content( string $content ): self {
 		$this->content = $content;
+		return $this;
 	}
 
 	/** Zet pagina van de modal */
-	public function set_page( int $page_id ) {
+	public function set_page( int $page_id ): self {
 		$page = get_post( $page_id );
 		$this->title = $page->post_title;
 		$this->content = do_shortcode( $page->post_content );
