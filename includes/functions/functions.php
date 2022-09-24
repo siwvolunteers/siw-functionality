@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use luizbills\CSS_Generator\Generator;
+
 if ( ! function_exists( 'get_query_arg' ) ) {
 	/**
 	 * Haalt argument uit query
@@ -45,4 +47,9 @@ if ( ! function_exists( 'get_query_arg' ) ) {
 /** Wrapper om wp_hash */
 function siw_hash( string $data ): string {
 	return wp_hash( $data, 'siw' );
+}
+
+/** Geeft een instantie van de CSS-generator terug */
+function siw_get_css_generator( array $options = [] ): Generator {
+	return new Generator( $options );
 }

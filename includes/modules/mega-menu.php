@@ -39,7 +39,9 @@ class Mega_Menu {
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
 		$min_width = CSS::MOBILE_BREAKPOINT + 1;
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/siw-mega-menu.css', [], SIW_PLUGIN_VERSION, "(min-width: {$min_width}px)" );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/mega-menu.css', [], SIW_PLUGIN_VERSION, "(min-width: {$min_width}px)" );
+		// TODO: bug melden omdat wp_maybe_inline_styles() media query niet overneemt
+		// wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/modules/mega-menu.css.css' );
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 

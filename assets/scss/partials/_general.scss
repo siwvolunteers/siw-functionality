@@ -20,28 +20,6 @@ body.home .site-content {
 	padding-top: 0;
 }
 
-.siw-quote {
-	padding: 40px;
-	font-size: 1.3em;
-	color: var(--siw-contrast-light);
-	font-style: italic;
-	text-align: center;
-	&::before {
-		content: "\0275D";
-		font-size: 2em;
-		font-style: normal;
-		font-weight: bold;
-		vertical-align: -0.3em;
-	}
-}
-
-blockquote.siw-blockquote {
-	font-size: inherit;
-	font-style: italic;
-	border-left-color: var(--siw-accent);
-	padding: 5px 5px 5px 15px;
-	margin: inherit;
-}
 
 dl{
 	dd {
@@ -49,7 +27,7 @@ dl{
 	}
 }
 
-.siw-intro{
+.siw-intro {
 	background-color: var(--siw-contrast);
 	color: var(--siw-base);
 	padding: 15px;
@@ -61,27 +39,10 @@ dl{
 		}
 	}
 }
-// alert text bij groepsprojecten
-.siw-archive-alert {
-	padding: 15px;
-	margin: 15px;
-}
-
-//Icon in menu wit bij hover
-li.menu-item a {
-	.siw-icon {
-		margin-right:5px;
-		transition: all 0.3s linear 0s;
-	}
-	&:hover .siw-icon {
-		fill: var(--siw-base);
-	}
-}
 
 //TODO: partial voor knoppen
 input[type=button].ghost,
 input[type=submit].ghost,
-button.button.ghost,
 a.button.ghost {
 	background-color: var(--siw-base);
 	border: 2px solid var(--siw-contrast);
@@ -92,18 +53,10 @@ a.button.ghost {
 		background-color: var(--siw-base);
 	}
 	&:hover,
-	&:active,
-	&.is-checked {
+	&:active {
 		background: var(--siw-contrast);
 		color: var(--siw-base);
 		border: 2px solid transparent;
-	}
-}
-
-.filter-button-group {
-	text-align: center;
-	button{
-		margin: 2px;
 	}
 }
 
@@ -116,28 +69,7 @@ a:hover {
 	text-decoration-color: var(--siw-accent);
 }
 
-//Features
-.siw-features {
-	text-align:center;
-	.feature {
-		margin-top: 5px;
-		margin-bottom: 5px;
-		padding: 10px;
-
-		.siw-icon{
-			margin-bottom: 10px;
-		}
-	}
+html[lang=en-US] #footer-widgets {
+	text-align: center;
 }
 
-ul{
-	&[data-columns="2"] {
-		columns: 2;
-	}
-	&[data-columns="3"] {
-		columns: 3;
-	}
-	&[data-columns="4"] {
-		columns: 4;
-	}
-}

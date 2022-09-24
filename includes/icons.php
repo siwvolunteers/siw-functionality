@@ -3,7 +3,6 @@
 namespace SIW;
 
 use SIW\Assets\SIW_SVG;
-use SIW\Util\CSS;
 
 /**
  * Class voor SIW icons
@@ -50,24 +49,31 @@ class Icons {
 	public function enqueue_admin_style() {
 		$icons = $this->get_icons();
 
+		$css = siw_get_css_generator();
+		$css->add_rule(
+			'.siteorigin-widget-icon-selector-current .sow-icon-siw',
+			[
+				'max-width'  => '20px',
+				'max-height' => '20px',
+			]
+		);
+
 		$rules['.siteorigin-widget-icon-selector-current .sow-icon-siw'] = [
 			'max-width'  => '20px',
 			'max-height' => '20px',
 		];
 		foreach ( $icons as $icon => $code ) {
-			$rules[ ".sow-icon-siw[data-sow-icon='{$code}']" ] = [
-				'cursor' => 'url(' . SIW_ASSETS_URL . "icons/general/{$code}.svg" . ')',
-			];
+			$css->add_rule(
+				".sow-icon-siw[data-sow-icon='{$code}']",
+				[
+					'cursor' => 'url(' . SIW_ASSETS_URL . "icons/general/{$code}.svg" . ')',
+				]
+			);
 		}
-
-		$inline_css = CSS::generate_inline_css( $rules );
-
-		// TODO: onderstaande hack toelichten
-		$inline_css = str_replace( 'cursor', 'content', $inline_css );
 
 		wp_add_inline_style(
 			'so-icon-field',
-			$inline_css
+			$css->get_output()
 		);
 	}
 

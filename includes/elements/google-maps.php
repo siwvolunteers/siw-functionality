@@ -3,7 +3,6 @@
 namespace SIW\Elements;
 
 use SIW\Assets\Google_Maps as Google_Maps_Asset;
-use SIW\Util\CSS;
 
 /**
  * Google Maps kaart
@@ -64,12 +63,6 @@ class Google_Maps extends Element {
 			],
 			'markers' => $this->markers,
 		];
-	}
-
-	/** Creëer map */
-	public static function create(): self {
-		$self = new self();
-		return $self;
 	}
 
 	/** Zet hoogte van de kaart */
@@ -166,7 +159,7 @@ class Google_Maps extends Element {
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_enqueue_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-google-maps.js', [ Google_Maps_Asset::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/google-maps.js', [ Google_Maps_Asset::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 	}
 
 	/** Voegt inline styling toe */
@@ -174,11 +167,8 @@ class Google_Maps extends Element {
 		wp_register_style( self::ASSETS_HANDLE, false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		wp_enqueue_style( self::ASSETS_HANDLE );
 
-		$inline_style = CSS::generate_inline_css(
-			[
-				"#{$this->get_element_id()}" => [ 'height' => "{$this->height}px" ],
-			]
-		);
-		wp_add_inline_style( self::ASSETS_HANDLE, $inline_style );
+		$css = siw_get_css_generator();
+		$css->add_rule( "#{$this->get_element_id()}", [ 'height' => "{$this->height}px" ] );
+		wp_add_inline_style( self::ASSETS_HANDLE, $css->get_output() );
 	}
 }

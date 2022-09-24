@@ -1,0 +1,31 @@
+{
+    "name": "luizbills/css-generator",
+    "description": "Write CSS programatically using PHP.",
+    "type": "library",
+    "require": {
+        "php": ">=7.4.0",
+        "ext-mbstring": "*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luiz Bills",
+            "email": "luizpbills@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "luizbills\\CSS_Generator\\": "src"
+        }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.8",
+        "phpstan/phpstan-strict-rules": "^1.4",
+        "codeception/codeception": "^4.2",
+        "codeception/module-asserts": "^1.0.0"
+    },
+    "scripts": {
+        "test": "codecept run unit",
+        "check": "phpstan"
+    }
+}

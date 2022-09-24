@@ -2,13 +2,12 @@
 
 /**
  * @file      Animaties
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
- * 
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
+ *
  * @todo      update bij resize
  */
 
-//Tijdelijke workaround
+// Try/catch voor incompatible browsers
 try {
 	sal({
 		threshold: siw_animation.threshold,

@@ -35,14 +35,14 @@ abstract class Chart extends Element {
 	}
 
 	/** Zet data voor grafiek */
-	public function set_data( array $data ) {
+	public function set_data( array $data ): static {
 		$this->data = $data;
 		return $this;
 	}
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/siw-charts.js', [ Frappe_Charts::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/elements/charts.js', [ Frappe_Charts::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( self::SCRIPT_HANDLE );
 	}
 

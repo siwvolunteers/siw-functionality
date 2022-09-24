@@ -1,3 +1,5 @@
+@use "sass:math";
+
 nav .main-nav .mega-menu {
 	position: static;
 	> ul {
@@ -16,17 +18,10 @@ nav .main-nav .mega-menu {
 		}
 	}
 
-	&.mega-menu-col-2 > ul > li {
-		width: 50%;
-	}
-	&.mega-menu-col-3 > ul > li {
-		width: 33.3333%;
-	}
-	&.mega-menu-col-4 > ul > li {
-		width: 25%;
-	}
-	&.mega-menu-col-5 > ul > li {
-		width: 20%;
+	@for $i from 2 through 5 {
+		&.mega-menu-col-#{$i} > ul > li {
+			width: percentage(math.div(1, $i));
+		}
 	}
 
 	> ul > li:hover > a,

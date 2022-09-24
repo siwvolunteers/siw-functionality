@@ -6,12 +6,15 @@
 .topbar .topbar-content {
   padding: 10px;
 }
-.topbar .button.ghost, .topbar .button.ghost:visited {
+.topbar .button.ghost,
+.topbar .button.ghost:visited {
   border: 2px solid var(--siw-base);
   color: var(--siw-base);
   background: transparent;
 }
-.topbar .button.ghost:hover, .topbar .button.ghost:active, .topbar .button.ghost:visited:hover, .topbar .button.ghost:visited:active {
+.topbar .button.ghost:hover, .topbar .button.ghost:active,
+.topbar .button.ghost:visited:hover,
+.topbar .button.ghost:visited:active {
   background: var(--siw-base);
   color: var(--siw-accent);
 }

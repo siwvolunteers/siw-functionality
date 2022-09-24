@@ -2,6 +2,7 @@
 
 namespace SIW\Content;
 
+use luizbills\CSS_Generator\Generator as CSS_Generator;
 use SIW\Util\CSS;
 
 /**
@@ -238,18 +239,23 @@ abstract class Type {
 		if ( ! is_int( $width ) ) {
 			return;
 		}
-		$inline_css = CSS::generate_inline_css(
+
+		$css = new CSS_Generator();
+		$css->add_rule(
 			[
-				'#content, .inside-page-hero.grid-container' => [
-					'max-width'    => "{$width}px",
-					'margin-left'  => 'auto',
-					'margin-right' => 'auto',
-				],
+				'#content',
+				'.inside-page-hero.grid-container',
+			],
+			[
+				'max-width'    => "{$width}px",
+				'margin-left'  => 'auto',
+				'margin-right' => 'auto',
 			]
 		);
+
 		wp_add_inline_style(
 			'generate-style',
-			$inline_css
+			$css->get_output()
 		);
 	}
 

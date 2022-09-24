@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c0fedbec3ebe17ffb5c087be98b35b36",
+    "content-hash": "f1337818cff84a700860e896940b1af4",
     "packages": [
         {
             "name": "kallookoo/wp_parse_args_recursive",
@@ -43,6 +43,53 @@
                 "source": "https://github.com/kallookoo/wp_parse_args_recursive/tree/master"
             },
             "time": "2018-10-18T16:30:37+00:00"
+        },
+        {
+            "name": "luizbills/css-generator",
+            "version": "v4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/luizbills/css-generator.php.git",
+                "reference": "e3807da033c2f300775a002358e026c3c33f8bdb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/luizbills/css-generator.php/zipball/e3807da033c2f300775a002358e026c3c33f8bdb",
+                "reference": "e3807da033c2f300775a002358e026c3c33f8bdb",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=7.4.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "^4.2",
+                "codeception/module-asserts": "^1.0.0",
+                "phpstan/phpstan": "^1.8",
+                "phpstan/phpstan-strict-rules": "^1.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "luizbills\\CSS_Generator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luiz Bills",
+                    "email": "luizpbills@gmail.com"
+                }
+            ],
+            "description": "Write CSS programatically using PHP.",
+            "support": {
+                "issues": "https://github.com/luizbills/css-generator.php/issues",
+                "source": "https://github.com/luizbills/css-generator.php/tree/v4.0.1"
+            },
+            "time": "2022-09-12T18:52:50+00:00"
         },
         {
             "name": "mustache/mustache",

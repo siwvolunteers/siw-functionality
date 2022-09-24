@@ -3,6 +3,7 @@
 namespace SIW\Widgets;
 
 use SIW\Data\Social_Network;
+use SIW\Elements\Social_Links;
 use SIW\Elements\Table;
 use SIW\Properties;
 
@@ -46,38 +47,21 @@ class Contact extends Widget {
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
-		$social_networks = \siw_get_social_networks( Social_Network::FOLLOW );
-
-		foreach ( $social_networks as $network ) {
-			$networks[] = [
-				'url'   => $network->get_follow_url(),
-				'name'  => $network->get_name(),
-				// translators: %s is de naam van een sociaal netwerk
-				'label' => sprintf( __( 'Volg ons op %s', 'siw' ), $network->get_name() ),
-				'color' => $network->get_color(),
-				'icon'  => [
-					'icon_class'       => $network->get_icon_class(),
-					'size'             => 2,
-					'has_background'   => true,
-					'background_class' => 'circle',
-				],
-			];
-		}
 
 		return [
-			'name'            => Properties::NAME,
-			'address'         => Properties::ADDRESS,
-			'postcode'        => Properties::POSTCODE,
-			'city'            => Properties::CITY,
-			'tel_link'        => [
+			'name'          => Properties::NAME,
+			'address'       => Properties::ADDRESS,
+			'postcode'      => Properties::POSTCODE,
+			'city'          => Properties::CITY,
+			'tel_link'      => [
 				'phone' => Properties::PHONE_INTERNATIONAL,
 				'text'  => Properties::PHONE,
 			],
-			'email_link'      => [
+			'email_link'    => [
 				'email' => Properties::EMAIL,
 				'text'  => Properties::EMAIL,
 			],
-			'whatsapp_link'   => [
+			'whatsapp_link' => [
 				'url'   => add_query_arg( 'phone', Properties::WHATSAPP_FULL, 'https://api.whatsapp.com/send' ),
 				'phone' => Properties::WHATSAPP,
 				'icon'  => [
@@ -85,8 +69,22 @@ class Contact extends Widget {
 					'icon_class' => 'siw-icon-whatsapp',
 				],
 			],
-			'opening_hours'   => Table::create()->add_items( siw_get_opening_hours() )->generate(),
-			'social_networks' => $networks,
+			'opening_hours' => Table::create()->add_items( siw_get_opening_hours() )->generate(),
+			'social_links'  => Social_Links::create()->set_context( Social_Network::FOLLOW )->generate(),
 		];
+	}
+
+	/** {@inheritDoc} */
+	public function initialize() {
+		$this->register_frontend_styles(
+			[
+				[
+					'siw-widget-contact',
+					SIW_ASSETS_URL . 'css/widgets/contact.css',
+					[],
+					SIW_PLUGIN_VERSION,
+				],
+			]
+		);
 	}
 }

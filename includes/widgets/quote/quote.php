@@ -88,6 +88,20 @@ class Quote extends Widget {
 		];
 	}
 
+	/** {@inheritDoc} */
+	public function initialize() {
+		$this->register_frontend_styles(
+			[
+				[
+					'siw-widget-quote',
+					SIW_ASSETS_URL . 'css/widgets/quote.css',
+					[],
+					SIW_PLUGIN_VERSION,
+				],
+			]
+		);
+	}
+
 	/** Geeft lijst met opties terug */
 	protected function get_taxonomy_options( string $taxonomy ): array {
 		$terms = get_terms( $taxonomy );
