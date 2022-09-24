@@ -11,7 +11,7 @@ namespace SIW\Compatibility;
 class Action_Scheduler {
 
 	/** Retentie-periode voor uitgevoerde acties */
-	const RETENTION_PERIOD = MINUTE_IN_SECONDS;
+	const RETENTION_PERIOD = DAY_IN_SECONDS;
 
 	/** Aantal concurrent batches voor AS */
 	const CONCURRENT_BATCHES = 2;
