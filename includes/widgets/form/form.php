@@ -43,12 +43,6 @@ class Form extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	protected function set_widget_properties() {
-		$this->widget_name = __( 'Formulier', 'siw' );
-		$this->widget_description = __( 'Toont formulier', 'siw' );
-	}
-
-	/** {@inheritDoc} */
 	public function get_widget_form() {
 		$widget_form = [
 			'title'         => [
