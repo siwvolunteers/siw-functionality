@@ -15,6 +15,7 @@ class Loader extends Class_Loader_Abstract {
 	public function get_classes() : array {
 		return [
 			Accordion::class,
+			Annual_Reports::class,
 			Calendar::class,
 			Carousel::class,
 			Contact::class,
