@@ -34,7 +34,7 @@ class Annual_Reports extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_template_id(): string {
-		return 'annual-reports';
+		return $this->get_id();
 	}
 
 	/** {@inheritDoc} */

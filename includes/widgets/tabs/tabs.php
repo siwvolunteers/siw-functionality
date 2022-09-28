@@ -34,7 +34,7 @@ class Tabs extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_template_id(): string {
-		return 'default';
+		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
 	/** {@inheritDoc} */
