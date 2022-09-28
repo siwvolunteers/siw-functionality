@@ -24,6 +24,7 @@ class Loader extends Class_Loader_Abstract {
 			Google_Maps::class,
 			Map::class,
 			Newsletter_Confirmation::class,
+			Opening_Hours::class,
 			Organisation::class,
 			Pie_Chart::class,
 			Quick_Search_Form::class,
