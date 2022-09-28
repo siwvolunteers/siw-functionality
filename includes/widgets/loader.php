@@ -16,6 +16,7 @@ class Loader extends Class_Loader_Abstract {
 		return [
 			Accordion::class,
 			Annual_Reports::class,
+			Board_Members::class,
 			Calendar::class,
 			Carousel::class,
 			Contact::class,
