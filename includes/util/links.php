@@ -45,24 +45,6 @@ class Links {
 		return HTML::a( $attributes, $text ?? $email );
 	}
 
-	/** Genereert link naar document */
-	public static function generate_document_link( string $url, string $text, array $attributes = [] ) : string {
-		$attributes = wp_parse_args(
-			$attributes,
-			[
-				'href'             => $url,
-				'target'           => '_blank',
-				'rel'              => 'noopener',
-				'data-ga-track'    => 1,
-				'data-ga-type'     => 'event',
-				'data-ga-category' => 'Document',
-				'data-ga-action'   => 'Downloaden',
-				'data-ga-label'    => $url,
-			]
-		);
-		return HTML::a( $attributes, $text ); // TODO: icon
-	}
-
 	/** Genereert link in ghost buttons */
 	public static function generate_button_link( string $url, string $text, array $attributes = [] ) : string {
 		$attributes = wp_parse_args(
