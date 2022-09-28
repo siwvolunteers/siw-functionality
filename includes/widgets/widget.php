@@ -30,7 +30,7 @@ abstract class Widget extends \SiteOrigin_Widget {
 	abstract protected function get_dashicon(): string;
 
 	/** Constructor */
-	public function __construct() {
+	final public function __construct() {
 
 		parent::__construct(
 			"siw_{$this->get_id()}_widget",
@@ -48,7 +48,7 @@ abstract class Widget extends \SiteOrigin_Widget {
 	}
 
 	/** Genereert generieke inhoud van widget */
-	protected function get_html_content( array $instance, array $args, array $template_vars, string $css_name ) {
+	final protected function get_html_content( array $instance, array $args, array $template_vars, string $css_name ) {
 		$title = $instance['title'] ?? '';
 		$title = apply_filters( 'widget_title', $title );
 
