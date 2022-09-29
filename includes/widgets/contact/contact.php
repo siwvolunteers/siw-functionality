@@ -79,22 +79,6 @@ class Contact extends Widget {
 					'icon_class' => 'siw-icon-whatsapp',
 				],
 			],
-			'opening_hours' => Table::create()->add_items( siw_get_opening_hours() )->generate(),
-			'social_links'  => Social_Links::create()->set_context( Social_Network::FOLLOW )->generate(),
 		];
-	}
-
-	/** {@inheritDoc} */
-	public function initialize() {
-		$this->register_frontend_styles(
-			[
-				[
-					'siw-widget-contact',
-					SIW_ASSETS_URL . 'css/widgets/contact.css',
-					[],
-					SIW_PLUGIN_VERSION,
-				],
-			]
-		);
 	}
 }
