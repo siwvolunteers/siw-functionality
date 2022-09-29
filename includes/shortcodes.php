@@ -47,7 +47,6 @@ class Shortcodes {
 			'telefoon_internationaal' => __( 'Telefoonnummer (internationaal)', 'siw' ),
 			'whatsapp'                => __( 'WhatsApp-nummer', 'siw' ),
 			'iban'                    => __( 'IBAN', 'siw' ),
-			'openingstijden'          => __( 'Openingstijden', 'siw' ),
 			'esc_borg'                => __( 'ESC-borg', 'siw' ),
 			'stv_tarief'              => __( 'STV tarief', 'siw' ),
 			'stv_tarief_student'      => __( 'STV tarief inclusief studentenkorting', 'siw' ),
@@ -131,15 +130,6 @@ class Shortcodes {
 	/** IBAN */
 	public static function render_iban(): string {
 		return Properties::IBAN;
-	}
-
-	/** Openingstijden */
-	public static function render_openingstijden(): string {
-		$data = array_map(
-			fn( array $value ): string => implode( ': ', $value ),
-			siw_get_opening_hours()
-		);
-		return List_Columns::create()->add_items( $data )->generate();
 	}
 
 	/** ESC-borg */
