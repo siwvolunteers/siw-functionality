@@ -21,12 +21,6 @@ class Social_Links extends Element {
 	/** Header */
 	protected string $header;
 
-	/** Titel */
-	protected string $title;
-
-	/** Url */
-	protected string $url;
-
 	/** {@inheritDoc} */
 	protected static function get_type(): string {
 		return 'social-links';
@@ -72,8 +66,8 @@ class Social_Links extends Element {
 		->set_template( $network->get_share_url_template() )
 		->set_context(
 			[
-				'url'   => rawurlencode( $this->url ),
-				'title' => rawurlencode( html_entity_decode( $this->title ) ),
+				'url'   => rawurlencode( get_permalink() ),
+				'title' => rawurlencode( html_entity_decode( get_the_title() ) ),
 			]
 		)
 		->parse_template();
@@ -88,18 +82,6 @@ class Social_Links extends Element {
 	/** Zet de header */
 	public function set_header( string $header ): self {
 		$this->header = $header;
-		return $this;
-	}
-
-	/** Zet titel */
-	public function set_title( string $title ): self {
-		$this->title = $title;
-		return $this;
-	}
-
-	/** Zet titel */
-	public function set_url( string $url ): self {
-		$this->url = $url;
 		return $this;
 	}
 

@@ -29,9 +29,6 @@ class Social_Share {
 			return;
 		}
 
-		$title = get_the_title();
-		$url = get_permalink();
-
 		Template::create()
 			->set_template( 'modules/social-share' )
 			->set_context(
@@ -39,8 +36,6 @@ class Social_Share {
 					'content' => Social_Links::create()
 						->set_context( Social_Network::SHARE )
 						->set_header( $this->get_title() )
-						->set_title( $title )
-						->set_url( $url )
 						->generate(),
 				]
 			)
