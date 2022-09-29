@@ -44,18 +44,18 @@ class Opening_Hours extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	public function get_widget_form() {
-		$widget_form = [
-			'title'        => [
-				'type'  => 'text',
-				'label' => __( 'Titel', 'siw' ),
-			],
-			'intro'        => [
-				'type'           => 'tinymce',
-				'label'          => __( 'Intro', 'siw' ),
-				'rows'           => 5,
-				'default_editor' => 'html',
-			],
+	protected function supports_title(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function get_widget_fields(): array {
+		$widget_fields = [
 			'display_mode' => [
 				'type'    => 'radio',
 				'label'   => __( 'Weergave', 'siw' ),
@@ -65,7 +65,7 @@ class Opening_Hours extends Widget {
 				],
 			],
 		];
-		return $widget_form;
+		return $widget_fields;
 	}
 
 	/** {@inheritDoc} */

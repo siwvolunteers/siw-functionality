@@ -43,13 +43,18 @@ class Organisation extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	public function get_widget_form() {
+	protected function supports_title(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function get_widget_fields(): array {
 		$widget_form = [
-			'title'               => [
-				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw' ),
-				'default' => __( 'Gegevens', 'siw' ),
-			],
 			'renumeration_policy' => [
 				'type'           => 'tinymce',
 				'label'          => __( 'Beloningsbeleid', 'siw' ),

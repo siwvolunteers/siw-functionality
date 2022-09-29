@@ -43,18 +43,18 @@ class Form extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	public function get_widget_form() {
-		$widget_form = [
-			'title'         => [
-				'type'  => 'text',
-				'label' => __( 'Titel', 'siw' ),
-			],
-			'intro'         => [
-				'type'           => 'tinymce',
-				'label'          => __( 'Intro', 'siw' ),
-				'rows'           => 5,
-				'default_editor' => 'html',
-			],
+	protected function supports_title(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function get_widget_fields(): array {
+		$widget_fields = [
 			'form'          => [
 				'type'    => 'select',
 				'label'   => __( 'Formulier', 'siw' ),
@@ -67,13 +67,12 @@ class Form extends Widget {
 				'default' => false,
 			],
 		];
-		return $widget_form;
+		return $widget_fields;
 	}
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
 		return [
-			'intro'   => $instance['intro'],
 			'content' => Form_Element::create()->set_form_id( $instance['form'] )->set_single_column( $instance['single_column'] )->generate(),
 		];
 	}

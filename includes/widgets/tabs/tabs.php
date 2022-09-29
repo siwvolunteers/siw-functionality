@@ -33,6 +33,16 @@ class Tabs extends Widget {
 	}
 
 	/** {@inheritDoc} */
+	protected function supports_title(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
 	protected function get_template_id(): string {
 		return Widget::DEFAULT_TEMPLATE_ID;
 	}
@@ -43,12 +53,8 @@ class Tabs extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	public function get_widget_form() {
-		$widget_form = [
-			'title' => [
-				'type'  => 'text',
-				'label' => __( 'Titel', 'siw' ),
-			],
+	protected function get_widget_fields(): array {
+		$widget_fields = [
 			'panes' => [
 				'type'       => 'repeater',
 				'label'      => __( 'Tab', 'siw' ),
@@ -101,7 +107,7 @@ class Tabs extends Widget {
 				],
 			],
 		];
-		return $widget_form;
+		return $widget_fields;
 	}
 
 	/** {@inheritDoc} */

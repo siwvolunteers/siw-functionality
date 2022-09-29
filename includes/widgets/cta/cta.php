@@ -44,8 +44,18 @@ class CTA extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	public function get_widget_form() {
-		$widget_form = [
+	protected function supports_title(): bool {
+		return false;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return false;
+	}
+
+	/** {@inheritDoc} */
+	protected function get_widget_fields(): array {
+		$widget_fields = [
 			'headline'    => [
 				'type'  => 'text',
 				'label' => __( 'Headline', 'siw' ),
@@ -71,7 +81,7 @@ class CTA extends Widget {
 				'default' => 'center',
 			],
 		];
-		return $widget_form;
+		return $widget_fields;
 	}
 
 	/** {@inheritDoc} */

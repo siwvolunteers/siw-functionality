@@ -49,18 +49,18 @@ class Carousel extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	public function get_widget_form() {
+	protected function supports_title(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function get_widget_fields(): array {
 		$widget_form = [
-			'title'     => [
-				'type'  => 'text',
-				'label' => __( 'Titel', 'siw' ),
-			],
-			'intro'     => [
-				'type'           => 'tinymce',
-				'label'          => __( 'Intro', 'siw' ),
-				'rows'           => 4,
-				'default_editor' => 'html',
-			],
 			'items'     => [
 				'type'    => 'slider',
 				'label'   => __( 'Aantal posts in carousel', 'siw' ),
@@ -198,7 +198,6 @@ class Carousel extends Widget {
 		}
 
 		return [
-			'intro'       => $instance['intro'] ?? null,
 			'carousel'    => $carousel->generate(),
 			'show_button' => $instance['show_button'],
 			'button'      => [

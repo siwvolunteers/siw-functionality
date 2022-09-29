@@ -46,6 +46,16 @@ class Contact extends Widget {
 	}
 
 	/** {@inheritDoc} */
+	protected function supports_title(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
 
 		return [

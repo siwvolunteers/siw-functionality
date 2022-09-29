@@ -43,18 +43,18 @@ class Features extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	public function get_widget_form() {
-		$widget_form = [
-			'title'    => [
-				'type'  => 'text',
-				'label' => __( 'Titel', 'siw' ),
-			],
-			'intro'    => [
-				'type'           => 'tinymce',
-				'label'          => __( 'Intro', 'siw' ),
-				'rows'           => 10,
-				'default_editor' => 'html',
-			],
+	protected function supports_title(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function get_widget_fields(): array {
+		$widget_fields = [
 			'columns'  => [
 				'type'    => 'radio',
 				'label'   => __( 'Aantal kolommen', 'siw' ),
@@ -113,13 +113,12 @@ class Features extends Widget {
 			],
 
 		];
-		return $widget_form;
+		return $widget_fields;
 	}
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
 		return [
-			'intro'   => $instance['intro'],
 			'content' => Features_Element::create()->add_items( $instance['features'] )->set_columns( (int) $instance['columns'] )->generate(),
 		];
 	}
