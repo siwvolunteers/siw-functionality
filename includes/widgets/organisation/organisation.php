@@ -103,8 +103,6 @@ class Organisation extends Widget {
 					'values' => Properties::IBAN,
 				],
 			],
-			'board_members'       => $this->get_board_members(),
-			'annual_reports'      => $this->get_annual_reports(),
 			'renumeration_policy' => $instance['renumeration_policy'],
 			'i18n'                => [
 				'board_members'       => __( 'Bestuurssamenstelling', 'siw' ),
