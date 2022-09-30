@@ -2,7 +2,6 @@
 
 namespace SIW;
 
-use SIW\Elements\List_Columns;
 use SIW\Elements\Modal;
 use SIW\Properties;
 use SIW\Util;
@@ -234,8 +233,8 @@ class Shortcodes {
 		if ( empty( $page_id ) ) {
 			return null;
 		}
-
-		return Modal::create()->set_page( (int) $page_id )->generate_link( $link_tekst );
+		$page_id = I18n::get_translated_page_id( (int) $page_id );
+		return Modal::create()->set_page( $page_id )->generate_link( $link_tekst );
 	}
 
 	/** Leeftijd van SIW in jaren */
