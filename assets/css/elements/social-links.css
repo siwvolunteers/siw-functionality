@@ -12,12 +12,6 @@
   font-size: 1.3em;
   text-decoration: none;
 }
-.siw-social-links a .siw-icon {
-  fill: var(--siw-contrast-light);
-}
-.footer-widgets .siw-social-links a .siw-icon {
-  fill: var(--siw-base);
-}
 .siw-social-links a:hover .siw-icon {
   fill: var(--hover-color);
 }

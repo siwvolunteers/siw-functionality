@@ -14,14 +14,6 @@
 		font-size: 1.3em;
 		text-decoration: none;
 
-		.siw-icon {
-			fill: var(--siw-contrast-light);
-
-			.footer-widgets & {
-				fill: var(--siw-base);
-			}
-		}
-
 		&:hover {
 			.siw-icon {
 				fill: var(--hover-color);
