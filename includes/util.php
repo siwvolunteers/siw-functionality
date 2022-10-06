@@ -5,36 +5,9 @@ namespace SIW;
 /**
  * Hulpfuncties
  *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Util {
-
-	/**
-	 * Geeft validatiepatroon terug
-	 *
-	 * @todo   patterns verplaatsen naar databestand of enum
-	 */
-	public static function get_pattern( string $type ): ?string {
-		$patterns = [
-			'date'        => '^(0?[1-9]|[12]\d|3[01])[\-](0?[1-9]|1[012])[\-]([12]\d)?(\d\d)$',
-			'postcode'    => '^[1-9][0-9]{3}\s?[a-zA-Z]{2}$',
-			'housenumber' => '^(\d+)\s*[\s\w\-\/]*$',
-			'latitude'    => '^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$',
-			'longitude'   => '^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$',
-			'ip'          => '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$',
-		];
-		return $patterns[ $type ] ?? null;
-	}
-
-	/** Geeft reguliere expressie terug */
-	public static function get_regex( string $type ): ?string {
-
-		$pattern = self::get_pattern( $type );
-		if ( is_null( $pattern ) ) {
-			return null;
-		}
-		return sprintf( '/%s/', $pattern );
-	}
 
 	/** Geeft array met pagina's in standaardtaal terug */
 	public static function get_pages(): array {
