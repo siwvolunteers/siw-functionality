@@ -65,23 +65,6 @@ class Organisation extends Widget {
 		return $widget_form;
 	}
 
-	/** Geeft bestuursleden terug */
-	protected function get_board_members() : ?array {
-		$board_members = siw_get_option( 'board_members' );
-		if ( empty( $board_members ) ) {
-			return null;
-		}
-
-		return array_map(
-			fn( array $board_member ) : array => [
-				'first_name' => $board_member['first_name'],
-				'last_name'  => $board_member['last_name'],
-				'title'      => siw_get_board_title( $board_member['title'] ),
-			],
-			$board_members
-		);
-	}
-
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
 		$parameters = [
@@ -105,8 +88,6 @@ class Organisation extends Widget {
 			],
 			'renumeration_policy' => $instance['renumeration_policy'],
 			'i18n'                => [
-				'board_members'       => __( 'Bestuurssamenstelling', 'siw' ),
-				'annual_reports'      => __( 'Jaarverslagen', 'siw' ),
 				'renumeration_policy' => __( 'Beloningsbeleid', 'siw' ),
 			],
 		];
@@ -114,24 +95,4 @@ class Organisation extends Widget {
 		return $parameters;
 	}
 
-	/** Geeft jaarverslagen terug */
-	protected function get_annual_reports() : array {
-		$annual_reports = siw_get_option( 'annual_reports' );
-		if ( empty( $annual_reports ) ) {
-			return [];
-		}
-
-		$annual_reports = array_column( $annual_reports, null, 'year' );
-		krsort( $annual_reports );
-
-		$annual_reports = array_map(
-			fn( array $report ) : array => [
-				'url'  => wp_get_attachment_url( $report['file'][0] ),
-				// translators: %s is een jaartal
-				'text' => sprintf( __( 'Jaarverslag %s', 'siw' ), $report['year'] ),
-			],
-			$annual_reports
-		);
-		return array_values( $annual_reports );
-	}
 }
