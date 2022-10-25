@@ -35,6 +35,8 @@ class GeneratePress {
 		// Pas snelheid voor omhoog scrollen aan
 		add_filter( 'generate_back_to_top_scroll_speed', fn() : int => self::BACK_TO_TOP_SCROLL_SPEED );
 
+		add_filter( 'generate_font_manager_show_google_fonts', '__return_false' );
+
 		add_filter( 'generate_footer_widgets', [ $self, 'set_footer_widgets' ] );
 
 		// Default instellingen zetten
