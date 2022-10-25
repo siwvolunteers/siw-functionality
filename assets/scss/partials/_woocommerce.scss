@@ -13,10 +13,6 @@
 				border: none;
 			}
 		}
-		.project-code {
-			font-size: 0.9em;
-			color: var(--siw-contrast-light);
-		}
 		span.product-badge.featured-badge {
 			position: absolute;
 			top: 0;
@@ -84,14 +80,6 @@ span.product-badge.featured-badge {
 					border: none;
 				}
 			}
-			hr {
-				margin-top: 10px;
-				margin-bottom: 0;
-			}
-			.project-code {
-				font-size: 0.9em;
-				color: var(--siw-contrast-light);
-			}
 			span.product-badge.featured-badge {
 				position: absolute;
 				top: 0;
@@ -106,11 +94,6 @@ span.product-badge.featured-badge {
 	.product_title {
 		font-size: 30px;
 		line-height: 40px;
-	}
-
-	.participation-fee {
-		color: var(--siw-contrast-light);
-		font-style: italic;
 	}
 
 	.woocommerce-tabs {
@@ -128,6 +111,7 @@ span.product-badge.featured-badge {
 
 				&:last-child{
 					border-bottom-color: var(--siw-contrast);
+					border-bottom-width: 3px;
 				}
 
 				a:hover{

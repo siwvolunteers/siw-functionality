@@ -665,10 +665,6 @@ form.rwmb-form input[type=radio]:after {
 .woocommerce ul.products li.product a .woocommerce-placeholder {
   border: none;
 }
-.woocommerce ul.products li.product .project-code {
-  font-size: 0.9em;
-  color: var(--siw-contrast-light);
-}
 .woocommerce ul.products li.product span.product-badge.featured-badge {
   position: absolute;
   top: 0;
@@ -728,14 +724,6 @@ span.product-badge.featured-badge {
 .siw-carousel .carousel-cell li.product a .woocommerce-placeholder {
   border: none;
 }
-.siw-carousel .carousel-cell li.product hr {
-  margin-top: 10px;
-  margin-bottom: 0;
-}
-.siw-carousel .carousel-cell li.product .project-code {
-  font-size: 0.9em;
-  color: var(--siw-contrast-light);
-}
 .siw-carousel .carousel-cell li.product span.product-badge.featured-badge {
   position: absolute;
   top: 0;
@@ -745,10 +733,6 @@ span.product-badge.featured-badge {
 .woocommerce div.product .product_title {
   font-size: 30px;
   line-height: 40px;
-}
-.woocommerce div.product .participation-fee {
-  color: var(--siw-contrast-light);
-  font-style: italic;
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li {
   border-width: 3px;
@@ -763,6 +747,7 @@ span.product-badge.featured-badge {
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li:last-child {
   border-bottom-color: var(--siw-contrast);
+  border-bottom-width: 3px;
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li a:hover {
   color: var(--siw-contrast);
