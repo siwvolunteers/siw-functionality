@@ -18,9 +18,6 @@ class Social_Links extends Element {
 	/** Context (share of follow) TODO: enum van maken */
 	protected string $context;
 
-	/** Header */
-	protected string $header;
-
 	/** {@inheritDoc} */
 	protected static function get_type(): string {
 		return 'social-links';
@@ -55,7 +52,6 @@ class Social_Links extends Element {
 		}
 
 		return [
-			'header'          => $this->header ?? null,
 			'social_networks' => $networks,
 		];
 	}
@@ -76,12 +72,6 @@ class Social_Links extends Element {
 	/** Zet context (volgen of delen) */
 	public function set_context( string $context ): self {
 		$this->context = $context;
-		return $this;
-	}
-
-	/** Zet de header */
-	public function set_header( string $header ): self {
-		$this->header = $header;
 		return $this;
 	}
 
