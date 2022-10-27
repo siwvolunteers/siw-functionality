@@ -202,10 +202,6 @@ a:hover {
   text-decoration-color: var(--siw-accent);
 }
 
-html[lang=en-US] #footer-widgets {
-  text-align: center;
-}
-
 /*--------------------------------------------------------------
 ## 404
 --------------------------------------------------------------*/
