@@ -730,6 +730,12 @@ span.product-badge.featured-badge {
   font-size: 30px;
   line-height: 40px;
 }
+.woocommerce div.product .woocommerce-tabs {
+  max-width: 100ch;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs {
+  flex-wrap: wrap;
+}
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li {
   border-width: 3px;
   border-color: var(--siw-contrast);
@@ -754,9 +760,6 @@ span.product-badge.featured-badge {
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li.active a {
   color: var(--siw-base);
-}
-.woocommerce div.product .woocommerce-tabs .panel {
-  max-width: 85ch;
 }
 .woocommerce div.product .woocommerce-product-attributes {
   border-top: none;

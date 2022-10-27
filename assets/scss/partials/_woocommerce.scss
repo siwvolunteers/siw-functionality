@@ -97,7 +97,9 @@ span.product-badge.featured-badge {
 	}
 
 	.woocommerce-tabs {
+		max-width: 100ch;
 		ul.tabs.wc-tabs {
+			flex-wrap: wrap;
 			li {
 				border-width: 3px;
 				border-color: var(--siw-contrast);
@@ -126,10 +128,6 @@ span.product-badge.featured-badge {
 					}
 				}
 			}
-		}
-
-		.panel {
-			max-width: 85ch;
 		}
 	}
 
