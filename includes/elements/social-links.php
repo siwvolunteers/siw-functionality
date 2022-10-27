@@ -46,7 +46,7 @@ class Social_Links extends Element {
 					'type'     => 'social',
 					'category' => $network->get_name(),
 					'action'   => ( Social_Network::SHARE === $this->context ) ? 'Delen' : 'Volgen',
-					'label'    => ( Social_Network::SHARE === $this->context ) ? $this->url : $network->get_follow_url(),
+					'label'    => ( Social_Network::SHARE === $this->context ) ? get_permalink() : $network->get_follow_url(),
 				],
 			];
 		}
