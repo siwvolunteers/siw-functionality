@@ -27,7 +27,6 @@ class Archive {
 		}
 
 		// TODO: vlag en icons voor datum/soort-werk
-		$duration = siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false );
 		echo wp_kses_post(
 			sprintf(
 				'<p>%s<br/>%s<br/>%s</p>',
