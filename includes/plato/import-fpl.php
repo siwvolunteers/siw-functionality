@@ -15,12 +15,6 @@ class Import_FPL extends Import {
 	/** {@inheritDoc} */
 	protected string $endpoint = 'GetAllFreePlaces';
 
-	/** {@inheritDoc} */
-	protected string $name = 'importeren FPL';
-
-	/** {@inheritDoc} */
-	protected string $process_name = 'update_free_places';
-
 	/** Verwerk xml van Plato */
 	protected function process_xml() {
 

@@ -15,9 +15,6 @@ class Export_Application extends Export {
 	/** {@inheritDoc} */
 	protected string $endpoint = 'ImportVolunteer';
 
-	/** {@inheritDoc} */
-	protected string $name = 'exporteren aanmelding';
-
 	/** Genereert XML */
 	protected function generate_xml() {
 		$this->xml_data = ArrayToXml::convert( $this->data, 'vef', true, 'UTF-8' );

@@ -15,9 +15,6 @@ class Import_Workcamps extends Import {
 	/** {@inheritDoc} */
 	protected string $endpoint = 'GetAllProjects';
 
-	/** {@inheritDoc} */
-	protected string $name = 'importeren groepsprojecten';
-
 	/** Geef aan dat dit geen Nederlandse projecten zijn */
 	protected bool $dutch_project = false;
 
