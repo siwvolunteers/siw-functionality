@@ -15,9 +15,6 @@ abstract class Import extends Plato_Interface {
 	/** Data voor background process */
 	protected array $data = [];
 
-	/** Xsd bestand */
-	protected string $xsd_file;
-
 	/** Constructor */
 	public function __construct() {
 		parent::__construct();
@@ -56,7 +53,7 @@ abstract class Import extends Plato_Interface {
 		libxml_use_internal_errors( true );
 		$dom = $dom_element->ownerDocument; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
-		if ( ! $dom->schemaValidate( $this->xsd_file ) ) {
+		if ( ! $dom->schemaValidate( SIW_PLUGIN_DIR . "xsd/plato/{$this->endpoint}.xsd" ) ) {
 			Logger::warning(
 				sprintf( 'Fout tijdens schema validatie: %s', libxml_get_last_error()->message ),
 				static::class
