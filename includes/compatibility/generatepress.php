@@ -27,10 +27,6 @@ class GeneratePress {
 		add_action( 'init', [ $self, 'add_elements_menu_order' ] );
 		add_filter( 'generate_elements_custom_args', [ $self, 'set_elements_orderby' ] );
 
-		// 404
-		add_filter( 'generate_404_title', [ $self, 'set_404_title' ] );
-		add_filter( 'generate_404_text', [ $self, 'set_404_text' ] );
-
 		// Pas snelheid voor omhoog scrollen aan
 		add_filter( 'generate_back_to_top_scroll_speed', fn() : int => self::BACK_TO_TOP_SCROLL_SPEED );
 
@@ -57,16 +53,6 @@ class GeneratePress {
 	/** Zet copyright voor footer */
 	public function set_copyright_message(): string {
 		return sprintf( '&copy; %s %s', current_time( 'Y' ), Properties::NAME );
-	}
-
-	/** Zet titel van 404-pagina */
-	public function set_404_title(): string {
-		return esc_html__( 'Pagina niet gevonden', 'siw' );
-	}
-
-	/** Zet tekst van 404-pagina */
-	public function set_404_text(): string {
-		return esc_html__( 'Oeps! Helaas kunnen we de pagina die je zoekt niet vinden. Controleer of de spelling correct is en doe nog een poging via onderstaande zoekfunctie.', 'siw' );
 	}
 
 	/** Zet default kleurenpalet */
