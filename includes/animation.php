@@ -44,6 +44,8 @@ class Animation {
 	public function register_style() {
 		$max_width = CSS::MOBILE_BREAKPOINT;
 		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/animation.css', [ SAL::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, "(max-width: {$max_width}px)" );
+		// TODO: bug melden omdat wp_maybe_inline_styles() media query niet overneemt
+		// wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/animation.css' );
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 }
