@@ -14,8 +14,6 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  */
 class The_SEO_Framework {
 
-	/** Maximaal aantal posts in sitemap */
-	const SITEMAP_POST_LIMIT = 5000;
 
 	/** Priority van TSF-metabox */
 	const METABOX_PRIORITY = 'default';
@@ -37,7 +35,6 @@ class The_SEO_Framework {
 		/* Sitemap */
 		add_filter( 'the_seo_framework_sitemap_color_main', fn(): string => CSS::CONTRAST_COLOR );
 		add_filter( 'the_seo_framework_sitemap_color_accent', fn(): string => CSS::ACCENT_COLOR );
-		add_filter( 'the_seo_framework_sitemap_post_limit', fn(): int => self::SITEMAP_POST_LIMIT );
 		add_filter( 'the_seo_framework_sitemap_supported_post_types', [ $self, 'set_sitemap_supported_post_types' ] );
 		add_filter( 'the_seo_framework_sitemap_additional_urls', [ $self, 'set_sitemap_additional_urls' ] );
 
