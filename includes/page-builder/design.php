@@ -12,8 +12,8 @@ use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
  */
 class Design implements I_Style_Fields, I_Style_Attributes {
 
-	/** Style field voor uitlijning widget title */
 	const STYLE_FIELD_WIDGET_TITLE_ALIGN = 'siw_widget_title_align';
+	const STYLE_FIELD_TEXT_ALIGN = 'siw_widget_text_align';
 
 	/** {@inheritDoc} */
 	public function supports_widgets(): bool {
@@ -38,10 +38,24 @@ class Design implements I_Style_Fields, I_Style_Attributes {
 			'group'    => 'design',
 			'priority' => 1,
 			'options'  => [
-				''       => __( 'Standaard', 'siw' ),
-				'left'   => __( 'Links', 'siw' ),
-				'center' => __( 'Midden', 'siw' ),
-				'right'  => __( 'Rechts', 'siw' ),
+				''        => __( 'Standaard', 'siw' ),
+				'left'    => __( 'Links', 'siw' ),
+				'center'  => __( 'Midden', 'siw' ),
+				'right'   => __( 'Rechts', 'siw' ),
+				'justify' => __( 'Uitvullen', 'siw' ),
+			],
+		];
+		$fields[ self::STYLE_FIELD_TEXT_ALIGN ] = [
+			'name'     => __( 'Uitlijning', 'siw' ),
+			'type'     => 'select',
+			'group'    => 'design',
+			'priority' => 2,
+			'options'  => [
+				''        => __( 'Standaard', 'siw' ),
+				'left'    => __( 'Links', 'siw' ),
+				'center'  => __( 'Midden', 'siw' ),
+				'right'   => __( 'Rechts', 'siw' ),
+				'justify' => __( 'Uitvullen', 'siw' ),
 			],
 		];
 		return $fields;
@@ -49,10 +63,16 @@ class Design implements I_Style_Fields, I_Style_Attributes {
 
 	/** {@inheritDoc} */
 	public function set_style_attributes( array $style_attributes, array $style_args ) : array {
-		if ( ! isset( $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] ) || empty( $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] ) ) {
+		if ( isset( $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] ) && ! empty( $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] ) ) {
+			$style_attributes['class'][] = sprintf( 'widget-title-align-%s', $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] );
 			return $style_attributes;
 		}
-		$style_attributes['class'][] = sprintf( 'widget-title-%s', $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] );
+
+		if ( isset( $style_args[ self::STYLE_FIELD_TEXT_ALIGN ] ) && ! empty( $style_args[ self::STYLE_FIELD_TEXT_ALIGN ] ) ) {
+			$style_attributes['class'][] = sprintf( 'align-%s', $style_args[ self::STYLE_FIELD_TEXT_ALIGN ] );
+			return $style_attributes;
+		}
+
 		return $style_attributes;
 	}
 }
