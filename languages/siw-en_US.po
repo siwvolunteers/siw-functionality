@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
-"POT-Creation-Date: 2022-11-07 15:49+0000\n"
+"POT-Creation-Date: 2022-11-09 21:11+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -525,7 +525,7 @@ msgstr "Language skills"
 msgid "Informatie voor partner"
 msgstr "Information for partner"
 
-#: includes/icons.php:83
+#: includes/icons.php:79
 msgid "SIW Icons"
 msgstr "SIW Icons"
 
@@ -999,7 +999,7 @@ msgstr "Male"
 msgid "Vrouw"
 msgstr "Female"
 
-#: includes/functions/data.php:93
+#: includes/functions/data.php:95
 msgid "Selecteer een nationaliteit"
 msgstr "Select a nationality"
 
@@ -1590,7 +1590,8 @@ msgid "Standaard easing van de animatie"
 msgstr "Standard easing of animation"
 
 #: includes/page-builder/animation.php:219,
-#: includes/page-builder/design.php:41, includes/page-builder/layout.php:42
+#: includes/page-builder/design.php:41, includes/page-builder/design.php:54,
+#: includes/page-builder/layout.php:42
 msgid "Standaard"
 msgstr "Default"
 
@@ -1627,17 +1628,28 @@ msgstr "Saturate"
 msgid "Uitlijning widget titel"
 msgstr "Alignment widget title"
 
-#: includes/page-builder/design.php:42, includes/widgets/cta/cta.php:77
+#: includes/page-builder/design.php:42, includes/page-builder/design.php:55,
+#: includes/widgets/cta/cta.php:77
 msgid "Links"
 msgstr "Left"
 
-#: includes/page-builder/design.php:43, includes/widgets/cta/cta.php:78
+#: includes/page-builder/design.php:43, includes/page-builder/design.php:56,
+#: includes/widgets/cta/cta.php:78
 msgid "Midden"
 msgstr "Middle"
 
-#: includes/page-builder/design.php:44, includes/widgets/cta/cta.php:79
+#: includes/page-builder/design.php:44, includes/page-builder/design.php:57,
+#: includes/widgets/cta/cta.php:79
 msgid "Rechts"
 msgstr "Right"
+
+#: includes/page-builder/design.php:45, includes/page-builder/design.php:58
+msgid "Uitvullen"
+msgstr "Justify"
+
+#: includes/page-builder/design.php:49, includes/widgets/cta/cta.php:75
+msgid "Uitlijning"
+msgstr "Alignment"
 
 #: includes/page-builder/layout.php:37
 msgid "Rij lay-out"
@@ -3108,10 +3120,6 @@ msgstr "Page for button"
 msgid "Selecteer een pagina"
 msgstr "Select a page"
 
-#: includes/widgets/cta/cta.php:75
-msgid "Uitlijning"
-msgstr "Alignment"
-
 #: includes/widgets/features/features.php:27,
 #: includes/widgets/features/features.php:70
 msgid "Features"
@@ -3141,7 +3149,7 @@ msgstr "Four"
 msgid "Feature"
 msgstr "Feature"
 
-#: includes/widgets/features/features.php:80
+#: includes/widgets/features/features.php:80, includes/widgets/icon/icon.php:60
 msgid "Icoon"
 msgstr "Icon"
 
@@ -3194,6 +3202,22 @@ msgstr "Coordinates"
 #: includes/widgets/google-maps/google-maps.php:120
 msgid "Latitude"
 msgstr "Latitude"
+
+#: includes/widgets/icon/icon.php:27
+msgid "Icon"
+msgstr "Icon"
+
+#: includes/widgets/icon/icon.php:32
+msgid "Toont icon"
+msgstr "Shows icon"
+
+#: includes/widgets/icon/icon.php:64
+msgid "Toon achtergrond"
+msgstr "Show background"
+
+#: includes/widgets/icon/icon.php:69
+msgid "Grootte"
+msgstr ""
 
 #: includes/widgets/map/map.php:27
 msgid "Interactieve kaart"
