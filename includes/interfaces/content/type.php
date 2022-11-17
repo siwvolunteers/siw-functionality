@@ -9,7 +9,7 @@ namespace SIW\Interfaces\Content;
  */
 interface Type {
 
-	/** Geeft post type terug */
+	/** Geeft post type terug (inclusief prefix `siw_`)*/
 	public function get_post_type(): string;
 
 	/** Geeft slug terug */
@@ -25,9 +25,9 @@ interface Type {
 	public function get_icon(): string;
 
 	/** Geeft template variable voor single post terug */
-	public function get_single_template_variables(): array;
+	public function get_single_template_variables( int $post_id ): array;
 
 	/** Geeft template variable voor archive post terug */
-	public function get_archive_template_variables(): array;
+	public function get_archive_template_variables( int $post_id ): array;
 
 }
