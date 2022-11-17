@@ -10,7 +10,7 @@ namespace SIW\Data;
 abstract class Data {
 
 	/** Init */
-	public function __construct( array $data ) {
+	final public function __construct( array $data ) {
 		$class_vars = get_class_vars( static::class );
 
 		$data = wp_parse_args( $data, $class_vars );
