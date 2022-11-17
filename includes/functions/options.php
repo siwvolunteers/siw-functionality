@@ -30,14 +30,6 @@ function siw_get_option( string $option, $default = null ) {
 		return $default;
 	}
 
-	/**
-	 * Waarde van optie
-	 *
-	 * @param mixed $value
-	 * @param string $option
-	 */
-	$value = apply_filters( 'siw_option_value', $value, $option );
-
 	wp_cache_set( $option, $value, 'siw_options' );
 
 	return $value;
