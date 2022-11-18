@@ -2,20 +2,20 @@
     "packages": [
         {
             "name": "kallookoo/wp_parse_args_recursive",
-            "version": "1.2.1",
-            "version_normalized": "1.2.1.0",
+            "version": "1.3.0",
+            "version_normalized": "1.3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kallookoo/wp_parse_args_recursive.git",
-                "reference": "b42119c04763bab5d4e4701fa39c39ee19c2448f"
+                "reference": "7a828eaf9ccc94dac335acac343f06937643884d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kallookoo/wp_parse_args_recursive/zipball/b42119c04763bab5d4e4701fa39c39ee19c2448f",
-                "reference": "b42119c04763bab5d4e4701fa39c39ee19c2448f",
+                "url": "https://api.github.com/repos/kallookoo/wp_parse_args_recursive/zipball/7a828eaf9ccc94dac335acac343f06937643884d",
+                "reference": "7a828eaf9ccc94dac335acac343f06937643884d",
                 "shasum": ""
             },
-            "time": "2018-10-18T16:30:37+00:00",
+            "time": "2022-11-16T10:09:24+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -30,11 +30,15 @@
             "authors": [
                 {
                     "name": "Sergio (kallookoo)",
-                    "email": "sergio@dsergio.com"
+                    "email": "kallookoo@gmail.com"
                 }
             ],
             "description": "Like wp_parse_args but supports recursivity. By default converts the returned type based on the $args and $defaults",
             "homepage": "https://github.com/kallookoo/wp_parse_args_recursive",
+            "support": {
+                "issues": "https://github.com/kallookoo/wp_parse_args_recursive/issues",
+                "source": "https://github.com/kallookoo/wp_parse_args_recursive/tree/1.3.0"
+            },
             "install-path": "../kallookoo/wp_parse_args_recursive"
         },
         {
