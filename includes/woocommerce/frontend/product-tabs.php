@@ -64,9 +64,9 @@ class Product_Tabs {
 				$priority++;
 			} elseif ( self::LOCATION_TAB === $topic && null !== $product->get_latitude() && null !== $product->get_longitude() ) {
 				$tabs[ $topic ] = [
-					'title'     => $title,
+					'title'     => __( 'Locatie', 'siw' ),
 					'priority'  => $priority,
-					'callback'  => __( 'Locatie', 'siw' ),
+					'callback'  => [ $this, 'show_project_map' ],
 					'latitude'  => $product->get_latitude(),
 					'longitude' => $product->get_longitude(),
 				];
