@@ -5,6 +5,7 @@ namespace SIW\WooCommerce\Frontend;
 use SIW\Elements\Form;
 use SIW\Elements\Google_Maps;
 use SIW\External\Exchange_Rates;
+use SIW\Forms\Forms\Enquiry_Project;
 use SIW\Properties;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
@@ -113,7 +114,7 @@ class Product_Tabs {
 
 	/** Toont contactformulier in tab */
 	public function show_product_contact_form() {
-		Form::create()->set_form_id( self::CONTACT_FORM_ID )->render();
+		Form::create()->set_form_id( Enquiry_Project::FORM_ID )->render();
 	}
 
 	/** Toont overzicht van kosten voor het project */

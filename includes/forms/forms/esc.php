@@ -13,9 +13,12 @@ use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
  */
 class ESC implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
+	/** Formulier ID */
+	const FORM_ID = 'esc';
+
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
-		return 'esc';
+		return self::FORM_ID;
 	}
 
 	/** {@inheritDoc} */

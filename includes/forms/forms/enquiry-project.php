@@ -13,9 +13,12 @@ use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
  */
 class Enquiry_Project implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
+	/** Formulier ID */
+	const FORM_ID = 'enquiry_project';
+
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
-		return 'enquiry_project';
+		return self::FORM_ID;
 	}
 
 	/** {@inheritDoc} */

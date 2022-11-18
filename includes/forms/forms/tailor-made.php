@@ -15,9 +15,12 @@ use SIW\Properties;
  */
 class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
+	/** Formulier ID */
+	const FORM_ID = 'tailor_made';
+
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
-		return 'tailor_made';
+		return self::FORM_ID;
 	}
 
 	/** {@inheritDoc} */
