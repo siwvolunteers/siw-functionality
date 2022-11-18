@@ -9,6 +9,8 @@ namespace SIW\Elements;
  */
 class Table extends Repeater {
 
+	const ASSETS_HANDLE = 'siw-table';
+
 	/** CSS class van tabel */
 	protected string $table_class = '';
 
@@ -51,5 +53,12 @@ class Table extends Repeater {
 	public function set_footer( array $footer ): self {
 		$this->footer = $footer;
 		return $this;
+	}
+
+	/** Voegt styles toe */
+	public function enqueue_styles() {
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/table.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/table.css' );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 }

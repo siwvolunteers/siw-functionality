@@ -35,7 +35,7 @@ for ( $i = 1; $i <= 3; $i++ ) { // phpcs:ignore WordPress.NamingConventions.Pref
 		'type'     => 'select',
 		'class'    => [ 'form-row-first' ],
 		'required' => 1 === $i,
-		'options'  => [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages_list( Language::VOLUNTEER, Language::PLATO_CODE ),
+		'options'  => [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages_list( Language::PLATO_CODE ),
 	];
 	$siw_data['language'][ "language_{$i}_skill" ] = [
 		// translators: %d is geheel getal

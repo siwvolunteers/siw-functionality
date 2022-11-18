@@ -1,16 +1,9 @@
-{{> widget-title}}
-<div class="siw-contact">
-	<p>
-		{{ name }} <br/>
-		{{ address }} | {{ postcode }} {{ city }} <br/>
-		{{> links/tel }} | {{> links/email }}  <br/>
-		{{> links/whatsapp }} <br/>
-		{{& opening_hours | wp_kses_post }}
-	</p>
-</div>
-<div class="siw-social-links clearfix">
-	{{# social_networks}}
-		{{> links/social_network}}
-	{{/ social_networks}}
-</div>
-{{& social_links }}
+{{> widgets/title}}
+{{> widgets/intro}}
+<p>
+	{{ name }} <br/>
+	{{ address }} | {{ postcode }} {{ city }} <br/>
+	{{> links/tel }} | {{> links/email }}  <br/>
+	{{> links/whatsapp }} <br/>
+</p>
+

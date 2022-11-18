@@ -43,18 +43,18 @@ class Pie_Chart extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	public function get_widget_form() {
-		$widget_form = [
-			'title'            => [
-				'type'  => 'text',
-				'label' => __( 'Titel', 'siw' ),
-			],
-			'intro'            => [
-				'type'           => 'tinymce',
-				'label'          => __( 'Intro', 'siw' ),
-				'rows'           => 10,
-				'default_editor' => 'html',
-			],
+	protected function supports_title(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function get_widget_fields(): array {
+		$widget_fields = [
 			'show_explanation' => [
 				'type'          => 'checkbox',
 				'label'         => __( 'Toon lijst met toelichting', 'siw' ),
@@ -98,13 +98,12 @@ class Pie_Chart extends Widget {
 				],
 			],
 		];
-		return $widget_form;
+		return $widget_fields;
 	}
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
 		return [
-			'intro'            => $instance['intro'],
 			'chart'            => Element_Pie_Chart::create()->set_data( $instance['series'] )->generate(),
 			'series'           => $instance['series'],
 			'show_explanation' => $instance['show_explanation'],

@@ -2,22 +2,24 @@
 
 namespace SIW\WooCommerce\Frontend;
 
-use SIW\Elements\Accordion;
 use SIW\Elements\Form;
 use SIW\Elements\Google_Maps;
 use SIW\External\Exchange_Rates;
+use SIW\Forms\Forms\Enquiry_Project;
 use SIW\Properties;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
  * Tabs voor Groepsprojecten
  *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 class Product_Tabs {
 
 	/** Formulier */
 	const CONTACT_FORM_ID = 'enquiry_project';
+
+	const LOCATION_TAB = 'location_and_leisure';
 
 	/** Init */
 	public static function init() {
@@ -35,52 +37,9 @@ class Product_Tabs {
 		}
 
 		$tabs['additional_information']['title'] = __( 'Eigenschappen', 'siw' );
-
 		unset( $tabs['description'] );
 
-		$project_description = $product->get_project_description();
-		if ( ! empty( $project_description ) ) {
-			$tabs['project_description'] = [
-				'title'       => __( 'Beschrijving', 'siw' ),
-				'priority'    => 1,
-				'callback'    => [ $this, 'show_project_description' ],
-				'description' => $project_description,
-			];
-		}
-
-		$latitude = $product->get_latitude();
-		$longitude = $product->get_longitude();
-
-		if ( null !== $latitude && null !== $longitude ) {
-			$tabs['location'] = [
-				'title'     => __( 'Projectlocatie', 'siw' ),
-				'priority'  => 110,
-				'callback'  => [ $this, 'show_project_map' ],
-				'latitude'  => $latitude,
-				'longitude' => $longitude,
-			];
-		}
-
-		$tabs['enquiry'] = [
-			'title'    => __( 'Stel een vraag', 'siw' ),
-			'priority' => 120,
-			'callback' => [ $this, 'show_product_contact_form' ],
-		];
-
-		$tabs['costs'] = [
-			'title'    => __( 'Kosten', 'siw' ),
-			'priority' => 130,
-			'callback' => [ $this, 'show_product_costs' ],
-			'product'  => $product,
-		];
-		return $tabs;
-	}
-
-	/** Toont projectbeschrijving o.b.v. gegevens uit Plato */
-	public function show_project_description( string $tab, array $args ) {
-
-		$description = $args['description'];
-
+		$description = $product->get_project_description();
 		$topics = [
 			'description'           => __( 'Beschrijving', 'siw' ),
 			'work'                  => __( 'Werk', 'siw' ),
@@ -90,17 +49,60 @@ class Product_Tabs {
 			'requirements'          => __( 'Vereisten', 'siw' ),
 			'notes'                 => __( 'Opmerkingen', 'siw' ),
 		];
-
+		$priority = 1;
 		foreach ( $topics as $topic => $title ) {
 			if ( isset( $description[ $topic ] ) && ! empty( $description[ $topic ] ) ) {
 
-				$panes[] = [
-					'title'   => $title,
-					'content' => wp_targeted_link_rel( links_add_target( make_clickable( $description[ $topic ] ) ) ),
+				$tabs[ $topic ] = [
+					'title'    => $title,
+					'priority' => $priority,
+					'callback' => [ $this, 'show_project_description' ],
+					'content'  => $description[ $topic ],
+					'product'  => $product,
 				];
+
+				$priority++;
+			} elseif ( self::LOCATION_TAB === $topic && null !== $product->get_latitude() && null !== $product->get_longitude() ) {
+				$tabs[ $topic ] = [
+					'title'     => $title,
+					'priority'  => $priority,
+					'callback'  => __( 'Locatie', 'siw' ),
+					'latitude'  => $product->get_latitude(),
+					'longitude' => $product->get_longitude(),
+				];
+				$priority++;
 			}
 		}
-		Accordion::create()->add_items( $panes )->render();
+
+		$tabs['costs'] = [
+			'title'    => __( 'Kosten', 'siw' ),
+			'priority' => 110,
+			'callback' => [ $this, 'show_product_costs' ],
+			'product'  => $product,
+		];
+
+		$tabs['enquiry'] = [
+			'title'    => __( 'Stel een vraag', 'siw' ),
+			'priority' => 120,
+			'callback' => [ $this, 'show_product_contact_form' ],
+		];
+
+		return $tabs;
+	}
+
+	/** Toont projectbeschrijving o.b.v. gegevens uit Plato */
+	public function show_project_description( string $tab, array $args ) {
+		echo wp_kses_post( ( wp_targeted_link_rel( links_add_target( make_clickable( wpautop( $args['content'] ) ) ) ) ) );
+
+		// TODO: toon disclaimer dat informatie van partner komt.
+
+		/**@var WC_Product_Project */
+		$product = $args['product'];
+		if ( self::LOCATION_TAB === $tab && $product->get_latitude() && null !== $product->get_longitude() ) {
+			Google_Maps::create()
+			->add_marker( $product->get_latitude(), $product->get_longitude(), __( 'Projectlocatie', 'siw' ) )
+			->render();
+		}
 	}
 
 	/** Toont kaart met projectlocatie in tab */
@@ -112,7 +114,7 @@ class Product_Tabs {
 
 	/** Toont contactformulier in tab */
 	public function show_product_contact_form() {
-		Form::create()->set_form_id( self::CONTACT_FORM_ID )->render();
+		Form::create()->set_form_id( Enquiry_Project::FORM_ID )->render();
 	}
 
 	/** Toont overzicht van kosten voor het project */

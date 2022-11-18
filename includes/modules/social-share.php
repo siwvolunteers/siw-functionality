@@ -13,6 +13,8 @@ use SIW\Helpers\Template;
  */
 class Social_Share {
 
+	const ASSETS_HANDLE = 'siw-social-share';
+
 	/** Post type van huidige post */
 	protected string $post_type;
 
@@ -20,6 +22,14 @@ class Social_Share {
 	public static function init() {
 		$self = new self();
 		add_action( 'generate_after_content', [ $self, 'render' ] );
+		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles' ] );
+	}
+
+	/** Voegt stylesheet toe */
+	public function enqueue_styles() {
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/social-share.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/modules/social-share.css' );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Toont de share links */
@@ -29,18 +39,13 @@ class Social_Share {
 			return;
 		}
 
-		$title = get_the_title();
-		$url = get_permalink();
-
 		Template::create()
 			->set_template( 'modules/social-share' )
 			->set_context(
 				[
-					'content' => Social_Links::create()
+					'header'       => $this->get_title(),
+					'social_links' => Social_Links::create()
 						->set_context( Social_Network::SHARE )
-						->set_header( $this->get_title() )
-						->set_title( $title )
-						->set_url( $url )
 						->generate(),
 				]
 			)

@@ -35,6 +35,7 @@ class Meta_Box {
 			'radio',
 			'select',
 			'select_advanced',
+			'hidden',
 			'button_group'    => 'string',
 			'checkbox_list'   => 'array',
 			'checkbox',

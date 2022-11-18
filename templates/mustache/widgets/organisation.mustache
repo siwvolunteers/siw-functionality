@@ -1,4 +1,5 @@
-{{> widget-title}}
+{{> widgets/title}}
+{{> widgets/intro}}
 <dl>
 	{{! eigenschappen }}
 	{{# properties}}
@@ -8,24 +9,8 @@
 		{{/ values}}
 	{{/ properties}}
 
-	{{! bestuursleden }}
-	<dt>{{ i18n.board_members }}</dt>
-	{{# board_members}}
-		<dd>
-			{{ first_name }} {{ last_name }}<br/>
-			<i>{{ title }}</i>
-		</dd>
-	{{/ board_members}}
-	
 	{{! beloningsbeleid }}
 	<dt>{{ i18n.renumeration_policy }}</dt>
 	<dd>{{& renumeration_policy | wp_kses_post }}<dd>
 
-	{{! jaarverslagen }}
-	<dt>{{ i18n.annual_reports }}</dt>
-	{{# annual_reports}}
-	<dd>
-		{{> links/document}}
-	</dd>
-	{{/ annual_reports}}
 </dl>

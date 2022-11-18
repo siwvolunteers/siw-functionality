@@ -43,12 +43,18 @@ class Accordion extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	public function get_widget_form() {
-		$widget_form = [
-			'title' => [
-				'type'  => 'text',
-				'label' => __( 'Titel', 'siw' ),
-			],
+	protected function supports_title(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function get_widget_fields(): array {
+		$widget_fields = [
 			'panes' => [
 				'type'       => 'repeater',
 				'label'      => __( 'Accordeon', 'siw' ),
@@ -101,7 +107,7 @@ class Accordion extends Widget {
 				],
 			],
 		];
-		return $widget_form;
+		return $widget_fields;
 	}
 
 	/** {@inheritDoc} */

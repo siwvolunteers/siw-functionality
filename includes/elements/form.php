@@ -52,6 +52,17 @@ class Form extends Element {
 		return $this;
 	}
 
+	/** Zet veld op bepaalde waarde */
+	public function set_field_value( string $field, mixed $value ): self {
+
+		$field_index = array_search( $field, array_column( $this->meta_box->meta_box['fields'], 'id' ), true );
+		if ( false === $field_index ) {
+			return $this;
+		}
+		$this->meta_box->meta_box['fields'][ $field_index ]['std'] = $value;
+		return $this;
+	}
+
 	/** Zet of het formulier in 1 kolom getoond moet worden */
 	public function set_single_column( bool $single_column ): self {
 		$this->single_column = $single_column;

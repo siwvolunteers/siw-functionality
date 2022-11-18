@@ -13,12 +13,15 @@ use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
  */
 class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
+	/** Formulier ID */
+	const FORM_ID = 'info_day';
+
 	/** Aantal infodagen om te tonen */
 	const NUMBER_OF_INFO_DAYS = 3;
 
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
-		return 'info_day';
+		return self::FORM_ID;
 	}
 
 	/** {@inheritDoc} */

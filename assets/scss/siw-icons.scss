@@ -2,6 +2,9 @@
 	display: inline-block;
 	position: relative;
 	fill: var(--siw-contrast-light);
+	.footer-widgets & {
+		fill: var(--siw-base);
+	}
 }
 
 .siw-icon-background {
@@ -19,7 +22,7 @@
 		width: 1em;
 		height: 1em;
 	}
-	
+
 	.siw-background-icon {
 		position: absolute;
 		left: 0;

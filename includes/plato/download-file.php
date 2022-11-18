@@ -15,9 +15,6 @@ class Download_File extends Plato_Interface {
 	/** {@inheritDoc} */
 	protected string $endpoint = 'DownloadDocumentFile';
 
-	/** {@inheritDoc} */
-	protected string $name = 'downloaden bestand';
-
 	/** Download het bestand */
 	public function download( string $identifier, string $extension = null ) : ?string {
 

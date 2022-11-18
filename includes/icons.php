@@ -58,15 +58,11 @@ class Icons {
 			]
 		);
 
-		$rules['.siteorigin-widget-icon-selector-current .sow-icon-siw'] = [
-			'max-width'  => '20px',
-			'max-height' => '20px',
-		];
 		foreach ( $icons as $icon => $code ) {
 			$css->add_rule(
 				".sow-icon-siw[data-sow-icon='{$code}']",
 				[
-					'cursor' => 'url(' . SIW_ASSETS_URL . "icons/general/{$code}.svg" . ')',
+					'content' => 'url(' . SIW_ASSETS_URL . "icons/general/{$code}.svg" . ')',
 				]
 			);
 		}

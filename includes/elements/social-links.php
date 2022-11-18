@@ -18,15 +18,6 @@ class Social_Links extends Element {
 	/** Context (share of follow) TODO: enum van maken */
 	protected string $context;
 
-	/** Header */
-	protected string $header;
-
-	/** Titel */
-	protected string $title;
-
-	/** Url */
-	protected string $url;
-
 	/** {@inheritDoc} */
 	protected static function get_type(): string {
 		return 'social-links';
@@ -55,13 +46,12 @@ class Social_Links extends Element {
 					'type'     => 'social',
 					'category' => $network->get_name(),
 					'action'   => ( Social_Network::SHARE === $this->context ) ? 'Delen' : 'Volgen',
-					'label'    => ( Social_Network::SHARE === $this->context ) ? $this->url : $network->get_follow_url(),
+					'label'    => ( Social_Network::SHARE === $this->context ) ? get_permalink() : $network->get_follow_url(),
 				],
 			];
 		}
 
 		return [
-			'header'          => $this->header ?? null,
 			'social_networks' => $networks,
 		];
 	}
@@ -72,8 +62,8 @@ class Social_Links extends Element {
 		->set_template( $network->get_share_url_template() )
 		->set_context(
 			[
-				'url'   => rawurlencode( $this->url ),
-				'title' => rawurlencode( html_entity_decode( $this->title ) ),
+				'url'   => rawurlencode( get_permalink() ),
+				'title' => rawurlencode( html_entity_decode( get_the_title() ) ),
 			]
 		)
 		->parse_template();
@@ -82,24 +72,6 @@ class Social_Links extends Element {
 	/** Zet context (volgen of delen) */
 	public function set_context( string $context ): self {
 		$this->context = $context;
-		return $this;
-	}
-
-	/** Zet de header */
-	public function set_header( string $header ): self {
-		$this->header = $header;
-		return $this;
-	}
-
-	/** Zet titel */
-	public function set_title( string $title ): self {
-		$this->title = $title;
-		return $this;
-	}
-
-	/** Zet titel */
-	public function set_url( string $url ): self {
-		$this->url = $url;
 		return $this;
 	}
 

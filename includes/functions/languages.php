@@ -3,7 +3,7 @@
 /**
  * Functies m.b.t. talen
  *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
 
 use SIW\Data\Language;
@@ -13,8 +13,8 @@ use SIW\Data\Language;
  *
  * @return Language[]
  */
-function siw_get_languages( string $context = Language::ALL, string $index = Language::SLUG ): array {
-	$languages = wp_cache_get( "{$context}_{$index}", __FUNCTION__ );
+function siw_get_languages( string $index = Language::SLUG ): array {
+	$languages = wp_cache_get( $index, __FUNCTION__ );
 
 	if ( false !== $languages ) {
 		return $languages;
@@ -33,28 +33,22 @@ function siw_get_languages( string $context = Language::ALL, string $index = Lan
 		$data
 	);
 
-	// Filter op context
-	$languages = array_filter(
-		$languages,
-		fn( Language $language ): bool => $language->is_valid_for_context( $context )
-	);
-
-	wp_cache_set( "{$context}_{$index}", $languages, __FUNCTION__ );
+	wp_cache_set( $index, $languages, __FUNCTION__ );
 
 	return $languages;
 }
 
 /** Geeft lijst van talen terug */
-function siw_get_languages_list( string $context = Language::ALL, string $index = Language::SLUG ): array {
+function siw_get_languages_list( string $index = Language::SLUG ): array {
 	return array_map(
 		fn( Language $language ): string => $language->get_name(),
-		siw_get_languages( $context, $index )
+		siw_get_languages( $index )
 	);
 }
 
 /** Geeft informatie over een taal terug */
 function siw_get_language( string $language, string $index = Language::SLUG ): ?Language {
-	$languages = siw_get_languages( Language::ALL, $index );
+	$languages = siw_get_languages( $index );
 	return $languages[ $language ] ?? null;
 }
 

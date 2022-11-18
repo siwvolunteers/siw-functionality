@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Product\Admin;
 
+use SIW\WooCommerce\Product\WC_Product_Project;
+
 /**
  * Bulk acties
  *
@@ -29,7 +31,8 @@ class Bulk_Actions {
 	 * Voegt bulk acties toe
 	 *
 	 * - Opnieuw importeren
-	 * - Selecteren voor carousel
+	 * - Markeren als aanbevolen
+	 * - Verbergen
 	 */
 	public function add_bulk_actions( array $bulk_actions ): array {
 		$bulk_actions[ self::ACTION_IMPORT_AGAIN ] = __( 'Opnieuw importeren', 'siw' );
@@ -46,9 +49,9 @@ class Bulk_Actions {
 				$products = siw_get_products( [ 'include' => $post_ids ] );
 				array_walk(
 					$products,
-					function( \WC_Product $product ) {
+					function( WC_Product_Project $product ) {
 						$data = [
-							'product_id' => $product->get_meta( 'project_id' ),
+							'product_id' => $product->get_project_id(),
 						];
 						siw_enqueue_async_action( 'import_plato_project', $data );
 					}
@@ -58,8 +61,8 @@ class Bulk_Actions {
 				$products = siw_get_products( [ 'include' => $post_ids ] );
 				array_walk(
 					$products,
-					function( \WC_Product $product ) {
-						$product->update_meta_data( 'force_hide', true );
+					function( WC_Product_Project $product ) {
+						$product->set_hidden( true );
 						$product->set_catalog_visibility( 'hidden' );
 						$product->save();
 					}
@@ -69,7 +72,7 @@ class Bulk_Actions {
 				$products = siw_get_products( [ 'include' => $post_ids ] );
 				array_walk(
 					$products,
-					function( \WC_Product $product ) {
+					function( WC_Product_Project $product ) {
 						$product->set_featured( true );
 						$product->save();
 					}

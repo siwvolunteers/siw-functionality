@@ -91,7 +91,7 @@ class Emails {
 	protected function get_table_data( \WC_Order $order ): array {
 
 		// Referentiegegevens
-		$languages = [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages_list( Language::VOLUNTEER, Language::PLATO_CODE );
+		$languages = [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages_list( Language::PLATO_CODE );
 		$language_skill = siw_get_language_skill_levels();
 
 		$table_data['application'] = $this->get_application_table_data( $order );

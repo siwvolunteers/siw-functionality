@@ -45,13 +45,18 @@ class Quick_Search_Form extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	public function get_widget_form() {
+	protected function supports_title(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function get_widget_fields(): array {
 		$widget_forms = [
-			'title'       => [
-				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw' ),
-				'default' => __( 'Snel Zoeken', 'siw' ),
-			],
 			'result_page' => [
 				'type'    => 'select',
 				'label'   => __( 'Resultatenpagina', 'siw' ),

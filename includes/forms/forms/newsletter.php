@@ -16,9 +16,12 @@ use SIW\Widgets\Newsletter_Confirmation;
  */
 class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 
+	/** Formulier ID */
+	const FORM_ID = 'newsletter';
+
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
-		return 'newsletter';
+		return self::FORM_ID;
 	}
 
 	/** {@inheritDoc} */
@@ -38,6 +41,12 @@ class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 				'id'   => 'email',
 				'name' => __( 'E-mailadres', 'siw' ),
 				'type' => 'email',
+			],
+			[
+				'id'      => 'list_id',
+				'type'    => 'hidden',
+				'std'     => siw_get_option( 'newsletter_list' ),
+				'columns' => Form_Interface::FULL_WIDTH,
 			],
 		];
 		return $fields;
@@ -67,10 +76,12 @@ class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 
 		return add_query_arg(
 			[
-				Newsletter_Confirmation::QUERY_ARG_EMAIL => '{{ email | base64_encode | urlencode }}',
+				Newsletter_Confirmation::QUERY_ARG_EMAIL   => '{{ email | base64_encode | urlencode }}',
 				Newsletter_Confirmation::QUERY_ARG_EMAIL_HASH => '{{ email | siw_hash | urlencode }}',
 				Newsletter_Confirmation::QUERY_ARG_FIRST_NAME => '{{ first_name | base64_encode | urlencode }}',
 				Newsletter_Confirmation::QUERY_ARG_FIRST_NAME_HASH => '{{ first_name | siw_hash | urlencode }}',
+				Newsletter_Confirmation::QUERY_ARG_LIST_ID => '{{ list_id | base64_encode | urlencode }}',
+				Newsletter_Confirmation::QUERY_ARG_LIST_ID_HASH => '{{ list_id | siw_hash | urlencode }}',
 			],
 			untrailingslashit( $confirmation_page )
 		);

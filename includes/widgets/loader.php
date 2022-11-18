@@ -15,6 +15,8 @@ class Loader extends Class_Loader_Abstract {
 	public function get_classes() : array {
 		return [
 			Accordion::class,
+			Annual_Reports::class,
+			Board_Members::class,
 			Calendar::class,
 			Carousel::class,
 			Contact::class,
@@ -22,13 +24,16 @@ class Loader extends Class_Loader_Abstract {
 			Features::class,
 			Form::class,
 			Google_Maps::class,
+			Icon::class,
 			Map::class,
 			Newsletter_Confirmation::class,
+			Opening_Hours::class,
 			Organisation::class,
 			Pie_Chart::class,
 			Quick_Search_Form::class,
 			Quick_Search_Results::class,
 			Quote::class,
+			Social_Links::class,
 			Tabs::class,
 		];
 	}

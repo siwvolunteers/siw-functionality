@@ -2,7 +2,6 @@
 
 namespace SIW;
 
-use SIW\Elements\List_Columns;
 use SIW\Elements\Modal;
 use SIW\Properties;
 use SIW\Util;
@@ -47,9 +46,7 @@ class Shortcodes {
 			'telefoon_internationaal' => __( 'Telefoonnummer (internationaal)', 'siw' ),
 			'whatsapp'                => __( 'WhatsApp-nummer', 'siw' ),
 			'iban'                    => __( 'IBAN', 'siw' ),
-			'openingstijden'          => __( 'Openingstijden', 'siw' ),
 			'esc_borg'                => __( 'ESC-borg', 'siw' ),
-			'volgende_infodag'        => __( 'Volgende infodag', 'siw' ),
 			'stv_tarief'              => __( 'STV tarief', 'siw' ),
 			'stv_tarief_student'      => __( 'STV tarief inclusief studentenkorting', 'siw' ),
 			'mtv_tarief'              => __( 'MTV tarief', 'siw' ),
@@ -62,16 +59,6 @@ class Shortcodes {
 			'scholenproject_tarief'   => __( 'Scholenproject - tarief', 'siw' ),
 			'korting_tweede_project'  => __( 'Korting tweede project', 'siw' ),
 			'leeftijd'                => __( 'Leeftijd van SIW', 'siw' ),
-			'laatste_jaarverslag'     => [
-				'title'      => __( 'Laatste jaarverslag', 'siw' ),
-				'attributes' => [
-					[
-						'attr'  => 'titel',
-						'type'  => 'text',
-						'title' => __( 'Titel', 'siw' ),
-					],
-				],
-			],
 			'externe_link'            => [
 				'title'      => __( 'Externe link', 'siw' ),
 				'attributes' => [
@@ -144,28 +131,9 @@ class Shortcodes {
 		return Properties::IBAN;
 	}
 
-	/** Openingstijden */
-	public static function render_openingstijden(): string {
-		$data = array_map(
-			fn( array $value ): string => implode( ': ', $value ),
-			siw_get_opening_hours()
-		);
-		return List_Columns::create()->add_items( $data )->generate();
-	}
-
 	/** ESC-borg */
 	public static function render_esc_borg(): string {
 		return siw_format_amount( Properties::ESC_DEPOSIT );
-	}
-
-	/** Volgende infodag */
-	public static function render_volgende_infodag(): string {
-		$info_days = siw_get_upcoming_info_days( 1 );
-		if ( empty( $info_days ) ) {
-			return __( 'nog niet bekend', 'siw' );
-		}
-		$date = siw_meta( 'event_date', [], reset( $info_days ) );
-		return siw_format_date( $date, true );
 	}
 
 	/** STV tarief */
@@ -240,30 +208,6 @@ class Shortcodes {
 		return Links::generate_external_link( $url, $titel );
 	}
 
-	/** Toont laatste jaarverslag */
-	public static function render_laatste_jaarverslag( array $atts ): string {
-		extract( // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
-			shortcode_atts(
-				[
-					'titel' => '',
-				],
-				$atts,
-				'siw_laatste_jaarverslag'
-			)
-		);
-
-		$annual_reports = siw_get_option( 'annual_reports' );
-		if ( empty( $annual_reports ) ) {
-			return '';
-		}
-
-		$annual_reports = wp_list_sort( $annual_reports, 'year', 'DESC' );
-		$report = reset( $annual_reports );
-		$report_url = wp_get_attachment_url( $report['file'][0] );
-
-		return Links::generate_document_link( $report_url, $titel );
-	}
-
 	/**
 	 * Lightbox met inhoud van pagina
 	 *
@@ -289,8 +233,8 @@ class Shortcodes {
 		if ( empty( $page_id ) ) {
 			return null;
 		}
-
-		return Modal::create()->set_page( (int) $page_id )->generate_link( $link_tekst );
+		$page_id = I18n::get_translated_page_id( (int) $page_id );
+		return Modal::create()->set_page( $page_id )->generate_link( $link_tekst );
 	}
 
 	/** Leeftijd van SIW in jaren */

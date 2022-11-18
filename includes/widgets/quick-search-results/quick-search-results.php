@@ -47,15 +47,13 @@ class Quick_Search_Results extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	public function get_widget_form() {
-		$widget_form = [
-			'title' => [
-				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw' ),
-				'default' => __( 'Groepsprojecten', 'siw' ),
-			],
-		];
-		return $widget_form;
+	protected function supports_title(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return true;
 	}
 
 	/** {@inheritDoc} */
@@ -112,9 +110,6 @@ class Quick_Search_Results extends Widget {
 		$attributes['button_text'] = $text;
 
 		return [
-			'intro'   =>
-				esc_html__( 'Met een Groepsproject ga je voor 2 tot 3 weken naar een project, de begin- en einddatum van het project staan al vast.', 'siw' ) . SPACE .
-				esc_html__( 'Hieronder zie je een selectie van de mogelijkheden', 'siw' ),
 			'content' => sprintf( '[products %s]', HTML::generate_attributes( $attributes ) ),
 		];
 	}

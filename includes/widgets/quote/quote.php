@@ -49,13 +49,18 @@ class Quote extends Widget {
 	}
 
 	/** {@inheritDoc} */
-	public function get_widget_form() {
+	protected function supports_title(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	protected function supports_intro(): bool {
+		return false;
+	}
+
+	/** {@inheritDoc} */
+	public function get_widget_fields(): array {
 		$widget_form = [
-			'title'        => [
-				'type'    => 'text',
-				'label'   => __( 'Titel', 'siw' ),
-				'default' => __( 'Ervaringen van deelnemers', 'siw' ),
-			],
 			'continent'    => [
 				'type'    => 'select',
 				'label'   => __( 'Continent', 'siw' ),
