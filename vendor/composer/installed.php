@@ -5,20 +5,11 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '1421e45290a5363b29bf43cf8b5c37628fcbbc3c',
+        'reference' => '459b78bb296eb99d4e9f8acc7d210a04c7099204',
         'name' => 'siwvolunteers/siw-functionality',
         'dev' => true,
     ),
     'versions' => array(
-        'kallookoo/wp_parse_args_recursive' => array(
-            'pretty_version' => '1.2.1',
-            'version' => '1.2.1.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../kallookoo/wp_parse_args_recursive',
-            'aliases' => array(),
-            'reference' => 'b42119c04763bab5d4e4701fa39c39ee19c2448f',
-            'dev_requirement' => false,
-        ),
         'luizbills/css-generator' => array(
             'pretty_version' => 'v4.0.1',
             'version' => '4.0.1.0',
@@ -52,7 +43,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '1421e45290a5363b29bf43cf8b5c37628fcbbc3c',
+            'reference' => '459b78bb296eb99d4e9f8acc7d210a04c7099204',
             'dev_requirement' => false,
         ),
         'spatie/array-to-xml' => array(
