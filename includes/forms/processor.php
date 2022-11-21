@@ -93,6 +93,11 @@ class Processor {
 	/** Geeft gegevens voor samenvatting terug */
 	protected function get_summary_data(): array {
 		foreach ( $this->form->get_form_fields() as $field ) {
+
+			if ( 'hidden' === $field['type'] ) {
+				continue;
+			}
+
 			$raw_value = $this->request->get_param( $field['id'] );
 			if ( empty( $raw_value ) ) {
 				continue;
