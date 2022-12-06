@@ -376,7 +376,7 @@ body {
   list-style-type: square;
 }
 
-.widget-title-left .widget-title {
+.widget-title-align-left .widget-title {
   text-align: left;
 }
 
@@ -384,7 +384,7 @@ body {
   text-align: left;
 }
 
-.widget-title-center .widget-title {
+.widget-title-align-center .widget-title {
   text-align: center;
 }
 
@@ -392,7 +392,7 @@ body {
   text-align: center;
 }
 
-.widget-title-right .widget-title {
+.widget-title-align-right .widget-title {
   text-align: right;
 }
 
@@ -400,7 +400,7 @@ body {
   text-align: right;
 }
 
-.widget-title-justify .widget-title {
+.widget-title-align-justify .widget-title {
   text-align: justify;
 }
 

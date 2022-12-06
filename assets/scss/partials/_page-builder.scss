@@ -25,7 +25,7 @@ body {
 //Uitlijning van widget title
 $align-options: left, center, right, justify;
 @each $align-option in $align-options {
-	.widget-title-#{$align-option} {
+	.widget-title-align-#{$align-option} {
 		.widget-title {
 			text-align: $align-option;
 		}
