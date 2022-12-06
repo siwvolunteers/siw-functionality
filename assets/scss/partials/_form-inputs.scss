@@ -29,7 +29,7 @@ form.rwmb-form {
 			}
 		}
 	}
-	
+
 	input,
 	textarea {
 		&:disabled,
@@ -56,13 +56,6 @@ form.rwmb-form {
 
 		&:hover, &:focus {
 			border-color: var(--siw-contrast);
-		}
-	}
-
-	ul.rwmb-input-list {
-		margin: 0;
-		li {
-			list-style-type: none;
 		}
 	}
 
@@ -143,7 +136,7 @@ form.rwmb-form {
 				border-left: 0;
 				transform: rotate(30deg);
 			}
-	
+
 			&:checked {
 				color: var(--siw-accent);
 			}

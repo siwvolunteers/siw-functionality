@@ -548,14 +548,6 @@ form.rwmb-form select:hover,
 form.rwmb-form select:focus {
   border-color: var(--siw-contrast);
 }
-form ul.rwmb-input-list,
-form.rwmb-form ul.rwmb-input-list {
-  margin: 0;
-}
-form ul.rwmb-input-list li,
-form.rwmb-form ul.rwmb-input-list li {
-  list-style-type: none;
-}
 form button[type=submit],
 form.rwmb-form button[type=submit] {
   background-color: var(--siw-base);
