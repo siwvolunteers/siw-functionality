@@ -20,11 +20,23 @@ class Google_Maps implements Script, External {
 	/** URL voor Google Maps API */
 	const API_URL = 'https://maps.googleapis.com/maps/api/js';
 
+	/**
+	 * Versie
+	 * - `weekly`
+	 * - `quarterly`
+	 * - `beta`
+	 * - `n.nn` (specifieke versie)
+	 *
+	 * @see https://developers.google.com/maps/documentation/javascript/versions#release-channels-and-version-numbers
+	*/
+	const VERSION = 'weekly';
+
 	/** {@inheritDoc} */
 	public function register_script() {
 		$google_maps_url = add_query_arg(
 			[
 				'key' => siw_get_option( 'google_maps.api_key', '' ),
+				'v'   => self::VERSION,
 			],
 			self::API_URL
 		);
