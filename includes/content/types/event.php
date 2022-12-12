@@ -97,6 +97,7 @@ class Event extends Type {
 				'id'      => 'location',
 				'type'    => 'group',
 				'visible' => [ 'online', false ],
+				'binding' => false,
 				'fields'  => [
 					[
 						'name' => __( 'Locatie', 'siw' ),
@@ -115,6 +116,7 @@ class Event extends Type {
 						'type'     => 'text',
 						'size'     => 100,
 						'required' => true,
+						'binding'  => 'name',
 					],
 					[
 						'id'       => 'street',

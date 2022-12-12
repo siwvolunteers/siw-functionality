@@ -15,7 +15,7 @@ use SIW\Interfaces\Assets\Script;
 class Google_Maps implements Script, External {
 
 	/** Handle voor assets */
-	const ASSETS_HANDLE = 'google-maps';
+	const ASSETS_HANDLE = 'google-maps-js';
 
 	/** URL voor Google Maps API */
 	const API_URL = 'https://maps.googleapis.com/maps/api/js';
