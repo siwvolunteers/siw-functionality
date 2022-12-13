@@ -37,11 +37,6 @@ class Configuration implements Option_Interface {
 	public function get_tabs() : array {
 		$tabs = [
 			[
-				'id'    => 'blacklists',
-				'label' => __( 'Blacklists', 'siw' ),
-				'icon'  => 'dashicons-shield',
-			],
-			[
 				'id'    => 'pages',
 				'label' => __( "Pagina's", 'siw' ),
 				'icon'  => 'dashicons-admin-page',
@@ -121,20 +116,6 @@ class Configuration implements Option_Interface {
 					'options' => Util::get_pages(),
 				],
 			],
-		];
-
-		// Blacklists
-		$fields[] = [
-			'type' => 'heading',
-			'name' => __( 'Bot blacklist', 'siw' ),
-			'tab'  => 'blacklists',
-		];
-		$fields[] = [
-			'id'         => 'blocked_bots',
-			'type'       => 'text',
-			'tab'        => 'blacklists',
-			'clone'      => true,
-			'add_button' => __( 'User agent toevoegen', 'siw' ),
 		];
 
 		return $fields;
