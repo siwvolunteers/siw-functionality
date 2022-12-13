@@ -35,7 +35,6 @@ class The_SEO_Framework {
 		/* Sitemap */
 		add_filter( 'the_seo_framework_sitemap_color_main', fn(): string => CSS::CONTRAST_COLOR );
 		add_filter( 'the_seo_framework_sitemap_color_accent', fn(): string => CSS::ACCENT_COLOR );
-		add_filter( 'the_seo_framework_sitemap_supported_post_types', [ $self, 'set_sitemap_supported_post_types' ] );
 		add_filter( 'the_seo_framework_sitemap_additional_urls', [ $self, 'set_sitemap_additional_urls' ] );
 
 		/* Naam auteur SEO framework niet in HTML tonen */
@@ -56,16 +55,6 @@ class The_SEO_Framework {
 			$output .= 'Disallow: /' . PHP_EOL . PHP_EOL;
 		}
 		return $output;
-	}
-
-	/** Toon alleen pagina's in Engelse sitemap */
-	public function set_sitemap_supported_post_types( array $post_types ): array {
-
-		if ( ! I18n::is_default_language() ) {
-			$post_types = [];
-			$post_types[] = 'page';
-		}
-		return $post_types;
 	}
 
 	/** Productarchieven toevoegen aan de sitemap TODO: verplaatsen naar WooCommerce*/
