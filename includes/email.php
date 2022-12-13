@@ -32,16 +32,16 @@ class Email {
 	/** Zet SMTP-instellingen */
 	public function set_smtp_configuration( PHPMailer $phpmailer ) {
 		/*SMTP-configuratie*/
-		if ( siw_get_option( 'smtp_enabled' ) ) {
+		if ( Config::get_smtp_enabled() ) {
 			$phpmailer->isSMTP();
-			$smtp_settings = siw_get_option( 'smtp_settings' );
 			// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$phpmailer->Host = $smtp_settings['host'];
-			$phpmailer->Port = $smtp_settings['port'];
-			$phpmailer->SMTPAuth = (bool) $smtp_settings['authentication'];
-			$phpmailer->Username = $smtp_settings['username'];
-			$phpmailer->Password = $smtp_settings['password'];
-			$phpmailer->SMTPSecure = $smtp_settings['encryption'];
+			$phpmailer->Host = Config::get_smtp_host();
+			$phpmailer->Port = Config::get_smtp_port();
+			$phpmailer->SMTPAuth = null !== Config::get_smtp_username() && null !== Config::get_smtp_password();
+			$phpmailer->Username = Config::get_smtp_username();
+			$phpmailer->Password = Config::get_smtp_password();
+
+			$phpmailer->SMTPSecure = in_array( Config::get_smtp_encryption(), [ PHPMailer::ENCRYPTION_SMTPS, PHPMailer::ENCRYPTION_STARTTLS ] ) ? Config::get_smtp_encryption() : '';
 			$phpmailer->Sender = $phpmailer->From;
 			// phpcs:enable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
@@ -49,14 +49,13 @@ class Email {
 
 	/** Zet DKIM-signing */
 	public function set_dkim_configuration( PHPMailer $phpmailer ) {
-		if ( siw_get_option( 'dkim_enabled' ) && defined( 'SIW_DKIM_PASSPHRASE' ) ) {
-			$dkim_settings = siw_get_option( 'dkim_settings' );
+		if ( Config::get_dkim_enabled() ) {
 			// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-			$phpmailer->DKIM_selector = $dkim_settings['selector'];
-			$phpmailer->DKIM_domain = $dkim_settings['domain'];
+			$phpmailer->DKIM_selector = Config::get_dkim_selector();
+			$phpmailer->DKIM_domain = Config::get_dkim_domain();
 			$phpmailer->DKIM_identity = $phpmailer->From;
-			$phpmailer->DKIM_passphrase = defined( 'SIW_DKIM_PASSPHRASE' ) ? SIW_DKIM_PASSPHRASE : '';
-			$phpmailer->DKIM_private_string = $dkim_settings['key'];
+			$phpmailer->DKIM_passphrase = Config::get_dkim_passphrase();
+			$phpmailer->DKIM_private = Config::get_dkim_private_key_file_path();
 			// phpcs:enable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
 	}

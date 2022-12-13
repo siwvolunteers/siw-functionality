@@ -1,15 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace SIW\External;
+namespace SIW\Integrations;
 
 use Pharaonic\DotArray\DotArray;
+use SIW\Config;
 use SIW\Helpers\HTTP_Request;
 use SIW\Util\Logger;
 
 /**
  * Google Maps
  *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2021-2022 SIW Internationale Vrijwilligersprojecten
  *
  * @link      https://developers.google.com/maps/documentation
  */
@@ -20,6 +21,10 @@ class Google_Maps {
 
 	/** Endpoint van geocoding TODO: php8.1 enum van alle api endpoints */
 	const GEOCODING_API_ENDPOINT = 'geocode';
+	const PLACE_DETAILS_ENDPOINT = 'place/details';
+
+	/** Place ID van SIW kantoor */
+	const PLACE_ID = 'ChIJASkeAkNvxkcRdFKFUI1K6f4';
 
 	/** Status code OK TODO:php8.1 enum van statuscodes maken */
 	const STATUS_OK = 'OK';
@@ -58,19 +63,17 @@ class Google_Maps {
 		'APPROXIMATE',
 	];
 
-	/** API key */
-	protected string $api_key;
-
 	/** Init */
-	public function __construct() {
-		$this->api_key = siw_get_option( 'google_maps.server_side_api_key', '' );
+	public static function create(): static {
+		$self = new self();
+		return $self;
 	}
 
 	/** Reverse geocoding (van adres naar coördinaten)  */
 	public function reverse_geocode( string $address ): ?array {
 		$url = add_query_arg(
 			[
-				'key'     => $this->api_key,
+				'key'     => Config::get_google_maps_api_key(),
 				'address' => rawurlencode( $address ),
 			],
 			$this->get_api_endpoint_url( self::GEOCODING_API_ENDPOINT )
@@ -94,7 +97,7 @@ class Google_Maps {
 	public function geocode( float $latitude, float $longitude, string $location_type = null, string $result_type = null ): ?array {
 		$url = add_query_arg(
 			[
-				'key'           => $this->api_key,
+				'key'           => Config::get_google_maps_api_key(),
 				'latlng'        => "{$latitude},{$longitude}",
 				'location_type' => ( null !== $location_type && $this->is_valid_location_type( $location_type ) ) ? $location_type : null,
 				'result_type'   => ( null !== $result_type && $this->is_valid_result_type( $result_type ) ) ? $result_type : null,
@@ -117,16 +120,34 @@ class Google_Maps {
 		return $address;
 	}
 
+	/** Zoek details van plaats op */
+	public function get_place_details( string $place_id = self::PLACE_ID, array $fields = [] ): array {
+		$url = add_query_arg(
+			[
+				'key'      => Config::get_google_maps_api_key(),
+				'place_id' => $place_id,
+				'fields'   => implode( ',', $fields ),
+			],
+			$this->get_api_endpoint_url( self::PLACE_DETAILS_ENDPOINT )
+		);
+		$response = HTTP_Request::create( $url )->get();
+		if ( is_wp_error( $response ) || ! $this->check_status( $response ) ) {
+			return [];
+		}
+
+		return $response['result'] ?? [];
+	}
+
 	/** Check of status ok is; log anders de foutmelding */
 	protected function check_status( array $response ): bool {
 		if ( self::STATUS_OK === $response['status'] ) {
 			return true;
 		}
-		Logger::error( $response['error_message'], 'siw-google-maps' );
+		Logger::error( $response['error_message'], static::class );
 		return false;
 	}
 
-	/** Check of de location typ valide is */
+	/** Check of de location type valide is */
 	protected function is_valid_location_type( string $location_type ): bool {
 		return in_array( $location_type, self::LOCATION_TYPES, true );
 	}

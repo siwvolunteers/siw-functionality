@@ -2,6 +2,7 @@
 
 namespace SIW\External;
 
+use SIW\Config;
 use SIW\Helpers\HTTP_Request;
 
 /**
@@ -16,16 +17,8 @@ class Exchange_Rates {
 	/** API url */
 	const API_URL = 'http://data.fixer.io/api/latest';
 
-	/** API key */
-	protected string $api_key;
-
 	/** Transient naam */
 	protected string $transient_name = 'siw_exchange_rates';
-
-	/** Constructor */
-	public function __construct() {
-		$this->api_key = siw_get_option( 'fixer.api_key' );
-	}
 
 	/** Geeft wisselkoersen terug */
 	public function get_rates() : array {
@@ -50,7 +43,7 @@ class Exchange_Rates {
 	protected function retrieve_rates() : ?array {
 		$url = add_query_arg(
 			[
-				'access_key' => $this->api_key,
+				'access_key' => Config::get_fixer_io_api_key(),
 			],
 			self::API_URL
 		);

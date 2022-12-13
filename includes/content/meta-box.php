@@ -2,6 +2,8 @@
 
 namespace SIW\Content;
 
+use SIW\Config;
+
 /**
  * Voegt metabox toe bij CPT
  *
@@ -28,7 +30,7 @@ class Meta_Box {
 			'priority'    => 'high',
 			'fields'      => $this->get_fields(),
 			'geo'         => [
-				'api_key' => siw_get_option( 'google_maps.api_key' ), // TODO: conditioneel maken?
+				'api_key' => Config::get_google_maps_js_api_key(),
 				'types'   => [ 'establishment' ],
 			],
 		];

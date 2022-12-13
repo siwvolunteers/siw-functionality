@@ -2,6 +2,7 @@
 
 namespace SIW\Assets;
 
+use SIW\Config;
 use SIW\Interfaces\Assets\External;
 use SIW\Interfaces\Assets\Script;
 
@@ -35,7 +36,7 @@ class Google_Maps implements Script, External {
 	public function register_script() {
 		$google_maps_url = add_query_arg(
 			[
-				'key' => siw_get_option( 'google_maps.api_key', '' ),
+				'key' => Config::get_google_maps_js_api_key(),
 				'v'   => self::VERSION,
 			],
 			self::API_URL

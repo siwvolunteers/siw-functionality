@@ -2,6 +2,7 @@
 
 namespace SIW\Forms\Forms;
 
+use SIW\Config;
 use SIW\I18n;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
@@ -45,7 +46,7 @@ class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 			[
 				'id'      => 'list_id',
 				'type'    => 'hidden',
-				'std'     => siw_get_option( 'newsletter_list' ),
+				'std'     => Config::get_mailjet_newsletter_list_id(),
 				'columns' => Form_Interface::FULL_WIDTH,
 			],
 		];
