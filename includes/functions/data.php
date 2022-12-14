@@ -147,8 +147,10 @@ function siw_get_opening_hours(): array {
 	$opening_periods = get_transient( __FUNCTION__ );
 	if ( ! is_array( $opening_periods ) ) {
 		$place_details = Google_Maps::create()->get_place_details();
-		$opening_periods = $place_details['current_opening_hours']['periods'];
-		set_transient( __FUNCTION__, $opening_periods, DAY_IN_SECONDS );
+		$opening_periods = $place_details['current_opening_hours']['periods'] ?? [];
+		if ( ! empty( $opening_periods ) ) {
+			set_transient( __FUNCTION__, $opening_periods, DAY_IN_SECONDS );
+		}
 	}
 
 	$opening_hours = [];
