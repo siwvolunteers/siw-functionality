@@ -22,28 +22,11 @@ class Mapplic implements Style, Script {
 
 	/** Registreert style */
 	public function register_style() {
-		// $deps = [];
-		// if ( true == $this->get_option( 'lightbox' ) ) {
-		// wp_register_style( self::MAGNIFIC_POPUP_STYLE_HANDLE, $this->mapplic_url . 'css/magnific-popup.css', [], self::MAPPLIC_VERSION );
-		// $deps[] = self::MAGNIFIC_POPUP_STYLE_HANDLE;
-		// }
-
 		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'vendor/mapplic/css/mapplic.css', [], self::VERSION );
 	}
 
 	/** Registreert script */
 	public function register_script() {
-
-		// $deps = [ 'jquery' ];
-		// if ( true == $this->get_option( 'lightbox' ) ) {
-		// wp_register_script( self::MAGNIFIC_POPUP_SCRIPT_HANDLE, $this->mapplic_url . 'js/magnific-popup.js', [ 'jquery' ], self::MAPPLIC_VERSION, true );
-		// $deps[] = self::MAGNIFIC_POPUP_SCRIPT_HANDLE;
-		// }
-		// if ( true == $this->get_option( 'mousewheel' ) ) {
-		// wp_register_script( self::MOUSEWHEEL_SCRIPT_HANDLE, $this->mapplic_url . 'js/jquery.mousewheel.js', [ 'jquery' ], self::MAPPLIC_VERSION, true );
-		// $deps[] = self::MOUSEWHEEL_SCRIPT_HANDLE;
-		// }
-
 		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'vendor/mapplic/js/mapplic.js', [ 'jquery' ], self::VERSION, true );
 		$mapplic_localization = [
 			'more'        => __( 'Meer', 'siw' ),
