@@ -95,37 +95,4 @@ class Mailjet {
 			$lists
 		);
 	}
-
-	/** Haalt gegevens van lijst op */
-	public function get_list( string $list_id ) : array {
-		$list = get_transient( "siw_newsletter_list_{$list_id}" );
-
-		if ( ! is_array( $list ) ) {
-			$list = $this->retrieve_list( $list_id );
-			if ( empty( $list ) ) {
-				return [];
-			}
-			set_transient( "siw_newsletter_list_{$list_id}", $list, HOUR_IN_SECONDS );
-		}
-		return $list;
-	}
-
-	/** Haalt gegevens van lijst op */
-	protected function retrieve_list( string $list_id ) : array {
-		$url = self::API_URL . "/{$this->api_version}/REST/contactslist/{$list_id}";
-
-		$response = HTTP_Request::create( $url )
-			->set_basic_auth( $this->api_key, $this->secret_key )
-			->get();
-		if ( is_wp_error( $response ) ) {
-			return [];
-		}
-
-		$list = $response['Data'][0];
-		return [
-			'id'               => $list['ID'],
-			'name'             => $list['Name'],
-			'subscriber_count' => $list['SubscriberCount'],
-		];
-	}
 }

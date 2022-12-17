@@ -23,13 +23,6 @@ function siw_newsletter_get_lists( bool $include_subscriber_count = true ): arra
 	return $lists;
 }
 
-/** Geeft aantal abonnees van lijst terug */
-function siw_newsletter_get_subscriber_count( string $list_id ): int {
-	$mailjet = new Mailjet();
-	$list = $mailjet->get_list( $list_id );
-	return $list['subscriber_count'] ?? 0;
-}
-
 /** Abonnee aanmelden voor nieuwsbrief */
 function siw_newsletter_subscribe( string $email, int $list_id, array $properties = [] ): bool {
 	$mailjet = new Mailjet();
