@@ -14,6 +14,10 @@ use SIW\Properties;
  */
 class Export_Plato_Application implements Async_Action_Interface {
 
+	const ORDER_META_EXPORTED_TO_PLATO = '_exported_to_plato';
+	const SUCCESS = 'success';
+	const FAILED = 'failed';
+
 	/** Aantal gefaalde geexporteerde aanmeldingen */
 	protected int $failed_count = 0;
 
@@ -57,10 +61,10 @@ class Export_Plato_Application implements Async_Action_Interface {
 
 		/* Resultaat opslaan bij aanmelding */
 		if ( 0 !== $this->failed_count ) {
-			$order->update_meta_data( '_exported_to_plato', 'failed' );
+			$order->update_meta_data( self::ORDER_META_EXPORTED_TO_PLATO, self::FAILED );
 			$order->save();
 		} elseif ( 0 !== $this->success_count ) {
-			$order->update_meta_data( '_exported_to_plato', 'success' );
+			$order->update_meta_data( self::ORDER_META_EXPORTED_TO_PLATO, self::SUCCESS );
 			$order->save();
 		}
 	}

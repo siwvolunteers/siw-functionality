@@ -2,12 +2,17 @@
 
 namespace SIW\WooCommerce\Admin;
 
+use SIW\Actions\Async\Export_Plato_Application;
+
 /**
  * Extra Admin columns voor aanmeldingen
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Order_Columns extends \MBAC\Post {
+
+	const COLUMN_PROJECTS = 'projects';
+	const COLUMN_EXPORTED = 'exported';
 
 	/**
 	 * Voegt extra columns toe
@@ -17,8 +22,8 @@ class Order_Columns extends \MBAC\Post {
 	 */
 	public function columns( $columns ) {
 		$columns = parent::columns( $columns );
-		$this->add( $columns, 'projects', __( 'Projecten', 'siw' ), 'after', 'order_total' );
-		$this->add( $columns, 'exported', __( 'Export naar PLATO', 'siw' ), 'after', 'projects' );
+		$this->add( $columns, self::COLUMN_PROJECTS, __( 'Projecten', 'siw' ), 'after', 'order_total' );
+		$this->add( $columns, self::COLUMN_EXPORTED, __( 'Export naar PLATO', 'siw' ), 'after', 'projects' );
 		unset( $columns['billing_address'] );
 		unset( $columns['shipping_address'] );
 		return $columns;
@@ -33,7 +38,7 @@ class Order_Columns extends \MBAC\Post {
 	public function show( $column, $post_id ) {
 		switch ( $column ) {
 
-			case 'projects':
+			case self::COLUMN_PROJECTS:
 				$order = wc_get_order( $post_id );
 
 				/** @var \WC_Order_Item_Product[] */
@@ -45,12 +50,12 @@ class Order_Columns extends \MBAC\Post {
 				}
 				break;
 
-			case 'exported':
+			case self::COLUMN_EXPORTED:
 				$order = wc_get_order( $post_id );
-				$exported = $order->get_meta( '_exported_to_plato' );
-				if ( 'success' === $exported ) {
+				$exported = $order->get_meta( Export_Plato_Application::ORDER_META_EXPORTED_TO_PLATO );
+				if ( Export_Plato_Application::SUCCESS === $exported ) {
 					$dashicon = 'yes';
-				} elseif ( 'failed' === $exported ) {
+				} elseif ( Export_Plato_Application::FAILED === $exported ) {
 					$dashicon = 'no';
 				} else {
 					$dashicon = 'minus';
