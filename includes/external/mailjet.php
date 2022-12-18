@@ -45,7 +45,6 @@ class Mailjet {
 		);
 
 		$response = HTTP_Request::create( $url )
-			->add_accepted_response_code( \WP_Http::CREATED )
 			->set_basic_auth( $this->api_key, $this->secret_key )
 			->post( $body );
 
