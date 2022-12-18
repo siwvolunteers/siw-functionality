@@ -79,7 +79,7 @@ class Event extends Type {
 			],
 			[
 				'id'            => 'info_day',
-				'name'          => __( 'Infodag', 'siw' ),
+				'name'          => __( 'Infodag van SIW', 'siw' ),
 				'type'          => 'switch',
 				'on_label'      => __( 'Ja', 'siw' ),
 				'off_label'     => __( 'Nee', 'siw' ),
@@ -97,6 +97,7 @@ class Event extends Type {
 				'id'      => 'location',
 				'type'    => 'group',
 				'visible' => [ 'online', false ],
+				'binding' => false,
 				'fields'  => [
 					[
 						'name' => __( 'Locatie', 'siw' ),
@@ -115,6 +116,7 @@ class Event extends Type {
 						'type'     => 'text',
 						'size'     => 100,
 						'required' => true,
+						'binding'  => 'name',
 					],
 					[
 						'id'       => 'street',
@@ -185,7 +187,7 @@ class Event extends Type {
 			],
 			[
 				'id'        => 'different_organizer',
-				'name'      => __( 'Andere organisator', 'siw' ),
+				'name'      => __( 'Andere organisator dan SIW', 'siw' ),
 				'type'      => 'switch',
 				'visible'   => [ 'info_day', false ],
 				'on_label'  => __( 'Ja', 'siw' ),

@@ -109,8 +109,13 @@ class Meta_Box {
 	public function sanitize_group( array $values, array $group, $old_value = null, $object_id = null ): array {
 		foreach ( $group['fields'] as $field ) {
 			$key = $field['id'];
-			$old = isset( $old_value[ $key ] ) ? $old_value[ $key ] : null;
-			$new = isset( $values[ $key ] ) ? $values[ $key ] : null;
+			$old = $old_value[ $key ] ?? null;
+			$new = $values[ $key ] ?? null;
+
+			if ( null === $new ) {
+				$sanitized[ $key ] = null;
+				continue;
+			}
 
 			if ( $field['clone'] ) {
 				$new = \RWMB_Clone::value( $new, $old, $object_id, $field );

@@ -61,10 +61,10 @@ class Properties {
 	const STV_PROJECT_FEE = 295;
 
 	/** Fee voor MTV-projecten */
-	const MTV_PROJECT_FEE = 375;
+	const MTV_PROJECT_FEE = 395;
 
 	/** Fee voor LTV-projecten */
-	const LTV_PROJECT_FEE = 475;
+	const LTV_PROJECT_FEE = 495;
 
 	/** Fee voor Nederlandse projecten */
 	const DUTCH_PROJECT_FEE = 195;

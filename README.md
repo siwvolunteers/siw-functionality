@@ -7,7 +7,6 @@ Extra functionaliteit t.b.v. www.siw.nl
 - [Frappe Charts ](https://github.com/frappe/charts)
 - [JavaScript Cookie](https://github.com/js-cookie/js-cookie)
 - [Flickity](https://github.com/metafizzy/flickity)
-- [wp_parse_args_recursive](https://github.com/kallookoo/wp_parse_args_recursive)
 - [Convert an array to xml](https://github.com/spatie/array-to-xml)
 - [Sal.js](https://mciastek.github.io/sal/)
 - [Balloon.css](https://kazzkiq.github.io/balloon.css/)

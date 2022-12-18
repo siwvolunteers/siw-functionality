@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use SIW\Data\Email_Settings;
+use SIW\Integrations\Google_Maps;
 
 /**
  * Functies m.b.t. referentiegegevens
@@ -143,32 +144,29 @@ function siw_get_interactive_maps(): array {
 function siw_get_opening_hours(): array {
 	global $wp_locale;
 
-	// Ophalen openingstijden
-	$opening_hours = siw_get_option( 'opening_hours' );
+	$opening_periods = get_transient( __FUNCTION__ );
+	if ( ! is_array( $opening_periods ) ) {
+		$place_details = Google_Maps::create()->get_place_details();
+		$opening_periods = $place_details['current_opening_hours']['periods'] ?? [];
+		if ( ! empty( $opening_periods ) ) {
+			set_transient( __FUNCTION__, $opening_periods, DAY_IN_SECONDS );
+		}
+	}
 
-	$opening_hours = array_map(
-		fn( array $value ): string => $value['open'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' ),
-		array_filter( $opening_hours )
-	);
-
-	// Ophalen afwijkende openingstijden
-	$special_opening_hours = siw_get_option( 'special_opening_hours', [] );
-
-	$special_opening_hours = array_map(
-		fn( array $value ): string => $value['opened'] ? sprintf( '%s-%s', $value['opening_time'], $value['closing_time'] ) : __( 'gesloten', 'siw' ),
-		array_column( $special_opening_hours, null, 'date' )
-	);
+	$opening_hours = [];
+	foreach ( $opening_periods as $period ) {
+		$day = $period['open']['day'];
+		$open = wp_date( __( 'g:i a' ), strtotime( $period['open']['time'] . wp_timezone_string() ) ); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+		$close = wp_date( __( 'g:i a' ), strtotime( $period['close']['time'] . wp_timezone_string() ) ); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
+		$opening_hours[ $day ][] = "{$open}-{$close}";
+	}
 
 	$daterange = new \DatePeriod( new \DateTime( 'today' ), new \DateInterval( 'P1D' ), 6 );
 	foreach ( $daterange as $date ) {
-		$day_number = $date->format( 'w' );
+		$day_number = (int) $date->format( 'w' );
 		$day_name = ucfirst( $wp_locale->get_weekday( $day_number ) );
-		$opening_times = $opening_hours[ "day_{$day_number}" ];
+		$opening_times = isset( $opening_hours[ $day_number ] ) ? implode( ',', $opening_hours[ $day_number ] ) : __( 'gesloten', 'siw' );
 
-		// Bepaal afwijkende openingstijden (indien van toepassing)
-		if ( isset( $special_opening_hours[ $date->format( 'Y-m-d' ) ] ) ) {
-			$opening_times = sprintf( '<del>%s</del> <ins>%s</ins>', $opening_times, $special_opening_hours[ $date->format( 'Y-m-d' ) ] );
-		}
 		// Huidige dag bold maken
 		$data[] = [
 			( $daterange->start === $date ) ? '<b>' . $day_name . '</b>' : $day_name,

@@ -2,6 +2,7 @@
 
 namespace SIW\WooCommerce\Import;
 
+use SIW\Config;
 use SIW\Util;
 use SIW\Data\Country;
 use SIW\Data\Language;
@@ -488,7 +489,7 @@ class Product {
 
 		// Probeer Plato-afbeelding op te halen ( indien van toepassing )
 		if (
-			siw_get_option( 'plato.download_images' ) &&
+			Config::get_plato_download_images() &&
 			! empty( $this->plato_project->get_image_file_identifiers() ) &&
 			! $this->product->use_stockfoto()
 		) {

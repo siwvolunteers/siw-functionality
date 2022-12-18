@@ -44,6 +44,23 @@ if ( ! function_exists( 'get_query_arg' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_parse_args_recursive' ) ) {
+	/** Net als wp_parse_args maar dan voor nested arrays */
+	function wp_parse_args_recursive( array $args, array $defaults = [] ): array { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
+		$new_args = $defaults;
+
+		foreach ( $args as $key => $value ) {
+			if ( is_array( $value ) && isset( $new_args[ $key ] ) ) {
+				$new_args[ $key ] = wp_parse_args_recursive( $value, $new_args[ $key ] );
+			} else {
+				$new_args[ $key ] = $value;
+			}
+		}
+
+		return $new_args;
+	}
+}
+
 /** Wrapper om wp_hash */
 function siw_hash( string $data ): string {
 	return wp_hash( $data, 'siw' );

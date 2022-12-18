@@ -1,43 +1,6 @@
 {
     "packages": [
         {
-            "name": "kallookoo/wp_parse_args_recursive",
-            "version": "1.2.1",
-            "version_normalized": "1.2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kallookoo/wp_parse_args_recursive.git",
-                "reference": "b42119c04763bab5d4e4701fa39c39ee19c2448f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kallookoo/wp_parse_args_recursive/zipball/b42119c04763bab5d4e4701fa39c39ee19c2448f",
-                "reference": "b42119c04763bab5d4e4701fa39c39ee19c2448f",
-                "shasum": ""
-            },
-            "time": "2018-10-18T16:30:37+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "src/wp-parse-args-recursive.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Sergio (kallookoo)",
-                    "email": "sergio@dsergio.com"
-                }
-            ],
-            "description": "Like wp_parse_args but supports recursivity. By default converts the returned type based on the $args and $defaults",
-            "homepage": "https://github.com/kallookoo/wp_parse_args_recursive",
-            "install-path": "../kallookoo/wp_parse_args_recursive"
-        },
-        {
             "name": "luizbills/css-generator",
             "version": "v4.0.1",
             "version_normalized": "4.0.1.0",
@@ -200,17 +163,17 @@
         },
         {
             "name": "spatie/array-to-xml",
-            "version": "2.16.0",
-            "version_normalized": "2.16.0.0",
+            "version": "2.17.0",
+            "version_normalized": "2.17.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/array-to-xml.git",
-                "reference": "db39308c5236b69b89cadc3f44f191704814eae2"
+                "reference": "df0f116f26f6d3f84041e94d46811ee6b64fe7d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/db39308c5236b69b89cadc3f44f191704814eae2",
-                "reference": "db39308c5236b69b89cadc3f44f191704814eae2",
+                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/df0f116f26f6d3f84041e94d46811ee6b64fe7d5",
+                "reference": "df0f116f26f6d3f84041e94d46811ee6b64fe7d5",
                 "shasum": ""
             },
             "require": {
@@ -219,10 +182,11 @@
             },
             "require-dev": {
                 "mockery/mockery": "^1.2",
+                "pestphp/pest": "^1.21",
                 "phpunit/phpunit": "^9.0",
-                "spatie/phpunit-snapshot-assertions": "^4.2"
+                "spatie/pest-plugin-snapshots": "^1.1"
             },
-            "time": "2020-11-18T22:03:17+00:00",
+            "time": "2022-12-13T09:08:39+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -250,8 +214,7 @@
                 "xml"
             ],
             "support": {
-                "issues": "https://github.com/spatie/array-to-xml/issues",
-                "source": "https://github.com/spatie/array-to-xml/tree/2.16.0"
+                "source": "https://github.com/spatie/array-to-xml/tree/2.17.0"
             },
             "funding": [
                 {

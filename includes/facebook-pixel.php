@@ -24,7 +24,7 @@ class Facebook_Pixel {
 
 	/** Voeg script toe */
 	public function enqueue_script() {
-		$pixel_id = siw_get_option( 'facebook.pixel_id' );
+		$pixel_id = Config::get_meta_pixel_id();
 		if ( null === $pixel_id ) {
 			return;
 		}

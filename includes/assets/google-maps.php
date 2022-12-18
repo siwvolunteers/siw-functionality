@@ -2,6 +2,7 @@
 
 namespace SIW\Assets;
 
+use SIW\Config;
 use SIW\Interfaces\Assets\External;
 use SIW\Interfaces\Assets\Script;
 
@@ -15,16 +16,28 @@ use SIW\Interfaces\Assets\Script;
 class Google_Maps implements Script, External {
 
 	/** Handle voor assets */
-	const ASSETS_HANDLE = 'google-maps';
+	const ASSETS_HANDLE = 'google-maps-js';
 
 	/** URL voor Google Maps API */
 	const API_URL = 'https://maps.googleapis.com/maps/api/js';
+
+	/**
+	 * Versie
+	 * - `weekly`
+	 * - `quarterly`
+	 * - `beta`
+	 * - `n.nn` (specifieke versie)
+	 *
+	 * @see https://developers.google.com/maps/documentation/javascript/versions#release-channels-and-version-numbers
+	*/
+	const VERSION = 'weekly';
 
 	/** {@inheritDoc} */
 	public function register_script() {
 		$google_maps_url = add_query_arg(
 			[
-				'key' => siw_get_option( 'google_maps.api_key', '' ),
+				'key' => Config::get_google_maps_js_api_key(),
+				'v'   => self::VERSION,
 			],
 			self::API_URL
 		);

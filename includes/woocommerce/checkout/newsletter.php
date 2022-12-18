@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Checkout;
 
+use SIW\Config;
+
 /**
  * Aanmelding voor nieuwsbrief tijdens WooCommerce checkout
  *
@@ -49,7 +51,7 @@ class Newsletter {
 		}
 		siw_newsletter_subscribe(
 			$order->get_billing_email(),
-			(int) siw_get_option( 'newsletter_list' ),
+			Config::get_mailjet_newsletter_list_id(),
 			[
 				'firstname' => $order->get_billing_first_name(),
 				'lastname'  => $order->get_billing_last_name(),

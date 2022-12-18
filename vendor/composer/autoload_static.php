@@ -7,7 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
 {
     public static $files = array (
-        '6168384990757e5fc380d01d460961a8' => __DIR__ . '/..' . '/kallookoo/wp_parse_args_recursive/src/wp-parse-args-recursive.php',
         'ba75162b0a7adabdce2c95bb9e844752' => __DIR__ . '/..' . '/pharaonic/php-dot-array/src/helper.php',
     );
 

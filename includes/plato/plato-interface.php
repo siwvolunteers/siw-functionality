@@ -2,6 +2,8 @@
 
 namespace SIW\Plato;
 
+use SIW\Config;
+
 /**
  * Abstracte klasse voor interface met Plato (import en export)
  *
@@ -32,11 +34,11 @@ abstract class Plato_Interface {
 
 	/** Zet Plato-webkey */
 	protected function set_webkey() {
-		$this->webkey = siw_get_option( 'plato.organization_webkey' );
+		$this->webkey = Config::get_plato_organization_webkey();
 	}
 
 	/** Geeft Plato-webkey terug */
-	protected function get_webkey() : string {
+	protected function get_webkey(): string {
 		return $this->webkey;
 	}
 

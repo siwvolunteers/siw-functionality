@@ -29,43 +29,13 @@ class The_SEO_Framework {
 		/* SEO-metabox lagere prioriteit geven */
 		add_filter( 'the_seo_framework_metabox_priority', fn(): string => self::METABOX_PRIORITY );
 
-		/* Robots */
-		add_filter( 'the_seo_framework_robots_txt_pro', [ $self, 'set_robots_txt' ] );
-
 		/* Sitemap */
 		add_filter( 'the_seo_framework_sitemap_color_main', fn(): string => CSS::CONTRAST_COLOR );
 		add_filter( 'the_seo_framework_sitemap_color_accent', fn(): string => CSS::ACCENT_COLOR );
-		add_filter( 'the_seo_framework_sitemap_supported_post_types', [ $self, 'set_sitemap_supported_post_types' ] );
 		add_filter( 'the_seo_framework_sitemap_additional_urls', [ $self, 'set_sitemap_additional_urls' ] );
 
 		/* Naam auteur SEO framework niet in HTML tonen */
 		add_filter( 'sybre_waaijer_<3', '__return_false' );
-	}
-
-	/** Voegt bots toe aan robot.txt */
-	public function set_robots_txt( string $output ): string {
-		$bots = siw_get_option( 'blocked_bots' );
-
-		if ( empty( $bots ) ) {
-			return $output;
-		}
-		$output .= PHP_EOL;
-
-		foreach ( $bots as $bot ) {
-			$output .= 'User-agent: ' . esc_attr( $bot ) . PHP_EOL;
-			$output .= 'Disallow: /' . PHP_EOL . PHP_EOL;
-		}
-		return $output;
-	}
-
-	/** Toon alleen pagina's in Engelse sitemap */
-	public function set_sitemap_supported_post_types( array $post_types ): array {
-
-		if ( ! I18n::is_default_language() ) {
-			$post_types = [];
-			$post_types[] = 'page';
-		}
-		return $post_types;
 	}
 
 	/** Productarchieven toevoegen aan de sitemap TODO: verplaatsen naar WooCommerce*/

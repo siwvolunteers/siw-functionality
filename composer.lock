@@ -4,46 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f1337818cff84a700860e896940b1af4",
+    "content-hash": "0a279e825783f78f740c7ec37c825c69",
     "packages": [
-        {
-            "name": "kallookoo/wp_parse_args_recursive",
-            "version": "1.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kallookoo/wp_parse_args_recursive.git",
-                "reference": "b42119c04763bab5d4e4701fa39c39ee19c2448f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kallookoo/wp_parse_args_recursive/zipball/b42119c04763bab5d4e4701fa39c39ee19c2448f",
-                "reference": "b42119c04763bab5d4e4701fa39c39ee19c2448f",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/wp-parse-args-recursive.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Sergio (kallookoo)",
-                    "email": "sergio@dsergio.com"
-                }
-            ],
-            "description": "Like wp_parse_args but supports recursivity. By default converts the returned type based on the $args and $defaults",
-            "homepage": "https://github.com/kallookoo/wp_parse_args_recursive",
-            "support": {
-                "issues": "https://github.com/kallookoo/wp_parse_args_recursive/issues",
-                "source": "https://github.com/kallookoo/wp_parse_args_recursive/tree/master"
-            },
-            "time": "2018-10-18T16:30:37+00:00"
-        },
         {
             "name": "luizbills/css-generator",
             "version": "v4.0.1",

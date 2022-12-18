@@ -3,6 +3,7 @@
 namespace SIW\Page_Builder;
 
 use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
+use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
 use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
 
 use SIW\Util\CSS;
@@ -12,7 +13,7 @@ use SIW\Util\CSS;
  *
  * @copyright 2021-2022 SIW Internationale Vrijwilligersprojecten
  */
-class Visibility implements I_Style_Group, I_Style_Attributes {
+class Visibility implements I_Style_Group, I_Style_Fields, I_Style_Attributes {
 
 	/** Style groep */
 	const STYLE_GROUP = 'siw_visibility';

@@ -6,7 +6,6 @@
 		<custom-type translate="0">siw_tm_country</custom-type>
 	</custom-types>
 	<taxonomies>
-		<taxonomy translate="0">siw_job_posting_type</taxonomy>
 		<taxonomy translate="0">siw_story_continent</taxonomy>
 		<taxonomy translate="0">siw_story_project_type</taxonomy>
 		<taxonomy translate="0">siw_tm_country_continent</taxonomy>

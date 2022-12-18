@@ -70,11 +70,12 @@ class Story extends Type {
 				'add_button' => __( 'Rij toevoegen', 'siw' ),
 				'fields'     => [
 					[
-						'id'       => 'quote',
-						'name'     => __( 'Quote', 'siw' ),
-						'type'     => 'text',
-						'required' => true,
-						'size'     => 100,
+						'id'        => 'quote',
+						'name'      => __( 'Quote', 'siw' ),
+						'type'      => 'text',
+						'required'  => true,
+						'size'      => 100,
+						'maxlength' => 250,
 					],
 					[
 						'id'               => 'image',

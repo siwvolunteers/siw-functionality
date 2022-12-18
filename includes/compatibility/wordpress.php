@@ -43,7 +43,6 @@ class WordPress {
 		add_action( 'do_feed_rss2_comments', [ $self, 'disable_feed' ], 1 );
 		add_action( 'do_feed_atom_comments', [ $self, 'disable_feed' ], 1 );
 
-		add_filter( 'safe_style_css', [ $self, 'add_allowed_css_attributes' ] );
 		add_filter( 'embed_oembed_html', [ $self, 'fix_youtube_embed' ] );
 
 		// Attachments
@@ -125,15 +124,6 @@ class WordPress {
 	public function remove_update_check( array $tests ): array {
 		unset( $tests['async']['background_updates'] );
 		return $tests;
-	}
-
-	/** Voegt toegestane css attributen toe */
-	public function add_allowed_css_attributes( array $attributes ): array {
-		$attributes[] = 'fill';
-		$attributes[] = 'opacity';
-		$attributes[] = 'transform';
-		$attributes[] = 'content';
-		return $attributes;
 	}
 
 	/**

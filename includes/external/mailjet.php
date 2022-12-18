@@ -2,6 +2,7 @@
 
 namespace SIW\External;
 
+use SIW\Config;
 use SIW\Helpers\HTTP_Request;
 
 /**
@@ -27,8 +28,8 @@ class Mailjet {
 
 	/** Zet API keys */
 	public function __construct() {
-		$this->api_key = siw_get_option( 'mailjet.api_key', '' );
-		$this->secret_key = siw_get_option( 'mailjet.secret_key', '' );
+		$this->api_key = Config::get_mailjet_api_key();
+		$this->secret_key = Config::get_mailjet_secret_key();
 	}
 
 	/** Voegt abonnee toe aan maillijst */
@@ -93,38 +94,5 @@ class Mailjet {
 			},
 			$lists
 		);
-	}
-
-	/** Haalt gegevens van lijst op */
-	public function get_list( string $list_id ) : array {
-		$list = get_transient( "siw_newsletter_list_{$list_id}" );
-
-		if ( ! is_array( $list ) ) {
-			$list = $this->retrieve_list( $list_id );
-			if ( empty( $list ) ) {
-				return [];
-			}
-			set_transient( "siw_newsletter_list_{$list_id}", $list, HOUR_IN_SECONDS );
-		}
-		return $list;
-	}
-
-	/** Haalt gegevens van lijst op */
-	protected function retrieve_list( string $list_id ) : array {
-		$url = self::API_URL . "/{$this->api_version}/REST/contactslist/{$list_id}";
-
-		$response = HTTP_Request::create( $url )
-			->set_basic_auth( $this->api_key, $this->secret_key )
-			->get();
-		if ( is_wp_error( $response ) ) {
-			return [];
-		}
-
-		$list = $response['Data'][0];
-		return [
-			'id'               => $list['ID'],
-			'name'             => $list['Name'],
-			'subscriber_count' => $list['SubscriberCount'],
-		];
 	}
 }

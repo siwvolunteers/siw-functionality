@@ -14,7 +14,6 @@ class Admin_Bar {
 		$self = new self();
 		add_action( 'admin_bar_menu', [ $self, 'remove_nodes' ], PHP_INT_MAX );
 		add_action( 'admin_bar_menu', [ $self, 'add_logo' ], 1 );
-		add_action( 'admin_bar_menu', [ $self, 'add_environment' ], 2 );
 	}
 
 	/** Verwijdert standaardnodes */
@@ -37,18 +36,4 @@ class Admin_Bar {
 		$wp_admin_bar->add_node( $logo_args );
 	}
 
-	/** Voegt omgeving toe adminbar */
-	public function add_environment( \WP_Admin_Bar $wp_admin_bar ) {
-		$env_type = \wp_get_environment_type();
-		$env_args = [
-			'id'     => 'siw-env',
-			'parent' => 'top-secondary',
-			'title'  => '<span class="ab-icon"></span><span class="ab-label">' . esc_html( ucfirst( $env_type ) ) . '</span>',
-			'meta'   => [
-				'title' => __( 'Omgeving', 'siw' ),
-				'class' => 'env-' . sanitize_title( $env_type ),
-			],
-		];
-		$wp_admin_bar->add_node( $env_args );
-	}
 }

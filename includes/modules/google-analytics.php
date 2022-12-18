@@ -3,6 +3,7 @@
 namespace SIW\Modules;
 
 use SIW\Assets\Google_Analytics as Google_Analytics_Asset;
+use SIW\Config;
 use SIW\HTML;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Taxonomy_Attribute;
@@ -27,7 +28,7 @@ class Google_Analytics {
 	const ACTION_REMOVE = 'remove';
 
 	/** Google Analytics property ID */
-	protected string $property_id;
+	protected ?string $property_id;
 
 	/** Instellingen voor tracker */
 	protected array $tracker_settings = [
@@ -62,7 +63,7 @@ class Google_Analytics {
 
 	/** Haalt het GA property ID op */
 	protected function set_property_id() {
-		$this->property_id = siw_get_option( 'google_analytics.property_id' );
+		$this->property_id = Config::get_google_analytics_property_id();
 	}
 
 	/** Geeft aan of tracking ingeschakeld moet worden */

@@ -2,8 +2,8 @@
 
 namespace SIW\Plato;
 
+use SIW\Config;
 use SIW\Helpers\HTTP_Request;
-use SIW\Util;
 
 /**
  * Export naar Plato
@@ -21,11 +21,11 @@ abstract class Export extends Plato_Interface {
 	/** Voer de Plato-export uit */
 	public function run( $data ) : array {
 
-		if ( ! Util::is_production() ) {
+		if ( ! Config::get_plato_export_applications() ) {
 			return [
 				'success'     => false,
 				'imported_id' => '',
-				'message'     => 'Geen productieomgeving',
+				'message'     => 'Aanmelding wordt niet geëxporteerd',
 			];
 		}
 		$this->data = $data;

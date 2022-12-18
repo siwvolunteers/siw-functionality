@@ -63,11 +63,6 @@ class Settings implements Option_Interface {
 				'icon'  => 'dashicons-admin-settings',
 			],
 			[
-				'id'    => 'opening_hours',
-				'label' => __( 'Openingstijden', 'siw' ),
-				'icon'  => 'dashicons-clock',
-			],
-			[
 				'id'    => 'job_postings',
 				'label' => __( 'Vacatures', 'siw' ),
 				'icon'  => 'dashicons-clipboard',
@@ -322,103 +317,6 @@ class Settings implements Option_Interface {
 					'required' => true,
 				],
 			],
-		];
-
-		// Openingstijden
-		global $wp_locale;
-		$days = $wp_locale->weekday;
-
-		/* Reguliere openingstijden */
-		$opening_hours_fields[] = [
-			'type' => 'heading',
-			'name' => __( 'Reguliere openingstijden', 'siw' ),
-		];
-		foreach ( $days as $slug => $name ) {
-			$day_fields = [
-				'id'     => "day_{$slug}",
-				'type'   => 'group',
-				'fields' => [
-					[
-						'type'    => 'custom_html',
-						'std'     => ucfirst( $name ),
-						'columns' => 2,
-					],
-					[
-						'id'        => 'open',
-						'type'      => 'switch',
-						'on_label'  => __( 'Geopend', 'siw' ),
-						'off_label' => __( 'Gesloten', 'siw' ),
-						'columns'   => 2,
-					],
-					[
-						'id'       => 'opening_time',
-						'type'     => 'time',
-						'columns'  => 4,
-						'prepend'  => __( 'Van', 'siw' ),
-						'required' => true,
-						'visible'  => [ "opening_hours[day_{$slug}][open]", true ],
-					],
-					[
-						'id'       => 'closing_time',
-						'type'     => 'time',
-						'columns'  => 4,
-						'prepend'  => __( 'Tot', 'siw' ),
-						'required' => true,
-						'visible'  => [ "opening_hours[day_{$slug}][open]", true ],
-					],
-				],
-			];
-			array_push( $opening_hours_fields, $day_fields );
-		}
-
-		/* Afwijkende openingstijden */
-		$special_opening_hours_fields = [
-			[
-				'id'      => 'date',
-				'type'    => 'date',
-				'columns' => 2,
-			],
-			[
-				'id'        => 'opened',
-				'type'      => 'switch',
-				'on_label'  => __( 'Geopend', 'siw' ),
-				'off_label' => __( 'Gesloten', 'siw' ),
-				'columns'   => 2,
-			],
-			[
-				'id'       => 'opening_time',
-				'type'     => 'time',
-				'columns'  => 4,
-				'prepend'  => __( 'Van', 'siw' ),
-				'required' => true,
-				'visible'  => [ 'opened', true ],
-			],
-			[
-				'id'       => 'closing_time',
-				'type'     => 'time',
-				'columns'  => 4,
-				'prepend'  => __( 'Tot', 'siw' ),
-				'required' => true,
-				'visible'  => [ 'opened', true ],
-			],
-		];
-		$fields[] = [
-			'id'     => 'opening_hours',
-			'type'   => 'group',
-			'tab'    => 'opening_hours',
-			'fields' => $opening_hours_fields,
-		];
-		$fields[] = [
-			'type' => 'heading',
-			'name' => __( 'Afwijkende openingstijden', 'siw' ),
-			'tab'  => 'opening_hours',
-		];
-		$fields[] = [
-			'id'     => 'special_opening_hours',
-			'type'   => 'group',
-			'tab'    => 'opening_hours',
-			'clone'  => true,
-			'fields' => $special_opening_hours_fields,
 		];
 
 		// Email
