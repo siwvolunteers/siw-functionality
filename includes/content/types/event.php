@@ -6,6 +6,7 @@ use SIW\Elements\Google_Maps;
 use SIW\Elements\Icon;
 use SIW\Util\Links;
 use SIW\Elements\Form;
+use SIW\Forms\Forms\Info_Day;
 use SIW\Helpers\Template;
 
 /**
@@ -274,7 +275,7 @@ class Event extends Type {
 
 		if ( siw_meta( 'info_day' ) ) {
 			// bij een informatie bijeenkomst een invulformulier tonen
-			$infoform = Form::create()->set_form_id( 'info_day' )->generate();
+			$infoform = Form::create()->set_form_id( Info_Day::FORM_ID )->set_field_value( 'info_day_date', siw_meta( 'event_date' ) )->generate();
 		} else {
 			// anders  tonen hoe je kunt aanmelden.
 			$application = siw_meta( 'application' );
