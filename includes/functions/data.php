@@ -167,10 +167,12 @@ function siw_get_opening_hours(): array {
 		$day_name = ucfirst( $wp_locale->get_weekday( $day_number ) );
 		$opening_times = isset( $opening_hours[ $day_number ] ) ? implode( ',', $opening_hours[ $day_number ] ) : __( 'gesloten', 'siw' );
 
+		$is_current_day = $daterange->start == $date; // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+
 		// Huidige dag bold maken
 		$data[] = [
-			( $daterange->start === $date ) ? '<b>' . $day_name . '</b>' : $day_name,
-			( $daterange->start === $date ) ? '<b>' . $opening_times . '</b>' : $opening_times,
+			$is_current_day ? '<b>' . $day_name . '</b>' : $day_name,
+			$is_current_day ? '<b>' . $opening_times . '</b>' : $opening_times,
 		];
 
 	}
