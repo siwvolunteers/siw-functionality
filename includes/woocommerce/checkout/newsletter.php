@@ -41,21 +41,22 @@ class Newsletter {
 		return $data;
 	}
 
-	/** Verwerkt aanmelding voor nieuwsbrief
-	 *
-	 * @todo tekst aan bevestigingsmail toevoegen */
+	/** Verwerkt aanmelding voor nieuwsbrief */
 	public function process_newsletter_signup( int $order_id, array $posted_data, \WC_Order $order ) {
 
 		if ( true !== $posted_data[ self::CHECKOUT_FIELD_KEY ] ) {
 			return;
 		}
-		siw_newsletter_subscribe(
-			$order->get_billing_email(),
-			Config::get_mailjet_newsletter_list_id(),
-			[
+
+		$data = [
+			'email'      => $order->get_billing_email(),
+			'list_id'    => Config::get_mailjet_newsletter_list_id(),
+			'properties' => [
 				'firstname' => $order->get_billing_first_name(),
 				'lastname'  => $order->get_billing_last_name(),
-			]
-		);
+			],
+		];
+
+		siw_enqueue_async_action( 'export_to_mailjet', $data );
 	}
 }

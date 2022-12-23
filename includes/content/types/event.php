@@ -8,6 +8,7 @@ use SIW\Util\Links;
 use SIW\Elements\Form;
 use SIW\Forms\Forms\Info_Day;
 use SIW\Helpers\Template;
+use SIW\Integrations\Mailjet;
 
 /**
  * Evenementen
@@ -194,7 +195,6 @@ class Event extends Type {
 				'on_label'  => __( 'Ja', 'siw' ),
 				'off_label' => __( 'Nee', 'siw' ),
 			],
-
 			[
 				'id'      => 'organizer',
 				'type'    => 'group',
@@ -217,6 +217,20 @@ class Event extends Type {
 						'binding'  => false,
 					],
 				],
+			],
+			[
+				'name'    => __( 'Mailjet', 'siw' ),
+				'type'    => 'heading',
+				'visible' => [ 'info_day', true ],
+			],
+			[
+				'id'       => 'mailjet_list_id',
+				'name'     => __( 'Mailjet lijst id', 'siw' ),
+				'type'     => 'number',
+				'visible'  => [ 'info_day', true ],
+				'disabled' => true,
+				'readonly' => true,
+				'size'     => 10,
 			],
 		];
 		return $meta_box_fields;
@@ -275,7 +289,7 @@ class Event extends Type {
 
 		if ( siw_meta( 'info_day' ) ) {
 			// bij een informatie bijeenkomst een invulformulier tonen
-			$infoform = Form::create()->set_form_id( Info_Day::FORM_ID )->set_field_value( 'info_day_date', siw_meta( 'event_date' ) )->generate();
+			$infoform = Form::create()->set_form_id( Info_Day::FORM_ID )->set_field_value( 'info_day_date', get_the_ID() )->generate();
 		} else {
 			// anders  tonen hoe je kunt aanmelden.
 			$application = siw_meta( 'application' );
@@ -363,5 +377,19 @@ class Event extends Type {
 	protected function get_archive_intro(): array {
 		$intro = siw_get_option( 'event.archive_intro' );
 		return [ $intro ];
+	}
+
+	/** {@inheritDoc} */
+	public function after_save_post( int $post_id, \WP_Post $post, bool $update ) {
+		if ( siw_meta( 'info_day', [], $post_id ) && empty( siw_meta( 'mailjet_list_id', [], $post_id ) ) ) {
+
+			$name = 'infodag ' . siw_format_date( siw_meta( 'event_date', [], $post_id ) );
+
+			$mailjet = Mailjet::create();
+			$list_id = $mailjet->create_list( $name );
+			if ( null !== $list_id ) {
+				siw_set_meta( $post_id, 'mailjet_list_id', $list_id );
+			}
+		}
 	}
 }

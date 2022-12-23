@@ -6,9 +6,10 @@ use SIW\Data\Email_Settings;
 use SIW\Helpers\Email;
 use SIW\Helpers\Email_Template;
 use SIW\Helpers\Template;
-use SIW\Interfaces\Forms\Confirmation_Mail;
-use SIW\Interfaces\Forms\Form as Form_Interface;
-use SIW\Interfaces\Forms\Notification_Mail;
+use SIW\Interfaces\Forms\Confirmation_Mail as I_Confirmation_Mail;
+use SIW\Interfaces\Forms\Export_To_Mailjet as I_Export_To_Mailjet;
+use SIW\Interfaces\Forms\Form as I_Form;
+use SIW\Interfaces\Forms\Notification_Mail as I_Notification_Mail;
 use SIW\Properties;
 use SIW\Util\Logger;
 use SIW\Util\Meta_Box;
@@ -21,23 +22,30 @@ use SIW\Util\Meta_Box;
 class Processor {
 
 	/** Bevestigingsmail */
-	protected Confirmation_Mail $confirmation_mail;
+	protected I_Confirmation_Mail $confirmation_mail;
 
 	/** Notificatiemail */
-	protected Notification_Mail $notification_mail;
+	protected I_Notification_Mail $notification_mail;
+
+	/** Export naar Mailjet */
+	protected I_Export_To_Mailjet $export_to_mailjet;
 
 	/** IP adres */
 	protected string $ip;
 
 	/** Init */
-	public function __construct( protected Form_Interface $form, protected \WP_REST_Request $request ) {
+	public function __construct( protected I_Form $form, protected \WP_REST_Request $request ) {
 
-		if ( is_a( $form, Confirmation_Mail::class ) ) {
+		if ( is_a( $form, I_Confirmation_Mail::class ) ) {
 			$this->confirmation_mail = $this->form;
 		}
 
-		if ( is_a( $form, Notification_Mail::class ) ) {
+		if ( is_a( $form, I_Notification_Mail::class ) ) {
 			$this->notification_mail = $this->form;
+		}
+
+		if ( is_a( $form, I_Export_To_Mailjet::class ) ) {
+			$this->export_to_mailjet = $this->form;
 		}
 	}
 
@@ -75,7 +83,10 @@ class Processor {
 		if ( isset( $this->notification_mail ) ) {
 			$this->send_notification_mail();
 		}
-		// TODO: Verwijder file uploads
+
+		if ( isset( $this->export_to_mailjet ) ) {
+			$this->export_to_mailjet();
+		}
 
 		return new \WP_REST_Response(
 			[
@@ -138,6 +149,17 @@ class Processor {
 	protected function get_email_settings(): Email_Settings {
 		$email_settings = siw_get_email_settings( $this->form->get_form_id() );
 		return $email_settings;
+	}
+
+	/** Exporteer gebruiken naar Mailjet */
+	protected function export_to_mailjet() {
+		$data = [
+			'email'      => $this->get_customer_email(),
+			'list_id'    => $this->export_to_mailjet->get_mailjet_list_id( $this->request ),
+			'properties' => $this->export_to_mailjet->get_mailjet_properties( $this->request ),
+		];
+
+		siw_enqueue_async_action( 'export_to_mailjet', $data );
 	}
 
 	/** Verstuurt bevestigingsmail naar klant */
