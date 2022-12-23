@@ -151,7 +151,7 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 			'16-25',
 			'26-30',
 			'31-50',
-			'50 en ouder',
+			'50+',
 		];
 	}
 
