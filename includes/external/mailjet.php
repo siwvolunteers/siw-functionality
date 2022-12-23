@@ -36,13 +36,11 @@ class Mailjet {
 	public function subscribe_user( string $email, $list_id, array $properties = [] ) : bool {
 
 		$url = self::API_URL . "/{$this->api_version}/REST/contactslist/{$list_id}/managecontact";
-		$body = wp_json_encode(
-			[
-				'Email'      => $email,
-				'Action'     => 'addnoforce',
-				'Properties' => $properties,
-			]
-		);
+		$body = [
+			'Email'      => $email,
+			'Action'     => 'addnoforce',
+			'Properties' => $properties,
+		];
 
 		$response = HTTP_Request::create( $url )
 			->set_basic_auth( $this->api_key, $this->secret_key )
