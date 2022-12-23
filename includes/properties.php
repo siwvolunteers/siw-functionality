@@ -28,10 +28,10 @@ class Properties {
 	const PHONE_INTERNATIONAL = '+31 30 2317721';
 
 	/** WhatsApp-nummer */
-	const WHATSAPP = '06-82208746';
+	const WHATSAPP = '06-27403759';
 
 	/** Volledig WhatsApp-nummer (voor API) */
-	const WHATSAPP_FULL = '31682208746';
+	const WHATSAPP_FULL = '31627403759';
 
 	/** KVK-nummer */
 	const KVK = '41165368';
