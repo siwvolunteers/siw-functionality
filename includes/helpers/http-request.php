@@ -5,7 +5,7 @@ namespace SIW\Helpers;
 /**
  * Class om een HTTP request uit te voeren
  *
- * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2020-2022 SIW Internationale Vrijwilligersprojecten
  */
 class HTTP_Request {
 
@@ -98,29 +98,33 @@ class HTTP_Request {
 	/** Voor POST-request uit */
 	public function post( $body = [] ): \SimpleXMLElement|array|\WP_Error {
 		$this->args['body'] = $body;
-		return $this->dispatch( 'POST' );
+		return $this->dispatch( \Requests::POST );
 	}
 
 	/** Voert GET-request uit */
 	public function get(): \SimpleXMLElement|array|\WP_Error {
-		return $this->dispatch( 'GET' );
+		return $this->dispatch( \Requests::GET );
 	}
 
 	/** Voert PATCH-request uit */
 	public function patch( $body = [] ): \SimpleXMLElement|array|\WP_Error {
 		$this->args['body'] = $body;
-		return $this->dispatch( 'PATCH' );
+		return $this->dispatch( \Requests::PATCH );
 	}
 
 	/** Voert PUT-request uit */
 	public function put( $body = [] ): \SimpleXMLElement|array|\WP_Error {
 		$this->args['body'] = $body;
-		return $this->dispatch( 'PUT' );
+		return $this->dispatch( \Requests::PUT );
 	}
 
 	/** Verstuur request */
 	protected function dispatch( string $method ): \SimpleXMLElement|array|\WP_Error {
 		$this->args['method'] = $method;
+		if ( self::APPLICATION_JSON === $this->args['headers']['content-type'] && ! in_array( $method, [ \Requests::GET, \Requests::HEAD ], true ) ) {
+			$this->args['body'] = wp_json_encode( $this->args['body'] );
+		}
+
 		$response = \wp_safe_remote_request( $this->url, $this->args );
 		if ( $this->is_valid_response( $response ) && $this->has_valid_body( $response ) ) {
 			return $this->body;
