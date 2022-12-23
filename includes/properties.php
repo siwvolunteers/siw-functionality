@@ -84,6 +84,10 @@ class Properties {
 	/** Maximale afmeting voor afbeelding */
 	const MAX_IMAGE_SIZE = 1920;
 
+
+	/** Place ID van SIW kantoor */
+	const GOOGLE_MAPS_PLACE_ID = 'ChIJASkeAkNvxkcRdFKFUI1K6f4';
+
 	/** Geeft waarde van property terug */
 	public static function get( string $property ) {
 		$property = strtoupper( $property );

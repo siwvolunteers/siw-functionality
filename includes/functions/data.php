@@ -2,6 +2,7 @@
 
 use SIW\Data\Email_Settings;
 use SIW\Integrations\Google_Maps;
+use SIW\Properties;
 
 /**
  * Functies m.b.t. referentiegegevens
@@ -146,7 +147,7 @@ function siw_get_opening_hours(): array {
 
 	$opening_periods = get_transient( __FUNCTION__ );
 	if ( ! is_array( $opening_periods ) ) {
-		$place_details = Google_Maps::create()->get_place_details();
+		$place_details = Google_Maps::create()->get_place_details( Properties::GOOGLE_MAPS_PLACE_ID );
 		$opening_periods = $place_details['current_opening_hours']['periods'] ?? [];
 		if ( ! empty( $opening_periods ) ) {
 			set_transient( __FUNCTION__, $opening_periods, DAY_IN_SECONDS );
