@@ -212,7 +212,7 @@ class Event extends Type {
 						'id'       => 'url',
 						'name'     => __( 'Url', 'siw' ),
 						'type'     => 'url',
-						'required' => true,
+						'required' => false, // op true zetten als deze bug is opgelost https://support.metabox.io/topic/nested-conditional-logic-leads-to-incorrect-validation-of-required-fields/
 						'size'     => 100,
 						'binding'  => false,
 					],
