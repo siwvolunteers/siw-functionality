@@ -19,6 +19,6 @@ class Update {
 
 	/** Zet taak klaar om pluginupdate te verwerken */
 	public function schedule_plugin_update_hook() {
-		wp_schedule_single_event( time(), self::PLUGIN_UPDATED_HOOK );
+		as_enqueue_async_action( self::PLUGIN_UPDATED_HOOK );
 	}
 }
