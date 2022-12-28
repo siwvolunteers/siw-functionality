@@ -17,9 +17,6 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 	/** Formulier ID */
 	const FORM_ID = 'info_day';
 
-	/** Aantal infodagen om te tonen */
-	const NUMBER_OF_INFO_DAYS = 3;
-
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
 		return self::FORM_ID;
@@ -129,7 +126,7 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 
 	/** {@inheritDoc} */
 	protected function get_info_days(): array {
-		$upcoming_info_days = siw_get_upcoming_info_days( self::NUMBER_OF_INFO_DAYS );
+		$upcoming_info_days = siw_get_upcoming_info_days( -1 );
 
 		// Fallback voor als er nog geen infodagen bekend zijn
 		if ( empty( $upcoming_info_days ) ) {
