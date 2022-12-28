@@ -171,6 +171,8 @@ abstract class Type {
 			add_filter( 'wp_insert_post_data', [ $self, 'set_post_data' ], 10, 2 );
 
 			add_filter( 'siw_cpt_upload_subdirs', [ $self, 'set_upload_subir' ] );
+
+			add_action( "save_post_siw_{$self->post_type}", [ $self, 'after_save_post' ], PHP_INT_MAX, 3 );
 		}
 	}
 
@@ -282,6 +284,9 @@ abstract class Type {
 	protected function get_seo_noindex( int $post_id ) : bool {
 		return false;
 	}
+
+	/** Acties na het opslaan van een post */
+	public function after_save_post( int $post_id, \WP_Post $post, bool $update ) {}
 
 	/** Genereert titel slug op basis van eigenschappen */
 	public function set_post_data( array $data, array $postarr ) : array {

@@ -43,8 +43,7 @@ class Action {
 
 	/** Start actie bij update van plugin */
 	public function add_action_to_update() {
-		as_schedule_single_action(
-			time(),
+		as_enqueue_async_action(
 			"siw_action_{$this->action->get_id()}_start",
 			[],
 			self::UPDATE_GROUP

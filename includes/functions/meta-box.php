@@ -40,3 +40,29 @@ function siw_meta( string $key, array $args = [], int $post_id = null ) {
 
 	return $value;
 }
+
+/** Wrapper om rwmb_set_meta */
+function siw_set_meta( int $post_id, string $key, mixed $value, array $args = [] ): void {
+
+	if ( ! function_exists( 'rwmb_set_meta' ) ) {
+		return;
+	}
+
+	$keys = explode( '.', $key );
+
+	if ( count( $keys ) === 1 ) {
+		rwmb_set_meta( $post_id, $key, $value, $args );
+		return;
+	}
+
+	$meta_key = $keys[0];
+	unset( $keys[0] );
+
+	$current_value = rwmb_meta( $meta_key, $args, $post_id );
+
+	$dot = new DotArray( $current_value );
+	$key = implode( '.', $keys );
+	$dot->set( $key, $value );
+
+	rwmb_set_meta( $post_id, $meta_key, $dot->all(), $args );
+}

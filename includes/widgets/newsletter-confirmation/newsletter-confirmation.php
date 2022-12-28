@@ -2,6 +2,8 @@
 
 namespace SIW\Widgets;
 
+use SIW\Integrations\Mailjet;
+
 /**
  * Widget met bevesting voor aanmelding nieuwsbrief
  *
@@ -112,8 +114,7 @@ class Newsletter_Confirmation extends Widget {
 			'firstname' => $first_name,
 		];
 
-		if ( siw_newsletter_subscribe( $email, (int) $list_id, $properties ) ) {
-
+		if ( Mailjet::create()->subscribe_user( $email, (int) $list_id, $properties ) ) {
 			// Transient zetten zodat aanmelding niet nog een keer verwerkt wordt bij opnieuw bezoeken pagina
 			set_transient( "siw_newsletter_confirm_{$email_hash}", true, DAY_IN_SECONDS );
 			return __( 'Gefeliciteerd! Je bent nu aangemeld voor de SIW-nieuwsbrief.', 'siw' );

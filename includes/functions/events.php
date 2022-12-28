@@ -138,6 +138,7 @@ function siw_generate_event_json_ld( int $event_id ): string {
 	} else {
 		$organizer
 		->set_name( Properties::NAME )
+		->set_url( SIW_SITE_URL )
 		->set_same_as( SIW_SITE_URL )
 		->set_logo( get_site_icon_url() )
 		->set_non_profit_status( NL_Non_Profit_Type::NonprofitANBI() );

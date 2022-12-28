@@ -23,9 +23,6 @@ class Google_Maps {
 	const GEOCODING_API_ENDPOINT = 'geocode';
 	const PLACE_DETAILS_ENDPOINT = 'place/details';
 
-	/** Place ID van SIW kantoor */
-	const PLACE_ID = 'ChIJASkeAkNvxkcRdFKFUI1K6f4';
-
 	/** Status code OK TODO:php8.1 enum van statuscodes maken */
 	const STATUS_OK = 'OK';
 
@@ -121,7 +118,7 @@ class Google_Maps {
 	}
 
 	/** Zoek details van plaats op */
-	public function get_place_details( string $place_id = self::PLACE_ID, array $fields = [] ): array {
+	public function get_place_details( string $place_id, array $fields = [] ): array {
 		$url = add_query_arg(
 			[
 				'key'      => Config::get_google_maps_api_key(),

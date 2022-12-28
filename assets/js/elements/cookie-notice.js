@@ -65,7 +65,7 @@ var siwCookieNotice = (function () {
 		} else {
 			formData.forEach((value, key) => (data[key] = value));
 		}
-		Cookies.set( siw_cookie_notice.cookie.name, JSON.stringify(data), { expires: Number( siw_cookie_notice.cookie.expires ), secure: true } );
+		Cookies.set( siw_cookie_notice.cookie.name, JSON.stringify(data), { expires: Number( siw_cookie_notice.cookie.expires ), secure: true, sameSite: 'strict' } );
 		document.querySelector( '#' + siw_cookie_notice.notice_id ).setAttribute( 'hidden', 'hidden' );
 
 		document.body.dispatchEvent( new Event( siw_cookie_notice.event_name ) );

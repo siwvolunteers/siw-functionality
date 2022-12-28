@@ -2,16 +2,17 @@
 
 namespace SIW\Forms\Forms;
 
-use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
-use SIW\Interfaces\Forms\Form as Form_Interface;
-use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
+use SIW\Interfaces\Forms\Confirmation_Mail as I_Confirmation_Mail;
+use SIW\Interfaces\Forms\Export_To_Mailjet as I_Export_To_Mailjet;
+use SIW\Interfaces\Forms\Form as I_Form;
+use SIW\Interfaces\Forms\Notification_Mail as I_Notification_Mail;
 
 /**
  * Aanmelding infodag
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
+class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Export_To_Mailjet {
 
 	/** Formulier ID */
 	const FORM_ID = 'info_day';
@@ -135,10 +136,10 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 			return [ 'unknown' => __( 'Nog niet bekend', 'siw' ) ];
 		}
 
-		foreach ( $upcoming_info_days as $info_day ) {
-			$date = siw_meta( 'event_date', [], $info_day );
-			$online = siw_meta( 'online', [], $info_day );
-			$info_days[ $date ] = $online ? sprintf( '%s (%s)', siw_format_date( $date, false ), __( 'online', 'siw' ) ) : siw_format_date( $date, false );
+		foreach ( $upcoming_info_days as $post_id ) {
+			$date = siw_meta( 'event_date', [], $post_id );
+			$online = siw_meta( 'online', [], $post_id );
+			$info_days[ $post_id ] = $online ? sprintf( '%s (%s)', siw_format_date( $date, false ), __( 'online', 'siw' ) ) : siw_format_date( $date, false );
 		}
 
 		return $info_days;
@@ -150,7 +151,7 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 			'16-25',
 			'26-30',
 			'31-50',
-			'50 en ouder',
+			'50+',
 		];
 	}
 
@@ -162,6 +163,20 @@ class Info_Day implements Form_Interface, Confirmation_Mail_Interface, Notificat
 			'instagram' => __( 'Via Instagram', 'siw' ),
 			'fair'      => __( 'Via een beurs', 'siw' ),
 			'other'     => __( 'Via iemand anders', 'siw' ),
+		];
+	}
+
+	/** {@inheritDoc} */
+	public function get_mailjet_list_id( \WP_REST_Request $request ): int {
+		$event_post_id = $request->get_param( 'info_day_date' );
+		return (int) siw_meta( 'mailjet_list_id', [], $event_post_id );
+	}
+
+	/** {@inheritDoc} */
+	public function get_mailjet_properties( \WP_REST_Request $request ): array {
+		return [
+			'firstname' => $request->get_param( 'first_name' ),
+			'lastname'  => $request->get_param( 'last_name' ),
 		];
 	}
 }
