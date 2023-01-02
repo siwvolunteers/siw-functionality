@@ -12,6 +12,8 @@ use SIW\Properties;
  */
 class Admin {
 
+	const ASSETS_HANDLE = 'siw-admin';
+
 	/** Init */
 	public static function init() {
 		$self = new self();
@@ -30,8 +32,8 @@ class Admin {
 
 	/** Voegt admin-styling toe */
 	public function enqueue_admin_style() {
-		wp_register_style( 'siw-admin', SIW_ASSETS_URL . 'css/admin/siw-admin.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( 'siw-admin' );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/admin/siw-admin.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Verwijdert standaard menu-items */
