@@ -2,20 +2,17 @@
 
 namespace SIW\Admin;
 
+use SIW\Attributes\Action;
+use SIW\Base;
+
 /**
  * Aanpassingen aan Admin Bar
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
-class Admin_Bar {
+class Admin_Bar extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'admin_bar_menu', [ $self, 'remove_nodes' ], PHP_INT_MAX );
-		add_action( 'admin_bar_menu', [ $self, 'add_logo' ], 1 );
-	}
-
+	#[Action( 'admin_bar_menu', PHP_INT_MAX )]
 	/** Verwijdert standaardnodes */
 	public function remove_nodes( \WP_Admin_Bar $wp_admin_bar ) {
 		$wp_admin_bar->remove_node( 'wp-logo' );
@@ -24,6 +21,7 @@ class Admin_Bar {
 		$wp_admin_bar->remove_node( 'new-content' );
 	}
 
+	#[Action( 'admin_bar_menu', 1 )]
 	/** Voegt logo toe aan adminbar */
 	public function add_logo( \WP_Admin_Bar $wp_admin_bar ) {
 		$logo_args = [

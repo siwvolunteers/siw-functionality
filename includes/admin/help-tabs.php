@@ -2,19 +2,17 @@
 
 namespace SIW\Admin;
 
+use SIW\Attributes\Action;
+use SIW\Base;
+
 /**
  * Voegt help-tabs toe
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class Help_Tabs {
+class Help_Tabs extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'admin_head', [ $self, 'add_help_tabs' ] );
-	}
-
+	#[Action( 'admin_head' )]
 	/** Voegt help tabs toe */
 	public function add_help_tabs() {
 

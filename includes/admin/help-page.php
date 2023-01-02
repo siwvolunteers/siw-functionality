@@ -2,6 +2,8 @@
 
 namespace SIW\Admin;
 
+use SIW\Attributes\Action;
+use SIW\Base;
 use SIW\Elements\Accordion;
 
 /**
@@ -9,16 +11,11 @@ use SIW\Elements\Accordion;
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class Help_Page {
+class Help_Page extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'admin_menu', [ $self, 'add_properties_page' ] );
-	}
-
+	#[Action( 'admin_menu' )]
 	/** Voegt adminpagina toe */
-	public function add_properties_page() {
+	public function add_help_page() {
 
 		if ( ! siw_get_option( 'faq.show_page' ) ) {
 			return;
