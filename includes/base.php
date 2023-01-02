@@ -16,14 +16,11 @@ abstract class Base {
 	protected function __construct() {}
 
 	/** New */
-	public static function new( object ...$args ): static {
-		return new static( ...$args );
-	}
-
-	/** Init */
-	public function init() {
-		$this->reflection_class = new \ReflectionClass( $this );
-		$this->add_hooks();
+	public static function init( object ...$args ): static {
+		$self = new static( ...$args );
+		$self->reflection_class = new \ReflectionClass( $self );
+		$self->add_hooks();
+		return $self;
 	}
 
 	/** Voeg hooks toe */
