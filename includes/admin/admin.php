@@ -21,7 +21,7 @@ class Admin {
 		add_action( 'admin_init', [ $self, 'hide_dashboard_widgets' ] );
 		add_filter( 'admin_footer_text', [ $self, 'set_admin_footer_text' ] );
 		add_filter( 'manage_pages_columns', [ $self, 'remove_pages_columns' ] );
-		add_action( 'admin_menu', [ $self, 'remove_page_metaboxes' ] );
+		add_action( 'admin_menu', [ $self, 'remove_metaboxes' ] );
 		add_filter( 'show_admin_bar', '__return_false' );
 		add_action( 'admin_init', [ $self, 'add_user_columns' ], 20 );
 
@@ -62,12 +62,13 @@ class Admin {
 	}
 
 	/** Verwijdert diverse metaboxes */
-	public function remove_page_metaboxes() {
-		remove_meta_box( 'postcustom', 'page', 'normal' );
-		remove_meta_box( 'commentstatusdiv', 'page', 'normal' );
-		remove_meta_box( 'commentsdiv', 'page', 'normal' );
-		remove_meta_box( 'slugdiv', 'page', 'normal' );
-		remove_meta_box( 'authordiv', 'page', 'normal' );
+	public function remove_metaboxes() {
+		remove_meta_box( 'postcustom', [ 'page', 'post' ], 'normal' );
+		remove_meta_box( 'trackbacksdiv', 'post', 'normal' );
+		remove_meta_box( 'commentstatusdiv', [ 'page', 'post' ], 'normal' );
+		remove_meta_box( 'commentsdiv', [ 'page', 'post' ], 'normal' );
+		remove_meta_box( 'slugdiv', [ 'page', 'post' ], 'normal' );
+		remove_meta_box( 'authordiv', [ 'page', 'post' ], 'normal' );
 	}
 
 	/** Voegt extra admin columns toe */
