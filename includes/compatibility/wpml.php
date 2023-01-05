@@ -13,6 +13,24 @@ use SIW\I18n;
  */
 class WPML extends Plugin {
 
+	private const USER_CAPS = [
+		'wpml_manage_translation_management',
+		'wpml_manage_languages',
+		'wpml_manage_translation_options',
+		'wpml_manage_troubleshooting',
+		'wpml_manage_taxonomy_translation',
+		'wpml_manage_wp_menus_sync',
+		'wpml_manage_translation_analytics',
+		'wpml_manage_string_translation',
+		'wpml_manage_sticky_links',
+		'wpml_manage_navigation',
+		'wpml_manage_theme_and_plugin_localization',
+		'wpml_manage_media_translation',
+		'wpml_manage_support',
+		'wpml_manage_woocommerce_multilingual',
+		'wpml_operate_woocommerce_multilingual',
+	];
+
 	/** {@inheritDoc} */
 	protected static function get_plugin_path(): string {
 		return 'sitepress-multilingual-cms/sitepress.php';
@@ -36,4 +54,28 @@ class WPML extends Plugin {
 			wp_delete_attachment( $original_post_id );
 		}
 	}
+
+	#[Action( 'members_register_cap_groups' )]
+	/** Registreert cap group */
+	public function register_cap_group() {
+		\members_register_cap_group(
+			'wpml',
+			[
+				'label'    => esc_html__( 'WPML', 'siw' ),
+				'icon'     => 'dashicons-translation',
+				'priority' => 90,
+				'caps'     => self::USER_CAPS,
+			]
+		);
+	}
+
+	#[Action( 'members_register_caps' )]
+	/** Registeert caps */
+	public function register_caps() {
+
+		foreach ( self::USER_CAPS as $cap ) {
+			\members_register_cap( $cap, [ 'label' => $cap ] );
+		}
+	}
+
 }
