@@ -2,6 +2,7 @@
 
 namespace SIW\Compatibility;
 
+use SIW\Attributes\Filter;
 use SIW\I18n;
 use SIW\Util\CSS;
 use SIW\WooCommerce\Taxonomy_Attribute;
@@ -12,32 +13,26 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://theseoframework.com/
  */
-class The_SEO_Framework {
+class The_SEO_Framework extends Plugin {
 
+	#[Filter( 'the_seo_framework_metabox_priority' )]
+	private const METABOX_PRIORITY = 'default';
 
-	/** Priority van TSF-metabox */
-	const METABOX_PRIORITY = 'default';
+	#[Filter( 'sybre_waaijer_<3' )]
+	private const SHOW_AUTHOR_IN_HTML_COMMENT = false;
 
-	/** Init */
-	public static function init() {
+	#[Filter( 'the_seo_framework_sitemap_color_main' )]
+	private const SITEMAP_COLOR_MAIN = CSS::CONTRAST_COLOR;
 
-		if ( ! is_plugin_active( 'autodescription/autodescription.php' ) ) {
-			return;
-		}
-		$self = new self();
+	#[Filter( 'the_seo_framework_sitemap_color_accent' )]
+	private const SITEMAP_COLOR_ACCENT = CSS::ACCENT_COLOR;
 
-		/* SEO-metabox lagere prioriteit geven */
-		add_filter( 'the_seo_framework_metabox_priority', fn(): string => self::METABOX_PRIORITY );
-
-		/* Sitemap */
-		add_filter( 'the_seo_framework_sitemap_color_main', fn(): string => CSS::CONTRAST_COLOR );
-		add_filter( 'the_seo_framework_sitemap_color_accent', fn(): string => CSS::ACCENT_COLOR );
-		add_filter( 'the_seo_framework_sitemap_additional_urls', [ $self, 'set_sitemap_additional_urls' ] );
-
-		/* Naam auteur SEO framework niet in HTML tonen */
-		add_filter( 'sybre_waaijer_<3', '__return_false' );
+	/** {@inheritDoc} */
+	protected static function get_plugin_path(): string {
+		return 'autodescription/autodescription.php';
 	}
 
+	#[Filter( 'the_seo_framework_sitemap_additional_urls' )]
 	/** Productarchieven toevoegen aan de sitemap TODO: verplaatsen naar WooCommerce*/
 	public function set_sitemap_additional_urls( array $custom_urls ): array {
 
