@@ -2,10 +2,10 @@
 
 namespace SIW\WooCommerce\Product;
 
+use SIW\Config;
 use SIW\Data\Country;
 use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Work_Type;
-use SIW\Properties;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -100,10 +100,10 @@ class WC_Product_Project extends \WC_Product_Simple {
 		}
 
 		if ( $this->is_dutch_project() ) {
-			return (string) Properties::DUTCH_PROJECT_FEE;
+			return (string) Config::get_dutch_project_fee();
 		}
 
-		return (string) Properties::STV_PROJECT_FEE;
+		return (string) Config::get_stv_project_fee();
 	}
 
 	/** {@inheritDoc} */

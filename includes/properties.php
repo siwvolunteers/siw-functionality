@@ -57,33 +57,8 @@ class Properties {
 	/** Maximum aantal jaarverslagen */
 	const MAX_ANNUAL_REPORTS = 5;
 
-	/** Fee voor STV-projecten */
-	const STV_PROJECT_FEE = 295;
-
-	/** Fee voor MTV-projecten */
-	const MTV_PROJECT_FEE = 395;
-
-	/** Fee voor LTV-projecten */
-	const LTV_PROJECT_FEE = 495;
-
-	/** Fee voor Nederlandse projecten */
-	const DUTCH_PROJECT_FEE = 195;
-
-	/** Bedrag studentenkorting  */
-	const STUDENT_DISCOUNT_AMOUNT = 50;
-
-	/** Inschrijfgeld Schoolproject */
-	const SCHOOL_PROJECT_FEE = 125;
-
-	/** ESC borg */
-	const ESC_DEPOSIT = 149;
-
-	/** Kortingspercentage voor 2e project */
-	const DISCOUNT_SECOND_PROJECT = 25;
-
 	/** Maximale afmeting voor afbeelding */
 	const MAX_IMAGE_SIZE = 1920;
-
 
 	/** Place ID van SIW kantoor */
 	const GOOGLE_MAPS_PLACE_ID = 'ChIJASkeAkNvxkcRdFKFUI1K6f4';
