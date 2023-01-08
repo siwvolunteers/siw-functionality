@@ -2,21 +2,21 @@
 
 namespace SIW\Options;
 
-use SIW\Interfaces\Options\Option as Option_Interface;
+use SIW\Attributes\Filter;
+use SIW\Base;
+use SIW\Interfaces\Options\Option as I_Option;
 
 /**
  * Class om opties toe te voegen
  *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  */
-class Option {
+class Option extends Base {
 
 	/** Constructor */
-	public function __construct( protected Option_Interface $option ) {
-		add_filter( 'rwmb_meta_boxes', [ $this, 'add_settings_meta_boxes' ] );
-		add_filter( 'mb_settings_pages', [ $this, 'add_settings_page' ] );
-	}
+	public function __construct( protected I_Option $option ) {}
 
+	#[Filter( 'rwmb_meta_boxes' )]
 	/** Voegt admin-pagina toe */
 	public function add_settings_page( array $settings_pages ) : array {
 		$tabs = $this->option->get_tabs();
@@ -36,6 +36,7 @@ class Option {
 		return $settings_pages;
 	}
 
+	#[Filter( 'mb_settings_pages' )]
 	/*** Voegt metaboxes toe */
 	public function add_settings_meta_boxes( array $meta_boxes ) : array {
 

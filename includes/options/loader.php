@@ -36,6 +36,6 @@ class Loader extends Object_Loader_Abstract {
 		if ( ! is_a( $option, Option_Interface::class ) ) {
 			return;
 		}
-		new Option( $option );
+		Option::init( $option );
 	}
 }
