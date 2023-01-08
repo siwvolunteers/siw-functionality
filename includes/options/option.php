@@ -16,7 +16,7 @@ class Option extends Base {
 	/** Constructor */
 	public function __construct( protected I_Option $option ) {}
 
-	#[Filter( 'rwmb_meta_boxes' )]
+	#[Filter( 'mb_settings_pages' )]
 	/** Voegt admin-pagina toe */
 	public function add_settings_page( array $settings_pages ) : array {
 		$tabs = $this->option->get_tabs();
@@ -36,7 +36,7 @@ class Option extends Base {
 		return $settings_pages;
 	}
 
-	#[Filter( 'mb_settings_pages' )]
+	#[Filter( 'rwmb_meta_boxes' )]
 	/*** Voegt metaboxes toe */
 	public function add_settings_meta_boxes( array $meta_boxes ) : array {
 
