@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce\Checkout;
 
-use SIW\Properties;
+use SIW\Config;
 use SIW\Util;
 
 /**
@@ -41,7 +41,7 @@ class Discount {
 		foreach ( $cart_contents as $line ) {
 			$count++;
 			if ( 1 < $count ) {
-				$discount = $line['line_total'] * Properties::DISCOUNT_SECOND_PROJECT * -0.01;
+				$discount = $line['line_total'] * Config::get_discount_percentage_second_project() * -0.01;
 				// translators: %d is een geheel getal
 				$cart->add_fee( sprintf( __( 'Korting %de project', 'siw' ), $count ), $discount );
 			}
@@ -108,7 +108,7 @@ class Discount {
 		}
 		return [
 			'discount_type' => self::STUDENT_DISCOUNT_COUPON_DISCOUNT_TYPE,
-			'amount'        => Properties::STUDENT_DISCOUNT_AMOUNT,
+			'amount'        => Config::get_student_discount_amount(),
 			'description'   => 'Studentenkorting',
 		];
 	}

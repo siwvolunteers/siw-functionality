@@ -2,11 +2,11 @@
 
 namespace SIW\WooCommerce\Frontend;
 
+use SIW\Config;
 use SIW\Elements\Form;
 use SIW\Elements\Google_Maps;
 use SIW\External\Exchange_Rates;
 use SIW\Forms\Forms\Enquiry_Project;
-use SIW\Properties;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
@@ -127,7 +127,7 @@ class Product_Tabs {
 			// translators: %1$s is het inschrijfgeld %2$s is het bedrag studentenkorting
 			esc_html__( 'Het inschrijfgeld voor dit project bedraagt %1$s, exclusief %2$s studentenkorting.', 'siw' ),
 			esc_html( siw_format_amount( (float) $product->get_price() ) ),
-			esc_html( siw_format_amount( Properties::STUDENT_DISCOUNT_AMOUNT ) )
+			esc_html( siw_format_amount( Config::get_student_discount_amount() ) )
 		);
 
 		// Local fee niet tonen voor nederlandse projecten
