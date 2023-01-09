@@ -14,7 +14,9 @@ class Loader extends A_Base_Loader {
 	/** {@inheritDoc} */
 	public function get_classes() : array {
 		return [
+			Animation::class,
 			Social_Share::class,
+			Topbar::class,
 		];
 	}
 }

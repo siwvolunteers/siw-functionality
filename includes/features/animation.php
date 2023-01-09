@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace SIW;
+namespace SIW\Features;
 
 use SIW\Assets\SAL;
+use SIW\Attributes\Action;
+use SIW\Base;
 use SIW\Util\CSS;
 
 /**
@@ -10,7 +12,7 @@ use SIW\Util\CSS;
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Animation {
+class Animation extends Base {
 
 	/** Handle  */
 	const ASSETS_HANDLE = 'siw-animation';
@@ -18,13 +20,7 @@ class Animation {
 	/** Threshold voor animatie */
 	const THRESHOLD = 0.25;
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'wp_enqueue_scripts', [ $self, 'register_script' ] );
-		add_action( 'wp_enqueue_scripts', [ $self, 'register_style' ] );
-	}
-
+	#[Action( 'wp_enqueue_scripts' )]
 	/** Registreert scripts */
 	public function register_script() {
 		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/animation.js', [ Sal::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
@@ -40,6 +36,7 @@ class Animation {
 		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 
+	#[Action( 'wp_enqueue_scripts' )]
 	/** Registreert styles */
 	public function register_style() {
 		$max_width = CSS::MOBILE_BREAKPOINT;

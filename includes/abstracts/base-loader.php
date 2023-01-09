@@ -18,7 +18,7 @@ abstract class Base_Loader extends Loader {
 
 	/** Laadt 1 klasse */
 	final protected function load( string $class ) {
-		if ( ! is_a( $class, Base::class ) ) {
+		if ( ! is_a( $class, Base::class, true ) ) {
 			return;
 		}
 		$class::init();

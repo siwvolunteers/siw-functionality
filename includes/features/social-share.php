@@ -37,7 +37,7 @@ class Social_Share extends Base {
 		}
 
 		Template::create()
-			->set_template( 'modules/social-share' )
+			->set_template( 'features/social-share' )
 			->set_context(
 				[
 					'header'       => $this->get_title(),
