@@ -122,9 +122,14 @@ class Product_Tabs {
 
 		printf(
 			// translators: %1$s is het inschrijfgeld %2$s is het bedrag studentenkorting
-			esc_html__( 'Het inschrijfgeld voor dit project bedraagt %1$s, exclusief %2$s studentenkorting.', 'siw' ),
+			esc_html__( 'Het inschrijfgeld voor dit project bedraagt %1$s, exclusief %2$s korting voor studenten en jongeren onder de 18.', 'siw' ),
 			esc_html( siw_format_amount( (float) $product->get_price() ) ),
 			esc_html( siw_format_amount( Config::get_student_discount_amount() ) )
+		);
+		echo BR; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		printf(
+			esc_html( 'Jongeren onder 18 jaar moeten voor vertrek verplicht een training volgen. De kosten hiervoor zijn %s euro en worden apart in rekening gebracht.' ),
+			esc_html( siw_format_amount( Config::get_minors_training_fee() ) )
 		);
 
 		// Local fee niet tonen voor nederlandse projecten
