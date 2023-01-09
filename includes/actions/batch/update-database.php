@@ -2,7 +2,7 @@
 
 namespace SIW\Actions\Batch;
 
-use SIW\Database_Table;
+use SIW\Data\Database_Table;
 use SIW\Helpers\Database;
 use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 

@@ -6,7 +6,7 @@ use SIW\Admin\Database_List_Table;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Base;
-use SIW\Database_Table;
+use SIW\Data\Database_Table;
 
 /**
  * Database tabel viewer

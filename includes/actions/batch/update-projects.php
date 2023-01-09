@@ -5,7 +5,7 @@ namespace SIW\Actions\Batch;
 use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
 use SIW\Data\Country;
-use SIW\Database_Table;
+use SIW\Data\Database_Table;
 use SIW\Helpers\Database;
 use SIW\WooCommerce\Import\Product_Image as Import_Product_Image;
 use SIW\WooCommerce\Product\Admin\Approval;

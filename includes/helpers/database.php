@@ -2,7 +2,7 @@
 
 namespace SIW\Helpers;
 
-use SIW\Database_Table;
+use SIW\Data\Database_Table;
 
 /**
  * Database helper voor SIW-tabellen
