@@ -16,9 +16,6 @@ use SIW\WooCommerce\Product\WC_Product_Project;
  */
 class Product_Tabs {
 
-	/** Formulier */
-	const CONTACT_FORM_ID = 'enquiry_project';
-
 	const LOCATION_TAB = 'location_and_leisure';
 
 	/** Init */
