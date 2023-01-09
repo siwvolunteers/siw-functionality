@@ -1,17 +1,20 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Modules;
+namespace SIW\Features;
 
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\Util\CSS;
 
 /**
  * Mega Menu
  *
- * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2020-2023 SIW Internationale Vrijwilligersprojecten
  *
  * @see       https://docs.generatepress.com/article/building-simple-mega-menu/
  */
-class Mega_Menu {
+class Mega_Menu extends Base {
 
 	/** Assets handle */
 	const ASSETS_HANDLE = 'siw-mega-menu';
@@ -25,17 +28,7 @@ class Mega_Menu {
 	/** Nonce naam */
 	const NONCE_NAME = 'siw_mega_menu_nonce';
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-
-		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles' ] );
-		add_action( 'wp_nav_menu_item_custom_fields', [ $self, 'add_nav_menu_item_custom_fields' ], 10, 2 );
-
-		add_filter( 'nav_menu_css_class', [ $self, 'add_nav_menu_item_class' ], 10, 4 );
-		add_action( 'wp_update_nav_menu_item', [ $self, 'update_nav_menu_item' ], 10, 2 );
-	}
-
+	#[Action( 'wp_enqueue_scripts' )]
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
 		$min_width = CSS::MOBILE_BREAKPOINT + 1;
@@ -45,6 +38,7 @@ class Mega_Menu {
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
+	#[ Action( 'wp_nav_menu_item_custom_fields' )]
 	/** Voegt velden voor Mega Menu toe aan nav item */
 	public function add_nav_menu_item_custom_fields( int $item_id, \WP_Post $item ) {
 		wp_nonce_field( self::NONCE_ACTION, self::NONCE_NAME );
@@ -74,6 +68,7 @@ class Mega_Menu {
 		<?php
 	}
 
+	#[ Action( 'wp_update_nav_menu_item' )]
 	/** Gekozen mega menu opslaan bij menu item */
 	public function update_nav_menu_item( int $menu_id, int $menu_item_id ) {
 
@@ -88,6 +83,7 @@ class Mega_Menu {
 		}
 	}
 
+	#[Filter( 'nav_menu_css_class' )]
 	/** Voegt css-klasses voor mega menu toe aan menu item */
 	public function add_nav_menu_item_class( array $classes, $item, \stdClass $args, int $depth ) : array {
 

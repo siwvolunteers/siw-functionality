@@ -16,7 +16,6 @@ class Loader extends Class_Loader_Abstract {
 		return [
 			Breadcrumbs::class,
 			Google_Analytics::class,
-			Mega_Menu::class,
 		];
 	}
 

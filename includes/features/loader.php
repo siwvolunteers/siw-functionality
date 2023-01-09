@@ -15,6 +15,7 @@ class Loader extends A_Base_Loader {
 	public function get_classes() : array {
 		return [
 			Animation::class,
+			Mega_Menu::class,
 			Social_Share::class,
 			Topbar::class,
 		];
