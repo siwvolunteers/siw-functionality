@@ -2,6 +2,9 @@
 
 namespace SIW\Forms;
 
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Util\Meta_Box;
 
@@ -10,28 +13,22 @@ use SIW\Util\Meta_Box;
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class Form {
+class Form extends Base {
 
 	/** API versie */
 	const API_VERSION = 'v1';
 
 	/** Constructor */
-	public function __construct( protected Form_Interface $form ) {}
+	protected function __construct( protected Form_Interface $form ) {}
 
-	/** Registreer formulier */
-	public function register() {
-		add_filter( 'siw_forms', [ $this, 'register_form' ] );
-		add_filter( 'siw_rest_urls', [ $this, 'register_rest_urls' ] );
-		add_filter( 'rwmb_meta_boxes', [ $this, 'add_meta_box' ] );
-		add_action( 'rest_api_init', [ $this, 'register_route' ] );
-	}
-
+	#[Filter( 'siw_forms' )]
 	/** Registreer formulier TODO: registry ipv filter*/
 	public function register_form( array $forms ): array {
 		$forms[ $this->form->get_form_id() ] = $this->form->get_form_name();
 		return $forms;
 	}
 
+	#[Action( 'rest_api_init' )]
 	/** Registreert REST route */
 	public function register_route() {
 		register_rest_route(
@@ -82,6 +79,7 @@ class Form {
 		return array_filter( $args );
 	}
 
+	#[Filter( 'rwmb_meta_boxes' )]
 	/** Voegt metabox toe */
 	public function add_meta_box( array $meta_boxes ): array {
 		$meta_boxes[] = [

@@ -2,6 +2,8 @@
 
 namespace SIW\Compatibility;
 
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
 use SIW\Update;
 
 /**
@@ -10,38 +12,42 @@ use SIW\Update;
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://wp-rocket.me/
  */
-class WP_Rocket {
+class WP_Rocket extends Plugin {
 
+	#[Filter( 'rocket_lazyload_youtube_thumbnail_resolution' )]
 	/** Resolutie van YouTube-thumbnail */
-	const YOUTUBE_THUMBNAIL_RESOLUTION = 'maxresdefault';
+	private const YOUTUBE_THUMBNAIL_RESOLUTION = 'maxresdefault';
 
+	#[Filter( 'nonce_life' )]
 	/** Levensduur van nonce in seconden */
-	const NONCE_LIFESPAN = 2 * DAY_IN_SECONDS;
+	private const NONCE_LIFESPAN = 2 * DAY_IN_SECONDS;
 
 	/** Tijdstip cache legen */
-	const TS_CACHE_CLEAR = '05:00';
+	private const TS_CACHE_CLEAR = '05:00';
 
 	/** Hooknaam */
-	const CACHE_CLEAR_HOOK = 'siw_rebuild_cache';
+	private const CACHE_CLEAR_HOOK = 'siw_rebuild_cache';
 
-	/** Init */
-	public static function init() {
+	private const USER_CAPS = [
+		'rocket_manage_options',
+		'rocket_purge_cache',
+		'rocket_purge_posts',
+		'rocket_purge_terms',
+		'rocket_purge_users',
+		'rocket_purge_cloudflare_cache',
+		'rocket_purge_sucuri_cache',
+		'rocket_preload_cache',
+		'rocket_regenerate_critical_css',
+		'rocket_remove_unused_css',
+	];
 
-		if ( ! is_plugin_active( 'wp-rocket/wp-rocket.php' ) ) {
-			return;
-		}
-		$self = new self();
-
-		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'clear_cache' ] );
-		add_filter( 'rocket_lazyload_youtube_thumbnail_resolution', fn() : string => self::YOUTUBE_THUMBNAIL_RESOLUTION );
-		define( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT', true ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
-		add_filter( 'nonce_life', fn() : int => self::NONCE_LIFESPAN );
-
-		// Acties t.b.v. cache rebuild
-		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'schedule_cache_clear' ] );
-		add_action( self::CACHE_CLEAR_HOOK, [ $self, 'clear_cache' ] );
+	/** {@inheritDoc} */
+	protected static function get_plugin_path(): string {
+		return 'wp-rocket/wp-rocket.php';
 	}
 
+	#[Action( Update::PLUGIN_UPDATED_HOOK )]
+	#[Action( self::CACHE_CLEAR_HOOK )]
 	/** Cache legen */
 	public function clear_cache() {
 		rocket_clean_domain();
@@ -49,6 +55,7 @@ class WP_Rocket {
 		rocket_clean_cache_busting();
 	}
 
+	#[Action( Update::PLUGIN_UPDATED_HOOK )]
 	/** Voegt een scheduled event toe */
 	public function schedule_cache_clear() {
 		/* Cache rebuild schedulen */
@@ -57,6 +64,29 @@ class WP_Rocket {
 			wp_clear_scheduled_hook( self::CACHE_CLEAR_HOOK );
 		}
 		wp_schedule_event( $cache_rebuild_ts, 'daily', self::CACHE_CLEAR_HOOK );
+	}
+
+	#[Action( 'members_register_cap_groups' )]
+	/** Registreert cap group */
+	public function register_cap_group() {
+		\members_register_cap_group(
+			'wp_rocket',
+			[
+				'label'    => esc_html__( 'WP Rocket', 'siw' ),
+				'icon'     => 'dashicons-wordpress',
+				'priority' => 99,
+				'caps'     => self::USER_CAPS,
+			]
+		);
+	}
+
+	#[Action( 'members_register_caps' )]
+	/** Registeert caps */
+	public function register_caps() {
+
+		foreach ( self::USER_CAPS as $cap ) {
+			\members_register_cap( $cap, [ 'label' => $cap ] );
+		}
 	}
 
 }

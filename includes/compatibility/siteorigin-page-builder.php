@@ -2,6 +2,8 @@
 
 namespace SIW\Compatibility;
 
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
 use SIW\Util\CSS;
 
 /**
@@ -10,29 +12,26 @@ use SIW\Util\CSS;
  * @copyright   2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see         https://siteorigin.com/page-builder/
  */
-class SiteOrigin_Page_Builder {
+class SiteOrigin_Page_Builder extends Plugin {
 
-	/** Init */
-	public static function init() {
+	#[Filter( 'siteorigin_panels_layouts_directory_enabled' )]
+	private const ENABLE_LAYOUTS_DIRECTORY = false;
 
-		if ( ! is_plugin_active( 'siteorigin-panels/siteorigin-panels.php' ) ) {
-			return;
-		}
+	#[Filter( 'so_panels_show_add_new_dropdown_for_type' )]
+	private const SHOW_ADD_NEW_DROPDOWN_FOR_TYPE = false;
 
-		$self = new self();
-		add_action( 'admin_init', [ $self, 'remove_dashboard_widget' ] );
-		add_action( 'widgets_init', [ $self, 'unregister_widgets' ], 99 );
-		add_filter( 'siteorigin_panels_widget_dialog_tabs', [ $self, 'add_widget_tab' ] );
-		add_filter( 'siteorigin_panels_layouts_directory_enabled', '__return_false' );
-		add_filter( 'siteorigin_panels_settings', [ $self, 'set_breakpoint_settings' ] );
-		add_filter( 'so_panels_show_add_new_dropdown_for_type', '__return_false' );
+	/** {@inheritDoc} */
+	protected static function get_plugin_path(): string {
+		return 'siteorigin-panels/siteorigin-panels.php';
 	}
 
+	#[Action( 'admin_init' )]
 	/** Verwijdert dashboard widget */
 	public function remove_dashboard_widget() {
 		remove_meta_box( 'so-dashboard-news', 'dashboard', 'normal' );
 	}
 
+	#[Action( 'widgets_init', 99 )]
 	/** Verwijdert Page Builder widgets */
 	public function unregister_widgets() {
 		unregister_widget( \SiteOrigin_Panels_Widgets_PostContent::class );
@@ -41,6 +40,7 @@ class SiteOrigin_Page_Builder {
 		unregister_widget( \SiteOrigin_Panels_Widgets_Gallery::class );
 	}
 
+	#[Filter( 'siteorigin_panels_widget_dialog_tabs' )]
 	/** Voegt tab voor SIW-widgets toe */
 	public function add_widget_tab( array $tabs ): array {
 		$tabs[] = [
@@ -52,6 +52,7 @@ class SiteOrigin_Page_Builder {
 		return $tabs;
 	}
 
+	#[Filter( 'siteorigin_panels_settings' )]
 	/** Zet breakpoint-instellingen */
 	public function set_breakpoint_settings( array $settings ): array {
 		$settings['mobile-width'] = CSS::MOBILE_BREAKPOINT;

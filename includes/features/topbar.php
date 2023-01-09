@@ -1,7 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Modules;
+namespace SIW\Features;
 
+use SIW\Attributes\Action;
+use SIW\Base;
 use SIW\Helpers\Template;
 use SIW\I18n;
 
@@ -10,7 +12,7 @@ use SIW\I18n;
  *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
-class Topbar {
+class Topbar extends Base {
 
 	const ASSETS_HANDLE = 'siw-topbar';
 
@@ -23,31 +25,39 @@ class Topbar {
 	/** Inhoud van de topbar */
 	protected ?array $content;
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		if ( ! I18n::is_default_language() ) {
-			return;
+	/** Bepaal of topbar getoond moet worden */
+	protected function show_topbar(): bool {
+
+		$show_topbar = wp_cache_get( key: 'siw_show_topbar', found: $found );
+		if ( true === $found ) {
+			return $show_topbar;
 		}
 
-		// Alleen in front-end tonen
-		if ( is_admin() ) {
-			return;
+		$show_topbar = true;
+
+		if ( ! I18n::is_default_language() || is_admin() ) {
+			$show_topbar = false;
 		}
 
 		// Content zetten
-		$self->content = $self->get_content();
-		if ( is_null( $self->content ) ) {
-			return;
+		$this->content = $this->get_content();
+		if ( is_null( $this->content ) ) {
+			$show_topbar = false;
 		}
-		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_styles' ] );
-		add_action( 'generate_before_header', [ $self, 'render' ] );
+
+		wp_cache_set( 'siw_show_topbar', $show_topbar );
+
+		return $show_topbar;
 	}
 
+	#[Action( 'generate_before_header' )]
 	/** Rendert de topbar */
 	public function render() {
+		if ( ! $this->show_topbar() ) {
+			return;
+		}
 		Template::create()
-			->set_template( 'modules/topbar' )
+			->set_template( 'features/topbar' )
 			->set_context(
 				[
 					'target'    => $this->content['link_target'] ?? '_self',
@@ -58,15 +68,19 @@ class Topbar {
 			->render_template();
 	}
 
+	#[Action( 'wp_enqueue_scripts' )]
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
+		if ( ! $this->show_topbar() ) {
+			return;
+		}
 		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/topbar.css', [], SIW_PLUGIN_VERSION );
 		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/modules/topbar.css' );
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
 	/** Haalt de inhoud op */
-	protected function get_content() : ?array {
+	protected function get_content(): ?array {
 		$content =
 			$this->get_event_content() ??
 			null;
@@ -75,7 +89,7 @@ class Topbar {
 	}
 
 	/** Haalt de evenementen-inhoud op */
-	protected function get_event_content() : ?array {
+	protected function get_event_content(): ?array {
 
 		$upcoming_events = siw_get_upcoming_events(
 			[

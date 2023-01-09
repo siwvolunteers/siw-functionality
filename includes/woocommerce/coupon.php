@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce;
 
-use SIW\Properties;
+use SIW\Config;
 
 /**
  * Creëert kortingscode
@@ -39,7 +39,7 @@ class Coupon {
 				'code'               => $order->get_order_number(),
 				'discount_type'      => self::DISCOUNT_TYPE,
 				'email_restrictions' => $order->get_billing_email(),
-				'amount'             => Properties::DISCOUNT_SECOND_PROJECT,
+				'amount'             => Config::get_discount_percentage_second_project(),
 				'description'        => $order->get_formatted_billing_full_name(),
 				'date_expires'       => '',
 				'usage_limit'        => 1,

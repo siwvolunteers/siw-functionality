@@ -5,7 +5,7 @@ namespace SIW\Widgets;
 /**
  * Widget met agenda
  *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  *
  * @widget_data
  * Widget Name: SIW: Agenda
@@ -15,8 +15,8 @@ namespace SIW\Widgets;
  */
 class Calendar extends Widget {
 
-	/** Aantal events wat in widget getoond wordt */
-	const NUMBER_OF_EVENTS = 2;
+	/** Maximaal aantal events wat in widget getoond wordt */
+	const MAX_NUMBER_OF_EVENTS = 5;
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
@@ -54,8 +54,22 @@ class Calendar extends Widget {
 	}
 
 	/** {@inheritDoc} */
+	protected function get_widget_fields(): array {
+		$widget_fields = [
+			'number' => [
+				'type'    => 'slider',
+				'label'   => __( 'Aantal', 'siw' ),
+				'default' => 2,
+				'min'     => 1,
+				'max'     => self::MAX_NUMBER_OF_EVENTS,
+			],
+		];
+		return $widget_fields;
+	}
+
+	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
-		$events = $this->get_upcoming_events();
+		$events = siw_get_upcoming_events( [ 'number' => $instance['number'] ] );
 
 		$parameters = [
 			'active_events'  => ! empty( $events ),
@@ -101,14 +115,5 @@ class Calendar extends Widget {
 				sprintf( '%s, %s', siw_meta( 'location.name', [], $event_id ), siw_meta( 'location.city', [], $event_id ) ),
 
 		];
-	}
-
-	/** Haalt toekomstige evenementen op */
-	protected function get_upcoming_events() : array {
-		return siw_get_upcoming_events(
-			[
-				'number' => self::NUMBER_OF_EVENTS,
-			]
-		);
 	}
 }

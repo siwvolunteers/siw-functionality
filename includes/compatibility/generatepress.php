@@ -2,6 +2,9 @@
 
 namespace SIW\Compatibility;
 
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\Properties;
 use SIW\Update;
 use SIW\Util\CSS;
@@ -12,49 +15,35 @@ use SIW\Util\CSS;
  * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://generatepress.com/
  */
-class GeneratePress {
+class GeneratePress extends Base {
 
+	#[Filter( 'generate_back_to_top_scroll_speed' )]
 	/** Snelheid voor scroll to top */
-	const BACK_TO_TOP_SCROLL_SPEED = 500;
+	private const BACK_TO_TOP_SCROLL_SPEED = 500;
 
-	/** Init */
-	public static function init() {
+	#[Filter( 'generate_font_manager_show_google_fonts' )]
+	private const SHOW_GOOGLE_FONTS = false;
 
-		$self = new self();
-		add_filter( 'generate_copyright', [ $self, 'set_copyright_message' ] );
-
-		// Elements
-		add_action( 'init', [ $self, 'add_elements_menu_order' ] );
-		add_filter( 'generate_elements_custom_args', [ $self, 'set_elements_orderby' ] );
-
-		// Pas snelheid voor omhoog scrollen aan
-		add_filter( 'generate_back_to_top_scroll_speed', fn() : int => self::BACK_TO_TOP_SCROLL_SPEED );
-
-		add_filter( 'generate_font_manager_show_google_fonts', '__return_false' );
-
-		// Default instellingen zetten
-		add_filter( 'generate_default_color_palettes', [ $self, 'set_default_color_palettes' ] );
-		add_action( 'customize_save_after', [ $self, 'set_global_colors' ], 1 );
-		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'set_global_colors' ], 1 );
-		add_action( Update::PLUGIN_UPDATED_HOOK, 'generate_update_dynamic_css_cache' );
-	}
-
+	#[Action( 'init' )]
 	/** Voeg menu order toe een GP Elements */
 	public function add_elements_menu_order() {
 		add_post_type_support( 'gp_elements', 'page-attributes' );
 	}
 
+	#[Filter( 'generate_elements_custom_args' )]
 	/** Sorteer elements standaard op menu_order */
 	public function set_elements_orderby( array $args ): array {
 		$args['orderby'] = 'menu_order';
 		return $args;
 	}
 
+	#[Filter( 'generate_copyright' )]
 	/** Zet copyright voor footer */
 	public function set_copyright_message(): string {
 		return sprintf( '&copy; %s %s', current_time( 'Y' ), Properties::NAME );
 	}
 
+	#[Filter( 'generate_default_color_palettes' )]
 	/** Zet default kleurenpalet */
 	public function set_default_color_palettes(): array {
 		return [
@@ -65,6 +54,8 @@ class GeneratePress {
 		];
 	}
 
+	#[Action( Update::PLUGIN_UPDATED_HOOK, 1 )]
+	#[Action( 'customize_save_after', 1 )]
 	/** Zet global colors */
 	public function set_global_colors() {
 		$generate_settings = get_option( 'generate_settings', [] );
@@ -91,5 +82,11 @@ class GeneratePress {
 			],
 		];
 		update_option( 'generate_settings', $generate_settings );
+	}
+
+	#[Action( Update::PLUGIN_UPDATED_HOOK )]
+	/** Update GeneratePress dynamic css cache */
+	public function update_dynamic_css() {
+		generate_update_dynamic_css_cache();
 	}
 }

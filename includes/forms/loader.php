@@ -32,7 +32,6 @@ class Loader extends Object_Loader_Abstract {
 		if ( ! is_a( $object, Form_Interface::class ) ) {
 			return;
 		}
-		$form = new Form( $object );
-		$form->register();
+		Form::init( $object );
 	}
 }

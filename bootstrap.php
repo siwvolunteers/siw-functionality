@@ -39,6 +39,7 @@ class Bootstrap {
 		$this->init_loader( 'Actions' );
 		$this->init_loader( 'Assets' );
 		$this->init_loader( 'Options' );
+		$this->init_loader( 'Features' );
 		$this->init_loader( 'Forms' );
 		$this->init_loader( 'Widgets' );
 		$this->init_loader( 'Modules', 'init', 11 );

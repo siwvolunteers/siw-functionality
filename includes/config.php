@@ -126,4 +126,49 @@ class Config {
 	public static function get_dkim_private_key_file_path(): ?string {
 		return self::get_constant_value( 'SIW_DKIM_PRIVATE_KEY_FILE_PATH' );
 	}
+
+	/** Geeft STV tarief terug */
+	public static function get_stv_project_fee(): int {
+		return self::get_constant_value( 'SIW_STV_PROJECT_FEE' );
+	}
+
+	/** Geeft MTV tarief terug */
+	public static function get_mtv_project_fee(): int {
+		return self::get_constant_value( 'SIW_MTV_PROJECT_FEE' );
+	}
+
+	/** Geeft LTV tarief terug */
+	public static function get_ltv_project_fee(): int {
+		return self::get_constant_value( 'SIW_LTV_PROJECT_FEE' );
+	}
+
+	/** Geeft NP tarief terug */
+	public static function get_dutch_project_fee(): int {
+		return self::get_constant_value( 'SIW_DUTCH_PROJECT_FEE' );
+	}
+
+	/** Geeft bedrag studentenkorting terug */
+	public static function get_student_discount_amount(): int {
+		return self::get_constant_value( 'SIW_STUDENT_DISCOUNT_AMOUNT' );
+	}
+
+	/** Geef inschrijfgeld voor  */
+	public static function get_school_project_fee(): int {
+		return self::get_constant_value( 'SIW_STUDENT_DISCOUNT_AMOUNT' );
+	}
+
+	/** Geeft ESC borg terug */
+	public static function get_esc_deposit(): int {
+		return self::get_constant_value( 'SIW_ESC_DEPOSIT' );
+	}
+
+	/** Geeft kortingspercentage voor tweede project terug */
+	public static function get_discount_percentage_second_project(): int {
+		return self::get_constant_value( 'SIW_DISCOUNT_PERCENTAGE_SECOND_PROJECT' );
+	}
+
+	/** Geeft bedrag voor <18 training terug */
+	public static function get_minors_training_fee(): int {
+		return self::get_constant_value( 'SIW_MINORS_TRAINING_FEE' );
+	}
 }

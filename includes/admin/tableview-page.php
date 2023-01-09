@@ -3,6 +3,9 @@
 namespace SIW\Admin;
 
 use SIW\Admin\Database_List_Table;
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\Database_Table;
 
 /**
@@ -10,7 +13,7 @@ use SIW\Database_Table;
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Tableview_Page {
+class Tableview_Page extends Base {
 
 	/** Slug voor menu-pagina */
 	const MENU_SLUG = 'siw-database-tables';
@@ -24,16 +27,7 @@ class Tableview_Page {
 	/** Array voor afleiden van tabel uit page hook */
 	public array $tables;
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		if ( ! class_exists( \WP_List_Table::class ) ) {
-			require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
-		}
-		add_filter( 'set-screen-option', [ $self, 'set_screen_option' ], 10, 3 );
-		add_action( 'admin_menu', [ $self, 'add_menu_pages' ] );
-	}
-
+	#[Action( 'admin_menu' )]
 	/** Voegt menupagina's toe */
 	public function add_menu_pages() {
 		add_menu_page(
@@ -93,6 +87,7 @@ class Tableview_Page {
 		add_screen_option( 'per_page', $args );
 	}
 
+	#[Filter( 'set-screen-option' )]
 	/** Sla schermoptie op */
 	public function set_screen_option( $keep, $option, $value ) {
 		foreach ( Database_Table::toValues() as $table ) {

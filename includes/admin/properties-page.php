@@ -2,6 +2,8 @@
 
 namespace SIW\Admin;
 
+use SIW\Attributes\Action;
+use SIW\Base;
 use SIW\Elements\Table;
 use SIW\Properties;
 
@@ -10,14 +12,9 @@ use SIW\Properties;
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Properties_Page {
+class Properties_Page extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'admin_menu', [ $self, 'add_properties_page' ] );
-	}
-
+	#[Action( 'admin_menu' )]
 	/** Voegt adminpagina toe */
 	public function add_properties_page() {
 		add_management_page(

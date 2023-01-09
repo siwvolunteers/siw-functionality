@@ -27,6 +27,7 @@ class Loader extends Object_Loader_Abstract {
 			Batch\Import_Plato_Dutch_Projects::class,
 			Batch\Import_Plato_Project_Free_Places::class,
 			Batch\Import_Plato_Projects::class,
+			Batch\Migrate_Approval_Result::class,
 			Batch\Send_Workcamp_Approval_Emails::class,
 			Batch\Update_Database::class,
 			Batch\Update_Projects::class,

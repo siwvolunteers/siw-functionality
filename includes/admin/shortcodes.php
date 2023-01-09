@@ -2,6 +2,8 @@
 
 namespace SIW\Admin;
 
+use SIW\Attributes\Action;
+use SIW\Base;
 use SIW\Shortcodes as SIW_Shortcodes;
 
 /**
@@ -9,16 +11,11 @@ use SIW\Shortcodes as SIW_Shortcodes;
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Shortcodes {
+class Shortcodes extends Base {
 
 	const ASSETS_HANDLE = 'siw-admin-shortcodes';
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'wp_enqueue_editor', [ $self, 'enqueue_script' ] );
-	}
-
+	#[Action( 'wp_enqueue_editor' )]
 	/** Script toevoegen */
 	public function enqueue_script() {
 

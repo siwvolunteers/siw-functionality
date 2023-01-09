@@ -3,6 +3,7 @@
 namespace SIW\WooCommerce\Product\Admin;
 
 use SIW\WooCommerce\Import\Product as Import_Product;
+use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
  * Goedkeuring van projecten
@@ -10,6 +11,8 @@ use SIW\WooCommerce\Import\Product as Import_Product;
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Approval {
+
+	const FIELD_ID = '_approval_result';
 
 	/** Afgekeurd */
 	const REJECTED = 'rejected';
@@ -39,7 +42,7 @@ class Approval {
 		$approval_result = $product->get_approval_result();
 		woocommerce_wp_radio(
 			[
-				'id'      => '_approval_result',
+				'id'      => self::FIELD_ID,
 				'value'   => ! empty( $approval_result ) ? $approval_result : self::APPROVED,
 				'label'   => __( 'Beoordeling project', 'siw' ),
 				'options' => [
@@ -53,10 +56,10 @@ class Approval {
 	/** Toont beoordelingsresultaat */
 	public function show_approval_result( \WP_Post $post ) {
 		$product = siw_get_product( $post );
-		if ( null === $product || empty( $product->get_meta( 'approval_result' ) ) ) {
+		if ( null === $product || empty( $product->get_approval_result() ) ) {
 			return;
 		}
-		switch ( $product->get_meta( 'approval_result' ) ) {
+		switch ( $product->get_approval_result() ) {
 			case self::APPROVED:
 				$message = __( 'Goedgekeurd', 'siw' );
 				$class = 'success';
@@ -65,6 +68,8 @@ class Approval {
 				$message = __( 'Afgekeurd', 'siw' );
 				$class = 'error';
 				break;
+			default:
+				return;
 		}
 
 		printf(
@@ -75,16 +80,19 @@ class Approval {
 	}
 
 	/** Slaat het resultaat van de beoordeling op */
-	public function save_approval_result( \WC_Product $product ) {
+	public function save_approval_result( WC_Product_Project $product ) {
 
 		// phpcs:disable WordPress.Security.NonceVerification.Missing
 
-		if ( ! isset( $_POST['_approval_result'] ) ) {
+		if ( ! isset( $_POST[ self::FIELD_ID ] ) ) {
 			return;
 		}
-		$product->update_meta_data( 'approval_result', sanitize_text_field( wp_unslash( $_POST['_approval_result'] ) ) );
 
-		if ( self::REJECTED === sanitize_text_field( wp_unslash( $_POST['_approval_result'] ) ) ) {
+		$approval_result = sanitize_text_field( wp_unslash( $_POST[ self::FIELD_ID ] ) );
+
+		$product->set_approval_result( $approval_result );
+
+		if ( self::REJECTED === $approval_result ) {
 			$product->set_catalog_visibility( 'hidden' );
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Missing

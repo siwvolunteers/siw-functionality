@@ -39,27 +39,28 @@ class Shortcodes {
 	/** Geeft lijst met shortcodes terug */
 	public static function get_shortcodes(): array {
 		$shortcodes = [
-			'kvk'                     => __( 'KVK-nummer', 'siw' ),
-			'email'                   => __( 'E-mailadres', 'siw' ),
-			'email_link'              => __( 'E-mailadres (link)', 'siw' ),
-			'telefoon'                => __( 'Telefoonnummer', 'siw' ),
-			'telefoon_internationaal' => __( 'Telefoonnummer (internationaal)', 'siw' ),
-			'whatsapp'                => __( 'WhatsApp-nummer', 'siw' ),
-			'iban'                    => __( 'IBAN', 'siw' ),
-			'esc_borg'                => __( 'ESC-borg', 'siw' ),
-			'stv_tarief'              => __( 'STV tarief', 'siw' ),
-			'stv_tarief_student'      => __( 'STV tarief inclusief studentenkorting', 'siw' ),
-			'mtv_tarief'              => __( 'MTV tarief', 'siw' ),
-			'mtv_tarief_student'      => __( 'MTV tarief inclusief studentenkorting', 'siw' ),
-			'ltv_tarief'              => __( 'LTV tarief', 'siw' ),
-			'ltv_tarief_student'      => __( 'LTV tarief inclusief studentenkorting', 'siw' ),
-			'np_tarief'               => __( 'Tarief Nederlandse projecten', 'siw' ),
-			'np_tarief_student'       => __( 'Tarief Nederlandse projecten inclusief studentenkorting', 'siw' ),
-			'studentenkorting'        => __( 'Studentenkorting', 'siw' ),
-			'scholenproject_tarief'   => __( 'Scholenproject - tarief', 'siw' ),
-			'korting_tweede_project'  => __( 'Korting tweede project', 'siw' ),
-			'leeftijd'                => __( 'Leeftijd van SIW', 'siw' ),
-			'externe_link'            => [
+			'kvk'                           => __( 'KVK-nummer', 'siw' ),
+			'email'                         => __( 'E-mailadres', 'siw' ),
+			'email_link'                    => __( 'E-mailadres (link)', 'siw' ),
+			'telefoon'                      => __( 'Telefoonnummer', 'siw' ),
+			'telefoon_internationaal'       => __( 'Telefoonnummer (internationaal)', 'siw' ),
+			'whatsapp'                      => __( 'WhatsApp-nummer', 'siw' ),
+			'iban'                          => __( 'IBAN', 'siw' ),
+			'esc_borg'                      => __( 'ESC-borg', 'siw' ),
+			'stv_tarief'                    => __( 'STV tarief', 'siw' ),
+			'stv_tarief_student'            => __( 'STV tarief inclusief studentenkorting', 'siw' ),
+			'mtv_tarief'                    => __( 'MTV tarief', 'siw' ),
+			'mtv_tarief_student'            => __( 'MTV tarief inclusief studentenkorting', 'siw' ),
+			'ltv_tarief'                    => __( 'LTV tarief', 'siw' ),
+			'ltv_tarief_student'            => __( 'LTV tarief inclusief studentenkorting', 'siw' ),
+			'np_tarief'                     => __( 'Tarief Nederlandse projecten', 'siw' ),
+			'np_tarief_student'             => __( 'Tarief Nederlandse projecten inclusief studentenkorting', 'siw' ),
+			'studentenkorting'              => __( 'Studentenkorting', 'siw' ),
+			'scholenproject_tarief'         => __( 'Scholenproject - tarief', 'siw' ),
+			'korting_tweede_project'        => __( 'Korting tweede project', 'siw' ),
+			'kosten_training_minderjarigen' => __( 'Kosten training minderjarigen', 'siw' ),
+			'leeftijd'                      => __( 'Leeftijd van SIW', 'siw' ),
+			'externe_link'                  => [
 				'title'      => __( 'Externe link', 'siw' ),
 				'attributes' => [
 					[
@@ -74,7 +75,7 @@ class Shortcodes {
 					],
 				],
 			],
-			'pagina_lightbox'         => [
+			'pagina_lightbox'               => [
 				'title'      => __( 'Pagina-lightbox', 'siw' ),
 				'attributes' => [
 					[
@@ -133,62 +134,67 @@ class Shortcodes {
 
 	/** ESC-borg */
 	public static function render_esc_borg(): string {
-		return siw_format_amount( Properties::ESC_DEPOSIT );
+		return siw_format_amount( Config::get_esc_deposit() );
 	}
 
 	/** STV tarief */
 	public static function render_stv_tarief(): string {
-		return siw_format_amount( Properties::STV_PROJECT_FEE );
+		return siw_format_amount( Config::get_stv_project_fee() );
 	}
 
 	/** STV tarief inclusief studentenkorting */
 	public static function render_stv_tarief_student(): string {
-		return siw_format_amount( Properties::STV_PROJECT_FEE - Properties::STUDENT_DISCOUNT_AMOUNT );
+		return siw_format_amount( Config::get_stv_project_fee() - Config::get_student_discount_amount() );
 	}
 
 	/** MTV tarief */
 	public static function render_mtv_tarief(): string {
-		return siw_format_amount( Properties::MTV_PROJECT_FEE );
+		return siw_format_amount( Config::get_mtv_project_fee() );
 	}
 
 	/** MTV tarief inclusief studentenkorting */
 	public static function render_mtv_tarief_student(): string {
-		return siw_format_amount( Properties::MTV_PROJECT_FEE - Properties::STUDENT_DISCOUNT_AMOUNT );
+		return siw_format_amount( Config::get_mtv_project_fee() - Config::get_student_discount_amount() );
 	}
 
 	/** LTV tarief */
 	public static function render_ltv_tarief(): string {
-		return siw_format_amount( Properties::LTV_PROJECT_FEE );
+		return siw_format_amount( Config::get_ltv_project_fee() );
 	}
 
 	/** LTV tarief inclusief studentenkorting */
 	public static function render_ltv_tarief_student(): string {
-		return siw_format_amount( Properties::LTV_PROJECT_FEE - Properties::STUDENT_DISCOUNT_AMOUNT );
+		return siw_format_amount( Config::get_ltv_project_fee() - Config::get_student_discount_amount() );
 	}
 
 	/** NP tarief */
 	public static function render_np_tarief(): string {
-		return siw_format_amount( Properties::DUTCH_PROJECT_FEE );
+		return siw_format_amount( Config::get_dutch_project_fee() );
 	}
 
 	/** NP tarief inclusief studentenkorting */
 	public static function render_np_tarief_student(): string {
-		return siw_format_amount( Properties::DUTCH_PROJECT_FEE - Properties::STUDENT_DISCOUNT_AMOUNT );
+		return siw_format_amount( Config::get_dutch_project_fee() - Config::get_student_discount_amount() );
 	}
 
 	/** Studentenkorting */
 	public static function render_studentenkorting(): string {
-		return siw_format_amount( Properties::STUDENT_DISCOUNT_AMOUNT );
+		return siw_format_amount( Config::get_student_discount_amount() );
 	}
 
 	/** Inschrijfgeld scholenproject */
 	public static function render_scholenproject_tarief(): string {
-		return siw_format_amount( Properties::SCHOOL_PROJECT_FEE );
+		return siw_format_amount( Config::get_student_discount_amount() );
 	}
 
 	/** Korting tweede Groepsproject */
 	public static function render_korting_tweede_project(): string {
-		return siw_format_percentage( Properties::DISCOUNT_SECOND_PROJECT );
+		return siw_format_percentage( Config::get_discount_percentage_second_project() );
+	}
+
+	/** Kosten extra training minderjarigen */
+	public static function render_kosten_training_minderjarigen(): string {
+		return siw_format_amount( Config::get_minors_training_fee() );
 	}
 
 	/** Externe link */
