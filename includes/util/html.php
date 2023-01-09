@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW;
+namespace SIW\Util;
 
 /**
  * Hulpfuncties voor het genereren van HTML

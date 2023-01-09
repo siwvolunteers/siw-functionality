@@ -5,7 +5,7 @@ use SIW\Content\Type;
 use SIW\Data\Country;
 use SIW\Elements\Quote;
 use SIW\Helpers\Template;
-use SIW\HTML;
+use SIW\Util\HTML;
 use SIW\Util\Links;
 use SIW\I18n;
 

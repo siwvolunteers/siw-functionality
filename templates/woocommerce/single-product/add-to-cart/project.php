@@ -1,6 +1,6 @@
 <?php
 
-use SIW\HTML;
+use SIW\Util\HTML;
 
 defined( 'ABSPATH' ) || exit;
 

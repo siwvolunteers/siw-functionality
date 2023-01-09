@@ -4,7 +4,7 @@ namespace SIW\Modules;
 
 use SIW\Assets\Google_Analytics as Google_Analytics_Asset;
 use SIW\Config;
-use SIW\HTML;
+use SIW\Util\HTML;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
