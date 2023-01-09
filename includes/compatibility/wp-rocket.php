@@ -73,7 +73,6 @@ class WP_Rocket extends Plugin {
 			'wp_rocket',
 			[
 				'label'    => esc_html__( 'WP Rocket', 'siw' ),
-				'icon'     => 'dashicons-wordpress',
 				'priority' => 99,
 				'caps'     => self::USER_CAPS,
 			]
