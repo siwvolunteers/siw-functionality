@@ -2,6 +2,7 @@
 
 namespace SIW;
 
+use SIW\Attributes\Action;
 use SIW\Update;
 
 /**
@@ -9,7 +10,7 @@ use SIW\Update;
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Scheduler {
+class Scheduler extends Base {
 
 	/** Group voor starten */
 	const START_GROUP = 'siw_start';
@@ -23,12 +24,7 @@ class Scheduler {
 	/** Starttijdvan project-import */
 	const START_TIME_IMPORT_PROJECTS = '01:00';
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( Update::PLUGIN_UPDATED_HOOK, [ $self, 'schedule_actions' ] );
-	}
-
+	#[Action( Update::PLUGIN_UPDATED_HOOK )]
 	/**  Schedule acties */
 	public function schedule_actions() {
 

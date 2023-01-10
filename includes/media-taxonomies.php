@@ -2,21 +2,17 @@
 
 namespace SIW;
 
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
+
 /**
  * Taxonomies voor attachments
  *
  * @copyright   2019 SIW Internationale Vrijwilligersprojecten
  */
-class Media_Taxonomies {
+class Media_Taxonomies extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'init', [ $self, 'register_taxonomies' ] );
-		add_filter( 'rwmb_meta_boxes', [ $self, 'add_metabox' ] );
-		add_action( 'restrict_manage_posts', [ $self, 'add_taxonomy_filters' ] );
-	}
-
+	#[Action( 'init' )]
 	/** Registreert taxonomies voor attachments */
 	public function register_taxonomies() {
 
@@ -39,6 +35,7 @@ class Media_Taxonomies {
 		}
 	}
 
+	#[Filter( 'rwmb_meta_boxes' )]
 	/** Voegt metabox toe */
 	public function add_metabox( array $metaboxes ): array {
 
@@ -95,6 +92,7 @@ class Media_Taxonomies {
 		return $taxonomies;
 	}
 
+	#[Action( 'restrict_manage_posts' )]
 	/** Voegt taxonomy filter toe op admin scherm */
 	public function add_taxonomy_filters() {
 		$screen = get_current_screen();
