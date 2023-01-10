@@ -74,8 +74,8 @@ class Topbar extends Base {
 		if ( ! $this->show_topbar() ) {
 			return;
 		}
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/topbar.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/modules/topbar.css' );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/features/topbar.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/features/topbar.css' );
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 

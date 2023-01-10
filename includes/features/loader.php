@@ -15,9 +15,14 @@ class Loader extends A_Base_Loader {
 	public function get_classes() : array {
 		return [
 			Animation::class,
+			Breadcrumbs::class,
+			Cookie_Notice::class,
+			Facebook_Pixel::class,
+			Google_Analytics::class,
 			Mega_Menu::class,
 			Social_Share::class,
 			Topbar::class,
+			Web_App_Manifest::class,
 		];
 	}
 }

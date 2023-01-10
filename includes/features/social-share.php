@@ -23,8 +23,8 @@ class Social_Share extends Base {
 	#[Action( 'wp_enqueue_scripts' )]
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/modules/social-share.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/modules/social-share.css' );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/features/social-share.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/features/social-share.css' );
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 

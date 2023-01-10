@@ -23,7 +23,7 @@ class Animation extends Base {
 	#[Action( 'wp_enqueue_scripts' )]
 	/** Registreert scripts */
 	public function register_script() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/animation.js', [ Sal::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/features/animation.js', [ Sal::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			self::ASSETS_HANDLE,
 			'siw_animation',
@@ -40,7 +40,7 @@ class Animation extends Base {
 	/** Registreert styles */
 	public function register_style() {
 		$max_width = CSS::MOBILE_BREAKPOINT;
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/animation.css', [ SAL::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, "(max-width: {$max_width}px)" );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/features/animation.css', [ SAL::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, "(max-width: {$max_width}px)" );
 		// TODO: bug melden omdat wp_maybe_inline_styles() media query niet overneemt
 		// wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/animation.css' );
 		wp_enqueue_style( self::ASSETS_HANDLE );

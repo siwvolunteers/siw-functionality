@@ -1,8 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Modules;
+namespace SIW\Features;
 
 use SIW\Assets\Google_Analytics as Google_Analytics_Asset;
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\Config;
 use SIW\Util\HTML;
 use SIW\WooCommerce\Product\WC_Product_Project;
@@ -13,7 +16,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Google_Analytics {
+class Google_Analytics extends Base {
 
 	const ASSETS_HANDLE = 'siw-analytics';
 
@@ -26,9 +29,6 @@ class Google_Analytics {
 	const ACTION_DETAIL = 'detail';
 	const ACTION_PURCHASE = 'purchase';
 	const ACTION_REMOVE = 'remove';
-
-	/** Google Analytics property ID */
-	protected ?string $property_id;
 
 	/** Instellingen voor tracker */
 	protected array $tracker_settings = [
@@ -44,46 +44,20 @@ class Google_Analytics {
 		'transport'       => 'beacon',
 	];
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		$self->set_property_id();
-
-		if ( ! $self->tracking_enabled() ) {
-			return;
-		}
-		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_scripts' ] );
-
-		remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
-		add_action( 'woocommerce_before_shop_loop_item', [ $self, 'woocommerce_template_loop_product_link_open' ], 10 );
-
-		add_filter( 'woocommerce_cart_item_remove_link', [ $self, 'add_ga_attributes_to_cart_item_remove_link' ], 10, 2 );
-		add_filter( 'siw_woocommerce_add_to_cart_button_attributes', [ $self, 'add_ga_attributes_to_add_to_cart_button' ], 10, 2 );
-	}
-
-	/** Haalt het GA property ID op */
-	protected function set_property_id() {
-		$this->property_id = Config::get_google_analytics_property_id();
-	}
-
-	/** Geeft aan of tracking ingeschakeld moet worden */
-	protected function tracking_enabled(): bool {
-		if ( ! isset( $this->property_id ) || is_user_logged_in() ) {
-			return false;
-		}
-		return true;
-	}
-
+	#[Action( 'wp_enqueue_scripts' )]
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/modules/siw-analytics.js', [ Google_Analytics_Asset::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		if ( is_user_logged_in() ) {
+			return;
+		}
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/features/google-analytics.js', [ Google_Analytics_Asset::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script( self::ASSETS_HANDLE, 'siw_analytics', $this->generate_analytics_data() );
 		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 
 	/** Genereert analytics data */
 	protected function generate_analytics_data(): array {
-		$analytics_data['property_id'] = $this->property_id;
+		$analytics_data['property_id'] = Config::get_google_analytics_property_id();
 		$analytics_data['tracker_settings'] = $this->tracker_settings;
 		$analytics_data['tracker_options'] = $this->tracker_options;
 
@@ -91,13 +65,13 @@ class Google_Analytics {
 			$analytics_data['ecommerce_data'] = $this->generate_ecommerce_data();
 		}
 
-		return $analytics_data;
+		return array_filter( $analytics_data );
 	}
 
 	/** Genereert data voor Enhanced Ecommerce */
-	protected function generate_ecommerce_data(): array {
+	protected function generate_ecommerce_data(): ?array {
 
-		$ecommerce_data = [];
+		$ecommerce_data = null;
 		if ( is_product() ) {
 			$product = siw_get_product( get_the_ID() );
 			$ecommerce_data['products'][] = $this->get_product_data( $product );
@@ -196,8 +170,11 @@ class Google_Analytics {
 		return $product_list;
 	}
 
+	#[Action( 'woocommerce_before_shop_loop_item', 9 )]
 	/** Voegt GA attributes toe aan WooCommerce Loop link */
 	public function woocommerce_template_loop_product_link_open() {
+		remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
+
 		global $product;
 		static $position = 0;
 
@@ -220,6 +197,7 @@ class Google_Analytics {
 		);
 	}
 
+	#[Filter( 'woocommerce_cart_item_remove_link' )]
 	/** Voegt GA attributes toe aan remove from cart link */
 	public function add_ga_attributes_to_cart_item_remove_link( string $link, string $cart_item_key ) : string {
 		$cart_item = WC()->cart->get_cart_item( $cart_item_key );
@@ -241,6 +219,7 @@ class Google_Analytics {
 		return $link;
 	}
 
+	#[Filter( 'siw_woocommerce_add_to_cart_button_attributes' )]
 	/** TODO: */
 	public function add_ga_attributes_to_add_to_cart_button( array $attributes, WC_Product_Project $product ): array {
 		$attributes = [
