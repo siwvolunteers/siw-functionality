@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace SIW;
+namespace SIW\Features;
 
 use SIW\Assets\SIW_SVG;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
+use SIW\Base;
 
 /**
  * Class voor SIW icons
