@@ -117,8 +117,8 @@ class Form extends Base {
 	/** Voeg quiz toe om bots af te schrikken */
 	protected function add_quiz( array $fields ): array {
 
-		$one = wp_rand( 2, 10 );
-		$two = wp_rand( 2, 10 );
+		$one = wp_rand( 2, 5 );
+		$two = wp_rand( 2, 5 );
 
 		if ( $one > $two ) {
 			$operator = __( 'min', 'siw' );
@@ -137,9 +137,10 @@ class Form extends Base {
 			'columns'  => Form_Interface::HALF_WIDTH,
 		];
 		$fields[] = [
-			'id'   => 'quiz_hash',
-			'type' => 'hidden',
-			'std'  => siw_hash( (string) $answer ),
+			'id'      => 'quiz_hash',
+			'type'    => 'hidden',
+			'std'     => siw_hash( (string) $answer ),
+			'columns' => Form_Interface::FULL_WIDTH,
 		];
 
 		return $fields;
