@@ -6,6 +6,7 @@ use SIW\Assets\SIW_SVG;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Base;
+use SIW\Util\CSS;
 
 /**
  * Class voor SIW icons
@@ -40,7 +41,7 @@ class Icons extends Base {
 	public function enqueue_admin_style() {
 		$icons = $this->get_icons();
 
-		$css = siw_get_css_generator();
+		$css = CSS::get_css_generator();
 		$css->add_rule(
 			'.siteorigin-widget-icon-selector-current .sow-icon-siw',
 			[
