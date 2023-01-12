@@ -31,7 +31,7 @@ class Icons extends Base {
 	#[Action( 'wp_enqueue_scripts' )]
 	/** Voegt stylesheet toe */
 	public function enqueue_style() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/siw-icons.css', null, SIW_PLUGIN_VERSION );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/features/icons.css', null, SIW_PLUGIN_VERSION );
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
