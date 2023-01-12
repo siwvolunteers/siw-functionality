@@ -5,7 +5,6 @@ namespace SIW\WooCommerce\Frontend;
 use SIW\Config;
 use SIW\Elements\Form;
 use SIW\Elements\Google_Maps;
-use SIW\External\Exchange_Rates;
 use SIW\Forms\Forms\Enquiry_Project;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
@@ -138,8 +137,7 @@ class Product_Tabs {
 			$currency_code = $product->get_participation_fee_currency();
 
 			if ( get_woocommerce_currency() !== $currency_code ) {
-				$exchange_rates = new Exchange_Rates();
-				$amount_in_euro = $exchange_rates->convert_to_euro( $currency_code, $product->get_participation_fee(), 0 );
+				$amount_in_euro = siw_convert_to_euro( $currency_code, $product->get_participation_fee() );
 			}
 			echo BR; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			printf(
