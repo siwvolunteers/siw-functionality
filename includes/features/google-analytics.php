@@ -47,7 +47,7 @@ class Google_Analytics extends Base {
 	#[Action( 'wp_enqueue_scripts' )]
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		if ( is_user_logged_in() ) {
+		if ( is_user_logged_in() || null === Config::get_google_analytics_property_id() ) {
 			return;
 		}
 		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/features/google-analytics.js', [ Google_Analytics_Asset::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
@@ -69,9 +69,9 @@ class Google_Analytics extends Base {
 	}
 
 	/** Genereert data voor Enhanced Ecommerce */
-	protected function generate_ecommerce_data(): ?array {
+	protected function generate_ecommerce_data(): array {
 
-		$ecommerce_data = null;
+		$ecommerce_data = [];
 		if ( is_product() ) {
 			$product = siw_get_product( get_the_ID() );
 			$ecommerce_data['products'][] = $this->get_product_data( $product );
