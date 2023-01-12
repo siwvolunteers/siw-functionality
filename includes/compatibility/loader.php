@@ -16,6 +16,7 @@ class Loader extends Class_Loader_Abstract {
 		return [
 			Action_Scheduler::class,
 			GeneratePress::class,
+			Members::class,
 			Meta_Box::class,
 			Safe_Redirect_Manager::class,
 			SiteOrigin_Page_Builder::class,
