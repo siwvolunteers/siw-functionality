@@ -25,29 +25,29 @@ class Topbar extends Base {
 	/** Inhoud van de topbar */
 	protected ?array $content;
 
+	/** Wordt topbar getoond */
+	protected bool $show_topbar;
+
 	/** Bepaal of topbar getoond moet worden */
 	protected function show_topbar(): bool {
 
-		$show_topbar = wp_cache_get( key: 'siw_show_topbar', found: $found );
-		if ( true === $found ) {
-			return $show_topbar;
+		if ( isset( $this->show_topbar ) ) {
+			return $this->show_topbar;
 		}
 
-		$show_topbar = true;
+		$this->show_topbar = true;
 
 		if ( ! I18n::is_default_language() || is_admin() ) {
-			$show_topbar = false;
+			$this->show_topbar = false;
 		}
 
 		// Content zetten
 		$this->content = $this->get_content();
 		if ( is_null( $this->content ) ) {
-			$show_topbar = false;
+			$this->show_topbar = false;
 		}
 
-		wp_cache_set( 'siw_show_topbar', $show_topbar );
-
-		return $show_topbar;
+		return $this->show_topbar;
 	}
 
 	#[Action( 'generate_before_header' )]
