@@ -91,7 +91,11 @@ form.rwmb-form {
 		margin-right: 0;
 	}
 
-	.footer-widgets & .rwmb-column .rwmb-field {
+	.rwmb-column .rwmb-field.rwmb-hidden-wrapper {
+		margin-bottom: 0;
+	}
+
+	.footer-widgets & .rwmb-column .rwmb-field:not(.rwmb-hidden-wrapper) {
 		margin-bottom: 12px;
 	}
 
