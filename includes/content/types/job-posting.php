@@ -201,6 +201,12 @@ class Job_Posting extends Type {
 						'type'     => 'wysiwyg',
 						'required' => true,
 					],
+					[
+						'id'         => 'organization_profile',
+						'name'       => __( 'Wie zijn wij?', 'siw' ),
+						'type'       => 'custom_html',
+						'std'        => siw_get_option( 'job_postings_organization_profile' ),
+					],
 				],
 			],
 		];
