@@ -105,9 +105,10 @@ class Product_Tabs {
 			echo BR2; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
-		echo wp_kses_post( ( wp_targeted_link_rel( links_add_target( make_clickable( wpautop( $args['content'] ) ) ) ) ) );
+		echo ( '<i>Onderstaande informatie komt direct van onze partnerorganisatie en wordt daarom niet in het Nederlands weergegeven.</i>' );
+		echo BR2; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-		// TODO: toon disclaimer dat informatie van partner komt.
+		echo wp_kses_post( ( wp_targeted_link_rel( links_add_target( make_clickable( wpautop( $args['content'] ) ) ) ) ) );
 
 		if ( self::LOCATION_TAB === $tab && $product->get_latitude() && null !== $product->get_longitude() ) {
 			Google_Maps::create()
