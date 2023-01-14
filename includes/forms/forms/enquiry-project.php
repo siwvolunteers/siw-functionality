@@ -42,7 +42,7 @@ class Enquiry_Project implements Form_Interface, Confirmation_Mail_Interface, No
 			[
 				'id'   => 'email',
 				'type' => 'email',
-				'name' => __( 'Emailadres', 'siw' ),
+				'name' => __( 'E-mailadres', 'siw' ),
 			],
 			[
 				'id'       => 'phone',

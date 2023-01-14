@@ -43,7 +43,7 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 			[
 				'id'   => 'email',
 				'type' => 'email',
-				'name' => __( 'Emailadres', 'siw' ),
+				'name' => __( 'E-mailadres', 'siw' ),
 			],
 			[
 				'id'       => 'phone',

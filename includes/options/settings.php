@@ -44,7 +44,7 @@ class Settings implements Option_Interface {
 			],
 			[
 				'id'    => 'email',
-				'label' => __( 'Email', 'siw' ),
+				'label' => __( 'E-mail', 'siw' ),
 				'icon'  => 'dashicons-email',
 			],
 			[

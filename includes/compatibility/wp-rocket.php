@@ -72,7 +72,7 @@ class WP_Rocket extends Plugin {
 		\members_register_cap_group(
 			'wp_rocket',
 			[
-				'label'    => esc_html__( 'WP Rocket', 'siw' ),
+				'label'    => 'WP Rocket',
 				'priority' => 99,
 				'caps'     => self::USER_CAPS,
 			]

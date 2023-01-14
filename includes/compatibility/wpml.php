@@ -61,7 +61,7 @@ class WPML extends Plugin {
 		\members_register_cap_group(
 			'wpml',
 			[
-				'label'    => esc_html__( 'WPML', 'siw' ),
+				'label'    => 'WPML',
 				'icon'     => 'dashicons-translation',
 				'priority' => 90,
 				'caps'     => self::USER_CAPS,
