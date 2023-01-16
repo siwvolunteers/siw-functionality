@@ -38,9 +38,9 @@ class Settings implements Option_Interface {
 	public function get_tabs() : array {
 		$tabs = [
 			[
-				'id'    => 'board',
-				'label' => __( 'Bestuur', 'siw' ),
-				'icon'  => 'dashicons-businessman',
+				'id'    => 'organisation',
+				'label' => __( 'Organisatie', 'siw' ),
+				'icon'  => 'dashicons-building',
 			],
 			[
 				'id'    => 'email',
@@ -87,9 +87,14 @@ class Settings implements Option_Interface {
 
 		// Bestuur
 		$fields[] = [
+			'type' => 'heading',
+			'name' => __( 'Bestuur', 'siw' ),
+			'tab'  => 'organisation',
+		];
+		$fields[] = [
 			'id'            => 'board_members',
 			'type'          => 'group',
-			'tab'           => 'board',
+			'tab'           => 'organisation',
 			'clone'         => true,
 			'sort_clone'    => true,
 			'max_clone'     => Properties::MAX_BOARD_MEMBERS,
@@ -116,6 +121,36 @@ class Settings implements Option_Interface {
 					'type'     => 'button_group',
 					'required' => true,
 					'options'  => \siw_get_board_titles(),
+				],
+			],
+		];
+		$fields[] = [
+			'id'     => 'staff',
+			'type'   => 'group',
+			'tab'    => 'organisation',
+			'fields' => [
+				[
+					'type' => 'heading',
+					'name' => __( 'Medewerkers', 'siw' ),
+
+				],
+				[
+					'id'       => 'number_of_employees',
+					'name'     => __( 'Aantal betaalde medewerkers', 'siw' ),
+					'type'     => 'number',
+					'required' => true,
+					'min'      => 1,
+					'max'      => 10,
+					'size'     => 10,
+				],
+				[
+					'id'       => 'number_of_volunteers',
+					'name'     => __( 'Aantal vrijwilligers', 'siw' ),
+					'type'     => 'number',
+					'required' => true,
+					'min'      => 1,
+					'max'      => 99,
+					'size'     => 10,
 				],
 			],
 		];
