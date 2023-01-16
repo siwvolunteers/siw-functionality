@@ -94,6 +94,15 @@ class Shortcodes {
 				],
 			],
 		];
+
+		uasort(
+			$shortcodes,
+			function( string|array $a, string|array $b ): int {
+				$a = is_string( $a ) ? $a : $a['title'];
+				$b = is_string( $b ) ? $b : $b['title'];
+				return $a <=> $b;
+			}
+		);
 		return $shortcodes;
 	}
 
