@@ -24,11 +24,12 @@ class Admin_Bar extends Base {
 	#[Action( 'admin_bar_menu', 1 )]
 	/** Voegt logo toe aan adminbar */
 	public function add_logo( \WP_Admin_Bar $wp_admin_bar ) {
+
 		$logo_args = [
-			'id'   => 'siw-logo',
-			'meta' => [
+			'id'    => 'siw-logo',
+			'title' => '<span class="ab-label">' . wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full' ) . '</span>',
+			'meta'  => [
 				'class' => 'siw-logo',
-				'title' => 'SIW',
 			],
 		];
 		$wp_admin_bar->add_node( $logo_args );

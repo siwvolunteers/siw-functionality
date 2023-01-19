@@ -27,11 +27,9 @@ body.admin-color-sunrise {
   --siw-contrast: #dd823b;
 }
 
-.siw-logo div {
-  width: 60px !important;
-  background-image: url("/wp-content/plugins/siw-functionality/assets/images/admin/logo.png") !important;
-  background-size: contain !important;
-  background-repeat: no-repeat !important;
+#wpadminbar .siw-logo img {
+  height: var(--wp-admin--admin-bar--height);
+  filter: brightness(0) invert(1);
 }
 
 table.wp-list-table .column-visibility .dashicons-visibility {
