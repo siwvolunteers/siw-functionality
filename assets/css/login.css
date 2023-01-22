@@ -9,7 +9,8 @@ html body.login {
   background: transparent;
 }
 html body.login h1 a {
-  background-image: url("/wp-content/plugins/siw-functionality/assets/images/login/logo.png");
+  background-image: var(--siw-logo-url);
+  filter: brightness(0) invert(1);
   background-size: contain;
   width: auto;
 }
