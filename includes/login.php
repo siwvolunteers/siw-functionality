@@ -5,11 +5,12 @@ namespace SIW;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Properties;
+use SIW\Util\CSS;
 
 /**
  * Aanpassingen aan login
  *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
  */
 class Login extends Base {
 
@@ -24,8 +25,12 @@ class Login extends Base {
 	#[Action( 'login_enqueue_scripts' )]
 	/** Voegt de styling voor de login toe */
 	public function enqueue_style() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/siw-login.css', [], SIW_PLUGIN_VERSION );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/login.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( self::ASSETS_HANDLE );
+
+		$logo_url = wp_get_attachment_image_url( get_theme_mod( 'custom_logo' ), 'full' );
+		$css = CSS::get_css_generator()->root_variable( 'siw-logo-url', "url('{$logo_url}')" )->get_output();
+		wp_add_inline_style( self::ASSETS_HANDLE, $css );
 	}
 
 	#[Filter( 'login_message' )]
