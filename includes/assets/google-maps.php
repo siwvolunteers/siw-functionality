@@ -36,8 +36,9 @@ class Google_Maps implements Script, External {
 	public function register_script() {
 		$google_maps_url = add_query_arg(
 			[
-				'key' => Config::get_google_maps_js_api_key(),
-				'v'   => self::VERSION,
+				'key'      => Config::get_google_maps_js_api_key(),
+				'v'        => self::VERSION,
+				'callback' => 'Function.prototype',
 			],
 			self::API_URL
 		);
