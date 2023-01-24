@@ -15,7 +15,7 @@
 								<tr>
 									<td width="10%">&nbsp;</td>
 									<td width="20%">
-										<img src="{{& properties.assets_url|esc_url }}images/mail/logo.png" style="display: block; border: 0px; outline: none; width: 100%; height: auto; max-width: 144px;" width="144" border="0" alt="logo" />
+										<img src="{{& properties.logo_url|esc_url }}" style="display: block; border: 0px; outline: none; width: auto; height: 45px;" width="144" border="0" alt="logo" />
 									</td>
 									<td width="60%" style="vertical-align:bottom;border-bottom: solid {{ colors.accent }};font-family:Verdana, normal; color:{{ colors.contrast_light }}; font-size:0.95m; font-weight:bold;" align="center">
 										{{ subject }}
@@ -37,7 +37,7 @@
 										<div style="font-family:Verdana, normal; color:{{ colors.contrast }}; font-size:0.9em;">
 											<p>
 											{{& message|wp_kses_post }}
-										
+
 											{{# signature }}
 												<br/><br/>
 												{{ i18n.with_kind_regards }},<br/><br/>
