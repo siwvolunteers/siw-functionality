@@ -52,23 +52,6 @@ class Board_Members extends Widget {
 		return true;
 	}
 
-	/** Geeft bestuursleden terug */
-	protected function get_board_members() : ?array {
-		$board_members = siw_get_option( 'board_members' );
-		if ( empty( $board_members ) ) {
-			return null;
-		}
-
-		return array_map(
-			fn( array $board_member ) : array => [
-				'first_name' => $board_member['first_name'],
-				'last_name'  => $board_member['last_name'],
-				'title'      => siw_get_board_title( $board_member['title'] ),
-			],
-			$board_members
-		);
-	}
-
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
 
