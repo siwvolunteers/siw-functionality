@@ -92,7 +92,8 @@ class Header {
 		}
 
 		if (
-			get_queried_object()->taxonomy === Taxonomy_Attribute::WORK_TYPE()->value
+			\is_product_taxonomy()
+			&& get_queried_object()->taxonomy === Taxonomy_Attribute::WORK_TYPE()->value
 			&& siw_get_work_type( get_queried_object()->slug )?->needs_review()
 
 		) {
