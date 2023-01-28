@@ -8,7 +8,7 @@
 
 use SIW\Data\Plato\Project;
 use SIW\Data\Plato\Project_Free_Places;
-use SIW\Database_Table;
+use SIW\Data\Database_Table;
 use SIW\Helpers\Database;
 
 /** Haal Plato FPL op o.b.v. project id */

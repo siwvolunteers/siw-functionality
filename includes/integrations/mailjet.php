@@ -58,7 +58,14 @@ class Mailjet {
 	}
 
 	/** Voegt abonnee toe aan maillijst */
-	public function subscribe_user( string $email, int $list_id, array $properties = [] ) : bool {
+	public function subscribe_user( string $email, int $list_id, array $properties = [] ): bool {
+
+		// Hash van email/list combinatie
+		$hash = siw_hash( $email . $list_id );
+
+		if ( get_transient( "mailjet_subscribe_user_{$hash}" ) ) {
+			return false;
+		}
 
 		$url = $this->get_api_url( self::OPERATION_SUBSCRIBE_USER_TO_LIST, [ 'list_id' => $list_id ] );
 		$body = [
@@ -72,7 +79,8 @@ class Mailjet {
 		if ( is_wp_error( $response ) ) {
 			return false;
 		}
-		// TODO: verdere check op response?
+
+		set_transient( "mailjet_subscribe_user_{$hash}", true, DAY_IN_SECONDS );
 		return true;
 	}
 

@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\HTML;
+use SIW\Util\HTML;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**

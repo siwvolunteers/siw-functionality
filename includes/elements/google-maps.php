@@ -3,6 +3,7 @@
 namespace SIW\Elements;
 
 use SIW\Assets\Google_Maps as Google_Maps_Asset;
+use SIW\Util\CSS;
 
 /**
  * Google Maps kaart
@@ -167,7 +168,7 @@ class Google_Maps extends Element {
 		wp_register_style( self::ASSETS_HANDLE, false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		wp_enqueue_style( self::ASSETS_HANDLE );
 
-		$css = siw_get_css_generator();
+		$css = CSS::get_css_generator();
 		$css->add_rule( "#{$this->get_element_id()}", [ 'height' => "{$this->height}px" ] );
 		wp_add_inline_style( self::ASSETS_HANDLE, $css->get_output() );
 	}

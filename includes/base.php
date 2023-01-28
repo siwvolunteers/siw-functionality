@@ -20,6 +20,7 @@ abstract class Base {
 		$self = new static( ...$args );
 		$self->reflection_class = new \ReflectionClass( $self );
 		$self->add_hooks();
+		$self->add_shortcodes();
 		return $self;
 	}
 
@@ -47,6 +48,20 @@ abstract class Base {
 				/** @var \SIW\Attributes\Filter */
 				$hook = $attribute->newInstance();
 				$hook->add( fn()=> $constant->getValue() );
+			}
+		}
+	}
+
+	/** Voegt shortcodes toe */
+	protected function add_shortcodes() {
+		$methods = $this->reflection_class->getMethods( \ReflectionMethod::IS_PUBLIC );
+		foreach ( $methods as $method ) {
+			$shortcode_attributes = $method->getAttributes( \SIW\Attributes\Shortcode::class );
+
+			foreach ( $shortcode_attributes as $attribute ) {
+				/** @var \SIW\Attributes\Shortcode */
+				$shortcode = $attribute->newInstance();
+				$shortcode->add( [ $this, $method->getName() ] );
 			}
 		}
 	}

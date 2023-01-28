@@ -11,7 +11,8 @@ html {
 		background: transparent;
 
 		h1 a {
-			background-image: url('#{variables.$assets-path}/images/login/logo.png');
+			background-image: var(--siw-logo-url);
+			filter: brightness(0) invert(1);
 			background-size: contain;
 			width: auto;
 		}
@@ -48,7 +49,7 @@ html {
 				text-decoration: underline;
 			}
 		}
-	
+
 		p#backtoblog {
 			display: none;
 		}

@@ -42,7 +42,7 @@ class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interfa
 			[
 				'id'   => 'email',
 				'type' => 'email',
-				'name' => __( 'Emailadres', 'siw' ),
+				'name' => __( 'E-mailadres', 'siw' ),
 			],
 			[
 				'id'       => 'phone',

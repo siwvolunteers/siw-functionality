@@ -14,11 +14,8 @@ class Loader extends Class_Loader_Abstract {
 	/** {@inheritDoc} */
 	protected function get_classes(): array {
 		return [
-			Cookie_Notice::class,
 			Email::class,
-			Facebook_Pixel::class,
 			Head::class,
-			Icons::class,
 			Login::class,
 			Media_Taxonomies::class,
 			Scheduler::class,

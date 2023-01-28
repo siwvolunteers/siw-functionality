@@ -5,7 +5,7 @@ namespace SIW\Actions\Batch;
 use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
 use SIW\Data\Country;
-use SIW\Database_Table;
+use SIW\Data\Database_Table;
 use SIW\Helpers\Database;
 use SIW\WooCommerce\Import\Product_Image as Import_Product_Image;
 use SIW\WooCommerce\Product\Admin\Approval;
@@ -72,6 +72,9 @@ class Update_Projects implements Batch_Action_Interface {
 		if ( $this->maybe_delete_project() ) {
 			return;
 		}
+
+		// Projectfoto's verwijderen
+		$this->maybe_delete_project_images();
 
 		// Bijwerken plato status
 		$this->maybe_update_deleted_from_plato();
@@ -168,6 +171,42 @@ class Update_Projects implements Batch_Action_Interface {
 		}
 	}
 
+	/** Verwijder projectspecifieke afbeeldingen */
+	protected function delete_project_images( string $plato_project_id ) {
+		// Verwijder projectspecifieke afbeeldingen
+		$project_images_ids = get_posts(
+			[
+				'post_type'   => 'attachment',
+				'post_status' => 'inherit',
+				'fields'      => 'ids',
+				'meta_query'  => [
+					[
+						'key'     => 'plato_project_id',
+						'value'   => $plato_project_id,
+						'compare' => '=',
+					],
+				],
+			]
+		);
+		foreach ( $project_images_ids as $project_image_id ) {
+			wp_delete_attachment( $project_image_id, true );
+			if ( (int) $this->product->get_image_id() === $project_image_id ) {
+				$this->product->set_image_id( null );
+				$this->product->save();
+			}
+		}
+	}
+
+	/** Afbeeldingen verwijderen als project gestart is */
+	protected function maybe_delete_project_images() {
+		$start_date = $this->product->get_start_date();
+		$current_date = gmdate( 'Y-m-d' );
+		if ( $start_date > $current_date ) {
+			return;
+		}
+		$this->delete_project_images( $this->product->get_project_id() );
+	}
+
 	/** Oude projecten verwijderen */
 	protected function maybe_delete_project(): bool {
 
@@ -179,24 +218,7 @@ class Update_Projects implements Batch_Action_Interface {
 			return false;
 		}
 
-		// Verwijder projectspecifieke afbeeldingen
-		$project_images = get_posts(
-			[
-				'post_type'   => 'attachment',
-				'post_status' => 'inherit',
-				'fields'      => 'ids',
-				'meta_query'  => [
-					[
-						'key'     => 'plato_project_id',
-						'value'   => $this->product->get_project_id(),
-						'compare' => '=',
-					],
-				],
-			]
-		);
-		foreach ( $project_images as $project_image ) {
-			wp_delete_attachment( $project_image, true );
-		}
+		$this->delete_project_images( $this->product->get_project_id() );
 
 		// Verwijder het product zelf
 		$this->product->delete( true );

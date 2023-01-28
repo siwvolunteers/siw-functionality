@@ -2,7 +2,7 @@
 
 namespace SIW\Plato;
 
-use SIW\Database_Table;
+use SIW\Data\Database_Table;
 use SIW\Helpers\Database;
 
 /**

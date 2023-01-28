@@ -2,8 +2,7 @@
 
 namespace SIW\Util;
 
-use SIW\Elements;
-use SIW\HTML;
+use SIW\Util\HTML;
 
 /**
  * Hulpfuncties t.b.v. links

@@ -28,19 +28,6 @@ class WP_Rocket extends Plugin {
 	/** Hooknaam */
 	private const CACHE_CLEAR_HOOK = 'siw_rebuild_cache';
 
-	private const USER_CAPS = [
-		'rocket_manage_options',
-		'rocket_purge_cache',
-		'rocket_purge_posts',
-		'rocket_purge_terms',
-		'rocket_purge_users',
-		'rocket_purge_cloudflare_cache',
-		'rocket_purge_sucuri_cache',
-		'rocket_preload_cache',
-		'rocket_regenerate_critical_css',
-		'rocket_remove_unused_css',
-	];
-
 	/** {@inheritDoc} */
 	protected static function get_plugin_path(): string {
 		return 'wp-rocket/wp-rocket.php';
@@ -65,28 +52,4 @@ class WP_Rocket extends Plugin {
 		}
 		wp_schedule_event( $cache_rebuild_ts, 'daily', self::CACHE_CLEAR_HOOK );
 	}
-
-	#[Action( 'members_register_cap_groups' )]
-	/** Registreert cap group */
-	public function register_cap_group() {
-		\members_register_cap_group(
-			'wp_rocket',
-			[
-				'label'    => esc_html__( 'WP Rocket', 'siw' ),
-				'icon'     => 'dashicons-wordpress',
-				'priority' => 99,
-				'caps'     => self::USER_CAPS,
-			]
-		);
-	}
-
-	#[Action( 'members_register_caps' )]
-	/** Registeert caps */
-	public function register_caps() {
-
-		foreach ( self::USER_CAPS as $cap ) {
-			\members_register_cap( $cap, [ 'label' => $cap ] );
-		}
-	}
-
 }

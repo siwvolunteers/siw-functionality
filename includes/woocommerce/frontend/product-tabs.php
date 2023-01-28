@@ -5,7 +5,6 @@ namespace SIW\WooCommerce\Frontend;
 use SIW\Config;
 use SIW\Elements\Form;
 use SIW\Elements\Google_Maps;
-use SIW\External\Exchange_Rates;
 use SIW\Forms\Forms\Enquiry_Project;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
@@ -17,6 +16,7 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 class Product_Tabs {
 
 	const LOCATION_TAB = 'location_and_leisure';
+	const REQUIREMENTS_TAB = 'requirements';
 
 	/** Init */
 	public static function init() {
@@ -68,6 +68,13 @@ class Product_Tabs {
 					'longitude' => $product->get_longitude(),
 				];
 				$priority++;
+			} elseif ( self::LOCATION_TAB === $topic && $this->product_needs_coc( $product ) ) {
+				$tabs[ $topic ] = [
+					'title'    => __( 'Vereisten', 'siw' ),
+					'priority' => $priority,
+					'callback' => [ $this, 'show_coc_requirement' ],
+				];
+				$priority++;
 			}
 		}
 
@@ -89,17 +96,39 @@ class Product_Tabs {
 
 	/** Toont projectbeschrijving o.b.v. gegevens uit Plato */
 	public function show_project_description( string $tab, array $args ) {
-		echo wp_kses_post( ( wp_targeted_link_rel( links_add_target( make_clickable( wpautop( $args['content'] ) ) ) ) ) );
-
-		// TODO: toon disclaimer dat informatie van partner komt.
 
 		/**@var WC_Product_Project */
 		$product = $args['product'];
+
+		if ( self::REQUIREMENTS_TAB === $tab && $this->product_needs_coc( $product ) ) {
+			echo esc_html( 'Aangezien je in dit project met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.' );
+			echo BR2; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
+
+		echo ( '<i>Onderstaande informatie komt direct van onze partnerorganisatie en wordt daarom niet in het Nederlands weergegeven.</i>' );
+		echo BR2; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		echo wp_kses_post( ( wp_targeted_link_rel( links_add_target( make_clickable( wpautop( $args['content'] ) ) ) ) ) );
+
 		if ( self::LOCATION_TAB === $tab && $product->get_latitude() && null !== $product->get_longitude() ) {
 			Google_Maps::create()
 			->add_marker( $product->get_latitude(), $product->get_longitude(), __( 'Projectlocatie', 'siw' ) )
 			->render();
 		}
+	}
+
+	/** Bepaal of product ene  */
+	protected function product_needs_coc( WC_Product_Project $product ): bool {
+		foreach ( $product->get_work_types() as $work_type ) {
+			if ( $work_type->needs_review() ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function show_coc_requirement( string $tab, array $args ) {
+		echo esc_html( 'Aangezien je in dit project met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.' );
 	}
 
 	/** Toont kaart met projectlocatie in tab */
@@ -138,8 +167,7 @@ class Product_Tabs {
 			$currency_code = $product->get_participation_fee_currency();
 
 			if ( get_woocommerce_currency() !== $currency_code ) {
-				$exchange_rates = new Exchange_Rates();
-				$amount_in_euro = $exchange_rates->convert_to_euro( $currency_code, $product->get_participation_fee(), 0 );
+				$amount_in_euro = siw_convert_to_euro( $currency_code, $product->get_participation_fee() );
 			}
 			echo BR; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			printf(

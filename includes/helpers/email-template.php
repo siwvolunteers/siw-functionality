@@ -33,7 +33,7 @@ class Email_Template {
 				'email'               => Properties::EMAIL,
 				'site_url'            => SIW_SITE_URL,
 				'site_name'           => SIW_SITE_NAME,
-				'assets_url'          => SIW_ASSETS_URL,
+				'logo_url'            => wp_get_attachment_image_url( get_theme_mod( 'custom_logo' ), 'full' ),
 			],
 			'colors'          => [
 				'accent'         => CSS::ACCENT_COLOR,

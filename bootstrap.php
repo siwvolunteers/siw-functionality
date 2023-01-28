@@ -42,7 +42,6 @@ class Bootstrap {
 		$this->init_loader( 'Features' );
 		$this->init_loader( 'Forms' );
 		$this->init_loader( 'Widgets' );
-		$this->init_loader( 'Modules', 'init', 11 );
 		$this->init_loader( 'Compatibility' );
 		$this->init_loader( 'Page_Builder' );
 		$this->init_loader( 'WooCommerce' );

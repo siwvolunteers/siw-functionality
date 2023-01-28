@@ -5,6 +5,8 @@ namespace SIW;
 use SIW\Properties;
 
 use PHPMailer\PHPMailer\PHPMailer;
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
 
 /**
  * Configuratie van e-mail
@@ -16,19 +18,9 @@ use PHPMailer\PHPMailer\PHPMailer;
  *
  * @copyright 2019 SIW Internationale Vrijwilligersprojecten
  */
-class Email {
+class Email extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'phpmailer_init', [ $self, 'set_smtp_configuration' ], PHP_INT_MAX );
-		add_action( 'phpmailer_init', [ $self, 'set_dkim_configuration' ], PHP_INT_MAX );
-		add_action( 'phpmailer_init', [ $self, 'set_mailjet_tracking' ], PHP_INT_MAX );
-		add_action( 'phpmailer_init', [ $self, 'set_antispam_header' ], PHP_INT_MAX );
-		add_filter( 'wp_mail_from', [ $self, 'set_mail_from' ] );
-		add_filter( 'wp_mail_from_name', [ $self, 'set_mail_from_name' ] );
-	}
-
+	#[Action( 'phpmailer_init', PHP_INT_MAX )]
 	/** Zet SMTP-instellingen */
 	public function set_smtp_configuration( PHPMailer $phpmailer ) {
 		/*SMTP-configuratie*/
@@ -41,12 +33,13 @@ class Email {
 			$phpmailer->Username = Config::get_smtp_username();
 			$phpmailer->Password = Config::get_smtp_password();
 
-			$phpmailer->SMTPSecure = in_array( Config::get_smtp_encryption(), [ PHPMailer::ENCRYPTION_SMTPS, PHPMailer::ENCRYPTION_STARTTLS ] ) ? Config::get_smtp_encryption() : '';
+			$phpmailer->SMTPSecure = in_array( Config::get_smtp_encryption(), [ PHPMailer::ENCRYPTION_SMTPS, PHPMailer::ENCRYPTION_STARTTLS ], true ) ? Config::get_smtp_encryption() : '';
 			$phpmailer->Sender = $phpmailer->From;
 			// phpcs:enable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
 	}
 
+	#[Action( 'phpmailer_init', PHP_INT_MAX )]
 	/** Zet DKIM-signing */
 	public function set_dkim_configuration( PHPMailer $phpmailer ) {
 		if ( Config::get_dkim_enabled() ) {
@@ -60,6 +53,7 @@ class Email {
 		}
 	}
 
+	#[Action( 'phpmailer_init', PHP_INT_MAX )]
 	/** Zet tracking van Mailjet aan of uit
 	 *
 	 * @todo optie voor maken */
@@ -68,6 +62,7 @@ class Email {
 		$phpmailer->addCustomHeader( 'X-Mailjet-TrackClick', 0 );
 	}
 
+	#[Action( 'phpmailer_init', PHP_INT_MAX )]
 	/** Zet header t.b.v. spamfilter Office-365
 	 *
 	 * @todo optie voor waarde maken */
@@ -75,6 +70,7 @@ class Email {
 		$phpmailer->addCustomHeader( 'X-SIW-WebsiteMail', 1 );
 	}
 
+	#[Filter( 'wp_mail_from' )]
 	/** Zet het afzenderadres (indien nog niet gezet) */
 	public function set_mail_from( string $from ) : string {
 		$sitename = strtolower( SIW_SITE_NAME );
@@ -89,6 +85,7 @@ class Email {
 		return Properties::EMAIL;
 	}
 
+	#[Filter( 'wp_mail_from_name' )]
 	/** Zet de afzendernaam (indien nog niet gezet) */
 	public function set_mail_from_name( string $from_name ) : string {
 		$default_from_name = 'WordPress';

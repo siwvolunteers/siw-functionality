@@ -7,6 +7,7 @@
  */
 
 use SIW\Data\Currency;
+use SIW\Integrations\Fixer;
 
 /**
  * Geeft een array met valuta's terug
@@ -49,4 +50,12 @@ function siw_get_currencies_list(): array {
 function siw_get_currency( string $currency ): ?Currency {
 	$currencies = siw_get_currencies();
 	return $currencies[ $currency ] ?? null;
+}
+
+function siw_convert_to_euro( string $currency, float $amount ) : ?float {
+	$exchange_rate = Fixer::create()->get_rate( $currency );
+	if ( is_null( $exchange_rate ) ) {
+		return null;
+	}
+	return $amount * $exchange_rate;
 }

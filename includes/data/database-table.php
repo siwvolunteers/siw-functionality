@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW;
+namespace SIW\Data;
 
 use \Spatie\Enum\Enum;
 

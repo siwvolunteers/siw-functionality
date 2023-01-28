@@ -60,6 +60,8 @@ class Shortcodes {
 			'korting_tweede_project'        => __( 'Korting tweede project', 'siw' ),
 			'kosten_training_minderjarigen' => __( 'Kosten training minderjarigen', 'siw' ),
 			'leeftijd'                      => __( 'Leeftijd van SIW', 'siw' ),
+			'aantal_vrijwilligers'          => __( 'Aantal vrijwilligers', 'siw' ),
+			'aantal_betaalde_medewerkers'   => __( 'Aantal betaalde medewerkers', 'siw' ),
 			'externe_link'                  => [
 				'title'      => __( 'Externe link', 'siw' ),
 				'attributes' => [
@@ -94,6 +96,15 @@ class Shortcodes {
 				],
 			],
 		];
+
+		uasort(
+			$shortcodes,
+			function( string|array $a, string|array $b ): int {
+				$a = is_string( $a ) ? $a : $a['title'];
+				$b = is_string( $b ) ? $b : $b['title'];
+				return $a <=> $b;
+			}
+		);
 		return $shortcodes;
 	}
 
@@ -246,5 +257,13 @@ class Shortcodes {
 	/** Leeftijd van SIW in jaren */
 	public static function render_leeftijd(): string {
 		return strval( Util::calculate_age( Properties::FOUNDING_DATE ) );
+	}
+
+	public static function render_aantal_vrijwilligers(): string {
+		return siw_get_option( 'staff.number_of_volunteers' );
+	}
+
+	public static function render_aantal_betaalde_medewerkers(): string {
+		return siw_get_option( 'staff.number_of_employees' );
 	}
 }

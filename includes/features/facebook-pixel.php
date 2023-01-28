@@ -1,9 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace SIW;
+namespace SIW\Features;
 
 use SIW\Assets\JS_Cookie;
 use SIW\Assets\Meta_Pixel;
+use SIW\Attributes\Action;
+use SIW\Base;
+use SIW\Config;
 use SIW\Elements\Cookie_Notice;
 
 /**
@@ -11,17 +14,12 @@ use SIW\Elements\Cookie_Notice;
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class Facebook_Pixel {
+class Facebook_Pixel extends Base {
 
 	// Script handle
 	const SCRIPT_HANDLE = 'siw-facebook-pixel';
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'wp_enqueue_scripts', [ $self, 'enqueue_script' ] );
-	}
-
+	#[Action( 'wp_enqueue_scripts' )]
 	/** Voeg script toe */
 	public function enqueue_script() {
 		$pixel_id = Config::get_meta_pixel_id();
@@ -29,7 +27,7 @@ class Facebook_Pixel {
 			return;
 		}
 
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/siw-facebook-pixel.js', [ JS_Cookie::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/features/facebook-pixel.js', [ JS_Cookie::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			self::SCRIPT_HANDLE,
 			'siw_facebook_pixel',

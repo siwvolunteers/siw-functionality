@@ -91,9 +91,17 @@ class Header {
 			}
 		}
 
+		if (
+			get_queried_object()->taxonomy === Taxonomy_Attribute::WORK_TYPE()->value
+			&& siw_get_work_type( get_queried_object()->slug )?->needs_review()
+
+		) {
+			$text .= BR . 'Aangezien je in deze projecten met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.';
+		}
+
 		$workcamps_page_link = I18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
 
-		$text .= SPACE .
+		$text .= BR .
 			__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
 			__( 'De projecten hebben vaste begin- en einddata.', 'siw' ) . SPACE .
 			// translators: %s is een url

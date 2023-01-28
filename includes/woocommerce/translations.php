@@ -86,7 +86,7 @@ class Translations {
 			'edit_item'     => __( 'Bewerk continent', 'siw' ),
 			'update_item'   => __( 'Werk continent bij', 'siw' ),
 			'add_new_item'  => __( 'Voeg nieuw continent toe', 'siw' ),
-			'new_item_name' => __( 'New category name', 'siw' ),
+			'new_item_name' => __( 'Nieuw continent', 'siw' ),
 		];
 		return $args;
 	}

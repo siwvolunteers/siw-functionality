@@ -5,6 +5,7 @@ namespace SIW\Elements;
 use SIW\Assets\SIW_SVG;
 use SIW\Data\Country;
 use SIW\Data\Continent;
+use SIW\Util\CSS;
 
 /**
  * Wereldkaart
@@ -69,7 +70,7 @@ class World_Map extends Element {
 	public function enqueue_styles() {
 		$code = $this->country->get_iso_code();
 
-		$css = siw_get_css_generator();
+		$css = CSS::get_css_generator();
 		$css->add_rule(
 			"#{$this->get_element_id()} svg",
 			[

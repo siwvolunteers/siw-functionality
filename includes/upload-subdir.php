@@ -2,27 +2,24 @@
 
 namespace SIW;
 
+use SIW\Attributes\Filter;
+
 /**
  * Class om upload subdirectory te zetten op basis van content en bestandstype
  *
  * @copyright   2019 SIW Internationale Vrijwilligersprojecten
  */
-class Upload_Subdir {
+class Upload_Subdir extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_filter( 'wp_handle_sideload_prefilter', [ $self, 'add_upload_subdir_filter' ] );
-		add_filter( 'wp_handle_upload_prefilter', [ $self, 'add_upload_subdir_filter' ] );
-		add_filter( 'wp_handle_upload', [ $self, 'remove_upload_subdir_filter' ] );
-	}
-
+	#[Filter( 'wp_handle_sideload_prefilter' )]
+	#[Filter( 'wp_handle_upload_prefilter' )]
 	/** Voegt filter toe */
 	public function add_upload_subdir_filter( array $file ): array {
 		add_filter( 'upload_dir', [ $this, 'set_upload_subdir' ] );
 		return $file;
 	}
 
+	#[Filter( 'wp_handle_upload' )]
 	/** Verwijdert filter weer */
 	public function remove_upload_subdir_filter( array $fileinfo ): array {
 		remove_filter( 'upload_dir', [ $this, 'set_upload_subdir' ] );

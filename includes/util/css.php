@@ -2,7 +2,7 @@
 
 namespace SIW\Util;
 
-use SIW\Properties;
+use luizbills\CSS_Generator\Generator;
 
 /**
  * Hulpfuncties t.b.v. css
@@ -61,5 +61,9 @@ class CSS {
 			5 => 20,
 		};
 		return $grid_width;
+	}
+
+	public static function get_css_generator(): ?Generator {
+		return new Generator();
 	}
 }
