@@ -14,6 +14,9 @@ use SIW\Plato\Download_File as Plato_Download_File;
  */
 class Product_Image {
 
+	const PLATO_DOCUMENT_IDENTIFIER_META = 'plato_document_identifier';
+	const PLATO_PROJECT_ID_META = 'plato_project_id';
+
 	/** Minimale breedte voor afbeeldingen */
 	const MIN_IMAGE_WIDTH = 600;
 
@@ -34,7 +37,7 @@ class Product_Image {
 				'fields'      => 'ids',
 				'meta_query'  => [
 					[
-						'key'     => 'plato_document_identifier',
+						'key'     => self::PLATO_DOCUMENT_IDENTIFIER_META,
 						'value'   => $identifiers,
 						'compare' => 'IN',
 					],
@@ -57,8 +60,8 @@ class Product_Image {
 			if ( is_string( $temp_file ) ) {
 				$attachment_id = $attachment->add( $temp_file, $filename_base, 'Projectfoto' );
 				if ( is_int( $attachment_id ) ) {
-					update_post_meta( $attachment_id, 'plato_document_identifier', $identifier );
-					update_post_meta( $attachment_id, 'plato_project_id', $project_id );
+					update_post_meta( $attachment_id, self::PLATO_DOCUMENT_IDENTIFIER_META, $identifier );
+					update_post_meta( $attachment_id, self::PLATO_PROJECT_ID_META, $project_id );
 					// wp_update_post() post parent zetten?
 					return $attachment_id;
 				}

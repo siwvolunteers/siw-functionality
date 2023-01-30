@@ -181,7 +181,7 @@ class Update_Projects implements Batch_Action_Interface {
 				'fields'      => 'ids',
 				'meta_query'  => [
 					[
-						'key'     => 'plato_project_id',
+						'key'     => Import_Product_Image::PLATO_PROJECT_ID_META,
 						'value'   => $plato_project_id,
 						'compare' => '=',
 					],
