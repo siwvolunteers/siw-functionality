@@ -104,6 +104,8 @@ class Features extends Widget {
 					'link_url' => [
 						'type'          => 'text',
 						'label'         => __( 'URL', 'siw' ),
+						'sanitize'      => 'wp_make_link_relative',
+						'description'   => __( 'Relatief', 'siw' ),
 						'state_handler' => [
 							'link_{$repeater}[show]' => [ 'show' ],
 							'link_{$repeater}[hide]' => [ 'hide' ],

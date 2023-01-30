@@ -98,6 +98,7 @@ class Accordion extends Widget {
 					'button_url'  => [
 						'type'          => 'text',
 						'label'         => __( 'URL', 'siw' ),
+						'sanitize'      => 'wp_make_link_relative',
 						'description'   => __( 'Relatief', 'siw' ),
 						'state_handler' => [
 							'button_{$repeater}[show]' => [ 'show' ],

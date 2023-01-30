@@ -99,6 +99,7 @@ class Tabs extends Widget {
 						'type'          => 'text',
 						'label'         => __( 'URL', 'siw' ),
 						'description'   => __( 'Relatief', 'siw' ),
+						'sanitize'      => 'wp_make_link_relative',
 						'state_handler' => [
 							'button_{$repeater}[show]' => [ 'show' ],
 							'button_{$repeater}[hide]' => [ 'hide' ],
