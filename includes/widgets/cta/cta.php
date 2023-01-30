@@ -64,11 +64,11 @@ class CTA extends Widget {
 				'type'  => 'text',
 				'label' => __( 'Tekst voor knop', 'siw' ),
 			],
-			'button_page' => [
-				'type'    => 'select',
-				'label'   => __( 'Pagina voor knop', 'siw' ),
-				'prompt'  => __( 'Selecteer een pagina', 'siw' ),
-				'options' => Util::get_pages(),
+			'button_url'  => [
+				'type'        => 'text',
+				'label'       => __( 'URL', 'siw' ),
+				'sanitize'    => 'wp_make_link_relative',
+				'description' => __( 'Relatief', 'siw' ),
 			],
 			'align'       => [
 				'type'    => 'select',
@@ -90,7 +90,7 @@ class CTA extends Widget {
 			'headline' => $instance['headline'],
 			'align'    => $instance['align'],
 			'button'   => [
-				'url'  => I18n::get_translated_page_url( intval( $instance['button_page'] ) ),
+				'url'  => $instance['button_url'],
 				'text' => $instance['button_text'],
 			],
 		];
