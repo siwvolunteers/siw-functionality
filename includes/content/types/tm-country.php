@@ -4,13 +4,13 @@ namespace SIW\Content\Types;
 
 use SIW\Content\Type;
 use SIW\Data\Country;
+use SIW\Data\Project_Type;
 use SIW\Data\Work_Type;
 use SIW\Elements\Features;
 use SIW\Elements\Icon;
 use SIW\Elements\Quote;
 use SIW\Elements\World_Map;
 use SIW\Helpers\Template;
-use SIW\I18n;
 use SIW\Util\CSS;
 use SIW\Util\Links;
 
@@ -183,7 +183,7 @@ class TM_Country extends Type {
 		$image = reset( $images );
 
 		$country = siw_get_country( siw_meta( 'country' ) );
-		$tailor_made_page_link = I18n::get_translated_page_url( (int) siw_get_option( 'pages.explanation.tailor_made' ) );
+		$tailor_made_page = siw_get_project_type_page( Project_Type::TAILOR_MADE_PROJECTS() );
 
 		$template_vars = [
 			'image'             => wp_get_attachment_image( $image['ID'], 'large' ),
@@ -193,7 +193,7 @@ class TM_Country extends Type {
 			'introduction'      => rwmb_get_value( 'introduction' ),
 			'description'       => rwmb_get_value( 'description' ),
 			'quote'             => Quote::create()->set_quote( rwmb_get_value( 'quote' ) )->generate(),
-			'sign_up_link'      => Links::generate_button_link( $tailor_made_page_link, __( 'Meld je aan', 'siw' ) ),
+			'sign_up_link'      => Links::generate_button_link( get_permalink( $tailor_made_page ), __( 'Meld je aan', 'siw' ) ),
 			'child_policy_link' => do_shortcode( '[siw_pagina_lightbox link_tekst="Lees meer over ons beleid." pagina="kinderbeleid"]' ),
 			'features'          => $this->country_features(),
 			'worktypes'         => [],

@@ -5,8 +5,8 @@ namespace SIW\Elements\Interactive_Maps;
 use SIW\Actions\Batch\Update_WooCommerce_Terms;
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
-use SIW\I18n;
 use SIW\Data\Country;
+use SIW\Data\Project_Type;
 use SIW\Elements\List_Columns;
 use SIW\Util\Links;
 use SIW\WooCommerce\Taxonomy_Attribute;
@@ -97,8 +97,8 @@ class Destinations implements Interactive_Map_Interface {
 
 		/* EVS */
 		if ( $country->has_esc_projects() ) {
-			$esc_page_link = I18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.esc' ) ) );
-			$project_types[] = esc_html__( 'ESC', 'siw' ) . SPACE . Links::generate_link( $esc_page_link, __( 'Lees meer', 'siw' ) );
+			$esc_page = siw_get_project_type_page( Project_Type::ESC() );
+			$project_types[] = esc_html__( 'ESC', 'siw' ) . SPACE . Links::generate_link( get_permalink( $esc_page ?? 0 ), __( 'Lees meer', 'siw' ) );
 		}
 
 		return esc_html__( 'In dit land bieden wij de volgende projecten aan:', 'siw' ) . List_Columns::create()->add_items( $project_types )->generate();
@@ -118,7 +118,7 @@ class Destinations implements Interactive_Map_Interface {
 			$url = get_term_link( $country->get_slug(), Taxonomy_Attribute::COUNTRY()->value );
 			$text = __( 'Bekijk het aanbod', 'siw' );
 		} else {
-			$url = I18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
+			$url = get_permalink( siw_get_project_type_page( Project_Type::WORKCAMPS() ) ?? 0 );
 			$text = __( 'Lees meer', 'siw' );
 		}
 		return esc_html__( 'Groepsprojecten', 'siw' ) . SPACE . Links::generate_link( $url, $text );
@@ -127,7 +127,7 @@ class Destinations implements Interactive_Map_Interface {
 	/** Genereert beschrijving voor Op Maat */
 	public function generate_tailor_made_description( Country $country ): string {
 
-		$tailor_made_page_link = I18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.tailor_made' ) ) );
+		$tailor_made_page_link = siw_get_project_type_page( Project_Type::TAILOR_MADE_PROJECTS() );
 
 		$tailor_made_pages = get_posts(
 			[
@@ -141,7 +141,7 @@ class Destinations implements Interactive_Map_Interface {
 			$url = get_permalink( $tailor_made_pages[0] );
 			$text = __( 'Bekijk het aanbod', 'siw' );
 		} else {
-			$url = $tailor_made_page_link;
+			$url = get_permalink( $tailor_made_page_link ?? 0 );
 			$text = __( 'Lees meer', 'siw' );
 		}
 

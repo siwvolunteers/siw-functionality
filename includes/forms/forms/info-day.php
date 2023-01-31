@@ -2,6 +2,7 @@
 
 namespace SIW\Forms\Forms;
 
+use SIW\Data\Project_Type;
 use SIW\Interfaces\Forms\Confirmation_Mail as I_Confirmation_Mail;
 use SIW\Interfaces\Forms\Export_To_Mailjet as I_Export_To_Mailjet;
 use SIW\Interfaces\Forms\Form as I_Form;
@@ -51,7 +52,6 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 				'name'     => __( 'Telefoonnummer', 'siw' ),
 				'required' => false,
 			],
-
 			[
 				'id'      => 'info_day_date',
 				'type'    => 'radio',
@@ -64,7 +64,7 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 				'type'     => 'checkbox_list',
 				'name'     => __( 'Heb je interesse in een bepaald soort project?', 'siw' ),
 				'required' => false,
-				'options'  => \siw_get_project_types(),
+				'options'  => Project_Type::toArray(),
 			],
 			[
 				'id'       => 'destination',
@@ -81,18 +81,18 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 				'options' => $this->get_age_ranges(),
 			],
 			[
-				'id'      => 'referal',
+				'id'      => 'referral',
 				'type'    => 'radio',
 				'inline'  => false,
 				'name'    => __( 'Hoe ben je op de website van SIW gekomen?', 'siw' ),
 				'options' => $this->get_referral_options(),
 			],
 			[
-				'id'       => 'referel_other',
+				'id'       => 'referral_other',
 				'type'     => 'text',
 				'name'     => __( 'Namelijk', 'siw' ),
 				'required' => false, // TODO: conditioneel verplicht maken in REST API
-				'visible'  => [ 'referal', 'other' ],
+				'visible'  => [ 'referral', 'other' ],
 			],
 		];
 	}
