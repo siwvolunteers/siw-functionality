@@ -3,6 +3,7 @@
 namespace SIW\Forms\Forms;
 
 use SIW\Data\Project_Type;
+use SIW\Integrations\Mailjet;
 use SIW\Interfaces\Forms\Confirmation_Mail as I_Confirmation_Mail;
 use SIW\Interfaces\Forms\Export_To_Mailjet as I_Export_To_Mailjet;
 use SIW\Interfaces\Forms\Form as I_Form;
@@ -172,8 +173,12 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 	/** {@inheritDoc} */
 	public function get_mailjet_properties( \WP_REST_Request $request ): array {
 		return [
-			'firstname' => $request->get_param( 'first_name' ),
-			'lastname'  => $request->get_param( 'last_name' ),
+			Mailjet::PROPERTY_FIRST_NAME            => $request->get_param( 'first_name' ),
+			Mailjet::PROPERTY_LAST_NAME             => $request->get_param( 'last_name' ),
+			Mailjet::PROPERTY_AGE_RANGE             => $this->get_age_ranges()[ $request->get_param( 'age' ) ],
+			Mailjet::PROPERTY_INTEREST_DESTINATION  => implode( ', ', array_map( fn( string $value ): string => \siw_get_continents_list()[ $value ], $request->get_param( 'destination' ) ) ),
+			Mailjet::PROPERTY_INTEREST_PROJECT_TYPE => implode( ', ', array_map( fn( string $value ): string => Project_Type::toArray()[ $value ], $request->get_param( 'project_type' ) ) ),
+			Mailjet::PROPERTY_REFERRAL              => $this->get_referral_options()[ $request->get_param( 'referral' ) ] . SPACE . $request->get_param( 'referral_other' ),
 		];
 	}
 }

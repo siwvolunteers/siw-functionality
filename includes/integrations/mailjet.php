@@ -15,15 +15,61 @@ use SIW\Helpers\Template;
  */
 class Mailjet {
 
+	// Namespaces TODO: enum van maken
+	const NAMESPACE_STATIC = 'static';
+	const NAMESPACE_HISTORIC = 'historic';
+
+	const NAMESPACES = [
+		self::NAMESPACE_STATIC,
+		self::NAMESPACE_HISTORIC,
+	];
+
+	// Data types TODO: enum van maken
+	const DATA_TYPE_STRING = 'str';
+	const DATA_TYPE_INTEGER = 'int';
+	const DATA_TYPE_FLOAT = 'float';
+	const DATA_TYPE_BOOLEAN = 'bool';
+	const DATA_TYPE_DATETIME = 'datetime';
+
+	const DATA_TYPES = [
+		self::DATA_TYPE_STRING,
+		self::DATA_TYPE_INTEGER,
+		self::DATA_TYPE_FLOAT,
+		self::DATA_TYPE_BOOLEAN,
+		self::DATA_TYPE_DATETIME,
+	];
+
+	// Properies TODO: enum van maken
+	const PROPERTY_FIRST_NAME = 'firstname';
+	const PROPERTY_LAST_NAME = 'lastname';
+	const PROPERTY_INTEREST_PROJECT_TYPE = 'interest_project_type';
+	const PROPERTY_INTEREST_DESTINATION = 'interest_destination';
+	const PROPERTY_REFERRAL = 'referral';
+	const PROPERTY_AGE_RANGE = 'age_range';
+
+	const PROPERTIES = [
+		self::PROPERTY_FIRST_NAME            => self::DATA_TYPE_STRING,
+		self::PROPERTY_LAST_NAME             => self::DATA_TYPE_STRING,
+		self::PROPERTY_INTEREST_PROJECT_TYPE => self::DATA_TYPE_STRING,
+		self::PROPERTY_INTEREST_DESTINATION  => self::DATA_TYPE_STRING,
+		self::PROPERTY_REFERRAL              => self::DATA_TYPE_STRING,
+		self::PROPERTY_AGE_RANGE             => self::DATA_TYPE_STRING,
+	];
+
+
+	// Operations + resources TODO: enum van maken
 	const OPERATION_SUBSCRIBE_USER_TO_LIST = 'subscribe_user_to_list';
 	const OPERATION_RETRIEVE_LISTS = 'retrieve_lists';
 	const OPERATION_CREATE_LIST = 'create_list';
-
+	const OPERATION_CREATE_PROPERTY = 'create_property';
+	const OPERATION_RETRIEVE_PROPERTIES = 'retrieve_properties';
 
 	const RESOURCES = [
 		self::OPERATION_SUBSCRIBE_USER_TO_LIST => 'contactslist/{{ list_id }}/managecontact',
 		self::OPERATION_RETRIEVE_LISTS         => 'contactslist',
 		self::OPERATION_CREATE_LIST            => 'contactslist',
+		self::OPERATION_CREATE_PROPERTY        => 'contactmetadata',
+		self::OPERATION_RETRIEVE_PROPERTIES    => 'contactmetadata',
 	];
 
 	/** API url */
@@ -118,6 +164,57 @@ class Mailjet {
 	public function create_list( string $name ): ?int {
 		$url = $this->get_api_url( self::OPERATION_CREATE_LIST );
 		$response = $this->create_http_request( $url )->post( [ 'Name' => $name ] );
+		if ( is_wp_error( $response ) ) {
+			return null;
+		}
+		return $response['Data'][0]['ID'] ?? null;
+	}
+
+
+	public function retrieve_properties( string $index = 'id' ): array {
+		$url = $this->get_api_url( self::OPERATION_RETRIEVE_PROPERTIES );
+		$response = $this->create_http_request( $url )->get();
+
+		if ( is_wp_error( $response ) ) {
+			return [];
+		}
+
+		// data omzetten
+		return array_column(
+			array_map(
+				function( $property ) {
+					return [
+						'id'        => $property['ID'],
+						'name'      => $property['Name'],
+						'namespace' => $property['NameSpace'],
+						'datatype'  => $property['Datatype'],
+					];
+				},
+				$response['Data']
+			),
+			null,
+			$index
+		);
+	}
+
+	public function create_property( string $name, string $datatype, string $namespace = 'static' ): ?int {
+
+		$datatype = in_array( $datatype, self::DATA_TYPES, true ) ? $datatype : self::DATA_TYPE_STRING;
+
+		$namespaces = [
+			'static',
+			'historic',
+		];
+		$namespace = in_array( $namespace, $namespaces, true ) ? $namespace : 'static';
+
+		$url = $this->get_api_url( self::OPERATION_CREATE_PROPERTY );
+
+		$body = [
+			'Name'      => $name,
+			'Datatype'  => $datatype,
+			'NameSpace' => $namespace,
+		];
+		$response = $this->create_http_request( $url )->post( $body );
 		if ( is_wp_error( $response ) ) {
 			return null;
 		}
