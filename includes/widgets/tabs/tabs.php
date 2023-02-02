@@ -113,6 +113,10 @@ class Tabs extends Widget {
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
+		if ( ! isset( $instance['panes'] ) || empty( $instance['panes'] ) ) {
+			return [];
+		}
+
 		return [
 			'content' => Tablist::create()->add_items( $instance['panes'] )->generate(),
 		];

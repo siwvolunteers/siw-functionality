@@ -120,6 +120,10 @@ class Features extends Widget {
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
+		if ( ! isset( $instance['features'] ) || empty( $instance['features'] ) ) {
+			return [];
+		}
+
 		return [
 			'content' => Features_Element::create()->add_items( $instance['features'] )->set_columns( (int) $instance['columns'] )->generate(),
 		];
