@@ -23,7 +23,6 @@ class Loader extends Object_Loader_Abstract {
 			Animation::class,
 			CSS_Filters::class,
 			Design::class,
-			Layout::class,
 			Visibility::class,
 		];
 	}
