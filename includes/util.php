@@ -9,27 +9,6 @@ namespace SIW;
  */
 class Util {
 
-	/** Geeft array met pagina's in standaardtaal terug */
-	public static function get_pages(): array {
-		$default_lang = I18n::get_default_language();
-		$current_lang = I18n::get_current_language();
-		do_action( 'wpml_switch_language', $default_lang ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-		$results = get_pages();
-		do_action( 'wpml_switch_language', $current_lang ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-
-		$pages = [];
-		foreach ( $results as $result ) {
-			$ancestors = array_reverse( get_ancestors( $result->ID, 'page' ) );
-			$callback = function( &$value ) {
-				$value = get_the_title( $value );
-			};
-			array_walk( $ancestors, $callback );
-			$prefix = ! empty( $ancestors ) ? implode( '/', $ancestors ) . '/' : '';
-			$pages[ $result->ID ] = esc_html( $prefix . $result->post_title );
-		}
-		return $pages;
-	}
-
 	/** Berekent leeftijd in jaren o.b.v. huidige datum */
 	public static function calculate_age( string $date ): int {
 		$from = new \DateTime( $date );

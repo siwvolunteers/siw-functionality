@@ -1,6 +1,9 @@
 <?php declare(strict_types=1);
 
+use SIW\Admin\Page_Settings;
 use SIW\Data\Email_Settings;
+use SIW\Data\Project_Type;
+use SIW\Data\Special_Page;
 use SIW\Integrations\Google_Maps;
 use SIW\Properties;
 
@@ -65,22 +68,6 @@ function siw_get_board_title( string $slug ): ?string {
 	return $board_titles[ $slug ] ?? null;
 }
 
-/**
- * Geeft lijst met projectsoorten terug
- *
- * @todo moet hier altijd de duur/uitleg bij?
- */
-function siw_get_project_types(): array {
-
-	$project_types = [
-		'groepsprojecten' => __( 'Groepsvrijwilligerswerk (2 - 3 weken)', 'siw' ),
-		'op_maat'         => __( 'Vrijwilligerswerk Op Maat (3 weken tot een jaar)', 'siw' ),
-		'esc'             => __( 'ESC (European Solidarity Corps)', 'siw' ),
-		'scholenproject'  => __( 'Scholenproject (internationale stage of tussenjaar)', 'siw' ),
-	];
-	return $project_types;
-}
-
 /** Geeft een lijst met geslachten terug */
 function siw_get_genders(): array {
 	$genders = [
@@ -117,6 +104,38 @@ function siw_get_forms(): array {
 	asort( $forms );
 
 	return $forms;
+}
+
+function siw_get_special_page( Special_Page $special_page ): ?\WP_Post {
+	/** @var \WP_Post[]|false */
+	$pages = get_pages(
+		[
+			'meta_key'   => Page_Settings::SPECIAL_PAGE_META,
+			'meta_value' => $special_page->value,
+		]
+	);
+	if ( false === $pages || 0 === count( $pages ) ) {
+		return null;
+	}
+
+	$page = reset( $pages );
+	return $page;
+}
+
+function siw_get_project_type_page( Project_Type $project_type ): ?\WP_Post {
+	/** @var \WP_Post[]|false */
+	$pages = get_pages(
+		[
+			'meta_key'   => Page_Settings::PROJECT_TYPE_PAGE,
+			'meta_value' => $project_type->value,
+		]
+	);
+	if ( false === $pages || 0 === count( $pages ) ) {
+		return null;
+	}
+
+	$page = reset( $pages );
+	return $page;
 }
 
 /** Haalt gegevens over interactieve kaarten op */

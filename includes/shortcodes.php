@@ -2,6 +2,7 @@
 
 namespace SIW;
 
+use SIW\Data\Special_Page;
 use SIW\Elements\Modal;
 use SIW\Properties;
 use SIW\Util;
@@ -243,15 +244,18 @@ class Shortcodes {
 		);
 
 		$pages = [
-			'kinderbeleid' => 'child_policy',
+			'kinderbeleid' => Special_Page::CHILD_POLICY(),
 		];
-		/* Haal pagina id op en breek af als pagina niet ingesteld is */
-		$page_id = siw_get_option( "pages.{$pages[$pagina]}" );
-		if ( empty( $page_id ) ) {
+		$page = $pages[ $pagina ] ?? null;
+		if ( null === $page ) {
 			return null;
 		}
-		$page_id = I18n::get_translated_page_id( (int) $page_id );
-		return Modal::create()->set_page( $page_id )->generate_link( $link_tekst );
+
+		$special_page = siw_get_special_page( $page );
+		if ( null === $special_page ) {
+			return null;
+		}
+		return Modal::create()->set_page( $special_page->ID )->generate_link( $link_tekst );
 	}
 
 	/** Leeftijd van SIW in jaren */

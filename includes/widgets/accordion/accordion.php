@@ -98,6 +98,7 @@ class Accordion extends Widget {
 					'button_url'  => [
 						'type'          => 'text',
 						'label'         => __( 'URL', 'siw' ),
+						'sanitize'      => 'wp_make_link_relative',
 						'description'   => __( 'Relatief', 'siw' ),
 						'state_handler' => [
 							'button_{$repeater}[show]' => [ 'show' ],
@@ -112,6 +113,10 @@ class Accordion extends Widget {
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
+		if ( ! isset( $instance['panes'] ) || empty( $instance['panes'] ) ) {
+			return [];
+		}
+
 		return [
 			'content' => Accordion_Element::create()->add_items( $instance['panes'] )->generate(),
 		];

@@ -20,7 +20,6 @@ class Loader extends Object_Loader_Abstract {
 	/** {@inheritDoc} */
 	public function get_classes(): array {
 		return [
-			Configuration::class,
 			Help::class,
 			Settings::class,
 		];

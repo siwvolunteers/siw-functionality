@@ -2,7 +2,8 @@
 
 namespace SIW\WooCommerce\Product\Archive;
 
-use SIW\I18n;
+use SIW\Data\Project_Type;
+use SIW\Data\Special_Page;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -92,20 +93,20 @@ class Header {
 		}
 
 		if (
-			get_queried_object()->taxonomy === Taxonomy_Attribute::WORK_TYPE()->value
+			\is_product_taxonomy()
+			&& get_queried_object()->taxonomy === Taxonomy_Attribute::WORK_TYPE()->value
 			&& siw_get_work_type( get_queried_object()->slug )?->needs_review()
-
 		) {
 			$text .= BR . 'Aangezien je in deze projecten met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.';
 		}
 
-		$workcamps_page_link = I18n::get_translated_page_url( intval( siw_get_option( 'pages.explanation.workcamps' ) ) );
+		$workcamps_page = siw_get_project_type_page( Project_Type::WORKCAMPS() );
 
 		$text .= BR .
 			__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
 			__( 'De projecten hebben vaste begin- en einddata.', 'siw' ) . SPACE .
 			// translators: %s is een url
-			sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">Groepsprojecten</a>.', 'siw' ), esc_url( $workcamps_page_link ) );
+			sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">Groepsprojecten</a>.', 'siw' ), esc_url( get_permalink( $workcamps_page ?? 0 ) ) );
 
 		return $text;
 	}
@@ -133,14 +134,14 @@ class Header {
 
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
 
-		$contact_page_link = I18n::get_translated_page_url( intval( siw_get_option( 'pages.contact' ) ) );
+		$contact_page = siw_get_special_page( Special_Page::CONTACT() );
 		$end_year = gmdate( 'Y', strtotime( $teaser_text['end_date'] ) );
 		$end_month = date_i18n( 'F', strtotime( $teaser_text['end_date'] ) );
 		// translators: %1$s is een maand,  %2$s is een jaar
 		$teaser_text = sprintf( __( 'Vanaf %1$s wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor %2$s.', 'siw' ), $end_month, $end_year ) . SPACE .
 			__( 'Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW?', 'siw' ) . SPACE .
 			// translators: %s is link van contactpagina
-			sprintf( __( '<a href="%s">Bel of mail ons</a> en we denken graag met je mee!', 'siw' ), esc_url( $contact_page_link ) );
+			sprintf( __( '<a href="%s">Bel of mail ons</a> en we denken graag met je mee!', 'siw' ), esc_url( get_permalink( $contact_page ?? 0 ) ) );
 
 		return $teaser_text;
 	}

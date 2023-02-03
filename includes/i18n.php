@@ -9,17 +9,6 @@ namespace SIW;
  */
 class I18n {
 
-	/** Zoekt url van vertaalde pagina op basis van id */
-	public static function get_translated_page_url( int $page_id ): string {
-		$translated_page_id = self::get_translated_page_id( $page_id );
-		return get_page_link( $translated_page_id );
-	}
-
-	/** Zoekt id van vertaalde pagina op basis van id */
-	public static function get_translated_page_id( int $page_id ): int {
-		return apply_filters( 'wpml_object_id', $page_id, 'page', true ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-	}
-
 	/** Geeft vertaalde permalink in meegegeven taal terug */
 	public static function get_translated_permalink( string $permalink, string $language_code ): string {
 		return apply_filters( 'wpml_permalink', $permalink, $language_code, true ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound

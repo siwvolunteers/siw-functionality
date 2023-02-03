@@ -3,7 +3,7 @@
 namespace SIW\Forms\Forms;
 
 use SIW\Config;
-use SIW\I18n;
+use SIW\Data\Special_Page;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
 
@@ -73,7 +73,7 @@ class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 	/** Genereert url voor bevestingslink TODO: verplaatsen naar Newsletter Util klasse */
 	protected function generate_confirmation_url(): string {
 
-		$confirmation_page = I18n::get_translated_page_url( (int) siw_get_option( 'pages.newsletter_confirmation' ) );
+		$confirmation_page = siw_get_special_page( Special_Page::NEWSLETTER_CONFIRMATION() );
 
 		return add_query_arg(
 			[
@@ -84,7 +84,7 @@ class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 				Newsletter_Confirmation::QUERY_ARG_LIST_ID => '{{ list_id | base64_encode | urlencode }}',
 				Newsletter_Confirmation::QUERY_ARG_LIST_ID_HASH => '{{ list_id | siw_hash | urlencode }}',
 			],
-			untrailingslashit( $confirmation_page )
+			untrailingslashit( get_permalink( $confirmation_page ) )
 		);
 	}
 }

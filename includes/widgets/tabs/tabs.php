@@ -99,6 +99,7 @@ class Tabs extends Widget {
 						'type'          => 'text',
 						'label'         => __( 'URL', 'siw' ),
 						'description'   => __( 'Relatief', 'siw' ),
+						'sanitize'      => 'wp_make_link_relative',
 						'state_handler' => [
 							'button_{$repeater}[show]' => [ 'show' ],
 							'button_{$repeater}[hide]' => [ 'hide' ],
@@ -112,6 +113,10 @@ class Tabs extends Widget {
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
+		if ( ! isset( $instance['panes'] ) || empty( $instance['panes'] ) ) {
+			return [];
+		}
+
 		return [
 			'content' => Tablist::create()->add_items( $instance['panes'] )->generate(),
 		];

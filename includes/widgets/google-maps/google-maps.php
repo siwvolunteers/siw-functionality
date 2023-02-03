@@ -131,6 +131,10 @@ class Google_Maps extends Widget {
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
+		if ( ! isset( $instance['markers'] ) || empty( $instance['markers'] ) ) {
+			return [];
+		}
+
 		$map = Element_Google_Maps::create()
 			->set_zoom( (int) $instance['zoom'] );
 

@@ -58,10 +58,10 @@ class Quick_Search_Form extends Widget {
 	public function get_widget_fields(): array {
 		$widget_forms = [
 			'result_page' => [
-				'type'    => 'select',
-				'label'   => __( 'Resultatenpagina', 'siw' ),
-				'prompt'  => __( 'Selecteer een pagina', 'siw' ),
-				'options' => Util::get_pages(),
+				'type'        => 'text',
+				'label'       => __( 'URL Resultatenpagina', 'siw' ),
+				'sanitize'    => 'wp_make_link_relative',
+				'description' => __( 'Relatief', 'siw' ),
 			],
 		];
 		return $widget_forms;
@@ -71,7 +71,7 @@ class Quick_Search_Form extends Widget {
 	public function get_template_variables( $instance, $args ) {
 
 		return [
-			'result_page_url' => wp_make_link_relative( get_permalink( $instance['result_page'] ) ),
+			'result_page_url' => $instance['result_page'],
 			'search_fields'   => [
 				[
 					'id'      => Quick_Search_Results::DESTINATION,

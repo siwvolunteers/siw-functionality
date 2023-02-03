@@ -20,6 +20,7 @@ class Loader extends A_Base_Loader {
 			Help_Tabs::class,
 			Tableview_Page::class,
 			Properties_Page::class,
+			Page_Settings::class,
 			Shortcodes::class,
 		];
 	}

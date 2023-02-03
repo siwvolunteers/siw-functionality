@@ -3,11 +3,11 @@ namespace SIW\Content\Types;
 
 use SIW\Content\Type;
 use SIW\Data\Country;
+use SIW\Data\Project_Type;
 use SIW\Elements\Quote;
 use SIW\Helpers\Template;
 use SIW\Util\HTML;
 use SIW\Util\Links;
-use SIW\I18n;
 
 /**
  * Ervaringsverhalen
@@ -257,21 +257,26 @@ class Story extends Type {
 	protected function get_cta_url(): ?string {
 
 		$pages = [
-			'esc'             => 'esc',
-			'project-op-maat' => 'tailor_made',
-			'scholenproject'  => 'school_projects',
-			'groepsproject'   => 'workcamps',
+			'esc'             => Project_Type::ESC(),
+			'project-op-maat' => Project_Type::TAILOR_MADE_PROJECTS(),
+			'scholenproject'  => Project_Type::SCHOOL_PROJECTS(),
+			'groepsproject'   => Project_Type::WORKCAMPS(),
 		];
 
 		$project_type = siw_meta( 'siw_story_project_type' );
-		$page = $pages[ $project_type->slug ] ?? '';
+		$page = $pages[ $project_type->slug ] ?? null;
 
-		$page_url = I18n::get_translated_page_url( (int) siw_get_option( "pages.explanation.{$page}", 1 ) );
-
-		if ( ! empty( $page_url ) ) {
-			return Links::generate_button_link( $page_url, __( 'Bekijk de mogelijkheden', 'siw' ) );
+		if ( null === $page ) {
+			return null;
 		}
-		return null;
+
+		$project_type_page = siw_get_project_type_page( $page );
+
+		if ( null === $project_type_page ) {
+			return null;
+		}
+
+		return Links::generate_button_link( get_permalink( $project_type_page ), __( 'Bekijk de mogelijkheden', 'siw' ) );
 	}
 
 	/** {@inheritDoc} */

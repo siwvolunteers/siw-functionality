@@ -162,6 +162,10 @@ class Carousel extends Widget {
 
 		$instance = $this->parse_instance( $instance );
 
+		if ( ! isset( $instance['post_type'] ) || empty( $instance['post_type'] ) ) {
+			return [];
+		}
+
 		$carousel = Element_Carousel::create()
 			->set_post_type( $instance['post_type'] )
 			->set_items( intval( $instance['items'] ) )
@@ -212,7 +216,6 @@ class Carousel extends Widget {
 		$instance = wp_parse_args(
 			$instance,
 			[
-				'post_type'   => '',
 				'intro'       => '',
 				'columns'     => self::DEFAULT_NUMBER_OF_COLUMNS,
 				'items'       => self::DEFAULT_NUMBER_OF_ITEMS,

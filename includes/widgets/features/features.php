@@ -104,6 +104,8 @@ class Features extends Widget {
 					'link_url' => [
 						'type'          => 'text',
 						'label'         => __( 'URL', 'siw' ),
+						'sanitize'      => 'wp_make_link_relative',
+						'description'   => __( 'Relatief', 'siw' ),
 						'state_handler' => [
 							'link_{$repeater}[show]' => [ 'show' ],
 							'link_{$repeater}[hide]' => [ 'hide' ],
@@ -118,6 +120,10 @@ class Features extends Widget {
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
+		if ( ! isset( $instance['features'] ) || empty( $instance['features'] ) ) {
+			return [];
+		}
+
 		return [
 			'content' => Features_Element::create()->add_items( $instance['features'] )->set_columns( (int) $instance['columns'] )->generate(),
 		];
