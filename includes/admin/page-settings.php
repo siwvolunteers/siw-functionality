@@ -15,19 +15,18 @@ use SIW\Data\Special_Page;
 class Page_Settings extends Base {
 
 	const SPECIAL_PAGE_META = 'special_page';
-	const PROJECT_TYPE_PAGE = 'project_type_page';
-
+	const PROJECT_TYPE_PAGE_META = 'project_type_page';
 
 	#[Filter( 'display_post_states' )]
 	public function add_panels_post_state( array $post_states, \WP_Post $post ): array {
 		$special_page = get_post_meta( $post->ID, self::SPECIAL_PAGE_META, true );
-		$project_type_page = get_post_meta( $post->ID, self::PROJECT_TYPE_PAGE, true );
+		$project_type_page = get_post_meta( $post->ID, self::PROJECT_TYPE_PAGE_META, true );
 
 		if ( ! empty( $special_page ) ) {
 			$post_states[] = Special_Page::tryFrom( $special_page )?->label;
 		}
 		if ( ! empty( $project_type_page ) ) {
-			$post_states[] = Project_Type::tryFrom( $special_page )?->label;
+			$post_states[] = Project_Type::tryFrom( $project_type_page )?->label;
 		}
 		return $post_states;
 	}
@@ -49,7 +48,7 @@ class Page_Settings extends Base {
 					'options' => Special_Page::toArray(),
 				],
 				[
-					'id'      => self::PROJECT_TYPE_PAGE,
+					'id'      => self::PROJECT_TYPE_PAGE_META,
 					'name'    => __( 'Projecttype-pagina', 'siw' ),
 					'type'    => 'select_advanced',
 					'options' => Project_Type::toArray(),
