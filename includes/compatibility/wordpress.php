@@ -191,4 +191,22 @@ class WordPress extends Base {
 			exit;
 		}
 	}
+
+	#[Action( 'template_redirect' )]
+	public function redirect_attachments() {
+		global $post;
+
+		if ( $post && \is_attachment() ) {
+			if ( ! empty( $post->post_parent ) ) {
+				\wp_safe_redirect( \get_permalink( $post->post_parent ), \WP_Http::MOVED_PERMANENTLY );
+				exit;
+			} else {
+				$url = \wp_get_attachment_url( $post->ID );
+				if ( $url ) {
+					\wp_safe_redirect( $url, \WP_Http::MOVED_PERMANENTLY );
+					exit;
+				}
+			}
+		}
+	}
 }
