@@ -66,10 +66,10 @@ class Admin extends Base {
 	public function remove_metaboxes() {
 		remove_meta_box( 'postcustom', [ 'page', 'post' ], 'normal' );
 		remove_meta_box( 'trackbacksdiv', 'post', 'normal' );
-		remove_meta_box( 'commentstatusdiv', [ 'page', 'post' ], 'normal' );
-		remove_meta_box( 'commentsdiv', [ 'page', 'post' ], 'normal' );
-		remove_meta_box( 'slugdiv', [ 'page', 'post' ], 'normal' );
-		remove_meta_box( 'authordiv', [ 'page', 'post' ], 'normal' );
+		remove_meta_box( 'commentstatusdiv', [ 'page', 'post', 'attachment' ], 'normal' );
+		remove_meta_box( 'commentsdiv', [ 'page', 'post', 'attachment' ], 'normal' );
+		remove_meta_box( 'slugdiv', [ 'page', 'post', 'attachment' ], 'normal' );
+		remove_meta_box( 'authordiv', [ 'page', 'post', 'attachment' ], 'normal' );
 	}
 
 	#[Action( 'admin_init', 20 )]
