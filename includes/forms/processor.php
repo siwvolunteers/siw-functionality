@@ -156,7 +156,7 @@ class Processor {
 		$data = [
 			'email'      => $this->get_customer_email(),
 			'list_id'    => $this->export_to_mailjet->get_mailjet_list_id( $this->request ),
-			'properties' => $this->export_to_mailjet->get_mailjet_properties( $this->request ),
+			'properties' => array_filter( $this->export_to_mailjet->get_mailjet_properties( $this->request ) ),
 		];
 
 		siw_enqueue_async_action( 'export_to_mailjet', $data );
