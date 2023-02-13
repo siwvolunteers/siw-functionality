@@ -56,10 +56,10 @@ abstract class Base {
 	protected function add_shortcodes() {
 		$methods = $this->reflection_class->getMethods( \ReflectionMethod::IS_PUBLIC );
 		foreach ( $methods as $method ) {
-			$shortcode_attributes = $method->getAttributes( \SIW\Attributes\Shortcode::class );
+			$shortcode_attributes = $method->getAttributes( \SIW\Attributes\Add_Shortcode::class );
 
 			foreach ( $shortcode_attributes as $attribute ) {
-				/** @var \SIW\Attributes\Shortcode */
+				/** @var \SIW\Attributes\Add_Shortcode */
 				$shortcode = $attribute->newInstance();
 				$shortcode->add( [ $this, $method->getName() ] );
 			}
