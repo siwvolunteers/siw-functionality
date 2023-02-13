@@ -66,14 +66,24 @@ class Form extends Widget {
 				'label'   => __( 'Enkele kolom', 'siw' ),
 				'default' => false,
 			],
+			'hide_labels'   => [
+				'type'    => 'checkbox',
+				'label'   => __( 'Labels verbergen', 'siw' ),
+				'default' => false,
+			],
 		];
 		return $widget_fields;
 	}
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
+		$form_element = Form_Element::create()->set_form_id( $instance['form'] )->set_single_column( $instance['single_column'] );
+		if ( $instance['hide_labels'] ) {
+			$form_element->hide_labels();
+		}
+
 		return [
-			'content' => Form_Element::create()->set_form_id( $instance['form'] )->set_single_column( $instance['single_column'] )->generate(),
+			'content' => $form_element->generate(),
 		];
 	}
 }
