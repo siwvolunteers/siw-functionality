@@ -124,6 +124,90 @@
   src: url("/wp-content/plugins/siw-functionality/assets/fonts/Metropolis/woff2/Metropolis-BlackItalic.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/Metropolis/woff/Metropolis-BlackItalic.woff") format("woff");
   font-display: swap;
 }
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff2/open-sans-v34-latin-300.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff/open-sans-v34-latin-300.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  font-weight: 300;
+  src: url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff2/open-sans-v34-latin-300Italic.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff/open-sans-v34-latin-300Italic.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff2/open-sans-v34-latin-400.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff/open-sans-v34-latin-400.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff2/open-sans-v34-latin-400Italic.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff/open-sans-v34-latin-400Italic.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff2/open-sans-v34-latin-500.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff/open-sans-v34-latin-500.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  font-weight: 500;
+  src: url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff2/open-sans-v34-latin-500Italic.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff/open-sans-v34-latin-500Italic.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 600;
+  src: url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff2/open-sans-v34-latin-600.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff/open-sans-v34-latin-600.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  font-weight: 600;
+  src: url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff2/open-sans-v34-latin-600Italic.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff/open-sans-v34-latin-600Italic.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff2/open-sans-v34-latin-700.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff/open-sans-v34-latin-700.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  font-weight: 700;
+  src: url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff2/open-sans-v34-latin-700Italic.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff/open-sans-v34-latin-700Italic.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 800;
+  src: url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff2/open-sans-v34-latin-800.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff/open-sans-v34-latin-800.woff") format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  font-style: italic;
+  font-weight: 800;
+  src: url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff2/open-sans-v34-latin-800Italic.woff2") format("woff2"), url("/wp-content/plugins/siw-functionality/assets/fonts/OpenSans/woff/open-sans-v34-latin-800Italic.woff") format("woff");
+  font-display: swap;
+}
 /**
  * siw.css
  * @copyright 2020-2022 SIW Internationale Vrijwilligersprojecten
