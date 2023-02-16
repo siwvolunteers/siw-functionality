@@ -70,7 +70,6 @@ class WordPress extends Base {
 	/** Verwijdert standaard-widgets */
 	public function unregister_widgets() {
 		unregister_widget( \WP_Widget_Pages::class );
-		unregister_widget( \WP_Widget_Recent_Posts::class );
 		unregister_widget( \WP_Widget_Calendar::class );
 		unregister_widget( \WP_Widget_Archives::class );
 		if ( get_option( 'link_manager_enabled' ) ) {
