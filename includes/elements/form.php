@@ -72,7 +72,7 @@ class Form extends Element {
 				$field['placeholder'] = $field['name'];
 			}
 			$field['attributes']['aria-label'] = $field['name'];
-			unset( $field['name'] );
+			$field['name'] = '';
 			$this->meta_box->meta_box['fields'][ $index ] = $field;
 		}
 		return $this;
