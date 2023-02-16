@@ -85,6 +85,7 @@ class WordPress extends Base {
 		unregister_widget( \WP_Widget_Media_Audio::class );
 		unregister_widget( \WP_Widget_Media_Video::class );
 		unregister_widget( \WP_Widget_Media_Gallery::class );
+		unregister_widget( \WP_Widget_Block::class );
 	}
 
 	#[Action( 'oembed_response_data' )]
