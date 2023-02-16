@@ -18,6 +18,7 @@ class Loader extends Class_Loader_Abstract {
 			GeneratePress::class,
 			Members::class,
 			Meta_Box::class,
+			Mollie_Payments_For_Woocommerce::class,
 			Safe_Redirect_Manager::class,
 			SiteOrigin_Page_Builder::class,
 			SiteOrigin_Widgets_Bundle::class,
