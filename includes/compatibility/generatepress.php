@@ -25,7 +25,7 @@ class GeneratePress extends Base {
 	private const SHOW_GOOGLE_FONTS = false;
 
 	#[Filter( 'generate_woocommerce_menu_item_location' )]
-	private const WOOCOMMERCE_CART_MENU_ITEM_LOCATION = 'primary';
+	private const WOOCOMMERCE_CART_MENU_ITEM_LOCATION = 'secondary'; // TODO: customizer setting van maken
 
 	#[Action( 'init' )]
 	/** Voeg menu order toe een GP Elements */
