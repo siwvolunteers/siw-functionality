@@ -106,7 +106,7 @@ function siw_get_forms(): array {
 	return $forms;
 }
 
-function siw_get_special_page( Special_Page $special_page ): ?\WP_Post {
+function siw_get_special_page( Special_Page $special_page ): \WP_Post {
 	/** @var \WP_Post[]|false */
 	$pages = get_pages(
 		[
@@ -114,8 +114,9 @@ function siw_get_special_page( Special_Page $special_page ): ?\WP_Post {
 			'meta_value' => $special_page->value,
 		]
 	);
+	// Fallback naar homepagina
 	if ( false === $pages || 0 === count( $pages ) ) {
-		return null;
+		return get_post( get_option( 'page_on_front' ) );
 	}
 
 	$page = reset( $pages );
@@ -130,8 +131,9 @@ function siw_get_project_type_page( Project_Type $project_type ): ?\WP_Post {
 			'meta_value' => $project_type->value,
 		]
 	);
+	// Fallback naar homepagina
 	if ( false === $pages || 0 === count( $pages ) ) {
-		return null;
+		return get_post( get_option( 'page_on_front' ) );
 	}
 
 	$page = reset( $pages );
