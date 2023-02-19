@@ -21,7 +21,7 @@ body.home .site-content {
 }
 
 
-dl{
+dl {
 	dd {
 		margin: 0 1em 1em;
 	}
@@ -32,8 +32,10 @@ dl{
 	color: var(--siw-base);
 	padding: 15px;
 	margin: 15px;
+
 	a {
 		color: var(--siw-base);
+
 		&:hover {
 			color: var(--siw-base);
 		}
@@ -48,10 +50,12 @@ a.button.ghost {
 	border: 2px solid var(--siw-contrast);
 	color: var(--siw-contrast);
 	transition: all .6s ease-out;
-	&:visited{
+
+	&:visited {
 		color: var(--siw-contrast);
 		background-color: var(--siw-base);
 	}
+
 	&:hover,
 	&:active {
 		background: var(--siw-contrast);
@@ -67,4 +71,24 @@ h1.hero-title {
 
 a:hover {
 	text-decoration-color: var(--siw-accent);
+}
+
+// https://docs.generatepress.com/article/disable-secondary-navigation-mobile-menu/
+.secondary-navigation .menu-toggle {
+	display: none;
+}
+
+@media(max-width: 768px) {
+	.secondary-navigation {
+		text-align: center !important;
+
+		ul {
+			display: block;
+		}
+
+		.sf-menu>li {
+			float: none;
+			display: inline-block !important;
+		}
+	}
 }

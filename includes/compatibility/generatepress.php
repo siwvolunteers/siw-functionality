@@ -87,6 +87,11 @@ class GeneratePress extends Base {
 		update_option( 'generate_settings', $generate_settings );
 	}
 
+	#[Action( 'wp_enqueue_scripts', PHP_INT_MAX )]
+	public function dequeue_secondary_nav_mobile() {
+		wp_dequeue_style( 'generate-secondary-nav-mobile' );
+	}
+
 	#[Action( Update::PLUGIN_UPDATED_HOOK )]
 	/** Update GeneratePress dynamic css cache */
 	public function update_dynamic_css() {

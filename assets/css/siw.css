@@ -286,6 +286,22 @@ a:hover {
   text-decoration-color: var(--siw-accent);
 }
 
+.secondary-navigation .menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .secondary-navigation {
+    text-align: center !important;
+  }
+  .secondary-navigation ul {
+    display: block;
+  }
+  .secondary-navigation .sf-menu > li {
+    float: none;
+    display: inline-block !important;
+  }
+}
 /*--------------------------------------------------------------
 ## 404
 --------------------------------------------------------------*/
