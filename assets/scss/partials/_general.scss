@@ -42,28 +42,6 @@ dl {
 	}
 }
 
-//TODO: partial voor knoppen
-input[type=button].ghost,
-input[type=submit].ghost,
-a.button.ghost {
-	background-color: var(--siw-base);
-	border: 2px solid var(--siw-contrast);
-	color: var(--siw-contrast);
-	transition: all .6s ease-out;
-
-	&:visited {
-		color: var(--siw-contrast);
-		background-color: var(--siw-base);
-	}
-
-	&:hover,
-	&:active {
-		background: var(--siw-contrast);
-		color: var(--siw-base);
-		border: 2px solid transparent;
-	}
-}
-
 //Header
 h1.hero-title {
 	text-shadow: var(--siw-text-shadow);

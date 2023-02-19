@@ -41,7 +41,7 @@ class Cookie_Notice extends Element {
 					// translators: %s is de link naar het privacybeleid
 					sprintf( __( 'Lees meer over hoe wij cookies gebruiken en hoe je ze kunt beheren in ons %s.', 'siw' ), Links::generate_link( $privacy_policy_url, __( 'privacybeleid', 'siw' ) ) ),
 				'accept_selection' => __( 'Selectie toestaan', 'siw' ),
-				'accept_all'       => __( 'Alle cookies toestaan', 'siw' ),
+				'accept_all'       => __( 'Alles toestaan', 'siw' ),
 				'analytical'       => __( 'Analytisch', 'siw' ),
 				'marketing'        => __( 'Marketing', 'siw' ),
 			],

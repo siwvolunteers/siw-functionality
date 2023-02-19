@@ -8,17 +8,6 @@
   background-color: var(--siw-contrast-light);
   color: var(--siw-base);
   text-align: left;
-  font-size: 0.9em;
-}
-.siw-cookie-notice form button[type=submit] {
-  font-size: 0.9em;
-  background-color: var(--siw-contrast-light);
-  color: var(--siw-base);
-  border: 2px solid var(--siw-base);
-}
-.siw-cookie-notice form button[type=submit]:hover, .siw-cookie-notice form button[type=submit]:active, .siw-cookie-notice form button[type=submit].is-checked {
-  color: var(--siw-contrast-light);
-  background-color: var(--siw-base);
 }
 .siw-cookie-notice a {
   color: var(--siw-base);

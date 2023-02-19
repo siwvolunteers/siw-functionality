@@ -254,30 +254,6 @@ dl dd {
   color: var(--siw-base);
 }
 
-input[type=button].ghost,
-input[type=submit].ghost,
-a.button.ghost {
-  background-color: var(--siw-base);
-  border: 2px solid var(--siw-contrast);
-  color: var(--siw-contrast);
-  transition: all 0.6s ease-out;
-}
-input[type=button].ghost:visited,
-input[type=submit].ghost:visited,
-a.button.ghost:visited {
-  color: var(--siw-contrast);
-  background-color: var(--siw-base);
-}
-input[type=button].ghost:hover, input[type=button].ghost:active,
-input[type=submit].ghost:hover,
-input[type=submit].ghost:active,
-a.button.ghost:hover,
-a.button.ghost:active {
-  background: var(--siw-contrast);
-  color: var(--siw-base);
-  border: 2px solid transparent;
-}
-
 h1.hero-title {
   text-shadow: var(--siw-text-shadow);
 }

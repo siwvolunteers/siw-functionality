@@ -44,13 +44,13 @@ class Links {
 		return HTML::a( $attributes, $text ?? $email );
 	}
 
-	/** Genereert link in ghost buttons */
+	/** Genereert link in buttons */
 	public static function generate_button_link( string $url, string $text, array $attributes = [] ) : string {
 		$attributes = wp_parse_args(
 			$attributes,
 			[
 				'href'  => $url,
-				'class' => 'button ghost',
+				'class' => 'button',
 			]
 		);
 		return HTML::a( $attributes, $text );
