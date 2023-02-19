@@ -6,7 +6,6 @@ use SIW\Content\Type;
 use SIW\Data\Country;
 use SIW\Data\Project_Type;
 use SIW\Data\Work_Type;
-use SIW\Elements\Features;
 use SIW\Elements\Icon;
 use SIW\Elements\Quote;
 use SIW\Elements\World_Map;
@@ -195,7 +194,6 @@ class TM_Country extends Type {
 			'quote'             => Quote::create()->set_quote( rwmb_get_value( 'quote' ) )->generate(),
 			'sign_up_link'      => Links::generate_button_link( get_permalink( $tailor_made_page ), __( 'Meld je aan', 'siw' ) ),
 			'child_policy_link' => do_shortcode( '[siw_pagina_lightbox link_tekst="Lees meer over ons beleid." pagina="kinderbeleid"]' ),
-			'features'          => $this->country_features(),
 			'worktypes'         => [],
 		];
 		// welke type projecten zijn er
@@ -210,37 +208,6 @@ class TM_Country extends Type {
 			$template_vars += [ 'has_child_projects' => true ];
 		}
 		Template::create()->set_template( 'types/tm_country_single' )->set_context( $template_vars )->render_template();
-	}
-
-	/**Maak features voor te kijken hoe het werkt */
-	public function country_features(): string {
-		$features = Features::create()
-			->set_columns( 4 )
-			->add_items(
-				[
-					[
-						'icon'    => 'siw-icon-file-signature',
-						'title'   => '1. Aanmelding',
-						'content' => 'Ben je geïnteresseerd in een Project Op Maat? Meld je dan direct aan via de website.',
-					],
-					[
-						'icon'    => 'siw-icon-handshake',
-						'title'   => '2. Kennismaking',
-						'content' => 'Na het kennismakingsgesprek stelt de regiospecialist een selectie van drie Projecten Op Maat voor je samen.',
-					],
-					[
-						'icon'    => 'siw-icon-clipboard-check',
-						'title'   => '3. Bevestiging',
-						'content' => 'Als je een passend Project Op Maat hebt gekozen, volgt de betaling. Vervolgens gaat de regiospecialist voor je aan de slag.',
-					],
-					[
-						'icon'    => 'siw-icon-tasks',
-						'title'   => '4. Voorbereiding',
-						'content' => 'Kom naar de Infodag zodat je goed voorbereid aan jouw avontuur kan beginnen.',
-					],
-				]
-			)->generate();
-		return $features;
 	}
 
 	/** {@inheritDoc} */

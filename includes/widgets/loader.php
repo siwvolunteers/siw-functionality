@@ -22,7 +22,6 @@ class Loader extends Class_Loader_Abstract {
 			Contact::class,
 			CTA::class,
 			Featured_Image::class,
-			Features::class,
 			Form::class,
 			Google_Maps::class,
 			Icon::class,
