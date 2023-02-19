@@ -21,7 +21,6 @@ class Loader extends A_Base_Loader {
 			Google_Analytics::class,
 			Icons::class,
 			Social_Share::class,
-			Topbar::class,
 			Web_App_Manifest::class,
 		];
 	}
