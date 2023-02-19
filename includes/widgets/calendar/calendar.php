@@ -2,6 +2,8 @@
 
 namespace SIW\Widgets;
 
+use SIW\Util\CSS;
+
 /**
  * Widget met agenda
  *
@@ -58,7 +60,7 @@ class Calendar extends Widget {
 		$widget_fields = [
 			'number'        => [
 				'type'    => 'slider',
-				'label'   => __( 'Aantal', 'siw' ),
+				'label'   => __( 'Aantal evenementen', 'siw' ),
 				'default' => 2,
 				'min'     => 1,
 				'max'     => self::MAX_NUMBER_OF_EVENTS,
@@ -68,6 +70,13 @@ class Calendar extends Widget {
 				'label'   => __( 'Toon alleen SIW infodagen', 'siw' ),
 				'default' => false,
 			],
+			'columns'       => [
+				'type'    => 'slider',
+				'label'   => __( 'Aantal kolommen', 'siw' ),
+				'default' => 1,
+				'min'     => 1,
+				'max'     => 4,
+			],
 		];
 		return $widget_fields;
 	}
@@ -76,18 +85,19 @@ class Calendar extends Widget {
 	public function get_template_variables( $instance, $args ) {
 
 		if ( $instance['only_infodays'] ) {
-			$events = siw_get_upcoming_info_days( $instance['number'] );
+			$events = siw_get_upcoming_info_days( (int) $instance['number'] );
 		} else {
 			$events = siw_get_upcoming_events( [ 'number' => $instance['number'] ] );
 		}
 
 		$parameters = [
-			'active_events'  => ! empty( $events ),
-			'events'         => array_map( [ $this, 'parse_event' ], $events ),
-			'json_ld'        => array_map( 'siw_generate_event_json_ld', $events ),
-			'agenda_url'     => get_post_type_archive_link( 'siw_event' ),
-			'agenda_text'    => __( 'Bekijk de volledige agenda.', 'siw' ),
-			'no_events_text' => __( 'Er zijn momenteel geen geplande activiteiten.', 'siw' ),
+			'responsive_classes' => CSS::generate_responsive_classes( (int) $instance['columns'] ),
+			'active_events'      => ! empty( $events ),
+			'events'             => array_map( [ $this, 'parse_event' ], $events ),
+			'json_ld'            => array_map( 'siw_generate_event_json_ld', $events ),
+			'agenda_url'         => get_post_type_archive_link( 'siw_event' ),
+			'agenda_text'        => __( 'Bekijk de volledige agenda.', 'siw' ),
+			'no_events_text'     => __( 'Er zijn momenteel geen geplande activiteiten.', 'siw' ),
 		];
 		return $parameters;
 	}
@@ -111,9 +121,10 @@ class Calendar extends Widget {
 		return [
 			'title'    => get_the_title( $event_id ),
 			'url'      => get_permalink( $event_id ),
+			'day'      => wp_date( 'd', strtotime( siw_meta( 'event_date', [], $event_id ) ) ),
+			'month'    => wp_date( 'M', strtotime( siw_meta( 'event_date', [], $event_id ) ) ),
 			'duration' => sprintf(
-				'%s %s-%s',
-				siw_format_date( siw_meta( 'event_date', [], $event_id ), false ),
+				'%s-%s',
 				siw_meta( 'start_time', [], $event_id ),
 				siw_meta( 'end_time', [], $event_id )
 			),

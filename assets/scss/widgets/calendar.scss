@@ -5,4 +5,29 @@
 	.duration, .page-link {
 		font-weight: bold;
 	}
+	.event {
+		padding-bottom: 5px;
+	}
+	.event-left {
+		width: 20%;
+		float: left;
+		box-sizing: border-box;
+	}
+	.event-right {
+		width: 80%;
+		float: left;
+		box-sizing: border-box;
+		padding-left: 10px;
+	}
+
+	.calendar {
+		text-align: center;
+		border: var(--siw-base) solid 2px;
+		width: 3em;
+		.month {
+			text-transform: uppercase;
+			background-color: var(--siw-base);
+			color: var(--siw-contrast)
+		}
+	}
 }

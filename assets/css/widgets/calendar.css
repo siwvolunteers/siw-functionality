@@ -4,3 +4,27 @@
 .so-widget-siw_calendar_widget .duration, .so-widget-siw_calendar_widget .page-link {
   font-weight: bold;
 }
+.so-widget-siw_calendar_widget .event {
+  padding-bottom: 5px;
+}
+.so-widget-siw_calendar_widget .event-left {
+  width: 20%;
+  float: left;
+  box-sizing: border-box;
+}
+.so-widget-siw_calendar_widget .event-right {
+  width: 80%;
+  float: left;
+  box-sizing: border-box;
+  padding-left: 10px;
+}
+.so-widget-siw_calendar_widget .calendar {
+  text-align: center;
+  border: var(--siw-base) solid 2px;
+  width: 3em;
+}
+.so-widget-siw_calendar_widget .calendar .month {
+  text-transform: uppercase;
+  background-color: var(--siw-base);
+  color: var(--siw-contrast);
+}
