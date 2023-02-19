@@ -38,6 +38,13 @@ class CSS {
 	/** Basekleur (achtergrondkleur) */
 	const BASE_COLOR = '#fefefe';
 
+	/** Extra kleuren o.a. voor de continenten */
+	const PURPLE_COLOR = '#623981';
+	const BLUE_COLOR = '#67bdd3';
+	const RED_COLOR = '#e74052';
+	const GREEN_COLOR = '#7fc31b';
+	const YELLOW_COLOR = '#f4f416';
+
 	/** Genereert reponsive classes */
 	public static function generate_responsive_classes( int $desktop_columns, int $tablet_columns = null, int $mobile_columns = null ): string {
 		$classes[] = 'grid-' . self::columns_to_grid_width( $desktop_columns );

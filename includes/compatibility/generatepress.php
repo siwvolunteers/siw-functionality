@@ -51,6 +51,11 @@ class GeneratePress extends Base {
 			CSS::CONTRAST_COLOR_LIGHT,
 			CSS::BASE_COLOR,
 			CSS::ACCENT_COLOR,
+			CSS::PURPLE_COLOR,
+			CSS::BLUE_COLOR,
+			CSS::RED_COLOR,
+			CSS::GREEN_COLOR,
+			CSS::YELLOW_COLOR,
 		];
 	}
 
@@ -79,6 +84,31 @@ class GeneratePress extends Base {
 				'name'  => 'Base',
 				'slug'  => 'siw-base',
 				'color' => CSS::BASE_COLOR,
+			],
+			[
+				'name'  => 'Paars',
+				'slug'  => 'siw-purple',
+				'color' => CSS::PURPLE_COLOR,
+			],
+			[
+				'name'  => 'Blauw',
+				'slug'  => 'siw-blue',
+				'color' => CSS::BLUE_COLOR,
+			],
+			[
+				'name'  => 'Rood',
+				'slug'  => 'siw-red',
+				'color' => CSS::RED_COLOR,
+			],
+			[
+				'name'  => 'Groen',
+				'slug'  => 'siw-green',
+				'color' => CSS::GREEN_COLOR,
+			],
+			[
+				'name'  => 'Geel',
+				'slug'  => 'siw-yellow',
+				'color' => CSS::YELLOW_COLOR,
 			],
 		];
 		update_option( 'generate_settings', $generate_settings );
