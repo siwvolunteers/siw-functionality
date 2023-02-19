@@ -56,12 +56,17 @@ class Calendar extends Widget {
 	/** {@inheritDoc} */
 	protected function get_widget_fields(): array {
 		$widget_fields = [
-			'number' => [
+			'number'        => [
 				'type'    => 'slider',
 				'label'   => __( 'Aantal', 'siw' ),
 				'default' => 2,
 				'min'     => 1,
 				'max'     => self::MAX_NUMBER_OF_EVENTS,
+			],
+			'only_infodays' => [
+				'type'    => 'checkbox',
+				'label'   => __( 'Toon alleen SIW infodagen', 'siw' ),
+				'default' => false,
 			],
 		];
 		return $widget_fields;
@@ -69,7 +74,12 @@ class Calendar extends Widget {
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
-		$events = siw_get_upcoming_events( [ 'number' => $instance['number'] ] );
+
+		if ( $instance['only_infodays'] ) {
+			$events = siw_get_upcoming_info_days( $instance['number'] );
+		} else {
+			$events = siw_get_upcoming_events( [ 'number' => $instance['number'] ] );
+		}
 
 		$parameters = [
 			'active_events'  => ! empty( $events ),
