@@ -592,7 +592,8 @@ form.rwmb-form input[type=date] {
 }
 form select,
 form.rwmb-form select {
-  appearance: none;
+  -webkit-appearance: none;
+          appearance: none;
   width: auto;
   padding: 10px 30px 10px 10px;
   background: var(--siw-base) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%23f67820'><polygon points='0,0 10,0 5,5'/></svg>") no-repeat;
@@ -644,12 +645,13 @@ form.rwmb-form .rwmb-column .rwmb-field.rwmb-hidden-wrapper {
 .footer-widgets form.rwmb-form .rwmb-column .rwmb-field:not(.rwmb-hidden-wrapper) {
   margin-bottom: 12px;
 }
-@supports (appearance: none) {
+@supports ((-webkit-appearance: none) or (appearance: none)) {
   form input[type=checkbox],
   form input[type=radio],
   form.rwmb-form input[type=checkbox],
   form.rwmb-form input[type=radio] {
-    appearance: none;
+    -webkit-appearance: none;
+            appearance: none;
     position: relative;
     width: 25px;
     height: 25px;
