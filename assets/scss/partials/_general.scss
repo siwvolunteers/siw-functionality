@@ -27,16 +27,20 @@ dl {
 }
 
 .siw-intro {
-	background-color: var(--siw-contrast);
-	color: var(--siw-base);
-	padding: 15px;
-	margin: 15px;
+	border: 1px solid var(--siw-accent);
+	border-radius: 16px 0;
+	background-color: #f6782010; //TODO:afleiden van accent color
+	color: var(--siw-contrast);
+	margin: 0;
+	padding: 24px;
 
+	p {
+		margin-bottom: 0;
+	}
 	a {
-		color: var(--siw-base);
-
+		color: var(--siw-contrast);
 		&:hover {
-			color: var(--siw-base);
+			color: var(--siw-accent);
 		}
 	}
 }

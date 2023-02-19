@@ -242,16 +242,21 @@ dl dd {
 }
 
 .siw-intro {
-  background-color: var(--siw-contrast);
-  color: var(--siw-base);
-  padding: 15px;
-  margin: 15px;
+  border: 1px solid var(--siw-accent);
+  border-radius: 16px 0;
+  background-color: rgba(246, 120, 32, 0.062745098);
+  color: var(--siw-contrast);
+  margin: 0;
+  padding: 24px;
+}
+.siw-intro p {
+  margin-bottom: 0;
 }
 .siw-intro a {
-  color: var(--siw-base);
+  color: var(--siw-contrast);
 }
 .siw-intro a:hover {
-  color: var(--siw-base);
+  color: var(--siw-accent);
 }
 
 a:hover {
