@@ -15,7 +15,6 @@ class Loader extends Class_Loader_Abstract {
 	protected function get_classes(): array {
 		return [
 			Email::class,
-			Head::class,
 			Login::class,
 			Media_Taxonomies::class,
 			Scheduler::class,

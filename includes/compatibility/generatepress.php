@@ -24,6 +24,9 @@ class GeneratePress extends Base {
 	#[Filter( 'generate_font_manager_show_google_fonts' )]
 	private const SHOW_GOOGLE_FONTS = false;
 
+	#[Filter( 'generate_woocommerce_menu_item_location' )]
+	private const WOOCOMMERCE_CART_MENU_ITEM_LOCATION = 'primary';
+
 	#[Action( 'init' )]
 	/** Voeg menu order toe een GP Elements */
 	public function add_elements_menu_order() {

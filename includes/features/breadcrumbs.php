@@ -3,7 +3,7 @@
 namespace SIW\Features;
 
 use SIW\Attributes\Action;
-use SIW\Attributes\Shortcode;
+use SIW\Attributes\Add_Shortcode;
 use SIW\Base;
 use SIW\Helpers\Template;
 
@@ -30,7 +30,7 @@ class Breadcrumbs extends Base {
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
-	#[Shortcode( 'siw_breadcrumbs' )]
+	#[Add_Shortcode( 'siw_breadcrumbs' ) ]
 	/** Genereer breadcrumbs */
 	public function generate_crumbs() : string {
 		$this->set_crumbs();

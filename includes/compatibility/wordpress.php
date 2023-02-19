@@ -7,6 +7,7 @@ use SIW\Attributes\Filter;
 use SIW\Base;
 use SIW\Properties;
 use SIW\Update;
+use SIW\Util\CSS;
 
 /**
  * Aanpassingen voor WordPress
@@ -47,6 +48,24 @@ class WordPress extends Base {
 		\flush_rewrite_rules();
 	}
 
+	#[Action( 'wp_head', 1 )]
+	public function cleanup_head() {
+		remove_action( 'wp_head', 'wp_generator' );
+		remove_action( 'wp_head', 'wlwmanifest_link' );
+		remove_action( 'wp_head', 'wp_shortlink_wp_head', 10 );
+		remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+		remove_action( 'wp_head', 'rsd_link' );
+		remove_action( 'wp_head', 'feed_links', 2 );
+		remove_action( 'wp_head', 'feed_links_extra', 3 );
+		remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10 );
+	}
+
+	#[Filter( 'site_icon_meta_tags' )]
+	public function add_theme_color_tag( array $meta_tags ): array {
+		$meta_tags[] = sprintf( '<meta name="theme-color" content="%s">', CSS::ACCENT_COLOR );
+		return $meta_tags;
+	}
+
 	#[Action( 'widgets_init', 99 )]
 	/** Verwijdert standaard-widgets */
 	public function unregister_widgets() {
@@ -66,8 +85,8 @@ class WordPress extends Base {
 		unregister_widget( \WP_Widget_Media_Audio::class );
 		unregister_widget( \WP_Widget_Media_Video::class );
 		unregister_widget( \WP_Widget_Media_Gallery::class );
+		unregister_widget( \WP_Widget_Block::class );
 	}
-
 
 	#[Action( 'oembed_response_data' )]
 	/** Verwijdert auteurgegevens uit oembed */
@@ -189,6 +208,24 @@ class WordPress extends Base {
 		if ( is_author() ) {
 			wp_safe_redirect( home_url() );
 			exit;
+		}
+	}
+
+	#[Action( 'template_redirect' )]
+	public function redirect_attachments() {
+		global $post;
+
+		if ( $post && \is_attachment() ) {
+			if ( ! empty( $post->post_parent ) ) {
+				\wp_safe_redirect( \get_permalink( $post->post_parent ), \WP_Http::MOVED_PERMANENTLY );
+				exit;
+			} else {
+				$url = \wp_get_attachment_url( $post->ID );
+				if ( $url ) {
+					\wp_safe_redirect( $url, \WP_Http::MOVED_PERMANENTLY );
+					exit;
+				}
+			}
 		}
 	}
 }

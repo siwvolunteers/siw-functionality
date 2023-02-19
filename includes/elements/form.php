@@ -63,6 +63,21 @@ class Form extends Element {
 		return $this;
 	}
 
+	/** Verberg label en voeg eventueel placeholder toe */
+	public function hide_labels(): self {
+		$placeholder_fields = [ 'text', 'search', 'url', 'tel', 'email', 'password', 'number' ];
+
+		foreach ( $this->meta_box->meta_box['fields'] as $index => $field ) {
+			if ( in_array( $field['type'], $placeholder_fields, true ) ) {
+				$field['placeholder'] = $field['name'];
+			}
+			$field['attributes']['aria-label'] = $field['name'];
+			$field['name'] = '';
+			$this->meta_box->meta_box['fields'][ $index ] = $field;
+		}
+		return $this;
+	}
+
 	/** Zet of het formulier in 1 kolom getoond moet worden */
 	public function set_single_column( bool $single_column ): self {
 		$this->single_column = $single_column;
