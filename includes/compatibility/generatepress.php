@@ -24,9 +24,6 @@ class GeneratePress extends Base {
 	#[Filter( 'generate_font_manager_show_google_fonts' )]
 	private const SHOW_GOOGLE_FONTS = false;
 
-	#[Filter( 'generate_woocommerce_menu_item_location' )]
-	private const WOOCOMMERCE_CART_MENU_ITEM_LOCATION = 'secondary'; // TODO: customizer setting van maken
-
 	#[Action( 'init' )]
 	/** Voeg menu order toe een GP Elements */
 	public function add_elements_menu_order() {
@@ -103,4 +100,59 @@ class GeneratePress extends Base {
 	public function update_dynamic_css() {
 		generate_update_dynamic_css_cache();
 	}
+
+	#[Filter( 'generate_woocommerce_menu_item_location' )]
+	public function set_woocommerce_menu_item_location() {
+		return generatepress_wc_get_setting( 'cart_menu_item_location' );
+	}
+
+	#[Filter( 'generate_woocommerce_defaults' )]
+	public function generate_woocommerce_defaults( array $defaults ): array {
+		$defaults['cart_menu_item_location'] = 'primary';
+		return $defaults;
+	}
+
+	#[Action( 'customize_register' )]
+	public function add_customizer_settings( \WP_Customize_Manager $wp_customize_manager ) {
+		$defaults = generatepress_wc_defaults();
+
+		$wp_customize_manager->add_control(
+			new \GeneratePress_Title_Customize_Control(
+				$wp_customize_manager,
+				'siw_woocommerce_general_title',
+				[
+					'section'  => 'generate_woocommerce_layout',
+					'type'     => 'generatepress-customizer-title',
+					'title'    => __( 'Extra', 'siw' ),
+					'settings' => ( isset( $wp_customize_manager->selective_refresh ) ) ? [] : 'blogname',
+				]
+			)
+		);
+
+		$wp_customize_manager->add_setting(
+			'generate_woocommerce_settings[cart_menu_item_location]',
+			[
+				'default'           => $defaults['cart_menu_item_location'],
+				'type'              => 'option',
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
+			]
+		);
+
+		$wp_customize_manager->add_control(
+			'generate_woocommerce_settings[cart_menu_item_location]',
+			[
+				'type'            => 'select',
+				'label'           => __( 'Winkelmand menu item', 'siw' ),
+				'section'         => 'generate_woocommerce_layout',
+				'choices'         => [
+					'primary'   => __( 'Primaire menu', 'siw' ),
+					'secondary' => __( 'Secundaire menu', 'siw' ),
+				],
+				'settings'        => 'generate_woocommerce_settings[cart_menu_item_location]',
+				'active_callback' => 'generatepress_wc_menu_cart_active',
+				'priority'        => 11,
+			]
+		);
+	}
+
 }
