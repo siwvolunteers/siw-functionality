@@ -228,7 +228,6 @@ class Event extends Type {
 				'name'     => __( 'Mailjet lijst id', 'siw' ),
 				'type'     => 'number',
 				'visible'  => [ 'info_day', true ],
-				'disabled' => true,
 				'readonly' => true,
 				'size'     => 10,
 			],
