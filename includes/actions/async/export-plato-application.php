@@ -92,7 +92,7 @@ class Export_Plato_Application implements Async_Action_Interface {
 			'lastname'          => $order->get_billing_last_name(),
 			'sex'               => $order->get_meta( '_billing_gender' ),
 			'birthdate'         => gmdate( 'Y-m-d', strtotime( $order->get_meta( '_billing_dob' ) ) ),
-			'email'             => $order->get_billing_country(),
+			'email'             => $order->get_billing_email(),
 			'nationality'       => $order->get_meta( '_billing_nationality' ),
 			'telephone'         => $order->get_billing_phone(),
 			'country'           => 'NLD', // TODO: uitvragen
