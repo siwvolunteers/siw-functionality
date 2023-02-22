@@ -11,7 +11,7 @@ use SIW\Data\Currency;
 /** Formatteert getal als percentage */
 function siw_format_percentage( float $percentage, int $decimals = 0 ): string {
 	$percentage = number_format_i18n( $percentage, $decimals );
-	return sprintf( '%s&nbsp;&percnt;', $percentage );
+	return sprintf( '%s&nbsp;&#37;', $percentage );
 }
 
 /** Formatteert getal als bedrag */

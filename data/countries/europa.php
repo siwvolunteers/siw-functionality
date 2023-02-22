@@ -345,7 +345,7 @@ $siw_data = [
 		'iso_code'    => 'ru',
 		'slug'        => 'rusland',
 		'name'        => __( 'Russia', 'woocommerce' ),
-		'workcamps'   => true,
+		'workcamps'   => false,
 		'tailor_made' => false,
 	],
 	[
