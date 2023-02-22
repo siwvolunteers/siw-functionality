@@ -28,3 +28,6 @@ ul[data-list-style-type=check] li {
 ul li::marker {
   color: var(--marker-color);
 }
+.footer-widgets ul {
+  list-style-position: inside;
+}

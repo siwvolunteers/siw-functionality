@@ -25,4 +25,8 @@ ul {
 	li::marker{
 		color:var(--marker-color);
 	}
+
+	.footer-widgets & {
+		list-style-position: inside;
+	}
 }
