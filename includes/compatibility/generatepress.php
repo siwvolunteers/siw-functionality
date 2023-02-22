@@ -46,17 +46,10 @@ class GeneratePress extends Base {
 	#[Filter( 'generate_default_color_palettes' )]
 	/** Zet default kleurenpalet */
 	public function set_default_color_palettes(): array {
-		return [
-			CSS::CONTRAST_COLOR,
-			CSS::CONTRAST_COLOR_LIGHT,
-			CSS::BASE_COLOR,
-			CSS::ACCENT_COLOR,
-			CSS::PURPLE_COLOR,
-			CSS::BLUE_COLOR,
-			CSS::RED_COLOR,
-			CSS::GREEN_COLOR,
-			CSS::YELLOW_COLOR,
-		];
+		return array_column(
+			CSS::get_colors(),
+			'color'
+		);
 	}
 
 	#[Action( Update::PLUGIN_UPDATED_HOOK, 1 )]
@@ -64,53 +57,7 @@ class GeneratePress extends Base {
 	/** Zet global colors */
 	public function set_global_colors() {
 		$generate_settings = get_option( 'generate_settings', [] );
-		$generate_settings['global_colors'] = [
-			[
-				'name'  => 'Accent',
-				'slug'  => 'siw-accent',
-				'color' => CSS::ACCENT_COLOR,
-			],
-			[
-				'name'  => 'Contrast',
-				'slug'  => 'siw-contrast',
-				'color' => CSS::CONTRAST_COLOR,
-			],
-			[
-				'name'  => 'Contrast 2',
-				'slug'  => 'siw-contrast-light',
-				'color' => CSS::CONTRAST_COLOR_LIGHT,
-			],
-			[
-				'name'  => 'Base',
-				'slug'  => 'siw-base',
-				'color' => CSS::BASE_COLOR,
-			],
-			[
-				'name'  => 'Paars',
-				'slug'  => 'siw-purple',
-				'color' => CSS::PURPLE_COLOR,
-			],
-			[
-				'name'  => 'Blauw',
-				'slug'  => 'siw-blue',
-				'color' => CSS::BLUE_COLOR,
-			],
-			[
-				'name'  => 'Rood',
-				'slug'  => 'siw-red',
-				'color' => CSS::RED_COLOR,
-			],
-			[
-				'name'  => 'Groen',
-				'slug'  => 'siw-green',
-				'color' => CSS::GREEN_COLOR,
-			],
-			[
-				'name'  => 'Geel',
-				'slug'  => 'siw-yellow',
-				'color' => CSS::YELLOW_COLOR,
-			],
-		];
+		$generate_settings['global_colors'] = CSS::get_colors();
 		update_option( 'generate_settings', $generate_settings );
 	}
 

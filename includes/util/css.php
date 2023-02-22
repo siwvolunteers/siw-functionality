@@ -73,4 +73,55 @@ class CSS {
 	public static function get_css_generator(): ?Generator {
 		return new Generator();
 	}
+
+	/** Geeft thema-kleuren terug */
+	public static function get_colors(): array {
+		return [
+			[
+				'name'  => 'Accent',
+				'slug'  => 'siw-accent',
+				'color' => self::ACCENT_COLOR,
+			],
+			[
+				'name'  => 'Contrast',
+				'slug'  => 'siw-contrast',
+				'color' => self::CONTRAST_COLOR,
+			],
+			[
+				'name'  => 'Contrast 2',
+				'slug'  => 'siw-contrast-light',
+				'color' => self::CONTRAST_COLOR_LIGHT,
+			],
+			[
+				'name'  => 'Base',
+				'slug'  => 'siw-base',
+				'color' => self::BASE_COLOR,
+			],
+			[
+				'name'  => 'Paars',
+				'slug'  => 'siw-purple',
+				'color' => self::PURPLE_COLOR,
+			],
+			[
+				'name'  => 'Blauw',
+				'slug'  => 'siw-blue',
+				'color' => self::BLUE_COLOR,
+			],
+			[
+				'name'  => 'Rood',
+				'slug'  => 'siw-red',
+				'color' => self::RED_COLOR,
+			],
+			[
+				'name'  => 'Groen',
+				'slug'  => 'siw-green',
+				'color' => self::GREEN_COLOR,
+			],
+			[
+				'name'  => 'Geel',
+				'slug'  => 'siw-yellow',
+				'color' => self::YELLOW_COLOR,
+			],
+		];
+	}
 }
