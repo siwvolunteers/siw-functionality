@@ -1,7 +1,28 @@
+@counter-style check {
+	system: cyclic;
+	symbols: \2713;
+	suffix: " ";
+}
+
 ul {
 	@for $i from 2 through 4 {
 		&[data-columns="#{$i}"] {
 			columns: #{$i};
 		}
+	}
+	$list-style-types: (
+		disc,
+		circle,
+		square,
+		check
+	);
+
+	@each $style in $list-style-types {
+		&[data-list-style-type="#{$style}"] li {
+			list-style-type: $style;
+		}
+	}
+	li::marker{
+		color:var(--marker-color);
 	}
 }

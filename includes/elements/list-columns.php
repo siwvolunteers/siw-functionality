@@ -14,6 +14,10 @@ class List_Columns extends Repeater {
 	/** Aantal kolommen */
 	protected int $columns = 1;
 
+	protected string $list_style_type = '';
+
+	protected string $marker_color = '';
+
 	/** {@inheritDoc} */
 	protected static function get_type(): string {
 		return 'list';
@@ -22,14 +26,26 @@ class List_Columns extends Repeater {
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
-			'items'   => $this->items,
-			'columns' => $this->columns,
+			'items'           => $this->items,
+			'columns'         => $this->columns,
+			'list_style_type' => $this->list_style_type,
+			'marker_color'    => $this->marker_color,
 		];
 	}
 
 	/** Zet aantal kolommen */
 	public function set_columns( int $columns ): self {
 		$this->columns = $columns;
+		return $this;
+	}
+
+	public function set_list_style_type( string $list_style_type ): self {
+		$this->list_style_type = $list_style_type;
+		return $this;
+	}
+
+	public function set_marker_color( string $marker_color ): self {
+		$this->marker_color = $marker_color;
 		return $this;
 	}
 

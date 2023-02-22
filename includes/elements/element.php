@@ -56,7 +56,7 @@ abstract class Element {
 		}
 
 		$template_variables = wp_parse_args(
-			$this->get_template_variables(),
+			array_filter( $this->get_template_variables() ),
 			[
 				'element' => [
 					'id'    => $this->get_element_id(),
