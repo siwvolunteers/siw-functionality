@@ -12,14 +12,14 @@ $font-weights-metropolis: (
 	"Black": 900
 );
 
-$font-styles: (
+$font-styles-metropolis: (
 	normal: '',
 	italic: 'Italic',
 );
 
 @each $name, $weight in $font-weights-metropolis {
 
-	@each $style, $suffix in $font-styles {
+	@each $style, $suffix in $font-styles-metropolis {
 		@font-face {
 			font-family: 'Metropolis';
 			font-style: $style;
@@ -40,9 +40,14 @@ $font-weights-open-sans: (
 	800
 );
 
+$font-styles-open-sans: (
+	normal: '',
+	italic: 'italic',
+);
+
 @each $weight in $font-weights-open-sans {
 
-	@each $style, $suffix in $font-styles {
+	@each $style, $suffix in $font-styles-open-sans {
 		@font-face {
 			font-family: 'Open Sans';
 			font-style: $style;
