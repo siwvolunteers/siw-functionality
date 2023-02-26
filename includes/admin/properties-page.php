@@ -38,7 +38,7 @@ class Properties_Page extends Base {
 		<h2><?php echo esc_attr__( 'Eigenschappen', 'siw' ); ?></h2>
 		<?php
 		Table::create()
-			->set_table_class( 'wp-list-table widefat striped' )
+			->add_classes( [ 'wp-list-table', 'widefat', 'striped' ] )
 			->set_header(
 				[
 					__( 'Eigenschap', 'siw' ),

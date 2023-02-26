@@ -14,6 +14,9 @@ abstract class Element {
 	/** Uniek ID van element */
 	protected string $element_id;
 
+	/** CSS classes van het element */
+	protected array $classes;
+
 	/** Geeft type van element terug */
 	abstract protected static function get_type(): string;
 
@@ -34,12 +37,27 @@ abstract class Element {
 	final protected function __construct() {
 		$this->element_id = wp_unique_id( "siw-{$this::get_type()}-" );
 		$this->initialize();
+		$this->classes[] = static::get_element_class();
 	}
 
 	/** Genereert element */
 	final public static function create(): static {
 		$self = new static();
 		return $self;
+	}
+
+	/** Voegt extra css class toe */
+	public function add_class( string $class ): static {
+		$this->classes[] = sanitize_html_class( $class );
+		return $this;
+	}
+
+	/** Voegt extra css classes toe */
+	public function add_classes( array $classes ): static {
+		foreach ( $classes as $class ) {
+			$this->classes[] = sanitize_html_class( $class );
+		}
+		return $this;
 	}
 
 	/** Genereert element */
@@ -59,9 +77,9 @@ abstract class Element {
 			array_filter( $this->get_template_variables() ),
 			[
 				'element' => [
-					'id'    => $this->get_element_id(),
-					'class' => static::get_element_class(),
-					'type'  => static::get_type(),
+					'id'      => $this->get_element_id(),
+					'classes' => implode( ' ', $this->classes ),
+					'type'    => static::get_type(),
 				],
 			]
 		);

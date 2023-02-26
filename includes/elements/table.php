@@ -11,9 +11,6 @@ class Table extends Repeater {
 
 	const ASSETS_HANDLE = 'siw-table';
 
-	/** CSS class van tabel */
-	protected string $table_class = '';
-
 	/** Inhoud voor header */
 	protected array $header = [];
 
@@ -28,19 +25,12 @@ class Table extends Repeater {
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
-			'table_class' => $this->table_class,
-			'rows'        => $this->items,
-			'has_header'  => ! empty( $this->header ),
-			'header'      => $this->header,
-			'has_footer'  => ! empty( $this->footer ),
-			'footer'      => $this->footer,
+			'rows'       => $this->items,
+			'has_header' => ! empty( $this->header ),
+			'header'     => $this->header,
+			'has_footer' => ! empty( $this->footer ),
+			'footer'     => $this->footer,
 		];
-	}
-
-	/** Zet klasse van table */
-	public function set_table_class( string $table_class ): self {
-		$this->table_class = $table_class;
-		return $this;
 	}
 
 	/** Zet headers van tabel */
