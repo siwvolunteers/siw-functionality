@@ -226,4 +226,44 @@ class WordPress extends Base {
 			}
 		}
 	}
+
+	#[Filter( 'wp_nav_menu_objects' )]
+	public function add_menu_ancestor_class( array $items, \stdClass $args ): array {
+
+		// Zoek eerst menu items voor bovenliggende pagina's
+		$ancestors = wp_filter_object_list(
+			$items,
+			[
+				'current_item_ancestor' => true,
+			],
+			'AND',
+			'ID'
+		);
+
+		// Zoek dan naar archiefpagina's van CPT's
+		if ( empty( $ancestors && is_single() ) ) {
+			$ancestors = wp_filter_object_list(
+				$items,
+				[
+					'type'   => 'post_type_archive',
+					'object' => get_post_type(),
+				],
+				'AND',
+				'ID'
+			);
+		}
+
+		// Fallback voor blogposts
+		if ( empty( $ancestors ) && is_singular( 'post' ) ) {
+			$blog_page = get_option( 'page_for_posts', true );
+		}
+
+		foreach ( $items as $item ) {
+			if ( in_array( $item->ID, $ancestors, true ) || $item->object_id === $blog_page ) {
+				$item->classes[] = 'current-menu-ancestor';
+			}
+		}
+
+		return $items;
+	}
 }
