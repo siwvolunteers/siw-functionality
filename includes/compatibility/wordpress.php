@@ -259,7 +259,7 @@ class WordPress extends Base {
 		}
 
 		foreach ( $items as $item ) {
-			if ( in_array( $item->ID, $ancestors, true ) || $item->object_id === $blog_page ) {
+			if ( in_array( $item->ID, $ancestors, true ) || ( isset( $blog_page ) && $item->object_id === $blog_page ) ) {
 				$item->classes[] = 'current-menu-ancestor';
 			}
 		}
