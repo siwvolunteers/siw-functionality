@@ -97,37 +97,43 @@ span.product-badge.featured-badge {
 	}
 
 	.woocommerce-tabs {
-		max-width: 100ch;
+		max-width: 100%;
 		ul.tabs.wc-tabs {
 			flex-wrap: wrap;
 			li {
-				border-width: 3px;
-				border-color: var(--siw-contrast);
+
+				border-radius: 4px;
+				border-width: 1px;
+				border-color: var(--siw-contrast-light);
 				margin-bottom: 2px;
 				margin-right: 2px;
 				background-color: var(--siw-base);
-				&:first-child{
-					border-left-width: 3px;
-					border-bottom-width: 3px;
+				transition: all 0.6s ease-out;
+				&:first-child {
+					border-left-width: 1px;
+					border-bottom-width: 1px;
 				}
 
-				&:last-child{
+				&:last-child {
 					border-bottom-color: var(--siw-contrast);
-					border-bottom-width: 3px;
+					border-bottom-width: 1px;
 				}
 
-				a:hover{
-					color: var(--siw-contrast);
-				}
-
-				&.active{
-					background-color: var(--siw-contrast);
-					border-bottom-color: var(--siw-contrast);
-					a{
+				&.active, &:hover{
+					background-color: var(--siw-accent);
+					border-bottom-color: var(--siw-contrast-light);
+					a {
 						color: var(--siw-base);
 					}
 				}
 			}
+		}
+
+		.panel.wc-tab {
+			max-width: 100ch;
+			padding: 28px;
+			border-radius: 4px;
+			border: 1px solid #ddd;
 		}
 	}
 
