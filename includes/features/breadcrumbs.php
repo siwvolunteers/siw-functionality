@@ -3,14 +3,14 @@
 namespace SIW\Features;
 
 use SIW\Attributes\Action;
-use SIW\Attributes\Add_Shortcode;
 use SIW\Base;
-use SIW\Helpers\Template;
+use SIW\Elements\Breadcrumbs as Breadcrumbs_Element;
+use SIW\Util\CSS;
 
 /**
  * Breadcrumbs
  *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
  */
 class Breadcrumbs extends Base {
 
@@ -22,29 +22,22 @@ class Breadcrumbs extends Base {
 	/** Huidige pagina/post */
 	protected string $current;
 
-	/** Styles */
-	#[Action( 'wp_enqueue_scripts' )]
-	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/features/breadcrumbs.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/features/breadcrumbs.css' );
-		wp_enqueue_style( self::ASSETS_HANDLE );
-	}
-
-	#[Add_Shortcode( 'siw_breadcrumbs' ) ]
+	#[Action( 'generate_after_navigation' ) ]
 	/** Genereer breadcrumbs */
-	public function generate_crumbs() : string {
+	public function generate_crumbs(): void {
+
+		if ( is_front_page() ) {
+			return;
+		}
+
 		$this->set_crumbs();
 		$this->set_current();
 
-		return Template::create()
-			->set_template( 'features/breadcrumbs' )
-			->set_context(
-				[
-					'crumbs'  => $this->crumbs,
-					'current' => $this->current,
-				]
-			)
-			->parse_template();
+		Breadcrumbs_Element::create()
+			->add_items( $this->crumbs )
+			->set_current( $this->current )
+			->add_class( CSS::HIDE_ON_MOBILE_CLASS )
+			->render();
 	}
 
 	/** Zet huidige pagina */

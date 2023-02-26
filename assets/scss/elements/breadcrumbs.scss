@@ -1,0 +1,27 @@
+.siw-breadcrumbs {
+	clear: both;
+	padding-top: 14px;
+	padding-bottom: 14px;
+	font-size: 0.9em;
+	nav.breadcrumb {
+		padding: 0;
+		width: fit-content;
+		text-transform: lowercase;
+		ol.breadcrumb {
+			color: var(--siw-contrast);
+			margin:0;
+			list-style: none;
+			li {
+				display: inline-block;
+				a {
+					color: var(--siw-contrast-light);
+				}
+			}
+			li+li:before {
+				padding: 0.5em;
+				content: "\203a";
+				color: var(--siw-accent)
+			}
+		}
+	}
+}
