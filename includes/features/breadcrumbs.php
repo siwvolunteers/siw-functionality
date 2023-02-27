@@ -22,7 +22,7 @@ class Breadcrumbs extends Base {
 	/** Huidige pagina/post */
 	protected string $current;
 
-	#[Action( 'generate_after_navigation' ) ]
+	#[Action( 'generate_after_header' ) ]
 	/** Genereer breadcrumbs */
 	public function generate_crumbs(): void {
 
@@ -36,7 +36,7 @@ class Breadcrumbs extends Base {
 		Breadcrumbs_Element::create()
 			->add_items( $this->crumbs )
 			->set_current( $this->current )
-			->add_class( CSS::HIDE_ON_MOBILE_CLASS )
+			->add_classes( [ CSS::HIDE_ON_MOBILE_CLASS, 'grid-container' ] )
 			->render();
 	}
 
