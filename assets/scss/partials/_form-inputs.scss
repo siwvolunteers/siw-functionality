@@ -1,32 +1,9 @@
-form,
-form.rwmb-form {
-
-	input[type=text],
-	input[type=email],
-	input[type=url],
-	input[type=password],
-	input[type=search],
-	input[type=number],
-	input[type=tel],
-	input[type=date]
-	input[type=time],
-	input[type=select],
-	button[type=submit],
+form {
+	input,
 	textarea,
 	select {
-		border-width: 2px;
-		&:focus {
-			outline-offset: 2px;
-			outline: 2px dotted var(--siw-contrast-light);
-		}
-
-		.footer-widgets & {
-			color: var(--siw-base);
-			background-color: var(--siw-contrast);
-			border-color: var(--siw-base);
-			&:focus {
-				outline-color: var(--siw-base);
-			}
+		&:hover, &:focus {
+			outline: 2px solid var(--siw-accent)
 		}
 	}
 
@@ -40,9 +17,14 @@ form.rwmb-form {
 	}
 
 	input[type=date] {
-		background: var(--siw-base);
+		background-color: var(--siw-base);
+		border-width: 1px;
+		border-color: var(--siw-accent);
 		color: var(--siw-contrast);
 		padding: 10px 15px;
+		&:focus {
+			border-radius: 0px;
+		}
 	}
 
 	select {
@@ -53,36 +35,6 @@ form.rwmb-form {
 		//Let op: oranje kleurcode zit in fill
 		background: var(--siw-base) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%23f67820'><polygon points='0,0 10,0 5,5'/></svg>") no-repeat;
 		background-position: right 10px top 60%;
-
-		&:hover, &:focus {
-			border-color: var(--siw-contrast);
-		}
-	}
-
-	button[type=submit] {
-		background-color: var(--siw-base);
-		border: 2px solid var(--siw-contrast);
-		color: var(--siw-contrast);
-		transition: all .6s ease-out;
-
-		&:hover,
-		&:active,
-		&:focus {
-			color: var(--siw-base);
-			background-color: var(--siw-contrast);
-		}
-
-		.footer-widgets & {
-			background-color: var(--siw-contrast);
-			border: 2px solid var(--siw-base);
-			color: var(--siw-base);
-			&:hover,
-			&:active,
-			&:focus {
-				color: var(--siw-contrast);
-				background-color: var(--siw-base);
-			}
-		}
 	}
 
 	&[data-single-column="1"] .rwmb-column,
@@ -102,14 +54,17 @@ form.rwmb-form {
 	@supports (appearance: none) {
 
 		input[type=checkbox],
-		input[type=radio] {
+		.rwmb-input input[type=checkbox],
+		input[type=radio],
+		.rwmb-input input[type=radio] {
 			appearance: none;
 			position: relative;
 			width: 25px;
 			height: 25px;
-			border: 2px solid var(--siw-contrast-light);
+			border: 1px solid var(--siw-accent);
 			background: var(--siw-base);
 			margin-right: 5px;
+			vertical-align: middle;
 
 			&:disabled {
 				opacity: 0.3;
@@ -118,11 +73,6 @@ form.rwmb-form {
 			&:checked:after {
 				opacity: 1;
 			}
-
-			&:focus {
-				outline-offset: 2px;
-				outline: 2px dotted var(--siw-contrast-light);
-			}
 		}
 
 		input[type=checkbox] {
@@ -130,8 +80,8 @@ form.rwmb-form {
 				content: "";
 				opacity: 0;
 				display: block;
-				left: 5px;
-				top: 1px;
+				left: 7px;
+				top: 3px;
 				position: absolute;
 				width: 7px;
 				height: 13px;
@@ -148,13 +98,12 @@ form.rwmb-form {
 
 		input[type=radio] {
 			border-radius: 50%;
-
 			&:after {
 				content: "";
 				opacity: 0;
 				display: block;
-				left: 4px;
-				top: 4px;
+				left: 5px;
+				top: 5px;
 				position: absolute;
 				width: 13px;
 				height: 13px;
