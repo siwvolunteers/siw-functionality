@@ -1,0 +1,18 @@
+{{> widgets/title}}
+{{> widgets/intro}}
+<div class="flex-container flex-columns">
+{{#sponsors}}
+	<div>
+		<a href="{{ url }}" target="_blank" rel="noopener external noreferrer" data-ga-track="1" data-ga-type="event" data-ga-category="Externe link" data-ga-action="Klikken" data-ga-label="{{ url }}">
+			{{& logo }}
+		</a>
+	</div>
+{{/sponsors}}
+{{#sponsors}}
+	<div class>
+		<a href="{{ url }}" target="_blank" rel="noopener external noreferrer" data-ga-track="1" data-ga-type="event" data-ga-category="Externe link" data-ga-action="Klikken" data-ga-label="{{ url }}">
+			{{& logo }}
+		</a>
+	</div>
+{{/sponsors}}
+</div>

@@ -1,0 +1,18 @@
+.flex-container {
+	display: flex;
+	gap: 10px;
+}
+
+@for $i from 1 through 20 {
+	.width-#{$i*5} {
+		width: $i * 5%;
+	}
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.flex-columns {
+	flex-direction: column;
+}

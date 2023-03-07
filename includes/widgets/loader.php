@@ -35,6 +35,7 @@ class Loader extends Class_Loader_Abstract {
 			Quick_Search_Results::class,
 			Quote::class,
 			Social_Links::class,
+			Sponsors::class,
 			Tabs::class,
 		];
 	}
