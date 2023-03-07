@@ -48,6 +48,11 @@ class WordPress extends Base {
 		\flush_rewrite_rules();
 	}
 
+	#[Filter( 'widget_title', PHP_INT_MAX )]
+	public function do_shortcode_in_widget_title( string $title ): string {
+		return do_shortcode( $title );
+	}
+
 	#[Action( 'wp_head', 1 )]
 	public function cleanup_head() {
 		remove_action( 'wp_head', 'wp_generator' );

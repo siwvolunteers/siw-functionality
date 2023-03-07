@@ -259,6 +259,10 @@ dl dd {
   color: var(--siw-accent);
 }
 
+.siw-accent {
+  color: var(--siw-accent);
+}
+
 a:hover {
   text-decoration-color: var(--siw-accent);
 }
