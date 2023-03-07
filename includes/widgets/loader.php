@@ -31,6 +31,7 @@ class Loader extends Class_Loader_Abstract {
 			Opening_Hours::class,
 			Organisation::class,
 			Pie_Chart::class,
+			Project_Wizard::class,
 			Quote::class,
 			Social_Links::class,
 			Sponsors::class,
