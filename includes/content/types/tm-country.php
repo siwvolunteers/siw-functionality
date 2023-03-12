@@ -5,6 +5,7 @@ namespace SIW\Content\Types;
 use SIW\Content\Type;
 use SIW\Data\Country;
 use SIW\Data\Project_Type;
+use SIW\Data\Special_Page;
 use SIW\Data\Work_Type;
 use SIW\Elements\Icon;
 use SIW\Elements\Quote;
@@ -183,6 +184,7 @@ class TM_Country extends Type {
 
 		$country = siw_get_country( siw_meta( 'country' ) );
 		$tailor_made_page = siw_get_project_type_page( Project_Type::TAILOR_MADE_PROJECTS() );
+		$child_policy_link = siw_get_special_page( Special_Page::CHILD_POLICY() );
 
 		$template_vars = [
 			'image'             => wp_get_attachment_image( $image['ID'], 'large' ),
@@ -193,7 +195,7 @@ class TM_Country extends Type {
 			'description'       => rwmb_get_value( 'description' ),
 			'quote'             => Quote::create()->set_quote( rwmb_get_value( 'quote' ) )->generate(),
 			'sign_up_link'      => Links::generate_button_link( get_permalink( $tailor_made_page ), __( 'Meld je aan', 'siw' ) ),
-			'child_policy_link' => do_shortcode( '[siw_pagina_lightbox link_tekst="Lees meer over ons beleid." pagina="kinderbeleid"]' ),
+			'child_policy_link' => Links::generate_link( get_permalink( $child_policy_link ), __( 'Lees meer over ons beleid.', 'siw' ) ),
 			'worktypes'         => [],
 		];
 		// welke type projecten zijn er
