@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Metropolis";
   font-style: normal;
@@ -263,8 +264,14 @@ dl dd {
   color: var(--siw-accent);
 }
 
-a:hover {
-  text-decoration-color: var(--siw-accent);
+a.page-link::after {
+  content: "→";
+  position: absolute;
+}
+
+a[rel*=external]::after {
+  content: "↗";
+  position: absolute;
 }
 
 .secondary-navigation .menu-toggle {

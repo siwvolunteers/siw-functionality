@@ -49,8 +49,14 @@ dl {
 	color: var(--siw-accent);
 }
 
-a:hover {
-	text-decoration-color: var(--siw-accent);
+a.page-link::after {
+	content: "\2192";
+	position: absolute;
+}
+
+a[rel*=external]::after {
+	content: "\2197";
+	position: absolute;
 }
 
 // https://docs.generatepress.com/article/disable-secondary-navigation-mobile-menu/
