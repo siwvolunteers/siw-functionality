@@ -53,6 +53,18 @@ class WordPress extends Base {
 		return do_shortcode( $title );
 	}
 
+	#[Filter( 'post_thumbnail_id' )]
+	public function set_placeholder_featured_image( int $image_id, \WP_Post $post ): int {
+		if ( 0 !== $image_id ) {
+			return $image_id;
+		}
+		$placeholder_image_id = (int) get_option( 'woocommerce_placeholder_image', 0 );
+		if ( 0 !== $placeholder_image_id ) {
+			$image_id = $placeholder_image_id;
+		}
+		return $image_id;
+	}
+
 	#[Action( 'wp_head', 1 )]
 	public function cleanup_head() {
 		remove_action( 'wp_head', 'wp_generator' );
