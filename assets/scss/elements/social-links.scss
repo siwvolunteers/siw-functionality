@@ -8,6 +8,9 @@
 		&:hover {
 			.siw-icon {
 				fill: var(--hover-color);
+				.footer-widgets &, .top-bar & {
+					fill: var(--siw-accent);
+				}
 			}
 		}
 	}
