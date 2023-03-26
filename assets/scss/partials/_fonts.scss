@@ -1,36 +1,5 @@
 @use "_variables" as variables;
 
-$font-weights-metropolis: (
-	"Thin": 100,
-	"ExtraLight": 200,
-	"Light": 300,
-	"Regular": 400,
-	"Medium": 500,
-	"SemiBold": 600,
-	"Bold": 700,
-	"ExtraBold": 800,
-	"Black": 900
-);
-
-$font-styles-metropolis: (
-	normal: '',
-	italic: 'Italic',
-);
-
-@each $name, $weight in $font-weights-metropolis {
-
-	@each $style, $suffix in $font-styles-metropolis {
-		@font-face {
-			font-family: 'Metropolis';
-			font-style: $style;
-			font-weight: $weight;
-			src: url('#{variables.$assets-path}/fonts/Metropolis/woff2/Metropolis-#{$name}#{$suffix}.woff2') format('woff2'),
-				 url('#{variables.$assets-path}/fonts/Metropolis/woff/Metropolis-#{$name}#{$suffix}.woff') format('woff');
-			font-display: swap;
-		}
-	}
-}
-
 $font-weights-open-sans: (
 	300,
 	400,
