@@ -84,7 +84,8 @@ class Project_Wizard extends Widget {
 					'inline'  => false,
 					'options' => [
 						'stv' => __( 'Korter dan 3 weken', 'siw' ),
-						'mtv' => __( 'Langer dan 3 weken', 'siw' ),
+						'mtv' => __( 'Van 3 weken tot 2 maanden', 'siw' ),
+						'ltv' => __( 'Langer dan 2 maanden', 'siw' ),
 					],
 					'visible' => [
 						'age',
@@ -99,7 +100,7 @@ class Project_Wizard extends Widget {
 					'type'    => 'radio',
 					'inline'  => false,
 					'options' => [
-						'europe'        => 'Europa (inclusief Aruba)',
+						'europe'        => __( 'Europa (inclusief Aruba)', 'siw' ),
 						'asia'          => __( 'Azië', 'siw' ),
 						'africa'        => __( 'Afrika', 'siw' ),
 						'north_america' => __( 'Noord-Amerika', 'siw' ),
@@ -107,7 +108,7 @@ class Project_Wizard extends Widget {
 					],
 					'visible' => [
 						[ 'age', 'in', [ '18to30', '30plus' ] ],
-						[ 'duration', '=', 'mtv' ],
+						[ 'duration', 'in', [ 'mtv', 'ltv' ] ],
 					],
 				],
 				[
@@ -117,52 +118,104 @@ class Project_Wizard extends Widget {
 						'Begin je zoektocht eens bij de <em>groepsprojecten binnen Europa</em>.',
 						Links::generate_link(
 							get_term_link( 'europa', Taxonomy_Attribute::CONTINENT()->value ),
-							__( 'Lees meer', 'siw' )
+							__( 'Lees meer', 'siw' ),
+							[ 'class' => 'page-link' ]
 						)
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',
 					'visible' => [
-						'when'     => [
+						'when' => [
 							[ 'age', '=', '18minus' ],
-							[ 'duration', '=', 'stv' ],
 						],
-						'relation' => 'or',
 					],
 				],
 				[
 					'type'    => 'custom_html',
 					'std'     => sprintf(
 						'%s %s',
-						'Voor jou zijn <em>projecten op maat</em> een mooi startpunt</em>.',
+						'Begin je zoektocht eens bij de <em>groepsprojecten</em>.',
+						Links::generate_link(
+							wc_get_page_permalink( 'shop' ),
+							__( 'Lees meer', 'siw' ),
+							[ 'class' => 'page-link' ]
+						)
+					),
+					'columns' => Form::FULL_WIDTH,
+					'class'   => 'wizard-result',
+					'visible' => [
+						'when' => [
+							[ 'age', '!=', '18minus' ],
+							[ 'duration', '=', 'stv' ],
+						],
+					],
+				],
+				[
+					'type'    => 'custom_html',
+					'std'     => sprintf(
+						'%s %s',
+						'Voor jou zijn <em>Wereld-basis-projecten</em> een mooi startpunt</em>.',
 						Links::generate_link(
 							get_permalink( siw_get_project_type_page( Project_Type::TAILOR_MADE_PROJECTS() ) ),
-							__( 'Lees meer', 'siw' )
+							__( 'Lees meer', 'siw' ),
+							[ 'class' => 'page-link' ]
 						)
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',
 					'visible' => [
 						[ 'age', 'in', [ '18to30', '30plus' ] ],
-						[ 'duration', '=', 'mtv' ],
-						[ 'destination', '!=', 'europe' ],
+						[ 'duration', 'in', [ 'mtv', 'ltv' ] ],
+						[ 'destination', 'in', [ 'asia', 'africa', 'north_america', 'latin_america' ] ],
 					],
 				],
 				[
 					'type'    => 'custom_html',
 					'std'     => sprintf(
 						'%s %s',
-						'Jij komt in aanmerking voor het <em>European Solidarity Fund</em>.',
+						'Begin je zoektocht eens bij de <em>groepsprojecten</em>.',
+						Links::generate_link(
+							wc_get_page_permalink( 'shop' ),
+							__( 'Lees meer', 'siw' ),
+							[ 'class' => 'page-link' ]
+						)
+					),
+					'columns' => Form::FULL_WIDTH,
+					'class'   => 'wizard-result',
+					'visible' => [
+						[ 'age', '=', '30plus' ],
+						[ 'duration', '=', 'mtv' ],
+						[ 'destination', '=', 'europe' ],
+					],
+				],
+				[
+					'type'    => 'custom_html',
+					'std'     => 'Hiervoor bieden we momenteel geen projecten aan.',
+					'columns' => Form::FULL_WIDTH,
+					'class'   => 'wizard-result',
+					'visible' => [
+						[ 'age', '=', '30plus' ],
+						[ 'duration', '=', 'ltv' ],
+						[ 'destination', '=', 'europe' ],
+					],
+				],
+
+				[
+					'type'    => 'custom_html',
+					'std'     => sprintf(
+						'%s %s',
+						'Jij komt in aanmerking voor het <em>European Solidarity Fund</em> en kan bijna kosteloos een vrijwilligersproject gaan doen.',
 						Links::generate_link(
 							get_permalink( siw_get_project_type_page( Project_Type::ESC() ) ),
-							__( 'Lees meer', 'siw' )
+							__( 'Lees meer', 'siw' ),
+							[ 'class' => 'page-link' ]
 						)
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',
 					'visible' => [
 						[ 'age', '=', '18to30' ],
-						[ 'duration', '=', 'mtv' ],
+						[ 'duration', 'in', [ 'mtv', 'ltv' ] ],
 						[ 'destination', '=', 'europe' ],
 					],
 				],
