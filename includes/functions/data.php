@@ -112,6 +112,7 @@ function siw_get_special_page( Special_Page $special_page ): \WP_Post {
 		[
 			'meta_key'   => Page_Settings::SPECIAL_PAGE_META,
 			'meta_value' => $special_page->value,
+			'hierarchical' => false,
 		]
 	);
 	// Fallback naar homepagina
@@ -127,8 +128,9 @@ function siw_get_project_type_page( Project_Type $project_type ): ?\WP_Post {
 	/** @var \WP_Post[]|false */
 	$pages = get_pages(
 		[
-			'meta_key'   => Page_Settings::PROJECT_TYPE_PAGE_META,
-			'meta_value' => $project_type->value,
+			'meta_key'     => Page_Settings::PROJECT_TYPE_PAGE_META,
+			'meta_value'   => $project_type->value,
+			'hierarchical' => false,
 		]
 	);
 	// Fallback naar homepagina

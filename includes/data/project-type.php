@@ -26,10 +26,10 @@ class Project_Type extends Enum {
 	/** {@inheritDoc} */
 	protected static function labels(): array {
 		return [
-			'WORKCAMPS'            => __( 'Groepsvrijwilligerswerk', 'siw' ),
-			'ESC'                  => __( 'ESC (European Solidarity Corps)', 'siw' ),
-			'SCHOOL_PROJECTS'      => __( 'Scholenprojecten', 'siw' ),
-			'WORLD_BASIC'          => __( 'Wereld basis', 'siw' ),
+			'WORKCAMPS'       => __( 'Groepsvrijwilligerswerk', 'siw' ),
+			'ESC'             => __( 'ESC (European Solidarity Corps)', 'siw' ),
+			'SCHOOL_PROJECTS' => __( 'Scholenprojecten', 'siw' ),
+			'WORLD_BASIC'     => __( 'Wereld basis', 'siw' ),
 		];
 	}
 }
