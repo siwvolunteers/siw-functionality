@@ -100,7 +100,7 @@ class Project_Wizard extends Widget {
 					'type'    => 'radio',
 					'inline'  => false,
 					'options' => [
-						'europe'        => __( 'Europa (inclusief Aruba)', 'siw' ),
+						'europe'        => __( 'Europa (inclusief Aruba en Curaçao)', 'siw' ),
 						'asia'          => __( 'Azië', 'siw' ),
 						'africa'        => __( 'Afrika', 'siw' ),
 						'north_america' => __( 'Noord-Amerika', 'siw' ),
@@ -156,7 +156,7 @@ class Project_Wizard extends Widget {
 						'%s %s',
 						'Voor jou zijn <em>Wereld-basis-projecten</em> een mooi startpunt</em>.',
 						Links::generate_link(
-							get_permalink( siw_get_project_type_page( Project_Type::TAILOR_MADE_PROJECTS() ) ),
+							get_permalink( siw_get_project_type_page( Project_Type::WORLD_BASIC() ) ),
 							__( 'Lees meer', 'siw' ),
 							[ 'class' => 'page-link' ]
 						)

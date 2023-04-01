@@ -16,7 +16,6 @@ class List_Columns extends Repeater {
 
 	protected string $list_style_type = '';
 
-	protected string $marker_color = '';
 
 	/** {@inheritDoc} */
 	protected static function get_type(): string {
@@ -29,7 +28,6 @@ class List_Columns extends Repeater {
 			'items'           => $this->items,
 			'columns'         => $this->columns,
 			'list_style_type' => $this->list_style_type,
-			'marker_color'    => $this->marker_color,
 		];
 	}
 
@@ -41,11 +39,6 @@ class List_Columns extends Repeater {
 
 	public function set_list_style_type( string $list_style_type ): self {
 		$this->list_style_type = $list_style_type;
-		return $this;
-	}
-
-	public function set_marker_color( string $marker_color ): self {
-		$this->marker_color = $marker_color;
 		return $this;
 	}
 

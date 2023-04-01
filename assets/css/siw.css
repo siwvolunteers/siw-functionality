@@ -116,6 +116,18 @@ dl dd {
   margin: 0 1em 1em;
 }
 
+@counter-style check {
+  system: cyclic;
+  symbols: ✓;
+  suffix: " ";
+}
+ul.siw-usp {
+  list-style-type: check;
+}
+ul.siw-usp li::marker {
+  color: var(--siw-green);
+}
+
 .siw-intro {
   border: 1px solid var(--siw-accent);
   border-radius: 16px 0;

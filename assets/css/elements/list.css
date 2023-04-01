@@ -1,9 +1,3 @@
-@charset "UTF-8";
-@counter-style check {
-  system: cyclic;
-  symbols: ✓;
-  suffix: " ";
-}
 ul[data-columns="2"] {
   columns: 2;
 }
@@ -24,9 +18,6 @@ ul[data-list-style-type=square] li {
 }
 ul[data-list-style-type=check] li {
   list-style-type: check;
-}
-ul li::marker {
-  color: var(--marker-color);
 }
 .footer-widgets ul {
   list-style-position: inside;

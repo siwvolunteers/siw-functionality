@@ -26,6 +26,19 @@ dl {
 	}
 }
 
+@counter-style check {
+	system: cyclic;
+	symbols: \2713;
+	suffix: " ";
+}
+
+ul.siw-usp {
+	list-style-type: check;
+	li::marker{
+		color:var(--siw-green);
+	}
+}
+
 .siw-intro {
 	border: 1px solid var(--siw-accent);
 	border-radius: 16px 0;
