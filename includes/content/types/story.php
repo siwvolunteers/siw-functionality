@@ -257,10 +257,10 @@ class Story extends Type {
 	protected function get_cta_url(): ?string {
 
 		$pages = [
-			'esc'             => Project_Type::ESC(),
-			'project-op-maat' => Project_Type::TAILOR_MADE_PROJECTS(),
-			'scholenproject'  => Project_Type::SCHOOL_PROJECTS(),
-			'groepsproject'   => Project_Type::WORKCAMPS(),
+			'esc'            => Project_Type::ESC(),
+			'wereld-basis'   => Project_Type::WORLD_BASIC(),
+			'scholenproject' => Project_Type::SCHOOL_PROJECTS(),
+			'groepsproject'  => Project_Type::WORKCAMPS(),
 		];
 
 		$project_type = siw_meta( 'siw_story_project_type' );

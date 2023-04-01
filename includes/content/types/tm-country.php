@@ -183,7 +183,7 @@ class TM_Country extends Type {
 		$image = reset( $images );
 
 		$country = siw_get_country( siw_meta( 'country' ) );
-		$tailor_made_page = siw_get_project_type_page( Project_Type::TAILOR_MADE_PROJECTS() );
+		$tailor_made_page = siw_get_project_type_page( Project_Type::WORLD_BASIC() );
 		$child_policy_link = siw_get_special_page( Special_Page::CHILD_POLICY() );
 
 		$template_vars = [
