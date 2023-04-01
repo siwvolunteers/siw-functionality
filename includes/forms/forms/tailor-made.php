@@ -25,7 +25,7 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 
 	/** {@inheritDoc} */
 	public function get_form_name(): string {
-		return __( 'Aanmelding Op Maat', 'siw' );
+		return __( 'Aanmelding Wereld-basis', 'siw' );
 	}
 
 	/** {@inheritDoc} */
@@ -98,17 +98,17 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 
 	/** {@inheritDoc} */
 	public function get_notification_mail_subject(): string {
-		return 'Aanmelding Vrijwilligerswerk Op Maat';
+		return 'Aanmelding Wereld-basis';
 	}
 
 	/** {@inheritDoc} */
 	public function get_notification_mail_message(): string {
-		return 'Via de website is onderstaande aanmelding voor Vrijwilligerswerk Op Maat binnengekomen:';
+		return 'Via de website is onderstaande aanmelding voor Wereld-basis binnengekomen:';
 	}
 
 	/** {@inheritDoc} */
 	public function get_confirmation_mail_subject(): string {
-		return __( 'Bevestiging aanmelding Vrijwilligerswerk Op Maat', 'siw' );
+		return __( 'Bevestiging aanmelding Wereld-basis', 'siw' );
 	}
 
 	/** {@inheritDoc} */
@@ -116,19 +116,19 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
 		__( 'Bedankt voor je aanmelding!', 'siw' ) . SPACE .
-		__( 'Leuk dat je hebt gekozen via SIW een Project Op Maat te doen.', 'siw' ) . SPACE .
+		__( 'Leuk dat je hebt gekozen via SIW een Wereld-basis-project te doen.', 'siw' ) . SPACE .
 		__( 'Wij zullen ons best gaan doen om ervoor te zorgen dat dit voor jou een onvergetelijke ervaring wordt.', 'siw' ) . BR2 .
 		__( 'Onderaan deze e-mail vind je een overzicht van de gegevens zoals je die op het inschrijfformulier hebt ingevuld.', 'siw' ) . BR2 .
 		'<span style="font-weight:bold">' .
 		__( 'Wat gaat er nu gebeuren?', 'siw' ) .
 		'</span>' . BR .
-		__( 'Jouw aanmelding voor Vrijwilligerswerk Op Maat wordt doorgestuurd naar onze SIW-regiospecialisten.', 'siw' ) . SPACE .
+		__( 'Jouw aanmelding voor Wereld-basis wordt doorgestuurd naar onze SIW-regiospecialisten.', 'siw' ) . SPACE .
 		__( 'Vervolgens neemt één van de regiospecialisten contact met je op om een kennismakingsgesprek in te plannen.', 'siw' ) . SPACE .
 		__( 'Houd er rekening mee dat SIW met vrijwilligers werkt, waardoor het contact soms iets langer kan duren.', 'siw' ) . BR2 .
 		'<span style="font-weight:bold">' .
 		__( 'Kennismakingsgesprek', 'siw' ) .
 		'</span>' . BR .
-		__( 'Tijdens het kennismakingsgesprek gaat onze regiospecialist samen met jou kijken welk Project Op Maat het beste bij jouw wensen en voorkeuren aansluit.', 'siw' ) . SPACE .
+		__( 'Tijdens het kennismakingsgesprek gaat onze regiospecialist samen met jou kijken welk Wereld-basis-project het beste bij jouw wensen en voorkeuren aansluit.', 'siw' ) . SPACE .
 		__( 'In dit gesprek komen ook thema’s naar voren zoals interesse in culturen, creativiteit, flexibiliteit, enthousiasme en reis- en vrijwilligerswerkervaring.', 'siw' ) . BR2 .
 		'<span style="font-weight:bold">' .
 		__( 'Voorbereidingsdag', 'siw' ) .

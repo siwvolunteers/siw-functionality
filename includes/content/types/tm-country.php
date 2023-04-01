@@ -16,7 +16,7 @@ use SIW\Util\Links;
 
 
 /**
- * Op Maat landen
+ * Wereld (basis) projecten
  *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  */
@@ -29,7 +29,7 @@ class TM_Country extends Type {
 	protected string $menu_icon = 'dashicons-location-alt';
 
 	/** {@inheritDoc} */
-	protected string $slug = 'vrijwilligerswerk-op-maat';
+	protected string $slug = 'wereld-basis-projecten';
 
 	/** {@inheritDoc} */
 	protected bool $archive_taxonomy_filter = true;
@@ -90,7 +90,7 @@ class TM_Country extends Type {
 			[
 				'id'       => 'description',
 				'name'     => __( 'Beschrijving', 'siw' ),
-				'desc'     => __( 'Beschrijf de Op Maat projecten in dit land', 'siw' ),
+				'desc'     => __( 'Beschrijf de Wereld Basis projecten in dit land', 'siw' ),
 				'type'     => 'wysiwyg',
 				'required' => true,
 			],
@@ -125,7 +125,7 @@ class TM_Country extends Type {
 			'args'   => [
 				'public' => true,
 			],
-			'slug'   => 'vrijwilligerswerk-op-maat-in',
+			'slug'   => 'wereld-basis-projecten-in',
 			'filter' => true,
 		];
 		return $taxonomies;
@@ -134,25 +134,25 @@ class TM_Country extends Type {
 	/** {@inheritDoc} */
 	protected function get_labels(): array {
 		$labels = [
-			'name'               => __( 'Op Maat landen', 'siw' ),
-			'singular_name'      => __( 'Op Maat land', 'siw' ),
-			'add_new'            => __( 'Nieuw Op Maat land', 'siw' ),
-			'add_new_item'       => __( 'Voeg Op Maat land toe', 'siw' ),
-			'edit_item'          => __( 'Bewerk Op Maat land', 'siw' ),
-			'new_item'           => __( 'Nieuw Op Maat land', 'siw' ),
-			'all_items'          => __( 'Alle Op Maat landen', 'siw' ),
-			'view_item'          => __( 'Bekijk Op Maat land', 'siw' ),
-			'search_items'       => __( 'Zoek Op Maat land', 'siw' ),
-			'not_found'          => __( 'Geen Op Maat landen gevonden', 'siw' ),
-			'not_found_in_trash' => __( 'Geen Op Maat landen gevonden in de prullenbak', 'siw' ),
-			'archives'           => __( 'Alle Op Maat landen', 'siw' ),
+			'name'               => __( 'Wereld Basis landen', 'siw' ),
+			'singular_name'      => __( 'Wereld Basis land', 'siw' ),
+			'add_new'            => __( 'Nieuw Wereld Basis land', 'siw' ),
+			'add_new_item'       => __( 'Voeg Wereld Basis land toe', 'siw' ),
+			'edit_item'          => __( 'Bewerk Wereld Basis land', 'siw' ),
+			'new_item'           => __( 'Nieuw Wereld Basis land', 'siw' ),
+			'all_items'          => __( 'Alle Wereld Basis landen', 'siw' ),
+			'view_item'          => __( 'Bekijk Wereld Basis land', 'siw' ),
+			'search_items'       => __( 'Zoek Wereld Basis land', 'siw' ),
+			'not_found'          => __( 'Geen Wereld Basis landen gevonden', 'siw' ),
+			'not_found_in_trash' => __( 'Geen Wereld Basis landen gevonden in de prullenbak', 'siw' ),
+			'archives'           => __( 'Alle Wereld Basis landen', 'siw' ),
 		];
 		return $labels;
 	}
 
 	/** {@inheritDoc} */
 	protected function get_archive_title( string $archive_title ): string {
-		return __( 'Vrijwilligerswerk op Maat', 'siw' );
+		return __( 'Wereld Basis', 'siw' );
 	}
 
 	/** {@inheritDoc} */

@@ -64,7 +64,7 @@ class Settings implements Option_Interface {
 			],
 			[
 				'id'    => 'tailor_made',
-				'label' => __( 'Op Maat', 'siw' ),
+				'label' => __( 'Wereld-basis', 'siw' ),
 				'icon'  => 'dashicons-admin-settings',
 			],
 			[
@@ -380,7 +380,7 @@ class Settings implements Option_Interface {
 			'fields' => $approval_fields,
 		];
 
-		// Op Maat
+		// Wereld-basis
 		$fields[] = [
 			'id'     => 'tm_country',
 			'type'   => 'group',
