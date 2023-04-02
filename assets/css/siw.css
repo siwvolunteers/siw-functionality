@@ -92,10 +92,6 @@
 --------------------------------------------------------------*/
 :root {
   --siw-text-shadow: 2px 2px 2px var(--siw-contrast);
-  --siw-box-shadow-overlay: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
-  --siw-box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.5);
-  --siw-box-shadow-hover: 2px 2px 5px 4px rgba(0, 0, 0, 0.5);
-  --siw-box-shadow-transition: box-shadow 0.3s ease-in-out;
 }
 
 /* Fade in voor lazyload */
@@ -148,6 +144,9 @@ a.page-link::after {
   position: absolute;
 }
 
+a[rel*=external] {
+  margin-right: 1rem;
+}
 a[rel*=external]::after {
   content: "↗";
   position: absolute;
@@ -290,11 +289,8 @@ button {
   max-width: 85ch;
   display: inline-block;
   background-color: var(--siw-base);
-  box-shadow: var(--siw-box-shadow-overlay);
   padding: 2%;
-}
-
-/*--------------------------------------------------------------
+} /*--------------------------------------------------------------
 ## Custom Post Types
 --------------------------------------------------------------*/
 .archive article.siw_job_posting,
@@ -316,7 +312,6 @@ button {
 .siw-carousel article.siw_event .inside-article,
 .siw-carousel article.siw_story .inside-article,
 .siw-carousel article.siw_tm_country .inside-article {
-  box-shadow: var(--siw-box-shadow);
   padding: 15px;
   position: relative;
   transition: all 0.3s ease-in-out;
@@ -368,7 +363,6 @@ button {
   right: 0;
   bottom: 0;
   left: 0;
-  box-shadow: var(--siw-box-shadow-hover);
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
@@ -425,7 +419,7 @@ button {
   margin-left: 1em;
 }
 .panel-layout .widget ul li {
-  list-style-type: square;
+  list-style-type: disc;
 }
 .panel-layout .widget ul.siw-usp li {
   list-style-type: check;
@@ -433,7 +427,6 @@ button {
 .panel-layout .widget ul.siw-usp li::marker {
   color: var(--siw-green);
 }
-
 .widget-title-align-left .widget-title {
   text-align: left;
 }
@@ -620,13 +613,6 @@ form textarea:read-only {
   margin-top: 16px;
 }
 
-.woocommerce ul.products li.product {
-  box-shadow: var(--siw-box-shadow);
-  transition: 0.3s;
-}
-.woocommerce ul.products li.product:hover {
-  box-shadow: var(--siw-box-shadow-hover);
-}
 .woocommerce ul.products li.product a {
   padding: 10px;
   color: var(--siw-contrast);
@@ -673,16 +659,11 @@ span.product-badge.featured-badge {
 }
 .siw-carousel .carousel-cell li.product {
   list-style: none;
-  box-shadow: var(--siw-box-shadow);
-  transition: 0.3s;
   text-align: center;
 }
 .siw-carousel .carousel-cell li.product .woocommerce-LoopProduct-link h2 {
   font-weight: 400;
   font-size: 20px;
-}
-.siw-carousel .carousel-cell li.product:hover {
-  box-shadow: var(--siw-box-shadow-hover);
 }
 .siw-carousel .carousel-cell li.product a {
   padding: 10px;

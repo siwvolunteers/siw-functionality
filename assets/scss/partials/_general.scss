@@ -1,9 +1,5 @@
 :root {
 	--siw-text-shadow: 2px 2px 2px var(--siw-contrast);
-	--siw-box-shadow-overlay: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
-	--siw-box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.5);
-	--siw-box-shadow-hover: 2px 2px 5px 4px rgba(0, 0, 0, 0.5);
-	--siw-box-shadow-transition: box-shadow 0.3s ease-in-out;
 }
 
 /* Fade in voor lazyload */
@@ -60,9 +56,12 @@ a.page-link::after {
 	position: absolute;
 }
 
-a[rel*=external]::after {
-	content: "\2197";
-	position: absolute;
+a[rel*=external] {
+	margin-right: 1rem;
+	&::after {
+		content: "\2197";
+		position: absolute;
+	}
 }
 
 input[type=button],

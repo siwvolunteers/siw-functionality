@@ -36,11 +36,6 @@
 
 .woocommerce ul.products {
 	li.product {
-		box-shadow: var(--siw-box-shadow);
-		transition: 0.3s;
-		&:hover {
-			box-shadow: var(--siw-box-shadow-hover);
-		}
 		a {
 			padding: 10px;
 			color: var(--siw-contrast);
@@ -99,11 +94,6 @@ span.product-badge.featured-badge {
 			.woocommerce-LoopProduct-link h2 {
 				font-weight: 400;
 				font-size: 20px;
-			}
-			box-shadow: var(--siw-box-shadow);
-			transition: 0.3s;
-			&:hover {
-				box-shadow: var(--siw-box-shadow-hover);
 			}
 			text-align: center;
 			a {

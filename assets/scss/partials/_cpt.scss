@@ -9,7 +9,6 @@
 		z-index: 1;
 		position: relative;
 		.inside-article {
-			box-shadow: var(--siw-box-shadow);
 			padding: 15px;
 			position: relative;
 			transition: all 0.3s ease-in-out;//TODO: variable van maken
@@ -34,7 +33,6 @@
 				right: 0;
 				bottom: 0;
 				left: 0;
-				box-shadow: var(--siw-box-shadow-hover);
 				opacity: 0;
 				transition: opacity 0.3s ease-in-out;
 			}
@@ -69,7 +67,7 @@
 		.month{
 			font-size: 2em;
 			font-weight: bold;
-			
+
 		}
 		.time{
 			font-size: 1em;

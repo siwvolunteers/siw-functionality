@@ -1,27 +1,37 @@
-.panel-layout .widget ul {
-	margin-left: 1em;
-	li {
-		list-style-type: square;
-	}
-	&.siw-usp {
-		li {
-			list-style-type: check;
-		}
-		li::marker{
-			color:var(--siw-green);
+.panel-layout .widget {
+	ul {
+		margin-left: 1em;
 
+		li {
+			list-style-type: disc;
 		}
+
+		&.siw-usp {
+			li {
+				list-style-type: check;
+			}
+
+			li::marker {
+				color: var(--siw-green);
+
+			}
+		}
+	}
+	table {
+
 	}
 }
 
 //Uitlijning van widget title
 $align-options: left, center, right, justify;
+
 @each $align-option in $align-options {
 	.widget-title-align-#{$align-option} {
 		.widget-title {
 			text-align: $align-option;
 		}
 	}
+
 	.align-#{$align-option} {
 		text-align: $align-option;
 	}
