@@ -1,7 +1,7 @@
 .so-widget-siw_calendar_widget h3 {
   margin-bottom: 5px;
 }
-.so-widget-siw_calendar_widget .duration, .so-widget-siw_calendar_widget .page-link {
+.so-widget-siw_calendar_widget .duration {
   font-weight: bold;
 }
 .so-widget-siw_calendar_widget .event {
