@@ -5,7 +5,9 @@
 	font-size: 0.9em;
 	nav.breadcrumb {
 		padding: 0;
-		width: fit-content;
+		width: 100%;
+		max-width: 1200px;
+		margin: 0 auto;
 		text-transform: lowercase;
 		ol.breadcrumb {
 			color: var(--siw-contrast);
