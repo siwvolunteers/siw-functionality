@@ -16,7 +16,6 @@
 	width: 33%;
 }
 
-
 .flex-wrap {
 	flex-wrap: wrap;
 }
@@ -24,8 +23,31 @@
 .flex-columns {
 	flex-direction: column;
 }
+
+@media (min-width: 769px) and (max-width: 1024px) {
+	.flex-colums-tablet {
+		flex-direction: column;
+	}
+	@for $i from 1 through 20 {
+		.tablet-width-#{$i*5} {
+			width: $i * 5%;
+		}
+	}
+	.tablet-width-33 {
+		width: 33%;
+	}
+}
+
 @media (max-width: 768px) {
 	.flex-colums-mobile {
 		flex-direction: column;
+	}
+	@for $i from 1 through 20 {
+		.mobile-width-#{$i*5} {
+			width: $i * 5%;
+		}
+	}
+	.mobile-width-33 {
+		width: 33%;
 	}
 }
