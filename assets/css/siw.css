@@ -427,9 +427,11 @@ button {
 .panel-layout .widget ul li {
   list-style-type: square;
 }
+.panel-layout .widget ul.siw-usp li {
+  list-style-type: check;
+}
 .panel-layout .widget ul.siw-usp li::marker {
   color: var(--siw-green);
-  list-style-type: check;
 }
 
 .widget-title-align-left .widget-title {

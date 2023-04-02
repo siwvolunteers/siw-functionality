@@ -4,9 +4,12 @@
 		list-style-type: square;
 	}
 	&.siw-usp {
+		li {
+			list-style-type: check;
+		}
 		li::marker{
 			color:var(--siw-green);
-			list-style-type: check;
+
 		}
 	}
 }
