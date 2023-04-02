@@ -166,12 +166,10 @@ class TM_Country extends Type {
 		$images = siw_meta( 'image', [ 'limit' => 1 ] );
 		$image = reset( $images );
 
-		$continent = siw_meta( 'siw_tm_country_continent' );
 		$template_vars = [
-			'image'     => wp_get_attachment_image( $image['ID'], 'large' ),
-			'quote'     => \rwmb_get_value( 'quote' ),
-			'link'      => Links::generate_button_link( get_permalink(), __( 'Lees meer', 'siw' ) ),
-			'continent' => $continent->name,
+			'image' => wp_get_attachment_image( $image['ID'], 'large' ),
+			'quote' => \rwmb_get_value( 'quote' ),
+			'link'  => Links::generate_link( get_permalink(), __( 'Lees meer', 'siw' ), [ 'class' => 'page-link' ] ),
 		];
 		Template::create()->set_template( 'types/tm_country_archive' )->set_context( $template_vars )->render_template();
 	}

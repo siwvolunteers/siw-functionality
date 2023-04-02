@@ -181,6 +181,10 @@ button {
   gap: 10px;
 }
 
+.flex-item {
+  flex: 1 1 0;
+}
+
 .width-5 {
   width: 5%;
 }
@@ -261,6 +265,10 @@ button {
   width: 100%;
 }
 
+.width-33 {
+  width: 33%;
+}
+
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -269,6 +277,11 @@ button {
   flex-direction: column;
 }
 
+@media (max-width: 768px) {
+  .flex-colums-mobile {
+    flex-direction: column;
+  }
+}
 /*--------------------------------------------------------------
 ## 404
 --------------------------------------------------------------*/
@@ -288,9 +301,9 @@ button {
   padding-top: 50px;
   max-width: 85ch;
   display: inline-block;
-  background-color: var(--siw-base);
-  padding: 2%;
-} /*--------------------------------------------------------------
+}
+
+/*--------------------------------------------------------------
 ## Custom Post Types
 --------------------------------------------------------------*/
 .archive article.siw_job_posting,
@@ -301,8 +314,7 @@ button {
 .siw-carousel article.siw_event,
 .siw-carousel article.siw_story,
 .siw-carousel article.siw_tm_country {
-  z-index: 1;
-  position: relative;
+  padding: 10px;
 }
 .archive article.siw_job_posting .inside-article,
 .archive article.siw_event .inside-article,
@@ -312,79 +324,14 @@ button {
 .siw-carousel article.siw_event .inside-article,
 .siw-carousel article.siw_story .inside-article,
 .siw-carousel article.siw_tm_country .inside-article {
-  padding: 15px;
-  position: relative;
-  transition: all 0.3s ease-in-out;
+  border: 1px solid #ddd;
+  padding: 0;
   text-align: center;
-}
-.archive article.siw_job_posting .inside-article img,
-.archive article.siw_event .inside-article img,
-.archive article.siw_story .inside-article img,
-.archive article.siw_tm_country .inside-article img,
-.siw-carousel article.siw_job_posting .inside-article img,
-.siw-carousel article.siw_event .inside-article img,
-.siw-carousel article.siw_story .inside-article img,
-.siw-carousel article.siw_tm_country .inside-article img {
-  border-radius: 5px;
-}
-.archive article.siw_job_posting .inside-article hr,
-.archive article.siw_event .inside-article hr,
-.archive article.siw_story .inside-article hr,
-.archive article.siw_tm_country .inside-article hr,
-.siw-carousel article.siw_job_posting .inside-article hr,
-.siw-carousel article.siw_event .inside-article hr,
-.siw-carousel article.siw_story .inside-article hr,
-.siw-carousel article.siw_tm_country .inside-article hr {
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-.archive article.siw_job_posting .inside-article:hover::after,
-.archive article.siw_event .inside-article:hover::after,
-.archive article.siw_story .inside-article:hover::after,
-.archive article.siw_tm_country .inside-article:hover::after,
-.siw-carousel article.siw_job_posting .inside-article:hover::after,
-.siw-carousel article.siw_event .inside-article:hover::after,
-.siw-carousel article.siw_story .inside-article:hover::after,
-.siw-carousel article.siw_tm_country .inside-article:hover::after {
-  opacity: 1;
-}
-.archive article.siw_job_posting .inside-article::after,
-.archive article.siw_event .inside-article::after,
-.archive article.siw_story .inside-article::after,
-.archive article.siw_tm_country .inside-article::after,
-.siw-carousel article.siw_job_posting .inside-article::after,
-.siw-carousel article.siw_event .inside-article::after,
-.siw-carousel article.siw_story .inside-article::after,
-.siw-carousel article.siw_tm_country .inside-article::after {
-  content: " ";
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-.archive article.siw_job_posting .inside-article .entry-content,
-.archive article.siw_event .inside-article .entry-content,
-.archive article.siw_story .inside-article .entry-content,
-.archive article.siw_tm_country .inside-article .entry-content,
-.siw-carousel article.siw_job_posting .inside-article .entry-content,
-.siw-carousel article.siw_event .inside-article .entry-content,
-.siw-carousel article.siw_story .inside-article .entry-content,
-.siw-carousel article.siw_tm_country .inside-article .entry-content {
-  margin-top: 1em;
 }
 .archive .carousel-cell,
 .siw-carousel .carousel-cell {
   margin-top: 5px;
   margin-bottom: 5px;
-}
-
-.single article hr {
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
 .siw_event {
@@ -416,7 +363,7 @@ button {
 ## Page Builder
 --------------------------------------------------------------*/
 .panel-layout .widget ul {
-  margin-left: 1em;
+  margin: 1.5em 0 1.5em 1.2em;
 }
 .panel-layout .widget ul li {
   list-style-type: disc;
