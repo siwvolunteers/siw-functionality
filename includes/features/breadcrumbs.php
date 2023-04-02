@@ -26,7 +26,7 @@ class Breadcrumbs extends Base {
 	/** Genereer breadcrumbs */
 	public function generate_crumbs(): void {
 
-		if ( is_front_page() ) {
+		if ( is_front_page() || is_404() ) {
 			return;
 		}
 
