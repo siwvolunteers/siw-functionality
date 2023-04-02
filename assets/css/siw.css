@@ -505,6 +505,11 @@ button {
 .panel-layout .widget ul.siw-usp li::marker {
   color: var(--siw-green);
 }
+.panel-layout .widget table th {
+  background: var(--siw-accent);
+  color: var(--siw-base);
+}
+
 .widget-title-align-left .widget-title {
   text-align: left;
 }

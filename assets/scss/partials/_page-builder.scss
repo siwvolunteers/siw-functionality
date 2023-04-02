@@ -18,7 +18,10 @@
 		}
 	}
 	table {
-
+		th {
+			background: var(--siw-accent);
+			color: var(--siw-base);
+		}
 	}
 }
 
