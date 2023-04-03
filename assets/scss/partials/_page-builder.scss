@@ -23,6 +23,26 @@
 			color: var(--siw-base);
 		}
 	}
+
+	&.widget_recent-posts {
+		border-left: 3px solid var(--siw-accent);
+		padding-left: 20px;
+		ul {
+			margin-left: 0;
+			li {
+				list-style: none;
+				margin-left: 0;
+				padding-bottom: 6px;
+				margin-bottom: 6px;
+				border-bottom: 1px solid var(--siw-base);
+				a {
+					text-decoration: none;
+					font-weight: 500;
+				}
+			}
+		}
+	}
+
 }
 
 //Uitlijning van widget title
