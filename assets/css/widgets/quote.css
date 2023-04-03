@@ -1,9 +1,7 @@
 .so-widget-siw_quote_widget {
-  padding: 25px;
   background: var(--siw-base);
 }
 .footer-widgets .so-widget-siw_quote_widget {
-  padding: 0;
   background: inherit;
   box-shadow: none;
 }

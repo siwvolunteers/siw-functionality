@@ -17,8 +17,11 @@ body.home .site-content {
 }
 
 dl {
+	dt {
+		font-weight: 600;
+	}
 	dd {
-		margin: 0 1em 1em;
+		margin: 0 1em .5em 0;
 	}
 }
 
@@ -91,6 +94,22 @@ button {
 		.sf-menu>li {
 			float: none;
 			display: inline-block !important;
+		}
+	}
+}
+
+.widget_recent-posts {
+	border-left: 3px solid var(--siw-accent);
+	padding-left: 20px;
+	ul li {
+		list-style: none;
+		margin-left: 0;
+		padding-bottom: 6px;
+		margin-bottom: 6px;
+		border-bottom: 1px solid var(--siw-base);
+		a {
+			text-decoration: none;
+			font-weight: 500;
 		}
 	}
 }

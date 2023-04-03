@@ -7,13 +7,15 @@
 	flex: 1 1 0;
 }
 
-@for $i from 1 through 20 {
-	.width-#{$i*5} {
-		width: $i * 5%;
+@media (min-width: 1025px) {
+	@for $i from 1 through 20 {
+		.width-#{$i*5} {
+			width: $i * 5%;
+		}
 	}
-}
-.width-33 {
-	width: 33%;
+	.width-33 {
+		width: 33%;
+	}
 }
 
 .flex-wrap {
@@ -39,8 +41,11 @@
 }
 
 @media (max-width: 768px) {
-	.flex-colums-mobile {
+	.flex-direction-column-mobile {
 		flex-direction: column;
+	}
+	.flex-direction-column-reverse-mobile {
+		flex-direction: column-reverse;
 	}
 	@for $i from 1 through 20 {
 		.mobile-width-#{$i*5} {
