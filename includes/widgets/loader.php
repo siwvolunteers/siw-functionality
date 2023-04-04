@@ -34,6 +34,7 @@ class Loader extends Class_Loader_Abstract {
 			Quote::class,
 			Social_Links::class,
 			Sponsors::class,
+			Subpages::class,
 			Tabs::class,
 		];
 	}
