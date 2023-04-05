@@ -30,6 +30,11 @@ class GeneratePress extends Base {
 		add_post_type_support( 'gp_elements', 'page-attributes' );
 	}
 
+	#[Action( 'generate_archive_title', 1 ) ]
+	public function remove_archive_title() {
+		remove_action( 'generate_archive_title', 'generate_archive_title' );
+	}
+
 	#[Filter( 'generate_elements_custom_args' )]
 	/** Sorteer elements standaard op menu_order */
 	public function set_elements_orderby( array $args ): array {
