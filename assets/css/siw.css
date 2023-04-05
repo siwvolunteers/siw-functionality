@@ -708,8 +708,12 @@ form textarea:read-only {
   margin-top: 16px;
 }
 
+.woocommerce ul.products li.product {
+  border: 1px solid #bbb;
+  text-align: left;
+}
 .woocommerce ul.products li.product a {
-  padding: 10px;
+  padding-bottom: 10px;
   color: var(--siw-contrast);
 }
 .woocommerce ul.products li.product a .woocommerce-placeholder {
@@ -754,6 +758,8 @@ span.product-badge.featured-badge {
 }
 .siw-carousel .carousel-cell li.product {
   list-style: none;
+  border: 1px solid #bbb;
+  text-align: left;
   text-align: center;
 }
 .siw-carousel .carousel-cell li.product .woocommerce-LoopProduct-link h2 {
@@ -761,7 +767,7 @@ span.product-badge.featured-badge {
   font-size: 20px;
 }
 .siw-carousel .carousel-cell li.product a {
-  padding: 10px;
+  padding-bottom: 10px;
   display: block;
   color: var(--siw-contrast);
   text-decoration: none;

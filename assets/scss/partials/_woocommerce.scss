@@ -36,8 +36,10 @@
 
 .woocommerce ul.products {
 	li.product {
+		border: 1px solid #bbb;
+		text-align: left;
 		a {
-			padding: 10px;
+			padding-bottom: 10px;
 			color: var(--siw-contrast);
 			.woocommerce-placeholder {
 				border: none;
@@ -91,13 +93,15 @@ span.product-badge.featured-badge {
 	.carousel-cell {
 		li.product {
 			list-style: none;
+			border: 1px solid #bbb;
+			text-align: left;
 			.woocommerce-LoopProduct-link h2 {
 				font-weight: 400;
 				font-size: 20px;
 			}
 			text-align: center;
 			a {
-				padding: 10px;
+				padding-bottom: 10px;
 				display: block;
 				color: var(--siw-contrast);
 				text-decoration: none;
