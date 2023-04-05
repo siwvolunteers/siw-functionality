@@ -11,20 +11,34 @@
   width: 20%;
   float: left;
   box-sizing: border-box;
+  margin-right: 16px;
 }
 .so-widget-siw_calendar_widget .event-right {
-  width: 80%;
+  width: 70%;
   float: left;
   box-sizing: border-box;
   padding-left: 10px;
 }
 .so-widget-siw_calendar_widget .calendar {
+  background: var(--siw-accent);
+  color: var(--siw-base);
+  font-weight: 600;
   text-align: center;
+  border: none;
+  width: 4em;
+}
+.footer-widgets .so-widget-siw_calendar_widget .calendar {
+  background: var(--siw-contrast-light);
+}
+.footer-widgets .so-widget-siw_calendar_widget .calendar {
   border: var(--siw-base) solid 2px;
-  width: 3em;
 }
 .so-widget-siw_calendar_widget .calendar .month {
   text-transform: uppercase;
+  color: var(--siw-base);
+  background-color: var(--siw-contrast);
+}
+.footer-widgets .so-widget-siw_calendar_widget .calendar .month {
   background-color: var(--siw-base);
   color: var(--siw-contrast);
 }
