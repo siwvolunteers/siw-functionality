@@ -6,53 +6,16 @@
 	article.siw_event,
 	article.siw_story,
 	article.siw_tm_country {
-		z-index: 1;
-		position: relative;
+		padding: 10px;
 		.inside-article {
-			box-shadow: var(--siw-box-shadow);
-			padding: 15px;
-			position: relative;
-			transition: all 0.3s ease-in-out;//TODO: variable van maken
+			border: 1px solid #ddd;
+			padding: 0;
 			text-align: center;
-			img {
-				border-radius: 5px;
-			}
-			hr {
-				margin-bottom: 10px;
-				margin-top: 10px;
-			}
-			&:hover {
-				&::after {
-					opacity: 1;
-				}
-			}
-			&::after {
-				content: ' ';
-				position: absolute;
-				z-index:-1;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				left: 0;
-				box-shadow: var(--siw-box-shadow-hover);
-				opacity: 0;
-				transition: opacity 0.3s ease-in-out;
-			}
-			.entry-content {
-				margin-top: 1em;
-			}
 		}
 	}
 	.carousel-cell {
 		margin-top: 5px;
 		margin-bottom: 5px;
-	}
-}
-
-.single article {
-	hr {
-		margin-top: 20px;
-		margin-bottom: 20px;
 	}
 }
 
@@ -69,7 +32,7 @@
 		.month{
 			font-size: 2em;
 			font-weight: bold;
-			
+
 		}
 		.time{
 			font-size: 1em;

@@ -1,10 +1,7 @@
 .so-widget-siw_quote_widget {
-  padding: 25px;
   background: var(--siw-base);
-  box-shadow: var(--siw-box-shadow-overlay);
 }
 .footer-widgets .so-widget-siw_quote_widget {
-  padding: inherit;
   background: inherit;
   box-shadow: none;
 }

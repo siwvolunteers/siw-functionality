@@ -13,6 +13,12 @@ use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
  */
 class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 
+	const SUPPORTED_WIDGETS = [
+		\WP_Widget_Media_Image::class,
+		\SIW\Widgets\Featured_Image::class,
+	];
+
+
 	/** Style groep */
 	const STYLE_GROUP = 'siw_css_filters';
 
@@ -41,7 +47,7 @@ class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 
 	/** {@inheritDoc} */
 	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ): array {
-		if ( isset( $args['widget'] ) && \WP_Widget_Media_Image::class !== $args['widget'] ) {
+		if ( isset( $args['widget'] ) && ! in_array( $args['widget'], self::SUPPORTED_WIDGETS, true ) ) {
 			return $groups;
 		}
 

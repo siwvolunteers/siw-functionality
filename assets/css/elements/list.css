@@ -7,3 +7,18 @@ ul[data-columns="3"] {
 ul[data-columns="4"] {
   columns: 4;
 }
+ul[data-list-style-type=disc] li {
+  list-style-type: disc;
+}
+ul[data-list-style-type=circle] li {
+  list-style-type: circle;
+}
+ul[data-list-style-type=square] li {
+  list-style-type: square;
+}
+ul[data-list-style-type=check] li {
+  list-style-type: check;
+}
+.footer-widgets ul {
+  list-style-position: inside;
+}

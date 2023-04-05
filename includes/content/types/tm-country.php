@@ -5,8 +5,8 @@ namespace SIW\Content\Types;
 use SIW\Content\Type;
 use SIW\Data\Country;
 use SIW\Data\Project_Type;
+use SIW\Data\Special_Page;
 use SIW\Data\Work_Type;
-use SIW\Elements\Features;
 use SIW\Elements\Icon;
 use SIW\Elements\Quote;
 use SIW\Elements\World_Map;
@@ -16,7 +16,7 @@ use SIW\Util\Links;
 
 
 /**
- * Op Maat landen
+ * Wereld (basis) projecten
  *
  * @copyright 2020 SIW Internationale Vrijwilligersprojecten
  */
@@ -29,7 +29,7 @@ class TM_Country extends Type {
 	protected string $menu_icon = 'dashicons-location-alt';
 
 	/** {@inheritDoc} */
-	protected string $slug = 'vrijwilligerswerk-op-maat';
+	protected string $slug = 'wereld-basis-projecten';
 
 	/** {@inheritDoc} */
 	protected bool $archive_taxonomy_filter = true;
@@ -90,7 +90,7 @@ class TM_Country extends Type {
 			[
 				'id'       => 'description',
 				'name'     => __( 'Beschrijving', 'siw' ),
-				'desc'     => __( 'Beschrijf de Op Maat projecten in dit land', 'siw' ),
+				'desc'     => __( 'Beschrijf de Wereld Basis projecten in dit land', 'siw' ),
 				'type'     => 'wysiwyg',
 				'required' => true,
 			],
@@ -125,7 +125,7 @@ class TM_Country extends Type {
 			'args'   => [
 				'public' => true,
 			],
-			'slug'   => 'vrijwilligerswerk-op-maat-in',
+			'slug'   => 'wereld-basis-projecten-in',
 			'filter' => true,
 		];
 		return $taxonomies;
@@ -134,25 +134,25 @@ class TM_Country extends Type {
 	/** {@inheritDoc} */
 	protected function get_labels(): array {
 		$labels = [
-			'name'               => __( 'Op Maat landen', 'siw' ),
-			'singular_name'      => __( 'Op Maat land', 'siw' ),
-			'add_new'            => __( 'Nieuw Op Maat land', 'siw' ),
-			'add_new_item'       => __( 'Voeg Op Maat land toe', 'siw' ),
-			'edit_item'          => __( 'Bewerk Op Maat land', 'siw' ),
-			'new_item'           => __( 'Nieuw Op Maat land', 'siw' ),
-			'all_items'          => __( 'Alle Op Maat landen', 'siw' ),
-			'view_item'          => __( 'Bekijk Op Maat land', 'siw' ),
-			'search_items'       => __( 'Zoek Op Maat land', 'siw' ),
-			'not_found'          => __( 'Geen Op Maat landen gevonden', 'siw' ),
-			'not_found_in_trash' => __( 'Geen Op Maat landen gevonden in de prullenbak', 'siw' ),
-			'archives'           => __( 'Alle Op Maat landen', 'siw' ),
+			'name'               => __( 'Wereld Basis landen', 'siw' ),
+			'singular_name'      => __( 'Wereld Basis land', 'siw' ),
+			'add_new'            => __( 'Nieuw Wereld Basis land', 'siw' ),
+			'add_new_item'       => __( 'Voeg Wereld Basis land toe', 'siw' ),
+			'edit_item'          => __( 'Bewerk Wereld Basis land', 'siw' ),
+			'new_item'           => __( 'Nieuw Wereld Basis land', 'siw' ),
+			'all_items'          => __( 'Alle Wereld Basis landen', 'siw' ),
+			'view_item'          => __( 'Bekijk Wereld Basis land', 'siw' ),
+			'search_items'       => __( 'Zoek Wereld Basis land', 'siw' ),
+			'not_found'          => __( 'Geen Wereld Basis landen gevonden', 'siw' ),
+			'not_found_in_trash' => __( 'Geen Wereld Basis landen gevonden in de prullenbak', 'siw' ),
+			'archives'           => __( 'Alle Wereld Basis landen', 'siw' ),
 		];
 		return $labels;
 	}
 
 	/** {@inheritDoc} */
 	protected function get_archive_title( string $archive_title ): string {
-		return __( 'Vrijwilligerswerk op Maat', 'siw' );
+		return __( 'Wereld Basis', 'siw' );
 	}
 
 	/** {@inheritDoc} */
@@ -166,12 +166,10 @@ class TM_Country extends Type {
 		$images = siw_meta( 'image', [ 'limit' => 1 ] );
 		$image = reset( $images );
 
-		$continent = siw_meta( 'siw_tm_country_continent' );
 		$template_vars = [
-			'image'     => wp_get_attachment_image( $image['ID'], 'large' ),
-			'quote'     => \rwmb_get_value( 'quote' ),
-			'link'      => Links::generate_button_link( get_permalink(), __( 'Lees meer', 'siw' ) ),
-			'continent' => $continent->name,
+			'image' => wp_get_attachment_image( $image['ID'], 'large' ),
+			'quote' => \rwmb_get_value( 'quote' ),
+			'link'  => Links::generate_link( get_permalink(), __( 'Lees meer', 'siw' ), [ 'class' => 'page-link' ] ),
 		];
 		Template::create()->set_template( 'types/tm_country_archive' )->set_context( $template_vars )->render_template();
 	}
@@ -183,7 +181,8 @@ class TM_Country extends Type {
 		$image = reset( $images );
 
 		$country = siw_get_country( siw_meta( 'country' ) );
-		$tailor_made_page = siw_get_project_type_page( Project_Type::TAILOR_MADE_PROJECTS() );
+		$tailor_made_page = siw_get_project_type_page( Project_Type::WORLD_BASIC() );
+		$child_policy_link = siw_get_special_page( Special_Page::CHILD_POLICY() );
 
 		$template_vars = [
 			'image'             => wp_get_attachment_image( $image['ID'], 'large' ),
@@ -194,8 +193,7 @@ class TM_Country extends Type {
 			'description'       => rwmb_get_value( 'description' ),
 			'quote'             => Quote::create()->set_quote( rwmb_get_value( 'quote' ) )->generate(),
 			'sign_up_link'      => Links::generate_button_link( get_permalink( $tailor_made_page ), __( 'Meld je aan', 'siw' ) ),
-			'child_policy_link' => do_shortcode( '[siw_pagina_lightbox link_tekst="Lees meer over ons beleid." pagina="kinderbeleid"]' ),
-			'features'          => $this->country_features(),
+			'child_policy_link' => Links::generate_link( get_permalink( $child_policy_link ), __( 'Lees meer over ons beleid.', 'siw' ) ),
 			'worktypes'         => [],
 		];
 		// welke type projecten zijn er
@@ -210,37 +208,6 @@ class TM_Country extends Type {
 			$template_vars += [ 'has_child_projects' => true ];
 		}
 		Template::create()->set_template( 'types/tm_country_single' )->set_context( $template_vars )->render_template();
-	}
-
-	/**Maak features voor te kijken hoe het werkt */
-	public function country_features(): string {
-		$features = Features::create()
-			->set_columns( 4 )
-			->add_items(
-				[
-					[
-						'icon'    => 'siw-icon-file-signature',
-						'title'   => '1. Aanmelding',
-						'content' => 'Ben je geïnteresseerd in een Project Op Maat? Meld je dan direct aan via de website.',
-					],
-					[
-						'icon'    => 'siw-icon-handshake',
-						'title'   => '2. Kennismaking',
-						'content' => 'Na het kennismakingsgesprek stelt de regiospecialist een selectie van drie Projecten Op Maat voor je samen.',
-					],
-					[
-						'icon'    => 'siw-icon-clipboard-check',
-						'title'   => '3. Bevestiging',
-						'content' => 'Als je een passend Project Op Maat hebt gekozen, volgt de betaling. Vervolgens gaat de regiospecialist voor je aan de slag.',
-					],
-					[
-						'icon'    => 'siw-icon-tasks',
-						'title'   => '4. Voorbereiding',
-						'content' => 'Kom naar de Infodag zodat je goed voorbereid aan jouw avontuur kan beginnen.',
-					],
-				]
-			)->generate();
-		return $features;
 	}
 
 	/** {@inheritDoc} */

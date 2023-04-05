@@ -63,6 +63,7 @@ class Shortcodes {
 			'leeftijd'                      => __( 'Leeftijd van SIW', 'siw' ),
 			'aantal_vrijwilligers'          => __( 'Aantal vrijwilligers', 'siw' ),
 			'aantal_betaalde_medewerkers'   => __( 'Aantal betaalde medewerkers', 'siw' ),
+			'accent'                        => __( 'Accentkleur', 'siw' ),
 			'externe_link'                  => [
 				'title'      => __( 'Externe link', 'siw' ),
 				'attributes' => [
@@ -269,5 +270,9 @@ class Shortcodes {
 
 	public static function render_aantal_betaalde_medewerkers(): string {
 		return siw_get_option( 'staff.number_of_employees' );
+	}
+
+	public static function render_accent( $atts, string $content ): string {
+		return sprintf( '<span class="siw-accent">%s</span>', $content );
 	}
 }

@@ -8,23 +8,22 @@
 .siw-accordion h5 span {
   width: 100%;
   display: block;
-  padding: 10px;
-  border: solid 3px var(--siw-contrast);
+  padding: 8px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: var(--siw-accent);
+  font-weight: 500;
+  font-size: 17px;
   cursor: pointer;
 }
 .siw-accordion h5 span:after {
   content: "+";
   float: right;
-  font-size: 1em;
-  font-weight: bold;
-}
-.siw-accordion h5 span[aria-expanded=true] {
-  background-color: var(--siw-contrast);
-  color: var(--siw-base);
+  font-weight: 700;
+  color: var(--siw-contrast-light);
 }
 .siw-accordion h5 span[aria-expanded=true]:after {
   content: "-";
-  color: var(--siw-base);
 }
 .siw-accordion .panel {
   max-width: 85ch;
@@ -36,11 +35,5 @@
 }
 .siw-accordion .panel[aria-hidden=false] {
   display: block;
-  padding: 10px;
-}
-div.product .woocommerce-tabs .siw-accordion .panel {
-  margin-bottom: 0;
-}
-div.product .woocommerce-tabs .siw-accordion .panel[aria-hidden=false] {
   padding: 10px;
 }

@@ -58,8 +58,13 @@ class Settings implements Option_Interface {
 				'icon'  => 'dashicons-media-document',
 			],
 			[
+				'id'    => 'sponsors',
+				'label' => __( 'Sponsors', 'siw' ),
+				'icon'  => 'dashicons-money',
+			],
+			[
 				'id'    => 'tailor_made',
-				'label' => __( 'Op Maat', 'siw' ),
+				'label' => __( 'Wereld-basis', 'siw' ),
 				'icon'  => 'dashicons-admin-settings',
 			],
 			[
@@ -183,6 +188,42 @@ class Settings implements Option_Interface {
 					'required'         => true,
 					'max_file_uploads' => 1,
 					'mime_type'        => 'application/pdf',
+					'force_delete'     => false,
+				],
+			],
+		];
+
+		// Sponsors
+		$fields[] = [
+			'id'            => 'sponsors',
+			'type'          => 'group',
+			'tab'           => 'sponsors',
+			'clone'         => true,
+			'sort_clone'    => true,
+			'max_clone'     => 10,
+			'collapsible'   => true,
+			'default_state' => 'collapsed',
+			'group_title'   => [ 'field' => 'name' ],
+			'add_button'    => __( 'Sponsor toevoegen', 'siw' ),
+			'fields'        => [
+				[
+					'id'       => 'name',
+					'name'     => __( 'Naam', 'siw' ),
+					'type'     => 'text',
+					'required' => true,
+				],
+				[
+					'id'       => 'site',
+					'name'     => __( 'Site', 'siw' ),
+					'type'     => 'url',
+					'required' => true,
+				],
+				[
+					'id'               => 'logo',
+					'name'             => __( 'Logo', 'siw' ),
+					'type'             => 'image_advanced',
+					'required'         => true,
+					'max_file_uploads' => 1,
 					'force_delete'     => false,
 				],
 			],
@@ -339,7 +380,7 @@ class Settings implements Option_Interface {
 			'fields' => $approval_fields,
 		];
 
-		// Op Maat
+		// Wereld-basis
 		$fields[] = [
 			'id'     => 'tm_country',
 			'type'   => 'group',

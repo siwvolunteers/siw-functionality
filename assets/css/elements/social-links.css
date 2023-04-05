@@ -7,3 +7,6 @@
 .siw-social-links a:hover .siw-icon {
   fill: var(--hover-color);
 }
+.footer-widgets .siw-social-links a:hover .siw-icon, .top-bar .siw-social-links a:hover .siw-icon {
+  fill: var(--siw-accent);
+}

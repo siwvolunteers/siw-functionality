@@ -2,14 +2,14 @@
 	text-align: center;
 	button {
 		margin: 2px;
-		background-color: var(--siw-base);
-		border: 2px solid var(--siw-contrast);
+		border: 1px solid var(--siw-contrast-light);
+		border-radius: 4px;
 		color: var(--siw-contrast);
 		transition: all .6s ease-out;
-		&.is-checked {
-			background: var(--siw-contrast);
+		background-color: transparent;
+		&.is-checked, &:hover {
+			background-color: var(--siw-accent);
 			color: var(--siw-base);
-			border: 2px solid transparent;
 		}
 	}
 }

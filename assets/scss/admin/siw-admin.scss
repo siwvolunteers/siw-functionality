@@ -1,8 +1,6 @@
-@import "../partials/_variables.scss";
-
-body {
+body:not(.wp-customizer) {
 	--siw-base: #fff;
-	--siw-contrast: #0073aa;
+	--siw-accent: #0073aa;
 
 	$theme-colors: (
 		"blue": #e1a948,
@@ -17,7 +15,7 @@ body {
 
 	@each $theme, $color in $theme-colors {
 		&.admin-color-#{$theme} {
-			--siw-contrast: #{$color};
+			--siw-accent: #{$color};
 		}
 	}
 }

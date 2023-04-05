@@ -1,18 +1,60 @@
-.panel-layout .widget ul {
-	margin-left: 1em;
-	li {
-		list-style-type: square;
+.panel-layout .widget {
+	ul {
+		margin: 1.5em 0 1.5em 1.2em;
+
+		li {
+			list-style-type: disc;
+		}
+
+		&.siw-usp {
+			li {
+				list-style-type: check;
+			}
+
+			li::marker {
+				color: var(--siw-green);
+
+			}
+		}
 	}
+	table {
+		th {
+			background: var(--siw-accent);
+			color: var(--siw-base);
+		}
+	}
+
+	&.widget_recent-posts {
+		border-left: 3px solid var(--siw-accent);
+		padding-left: 20px;
+		ul {
+			margin-left: 0;
+			li {
+				list-style: none;
+				margin-left: 0;
+				padding-bottom: 6px;
+				margin-bottom: 6px;
+				border-bottom: 1px solid var(--siw-base);
+				a {
+					text-decoration: none;
+					font-weight: 500;
+				}
+			}
+		}
+	}
+
 }
 
 //Uitlijning van widget title
 $align-options: left, center, right, justify;
+
 @each $align-option in $align-options {
 	.widget-title-align-#{$align-option} {
 		.widget-title {
 			text-align: $align-option;
 		}
 	}
+
 	.align-#{$align-option} {
 		text-align: $align-option;
 	}

@@ -10,17 +10,39 @@
 	text-align: left;
 	font-size: 0.9em;
 
+	.cookie-container {
+		display: flex;
+	}
+
+	.cookie-options {
+		display: flex;
+		flex-wrap: wrap;
+		flex-basis: 70%;
+		gap: 10px;
+		.cookie-text {
+			flex-basis: 100%;
+		}
+		.cookie-option {
+			flex-basis: auto;
+		}
+	}
+	.cookie-buttons {
+		display: flex;
+		flex-basis: 30%;
+		gap: 10px;
+		.cookie-button {
+			flex-basis: auto;
+		}
+	}
+
+	@media(max-width: 768px) {
+		.cookie-container{
+			flex-direction: column;
+		}
+	}
+
 	form button[type=submit] {
 		font-size: 0.9em;
-		background-color: var(--siw-contrast-light);
-		color: var(--siw-base);
-		border: 2px solid var(--siw-base);
-		&:hover,
-		&:active,
-		&.is-checked {
-			color: var(--siw-contrast-light);
-			background-color: var(--siw-base);
-		}
 	}
 	a {
 		color: var(--siw-base);

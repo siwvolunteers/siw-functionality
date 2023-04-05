@@ -3,6 +3,7 @@
 namespace SIW\Compatibility;
 
 use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
 use SIW\I18n;
 
 /**
@@ -40,6 +41,11 @@ class WPML extends Plugin {
 	/** Verwijdert WPML widget */
 	public function unregister_wpml_widget() {
 		unregister_widget( \WPML_LS_Widget::class );
+	}
+
+	#[Filter( 'privacy_policy_url' )]
+	public function set_privacy_policy_url( string $url ): string {
+		return I18n::get_translated_permalink( $url, I18n::get_current_language() );
 	}
 
 	#[Action( 'delete_attachment' )]

@@ -127,7 +127,7 @@ class Destinations implements Interactive_Map_Interface {
 	/** Genereert beschrijving voor Op Maat */
 	public function generate_tailor_made_description( Country $country ): string {
 
-		$tailor_made_page_link = siw_get_project_type_page( Project_Type::TAILOR_MADE_PROJECTS() );
+		$tailor_made_page_link = siw_get_project_type_page( Project_Type::WORLD_BASIC() );
 
 		$tailor_made_pages = get_posts(
 			[
@@ -145,7 +145,7 @@ class Destinations implements Interactive_Map_Interface {
 			$text = __( 'Lees meer', 'siw' );
 		}
 
-		return esc_html__( 'Projecten Op Maat', 'siw' ) . SPACE . Links::generate_link( $url, $text );
+		return esc_html__( 'Wereld-basis-projecten', 'siw' ) . SPACE . Links::generate_link( $url, $text );
 	}
 
 	/**
