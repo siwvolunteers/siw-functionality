@@ -26,6 +26,10 @@
 	flex-direction: column;
 }
 
+.flex-direction-row-reverse {
+	flex-direction: row-reverse;
+}
+
 @media (min-width: 769px) and (max-width: 1024px) {
 	.flex-colums-tablet {
 		flex-direction: column;

@@ -229,8 +229,7 @@ class Story extends Type {
 		foreach ( $rows as $row ) {
 			$story = [
 				'quote'                  => Quote::create()->set_quote( $row['quote'] )->generate(),
-				'push_class'             => $even ? 'push-60' : '',
-				'pull_class'             => $even ? 'pull-40' : '',
+				'flex_direction_class'   => $even ? 'flex-direction-row-reverse' : '',
 				'animation_attributes_1' => $even ? $animation_left : $animation_right,
 				'animation_attributes_2' => $even ? $animation_right : $animation_left,
 				'image'                  => wp_get_attachment_image( $row['image'][0], 'large' ),
