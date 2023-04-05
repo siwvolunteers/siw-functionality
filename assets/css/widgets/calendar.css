@@ -42,3 +42,6 @@
   background-color: var(--siw-base);
   color: var(--siw-contrast);
 }
+.so-widget-siw_calendar_widget p {
+  clear: both;
+}
