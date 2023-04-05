@@ -12,22 +12,37 @@
 		width: 20%;
 		float: left;
 		box-sizing: border-box;
+		margin-right: 16px;
 	}
 	.event-right {
-		width: 80%;
+		width: 70%;
 		float: left;
 		box-sizing: border-box;
 		padding-left: 10px;
 	}
 
 	.calendar {
+		background: var(--siw-accent);
+		color: var(--siw-base);
+		font-weight: 600;
+		.footer-widgets & {
+			background: var(--siw-contrast-light);
+		}
 		text-align: center;
-		border: var(--siw-base) solid 2px;
-		width: 3em;
+		border: none;
+		.footer-widgets & {
+			border: var(--siw-base) solid 2px;
+		}
+		width: 4em;
 		.month {
 			text-transform: uppercase;
-			background-color: var(--siw-base);
-			color: var(--siw-contrast)
+			color: var(--siw-base);
+			background-color: var(--siw-contrast);
+			.footer-widgets & {
+				background-color: var(--siw-base);
+				color: var(--siw-contrast)
+			}
+
 		}
 	}
 }
