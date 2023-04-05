@@ -12,9 +12,6 @@
 			&:hover {
 				color: var(--siw-accent);
 			}
-			h2, p {
-				padding: 10px 20px 0 20px;
-			}
 		}
 		span.count {
 			float: right!important;
@@ -41,13 +38,19 @@
 	li.product {
 		border: 1px solid #bbb;
 		text-align: left;
+		.woocommerce-LoopProduct-link h2 {
+			padding: 10px 20px 0 20px;
+			text-transform: capitalize;
+
+		}
 		a {
 			padding-bottom: 10px;
 			color: var(--siw-contrast);
 			.woocommerce-placeholder {
 				border: none;
 			}
-			h2, p {
+
+			p {
 				padding: 10px 20px 0 20px;
 			}
 		}
@@ -102,11 +105,15 @@ span.product-badge.featured-badge {
 			border: 1px solid #bbb;
 			text-align: left;
 			.woocommerce-LoopProduct-link h2 {
+				padding: 10px 20px 0 20px;
 				text-transform: capitalize;
 				font-size: 20px;
 			}
 			text-align: center;
 			a {
+				p {
+					padding: 10px 20px 0 20px;
+				}
 				padding-bottom: 10px;
 				display: block;
 				color: var(--siw-contrast);
