@@ -2,7 +2,7 @@
 	display: inline-block;
 	position: relative;
 	fill: var(--siw-contrast-light);
-	.footer-widgets & {
+	.footer-widgets &, .top-bar & {
 		fill: var(--siw-base);
 	}
 }

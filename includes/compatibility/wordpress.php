@@ -48,6 +48,23 @@ class WordPress extends Base {
 		\flush_rewrite_rules();
 	}
 
+	#[Filter( 'widget_title', PHP_INT_MAX )]
+	public function do_shortcode_in_widget_title( string $title ): string {
+		return do_shortcode( $title );
+	}
+
+	#[Filter( 'post_thumbnail_id' )]
+	public function set_placeholder_featured_image( int $image_id, \WP_Post $post ): int {
+		if ( 0 !== $image_id ) {
+			return $image_id;
+		}
+		$placeholder_image_id = (int) get_option( 'woocommerce_placeholder_image', 0 );
+		if ( 0 !== $placeholder_image_id ) {
+			$image_id = $placeholder_image_id;
+		}
+		return $image_id;
+	}
+
 	#[Action( 'wp_head', 1 )]
 	public function cleanup_head() {
 		remove_action( 'wp_head', 'wp_generator' );
@@ -70,7 +87,6 @@ class WordPress extends Base {
 	/** Verwijdert standaard-widgets */
 	public function unregister_widgets() {
 		unregister_widget( \WP_Widget_Pages::class );
-		unregister_widget( \WP_Widget_Recent_Posts::class );
 		unregister_widget( \WP_Widget_Calendar::class );
 		unregister_widget( \WP_Widget_Archives::class );
 		if ( get_option( 'link_manager_enabled' ) ) {
@@ -227,5 +243,45 @@ class WordPress extends Base {
 				}
 			}
 		}
+	}
+
+	#[Filter( 'wp_nav_menu_objects' )]
+	public function add_menu_ancestor_class( array $items, \stdClass $args ): array {
+
+		// Zoek eerst menu items voor bovenliggende pagina's
+		$ancestors = wp_filter_object_list(
+			$items,
+			[
+				'current_item_ancestor' => true,
+			],
+			'AND',
+			'ID'
+		);
+
+		// Zoek dan naar archiefpagina's van CPT's
+		if ( empty( $ancestors && is_single() ) ) {
+			$ancestors = wp_filter_object_list(
+				$items,
+				[
+					'type'   => 'post_type_archive',
+					'object' => get_post_type(),
+				],
+				'AND',
+				'ID'
+			);
+		}
+
+		// Fallback voor blogposts
+		if ( empty( $ancestors ) && is_singular( 'post' ) ) {
+			$blog_page = get_option( 'page_for_posts', true );
+		}
+
+		foreach ( $items as $item ) {
+			if ( in_array( $item->ID, $ancestors, true ) || ( isset( $blog_page ) && $item->object_id === $blog_page ) ) {
+				$item->classes[] = 'current-menu-ancestor';
+			}
+		}
+
+		return $items;
 	}
 }

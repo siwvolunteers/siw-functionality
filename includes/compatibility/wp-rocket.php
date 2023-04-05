@@ -16,7 +16,7 @@ class WP_Rocket extends Plugin {
 
 	#[Filter( 'rocket_lazyload_youtube_thumbnail_resolution' )]
 	/** Resolutie van YouTube-thumbnail */
-	private const YOUTUBE_THUMBNAIL_RESOLUTION = 'maxresdefault';
+	private const YOUTUBE_THUMBNAIL_RESOLUTION = 'hqdefault';
 
 	#[Filter( 'nonce_life' )]
 	/** Levensduur van nonce in seconden */

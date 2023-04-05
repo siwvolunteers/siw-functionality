@@ -1,18 +1,22 @@
 {{#stories}}
-	{{!korte quote van het verhaal}}
-	<div class="grid-100" {{& animation_fade }} >
-		{{& quote }}
+	<div class="flex-container">
+		{{!korte quote van het verhaal}}
+		<div class="flex-item" {{& animation_fade }} >
+			{{& quote }}
+		</div>
 	</div>
-	{{!plaatje tonen aan ene kant}}
-	<div class="grid-40 {{push_class}}" {{& animation_attributes_1 }} >
-		{{{image}}}
-	</div>
-	{{!verhaaltjes toenen aan andere kant}}
-	<div class="grid-60 {{pull_class}}" {{& animation_attributes_2 }} >
-		{{# content }}
-			<b>{{ title }}</b>
-			{{& text|wp_kses_post }}
-		{{/ content }}
+	<div class="flex-container {{ flex_direction_class }} flex-direction-column-mobile">
+		{{!plaatje tonen aan ene kant}}
+		<div class="flex-item" {{& animation_attributes_1 }} >
+			{{{image}}}
+		</div>
+		{{!verhaaltjes toenen aan andere kant}}
+		<div class="flex-item" {{& animation_attributes_2 }} >
+			{{# content }}
+				<b>{{ title }}</b>
+				{{& text|wp_kses_post }}
+			{{/ content }}
+		</div>
 	</div>
 {{/stories}}
 {{#cta}}

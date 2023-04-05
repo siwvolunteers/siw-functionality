@@ -1,30 +1,30 @@
-body {
+body:not(.wp-customizer) {
   --siw-base: #fff;
-  --siw-contrast: #0073aa;
+  --siw-accent: #0073aa;
 }
-body.admin-color-blue {
-  --siw-contrast: #e1a948;
+body:not(.wp-customizer).admin-color-blue {
+  --siw-accent: #e1a948;
 }
-body.admin-color-coffee {
-  --siw-contrast: #c7a589;
+body:not(.wp-customizer).admin-color-coffee {
+  --siw-accent: #c7a589;
 }
-body.admin-color-ectoplasm {
-  --siw-contrast: #a3b745;
+body:not(.wp-customizer).admin-color-ectoplasm {
+  --siw-accent: #a3b745;
 }
-body.admin-color-light {
-  --siw-contrast: #04a4cc;
+body:not(.wp-customizer).admin-color-light {
+  --siw-accent: #04a4cc;
 }
-body.admin-color-midnight {
-  --siw-contrast: #e14d43;
+body:not(.wp-customizer).admin-color-midnight {
+  --siw-accent: #e14d43;
 }
-body.admin-color-modern {
-  --siw-contrast: #3858e9;
+body:not(.wp-customizer).admin-color-modern {
+  --siw-accent: #3858e9;
 }
-body.admin-color-ocean {
-  --siw-contrast: #9ebaa0;
+body:not(.wp-customizer).admin-color-ocean {
+  --siw-accent: #9ebaa0;
 }
-body.admin-color-sunrise {
-  --siw-contrast: #dd823b;
+body:not(.wp-customizer).admin-color-sunrise {
+  --siw-accent: #dd823b;
 }
 
 #wpadminbar .siw-logo img {

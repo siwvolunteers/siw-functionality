@@ -7,23 +7,24 @@
 		span {
 			width: 100%;
 			display: block;
-			padding: 10px;
-			border: solid 3px var(--siw-contrast);
+			padding: 8px;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			border-color: var(--siw-accent);
+			font-weight: 500;
+			font-size: 17px;
 			cursor: pointer;
 
 			&:after {
 				content: "+";
 				float: right;
-				font-size: 1em;
-				font-weight: bold;
+				font-weight: 700;
+				color: var(--siw-contrast-light);
 			}
 
 			&[aria-expanded="true"] {
-				background-color: var(--siw-contrast);
-				color: var(--siw-base);
 				&:after {
 					content: "-";
-					color: var(--siw-base);
 				}
 			}
 		}
@@ -40,13 +41,6 @@
 		&[aria-hidden=false] {
 			display:block;
 			padding:10px;
-		}
-
-		div.product .woocommerce-tabs & {
-			margin-bottom:0;
-			&[aria-hidden=false] {
-				padding:10px;
-			}
 		}
 	}
 }

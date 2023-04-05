@@ -38,14 +38,21 @@ class CSS {
 	/** Basekleur (achtergrondkleur) */
 	const BASE_COLOR = '#fefefe';
 
+	/** Extra kleuren o.a. voor de continenten */
+	const PURPLE_COLOR = '#623981';
+	const BLUE_COLOR = '#67bdd3';
+	const RED_COLOR = '#e74052';
+	const GREEN_COLOR = '#7fc31b';
+	const YELLOW_COLOR = '#f4f416';
+
 	/** Genereert reponsive classes */
 	public static function generate_responsive_classes( int $desktop_columns, int $tablet_columns = null, int $mobile_columns = null ): string {
-		$classes[] = 'grid-' . self::columns_to_grid_width( $desktop_columns );
+		$classes[] = 'width-' . self::columns_to_grid_width( $desktop_columns );
 		if ( is_int( $tablet_columns ) ) {
-			$classes[] = 'tablet-grid-' . self::columns_to_grid_width( $tablet_columns );
+			$classes[] = 'tablet-width-' . self::columns_to_grid_width( $tablet_columns );
 		}
 		if ( is_int( $mobile_columns ) ) {
-			$classes[] = 'mobile-grid-' . self::columns_to_grid_width( $mobile_columns );
+			$classes[] = 'mobile-width-' . self::columns_to_grid_width( $mobile_columns );
 		}
 		return implode( SPACE, $classes );
 	}
@@ -65,5 +72,56 @@ class CSS {
 
 	public static function get_css_generator(): ?Generator {
 		return new Generator();
+	}
+
+	/** Geeft thema-kleuren terug */
+	public static function get_colors(): array {
+		return [
+			[
+				'name'  => 'Accent',
+				'slug'  => 'siw-accent',
+				'color' => self::ACCENT_COLOR,
+			],
+			[
+				'name'  => 'Contrast',
+				'slug'  => 'siw-contrast',
+				'color' => self::CONTRAST_COLOR,
+			],
+			[
+				'name'  => 'Contrast 2',
+				'slug'  => 'siw-contrast-light',
+				'color' => self::CONTRAST_COLOR_LIGHT,
+			],
+			[
+				'name'  => 'Base',
+				'slug'  => 'siw-base',
+				'color' => self::BASE_COLOR,
+			],
+			[
+				'name'  => 'Paars',
+				'slug'  => 'siw-purple',
+				'color' => self::PURPLE_COLOR,
+			],
+			[
+				'name'  => 'Blauw',
+				'slug'  => 'siw-blue',
+				'color' => self::BLUE_COLOR,
+			],
+			[
+				'name'  => 'Rood',
+				'slug'  => 'siw-red',
+				'color' => self::RED_COLOR,
+			],
+			[
+				'name'  => 'Groen',
+				'slug'  => 'siw-green',
+				'color' => self::GREEN_COLOR,
+			],
+			[
+				'name'  => 'Geel',
+				'slug'  => 'siw-yellow',
+				'color' => self::YELLOW_COLOR,
+			],
+		];
 	}
 }

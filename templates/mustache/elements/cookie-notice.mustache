@@ -1,23 +1,25 @@
-<div id="{{ element.id }}" class="{{ element.class }}" hidden>
+<div id="{{ element.id }}" class="{{ element.classes }}" hidden>
 	<form>
-		<div class="grid-container">
-			<div class="grid-70">
-				{{& i18n.cookie_text | wp_kses_post }}
+		<div class="cookie-container grid-container">
+			<div class="cookie-options">
+				<div class="cookie-text">
+					{{& i18n.cookie_text | wp_kses_post }}
+				</div>
+				<div class="cookie-option">
+					<label><input type="checkbox" disabled checked/>{{ i18n.analytical }}</label>
+					<input type="hidden" name="analytical" value="1"/>
+				</div>
+				<div class="cookie-option">
+					<label><input type="checkbox" id="marketing" name="marketing" value="1"/>{{ i18n.marketing }}</label>
+				</div>
 			</div>
-			<div class="grid-15 mobile-grid-50">
-				<button type="submit" class="hide-if-no-js" name="accept_selection">{{ i18n.accept_selection }}</button>
-			</div>
-			<div class="grid-15 mobile-grid-50">
-				<button type="submit" class="hide-if-no-js" name="accept_all">{{ i18n.accept_all }}</button>
-			</div>
-		</div>
-		<div class="grid-container ">
-			<div class="grid-15">
-				<label><input type="checkbox" disabled checked/>{{ i18n.analytical }}</label>
-				<input type="hidden" name="analytical" value="1"/>
-			</div>
-			<div class="grid-15">
-				<label><input type="checkbox" id="marketing" name="marketing" value="1"/>{{ i18n.marketing }}</label>
+			<div class="cookie-buttons">
+				<div class="cookie-button">
+					<button type="submit" class="hide-if-no-js" name="accept_selection">{{ i18n.accept_selection }}</button>
+				</div>
+				<div class="cookie-button">
+					<button type="submit" class="hide-if-no-js" name="accept_all">{{ i18n.accept_all }}</button>
+				</div>
 			</div>
 		</div>
 	</form>

@@ -5,7 +5,7 @@ namespace SIW;
 /**
  * Functionaliteit t.b.v. meertaligheid
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
  */
 class I18n {
 
@@ -21,17 +21,13 @@ class I18n {
 
 	/** Geeft code van huidige taal terug */
 	public static function get_current_language(): string {
-		return apply_filters( 'wpml_current_language', null ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		return apply_filters( 'wpml_current_language', get_bloginfo( 'language' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
 	/** Geeft code van standaardtaal terug */
 	public static function get_default_language(): string {
-		return apply_filters( 'wpml_default_language', null ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		return apply_filters( 'wpml_default_language', get_bloginfo( 'language' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
 
-	/** Geeft gegevens van actieve talen terug */
-	public static function get_active_languages(): array {
-		return apply_filters( 'wpml_active_languages', null ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-	}
 }
 

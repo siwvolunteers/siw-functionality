@@ -79,7 +79,6 @@ class Bootstrap {
 		define( 'BR', '<br/>' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 		define( 'BR2', '<br/><br/>' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 		define( 'SPACE', ' ' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-		define( 'HR', '<hr>' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 
 		// De log handler moet zo vroeg mogelijk overschreven worden
 		define( 'WC_LOG_HANDLER', \WC_Log_Handler_DB::class ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals

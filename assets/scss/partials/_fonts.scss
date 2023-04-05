@@ -1,33 +1,29 @@
 @use "_variables" as variables;
 
-$font-weights: (
-	"Thin": 100,
-	"ExtraLight": 200,
-	"Light": 300,
-	"Regular": 400,
-	"Medium": 500,
-	"SemiBold": 600,
-	"Bold": 700,
-	"ExtraBold": 800,
-	"Black": 900
+$font-weights-open-sans: (
+	300,
+	400,
+	500,
+	600,
+	700,
+	800
 );
 
-$font-styles: (
+$font-styles-open-sans: (
 	normal: '',
-	italic: 'Italic',
+	italic: 'italic',
 );
 
-@each $name, $weight in $font-weights {
+@each $weight in $font-weights-open-sans {
 
-	@each $style, $suffix in $font-styles {
+	@each $style, $suffix in $font-styles-open-sans {
 		@font-face {
-			font-family: 'Metropolis';
+			font-family: 'Open Sans';
 			font-style: $style;
 			font-weight: $weight;
-			src: url('#{variables.$assets-path}/fonts/Metropolis/woff2/Metropolis-#{$name}#{$suffix}.woff2') format('woff2'),
-				 url('#{variables.$assets-path}/fonts/Metropolis/woff/Metropolis-#{$name}#{$suffix}.woff') format('woff');
+			src: url('#{variables.$assets-path}/fonts/OpenSans/woff2/open-sans-v34-latin-#{$weight}#{$suffix}.woff2') format('woff2'),
+				 url('#{variables.$assets-path}/fonts/OpenSans/woff/open-sans-v34-latin-#{$weight}#{$suffix}.woff') format('woff');
 			font-display: swap;
 		}
 	}
-
 }

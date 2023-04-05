@@ -20,13 +20,16 @@ class Page_Settings extends Base {
 	#[Filter( 'display_post_states' )]
 	public function add_panels_post_state( array $post_states, \WP_Post $post ): array {
 		$special_page = get_post_meta( $post->ID, self::SPECIAL_PAGE_META, true );
-		$project_type_page = get_post_meta( $post->ID, self::PROJECT_TYPE_PAGE_META, true );
+		$special_page_label = Special_Page::tryFrom( $special_page )?->label;
 
-		if ( ! empty( $special_page ) ) {
-			$post_states[] = Special_Page::tryFrom( $special_page )?->label;
+		$project_type_page = get_post_meta( $post->ID, self::PROJECT_TYPE_PAGE_META, true );
+		$project_type_page_label = Project_Type::tryFrom( $project_type_page )?->label;
+
+		if ( null !== $special_page_label ) {
+			$post_states[] = $special_page_label;
 		}
-		if ( ! empty( $project_type_page ) ) {
-			$post_states[] = Project_Type::tryFrom( $project_type_page )?->label;
+		if ( null !== $project_type_page_label ) {
+			$post_states[] = $project_type_page_label;
 		}
 		return $post_states;
 	}

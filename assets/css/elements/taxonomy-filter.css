@@ -3,13 +3,13 @@
 }
 .siw-taxonomy-filter button {
   margin: 2px;
-  background-color: var(--siw-base);
-  border: 2px solid var(--siw-contrast);
+  border: 1px solid var(--siw-contrast-light);
+  border-radius: 4px;
   color: var(--siw-contrast);
   transition: all 0.6s ease-out;
+  background-color: transparent;
 }
-.siw-taxonomy-filter button.is-checked {
-  background: var(--siw-contrast);
+.siw-taxonomy-filter button.is-checked, .siw-taxonomy-filter button:hover {
+  background-color: var(--siw-accent);
   color: var(--siw-base);
-  border: 2px solid transparent;
 }

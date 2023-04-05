@@ -1,30 +1,32 @@
-<div class="grid-20">
-	<span class="event-date">
-		<span class="day">
-			{{ event_day }}
+<div class="flex-container flex-direction-column-mobile">
+	<div class="width-20">
+		<span class="event-date">
+			<span class="day">
+				{{ event_day }}
+			</span>
+			<br>
+			<span class="month">
+				{{ event_month }}
+			</span>
+			<br>
+			<span class="time">
+				{{& icon_clock }} {{ start_time }} - {{ end_time }}
+			</span>
 		</span>
-		<br>
-		<span class="month">
-			{{ event_month }}
+	</div>
+	<div class="width-60">
+		<span class="event-location">
+			{{# online }}
+				{{& icon_globe }} {{ i18n.online }}
+			{{/ online }}
+			{{^ online }}
+				{{& icon_map-marker-alt }} {{ location.name }}, {{ location.city }}
+			{{/online}}
 		</span>
-		<br>
-		<span class="time">
-			{{& icon_clock }} {{ start_time }} - {{ end_time }}
-		</span>
-	</span>
-</div>
-<div class="grid-60">
-	<span class="event-location">
-		{{# online }}
-			{{& icon_globe }} {{ i18n.online }}
-		{{/ online }}
-		{{^ online }}
-			{{& icon_map-marker-alt }} {{ location.name }}, {{ location.city }}
-		{{/online}}
-	</span>
-<br><br>
-{{& abstract|wp_kses_post }}
-</div>
-<div class="grid-20">
-{{& link }}
+		<br><br>
+		{{& abstract|wp_kses_post }}
+	</div>
+	<div class="width-20">
+	{{& link }}
+	</div>
 </div>

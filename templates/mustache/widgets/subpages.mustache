@@ -1,0 +1,16 @@
+{{> widgets/title}}
+{{> widgets/intro}}
+<div class="subpages">
+{{#subpages}}
+	<div class="subpage">
+		<p class="thumb-image">{{& image }}</p>
+		<h3 class="widget-title">{{ title }}</h3>
+		<p class="summary">{{ excerpt }}</p>
+		<p class="permalink">
+			<a href="{{ permalink }}" class="page-link"> {{ i18n.read_more }}</a>
+		</p>
+	</div>
+{{/subpages}}
+</div>
+
+

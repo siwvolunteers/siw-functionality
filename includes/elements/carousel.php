@@ -127,7 +127,7 @@ class Carousel extends Element {
 		<?php
 		if ( $query->have_posts() ) {
 			?>
-			<div class="main-carousel grid-container" data-flickity='<?php echo wp_json_encode( $this->options ); ?>'>
+			<div class="main-carousel" data-flickity='<?php echo wp_json_encode( $this->options ); ?>'>
 			<?php
 			while ( $query->have_posts() ) {
 				$query->the_post();

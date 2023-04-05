@@ -90,7 +90,7 @@ class Shortcode {
 		}
 
 		printf(
-			'<a href="%s" class="button ghost">%s</a>',
+			'<a href="%s" class="button">%s</a>',
 			esc_url( $attributes['button_url'] ),
 			esc_html( $attributes['button_text'] ),
 		);
@@ -106,7 +106,7 @@ class Shortcode {
 			esc_html__( 'Er zijn helaas geen projecten gevonden die aan je zoekcriteria voldoen.', 'siw' )
 		);
 		printf(
-			'<a href="%s" class="button ghost">%s</a>',
+			'<a href="%s" class="button">%s</a>',
 			esc_url( wc_get_page_permalink( 'shop' ) ),
 			esc_html__( 'Bekijk alle projecten', 'siw' )
 		);

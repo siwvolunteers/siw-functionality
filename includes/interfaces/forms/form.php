@@ -15,6 +15,12 @@ interface Form {
 	/** Halve breedte */
 	const HALF_WIDTH = 6;
 
+	/** Derde breedte */
+	const THIRD_WIDTH = 4;
+
+	/** Kwart breedte */
+	const QUARTER_WIDTH = 3;
+
 	/** Geeft ID van formulier terug */
 	public function get_form_id(): string;
 

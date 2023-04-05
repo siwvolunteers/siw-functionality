@@ -3,7 +3,7 @@
   position: relative;
   fill: var(--siw-contrast-light);
 }
-.footer-widgets .siw-icon {
+.footer-widgets .siw-icon, .top-bar .siw-icon {
   fill: var(--siw-base);
 }
 

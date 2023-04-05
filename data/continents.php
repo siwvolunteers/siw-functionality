@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use SIW\Util\CSS;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -14,27 +16,27 @@ $siw_data = [
 	[
 		'slug'  => 'europa',
 		'name'  => __( 'Europa', 'siw' ),
-		'color' => '#67bdd3',
+		'color' => CSS::BLUE_COLOR,
 	],
 	[
 		'slug'  => 'azie',
 		'name'  => __( 'Azië', 'siw' ),
-		'color' => '#7fc31b',
+		'color' => CSS::GREEN_COLOR,
 	],
 	[
 		'slug'  => 'afrika',
 		'name'  => __( 'Afrika', 'siw' ),
-		'color' => '#e74052',
+		'color' => CSS::RED_COLOR,
 	],
 	[
 		'slug'  => 'latijns-amerika',
 		'name'  => __( 'Latijns-Amerika', 'siw' ),
-		'color' => '#623981',
+		'color' => CSS::PURPLE_COLOR,
 	],
 	[
 		'slug'  => 'noord-amerika',
 		'name'  => __( 'Noord-Amerika', 'siw' ),
-		'color' => '#f4d416',
+		'color' => CSS::YELLOW_COLOR,
 	],
 ];
 

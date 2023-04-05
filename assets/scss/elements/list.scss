@@ -4,4 +4,20 @@ ul {
 			columns: #{$i};
 		}
 	}
+	$list-style-types: (
+		disc,
+		circle,
+		square,
+		check
+	);
+
+	@each $style in $list-style-types {
+		&[data-list-style-type="#{$style}"] li {
+			list-style-type: $style;
+		}
+	}
+
+	.footer-widgets & {
+		list-style-position: inside;
+	}
 }
