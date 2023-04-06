@@ -61,10 +61,12 @@ class Subpages extends Widget {
 		/** @var \WP_Post[]|false */
 		$page_ids = get_posts(
 			[
-				'post_type'   => 'page',
-				'post_parent' => $parent_id,
-				'orderby'     => 'menu_order',
-				'fields'      => 'id',
+				'post_type'      => 'page',
+				'post_parent'    => $parent_id,
+				'orderby'        => 'menu_order',
+				'order'          => 'ASC',
+				'fields'         => 'id',
+				'posts_per_page' => -1,
 			]
 		);
 

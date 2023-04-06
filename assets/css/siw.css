@@ -767,6 +767,7 @@ span.product-badge.featured-badge {
   list-style: none;
   border: 1px solid #bbb;
   text-align: left;
+  background-color: var(--siw-base);
   text-align: center;
 }
 .siw-carousel .carousel-cell li.product .woocommerce-LoopProduct-link h2 {
