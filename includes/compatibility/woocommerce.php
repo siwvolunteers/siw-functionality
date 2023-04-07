@@ -31,6 +31,12 @@ class WooCommerce extends Plugin {
 		return 'woocommerce/woocommerce.php';
 	}
 
+	#[Action( 'woocommerce_before_customer_object_save' )]
+	public function fix_billing_country( \WC_Customer $customer ) {
+		// Tijdelijke fix, kan weg als https://github.com/woocommerce/woocommerce/pull/37463 is opgeleverd
+		$customer->set_billing_country( null );
+	}
+
 	#[Filter( 'lostpassword_url', 1 )]
 	/** Lost password via wp methode */
 	public function remove_lostpassword_url_filter() {
