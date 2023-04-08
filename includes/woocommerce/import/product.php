@@ -414,7 +414,7 @@ class Product {
 		if ( 0 === $wc_attribute_taxonomy_id ) {
 			$wc_attribute_taxonomy_id = wc_create_attribute(
 				[
-					'name'         => $taxonomy_attribute->label,
+					'name'         => $taxonomy_attribute->label(),
 					'slug'         => $taxonomy_attribute->value,
 					'type'         => 'select',
 					'order_by'     => 'name',
