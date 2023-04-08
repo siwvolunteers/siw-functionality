@@ -36,11 +36,11 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function select_data() : array {
+	public function select_data(): array {
 
 		$data = get_terms(
 			[
-				'taxonomy'   => Taxonomy_Attribute::toValues(),
+				'taxonomy'   => array_column( Taxonomy_Attribute::cases(), 'value' ),
 				'fields'     => 'tt_ids',
 				'hide_empty' => false,
 			]
@@ -89,7 +89,7 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 		$visible_count = count( $visible_posts );
 
 		// Alleen van maand moeten lege waardes verwijderd worden
-		$delete_empty = Taxonomy_Attribute::MONTH()->value === $term->taxonomy;
+		$delete_empty = Taxonomy_Attribute::MONTH->value === $term->taxonomy;
 
 		// Lege terms eventueel weggooien
 		if ( $delete_empty && 0 === $count ) {

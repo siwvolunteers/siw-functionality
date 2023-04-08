@@ -117,7 +117,7 @@ class Project_Wizard extends Widget {
 						'%s %s',
 						'Begin je zoektocht eens bij de <em>groepsprojecten binnen Europa</em>.',
 						Links::generate_link(
-							get_term_link( 'europa', Taxonomy_Attribute::CONTINENT()->value ),
+							get_term_link( 'europa', Taxonomy_Attribute::CONTINENT->value ),
 							__( 'Lees meer', 'siw' ),
 							[ 'class' => 'page-link' ]
 						)

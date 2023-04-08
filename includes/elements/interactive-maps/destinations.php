@@ -106,7 +106,7 @@ class Destinations implements Interactive_Map_Interface {
 
 	/** Genereert beschrijving voor groepsprojecten */
 	protected function generate_workcamps_description( Country $country ): string {
-		$country_term = get_term_by( 'slug', $country->get_slug(), Taxonomy_Attribute::COUNTRY()->value );
+		$country_term = get_term_by( 'slug', $country->get_slug(), Taxonomy_Attribute::COUNTRY->value );
 
 		if ( is_a( $country_term, \WP_Term::class ) ) {
 			$workcamp_count = get_term_meta( $country_term->term_id, Update_WooCommerce_Terms::POST_COUNT_TERM_META, true );
@@ -115,7 +115,7 @@ class Destinations implements Interactive_Map_Interface {
 		}
 
 		if ( $workcamp_count > 0 ) {
-			$url = get_term_link( $country->get_slug(), Taxonomy_Attribute::COUNTRY()->value );
+			$url = get_term_link( $country->get_slug(), Taxonomy_Attribute::COUNTRY->value );
 			$text = __( 'Bekijk het aanbod', 'siw' );
 		} else {
 			$url = get_permalink( siw_get_project_type_page( Project_Type::WORKCAMPS ) ?? 0 );
