@@ -2,46 +2,34 @@
 
 namespace SIW\WooCommerce;
 
-use \Spatie\Enum\Enum;
+use SIW\Interfaces\Enums\Labels as I_Enum_Labels;
 
 /**
  * WooCommerce product attributes
  *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- *
- * @method static self PROJECT_NAME()
- * @method static self PROJECT_CODE()
- * @method static self START_DATE()
- * @method static self END_DATE()
- * @method static self NUMBER_OF_VOLUNTEERS()
- * @method static self AGE_RANGE()
- * @method static self PARTICIPATION_FEE()
+ * @copyright 2021-2023 SIW Internationale Vrijwilligersprojecten
  */
-class Product_Attribute extends Enum {
+enum Product_Attribute:string implements I_Enum_Labels {
+
+	case PROJECT_NAME         = 'projectnaam';
+	case PROJECT_CODE         = 'projectcode';
+	case START_DATE           = 'startdatum';
+	case END_DATE             = 'einddatum';
+	case NUMBER_OF_VOLUNTEERS = 'aantal-vrijwilligers';
+	case AGE_RANGE            = 'leeftijd';
+	case PARTICIPATION_FEE    = 'lokale-bijdrage';
+
 
 	/** {@inheritDoc} */
-	protected static function values(): array {
-		return [
-			'PROJECT_NAME'         => 'projectnaam',
-			'PROJECT_CODE'         => 'projectcode',
-			'START_DATE'           => 'startdatum',
-			'END_DATE'             => 'einddatum',
-			'NUMBER_OF_VOLUNTEERS' => 'aantal-vrijwilligers',
-			'AGE_RANGE'            => 'leeftijd',
-			'PARTICIPATION_FEE'    => 'lokale-bijdrage',
-		];
-	}
-
-	/** {@inheritDoc} */
-	protected static function labels(): array {
-		return [
-			'PROJECT_NAME'         => __( 'Projectnaam', 'siw' ),
-			'PROJECT_CODE'         => __( 'Projectcode', 'siw' ),
-			'START_DATE'           => __( 'Startdatum', 'siw' ),
-			'END_DATE'             => __( 'Einddatum', 'siw' ),
-			'NUMBER_OF_VOLUNTEERS' => __( 'Aantal vrijwilligers', 'siw' ),
-			'AGE_RANGE'            => __( 'Leeftijd', 'siw' ),
-			'PARTICIPATION_FEE'    => __( 'Lokale bijdrage', 'siw' ),
-		];
+	public function label(): string {
+		return match ($this) {
+			self::PROJECT_NAME         => __( 'Projectnaam', 'siw' ),
+			self::PROJECT_CODE         => __( 'Projectcode', 'siw' ),
+			self::START_DATE           => __( 'Startdatum', 'siw' ),
+			self::END_DATE             => __( 'Einddatum', 'siw' ),
+			self::NUMBER_OF_VOLUNTEERS => __( 'Aantal vrijwilligers', 'siw' ),
+			self::AGE_RANGE            => __( 'Leeftijd', 'siw' ),
+			self::PARTICIPATION_FEE    => __( 'Lokale bijdrage', 'siw' ),
+		};
 	}
 }

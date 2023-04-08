@@ -5,7 +5,7 @@ namespace SIW\WooCommerce\Frontend;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Product_Attribute;
 use SIW\WooCommerce\Taxonomy_Attribute;
-use Spatie\Enum\Enum;
+
 
 /**
  * Aanpassingen aan Groepsproject
@@ -37,22 +37,22 @@ class Product {
 	/** Past weergave van de attributes aan */
 	public function display_product_attributes( array $attributes, WC_Product_Project $product ): array {
 		$order = [
-			Product_Attribute::PROJECT_NAME(),
-			Product_Attribute::PROJECT_CODE(),
-			Taxonomy_Attribute::COUNTRY(),
-			Taxonomy_Attribute::WORK_TYPE(),
-			Product_Attribute::START_DATE(),
-			Product_Attribute::END_DATE(),
-			Product_Attribute::NUMBER_OF_VOLUNTEERS(),
-			Product_Attribute::AGE_RANGE(),
-			Product_Attribute::PARTICIPATION_FEE(),
-			Taxonomy_Attribute::LANGUAGE(),
-			Taxonomy_Attribute::TARGET_AUDIENCE(),
-			Taxonomy_Attribute::SDG(),
+			Product_Attribute::PROJECT_NAME,
+			Product_Attribute::PROJECT_CODE,
+			Taxonomy_Attribute::COUNTRY,
+			Taxonomy_Attribute::WORK_TYPE,
+			Product_Attribute::START_DATE,
+			Product_Attribute::END_DATE,
+			Product_Attribute::NUMBER_OF_VOLUNTEERS,
+			Product_Attribute::AGE_RANGE,
+			Product_Attribute::PARTICIPATION_FEE,
+			Taxonomy_Attribute::LANGUAGE,
+			Taxonomy_Attribute::TARGET_AUDIENCE,
+			Taxonomy_Attribute::SDG,
 		];
 
 		$order = array_map(
-			fn( Enum $attribute ): string => "attribute_{$attribute->value}",
+			fn( \BackedEnum $attribute ): string => "attribute_{$attribute->value}",
 			$order
 		);
 
@@ -81,10 +81,10 @@ class Product {
 
 		$summary = [
 			__( 'Land', 'siw' )                          => $product->get_country()->get_name(),
-			__( 'Soort werk', 'siw' )                    => $product->get_attribute( Taxonomy_Attribute::WORK_TYPE()->value ),
+			__( 'Soort werk', 'siw' )                    => $product->get_attribute( Taxonomy_Attribute::WORK_TYPE->value ),
 			__( 'Projectduur', 'siw' )                   => siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false ),
-			__( 'Sustainable Development Goals', 'siw' ) => $product->get_attribute( Taxonomy_Attribute::SDG()->value ),
-			__( 'Aantal deelnemers', 'siw' )             => $product->get_attribute( Product_Attribute::NUMBER_OF_VOLUNTEERS()->value ),
+			__( 'Sustainable Development Goals', 'siw' ) => $product->get_attribute( Taxonomy_Attribute::SDG->value ),
+			__( 'Aantal deelnemers', 'siw' )             => $product->get_attribute( Product_Attribute::NUMBER_OF_VOLUNTEERS->value ),
 		];
 
 		echo '<p>';
