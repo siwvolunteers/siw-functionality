@@ -36,12 +36,12 @@ class Update_Database implements Batch_Action_Interface {
 	/** {@inheritDoc} */
 	public function select_data(): array {
 		$tables = [
-			Database_Table::PLATO_PROJECTS(),
-			Database_Table::PLATO_PROJECT_FREE_PLACES(),
-			Database_Table::PLATO_PROJECT_IMAGES(),
+			Database_Table::PLATO_PROJECTS,
+			Database_Table::PLATO_PROJECT_FREE_PLACES,
+			Database_Table::PLATO_PROJECT_IMAGES,
 		];
 		return array_map(
-			fn( Database_Table $table ) : string => $table->value,
+			fn( Database_Table $table ): string => $table->value,
 			$tables
 		);
 	}
@@ -52,11 +52,11 @@ class Update_Database implements Batch_Action_Interface {
 		$database = new Database( $table );
 		if ( ! $database->create_table() ) {
 			return false;
-		};
+		}
 
 		// TODO: verplaatsen naar tabel-definitie + methode create_table() uitbreiden
-		if ( $table->equals( Database_Table::PLATO_PROJECT_IMAGES() ) ) {
-			$database->add_foreign_key( Database_Table::PLATO_PROJECTS(), [ 'project_id' ], [ 'project_id' ] );
+		if ( Database_Table::PLATO_PROJECT_IMAGES === $table ) {
+			$database->add_foreign_key( Database_Table::PLATO_PROJECTS, [ 'project_id' ], [ 'project_id' ] );
 		}
 	}
 }

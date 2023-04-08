@@ -93,7 +93,7 @@ class Update_Projects implements Batch_Action_Interface {
 
 		$project_ids = wp_cache_get( 'project_ids', 'siw_update_workcamps' );
 		if ( false === $project_ids ) {
-			$project_db = new Database( Database_Table::PLATO_PROJECTS() );
+			$project_db = new Database( Database_Table::PLATO_PROJECTS );
 			$project_ids = $project_db->get_col( 'project_id' );
 			wp_cache_set( 'project_ids', $project_ids, 'siw_update_workcamps' );
 		}

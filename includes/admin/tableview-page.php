@@ -39,7 +39,7 @@ class Tableview_Page extends Base {
 			'dashicons-database'
 		);
 
-		foreach ( Database_Table::toArray() as $table => $name ) {
+		foreach ( \siw_get_enum_array( Database_Table::cases() ) as $table => $name ) {
 			$hook = add_submenu_page(
 				self::MENU_SLUG,
 				$name,
@@ -62,7 +62,7 @@ class Tableview_Page extends Base {
 		add_thickbox();
 		?>
 		<div class="wrap">
-			<h2><?php echo esc_html( $this->current_table->label ); ?> </h2>
+			<h2><?php echo esc_html( $this->current_table->label() ); ?> </h2>
 			<?php $this->database_list_table->prepare_items(); ?>
 			<form method="get">
 				<input type="hidden" name="page" value="siw-database-table-<?php echo esc_attr( $this->current_table->value ); ?>"/>
@@ -90,7 +90,7 @@ class Tableview_Page extends Base {
 	#[Filter( 'set-screen-option' )]
 	/** Sla schermoptie op */
 	public function set_screen_option( $keep, $option, $value ) {
-		foreach ( Database_Table::toValues() as $table ) {
+		foreach ( array_keys( \siw_get_enum_array( Database_Table::cases() ) ) as $table ) {
 			if ( "{$table}_records_per_page" === $option ) {
 				$keep = $value;
 			}
