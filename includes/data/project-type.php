@@ -19,10 +19,10 @@ enum Project_Type:string implements I_Enum_Labels {
 	/** {@inheritDoc} */
 	public function label(): string {
 		return match ($this) {
-			'WORKCAMPS'       => __( 'Groepsvrijwilligerswerk', 'siw' ),
-			'ESC'             => __( 'ESC (European Solidarity Corps)', 'siw' ),
-			'SCHOOL_PROJECTS' => __( 'Scholenprojecten', 'siw' ),
-			'WORLD_BASIC'     => __( 'Wereld basis', 'siw' ),
+			self::WORKCAMPS       => __( 'Groepsvrijwilligerswerk', 'siw' ),
+			self::ESC             => __( 'ESC (European Solidarity Corps)', 'siw' ),
+			self::SCHOOL_PROJECTS => __( 'Scholenprojecten', 'siw' ),
+			self::WORLD_BASIC     => __( 'Wereld basis', 'siw' ),
 		};
 	}
 }
