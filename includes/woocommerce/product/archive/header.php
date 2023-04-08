@@ -63,27 +63,27 @@ class Header {
 		} elseif ( \is_product_taxonomy() ) {
 			$name = get_queried_object()->name;
 			switch ( get_queried_object()->taxonomy ) {
-				case Taxonomy_Attribute::COUNTRY()->value:
+				case Taxonomy_Attribute::COUNTRY->value:
 					// translators: %s is het land
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in %s.', 'siw' ), '<b>' . $name . '</b>' );
 					break;
-				case Taxonomy_Attribute::WORK_TYPE()->value:
+				case Taxonomy_Attribute::WORK_TYPE->value:
 					// translators: %s is het soort werk
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
 					break;
-				case Taxonomy_Attribute::SDG()->value:
+				case Taxonomy_Attribute::SDG->value:
 					// translators: %s is het SDG
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op het Sustainable Development Goal %s.', 'siw' ), '<b>' . $name . '</b>' );
 					break;
-				case Taxonomy_Attribute::TARGET_AUDIENCE()->value:
+				case Taxonomy_Attribute::TARGET_AUDIENCE->value:
 					// translators: %s is de doelgroep
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten voor de doelgroep %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
 					break;
-				case Taxonomy_Attribute::LANGUAGE()->value:
+				case Taxonomy_Attribute::LANGUAGE->value:
 					// translators: %s is de taal
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met de voertaal %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
-				case Taxonomy_Attribute::MONTH()->value:
+				case Taxonomy_Attribute::MONTH->value:
 					// translators: %s is de maand
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
@@ -94,7 +94,7 @@ class Header {
 
 		if (
 			\is_product_taxonomy()
-			&& get_queried_object()->taxonomy === Taxonomy_Attribute::WORK_TYPE()->value
+			&& get_queried_object()->taxonomy === Taxonomy_Attribute::WORK_TYPE->value
 			&& siw_get_work_type( get_queried_object()->slug )?->needs_review()
 		) {
 			$text .= BR . 'Aangezien je in deze projecten met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.';

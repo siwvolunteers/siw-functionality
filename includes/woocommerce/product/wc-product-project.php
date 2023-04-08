@@ -133,20 +133,20 @@ class WC_Product_Project extends \WC_Product_Simple {
 	/** Geeft land van project terug */
 	public function get_country(): ?Country {
 		$attributes = $this->get_attributes();
-		if ( ! isset( $attributes[ Taxonomy_Attribute::COUNTRY()->value ] ) ) {
+		if ( ! isset( $attributes[ Taxonomy_Attribute::COUNTRY->value ] ) ) {
 			return null;
 		}
-		return siw_get_country( $attributes[ Taxonomy_Attribute::COUNTRY()->value ]->get_slugs()[0] );
+		return siw_get_country( $attributes[ Taxonomy_Attribute::COUNTRY->value ]->get_slugs()[0] );
 	}
 
 	/** Geeft aan of dit een Nederlandse project is */
 	public function is_dutch_project(): bool {
 		$attributes = $this->get_attributes();
-		if ( ! isset( $attributes[ Taxonomy_Attribute::COUNTRY()->value ] ) ) {
+		if ( ! isset( $attributes[ Taxonomy_Attribute::COUNTRY->value ] ) ) {
 			return false;
 		}
 
-		return 'nederland' === $attributes[ Taxonomy_Attribute::COUNTRY()->value ]->get_slugs()[0];
+		return 'nederland' === $attributes[ Taxonomy_Attribute::COUNTRY->value ]->get_slugs()[0];
 	}
 
 	/**
@@ -156,13 +156,13 @@ class WC_Product_Project extends \WC_Product_Simple {
 	 */
 	public function get_work_types(): array {
 		$attributes = $this->get_attributes();
-		if ( ! isset( $attributes[ Taxonomy_Attribute::WORK_TYPE()->value ] ) ) {
+		if ( ! isset( $attributes[ Taxonomy_Attribute::WORK_TYPE->value ] ) ) {
 			return [];
 		}
 
 		return array_map(
 			fn( string $work_type_slug ): ?Work_Type => siw_get_work_type( $work_type_slug ),
-			$attributes[ Taxonomy_Attribute::WORK_TYPE()->value ]->get_slugs()
+			$attributes[ Taxonomy_Attribute::WORK_TYPE->value ]->get_slugs()
 		);
 	}
 
@@ -173,13 +173,13 @@ class WC_Product_Project extends \WC_Product_Simple {
 	 */
 	public function get_sustainable_development_goals(): array {
 		$attributes = $this->get_attributes();
-		if ( ! isset( $attributes[ Taxonomy_Attribute::SDG()->value ] ) ) {
+		if ( ! isset( $attributes[ Taxonomy_Attribute::SDG->value ] ) ) {
 			return [];
 		}
 
 		return array_map(
 			fn( string $sdg_slug ): ?Sustainable_Development_Goal => siw_get_sustainable_development_goal( $sdg_slug ),
-			$attributes[ Taxonomy_Attribute::SDG()->value ]->get_slugs()
+			$attributes[ Taxonomy_Attribute::SDG->value ]->get_slugs()
 		);
 	}
 

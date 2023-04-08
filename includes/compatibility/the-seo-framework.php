@@ -42,12 +42,12 @@ class The_SEO_Framework extends Base implements I_Plugin {
 			return $custom_urls;
 		}
 		$taxonomies = [
-			Taxonomy_Attribute::CONTINENT(),
-			Taxonomy_Attribute::COUNTRY(),
-			Taxonomy_Attribute::TARGET_AUDIENCE(),
-			Taxonomy_Attribute::WORK_TYPE(),
-			Taxonomy_Attribute::LANGUAGE(),
-			Taxonomy_Attribute::SDG(),
+			Taxonomy_Attribute::CONTINENT,
+			Taxonomy_Attribute::COUNTRY,
+			Taxonomy_Attribute::TARGET_AUDIENCE,
+			Taxonomy_Attribute::WORK_TYPE,
+			Taxonomy_Attribute::LANGUAGE,
+			Taxonomy_Attribute::SDG,
 		];
 
 		foreach ( $taxonomies as $taxonomy ) {

@@ -34,7 +34,7 @@ class Query {
 		if ( ! empty( $query_vars['country'] ) ) {
 			$query['tax_query'][] = [
 				[
-					'taxonomy' => Taxonomy_Attribute::COUNTRY()->value,
+					'taxonomy' => Taxonomy_Attribute::COUNTRY->value,
 					'field'    => 'slug',
 					'terms'    => esc_attr( $query_vars['country'] ),
 				],
