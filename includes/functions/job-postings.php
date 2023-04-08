@@ -63,17 +63,17 @@ function siw_generate_job_posting_json_ld( int $job_id ): string {
 		->set_description( siw_meta( 'introduction', [], $job_id ) )
 		->set_date_posted( new \DateTime( get_the_modified_date( 'Y-m-d', $job_id ) ) )
 		->set_valid_through( new \DateTime( siw_meta( 'deadline', [], $job_id ) ) )
-		->set_employment_type( Employment_Type::PART_TIME() );
+		->set_employment_type( Employment_Type::PART_TIME );
 
 	switch ( siw_meta( 'job_type', [], $job_id ) ) {
 		case 'paid':
 			break;
 		case 'internship':
-			$job_posting->add_employment_type( Employment_Type::INTERN() );
+			$job_posting->add_employment_type( Employment_Type::INTERN );
 			break;
 		case 'volunteer':
 		default:
-			$job_posting->add_employment_type( Employment_Type::VOLUNTEER() );
+			$job_posting->add_employment_type( Employment_Type::VOLUNTEER );
 	}
 
 	$job_posting->set_hiring_organization(
@@ -81,7 +81,7 @@ function siw_generate_job_posting_json_ld( int $job_id ): string {
 				->set_name( Properties::NAME )
 				->set_same_as( SIW_SITE_URL )
 				->set_logo( get_site_icon_url() )
-				->set_non_profit_status( NL_Non_Profit_Type::NonprofitANBI() )
+				->set_non_profit_status( NL_Non_Profit_Type::NonprofitANBI )
 	)
 		->set_qualifications( siw_meta( 'description.qualifications', [], $job_id ) )
 		->set_responsibilities( siw_meta( 'description.work', [], $job_id ) )

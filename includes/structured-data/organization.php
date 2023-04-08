@@ -2,6 +2,8 @@
 
 namespace SIW\Structured_Data;
 
+use SIW\Interfaces\Structured_Data\Non_Profit_Type as I_Non_Profit_Type;
+
 /**
  * Organisatie
  *
@@ -21,7 +23,7 @@ class Organization extends Thing {
 	}
 
 	/** Zet non-profit-status */
-	public function set_non_profit_status( Non_Profit_Type $non_profit_status ): static {
+	public function set_non_profit_status( I_Non_Profit_Type $non_profit_status ): static {
 		return $this->set_property( 'nonprofitStatus', $non_profit_status );
 	}
 

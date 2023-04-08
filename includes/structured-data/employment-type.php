@@ -2,26 +2,22 @@
 
 namespace SIW\Structured_Data;
 
-use \Spatie\Enum\Enum;
-
 /**
  * Soort baan
  *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2023 SIW Internationale Vrijwilligersprojecten
  * @see https://developers.google.com/search/docs/data-types/job-posting
- *
- * @method static self EMPLOYMENT_TYPE_UNSPECIFIED()
- * @method static self FULL_TIME()
- * @method static self PART_TIME()
- * @method static self CONTRACTOR()
- * @method static self CONTRACT_TO_HIRE()
- * @method static self TEMPORARY()
- * @method static self INTERN()
- * @method static self VOLUNTEER()
- * @method static self PER_DIEM()
- * @method static self FLY_IN_FLY_OUT()
- * @method static self OTHER_EMPLOYMENT_TYPE()
  */
-class Employment_Type extends Enum {
-
+enum Employment_Type {
+	case EMPLOYMENT_TYPE_UNSPECIFIED;
+	case FULL_TIME;
+	case PART_TIME;
+	case CONTRACTOR;
+	case CONTRACT_TO_HIRE;
+	case TEMPORARY;
+	case INTERN;
+	case VOLUNTEER;
+	case PER_DIEM;
+	case FLY_IN_FLY_OUT;
+	case OTHER_EMPLOYMENT_TYPE;
 }
