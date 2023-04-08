@@ -110,8 +110,8 @@ function siw_get_special_page( Special_Page $special_page ): \WP_Post {
 	/** @var \WP_Post[]|false */
 	$pages = get_pages(
 		[
-			'meta_key'   => Page_Settings::SPECIAL_PAGE_META,
-			'meta_value' => $special_page->value,
+			'meta_key'     => Page_Settings::SPECIAL_PAGE_META,
+			'meta_value'   => $special_page->value,
 			'hierarchical' => false,
 		]
 	);

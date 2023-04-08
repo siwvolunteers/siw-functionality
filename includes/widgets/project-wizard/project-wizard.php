@@ -156,7 +156,7 @@ class Project_Wizard extends Widget {
 						'%s %s',
 						'Voor jou zijn <em>Wereld-basis-projecten</em> een mooi startpunt</em>.',
 						Links::generate_link(
-							get_permalink( siw_get_project_type_page( Project_Type::WORLD_BASIC() ) ),
+							get_permalink( siw_get_project_type_page( Project_Type::WORLD_BASIC ) ),
 							__( 'Lees meer', 'siw' ),
 							[ 'class' => 'page-link' ]
 						)
@@ -206,7 +206,7 @@ class Project_Wizard extends Widget {
 						'%s %s',
 						'Jij komt in aanmerking voor het <em>European Solidarity Fund</em> en kan bijna kosteloos een vrijwilligersproject gaan doen.',
 						Links::generate_link(
-							get_permalink( siw_get_project_type_page( Project_Type::ESC() ) ),
+							get_permalink( siw_get_project_type_page( Project_Type::ESC ) ),
 							__( 'Lees meer', 'siw' ),
 							[ 'class' => 'page-link' ]
 						)

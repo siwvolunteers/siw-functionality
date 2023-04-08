@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use SIW\Interfaces\Enums\Labels;
+use SIW\Interfaces\Enums\Labels as I_Enum_Labels;
 
 if ( ! function_exists( 'get_query_arg' ) ) {
 	/**
@@ -68,5 +68,5 @@ function siw_hash( string $data ): string {
 
 
 function siw_get_enum_array( array $enum_cases ): array {
-	return array_map( fn( Labels $e) => $e->label(), $enum_cases );
+	return array_map( fn( I_Enum_Labels $e) => $e->label(), $enum_cases );
 }

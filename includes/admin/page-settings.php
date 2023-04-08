@@ -20,10 +20,10 @@ class Page_Settings extends Base {
 	#[Filter( 'display_post_states' )]
 	public function add_panels_post_state( array $post_states, \WP_Post $post ): array {
 		$special_page = get_post_meta( $post->ID, self::SPECIAL_PAGE_META, true );
-		$special_page_label = Special_Page::tryFrom( $special_page )?->label;
+		$special_page_label = Special_Page::tryFrom( $special_page )?->label();
 
 		$project_type_page = get_post_meta( $post->ID, self::PROJECT_TYPE_PAGE_META, true );
-		$project_type_page_label = Project_Type::tryFrom( $project_type_page )?->label;
+		$project_type_page_label = Project_Type::tryFrom( $project_type_page )->label();
 
 		if ( null !== $special_page_label ) {
 			$post_states[] = $special_page_label;
@@ -48,13 +48,13 @@ class Page_Settings extends Base {
 					'id'      => self::SPECIAL_PAGE_META,
 					'name'    => __( 'Speciale pagina', 'siw' ),
 					'type'    => 'select_advanced',
-					'options' => Special_Page::toArray(),
+					'options' => siw_get_enum_array( Special_Page::cases() ),
 				],
 				[
 					'id'      => self::PROJECT_TYPE_PAGE_META,
 					'name'    => __( 'Projecttype-pagina', 'siw' ),
 					'type'    => 'select_advanced',
-					'options' => Project_Type::toArray(),
+					'options' => siw_get_enum_array( Project_Type::cases() ),
 				],
 			],
 		];

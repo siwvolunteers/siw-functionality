@@ -256,10 +256,10 @@ class Story extends Type {
 	protected function get_cta_url(): ?string {
 
 		$pages = [
-			'esc'            => Project_Type::ESC(),
-			'wereld-basis'   => Project_Type::WORLD_BASIC(),
-			'scholenproject' => Project_Type::SCHOOL_PROJECTS(),
-			'groepsproject'  => Project_Type::WORKCAMPS(),
+			'esc'            => Project_Type::ESC,
+			'wereld-basis'   => Project_Type::WORLD_BASIC,
+			'scholenproject' => Project_Type::SCHOOL_PROJECTS,
+			'groepsproject'  => Project_Type::WORKCAMPS,
 		];
 
 		$project_type = siw_meta( 'siw_story_project_type' );
@@ -279,13 +279,13 @@ class Story extends Type {
 	}
 
 	/** {@inheritDoc} */
-	protected function get_archive_intro() : array {
+	protected function get_archive_intro(): array {
 		$intro = siw_get_option( 'story.archive_intro' );
 		return [ $intro ];
 	}
 
 	/** {@inheritDoc} */
-	protected function get_social_share_cta() : string {
+	protected function get_social_share_cta(): string {
 		return __( 'Deel dit ervaringsverhaal', 'siw' );
 	}
 

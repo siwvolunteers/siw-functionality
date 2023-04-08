@@ -18,7 +18,7 @@ class Menu_Item_Info_Button extends Base {
 		// TODO: settings uit Customizer halen?
 		printf(
 			'<span ><a href="%1$s" class="button">%2$s</a></span>',
-			esc_url( get_permalink( siw_get_special_page( Special_Page::CONTACT() ) ) ),
+			esc_url( get_permalink( siw_get_special_page( Special_Page::CONTACT ) ) ),
 			esc_html__( 'Info aanvragen', 'siw' ),
 		);
 	}

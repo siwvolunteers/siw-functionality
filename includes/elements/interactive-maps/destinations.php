@@ -97,7 +97,7 @@ class Destinations implements Interactive_Map_Interface {
 
 		/* EVS */
 		if ( $country->has_esc_projects() ) {
-			$esc_page = siw_get_project_type_page( Project_Type::ESC() );
+			$esc_page = siw_get_project_type_page( Project_Type::ESC );
 			$project_types[] = esc_html__( 'ESC', 'siw' ) . SPACE . Links::generate_link( get_permalink( $esc_page ?? 0 ), __( 'Lees meer', 'siw' ) );
 		}
 
@@ -118,7 +118,7 @@ class Destinations implements Interactive_Map_Interface {
 			$url = get_term_link( $country->get_slug(), Taxonomy_Attribute::COUNTRY()->value );
 			$text = __( 'Bekijk het aanbod', 'siw' );
 		} else {
-			$url = get_permalink( siw_get_project_type_page( Project_Type::WORKCAMPS() ) ?? 0 );
+			$url = get_permalink( siw_get_project_type_page( Project_Type::WORKCAMPS ) ?? 0 );
 			$text = __( 'Lees meer', 'siw' );
 		}
 		return esc_html__( 'Groepsprojecten', 'siw' ) . SPACE . Links::generate_link( $url, $text );
@@ -127,7 +127,7 @@ class Destinations implements Interactive_Map_Interface {
 	/** Genereert beschrijving voor Op Maat */
 	public function generate_tailor_made_description( Country $country ): string {
 
-		$tailor_made_page_link = siw_get_project_type_page( Project_Type::WORLD_BASIC() );
+		$tailor_made_page_link = siw_get_project_type_page( Project_Type::WORLD_BASIC );
 
 		$tailor_made_pages = get_posts(
 			[
@@ -153,7 +153,7 @@ class Destinations implements Interactive_Map_Interface {
 	 *
 	 * @todo aanbod per land
 	 */
-	public function get_mobile_content() : string {
+	public function get_mobile_content(): string {
 		$countries = siw_get_countries_list( Country::PROJECTS );
 		return List_Columns::create()->add_items( array_values( $countries ) )->set_columns( 2 )->generate();
 	}

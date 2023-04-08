@@ -73,7 +73,7 @@ class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 	/** Genereert url voor bevestingslink TODO: verplaatsen naar Newsletter Util klasse */
 	protected function generate_confirmation_url(): string {
 
-		$confirmation_page = siw_get_special_page( Special_Page::NEWSLETTER_CONFIRMATION() );
+		$confirmation_page = siw_get_special_page( Special_Page::NEWSLETTER_CONFIRMATION );
 
 		return add_query_arg(
 			[
