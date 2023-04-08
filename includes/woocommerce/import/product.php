@@ -532,10 +532,10 @@ class Product {
 	 */
 	protected function set_target_audiences() {
 
-		if ( $this->plato_project->get_family() || $this->project_type->equals( Plato_Project_Type::FAM() ) ) {
+		if ( $this->plato_project->get_family() || Plato_Project_Type::FAM === $this->project_type ) {
 			$this->target_audiences[] = Target_Audience::FAMILIES();
 		}
-		if ( $this->plato_project->get_max_age() <= 19 || $this->project_type->equals( Plato_Project_Type::TEEN() ) ) {
+		if ( $this->plato_project->get_max_age() <= 19 || Plato_Project_Type::TEEN === $this->project_type ) {
 			$this->target_audiences[] = Target_Audience::TEENAGERS();
 		}
 	}
@@ -543,10 +543,10 @@ class Product {
 	/** Geeft aan het het een toegestaan type project is */
 	protected function is_allowed_project_type(): bool {
 		$allowed_project_types = [
-			Plato_Project_Type::STV(),
-			Plato_Project_Type::TEEN(),
-			Plato_Project_Type::FAM(),
+			Plato_Project_Type::STV->value,
+			Plato_Project_Type::TEEN->value,
+			Plato_Project_Type::FAM->value,
 		];
-		return $this->project_type->equals( ...$allowed_project_types );
+		return in_array( $this->project_type->value, $allowed_project_types, true );
 	}
 }
