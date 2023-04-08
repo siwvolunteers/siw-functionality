@@ -23,7 +23,7 @@ class Page_Settings extends Base {
 		$special_page_label = Special_Page::tryFrom( $special_page )?->label();
 
 		$project_type_page = get_post_meta( $post->ID, self::PROJECT_TYPE_PAGE_META, true );
-		$project_type_page_label = Project_Type::tryFrom( $project_type_page )->label();
+		$project_type_page_label = Project_Type::tryFrom( $project_type_page )?->label();
 
 		if ( null !== $special_page_label ) {
 			$post_states[] = $special_page_label;
