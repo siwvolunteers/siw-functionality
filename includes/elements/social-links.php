@@ -3,6 +3,7 @@
 namespace SIW\Elements;
 
 use SIW\Data\Social_Network;
+use SIW\Data\Social_Network_Context;
 use SIW\Helpers\Template;
 
 /**
@@ -14,8 +15,8 @@ class Social_Links extends Element {
 
 	const ASSETS_HANDLE = 'siw-social-links';
 
-	/** Context (share of follow) TODO: enum van maken */
-	protected string $context;
+	/** Context (share of follow) */
+	protected Social_Network_Context $context;
 
 	/** {@inheritDoc} */
 	protected static function get_type(): string {
@@ -33,7 +34,7 @@ class Social_Links extends Element {
 				'name'      => $network->get_name(),
 				'label'     => sprintf(
 					// translators: %s is de naam van een sociaal netwerk
-					( Social_Network::SHARE === $this->context ) ? __( 'Delen via %s', 'siw' ) : __( 'Volg ons op %s', 'siw' ),
+					( Social_Network_Context::SHARE === $this->context ) ? __( 'Delen via %s', 'siw' ) : __( 'Volg ons op %s', 'siw' ),
 					$network->get_name()
 				),
 				'color'     => $network->get_color(),
@@ -79,7 +80,7 @@ class Social_Links extends Element {
 	}
 
 	/** Zet context (volgen of delen) */
-	public function set_context( string $context ): self {
+	public function set_context( Social_Network_Context $context ): self {
 		$this->context = $context;
 		return $this;
 	}

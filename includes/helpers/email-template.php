@@ -3,6 +3,7 @@
 namespace SIW\Helpers;
 
 use SIW\Data\Social_Network;
+use SIW\Data\Social_Network_Context;
 use SIW\Properties;
 use SIW\Util\CSS;
 
@@ -53,7 +54,7 @@ class Email_Template {
 						'image_url'  => SIW_ASSETS_URL . 'images/mail/' . $network->get_slug() . '.png',
 						'slug'       => $network->get_slug(),
 					],
-					siw_get_social_networks( Social_Network::FOLLOW )
+					siw_get_social_networks( Social_Network_Context::FOLLOW )
 				)
 			),
 

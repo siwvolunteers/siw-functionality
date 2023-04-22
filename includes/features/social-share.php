@@ -5,6 +5,7 @@ namespace SIW\Features;
 use SIW\Attributes\Action;
 use SIW\Base;
 use SIW\Data\Social_Network;
+use SIW\Data\Social_Network_Context;
 use SIW\Elements\Social_Links;
 use SIW\Helpers\Template;
 
@@ -42,7 +43,7 @@ class Social_Share extends Base {
 				[
 					'header'       => $this->get_title(),
 					'social_links' => Social_Links::create()
-						->set_context( Social_Network::SHARE )
+						->set_context( Social_Network_Context::SHARE )
 						->generate(),
 				]
 			)

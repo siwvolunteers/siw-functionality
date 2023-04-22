@@ -3,18 +3,18 @@
 /**
  * Sociale netwerken
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
+ * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
  */
 
 use SIW\Data\Social_Network;
+use SIW\Data\Social_Network_Context;
 
 /**
  * Geeft een lijst met gegevens van sociale netwerken terug
  *
  * @return Social_Network[]
  */
-function siw_get_social_networks( $context = Social_Network::ALL ): array {
+function siw_get_social_networks( Social_Network_Context $context = Social_Network_Context::ALL ): array {
 
 	$social_networks = wp_cache_get( $context, __FUNCTION__ );
 	if ( false !== $social_networks ) {
@@ -45,7 +45,7 @@ function siw_get_social_networks( $context = Social_Network::ALL ): array {
 }
 
 /** Geeft lijst van sociale netwerken terug */
-function siw_get_social_networks_list( string $context = Social_Network::ALL ): array {
+function siw_get_social_networks_list( Social_Network_Context $context = Social_Network_Context::ALL ): array {
 	return array_map(
 		fn( Social_Network $social_network ): string => $social_network->get_name(),
 		siw_get_social_networks( $context )
