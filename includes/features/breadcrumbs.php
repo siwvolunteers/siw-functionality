@@ -91,13 +91,9 @@ class Breadcrumbs extends Base {
 			);
 		} elseif ( is_single() ) {
 
-			$post_type = get_post_type();
-			$post_type_object = get_post_type_object( $post_type );
-			$title = apply_filters( 'post_type_archive_title', $post_type_object->labels->name ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-
 			$this->add_crumb(
-				$title,
-				get_post_type_archive_link( $post_type )
+				post_type_archive_title( '', false ),
+				get_post_type_archive_link( get_post_type() )
 			);
 
 			// TODO: overige post types?
