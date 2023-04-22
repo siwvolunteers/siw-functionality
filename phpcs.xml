@@ -61,6 +61,10 @@
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax" />
 	<rule ref="Generic.PHP.RequireStrictTypes"/>
 
+  <rule ref="WordPress-Core">
+    <exclude name="Universal.Arrays.DisallowShortArraySyntax" />
+  </rule>
+
 	<!-- <rule ref="Generic.Files.LineEndings">
 		<properties>
 			<property name="eolChar" value="\r\n"/>
