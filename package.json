@@ -42,11 +42,6 @@
 				"src": "dist/tablist.js",
 				"target": "assets/vendor/tablist"
 			},
-			"balloon-css": {
-				"version": "^1.2.0",
-				"src": "balloon.css",
-				"namespaced": true
-			},
 			"flickity": {
 				"version": "^2.2.1",
 				"src": "{dist/flickity.pkgd.js,dist/flickity.css}",
