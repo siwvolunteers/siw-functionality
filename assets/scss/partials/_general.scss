@@ -68,6 +68,9 @@ a[rel*=external] {
 		content: "\2197";
 		position: absolute;
 	}
+	&:has(> img, > svg)::after {
+		content: none;
+	}
 }
 
 input[type=button],
