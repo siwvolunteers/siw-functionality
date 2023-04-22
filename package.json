@@ -62,11 +62,6 @@
 				"src": "src/js.cookie.js",
 				"namespaced": true
 			},
-			"micromodal": {
-				"version": "^0.4.6",
-				"src": "dist/micromodal.js",
-				"namespaced": true
-			},
 			"sal.js": {
 				"version": "^0.8.0",
 				"src": "dist/*",
