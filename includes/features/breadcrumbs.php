@@ -90,10 +90,13 @@ class Breadcrumbs extends Base {
 				get_permalink( get_option( 'page_for_posts', true ) )
 			);
 		} elseif ( is_single() ) {
+			$post_type = get_post_type();
+			$post_type_object = get_post_type_object( $post_type );
+			$title = apply_filters( 'post_type_archive_title', $post_type_object->labels->name, $post_type ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			$this->add_crumb(
-				post_type_archive_title( '', false ),
-				get_post_type_archive_link( get_post_type() )
+				$title,
+				get_post_type_archive_link( $post_type )
 			);
 
 			// TODO: overige post types?
