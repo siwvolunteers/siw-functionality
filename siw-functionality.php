@@ -26,6 +26,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 define( 'SIW_FUNCTIONALITY_PLUGIN_FILE', __FILE__ );
-require_once dirname( __FILE__ ) . '/bootstrap.php';
+require_once __DIR__ . '/bootstrap.php';
 $siw_bootstrap = new Bootstrap();
 $siw_bootstrap->init();
