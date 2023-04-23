@@ -17,7 +17,7 @@ class Featured_Image extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
-		return 'featured-image';
+		return 'featured_image';
 	}
 
 	/** {@inheritDoc} */

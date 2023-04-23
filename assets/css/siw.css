@@ -157,6 +157,9 @@ a[rel*=external]::after {
   content: "↗";
   position: absolute;
 }
+a[rel*=external]:has(> img, > svg)::after {
+  content: none;
+}
 
 input[type=button],
 input[type=submit],
