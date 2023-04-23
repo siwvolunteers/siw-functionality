@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce\Admin;
 
-use SIW\Data\Country;
+use SIW\Data\Country_Context;
 use SIW\Data\Work_Type;
 
 /**
@@ -32,7 +32,7 @@ class Stockphoto_Page {
 	}
 
 	/** Voegt admin-pagina toe */
-	public function add_page( $pages ) : array {
+	public function add_page( $pages ): array {
 		$pages[] = [
 			'parent'      => 'edit.php?post_type=product',
 			'id'          => $this->page_id,
@@ -46,7 +46,7 @@ class Stockphoto_Page {
 	}
 
 	/** Voegt metabox toe */
-	public function add_metabox( array $metaboxes ) : array {
+	public function add_metabox( array $metaboxes ): array {
 
 		$metaboxes[] = [
 			'id'             => 'stockphotos',
@@ -81,7 +81,7 @@ class Stockphoto_Page {
 							'type'        => 'select_advanced',
 							'name'        => __( 'Land', 'siw' ),
 							'placeholder' => __( 'Selecteer een land', 'siw' ),
-							'options'     => \siw_get_countries_list( Country::ALL, 'slug' ),
+							'options'     => \siw_get_countries_list( Country_Context::ALL, 'slug' ),
 							'required'    => true,
 
 						],

@@ -3,7 +3,7 @@
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
-use SIW\Data\Country;
+use SIW\Data\Country_Context;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
 use SIW\Data\Work_Type;
@@ -63,7 +63,7 @@ class TM_Country extends Type {
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
 				'required'    => true,
-				'options'     => siw_get_countries_list( Country::TAILOR_MADE ),
+				'options'     => siw_get_countries_list( Country_Context::TAILOR_MADE ),
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],
 			[

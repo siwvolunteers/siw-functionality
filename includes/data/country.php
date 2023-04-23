@@ -20,36 +20,6 @@ class Country extends Data {
 	/** Plato-code */
 	const PLATO_CODE = 'plato_code';
 
-	/** Alle landen */
-	const ALL = 'all';
-
-	/** Landen met groepsprojecten */
-	const WORKCAMPS = 'workcamps';
-
-	/** Landen met ESC-projecten */
-	const ESC = 'esc_projects';
-
-	/** Landen met projecten op maat */
-	const TAILOR_MADE = 'tailor_made_projects';
-
-	/** Landen met projecten */
-	const PROJECTS = 'projects';
-
-	/** Landen in Afrika */
-	const AFRICA = 'afrika';
-
-	/** Landen in Azië */
-	const ASIA = 'azie';
-
-	/** Landen in Europa */
-	const EUROPE = 'europa';
-
-	/** Landen in Noord-Amerika */
-	const NORTH_AMERICA = 'noord_amerika';
-
-	/** Landen in Latijns-Amerika */
-	const LATIN_AMERICA = 'latijns_amerika';
-
 	/** ISO-code van het land */
 	protected string $iso_code;
 
@@ -131,25 +101,25 @@ class Country extends Data {
 	}
 
 	/** Geeft aan of land geldig is voor context */
-	public function is_valid_for_context( string $context ): bool {
+	public function is_valid_for_context( Country_Context $context ): bool {
 
 		switch ( $context ) {
-			case self::ALL:
+			case Country_Context::ALL:
 				return true;
-			case self::WORKCAMPS:
+			case Country_Context::WORKCAMPS:
 				return $this->has_workcamps();
-			case self::ESC:
+			case Country_Context::ESC:
 				return $this->has_esc_projects();
-			case self::TAILOR_MADE:
+			case Country_Context::TAILOR_MADE:
 				return $this->has_tailor_made_projects();
-			case self::PROJECTS:
+			case Country_Context::PROJECTS:
 				return $this->has_projects();
-			case self::AFRICA:
-			case self::ASIA:
-			case self::EUROPE:
-			case self::NORTH_AMERICA:
-			case self::LATIN_AMERICA:
-				return $context === $this->get_continent()->get_slug();
+			case Country_Context::AFRICA:
+			case Country_Context::ASIA:
+			case Country_Context::EUROPE:
+			case Country_Context::NORTH_AMERICA:
+			case Country_Context::LATIN_AMERICA:
+				return $context->value === $this->get_continent()->get_slug();
 			default:
 				return false;
 		}

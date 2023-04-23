@@ -7,15 +7,16 @@
  */
 
 use SIW\Data\Country;
+use SIW\Data\Country_Context;
 
 /**
  * Geeft array van gegevens van landen terug
  *
  * @return Country[]
  */
-function siw_get_countries( string $context = Country::ALL, string $index = Country::SLUG ): array {
+function siw_get_countries( Country_Context $context = Country_Context::ALL, string $index = Country::SLUG ): array {
 
-	$countries = wp_cache_get( "{$context}_{$index}", __FUNCTION__ );
+	$countries = wp_cache_get( "{$context->value}_{$index}", __FUNCTION__ );
 	if ( false !== $countries ) {
 		return $countries;
 	}
@@ -50,12 +51,12 @@ function siw_get_countries( string $context = Country::ALL, string $index = Coun
 		fn( Country $country ): bool => $country->is_valid_for_context( $context )
 	);
 
-	wp_cache_set( "{$context}_{$index}", $countries, __FUNCTION__ );
+	wp_cache_set( "{$context->value}_{$index}", $countries, __FUNCTION__ );
 	return $countries;
 }
 
 /** Geeft lijst van landen terug */
-function siw_get_countries_list( string $context = Country::ALL, string $index = Country::SLUG ): array {
+function siw_get_countries_list( Country_Context $context = Country_Context::ALL, string $index = Country::SLUG ): array {
 	return array_map(
 		fn( Country $country ): string => $country->get_name(),
 		siw_get_countries( $context, $index )
@@ -64,6 +65,6 @@ function siw_get_countries_list( string $context = Country::ALL, string $index =
 
 /** Geeft land terug op basis van zoekterm */
 function siw_get_country( string $country, string $index = Country::SLUG ): ?Country {
-	$countries = siw_get_countries( Country::ALL, $index );
+	$countries = siw_get_countries( Country_Context::ALL, $index );
 	return $countries[ $country ] ?? null;
 }
