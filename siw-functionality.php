@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Author URI:        https://www.siw.nl
  * Text Domain:       siw
  * License:           GPLv2 or later
- * Requires at least: 5.9
+ * Requires at least: 6.2
  * Requires PHP:      8.0
  */
 
