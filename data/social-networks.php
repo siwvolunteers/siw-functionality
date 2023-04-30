@@ -48,7 +48,7 @@ $siw_data = [
 		'follow'             => true,
 		'follow_url'         => 'https://www.linkedin.com/company/siw',
 		'share'              => true,
-		'share_url_template' => 'https://www.linkedin.com/shareArticle?mini=true&url={{ url }}&amp;title={{ title }}',
+		'share_url_template' => 'https://www.linkedin.com/sharing/share-offsite/?url={{ url }}',
 	],
 	[
 		'slug'       => 'youtube',
