@@ -2,7 +2,10 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Util\Animation as Animation_Util;
+use SIW\Data\Animation_Delay;
+use SIW\Data\Animation_Duration;
+use SIW\Data\Animation_Easing;
+use SIW\Data\Animation_Type;
 
 use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
 use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
@@ -186,31 +189,31 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 	}
 
 	/** {@inheritDoc} */
-	public function set_settings_defaults( array $defaults ) : array {
-		$defaults[ self::OPTION_FIELD_DURATION ] = '1000';
-		$defaults[ self::OPTION_FIELD_DELAY ]    = 'none';
-		$defaults[ self::OPTION_FIELD_EASING ]   = 'ease-out-sine';
+	public function set_settings_defaults( array $defaults ): array {
+		$defaults[ self::OPTION_FIELD_DURATION ] = Animation_Duration::DURATION_1000_MS;
+		$defaults[ self::OPTION_FIELD_DELAY ]    = Animation_Delay::NONE;
+		$defaults[ self::OPTION_FIELD_EASING ]   = Animation_Easing::EASE_OUT_SINE->value;
 		return $defaults;
 	}
 
 	/** Geeft animatie type terug */
-	protected function get_types() : array {
-		return Animation_Util::get_types();
+	protected function get_types(): array {
+		return siw_get_enum_array( Animation_Type::cases() );
 	}
 
 	/** Geeft easing opties terug */
-	protected function get_easing_options( bool $include_default_option = true ) : array {
-		return $this->maybe_add_default_option( Animation_Util::get_easing_options(), $include_default_option );
+	protected function get_easing_options( bool $include_default_option = true ): array {
+		return $this->maybe_add_default_option( siw_get_enum_array( Animation_Easing::cases() ), $include_default_option );
 	}
 
 	/** Geeft vertraging opties terug */
-	protected function get_delay_options( bool $include_default_option = true ) : array {
-		return $this->maybe_add_default_option( Animation_Util::get_delay_options(), $include_default_option );
+	protected function get_delay_options( bool $include_default_option = true ): array {
+		return $this->maybe_add_default_option( siw_get_enum_array( Animation_Delay::cases() ), $include_default_option );
 	}
 
 	/** Geeft duur opties terug */
-	protected function get_duration_options( bool $include_default_option = true ) : array {
-		return $this->maybe_add_default_option( Animation_Util::get_duration_options(), $include_default_option );
+	protected function get_duration_options( bool $include_default_option = true ): array {
+		return $this->maybe_add_default_option( siw_get_enum_array( Animation_Duration::cases() ), $include_default_option );
 	}
 
 	/** Voegt eventueel default optie toe */
@@ -222,19 +225,19 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 	}
 
 	/** Geeft standaard easing terug */
-	protected function get_default_easing() : string {
+	protected function get_default_easing(): string {
 		$easing_options = $this->get_easing_options();
 		return $easing_options[ siteorigin_panels_setting( self::OPTION_FIELD_EASING ) ] ?? '';
 	}
 
 	/** Geeft standaard duur terug */
-	protected function get_default_duration() : string {
+	protected function get_default_duration(): string {
 		$duration_options = $this->get_duration_options();
 		return $duration_options[ siteorigin_panels_setting( self::OPTION_FIELD_DURATION ) ] ?? '';
 	}
 
 	/** Geeft standaard vertraging terug */
-	protected function get_default_delay() : string {
+	protected function get_default_delay(): string {
 		$delay_options = $this->get_delay_options();
 		return $delay_options[ siteorigin_panels_setting( self::OPTION_FIELD_DELAY ) ] ?? '';
 	}

@@ -68,7 +68,7 @@ class HTML {
 	}
 
 	/** Genereert attributes op basis van array */
-	public static function generate_attributes( array $attributes ) : string {
+	public static function generate_attributes( array $attributes ): string {
 		$rendered_attributes = '';
 		foreach ( $attributes as $key => $value ) {
 			if ( false === $value ) {
@@ -79,6 +79,9 @@ class HTML {
 			}
 			if ( is_array( $value ) ) {
 				$value = wp_json_encode( $value );
+			}
+			if ( is_a( $value, \BackedEnum::class ) ) {
+				$value = $value->value;
 			}
 
 			$rendered_attributes .= sprintf( true === $value ? ' %s' : ' %s="%s"', $key, esc_attr( $value ) );

@@ -2,6 +2,10 @@
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
+use SIW\Data\Animation_Delay;
+use SIW\Data\Animation_Duration;
+use SIW\Data\Animation_Easing;
+use SIW\Data\Animation_Type;
 use SIW\Data\Country_Context;
 use SIW\Data\Project_Type;
 use SIW\Elements\Quote;
@@ -196,26 +200,26 @@ class Story extends Type {
 	public function add_single_content() {
 		$animation_fade = HTML::generate_attributes(
 			[
-				'data-sal'          => 'fade',
-				'data-sal-duration' => 1800,
-				'data-sal-easing'   => 'ease-out-sine',
-				'data-sal-delay'    => 'none',
+				'data-sal'          => Animation_Type::FADE,
+				'data-sal-duration' => Animation_Duration::DURATION_1800_MS,
+				'data-sal-easing'   => Animation_Easing::EASE_OUT_SINE,
+				'data-sal-delay'    => Animation_Delay::NONE,
 			]
 		);
 		$animation_left = HTML::generate_attributes(
 			[
-				'data-sal'          => 'slide-left',
-				'data-sal-duration' => 1800,
-				'data-sal-easing'   => 'ease-out-sine',
-				'data-sal-delay'    => 'none',
+				'data-sal'          => Animation_Type::SLIDE_LEFT,
+				'data-sal-duration' => Animation_Duration::DURATION_1800_MS,
+				'data-sal-easing'   => Animation_Easing::EASE_OUT_SINE,
+				'data-sal-delay'    => Animation_Delay::NONE,
 			]
 		);
 		$animation_right = HTML::generate_attributes(
 			[
-				'data-sal'          => 'slide-right',
-				'data-sal-duration' => 1800,
-				'data-sal-easing'   => 'ease-out-sine',
-				'data-sal-delay'    => 'none',
+				'data-sal'          => Animation_Type::SLIDE_RIGHT,
+				'data-sal-duration' => Animation_Duration::DURATION_1800_MS,
+				'data-sal-easing'   => Animation_Easing::EASE_OUT_SINE,
+				'data-sal-delay'    => Animation_Delay::NONE,
 			]
 		);
 		$template_vars = [
