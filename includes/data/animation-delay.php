@@ -2,10 +2,10 @@
 
 namespace SIW\Data;
 
-use SIW\Interfaces\EnuMS\Labels;
+use SIW\Interfaces\Enums\Labels;
 
 /**
- * Animatie-vertragin
+ * Animatie-vertraging
  *
  * @copyright 2023 SIW Internationale Vrijwilligersprojecten
  */
