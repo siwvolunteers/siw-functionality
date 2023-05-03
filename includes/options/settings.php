@@ -2,6 +2,7 @@
 
 namespace SIW\Options;
 
+use SIW\Data\Board_Title;
 use SIW\Interfaces\Options\Option as Option_Interface;
 
 use SIW\Properties;
@@ -126,7 +127,7 @@ class Settings implements Option_Interface {
 					'name'     => __( 'Functie', 'siw' ),
 					'type'     => 'button_group',
 					'required' => true,
-					'options'  => \siw_get_board_titles(),
+					'options'  => siw_get_enum_array( Board_Title::cases() ),
 				],
 			],
 		];
