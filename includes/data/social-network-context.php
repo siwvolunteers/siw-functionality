@@ -10,14 +10,12 @@ use SIW\Interfaces\Enums\Labels;
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 enum Social_Network_Context:string implements Labels {
-	case ALL = 'all';
 	case SHARE = 'share';
 	case FOLLOW = 'follow';
 
 	/** {@inheritDoc} */
 	public function label(): string {
 		return match ($this) {
-			self::ALL    => __( 'Alle', 'siw' ),
 			self::SHARE  =>  __( 'Delen', 'siw' ),
 			self::FOLLOW =>  __( 'Volgen', 'siw' ),
 		};

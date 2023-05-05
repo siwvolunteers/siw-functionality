@@ -74,9 +74,9 @@ class Social_Network extends Data {
 	}
 
 	/** Geeft aan of Sociaal netwerk geldig is voor een gegeven context */
-	public function is_valid_for_context( Social_Network_Context $context ): bool {
+	public function is_valid_for_context( ?Social_Network_Context $context ): bool {
 		return (
-			Social_Network_Context::ALL === $context
+			null === $context
 			|| ( Social_Network_Context::SHARE === $context && $this->is_for_sharing() )
 			|| ( Social_Network_Context::FOLLOW === $context && $this->is_for_following() )
 		);
