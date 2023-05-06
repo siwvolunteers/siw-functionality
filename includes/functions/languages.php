@@ -51,14 +51,3 @@ function siw_get_language( string $language, string $index = Language::SLUG ): ?
 	$languages = siw_get_languages( $index );
 	return $languages[ $language ] ?? null;
 }
-
-/** Geeft een lijst met niveau's van taalvaardigheid terug */
-function siw_get_language_skill_levels(): array {
-	$language_skill_levels = [
-		'1' => __( 'Matig', 'siw' ),
-		'2' => __( 'Redelijk', 'siw' ),
-		'3' => __( 'Goed', 'siw' ),
-		'4' => __( 'Uitstekend', 'siw' ),
-	];
-	return $language_skill_levels;
-}

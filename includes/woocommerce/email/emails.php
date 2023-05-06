@@ -3,6 +3,7 @@
 namespace SIW\WooCommerce\Email;
 
 use SIW\Data\Language;
+use SIW\Data\Language_Skill_Level;
 use SIW\Properties;
 use SIW\Util\CSS;
 use SIW\WooCommerce\Product\WC_Product_Project;
@@ -92,7 +93,6 @@ class Emails {
 
 		// Referentiegegevens
 		$languages = [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages_list( Language::PLATO_CODE );
-		$language_skill = siw_get_language_skill_levels();
 
 		$table_data['application'] = $this->get_application_table_data( $order );
 		$table_data['payment'] = $this->get_payment_table_data( $order );
@@ -131,15 +131,15 @@ class Emails {
 			'rows'   => [
 				[
 					'label' => $languages[ $order->get_meta( 'language_1' ) ] ?? '',
-					'value' => $language_skill[ $order->get_meta( 'language_1_skill' ) ] ?? '',
+					'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_1_skill' ) )?->label() ?? '',
 				],
 				[
 					'label' => $languages[ $order->get_meta( 'language_2' ) ] ?? '',
-					'value' => $language_skill[ $order->get_meta( 'language_2_skill' ) ] ?? '',
+					'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_2_skill' ) )?->label() ?? '',
 				],
 				[
 					'label' => $languages[ $order->get_meta( 'language_3' ) ] ?? '',
-					'value' => $language_skill[ $order->get_meta( 'language_3_skill' ) ] ?? '',
+					'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_3_skill' ) )?->label() ?? '',
 				],
 			],
 		];
