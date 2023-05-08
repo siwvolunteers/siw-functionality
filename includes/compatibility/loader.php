@@ -12,10 +12,11 @@ use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
 class Loader extends Class_Loader_Abstract {
 
 	/** {@inheritDoc} */
-	public function get_classes() : array {
+	public function get_classes(): array {
 		return [
 			Action_Scheduler::class,
 			GeneratePress::class,
+			GTranslate::class,
 			Members::class,
 			Meta_Box::class,
 			Safe_Redirect_Manager::class,
