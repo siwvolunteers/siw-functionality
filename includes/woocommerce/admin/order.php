@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Admin;
 
+use SIW\Data\Gender;
+
 /**
  * Aanpassing aan admin t.b.v. aanmeldingen
  *
@@ -29,7 +31,7 @@ class Order {
 	}
 
 	/** Geeft secties met velden terug */
-	protected function get_checkout_sections() : array {
+	protected function get_checkout_sections(): array {
 		$checkout_sections = siw_get_data( 'workcamps/checkout-sections' );
 		return $checkout_sections;
 	}
@@ -64,7 +66,7 @@ class Order {
 				'label'   => __( 'Geslacht', 'siw' ),
 				'show'    => false,
 				'type'    => 'select',
-				'options' => siw_get_genders(),
+				'options' => siw_get_enum_array( Gender::cases() ),
 			],
 			'first_name'  => $fields['first_name'],
 			'last_name'   => $fields['last_name'],
@@ -184,7 +186,7 @@ class Order {
 	/** Formatteert factuuradres */
 	public function format_billing_address( array $address, \WC_Order $order ): array {
 		$address['dob'] = $order->get_meta( '_billing_dob' );
-		$address['gender'] = siw_get_genders()[ $order->get_meta( '_billing_gender' ) ] ?? '';
+		$address['gender'] = Gender::tryFrom( $order->get_meta( '_billing_gender' ) )?->label() ?? '';
 		$address['nationality'] = siw_get_nationalities() [ $order->get_meta( '_billing_nationality' ) ] ?? '';
 		return $address;
 	}

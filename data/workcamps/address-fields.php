@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use SIW\Data\Gender;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -39,7 +41,7 @@ $siw_data = [
 		'label'    => __( 'Geslacht', 'siw' ),
 		'required' => true,
 		'type'     => 'radio',
-		'options'  => siw_get_genders(),
+		'options'  => siw_get_enum_array( Gender::cases() ),
 		'class'    => [ 'form-row-first' ],
 		'priority' => 50,
 	],

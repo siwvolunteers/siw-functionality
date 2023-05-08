@@ -26,15 +26,6 @@ function siw_get_data( string $file ) {
 	return $data;
 }
 
-/** Geeft een lijst met geslachten terug */
-function siw_get_genders(): array {
-	$genders = [
-		'M' => __( 'Man', 'siw' ),
-		'F' => __( 'Vrouw', 'siw' ),
-	];
-	return $genders;
-}
-
 /** Geeft een lijst met nationaliteiten terug */
 function siw_get_nationalities(): array {
 	$nationalities = siw_get_data( 'nationalities' );
