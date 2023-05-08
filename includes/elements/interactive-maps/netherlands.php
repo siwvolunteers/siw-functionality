@@ -11,7 +11,6 @@ use SIW\I18n;
 use SIW\Util\CSS;
 use SIW\Util\Links;
 use SIW\WooCommerce\Product\WC_Product_Project;
-use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Class om een Mapplic kaart te genereren
@@ -52,12 +51,12 @@ class Netherlands implements Interactive_Map_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_categories() : array {
+	public function get_categories(): array {
 		return [];
 	}
 
 	/** {@inheritDoc} */
-	public function get_locations() : array {
+	public function get_locations(): array {
 		$projects = $this->get_projects();
 		$locations = [];
 		$provinces = [];
@@ -92,7 +91,7 @@ class Netherlands implements Interactive_Map_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_mobile_content() : string {
+	public function get_mobile_content(): string {
 
 		$projects = $this->get_projects();
 		if ( empty( $projects ) ) {
@@ -119,13 +118,14 @@ class Netherlands implements Interactive_Map_Interface {
 	 */
 	protected function get_projects(): array {
 		$args = [
-			'country' => 'nederland',
+			'country'    => 'nederland',
+			'visibility' => 'visible',
 		];
 		return siw_get_products( $args );
 	}
 
 	/** Genereert beschrijving van het project */
-	protected function get_project_properties( WC_Product_Project $project ) : string {
+	protected function get_project_properties( WC_Product_Project $project ): string {
 		// Verzamelen gegevens
 		$duration = siw_format_date_range( $project->get_start_date(), $project->get_end_date() );
 		$work_types = array_map(
@@ -153,7 +153,7 @@ class Netherlands implements Interactive_Map_Interface {
 	}
 
 	/** Haal knop naar Groepsproject op */
-	protected function get_project_button( WC_Product_Project $project ) : ?string {
+	protected function get_project_button( WC_Product_Project $project ): ?string {
 		if ( ! I18n::is_default_language() ) {
 			return null;
 		}
