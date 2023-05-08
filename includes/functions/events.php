@@ -111,11 +111,11 @@ function siw_generate_event_json_ld( int $event_id ): string {
 
 	// Locatie toevoegen
 	if ( siw_meta( 'online', [], $event_id ) ) {
-		$event->set_event_attendance_mode( Event_Attendance_Mode::OnlineEventAttendanceMode );
+		$event->set_event_attendance_mode( Event_Attendance_Mode::ONLINE );
 		$location = Virtual_Location::create()
 			->set_url( get_the_permalink( $event_id ) ); // TODO: of externe aanmeldlink
 	} else {
-		$event->set_event_attendance_mode( Event_Attendance_Mode::OfflineEventAttendanceMode );
+		$event->set_event_attendance_mode( Event_Attendance_Mode::OFFLINE );
 		$location = siw_meta( 'location', [], $event_id );
 		$location = Place::create()
 			->set_name( $location['name'] )
@@ -141,12 +141,12 @@ function siw_generate_event_json_ld( int $event_id ): string {
 		->set_url( SIW_SITE_URL )
 		->set_same_as( SIW_SITE_URL )
 		->set_logo( get_site_icon_url() )
-		->set_non_profit_status( NL_Non_Profit_Type::NonprofitANBI );
+		->set_non_profit_status( NL_Non_Profit_Type::ANBI );
 	}
 	$event->set_organizer( $organizer );
 
 	// Event status TODO:: meerdere statussen o.b.v. meta event_status
-	$event->set_event_status( Event_Status_Type::EventScheduled );
+	$event->set_event_status( Event_Status_Type::SCHEDULED );
 
 	return $event->to_script();
 }

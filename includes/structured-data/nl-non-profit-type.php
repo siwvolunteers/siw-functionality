@@ -11,7 +11,7 @@ use SIW\Interfaces\Structured_Data\Non_Profit_Type as I_Non_Profit_Type;
  * @copyright 2021 SIW-2023 Internationale Vrijwilligersprojecten
  * @see https://schema.org/NLNonprofitType
  */
-enum NL_Non_Profit_Type implements I_Enumeration, I_Non_Profit_Type {
-	case NonprofitANBI;
-	case NonprofitSBBI;
+enum NL_Non_Profit_Type:string implements I_Enumeration, I_Non_Profit_Type {
+	case ANBI = 'NonprofitANBI';
+	case SBBI = 'NonprofitSBBI';
 }

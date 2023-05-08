@@ -10,10 +10,10 @@ use SIW\Interfaces\Structured_Data\Enumeration as I_Enumeration;
  * @copyright 2021-2023 SIW Internationale Vrijwilligersprojecten
  * @see https://schema.org/EventStatusType
  */
-enum Event_Status_Type implements I_Enumeration {
-	case EventScheduled;
-	case EventCancelled;
-	case EventMovedOnline;
-	case EventPostponed;
-	case EventRescheduled;
+enum Event_Status_Type:string implements I_Enumeration {
+	case SCHEDULED = 'EventScheduled';
+	case CANCELLED = 'EventCancelled';
+	case MOVED_LINE = 'EventMovedOnline';
+	case POSTPONED = 'EventPostponed';
+	case RESCHEDULED = 'EventRescheduled';
 }

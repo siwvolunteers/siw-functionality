@@ -10,8 +10,8 @@ use SIW\Interfaces\Structured_Data\Enumeration as I_Enumeration;
  * @copyright 2021-2023 SIW Internationale Vrijwilligersprojecten
  * @see       https://schema.org/eventAttendanceMode
  */
-enum Event_Attendance_Mode implements I_Enumeration {
-	case MixedEventAttendanceMode;
-	case OfflineEventAttendanceMode;
-	case OnlineEventAttendanceMode;
+enum Event_Attendance_Mode:string implements I_Enumeration {
+	case MIXED = 'MixedEventAttendanceMode';
+	case OFFLINE = 'OfflineEventAttendanceMode';
+	case ONLINE = 'OnlineEventAttendanceMode';
 }
