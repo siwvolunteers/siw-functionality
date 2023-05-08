@@ -1,0 +1,15 @@
+.siw-topbar {
+	background: var(--siw-green);
+	text-align: center;
+	.content{
+		padding: 10px;
+		a.button {
+			background-color: var(--siw-base);
+			color: var(--siw-green);
+			&:hover, &:focus {
+				background-color: var(--siw-accent);
+				color: var(--siw-base);
+			}
+		}
+	}
+}

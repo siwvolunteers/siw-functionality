@@ -12,7 +12,7 @@ use SIW\Abstracts\Base_Loader as A_Base_Loader;
 class Loader extends A_Base_Loader {
 
 	/** {@inheritDoc} */
-	public function get_classes() : array {
+	public function get_classes(): array {
 		return [
 			Animation::class,
 			Breadcrumbs::class,
@@ -22,6 +22,7 @@ class Loader extends A_Base_Loader {
 			Google_Analytics::class,
 			Icons::class,
 			Social_Share::class,
+			Topbar::class,
 			Web_App_Manifest::class,
 		];
 	}
