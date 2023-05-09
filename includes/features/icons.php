@@ -106,6 +106,7 @@ class Icons extends Base {
 			}
 		);
 
+		$icons = [];
 		foreach ( $icon_files as $icon_file ) {
 			$icons[ "icon-{$icon_file}" ] = $icon_file;
 		}
