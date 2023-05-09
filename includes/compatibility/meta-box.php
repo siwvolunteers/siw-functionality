@@ -5,7 +5,9 @@ namespace SIW\Compatibility;
 use SIW\Assets\JQuery_Validation_Messages_NL;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\I18n;
+use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
  * Aanpassingen voor Meta Box
@@ -13,13 +15,13 @@ use SIW\I18n;
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://metabox.io/
  */
-class Meta_Box extends Plugin {
+class Meta_Box extends Base implements I_Plugin {
 
 	#[Filter( 'mb_aio_show_settings' )]
 	private const SHOW_SETTINGS = false;
 
 	/** {@inheritDoc} */
-	protected static function get_plugin_path(): string {
+	public static function get_plugin_basename(): string {
 		return 'meta-box-aio/meta-box-aio.php';
 	}
 

@@ -3,6 +3,8 @@
 namespace SIW\Compatibility;
 
 use SIW\Attributes\Filter;
+use SIW\Base;
+use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
  * Aanpassingen voor GTranslate
@@ -10,10 +12,10 @@ use SIW\Attributes\Filter;
  * @copyright   2023 SIW Internationale Vrijwilligersprojecten
  * @see         https://gtranslate.io/
  */
-class GTranslate extends Plugin {
+class GTranslate extends Base implements I_Plugin {
 
 	/** {@inheritDoc} */
-	protected static function get_plugin_path(): string {
+	public static function get_plugin_basename(): string {
 		return 'gtranslate/gtranslate.php';
 	}
 

@@ -4,7 +4,9 @@ namespace SIW\Compatibility;
 
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\I18n;
+use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
  * Aanpassingen voor WPML
@@ -12,7 +14,7 @@ use SIW\I18n;
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  * @see       https://wpml.org/
  */
-class WPML extends Plugin {
+class WPML extends Base implements I_Plugin {
 
 	private const USER_CAPS = [
 		'wpml_manage_translation_management',
@@ -33,7 +35,7 @@ class WPML extends Plugin {
 	];
 
 	/** {@inheritDoc} */
-	protected static function get_plugin_path(): string {
+	public static function get_plugin_basename(): string {
 		return 'sitepress-multilingual-cms/sitepress.php';
 	}
 

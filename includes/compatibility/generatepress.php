@@ -5,6 +5,7 @@ namespace SIW\Compatibility;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Base;
+use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Properties;
 use SIW\Update;
 use SIW\Util\CSS;
@@ -15,7 +16,7 @@ use SIW\Util\CSS;
  * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://generatepress.com/
  */
-class GeneratePress extends Base {
+class GeneratePress extends Base implements I_Plugin {
 
 	#[Filter( 'generate_back_to_top_scroll_speed' )]
 	/** Snelheid voor scroll to top */
@@ -23,6 +24,11 @@ class GeneratePress extends Base {
 
 	#[Filter( 'generate_font_manager_show_google_fonts' )]
 	private const SHOW_GOOGLE_FONTS = false;
+
+	/** {@inheritDoc} */
+	public static function get_plugin_basename(): string {
+		return 'gp-premium/gp-premium.php';
+	}
 
 	#[Action( 'init' )]
 	/** Voeg menu order toe een GP Elements */
