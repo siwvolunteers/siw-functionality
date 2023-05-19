@@ -164,9 +164,21 @@ a[rel*=external]:has(> img, > svg)::after {
 input[type=button],
 input[type=submit],
 a.button,
-button {
+a.button.alt,
+button,
+button.button,
+button.button.alt {
   border-radius: 4px;
   transition: all 0.6s ease-out;
+}
+.woocommerce.woocommerce-page input[type=button],
+.woocommerce.woocommerce-page input[type=submit],
+.woocommerce.woocommerce-page a.button,
+.woocommerce.woocommerce-page a.button.alt,
+.woocommerce.woocommerce-page button,
+.woocommerce.woocommerce-page button.button,
+.woocommerce.woocommerce-page button.button.alt {
+  border-radius: 4px;
 }
 
 .secondary-navigation .menu-toggle {
