@@ -2,8 +2,6 @@
 
 namespace SIW\Util;
 
-use luizbills\CSS_Generator\Generator;
-
 /**
  * Hulpfuncties t.b.v. css
  *
@@ -70,8 +68,8 @@ class CSS {
 		return $grid_width;
 	}
 
-	public static function get_css_generator(): ?Generator {
-		return new Generator();
+	public static function get_css_generator(): \GeneratePress_CSS {
+		return new \GeneratePress_CSS();
 	}
 
 	/** Geeft thema-kleuren terug */

@@ -168,8 +168,10 @@ class Google_Maps extends Element {
 		wp_register_style( self::ASSETS_HANDLE, false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		wp_enqueue_style( self::ASSETS_HANDLE );
 
-		$css = CSS::get_css_generator();
-		$css->add_rule( "#{$this->get_element_id()}", [ 'height' => "{$this->height}px" ] );
-		wp_add_inline_style( self::ASSETS_HANDLE, $css->get_output() );
+		$css = CSS::get_css_generator()
+			->set_selector( "#{$this->get_element_id()}" )
+			->add_property( 'height', $this->height, null, 'px' )
+			->css_output();
+		wp_add_inline_style( self::ASSETS_HANDLE, $css );
 	}
 }

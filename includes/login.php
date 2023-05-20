@@ -29,7 +29,10 @@ class Login extends Base {
 		wp_enqueue_style( self::ASSETS_HANDLE );
 
 		$logo_url = wp_get_attachment_image_url( get_theme_mod( 'custom_logo' ), 'full' );
-		$css = CSS::get_css_generator()->root_variable( 'siw-logo-url', "url('{$logo_url}')" )->get_output();
+		$css = CSS::get_css_generator()
+			->set_selector( ':root' )
+			->add_property( '--siw-logo-url', "url('{$logo_url}')" )
+			->css_output();
 		wp_add_inline_style( self::ASSETS_HANDLE, $css );
 	}
 

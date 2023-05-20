@@ -70,26 +70,16 @@ class World_Map extends Element {
 	public function enqueue_styles() {
 		$code = $this->country->get_iso_code();
 
-		$css = CSS::get_css_generator();
-		$css->add_rule(
-			"#{$this->get_element_id()} svg",
-			[
-				'width'  => '100%',
-				'height' => 'auto',
-			]
-		);
-		$css->add_rule(
-			[
-				"#{$this->get_element_id()} #{$code} path",
-				"#{$this->get_element_id()} path#{$code}",
-			],
-			[
-				'fill' => $this->continent->get_color(),
-			]
-		);
+		$css = CSS::get_css_generator()
+			->set_selector( "#{$this->get_element_id()} svg" )
+				->add_property( 'width', 100, null, '%' )
+				->add_property( 'height', 'auto' )
+			->set_selector( "#{$this->get_element_id()} #{$code} path, #{$this->get_element_id()} path#{$code}" )
+				->add_property( 'fill', $this->continent->get_color() )
+			->css_output();
 
 		wp_register_style( self::ASSETS_HANDLE, false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		wp_enqueue_style( self::ASSETS_HANDLE );
-		wp_add_inline_style( self::ASSETS_HANDLE, $css->get_output() );
+		wp_add_inline_style( self::ASSETS_HANDLE, $css );
 	}
 }

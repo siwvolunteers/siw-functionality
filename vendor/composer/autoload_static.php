@@ -11,10 +11,6 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
     );
 
     public static $prefixLengthsPsr4 = array (
-        'l' => 
-        array (
-            'luizbills\\CSS_Generator\\' => 24,
-        ),
         'S' => 
         array (
             'Spatie\\Enum\\' => 12,
@@ -27,10 +23,6 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
     );
 
     public static $prefixDirsPsr4 = array (
-        'luizbills\\CSS_Generator\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/luizbills/css-generator/src',
-        ),
         'Spatie\\Enum\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/enum/src',

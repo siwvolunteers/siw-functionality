@@ -41,27 +41,19 @@ class Icons extends Base {
 	public function enqueue_admin_style() {
 		$icons = $this->get_icons();
 
-		$css = CSS::get_css_generator();
-		$css->add_rule(
-			'.siteorigin-widget-icon-selector-current .sow-icon-siw',
-			[
-				'max-width'  => '20px',
-				'max-height' => '20px',
-			]
-		);
+		$css = CSS::get_css_generator()
+			->set_selector( '.siteorigin-widget-icon-selector-current .sow-icon-siw' )
+			->add_property( 'max-width', '20', null, 'px' )
+			->add_property( 'max-height', '20', null, 'px' );
 
 		foreach ( $icons as $icon => $code ) {
-			$css->add_rule(
-				".sow-icon-siw[data-sow-icon='{$code}']",
-				[
-					'content' => 'url(' . SIW_ASSETS_URL . "icons/general/{$code}.svg" . ')',
-				]
-			);
+			$css->set_selector( ".sow-icon-siw[data-sow-icon='{$code}']" )
+				->add_property( 'content', 'url(' . SIW_ASSETS_URL . "icons/general/{$code}.svg" . ')' );
 		}
 
 		wp_add_inline_style(
 			'so-icon-field',
-			$css->get_output()
+			$css->css_output()
 		);
 	}
 

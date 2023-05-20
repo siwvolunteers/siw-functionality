@@ -4,55 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a279e825783f78f740c7ec37c825c69",
+    "content-hash": "bd6b92e614950cc6c354e1724426d073",
     "packages": [
-        {
-            "name": "luizbills/css-generator",
-            "version": "v4.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/luizbills/css-generator.php.git",
-                "reference": "e3807da033c2f300775a002358e026c3c33f8bdb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/luizbills/css-generator.php/zipball/e3807da033c2f300775a002358e026c3c33f8bdb",
-                "reference": "e3807da033c2f300775a002358e026c3c33f8bdb",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": ">=7.4.0"
-            },
-            "require-dev": {
-                "codeception/codeception": "^4.2",
-                "codeception/module-asserts": "^1.0.0",
-                "phpstan/phpstan": "^1.8",
-                "phpstan/phpstan-strict-rules": "^1.4"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "luizbills\\CSS_Generator\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Luiz Bills",
-                    "email": "luizpbills@gmail.com"
-                }
-            ],
-            "description": "Write CSS programatically using PHP.",
-            "support": {
-                "issues": "https://github.com/luizbills/css-generator.php/issues",
-                "source": "https://github.com/luizbills/css-generator.php/tree/v4.0.1"
-            },
-            "time": "2022-09-12T18:52:50+00:00"
-        },
         {
             "name": "mustache/mustache",
             "version": "v2.14.2",
@@ -300,16 +253,16 @@
         },
         {
             "name": "woocommerce/action-scheduler",
-            "version": "3.5.4",
+            "version": "3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/action-scheduler.git",
-                "reference": "9533e71b0eba4a519721dde84a34dfb161f11eb8"
+                "reference": "1373570a9ee03a0be31c73df086d1e4343a27347"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/9533e71b0eba4a519721dde84a34dfb161f11eb8",
-                "reference": "9533e71b0eba4a519721dde84a34dfb161f11eb8",
+                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/1373570a9ee03a0be31c73df086d1e4343a27347",
+                "reference": "1373570a9ee03a0be31c73df086d1e4343a27347",
                 "shasum": ""
             },
             "require-dev": {
@@ -334,9 +287,9 @@
             "homepage": "https://actionscheduler.org/",
             "support": {
                 "issues": "https://github.com/woocommerce/action-scheduler/issues",
-                "source": "https://github.com/woocommerce/action-scheduler/tree/3.5.4"
+                "source": "https://github.com/woocommerce/action-scheduler/tree/3.6.0"
             },
-            "time": "2023-01-17T20:20:43+00:00"
+            "time": "2023-05-10T19:25:40+00:00"
         }
     ],
     "packages-dev": [],
