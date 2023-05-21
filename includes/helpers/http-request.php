@@ -98,30 +98,30 @@ class HTTP_Request {
 	/** Voor POST-request uit */
 	public function post( $body = [] ): \SimpleXMLElement|array|\WP_Error {
 		$this->args['body'] = $body;
-		return $this->dispatch( \Requests::POST );
+		return $this->dispatch( \WpOrg\Requests\Requests::POST );
 	}
 
 	/** Voert GET-request uit */
 	public function get(): \SimpleXMLElement|array|\WP_Error {
-		return $this->dispatch( \Requests::GET );
+		return $this->dispatch( \WpOrg\Requests\Requests::GET );
 	}
 
 	/** Voert PATCH-request uit */
 	public function patch( $body = [] ): \SimpleXMLElement|array|\WP_Error {
 		$this->args['body'] = $body;
-		return $this->dispatch( \Requests::PATCH );
+		return $this->dispatch( \WpOrg\Requests\Requests::PATCH );
 	}
 
 	/** Voert PUT-request uit */
 	public function put( $body = [] ): \SimpleXMLElement|array|\WP_Error {
 		$this->args['body'] = $body;
-		return $this->dispatch( \Requests::PUT );
+		return $this->dispatch( \WpOrg\Requests\Requests::PUT );
 	}
 
 	/** Verstuur request */
 	protected function dispatch( string $method ): \SimpleXMLElement|array|\WP_Error {
 		$this->args['method'] = $method;
-		if ( self::APPLICATION_JSON === $this->args['headers']['content-type'] && ! in_array( $method, [ \Requests::GET, \Requests::HEAD ], true ) ) {
+		if ( self::APPLICATION_JSON === $this->args['headers']['content-type'] && ! in_array( $method, [ \WpOrg\Requests\Requests::GET, \WpOrg\Requests\Requests::HEAD ], true ) ) {
 			$this->args['body'] = wp_json_encode( $this->args['body'] );
 		}
 
