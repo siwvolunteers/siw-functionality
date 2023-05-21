@@ -2,8 +2,6 @@
 
 namespace SIW;
 
-use SIW\Data\Special_Page;
-use SIW\Elements\Modal;
 use SIW\Properties;
 use SIW\Util;
 use SIW\Util\Links;
@@ -76,24 +74,6 @@ class Shortcodes {
 						'attr'  => 'titel',
 						'type'  => 'text',
 						'title' => __( 'Titel', 'siw' ),
-					],
-				],
-			],
-			'pagina_lightbox'               => [
-				'title'      => __( 'Pagina-lightbox', 'siw' ),
-				'attributes' => [
-					[
-						'attr'  => 'link_tekst',
-						'type'  => 'text',
-						'title' => __( 'Linktekst', 'siw' ),
-					],
-					[
-						'attr'    => 'pagina',
-						'type'    => 'select',
-						'title'   => __( 'Pagina', 'siw' ),
-						'options' => [
-							'kinderbeleid' => __( 'Beleid kinderprojecten', 'siw' ),
-						],
 					],
 				],
 			],
@@ -225,38 +205,6 @@ class Shortcodes {
 		$titel = ( $titel ) ? $titel : $url;
 
 		return Links::generate_external_link( $url, $titel );
-	}
-
-	/**
-	 * Lightbox met inhoud van pagina
-	 *
-	 * @todo slug als parameter en get page by path gebruiken
-	 */
-	public static function render_pagina_lightbox( array $atts ): ?string {
-		extract( // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
-			shortcode_atts(
-				[
-					'link_tekst' => '',
-					'pagina'     => '',
-				],
-				$atts,
-				'siw_pagina_lightbox'
-			)
-		);
-
-		$pages = [
-			'kinderbeleid' => Special_Page::CHILD_POLICY(),
-		];
-		$page = $pages[ $pagina ] ?? null;
-		if ( null === $page ) {
-			return null;
-		}
-
-		$special_page = siw_get_special_page( $page );
-		if ( null === $special_page ) {
-			return null;
-		}
-		return Modal::create()->set_page( $special_page->ID )->generate_link( $link_tekst );
 	}
 
 	/** Leeftijd van SIW in jaren */
