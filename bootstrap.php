@@ -32,6 +32,9 @@ class Bootstrap {
 
 		$this->load_dependencies();
 		$this->register_autoloader();
+
+		register_activation_hook( SIW_FUNCTIONALITY_PLUGIN_FILE, [ $this, 'activate' ] );
+
 		$this->load_functions();
 
 		// Laadt klasses
@@ -99,6 +102,10 @@ class Bootstrap {
 	protected function register_autoloader() {
 		require_once SIW_INCLUDES_DIR . 'autoloader.php';
 		new Autoloader( 'SIW', SIW_INCLUDES_DIR );
+	}
+
+	public function activate() {
+		as_enqueue_async_action( Update::PLUGIN_UPDATED_HOOK );
 	}
 
 	/** Toon melding dat minimum requirements niet gehaald zijn is */

@@ -21,7 +21,7 @@ abstract class Element {
 	abstract protected static function get_type(): string;
 
 	/** Geeft template variabelen voor Mustache-template terug */
-	abstract protected function get_template_variables() : array;
+	abstract protected function get_template_variables(): array;
 
 	/** Geeft uniek id voor element terug terug */
 	final protected function get_element_id(): string {
@@ -47,15 +47,15 @@ abstract class Element {
 	}
 
 	/** Voegt extra css class toe */
-	public function add_class( string $class ): static {
-		$this->classes[] = sanitize_html_class( $class );
+	public function add_class( string $css_class ): static {
+		$this->classes[] = sanitize_html_class( $css_class );
 		return $this;
 	}
 
 	/** Voegt extra css classes toe */
 	public function add_classes( array $classes ): static {
 		foreach ( $classes as $class ) {
-			$this->classes[] = sanitize_html_class( $class );
+			$this->add_class( $class );
 		}
 		return $this;
 	}

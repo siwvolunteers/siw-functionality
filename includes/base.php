@@ -16,7 +16,7 @@ abstract class Base {
 	protected function __construct() {}
 
 	/** New */
-	public static function init( object ...$args ): static {
+	final public static function init( object ...$args ): static {
 		$self = new static( ...$args );
 		$self->reflection_class = new \ReflectionClass( $self );
 		$self->add_hooks();
@@ -25,7 +25,7 @@ abstract class Base {
 	}
 
 	/** Voeg hooks toe */
-	public function add_hooks(): void {
+	final protected function add_hooks(): void {
 
 		$methods = $this->reflection_class->getMethods( \ReflectionMethod::IS_PUBLIC );
 		foreach ( $methods as $method ) {
@@ -53,7 +53,7 @@ abstract class Base {
 	}
 
 	/** Voegt shortcodes toe */
-	protected function add_shortcodes() {
+	final protected function add_shortcodes() {
 		$methods = $this->reflection_class->getMethods( \ReflectionMethod::IS_PUBLIC );
 		foreach ( $methods as $method ) {
 			$shortcode_attributes = $method->getAttributes( \SIW\Attributes\Add_Shortcode::class );

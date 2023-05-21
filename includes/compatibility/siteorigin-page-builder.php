@@ -4,7 +4,9 @@ namespace SIW\Compatibility;
 
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\Util\CSS;
+use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
  * Aanpassingen voor SiteOrigin Page Builder
@@ -12,7 +14,7 @@ use SIW\Util\CSS;
  * @copyright   2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see         https://siteorigin.com/page-builder/
  */
-class SiteOrigin_Page_Builder extends Plugin {
+class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 
 	#[Filter( 'siteorigin_panels_layouts_directory_enabled' )]
 	private const ENABLE_LAYOUTS_DIRECTORY = false;
@@ -21,7 +23,7 @@ class SiteOrigin_Page_Builder extends Plugin {
 	private const SHOW_ADD_NEW_DROPDOWN_FOR_TYPE = false;
 
 	/** {@inheritDoc} */
-	protected static function get_plugin_path(): string {
+	public static function get_plugin_basename(): string {
 		return 'siteorigin-panels/siteorigin-panels.php';
 	}
 

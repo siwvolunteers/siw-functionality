@@ -102,7 +102,7 @@ class Export_Plato_Application implements Async_Action_Interface {
 			'language2'         => $order->get_meta( 'language_2' ),
 			'language3'         => $order->get_meta( 'language_3' ),
 			'langlevel1'        => $order->get_meta( 'language_1_skill' ),
-			'langlevel2'        => $order->get_meta( 'language_2_kill' ),
+			'langlevel2'        => $order->get_meta( 'language_2_skill' ),
 			'langlevel3'        => $order->get_meta( 'language_3_skill' ),
 			'special_needs'     => $order->get_meta( 'health_issues' ),
 			'experience'        => $order->get_meta( 'volunteer_experience' ),

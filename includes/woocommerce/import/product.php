@@ -515,7 +515,6 @@ class Product {
 	 *
 	 * - Als meegegeven is dat het het project bijgewerkt moet worden
 	 * - Als Plato-data veranderd is
-	 * - Bij geforceerde volledige update
 	 */
 	protected function should_be_updated(): bool {
 
@@ -523,8 +522,6 @@ class Product {
 			$this->force_update
 			||
 			$this->plato_project->get_checksum() !== $this->product->get_checksum()
-			||
-			siw_get_option( 'plato.force_full_update' )
 		);
 	}
 

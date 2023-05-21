@@ -3,7 +3,9 @@
 namespace SIW\Compatibility;
 
 use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\I18n;
+use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Util\CSS;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
@@ -13,7 +15,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://theseoframework.com/
  */
-class The_SEO_Framework extends Plugin {
+class The_SEO_Framework extends Base implements I_Plugin {
 
 	#[Filter( 'the_seo_framework_metabox_priority' )]
 	private const METABOX_PRIORITY = 'default';
@@ -28,7 +30,7 @@ class The_SEO_Framework extends Plugin {
 	private const SITEMAP_COLOR_ACCENT = CSS::ACCENT_COLOR;
 
 	/** {@inheritDoc} */
-	protected static function get_plugin_path(): string {
+	public static function get_plugin_basename(): string {
 		return 'autodescription/autodescription.php';
 	}
 

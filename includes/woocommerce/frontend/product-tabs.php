@@ -68,7 +68,7 @@ class Product_Tabs {
 					'longitude' => $product->get_longitude(),
 				];
 				$priority++;
-			} elseif ( self::LOCATION_TAB === $topic && $this->product_needs_coc( $product ) ) {
+			} elseif ( self::REQUIREMENTS_TAB === $topic && $this->product_needs_coc( $product ) ) {
 				$tabs[ $topic ] = [
 					'title'    => __( 'Vereisten', 'siw' ),
 					'priority' => $priority,

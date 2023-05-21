@@ -4,6 +4,8 @@ namespace SIW\Compatibility;
 
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
+use SIW\Base;
+use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Update;
 
 /**
@@ -12,7 +14,7 @@ use SIW\Update;
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://wp-rocket.me/
  */
-class WP_Rocket extends Plugin {
+class WP_Rocket extends Base implements I_Plugin {
 
 	#[Filter( 'rocket_lazyload_youtube_thumbnail_resolution' )]
 	/** Resolutie van YouTube-thumbnail */
@@ -29,7 +31,7 @@ class WP_Rocket extends Plugin {
 	private const CACHE_CLEAR_HOOK = 'siw_rebuild_cache';
 
 	/** {@inheritDoc} */
-	protected static function get_plugin_path(): string {
+	public static function get_plugin_basename(): string {
 		return 'wp-rocket/wp-rocket.php';
 	}
 

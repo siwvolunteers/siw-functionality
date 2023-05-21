@@ -5,6 +5,7 @@ namespace SIW\Compatibility;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Base;
+use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
  * Aanpassingen voor UpdraftPlus
@@ -12,13 +13,18 @@ use SIW\Base;
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://updraftplus.com/
  */
-class UpdraftPlus extends Base {
+class UpdraftPlus extends Base implements I_Plugin {
 
 	/** Tijdstip backup database */
 	private const TS_BACKUP_DB = '04:00';
 
 	/** Tijdstip backup bestanden */
 	private const TS_BACKUP_FILES = '04:30';
+
+	/** {@inheritDoc} */
+	public static function get_plugin_basename(): string {
+		return 'updraftplus/updraftplus.php';
+	}
 
 	#[Filter( 'updraftplus_blog_name' )]
 	/** Zet blognaam (voor in bestandsnaam backup) */
