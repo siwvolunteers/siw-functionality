@@ -2,7 +2,6 @@
 
 namespace SIW\Elements;
 
-use SIW\Assets\Balloon;
 use SIW\Data\Social_Network;
 use SIW\Helpers\Template;
 
@@ -77,7 +76,7 @@ class Social_Links extends Element {
 
 	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/social-links.css', [ Balloon::ASSETS_HANDLE ], SIW_PLUGIN_VERSION );
+		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/social-links.css', [], SIW_PLUGIN_VERSION );
 		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/social-links.css' );
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
