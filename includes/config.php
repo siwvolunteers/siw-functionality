@@ -5,7 +5,7 @@ namespace SIW;
 /**
  * Configuratie uit wp-config.php constantes halen
  *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2022-2023 SIW Internationale Vrijwilligersprojecten
  */
 class Config {
 
@@ -30,6 +30,10 @@ class Config {
 	/** Geeft property ID voor google analytics terug*/
 	public static function get_google_analytics_property_id(): ?string {
 		return self::get_constant_value( 'SIW_GOOGLE_ANALYTICS_PROPERTY_ID' );
+	}
+
+	public static function get_google_analytics_measurement_id(): ?string {
+		return self::get_constant_value( 'SIW_GOOGLE_ANALYTICS_MEASUREMENT_ID' );
 	}
 
 	/** Geeft Meta Pixel ID terug */
