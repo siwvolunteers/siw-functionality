@@ -57,7 +57,6 @@ class Shortcodes {
 			'studentenkorting'              => __( 'Studentenkorting', 'siw' ),
 			'scholenproject_tarief'         => __( 'Scholenproject - tarief', 'siw' ),
 			'korting_tweede_project'        => __( 'Korting tweede project', 'siw' ),
-			'kosten_training_minderjarigen' => __( 'Kosten training minderjarigen', 'siw' ),
 			'leeftijd'                      => __( 'Leeftijd van SIW', 'siw' ),
 			'aantal_vrijwilligers'          => __( 'Aantal vrijwilligers', 'siw' ),
 			'aantal_betaalde_medewerkers'   => __( 'Aantal betaalde medewerkers', 'siw' ),
@@ -183,11 +182,6 @@ class Shortcodes {
 	/** Korting tweede Groepsproject */
 	public static function render_korting_tweede_project(): string {
 		return siw_format_percentage( Config::get_discount_percentage_second_project() );
-	}
-
-	/** Kosten extra training minderjarigen */
-	public static function render_kosten_training_minderjarigen(): string {
-		return siw_format_amount( Config::get_minors_training_fee() );
 	}
 
 	/** Externe link */

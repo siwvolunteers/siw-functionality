@@ -166,12 +166,6 @@ class Product_Tabs {
 				esc_html( siw_format_amount( min( Config::get_student_discount_amount(), (float) $product->get_price() ) ) )
 			);
 		}
-		echo BR; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
-		printf(
-			esc_html( 'Jongeren onder 18 jaar moeten voor vertrek verplicht een training volgen. De kosten hiervoor zijn %s euro en worden apart in rekening gebracht.' ),
-			esc_html( siw_format_amount( Config::get_minors_training_fee() ) )
-		);
 
 		// Local fee niet tonen voor nederlandse projecten
 		if ( $product->has_participation_fee() && ! $product->is_dutch_project() ) {
