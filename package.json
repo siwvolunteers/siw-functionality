@@ -42,11 +42,6 @@
 				"src": "dist/tablist.js",
 				"target": "assets/vendor/tablist"
 			},
-			"balloon-css": {
-				"version": "^1.2.0",
-				"src": "balloon.css",
-				"namespaced": true
-			},
 			"flickity": {
 				"version": "^2.2.1",
 				"src": "{dist/flickity.pkgd.js,dist/flickity.css}",
@@ -60,11 +55,6 @@
 			"js-cookie": {
 				"version": "^2.2.1",
 				"src": "src/js.cookie.js",
-				"namespaced": true
-			},
-			"micromodal": {
-				"version": "^0.4.6",
-				"src": "dist/micromodal.js",
 				"namespaced": true
 			},
 			"sal.js": {

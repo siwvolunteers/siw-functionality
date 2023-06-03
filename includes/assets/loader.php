@@ -19,7 +19,6 @@ class Loader extends Object_Loader {
 		return [
 			A11Y_Accordion::class,
 			A11Y_Tablist::class,
-			Balloon::class,
 			Flickity::class,
 			Frappe_Charts::class,
 			Google_Analytics::class,
@@ -30,7 +29,6 @@ class Loader extends Object_Loader {
 			Magnific_Popup::class,
 			Mapplic::class,
 			Meta_Pixel::class,
-			Micromodal::class,
 			Polyfill::class,
 			Sal::class,
 			SIW_Functionality::class,

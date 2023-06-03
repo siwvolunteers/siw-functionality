@@ -11,7 +11,7 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 /**
  * Tabs voor Groepsprojecten
  *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
  */
 class Product_Tabs {
 
@@ -49,7 +49,6 @@ class Product_Tabs {
 		$priority = 1;
 		foreach ( $topics as $topic => $title ) {
 			if ( isset( $description[ $topic ] ) && ! empty( $description[ $topic ] ) ) {
-
 				$tabs[ $topic ] = [
 					'title'    => $title,
 					'priority' => $priority,
@@ -58,7 +57,7 @@ class Product_Tabs {
 					'product'  => $product,
 				];
 
-				$priority++;
+				++$priority;
 			} elseif ( self::LOCATION_TAB === $topic && null !== $product->get_latitude() && null !== $product->get_longitude() ) {
 				$tabs[ $topic ] = [
 					'title'     => __( 'Locatie', 'siw' ),
@@ -67,27 +66,27 @@ class Product_Tabs {
 					'latitude'  => $product->get_latitude(),
 					'longitude' => $product->get_longitude(),
 				];
-				$priority++;
+				++$priority;
 			} elseif ( self::REQUIREMENTS_TAB === $topic && $this->product_needs_coc( $product ) ) {
 				$tabs[ $topic ] = [
 					'title'    => __( 'Vereisten', 'siw' ),
 					'priority' => $priority,
 					'callback' => [ $this, 'show_coc_requirement' ],
 				];
-				$priority++;
+				++$priority;
 			}
 		}
 
 		$tabs['costs'] = [
 			'title'    => __( 'Kosten', 'siw' ),
-			'priority' => 110,
+			'priority' => $priority++,
 			'callback' => [ $this, 'show_product_costs' ],
 			'product'  => $product,
 		];
 
 		$tabs['enquiry'] = [
 			'title'    => __( 'Stel een vraag', 'siw' ),
-			'priority' => 120,
+			'priority' => $priority++,
 			'callback' => [ $this, 'show_product_contact_form' ],
 		];
 
@@ -101,14 +100,16 @@ class Product_Tabs {
 		$product = $args['product'];
 
 		if ( self::REQUIREMENTS_TAB === $tab && $this->product_needs_coc( $product ) ) {
-			echo esc_html( 'Aangezien je in dit project met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.' );
+			$this->show_coc_requirement();
 			echo BR2; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
-		echo ( '<i>Onderstaande informatie komt direct van onze partnerorganisatie en wordt daarom niet in het Nederlands weergegeven.</i>' );
-		echo BR2; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		if ( ! $product->is_dutch_project() ) {
+			echo ( '<i>Onderstaande informatie komt direct van onze partnerorganisatie en wordt daarom niet in het Nederlands weergegeven.</i>' );
+			echo BR2; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
 
-		echo wp_kses_post( ( wp_targeted_link_rel( links_add_target( make_clickable( wpautop( $args['content'] ) ) ) ) ) );
+		echo wp_kses_post( wp_targeted_link_rel( links_add_target( make_clickable( wpautop( $args['content'] ) ) ) ) );
 
 		if ( self::LOCATION_TAB === $tab && $product->get_latitude() && null !== $product->get_longitude() ) {
 			Google_Maps::create()
@@ -127,7 +128,7 @@ class Product_Tabs {
 		return false;
 	}
 
-	public function show_coc_requirement( string $tab, array $args ) {
+	public function show_coc_requirement() {
 		echo esc_html( 'Aangezien je in dit project met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.' );
 	}
 
@@ -149,17 +150,22 @@ class Product_Tabs {
 		/**@var WC_Product_Project */
 		$product = $args['product'];
 
-		printf(
-			// translators: %1$s is het inschrijfgeld %2$s is het bedrag studentenkorting
-			esc_html__( 'Het inschrijfgeld voor dit project bedraagt %1$s, exclusief %2$s korting voor studenten en jongeren onder de 18.', 'siw' ),
-			esc_html( siw_format_amount( (float) $product->get_price() ) ),
-			esc_html( siw_format_amount( Config::get_student_discount_amount() ) )
-		);
-		echo BR; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		printf(
-			esc_html( 'Jongeren onder 18 jaar moeten voor vertrek verplicht een training volgen. De kosten hiervoor zijn %s euro en worden apart in rekening gebracht.' ),
-			esc_html( siw_format_amount( Config::get_minors_training_fee() ) )
-		);
+		if ( 0.0 === (float) $product->get_price() ) {
+			esc_html_e( 'Voor dit project is geen inschrijfgeld van toepassing', 'siw' );
+		} elseif ( $product->is_excluded_from_student_discount() ) {
+			printf(
+				// translators: %s is het inschrijfgeld.
+				esc_html__( 'Het inschrijfgeld voor dit project bedraagt %s.', 'siw' ),
+				esc_html( siw_format_amount( (float) $product->get_price() ) ),
+			);
+		} else {
+			printf(
+				// translators: %1$s is het inschrijfgeld %2$s is het bedrag studentenkorting
+				esc_html__( 'Het inschrijfgeld voor dit project bedraagt %1$s, exclusief %2$s korting voor studenten en jongeren onder de 18.', 'siw' ),
+				esc_html( siw_format_amount( (float) $product->get_price() ) ),
+				esc_html( siw_format_amount( min( Config::get_student_discount_amount(), (float) $product->get_price() ) ) )
+			);
+		}
 
 		// Local fee niet tonen voor nederlandse projecten
 		if ( $product->has_participation_fee() && ! $product->is_dutch_project() ) {
@@ -184,6 +190,5 @@ class Product_Tabs {
 				);
 			}
 		}
-
 	}
 }

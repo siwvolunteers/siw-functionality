@@ -166,9 +166,4 @@ class Config {
 	public static function get_discount_percentage_second_project(): int {
 		return self::get_constant_value( 'SIW_DISCOUNT_PERCENTAGE_SECOND_PROJECT' );
 	}
-
-	/** Geeft bedrag voor <18 training terug */
-	public static function get_minors_training_fee(): int {
-		return self::get_constant_value( 'SIW_MINORS_TRAINING_FEE' );
-	}
 }

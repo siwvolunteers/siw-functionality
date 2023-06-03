@@ -20,24 +20,25 @@ class WC_Product_Project extends \WC_Product_Simple {
 
 	/** {@inheritDoc} */
 	protected $extra_data = [
-		'project_id'                 => null,
-		'checksum'                   => null,
-		'latitude'                   => null,
-		'longitude'                  => null,
-		'start_date'                 => null,
-		'end_date'                   => null,
-		'participation_fee'          => null,
-		'participation_fee_currency' => null,
-		'min_age'                    => null,
-		'max_age'                    => null,
-		'full'                       => false,
-		'deleted_from_plato'         => false,
-		'hidden'                     => false,
-		'use_stockphoto'             => false,
-		'approval_result'            => null,
-		'has_plato_image'            => false,
-		'project_description'        => [],
-		'custom_price'               => null,
+		'project_id'                     => null,
+		'checksum'                       => null,
+		'latitude'                       => null,
+		'longitude'                      => null,
+		'start_date'                     => null,
+		'end_date'                       => null,
+		'participation_fee'              => null,
+		'participation_fee_currency'     => null,
+		'min_age'                        => null,
+		'max_age'                        => null,
+		'full'                           => false,
+		'deleted_from_plato'             => false,
+		'hidden'                         => false,
+		'use_stockphoto'                 => false,
+		'approval_result'                => null,
+		'has_plato_image'                => false,
+		'project_description'            => [],
+		'custom_price'                   => '',
+		'excluded_from_student_discount' => false,
 	];
 
 	/** {@inheritDoc } */
@@ -95,8 +96,8 @@ class WC_Product_Project extends \WC_Product_Simple {
 	/** {@inheritDoc} */
 	public function get_regular_price( $context = 'view' ) {
 
-		if ( ! empty( $this->get_custom_price() ) ) {
-			return (string) $this->get_custom_price();
+		if ( '' !== $this->get_custom_price() ) {
+			return $this->get_custom_price();
 		}
 
 		if ( $this->is_dutch_project() ) {
@@ -136,7 +137,6 @@ class WC_Product_Project extends \WC_Product_Simple {
 			return null;
 		}
 		return siw_get_country( $attributes[ Taxonomy_Attribute::COUNTRY()->value ]->get_slugs()[0] );
-
 	}
 
 	/** Geeft aan of dit een Nederlandse project is */
@@ -391,11 +391,23 @@ class WC_Product_Project extends \WC_Product_Simple {
 
 	/** Zet de afwijkende prijs van dit project */
 	public function set_custom_price( $custom_price ) {
-		$this->set_prop( 'custom_price', (float) $custom_price );
+		$this->set_prop( 'custom_price', wc_format_decimal( $custom_price ) );
 	}
 
 	/** Geeft de afwijkende prijs van dit project terug */
-	public function get_custom_price(): ?float {
-		return ! empty( $this->get_prop( 'custom_price' ) ) ? (float) $this->get_prop( 'custom_price' ) : null;
+	public function get_custom_price(): string {
+		return $this->get_prop( 'custom_price' );
+	}
+
+	public function set_excluded_from_student_discount( bool $excluded_from_student_discount ) {
+		$this->set_prop( 'excluded_from_student_discount', $excluded_from_student_discount );
+	}
+
+	public function get_excluded_from_student_discount(): bool {
+		return $this->get_prop( 'excluded_from_student_discount' );
+	}
+
+	public function is_excluded_from_student_discount(): bool {
+		return $this->get_excluded_from_student_discount();
 	}
 }

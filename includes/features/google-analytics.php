@@ -140,9 +140,9 @@ class Google_Analytics extends Base {
 	}
 
 	/** Genereert impression-data */
-	protected function get_impression_data( WC_Product_Project $product, string $list, int $position ): array {
+	protected function get_impression_data( WC_Product_Project $product, string $product_list, int $position ): array {
 		$impression_data = $this->get_product_data( $product, $position );
-		$impression_data['list'] = $list;
+		$impression_data['list'] = $product_list;
 
 		return $impression_data;
 	}
@@ -211,12 +211,18 @@ class Google_Analytics extends Base {
 			'data-ga-action'   => self::ACTION_REMOVE,
 			'data-ga-label'    => 'remove from cart',
 			'data-ec-action'   => self::ACTION_REMOVE,
-			'data-ec-product'  => $this->get_product_data( $product, null, true ),
+			'data-ec-product'  => wp_json_encode( $this->get_product_data( $product, null, true ) ),
 		];
 
-		$link = str_replace( 'href', HTML::generate_attributes( $attributes ) . ' href', $link );
+		$processor = new \WP_HTML_Tag_Processor( $link );
 
-		return $link;
+		if ( $processor->next_tag() ) {
+			foreach ( $attributes as $attribute => $value ) {
+				$processor->set_attribute( $attribute, $value );
+			}
+		}
+
+		return $processor->get_updated_html();
 	}
 
 	#[Filter( 'siw_woocommerce_add_to_cart_button_attributes' )]

@@ -3,16 +3,18 @@
 namespace SIW\Compatibility;
 
 use SIW\Attributes\Filter;
+use SIW\Base;
+use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
  * Aanpassingen voor WP Sentry Integration
  *
  * @copyright   2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class WP_Sentry_Integration extends Plugin {
+class WP_Sentry_Integration extends Base implements I_Plugin {
 
 	/** {@inheritDoc} */
-	protected static function get_plugin_path(): string {
+	public static function get_plugin_basename(): string {
 		return 'wp-sentry-integration/wp-sentry.php';
 	}
 

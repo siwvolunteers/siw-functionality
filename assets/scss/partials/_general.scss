@@ -76,9 +76,15 @@ a[rel*=external] {
 input[type=button],
 input[type=submit],
 a.button,
-button {
+a.button.alt,
+button,
+button.button,
+button.button.alt {
 	border-radius: 4px;
 	transition: all .6s ease-out;
+	.woocommerce.woocommerce-page & {
+		border-radius: 4px;
+	}
 }
 
 // https://docs.generatepress.com/article/disable-secondary-navigation-mobile-menu/
