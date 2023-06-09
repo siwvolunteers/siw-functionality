@@ -20,6 +20,7 @@ class Loader extends A_Base_Loader {
 			Cookie_Notice::class,
 			Facebook_Pixel::class,
 			Google_Analytics::class,
+			Google_Analytics_4::class,
 			Icons::class,
 			Social_Share::class,
 			Topbar::class,
