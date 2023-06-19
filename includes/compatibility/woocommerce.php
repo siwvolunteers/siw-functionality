@@ -182,4 +182,9 @@ class WooCommerce extends Base implements I_Plugin {
 		remove_image_size( 'shop_single' );
 		remove_image_size( 'shop_thumbnail' );
 	}
+
+	#[Action( 'wp_enqueue_scripts' )]
+	public function enqueue_cart_fragment_script() {
+		wp_enqueue_script( 'wc-cart-fragments' );
+	}
 }
