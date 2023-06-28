@@ -29,30 +29,40 @@ class Social_Links extends Element {
 
 		foreach ( $social_networks as $network ) {
 			$networks[] = [
-				'url'   => ( Social_Network::SHARE === $this->context ) ? $this->generate_share_url( $network ) : $network->get_follow_url(),
-				'name'  => $network->get_name(),
-				'label' => sprintf(
+				'url'       => ( Social_Network::SHARE === $this->context ) ? $this->generate_share_url( $network ) : $network->get_follow_url(),
+				'name'      => $network->get_name(),
+				'label'     => sprintf(
 					// translators: %s is de naam van een sociaal netwerk
 					( Social_Network::SHARE === $this->context ) ? __( 'Delen via %s', 'siw' ) : __( 'Volg ons op %s', 'siw' ),
 					$network->get_name()
 				),
-				'color' => $network->get_color(),
-				'icon'  => [
+				'color'     => $network->get_color(),
+				'icon'      => [
 					'class' => $network->get_icon_class(),
 					'size'  => 2,
 				],
-				'ga'    => [
-					'type'     => 'social',
-					'category' => $network->get_name(),
-					'action'   => ( Social_Network::SHARE === $this->context ) ? 'Delen' : 'Volgen',
-					'label'    => ( Social_Network::SHARE === $this->context ) ? get_permalink() : $network->get_follow_url(),
-				],
+				'ga4_event' => ( Social_Network::SHARE === $this->context ) ? [
+					'name'       => 'share',
+					'parameters' => [
+						'method'       => $network->get_name(),
+						'content_type' => $this->determine_content_type(),
+						'item_id'      => get_permalink(),
+					],
+				] : [],
 			];
 		}
 
 		return [
 			'social_networks' => $networks,
 		];
+	}
+
+	protected function determine_content_type(): string {
+		$content_type = get_post_type();
+		if ( str_starts_with( $content_type, 'siw_' ) ) {
+			$content_type = substr( $content_type, 4 );
+		}
+		return $content_type;
 	}
 
 	/** Genereert share url */

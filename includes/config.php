@@ -27,11 +27,6 @@ class Config {
 		return self::get_constant_value( 'SIW_GOOGLE_MAPS_JS_API_KEY', '' );
 	}
 
-	/** Geeft property ID voor google analytics terug*/
-	public static function get_google_analytics_property_id(): ?string {
-		return self::get_constant_value( 'SIW_GOOGLE_ANALYTICS_PROPERTY_ID' );
-	}
-
 	public static function get_google_analytics_measurement_id(): ?string {
 		return self::get_constant_value( 'SIW_GOOGLE_ANALYTICS_MEASUREMENT_ID' );
 	}
