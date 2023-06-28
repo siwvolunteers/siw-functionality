@@ -41,8 +41,9 @@ class WooCommerce extends Base implements I_Plugin {
 
 	#[Filter( 'lostpassword_url', 1 )]
 	/** Lost password via wp methode */
-	public function remove_lostpassword_url_filter() {
+	public function remove_lostpassword_url_filter( string $lostpassword_url ): string {
 		remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
+		return $lostpassword_url;
 	}
 
 	#[Action( 'widgets_init', 99 )]
