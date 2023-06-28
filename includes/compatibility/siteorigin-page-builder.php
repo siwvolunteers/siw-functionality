@@ -22,6 +22,9 @@ class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 	#[Filter( 'so_panels_show_add_new_dropdown_for_type' )]
 	private const SHOW_ADD_NEW_DROPDOWN_FOR_TYPE = false;
 
+	#[Filter( 'siteorigin_add_installer' )]
+	private const SHOW_SITEORIGIN_INSTALLER = false;
+
 	/** {@inheritDoc} */
 	public static function get_plugin_basename(): string {
 		return 'siteorigin-panels/siteorigin-panels.php';
