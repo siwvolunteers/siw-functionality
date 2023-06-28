@@ -23,9 +23,6 @@ class Google_Analytics_4 extends Base {
 
 	const ASSETS_HANDLE = 'siw-google-analytics-4';
 
-	// TODO: is dit nuttig?
-	const GA_EVENT_CATEGORY = 'Ecommerce';
-
 	// TODO: enum van maken
 	const EVENT_ADD_TO_CART = 'add_to_cart';
 	const EVENT_BEGIN_CHECKOUT = 'begin_checkout';
