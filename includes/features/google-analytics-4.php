@@ -186,7 +186,7 @@ class Google_Analytics_4 extends Base {
 		} elseif ( is_page() ) {
 			/** @var \WP_Post */
 			$queried_object = get_queried_object();
-			$id = $queried_object->guid;
+			$id = $queried_object->post_name;
 			$name = sprintf( 'Pagina: %s', $queried_object->post_title );
 		}
 		return [
