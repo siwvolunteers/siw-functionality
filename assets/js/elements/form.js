@@ -13,6 +13,8 @@
 
 	function processForm( index, element ) {
 
+		const processingClass = 'processing';
+
 		let $this = $(element)
 		let $form = $this.find( 'form' );
 
@@ -25,19 +27,11 @@
 			if ( ! $.validator || ! $form.valid() ) {
 				return;
 			}
-			addProcessing();
 			performSubmit();
 		}
 
-		function addProcessing() {
-			$this.addClass( 'processing');
-		}
-
-		function removeProcessing() {
-			$this.removeClass( 'processing');
-		}
-
 		function performSubmit() {
+			$this.addClass( processingClass );
 			$this.find( '.message' ).remove();
 			let data = new FormData( $form[ 0 ] );
 
@@ -59,8 +53,8 @@
 					message = 'Success';
 				}
 
-				if ( 'function' == typeof siwGoogleAnalytics.trackFormSubmission) {
-					siwGoogleAnalytics.trackFormSubmission( $form.data( 'formId' ) );
+				if ( 'function' == typeof siwGoogleAnalytics4.trackFormSubmission) {
+					siwGoogleAnalytics4.trackFormSubmission( $form.data( 'formId' ) );
 				}
 			}).fail( function( response ) {
 
@@ -72,7 +66,7 @@
 					message = 'Error';
 				}
 			} ).always( function() {
-				removeProcessing();
+				$this.removeClass( processingClass );
 				addMessage( message, success)
 				scrollTo( $this );
 			});

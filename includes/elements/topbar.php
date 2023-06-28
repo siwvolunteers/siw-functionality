@@ -25,13 +25,15 @@ class Topbar extends Element {
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
-			'url'  => $this->url,
-			'text' => $this->text,
-			'ga'   => [
-				'type'     => 'event',
-				'category' => 'Topbar',
-				'action'   => 'Klikken',
-				'label'    => $this->url,
+			'url'       => $this->url,
+			'text'      => $this->text,
+			'ga4_event' => [
+				'name'       => 'click',
+				'parameters' => [
+					'link_id'  => 'topbar',
+					'link_url' => $this->url,
+					'outbound' => false,
+				],
 			],
 		];
 	}
