@@ -21,7 +21,6 @@ class Loader extends Object_Loader {
 			A11Y_Tablist::class,
 			Flickity::class,
 			Frappe_Charts::class,
-			Google_Analytics::class,
 			Google_Analytics_4::class,
 			Google_Maps::class,
 			JQuery_Mousewheel::class,
