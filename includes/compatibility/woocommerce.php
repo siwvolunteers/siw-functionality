@@ -41,8 +41,9 @@ class WooCommerce extends Base implements I_Plugin {
 
 	#[Filter( 'lostpassword_url', 1 )]
 	/** Lost password via wp methode */
-	public function remove_lostpassword_url_filter() {
+	public function remove_lostpassword_url_filter( string $lostpassword_url ): string {
 		remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
+		return $lostpassword_url;
 	}
 
 	#[Action( 'widgets_init', 99 )]
@@ -181,5 +182,10 @@ class WooCommerce extends Base implements I_Plugin {
 		remove_image_size( 'shop_catalog' );
 		remove_image_size( 'shop_single' );
 		remove_image_size( 'shop_thumbnail' );
+	}
+
+	#[Action( 'wp_enqueue_scripts' )]
+	public function enqueue_cart_fragment_script() {
+		wp_enqueue_script( 'wc-cart-fragments' );
 	}
 }

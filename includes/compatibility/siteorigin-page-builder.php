@@ -16,11 +16,14 @@ use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
  */
 class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 
-	#[Filter( 'siteorigin_panels_layouts_directory_enabled' )]
+	#[Filter( 'siteorigin_panels_layouts_directory_enabled', PHP_INT_MAX )]
 	private const ENABLE_LAYOUTS_DIRECTORY = false;
 
-	#[Filter( 'so_panels_show_add_new_dropdown_for_type' )]
+	#[Filter( 'so_panels_show_add_new_dropdown_for_type', PHP_INT_MAX )]
 	private const SHOW_ADD_NEW_DROPDOWN_FOR_TYPE = false;
+
+	#[Filter( 'siteorigin_add_installer', PHP_INT_MAX )]
+	private const SHOW_SITEORIGIN_INSTALLER = false;
 
 	/** {@inheritDoc} */
 	public static function get_plugin_basename(): string {

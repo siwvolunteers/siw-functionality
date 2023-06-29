@@ -120,11 +120,13 @@ class Netherlands implements Interactive_Map_Interface {
 		$args = [
 			'country' => 'nederland',
 		];
-		// Verborgen projecten niet tonen
-		return array_filter(
+		$projects = siw_get_products( $args );
+		$projects = array_filter(
 			siw_get_products( $args ),
 			fn( WC_Product_Project $project ): bool => ! $project->is_hidden()
 		);
+		usort( $projects, fn( WC_Product_Project $project_1, WC_Product_Project $project_2 ) => strcmp( $project_1->get_sku(), $project_2->get_sku() ) );
+		return $projects;
 	}
 
 	/** Genereert beschrijving van het project */

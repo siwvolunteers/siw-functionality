@@ -117,8 +117,8 @@ class Discount extends Base {
 	}
 
 	#[Filter( 'woocommerce_coupon_error' )]
-	public function set_coupon_error( string $message, int $error_code, \WC_Coupon $coupon ): ?string {
-		if ( self::STUDENT_DISCOUNT_COUPON_CODE !== $coupon->get_code() ) {
+	public function set_coupon_error( string $message, int $error_code, ?\WC_Coupon $coupon ): ?string {
+		if ( null === $coupon || self::STUDENT_DISCOUNT_COUPON_CODE !== $coupon->get_code() ) {
 			return $message;
 		}
 		return null;

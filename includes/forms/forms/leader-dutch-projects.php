@@ -5,6 +5,7 @@ namespace SIW\Forms\Forms;
 use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
+use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
  * Aanmelding projectbegeleider NP
@@ -116,6 +117,12 @@ class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interfa
 			'country' => 'nederland',
 		];
 		$projects = siw_get_products( $args );
+		$projects = array_filter(
+			siw_get_products( $args ),
+			fn( WC_Product_Project $project ): bool => ! $project->is_hidden()
+		);
+
+		usort( $projects, fn( WC_Product_Project $project_1, WC_Product_Project $project_2 ) => strcmp( $project_1->get_sku(), $project_2->get_sku() ) );
 
 		foreach ( $projects as $project ) {
 			$project_options[ sanitize_title( $project->get_sku() ) ] = $project->get_formatted_name();
