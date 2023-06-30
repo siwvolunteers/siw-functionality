@@ -27,7 +27,6 @@ class Loader extends Class_Loader_Abstract {
 			Icon::class,
 			Map::class,
 			Newsletter_Confirmation::class,
-			Opening_Hours::class,
 			Organisation::class,
 			Pie_Chart::class,
 			Project_Wizard::class,
