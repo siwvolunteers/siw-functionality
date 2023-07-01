@@ -52,6 +52,11 @@
 				"src": "{/dist/frappe-charts.min.umd.js,/dist/frappe-charts.min.umd.js.map}",
 				"namespaced": true
 			},
+			"leaflet": {
+				"version": "^1.9.4",
+				"src": "{/dist/images/,/dist/leaflet.js,/dist/leaflet.css}",
+				"namespaced": true
+			},
 			"js-cookie": {
 				"version": "^2.2.1",
 				"src": "src/js.cookie.js",
