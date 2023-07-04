@@ -28,6 +28,7 @@ class Loader extends Class_Loader_Abstract {
 			Map::class,
 			Newsletter_Confirmation::class,
 			Organisation::class,
+			OSM::class,
 			Pie_Chart::class,
 			Project_Wizard::class,
 			Quote::class,
