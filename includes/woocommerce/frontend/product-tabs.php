@@ -4,7 +4,7 @@ namespace SIW\WooCommerce\Frontend;
 
 use SIW\Config;
 use SIW\Elements\Form;
-use SIW\Elements\Google_Maps;
+use SIW\Elements\Leaflet_Map;
 use SIW\Forms\Forms\Enquiry_Project;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
@@ -112,7 +112,7 @@ class Product_Tabs {
 		echo wp_kses_post( wp_targeted_link_rel( links_add_target( make_clickable( wpautop( $args['content'] ) ) ) ) );
 
 		if ( self::LOCATION_TAB === $tab && $product->get_latitude() && null !== $product->get_longitude() ) {
-			Google_Maps::create()
+			Leaflet_Map::create()
 			->add_marker( $product->get_latitude(), $product->get_longitude(), __( 'Projectlocatie', 'siw' ) )
 			->render();
 		}
@@ -134,7 +134,7 @@ class Product_Tabs {
 
 	/** Toont kaart met projectlocatie in tab */
 	public function show_project_map( string $tab, array $args ) {
-		Google_Maps::create()
+		Leaflet_Map::create()
 			->add_marker( $args['latitude'], $args['longitude'], __( 'Projectlocatie', 'siw' ) )
 			->render();
 	}

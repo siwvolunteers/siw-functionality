@@ -2,10 +2,10 @@
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
-use SIW\Elements\Google_Maps;
 use SIW\Elements\Icon;
 use SIW\Util\Links;
 use SIW\Elements\Form;
+use SIW\Elements\Leaflet_Map;
 use SIW\Forms\Forms\Info_Day;
 use SIW\Helpers\Template;
 use SIW\Integrations\Mailjet;
@@ -275,7 +275,7 @@ class Event extends Type {
 	}
 
 	/** {@inheritDoc} */
-	protected function generate_slug( array $data, array $postarr ) : string {
+	protected function generate_slug( array $data, array $postarr ): string {
 		return sprintf( '%s %s', $data['post_title'], siw_format_date( $postarr['event_date'] ) );
 	}
 
@@ -308,7 +308,7 @@ class Event extends Type {
 		// locatie op kaart toevoegen
 		if ( ! siw_meta( 'online' ) ) {
 			$location = siw_meta( 'location' );
-			$location_map = Google_Maps::create()
+			$location_map = Leaflet_Map::create()
 			->add_location_marker(
 				sprintf( '%s, %s %s %s', $location['street'], $location['house_number'], $location['postcode'], $location['city'] ),
 				$location['name'],

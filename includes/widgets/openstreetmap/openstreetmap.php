@@ -2,34 +2,34 @@
 
 namespace SIW\Widgets;
 
-use SIW\Elements\Google_Maps as Element_Google_Maps;
+use SIW\Elements\Leaflet_Map;
 
 /**
- * Widget met Google Maps kaart
+ * Widget met OpenStreetMap kaart
  *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2023 SIW Internationale Vrijwilligersprojecten
  *
  * @widget_data
- * Widget Name: SIW: Google Maps
- * Description: Toont Google Maps kaart
+ * Widget Name: SIW: OpenStreetMap
+ * Description: Toont OpenStreetMap kaart
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class Google_Maps extends Widget {
+class OpenStreetMap extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
-		return 'google_maps';
+		return 'openstreetmap';
 	}
 
 	/** {@inheritDoc} */
 	protected function get_name(): string {
-		return __( 'Google Maps', 'siw' );
+		return __( 'OpenStreetMap', 'siw' );
 	}
 
 	/** {@inheritDoc} */
 	protected function get_description(): string {
-		return __( 'Toont Google Maps kaart', 'siw' );
+		return __( 'Toont OpenStreetMap kaart', 'siw' );
 	}
 
 	/** {@inheritDoc} */
@@ -135,7 +135,7 @@ class Google_Maps extends Widget {
 			return [];
 		}
 
-		$map = Element_Google_Maps::create()
+		$map = Leaflet_Map::create()
 			->set_zoom( (int) $instance['zoom'] );
 
 		foreach ( $instance['markers'] as $marker ) {
