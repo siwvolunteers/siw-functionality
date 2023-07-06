@@ -29,10 +29,7 @@ class Meta_Box {
 			'context'     => 'normal',
 			'priority'    => 'high',
 			'fields'      => $this->get_fields(),
-			'geo'         => [
-				'api_key' => Config::get_google_maps_js_api_key(),
-				'types'   => [ 'establishment' ],
-			],
+			'geo'         => true,
 		];
 		return $meta_boxes;
 	}
