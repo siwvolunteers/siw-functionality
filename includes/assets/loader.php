@@ -22,7 +22,6 @@ class Loader extends Object_Loader {
 			Flickity::class,
 			Frappe_Charts::class,
 			Google_Analytics_4::class,
-			Google_Maps::class,
 			JQuery_Mousewheel::class,
 			JQuery_Validation_Messages_NL::class,
 			JS_Cookie::class,
