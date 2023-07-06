@@ -16,7 +16,6 @@ use SIW\WooCommerce\Product\WC_Product_Project;
  *
  * - Oude projecten verwijderen
  * - Zichtbaarheid
- * - Stockfoto's
  *
  * @copyright 2021-2022 SIW Internationale Vrijwilligersprojecten
  *
@@ -81,9 +80,6 @@ class Update_Projects implements Batch_Action_Interface {
 
 		// Bijwerken zichtbaarheid
 		$this->maybe_update_visibility();
-
-		// Bijwerken stockfoto
-		$this->maybe_set_stockphoto();
 	}
 
 	/**
@@ -145,28 +141,6 @@ class Update_Projects implements Batch_Action_Interface {
 			if ( 'hidden' === $visibility ) {
 				$this->product->set_featured( false );
 			}
-			$this->product->save();
-		}
-	}
-
-	/** Probeer stockfoto toe te wijzen aan project */
-	protected function maybe_set_stockphoto() {
-
-		// Afbreken als het project al een afbeelding heeft
-		if ( $this->product->get_image_id() ) {
-			return false;
-		}
-
-		// Eigenschappen van project ophalen: land en soort(en) werk
-		$country = $this->product->get_country();
-		$work_types = $this->product->get_work_types();
-
-		// Stockfoto proberen te vinden
-		$import_image = new Import_Product_Image();
-		$image_id = $import_image->get_stock_image( $country, $work_types );
-
-		if ( is_int( $image_id ) ) {
-			$this->product->set_image_id( $image_id );
 			$this->product->save();
 		}
 	}
