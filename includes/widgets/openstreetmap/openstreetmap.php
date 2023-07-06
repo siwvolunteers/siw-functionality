@@ -15,11 +15,11 @@ use SIW\Elements\Leaflet_Map;
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class OSM extends Widget {
+class OpenStreetMap extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
-		return 'osm';
+		return 'openstreetmap';
 	}
 
 	/** {@inheritDoc} */
