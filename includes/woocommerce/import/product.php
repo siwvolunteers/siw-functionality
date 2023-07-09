@@ -487,27 +487,21 @@ class Product {
 			)
 		);
 
-		// Probeer Plato-afbeelding op te halen ( indien van toepassing )
-		if (
-			Config::get_plato_download_images() &&
-			! empty( $this->plato_project->get_image_file_identifiers() ) &&
-			! $this->product->use_stockfoto()
-		) {
-			$image_id = $product_image->get_project_image(
-				$this->plato_project->get_image_file_identifiers(),
-				$filename_base,
-				$this->plato_project->get_project_id()
-			);
-			if ( is_int( $image_id ) ) {
-				$this->product->set_has_plato_image( true );
-				return $image_id;
-			}
+		// Afbreken indien afbeeldingen niet gedownload moeten worden of als er geen afbeeldingen zijn
+		if ( ! Config::get_plato_download_images() || empty( $this->plato_project->get_image_file_identifiers() ) ) {
+			return null;
 		}
 
-		// Als dat niet gelukt is probeer dan een stockfoto te vinden die bij het project past
-		$image_id = $product_image->get_stock_image( $this->country, $this->work_types );
-
-		return $image_id;
+		$image_id = $product_image->get_project_image(
+			$this->plato_project->get_image_file_identifiers(),
+			$filename_base,
+			$this->plato_project->get_project_id()
+		);
+		if ( is_int( $image_id ) ) {
+			$this->product->set_has_plato_image( true );
+			return $image_id;
+		}
+		return null;
 	}
 
 	/**

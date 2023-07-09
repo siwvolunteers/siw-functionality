@@ -2,15 +2,13 @@
 
 namespace SIW\WooCommerce\Import;
 
-use SIW\Data\Country;
-use SIW\Data\Work_Type;
 use SIW\Helpers\Attachment;
 use SIW\Plato\Download_File as Plato_Download_File;
 
 /**
  * Selecteren van afbeelding voor een Groepsproject
  *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
  */
 class Product_Image {
 
@@ -68,79 +66,5 @@ class Product_Image {
 			}
 		}
 		return null;
-	}
-
-	/** Zoekt stockfoto op basis van land en soort werk */
-	public function get_stock_image( Country $country, array $work_types ): ?int {
-
-		$continent_slug = $country->get_continent()->get_slug();
-		$country_slug = $country->get_slug();
-		$work_type_slugs = array_map(
-			fn( Work_Type $work_type ): string => $work_type->get_slug(),
-			$work_types
-		);
-
-		// Haal taxonomy queries op
-		$tax_queries = $this->get_tax_queries( $continent_slug, $country_slug, $work_type_slugs );
-
-		// Selecteer stock image
-		foreach ( $tax_queries as $tax_query ) {
-
-			$posts = get_posts(
-				[
-					'post_type'   => 'attachment',
-					'post_status' => 'inherit',
-					'fields'      => 'ids',
-					'tax_query'   => $tax_query,
-				]
-			);
-
-			// Random afbeelding kiezen als er resultaten zijn
-			if ( count( $posts ) > 0 ) {
-				return $posts[ array_rand( $posts, 1 ) ];
-			}
-		}
-		return null;
-	}
-
-	/** Maakt taxonomy queries aan */
-	protected function get_tax_queries( string $continent, string $country, array $work_types ): array {
-
-		// Maak subqueries aan
-		$country_query = [
-			'taxonomy' => 'siw_attachment_country',
-			'field'    => 'slug',
-			'terms'    => $country,
-		];
-		$continent_query = [
-			'taxonomy' => 'siw_attachment_continent',
-			'field'    => 'slug',
-			'terms'    => $continent,
-		];
-		$work_type_query = [
-			'taxonomy' => 'siw_attachment_work_type',
-			'field'    => 'slug',
-			'terms'    => $work_types,
-		];
-
-		/*
-		* Maak queries aan door subqueries te combineren
-		*/
-
-		// Land en soort werk
-		$tax_queries[] = [
-			'relation' => 'AND',
-			$country_query,
-			$work_type_query,
-		];
-
-		// Continent en soort werk
-		$tax_queries[] = [
-			'relation' => 'AND',
-			$continent_query,
-			$work_type_query,
-		];
-
-		return $tax_queries;
 	}
 }

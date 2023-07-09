@@ -17,7 +17,6 @@ class Loader extends Class_Loader_Abstract {
 			Admin\Order::class,
 			Admin\Product_Tabs::class,
 			Admin\Product::class,
-			Admin\Stockphoto_Page::class,
 
 			Checkout\Address_Fields::class,
 			Checkout\Discount::class,

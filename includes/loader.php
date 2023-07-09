@@ -16,7 +16,6 @@ class Loader extends Class_Loader_Abstract {
 		return [
 			Email::class,
 			Login::class,
-			Media_Taxonomies::class,
 			Scheduler::class,
 			Shortcodes::class,
 			Update::class,

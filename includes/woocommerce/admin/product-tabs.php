@@ -58,18 +58,6 @@ class Product_Tabs extends Base {
 		<div id="siw_extra_settings_product_data" class="panel woocommerce_options_panel">
 			<div class="options_group">
 				<?php
-				// Alleen tonen als het project een afbeelding uit Plato heeft of als de optie al aangevinkt is
-				if ( $product->has_plato_image() || $product->use_stockfoto() ) {
-					woocommerce_wp_checkbox(
-						[
-							'id'          => 'use_stockphoto',
-							'value'       => $product->use_stockfoto(),
-							'cbvalue'     => '1',
-							'label'       => __( 'Stockfoto gebruiken', 'siw' ),
-							'description' => __( 'Bijvoorbeeld indien projectfoto niet geschikt is.', 'siw' ),
-						]
-					);
-				}
 				woocommerce_wp_checkbox(
 					[
 						'id'      => '_hidden',
@@ -152,14 +140,7 @@ class Product_Tabs extends Base {
 	/** Slaat gewijzigde meta-velden op */
 	#[Action( 'woocommerce_admin_process_product_object' )]
 	public function save_product_data( WC_Product_Project $product ) {
-
-		// Als stockfoto gebruikt moet worden, verwijder dan de huidige foto TODO: Plato-foto echt verwijderen?/
-		if ( isset( $_POST['_use_stockphoto'] ) && ! $product->use_stockfoto() ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$product->set_image_id( null );
-			$product->set_has_plato_image( false );
-		}
 		$product->set_custom_price( sanitize_text_field( wp_unslash( $_POST['_custom_price'] ?? '' ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$product->set_use_stockphoto( isset( $_POST['_use_stockphoto'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$product->set_hidden( isset( $_POST['_hidden'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$product->set_excluded_from_student_discount( isset( $_POST['_excluded_from_student_discount'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 	}
