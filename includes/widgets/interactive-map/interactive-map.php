@@ -5,31 +5,31 @@ namespace SIW\Widgets;
 use SIW\Elements\Leaflet_Map;
 
 /**
- * Widget met OpenStreetMap kaart
+ * Widget met interactieve kaart kaart
  *
  * @copyright 2023 SIW Internationale Vrijwilligersprojecten
  *
  * @widget_data
- * Widget Name: SIW: OpenStreetMap
- * Description: Toont OpenStreetMap kaart
+ * Widget Name: SIW: Interactieve kaart
+ * Description: Toont interactieve kaart kaart
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */
-class OpenStreetMap extends Widget {
+class Interactive_Map extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
-		return 'openstreetmap';
+		return 'interactive-map';
 	}
 
 	/** {@inheritDoc} */
 	protected function get_name(): string {
-		return __( 'OpenStreetMap', 'siw' );
+		return __( 'Interactieve kaart', 'siw' );
 	}
 
 	/** {@inheritDoc} */
 	protected function get_description(): string {
-		return __( 'Toont OpenStreetMap kaart', 'siw' );
+		return __( 'Toont interactieve kaart kaart', 'siw' );
 	}
 
 	/** {@inheritDoc} */
