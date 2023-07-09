@@ -114,6 +114,7 @@ class Product_Tabs {
 		if ( self::LOCATION_TAB === $tab && $product->get_latitude() && null !== $product->get_longitude() ) {
 			Leaflet_Map::create()
 			->add_marker( $product->get_latitude(), $product->get_longitude(), __( 'Projectlocatie', 'siw' ) )
+			->set_zoom( 5 )
 			->render();
 		}
 	}
