@@ -140,7 +140,7 @@ class Google_Analytics_4 extends Base {
 	protected function get_product_data( WC_Product_Project $product, int $index = null ): array {
 
 		$category_ids = $product->get_category_ids();
-		$category = get_term( $category_ids[0], Taxonomy_Attribute::CONTINENT()->value );
+		$category = get_term( $category_ids[0], Taxonomy_Attribute::CONTINENT->value );
 
 		$product_data = [
 			'id'             => $product->get_sku(),

@@ -30,7 +30,7 @@ class Social_Links extends Element {
 
 		foreach ( $social_networks as $network ) {
 			$networks[] = [
-				'url'       => ( Social_Network::SHARE === $this->context ) ? $this->generate_share_url( $network ) : $network->get_follow_url(),
+				'url'       => ( Social_Network_Context::SHARE === $this->context ) ? $this->generate_share_url( $network ) : $network->get_follow_url(),
 				'name'      => $network->get_name(),
 				'label'     => sprintf(
 					// translators: %s is de naam van een sociaal netwerk
@@ -42,7 +42,7 @@ class Social_Links extends Element {
 					'class' => $network->get_icon_class(),
 					'size'  => 2,
 				],
-				'ga4_event' => ( Social_Network::SHARE === $this->context ) ? [
+				'ga4_event' => ( Social_Network_Context::SHARE === $this->context ) ? [
 					'name'       => 'share',
 					'parameters' => [
 						'method'       => $network->get_name(),
