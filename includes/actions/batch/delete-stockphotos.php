@@ -35,10 +35,11 @@ class Delete_Stockphotos implements I_Batch_Action {
 	public function select_data(): array {
 		$attachment_ids = get_posts(
 			[
-				'post_type'   => 'attachment',
-				'post_status' => 'inherit',
-				'title'       => 'Stockfoto',
-				'fields'      => 'ids',
+				'post_type'      => 'attachment',
+				'post_status'    => 'inherit',
+				'title'          => 'Stockfoto',
+				'fields'         => 'ids',
+				'posts_per_page' => -1,
 			]
 		);
 
