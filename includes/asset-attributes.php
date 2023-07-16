@@ -17,7 +17,7 @@ class Asset_Attributes extends Base {
 
 	const ATTRIBUTES = [
 		self::CROSSORIGIN,
-		self::ATTRIBUTES,
+		self::INTEGRITY,
 	];
 
 	#[Filter( 'script_loader_tag' )]
