@@ -14,6 +14,7 @@ class Loader extends Class_Loader_Abstract {
 	/** {@inheritDoc} */
 	protected function get_classes(): array {
 		return [
+			Asset_Attributes::class,
 			Email::class,
 			Login::class,
 			Scheduler::class,
