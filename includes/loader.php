@@ -2,14 +2,14 @@
 
 namespace SIW;
 
-use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
+use SIW\Abstracts\Base_Loader;
 
 /**
  * Loader
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class Loader extends Class_Loader_Abstract {
+class Loader extends Base_Loader {
 
 	/** {@inheritDoc} */
 	protected function get_classes(): array {
@@ -22,10 +22,5 @@ class Loader extends Class_Loader_Abstract {
 			Update::class,
 			Upload_Subdir::class,
 		];
-	}
-
-	/** Laadt 1 klasse */
-	protected function load( string $class ) {
-		$class::init();
 	}
 }
