@@ -25,7 +25,6 @@ class Loader extends Object_Loader {
 			JQuery_Mousewheel::class,
 			JQuery_Validation_Messages_NL::class,
 			JS_Cookie::class,
-			Leaflet::class,
 			Magnific_Popup::class,
 			Mapplic::class,
 			Meta_Pixel::class,

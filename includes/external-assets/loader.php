@@ -13,6 +13,8 @@ class Loader extends Base_Loader {
 
 	/** {@inheritDoc} */
 	public function get_classes(): array {
-		return [];
+		return [
+			Leaflet::class,
+		];
 	}
 }
