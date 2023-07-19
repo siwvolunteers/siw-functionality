@@ -2,8 +2,6 @@
 
 namespace SIW\Elements;
 
-use SIW\Assets\JS_Cookie;
-use SIW\I18n;
 use SIW\Util\Links;
 
 /**
@@ -49,7 +47,7 @@ class Cookie_Notice extends Element {
 
 	/** {@inheritDoc} */
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/cookie-notice.js', [ JS_Cookie::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/cookie-notice.js', [ 'js-cookie' ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			self::ASSETS_HANDLE,
 			'siw_cookie_notice',

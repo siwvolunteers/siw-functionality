@@ -133,6 +133,7 @@ class Bootstrap {
 			\SIW\Admin\Loader::class,
 			\SIW\Assets\Loader::class,
 			\SIW\Compatibility\Loader::class,
+			\SIW\External_Assets\Loader::class,
 			\SIW\Features\Loader::class,
 			\SIW\Forms\Loader::class,
 			\SIW\Options\Loader::class,

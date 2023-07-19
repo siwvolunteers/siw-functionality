@@ -2,7 +2,7 @@
 
 namespace SIW\Features;
 
-use SIW\Assets\Google_Analytics_4 as Google_Analytics_4_Asset;
+use SIW\External_Assets\Google_Analytics_4 as Google_Analytics_4_Asset;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Base;
@@ -38,7 +38,7 @@ class Google_Analytics_4 extends Base {
 		if ( is_user_logged_in() || null === Config::get_google_analytics_measurement_id() ) {
 			return;
 		}
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/features/google-analytics-4.js', [ Google_Analytics_4_Asset::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/features/google-analytics-4.js', [ Google_Analytics_4_Asset::get_assets_handle() ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script( self::ASSETS_HANDLE, 'siw_google_analytics_4', $this->generate_analytics_data() );
 		wp_enqueue_script( self::ASSETS_HANDLE );
 	}

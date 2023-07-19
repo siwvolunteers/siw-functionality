@@ -19,11 +19,12 @@ class Loader extends Class_Loader_Abstract {
 			Admin\Product::class,
 
 			Checkout\Address_Fields::class,
-			Checkout\Discount::class,
 			Checkout\Fields::class,
 			Checkout\Form::class,
 			Checkout\Newsletter::class,
 			Checkout\Validation::class,
+			Checkout\Discount\Student::class,
+			Checkout\Discount\Bulk::class,
 
 			Email\Customer_On_Hold_Order::class,
 			Email\Customer_Processing_Order::class,
