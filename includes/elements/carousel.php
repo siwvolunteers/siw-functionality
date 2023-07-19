@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\Assets\Flickity;
+use SIW\External_Assets\Flickity;
 use SIW\Util\CSS;
 
 /**
@@ -53,12 +53,12 @@ class Carousel extends Element {
 
 	/** {@inheritDoc} */
 	public function enqueue_styles() {
-		wp_enqueue_style( Flickity::ASSETS_HANDLE );
+		wp_enqueue_style( Flickity::get_assets_handle() );
 	}
 
 	/** {@inheritDoc} */
 	public function enqueue_scripts() {
-		wp_enqueue_script( Flickity::ASSETS_HANDLE );
+		wp_enqueue_script( Flickity::get_assets_handle() );
 	}
 
 	/** Haalt responsive classes op */
@@ -179,7 +179,7 @@ class Carousel extends Element {
 	 *
 	 * @todo fallback-bestand
 	 */
-	protected function get_template() : string {
+	protected function get_template(): string {
 		$templates = apply_filters( 'siw_carousel_post_type_templates', [] );
 		return $templates[ $this->post_type ] ?? '';
 	}
