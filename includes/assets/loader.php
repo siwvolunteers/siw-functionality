@@ -25,7 +25,6 @@ class Loader extends Object_Loader {
 			Mapplic::class,
 			Meta_Pixel::class,
 			Polyfill::class,
-			Sal::class,
 			SIW_Functionality::class,
 			SIW_SVG::class,
 		];

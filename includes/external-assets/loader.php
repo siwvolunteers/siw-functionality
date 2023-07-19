@@ -5,9 +5,9 @@ namespace SIW\External_Assets;
 use SIW\Abstracts\Base_Loader;
 
 /**
- * Loader voor modules
+ * Loader voor externe assets
  *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2023 SIW Internationale Vrijwilligersprojecten
  */
 class Loader extends Base_Loader {
 
@@ -19,6 +19,7 @@ class Loader extends Base_Loader {
 			Flickity::class,
 			Frappe_Charts::class,
 			Leaflet::class,
+			Sal::class,
 		];
 	}
 }

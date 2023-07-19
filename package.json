@@ -36,11 +36,6 @@
 				"version": "^2.2.1",
 				"src": "src/js.cookie.js",
 				"namespaced": true
-			},
-			"sal.js": {
-				"version": "^0.8.0",
-				"src": "dist/*",
-				"namespaced": true
 			}
 		}
 	}
