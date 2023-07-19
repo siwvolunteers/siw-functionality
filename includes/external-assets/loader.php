@@ -22,6 +22,7 @@ class Loader extends Base_Loader {
 			JQuery_Mousewheel::class,
 			Leaflet::class,
 			Magnific_Popup::class,
+			Meta_Pixel::class,
 			Polyfill::class,
 			Sal::class,
 		];

@@ -44,25 +44,36 @@ abstract class NPM_Asset extends External_Asset {
 
 	#[Filter( 'wp_enqueue_scripts', 11 )]
 	#[Filter( 'admin_enqueue_scripts', 11 )]
-	public function set_script_subresource_integrity() {
+	public function add_script_data() {
 
 		if ( ! static::has_script() ) {
 			return;
 		}
-
 		wp_script_add_data(
 			static::get_assets_handle(),
 			Asset_Attributes::INTEGRITY,
 			static::get_script_sri()
 		);
+
+		wp_script_add_data(
+			static::get_assets_handle(),
+			Asset_Attributes::CROSSORIGIN,
+			'anonymous'
+		);
 	}
 
 	#[Filter( 'wp_enqueue_scripts', 11 )]
 	#[Filter( 'admin_enqueue_scripts', 11 )]
-	public function set_style_subresource_integrity() {
+	public function add_style_date() {
 		if ( ! static::has_style() ) {
 			return;
 		}
+
+		wp_style_add_data(
+			static::get_assets_handle(),
+			Asset_Attributes::CROSSORIGIN,
+			'anonymous'
+		);
 
 		wp_style_add_data(
 			static::get_assets_handle(),

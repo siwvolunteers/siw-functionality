@@ -2,7 +2,6 @@
 
 namespace SIW\External_Assets;
 
-use SIW\Asset_Attributes;
 use SIW\Attributes\Filter;
 use SIW\Base;
 
@@ -56,12 +55,6 @@ abstract class External_Asset extends Base {
 			null, // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 			true
 		);
-
-		wp_script_add_data(
-			static::get_assets_handle(),
-			Asset_Attributes::CROSSORIGIN,
-			'anonymous'
-		);
 	}
 
 	#[Filter( 'wp_enqueue_scripts' )]
@@ -77,12 +70,6 @@ abstract class External_Asset extends Base {
 			$this->get_style_url(),
 			[],
 			null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
-		);
-
-		wp_style_add_data(
-			static::get_assets_handle(),
-			Asset_Attributes::CROSSORIGIN,
-			'anonymous'
 		);
 	}
 

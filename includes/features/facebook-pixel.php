@@ -2,11 +2,12 @@
 
 namespace SIW\Features;
 
-use SIW\Assets\Meta_Pixel;
 use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
 use SIW\Base;
 use SIW\Config;
 use SIW\Elements\Cookie_Notice;
+use SIW\External_Assets\Meta_Pixel;
 
 /**
  * Configuratie van Facebook pixel
@@ -22,7 +23,7 @@ class Facebook_Pixel extends Base {
 	/** Voeg script toe */
 	public function enqueue_script() {
 		$pixel_id = Config::get_meta_pixel_id();
-		if ( null === $pixel_id ) {
+		if ( null !== $pixel_id ) {
 			return;
 		}
 
@@ -37,6 +38,12 @@ class Facebook_Pixel extends Base {
 			]
 		);
 		wp_enqueue_script( self::SCRIPT_HANDLE );
-		wp_enqueue_script( Meta_Pixel::ASSETS_HANDLE );
+		wp_enqueue_script( Meta_Pixel::get_assets_handle() );
+	}
+
+	#[Filter( 'rocket_exclude_js' )]
+	public function exclude_from_optimization( array $files ): array {
+		$files[] = wp_make_link_relative( SIW_ASSETS_URL . 'js/features/facebook-pixel.js' );
+		return $files;
 	}
 }
