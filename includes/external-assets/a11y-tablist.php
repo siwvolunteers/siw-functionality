@@ -23,7 +23,7 @@ class A11Y_Tablist extends NPM_Asset {
 
 	/** {@inheritDoc} */
 	protected static function get_script_file(): ?string {
-		return 'dist/tablist.js';
+		return 'dist/tablist.min.js';
 	}
 
 	/** {@inheritDoc} */
