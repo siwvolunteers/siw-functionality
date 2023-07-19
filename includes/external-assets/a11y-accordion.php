@@ -23,7 +23,7 @@ class A11Y_Accordion extends NPM_Asset {
 
 	/** {@inheritDoc} */
 	protected static function get_script_file(): ?string {
-		return 'dist/accordion.js';
+		return 'dist/accordion.min.js';
 	}
 
 	/** {@inheritDoc} */
