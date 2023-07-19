@@ -18,6 +18,7 @@ class Loader extends Base_Loader {
 			A11Y_Tablist::class,
 			Flickity::class,
 			Frappe_Charts::class,
+			Google_Analytics_4::class,
 			Leaflet::class,
 			Sal::class,
 		];

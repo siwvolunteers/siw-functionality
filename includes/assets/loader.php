@@ -17,7 +17,6 @@ class Loader extends Object_Loader {
 	/** {@inheritDoc} */
 	public function get_classes(): array {
 		return [
-			Google_Analytics_4::class,
 			JQuery_Mousewheel::class,
 			JQuery_Validation_Messages_NL::class,
 			Magnific_Popup::class,
