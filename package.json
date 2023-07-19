@@ -42,11 +42,6 @@
 				"src": "dist/tablist.js",
 				"target": "assets/vendor/tablist"
 			},
-			"flickity": {
-				"version": "^2.2.1",
-				"src": "{dist/flickity.pkgd.js,dist/flickity.css}",
-				"namespaced": true
-			},
 			"frappe-charts": {
 				"version": "^1.5.2",
 				"src": "{/dist/frappe-charts.min.umd.js,/dist/frappe-charts.min.umd.js.map}",
