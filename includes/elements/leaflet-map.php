@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\Assets\Leaflet;
+use SIW\External_Assets\Leaflet;
 use SIW\Util\CSS;
 
 /**
@@ -110,7 +110,7 @@ class Leaflet_Map extends Element {
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/leaflet-map.js', [ Leaflet::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/leaflet-map.js', [ Leaflet::get_assets_handle() ], SIW_PLUGIN_VERSION, true );
 
 		wp_localize_script(
 			self::ASSETS_HANDLE,
@@ -130,9 +130,9 @@ class Leaflet_Map extends Element {
 
 	/** Voegt inline styling toe */
 	public function enqueue_styles() {
-		wp_enqueue_style( Leaflet::ASSETS_HANDLE );
+		wp_enqueue_style( Leaflet::get_assets_handle() );
 		$css = CSS::get_css_generator();
 		$css->add_rule( "#{$this->get_element_id()}", [ 'height' => "{$this->height}px" ] );
-		wp_add_inline_style( Leaflet::ASSETS_HANDLE, $css->get_output() );
+		wp_add_inline_style( Leaflet::get_assets_handle(), $css->get_output() );
 	}
 }

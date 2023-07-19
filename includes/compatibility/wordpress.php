@@ -204,22 +204,6 @@ class WordPress extends Base {
 		);
 	}
 
-	#[Filter( 'script_loader_tag' )]
-	/** Zet crossorigin attribute */
-	public function set_crossorigin( string $tag, string $handle ): string {
-		$crossorigin = wp_scripts()->get_data( $handle, 'crossorigin' );
-		if ( $crossorigin ) {
-
-			$processor = new \WP_HTML_Tag_Processor( $tag );
-
-			if ( $processor->next_tag() ) {
-				$processor->set_attribute( 'crossorigin', $crossorigin );
-			}
-			$tag = $processor->get_updated_html();
-		}
-		return $tag;
-	}
-
 	#[Action( 'template_redirect' )]
 	/** Author archives doorsturen naar home page */
 	public function disable_author_archive() {

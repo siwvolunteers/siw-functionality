@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\Assets\A11Y_Accordion;
+use SIW\External_Assets\A11Y_Accordion;
 
 /**
  * Class om een accordion te genereren
@@ -54,7 +54,7 @@ class Accordion extends Repeater {
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/accordion.js', [ A11Y_Accordion::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/accordion.js', [ A11Y_Accordion::get_assets_handle() ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 
