@@ -15,6 +15,7 @@ class Loader extends Base_Loader {
 	public function get_classes(): array {
 		return [
 			Flickity::class,
+			Frappe_Charts::class,
 			Leaflet::class,
 		];
 	}

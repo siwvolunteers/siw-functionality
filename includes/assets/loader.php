@@ -19,7 +19,6 @@ class Loader extends Object_Loader {
 		return [
 			A11Y_Accordion::class,
 			A11Y_Tablist::class,
-			Frappe_Charts::class,
 			Google_Analytics_4::class,
 			JQuery_Mousewheel::class,
 			JQuery_Validation_Messages_NL::class,
