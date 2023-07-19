@@ -23,7 +23,7 @@ class Facebook_Pixel extends Base {
 	/** Voeg script toe */
 	public function enqueue_script() {
 		$pixel_id = Config::get_meta_pixel_id();
-		if ( null !== $pixel_id ) {
+		if ( null === $pixel_id ) {
 			return;
 		}
 

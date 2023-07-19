@@ -28,9 +28,7 @@ var siwFacebookPixel = (function () {
 		n.version='2.0';
 		n.queue=[];
 
-		if ( ! _isConsentGiven() ) {
-			fbq( 'consent', 'revoke' );
-		}
+		fbq( 'consent', 'revoke' );
 		fbq( 'set', 'autoConfig', 'false', siw_facebook_pixel.pixel_id )
 		fbq( 'init', siw_facebook_pixel.pixel_id) ;
 		fbq( 'track', 'PageView' );
