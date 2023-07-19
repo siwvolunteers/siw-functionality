@@ -31,7 +31,6 @@ class Loader extends Object_Loader_Abstract {
 			Batch\Update_Database::class,
 			Batch\Update_Mailjet_Properties::class,
 			Batch\Update_Projects::class,
-			Batch\Update_Terms::class,
 			Batch\Update_WooCommerce_Terms::class,
 		];
 	}
