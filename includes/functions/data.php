@@ -151,11 +151,6 @@ function siw_get_interactive_maps(): array {
 			'class' => \SIW\Elements\Interactive_Maps\Netherlands::class,
 		],
 		[
-			'id'    => 'destinations',
-			'name'  => __( 'Bestemmingen', 'siw' ),
-			'class' => \SIW\Elements\Interactive_Maps\Destinations::class,
-		],
-		[
 			'id'    => 'esc',
 			'name'  => __( 'ESC', 'siw' ),
 			'class' => \SIW\Elements\Interactive_Maps\ESC::class,
