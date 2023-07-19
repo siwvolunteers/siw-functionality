@@ -20,6 +20,7 @@ class Loader extends Base_Loader {
 			Frappe_Charts::class,
 			Google_Analytics_4::class,
 			Leaflet::class,
+			Polyfill::class,
 			Sal::class,
 		];
 	}

@@ -22,7 +22,6 @@ class Loader extends Object_Loader {
 			Magnific_Popup::class,
 			Mapplic::class,
 			Meta_Pixel::class,
-			Polyfill::class,
 			SIW_Functionality::class,
 			SIW_SVG::class,
 		];
