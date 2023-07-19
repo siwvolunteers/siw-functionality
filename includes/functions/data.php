@@ -4,8 +4,6 @@ use SIW\Admin\Page_Settings;
 use SIW\Data\Email_Settings;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
-use SIW\Integrations\Google_Maps;
-use SIW\Properties;
 
 /**
  * Functies m.b.t. referentiegegevens
