@@ -18,7 +18,6 @@ class Loader extends Object_Loader {
 	public function get_classes(): array {
 		return [
 			JQuery_Validation_Messages_NL::class,
-			Magnific_Popup::class,
 			Mapplic::class,
 			Meta_Pixel::class,
 			SIW_Functionality::class,

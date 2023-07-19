@@ -21,6 +21,7 @@ class Loader extends Base_Loader {
 			Google_Analytics_4::class,
 			JQuery_Mousewheel::class,
 			Leaflet::class,
+			Magnific_Popup::class,
 			Polyfill::class,
 			Sal::class,
 		];
