@@ -19,6 +19,7 @@ class Loader extends Base_Loader {
 			Flickity::class,
 			Frappe_Charts::class,
 			Google_Analytics_4::class,
+			JQuery_Mousewheel::class,
 			Leaflet::class,
 			Polyfill::class,
 			Sal::class,

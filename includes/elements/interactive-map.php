@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\Assets\JQuery_Mousewheel;
+use SIW\External_Assets\JQuery_Mousewheel;
 use SIW\Assets\Magnific_Popup;
 use SIW\Assets\Mapplic;
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
@@ -51,7 +51,7 @@ class Interactive_Map extends Element {
 	}
 
 	/** Zet opties van de kaart */
-	protected function get_options() : array {
+	protected function get_options(): array {
 		$options = wp_cache_get( $this->interactive_map->get_id(), __METHOD__ );
 		if ( false !== $options ) {
 			return $options;
@@ -136,7 +136,6 @@ class Interactive_Map extends Element {
 			'y'           => null,
 			'lat'         => false,
 			'lng'         => false,
-			'pin'         => 'hidden',
 			'category'    => false,
 		];
 		return wp_parse_args( $location, $default );
@@ -146,7 +145,7 @@ class Interactive_Map extends Element {
 	public function enqueue_scripts() {
 
 		if ( $this->get_option( 'mousewheel' ) ) {
-			wp_enqueue_script( JQuery_Mousewheel::ASSETS_HANDLE );
+			wp_enqueue_script( JQuery_Mousewheel::get_assets_handle() );
 		}
 		if ( $this->get_option( 'lightbox' ) ) {
 			wp_enqueue_script( Magnific_Popup::ASSETS_HANDLE );
