@@ -32,16 +32,6 @@
 	"frontendDependencies": {
 		"target": "assets/vendor",
 		"packages": {
-			"@accede-web/accordion": {
-				"version": "*",
-				"src": "dist/accordion.js",
-				"target": "assets/vendor/accordion"
-			},
-			"@accede-web/tablist": {
-				"version": "*",
-				"src": "dist/tablist.js",
-				"target": "assets/vendor/tablist"
-			},
 			"js-cookie": {
 				"version": "^2.2.1",
 				"src": "src/js.cookie.js",
