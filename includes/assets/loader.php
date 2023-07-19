@@ -20,7 +20,6 @@ class Loader extends Object_Loader {
 			Google_Analytics_4::class,
 			JQuery_Mousewheel::class,
 			JQuery_Validation_Messages_NL::class,
-			JS_Cookie::class,
 			Magnific_Popup::class,
 			Mapplic::class,
 			Meta_Pixel::class,

@@ -32,11 +32,6 @@
 	"frontendDependencies": {
 		"target": "assets/vendor",
 		"packages": {
-			"js-cookie": {
-				"version": "^2.2.1",
-				"src": "src/js.cookie.js",
-				"namespaced": true
-			}
 		}
 	}
 }
