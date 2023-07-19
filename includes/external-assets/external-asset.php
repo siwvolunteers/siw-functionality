@@ -38,6 +38,10 @@ abstract class External_Asset extends Base {
 		return null !== static::get_style_url();
 	}
 
+	protected static function get_script_dependencies(): array {
+		return [];
+	}
+
 	#[Filter( 'wp_enqueue_scripts' )]
 	#[Filter( 'admin_enqueue_scripts' )]
 	public function register_script() {
@@ -47,8 +51,8 @@ abstract class External_Asset extends Base {
 
 		wp_register_script(
 			static::get_assets_handle(),
-			$this->get_script_url(),
-			[],
+			static::get_script_url(),
+			static::get_script_dependencies(),
 			null, // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 			true
 		);

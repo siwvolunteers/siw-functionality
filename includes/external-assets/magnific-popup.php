@@ -41,4 +41,9 @@ class Magnific_Popup extends NPM_Asset {
 	protected static function get_style_sri(): ?string {
 		return 'sha256-RdH19s+RN0bEXdaXsajztxnALYs/Z43H/Cdm1U4ar24=';
 	}
+
+	/** {@inheritDoc} */
+	protected static function get_script_dependencies(): array {
+		return [ 'jquery' ];
+	}
 }

@@ -2,8 +2,6 @@
 
 namespace SIW\External_Assets;
 
-use SIW\Interfaces\Assets\Script;
-
 /**
  * Jquery mousewheel
  *
@@ -41,6 +39,11 @@ class JQuery_Mousewheel extends NPM_Asset {
 	/** {@inheritDoc} */
 	protected static function get_style_sri(): ?string {
 		return null;
+	}
+
+	/** {@inheritDoc} */
+	protected static function get_script_dependencies(): array {
+		return [ 'jquery' ];
 	}
 
 }
