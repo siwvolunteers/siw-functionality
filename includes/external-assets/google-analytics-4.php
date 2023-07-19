@@ -34,9 +34,4 @@ class Google_Analytics_4 extends External_Asset {
 		return null;
 	}
 
-	/** {@inheritDoc} */
-	protected static function get_domain(): string {
-		return 'www.googletagmanager.com';
-	}
-
 }
