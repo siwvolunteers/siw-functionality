@@ -23,7 +23,6 @@ class Loader extends Class_Loader_Abstract {
 			CTA::class,
 			Featured_Image::class,
 			Form::class,
-			Icon::class,
 			Interactive_Map::class,
 			Map::class,
 			Newsletter_Confirmation::class,
