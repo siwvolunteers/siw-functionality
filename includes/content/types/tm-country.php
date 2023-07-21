@@ -7,7 +7,6 @@ use SIW\Data\Country;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
 use SIW\Data\Work_Type;
-use SIW\Elements\Icon;
 use SIW\Elements\Quote;
 use SIW\Elements\World_Map;
 use SIW\Helpers\Template;
