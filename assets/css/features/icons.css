@@ -7,40 +7,9 @@
   fill: var(--siw-base);
 }
 
-.siw-icon-background {
-  display: inline-block;
-  font-size: 1em;
-  position: relative;
-  vertical-align: middle;
-  height: 2em;
-  width: 2em;
-}
-.siw-icon-background .siw-icon-inverse {
-  position: absolute;
-  left: 0.5em;
-  top: 0.5em;
-  fill: var(--siw-base);
-  width: 1em;
-  height: 1em;
-}
-.siw-icon-background .siw-background-icon {
-  position: absolute;
-  left: 0;
-  width: 2em;
-  height: 2em;
-  transition: all 0.3s linear 0s;
-}
-.siw-icon-background:hover .siw-background-icon {
-  fill: var(--siw-accent);
-}
-
 .siw-icon-1x {
   width: 0.5em;
   height: 0.5em;
-}
-
-.siw-icon-background-1x {
-  font-size: 0.5em;
 }
 
 .siw-icon-2x {
@@ -48,17 +17,9 @@
   height: 1em;
 }
 
-.siw-icon-background-2x {
-  font-size: 1em;
-}
-
 .siw-icon-3x {
   width: 1.5em;
   height: 1.5em;
-}
-
-.siw-icon-background-3x {
-  font-size: 1.5em;
 }
 
 .siw-icon-4x {
@@ -66,17 +27,9 @@
   height: 2em;
 }
 
-.siw-icon-background-4x {
-  font-size: 2em;
-}
-
 .siw-icon-5x {
   width: 2.5em;
   height: 2.5em;
-}
-
-.siw-icon-background-5x {
-  font-size: 2.5em;
 }
 
 .siw-icon-6x {
@@ -84,17 +37,9 @@
   height: 3em;
 }
 
-.siw-icon-background-6x {
-  font-size: 3em;
-}
-
 .siw-icon-7x {
   width: 3.5em;
   height: 3.5em;
-}
-
-.siw-icon-background-7x {
-  font-size: 3.5em;
 }
 
 .siw-icon-8x {
@@ -102,24 +47,12 @@
   height: 4em;
 }
 
-.siw-icon-background-8x {
-  font-size: 4em;
-}
-
 .siw-icon-9x {
   width: 4.5em;
   height: 4.5em;
 }
 
-.siw-icon-background-9x {
-  font-size: 4.5em;
-}
-
 .siw-icon-10x {
   width: 5em;
   height: 5em;
-}
-
-.siw-icon-background-10x {
-  font-size: 5em;
 }

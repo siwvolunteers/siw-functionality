@@ -15,9 +15,6 @@ class Icon extends Element {
 	/** Grootte van icon */
 	protected int $size = 2;
 
-	/** Geeft aan of het icon een achtergrond heeft */
-	protected bool $has_background = false;
-
 	/** {@inheritDoc} */
 	protected static function get_type(): string {
 		return 'icon';
@@ -27,10 +24,8 @@ class Icon extends Element {
 	protected function get_template_variables(): array {
 		return [
 			'icon' => [
-				'icon_class'       => $this->icon_class,
-				'size'             => $this->size,
-				'has_background'   => $this->has_background,
-				'background_class' => 'circle',
+				'icon_class' => $this->icon_class,
+				'size'       => $this->size,
 			],
 		];
 	}
@@ -44,12 +39,6 @@ class Icon extends Element {
 	/** Zet grootte van icon */
 	public function set_size( int $size ): self {
 		$this->size = $size;
-		return $this;
-	}
-
-	/** Zet of het icoon een achtergrond heeft */
-	public function set_has_background( bool $has_background ): self {
-		$this->has_background = $has_background;
 		return $this;
 	}
 }

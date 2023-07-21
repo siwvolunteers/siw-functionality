@@ -81,7 +81,6 @@ class Icon extends Widget {
 			'content' => Icon_Element::create()
 				->set_icon_class( $instance['icon'] )
 				->set_size( (int) $instance['size'] )
-				->set_has_background( $instance['has_background'] )
 				->generate(),
 		];
 	}
