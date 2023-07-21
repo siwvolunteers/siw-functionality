@@ -194,17 +194,24 @@ class TM_Country extends Type {
 			'quote'             => Quote::create()->set_quote( rwmb_get_value( 'quote' ) )->generate(),
 			'sign_up_link'      => Links::generate_button_link( get_permalink( $tailor_made_page ), __( 'Meld je aan', 'siw' ) ),
 			'child_policy_link' => Links::generate_link( get_permalink( $child_policy_link ), __( 'Lees meer over ons beleid.', 'siw' ) ),
-			'worktypes'         => [],
 		];
 		// welke type projecten zijn er
 		$work_types = siw_meta( 'work_type' );
-		foreach ( $work_types as $work_type ) {
-			$worktype = siw_get_work_type( $work_type );
-			$name = sprintf( '%s %s', Icon::create()->set_icon_class( $worktype->get_icon_class() )->set_has_background( true )->generate(), $worktype->get_name() );
-			array_push( $template_vars['worktypes'], [ 'name' => $name ] );
-		}
+
+		$template_vars['work_types'] = array_map(
+			fn( string $work_type ): string => siw_get_work_type( $work_type )?->get_name(),
+			$work_types
+		);
+
+		$has_child_projects = ! empty(
+			array_filter(
+				$work_types,
+				fn( string $work_type ): bool => siw_get_work_type( $work_type )?->needs_review(),
+			)
+		);
+
 		// plaats opmerking als er kinderprojecten zijn
-		if ( in_array( 'kinderen', $work_types, true ) ) {
+		if ( $has_child_projects ) {
 			$template_vars += [ 'has_child_projects' => true ];
 		}
 		Template::create()->set_template( 'types/tm_country_single' )->set_context( $template_vars )->render_template();
