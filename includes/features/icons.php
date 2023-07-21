@@ -18,7 +18,6 @@ class Icons extends Base {
 	#[Action( 'wp_body_open' )]
 	/** Voegt SVG-sprite toe aan header */
 	public function add_svg_sprite() {
-		printf( '<div data-svg-url="%s" style="display:none;"></div>', esc_url( SIW_ASSETS_URL . 'icons/siw-general-icons.svg' ) );
 		printf( '<div data-svg-url="%s" style="display:none;"></div>', esc_url( SIW_ASSETS_URL . 'icons/dashicons.svg' ) );
 	}
 
