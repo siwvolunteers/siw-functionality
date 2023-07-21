@@ -3,11 +3,12 @@
 namespace SIW\Helpers;
 
 use SIW\Data\Database_Table;
+use SIW\Util\Logger;
 
 /**
  * Database helper voor SIW-tabellen
  *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2021-2023 SIW Internationale Vrijwilligersprojecten
  */
 class Database {
 
@@ -29,17 +30,21 @@ class Database {
 	}
 
 	/** Geeft informatie over kolommen terug */
-	public function get_columns() : array {
+	public function get_columns(): array {
 		return $this->columns;
 	}
 
 	/** Truncate tabel */
-	public function truncate() : bool {
-		return (bool) $this->wpdb->query( "TRUNCATE TABLE {$this->table}" );
+	public function truncate(): bool {
+		$result = (bool) $this->wpdb->query( "TRUNCATE TABLE {$this->table}" );
+		if ( false === $result ) {
+			Logger::error( $this->wpdb->last_error, static::class );
+		}
+		return $result;
 	}
 
 	/** Insert data */
-	public function insert( array $data ) : bool {
+	public function insert( array $data ): bool {
 
 		// Alleen data van bestaande kolommen gebruiken
 		$data = wp_array_slice_assoc( $data, wp_list_pluck( $this->columns, 'name' ) );
@@ -52,11 +57,14 @@ class Database {
 			$values[ $column ] = $this->typecast_value( $value, $column_types[ $column ] );
 			$format[] = $this->type_to_placeholder( $column_types[ $column ] );
 		}
-		return (bool) $this->wpdb->insert( $this->table, $values, $format );
+
+		$result = (bool) $this->wpdb->insert( $this->table, $values, $format );
+		$this->maybe_log_error();
+		return $result;
 	}
 
 	/** Haal rij uit database (o.b.v. where-array met `column => value` ) */
-	public function get_row( array $where ) : ?array {
+	public function get_row( array $where ): ?array {
 
 		// Where clause opbouwen
 		foreach ( $where as $field => $value ) {
@@ -82,6 +90,7 @@ class Database {
 			ARRAY_A
 		);
 		if ( null === $data ) {
+			$this->maybe_log_error();
 			return null;
 		}
 
@@ -96,7 +105,7 @@ class Database {
 	}
 
 	/** Haal kolom uit database (o.b.v. where-array met `column => value` ) */
-	public function get_col( string $col, array $where = [] ) : array {
+	public function get_col( string $col, array $where = [] ): array {
 		if ( ! in_array( $col, wp_list_pluck( $this->columns, 'name' ), true ) ) {
 			return [];
 		}
@@ -133,14 +142,13 @@ class Database {
 		return $data;
 	}
 
-
 	/** Verwijder data */
 	public function delete( array $where ) {
 		return (bool) $this->wpdb->delete( $this->table, $where );
 	}
 
 	/** Creëer tabel */
-	public function create_table() : bool {
+	public function create_table(): bool {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$columns = $this->columns;
@@ -163,11 +171,14 @@ class Database {
 		$sql[] = sprintf( ') %s;', $this->wpdb->get_charset_collate() );
 
 		dbDelta( implode( PHP_EOL, $sql ) );
-		return empty( $this->wpdb->last_error );
+
+		$result = empty( $this->wpdb->last_error );
+		$this->maybe_log_error();
+		return $result;
 	}
 
 	/** Voeg foreign key toe */
-	public function add_foreign_key( Database_Table $referenced_table, array $referenced_fields, array $fields ) : bool {
+	public function add_foreign_key( Database_Table $referenced_table, array $referenced_fields, array $fields ): bool {
 		// TODO: parameter voor on delete/ on update
 		// TODO: checks op velden en tabel
 		$referenced_table_full_name = $this->get_full_table_name( $referenced_table->value );
@@ -192,7 +203,9 @@ class Database {
 		$fk_query[] = sprintf( 'REFERENCES `%s` (%s)', $referenced_table_full_name, implode( ',', $referenced_fields ) );
 		$fk_query[] = 'ON DELETE CASCADE;';
 
-		return (bool) $this->wpdb->query( implode( PHP_EOL, $fk_query ) );
+		$result = (bool) $this->wpdb->query( implode( PHP_EOL, $fk_query ) );
+		$this->maybe_log_error();
+		return $result;
 	}
 
 	/** Typecase waarde o.b.v. type */
@@ -301,5 +314,11 @@ class Database {
 
 		$query = $this->wpdb->prepare( implode( PHP_EOL, $query ), $values );
 		return $this->wpdb->get_results( $query, $args['output'] );
+	}
+
+	protected function maybe_log_error(): void {
+		if ( ! empty( $this->wpdb->last_error ) ) {
+			Logger::error( $this->wpdb->last_error, static::class );
+		}
 	}
 }
