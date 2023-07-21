@@ -334,23 +334,23 @@ class Event extends Type {
 	public function get_template_vars(): array {
 
 		$template_vars = [
-			'link'          => Links::generate_button_link( get_permalink(), __( 'Lees meer', 'siw' ) ),
-			'abstract'      => siw_meta( 'abstract' ),
-			'icons' => [
+			'link'        => Links::generate_button_link( get_permalink(), __( 'Lees meer', 'siw' ) ),
+			'abstract'    => siw_meta( 'abstract' ),
+			'icons'       => [
 				'location' => Icon::create()->set_icon_class( 'location' )->generate(),
 				'online'   => Icon::create()->set_icon_class( 'admin-site-alt3' )->generate(),
 				'clock'    => Icon::create()->set_icon_class( 'clock' )->generate(),
 			],
-			'event_day'     => wp_date( 'd', strtotime( siw_meta( 'event_date' ) ) ),
-			'event_month'   => wp_date( 'F', strtotime( siw_meta( 'event_date' ) ) ),
-			'start_time'    => siw_meta( 'start_time' ),
-			'end_time'      => siw_meta( 'end_time' ),
-			'event_date'    => siw_format_date( siw_meta( 'event_date' ), false ),
-			'description'   => siw_meta( 'description' ),
-			'infodag'       => siw_meta( 'info_day' ),
-			'verlopen'      => siw_meta( 'event_date' ) < gmdate( 'Y-m-d' ),
-			'online'        => siw_meta( 'online' ),
-			'i18n'          => [
+			'event_day'   => wp_date( 'd', strtotime( siw_meta( 'event_date' ) ) ),
+			'event_month' => wp_date( 'F', strtotime( siw_meta( 'event_date' ) ) ),
+			'start_time'  => siw_meta( 'start_time' ),
+			'end_time'    => siw_meta( 'end_time' ),
+			'event_date'  => siw_format_date( siw_meta( 'event_date' ), false ),
+			'description' => siw_meta( 'description' ),
+			'infodag'     => siw_meta( 'info_day' ),
+			'verlopen'    => siw_meta( 'event_date' ) < gmdate( 'Y-m-d' ),
+			'online'      => siw_meta( 'online' ),
+			'i18n'        => [
 				'online' => __( 'Online', 'siw' ),
 			],
 		];
