@@ -2,6 +2,7 @@
 
 namespace SIW\External_Assets;
 
+use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Base;
 
@@ -41,8 +42,8 @@ abstract class External_Asset extends Base {
 		return [];
 	}
 
-	#[Filter( 'wp_enqueue_scripts' )]
-	#[Filter( 'admin_enqueue_scripts' )]
+	#[Action( 'wp_enqueue_scripts' )]
+	#[Action( 'admin_enqueue_scripts' )]
 	public function register_script() {
 		if ( ! static::has_script() ) {
 			return;
@@ -57,8 +58,8 @@ abstract class External_Asset extends Base {
 		);
 	}
 
-	#[Filter( 'wp_enqueue_scripts' )]
-	#[Filter( 'admin_enqueue_scripts' )]
+	#[Action( 'wp_enqueue_scripts' )]
+	#[Action( 'admin_enqueue_scripts' )]
 	public function register_style() {
 
 		if ( ! static::has_style() ) {

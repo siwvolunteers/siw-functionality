@@ -3,7 +3,7 @@
 namespace SIW\External_Assets;
 
 use SIW\Asset_Attributes;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Action;
 use SIW\Helpers\Template;
 
 /**
@@ -42,8 +42,8 @@ abstract class NPM_Asset extends External_Asset {
 		return static::get_asset_url( static::get_style_file() );
 	}
 
-	#[Filter( 'wp_enqueue_scripts', 11 )]
-	#[Filter( 'admin_enqueue_scripts', 11 )]
+	#[Action( 'wp_enqueue_scripts', 11 )]
+	#[Action( 'admin_enqueue_scripts', 11 )]
 	public function add_script_data() {
 
 		if ( ! static::has_script() ) {
@@ -62,8 +62,8 @@ abstract class NPM_Asset extends External_Asset {
 		);
 	}
 
-	#[Filter( 'wp_enqueue_scripts', 11 )]
-	#[Filter( 'admin_enqueue_scripts', 11 )]
+	#[Action( 'wp_enqueue_scripts', 11 )]
+	#[Action( 'admin_enqueue_scripts', 11 )]
 	public function add_style_date() {
 		if ( ! static::has_style() ) {
 			return;
