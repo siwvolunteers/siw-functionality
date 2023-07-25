@@ -16,6 +16,7 @@ class Loader extends Base_Loader {
 		return [
 			A11Y_Accordion::class,
 			A11Y_Tablist::class,
+			Cookie_Consent::class,
 			Flickity::class,
 			Frappe_Charts::class,
 			Google_Analytics_4::class,
