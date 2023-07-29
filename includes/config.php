@@ -159,6 +159,11 @@ class Config {
 		return self::get_constant_value( 'SIW_ESC_DEPOSIT' );
 	}
 
+	/** Geeft inschrijfgeld voor ESC project terug */
+	public static function get_esc_project_fee(): int {
+		return self::get_constant_value( 'SIW_ESC_PROJECT_FEE', 50 );
+	}
+
 	/** Geeft kortingspercentage voor tweede project terug */
 	public static function get_discount_percentage_second_project(): int {
 		return self::get_constant_value( 'SIW_DISCOUNT_PERCENTAGE_SECOND_PROJECT' );
