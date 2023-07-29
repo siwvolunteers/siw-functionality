@@ -39,11 +39,20 @@ class Meta_Box extends Base implements I_Plugin {
 	}
 
 	#[Filter( 'rwmb_field_class' )]
-	public function set_field_class( string $class, string $type ): string {
+	public function set_field_class( string $class_name, string $type ): string {
 		if ( in_array( $type, [ 'date', 'time' ], true ) ) {
-			$class = \RWMB_Input_Field::class;
+			$class_name = \RWMB_Input_Field::class;
 		}
-		return $class;
+		return $class_name;
+	}
+
+	#[Filter( 'rwmb_normalize_time_field' )]
+	#[Filter( 'rwmb_normalize_date_field' )]
+	public function set_date_time_sanitize_callback( array $field ): array {
+		$defaults = [
+			'sanitize_callback' => 'sanitize_text_field',
+		];
+		return wp_parse_args_recursive( $defaults, $field );
 	}
 
 	#[Filter( 'rwmb_normalize_switch_field' )]
