@@ -51,8 +51,8 @@ class Iframe_Manager extends Base {
 									'notice'     =>
 										__( 'Deze inhoud wordt gehost door een derde partij.', 'siw' ) . SPACE .
 										// translators: %s is de link naar de algemene voorwaarden van YouTube
-										sprintf( __( 'Door de externe inhoud te tonen, accepteer je de %s van youtube.com.', 'siw' ), Links::generate_external_link( 'https://www.youtube.com/t/terms', __( 'algemene voorwaarden', 'siw' ) ) ),
-									'loadBtn'    => __( 'Video laden', 'siw' ),
+										sprintf( __( 'Door de video te laden, accepteer je de %s van YouTube', 'siw' ), Links::generate_external_link( 'https://www.youtube.com/t/terms', __( 'algemene voorwaarden', 'siw' ) ) ),
+									'loadBtn'    => __( 'Deze video laden', 'siw' ),
 									'loadAllBtn' => __( 'Vraag het niet opnieuw', 'siw' ),
 								],
 							],
