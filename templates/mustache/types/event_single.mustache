@@ -1,11 +1,11 @@
 {{! tijd en locatie}}
-<h4>{{& icon_clock }} {{ event_date }} {{ start_time }} - {{ end_time }}</h4>
+<h4>{{& icons.clock }} {{ event_date }} {{ start_time }} - {{ end_time }}</h4>
 <h4>
 	{{# online }}
-		{{& icon_globe }} {{ i18n.online }}
+		{{& icons.online }} {{ i18n.online }}
 	{{/ online }}
 	{{^ online }}
-		{{& icon_map-marker-alt }} {{ location.name }}, {{ location.street }} {{ location.house_number }}, {{ location.postcode }} {{ location.city }}
+		{{& icons.location }} {{ location.name }}, {{ location.street }} {{ location.house_number }}, {{ location.postcode }} {{ location.city }}
 	{{/ online }}
 </h4>
 {{! beschrijving van evenement}}

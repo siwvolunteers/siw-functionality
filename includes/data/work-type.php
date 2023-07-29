@@ -30,9 +30,6 @@ class Work_Type extends Data {
 	/** De Plato-code van het soort werk */
 	protected string $plato_code;
 
-	/** CSS-class van icoon */
-	protected string $icon_class;
-
 	/** Moeten projecten met dit soort werk gereviewed worden */
 	protected bool $needs_review;
 
@@ -52,11 +49,6 @@ class Work_Type extends Data {
 	/** Geeft de Plato-code van het soort werk terug */
 	public function get_plato_code(): string {
 		return $this->plato_code;
-	}
-
-	/** Geeft icon class voor voor soort -werk terug */
-	public function get_icon_class(): string {
-		return $this->icon_class;
 	}
 
 	/** Geeft aan of een project met dit soort werk gereviewed moet worden */
