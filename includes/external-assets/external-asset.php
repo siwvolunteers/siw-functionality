@@ -2,10 +2,11 @@
 
 namespace SIW\External_Assets;
 
+use SIW\Asset_Attributes;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Base;
-
+use SIW\Traits\Assets_Handle;
 
 /**
  * Klasse om externe asset (JS/CSS) te registreren
@@ -14,10 +15,7 @@ use SIW\Base;
  */
 abstract class External_Asset extends Base {
 
-	/** Genereert assets handle */
-	public static function get_assets_handle(): string {
-		return strtolower( str_replace( [ '\\', '_' ], '-', static::class ) );
-	}
+	use Assets_Handle;
 
 	/** Geeft gewenste versienummer terug */
 	abstract protected static function get_version_number(): ?string;
@@ -27,6 +25,11 @@ abstract class External_Asset extends Base {
 
 	/** Geeft URL van style terug */
 	abstract protected static function get_style_url(): ?string;
+
+	/** Geeft cookie category terug */
+	protected static function get_cookie_category(): ?string {
+		return null;
+	}
 
 	/** Geeft terug of er een script is */
 	protected static function has_script(): bool {
@@ -56,6 +59,26 @@ abstract class External_Asset extends Base {
 			null, // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 			true
 		);
+
+		wp_script_add_data(
+			static::get_assets_handle(),
+			Asset_Attributes::NO_MINIFY,
+			'1'
+		);
+
+		if ( null !== static::get_cookie_category() ) {
+			wp_script_add_data(
+				static::get_assets_handle(),
+				Asset_Attributes::TYPE,
+				'text/plain'
+			);
+
+			wp_script_add_data(
+				static::get_assets_handle(),
+				Asset_Attributes::COOKIE_CATEGORY,
+				static::get_cookie_category()
+			);
+		}
 	}
 
 	#[Action( 'wp_enqueue_scripts' )]
@@ -72,11 +95,15 @@ abstract class External_Asset extends Base {
 			[],
 			null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		);
+
+		wp_style_add_data(
+			static::get_assets_handle(),
+			Asset_Attributes::NO_MINIFY,
+			'1'
+		);
 	}
 
 	#[Filter( 'rocket_dns_prefetch' )]
-	#[Filter( 'rocket_minify_excluded_external_js' )]
-	#[Filter( 'rocket_exclude_css' )]
 	public static function exclude_external_asset_domains( array $exclusions ): array {
 		if ( null !== static::get_domain() ) {
 			$exclusions[] = static::get_domain();
