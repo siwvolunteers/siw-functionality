@@ -12,7 +12,7 @@ use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
 class Loader extends Class_Loader_Abstract {
 
 	/** {@inheritDoc} */
-	public function get_classes() : array {
+	public function get_classes(): array {
 		return [
 			Accordion::class,
 			Annual_Reports::class,
@@ -35,12 +35,13 @@ class Loader extends Class_Loader_Abstract {
 			Sponsors::class,
 			Subpages::class,
 			Tabs::class,
+			YouTube_Video::class,
 		];
 	}
 
 	/** {@inheritDoc} */
-	public function load( string $class ) {
-		$id_base = $this->get_id_base_from_class( $class );
+	public function load( string $class_name ) {
+		$id_base = $this->get_id_base_from_class( $class_name );
 		$file_base = $this->get_file_base_from_id_base( $id_base );
 
 		$widget_folder = untrailingslashit( SIW_WIDGETS_DIR );
@@ -48,7 +49,7 @@ class Loader extends Class_Loader_Abstract {
 			siteorigin_widget_register(
 				"sow-siw_{$id_base}_widget",
 				"{$widget_folder}/{$file_base}/{$file_base}.php",
-				"\\{$class}"
+				"\\{$class_name}"
 			);
 			require_once "{$widget_folder}/{$file_base}/{$file_base}.php";
 		}
@@ -61,8 +62,8 @@ class Loader extends Class_Loader_Abstract {
 	}
 
 	/** Zet FQN om naar id-base */
-	protected function get_id_base_from_class( string $class ): string {
-		$id_base = explode( '\\', $class );
+	protected function get_id_base_from_class( string $class_name ): string {
+		$id_base = explode( '\\', $class_name );
 		return strtolower( end( $id_base ) );
 	}
 

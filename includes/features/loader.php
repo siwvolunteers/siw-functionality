@@ -21,6 +21,7 @@ class Loader extends A_Base_Loader {
 			Facebook_Pixel::class,
 			Google_Analytics_4::class,
 			Icons::class,
+			Iframe_Manager::class,
 			Social_Share::class,
 			Topbar::class,
 			Web_App_Manifest::class,
