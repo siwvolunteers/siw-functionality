@@ -1,0 +1,11 @@
+.siw-cookie-consent {
+  --cc-font-family: inherit;
+  --cc-text: var(--siw-contrast);
+  --cc-btn-primary-bg: var(--siw-green);
+  --cc-btn-primary-text: var(--siw-contrast);
+  --cc-btn-primary-hover-bg: var(--siw-accent);
+  --cc-toggle-bg-on: var(--siw-green);
+}
+.siw-cookie-consent .cc_div :focus {
+  color: var(--siw-contrast);
+}
