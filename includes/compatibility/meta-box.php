@@ -2,7 +2,6 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Assets\JQuery_Validation_Messages_NL;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Base;
@@ -143,13 +142,5 @@ class Meta_Box extends Base implements I_Plugin {
 			$value = do_shortcode( $value );
 		}
 		return $value;
-	}
-
-	#[Action( 'rwmb_enqueue_scripts' )]
-	/** Voegt script toe */
-	public function enqueue_script() {
-		if ( I18n::is_default_language() ) {
-			wp_enqueue_script( JQuery_Validation_Messages_NL::ASSETS_HANDLE );
-		}
 	}
 }
