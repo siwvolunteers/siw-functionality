@@ -2,6 +2,8 @@
 
 namespace SIW;
 
+use SIW\Util\Logger;
+
 /**
  * Configuratie uit wp-config.php constantes halen
  *
@@ -9,12 +11,13 @@ namespace SIW;
  */
 class Config {
 
-	/** Geeft waarde van constante `$name` terug indien gedefinieerd, anders `$default` */
-	public static function get_constant_value( string $name, mixed $default = null ): mixed {
+	/** Geeft waarde van constante `$name` terug indien gedefinieerd, anders `$fallback` */
+	public static function get_constant_value( string $name, mixed $fallback = null ): mixed {
 		if ( defined( $name ) ) {
 			return constant( $name );
 		}
-		return $default;
+		Logger::notice( sprintf( 'Constante %s is niet gedefiniëerd, fallback %s wordt gebruikt', $name, $fallback ), static::class );
+		return $fallback;
 	}
 
 	/** Geeft api key voor Google Maps (client side) terug */
