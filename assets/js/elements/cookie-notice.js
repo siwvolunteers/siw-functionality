@@ -35,6 +35,9 @@ var siwCookieNotice = (function () {
 		if ( 'undefined' === typeof Cookies.get( siw_cookie_notice.cookie.name ) ) {
 			document.querySelector( '#' + siw_cookie_notice.notice_id ).removeAttribute( 'hidden' );
 		}
+
+		// FIXME: tijdelijk workaround voor Facebook Pixel
+		document.body.dispatchEvent( new Event( siw_cookie_notice.event_name ) );
 	};
 
 	/** Handelt klik op 'Accepteer selectie' af */

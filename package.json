@@ -5,13 +5,10 @@
 	"description": "Extra functionaliteit voor website SIW",
 	"repository": "https://github.com/siwvolunteers/siw-functionality",
 	"scripts": {
-		"update": "npm update && npm run frontend-dependencies",
-		"build": "npm run build:css && npm run build:icons",
+		"update": "npm update",
+		"build": "npm run build:css && npm run build:translations",
 		"build:css": "npm run scss && npm run autoprefixer",
-		"build:icons": "npm run build:icons:general && npm run build:icons:sdg",
-		"build:icons:general": "svgstore -o assets/icons/siw-general-icons.svg -p siw-icon- --inline assets/icons/general/*.svg",
-		"build:icons:sdg": "svgstore -o assets/icons/siw-sdg-icons.svg -p siw-icon-sdg- --inline assets/icons/sdg/*.svg",
-		 "build:translations": "wp-pot --domain siw --dest-file languages/siw.pot --relative-to ./ --package \"SIW Internationale Vrijwilligersprojecten\" --team \"SIW <webmaster@siw.nl>\"",
+		"build:translations": "wp-pot --domain siw --dest-file languages/siw.pot --relative-to ./ --package \"SIW Internationale Vrijwilligersprojecten\" --team \"SIW <webmaster@siw.nl>\"",
 		"scss": "sass --update --no-source-map assets/scss:assets/css",
 		"autoprefixer": "postcss --no-map -u autoprefixer -r assets/css/*.css",
 		"frontend-dependencies": "node ./node_modules/frontend-dependencies/index.js",
@@ -22,46 +19,9 @@
 	],
 	"devDependencies": {
 		"autoprefixer": "^10.0.0",
-		"frontend-dependencies": "^2.0.0",
 		"postcss": "^8.0.0",
 		"postcss-cli": "^10.0.0",
 		"sass": "^1.53.0",
-		"svgstore-cli": "^2.0.0",
 		"wp-pot-cli": "^1.5.0"
-	},
-	"frontendDependencies": {
-		"target": "assets/vendor",
-		"packages": {
-			"@accede-web/accordion": {
-				"version": "*",
-				"src": "dist/accordion.js",
-				"target": "assets/vendor/accordion"
-			},
-			"@accede-web/tablist": {
-				"version": "*",
-				"src": "dist/tablist.js",
-				"target": "assets/vendor/tablist"
-			},
-			"flickity": {
-				"version": "^2.2.1",
-				"src": "{dist/flickity.pkgd.js,dist/flickity.css}",
-				"namespaced": true
-			},
-			"frappe-charts": {
-				"version": "^1.5.2",
-				"src": "{/dist/frappe-charts.min.umd.js,/dist/frappe-charts.min.umd.js.map}",
-				"namespaced": true
-			},
-			"js-cookie": {
-				"version": "^2.2.1",
-				"src": "src/js.cookie.js",
-				"namespaced": true
-			},
-			"sal.js": {
-				"version": "^0.8.0",
-				"src": "dist/*",
-				"namespaced": true
-			}
-		}
 	}
 }

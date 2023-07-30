@@ -17,11 +17,6 @@ class Config {
 		return $default;
 	}
 
-	/** Geeft api key voor Google Maps terug */
-	public static function get_google_maps_api_key(): string {
-		return self::get_constant_value( 'SIW_GOOGLE_MAPS_API_KEY', '' );
-	}
-
 	/** Geeft api key voor Google Maps (client side) terug */
 	public static function get_google_maps_js_api_key(): string {
 		return self::get_constant_value( 'SIW_GOOGLE_MAPS_JS_API_KEY', '' );

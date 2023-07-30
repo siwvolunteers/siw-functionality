@@ -2,10 +2,10 @@
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
-use SIW\Elements\Google_Maps;
 use SIW\Elements\Icon;
 use SIW\Util\Links;
 use SIW\Elements\Form;
+use SIW\Elements\Leaflet_Map;
 use SIW\Forms\Forms\Info_Day;
 use SIW\Helpers\Template;
 use SIW\Integrations\Mailjet;
@@ -275,7 +275,7 @@ class Event extends Type {
 	}
 
 	/** {@inheritDoc} */
-	protected function generate_slug( array $data, array $postarr ) : string {
+	protected function generate_slug( array $data, array $postarr ): string {
 		return sprintf( '%s %s', $data['post_title'], siw_format_date( $postarr['event_date'] ) );
 	}
 
@@ -308,7 +308,7 @@ class Event extends Type {
 		// locatie op kaart toevoegen
 		if ( ! siw_meta( 'online' ) ) {
 			$location = siw_meta( 'location' );
-			$location_map = Google_Maps::create()
+			$location_map = Leaflet_Map::create()
 			->add_location_marker(
 				sprintf( '%s, %s %s %s', $location['street'], $location['house_number'], $location['postcode'], $location['city'] ),
 				$location['name'],
@@ -334,21 +334,23 @@ class Event extends Type {
 	public function get_template_vars(): array {
 
 		$template_vars = [
-			'link'                => Links::generate_button_link( get_permalink(), __( 'Lees meer', 'siw' ) ),
-			'abstract'            => siw_meta( 'abstract' ),
-			'icon_map-marker-alt' => Icon::create()->set_icon_class( 'siw-icon-map-marker-alt' )->generate(),
-			'icon_globe'          => Icon::create()->set_icon_class( 'siw-icon-globe' )->generate(),
-			'icon_clock'          => Icon::create()->set_icon_class( 'siw-icon-clock' )->generate(),
-			'event_day'           => wp_date( 'd', strtotime( siw_meta( 'event_date' ) ) ),
-			'event_month'         => wp_date( 'F', strtotime( siw_meta( 'event_date' ) ) ),
-			'start_time'          => siw_meta( 'start_time' ),
-			'end_time'            => siw_meta( 'end_time' ),
-			'event_date'          => siw_format_date( siw_meta( 'event_date' ), false ),
-			'description'         => siw_meta( 'description' ),
-			'infodag'             => siw_meta( 'info_day' ),
-			'verlopen'            => siw_meta( 'event_date' ) < gmdate( 'Y-m-d' ),
-			'online'              => siw_meta( 'online' ),
-			'i18n'                => [
+			'link'        => Links::generate_button_link( get_permalink(), __( 'Lees meer', 'siw' ) ),
+			'abstract'    => siw_meta( 'abstract' ),
+			'icons'       => [
+				'location' => Icon::create()->set_icon_class( 'location' )->generate(),
+				'online'   => Icon::create()->set_icon_class( 'admin-site-alt3' )->generate(),
+				'clock'    => Icon::create()->set_icon_class( 'clock' )->generate(),
+			],
+			'event_day'   => wp_date( 'd', strtotime( siw_meta( 'event_date' ) ) ),
+			'event_month' => wp_date( 'F', strtotime( siw_meta( 'event_date' ) ) ),
+			'start_time'  => siw_meta( 'start_time' ),
+			'end_time'    => siw_meta( 'end_time' ),
+			'event_date'  => siw_format_date( siw_meta( 'event_date' ), false ),
+			'description' => siw_meta( 'description' ),
+			'infodag'     => siw_meta( 'info_day' ),
+			'verlopen'    => siw_meta( 'event_date' ) < gmdate( 'Y-m-d' ),
+			'online'      => siw_meta( 'online' ),
+			'i18n'        => [
 				'online' => __( 'Online', 'siw' ),
 			],
 		];

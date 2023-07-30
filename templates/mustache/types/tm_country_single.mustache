@@ -9,9 +9,11 @@
 		<b>{{#__}}Dit is het type projecten dat we hier aanbieden:{{/__}}</b>
 		<p>
 		{{!opsomming van soort projecten}}
-		{{# worktypes}}
-			{{{name}}}<br>
-		{{/ worktypes}}
+		<ul>
+		{{# work_types}}
+			<li>{{ . }}</li>
+		{{/ work_types}}
+		</ul>
 		</p>
 	</div>
 </div>

@@ -149,36 +149,6 @@ class WordPress extends Base {
 		return $tests;
 	}
 
-	#[Filter( 'embed_oembed_html' )]
-	/**
-	 * Past YouTube-embed link aan
-	 * - nocookie domein
-	 * - instellingen
-	 */
-	public function fix_youtube_embed( string $cache ): string {
-
-		$regex = '/<iframe[^>]*(?<=src=")(https:\/\/www\.youtube\.com\/embed.*?)(?=[\"])/m';
-
-		preg_match( $regex, $cache, $matches );
-		if ( ! isset( $matches[1] ) ) {
-			return $cache;
-		}
-
-		$url_parts = wp_parse_url( $matches[1] );
-		$url = $url_parts['scheme'] . '://www.youtube-nocookie.com' . $url_parts['path'];
-		$url = add_query_arg(
-			[
-				'rel'            => false,
-				'modestbranding' => true,
-				'controls'       => true,
-				'fs'             => false,
-			],
-			$url
-		);
-
-		return str_replace( $matches[1], $url, $cache );
-	}
-
 	#[Filter( 'manage_media_columns' )]
 	/** Verberg admin columns bij attachments */
 	public function manage_media_columns( array $columns ): array {
@@ -202,22 +172,6 @@ class WordPress extends Base {
 			get_permalink(),
 			__( 'Lees meer', 'siw' )
 		);
-	}
-
-	#[Filter( 'script_loader_tag' )]
-	/** Zet crossorigin attribute */
-	public function set_crossorigin( string $tag, string $handle ): string {
-		$crossorigin = wp_scripts()->get_data( $handle, 'crossorigin' );
-		if ( $crossorigin ) {
-
-			$processor = new \WP_HTML_Tag_Processor( $tag );
-
-			if ( $processor->next_tag() ) {
-				$processor->set_attribute( 'crossorigin', $crossorigin );
-			}
-			$tag = $processor->get_updated_html();
-		}
-		return $tag;
 	}
 
 	#[Action( 'template_redirect' )]

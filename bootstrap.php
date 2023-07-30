@@ -12,11 +12,11 @@ use SIW\Autoloader;
  */
 class Bootstrap {
 
-	/** Standaard hook voor initialiseren class */
-	const DEFAULT_HOOK = 'plugins_loaded';
+	/** Hook voor initialiseren loader */
+	const LOADER_HOOK = 'plugins_loaded';
 
-	/** Standaard prioriteit voor initialiseren class */
-	const DEFAULT_PRIORITY = 10;
+	/** Prioriteit voor initialiseren loader */
+	const LOADER_PRIORITY = 10;
 
 	/** Init */
 	public function init() {
@@ -38,21 +38,8 @@ class Bootstrap {
 		$this->load_functions();
 
 		// Laadt klasses
-		$this->init_class( 'SIW', 'Loader' );
-		$this->init_loader( 'Actions' );
-		$this->init_loader( 'Assets' );
-		$this->init_loader( 'Options' );
-		$this->init_loader( 'Features' );
-		$this->init_loader( 'Forms' );
-		$this->init_loader( 'Widgets' );
-		$this->init_loader( 'Compatibility' );
-		$this->init_loader( 'Page_Builder' );
-		$this->init_loader( 'WooCommerce' );
+		$this->init_loaders();
 		$this->load_content_types();
-
-		if ( is_admin() ) {
-			$this->init_loader( 'Admin' );
-		}
 	}
 
 	/** Definieer constantes */
@@ -139,32 +126,37 @@ class Bootstrap {
 	}
 
 	/** Init loader */
-	protected function init_loader( string $namespace, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
-		$this->init_class( "SIW\\{$namespace}", 'Loader', $hook, $priority );
+	protected function init_loaders() {
+		$loaders = [
+			\SIW\Loader::class,
+			\SIW\Actions\Loader::class,
+			\SIW\Admin\Loader::class,
+			\SIW\Assets\Loader::class,
+			\SIW\Compatibility\Loader::class,
+			\SIW\External_Assets\Loader::class,
+			\SIW\Features\Loader::class,
+			\SIW\Forms\Loader::class,
+			\SIW\Options\Loader::class,
+			\SIW\Page_Builder\Loader::class,
+			\SIW\Widgets\Loader::class,
+			\SIW\WooCommerce\Loader::class,
+		];
+
+		foreach ( $loaders as $loader ) {
+			add_action( self::LOADER_HOOK, [ $loader, 'init' ], self::LOADER_PRIORITY );
+		}
 	}
 
 	/** Laadt custom content types */
 	protected function load_content_types() {
-		$this->init_classes(
-			'SIW\Content\Types',
-			[
-				'Event',
-				'Job_Posting',
-				'Story',
-				'TM_Country',
-			]
-		);
-	}
-
-	/** Laadt classes */
-	protected function init_classes( string $namespace, array $classes, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
-		foreach ( $classes as $class ) {
-			$this->init_class( $namespace, $class, $hook, $priority );
+		$content_types = [
+			\SIW\Content\Types\Event::class,
+			\SIW\Content\Types\Job_Posting::class,
+			\SIW\Content\Types\Story::class,
+			\SIW\Content\Types\TM_Country::class,
+		];
+		foreach ( $content_types as $type ) {
+			add_action( self::LOADER_HOOK, [ $type, 'init' ], self::LOADER_PRIORITY );
 		}
-	}
-
-	/** Laadt 1 class */
-	protected function init_class( string $namespace, string $class, string $hook = self::DEFAULT_HOOK, int $priority = self::DEFAULT_PRIORITY ) {
-		add_action( $hook, [ $namespace . '\\' . $class, 'init' ], $priority );
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\Assets\A11Y_Tablist;
+use SIW\External_Assets\A11Y_Tablist;
 
 /**
  * Class om een tablist te genereren
@@ -29,7 +29,7 @@ class Tablist extends Repeater {
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/tablist.js', [ A11Y_Tablist::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/tablist.js', [ A11Y_Tablist::get_assets_handle() ], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( self::ASSETS_HANDLE );
 	}
 

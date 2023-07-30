@@ -21,9 +21,9 @@ class Loader extends Object_Loader_Abstract {
 			Async\Export_Plato_Application::class,
 			Async\Export_To_Mailjet::class,
 			Async\Import_Plato_Project::class,
-			Async\Process_Stockphoto_Upload::class,
 			Batch\Delete_Applications::class,
 			Batch\Delete_Old_Posts::class,
+			Batch\Delete_Stockphotos::class,
 			Batch\Import_Plato_Dutch_Projects::class,
 			Batch\Import_Plato_Project_Free_Places::class,
 			Batch\Import_Plato_Projects::class,
@@ -31,7 +31,6 @@ class Loader extends Object_Loader_Abstract {
 			Batch\Update_Database::class,
 			Batch\Update_Mailjet_Properties::class,
 			Batch\Update_Projects::class,
-			Batch\Update_Terms::class,
 			Batch\Update_WooCommerce_Terms::class,
 		];
 	}

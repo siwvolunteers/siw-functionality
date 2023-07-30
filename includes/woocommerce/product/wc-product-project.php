@@ -33,7 +33,6 @@ class WC_Product_Project extends \WC_Product_Simple {
 		'full'                           => false,
 		'deleted_from_plato'             => false,
 		'hidden'                         => false,
-		'use_stockphoto'                 => false,
 		'approval_result'                => null,
 		'has_plato_image'                => false,
 		'project_description'            => [],
@@ -337,21 +336,6 @@ class WC_Product_Project extends \WC_Product_Simple {
 	/** Geeft aan of dit project verborgen is */
 	public function is_hidden(): bool {
 		return $this->get_hidden();
-	}
-
-	/** Zet of dit project verborgen moet worden*/
-	public function set_use_stockphoto( bool $hidden ) {
-		$this->set_prop( 'use_stockphoto', $hidden );
-	}
-
-	/** Geeft aan of dit project verborgen is */
-	public function get_use_stockphoto(): bool {
-		return $this->get_prop( 'use_stockphoto' );
-	}
-
-	/** Geeft aan of dit project verborgen is */
-	public function use_stockfoto(): bool {
-		return $this->get_use_stockphoto();
 	}
 
 	/** Zet of dit project een afbeelding uit Plato heeft*/

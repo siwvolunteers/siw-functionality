@@ -4,8 +4,6 @@ use SIW\Admin\Page_Settings;
 use SIW\Data\Email_Settings;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
-use SIW\Integrations\Google_Maps;
-use SIW\Properties;
 
 /**
  * Functies m.b.t. referentiegegevens
@@ -151,11 +149,6 @@ function siw_get_interactive_maps(): array {
 			'class' => \SIW\Elements\Interactive_Maps\Netherlands::class,
 		],
 		[
-			'id'    => 'destinations',
-			'name'  => __( 'Bestemmingen', 'siw' ),
-			'class' => \SIW\Elements\Interactive_Maps\Destinations::class,
-		],
-		[
 			'id'    => 'esc',
 			'name'  => __( 'ESC', 'siw' ),
 			'class' => \SIW\Elements\Interactive_Maps\ESC::class,
@@ -164,39 +157,3 @@ function siw_get_interactive_maps(): array {
 	return $maps;
 }
 
-/** Geeft openingstijden van SIW terug */
-function siw_get_opening_hours(): array {
-	global $wp_locale;
-
-	$opening_periods = get_transient( __FUNCTION__ );
-	if ( ! is_array( $opening_periods ) ) {
-		$place_details = Google_Maps::create()->get_place_details( Properties::GOOGLE_MAPS_PLACE_ID );
-		$opening_periods = $place_details['current_opening_hours']['periods'] ?? [];
-		set_transient( __FUNCTION__, $opening_periods, HOUR_IN_SECONDS );
-	}
-
-	$opening_hours = [];
-	foreach ( $opening_periods as $period ) {
-		$day = $period['open']['day'];
-		$open = wp_date( __( 'g:i a' ), strtotime( $period['open']['time'] . wp_timezone_string() ) ); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
-		$close = wp_date( __( 'g:i a' ), strtotime( $period['close']['time'] . wp_timezone_string() ) ); // phpcs:ignore WordPress.WP.I18n.MissingArgDomain
-		$opening_hours[ $day ][] = "{$open}-{$close}";
-	}
-
-	$daterange = new \DatePeriod( new \DateTime( 'today' ), new \DateInterval( 'P1D' ), 6 );
-	foreach ( $daterange as $date ) {
-		$day_number = (int) $date->format( 'w' );
-		$day_name = ucfirst( $wp_locale->get_weekday( $day_number ) );
-		$opening_times = isset( $opening_hours[ $day_number ] ) ? implode( ',', $opening_hours[ $day_number ] ) : __( 'gesloten', 'siw' );
-
-		$is_current_day = $daterange->start == $date; // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-
-		// Huidige dag bold maken
-		$data[] = [
-			$is_current_day ? '<b>' . $day_name . '</b>' : $day_name,
-			$is_current_day ? '<b>' . $opening_times . '</b>' : $opening_times,
-		];
-
-	}
-	return $data;
-}

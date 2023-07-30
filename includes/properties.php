@@ -60,9 +60,6 @@ class Properties {
 	/** Maximale afmeting voor afbeelding */
 	const MAX_IMAGE_SIZE = 1920;
 
-	/** Place ID van SIW kantoor */
-	const GOOGLE_MAPS_PLACE_ID = 'ChIJASkeAkNvxkcRdFKFUI1K6f4';
-
 	/** Geeft waarde van property terug */
 	public static function get( string $property ) {
 		$property = strtoupper( $property );
@@ -73,7 +70,7 @@ class Properties {
 	}
 
 	/** Geeft array met properties terug */
-	public static function get_all() : array {
+	public static function get_all(): array {
 		$reflection_class = new \ReflectionClass( __CLASS__ );
 		$constants = $reflection_class->getConstants();
 		$configuration = [];

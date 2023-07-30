@@ -2,12 +2,12 @@
 
 namespace SIW\Features;
 
-use SIW\Assets\JS_Cookie;
-use SIW\Assets\Meta_Pixel;
 use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
 use SIW\Base;
 use SIW\Config;
 use SIW\Elements\Cookie_Notice;
+use SIW\External_Assets\Meta_Pixel;
 
 /**
  * Configuratie van Facebook pixel
@@ -27,7 +27,7 @@ class Facebook_Pixel extends Base {
 			return;
 		}
 
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/features/facebook-pixel.js', [ JS_Cookie::ASSETS_HANDLE ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/features/facebook-pixel.js', [ 'js-cookie' ], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
 			self::SCRIPT_HANDLE,
 			'siw_facebook_pixel',
@@ -38,6 +38,12 @@ class Facebook_Pixel extends Base {
 			]
 		);
 		wp_enqueue_script( self::SCRIPT_HANDLE );
-		wp_enqueue_script( Meta_Pixel::ASSETS_HANDLE );
+		wp_enqueue_script( Meta_Pixel::get_assets_handle() );
+	}
+
+	#[Filter( 'rocket_exclude_js' )]
+	public function exclude_from_optimization( array $files ): array {
+		$files[] = wp_make_link_relative( SIW_ASSETS_URL . 'js/features/facebook-pixel.js' );
+		return $files;
 	}
 }
