@@ -15,7 +15,7 @@ use \Spatie\Enum\Enum;
  * @method static self TEEN()
  * @method static self FAM()
  * @method static self VIRT()
- * @method static self EVS()
+ * @method static self ESC()
  * @method static self PER()
  * @method static self TRA()
  */
@@ -30,7 +30,7 @@ class Project_Type extends Enum {
 			'TEEN' => __( 'Tienerproject', 'siw' ),
 			'FAM'  => __( 'Familieproject', 'siw' ),
 			'VIRT' => __( 'Virtueel project', 'siw' ),
-			'EVS'  => __( 'EVS project', 'siw' ),
+			'ESC'  => __( 'ESC project', 'siw' ),
 			'PER'  => __( 'Permanent project', 'siw' ),
 			'TRA'  => __( 'Training', 'siw' ),
 		];
