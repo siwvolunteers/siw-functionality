@@ -21,6 +21,7 @@ class Loader extends Object_Loader_Abstract {
 			Async\Export_Plato_Application::class,
 			Async\Export_To_Mailjet::class,
 			Async\Import_Plato_Project::class,
+			Batch\Create_WooCommerce_Taxonomies::class,
 			Batch\Delete_Applications::class,
 			Batch\Delete_Old_Posts::class,
 			Batch\Delete_Stockphotos::class,
