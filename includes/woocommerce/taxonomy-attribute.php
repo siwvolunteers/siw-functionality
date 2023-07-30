@@ -16,6 +16,7 @@ use \Spatie\Enum\Enum;
  * @method static self TARGET_AUDIENCE()
  * @method static self SDG()
  * @method static self MONTH()
+ * @method static self PROJECT_TYPE()
  */
 class Taxonomy_Attribute extends Enum {
 
@@ -29,6 +30,7 @@ class Taxonomy_Attribute extends Enum {
 			'TARGET_AUDIENCE' => 'pa_doelgroep',
 			'SDG'             => 'pa_sdg',
 			'MONTH'           => 'pa_maand',
+			'PROJECT_TYPE'    => 'pa_projectsoort',
 		];
 	}
 
@@ -42,6 +44,7 @@ class Taxonomy_Attribute extends Enum {
 			'TARGET_AUDIENCE' => __( 'Doelgroep', 'siw' ),
 			'SDG'             => __( 'Sustainable Development Goal', 'siw' ),
 			'MONTH'           => __( 'Maand', 'siw' ),
+			'PROJECT_TYPE'    => __( 'Projectsoort', 'siw' ),
 		];
 	}
 }
