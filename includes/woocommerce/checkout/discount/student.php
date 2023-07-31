@@ -3,8 +3,10 @@
 namespace SIW\WooCommerce\Checkout\Discount;
 
 use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
 use SIW\Config;
 use SIW\Util;
+use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
  * Studenten/jongerenkorting
@@ -45,5 +47,17 @@ class Student extends Virtual_Coupon {
 		$under_18 = isset( $data['billing_dob'] ) && ! empty( $data['billing_dob'] ) && Util::calculate_age( $data['billing_dob'] ) < 18;
 		$student = isset( $data['billing_student'] ) && 'yes' === $data['billing_student'];
 		$this->set_coupon_presence( $under_18 || $student, $cart );
+	}
+
+	#[Filter( 'woocommerce_coupon_is_valid_for_product' )]
+	public function maybe_exclude_product( bool $valid, WC_Product_Project $product, \WC_Coupon $coupon, ): bool {
+
+		if ( self::get_coupon_code() !== $coupon->get_code() ) {
+			return $valid;
+		}
+		if ( $product->is_excluded_from_student_discount() || $product->is_esc_project() ) {
+			return false;
+		}
+		return $valid;
 	}
 }

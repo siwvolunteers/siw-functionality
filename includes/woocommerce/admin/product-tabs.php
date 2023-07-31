@@ -66,14 +66,16 @@ class Product_Tabs extends Base {
 						'label'   => __( 'Verbergen', 'siw' ),
 					]
 				);
-				woocommerce_wp_checkbox(
-					[
-						'id'      => '_excluded_from_student_discount',
-						'value'   => $product->is_excluded_from_student_discount(),
-						'cbvalue' => '1',
-						'label'   => __( 'Uitsluiten van studentenkorting', 'siw' ),
-					]
-				);
+				if ( ! $product->is_esc_project() ) {
+					woocommerce_wp_checkbox(
+						[
+							'id'      => '_excluded_from_student_discount',
+							'value'   => $product->is_excluded_from_student_discount(),
+							'cbvalue' => '1',
+							'label'   => __( 'Uitsluiten van studentenkorting', 'siw' ),
+						]
+					);
+				}
 				woocommerce_wp_text_input(
 					[
 						'id'          => '_custom_price',

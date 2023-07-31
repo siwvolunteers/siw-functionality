@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Product;
 
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -9,16 +11,9 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class Query {
+class Query extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_project_id_search' ], 10, 2 );
-		add_filter( 'woocommerce_product_data_store_cpt_get_products_query', [ $self, 'enable_country_search' ], 10, 2 );
-	}
-
-	/** Voegt project_id als argument toe aan WC queries */
+	#[Filter( 'woocommerce_product_data_store_cpt_get_products_query' )]
 	public function enable_project_id_search( array $query, array $query_vars ): array {
 		if ( ! empty( $query_vars['project_id'] ) ) {
 			$query['meta_query'][] = [
@@ -29,7 +24,7 @@ class Query {
 		return $query;
 	}
 
-	/** Voegt country argument toe aan WC queries */
+	#[Filter( 'woocommerce_product_data_store_cpt_get_products_query' )]
 	public function enable_country_search( array $query, array $query_vars ): array {
 		if ( ! empty( $query_vars['country'] ) ) {
 			$query['tax_query'][] = [
@@ -42,4 +37,20 @@ class Query {
 		}
 		return $query;
 	}
+
+	#[Filter( 'woocommerce_product_query_tax_query' )]
+	public function set_tax_query( array $tax_query ): array {
+
+		// ESC projecten alleen tonen op ESC overzichtspagina
+		if ( ! is_tax( Taxonomy_Attribute::PROJECT_TYPE()->value, 'esc' ) ) {
+			$tax_query[] = [
+				'taxonomy' => Taxonomy_Attribute::PROJECT_TYPE()->value,
+				'terms'    => [ 'esc' ],
+				'field'    => 'slug',
+				'operator' => 'NOT IN',
+			];
+		}
+		return $tax_query;
+	}
+
 }

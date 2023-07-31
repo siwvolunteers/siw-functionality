@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Frontend;
 
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\Config;
 use SIW\Elements\Form;
 use SIW\Elements\Leaflet_Map;
@@ -13,19 +15,15 @@ use SIW\WooCommerce\Product\WC_Product_Project;
  *
  * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
  */
-class Product_Tabs {
+class Product_Tabs extends Base {
 
-	const LOCATION_TAB = 'location_and_leisure';
-	const REQUIREMENTS_TAB = 'requirements';
+	private const LOCATION_TAB = 'location_and_leisure';
+	private const REQUIREMENTS_TAB = 'requirements';
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_and_rename_and_remove_product_tabs' ] );
-		add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
-	}
+	#[Filter( 'woocommerce_product_additional_information_heading' )]
+	private const ADDITIONAL_INFORMATION_HEADING = '';
 
-	/** Voegt tab met projectbeschrijving toe */
+	#[Filter( 'woocommerce_product_tabs' )]
 	public function add_and_rename_and_remove_product_tabs( array $tabs ): array {
 		global $post;
 		$product = siw_get_product( $post );
@@ -153,7 +151,7 @@ class Product_Tabs {
 
 		if ( 0.0 === (float) $product->get_price() ) {
 			esc_html_e( 'Voor dit project is geen inschrijfgeld van toepassing', 'siw' );
-		} elseif ( $product->is_excluded_from_student_discount() ) {
+		} elseif ( $product->is_excluded_from_student_discount() || $product->is_esc_project() ) {
 			printf(
 				// translators: %s is het inschrijfgeld.
 				esc_html__( 'Het inschrijfgeld voor dit project bedraagt %s.', 'siw' ),

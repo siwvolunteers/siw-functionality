@@ -2,6 +2,9 @@
 
 namespace SIW\WooCommerce\Product;
 
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -11,29 +14,19 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  *
  * @todo meta_query toevoegen: leeftijd, etc.
  */
-class Shortcode {
-
-	/** Init */
-	public static function init() {
-		$self = new self();
-
-		add_filter( 'shortcode_atts_products', [ $self, 'add_shortcode_atts' ], 10, 4 );
-		add_filter( 'woocommerce_shortcode_products_query', [ $self, 'edit_shortcode_products_query' ], 10, 3 );
-
-		add_action( 'woocommerce_shortcode_after_products_loop', [ $self, 'add_archive_button' ] );
-		add_action( 'woocommerce_shortcode_products_loop_no_results', [ $self, 'add_no_results_text_and_button' ] );
-	}
+class Shortcode extends Base {
 
 	/** Geeft extra taxonomy attributes terug */
 	protected function get_taxonomy_attributes(): array {
 		return [
-			'continent'  => Taxonomy_Attribute::CONTINENT(),
-			'land'       => Taxonomy_Attribute::COUNTRY(),
-			'sdg'        => Taxonomy_Attribute::SDG(),
-			'maand'      => Taxonomy_Attribute::MONTH(),
-			'soort-werk' => Taxonomy_Attribute::WORK_TYPE(),
-			'taal'       => Taxonomy_Attribute::LANGUAGE(),
-			'doelgroep'  => Taxonomy_Attribute::TARGET_AUDIENCE(),
+			'continent'    => Taxonomy_Attribute::CONTINENT(),
+			'land'         => Taxonomy_Attribute::COUNTRY(),
+			'sdg'          => Taxonomy_Attribute::SDG(),
+			'maand'        => Taxonomy_Attribute::MONTH(),
+			'soort-werk'   => Taxonomy_Attribute::WORK_TYPE(),
+			'taal'         => Taxonomy_Attribute::LANGUAGE(),
+			'doelgroep'    => Taxonomy_Attribute::TARGET_AUDIENCE(),
+			'projectsoort' => Taxonomy_Attribute::PROJECT_TYPE(),
 		];
 	}
 
@@ -47,6 +40,7 @@ class Shortcode {
 	}
 
 	/** Voegt extra attributen toe aan shortcode */
+	#[Filter( 'shortcode_atts_products' )]
 	public function add_shortcode_atts( array $out, array $pairs, array $atts, string $shortcode ): array {
 		if ( 'products' !== $shortcode ) {
 			return $out;
@@ -63,6 +57,7 @@ class Shortcode {
 	}
 
 	/** Past extra attributen toe in query */
+	#[Filter( 'woocommerce_shortcode_products_query' )]
 	public function edit_shortcode_products_query( array $query_args, array $attributes, string $type ): array {
 		if ( 'products' !== $type ) {
 			return $query_args;
@@ -84,6 +79,7 @@ class Shortcode {
 	}
 
 	/** Toont knop naar archief pagina */
+	#[Action( 'add_archive_button' )]
 	public function add_archive_button( array $attributes ) {
 		if ( 'true' !== $attributes['show_button'] ) {
 			return;
@@ -97,6 +93,7 @@ class Shortcode {
 	}
 
 	/** Toont text en knop als er geen zoekresultaten zijn. */
+	#[Action( 'woocommerce_shortcode_products_loop_no_results' )]
 	public function add_no_results_text_and_button( array $attributes ) {
 		if ( 'true' !== $attributes['show_button'] ) {
 			return;
