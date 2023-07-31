@@ -33,7 +33,6 @@ class Loader extends Class_Loader_Abstract {
 			Social_Links::class,
 			Sponsors::class,
 			Subpages::class,
-			Tabs::class,
 			YouTube_Video::class,
 		];
 	}
