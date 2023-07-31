@@ -28,7 +28,7 @@ class Flickity extends NPM_Asset {
 
 	/** {@inheritDoc} */
 	protected static function get_style_file(): ?string {
-		return 'css/flickity.min.css';
+		return 'dist/flickity.min.css';
 	}
 
 
