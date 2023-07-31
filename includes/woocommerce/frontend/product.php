@@ -2,6 +2,9 @@
 
 namespace SIW\WooCommerce\Frontend;
 
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Product_Attribute;
 use SIW\WooCommerce\Taxonomy_Attribute;
@@ -12,29 +15,14 @@ use Spatie\Enum\Enum;
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Product {
+class Product extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_filter( 'woocommerce_display_product_attributes', [ $self, 'display_product_attributes' ], 10, 2 );
-		add_action( 'woocommerce_project_add_to_cart', [ $self, 'project_add_to_cart' ], 30 );
-
-		add_action( 'woocommerce_single_product_summary', [ $self, 'show_project_summary' ], 20 );
-
-		add_action( 'woocommerce_before_single_product_summary', [ $self, 'show_featured_badge' ], 10 );
-		add_filter( 'woocommerce_price_trim_zeros', '__return_true' ); // TODO: verplaatsen naar compat
-
-		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 ); // TODO: in theme uitschakelen
-		add_filter( 'woocommerce_single_product_image_thumbnail_html', [ $self, 'remove_link_on_thumbnails' ] );
-	}
-
-	/** Verwijdert link bij productafbeelding */
+	#[Filter( 'woocommerce_single_product_image_thumbnail_html' )]
 	public function remove_link_on_thumbnails( string $html ): string {
 		return strip_tags( $html, '<img>' );
 	}
 
-	/** Past weergave van de attributes aan */
+	#[Filter( 'woocommerce_display_product_attributes' )]
 	public function display_product_attributes( array $attributes, WC_Product_Project $product ): array {
 		$order = [
 			Product_Attribute::PROJECT_NAME(),
@@ -71,7 +59,13 @@ class Product {
 		return $attributes;
 	}
 
+	#[Action( 'woocommerce_single_product_summary', 9 )]
+	public function hide_single_price() {
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+	}
+
 	/** Toont samenvatting van project TODO: mustache template gebruiken en leuker maken met landenvlag en SDG icons */
+	#[Action( 'woocommerce_single_product_summary', 20 )]
 	public function show_project_summary() {
 		global $post;
 		$product = \siw_get_product( $post );
@@ -110,7 +104,7 @@ class Product {
 		echo '</p>';
 	}
 
-	/** Toont badge voor aanbevolen projecten */
+	#[Action( 'woocommerce_before_single_product_summary' )]
 	public function show_featured_badge() {
 		global $product;
 		if ( $product->is_featured() && ! $product->is_on_sale() ) {
@@ -118,7 +112,7 @@ class Product {
 		}
 	}
 
-	/** Voegt Add to cart button toe */
+	#[Action( 'woocommerce_project_add_to_cart' )]
 	public function project_add_to_cart() {
 		wc_get_template( 'single-product/add-to-cart/project.php' );
 	}

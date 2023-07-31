@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Frontend;
 
+use SIW\Attributes\Action;
+use SIW\Base;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -9,16 +11,9 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
-class Archive {
+class Archive extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'woocommerce_before_shop_loop_item_title', [ $self, 'show_featured_badge' ] );
-		add_action( 'woocommerce_after_shop_loop_item_title', [ $self, 'show_project_data' ] );
-	}
-
-	/** Toont projectgegevens */
+	#[Action( 'woocommerce_after_shop_loop_item_title' )]
 	public function show_project_data() {
 		global $post;
 		$product = siw_get_product( $post );
@@ -37,7 +32,7 @@ class Archive {
 		);
 	}
 
-	/** Toont badge voor aanbevolen projecten */
+	#[Action( 'woocommerce_before_shop_loop_item_title' )]
 	public function show_featured_badge() {
 		global $product;
 		if ( ! \is_shop() && ! \is_product_category() && ! \is_product_taxonomy() ) {

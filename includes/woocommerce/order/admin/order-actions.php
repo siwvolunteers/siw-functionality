@@ -2,6 +2,9 @@
 
 namespace SIW\WooCommerce\Order\Admin;
 
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\WooCommerce\Coupon;
 
 /**
@@ -9,18 +12,9 @@ use SIW\WooCommerce\Coupon;
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class Order_Actions {
+class Order_Actions extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_filter( 'woocommerce_order_actions', [ $self, 'remove_order_actions' ] );
-		add_filter( 'woocommerce_order_actions', [ $self, 'add_order_action' ], 10, 2 );
-		add_action( 'woocommerce_order_action_siw_export_to_plato', [ $self, 'export_order_to_plato' ] );
-		add_action( 'woocommerce_order_action_siw_create_coupon', [ $self, 'create_coupon' ] );
-	}
-
-	/** Verwijdert overbodige order actions */
+	#[Filter( 'woocommerce_order_actions' )]
 	public function remove_order_actions( array $actions ): array {
 		unset( $actions['regenerate_download_permissions'] );
 		unset( $actions['send_order_details_admin'] );
@@ -28,7 +22,7 @@ class Order_Actions {
 		return $actions;
 	}
 
-	/** Voeg orderacties toe */
+	#[Filter( 'woocommerce_order_actions' )]
 	public function add_order_action( array $actions, \WC_Order $order ): array {
 		if ( $order->is_paid() ) {
 			$actions['siw_export_to_plato'] = __( 'Exporteer naar PLATO', 'siw' );
@@ -39,7 +33,7 @@ class Order_Actions {
 		return $actions;
 	}
 
-	/** Exporteert aanmelding naar plato */
+	#[Action( 'woocommerce_order_action_siw_export_to_plato' )]
 	public function export_order_to_plato( \WC_Order $order ) {
 		$data = [
 			'order_id' => $order->get_id(),
@@ -47,7 +41,7 @@ class Order_Actions {
 		siw_enqueue_async_action( 'export_plato_application', $data );
 	}
 
-	/** Maakt kortingscode aan */
+	#[Action( 'woocommerce_order_action_siw_create_coupon' )]
 	public function create_coupon( \WC_Order $order ) {
 		Coupon::init()->create_for_order( $order->get_id() );
 	}

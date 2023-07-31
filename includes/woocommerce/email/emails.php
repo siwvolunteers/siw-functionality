@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Email;
 
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\Data\Language;
 use SIW\Properties;
 use SIW\Util\CSS;
@@ -12,28 +14,19 @@ use SIW\WooCommerce\Product\WC_Product_Project;
  *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
-class Emails {
+class Emails extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_filter( 'woocommerce_email_from_name', [ $self, 'set_email_from_name' ], 10, 2 );
-		add_filter( 'woocommerce_email_from_address', [ $self, 'set_email_from_address' ], 10, 2 );
-		// add_filter( 'woocommerce_defer_transactional_emails', '__return_true' );
-		add_action( 'siw_woocommerce_email_order_table', [ $self, 'show_order_table' ] );
-	}
-
-	/** Zet naam afzender */
+	#[Filter( 'woocommerce_email_from_name' )]
 	public function set_email_from_name(): string {
 		return Properties::NAME;
 	}
 
-	/** Zet e-mailadres afzender */
+	#[Filter( 'woocommerce_email_from_address' )]
 	public function set_email_from_address(): string {
 		return siw_get_email_settings( 'workcamp' )->get_confirmation_mail_sender();
 	}
 
-	/** Toont tabel met aanmeldingsgegevens */
+	#[Filter( 'siw_woocommerce_email_order_table' )]
 	public function show_order_table( \WC_Order $order ) {
 		$table_data = $this->get_table_data( $order );
 

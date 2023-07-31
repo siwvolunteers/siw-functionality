@@ -1,21 +1,19 @@
 <?php declare(strict_types=1);
 namespace SIW\WooCommerce\Checkout;
 
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
+use SIW\Base;
+
 /**
  * WooCommerce checkout
  *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
-class Fields {
+class Fields extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_filter( 'woocommerce_checkout_fields', [ $self, 'add_checkout_fields' ] );
-		add_filter( 'woocommerce_enable_order_notes_field', '__return_false' );
-		add_action( 'woocommerce_checkout_create_order', [ $self, 'save_checkout_fields' ], 10, 2 );
-		add_action( 'woocommerce_after_checkout_billing_form', [ $self, 'show_checkout_fields' ] );
-	}
+	#[Filter( 'woocommerce_enable_order_notes_field' )]
+	private const ENABLE_ORDER_NOTES_FIELD = false;
 
 	/** Haalt checkoutvelden op */
 	protected function get_checkout_fields(): array {
@@ -27,13 +25,13 @@ class Fields {
 		return siw_get_data( 'workcamps/checkout-sections' );
 	}
 
-	/** Voegt de extra checkoutvelden toe */
+	#[Filter( 'woocommerce_checkout_fields' )]
 	public function add_checkout_fields( $checkout_fields ): array {
 		$checkout_fields = wp_parse_args_recursive( $this->get_checkout_fields(), $checkout_fields );
 		return $checkout_fields;
 	}
 
-	/** Toont checkoutvelden */
+	#[Action( 'woocommerce_after_checkout_billing_form' )]
 	public function show_checkout_fields( \WC_Checkout $checkout ) {
 		$checkout_sections = siw_get_data( 'workcamps/checkout-sections' );
 		?>
@@ -52,7 +50,7 @@ class Fields {
 		<?php
 	}
 
-	/** Slaat de extra checkoutvelden op */
+	#[Action( 'woocommerce_checkout_create_order' )]
 	public function save_checkout_fields( \WC_Order $order, array $data ) {
 		$checkout_fields = $this->get_checkout_fields();
 		foreach ( $checkout_fields as $section => $fields ) {

@@ -2,6 +2,9 @@
 
 namespace SIW\WooCommerce\Checkout;
 
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\Config;
 
 /**
@@ -9,19 +12,11 @@ use SIW\Config;
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Newsletter {
+class Newsletter extends Base {
 
 	const CHECKOUT_FIELD_KEY = 'newsletter_signup';
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'woocommerce_checkout_after_terms_and_conditions', [ $self, 'show_newsletter_signup_checkbox' ] );
-		add_filter( 'woocommerce_checkout_posted_data', [ $self, 'capture_newsletter_signup' ] );
-		add_action( 'woocommerce_checkout_order_processed', [ $self, 'process_newsletter_signup' ], 10, 3 );
-	}
-
-	/** Toont checkbox voor aanmelden nieuwsbrief */
+	#[Action( 'woocommerce_checkout_after_terms_and_conditions' )]
 	public function show_newsletter_signup_checkbox() {
 		woocommerce_form_field(
 			self::CHECKOUT_FIELD_KEY,
@@ -35,13 +30,13 @@ class Newsletter {
 		);
 	}
 
-	/** Voegt aanmelding voor nieuwsbrief toe aan posted data */
+	#[Filter( 'woocommerce_checkout_posted_data' )]
 	public function capture_newsletter_signup( array $data ): array {
 		$data[ self::CHECKOUT_FIELD_KEY ] = (bool) isset( $_POST[ self::CHECKOUT_FIELD_KEY ] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		return $data;
 	}
 
-	/** Verwerkt aanmelding voor nieuwsbrief */
+	#[Action( 'woocommerce_checkout_order_processed' )]
 	public function process_newsletter_signup( int $order_id, array $posted_data, \WC_Order $order ) {
 
 		if ( true !== $posted_data[ self::CHECKOUT_FIELD_KEY ] ) {

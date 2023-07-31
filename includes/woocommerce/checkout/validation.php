@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Checkout;
 
+use SIW\Attributes\Action;
+use SIW\Base;
 use SIW\Util;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
@@ -10,18 +12,12 @@ use SIW\WooCommerce\Product\WC_Product_Project;
  *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
-class Validation {
+class Validation extends Base {
 
 	const MIN_AGE = 14;
 	const MAX_AGE = 99;
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'woocommerce_after_checkout_validation', [ $self, 'validate_checkout_fields' ], 10, 2 );
-	}
-
-	/** Voert validatie voor extra checkout velden uit */
+	#[Action( 'woocommerce_after_checkout_validation' )]
 	public function validate_checkout_fields( array $data, \WP_Error $errors ) {
 
 		$has_required_field_error = false;

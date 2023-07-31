@@ -28,6 +28,9 @@ class WooCommerce extends Base implements I_Plugin {
 	#[Filter( 'woocommerce_show_addons_page' )]
 	private const SHOW_ADDONS_PAGE = false;
 
+	#[Filter( 'woocommerce_price_trim_zeros' )]
+	private const TRIM_ZEROS = true;
+
 	/** {@inheritDoc} */
 	public static function get_plugin_basename(): string {
 		return 'woocommerce/woocommerce.php';

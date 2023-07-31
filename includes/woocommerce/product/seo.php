@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Product;
 
+use SIW\Attributes\Filter;
+use SIW\Base;
 use SIW\Helpers\Template;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
@@ -10,23 +12,10 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class SEO {
-
-	/** Init */
-	public static function init() {
-		$self = new self();
-
-		// Archive
-		add_filter( 'the_seo_framework_generated_archive_title', [ $self, 'set_archive_seo_title' ], 10, 2 );
-		add_filter( 'the_seo_framework_generated_archive_excerpt', [ $self, 'set_archive_seo_description' ], 10, 2 );
-
-		// Single product
-		add_filter( 'the_seo_framework_post_meta', [ $self, 'set_single_seo_noindex' ], 10, 2 );
-		add_filter( 'the_seo_framework_title_from_generation', [ $self, 'set_single_seo_title' ], 10, 2 );
-		add_filter( 'the_seo_framework_generated_description', [ $self, 'set_single_seo_description' ], 10, 2 );
-	}
+class SEO extends Base {
 
 	/** Past de SEO titel aan */
+	#[Filter( 'the_seo_framework_generated_archive_title' )]
 	public function set_archive_seo_title( string $title, $term ): string {
 
 		if ( ! is_a( $term, \WP_Term::class ) ) {
@@ -63,8 +52,7 @@ class SEO {
 		return $title;
 	}
 
-	/**
-	 * Past SEO-beschrijving aan */
+	#[Filter( 'the_seo_framework_generated_archive_excerpt' )]
 	public function set_archive_seo_description( string $description, $term ): string {
 		if ( ! is_a( $term, \WP_Term::class ) ) {
 			return $description;
@@ -95,7 +83,7 @@ class SEO {
 		return $description;
 	}
 
-	/** Zet SEO noindex als project niet zichtbaar is */
+	#[Filter( 'the_seo_framework_post_meta' )]
 	public function set_single_seo_noindex( array $meta, int $post_id ): array {
 		if ( 'product' !== get_post_type( $post_id ) ) {
 			return $meta;
@@ -111,7 +99,7 @@ class SEO {
 		return $meta;
 	}
 
-	/** Zet SEO-titel van project */
+	#[Filter( 'the_seo_framework_title_from_generation' )]
 	public function set_single_seo_title( string $title, ?array $args ): string {
 
 		if ( ! is_a( get_queried_object(), \WP_Post::class ) && ! isset( $args['id'] ) ) {
@@ -132,7 +120,7 @@ class SEO {
 		);
 	}
 
-	/** Zet SEO-beschrijving van project */
+	#[Filter( 'the_seo_framework_generated_description' )]
 	public function set_single_seo_description( string $description, ?array $args ): string {
 
 		if ( ! is_a( get_queried_object(), \WP_Post::class ) && ! isset( $args['id'] ) ) {

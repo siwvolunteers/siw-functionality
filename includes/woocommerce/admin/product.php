@@ -2,38 +2,31 @@
 
 namespace SIW\WooCommerce\Admin;
 
+use SIW\Attributes\Action;
+use SIW\Attributes\Filter;
+use SIW\Base;
+
 /**
  * Aanpassingen aan admin-scherm voor producten
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Product {
+class Product extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
+	#[Filter( 'woocommerce_duplicate_product_capability' )]
+	private const DUPLICATE_PRODUCT_CAPABILITY = '';
 
-		add_action( 'add_meta_boxes', [ $self, 'remove_meta_boxes' ], PHP_INT_MAX );
-		add_filter( 'woocommerce_duplicate_product_capability', '__return_empty_string' );
-
-		add_action( 'init', [ $self, 'remove_editor' ], PHP_INT_MAX );
-
-		add_action( 'admin_init', [ $self, 'manage_admin_columns' ], 20 );
-		add_action( 'admin_menu', [ $self, 'remove_product_tags_admin_menu' ], PHP_INT_MAX );
-		add_filter( 'quick_edit_show_taxonomy', [ $self, 'hide_product_tags_quick_edit' ], 10, 3 );
-	}
-
-	/** Verwijdert admin menu voor tags */
+	#[Action( 'admin_menu', PHP_INT_MAX )]
 	public function remove_product_tags_admin_menu() {
 		remove_submenu_page( 'edit.php?post_type=product', 'edit-tags.php?taxonomy=product_tag&amp;post_type=product' );
 	}
 
-	/** Verwijdert de texteditor */
+	#[Action( 'init', PHP_INT_MAX )]
 	public function remove_editor() {
 		remove_post_type_support( 'product', 'editor' );
 	}
 
-	/** Voegt extra admin columns toe */
+	#[Action( 'admin_init', 20 )]
 	public function manage_admin_columns() {
 		if ( ! class_exists( '\MBAC\Post' ) ) {
 			return;
@@ -41,7 +34,7 @@ class Product {
 		new Product_Columns( 'product', [] );
 	}
 
-	/** Verwijdert metaboxes */
+	#[Action( 'add_meta_boxes', PHP_INT_MAX )]
 	public function remove_meta_boxes() {
 		remove_meta_box( 'slugdiv', 'product', 'normal' );
 		remove_meta_box( 'postcustom', 'product', 'normal' );
@@ -53,7 +46,7 @@ class Product {
 		}
 	}
 
-	/** Verberg tags in quick edit */
+	#[Filter( 'quick_edit_show_taxonomy' )]
 	public function hide_product_tags_quick_edit( bool $show, string $taxonomy_name, string $post_type ): bool {
 		if ( 'product_tag' === $taxonomy_name ) {
 			$show = false;

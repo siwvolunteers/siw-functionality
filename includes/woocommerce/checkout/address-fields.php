@@ -1,23 +1,20 @@
 <?php declare(strict_types=1);
 namespace SIW\WooCommerce\Checkout;
 
+use SIW\Attributes\Filter;
+use SIW\Base;
+
 /**
  * Adresvelden in WooCommerce checkout
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class Address_Fields {
+class Address_Fields extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
+	#[Filter( 'woocommerce_shipping_fields' )]
+	private const SHIPPING_FIELDS = [];
 
-		add_filter( 'woocommerce_default_address_fields', [ $self, 'set_default_address_fields' ], 10, 2 );
-		add_filter( 'woocommerce_billing_fields', [ $self, 'set_billing_fields' ], 10, 2 );
-		add_filter( 'woocommerce_shipping_fields', '__return_empty_array' );
-	}
-
-	/** Past de volgorde van de adresvelden aan */
+	#[Filter( 'woocommerce_default_address_fields' )]
 	public function set_default_address_fields( array $default_address_fields ): array {
 
 		/* Verwijderen standaardvelden */
@@ -44,7 +41,7 @@ class Address_Fields {
 		return $address_fields;
 	}
 
-	/** Zet de classes voor de billing velden */
+	#[Filter( 'woocommerce_billing_fields' )]
 	public function set_billing_fields( array $billing_fields, string $country ): array {
 		$billing_fields['billing_phone']['class'] = [ 'form-row-first' ];
 		$billing_fields['billing_email']['class'] = [ 'form-row-last' ];
