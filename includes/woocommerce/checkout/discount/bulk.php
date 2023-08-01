@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce\Checkout\Discount;
 
-use SIW\Attributes\Action;
+use SIW\Attributes\Add_Action;
 use SIW\Config;
 
 /**
@@ -12,7 +12,7 @@ use SIW\Config;
  */
 class Bulk extends Virtual_Coupon {
 
-	const SESSION_VARIABLE = 'bulk_discount_product_ids';
+	private const SESSION_VARIABLE = 'bulk_discount_product_ids';
 
 	/** {@inheritDoc} */
 	protected static function get_coupon_code(): string {
@@ -42,16 +42,21 @@ class Bulk extends Virtual_Coupon {
 	}
 
 	/** Past eventueel korting bij meerdere projecten toe */
-	#[Action( 'woocommerce_before_calculate_totals' )]
+	#[Add_Action( 'woocommerce_before_calculate_totals' )]
 	public function maybe_set_bulk_discount( \WC_Cart $cart ) {
 
 		if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
 			return;
 		}
+
+		if ( $cart->get_cart_contents_count() < 2 ) {
+			return;
+		}
+
 		$cart_contents = $cart->get_cart_contents();
 
 		// Projecten oplopend sorteren op kosten
-		uasort( $cart_contents, fn( array $line_1, array $line_2 ) => (float) $line_1['line_total'] <=> (float) $line_2['line_total'] );
+		uasort( $cart_contents, fn( array $line_1, array $line_2 ) => (float) ( $line_1['line_total'] ?? 0.0 ) <=> (float) ( $line_2['line_total'] ?? 0.0 ) );
 
 		// Laatste element verwijderen
 		$cart_contents = array_slice( $cart_contents, 0, -1, true );
