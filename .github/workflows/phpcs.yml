@@ -1,19 +1,35 @@
-name: WPCS check
+# name: WPCS check
 
-on: pull_request
+# on: pull_request
 
+# jobs:
+#   phpcs:
+#       name: WPCS
+#       runs-on: ubuntu-latest
+#       steps:
+#         - uses: actions/checkout@v2
+#         - name: Setup PHP with tools
+#           uses: shivammathur/setup-php@v2
+#           with:
+#             php-version: '8.0'
+#             tools: none
+#         - name: WPCS check
+#           uses: 10up/wpcs-action@stable
+#           with:
+#             use_local_config: 'true'
+name: reviewdog
+on: [pull_request]
 jobs:
-  phpcs:
-      name: WPCS
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Setup PHP with tools
-          uses: shivammathur/setup-php@v2
-          with:
-            php-version: '8.0'
-            tools: none
-        - name: WPCS check
-          uses: 10up/wpcs-action@stable
-          with:
-            use_local_config: 'true'
+  linter_name:
+    name: runner / phpcs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: oohnoitz/action-phpcs-wordpress@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
+          reporter: github-pr-review
+          # Change reporter level if you need.
+          # GitHub Status Check won't become failure with warning.
+          level: warning
