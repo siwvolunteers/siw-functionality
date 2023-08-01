@@ -16,7 +16,7 @@ class Accordion_Tabs extends Repeater {
 	const ASSETS_HANDLE = 'siw-accordion-tabs';
 
 	protected bool $tabs_allowed = false;
-	protected bool $start_collapsed = false;
+	protected bool $start_collapsed = true;
 
 	/** {@inheritDoc} */
 	protected static function get_type(): string {
