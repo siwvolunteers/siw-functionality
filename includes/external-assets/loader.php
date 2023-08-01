@@ -15,7 +15,6 @@ class Loader extends Base_Loader {
 	public function get_classes(): array {
 		return [
 			A11Y_Accordion_Tabs::class,
-			A11Y_Accordion::class,
 			Flickity::class,
 			Frappe_Charts::class,
 			Google_Analytics_4::class,
