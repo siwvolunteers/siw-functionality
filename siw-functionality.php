@@ -29,3 +29,8 @@ define( 'SIW_FUNCTIONALITY_PLUGIN_FILE', __FILE__ );
 require_once __DIR__ . '/bootstrap.php';
 $siw_bootstrap = new Bootstrap();
 $siw_bootstrap->init();
+
+$test = array(
+	'a' => 1
+	"b"    => 3
+);
