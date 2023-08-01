@@ -1,0 +1,87 @@
+.siw-accordion-tabs {
+  max-width: fit-content;
+}
+.widget .siw-accordion-tabs ul.tabs-tab-list {
+  display: flex;
+  margin: 0;
+}
+.widget .siw-accordion-tabs ul.tabs-tab-list li {
+  list-style-type: none;
+  margin: 0;
+}
+.siw-accordion-tabs .tabs-trigger {
+  border-bottom: none;
+  display: none;
+  font-weight: 500;
+  font-size: 17px;
+  margin: 0 5px 0 1px;
+  padding: 15px 20px;
+  text-decoration: none;
+}
+.siw-accordion-tabs .tabs-trigger.is-selected, .siw-accordion-tabs .tabs-trigger.is-selected:hover, .siw-accordion-tabs .tabs-trigger.is-selected:focus {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: var(--siw-accent);
+}
+.siw-accordion-tabs .tabs-panel {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.siw-accordion-tabs .tabs-panel .content {
+  padding: 10px;
+  max-width: 85ch;
+  overflow: hidden;
+  transition: transform 0.5s ease-out;
+  transform-origin: top left;
+}
+.siw-accordion-tabs .tabs-panel .content[aria-expanded=false] {
+  transform: scaleY(0);
+}
+.siw-accordion-tabs .tabs-panel.is-hidden .content {
+  display: none;
+  padding: 0;
+}
+.siw-accordion-tabs .tabs-panel:active, .siw-accordion-tabs .tabs-panel:focus {
+  outline: none;
+}
+.siw-accordion-tabs.is-initialized.tabs-allowed .tabs-panel {
+  display: inherit;
+}
+.siw-accordion-tabs .accordion-trigger {
+  width: 100%;
+  display: block;
+  padding: 8px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: var(--siw-accent);
+  font-weight: 500;
+  font-size: 17px;
+  cursor: pointer;
+}
+.siw-accordion-tabs .accordion-trigger:after {
+  content: "+";
+  float: right;
+  font-weight: 700;
+  color: var(--siw-contrast-light);
+}
+.siw-accordion-tabs .accordion-trigger[aria-expanded=true]:after {
+  content: "-";
+}
+@media (min-width: 768px) {
+  .siw-accordion-tabs.tabs-allowed .accordion-trigger {
+    display: none;
+  }
+  .siw-accordion-tabs.tabs-allowed .tabs-trigger {
+    display: block;
+  }
+  .siw-accordion-tabs.tabs-allowed .tabs-panel {
+    display: none;
+  }
+  .siw-accordion-tabs.tabs-allowed .tabs-panel.is-hidden {
+    display: none;
+  }
+  .siw-accordion-tabs.tabs-allowed .tabs-tab-list {
+    margin-bottom: -2px;
+  }
+}
