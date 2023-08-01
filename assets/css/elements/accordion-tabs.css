@@ -1,11 +1,8 @@
-.siw-accordion-tabs {
-  max-width: fit-content;
-}
-.widget .siw-accordion-tabs ul.tabs-tab-list {
+.siw-accordion-tabs ul.tabs-tab-list {
   display: flex;
   margin: 0;
 }
-.widget .siw-accordion-tabs ul.tabs-tab-list li {
+.siw-accordion-tabs ul.tabs-tab-list li {
   list-style-type: none;
   margin: 0;
 }
@@ -32,11 +29,6 @@
   padding: 10px;
   max-width: 85ch;
   overflow: hidden;
-  transition: transform 0.5s ease-out;
-  transform-origin: top left;
-}
-.siw-accordion-tabs .tabs-panel .content[aria-expanded=false] {
-  transform: scaleY(0);
 }
 .siw-accordion-tabs .tabs-panel.is-hidden .content {
   display: none;

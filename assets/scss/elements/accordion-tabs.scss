@@ -1,14 +1,12 @@
 
 .siw-accordion-tabs {
-	max-width: fit-content;
-	.widget &{
-		ul.tabs-tab-list {
-			display: flex;
+
+	ul.tabs-tab-list {
+		display: flex;
+		margin: 0;
+		li {
+			list-style-type: none;
 			margin: 0;
-			li {
-				list-style-type: none;
-				margin: 0;
-			}
 		}
 	}
 
