@@ -31,6 +31,8 @@ $siw_bootstrap = new Bootstrap();
 $siw_bootstrap->init();
 
 $test = array(
-	'a' => 1
+	'a' => 1,
 	"b"    => 3
 );
+
+define( 'constant', 4);
