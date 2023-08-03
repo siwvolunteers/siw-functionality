@@ -15,4 +15,4 @@ jobs:
           php-version: '8.1'
           tools: cs2pr, phpcs
       - name: Run phpcs
-        run: phpcs -q --report=checkstyle src | cs2pr
+        run: phpcs -q --report=checkstyle | cs2pr
