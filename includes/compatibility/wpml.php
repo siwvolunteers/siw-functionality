@@ -2,8 +2,8 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\I18n;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
@@ -39,31 +39,18 @@ class WPML extends Base implements I_Plugin {
 		return 'sitepress-multilingual-cms/sitepress.php';
 	}
 
-	#[Action( 'widgets_init', 99 )]
+	#[Add_Action( 'widgets_init', 99 )]
 	/** Verwijdert WPML widget */
 	public function unregister_wpml_widget() {
 		unregister_widget( \WPML_LS_Widget::class );
 	}
 
-	#[Filter( 'privacy_policy_url' )]
+	#[Add_Filter( 'privacy_policy_url' )]
 	public function set_privacy_policy_url( string $url ): string {
 		return I18n::get_translated_permalink( $url, I18n::get_current_language() );
 	}
 
-	#[Action( 'delete_attachment' )]
-	/** Verwijder origineel attachment als vertaling verwijderd wordt */
-	public function delete_original_attachment( int $post_id ) {
-		if ( I18n::is_default_language() ) {
-			return;
-		}
-
-		$original_post_id = apply_filters( 'wpml_object_id', $post_id, 'attachment', false, I18n::get_default_language() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
-		if ( is_int( $original_post_id ) && $post_id !== $original_post_id ) {
-			wp_delete_attachment( $original_post_id );
-		}
-	}
-
-	#[Action( 'members_register_cap_groups' )]
+	#[Add_Action( 'members_register_cap_groups' )]
 	/** Registreert cap group */
 	public function register_cap_group() {
 		\members_register_cap_group(
@@ -77,7 +64,7 @@ class WPML extends Base implements I_Plugin {
 		);
 	}
 
-	#[Action( 'members_register_caps' )]
+	#[Add_Action( 'members_register_caps' )]
 	/** Registeert caps */
 	public function register_caps() {
 
