@@ -31,5 +31,5 @@ jobs:
           # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
           reporter: github-pr-check
           level: error
-          phpcs_standard: phpcs.xml
+          phpcs_standard: ./phpcs.xml
           fail_on_error: true
