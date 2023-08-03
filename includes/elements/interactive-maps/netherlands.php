@@ -6,7 +6,7 @@ use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Work_Type;
 use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
 
-use SIW\Elements\Accordion;
+use SIW\Elements\Accordion_Tabs;
 use SIW\I18n;
 use SIW\Util\CSS;
 use SIW\Util\Links;
@@ -108,7 +108,7 @@ class Netherlands implements Interactive_Map_Interface {
 			];
 
 		}
-		return Accordion::create()->add_items( $panes )->generate();
+		return Accordion_Tabs::create()->add_items( $panes )->generate();
 	}
 
 	/**

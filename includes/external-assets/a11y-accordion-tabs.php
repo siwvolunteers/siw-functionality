@@ -3,27 +3,27 @@
 namespace SIW\External_Assets;
 
 /**
- * AcceDe Web accordion
+ * A11y Accordion Tabs
  *
  * @copyright 2023 SIW Internationale Vrijwilligersprojecten
  *
- * @see       https://github.com/AcceDe-Web/tablist
+ * @see       https://matthiasott.github.io/a11y-accordion-tabs/
  */
-class A11Y_Tablist extends NPM_Asset {
+class A11Y_Accordion_Tabs extends NPM_Asset {
 
 	/** {@inheritDoc} */
 	protected static function get_version_number(): ?string {
-		return '2.0.1';
+		return '1.0.2';
 	}
 
 	/** {@inheritDoc} */
 	protected static function get_npm_package(): string {
-		return '@accede-web/tablist';
+		return 'a11y-accordion-tabs';
 	}
 
 	/** {@inheritDoc} */
 	protected static function get_script_file(): ?string {
-		return 'dist/tablist.min.js';
+		return 'a11y-accordion-tabs.min.js';
 	}
 
 	/** {@inheritDoc} */
@@ -33,12 +33,11 @@ class A11Y_Tablist extends NPM_Asset {
 
 	/** {@inheritDoc} */
 	protected static function get_script_sri(): ?string {
-		return 'sha256-TTh9248AuUOCjctFuKmzbxBCt1dEJ58c394ePzRePxc=';
+		return 'sha256-uGbMykAbHLkb2leqh8kLzAa8q6W3S61uDchk44M+rT4=';
 	}
 
 	/** {@inheritDoc} */
 	protected static function get_style_sri(): ?string {
 		return null;
 	}
-
 }
