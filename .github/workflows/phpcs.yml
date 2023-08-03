@@ -1,8 +1,16 @@
-- name: Setup PHP
-  uses: shivammathur/setup-php@v2
-  with:
-    php-version: '8.1'
-    tools: cs2pr, phpcs
 
-- name: Run phpcs
-  run: phpcs -q --report=checkstyle src | cs2pr
+
+name: reviewdog
+on: [pull_request]
+jobs:
+  linter_name:
+    name: runner / phpcs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: cs2pr, phpcs
+      - name: Run phpcs
+        run: phpcs -q --report=checkstyle src | cs2pr
