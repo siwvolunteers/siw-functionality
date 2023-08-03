@@ -58,6 +58,7 @@
 	</rule>
 
 	<!-- Enforce short array syntax: `[]` in place of `array()`. -->
+  <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 	<rule ref="Generic.PHP.RequireStrictTypes"/>
 
 	<rule ref="WordPress-Core">
