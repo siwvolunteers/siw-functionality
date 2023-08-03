@@ -32,4 +32,3 @@ jobs:
           reporter: github-pr-check
           level: error
           fail_on_error: true
-          phpcs_args: --standard=phpcs.xml
