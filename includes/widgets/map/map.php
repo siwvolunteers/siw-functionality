@@ -66,7 +66,7 @@ class Map extends Widget {
 	}
 
 	/** Haalt kaarten op */
-	protected function get_maps() : array {
+	protected function get_maps(): array {
 		return wp_list_pluck( siw_get_interactive_maps(), 'name', 'id' );
 	}
 

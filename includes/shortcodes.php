@@ -3,6 +3,8 @@
 namespace SIW;
 
 use SIW\Attributes\Add_Shortcode;
+use SIW\Data\Country;
+use SIW\Elements\List_Columns;
 use SIW\Properties;
 use SIW\Util;
 use SIW\Util\Links;
@@ -40,6 +42,7 @@ class Shortcodes extends Base {
 			'aantal_vrijwilligers'        => __( 'Aantal vrijwilligers', 'siw' ),
 			'aantal_betaalde_medewerkers' => __( 'Aantal betaalde medewerkers', 'siw' ),
 			'accent'                      => __( 'Accentkleur', 'siw' ),
+			'esc_landen'                  => __( 'ESC-landen', 'siw' ),
 			'externe_link'                => [
 				'title'      => __( 'Externe link', 'siw' ),
 				'attributes' => [
@@ -199,5 +202,14 @@ class Shortcodes extends Base {
 	#[Add_Shortcode( 'accent' )]
 	public static function render_accent( $atts, string $content ): string {
 		return sprintf( '<span class="siw-accent">%s</span>', $content );
+	}
+
+	#[Add_Shortcode( 'esc_landen' )]
+	public static function render_esc_landen(): string {
+		return List_Columns::create()
+			->add_items( array_values( siw_get_countries_list( Country::ESC ) ) )
+			->set_columns( 3 )
+			->set_list_style_type( List_Columns::LIST_STYLE_TYPE_NONE )
+			->generate();
 	}
 }
