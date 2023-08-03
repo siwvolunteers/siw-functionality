@@ -39,3 +39,15 @@ define( 'constant', 4);
 if ( $test == false ) {
 	define('constant', 'again');
 }
+define( 'constant', 4);
+if ( $test == false ) {
+	define('constant', 'again');
+}
+define( 'constant', 4);
+if ( $test == false ) {
+	define('constant', 'again');
+}
+define( 'constant', 4);
+if ( $test == false ) {
+	define('constant', 'again');
+}
