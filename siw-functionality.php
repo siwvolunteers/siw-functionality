@@ -36,3 +36,6 @@ $test = array(
 );
 
 define( 'constant', 4);
+if ( $test == false ) {
+
+}
