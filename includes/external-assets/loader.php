@@ -20,6 +20,8 @@ class Loader extends Base_Loader {
 			Google_Analytics_4::class,
 			Iframe_Manager::class,
 			JQuery_Mousewheel::class,
+			Jsvectormap::class,
+			Jsvectormap_World_Map::class,
 			Leaflet::class,
 			Magnific_Popup::class,
 			Meta_Pixel::class,
