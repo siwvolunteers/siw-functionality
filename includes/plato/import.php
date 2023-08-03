@@ -27,13 +27,17 @@ abstract class Import extends Plato_Interface {
 	}
 
 	/** Haal de XML op */
-	protected function retrieve_xml() : bool {
+	protected function retrieve_xml(): bool {
 
 		$response = HTTP_Request::create( $this->endpoint_url )
 			->set_accept( HTTP_Request::APPLICATION_XML )
 			->set_content_type( HTTP_Request::APPLICATION_XML )
 			->get();
 		if ( \is_wp_error( $response ) ) {
+			Logger::error(
+				sprintf( 'Fout tijdens ophalen xml: %s', $response->get_error_message() ),
+				static::class
+			);
 			return false;
 		}
 		$this->xml_response = $response;
@@ -69,7 +73,7 @@ abstract class Import extends Plato_Interface {
 	}
 
 	/** Voer de Plato-import uit */
-	public function run() : array {
+	public function run(): array {
 		// Start import
 		if ( ! $this->retrieve_xml() || ! $this->validate_xml() ) {
 			return [];
