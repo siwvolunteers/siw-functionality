@@ -1,14 +1,35 @@
-name: Inspections
+# name: WPCS check
+
+# on: pull_request
+
+# jobs:
+#   phpcs:
+#       name: WPCS
+#       runs-on: ubuntu-latest
+#       steps:
+#         - uses: actions/checkout@v2
+#         - name: Setup PHP with tools
+#           uses: shivammathur/setup-php@v2
+#           with:
+#             php-version: '8.0'
+#             tools: none
+#         - name: WPCS check
+#           uses: 10up/wpcs-action@stable
+#           with:
+#             use_local_config: 'true'
+name: reviewdog
+on: [pull_request]
 jobs:
-  runPHPCSInspection:
-    name: Run PHPCS inspection
+  linter_name:
+    name: runner / phpcs
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: ${{ github.event.pull_request.head.sha }}
-    - name: Run PHPCS inspection
-      uses: rtCamp/action-phpcs-code-review@v3
-      env:
-        GH_BOT_TOKEN: ${{ github.token }}
-
+      - uses: actions/checkout@v2
+      - uses: oohnoitz/action-phpcs-wordpress@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
+          reporter: github-pr-check
+          level: error
+          fail_on_error: true
+          phpcs_standard: "SIW"
