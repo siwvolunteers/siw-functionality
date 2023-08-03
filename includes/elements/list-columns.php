@@ -11,10 +11,17 @@ class List_Columns extends Repeater {
 
 	const ASSETS_HANDLE = 'siw-list';
 
+	// TODO: php 8.1 enum
+	const LIST_STYLE_TYPE_NONE = 'none';
+	const LIST_STYLE_TYPE_DISC = 'disc';
+	const LIST_STYLE_TYPE_CIRCLE = 'circle';
+	const LIST_STYLE_TYPE_SQUARE = 'square';
+	const LIST_STYLE_TYPE_CHECK = 'check';
+
 	/** Aantal kolommen */
 	protected int $columns = 1;
 
-	protected string $list_style_type = '';
+	protected string $list_style_type = self::LIST_STYLE_TYPE_DISC;
 
 
 	/** {@inheritDoc} */
