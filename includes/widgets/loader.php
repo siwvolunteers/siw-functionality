@@ -21,6 +21,7 @@ class Loader extends Class_Loader_Abstract {
 			Carousel::class,
 			Contact::class,
 			CTA::class,
+			Dutch_Projects::class,
 			Featured_Image::class,
 			Form::class,
 			Interactive_Map::class,
