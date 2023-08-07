@@ -22,10 +22,10 @@ function siw_get_sustainable_development_goals(): array {
 
 	// Data ophalen en sorteren
 	$data = siw_get_data( 'sustainable-development-goals' );
-	$data = wp_list_sort( $data, 'name' );
+	$data = wp_list_sort( $data, 'number' );
 
 	// Gebruik iso als index van array
-	$data = array_column( $data, null, 'slug' );
+	$data = array_column( $data, null, 'number' );
 
 	// Creëer objecten
 	$goals = array_map(
