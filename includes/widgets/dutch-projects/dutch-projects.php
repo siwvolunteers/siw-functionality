@@ -1,114 +1,102 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Elements\Interactive_Maps;
+namespace SIW\Widgets;
 
 use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Work_Type;
-use SIW\Interfaces\Elements\Interactive_Map as Interactive_Map_Interface;
-
 use SIW\Elements\Accordion_Tabs;
+use SIW\Elements\Leaflet_Map;
 use SIW\I18n;
 use SIW\Util\CSS;
 use SIW\Util\Links;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
- * Class om een Mapplic kaart te genereren
+ * Widget met Nederlandse projecten
  *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2023 SIW Internationale Vrijwilligersprojecten
+ *
+ * @widget_data
+ * Widget Name: SIW: Nederlandse projecten
+ * Description: Toont Nederlandse projecten
+ * Author: SIW Internationale Vrijwilligersprojecten
+ * Author URI: https://www.siw.nl
  */
-class Netherlands implements Interactive_Map_Interface {
+class Dutch_Projects extends Widget {
 
 	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'nl';
+	protected function get_id(): string {
+		return 'dutch_projects';
 	}
 
 	/** {@inheritDoc} */
-	public function get_file(): string {
-		return 'netherlands';
+	protected function get_name(): string {
+		return __( 'Nederlandse projecten', 'siw' );
 	}
 
 	/** {@inheritDoc} */
-	public function get_options(): array {
-		return [
-			'alphabetic'   => false,
-			'search'       => true,
-			'searchfields' => [ 'title', 'about', 'description' ],
-		];
+	protected function get_description(): string {
+		return __( 'Toont Nederlandse projecten', 'siw' );
 	}
 
 	/** {@inheritDoc} */
-	public function get_map_data(): array {
-		return [
-			'mapwidth'  => 600,
-			'mapheight' => 600,
-			'bottomLat' => '50.67500192979909',
-			'leftLng'   => '2.8680356443589807',
-			'topLat'    => '53.62609096857893',
-			'rightLng'  => '7.679884929662812',
-		];
+	protected function get_template_id(): string {
+		return $this->get_id();
 	}
 
 	/** {@inheritDoc} */
-	public function get_categories(): array {
-		return [];
+	protected function get_dashicon(): string {
+		return 'admin-home';
 	}
 
 	/** {@inheritDoc} */
-	public function get_locations(): array {
-		$projects = $this->get_projects();
-		$locations = [];
-		$provinces = [];
-		foreach ( $projects as $project ) {
-			$locations[] = [
-				'id'          => sanitize_title( $project->get_sku() ),
-				'title'       => $project->get_name(),
-				'image'       => $project->get_image_id() ? wp_get_attachment_image_src( $project->get_image_id(), 'medium' )[0] : null,
-				'about'       => $project->get_sku(),
-				'lat'         => $project->get_latitude() ?? null,
-				'lng'         => $project->get_longitude() ?? null,
-				'description' => $this->get_project_properties( $project ) . $this->get_project_button( $project ),
-				'pin'         => 'pin-classic pin-md',
-				'category'    => 'nl',
-				'fill'        => CSS::ACCENT_COLOR,
-			];
-			$provinces[] = null; // TODO: provincie uit Google Maps halen
-		}
-
-		// Provincies inkleuren
-		$provinces = array_unique( $provinces );
-		foreach ( $provinces as $province ) {
-			$locations[] = [
-				'id'     => "nl-{$province}",
-				'fill'   => CSS::CONTRAST_COLOR,
-				'action' => 'disabled',
-				'hide'   => true,
-			];
-		}
-
-		return $locations;
+	protected function supports_title(): bool {
+		return true;
 	}
 
 	/** {@inheritDoc} */
-	public function get_mobile_content(): string {
+	protected function supports_intro(): bool {
+		return true;
+	}
+
+	/** {@inheritDoc} */
+	public function get_template_variables( $instance, $args ) {
 
 		$projects = $this->get_projects();
 		if ( empty( $projects ) ) {
-			return '';
+			return [];
 		}
-		$panes = [];
-		foreach ( $projects as $project ) {
-			$panes[] = [
-				'title'       => $project->get_name(),
-				'content'     => $this->get_project_properties( $project ),
-				'show_button' => I18n::is_default_language(),
-				'button_url'  => $project->get_permalink(),
-				'button_text' => __( 'Bekijk project', 'siw' ),
-			];
 
+		$map = Leaflet_Map::create();
+		$map->set_zoom( 7 );
+
+		$accordion = Accordion_Tabs::create();
+
+		foreach ( $projects as $project ) {
+			$map->add_marker(
+				$project->get_latitude(),
+				$project->get_longitude(),
+				$project->get_name(),
+				$this->get_project_properties( $project ) . $this->get_project_button( $project ),
+			);
+
+			$accordion->add_item(
+				[
+					'title'       => $project->get_name(),
+					'content'     => $this->get_project_properties( $project ),
+					'show_button' => I18n::is_default_language(),
+					'button_url'  => $project->get_permalink(),
+					'button_text' => __( 'Bekijk project', 'siw' ),
+				]
+			);
 		}
-		return Accordion_Tabs::create()->add_items( $panes )->generate();
+
+		return [
+			'map'                  => $map->generate(),
+			'accordion'            => $accordion->generate(),
+			'hide_on_tablet_class' => CSS::HIDE_ON_TABLET_CLASS,
+			'hide_on_mobile_class' => CSS::HIDE_ON_MOBILE_CLASS,
+		];
 	}
 
 	/**
@@ -128,6 +116,7 @@ class Netherlands implements Interactive_Map_Interface {
 		usort( $projects, fn( WC_Product_Project $project_1, WC_Product_Project $project_2 ) => strcmp( $project_1->get_sku(), $project_2->get_sku() ) );
 		return $projects;
 	}
+
 
 	/** Genereert beschrijving van het project */
 	protected function get_project_properties( WC_Product_Project $project ): string {

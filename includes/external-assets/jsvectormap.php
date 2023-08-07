@@ -2,48 +2,46 @@
 
 namespace SIW\External_Assets;
 
+use SIW\External_Assets\NPM_Asset;
+
 /**
- * Jquery mousewheel
+ * Jsvectormap
+ *
+ * @see https://github.com/themustafaomar/jsvectormap
  *
  * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
- * @see       https://github.com/jquery/jquery-mousewheel
  */
-class JQuery_Mousewheel extends NPM_Asset {
+class Jsvectormap extends NPM_Asset {
 
 	/** {@inheritDoc} */
 	protected static function get_version_number(): ?string {
-		return '3.1.13';
+		return '1.5.3';
 	}
 
 	/** {@inheritDoc} */
 	protected static function get_npm_package(): string {
-		return 'jquery-mousewheel';
+		return 'jsvectormap';
 	}
 
 	/** {@inheritDoc} */
 	protected static function get_script_file(): ?string {
-		return 'jquery.mousewheel.js';
+		return 'dist/js/jsvectormap.min.js';
 	}
 
 	/** {@inheritDoc} */
 	protected static function get_style_file(): ?string {
-		return null;
+		return 'dist/css/jsvectormap.min.css';
 	}
 
 	/** {@inheritDoc} */
 	protected static function get_script_sri(): ?string {
-		return 'sha256-VSluyclkkEBBFNZ6S8I2Okq/R6W0InHkqdukNreEYOY=';
+		return 'sha256-/t1nN2956BT869E6H4V1dnt0X5pAQHPytli+1nTZm2Y=';
 	}
 
 	/** {@inheritDoc} */
 	protected static function get_style_sri(): ?string {
-		return null;
+		return 'sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=';
 	}
-
-	/** {@inheritDoc} */
-	protected static function get_script_dependencies(): array {
-		return [ 'jquery' ];
-	}
-
 }
+
+

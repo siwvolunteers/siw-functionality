@@ -130,9 +130,18 @@ class Leaflet_Map extends Element {
 
 	/** Voegt inline styling toe */
 	public function enqueue_styles() {
-		wp_enqueue_style( Leaflet::get_assets_handle() );
+
+		wp_register_style(
+			self::ASSETS_HANDLE,
+			SIW_ASSETS_URL . 'css/elements/leaflet-map.css',
+			[ Leaflet::get_assets_handle() ],
+			SIW_PLUGIN_VERSION
+		);
+
+		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/leaflet-map.css' );
 		$css = CSS::get_css_generator();
 		$css->add_rule( "#{$this->get_element_id()}", [ 'height' => "{$this->height}px" ] );
-		wp_add_inline_style( Leaflet::get_assets_handle(), $css->get_output() );
+		wp_add_inline_style( self::ASSETS_HANDLE, $css->get_output() );
 	}
 }

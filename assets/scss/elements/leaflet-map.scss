@@ -1,0 +1,9 @@
+.siw-leaflet-map {
+	&.leaflet-container {
+		font-family: inherit;
+
+		a.button, a:hover.button {
+			color: inherit;
+		}
+	}
+}

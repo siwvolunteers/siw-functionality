@@ -18,10 +18,6 @@ $siw_data = [
 		'name'        => __( 'China', 'woocommerce' ),
 		'workcamps'   => true,
 		'tailor_made' => false,
-		'world_map'   => [
-			'x' => 0.7782,
-			'y' => 0.5319,
-		], // TODO: kan weg na mapplic fix
 	],
 	[
 		'plato_code'  => 'HKG',
