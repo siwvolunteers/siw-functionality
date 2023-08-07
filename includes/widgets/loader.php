@@ -25,7 +25,6 @@ class Loader extends Class_Loader_Abstract {
 			Featured_Image::class,
 			Form::class,
 			Interactive_Map::class,
-			Map::class,
 			Newsletter_Confirmation::class,
 			Organisation::class,
 			Pie_Chart::class,

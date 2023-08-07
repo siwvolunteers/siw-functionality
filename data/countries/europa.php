@@ -203,10 +203,6 @@ $siw_data = [
 		'workcamps'   => true,
 		'tailor_made' => false,
 		'esc'         => true,
-		'world_map'   => [
-			'x' => 0.4504,
-			'y' => 0.3412,
-		], // TODO: kan weg na mapplic fix
 	],
 	[
 		'plato_code'  => 'ITA',
