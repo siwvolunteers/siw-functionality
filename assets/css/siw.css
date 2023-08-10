@@ -826,6 +826,8 @@ span.product-badge.featured-badge {
   margin-right: 2px;
   background-color: var(--siw-base);
   transition: all 0.6s ease-out;
+  padding-left: 0;
+  padding-right: 0;
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li:first-child {
   border-left-width: 1px;
@@ -841,6 +843,11 @@ span.product-badge.featured-badge {
 }
 .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li.active a, .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li:hover a {
   color: var(--siw-base);
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li a {
+  width: 100%;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 .woocommerce div.product .woocommerce-tabs .panel.wc-tab {
   max-width: 100ch;
