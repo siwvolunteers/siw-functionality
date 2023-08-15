@@ -2,6 +2,7 @@
 
 namespace SIW\Options;
 
+use SIW\Data\Board_Title;
 use SIW\Data\Pattern;
 use SIW\Interfaces\Options\Option as Option_Interface;
 
@@ -25,7 +26,7 @@ class Settings implements Option_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_capability() : string {
+	public function get_capability(): string {
 		return 'edit_posts';
 	}
 
@@ -35,7 +36,7 @@ class Settings implements Option_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_tabs() : array {
+	public function get_tabs(): array {
 		$tabs = [
 			[
 				'id'    => 'organisation',
@@ -87,7 +88,7 @@ class Settings implements Option_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_fields() : array {
+	public function get_fields(): array {
 		$fields = [];
 
 		// Bestuur
@@ -125,7 +126,7 @@ class Settings implements Option_Interface {
 					'name'     => __( 'Functie', 'siw' ),
 					'type'     => 'button_group',
 					'required' => true,
-					'options'  => \siw_get_board_titles(),
+					'options'  => siw_get_enum_array( Board_Title::cases() ),
 				],
 			],
 		];
