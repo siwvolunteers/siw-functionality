@@ -139,16 +139,3 @@ function siw_get_project_type_page( Project_Type $project_type ): ?\WP_Post {
 	$page = reset( $pages );
 	return $page;
 }
-
-/** Haalt gegevens over interactieve kaarten op */
-function siw_get_interactive_maps(): array {
-	$maps = [
-		[
-			'id'    => 'nl',
-			'name'  => __( 'Nederland', 'siw' ),
-			'class' => \SIW\Elements\Interactive_Maps\Netherlands::class,
-		],
-	];
-	return $maps;
-}
-
