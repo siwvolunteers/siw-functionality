@@ -12,8 +12,6 @@ use SIW\External_Assets\Polyfill;
  */
 class Chart extends Element {
 
-	const SCRIPT_HANDLE = 'siw-charts';
-
 	const CHART_TYPE_LINE = 'line';
 	const CHART_TYPE_BAR = 'bar';
 	const CHART_TYPE_AXIS_MIXED = 'axis-mixed';
@@ -44,11 +42,6 @@ class Chart extends Element {
 
 	/** Opties voor grafiek */
 	protected array $options = [];
-
-	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'chart';
-	}
 
 	public function set_chart_type( string $chart_type ): self {
 		$this->chart_type = $chart_type;
@@ -120,13 +113,13 @@ class Chart extends Element {
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
 		wp_register_script(
-			self::SCRIPT_HANDLE,
+			self::get_assets_handle(),
 			SIW_ASSETS_URL . 'js/elements/charts.js',
 			[ Frappe_Charts::get_assets_handle(), Polyfill::get_assets_handle() ],
 			SIW_PLUGIN_VERSION,
 			true
 		);
-		wp_enqueue_script( self::SCRIPT_HANDLE );
+		wp_enqueue_script( self::get_assets_handle() );
 	}
 
 }

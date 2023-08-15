@@ -18,7 +18,13 @@ abstract class Element {
 	protected array $classes;
 
 	/** Geeft type van element terug */
-	abstract protected static function get_type(): string;
+	final protected static function get_type(): string {
+		return str_replace(
+			'_',
+			'-',
+			strtolower( end( explode( '\\', static::class ) ) )
+		);
+	}
 
 	/** Geeft template variabelen voor Mustache-template terug */
 	abstract protected function get_template_variables(): array;
@@ -31,6 +37,11 @@ abstract class Element {
 	/** Geeft standaard css klasse voor element terug */
 	final protected static function get_element_class(): string {
 		return 'siw-' . static::get_type();
+	}
+
+	/** Genereert assets handle */
+	final public static function get_assets_handle(): string {
+		return strtolower( str_replace( [ '\\', '_' ], '-', static::class ) );
 	}
 
 	/** Init */

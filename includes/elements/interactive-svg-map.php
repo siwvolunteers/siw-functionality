@@ -13,8 +13,6 @@ use SIW\Util\CSS;
  */
 class Interactive_SVG_Map extends Element {
 
-	public const ASSETS_HANDLE = 'siw-interactive-svg-map';
-
 	/** TODO: enum voor kaarten*/
 	public const MAP_WORLD = 'world';
 
@@ -35,11 +33,6 @@ class Interactive_SVG_Map extends Element {
 	protected array $markers = [];
 
 	protected array $selected_markers = [];
-
-	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'interactive-svg-map';
-	}
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
@@ -101,8 +94,14 @@ class Interactive_SVG_Map extends Element {
 
 	/** {@inheritDoc} */
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/interactive-svg-maps.js', [ Jsvectormap_World_Map::get_assets_handle() ], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( self::ASSETS_HANDLE );
+		wp_register_script(
+			self::get_assets_handle(),
+			SIW_ASSETS_URL . 'js/elements/interactive-svg-maps.js',
+			[ Jsvectormap_World_Map::get_assets_handle() ],
+			SIW_PLUGIN_VERSION,
+			true
+		);
+		wp_enqueue_script( self::get_assets_handle() );
 	}
 
 	/** {@inheritDoc} */
