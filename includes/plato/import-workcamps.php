@@ -21,8 +21,8 @@ class Import_Workcamps extends Import {
 	/** Verwerk xml van Plato */
 	protected function process_xml() {
 
-		$projects_db = new Database( Database_Table::PLATO_PROJECTS() );
-		$images_db = new Database( Database_Table::PLATO_PROJECT_IMAGES() );
+		$projects_db = new Database( Database_Table::PLATO_PROJECTS );
+		$images_db = new Database( Database_Table::PLATO_PROJECT_IMAGES );
 
 		// Tabel leegmaken
 		$projects_db->delete( [ 'dutch_project' => $this->dutch_project ] );
