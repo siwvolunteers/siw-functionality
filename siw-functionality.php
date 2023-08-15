@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Text Domain:       siw
  * License:           GPLv2 or later
  * Requires at least: 6.2
- * Requires PHP:      8.0
+ * Requires PHP:      8.1
  */
 
 define( 'SIW_FUNCTIONALITY_PLUGIN_FILE', __FILE__ );
