@@ -12,16 +12,8 @@ use SIW\Util\CSS;
  */
 class Accordion_Tabs extends Repeater {
 
-	/** Asset handle */
-	const ASSETS_HANDLE = 'siw-accordion-tabs';
-
 	protected bool $tabs_allowed = false;
 	protected bool $start_collapsed = true;
-
-	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'accordion-tabs';
-	}
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
@@ -66,9 +58,9 @@ class Accordion_Tabs extends Repeater {
 
 	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/accordion-tabs.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/accordion-tabs.css' );
-		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/accordion-tabs.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/accordion-tabs.css' );
+		wp_enqueue_style( self::get_assets_handle() );
 	}
 
 	public function set_tabs_allowed( bool $tabs_allowed ): static {

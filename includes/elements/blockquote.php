@@ -9,8 +9,6 @@ namespace SIW\Elements;
  */
 class Blockquote extends Element {
 
-	const ASSETS_HANDLE = 'siw-blockquote';
-
 	/** Quote */
 	protected string $quote;
 
@@ -19,11 +17,6 @@ class Blockquote extends Element {
 
 	/** Bron/toelichting */
 	protected string $source;
-
-	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'blockquote';
-	}
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
@@ -58,8 +51,8 @@ class Blockquote extends Element {
 
 	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/blockquote.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/blockquote.css' );
-		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/blockquote.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/blockquote.css' );
+		wp_enqueue_style( self::get_assets_handle() );
 	}
 }

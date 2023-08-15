@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Elements\Charts\Pie as Element_Pie_Chart;
+use SIW\Elements\Chart;
 
 /**
  * Widget met grafiek
@@ -109,10 +109,13 @@ class Pie_Chart extends Widget {
 		}
 
 		return [
-			'chart'            => Element_Pie_Chart::create()->set_data( $instance['series'] )->generate(),
+			'chart'            => Chart::create()
+				->set_chart_type( Chart::CHART_TYPE_PIE )
+				->set_labels( wp_list_pluck( $instance['series'], 'label' ) )
+				->add_dataset( wp_list_pluck( $instance['series'], 'value' ) )
+				->generate(),
 			'series'           => $instance['series'],
 			'show_explanation' => $instance['show_explanation'],
 		];
-
 	}
 }
