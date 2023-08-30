@@ -2,12 +2,13 @@
 
 namespace SIW\Features;
 
+use SIW\Asset_Attributes;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Base;
 use SIW\Config;
-use SIW\Elements\Cookie_Notice;
 use SIW\External_Assets\Meta_Pixel;
+use SIW\Traits\Assets_Handle;
 
 /**
  * Configuratie van Facebook pixel
@@ -16,8 +17,7 @@ use SIW\External_Assets\Meta_Pixel;
  */
 class Facebook_Pixel extends Base {
 
-	// Script handle
-	const SCRIPT_HANDLE = 'siw-facebook-pixel';
+	use Assets_Handle;
 
 	#[Action( 'wp_enqueue_scripts' )]
 	/** Voeg script toe */
@@ -27,17 +27,33 @@ class Facebook_Pixel extends Base {
 			return;
 		}
 
-		wp_register_script( self::SCRIPT_HANDLE, SIW_ASSETS_URL . 'js/features/facebook-pixel.js', [ 'js-cookie' ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/features/facebook-pixel.js', [], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
-			self::SCRIPT_HANDLE,
+			self::get_assets_handle(),
 			'siw_facebook_pixel',
 			[
-				'pixel_id'    => esc_js( $pixel_id ),
-				'cookie_name' => Cookie_Notice::COOKIE_NAME,
-				'event_name'  => Cookie_Notice::EVENT_NAME,
+				'pixel_id' => esc_js( $pixel_id ),
 			]
 		);
-		wp_enqueue_script( self::SCRIPT_HANDLE );
+
+		wp_script_add_data(
+			self::get_assets_handle(),
+			Asset_Attributes::TYPE,
+			'text/plain'
+		);
+
+		wp_script_add_data(
+			self::get_assets_handle(),
+			Asset_Attributes::NO_MINIFY,
+			'1'
+		);
+
+		wp_script_add_data(
+			self::get_assets_handle(),
+			Asset_Attributes::COOKIE_CATEGORY,
+			Cookie_Consent::MARKETING
+		);
+		wp_enqueue_script( self::get_assets_handle() );
 		wp_enqueue_script( Meta_Pixel::get_assets_handle() );
 	}
 

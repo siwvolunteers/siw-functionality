@@ -66,10 +66,12 @@ a[rel*=external] {
 	margin-right: 1rem;
 	&::after {
 		content: "\2197";
-		position: absolute;
 	}
 	&:has(> img, > svg)::after {
 		content: none;
+	}
+	&:hover {
+		margin-right: 1rem;
 	}
 }
 

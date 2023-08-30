@@ -28,30 +28,10 @@ var siwFacebookPixel = (function () {
 		n.version='2.0';
 		n.queue=[];
 
-		fbq( 'consent', 'revoke' );
 		fbq( 'set', 'autoConfig', 'false', siw_facebook_pixel.pixel_id )
 		fbq( 'init', siw_facebook_pixel.pixel_id) ;
 		fbq( 'track', 'PageView' );
-
-		// Event listener voor update van cookie choices
-		document.body.addEventListener( siw_facebook_pixel.event_name, _maybeGrantConsent );
 	}
-
-	/** Eventueel consent zetten */
-	function _maybeGrantConsent() {
-		if ( _isConsentGiven() ) {
-			fbq( 'consent', 'grant' );
-		}
-	}
-	/** Bepaal op basis van cookie of toestemming gegeven is voor marketing cookies  */
-	function _isConsentGiven() {
-		cookieSettings = Cookies.get(siw_facebook_pixel.cookie_name );
-		if ( 'string' !== typeof cookieSettings ) {
-			return false;
-		}
-		return JSON.parse( cookieSettings ).marketing === '1';
-	}
-
 })();
 
 siwFacebookPixel.init();
