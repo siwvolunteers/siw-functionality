@@ -2,9 +2,6 @@
 
 namespace SIW\Widgets;
 
-use SIW\Data\Social_Network;
-use SIW\Elements\Social_Links;
-use SIW\Elements\Table;
 use SIW\Properties;
 
 /**

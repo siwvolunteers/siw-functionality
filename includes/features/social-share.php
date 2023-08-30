@@ -2,9 +2,9 @@
 
 namespace SIW\Features;
 
-use SIW\Attributes\Action;
+use SIW\Attributes\Add_Action;
 use SIW\Base;
-use SIW\Data\Social_Network;
+use SIW\Data\Social_Network_Context;
 use SIW\Elements\Social_Links;
 use SIW\Helpers\Template;
 
@@ -20,7 +20,7 @@ class Social_Share extends Base {
 	/** Post type van huidige post */
 	protected string $post_type;
 
-	#[Action( 'wp_enqueue_scripts' )]
+	#[Add_Action( 'wp_enqueue_scripts' )]
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
 		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/features/social-share.css', [], SIW_PLUGIN_VERSION );
@@ -28,7 +28,7 @@ class Social_Share extends Base {
 		wp_enqueue_style( self::ASSETS_HANDLE );
 	}
 
-	#[Action( 'generate_after_content' )]
+	#[Add_Action( 'generate_after_content' )]
 	/** Toont de share links */
 	public function render() {
 
@@ -42,7 +42,7 @@ class Social_Share extends Base {
 				[
 					'header'       => $this->get_title(),
 					'social_links' => Social_Links::create()
-						->set_context( Social_Network::SHARE )
+						->set_context( Social_Network_Context::SHARE )
 						->generate(),
 				]
 			)
@@ -64,5 +64,4 @@ class Social_Share extends Base {
 	protected function get_post_type_settings(): array {
 		return apply_filters( 'siw_social_share_post_types', [] );
 	}
-
 }
