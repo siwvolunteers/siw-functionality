@@ -9,9 +9,6 @@ namespace SIW\Data;
  */
 class Sustainable_Development_Goal extends Data {
 
-	/** Slug */
-	protected string $slug;
-
 	/** Nummer */
 	protected int $number;
 
@@ -21,36 +18,33 @@ class Sustainable_Development_Goal extends Data {
 	/** Kleurcode */
 	protected string $color;
 
-	/** CSS-class van icoon */
-	protected string $icon_class;
-
 	/** Geeft slug van sdg terug */
-	public function get_slug() : string {
-		return $this->slug;
+	public function get_slug(): string {
+		return (string) $this->number;
 	}
 
 	/** Geeft de naam van het sdg terug */
-	public function get_number() : int {
+	public function get_number(): int {
 		return $this->number;
 	}
 
 	/** Geeft de naam van het sdg terug */
-	public function get_name() : string {
+	public function get_name(): string {
 		return $this->name;
 	}
 
 	/** Geeft volledige naam (nummer + naam) terug */
-	public function get_full_name() : string {
+	public function get_full_name(): string {
 		return sprintf( '%d. %s', $this->number, $this->name );
 	}
 
 	/** Geeft icon class voor voor sdg terug */
-	public function get_icon_class() : string {
-		return $this->icon_class;
+	public function get_icon_class(): string {
+		return sprintf( 'sdg-%d', $this->number );
 	}
 
 	/** Geeft kleurcode van sdg terug */
-	public function get_color() : string {
+	public function get_color(): string {
 		return $this->color;
 	}
 }

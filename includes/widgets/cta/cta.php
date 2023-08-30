@@ -2,8 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\I18n;
-use SIW\Util;
+use SIW\Elements\CTA_Hero;
 
 /**
  * Widget met Call to Action
@@ -35,7 +34,7 @@ class CTA extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_template_id(): string {
-		return $this->get_id();
+		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
 	/** {@inheritDoc} */
@@ -56,29 +55,32 @@ class CTA extends Widget {
 	/** {@inheritDoc} */
 	protected function get_widget_fields(): array {
 		$widget_fields = [
-			'headline'    => [
-				'type'  => 'text',
-				'label' => __( 'Headline', 'siw' ),
+			'headline'          => [
+				'type'     => 'text',
+				'label'    => __( 'Headline', 'siw' ),
+				'required' => true,
 			],
-			'button_text' => [
+			'subheadline'       => [
 				'type'  => 'text',
-				'label' => __( 'Tekst voor knop', 'siw' ),
+				'label' => __( 'Subheadline', 'siw' ),
 			],
-			'button_url'  => [
+			'button_text'       => [
+				'type'     => 'text',
+				'label'    => __( 'Tekst voor knop', 'siw' ),
+				'required' => true,
+			],
+			'button_url'        => [
 				'type'        => 'text',
 				'label'       => __( 'URL', 'siw' ),
 				'sanitize'    => 'wp_make_link_relative',
 				'description' => __( 'Relatief', 'siw' ),
+				'required'    => true,
 			],
-			'align'       => [
-				'type'    => 'select',
-				'label'   => __( 'Uitlijning', 'siw' ),
-				'options' => [
-					'left'   => __( 'Links', 'siw' ),
-					'center' => __( 'Midden', 'siw' ),
-					'right'  => __( 'Rechts', 'siw' ),
-				],
-				'default' => 'center',
+			'background_images' => [
+				'type'                 => 'multiple_media',
+				'label'                => __( 'Achtergrondafbeeldingen', 'siw' ),
+				'library'              => 'image',
+				'thumbnail_dimensions' => [ 64, 64 ],
 			],
 		];
 		return $widget_fields;
@@ -86,27 +88,15 @@ class CTA extends Widget {
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
-		return [
-			'headline' => $instance['headline'],
-			'align'    => $instance['align'],
-			'button'   => [
-				'url'  => $instance['button_url'],
-				'text' => $instance['button_text'],
-			],
-		];
-	}
 
-	/** {@inheritDoc} */
-	public function initialize() {
-		$this->register_frontend_styles(
-			[
-				[
-					'siw-widget-cta',
-					SIW_ASSETS_URL . 'css/widgets/cta.css',
-					[],
-					SIW_PLUGIN_VERSION,
-				],
-			]
-		);
+		return [
+			'content' => CTA_Hero::create()
+				->set_headline( $instance['headline'] )
+				->set_subheadline( $instance['subheadline'] ?? '' )
+				->set_button_text( $instance['button_text'] )
+				->set_button_url( $instance['button_url'] )
+				->set_background_images_ids( $instance['background_images'] ?? [] )
+				->generate(),
+		];
 	}
 }

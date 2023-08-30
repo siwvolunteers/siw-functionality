@@ -2,8 +2,6 @@
 
 namespace SIW\Elements;
 
-use SIW\Actions\Batch\Update_Terms;
-
 /**
  * Taxonomy-filter voor archiefpagina's
  *
@@ -11,19 +9,8 @@ use SIW\Actions\Batch\Update_Terms;
  */
 class Taxonomy_Filter extends Element {
 
-	// Constantes voor assets handle
-	const ASSETS_HANDLE = 'siw-taxonomy-filter';
-
 	/** Taxonomie */
 	protected string $taxonomy;
-
-	/** Moet het aantal actieve posts gebruikt worden */
-	protected bool $use_post_count = false;
-
-	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'taxonomy-filter';
-	}
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
@@ -46,23 +33,17 @@ class Taxonomy_Filter extends Element {
 		return $this;
 	}
 
-	/** Zet of het aantal actieve posts geteld moet worden */
-	public function set_use_post_count( bool $use_post_count ): self {
-		$this->use_post_count = $use_post_count;
-		return $this;
-	}
-
 	/** {@inheritDoc}*/
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/taxonomy-filter.js', [], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( self::ASSETS_HANDLE );
+		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/elements/taxonomy-filter.js', [], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::get_assets_handle() );
 	}
 
 	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/taxonomy-filter.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/taxonomy-filter.css' );
-		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/taxonomy-filter.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/taxonomy-filter.css' );
+		wp_enqueue_style( self::get_assets_handle() );
 	}
 
 	/** Haalt terms van één taxonomy op */
@@ -72,15 +53,6 @@ class Taxonomy_Filter extends Element {
 			'hide_empty' => true,
 		];
 
-		if ( $this->use_post_count ) {
-			$term_query['meta_query'] = [
-				[
-					'key'     => Update_Terms::POST_COUNT_TERM_META,
-					'value'   => 0,
-					'compare' => '>',
-				],
-			];
-		}
 		$terms = get_terms( $term_query );
 
 		return array_map(

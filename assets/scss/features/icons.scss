@@ -7,42 +7,10 @@
 	}
 }
 
-.siw-icon-background {
-	display: inline-block;
-	font-size: 1em;
-	position: relative;
-	vertical-align: middle;
-	height: 2em;
-	width: 2em;
-	.siw-icon-inverse {
-		position: absolute;
-		left: 0.5em;
-		top: 0.5em;
-		fill: var(--siw-base);
-		width: 1em;
-		height: 1em;
-	}
-
-	.siw-background-icon {
-		position: absolute;
-		left: 0;
-		width: 2em;
-		height: 2em;
-		transition: all 0.3s linear 0s;
-	}
-
-	&:hover .siw-background-icon {
-		fill: var(--siw-accent);
-	}
-}
-
 @for $i from 1 through 10 {
 	.siw-icon-#{$i}x {
 		width: #{$i*0.5}em;
 		height: #{$i*0.5}em;
 
-	}
-	.siw-icon-background-#{$i}x {
-		font-size: #{$i*0.5}em;
 	}
 }

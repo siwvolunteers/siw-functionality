@@ -140,17 +140,20 @@ class HTTP_Request {
 			case self::APPLICATION_JSON:
 				$json = \json_decode( $body, true );
 				if ( null === $json ) {
-					$this->error = new \WP_Error( 'invalid_json', 'Ongeldige JSON' );
+					$this->error = new \WP_Error( 'invalid_json', json_last_error_msg() );
 					return false;
 				}
 				$this->body = $json;
 				break;
 			case self::APPLICATION_XML:
+				libxml_use_internal_errors( true );
 				$xml = \simplexml_load_string( $body );
 				if ( false === $xml ) {
-					$this->error = new \WP_Error( 'invalid_xml', 'Ongeldige XML' );
+					$this->error = new \WP_Error( 'invalid_xml', libxml_get_last_error()->message );
+					libxml_use_internal_errors( false );
 					return false;
 				}
+				libxml_use_internal_errors( false );
 				$this->body = $xml;
 				break;
 			default:

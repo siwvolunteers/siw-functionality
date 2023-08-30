@@ -108,8 +108,8 @@ function siw_get_special_page( Special_Page $special_page ): \WP_Post {
 	/** @var \WP_Post[]|false */
 	$pages = get_pages(
 		[
-			'meta_key'   => Page_Settings::SPECIAL_PAGE_META,
-			'meta_value' => $special_page->value,
+			'meta_key'     => Page_Settings::SPECIAL_PAGE_META,
+			'meta_value'   => $special_page->value,
 			'hierarchical' => false,
 		]
 	);
@@ -139,21 +139,3 @@ function siw_get_project_type_page( Project_Type $project_type ): ?\WP_Post {
 	$page = reset( $pages );
 	return $page;
 }
-
-/** Haalt gegevens over interactieve kaarten op */
-function siw_get_interactive_maps(): array {
-	$maps = [
-		[
-			'id'    => 'nl',
-			'name'  => __( 'Nederland', 'siw' ),
-			'class' => \SIW\Elements\Interactive_Maps\Netherlands::class,
-		],
-		[
-			'id'    => 'esc',
-			'name'  => __( 'ESC', 'siw' ),
-			'class' => \SIW\Elements\Interactive_Maps\ESC::class,
-		],
-	];
-	return $maps;
-}
-

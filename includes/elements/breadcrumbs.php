@@ -9,14 +9,7 @@ namespace SIW\Elements;
  */
 class Breadcrumbs extends Repeater {
 
-	const ASSETS_HANDLE = 'siw-breadcrumbs';
-
 	protected string $current;
-
-	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'breadcrumbs';
-	}
 
 	/** Zet huidige pagina */
 	public function set_current( string $current ): static {
@@ -34,9 +27,9 @@ class Breadcrumbs extends Repeater {
 
 	/** {@inheritDoc} */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/breadcrumbs.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/breadcrumbs.css' );
-		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/breadcrumbs.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/breadcrumbs.css' );
+		wp_enqueue_style( self::get_assets_handle() );
 	}
 
 }

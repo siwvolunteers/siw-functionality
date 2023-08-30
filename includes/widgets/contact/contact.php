@@ -76,7 +76,7 @@ class Contact extends Widget {
 				'phone' => Properties::WHATSAPP,
 				'icon'  => [
 					'size'       => 2,
-					'icon_class' => 'siw-icon-whatsapp',
+					'icon_class' => 'whatsapp',
 				],
 			],
 		];

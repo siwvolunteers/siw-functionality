@@ -12,8 +12,6 @@ use SIW\Util\CSS;
  */
 class Leaflet_Map extends Element {
 
-	const ASSETS_HANDLE = 'siw-leaflet-map';
-
 	const GEOCODING_URL = 'https://nominatim.openstreetmap.org/search';
 	const TILESERVER_URL_TEMPLATE = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 	const HASH_ALGORITHM = 'sha256';
@@ -30,12 +28,6 @@ class Leaflet_Map extends Element {
 
 	/** Zoom-niveau */
 	protected int $zoom = 6;
-
-
-	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'leaflet-map';
-	}
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
@@ -110,10 +102,10 @@ class Leaflet_Map extends Element {
 
 	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/leaflet-map.js', [ Leaflet::get_assets_handle() ], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/elements/leaflet-map.js', [ Leaflet::get_assets_handle() ], SIW_PLUGIN_VERSION, true );
 
 		wp_localize_script(
-			self::ASSETS_HANDLE,
+			self::get_assets_handle(),
 			'siwLeafletMapData',
 			[
 				'geocodingUrl' => self::GEOCODING_URL,
@@ -125,14 +117,23 @@ class Leaflet_Map extends Element {
 				],
 			]
 		);
-		wp_enqueue_script( self::ASSETS_HANDLE );
+		wp_enqueue_script( self::get_assets_handle() );
 	}
 
 	/** Voegt inline styling toe */
 	public function enqueue_styles() {
-		wp_enqueue_style( Leaflet::get_assets_handle() );
+
+		wp_register_style(
+			self::get_assets_handle(),
+			SIW_ASSETS_URL . 'css/elements/leaflet-map.css',
+			[ Leaflet::get_assets_handle() ],
+			SIW_PLUGIN_VERSION
+		);
+
+		wp_enqueue_style( self::get_assets_handle() );
+		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/leaflet-map.css' );
 		$css = CSS::get_css_generator();
 		$css->add_rule( "#{$this->get_element_id()}", [ 'height' => "{$this->height}px" ] );
-		wp_add_inline_style( Leaflet::get_assets_handle(), $css->get_output() );
+		wp_add_inline_style( self::get_assets_handle(), $css->get_output() );
 	}
 }

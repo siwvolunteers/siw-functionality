@@ -1,0 +1,58 @@
+.siw-cta-hero {
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+  min-height: 80vh;
+}
+.siw-cta-hero > figure {
+  padding: 0;
+  margin: 0px;
+  animation: siwHeroFade 12s linear infinite 0s;
+  backface-visibility: hidden;
+  color: transparent;
+  left: 0px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  z-index: 0;
+  height: 100%;
+}
+@media (min-width: 768px) {
+  .siw-cta-hero > figure {
+    background-size: cover;
+    background-position: center;
+  }
+}
+.siw-cta-hero .content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.siw-cta-hero .content .cta {
+  background-color: var(--siw-base);
+  z-index: 1;
+  position: relative;
+  padding: 30px;
+  margin: 50px;
+  max-width: 60ch;
+}
+.siw-cta-hero .content .cta .headline {
+  color: var(--siw-contrast);
+  font-size: clamp(2.25rem, 2.771vw + 1.533rem, 3.75rem);
+  line-height: 1em;
+  font-weight: 700;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.siw-cta-hero .content .cta .subheadline {
+  font-size: clamp(0.75rem, 1.039vw + 0.481rem, 1.313rem);
+  font-weight: 600;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.siw-cta-hero .content .cta .button {
+  text-align: center;
+}

@@ -1,0 +1,6 @@
+div[data-service=youtube] {
+  --im-btn-bg: #ff3333;
+  --im-btn-hover-bg: #ff5c5c;
+  --im-link-color: var(--im-btn-bg);
+  --im-link-hover-color: var(--im-btn-hover-bg);
+}
