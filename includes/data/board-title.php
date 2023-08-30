@@ -9,7 +9,7 @@ use SIW\Interfaces\Enums\Labels;
  *
  * @copyright 2023 SIW Internationale Vrijwilligersprojecten
  */
-enum Board_Title:string implements Labels {
+enum Board_Title: string implements Labels {
 	case CHAIR = 'chair';
 	case SECRETARY = 'secretary';
 	case TREASURER = 'treasurer';
@@ -17,7 +17,7 @@ enum Board_Title:string implements Labels {
 
 	/** {@inheritDoc} */
 	public function label(): string {
-		return match ($this) {
+		return match ( $this ) {
 			self::CHAIR => __( 'Voorzitter', 'siw' ),
 			self::SECRETARY => __( 'Secretaris', 'siw' ),
 			self::TREASURER => __( 'Penningmeester', 'siw' ),
