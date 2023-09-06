@@ -26,6 +26,7 @@ class Loader extends Base_Loader {
 			Meta_Pixel::class,
 			Polyfill::class,
 			Sal::class,
+			Splide::class,
 		];
 	}
 }
