@@ -451,29 +451,16 @@ button.button.alt {
 .archive article.siw_job_posting,
 .archive article.siw_event,
 .archive article.siw_story,
-.archive article.siw_tm_country,
-.siw-carousel article.siw_job_posting,
-.siw-carousel article.siw_event,
-.siw-carousel article.siw_story,
-.siw-carousel article.siw_tm_country {
+.archive article.siw_tm_country {
   padding: 10px;
 }
 .archive article.siw_job_posting .inside-article,
 .archive article.siw_event .inside-article,
 .archive article.siw_story .inside-article,
-.archive article.siw_tm_country .inside-article,
-.siw-carousel article.siw_job_posting .inside-article,
-.siw-carousel article.siw_event .inside-article,
-.siw-carousel article.siw_story .inside-article,
-.siw-carousel article.siw_tm_country .inside-article {
+.archive article.siw_tm_country .inside-article {
   border: 1px solid #ddd;
   padding: 0;
   text-align: center;
-}
-.archive .carousel-cell,
-.siw-carousel .carousel-cell {
-  margin-top: 5px;
-  margin-bottom: 5px;
 }
 
 .siw_event {
@@ -772,42 +759,6 @@ span.product-badge.featured-badge {
 .woocommerce nav.woocommerce-pagination ul.page-numbers li span.current {
   background: var(--siw-contrast);
   color: var(--siw-base);
-}
-
-.siw-carousel {
-  margin-bottom: 20px;
-}
-.siw-carousel .flickity-button:hover {
-  background-color: var(--siw-contrast-light);
-}
-.siw-carousel .carousel-cell li.product {
-  list-style: none;
-  border: 1px solid #bbb;
-  text-align: left;
-  background-color: var(--siw-base);
-  text-align: center;
-}
-.siw-carousel .carousel-cell li.product .woocommerce-LoopProduct-link h2 {
-  padding: 10px 20px 0 20px;
-  text-transform: capitalize;
-  font-size: 20px;
-}
-.siw-carousel .carousel-cell li.product a {
-  padding-bottom: 10px;
-  display: block;
-  color: var(--siw-contrast);
-  text-decoration: none;
-}
-.siw-carousel .carousel-cell li.product a p {
-  padding: 10px 20px 0 20px;
-}
-.siw-carousel .carousel-cell li.product a .woocommerce-placeholder {
-  border: none;
-}
-.siw-carousel .carousel-cell li.product span.product-badge.featured-badge {
-  position: absolute;
-  top: 0;
-  right: 0;
 }
 
 .woocommerce div.product .product_title {
