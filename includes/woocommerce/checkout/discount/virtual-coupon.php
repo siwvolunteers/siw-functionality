@@ -2,8 +2,7 @@
 
 namespace SIW\WooCommerce\Checkout\Discount;
 
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
 /**
@@ -32,7 +31,7 @@ abstract class Virtual_Coupon extends Base {
 	/** Geeft bedrag of percentage korting terug */
 	abstract protected static function get_amount(): float;
 
-	#[Filter( 'woocommerce_get_shop_coupon_data' )]
+	#[Add_Filter( 'woocommerce_get_shop_coupon_data' )]
 	public function add_virtual_coupon( mixed $data, string|array $code, \WC_Coupon $coupon ): mixed {
 		if ( ! is_string( $code ) || static::get_coupon_code() !== $code ) {
 			return $data;
@@ -53,7 +52,7 @@ abstract class Virtual_Coupon extends Base {
 		return [];
 	}
 
-	#[Filter( 'woocommerce_cart_totals_coupon_label' )]
+	#[Add_Filter( 'woocommerce_cart_totals_coupon_label' )]
 	public function set_coupon_label( string $label, \WC_Coupon $coupon ): string {
 		if ( static::get_coupon_code() !== $coupon->get_code() ) {
 			return $label;
@@ -61,7 +60,7 @@ abstract class Virtual_Coupon extends Base {
 		return $coupon->get_description();
 	}
 
-	#[Filter( 'woocommerce_cart_totals_coupon_html' )]
+	#[Add_Filter( 'woocommerce_cart_totals_coupon_html' )]
 	public function set_coupon_html( string $coupon_html, \WC_Coupon $coupon ): string {
 		if ( static::get_coupon_code() !== $coupon->get_code() ) {
 			return $coupon_html;
@@ -72,9 +71,17 @@ abstract class Virtual_Coupon extends Base {
 	}
 
 	/** Onderdruk message bij toevoegen verwijderen coupon */
-	#[Filter( 'woocommerce_coupon_message' )]
+	#[Add_Filter( 'woocommerce_coupon_message' )]
 	public function set_coupon_message( ?string $message, int $message_code, \WC_Coupon $coupon ): ?string {
 		if ( static::get_coupon_code() !== $coupon->get_code() ) {
+			return $message;
+		}
+		return null;
+	}
+
+	#[Add_Filter( 'woocommerce_coupon_error' )]
+	public function set_coupon_error( string $message, int $error_code, ?\WC_Coupon $coupon ): ?string {
+		if ( null === $coupon || static::get_coupon_code() !== $coupon->get_code() ) {
 			return $message;
 		}
 		return null;

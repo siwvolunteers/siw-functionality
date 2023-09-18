@@ -4,7 +4,7 @@ namespace SIW\Admin;
 
 use SIW\Attributes\Action;
 use SIW\Base;
-use SIW\Elements\Accordion;
+use SIW\Elements\Accordion_Tabs;
 
 /**
  * Voegt help-pagina toe
@@ -45,9 +45,8 @@ class Help_Page extends Base {
 		?>
 		<h2><?php echo esc_html__( 'Q&A', 'siw' ); ?></h2>
 		<?php
-			Accordion::create()
+			Accordion_Tabs::create()
 				->add_items( $panes )
 				->render();
-
 	}
 }

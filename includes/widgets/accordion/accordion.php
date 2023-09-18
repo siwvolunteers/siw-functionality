@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Elements\Accordion as Accordion_Element;
+use SIW\Elements\Accordion_Tabs as Accordion_Tabs_Element;
 
 /**
  * Widget met contactinformatie
@@ -55,7 +55,7 @@ class Accordion extends Widget {
 	/** {@inheritDoc} */
 	protected function get_widget_fields(): array {
 		$widget_fields = [
-			'panes' => [
+			'panes'        => [
 				'type'       => 'repeater',
 				'label'      => __( 'Accordeon', 'siw' ),
 				'item_name'  => __( 'Paneel', 'siw' ),
@@ -107,6 +107,12 @@ class Accordion extends Widget {
 					],
 				],
 			],
+			'tabs_allowed' => [
+				'type'        => 'checkbox',
+				'label'       => __( 'Tabs indien mogelijk', 'siw' ),
+				'description' => __( 'Tabs op desktop, accordion op mobiel', 'siw' ),
+				'default'     => false,
+			],
 		];
 		return $widget_fields;
 	}
@@ -118,7 +124,10 @@ class Accordion extends Widget {
 		}
 
 		return [
-			'content' => Accordion_Element::create()->add_items( $instance['panes'] )->generate(),
+			'content' => Accordion_Tabs_Element::create()
+				->add_items( $instance['panes'] )
+				->set_tabs_allowed( $instance['tabs_allowed'] )
+				->generate(),
 		];
 	}
 }

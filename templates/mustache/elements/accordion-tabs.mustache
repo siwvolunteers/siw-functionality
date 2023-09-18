@@ -1,0 +1,20 @@
+<div id="{{ element.id }}" class="{{ element.classes }}" data-role="accordion" data-tabs-allowed="{{ tabs_allowed }}"  data-breakpoint="{{ breakpoint }}" data-start-collapsed="{{ start_collapsed }}">
+	<ul role="tablist" class="tabs-tab-list">
+	{{# panes }}
+		<li role="presentation"><a href="#section-{{ id }}" role="tab" id="tab-{{ id }}" aria-controls="section-{{ id }}" class="tabs-trigger js-tabs-trigger">{{ title }}</a></li>
+	{{/ panes }}
+	</ul>
+	{{# panes }}
+	<section id="section-{{ id }}" role="tabpanel" aria-labelledby="tab-{{ id }}" class="tabs-panel js-tabs-panel" tabindex="0">
+		<span class="accordion-trigger js-accordion-trigger" aria-controls="section-{{ id }}" role="button" tabindex="0">
+			{{ title }}
+		</span>
+		<div class="content">
+			<p>{{& content|do_shortcode|wp_kses_post }}</p>
+			{{# button }}
+				{{> links/button }}
+			{{/ button }}
+		</div>
+	</section>
+	{{/ panes }}
+</div>

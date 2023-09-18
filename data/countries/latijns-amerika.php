@@ -12,6 +12,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 // phpcs:disable WordPress.WP.I18n.TextDomainMismatch
 $siw_data = [
 	[
+		'plato_code'  => 'ABW',
+		'iso_code'    => 'aw',
+		'slug'        => 'aruba',
+		'name'        => __( 'Aruba', 'woocommerce' ),
+		'workcamps'   => false,
+		'tailor_made' => false,
+		'esc'         => true,
+	],
+	[
 		'plato_code'  => 'ARG',
 		'iso_code'    => 'ar',
 		'slug'        => 'argentinie',

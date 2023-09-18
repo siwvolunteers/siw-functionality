@@ -8,16 +8,9 @@ use Attribute;
  * Attribute om methode aan een filter toe te voegen
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
+ * @deprecated gebruik Add_Filter
  */
 #[Attribute( Attribute::TARGET_METHOD | Attribute::TARGET_FUNCTION | Attribute::TARGET_CLASS_CONSTANT | Attribute::IS_REPEATABLE )]
-class Filter {
-
-	/** Constructor */
-	public function __construct( private string $tag, private int $priority = 10 ) {}
-
-	/** Voegt filter toe */
-	public function add( callable $function_to_add, int $accepted_args = 1 ): void {
-		add_filter( $this->tag, $function_to_add, $this->priority, $accepted_args );
-	}
+class Filter extends Add_Filter {
 
 }

@@ -17,7 +17,6 @@ class Loader extends Object_Loader {
 	/** {@inheritDoc} */
 	public function get_classes(): array {
 		return [
-			Mapplic::class,
 			SIW_Functionality::class,
 			SIW_SVG::class,
 		];

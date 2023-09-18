@@ -2,12 +2,14 @@
 
 namespace SIW\Features;
 
+use SIW\Asset_Attributes;
 use SIW\External_Assets\Google_Analytics_4 as Google_Analytics_4_Asset;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Base;
 use SIW\Compatibility\WooCommerce;
 use SIW\Config;
+use SIW\Traits\Assets_Handle;
 use SIW\Util\HTML;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Taxonomy_Attribute;
@@ -21,7 +23,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  */
 class Google_Analytics_4 extends Base {
 
-	const ASSETS_HANDLE = 'siw-google-analytics-4';
+	use Assets_Handle;
 
 	// TODO: enum van maken
 	const EVENT_ADD_TO_CART = 'add_to_cart';
@@ -38,9 +40,28 @@ class Google_Analytics_4 extends Base {
 		if ( is_user_logged_in() || null === Config::get_google_analytics_measurement_id() ) {
 			return;
 		}
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/features/google-analytics-4.js', [ Google_Analytics_4_Asset::get_assets_handle() ], SIW_PLUGIN_VERSION, true );
-		wp_localize_script( self::ASSETS_HANDLE, 'siw_google_analytics_4', $this->generate_analytics_data() );
-		wp_enqueue_script( self::ASSETS_HANDLE );
+		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/features/google-analytics-4.js', [ Google_Analytics_4_Asset::get_assets_handle() ], SIW_PLUGIN_VERSION, true );
+		wp_localize_script( self::get_assets_handle(), 'siw_google_analytics_4', $this->generate_analytics_data() );
+
+		wp_script_add_data(
+			self::get_assets_handle(),
+			Asset_Attributes::TYPE,
+			'text/plain'
+		);
+
+		wp_script_add_data(
+			self::get_assets_handle(),
+			Asset_Attributes::NO_MINIFY,
+			'1'
+		);
+
+		wp_script_add_data(
+			self::get_assets_handle(),
+			Asset_Attributes::COOKIE_CATEGORY,
+			Cookie_Consent::ANALYTICAL
+		);
+
+		wp_enqueue_script( self::get_assets_handle() );
 	}
 
 	protected function generate_analytics_data(): array {

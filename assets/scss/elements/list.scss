@@ -1,19 +1,33 @@
 ul {
+	&[data-columns] {
+		column-rule: 1px solid var(--siw-accent);
+	}
 	@for $i from 2 through 4 {
 		&[data-columns="#{$i}"] {
-			columns: #{$i};
+			column-count: #{$i};
+			@media (max-width: 768px) {
+				column-count: 1;
+			}
 		}
 	}
 	$list-style-types: (
 		disc,
 		circle,
 		square,
+		none,
 		check
 	);
+
+	&[data-list-style-type] {
+		list-style-position: inside;
+	}
 
 	@each $style in $list-style-types {
 		&[data-list-style-type="#{$style}"] li {
 			list-style-type: $style;
+			.panel-layout .widget & {
+				list-style-type: $style;
+			}
 		}
 	}
 

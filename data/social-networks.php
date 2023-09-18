@@ -14,7 +14,7 @@ $siw_data = [
 	[
 		'slug'               => 'facebook',
 		'name'               => __( 'Facebook', 'siw' ),
-		'icon_class'         => 'siw-icon-facebook-f',
+		'icon_class'         => 'facebook-alt',
 		'color'              => '#3b5998',
 		'follow'             => true,
 		'follow_url'         => 'https://www.facebook.com/SIWvolunteers/',
@@ -24,7 +24,7 @@ $siw_data = [
 	[
 		'slug'               => 'twitter',
 		'name'               => __( 'Twitter', 'siw' ),
-		'icon_class'         => 'siw-icon-twitter',
+		'icon_class'         => 'twitter',
 		'color'              => '#00aced',
 		'follow'             => true,
 		'follow_url'         => 'https://twitter.com/SIWvolunteers',
@@ -34,7 +34,7 @@ $siw_data = [
 	[
 		'slug'       => 'instagram',
 		'name'       => __( 'Instagram', 'siw' ),
-		'icon_class' => 'siw-icon-instagram',
+		'icon_class' => 'instagram',
 		'color'      => '#dd2a7b',
 		'follow'     => true,
 		'follow_url' => 'https://www.instagram.com/siwvrijwilligersprojecten/',
@@ -43,7 +43,7 @@ $siw_data = [
 	[
 		'slug'               => 'linkedin',
 		'name'               => __( 'LinkedIn', 'siw' ),
-		'icon_class'         => 'siw-icon-linkedin-in',
+		'icon_class'         => 'linkedin',
 		'color'              => '#007bb6',
 		'follow'             => true,
 		'follow_url'         => 'https://www.linkedin.com/company/siw',
@@ -53,7 +53,7 @@ $siw_data = [
 	[
 		'slug'       => 'youtube',
 		'name'       => __( 'YouTube', 'siw' ),
-		'icon_class' => 'siw-icon-youtube',
+		'icon_class' => 'youtube',
 		'color'      => '#ff3333',
 		'follow'     => false, // TODO: aanpassen is kanaal gereanimeerd is
 		'follow_url' => 'https://www.youtube.com/user/SIWvolunteerprojects',
@@ -62,7 +62,7 @@ $siw_data = [
 	[
 		'slug'       => 'pinterest',
 		'name'       => __( 'Pinterest', 'siw' ),
-		'icon_class' => 'siw-icon-pinterest-p',
+		'icon_class' => 'pinterest',
 		'color'      => '#e60023',
 		'follow'     => false, // TODO: aanpassen is kanaal gereanimeerd is
 		'follow_url' => 'https://nl.pinterest.com/SIWvolunteers/',
@@ -71,7 +71,7 @@ $siw_data = [
 	[
 		'slug'               => 'whatsapp',
 		'name'               => __( 'WhatsApp', 'siw' ),
-		'icon_class'         => 'siw-icon-whatsapp',
+		'icon_class'         => 'whatsapp',
 		'color'              => '#25D366',
 		'follow'             => false,
 		'share'              => true,

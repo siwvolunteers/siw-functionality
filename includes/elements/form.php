@@ -9,9 +9,6 @@ namespace SIW\Elements;
  */
 class Form extends Element {
 
-	/** Handle voor script */
-	const ASSETS_HANDLE = 'siw-forms';
-
 	/** ID van formulier */
 	protected string $form_id;
 
@@ -20,11 +17,6 @@ class Form extends Element {
 
 	/** MetaBox instantie */
 	protected \RW_Meta_Box $meta_box;
-
-	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'form';
-	}
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
@@ -87,15 +79,15 @@ class Form extends Element {
 	/** {@inheritDoc} */
 	public function enqueue_scripts() {
 		$this->meta_box->enqueue();
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/elements/form.js', [ 'jquery', 'wp-api-request' ], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( self::ASSETS_HANDLE );
+		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/elements/form.js', [ 'jquery', 'wp-api-request' ], SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::get_assets_handle() );
 	}
 
 	/** {@inheritDoc} */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/form.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/form.css' );
-		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/form.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/form.css' );
+		wp_enqueue_style( self::get_assets_handle() );
 	}
 
 }

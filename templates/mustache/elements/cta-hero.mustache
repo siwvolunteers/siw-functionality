@@ -1,0 +1,17 @@
+<div class="siw-cta-hero">
+	{{# background_images }}
+	<figure style="animation-delay: {{ animation_delay}}s; animation-name: {{ animation_name }}; animation-duration: {{ animation_duration }}s; background-image: url( '{{ background_image_url }}');"></figure>
+	{{/ background_images }}
+	<div class="content grid-container">
+		<div class="cta">
+			<div class="headline">{{& headline | do_shortcode }}</div>
+			{{# subheadline }}
+			<div class="subheadline">{{ . }}</div>
+			{{/ subheadline }}
+			<div class="button">
+				{{> button }}
+			</div>
+		</div>
+	</div>
+</div>
+

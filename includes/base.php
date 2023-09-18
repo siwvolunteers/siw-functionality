@@ -31,11 +31,13 @@ abstract class Base {
 		foreach ( $methods as $method ) {
 			$hook_attributes = array_merge(
 				$method->getAttributes( \SIW\Attributes\Action::class ),
-				$method->getAttributes( \SIW\Attributes\Filter::class )
+				$method->getAttributes( \SIW\Attributes\Filter::class ),
+				$method->getAttributes( \SIW\Attributes\Add_Action::class ),
+				$method->getAttributes( \SIW\Attributes\Add_Filter::class )
 			);
 
 			foreach ( $hook_attributes as $attribute ) {
-				/** @var \SIW\Attributes\Action|\SIW\Attributes\Filter */
+				/** @var \SIW\Attributes\Add_Action|\SIW\Attributes\Add_Filter */
 				$hook = $attribute->newInstance();
 				$hook->add( [ $this, $method->getName() ], $method->getNumberOfParameters() );
 			}
@@ -43,9 +45,12 @@ abstract class Base {
 
 		$constants = $this->reflection_class->getReflectionConstants();
 		foreach ( $constants as $constant ) {
-			$filter_attributes = $constant->getAttributes( \SIW\Attributes\Filter::class );
+			$filter_attributes = array_merge(
+				$method->getAttributes( \SIW\Attributes\Filter::class ),
+				$method->getAttributes( \SIW\Attributes\Add_Filter::class )
+			);
 			foreach ( $filter_attributes as $attribute ) {
-				/** @var \SIW\Attributes\Filter */
+				/** @var \SIW\Attributes\Add_Filter */
 				$hook = $attribute->newInstance();
 				$hook->add( fn()=> $constant->getValue() );
 			}

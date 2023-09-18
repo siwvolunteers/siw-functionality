@@ -2,7 +2,7 @@
 namespace SIW\Content\Types;
 
 use SIW\Content\Type;
-use SIW\Elements\Accordion;
+use SIW\Elements\Accordion_Tabs;
 use SIW\Helpers\Template;
 use SIW\Util\Links;
 
@@ -38,7 +38,7 @@ class Job_Posting extends Type {
 	protected int $archive_column_width = 33;
 
 	/** {@inheritDoc} */
-	public function get_meta_box_fields() : array {
+	public function get_meta_box_fields(): array {
 		$hr_manager = siw_get_option( 'hr_manager' );
 		// TODO: verplaatsen naar options?
 		$hr_manager = wp_parse_args(
@@ -202,10 +202,10 @@ class Job_Posting extends Type {
 						'required' => true,
 					],
 					[
-						'id'         => 'organization_profile',
-						'name'       => __( 'Wie zijn wij?', 'siw' ),
-						'type'       => 'custom_html',
-						'std'        => siw_get_option( 'job_postings_organization_profile' ),
+						'id'   => 'organization_profile',
+						'name' => __( 'Wie zijn wij?', 'siw' ),
+						'type' => 'custom_html',
+						'std'  => siw_get_option( 'job_postings_organization_profile' ),
 					],
 				],
 			],
@@ -253,7 +253,7 @@ class Job_Posting extends Type {
 	}
 
 	/** Geeft type vacature terug */
-	protected function get_job_type() : string {
+	protected function get_job_type(): string {
 
 		$job_type = match ( siw_meta( 'job_type' ) ) {
 			'paid'       => __( 'Betaalde functie', 'siw' ),
@@ -270,7 +270,7 @@ class Job_Posting extends Type {
 			'hours'     => siw_meta( 'hours' ),
 			'intro'     => siw_meta( 'introduction' ),
 			'deadline'  => siw_format_date( siw_meta( 'deadline' ) ),
-			'accordion' => Accordion::create()->add_items( $this->get_accordion_items() )->generate(),
+			'accordion' => Accordion_Tabs::create()->add_items( $this->get_accordion_items() )->generate(),
 		];
 
 		// contactpersoon voor informatie
@@ -297,7 +297,7 @@ class Job_Posting extends Type {
 	}
 
 	/** Geeft items voor accordion terug */
-	protected function get_accordion_items() : array {
+	protected function get_accordion_items(): array {
 		$description = siw_meta( 'description' );
 		$items = [
 			[
@@ -321,7 +321,7 @@ class Job_Posting extends Type {
 	}
 
 	/** Haal gegevens van hr manager op */
-	protected function get_application_manager() : array {
+	protected function get_application_manager(): array {
 		if ( siw_meta( 'different_application_manager' ) ) {
 			return siw_meta( 'application_manager' );
 		}
@@ -329,7 +329,7 @@ class Job_Posting extends Type {
 	}
 
 	/** Haal gegevens van contactpersoon op */
-	protected function get_contact_person() : array {
+	protected function get_contact_person(): array {
 		if ( siw_meta( 'different_contact_person' ) ) {
 			return siw_meta( 'contact_person' );
 		}
