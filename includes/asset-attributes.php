@@ -14,10 +14,16 @@ class Asset_Attributes extends Base {
 	// TODO: PHP8.1 enums van maken
 	const CROSSORIGIN = 'crossorigin';
 	const INTEGRITY = 'integrity';
+	const NO_MINIFY = 'data-no-minify';
+	const TYPE = 'type';
+	const COOKIE_CATEGORY = 'data-cookiecategory';
 
 	const ATTRIBUTES = [
 		self::CROSSORIGIN,
 		self::INTEGRITY,
+		self::NO_MINIFY,
+		self::TYPE,
+		self::COOKIE_CATEGORY,
 	];
 
 	#[Filter( 'script_loader_tag' )]

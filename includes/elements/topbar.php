@@ -9,18 +9,11 @@ namespace SIW\Elements;
  */
 class Topbar extends Element {
 
-	const ASSETS_HANDLE = 'siw-topbar';
-
 	/** URL */
 	protected string $url;
 
 	/** Text */
 	protected string $text;
-
-	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'topbar';
-	}
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
@@ -50,8 +43,8 @@ class Topbar extends Element {
 
 	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/topbar.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/topbar.css' );
-		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/topbar.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/topbar.css' );
+		wp_enqueue_style( self::get_assets_handle() );
 	}
 }

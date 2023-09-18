@@ -13,15 +13,8 @@ use SIW\Helpers\Template;
  */
 class Social_Links extends Element {
 
-	const ASSETS_HANDLE = 'siw-social-links';
-
 	/** Context (share of follow)*/
 	protected Social_Network_Context $context;
-
-	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'social-links';
-	}
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
@@ -87,8 +80,8 @@ class Social_Links extends Element {
 
 	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/social-links.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/social-links.css' );
-		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/social-links.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/social-links.css' );
+		wp_enqueue_style( self::get_assets_handle() );
 	}
 }

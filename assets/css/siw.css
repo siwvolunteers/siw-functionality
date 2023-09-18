@@ -155,10 +155,12 @@ a[rel*=external] {
 }
 a[rel*=external]::after {
   content: "↗";
-  position: absolute;
 }
 a[rel*=external]:has(> img, > svg)::after {
   content: none;
+}
+a[rel*=external]:hover {
+  margin-right: 1rem;
 }
 
 input[type=button],
