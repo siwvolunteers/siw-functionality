@@ -3,8 +3,8 @@
 namespace SIW\Features;
 
 use SIW\Asset_Attributes;
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Config;
 use SIW\External_Assets\Meta_Pixel;
@@ -19,7 +19,7 @@ class Facebook_Pixel extends Base {
 
 	use Assets_Handle;
 
-	#[Action( 'wp_enqueue_scripts' )]
+	#[Add_Action( 'wp_enqueue_scripts' )]
 	/** Voeg script toe */
 	public function enqueue_script() {
 		$pixel_id = Config::get_meta_pixel_id();
@@ -44,12 +44,6 @@ class Facebook_Pixel extends Base {
 
 		wp_script_add_data(
 			self::get_assets_handle(),
-			Asset_Attributes::NO_MINIFY,
-			'1'
-		);
-
-		wp_script_add_data(
-			self::get_assets_handle(),
 			Asset_Attributes::COOKIE_CATEGORY,
 			Cookie_Consent::MARKETING
 		);
@@ -57,7 +51,7 @@ class Facebook_Pixel extends Base {
 		wp_enqueue_script( Meta_Pixel::get_assets_handle() );
 	}
 
-	#[Filter( 'rocket_exclude_js' )]
+	#[Add_Filter( 'rocket_exclude_js' )]
 	public function exclude_from_optimization( array $files ): array {
 		$files[] = wp_make_link_relative( SIW_ASSETS_URL . 'js/features/facebook-pixel.js' );
 		return $files;

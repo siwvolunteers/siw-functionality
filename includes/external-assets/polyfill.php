@@ -4,7 +4,6 @@ namespace SIW\External_Assets;
 
 use SIW\External_Assets\External_Asset;
 
-
 /**
  * Polyfill.io
  *
@@ -40,5 +39,4 @@ class Polyfill extends External_Asset {
 	protected static function get_style_url(): ?string {
 		return null;
 	}
-
 }

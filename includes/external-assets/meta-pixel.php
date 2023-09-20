@@ -2,8 +2,6 @@
 
 namespace SIW\External_Assets;
 
-use SIW\Asset_Attributes;
-use SIW\Attributes\Action;
 use SIW\Features\Cookie_Consent;
 
 /**

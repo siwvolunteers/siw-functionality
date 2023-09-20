@@ -43,5 +43,3 @@ class Jsvectormap extends NPM_Asset {
 		return 'sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=';
 	}
 }
-
-
