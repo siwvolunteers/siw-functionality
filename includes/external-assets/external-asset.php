@@ -3,8 +3,8 @@
 namespace SIW\External_Assets;
 
 use SIW\Asset_Attributes;
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Traits\Assets_Handle;
 
@@ -45,8 +45,8 @@ abstract class External_Asset extends Base {
 		return [];
 	}
 
-	#[Action( 'wp_enqueue_scripts' )]
-	#[Action( 'admin_enqueue_scripts' )]
+	#[Add_Action( 'wp_enqueue_scripts' )]
+	#[Add_Action( 'admin_enqueue_scripts' )]
 	public function register_script() {
 		if ( ! static::has_script() ) {
 			return;
@@ -58,12 +58,6 @@ abstract class External_Asset extends Base {
 			static::get_script_dependencies(),
 			null, // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 			true
-		);
-
-		wp_script_add_data(
-			static::get_assets_handle(),
-			Asset_Attributes::NO_MINIFY,
-			'1'
 		);
 
 		if ( null !== static::get_cookie_category() ) {
@@ -81,8 +75,8 @@ abstract class External_Asset extends Base {
 		}
 	}
 
-	#[Action( 'wp_enqueue_scripts' )]
-	#[Action( 'admin_enqueue_scripts' )]
+	#[Add_Action( 'wp_enqueue_scripts' )]
+	#[Add_Action( 'admin_enqueue_scripts' )]
 	public function register_style() {
 
 		if ( ! static::has_style() ) {
@@ -95,15 +89,11 @@ abstract class External_Asset extends Base {
 			[],
 			null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		);
-
-		wp_style_add_data(
-			static::get_assets_handle(),
-			Asset_Attributes::NO_MINIFY,
-			'1'
-		);
 	}
 
-	#[Filter( 'rocket_dns_prefetch' )]
+	#[Add_Filter( 'rocket_dns_prefetch' )]
+	#[Add_Filter( 'rocket_minify_excluded_external_js' )]
+	#[Add_Filter( 'rocket_exclude_css' )]
 	public static function exclude_external_asset_domains( array $exclusions ): array {
 		if ( null !== static::get_domain() ) {
 			$exclusions[] = static::get_domain();

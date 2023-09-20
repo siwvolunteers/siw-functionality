@@ -4,8 +4,8 @@ namespace SIW\Features;
 
 use SIW\Asset_Attributes;
 use SIW\External_Assets\Google_Analytics_4 as Google_Analytics_4_Asset;
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Compatibility\WooCommerce;
 use SIW\Config;
@@ -35,7 +35,7 @@ class Google_Analytics_4 extends Base {
 	const EVENT_VIEW_CART = 'view_cart';
 	const EVENT_VIEW_ITEM_LIST = 'view_item_list';
 
-	#[Action( 'wp_enqueue_scripts' )]
+	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function enqueue_scripts() {
 		if ( is_user_logged_in() || null === Config::get_google_analytics_measurement_id() ) {
 			return;
@@ -47,12 +47,6 @@ class Google_Analytics_4 extends Base {
 			self::get_assets_handle(),
 			Asset_Attributes::TYPE,
 			'text/plain'
-		);
-
-		wp_script_add_data(
-			self::get_assets_handle(),
-			Asset_Attributes::NO_MINIFY,
-			'1'
 		);
 
 		wp_script_add_data(
@@ -216,7 +210,7 @@ class Google_Analytics_4 extends Base {
 		];
 	}
 
-	#[Action( 'woocommerce_before_shop_loop_item', 9 )]
+	#[Add_Action( 'woocommerce_before_shop_loop_item', 9 )]
 	/** Voegt GA attributes toe aan WooCommerce Loop link */
 	public function woocommerce_template_loop_product_link_open() {
 		remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
@@ -245,7 +239,7 @@ class Google_Analytics_4 extends Base {
 		);
 	}
 
-	#[Filter( 'woocommerce_cart_item_remove_link' )]
+	#[Add_Filter( 'woocommerce_cart_item_remove_link' )]
 	public function add_ga_attributes_to_cart_item_remove_link( string $link, string $cart_item_key ): string {
 		$cart_item = WC()->cart->get_cart_item( $cart_item_key );
 		/** @var WC_Product_Project */
@@ -266,7 +260,7 @@ class Google_Analytics_4 extends Base {
 		return $processor->get_updated_html();
 	}
 
-	#[Filter( 'siw_woocommerce_add_to_cart_button_attributes' )]
+	#[Add_Filter( 'siw_woocommerce_add_to_cart_button_attributes' )]
 	public function add_ga_attributes_to_add_to_cart_button( array $attributes, WC_Product_Project $product ): array {
 		$attributes['data-ga4-event'] = $this->generate_cart_event_attributes( $product, self::EVENT_ADD_TO_CART );
 		return $attributes;
@@ -281,5 +275,4 @@ class Google_Analytics_4 extends Base {
 			],
 		];
 	}
-
 }
