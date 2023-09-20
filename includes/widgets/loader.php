@@ -21,10 +21,10 @@ class Loader extends Class_Loader_Abstract {
 			Carousel::class,
 			Contact::class,
 			CTA::class,
+			Dutch_Projects::class,
 			Featured_Image::class,
 			Form::class,
 			Interactive_Map::class,
-			Map::class,
 			Newsletter_Confirmation::class,
 			Organisation::class,
 			Pie_Chart::class,
@@ -33,7 +33,6 @@ class Loader extends Class_Loader_Abstract {
 			Social_Links::class,
 			Sponsors::class,
 			Subpages::class,
-			Tabs::class,
 			YouTube_Video::class,
 		];
 	}

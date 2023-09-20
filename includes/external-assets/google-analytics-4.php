@@ -3,6 +3,7 @@
 namespace SIW\External_Assets;
 
 use SIW\Config;
+use SIW\Features\Cookie_Consent;
 
 /**
  * Google Analytics 4 JS API
@@ -32,6 +33,11 @@ class Google_Analytics_4 extends External_Asset {
 	/** {@inheritDoc} */
 	protected static function get_style_url(): ?string {
 		return null;
+	}
+
+	/** {@inheritDoc} */
+	protected static function get_cookie_category(): ?string {
+		return Cookie_Consent::ANALYTICAL;
 	}
 
 }

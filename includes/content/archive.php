@@ -27,7 +27,7 @@ class Archive {
 		// Header voor archiefpagina toevoegen
 		add_action( 'generate_inside_site_container', [ $this, 'add_archive_intro' ], 10 );
 		if ( $this->archive_options['taxonomy_filter'] ) {
-			$this->taxonomy_filter = Taxonomy_Filter::create()->set_use_post_count( ! empty( $this->archive_options['meta_query'] ) );
+			$this->taxonomy_filter = Taxonomy_Filter::create();
 			add_action( 'generate_inside_site_container', [ $this, 'add_taxonomy_filter' ], 20 );
 		}
 
@@ -176,7 +176,7 @@ class Archive {
 	}
 
 	/** Zet sitebar-layout voor archive */
-	public function set_sidebar_layout( string $layout ) : string {
+	public function set_sidebar_layout( string $layout ): string {
 		if ( $this->is_archive_query() ) {
 			return $this->archive_options['sidebar_layout'];
 		}

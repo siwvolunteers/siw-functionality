@@ -24,6 +24,7 @@ class Loader extends Object_Loader_Abstract {
 			Batch\Delete_Applications::class,
 			Batch\Delete_Old_Posts::class,
 			Batch\Delete_Stockphotos::class,
+			Batch\Import_All_Plato_Projects::class,
 			Batch\Import_Plato_Dutch_Projects::class,
 			Batch\Import_Plato_Project_Free_Places::class,
 			Batch\Import_Plato_Projects::class,

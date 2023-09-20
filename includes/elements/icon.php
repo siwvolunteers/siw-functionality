@@ -16,11 +16,6 @@ class Icon extends Element {
 	protected int $size = 2;
 
 	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'icon';
-	}
-
-	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
 			'icon' => [

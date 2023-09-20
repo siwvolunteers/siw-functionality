@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce\Checkout\Discount;
 
-use SIW\Attributes\Action;
+use SIW\Attributes\Add_Action;
 use SIW\Config;
 use SIW\Util;
 
@@ -33,7 +33,7 @@ class Student extends Virtual_Coupon {
 		return Config::get_student_discount_amount();
 	}
 
-	#[Action( 'woocommerce_checkout_update_order_review' )]
+	#[Add_Action( 'woocommerce_checkout_update_order_review' )]
 	public function maybe_set_student_discount( $post_data ) {
 		if ( empty( $post_data ) ) {
 			return;

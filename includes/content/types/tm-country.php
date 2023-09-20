@@ -7,8 +7,8 @@ use SIW\Data\Country;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
 use SIW\Data\Work_Type;
+use SIW\Elements\Interactive_SVG_Map;
 use SIW\Elements\Quote;
-use SIW\Elements\World_Map;
 use SIW\Helpers\Template;
 use SIW\Util\CSS;
 use SIW\Util\Links;
@@ -186,7 +186,12 @@ class TM_Country extends Type {
 		$template_vars = [
 			'image'             => wp_get_attachment_image( $image['ID'], 'large' ),
 			'mapcss'            => CSS::HIDE_ON_MOBILE_CLASS,
-			'worldmap'          => World_Map::create()->set_country( $country )->set_zoom( 2 )->generate(),
+			'worldmap'          => Interactive_SVG_Map::create()
+				->set_map( Interactive_SVG_Map::MAP_WORLD )
+				->select_region( $country->get_iso_code() )
+				->set_focus_region( $country->get_iso_code() )
+				->set_zoom_max( 2 )
+				->generate(),
 			'country'           => $country->get_name(),
 			'introduction'      => rwmb_get_value( 'introduction' ),
 			'description'       => rwmb_get_value( 'description' ),

@@ -40,11 +40,6 @@ class Carousel extends Element {
 	];
 
 	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'carousel';
-	}
-
-	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
 			'content' => $this->generate_content(),
