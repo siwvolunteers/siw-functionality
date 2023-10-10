@@ -3,6 +3,7 @@
 namespace SIW\Content;
 
 use luizbills\CSS_Generator\Generator as CSS_Generator;
+use SIW\Features\Social_Share;
 use SIW\Util\CSS;
 
 /**
@@ -122,7 +123,14 @@ abstract class Type {
 			// Single post
 			add_action( "siw_{$self->post_type}_content", [ $self, 'add_single_content' ] );
 			add_action( 'wp_enqueue_scripts', [ $self, 'set_single_width' ], 50 );
-			add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta' ] );
+
+			add_post_type_support(
+				"siw_{$self->post_type}",
+				Social_Share::POST_TYPE_FEATURE,
+				[
+					'cta' => $self->get_social_share_cta(),
+				]
+			);
 
 			$self->active_posts_meta_query = $self->get_active_posts_meta_query();
 
@@ -259,12 +267,6 @@ abstract class Type {
 			'generate-style',
 			$css->get_output()
 		);
-	}
-
-	/** Zet call to action voor social share links */
-	public function set_social_share_cta( array $post_types ) : array {
-		$post_types[ "siw_{$this->post_type}" ] = $this->get_social_share_cta();
-		return $post_types;
 	}
 
 	/** Zet social share CTA */
