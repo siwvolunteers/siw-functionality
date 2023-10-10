@@ -22,6 +22,9 @@ class WooCommerce extends Base implements I_Plugin {
 	#[Filter( 'woocommerce_prevent_admin_access' )]
 	private const PREVENT_ADMIN_ACCESS = false;
 
+	#[Filter( 'woocommerce_disable_admin_bar' )]
+	private const DISABLE_ADMIN_BAR = false;
+
 	#[Filter( 'woocommerce_enable_admin_help_tab' )]
 	private const ENABLE_ADMIN_HELP_TAB = false;
 
