@@ -12,12 +12,12 @@ use SIW\Attributes\Add_Filter;
 class Asset_Attributes extends Base {
 
 	// TODO: PHP8.1 enums van maken
-	const CROSSORIGIN = 'crossorigin';
-	const INTEGRITY = 'integrity';
-	const TYPE = 'type';
-	const COOKIE_CATEGORY = 'data-cookiecategory';
+	public const CROSSORIGIN = 'crossorigin';
+	public const INTEGRITY = 'integrity';
+	public const TYPE = 'type';
+	public const COOKIE_CATEGORY = 'data-cookiecategory';
 
-	const ATTRIBUTES = [
+	public const ATTRIBUTES = [
 		self::CROSSORIGIN,
 		self::INTEGRITY,
 		self::TYPE,

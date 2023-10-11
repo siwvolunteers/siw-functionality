@@ -10,55 +10,55 @@ namespace SIW;
 class Properties {
 
 	/** Naam */
-	const NAME = 'SIW Internationale Vrijwilligersprojecten';
+	public const NAME = 'SIW Internationale Vrijwilligersprojecten';
 
 	/** Statutaire naam */
-	const STATUTORY_NAME = 'Stichting Internationale Werkkampen';
+	public const STATUTORY_NAME = 'Stichting Internationale Werkkampen';
 
 	/** E-mailadres */
-	const EMAIL = 'info@siw.nl';
+	public const EMAIL = 'info@siw.nl';
 
 	/** Oprichtingsdatum */
-	const FOUNDING_DATE = '1953-10-24';
+	public const FOUNDING_DATE = '1953-10-24';
 
 	/** Telefoonnummer */
-	const PHONE = '030-2317721';
+	public const PHONE = '030-2317721';
 
 	/** Internationaal telefoonnummer */
-	const PHONE_INTERNATIONAL = '+31 30 2317721';
+	public const PHONE_INTERNATIONAL = '+31 30 2317721';
 
 	/** WhatsApp-nummer */
-	const WHATSAPP = '06-27403759';
+	public const WHATSAPP = '06-27403759';
 
 	/** Volledig WhatsApp-nummer (voor API) */
-	const WHATSAPP_FULL = '31627403759';
+	public const WHATSAPP_FULL = '31627403759';
 
 	/** KVK-nummer */
-	const KVK = '41165368';
+	public const KVK = '41165368';
 
 	/** IBAN */
-	const IBAN = 'NL65 TRIO 0320 4721 24';
+	public const IBAN = 'NL65 TRIO 0320 4721 24';
 
 	/** RSIN */
-	const RSIN = '002817482';
+	public const RSIN = '002817482';
 
 	/** Adres */
-	const ADDRESS = 'Willemstraat 7';
+	public const ADDRESS = 'Willemstraat 7';
 
 	/** Postcode */
-	const POSTCODE = '3511 RJ';
+	public const POSTCODE = '3511 RJ';
 
 	/** Stad */
-	const CITY = 'Utrecht';
+	public const CITY = 'Utrecht';
 
 	/** Maximum aantal bestuursleden */
-	const MAX_BOARD_MEMBERS = 9;
+	public const MAX_BOARD_MEMBERS = 9;
 
 	/** Maximum aantal jaarverslagen */
-	const MAX_ANNUAL_REPORTS = 5;
+	public const MAX_ANNUAL_REPORTS = 5;
 
 	/** Maximale afmeting voor afbeelding */
-	const MAX_IMAGE_SIZE = 1920;
+	public const MAX_IMAGE_SIZE = 1920;
 
 	/** Geeft waarde van property terug */
 	public static function get( string $property ) {
