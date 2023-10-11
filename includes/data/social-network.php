@@ -9,15 +9,6 @@ namespace SIW\Data;
  */
 class Social_Network extends Data {
 
-	/** Alle social networks */
-	const ALL = 'all';
-
-	/** Social networks voor delen */
-	const SHARE = 'share';
-
-	/** Social networks voor volgen */
-	const FOLLOW = 'follow';
-
 	/** Slug van het netwerk */
 	protected string $slug;
 
@@ -43,51 +34,53 @@ class Social_Network extends Data {
 	protected bool $follow;
 
 	/** Geeft slug van netwerk terug */
-	public function get_slug() : string {
+	public function get_slug(): string {
 		return $this->slug;
 	}
 
 	/** Geeft de naam van het netwerk terug */
-	public function get_name() : string {
+	public function get_name(): string {
 		return $this->name;
 	}
 
 	/** Geeft icon class voor voor netwerk terug */
-	public function get_icon_class() : string {
+	public function get_icon_class(): string {
 		return $this->icon_class;
 	}
 
 	/** Geeft kleurcode van netwerk terug */
-	public function get_color() : string {
+	public function get_color(): string {
 		return $this->color;
 	}
 
 	/** Geeft aan of via dit netwerk gedeeld kan worden */
-	public function is_for_sharing() : bool {
+	public function is_for_sharing(): bool {
 		return $this->share;
 	}
 
 	/** Geeft aan of dit netwerk gevolgd kan worden */
-	public function is_for_following() : bool {
+	public function is_for_following(): bool {
 		return $this->follow;
 	}
 
 	/** Geeft URL van network om te volgen terug */
-	public function get_follow_url() : string {
+	public function get_follow_url(): string {
 		return $this->follow_url;
 	}
 
 	/** Geeft template voor url om te delen terug */
-	public function get_share_url_template() : string {
+	public function get_share_url_template(): string {
 		return $this->share_url_template;
 	}
 
 	/** Geeft aan of Sociaal netwerk geldig is voor een gegeven context */
-	public function is_valid_for_context( string $context ) : bool {
+	public function is_valid_for_context( ?Social_Network_Context $context ): bool {
 		return (
-			self::ALL === $context
-			|| ( self::SHARE === $context && $this->is_for_sharing() )
-			|| ( self::FOLLOW === $context && $this->is_for_following() )
+			null === $context
+			||
+			( Social_Network_Context::SHARE === $context && $this->is_for_sharing() )
+			||
+			( Social_Network_Context::FOLLOW === $context && $this->is_for_following() )
 		);
 	}
 }

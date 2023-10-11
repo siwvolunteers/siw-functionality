@@ -2,7 +2,7 @@
 
 namespace SIW\Options;
 
-use SIW\Data\Pattern;
+use SIW\Data\Board_Title;
 use SIW\Interfaces\Options\Option as Option_Interface;
 
 use SIW\Properties;
@@ -13,6 +13,8 @@ use SIW\Properties;
  * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
 class Settings implements Option_Interface {
+
+	const EMAIL_LOCAL_PART_PATTERN = '^[^\s@]+$';
 
 	/** {@inheritDoc} */
 	public function get_id(): string {
@@ -25,7 +27,7 @@ class Settings implements Option_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_capability() : string {
+	public function get_capability(): string {
 		return 'edit_posts';
 	}
 
@@ -35,7 +37,7 @@ class Settings implements Option_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_tabs() : array {
+	public function get_tabs(): array {
 		$tabs = [
 			[
 				'id'    => 'organisation',
@@ -87,7 +89,7 @@ class Settings implements Option_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_fields() : array {
+	public function get_fields(): array {
 		$fields = [];
 
 		// Bestuur
@@ -125,7 +127,7 @@ class Settings implements Option_Interface {
 					'name'     => __( 'Functie', 'siw' ),
 					'type'     => 'button_group',
 					'required' => true,
-					'options'  => \siw_get_board_titles(),
+					'options'  => siw_get_enum_array( Board_Title::cases() ),
 				],
 			],
 		];
@@ -423,7 +425,7 @@ class Settings implements Option_Interface {
 						'name'     => __( 'Afzender bevestigingsmail', 'siw' ),
 						'type'     => 'text',
 						'required' => true,
-						'pattern'  => Pattern::EMAIL_LOCAL_PART()->value,
+						'pattern'  => self::EMAIL_LOCAL_PART_PATTERN,
 						'append'   => '@siw.nl',
 						'columns'  => 4,
 						'visible'  => [ "email_settings[{$id}][use_specific]", true ],
@@ -433,7 +435,7 @@ class Settings implements Option_Interface {
 						'name'     => __( 'Ontvanger notificatiemail', 'siw' ),
 						'type'     => 'text',
 						'required' => true,
-						'pattern'  => Pattern::EMAIL_LOCAL_PART()->value,
+						'pattern'  => self::EMAIL_LOCAL_PART_PATTERN,
 						'append'   => '@siw.nl',
 						'columns'  => 4,
 						'visible'  => [ "email_settings[{$id}][use_specific]", true ],
@@ -442,7 +444,7 @@ class Settings implements Option_Interface {
 						'id'      => 'notification_mail_cc',
 						'name'    => __( 'CC notificatiemail', 'siw' ),
 						'type'    => 'text',
-						'pattern' => Pattern::EMAIL_LOCAL_PART()->value,
+						'pattern' => self::EMAIL_LOCAL_PART_PATTERN,
 						'clone'   => true,
 						'append'  => '@siw.nl',
 						'columns' => 4,
@@ -473,7 +475,7 @@ class Settings implements Option_Interface {
 							'name'     => __( 'Afzender bevestigingsmail', 'siw' ),
 							'type'     => 'text',
 							'required' => true,
-							'pattern'  => Pattern::EMAIL_LOCAL_PART()->value,
+							'pattern'  => self::EMAIL_LOCAL_PART_PATTERN,
 							'append'   => '@siw.nl',
 							'columns'  => 4,
 						],
@@ -482,7 +484,7 @@ class Settings implements Option_Interface {
 							'name'     => __( 'Ontvanger notificatiemail', 'siw' ),
 							'type'     => 'text',
 							'required' => true,
-							'pattern'  => Pattern::EMAIL_LOCAL_PART()->value,
+							'pattern'  => self::EMAIL_LOCAL_PART_PATTERN,
 							'append'   => '@siw.nl',
 							'columns'  => 4,
 						],
@@ -490,7 +492,7 @@ class Settings implements Option_Interface {
 							'id'      => 'notification_mail_cc',
 							'name'    => __( 'CC notificatiemail', 'siw' ),
 							'type'    => 'text',
-							'pattern' => Pattern::EMAIL_LOCAL_PART()->value,
+							'pattern' => self::EMAIL_LOCAL_PART_PATTERN,
 							'clone'   => true,
 							'append'  => '@siw.nl',
 							'columns' => 4,

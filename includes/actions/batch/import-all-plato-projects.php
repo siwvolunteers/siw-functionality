@@ -37,7 +37,7 @@ class Import_All_Plato_Projects implements Batch_Action_Interface {
 
 	/** {@inheritDoc} */
 	public function select_data(): array {
-		$database = new Database( Database_Table::PLATO_PROJECTS() );
+		$database = new Database( Database_Table::PLATO_PROJECTS );
 		return $database->get_col( 'project_id' );
 	}
 

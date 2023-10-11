@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Properties;
+use SIW\Data\Board_Title;
 
 /**
  * Widget met bestuurssamenstelling
@@ -64,7 +64,7 @@ class Board_Members extends Widget {
 			fn( array $board_member ): array => [
 				'first_name' => $board_member['first_name'],
 				'last_name'  => $board_member['last_name'],
-				'title'      => siw_get_board_title( $board_member['title'] ),
+				'title'      => Board_Title::tryFrom( $board_member['title'] )?->label(),
 			],
 			$board_members
 		);

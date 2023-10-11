@@ -3,6 +3,7 @@
 namespace SIW\Elements;
 
 use SIW\Data\Social_Network;
+use SIW\Data\Social_Network_Context;
 use SIW\Helpers\Template;
 
 /**
@@ -12,8 +13,8 @@ use SIW\Helpers\Template;
  */
 class Social_Links extends Element {
 
-	/** Context (share of follow) TODO: enum van maken */
-	protected string $context;
+	/** Context (share of follow)*/
+	protected Social_Network_Context $context;
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
@@ -22,11 +23,11 @@ class Social_Links extends Element {
 
 		foreach ( $social_networks as $network ) {
 			$networks[] = [
-				'url'       => ( Social_Network::SHARE === $this->context ) ? $this->generate_share_url( $network ) : $network->get_follow_url(),
+				'url'       => ( Social_Network_Context::SHARE === $this->context ) ? $this->generate_share_url( $network ) : $network->get_follow_url(),
 				'name'      => $network->get_name(),
 				'label'     => sprintf(
 					// translators: %s is de naam van een sociaal netwerk
-					( Social_Network::SHARE === $this->context ) ? __( 'Delen via %s', 'siw' ) : __( 'Volg ons op %s', 'siw' ),
+					( Social_Network_Context::SHARE === $this->context ) ? __( 'Delen via %s', 'siw' ) : __( 'Volg ons op %s', 'siw' ),
 					$network->get_name()
 				),
 				'color'     => $network->get_color(),
@@ -34,7 +35,7 @@ class Social_Links extends Element {
 					'class' => $network->get_icon_class(),
 					'size'  => 2,
 				],
-				'ga4_event' => ( Social_Network::SHARE === $this->context ) ? [
+				'ga4_event' => ( Social_Network_Context::SHARE === $this->context ) ? [
 					'name'       => 'share',
 					'parameters' => [
 						'method'       => $network->get_name(),
@@ -72,7 +73,7 @@ class Social_Links extends Element {
 	}
 
 	/** Zet context (volgen of delen) */
-	public function set_context( string $context ): self {
+	public function set_context( Social_Network_Context $context ): self {
 		$this->context = $context;
 		return $this;
 	}
@@ -83,5 +84,4 @@ class Social_Links extends Element {
 		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/social-links.css' );
 		wp_enqueue_style( self::get_assets_handle() );
 	}
-
 }
