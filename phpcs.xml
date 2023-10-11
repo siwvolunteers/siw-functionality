@@ -26,6 +26,7 @@
   <rule ref="Generic.PHP.RequireStrictTypes"/>
   <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
   <rule ref="Generic.Metrics.CyclomaticComplexity" />
+  <rule ref="PSR12.Properties.ConstantVisibility"/>
 
 
   <!-- Configurable sniffs -->
