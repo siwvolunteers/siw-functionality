@@ -17,6 +17,8 @@ class Social_Share extends Base {
 
 	const ASSETS_HANDLE = 'siw-social-share';
 
+	public const POST_TYPE_FEATURE = 'siw-social-share';
+
 	/** Post type van huidige post */
 	protected string $post_type;
 
@@ -51,17 +53,13 @@ class Social_Share extends Base {
 
 	/** Genereert de titel */
 	protected function get_title() {
-		return $this->get_post_type_settings()[ $this->post_type ] ?? '';
+		$supports = get_all_post_type_supports( $this->post_type );
+		return $supports[ self::POST_TYPE_FEATURE ][0]['cta'] ?? __( 'Deel deze pagina', 'siw' );
 	}
 
 	/** Geeft aan of dit een ondersteunde post type is */
 	protected function is_supported_post_type(): bool {
 		$this->post_type = get_post_type();
-		return in_array( $this->post_type, array_keys( $this->get_post_type_settings() ), true );
-	}
-
-	/** Haal instelling van post type op */
-	protected function get_post_type_settings(): array {
-		return apply_filters( 'siw_social_share_post_types', [] );
+		return post_type_supports( $this->post_type, self::POST_TYPE_FEATURE );
 	}
 }

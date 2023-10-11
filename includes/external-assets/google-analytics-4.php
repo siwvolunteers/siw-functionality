@@ -39,5 +39,4 @@ class Google_Analytics_4 extends External_Asset {
 	protected static function get_cookie_category(): ?string {
 		return Cookie_Consent::ANALYTICAL;
 	}
-
 }

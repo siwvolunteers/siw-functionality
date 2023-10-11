@@ -19,7 +19,7 @@ class Interactive_Map extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
-		return 'interactive-map';
+		return 'interactive_map';
 	}
 
 	/** {@inheritDoc} */

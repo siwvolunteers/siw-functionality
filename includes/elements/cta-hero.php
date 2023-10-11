@@ -24,11 +24,6 @@ class CTA_Hero extends Element {
 	protected int $transition_time = self::DEFAULT_TRANSITION_TIME;
 	protected array $background_image_ids;
 
-	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'cta-hero';
-	}
-
 	public function set_headline( string $headline ): self {
 		$this->headline = $headline;
 		return $this;
@@ -147,5 +142,4 @@ class CTA_Hero extends Element {
 
 		wp_add_inline_style( self::ASSETS_HANDLE, $css->get_output() );
 	}
-
 }

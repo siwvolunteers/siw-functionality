@@ -2,11 +2,8 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Assets\JQuery_Validation_Messages_NL;
-use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Base;
-use SIW\I18n;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
@@ -41,42 +38,19 @@ class Meta_Box extends Base implements I_Plugin {
 		return array_filter( $extensions );
 	}
 
-	#[Filter( 'rwmb_normalize_time_field' )]
-	/** Zet standaardeigenschappen van tijdvelden
-	 *
-	 * @todo kan weg na introductie HTML5 velden
-	 */
-	public function set_default_time_options( array $field ): array {
-		$defaults = [
-			'pattern'    => '([01]?[0-9]|2[0-3]):[0-5][0-9]',
-			'inline'     => false,
-			'js_options' => [
-				'stepMinute'      => 15,
-				'controlType'     => 'select',
-				'showButtonPanel' => false,
-				'oneLine'         => true,
-			],
-		];
-		return wp_parse_args_recursive( $defaults, $field );
+	#[Filter( 'rwmb_field_class' )]
+	public function set_field_class( string $class_name, string $type ): string {
+		if ( in_array( $type, [ 'date', 'time' ], true ) ) {
+			$class_name = \RWMB_Input_Field::class;
+		}
+		return $class_name;
 	}
 
+	#[Filter( 'rwmb_normalize_time_field' )]
 	#[Filter( 'rwmb_normalize_date_field' )]
-	/** Zet standaardeigenschappen van datumvelden
-	 *
-	 * @todo kan weg na introductie HTML5 velden
-	 */
-	public function set_default_date_options( array $field ): array {
+	public function set_date_time_sanitize_callback( array $field ): array {
 		$defaults = [
-			'label_description' => 'jjjj-mm-dd',
-			'placeholder'       => 'jjjj-mm-dd',
-			'js_options'        => [
-				'dateFormat'      => 'yy-mm-dd',
-				'showButtonPanel' => false,
-			],
-			'pattern'           => '(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))',
-			'attributes'        => [
-				'autocomplete' => 'off',
-			],
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 		return wp_parse_args_recursive( $defaults, $field );
 	}
@@ -143,13 +117,5 @@ class Meta_Box extends Base implements I_Plugin {
 			$value = do_shortcode( $value );
 		}
 		return $value;
-	}
-
-	#[Action( 'rwmb_enqueue_scripts' )]
-	/** Voegt script toe */
-	public function enqueue_script() {
-		if ( I18n::is_default_language() ) {
-			wp_enqueue_script( JQuery_Validation_Messages_NL::ASSETS_HANDLE );
-		}
 	}
 }
