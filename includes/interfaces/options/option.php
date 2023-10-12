@@ -5,20 +5,20 @@ namespace SIW\Interfaces\Options;
 interface Option {
 
 	/** Geeft ID van optiepagina terug */
-	public function get_id() : string;
+	public function get_id(): string;
 
 	/** Geeft naam van optiepagina terug */
-	public function get_title() : string;
+	public function get_title(): string;
 
 	/** Geeft tabs terug */
-	public function get_tabs() : array;
+	public function get_tabs(): array;
 
 	/** Geeft velden terug */
-	public function get_fields() : array;
+	public function get_fields(): array;
 
 	/** Geeft benodigde capability terug */
-	public function get_capability() : string;
+	public function get_capability(): string;
 
 	/** Geeft parent pagina terug */
-	public function get_parent_page() : string;
+	public function get_parent_page(): string;
 }

@@ -10,6 +10,5 @@ namespace SIW\Interfaces\Page_Builder;
 interface Style_Group extends Extension {
 
 	/** Voegt optiegroep toe */
-	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ) : array;
-
+	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ): array;
 }

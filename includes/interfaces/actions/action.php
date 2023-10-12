@@ -10,9 +10,8 @@ namespace SIW\Interfaces\Actions;
 interface Action {
 
 	/** Geeft id van action terug */
-	public function get_id() : string;
+	public function get_id(): string;
 
 	/** Geeft naam van action terug */
-	public function get_name() : string;
-
+	public function get_name(): string;
 }
