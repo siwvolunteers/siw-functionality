@@ -19,17 +19,17 @@ class Continent extends Data {
 	protected string $color;
 
 	/** Geeft de slug van het continent terug */
-	public function get_slug() : string {
+	public function get_slug(): string {
 		return $this->slug;
 	}
 
 	/** Geeft de naam van het continent terug */
-	public function get_name() : string {
+	public function get_name(): string {
 		return $this->name;
 	}
 
 	/** Geeft kleurcode van continent op kaart terug */
-	public function get_color() : string {
+	public function get_color(): string {
 		return $this->color;
 	}
 }
