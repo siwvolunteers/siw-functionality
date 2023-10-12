@@ -2,7 +2,7 @@
 
 namespace SIW\Features;
 
-use SIW\Attributes\Action;
+use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Elements\Breadcrumbs as Breadcrumbs_Element;
 use SIW\Util\CSS;
@@ -14,15 +14,13 @@ use SIW\Util\CSS;
  */
 class Breadcrumbs extends Base {
 
-	const ASSETS_HANDLE = 'siw-breadcrumbs';
-
 	/** Array met crumbs */
 	protected array $crumbs = [];
 
 	/** Huidige pagina/post */
 	protected string $current;
 
-	#[Action( 'generate_after_header' ) ]
+	#[Add_Action( 'generate_after_header' ) ]
 	/** Genereer breadcrumbs */
 	public function generate_crumbs(): void {
 

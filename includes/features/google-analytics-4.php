@@ -26,14 +26,14 @@ class Google_Analytics_4 extends Base {
 	use Assets_Handle;
 
 	// TODO: enum van maken
-	const EVENT_ADD_TO_CART = 'add_to_cart';
-	const EVENT_BEGIN_CHECKOUT = 'begin_checkout';
-	const EVENT_SELECT_ITEM = 'select_item';
-	const EVENT_VIEW_ITEM = 'view_item';
-	const EVENT_PURCHASE = 'purchase';
-	const EVENT_REMOVE_FROM_CART = 'remove_from_cart';
-	const EVENT_VIEW_CART = 'view_cart';
-	const EVENT_VIEW_ITEM_LIST = 'view_item_list';
+	private const EVENT_ADD_TO_CART = 'add_to_cart';
+	private const EVENT_BEGIN_CHECKOUT = 'begin_checkout';
+	private const EVENT_SELECT_ITEM = 'select_item';
+	private const EVENT_VIEW_ITEM = 'view_item';
+	private const EVENT_PURCHASE = 'purchase';
+	private const EVENT_REMOVE_FROM_CART = 'remove_from_cart';
+	private const EVENT_VIEW_CART = 'view_cart';
+	private const EVENT_VIEW_ITEM_LIST = 'view_item_list';
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function enqueue_scripts() {

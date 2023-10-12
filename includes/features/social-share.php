@@ -7,6 +7,7 @@ use SIW\Base;
 use SIW\Data\Social_Network_Context;
 use SIW\Elements\Social_Links;
 use SIW\Helpers\Template;
+use SIW\Traits\Assets_Handle;
 
 /**
  * Voegt share-links toe voor social netwerken
@@ -15,7 +16,7 @@ use SIW\Helpers\Template;
  */
 class Social_Share extends Base {
 
-	const ASSETS_HANDLE = 'siw-social-share';
+	use Assets_Handle;
 
 	public const POST_TYPE_FEATURE = 'siw-social-share';
 
@@ -25,9 +26,9 @@ class Social_Share extends Base {
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/features/social-share.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/features/social-share.css' );
-		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/social-share.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/features/social-share.css' );
+		wp_enqueue_style( self::get_assets_handle() );
 	}
 
 	#[Add_Action( 'generate_after_content' )]

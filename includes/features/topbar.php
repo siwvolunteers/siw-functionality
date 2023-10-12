@@ -2,7 +2,7 @@
 
 namespace SIW\Features;
 
-use SIW\Attributes\Action;
+use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Elements\Topbar as Topbar_Element;
 
@@ -14,12 +14,12 @@ use SIW\Elements\Topbar as Topbar_Element;
 class Topbar extends Base {
 
 	/** Toon het evenement x aantal dagen van te voren */
-	const EVENT_SHOW_DAYS_BEFORE = 14;
+	private const EVENT_SHOW_DAYS_BEFORE = 14;
 
 	/** Verberg het evenement y aantal dagen van te voren */
-	const EVENT_HIDE_DAYS_BEFORE = 1;
+	private const EVENT_HIDE_DAYS_BEFORE = 1;
 
-	#[Action( 'generate_before_header', 1 )]
+	#[Add_Action( 'generate_before_header', 1 )]
 	public function show_topbar(): void {
 
 		$event_content = $this->get_event_content();
@@ -61,5 +61,4 @@ class Topbar extends Base {
 			'text' => $link_text,
 		];
 	}
-
 }
