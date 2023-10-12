@@ -10,16 +10,16 @@ namespace SIW\Helpers;
 class HTTP_Request {
 
 	/** JSON */
-	const APPLICATION_JSON = 'application/json';
+	public const APPLICATION_JSON = 'application/json';
 
 	/** XML */
-	const APPLICATION_XML = 'application/xml';
+	public const APPLICATION_XML = 'application/xml';
 
 	/** Form */
-	const APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
+	public const APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
 	/** Geaccepteerde response codes */
-	const SUCCESS_RESPONSE_CODES = [
+	private const SUCCESS_RESPONSE_CODES = [
 		\WP_Http::OK,
 		\WP_Http::CREATED,
 		\WP_Http::NO_CONTENT,
