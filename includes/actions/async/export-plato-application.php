@@ -14,9 +14,9 @@ use SIW\Properties;
  */
 class Export_Plato_Application implements Async_Action_Interface {
 
-	const ORDER_META_EXPORTED_TO_PLATO = '_exported_to_plato';
-	const SUCCESS = 'success';
-	const FAILED = 'failed';
+	public const ORDER_META_EXPORTED_TO_PLATO = '_exported_to_plato';
+	public const SUCCESS = 'success';
+	public const FAILED = 'failed';
 
 	/** Aantal gefaalde geexporteerde aanmeldingen */
 	protected int $failed_count = 0;
@@ -78,15 +78,15 @@ class Export_Plato_Application implements Async_Action_Interface {
 		$result = $export->run( $order_data );
 
 		if ( true === $result['success'] ) {
-			$this->success_count++;
+			++$this->success_count;
 		} else {
-			$this->failed_count++;
+			++$this->failed_count;
 		}
 		return $result;
 	}
 
 	/** Genereert array met gegevens aanmelding voor export-xml*/
-	protected function get_order_data( \WC_Order $order ) : array {
+	protected function get_order_data( \WC_Order $order ): array {
 		return [
 			'firstname'         => $order->get_billing_first_name(),
 			'lastname'          => $order->get_billing_last_name(),

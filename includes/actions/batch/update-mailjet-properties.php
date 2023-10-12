@@ -45,6 +45,4 @@ class Update_Mailjet_Properties implements I_Batch_Action {
 	public function must_be_run_on_update(): bool {
 		return true;
 	}
-
-
 }

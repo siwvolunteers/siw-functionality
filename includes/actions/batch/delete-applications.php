@@ -12,7 +12,7 @@ use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 class Delete_Applications implements Batch_Action_Interface {
 
 	/** Maximale leeftijd van aanmeldingen */
-	const MAX_AGE_APPLICATIONS = 12 * MONTH_IN_SECONDS;
+	private const MAX_AGE_APPLICATIONS = 12 * MONTH_IN_SECONDS;
 
 	/** {@inheritDoc} */
 	public function get_id(): string {

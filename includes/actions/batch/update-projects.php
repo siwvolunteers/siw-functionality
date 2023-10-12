@@ -24,10 +24,10 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 class Update_Projects implements Batch_Action_Interface {
 
 	/** Aantal maanden voordat project verwijderd wordt. */
-	const MAX_AGE_PROJECT = 6;
+	private const MAX_AGE_PROJECT = 6;
 
 	/** Minimaal aantal dagen dat project in toekomst moet starten om zichtbaar te zijn */
-	const MIN_DAYS_BEFORE_START = 3;
+	private const MIN_DAYS_BEFORE_START = 3;
 
 	/** Product */
 	protected WC_Product_Project $product;
