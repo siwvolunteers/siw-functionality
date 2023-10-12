@@ -16,7 +16,7 @@ use SIW\Data\Database_Table;
 class Tableview_Page extends Base {
 
 	/** Slug voor menu-pagina */
-	const MENU_SLUG = 'siw-database-tables';
+	private const MENU_SLUG = 'siw-database-tables';
 
 	/** Instantie van List table */
 	public Database_List_Table $database_list_table;

@@ -13,7 +13,7 @@ use SIW\Helpers\Database;
 class Database_List_Table extends \WP_List_Table {
 
 	/** Default aantal items per pagina */
-	const DEFAULT_ITEMS_PER_PAGE = 25;
+	public const DEFAULT_ITEMS_PER_PAGE = 25;
 
 	/** Database helper */
 	protected Database $database;

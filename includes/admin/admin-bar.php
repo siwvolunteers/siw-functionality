@@ -2,7 +2,7 @@
 
 namespace SIW\Admin;
 
-use SIW\Attributes\Action;
+use SIW\Attributes\Add_Action;
 use SIW\Base;
 
 /**
@@ -12,7 +12,7 @@ use SIW\Base;
  */
 class Admin_Bar extends Base {
 
-	#[Action( 'admin_bar_menu', PHP_INT_MAX )]
+	#[Add_Action( 'admin_bar_menu', PHP_INT_MAX )]
 	/** Verwijdert standaardnodes */
 	public function remove_nodes( \WP_Admin_Bar $wp_admin_bar ) {
 		$wp_admin_bar->remove_node( 'wp-logo' );
@@ -21,7 +21,7 @@ class Admin_Bar extends Base {
 		$wp_admin_bar->remove_node( 'new-content' );
 	}
 
-	#[Action( 'admin_bar_menu', 1 )]
+	#[Add_Action( 'admin_bar_menu', 1 )]
 	/** Voegt logo toe aan adminbar */
 	public function add_logo( \WP_Admin_Bar $wp_admin_bar ) {
 
@@ -34,5 +34,4 @@ class Admin_Bar extends Base {
 		];
 		$wp_admin_bar->add_node( $logo_args );
 	}
-
 }
