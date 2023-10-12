@@ -14,7 +14,7 @@ use SIW\Properties;
  */
 class Settings implements Option_Interface {
 
-	const EMAIL_LOCAL_PART_PATTERN = '^[^\s@]+$';
+	private const EMAIL_LOCAL_PART_PATTERN = '^[^\s@]+$';
 
 	/** {@inheritDoc} */
 	public function get_id(): string {

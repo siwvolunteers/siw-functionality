@@ -22,7 +22,7 @@ class Help implements Option_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function get_capability() : string {
+	public function get_capability(): string {
 		return 'edit_posts';
 	}
 
@@ -204,6 +204,4 @@ class Help implements Option_Interface {
 	protected function get_post_types(): array {
 		return get_post_types( [ 'public' => true ], 'objects' );
 	}
-
-
 }
