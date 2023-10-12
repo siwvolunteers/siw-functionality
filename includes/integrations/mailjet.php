@@ -16,22 +16,22 @@ use SIW\Helpers\Template;
 class Mailjet {
 
 	// Namespaces TODO: enum van maken
-	const NAMESPACE_STATIC = 'static';
-	const NAMESPACE_HISTORIC = 'historic';
+	private const NAMESPACE_STATIC = 'static';
+	private const NAMESPACE_HISTORIC = 'historic';
 
-	const NAMESPACES = [
+	private const NAMESPACES = [
 		self::NAMESPACE_STATIC,
 		self::NAMESPACE_HISTORIC,
 	];
 
 	// Data types TODO: enum van maken
-	const DATA_TYPE_STRING = 'str';
-	const DATA_TYPE_INTEGER = 'int';
-	const DATA_TYPE_FLOAT = 'float';
-	const DATA_TYPE_BOOLEAN = 'bool';
-	const DATA_TYPE_DATETIME = 'datetime';
+	private const DATA_TYPE_STRING = 'str';
+	private const DATA_TYPE_INTEGER = 'int';
+	private const DATA_TYPE_FLOAT = 'float';
+	private const DATA_TYPE_BOOLEAN = 'bool';
+	private const DATA_TYPE_DATETIME = 'datetime';
 
-	const DATA_TYPES = [
+	private const DATA_TYPES = [
 		self::DATA_TYPE_STRING,
 		self::DATA_TYPE_INTEGER,
 		self::DATA_TYPE_FLOAT,
@@ -40,14 +40,14 @@ class Mailjet {
 	];
 
 	// Properies TODO: enum van maken
-	const PROPERTY_FIRST_NAME = 'firstname';
-	const PROPERTY_LAST_NAME = 'lastname';
-	const PROPERTY_INTEREST_PROJECT_TYPE = 'interest_project_type';
-	const PROPERTY_INTEREST_DESTINATION = 'interest_destination';
-	const PROPERTY_REFERRAL = 'referral';
-	const PROPERTY_AGE_RANGE = 'age_range';
+	public const PROPERTY_FIRST_NAME = 'firstname';
+	public const PROPERTY_LAST_NAME = 'lastname';
+	public const PROPERTY_INTEREST_PROJECT_TYPE = 'interest_project_type';
+	public const PROPERTY_INTEREST_DESTINATION = 'interest_destination';
+	public const PROPERTY_REFERRAL = 'referral';
+	public const PROPERTY_AGE_RANGE = 'age_range';
 
-	const PROPERTIES = [
+	public const PROPERTIES = [
 		self::PROPERTY_FIRST_NAME            => self::DATA_TYPE_STRING,
 		self::PROPERTY_LAST_NAME             => self::DATA_TYPE_STRING,
 		self::PROPERTY_INTEREST_PROJECT_TYPE => self::DATA_TYPE_STRING,
@@ -58,13 +58,13 @@ class Mailjet {
 
 
 	// Operations + resources TODO: enum van maken
-	const OPERATION_SUBSCRIBE_USER_TO_LIST = 'subscribe_user_to_list';
-	const OPERATION_RETRIEVE_LISTS = 'retrieve_lists';
-	const OPERATION_CREATE_LIST = 'create_list';
-	const OPERATION_CREATE_PROPERTY = 'create_property';
-	const OPERATION_RETRIEVE_PROPERTIES = 'retrieve_properties';
+	private const OPERATION_SUBSCRIBE_USER_TO_LIST = 'subscribe_user_to_list';
+	private const OPERATION_RETRIEVE_LISTS = 'retrieve_lists';
+	private const OPERATION_CREATE_LIST = 'create_list';
+	private const OPERATION_CREATE_PROPERTY = 'create_property';
+	private const OPERATION_RETRIEVE_PROPERTIES = 'retrieve_properties';
 
-	const RESOURCES = [
+	private const RESOURCES = [
 		self::OPERATION_SUBSCRIBE_USER_TO_LIST => 'contactslist/{{ list_id }}/managecontact',
 		self::OPERATION_RETRIEVE_LISTS         => 'contactslist',
 		self::OPERATION_CREATE_LIST            => 'contactslist',
@@ -73,7 +73,7 @@ class Mailjet {
 	];
 
 	/** API url */
-	const API_URL = 'https://api.mailjet.com/v3/REST/';
+	private const API_URL = 'https://api.mailjet.com/v3/REST/';
 
 	/** Protected constructor */
 	final protected function __construct() {}
@@ -149,11 +149,11 @@ class Mailjet {
 
 		// data omzetten
 		return array_map(
-			function( $list ) {
+			function ( $mail_list ): array {
 				return [
-					'id'               => $list['ID'],
-					'name'             => $list['Name'],
-					'subscriber_count' => $list['SubscriberCount'],
+					'id'               => $mail_list['ID'],
+					'name'             => $mail_list['Name'],
+					'subscriber_count' => $mail_list['SubscriberCount'],
 				];
 			},
 			$response['Data']
@@ -182,7 +182,7 @@ class Mailjet {
 		// data omzetten
 		return array_column(
 			array_map(
-				function( $property ) {
+				function ( $property ) {
 					return [
 						'id'        => $property['ID'],
 						'name'      => $property['Name'],
@@ -197,22 +197,18 @@ class Mailjet {
 		);
 	}
 
-	public function create_property( string $name, string $datatype, string $namespace = 'static' ): ?int {
+	public function create_property( string $name, string $datatype, string $mailjet_namespace = 'static' ): ?int {
 
 		$datatype = in_array( $datatype, self::DATA_TYPES, true ) ? $datatype : self::DATA_TYPE_STRING;
 
-		$namespaces = [
-			'static',
-			'historic',
-		];
-		$namespace = in_array( $namespace, $namespaces, true ) ? $namespace : 'static';
+		$mailjet_namespace = in_array( $mailjet_namespace, self::NAMESPACES, true ) ? $mailjet_namespace : 'static';
 
 		$url = $this->get_api_url( self::OPERATION_CREATE_PROPERTY );
 
 		$body = [
 			'Name'      => $name,
 			'Datatype'  => $datatype,
-			'NameSpace' => $namespace,
+			'NameSpace' => $mailjet_namespace,
 		];
 		$response = $this->create_http_request( $url )->post( $body );
 		if ( is_wp_error( $response ) ) {
@@ -220,5 +216,4 @@ class Mailjet {
 		}
 		return $response['Data'][0]['ID'] ?? null;
 	}
-
 }
