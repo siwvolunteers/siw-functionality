@@ -29,7 +29,7 @@ class HTML {
 	];
 
 	/** Genereert HTML-tag */
-	public static function tag( string $tag, array $attributes, string $content = '' ) : string {
+	public static function tag( string $tag, array $attributes, string $content = '' ): string {
 
 		// Void tags
 		if ( in_array( $tag, self::$void_tags, true ) ) {
@@ -50,25 +50,25 @@ class HTML {
 	}
 
 	/** Genereert `<a>` tag */
-	public static function a( array $attributes, string $content = '' ) : string {
+	public static function a( array $attributes, string $content = '' ): string {
 		return self::tag( 'a', $attributes, $content );
 	}
 
 	/** Versie van sanitize_html_class voor meerdere classes*/
-	public static function sanitize_html_classes( $class, string $fallback = null ) : string {
-		if ( is_string( $class ) ) {
-			$class = explode( ' ', $class );
+	public static function sanitize_html_classes( $classes, string $fallback = null ): string {
+		if ( is_string( $classes ) ) {
+			$classes = explode( ' ', $classes );
 		}
-		if ( is_array( $class ) && count( $class ) > 0 ) {
-			$class = array_map( 'sanitize_html_class', $class );
-			return implode( ' ', $class );
+		if ( is_array( $classes ) && count( $classes ) > 0 ) {
+			$classes = array_map( 'sanitize_html_class', $classes );
+			return implode( ' ', $classes );
 		} else {
-			return sanitize_html_class( $class, $fallback );
+			return sanitize_html_class( $classes, $fallback );
 		}
 	}
 
 	/** Genereert attributes op basis van array */
-	public static function generate_attributes( array $attributes ) : string {
+	public static function generate_attributes( array $attributes ): string {
 		$rendered_attributes = '';
 		foreach ( $attributes as $key => $value ) {
 			if ( false === $value ) {

@@ -89,7 +89,7 @@ class Meta_Box {
 	public static function get_display_value( array $field, $raw_value ) {
 
 		// TODO: escaping?
-		$value = match ( $field['type']  ) {
+		$value = match ( $field['type'] ) {
 			'radio',
 			'select',
 			'button_group'  => $field['options'][ $raw_value ] ?? '',
@@ -101,5 +101,4 @@ class Meta_Box {
 
 		return $value;
 	}
-
 }
