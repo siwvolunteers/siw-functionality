@@ -1,11 +1,5 @@
 <?php declare(strict_types=1);
 
-/**
- * Functies m.b.t. landen
- *
- * @copyright SIW Internationale Vrijwilligersprojecten
- */
-
 use SIW\Data\Country;
 
 /**

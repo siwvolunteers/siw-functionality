@@ -1,11 +1,5 @@
 <?php declare(strict_types=1);
 
-/**
- * Functies m.b.t. Plato
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
-
 use SIW\Data\Plato\Project;
 use SIW\Data\Plato\Project_Free_Places;
 use SIW\Data\Database_Table;

@@ -1,11 +1,5 @@
 <?php declare(strict_types=1);
 
-/**
- * Sustainable Development Goals
- *
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- */
-
 use SIW\Data\Sustainable_Development_Goal;
 
 /**

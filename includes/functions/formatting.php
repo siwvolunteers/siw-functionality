@@ -1,11 +1,5 @@
 <?php declare(strict_types=1);
 
-/**
- * Functies t.b.v. formattering
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
-
 use SIW\Data\Currency;
 
 /** Formatteert getal als percentage */

@@ -5,12 +5,6 @@ use SIW\Data\Email_Settings;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
 
-/**
- * Functies m.b.t. referentiegegevens
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
-
 /** Haalt data uit bestand */
 function siw_get_data( string $file ) {
 	$file = strtolower( str_replace( '_', '-', $file ) );
