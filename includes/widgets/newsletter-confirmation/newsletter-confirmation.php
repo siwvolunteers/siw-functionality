@@ -16,12 +16,12 @@ namespace SIW\Widgets;
 class Newsletter_Confirmation extends Widget {
 
 	// Constantes voor query args
-	const QUERY_ARG_EMAIL = 'nl_email';
-	const QUERY_ARG_EMAIL_HASH = 'nl_email_hash';
-	const QUERY_ARG_FIRST_NAME = 'nl_first_name';
-	const QUERY_ARG_FIRST_NAME_HASH = 'nl_first_name_hash';
-	const QUERY_ARG_LIST_ID = 'nl_list_id';
-	const QUERY_ARG_LIST_ID_HASH = 'nl_list_id_hash';
+	public const QUERY_ARG_EMAIL = 'nl_email';
+	public const QUERY_ARG_EMAIL_HASH = 'nl_email_hash';
+	public const QUERY_ARG_FIRST_NAME = 'nl_first_name';
+	public const QUERY_ARG_FIRST_NAME_HASH = 'nl_first_name_hash';
+	public const QUERY_ARG_LIST_ID = 'nl_list_id';
+	public const QUERY_ARG_LIST_ID_HASH = 'nl_list_id_hash';
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
@@ -109,5 +109,4 @@ class Newsletter_Confirmation extends Widget {
 
 		return $parameter;
 	}
-
 }

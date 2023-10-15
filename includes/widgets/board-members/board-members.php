@@ -73,5 +73,4 @@ class Board_Members extends Widget {
 			'board_members' => $board_members,
 		];
 	}
-
 }

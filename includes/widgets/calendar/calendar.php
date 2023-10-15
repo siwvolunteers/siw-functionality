@@ -18,7 +18,7 @@ use SIW\Util\CSS;
 class Calendar extends Widget {
 
 	/** Maximaal aantal events wat in widget getoond wordt */
-	const MAX_NUMBER_OF_EVENTS = 5;
+	private const MAX_NUMBER_OF_EVENTS = 5;
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
@@ -117,7 +117,7 @@ class Calendar extends Widget {
 	}
 
 	/** Parset event data */
-	protected function parse_event( int $event_id ) : array {
+	protected function parse_event( int $event_id ): array {
 		return [
 			'title'    => get_the_title( $event_id ),
 			'url'      => get_permalink( $event_id ),

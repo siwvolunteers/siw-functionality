@@ -58,7 +58,7 @@ class Sponsors extends Widget {
 		}
 
 		$sponsors = array_map(
-			fn( array $sponsor ) : array => [
+			fn( array $sponsor ): array => [
 				'url'  => $sponsor['site'],
 				'name' => $sponsor['name'],
 				'logo' => wp_get_attachment_image( $sponsor['logo'][0], 'medium' ),

@@ -78,7 +78,7 @@ class Annual_Reports extends Widget {
 		krsort( $annual_reports );
 
 		$annual_reports = array_map(
-			fn( array $report ) : array => [
+			fn( array $report ): array => [
 				'url'  => wp_get_attachment_url( $report['file'][0] ),
 				// translators: %s is een jaartal
 				'text' => sprintf( __( 'Jaarverslag %s', 'siw' ), $report['year'] ),
