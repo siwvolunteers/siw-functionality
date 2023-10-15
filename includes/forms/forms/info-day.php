@@ -17,7 +17,7 @@ use SIW\Interfaces\Forms\Notification_Mail as I_Notification_Mail;
 class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Export_To_Mailjet {
 
 	/** Formulier ID */
-	const FORM_ID = 'info_day';
+	public const FORM_ID = 'info_day';
 
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
