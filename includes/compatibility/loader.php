@@ -44,5 +44,4 @@ class Loader extends Class_Loader_Abstract {
 
 		$class_name::init();
 	}
-
 }

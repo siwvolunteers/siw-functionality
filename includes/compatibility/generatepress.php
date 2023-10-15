@@ -2,8 +2,8 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Properties;
@@ -18,11 +18,11 @@ use SIW\Util\CSS;
  */
 class GeneratePress extends Base implements I_Plugin {
 
-	#[Filter( 'generate_back_to_top_scroll_speed' )]
+	#[Add_Filter( 'generate_back_to_top_scroll_speed' )]
 	/** Snelheid voor scroll to top */
 	private const BACK_TO_TOP_SCROLL_SPEED = 500;
 
-	#[Filter( 'generate_font_manager_show_google_fonts' )]
+	#[Add_Filter( 'generate_font_manager_show_google_fonts' )]
 	private const SHOW_GOOGLE_FONTS = false;
 
 	/** {@inheritDoc} */
@@ -30,31 +30,31 @@ class GeneratePress extends Base implements I_Plugin {
 		return 'gp-premium/gp-premium.php';
 	}
 
-	#[Action( 'init' )]
+	#[Add_Action( 'init' )]
 	/** Voeg menu order toe een GP Elements */
 	public function add_elements_menu_order() {
 		add_post_type_support( 'gp_elements', 'page-attributes' );
 	}
 
-	#[Action( 'generate_archive_title', 1 ) ]
+	#[Add_Action( 'generate_archive_title', 1 ) ]
 	public function remove_archive_title() {
 		remove_action( 'generate_archive_title', 'generate_archive_title' );
 	}
 
-	#[Filter( 'generate_elements_custom_args' )]
+	#[Add_Filter( 'generate_elements_custom_args' )]
 	/** Sorteer elements standaard op menu_order */
 	public function set_elements_orderby( array $args ): array {
 		$args['orderby'] = 'menu_order';
 		return $args;
 	}
 
-	#[Filter( 'generate_copyright' )]
+	#[Add_Filter( 'generate_copyright' )]
 	/** Zet copyright voor footer */
 	public function set_copyright_message(): string {
 		return sprintf( '&copy; %s %s', current_time( 'Y' ), Properties::NAME );
 	}
 
-	#[Filter( 'generate_default_color_palettes' )]
+	#[Add_Filter( 'generate_default_color_palettes' )]
 	/** Zet default kleurenpalet */
 	public function set_default_color_palettes(): array {
 		return array_column(
@@ -63,8 +63,8 @@ class GeneratePress extends Base implements I_Plugin {
 		);
 	}
 
-	#[Action( Update::PLUGIN_UPDATED_HOOK, 1 )]
-	#[Action( 'customize_save_after', 1 )]
+	#[Add_Action( Update::PLUGIN_UPDATED_HOOK, 1 )]
+	#[Add_Action( 'customize_save_after', 1 )]
 	/** Zet global colors */
 	public function set_global_colors() {
 		$generate_settings = get_option( 'generate_settings', [] );
@@ -72,35 +72,35 @@ class GeneratePress extends Base implements I_Plugin {
 		update_option( 'generate_settings', $generate_settings );
 	}
 
-	#[Action( 'wp_enqueue_scripts', PHP_INT_MAX )]
+	#[Add_Action( 'wp_enqueue_scripts', PHP_INT_MAX )]
 	public function dequeue_secondary_nav_mobile() {
 		wp_dequeue_style( 'generate-secondary-nav-mobile' );
 	}
 
-	#[Action( 'customize_controls_enqueue_scripts' )]
+	#[Add_Action( 'customize_controls_enqueue_scripts' )]
 	public function add_customizer_script() {
 		wp_register_script( 'gp-customizer', SIW_ASSETS_URL . 'js/admin/gp-customizer.js', [], SIW_PLUGIN_VERSION, true );
 		wp_enqueue_script( 'gp-customizer' );
 	}
 
-	#[Action( Update::PLUGIN_UPDATED_HOOK )]
+	#[Add_Action( Update::PLUGIN_UPDATED_HOOK )]
 	/** Update GeneratePress dynamic css cache */
 	public function update_dynamic_css() {
 		generate_update_dynamic_css_cache();
 	}
 
-	#[Filter( 'generate_woocommerce_menu_item_location' )]
+	#[Add_Filter( 'generate_woocommerce_menu_item_location' )]
 	public function set_woocommerce_menu_item_location() {
 		return generatepress_wc_get_setting( 'cart_menu_item_location' );
 	}
 
-	#[Filter( 'generate_woocommerce_defaults' )]
+	#[Add_Filter( 'generate_woocommerce_defaults' )]
 	public function generate_woocommerce_defaults( array $defaults ): array {
 		$defaults['cart_menu_item_location'] = 'primary';
 		return $defaults;
 	}
 
-	#[Action( 'customize_register' )]
+	#[Add_Action( 'customize_register' )]
 	public function add_customizer_settings( \WP_Customize_Manager $wp_customize_manager ) {
 		$defaults = generatepress_wc_defaults();
 
@@ -142,5 +142,4 @@ class GeneratePress extends Base implements I_Plugin {
 			]
 		);
 	}
-
 }

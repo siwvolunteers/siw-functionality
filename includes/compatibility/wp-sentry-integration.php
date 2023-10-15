@@ -2,7 +2,7 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
@@ -18,14 +18,14 @@ class WP_Sentry_Integration extends Base implements I_Plugin {
 		return 'wp-sentry-integration/wp-sentry.php';
 	}
 
-	#[Filter( 'rocket_exclude_js' )]
+	#[Add_Filter( 'rocket_exclude_js' )]
 	/** JS-bestanden uitsluiten van minification/concatenation */
 	public function exclude_js( array $excluded_files ): array {
 		$excluded_files[] = '/wp-content/plugins/wp-sentry-integration/public/(.*).js';
 		return $excluded_files;
 	}
 
-	#[Filter( 'wp_sentry_public_context' )]
+	#[Add_Filter( 'wp_sentry_public_context' )]
 	/** Zet taal op correcte waarde */
 	public function set_context( array $context ): array {
 		$context['tags']['language'] = determine_locale();

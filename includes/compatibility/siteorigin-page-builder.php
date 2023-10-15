@@ -2,8 +2,8 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Util\CSS;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
@@ -16,13 +16,13 @@ use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
  */
 class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 
-	#[Filter( 'siteorigin_panels_layouts_directory_enabled', PHP_INT_MAX )]
+	#[Add_Filter( 'siteorigin_panels_layouts_directory_enabled', PHP_INT_MAX )]
 	private const ENABLE_LAYOUTS_DIRECTORY = false;
 
-	#[Filter( 'so_panels_show_add_new_dropdown_for_type', PHP_INT_MAX )]
+	#[Add_Filter( 'so_panels_show_add_new_dropdown_for_type', PHP_INT_MAX )]
 	private const SHOW_ADD_NEW_DROPDOWN_FOR_TYPE = false;
 
-	#[Filter( 'siteorigin_add_installer', PHP_INT_MAX )]
+	#[Add_Filter( 'siteorigin_add_installer', PHP_INT_MAX )]
 	private const SHOW_SITEORIGIN_INSTALLER = false;
 
 	/** {@inheritDoc} */
@@ -30,13 +30,13 @@ class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 		return 'siteorigin-panels/siteorigin-panels.php';
 	}
 
-	#[Action( 'admin_init' )]
+	#[Add_Action( 'admin_init' )]
 	/** Verwijdert dashboard widget */
 	public function remove_dashboard_widget() {
 		remove_meta_box( 'so-dashboard-news', 'dashboard', 'normal' );
 	}
 
-	#[Action( 'widgets_init', 99 )]
+	#[Add_Action( 'widgets_init', 99 )]
 	/** Verwijdert Page Builder widgets */
 	public function unregister_widgets() {
 		unregister_widget( \SiteOrigin_Panels_Widgets_PostContent::class );
@@ -45,7 +45,7 @@ class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 		unregister_widget( \SiteOrigin_Panels_Widgets_Gallery::class );
 	}
 
-	#[Filter( 'siteorigin_panels_widget_dialog_tabs' )]
+	#[Add_Filter( 'siteorigin_panels_widget_dialog_tabs' )]
 	/** Voegt tab voor SIW-widgets toe */
 	public function add_widget_tab( array $tabs ): array {
 		$tabs[] = [
@@ -57,7 +57,7 @@ class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 		return $tabs;
 	}
 
-	#[Filter( 'siteorigin_panels_settings' )]
+	#[Add_Filter( 'siteorigin_panels_settings' )]
 	/** Zet breakpoint-instellingen */
 	public function set_breakpoint_settings( array $settings ): array {
 		$settings['mobile-width'] = CSS::MOBILE_BREAKPOINT;

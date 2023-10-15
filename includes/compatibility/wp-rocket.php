@@ -2,8 +2,8 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Update;
@@ -16,11 +16,11 @@ use SIW\Update;
  */
 class WP_Rocket extends Base implements I_Plugin {
 
-	#[Filter( 'rocket_lazyload_youtube_thumbnail_resolution' )]
+	#[Add_Filter( 'rocket_lazyload_youtube_thumbnail_resolution' )]
 	/** Resolutie van YouTube-thumbnail */
 	private const YOUTUBE_THUMBNAIL_RESOLUTION = 'hqdefault';
 
-	#[Filter( 'nonce_life' )]
+	#[Add_Filter( 'nonce_life' )]
 	/** Levensduur van nonce in seconden */
 	private const NONCE_LIFESPAN = 2 * DAY_IN_SECONDS;
 
@@ -35,8 +35,8 @@ class WP_Rocket extends Base implements I_Plugin {
 		return 'wp-rocket/wp-rocket.php';
 	}
 
-	#[Action( Update::PLUGIN_UPDATED_HOOK )]
-	#[Action( self::CACHE_CLEAR_HOOK )]
+	#[Add_Action( Update::PLUGIN_UPDATED_HOOK )]
+	#[Add_Action( self::CACHE_CLEAR_HOOK )]
 	/** Cache legen */
 	public function clear_cache() {
 		rocket_clean_domain();
@@ -44,7 +44,7 @@ class WP_Rocket extends Base implements I_Plugin {
 		rocket_clean_cache_busting();
 	}
 
-	#[Action( Update::PLUGIN_UPDATED_HOOK )]
+	#[Add_Action( Update::PLUGIN_UPDATED_HOOK )]
 	/** Voegt een scheduled event toe */
 	public function schedule_cache_clear() {
 		/* Cache rebuild schedulen */
