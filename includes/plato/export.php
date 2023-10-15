@@ -19,7 +19,7 @@ abstract class Export extends Plato_Interface {
 	protected string $xml_data;
 
 	/** Voer de Plato-export uit */
-	public function run( $data ) : array {
+	public function run( $data ): array {
 
 		if ( ! Config::get_plato_export_applications() ) {
 			return [
@@ -50,7 +50,7 @@ abstract class Export extends Plato_Interface {
 	abstract protected function process_xml();
 
 	/** Verstuurt xml naar plato */
-	protected function send_xml() : bool {
+	protected function send_xml(): bool {
 
 		$response = HTTP_Request::create( $this->endpoint_url )
 			->set_accept( HTTP_Request::APPLICATION_XML )
