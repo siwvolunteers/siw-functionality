@@ -10,11 +10,11 @@ namespace SIW\Elements;
 class List_Columns extends Repeater {
 
 	// TODO: php 8.1 enum
-	const LIST_STYLE_TYPE_NONE = 'none';
-	const LIST_STYLE_TYPE_DISC = 'disc';
-	const LIST_STYLE_TYPE_CIRCLE = 'circle';
-	const LIST_STYLE_TYPE_SQUARE = 'square';
-	const LIST_STYLE_TYPE_CHECK = 'check';
+	public const LIST_STYLE_TYPE_NONE = 'none';
+	public const LIST_STYLE_TYPE_DISC = 'disc';
+	public const LIST_STYLE_TYPE_CIRCLE = 'circle';
+	public const LIST_STYLE_TYPE_SQUARE = 'square';
+	public const LIST_STYLE_TYPE_CHECK = 'check';
 
 	/** Aantal kolommen */
 	protected int $columns = 1;

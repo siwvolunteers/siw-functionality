@@ -43,4 +43,3 @@ class YouTube_Video extends Element {
 		return $this;
 	}
 }
-

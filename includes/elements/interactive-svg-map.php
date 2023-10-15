@@ -157,4 +157,3 @@ class Interactive_SVG_Map extends Element {
 		return $this;
 	}
 }
-
