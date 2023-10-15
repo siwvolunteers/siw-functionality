@@ -2,7 +2,7 @@
 
 namespace SIW\Structured_Data;
 
-use \Spatie\Enum\Enum;
+use Spatie\Enum\Enum;
 
 /**
  * Enum voor structured data
@@ -13,8 +13,8 @@ use \Spatie\Enum\Enum;
 abstract class Enumeration extends Enum {
 
 	/** {@inheritDoc} */
-	protected static function values() : \Closure {
-		return function( string $value ): string {
+	protected static function values(): \Closure {
+		return function ( string $value ): string {
 			return "https://schema.org/{$value}";
 		};
 	}

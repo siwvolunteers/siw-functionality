@@ -13,21 +13,20 @@ use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
  */
 class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 
-	const SUPPORTED_WIDGETS = [
+	private const SUPPORTED_WIDGETS = [
 		\WP_Widget_Media_Image::class,
 		\SIW\Widgets\Featured_Image::class,
 	];
 
-
 	/** Style groep */
-	const STYLE_GROUP = 'siw_css_filters';
+	private const STYLE_GROUP = 'siw_css_filters';
 
-	const STYLE_FIELD_BLUR = 'blur';
-	const STYLE_FIELD_BRIGHTNESS = 'brightness';
-	const STYLE_FIELD_CONTRAST = 'contrast';
-	const STYLE_FIELD_GRAYSCALE = 'grayscale';
-	const STYLE_FIELD_SEPIA = 'sepia';
-	const STYLE_FIELD_SATURATE = 'saturate';
+	private const STYLE_FIELD_BLUR = 'blur';
+	private const STYLE_FIELD_BRIGHTNESS = 'brightness';
+	private const STYLE_FIELD_CONTRAST = 'contrast';
+	private const STYLE_FIELD_GRAYSCALE = 'grayscale';
+	private const STYLE_FIELD_SEPIA = 'sepia';
+	private const STYLE_FIELD_SATURATE = 'saturate';
 
 
 	/** {@inheritDoc} */
@@ -147,12 +146,11 @@ class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 	}
 
 	/** Genereert filter  */
-	protected function generate_filter( array $style_args, string $field, string $prefix, string $default, string $unit ): ?string {
-		if ( ! isset( $style_args[ "{$prefix}_{$field}" ] ) || $default === $style_args[ "{$prefix}_{$field}" ] ) {
+	protected function generate_filter( array $style_args, string $field, string $prefix, string $default_value, string $unit ): ?string {
+		if ( ! isset( $style_args[ "{$prefix}_{$field}" ] ) || $default_value === $style_args[ "{$prefix}_{$field}" ] ) {
 			return null;
 		}
 		$value = $style_args[ "{$prefix}_{$field}" ];
 		return "{$field}({$value}{$unit})";
 	}
-
 }

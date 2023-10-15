@@ -2,7 +2,7 @@
 
 namespace SIW\Structured_Data;
 
-use \Spatie\Enum\Enum;
+use Spatie\Enum\Enum;
 
 /**
  * Soort baan

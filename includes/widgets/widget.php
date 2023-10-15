@@ -12,7 +12,7 @@ use SIW\Helpers\Template;
 abstract class Widget extends \SiteOrigin_Widget {
 
 	/** ID van default Mustache template */
-	const DEFAULT_TEMPLATE_ID = 'default';
+	protected const DEFAULT_TEMPLATE_ID = 'default';
 
 	/** Geeft ID terug */
 	abstract protected function get_id(): string;

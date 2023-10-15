@@ -2,8 +2,8 @@
 
 namespace SIW\Features;
 
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Special_Page;
 use SIW\External_Assets\Cookie_Consent as Cookie_Consent_Asset;
@@ -19,24 +19,30 @@ class Cookie_Consent extends Base {
 
 	use Assets_Handle;
 
-	const COOKIE_NAME = 'siw_cookie_consent';
-	const COOKIE_LIFESPAN = 365;
-	const COOKIE_REVISION = 0;
+	private const COOKIE_NAME = 'siw_cookie_consent';
+	private const COOKIE_LIFESPAN = 365;
+	private const COOKIE_REVISION = 0;
 
-	const NECESSARY = 'necessary';
-	const ANALYTICAL = 'analytical';
-	const MARKETING = 'marketing';
+	public const NECESSARY = 'necessary';
+	public const ANALYTICAL = 'analytical';
+	public const MARKETING = 'marketing';
 
-	#[Action( 'wp_enqueue_scripts' )]
+	#[Add_Action( 'wp_enqueue_scripts' )]
 	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
 		wp_enqueue_style( Cookie_Consent_Asset::get_assets_handle() );
 	}
 
-	#[Action( 'wp_enqueue_scripts' )]
+	#[Add_Action( 'wp_enqueue_scripts' )]
 	/** Voegt stylesheet toe */
 	public function enqueue_scripts() {
-		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/features/cookie-consent.js', [ Cookie_Consent_Asset::get_assets_handle() ], SIW_PLUGIN_VERSION, true );
+		wp_register_script(
+			self::get_assets_handle(),
+			SIW_ASSETS_URL . 'js/features/cookie-consent.js',
+			[ Cookie_Consent_Asset::get_assets_handle() ],
+			SIW_PLUGIN_VERSION,
+			true
+		);
 
 		wp_localize_script(
 			self::get_assets_handle(),
@@ -149,7 +155,7 @@ class Cookie_Consent extends Base {
 		wp_enqueue_script( self::get_assets_handle() );
 	}
 
-	#[Action( 'wp_enqueue_scripts' )]
+	#[Add_Action( 'wp_enqueue_scripts' )]
 	/** Registreert styles */
 	public function register_style() {
 		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/cookie-consent.css', [], SIW_PLUGIN_VERSION );
@@ -157,7 +163,7 @@ class Cookie_Consent extends Base {
 		wp_enqueue_style( self::get_assets_handle() );
 	}
 
-	#[Action( 'generate_before_copyright' )]
+	#[Add_Action( 'generate_before_copyright' )]
 	public function add_cookie_settings_button(): void {
 		printf(
 			'<a href="#" data-cc="c-settings">%s</button>',
@@ -165,10 +171,9 @@ class Cookie_Consent extends Base {
 		);
 	}
 
-	#[Filter( 'body_class' )]
+	#[Add_Filter( 'body_class' )]
 	public function add_body_class( array $classes ): array {
 		$classes[] = 'siw-cookie-consent';
 		return $classes;
 	}
-
 }

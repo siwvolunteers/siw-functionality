@@ -2,7 +2,7 @@
 
 namespace SIW;
 
-use SIW\Attributes\Action;
+use SIW\Attributes\Add_Action;
 use SIW\Update;
 
 /**
@@ -13,18 +13,18 @@ use SIW\Update;
 class Scheduler extends Base {
 
 	/** Group voor starten */
-	const START_GROUP = 'siw_start';
+	private const START_GROUP = 'siw_start';
 
 	/** Starttijd van acties */
-	const START_TIME_GENERAL = '03:00';
+	private const START_TIME_GENERAL = '03:00';
 
 	/** Starttijd van FPL-import */
-	const START_TIME_IMPORT_FPL = '02:00';
+	private const START_TIME_IMPORT_FPL = '02:00';
 
 	/** Starttijdvan project-import */
-	const START_TIME_IMPORT_PROJECTS = '01:00';
+	private const START_TIME_IMPORT_PROJECTS = '01:00';
 
-	#[Action( Update::PLUGIN_UPDATED_HOOK )]
+	#[Add_Action( Update::PLUGIN_UPDATED_HOOK )]
 	/**  Schedule acties */
 	public function schedule_actions() {
 

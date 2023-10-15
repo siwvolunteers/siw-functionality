@@ -2,7 +2,7 @@
 
 namespace SIW\Admin;
 
-use SIW\Attributes\Action;
+use SIW\Attributes\Add_Action;
 use SIW\Base;
 
 /**
@@ -12,7 +12,7 @@ use SIW\Base;
  */
 class Help_Tabs extends Base {
 
-	#[Action( 'admin_head' )]
+	#[Add_Action( 'admin_head' )]
 	/** Voegt help tabs toe */
 	public function add_help_tabs() {
 

@@ -18,7 +18,7 @@ use SIW\Widgets\Newsletter_Confirmation;
 class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 
 	/** Formulier ID */
-	const FORM_ID = 'newsletter';
+	public const FORM_ID = 'newsletter';
 
 	/** {@inheritDoc} */
 	public function get_form_id(): string {

@@ -47,7 +47,7 @@ class Update_Database implements Batch_Action_Interface {
 		$database = new Database( $table );
 		if ( ! $database->create_table() ) {
 			return false;
-		};
+		}
 
 		// TODO: verplaatsen naar tabel-definitie + methode create_table() uitbreiden
 		if ( Database_Table::PLATO_PROJECT_IMAGES === $table ) {

@@ -2,7 +2,7 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
@@ -19,7 +19,7 @@ class GTranslate extends Base implements I_Plugin {
 		return 'gtranslate/gtranslate.php';
 	}
 
-	#[Filter( 'rocket_exclude_js' )]
+	#[Add_Filter( 'rocket_exclude_js' )]
 	/** JS-bestanden uitsluiten van minification/concatenation */
 	public function exclude_js( array $excluded_files ): array {
 		$excluded_files[] = '/wp-content/plugins/gtranslate/js/(.*).js';

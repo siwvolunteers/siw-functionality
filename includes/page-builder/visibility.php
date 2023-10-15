@@ -16,16 +16,16 @@ use SIW\Util\CSS;
 class Visibility implements I_Style_Group, I_Style_Fields, I_Style_Attributes {
 
 	/** Style groep */
-	const STYLE_GROUP = 'siw_visibility';
+	private const STYLE_GROUP = 'siw_visibility';
 
 	/** Style fields voor verbergen op mobiel */
-	const STYLE_FIELD_HIDE_ON_MOBILE = 'hide_on_mobile';
+	private const STYLE_FIELD_HIDE_ON_MOBILE = 'hide_on_mobile';
 
 	/** Style fields voor verbergen op tablet */
-	const STYLE_FIELD_HIDE_ON_TABLET = 'hide_on_tablet';
+	private const STYLE_FIELD_HIDE_ON_TABLET = 'hide_on_tablet';
 
 	/** Style fields voor verbergen op desktop */
-	const STYLE_FIELD_HIDE_ON_DESKTOP = 'hide_on_desktop';
+	private const STYLE_FIELD_HIDE_ON_DESKTOP = 'hide_on_desktop';
 
 	/** {@inheritDoc} */
 	public function supports_widgets(): bool {

@@ -2,7 +2,7 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
@@ -19,7 +19,7 @@ class SiteOrigin_Widgets_Bundle extends Base implements I_Plugin {
 		return 'so-widgets-bundle/so-widgets-bundle.php';
 	}
 
-	#[Filter( 'siteorigin_widgets_widget_folders' )]
+	#[Add_Filter( 'siteorigin_widgets_widget_folders' )]
 	/** Overschrijf SiteOrigin Widgets met SIW-widgets */
 	public function set_widget_folders(): array {
 		return [ SIW_WIDGETS_DIR ];

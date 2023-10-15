@@ -15,7 +15,7 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
 	/** Formulier ID */
-	const FORM_ID = 'leader_dutch_projects';
+	public const FORM_ID = 'leader_dutch_projects';
 
 	/** {@inheritDoc} */
 	public function get_form_id(): string {

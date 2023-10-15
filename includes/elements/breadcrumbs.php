@@ -31,5 +31,4 @@ class Breadcrumbs extends Repeater {
 		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/breadcrumbs.css' );
 		wp_enqueue_style( self::get_assets_handle() );
 	}
-
 }

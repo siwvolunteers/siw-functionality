@@ -2,7 +2,7 @@
 
 namespace SIW\Features;
 
-use SIW\Attributes\Action;
+use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Data\Special_Page;
 
@@ -13,7 +13,7 @@ use SIW\Data\Special_Page;
  */
 class Menu_Item_Info_Button extends Base {
 
-	#[Action( 'generate_menu_bar_items' ) ]
+	#[Add_Action( 'generate_menu_bar_items' ) ]
 	public function add_contact_button_to_menu() {
 		// TODO: settings uit Customizer halen?
 		printf(

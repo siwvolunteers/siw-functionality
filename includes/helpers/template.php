@@ -15,7 +15,7 @@ use Mustache_Loader_StringLoader;
 class Template {
 
 	/** Reguliere expressie voor mustache tag */
-	const MUSTACHE_TAG_REGEX = '/{{\s*.*?\s*}}/';
+	private const MUSTACHE_TAG_REGEX = '/{{\s*.*?\s*}}/';
 
 	/** Mustache Engine */
 	protected static ?Mustache_Engine $engine = null;
@@ -74,7 +74,7 @@ class Template {
 					]
 				),
 				'partials_loader'       => new Mustache_Loader_FilesystemLoader( SIW_TEMPLATES_DIR . 'mustache/partials' ),
-				'escape'                => fn( $value ) : string => esc_html( $value ),
+				'escape'                => fn( $value ): string => esc_html( $value ),
 				'helpers'               => [
 					'json_encode'   => fn( $value ): string => wp_json_encode( $value ),
 					'esc_url'       => fn( string $value ): string => esc_url( $value ),
@@ -90,7 +90,7 @@ class Template {
 						'lower' => fn( string $value ): string => strtolower( $value ),
 						'upper' => fn( string $value ): string => strtoupper( $value ),
 					],
-					'__'            => fn( string $value ) : string => self::translate( $value ),
+					'__'            => fn( string $value ): string => self::translate( $value ),
 				],
 				'pragmas'               => [
 					Mustache_Engine::PRAGMA_FILTERS,
@@ -121,5 +121,4 @@ class Template {
 			return __( $value, 'siw' ); // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
 		}
 	}
-
 }

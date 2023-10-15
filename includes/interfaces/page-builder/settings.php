@@ -10,9 +10,8 @@ namespace SIW\Interfaces\Page_Builder;
 interface Settings {
 
 	/** Voegt instelling voor toe aan PB-settings */
-	public function add_settings( array $fields ) : array;
+	public function add_settings( array $fields ): array;
 
 	/** Zet standaardwaarden voor PB-settings */
-	public function set_settings_defaults( array $defaults ) : array;
-
+	public function set_settings_defaults( array $defaults ): array;
 }

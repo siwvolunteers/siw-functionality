@@ -17,34 +17,34 @@ use SIW\Interfaces\Page_Builder\Settings as I_Settings;
 class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_Settings {
 
 	/** Style group */
-	const STYLE_GROUP = 'siw_animation';
+	private const STYLE_GROUP = 'siw_animation';
 
 	/** Style field voor animatie type */
-	const STYLE_FIELD_TYPE = 'type';
+	private const STYLE_FIELD_TYPE = 'type';
 
 	/** Style field voor animatie duur */
-	const STYLE_FIELD_DURATION = 'duration';
+	private const STYLE_FIELD_DURATION = 'duration';
 
 	/** Style field voor animatie vertraging */
-	const STYLE_FIELD_DELAY = 'delay';
+	private const STYLE_FIELD_DELAY = 'delay';
 
 	/** Style field voor animatie easing */
-	const STYLE_FIELD_EASING = 'easing';
+	private const STYLE_FIELD_EASING = 'easing';
 
 	/** Style field voor animatie herhalen */
-	const STYLE_FIELD_REPEAT = 'repeat';
+	private const STYLE_FIELD_REPEAT = 'repeat';
 
 	/** Option group */
-	const OPTION_GROUP = 'siw_animation';
+	private const OPTION_GROUP = 'siw_animation';
 
 	/** Option field voor animatie duur */
-	const OPTION_FIELD_DURATION = 'siw_animation_duration';
+	private const OPTION_FIELD_DURATION = 'siw_animation_duration';
 
 	/** Option field voor animatie vertraging */
-	const OPTION_FIELD_DELAY = 'siw_animation_delay';
+	private const OPTION_FIELD_DELAY = 'siw_animation_delay';
 
 	/** Option field voor animatie easing */
-	const OPTION_FIELD_EASING = 'siw_animation_easing';
+	private const OPTION_FIELD_EASING = 'siw_animation_easing';
 
 	/** {@inheritDoc} */
 	public function supports_widgets(): bool {
@@ -186,7 +186,7 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 	}
 
 	/** {@inheritDoc} */
-	public function set_settings_defaults( array $defaults ) : array {
+	public function set_settings_defaults( array $defaults ): array {
 		$defaults[ self::OPTION_FIELD_DURATION ] = '1000';
 		$defaults[ self::OPTION_FIELD_DELAY ]    = 'none';
 		$defaults[ self::OPTION_FIELD_EASING ]   = 'ease-out-sine';
@@ -194,22 +194,22 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 	}
 
 	/** Geeft animatie type terug */
-	protected function get_types() : array {
+	protected function get_types(): array {
 		return Animation_Util::get_types();
 	}
 
 	/** Geeft easing opties terug */
-	protected function get_easing_options( bool $include_default_option = true ) : array {
+	protected function get_easing_options( bool $include_default_option = true ): array {
 		return $this->maybe_add_default_option( Animation_Util::get_easing_options(), $include_default_option );
 	}
 
 	/** Geeft vertraging opties terug */
-	protected function get_delay_options( bool $include_default_option = true ) : array {
+	protected function get_delay_options( bool $include_default_option = true ): array {
 		return $this->maybe_add_default_option( Animation_Util::get_delay_options(), $include_default_option );
 	}
 
 	/** Geeft duur opties terug */
-	protected function get_duration_options( bool $include_default_option = true ) : array {
+	protected function get_duration_options( bool $include_default_option = true ): array {
 		return $this->maybe_add_default_option( Animation_Util::get_duration_options(), $include_default_option );
 	}
 
@@ -222,19 +222,19 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 	}
 
 	/** Geeft standaard easing terug */
-	protected function get_default_easing() : string {
+	protected function get_default_easing(): string {
 		$easing_options = $this->get_easing_options();
 		return $easing_options[ siteorigin_panels_setting( self::OPTION_FIELD_EASING ) ] ?? '';
 	}
 
 	/** Geeft standaard duur terug */
-	protected function get_default_duration() : string {
+	protected function get_default_duration(): string {
 		$duration_options = $this->get_duration_options();
 		return $duration_options[ siteorigin_panels_setting( self::OPTION_FIELD_DURATION ) ] ?? '';
 	}
 
 	/** Geeft standaard vertraging terug */
-	protected function get_default_delay() : string {
+	protected function get_default_delay(): string {
 		$delay_options = $this->get_delay_options();
 		return $delay_options[ siteorigin_panels_setting( self::OPTION_FIELD_DELAY ) ] ?? '';
 	}

@@ -8,12 +8,6 @@ use SIW\Structured_Data\Place;
 use SIW\Structured_Data\Postal_Address;
 use SIW\Properties;
 
-/**
- * Functies m.b.t. evenementen
- *
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- */
-
 
 /** Geeft actieve vacatures terug */
 function siw_get_active_job_postings( array $args = [] ): array {

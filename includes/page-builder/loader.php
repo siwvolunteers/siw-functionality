@@ -18,7 +18,7 @@ use SIW\Interfaces\Page_Builder\Settings as I_Settings;
 class Loader extends Object_Loader_Abstract {
 
 	/** {@inheritDoc} */
-	public function get_classes() : array {
+	public function get_classes(): array {
 		return [
 			Animation::class,
 			CSS_Filters::class,

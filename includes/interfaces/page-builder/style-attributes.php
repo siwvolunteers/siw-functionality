@@ -10,5 +10,5 @@ namespace SIW\Interfaces\Page_Builder;
 interface Style_Attributes extends Extension {
 
 	/** Zet attributes */
-	public function set_style_attributes( array $style_attributes, array $style_args ) : array;
+	public function set_style_attributes( array $style_attributes, array $style_args ): array;
 }

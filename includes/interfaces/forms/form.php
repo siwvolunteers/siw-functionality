@@ -10,16 +10,16 @@ namespace SIW\Interfaces\Forms;
 interface Form {
 
 	/** Volledige breedte */
-	const FULL_WIDTH = 12;
+	public const FULL_WIDTH = 12;
 
 	/** Halve breedte */
-	const HALF_WIDTH = 6;
+	public const HALF_WIDTH = 6;
 
 	/** Derde breedte */
-	const THIRD_WIDTH = 4;
+	public const THIRD_WIDTH = 4;
 
 	/** Kwart breedte */
-	const QUARTER_WIDTH = 3;
+	public const QUARTER_WIDTH = 3;
 
 	/** Geeft ID van formulier terug */
 	public function get_form_id(): string;
@@ -29,5 +29,4 @@ interface Form {
 
 	/** Geeft velden van formulier toe */
 	public function get_form_fields(): array;
-
 }

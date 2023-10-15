@@ -2,7 +2,7 @@
 
 namespace SIW\Admin;
 
-use SIW\Attributes\Action;
+use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Elements\Table;
 use SIW\Properties;
@@ -14,7 +14,7 @@ use SIW\Properties;
  */
 class Properties_Page extends Base {
 
-	#[Action( 'admin_menu' )]
+	#[Add_Action( 'admin_menu' )]
 	/** Voegt adminpagina toe */
 	public function add_properties_page() {
 		add_management_page(
@@ -30,7 +30,7 @@ class Properties_Page extends Base {
 	public function render_properties_page() {
 
 		$properties = array_map(
-			fn( array $property ) : array => [ $property['description'], $property['value'], $property['name'] ],
+			fn( array $property ): array => [ $property['description'], $property['value'], $property['name'] ],
 			Properties::get_all()
 		);
 

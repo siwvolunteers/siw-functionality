@@ -12,7 +12,7 @@ use SIW\Interfaces\Actions\Async as Async_Action_Interface;
 class Action {
 
 	/** Group */
-	const ACTION_GROUP = 'siw_async';
+	private const ACTION_GROUP = 'siw_async';
 
 	/** Init */
 	public function __construct( protected Async_Action_Interface $action ) {

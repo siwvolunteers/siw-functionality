@@ -72,5 +72,4 @@ class WPML extends Base implements I_Plugin {
 			\members_register_cap( $cap, [ 'label' => $cap ] );
 		}
 	}
-
 }

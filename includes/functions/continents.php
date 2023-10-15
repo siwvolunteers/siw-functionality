@@ -1,11 +1,5 @@
 <?php declare(strict_types=1);
 
-/**
- * Functies m.b.t. continenten
- *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- */
-
 use SIW\Data\Continent;
 
 /**

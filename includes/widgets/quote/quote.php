@@ -18,10 +18,10 @@ use SIW\Elements\Blockquote;
 class Quote extends Widget {
 
 	/** Taxonomy voor continent */
-	const CONTINENT_TAXONOMY = 'siw_story_continent';
+	private const CONTINENT_TAXONOMY = 'siw_story_continent';
 
 	/** Taxonomy voor projectsoort */
-	const PROJECT_TYPE_TAXONOMY = 'siw_story_project_type';
+	private const PROJECT_TYPE_TAXONOMY = 'siw_story_project_type';
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {

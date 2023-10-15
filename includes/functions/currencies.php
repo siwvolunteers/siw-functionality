@@ -1,11 +1,5 @@
 <?php declare(strict_types=1);
 
-/**
- * Functies m.b.t. valuta's
- *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- */
-
 use SIW\Data\Currency;
 use SIW\Integrations\Fixer;
 
@@ -52,7 +46,7 @@ function siw_get_currency( string $currency ): ?Currency {
 	return $currencies[ $currency ] ?? null;
 }
 
-function siw_convert_to_euro( string $currency, float $amount ) : ?float {
+function siw_convert_to_euro( string $currency, float $amount ): ?float {
 	$exchange_rate = Fixer::create()->get_rate( $currency );
 	if ( is_null( $exchange_rate ) ) {
 		return null;
