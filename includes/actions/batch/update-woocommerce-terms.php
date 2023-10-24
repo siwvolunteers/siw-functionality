@@ -13,7 +13,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 class Update_WooCommerce_Terms implements Batch_Action_Interface {
 
 	/** Term meta voor aantal zichtbare posts */
-	const POST_COUNT_TERM_META = 'post_count';
+	private const POST_COUNT_TERM_META = 'post_count';
 
 	/** {@inheritDoc} */
 	public function get_id(): string {
@@ -36,7 +36,7 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function select_data() : array {
+	public function select_data(): array {
 
 		$data = get_terms(
 			[

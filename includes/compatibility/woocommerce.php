@@ -5,6 +5,7 @@ namespace SIW\Compatibility;
 use SIW\Attributes\Action;
 use SIW\Attributes\Filter;
 use SIW\Base;
+use SIW\Features\Social_Share;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Widgets\Carousel;
 use SIW\WooCommerce\Taxonomy_Attribute;
@@ -22,6 +23,9 @@ class WooCommerce extends Base implements I_Plugin {
 
 	#[Filter( 'woocommerce_prevent_admin_access' )]
 	private const PREVENT_ADMIN_ACCESS = false;
+
+	#[Filter( 'woocommerce_disable_admin_bar' )]
+	private const DISABLE_ADMIN_BAR = false;
 
 	#[Filter( 'woocommerce_enable_admin_help_tab' )]
 	private const ENABLE_ADMIN_HELP_TAB = false;
@@ -145,11 +149,15 @@ class WooCommerce extends Base implements I_Plugin {
 		return $term;
 	}
 
-	#[Filter( 'siw_social_share_post_types' )]
-	/** Zet call to action voor social share links */
-	public function set_social_share_cta( array $post_types ): array {
-		$post_types['product'] = __( 'Deel dit project', 'siw' );
-		return $post_types;
+	#[Action( 'init' )]
+	public function add_carousel_support() {
+		add_post_type_support(
+			'product',
+			Social_Share::POST_TYPE_FEATURE,
+			[
+				'cta' => __( 'Deel dit project', 'siw' ),
+			]
+		);
 	}
 
 	#[Action( 'init' )]

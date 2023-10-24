@@ -9,12 +9,12 @@ namespace SIW;
  */
 class Config {
 
-	/** Geeft waarde van constante `$name` terug indien gedefinieerd, anders `$default` */
-	public static function get_constant_value( string $name, mixed $default = null ): mixed {
+	/** Geeft waarde van constante `$name` terug indien gedefinieerd, anders `$default_value` */
+	public static function get_constant_value( string $name, mixed $default_value = null ): mixed {
 		if ( defined( $name ) ) {
 			return constant( $name );
 		}
-		return $default;
+		return $default_value;
 	}
 
 	/** Geeft api key voor Google Maps (client side) terug */

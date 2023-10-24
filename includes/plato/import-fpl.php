@@ -18,7 +18,7 @@ class Import_FPL extends Import {
 	/** Verwerk xml van Plato */
 	protected function process_xml() {
 
-		$db = new Database( Database_Table::PLATO_PROJECT_FREE_PLACES() );
+		$db = new Database( Database_Table::PLATO_PROJECT_FREE_PLACES );
 
 		// Tabel leegmaken
 		$db->truncate();

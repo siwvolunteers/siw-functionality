@@ -24,10 +24,10 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 class Update_Projects implements Batch_Action_Interface {
 
 	/** Aantal maanden voordat project verwijderd wordt. */
-	const MAX_AGE_PROJECT = 6;
+	private const MAX_AGE_PROJECT = 6;
 
 	/** Minimaal aantal dagen dat project in toekomst moet starten om zichtbaar te zijn */
-	const MIN_DAYS_BEFORE_START = 3;
+	private const MIN_DAYS_BEFORE_START = 3;
 
 	/** Product */
 	protected WC_Product_Project $product;
@@ -89,7 +89,7 @@ class Update_Projects implements Batch_Action_Interface {
 
 		$project_ids = wp_cache_get( 'project_ids', 'siw_update_workcamps' );
 		if ( false === $project_ids ) {
-			$project_db = new Database( Database_Table::PLATO_PROJECTS() );
+			$project_db = new Database( Database_Table::PLATO_PROJECTS );
 			$project_ids = $project_db->get_col( 'project_id' );
 			wp_cache_set( 'project_ids', $project_ids, 'siw_update_workcamps' );
 		}

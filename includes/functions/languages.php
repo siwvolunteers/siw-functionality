@@ -1,11 +1,5 @@
 <?php declare(strict_types=1);
 
-/**
- * Functies m.b.t. talen
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
-
 use SIW\Data\Language;
 
 /**

@@ -1,4 +1,4 @@
-.so-widget-siw_project_wizard_widget .wizard-result {
+.siw-project-wizard .wizard-result {
   border: 1px solid var(--siw-accent);
   padding: 20px;
   border-radius: 6px;

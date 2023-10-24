@@ -2,7 +2,7 @@
 
 namespace SIW;
 
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Filter;
 
 /**
  * Class om upload subdirectory te zetten op basis van content en bestandstype
@@ -11,15 +11,15 @@ use SIW\Attributes\Filter;
  */
 class Upload_Subdir extends Base {
 
-	#[Filter( 'wp_handle_sideload_prefilter' )]
-	#[Filter( 'wp_handle_upload_prefilter' )]
+	#[Add_Filter( 'wp_handle_sideload_prefilter' )]
+	#[Add_Filter( 'wp_handle_upload_prefilter' )]
 	/** Voegt filter toe */
 	public function add_upload_subdir_filter( array $file ): array {
 		add_filter( 'upload_dir', [ $this, 'set_upload_subdir' ] );
 		return $file;
 	}
 
-	#[Filter( 'wp_handle_upload' )]
+	#[Add_Filter( 'wp_handle_upload' )]
 	/** Verwijdert filter weer */
 	public function remove_upload_subdir_filter( array $fileinfo ): array {
 		remove_filter( 'upload_dir', [ $this, 'set_upload_subdir' ] );

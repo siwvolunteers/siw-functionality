@@ -10,10 +10,10 @@ namespace SIW\Data;
 class Language extends Data {
 
 	/** Slug */
-	const SLUG = 'slug';
+	public const SLUG = 'slug';
 
 	/** Plato-code */
-	const PLATO_CODE = 'plato_code';
+	public const PLATO_CODE = 'plato_code';
 
 	/** Slug */
 	protected string $slug;
@@ -25,18 +25,17 @@ class Language extends Data {
 	protected string $plato_code;
 
 	/** Geeft slug van taal terug */
-	public function get_slug() : string {
+	public function get_slug(): string {
 		return $this->slug;
 	}
 
 	/** Geeft naam van taal terug */
-	public function get_name() : string {
+	public function get_name(): string {
 		return $this->name;
 	}
 
 	/** Geeft PLATO-code van taal terug */
-	public function get_plato_code() : string {
+	public function get_plato_code(): string {
 		return $this->plato_code;
 	}
-
 }

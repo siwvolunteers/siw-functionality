@@ -12,7 +12,7 @@ use SIW\Config;
 abstract class Plato_Interface {
 
 	/** Webservice url */
-	const API_URL = 'https://workcamp-plato.org/files/services/ExternalSynchronization.asmx/';
+	private const API_URL = 'https://workcamp-plato.org/files/services/ExternalSynchronization.asmx/';
 
 	/** Organization webkey van plato */
 	protected string $webkey;

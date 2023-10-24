@@ -2,7 +2,7 @@
 
 namespace SIW;
 
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Filter;
 
 /**
  * Extra attributes voor assets (Script/Style)
@@ -12,21 +12,19 @@ use SIW\Attributes\Filter;
 class Asset_Attributes extends Base {
 
 	// TODO: PHP8.1 enums van maken
-	const CROSSORIGIN = 'crossorigin';
-	const INTEGRITY = 'integrity';
-	const NO_MINIFY = 'data-no-minify';
-	const TYPE = 'type';
-	const COOKIE_CATEGORY = 'data-cookiecategory';
+	public const CROSSORIGIN = 'crossorigin';
+	public const INTEGRITY = 'integrity';
+	public const TYPE = 'type';
+	public const COOKIE_CATEGORY = 'data-cookiecategory';
 
-	const ATTRIBUTES = [
+	public const ATTRIBUTES = [
 		self::CROSSORIGIN,
 		self::INTEGRITY,
-		self::NO_MINIFY,
 		self::TYPE,
 		self::COOKIE_CATEGORY,
 	];
 
-	#[Filter( 'script_loader_tag' )]
+	#[Add_Filter( 'script_loader_tag' )]
 	public function maybe_add_script_attributes( string $tag, string $handle ): string {
 		foreach ( self::ATTRIBUTES as $attribute ) {
 			$attribute_value = wp_scripts()->get_data( $handle, $attribute );
@@ -37,7 +35,7 @@ class Asset_Attributes extends Base {
 		return $tag;
 	}
 
-	#[Filter( 'style_loader_tag' )]
+	#[Add_Filter( 'style_loader_tag' )]
 	public function maybe_add_style_attributes( string $tag, string $handle ): string {
 		foreach ( self::ATTRIBUTES as $attribute ) {
 			$attribute_value = wp_styles()->get_data( $handle, $attribute );
@@ -56,5 +54,4 @@ class Asset_Attributes extends Base {
 		}
 		return $processor->get_updated_html();
 	}
-
 }

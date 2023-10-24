@@ -2,7 +2,7 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\I18n;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
@@ -17,16 +17,16 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  */
 class The_SEO_Framework extends Base implements I_Plugin {
 
-	#[Filter( 'the_seo_framework_metabox_priority' )]
+	#[Add_Filter( 'the_seo_framework_metabox_priority' )]
 	private const METABOX_PRIORITY = 'default';
 
-	#[Filter( 'sybre_waaijer_<3' )]
+	#[Add_Filter( 'sybre_waaijer_<3' )]
 	private const SHOW_AUTHOR_IN_HTML_COMMENT = false;
 
-	#[Filter( 'the_seo_framework_sitemap_color_main' )]
+	#[Add_Filter( 'the_seo_framework_sitemap_color_main' )]
 	private const SITEMAP_COLOR_MAIN = CSS::CONTRAST_COLOR;
 
-	#[Filter( 'the_seo_framework_sitemap_color_accent' )]
+	#[Add_Filter( 'the_seo_framework_sitemap_color_accent' )]
 	private const SITEMAP_COLOR_ACCENT = CSS::ACCENT_COLOR;
 
 	/** {@inheritDoc} */
@@ -34,7 +34,7 @@ class The_SEO_Framework extends Base implements I_Plugin {
 		return 'autodescription/autodescription.php';
 	}
 
-	#[Filter( 'the_seo_framework_sitemap_additional_urls' )]
+	#[Add_Filter( 'the_seo_framework_sitemap_additional_urls' )]
 	/** Productarchieven toevoegen aan de sitemap TODO: verplaatsen naar WooCommerce*/
 	public function set_sitemap_additional_urls( array $custom_urls ): array {
 
@@ -51,7 +51,13 @@ class The_SEO_Framework extends Base implements I_Plugin {
 		];
 
 		foreach ( $taxonomies as $taxonomy ) {
-			$terms = get_terms( $taxonomy->value, [ 'hide_empty' => true ] );
+
+			$terms = get_terms(
+				[
+					'taxonomy'   => $taxonomy->value,
+					'hide_empty' => true,
+				]
+			);
 			if ( is_wp_error( $terms ) ) {
 				continue;
 			}

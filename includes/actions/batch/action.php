@@ -13,10 +13,10 @@ use SIW\Update;
 class Action {
 
 	/** Group voor verwerken */
-	const PROCESS_GROUP = 'siw_process';
+	private const PROCESS_GROUP = 'siw_process';
 
 	/** Group voor update */
-	const UPDATE_GROUP = 'siw_update';
+	private const UPDATE_GROUP = 'siw_update';
 
 	/** Init */
 	public function __construct( protected Batch_Action_Interface $action ) {
@@ -36,7 +36,7 @@ class Action {
 	}
 
 	/** Voegt actie aan scheduler toe */
-	public function add_action_to_scheduler( array $actions ) : array {
+	public function add_action_to_scheduler( array $actions ): array {
 		$actions[] = $this->action->get_id();
 		return $actions;
 	}

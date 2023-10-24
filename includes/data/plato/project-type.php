@@ -2,7 +2,7 @@
 
 namespace SIW\Data\Plato;
 
-use \Spatie\Enum\Enum;
+use Spatie\Enum\Enum;
 
 /**
  * Plato project types

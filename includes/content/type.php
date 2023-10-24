@@ -3,6 +3,7 @@
 namespace SIW\Content;
 
 use luizbills\CSS_Generator\Generator as CSS_Generator;
+use SIW\Features\Social_Share;
 use SIW\Util\CSS;
 use SIW\Widgets\Carousel;
 
@@ -123,7 +124,14 @@ abstract class Type {
 			// Single post
 			add_action( "siw_{$self->post_type}_content", [ $self, 'add_single_content' ] );
 			add_action( 'wp_enqueue_scripts', [ $self, 'set_single_width' ], 50 );
-			add_filter( 'siw_social_share_post_types', [ $self, 'set_social_share_cta' ] );
+
+			add_post_type_support(
+				"siw_{$self->post_type}",
+				Social_Share::POST_TYPE_FEATURE,
+				[
+					'cta' => $self->get_social_share_cta(),
+				]
+			);
 
 			$self->active_posts_meta_query = $self->get_active_posts_meta_query();
 
@@ -174,13 +182,13 @@ abstract class Type {
 	protected function initialize() {}
 
 	/** Haalt metabox velden op */
-	abstract public function get_meta_box_fields() : array;
+	abstract public function get_meta_box_fields(): array;
 
 	/** Haal taxonomieën op */
-	abstract protected function get_taxonomies() : array;
+	abstract protected function get_taxonomies(): array;
 
 	/** Haalt labels op */
-	abstract protected function get_labels() : array;
+	abstract protected function get_labels(): array;
 
 	/** Undocumented function */
 	public function add_single_content() {}
@@ -194,12 +202,12 @@ abstract class Type {
 	}
 
 	/** Undocumented function */
-	protected function get_archive_intro() : array {
+	protected function get_archive_intro(): array {
 		return [];
 	}
 
 	/** Zet titel */
-	public function set_archive_title( string $archive_title ) : string {
+	public function set_archive_title( string $archive_title ): string {
 		if (
 			is_post_type_archive( "siw_{$this->post_type}" ) ||
 			is_singular( "siw_{$this->post_type}" )
@@ -210,12 +218,12 @@ abstract class Type {
 	}
 
 	/** Undocumented function */
-	protected function get_archive_title( string $archive_title ) : string {
+	protected function get_archive_title( string $archive_title ): string {
 		return $archive_title;
 	}
 
 	/** Undocumented function */
-	protected function get_active_posts_meta_query() : array {
+	protected function get_active_posts_meta_query(): array {
 		return [];
 	}
 
@@ -255,19 +263,13 @@ abstract class Type {
 		);
 	}
 
-	/** Zet call to action voor social share links */
-	public function set_social_share_cta( array $post_types ) : array {
-		$post_types[ "siw_{$this->post_type}" ] = $this->get_social_share_cta();
-		return $post_types;
-	}
-
 	/** Zet social share CTA */
-	protected function get_social_share_cta() : string {
+	protected function get_social_share_cta(): string {
 		return __( 'Deel deze pagina', 'siw' );
 	}
 
 	/** Zet SEO-noindex */
-	public function set_seo_noindex( array $meta, int $post_id ) : array {
+	public function set_seo_noindex( array $meta, int $post_id ): array {
 		if ( "siw_{$this->post_type}" === get_post_type( $post_id ) ) {
 			$meta['_genesis_noindex'] = intval( $this->get_seo_noindex( $post_id ) );
 		}
@@ -275,7 +277,7 @@ abstract class Type {
 	}
 
 	/** Bepaal SEO-noindex */
-	protected function get_seo_noindex( int $post_id ) : bool {
+	protected function get_seo_noindex( int $post_id ): bool {
 		return false;
 	}
 
@@ -283,7 +285,7 @@ abstract class Type {
 	public function after_save_post( int $post_id, \WP_Post $post, bool $update ) {}
 
 	/** Genereert titel slug op basis van eigenschappen */
-	public function set_post_data( array $data, array $postarr ) : array {
+	public function set_post_data( array $data, array $postarr ): array {
 
 		if ( in_array( $data['post_status'], [ 'draft', 'pending', 'auto-draft' ], true ) ) {
 			return $data;
@@ -300,12 +302,12 @@ abstract class Type {
 	}
 
 	/** Genereert titel */
-	protected function generate_title( array $data, array $postarr ) : string {
+	protected function generate_title( array $data, array $postarr ): string {
 		return $data['post_title'];
 	}
 
 	/** Genereert slug */
-	protected function generate_slug( array $data, array $postarr ) : string {
+	protected function generate_slug( array $data, array $postarr ): string {
 		return $data['post_name'];
 	}
 
@@ -367,10 +369,11 @@ abstract class Type {
 	}
 
 	/** Zet subdirectory voor uploads */
-	public function set_upload_subir( array $subdirs ) : array {
+	public function set_upload_subir( array $subdirs ): array {
 		if ( isset( $this->upload_subdir ) ) {
 			$subdirs[ "siw_{$this->post_type}" ] = $this->upload_subdir;
 		}
 		return $subdirs;
 	}
+
 }

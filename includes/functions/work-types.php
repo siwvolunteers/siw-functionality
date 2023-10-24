@@ -1,11 +1,5 @@
 <?php declare(strict_types=1);
 
-/**
- * Functies m.b.t. soorten werk
- *
- * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
- */
-
 use SIW\Data\Work_Type;
 
 /** Geeft een array met informatie over soorten werk voor projecten */

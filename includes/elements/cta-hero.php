@@ -11,8 +11,6 @@ use SIW\Util\CSS;
  */
 class CTA_Hero extends Element {
 
-	const ASSETS_HANDLE = 'siw-cta-hero';
-
 	private const DEFAULT_DISPLAY_TIME = 3;
 	private const DEFAULT_TRANSITION_TIME = 2;
 
@@ -23,11 +21,6 @@ class CTA_Hero extends Element {
 	protected int $display_time = self::DEFAULT_DISPLAY_TIME;
 	protected int $transition_time = self::DEFAULT_TRANSITION_TIME;
 	protected array $background_image_ids;
-
-	/** {@inheritDoc} */
-	protected static function get_type(): string {
-		return 'cta-hero';
-	}
 
 	public function set_headline( string $headline ): self {
 		$this->headline = $headline;
@@ -100,9 +93,9 @@ class CTA_Hero extends Element {
 
 	/** {@inheritDoc} */
 	public function enqueue_styles() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/elements/cta-hero.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/elements/cta-hero.css' );
-		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/cta-hero.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/cta-hero.css' );
+		wp_enqueue_style( self::get_assets_handle() );
 
 		$keyframe_2 = $this->display_time / $this->determine_animation_duration() * 100;
 		$keyframe_3 = 1 / $this->get_background_images_count() * 100;
@@ -145,7 +138,6 @@ class CTA_Hero extends Element {
 		);
 		$css->close_block();
 
-		wp_add_inline_style( self::ASSETS_HANDLE, $css->get_output() );
+		wp_add_inline_style( self::get_assets_handle(), $css->get_output() );
 	}
-
 }

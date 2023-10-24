@@ -16,7 +16,7 @@ use SIW\Properties;
 class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
 	/** Formulier ID */
-	const FORM_ID = 'tailor_made';
+	public const FORM_ID = 'tailor_made';
 
 	/** {@inheritDoc} */
 	public function get_form_id(): string {
@@ -88,7 +88,7 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 	}
 
 	/** Geeft opties voor projectduur terug */
-	protected function get_duration_options() : array {
+	protected function get_duration_options(): array {
 		return [
 			'1-3'  => __( '1-3 maanden', 'siw' ),
 			'3-6'  => __( '4-6 maanden', 'siw' ),

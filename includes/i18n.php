@@ -28,6 +28,4 @@ class I18n {
 	public static function get_default_language(): string {
 		return apply_filters( 'wpml_default_language', get_bloginfo( 'language' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 	}
-
 }
-

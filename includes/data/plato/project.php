@@ -321,7 +321,7 @@ class Project extends Data {
 		return $this->accessibility; }
 
 	/** Geeft datum van laatste update terug */
-	public function get_last_update():string {
+	public function get_last_update(): string {
 		return $this->last_update; }
 
 	/** Geeft sustainable development goals van het project terug */
@@ -331,5 +331,4 @@ class Project extends Data {
 	/** Geeft file identifiers van de projectafbeeldingen terug */
 	public function get_image_file_identifiers(): array {
 		return $this->image_file_identifiers; }
-
 }

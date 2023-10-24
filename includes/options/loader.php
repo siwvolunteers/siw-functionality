@@ -13,11 +13,6 @@ use SIW\Interfaces\Options\Option as Option_Interface;
 class Loader extends Object_Loader_Abstract {
 
 	/** {@inheritDoc} */
-	public function get_id() : string {
-		return 'options';
-	}
-
-	/** {@inheritDoc} */
 	public function get_classes(): array {
 		return [
 			Help::class,

@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Data\Social_Network;
+use SIW\Data\Social_Network_Context;
 use SIW\Elements\Social_Links as Social_Links_Element;
 
 /**
@@ -59,11 +59,8 @@ class Social_Links extends Widget {
 			'context' => [
 				'type'    => 'radio',
 				'label'   => __( 'Context', 'siw' ),
-				'default' => Social_Network::FOLLOW,
-				'options' => [
-					Social_Network::FOLLOW => __( 'Volgen', 'siw' ),
-					Social_Network::SHARE  => __( 'Delen', 'siw' ),
-				],
+				'default' => Social_Network_Context::FOLLOW,
+				'options' => siw_get_enum_array( Social_Network_Context::cases() ),
 			],
 		];
 		return $widget_form;
@@ -72,7 +69,7 @@ class Social_Links extends Widget {
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
 		return [
-			'content' => Social_Links_Element::create()->set_context( $instance['context'] )->generate(),
+			'content' => Social_Links_Element::create()->set_context( Social_Network_Context::tryFrom( $instance['context'] ) )->generate(),
 		];
 	}
 }

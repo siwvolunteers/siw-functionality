@@ -2,8 +2,8 @@
 
 namespace SIW\Features;
 
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Properties;
 use SIW\Util\CSS;
@@ -17,16 +17,19 @@ use SIW\Util\CSS;
 class Web_App_Manifest extends Base {
 
 	/** Bestandsnaam van web app manifest */
-	const WEB_APP_MANIFEST_FILENAME = 'manifest.json';
+	private const WEB_APP_MANIFEST_FILENAME = 'manifest.json';
 
-	#[Filter( 'site_icon_meta_tags' )]
+	#[Add_Filter( 'site_icon_meta_tags' )]
 	/** Voegt tag voor web app manifest toe */
 	public function add_manifest_tag( array $meta_tags ): array {
-		$meta_tags[] = sprintf( '<link rel="manifest" href="%s" crossorigin="use-credentials">', wp_make_link_relative( get_home_url( null, self::WEB_APP_MANIFEST_FILENAME ) ) );
+		$meta_tags[] = sprintf(
+			'<link rel="manifest" href="%s" crossorigin="use-credentials">',
+			wp_make_link_relative( get_home_url( null, self::WEB_APP_MANIFEST_FILENAME ) )
+		);
 		return $meta_tags;
 	}
 
-	#[Action( 'init' )]
+	#[Add_Action( 'init' )]
 	/** Toont web app manifest */
 	public function show_web_app_manifest() {
 		$request = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';

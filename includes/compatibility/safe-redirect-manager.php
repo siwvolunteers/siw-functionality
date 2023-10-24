@@ -2,6 +2,7 @@
 
 namespace SIW\Compatibility;
 
+use SIW\Attributes\Add_Filter;
 use SIW\Attributes\Filter;
 use SIW\Base;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
@@ -14,7 +15,7 @@ use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
  */
 class Safe_Redirect_Manager extends Base implements I_Plugin {
 
-	#[Filter( 'srm_default_direct_status' )]
+	#[Add_Filter( 'srm_default_direct_status' )]
 	private const DEFAULT_DIRECT_STATUS = \WP_Http::MOVED_PERMANENTLY;
 
 	/** {@inheritDoc} */

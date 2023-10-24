@@ -47,5 +47,4 @@ class Jsvectormap_World_Map extends NPM_Asset {
 	protected static function get_style_sri(): ?string {
 		return null;
 	}
-
 }

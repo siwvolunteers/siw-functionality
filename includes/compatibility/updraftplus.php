@@ -2,8 +2,8 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
@@ -26,13 +26,13 @@ class UpdraftPlus extends Base implements I_Plugin {
 		return 'updraftplus/updraftplus.php';
 	}
 
-	#[Filter( 'updraftplus_blog_name' )]
+	#[Add_Filter( 'updraftplus_blog_name' )]
 	/** Zet blognaam (voor in bestandsnaam backup) */
 	public function set_blog_name(): string {
 		return sanitize_title( SIW_SITE_NAME );
 	}
 
-	#[Action( 'init' )]
+	#[Add_Action( 'init' )]
 	/** Definieer constantes */
 	public function define_constants() {
 		// Verbergt diverse UpdraftPlus notificaties
@@ -42,7 +42,7 @@ class UpdraftPlus extends Base implements I_Plugin {
 		define( 'UPDRAFTPLUS_DISABLE_WP_CRON_NOTICE', true ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 	}
 
-	#[Filter( 'updraftplus_schedule_firsttime_db' )]
+	#[Add_Filter( 'updraftplus_schedule_firsttime_db' )]
 	/** Zet de tijd voor de database backup */
 	public function set_time_db_backup( int $scheduled_time ): int {
 		$tomorrow = strtotime( 'tomorrow' );
@@ -50,7 +50,7 @@ class UpdraftPlus extends Base implements I_Plugin {
 		return strtotime( $backup_db_day . ' ' . self::TS_BACKUP_DB . wp_timezone_string() );
 	}
 
-	#[Filter( 'updraftplus_schedule_firsttime_files' )]
+	#[Add_Filter( 'updraftplus_schedule_firsttime_files' )]
 	/** Zet de tijd voor de bestandsbackup */
 	public function set_time_files_backup( int $scheduled_time ): int {
 		$tomorrow = strtotime( 'tomorrow' );
@@ -58,7 +58,7 @@ class UpdraftPlus extends Base implements I_Plugin {
 		return strtotime( $backup_files_day . ' ' . self::TS_BACKUP_FILES . wp_timezone_string() );
 	}
 
-	#[Action( 'admin_init' )]
+	#[Add_Action( 'admin_init' )]
 	/** Verbergt melding bij WooCommerce plugin updates */
 	public function hide_woocommerce_in_plugin_update_message() {
 		global $updraftplus_admin;

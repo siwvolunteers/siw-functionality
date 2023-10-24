@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use SIW\Interfaces\Enums\Labels;
+
 if ( ! function_exists( 'get_query_arg' ) ) {
 	/**
 	 * Haalt argument uit query
@@ -62,4 +64,8 @@ if ( ! function_exists( 'wp_parse_args_recursive' ) ) {
 /** Wrapper om wp_hash */
 function siw_hash( string $data ): string {
 	return wp_hash( $data, 'siw' );
+}
+
+function siw_get_enum_array( array $enum_cases ): array {
+	return array_map( fn( Labels $e ) => $e->label(), $enum_cases );
 }

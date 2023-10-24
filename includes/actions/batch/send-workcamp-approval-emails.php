@@ -16,7 +16,7 @@ use SIW\WooCommerce\Import\Product as Import_Product;
 class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 
 	/** Taxonomie voor continenten */
-	const CONTINENT_TAXONOMY = 'product_cat';
+	private const CONTINENT_TAXONOMY = 'product_cat';
 
 	/** {@inheritDoc} */
 	public function get_id(): string {

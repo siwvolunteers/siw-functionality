@@ -2,8 +2,8 @@
 
 namespace SIW;
 
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Properties;
 use SIW\Util\CSS;
 
@@ -14,15 +14,15 @@ use SIW\Util\CSS;
  */
 class Login extends Base {
 
-	const ASSETS_HANDLE = 'siw-login-css';
+	private const ASSETS_HANDLE = 'siw-login-css';
 
-	#[Filter( 'login_headerurl' )]
-	const LOGIN_HEADER_URL = SIW_SITE_URL;
+	#[Add_Filter( 'login_headerurl' )]
+	private const LOGIN_HEADER_URL = SIW_SITE_URL;
 
-	#[Filter( 'login_headertext' )]
-	const LOGIN_HEADER_TEXT = Properties::NAME;
+	#[Add_Filter( 'login_headertext' )]
+	private const LOGIN_HEADER_TEXT = Properties::NAME;
 
-	#[Action( 'login_enqueue_scripts' )]
+	#[Add_Action( 'login_enqueue_scripts' )]
 	/** Voegt de styling voor de login toe */
 	public function enqueue_style() {
 		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/login.css', [], SIW_PLUGIN_VERSION );
@@ -33,7 +33,7 @@ class Login extends Base {
 		wp_add_inline_style( self::ASSETS_HANDLE, $css );
 	}
 
-	#[Filter( 'login_message' )]
+	#[Add_Filter( 'login_message' )]
 	/** Zet de login-boodschap */
 	public function set_login_message( string $message ): string {
 		if ( empty( $message ) ) {
@@ -42,15 +42,15 @@ class Login extends Base {
 		return $message;
 	}
 
-	#[Action( 'login_head' )]
+	#[Add_Action( 'login_head' )]
 	/** Verwijdert de shake-animatie */
 	public function remove_shake_js() {
 		remove_action( 'login_head', 'wp_shake_js', 12 );
 	}
 
-	#[Action( 'wp_login' )]
+	#[Add_Action( 'wp_login' )]
 	/** Legt laatste login van een gebruiker vast */
 	public function log_last_user_login( string $user_login, \WP_User $user ) {
-		update_user_meta( $user->ID, 'last_login', current_time( 'timestamp' ) );
+		update_user_meta( $user->ID, 'last_login', current_datetime()->getTimestamp() );
 	}
 }

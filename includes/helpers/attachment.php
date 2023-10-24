@@ -45,7 +45,7 @@ class Attachment {
 	}
 
 	/** Voegt attachment toe */
-	public function add( $temp_file, $filename, $title ) : ?int {
+	public function add( $temp_file, $filename, $title ): ?int {
 
 		// Verplaats bestand naar upload-directory
 		$relative_path = $this->move_file( $temp_file, $filename );
@@ -64,7 +64,7 @@ class Attachment {
 	}
 
 	/** Verplaatst bestand naar upload-directory */
-	protected function move_file( string $temp_file, string $filename ) : ?string {
+	protected function move_file( string $temp_file, string $filename ): ?string {
 
 		$temp_filename = basename( $temp_file );
 
@@ -107,7 +107,7 @@ class Attachment {
 	}
 
 	/** Voegt attachment toe aan database */
-	protected function create_attachment( string $relative_path, string $title ) : ?int {
+	protected function create_attachment( string $relative_path, string $title ): ?int {
 		$file = \wp_normalize_path( $this->upload_dir . '/' . $relative_path );
 
 		$attachment_id = \wp_insert_attachment(
@@ -140,7 +140,7 @@ class Attachment {
 	 * - Verwijderen en afbreken als afbeelding te klein is
 	 * - Resizen als afbeelding te groot is
 	 */
-	protected function check_image( string $relative_path ) : ?string {
+	protected function check_image( string $relative_path ): ?string {
 		$file = wp_normalize_path( $this->upload_dir . '/' . $relative_path );
 
 		$image_editor = \wp_get_image_editor( $file );
@@ -180,7 +180,7 @@ class Attachment {
 	}
 
 	/** Zet upload directory */
-	public function set_upload_subdir() : string {
+	public function set_upload_subdir(): string {
 		return $this->subdir;
 	}
 }

@@ -2,12 +2,6 @@
 
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-/**
- * Wrapper functions om WooCommerce functies
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
-
 /** Wrapper om wc_get_product */
 function siw_get_product( $product ): ?WC_Product_Project {
 	if ( ! function_exists( '\wc_get_product' ) ) {

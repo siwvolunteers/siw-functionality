@@ -2,7 +2,7 @@
 
 namespace SIW\Data;
 
-use \Spatie\Enum\Enum;
+use Spatie\Enum\Enum;
 
 /**
  * Project types
@@ -18,7 +18,7 @@ class Project_Type extends Enum {
 
 	/** {@inheritDoc} */
 	protected static function values(): \Closure {
-		return function( string $value ): string {
+		return function ( string $value ): string {
 			return strtolower( $value );
 		};
 	}
@@ -33,4 +33,3 @@ class Project_Type extends Enum {
 		];
 	}
 }
-

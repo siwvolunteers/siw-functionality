@@ -218,7 +218,7 @@ class Processor {
 		$transient_name = "siw_form_{$this->form->get_form_id()}_{$this->ip}";
 		$submission_count = (int) get_transient( $transient_name );
 		if ( $submission_count > 0 ) {
-			$submission_count ++;
+			++$submission_count;
 			set_transient( $transient_name, $submission_count, $submission_count * HOUR_IN_SECONDS );
 			Logger::info( "Meerdere aanmeldingen ({$submission_count}) in korte tijd voor formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip}", static::class );
 			return false;

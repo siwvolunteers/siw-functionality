@@ -2,7 +2,7 @@
 
 namespace SIW\Admin;
 
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
@@ -14,10 +14,10 @@ use SIW\Data\Special_Page;
  */
 class Page_Settings extends Base {
 
-	const SPECIAL_PAGE_META = 'special_page';
-	const PROJECT_TYPE_PAGE_META = 'project_type_page';
+	public const SPECIAL_PAGE_META = 'special_page';
+	public const PROJECT_TYPE_PAGE_META = 'project_type_page';
 
-	#[Filter( 'display_post_states' )]
+	#[Add_Filter( 'display_post_states' )]
 	public function add_panels_post_state( array $post_states, \WP_Post $post ): array {
 		$special_page = get_post_meta( $post->ID, self::SPECIAL_PAGE_META, true );
 		$special_page_label = Special_Page::tryFrom( $special_page )?->label;
@@ -34,7 +34,7 @@ class Page_Settings extends Base {
 		return $post_states;
 	}
 
-	#[Filter( 'rwmb_meta_boxes' )]
+	#[Add_Filter( 'rwmb_meta_boxes' )]
 	/** Voegt metabox toe */
 	public function add_metabox( array $metaboxes ): array {
 		$metaboxes[] = [

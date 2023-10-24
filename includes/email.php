@@ -5,8 +5,8 @@ namespace SIW;
 use SIW\Properties;
 
 use PHPMailer\PHPMailer\PHPMailer;
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 
 /**
  * Configuratie van e-mail
@@ -20,7 +20,7 @@ use SIW\Attributes\Filter;
  */
 class Email extends Base {
 
-	#[Action( 'phpmailer_init', PHP_INT_MAX )]
+	#[Add_Action( 'phpmailer_init', PHP_INT_MAX )]
 	/** Zet SMTP-instellingen */
 	public function set_smtp_configuration( PHPMailer $phpmailer ) {
 		/*SMTP-configuratie*/
@@ -39,7 +39,7 @@ class Email extends Base {
 		}
 	}
 
-	#[Action( 'phpmailer_init', PHP_INT_MAX )]
+	#[Add_Action( 'phpmailer_init', PHP_INT_MAX )]
 	/** Zet DKIM-signing */
 	public function set_dkim_configuration( PHPMailer $phpmailer ) {
 		if ( Config::get_dkim_enabled() ) {
@@ -53,7 +53,7 @@ class Email extends Base {
 		}
 	}
 
-	#[Action( 'phpmailer_init', PHP_INT_MAX )]
+	#[Add_Action( 'phpmailer_init', PHP_INT_MAX )]
 	/** Zet tracking van Mailjet aan of uit
 	 *
 	 * @todo optie voor maken */
@@ -62,7 +62,7 @@ class Email extends Base {
 		$phpmailer->addCustomHeader( 'X-Mailjet-TrackClick', 0 );
 	}
 
-	#[Action( 'phpmailer_init', PHP_INT_MAX )]
+	#[Add_Action( 'phpmailer_init', PHP_INT_MAX )]
 	/** Zet header t.b.v. spamfilter Office-365
 	 *
 	 * @todo optie voor waarde maken */
@@ -70,9 +70,9 @@ class Email extends Base {
 		$phpmailer->addCustomHeader( 'X-SIW-WebsiteMail', 1 );
 	}
 
-	#[Filter( 'wp_mail_from' )]
+	#[Add_Filter( 'wp_mail_from' )]
 	/** Zet het afzenderadres (indien nog niet gezet) */
-	public function set_mail_from( string $from ) : string {
+	public function set_mail_from( string $from ): string {
 		$sitename = strtolower( SIW_SITE_NAME );
 		if ( substr( $sitename, 0, 4 ) === 'www.' ) {
 			$sitename = substr( $sitename, 4 );
@@ -85,9 +85,9 @@ class Email extends Base {
 		return Properties::EMAIL;
 	}
 
-	#[Filter( 'wp_mail_from_name' )]
+	#[Add_Filter( 'wp_mail_from_name' )]
 	/** Zet de afzendernaam (indien nog niet gezet) */
-	public function set_mail_from_name( string $from_name ) : string {
+	public function set_mail_from_name( string $from_name ): string {
 		$default_from_name = 'WordPress';
 		if ( $from_name !== $default_from_name ) {
 			return $from_name;

@@ -12,7 +12,7 @@ use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 class Delete_Old_Posts implements Batch_Action_Interface {
 
 	/** Maximale leeftijd van post in maanden */
-	const MAX_AGE_POST = 12;
+	private const MAX_AGE_POST = 12;
 
 	/** {@inheritDoc} */
 	public function get_id(): string {

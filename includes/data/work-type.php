@@ -10,16 +10,16 @@ namespace SIW\Data;
 class Work_Type extends Data {
 
 	/** Slug */
-	const SLUG = 'slug';
+	public const SLUG = 'slug';
 
 	/** Plato code */
-	const PLATO_CODE = 'plato_code';
+	public const PLATO_CODE = 'plato_code';
 
 	/** Alle soorten werk */
-	const ALL = 'all';
+	public const ALL = 'all';
 
 	/** Soorten werk voor Op Maat projecten*/
-	const TAILOR_MADE = 'tailor_made_projects';
+	public const TAILOR_MADE = 'tailor_made_projects';
 
 	/** De slug van het soort werk */
 	protected string $slug;

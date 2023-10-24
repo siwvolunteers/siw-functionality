@@ -2,8 +2,8 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
 /**
@@ -14,15 +14,15 @@ use SIW\Base;
  */
 class Action_Scheduler extends Base {
 
-	#[Filter( 'action_scheduler_retention_period' )]
+	#[Add_Filter( 'action_scheduler_retention_period' )]
 	/** Retentie-periode voor uitgevoerde acties */
 	private const RETENTION_PERIOD = DAY_IN_SECONDS;
 
-	#[Filter( 'action_scheduler_queue_runner_concurrent_batches' )]
+	#[Add_Filter( 'action_scheduler_queue_runner_concurrent_batches' )]
 	/** Aantal concurrent batches voor AS */
 	private const CONCURRENT_BATCHES = 2;
 
-	#[Filter( 'action_scheduler_queue_runner_time_limit' )]
+	#[Add_Filter( 'action_scheduler_queue_runner_time_limit' )]
 	/** Tijdslimiet voor queue runner (default is 30 seconden) */
 	private const TIME_LIMIT = MINUTE_IN_SECONDS;
 
@@ -31,7 +31,7 @@ class Action_Scheduler extends Base {
 		'delete_posts',
 	];
 
-	#[Action( 'action_scheduler_before_process_queue' )]
+	#[Add_Action( 'action_scheduler_before_process_queue' )]
 	/** Voegt tijdelijke user capabilities toe */
 	public function add_temporary_user_capabilities() {
 		if ( is_user_logged_in() ) {
@@ -42,7 +42,7 @@ class Action_Scheduler extends Base {
 		}
 	}
 
-	#[Action( 'action_scheduler_after_process_queue' )]
+	#[Add_Action( 'action_scheduler_after_process_queue' )]
 	/** Verwijdert tijdelijke user capabilities toe */
 	public function remove_temporary_user_capabilities() {
 		if ( is_user_logged_in() ) {

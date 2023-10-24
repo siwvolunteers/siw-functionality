@@ -2,14 +2,8 @@
 
 use Pharaonic\DotArray\DotArray;
 
-/**
- * Functies m.b.t. opties
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
-
 /** Haal optie op */
-function siw_get_option( string $option, $default = null ) {
+function siw_get_option( string $option, $default_value = null ) {
 
 	// Foutmelding bij aanroepen vóór init
 	if ( 0 === did_action( 'init' ) && WP_DEBUG ) {
@@ -27,7 +21,7 @@ function siw_get_option( string $option, $default = null ) {
 	$value = $dot->get( $option );
 
 	if ( empty( $value ) ) {
-		return $default;
+		return $default_value;
 	}
 
 	wp_cache_set( $option, $value, 'siw_options' );

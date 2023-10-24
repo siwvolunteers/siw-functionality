@@ -14,5 +14,4 @@ interface Notification_Mail {
 
 	/** Inhoud van notificatiemail */
 	public function get_notification_mail_message(): string;
-
 }
