@@ -4,6 +4,7 @@ namespace SIW\Content;
 
 use luizbills\CSS_Generator\Generator as CSS_Generator;
 use SIW\Util\CSS;
+use SIW\Widgets\Carousel;
 
 /**
  * Class om een custom content type toe te voegen
@@ -146,20 +147,13 @@ abstract class Type {
 			add_action( "siw_{$self->post_type}_archive_intro", [ $self, 'set_archive_intro' ] );
 			add_action( "siw_{$self->post_type}_archive_content", [ $self, 'add_archive_content' ] );
 
-			if ( ! empty( $self->active_posts_meta_query ) && ! empty( $self->taxonomies ) ) {
-				add_filter( 'siw_update_terms_taxonomies', [ $self, 'set_update_terms_taxonomies' ] );
-				add_filter( 'siw_update_terms_meta_query', [ $self, 'set_update_terms_meta_query' ], 10, 2 );
-			}
-
 			if ( ! empty( $self->active_posts_meta_query ) ) {
 				add_action( 'admin_menu', [ $self, 'add_admin_active_post_count' ], PHP_INT_MAX );
 			}
 
 			// Carousel
 			if ( $self->has_carousel_support ) {
-				add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type' ] );
-				add_filter( 'siw_carousel_post_type_templates', [ $self, 'add_carousel_post_type_template' ] );
-				add_filter( 'siw_carousel_post_type_taxonomies', [ $self, 'add_carousel_post_type_taxonomies' ] );
+				add_post_type_support( "siw_{$self->post_type}", Carousel::POST_TYPE_FEATURE );
 			}
 
 			// SEO TODO: titles enzo
@@ -372,52 +366,11 @@ abstract class Type {
 		}
 	}
 
-	/** Voegt post type toe aan carousel widget */
-	public function add_carousel_post_type( array $post_types ) : array {
-		$post_types[ "siw_{$this->post_type}" ] = $this->post_type; // TODO: juiste label gebruiken
-		return $post_types;
-	}
-
-	/** Voegt taxonomieën toe aan carousel widget */
-	public function add_carousel_post_type_taxonomies( array $post_type_taxonomies ) : array {
-		foreach ( $this->taxonomies as $taxonomy => $settings ) {
-			$post_type_taxonomies[ "siw_{$this->post_type}" ][ "siw_{$this->post_type}_{$taxonomy}" ] = $settings['labels']['name'];
-		}
-		return $post_type_taxonomies;
-	}
-
-	/** Zet template voor carousel */
-	public function add_carousel_post_type_template( array $post_type_templates ) : array {
-		$post_type_templates[ "siw_{$this->post_type}" ] = locate_template( "content-siw_{$this->post_type}.php" );
-		return $post_type_templates;
-	}
-
 	/** Zet subdirectory voor uploads */
 	public function set_upload_subir( array $subdirs ) : array {
 		if ( isset( $this->upload_subdir ) ) {
 			$subdirs[ "siw_{$this->post_type}" ] = $this->upload_subdir;
 		}
 		return $subdirs;
-	}
-
-	/** Zet taxonomiën om bij te werken via batch */
-	public function set_update_terms_taxonomies( array $taxonomies ) : array {
-		foreach ( array_keys( $this->taxonomies ) as $taxonomy ) {
-			$taxonomies[] = "siw_{$this->post_type}_{$taxonomy}";
-		}
-		return $taxonomies;
-	}
-
-	/** Zet meta query voor update van terms*/
-	public function set_update_terms_meta_query( array $meta_query, string $term_taxonomy ) : array {
-
-		foreach ( array_keys( $this->taxonomies ) as $taxonomy ) {
-			if ( "siw_{$this->post_type}_{$taxonomy}" === $term_taxonomy ) {
-				$meta_query = [ $this->active_posts_meta_query ];
-				break;
-			}
-		}
-
-		return $meta_query;
 	}
 }
