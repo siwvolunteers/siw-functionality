@@ -91,47 +91,6 @@ span.product-badge.featured-badge {
 	}
 }
 
-
-//Carousel
-.siw-carousel {
-	margin-bottom: 20px;
-	.flickity-button:hover {
-		background-color: var(--siw-contrast-light);
-	}
-
-	.carousel-cell {
-		li.product {
-			list-style: none;
-			border: 1px solid #bbb;
-			text-align: left;
-			background-color: var(--siw-base);
-			.woocommerce-LoopProduct-link h2 {
-				padding: 10px 20px 0 20px;
-				text-transform: capitalize;
-				font-size: 20px;
-			}
-			text-align: center;
-			a {
-				p {
-					padding: 10px 20px 0 20px;
-				}
-				padding-bottom: 10px;
-				display: block;
-				color: var(--siw-contrast);
-				text-decoration: none;
-				.woocommerce-placeholder {
-					border: none;
-				}
-			}
-			span.product-badge.featured-badge {
-				position: absolute;
-				top: 0;
-				right: 0;
-			}
-		}
-	}
-}
-
 //Single
 .woocommerce div.product {
 	.product_title {

@@ -19,10 +19,12 @@ abstract class Element {
 
 	/** Geeft type van element terug */
 	final protected static function get_type(): string {
+
+		$class_name_components = explode( '\\', static::class );
 		return str_replace(
 			'_',
 			'-',
-			strtolower( end( explode( '\\', static::class ) ) )
+			strtolower( end( $class_name_components ) )
 		);
 	}
 
