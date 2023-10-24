@@ -375,5 +375,4 @@ abstract class Type {
 		}
 		return $subdirs;
 	}
-
 }

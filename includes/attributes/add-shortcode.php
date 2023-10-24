@@ -24,5 +24,4 @@ class Add_Shortcode {
 
 		add_shortcode( $this->shortcode, $function_to_add );
 	}
-
 }

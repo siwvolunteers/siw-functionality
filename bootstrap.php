@@ -13,10 +13,10 @@ use SIW\Autoloader;
 class Bootstrap {
 
 	/** Hook voor initialiseren loader */
-	const LOADER_HOOK = 'plugins_loaded';
+	private const LOADER_HOOK = 'plugins_loaded';
 
 	/** Prioriteit voor initialiseren loader */
-	const LOADER_PRIORITY = 10;
+	private const LOADER_PRIORITY = 10;
 
 	/** Init */
 	public function init() {

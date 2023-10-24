@@ -20,12 +20,12 @@ use SIW\Util\Carousel as Carousel_Util;
 class Carousel extends Widget {
 
 	/** Default aantal kolommen */
-	const DEFAULT_NUMBER_OF_COLUMNS = 4;
+	private const DEFAULT_NUMBER_OF_COLUMNS = 4;
 
 	/** Default aantal items */
-	const DEFAULT_NUMBER_OF_ITEMS = 6;
+	private const DEFAULT_NUMBER_OF_ITEMS = 6;
 
-	const POST_TYPE_FEATURE = 'siw_carousel';
+	public const POST_TYPE_FEATURE = 'siw_carousel';
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
