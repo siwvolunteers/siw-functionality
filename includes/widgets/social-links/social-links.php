@@ -59,7 +59,7 @@ class Social_Links extends Widget {
 			'context' => [
 				'type'    => 'radio',
 				'label'   => __( 'Context', 'siw' ),
-				'default' => Social_Network_Context::FOLLOW,
+				'default' => Social_Network_Context::FOLLOW->value,
 				'options' => siw_get_enum_array( Social_Network_Context::cases() ),
 			],
 		];

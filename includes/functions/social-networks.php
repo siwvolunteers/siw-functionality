@@ -10,7 +10,7 @@ use SIW\Data\Social_Network_Context;
  */
 function siw_get_social_networks( Social_Network_Context $context = null ): array {
 
-	$social_networks = wp_cache_get( $context, __FUNCTION__ );
+	$social_networks = wp_cache_get( $context->value, __FUNCTION__ );
 	if ( false !== $social_networks ) {
 		return $social_networks;
 	}
@@ -33,7 +33,7 @@ function siw_get_social_networks( Social_Network_Context $context = null ): arra
 		$social_networks,
 		fn( Social_Network $social_network ): bool => $social_network->is_valid_for_context( $context )
 	);
-	wp_cache_set( $context, $social_networks, __FUNCTION__ );
+	wp_cache_set( $context->value, $social_networks, __FUNCTION__ );
 
 	return $social_networks;
 }
