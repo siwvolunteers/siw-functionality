@@ -3,6 +3,7 @@
 namespace SIW\Assets;
 
 use SIW\Interfaces\Assets\Script;
+use SIW\Traits\Assets_Handle;
 
 /**
  * SVG functies
@@ -11,11 +12,10 @@ use SIW\Interfaces\Assets\Script;
  */
 class SIW_SVG implements Script {
 
-	/** Handle voor assets */
-	const ASSETS_HANDLE = 'siw-svg';
+	use Assets_Handle;
 
 	/** {@inheritDoc} */
 	public function register_script() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/siw-svg.js', [], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/siw-svg.js', [], SIW_PLUGIN_VERSION, true );
 	}
 }

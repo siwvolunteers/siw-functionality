@@ -23,16 +23,16 @@ class Loader extends Object_Loader {
 	}
 
 	/** {@inheritDoc} */
-	protected function load( object $object ) {
+	protected function load( object $asset_object ) {
 		$asset = new Asset();
-		if ( is_a( $object, Style::class ) ) {
-			$asset->register_style( $object );
+		if ( is_a( $asset_object, Style::class ) ) {
+			$asset->register_style( $asset_object );
 		}
-		if ( is_a( $object, Script::class ) ) {
-			$asset->register_script( $object );
+		if ( is_a( $asset_object, Script::class ) ) {
+			$asset->register_script( $asset_object );
 		}
-		if ( is_a( $object, External::class ) ) {
-			$asset->register_external_asset( $object );
+		if ( is_a( $asset_object, External::class ) ) {
+			$asset->register_external_asset( $asset_object );
 		}
 	}
 }
