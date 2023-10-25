@@ -2,14 +2,14 @@
 
 namespace SIW\WooCommerce;
 
-use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
+use SIW\Abstracts\Base_Loader;
 
 /**
  * Loader voor WooCommerce
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Loader extends Class_Loader_Abstract {
+class Loader extends Base_Loader {
 
 	/** {@inheritDoc} */
 	public function get_classes(): array {
@@ -19,8 +19,8 @@ class Loader extends Class_Loader_Abstract {
 			Admin\Product::class,
 
 			Checkout\Address_Fields::class,
+			Checkout\Checkout::class,
 			Checkout\Fields::class,
-			Checkout\Form::class,
 			Checkout\Newsletter::class,
 			Checkout\Validation::class,
 			Checkout\Discount\Student::class,
@@ -51,10 +51,5 @@ class Loader extends Class_Loader_Abstract {
 			Templates::class,
 			Translations::class,
 		];
-	}
-
-	/** {@inheritDoc} */
-	public function load( string $class ) {
-		$class::init();
 	}
 }

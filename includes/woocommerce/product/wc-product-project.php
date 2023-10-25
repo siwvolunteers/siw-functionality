@@ -16,7 +16,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 class WC_Product_Project extends \WC_Product_Simple {
 
 	/** Product type */
-	const PRODUCT_TYPE = 'project';
+	public const PRODUCT_TYPE = 'project';
 
 	/** {@inheritDoc} */
 	protected $extra_data = [

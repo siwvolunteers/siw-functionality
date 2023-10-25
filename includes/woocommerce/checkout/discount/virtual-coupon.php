@@ -96,5 +96,4 @@ abstract class Virtual_Coupon extends Base {
 			$cart->remove_coupon( static::get_coupon_code() );
 		}
 	}
-
 }

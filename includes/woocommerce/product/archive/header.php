@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Product\Archive;
 
+use SIW\Attributes\Add_Action;
+use SIW\Base;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
 use SIW\WooCommerce\Taxonomy_Attribute;
@@ -11,15 +13,9 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  *
  * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Header {
+class Header extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_action( 'generate_inside_site_container', [ $self, 'add_archive_description' ] );
-	}
-
-	/** Toont beschrijving van overzichtspagina */
+	#[Add_Action( 'generate_inside_site_container' )]
 	public function add_archive_description() {
 
 		if ( ! $this->show_archive_header() ) {
@@ -145,5 +141,4 @@ class Header {
 
 		return $teaser_text;
 	}
-
 }

@@ -11,9 +11,9 @@ use SIW\WooCommerce\Product\WC_Product_Project;
  */
 class Product_Columns extends \MBAC\Post {
 
-	const COLUMN_COUNTRY = 'country';
-	const COLUMN_START_DATE = 'start_date';
-	const COLUMN_VISIBILITY = 'visibility';
+	private const COLUMN_COUNTRY = 'country';
+	private const COLUMN_START_DATE = 'start_date';
+	private const COLUMN_VISIBILITY = 'visibility';
 
 	/**
 	 * Voegt extra columns toe

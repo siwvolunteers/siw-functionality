@@ -2,33 +2,28 @@
 
 namespace SIW\WooCommerce\Email;
 
+use SIW\Attributes\Add_Filter;
+use SIW\Base;
+
 /**
  * Notificatiemail voor nieuwe aanmelding
  *
  * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  */
-class New_Order {
+class New_Order extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_filter( 'woocommerce_email_recipient_new_order', [ $self, 'set_recipient' ], 10, 2 );
-		add_filter( 'woocommerce_email_subject_new_order', [ $self, 'set_subject' ], 10, 2 );
-		add_filter( 'woocommerce_email_heading_new_order', [ $self, 'set_heading' ], 10, 2 );
-	}
-
-	/** Past ontvanger aan */
+	#[Add_Filter( 'woocommerce_email_recipient_new_order' )]
 	public function set_recipient(): string {
 		return siw_get_email_settings( 'workcamp' )->get_notification_mail_recipient();
 	}
 
-	/** Past onderwerp aan */
+	#[Add_Filter( 'woocommerce_email_subject_new_order' )]
 	public function set_subject( string $subject, \WC_Order $order ): string {
 		// translators: %s is het aanmeldnummer
 		return sprintf( __( 'Nieuwe aanmelding Groepsproject (%s)', 'siw' ), $order->get_order_number() );
 	}
 
-	/** Past heading aan */
+	#[Add_Filter( 'woocommerce_email_heading_new_order' )]
 	public function set_heading( string $heading, \WC_Order $order ): string {
 		if ( $order->has_status( 'processing' ) ) {
 			$heading = sprintf( __( 'Nieuwe aanmelding (betaald)', 'siw' ), $order->get_order_number() );

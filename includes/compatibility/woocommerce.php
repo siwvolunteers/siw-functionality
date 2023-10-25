@@ -33,6 +33,9 @@ class WooCommerce extends Base implements I_Plugin {
 	#[Add_Filter( 'woocommerce_show_addons_page' )]
 	private const SHOW_ADDONS_PAGE = false;
 
+	#[Add_Filter( 'woocommerce_price_trim_zeros' )]
+	private const TRIM_ZEROS = true;
+
 	public const PRODUCT_POST_TYPE = 'product';
 
 	/** {@inheritDoc} */
@@ -150,7 +153,7 @@ class WooCommerce extends Base implements I_Plugin {
 	}
 
 	#[Add_Action( 'init' )]
-	public function add_post_type_support() {
+	public function set_post_type_support() {
 		add_post_type_support(
 			'product',
 			Social_Share::POST_TYPE_FEATURE,
@@ -159,6 +162,8 @@ class WooCommerce extends Base implements I_Plugin {
 			]
 		);
 		add_post_type_support( self::PRODUCT_POST_TYPE, Carousel::POST_TYPE_FEATURE );
+		remove_post_type_support( self::PRODUCT_POST_TYPE, 'editor' );
+		remove_post_type_support( self::PRODUCT_POST_TYPE, 'custom-fields' );
 	}
 
 	#[Add_Action( 'init' )]

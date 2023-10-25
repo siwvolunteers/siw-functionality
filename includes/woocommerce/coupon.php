@@ -12,7 +12,7 @@ use SIW\Config;
 class Coupon {
 
 	/** Type korting */
-	const DISCOUNT_TYPE = 'percent';
+	private const DISCOUNT_TYPE = 'percent';
 
 	/** Init */
 	public static function init() {

@@ -65,5 +65,4 @@ class Bulk extends Virtual_Coupon {
 		WC()?->session?->set( static::SESSION_VARIABLE, $bulk_discount_product_ids );
 		$this->set_coupon_presence( ! empty( $bulk_discount_product_ids ), $cart );
 	}
-
 }

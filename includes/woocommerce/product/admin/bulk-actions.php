@@ -2,6 +2,9 @@
 
 namespace SIW\WooCommerce\Product\Admin;
 
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
+use SIW\Base;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
@@ -9,31 +12,16 @@ use SIW\WooCommerce\Product\WC_Product_Project;
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Bulk_Actions {
+class Bulk_Actions extends Base {
 
 	// Constantes
-	const ACTION_IMPORT_AGAIN = 'import_again';
-	const ACTION_MARK_AS_FEATURED = 'mark_as_featured';
-	const ACTION_HIDE = 'hide';
-	const QUERY_ARG_ACTION = 'siw-action';
-	const QUERY_ARG_COUNT = 'siw-count';
+	private const ACTION_IMPORT_AGAIN = 'import_again';
+	private const ACTION_MARK_AS_FEATURED = 'mark_as_featured';
+	private const ACTION_HIDE = 'hide';
+	private const QUERY_ARG_ACTION = 'siw-action';
+	private const QUERY_ARG_COUNT = 'siw-count';
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_filter( 'bulk_actions-edit-product', [ $self, 'add_bulk_actions' ] );
-		add_filter( 'handle_bulk_actions-edit-product', [ $self, 'handle_bulk_actions' ], 10, 3 );
-		add_action( 'admin_notices', [ $self, 'show_admin_notice' ] );
-		add_filter( 'removable_query_args', [ $self, 'add_removable_query_args' ] );
-	}
-
-	/**
-	 * Voegt bulk acties toe
-	 *
-	 * - Opnieuw importeren
-	 * - Markeren als aanbevolen
-	 * - Verbergen
-	 */
+	#[Add_Filter( 'bulk_actions-edit-product' )]
 	public function add_bulk_actions( array $bulk_actions ): array {
 		$bulk_actions[ self::ACTION_IMPORT_AGAIN ] = __( 'Opnieuw importeren', 'siw' );
 		$bulk_actions[ self::ACTION_MARK_AS_FEATURED ] = __( 'Markeren als aanbevolen', 'siw' );
@@ -41,7 +29,7 @@ class Bulk_Actions {
 		return $bulk_actions;
 	}
 
-	/** Verwerkt bulkacties */
+	#[Add_Filter( 'handle_bulk_actions-edit-product' )]
 	public function handle_bulk_actions( string $redirect_url, string $action, array $post_ids ): string {
 
 		switch ( $action ) {
@@ -49,7 +37,7 @@ class Bulk_Actions {
 				$products = siw_get_products( [ 'include' => $post_ids ] );
 				array_walk(
 					$products,
-					function( WC_Product_Project $product ) {
+					function ( WC_Product_Project $product ) {
 						$data = [
 							'product_id' => $product->get_project_id(),
 						];
@@ -61,7 +49,7 @@ class Bulk_Actions {
 				$products = siw_get_products( [ 'include' => $post_ids ] );
 				array_walk(
 					$products,
-					function( WC_Product_Project $product ) {
+					function ( WC_Product_Project $product ) {
 						$product->set_hidden( true );
 						$product->set_catalog_visibility( 'hidden' );
 						$product->save();
@@ -72,7 +60,7 @@ class Bulk_Actions {
 				$products = siw_get_products( [ 'include' => $post_ids ] );
 				array_walk(
 					$products,
-					function( WC_Product_Project $product ) {
+					function ( WC_Product_Project $product ) {
 						$product->set_featured( true );
 						$product->save();
 					}
@@ -92,7 +80,7 @@ class Bulk_Actions {
 		);
 	}
 
-	/** Toon admin notice */
+	#[Add_Action( 'admin_notices' )]
 	public function show_admin_notice() {
 
 		$action = get_query_arg( self::QUERY_ARG_ACTION );
@@ -124,7 +112,7 @@ class Bulk_Actions {
 		<?php
 	}
 
-	/** Zet verwijderbare query arg */
+	#[Add_Filter( 'removable_query_args' )]
 	public function add_removable_query_args( array $removable_query_args ): array {
 		$removable_query_args[] = self::QUERY_ARG_ACTION;
 		$removable_query_args[] = self::QUERY_ARG_COUNT;

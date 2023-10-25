@@ -2,6 +2,10 @@
 
 namespace SIW\WooCommerce\Admin;
 
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
+use SIW\Base;
+
 /**
  * Aanpassing aan admin t.b.v. aanmeldingen
  *
@@ -9,27 +13,10 @@ namespace SIW\WooCommerce\Admin;
  *
  * @todo      splitsen in Order en Admin_Order + refactor enzo
  */
-class Order {
-
-	/** Init */
-	public static function init() {
-		$self = new self();
-
-		add_action( 'add_meta_boxes', [ $self, 'remove_meta_boxes' ], PHP_INT_MAX );
-
-		add_action( 'woocommerce_admin_order_data_after_order_details', [ $self, 'show_order_meta' ] );
-		add_action( 'woocommerce_admin_order_data_after_billing_address', [ $self, 'show_language_meta' ] );
-		add_filter( 'woocommerce_order_formatted_billing_address', [ $self, 'format_billing_address' ], 10, 2 );
-		add_filter( 'woocommerce_localisation_address_formats', [ $self, 'set_localisation_address_format' ] );
-		add_filter( 'woocommerce_formatted_address_replacements', [ $self, 'set_formatted_address_replacements' ], 10, 2 );
-		add_filter( 'woocommerce_admin_billing_fields', [ $self, 'set_admin_billing_fields' ] );
-		add_action( 'woocommerce_process_shop_order_meta', [ $self, 'process_order_meta' ], 10, 2 );
-
-		add_action( 'admin_init', [ $self, 'manage_admin_columns' ], 20 );
-	}
+class Order extends Base {
 
 	/** Geeft secties met velden terug */
-	protected function get_checkout_sections() : array {
+	protected function get_checkout_sections(): array {
 		$checkout_sections = siw_get_data( 'workcamps/checkout-sections' );
 		return $checkout_sections;
 	}
@@ -54,7 +41,7 @@ class Order {
 		return $checkout_fields;
 	}
 
-	/** Undocumented function */
+	#[Add_Filter( 'woocommerce_admin_billing_fields' )]
 	public function set_admin_billing_fields( array $fields ): array {
 		// TODO:styling
 
@@ -85,13 +72,13 @@ class Order {
 		return $billing_fields;
 	}
 
-	/** Zet het gelokaliseerde adresformaat (van Nederland) */
+	#[Add_Filter( 'woocommerce_localisation_address_formats' )]
 	public function set_localisation_address_format( array $address_formats ): array {
 		$address_formats['default'] = "{name}\n{dob}\n{gender}\n{nationality}";
 		return $address_formats;
 	}
 
-	/** Undocumented function */
+	#[Add_Filter( 'woocommerce_formatted_address_replacements' )]
 	public function set_formatted_address_replacements( array $replace, array $args ): array {
 		$replace['{gender}'] = $args['gender'] ?? '';
 		$replace['{nationality}'] = $args['nationality'] ?? '';
@@ -181,7 +168,7 @@ class Order {
 		}
 	}
 
-	/** Formatteert factuuradres */
+	#[Add_Filter( 'woocommerce_order_formatted_billing_address' )]
 	public function format_billing_address( array $address, \WC_Order $order ): array {
 		$address['dob'] = $order->get_meta( '_billing_dob' );
 		$address['gender'] = siw_get_genders()[ $order->get_meta( '_billing_gender' ) ] ?? '';
@@ -208,7 +195,7 @@ class Order {
 		);
 	}
 
-	/** Toont taalgegevens */
+	#[Add_Action( 'woocommerce_admin_order_data_after_billing_address' )]
 	public function show_language_meta( \WC_Order $order ) {
 		$this->show_section( $order, 'language' );
 	}
@@ -219,13 +206,14 @@ class Order {
 	 * - Info voor partner
 	 * - Noodcontact
 	 */
+	#[Add_Action( 'woocommerce_admin_order_data_after_order_details' )]
 	public function show_order_meta( \WC_Order $order ) {
 		$this->show_terms( $order );
 		$this->show_section( $order, 'info_for_partner', true );
 		$this->show_section( $order, 'emergency_contact' );
 	}
 
-	/** Slaat extra checkout velden op */
+	#[Add_Action( 'woocommerce_process_shop_order_meta' )]
 	public function process_order_meta( int $post_id, \WP_Post $post ) {
 
 		$custom_fields = $this->get_checkout_fields();
@@ -241,7 +229,7 @@ class Order {
 		$order->save();
 	}
 
-	/** Voegt extra admin columns toe */
+	#[Add_Action( 'admin_init', 20 )]
 	public function manage_admin_columns() {
 		if ( ! class_exists( '\MBAC\Post' ) ) {
 			return;
@@ -249,7 +237,7 @@ class Order {
 		new Order_Columns( 'shop_order', [] );
 	}
 
-	/** Verwijdert overbodige meta-boxes */
+	#[Add_Action( 'add_meta_boxes', PHP_INT_MAX )]
 	public function remove_meta_boxes() {
 		remove_meta_box( 'postcustom', 'shop_order', 'normal' );
 		remove_meta_box( 'woocommerce-order-downloads', 'shop_order', 'normal' );

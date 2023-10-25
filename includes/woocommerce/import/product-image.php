@@ -12,14 +12,14 @@ use SIW\Plato\Download_File as Plato_Download_File;
  */
 class Product_Image {
 
-	const PLATO_DOCUMENT_IDENTIFIER_META = 'plato_document_identifier';
-	const PLATO_PROJECT_ID_META = 'plato_project_id';
+	private const PLATO_DOCUMENT_IDENTIFIER_META = 'plato_document_identifier';
+	public const PLATO_PROJECT_ID_META = 'plato_project_id';
 
 	/** Minimale breedte voor afbeeldingen */
-	const MIN_IMAGE_WIDTH = 600;
+	private const MIN_IMAGE_WIDTH = 600;
 
 	/** Minimale hoogte voor afbeeldingen */
-	const MIN_IMAGE_HEIGHT = 600;
+	private const MIN_IMAGE_HEIGHT = 600;
 
 	/** Subdirectory voor projectfoto's */
 	protected string $subdir = 'groepsprojecten/projectfotos';

@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce;
 
-use \Spatie\Enum\Enum;
+use Spatie\Enum\Enum;
 
 /**
  * WooCommerce product attributes

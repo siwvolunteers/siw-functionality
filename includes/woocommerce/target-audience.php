@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce;
 
-use \Spatie\Enum\Enum;
+use Spatie\Enum\Enum;
 
 /**
  * Doelgroepen
@@ -20,7 +20,6 @@ class Target_Audience extends Enum {
 			'FAMILIES'  => 'families',
 			'TEENAGERS' => 'tieners',
 		];
-
 	}
 
 	/** {@inheritDoc} */

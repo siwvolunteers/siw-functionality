@@ -2,33 +2,33 @@
 
 namespace SIW\WooCommerce;
 
+use SIW\Attributes\Add_Filter;
+use SIW\Base;
+
 /**
  * Vertalingen voor WooCommerce
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
-class Translations {
+class Translations extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
+	#[Add_Filter( 'woocommerce_order_button_text' )]
+	public function set_order_button_text(): string {
+		return __( 'Aanmelden', 'siw' );
+	}
 
-		add_filter( 'woocommerce_register_post_type_product', [ $self, 'set_product_labels' ] );
-		add_filter( 'woocommerce_register_post_type_shop_order', [ $self, 'set_shop_order_labels' ] );
-		add_filter( 'woocommerce_taxonomy_args_product_cat', [ $self, 'set_product_category_labels' ] );
+	#[Add_Filter( 'woocommerce_out_of_stock_message' )]
+	public function set_out_of_stock_message(): string {
+		return __( 'Dit project is helaas niet meer beschikbaar', 'siw' );
+	}
 
-		add_filter( 'manage_edit-product_columns', [ $self, 'set_product_column_labels' ] );
-
-		// Generiek filter, zo min mogelijk gebruiken
-		add_filter( 'gettext_woocommerce', [ $self, 'override_translations' ], 10, 3 );
-
-		// Losse teksten
-		add_filter( 'woocommerce_order_button_text', fn(): string => __( 'Aanmelden', 'siw' ) );
-		add_filter( 'woocommerce_out_of_stock_message', fn(): string => __( 'Dit project is helaas niet meer beschikbaar', 'siw' ) );
-		add_filter( 'woocommerce_sale_flash', fn(): string => '<span class="onsale">' . esc_html__( 'Korting', 'siw' ) . '</span>' );
+	#[Add_Filter( 'woocommerce_sale_flash' )]
+	public function set_sale_flash(): string {
+		return '<span class="onsale">' . esc_html__( 'Korting', 'siw' ) . '</span>';
 	}
 
 	/** Zet labels voor producten (projecten) */
+	#[Add_Filter( 'woocommerce_register_post_type_product' )]
 	public function set_product_labels( array $args ): array {
 		$args['labels'] = [
 			'name'                  => __( 'Projecten', 'siw' ),
@@ -54,6 +54,7 @@ class Translations {
 		return $args;
 	}
 
+	#[Add_Filter( 'woocommerce_register_post_type_shop_order' )]
 	/** Zet labels voor orders (aanmeldingen) */
 	public function set_shop_order_labels( array $args ): array {
 		$args['labels'] = [
@@ -75,6 +76,7 @@ class Translations {
 	}
 
 	/** Labels voor product category (continenten) */
+	#[Add_Filter( 'woocommerce_taxonomy_args_product_cat' )]
 	public function set_product_category_labels( array $args ): array {
 		$args['label'] = __( 'Continenten', 'siw' );
 		$args['labels'] = [
@@ -91,6 +93,8 @@ class Translations {
 		return $args;
 	}
 
+
+	#[Add_Filter( 'manage_edit-product_columns' )]
 	/** Labels van admin columns */
 	public function set_product_column_labels( array $columns ): array {
 		$columns['sku'] = __( 'Projectcode', 'siw' );
@@ -99,6 +103,7 @@ class Translations {
 	}
 
 	/** Overschrijf vertalingen via gettext */
+	#[Add_Filter( 'gettext_woocommerce' )]
 	public function override_translations( string $translation, string $text ): string {
 
 		$translation = match ( $text ) {

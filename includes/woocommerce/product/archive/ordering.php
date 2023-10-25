@@ -2,22 +2,18 @@
 
 namespace SIW\WooCommerce\Product\Archive;
 
+use SIW\Attributes\Add_Filter;
+use SIW\Base;
+
 /**
  * Sortering van projecten in frontend
  *
  * @copyright 2022 SIW Internationale Vrijwilligersprojecten
  */
-class Ordering {
+class Ordering extends Base {
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_filter( 'woocommerce_default_catalog_orderby_options', [ $self, 'add_catalog_orderby_options' ] );
-		add_filter( 'woocommerce_catalog_orderby', [ $self, 'add_catalog_orderby_options' ] );
-		add_filter( 'woocommerce_get_catalog_ordering_args', [ $self, 'process_catalog_ordering_args' ], 10, 3 );
-	}
-
-	/** Voegt extra sorteeroptie (startdatum) toe voor archive */
+	#[Add_Filter( 'woocommerce_default_catalog_orderby_options' )]
+	#[Add_Filter( 'woocommerce_catalog_orderby' )]
 	public function add_catalog_orderby_options( array $options ): array {
 		unset( $options['menu_order'] );
 		unset( $options['popularity'] );
@@ -29,7 +25,7 @@ class Ordering {
 		return $options;
 	}
 
-	/** Verwerkt extra sorteeroptie voor archive */
+	#[Add_Filter( 'woocommerce_get_catalog_ordering_args' )]
 	public function process_catalog_ordering_args( array $args, string $orderby, string $order ): array {
 		if ( 'startdate' === $orderby ) {
 			$args['orderby']  = 'meta_value';
@@ -37,5 +33,4 @@ class Ordering {
 		}
 		return $args;
 	}
-
 }
