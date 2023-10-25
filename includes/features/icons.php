@@ -3,7 +3,6 @@
 namespace SIW\Features;
 
 use SIW\Assets\SIW_SVG;
-use SIW\Attributes\Action;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Traits\Assets_Handle;

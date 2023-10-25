@@ -30,8 +30,6 @@ abstract class Base {
 		$methods = $this->reflection_class->getMethods( \ReflectionMethod::IS_PUBLIC );
 		foreach ( $methods as $method ) {
 			$hook_attributes = array_merge(
-				$method->getAttributes( \SIW\Attributes\Action::class ),
-				$method->getAttributes( \SIW\Attributes\Filter::class ),
 				$method->getAttributes( \SIW\Attributes\Add_Action::class ),
 				$method->getAttributes( \SIW\Attributes\Add_Filter::class )
 			);
@@ -46,7 +44,6 @@ abstract class Base {
 		$constants = $this->reflection_class->getReflectionConstants();
 		foreach ( $constants as $constant ) {
 			$filter_attributes = array_merge(
-				$constant->getAttributes( \SIW\Attributes\Filter::class ),
 				$constant->getAttributes( \SIW\Attributes\Add_Filter::class )
 			);
 			foreach ( $filter_attributes as $attribute ) {

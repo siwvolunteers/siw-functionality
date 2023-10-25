@@ -3,7 +3,6 @@
 namespace SIW\Compatibility;
 
 use SIW\Attributes\Add_Filter;
-use SIW\Attributes\Filter;
 use SIW\Base;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
