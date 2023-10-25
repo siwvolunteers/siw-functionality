@@ -24,9 +24,6 @@ abstract class Type {
 	/** Dashicon voor post type */
 	protected string $menu_icon;
 
-	/** Is dit een public post type */
-	protected bool $public = true;
-
 	/** Taxonomieën */
 	protected array $taxonomies;
 
@@ -95,7 +92,6 @@ abstract class Type {
 		new Post_Type(
 			$self->post_type,
 			[
-				'public'    => $self->public,
 				'menu_icon' => $self->menu_icon,
 			],
 			$self->get_labels(),
@@ -119,8 +115,6 @@ abstract class Type {
 		// Standaard volgorde in Admin scherm
 		add_action( 'pre_get_posts', [ $self, 'set_default_orderby' ] );
 
-		// Instellingen voor publieke post types
-		if ( $self->public ) {
 			// Single post
 			add_action( "siw_{$self->post_type}_content", [ $self, 'add_single_content' ] );
 			add_action( 'wp_enqueue_scripts', [ $self, 'set_single_width' ], 50 );
@@ -155,31 +149,27 @@ abstract class Type {
 			add_action( "siw_{$self->post_type}_archive_intro", [ $self, 'set_archive_intro' ] );
 			add_action( "siw_{$self->post_type}_archive_content", [ $self, 'add_archive_content' ] );
 
-			if ( ! empty( $self->active_posts_meta_query ) ) {
-				add_action( 'admin_menu', [ $self, 'add_admin_active_post_count' ], PHP_INT_MAX );
-			}
-
-			// Carousel
-			if ( $self->has_carousel_support ) {
-				add_post_type_support( "siw_{$self->post_type}", Carousel::POST_TYPE_FEATURE );
-			}
-
-			// SEO TODO: titles enzo
-			add_filter( 'the_seo_framework_post_meta', [ $self, 'set_seo_noindex' ], 10, 2 );
-
-			// TODO:Help tabs
-
-			// genereren slug en titel
-			add_filter( 'wp_insert_post_data', [ $self, 'set_post_data' ], 10, 2 );
-
-			add_filter( 'siw_cpt_upload_subdirs', [ $self, 'set_upload_subir' ] );
-
-			add_action( "save_post_siw_{$self->post_type}", [ $self, 'after_save_post' ], PHP_INT_MAX, 3 );
+		if ( ! empty( $self->active_posts_meta_query ) ) {
+			add_action( 'admin_menu', [ $self, 'add_admin_active_post_count' ], PHP_INT_MAX );
 		}
-	}
 
-	/** Undocumented function */
-	protected function initialize() {}
+		// Carousel
+		if ( $self->has_carousel_support ) {
+			add_post_type_support( "siw_{$self->post_type}", Carousel::POST_TYPE_FEATURE );
+		}
+
+		// SEO TODO: titles enzo
+		add_filter( 'the_seo_framework_post_meta', [ $self, 'set_seo_noindex' ], 10, 2 );
+
+		// TODO:Help tabs
+
+		// genereren slug en titel
+		add_filter( 'wp_insert_post_data', [ $self, 'set_post_data' ], 10, 2 );
+
+		add_filter( 'siw_cpt_upload_subdirs', [ $self, 'set_upload_subir' ] );
+
+		add_action( "save_post_siw_{$self->post_type}", [ $self, 'after_save_post' ], PHP_INT_MAX, 3 );
+	}
 
 	/** Haalt metabox velden op */
 	abstract public function get_meta_box_fields(): array;
