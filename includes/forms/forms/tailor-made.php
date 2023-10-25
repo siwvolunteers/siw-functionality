@@ -42,13 +42,9 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 				'name' => __( 'Achternaam', 'siw' ),
 			],
 			[
-				'id'          => 'date_of_birth',
-				'type'        => 'text',
-				'name'        => __( 'Geboortedatum', 'siw' ),
-				'placeholder' => __( 'dd-mm-jjjj', 'siw' ),
-				'attributes'  => [
-					'data-rule-dateNL' => true,
-				],
+				'id'   => 'date_of_birth',
+				'type' => 'date',
+				'name' => __( 'Geboortedatum', 'siw' ),
 			],
 			[
 				'id'   => 'city',
@@ -74,9 +70,9 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 			],
 			[
 				'id'      => 'destination',
-				'type'    => 'checkbox_list',
+				'type'    => 'radio',
 				'name'    => __( 'In welke regio zou je graag vrijwilligerswerk willen doen?', 'siw' ),
-				'options' => \siw_get_continents_list(),
+				'options' => $this->get_destination_options(),
 			],
 			[
 				'id'      => 'duration',
@@ -94,6 +90,13 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 			'3-6'  => __( '4-6 maanden', 'siw' ),
 			'7-12' => __( '7-12 maanden', 'siw' ),
 		];
+	}
+
+	protected function get_destination_options(): array {
+		$destinations = siw_get_continents_list();
+		unset( $destinations['noord-amerika'] );
+		unset( $destinations['europa'] );
+		return $destinations;
 	}
 
 	/** {@inheritDoc} */

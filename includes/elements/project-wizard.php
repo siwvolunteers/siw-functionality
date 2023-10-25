@@ -74,7 +74,6 @@ class Project_Wizard extends Element {
 						'europe'        => __( 'Europa (inclusief Aruba en Curaçao)', 'siw' ),
 						'asia'          => __( 'Azië', 'siw' ),
 						'africa'        => __( 'Afrika', 'siw' ),
-						'north_america' => __( 'Noord-Amerika', 'siw' ),
 						'latin_america' => __( 'Latijns-Amerika', 'siw' ),
 					],
 					'visible' => [
