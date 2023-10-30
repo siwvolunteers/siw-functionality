@@ -7,6 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
 {
     public static $files = array (
+        'ac773ca18bc86f9208de2ed8068423eb' => __DIR__ . '/..' . '/johnbillion/extended-cpts/functions.php',
         'ba75162b0a7adabdce2c95bb9e844752' => __DIR__ . '/..' . '/pharaonic/php-dot-array/src/helper.php',
     );
 
@@ -23,6 +24,15 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         'P' => 
         array (
             'Pharaonic\\DotArray\\' => 19,
+        ),
+        'E' => 
+        array (
+            'ExtCPTs\\Tests\\' => 14,
+            'ExtCPTs\\' => 8,
+        ),
+        'A' => 
+        array (
+            'Args\\' => 5,
         ),
     );
 
@@ -42,6 +52,18 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         'Pharaonic\\DotArray\\' => 
         array (
             0 => __DIR__ . '/..' . '/pharaonic/php-dot-array/src',
+        ),
+        'ExtCPTs\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/johnbillion/extended-cpts/tests/integration',
+        ),
+        'ExtCPTs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/johnbillion/extended-cpts/src',
+        ),
+        'Args\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/johnbillion/args/src',
         ),
     );
 
