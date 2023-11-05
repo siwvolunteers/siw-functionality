@@ -26,7 +26,7 @@ class Icons extends Base {
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	/** Voegt SVG-script toe */
 	public function enqueue_script() {
-		wp_enqueue_script( SIW_SVG::ASSETS_HANDLE );
+		wp_enqueue_script( SIW_SVG::get_assets_handle() );
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
