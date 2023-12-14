@@ -1,17 +1,8 @@
 //Archive
 
-.archive {
-	article.siw_job_posting,
-	article.siw_event,
-	article.siw_story,
-	article.siw_tm_country {
-		padding: 10px;
-		.inside-article {
-			border: 1px solid #ddd;
-			padding: 0;
-			text-align: center;
-		}
-	}
+.archive article .inside-article {
+	border: 1px solid #ddd;
+	text-align: center;
 }
 
 //Agenda
