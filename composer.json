@@ -16,7 +16,8 @@
 		"pharaonic/php-dot-array": "1.*",
 		"woocommerce/action-scheduler": "3.*",
 		"mustache/mustache": "2.*",
-		"luizbills/css-generator": "4.*"
+		"luizbills/css-generator": "4.*",
+		"johnbillion/extended-cpts": "^5.0"
 	},
 	"autoload": {
 		"files": [
