@@ -67,5 +67,8 @@ function siw_hash( string $data ): string {
 }
 
 function siw_get_enum_array( array $enum_cases ): array {
-	return array_map( fn( Labels $e ) => $e->label(), $enum_cases );
+	return array_map(
+		fn( Labels $e ) => $e->label(),
+		array_column( $enum_cases, null, 'value' )
+	);
 }
