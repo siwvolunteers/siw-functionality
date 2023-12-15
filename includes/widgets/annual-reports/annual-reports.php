@@ -2,6 +2,8 @@
 
 namespace SIW\Widgets;
 
+use SIW\Elements\List_Columns;
+use SIW\Elements\List_Style_Type;
 use SIW\Properties;
 
 /**
@@ -34,7 +36,7 @@ class Annual_Reports extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_template_id(): string {
-		return $this->get_id();
+		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
 	/** {@inheritDoc} */
@@ -78,11 +80,12 @@ class Annual_Reports extends Widget {
 		krsort( $annual_reports );
 
 		$annual_reports = array_map(
-			fn( array $report ): array => [
-				'url'  => wp_get_attachment_url( $report['file'][0] ),
+			fn( array $report ): string => sprintf(
+				'<a href="%s" target="_blank" rel="noopener">%s</a>',
+				wp_get_attachment_url( $report['file'][0] ),
 				// translators: %s is een jaartal
-				'text' => sprintf( __( 'Jaarverslag %s', 'siw' ), $report['year'] ),
-			],
+				sprintf( __( 'Jaarverslag %s', 'siw' ), $report['year'] )
+			),
 			$annual_reports
 		);
 
@@ -93,8 +96,10 @@ class Annual_Reports extends Widget {
 		}
 
 		return [
-			'intro'          => $instance['intro'],
-			'annual_reports' => array_values( $annual_reports ),
+			'content' => List_Columns::create()
+				->add_items( $annual_reports )
+				->set_list_style_type( List_Style_Type::DISC )
+				->generate(),
 		];
 	}
 }
