@@ -24,7 +24,6 @@ class Loader extends Class_Loader_Abstract {
 			SiteOrigin_Page_Builder::class,
 			SiteOrigin_Widgets_Bundle::class,
 			The_SEO_Framework::class,
-			UpdraftPlus::class,
 			WooCommerce::class,
 			WordPress::class,
 			WP_Rocket::class,
