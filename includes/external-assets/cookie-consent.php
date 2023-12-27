@@ -18,7 +18,7 @@ class Cookie_Consent extends NPM_Asset {
 
 	/** {@inheritDoc} */
 	protected static function get_version_number(): ?string {
-		return '2.9.1';
+		return '2.9.2';
 	}
 
 	/** {@inheritDoc} */
@@ -33,7 +33,7 @@ class Cookie_Consent extends NPM_Asset {
 
 	/** {@inheritDoc} */
 	protected static function get_script_sri(): ?string {
-		return 'sha256-H+Z1mZeulbIwdqtQq6Vgn6y6yr33+pzXlDd13s3dLh4=';
+		return 'sha256-heJUSWR0ojrfDjAAp4CiIxsBDpY1HYO7vZNYxQQ0llw=';
 	}
 
 	/** {@inheritDoc} */
