@@ -5,8 +5,6 @@ namespace SIW\Widgets;
 use SIW\Content\Post\Event;
 use SIW\Content\Posts\Events;
 use SIW\Elements\Calendar_Icon;
-use SIW\Elements\List_Columns;
-use SIW\Elements\List_Style_Type;
 use SIW\Helpers\Template;
 
 /**
@@ -95,18 +93,16 @@ class Calendar extends Widget {
 			$events = Events::get_future_events( [ 'number' => (int) $instance['number'] ] );
 		}
 
-		$event_list = null;
-
-		if ( ! empty( $events ) ) {
-			$event_list = List_Columns::create()
-				->add_items( array_map( [ $this, 'parse_event' ], $events ) )
-				->set_columns( (int) $instance['columns'] )
-				->set_list_style_type( List_Style_Type::NONE )
-				->generate();
-		}
-
+		$event_list = array_map(
+			fn( Event $event ): array => [
+				'event'    => $event,
+				'calendar' => Calendar_Icon::create()->set_datetime( $event->get_event_date() )->generate(),
+			],
+			$events
+		);
 		return [
 			'event_list'  => $event_list,
+			'has_events'  => ! empty( $events ),
 			'archive_url' => get_post_type_archive_link( 'siw_event' ),
 		];
 	}

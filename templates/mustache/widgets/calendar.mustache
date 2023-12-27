@@ -1,34 +1,32 @@
 {{> widgets/title}}
 {{> widgets/intro}}
-{{# active_events}}
-	<div class="grid-container grid-parent">
-		{{# events }}
-			<div class="event {{responsive_classes}} grid-parent">
-				<div class="event-left">
-					<div class="calendar">
-						<div class="month">
-							{{ month }}
-						</div>
-						{{ day }}
-					</div>
-				</div>
-				<div class="event-right">
-					<h3 class="title">
-						<a href="{{ url }}" class="link">{{ title }}</a>
-					</h3>
-					<span class="duration">{{ duration }}</span><br/>
-					<span class="location">{{ location }}</span>
-				</div>
+{{# has_events }}
+<div class="flex-container flex-columns">
+	{{# event_list}}
+	<div class="flex-item event">
+		<div class="flex-container">
+			<div class="flex-item">
+				{{& calendar }}
 			</div>
-		{{/ events }}
+			<div class="flex-item-2">
+				<h3 class="title">
+					<a href="{{ event.get_permalink }}" class="link">{{ event.get_title }}</a>
+				</h3>
+				<span class="duration">{{ event.get_start_time }} - {{ event.get_end_time }}</span><br/>
+				<span class="location">
+					{{# event.is_online }}{{#__}} Online {{/__ }} {{/ event.is_online }}
+					{{^ event.is_online }} {{event.get_location.name }}, {{ event.get_location.city }} {{/ event.is_online }}
 
+				{{ location }} </span>
+			</div>
+		</div>
 	</div>
-	<p>
-		<a href="{{ agenda_url }}" class="page-link">{{ agenda_text }}</a>
-	</p>
-{{/ active_events}}
-
-{{! tekst als er geen actieve evenement meer zijn}}
-{{^ active_events}}
-	<p>{{ no_events_text }}</p>
-{{/ active_events}}
+	{{/ event_list}}
+</div>
+<p>
+	<a href="{{ archive.url }}" class="page-link">{{#__}}Bekijk de volledige agenda.{{/__}}</a>
+</p>
+{{/ has_events}}
+{{^ has_events}}
+	<p>{{#__}}Er zijn momenteel geen geplande evenementen.{{/__}}</p>
+{{/ has_events}}
