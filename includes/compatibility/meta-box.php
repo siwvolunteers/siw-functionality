@@ -17,6 +17,9 @@ class Meta_Box extends Base implements I_Plugin {
 	#[Add_Filter( 'mb_aio_show_settings' )]
 	private const SHOW_SETTINGS = false;
 
+	#[Add_Filter( 'rwmb_excerpt_value' )]
+	private const EXCERPT_VALUE = '__return_empty_string';
+
 	/** {@inheritDoc} */
 	public static function get_plugin_basename(): string {
 		return 'meta-box-aio/meta-box-aio.php';
@@ -117,5 +120,11 @@ class Meta_Box extends Base implements I_Plugin {
 			$value = do_shortcode( $value );
 		}
 		return $value;
+	}
+
+	#[Add_Filter( 'rwmb_excerpt_field_meta' )]
+	public function get_excerpt(): string {
+		$post_id = filter_input( INPUT_GET, 'post', FILTER_SANITIZE_NUMBER_INT );
+		return get_post_field( 'post_excerpt', $post_id );
 	}
 }

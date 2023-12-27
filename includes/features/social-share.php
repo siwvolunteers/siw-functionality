@@ -4,6 +4,7 @@ namespace SIW\Features;
 
 use SIW\Attributes\Add_Action;
 use SIW\Base;
+use SIW\Data\Post_Type_Support;
 use SIW\Data\Social_Network_Context;
 use SIW\Elements\Social_Links;
 use SIW\Helpers\Template;
@@ -17,11 +18,6 @@ use SIW\Traits\Assets_Handle;
 class Social_Share extends Base {
 
 	use Assets_Handle;
-
-	public const POST_TYPE_FEATURE = 'siw-social-share';
-
-	/** Post type van huidige post */
-	protected string $post_type;
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	/** Voegt stylesheet toe */
@@ -43,7 +39,7 @@ class Social_Share extends Base {
 			->set_template( 'features/social-share' )
 			->set_context(
 				[
-					'header'       => $this->get_title(),
+					'header'       => __( 'Delen', 'siw' ),
 					'social_links' => Social_Links::create()
 						->set_context( Social_Network_Context::SHARE )
 						->generate(),
@@ -52,15 +48,8 @@ class Social_Share extends Base {
 			->render_template();
 	}
 
-	/** Genereert de titel */
-	protected function get_title() {
-		$supports = get_all_post_type_supports( $this->post_type );
-		return $supports[ self::POST_TYPE_FEATURE ][0]['cta'] ?? __( 'Deel deze pagina', 'siw' );
-	}
-
 	/** Geeft aan of dit een ondersteunde post type is */
 	protected function is_supported_post_type(): bool {
-		$this->post_type = get_post_type();
-		return post_type_supports( $this->post_type, self::POST_TYPE_FEATURE );
+		return post_type_supports( get_post_type(), Post_Type_Support::SOCIAL_SHARE->value );
 	}
 }

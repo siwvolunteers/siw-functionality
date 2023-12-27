@@ -208,6 +208,30 @@ button.button.alt {
   flex: 1 1 0;
 }
 
+.flex-item-1 {
+  flex: 1 1 0;
+}
+
+.flex-item-2 {
+  flex: 2 1 0;
+}
+
+.flex-item-3 {
+  flex: 3 1 0;
+}
+
+.flex-item-4 {
+  flex: 4 1 0;
+}
+
+.flex-item-5 {
+  flex: 5 1 0;
+}
+
+.flex-item-6 {
+  flex: 6 1 0;
+}
+
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -257,29 +281,20 @@ button.button.alt {
   text-align: center;
 }
 
-.siw_event {
-  margin-bottom: 15px;
+.siw_event .siw-calendar-icon {
+  position: absolute;
+  font-size: 1.5em;
+  margin-left: 5px;
+  margin-top: 5px;
 }
-.siw_event .event-date {
-  color: var(--siw-contrast-light);
-  line-height: 2em;
+.siw_event .event-info {
+  font-size: 1.3em;
+  font-style: italic;
 }
-.siw_event .event-date .day {
-  font-size: 4em;
-  font-weight: bold;
-}
-.siw_event .event-date .month {
-  font-size: 2em;
-  font-weight: bold;
-}
-.siw_event .event-date .time {
-  font-size: 1em;
-  font-weight: bold;
-}
-.siw_event .event-location {
-  color: var(--siw-contrast-light);
-  font-size: 1.2em;
-  font-weight: bold;
+
+.siw_job_posting .job-info {
+  font-size: 1.3em;
+  font-style: italic;
 }
 
 /*--------------------------------------------------------------

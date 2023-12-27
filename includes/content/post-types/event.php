@@ -1,56 +1,106 @@
 <?php declare(strict_types=1);
-namespace SIW\Content\Types;
+namespace SIW\Content\Post_Types;
 
-use SIW\Content\Type;
+use SIW\Attributes\Add_Action;
+use SIW\Content\Post\Event as Event_Post;
+use SIW\Content\Post_Types\Post_Type;
+use SIW\Data\Post_Type_Support;
+use SIW\Elements\Calendar_Icon;
 use SIW\Elements\Icon;
-use SIW\Util\Links;
 use SIW\Elements\Form;
 use SIW\Elements\Leaflet_Map;
 use SIW\Forms\Forms\Info_Day;
 use SIW\Helpers\Template;
 use SIW\Integrations\Mailjet;
+use SIW\Properties;
+use SIW\Structured_Data\Event as Event_Structured_Data;
+use SIW\Structured_Data\Event_Attendance_Mode;
+use SIW\Structured_Data\Event_Status_Type;
+use SIW\Structured_Data\NL_Non_Profit_Type;
+use SIW\Structured_Data\Organization;
+use SIW\Structured_Data\Place;
+use SIW\Structured_Data\Postal_Address;
+use SIW\Structured_Data\Thing;
+use SIW\Structured_Data\Virtual_Location;
 
 /**
  * Evenementen
  *
  * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  */
-class Event extends Type {
+class Event extends Post_Type {
 
 	/** {@inheritDoc} */
-	protected string $post_type = 'event';
+	protected static function get_dashicon(): string {
+		return 'calendar-alt';
+	}
 
 	/** {@inheritDoc} */
-	protected string $menu_icon = 'dashicons-calendar-alt';
+	protected static function get_slug(): string {
+		return 'evenementen';
+	}
 
 	/** {@inheritDoc} */
-	protected string $slug = 'evenementen';
+	protected static function get_singular_label(): string {
+		return __( 'Evenement', 'siw' );
+	}
 
 	/** {@inheritDoc} */
-	protected string $single_width = 'mobile';
+	protected static function get_plural_label(): string {
+		return __( 'Evenementen', 'siw' );
+	}
 
 	/** {@inheritDoc} */
-	protected string $orderby = 'meta_value';
+	protected static function get_post_type_supports(): array {
+		return [
+			Post_Type_Support::TITLE,
+			Post_Type_Support::SOCIAL_SHARE,
+		];
+	}
 
 	/** {@inheritDoc} */
-	protected string $orderby_meta_key = 'event_date';
+	protected static function get_admin_columns(): array {
+		return [];
+	}
 
 	/** {@inheritDoc} */
-	protected string $archive_order = 'ASC';
+	protected static function get_site_sortables(): array {
+		return [
+			'deadline' => [
+				'meta_key' => 'event_date',
+				'default'  => 'ASC',
+			],
+		];
+	}
 
 	/** {@inheritDoc} */
-	public function get_meta_box_fields(): array {
+	protected function get_custom_post( \WP_Post|int $post ): Event_Post {
+		return new Event_Post( $post );
+	}
+
+	/** {@inheritDoc} */
+	public static function get_meta_box_fields(): array {
 		$meta_box_fields = [
 			[
 				'type' => 'heading',
 				'name' => __( 'Gegevens', 'siw' ),
 			],
 			[
-				'id'                => 'abstract',
+				'id'                => 'excerpt',
 				'name'              => __( 'Korte samenvatting', 'siw' ),
 				'label_description' => __( 'Wordt getoond op overzichtspagina', 'siw' ),
 				'type'              => 'textarea',
 				'required'          => true,
+			],
+			[
+				'id'               => 'image',
+				'name'             => __( 'Afbeelding', 'siw' ),
+				'type'             => 'image_advanced',
+				'required'         => false,
+				'force_delete'     => false,
+				'max_file_uploads' => 1,
+				'max_status'       => false,
+				'image_size'       => 'thumbnail',
 			],
 			[
 				'id'       => 'description',
@@ -241,32 +291,7 @@ class Event extends Type {
 	}
 
 	/** {@inheritDoc} */
-	protected function get_labels(): array {
-		$labels = [
-			'name'          => __( 'Evenementen', 'siw' ),
-			'singular_name' => __( 'Evenement', 'siw' ),
-			'add_new'       => __( 'Nieuw evenement', 'siw' ),
-			'add_new_item'  => __( 'Nieuw evenement toevoegen', 'siw' ),
-			'edit_item'     => __( 'Evenement bewerken', 'siw' ),
-			'all_items'     => __( 'Alle evenementen', 'siw' ),
-			'search_items'  => __( 'Evenementen zoeken', 'siw' ),
-			'not_found'     => __( 'Geen evenementen gevonden', 'siw' ),
-		];
-		return $labels;
-	}
-
-	/** {@inheritDoc} */
-	protected function get_social_share_cta(): string {
-		return __( 'Deel dit evenement', 'siw' );
-	}
-
-	/** {@inheritDoc} */
-	protected function get_seo_noindex( int $post_id ): bool {
-		return siw_meta( 'event_date', [], $post_id ) < gmdate( 'Y-m-d' );
-	}
-
-	/** {@inheritDoc} */
-	public function get_active_posts_meta_query(): array {
+	protected static function get_active_posts_meta_query(): array {
 		return [
 			'key'     => 'event_date',
 			'value'   => gmdate( 'Y-m-d' ),
@@ -279,108 +304,48 @@ class Event extends Type {
 		return sprintf( '%s %s', $data['post_title'], siw_format_date( $postarr['event_date'] ) );
 	}
 
-	/** * {@inheritDoc} */
-	public function add_single_content() {
+	public function get_template_variables( string $type, int $post_id ): array {
+		$post = new Event_Post( $post_id );
 
-		$infoform = '';
-		$application_explanation = '';
-		$application_link = '';
-
-		if ( siw_meta( 'info_day' ) ) {
-			// bij een informatie bijeenkomst een invulformulier tonen
-			$infoform = Form::create()->set_form_id( Info_Day::FORM_ID )->set_field_value( 'info_day_date', get_the_ID() )->generate();
-		} else {
-			// anders  tonen hoe je kunt aanmelden.
-			$application = siw_meta( 'application' );
-			$application_explanation = wp_kses_post( $application['explanation'] );
-			if ( $application['has_link'] ) {
-				$application_link = Links::generate_external_link( $application['url'] );
-			}
-		}
-
-		$template_vars = $this->get_template_vars();
-		$template_vars += [
-			'infoform'                => $infoform,
-			'application_explanation' => $application_explanation,
-			'application_link'        => $application_link,
-		];
-
-		// locatie op kaart toevoegen
-		if ( ! siw_meta( 'online' ) ) {
-			$location = siw_meta( 'location' );
-			$location_map = Leaflet_Map::create()
-			->add_location_marker(
-				sprintf( '%s, %s %s %s', $location['street'], $location['house_number'], $location['postcode'], $location['city'] ),
-				$location['name'],
-				sprintf( '%s, %s %s %s', $location['street'], $location['house_number'], $location['postcode'], $location['city'] )
-			)
-			->set_zoom( 15 );
-			$template_vars['location']['map'] = $location_map->generate();
-		}
-
-		Template::create()->set_template( 'types/event_single' )->set_context( $template_vars )->render_template();
-	}
-
-	/*** {@inheritDoc}*/
-	public function add_archive_content() {
-		$template_vars = $this->get_template_vars();
-		Template::create()->set_template( 'types/event_archive' )->set_context( $template_vars )->render_template();
-	}
-
-	/**
-	 * TemplateVars
-	 * Maakt een array van variabelen voor de mustache template
-	 */
-	public function get_template_vars(): array {
-
-		$template_vars = [
-			'link'        => Links::generate_button_link( get_permalink(), __( 'Lees meer', 'siw' ) ),
-			'abstract'    => siw_meta( 'abstract' ),
-			'icons'       => [
+		$template_variables = [
+			'event' => $post,
+			'icons' => [
 				'location' => Icon::create()->set_icon_class( 'location' )->generate(),
 				'online'   => Icon::create()->set_icon_class( 'admin-site-alt3' )->generate(),
 				'clock'    => Icon::create()->set_icon_class( 'clock' )->generate(),
-			],
-			'event_day'   => wp_date( 'd', strtotime( siw_meta( 'event_date' ) ) ),
-			'event_month' => wp_date( 'F', strtotime( siw_meta( 'event_date' ) ) ),
-			'start_time'  => siw_meta( 'start_time' ),
-			'end_time'    => siw_meta( 'end_time' ),
-			'event_date'  => siw_format_date( siw_meta( 'event_date' ), false ),
-			'description' => siw_meta( 'description' ),
-			'infodag'     => siw_meta( 'info_day' ),
-			'verlopen'    => siw_meta( 'event_date' ) < gmdate( 'Y-m-d' ),
-			'online'      => siw_meta( 'online' ),
-			'i18n'        => [
-				'online' => __( 'Online', 'siw' ),
+				'calendar' => Icon::create()->set_icon_class( 'calendar' )->generate(),
 			],
 		];
-		if ( ! siw_meta( 'online' ) ) {
-			$location = siw_meta( 'location' );
-			$template_vars ['location'] = [
-				'name'         => $location['name'],
-				'street'       => $location['street'],
-				'house_number' => $location['house_number'],
-				'postcode'     => $location['postcode'],
-				'city'         => $location['city'],
-			];
+
+		if ( 'single' === $type ) {
+			if ( $post->is_info_day() ) {
+				$template_variables['application_form_info_day'] = Form::create()
+					->set_form_id( Info_Day::FORM_ID )
+					->set_field_value( 'info_day_date', $post->get_id() )
+					->generate();
+			}
+			if ( ! $post->is_online() ) {
+				$location = sprintf(
+					'%s %s, %s %s',
+					$post->get_location()['street'],
+					$post->get_location()['house_number'],
+					$post->get_location()['postcode'],
+					$post->get_location()['city']
+				);
+				$location_map = Leaflet_Map::create()
+				->add_location_marker(
+					$location,
+					$post->get_location()['name'],
+					$location
+				)
+				->set_zoom( 15 );
+				$template_variables['map'] = $location_map->generate();
+			}
 		}
-		// Organisator
-		if ( siw_meta( 'different_organizer' ) ) {
-			$template_vars['organizer'] = [
-				'name' => siw_meta( 'organizer.name' ),
-				'link' => Links::generate_external_link( siw_meta( 'organizer.url' ) ),
-			];
-		}
-		return $template_vars;
+		return $template_variables;
 	}
 
-	/** {@inheritDoc} */
-	protected function get_archive_intro(): array {
-		$intro = siw_get_option( 'event.archive_intro' );
-		return [ $intro ];
-	}
-
-	/** {@inheritDoc} */
+	#[Add_Action( 'save_post_siw_event', PHP_INT_MAX )]
 	public function after_save_post( int $post_id, \WP_Post $post, bool $update ) {
 		if ( siw_meta( 'info_day', [], $post_id ) && empty( siw_meta( 'mailjet_list_id', [], $post_id ) ) ) {
 
@@ -392,5 +357,76 @@ class Event extends Type {
 				siw_set_meta( $post_id, 'mailjet_list_id', $list_id );
 			}
 		}
+	}
+
+	/** {@inheritDoc} */
+	protected function get_structured_data( int $post_id ): ?Thing {
+		$post = new Event_Post( $post_id );
+		$structured_data = Event_Structured_Data::create()
+			->set_name( $post->get_title() )
+			->set_description( $post->get_excerpt() )
+			->set_start_date( $post->get_start_datetime() )
+			->set_end_date( $post->get_end_datetime() )
+			->set_url( $post->get_permalink() );
+
+		// Locatie toevoegen
+		if ( $post->is_online() ) {
+			$structured_data->set_event_attendance_mode( Event_Attendance_Mode::OnlineEventAttendanceMode() );
+			$location = Virtual_Location::create()->set_url( $post->get_permalink() ); // TODO: of externe aanmeldlink
+		} else {
+			$structured_data->set_event_attendance_mode( Event_Attendance_Mode::OfflineEventAttendanceMode() );
+			$location = Place::create()
+				->set_name( $post->get_location()['name'] )
+				->set_address(
+					Postal_Address::create()
+						->set_street_address( $post->get_location()['street'] . ' ' . $post->get_location()['house_number'] )
+						->set_address_locality( $post->get_location()['city'] )
+						->set_postal_code( $post->get_location()['postcode'] )
+						->set_address_country( 'NL' )
+				);
+		}
+		$structured_data->set_location( $location );
+
+		// Organizer toevoegen
+		$organizer = Organization::create();
+		if ( $post->has_different_organizer() ) {
+			$organizer
+			->set_name( $post->get_organizer()['name'] )
+			->set_url( $post->get_organizer()['url'] );
+		} else {
+			$organizer
+				->set_name( Properties::NAME )
+				->set_url( SIW_SITE_URL )
+				->set_same_as( SIW_SITE_URL )
+				->set_logo( get_site_icon_url() )
+				->set_non_profit_status( NL_Non_Profit_Type::NonprofitANBI() );
+		}
+		$structured_data->set_organizer( $organizer );
+
+		// Event status TODO:: meerdere statussen o.b.v. meta event_status
+		$structured_data->set_event_status( Event_Status_Type::EventScheduled() );
+
+		return $structured_data;
+	}
+
+	#[Add_Action( 'generate_after_entry_header' )]
+	public function set_event_info(): void {
+		if ( ! $this->is_archive_query() ) {
+			return;
+		}
+
+		Template::create()
+			->set_template( "types/{$this::get_post_type_base()}/archive" )
+			->set_context( $this->get_template_variables( 'archive', get_the_ID() ) )
+			->render_template();
+	}
+
+	#[Add_Action( 'generate_before_content' )]
+	public function show_event_date(): void {
+		if ( ! $this->is_archive_query() ) {
+			return;
+		}
+		$event = $this->get_custom_post( get_the_ID() );
+		Calendar_Icon::create()->set_datetime( $event->get_event_date() )->render();
 	}
 }

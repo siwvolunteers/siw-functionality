@@ -1,34 +1,25 @@
 //Archive
-
 .archive article .inside-article {
 	border: 1px solid #ddd;
 	text-align: center;
 }
 
-//Agenda
-.siw_event{
-	margin-bottom: 15px;
-	.event-date{
-		color: var(--siw-contrast-light);
-		line-height: 2em;
-		.day{
-			font-size: 4em;
-			font-weight: bold;
-		}
-		.month{
-			font-size: 2em;
-			font-weight: bold;
-
-		}
-		.time{
-			font-size: 1em;
-			font-weight: bold;
-		}
+.siw_event {
+	.siw-calendar-icon {
+		position: absolute;
+		font-size: 1.5em;
+		margin-left: 5px;
+		margin-top: 5px;
 	}
-	.event-location{
-		color: var(--siw-contrast-light);
-		font-size: 1.2em;
-		font-weight: bold;
+	.event-info {
+		font-size: 1.3em;
+		font-style: italic;
 	}
+}
 
+.siw_job_posting {
+	.job-info {
+		font-size: 1.3em;
+		font-style: italic;
+	}
 }

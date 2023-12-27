@@ -2,7 +2,12 @@
 
 namespace SIW\Widgets;
 
-use SIW\Util\CSS;
+use SIW\Content\Post\Event;
+use SIW\Content\Posts\Events;
+use SIW\Elements\Calendar_Icon;
+use SIW\Elements\List_Columns;
+use SIW\Elements\List_Style_Type;
+use SIW\Helpers\Template;
 
 /**
  * Widget met agenda
@@ -85,21 +90,25 @@ class Calendar extends Widget {
 	public function get_template_variables( $instance, $args ) {
 
 		if ( $instance['only_infodays'] ) {
-			$events = siw_get_upcoming_info_days( (int) $instance['number'] );
+			$events = Events::get_future_info_days( [ 'number' => (int) $instance['number'] ] );
 		} else {
-			$events = siw_get_upcoming_events( [ 'number' => $instance['number'] ] );
+			$events = Events::get_future_events( [ 'number' => (int) $instance['number'] ] );
 		}
 
-		$parameters = [
-			'responsive_classes' => CSS::generate_responsive_classes( (int) $instance['columns'] ),
-			'active_events'      => ! empty( $events ),
-			'events'             => array_map( [ $this, 'parse_event' ], $events ),
-			'json_ld'            => array_map( 'siw_generate_event_json_ld', $events ),
-			'agenda_url'         => get_post_type_archive_link( 'siw_event' ),
-			'agenda_text'        => __( 'Bekijk de volledige agenda.', 'siw' ),
-			'no_events_text'     => __( 'Er zijn momenteel geen geplande activiteiten.', 'siw' ),
+		$event_list = null;
+
+		if ( ! empty( $events ) ) {
+			$event_list = List_Columns::create()
+				->add_items( array_map( [ $this, 'parse_event' ], $events ) )
+				->set_columns( (int) $instance['columns'] )
+				->set_list_style_type( List_Style_Type::NONE )
+				->generate();
+		}
+
+		return [
+			'event_list'  => $event_list,
+			'archive_url' => get_post_type_archive_link( 'siw_event' ),
 		];
-		return $parameters;
 	}
 
 	/** {@inheritDoc} */
@@ -117,24 +126,17 @@ class Calendar extends Widget {
 	}
 
 	/** Parset event data */
-	protected function parse_event( int $event_id ): array {
-		return [
-			'title'    => get_the_title( $event_id ),
-			'url'      => get_permalink( $event_id ),
-			'day'      => wp_date( 'd', strtotime( siw_meta( 'event_date', [], $event_id ) ) ),
-			'month'    => wp_date( 'M', strtotime( siw_meta( 'event_date', [], $event_id ) ) ),
-			'duration' => sprintf(
-				'%s-%s',
-				siw_meta( 'start_time', [], $event_id ),
-				siw_meta( 'end_time', [], $event_id )
-			),
-			'location' =>
-				siw_meta( 'online', [], $event_id )
-				?
-				esc_html__( 'Online', 'siw' )
-				:
-				sprintf( '%s, %s', siw_meta( 'location.name', [], $event_id ), siw_meta( 'location.city', [], $event_id ) ),
-
-		];
+	protected function parse_event( Event $event ): string {
+		return Template::create()
+			->set_template( 'widgets/calendar-event' )
+			->set_context(
+				[
+					'calendar_icon' => Calendar_Icon::create()->set_datetime( $event->get_event_date() )->generate(),
+					'event'         => $event,
+					'location'      => $event->is_online() ?
+						__( 'Online', 'siw' ) : sprintf( '%s %s', $event->get_location()['name'], $event->get_location()['city'] ),
+				]
+			)
+			->parse_template();
 	}
 }

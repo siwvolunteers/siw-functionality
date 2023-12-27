@@ -20,7 +20,7 @@ class Breadcrumbs extends Base {
 	/** Huidige pagina/post */
 	protected string $current;
 
-	#[Add_Action( 'generate_after_header' ) ]
+	#[Add_Action( 'generate_before_main_content', 1 ) ]
 	/** Genereer breadcrumbs */
 	public function generate_crumbs(): void {
 
