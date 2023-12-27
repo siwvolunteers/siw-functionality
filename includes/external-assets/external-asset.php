@@ -90,26 +90,4 @@ abstract class External_Asset extends Base {
 			null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 		);
 	}
-
-	#[Add_Filter( 'rocket_dns_prefetch' )]
-	#[Add_Filter( 'rocket_minify_excluded_external_js' )]
-	#[Add_Filter( 'rocket_exclude_css' )]
-	public static function exclude_external_asset_domains( array $exclusions ): array {
-		if ( null !== static::get_domain() ) {
-			$exclusions[] = static::get_domain();
-		}
-		return $exclusions;
-	}
-
-	/** Geeft domain van externe asset terug */
-	protected static function get_domain(): ?string {
-
-		if ( null !== static::get_script_url() ) {
-			return wp_parse_url( static::get_script_url(), PHP_URL_HOST );
-		} elseif ( null !== static::get_style_url() ) {
-			return wp_parse_url( static::get_style_url(), PHP_URL_HOST );
-		} else {
-			return null;
-		}
-	}
 }

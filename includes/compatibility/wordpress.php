@@ -42,6 +42,10 @@ class WordPress extends Base {
 	#[Add_Filter( 'admin_email_check_interval' )]
 	private const ADMIN_EMAIL_CHECK_INTERVAL = 0;
 
+	#[Add_Filter( 'nonce_life' )]
+	/** Levensduur van nonce in seconden */
+	private const NONCE_LIFESPAN = 2 * DAY_IN_SECONDS;
+
 	#[Add_Action( Update::PLUGIN_UPDATED_HOOK )]
 	/** Flusht rewrite rules na plugin update */
 	public function flush_rewrite_rules() {

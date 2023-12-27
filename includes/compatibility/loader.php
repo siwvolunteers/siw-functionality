@@ -17,7 +17,6 @@ class Loader extends Class_Loader_Abstract {
 		return [
 			Action_Scheduler::class,
 			GeneratePress::class,
-			GTranslate::class,
 			Members::class,
 			Meta_Box::class,
 			Safe_Redirect_Manager::class,
@@ -26,7 +25,6 @@ class Loader extends Class_Loader_Abstract {
 			The_SEO_Framework::class,
 			WooCommerce::class,
 			WordPress::class,
-			WP_Rocket::class,
 			WP_Sentry_Integration::class,
 			WPML::class,
 		];
