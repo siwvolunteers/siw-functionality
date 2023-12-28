@@ -4,8 +4,39 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "791a4e02ebf3656420b34db442491649",
+    "content-hash": "325e38eba8bbcd42cb880e3a64f10e3b",
     "packages": [
+        {
+            "name": "berlindb/core",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/berlindb/core.git",
+                "reference": "7dcddaddcffb69c58800d2fb3f6f169791cab1f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/berlindb/core/zipball/7dcddaddcffb69c58800d2fb3f6f169791cab1f7",
+                "reference": "7dcddaddcffb69c58800d2fb3f6f169791cab1f7",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BerlinDB\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A collection of PHP classes and functions that aims to provide an ORM-like experience and interface to WordPress database tables.",
+            "support": {
+                "issues": "https://github.com/berlindb/core/issues",
+                "source": "https://github.com/berlindb/core/tree/2.0.1"
+            },
+            "time": "2022-03-10T21:12:11+00:00"
+        },
         {
             "name": "johnbillion/args",
             "version": "1.9.0",
