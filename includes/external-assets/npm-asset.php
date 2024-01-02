@@ -96,9 +96,4 @@ abstract class NPM_Asset extends External_Asset {
 			)
 			->parse_template();
 	}
-
-	/** {@inheritDoc} */
-	protected static function get_domain(): string {
-		return self::JSDELIVR_URL;
-	}
 }

@@ -50,10 +50,4 @@ class Facebook_Pixel extends Base {
 		wp_enqueue_script( self::get_assets_handle() );
 		wp_enqueue_script( Meta_Pixel::get_assets_handle() );
 	}
-
-	#[Add_Filter( 'rocket_exclude_js' )]
-	public function exclude_from_optimization( array $files ): array {
-		$files[] = wp_make_link_relative( SIW_ASSETS_URL . 'js/features/facebook-pixel.js' );
-		return $files;
-	}
 }

@@ -99,7 +99,7 @@ img[data-lazy-src] {
   opacity: 0;
 }
 
-img.lazyloaded {
+img.litespeed-loaded {
   transition: opacity 0.5s linear 0.2s;
   opacity: 1;
 }

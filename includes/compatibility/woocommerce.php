@@ -103,17 +103,6 @@ class WooCommerce extends Base implements I_Plugin {
 		return $filters;
 	}
 
-
-	#[Add_Filter( 'rocket_cache_query_strings' )]
-	/** Registreert query vars voor WP Rocket TODO: naar archive*/
-	public function register_query_vars( array $vars ): array {
-		$taxonomies = wc_get_attribute_taxonomies();
-		foreach ( $taxonomies as $taxonomy ) {
-			$vars[] = "filter_{$taxonomy->attribute_name}";
-		}
-		return $vars;
-	}
-
 	#[Add_Action( 'wp', PHP_INT_MAX )]
 	/**
 	 * Verwijdert theme support

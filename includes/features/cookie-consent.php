@@ -166,7 +166,7 @@ class Cookie_Consent extends Base {
 	#[Add_Action( 'generate_before_copyright' )]
 	public function add_cookie_settings_button(): void {
 		printf(
-			'<a href="#" data-cc="c-settings">%s</button>',
+			'<a href="#" data-cc="c-settings">%s</a>',
 			esc_html__( 'Cookie instellingen', 'siw' )
 		);
 	}

@@ -24,10 +24,4 @@ class Asset {
 		add_action( 'wp_enqueue_scripts', [ $script, 'register_script' ], 1 );
 		add_action( 'admin_enqueue_scripts', [ $script, 'register_script' ], 1 );
 	}
-
-	/** Registeer asset als extern (voor prefetch en uitsluiten van optimalisatie) */
-	public function register_external_asset( External $external ) {
-		add_filter( 'rocket_minify_excluded_external_js', fn( array $domains ) => array_merge( $domains, [ $external->get_external_domain() ] ) );
-		add_filter( 'rocket_dns_prefetch', fn( array $domains ) => array_merge( $domains, [ $external->get_external_domain() ] ) );
-	}
 }
