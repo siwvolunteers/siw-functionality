@@ -116,7 +116,7 @@ class Project_Wizard extends Element {
 					'type'    => 'custom_html',
 					'std'     => sprintf(
 						'%s %s',
-						'Voor jou zijn <em>Wereld-basis-projecten</em> een mooi startpunt</em>.',
+						'Voor jou zijn <em>Wereld-basis-projecten</em> een mooi startpunt.',
 						$this->generate_link( get_permalink( siw_get_project_type_page( Project_Type::WORLD_BASIC() ) ) )
 					),
 					'columns' => Form::FULL_WIDTH,

@@ -30,6 +30,9 @@ class WordPress extends Base {
 	#[Add_Filter( 'wp_is_application_passwords_available' )]
 	private const APPLICATION_PASSWORDS_AVAILABLE = false;
 
+	#[Add_Filter( 'styles_inline_size_limit' )]
+	private const STYLES_INLINE_SIZE_LIMIT = 50000;
+
 	#[Add_Filter( 'comments_open' )]
 	private const COMMENTS_OPEN = false;
 

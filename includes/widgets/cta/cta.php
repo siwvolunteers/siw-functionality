@@ -89,7 +89,7 @@ class CTA extends Widget {
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
 
-		if ( ! empty( $instance['background_images'] ) ) {
+		if ( ! isset( $instance['background_images'] ) || empty( $instance['background_images'] ) ) {
 			return [];
 		}
 
