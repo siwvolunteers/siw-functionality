@@ -79,12 +79,22 @@ abstract class Post_Type extends Base {
 		$query->set( 'meta_query', $meta_query );
 	}
 
-	#[Add_Filter( 'the_seo_framework_post_meta', 10 )]
-	final public function set_seo_noindex( array $meta, int $post_id ): array {
-		if ( self::get_post_type() === get_post_type( $post_id ) ) {
-			$meta['_genesis_noindex'] = ! $this->get_custom_post( $post_id )->is_active();
+	#[Add_Filter( 'slim_seo_robots_index' )]
+	final public function set_seo_robots_index( bool $index, int $post_id ): bool {
+		if ( self::get_post_type() !== get_post_type( $post_id ) ) {
+			return $index;
 		}
-		return $meta;
+		return $this->get_custom_post( $post_id )->is_active();
+	}
+
+	#[Add_Filter( 'slim_seo_breadcrumbs_args', 20 )]
+	final public function set_seo_breadcrumb_args( array $args ): array {
+		if ( self::get_post_type() !== get_post_type() || 1 !== count( $this->get_taxonomies() ) ) {
+			return $args;
+		}
+
+		$args['taxonomy'] = static::get_post_type() . '_' . array_key_first( $this->get_taxonomies() );
+		return $args;
 	}
 
 	/** Genereert titel slug op basis van eigenschappen */

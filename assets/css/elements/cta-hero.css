@@ -8,7 +8,9 @@
 .siw-cta-hero > figure {
   padding: 0;
   margin: 0px;
-  animation: siwHeroFade 12s linear infinite 0s;
+  animation-timing-function: linear;
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
   backface-visibility: hidden;
   color: transparent;
   left: 0px;
