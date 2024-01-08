@@ -16,6 +16,7 @@ class Loader extends A_Base_Loader {
 		return [
 			Animation::class,
 			Breadcrumbs::class,
+			Carbon_Badge::class,
 			Cookie_Consent::class,
 			Menu_Item_Info_Button::class,
 			Facebook_Pixel::class,
