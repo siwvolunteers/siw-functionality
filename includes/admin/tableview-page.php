@@ -62,7 +62,7 @@ class Tableview_Page extends Base {
 		add_thickbox();
 		?>
 		<div class="wrap">
-			<h2><?php echo esc_html( $this->current_table->label ); ?> </h2>
+			<h2><?php echo esc_html( $this->current_table->label() ); ?> </h2>
 			<?php $this->database_list_table->prepare_items(); ?>
 			<form method="get">
 				<input type="hidden" name="page" value="siw-database-table-<?php echo esc_attr( $this->current_table->value ); ?>"/>
