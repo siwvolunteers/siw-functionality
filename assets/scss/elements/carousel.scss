@@ -1,6 +1,10 @@
 .siw-carousel {
 	.splide__slide {
+		background-color: var(--siw-base);
 		border: 1px solid #bbb;
+		.splide__slide__container img {
+			width: 100%;
+		}
 		.slide_text {
 			padding: 10px;
 			text-align: center;
