@@ -12,13 +12,13 @@ use SIW\External_Assets\Polyfill;
  */
 class Chart extends Element {
 
-	const CHART_TYPE_LINE = 'line';
-	const CHART_TYPE_BAR = 'bar';
-	const CHART_TYPE_AXIS_MIXED = 'axis-mixed';
-	const CHART_TYPE_SCATTER = 'scatter';
-	const CHART_TYPE_PIE = 'pie';
-	const CHART_TYPE_PERCENTAGE = 'percentage';
-	const CHART_TYPE_HEATMAT = 'heatmap';
+	public const CHART_TYPE_LINE = 'line';
+	public const CHART_TYPE_BAR = 'bar';
+	public const CHART_TYPE_AXIS_MIXED = 'axis-mixed';
+	public const CHART_TYPE_SCATTER = 'scatter';
+	public const CHART_TYPE_PIE = 'pie';
+	public const CHART_TYPE_PERCENTAGE = 'percentage';
+	public const CHART_TYPE_HEATMAT = 'heatmap';
 
 	/** Type grafiek */
 	protected string $chart_type;
@@ -121,5 +121,4 @@ class Chart extends Element {
 		);
 		wp_enqueue_script( self::get_assets_handle() );
 	}
-
 }

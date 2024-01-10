@@ -2,7 +2,7 @@
 
 namespace SIW\Options;
 
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Interfaces\Options\Option as I_Option;
 
@@ -16,9 +16,9 @@ class Option extends Base {
 	/** Constructor */
 	public function __construct( protected I_Option $option ) {}
 
-	#[Filter( 'mb_settings_pages' )]
+	#[Add_Filter( 'mb_settings_pages' )]
 	/** Voegt admin-pagina toe */
-	public function add_settings_page( array $settings_pages ) : array {
+	public function add_settings_page( array $settings_pages ): array {
 		$tabs = $this->option->get_tabs();
 		$settings_pages[] = [
 			'option_name'   => 'siw_options',
@@ -36,9 +36,9 @@ class Option extends Base {
 		return $settings_pages;
 	}
 
-	#[Filter( 'rwmb_meta_boxes' )]
+	#[Add_Filter( 'rwmb_meta_boxes' )]
 	/*** Voegt metaboxes toe */
-	public function add_settings_meta_boxes( array $meta_boxes ) : array {
+	public function add_settings_meta_boxes( array $meta_boxes ): array {
 
 		$tabs = $this->option->get_tabs();
 		$fields = $this->option->get_fields();

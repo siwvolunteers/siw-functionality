@@ -10,5 +10,5 @@ namespace SIW\Interfaces\Page_Builder;
 interface Style_Fields extends Extension {
 
 	/** Voegt velden toe */
-	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ) : array;
+	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ): array;
 }

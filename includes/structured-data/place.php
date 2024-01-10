@@ -11,7 +11,7 @@ namespace SIW\Structured_Data;
 class Place extends Thing {
 
 	/** @inheritDoc */
-	protected function get_type() : string {
+	protected function get_type(): string {
 		return 'Place';
 	}
 
@@ -19,5 +19,4 @@ class Place extends Thing {
 	public function set_address( Postal_Address $postal_address ): static {
 		return $this->set_property( 'address', $postal_address );
 	}
-
 }

@@ -24,7 +24,6 @@ $siw_data = [
 		'type'   => 'VARCHAR',
 		'length' => 255,
 		'show'   => true,
-		'show'   => true,
 		'search' => true,
 	],
 	[

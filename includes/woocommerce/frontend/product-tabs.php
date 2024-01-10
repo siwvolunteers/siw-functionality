@@ -2,6 +2,8 @@
 
 namespace SIW\WooCommerce\Frontend;
 
+use SIW\Attributes\Add_Filter;
+use SIW\Base;
 use SIW\Config;
 use SIW\Elements\Form;
 use SIW\Elements\Leaflet_Map;
@@ -13,19 +15,15 @@ use SIW\WooCommerce\Product\WC_Product_Project;
  *
  * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
  */
-class Product_Tabs {
+class Product_Tabs extends Base {
 
-	const LOCATION_TAB = 'location_and_leisure';
-	const REQUIREMENTS_TAB = 'requirements';
+	private const LOCATION_TAB = 'location_and_leisure';
+	private const REQUIREMENTS_TAB = 'requirements';
 
-	/** Init */
-	public static function init() {
-		$self = new self();
-		add_filter( 'woocommerce_product_tabs', [ $self, 'add_and_rename_and_remove_product_tabs' ] );
-		add_filter( 'woocommerce_product_additional_information_heading', '__return_empty_string' );
-	}
+	#[Add_Filter( 'woocommerce_product_additional_information_heading' )]
+	private const ADDITIONAL_INFORMATION_HEADING = '';
 
-	/** Voegt tab met projectbeschrijving toe */
+	#[Add_Filter( 'woocommerce_product_tabs' )]
 	public function add_and_rename_and_remove_product_tabs( array $tabs ): array {
 		global $post;
 		$product = siw_get_product( $post );

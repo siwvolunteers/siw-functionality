@@ -279,13 +279,13 @@ class Story extends Type {
 	}
 
 	/** {@inheritDoc} */
-	protected function get_archive_intro() : array {
+	protected function get_archive_intro(): array {
 		$intro = siw_get_option( 'story.archive_intro' );
 		return [ $intro ];
 	}
 
 	/** {@inheritDoc} */
-	protected function get_social_share_cta() : string {
+	protected function get_social_share_cta(): string {
 		return __( 'Deel dit ervaringsverhaal', 'siw' );
 	}
 

@@ -32,5 +32,4 @@ class Export_To_Mailjet implements I_Async_Action {
 	public function get_argument_count(): int {
 		return 3;
 	}
-
 }

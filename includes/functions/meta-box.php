@@ -2,13 +2,6 @@
 
 use Pharaonic\DotArray\DotArray;
 
-/**
- * Wrapper functions om MetaBox functies
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
-
-
 /** Haalt gegevens van MetaBox op */
 function siw_get_meta_box( string $meta_box_id ): ?\RW_Meta_Box {
 

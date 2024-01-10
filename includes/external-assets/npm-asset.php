@@ -13,7 +13,7 @@ use SIW\Helpers\Template;
  */
 abstract class NPM_Asset extends External_Asset {
 
-	const JSDELIVR_URL = 'https://cdn.jsdelivr.net/';
+	private const JSDELIVR_URL = 'https://cdn.jsdelivr.net/';
 
 	/** Geeft naam van NPM package terug */
 	abstract protected static function get_npm_package(): string;
@@ -95,10 +95,5 @@ abstract class NPM_Asset extends External_Asset {
 				]
 			)
 			->parse_template();
-	}
-
-	/** {@inheritDoc} */
-	protected static function get_domain(): string {
-		return self::JSDELIVR_URL;
 	}
 }

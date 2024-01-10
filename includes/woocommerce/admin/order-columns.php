@@ -11,8 +11,8 @@ use SIW\Actions\Async\Export_Plato_Application;
  */
 class Order_Columns extends \MBAC\Post {
 
-	const COLUMN_PROJECTS = 'projects';
-	const COLUMN_EXPORTED = 'exported';
+	private const COLUMN_PROJECTS = 'projects';
+	private const COLUMN_EXPORTED = 'exported';
 
 	/**
 	 * Voegt extra columns toe

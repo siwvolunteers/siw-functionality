@@ -94,5 +94,4 @@ class Organisation extends Widget {
 
 		return $parameters;
 	}
-
 }

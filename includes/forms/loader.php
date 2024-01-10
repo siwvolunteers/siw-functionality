@@ -27,11 +27,11 @@ class Loader extends Object_Loader_Abstract {
 	}
 
 	/** {@inheritDoc} */
-	protected function load( object $object ) {
+	protected function load( object $form_object ) {
 
-		if ( ! is_a( $object, Form_Interface::class ) ) {
+		if ( ! is_a( $form_object, Form_Interface::class ) ) {
 			return;
 		}
-		Form::init( $object );
+		Form::init( $form_object );
 	}
 }

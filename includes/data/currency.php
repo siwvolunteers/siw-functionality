@@ -21,17 +21,17 @@ class Currency extends Data {
 	protected string $symbol;
 
 	/** Geeft de ISO-code van de valuta terug */
-	public function get_iso_code() : string {
+	public function get_iso_code(): string {
 		return $this->iso_code;
 	}
 
 	/** Geeft de naam van de valuta terug */
-	public function get_name() : string {
+	public function get_name(): string {
 		return $this->name;
 	}
 
 	/** Geeft het symbool van de valuta terug */
-	public function get_symbol() : string {
+	public function get_symbol(): string {
 		return $this->symbol;
 	}
 }

@@ -10,10 +10,10 @@ namespace SIW\Helpers;
 class Email {
 
 	/** Plaintext-email */
-	const TEXT_HTML = 'text/html';
+	public const TEXT_HTML = 'text/html';
 
 	/** HTML-email */
-	const TEXT_PLAIN = 'text/plain';
+	public const TEXT_PLAIN = 'text/plain';
 
 	/** Ontvanger */
 	protected array $to = [];
@@ -34,7 +34,7 @@ class Email {
 	protected function __construct() {}
 
 	/** Creëer email */
-	public static function create() : self {
+	public static function create(): self {
 		$self = new self();
 		return $self;
 	}

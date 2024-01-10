@@ -5,12 +5,6 @@ use SIW\Data\Email_Settings;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
 
-/**
- * Functies m.b.t. referentiegegevens
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
-
 /** Haalt data uit bestand */
 function siw_get_data( string $file ) {
 	$file = strtolower( str_replace( '_', '-', $file ) );
@@ -47,23 +41,6 @@ function siw_get_dutch_provinces(): array {
 function siw_get_dutch_province( string $slug ): ?string {
 	$provinces = siw_get_dutch_provinces();
 	return $provinces[ $slug ] ?? null;
-}
-
-/** Geeft lijst met bestuursfuncties terug */
-function siw_get_board_titles(): array {
-	$titles = [
-		'chair'        => __( 'Voorzitter', 'siw' ),
-		'secretary'    => __( 'Secretaris', 'siw' ),
-		'treasurer'    => __( 'Penningmeester', 'siw' ),
-		'board_member' => __( 'Algemeen bestuurslid', 'siw' ),
-	];
-	return $titles;
-}
-
-/** Geeft bestuursfunctie terug obv slug */
-function siw_get_board_title( string $slug ): ?string {
-	$board_titles = siw_get_board_titles();
-	return $board_titles[ $slug ] ?? null;
 }
 
 /** Geeft een lijst met geslachten terug */

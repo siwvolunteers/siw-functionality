@@ -2,32 +2,25 @@
 
 namespace SIW\Data;
 
-use \Spatie\Enum\Enum;
+use SIW\Interfaces\Enums\Labels;
 
 /**
  * Database-tabellen
  *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- *
- * @method static self PLATO_PROJECTS()
- * @method static self PLATO_PROJECT_FREE_PLACES()
- * @method static self PLATO_PROJECT_IMAGES()
+ * @copyright 2023 SIW Internationale Vrijwilligersprojecten
  */
-class Database_Table extends Enum {
+enum Database_Table: string implements Labels {
+
+	case PLATO_PROJECTS = 'plato_projects';
+	case PLATO_PROJECT_FREE_PLACES = 'plato_project_free_places';
+	case PLATO_PROJECT_IMAGES      = 'plato_project_images';
 
 	/** {@inheritDoc} */
-	protected static function values(): \Closure {
-		return function( string $value ): string {
-			return strtolower( $value );
+	public function label(): string {
+		return match ( $this ) {
+			self::PLATO_PROJECTS            => 'Plato projecten',
+			self::PLATO_PROJECT_FREE_PLACES => 'Plato project vrije plaatsen',
+			self::PLATO_PROJECT_IMAGES      => 'Plato projectafbeeldingen',
 		};
-	}
-
-	/** {@inheritDoc} */
-	protected static function labels(): array {
-		return [
-			'PLATO_PROJECTS'            => 'Plato projecten',
-			'PLATO_PROJECT_FREE_PLACES' => 'Plato project vrije plaatsen',
-			'PLATO_PROJECT_IMAGES'      => 'Plato projectafbeeldingen',
-		];
 	}
 }

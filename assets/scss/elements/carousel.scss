@@ -1,0 +1,15 @@
+.siw-carousel {
+	.splide__slide {
+		border: 1px solid #bbb;
+		.slide_text {
+			padding: 10px;
+			text-align: center;
+			.title {
+				a {
+					text-decoration: none;
+				}
+				font-size: 20px;
+			}
+		}
+	}
+}

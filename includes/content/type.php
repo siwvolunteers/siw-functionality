@@ -5,6 +5,7 @@ namespace SIW\Content;
 use luizbills\CSS_Generator\Generator as CSS_Generator;
 use SIW\Features\Social_Share;
 use SIW\Util\CSS;
+use SIW\Widgets\Carousel;
 
 /**
  * Class om een custom content type toe te voegen
@@ -22,9 +23,6 @@ abstract class Type {
 
 	/** Dashicon voor post type */
 	protected string $menu_icon;
-
-	/** Is dit een public post type */
-	protected bool $public = true;
 
 	/** Taxonomieën */
 	protected array $taxonomies;
@@ -94,7 +92,6 @@ abstract class Type {
 		new Post_Type(
 			$self->post_type,
 			[
-				'public'    => $self->public,
 				'menu_icon' => $self->menu_icon,
 			],
 			$self->get_labels(),
@@ -118,8 +115,6 @@ abstract class Type {
 		// Standaard volgorde in Admin scherm
 		add_action( 'pre_get_posts', [ $self, 'set_default_orderby' ] );
 
-		// Instellingen voor publieke post types
-		if ( $self->public ) {
 			// Single post
 			add_action( "siw_{$self->post_type}_content", [ $self, 'add_single_content' ] );
 			add_action( 'wp_enqueue_scripts', [ $self, 'set_single_width' ], 50 );
@@ -154,47 +149,36 @@ abstract class Type {
 			add_action( "siw_{$self->post_type}_archive_intro", [ $self, 'set_archive_intro' ] );
 			add_action( "siw_{$self->post_type}_archive_content", [ $self, 'add_archive_content' ] );
 
-			if ( ! empty( $self->active_posts_meta_query ) && ! empty( $self->taxonomies ) ) {
-				add_filter( 'siw_update_terms_taxonomies', [ $self, 'set_update_terms_taxonomies' ] );
-				add_filter( 'siw_update_terms_meta_query', [ $self, 'set_update_terms_meta_query' ], 10, 2 );
-			}
-
-			if ( ! empty( $self->active_posts_meta_query ) ) {
-				add_action( 'admin_menu', [ $self, 'add_admin_active_post_count' ], PHP_INT_MAX );
-			}
-
-			// Carousel
-			if ( $self->has_carousel_support ) {
-				add_filter( 'siw_carousel_post_types', [ $self, 'add_carousel_post_type' ] );
-				add_filter( 'siw_carousel_post_type_templates', [ $self, 'add_carousel_post_type_template' ] );
-				add_filter( 'siw_carousel_post_type_taxonomies', [ $self, 'add_carousel_post_type_taxonomies' ] );
-			}
-
-			// SEO TODO: titles enzo
-			add_filter( 'the_seo_framework_post_meta', [ $self, 'set_seo_noindex' ], 10, 2 );
-
-			// TODO:Help tabs
-
-			// genereren slug en titel
-			add_filter( 'wp_insert_post_data', [ $self, 'set_post_data' ], 10, 2 );
-
-			add_filter( 'siw_cpt_upload_subdirs', [ $self, 'set_upload_subir' ] );
-
-			add_action( "save_post_siw_{$self->post_type}", [ $self, 'after_save_post' ], PHP_INT_MAX, 3 );
+		if ( ! empty( $self->active_posts_meta_query ) ) {
+			add_action( 'admin_menu', [ $self, 'add_admin_active_post_count' ], PHP_INT_MAX );
 		}
+
+		// Carousel
+		if ( $self->has_carousel_support ) {
+			add_post_type_support( "siw_{$self->post_type}", Carousel::POST_TYPE_FEATURE );
+		}
+
+		// SEO TODO: titles enzo
+		add_filter( 'the_seo_framework_post_meta', [ $self, 'set_seo_noindex' ], 10, 2 );
+
+		// TODO:Help tabs
+
+		// genereren slug en titel
+		add_filter( 'wp_insert_post_data', [ $self, 'set_post_data' ], 10, 2 );
+
+		add_filter( 'siw_cpt_upload_subdirs', [ $self, 'set_upload_subir' ] );
+
+		add_action( "save_post_siw_{$self->post_type}", [ $self, 'after_save_post' ], PHP_INT_MAX, 3 );
 	}
 
-	/** Undocumented function */
-	protected function initialize() {}
-
 	/** Haalt metabox velden op */
-	abstract public function get_meta_box_fields() : array;
+	abstract public function get_meta_box_fields(): array;
 
 	/** Haal taxonomieën op */
-	abstract protected function get_taxonomies() : array;
+	abstract protected function get_taxonomies(): array;
 
 	/** Haalt labels op */
-	abstract protected function get_labels() : array;
+	abstract protected function get_labels(): array;
 
 	/** Undocumented function */
 	public function add_single_content() {}
@@ -208,12 +192,12 @@ abstract class Type {
 	}
 
 	/** Undocumented function */
-	protected function get_archive_intro() : array {
+	protected function get_archive_intro(): array {
 		return [];
 	}
 
 	/** Zet titel */
-	public function set_archive_title( string $archive_title ) : string {
+	public function set_archive_title( string $archive_title ): string {
 		if (
 			is_post_type_archive( "siw_{$this->post_type}" ) ||
 			is_singular( "siw_{$this->post_type}" )
@@ -224,12 +208,12 @@ abstract class Type {
 	}
 
 	/** Undocumented function */
-	protected function get_archive_title( string $archive_title ) : string {
+	protected function get_archive_title( string $archive_title ): string {
 		return $archive_title;
 	}
 
 	/** Undocumented function */
-	protected function get_active_posts_meta_query() : array {
+	protected function get_active_posts_meta_query(): array {
 		return [];
 	}
 
@@ -270,12 +254,12 @@ abstract class Type {
 	}
 
 	/** Zet social share CTA */
-	protected function get_social_share_cta() : string {
+	protected function get_social_share_cta(): string {
 		return __( 'Deel deze pagina', 'siw' );
 	}
 
 	/** Zet SEO-noindex */
-	public function set_seo_noindex( array $meta, int $post_id ) : array {
+	public function set_seo_noindex( array $meta, int $post_id ): array {
 		if ( "siw_{$this->post_type}" === get_post_type( $post_id ) ) {
 			$meta['_genesis_noindex'] = intval( $this->get_seo_noindex( $post_id ) );
 		}
@@ -283,7 +267,7 @@ abstract class Type {
 	}
 
 	/** Bepaal SEO-noindex */
-	protected function get_seo_noindex( int $post_id ) : bool {
+	protected function get_seo_noindex( int $post_id ): bool {
 		return false;
 	}
 
@@ -291,7 +275,7 @@ abstract class Type {
 	public function after_save_post( int $post_id, \WP_Post $post, bool $update ) {}
 
 	/** Genereert titel slug op basis van eigenschappen */
-	public function set_post_data( array $data, array $postarr ) : array {
+	public function set_post_data( array $data, array $postarr ): array {
 
 		if ( in_array( $data['post_status'], [ 'draft', 'pending', 'auto-draft' ], true ) ) {
 			return $data;
@@ -308,12 +292,12 @@ abstract class Type {
 	}
 
 	/** Genereert titel */
-	protected function generate_title( array $data, array $postarr ) : string {
+	protected function generate_title( array $data, array $postarr ): string {
 		return $data['post_title'];
 	}
 
 	/** Genereert slug */
-	protected function generate_slug( array $data, array $postarr ) : string {
+	protected function generate_slug( array $data, array $postarr ): string {
 		return $data['post_name'];
 	}
 
@@ -374,52 +358,11 @@ abstract class Type {
 		}
 	}
 
-	/** Voegt post type toe aan carousel widget */
-	public function add_carousel_post_type( array $post_types ) : array {
-		$post_types[ "siw_{$this->post_type}" ] = $this->post_type; // TODO: juiste label gebruiken
-		return $post_types;
-	}
-
-	/** Voegt taxonomieën toe aan carousel widget */
-	public function add_carousel_post_type_taxonomies( array $post_type_taxonomies ) : array {
-		foreach ( $this->taxonomies as $taxonomy => $settings ) {
-			$post_type_taxonomies[ "siw_{$this->post_type}" ][ "siw_{$this->post_type}_{$taxonomy}" ] = $settings['labels']['name'];
-		}
-		return $post_type_taxonomies;
-	}
-
-	/** Zet template voor carousel */
-	public function add_carousel_post_type_template( array $post_type_templates ) : array {
-		$post_type_templates[ "siw_{$this->post_type}" ] = locate_template( "content-siw_{$this->post_type}.php" );
-		return $post_type_templates;
-	}
-
 	/** Zet subdirectory voor uploads */
-	public function set_upload_subir( array $subdirs ) : array {
+	public function set_upload_subir( array $subdirs ): array {
 		if ( isset( $this->upload_subdir ) ) {
 			$subdirs[ "siw_{$this->post_type}" ] = $this->upload_subdir;
 		}
 		return $subdirs;
-	}
-
-	/** Zet taxonomiën om bij te werken via batch */
-	public function set_update_terms_taxonomies( array $taxonomies ) : array {
-		foreach ( array_keys( $this->taxonomies ) as $taxonomy ) {
-			$taxonomies[] = "siw_{$this->post_type}_{$taxonomy}";
-		}
-		return $taxonomies;
-	}
-
-	/** Zet meta query voor update van terms*/
-	public function set_update_terms_meta_query( array $meta_query, string $term_taxonomy ) : array {
-
-		foreach ( array_keys( $this->taxonomies ) as $taxonomy ) {
-			if ( "siw_{$this->post_type}_{$taxonomy}" === $term_taxonomy ) {
-				$meta_query = [ $this->active_posts_meta_query ];
-				break;
-			}
-		}
-
-		return $meta_query;
 	}
 }

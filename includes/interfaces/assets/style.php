@@ -11,5 +11,4 @@ interface Style {
 
 	/** Registreert style */
 	public function register_style();
-
 }

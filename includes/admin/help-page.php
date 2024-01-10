@@ -2,7 +2,7 @@
 
 namespace SIW\Admin;
 
-use SIW\Attributes\Action;
+use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Elements\Accordion_Tabs;
 
@@ -13,7 +13,7 @@ use SIW\Elements\Accordion_Tabs;
  */
 class Help_Page extends Base {
 
-	#[Action( 'admin_menu' )]
+	#[Add_Action( 'admin_menu' )]
 	/** Voegt adminpagina toe */
 	public function add_help_page() {
 

@@ -5,7 +5,7 @@ namespace SIW;
 /**
  * Autoloader voor SIW classes
  *
- * @copyright 2019-2020 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
  */
 class Autoloader {
 
@@ -15,21 +15,21 @@ class Autoloader {
 	}
 
 	/** Autoloader */
-	public function autoload( string $class ) {
+	public function autoload( string $class_name ) {
 
 		/* Afbreken als het geen relevante class is */
-		if ( ! str_starts_with( $class, $this->root_namespace ) ) {
+		if ( ! str_starts_with( $class_name, $this->root_namespace ) ) {
 			return;
 		}
 
 		// Root-namespace verwijderen
-		$class = str_replace( $this->root_namespace . '\\', '', $class );
+		$class_name = str_replace( $this->root_namespace . '\\', '', $class_name );
 
 		// Bestandsnaam opbouwen
-		$path = str_replace( '\\', '/', $class );
+		$path = str_replace( '\\', '/', $class_name );
+		$file = strtolower( str_replace( '_', '-', $path ) ) . '.php';
+		$file = trailingslashit( $this->root_directory ) . $file;
 
-		$file = trailingslashit( $this->root_directory ) . $path . '.php';
-		$file = strtolower( str_replace( '_', '-', $file ) );
 		if ( file_exists( $file ) ) {
 			require_once $file;
 			return;

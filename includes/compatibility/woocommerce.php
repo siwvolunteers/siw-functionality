@@ -2,11 +2,12 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Features\Social_Share;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
+use SIW\Widgets\Carousel;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -17,40 +18,45 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  */
 class WooCommerce extends Base implements I_Plugin {
 
-	#[Filter( 'woocommerce_customer_meta_fields' )]
+	#[Add_Filter( 'woocommerce_customer_meta_fields' )]
 	private const CUSTOMER_META_FIELDS = [];
 
-	#[Filter( 'woocommerce_prevent_admin_access' )]
+	#[Add_Filter( 'woocommerce_prevent_admin_access' )]
 	private const PREVENT_ADMIN_ACCESS = false;
 
-	#[Filter( 'woocommerce_disable_admin_bar' )]
+	#[Add_Filter( 'woocommerce_disable_admin_bar' )]
 	private const DISABLE_ADMIN_BAR = false;
 
-	#[Filter( 'woocommerce_enable_admin_help_tab' )]
+	#[Add_Filter( 'woocommerce_enable_admin_help_tab' )]
 	private const ENABLE_ADMIN_HELP_TAB = false;
 
-	#[Filter( 'woocommerce_show_addons_page' )]
+	#[Add_Filter( 'woocommerce_show_addons_page' )]
 	private const SHOW_ADDONS_PAGE = false;
+
+	#[Add_Filter( 'woocommerce_price_trim_zeros' )]
+	private const TRIM_ZEROS = true;
+
+	public const PRODUCT_POST_TYPE = 'product';
 
 	/** {@inheritDoc} */
 	public static function get_plugin_basename(): string {
 		return 'woocommerce/woocommerce.php';
 	}
 
-	#[Action( 'woocommerce_before_customer_object_save' )]
+	#[Add_Action( 'woocommerce_before_customer_object_save' )]
 	public function fix_billing_country( \WC_Customer $customer ) {
 		// Tijdelijke fix, kan weg als https://github.com/woocommerce/woocommerce/pull/37463 is opgeleverd
 		$customer->set_billing_country( null );
 	}
 
-	#[Filter( 'lostpassword_url', 1 )]
+	#[Add_Filter( 'lostpassword_url', 1 )]
 	/** Lost password via wp methode */
 	public function remove_lostpassword_url_filter( string $lostpassword_url ): string {
 		remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
 		return $lostpassword_url;
 	}
 
-	#[Action( 'widgets_init', 99 )]
+	#[Add_Action( 'widgets_init', 99 )]
 	/** Verwijdert ongebruikte widgets */
 	public function unregister_widgets() {
 		unregister_widget( \WC_Widget_Price_Filter::class );
@@ -60,13 +66,13 @@ class WooCommerce extends Base implements I_Plugin {
 		unregister_widget( \WC_Widget_Cart::class );
 	}
 
-	#[Action( 'enqueue_block_assets', PHP_INT_MAX )]
+	#[Add_Action( 'enqueue_block_assets', PHP_INT_MAX )]
 	/** Verwijdert WooCommerce-blocks style */
 	public function deregister_block_style() {
 		wp_deregister_style( 'wc-blocks-style' );
 	}
 
-	#[Filter( 'woocommerce_admin_get_feature_config' )]
+	#[Add_Filter( 'woocommerce_admin_get_feature_config' )]
 	/** Schakel sommige admin features uit */
 	public function disable_admin_features( array $features ): array {
 		$features['onboarding'] = false;
@@ -74,13 +80,13 @@ class WooCommerce extends Base implements I_Plugin {
 		return $features;
 	}
 
-	#[Action( 'wp_dashboard_setup' )]
+	#[Add_Action( 'wp_dashboard_setup' )]
 	/** Verwijdert dashboard widgets */
 	public function remove_dashboard_widgets() {
 		remove_meta_box( 'woocommerce_dashboard_status', 'dashboard', 'normal' );
 	}
 
-	#[Filter( 'woocommerce_product_visibility_options' )]
+	#[Add_Filter( 'woocommerce_product_visibility_options' )]
 	/** Verwijdert overbodige zichtbaarheidsopties */
 	public function remove_product_visibility_options( array $visibility_options ): array {
 		unset( $visibility_options['catalog'] );
@@ -89,7 +95,7 @@ class WooCommerce extends Base implements I_Plugin {
 	}
 
 
-	#[Filter( 'woocommerce_products_admin_list_table_filters' )]
+	#[Add_Filter( 'woocommerce_products_admin_list_table_filters' )]
 	/** Verwijdert filters op admin-lijst met producten  */
 	public function remove_products_admin_list_table_filters( array $filters ): array {
 		unset( $filters['product_type'] );
@@ -97,18 +103,7 @@ class WooCommerce extends Base implements I_Plugin {
 		return $filters;
 	}
 
-
-	#[Filter( 'rocket_cache_query_strings' )]
-	/** Registreert query vars voor WP Rocket TODO: naar archive*/
-	public function register_query_vars( array $vars ): array {
-		$taxonomies = wc_get_attribute_taxonomies();
-		foreach ( $taxonomies as $taxonomy ) {
-			$vars[] = "filter_{$taxonomy->attribute_name}";
-		}
-		return $vars;
-	}
-
-	#[Action( 'wp', PHP_INT_MAX )]
+	#[Add_Action( 'wp', PHP_INT_MAX )]
 	/**
 	 * Verwijdert theme support
 	 *
@@ -122,7 +117,7 @@ class WooCommerce extends Base implements I_Plugin {
 		remove_theme_support( 'wc-product-gallery-slider' );
 	}
 
-	#[Filter( 'get_term' )]
+	#[Add_Filter( 'get_term' )]
 	/** Zet naam van terms */
 	public function filter_term_name( \WP_Term $term, string $taxonomy ): \WP_Term {
 		if ( Taxonomy_Attribute::MONTH()->value === $taxonomy ) {
@@ -146,8 +141,8 @@ class WooCommerce extends Base implements I_Plugin {
 		return $term;
 	}
 
-	#[Action( 'init' )]
-	public function add_carousel_support() {
+	#[Add_Action( 'init' )]
+	public function set_post_type_support() {
 		add_post_type_support(
 			'product',
 			Social_Share::POST_TYPE_FEATURE,
@@ -155,32 +150,17 @@ class WooCommerce extends Base implements I_Plugin {
 				'cta' => __( 'Deel dit project', 'siw' ),
 			]
 		);
+		add_post_type_support( self::PRODUCT_POST_TYPE, Carousel::POST_TYPE_FEATURE );
+		remove_post_type_support( self::PRODUCT_POST_TYPE, 'editor' );
+		remove_post_type_support( self::PRODUCT_POST_TYPE, 'custom-fields' );
 	}
 
-	#[Filter( 'siw_carousel_post_types' )]
-	/** Voegt post type toe aan carousel */
-	public function add_carousel_post_type( array $post_types ): array {
-		$post_types['product'] = __( 'Groepsprojecten', 'siw' );
-		return $post_types;
+	#[Add_Action( 'init' )]
+	public function remove_product_tag() {
+		unregister_taxonomy_for_object_type( 'product_tag', self::PRODUCT_POST_TYPE );
 	}
 
-	#[Filter( 'siw_carousel_post_type_taxonomies' )]
-	/** Voegt taxonomies toe aan carousel */
-	public function add_carousel_post_type_taxonomies( array $taxonomies ): array {
-		$taxonomies['product'] = [
-			'product_cat' => __( 'Continent', 'siw' ),
-		];
-		return $taxonomies;
-	}
-
-	#[Filter( 'siw_carousel_post_type_templates' )]
-	/** Voegt template toe aan carousel */
-	public function add_carousel_template( array $templates ): array {
-		$templates['product'] = wc_locate_template( 'content-product.php' );
-		return $templates;
-	}
-
-	#[Action( 'init', 20 )]
+	#[Add_Action( 'init', 20 )]
 	/**
 	 * Verwijdert legacy image sizes van WooCommerce
 	 *
@@ -192,7 +172,7 @@ class WooCommerce extends Base implements I_Plugin {
 		remove_image_size( 'shop_thumbnail' );
 	}
 
-	#[Action( 'wp_enqueue_scripts' )]
+	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function enqueue_cart_fragment_script() {
 		wp_enqueue_script( 'wc-cart-fragments' );
 	}

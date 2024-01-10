@@ -24,5 +24,4 @@ class Organization extends Thing {
 	public function set_non_profit_status( Non_Profit_Type $non_profit_status ): static {
 		return $this->set_property( 'nonprofitStatus', $non_profit_status );
 	}
-
 }

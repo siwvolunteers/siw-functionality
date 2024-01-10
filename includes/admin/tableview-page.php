@@ -3,8 +3,8 @@
 namespace SIW\Admin;
 
 use SIW\Admin\Database_List_Table;
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Database_Table;
 
@@ -16,7 +16,7 @@ use SIW\Data\Database_Table;
 class Tableview_Page extends Base {
 
 	/** Slug voor menu-pagina */
-	const MENU_SLUG = 'siw-database-tables';
+	private const MENU_SLUG = 'siw-database-tables';
 
 	/** Instantie van List table */
 	public Database_List_Table $database_list_table;
@@ -27,7 +27,7 @@ class Tableview_Page extends Base {
 	/** Array voor afleiden van tabel uit page hook */
 	public array $tables;
 
-	#[Action( 'admin_menu' )]
+	#[Add_Action( 'admin_menu' )]
 	/** Voegt menupagina's toe */
 	public function add_menu_pages() {
 		add_menu_page(
@@ -39,7 +39,7 @@ class Tableview_Page extends Base {
 			'dashicons-database'
 		);
 
-		foreach ( Database_Table::toArray() as $table => $name ) {
+		foreach ( siw_get_enum_array( Database_Table::cases() ) as $table => $name ) {
 			$hook = add_submenu_page(
 				self::MENU_SLUG,
 				$name,
@@ -62,7 +62,7 @@ class Tableview_Page extends Base {
 		add_thickbox();
 		?>
 		<div class="wrap">
-			<h2><?php echo esc_html( $this->current_table->label ); ?> </h2>
+			<h2><?php echo esc_html( $this->current_table->label() ); ?> </h2>
 			<?php $this->database_list_table->prepare_items(); ?>
 			<form method="get">
 				<input type="hidden" name="page" value="siw-database-table-<?php echo esc_attr( $this->current_table->value ); ?>"/>
@@ -87,11 +87,11 @@ class Tableview_Page extends Base {
 		add_screen_option( 'per_page', $args );
 	}
 
-	#[Filter( 'set-screen-option' )]
+	#[Add_Filter( 'set-screen-option' )]
 	/** Sla schermoptie op */
 	public function set_screen_option( $keep, $option, $value ) {
-		foreach ( Database_Table::toValues() as $table ) {
-			if ( "{$table}_records_per_page" === $option ) {
+		foreach ( Database_Table::cases() as $table ) {
+			if ( "{$table->value}_records_per_page" === $option ) {
 				$keep = $value;
 			}
 		}

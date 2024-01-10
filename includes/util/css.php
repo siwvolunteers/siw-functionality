@@ -12,38 +12,38 @@ use luizbills\CSS_Generator\Generator;
 class CSS {
 
 	/** Breakpoint voor mobiel (max-width) */
-	const MOBILE_BREAKPOINT = 768;
+	public const MOBILE_BREAKPOINT = 768;
 
 	/** Breakpoint voor tablet (max-width) */
-	const TABLET_BREAKPOINT = 1024;
+	public const TABLET_BREAKPOINT = 1024;
 
 	/** CSS klasse om content op mobiel te verbergen */
-	const HIDE_ON_MOBILE_CLASS = 'hide-on-mobile';
+	public const HIDE_ON_MOBILE_CLASS = 'hide-on-mobile';
 
 	/** CSS klasse om content op tablet te verbergen */
-	const HIDE_ON_TABLET_CLASS = 'hide-on-tablet';
+	public const HIDE_ON_TABLET_CLASS = 'hide-on-tablet';
 
 	/** CSS klasse om content op desktop te verbergen */
-	const HIDE_ON_DESKTOP_CLASS = 'hide-on-desktop';
+	public const HIDE_ON_DESKTOP_CLASS = 'hide-on-desktop';
 
 	/** Accentkleur */
-	const ACCENT_COLOR = '#f67820';
+	public const ACCENT_COLOR = '#f67820';
 
 	/** Contrastkleur (tekst) */
-	const CONTRAST_COLOR = '#222';
+	public const CONTRAST_COLOR = '#222';
 
 	/** Contrastkleur licht (tekst) */
-	const CONTRAST_COLOR_LIGHT = '#555';
+	public const CONTRAST_COLOR_LIGHT = '#555';
 
 	/** Basekleur (achtergrondkleur) */
-	const BASE_COLOR = '#fefefe';
+	public const BASE_COLOR = '#fefefe';
 
 	/** Extra kleuren o.a. voor de continenten */
-	const PURPLE_COLOR = '#623981';
-	const BLUE_COLOR = '#67bdd3';
-	const RED_COLOR = '#e74052';
-	const GREEN_COLOR = '#7fc31b';
-	const YELLOW_COLOR = '#f4f416';
+	public const PURPLE_COLOR = '#623981';
+	public const BLUE_COLOR = '#67bdd3';
+	public const RED_COLOR = '#e74052';
+	public const GREEN_COLOR = '#7fc31b';
+	public const YELLOW_COLOR = '#f4f416';
 
 	/** Genereert reponsive classes */
 	public static function generate_responsive_classes( int $desktop_columns, int $tablet_columns = null, int $mobile_columns = null ): string {

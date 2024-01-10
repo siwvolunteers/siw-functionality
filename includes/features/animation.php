@@ -3,8 +3,9 @@
 namespace SIW\Features;
 
 use SIW\External_Assets\SAL;
-use SIW\Attributes\Action;
+use SIW\Attributes\Add_Action;
 use SIW\Base;
+use SIW\Traits\Assets_Handle;
 use SIW\Util\CSS;
 
 /**
@@ -14,18 +15,23 @@ use SIW\Util\CSS;
  */
 class Animation extends Base {
 
-	/** Handle  */
-	const ASSETS_HANDLE = 'siw-animation';
+	use Assets_Handle;
 
 	/** Threshold voor animatie */
-	const THRESHOLD = 0.25;
+	private const THRESHOLD = 0.25;
 
-	#[Action( 'wp_enqueue_scripts' )]
+	#[Add_Action( 'wp_enqueue_scripts' )]
 	/** Registreert scripts */
 	public function register_script() {
-		wp_register_script( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'js/features/animation.js', [ Sal::get_assets_handle() ], SIW_PLUGIN_VERSION, true );
+		wp_register_script(
+			self::get_assets_handle(),
+			SIW_ASSETS_URL . 'js/features/animation.js',
+			[ Sal::get_assets_handle() ],
+			SIW_PLUGIN_VERSION,
+			true
+		);
 		wp_localize_script(
-			self::ASSETS_HANDLE,
+			self::get_assets_handle(),
 			'siw_animation',
 			[
 				'threshold'  => self::THRESHOLD,
@@ -33,16 +39,16 @@ class Animation extends Base {
 				'breakpoint' => CSS::MOBILE_BREAKPOINT,
 			]
 		);
-		wp_enqueue_script( self::ASSETS_HANDLE );
+		wp_enqueue_script( self::get_assets_handle() );
 	}
 
-	#[Action( 'wp_enqueue_scripts' )]
+	#[Add_Action( 'wp_enqueue_scripts' )]
 	/** Registreert styles */
 	public function register_style() {
 		$max_width = CSS::MOBILE_BREAKPOINT;
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/features/animation.css', [ SAL::get_assets_handle() ], SIW_PLUGIN_VERSION, "(max-width: {$max_width}px)" );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/animation.css', [ SAL::get_assets_handle() ], SIW_PLUGIN_VERSION, "(max-width: {$max_width}px)" );
 		// TODO: bug melden omdat wp_maybe_inline_styles() media query niet overneemt
 		// wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/animation.css' );
-		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_enqueue_style( self::get_assets_handle() );
 	}
 }

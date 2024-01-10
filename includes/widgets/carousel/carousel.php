@@ -2,7 +2,9 @@
 
 namespace SIW\Widgets;
 
+use SIW\Compatibility\WooCommerce;
 use SIW\Elements\Carousel as Element_Carousel;
+use SIW\Util\Carousel as Carousel_Util;
 
 /**
  * Widget met carousel
@@ -18,10 +20,12 @@ use SIW\Elements\Carousel as Element_Carousel;
 class Carousel extends Widget {
 
 	/** Default aantal kolommen */
-	const DEFAULT_NUMBER_OF_COLUMNS = 4;
+	private const DEFAULT_NUMBER_OF_COLUMNS = 4;
 
 	/** Default aantal items */
-	const DEFAULT_NUMBER_OF_ITEMS = 6;
+	private const DEFAULT_NUMBER_OF_ITEMS = 6;
+
+	public const POST_TYPE_FEATURE = 'siw_carousel';
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
@@ -40,7 +44,7 @@ class Carousel extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_template_id(): string {
-		return $this->get_id();
+		return self::DEFAULT_TEMPLATE_ID;
 	}
 
 	/** {@inheritDoc} */
@@ -86,162 +90,134 @@ class Carousel extends Widget {
 				],
 			],
 		];
-		foreach ( $this->get_taxonomies() as $post_type => $taxonomies ) {
-			$taxonomy_options = [
-				'' => __( 'Geen', 'siw' ),
-			];
-			foreach ( $taxonomies as $taxonomy => $label ) {
-				$taxonomy_options[ $taxonomy ] = $label;
+
+		$post_types = array_keys( $this->get_post_types() );
+
+		foreach ( $post_types as $post_type ) {
+			/** @var \WP_Taxonomy[] */
+			$post_type_taxonomies = get_object_taxonomies( $post_type, 'objects' );
+
+			$post_type_taxonomies = wp_list_filter( $post_type_taxonomies, [ 'show_ui' => true ] );
+
+			$post_type_taxonomy_fields = [];
+			foreach ( $post_type_taxonomies as $taxonomy ) {
+
+				$post_type_taxonomy_fields[ $taxonomy->name ] = [
+					'type'    => 'checkboxes',
+					'label'   => $taxonomy->label,
+					'default' => '',
+					'options' => $this->get_taxonomy_terms( $taxonomy ),
+				];
 			}
 
-			$widget_form[ "{$post_type}_taxonomy" ] = [
-				'type'          => 'select',
-				'label'         => __( 'Taxonomy', 'siw' ),
-				'default'       => '',
-				'options'       => $taxonomy_options,
+			if ( WooCommerce::PRODUCT_POST_TYPE === $post_type ) {
+				$post_type_taxonomy_fields['show_featured_products'] = [
+					'type'        => 'checkbox',
+					'label'       => __( 'Aanbevolen projecten', 'siw' ),
+					'description' => __( 'Toon alleen aanbevolen projecten', 'siw' ),
+					'default'     => true,
+				];
+			}
+
+			$widget_form[ "{$post_type}_filter" ] = [
+				'type'          => 'section',
+				'label'         => __( 'Filters', 'siw' ),
+				'hide'          => false,
 				'state_handler' => [
 					"post_type[{$post_type}]" => [ 'show' ],
 					'_else[post_type]'        => [ 'hide' ],
 				],
-				'state_emitter' => [
-					'callback' => 'select',
-					'args'     => [ "{$post_type}_taxonomy" ],
-				],
+				'fields'        => $post_type_taxonomy_fields,
 			];
-			foreach ( $taxonomies as $taxonomy => $label ) {
-				$widget_form[ $taxonomy ] = [
-					'type'          => 'select',
-					'label'         => $label,
-					'default'       => '',
-					'options'       => $this->get_term_options( $taxonomy ),
-					'state_handler' => [
-						"{$post_type}_taxonomy[{$taxonomy}]" => [ 'show' ],
-						"_else[{$post_type}_taxonomy]" => [ 'hide' ],
-						"post_type[{$post_type}]"      => [ 'show' ],
-						'_else[post_type]'             => [ 'hide' ],
-					],
-				];
-			}
 		}
-		$widget_form['show_featured_products'] = [
-			'type'          => 'checkbox',
-			'label'         => __( 'Aanbevolen projecten', 'siw' ),
-			'description'   => __( 'Toon alleen aanbevolen projecten', 'siw' ),
-			'default'       => false,
-			'state_handler' => [
-				'post_type[product]' => [ 'show' ],
-				'_else[post_type]'   => [ 'hide' ],
-			],
-		];
-		$widget_form['show_button'] = [
-			'type'          => 'checkbox',
-			'label'         => __( 'Toon een knop', 'siw' ),
-			'default'       => false,
-			'state_emitter' => [
-				'callback' => 'conditional',
-				'args'     => [
-					'button[show]: val',
-					'button[hide]: ! val',
-				],
-			],
-		];
-		$widget_form['button_text'] = [
-			'type'          => 'text',
-			'label'         => __( 'Knoptekst', 'siw' ),
-			'state_handler' => [
-				'button[show]' => [ 'show' ],
-				'button[hide]' => [ 'hide' ],
-			],
-		];
-
 		return $widget_form;
 	}
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
 
-		$instance = $this->parse_instance( $instance );
-
 		if ( ! isset( $instance['post_type'] ) || empty( $instance['post_type'] ) ) {
 			return [];
 		}
 
-		$carousel = Element_Carousel::create()
-			->set_post_type( $instance['post_type'] )
-			->set_items( intval( $instance['items'] ) )
-			->set_columns( intval( $instance['columns'] ) );
-		if ( ! empty( $instance['taxonomy'] ) && ! empty( $instance['term'] ) ) {
-			$carousel->add_tax_query(
-				[
-					'taxonomy' => $instance['taxonomy'],
-					'terms'    => [ $instance['term'] ],
-					'field'    => 'slug',
-				]
-			);
+		$slides = $this->get_slides( $instance );
+
+		if ( empty( $slides ) ) {
+			return [];
 		}
 
-		// Aparte logica voor producten
-		if ( 'product' === $instance['post_type'] ) {
-			$carousel->add_tax_query(
-				[
-					'taxonomy' => 'product_visibility',
-					'terms'    => [ 'exclude-from-search', 'exclude-from-catalog' ],
-					'field'    => 'slug',
-					'operator' => 'NOT IN',
-				]
-			);
-			if ( isset( $instance['show_featured_products'] ) && $instance['show_featured_products'] ) {
-				$carousel->add_tax_query(
-					[
-						'taxonomy' => 'product_visibility',
-						'terms'    => [ 'featured' ],
-						'field'    => 'slug',
-					]
-				);
-			}
-		}
+		$carousel = Element_Carousel::create()
+			->add_items( $slides )
+			->set_columns( (int) $instance['columns'] );
 
 		return [
-			'carousel'    => $carousel->generate(),
-			'show_button' => $instance['show_button'],
-			'button'      => [
-				'url'  => ( ! empty( $instance['taxonomy'] ) && ! empty( $instance['term'] ) ) ? get_term_link( $instance['term'], $instance['taxonomy'] ) : get_post_type_archive_link( $instance['post_type'] ),
-				'text' => $instance['button_text'],
-			],
+			'content' => $carousel->generate(),
 		];
 	}
 
-	/** Parse args voor instance */
-	protected function parse_instance( array $instance ) : array {
-		$instance = wp_parse_args(
-			$instance,
-			[
-				'intro'       => '',
-				'columns'     => self::DEFAULT_NUMBER_OF_COLUMNS,
-				'items'       => self::DEFAULT_NUMBER_OF_ITEMS,
-				'show_button' => false,
-				'button_text' => '',
-			]
-		);
-		$instance['taxonomy'] = $instance[ "{$instance['post_type']}_taxonomy" ] ?? '';
-		$instance['term'] = $instance[ $instance['taxonomy'] ] ?? '';
-		return $instance;
+	protected function get_slides( array $instance ): array {
+
+		$args = [];
+
+		foreach ( $instance[ "{$instance['post_type']}_filter" ] as $taxonomy => $terms ) {
+
+			if ( 'so_field_container_state' === $taxonomy ) {
+				continue;
+			}
+
+			if ( WooCommerce::PRODUCT_POST_TYPE === $instance['post_type'] && 'show_featured_products' === $taxonomy && true === $terms ) {
+				$args['featured'] = true;
+			} elseif ( ! empty( $terms ) ) {
+				$args['tax_query'][] = [
+					'taxonomy' => $taxonomy,
+					'terms'    => $terms,
+					'field'    => 'slug',
+					'operator' => 'IN',
+				];
+			}
+		}
+
+		if ( WooCommerce::PRODUCT_POST_TYPE === $instance['post_type'] ) {
+			$args['limit'] = $instance['items'];
+			$args['orderby'] = 'rand';
+			$args['visibility'] = 'visible';
+
+			$posts = array_map(
+				[ Carousel_Util::class, 'product_to_carousel_slide' ],
+				siw_get_products( $args )
+			);
+		} else {
+			$args['post_type'] = $instance['post_type'];
+			$args['posts_per_page'] = $instance['items'];
+
+			$posts = array_map(
+				[ Carousel_Util::class, 'post_to_carousel_slide' ],
+				get_posts( $args )
+			);
+		}
+
+		return $posts;
 	}
+
 
 	/** Haalt ondersteunde post types op */
 	protected function get_post_types(): array {
-		return apply_filters( 'siw_carousel_post_types', [] );
-	}
+		$post_types = array_map(
+			fn( string $post_type ): \WP_Post_Type => get_post_type_object( $post_type ),
+			get_post_types_by_support( self::POST_TYPE_FEATURE )
+		);
 
-	/** Haalt ondersteunde taxonomieën op */
-	protected function get_taxonomies(): array {
-		return apply_filters( 'siw_carousel_post_type_taxonomies', [] );
+		return wp_list_pluck(
+			$post_types,
+			'label',
+			'name',
+		);
 	}
 
 	/** Haal optielijst van taxonomie op */
-	protected function get_term_options( string $taxonomy ): array {
-		$terms = get_terms( $taxonomy );
-		$term_options[''] = __( 'Alle', 'siw' );
+	protected function get_taxonomy_terms( \WP_Taxonomy $taxonomy ): array {
+		$term_options = [];
+		$terms = get_terms( $taxonomy->name );
 		foreach ( $terms as $term ) {
 			$term_options[ $term->slug ] = $term->name;
 		}

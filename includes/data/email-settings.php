@@ -37,5 +37,4 @@ class Email_Settings extends Data {
 	protected function add_domain( string $local_part ): string {
 		return $local_part . '@siw.nl';
 	}
-
 }

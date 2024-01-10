@@ -12,43 +12,43 @@ use SIW\Data\Continent;
 class Country extends Data {
 
 	/** Slug */
-	const SLUG = 'slug';
+	public const SLUG = 'slug';
 
 	/** ISO-code */
-	const ISO_CODE = 'iso_code';
+	public const ISO_CODE = 'iso_code';
 
 	/** Plato-code */
-	const PLATO_CODE = 'plato_code';
+	public const PLATO_CODE = 'plato_code';
 
 	/** Alle landen */
-	const ALL = 'all';
+	public const ALL = 'all';
 
 	/** Landen met groepsprojecten */
-	const WORKCAMPS = 'workcamps';
+	public const WORKCAMPS = 'workcamps';
 
 	/** Landen met ESC-projecten */
-	const ESC = 'esc_projects';
+	public const ESC = 'esc_projects';
 
 	/** Landen met projecten op maat */
-	const TAILOR_MADE = 'tailor_made_projects';
+	public const TAILOR_MADE = 'tailor_made_projects';
 
 	/** Landen met projecten */
-	const PROJECTS = 'projects';
+	public const PROJECTS = 'projects';
 
 	/** Landen in Afrika */
-	const AFRICA = 'afrika';
+	public const AFRICA = 'afrika';
 
 	/** Landen in Azië */
-	const ASIA = 'azie';
+	public const ASIA = 'azie';
 
 	/** Landen in Europa */
-	const EUROPE = 'europa';
+	public const EUROPE = 'europa';
 
 	/** Landen in Noord-Amerika */
-	const NORTH_AMERICA = 'noord_amerika';
+	public const NORTH_AMERICA = 'noord_amerika';
 
 	/** Landen in Latijns-Amerika */
-	const LATIN_AMERICA = 'latijns_amerika';
+	public const LATIN_AMERICA = 'latijns_amerika';
 
 	/** ISO-code van het land */
 	protected string $iso_code;

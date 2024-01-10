@@ -13,5 +13,5 @@ interface Async extends Action {
 	public function process();
 
 	/** Geeft het aantal argument terug */
-	public function get_argument_count() : int;
+	public function get_argument_count(): int;
 }

@@ -30,6 +30,7 @@ class Meta_Box {
 		$arg['type'] = match ( $field['type'] ) {
 			'text',
 			'textarea',
+			'date',
 			'email',
 			'tel',
 			'radio',
@@ -89,17 +90,17 @@ class Meta_Box {
 	public static function get_display_value( array $field, $raw_value ) {
 
 		// TODO: escaping?
-		$value = match ( $field['type']  ) {
+		$value = match ( $field['type'] ) {
 			'radio',
 			'select',
 			'button_group'  => $field['options'][ $raw_value ] ?? '',
 			'checkbox_list' => implode( ', ', array_map( fn( string $value ): string => $field['options'][ $value ], $raw_value ) ),
 			'checkbox',
 			'switch'        => boolval( $raw_value ) ? __( 'Ja', 'siw' ) : __( 'Nee', 'siw' ), // TODO: on_label en off_label gebruiken voor switch
+			'date'          => siw_format_date( $raw_value ),
 			default         => $raw_value,
 		};
 
 		return $value;
 	}
-
 }

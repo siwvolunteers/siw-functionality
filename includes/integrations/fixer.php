@@ -14,7 +14,7 @@ use SIW\Helpers\HTTP_Request;
  */
 class Fixer {
 
-	const API_URL = 'http://data.fixer.io/api/latest';
+	private const API_URL = 'http://data.fixer.io/api/latest';
 
 	protected string $transient_name = 'siw_exchange_rates';
 
@@ -54,7 +54,6 @@ class Fixer {
 			return null;
 		}
 
-		return array_map( fn( float $rate ) : float => 1 / $rate, $response['rates'] );
+		return array_map( fn( float $rate ): float => 1 / $rate, $response['rates'] );
 	}
 }
-

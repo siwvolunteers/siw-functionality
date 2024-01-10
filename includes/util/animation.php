@@ -10,7 +10,7 @@ namespace SIW\Util;
 class Animation {
 
 	/** Genereert data-attributes */
-	public static function generate_data_attributes( string $type, int $duration, int $delay, string $easing ) : array {
+	public static function generate_data_attributes( string $type, int $duration, int $delay, string $easing ): array {
 		$data_attributes = [
 			'data-sal'          => $type,
 			'data-sal-duration' => $duration,
@@ -21,7 +21,7 @@ class Animation {
 	}
 
 	/** Geeft opties voor duur terug */
-	public static function get_duration_options() : array {
+	public static function get_duration_options(): array {
 		for ( $t = 200; $t <= 2000; $t += 50 ) {
 			// translators: %d is het aantal miliseconden
 			$durations[ $t ] = sprintf( __( '%d ms', 'siw' ), $t );
@@ -30,7 +30,7 @@ class Animation {
 	}
 
 	/** Geeft opties voor vertraging terug */
-	public static function get_delay_options() : array {
+	public static function get_delay_options(): array {
 		$delays['none'] = __( 'Geen', 'siw' );
 		for ( $t = 100; $t <= 1000; $t += 50 ) {
 			// translators: %d is het aantal miliseconden
@@ -40,12 +40,12 @@ class Animation {
 	}
 
 	/** Geeft opties voor easing terug */
-	public static function get_easing_options() : array {
+	public static function get_easing_options(): array {
 		return siw_get_data( 'animation/easings' );
 	}
 
 	/** Geeft animatietypes terug */
-	public static function get_types() : array {
+	public static function get_types(): array {
 		return siw_get_data( 'animation/types' );
 	}
 }

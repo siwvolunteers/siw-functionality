@@ -3,6 +3,7 @@
 namespace SIW\Assets;
 
 use SIW\Interfaces\Assets\Style;
+use SIW\Traits\Assets_Handle;
 
 /**
  * Plugin style
@@ -11,11 +12,10 @@ use SIW\Interfaces\Assets\Style;
  */
 class SIW_Functionality implements Style {
 
-	/** Handle voor assets */
-	const ASSETS_HANDLE = 'siw-functionality';
+	use Assets_Handle;
 
 	/** {@inheritDoc */
 	public function register_style() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/siw.css', [], SIW_PLUGIN_VERSION );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/siw.css', [], SIW_PLUGIN_VERSION );
 	}
 }

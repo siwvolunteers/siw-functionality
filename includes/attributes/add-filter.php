@@ -19,5 +19,4 @@ class Add_Filter {
 	public function add( callable $function_to_add, int $accepted_args = 1 ): void {
 		add_filter( $this->tag, $function_to_add, $this->priority, $accepted_args );
 	}
-
 }

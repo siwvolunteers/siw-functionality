@@ -18,6 +18,3 @@ interface Extension {
 	/** Geeft aan of deze extensie rows ondersteunt */
 	public function supports_rows(): bool;
 }
-
-
-

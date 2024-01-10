@@ -21,8 +21,8 @@ class Import_Workcamps extends Import {
 	/** Verwerk xml van Plato */
 	protected function process_xml() {
 
-		$projects_db = new Database( Database_Table::PLATO_PROJECTS() );
-		$images_db = new Database( Database_Table::PLATO_PROJECT_IMAGES() );
+		$projects_db = new Database( Database_Table::PLATO_PROJECTS );
+		$images_db = new Database( Database_Table::PLATO_PROJECT_IMAGES );
 
 		// Tabel leegmaken
 		$projects_db->delete( [ 'dutch_project' => $this->dutch_project ] );
@@ -37,6 +37,8 @@ class Import_Workcamps extends Import {
 			foreach ( $columns as $column ) {
 				if ( 'dutch_project' === $column['name'] ) {
 					$project_data[ $column['name'] ] = $this->dutch_project;
+				} elseif ( 'project_id' === $column['name'] ) {
+					$project_data[ $column['name'] ] = str_replace( '-', '', (string) $project->{$column['name']} );
 				} else {
 					$project_data[ $column['name'] ] = (string) $project->{$column['name']};
 				}
@@ -44,7 +46,7 @@ class Import_Workcamps extends Import {
 			if ( ! $projects_db->insert( $project_data ) ) {
 				continue;
 			}
-			$this->data[] = (string) $project->project_id;
+			$this->data[] = str_replace( '-', '', (string) $project->project_id );
 
 			$image_urls = $project->xpath( "*[starts-with(local-name(),'url_prj_photo')]" );
 			foreach ( $image_urls as $index => $image_url ) {

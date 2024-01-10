@@ -12,10 +12,10 @@ use SIW\Util\CSS;
  */
 class Leaflet_Map extends Element {
 
-	const GEOCODING_URL = 'https://nominatim.openstreetmap.org/search';
-	const TILESERVER_URL_TEMPLATE = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-	const HASH_ALGORITHM = 'sha256';
-	const HASH_PREFIX = 'siw_geocode_';
+	private const GEOCODING_URL = 'https://nominatim.openstreetmap.org/search';
+	private const TILESERVER_URL_TEMPLATE = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+	private const HASH_ALGORITHM = 'sha256';
+	private const HASH_PREFIX = 'siw_geocode_';
 
 	/** Hoogt van kaart in pixels */
 	protected int $height = 300;

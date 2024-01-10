@@ -2,7 +2,7 @@
 
 namespace SIW\Data;
 
-use \Spatie\Enum\Enum;
+use Spatie\Enum\Enum;
 
 /**
  * Special pagina's waarnaar verwezen kan worden
@@ -17,7 +17,7 @@ class Special_Page extends Enum {
 
 	/** {@inheritDoc} */
 	protected static function values(): \Closure {
-		return function( string $value ): string {
+		return function ( string $value ): string {
 			return strtolower( $value );
 		};
 	}

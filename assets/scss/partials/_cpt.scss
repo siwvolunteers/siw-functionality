@@ -1,7 +1,6 @@
 //Archive
 
-.archive,
-.siw-carousel {
+.archive {
 	article.siw_job_posting,
 	article.siw_event,
 	article.siw_story,
@@ -12,10 +11,6 @@
 			padding: 0;
 			text-align: center;
 		}
-	}
-	.carousel-cell {
-		margin-top: 5px;
-		margin-bottom: 5px;
 	}
 }
 

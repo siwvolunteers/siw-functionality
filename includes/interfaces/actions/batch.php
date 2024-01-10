@@ -10,14 +10,14 @@ namespace SIW\Interfaces\Actions;
 interface Batch extends Action {
 
 	/** Selecteer data om te verwerken */
-	public function select_data() : array;
+	public function select_data(): array;
 
 	/** Verwerk item */
 	public function process( $item );
 
 	/** Moet actie toegevoegd worden aan scheduler */
-	public function must_be_scheduled() : bool;
+	public function must_be_scheduled(): bool;
 
 	/** Moet actie uitgevoerd worden bij update van plugin */
-	public function must_be_run_on_update() : bool;
+	public function must_be_run_on_update(): bool;
 }

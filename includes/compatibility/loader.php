@@ -17,17 +17,14 @@ class Loader extends Class_Loader_Abstract {
 		return [
 			Action_Scheduler::class,
 			GeneratePress::class,
-			GTranslate::class,
 			Members::class,
 			Meta_Box::class,
 			Safe_Redirect_Manager::class,
 			SiteOrigin_Page_Builder::class,
 			SiteOrigin_Widgets_Bundle::class,
 			The_SEO_Framework::class,
-			UpdraftPlus::class,
 			WooCommerce::class,
 			WordPress::class,
-			WP_Rocket::class,
 			WP_Sentry_Integration::class,
 			WPML::class,
 		];
@@ -44,5 +41,4 @@ class Loader extends Class_Loader_Abstract {
 
 		$class_name::init();
 	}
-
 }

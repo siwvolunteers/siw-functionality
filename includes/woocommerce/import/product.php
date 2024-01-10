@@ -26,12 +26,12 @@ use SIW\WooCommerce\Taxonomy_Attribute;
 class Product {
 
 	/** Post-status van projecten die gepubliceerd kunnen worden */
-	const PUBLISH_STATUS = 'publish';
+	public const PUBLISH_STATUS = 'publish';
 
 	/** Post-status van projecten die beoordeeld moeten worden */
-	const REVIEW_STATUS = 'pending';
+	public const REVIEW_STATUS = 'pending';
 
-	const LOGGER_SOURCE = 'importeren-projecten';
+	private const LOGGER_SOURCE = 'importeren-projecten';
 
 	/** Geeft aan of het een update van een bestaand product is */
 	protected bool $is_update = false;

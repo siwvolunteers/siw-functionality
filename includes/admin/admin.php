@@ -3,10 +3,11 @@
 namespace SIW\Admin;
 
 use SIW\Admin\User_Columns;
-use SIW\Attributes\Action;
-use SIW\Attributes\Filter;
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Properties;
+use SIW\Traits\Assets_Handle;
 
 /**
  * Aanpassingen aan Admin
@@ -15,29 +16,29 @@ use SIW\Properties;
  */
 class Admin extends Base {
 
-	const ASSETS_HANDLE = 'siw-admin';
+	use Assets_Handle;
 
-	#[Action( 'admin_init' )]
+	#[Add_Action( 'admin_init' )]
 	/** Verwijdert Welcome Panel */
 	public function remove_welcome_panel() {
 		remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	}
 
-	#[Action( 'admin_enqueue_scripts' )]
+	#[Add_Action( 'admin_enqueue_scripts' )]
 	/** Voegt admin-styling toe */
 	public function enqueue_admin_style() {
-		wp_register_style( self::ASSETS_HANDLE, SIW_ASSETS_URL . 'css/admin/siw-admin.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( self::ASSETS_HANDLE );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/admin/siw-admin.css', [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::get_assets_handle() );
 	}
 
-	#[Action( 'admin_menu', PHP_INT_MAX )]
+	#[Add_Action( 'admin_menu', PHP_INT_MAX )]
 	/** Verwijdert standaard menu-items */
 	public function hide_pages() {
 		remove_menu_page( 'edit-comments.php' );
 		remove_menu_page( 'link-manager.php' );
 	}
 
-	#[Action( 'admin_init' )]
+	#[Add_Action( 'admin_init' )]
 	/** Verbergt standaard dashboard widgets */
 	public function hide_dashboard_widgets() {
 		remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
@@ -47,13 +48,13 @@ class Admin extends Base {
 		remove_meta_box( 'dashboard_site_health', 'dashboard', 'normal' );
 	}
 
-	#[Filter( 'admin_footer_text' )]
+	#[Add_Filter( 'admin_footer_text' )]
 	/** Voegt copyright toe aan admin footer */
 	public function set_admin_footer_text(): string {
 		return sprintf( '&copy; %s %s', gmdate( 'Y' ), Properties::NAME );
 	}
 
-	#[Filter( 'manage_pages_columns' )]
+	#[Add_Filter( 'manage_pages_columns' )]
 	/** Verbergt admin-column voor pagina's */
 	public function remove_pages_columns( array $columns ): array {
 		unset( $columns['comments'] );
@@ -61,7 +62,7 @@ class Admin extends Base {
 		return $columns;
 	}
 
-	#[Action( 'admin_menu' )]
+	#[Add_Action( 'admin_menu' )]
 	/** Verwijdert diverse metaboxes */
 	public function remove_metaboxes() {
 		remove_meta_box( 'postcustom', [ 'page', 'post' ], 'normal' );
@@ -72,7 +73,7 @@ class Admin extends Base {
 		remove_meta_box( 'authordiv', [ 'page', 'post', 'attachment' ], 'normal' );
 	}
 
-	#[Action( 'admin_init', 20 )]
+	#[Add_Action( 'admin_init', 20 )]
 	/** Voegt extra admin columns toe */
 	public function add_user_columns() {
 		if ( ! class_exists( '\MBAC\User' ) ) {

@@ -2,6 +2,9 @@
 
 namespace SIW\WooCommerce\Product;
 
+use SIW\Attributes\Add_Action;
+use SIW\Attributes\Add_Filter;
+use SIW\Base;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -11,18 +14,7 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  *
  * @todo meta_query toevoegen: leeftijd, etc.
  */
-class Shortcode {
-
-	/** Init */
-	public static function init() {
-		$self = new self();
-
-		add_filter( 'shortcode_atts_products', [ $self, 'add_shortcode_atts' ], 10, 4 );
-		add_filter( 'woocommerce_shortcode_products_query', [ $self, 'edit_shortcode_products_query' ], 10, 3 );
-
-		add_action( 'woocommerce_shortcode_after_products_loop', [ $self, 'add_archive_button' ] );
-		add_action( 'woocommerce_shortcode_products_loop_no_results', [ $self, 'add_no_results_text_and_button' ] );
-	}
+class Shortcode extends Base {
 
 	/** Geeft extra taxonomy attributes terug */
 	protected function get_taxonomy_attributes(): array {
@@ -46,6 +38,7 @@ class Shortcode {
 		];
 	}
 
+	#[Add_Filter( 'shortcode_atts_products' )]
 	/** Voegt extra attributen toe aan shortcode */
 	public function add_shortcode_atts( array $out, array $pairs, array $atts, string $shortcode ): array {
 		if ( 'products' !== $shortcode ) {
@@ -62,7 +55,7 @@ class Shortcode {
 		return $out;
 	}
 
-	/** Past extra attributen toe in query */
+	#[Add_Filter( 'woocommerce_shortcode_products_query' )]
 	public function edit_shortcode_products_query( array $query_args, array $attributes, string $type ): array {
 		if ( 'products' !== $type ) {
 			return $query_args;
@@ -83,7 +76,7 @@ class Shortcode {
 		return $query_args;
 	}
 
-	/** Toont knop naar archief pagina */
+	#[Add_Action( 'woocommerce_shortcode_after_products_loop' )]
 	public function add_archive_button( array $attributes ) {
 		if ( 'true' !== $attributes['show_button'] ) {
 			return;
@@ -96,7 +89,7 @@ class Shortcode {
 		);
 	}
 
-	/** Toont text en knop als er geen zoekresultaten zijn. */
+	#[Add_Action( 'woocommerce_shortcode_products_loop_no_results' )]
 	public function add_no_results_text_and_button( array $attributes ) {
 		if ( 'true' !== $attributes['show_button'] ) {
 			return;
@@ -111,5 +104,4 @@ class Shortcode {
 			esc_html__( 'Bekijk alle projecten', 'siw' )
 		);
 	}
-
 }

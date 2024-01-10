@@ -11,7 +11,7 @@ namespace SIW\Structured_Data;
 class Job_Posting extends Thing {
 
 	/** {@inheritDoc} */
-	protected function get_type() : string {
+	protected function get_type(): string {
 		return 'JobPosting';
 	}
 
