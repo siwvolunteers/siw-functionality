@@ -77,12 +77,6 @@ class GeneratePress extends Base implements I_Plugin {
 		wp_dequeue_style( 'generate-secondary-nav-mobile' );
 	}
 
-	#[Add_Action( 'customize_controls_enqueue_scripts' )]
-	public function add_customizer_script() {
-		wp_register_script( 'gp-customizer', SIW_ASSETS_URL . 'js/admin/gp-customizer.js', [], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( 'gp-customizer' );
-	}
-
 	#[Add_Action( Update::PLUGIN_UPDATED_HOOK )]
 	/** Update GeneratePress dynamic css cache */
 	public function update_dynamic_css() {

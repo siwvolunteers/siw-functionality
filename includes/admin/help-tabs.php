@@ -39,7 +39,7 @@ class Help_Tabs extends Base {
 		foreach ( $help_tab_options['help_tabs'] as $help_tab ) {
 			$screen->add_help_tab(
 				[
-					'id'      => wp_unique_id( "siw-help-tab-{$post_type}-" ),
+					'id'      => wp_unique_prefixed_id( "siw-help-tab-{$post_type}-" ),
 					'title'   => esc_html( $help_tab['title'] ),
 					'content' => wp_kses_post( $help_tab['content'] ),
 				]

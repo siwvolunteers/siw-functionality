@@ -48,7 +48,7 @@ abstract class Element {
 
 	/** Init */
 	final protected function __construct() {
-		$this->element_id = wp_unique_id( "siw-{$this::get_type()}-" );
+		$this->element_id = wp_unique_prefixed_id( "siw-{$this::get_type()}-" );
 		$this->initialize();
 		$this->classes[] = static::get_element_class();
 	}

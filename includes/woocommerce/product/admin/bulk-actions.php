@@ -104,12 +104,13 @@ class Bulk_Actions extends Base {
 				return;
 		}
 
-		// TODO: admin element van maken?
-		?>
-			<div class="notice notice-info is-dismissible">
-				<p><?php echo esc_html( $message ); ?></p>
-			</div>
-		<?php
+		wp_admin_notice(
+			$message,
+			[
+				'type'        => 'info',
+				'dismissable' => true,
+			]
+		);
 	}
 
 	#[Add_Filter( 'removable_query_args' )]
