@@ -7,7 +7,7 @@ function siw_get_option( string $option, $default_value = null ) {
 
 	// Foutmelding bij aanroepen vóór init
 	if ( 0 === did_action( 'init' ) && WP_DEBUG ) {
-		trigger_error( 'siw_get_option werd te vroeg aangeroepen', E_USER_ERROR ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
+		wp_trigger_error( __FUNCTION__, 'Deze function werd te vroeg aangeroepen', E_USER_ERROR );
 	}
 
 	// Probeer waarde uit cache te halen
