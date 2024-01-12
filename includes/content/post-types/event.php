@@ -4,6 +4,7 @@ namespace SIW\Content\Post_Types;
 use SIW\Attributes\Add_Action;
 use SIW\Content\Post\Event as Event_Post;
 use SIW\Content\Post_Types\Post_Type;
+use SIW\Data\Icons\Genericons_Neue;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Calendar_Icon;
 use SIW\Elements\Icon;
@@ -305,10 +306,10 @@ class Event extends Post_Type {
 		$template_variables = [
 			'event' => $post,
 			'icons' => [
-				'location' => Icon::create()->set_icon_class( 'location' )->generate(),
-				'online'   => Icon::create()->set_icon_class( 'admin-site-alt3' )->generate(),
-				'clock'    => Icon::create()->set_icon_class( 'clock' )->generate(),
-				'calendar' => Icon::create()->set_icon_class( 'calendar' )->generate(),
+				'location' => Icon::create()->set_icon_class( Genericons_Neue::LOCATION )->set_size( 3 )->generate(),
+				'online'   => Icon::create()->set_icon_class( Genericons_Neue::CLOUD )->set_size( 3 )->generate(),
+				'clock'    => Icon::create()->set_icon_class( Genericons_Neue::TIME )->set_size( 3 )->generate(),
+				'calendar' => Icon::create()->set_icon_class( Genericons_Neue::MONTH )->set_size( 3 )->generate(),
 			],
 		];
 
