@@ -2,6 +2,8 @@
 
 namespace SIW\Elements;
 
+use BackedEnum;
+
 /**
  * Class om een icon te genereren
  *
@@ -26,7 +28,11 @@ class Icon extends Element {
 	}
 
 	/** Zet class van icon */
-	public function set_icon_class( string $icon_class ): self {
+	public function set_icon_class( string|BackedEnum $icon_class ): self {
+		if ( is_a( $icon_class, BackedEnum::class ) ) {
+			$icon_class = $icon_class->value;
+		}
+
 		$this->icon_class = $icon_class;
 		return $this;
 	}

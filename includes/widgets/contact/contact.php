@@ -2,6 +2,8 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Social_Icons;
+use SIW\Elements\Icon;
 use SIW\Properties;
 
 /**
@@ -61,20 +63,14 @@ class Contact extends Widget {
 			'postcode'      => Properties::POSTCODE,
 			'city'          => Properties::CITY,
 			'tel_link'      => [
-				'phone' => Properties::PHONE_INTERNATIONAL,
-				'text'  => Properties::PHONE,
+				'full' => Properties::PHONE_INTERNATIONAL,
+				'text' => Properties::PHONE,
 			],
-			'email_link'    => [
-				'email' => Properties::EMAIL,
-				'text'  => Properties::EMAIL,
-			],
+			'email'         => Properties::EMAIL,
 			'whatsapp_link' => [
 				'url'   => add_query_arg( 'phone', Properties::WHATSAPP_FULL, 'https://api.whatsapp.com/send' ),
-				'phone' => Properties::WHATSAPP,
-				'icon'  => [
-					'size'       => 2,
-					'icon_class' => 'whatsapp',
-				],
+				'text' => Properties::WHATSAPP,
+				'icon'  => Icon::create()->set_icon_class( Social_Icons::WHATSAPP )->set_size( 3 )->generate(),
 			],
 		];
 	}

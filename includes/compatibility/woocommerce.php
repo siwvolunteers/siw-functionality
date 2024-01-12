@@ -7,6 +7,7 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Post_Type_Support;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
+use SIW\Traits\Assets_Handle;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -16,6 +17,8 @@ use SIW\WooCommerce\Taxonomy_Attribute;
  * @see       https://woocommerce.com/
  */
 class WooCommerce extends Base implements I_Plugin {
+
+	use Assets_Handle;
 
 	#[Add_Filter( 'woocommerce_customer_meta_fields' )]
 	private const CUSTOMER_META_FIELDS = [];
@@ -176,5 +179,18 @@ class WooCommerce extends Base implements I_Plugin {
 			return null;
 		}
 		return $message;
+	}
+
+
+	#[Add_Action( 'wp_enqueue_scripts' )]
+	public function enqueue_styles() {
+
+		if ( ! is_woocommerce() && ! is_checkout() && ! is_cart() ) {
+			return;
+		}
+
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/compatibility/woocommerce.css', [], SIW_PLUGIN_VERSION );
+		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/compatibility/woocommerce.css' );
+		wp_enqueue_style( self::get_assets_handle() );
 	}
 }

@@ -1,0 +1,18 @@
+.error404 .container {
+  height: 100vh;
+  background-image: var(--siw-404-background-url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  max-width: unset;
+}
+.error404 .container .site-content {
+  height: 100vh;
+  text-align: center;
+}
+.error404 .container .site-content main {
+  padding: 50px;
+  max-width: 85ch;
+  display: inline-block;
+  background-color: var(--siw-base);
+}
