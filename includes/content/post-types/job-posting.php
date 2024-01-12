@@ -129,7 +129,6 @@ class Job_Posting extends Post_Type {
 	/** {@inheritDoc} */
 	public static function get_meta_box_fields(): array {
 		$hr_manager = siw_get_option( 'job_posting.hr_manager' );
-		// TODO: verplaatsen naar options?
 		$hr_manager = wp_parse_args(
 			$hr_manager,
 			[

@@ -13,11 +13,6 @@ use SIW\Elements\Interactive_SVG_Map;
 use SIW\Elements\Quote;
 use SIW\Util\CSS;
 
-/**
- * Wereld (basis) projecten
- *
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- */
 class TM_Country extends Post_Type {
 
 	/** {@inheritDoc} */
@@ -57,7 +52,6 @@ class TM_Country extends Post_Type {
 	protected static function get_site_sortables(): array {
 		return [];
 	}
-
 
 	/** {@inheritDoc} */
 	protected function get_custom_post( \WP_Post|int $post ): TM_Country_Post {

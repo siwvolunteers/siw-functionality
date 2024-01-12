@@ -6,6 +6,8 @@ use SIW\Data\Job_Type;
 
 class Job_Posting extends Post {
 
+	private const MAX_AGE_JOB_POSTING = 12;
+
 	public function get_thumbnail_id(): int {
 		$images = $this->get_meta( 'image', [ 'limit' => 1 ] );
 		$image = reset( $images );
@@ -15,6 +17,10 @@ class Job_Posting extends Post {
 
 	public function is_active(): bool {
 		return $this->get_meta( 'deadline' ) > gmdate( 'Y-m-d' );
+	}
+
+	public function should_delete(): bool {
+		return $this->get_meta( 'deadline' ) < gmdate( 'Y-m-d', time() - ( static::MAX_AGE_JOB_POSTING * MONTH_IN_SECONDS ) );
 	}
 
 	public function get_deadline(): \DateTime {

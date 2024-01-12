@@ -6,13 +6,7 @@ use SIW\Content\Post_Types\Post_Type;
 use SIW\Data\Country;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Quote;
-use SIW\Helpers\Template;
 
-/**
- * Ervaringsverhalen
- *
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- */
 class Story extends Post_Type {
 
 	/** {@inheritDoc} */

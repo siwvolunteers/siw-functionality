@@ -4,11 +4,6 @@ namespace SIW\Content;
 
 use SIW\Abstracts\Base_Loader;
 
-/**
- * Loader voor content types classes
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Loader extends Base_Loader {
 
 	/** {@inheritDoc} */

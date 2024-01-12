@@ -4,6 +4,8 @@ namespace SIW\Content\Post;
 
 class Event extends Post {
 
+	private const MAX_AGE_EVENT = 6;
+
 	public function get_thumbnail_id(): int {
 		$images = $this->get_meta( 'image', [ 'limit' => 1 ] );
 		$image = reset( $images );
@@ -37,6 +39,10 @@ class Event extends Post {
 
 	public function is_active(): bool {
 		return $this->get_meta( 'event_date' ) > gmdate( 'Y-m-d' );
+	}
+
+	public function should_delete(): bool {
+		return $this->get_meta( 'event_date' ) < gmdate( 'Y-m-d', time() - ( static::MAX_AGE_EVENT * MONTH_IN_SECONDS ) );
 	}
 
 	public function is_info_day(): bool {

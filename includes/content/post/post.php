@@ -34,6 +34,10 @@ abstract class Post {
 		return true;
 	}
 
+	public function should_delete(): bool {
+		return false;
+	}
+
 	protected function get_meta( string $key, array $args = [] ): mixed {
 		return siw_meta( $key, $args, $this->get_id() );
 	}

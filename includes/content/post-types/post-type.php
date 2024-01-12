@@ -12,15 +12,6 @@ use SIW\Elements\Taxonomy_Filter;
 use SIW\Helpers\Template;
 use SIW\Structured_Data\Thing;
 
-/**
- * Class om een custom content type toe te voegen
- *
- * - Custom post type
- * - Taxonomieën
- * - Archiefpagina (header, layout, filter)
- *
- * @copyright 2020-2023 SIW Internationale Vrijwilligersprojecten
- */
 abstract class Post_Type extends Base {
 
 	/** Geeft basis van post type terug obv class name */
@@ -69,6 +60,24 @@ abstract class Post_Type extends Base {
 		return ! empty( static::get_active_posts_meta_query() );
 	}
 
+	#[Add_Filter( 'siw/delete_old_posts/post_types' )]
+	final public function register_post_type_for_delete_old_post( array $post_types ) {
+		if ( static::has_active_posts_meta_query() ) {
+			$post_types[] = static::get_post_type();
+		}
+
+		return $post_types;
+	}
+
+	#[Add_Filter( 'siw/delete_posts/should_delete' )]
+	final public function should_delete_post( bool $should_delete, int $post_id ): bool {
+		if ( static::get_post_type() !== get_post_type( $post_id ) ) {
+			return $should_delete;
+		}
+		$custom_post = $this->get_custom_post( $post_id );
+		return $custom_post->should_delete();
+	}
+
 	#[Add_Action( 'pre_get_posts' )]
 	public function set_filter( \WP_Query $query ) {
 		if ( ! $this->is_archive_query( $query ) || empty( $this->get_active_posts_meta_query() ) ) {
@@ -81,7 +90,7 @@ abstract class Post_Type extends Base {
 
 	#[Add_Filter( 'slim_seo_robots_index' )]
 	final public function set_seo_robots_index( bool $index, int $post_id ): bool {
-		if ( self::get_post_type() !== get_post_type( $post_id ) ) {
+		if ( static::get_post_type() !== get_post_type( $post_id ) ) {
 			return $index;
 		}
 		return $this->get_custom_post( $post_id )->is_active();
@@ -89,7 +98,7 @@ abstract class Post_Type extends Base {
 
 	#[Add_Filter( 'slim_seo_breadcrumbs_args', 20 )]
 	final public function set_seo_breadcrumb_args( array $args ): array {
-		if ( self::get_post_type() !== get_post_type() || 1 !== count( $this->get_taxonomies() ) ) {
+		if ( static::get_post_type() !== get_post_type() || 1 !== count( $this->get_taxonomies() ) ) {
 			return $args;
 		}
 
@@ -97,7 +106,6 @@ abstract class Post_Type extends Base {
 		return $args;
 	}
 
-	/** Genereert titel slug op basis van eigenschappen */
 	#[Add_Filter( ' ' )]
 	public function set_post_data( array $data, array $postarr ): array {
 
@@ -105,7 +113,7 @@ abstract class Post_Type extends Base {
 			return $data;
 		}
 
-		if ( self::get_post_type() !== $data['post_type'] ) {
+		if ( static::get_post_type() !== $data['post_type'] ) {
 			return $data;
 		}
 
@@ -325,7 +333,7 @@ abstract class Post_Type extends Base {
 		if ( is_admin() || false === $query->is_main_query() ) {
 			return false;
 		}
-		if ( $query->is_post_type_archive( $this->get_post_type() ) ) {
+		if ( $query->is_post_type_archive( static::get_post_type() ) ) {
 			return true;
 		}
 		foreach ( array_keys( $this->get_taxonomies() ) as $taxonomy ) {
@@ -411,7 +419,7 @@ abstract class Post_Type extends Base {
 	#[Add_Action( 'wp_footer' )]
 	public function add_structured_data(): void {
 
-		if ( ! is_singular( self::get_post_type() ) ) {
+		if ( ! is_singular( static::get_post_type() ) ) {
 			return;
 		}
 
@@ -429,7 +437,7 @@ abstract class Post_Type extends Base {
 	#[Add_Filter( 'get_the_excerpt', 1 )]
 	public function set_excerpt( string $excerpt, \WP_Post $post ): string {
 
-		if ( self::get_post_type() !== get_post_type( $post ) ) {
+		if ( static::get_post_type() !== get_post_type( $post ) ) {
 			return $excerpt;
 		}
 
@@ -446,7 +454,7 @@ abstract class Post_Type extends Base {
 	#[Add_Filter( 'the_content' )]
 	public function set_content( string $content ): string {
 
-		if ( ! is_singular( self::get_post_type() ) || ! in_the_loop() || ! is_main_query() ) {
+		if ( ! is_singular( static::get_post_type() ) || ! in_the_loop() || ! is_main_query() ) {
 			return $content;
 		}
 
@@ -460,7 +468,7 @@ abstract class Post_Type extends Base {
 
 	#[Add_Filter( 'post_thumbnail_id' )]
 	public function set_post_thumbnail_id( int $thumbnail_id, \WP_Post $post ): int {
-		if ( get_post_type( $post ) !== self::get_post_type() ) {
+		if ( get_post_type( $post ) !== static::get_post_type() ) {
 			return $thumbnail_id;
 		}
 
