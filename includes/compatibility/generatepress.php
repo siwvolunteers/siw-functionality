@@ -41,6 +41,12 @@ class GeneratePress extends Base implements I_Plugin {
 		remove_action( 'generate_archive_title', 'generate_archive_title' );
 	}
 
+	#[Add_Filter( 'generate_logo_attributes' )]
+	public function set_skip_lazy_for_logo( array $attributes ): array {
+		$attributes['data-skip-lazy'] = '1';
+		return $attributes;
+	}
+
 	#[Add_Filter( 'generate_elements_custom_args' )]
 	/** Sorteer elements standaard op menu_order */
 	public function set_elements_orderby( array $args ): array {
