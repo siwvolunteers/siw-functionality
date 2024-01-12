@@ -28,10 +28,11 @@ class Accordion_Tabs extends Repeater {
 	/** {@inheritDoc} */
 	protected function parse_item( array $item ): array {
 		return [
-			'id'      => wp_unique_id(),
-			'title'   => $item['title'] ?? '',
-			'content' => $item['content'] ?? '',
-			'button'  => $item['show_button'] ?
+			'section_id' => wp_unique_prefixed_id( 'siw-accordion-section-' ),
+			'tab_id'     => wp_unique_prefixed_id( 'siw-accordion-tab-' ),
+			'title'      => $item['title'] ?? '',
+			'content'    => $item['content'] ?? '',
+			'button'     => $item['show_button'] ?
 				[
 					'url'  => $item['button_url'],
 					'text' => $item['button_text'],

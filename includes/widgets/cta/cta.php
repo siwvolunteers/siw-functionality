@@ -89,6 +89,10 @@ class CTA extends Widget {
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
 
+		if ( ! isset( $instance['background_images'] ) || empty( $instance['background_images'] ) ) {
+			return [];
+		}
+
 		return [
 			'content' => CTA_Hero::create()
 				->set_headline( $instance['headline'] )

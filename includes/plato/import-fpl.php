@@ -39,6 +39,8 @@ class Import_FPL extends Import {
 					} else {
 						$value = '';
 					}
+				} elseif ( 'project_id' === $column['name'] ) {
+					$value = str_replace( '-', '', (string) $project->{$column['name']} );
 				} else {
 					$value = (string) $project->{$column['name']};
 				}
@@ -46,7 +48,7 @@ class Import_FPL extends Import {
 			}
 
 			if ( $db->insert( $data ) ) {
-				$this->data[] = (string) $project->project_id;
+				$this->data[] = str_replace( '-', '', (string) $project->project_id );
 			}
 		}
 	}

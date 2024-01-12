@@ -139,10 +139,14 @@ class Carousel extends Widget {
 			return [];
 		}
 
-		$posts = $this->get_slides( $instance );
+		$slides = $this->get_slides( $instance );
+
+		if ( empty( $slides ) ) {
+			return [];
+		}
 
 		$carousel = Element_Carousel::create()
-			->add_items( $posts )
+			->add_items( $slides )
 			->set_columns( (int) $instance['columns'] );
 
 		return [

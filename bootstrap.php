@@ -95,14 +95,18 @@ class Bootstrap {
 
 	/** Toon melding dat minimum requirements niet gehaald zijn is */
 	public function show_requirements_admin_notice() {
-		$notice = sprintf(
-			/* translators: %1$s is WordPress versienummer %2$s is PHP versienummer */
-			__( 'De SIW plugin vereist WordPress versie %1$s en PHP versie %2$s', 'siw' ),
-			SIW_MIN_WP_VERSION,
-			SIW_MIN_PHP_VERSION
+		wp_admin_notice(
+			sprintf(
+				/* translators: %1$s is WordPress versienummer %2$s is PHP versienummer */
+				__( 'De SIW plugin vereist WordPress versie %1$s en PHP versie %2$s', 'siw' ),
+				SIW_MIN_WP_VERSION,
+				SIW_MIN_PHP_VERSION
+			),
+			[
+				'type' => 'error',
+				'id'   => 'siw-requirements',
+			]
 		);
-
-		echo '<div class="notice notice-error"><p><b>' . esc_html( $notice ) . '</b></p></div>';
 	}
 
 	/** Laadt textdomain voor plugin */
