@@ -3,23 +3,11 @@
 namespace SIW\Options;
 
 use SIW\Data\Board_Title;
-use SIW\Interfaces\Options\Option as Option_Interface;
-
 use SIW\Properties;
 
-/**
- * Opties voor Configuratie
- *
- * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
- */
-class Settings implements Option_Interface {
+class Settings extends Option {
 
 	private const EMAIL_LOCAL_PART_PATTERN = '^[^\s@]+$';
-
-	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'settings';
-	}
 
 	/** {@inheritDoc} */
 	public function get_title(): string {

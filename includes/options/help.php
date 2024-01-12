@@ -2,19 +2,7 @@
 
 namespace SIW\Options;
 
-use SIW\Interfaces\Options\Option as Option_Interface;
-
-/**
- * Opties voor help
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
-class Help implements Option_Interface {
-
-	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'help';
-	}
+class Help extends Option {
 
 	/** {@inheritDoc} */
 	public function get_title(): string {
