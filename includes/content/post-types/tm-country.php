@@ -152,6 +152,6 @@ class TM_Country extends Post_Type {
 
 	/** {@inheritDoc} */
 	protected function generate_title( array $data, array $postarr ): string {
-		return siw_get_country( $postarr['country'] )->get_name();
+		return siw_get_country( $postarr['country'] )?->get_name();
 	}
 }

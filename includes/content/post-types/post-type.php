@@ -110,7 +110,7 @@ abstract class Post_Type extends Base {
 		return $args;
 	}
 
-	#[Add_Filter( ' ' )]
+	#[Add_Filter( 'wp_insert_post_data' )]
 	final public function set_post_data( array $data, array $postarr ): array {
 
 		if ( in_array( $data['post_status'], [ 'draft', 'pending', 'auto-draft' ], true ) ) {

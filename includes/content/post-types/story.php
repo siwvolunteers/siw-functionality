@@ -179,14 +179,4 @@ class Story extends Post_Type {
 		$odd = ! $odd;
 		return $row;
 	}
-
-	/** {@inheritDoc} */
-	protected function generate_slug( array $data, array $postarr ): string {
-		return sprintf(
-			'%s-%s-%s',
-			$postarr['name'],
-			get_term( $postarr['siw_story_project_type'], 'siw_story_project_type' )->name,
-			siw_get_country( $postarr['country'] )->get_name()
-		);
-	}
 }
