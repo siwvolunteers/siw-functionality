@@ -76,7 +76,7 @@ class Help extends Option {
 						[
 							'id'       => 'answer',
 							'name'     => __( 'Antwoord', 'siw' ),
-							'type'     => 'wysiwyg',
+							'type'     => 'textarea',
 							'required' => true,
 						],
 					],
@@ -126,7 +126,7 @@ class Help extends Option {
 									[
 										'id'       => 'content',
 										'name'     => __( 'Inhoud', 'siw' ),
-										'type'     => 'wysiwyg',
+										'type'     => 'textarea',
 										'required' => true,
 									],
 								],
@@ -168,7 +168,7 @@ class Help extends Option {
 									[
 										'id'       => 'content',
 										'name'     => __( 'Inhoud', 'siw' ),
-										'type'     => 'wysiwyg',
+										'type'     => 'textarea',
 										'required' => true,
 									],
 								],
