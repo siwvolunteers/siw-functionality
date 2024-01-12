@@ -41,6 +41,12 @@ class GeneratePress extends Base implements I_Plugin {
 		remove_action( 'generate_archive_title', 'generate_archive_title' );
 	}
 
+	#[Add_Filter( 'generate_logo_attributes' )]
+	public function set_skip_lazy_for_logo( array $attributes ): array {
+		$attributes['data-skip-lazy'] = '1';
+		return $attributes;
+	}
+
 	#[Add_Filter( 'generate_elements_custom_args' )]
 	/** Sorteer elements standaard op menu_order */
 	public function set_elements_orderby( array $args ): array {
@@ -75,12 +81,6 @@ class GeneratePress extends Base implements I_Plugin {
 	#[Add_Action( 'wp_enqueue_scripts', PHP_INT_MAX )]
 	public function dequeue_secondary_nav_mobile() {
 		wp_dequeue_style( 'generate-secondary-nav-mobile' );
-	}
-
-	#[Add_Action( 'customize_controls_enqueue_scripts' )]
-	public function add_customizer_script() {
-		wp_register_script( 'gp-customizer', SIW_ASSETS_URL . 'js/admin/gp-customizer.js', [], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( 'gp-customizer' );
 	}
 
 	#[Add_Action( Update::PLUGIN_UPDATED_HOOK )]

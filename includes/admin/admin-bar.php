@@ -5,11 +5,6 @@ namespace SIW\Admin;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 
-/**
- * Aanpassingen aan Admin Bar
- *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- */
 class Admin_Bar extends Base {
 
 	#[Add_Action( 'admin_bar_menu', PHP_INT_MAX )]
@@ -25,9 +20,23 @@ class Admin_Bar extends Base {
 	/** Voegt logo toe aan adminbar */
 	public function add_logo( \WP_Admin_Bar $wp_admin_bar ) {
 
+		$logo_id = get_theme_mod( 'custom_logo' );
+		if ( false === $logo_id ) {
+			return;
+		}
+
+		$logo_html = wp_get_attachment_image(
+			$logo_id,
+			'full',
+			false,
+			[
+				'style' => 'height: var(--wp-admin--admin-bar--height); filter: brightness(0) invert(1)',
+			]
+		);
+
 		$logo_args = [
 			'id'    => 'siw-logo',
-			'title' => '<span class="ab-label">' . wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full' ) . '</span>',
+			'title' => sprintf( '<span class="ab-label">%s</span>', $logo_html ),
 			'meta'  => [
 				'class' => 'siw-logo',
 			],

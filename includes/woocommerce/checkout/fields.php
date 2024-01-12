@@ -15,7 +15,6 @@ class Fields extends Base {
 	#[Add_Filter( 'woocommerce_enable_order_notes_field' )]
 	private const ENABLE_ORDER_NOTES_FIELD = false;
 
-	#[Add_Filter( 'woocommerce_checkout_fields' )]
 	protected function get_checkout_fields(): array {
 		return siw_get_data( 'workcamps/checkout-fields' );
 	}
@@ -24,8 +23,7 @@ class Fields extends Base {
 	protected function get_checkout_sections(): array {
 		return siw_get_data( 'workcamps/checkout-sections' );
 	}
-
-	/** Voegt de extra checkoutvelden toe */
+	#[Add_Filter( 'woocommerce_checkout_fields' )]
 	public function add_checkout_fields( $checkout_fields ): array {
 		$checkout_fields = wp_parse_args_recursive( $this->get_checkout_fields(), $checkout_fields );
 		return $checkout_fields;

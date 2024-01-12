@@ -176,4 +176,12 @@ class WooCommerce extends Base implements I_Plugin {
 	public function enqueue_cart_fragment_script() {
 		wp_enqueue_script( 'wc-cart-fragments' );
 	}
+
+	#[Add_Filter( 'woocommerce_logger_log_message' )]
+	public function remove_fatal_error_logging( string $message, string $level, array $context, \WC_Log_Handler_Interface $handler ): ?string {
+		if ( 'fatal-errors' === $context['source'] ) {
+			return null;
+		}
+		return $message;
+	}
 }

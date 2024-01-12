@@ -16,12 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin Name:       SIW Functionaliteit
  * Plugin URI:        https://github.com/siwvolunteers/siw-functionality
  * Description:       Extra functionaliteit t.b.v website SIW
- * Version:           3.6.14
+ * Version:           3.6.15
  * Author:            SIW Internationale Vrijwilligersprojecten
  * Author URI:        https://www.siw.nl
  * Text Domain:       siw
  * License:           GPLv2 or later
- * Requires at least: 6.2
+ * Requires at least: 6.4
  * Requires PHP:      8.1
  */
 

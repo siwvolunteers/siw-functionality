@@ -59,10 +59,10 @@ class Database_List_Table extends \WP_List_Table {
 
 	/** Toont kolom met details-knop TODO: Table element gebruiken */
 	public function column_view_details( $item ): string {
-		$id = wp_unique_id();
+		$id = wp_unique_prefixed_id( 'details-' );
 
 		?>
-		<div id="details-<?php echo esc_attr( $id ); ?>" style="display:none;">
+		<div id="<?php echo esc_attr( $id ); ?>" style="display:none;">
 			<table class="form-table">
 				<tbody>
 				<?php foreach ( $item as $prop_name => $prop_val ) : ?>
@@ -77,7 +77,7 @@ class Database_List_Table extends \WP_List_Table {
 		<?php
 		return sprintf(
 			'<a href="%s" class="button button-secondary thickbox" title="%s">%s</a>',
-			"#TB_inline?&inlineId=details-{$id}",
+			"#TB_inline?&inlineId={$id}",
 			__( 'Bekijk details', 'siw' ),
 			__( 'Bekijk details', 'siw' )
 		);
