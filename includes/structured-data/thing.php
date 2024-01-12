@@ -2,7 +2,7 @@
 
 namespace SIW\Structured_Data;
 
-use Spatie\Enum\Enum;
+use SIW\Interfaces\Structured_Data\Enumeration;
 
 /**
  * Basisklasse voor Structured Data
@@ -79,7 +79,7 @@ abstract class Thing {
 			return $this->get_thing_value( $value );
 		} elseif ( is_a( $value, \DateTime::class ) ) {
 			return $this->get_date_time_value( $value );
-		} elseif ( is_subclass_of( $value, Enum::class ) ) {
+		} elseif ( is_a( $value, \BackedEnum::class ) ) {
 			return $this->get_enum_value( $value );
 		}
 	}
@@ -96,8 +96,8 @@ abstract class Thing {
 	}
 
 	/** Geeft waarde van Enum terug */
-	private function get_enum_value( Enum $value ): string {
-		return $value->value;
+	private function get_enum_value( \BackedEnum $enum_value ): string {
+		return is_a( $enum_value, Enumeration::class ) ? "https://schema.org/{$enum_value->value}" : $enum_value->value;
 	}
 
 	/** Geeft data van type terug */

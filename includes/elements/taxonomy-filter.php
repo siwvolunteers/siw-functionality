@@ -9,34 +9,24 @@ namespace SIW\Elements;
  */
 class Taxonomy_Filter extends Element {
 
-	/** Taxonomie */
-	protected string $taxonomy;
+	protected \WP_Taxonomy $taxonomy;
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
-			'taxonomy' => [
-				'slug' => $this->taxonomy,
-				'name' => get_taxonomy( $this->taxonomy )->labels->name,
+			'taxonomy' => $this->taxonomy,
+			'all'      => [
+				'active' => empty( get_query_var( $this->taxonomy->query_var ) ) ? 'active' : '',
+				'url'    => remove_query_arg( $this->taxonomy->query_var ),
 			],
 			'terms'    => $this->get_terms(),
-			'i18n'     => [
-				'all'    => __( 'Alle', 'siw' ),
-				'filter' => __( 'Filter op', 'siw' ),
-			],
 		];
 	}
 
 	/** Zet de taxonomie */
-	public function set_taxonomy( string $taxonomy ): self {
+	public function set_taxonomy( \WP_Taxonomy $taxonomy ): self {
 		$this->taxonomy = $taxonomy;
 		return $this;
-	}
-
-	/** {@inheritDoc}*/
-	public function enqueue_scripts() {
-		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/elements/taxonomy-filter.js', [], SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( self::get_assets_handle() );
 	}
 
 	/** Voegt styles toe */
@@ -49,18 +39,17 @@ class Taxonomy_Filter extends Element {
 	/** Haalt terms van één taxonomy op */
 	protected function get_terms(): array {
 		$term_query = [
-			'taxonomy'   => $this->taxonomy,
+			'taxonomy'   => $this->taxonomy->name,
 			'hide_empty' => true,
 		];
 
-		$terms = get_terms( $term_query );
-
 		return array_map(
 			fn( \WP_Term $term ): array => [
-				'slug' => $term->slug,
-				'name' => $term->name,
+				'name'   => $term->name,
+				'url'    => add_query_arg( $this->taxonomy->query_var, $term->slug ),
+				'active' => get_query_var( $this->taxonomy->query_var ) === $term->slug ? 'active' : '',
 			],
-			$terms
+			get_terms( $term_query )
 		);
 	}
 }

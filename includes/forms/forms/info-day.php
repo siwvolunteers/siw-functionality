@@ -2,6 +2,7 @@
 
 namespace SIW\Forms\Forms;
 
+use SIW\Content\Posts\Events;
 use SIW\Data\Project_Type;
 use SIW\Integrations\Mailjet;
 use SIW\Interfaces\Forms\Confirmation_Mail as I_Confirmation_Mail;
@@ -127,17 +128,16 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 
 	/** {@inheritDoc} */
 	protected function get_info_days(): array {
-		$upcoming_info_days = siw_get_upcoming_info_days( -1 );
+		$upcoming_info_days = Events::get_future_info_days( [ 'number' => -1 ] );
 
 		// Fallback voor als er nog geen infodagen bekend zijn
 		if ( empty( $upcoming_info_days ) ) {
-			return [ 'unknown' => __( 'Nog niet bekend', 'siw' ) ];
+			return [ '-1' => __( 'Nog niet bekend', 'siw' ) ];
 		}
 
-		foreach ( $upcoming_info_days as $post_id ) {
-			$date = siw_meta( 'event_date', [], $post_id );
-			$online = siw_meta( 'online', [], $post_id );
-			$info_days[ $post_id ] = $online ? sprintf( '%s (%s)', siw_format_date( $date, false ), __( 'online', 'siw' ) ) : siw_format_date( $date, false );
+		foreach ( $upcoming_info_days as $info_day ) {
+			$date = wp_date( 'j F', $info_day->get_event_date()->getTimestamp() );
+			$info_days[ $info_day->get_id() ] = $info_day->is_online() ? sprintf( '%s (%s)', $date, __( 'online', 'siw' ) ) : $date;
 		}
 
 		return $info_days;
@@ -167,6 +167,7 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 	/** {@inheritDoc} */
 	public function get_mailjet_list_id( \WP_REST_Request $request ): int {
 		$event_post_id = $request->get_param( 'info_day_date' );
+		//TODO: fallback mailjet list voor onbekende infodag
 		return (int) siw_meta( 'mailjet_list_id', [], $event_post_id );
 	}
 

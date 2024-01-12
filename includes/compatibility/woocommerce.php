@@ -5,9 +5,8 @@ namespace SIW\Compatibility;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
-use SIW\Features\Social_Share;
+use SIW\Data\Post_Type_Support;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
-use SIW\Widgets\Carousel;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
@@ -143,16 +142,10 @@ class WooCommerce extends Base implements I_Plugin {
 
 	#[Add_Action( 'init' )]
 	public function set_post_type_support() {
-		add_post_type_support(
-			'product',
-			Social_Share::POST_TYPE_FEATURE,
-			[
-				'cta' => __( 'Deel dit project', 'siw' ),
-			]
-		);
-		add_post_type_support( self::PRODUCT_POST_TYPE, Carousel::POST_TYPE_FEATURE );
-		remove_post_type_support( self::PRODUCT_POST_TYPE, 'editor' );
-		remove_post_type_support( self::PRODUCT_POST_TYPE, 'custom-fields' );
+		add_post_type_support( self::PRODUCT_POST_TYPE, Post_Type_Support::SOCIAL_SHARE->value );
+		add_post_type_support( self::PRODUCT_POST_TYPE, Post_Type_Support::CAROUSEL->value );
+		remove_post_type_support( self::PRODUCT_POST_TYPE, Post_Type_Support::EDITOR->value );
+		remove_post_type_support( self::PRODUCT_POST_TYPE, Post_Type_Support::CUSTOM_FIELDS->value );
 	}
 
 	#[Add_Action( 'init' )]

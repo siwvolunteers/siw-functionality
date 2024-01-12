@@ -3,6 +3,7 @@
 namespace SIW\Widgets;
 
 use SIW\Compatibility\WooCommerce;
+use SIW\Data\Post_Type_Support;
 use SIW\Elements\Carousel as Element_Carousel;
 use SIW\Util\Carousel as Carousel_Util;
 
@@ -24,8 +25,6 @@ class Carousel extends Widget {
 
 	/** Default aantal items */
 	private const DEFAULT_NUMBER_OF_ITEMS = 6;
-
-	public const POST_TYPE_FEATURE = 'siw_carousel';
 
 	/** {@inheritDoc} */
 	protected function get_id(): string {
@@ -204,7 +203,7 @@ class Carousel extends Widget {
 	protected function get_post_types(): array {
 		$post_types = array_map(
 			fn( string $post_type ): \WP_Post_Type => get_post_type_object( $post_type ),
-			get_post_types_by_support( self::POST_TYPE_FEATURE )
+			get_post_types_by_support( Post_Type_Support::CAROUSEL->value )
 		);
 
 		return wp_list_pluck(

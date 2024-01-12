@@ -20,11 +20,6 @@ body:not(.wp-customizer) {
 	}
 }
 
-#wpadminbar .siw-logo img {
-	height: var(--wp-admin--admin-bar--height);
-	filter: brightness(0) invert(1);
-}
-
 table.wp-list-table {
 	.column-visibility {
 		.dashicons-visibility {

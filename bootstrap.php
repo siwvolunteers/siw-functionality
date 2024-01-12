@@ -8,7 +8,7 @@ use SIW\Autoloader;
 /**
  * Class om alle functionaliteit van de plugin te laden
  *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
+ * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
  */
 class Bootstrap {
 
@@ -36,10 +36,7 @@ class Bootstrap {
 		register_activation_hook( SIW_FUNCTIONALITY_PLUGIN_FILE, [ $this, 'activate' ] );
 
 		$this->load_functions();
-
-		// Laadt klasses
 		$this->init_loaders();
-		$this->load_content_types();
 	}
 
 	/** Definieer constantes */
@@ -66,6 +63,7 @@ class Bootstrap {
 		define( 'SIW_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
 		define( 'SIW_SITE_URL', get_home_url() );
 		define( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL, PHP_URL_HOST ) );
+		define( 'SIW_OPTIONS_KEY', 'siw_options' );
 		define( 'BR', '<br/>' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 		define( 'BR2', '<br/><br/>' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 		define( 'SPACE', ' ' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
@@ -137,6 +135,7 @@ class Bootstrap {
 			\SIW\Admin\Loader::class,
 			\SIW\Assets\Loader::class,
 			\SIW\Compatibility\Loader::class,
+			\SIW\Content\Loader::class,
 			\SIW\External_Assets\Loader::class,
 			\SIW\Features\Loader::class,
 			\SIW\Forms\Loader::class,
@@ -148,19 +147,6 @@ class Bootstrap {
 
 		foreach ( $loaders as $loader ) {
 			add_action( self::LOADER_HOOK, [ $loader, 'init' ], self::LOADER_PRIORITY );
-		}
-	}
-
-	/** Laadt custom content types */
-	protected function load_content_types() {
-		$content_types = [
-			\SIW\Content\Types\Event::class,
-			\SIW\Content\Types\Job_Posting::class,
-			\SIW\Content\Types\Story::class,
-			\SIW\Content\Types\TM_Country::class,
-		];
-		foreach ( $content_types as $type ) {
-			add_action( self::LOADER_HOOK, [ $type, 'init' ], self::LOADER_PRIORITY );
 		}
 	}
 }

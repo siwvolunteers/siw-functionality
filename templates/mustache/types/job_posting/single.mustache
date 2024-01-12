@@ -1,0 +1,19 @@
+<div class="flex-container">
+	<div class="flex-item">
+		<span class="job-info">{{#__ }}{{job_posting.get_job_type.label}}, {{job_posting.get_hours}} uur per week{{/__}}</span>
+	</div>
+</div>
+<div class="flex-container flex-direction-column-mobile">
+	<div class="flex-item-2">
+		<p>{{& job_posting.get_intro|wp_kses_post }}</p>
+		<h2>{{#__}}Wat houdt deze vacature in?{{/__}}</h2>
+		<p>{{& accordion }}</p>
+	</div>
+	<div class="flex-item">
+		<h2>{{#__}}Solliciteren?{{/__}}</h2>
+		<p>
+			{{#__}}Je motivatie met cv kun je uiterlijk {{ job_posting.get_deadline|format_datetime }} sturen naar:{{/__}}<br>
+			{{job_posting.get_application_manager.name}} ({{job_posting.get_application_manager.title}}), {{{job_posting.get_application_manager.email}}}
+		</p>
+	</div>
+</div>

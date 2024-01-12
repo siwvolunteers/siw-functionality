@@ -7,14 +7,9 @@
 	flex: 1 1 0;
 }
 
-@media (min-width: 1025px) {
-	@for $i from 1 through 20 {
-		.width-#{$i*5} {
-			width: $i * 5%;
-		}
-	}
-	.width-33 {
-		width: 33%;
+@for $i from 1 through 6 {
+	.flex-item-#{$i}{
+		flex: #{$i} 1 0;
 	}
 }
 
@@ -30,33 +25,11 @@
 	flex-direction: row-reverse;
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-	.flex-colums-tablet {
-		flex-direction: column;
-	}
-	@for $i from 1 through 20 {
-		.tablet-width-#{$i*5} {
-			width: $i * 5%;
-		}
-	}
-	.tablet-width-33 {
-		width: 33%;
-	}
-}
-
 @media (max-width: 768px) {
 	.flex-direction-column-mobile {
 		flex-direction: column;
 	}
 	.flex-direction-column-reverse-mobile {
 		flex-direction: column-reverse;
-	}
-	@for $i from 1 through 20 {
-		.mobile-width-#{$i*5} {
-			width: $i * 5%;
-		}
-	}
-	.mobile-width-33 {
-		width: 33%;
 	}
 }
