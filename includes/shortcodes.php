@@ -5,6 +5,7 @@ namespace SIW;
 use SIW\Attributes\Add_Shortcode;
 use SIW\Data\Country;
 use SIW\Elements\List_Columns;
+use SIW\Elements\List_Style_Type;
 use SIW\Properties;
 use SIW\Util;
 use SIW\Util\Links;
@@ -209,7 +210,7 @@ class Shortcodes extends Base {
 		return List_Columns::create()
 			->add_items( array_values( siw_get_countries_list( Country::ESC ) ) )
 			->set_columns( 3 )
-			->set_list_style_type( List_Columns::LIST_STYLE_TYPE_NONE )
+			->set_list_style_type( List_Style_Type::NONE )
 			->generate();
 	}
 }

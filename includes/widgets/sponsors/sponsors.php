@@ -2,6 +2,9 @@
 
 namespace SIW\Widgets;
 
+use SIW\Elements\List_Columns;
+use SIW\Elements\List_Style_Type;
+
 /**
  * Widget met sponsors
  *
@@ -32,7 +35,7 @@ class Sponsors extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_template_id(): string {
-		return 'sponsors';
+		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
 	/** {@inheritDoc} */
@@ -57,17 +60,17 @@ class Sponsors extends Widget {
 			return [];
 		}
 
-		$sponsors = array_map(
-			fn( array $sponsor ): array => [
-				'url'  => $sponsor['site'],
-				'name' => $sponsor['name'],
-				'logo' => wp_get_attachment_image( $sponsor['logo'][0], 'medium' ),
-			],
+		$links = array_map(
+			fn( array $sponsor ): string => sprintf(
+				'<a href="%s" target="_blank" rel="noopener external noreferrer">%s</a>',
+				esc_url( $sponsor['site'] ),
+				wp_get_attachment_image( $sponsor['logo'][0], 'medium' ),
+			),
 			$sponsors
 		);
 
 		return [
-			'sponsors' => $sponsors,
+			'content' => List_Columns::create()->set_list_style_type( List_Style_Type::NONE )->add_items( $links )->generate(),
 		];
 	}
 }

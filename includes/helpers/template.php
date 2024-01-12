@@ -76,21 +76,22 @@ class Template {
 				'partials_loader'       => new Mustache_Loader_FilesystemLoader( SIW_TEMPLATES_DIR . 'mustache/partials' ),
 				'escape'                => fn( $value ): string => esc_html( $value ),
 				'helpers'               => [
-					'json_encode'   => fn( $value ): string => wp_json_encode( $value ),
-					'esc_url'       => fn( string $value ): string => esc_url( $value ),
-					'esc_attr'      => fn( string $value ): string => esc_attr( $value ),
-					'wp_kses_post'  => fn( string $value ): string => wp_kses_post( $value ),
-					'wpautop'       => fn( string $value ): string => wpautop( $value ),
-					'do_shortcode'  => fn( string $value ): string => do_shortcode( $value ),
-					'antispambot'   => fn( string $value ): string => antispambot( $value ),
-					'urlencode'     => fn( string $value ): string => rawurlencode( $value ),
-					'base64_encode' => fn( string $value ): string => base64_encode( $value ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
-					'siw_hash'      => fn( string $value ): string => siw_hash( $value ),
-					'case'          => [
+					'json_encode'     => fn( $value ): string => wp_json_encode( $value ),
+					'esc_url'         => fn( string $value ): string => esc_url( $value ),
+					'esc_attr'        => fn( string $value ): string => esc_attr( $value ),
+					'wp_kses_post'    => fn( string $value ): string => wp_kses_post( $value ),
+					'wpautop'         => fn( string $value ): string => wpautop( $value ),
+					'do_shortcode'    => fn( string $value ): string => do_shortcode( $value ),
+					'antispambot'     => fn( string $value ): string => antispambot( $value ),
+					'urlencode'       => fn( string $value ): string => rawurlencode( $value ),
+					'base64_encode'   => fn( string $value ): string => base64_encode( $value ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+					'siw_hash'        => fn( string $value ): string => siw_hash( $value ),
+					'format_datetime' => fn( \DateTime $datetime ): string => wp_date( 'j F Y', $datetime->getTimestamp() ),
+					'case'            => [
 						'lower' => fn( string $value ): string => strtolower( $value ),
 						'upper' => fn( string $value ): string => strtoupper( $value ),
 					],
-					'__'            => fn( string $value ): string => self::translate( $value ),
+					'__'              => fn( string $value ): string => self::translate( $value ),
 				],
 				'pragmas'               => [
 					Mustache_Engine::PRAGMA_FILTERS,

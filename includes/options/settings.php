@@ -64,26 +64,6 @@ class Settings implements Option_Interface {
 				'label' => __( 'Sponsors', 'siw' ),
 				'icon'  => 'dashicons-money',
 			],
-			[
-				'id'    => 'tailor_made',
-				'label' => __( 'Wereld-basis', 'siw' ),
-				'icon'  => 'dashicons-admin-settings',
-			],
-			[
-				'id'    => 'job_postings',
-				'label' => __( 'Vacatures', 'siw' ),
-				'icon'  => 'dashicons-clipboard',
-			],
-			[
-				'id'    => 'story',
-				'label' => __( 'Ervaringsverhalen', 'siw' ),
-				'icon'  => 'dashicons-format-gallery',
-			],
-			[
-				'id'    => 'event',
-				'label' => __( 'Evenementen', 'siw' ),
-				'icon'  => 'dashicons-calendar',
-			],
 		];
 		return $tabs;
 	}
@@ -231,93 +211,6 @@ class Settings implements Option_Interface {
 			],
 		];
 
-		// Vacatures TODO: group voor vacaturetekst
-		$fields[] = [
-			'id'     => 'job_posting',
-			'type'   => 'group',
-			'tab'    => 'job_postings',
-			'fields' => [
-				[
-					'id'       => 'archive_intro',
-					'name'     => __( 'Introtekst', 'siw' ),
-					'type'     => 'wysiwyg',
-					'required' => true,
-				],
-			],
-		];
-		$fields[] = [
-			'type' => 'heading',
-			'name' => __( 'Vacaturetekst', 'siw' ),
-			'tab'  => 'job_postings',
-		];
-		$fields[] = [
-			'id'       => 'job_postings_organization_profile',
-			'name'     => __( 'Wie zijn wij', 'siw' ),
-			'type'     => 'wysiwyg',
-			'tab'      => 'job_postings',
-			'required' => true,
-		];
-		$fields[] = [
-			'id'     => 'hr_manager',
-			'type'   => 'group',
-			'tab'    => 'job_postings',
-			'fields' => [
-				[
-					'type' => 'heading',
-					'name' => __( 'P&O manager', 'siw' ),
-					'desc' => __( 'Standaard contactpersoon voor sollicitaties', 'siw' ),
-				],
-				[
-					'id'       => 'name',
-					'name'     => __( 'Naam', 'siw' ),
-					'type'     => 'text',
-					'required' => true,
-				],
-				[
-					'id'       => 'title',
-					'name'     => __( 'Functie', 'siw' ),
-					'type'     => 'text',
-					'required' => true,
-				],
-				[
-					'id'       => 'email',
-					'name'     => __( 'E-mail', 'siw' ),
-					'type'     => 'email',
-					'required' => true,
-				],
-			],
-		];
-		// Ervaringsverhalen
-
-		$fields[] = [
-			'id'     => 'story',
-			'type'   => 'group',
-			'tab'    => 'story',
-			'fields' => [
-				[
-					'id'       => 'archive_intro',
-					'name'     => __( 'Introtekst', 'siw' ),
-					'type'     => 'wysiwyg',
-					'required' => true,
-				],
-			],
-		];
-
-		// Evenementen
-		$fields[] = [
-			'id'     => 'event',
-			'type'   => 'group',
-			'tab'    => 'event',
-			'fields' => [
-				[
-					'id'       => 'archive_intro',
-					'name'     => __( 'Introtekst', 'siw' ),
-					'type'     => 'wysiwyg',
-					'required' => true,
-				],
-			],
-		];
-
 		// Groepsprojecten
 		$continents = siw_get_continents_list();
 		$approval_fields = [
@@ -380,21 +273,6 @@ class Settings implements Option_Interface {
 			'type'   => 'group',
 			'tab'    => 'workcamps',
 			'fields' => $approval_fields,
-		];
-
-		// Wereld-basis
-		$fields[] = [
-			'id'     => 'tm_country',
-			'type'   => 'group',
-			'tab'    => 'tailor_made',
-			'fields' => [
-				[
-					'id'       => 'archive_intro',
-					'name'     => __( 'Introtekst', 'siw' ),
-					'type'     => 'wysiwyg',
-					'required' => true,
-				],
-			],
 		];
 
 		// Email

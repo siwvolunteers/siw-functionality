@@ -21,7 +21,7 @@ class Option extends Base {
 	public function add_settings_page( array $settings_pages ): array {
 		$tabs = $this->option->get_tabs();
 		$settings_pages[] = [
-			'option_name'   => 'siw_options',
+			'option_name'   => SIW_OPTIONS_KEY,
 			'id'            => "siw-{$this->option->get_id()}",
 			'menu_title'    => "SIW - {$this->option->get_title()}",
 			'capability'    => $this->option->get_capability(),

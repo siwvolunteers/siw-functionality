@@ -1,0 +1,26 @@
+.siw-calendar-icon {
+	font-size: 1em; /* change icon size */
+	display: block;
+	position: relative;
+	width: 6em;
+	height: 6em;
+	background-color: #fff;
+	text-align: center;
+	span {
+		display: block;
+		&.month-name {
+			color: var(--siw-base);
+			background-color: var(--siw-accent);
+		}
+		&.day-number {
+			color: var(--siw-contrast);
+			background-color: var(--siw-base);
+			font-weight: bold;
+			font-size: 2em;
+		}
+		&.day-name {
+			color: var(--siw-contrast);
+			background-color: var(--siw-base);
+		}
+	}
+}

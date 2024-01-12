@@ -5,14 +5,11 @@ namespace SIW\Actions\Batch;
 use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
 /**
- * Proces om oude aanmeldingen te verwijderen
+ * Proces om oude posts te verwijderen
  *
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Delete_Old_Posts implements Batch_Action_Interface {
-
-	/** Maximale leeftijd van post in maanden */
-	private const MAX_AGE_POST = 12;
 
 	/** {@inheritDoc} */
 	public function get_id(): string {
@@ -37,7 +34,7 @@ class Delete_Old_Posts implements Batch_Action_Interface {
 	/** {@inheritDoc} */
 	public function select_data(): array {
 
-		$post_types = apply_filters( 'siw_delete_old_posts_post_types', [] );
+		$post_types = apply_filters( 'siw/delete_old_posts/post_types', [] );
 
 		$data = get_posts(
 			[
@@ -51,16 +48,7 @@ class Delete_Old_Posts implements Batch_Action_Interface {
 
 	/** {@inheritDoc} */
 	public function process( $post_id ) {
-		$post_type = get_post_type( $post_id );
-
-		if ( ! $post_type ) {
-			return false;
-		}
-
-		$limit = gmdate( 'Y-m-d', time() - ( self::MAX_AGE_POST * MONTH_IN_SECONDS ) );
-		$delete = apply_filters( "siw_delete_posts_delete_{$post_type}", false, $post_id, $limit );
-
-		if ( $delete ) {
+		if ( apply_filters( 'siw/delete_posts/should_delete', false, $post_id ) ) {
 			wp_delete_post( $post_id, true );
 		}
 	}

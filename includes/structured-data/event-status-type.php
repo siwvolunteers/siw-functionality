@@ -2,18 +2,15 @@
 
 namespace SIW\Structured_Data;
 
-/**
- * Status van evenement
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- * @see https://schema.org/EventStatusType
- *
- * @method static self EventScheduled()
- * @method static self EventCancelled()
- * @method static self EventMovedOnline()
- * @method static self EventPostponed()
- * @method static self EventRescheduled()
- */
-class Event_Status_Type extends Enumeration {
+use SIW\Interfaces\Structured_Data\Enumeration;
 
+/**
+ * @see https://schema.org/EventStatusType
+ */
+enum Event_Status_Type: string implements Enumeration {
+	case SCHEDULED = 'EventScheduled';
+	case CANCELLED = 'EventCancelled';
+	case MOVED_LINE = 'EventMovedOnline';
+	case POSTPONED = 'EventPostponed';
+	case RESCHEDULED = 'EventRescheduled';
 }

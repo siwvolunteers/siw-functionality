@@ -42,6 +42,9 @@ class WordPress extends Base {
 	#[Add_Filter( 'user_contactmethods' )]
 	private const USER_CONTACT_METHODS = [];
 
+	#[Add_Filter( 'get_the_archive_title_prefix' )]
+	private const ARCHIVE_TITLE_PREFIX = '';
+
 	#[Add_Filter( 'admin_email_check_interval' )]
 	private const ADMIN_EMAIL_CHECK_INTERVAL = 0;
 
@@ -165,7 +168,6 @@ class WordPress extends Base {
 	}
 
 	#[Add_Filter( 'wp_trim_excerpt' )]
-	/** Plaats Lees meer button als gekozen is voor samenvatting */
 	public function show_read_more_button( string $excerpt ): string {
 
 		// alleen bij de blog

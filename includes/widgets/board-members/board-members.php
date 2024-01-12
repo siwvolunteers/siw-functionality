@@ -3,6 +3,8 @@
 namespace SIW\Widgets;
 
 use SIW\Data\Board_Title;
+use SIW\Elements\List_Columns;
+use SIW\Elements\List_Style_Type;
 
 /**
  * Widget met bestuurssamenstelling
@@ -34,7 +36,7 @@ class Board_Members extends Widget {
 
 	/** {@inheritDoc} */
 	protected function get_template_id(): string {
-		return $this->get_id();
+		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
 	/** {@inheritDoc} */
@@ -61,16 +63,20 @@ class Board_Members extends Widget {
 		}
 
 		$board_members = array_map(
-			fn( array $board_member ): array => [
-				'first_name' => $board_member['first_name'],
-				'last_name'  => $board_member['last_name'],
-				'title'      => Board_Title::tryFrom( $board_member['title'] )?->label(),
-			],
+			fn( array $board_member ): string => sprintf(
+				'%s %s<br/><i>%s</i>',
+				$board_member['first_name'],
+				$board_member['last_name'],
+				Board_Title::tryFrom( $board_member['title'] )?->label(),
+			),
 			$board_members
 		);
 
 		return [
-			'board_members' => $board_members,
+			'content' => List_Columns::create()
+				->add_items( $board_members )
+				->set_list_style_type( List_Style_Type::DISC )
+				->generate(),
 		];
 	}
 }

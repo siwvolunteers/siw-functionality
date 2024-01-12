@@ -22,7 +22,6 @@ class Loader extends Class_Loader_Abstract {
 			Safe_Redirect_Manager::class,
 			SiteOrigin_Page_Builder::class,
 			SiteOrigin_Widgets_Bundle::class,
-			The_SEO_Framework::class,
 			WooCommerce::class,
 			WordPress::class,
 			WP_Sentry_Integration::class,
