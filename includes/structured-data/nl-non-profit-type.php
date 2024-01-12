@@ -2,15 +2,12 @@
 
 namespace SIW\Structured_Data;
 
-/**
- * Status van evenement
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- * @see https://schema.org/NLNonprofitType
- *
- * @method static self NonprofitANBI() https://schema.org/NonprofitANBI
- * @method static self NonprofitSBBI() https://schema.org/NonprofitSBBI
- */
-class NL_Non_Profit_Type extends Non_Profit_Type {
+use SIW\Interfaces\Structured_Data\Non_Profit_Type;
 
+/**
+ * @see https://schema.org/NLNonprofitType
+ */
+enum NL_Non_Profit_Type: string implements Non_Profit_Type {
+	case ANBI = 'NonprofitANBI';
+	case SBBI = 'NonprofitSBBI';
 }

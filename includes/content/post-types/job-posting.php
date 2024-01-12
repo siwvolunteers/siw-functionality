@@ -17,11 +17,6 @@ use SIW\Structured_Data\Place;
 use SIW\Structured_Data\Postal_Address;
 use SIW\Structured_Data\Thing;
 
-/**
- * Vacatures
- *
- * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Job_Posting extends Post_Type {
 
 	/** {@inheritDoc} */
@@ -330,30 +325,34 @@ class Job_Posting extends Post_Type {
 	protected function get_structured_data( int $post_id ): ?Thing {
 
 		$post = new Job_Posting_Post( $post_id );
-		$structured_date = Job_Posting_Structured_Data::create()
+		$structured_data = Job_Posting_Structured_Data::create()
 			->set_title( $post->get_title() )
 			->set_description( $post->get_introduction() )
 			->set_date_posted( new \DateTime( get_the_modified_date( 'Y-m-d', $post_id ) ) )
 			->set_valid_through( $post->get_deadline() )
-			->set_employment_type( Employment_Type::PART_TIME() );
+			->set_employment_type( Employment_Type::PART_TIME );
 
 		switch ( $post->get_job_type() ) {
 			case Job_Type::PAID:
 				break;
 			case Job_Type::INTERNSHIP:
-				$structured_date->add_employment_type( Employment_Type::INTERN() );
+				$structured_data->add_employment_type( Employment_Type::INTERN );
 				break;
 			case Job_Type::VOLUNTEER:
 			default:
-				$structured_date->add_employment_type( Employment_Type::VOLUNTEER() );
+				$structured_data->add_employment_type( Employment_Type::VOLUNTEER );
 		}
 
-		$structured_date->set_hiring_organization(
+		if ( 0 !== $post->get_thumbnail_id() ) {
+			$structured_data->set_image( wp_get_attachment_image_url( $post->get_thumbnail_id() ) );
+		}
+
+		$structured_data->set_hiring_organization(
 			Organization::create()
 			->set_name( Properties::NAME )
 			->set_same_as( SIW_SITE_URL )
 			->set_logo( get_site_icon_url() )
-			->set_non_profit_status( NL_Non_Profit_Type::NonprofitANBI() )
+			->set_non_profit_status( NL_Non_Profit_Type::ANBI )
 		)
 		->set_qualifications( $post->get_qualifications() )
 		->set_responsibilities( $post->get_work() )
@@ -370,7 +369,7 @@ class Job_Posting extends Post_Type {
 					->set_address_country( 'NL' )
 			)
 		);
-		return $structured_date;
+		return $structured_data;
 	}
 
 	/** {@inheritDoc} */

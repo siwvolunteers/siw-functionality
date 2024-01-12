@@ -8,7 +8,7 @@ class Event extends Post {
 		$images = $this->get_meta( 'image', [ 'limit' => 1 ] );
 		$image = reset( $images );
 
-		return (int) $image['ID'] ?? 0;
+		return $image ? (int) $image['ID'] : 0;
 	}
 
 	public function get_event_date(): \DateTime {

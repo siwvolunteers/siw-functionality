@@ -23,11 +23,6 @@ use SIW\Structured_Data\Postal_Address;
 use SIW\Structured_Data\Thing;
 use SIW\Structured_Data\Virtual_Location;
 
-/**
- * Evenementen
- *
- * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Event extends Post_Type {
 
 	/** {@inheritDoc} */
@@ -371,10 +366,10 @@ class Event extends Post_Type {
 
 		// Locatie toevoegen
 		if ( $post->is_online() ) {
-			$structured_data->set_event_attendance_mode( Event_Attendance_Mode::OnlineEventAttendanceMode() );
+			$structured_data->set_event_attendance_mode( Event_Attendance_Mode::ONLINE );
 			$location = Virtual_Location::create()->set_url( $post->get_permalink() ); // TODO: of externe aanmeldlink
 		} else {
-			$structured_data->set_event_attendance_mode( Event_Attendance_Mode::OfflineEventAttendanceMode() );
+			$structured_data->set_event_attendance_mode( Event_Attendance_Mode::OFFLINE );
 			$location = Place::create()
 				->set_name( $post->get_location()['name'] )
 				->set_address(
@@ -386,6 +381,10 @@ class Event extends Post_Type {
 				);
 		}
 		$structured_data->set_location( $location );
+
+		if ( 0 !== $post->get_thumbnail_id() ) {
+			$structured_data->set_image( wp_get_attachment_image_url( $post->get_thumbnail_id() ) );
+		}
 
 		// Organizer toevoegen
 		$organizer = Organization::create();
@@ -399,12 +398,12 @@ class Event extends Post_Type {
 				->set_url( SIW_SITE_URL )
 				->set_same_as( SIW_SITE_URL )
 				->set_logo( get_site_icon_url() )
-				->set_non_profit_status( NL_Non_Profit_Type::NonprofitANBI() );
+				->set_non_profit_status( NL_Non_Profit_Type::ANBI );
 		}
 		$structured_data->set_organizer( $organizer );
 
 		// Event status TODO:: meerdere statussen o.b.v. meta event_status
-		$structured_data->set_event_status( Event_Status_Type::EventScheduled() );
+		$structured_data->set_event_status( Event_Status_Type::SCHEDULED );
 
 		return $structured_data;
 	}
