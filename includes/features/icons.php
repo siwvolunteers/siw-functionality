@@ -19,14 +19,23 @@ class Icons extends Base {
 	#[Add_Action( 'wp_body_open' )]
 	/** Voegt SVG-sprite toe aan header */
 	public function add_svg_sprite() {
-		printf( '<div data-svg-url="%s" style="display:none;"></div>', esc_url( SIW_ASSETS_URL . 'icons/dashicons.svg' ) );
-		printf( '<div data-svg-url="%s" style="display:none;"></div>', esc_url( SIW_ASSETS_URL . 'icons/sdg-icons.svg' ) );
+		foreach ( $this->get_icon_sets() as $icon_set ) {
+			printf( '<div data-svg-url="%s" style="display:none;"></div>', esc_url( SIW_ASSETS_URL . "icons/{$icon_set}.svg" ) );
+		}
+	}
+	protected function get_icon_sets(): array {
+		return [
+			'sdg-icons',
+			'genericons-neue',
+			'social-logos',
+		];
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	/** Voegt SVG-script toe */
 	public function enqueue_script() {
-		wp_enqueue_script( SIW_SVG::get_assets_handle() );
+		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/features/icons.js', null, SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::get_assets_handle() );
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]

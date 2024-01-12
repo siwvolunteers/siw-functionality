@@ -2,7 +2,6 @@
 
 namespace SIW;
 
-use SIW\Assets\SIW_Functionality;
 use SIW\Autoloader;
 
 /**
@@ -23,7 +22,6 @@ class Bootstrap {
 
 		$this->define_constants();
 		$this->load_textdomain();
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_plugin_style' ] );
 
 		if ( ! $this->check_requirements() ) {
 			add_action( 'admin_notices', [ $this, 'show_requirements_admin_notice' ] );
@@ -114,11 +112,6 @@ class Bootstrap {
 		load_plugin_textdomain( 'siw', false, 'siw-functionality/languages/' );
 	}
 
-	/** Laadt plugin style */
-	public function enqueue_plugin_style() {
-		wp_enqueue_style( SIW_Functionality::get_assets_handle() );
-	}
-
 	/** Laadt functiebestanden */
 	protected function load_functions() {
 		$files = glob( SIW_INCLUDES_DIR . 'functions/*.php' );
@@ -133,7 +126,6 @@ class Bootstrap {
 			\SIW\Loader::class,
 			\SIW\Actions\Loader::class,
 			\SIW\Admin\Loader::class,
-			\SIW\Assets\Loader::class,
 			\SIW\Compatibility\Loader::class,
 			\SIW\Content\Loader::class,
 			\SIW\External_Assets\Loader::class,

@@ -1,7 +1,5 @@
-@use "partials/variables" as variables;
-
 html {
-	background-image: url('#{variables.$assets-path}/images/login/background-greyscale.jpg');
+	background-image: var(--siw-login-background-url);
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center;

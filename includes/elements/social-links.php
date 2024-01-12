@@ -33,7 +33,7 @@ class Social_Links extends Element {
 				'color'     => $network->get_color(),
 				'icon'      => [
 					'class' => $network->get_icon_class(),
-					'size'  => 2,
+					'size'  => 4,
 				],
 				'ga4_event' => ( Social_Network_Context::SHARE === $this->context ) ? [
 					'name'       => 'share',

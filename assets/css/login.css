@@ -1,5 +1,5 @@
 html {
-  background-image: url("/wp-content/plugins/siw-functionality/assets/images/login/background-greyscale.jpg");
+  background-image: var(--siw-login-background-url);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;

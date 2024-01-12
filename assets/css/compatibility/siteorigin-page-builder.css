@@ -1,0 +1,66 @@
+.panel-layout .widget ul {
+  margin: 1.5em 0 1.5em 1.2em;
+}
+.panel-layout .widget ul li {
+  list-style-type: disc;
+}
+.panel-layout .widget ul.siw-usp li {
+  list-style-type: check;
+}
+.panel-layout .widget ul.siw-usp li::marker {
+  color: var(--siw-green);
+}
+.panel-layout .widget table th {
+  background: var(--siw-accent);
+  color: var(--siw-base);
+}
+.panel-layout .widget.widget_recent-posts {
+  border-left: 3px solid var(--siw-accent);
+  padding-left: 20px;
+}
+.panel-layout .widget.widget_recent-posts ul {
+  margin-left: 0;
+}
+.panel-layout .widget.widget_recent-posts ul li {
+  list-style: none;
+  margin-left: 0;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--siw-base);
+}
+.panel-layout .widget.widget_recent-posts ul li a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.widget-title-align-left .widget-title {
+  text-align: left;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.widget-title-align-center .widget-title {
+  text-align: center;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.widget-title-align-right .widget-title {
+  text-align: right;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.widget-title-align-justify .widget-title {
+  text-align: justify;
+}
+
+.align-justify {
+  text-align: justify;
+}

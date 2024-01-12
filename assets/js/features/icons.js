@@ -1,9 +1,9 @@
 /**
- * @file      Functies t.b.v. svgs
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
+ * @file      Functies t.b.v. icons
+ * @copyright 2019-2024 SIW Internationale Vrijwilligersprojecten
  */
 
-var siwSvg = (function () {
+var siwIcons = (function () {
 
 	/* Public methodes */
 	return {
@@ -29,7 +29,7 @@ var siwSvg = (function () {
 	function _loadSvg( target ) {
 
 		var url = target.dataset.svgUrl;
-		
+
 		//Haal svg via ajax op
 		var ajax = new XMLHttpRequest();
 		ajax.open("GET", url, true);
@@ -49,4 +49,4 @@ var siwSvg = (function () {
 
 })();
 
-siwSvg.init();
+siwIcons.init();

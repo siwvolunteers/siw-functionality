@@ -1,8 +1,6 @@
-@use "_variables" as variables;
-
 .error404 .container {
 	height: 100vh;
-	background-image: url('#{variables.$assets-path}/images/404/groep.jpg');
+	background-image: var(--siw-404-background-url);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -11,9 +9,10 @@
 		height:100vh;
 		text-align: center;
 		main {
-			padding-top: 50px;
+			padding: 50px;
 			max-width: 85ch;
 			display: inline-block;
+			background-color: var(--siw-base);
 		}
 	}
 }

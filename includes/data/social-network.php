@@ -2,6 +2,8 @@
 
 namespace SIW\Data;
 
+use SIW\Data\Icons\Social_Icons;
+
 /**
  * Bevat informatie over een sociaal netwerk
  *
@@ -16,7 +18,7 @@ class Social_Network extends Data {
 	protected string $name;
 
 	/** CSS-class van icoon */
-	protected string $icon_class;
+	protected Social_Icons $icon_class;
 
 	/** Kleurcode */
 	protected string $color;
@@ -45,7 +47,7 @@ class Social_Network extends Data {
 
 	/** Geeft icon class voor voor netwerk terug */
 	public function get_icon_class(): string {
-		return $this->icon_class;
+		return $this->icon_class->value;
 	}
 
 	/** Geeft kleurcode van netwerk terug */
