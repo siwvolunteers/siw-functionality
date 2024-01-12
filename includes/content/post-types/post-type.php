@@ -44,15 +44,19 @@ abstract class Post_Type extends Base {
 	 */
 	abstract protected static function get_post_type_supports(): array;
 
-	protected static function get_settings_fields(): array {
-		return [];
-	}
+	abstract protected function get_template_variables( string $type, int $post_id ): array;
 
 	abstract public static function get_meta_box_fields(): array;
 
 	abstract protected function get_taxonomies(): array;
 
+	abstract protected function get_custom_post( \WP_Post|int $post ): Post;
+
 	protected static function get_active_posts_meta_query(): array {
+		return [];
+	}
+
+	protected static function get_settings_fields(): array {
 		return [];
 	}
 
@@ -79,7 +83,7 @@ abstract class Post_Type extends Base {
 	}
 
 	#[Add_Action( 'pre_get_posts' )]
-	public function set_filter( \WP_Query $query ) {
+	final public function set_filter( \WP_Query $query ) {
 		if ( ! $this->is_archive_query( $query ) || empty( $this->get_active_posts_meta_query() ) ) {
 			return;
 		}
@@ -107,7 +111,7 @@ abstract class Post_Type extends Base {
 	}
 
 	#[Add_Filter( ' ' )]
-	public function set_post_data( array $data, array $postarr ): array {
+	final public function set_post_data( array $data, array $postarr ): array {
 
 		if ( in_array( $data['post_status'], [ 'draft', 'pending', 'auto-draft' ], true ) ) {
 			return $data;
@@ -196,7 +200,7 @@ abstract class Post_Type extends Base {
 	}
 
 	#[Add_Filter( 'mb_settings_pages' )]
-	public function add_settings_page( array $settings_pages ): array {
+	final public function add_settings_page( array $settings_pages ): array {
 		$settings_pages[] = [
 			'option_name'   => SIW_OPTIONS_KEY,
 			'id'            => "{$this::get_post_type()}_settings",
@@ -211,8 +215,12 @@ abstract class Post_Type extends Base {
 		return $settings_pages;
 	}
 
+	final protected static function get_option( string $option, mixed $default_value = null ): mixed {
+		return siw_get_option( static::get_post_type_base() . '.' . $option, $default_value );
+	}
+
 	#[Add_Filter( 'rwmb_meta_boxes' )]
-	public function add_settings_page_meta_box( array $meta_boxes ): array {
+	final public function add_settings_page_meta_box( array $meta_boxes ): array {
 		$fields = [
 			[
 				'id'     => 'archive',
@@ -239,6 +247,19 @@ abstract class Post_Type extends Base {
 							25  => '4',
 						],
 						'std'     => 50,
+					],
+					[
+						'id'        => 'masonry',
+						'name'      => __( 'Masonry', 'siw' ),
+						'type'      => 'switch',
+						'on_label'  => __( 'Ja', 'siw' ),
+						'off_label' => __( 'Nee', 'siw' ),
+						'visible'   => [
+							'when' => [
+								[ 'column_count', '!=', 100 ],
+							],
+						],
+
 					],
 				],
 			],
@@ -283,7 +304,7 @@ abstract class Post_Type extends Base {
 	}
 
 	#[Add_Filter( 'rwmb_meta_boxes' )]
-	public function add_post_type_meta_box( array $meta_boxes ): array {
+	final public function add_post_type_meta_box( array $meta_boxes ): array {
 		$fields = static::get_meta_box_fields();
 		if ( ! empty( $this->get_taxonomies() ) ) {
 			$taxonomy_fields = [
@@ -324,7 +345,7 @@ abstract class Post_Type extends Base {
 		return $meta_boxes;
 	}
 
-	protected function is_archive_query( \WP_Query $query = null ): bool {
+	final protected function is_archive_query( \WP_Query $query = null ): bool {
 		if ( null === $query ) {
 			global $wp_the_query;
 			$query = $wp_the_query;
@@ -345,14 +366,14 @@ abstract class Post_Type extends Base {
 	}
 
 	#[Add_Action( 'generate_before_main_content', 1 )]
-	public function add_archive_intro() {
+	final public function add_archive_intro() {
 		if ( ! $this->is_archive_query() ) {
 			return;
 		}
 
 		?>
 		<div class="siw-intro">
-			<?php echo wp_kses_post( siw_get_option( "{$this::get_post_type_base()}.archive.intro", '' ) ); ?>
+			<?php echo wp_kses_post( static::get_option( 'archive.intro', '' ) ); ?>
 		</div>
 		<?php
 
@@ -388,36 +409,34 @@ abstract class Post_Type extends Base {
 	}
 
 	#[Add_Filter( 'generate_blog_columns' )]
-	public function set_archive_columns( bool $columns ): bool {
+	final public function set_archive_columns( bool $columns ): bool {
 		if ( $this->is_archive_query() ) {
-			return 1 !== (int) siw_get_option( "{$this::get_post_type_base()}.archive.column_count", 1 );
+			return 100 !== (int) static::get_option( 'archive.column_count', 50 );
 		}
 
 		return $columns;
 	}
 
 	#[Add_Filter( 'generate_blog_get_column_count' )]
-	public function set_archive_column_count( int $count ): int {
+	final public function set_archive_column_count( int $count ): int {
 		if ( $this->is_archive_query() ) {
-			return (int) siw_get_option( "{$this::get_post_type_base()}.archive.column_count", 50 );
+			return (int) static::get_option( 'archive.column_count', 50 );
 		}
 
 		return $count;
 	}
 
 	#[Add_Filter( 'generate_blog_masonry' )]
-	public function set_archive_masonry( mixed $masonry ): mixed {
+	final public function set_archive_masonry( mixed $masonry ): mixed {
 		if ( $this->is_archive_query() ) {
-			return 100 !== (int) siw_get_option( "{$this::get_post_type_base()}.archive.column_count", 1 );
+			return 100 !== (int) static::get_option( 'archive.column_count', 50 ) && static::get_option( 'archive.masonry', false );
 		}
 
 		return $masonry;
 	}
 
-	abstract protected function get_template_variables( string $type, int $post_id ): array;
-
 	#[Add_Action( 'wp_footer' )]
-	public function add_structured_data(): void {
+	final public function add_structured_data(): void {
 
 		if ( ! is_singular( static::get_post_type() ) ) {
 			return;
@@ -435,7 +454,7 @@ abstract class Post_Type extends Base {
 	}
 
 	#[Add_Filter( 'get_the_excerpt', 1 )]
-	public function set_excerpt( string $excerpt, \WP_Post $post ): string {
+	final public function set_excerpt( string $excerpt, \WP_Post $post ): string {
 
 		if ( static::get_post_type() !== get_post_type( $post ) ) {
 			return $excerpt;
@@ -452,7 +471,7 @@ abstract class Post_Type extends Base {
 	}
 
 	#[Add_Filter( 'the_content' )]
-	public function set_content( string $content ): string {
+	final public function set_content( string $content ): string {
 
 		if ( ! is_singular( static::get_post_type() ) || ! in_the_loop() || ! is_main_query() ) {
 			return $content;
@@ -464,10 +483,8 @@ abstract class Post_Type extends Base {
 			->parse_template();
 	}
 
-	abstract protected function get_custom_post( \WP_Post|int $post ): Post;
-
 	#[Add_Filter( 'post_thumbnail_id' )]
-	public function set_post_thumbnail_id( int $thumbnail_id, \WP_Post $post ): int {
+	final public function set_post_thumbnail_id( int $thumbnail_id, \WP_Post $post ): int {
 		if ( get_post_type( $post ) !== static::get_post_type() ) {
 			return $thumbnail_id;
 		}
@@ -477,7 +494,7 @@ abstract class Post_Type extends Base {
 			return $custom_post->get_thumbnail_id();
 		}
 
-		$fallback_image = siw_get_option( "{$this::get_post_type_base()}.single.fallback_image" );
+		$fallback_image = static::get_option( 'single.fallback_image' );
 		if ( $fallback_image ) {
 			$thumbnail_id = $fallback_image[0];
 		}
