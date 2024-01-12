@@ -4,6 +4,8 @@ namespace SIW\Content\Post_Types;
 
 use SIW\Content\Post\TM_Country as TM_Country_Post;
 use SIW\Content\Post_Types\Post_Type;
+use SIW\Data\Animation\Easing;
+use SIW\Data\Animation\Type;
 use SIW\Data\Country;
 use SIW\Data\Post_Type_Support;
 use SIW\Data\Project_Type;
@@ -145,6 +147,12 @@ class TM_Country extends Post_Type {
 			$template_variables['world_basic_page'] = get_permalink( siw_get_project_type_page( Project_Type::WORLD_BASIC() ) );
 			$template_variables['child_policy_page'] = get_permalink( siw_get_special_page( Special_Page::CHILD_POLICY() ) );
 			$template_variables['image'] = wp_get_attachment_image( $post->get_image_id(), 'large' );
+			$template_variables['animation_duration'] = 1800;
+			$template_variables['animation_easing'] = Easing::EASE_OUT_SINE->value;
+			$template_variables['animation_type_quote'] = Type::FADE->value;
+			$template_variables['animation_type_left'] = Type::SLIDE_LEFT->value;
+			$template_variables['animation_type_right'] = Type::SLIDE_RIGHT->value;
+
 		}
 
 		return $template_variables;

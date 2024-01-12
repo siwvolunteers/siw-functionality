@@ -1,10 +1,10 @@
 <div class="flex-container flex-direction-column-mobile">
 	{{!landkaart plaatsen}}
-	<div class="flex-item {{ mapcss }}" data-sal="slide-right" data-sal-duration="1800" data-sal-easing="ease-out-sine">
+	<div class="flex-item {{ mapcss }}" data-sal="{{ animation_type_right }}" data-sal-duration="{{ animation_duration }}" data-sal-easing="{{ animation_easing }}">
 		{{& worldmap }}
 	</div>
 	{{!korte beschrijving van het land}}
-	<div class="flex-item" data-sal="slide-left" data-sal-duration="1800" data-sal-easing="ease-out-sine">
+	<div class="flex-item" data-sal="{{ animation_type_left }}" data-sal-duration="{{ animation_duration }}" data-sal-easing="{{ animation_easing }}">
 		<p>{{& tm_country.get_introduction|wp_kses_post }}</p>
 		<b>{{#__}}Dit is het type projecten dat we hier aanbieden:{{/__}}</b>
 		<p>
@@ -18,12 +18,12 @@
 	</div>
 </div>
 <div class="flex-container">
-	<div class="flex-item" data-sal="fade" data-sal-duration="1850" data-sal-easing="ease-out-sine">
+	<div class="flex-item" data-sal="{{ animation_type_quote }}" data-sal-duration="{{ animation_duration }}" data-sal-easing="{{ animation_easing }}">
 		{{{quote}}}
 	</div>
 </div>
 <div class="flex-container flex-direction-column-reverse-mobile flex-order-reverse-mobile">
-	<div class="flex-item" data-sal="slide-right" data-sal-duration="1800" data-sal-easing="ease-out-sine">
+	<div class="flex-item" data-sal="{{ animation_type_right }}" data-sal-duration="{{ animation_duration }}" data-sal-easing="{{ animation_easing }}">
 		<p>
 		{{& tm_country.get_description|wp_kses_post }}
 		</p>
@@ -42,7 +42,7 @@
 		<a href="{{ world_basic_page }}" class="button">{{#__}}Meld je aan{{/__}}</a>
 		</p>
 	</div>
-	<div class="flex-item" data-sal="slide-left" data-sal-duration="1800" data-sal-easing="ease-out-sine">
+	<div class="flex-item" data-sal="{{ animation_type_left }}" data-sal-duration="{{ animation_duration }}" data-sal-easing="{{ animation_easing }}">
 		{{& image }}
 	</div>
 </div>

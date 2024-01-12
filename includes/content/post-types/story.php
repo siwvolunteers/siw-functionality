@@ -3,6 +3,8 @@ namespace SIW\Content\Post_Types;
 
 use SIW\Content\Post\Story as Story_Post;
 use SIW\Content\Post_Types\Post_Type;
+use SIW\Data\Animation\Easing;
+use SIW\Data\Animation\Type;
 use SIW\Data\Country;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Quote;
@@ -163,8 +165,13 @@ class Story extends Post_Type {
 		$post = new Story_Post( $post_id );
 
 		$template_variables = [
-			'story' => $post,
-			'rows'  => array_map( [ $this, 'parse_row' ], $post->get_rows() ),
+			'story'                => $post,
+			'rows'                 => array_map( [ $this, 'parse_row' ], $post->get_rows() ),
+			'animation'            => [
+				'easing'   => Easing::EASE_IN_OUT_SINE->value,
+				'duration' => 1800,
+			],
+			'quote_animation_type' => Type::FADE->value,
 		];
 		return $template_variables;
 	}
@@ -172,8 +179,8 @@ class Story extends Post_Type {
 	protected function parse_row( array $row ): array {
 		static $odd = true;
 		$row['flex_direction_class'] = $odd ? '' : 'flex-direction-row-reverse';
-		$row['content_animation_direction'] = $odd ? 'left' : 'right';
-		$row['image_animation_direction'] = $odd ? 'right' : 'left';
+		$row['content_animation_type'] = $odd ? Type::SLIDE_LEFT->value : Type::SLIDE_RIGHT->value;
+		$row['image_animation_type'] = $odd ? Type::SLIDE_RIGHT->value : Type::SLIDE_LEFT->value;
 		$row['image'] = wp_get_attachment_image( $row['image'][0], 'large' );
 		$row['quote'] = Quote::create()->set_quote( $row['quote'] )->generate();
 		$odd = ! $odd;

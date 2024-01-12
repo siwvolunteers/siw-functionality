@@ -2,7 +2,8 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Util\Animation as Animation_Util;
+use SIW\Data\Animation\Easing;
+use SIW\Data\Animation\Type;
 
 use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
 use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
@@ -189,31 +190,39 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 	public function set_settings_defaults( array $defaults ): array {
 		$defaults[ self::OPTION_FIELD_DURATION ] = '1000';
 		$defaults[ self::OPTION_FIELD_DELAY ]    = 'none';
-		$defaults[ self::OPTION_FIELD_EASING ]   = 'ease-out-sine';
+		$defaults[ self::OPTION_FIELD_EASING ]   = Easing::EASE_IN_OUT_SINE->value;
 		return $defaults;
 	}
 
 	/** Geeft animatie type terug */
 	protected function get_types(): array {
-		return Animation_Util::get_types();
+		return siw_get_enum_array( Type::cases() );
 	}
 
-	/** Geeft easing opties terug */
 	protected function get_easing_options( bool $include_default_option = true ): array {
-		return $this->maybe_add_default_option( Animation_Util::get_easing_options(), $include_default_option );
+		return $this->maybe_add_default_option( siw_get_enum_array( Easing::cases() ), $include_default_option );
 	}
 
-	/** Geeft vertraging opties terug */
 	protected function get_delay_options( bool $include_default_option = true ): array {
-		return $this->maybe_add_default_option( Animation_Util::get_delay_options(), $include_default_option );
+
+		$delay_options['none'] = __( 'Geen', 'siw' );
+		for ( $t = 100; $t <= 1000; $t += 50 ) {
+			// translators: %d is het aantal miliseconden
+			$delay_options[ $t ] = sprintf( __( '%d ms', 'siw' ), $t );
+		}
+		return $this->maybe_add_default_option( $delay_options, $include_default_option );
 	}
 
-	/** Geeft duur opties terug */
 	protected function get_duration_options( bool $include_default_option = true ): array {
-		return $this->maybe_add_default_option( Animation_Util::get_duration_options(), $include_default_option );
+		$duration_options = [];
+		for ( $t = 200; $t <= 2000; $t += 50 ) {
+			// translators: %d is het aantal miliseconden
+			$duration_options[ $t ] = sprintf( __( '%d ms', 'siw' ), $t );
+		}
+
+		return $this->maybe_add_default_option( $duration_options, $include_default_option );
 	}
 
-	/** Voegt eventueel default optie toe */
 	protected function maybe_add_default_option( array $options, bool $add_default_option ) {
 		if ( $add_default_option ) {
 			$options = [ 'default' => __( 'Standaard', 'siw' ) ] + $options;

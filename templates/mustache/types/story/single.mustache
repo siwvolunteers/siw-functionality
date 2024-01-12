@@ -1,16 +1,16 @@
 {{#rows}}
 	<div class="flex-container">
-		<div class="flex-item" data-sal="fade" data-sal-duration="1800" data-sal-easing="ease-out-sine">
+		<div class="flex-item" data-sal="{{ quote_animation_type }}" data-sal-duration="{{ animation.duration }}" data-sal-easing="{{ animation.easing }}">
 			{{& quote }}
 		</div>
 	</div>
 	<div class="flex-container flex-direction-column-mobile {{ flex_direction_class }}" >
 		{{!plaatje tonen aan ene kant}}
-		<div class="flex-item" data-sal="slide-{{ image_animation_direction }}" data-sal-duration="1800" data-sal-easing="ease-out-sine">
+		<div class="flex-item" data-sal="{{ image_animation_type }}" data-sal-duration="{{ animation.duration }}" data-sal-easing="{{ animation.easing }}">
 			{{& image }}
 		</div>
 		{{!verhaaltjes toenen aan andere kant}}
-		<div class="flex-item" data-sal="slide-{{ content_animation_direction }}" data-sal-duration="1800" data-sal-easing="ease-out-sine">
+		<div class="flex-item" data-sal="{{ content_animation_type }}" data-sal-duration="{{ animation.duration }}" data-sal-easing="{{ animation.easing }}">
 			{{# content }}
 				<b>{{ title }}</b>
 				{{& text|wp_kses_post }}
