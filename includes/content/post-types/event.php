@@ -411,7 +411,7 @@ class Event extends Post_Type {
 
 	#[Add_Action( 'generate_after_entry_header' )]
 	public function set_event_info(): void {
-		if ( ! $this->is_archive_query() ) {
+		if ( ! $this->is_archive_query() || false === get_the_ID() ) {
 			return;
 		}
 
