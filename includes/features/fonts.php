@@ -6,9 +6,6 @@ use SIW\Attributes\Add_Action;
 use SIW\Base;
 
 /**
- * Lettertype
- *
- * @copyright 2024 SIW Internationale Vrijwilligersprojecten
  * @see https://gwfh.mranftl.com/fonts/
  */
 class Fonts extends Base {

@@ -8,17 +8,11 @@ use SIW\Base;
 use SIW\Traits\Assets_Handle;
 use SIW\Util\CSS;
 
-/**
- * Class voor animaties
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Custom_404_Page extends Base {
 
 	use Assets_Handle;
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
 
 		if ( ! is_404() ) {

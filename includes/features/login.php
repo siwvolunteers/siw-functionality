@@ -1,18 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace SIW;
+namespace SIW\Features;
 
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
+use SIW\Base;
 use SIW\Properties;
 use SIW\Traits\Assets_Handle;
 use SIW\Util\CSS;
 
-/**
- * Aanpassingen aan login
- *
- * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
- */
 class Login extends Base {
 
 	use Assets_Handle;
@@ -24,7 +20,6 @@ class Login extends Base {
 	private const LOGIN_HEADER_TEXT = Properties::NAME;
 
 	#[Add_Action( 'login_enqueue_scripts' )]
-	/** Voegt de styling voor de login toe */
 	public function enqueue_style() {
 		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/login.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( self::get_assets_handle() );
@@ -46,7 +41,6 @@ class Login extends Base {
 	}
 
 	#[Add_Filter( 'login_message' )]
-	/** Zet de login-boodschap */
 	public function set_login_message( string $message ): string {
 		if ( empty( $message ) ) {
 			$message = '<p class="message">' . esc_html__( 'Welkom bij SIW. Log in om verder te gaan.', 'siw' ) . '</p>';
@@ -55,13 +49,11 @@ class Login extends Base {
 	}
 
 	#[Add_Action( 'login_head' )]
-	/** Verwijdert de shake-animatie */
 	public function remove_shake_js() {
 		remove_action( 'login_head', 'wp_shake_js', 12 );
 	}
 
 	#[Add_Action( 'wp_login' )]
-	/** Legt laatste login van een gebruiker vast */
 	public function log_last_user_login( string $user_login, \WP_User $user ) {
 		update_user_meta( $user->ID, 'last_login', current_datetime()->getTimestamp() );
 	}

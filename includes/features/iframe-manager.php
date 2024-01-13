@@ -8,17 +8,11 @@ use SIW\External_Assets\Iframe_Manager as Iframe_Manager_Asset;
 use SIW\Traits\Assets_Handle;
 use SIW\Util\Links;
 
-/**
- * Cookie consent
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Iframe_Manager extends Base {
 
 	use Assets_Handle;
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
 		wp_register_style(
 			self::get_assets_handle(),
@@ -31,7 +25,6 @@ class Iframe_Manager extends Base {
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Voegt stylesheet toe */
 	public function enqueue_scripts() {
 		wp_register_script(
 			self::get_assets_handle(),

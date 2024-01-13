@@ -15,10 +15,6 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
- * Google Analytics 4
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
  * @link      https://developers.google.com/analytics/devguides/collection/ga4
  */
 class Google_Analytics_4 extends Base {
@@ -83,7 +79,6 @@ class Google_Analytics_4 extends Base {
 		return $config;
 	}
 
-	/** Genereert data voor Ecommerce event */
 	protected function generate_ecommerce_event_data(): array {
 		$ecommerce_event = [];
 		if ( is_product() ) {
@@ -151,7 +146,6 @@ class Google_Analytics_4 extends Base {
 		return $ecommerce_event;
 	}
 
-	/** Geeft productdata voor GA terug */
 	protected function get_product_data( WC_Product_Project $product, int $index = null ): array {
 
 		$category_ids = $product->get_category_ids();
@@ -177,7 +171,6 @@ class Google_Analytics_4 extends Base {
 		return $this->determine_item_list()['name'];
 	}
 
-	/** Bepaalt productlijst */
 	protected function determine_item_list(): array {
 
 		$id = 'onbekend';
@@ -211,7 +204,6 @@ class Google_Analytics_4 extends Base {
 	}
 
 	#[Add_Action( 'woocommerce_before_shop_loop_item', 9 )]
-	/** Voegt GA attributes toe aan WooCommerce Loop link */
 	public function woocommerce_template_loop_product_link_open() {
 		remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
 
