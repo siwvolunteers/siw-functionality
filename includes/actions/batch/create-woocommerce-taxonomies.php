@@ -6,11 +6,7 @@ use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 use SIW\Util\Logger;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Bijwerken WooCommerce terms
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
+
 class Create_WooCommerce_Taxonomies implements Batch_Action_Interface {
 
 	/** {@inheritDoc} */

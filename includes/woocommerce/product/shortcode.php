@@ -19,13 +19,14 @@ class Shortcode extends Base {
 	/** Geeft extra taxonomy attributes terug */
 	protected function get_taxonomy_attributes(): array {
 		return [
-			'continent'  => Taxonomy_Attribute::CONTINENT,
-			'land'       => Taxonomy_Attribute::COUNTRY,
-			'sdg'        => Taxonomy_Attribute::SDG,
-			'maand'      => Taxonomy_Attribute::MONTH,
-			'soort-werk' => Taxonomy_Attribute::WORK_TYPE,
-			'taal'       => Taxonomy_Attribute::LANGUAGE,
-			'doelgroep'  => Taxonomy_Attribute::TARGET_AUDIENCE,
+			'projectsoort' => Taxonomy_Attribute::PROJECT_TYPE,
+			'continent'    => Taxonomy_Attribute::CONTINENT,
+			'land'         => Taxonomy_Attribute::COUNTRY,
+			'sdg'          => Taxonomy_Attribute::SDG,
+			'maand'        => Taxonomy_Attribute::MONTH,
+			'soort-werk'   => Taxonomy_Attribute::WORK_TYPE,
+			'taal'         => Taxonomy_Attribute::LANGUAGE,
+			'doelgroep'    => Taxonomy_Attribute::TARGET_AUDIENCE,
 		];
 	}
 

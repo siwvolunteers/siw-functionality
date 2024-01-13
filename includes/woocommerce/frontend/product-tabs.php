@@ -10,11 +10,6 @@ use SIW\Elements\Leaflet_Map;
 use SIW\Forms\Forms\Enquiry_Project;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-/**
- * Tabs voor Groepsprojecten
- *
- * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
- */
 class Product_Tabs extends Base {
 
 	private const LOCATION_TAB = 'location_and_leisure';
@@ -91,7 +86,6 @@ class Product_Tabs extends Base {
 		return $tabs;
 	}
 
-	/** Toont projectbeschrijving o.b.v. gegevens uit Plato */
 	public function show_project_description( string $tab, array $args ) {
 
 		/**@var WC_Product_Project */
@@ -117,7 +111,6 @@ class Product_Tabs extends Base {
 		}
 	}
 
-	/** Bepaal of product ene  */
 	protected function product_needs_coc( WC_Product_Project $product ): bool {
 		foreach ( $product->get_work_types() as $work_type ) {
 			if ( $work_type->needs_review() ) {
@@ -131,19 +124,16 @@ class Product_Tabs extends Base {
 		echo esc_html( 'Aangezien je in dit project met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.' );
 	}
 
-	/** Toont kaart met projectlocatie in tab */
 	public function show_project_map( string $tab, array $args ) {
 		Leaflet_Map::create()
 			->add_marker( $args['latitude'], $args['longitude'], __( 'Projectlocatie', 'siw' ) )
 			->render();
 	}
 
-	/** Toont contactformulier in tab */
 	public function show_product_contact_form() {
 		Form::create()->set_form_id( Enquiry_Project::FORM_ID )->render();
 	}
 
-	/** Toont overzicht van kosten voor het project */
 	public function show_product_costs( string $tab, array $args ) {
 
 		/**@var WC_Product_Project */
@@ -151,7 +141,7 @@ class Product_Tabs extends Base {
 
 		if ( 0.0 === (float) $product->get_price() ) {
 			esc_html_e( 'Voor dit project is geen inschrijfgeld van toepassing', 'siw' );
-		} elseif ( $product->is_excluded_from_student_discount() ) {
+		} elseif ( $product->is_excluded_from_student_discount() || $product->is_esc_project() ) {
 			printf(
 				// translators: %s is het inschrijfgeld.
 				esc_html__( 'Het inschrijfgeld voor dit project bedraagt %s.', 'siw' ),

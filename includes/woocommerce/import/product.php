@@ -163,6 +163,12 @@ class Product {
 			Logger::error( sprintf( 'Project type %s niet gevonden', $this->plato_project->get_project_type() ), self::LOGGER_SOURCE );
 			return false;
 		}
+
+		// TODO: lengte van project gebruiken om TEEN en FAM om te zetten naar STV/MTV/LTV
+		if ( Plato_Project_Type::TEEN === $project_type || Plato_Project_Type::FAM === $project_type ) {
+			$project_type = Plato_Project_Type::STV;
+		}
+
 		$this->project_type = $project_type;
 		return true;
 	}
@@ -375,6 +381,14 @@ class Product {
 			'values'   => $sdg_values,
 		];
 
+		// Projectsoort
+		$taxonomy_attributes[] = [
+			'taxonomy' => Taxonomy_Attribute::PROJECT_TYPE,
+			'values'   => [
+				$this->project_type->value => $this->project_type->label(),
+			],
+		];
+
 		// Attributes aanmaken
 		foreach ( $taxonomy_attributes as $attribute ) {
 			$attribute = wp_parse_args(
@@ -409,18 +423,12 @@ class Product {
 
 		// TODO: maybe_create_taxonomy
 		if ( 0 === $wc_attribute_taxonomy_id ) {
-			$wc_attribute_taxonomy_id = wc_create_attribute(
-				[
-					'name'         => $taxonomy_attribute->label(),
-					'slug'         => $taxonomy_attribute->value,
-					'type'         => 'select',
-					'order_by'     => 'name',
-					'has_archives' => true,
-				]
+			Logger::warning(
+				sprintf( 'Taxonomy %s bestaat niet', $taxonomy_attribute->value ),
+				self::LOGGER_SOURCE
 			);
-			if ( is_wp_error( $wc_attribute_taxonomy_id ) ) {
-				return null;
-			}
+
+			return null;
 		}
 
 		foreach ( $values as $slug => $value ) {
@@ -537,6 +545,7 @@ class Product {
 			Plato_Project_Type::STV->value,
 			Plato_Project_Type::TEEN->value,
 			Plato_Project_Type::FAM->value,
+			Plato_Project_Type::ESC->value,
 		];
 		return in_array( $this->project_type->value, $allowed_project_types, true );
 	}

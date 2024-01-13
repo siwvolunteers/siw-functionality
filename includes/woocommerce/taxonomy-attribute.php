@@ -4,14 +4,10 @@ namespace SIW\WooCommerce;
 
 use SIW\Interfaces\Enums\Labels as I_Enum_Labels;
 
-/**
- * WooCommerce taxonomy attributes
- *
- * @copyright 2021-2023 SIW Internationale Vrijwilligersprojecten
- */
 enum Taxonomy_Attribute: string implements I_Enum_Labels {
 
-	case CONTINENT       = 'product_cat';
+	case PROJECT_TYPE    = 'product_cat';
+	case CONTINENT       = 'pa_continent';
 	case COUNTRY         = 'pa_land';
 	case WORK_TYPE       = 'pa_soort-werk';
 	case LANGUAGE        = 'pa_taal';
@@ -22,6 +18,7 @@ enum Taxonomy_Attribute: string implements I_Enum_Labels {
 	/** {@inheritDoc} */
 	public function label(): string {
 		return match ( $this ) {
+			self::PROJECT_TYPE    => __( 'Projecttype', 'siw' ),
 			self::CONTINENT       => __( 'Continent', 'siw' ),
 			self::COUNTRY         => __( 'Land', 'siw' ),
 			self::WORK_TYPE       => __( 'Soort werk', 'siw' ),
