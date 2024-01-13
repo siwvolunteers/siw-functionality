@@ -2,32 +2,19 @@
 
 namespace SIW\Data;
 
-use Spatie\Enum\Enum;
+use SIW\Interfaces\Enums\Labels as I_Enum_Labels;
 
-/**
- * Special pagina's waarnaar verwezen kan worden
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
- * @method static self CONTACT()
- * @method static self CHILD_POLICY()
- * @method static self NEWSLETTER_CONFIRMATION()
- */
-class Special_Page extends Enum {
+enum Special_Page: string implements I_Enum_Labels {
 
-	/** {@inheritDoc} */
-	protected static function values(): \Closure {
-		return function ( string $value ): string {
-			return strtolower( $value );
+	case CONTACT = 'contact';
+	case CHILD_POLICY = 'child_policy';
+	case NEWSLETTER_CONFIRMATION = 'newsletter_confirmation';
+
+	public function label(): string {
+		return match ( $this ) {
+			self::CONTACT                 => __( 'Contact', 'siw' ),
+			self::CHILD_POLICY            => __( 'Kinderbeleid', 'siw' ),
+			self::NEWSLETTER_CONFIRMATION => __( 'Bevestiging nieuwsbrief', 'siw' ),
 		};
-	}
-
-	/** {@inheritDoc} */
-	protected static function labels(): array {
-		return [
-			'CONTACT'                 => __( 'Contact', 'siw' ),
-			'CHILD_POLICY'            => __( 'Kinderbeleid', 'siw' ),
-			'NEWSLETTER_CONFIRMATION' => __( 'Bevestiging nieuwsbrief', 'siw' ),
-		];
 	}
 }

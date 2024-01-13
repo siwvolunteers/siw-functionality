@@ -8,11 +8,6 @@ use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Header voor overzichtspagina van groepsprojecten
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Header extends Base {
 
 	#[Add_Action( 'generate_inside_site_container' )]
@@ -42,12 +37,10 @@ class Header extends Base {
 		<?php
 	}
 
-	/** Geeft aan of header getoond moet worden */
 	protected function show_archive_header(): bool {
 		return \is_shop() || \is_product_category() || \is_product_taxonomy();
 	}
 
-	/** Genereert introtekst */
 	protected function get_intro_text(): string {
 
 		if ( \is_shop() ) {
@@ -96,7 +89,7 @@ class Header extends Base {
 			$text .= BR . 'Aangezien je in deze projecten met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.';
 		}
 
-		$workcamps_page = siw_get_project_type_page( Project_Type::WORKCAMPS() );
+		$workcamps_page = siw_get_project_type_page( Project_Type::WORKCAMPS );
 
 		$text .= BR .
 			__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
@@ -107,7 +100,6 @@ class Header extends Base {
 		return $text;
 	}
 
-	/** Geeft aan of aankondiging nieuwe projecten getoond moet worden */
 	protected function is_teaser_text_active(): bool {
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
 		$teaser_text_active = false;
@@ -121,7 +113,6 @@ class Header extends Base {
 		return $teaser_text_active;
 	}
 
-	/** Genereert aankondiging voor nieuwe projecten */
 	protected function get_teaser_text(): ?string {
 
 		if ( ! $this->is_teaser_text_active() ) {
@@ -130,7 +121,7 @@ class Header extends Base {
 
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
 
-		$contact_page = siw_get_special_page( Special_Page::CONTACT() );
+		$contact_page = siw_get_special_page( Special_Page::CONTACT );
 		$end_year = gmdate( 'Y', strtotime( $teaser_text['end_date'] ) );
 		$end_month = date_i18n( 'F', strtotime( $teaser_text['end_date'] ) );
 		// translators: %1$s is een maand,  %2$s is een jaar

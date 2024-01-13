@@ -135,7 +135,7 @@ class Cookie_Consent extends Base {
 											sprintf(
 												// translators: %s is de link naar het de contactpagina
 												__( 'Voor meer informatie of vragen over ons privacybeleid kan je %s met ons opnemen.', 'siw' ),
-												Links::generate_link( get_permalink( siw_get_special_page( Special_Page::CONTACT() ) ), __( 'contact', 'siw' ) )
+												Links::generate_link( get_permalink( siw_get_special_page( Special_Page::CONTACT ) ), __( 'contact', 'siw' ) )
 											),
 									],
 								],

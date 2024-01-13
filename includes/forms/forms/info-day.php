@@ -10,11 +10,6 @@ use SIW\Interfaces\Forms\Export_To_Mailjet as I_Export_To_Mailjet;
 use SIW\Interfaces\Forms\Form as I_Form;
 use SIW\Interfaces\Forms\Notification_Mail as I_Notification_Mail;
 
-/**
- * Aanmelding infodag
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Export_To_Mailjet {
 
 	/** Formulier ID */
@@ -66,7 +61,7 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 				'type'     => 'checkbox_list',
 				'name'     => __( 'Heb je interesse in een bepaald soort project?', 'siw' ),
 				'required' => false,
-				'options'  => Project_Type::toArray(),
+				'options'  => siw_get_enum_array( Project_Type::cases() ),
 			],
 			[
 				'id'       => 'destination',
@@ -143,7 +138,6 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 		return $info_days;
 	}
 
-	/** Opties voor leeftijdsranges */
 	protected function get_age_ranges(): array {
 		return [
 			'16-25',
@@ -153,7 +147,6 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 		];
 	}
 
-	/** Opties voor referral */
 	protected function get_referral_options(): array {
 		return [
 			'google'    => __( 'Via Google', 'siw' ),
@@ -178,7 +171,7 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 			Mailjet::PROPERTY_LAST_NAME             => $request->get_param( 'last_name' ),
 			Mailjet::PROPERTY_AGE_RANGE             => $this->get_age_ranges()[ $request->get_param( 'age' ) ],
 			Mailjet::PROPERTY_INTEREST_DESTINATION  => implode( ', ', array_map( fn( string $value ): string => \siw_get_continents_list()[ $value ], $request->get_param( 'destination' ) ?? [] ) ),
-			Mailjet::PROPERTY_INTEREST_PROJECT_TYPE => implode( ', ', array_map( fn( string $value ): string => Project_Type::toArray()[ $value ], $request->get_param( 'project_type' ) ?? [] ) ),
+			Mailjet::PROPERTY_INTEREST_PROJECT_TYPE => implode( ', ', array_map( fn( string $value ): string => siw_get_enum_array( Project_Type::cases() )[ $value ], $request->get_param( 'project_type' ) ?? [] ) ),
 			Mailjet::PROPERTY_REFERRAL              => $this->get_referral_options()[ $request->get_param( 'referral' ) ] . SPACE . $request->get_param( 'referral_other' ),
 		];
 	}
