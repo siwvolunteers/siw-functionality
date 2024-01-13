@@ -423,7 +423,7 @@ class Event extends Post_Type {
 
 	#[Add_Action( 'generate_before_content' )]
 	public function show_event_date(): void {
-		if ( ! $this->is_archive_query() ) {
+		if ( ! $this->is_archive_query() || false === get_the_ID() ) {
 			return;
 		}
 		$event = $this->get_custom_post( get_the_ID() );
