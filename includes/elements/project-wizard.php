@@ -80,7 +80,7 @@ class Project_Wizard extends Element {
 					'std'     => sprintf(
 						'%s %s',
 						'Begin je zoektocht eens bij de <em>groepsprojecten binnen Europa</em>.',
-						$this->generate_link( get_term_link( 'europa', Taxonomy_Attribute::CONTINENT()->value ) )
+						$this->generate_link( get_term_link( 'europa', Taxonomy_Attribute::CONTINENT->value ) )
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',

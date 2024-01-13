@@ -18,7 +18,6 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         ),
         'S' => 
         array (
-            'Spatie\\Enum\\' => 12,
             'Spatie\\ArrayToXml\\' => 18,
         ),
         'P' => 
@@ -40,10 +39,6 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         'luizbills\\CSS_Generator\\' => 
         array (
             0 => __DIR__ . '/..' . '/luizbills/css-generator/src',
-        ),
-        'Spatie\\Enum\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/spatie/enum/src',
         ),
         'Spatie\\ArrayToXml\\' => 
         array (

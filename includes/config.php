@@ -2,12 +2,16 @@
 
 namespace SIW;
 
+use SIW\Util\Logger;
+
 class Config {
 
 	public static function get_constant_value( string $name, mixed $default_value = null ): mixed {
 		if ( defined( $name ) ) {
 			return constant( $name );
 		}
+
+		Logger::notice( sprintf( 'Constante %s is niet gedefiniëerd, terugvalwaarde %s wordt gebruikt', $name, $default_value ), static::class );
 		return $default_value;
 	}
 
@@ -29,6 +33,10 @@ class Config {
 
 	public static function get_meta_pixel_id(): ?string {
 		return self::get_constant_value( 'SIW_META_PIXEL_ID' );
+	}
+
+	public static function get_esc_project_fee(): int {
+		return self::get_constant_value( 'SIW_ESC_PROJECT_FEE', 50 );
 	}
 
 	public static function get_fixer_io_api_key(): string {

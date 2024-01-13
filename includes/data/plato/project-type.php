@@ -2,37 +2,14 @@
 
 namespace SIW\Data\Plato;
 
-use Spatie\Enum\Enum;
-
-/**
- * Plato project types
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- *
- * @method static self STV()
- * @method static self MTV()
- * @method static self LTV()
- * @method static self TEEN()
- * @method static self FAM()
- * @method static self VIRT()
- * @method static self EVS()
- * @method static self PER()
- * @method static self TRA()
- */
-class Project_Type extends Enum {
-
-	/** {@inheritDoc} */
-	protected static function labels(): array {
-		return [
-			'STV'  => __( 'STV', 'siw' ),
-			'MTV'  => __( 'MTV', 'siw' ),
-			'LTV'  => __( 'LTV', 'siw' ),
-			'TEEN' => __( 'Tienerproject', 'siw' ),
-			'FAM'  => __( 'Familieproject', 'siw' ),
-			'VIRT' => __( 'Virtueel project', 'siw' ),
-			'EVS'  => __( 'EVS project', 'siw' ),
-			'PER'  => __( 'Permanent project', 'siw' ),
-			'TRA'  => __( 'Training', 'siw' ),
-		];
-	}
+enum Project_Type: string {
+	case STV = 'STV';
+	case MTV = 'MTV';
+	case LTV = 'LTV';
+	case TEEN = 'TEEN';
+	case FAM = 'FAM';
+	case VIRT = 'VIRT';
+	case ESC = 'ESC';
+	case PER = 'PER';
+	case TRA = 'TRA';
 }

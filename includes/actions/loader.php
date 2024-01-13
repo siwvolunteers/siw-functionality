@@ -2,6 +2,7 @@
 
 namespace SIW\Actions;
 
+use Automattic\WooCommerce\StoreApi\Routes\V1\Batch;
 use SIW\Abstracts\Object_Loader as Object_Loader_Abstract;
 use SIW\Actions\Async\Action as Async_Action;
 use SIW\Actions\Batch\Action as Batch_Action;
@@ -21,6 +22,7 @@ class Loader extends Object_Loader_Abstract {
 			Async\Export_Plato_Application::class,
 			Async\Export_To_Mailjet::class,
 			Async\Import_Plato_Project::class,
+			Batch\Create_WooCommerce_Taxonomies::class,
 			Batch\Delete_Applications::class,
 			Batch\Delete_Old_Posts::class,
 			Batch\Delete_Stockphotos::class,

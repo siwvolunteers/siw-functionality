@@ -36,13 +36,10 @@ class Product {
 	/** Geeft aan of het een update van een bestaand product is */
 	protected bool $is_update = false;
 
-	/** Project */
 	protected WC_Product_Project $product;
 
-	/** Project type */
 	protected Plato_Project_Type $project_type;
 
-	/** Land van project */
 	protected Country $country;
 
 	/**
@@ -236,7 +233,7 @@ class Product {
 	protected function get_category_ids(): array {
 		$continent = $this->country->get_continent();
 		$category_ids = [];
-		$continent_category_id = Util::maybe_create_term( Taxonomy_Attribute::CONTINENT()->value, $continent->get_slug(), $continent->get_name() );
+		$continent_category_id = Util::maybe_create_term( Taxonomy_Attribute::CONTINENT->value, $continent->get_slug(), $continent->get_name() );
 		if ( false !== $continent_category_id ) {
 			$category_ids[] = $continent_category_id;
 		}
@@ -271,23 +268,23 @@ class Product {
 		/* Product attributes */
 		$product_attributes = [
 			[
-				'attribute' => Product_Attribute::PROJECT_NAME(),
+				'attribute' => Product_Attribute::PROJECT_NAME,
 				'value'     => $this->plato_project->get_name(),
 			],
 			[
-				'attribute' => Product_Attribute::PROJECT_CODE(),
+				'attribute' => Product_Attribute::PROJECT_CODE,
 				'value'     => $this->plato_project->get_code(),
 			],
 			[
-				'attribute' => Product_Attribute::START_DATE(),
+				'attribute' => Product_Attribute::START_DATE,
 				'value'     => gmdate( 'j-n-Y', strtotime( $this->plato_project->get_start_date() ) ),
 			],
 			[
-				'attribute' => Product_Attribute::END_DATE(),
+				'attribute' => Product_Attribute::END_DATE,
 				'value'     => gmdate( 'j-n-Y', strtotime( $this->plato_project->get_end_date() ) ),
 			],
 			[
-				'attribute' => Product_Attribute::NUMBER_OF_VOLUNTEERS(),
+				'attribute' => Product_Attribute::NUMBER_OF_VOLUNTEERS,
 				'value'     => siw_format_number_of_volunteers(
 					$this->plato_project->get_numvol(),
 					$this->plato_project->get_numvol_m(),
@@ -295,14 +292,14 @@ class Product {
 				),
 			],
 			[
-				'attribute' => Product_Attribute::AGE_RANGE(),
+				'attribute' => Product_Attribute::AGE_RANGE,
 				'value'     => siw_format_age_range(
 					$this->plato_project->get_min_age(),
 					$this->plato_project->get_max_age()
 				),
 			],
 			[
-				'attribute' => Product_Attribute::PARTICIPATION_FEE(),
+				'attribute' => Product_Attribute::PARTICIPATION_FEE,
 				'value'     => siw_format_local_fee(
 					$this->plato_project->get_participation_fee(),
 					$this->plato_project->get_participation_fee_currency()
@@ -312,13 +309,13 @@ class Product {
 
 		foreach ( $product_attributes as $product_attribute ) {
 			if ( ! empty( $product_attribute['value'] ) ) {
-				$attributes[ sanitize_title( $product_attribute['attribute']->label ) ] = $this->create_product_attribute( $product_attribute['attribute'], $product_attribute['value'] );
+				$attributes[ sanitize_title( $product_attribute['attribute']->label() ) ] = $this->create_product_attribute( $product_attribute['attribute'], $product_attribute['value'] );
 			}
 		}
 
 		/* Land */
 		$taxonomy_attributes[] = [
-			'taxonomy' => Taxonomy_Attribute::COUNTRY(),
+			'taxonomy' => Taxonomy_Attribute::COUNTRY,
 			'values'   => [
 				$this->country->get_slug() => $this->country->get_name(),
 			],
@@ -330,7 +327,7 @@ class Product {
 			$work_type_values[ $work_type->get_slug() ] = $work_type->get_name();
 		}
 		$taxonomy_attributes[] = [
-			'taxonomy' => Taxonomy_Attribute::WORK_TYPE(),
+			'taxonomy' => Taxonomy_Attribute::WORK_TYPE,
 			'values'   => $work_type_values,
 		];
 
@@ -340,7 +337,7 @@ class Product {
 			$language_values[ $language->get_slug() ] = $language->get_name();
 		}
 		$taxonomy_attributes[] = [
-			'taxonomy' => Taxonomy_Attribute::LANGUAGE(),
+			'taxonomy' => Taxonomy_Attribute::LANGUAGE,
 			'values'   => $language_values,
 		];
 
@@ -348,7 +345,7 @@ class Product {
 		$month_slug = sanitize_title( siw_format_month( $this->plato_project->get_start_date(), true ) );
 		$month_name = ucfirst( siw_format_month( $this->plato_project->get_start_date(), false ) );
 		$taxonomy_attributes[] = [
-			'taxonomy' => Taxonomy_Attribute::MONTH(),
+			'taxonomy' => Taxonomy_Attribute::MONTH,
 			'visible'  => false,
 			'values'   => [
 				$month_slug => [
@@ -361,10 +358,10 @@ class Product {
 		/* Doelgroepen */
 		$target_audience_values = [];
 		foreach ( $this->target_audiences as $target_audience ) {
-			$target_audience_values[ $target_audience->value ] = $target_audience->label;
+			$target_audience_values[ $target_audience->value ] = $target_audience->label();
 		}
 		$taxonomy_attributes[] = [
-			'taxonomy' => Taxonomy_Attribute::TARGET_AUDIENCE(),
+			'taxonomy' => Taxonomy_Attribute::TARGET_AUDIENCE,
 			'values'   => $target_audience_values,
 		];
 
@@ -374,7 +371,7 @@ class Product {
 			$sdg_values[ $goal->get_slug() ] = $goal->get_full_name();
 		}
 		$taxonomy_attributes[] = [
-			'taxonomy' => Taxonomy_Attribute::SDG(),
+			'taxonomy' => Taxonomy_Attribute::SDG,
 			'values'   => $sdg_values,
 		];
 
@@ -399,7 +396,7 @@ class Product {
 	protected function create_product_attribute( Product_Attribute $product_attribute, $options, bool $visible = true ): \WC_Product_Attribute {
 		$options = (array) $options;
 		$attribute = new \WC_Product_Attribute();
-		$attribute->set_name( $product_attribute->label );
+		$attribute->set_name( $product_attribute->label() );
 		$attribute->set_visible( $visible );
 		$attribute->set_options( $options );
 		return $attribute;
@@ -414,7 +411,7 @@ class Product {
 		if ( 0 === $wc_attribute_taxonomy_id ) {
 			$wc_attribute_taxonomy_id = wc_create_attribute(
 				[
-					'name'         => $taxonomy_attribute->label,
+					'name'         => $taxonomy_attribute->label(),
 					'slug'         => $taxonomy_attribute->value,
 					'type'         => 'select',
 					'order_by'     => 'name',
@@ -526,21 +523,21 @@ class Product {
 	 */
 	protected function set_target_audiences() {
 
-		if ( $this->plato_project->get_family() || $this->project_type->equals( Plato_Project_Type::FAM() ) ) {
-			$this->target_audiences[] = Target_Audience::FAMILIES();
+		if ( $this->plato_project->get_family() || Plato_Project_Type::FAM === $this->project_type ) {
+			$this->target_audiences[] = Target_Audience::FAMILIES;
 		}
-		if ( $this->plato_project->get_max_age() <= 19 || $this->project_type->equals( Plato_Project_Type::TEEN() ) ) {
-			$this->target_audiences[] = Target_Audience::TEENAGERS();
+		if ( $this->plato_project->get_max_age() <= 19 || Plato_Project_Type::TEEN === $this->project_type ) {
+			$this->target_audiences[] = Target_Audience::TEENAGERS;
 		}
 	}
 
 	/** Geeft aan het het een toegestaan type project is */
 	protected function is_allowed_project_type(): bool {
 		$allowed_project_types = [
-			Plato_Project_Type::STV(),
-			Plato_Project_Type::TEEN(),
-			Plato_Project_Type::FAM(),
+			Plato_Project_Type::STV->value,
+			Plato_Project_Type::TEEN->value,
+			Plato_Project_Type::FAM->value,
 		];
-		return $this->project_type->equals( ...$allowed_project_types );
+		return in_array( $this->project_type->value, $allowed_project_types, true );
 	}
 }

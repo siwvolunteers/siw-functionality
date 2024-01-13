@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'luizbills\\CSS_Generator\\' => array($vendorDir . '/luizbills/css-generator/src'),
-    'Spatie\\Enum\\' => array($vendorDir . '/spatie/enum/src'),
     'Spatie\\ArrayToXml\\' => array($vendorDir . '/spatie/array-to-xml/src'),
     'Pharaonic\\DotArray\\' => array($vendorDir . '/pharaonic/php-dot-array/src'),
     'ExtCPTs\\Tests\\' => array($vendorDir . '/johnbillion/extended-cpts/tests/integration'),
