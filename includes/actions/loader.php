@@ -2,18 +2,12 @@
 
 namespace SIW\Actions;
 
-use Automattic\WooCommerce\StoreApi\Routes\V1\Batch;
 use SIW\Abstracts\Object_Loader as Object_Loader_Abstract;
 use SIW\Actions\Async\Action as Async_Action;
 use SIW\Actions\Batch\Action as Batch_Action;
 use SIW\Interfaces\Actions\Async as Async_Action_Interface;
 use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
-/**
- * Loader voor actions
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Loader extends Object_Loader_Abstract {
 
 	/** {@inheritDoc} */
