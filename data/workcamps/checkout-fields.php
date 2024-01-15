@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use SIW\Data\Language;
+use SIW\Data\Plato\Language_Skill_Level;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -43,7 +44,7 @@ for ( $i = 1; $i <= 3; $i++ ) { // phpcs:ignore WordPress.NamingConventions.Pref
 		'type'     => 'radio',
 		'class'    => [ 'form-row-last' ],
 		'required' => 1 === $i,
-		'options'  => siw_get_language_skill_levels(),
+		'options'  => siw_get_enum_array( Language_Skill_Level::cases() ),
 	];
 }
 
