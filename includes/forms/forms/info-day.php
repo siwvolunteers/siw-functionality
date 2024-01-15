@@ -62,7 +62,7 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 				'type'     => 'checkbox_list',
 				'name'     => __( 'Heb je interesse in een bepaald soort project?', 'siw' ),
 				'required' => false,
-				'options'  => siw_get_enum_array( Project_Type::cases() ),
+				'options'  => Project_Type::list(),
 			],
 			[
 				'id'       => 'destination',
@@ -172,7 +172,7 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 			Property::LAST_NAME->value             => $request->get_param( 'last_name' ),
 			Property::AGE_RANGE->value             => $this->get_age_ranges()[ $request->get_param( 'age' ) ],
 			Property::INTEREST_DESTINATION->value  => implode( ', ', array_map( fn( string $value ): string => \siw_get_continents_list()[ $value ], $request->get_param( 'destination' ) ?? [] ) ),
-			Property::INTEREST_PROJECT_TYPE->value => implode( ', ', array_map( fn( string $value ): string => siw_get_enum_array( Project_Type::cases() )[ $value ], $request->get_param( 'project_type' ) ?? [] ) ),
+			Property::INTEREST_PROJECT_TYPE->value => implode( ', ', array_map( fn( string $value ): string => Project_Type::list()[ $value ], $request->get_param( 'project_type' ) ?? [] ) ),
 			Property::REFERRAL->value              => $this->get_referral_options()[ $request->get_param( 'referral' ) ] . SPACE . $request->get_param( 'referral_other' ),
 		];
 	}

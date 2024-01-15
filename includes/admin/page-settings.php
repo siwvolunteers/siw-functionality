@@ -42,13 +42,13 @@ class Page_Settings extends Base {
 					'id'      => self::SPECIAL_PAGE_META,
 					'name'    => __( 'Speciale pagina', 'siw' ),
 					'type'    => 'select_advanced',
-					'options' => siw_get_enum_array( Special_Page::cases() ),
+					'options' => Special_Page::list(),
 				],
 				[
 					'id'      => self::PROJECT_TYPE_PAGE_META,
 					'name'    => __( 'Projecttype-pagina', 'siw' ),
 					'type'    => 'select_advanced',
-					'options' => siw_get_enum_array( Project_Type::cases() ),
+					'options' => Project_Type::list(),
 				],
 			],
 		];

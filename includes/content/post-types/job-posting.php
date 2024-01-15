@@ -165,7 +165,7 @@ class Job_Posting extends Post_Type {
 				'name'     => __( 'Soort functie', 'siw' ),
 				'type'     => 'button_group',
 				'required' => true,
-				'options'  => siw_get_enum_array( Job_Type::cases() ),
+				'options'  => Job_Type::list(),
 				'std'      => Job_Type::VOLUNTEER->value,
 			],
 			[

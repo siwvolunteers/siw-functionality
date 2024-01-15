@@ -95,7 +95,7 @@ class Settings extends Option {
 					'name'     => __( 'Functie', 'siw' ),
 					'type'     => 'button_group',
 					'required' => true,
-					'options'  => siw_get_enum_array( Board_Title::cases() ),
+					'options'  => Board_Title::list(),
 				],
 			],
 		];

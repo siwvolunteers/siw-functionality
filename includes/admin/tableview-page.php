@@ -39,7 +39,7 @@ class Tableview_Page extends Base {
 			'dashicons-database'
 		);
 
-		foreach ( siw_get_enum_array( Database_Table::cases() ) as $table => $name ) {
+		foreach ( Database_Table::list() as $table => $name ) {
 			$hook = add_submenu_page(
 				self::MENU_SLUG,
 				$name,

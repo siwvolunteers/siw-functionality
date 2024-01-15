@@ -3,6 +3,7 @@
 namespace SIW\Data;
 
 use SIW\Interfaces\Enums\Labels;
+use SIW\Traits\Enum_List;
 
 /**
  * Database-tabellen
@@ -10,6 +11,8 @@ use SIW\Interfaces\Enums\Labels;
  * @copyright 2023 SIW Internationale Vrijwilligersprojecten
  */
 enum Database_Table: string implements Labels {
+
+	use Enum_List;
 
 	case PLATO_PROJECTS = 'plato_projects';
 	case PLATO_PROJECT_FREE_PLACES = 'plato_project_free_places';

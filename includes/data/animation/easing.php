@@ -3,8 +3,12 @@
 namespace SIW\Data\Animation;
 
 use SIW\Interfaces\Enums\Labels;
+use SIW\Traits\Enum_List;
 
 enum Easing: string implements Labels {
+
+	use Enum_List;
+
 	case LINEAR = 'linear';
 	case EASE = 'ease';
 	case EASE_IN = 'ease-in';

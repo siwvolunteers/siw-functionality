@@ -3,8 +3,12 @@
 namespace SIW\Data\Animation;
 
 use SIW\Interfaces\Enums\Labels;
+use SIW\Traits\Enum_List;
 
 enum Type: string implements Labels {
+
+	use Enum_List;
+
 	case FADE = 'fade';
 	case SLIDE_UP = 'slide-up';
 	case SLIDE_DOWN = 'slide-down';

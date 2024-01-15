@@ -3,8 +3,11 @@
 namespace SIW\Data;
 
 use SIW\Interfaces\Enums\Labels as I_Enum_Labels;
+use SIW\Traits\Enum_List;
 
 enum Special_Page: string implements I_Enum_Labels {
+
+	use Enum_List;
 
 	case CONTACT = 'contact';
 	case CHILD_POLICY = 'child_policy';

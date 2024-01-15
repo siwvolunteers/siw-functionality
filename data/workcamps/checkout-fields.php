@@ -44,7 +44,7 @@ for ( $i = 1; $i <= 3; $i++ ) { // phpcs:ignore WordPress.NamingConventions.Pref
 		'type'     => 'radio',
 		'class'    => [ 'form-row-last' ],
 		'required' => 1 === $i,
-		'options'  => siw_get_enum_array( Language_Skill_Level::cases() ),
+		'options'  => Language_Skill_Level::list(),
 	];
 }
 

@@ -41,7 +41,7 @@ $siw_data = [
 		'label'    => __( 'Geslacht', 'siw' ),
 		'required' => true,
 		'type'     => 'radio',
-		'options'  => siw_get_enum_array( Gender::cases() ),
+		'options'  => Gender::list(),
 		'class'    => [ 'form-row-first' ],
 		'priority' => 50,
 	],

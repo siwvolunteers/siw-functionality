@@ -3,13 +3,11 @@
 namespace SIW\Data;
 
 use SIW\Interfaces\Enums\Labels as I_Enum_Labels;
+use SIW\Traits\Enum_List;
 
-/**
- * Project types
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 enum Project_Type: string implements I_Enum_Labels {
+
+	use Enum_List;
 
 	case WORKCAMPS = 'workcamps';
 	case ESC = 'esc';

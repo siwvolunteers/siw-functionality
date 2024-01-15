@@ -52,7 +52,7 @@ class Order extends Base {
 				'label'   => __( 'Geslacht', 'siw' ),
 				'show'    => false,
 				'type'    => 'select',
-				'options' => siw_get_enum_array( Gender::cases() ),
+				'options' => Gender::list(),
 			],
 			'first_name'  => $fields['first_name'],
 			'last_name'   => $fields['last_name'],

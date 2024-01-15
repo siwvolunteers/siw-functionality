@@ -3,8 +3,12 @@
 namespace SIW\Data\Plato;
 
 use SIW\Interfaces\Enums\Labels;
+use SIW\Traits\Enum_List;
 
 enum Language_Skill_Level: string implements Labels {
+
+	use Enum_List;
+
 	case BEGINNER = '1';
 	case ELEMENTARY = '2';
 	case INTERMEDIATE = '3';
