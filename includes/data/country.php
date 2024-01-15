@@ -102,7 +102,7 @@ class Country extends Data {
 
 	/** Geeft continent van land terug */
 	public function get_continent(): Continent {
-		return siw_get_continent( $this->continent );
+		return Continent::from( $this->continent );
 	}
 
 	/** Geeft aan of het land projecten heeft */
@@ -149,7 +149,7 @@ class Country extends Data {
 			case self::EUROPE:
 			case self::NORTH_AMERICA:
 			case self::LATIN_AMERICA:
-				return $context === $this->get_continent()->get_slug();
+				return $context === $this->get_continent()->value;
 			default:
 				return false;
 		}

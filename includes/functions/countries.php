@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use SIW\Data\Continent;
 use SIW\Data\Country;
 
 /**
@@ -15,13 +16,13 @@ function siw_get_countries( string $context = Country::ALL, string $index = Coun
 	}
 
 	// Data van verschillende continenten combineren
-	$continents = siw_get_continents();
+	$continents = array_keys( Continent::list() );
 	foreach ( $continents as $continent ) {
 		$data = array_merge(
 			$data ?? [],
 			array_map(
-				fn( $country ) => array_merge( $country, [ 'continent' => $continent->get_slug() ] ),
-				siw_get_data( "countries/{$continent->get_slug()}" )
+				fn( $country ) => array_merge( $country, [ 'continent' => $continent ] ),
+				siw_get_data( "countries/{$continent}" )
 			)
 		);
 	}

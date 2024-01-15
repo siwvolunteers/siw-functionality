@@ -239,7 +239,7 @@ class Product {
 	protected function get_category_ids(): array {
 		$continent = $this->country->get_continent();
 		$category_ids = [];
-		$continent_category_id = Util::maybe_create_term( Taxonomy_Attribute::CONTINENT->value, $continent->get_slug(), $continent->get_name() );
+		$continent_category_id = Util::maybe_create_term( Taxonomy_Attribute::CONTINENT->value, $continent->value, $continent->label() );
 		if ( false !== $continent_category_id ) {
 			$category_ids[] = $continent_category_id;
 		}

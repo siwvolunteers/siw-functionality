@@ -3,6 +3,7 @@
 namespace SIW\Forms\Forms;
 
 use SIW\Content\Posts\Events;
+use SIW\Data\Continent;
 use SIW\Data\Project_Type;
 use SIW\Integrations\Mailjet;
 use SIW\Integrations\Mailjet\Property;
@@ -69,7 +70,7 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 				'type'     => 'checkbox_list',
 				'name'     => __( 'Heb je interesse in een bepaalde bestemming?', 'siw' ),
 				'required' => false,
-				'options'  => \siw_get_continents_list(),
+				'options'  => Continent::list(),
 			],
 			[
 				'id'      => 'age',
@@ -171,8 +172,8 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 			Property::FIRST_NAME->value            => $request->get_param( 'first_name' ),
 			Property::LAST_NAME->value             => $request->get_param( 'last_name' ),
 			Property::AGE_RANGE->value             => $this->get_age_ranges()[ $request->get_param( 'age' ) ],
-			Property::INTEREST_DESTINATION->value  => implode( ', ', array_map( fn( string $value ): string => \siw_get_continents_list()[ $value ], $request->get_param( 'destination' ) ?? [] ) ),
-			Property::INTEREST_PROJECT_TYPE->value => implode( ', ', array_map( fn( string $value ): string => Project_Type::list()[ $value ], $request->get_param( 'project_type' ) ?? [] ) ),
+			Property::INTEREST_DESTINATION->value  => implode( ', ', array_map( fn( string $value ): string => Continent::tryFrom( $value )?->label() ?? '', $request->get_param( 'destination' ) ?? [] ) ),
+			Property::INTEREST_PROJECT_TYPE->value => implode( ', ', array_map( fn( string $value ): string => Project_Type::tryFrom( $value )?->label() ?? '', $request->get_param( 'project_type' ) ?? [] ) ),
 			Property::REFERRAL->value              => $this->get_referral_options()[ $request->get_param( 'referral' ) ] . SPACE . $request->get_param( 'referral_other' ),
 		];
 	}
