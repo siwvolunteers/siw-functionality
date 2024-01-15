@@ -74,6 +74,41 @@ class GeneratePress extends Base implements I_Plugin {
 		wp_dequeue_style( 'generate-secondary-nav-mobile' );
 	}
 
+	#[Add_Action( 'wp_enqueue_scripts', PHP_INT_MAX )]
+	public function add_404_style() {
+		if ( ! is_404() ) {
+			return;
+		}
+
+		$background_image = get_theme_mod( 'siw_404_background_image' );
+		if ( false === $background_image ) {
+			return;
+		}
+
+		$css = new \GeneratePress_Backgrounds_CSS();
+		$background_size = get_theme_mod( 'siw_404_background_size' );
+		$background_size = ( '100' === $background_size ) ? '100% auto' : esc_attr( $background_size );
+
+		$css->set_selector( '.error404 .container' );
+		$css->add_property( 'max-width', 'unset' );
+		$css->add_property( 'height', '70vh' );
+		$css->add_property( 'background-image', esc_url( $background_image ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( get_theme_mod( 'siw_404_background_repeat' ) ) );
+		$css->add_property( 'background-size', esc_attr( $background_size ) );
+		$css->add_property( 'background-attachment', esc_attr( get_theme_mod( 'siw_404_background_attachment' ) ) );
+		$css->add_property( 'background-position', esc_attr( get_theme_mod( 'siw_404_background_position' ) ) );
+
+		$css->set_selector( '.error404 .container .site-content' );
+		$css->add_property( 'text-align', 'center' );
+
+		$css->set_selector( '.error404 .container .site-content main' );
+		$css->add_property( 'padding', '50px' );
+		$css->add_property( 'max-width', '85ch' );
+		$css->add_property( 'display', 'inline-block' );
+		$css->add_property( 'background-color', 'var(--siw-base)' );
+		wp_add_inline_style( 'generate-style', $css->css_output() );
+	}
+
 	#[Add_Action( Update::PLUGIN_UPDATED_HOOK )]
 	/** Update GeneratePress dynamic css cache */
 	public function update_dynamic_css() {
@@ -91,8 +126,8 @@ class GeneratePress extends Base implements I_Plugin {
 		return $defaults;
 	}
 
-	#[Add_Action( 'customize_register', 99 )]
-	public function add_customizer_settings( \WP_Customize_Manager $wp_customize_manager ) {
+	#[Add_Action( 'customize_register', PHP_INT_MAX )]
+	public function add_woocommerce_customizer_settings( \WP_Customize_Manager $wp_customize_manager ) {
 		$defaults = generatepress_wc_defaults();
 
 		$wp_customize_manager->add_control(
@@ -132,5 +167,90 @@ class GeneratePress extends Base implements I_Plugin {
 				'priority'        => 11,
 			]
 		);
+	}
+
+	#[Add_Action( 'customize_register', PHP_INT_MAX )]
+	public function add_backgrounds_customizer_settings( \WP_Customize_Manager $wp_customize_manager ) {
+		if ( ! $wp_customize_manager->get_panel( 'generate_backgrounds_panel' ) ) {
+			return;
+		}
+
+		$wp_customize_manager->add_section(
+			'siw_backgrounds_404',
+			[
+				'title'    => __( '404-pagina', 'siw' ),
+				'priority' => 20,
+				'panel'    => 'generate_backgrounds_panel',
+			]
+		);
+		$wp_customize_manager->add_setting(
+			'siw_404_background_image',
+			[
+				'default'           => '',
+				'sanitize_callback' => 'esc_url_raw',
+			]
+		);
+		$wp_customize_manager->add_setting(
+			'siw_404_background_repeat',
+			[
+				'default'           => '',
+				'sanitize_callback' => 'sanitize_key',
+			]
+		);
+		$wp_customize_manager->add_setting(
+			'siw_404_background_size',
+			[
+				'default'           => '',
+				'sanitize_callback' => 'sanitize_key',
+			]
+		);
+		$wp_customize_manager->add_setting(
+			'siw_404_background_attachment',
+			[
+				'default'           => '',
+				'sanitize_callback' => 'sanitize_key',
+			]
+		);
+		$wp_customize_manager->add_setting(
+			'siw_404_background_position',
+			[
+				'default'           => '',
+				'sanitize_callback' => 'sanitize_key',
+			]
+		);
+
+		$wp_customize_manager->add_control(
+			new \WP_Customize_Image_Control(
+				$wp_customize_manager,
+				'siw_404_background_image',
+				[
+					'label'   => __( 'Achtergrondafbeelding', 'siw' ),
+					'section' => 'siw_backgrounds_404',
+				]
+			)
+		);
+		$wp_customize_manager->add_control(
+			new \GeneratePress_Background_Images_Customize_Control(
+				$wp_customize_manager,
+				'siw_404_background_controls',
+				[
+					'section'  => 'siw_backgrounds_404',
+					'settings' => [
+						'repeat'     => 'siw_404_background_repeat',
+						'size'       => 'siw_404_background_size',
+						'attachment' => 'siw_404_background_attachment',
+						'position'   => 'siw_404_background_position',
+					],
+				]
+			)
+		);
+	}
+
+	#[Add_Filter( 'generate_blog_columns' )]
+	public function disable_404_columns( bool $columns ): bool {
+		if ( is_404() ) {
+			return false;
+		}
+		return $columns;
 	}
 }

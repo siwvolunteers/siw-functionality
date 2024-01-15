@@ -17,7 +17,6 @@ class Loader extends A_Base_Loader {
 			Animation::class,
 			Breadcrumbs::class,
 			Cookie_Consent::class,
-			Custom_404_Page::class,
 			Email::class,
 			Menu_Item_Info_Button::class,
 			Facebook_Pixel::class,

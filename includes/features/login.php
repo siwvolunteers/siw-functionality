@@ -7,7 +7,6 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Properties;
 use SIW\Traits\Assets_Handle;
-use SIW\Util\CSS;
 
 class Login extends Base {
 
@@ -21,23 +20,32 @@ class Login extends Base {
 
 	#[Add_Action( 'login_enqueue_scripts' )]
 	public function enqueue_style() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/login.css', [], SIW_PLUGIN_VERSION );
+		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/login.css', [], SIW_PLUGIN_VERSION );
 		wp_enqueue_style( self::get_assets_handle() );
 
-		$css_generator = CSS::get_css_generator();
+		$css = new \GeneratePress_Backgrounds_CSS();
 
 		$logo_id = get_theme_mod( 'custom_logo' );
 		if ( false !== $logo_id ) {
 			$logo_url = wp_get_attachment_image_url( $logo_id, 'full' );
-			$css_generator->root_variable( 'siw-logo-url', "url('{$logo_url}')" );
+			$css->set_selector( 'html body.login h1 a' );
+			$css->add_property( 'background-image', esc_url( $logo_url ), 'url' );
 		}
 
-		$background_image_id = get_theme_mod( 'siw_login_background_image' );
-		if ( false !== $background_image_id ) {
-			$background_url = wp_get_attachment_image_url( $background_image_id, 'full' );
-			$css_generator->root_variable( 'siw-login-background-url', "url('{$background_url}')" );
+		$background_image = get_theme_mod( 'siw_login_background_image' );
+		if ( false !== $background_image ) {
+			$background_size = get_theme_mod( 'siw_login_background_size' );
+			$background_size = ( '100' === $background_size ) ? '100% auto' : esc_attr( $background_size );
+
+			$css->set_selector( 'html' );
+			$css->add_property( 'background-image', esc_url( $background_image ), 'url' );
+			$css->add_property( 'background-repeat', esc_attr( get_theme_mod( 'siw_login_background_repeat' ) ) );
+			$css->add_property( 'background-size', esc_attr( $background_size ) );
+			$css->add_property( 'background-attachment', esc_attr( get_theme_mod( 'siw_login_background_attachment' ) ) );
+			$css->add_property( 'background-position', esc_attr( get_theme_mod( 'siw_login_background_position' ) ) );
 		}
-		wp_add_inline_style( self::get_assets_handle(), $css_generator->get_output() );
+
+		wp_add_inline_style( self::get_assets_handle(), $css->css_output() );
 	}
 
 	#[Add_Filter( 'login_message' )]
@@ -58,43 +66,78 @@ class Login extends Base {
 		update_user_meta( $user->ID, 'last_login', current_datetime()->getTimestamp() );
 	}
 
-	#[Add_Action( 'customize_register' )]
+	#[Add_Action( 'customize_register', PHP_INT_MAX )]
 	public function add_customizer_settings( \WP_Customize_Manager $wp_customize_manager ) {
-
-		if ( ! $wp_customize_manager->get_panel( 'siw_panel' ) ) {
-			$wp_customize_manager->add_panel(
-				'siw_panel',
-				[
-					'priority' => 25,
-					'title'    => __( 'SIW opties', 'siw' ),
-				]
-			);
+		if ( ! $wp_customize_manager->get_panel( 'generate_backgrounds_panel' ) ) {
+			return;
 		}
 
 		$wp_customize_manager->add_section(
-			'siw_login',
+			'siw_backgrounds_login',
 			[
-				'title'    => __( 'Inlogpagina', 'siw' ),
-				'priority' => 10,
-				'panel'    => 'siw_panel',
+				'title'    => __( 'Login pagina', 'siw' ),
+				'priority' => 20,
+				'panel'    => 'generate_backgrounds_panel',
 			]
 		);
-
 		$wp_customize_manager->add_setting(
 			'siw_login_background_image',
 			[
-				'default' => '',
+				'default'           => '',
+				'sanitize_callback' => 'esc_url_raw',
+			]
+		);
+		$wp_customize_manager->add_setting(
+			'siw_login_background_repeat',
+			[
+				'default'           => '',
+				'sanitize_callback' => 'sanitize_key',
+			]
+		);
+		$wp_customize_manager->add_setting(
+			'siw_login_background_size',
+			[
+				'default'           => '',
+				'sanitize_callback' => 'sanitize_key',
+			]
+		);
+		$wp_customize_manager->add_setting(
+			'siw_login_background_attachment',
+			[
+				'default'           => '',
+				'sanitize_callback' => 'sanitize_key',
+			]
+		);
+		$wp_customize_manager->add_setting(
+			'siw_login_background_position',
+			[
+				'default'           => '',
+				'sanitize_callback' => 'sanitize_key',
 			]
 		);
 
 		$wp_customize_manager->add_control(
-			new \WP_Customize_Media_Control(
+			new \WP_Customize_Image_Control(
 				$wp_customize_manager,
 				'siw_login_background_image',
 				[
-					'label'     => __( 'Achtergrondafbeelding', 'siw' ),
-					'section'   => 'siw_login',
-					'mime_type' => 'image',
+					'label'   => __( 'Achtergrondafbeelding', 'siw' ),
+					'section' => 'siw_backgrounds_login',
+				]
+			)
+		);
+		$wp_customize_manager->add_control(
+			new \GeneratePress_Background_Images_Customize_Control(
+				$wp_customize_manager,
+				'siw_login_background_controls',
+				[
+					'section'  => 'siw_backgrounds_login',
+					'settings' => [
+						'repeat'     => 'siw_login_background_repeat',
+						'size'       => 'siw_login_background_size',
+						'attachment' => 'siw_login_background_attachment',
+						'position'   => 'siw_login_background_position',
+					],
 				]
 			)
 		);
