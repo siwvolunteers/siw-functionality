@@ -11,15 +11,11 @@ use SIW\Update;
 use SIW\Util\CSS;
 
 /**
- * Aanpassingen voor GeneratePress
- *
- * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://generatepress.com/
  */
 class GeneratePress extends Base implements I_Plugin {
 
 	#[Add_Filter( 'generate_back_to_top_scroll_speed' )]
-	/** Snelheid voor scroll to top */
 	private const BACK_TO_TOP_SCROLL_SPEED = 500;
 
 	#[Add_Filter( 'generate_font_manager_show_google_fonts' )]
@@ -31,7 +27,6 @@ class GeneratePress extends Base implements I_Plugin {
 	}
 
 	#[Add_Action( 'init' )]
-	/** Voeg menu order toe een GP Elements */
 	public function add_elements_menu_order() {
 		add_post_type_support( 'gp_elements', 'page-attributes' );
 	}
@@ -48,20 +43,17 @@ class GeneratePress extends Base implements I_Plugin {
 	}
 
 	#[Add_Filter( 'generate_elements_custom_args' )]
-	/** Sorteer elements standaard op menu_order */
 	public function set_elements_orderby( array $args ): array {
 		$args['orderby'] = 'menu_order';
 		return $args;
 	}
 
 	#[Add_Filter( 'generate_copyright' )]
-	/** Zet copyright voor footer */
 	public function set_copyright_message(): string {
 		return sprintf( '&copy; %s %s', current_time( 'Y' ), Properties::NAME );
 	}
 
 	#[Add_Filter( 'generate_default_color_palettes' )]
-	/** Zet default kleurenpalet */
 	public function set_default_color_palettes(): array {
 		return array_column(
 			CSS::get_colors(),
@@ -71,7 +63,6 @@ class GeneratePress extends Base implements I_Plugin {
 
 	#[Add_Action( Update::PLUGIN_UPDATED_HOOK, 1 )]
 	#[Add_Action( 'customize_save_after', 1 )]
-	/** Zet global colors */
 	public function set_global_colors() {
 		$generate_settings = get_option( 'generate_settings', [] );
 		$generate_settings['global_colors'] = CSS::get_colors();
@@ -100,7 +91,7 @@ class GeneratePress extends Base implements I_Plugin {
 		return $defaults;
 	}
 
-	#[Add_Action( 'customize_register' )]
+	#[Add_Action( 'customize_register', 99 )]
 	public function add_customizer_settings( \WP_Customize_Manager $wp_customize_manager ) {
 		$defaults = generatepress_wc_defaults();
 

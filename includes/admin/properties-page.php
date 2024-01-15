@@ -7,15 +7,9 @@ use SIW\Base;
 use SIW\Elements\Table;
 use SIW\Properties;
 
-/**
- * Overzichtspagina met configuratie
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Properties_Page extends Base {
 
 	#[Add_Action( 'admin_menu' )]
-	/** Voegt adminpagina toe */
 	public function add_properties_page() {
 		add_management_page(
 			__( 'SIW Eigenschappen', 'siw' ),
@@ -26,7 +20,6 @@ class Properties_Page extends Base {
 		);
 	}
 
-	/** Rendert de adminpagina */
 	public function render_properties_page() {
 
 		$properties = array_map(

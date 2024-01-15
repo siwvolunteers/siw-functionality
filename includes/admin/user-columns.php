@@ -2,11 +2,6 @@
 
 namespace SIW\Admin;
 
-/**
- * Extra Admin columns voor gebruikers
- *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- */
 class User_Columns extends \MBAC\User {
 
 	/** {@inheritDoc} */

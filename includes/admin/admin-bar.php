@@ -8,7 +8,6 @@ use SIW\Base;
 class Admin_Bar extends Base {
 
 	#[Add_Action( 'admin_bar_menu', PHP_INT_MAX )]
-	/** Verwijdert standaardnodes */
 	public function remove_nodes( \WP_Admin_Bar $wp_admin_bar ) {
 		$wp_admin_bar->remove_node( 'wp-logo' );
 		$wp_admin_bar->remove_node( 'site-name' );
@@ -17,9 +16,7 @@ class Admin_Bar extends Base {
 	}
 
 	#[Add_Action( 'admin_bar_menu', 1 )]
-	/** Voegt logo toe aan adminbar */
 	public function add_logo( \WP_Admin_Bar $wp_admin_bar ) {
-
 		$logo_id = get_theme_mod( 'custom_logo' );
 		if ( false === $logo_id ) {
 			return;

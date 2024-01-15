@@ -11,9 +11,6 @@ use SIW\Traits\Assets_Handle;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
- * Aanpassingen voor WooCommerce
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://woocommerce.com/
  */
 class WooCommerce extends Base implements I_Plugin {
@@ -52,14 +49,12 @@ class WooCommerce extends Base implements I_Plugin {
 	}
 
 	#[Add_Filter( 'lostpassword_url', 1 )]
-	/** Lost password via wp methode */
 	public function remove_lostpassword_url_filter( string $lostpassword_url ): string {
 		remove_filter( 'lostpassword_url', 'wc_lostpassword_url', 10 );
 		return $lostpassword_url;
 	}
 
 	#[Add_Action( 'widgets_init', 99 )]
-	/** Verwijdert ongebruikte widgets */
 	public function unregister_widgets() {
 		unregister_widget( \WC_Widget_Price_Filter::class );
 		unregister_widget( \WC_Widget_Product_Categories::class );
@@ -69,13 +64,11 @@ class WooCommerce extends Base implements I_Plugin {
 	}
 
 	#[Add_Action( 'enqueue_block_assets', PHP_INT_MAX )]
-	/** Verwijdert WooCommerce-blocks style */
 	public function deregister_block_style() {
 		wp_deregister_style( 'wc-blocks-style' );
 	}
 
 	#[Add_Filter( 'woocommerce_admin_get_feature_config' )]
-	/** Schakel sommige admin features uit */
 	public function disable_admin_features( array $features ): array {
 		$features['onboarding'] = false;
 		$features['remote-free-extensions'] = false;
@@ -83,13 +76,11 @@ class WooCommerce extends Base implements I_Plugin {
 	}
 
 	#[Add_Action( 'wp_dashboard_setup' )]
-	/** Verwijdert dashboard widgets */
 	public function remove_dashboard_widgets() {
 		remove_meta_box( 'woocommerce_dashboard_status', 'dashboard', 'normal' );
 	}
 
 	#[Add_Filter( 'woocommerce_product_visibility_options' )]
-	/** Verwijdert overbodige zichtbaarheidsopties */
 	public function remove_product_visibility_options( array $visibility_options ): array {
 		unset( $visibility_options['catalog'] );
 		unset( $visibility_options['search'] );
@@ -98,7 +89,6 @@ class WooCommerce extends Base implements I_Plugin {
 
 
 	#[Add_Filter( 'woocommerce_products_admin_list_table_filters' )]
-	/** Verwijdert filters op admin-lijst met producten  */
 	public function remove_products_admin_list_table_filters( array $filters ): array {
 		unset( $filters['product_type'] );
 		unset( $filters['stock_status'] );
@@ -120,7 +110,6 @@ class WooCommerce extends Base implements I_Plugin {
 	}
 
 	#[Add_Filter( 'get_term' )]
-	/** Zet naam van terms */
 	public function filter_term_name( \WP_Term $term, string $taxonomy ): \WP_Term {
 		if ( Taxonomy_Attribute::MONTH()->value === $taxonomy ) {
 			$order = get_term_meta( $term->term_id, 'order', true );

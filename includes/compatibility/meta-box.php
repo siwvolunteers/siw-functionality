@@ -7,9 +7,6 @@ use SIW\Base;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
- * Aanpassingen voor Meta Box
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://metabox.io/
  */
 class Meta_Box extends Base implements I_Plugin {
@@ -26,7 +23,6 @@ class Meta_Box extends Base implements I_Plugin {
 	}
 
 	#[Add_Filter( 'mb_aio_extensions' )]
-	/** Selecteert de gebruikte extensies */
 	public function select_extensions(): array {
 		$extensions = [
 			'mb-admin-columns',
@@ -59,7 +55,6 @@ class Meta_Box extends Base implements I_Plugin {
 	}
 
 	#[Add_Filter( 'rwmb_normalize_switch_field' )]
-	/** Zet standaardeigenschappen van switchvelden */
 	public function set_default_switch_options( array $field ): array {
 		$defaults = [
 			'style' => 'square',
@@ -68,7 +63,6 @@ class Meta_Box extends Base implements I_Plugin {
 	}
 
 	#[Add_Filter( 'rwmb_normalize_wysiwyg_field' )]
-	/** Zet standaardeigenschappen van wysiwyg */
 	public function set_default_wysiwyg_options( array $field ): array {
 		$defaults = [
 			'raw'     => true,
@@ -83,7 +77,6 @@ class Meta_Box extends Base implements I_Plugin {
 	}
 
 	#[Add_Filter( 'rwmb_group_sanitize' )]
-	/** Sanitize velden in MB Group */
 	public function sanitize_group( array $values, array $group, $old_value = null, $object_id = null ): array {
 		foreach ( $group['fields'] as $field ) {
 			$key = $field['id'];
@@ -114,7 +107,6 @@ class Meta_Box extends Base implements I_Plugin {
 	}
 
 	#[Add_Filter( 'rwmb_get_value' )]
-	/** Render shortcodes in wyswyg editor */
 	public function render_shortcodes( $value, array $field, array $args, $object_id ) {
 		if ( 'wysiwyg' === $field['type'] ) {
 			$value = do_shortcode( $value );

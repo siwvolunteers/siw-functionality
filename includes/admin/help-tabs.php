@@ -5,15 +5,9 @@ namespace SIW\Admin;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 
-/**
- * Voegt help-tabs toe
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Help_Tabs extends Base {
 
 	#[Add_Action( 'admin_head' )]
-	/** Voegt help tabs toe */
 	public function add_help_tabs() {
 
 		/** @var ?\WP_Screen */

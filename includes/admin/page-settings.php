@@ -7,11 +7,6 @@ use SIW\Base;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
 
-/**
- * TODO:
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Page_Settings extends Base {
 
 	public const SPECIAL_PAGE_META = 'special_page';
@@ -35,7 +30,6 @@ class Page_Settings extends Base {
 	}
 
 	#[Add_Filter( 'rwmb_meta_boxes' )]
-	/** Voegt metabox toe */
 	public function add_metabox( array $metaboxes ): array {
 		$metaboxes[] = [
 			'id'         => 'siw_page_settings',
