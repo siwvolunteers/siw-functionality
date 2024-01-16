@@ -50,11 +50,11 @@ class Email_Template {
 			'social_networks' => array_values(
 				array_map(
 					fn( Social_Network $network ): array => [
-						'follow_url' => $network->get_follow_url(),
-						'image_url'  => SIW_ASSETS_URL . 'images/mail/' . $network->get_slug() . '.png',
-						'slug'       => $network->get_slug(),
+						'follow_url' => $network->profile_url(),
+						'image_url'  => SIW_ASSETS_URL . 'images/mail/' . $network->value . '.png',
+						'slug'       => $network->value,
 					],
-					siw_get_social_networks( Social_Network_Context::FOLLOW )
+					Social_Network::filter( Social_Network_Context::FOLLOW )
 				)
 			),
 

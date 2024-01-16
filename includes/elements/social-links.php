@@ -13,21 +13,21 @@ class Social_Links extends Element {
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 
-		$social_networks = \siw_get_social_networks( $this->context );
+		$social_networks = Social_Network::filter( $this->context );
 
 		foreach ( $social_networks as $network ) {
 			$networks[] = [
-				'url'   => ( Social_Network_Context::SHARE === $this->context ) ? $this->generate_share_url( $network ) : $network->get_follow_url(),
-				'name'  => $network->get_name(),
+				'url'   => ( Social_Network_Context::SHARE === $this->context ) ? $this->generate_share_url( $network ) : $network->profile_url(),
+				'name'  => $network->label(),
 				'label' => sprintf(
 					// translators: %s is de naam van een sociaal netwerk
 					( Social_Network_Context::SHARE === $this->context ) ? __( 'Delen via %s', 'siw' ) : __( 'Volg ons op %s', 'siw' ),
-					$network->get_name()
+					$network->label()
 				),
-				'color' => $network->get_color(),
+				'color' => $network->color(),
 				'icon'  => [
-					'class' => $network->get_icon_class(),
-					'size'  => 4,
+					'class' => $network->icon_class()->value,
+					'size'  => 3,
 				],
 			];
 		}
@@ -47,7 +47,7 @@ class Social_Links extends Element {
 
 	protected function generate_share_url( Social_Network $network ) {
 		return Template::create()
-		->set_template( $network->get_share_url_template() )
+		->set_template( $network->share_template() )
 		->set_context(
 			[
 				'url'   => rawurlencode( get_permalink() ),

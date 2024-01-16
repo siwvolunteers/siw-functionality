@@ -3,86 +3,88 @@
 namespace SIW\Data;
 
 use SIW\Data\Icons\Social_Icons;
+use SIW\Interfaces\Enums\Colors;
+use SIW\Interfaces\Enums\Labels;
+use SIW\Traits\Enum_List;
 
-/**
- * Bevat informatie over een sociaal netwerk
- *
- * @copyright   2019-2021 SIW Internationale Vrijwilligersprojecten
- */
-class Social_Network extends Data {
+enum Social_Network: string implements Labels, Colors {
 
-	/** Slug van het netwerk */
-	protected string $slug;
+	use Enum_List;
 
-	/** Naam van het netwerk */
-	protected string $name;
+	case FACEBOOK = 'facebook';
+	case TWITTER = 'twitter';
+	case INSTAGRAM = 'instagram';
+	case LINKEDIN = 'linkedin';
+	case YOUTUBE = 'youtube';
+	case WHATSAPP = 'whatsapp';
 
-	/** CSS-class van icoon */
-	protected Social_Icons $icon_class;
-
-	/** Kleurcode */
-	protected string $color;
-
-	/** URL van netwerk om te volgen */
-	protected ?string $follow_url;
-
-	/** URL-template voor delen */
-	protected ?string $share_url_template;
-
-	/** Is netwerk om te delen? */
-	protected bool $share;
-
-	/** Is netwerk om te volgen? */
-	protected bool $follow;
-
-	/** Geeft slug van netwerk terug */
-	public function get_slug(): string {
-		return $this->slug;
+	public function label(): string {
+		return match ( $this ) {
+			self::FACEBOOK  => __( 'Facebook', 'siw' ),
+			self::TWITTER   => __( 'Twitter', 'siw' ),
+			self::INSTAGRAM => __( 'Instagram', 'siw' ),
+			self::LINKEDIN  => __( 'LinkedIn', 'siw' ),
+			self::YOUTUBE   => __( 'YouTube', 'siw' ),
+			self::WHATSAPP  => __( 'WhatsApp', 'siw' ),
+		};
 	}
 
-	/** Geeft de naam van het netwerk terug */
-	public function get_name(): string {
-		return $this->name;
+	public function color(): string {
+		return match ( $this ) {
+			self::FACEBOOK  => '#3b5998',
+			self::TWITTER   => '#00aced',
+			self::INSTAGRAM => '#dd2a7b',
+			self::LINKEDIN  => '#007bb6',
+			self::YOUTUBE   => '#ff3333',
+			self::WHATSAPP  => '#25D366',
+		};
 	}
 
-	/** Geeft icon class voor voor netwerk terug */
-	public function get_icon_class(): string {
-		return $this->icon_class->value;
+	public function profile_url(): ?string {
+		return match ( $this ) {
+			self::FACEBOOK  => 'https://www.facebook.com/SIWvolunteers/',
+			self::TWITTER   => 'https://twitter.com/SIWvolunteers',
+			self::INSTAGRAM => 'https://www.instagram.com/siwvrijwilligersprojecten/',
+			self::LINKEDIN  => 'https://www.linkedin.com/company/siw',
+			self::YOUTUBE   => 'https://www.youtube.com/user/SIWvolunteerprojects',
+			self::WHATSAPP  => null,
+		};
 	}
 
-	/** Geeft kleurcode van netwerk terug */
-	public function get_color(): string {
-		return $this->color;
+	public function share_template(): ?string {
+		return match ( $this ) {
+			self::FACEBOOK  => 'https://www.facebook.com/sharer/sharer.php?u={{ url }}',
+			self::TWITTER   => 'https://twitter.com/intent/tweet?text={{ title }}&amp;url={{ url }}&amp;via=siwvolunteers',
+			self::INSTAGRAM => null,
+			self::LINKEDIN  => 'https://www.linkedin.com/sharing/share-offsite/?url={{ url }}',
+			self::YOUTUBE   => null,
+			self::WHATSAPP  => 'https://api.whatsapp.com/send?text={{ url }}',
+		};
 	}
 
-	/** Geeft aan of via dit netwerk gedeeld kan worden */
-	public function is_for_sharing(): bool {
-		return $this->share;
+	public function icon_class(): Social_Icons {
+		return match ( $this ) {
+			self::FACEBOOK  => Social_Icons::FACEBOOK,
+			self::TWITTER   => Social_Icons::TWITTER,
+			self::INSTAGRAM => Social_Icons::INSTAGRAM,
+			self::LINKEDIN  => Social_Icons::LINKEDIN,
+			self::YOUTUBE   => Social_Icons::YOUTUBE,
+			self::WHATSAPP  => Social_Icons::WHATSAPP,
+		};
 	}
 
-	/** Geeft aan of dit netwerk gevolgd kan worden */
-	public function is_for_following(): bool {
-		return $this->follow;
+	public static function filter( Social_Network_Context $context ) {
+		return array_filter(
+			Social_Network::cases(),
+			fn ( Social_Network $network ): bool => $network->is_valid_for_context( $context )
+		);
 	}
 
-	/** Geeft URL van network om te volgen terug */
-	public function get_follow_url(): string {
-		return $this->follow_url;
-	}
-
-	/** Geeft template voor url om te delen terug */
-	public function get_share_url_template(): string {
-		return $this->share_url_template;
-	}
-
-	/** Geeft aan of Sociaal netwerk geldig is voor een gegeven context */
-	public function is_valid_for_context( ?Social_Network_Context $context ): bool {
+	protected function is_valid_for_context( Social_Network_Context $context ): bool {
 		return (
-			null === $context
+			( Social_Network_Context::SHARE === $context && null !== $this->share_template() )
 			||
-			( Social_Network_Context::SHARE === $context && $this->is_for_sharing() )
-			||
-			( Social_Network_Context::FOLLOW === $context && $this->is_for_following() )
+			( Social_Network_Context::FOLLOW === $context && null !== $this->profile_url() )
 		);
 	}
 }
