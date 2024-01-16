@@ -1,5 +1,4 @@
-<?php declare(strict_types=1);
-// phpcs:disable Generic.Metrics.CyclomaticComplexity.MaxExceeded
+<?php declare(strict_types=1); // phpcs:disable Generic.Metrics.CyclomaticComplexity.MaxExceeded
 namespace SIW\Data;
 
 use SIW\Interfaces\Enums\Labels;

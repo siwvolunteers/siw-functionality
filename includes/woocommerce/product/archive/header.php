@@ -6,6 +6,7 @@ use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
+use SIW\Data\Work_Type;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 class Header extends Base {
@@ -84,7 +85,7 @@ class Header extends Base {
 		if (
 			\is_product_taxonomy()
 			&& get_queried_object()->taxonomy === Taxonomy_Attribute::WORK_TYPE->value
-			&& siw_get_work_type( get_queried_object()->slug )?->needs_review()
+			&& Work_Type::tryFrom( get_queried_object()->slug )?->needs_review()
 		) {
 			$text .= BR . 'Aangezien je in deze projecten met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.';
 		}

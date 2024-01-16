@@ -207,8 +207,8 @@ class Product {
 		$work_types = wp_parse_slug_list( $this->plato_project->get_work() );
 		foreach ( $work_types as $work_type_code ) {
 			$work_type_code = strtoupper( $work_type_code );
-			$work_type = siw_get_work_type( $work_type_code, Work_Type::PLATO_CODE );
-			if ( ! is_a( $work_type, Work_Type::class ) ) {
+			$work_type = Work_Type::try_from_plato_code( $work_type_code );
+			if ( null === $work_type ) {
 				Logger::error( sprintf( 'Soort werk met code %s niet gevonden', $work_type_code ), self::LOGGER_SOURCE );
 				return false;
 			}
@@ -255,9 +255,9 @@ class Product {
 		$year = gmdate( 'Y', strtotime( $this->plato_project->get_start_date() ) );
 		$code = $this->plato_project->get_code();
 		$country = $this->country->get_name();
-		$work = $this->work_types[0]->get_name();
+		$work = $this->work_types[0]->label();
 		if ( count( $this->work_types ) > 1 ) {
-			$work .= ' en ' . $this->work_types[1]->get_name();
+			$work .= ' en ' . $this->work_types[1]->label();
 		}
 		return sanitize_title( sprintf( '%s-%s-%s-%s', $year, $code, $country, $work ) );
 	}
@@ -330,7 +330,7 @@ class Product {
 		/* Werk */
 		$work_type_values = [];
 		foreach ( $this->work_types as $work_type ) {
-			$work_type_values[ $work_type->get_slug() ] = $work_type->get_name();
+			$work_type_values[ $work_type->value ] = $work_type->label();
 		}
 		$taxonomy_attributes[] = [
 			'taxonomy' => Taxonomy_Attribute::WORK_TYPE,

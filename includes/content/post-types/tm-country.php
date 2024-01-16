@@ -76,7 +76,7 @@ class TM_Country extends Post_Type {
 				'name'     => __( 'Soort werk', 'siw' ),
 				'type'     => 'checkbox_list',
 				'required' => true,
-				'options'  => siw_get_work_types_list( Work_Type::TAILOR_MADE, Work_Type::SLUG ),
+				'options'  => Work_Type::list(),
 			],
 			[
 				'id'       => 'quote',

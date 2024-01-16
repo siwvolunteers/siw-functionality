@@ -165,7 +165,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 		}
 
 		return array_map(
-			fn( string $work_type_slug ): ?Work_Type => siw_get_work_type( $work_type_slug ),
+			fn( string $work_type_slug ): ?Work_Type => Work_Type::tryFrom( $work_type_slug ),
 			$attributes[ Taxonomy_Attribute::WORK_TYPE->value ]->get_slugs()
 		);
 	}
