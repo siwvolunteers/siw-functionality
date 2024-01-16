@@ -36,7 +36,7 @@ for ( $i = 1; $i <= 3; $i++ ) { // phpcs:ignore WordPress.NamingConventions.Pref
 		'type'     => 'select',
 		'class'    => [ 'form-row-first' ],
 		'required' => 1 === $i,
-		'options'  => [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages_list( Language::PLATO_CODE ),
+		'options'  => [ '' => __( 'Selecteer een taal', 'siw' ) ] + Language::plato_list(),
 	];
 	$siw_data['language'][ "language_{$i}_skill" ] = [
 		// translators: %d is geheel getal
@@ -44,7 +44,7 @@ for ( $i = 1; $i <= 3; $i++ ) { // phpcs:ignore WordPress.NamingConventions.Pref
 		'type'     => 'radio',
 		'class'    => [ 'form-row-last' ],
 		'required' => 1 === $i,
-		'options'  => Language_Skill_Level::list(),
+		'options'  => Language_Skill_Level::list( false ),
 	];
 }
 

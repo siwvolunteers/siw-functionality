@@ -191,8 +191,8 @@ class Product {
 		$languages = wp_parse_slug_list( $this->plato_project->get_languages() );
 		foreach ( $languages as $language_code ) {
 			$language_code = strtoupper( $language_code );
-			$language = siw_get_language( $language_code, Language::PLATO_CODE );
-			if ( ! is_a( $language, Language::class ) ) {
+			$language = Language::try_from_plato_code( $language_code );
+			if ( null === $language ) {
 				Logger::error( sprintf( 'Taal met code %s niet gevonden', $language_code ), self::LOGGER_SOURCE );
 				return false;
 			}
@@ -340,7 +340,7 @@ class Product {
 		/* Taal */
 		$language_values = [];
 		foreach ( $this->languages as $language ) {
-			$language_values[ $language->get_slug() ] = $language->get_name();
+			$language_values[ $language->value ] = $language->label();
 		}
 		$taxonomy_attributes[] = [
 			'taxonomy' => Taxonomy_Attribute::LANGUAGE,

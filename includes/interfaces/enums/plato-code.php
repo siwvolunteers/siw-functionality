@@ -2,6 +2,6 @@
 
 namespace SIW\Interfaces\Enums;
 
-interface Labels {
-	public function label(): string;
+interface Plato_Code {
+	public function plato_code(): string;
 }
