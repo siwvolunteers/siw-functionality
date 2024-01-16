@@ -5,9 +5,11 @@ namespace SIW\WooCommerce\Frontend;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Config;
+use SIW\Data\Currency;
 use SIW\Elements\Form;
 use SIW\Elements\Leaflet_Map;
 use SIW\Forms\Forms\Enquiry_Project;
+use SIW\Integrations\Fixer;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
 class Product_Tabs extends Base {
@@ -161,8 +163,8 @@ class Product_Tabs extends Base {
 
 			$currency_code = $product->get_participation_fee_currency();
 
-			if ( get_woocommerce_currency() !== $currency_code ) {
-				$amount_in_euro = siw_convert_to_euro( $currency_code, $product->get_participation_fee() );
+			if ( Currency::EUR->value !== $currency_code ) {
+				$amount_in_euro = Fixer::create()->convert_to_euro( $currency_code, $product->get_participation_fee() );
 			}
 			echo BR; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			printf(

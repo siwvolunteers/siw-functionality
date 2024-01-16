@@ -6,10 +6,6 @@ use SIW\Config;
 use SIW\Helpers\HTTP_Request;
 
 /**
- * Ophalen wisselkoersen bij fixer.io
- *
- * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
- *
  * @link      https://fixer.io/documentation
  */
 class Fixer {
@@ -21,6 +17,14 @@ class Fixer {
 	public static function create(): static {
 		$self = new static();
 		return $self;
+	}
+
+	public function convert_to_euro( string $currency, float $amount ): ?float {
+		$exchange_rate = $this->get_rate( $currency );
+		if ( is_null( $exchange_rate ) ) {
+			return null;
+		}
+		return $amount * $exchange_rate;
 	}
 
 	public function get_rate( string $iso_code ): ?float {
