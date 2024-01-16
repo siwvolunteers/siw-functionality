@@ -25,17 +25,21 @@ class Events extends Posts {
 
 	/** @return Event[] */
 	public static function get_future_events(): array {
-		return array_filter(
-			static::get(),
-			fn( Event $event ) => $event->is_active()
+		return array_values(
+			array_filter(
+				static::get(),
+				fn( Event $event ) => $event->is_active()
+			)
 		);
 	}
 
 	/** @return Event[] */
 	public static function get_future_info_days(): array {
-		return array_filter(
-			static::get_future_events(),
-			fn( Event $event ) => $event->is_info_day()
+		return array_values(
+			array_filter(
+				static::get(),
+				fn( Event $event ) => $event->is_info_day()
+			)
 		);
 	}
 }
