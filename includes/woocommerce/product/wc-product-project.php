@@ -182,7 +182,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 		}
 
 		return array_map(
-			fn( string $sdg_slug ): ?Sustainable_Development_Goal => siw_get_sustainable_development_goal( $sdg_slug ),
+			fn( string $sdg_slug ): ?Sustainable_Development_Goal => Sustainable_Development_Goal::tryFrom( (int) $sdg_slug ) ?? '',
 			$attributes[ Taxonomy_Attribute::SDG->value ]->get_slugs()
 		);
 	}

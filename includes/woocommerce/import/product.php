@@ -225,8 +225,8 @@ class Product {
 			if ( '0' === $goal_slug ) {
 				continue;
 			}
-			$goal = siw_get_sustainable_development_goal( $goal_slug );
-			if ( ! is_a( $goal, Sustainable_Development_Goal::class ) ) {
+			$goal = Sustainable_Development_Goal::tryFrom( (int) $goal_slug );
+			if ( null === $goal ) {
 				Logger::warning( sprintf( 'SDG met code %s niet gevonden', $goal_slug ), 'Importeren projecten' );
 				return false;
 			}
@@ -374,7 +374,7 @@ class Product {
 		/* Sustainable development goals */
 		$sdg_values = [];
 		foreach ( $this->sustainable_development_goals as $goal ) {
-			$sdg_values[ $goal->get_slug() ] = $goal->get_full_name();
+			$sdg_values[ $goal->value ] = $goal->label();
 		}
 		$taxonomy_attributes[] = [
 			'taxonomy' => Taxonomy_Attribute::SDG,

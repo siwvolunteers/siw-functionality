@@ -123,7 +123,7 @@ class Dutch_Projects extends Widget {
 		);
 
 		$sdgs = array_map(
-			fn( Sustainable_Development_Goal $sdg ): string => $sdg->get_full_name(),
+			fn( Sustainable_Development_Goal $sdg ): string => $sdg->full_name(),
 			$project->get_sustainable_development_goals()
 		);
 
