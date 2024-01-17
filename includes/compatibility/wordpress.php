@@ -9,19 +9,12 @@ use SIW\Properties;
 use SIW\Update;
 use SIW\Util\CSS;
 
-/**
- * Aanpassingen voor WordPress
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class WordPress extends Base {
 
 	#[Add_Filter( 'rest_url_prefix' )]
-	/** URL-prefix voor WP REST API */
 	private const REST_API_PREFIX = 'api';
 
 	#[Add_Filter( 'wp_default_editor' )]
-	/** Default editor mode */
 	private const DEFAULT_EDITOR = 'html';
 
 	#[Add_Filter( 'big_image_size_threshold' )]
@@ -49,11 +42,9 @@ class WordPress extends Base {
 	private const ADMIN_EMAIL_CHECK_INTERVAL = 0;
 
 	#[Add_Filter( 'nonce_life' )]
-	/** Levensduur van nonce in seconden */
 	private const NONCE_LIFESPAN = 2 * DAY_IN_SECONDS;
 
 	#[Add_Action( Update::PLUGIN_UPDATED_HOOK )]
-	/** Flusht rewrite rules na plugin update */
 	public function flush_rewrite_rules() {
 		\flush_rewrite_rules();
 	}
@@ -94,7 +85,6 @@ class WordPress extends Base {
 	}
 
 	#[Add_Action( 'widgets_init', 99 )]
-	/** Verwijdert standaard-widgets */
 	public function unregister_widgets() {
 		unregister_widget( \WP_Widget_Pages::class );
 		unregister_widget( \WP_Widget_Calendar::class );
@@ -115,7 +105,6 @@ class WordPress extends Base {
 	}
 
 	#[Add_Action( 'oembed_response_data' )]
-	/** Verwijdert auteurgegevens uit oembed */
 	public function set_oembed_response_data( array $data ): array {
 		$data['author_name'] = Properties::NAME;
 		$data['author_url'] = SIW_SITE_URL;
@@ -123,13 +112,11 @@ class WordPress extends Base {
 	}
 
 	#[Add_Action( 'init' )]
-	/** Voegt samenvatting voor pagina's toe */
 	public function add_page_excerpt_support() {
 		add_post_type_support( 'page', 'excerpt' );
 	}
 
 	#[Add_Filter( 'core_version_check_query_args' )]
-	/** Verwijdert niet-essentiele gegevens voor call naar WP update server */
 	public function remove_core_version_check_query_args( array $query ): array {
 		unset( $query['local_package'] );
 		unset( $query['blogs'] );
@@ -146,21 +133,18 @@ class WordPress extends Base {
 	#[Add_Action( 'do_feed_atom', 1 )]
 	#[Add_Action( 'do_feed_rss2_comments', 1 )]
 	#[Add_Action( 'do_feed_atom_comments', 1 )]
-	/** Schakelt feed uit */
 	public function disable_feed() {
 		wp_safe_redirect( home_url() );
 		exit;
 	}
 
 	#[Add_Filter( 'site_status_tests' )]
-	/** Verwijdert test voor automatische updates */
 	public function remove_update_check( array $tests ): array {
 		unset( $tests['async']['background_updates'] );
 		return $tests;
 	}
 
 	#[Add_Filter( 'manage_media_columns' )]
-	/** Verberg admin columns bij attachments */
 	public function manage_media_columns( array $columns ): array {
 		unset( $columns['author'] );
 		unset( $columns['comments'] );
@@ -184,7 +168,6 @@ class WordPress extends Base {
 	}
 
 	#[Add_Action( 'template_redirect' )]
-	/** Author archives doorsturen naar home page */
 	public function disable_author_archive() {
 		if ( is_author() ) {
 			wp_safe_redirect( home_url() );

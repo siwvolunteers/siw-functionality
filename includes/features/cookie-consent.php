@@ -10,11 +10,6 @@ use SIW\External_Assets\Cookie_Consent as Cookie_Consent_Asset;
 use SIW\Traits\Assets_Handle;
 use SIW\Util\Links;
 
-/**
- * Cookie consent
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Cookie_Consent extends Base {
 
 	use Assets_Handle;
@@ -28,13 +23,11 @@ class Cookie_Consent extends Base {
 	public const MARKETING = 'marketing';
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
 		wp_enqueue_style( Cookie_Consent_Asset::get_assets_handle() );
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Voegt stylesheet toe */
 	public function enqueue_scripts() {
 		wp_register_script(
 			self::get_assets_handle(),
@@ -156,7 +149,6 @@ class Cookie_Consent extends Base {
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Registreert styles */
 	public function register_style() {
 		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/cookie-consent.css', [], SIW_PLUGIN_VERSION );
 		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/cookie-consent.css' );

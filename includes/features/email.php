@@ -1,29 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace SIW;
+namespace SIW\Features;
 
 use SIW\Properties;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
+use SIW\Base;
+use SIW\Config;
 
-/**
- * Configuratie van e-mail
- *
- * - SMTP
- * - DKIM
- * - Mailjet tracking
- * - Afzender
- *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- */
 class Email extends Base {
 
 	#[Add_Action( 'phpmailer_init', PHP_INT_MAX )]
-	/** Zet SMTP-instellingen */
 	public function set_smtp_configuration( PHPMailer $phpmailer ) {
-		/*SMTP-configuratie*/
 		if ( Config::get_smtp_enabled() ) {
 			$phpmailer->isSMTP();
 			// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
@@ -40,7 +30,6 @@ class Email extends Base {
 	}
 
 	#[Add_Action( 'phpmailer_init', PHP_INT_MAX )]
-	/** Zet DKIM-signing */
 	public function set_dkim_configuration( PHPMailer $phpmailer ) {
 		if ( Config::get_dkim_enabled() ) {
 			// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
@@ -54,24 +43,19 @@ class Email extends Base {
 	}
 
 	#[Add_Action( 'phpmailer_init', PHP_INT_MAX )]
-	/** Zet tracking van Mailjet aan of uit
-	 *
-	 * @todo optie voor maken */
 	public function set_mailjet_tracking( PHPMailer $phpmailer ) {
+		//Zet tracking van Mailjet uit TODO: config van maken
 		$phpmailer->addCustomHeader( 'X-Mailjet-TrackOpen', 0 );
 		$phpmailer->addCustomHeader( 'X-Mailjet-TrackClick', 0 );
 	}
 
 	#[Add_Action( 'phpmailer_init', PHP_INT_MAX )]
-	/** Zet header t.b.v. spamfilter Office-365
-	 *
-	 * @todo optie voor waarde maken */
 	public function set_antispam_header( PHPMailer $phpmailer ) {
+		// Zet header t.b.v. spamfilter Office-365
 		$phpmailer->addCustomHeader( 'X-SIW-WebsiteMail', 1 );
 	}
 
 	#[Add_Filter( 'wp_mail_from' )]
-	/** Zet het afzenderadres (indien nog niet gezet) */
 	public function set_mail_from( string $from ): string {
 		$sitename = strtolower( SIW_SITE_NAME );
 		if ( substr( $sitename, 0, 4 ) === 'www.' ) {
@@ -86,7 +70,6 @@ class Email extends Base {
 	}
 
 	#[Add_Filter( 'wp_mail_from_name' )]
-	/** Zet de afzendernaam (indien nog niet gezet) */
 	public function set_mail_from_name( string $from_name ): string {
 		$default_from_name = 'WordPress';
 		if ( $from_name !== $default_from_name ) {

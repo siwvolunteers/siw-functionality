@@ -10,17 +10,11 @@ use SIW\Config;
 use SIW\External_Assets\Meta_Pixel;
 use SIW\Traits\Assets_Handle;
 
-/**
- * Configuratie van Facebook pixel
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Facebook_Pixel extends Base {
 
 	use Assets_Handle;
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Voeg script toe */
 	public function enqueue_script() {
 		$pixel_id = Config::get_meta_pixel_id();
 		if ( null === $pixel_id ) {

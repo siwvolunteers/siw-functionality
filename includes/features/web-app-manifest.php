@@ -9,18 +9,13 @@ use SIW\Properties;
 use SIW\Util\CSS;
 
 /**
- * Voegt Web App Manifest toe
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
  * @see https://developer.mozilla.org/en-US/docs/Web/Manifest
  */
 class Web_App_Manifest extends Base {
 
-	/** Bestandsnaam van web app manifest */
 	private const WEB_APP_MANIFEST_FILENAME = 'manifest.json';
 
 	#[Add_Filter( 'site_icon_meta_tags' )]
-	/** Voegt tag voor web app manifest toe */
 	public function add_manifest_tag( array $meta_tags ): array {
 		$meta_tags[] = sprintf(
 			'<link rel="manifest" href="%s" crossorigin="use-credentials">',
@@ -30,7 +25,6 @@ class Web_App_Manifest extends Base {
 	}
 
 	#[Add_Action( 'init' )]
-	/** Toont web app manifest */
 	public function show_web_app_manifest() {
 		$request = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 

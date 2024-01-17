@@ -8,20 +8,13 @@ use SIW\Base;
 use SIW\Traits\Assets_Handle;
 use SIW\Util\CSS;
 
-/**
- * Class voor animaties
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Animation extends Base {
 
 	use Assets_Handle;
 
-	/** Threshold voor animatie */
 	private const THRESHOLD = 0.25;
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Registreert scripts */
 	public function register_script() {
 		wp_register_script(
 			self::get_assets_handle(),
@@ -43,7 +36,6 @@ class Animation extends Base {
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Registreert styles */
 	public function register_style() {
 		$max_width = CSS::MOBILE_BREAKPOINT;
 		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/animation.css', [ SAL::get_assets_handle() ], SIW_PLUGIN_VERSION, "(max-width: {$max_width}px)" );

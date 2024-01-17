@@ -6,7 +6,7 @@ use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Work_Type;
 use SIW\Elements\Accordion_Tabs;
 use SIW\Elements\Leaflet_Map;
-use SIW\I18n;
+use SIW\Util\I18n;
 use SIW\Util\CSS;
 use SIW\Util\Links;
 use SIW\WooCommerce\Product\WC_Product_Project;
@@ -100,8 +100,6 @@ class Dutch_Projects extends Widget {
 	}
 
 	/**
-	 * Haalt projecten op
-	 *
 	 * @return WC_Product_Project[]
 	 */
 	protected function get_projects(): array {
@@ -117,10 +115,7 @@ class Dutch_Projects extends Widget {
 		return $projects;
 	}
 
-
-	/** Genereert beschrijving van het project */
 	protected function get_project_properties( WC_Product_Project $project ): string {
-		// Verzamelen gegevens
 		$duration = siw_format_date_range( $project->get_start_date(), $project->get_end_date() );
 		$work_types = array_map(
 			fn( Work_Type $work_type ): string => $work_type->get_name(),
@@ -132,7 +127,6 @@ class Dutch_Projects extends Widget {
 			$project->get_sustainable_development_goals()
 		);
 
-		// Opbouwen beschrijving
 		$description[] = sprintf( __( 'Projectcode: %s', 'siw' ), $project->get_sku() ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 		$description[] = sprintf( __( 'Data: %s', 'siw' ), $duration ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 		$description[] = sprintf( __( 'Soort werk: %s', 'siw' ), implode( ', ', $work_types ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
@@ -141,12 +135,9 @@ class Dutch_Projects extends Widget {
 			$description[] = sprintf( __( 'Sustainable Development Goals: %s', 'siw' ), implode( ', ', $sdgs ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 			// TODO: icons gebruiken?
 		}
-
-		// TODO: Locatie (Locatie: %s, provincie %s) tonen indien bekend, afleiden van coördinaten m.b.v Google Maps API
 		return wpautop( implode( BR, $description ) );
 	}
 
-	/** Haal knop naar Groepsproject op */
 	protected function get_project_button( WC_Product_Project $project ): ?string {
 		if ( ! I18n::is_default_language() ) {
 			return null;

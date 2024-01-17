@@ -7,14 +7,8 @@ use SIW\Base;
 use SIW\Content\Posts\Events;
 use SIW\Elements\Topbar as Topbar_Element;
 
-/**
- * Topbar
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Topbar extends Base {
 
-	/** Toon het evenement x aantal dagen van te voren */
 	private const EVENT_SHOW_DAYS_BEFORE = 14;
 
 	#[Add_Action( 'generate_before_header', 1 )]
@@ -31,7 +25,6 @@ class Topbar extends Base {
 			->render();
 	}
 
-	/** Haalt de evenementen-inhoud op */
 	protected function get_event_content(): ?array {
 
 		$upcoming_events = Events::get_future_events( [ 'limit' => 1 ] );

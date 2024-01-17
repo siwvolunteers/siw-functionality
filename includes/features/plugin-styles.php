@@ -6,11 +6,6 @@ use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Traits\Assets_Handle;
 
-/**
- * Voegt share-links toe voor social netwerken
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Plugin_Styles extends Base {
 
 	use Assets_Handle;

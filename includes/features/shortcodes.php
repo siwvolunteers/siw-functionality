@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace SIW;
+namespace SIW\Features;
 
 use SIW\Attributes\Add_Shortcode;
+use SIW\Base;
+use SIW\Config;
 use SIW\Data\Country;
 use SIW\Elements\List_Columns;
 use SIW\Elements\List_Style_Type;
@@ -10,14 +12,8 @@ use SIW\Properties;
 use SIW\Util;
 use SIW\Util\Links;
 
-/**
- * Class voor shortcodes
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
 class Shortcodes extends Base {
 
-	/** Geeft lijst met shortcodes terug */
 	public static function get_shortcodes(): array {
 		$shortcodes = [
 			'kvk'                         => __( 'KVK-nummer', 'siw' ),
@@ -72,7 +68,6 @@ class Shortcodes extends Base {
 		return $shortcodes;
 	}
 
-	/** KVK-nummer */
 	#[Add_Shortcode( 'kvk' )]
 	public static function render_kvk(): string {
 		return Properties::KVK;

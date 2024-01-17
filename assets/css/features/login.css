@@ -1,15 +1,7 @@
-html {
-  background-image: var(--siw-login-background-url);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-}
 html body.login {
   background: transparent;
 }
 html body.login h1 a {
-  background-image: var(--siw-logo-url);
   filter: brightness(0) invert(1);
   background-size: contain;
   width: auto;
