@@ -7,14 +7,8 @@ use SIW\Interfaces\Forms\Form;
 use SIW\Util\Links;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Class om een keuzehulp te genereren (o.b.v. een MetaBox)
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Project_Wizard extends Element {
 
-	/** MetaBox instantie */
 	protected \RW_Meta_Box $meta_box;
 
 	/** {@inheritDoc} */
@@ -180,14 +174,6 @@ class Project_Wizard extends Element {
 			__( 'Lees meer', 'siw' ),
 			[
 				'class'          => 'page-link',
-				'data-ga4-event' => [
-					'name'       => 'click',
-					'parameters' => [
-						'link_id'  => 'project_wizard',
-						'link_url' => $url,
-						'outbound' => false,
-					],
-				],
 			]
 		);
 	}

@@ -1,6 +1,6 @@
-<div class="{{ element.classes }}">
+<div id="{{ element.id }}" class="{{ element.classes }}">
 	{{# social_networks}}
-		<a href="{{ url }}" aria-label="{{ label }}" target="_blank" rel="noopener external" style="--hover-color: {{ color }}" data-ga4-event="{{ ga4_event|json_encode }}">
+		<a href="{{ url }}" aria-label="{{ label }}" target="_blank" rel="noopener external" style="--hover-color: {{ color }}">
 			<svg class="siw-icon siw-icon-{{ icon.size }}x" aria-hidden="true" focusable="false">
 				<use xlink:href="#{{ icon.class }}" />
 			</svg>

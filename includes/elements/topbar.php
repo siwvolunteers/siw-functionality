@@ -2,32 +2,16 @@
 
 namespace SIW\Elements;
 
-/**
- * Topbar
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Topbar extends Element {
 
-	/** URL */
 	protected string $url;
-
-	/** Text */
 	protected string $text;
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
-			'url'       => $this->url,
-			'text'      => $this->text,
-			'ga4_event' => [
-				'name'       => 'click',
-				'parameters' => [
-					'link_id'  => 'topbar',
-					'link_url' => $this->url,
-					'outbound' => false,
-				],
-			],
+			'url'  => $this->url,
+			'text' => $this->text,
 		];
 	}
 
@@ -41,7 +25,6 @@ class Topbar extends Element {
 		return $this;
 	}
 
-	/** Voegt styles toe */
 	public function enqueue_styles() {
 		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/topbar.css', [], SIW_PLUGIN_VERSION );
 		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/topbar.css' );

@@ -113,8 +113,8 @@ class Product extends Base {
 		}
 	}
 
-	#[Add_Action( 'woocommerce_project_add_to_cart' )]
+	#[Add_Action( 'woocommerce_project_add_to_cart', 30 )]
 	public function project_add_to_cart() {
-		wc_get_template( 'single-product/add-to-cart/project.php' );
+		woocommerce_simple_add_to_cart();
 	}
 }

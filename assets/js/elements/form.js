@@ -1,12 +1,3 @@
-/** global: siwGoogleAnalytics, wp */
-
-/**
- * @file      Functies t.b.v. formulieren
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- * @todo      Netter
- */
-
-
 (function( $ ) {
 	jQuery( '.siw-form' ).each( processForm );
 
@@ -53,9 +44,6 @@
 					message = 'Success';
 				}
 
-				if ( 'function' == typeof siwGoogleAnalytics4.trackFormSubmission) {
-					siwGoogleAnalytics4.trackFormSubmission( $form.data( 'formId' ) );
-				}
 			}).fail( function( response ) {
 
 				success = false;
