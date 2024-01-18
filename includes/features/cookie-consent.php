@@ -107,7 +107,7 @@ class Cookie_Consent extends Base {
 										'title'       => __( 'Analytische cookies', 'siw' ),
 										'description' =>
 										__( 'Analytische cookies verzamelen gegevens over het gebruik van een website zoals het aantal bezoekers, de tijd die bezoekers doorbrengen op een webpagina en foutmeldingen.', 'siw' ) . SPACE .
-										__( 'We gebruiken Google Analytics (zorgt voor het verzamelen van anonieme gegevens over het gebruik van onze website en het opstellen van bezoekersstatistieken).', 'siw' ) . SPACE .
+										__( 'We gebruiken Google Tag Manager (zorgt voor het verzamelen van anonieme gegevens over het gebruik van onze website en het opstellen van bezoekersstatistieken).', 'siw' ) . SPACE .
 										// translators: %s is de link naar het privacybeleid van Google
 										sprintf( __( 'Meer informatie over hoe Google met gegevens omgaat is te lezen in het %s van Google.', 'siw' ), Links::generate_external_link( 'http://www.google.com/intl/nl/policies/privacy/partners/', __( 'privacybeleid', 'siw' ) ) ),
 										'toggle'      => [

@@ -6,13 +6,9 @@ use SIW\Config;
 use SIW\Features\Cookie_Consent;
 
 /**
- * Google Analytics 4 JS API
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
- * @see       https://developers.google.com/analytics/devguides/collection/ga4
+ * @see       https://developers.google.com/tag-platform/tag-manager/web
  */
-class Google_Analytics_4 extends External_Asset {
+class Google_Tag_Manager extends External_Asset {
 
 	/** {@inheritDoc} */
 	protected static function get_version_number(): ?string {
@@ -21,12 +17,15 @@ class Google_Analytics_4 extends External_Asset {
 
 	/** {@inheritDoc} */
 	protected static function get_script_url(): ?string {
-
 		return add_query_arg(
-			[
-				'id' => Config::get_google_analytics_measurement_id(),
-			],
-			'https://www.googletagmanager.com/gtag/js'
+			array_filter(
+				[
+					'id'          => Config::get_gtm_container_id(),
+					'gtm_auth'    => Config::get_gtm_auth(),
+					'gtm_preview' => Config::get_gtm_preview(),
+				]
+			),
+			'https://www.googletagmanager.com/gtm.js'
 		);
 	}
 
