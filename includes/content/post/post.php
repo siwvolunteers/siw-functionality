@@ -41,4 +41,8 @@ abstract class Post {
 	protected function get_meta( string $key, array $args = [] ): mixed {
 		return siw_meta( $key, $args, $this->get_id() );
 	}
+
+	protected function set_meta( string $key, mixed $value, array $args = [] ) {
+		siw_set_meta( $this->get_id(), $key, $value, $args );
+	}
 }

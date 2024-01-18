@@ -343,15 +343,18 @@ class Event extends Post_Type {
 
 	#[Add_Action( 'save_post_siw_event', PHP_INT_MAX )]
 	public function after_save_post( int $post_id, \WP_Post $post, bool $update ) {
-		if ( siw_meta( 'info_day', [], $post_id ) && empty( siw_meta( 'mailjet_list_id', [], $post_id ) ) ) {
 
-			$name = 'infodag ' . siw_format_date( siw_meta( 'event_date', [], $post_id ) );
+		$event = new Event_Post( $post );
+		if ( ! $event->is_info_day() || ! empty( $event->get_mailjet_list_id() ) ) {
+			return;
+		}
 
-			$mailjet = Mailjet::create();
-			$list_id = $mailjet->create_list( $name );
-			if ( null !== $list_id ) {
-				siw_set_meta( $post_id, 'mailjet_list_id', $list_id );
-			}
+		$name = 'infodag ' . siw_format_date( siw_meta( 'event_date', [], $post_id ) );
+		$mailjet = Mailjet::create();
+		$lists = $mailjet->get_lists( [ 'name' => $name ] );
+		$list_id = $lists[0]['id'] ?? $mailjet->create_list( $name );
+		if ( null !== $list_id ) {
+			$event->set_mailjet_list_id( $list_id );
 		}
 	}
 

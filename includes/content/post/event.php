@@ -72,4 +72,8 @@ class Event extends Post {
 	public function get_mailjet_list_id(): ?string {
 		return $this->get_meta( 'mailjet_list_id' );
 	}
+
+	public function set_mailjet_list_id( string $list_id ) {
+		$this->set_meta( 'mailjet_list_id', $list_id );
+	}
 }
