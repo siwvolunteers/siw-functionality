@@ -2,8 +2,8 @@
 
 namespace SIW\External_Assets;
 
-use SIW\Asset_Attributes;
 use SIW\Attributes\Add_Action;
+use SIW\Data\Tag_Attribute;
 use SIW\Helpers\Template;
 
 /**
@@ -51,13 +51,13 @@ abstract class NPM_Asset extends External_Asset {
 		}
 		wp_script_add_data(
 			static::get_assets_handle(),
-			Asset_Attributes::INTEGRITY,
+			Tag_Attribute::INTEGRITY,
 			static::get_script_sri()
 		);
 
 		wp_script_add_data(
 			static::get_assets_handle(),
-			Asset_Attributes::CROSSORIGIN,
+			Tag_Attribute::CROSSORIGIN,
 			'anonymous'
 		);
 	}
@@ -71,13 +71,13 @@ abstract class NPM_Asset extends External_Asset {
 
 		wp_style_add_data(
 			static::get_assets_handle(),
-			Asset_Attributes::CROSSORIGIN,
+			Tag_Attribute::CROSSORIGIN,
 			'anonymous'
 		);
 
 		wp_style_add_data(
 			static::get_assets_handle(),
-			Asset_Attributes::INTEGRITY,
+			Tag_Attribute::INTEGRITY,
 			static::get_style_sri()
 		);
 	}

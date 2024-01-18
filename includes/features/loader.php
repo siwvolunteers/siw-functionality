@@ -23,6 +23,7 @@ class Loader extends A_Base_Loader {
 			Plugin_Styles::class,
 			Shortcodes::class,
 			Social_Share::class,
+			Tag_Attributes::class,
 			Topbar::class,
 			Upload_Subdir::class,
 			Web_App_Manifest::class,

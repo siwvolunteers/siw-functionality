@@ -2,10 +2,10 @@
 
 namespace SIW\Features;
 
-use SIW\Asset_Attributes;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Config;
+use SIW\Data\Tag_Attribute;
 use SIW\External_Assets\Google_Tag_Manager as Google_Tag_Manager_Asset;
 use SIW\Traits\Assets_Handle;
 
@@ -22,13 +22,13 @@ class Google_Tag_Manager extends Base {
 
 		wp_script_add_data(
 			self::get_assets_handle(),
-			Asset_Attributes::TYPE,
+			Tag_Attribute::TYPE,
 			'text/plain'
 		);
 
 		wp_script_add_data(
 			self::get_assets_handle(),
-			Asset_Attributes::COOKIE_CATEGORY,
+			Tag_Attribute::COOKIE_CATEGORY,
 			Cookie_Consent::ANALYTICAL
 		);
 

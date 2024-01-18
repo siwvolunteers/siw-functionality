@@ -2,11 +2,10 @@
 
 namespace SIW\Features;
 
-use SIW\Asset_Attributes;
 use SIW\Attributes\Add_Action;
-use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Config;
+use SIW\Data\Tag_Attribute;
 use SIW\External_Assets\Meta_Pixel;
 use SIW\Traits\Assets_Handle;
 
@@ -32,13 +31,13 @@ class Facebook_Pixel extends Base {
 
 		wp_script_add_data(
 			self::get_assets_handle(),
-			Asset_Attributes::TYPE,
+			Tag_Attribute::TYPE,
 			'text/plain'
 		);
 
 		wp_script_add_data(
 			self::get_assets_handle(),
-			Asset_Attributes::COOKIE_CATEGORY,
+			Tag_Attribute::COOKIE_CATEGORY,
 			Cookie_Consent::MARKETING
 		);
 		wp_enqueue_script( self::get_assets_handle() );

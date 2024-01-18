@@ -2,41 +2,27 @@
 
 namespace SIW\External_Assets;
 
-use SIW\Asset_Attributes;
 use SIW\Attributes\Add_Action;
-use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Data\Tag_Attribute;
 use SIW\Traits\Assets_Handle;
 
-/**
- * Klasse om externe asset (JS/CSS) te registreren
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 abstract class External_Asset extends Base {
 
 	use Assets_Handle;
 
-	/** Geeft gewenste versienummer terug */
 	abstract protected static function get_version_number(): ?string;
-
-	/** Geeft URL van script terug */
 	abstract protected static function get_script_url(): ?string;
-
-	/** Geeft URL van style terug */
 	abstract protected static function get_style_url(): ?string;
 
-	/** Geeft cookie category terug */
 	protected static function get_cookie_category(): ?string {
 		return null;
 	}
 
-	/** Geeft terug of er een script is */
 	protected static function has_script(): bool {
 		return null !== static::get_script_url();
 	}
 
-	/** Geeft terug of er een style is */
 	protected static function has_style(): bool {
 		return null !== static::get_style_url();
 	}
@@ -63,13 +49,13 @@ abstract class External_Asset extends Base {
 		if ( null !== static::get_cookie_category() ) {
 			wp_script_add_data(
 				static::get_assets_handle(),
-				Asset_Attributes::TYPE,
+				Tag_Attribute::TYPE,
 				'text/plain'
 			);
 
 			wp_script_add_data(
 				static::get_assets_handle(),
-				Asset_Attributes::COOKIE_CATEGORY,
+				Tag_Attribute::COOKIE_CATEGORY,
 				static::get_cookie_category()
 			);
 		}

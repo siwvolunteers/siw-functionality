@@ -9,7 +9,6 @@ class Loader extends Base_Loader {
 	/** {@inheritDoc} */
 	protected function get_classes(): array {
 		return [
-			Asset_Attributes::class,
 			Scheduler::class,
 			Update::class,
 		];
