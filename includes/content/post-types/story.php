@@ -72,7 +72,7 @@ class Story extends Post_Type {
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
 				'required'    => true,
-				'options'     => \siw_get_countries_list( Country::ALL ),
+				'options'     => Country::list(),
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],
 			[

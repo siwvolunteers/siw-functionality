@@ -24,7 +24,7 @@ class Story extends Post {
 	}
 
 	public function get_country(): ?Country {
-		return siw_get_country( $this->get_meta( 'country' ) );
+		return Country::tryFrom( $this->get_meta( 'country' ) );
 	}
 
 	public function get_continent(): \WP_Term {

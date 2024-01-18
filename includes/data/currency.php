@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types=1); // phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
 
 namespace SIW\Data;
 

@@ -140,7 +140,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 		if ( ! isset( $attributes[ Taxonomy_Attribute::COUNTRY->value ] ) ) {
 			return null;
 		}
-		return siw_get_country( $attributes[ Taxonomy_Attribute::COUNTRY->value ]->get_slugs()[0] );
+		return Country::tryFrom( $attributes[ Taxonomy_Attribute::COUNTRY->value ]->get_slugs()[0] );
 	}
 
 	/** Geeft aan of dit een Nederlandse project is */
@@ -150,7 +150,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 			return false;
 		}
 
-		return 'nederland' === $attributes[ Taxonomy_Attribute::COUNTRY->value ]->get_slugs()[0];
+		return Country::NETHERLANDS->value === $attributes[ Taxonomy_Attribute::COUNTRY->value ]->get_slugs()[0];
 	}
 
 	/**
