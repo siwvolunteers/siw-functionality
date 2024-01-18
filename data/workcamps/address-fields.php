@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use SIW\Data\Gender;
+use SIW\Data\Nationality;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -32,8 +33,8 @@ $siw_data = [
 		'label'    => __( 'Nationaliteit', 'siw' ),
 		'required' => true,
 		'type'     => 'select',
-		'options'  => siw_get_nationalities(),
-		'default'  => 'HOL',
+		'options'  => Nationality::list(),
+		'default'  => Nationality::HOL->value,
 		'class'    => [ 'form-row-last' ],
 		'priority' => 40,
 	],

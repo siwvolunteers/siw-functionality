@@ -18,14 +18,6 @@ function siw_get_data( string $file ) {
 	return $data;
 }
 
-/** Geeft een lijst met nationaliteiten terug */
-function siw_get_nationalities(): array {
-	$nationalities = siw_get_data( 'nationalities' );
-	asort( $nationalities );
-	$nationalities = [ '' => __( 'Selecteer een nationaliteit', 'siw' ) ] + $nationalities;
-	return $nationalities;
-}
-
 /**
  * Haalt email-instellingen op
  *
