@@ -1,7 +1,7 @@
-<div class="{{ element.classes }}">
+<div id="{{ element.id }}" class="{{ element.classes }}">
 	<div class="notices"></div>
 	<div class="overlay">
-		<form class="rwmb-form" id="{{ element.id }}" data-single-column="{{ single_column }}" data-form-id="{{ form_id }}" data-api-path="{{ api_path }}" method="post" enctype="multipart/form-data">
+		<form class="rwmb-form" data-single-column="{{ single_column }}" data-form-id="{{ form_id }}" data-api-path="{{ api_path }}" method="post" enctype="multipart/form-data">
 			{{& meta_box }}
 		</form>
 	</div>
