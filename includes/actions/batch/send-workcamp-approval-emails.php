@@ -7,6 +7,7 @@ use SIW\Helpers\Email_Template;
 use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 use SIW\Util\Links;
 use SIW\WooCommerce\Import\Product as Import_Product;
+use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * Versturen email voor goedkeuren Groepsprojecten
@@ -14,9 +15,6 @@ use SIW\WooCommerce\Import\Product as Import_Product;
  * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  */
 class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
-
-	/** Taxonomie voor continenten */
-	private const CONTINENT_TAXONOMY = 'product_cat';
 
 	/** {@inheritDoc} */
 	public function get_id(): string {
@@ -43,7 +41,7 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 
 		$data = get_terms(
 			[
-				'taxonomy'   => self::CONTINENT_TAXONOMY,
+				'taxonomy'   => Taxonomy_Attribute::CONTINENT->value,
 				'hide_empty' => true,
 				'fields'     => 'tt_ids',
 			]
@@ -67,7 +65,7 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 			return;
 		}
 
-		// Zoek te beoordelen projecten per category (continent)
+		// Zoek te beoordelen projecten per continent
 		$products = siw_get_product_ids(
 			[
 				'category' => $term->slug,
@@ -86,9 +84,9 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 
 		$admin_url = add_query_arg(
 			[
-				'post_type'   => 'product',
-				'post_status' => Import_Product::REVIEW_STATUS,
-				'product_cat' => $term->slug,
+				'post_type'                          => 'product',
+				'post_status'                        => Import_Product::REVIEW_STATUS,
+				Taxonomy_Attribute::CONTINENT->value => $term->slug,
 			],
 			admin_url( 'edit.php' )
 		);

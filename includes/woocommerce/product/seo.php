@@ -26,28 +26,28 @@ class SEO extends Base {
 		}
 
 		switch ( $term->taxonomy ) {
-			case Taxonomy_Attribute::CONTINENT()->value:
-			case Taxonomy_Attribute::COUNTRY()->value:
+			case Taxonomy_Attribute::CONTINENT->value:
+			case Taxonomy_Attribute::COUNTRY->value:
 				// translators: %s is een continent of land
 				$title = sprintf( __( 'Groepsprojecten in %s', 'siw' ), $term->name );
 				break;
-			case Taxonomy_Attribute::TARGET_AUDIENCE()->value:
+			case Taxonomy_Attribute::TARGET_AUDIENCE->value:
 				// translators: %s is doelgroep
 				$title = sprintf( __( 'Groepsprojecten voor %s', 'siw' ), $term->name );
 				break;
-			case Taxonomy_Attribute::LANGUAGE()->value:
+			case Taxonomy_Attribute::LANGUAGE->value:
 				// translators: %s is de taal
 				$title = sprintf( __( 'Groepsprojecten met voertaal %s', 'siw' ), $term->name );
 				break;
-			case Taxonomy_Attribute::WORK_TYPE()->value:
+			case Taxonomy_Attribute::WORK_TYPE->value:
 				// translators: %s is het soort werk
 				$title = sprintf( __( 'Groepsprojecten met werk gericht op %s', 'siw' ), strtolower( $term->name ) );
 				break;
-			case Taxonomy_Attribute::SDG()->value:
+			case Taxonomy_Attribute::SDG->value:
 				// translators: %s is de SDG
 				$title = sprintf( __( 'Groepsprojecten met werk gericht op het SDG %s', 'siw' ), strtolower( $term->name ) );
 				break;
-			case Taxonomy_Attribute::MONTH()->value:
+			case Taxonomy_Attribute::MONTH->value:
 				// translators: %s is een maand
 				$title = sprintf( __( 'Groepsprojecten in de maand %s', 'siw' ), $term->name );
 				break;
@@ -59,20 +59,20 @@ class SEO extends Base {
 	/** Zet naam van terms */
 	public function set_term_description( \WP_Term $term, string $taxonomy ): \WP_Term {
 		switch ( $taxonomy ) {
-			case Taxonomy_Attribute::CONTINENT()->value:
-			case Taxonomy_Attribute::COUNTRY()->value:
+			case Taxonomy_Attribute::CONTINENT->value:
+			case Taxonomy_Attribute::COUNTRY->value:
 				$term->description =
 				// translators: %s is een continent of land
 					sprintf( __( 'Wil je graag vrijwilligerswerk doen in %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name ) . SPACE .
 					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
 				break;
-			case Taxonomy_Attribute::WORK_TYPE()->value:
+			case Taxonomy_Attribute::WORK_TYPE->value:
 				$term->description =
 				// translators: %s is een soort werk
 					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), strtolower( $term->name ) ) . SPACE .
 					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
 				break;
-			case Taxonomy_Attribute::SDG()->value:
+			case Taxonomy_Attribute::SDG->value:
 				$term->description =
 				// translators: %s is een SDG
 					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op het Sustainable Development Goal %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name ) . SPACE .
@@ -110,8 +110,8 @@ class SEO extends Base {
 
 		return sprintf(
 			'Vrijwilligersproject %s | %s',
-			$product->get_attribute( Taxonomy_Attribute::COUNTRY()->value ),
-			$product->get_attribute( Taxonomy_Attribute::WORK_TYPE()->value )
+			$product->get_attribute( Taxonomy_Attribute::COUNTRY->value ),
+			$product->get_attribute( Taxonomy_Attribute::WORK_TYPE->value )
 		);
 	}
 
@@ -131,8 +131,8 @@ class SEO extends Base {
 		$template = $templates[ array_rand( $templates, 1 ) ];
 
 		$context = [
-			'country'   => $product->get_attribute( Taxonomy_Attribute::COUNTRY()->value ),
-			'work_type' => $product->get_attribute( Taxonomy_Attribute::WORK_TYPE()->value ),
+			'country'   => $product->get_attribute( Taxonomy_Attribute::COUNTRY->value ),
+			'work_type' => $product->get_attribute( Taxonomy_Attribute::WORK_TYPE->value ),
 		];
 		return Template::create()->set_template( $template )->set_context( $context )->parse_template();
 	}

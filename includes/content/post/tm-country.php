@@ -12,7 +12,7 @@ class TM_Country extends Post {
 	}
 
 	public function get_country(): Country {
-		return siw_get_country( $this->get_meta( 'country' ) );
+		return Country::tryFrom( $this->get_meta( 'country' ) );
 	}
 
 	public function get_continent(): \WP_Term {
@@ -22,7 +22,7 @@ class TM_Country extends Post {
 	/** @return Work_Type[] */
 	public function get_work_types(): array {
 		return array_map(
-			fn( string $work_type ): Work_Type => siw_get_work_type( $work_type ),
+			fn( string $work_type ): Work_Type => Work_Type::tryFrom( $work_type ),
 			$this->get_meta( 'work_type' )
 		);
 	}

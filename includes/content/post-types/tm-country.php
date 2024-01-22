@@ -4,7 +4,10 @@ namespace SIW\Content\Post_Types;
 
 use SIW\Content\Post\TM_Country as TM_Country_Post;
 use SIW\Content\Post_Types\Post_Type;
+use SIW\Data\Animation\Easing;
+use SIW\Data\Animation\Type;
 use SIW\Data\Country;
+use SIW\Data\Country_Context;
 use SIW\Data\Post_Type_Support;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
@@ -66,7 +69,7 @@ class TM_Country extends Post_Type {
 				'name'        => __( 'Land', 'siw' ),
 				'type'        => 'select_advanced',
 				'required'    => true,
-				'options'     => siw_get_countries_list( Country::TAILOR_MADE ),
+				'options'     => Country::filtered_list( Country_Context::WORLD_BASIC ),
 				'placeholder' => __( 'Selecteer een land', 'siw' ),
 			],
 			[
@@ -74,7 +77,7 @@ class TM_Country extends Post_Type {
 				'name'     => __( 'Soort werk', 'siw' ),
 				'type'     => 'checkbox_list',
 				'required' => true,
-				'options'  => siw_get_work_types_list( Work_Type::TAILOR_MADE, Work_Type::SLUG ),
+				'options'  => Work_Type::list(),
 			],
 			[
 				'id'       => 'quote',
@@ -137,14 +140,20 @@ class TM_Country extends Post_Type {
 			$template_variables['mapcss'] = CSS::HIDE_ON_MOBILE_CLASS;
 			$template_variables['worldmap'] = Interactive_SVG_Map::create()
 				->set_map( Interactive_SVG_Map::MAP_WORLD )
-				->select_region( $post->get_country()->get_iso_code() )
-				->set_focus_region( $post->get_country()->get_iso_code() )
+				->select_region( $post->get_country()->iso_code() )
+				->set_focus_region( $post->get_country()->iso_code() )
 				->set_zoom_max( 2 )
 				->generate();
 			$template_variables['quote'] = Quote::create()->set_quote( $post->get_quote() )->generate();
-			$template_variables['world_basic_page'] = get_permalink( siw_get_project_type_page( Project_Type::WORLD_BASIC() ) );
-			$template_variables['child_policy_page'] = get_permalink( siw_get_special_page( Special_Page::CHILD_POLICY() ) );
+			$template_variables['world_basic_page'] = get_permalink( siw_get_project_type_page( Project_Type::WORLD_BASIC ) );
+			$template_variables['child_policy_page'] = get_permalink( siw_get_special_page( Special_Page::CHILD_POLICY ) );
 			$template_variables['image'] = wp_get_attachment_image( $post->get_image_id(), 'large' );
+			$template_variables['animation_duration'] = 1800;
+			$template_variables['animation_easing'] = Easing::EASE_OUT_SINE->value;
+			$template_variables['animation_type_quote'] = Type::FADE->value;
+			$template_variables['animation_type_left'] = Type::SLIDE_LEFT->value;
+			$template_variables['animation_type_right'] = Type::SLIDE_RIGHT->value;
+
 		}
 
 		return $template_variables;
@@ -152,6 +161,6 @@ class TM_Country extends Post_Type {
 
 	/** {@inheritDoc} */
 	protected function generate_title( array $data, array $postarr ): string {
-		return siw_get_country( $postarr['country'] )?->get_name();
+		return Country::tryFrom( $postarr['country'] )?->label() ?? 'land';
 	}
 }

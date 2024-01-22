@@ -111,7 +111,7 @@ class WooCommerce extends Base implements I_Plugin {
 
 	#[Add_Filter( 'get_term' )]
 	public function filter_term_name( \WP_Term $term, string $taxonomy ): \WP_Term {
-		if ( Taxonomy_Attribute::MONTH()->value === $taxonomy ) {
+		if ( Taxonomy_Attribute::MONTH->value === $taxonomy ) {
 			$order = get_term_meta( $term->term_id, 'order', true );
 
 			if ( empty( $order ) ) {

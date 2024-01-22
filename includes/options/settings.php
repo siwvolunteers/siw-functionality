@@ -3,6 +3,7 @@
 namespace SIW\Options;
 
 use SIW\Data\Board_Title;
+use SIW\Data\Continent;
 use SIW\Properties;
 
 class Settings extends Option {
@@ -95,7 +96,7 @@ class Settings extends Option {
 					'name'     => __( 'Functie', 'siw' ),
 					'type'     => 'button_group',
 					'required' => true,
-					'options'  => siw_get_enum_array( Board_Title::cases() ),
+					'options'  => Board_Title::list(),
 				],
 			],
 		];
@@ -200,7 +201,6 @@ class Settings extends Option {
 		];
 
 		// Groepsprojecten
-		$continents = siw_get_continents_list();
 		$approval_fields = [
 			[
 				'type' => 'heading',
@@ -215,7 +215,7 @@ class Settings extends Option {
 				'field_type' => 'select_advanced',
 			],
 		];
-		foreach ( $continents as $slug => $name ) {
+		foreach ( Continent::list() as $slug => $name ) {
 			$approval_fields[] = [
 				'id'         => "responsible_{$slug}",
 				'name'       => $name,

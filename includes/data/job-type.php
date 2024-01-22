@@ -3,13 +3,12 @@
 namespace SIW\Data;
 
 use SIW\Interfaces\Enums\Labels;
+use SIW\Traits\Enum_List;
 
-/**
- * Soort vacature
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 enum Job_Type: string implements Labels {
+
+	use Enum_List;
+
 	case VOLUNTEER = 'volunteer';
 	case PAID = 'paid';
 	case INTERNSHIP = 'internship';

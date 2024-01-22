@@ -65,10 +65,3 @@ if ( ! function_exists( 'wp_parse_args_recursive' ) ) {
 function siw_hash( string $data ): string {
 	return wp_hash( $data, 'siw' );
 }
-
-function siw_get_enum_array( array $enum_cases ): array {
-	return array_map(
-		fn( Labels $e ) => $e->label(),
-		array_column( $enum_cases, null, 'value' )
-	);
-}

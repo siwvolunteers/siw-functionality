@@ -118,12 +118,12 @@ class Dutch_Projects extends Widget {
 	protected function get_project_properties( WC_Product_Project $project ): string {
 		$duration = siw_format_date_range( $project->get_start_date(), $project->get_end_date() );
 		$work_types = array_map(
-			fn( Work_Type $work_type ): string => $work_type->get_name(),
+			fn( Work_Type $work_type ): string => $work_type->label(),
 			$project->get_work_types()
 		);
 
 		$sdgs = array_map(
-			fn( Sustainable_Development_Goal $sdg ): string => $sdg->get_full_name(),
+			fn( Sustainable_Development_Goal $sdg ): string => $sdg->full_name(),
 			$project->get_sustainable_development_goals()
 		);
 

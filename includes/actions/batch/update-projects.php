@@ -11,25 +11,10 @@ use SIW\WooCommerce\Import\Product_Image as Import_Product_Image;
 use SIW\WooCommerce\Product\Admin\Approval;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-/**
- * Proces om Groepsprojecten bij te werken
- *
- * - Oude projecten verwijderen
- * - Zichtbaarheid
- *
- * @copyright 2021-2022 SIW Internationale Vrijwilligersprojecten
- *
- * @todo  Plato-afbeelding verwijderen als project al begonnen is of uit Plato verwijderd is
- */
 class Update_Projects implements Batch_Action_Interface {
 
-	/** Aantal maanden voordat project verwijderd wordt. */
 	private const MAX_AGE_PROJECT = 6;
-
-	/** Minimaal aantal dagen dat project in toekomst moet starten om zichtbaar te zijn */
 	private const MIN_DAYS_BEFORE_START = 3;
-
-	/** Product */
 	protected WC_Product_Project $product;
 
 	/** {@inheritDoc} */
@@ -61,30 +46,20 @@ class Update_Projects implements Batch_Action_Interface {
 	public function process( $product_id ) {
 		$product = siw_get_product( $product_id );
 
-		/* Afbreken als product niet meer bestaat */
 		if ( ! is_a( $product, WC_Product_Project::class ) ) {
 			return false;
 		}
 		$this->product = $product;
 
-		// Als het project verwijderd is, is de rest niet meer nodig
 		if ( $this->maybe_delete_project() ) {
 			return;
 		}
 
-		// Projectfoto's verwijderen
 		$this->maybe_delete_project_images();
-
-		// Bijwerken plato status
 		$this->maybe_update_deleted_from_plato();
-
-		// Bijwerken zichtbaarheid
 		$this->maybe_update_visibility();
 	}
 
-	/**
-	 * Bijwerken of project uit Plato verwijderd is
-	 */
 	protected function maybe_update_deleted_from_plato() {
 
 		$project_ids = wp_cache_get( 'project_ids', 'siw_update_workcamps' );
@@ -121,7 +96,7 @@ class Update_Projects implements Batch_Action_Interface {
 			||
 			! is_a( $country, Country::class )
 			||
-			! $country->has_workcamps()
+			! $country->workcamps()
 			||
 			Approval::REJECTED === $this->product->get_approval_result()
 			||
@@ -137,7 +112,6 @@ class Update_Projects implements Batch_Action_Interface {
 		if ( $visibility !== $this->product->get_catalog_visibility() ) {
 			$this->product->set_catalog_visibility( $visibility );
 
-			// Als het project verborgen wordt, moet het ook niet meer aanbevolen zijn
 			if ( 'hidden' === $visibility ) {
 				$this->product->set_featured( false );
 			}
@@ -145,9 +119,7 @@ class Update_Projects implements Batch_Action_Interface {
 		}
 	}
 
-	/** Verwijder projectspecifieke afbeeldingen */
 	protected function delete_project_images( string $plato_project_id ) {
-		// Verwijder projectspecifieke afbeeldingen
 		$project_images_ids = get_posts(
 			[
 				'post_type'   => 'attachment',
@@ -171,7 +143,6 @@ class Update_Projects implements Batch_Action_Interface {
 		}
 	}
 
-	/** Afbeeldingen verwijderen als project gestart is */
 	protected function maybe_delete_project_images() {
 		$start_date = $this->product->get_start_date();
 		$current_date = gmdate( 'Y-m-d' );
@@ -181,20 +152,17 @@ class Update_Projects implements Batch_Action_Interface {
 		$this->delete_project_images( $this->product->get_project_id() );
 	}
 
-	/** Oude projecten verwijderen */
 	protected function maybe_delete_project(): bool {
 
 		$start_date = $this->product->get_start_date();
 		$min_date = gmdate( 'Y-m-d', time() - ( self::MAX_AGE_PROJECT * MONTH_IN_SECONDS ) );
 
-		// Afbreken als project nog niet oud genoeg is
 		if ( $start_date > $min_date ) {
 			return false;
 		}
 
 		$this->delete_project_images( $this->product->get_project_id() );
 
-		// Verwijder het product zelf
 		$this->product->delete( true );
 		return true;
 	}

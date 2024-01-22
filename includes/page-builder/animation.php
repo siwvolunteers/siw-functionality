@@ -2,48 +2,25 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Util\Animation as Animation_Util;
+use SIW\Data\Animation\Easing;
+use SIW\Data\Animation\Type;
 
 use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
 use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
 use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
 use SIW\Interfaces\Page_Builder\Settings as I_Settings;
 
-/**
- * Animaties voor Page Builder
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
 class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_Settings {
 
-	/** Style group */
 	private const STYLE_GROUP = 'siw_animation';
-
-	/** Style field voor animatie type */
 	private const STYLE_FIELD_TYPE = 'type';
-
-	/** Style field voor animatie duur */
 	private const STYLE_FIELD_DURATION = 'duration';
-
-	/** Style field voor animatie vertraging */
 	private const STYLE_FIELD_DELAY = 'delay';
-
-	/** Style field voor animatie easing */
 	private const STYLE_FIELD_EASING = 'easing';
-
-	/** Style field voor animatie herhalen */
 	private const STYLE_FIELD_REPEAT = 'repeat';
-
-	/** Option group */
 	private const OPTION_GROUP = 'siw_animation';
-
-	/** Option field voor animatie duur */
 	private const OPTION_FIELD_DURATION = 'siw_animation_duration';
-
-	/** Option field voor animatie vertraging */
 	private const OPTION_FIELD_DELAY = 'siw_animation_delay';
-
-	/** Option field voor animatie easing */
 	private const OPTION_FIELD_EASING = 'siw_animation_easing';
 
 	/** {@inheritDoc} */
@@ -84,7 +61,7 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 					'group'    => self::STYLE_GROUP,
 					'type'     => 'select',
 					'priority' => 10,
-					'options'  => $this->get_types(),
+					'options'  => Type::list(),
 				],
 				self::STYLE_FIELD_DURATION => [
 					'name'        => __( 'Duur', 'siw' ),
@@ -189,31 +166,34 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 	public function set_settings_defaults( array $defaults ): array {
 		$defaults[ self::OPTION_FIELD_DURATION ] = '1000';
 		$defaults[ self::OPTION_FIELD_DELAY ]    = 'none';
-		$defaults[ self::OPTION_FIELD_EASING ]   = 'ease-out-sine';
+		$defaults[ self::OPTION_FIELD_EASING ]   = Easing::EASE_IN_OUT_SINE->value;
 		return $defaults;
 	}
 
-	/** Geeft animatie type terug */
-	protected function get_types(): array {
-		return Animation_Util::get_types();
-	}
-
-	/** Geeft easing opties terug */
 	protected function get_easing_options( bool $include_default_option = true ): array {
-		return $this->maybe_add_default_option( Animation_Util::get_easing_options(), $include_default_option );
+		return $this->maybe_add_default_option( Easing::list(), $include_default_option );
 	}
 
-	/** Geeft vertraging opties terug */
 	protected function get_delay_options( bool $include_default_option = true ): array {
-		return $this->maybe_add_default_option( Animation_Util::get_delay_options(), $include_default_option );
+
+		$delay_options['none'] = __( 'Geen', 'siw' );
+		for ( $t = 100; $t <= 1000; $t += 50 ) {
+			// translators: %d is het aantal miliseconden
+			$delay_options[ $t ] = sprintf( __( '%d ms', 'siw' ), $t );
+		}
+		return $this->maybe_add_default_option( $delay_options, $include_default_option );
 	}
 
-	/** Geeft duur opties terug */
 	protected function get_duration_options( bool $include_default_option = true ): array {
-		return $this->maybe_add_default_option( Animation_Util::get_duration_options(), $include_default_option );
+		$duration_options = [];
+		for ( $t = 200; $t <= 2000; $t += 50 ) {
+			// translators: %d is het aantal miliseconden
+			$duration_options[ $t ] = sprintf( __( '%d ms', 'siw' ), $t );
+		}
+
+		return $this->maybe_add_default_option( $duration_options, $include_default_option );
 	}
 
-	/** Voegt eventueel default optie toe */
 	protected function maybe_add_default_option( array $options, bool $add_default_option ) {
 		if ( $add_default_option ) {
 			$options = [ 'default' => __( 'Standaard', 'siw' ) ] + $options;
@@ -221,19 +201,16 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $options;
 	}
 
-	/** Geeft standaard easing terug */
 	protected function get_default_easing(): string {
 		$easing_options = $this->get_easing_options();
 		return $easing_options[ siteorigin_panels_setting( self::OPTION_FIELD_EASING ) ] ?? '';
 	}
 
-	/** Geeft standaard duur terug */
 	protected function get_default_duration(): string {
 		$duration_options = $this->get_duration_options();
 		return $duration_options[ siteorigin_panels_setting( self::OPTION_FIELD_DURATION ) ] ?? '';
 	}
 
-	/** Geeft standaard vertraging terug */
 	protected function get_default_delay(): string {
 		$delay_options = $this->get_delay_options();
 		return $delay_options[ siteorigin_panels_setting( self::OPTION_FIELD_DELAY ) ] ?? '';

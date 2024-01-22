@@ -2,34 +2,40 @@
 
 namespace SIW\Data;
 
-/**
- * Bevat informatie over een continent
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
-class Continent extends Data {
+use SIW\Interfaces\Enums\Colors;
+use SIW\Interfaces\Enums\Labels;
+use SIW\Traits\Enum_List;
+use SIW\Util\CSS;
 
-	/** Slug van continent */
-	protected string $slug;
+enum Continent: string implements Labels, Colors {
+	use Enum_List;
 
-	/** Naam van het continent */
-	protected string $name;
+	case AFRICA = 'afrika';
+	case ASIA = 'azie';
+	case EUROPE = 'europa';
+	case NORTH_AMERICA = 'noord_amerika';
+	case LATIN_AMERICA = 'latijns_amerika';
 
-	/** Kleurcode van continent op kaart */
-	protected string $color;
 
-	/** Geeft de slug van het continent terug */
-	public function get_slug(): string {
-		return $this->slug;
+	/** {@inheritDoc} */
+	public function label(): string {
+		return match ( $this ) {
+			self::AFRICA => __( 'Afrika', 'siw' ),
+			self::ASIA => __( 'Azië', 'siw' ),
+			self::EUROPE => __( 'Europa', 'siw' ),
+			self::NORTH_AMERICA =>  __( 'Noord-Amerika', 'siw' ),
+			self::LATIN_AMERICA => __( 'Latijns-Amerika', 'siw' ),
+		};
 	}
 
-	/** Geeft de naam van het continent terug */
-	public function get_name(): string {
-		return $this->name;
-	}
-
-	/** Geeft kleurcode van continent op kaart terug */
-	public function get_color(): string {
-		return $this->color;
+	/** {@inheritDoc} */
+	public function color(): string {
+		return match ( $this ) {
+			self::AFRICA        => CSS::RED_COLOR,
+			self::ASIA          => CSS::GREEN_COLOR,
+			self::EUROPE        => CSS::BLUE_COLOR,
+			self::NORTH_AMERICA => CSS::YELLOW_COLOR,
+			self::LATIN_AMERICA => CSS::PURPLE_COLOR,
+		};
 	}
 }

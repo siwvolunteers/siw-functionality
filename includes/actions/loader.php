@@ -8,11 +8,6 @@ use SIW\Actions\Batch\Action as Batch_Action;
 use SIW\Interfaces\Actions\Async as Async_Action_Interface;
 use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
 
-/**
- * Loader voor actions
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Loader extends Object_Loader_Abstract {
 
 	/** {@inheritDoc} */
@@ -21,6 +16,7 @@ class Loader extends Object_Loader_Abstract {
 			Async\Export_Plato_Application::class,
 			Async\Export_To_Mailjet::class,
 			Async\Import_Plato_Project::class,
+			Batch\Create_WooCommerce_Taxonomies::class,
 			Batch\Delete_Applications::class,
 			Batch\Delete_Old_Posts::class,
 			Batch\Delete_Stockphotos::class,

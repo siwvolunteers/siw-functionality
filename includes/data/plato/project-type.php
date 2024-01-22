@@ -2,37 +2,31 @@
 
 namespace SIW\Data\Plato;
 
-use Spatie\Enum\Enum;
+use SIW\Interfaces\Enums\Labels;
 
-/**
- * Plato project types
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- *
- * @method static self STV()
- * @method static self MTV()
- * @method static self LTV()
- * @method static self TEEN()
- * @method static self FAM()
- * @method static self VIRT()
- * @method static self EVS()
- * @method static self PER()
- * @method static self TRA()
- */
-class Project_Type extends Enum {
+enum Project_Type: string implements Labels {
+	case STV = 'STV';
+	case MTV = 'MTV';
+	case LTV = 'LTV';
+	case TEEN = 'TEEN';
+	case FAM = 'FAM';
+	case VIRT = 'VIRT';
+	case ESC = 'ESC';
+	case PER = 'PER';
+	case TRA = 'TRA';
 
 	/** {@inheritDoc} */
-	protected static function labels(): array {
-		return [
-			'STV'  => __( 'STV', 'siw' ),
-			'MTV'  => __( 'MTV', 'siw' ),
-			'LTV'  => __( 'LTV', 'siw' ),
-			'TEEN' => __( 'Tienerproject', 'siw' ),
-			'FAM'  => __( 'Familieproject', 'siw' ),
-			'VIRT' => __( 'Virtueel project', 'siw' ),
-			'EVS'  => __( 'EVS project', 'siw' ),
-			'PER'  => __( 'Permanent project', 'siw' ),
-			'TRA'  => __( 'Training', 'siw' ),
-		];
+	public function label(): string {
+		return match ( $this ) {
+			self::STV  => __( 'STV', 'siw' ),
+			self::MTV  => __( 'MTV', 'siw' ),
+			self::LTV  => __( 'LTV', 'siw' ),
+			self::TEEN => __( 'Tienerproject', 'siw' ),
+			self::FAM  => __( 'Familieproject', 'siw' ),
+			self::VIRT => __( 'Virtueel project', 'siw' ),
+			self::ESC  => __( 'ESC project', 'siw' ),
+			self::PER  => __( 'Permanent project', 'siw' ),
+			self::TRA  => __( 'Training', 'siw' ),
+		};
 	}
 }

@@ -5,6 +5,8 @@ namespace SIW\WooCommerce\Admin;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Data\Gender;
+use SIW\Data\Nationality;
 
 /**
  * Aanpassing aan admin t.b.v. aanmeldingen
@@ -51,7 +53,7 @@ class Order extends Base {
 				'label'   => __( 'Geslacht', 'siw' ),
 				'show'    => false,
 				'type'    => 'select',
-				'options' => siw_get_genders(),
+				'options' => Gender::list(),
 			],
 			'first_name'  => $fields['first_name'],
 			'last_name'   => $fields['last_name'],
@@ -64,7 +66,7 @@ class Order extends Base {
 				'label'   => __( 'Nationaliteit', 'siw' ),
 				'show'    => false,
 				'type'    => 'select',
-				'options' => siw_get_nationalities(),
+				'options' => Nationality::list(),
 			],
 			'email'       => $fields['email'],
 			'phone'       => $fields['phone'],
@@ -171,8 +173,8 @@ class Order extends Base {
 	#[Add_Filter( 'woocommerce_order_formatted_billing_address' )]
 	public function format_billing_address( array $address, \WC_Order $order ): array {
 		$address['dob'] = $order->get_meta( '_billing_dob' );
-		$address['gender'] = siw_get_genders()[ $order->get_meta( '_billing_gender' ) ] ?? '';
-		$address['nationality'] = siw_get_nationalities() [ $order->get_meta( '_billing_nationality' ) ] ?? '';
+		$address['gender'] = Gender::tryFrom( $order->get_meta( '_billing_gender' ) )?->label() ?? '';
+		$address['nationality'] = Nationality::tryFrom( $order->get_meta( '_billing_nationality' ) )?->label() ?? '';
 		return $address;
 	}
 

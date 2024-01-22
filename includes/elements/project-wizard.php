@@ -80,7 +80,7 @@ class Project_Wizard extends Element {
 					'std'     => sprintf(
 						'%s %s',
 						'Begin je zoektocht eens bij de <em>groepsprojecten binnen Europa</em>.',
-						$this->generate_link( get_term_link( 'europa', Taxonomy_Attribute::CONTINENT()->value ) )
+						$this->generate_link( get_term_link( 'europa', Taxonomy_Attribute::CONTINENT->value ) )
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',
@@ -111,7 +111,7 @@ class Project_Wizard extends Element {
 					'std'     => sprintf(
 						'%s %s',
 						'Voor jou zijn <em>Wereld-basis-projecten</em> een mooi startpunt.',
-						$this->generate_link( get_permalink( siw_get_project_type_page( Project_Type::WORLD_BASIC() ) ) )
+						$this->generate_link( get_permalink( siw_get_project_type_page( Project_Type::WORLD_BASIC ) ) )
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',
@@ -153,7 +153,7 @@ class Project_Wizard extends Element {
 					'std'     => sprintf(
 						'%s %s',
 						'Jij komt in aanmerking voor het <em>European Solidarity Fund</em> en kan bijna kosteloos een vrijwilligersproject gaan doen.',
-						$this->generate_link( get_permalink( siw_get_project_type_page( Project_Type::ESC() ) ) )
+						$this->generate_link( get_permalink( siw_get_project_type_page( Project_Type::ESC ) ) )
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',

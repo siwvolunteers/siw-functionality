@@ -6,13 +6,9 @@ use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
+use SIW\Data\Work_Type;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Header voor overzichtspagina van groepsprojecten
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Header extends Base {
 
 	#[Add_Action( 'generate_inside_site_container' )]
@@ -42,12 +38,10 @@ class Header extends Base {
 		<?php
 	}
 
-	/** Geeft aan of header getoond moet worden */
 	protected function show_archive_header(): bool {
 		return \is_shop() || \is_product_category() || \is_product_taxonomy();
 	}
 
-	/** Genereert introtekst */
 	protected function get_intro_text(): string {
 
 		if ( \is_shop() ) {
@@ -59,27 +53,27 @@ class Header extends Base {
 		} elseif ( \is_product_taxonomy() ) {
 			$name = get_queried_object()->name;
 			switch ( get_queried_object()->taxonomy ) {
-				case Taxonomy_Attribute::COUNTRY()->value:
+				case Taxonomy_Attribute::COUNTRY->value:
 					// translators: %s is het land
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in %s.', 'siw' ), '<b>' . $name . '</b>' );
 					break;
-				case Taxonomy_Attribute::WORK_TYPE()->value:
+				case Taxonomy_Attribute::WORK_TYPE->value:
 					// translators: %s is het soort werk
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
 					break;
-				case Taxonomy_Attribute::SDG()->value:
+				case Taxonomy_Attribute::SDG->value:
 					// translators: %s is het SDG
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op het Sustainable Development Goal %s.', 'siw' ), '<b>' . $name . '</b>' );
 					break;
-				case Taxonomy_Attribute::TARGET_AUDIENCE()->value:
+				case Taxonomy_Attribute::TARGET_AUDIENCE->value:
 					// translators: %s is de doelgroep
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten voor de doelgroep %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
 					break;
-				case Taxonomy_Attribute::LANGUAGE()->value:
+				case Taxonomy_Attribute::LANGUAGE->value:
 					// translators: %s is de taal
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met de voertaal %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
-				case Taxonomy_Attribute::MONTH()->value:
+				case Taxonomy_Attribute::MONTH->value:
 					// translators: %s is de maand
 					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
@@ -90,13 +84,13 @@ class Header extends Base {
 
 		if (
 			\is_product_taxonomy()
-			&& get_queried_object()->taxonomy === Taxonomy_Attribute::WORK_TYPE()->value
-			&& siw_get_work_type( get_queried_object()->slug )?->needs_review()
+			&& get_queried_object()->taxonomy === Taxonomy_Attribute::WORK_TYPE->value
+			&& Work_Type::tryFrom( get_queried_object()->slug )?->needs_review()
 		) {
 			$text .= BR . 'Aangezien je in deze projecten met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.';
 		}
 
-		$workcamps_page = siw_get_project_type_page( Project_Type::WORKCAMPS() );
+		$workcamps_page = siw_get_project_type_page( Project_Type::WORKCAMPS );
 
 		$text .= BR .
 			__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
@@ -107,7 +101,6 @@ class Header extends Base {
 		return $text;
 	}
 
-	/** Geeft aan of aankondiging nieuwe projecten getoond moet worden */
 	protected function is_teaser_text_active(): bool {
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
 		$teaser_text_active = false;
@@ -121,7 +114,6 @@ class Header extends Base {
 		return $teaser_text_active;
 	}
 
-	/** Genereert aankondiging voor nieuwe projecten */
 	protected function get_teaser_text(): ?string {
 
 		if ( ! $this->is_teaser_text_active() ) {
@@ -130,7 +122,7 @@ class Header extends Base {
 
 		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
 
-		$contact_page = siw_get_special_page( Special_Page::CONTACT() );
+		$contact_page = siw_get_special_page( Special_Page::CONTACT );
 		$end_year = gmdate( 'Y', strtotime( $teaser_text['end_date'] ) );
 		$end_month = date_i18n( 'F', strtotime( $teaser_text['end_date'] ) );
 		// translators: %1$s is een maand,  %2$s is een jaar

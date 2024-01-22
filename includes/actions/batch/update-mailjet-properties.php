@@ -3,6 +3,7 @@
 namespace SIW\Actions\Batch;
 
 use SIW\Integrations\Mailjet;
+use SIW\Integrations\Mailjet\Property;
 use SIW\Interfaces\Actions\Batch as I_Batch_Action;
 
 /**
@@ -26,14 +27,15 @@ class Update_Mailjet_Properties implements I_Batch_Action {
 	/** {@inheritDoc} */
 	public function select_data(): array {
 		$existing_properties = Mailjet::create()->retrieve_properties( 'name' );
-		$missing_properties = array_diff_key( Mailjet::PROPERTIES, $existing_properties );
+		$properties = array_column( Property::cases(), 'value' );
+		$missing_properties = array_diff_key( $properties, $existing_properties );
 		return array_keys( $missing_properties );
 	}
 
 	/** {@inheritDoc} */
-	public function process( $name ) {
-		$datatype = Mailjet::PROPERTIES[ $name ];
-		Mailjet::create()->create_property( $name, $datatype );
+	public function process( $value ) {
+		$property = Property::from( $value );
+		Mailjet::create()->create_property( $property->value, $property->get_data_type() );
 	}
 
 	/** {@inheritDoc} */
