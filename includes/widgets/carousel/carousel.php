@@ -187,6 +187,7 @@ class Carousel extends Widget {
 			);
 		} else {
 			$args['post_type'] = $instance['post_type'];
+			$args['orderby'] = 'rand';
 			$args['posts_per_page'] = $instance['items'];
 
 			$posts = array_map(

@@ -19,6 +19,7 @@ class Carousel extends Repeater {
 		'perPage'     => 4,
 		'gap'         => '10px',
 		'autoplay'    => true,
+		'pagination'  => false,
 		'interval'    => 3000,
 		'breakpoints' => [
 			CSS::TABLET_BREAKPOINT => [
