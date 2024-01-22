@@ -107,13 +107,13 @@ class Bootstrap {
 	protected function init_loaders() {
 		$loaders = [
 			\SIW\Loader::class,
-			\SIW\Actions\Loader::class,
 			\SIW\Admin\Loader::class,
 			\SIW\Compatibility\Loader::class,
 			\SIW\Content\Loader::class,
 			\SIW\External_Assets\Loader::class,
 			\SIW\Features\Loader::class,
 			\SIW\Forms\Loader::class,
+			\SIW\Jobs\Loader::class,
 			\SIW\Options\Loader::class,
 			\SIW\Page_Builder\Loader::class,
 			\SIW\Widgets\Loader::class,

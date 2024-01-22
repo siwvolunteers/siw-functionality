@@ -10,6 +10,7 @@ use SIW\Interfaces\Forms\Confirmation_Mail as I_Confirmation_Mail;
 use SIW\Interfaces\Forms\Export_To_Mailjet as I_Export_To_Mailjet;
 use SIW\Interfaces\Forms\Form as I_Form;
 use SIW\Interfaces\Forms\Notification_Mail as I_Notification_Mail;
+use SIW\Jobs\Async\Export_To_Mailjet;
 use SIW\Properties;
 use SIW\Util\Logger;
 use SIW\Util\Meta_Box;
@@ -159,7 +160,7 @@ class Processor {
 			'properties' => array_filter( $this->export_to_mailjet->get_mailjet_properties( $this->request ) ),
 		];
 
-		siw_enqueue_async_action( 'export_to_mailjet', $data );
+		as_enqueue_async_action( Export_To_Mailjet::class, $data );
 	}
 
 	/** Verstuurt bevestigingsmail naar klant */

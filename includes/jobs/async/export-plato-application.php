@@ -1,65 +1,40 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Actions\Async;
+namespace SIW\Jobs\Async;
 
-use SIW\Interfaces\Actions\Async as Async_Action_Interface;
-
+use SIW\Attributes\Add_Action;
+use SIW\Base;
 use SIW\Plato\Export_Application as Plato_Export_Application;
 use SIW\Properties;
 
-/**
- * Exporteren aanmelding naar Plato
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
-class Export_Plato_Application implements Async_Action_Interface {
+
+class Export_Plato_Application extends Base {
 
 	public const ORDER_META_EXPORTED_TO_PLATO = '_exported_to_plato';
 	public const SUCCESS = 'success';
 	public const FAILED = 'failed';
 
-	/** Aantal gefaalde geexporteerde aanmeldingen */
 	protected int $failed_count = 0;
-
-	/** Aantal succesvol geexporteerde aanmeldingen */
 	protected int $success_count = 0;
 
-	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'export_plato_application';
-	}
-
-	/** {@inheritDoc} */
-	public function get_name(): string {
-		return __( 'Exporteren aanmelding naar Plato', 'siw' );
-	}
-
-	/** {@inheritDoc} */
-	public function get_argument_count(): int {
-		return 1;
-	}
-
-	/** {@inheritDoc} */
-	public function process( int $order_id = 0 ) {
+	#[Add_Action( self::class )]
+	public function export_application( int $order_id ) {
 		$order = wc_get_order( $order_id );
 		if ( ! is_a( $order, \WC_Order::class ) ) {
 			return;
 		}
 
-		/* Haal velden voor aanmelding op */
 		$order_data = $this->get_order_data( $order );
 
 		/** @var \WC_Order_Item_Product[] */
 		$order_items = $order->get_items();
 
-		/* Elk project per aanmelding apart exporteren. */
 		foreach ( $order_items as $order_item ) {
 			$product = siw_get_product( $order_item->get_product_id() );
-			$result = $this->export_application( $order_data, $product );
+			$result = $this->export_single_application( $order_data, $product );
 			$order->add_order_note( $result['message'] );
 		}
 
-		/* Resultaat opslaan bij aanmelding */
 		if ( 0 !== $this->failed_count ) {
 			$order->update_meta_data( self::ORDER_META_EXPORTED_TO_PLATO, self::FAILED );
 			$order->save();
@@ -69,8 +44,8 @@ class Export_Plato_Application implements Async_Action_Interface {
 		}
 	}
 
-	/** Exporteert aanmelding voor 1 project naar Plato */
-	protected function export_application( array $order_data, \WC_Product $product ): array {
+
+	protected function export_single_application( array $order_data, \WC_Product $product ): array {
 
 		$projectcode = $product->get_sku();
 		$order_data['choice1'] = $projectcode;
@@ -85,7 +60,6 @@ class Export_Plato_Application implements Async_Action_Interface {
 		return $result;
 	}
 
-	/** Genereert array met gegevens aanmelding voor export-xml*/
 	protected function get_order_data( \WC_Order $order ): array {
 		return [
 			'firstname'         => $order->get_billing_first_name(),
@@ -95,7 +69,7 @@ class Export_Plato_Application implements Async_Action_Interface {
 			'email'             => $order->get_billing_email(),
 			'nationality'       => $order->get_meta( '_billing_nationality' ),
 			'telephone'         => $order->get_billing_phone(),
-			'country'           => 'NLD', // TODO: uitvragen
+			'country'           => 'NLD',
 			'occupation'        => 'OTH', // TODO: uitvragen
 			'emergency_contact' => sprintf( '%s %s', $order->get_meta( 'emergency_contact_name' ), $order->get_meta( 'emergency_contact_phone' ) ),
 			'language1'         => $order->get_meta( 'language_1' ),
