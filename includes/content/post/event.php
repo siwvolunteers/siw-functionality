@@ -72,11 +72,11 @@ class Event extends Post {
 		return ! $this->is_info_day() && $this->get_meta( 'different_organizer' ) ? $this->get_meta( 'organizer' ) : [];
 	}
 
-	public function get_mailjet_list_id(): ?string {
-		return $this->get_meta( 'mailjet_list_id' );
+	public function get_mailjet_list_id(): ?int {
+		return ! empty( $this->get_meta( 'mailjet_list_id' ) ) ? (int) $this->get_meta( 'mailjet_list_id' ) : null;
 	}
 
-	public function set_mailjet_list_id( string $list_id ) {
+	public function set_mailjet_list_id( int $list_id ) {
 		$this->set_meta( 'mailjet_list_id', $list_id );
 	}
 }

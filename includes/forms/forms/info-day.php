@@ -2,6 +2,7 @@
 
 namespace SIW\Forms\Forms;
 
+use SIW\Content\Post\Event;
 use SIW\Content\Posts\Events;
 use SIW\Data\Continent;
 use SIW\Data\Mailjet\Property;
@@ -158,9 +159,13 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 
 	#[\Override]
 	public function get_mailjet_list_id( \WP_REST_Request $request ): int {
-		$event_post_id = $request->get_param( 'info_day_date' );
-		//TODO: fallback mailjet list voor onbekende infodag
-		return (int) siw_meta( 'mailjet_list_id', [], $event_post_id );
+		$event_post_id = (int) $request->get_param( 'info_day_date' );
+		if ( $event_post_id < 0 ) {
+			return 0; //TODO: fallback mailjet list voor onbekende infodag
+		}
+		$event_post = new Event( $event_post_id );
+
+		return $event_post->get_mailjet_list_id();
 	}
 
 	#[\Override]

@@ -2,6 +2,8 @@
 
 namespace SIW\Elements;
 
+use SIW\Facades\Meta_Box;
+
 class Form extends Element {
 
 	protected string $form_id;
@@ -25,7 +27,7 @@ class Form extends Element {
 
 	public function set_form_id( string $form_id ): self {
 		$this->form_id = $form_id;
-		$this->meta_box = siw_get_meta_box( "siw_form_{$form_id}" ) ?? new \RW_Meta_Box( [] );
+		$this->meta_box = Meta_Box::get_meta_box( "siw_form_{$form_id}" ) ?? new \RW_Meta_Box( [] );
 
 		// Zet dummy id zodat er nooit per ongeluk gegevens getoond worden
 		$this->meta_box->set_object_id( -1 );

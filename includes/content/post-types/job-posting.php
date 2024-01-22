@@ -45,7 +45,7 @@ class Job_Posting extends Post_Type {
 				'title'    => __( 'Soort functie', 'siw' ),
 				'function' => function ( \WP_Post $post ): void {
 					//phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					echo Job_Type::tryFrom( siw_meta( 'job_type', [], $post->ID ) )->label();
+					echo ( new Job_Posting_Post( $post ) )->get_job_type()?->label();
 				},
 			],
 			'deadline' => [
@@ -284,14 +284,7 @@ class Job_Posting extends Post_Type {
 		];
 	}
 
-	/** Geeft type vacature terug */
-	protected function get_job_type(): string {
-		$job_type = Job_Type::tryFrom( siw_meta( 'job_type' ) ) ?? Job_Type::VOLUNTEER;
-		return $job_type->value;
-	}
-
 	public function get_template_variables( string $type, int $post_id ): array {
-
 		$post = new Job_Posting_Post( $post_id );
 
 		$template_variables = [
