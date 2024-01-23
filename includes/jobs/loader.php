@@ -12,6 +12,7 @@ class Loader extends Base_Loader {
 			Async\Export_Plato_Application::class,
 			Async\Export_To_Mailjet::class,
 			Async\Import_Plato_Project::class,
+			Batch\Create_WooCommerce_Taxonomies::class,
 			Batch\Delete_Applications::class,
 			Batch\Delete_Old_Posts::class,
 			Batch\Import_All_Plato_Projects::class,
