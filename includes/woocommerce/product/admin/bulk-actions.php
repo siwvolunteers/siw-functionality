@@ -5,6 +5,7 @@ namespace SIW\WooCommerce\Product\Admin;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Jobs\Async\Import_Plato_Project;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
@@ -41,7 +42,7 @@ class Bulk_Actions extends Base {
 						$data = [
 							'product_id' => $product->get_project_id(),
 						];
-						siw_enqueue_async_action( 'import_plato_project', $data );
+						as_enqueue_async_action( Import_Plato_Project::class, $data );
 					}
 				);
 				break;

@@ -1,18 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Actions\Batch;
+namespace SIW\Jobs\Batch;
 
-use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
+use SIW\Attributes\Add_Action;
+use SIW\Jobs\Update_Job;
 use SIW\Util\Logger;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
+class Create_WooCommerce_Taxonomies extends Update_Job {
 
-class Create_WooCommerce_Taxonomies implements Batch_Action_Interface {
-
-	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'create_woocommerce_taxonomies';
-	}
+	private const ACTION_HOOK = self::class;
 
 	/** {@inheritDoc} */
 	public function get_name(): string {
@@ -20,22 +17,15 @@ class Create_WooCommerce_Taxonomies implements Batch_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function must_be_scheduled(): bool {
-		return false;
+	public function start(): void {
+		$this->enqueue_items(
+			array_map( fn( \BackedEnum $tax_enum ) => $tax_enum->value, Taxonomy_Attribute::cases() ),
+			self::ACTION_HOOK,
+		);
 	}
 
-	/** {@inheritDoc} */
-	public function must_be_run_on_update(): bool {
-		return true;
-	}
-
-	/** {@inheritDoc} */
-	public function select_data(): array {
-		return array_map( fn( \BackedEnum $tax_enum ) => $tax_enum->value, Taxonomy_Attribute::cases() );
-	}
-
-	/** {@inheritDoc} */
-	public function process( $taxonomy_slug ) {
+	#[Add_Action( self::ACTION_HOOK )]
+	public function create_taxonomy( string $taxonomy_slug ) {
 
 		if ( 'product_cat' === $taxonomy_slug ) {
 			return;

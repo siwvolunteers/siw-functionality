@@ -4,6 +4,7 @@ namespace SIW\WooCommerce\Order;
 
 use SIW\Attributes\Add_Action;
 use SIW\Base;
+use SIW\Jobs\Async\Export_Plato_Application;
 use SIW\WooCommerce\Coupon;
 
 /**
@@ -18,7 +19,7 @@ class Status_Transitions extends Base {
 		$data = [
 			'order_id' => $order_id,
 		];
-		siw_enqueue_async_action( 'export_plato_application', $data );
+		as_enqueue_async_action( Export_Plato_Application::class, $data );
 	}
 
 	#[Add_Action( 'woocommerce_order_status_completed' )]

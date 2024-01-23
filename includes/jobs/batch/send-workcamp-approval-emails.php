@@ -1,25 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Actions\Batch;
+namespace SIW\Jobs\Batch;
 
+use SIW\Attributes\Add_Action;
+use SIW\Data\Job_Frequency;
 use SIW\Helpers\Email;
 use SIW\Helpers\Email_Template;
-use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
+use SIW\Jobs\Scheduled_Job;
 use SIW\Util\Links;
 use SIW\WooCommerce\Import\Product as Import_Product;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Versturen email voor goedkeuren Groepsprojecten
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
-class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
-
-	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'send_workcamp_approval_emails';
-	}
+class Send_Workcamp_Approval_Emails extends Scheduled_Job {
+	private const ACTION_HOOK = self::class;
 
 	/** {@inheritDoc} */
 	public function get_name(): string {
@@ -27,17 +20,11 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function must_be_scheduled(): bool {
-		return true;
+	protected function get_frequency(): Job_Frequency {
+		return Job_Frequency::DAILY;
 	}
 
-	/** {@inheritDoc} */
-	public function must_be_run_on_update(): bool {
-		return false;
-	}
-
-	/** {@inheritDoc} */
-	public function select_data(): array {
+	public function start(): void {
 
 		$data = get_terms(
 			[
@@ -48,28 +35,24 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 		);
 
 		if ( is_wp_error( $data ) ) {
-			return [];
-		}
-
-		return $data;
-	}
-
-	/** {@inheritDoc} */
-	public function process( $term_taxonomy_id ) {
-		if ( ! is_int( $term_taxonomy_id ) ) {
 			return;
 		}
+
+		$this->enqueue_items( $data, self::ACTION_HOOK );
+	}
+
+	#[Add_Action( self::ACTION_HOOK )]
+	public function maybe_send_email( int $term_taxonomy_id ) {
 
 		$term = get_term_by( 'term_taxonomy_id', $term_taxonomy_id );
 		if ( ! is_a( $term, \WP_Term::class ) ) {
 			return;
 		}
 
-		// Zoek te beoordelen projecten per continent
 		$products = siw_get_product_ids(
 			[
-				'category' => $term->slug,
-				'status'   => Import_Product::REVIEW_STATUS,
+				'continent' => $term->slug,
+				'status'    => Import_Product::REVIEW_STATUS,
 			]
 		);
 		if ( empty( $products ) ) {
@@ -109,7 +92,6 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 		);
 	}
 
-	/** Zoekt coordinator voor import Groepsprojecten */
 	protected function get_supervisor(): ?\WP_User {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval['supervisor'] ) ) {
@@ -119,7 +101,6 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 		return null;
 	}
 
-	/** Zoekt verantwoordelijke voor specifiek continent */
 	protected function get_responsible_user( string $category_slug ): ?\WP_User {
 		$workcamp_approval = siw_get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval[ "responsible_{$category_slug}" ] ) ) {
@@ -129,7 +110,6 @@ class Send_Workcamp_Approval_Emails implements Batch_Action_Interface {
 		return null;
 	}
 
-	/** Verstuur e-mail */
 	protected function send_mail( \WP_User $to, \WP_User $from, string $subject, string $message ) {
 
 		$email = Email::create()

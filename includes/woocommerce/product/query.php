@@ -37,4 +37,18 @@ class Query extends Base {
 		}
 		return $query;
 	}
+
+	#[Add_Filter( 'woocommerce_product_data_store_cpt_get_products_query' )]
+	public function enable_continent_search( array $query, array $query_vars ): array {
+		if ( ! empty( $query_vars['continent'] ) ) {
+			$query['tax_query'][] = [
+				[
+					'taxonomy' => Taxonomy_Attribute::CONTINENT()->value,
+					'field'    => 'slug',
+					'terms'    => esc_attr( $query_vars['continent'] ),
+				],
+			];
+		}
+		return $query;
+	}
 }

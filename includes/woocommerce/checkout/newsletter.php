@@ -6,6 +6,7 @@ use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Config;
+use SIW\Jobs\Async\Export_To_Mailjet;
 
 /**
  * Aanmelding voor nieuwsbrief tijdens WooCommerce checkout
@@ -52,6 +53,6 @@ class Newsletter extends Base {
 			],
 		];
 
-		siw_enqueue_async_action( 'export_to_mailjet', $data );
+		as_enqueue_async_action( Export_To_Mailjet::class, $data );
 	}
 }

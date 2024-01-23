@@ -19,6 +19,7 @@ class Loader extends A_Base_Loader {
 			Google_Tag_Manager::class,
 			Icons::class,
 			Iframe_Manager::class,
+			Job_Scheduler::class,
 			Login::class,
 			Plugin_Styles::class,
 			Shortcodes::class,

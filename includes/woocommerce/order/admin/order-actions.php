@@ -5,6 +5,7 @@ namespace SIW\WooCommerce\Order\Admin;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Jobs\Async\Export_Plato_Application;
 use SIW\WooCommerce\Coupon;
 
 /**
@@ -38,7 +39,7 @@ class Order_Actions extends Base {
 		$data = [
 			'order_id' => $order->get_id(),
 		];
-		siw_enqueue_async_action( 'export_plato_application', $data );
+		as_enqueue_async_action( Export_Plato_Application::class, $data );
 	}
 
 	#[Add_Action( 'woocommerce_order_action_siw_create_coupon' )]

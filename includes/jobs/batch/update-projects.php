@@ -1,26 +1,24 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Actions\Batch;
+namespace SIW\Jobs\Batch;
 
-use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
-
+use SIW\Attributes\Add_Action;
 use SIW\Data\Country;
 use SIW\Data\Database_Table;
+use SIW\Data\Job_Frequency;
 use SIW\Helpers\Database;
+use SIW\Jobs\Scheduled_Job;
 use SIW\WooCommerce\Import\Product_Image as Import_Product_Image;
 use SIW\WooCommerce\Product\Admin\Approval;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-class Update_Projects implements Batch_Action_Interface {
-
+class Update_Projects extends Scheduled_Job {
+	private const ACTION_HOOK = self::class;
 	private const MAX_AGE_PROJECT = 6;
 	private const MIN_DAYS_BEFORE_START = 3;
-	protected WC_Product_Project $product;
 
-	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'update_projects';
-	}
+
+	protected WC_Product_Project $product;
 
 	/** {@inheritDoc} */
 	public function get_name(): string {
@@ -28,22 +26,17 @@ class Update_Projects implements Batch_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function must_be_scheduled(): bool {
-		return true;
+	protected function get_frequency(): Job_Frequency {
+		return Job_Frequency::TWICE_DAILY;
 	}
 
 	/** {@inheritDoc} */
-	public function must_be_run_on_update(): bool {
-		return false;
+	public function start(): void {
+		$this->enqueue_items( siw_get_product_ids(), self::ACTION_HOOK );
 	}
 
-	/** {@inheritDoc} */
-	public function select_data(): array {
-		return siw_get_product_ids();
-	}
-
-	/** {@inheritDoc} */
-	public function process( $product_id ) {
+	#[Add_Action( self::ACTION_HOOK )]
+	public function update_project( string $product_id ) {
 		$product = siw_get_product( $product_id );
 
 		if ( ! is_a( $product, WC_Product_Project::class ) ) {
@@ -162,7 +155,6 @@ class Update_Projects implements Batch_Action_Interface {
 		}
 
 		$this->delete_project_images( $this->product->get_project_id() );
-
 		$this->product->delete( true );
 		return true;
 	}

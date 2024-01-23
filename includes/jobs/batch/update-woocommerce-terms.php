@@ -1,24 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Actions\Batch;
+namespace SIW\Jobs\Batch;
 
-use SIW\Interfaces\Actions\Batch as Batch_Action_Interface;
+use SIW\Attributes\Add_Action;
+use SIW\Data\Job_Frequency;
+use SIW\Jobs\Scheduled_Job;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Bijwerken WooCommerce terms
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
-class Update_WooCommerce_Terms implements Batch_Action_Interface {
+class Update_WooCommerce_Terms extends Scheduled_Job {
+
+	private const ACTION_HOOK = self::class;
 
 	/** Term meta voor aantal zichtbare posts */
 	private const POST_COUNT_TERM_META = 'post_count';
-
-	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'update_woocommerce_terms';
-	}
 
 	/** {@inheritDoc} */
 	public function get_name(): string {
@@ -26,17 +20,12 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 	}
 
 	/** {@inheritDoc} */
-	public function must_be_scheduled(): bool {
-		return true;
+	protected function get_frequency(): Job_Frequency {
+		return Job_Frequency::DAILY;
 	}
 
 	/** {@inheritDoc} */
-	public function must_be_run_on_update(): bool {
-		return false;
-	}
-
-	/** {@inheritDoc} */
-	public function select_data(): array {
+	public function start(): void {
 
 		$data = get_terms(
 			[
@@ -47,13 +36,14 @@ class Update_WooCommerce_Terms implements Batch_Action_Interface {
 		);
 
 		if ( is_wp_error( $data ) ) {
-			return [];
+			return;
 		}
-		return $data;
+
+		$this->enqueue_items( $data, self::ACTION_HOOK );
 	}
 
-	/** {@inheritDoc} */
-	public function process( $term_taxonomy_id ) {
+	#[Add_Action( self::ACTION_HOOK )]
+	public function update_term( $term_taxonomy_id ) {
 
 		if ( ! is_int( $term_taxonomy_id ) ) {
 			return;
