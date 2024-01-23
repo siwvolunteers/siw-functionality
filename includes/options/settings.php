@@ -9,6 +9,7 @@ use SIW\Properties;
 class Settings extends Option {
 
 	private const EMAIL_LOCAL_PART_PATTERN = '^[^\s@]+$';
+	private const EMAIL_DOMAIN = '@siw.nl';
 
 	/** {@inheritDoc} */
 	public function get_title(): string {
@@ -259,8 +260,8 @@ class Settings extends Option {
 						'type'     => 'text',
 						'required' => true,
 						'pattern'  => self::EMAIL_LOCAL_PART_PATTERN,
-						'append'   => '@siw.nl',
-						'columns'  => 4,
+						'append'   => self::EMAIL_DOMAIN,
+						'columns'  => 6,
 						'visible'  => [ "email_settings[{$id}][use_specific]", true ],
 					],
 					[
@@ -269,19 +270,9 @@ class Settings extends Option {
 						'type'     => 'text',
 						'required' => true,
 						'pattern'  => self::EMAIL_LOCAL_PART_PATTERN,
-						'append'   => '@siw.nl',
-						'columns'  => 4,
+						'append'   => self::EMAIL_DOMAIN,
+						'columns'  => 6,
 						'visible'  => [ "email_settings[{$id}][use_specific]", true ],
-					],
-					[
-						'id'      => 'notification_mail_cc',
-						'name'    => __( 'CC notificatiemail', 'siw' ),
-						'type'    => 'text',
-						'pattern' => self::EMAIL_LOCAL_PART_PATTERN,
-						'clone'   => true,
-						'append'  => '@siw.nl',
-						'columns' => 4,
-						'visible' => [ "email_settings[{$id}][use_specific]", true ],
 					],
 				],
 			];
@@ -309,8 +300,8 @@ class Settings extends Option {
 							'type'     => 'text',
 							'required' => true,
 							'pattern'  => self::EMAIL_LOCAL_PART_PATTERN,
-							'append'   => '@siw.nl',
-							'columns'  => 4,
+							'append'   => self::EMAIL_DOMAIN,
+							'columns'  => 6,
 						],
 						[
 							'id'       => 'notification_mail_recipient',
@@ -318,17 +309,8 @@ class Settings extends Option {
 							'type'     => 'text',
 							'required' => true,
 							'pattern'  => self::EMAIL_LOCAL_PART_PATTERN,
-							'append'   => '@siw.nl',
-							'columns'  => 4,
-						],
-						[
-							'id'      => 'notification_mail_cc',
-							'name'    => __( 'CC notificatiemail', 'siw' ),
-							'type'    => 'text',
-							'pattern' => self::EMAIL_LOCAL_PART_PATTERN,
-							'clone'   => true,
-							'append'  => '@siw.nl',
-							'columns' => 4,
+							'append'   => self::EMAIL_DOMAIN,
+							'columns'  => 6,
 						],
 					],
 				],
