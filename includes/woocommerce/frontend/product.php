@@ -26,6 +26,7 @@ class Product extends Base {
 		$order = [
 			Product_Attribute::PROJECT_NAME,
 			Product_Attribute::PROJECT_CODE,
+			Taxonomy_Attribute::CONTINENT,
 			Taxonomy_Attribute::COUNTRY,
 			Taxonomy_Attribute::WORK_TYPE,
 			Product_Attribute::START_DATE,
@@ -74,7 +75,7 @@ class Product extends Base {
 		}
 
 		$summary = [
-			__( 'Land', 'siw' )                          => $product->get_country()->get_name(),
+			__( 'Land', 'siw' )                          => $product->get_country()->label(),
 			__( 'Soort werk', 'siw' )                    => $product->get_attribute( Taxonomy_Attribute::WORK_TYPE->value ),
 			__( 'Projectduur', 'siw' )                   => siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false ),
 			__( 'Sustainable Development Goals', 'siw' ) => $product->get_attribute( Taxonomy_Attribute::SDG->value ),
