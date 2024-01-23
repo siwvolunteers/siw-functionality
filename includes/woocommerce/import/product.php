@@ -201,11 +201,10 @@ class Product {
 	}
 
 	protected function get_category_ids(): array {
-		$continent = $this->country->continent();
 		$category_ids = [];
-		$continent_category_id = Util::maybe_create_term( Taxonomy_Attribute::CONTINENT->value, $continent->value, $continent->label() );
-		if ( false !== $continent_category_id ) {
-			$category_ids[] = $continent_category_id;
+		$category_id = Util::maybe_create_term( Taxonomy_Attribute::PROJECT_TYPE->value, $this->project_type->value, $this->project_type->label() );
+		if ( false !== $category_id ) {
+			$category_ids[] = $category_id;
 		}
 		return $category_ids;
 	}
@@ -330,9 +329,9 @@ class Product {
 		];
 
 		$taxonomy_attributes[] = [
-			'taxonomy' => Taxonomy_Attribute::PROJECT_TYPE,
+			'taxonomy' => Taxonomy_Attribute::CONTINENT,
 			'values'   => [
-				$this->project_type->value => $this->project_type->label(),
+				$this->country->continent()->value => $this->country->continent()->label(),
 			],
 		];
 
