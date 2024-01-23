@@ -80,7 +80,7 @@ class Header extends Base {
 			$text .= BR . 'Aangezien je in deze projecten met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.';
 		}
 
-		$workcamps_page = siw_get_project_type_page( Project_Type::WORKCAMPS );
+		$workcamps_page = Project_Type::WORKCAMPS->get_page();
 
 		$text .= BR .
 			__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .

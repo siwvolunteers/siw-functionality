@@ -1,9 +1,6 @@
 <?php declare(strict_types=1);
 
-use SIW\Admin\Page_Settings;
 use SIW\Data\Email_Settings;
-use SIW\Data\Project_Type;
-use SIW\Data\Special_Page;
 
 /** Haalt data uit bestand */
 function siw_get_data( string $file ) {
@@ -37,40 +34,4 @@ function siw_get_forms(): array {
 	asort( $forms );
 
 	return $forms;
-}
-
-function siw_get_special_page( Special_Page $special_page ): \WP_Post {
-	/** @var \WP_Post[]|false */
-	$pages = get_pages(
-		[
-			'meta_key'     => Page_Settings::SPECIAL_PAGE_META,
-			'meta_value'   => $special_page->value,
-			'hierarchical' => false,
-		]
-	);
-	// Fallback naar homepagina
-	if ( false === $pages || 0 === count( $pages ) ) {
-		return get_post( get_option( 'page_on_front' ) );
-	}
-
-	$page = reset( $pages );
-	return $page;
-}
-
-function siw_get_project_type_page( Project_Type $project_type ): ?\WP_Post {
-	/** @var \WP_Post[]|false */
-	$pages = get_pages(
-		[
-			'meta_key'     => Page_Settings::PROJECT_TYPE_PAGE_META,
-			'meta_value'   => $project_type->value,
-			'hierarchical' => false,
-		]
-	);
-	// Fallback naar homepagina
-	if ( false === $pages || 0 === count( $pages ) ) {
-		return get_post( get_option( 'page_on_front' ) );
-	}
-
-	$page = reset( $pages );
-	return $page;
 }

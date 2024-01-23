@@ -2,6 +2,7 @@
 
 namespace SIW\Data;
 
+use SIW\Admin\Page_Settings;
 use SIW\Interfaces\Enums\Labels as I_Enum_Labels;
 use SIW\Traits\Enum_List;
 
@@ -19,5 +20,23 @@ enum Special_Page: string implements I_Enum_Labels {
 			self::CHILD_POLICY            => __( 'Kinderbeleid', 'siw' ),
 			self::NEWSLETTER_CONFIRMATION => __( 'Bevestiging nieuwsbrief', 'siw' ),
 		};
+	}
+
+	public function get_page(): \WP_Post {
+		/** @var \WP_Post[]|false */
+		$pages = get_pages(
+			[
+				'meta_key'     => Page_Settings::SPECIAL_PAGE_META,
+				'meta_value'   => $this->value,
+				'hierarchical' => false,
+			]
+		);
+		// Fallback naar homepagina
+		if ( false === $pages || 0 === count( $pages ) ) {
+			return get_post( get_option( 'page_on_front' ) );
+		}
+
+		$page = reset( $pages );
+		return $page;
 	}
 }

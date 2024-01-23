@@ -145,8 +145,8 @@ class TM_Country extends Post_Type {
 				->set_zoom_max( 2 )
 				->generate();
 			$template_variables['quote'] = Quote::create()->set_quote( $post->get_quote() )->generate();
-			$template_variables['world_basic_page'] = get_permalink( siw_get_project_type_page( Project_Type::WORLD_BASIC ) );
-			$template_variables['child_policy_page'] = get_permalink( siw_get_special_page( Special_Page::CHILD_POLICY ) );
+			$template_variables['world_basic_page'] = get_permalink( Project_Type::WORLD_BASIC->get_page() );
+			$template_variables['child_policy_page'] = get_permalink( Special_Page::CHILD_POLICY->get_page() );
 			$template_variables['image'] = wp_get_attachment_image( $post->get_image_id(), 'large' );
 			$template_variables['animation_duration'] = 1800;
 			$template_variables['animation_easing'] = Easing::EASE_OUT_SINE->value;

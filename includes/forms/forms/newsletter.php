@@ -67,7 +67,7 @@ class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 
 	protected function generate_confirmation_url(): string {
 
-		$confirmation_page = siw_get_special_page( Special_Page::NEWSLETTER_CONFIRMATION );
+		$confirmation_page = Special_Page::NEWSLETTER_CONFIRMATION->get_page();
 
 		return add_query_arg(
 			[
