@@ -22,5 +22,8 @@
 	"autoload": {
 		"files": [
 		]
+	},
+	"replace": {
+		"symfony/polyfill-php80": "*"
 	}
 }
