@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Integrations\Mailjet;
+namespace SIW\Data\Mailjet;
 
 enum Data_Type: string {
 	case STRING = 'str';

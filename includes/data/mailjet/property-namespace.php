@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Integrations\Mailjet;
+namespace SIW\Data\Mailjet;
 
 enum Property_Namespace: string {
 	case STATIC = 'static';

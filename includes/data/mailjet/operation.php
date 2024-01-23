@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Integrations\Mailjet;
+namespace SIW\Data\Mailjet;
 
 enum Operation: string {
 	case SUBSCRIBE_USER_TO_LIST = 'contactslist/{{ list_id }}/managecontact';

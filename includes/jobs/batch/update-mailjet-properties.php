@@ -3,8 +3,8 @@
 namespace SIW\Jobs\Batch;
 
 use SIW\Attributes\Add_Action;
+use SIW\Data\Mailjet\Property;
 use SIW\Integrations\Mailjet;
-use SIW\Integrations\Mailjet\Property;
 use SIW\Jobs\Update_Job;
 
 class Update_Mailjet_Properties extends Update_Job {
@@ -18,7 +18,7 @@ class Update_Mailjet_Properties extends Update_Job {
 
 	public function start(): void {
 		$existing_properties = Mailjet::create()->retrieve_properties( 'name' );
-		$properties = array_column( Property::cases(), 'value' );
+		$properties = array_column( Property::cases(), null, 'value' );
 		$missing_properties = array_diff_key( $properties, $existing_properties );
 		$this->enqueue_items( array_keys( $missing_properties ), self::ACTION_HOOK );
 	}

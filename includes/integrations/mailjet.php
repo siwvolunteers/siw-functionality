@@ -3,12 +3,11 @@
 namespace SIW\Integrations;
 
 use SIW\Config;
+use SIW\Data\Mailjet\Data_Type;
+use SIW\Data\Mailjet\Operation;
+use SIW\Data\Mailjet\Property_Namespace;
 use SIW\Helpers\HTTP_Request;
 use SIW\Helpers\Template;
-use SIW\Integrations\Mailjet\Data_Type;
-use SIW\Integrations\Mailjet\Operation;
-use SIW\Integrations\Mailjet\Property;
-use SIW\Integrations\Mailjet\Property_Namespace;
 
 /**
  * @link      https://dev.mailjet.com/
