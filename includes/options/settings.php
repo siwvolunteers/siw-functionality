@@ -224,39 +224,6 @@ class Settings extends Option {
 			];
 		}
 		$fields[] = [
-			'id'     => 'workcamp_teaser_text',
-			'type'   => 'group',
-			'tab'    => 'workcamps',
-			'fields' => [
-				[
-					'type' => 'heading',
-					'name' => __( 'Aankondiging nieuw seizoen', 'siw' ),
-					'desc' => __( 'Wordt getoond op overzichten van Groepsprojecten.', 'siw' ),
-				],
-				[
-					'id'        => 'active',
-					'name'      => __( 'Tonen', 'siw' ),
-					'type'      => 'switch',
-					'on_label'  => __( 'Ja', 'siw' ),
-					'off_label' => __( 'Nee', 'siw' ),
-				],
-				[
-					'id'       => 'start_date',
-					'name'     => __( 'Startdatum', 'siw' ),
-					'type'     => 'date',
-					'required' => true,
-					'visible'  => [ 'workcamp_teaser_text[active]', true ],
-				],
-				[
-					'id'       => 'end_date',
-					'name'     => __( 'Einddatum', 'siw' ),
-					'type'     => 'date',
-					'required' => true,
-					'visible'  => [ 'workcamp_teaser_text[active]', true ],
-				],
-			],
-		];
-		$fields[] = [
 			'id'     => 'workcamp_approval',
 			'type'   => 'group',
 			'tab'    => 'workcamps',

@@ -17,21 +17,10 @@ class Header extends Base {
 		if ( ! $this->show_archive_header() ) {
 			return;
 		}
-
-		$text = implode(
-			BR2,
-			array_filter(
-				[
-					$this->get_intro_text(),
-					$this->get_teaser_text(),
-				]
-			)
-		);
-
 		?>
 		<div class="grid-container">
 			<div class="siw-intro">
-				<?php echo wp_kses_post( $text ); ?>
+				<?php echo wp_kses_post( $this->get_intro_text() ); ?>
 			</div>
 		</div>
 
@@ -100,38 +89,5 @@ class Header extends Base {
 			sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">Groepsprojecten</a>.', 'siw' ), esc_url( get_permalink( $workcamps_page ?? 0 ) ) );
 
 		return $text;
-	}
-
-	protected function is_teaser_text_active(): bool {
-		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
-		$teaser_text_active = false;
-		if ( isset( $teaser_text['active'] ) &&
-			$teaser_text['active'] &&
-			gmdate( 'Y-m-d' ) >= $teaser_text['start_date'] &&
-			gmdate( 'Y-m-d' ) <= $teaser_text['end_date']
-			) {
-				$teaser_text_active = true;
-		}
-		return $teaser_text_active;
-	}
-
-	protected function get_teaser_text(): ?string {
-
-		if ( ! $this->is_teaser_text_active() ) {
-			return null;
-		}
-
-		$teaser_text = siw_get_option( 'workcamp_teaser_text' );
-
-		$contact_page = siw_get_special_page( Special_Page::CONTACT );
-		$end_year = gmdate( 'Y', strtotime( $teaser_text['end_date'] ) );
-		$end_month = date_i18n( 'F', strtotime( $teaser_text['end_date'] ) );
-		// translators: %1$s is een maand,  %2$s is een jaar
-		$teaser_text = sprintf( __( 'Vanaf %1$s wordt het aanbod aangevuld met honderden nieuwe vrijwilligersprojecten voor %2$s.', 'siw' ), $end_month, $end_year ) . SPACE .
-			__( 'Wil je nu al meer weten over de grensverleggende mogelijkheden van SIW?', 'siw' ) . SPACE .
-			// translators: %s is link van contactpagina
-			sprintf( __( '<a href="%s">Bel of mail ons</a> en we denken graag met je mee!', 'siw' ), esc_url( get_permalink( $contact_page ?? 0 ) ) );
-
-		return $teaser_text;
 	}
 }
