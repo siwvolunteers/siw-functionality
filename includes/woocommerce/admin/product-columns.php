@@ -59,7 +59,7 @@ class Product_Columns extends \MBAC\Post {
 				if ( null === $product ) {
 					return;
 				}
-				echo esc_html( $product->get_country()->get_name() );
+				echo esc_html( $product->get_country()->label() );
 				break;
 		}
 	}
