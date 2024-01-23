@@ -45,40 +45,41 @@ class Header extends Base {
 	protected function get_intro_text(): string {
 
 		if ( \is_shop() ) {
-			$text = __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten.', 'siw' );
+			$text = __( 'Hieronder zie je het beschikbare aanbod projecten.', 'siw' );
 		} elseif ( \is_product_category() ) {
 			$category_name = get_queried_object()->name;
 			// translators: %s is het continent
-			$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in %s.', 'siw' ), '<b>' . $category_name . '</b>' );
+			$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod %s-projecten.', 'siw' ), '<b>' . $category_name . '</b>' );
 		} elseif ( \is_product_taxonomy() ) {
 			$name = get_queried_object()->name;
 			switch ( get_queried_object()->taxonomy ) {
+				case Taxonomy_Attribute::CONTINENT->value:
 				case Taxonomy_Attribute::COUNTRY->value:
 					// translators: %s is het land
-					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in %s.', 'siw' ), '<b>' . $name . '</b>' );
+					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod projecten in %s.', 'siw' ), '<b>' . $name . '</b>' );
 					break;
 				case Taxonomy_Attribute::WORK_TYPE->value:
 					// translators: %s is het soort werk
-					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
+					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod projecten met werkzaamheden gericht op %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
 					break;
 				case Taxonomy_Attribute::SDG->value:
 					// translators: %s is het SDG
-					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met werkzaamheden gericht op het Sustainable Development Goal %s.', 'siw' ), '<b>' . $name . '</b>' );
+					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod projecten met werkzaamheden gericht op het Sustainable Development Goal %s.', 'siw' ), '<b>' . $name . '</b>' );
 					break;
 				case Taxonomy_Attribute::TARGET_AUDIENCE->value:
 					// translators: %s is de doelgroep
-					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten voor de doelgroep %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
+					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod projecten voor de doelgroep %s.', 'siw' ), '<b>' . strtolower( $name ) . '</b>' );
 					break;
 				case Taxonomy_Attribute::LANGUAGE->value:
 					// translators: %s is de taal
-					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten met de voertaal %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
+					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod projecten met de voertaal %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
 				case Taxonomy_Attribute::MONTH->value:
 					// translators: %s is de maand
-					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten in de maand %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
+					$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod projecten in de maand %s.', 'siw' ), '<b>' . ucfirst( $name ) . '</b>' );
 					break;
 				default:
-					$text = __( 'Hieronder zie je het beschikbare aanbod Groepsprojecten.', 'siw' );
+					$text = __( 'Hieronder zie je het beschikbare aanbod projecten.', 'siw' );
 			}
 		}
 
