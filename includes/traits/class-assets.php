@@ -51,7 +51,7 @@ trait Class_Assets {
 		return sprintf(
 			'%1$s/%2$s.%1$s',
 			$type->value,
-			strtolower( str_replace( '_', '-', $class_name ) )
+			strtolower( str_replace( [ '\\', '_' ], [ '/', '-' ], $class_name ) )
 		);
 	}
 }
