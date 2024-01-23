@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * SIW Functionaliteit
  *
- * @copyright   2017-2023 SIW Internationale Vrijwilligersprojecten
+ * @copyright   2017-2024 SIW Internationale Vrijwilligersprojecten
  * @license     GPL-2.0-or-later
  *
  * @wordpress-plugin
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Text Domain:       siw
  * License:           GPLv2 or later
  * Requires at least: 6.4
- * Requires PHP:      8.1
+ * Requires PHP:      8.2
  */
 
 define( 'SIW_FUNCTIONALITY_PLUGIN_FILE', __FILE__ );

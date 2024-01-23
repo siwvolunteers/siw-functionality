@@ -4,20 +4,11 @@ namespace SIW;
 
 use SIW\Autoloader;
 
-/**
- * Class om alle functionaliteit van de plugin te laden
- *
- * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
- */
 class Bootstrap {
 
-	/** Hook voor initialiseren loader */
 	private const LOADER_HOOK = 'plugins_loaded';
-
-	/** Prioriteit voor initialiseren loader */
 	private const LOADER_PRIORITY = 10;
 
-	/** Init */
 	public function init() {
 
 		$this->define_constants();
@@ -37,7 +28,6 @@ class Bootstrap {
 		$this->init_loaders();
 	}
 
-	/** Definieer constantes */
 	protected function define_constants() {
 
 		$plugin_info = get_file_data(
@@ -70,18 +60,15 @@ class Bootstrap {
 		define( 'WC_LOG_HANDLER', \WC_Log_Handler_DB::class ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 	}
 
-	/** Controleert requirements */
 	protected function check_requirements() {
 		return is_wp_version_compatible( SIW_MIN_WP_VERSION ) && is_php_version_compatible( SIW_MIN_PHP_VERSION );
 	}
 
-	/** Externe libraries laden */
 	protected function load_dependencies() {
 		require_once SIW_PLUGIN_DIR . 'vendor/autoload.php';
 		require_once SIW_PLUGIN_DIR . 'vendor/woocommerce/action-scheduler/action-scheduler.php';
 	}
 
-	/** Registreer autoloaders*/
 	protected function register_autoloader() {
 		require_once SIW_INCLUDES_DIR . 'autoloader.php';
 		new Autoloader( 'SIW', SIW_INCLUDES_DIR );
@@ -91,7 +78,6 @@ class Bootstrap {
 		as_enqueue_async_action( Update::PLUGIN_UPDATED_HOOK );
 	}
 
-	/** Toon melding dat minimum requirements niet gehaald zijn is */
 	public function show_requirements_admin_notice() {
 		wp_admin_notice(
 			sprintf(
@@ -107,12 +93,10 @@ class Bootstrap {
 		);
 	}
 
-	/** Laadt textdomain voor plugin */
 	protected function load_textdomain() {
 		load_plugin_textdomain( 'siw', false, 'siw-functionality/languages/' );
 	}
 
-	/** Laadt functiebestanden */
 	protected function load_functions() {
 		$files = glob( SIW_INCLUDES_DIR . 'functions/*.php' );
 		foreach ( $files as $file ) {
@@ -120,7 +104,6 @@ class Bootstrap {
 		}
 	}
 
-	/** Init loader */
 	protected function init_loaders() {
 		$loaders = [
 			\SIW\Loader::class,

@@ -10,13 +10,14 @@
 	"repositories":[
 	],
 	"require": {
-		"php": ">=8.1",
+		"php": ">=8.2",
 		"spatie/array-to-xml": "2.*",
 		"pharaonic/php-dot-array": "1.*",
 		"woocommerce/action-scheduler": "3.*",
 		"mustache/mustache": "2.*",
 		"luizbills/css-generator": "4.*",
-		"johnbillion/extended-cpts": "^5.0"
+		"johnbillion/extended-cpts": "^5.0",
+		"symfony/polyfill-php83": "^1.28"
 	},
 	"autoload": {
 		"files": [
