@@ -1,8 +1,0 @@
-bool $back_link
-string $charset
-string $code
-bool $exit
-string $link_text
-string $link_url
-int $response
-string $text_direction

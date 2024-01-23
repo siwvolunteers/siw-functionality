@@ -1,7 +1,0 @@
-callable $active_callback
-string $capability
-string $description
-int $priority
-mixed[] $theme_supports
-string $title
-string $type

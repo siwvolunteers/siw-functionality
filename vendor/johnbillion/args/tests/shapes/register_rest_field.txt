@@ -1,3 +1,0 @@
-callable|null $get_callback
-array|null $schema
-callable|null $update_callback

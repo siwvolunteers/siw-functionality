@@ -3,7 +3,7 @@
         'name' => 'siwvolunteers/siw-functionality',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '8028a60fee2a411069dbeeefa2d8f6c56764162d',
+        'reference' => '89ec3fdfb6fbdac0ce9f49c9a648d20d25dc8aea',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -58,7 +58,7 @@
         'siwvolunteers/siw-functionality' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '8028a60fee2a411069dbeeefa2d8f6c56764162d',
+            'reference' => '89ec3fdfb6fbdac0ce9f49c9a648d20d25dc8aea',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

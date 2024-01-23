@@ -86,7 +86,7 @@
                 ],
                 "wordpress-install-dir": "vendor/wordpress/wordpress"
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Args\\": "src/"
@@ -153,7 +153,7 @@
             "extra": {
                 "wordpress-install-dir": "vendor/wordpress/wordpress"
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "functions.php"
@@ -445,7 +445,7 @@
                     "url": "https://github.com/symfony/polyfill"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "bootstrap.php"
@@ -531,7 +531,7 @@
                     "phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0-or-later"
