@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce\Admin;
 
-use SIW\Actions\Async\Export_Plato_Application;
+use SIW\Jobs\Async\Export_Plato_Application;
 
 /**
  * Extra Admin columns voor aanmeldingen
