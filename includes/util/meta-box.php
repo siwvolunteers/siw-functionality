@@ -2,14 +2,7 @@
 
 namespace SIW\Util;
 
-/**
- * Meta Box util functies
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Meta_Box {
-
-	/** Zet meta box veld om naar rest api arg */
 	public static function convert_field_to_rest_api_arg( array $field ): array {
 
 		if ( in_array( $field['type'], [ 'button', 'file', 'heading' ], true ) ) {
@@ -26,7 +19,6 @@ class Meta_Box {
 			'pattern'     => $field['pattern'] ?? null,
 		];
 
-		// Zet type
 		$arg['type'] = match ( $field['type'] ) {
 			'text',
 			'textarea',
@@ -44,13 +36,11 @@ class Meta_Box {
 			'number'          =>'number',
 		};
 
-		// zet enum
 		if ( in_array( $field['type'], [ 'radio', 'select', 'button_group' ], true ) ) {
 			$arg['enum'] = array_keys( $field['options'] );
 			$arg['type'] = wp_is_numeric_array( $field['options'] ) ? 'integer' : 'string';
 		}
 
-		// Zet items voor checkbox lijst
 		if ( 'checkbox_list' === $field['type'] ) {
 			$arg['items'] = [
 				'type' => wp_is_numeric_array( $field['options'] ) ? 'integer' : 'string',
@@ -68,7 +58,6 @@ class Meta_Box {
 				break;
 		}
 
-		// Zet sanitize/validate callbacks
 		switch ( $field['type'] ) {
 			case 'text':
 				$arg['validate_callback'] = 'rest_validate_request_arg';
@@ -86,7 +75,6 @@ class Meta_Box {
 		return $arg;
 	}
 
-	/** Geeft weergave waarde terug */
 	public static function get_display_value( array $field, $raw_value ) {
 
 		// TODO: escaping?

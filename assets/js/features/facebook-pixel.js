@@ -1,17 +1,9 @@
-/** global: siw_facebook_pixel */
-/**
- * @file      Functies t.b.v. Facebook pixel
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
-
 var siwFacebookPixel = (function () {
 
-	/* Public methodes */
 	return {
 		init: init,
 	};
 
-	/** Init */
 	function init() {
 
 		if ( window.fbq ) {

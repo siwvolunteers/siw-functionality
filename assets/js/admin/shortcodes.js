@@ -1,17 +1,10 @@
-/** global: siw_shortcodes */
-
-/**
- * @file      TinyMCE-shortcodemenu
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- * @since     3.0.0
- */
 jQuery( document ).on( 'tinymce-editor-setup', function( event, editor ) {
 
 	//Shortcodes ophalen
 	var siw_shortcode_menu = [];
 
 	siw_shortcodes.shortcodes.forEach( function( shortcode ) {
-		
+
 		if ( typeof shortcode.attributes == 'undefined' ) {
 			siw_shortcode_menu.push(
 				{

@@ -2,20 +2,12 @@
 
 namespace SIW;
 
-/**
- * Basisklasse voor classe met hooks
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 abstract class Base {
 
-	/** Reflection class */
 	protected \ReflectionClass $reflection_class;
 
-	/** Constructor (te gebruiken voor constructor property promotion */
 	protected function __construct() {}
 
-	/** New */
 	final public static function init( object ...$args ): static {
 		$self = new static( ...$args );
 		$self->reflection_class = new \ReflectionClass( $self );
@@ -24,7 +16,6 @@ abstract class Base {
 		return $self;
 	}
 
-	/** Voeg hooks toe */
 	final protected function add_hooks(): void {
 
 		$methods = $this->reflection_class->getMethods( \ReflectionMethod::IS_PUBLIC );
@@ -54,7 +45,6 @@ abstract class Base {
 		}
 	}
 
-	/** Voegt shortcodes toe */
 	final protected function add_shortcodes() {
 		$methods = $this->reflection_class->getMethods( \ReflectionMethod::IS_PUBLIC );
 		foreach ( $methods as $method ) {

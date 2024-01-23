@@ -2,13 +2,7 @@
 
 namespace SIW\Interfaces\Page_Builder;
 
-/**
- * Interface voor PageBuilder extensie met style css
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
-interface Style_CSS extends Extension {
 
-	/** Zet attributes */
+interface Style_CSS extends Extension {
 	public function set_style_css( array $style_css, array $style_args ): array;
 }

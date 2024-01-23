@@ -10,11 +10,6 @@ use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
 use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
 use SIW\Interfaces\Page_Builder\Settings as I_Settings;
 
-/**
- * Loader voor PageBuilder-extensies
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Loader extends Object_Loader_Abstract {
 
 	/** {@inheritDoc} */

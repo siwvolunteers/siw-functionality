@@ -5,26 +5,16 @@ namespace SIW\WooCommerce\Import;
 use SIW\Helpers\Attachment;
 use SIW\Plato\Download_File as Plato_Download_File;
 
-/**
- * Selecteren van afbeelding voor een Groepsproject
- *
- * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
- */
 class Product_Image {
 
 	private const PLATO_DOCUMENT_IDENTIFIER_META = 'plato_document_identifier';
 	public const PLATO_PROJECT_ID_META = 'plato_project_id';
 
-	/** Minimale breedte voor afbeeldingen */
 	private const MIN_IMAGE_WIDTH = 600;
-
-	/** Minimale hoogte voor afbeeldingen */
 	private const MIN_IMAGE_HEIGHT = 600;
 
-	/** Subdirectory voor projectfoto's */
 	protected string $subdir = 'groepsprojecten/projectfotos';
 
-	/** Haal projectafbeelding (uit Plato) op */
 	public function get_project_image( array $identifiers, string $filename_base, string $project_id ): ?int {
 
 		// Kijk of er al een attachment voor 1 van de identifiers is

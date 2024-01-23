@@ -9,11 +9,6 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Product_Attribute;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Aanpassingen aan Groepsproject
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Product extends Base {
 
 	#[Add_Filter( 'woocommerce_single_product_image_thumbnail_html' )]

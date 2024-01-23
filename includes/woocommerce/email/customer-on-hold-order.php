@@ -5,11 +5,6 @@ namespace SIW\WooCommerce\Email;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
-/**
- * E-mail voor nog niet betaalde aanmeldingen
- *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- */
 class Customer_On_Hold_Order extends Base {
 
 	#[Add_Filter( 'woocommerce_email_subject_customer_on_hold_order' )]

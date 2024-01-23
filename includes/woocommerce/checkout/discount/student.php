@@ -8,11 +8,6 @@ use SIW\Config;
 use SIW\Util;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-/**
- * Studenten/jongerenkorting
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Student extends Virtual_Coupon {
 
 	/** {@inheritDoc} */

@@ -5,11 +5,6 @@ namespace SIW\WooCommerce\Email;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
-/**
- * E-mail voor betaalde aanmeldingen
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
 class Customer_Processing_Order extends Base {
 
 	#[Add_Filter( 'woocommerce_email_subject_customer_processing_order' )]

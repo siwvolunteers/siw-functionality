@@ -8,11 +8,6 @@ use SIW\Base;
 use SIW\Jobs\Async\Export_Plato_Application;
 use SIW\WooCommerce\Coupon;
 
-/**
- * Acties bij order
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Order_Actions extends Base {
 
 	#[Add_Filter( 'woocommerce_order_actions' )]

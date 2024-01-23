@@ -6,16 +6,10 @@ use SIW\Attributes\Add_Action;
 use SIW\Data\Tag_Attribute;
 use SIW\Helpers\Template;
 
-/**
- * Klasse om NPM asset (JS/CSS) te registreren
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 abstract class NPM_Asset extends External_Asset {
 
 	private const JSDELIVR_URL = 'https://cdn.jsdelivr.net/';
 
-	/** Geeft naam van NPM package terug */
 	abstract protected static function get_npm_package(): string;
 
 	abstract protected static function get_script_file(): ?string;
@@ -82,7 +76,6 @@ abstract class NPM_Asset extends External_Asset {
 		);
 	}
 
-	/** Bepaal asset url obv package, versienummer en file */
 	protected static function get_npm_asset_url( string $file ): string {
 		return Template::create()
 			->set_template( '{{ npm_cdn_url }}/npm/{{ package }}@{{ version }}/{{ file }}' )

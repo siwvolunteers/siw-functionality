@@ -15,23 +15,14 @@ use SIW\Properties;
 use SIW\Util\Logger;
 use SIW\Util\Meta_Box;
 
-/**
- * Class om een formulieraanmelding te verwerken
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Processor {
 
-	/** Bevestigingsmail */
 	protected I_Confirmation_Mail $confirmation_mail;
 
-	/** Notificatiemail */
 	protected I_Notification_Mail $notification_mail;
 
-	/** Export naar Mailjet */
 	protected I_Export_To_Mailjet $export_to_mailjet;
 
-	/** IP adres */
 	protected string $ip;
 
 	/** Init */

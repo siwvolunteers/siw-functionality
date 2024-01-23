@@ -7,11 +7,6 @@ use SIW\Base;
 use SIW\Jobs\Async\Export_Plato_Application;
 use SIW\WooCommerce\Coupon;
 
-/**
- * Acties bij statusovergangen
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Status_Transitions extends Base {
 
 	#[Add_Action( 'woocommerce_order_status_processing' )]

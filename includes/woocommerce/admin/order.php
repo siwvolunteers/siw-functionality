@@ -8,22 +8,13 @@ use SIW\Base;
 use SIW\Data\Gender;
 use SIW\Data\Nationality;
 
-/**
- * Aanpassing aan admin t.b.v. aanmeldingen
- *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- *
- * @todo      splitsen in Order en Admin_Order + refactor enzo
- */
 class Order extends Base {
 
-	/** Geeft secties met velden terug */
 	protected function get_checkout_sections(): array {
 		$checkout_sections = siw_get_data( 'workcamps/checkout-sections' );
 		return $checkout_sections;
 	}
 
-	/** Geeft velden van 1 sectie terug */
 	protected function get_checkout_section( string $section ): ?string {
 		$checkout_sections = $this->get_checkout_sections();
 
@@ -33,7 +24,6 @@ class Order extends Base {
 		return null;
 	}
 
-	/** Geeft checkout velden terug */
 	protected function get_checkout_fields( string $section = '' ): array {
 		$checkout_fields = siw_get_data( 'workcamps/checkout-fields' );
 
@@ -88,7 +78,6 @@ class Order extends Base {
 		return $replace;
 	}
 
-	/** Toont sectie met velden */
 	protected function show_section( \WC_Order $order, string $section, bool $edit = false ) {
 		?>
 		<br class="clear" />
@@ -121,7 +110,6 @@ class Order extends Base {
 		<?php
 	}
 
-	/** Toont waarde van veld */
 	protected function show_field_value( \WC_Order $order, array $field ) {
 
 		switch ( $field['type'] ) {
@@ -143,7 +131,6 @@ class Order extends Base {
 		}
 	}
 
-	/** Toont inputveld */
 	protected function show_field_input( \WC_Order $order, array $field ) {
 		unset( $field['class'] );
 		$field['value'] = $order->get_meta( $field['id'] );
@@ -178,7 +165,6 @@ class Order extends Base {
 		return $address;
 	}
 
-	/** Toont of gebruiker akkoord met inschrijfvoorwaarden is gegaan */
 	public function show_terms( \WC_Order $order ) {
 		echo '<br class="clear" />';
 

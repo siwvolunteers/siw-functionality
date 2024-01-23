@@ -8,23 +8,11 @@ use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
 
 use SIW\Util\CSS;
 
-/**
- * Zichtbaarheidsopties voor Page Builder
- *
- * @copyright 2021-2022 SIW Internationale Vrijwilligersprojecten
- */
 class Visibility implements I_Style_Group, I_Style_Fields, I_Style_Attributes {
 
-	/** Style groep */
 	private const STYLE_GROUP = 'siw_visibility';
-
-	/** Style fields voor verbergen op mobiel */
 	private const STYLE_FIELD_HIDE_ON_MOBILE = 'hide_on_mobile';
-
-	/** Style fields voor verbergen op tablet */
 	private const STYLE_FIELD_HIDE_ON_TABLET = 'hide_on_tablet';
-
-	/** Style fields voor verbergen op desktop */
 	private const STYLE_FIELD_HIDE_ON_DESKTOP = 'hide_on_desktop';
 
 	/** {@inheritDoc} */

@@ -6,14 +6,8 @@ use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
-/**
- * Samenwerkingsformulier
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Cooperation implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
-	/** Formulier ID */
 	public const FORM_ID = 'cooperation';
 
 	/** {@inheritDoc} */

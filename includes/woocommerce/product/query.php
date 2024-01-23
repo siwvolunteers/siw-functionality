@@ -6,11 +6,6 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Aanpassingen voor product query
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Query extends Base {
 
 	#[Add_Filter( 'woocommerce_product_data_store_cpt_get_products_query' )]

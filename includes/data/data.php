@@ -2,14 +2,8 @@
 
 namespace SIW\Data;
 
-/**
- * Basistype voor Data Object
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 abstract class Data {
 
-	/** Init */
 	public function __construct( array $data ) {
 		$class_vars = get_class_vars( static::class );
 

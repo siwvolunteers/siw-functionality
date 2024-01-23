@@ -5,18 +5,13 @@ namespace SIW\WooCommerce\Checkout\Discount;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
-/**
- * Basis klasse voor een virtuele coupon
- *
- * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
- */
 abstract class Virtual_Coupon extends Base {
 
-	/** Geeft coupont code terug */
 	abstract protected static function get_coupon_code(): string;
 
 	/**
 	 * Geeft type korting terug
+	 * TODO: enum van maken
 	 *
 	 * Mogelijke waardes:
 	 * - fixed_cart
@@ -25,10 +20,8 @@ abstract class Virtual_Coupon extends Base {
 	 */
 	abstract protected static function get_discount_type(): string;
 
-	/** Geeft beschrijving van de korting terug */
 	abstract protected static function get_description(): string;
 
-	/** Geeft bedrag of percentage korting terug */
 	abstract protected static function get_amount(): float;
 
 	#[Add_Filter( 'woocommerce_get_shop_coupon_data' )]
@@ -47,7 +40,6 @@ abstract class Virtual_Coupon extends Base {
 		);
 	}
 
-	/** Geeft extra coupon data terug (te overschrijven door subclasses) */
 	protected function get_coupon_data(): array {
 		return [];
 	}
@@ -70,7 +62,6 @@ abstract class Virtual_Coupon extends Base {
 		return $coupon_html;
 	}
 
-	/** Onderdruk message bij toevoegen verwijderen coupon */
 	#[Add_Filter( 'woocommerce_coupon_message' )]
 	public function set_coupon_message( ?string $message, int $message_code, \WC_Coupon $coupon ): ?string {
 		if ( static::get_coupon_code() !== $coupon->get_code() ) {
@@ -87,7 +78,6 @@ abstract class Virtual_Coupon extends Base {
 		return null;
 	}
 
-	/** Voegt of verwijdert coupon indien nodig */
 	protected function set_coupon_presence( bool $coupon_applicable, \WC_Cart $cart ) {
 		$coupon_applied = $cart->has_discount( static::get_coupon_code() );
 		if ( $coupon_applicable && ! $coupon_applied ) {

@@ -8,10 +8,6 @@ use SIW\Elements\Calendar_Icon;
 use SIW\Helpers\Template;
 
 /**
- * Widget met agenda
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- *
  * @widget_data
  * Widget Name: SIW: Agenda
  * Description: Toont eerstvolgende evenementen

@@ -4,11 +4,6 @@ namespace SIW\WooCommerce;
 
 use SIW\Interfaces\Enums\Labels as I_Enum_Labels;
 
-/**
- * Doelgroepen
- *
- * @copyright 2021-2023 SIW Internationale Vrijwilligersprojecten
- */
 enum Target_Audience: string implements I_Enum_Labels {
 
 	case FAMILIES = 'families';

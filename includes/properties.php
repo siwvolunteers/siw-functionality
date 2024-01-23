@@ -2,11 +2,6 @@
 
 namespace SIW;
 
-/**
- * Properties
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
 class Properties {
 
 	/** Naam */
@@ -60,7 +55,6 @@ class Properties {
 	/** Maximale afmeting voor afbeelding */
 	public const MAX_IMAGE_SIZE = 1920;
 
-	/** Geeft waarde van property terug */
 	public static function get( string $property ) {
 		$property = strtoupper( $property );
 		if ( defined( 'self::' . $property ) ) {
@@ -69,7 +63,6 @@ class Properties {
 		return null;
 	}
 
-	/** Geeft array met properties terug */
 	public static function get_all(): array {
 		$reflection_class = new \ReflectionClass( __CLASS__ );
 		$constants = $reflection_class->getConstants();

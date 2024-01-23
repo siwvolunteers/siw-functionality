@@ -4,11 +4,6 @@ namespace SIW\WooCommerce\Checkout;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
-/**
- * Adresvelden in WooCommerce checkout
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Address_Fields extends Base {
 
 	#[Add_Filter( 'woocommerce_shipping_fields' )]

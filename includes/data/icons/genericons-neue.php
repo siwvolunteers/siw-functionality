@@ -3,9 +3,6 @@
 namespace SIW\Data\Icons;
 
 /**
- * Genericons
- *
- * @copyright 2024 SIW Internationale Vrijwilligersprojecten
  * @see https://genericons.com/
  */
 enum Genericons_Neue: string {

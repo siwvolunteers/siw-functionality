@@ -5,11 +5,6 @@ namespace SIW\Page_Builder;
 use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
 use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
 
-/**
- * Extra Design-opties voor Page Builder
- *
- * @copyright 2020-2022 SIW Internationale Vrijwilligersprojecten
- */
 class Design implements I_Style_Fields, I_Style_Attributes {
 
 	private const STYLE_FIELD_WIDGET_TITLE_ALIGN = 'siw_widget_title_align';

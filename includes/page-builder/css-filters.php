@@ -6,11 +6,6 @@ use SIW\Interfaces\Page_Builder\Style_CSS as I_Style_CSS;
 use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
 use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
 
-/**
- * Zichtbaarheidsopties voor Page Builder
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 
 	private const SUPPORTED_WIDGETS = [
@@ -18,7 +13,6 @@ class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 		\SIW\Widgets\Featured_Image::class,
 	];
 
-	/** Style groep */
 	private const STYLE_GROUP = 'siw_css_filters';
 
 	private const STYLE_FIELD_BLUR = 'blur';

@@ -8,17 +8,10 @@ use SIW\Base;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Util\Meta_Box;
 
-/**
- * Class om een formulier via MetaBox te genereren
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Form extends Base {
 
-	/** API versie */
 	private const API_VERSION = 'v1';
 
-	/** Constructor */
 	protected function __construct( protected Form_Interface $form ) {}
 
 	#[Add_Filter( 'siw_forms' )]
@@ -29,7 +22,6 @@ class Form extends Base {
 	}
 
 	#[Add_Action( 'rest_api_init' )]
-	/** Registreert REST route */
 	public function register_route() {
 		register_rest_route(
 			$this->get_namespace(),
@@ -45,30 +37,25 @@ class Form extends Base {
 		);
 	}
 
-	/** Geeft namespace terug */
 	protected function get_namespace(): string {
 		return 'siw/' . self::API_VERSION;
 	}
 
-	/** Geeft route terug */
 	public function get_route(): string {
 		$id = str_replace( '_', '-', $this->form->get_form_id() );
 		return "form/{$id}";
 	}
 
-	/** Valideert nonce */
 	public function verify_nonce( \WP_REST_Request $request ): bool {
 		$nonce = $request->get_param( "nonce_siw_form_{$this->form->get_form_id()}" );
 		return boolval( wp_verify_nonce( $nonce, "rwmb-save-siw_form_{$this->form->get_form_id()}" ) );
 	}
 
-	/** Callback voor REST API */
 	public function callback( \WP_REST_Request $request ): \WP_REST_Response {
 		$processor = new Processor( $this->form, $request );
 		return $processor->process();
 	}
 
-	/** Geeft REST API args terug TODO: add nonce en _wp_http_referer? */
 	protected function get_args(): array {
 		$args = array_map(
 			[ Meta_Box::class, 'convert_field_to_rest_api_arg' ],
@@ -80,7 +67,6 @@ class Form extends Base {
 	}
 
 	#[Add_Filter( 'rwmb_meta_boxes' )]
-	/** Voegt metabox toe */
 	public function add_meta_box( array $meta_boxes ): array {
 		$meta_boxes[] = [
 			'id'          => "siw_form_{$this->form->get_form_id()}",
@@ -93,14 +79,12 @@ class Form extends Base {
 		return $meta_boxes;
 	}
 
-	/** Haalt formuliervelden op */
 	protected function get_fields(): array {
 		$fields = $this->form->get_form_fields();
 		$fields = array_map( [ $this, 'parse_field' ], $fields );
 
 		$fields = $this->add_quiz( $fields );
 
-		// Voeg verzenden knop toe
 		$fields[] = [
 			'type'       => 'button',
 			'columns'    => Form_Interface::FULL_WIDTH,
@@ -114,7 +98,6 @@ class Form extends Base {
 		return $fields;
 	}
 
-	/** Voeg quiz toe om bots af te schrikken */
 	protected function add_quiz( array $fields ): array {
 
 		$one = wp_rand( 2, 5 );
@@ -146,7 +129,6 @@ class Form extends Base {
 		return $fields;
 	}
 
-	/** Parset veld */
 	protected function parse_field( array $field ): array {
 		$defaults = [
 			'required' => true,

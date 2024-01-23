@@ -8,11 +8,6 @@ use SIW\Base;
 use SIW\Jobs\Async\Import_Plato_Project;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-/**
- * Bulk acties
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Bulk_Actions extends Base {
 
 	// Constantes

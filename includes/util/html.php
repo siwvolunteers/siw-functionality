@@ -2,14 +2,7 @@
 
 namespace SIW\Util;
 
-/**
- * Hulpfuncties voor het genereren van HTML
- *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- */
 class HTML {
-
-	/** Void tags */
 	public static array $void_tags = [
 		'area',
 		'base',
@@ -28,10 +21,8 @@ class HTML {
 		'wbr',
 	];
 
-	/** Genereert HTML-tag */
 	public static function tag( string $tag, array $attributes, string $content = '' ): string {
 
-		// Void tags
 		if ( in_array( $tag, self::$void_tags, true ) ) {
 			return sprintf(
 				'<%s %s>',
@@ -49,12 +40,10 @@ class HTML {
 		}
 	}
 
-	/** Genereert `<a>` tag */
 	public static function a( array $attributes, string $content = '' ): string {
 		return self::tag( 'a', $attributes, $content );
 	}
 
-	/** Versie van sanitize_html_class voor meerdere classes*/
 	public static function sanitize_html_classes( $classes, string $fallback = null ): string {
 		if ( is_string( $classes ) ) {
 			$classes = explode( ' ', $classes );
@@ -67,7 +56,6 @@ class HTML {
 		}
 	}
 
-	/** Genereert attributes op basis van array */
 	public static function generate_attributes( array $attributes ): string {
 		$rendered_attributes = '';
 		foreach ( $attributes as $key => $value ) {

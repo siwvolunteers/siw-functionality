@@ -5,9 +5,6 @@ namespace SIW\Structured_Data;
 use SIW\Interfaces\Structured_Data\Enumeration;
 
 /**
- * Basisklasse voor Structured Data
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
  * @see       https://schema.org/Thing
  */
 abstract class Thing {

@@ -8,19 +8,10 @@ use SIW\Compatibility\WooCommerce;
 use SIW\WooCommerce\Import\Product as Import_Product;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-/**
- * Goedkeuring van projecten
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Approval extends Base {
 
 	private const FIELD_ID = '_approval_result';
-
-	/** Afgekeurd */
 	public const REJECTED = 'rejected';
-
-	/** Goedgekeurd */
 	public const APPROVED = 'approved';
 
 	#[Add_Action( 'post_submitbox_misc_actions' )]

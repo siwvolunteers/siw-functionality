@@ -5,11 +5,6 @@ namespace SIW\Forms;
 use SIW\Abstracts\Object_Loader as Object_Loader_Abstract;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 
-/**
- * Loader voor formulieren
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Loader extends Object_Loader_Abstract {
 
 	/** {@inheritDoc} */

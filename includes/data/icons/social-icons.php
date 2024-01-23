@@ -3,9 +3,6 @@
 namespace SIW\Data\Icons;
 
 /**
- * Social icons
- *
- * @copyright 2024 SIW Internationale Vrijwilligersprojecten
  * @see https://automattic.github.io/social-logos/
  */
 enum Social_Icons: string {

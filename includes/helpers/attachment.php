@@ -4,34 +4,20 @@ namespace SIW\Helpers;
 
 use SIW\Properties;
 
-/**
- * Class om attachment aan te maken o.b.v. een (tijdelijk) bestand
- *
- * @copyright   2019 SIW Internationale Vrijwilligersprojecten
- *
- * @todo        subclasses voor bestandstypes?
- */
 class Attachment {
 
-	/** Path van upload directory */
 	protected string $upload_dir;
 
-	/** URL van upload directory */
 	protected string $upload_url;
 
-	/** Minimum breedte van afbeelding */
 	protected int $minimum_width;
 
-	/** Minimum hoogte van afbeelding */
 	protected int $minimum_height;
 
-	/** Maximum breedte van afbeelding */
 	protected int $maximum_width = Properties::MAX_IMAGE_SIZE;
 
-	/** Maximum hoogte van afbeelding */
 	protected int $maximum_height = Properties::MAX_IMAGE_SIZE;
 
-	/** Init */
 	public function __construct( protected string $filetype, protected string $subdir ) {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 
@@ -44,7 +30,6 @@ class Attachment {
 		\add_filter( 'siw_upload_subdir', [ $this, 'set_upload_subdir' ] );
 	}
 
-	/** Voegt attachment toe */
 	public function add( $temp_file, $filename, $title ): ?int {
 
 		// Verplaats bestand naar upload-directory
@@ -63,7 +48,6 @@ class Attachment {
 		return $this->create_attachment( $relative_path, $title );
 	}
 
-	/** Verplaatst bestand naar upload-directory */
 	protected function move_file( string $temp_file, string $filename ): ?string {
 
 		$temp_filename = basename( $temp_file );
@@ -94,19 +78,16 @@ class Attachment {
 		return \_wp_relative_upload_path( $file_attributes['file'] );
 	}
 
-	/** Zet minimum resolutie van afbeelding */
 	public function set_minimum_resolution( int $width, int $height ) {
 		$this->minimum_width = $width;
 		$this->minimum_height = $height;
 	}
 
-	/** Zet maximum resolutie van afbeelding */
 	public function set_maximimum_resolution( int $width, int $height ) {
 		$this->maximum_width = abs( $width );
 		$this->maximum_height = abs( $height );
 	}
 
-	/** Voegt attachment toe aan database */
 	protected function create_attachment( string $relative_path, string $title ): ?int {
 		$file = \wp_normalize_path( $this->upload_dir . '/' . $relative_path );
 

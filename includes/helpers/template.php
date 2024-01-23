@@ -7,29 +7,16 @@ use Mustache_Loader_CascadingLoader;
 use Mustache_Loader_FilesystemLoader;
 use Mustache_Loader_StringLoader;
 
-/**
- * Class om een Mustache template te gebruiken
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Template {
 
-	/** Reguliere expressie voor mustache tag */
 	private const MUSTACHE_TAG_REGEX = '/{{\s*.*?\s*}}/';
 
-	/** Mustache Engine */
 	protected static ?Mustache_Engine $engine = null;
-
-	/** Template */
 	protected string $template;
-
-	/** Context */
 	protected array $context = [];
 
-	/** Constructor */
 	protected function __construct() {}
 
-	/** Creëer email */
 	public static function create(): self {
 		$self = new self();
 
@@ -40,29 +27,23 @@ class Template {
 		return $self;
 	}
 
-	/** Zet context */
 	public function set_context( array $context ): self {
 		$this->context = $context;
 		return $this;
 	}
-
-	/** Zet template (string of naam) */
 	public function set_template( string $template ): self {
 		$this->template = $template;
 		return $this;
 	}
 
-	/** Rendert template */
 	public function render_template() {
 		echo $this->parse_template(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
-	/** Geeft geparste template terug */
 	public function parse_template(): string {
 		return self::$engine->loadTemplate( $this->template )->render( $this->context );
 	}
 
-	/** Creëert Mustache engine */
 	protected static function create_engine() {
 		return new Mustache_Engine(
 			[
@@ -101,7 +82,6 @@ class Template {
 		);
 	}
 
-	/** Vertaal string uit template TODO: verplaatsen naar Mustache Util? */
 	public static function translate( string $value ): string {
 
 		// Spaties aan begin en einde weghalen

@@ -4,23 +4,15 @@ namespace SIW\WooCommerce;
 
 use SIW\Config;
 
-/**
- * Creëert kortingscode
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
 class Coupon {
 
-	/** Type korting */
 	private const DISCOUNT_TYPE = 'percent';
 
-	/** Init */
 	public static function init() {
 		$self = new self();
 		return $self;
 	}
 
-	/** Maakt kortingscode aan o.b.v. aanmelding */
 	public function create_for_order( int $order_id ): bool {
 		$order = wc_get_order( $order_id );
 

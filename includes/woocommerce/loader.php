@@ -4,11 +4,6 @@ namespace SIW\WooCommerce;
 
 use SIW\Abstracts\Base_Loader;
 
-/**
- * Loader voor WooCommerce
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Loader extends Base_Loader {
 
 	/** {@inheritDoc} */

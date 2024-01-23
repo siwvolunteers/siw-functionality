@@ -5,11 +5,6 @@ namespace SIW\Util;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Hulpfuncties t.b.v. carousel
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Carousel {
 
 	public static function post_to_carousel_slide( \WP_Post $post ): array {

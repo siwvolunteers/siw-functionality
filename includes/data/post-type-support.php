@@ -2,11 +2,6 @@
 
 namespace SIW\Data;
 
-/**
- * Post type eigenschappen
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 enum Post_Type_Support: string {
 
 	// Core

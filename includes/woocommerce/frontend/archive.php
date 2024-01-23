@@ -6,11 +6,6 @@ use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Aanpassingen aan overzichtspagina van groepsprojecten
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
 class Archive extends Base {
 
 	#[Add_Action( 'woocommerce_after_shop_loop_item_title' )]

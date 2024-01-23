@@ -8,14 +8,8 @@ use SIW\Compatibility\WooCommerce;
 use SIW\Helpers\Template;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * SEO aanpassingen
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class SEO extends Base {
 
-	/** Past de SEO titel aan */
 	#[Add_Filter( 'slim_seo_meta_title' )]
 	public function set_term_seo_title( string $title, int $queried_object_id ): string {
 
