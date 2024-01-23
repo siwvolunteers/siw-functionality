@@ -6,11 +6,11 @@ use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Properties;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 
 class Login extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	#[Add_Filter( 'login_headerurl' )]
 	private const LOGIN_HEADER_URL = SIW_SITE_URL;
@@ -20,8 +20,8 @@ class Login extends Base {
 
 	#[Add_Action( 'login_enqueue_scripts' )]
 	public function enqueue_style() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/login.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( self::get_assets_handle() );
+		wp_register_style( self::get_asset_handle(), self::get_style_asset_path(), [], SIW_PLUGIN_VERSION );
+		wp_enqueue_style( self::get_asset_handle() );
 
 		$css = new \GeneratePress_Backgrounds_CSS();
 
@@ -45,7 +45,7 @@ class Login extends Base {
 			$css->add_property( 'background-position', esc_attr( get_theme_mod( 'siw_login_background_position' ) ) );
 		}
 
-		wp_add_inline_style( self::get_assets_handle(), $css->css_output() );
+		wp_add_inline_style( self::get_asset_handle(), $css->css_output() );
 	}
 
 	#[Add_Filter( 'login_message' )]

@@ -5,11 +5,6 @@ namespace SIW\Elements;
 use SIW\External_Assets\Frappe_Charts;
 use SIW\External_Assets\Polyfill;
 
-/**
- * Class om een chart te genereren
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Chart extends Element {
 
 	public const CHART_TYPE_LINE = 'line';
@@ -20,11 +15,8 @@ class Chart extends Element {
 	public const CHART_TYPE_PERCENTAGE = 'percentage';
 	public const CHART_TYPE_HEATMAT = 'heatmap';
 
-	/** Type grafiek */
 	protected string $chart_type;
-
 	protected ?string $title = null;
-
 	protected array $colors = [];
 
 	protected bool $animate = true;
@@ -110,15 +102,7 @@ class Chart extends Element {
 		return $this;
 	}
 
-	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_register_script(
-			self::get_assets_handle(),
-			SIW_ASSETS_URL . 'js/elements/charts.js',
-			[ Frappe_Charts::get_assets_handle(), Polyfill::get_assets_handle() ],
-			SIW_PLUGIN_VERSION,
-			true
-		);
-		wp_enqueue_script( self::get_assets_handle() );
+		self::enqueue_class_script( [ Frappe_Charts::get_asset_handle(), Polyfill::get_asset_handle() ] );
 	}
 }

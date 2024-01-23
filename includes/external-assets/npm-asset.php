@@ -31,7 +31,7 @@ abstract class NPM_Asset extends External_Asset {
 		if ( null === static::get_script_file() ) {
 			return null;
 		}
-		return static::get_asset_url( static::get_script_file() );
+		return static::get_npm_asset_url( static::get_script_file() );
 	}
 
 	/** {@inheritDoc} */
@@ -39,7 +39,7 @@ abstract class NPM_Asset extends External_Asset {
 		if ( null === static::get_style_file() ) {
 			return null;
 		}
-		return static::get_asset_url( static::get_style_file() );
+		return static::get_npm_asset_url( static::get_style_file() );
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts', 11 )]
@@ -50,13 +50,13 @@ abstract class NPM_Asset extends External_Asset {
 			return;
 		}
 		wp_script_add_data(
-			static::get_assets_handle(),
+			static::get_asset_handle(),
 			Tag_Attribute::INTEGRITY,
 			static::get_script_sri()
 		);
 
 		wp_script_add_data(
-			static::get_assets_handle(),
+			static::get_asset_handle(),
 			Tag_Attribute::CROSSORIGIN,
 			'anonymous'
 		);
@@ -70,20 +70,20 @@ abstract class NPM_Asset extends External_Asset {
 		}
 
 		wp_style_add_data(
-			static::get_assets_handle(),
+			static::get_asset_handle(),
 			Tag_Attribute::CROSSORIGIN,
 			'anonymous'
 		);
 
 		wp_style_add_data(
-			static::get_assets_handle(),
+			static::get_asset_handle(),
 			Tag_Attribute::INTEGRITY,
 			static::get_style_sri()
 		);
 	}
 
 	/** Bepaal asset url obv package, versienummer en file */
-	protected static function get_asset_url( string $file ): string {
+	protected static function get_npm_asset_url( string $file ): string {
 		return Template::create()
 			->set_template( '{{ npm_cdn_url }}/npm/{{ package }}@{{ version }}/{{ file }}' )
 			->set_context(

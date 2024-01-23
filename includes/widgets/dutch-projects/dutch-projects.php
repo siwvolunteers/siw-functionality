@@ -12,11 +12,6 @@ use SIW\Util\Links;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
- * Widget met Nederlandse projecten
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Nederlandse projecten
  * Description: Toont Nederlandse projecten
  * Author: SIW Internationale Vrijwilligersprojecten

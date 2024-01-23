@@ -2,11 +2,6 @@
 
 namespace SIW\Elements;
 
-/**
- * Taxonomy-filter voor archiefpagina's
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
 class Taxonomy_Filter extends Element {
 
 	protected \WP_Taxonomy $taxonomy;
@@ -23,20 +18,15 @@ class Taxonomy_Filter extends Element {
 		];
 	}
 
-	/** Zet de taxonomie */
 	public function set_taxonomy( \WP_Taxonomy $taxonomy ): self {
 		$this->taxonomy = $taxonomy;
 		return $this;
 	}
 
-	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/taxonomy-filter.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/taxonomy-filter.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 
-	/** Haalt terms van één taxonomy op */
 	protected function get_terms(): array {
 		$term_query = [
 			'taxonomy'   => $this->taxonomy->name,

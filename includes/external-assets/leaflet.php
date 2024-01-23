@@ -3,10 +3,6 @@
 namespace SIW\External_Assets;
 
 /**
- * Leaflet
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
  * @see https://leafletjs.com/
  */
 class Leaflet extends NPM_Asset {

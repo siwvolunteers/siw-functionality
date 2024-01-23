@@ -3,23 +3,16 @@
 namespace SIW\Elements;
 
 use SIW\Helpers\Template;
+use SIW\Traits\Class_Assets;
 
-/**
- * Class om een element te genereren
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 abstract class Element {
 
-	/** Uniek ID van element */
-	protected string $element_id;
+	use Class_Assets;
 
-	/** CSS classes van het element */
+	protected string $element_id;
 	protected array $classes;
 
-	/** Geeft type van element terug */
 	final protected static function get_type(): string {
-
 		$class_name_components = explode( '\\', static::class );
 		return str_replace(
 			'_',
@@ -28,44 +21,32 @@ abstract class Element {
 		);
 	}
 
-	/** Geeft template variabelen voor Mustache-template terug */
 	abstract protected function get_template_variables(): array;
 
-	/** Geeft uniek id voor element terug terug */
 	final protected function get_element_id(): string {
 		return $this->element_id;
 	}
 
-	/** Geeft standaard css klasse voor element terug */
 	final protected static function get_element_class(): string {
 		return 'siw-' . static::get_type();
 	}
 
-	/** Genereert assets handle */
-	final public static function get_assets_handle(): string {
-		return strtolower( str_replace( [ '\\', '_' ], '-', static::class ) );
-	}
-
-	/** Init */
 	final protected function __construct() {
 		$this->element_id = wp_unique_prefixed_id( "siw-{$this::get_type()}-" );
 		$this->initialize();
 		$this->classes[] = static::get_element_class();
 	}
 
-	/** Genereert element */
 	final public static function create(): static {
 		$self = new static();
 		return $self;
 	}
 
-	/** Voegt extra css class toe */
 	public function add_class( string $css_class ): static {
 		$this->classes[] = sanitize_html_class( $css_class );
 		return $this;
 	}
 
-	/** Voegt extra css classes toe */
 	public function add_classes( array $classes ): static {
 		foreach ( $classes as $class ) {
 			$this->add_class( $class );
@@ -73,7 +54,6 @@ abstract class Element {
 		return $this;
 	}
 
-	/** Genereert element */
 	final public function generate(): string {
 
 		$asset_hook = is_admin() ? 'admin_enqueue_scripts' : 'wp_enqueue_scripts';
@@ -103,17 +83,13 @@ abstract class Element {
 			->parse_template();
 	}
 
-	/** Rendert repeater */
 	final public function render() {
 		echo $this->generate(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
-	/** Voegt scripts toe */
 	public function enqueue_scripts() {}
 
-	/** Voegt scripts toe */
 	public function enqueue_styles() {}
 
-	/** Initialiseert element */
 	protected function initialize() {}
 }

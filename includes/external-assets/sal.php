@@ -3,10 +3,6 @@
 namespace SIW\External_Assets;
 
 /**
- * Sal.js
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
  * @see https://mciastek.github.io/sal/
  */
 class Sal extends NPM_Asset {

@@ -7,14 +7,14 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Util\CSS;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 
 /**
  * @see         https://siteorigin.com/page-builder/
  */
 class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	#[Add_Filter( 'siteorigin_panels_layouts_directory_enabled', PHP_INT_MAX )]
 	private const ENABLE_LAYOUTS_DIRECTORY = false;
@@ -63,8 +63,6 @@ class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 
 	#[Add_Action( 'siteorigin_panels_after_render' )]
 	public function enqueue_pagebuilder_styles() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/compatibility/siteorigin-page-builder.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/compatibility/siteorigin-page-builder.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 }

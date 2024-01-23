@@ -4,11 +4,6 @@ namespace SIW\Widgets;
 
 use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
 
-/**
- * Loader voor Widgets
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Loader extends Class_Loader_Abstract {
 
 	/** {@inheritDoc} */

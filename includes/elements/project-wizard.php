@@ -182,8 +182,6 @@ class Project_Wizard extends Element {
 	/** {@inheritDoc} */
 	public function enqueue_styles() {
 		$this->meta_box->enqueue();
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/project-wizard.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/project-wizard.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 }

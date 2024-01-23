@@ -5,11 +5,6 @@ namespace SIW\Widgets;
 use SIW\Properties;
 
 /**
- * Widget met organisatiegegevens
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Organisatiegegevens
  * Description: Toont organisatiegegevens.
  * Author: SIW Internationale Vrijwilligersprojecten

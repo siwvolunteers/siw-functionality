@@ -5,11 +5,6 @@ namespace SIW\Widgets;
 use SIW\Elements\Chart;
 
 /**
- * Widget met grafiek
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Grafiek
  * Description: Toont grafiek.
  * Author: SIW Internationale Vrijwilligersprojecten

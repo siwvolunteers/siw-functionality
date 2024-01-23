@@ -6,11 +6,6 @@ use SIW\Data\Social_Network_Context;
 use SIW\Elements\Social_Links as Social_Links_Element;
 
 /**
- * Widget met social links
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Social links
  * Description: Toont links naar sociale netwerken
  * Author: SIW Internationale Vrijwilligersprojecten

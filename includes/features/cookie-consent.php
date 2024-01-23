@@ -7,12 +7,12 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Special_Page;
 use SIW\External_Assets\Cookie_Consent as Cookie_Consent_Asset;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 use SIW\Util\Links;
 
 class Cookie_Consent extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	private const COOKIE_NAME = 'siw_cookie_consent';
 	private const COOKIE_LIFESPAN = 365;
@@ -24,21 +24,21 @@ class Cookie_Consent extends Base {
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function enqueue_styles() {
-		wp_enqueue_style( Cookie_Consent_Asset::get_assets_handle() );
+		wp_enqueue_style( Cookie_Consent_Asset::get_asset_handle() );
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function enqueue_scripts() {
 		wp_register_script(
-			self::get_assets_handle(),
-			SIW_ASSETS_URL . 'js/features/cookie-consent.js',
-			[ Cookie_Consent_Asset::get_assets_handle() ],
+			self::get_asset_handle(),
+			self::get_script_asset_url(),
+			[ Cookie_Consent_Asset::get_asset_handle() ],
 			SIW_PLUGIN_VERSION,
 			true
 		);
 
 		wp_localize_script(
-			self::get_assets_handle(),
+			self::get_asset_handle(),
 			'siw_cookie_consent',
 			[
 				'config' => [
@@ -145,14 +145,12 @@ class Cookie_Consent extends Base {
 				],
 			]
 		);
-		wp_enqueue_script( self::get_assets_handle() );
+		wp_enqueue_script( self::get_asset_handle() );
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function register_style() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/cookie-consent.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/cookie-consent.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 
 	#[Add_Action( 'generate_before_copyright' )]

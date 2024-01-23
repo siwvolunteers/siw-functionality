@@ -2,19 +2,9 @@
 
 namespace SIW\Elements;
 
-use BackedEnum;
-
-/**
- * Class om een icon te genereren
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Icon extends Element {
 
-	/** Class van icon */
 	protected string $icon_class;
-
-	/** Grootte van icon */
 	protected int $size = 2;
 
 	/** {@inheritDoc} */
@@ -27,9 +17,8 @@ class Icon extends Element {
 		];
 	}
 
-	/** Zet class van icon */
-	public function set_icon_class( string|BackedEnum $icon_class ): self {
-		if ( is_a( $icon_class, BackedEnum::class ) ) {
+	public function set_icon_class( string|\BackedEnum $icon_class ): self {
+		if ( is_a( $icon_class, \BackedEnum::class ) ) {
 			$icon_class = $icon_class->value;
 		}
 
@@ -37,7 +26,6 @@ class Icon extends Element {
 		return $this;
 	}
 
-	/** Zet grootte van icon */
 	public function set_size( int $size ): self {
 		$this->size = $size;
 		return $this;

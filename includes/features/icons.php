@@ -4,11 +4,11 @@ namespace SIW\Features;
 
 use SIW\Attributes\Add_Action;
 use SIW\Base;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 
 class Icons extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	#[Add_Action( 'wp_body_open' )]
 	public function add_svg_sprite() {
@@ -26,13 +26,12 @@ class Icons extends Base {
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function enqueue_script() {
-		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/features/icons.js', null, SIW_PLUGIN_VERSION, true );
-		wp_enqueue_script( self::get_assets_handle() );
+		wp_register_script( self::get_asset_handle(), self::get_script_asset_url(), null, SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::get_asset_handle() );
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function enqueue_style() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/icons.css', null, SIW_PLUGIN_VERSION );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 }

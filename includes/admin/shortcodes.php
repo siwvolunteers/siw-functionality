@@ -5,11 +5,11 @@ namespace SIW\Admin;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Features\Shortcodes as SIW_Shortcodes;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 
 class Shortcodes extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	#[Add_Action( 'wp_enqueue_editor' )]
 	public function enqueue_script() {
@@ -18,7 +18,7 @@ class Shortcodes extends Base {
 			return;
 		}
 
-		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/admin/siw-shortcodes.js', [], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::get_asset_handle(), self::get_script_asset_url(), [], SIW_PLUGIN_VERSION, true );
 
 		$shortcodes = SIW_Shortcodes::get_shortcodes();
 		array_walk( $shortcodes, [ $this, 'format_shortcode' ] );
@@ -30,11 +30,11 @@ class Shortcodes extends Base {
 		];
 
 		wp_localize_script(
-			self::get_assets_handle(),
+			self::get_asset_handle(),
 			'siw_shortcodes',
 			$siw_shortcodes
 		);
-		wp_enqueue_script( self::get_assets_handle() );
+		wp_enqueue_script( self::get_asset_handle() );
 	}
 
 	/** Formatteert shortcode voor gebruik in TinyMCE */

@@ -6,11 +6,6 @@ use SIW\Elements\List_Columns;
 use SIW\Elements\List_Style_Type;
 
 /**
- * Widget met sponsors
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Social links
  * Description: Toont links naar sociale netwerken
  * Author: SIW Internationale Vrijwilligersprojecten

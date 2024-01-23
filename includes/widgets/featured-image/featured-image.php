@@ -3,11 +3,6 @@
 namespace SIW\Widgets;
 
 /**
- * Widget met uitgelichte afbeelding
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Featured image
  * Description: Toont uitgelichte afbeelding
  * Author: SIW Internationale Vrijwilligersprojecten

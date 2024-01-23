@@ -3,10 +3,6 @@
 namespace SIW\External_Assets;
 
 /**
- * Splide
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
  * @see https://splidejs.com
  */
 class Splide extends NPM_Asset {

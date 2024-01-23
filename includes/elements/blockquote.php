@@ -2,20 +2,10 @@
 
 namespace SIW\Elements;
 
-/**
- * Class om een blockquote te genereren
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Blockquote extends Element {
 
-	/** Quote */
 	protected string $quote;
-
-	/** Naam */
 	protected string $name;
-
-	/** Bron/toelichting */
 	protected string $source;
 
 	/** {@inheritDoc} */
@@ -31,28 +21,22 @@ class Blockquote extends Element {
 		];
 	}
 
-	/** Zet de quote */
 	public function set_quote( string $quote ): self {
 		$this->quote = $quote;
 		return $this;
 	}
 
-	/** Zet de naam */
 	public function set_name( string $name ): self {
 		$this->name = $name;
 		return $this;
 	}
 
-	/** Zet de bron */
 	public function set_source( string $source ): self {
 		$this->source = $source;
 		return $this;
 	}
 
-	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/blockquote.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/blockquote.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 }

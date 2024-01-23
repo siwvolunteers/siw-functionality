@@ -5,11 +5,6 @@ namespace SIW\Elements;
 use SIW\External_Assets\A11Y_Accordion_Tabs;
 use SIW\Util\CSS;
 
-/**
- * Class om een accordion te genereren
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Accordion_Tabs extends Repeater {
 
 	protected bool $tabs_allowed = false;
@@ -52,16 +47,12 @@ class Accordion_Tabs extends Repeater {
 		];
 	}
 
-	/** Voegt scripts toe */
 	public function enqueue_scripts() {
-		wp_enqueue_script( A11Y_Accordion_Tabs::get_assets_handle() );
+		wp_enqueue_script( A11Y_Accordion_Tabs::get_asset_handle() );
 	}
 
-	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/accordion-tabs.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/accordion-tabs.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 
 	public function set_tabs_allowed( bool $tabs_allowed ): static {

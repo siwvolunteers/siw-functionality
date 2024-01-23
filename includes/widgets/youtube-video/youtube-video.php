@@ -5,10 +5,6 @@ namespace SIW\Widgets;
 use SIW\Elements\YouTube_Video as YouTube_Video_Element;
 
 /**
- * Widget met interactieve kaart
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
  * @widget_data
  * Widget Name: SIW: Youtube video
  * Description: Toont youtube video

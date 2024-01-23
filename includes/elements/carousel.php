@@ -5,14 +5,8 @@ namespace SIW\Elements;
 use SIW\External_Assets\Splide;
 use SIW\Util\CSS;
 
-/**
- * Carousel
- *
- * @copyright 2019-2023 SIW Internationale Vrijwilligersprojecten
- */
 class Carousel extends Repeater {
 
-	/** Opties voor carousel */
 	protected array $options = [
 		'type'        => 'loop', // slide/loop/fade
 		'speed'       => 1000,
@@ -54,21 +48,12 @@ class Carousel extends Repeater {
 
 	/** {@inheritDoc} */
 	public function enqueue_styles() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/carousel.css', [ Splide::get_assets_handle() ], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/carousel.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 
 	/** {@inheritDoc} */
 	public function enqueue_scripts() {
-		wp_register_script(
-			self::get_assets_handle(),
-			SIW_ASSETS_URL . 'js/elements/carousel.js',
-			[ Splide::get_assets_handle() ],
-			SIW_PLUGIN_VERSION,
-			true
-		);
-		wp_enqueue_script( self::get_assets_handle() );
+		self::enqueue_class_script( [ Splide::get_asset_handle() ] );
 	}
 
 	public function set_columns( int $columns ): self {

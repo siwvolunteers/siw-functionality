@@ -2,11 +2,6 @@
 
 namespace SIW\Elements;
 
-/**
- * Class om een calendar icoon te genereren
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Calendar_Icon extends Element {
 
 	protected \DateTime $date_time;
@@ -31,8 +26,6 @@ class Calendar_Icon extends Element {
 	}
 
 	public function enqueue_styles() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/calendar-icon.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/calendar-icon.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 }

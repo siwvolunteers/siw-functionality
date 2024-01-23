@@ -2,11 +2,6 @@
 
 namespace SIW\Elements;
 
-/**
- * YouTube video
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class YouTube_Video extends Element {
 
 	protected string $video_id;

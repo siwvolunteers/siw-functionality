@@ -7,13 +7,8 @@ use SIW\Elements\List_Columns;
 use SIW\Elements\List_Style_Type;
 
 /**
- * Widget met bestuurssamenstelling
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
- * Widget Name: SIW: Bestuurssamenstelling
- * Description: Toont bestuurssamenstelling.
+ * Widget Name: SIW: Bestuurssamenstellingddd
+ * Description: Toont bestuurssamenstelling.!!
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
  */

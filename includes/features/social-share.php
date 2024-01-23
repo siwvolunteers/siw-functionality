@@ -8,17 +8,15 @@ use SIW\Data\Post_Type_Support;
 use SIW\Data\Social_Network_Context;
 use SIW\Elements\Social_Links;
 use SIW\Helpers\Template;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 
 class Social_Share extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function enqueue_styles() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/social-share.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/features/social-share.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 
 	#[Add_Action( 'generate_after_content' )]

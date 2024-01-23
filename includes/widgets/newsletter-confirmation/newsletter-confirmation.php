@@ -3,11 +3,6 @@
 namespace SIW\Widgets;
 
 /**
- * Widget met bevesting voor aanmelding nieuwsbrief
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Nieuwsbrief - bevestiging aanmelding
  * Description: TODO
  * Author: SIW Internationale Vrijwilligersprojecten

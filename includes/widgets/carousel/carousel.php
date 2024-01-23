@@ -8,11 +8,6 @@ use SIW\Elements\Carousel as Element_Carousel;
 use SIW\Util\Carousel as Carousel_Util;
 
 /**
- * Widget met carousel
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Carousel
  * Description: Toont carousel.
  * Author: SIW Internationale Vrijwilligersprojecten
@@ -20,10 +15,7 @@ use SIW\Util\Carousel as Carousel_Util;
  */
 class Carousel extends Widget {
 
-	/** Default aantal kolommen */
 	private const DEFAULT_NUMBER_OF_COLUMNS = 4;
-
-	/** Default aantal items */
 	private const DEFAULT_NUMBER_OF_ITEMS = 6;
 
 	/** {@inheritDoc} */

@@ -6,32 +6,19 @@ use SIW\External_Assets\Jsvectormap;
 use SIW\External_Assets\Jsvectormap_World_Map;
 use SIW\Util\CSS;
 
-/**
- * Interactive SVG-kaart
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Interactive_SVG_Map extends Element {
 
 	/** TODO: enum voor kaarten*/
 	public const MAP_WORLD = 'world';
 
-	/** Hoogte van kaart in pixels */
 	protected int $height = 300;
-
 	protected string $map = self::MAP_WORLD;
-
 	protected int $zoom_min = 1;
 	protected int $zoom_max = 12;
-
 	protected string $focus_region;
-
 	protected array $regions = [];
-
 	protected array $selected_regions = [];
-
 	protected array $markers = [];
-
 	protected array $selected_markers = [];
 
 	/** {@inheritDoc} */
@@ -94,22 +81,15 @@ class Interactive_SVG_Map extends Element {
 
 	/** {@inheritDoc} */
 	public function enqueue_scripts() {
-		wp_register_script(
-			self::get_assets_handle(),
-			SIW_ASSETS_URL . 'js/elements/interactive-svg-maps.js',
-			[ Jsvectormap_World_Map::get_assets_handle() ],
-			SIW_PLUGIN_VERSION,
-			true
-		);
-		wp_enqueue_script( self::get_assets_handle() );
+		self::enqueue_class_script( [ Jsvectormap_World_Map::get_asset_handle() ] );
 	}
 
 	/** {@inheritDoc} */
 	public function enqueue_styles() {
-		wp_enqueue_style( Jsvectormap::get_assets_handle() );
+		wp_enqueue_style( Jsvectormap::get_asset_handle() );
 		$css = CSS::get_css_generator();
 		$css->add_rule( "#{$this->get_element_id()}", [ 'height' => "{$this->height}px" ] );
-		wp_add_inline_style( Jsvectormap::get_assets_handle(), $css->get_output() );
+		wp_add_inline_style( Jsvectormap::get_asset_handle(), $css->get_output() );
 	}
 
 	public function set_map( string $map ): self {

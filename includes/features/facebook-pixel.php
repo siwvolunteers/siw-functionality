@@ -7,11 +7,11 @@ use SIW\Base;
 use SIW\Config;
 use SIW\Data\Tag_Attribute;
 use SIW\External_Assets\Meta_Pixel;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 
 class Facebook_Pixel extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function enqueue_script() {
@@ -20,9 +20,9 @@ class Facebook_Pixel extends Base {
 			return;
 		}
 
-		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/features/facebook-pixel.js', [], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::get_asset_handle(), self::get_script_asset_url(), [], SIW_PLUGIN_VERSION, true );
 		wp_localize_script(
-			self::get_assets_handle(),
+			self::get_asset_handle(),
 			'siw_facebook_pixel',
 			[
 				'pixel_id' => esc_js( $pixel_id ),
@@ -30,17 +30,17 @@ class Facebook_Pixel extends Base {
 		);
 
 		wp_script_add_data(
-			self::get_assets_handle(),
+			self::get_asset_handle(),
 			Tag_Attribute::TYPE,
 			'text/plain'
 		);
 
 		wp_script_add_data(
-			self::get_assets_handle(),
+			self::get_asset_handle(),
 			Tag_Attribute::COOKIE_CATEGORY,
 			Cookie_Consent::MARKETING
 		);
-		wp_enqueue_script( self::get_assets_handle() );
-		wp_enqueue_script( Meta_Pixel::get_assets_handle() );
+		wp_enqueue_script( self::get_asset_handle() );
+		wp_enqueue_script( Meta_Pixel::get_asset_handle() );
 	}
 }

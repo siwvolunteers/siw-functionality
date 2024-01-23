@@ -3,10 +3,6 @@
 namespace SIW\External_Assets;
 
 /**
- * A11y Accordion Tabs
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
  * @see       https://matthiasott.github.io/a11y-accordion-tabs/
  */
 class A11Y_Accordion_Tabs extends NPM_Asset {

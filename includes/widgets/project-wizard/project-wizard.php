@@ -5,11 +5,6 @@ namespace SIW\Widgets;
 use SIW\Elements\Project_Wizard as Project_Wizard_Element;
 
 /**
- * Widget met keuzehulp
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Keuzehulp
  * Description: Toont keuzehulp
  * Author: SIW Internationale Vrijwilligersprojecten

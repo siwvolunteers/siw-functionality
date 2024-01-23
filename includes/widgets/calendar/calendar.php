@@ -112,8 +112,8 @@ class Calendar extends Widget {
 		$this->register_frontend_styles(
 			[
 				[
-					'siw-widget-calendar',
-					SIW_ASSETS_URL . 'css/widgets/calendar.css',
+					self::get_asset_handle(),
+					self::get_style_asset_url(),
 					[],
 					SIW_PLUGIN_VERSION,
 				],
@@ -121,7 +121,6 @@ class Calendar extends Widget {
 		);
 	}
 
-	/** Parset event data */
 	protected function parse_event( Event $event ): string {
 		return Template::create()
 			->set_template( 'widgets/calendar-event' )

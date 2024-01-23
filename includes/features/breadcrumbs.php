@@ -4,7 +4,7 @@ namespace SIW\Features;
 
 use SIW\Attributes\Add_Action;
 use SIW\Base;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 use SIW\Util\CSS;
 
 /**
@@ -12,13 +12,11 @@ use SIW\Util\CSS;
  */
 class Breadcrumbs extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function enqueue_styles() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/breadcrumbs.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/features/breadcrumbs.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 
 	#[Add_Action( 'generate_before_main_content', 1 ) ]

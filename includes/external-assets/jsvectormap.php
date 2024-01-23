@@ -5,11 +5,7 @@ namespace SIW\External_Assets;
 use SIW\External_Assets\NPM_Asset;
 
 /**
- * Jsvectormap
- *
  * @see https://github.com/themustafaomar/jsvectormap
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
  */
 class Jsvectormap extends NPM_Asset {
 

@@ -5,10 +5,6 @@ namespace SIW\External_Assets;
 use SIW\Features\Cookie_Consent;
 
 /**
- * Facebook Pixel
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- *
  * @see       https://developers.facebook.com/docs/meta-pixel/get-started
  */
 class Meta_Pixel extends External_Asset {

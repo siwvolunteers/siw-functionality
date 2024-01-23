@@ -5,11 +5,6 @@ namespace SIW\Widgets;
 use SIW\Elements\CTA_Hero;
 
 /**
- * Widget met Call to Action
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: CTA
  * Description: Toont call to action
  * Author: SIW Internationale Vrijwilligersprojecten

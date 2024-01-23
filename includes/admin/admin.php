@@ -7,11 +7,11 @@ use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Properties;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 
 class Admin extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	#[Add_Action( 'admin_init' )]
 	public function remove_welcome_panel() {
@@ -20,8 +20,7 @@ class Admin extends Base {
 
 	#[Add_Action( 'admin_enqueue_scripts' )]
 	public function enqueue_admin_style() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/admin/siw-admin.css', [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 
 	#[Add_Action( 'admin_menu', PHP_INT_MAX )]

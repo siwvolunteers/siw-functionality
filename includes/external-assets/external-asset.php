@@ -5,11 +5,11 @@ namespace SIW\External_Assets;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Data\Tag_Attribute;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 
 abstract class External_Asset extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	abstract protected static function get_version_number(): ?string;
 	abstract protected static function get_script_url(): ?string;
@@ -39,7 +39,7 @@ abstract class External_Asset extends Base {
 		}
 
 		wp_register_script(
-			static::get_assets_handle(),
+			static::get_asset_handle(),
 			static::get_script_url(),
 			static::get_script_dependencies(),
 			null, // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
@@ -48,13 +48,13 @@ abstract class External_Asset extends Base {
 
 		if ( null !== static::get_cookie_category() ) {
 			wp_script_add_data(
-				static::get_assets_handle(),
+				static::get_asset_handle(),
 				Tag_Attribute::TYPE,
 				'text/plain'
 			);
 
 			wp_script_add_data(
-				static::get_assets_handle(),
+				static::get_asset_handle(),
 				Tag_Attribute::COOKIE_CATEGORY,
 				static::get_cookie_category()
 			);
@@ -70,7 +70,7 @@ abstract class External_Asset extends Base {
 		}
 
 		wp_register_style(
-			static::get_assets_handle(),
+			static::get_asset_handle(),
 			$this->get_style_url(),
 			[],
 			null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion

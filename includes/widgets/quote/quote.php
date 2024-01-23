@@ -6,7 +6,6 @@ use SIW\Data\Country;
 use SIW\Elements\Blockquote;
 
 /**
- * @widget_data
  * Widget Name: SIW: Quote
  * Description: Toont quote van deelnemer
  * Author: SIW Internationale Vrijwilligersprojecten
@@ -92,8 +91,8 @@ class Quote extends Widget {
 		$this->register_frontend_styles(
 			[
 				[
-					'siw-widget-quote',
-					SIW_ASSETS_URL . 'css/widgets/quote.css',
+					self::get_asset_handle(),
+					self::get_style_asset_url(),
 					[],
 					SIW_PLUGIN_VERSION,
 				],

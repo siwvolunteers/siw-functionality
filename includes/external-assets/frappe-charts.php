@@ -3,10 +3,6 @@
 namespace SIW\External_Assets;
 
 /**
- * Frappe Charts
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
  * @see https://frappe.io/charts
  */
 class Frappe_Charts extends NPM_Asset {

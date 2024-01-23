@@ -3,10 +3,6 @@
 namespace SIW\External_Assets;
 
 /**
- * IframeManager
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
  * @see https://github.com/orestbida/iframemanager
  */
 class Iframe_Manager extends NPM_Asset {

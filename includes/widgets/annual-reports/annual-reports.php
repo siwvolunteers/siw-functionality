@@ -7,11 +7,6 @@ use SIW\Elements\List_Style_Type;
 use SIW\Properties;
 
 /**
- * Widget met jaarverslagen
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Openingstijden
  * Description: Toont openingstijden
  * Author: SIW Internationale Vrijwilligersprojecten
