@@ -116,7 +116,7 @@ class Event extends Post_Type {
 				'name'     => __( 'Datum', 'siw' ),
 				'type'     => 'date',
 				'required' => true,
-      ],
+			],
 			[
 				'id'            => 'start_time',
 				'name'          => __( 'Starttijd', 'siw' ),

@@ -14,6 +14,7 @@ abstract class Posts {
 
 		$args = static::get_default_args();
 		$args['post_type'] = static::get_post_type();
+		$args['posts_per_page'] = -1;
 
 		$posts = get_posts( $args );
 
