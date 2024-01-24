@@ -42,7 +42,7 @@ class Topbar extends Base {
 		// translators: %1$s is de naam van het evenement, %2$s is de datum
 			__( 'Kom naar de %1$s op %2$s', 'siw' ),
 			$event->get_title(),
-			$event->get_event_date()->format( 'j F' )
+			wp_date( 'j F', $event->get_event_date()->getTimestamp() )
 		);
 
 		return [

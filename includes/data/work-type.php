@@ -69,7 +69,7 @@ enum Work_Type: string implements Labels, Plato_Code {
 			self::CONSTRUCTION => 'CONS',
 			self::CULTURE      => 'CULT',
 			self::DISABILITIES => 'DISA',
-			self::EDUCATION    => 'EDUC',
+			self::EDUCATION    => 'EDU',
 			self::ELDERLY      => 'ELDE',
 			self::FESTIVAL     => 'FEST',
 			self::HERITAGE     => 'HERI',

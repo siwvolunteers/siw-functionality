@@ -4,9 +4,8 @@ namespace SIW\Forms\Forms;
 
 use SIW\Content\Posts\Events;
 use SIW\Data\Continent;
+use SIW\Data\Mailjet\Property;
 use SIW\Data\Project_Type;
-use SIW\Integrations\Mailjet;
-use SIW\Integrations\Mailjet\Property;
 use SIW\Interfaces\Forms\Confirmation_Mail as I_Confirmation_Mail;
 use SIW\Interfaces\Forms\Export_To_Mailjet as I_Export_To_Mailjet;
 use SIW\Interfaces\Forms\Form as I_Form;

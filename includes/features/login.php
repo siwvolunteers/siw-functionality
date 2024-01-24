@@ -20,8 +20,7 @@ class Login extends Base {
 
 	#[Add_Action( 'login_enqueue_scripts' )]
 	public function enqueue_style() {
-		wp_register_style( self::get_asset_handle(), self::get_style_asset_path(), [], SIW_PLUGIN_VERSION );
-		wp_enqueue_style( self::get_asset_handle() );
+		self::enqueue_class_style();
 
 		$css = new \GeneratePress_Backgrounds_CSS();
 
