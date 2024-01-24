@@ -99,7 +99,7 @@ class Mailjet {
 	}
 
 	public function retrieve_properties( string $index = 'id' ): array {
-		$url = $this->get_api_url( Operation::RETRIEVE_PROPERTIES );
+		$url = $this->get_api_url( Operation::MANAGE_PROPERTIES );
 		$response = $this->create_http_request( $url )->get();
 
 		if ( is_wp_error( $response ) ) {
@@ -124,7 +124,7 @@ class Mailjet {
 	}
 
 	public function create_property( string $name, Data_Type $datatype, Property_Namespace $mailjet_namespace = Property_Namespace::STATIC ): ?int {
-		$url = $this->get_api_url( Operation::CREATE_PROPERTY );
+		$url = $this->get_api_url( Operation::MANAGE_PROPERTIES );
 
 		$body = [
 			'Name'      => $name,
