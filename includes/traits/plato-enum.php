@@ -2,7 +2,6 @@
 
 namespace SIW\Traits;
 
-use BackedEnum;
 use SIW\Interfaces\Enums\Labels;
 use SIW\Interfaces\Enums\Plato_Code;
 
