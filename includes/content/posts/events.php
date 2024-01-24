@@ -37,7 +37,7 @@ class Events extends Posts {
 	public static function get_future_info_days(): array {
 		return array_values(
 			array_filter(
-				static::get(),
+				self::get_future_events(),
 				fn( Event $event ) => $event->is_info_day()
 			)
 		);
