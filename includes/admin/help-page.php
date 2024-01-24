@@ -6,15 +6,9 @@ use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Elements\Accordion_Tabs;
 
-/**
- * Voegt help-pagina toe
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Help_Page extends Base {
 
 	#[Add_Action( 'admin_menu' )]
-	/** Voegt adminpagina toe */
 	public function add_help_page() {
 
 		if ( ! siw_get_option( 'faq.show_page' ) ) {
@@ -30,7 +24,6 @@ class Help_Page extends Base {
 		);
 	}
 
-	/** Rendert de adminpagina */
 	public function render_page() {
 
 		$faq = siw_get_option( 'faq' );

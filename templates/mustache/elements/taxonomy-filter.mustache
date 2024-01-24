@@ -1,7 +1,7 @@
-<div class="{{ element.classes }}" data-filter-group="{{ taxonomy.slug }}">
-	<h5>{{ i18n.filter }} {{ taxonomy.name | case.lower }}</h5>
-	<button class="is-checked" data-filter="">{{ i18n.all }}</button>
+<div id="{{ element.id}}" class="{{ element.classes }}">
+	<h5>{{#__}}Filter op {{ taxonomy.labels.singular_name | case.lower }} {{/__}}</h5>
+	<a class="button {{ all.active }}" href="{{ all.url }}">{{#__}}Alle{{/__}}</a>
 	{{# terms }}
-		<button data-filter="{{ slug }}">{{ name }}</button>
+		<a class="button {{ active }}" href="{{ url}}">{{ name }}</a>
 	{{/ terms }}
 </div>

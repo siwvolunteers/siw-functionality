@@ -5,11 +5,6 @@ namespace SIW\Widgets;
 use SIW\Elements\Accordion_Tabs as Accordion_Tabs_Element;
 
 /**
- * Widget met contactinformatie
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Accordion
  * Description: Toont accordion.
  * Author: SIW Internationale Vrijwilligersprojecten

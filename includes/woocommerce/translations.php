@@ -5,11 +5,6 @@ namespace SIW\WooCommerce;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
-/**
- * Vertalingen voor WooCommerce
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Translations extends Base {
 
 	#[Add_Filter( 'woocommerce_order_button_text' )]
@@ -27,7 +22,6 @@ class Translations extends Base {
 		return '<span class="onsale">' . esc_html__( 'Korting', 'siw' ) . '</span>';
 	}
 
-	/** Zet labels voor producten (projecten) */
 	#[Add_Filter( 'woocommerce_register_post_type_product' )]
 	public function set_product_labels( array $args ): array {
 		$args['labels'] = [
@@ -55,7 +49,6 @@ class Translations extends Base {
 	}
 
 	#[Add_Filter( 'woocommerce_register_post_type_shop_order' )]
-	/** Zet labels voor orders (aanmeldingen) */
 	public function set_shop_order_labels( array $args ): array {
 		$args['labels'] = [
 			'name'               => __( 'Aanmeldingen', 'siw' ),
@@ -75,20 +68,19 @@ class Translations extends Base {
 		return $args;
 	}
 
-	/** Labels voor product category (continenten) */
 	#[Add_Filter( 'woocommerce_taxonomy_args_product_cat' )]
 	public function set_product_category_labels( array $args ): array {
-		$args['label'] = __( 'Continenten', 'siw' );
+		$args['label'] = __( 'Projecttypes', 'siw' );
 		$args['labels'] = [
-			'name'          => __( 'Continenten', 'siw' ),
-			'singular_name' => __( 'Continent', 'siw' ),
-			'menu_name'     => _x( 'Continenten', 'Admin menu name', 'siw' ),
-			'search_items'  => __( 'Zoek continenten', 'siw' ),
-			'all_items'     => __( 'Alle continenten', 'siw' ),
-			'edit_item'     => __( 'Bewerk continent', 'siw' ),
-			'update_item'   => __( 'Werk continent bij', 'siw' ),
-			'add_new_item'  => __( 'Voeg nieuw continent toe', 'siw' ),
-			'new_item_name' => __( 'Nieuw continent', 'siw' ),
+			'name'          => __( 'Projecttypes', 'siw' ),
+			'singular_name' => __( 'Projecttype', 'siw' ),
+			'menu_name'     => _x( 'Projecttypes', 'Admin menu name', 'siw' ),
+			'search_items'  => __( 'Zoek projecttypes', 'siw' ),
+			'all_items'     => __( 'Alle projecttypes', 'siw' ),
+			'edit_item'     => __( 'Bewerk projecttype', 'siw' ),
+			'update_item'   => __( 'Werk projecttype bij', 'siw' ),
+			'add_new_item'  => __( 'Voeg nieuw projecttype toe', 'siw' ),
+			'new_item_name' => __( 'Nieuw projecttype', 'siw' ),
 		];
 		return $args;
 	}
@@ -98,11 +90,10 @@ class Translations extends Base {
 	/** Labels van admin columns */
 	public function set_product_column_labels( array $columns ): array {
 		$columns['sku'] = __( 'Projectcode', 'siw' );
-		$columns['product_cat']  = __( 'Continent', 'siw' );
+		$columns['product_cat']  = __( 'Projecttype', 'siw' );
 		return $columns;
 	}
 
-	/** Overschrijf vertalingen via gettext */
 	#[Add_Filter( 'gettext_woocommerce' )]
 	public function override_translations( string $translation, string $text ): string {
 

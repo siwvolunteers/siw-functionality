@@ -4,11 +4,6 @@ namespace SIW\Elements;
 
 use SIW\Util\CSS;
 
-/**
- * Class om CTA Hero te genereren
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class CTA_Hero extends Element {
 
 	private const DEFAULT_DISPLAY_TIME = 3;
@@ -93,9 +88,7 @@ class CTA_Hero extends Element {
 
 	/** {@inheritDoc} */
 	public function enqueue_styles() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/cta-hero.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/cta-hero.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 
 		$keyframe_2 = $this->display_time / $this->determine_animation_duration() * 100;
 		$keyframe_3 = 1 / $this->get_background_images_count() * 100;
@@ -138,6 +131,6 @@ class CTA_Hero extends Element {
 		);
 		$css->close_block();
 
-		wp_add_inline_style( self::get_assets_handle(), $css->get_output() );
+		wp_add_inline_style( self::get_asset_handle(), $css->get_output() );
 	}
 }

@@ -7,14 +7,8 @@ use SIW\Interfaces\Forms\Form;
 use SIW\Util\Links;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Class om een keuzehulp te genereren (o.b.v. een MetaBox)
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Project_Wizard extends Element {
 
-	/** MetaBox instantie */
 	protected \RW_Meta_Box $meta_box;
 
 	/** {@inheritDoc} */
@@ -86,7 +80,7 @@ class Project_Wizard extends Element {
 					'std'     => sprintf(
 						'%s %s',
 						'Begin je zoektocht eens bij de <em>groepsprojecten binnen Europa</em>.',
-						$this->generate_link( get_term_link( 'europa', Taxonomy_Attribute::CONTINENT()->value ) )
+						$this->generate_link( get_term_link( 'europa', Taxonomy_Attribute::CONTINENT->value ) )
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',
@@ -117,7 +111,7 @@ class Project_Wizard extends Element {
 					'std'     => sprintf(
 						'%s %s',
 						'Voor jou zijn <em>Wereld-basis-projecten</em> een mooi startpunt.',
-						$this->generate_link( get_permalink( siw_get_project_type_page( Project_Type::WORLD_BASIC() ) ) )
+						$this->generate_link( get_permalink( Project_Type::WORLD_BASIC->get_page() ) )
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',
@@ -159,7 +153,7 @@ class Project_Wizard extends Element {
 					'std'     => sprintf(
 						'%s %s',
 						'Jij komt in aanmerking voor het <em>European Solidarity Fund</em> en kan bijna kosteloos een vrijwilligersproject gaan doen.',
-						$this->generate_link( get_permalink( siw_get_project_type_page( Project_Type::ESC() ) ) )
+						$this->generate_link( get_permalink( Project_Type::ESC->get_page() ) )
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',
@@ -179,15 +173,7 @@ class Project_Wizard extends Element {
 			$url,
 			__( 'Lees meer', 'siw' ),
 			[
-				'class'          => 'page-link',
-				'data-ga4-event' => [
-					'name'       => 'click',
-					'parameters' => [
-						'link_id'  => 'project_wizard',
-						'link_url' => $url,
-						'outbound' => false,
-					],
-				],
+				'class' => 'page-link',
 			]
 		);
 	}
@@ -196,8 +182,6 @@ class Project_Wizard extends Element {
 	/** {@inheritDoc} */
 	public function enqueue_styles() {
 		$this->meta_box->enqueue();
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/project-wizard.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/project-wizard.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 }

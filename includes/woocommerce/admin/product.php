@@ -3,14 +3,8 @@
 namespace SIW\WooCommerce\Admin;
 
 use SIW\Attributes\Add_Action;
-use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
-/**
- * Aanpassingen aan admin-scherm voor producten
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Product extends Base {
 
 	#[Add_Action( 'admin_init', 20 )]

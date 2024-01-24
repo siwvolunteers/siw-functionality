@@ -2,14 +2,11 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Social_Icons;
+use SIW\Elements\Icon;
 use SIW\Properties;
 
 /**
- * Widget met contactinformatie
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Contactinformatie
  * Description: Toont contactinformatie.
  * Author: SIW Internationale Vrijwilligersprojecten
@@ -54,27 +51,20 @@ class Contact extends Widget {
 
 	/** {@inheritDoc} */
 	public function get_template_variables( $instance, $args ) {
-
 		return [
 			'name'          => Properties::NAME,
 			'address'       => Properties::ADDRESS,
 			'postcode'      => Properties::POSTCODE,
 			'city'          => Properties::CITY,
 			'tel_link'      => [
-				'phone' => Properties::PHONE_INTERNATIONAL,
-				'text'  => Properties::PHONE,
+				'full' => Properties::PHONE_INTERNATIONAL,
+				'text' => Properties::PHONE,
 			],
-			'email_link'    => [
-				'email' => Properties::EMAIL,
-				'text'  => Properties::EMAIL,
-			],
+			'email'         => Properties::EMAIL,
 			'whatsapp_link' => [
-				'url'   => add_query_arg( 'phone', Properties::WHATSAPP_FULL, 'https://api.whatsapp.com/send' ),
-				'phone' => Properties::WHATSAPP,
-				'icon'  => [
-					'size'       => 2,
-					'icon_class' => 'whatsapp',
-				],
+				'url'  => add_query_arg( 'phone', Properties::WHATSAPP_FULL, 'https://api.whatsapp.com/send' ),
+				'text' => Properties::WHATSAPP,
+				'icon' => Icon::create()->set_icon_class( Social_Icons::WHATSAPP )->set_size( 3 )->generate(),
 			],
 		];
 	}

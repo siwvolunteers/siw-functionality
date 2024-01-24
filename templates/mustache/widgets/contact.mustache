@@ -3,7 +3,7 @@
 <p>
 	{{ name }} <br/>
 	{{ address }} | {{ postcode }} {{ city }} <br/>
-	{{> links/tel }} | {{> links/email }}  <br/>
-	{{> links/whatsapp }} <br/>
+	<a href="tel:{{ tel_link.full }}">{{ tel_link.text }}</a> | <a href="mailto:{{ email|antispambot }}">{{ email|antispambot }}</a>  <br/>
+	<a href="{{ whatsapp_link.url }}" class="siw-contact-link"> {{& whatsapp_link.icon }} {{ whatsapp_link.text }} </a> <br/>
 </p>
 

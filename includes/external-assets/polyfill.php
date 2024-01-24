@@ -5,15 +5,10 @@ namespace SIW\External_Assets;
 use SIW\External_Assets\External_Asset;
 
 /**
- * Polyfill.io
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
  * @see https://polyfill.io/v3/
  */
 class Polyfill extends External_Asset {
 
-	/** Features voor Polyfill.io */
 	protected static array $polyfill_features = [
 		'default',
 	];

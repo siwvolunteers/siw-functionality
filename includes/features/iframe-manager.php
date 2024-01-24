@@ -5,44 +5,30 @@ namespace SIW\Features;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\External_Assets\Iframe_Manager as Iframe_Manager_Asset;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 use SIW\Util\Links;
 
-/**
- * Cookie consent
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Iframe_Manager extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
-		wp_register_style(
-			self::get_assets_handle(),
-			SIW_ASSETS_URL . 'css/features/iframe-manager.css',
-			[ Iframe_Manager_Asset::get_assets_handle() ],
-			SIW_PLUGIN_VERSION
-		);
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/iframe-manager.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style( [ Iframe_Manager_Asset::get_asset_handle() ] );
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Voegt stylesheet toe */
 	public function enqueue_scripts() {
 		wp_register_script(
-			self::get_assets_handle(),
-			SIW_ASSETS_URL . 'js/features/iframe-manager.js',
-			[ Iframe_Manager_Asset::get_assets_handle() ],
+			self::get_asset_handle(),
+			self::get_script_asset_url(),
+			[ Iframe_Manager_Asset::get_asset_handle() ],
 			SIW_PLUGIN_VERSION,
 			true
 		);
 
 		wp_localize_script(
-			self::get_assets_handle(),
+			self::get_asset_handle(),
 			'siw_iframe_manager',
 			[
 				'config' => [
@@ -75,6 +61,6 @@ class Iframe_Manager extends Base {
 			]
 		);
 
-		wp_enqueue_script( self::get_assets_handle() );
+		wp_enqueue_script( self::get_asset_handle() );
 	}
 }

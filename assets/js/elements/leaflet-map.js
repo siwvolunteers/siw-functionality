@@ -1,23 +1,12 @@
-/**
- * @file      Functies t.b.v. Leaflet kaarten
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
-
 var siwLeafletMap = (function () {
 
-	/* Public methodes */
 	return {
 		init: init
 	};
 
-	/**
-	 * Initialiseert alle kaarten
-	 */
 	function init() {
-		//Zoek alle kaarten
 		var maps = document.querySelectorAll( '.siw-leaflet-map' );
 
-		//Intialiseer elke kaart
 		for ( var i=0, len = maps.length; i < len; i++ ) {
 			var map = maps[i];
 			_initSingle( map );
@@ -25,8 +14,6 @@ var siwLeafletMap = (function () {
 	}
 
 	/**
-	 * Initialiseert een kaart
-	 *
 	 * @param {Element} el
 	 */
 	function _initSingle( el ) {
@@ -45,8 +32,6 @@ var siwLeafletMap = (function () {
 	}
 
 	/**
-	 * Creëert kaart
-	 *
 	 * @param {Element} el
 	 * @param {JSON} mapOptions
 	 */
@@ -56,7 +41,6 @@ var siwLeafletMap = (function () {
 		var tileLayer = siwLeafletMapData.tileLayer;
 		L.tileLayer( tileLayer.urlTemplate, tileLayer.options ).addTo( map );
 
-		//Zoek alle markers
 		var markers = el.dataset.markers;
 		if ( typeof markers === 'string' ) {
 			_addMarkers( map, markers );
@@ -72,8 +56,6 @@ var siwLeafletMap = (function () {
 	}
 
 	/**
-	 * Voegt alle markers toe aan kaart
-	 *
 	 * @param {*} map
 	 * @param {Array} markers
 	 */
@@ -91,8 +73,6 @@ var siwLeafletMap = (function () {
 	}
 
 	/**
-	 * Voegt marker toe aan kaart
-	 *
 	 * @param {*} map
 	 * @param {JSON} data
 	 */
@@ -110,8 +90,6 @@ var siwLeafletMap = (function () {
 	}
 
 	/**
-	 * Geocode adres
-	 *
 	 * @param {string} query
 	 * @param {*} callback
 	 */

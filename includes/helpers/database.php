@@ -5,23 +5,12 @@ namespace SIW\Helpers;
 use SIW\Data\Database_Table;
 use SIW\Util\Logger;
 
-/**
- * Database helper voor SIW-tabellen
- *
- * @copyright 2021-2023 SIW Internationale Vrijwilligersprojecten
- */
 class Database {
 
-	/** DB-connectie */
 	protected \wpdb $wpdb;
-
-	/** Tabelnaam (inclusief prefix) */
 	protected string $table;
-
-	/** Informatie over kolommen */
 	protected array $columns;
 
-	/** Init */
 	public function __construct( Database_Table $table ) {
 		global $wpdb;
 		$this->wpdb = $wpdb;
@@ -29,12 +18,10 @@ class Database {
 		$this->columns = siw_get_data( "database/{$table->value}" );
 	}
 
-	/** Geeft informatie over kolommen terug */
 	public function get_columns(): array {
 		return $this->columns;
 	}
 
-	/** Truncate tabel */
 	public function truncate(): bool {
 		$result = (bool) $this->wpdb->query( "TRUNCATE TABLE {$this->table}" );
 		if ( false === $result ) {
@@ -43,7 +30,6 @@ class Database {
 		return $result;
 	}
 
-	/** Insert data */
 	public function insert( array $data ): bool {
 
 		// Alleen data van bestaande kolommen gebruiken
@@ -63,7 +49,6 @@ class Database {
 		return $result;
 	}
 
-	/** Haal rij uit database (o.b.v. where-array met `column => value` ) */
 	public function get_row( array $where ): ?array {
 
 		// Where clause opbouwen
@@ -104,7 +89,6 @@ class Database {
 		return $data;
 	}
 
-	/** Haal kolom uit database (o.b.v. where-array met `column => value` ) */
 	public function get_col( string $col, array $where = [] ): array {
 		if ( ! in_array( $col, wp_list_pluck( $this->columns, 'name' ), true ) ) {
 			return [];
@@ -142,12 +126,10 @@ class Database {
 		return $data;
 	}
 
-	/** Verwijder data */
 	public function delete( array $where ) {
 		return (bool) $this->wpdb->delete( $this->table, $where );
 	}
 
-	/** Creëer tabel */
 	public function create_table(): bool {
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
@@ -177,7 +159,6 @@ class Database {
 		return $result;
 	}
 
-	/** Voeg foreign key toe */
 	public function add_foreign_key( Database_Table $referenced_table, array $referenced_fields, array $fields ): bool {
 		// TODO: parameter voor on delete/ on update
 		// TODO: checks op velden en tabel
@@ -208,7 +189,6 @@ class Database {
 		return $result;
 	}
 
-	/** Typecase waarde o.b.v. type */
 	protected function typecast_value( $value, string $type ): mixed {
 		$value = match ( $type ) {
 			'CHAR',
@@ -224,7 +204,6 @@ class Database {
 		return $value;
 	}
 
-	/** Zet mysql type om naar placeholder voor wpdb->prepare */
 	protected function type_to_placeholder( string $type ): string {
 
 		$placeholder = match ( $type ) {
@@ -242,23 +221,19 @@ class Database {
 		return $placeholder;
 	}
 
-	/** Geeft volledige tabelnaam terug */
 	protected function get_full_table_name( string $table_name ): string {
 		return $this->wpdb->prefix . 'siw_' . $table_name;
 	}
 
-	/** Geeft data typer kolom terug */
 	protected function get_column_data_types(): array {
 		return wp_list_pluck( $this->columns, 'type', 'name' );
 	}
 
-	/** Geeft het aantal records in de tabel terug */
 	public function get_row_count(): ?int {
 		$sql = "SELECT COUNT(1) FROM $this->table";
 		return (int) $this->wpdb->get_var( $sql );
 	}
 
-	/** Haalt rijen uit database op */
 	public function get_rows( array $args ): ?array {
 		$defaults = [
 			'orderby'        => null,

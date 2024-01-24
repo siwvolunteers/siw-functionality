@@ -10,27 +10,19 @@ use SIW\Interfaces\Forms\Confirmation_Mail as I_Confirmation_Mail;
 use SIW\Interfaces\Forms\Export_To_Mailjet as I_Export_To_Mailjet;
 use SIW\Interfaces\Forms\Form as I_Form;
 use SIW\Interfaces\Forms\Notification_Mail as I_Notification_Mail;
+use SIW\Jobs\Async\Export_To_Mailjet;
 use SIW\Properties;
 use SIW\Util\Logger;
 use SIW\Util\Meta_Box;
 
-/**
- * Class om een formulieraanmelding te verwerken
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Processor {
 
-	/** Bevestigingsmail */
 	protected I_Confirmation_Mail $confirmation_mail;
 
-	/** Notificatiemail */
 	protected I_Notification_Mail $notification_mail;
 
-	/** Export naar Mailjet */
 	protected I_Export_To_Mailjet $export_to_mailjet;
 
-	/** IP adres */
 	protected string $ip;
 
 	/** Init */
@@ -159,7 +151,7 @@ class Processor {
 			'properties' => array_filter( $this->export_to_mailjet->get_mailjet_properties( $this->request ) ),
 		];
 
-		siw_enqueue_async_action( 'export_to_mailjet', $data );
+		as_enqueue_async_action( Export_To_Mailjet::class, $data );
 	}
 
 	/** Verstuurt bevestigingsmail naar klant */

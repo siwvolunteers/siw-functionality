@@ -1,0 +1,48 @@
+html {
+	body.login {
+		background: transparent;
+
+		h1 a {
+			filter: brightness(0) invert(1);
+			background-size: contain;
+			width: auto;
+		}
+		.message {
+			border-left-color: #444;
+		}
+		form {
+			input[type="text"], input[type="password"] {
+				border-radius:0;
+				border-color: #444;
+			}
+
+			.button-primary {
+				background-color: #fff;
+				border: 2px solid #444;
+				color: #444;
+				border-radius: 0;
+				transition: all 0.3s linear 0s;
+				&:hover,
+				&:active,
+				&:focus {
+					border: 2px solid #444;
+					background-color: #444;
+					color: #fff;
+				}
+			}
+		}
+
+		#nav a {
+			color:#fff;
+			font-weight: bold;
+			&:hover {
+				color: #fff;
+				text-decoration: underline;
+			}
+		}
+
+		p#backtoblog {
+			display: none;
+		}
+	}
+}

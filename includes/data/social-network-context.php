@@ -3,8 +3,12 @@
 namespace SIW\Data;
 
 use SIW\Interfaces\Enums\Labels;
+use SIW\Traits\Enum_List;
 
 enum Social_Network_Context: string implements Labels {
+
+	use Enum_List;
+
 	case SHARE = 'share';
 	case FOLLOW = 'follow';
 

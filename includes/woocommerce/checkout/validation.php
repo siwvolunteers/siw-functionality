@@ -7,11 +7,6 @@ use SIW\Base;
 use SIW\Util;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-/**
- * Validatie tijdens checkout van Groepsprojecten
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
 class Validation extends Base {
 
 	private const MIN_AGE = 14;

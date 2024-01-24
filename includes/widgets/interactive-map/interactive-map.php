@@ -5,11 +5,6 @@ namespace SIW\Widgets;
 use SIW\Elements\Leaflet_Map;
 
 /**
- * Widget met interactieve kaart kaart
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Interactieve kaart
  * Description: Toont interactieve kaart kaart
  * Author: SIW Internationale Vrijwilligersprojecten

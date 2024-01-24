@@ -7,17 +7,12 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Special_Page;
 use SIW\External_Assets\Cookie_Consent as Cookie_Consent_Asset;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 use SIW\Util\Links;
 
-/**
- * Cookie consent
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Cookie_Consent extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	private const COOKIE_NAME = 'siw_cookie_consent';
 	private const COOKIE_LIFESPAN = 365;
@@ -28,24 +23,22 @@ class Cookie_Consent extends Base {
 	public const MARKETING = 'marketing';
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Voegt stylesheet toe */
 	public function enqueue_styles() {
-		wp_enqueue_style( Cookie_Consent_Asset::get_assets_handle() );
+		wp_enqueue_style( Cookie_Consent_Asset::get_asset_handle() );
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Voegt stylesheet toe */
 	public function enqueue_scripts() {
 		wp_register_script(
-			self::get_assets_handle(),
-			SIW_ASSETS_URL . 'js/features/cookie-consent.js',
-			[ Cookie_Consent_Asset::get_assets_handle() ],
+			self::get_asset_handle(),
+			self::get_script_asset_url(),
+			[ Cookie_Consent_Asset::get_asset_handle() ],
 			SIW_PLUGIN_VERSION,
 			true
 		);
 
 		wp_localize_script(
-			self::get_assets_handle(),
+			self::get_asset_handle(),
 			'siw_cookie_consent',
 			[
 				'config' => [
@@ -114,7 +107,7 @@ class Cookie_Consent extends Base {
 										'title'       => __( 'Analytische cookies', 'siw' ),
 										'description' =>
 										__( 'Analytische cookies verzamelen gegevens over het gebruik van een website zoals het aantal bezoekers, de tijd die bezoekers doorbrengen op een webpagina en foutmeldingen.', 'siw' ) . SPACE .
-										__( 'We gebruiken Google Analytics (zorgt voor het verzamelen van anonieme gegevens over het gebruik van onze website en het opstellen van bezoekersstatistieken).', 'siw' ) . SPACE .
+										__( 'We gebruiken Google Tag Manager (zorgt voor het verzamelen van anonieme gegevens over het gebruik van onze website en het opstellen van bezoekersstatistieken).', 'siw' ) . SPACE .
 										// translators: %s is de link naar het privacybeleid van Google
 										sprintf( __( 'Meer informatie over hoe Google met gegevens omgaat is te lezen in het %s van Google.', 'siw' ), Links::generate_external_link( 'http://www.google.com/intl/nl/policies/privacy/partners/', __( 'privacybeleid', 'siw' ) ) ),
 										'toggle'      => [
@@ -142,7 +135,7 @@ class Cookie_Consent extends Base {
 											sprintf(
 												// translators: %s is de link naar het de contactpagina
 												__( 'Voor meer informatie of vragen over ons privacybeleid kan je %s met ons opnemen.', 'siw' ),
-												Links::generate_link( get_permalink( siw_get_special_page( Special_Page::CONTACT() ) ), __( 'contact', 'siw' ) )
+												Links::generate_link( get_permalink( Special_Page::CONTACT->get_page() ), __( 'contact', 'siw' ) )
 											),
 									],
 								],
@@ -152,15 +145,12 @@ class Cookie_Consent extends Base {
 				],
 			]
 		);
-		wp_enqueue_script( self::get_assets_handle() );
+		wp_enqueue_script( self::get_asset_handle() );
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Registreert styles */
 	public function register_style() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/cookie-consent.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/cookie-consent.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 
 	#[Add_Action( 'generate_before_copyright' )]

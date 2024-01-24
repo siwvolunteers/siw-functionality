@@ -5,23 +5,14 @@ namespace SIW\Admin;
 use SIW\Data\Database_Table;
 use SIW\Helpers\Database;
 
-/**
- * List tabel met inhoud van database tabel
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Database_List_Table extends \WP_List_Table {
 
-	/** Default aantal items per pagina */
 	public const DEFAULT_ITEMS_PER_PAGE = 25;
 
-	/** Database helper */
 	protected Database $database;
 
-	/** Tabelnaam */
 	protected string $table_name;
 
-	/** Init */
 	public function __construct( Database_Table $database_table ) {
 		$this->database = new Database( $database_table );
 		$this->table_name = $database_table->value;
@@ -33,7 +24,6 @@ class Database_List_Table extends \WP_List_Table {
 		);
 	}
 
-	/** Haalt de records op die getoond moeten worden */
 	public function get_records( int $per_page, int $page_number = 1 ): ?array {
 		$args = [
 			'per_page'       => $per_page,

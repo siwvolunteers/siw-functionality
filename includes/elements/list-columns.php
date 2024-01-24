@@ -2,49 +2,31 @@
 
 namespace SIW\Elements;
 
-/**
- * Class om een lijst met kolommen te genereren
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class List_Columns extends Repeater {
 
-	// TODO: php 8.1 enum
-	public const LIST_STYLE_TYPE_NONE = 'none';
-	public const LIST_STYLE_TYPE_DISC = 'disc';
-	public const LIST_STYLE_TYPE_CIRCLE = 'circle';
-	public const LIST_STYLE_TYPE_SQUARE = 'square';
-	public const LIST_STYLE_TYPE_CHECK = 'check';
-
-	/** Aantal kolommen */
 	protected int $columns = 1;
-
-	protected string $list_style_type = self::LIST_STYLE_TYPE_DISC;
+	protected List_Style_Type $list_style_type = List_Style_Type::DISC;
 
 	/** {@inheritDoc} */
 	protected function get_template_variables(): array {
 		return [
 			'items'           => $this->items,
 			'columns'         => $this->columns,
-			'list_style_type' => $this->list_style_type,
+			'list_style_type' => $this->list_style_type->value,
 		];
 	}
 
-	/** Zet aantal kolommen */
 	public function set_columns( int $columns ): self {
 		$this->columns = $columns;
 		return $this;
 	}
 
-	public function set_list_style_type( string $list_style_type ): self {
+	public function set_list_style_type( List_Style_Type $list_style_type ): self {
 		$this->list_style_type = $list_style_type;
 		return $this;
 	}
 
-	/** Voegt styles toe */
 	public function enqueue_styles() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/elements/list.css', [], SIW_PLUGIN_VERSION );
-		wp_style_add_data( self::get_assets_handle(), 'path', SIW_ASSETS_DIR . 'css/elements/list.css' );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 }

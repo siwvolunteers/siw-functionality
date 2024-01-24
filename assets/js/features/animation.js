@@ -1,12 +1,3 @@
-/** global: sal, siw_animation */
-
-/**
- * @file      Animaties
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- *
- * @todo      update bij resize
- */
-
 // Try/catch voor incompatible browsers
 try {
 	sal({

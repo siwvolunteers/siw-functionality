@@ -6,14 +6,8 @@ use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 
-/**
- * Infoverzoek project
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Enquiry_Project implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
-	/** Formulier ID */
 	public const FORM_ID = 'enquiry_project';
 
 	/** {@inheritDoc} */

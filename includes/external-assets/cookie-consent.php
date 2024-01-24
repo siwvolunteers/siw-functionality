@@ -3,10 +3,6 @@
 namespace SIW\External_Assets;
 
 /**
- * Cookie consent
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
  * @see https://github.com/orestbida/cookieconsent
  */
 class Cookie_Consent extends NPM_Asset {

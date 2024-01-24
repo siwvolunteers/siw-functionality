@@ -5,11 +5,7 @@ use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
-/**
- * WooCommerce checkout
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
+
 class Fields extends Base {
 
 	#[Add_Filter( 'woocommerce_enable_order_notes_field' )]
@@ -19,7 +15,6 @@ class Fields extends Base {
 		return siw_get_data( 'workcamps/checkout-fields' );
 	}
 
-	/** Haalt checkout secties op */
 	protected function get_checkout_sections(): array {
 		return siw_get_data( 'workcamps/checkout-sections' );
 	}

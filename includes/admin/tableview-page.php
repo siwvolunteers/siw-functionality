@@ -8,27 +8,17 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Database_Table;
 
-/**
- * Database tabel viewer
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Tableview_Page extends Base {
 
-	/** Slug voor menu-pagina */
 	private const MENU_SLUG = 'siw-database-tables';
 
-	/** Instantie van List table */
 	public Database_List_Table $database_list_table;
 
-	/** Huidige database tabel */
 	protected Database_Table $current_table;
 
-	/** Array voor afleiden van tabel uit page hook */
 	public array $tables;
 
 	#[Add_Action( 'admin_menu' )]
-	/** Voegt menupagina's toe */
 	public function add_menu_pages() {
 		add_menu_page(
 			__( 'Database tabellen', 'siw' ),
@@ -39,7 +29,7 @@ class Tableview_Page extends Base {
 			'dashicons-database'
 		);
 
-		foreach ( siw_get_enum_array( Database_Table::cases() ) as $table => $name ) {
+		foreach ( Database_Table::list() as $table => $name ) {
 			$hook = add_submenu_page(
 				self::MENU_SLUG,
 				$name,
@@ -53,11 +43,9 @@ class Tableview_Page extends Base {
 			add_action( "load-$hook", [ $this, 'add_screen_options' ] );
 		}
 
-		// verwijder het hoofdmenu als submenu
 		remove_submenu_page( self::MENU_SLUG, self::MENU_SLUG );
 	}
 
-	/** Toon de tabel */
 	public function display_table() {
 		add_thickbox();
 		?>
@@ -74,7 +62,6 @@ class Tableview_Page extends Base {
 		<?php
 	}
 
-	/** Voegt optie voor aantal recores per pagina toe */
 	public function add_screen_options() {
 		$this->current_table = Database_Table::from( $this->tables[ current_filter() ] );
 		$this->database_list_table = new Database_List_Table( $this->current_table );
@@ -88,7 +75,6 @@ class Tableview_Page extends Base {
 	}
 
 	#[Add_Filter( 'set-screen-option' )]
-	/** Sla schermoptie op */
 	public function set_screen_option( $keep, $option, $value ) {
 		foreach ( Database_Table::cases() as $table ) {
 			if ( "{$table->value}_records_per_page" === $option ) {

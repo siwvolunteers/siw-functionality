@@ -1,0 +1,311 @@
+@charset "UTF-8";
+/**
+ * SIW Plugin Styles
+ * @copyright 2020-2024 SIW Internationale Vrijwilligersprojecten
+ */
+/*--------------------------------------------------------------
+## Algemeen
+--------------------------------------------------------------*/
+:root {
+  --siw-text-shadow: 2px 2px 2px var(--siw-contrast);
+}
+
+/* Fade in voor lazyload */
+img[data-lazy-src] {
+  opacity: 0;
+}
+
+img.litespeed-loaded {
+  transition: opacity 0.5s linear 0.2s;
+  opacity: 1;
+}
+
+body.home .site-content {
+  padding-top: 0;
+}
+
+dl dt {
+  font-weight: 600;
+}
+dl dd {
+  margin: 0 1em 0.5em 0;
+}
+
+@counter-style check {
+  system: cyclic;
+  symbols: ✓;
+  suffix: " ";
+}
+.siw-intro {
+  border: 1px solid var(--siw-accent);
+  border-radius: 16px 0;
+  background-color: rgba(246, 120, 32, 0.062745098);
+  color: var(--siw-contrast);
+  margin: 0 0 30px 0;
+  padding: 24px;
+}
+.siw-intro p {
+  margin-bottom: 0;
+}
+.siw-intro a {
+  color: var(--siw-contrast);
+}
+.siw-intro a:hover {
+  color: var(--siw-accent);
+}
+
+.siw-accent {
+  color: var(--siw-accent);
+}
+
+a.page-link {
+  margin-right: 1rem;
+}
+a.page-link::after {
+  content: "→";
+  position: absolute;
+}
+
+a[rel*=external] {
+  margin-right: 1rem;
+}
+a[rel*=external]::after {
+  content: "↗";
+}
+a[rel*=external]:has(> img, > svg)::after {
+  content: none;
+}
+
+input[type=button],
+input[type=submit],
+a.button,
+a.button.alt,
+button,
+button.button,
+button.button.alt {
+  border-radius: 4px;
+  transition: all 0.6s ease-out;
+}
+.woocommerce.woocommerce-page input[type=button],
+.woocommerce.woocommerce-page input[type=submit],
+.woocommerce.woocommerce-page a.button,
+.woocommerce.woocommerce-page a.button.alt,
+.woocommerce.woocommerce-page button,
+.woocommerce.woocommerce-page button.button,
+.woocommerce.woocommerce-page button.button.alt {
+  border-radius: 4px;
+}
+
+.secondary-navigation .menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .secondary-navigation {
+    text-align: center !important;
+  }
+  .secondary-navigation ul {
+    display: block;
+  }
+  .secondary-navigation .sf-menu > li {
+    float: none;
+    display: inline-block !important;
+  }
+  .secondary-navigation .top-bar {
+    display: none;
+  }
+}
+.flex-container {
+  display: flex;
+  gap: 10px;
+}
+
+.flex-item {
+  flex: 1 1 0;
+}
+
+.flex-item-1 {
+  flex: 1 1 0;
+}
+
+.flex-item-2 {
+  flex: 2 1 0;
+}
+
+.flex-item-3 {
+  flex: 3 1 0;
+}
+
+.flex-item-4 {
+  flex: 4 1 0;
+}
+
+.flex-item-5 {
+  flex: 5 1 0;
+}
+
+.flex-item-6 {
+  flex: 6 1 0;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-columns {
+  flex-direction: column;
+}
+
+.flex-direction-row-reverse {
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 768px) {
+  .flex-direction-column-mobile {
+    flex-direction: column;
+  }
+  .flex-direction-column-reverse-mobile {
+    flex-direction: column-reverse;
+  }
+}
+/*--------------------------------------------------------------
+## Custom Post Types
+--------------------------------------------------------------*/
+.archive article .inside-article {
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.siw_event .siw-calendar-icon {
+  position: absolute;
+  font-size: 1.5em;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+.siw_event .event-info {
+  font-size: 1.3em;
+  font-style: italic;
+}
+
+.siw_job_posting .job-info {
+  font-size: 1.3em;
+  font-style: italic;
+}
+
+/*--------------------------------------------------------------
+## Gestylede inputs
+--------------------------------------------------------------*/
+.project-wizard input:hover, .project-wizard input:focus,
+.project-wizard textarea:hover,
+.project-wizard textarea:focus,
+.project-wizard select:hover,
+.project-wizard select:focus, form input:hover, form input:focus,
+form textarea:hover,
+form textarea:focus,
+form select:hover,
+form select:focus {
+  outline: 2px solid var(--siw-accent);
+}
+.project-wizard input:disabled, .project-wizard input:read-only,
+.project-wizard textarea:disabled,
+.project-wizard textarea:read-only, form input:disabled, form input:read-only,
+form textarea:disabled,
+form textarea:read-only {
+  background-color: #ccc;
+  opacity: 0.8;
+}
+.project-wizard input[type=date], form input[type=date] {
+  background-color: var(--siw-base);
+  border-width: 1px;
+  border-color: var(--siw-accent);
+  color: var(--siw-contrast);
+  padding: 10px 15px;
+}
+.project-wizard input[type=date]:focus, form input[type=date]:focus {
+  border-radius: 0px;
+}
+.project-wizard select, form select {
+  appearance: none;
+  width: auto;
+  padding: 10px 30px 10px 10px;
+  background: var(--siw-base) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%23f67820'><polygon points='0,0 10,0 5,5'/></svg>") no-repeat;
+  background-position: right 10px top 60%;
+}
+.project-wizard[data-single-column="1"] .rwmb-column, .footer-widgets .project-wizard .rwmb-column, form[data-single-column="1"] .rwmb-column, .footer-widgets form .rwmb-column {
+  width: 100%;
+  margin-right: 0;
+}
+.project-wizard .rwmb-column .rwmb-field.rwmb-hidden-wrapper, form .rwmb-column .rwmb-field.rwmb-hidden-wrapper {
+  margin-bottom: 0;
+}
+.footer-widgets .project-wizard .rwmb-column .rwmb-field:not(.rwmb-hidden-wrapper), .footer-widgets form .rwmb-column .rwmb-field:not(.rwmb-hidden-wrapper) {
+  margin-bottom: 12px;
+}
+@supports (appearance: none) {
+  .project-wizard input[type=checkbox],
+  .project-wizard .rwmb-input input[type=checkbox],
+  .project-wizard input[type=radio],
+  .project-wizard .rwmb-input input[type=radio], form input[type=checkbox],
+  form .rwmb-input input[type=checkbox],
+  form input[type=radio],
+  form .rwmb-input input[type=radio] {
+    appearance: none;
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border: 1px solid var(--siw-accent);
+    background: var(--siw-base);
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  .project-wizard input[type=checkbox]:disabled,
+  .project-wizard .rwmb-input input[type=checkbox]:disabled,
+  .project-wizard input[type=radio]:disabled,
+  .project-wizard .rwmb-input input[type=radio]:disabled, form input[type=checkbox]:disabled,
+  form .rwmb-input input[type=checkbox]:disabled,
+  form input[type=radio]:disabled,
+  form .rwmb-input input[type=radio]:disabled {
+    opacity: 0.3;
+  }
+  .project-wizard input[type=checkbox]:checked:after,
+  .project-wizard .rwmb-input input[type=checkbox]:checked:after,
+  .project-wizard input[type=radio]:checked:after,
+  .project-wizard .rwmb-input input[type=radio]:checked:after, form input[type=checkbox]:checked:after,
+  form .rwmb-input input[type=checkbox]:checked:after,
+  form input[type=radio]:checked:after,
+  form .rwmb-input input[type=radio]:checked:after {
+    opacity: 1;
+  }
+  .project-wizard input[type=checkbox]:after, form input[type=checkbox]:after {
+    content: "";
+    opacity: 0;
+    display: block;
+    left: 7px;
+    top: 3px;
+    position: absolute;
+    width: 7px;
+    height: 13px;
+    border: 3px solid var(--siw-accent);
+    border-top: 0;
+    border-left: 0;
+    transform: rotate(30deg);
+  }
+  .project-wizard input[type=checkbox]:checked, form input[type=checkbox]:checked {
+    color: var(--siw-accent);
+  }
+  .project-wizard input[type=radio], form input[type=radio] {
+    border-radius: 50%;
+  }
+  .project-wizard input[type=radio]:after, form input[type=radio]:after {
+    content: "";
+    opacity: 0;
+    display: block;
+    left: 5px;
+    top: 5px;
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--siw-accent);
+  }
+}

@@ -5,11 +5,6 @@ namespace SIW\WooCommerce\Email;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
-/**
- * Notificatiemail voor nieuwe aanmelding
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
 class New_Order extends Base {
 
 	#[Add_Filter( 'woocommerce_email_recipient_new_order' )]

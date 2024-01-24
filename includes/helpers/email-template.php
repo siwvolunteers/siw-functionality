@@ -7,22 +7,14 @@ use SIW\Data\Social_Network_Context;
 use SIW\Properties;
 use SIW\Util\CSS;
 
-/**
- * Class om een e-mail template te genereren
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Email_Template {
 
 	// TODO: integreren in email helper?
 
-	/** Context voor Mustache template */
 	protected array $context = [];
 
-	/** Constructor */
 	protected function __construct() {}
 
-	/** Creëer email */
 	public static function create(): self {
 		$self = new self();
 
@@ -50,11 +42,11 @@ class Email_Template {
 			'social_networks' => array_values(
 				array_map(
 					fn( Social_Network $network ): array => [
-						'follow_url' => $network->get_follow_url(),
-						'image_url'  => SIW_ASSETS_URL . 'images/mail/' . $network->get_slug() . '.png',
-						'slug'       => $network->get_slug(),
+						'follow_url' => $network->profile_url(),
+						'image_url'  => SIW_ASSETS_URL . 'images/mail/' . $network->value . '.png',
+						'slug'       => $network->value,
 					],
-					siw_get_social_networks( Social_Network_Context::FOLLOW )
+					Social_Network::filter( Social_Network_Context::FOLLOW )
 				)
 			),
 
@@ -62,7 +54,6 @@ class Email_Template {
 		return $self;
 	}
 
-	/** Zet ondertekening */
 	public function set_signature( string $name ): self {
 		$this->context['signature'] = [
 			'name' => $name,
@@ -70,19 +61,16 @@ class Email_Template {
 		return $this;
 	}
 
-	/** Zet onderwerp */
 	public function set_subject( string $subject ): self {
 		$this->context['subject'] = $subject;
 		return $this;
 	}
 
-	/** Zet boodschap */
 	public function set_message( string $message ): self {
 		$this->context['message'] = $message;
 		return $this;
 	}
 
-	/** Zet gegevens voor samenvatting */
 	public function set_summary_data( array $summary_data ): self {
 		if ( ! wp_is_numeric_array( $summary_data ) ) {
 			$summary_data = array_map(
@@ -103,7 +91,6 @@ class Email_Template {
 		return $this;
 	}
 
-	/** Genereert email template */
 	public function generate(): string {
 		return Template::create()
 			->set_template( 'email' )

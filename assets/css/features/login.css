@@ -1,0 +1,38 @@
+html body.login {
+  background: transparent;
+}
+html body.login h1 a {
+  filter: brightness(0) invert(1);
+  background-size: contain;
+  width: auto;
+}
+html body.login .message {
+  border-left-color: #444;
+}
+html body.login form input[type=text], html body.login form input[type=password] {
+  border-radius: 0;
+  border-color: #444;
+}
+html body.login form .button-primary {
+  background-color: #fff;
+  border: 2px solid #444;
+  color: #444;
+  border-radius: 0;
+  transition: all 0.3s linear 0s;
+}
+html body.login form .button-primary:hover, html body.login form .button-primary:active, html body.login form .button-primary:focus {
+  border: 2px solid #444;
+  background-color: #444;
+  color: #fff;
+}
+html body.login #nav a {
+  color: #fff;
+  font-weight: bold;
+}
+html body.login #nav a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+html body.login p#backtoblog {
+  display: none;
+}

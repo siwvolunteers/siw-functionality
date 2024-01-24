@@ -2,31 +2,15 @@
 
 namespace SIW\Interfaces\Forms;
 
-/**
- * Interface voor formulier via MetaBox
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 interface Form {
-
-	/** Volledige breedte */
 	public const FULL_WIDTH = 12;
-
-	/** Halve breedte */
 	public const HALF_WIDTH = 6;
-
-	/** Derde breedte */
 	public const THIRD_WIDTH = 4;
-
-	/** Kwart breedte */
 	public const QUARTER_WIDTH = 3;
 
-	/** Geeft ID van formulier terug */
 	public function get_form_id(): string;
 
-	/** Geeft naam van formulier terug */
 	public function get_form_name(): string;
 
-	/** Geeft velden van formulier toe */
 	public function get_form_fields(): array;
 }

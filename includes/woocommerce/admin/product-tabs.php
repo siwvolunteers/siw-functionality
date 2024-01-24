@@ -7,14 +7,8 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-/**
- * Tabs voor Groepsprojecten
- *
- * @copyright 2020-2023 SIW Internationale Vrijwilligersprojecten
- */
 class Product_Tabs extends Base {
 
-	/** Voegt extra product tabs toe */
 	#[Add_Filter( 'woocommerce_product_data_tabs' )]
 	public function add_tabs( array $tabs ): array {
 		$tabs['siw_description'] = [
@@ -32,7 +26,6 @@ class Product_Tabs extends Base {
 		return $tabs;
 	}
 
-	/** Verbergt overbodige product tabs */
 	#[Add_Filter( 'woocommerce_product_data_tabs', PHP_INT_MAX )]
 	public function hide_tabs( array $tabs ): array {
 		$tabs['general']['class'] = [ 'show_if_project' ];
@@ -46,7 +39,6 @@ class Product_Tabs extends Base {
 		return $tabs;
 	}
 
-	/** Toont tab met extra opties */
 	#[Add_Action( 'woocommerce_product_data_panels' )]
 	public function show_extra_settings_tab() {
 		global $product_object;
@@ -66,14 +58,16 @@ class Product_Tabs extends Base {
 						'label'   => __( 'Verbergen', 'siw' ),
 					]
 				);
-				woocommerce_wp_checkbox(
-					[
-						'id'      => '_excluded_from_student_discount',
-						'value'   => $product->is_excluded_from_student_discount(),
-						'cbvalue' => '1',
-						'label'   => __( 'Uitsluiten van studentenkorting', 'siw' ),
-					]
-				);
+				if ( ! $product->is_esc_project() ) {
+					woocommerce_wp_checkbox(
+						[
+							'id'      => '_excluded_from_student_discount',
+							'value'   => $product->is_excluded_from_student_discount(),
+							'cbvalue' => '1',
+							'label'   => __( 'Uitsluiten van studentenkorting', 'siw' ),
+						]
+					);
+				}
 				woocommerce_wp_text_input(
 					[
 						'id'          => '_custom_price',
@@ -90,7 +84,6 @@ class Product_Tabs extends Base {
 		<?php
 	}
 
-	/** Toont beschrijving van het project */
 	#[Add_Action( 'woocommerce_product_data_panels' )]
 	public function show_description_tab() {
 		global $product_object;
@@ -137,7 +130,6 @@ class Product_Tabs extends Base {
 		<?php
 	}
 
-	/** Slaat gewijzigde meta-velden op */
 	#[Add_Action( 'woocommerce_admin_process_product_object' )]
 	public function save_product_data( WC_Product_Project $product ) {
 		$product->set_custom_price( sanitize_text_field( wp_unslash( $_POST['_custom_price'] ?? '' ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing

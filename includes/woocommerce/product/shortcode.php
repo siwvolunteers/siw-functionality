@@ -7,29 +7,21 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Breidt WooCommerce shortcode uit met extra attributen
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- *
- * @todo meta_query toevoegen: leeftijd, etc.
- */
 class Shortcode extends Base {
 
-	/** Geeft extra taxonomy attributes terug */
 	protected function get_taxonomy_attributes(): array {
 		return [
-			'continent'  => Taxonomy_Attribute::CONTINENT(),
-			'land'       => Taxonomy_Attribute::COUNTRY(),
-			'sdg'        => Taxonomy_Attribute::SDG(),
-			'maand'      => Taxonomy_Attribute::MONTH(),
-			'soort-werk' => Taxonomy_Attribute::WORK_TYPE(),
-			'taal'       => Taxonomy_Attribute::LANGUAGE(),
-			'doelgroep'  => Taxonomy_Attribute::TARGET_AUDIENCE(),
+			'projectsoort' => Taxonomy_Attribute::PROJECT_TYPE,
+			'continent'    => Taxonomy_Attribute::CONTINENT,
+			'land'         => Taxonomy_Attribute::COUNTRY,
+			'sdg'          => Taxonomy_Attribute::SDG,
+			'maand'        => Taxonomy_Attribute::MONTH,
+			'soort-werk'   => Taxonomy_Attribute::WORK_TYPE,
+			'taal'         => Taxonomy_Attribute::LANGUAGE,
+			'doelgroep'    => Taxonomy_Attribute::TARGET_AUDIENCE,
 		];
 	}
 
-	/** Geeft extra instelling voor shortcode terug */
 	protected function get_extra_attributes(): array {
 		return [
 			'show_button' => false,
@@ -39,7 +31,6 @@ class Shortcode extends Base {
 	}
 
 	#[Add_Filter( 'shortcode_atts_products' )]
-	/** Voegt extra attributen toe aan shortcode */
 	public function add_shortcode_atts( array $out, array $pairs, array $atts, string $shortcode ): array {
 		if ( 'products' !== $shortcode ) {
 			return $out;

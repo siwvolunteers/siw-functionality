@@ -2,12 +2,9 @@
 
 namespace SIW\Widgets;
 
+use SIW\Jobs\Async\Export_To_Mailjet;
+
 /**
- * Widget met bevesting voor aanmelding nieuwsbrief
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Nieuwsbrief - bevestiging aanmelding
  * Description: TODO
  * Author: SIW Internationale Vrijwilligersprojecten
@@ -83,7 +80,7 @@ class Newsletter_Confirmation extends Widget {
 				'firstname' => $first_name,
 			],
 		];
-		siw_enqueue_async_action( 'export_to_mailjet', $data );
+		as_enqueue_async_action( Export_To_Mailjet::class, $data );
 
 		return __( 'Gefeliciteerd! Je bent nu aangemeld voor de SIW-nieuwsbrief.', 'siw' );
 	}

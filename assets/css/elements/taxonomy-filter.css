@@ -1,7 +1,7 @@
 .siw-taxonomy-filter {
   text-align: center;
 }
-.siw-taxonomy-filter button {
+.siw-taxonomy-filter .button {
   margin: 2px;
   border: 1px solid var(--siw-contrast-light);
   border-radius: 4px;
@@ -9,7 +9,7 @@
   transition: all 0.6s ease-out;
   background-color: transparent;
 }
-.siw-taxonomy-filter button.is-checked, .siw-taxonomy-filter button:hover {
+.siw-taxonomy-filter .button.active, .siw-taxonomy-filter .button:hover {
   background-color: var(--siw-accent);
   color: var(--siw-base);
 }

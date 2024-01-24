@@ -3,23 +3,13 @@
 namespace SIW\Options;
 
 use SIW\Data\Board_Title;
-use SIW\Interfaces\Options\Option as Option_Interface;
-
+use SIW\Data\Continent;
 use SIW\Properties;
 
-/**
- * Opties voor Configuratie
- *
- * @copyright 2020-2021 SIW Internationale Vrijwilligersprojecten
- */
-class Settings implements Option_Interface {
+class Settings extends Option {
 
 	private const EMAIL_LOCAL_PART_PATTERN = '^[^\s@]+$';
-
-	/** {@inheritDoc} */
-	public function get_id(): string {
-		return 'settings';
-	}
+	private const EMAIL_DOMAIN = '@siw.nl';
 
 	/** {@inheritDoc} */
 	public function get_title(): string {
@@ -64,26 +54,6 @@ class Settings implements Option_Interface {
 				'label' => __( 'Sponsors', 'siw' ),
 				'icon'  => 'dashicons-money',
 			],
-			[
-				'id'    => 'tailor_made',
-				'label' => __( 'Wereld-basis', 'siw' ),
-				'icon'  => 'dashicons-admin-settings',
-			],
-			[
-				'id'    => 'job_postings',
-				'label' => __( 'Vacatures', 'siw' ),
-				'icon'  => 'dashicons-clipboard',
-			],
-			[
-				'id'    => 'story',
-				'label' => __( 'Ervaringsverhalen', 'siw' ),
-				'icon'  => 'dashicons-format-gallery',
-			],
-			[
-				'id'    => 'event',
-				'label' => __( 'Evenementen', 'siw' ),
-				'icon'  => 'dashicons-calendar',
-			],
 		];
 		return $tabs;
 	}
@@ -127,7 +97,7 @@ class Settings implements Option_Interface {
 					'name'     => __( 'Functie', 'siw' ),
 					'type'     => 'button_group',
 					'required' => true,
-					'options'  => siw_get_enum_array( Board_Title::cases() ),
+					'options'  => Board_Title::list(),
 				],
 			],
 		];
@@ -231,95 +201,7 @@ class Settings implements Option_Interface {
 			],
 		];
 
-		// Vacatures TODO: group voor vacaturetekst
-		$fields[] = [
-			'id'     => 'job_posting',
-			'type'   => 'group',
-			'tab'    => 'job_postings',
-			'fields' => [
-				[
-					'id'       => 'archive_intro',
-					'name'     => __( 'Introtekst', 'siw' ),
-					'type'     => 'wysiwyg',
-					'required' => true,
-				],
-			],
-		];
-		$fields[] = [
-			'type' => 'heading',
-			'name' => __( 'Vacaturetekst', 'siw' ),
-			'tab'  => 'job_postings',
-		];
-		$fields[] = [
-			'id'       => 'job_postings_organization_profile',
-			'name'     => __( 'Wie zijn wij', 'siw' ),
-			'type'     => 'wysiwyg',
-			'tab'      => 'job_postings',
-			'required' => true,
-		];
-		$fields[] = [
-			'id'     => 'hr_manager',
-			'type'   => 'group',
-			'tab'    => 'job_postings',
-			'fields' => [
-				[
-					'type' => 'heading',
-					'name' => __( 'P&O manager', 'siw' ),
-					'desc' => __( 'Standaard contactpersoon voor sollicitaties', 'siw' ),
-				],
-				[
-					'id'       => 'name',
-					'name'     => __( 'Naam', 'siw' ),
-					'type'     => 'text',
-					'required' => true,
-				],
-				[
-					'id'       => 'title',
-					'name'     => __( 'Functie', 'siw' ),
-					'type'     => 'text',
-					'required' => true,
-				],
-				[
-					'id'       => 'email',
-					'name'     => __( 'E-mail', 'siw' ),
-					'type'     => 'email',
-					'required' => true,
-				],
-			],
-		];
-		// Ervaringsverhalen
-
-		$fields[] = [
-			'id'     => 'story',
-			'type'   => 'group',
-			'tab'    => 'story',
-			'fields' => [
-				[
-					'id'       => 'archive_intro',
-					'name'     => __( 'Introtekst', 'siw' ),
-					'type'     => 'wysiwyg',
-					'required' => true,
-				],
-			],
-		];
-
-		// Evenementen
-		$fields[] = [
-			'id'     => 'event',
-			'type'   => 'group',
-			'tab'    => 'event',
-			'fields' => [
-				[
-					'id'       => 'archive_intro',
-					'name'     => __( 'Introtekst', 'siw' ),
-					'type'     => 'wysiwyg',
-					'required' => true,
-				],
-			],
-		];
-
 		// Groepsprojecten
-		$continents = siw_get_continents_list();
 		$approval_fields = [
 			[
 				'type' => 'heading',
@@ -334,7 +216,7 @@ class Settings implements Option_Interface {
 				'field_type' => 'select_advanced',
 			],
 		];
-		foreach ( $continents as $slug => $name ) {
+		foreach ( Continent::list() as $slug => $name ) {
 			$approval_fields[] = [
 				'id'         => "responsible_{$slug}",
 				'name'       => $name,
@@ -343,58 +225,10 @@ class Settings implements Option_Interface {
 			];
 		}
 		$fields[] = [
-			'id'     => 'workcamp_teaser_text',
-			'type'   => 'group',
-			'tab'    => 'workcamps',
-			'fields' => [
-				[
-					'type' => 'heading',
-					'name' => __( 'Aankondiging nieuw seizoen', 'siw' ),
-					'desc' => __( 'Wordt getoond op overzichten van Groepsprojecten.', 'siw' ),
-				],
-				[
-					'id'        => 'active',
-					'name'      => __( 'Tonen', 'siw' ),
-					'type'      => 'switch',
-					'on_label'  => __( 'Ja', 'siw' ),
-					'off_label' => __( 'Nee', 'siw' ),
-				],
-				[
-					'id'       => 'start_date',
-					'name'     => __( 'Startdatum', 'siw' ),
-					'type'     => 'date',
-					'required' => true,
-					'visible'  => [ 'workcamp_teaser_text[active]', true ],
-				],
-				[
-					'id'       => 'end_date',
-					'name'     => __( 'Einddatum', 'siw' ),
-					'type'     => 'date',
-					'required' => true,
-					'visible'  => [ 'workcamp_teaser_text[active]', true ],
-				],
-			],
-		];
-		$fields[] = [
 			'id'     => 'workcamp_approval',
 			'type'   => 'group',
 			'tab'    => 'workcamps',
 			'fields' => $approval_fields,
-		];
-
-		// Wereld-basis
-		$fields[] = [
-			'id'     => 'tm_country',
-			'type'   => 'group',
-			'tab'    => 'tailor_made',
-			'fields' => [
-				[
-					'id'       => 'archive_intro',
-					'name'     => __( 'Introtekst', 'siw' ),
-					'type'     => 'wysiwyg',
-					'required' => true,
-				],
-			],
 		];
 
 		// Email
@@ -426,8 +260,8 @@ class Settings implements Option_Interface {
 						'type'     => 'text',
 						'required' => true,
 						'pattern'  => self::EMAIL_LOCAL_PART_PATTERN,
-						'append'   => '@siw.nl',
-						'columns'  => 4,
+						'append'   => self::EMAIL_DOMAIN,
+						'columns'  => 6,
 						'visible'  => [ "email_settings[{$id}][use_specific]", true ],
 					],
 					[
@@ -436,19 +270,9 @@ class Settings implements Option_Interface {
 						'type'     => 'text',
 						'required' => true,
 						'pattern'  => self::EMAIL_LOCAL_PART_PATTERN,
-						'append'   => '@siw.nl',
-						'columns'  => 4,
+						'append'   => self::EMAIL_DOMAIN,
+						'columns'  => 6,
 						'visible'  => [ "email_settings[{$id}][use_specific]", true ],
-					],
-					[
-						'id'      => 'notification_mail_cc',
-						'name'    => __( 'CC notificatiemail', 'siw' ),
-						'type'    => 'text',
-						'pattern' => self::EMAIL_LOCAL_PART_PATTERN,
-						'clone'   => true,
-						'append'  => '@siw.nl',
-						'columns' => 4,
-						'visible' => [ "email_settings[{$id}][use_specific]", true ],
 					],
 				],
 			];
@@ -476,8 +300,8 @@ class Settings implements Option_Interface {
 							'type'     => 'text',
 							'required' => true,
 							'pattern'  => self::EMAIL_LOCAL_PART_PATTERN,
-							'append'   => '@siw.nl',
-							'columns'  => 4,
+							'append'   => self::EMAIL_DOMAIN,
+							'columns'  => 6,
 						],
 						[
 							'id'       => 'notification_mail_recipient',
@@ -485,17 +309,8 @@ class Settings implements Option_Interface {
 							'type'     => 'text',
 							'required' => true,
 							'pattern'  => self::EMAIL_LOCAL_PART_PATTERN,
-							'append'   => '@siw.nl',
-							'columns'  => 4,
-						],
-						[
-							'id'      => 'notification_mail_cc',
-							'name'    => __( 'CC notificatiemail', 'siw' ),
-							'type'    => 'text',
-							'pattern' => self::EMAIL_LOCAL_PART_PATTERN,
-							'clone'   => true,
-							'append'  => '@siw.nl',
-							'columns' => 4,
+							'append'   => self::EMAIL_DOMAIN,
+							'columns'  => 6,
 						],
 					],
 				],

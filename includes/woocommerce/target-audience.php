@@ -2,31 +2,18 @@
 
 namespace SIW\WooCommerce;
 
-use Spatie\Enum\Enum;
+use SIW\Interfaces\Enums\Labels as I_Enum_Labels;
 
-/**
- * Doelgroepen
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- *
- * @method static self FAMILIES()
- * @method static self TEENAGERS()
- */
-class Target_Audience extends Enum {
+enum Target_Audience: string implements I_Enum_Labels {
+
+	case FAMILIES = 'families';
+	case TEENAGERS = 'tieners';
 
 	/** {@inheritDoc} */
-	protected static function values(): array {
-		return [
-			'FAMILIES'  => 'families',
-			'TEENAGERS' => 'tieners',
-		];
-	}
-
-	/** {@inheritDoc} */
-	protected static function labels(): array {
-		return [
-			'FAMILIES'  => __( 'Families', 'siw' ),
-			'TEENAGERS' => __( 'Tieners', 'siw' ),
-		];
+	public function label(): string {
+		return match ( $this ) {
+			self::FAMILIES => __( 'Families', 'siw' ),
+			self::TEENAGERS => __( 'Tieners', 'siw' ),
+		};
 	}
 }

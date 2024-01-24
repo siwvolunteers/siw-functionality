@@ -5,11 +5,6 @@ namespace SIW\WooCommerce\Product\Archive;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
-/**
- * Sortering van projecten in frontend
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Ordering extends Base {
 
 	#[Add_Filter( 'woocommerce_default_catalog_orderby_options' )]

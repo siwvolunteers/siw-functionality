@@ -5,15 +5,9 @@ namespace SIW\Admin;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 
-/**
- * Voegt help-tabs toe
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Help_Tabs extends Base {
 
 	#[Add_Action( 'admin_head' )]
-	/** Voegt help tabs toe */
 	public function add_help_tabs() {
 
 		/** @var ?\WP_Screen */
@@ -41,7 +35,7 @@ class Help_Tabs extends Base {
 				[
 					'id'      => wp_unique_prefixed_id( "siw-help-tab-{$post_type}-" ),
 					'title'   => esc_html( $help_tab['title'] ),
-					'content' => wp_kses_post( $help_tab['content'] ),
+					'content' => wpautop( wp_kses_post( $help_tab['content'] ) ),
 				]
 			);
 		}

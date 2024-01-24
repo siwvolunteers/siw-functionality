@@ -11,11 +11,11 @@ function siw_get_option( string $option, $default_value = null ) {
 	}
 
 	// Probeer waarde uit cache te halen
-	$value = wp_cache_get( $option, 'siw_options' );
+	$value = wp_cache_get( $option, __FUNCTION__ );
 	if ( false !== $value ) {
 		return $value;
 	}
-	$options = get_option( 'siw_options' );
+	$options = get_option( SIW_OPTIONS_KEY );
 
 	$dot = new DotArray( $options );
 	$value = $dot->get( $option );
@@ -24,7 +24,7 @@ function siw_get_option( string $option, $default_value = null ) {
 		return $default_value;
 	}
 
-	wp_cache_set( $option, $value, 'siw_options' );
+	wp_cache_set( $option, $value, __FUNCTION__ );
 
 	return $value;
 }

@@ -3,39 +3,28 @@
 namespace SIW\Widgets;
 
 use SIW\Helpers\Template;
+use SIW\Traits\Class_Assets;
 
-/**
- * SIW Widget base class
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 abstract class Widget extends \SiteOrigin_Widget {
 
-	/** ID van default Mustache template */
+	use Class_Assets;
+
 	protected const DEFAULT_TEMPLATE_ID = 'default';
 
-	/** Geeft ID terug */
 	abstract protected function get_id(): string;
 
-	/** Geeft naam terug */
 	abstract protected function get_name(): string;
 
-	/** Geeft beschrijving terug */
 	abstract protected function get_description(): string;
 
-	/** Geeft Mustache template-ID terug */
 	abstract protected function get_template_id(): string;
 
-	/** Geeft dashicon terug */
 	abstract protected function get_dashicon(): string;
 
-	/** Geeft aan of deze widget een titel kan hebben */
 	abstract protected function supports_title(): bool;
 
-	/** Geeft aan of deze widget een intro kan hebben */
 	abstract protected function supports_intro(): bool;
 
-	/** Constructor */
 	final public function __construct() {
 
 		parent::__construct(
@@ -54,7 +43,6 @@ abstract class Widget extends \SiteOrigin_Widget {
 	}
 
 
-	/** Geeft widget-velden terug */
 	protected function get_widget_fields(): array {
 		return [];
 	}
@@ -87,7 +75,6 @@ abstract class Widget extends \SiteOrigin_Widget {
 	}
 
 
-	/** Genereert generieke inhoud van widget */
 	final protected function get_html_content( array $instance, array $args, array $template_vars, string $css_name ) {
 
 		if ( $this->supports_title() ) {

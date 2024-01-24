@@ -9,11 +9,11 @@ function siw_format_percentage( float $percentage, int $decimals = 0 ): string {
 }
 
 /** Formatteert getal als bedrag */
-function siw_format_amount( float $amount, int $decimals = 0, string $currency_code = 'EUR' ): string {
-	$currency = siw_get_currency( $currency_code );
+function siw_format_amount( float $amount, int $decimals = 0, string $currency_code = Currency::EUR->value ): string {
+	$currency = Currency::tryFrom( $currency_code );
 	$currency_symbol = $currency_code;
-	if ( is_a( $currency, Currency::class ) ) {
-		$currency_symbol = $currency->get_symbol();
+	if ( null !== $currency ) {
+		$currency_symbol = $currency->symbol();
 	}
 	$amount = number_format_i18n( $amount, $decimals );
 	return sprintf( '%s&nbsp;%s', $currency_symbol, $amount );
@@ -78,9 +78,9 @@ function siw_format_local_fee( float $fee, string $currency_code ): string {
 		return sprintf( '&euro; %s', $fee );
 	}
 
-	$currency = siw_get_currency( $currency_code );
-	if ( is_a( $currency, Currency::class ) ) {
-		return sprintf( '%s %d (%s)', $currency->get_symbol(), $fee, $currency->get_name() );
+	$currency = Currency::tryFrom( $currency_code );
+	if ( null !== $currency ) {
+		return sprintf( '%s %d (%s)', $currency->symbol(), $fee, $currency->label() );
 	}
 
 	return sprintf( '%s %d', $currency_code, $fee );

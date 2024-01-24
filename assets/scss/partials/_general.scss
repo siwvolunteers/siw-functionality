@@ -70,9 +70,6 @@ a[rel*=external] {
 	&:has(> img, > svg)::after {
 		content: none;
 	}
-	&:hover {
-		margin-right: 1rem;
-	}
 }
 
 input[type=button],
@@ -105,6 +102,10 @@ button.button.alt {
 		.sf-menu>li {
 			float: none;
 			display: inline-block !important;
+		}
+
+		.top-bar {
+			display: none;
 		}
 	}
 }

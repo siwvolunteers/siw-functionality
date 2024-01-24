@@ -4,29 +4,22 @@ namespace SIW\Admin;
 
 use SIW\Attributes\Add_Action;
 use SIW\Base;
-use SIW\Shortcodes as SIW_Shortcodes;
-use SIW\Traits\Assets_Handle;
+use SIW\Features\Shortcodes as SIW_Shortcodes;
+use SIW\Traits\Class_Assets;
 
-/**
- * Shortcodes in admin
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Shortcodes extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	#[Add_Action( 'wp_enqueue_editor' )]
-	/** Script toevoegen */
 	public function enqueue_script() {
 
 		if ( did_action( 'wp_enqueue_editor' ) > 1 ) {
 			return;
 		}
 
-		wp_register_script( self::get_assets_handle(), SIW_ASSETS_URL . 'js/admin/siw-shortcodes.js', [], SIW_PLUGIN_VERSION, true );
+		wp_register_script( self::get_asset_handle(), self::get_script_asset_url(), [], SIW_PLUGIN_VERSION, true );
 
-		// Shortcodes ophalen
 		$shortcodes = SIW_Shortcodes::get_shortcodes();
 		array_walk( $shortcodes, [ $this, 'format_shortcode' ] );
 		$shortcodes = array_values( $shortcodes );
@@ -37,17 +30,16 @@ class Shortcodes extends Base {
 		];
 
 		wp_localize_script(
-			self::get_assets_handle(),
+			self::get_asset_handle(),
 			'siw_shortcodes',
 			$siw_shortcodes
 		);
-		wp_enqueue_script( self::get_assets_handle() );
+		wp_enqueue_script( self::get_asset_handle() );
 	}
 
 	/** Formatteert shortcode voor gebruik in TinyMCE */
 	protected function format_shortcode( &$value, $key ) {
 
-		// hortcodes zonder parameter verwerken
 		if ( is_string( $value ) ) {
 			$value = [
 				'title' => $value,
@@ -55,7 +47,6 @@ class Shortcodes extends Base {
 		}
 		$value['shortcode'] = $key;
 
-		// TODO: klop dit wel?
 		$properties = [ 'shortcode', 'title', 'attributes' ];
 		$value = array_intersect_key( $value, array_flip( $properties ) );
 		if ( isset( $value['attributes'] ) ) {

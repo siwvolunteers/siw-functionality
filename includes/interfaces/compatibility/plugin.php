@@ -2,11 +2,6 @@
 
 namespace SIW\Interfaces\Compatibility;
 
-/**
- * Interface voor een compatibility class voor een plugin
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 interface Plugin {
 
 	/**

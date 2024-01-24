@@ -2,34 +2,15 @@
 
 namespace SIW\Options;
 
-use SIW\Abstracts\Object_Loader as Object_Loader_Abstract;
-use SIW\Interfaces\Options\Option as Option_Interface;
+use SIW\Abstracts\Base_Loader;
 
-/**
- * Class om opties te laden
- *
- * @copyright 2020 SIW Internationale Vrijwilligersprojecten
- */
-class Loader extends Object_Loader_Abstract {
+class Loader extends Base_Loader {
 
 	/** {@inheritDoc} */
-	public function get_classes(): array {
+	protected function get_classes(): array {
 		return [
 			Help::class,
 			Settings::class,
 		];
-	}
-
-	/** {@inheritDoc} */
-	public function get_interface_namespace(): string {
-		return 'Options';
-	}
-
-	/** {@inheritDoc} */
-	protected function load( object $option ) {
-		if ( ! is_a( $option, Option_Interface::class ) ) {
-			return;
-		}
-		Option::init( $option );
 	}
 }

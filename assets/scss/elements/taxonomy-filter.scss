@@ -1,13 +1,13 @@
 .siw-taxonomy-filter {
 	text-align: center;
-	button {
+	.button {
 		margin: 2px;
 		border: 1px solid var(--siw-contrast-light);
 		border-radius: 4px;
 		color: var(--siw-contrast);
 		transition: all .6s ease-out;
 		background-color: transparent;
-		&.is-checked, &:hover {
+		&.active, &:hover {
 			background-color: var(--siw-accent);
 			color: var(--siw-base);
 		}

@@ -1,0 +1,153 @@
+.woocommerce .woocommerce-widget-layered-nav-list .woocommerce-widget-layered-nav-list__item {
+  padding: 0 0 1px;
+  list-style: none;
+  border-bottom: 1px solid var(--siw-accent);
+}
+.woocommerce .woocommerce-widget-layered-nav-list .woocommerce-widget-layered-nav-list__item a {
+  line-height: 2em !important;
+  text-decoration: none;
+  width: 80% !important;
+  display: inline-block;
+}
+.woocommerce .woocommerce-widget-layered-nav-list .woocommerce-widget-layered-nav-list__item a:hover {
+  color: var(--siw-accent);
+}
+.woocommerce .woocommerce-widget-layered-nav-list .woocommerce-widget-layered-nav-list__item span.count {
+  float: right !important;
+  display: inline !important;
+  font-size: 13px !important;
+  margin-top: 4px;
+  width: 30px;
+  text-align: right;
+}
+.woocommerce .sidebar .widget_layered_nav_filters, .woocommerce .sidebar .widget_layered_nav {
+  padding: 0;
+  margin: 0;
+}
+.woocommerce .sidebar .widget_layered_nav_filters h2.widget-title, .woocommerce .sidebar .widget_layered_nav h2.widget-title {
+  margin-bottom: 6px;
+  margin-top: 16px;
+}
+
+.woocommerce ul.products li.product {
+  border: 1px solid #bbb;
+  text-align: left;
+}
+.woocommerce ul.products li.product .woocommerce-LoopProduct-link h2 {
+  padding: 10px 20px 0 20px;
+  text-transform: capitalize;
+}
+.woocommerce ul.products li.product a {
+  padding-bottom: 10px;
+  color: var(--siw-contrast);
+}
+.woocommerce ul.products li.product a .woocommerce-placeholder {
+  border: none;
+}
+.woocommerce ul.products li.product a p {
+  padding: 10px 20px 0 20px;
+}
+.woocommerce ul.products li.product span.product-badge.featured-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+span.product-badge.featured-badge {
+  background-color: var(--siw-contrast);
+  color: var(--siw-base);
+  padding: 5px 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8em;
+}
+
+.woocommerce nav.woocommerce-pagination ul.page-numbers {
+  border: 2px solid var(--siw-contrast);
+  border-right: unset;
+}
+.woocommerce nav.woocommerce-pagination ul.page-numbers li {
+  border-right: 2px solid var(--siw-contrast);
+}
+.woocommerce nav.woocommerce-pagination ul.page-numbers li a:hover {
+  background: var(--siw-contrast);
+  color: var(--siw-base);
+}
+.woocommerce nav.woocommerce-pagination ul.page-numbers li span.current {
+  background: var(--siw-contrast);
+  color: var(--siw-base);
+}
+
+.woocommerce div.product .product_title {
+  font-size: 30px;
+  line-height: 40px;
+}
+.woocommerce div.product .woocommerce-tabs {
+  max-width: 100%;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs {
+  flex-wrap: wrap;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li {
+  border-radius: 4px;
+  border-width: 1px;
+  border-color: var(--siw-contrast-light);
+  margin-bottom: 2px;
+  margin-right: 2px;
+  background-color: var(--siw-base);
+  transition: all 0.6s ease-out;
+  padding-left: 0;
+  padding-right: 0;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li:first-child {
+  border-left-width: 1px;
+  border-bottom-width: 1px;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li:last-child {
+  border-bottom-color: var(--siw-contrast);
+  border-bottom-width: 1px;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li.active, .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li:hover {
+  background-color: var(--siw-accent);
+  border-bottom-color: var(--siw-contrast-light);
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li.active a, .woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li:hover a {
+  color: var(--siw-base);
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs.wc-tabs li a {
+  width: 100%;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+.woocommerce div.product .woocommerce-tabs .panel.wc-tab {
+  max-width: 100ch;
+  padding: 28px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+.woocommerce div.product .woocommerce-product-attributes {
+  border-top: none;
+}
+.woocommerce div.product .woocommerce-product-attributes th {
+  width: 20%;
+}
+.woocommerce div.product .woocommerce-product-attributes th, .woocommerce div.product .woocommerce-product-attributes td {
+  border: none;
+}
+
+.woocommerce-checkout .form-row-first {
+  clear: left;
+}
+.woocommerce-checkout .form-row label.radio {
+  margin-right: 5px;
+  display: inline-block;
+}
+.woocommerce-checkout span.optional {
+  display: none;
+}
+.woocommerce-checkout .woocommerce form .form-row .input-checkbox {
+  display: inline-block;
+}
+.woocommerce-checkout .woocommerce form .form-row input.input-text:focus, .woocommerce-checkout .woocommerce form .form-row textarea:focus {
+  outline: 2px solid var(--siw-accent);
+}

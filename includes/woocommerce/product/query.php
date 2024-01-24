@@ -6,11 +6,6 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Aanpassingen voor product query
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Query extends Base {
 
 	#[Add_Filter( 'woocommerce_product_data_store_cpt_get_products_query' )]
@@ -29,9 +24,23 @@ class Query extends Base {
 		if ( ! empty( $query_vars['country'] ) ) {
 			$query['tax_query'][] = [
 				[
-					'taxonomy' => Taxonomy_Attribute::COUNTRY()->value,
+					'taxonomy' => Taxonomy_Attribute::COUNTRY->value,
 					'field'    => 'slug',
 					'terms'    => esc_attr( $query_vars['country'] ),
+				],
+			];
+		}
+		return $query;
+	}
+
+	#[Add_Filter( 'woocommerce_product_data_store_cpt_get_products_query' )]
+	public function enable_continent_search( array $query, array $query_vars ): array {
+		if ( ! empty( $query_vars['continent'] ) ) {
+			$query['tax_query'][] = [
+				[
+					'taxonomy' => Taxonomy_Attribute::CONTINENT()->value,
+					'field'    => 'slug',
+					'terms'    => esc_attr( $query_vars['continent'] ),
 				],
 			];
 		}

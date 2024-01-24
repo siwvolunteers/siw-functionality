@@ -4,11 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
+class ComposerStaticInitdf1049c87b05f066c6f25ccf2f11b01f
 {
     public static $files = array (
         'ac773ca18bc86f9208de2ed8068423eb' => __DIR__ . '/..' . '/johnbillion/extended-cpts/functions.php',
         'ba75162b0a7adabdce2c95bb9e844752' => __DIR__ . '/..' . '/pharaonic/php-dot-array/src/helper.php',
+        '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -18,7 +19,7 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         ),
         'S' => 
         array (
-            'Spatie\\Enum\\' => 12,
+            'Symfony\\Polyfill\\Php83\\' => 23,
             'Spatie\\ArrayToXml\\' => 18,
         ),
         'P' => 
@@ -41,9 +42,9 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
         array (
             0 => __DIR__ . '/..' . '/luizbills/css-generator/src',
         ),
-        'Spatie\\Enum\\' => 
+        'Symfony\\Polyfill\\Php83\\' => 
         array (
-            0 => __DIR__ . '/..' . '/spatie/enum/src',
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php83',
         ),
         'Spatie\\ArrayToXml\\' => 
         array (
@@ -79,15 +80,25 @@ class ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
+        'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
+        'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',
+        'DateInvalidTimeZoneException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidTimeZoneException.php',
+        'DateMalformedIntervalStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedIntervalStringException.php',
+        'DateMalformedPeriodStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedPeriodStringException.php',
+        'DateMalformedStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedStringException.php',
+        'DateObjectError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateObjectError.php',
+        'DateRangeError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateRangeError.php',
+        'Override' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/Override.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitbc97e779d1630e91d8d3b4042c956e2d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitdf1049c87b05f066c6f25ccf2f11b01f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitdf1049c87b05f066c6f25ccf2f11b01f::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitdf1049c87b05f066c6f25ccf2f11b01f::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitdf1049c87b05f066c6f25ccf2f11b01f::$classMap;
 
         }, null, ClassLoader::class);
     }

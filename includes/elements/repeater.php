@@ -2,17 +2,10 @@
 
 namespace SIW\Elements;
 
-/**
- * Abstracte klasse voor het maken van een repeater
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 abstract class Repeater extends Element {
 
-	/** Items */
 	protected array $items;
 
-	/** Voegt item toe aan repeater */
 	final public function add_item( $item ): static {
 
 		if ( is_array( $item ) ) {
@@ -29,7 +22,6 @@ abstract class Repeater extends Element {
 		return $this;
 	}
 
-	/** Voegt meerdere items toe aan repeater */
 	final public function add_items( array $items ): static {
 		foreach ( $items as $item ) {
 			$this->add_item( $item );
@@ -37,12 +29,10 @@ abstract class Repeater extends Element {
 		return $this;
 	}
 
-	/** Parset item*/
 	protected function parse_item( array $item ): array {
 		return $item;
 	}
 
-	/** Geeft default waardes van item terug TODO: abstract maken? */
 	protected function get_item_defaults(): array {
 		return [];
 	}

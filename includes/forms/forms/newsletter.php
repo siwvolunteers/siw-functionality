@@ -10,11 +10,6 @@ use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
 use SIW\Util\Links;
 use SIW\Widgets\Newsletter_Confirmation;
 
-/**
- * Aanmelding nieuwsbrief
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 
 	/** Formulier ID */
@@ -70,10 +65,9 @@ class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 				);
 	}
 
-	/** Genereert url voor bevestingslink TODO: verplaatsen naar Newsletter Util klasse */
 	protected function generate_confirmation_url(): string {
 
-		$confirmation_page = siw_get_special_page( Special_Page::NEWSLETTER_CONFIRMATION() );
+		$confirmation_page = Special_Page::NEWSLETTER_CONFIRMATION->get_page();
 
 		return add_query_arg(
 			[

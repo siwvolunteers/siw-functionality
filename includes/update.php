@@ -4,11 +4,6 @@ namespace SIW;
 
 use SIW\Attributes\Add_Action;
 
-/**
- * Plugin update
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Update extends Base {
 
 	public const PLUGIN_UPDATED_HOOK = 'siw_update_plugin';

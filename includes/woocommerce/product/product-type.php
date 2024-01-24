@@ -5,11 +5,6 @@ namespace SIW\WooCommerce\Product;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
-/**
- * Toevoegen project type
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Product_Type extends Base {
 
 	#[Add_Filter( 'product_type_selector' )]

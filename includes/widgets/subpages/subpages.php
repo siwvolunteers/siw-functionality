@@ -3,12 +3,7 @@
 namespace SIW\Widgets;
 
 /**
- * Widget met subpagina's
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
- * Widget Name: SIW: CTA
+ * Widget Name: SIW: Subpagina's
  * Description: Toont subpagina's
  * Author: SIW Internationale Vrijwilligersprojecten
  * Author URI: https://www.siw.nl
@@ -96,8 +91,8 @@ class Subpages extends Widget {
 		$this->register_frontend_styles(
 			[
 				[
-					'siw-widget-subpages',
-					SIW_ASSETS_URL . 'css/widgets/subpages.css',
+					self::get_asset_handle(),
+					self::get_style_asset_url(),
 					[],
 					SIW_PLUGIN_VERSION,
 				],

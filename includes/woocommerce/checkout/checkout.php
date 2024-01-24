@@ -6,11 +6,6 @@ use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
-/**
- * WooCommerce checkout formulier
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Checkout extends Base {
 
 	#[Add_Filter( 'woocommerce_checkout_cart_item_quantity' )]

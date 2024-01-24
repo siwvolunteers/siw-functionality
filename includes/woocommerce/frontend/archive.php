@@ -6,11 +6,6 @@ use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-/**
- * Aanpassingen aan overzichtspagina van groepsprojecten
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
 class Archive extends Base {
 
 	#[Add_Action( 'woocommerce_after_shop_loop_item_title' )]
@@ -25,8 +20,8 @@ class Archive extends Base {
 		echo wp_kses_post(
 			sprintf(
 				'<p>%s<br/>%s<br/>%s</p>',
-				$product->get_country()->get_name(),
-				implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE()->value, [ 'fields' => 'names' ] ) ),
+				$product->get_country()->label(),
+				implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE->value, [ 'fields' => 'names' ] ) ),
 				siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false )
 			)
 		);

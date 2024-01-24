@@ -5,11 +5,6 @@ namespace SIW\WooCommerce\Checkout\Discount;
 use SIW\Attributes\Add_Action;
 use SIW\Config;
 
-/**
- * Korting bij meerdere projecten tegelijkertijd
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Bulk extends Virtual_Coupon {
 
 	private const SESSION_VARIABLE = 'bulk_discount_product_ids';
@@ -41,7 +36,6 @@ class Bulk extends Virtual_Coupon {
 		return Config::get_discount_percentage_second_project();
 	}
 
-	/** Past eventueel korting bij meerdere projecten toe */
 	#[Add_Action( 'woocommerce_before_calculate_totals' )]
 	public function maybe_set_bulk_discount( \WC_Cart $cart ) {
 

@@ -2,16 +2,13 @@
 
 namespace SIW\Structured_Data;
 
-/**
- * Type evenement (offline, online of allebei)
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- * @see       https://schema.org/eventAttendanceMode
- *
- * @method static self MixedEventAttendanceMode()
- * @method static self OfflineEventAttendanceMode()
- * @method static self OnlineEventAttendanceMode()
- */
-class Event_Attendance_Mode extends Enumeration {
+use SIW\Interfaces\Structured_Data\Enumeration;
 
+/**
+ * @see https://schema.org/eventAttendanceMode
+ */
+enum Event_Attendance_Mode: string implements Enumeration {
+	case MIXED = 'MixedEventAttendanceMode';
+	case OFFLINE = 'OfflineEventAttendanceMode';
+	case ONLINE = 'OnlineEventAttendanceMode';
 }

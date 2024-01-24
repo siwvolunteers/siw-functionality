@@ -6,15 +6,11 @@ use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Language;
+use SIW\Data\Plato\Language_Skill_Level;
 use SIW\Properties;
 use SIW\Util\CSS;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-/**
- * Aanpassingen t.b.v. WooCommerce e-mails
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- */
 class Emails extends Base {
 
 	#[Add_Filter( 'woocommerce_email_from_name' )]
@@ -53,7 +49,6 @@ class Emails extends Base {
 		<?php
 	}
 
-	/** Genereert tabelrij */
 	public function show_table_row( string $label, string $value = '&nbsp;' ) {
 		?>
 		<tr>
@@ -68,7 +63,6 @@ class Emails extends Base {
 		<?php
 	}
 
-	/** Toont tabel-headerrij */
 	public function show_table_header_row( string $label ) {
 		?>
 		<tr>
@@ -81,13 +75,7 @@ class Emails extends Base {
 		<?php
 	}
 
-	/** Haalt data voor tabel op */
 	protected function get_table_data( \WC_Order $order ): array {
-
-		// Referentiegegevens
-		$languages = [ '' => __( 'Selecteer een taal', 'siw' ) ] + siw_get_languages_list( Language::PLATO_CODE );
-		$language_skill = siw_get_language_skill_levels();
-
 		$table_data['application'] = $this->get_application_table_data( $order );
 		$table_data['payment'] = $this->get_payment_table_data( $order );
 		$table_data['customer'] = [
@@ -124,16 +112,16 @@ class Emails extends Base {
 			'header' => __( 'Talenkennis', 'siw' ),
 			'rows'   => [
 				[
-					'label' => $languages[ $order->get_meta( 'language_1' ) ] ?? '',
-					'value' => $language_skill[ $order->get_meta( 'language_1_skill' ) ] ?? '',
+					'label' => Language::try_from_plato_code( $order->get_meta( 'language_1' ) ) ?? '',
+					'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_1_skill' ) ?? '' )?->label() ?? '',
 				],
 				[
-					'label' => $languages[ $order->get_meta( 'language_2' ) ] ?? '',
-					'value' => $language_skill[ $order->get_meta( 'language_2_skill' ) ] ?? '',
+					'label' => Language::try_from_plato_code( $order->get_meta( 'language_2' ) ) ?? '',
+					'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_2_skill' ) ?? '' )?->label() ?? '',
 				],
 				[
-					'label' => $languages[ $order->get_meta( 'language_3' ) ] ?? '',
-					'value' => $language_skill[ $order->get_meta( 'language_3_skill' ) ] ?? '',
+					'label' => Language::try_from_plato_code( $order->get_meta( 'language_3' ) ) ?? '',
+					'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_3_skill' ) ?? '' )?->label() ?? '',
 				],
 			],
 		];
@@ -161,7 +149,6 @@ class Emails extends Base {
 		return $table_data;
 	}
 
-	/** Geeft aanmeldingsgegevens terug */
 	protected function get_application_table_data( \WC_Order $order ): array {
 
 		$application_data['header'] = __( 'Aanmelding', 'siw' );
@@ -208,7 +195,6 @@ class Emails extends Base {
 		return $application_data;
 	}
 
-	/** Geeft betaalgegevens terug */
 	protected function get_payment_table_data( \WC_Order $order ): array {
 		$payment_data['header'] = __( 'Betaling', 'siw' );
 		if ( $order->get_total() !== $order->get_subtotal() ) {
@@ -217,7 +203,6 @@ class Emails extends Base {
 				'value' => $order->get_subtotal_to_display(),
 			];
 
-			/* Toon kortingscodes */
 			foreach ( $order->get_coupons() as $coupon ) {
 				$payment_data['rows'][] = [
 					// translators: %s is de kortingscode
@@ -226,7 +211,6 @@ class Emails extends Base {
 				];
 			}
 
-			/* Toon automatische kortingen */
 			foreach ( $order->get_fees() as $fee ) {
 				$payment_data['rows'][] = [
 					'label' => $fee->get_name(),

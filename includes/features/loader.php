@@ -4,11 +4,6 @@ namespace SIW\Features;
 
 use SIW\Abstracts\Base_Loader as A_Base_Loader;
 
-/**
- * Loader voor modules
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Loader extends A_Base_Loader {
 
 	/** {@inheritDoc} */
@@ -17,14 +12,21 @@ class Loader extends A_Base_Loader {
 			Animation::class,
 			Breadcrumbs::class,
 			Cookie_Consent::class,
+			Email::class,
 			Menu_Item_Info_Button::class,
 			Facebook_Pixel::class,
 			Fonts::class,
-			Google_Analytics_4::class,
+			Google_Tag_Manager::class,
 			Icons::class,
 			Iframe_Manager::class,
+			Job_Scheduler::class,
+			Login::class,
+			Plugin_Styles::class,
+			Shortcodes::class,
 			Social_Share::class,
+			Tag_Attributes::class,
 			Topbar::class,
+			Upload_Subdir::class,
 			Web_App_Manifest::class,
 		];
 	}

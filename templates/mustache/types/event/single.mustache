@@ -1,0 +1,42 @@
+<div class="flex-container flex-direction-column-mobile">
+	<div class="flex-item-2">
+		<div class="event-info">
+			{{& icons.calendar}} {{ event.get_event_date|format_datetime }}<br>
+			{{& icons.clock }} {{ event.get_start_time }} - {{ event.get_end_time }}
+		</div>
+		<p>{{& event.get_description | wp_kses_post }}</p>
+		<h2>{{#__}}Aanmelden{{/__}}</h2>
+		{{# event.is_active }}
+			{{# event.is_info_day }}
+				{{& application_form_info_day }}
+			{{/ event.is_info_day }}
+			{{^ event.is_info_day }}
+				{{& event.get_application.explanation }}
+				{{# event.get_application.has_link }}
+					<a href="{{ event.get_application.url }}" rel="external">{{ event.get_application.url }}</a>
+				{{/ event.get_application.has_link }}
+			{{/ event.is_info_day }}
+		{{/ event.is_active }}
+
+		{{^ event.is_active }}
+			{{#__}}Dit evenement is helaas al afgelopen{{/__}}
+		{{/ event.is_active }}
+	</div>
+	<div class="flex-item">
+		<h2>{{#__}}Locatie{{/__}}</h2>
+		<p>
+		{{# event.is_online }}
+			{{& icons.online }} {{#__}}Online{{/__}}<br>
+		{{/ event.is_online }}
+		{{^ event.is_online }}
+			{{& icons.location }} {{ event.get_location.name }}, {{ event.get_location.street }} {{ event.get_location.house_number }}, {{ event.get_location.postcode }} {{ event.get_location.city }}
+			{{& map }}
+		{{/ event.is_online }}
+		</p>
+		{{# event.get_organizer }}
+			<h2>{{#__}}Organisator{{/__}}</h2>
+			<p>{{#__}}Dit evenement wordt georganiseerd door{{/__}} <br>
+			{{ event.get_organizer.name }} | <a href="{{ event.get_organizer.url }}" rel="external">{{ event.get_organizer.url }}</a></p>
+		{{/ event.get_organizer }}
+	</div>
+</div>

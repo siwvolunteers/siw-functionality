@@ -6,12 +6,8 @@ use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Config;
+use SIW\Jobs\Async\Export_To_Mailjet;
 
-/**
- * Aanmelding voor nieuwsbrief tijdens WooCommerce checkout
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Newsletter extends Base {
 
 	private const CHECKOUT_FIELD_KEY = 'newsletter_signup';
@@ -52,6 +48,6 @@ class Newsletter extends Base {
 			],
 		];
 
-		siw_enqueue_async_action( 'export_to_mailjet', $data );
+		as_enqueue_async_action( Export_To_Mailjet::class, $data );
 	}
 }

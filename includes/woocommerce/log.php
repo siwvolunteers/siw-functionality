@@ -5,11 +5,6 @@ namespace SIW\WooCommerce;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 
-/**
- * Logging
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- */
 class Log extends Base {
 
 	#[Add_Filter( 'woocommerce_status_log_items_per_page' )]

@@ -2,14 +2,10 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Country;
 use SIW\Elements\Blockquote;
 
 /**
- * Widget met quote
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Quote
  * Description: Toont quote van deelnemer
  * Author: SIW Internationale Vrijwilligersprojecten
@@ -17,10 +13,7 @@ use SIW\Elements\Blockquote;
  */
 class Quote extends Widget {
 
-	/** Taxonomy voor continent */
 	private const CONTINENT_TAXONOMY = 'siw_story_continent';
-
-	/** Taxonomy voor projectsoort */
 	private const PROJECT_TYPE_TAXONOMY = 'siw_story_project_type';
 
 	/** {@inheritDoc} */
@@ -98,16 +91,14 @@ class Quote extends Widget {
 		$this->register_frontend_styles(
 			[
 				[
-					'siw-widget-quote',
-					SIW_ASSETS_URL . 'css/widgets/quote.css',
+					self::get_asset_handle(),
+					self::get_style_asset_url(),
 					[],
 					SIW_PLUGIN_VERSION,
 				],
 			]
 		);
 	}
-
-	/** Geeft lijst met opties terug */
 	protected function get_taxonomy_options( string $taxonomy ): array {
 		$terms = get_terms( $taxonomy );
 		$options[''] = __( 'Alle', 'siw' );
@@ -117,9 +108,7 @@ class Quote extends Widget {
 		return $options;
 	}
 
-	/** Haalt gegevens van quote op */
 	protected function get_quote( string $continent, string $project_type ): ?array {
-
 		$tax_query = [];
 		if ( ! empty( $continent ) ) {
 			$tax_query[] = [
@@ -157,7 +146,7 @@ class Quote extends Widget {
 		$quote = [
 			'quote'        => $quotes[ array_rand( $quotes, 1 ) ],
 			'name'         => siw_meta( 'name', [], $post_id ),
-			'country'      => siw_get_country( siw_meta( 'country', [], $post_id ) )->get_name(),
+			'country'      => Country::tryFrom( siw_meta( 'country', [], $post_id ) )?->label(),
 			'project_type' => wp_get_post_terms( $post_id, self::PROJECT_TYPE_TAXONOMY )[0]->name,
 		];
 		return $quote;

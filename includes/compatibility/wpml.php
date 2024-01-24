@@ -5,13 +5,10 @@ namespace SIW\Compatibility;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
-use SIW\I18n;
+use SIW\Util\I18n;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
- * Aanpassingen voor WPML
- *
- * @copyright 2019-2022 SIW Internationale Vrijwilligersprojecten
  * @see       https://wpml.org/
  */
 class WPML extends Base implements I_Plugin {
@@ -40,7 +37,6 @@ class WPML extends Base implements I_Plugin {
 	}
 
 	#[Add_Action( 'widgets_init', 99 )]
-	/** Verwijdert WPML widget */
 	public function unregister_wpml_widget() {
 		unregister_widget( \WPML_LS_Widget::class );
 	}
@@ -51,7 +47,6 @@ class WPML extends Base implements I_Plugin {
 	}
 
 	#[Add_Action( 'members_register_cap_groups' )]
-	/** Registreert cap group */
 	public function register_cap_group() {
 		\members_register_cap_group(
 			'wpml',
@@ -65,9 +60,7 @@ class WPML extends Base implements I_Plugin {
 	}
 
 	#[Add_Action( 'members_register_caps' )]
-	/** Registeert caps */
 	public function register_caps() {
-
 		foreach ( self::USER_CAPS as $cap ) {
 			\members_register_cap( $cap, [ 'label' => $cap ] );
 		}

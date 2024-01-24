@@ -2,21 +2,14 @@
 
 namespace SIW\WooCommerce\Admin;
 
-use SIW\Actions\Async\Export_Plato_Application;
+use SIW\Jobs\Async\Export_Plato_Application;
 
-/**
- * Extra Admin columns voor aanmeldingen
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Order_Columns extends \MBAC\Post {
 
 	private const COLUMN_PROJECTS = 'projects';
 	private const COLUMN_EXPORTED = 'exported';
 
 	/**
-	 * Voegt extra columns toe
-	 *
 	 * @param array $columns
 	 * @return array
 	 */
@@ -30,8 +23,6 @@ class Order_Columns extends \MBAC\Post {
 	}
 
 	/**
-	 * Toont extra columns
-	 *
 	 * @param string $column
 	 * @param int    $post_id
 	 */

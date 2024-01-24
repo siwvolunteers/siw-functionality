@@ -1,0 +1,12 @@
+<div>
+{{# event.is_online }}
+	{{& icons.online }} {{#__}}Online{{/__}}
+{{/ event.is_online }}
+{{^ event.is_online }}
+	{{& icons.location }} {{ event.get_location.name }}, {{ event.get_location.city }}
+{{/ event.is_online }}
+</div>
+<div>
+{{& icons.calendar}} {{ event.get_event_date|format_datetime }}<br>
+{{& icons.clock }} {{ event.get_start_time }} - {{ event.get_end_time }}
+</div>

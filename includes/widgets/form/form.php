@@ -5,11 +5,6 @@ namespace SIW\Widgets;
 use SIW\Elements\Form as Form_Element;
 
 /**
- * Widget met Formulier
- *
- * @copyright 2021 SIW Internationale Vrijwilligersprojecten
- *
- * @widget_data
  * Widget Name: SIW: Form
  * Description: Toont formulier
  * Author: SIW Internationale Vrijwilligersprojecten

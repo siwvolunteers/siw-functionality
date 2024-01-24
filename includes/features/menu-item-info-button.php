@@ -6,11 +6,6 @@ use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Data\Special_Page;
 
-/**
- * Menu item met Infoknop
- *
- * @copyright 2023 SIW Internationale Vrijwilligersprojecten
- */
 class Menu_Item_Info_Button extends Base {
 
 	#[Add_Action( 'generate_menu_bar_items' ) ]
@@ -18,7 +13,7 @@ class Menu_Item_Info_Button extends Base {
 		// TODO: settings uit Customizer halen?
 		printf(
 			'<span ><a href="%1$s" class="button">%2$s</a></span>',
-			esc_url( get_permalink( siw_get_special_page( Special_Page::CONTACT() ) ) ),
+			esc_url( get_permalink( Special_Page::CONTACT->get_page() ) ),
 			esc_html__( 'Info aanvragen', 'siw' ),
 		);
 	}

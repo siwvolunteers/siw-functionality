@@ -4,11 +4,6 @@ namespace SIW\WooCommerce\Admin;
 
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-/**
- * Extra admin columns voor Groepsprojecten
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Product_Columns extends \MBAC\Post {
 
 	private const COLUMN_COUNTRY = 'country';
@@ -64,7 +59,7 @@ class Product_Columns extends \MBAC\Post {
 				if ( null === $product ) {
 					return;
 				}
-				echo esc_html( $product->get_country()->get_name() );
+				echo esc_html( $product->get_country()->label() );
 				break;
 		}
 	}

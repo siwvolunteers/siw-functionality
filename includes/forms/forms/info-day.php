@@ -2,18 +2,16 @@
 
 namespace SIW\Forms\Forms;
 
+use SIW\Content\Posts\Events;
+use SIW\Data\Continent;
 use SIW\Data\Project_Type;
 use SIW\Integrations\Mailjet;
+use SIW\Integrations\Mailjet\Property;
 use SIW\Interfaces\Forms\Confirmation_Mail as I_Confirmation_Mail;
 use SIW\Interfaces\Forms\Export_To_Mailjet as I_Export_To_Mailjet;
 use SIW\Interfaces\Forms\Form as I_Form;
 use SIW\Interfaces\Forms\Notification_Mail as I_Notification_Mail;
 
-/**
- * Aanmelding infodag
- *
- * @copyright 2022 SIW Internationale Vrijwilligersprojecten
- */
 class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Export_To_Mailjet {
 
 	/** Formulier ID */
@@ -65,14 +63,14 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 				'type'     => 'checkbox_list',
 				'name'     => __( 'Heb je interesse in een bepaald soort project?', 'siw' ),
 				'required' => false,
-				'options'  => Project_Type::toArray(),
+				'options'  => Project_Type::list(),
 			],
 			[
 				'id'       => 'destination',
 				'type'     => 'checkbox_list',
 				'name'     => __( 'Heb je interesse in een bepaalde bestemming?', 'siw' ),
 				'required' => false,
-				'options'  => \siw_get_continents_list(),
+				'options'  => Continent::list(),
 			],
 			[
 				'id'      => 'age',
@@ -127,23 +125,21 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 
 	/** {@inheritDoc} */
 	protected function get_info_days(): array {
-		$upcoming_info_days = siw_get_upcoming_info_days( -1 );
+		$upcoming_info_days = Events::get_future_info_days( [ 'number' => -1 ] );
 
 		// Fallback voor als er nog geen infodagen bekend zijn
 		if ( empty( $upcoming_info_days ) ) {
-			return [ 'unknown' => __( 'Nog niet bekend', 'siw' ) ];
+			return [ '-1' => __( 'Nog niet bekend', 'siw' ) ];
 		}
 
-		foreach ( $upcoming_info_days as $post_id ) {
-			$date = siw_meta( 'event_date', [], $post_id );
-			$online = siw_meta( 'online', [], $post_id );
-			$info_days[ $post_id ] = $online ? sprintf( '%s (%s)', siw_format_date( $date, false ), __( 'online', 'siw' ) ) : siw_format_date( $date, false );
+		foreach ( $upcoming_info_days as $info_day ) {
+			$date = wp_date( 'j F', $info_day->get_event_date()->getTimestamp() );
+			$info_days[ $info_day->get_id() ] = $info_day->is_online() ? sprintf( '%s (%s)', $date, __( 'online', 'siw' ) ) : $date;
 		}
 
 		return $info_days;
 	}
 
-	/** Opties voor leeftijdsranges */
 	protected function get_age_ranges(): array {
 		return [
 			'16-25',
@@ -153,7 +149,6 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 		];
 	}
 
-	/** Opties voor referral */
 	protected function get_referral_options(): array {
 		return [
 			'google'    => __( 'Via Google', 'siw' ),
@@ -167,18 +162,19 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 	/** {@inheritDoc} */
 	public function get_mailjet_list_id( \WP_REST_Request $request ): int {
 		$event_post_id = $request->get_param( 'info_day_date' );
+		//TODO: fallback mailjet list voor onbekende infodag
 		return (int) siw_meta( 'mailjet_list_id', [], $event_post_id );
 	}
 
 	/** {@inheritDoc} */
 	public function get_mailjet_properties( \WP_REST_Request $request ): array {
 		return [
-			Mailjet::PROPERTY_FIRST_NAME            => $request->get_param( 'first_name' ),
-			Mailjet::PROPERTY_LAST_NAME             => $request->get_param( 'last_name' ),
-			Mailjet::PROPERTY_AGE_RANGE             => $this->get_age_ranges()[ $request->get_param( 'age' ) ],
-			Mailjet::PROPERTY_INTEREST_DESTINATION  => implode( ', ', array_map( fn( string $value ): string => \siw_get_continents_list()[ $value ], $request->get_param( 'destination' ) ?? [] ) ),
-			Mailjet::PROPERTY_INTEREST_PROJECT_TYPE => implode( ', ', array_map( fn( string $value ): string => Project_Type::toArray()[ $value ], $request->get_param( 'project_type' ) ?? [] ) ),
-			Mailjet::PROPERTY_REFERRAL              => $this->get_referral_options()[ $request->get_param( 'referral' ) ] . SPACE . $request->get_param( 'referral_other' ),
+			Property::FIRST_NAME->value            => $request->get_param( 'first_name' ),
+			Property::LAST_NAME->value             => $request->get_param( 'last_name' ),
+			Property::AGE_RANGE->value             => $this->get_age_ranges()[ $request->get_param( 'age' ) ],
+			Property::INTEREST_DESTINATION->value  => implode( ', ', array_map( fn( string $value ): string => Continent::tryFrom( $value )?->label() ?? '', $request->get_param( 'destination' ) ?? [] ) ),
+			Property::INTEREST_PROJECT_TYPE->value => implode( ', ', array_map( fn( string $value ): string => Project_Type::tryFrom( $value )?->label() ?? '', $request->get_param( 'project_type' ) ?? [] ) ),
+			Property::REFERRAL->value              => $this->get_referral_options()[ $request->get_param( 'referral' ) ] . SPACE . $request->get_param( 'referral_other' ),
 		];
 	}
 }

@@ -2,37 +2,36 @@
 
 namespace SIW\Features;
 
-use SIW\Assets\SIW_SVG;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
-use SIW\Traits\Assets_Handle;
+use SIW\Traits\Class_Assets;
 
-/**
- * Class voor SIW icons
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Icons extends Base {
 
-	use Assets_Handle;
+	use Class_Assets;
 
 	#[Add_Action( 'wp_body_open' )]
-	/** Voegt SVG-sprite toe aan header */
 	public function add_svg_sprite() {
-		printf( '<div data-svg-url="%s" style="display:none;"></div>', esc_url( SIW_ASSETS_URL . 'icons/dashicons.svg' ) );
-		printf( '<div data-svg-url="%s" style="display:none;"></div>', esc_url( SIW_ASSETS_URL . 'icons/sdg-icons.svg' ) );
+		foreach ( $this->get_icon_sets() as $icon_set ) {
+			printf( '<div data-svg-url="%s" style="display:none;"></div>', esc_url( SIW_ASSETS_URL . "icons/{$icon_set}.svg" ) );
+		}
+	}
+	protected function get_icon_sets(): array {
+		return [
+			'sdg-icons',
+			'genericons-neue',
+			'social-logos',
+		];
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Voegt SVG-script toe */
 	public function enqueue_script() {
-		wp_enqueue_script( SIW_SVG::get_assets_handle() );
+		wp_register_script( self::get_asset_handle(), self::get_script_asset_url(), null, SIW_PLUGIN_VERSION, true );
+		wp_enqueue_script( self::get_asset_handle() );
 	}
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
-	/** Voegt stylesheet toe */
 	public function enqueue_style() {
-		wp_register_style( self::get_assets_handle(), SIW_ASSETS_URL . 'css/features/icons.css', null, SIW_PLUGIN_VERSION );
-		wp_enqueue_style( self::get_assets_handle() );
+		self::enqueue_class_style();
 	}
 }
