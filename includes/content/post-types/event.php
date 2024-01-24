@@ -56,13 +56,20 @@ class Event extends Post_Type {
 
 	/** {@inheritDoc} */
 	protected static function get_admin_columns(): array {
-		return [];
+		return [
+			'event_date' => [
+				'title'       => __( 'Datum', 'siw' ),
+				'meta_key'    => 'event_date',
+				'date_format' => 'd-m-Y',
+				'default'     => 'DESC',
+			],
+		];
 	}
 
 	/** {@inheritDoc} */
 	protected static function get_site_sortables(): array {
 		return [
-			'deadline' => [
+			'event_date' => [
 				'meta_key' => 'event_date',
 				'default'  => 'ASC',
 			],
@@ -105,12 +112,11 @@ class Event extends Post_Type {
 				'required' => true,
 			],
 			[
-				'id'            => 'event_date',
-				'name'          => __( 'Datum', 'siw' ),
-				'type'          => 'date',
-				'required'      => true,
-				'admin_columns' => 'after title',
-			],
+				'id'       => 'event_date',
+				'name'     => __( 'Datum', 'siw' ),
+				'type'     => 'date',
+				'required' => true,
+      ],
 			[
 				'id'            => 'start_time',
 				'name'          => __( 'Starttijd', 'siw' ),
