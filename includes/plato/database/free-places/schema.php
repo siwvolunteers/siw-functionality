@@ -2,22 +2,22 @@
 
 namespace SIW\Plato\Database\Free_Places;
 
-class Schema extends \BerlinDB\Database\Schema {
+class Schema extends \SIW\Plato\Database\Schema {
 
 	public $columns = [
 		[
 			'name'     => 'id',
-			'type'     => 'bigint',
+			'type'     => 'BIGINT',
 			'length'   => 20,
-			'unsigned' => true,
 			'extra'    => 'auto_increment',
+			'unsigned' => true,
 			'primary'  => true,
 			'sortable' => true,
 		],
 		[
 			'name'       => 'project_id',
 			'type'       => 'CHAR',
-			'length'     => 32,
+			'length'     => 36,
 			'searchable' => true,
 			'sortable'   => true,
 		],
@@ -69,7 +69,7 @@ class Schema extends \BerlinDB\Database\Schema {
 			'name'       => 'no_more_from',
 			'type'       => 'VARCHAR',
 			'length'     => 255,
-			'nullable'   => true,
+			'allow_null' => true,
 			'searchable' => true,
 		],
 		[
@@ -83,11 +83,10 @@ class Schema extends \BerlinDB\Database\Schema {
 			'sortable' => true,
 		],
 		[
-			'name'         => 'file_identifier_infosheet',
-			'type'         => 'CHAR',
-			'length'       => 32,
-			'nullable'     => true,
-			'xml_property' => 'url_infosheet',
+			'name'       => 'file_identifier_infosheet',
+			'type'       => 'CHAR',
+			'length'     => 32,
+			'allow_null' => true,
 		],
 	];
 }

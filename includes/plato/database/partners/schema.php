@@ -2,22 +2,22 @@
 
 namespace SIW\Plato\Database\Partners;
 
-class Schema extends \BerlinDB\Database\Schema {
+class Schema extends \SIW\Plato\Database\Schema {
 
 	public $columns = [
 		[
 			'name'     => 'id',
-			'type'     => 'bigint',
+			'type'     => 'BIGINT',
 			'length'   => 20,
+			'extra'    => 'AUTO_INCREMENT',
 			'unsigned' => true,
-			'extra'    => 'auto_increment',
 			'primary'  => true,
 			'sortable' => true,
 		],
 		[
 			'name'       => 'technical_key',
 			'type'       => 'CHAR',
-			'length'     => 32,
+			'length'     => 36,
 			'searchable' => true,
 			'cache_key'  => true,
 		],

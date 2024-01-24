@@ -20,21 +20,19 @@ class Row extends \BerlinDB\Database\Row {
 	readonly public string $file_identifier_infosheet;
 
 	public function __construct( $item ) {
-		$item->id = (int) $item->id;
-		$item->project_id = (string) $item->project_id;
-		$item->code = (string) $item->code;
-		$item->start_date = (string) $item->start_date;
-		$item->end_date = (string) $item->end_date;
-		$item->numvol = (int) $item->numvol;
-		$item->free_m = (int) $item->free_m;
-		$item->free_f = (int) $item->free_f;
-		$item->free_teen = (int) $item->free_teen;
-		$item->reserve = (int) $item->reserved;
-		$item->no_more_from = (string) $item->no_more_from;
-		$item->remarks = (string) $item->remarks;
-		$item->last_update = (string) $item->last_update;
-		$item->file_identifier_infosheet = (string) $item->file_identifier_infosheet;
-
-		parent::__construct( $item );
+		$this->id = (int) $item->id;
+		$this->project_id = (string) $item->project_id;
+		$this->code = (string) $item->code;
+		$this->start_date = (string) $item->start_date;
+		$this->end_date = (string) $item->end_date;
+		$this->numvol = (int) $item->numvol;
+		$this->free_m = (int) $item->free_m;
+		$this->free_f = (int) $item->free_f;
+		$this->free_teen = (int) $item->free_teen;
+		$this->reserved = (int) $item->reserved;
+		$this->no_more_from = (string) $item->no_more_from;
+		$this->remarks = (string) $item->remarks;
+		$this->last_update = (string) $item->last_update;
+		$this->file_identifier_infosheet = (string) $item->file_identifier_infosheet;
 	}
 }

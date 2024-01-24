@@ -9,10 +9,8 @@ class Row extends \BerlinDB\Database\Row {
 	readonly public string $name;
 
 	public function __construct( $item ) {
-		$item->id = (int) $item->id;
-		$item->technical_key = (string) $item->technical_key;
-		$item->name = (string) $item->name;
-
-		parent::__construct( $item );
+		$this->id = (int) $item->id;
+		$this->technical_key = (string) $item->technical_key;
+		$this->name = (string) $item->name;
 	}
 }

@@ -1,21 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Plato;
+namespace SIW\Plato\Export;
 
+use SIW\Plato\Export;
 use SIW\Util\Logger;
 use Spatie\ArrayToXml\ArrayToXml;
 
-/**
- * Exporteert aanmelding Groepsproject naar Plato
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
-class Export_Application extends Export {
+class Application extends Export {
 
 	#[\Override]
-	protected string $endpoint = 'ImportVolunteer';
+	protected function get_endpoint(): string {
+		return 'ImportVolunteer';
+	}
 
-	/** Genereert XML */
 	protected function generate_xml() {
 		$this->xml_data = ArrayToXml::convert( $this->data, 'vef', true, 'UTF-8' );
 	}
