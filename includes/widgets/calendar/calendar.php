@@ -84,9 +84,13 @@ class Calendar extends Widget {
 	public function get_template_variables( $instance, $args ) {
 
 		if ( $instance['only_infodays'] ) {
-			$events = Events::get_future_info_days( [ 'number' => (int) $instance['number'] ] );
+			$events = Events::get_future_info_days();
 		} else {
-			$events = Events::get_future_events( [ 'number' => (int) $instance['number'] ] );
+			$events = Events::get_future_events();
+		}
+
+		if ( count( $events ) > (int) $instance['number'] ) {
+			$events = array_slice( $events, 0, (int) $instance['number'] );
 		}
 
 		$event_list = array_map(
