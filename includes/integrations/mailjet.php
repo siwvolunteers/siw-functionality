@@ -71,6 +71,7 @@ class Mailjet {
 		$args = array_filter( $args );
 
 		$url = $this->get_api_url( Operation::MANAGE_LISTS, [] );
+
 		$response = $this->create_http_request( $url )->add_query_args( $args )->get();
 		if ( is_wp_error( $response ) ) {
 			return [];
@@ -89,6 +90,7 @@ class Mailjet {
 
 	public function create_list( string $name ): ?int {
 		$url = $this->get_api_url( Operation::MANAGE_LISTS );
+
 		$response = $this->create_http_request( $url )->post( [ 'Name' => $name ] );
 		if ( is_wp_error( $response ) ) {
 			return null;
