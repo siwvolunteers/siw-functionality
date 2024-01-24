@@ -48,7 +48,7 @@ class Carousel extends Repeater {
 
 	/** {@inheritDoc} */
 	public function enqueue_styles() {
-		self::enqueue_class_style();
+		self::enqueue_class_style( [ Splide::get_asset_handle() ] );
 	}
 
 	/** {@inheritDoc} */
