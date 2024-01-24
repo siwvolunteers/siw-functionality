@@ -38,7 +38,7 @@ class Query extends Base {
 		if ( ! empty( $query_vars['continent'] ) ) {
 			$query['tax_query'][] = [
 				[
-					'taxonomy' => Taxonomy_Attribute::CONTINENT()->value,
+					'taxonomy' => Taxonomy_Attribute::CONTINENT->value,
 					'field'    => 'slug',
 					'terms'    => esc_attr( $query_vars['continent'] ),
 				],
