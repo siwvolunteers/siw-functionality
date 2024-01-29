@@ -1,11 +1,4 @@
 @charset "UTF-8";
-/**
- * SIW Plugin Styles
- * @copyright 2020-2024 SIW Internationale Vrijwilligersprojecten
- */
-/*--------------------------------------------------------------
-## Algemeen
---------------------------------------------------------------*/
 :root {
   --siw-text-shadow: 2px 2px 2px var(--siw-contrast);
 }
@@ -168,9 +161,6 @@ button.button.alt {
     flex-direction: column-reverse;
   }
 }
-/*--------------------------------------------------------------
-## Custom Post Types
---------------------------------------------------------------*/
 .archive article .inside-article {
   border: 1px solid #ddd;
   text-align: center;
@@ -192,9 +182,6 @@ button.button.alt {
   font-style: italic;
 }
 
-/*--------------------------------------------------------------
-## Gestylede inputs
---------------------------------------------------------------*/
 .project-wizard input:hover, .project-wizard input:focus,
 .project-wizard textarea:hover,
 .project-wizard textarea:focus,

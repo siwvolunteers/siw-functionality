@@ -1,7 +1,7 @@
 <div id="{{ element.id }}" class="{{ element.classes }}" data-role="accordion" data-tabs-allowed="{{ tabs_allowed }}"  data-breakpoint="{{ breakpoint }}" data-start-collapsed="{{ start_collapsed }}">
 	<ul role="tablist" class="tabs-tab-list">
 	{{# panes }}
-		<li role="presentation"><a href="#{{ section_id }}" role="tab" id="{{ tab_id }}" aria-controls="{{ section_id }}" class="tabs-trigger js-tabs-trigger">{{ title }}</a></li>
+		<li role="presentation" class="tabs-tab"><a href="#{{ section_id }}" role="tab" id="{{ tab_id }}" aria-controls="{{ section_id }}" class="tabs-trigger js-tabs-trigger">{{ title }}</a></li>
 	{{/ panes }}
 	</ul>
 	{{# panes }}
