@@ -82,7 +82,7 @@ class CTA_Hero extends Element {
 				'url'  => $this->button_url,
 				'text' => $this->button_text,
 			],
-			'background_images' => $background_images,
+			'background_images' => array_reverse( $background_images ) ,
 		];
 	}
 
