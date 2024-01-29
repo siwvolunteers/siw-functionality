@@ -20,7 +20,7 @@ abstract class NPM_Asset extends External_Asset {
 
 	abstract protected static function get_style_sri(): ?string;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_url(): ?string {
 		if ( null === static::get_script_file() ) {
 			return null;
@@ -28,7 +28,7 @@ abstract class NPM_Asset extends External_Asset {
 		return static::get_npm_asset_url( static::get_script_file() );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_style_url(): ?string {
 		if ( null === static::get_style_file() ) {
 			return null;
@@ -45,13 +45,13 @@ abstract class NPM_Asset extends External_Asset {
 		}
 		wp_script_add_data(
 			static::get_asset_handle(),
-			Tag_Attribute::INTEGRITY,
+			Tag_Attribute::INTEGRITY->value,
 			static::get_script_sri()
 		);
 
 		wp_script_add_data(
 			static::get_asset_handle(),
-			Tag_Attribute::CROSSORIGIN,
+			Tag_Attribute::CROSSORIGIN->value,
 			'anonymous'
 		);
 	}
@@ -65,13 +65,13 @@ abstract class NPM_Asset extends External_Asset {
 
 		wp_style_add_data(
 			static::get_asset_handle(),
-			Tag_Attribute::CROSSORIGIN,
+			Tag_Attribute::CROSSORIGIN->value,
 			'anonymous'
 		);
 
 		wp_style_add_data(
 			static::get_asset_handle(),
-			Tag_Attribute::INTEGRITY,
+			Tag_Attribute::INTEGRITY->value,
 			static::get_style_sri()
 		);
 	}

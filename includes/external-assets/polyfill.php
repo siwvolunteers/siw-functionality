@@ -13,12 +13,12 @@ class Polyfill extends External_Asset {
 		'default',
 	];
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_version_number(): ?string {
 		return '3.111.0';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_url(): ?string {
 		return add_query_arg(
 			[
@@ -30,7 +30,7 @@ class Polyfill extends External_Asset {
 		);
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_style_url(): ?string {
 		return null;
 	}

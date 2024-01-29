@@ -7,32 +7,32 @@ namespace SIW\External_Assets;
  */
 class Frappe_Charts extends NPM_Asset {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_version_number(): ?string {
 		return '1.6.2';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_npm_package(): string {
 		return 'frappe-charts';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_file(): ?string {
 		return 'dist/frappe-charts.min.umd.js';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_style_file(): ?string {
 		return null;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_sri(): ?string {
 		return 'sha256-77HRXznViw6+XwGfSX2YMIOjsO69g2fFuzKKWgo+X8U=';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_style_sri(): ?string {
 		return null;
 	}

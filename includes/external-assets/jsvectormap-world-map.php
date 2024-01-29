@@ -9,37 +9,37 @@ use SIW\External_Assets\NPM_Asset;
  */
 class Jsvectormap_World_Map extends NPM_Asset {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_version_number(): ?string {
 		return '1.5.3';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_npm_package(): string {
 		return 'jsvectormap';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_file(): ?string {
 		return 'dist/maps/world.js';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_dependencies(): array {
 		return [ Jsvectormap::get_asset_handle() ];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_style_file(): ?string {
 		return null;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_sri(): ?string {
 		return 'sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY=';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_style_sri(): ?string {
 		return null;
 	}

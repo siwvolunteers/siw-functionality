@@ -7,32 +7,32 @@ namespace SIW\External_Assets;
  */
 class Cookie_Consent extends NPM_Asset {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_npm_package(): string {
 		return 'vanilla-cookieconsent';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_version_number(): ?string {
 		return '2.9.2';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_file(): ?string {
 		return 'dist/cookieconsent.js';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_style_file(): ?string {
 		return 'dist/cookieconsent.css';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_sri(): ?string {
 		return 'sha256-heJUSWR0ojrfDjAAp4CiIxsBDpY1HYO7vZNYxQQ0llw=';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_style_sri(): ?string {
 		return 'sha256-LO7u2UQLQZYZwftu3mP+YM/VfUZES3Ob0daqb5yz2rE=';
 	}

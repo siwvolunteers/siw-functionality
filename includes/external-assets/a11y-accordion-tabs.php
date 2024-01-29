@@ -7,32 +7,32 @@ namespace SIW\External_Assets;
  */
 class A11Y_Accordion_Tabs extends NPM_Asset {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_version_number(): ?string {
 		return '1.0.2';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_npm_package(): string {
 		return 'a11y-accordion-tabs';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_file(): ?string {
 		return 'a11y-accordion-tabs.min.js';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_style_file(): ?string {
 		return null;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_sri(): ?string {
 		return 'sha256-uGbMykAbHLkb2leqh8kLzAa8q6W3S61uDchk44M+rT4=';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_style_sri(): ?string {
 		return null;
 	}

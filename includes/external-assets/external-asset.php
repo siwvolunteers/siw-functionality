@@ -49,13 +49,13 @@ abstract class External_Asset extends Base {
 		if ( null !== static::get_cookie_category() ) {
 			wp_script_add_data(
 				static::get_asset_handle(),
-				Tag_Attribute::TYPE,
+				Tag_Attribute::TYPE->value,
 				'text/plain'
 			);
 
 			wp_script_add_data(
 				static::get_asset_handle(),
-				Tag_Attribute::COOKIE_CATEGORY,
+				Tag_Attribute::COOKIE_CATEGORY->value,
 				static::get_cookie_category()
 			);
 		}
