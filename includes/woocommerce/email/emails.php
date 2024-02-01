@@ -112,15 +112,15 @@ class Emails extends Base {
 			'header' => __( 'Talenkennis', 'siw' ),
 			'rows'   => [
 				[
-					'label' => Language::try_from_plato_code( $order->get_meta( 'language_1' ) ) ?? '',
+					'label' => Language::try_from_plato_code( $order->get_meta( 'language_1' ) ?? '' )?->label() ?? '',
 					'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_1_skill' ) ?? '' )?->label() ?? '',
 				],
 				[
-					'label' => Language::try_from_plato_code( $order->get_meta( 'language_2' ) ) ?? '',
+					'label' => Language::try_from_plato_code( $order->get_meta( 'language_2' ) ?? '' )?->label() ?? '',
 					'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_2_skill' ) ?? '' )?->label() ?? '',
 				],
 				[
-					'label' => Language::try_from_plato_code( $order->get_meta( 'language_3' ) ) ?? '',
+					'label' => Language::try_from_plato_code( $order->get_meta( 'language_3' ) ?? '' )?->label() ?? '',
 					'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_3_skill' ) ?? '' )?->label() ?? '',
 				],
 			],
