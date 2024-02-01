@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Data\Animation\Chart_Type;
+use SIW\Data\Elements\Chart_Type;
 use SIW\Elements\Chart;
 
 /**

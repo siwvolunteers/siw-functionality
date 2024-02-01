@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\Data\Animation\Chart_Type;
+use SIW\Data\Elements\Chart_Type;
 use SIW\External_Assets\Frappe_Charts;
 use SIW\External_Assets\Polyfill;
 
@@ -82,11 +82,11 @@ class Chart extends Element {
 		return $this;
 	}
 
-	public function add_dataset( array $values, string $name = null, string $chart_type = null ): self {
+	public function add_dataset( array $values, string $name = null, Chart_Type $chart_type = null ): self {
 		$this->datasets[] = array_filter(
 			[
 				'name'      => $name,
-				'chartType' => $chart_type,
+				'chartType' => $chart_type?->value,
 				'values'    => $values,
 			]
 		);
