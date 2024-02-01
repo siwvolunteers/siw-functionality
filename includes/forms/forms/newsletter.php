@@ -4,28 +4,26 @@ namespace SIW\Forms\Forms;
 
 use SIW\Config;
 use SIW\Data\Special_Page;
+use SIW\Elements\Link;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
-
-use SIW\Util\Links;
 use SIW\Widgets\Newsletter_Confirmation;
 
 class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 
-	/** Formulier ID */
 	public const FORM_ID = 'newsletter';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_id(): string {
 		return self::FORM_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_name(): string {
 		return __( 'Aanmelding nieuwsbrief', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_fields(): array {
 		$fields = [
 			[
@@ -48,21 +46,21 @@ class Newsletter implements Form_Interface, Confirmation_Mail_Interface {
 		return $fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_subject(): string {
 		return __( 'Bevestig je aanmelding voor onze nieuwsbrief', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_message(): string {
 		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
 				__( 'Bedankt voor je aanmelding voor de SIW-nieuwsbrief!', 'siw' ) . SPACE .
 				__( 'Om zeker te weten dat je inschrijving correct is, vragen we je je aanmelding te bevestigen.', 'siw' ) . BR2 .
-				Links::generate_link(
-					$this->generate_confirmation_url(),
-					__( 'Klik hier om je aanmelding voor onze nieuwsbrief direct te bevestigen.', 'siw' )
-				);
+				Link::create()
+					->set_url( $this->generate_confirmation_url() )
+					->set_text( __( 'Klik hier om je aanmelding voor onze nieuwsbrief direct te bevestigen.', 'siw' ) )
+					->generate();
 	}
 
 	protected function generate_confirmation_url(): string {

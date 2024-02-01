@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use SIW\Data\Color;
-use SIW\Util\Links;
+use SIW\Elements\Link;
 
 /*
  * @hooked WC_Emails::email_header() Output the email header
@@ -41,7 +41,7 @@ $admin_link_text = sprintf( __( 'Aanmelding %s', 'siw' ), $order->get_order_numb
 	<p>
 		<?php
 		printf( esc_html__( 'Er is een nieuwe aanmelding (%s) binnengekomen:', 'siw' ),  $application_status ); echo BR;
-		echo Links::generate_link( $admin_link_url, $admin_link_text );
+		Link::create()->set_url( $admin_link_url )->set_text( $admin_link_text )->render();
 		?>
 	</p>
 </div>
