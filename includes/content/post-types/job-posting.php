@@ -19,17 +19,17 @@ use SIW\Structured_Data\Thing;
 
 class Job_Posting extends Post_Type {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_dashicon(): string {
 		return 'nametag';
 	}
 
-		/** {@inheritDoc} */
+		#[\Override]
 	protected static function get_slug(): string {
 		return 'vacatures';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_post_type_supports(): array {
 		return [
 			Post_Type_Support::TITLE,
@@ -37,7 +37,7 @@ class Job_Posting extends Post_Type {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_admin_columns(): array {
 		return [
 			'title',
@@ -57,7 +57,7 @@ class Job_Posting extends Post_Type {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_site_sortables(): array {
 		return [
 			'deadline' => [
@@ -111,22 +111,22 @@ class Job_Posting extends Post_Type {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_singular_label(): string {
 		return __( 'Vacature', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_plural_label(): string {
 		return __( 'Vacatures', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_custom_post( \WP_Post|int $post ): Job_Posting_Post {
 		return new Job_Posting_Post( $post );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public static function get_meta_box_fields(): array {
 		$hr_manager = siw_get_option( 'job_posting.hr_manager' );
 		$hr_manager = wp_parse_args(
@@ -270,12 +270,12 @@ class Job_Posting extends Post_Type {
 		return $metabox_fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_taxonomies(): array {
 		return [];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_active_posts_meta_query(): array {
 		return [
 			'key'     => 'deadline',
@@ -372,7 +372,7 @@ class Job_Posting extends Post_Type {
 		return $structured_data;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function generate_slug( array $data, array $postarr ): string {
 		return $data['post_title'];
 	}

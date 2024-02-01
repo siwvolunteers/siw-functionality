@@ -5,7 +5,7 @@ namespace SIW\Structured_Data;
 /** @see https://schema.org/PostalAddress */
 class Postal_Address extends Thing {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_type(): string {
 		return 'PostalAddress';
 	}

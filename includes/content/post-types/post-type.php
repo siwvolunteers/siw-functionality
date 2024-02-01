@@ -14,13 +14,11 @@ use SIW\Structured_Data\Thing;
 
 abstract class Post_Type extends Base {
 
-	/** Geeft basis van post type terug obv class name */
 	final protected static function get_post_type_base(): string {
 		$class_name_components = explode( '\\', static::class );
 		return strtolower( end( $class_name_components ) );
 	}
 
-	/** Geeft volledige post type terug */
 	final public static function get_post_type(): string {
 		return 'siw_' . static::get_post_type_base();
 	}
@@ -38,8 +36,6 @@ abstract class Post_Type extends Base {
 	abstract protected static function get_site_sortables(): array;
 
 	/**
-	 * Geeft post type supports aan
-	 *
 	 * @return Post_Type_Support[]
 	 */
 	abstract protected static function get_post_type_supports(): array;
@@ -127,12 +123,10 @@ abstract class Post_Type extends Base {
 		return $data;
 	}
 
-	/** Genereert titel */
 	protected function generate_title( array $data, array $postarr ): string {
 		return $data['post_title'];
 	}
 
-	/** Genereert slug */
 	protected function generate_slug( array $data, array $postarr ): string {
 		return $data['post_name'];
 	}

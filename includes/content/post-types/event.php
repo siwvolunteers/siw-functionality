@@ -26,27 +26,27 @@ use SIW\Structured_Data\Virtual_Location;
 
 class Event extends Post_Type {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_dashicon(): string {
 		return 'calendar-alt';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_slug(): string {
 		return 'evenementen';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_singular_label(): string {
 		return __( 'Evenement', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_plural_label(): string {
 		return __( 'Evenementen', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_post_type_supports(): array {
 		return [
 			Post_Type_Support::TITLE,
@@ -54,7 +54,7 @@ class Event extends Post_Type {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_admin_columns(): array {
 		return [
 			'event_date' => [
@@ -66,7 +66,7 @@ class Event extends Post_Type {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_site_sortables(): array {
 		return [
 			'event_date' => [
@@ -76,12 +76,12 @@ class Event extends Post_Type {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_custom_post( \WP_Post|int $post ): Event_Post {
 		return new Event_Post( $post );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public static function get_meta_box_fields(): array {
 		$meta_box_fields = [
 			[
@@ -287,12 +287,12 @@ class Event extends Post_Type {
 		return $meta_box_fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_taxonomies(): array {
 		return [];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_active_posts_meta_query(): array {
 		return [
 			'key'     => 'event_date',
@@ -301,7 +301,7 @@ class Event extends Post_Type {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function generate_slug( array $data, array $postarr ): string {
 		return sprintf( '%s %s', $data['post_title'], siw_format_date( $postarr['event_date'] ) );
 	}
@@ -364,7 +364,7 @@ class Event extends Post_Type {
 		}
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_structured_data( int $post_id ): ?Thing {
 		$post = new Event_Post( $post_id );
 		$structured_data = Event_Structured_Data::create()
