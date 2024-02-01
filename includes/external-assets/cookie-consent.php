@@ -26,14 +26,4 @@ class Cookie_Consent extends NPM_Asset {
 	protected static function get_style_file(): ?string {
 		return 'dist/cookieconsent.css';
 	}
-
-	#[\Override]
-	protected static function get_script_sri(): ?string {
-		return 'sha256-heJUSWR0ojrfDjAAp4CiIxsBDpY1HYO7vZNYxQQ0llw=';
-	}
-
-	#[\Override]
-	protected static function get_style_sri(): ?string {
-		return 'sha256-LO7u2UQLQZYZwftu3mP+YM/VfUZES3Ob0daqb5yz2rE=';
-	}
 }

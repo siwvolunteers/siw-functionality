@@ -21,19 +21,4 @@ class Frappe_Charts extends NPM_Asset {
 	protected static function get_script_file(): ?string {
 		return 'dist/frappe-charts.min.umd.js';
 	}
-
-	#[\Override]
-	protected static function get_style_file(): ?string {
-		return null;
-	}
-
-	#[\Override]
-	protected static function get_script_sri(): ?string {
-		return 'sha256-77HRXznViw6+XwGfSX2YMIOjsO69g2fFuzKKWgo+X8U=';
-	}
-
-	#[\Override]
-	protected static function get_style_sri(): ?string {
-		return null;
-	}
 }

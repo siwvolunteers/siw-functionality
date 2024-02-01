@@ -29,9 +29,4 @@ class Polyfill extends External_Asset {
 			'https://polyfill.io/v3/polyfill.min.js'
 		);
 	}
-
-	#[\Override]
-	protected static function get_style_url(): ?string {
-		return null;
-	}
 }

@@ -30,11 +30,6 @@ class Google_Tag_Manager extends External_Asset {
 	}
 
 	#[\Override]
-	protected static function get_style_url(): ?string {
-		return null;
-	}
-
-	#[\Override]
 	protected static function get_cookie_category(): ?string {
 		return Cookie_Consent::ANALYTICAL;
 	}

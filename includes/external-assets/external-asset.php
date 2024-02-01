@@ -12,8 +12,14 @@ abstract class External_Asset extends Base {
 	use Class_Assets;
 
 	abstract protected static function get_version_number(): ?string;
-	abstract protected static function get_script_url(): ?string;
-	abstract protected static function get_style_url(): ?string;
+
+	protected static function get_script_url(): ?string {
+		return null;
+	}
+
+	protected static function get_style_url(): ?string {
+		return null;
+	}
 
 	protected static function get_cookie_category(): ?string {
 		return null;

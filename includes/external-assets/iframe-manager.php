@@ -26,14 +26,4 @@ class Iframe_Manager extends NPM_Asset {
 	protected static function get_script_file(): ?string {
 		return 'dist/iframemanager.js';
 	}
-
-	#[\Override]
-	protected static function get_script_sri(): ?string {
-		return 'sha256-ENrpu20lejAzN1mxAqS9zWEKqggPt07u1yPO1365JzE=';
-	}
-
-	#[\Override]
-	protected static function get_style_sri(): ?string {
-		return 'sha256-l+q6tuz0+Kq5hR0kCsOJB4xp9+Jk/2QxVwyEvE9b7Uc=';
-	}
 }

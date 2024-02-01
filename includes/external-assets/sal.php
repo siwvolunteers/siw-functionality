@@ -26,14 +26,4 @@ class Sal extends NPM_Asset {
 	protected static function get_style_file(): ?string {
 		return 'dist/sal.css';
 	}
-
-	#[\Override]
-	protected static function get_script_sri(): ?string {
-		return 'sha256-PQTVYphQHI07L8/JEMW6OnjA0oBajuMduQENBAF7jeE=';
-	}
-
-	#[\Override]
-	protected static function get_style_sri(): ?string {
-		return 'sha256-WdGqbB/iPzlkcf1+GjZ94/0ju5V9VogwLGeqxciOUgU=';
-	}
 }
