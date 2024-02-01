@@ -6,7 +6,7 @@ use SIW\Interfaces\Enums\Labels;
 use SIW\Interfaces\Enums\Plato_Code;
 
 trait Plato_Enum {
-	public static function try_from_plato_code( string|int $plato_code ): ?\BackedEnum {
+	public static function try_from_plato_code( string|int $plato_code ): ?static {
 		$list = array_combine(
 			array_map( fn( Plato_Code $e ): string => $e->plato_code(), self::cases() ),
 			self::cases()
