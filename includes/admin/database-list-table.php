@@ -37,12 +37,12 @@ class Database_List_Table extends \WP_List_Table {
 		return $this->database->get_rows( $args );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function no_items() {
 		esc_html_e( 'Tabel is leeg.', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function column_default( $item, $column_name ): string {
 		return isset( $item->$column_name ) ? $item->$column_name : ''; // TODO: aparte weergave voor booleans en eventueel andere datatypes
 	}
@@ -73,7 +73,7 @@ class Database_List_Table extends \WP_List_Table {
 		);
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_columns(): array {
 		$all_columns = $this->database->get_columns();
 		$columns = wp_list_filter( $all_columns, [ 'show' => true ] );
@@ -89,7 +89,7 @@ class Database_List_Table extends \WP_List_Table {
 		return $columns;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_sortable_columns(): array {
 		$columns = $this->database->get_columns();
 		$columns = wp_list_filter( $columns, [ 'sort' => true ] );
@@ -103,7 +103,7 @@ class Database_List_Table extends \WP_List_Table {
 		return wp_list_pluck( $columns, 'name' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function prepare_items() {
 		$per_page     = $this->get_items_per_page( $this->table_name . '_records_per_page', self::DEFAULT_ITEMS_PER_PAGE );
 		$current_page = $this->get_pagenum();

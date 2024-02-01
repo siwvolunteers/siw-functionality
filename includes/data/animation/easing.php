@@ -39,7 +39,7 @@ enum Easing: string implements Labels {
 	case EASE_OUT_BACK = 'ease-out-back';
 	case EASE_IN_OUT_BACK = 'ease-in-out-back';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		// Omzetten kebab-case naar camelCase
 		return lcfirst( str_replace( '-', '', ucwords( $this->value, '-' ) ) );

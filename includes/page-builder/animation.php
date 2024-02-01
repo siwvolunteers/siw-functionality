@@ -23,22 +23,22 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 	private const OPTION_FIELD_DELAY = 'siw_animation_delay';
 	private const OPTION_FIELD_EASING = 'siw_animation_easing';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function supports_widgets(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function supports_cells(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function supports_rows(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ): array {
 		$groups[ self::STYLE_GROUP ] = [
 			'name'     => __( 'Animatie', 'siw' ),
@@ -47,7 +47,7 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $groups;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ): array {
 
 		$fields[ self::STYLE_GROUP ] = [
@@ -102,7 +102,7 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function set_style_attributes( array $style_attributes, array $style_args ): array {
 
 		// Afbreken als er geen animatie van toepassing is
@@ -132,7 +132,7 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $style_args[ "{$prefix}_{$field}" ];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function add_settings( array $fields ): array {
 		$fields[ self::OPTION_GROUP ] = [
 			'title'  => __( 'Animatie', 'siw' ),
@@ -162,7 +162,7 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function set_settings_defaults( array $defaults ): array {
 		$defaults[ self::OPTION_FIELD_DURATION ] = '1000';
 		$defaults[ self::OPTION_FIELD_DELAY ]    = 'none';

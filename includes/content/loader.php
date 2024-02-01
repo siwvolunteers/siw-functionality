@@ -6,7 +6,7 @@ use SIW\Abstracts\Base_Loader;
 
 class Loader extends Base_Loader {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_classes(): array {
 		return [
 			Post_Types\Event::class,

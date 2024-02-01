@@ -12,7 +12,7 @@ use SIW\Interfaces\Page_Builder\Settings as I_Settings;
 
 class Loader extends Object_Loader_Abstract {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_classes(): array {
 		return [
 			Animation::class,
@@ -22,7 +22,7 @@ class Loader extends Object_Loader_Abstract {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function load( object $extension ) {
 
 		$builder = new Builder();

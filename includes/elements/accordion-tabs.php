@@ -10,7 +10,7 @@ class Accordion_Tabs extends Repeater {
 	protected bool $tabs_allowed = false;
 	protected bool $start_collapsed = true;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'panes'           => $this->items,
@@ -20,7 +20,7 @@ class Accordion_Tabs extends Repeater {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function parse_item( array $item ): array {
 		return [
 			'section_id' => wp_unique_prefixed_id( 'siw-accordion-section-' ),
@@ -36,7 +36,7 @@ class Accordion_Tabs extends Repeater {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_item_defaults(): array {
 		return [
 			'title'       => '',
@@ -61,7 +61,7 @@ class Accordion_Tabs extends Repeater {
 	}
 
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function initialize() {
 		$this->add_class( 'js-tabs' );
 	}

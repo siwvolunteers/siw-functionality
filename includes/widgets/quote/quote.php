@@ -16,42 +16,42 @@ class Quote extends Widget {
 	private const CONTINENT_TAXONOMY = 'siw_story_continent';
 	private const PROJECT_TYPE_TAXONOMY = 'siw_story_project_type';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_id(): string {
 		return 'quote';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Quote', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont quote van deelnemer', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'editor-quote';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return false;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_widget_fields(): array {
 		$widget_form = [
 			'continent'    => [
@@ -68,7 +68,7 @@ class Quote extends Widget {
 		return $widget_form;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 		$quote = $this->get_quote( $instance['continent'], $instance['project_type'] );
 
@@ -86,7 +86,7 @@ class Quote extends Widget {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function initialize() {
 		$this->register_frontend_styles(
 			[

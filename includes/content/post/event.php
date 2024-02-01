@@ -6,6 +6,7 @@ class Event extends Post {
 
 	private const MAX_AGE_EVENT = 6;
 
+	#[\Override]
 	public function get_thumbnail_id(): int {
 		$images = $this->get_meta( 'image', [ 'limit' => 1 ] );
 		$image = reset( $images );
@@ -37,10 +38,12 @@ class Event extends Post {
 		return $this->get_meta( 'end_time' );
 	}
 
+	#[\Override]
 	public function is_active(): bool {
 		return $this->get_meta( 'event_date' ) > gmdate( 'Y-m-d' );
 	}
 
+	#[\Override]
 	public function should_delete(): bool {
 		return $this->get_meta( 'event_date' ) < gmdate( 'Y-m-d', time() - ( static::MAX_AGE_EVENT * MONTH_IN_SECONDS ) );
 	}

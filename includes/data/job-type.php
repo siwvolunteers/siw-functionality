@@ -13,7 +13,7 @@ enum Job_Type: string implements Labels {
 	case PAID = 'paid';
 	case INTERNSHIP = 'internship';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::VOLUNTEER  => __( 'Vrijwillige functie', 'siw' ),

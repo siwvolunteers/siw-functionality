@@ -16,7 +16,7 @@ enum Continent: string implements Labels, Colors {
 	case LATIN_AMERICA = 'latijns_amerika';
 
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::AFRICA => __( 'Afrika', 'siw' ),
@@ -27,7 +27,7 @@ enum Continent: string implements Labels, Colors {
 		};
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function color(): string {
 		return match ( $this ) {
 			self::AFRICA        => Color::RED->color(),

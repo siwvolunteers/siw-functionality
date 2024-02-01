@@ -17,7 +17,7 @@ class Leaflet_Map extends Element {
 	protected array $center;
 	protected int $zoom = 6;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'map_options' => [
@@ -82,6 +82,7 @@ class Leaflet_Map extends Element {
 		return self::HASH_PREFIX . hash( self::HASH_ALGORITHM, $location );
 	}
 
+	#[\Override]
 	public function enqueue_scripts() {
 		wp_register_script(
 			self::get_asset_handle(),
@@ -107,6 +108,7 @@ class Leaflet_Map extends Element {
 		wp_enqueue_script( self::get_asset_handle() );
 	}
 
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style( [ Leaflet::get_asset_handle() ] );
 		$css_generator = new Generator();

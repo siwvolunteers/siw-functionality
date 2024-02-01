@@ -12,42 +12,42 @@ use SIW\Elements\Leaflet_Map;
  */
 class Interactive_Map extends Widget {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_id(): string {
 		return 'interactive_map';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Interactieve kaart', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont interactieve kaart kaart', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'location';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_widget_fields(): array {
 
 		$widget_form = [
@@ -124,7 +124,7 @@ class Interactive_Map extends Widget {
 		return $widget_form;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 		if ( ! isset( $instance['markers'] ) || empty( $instance['markers'] ) ) {
 			return [];

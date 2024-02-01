@@ -7,7 +7,7 @@ use SIW\Interfaces\Forms\Form as Form_Interface;
 
 class Loader extends Object_Loader_Abstract {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_classes(): array {
 		return [
 			Forms\Cooperation::class,
@@ -21,7 +21,7 @@ class Loader extends Object_Loader_Abstract {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function load( object $form_object ) {
 
 		if ( ! is_a( $form_object, Form_Interface::class ) ) {

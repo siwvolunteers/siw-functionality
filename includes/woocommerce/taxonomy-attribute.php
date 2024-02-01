@@ -15,7 +15,7 @@ enum Taxonomy_Attribute: string implements I_Enum_Labels {
 	case SDG             = 'pa_sdg';
 	case MONTH           = 'pa_maand';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::PROJECT_TYPE    => __( 'Projecttype', 'siw' ),

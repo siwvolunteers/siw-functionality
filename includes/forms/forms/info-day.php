@@ -13,20 +13,19 @@ use SIW\Interfaces\Forms\Notification_Mail as I_Notification_Mail;
 
 class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Export_To_Mailjet {
 
-	/** Formulier ID */
 	public const FORM_ID = 'info_day';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_id(): string {
 		return self::FORM_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_name(): string {
 		return __( 'Aanmelding infodag', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_fields(): array {
 		return [
 			[
@@ -95,23 +94,23 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_subject(): string {
 		return 'Aanmelding Infodag {{ info_day_date }}';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_message(): string {
 		return 'Via de website is onderstaande aanmelding voor de Infodag van {{ info_day_date }} binnengekomen:';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_subject(): string {
 		// translators: %s is de datum van de infodag
 		return sprintf( __( 'Aanmelding Infodag %s', 'siw' ), '{{ info_day_date }}' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_message(): string {
 		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
@@ -122,7 +121,6 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 		__( 'Als je nog vragen hebt, neem dan gerust contact met ons op.', 'siw' );
 	}
 
-	/** {@inheritDoc} */
 	protected function get_info_days(): array {
 		$upcoming_info_days = Events::get_future_info_days( [ 'number' => -1 ] );
 
@@ -158,14 +156,14 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_mailjet_list_id( \WP_REST_Request $request ): int {
 		$event_post_id = $request->get_param( 'info_day_date' );
 		//TODO: fallback mailjet list voor onbekende infodag
 		return (int) siw_meta( 'mailjet_list_id', [], $event_post_id );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_mailjet_properties( \WP_REST_Request $request ): array {
 		return [
 			Property::FIRST_NAME->value            => $request->get_param( 'first_name' ),

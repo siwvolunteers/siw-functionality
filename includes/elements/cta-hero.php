@@ -60,7 +60,7 @@ class CTA_Hero extends Element {
 		return ( $this->display_time + $this->transition_time ) * $this->get_background_images_count();
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 
 		$animation_delay = 0;
@@ -86,7 +86,7 @@ class CTA_Hero extends Element {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style();
 

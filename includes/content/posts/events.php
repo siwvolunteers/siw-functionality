@@ -7,14 +7,17 @@ use SIW\Content\Post_Types\Event as Event_Post_Type;
 
 class Events extends Posts {
 
+	#[\Override]
 	protected static function get_post_type(): string {
 		return Event_Post_Type::get_post_type();
 	}
 
+	#[\Override]
 	protected static function get_post_class(): string {
 		return Event::class;
 	}
 
+	#[\Override]
 	protected static function get_default_args(): array {
 		return [
 			'meta_key' => 'event_date',

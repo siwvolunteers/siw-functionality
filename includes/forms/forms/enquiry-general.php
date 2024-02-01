@@ -10,17 +10,17 @@ class Enquiry_General implements Form_Interface, Confirmation_Mail_Interface, No
 
 	public const FORM_ID = 'enquiry_general';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_id(): string {
 		return self::FORM_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_name(): string {
 		return __( 'Infoverzoek algemeen', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_fields(): array {
 		return [
 			[
@@ -53,17 +53,17 @@ class Enquiry_General implements Form_Interface, Confirmation_Mail_Interface, No
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_message(): string {
 		return 'Via de website is een vraag gesteld:';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_subject(): string {
 		return 'Informatieverzoek {{ first_name }} {{ last_name }}';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_message(): string {
 		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
@@ -71,7 +71,7 @@ class Enquiry_General implements Form_Interface, Confirmation_Mail_Interface, No
 		__( 'Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je op.', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_subject(): string {
 		return __( 'Bevestiging informatieverzoek', 'siw' );
 	}

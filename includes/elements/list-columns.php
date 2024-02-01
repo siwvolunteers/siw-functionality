@@ -36,6 +36,7 @@ class List_Columns extends Repeater {
 		return $this;
 	}
 
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style();
 	}

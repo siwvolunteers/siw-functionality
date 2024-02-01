@@ -22,7 +22,7 @@ class GeneratePress extends Base implements I_Plugin {
 	#[Add_Filter( 'generate_font_manager_show_google_fonts' )]
 	private const SHOW_GOOGLE_FONTS = false;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public static function get_plugin_basename(): string {
 		return 'gp-premium/gp-premium.php';
 	}

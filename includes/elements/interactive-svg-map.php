@@ -22,7 +22,7 @@ class Interactive_SVG_Map extends Element {
 	protected array $markers = [];
 	protected array $selected_markers = [];
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'markers' => $this->markers,
@@ -80,12 +80,12 @@ class Interactive_SVG_Map extends Element {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function enqueue_scripts() {
 		self::enqueue_class_script( [ Jsvectormap_World_Map::get_asset_handle() ] );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function enqueue_styles() {
 		wp_enqueue_style( Jsvectormap::get_asset_handle() );
 		$css = new Generator();

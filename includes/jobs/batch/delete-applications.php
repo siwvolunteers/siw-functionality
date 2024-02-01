@@ -11,17 +11,17 @@ class Delete_Applications extends Scheduled_Job {
 	private const ACTION_HOOK = self::class;
 	private const MAX_AGE_APPLICATIONS = 12 * MONTH_IN_SECONDS;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_frequency(): Job_Frequency {
 		return Job_Frequency::WEEKLY;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return __( 'Verwijder aanmeldingen', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function start(): void {
 		$args = [
 			'limit'        => -1,

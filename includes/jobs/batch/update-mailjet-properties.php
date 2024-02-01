@@ -11,7 +11,7 @@ class Update_Mailjet_Properties extends Update_Job {
 
 	private const ACTION_HOOK = self::class;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return __( 'Bijwerken Mailjet eigenschappen', 'siw' );
 	}

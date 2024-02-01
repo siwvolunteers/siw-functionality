@@ -23,22 +23,22 @@ class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 	private const STYLE_FIELD_SATURATE = 'saturate';
 
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function supports_widgets(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function supports_cells(): bool {
 		return false;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function supports_rows(): bool {
 		return false;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ): array {
 		if ( isset( $args['widget'] ) && ! in_array( $args['widget'], self::SUPPORTED_WIDGETS, true ) ) {
 			return $groups;
@@ -51,7 +51,7 @@ class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 		return $groups;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ): array {
 
 		if ( isset( $args['widget'] ) && \WP_Widget_Media_Image::class !== $args['widget'] ) {
@@ -111,7 +111,7 @@ class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 		return $fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function set_style_css( array $style_css, array $style_args ): array {
 
 		if ( empty( $style_args[ self::STYLE_GROUP ] ) ) {

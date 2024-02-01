@@ -10,7 +10,7 @@ class Social_Links extends Element {
 
 	protected Social_Network_Context $context;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 
 		$social_networks = Social_Network::filter( $this->context );
@@ -62,6 +62,7 @@ class Social_Links extends Element {
 		return $this;
 	}
 
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style();
 	}

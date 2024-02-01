@@ -10,7 +10,7 @@ class YouTube_Video extends Element {
 
 	protected bool $mute = false;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'video_id'     => $this->video_id,

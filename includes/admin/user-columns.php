@@ -4,14 +4,14 @@ namespace SIW\Admin;
 
 class User_Columns extends \MBAC\User {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function columns( $columns ) {
 		$columns = parent::columns( $columns );
 		$this->add( $columns, 'lastlogin', __( 'Laatste login', 'siw' ) );
 		return $columns;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function show( $output, $column, $user_id ) {
 		switch ( $column ) {
 			case 'lastlogin':

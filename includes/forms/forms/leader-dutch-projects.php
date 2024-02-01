@@ -11,17 +11,17 @@ class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interfa
 
 	public const FORM_ID = 'leader_dutch_projects';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_id(): string {
 		return self::FORM_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_name(): string {
 		return __( 'Aanmelding projectbegeleider NP', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_fields(): array {
 		return [
 			[
@@ -67,22 +67,22 @@ class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interfa
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_subject(): string {
 		return 'Aanmelding projectbegeleider';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_message(): string {
 		return 'Via de website is onderstaande aanmelding voor begeleider NP binnengekomen:';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_subject(): string {
 		return __( 'Bevestiging aanmelding', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_message(): string {
 		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .

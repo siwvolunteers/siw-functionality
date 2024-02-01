@@ -12,42 +12,42 @@ use SIW\Elements\CTA_Hero;
  */
 class CTA extends Widget {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_id(): string {
 		return 'cta';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'CTA', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont call to action', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'megaphone';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return false;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return false;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_widget_fields(): array {
 		$widget_fields = [
 			'headline'          => [
@@ -81,7 +81,7 @@ class CTA extends Widget {
 		return $widget_fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
 		if ( ! isset( $instance['background_images'] ) || empty( $instance['background_images'] ) ) {

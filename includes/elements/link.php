@@ -48,6 +48,7 @@ class Link extends Element {
 		return $this;
 	}
 
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'url'        => $this->url,

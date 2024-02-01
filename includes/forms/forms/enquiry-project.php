@@ -10,17 +10,17 @@ class Enquiry_Project implements Form_Interface, Confirmation_Mail_Interface, No
 
 	public const FORM_ID = 'enquiry_project';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_id(): string {
 		return self::FORM_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_name(): string {
 		return __( 'Infoverzoek Groepsproject', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_fields(): array {
 		return [
 			[
@@ -53,12 +53,12 @@ class Enquiry_Project implements Form_Interface, Confirmation_Mail_Interface, No
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_subject(): string {
 		return 'Informatieverzoek project {{ first_name }} {{ last_name }}';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_message(): string {
 		return sprintf(
 			'Via de website is een vraag gesteld over het project %s',
@@ -66,12 +66,12 @@ class Enquiry_Project implements Form_Interface, Confirmation_Mail_Interface, No
 		);
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_subject(): string {
 		return __( 'Bevestiging informatieverzoek', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_message(): string {
 		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .

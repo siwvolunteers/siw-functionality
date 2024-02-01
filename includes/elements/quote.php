@@ -4,10 +4,10 @@ namespace SIW\Elements;
 
 class Quote extends Element {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected string $quote;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'quote' => $this->quote,
@@ -19,6 +19,7 @@ class Quote extends Element {
 		return $this;
 	}
 
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style();
 	}

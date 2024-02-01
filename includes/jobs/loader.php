@@ -6,7 +6,7 @@ use SIW\Abstracts\Base_Loader;
 
 class Loader extends Base_Loader {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_classes(): array {
 		return [
 			Async\Export_Plato_Application::class,

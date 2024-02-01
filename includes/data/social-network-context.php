@@ -12,7 +12,7 @@ enum Social_Network_Context: string implements Labels {
 	case SHARE = 'share';
 	case FOLLOW = 'follow';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::FOLLOW => __( 'Volgen', 'siw' ),

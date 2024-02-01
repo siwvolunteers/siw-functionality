@@ -15,7 +15,7 @@ enum Project_Type: string implements I_Enum_Labels {
 	case SCHOOL_PROJECTS = 'school_projects';
 	case WORLD_BASIC = 'world_basic';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::WORKCAMPS       => __( 'Groepsvrijwilligerswerk', 'siw' ),

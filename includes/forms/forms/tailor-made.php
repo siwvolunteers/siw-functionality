@@ -11,20 +11,19 @@ use SIW\Properties;
 
 class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
-	/** Formulier ID */
 	public const FORM_ID = 'tailor_made';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_id(): string {
 		return self::FORM_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_name(): string {
 		return __( 'Aanmelding Wereld-basis', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_fields(): array {
 		return [
 			[
@@ -95,22 +94,22 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 		return $destinations;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_subject(): string {
 		return 'Aanmelding Wereld-basis';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_message(): string {
 		return 'Via de website is onderstaande aanmelding voor Wereld-basis binnengekomen:';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_subject(): string {
 		return __( 'Bevestiging aanmelding Wereld-basis', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_message(): string {
 		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .

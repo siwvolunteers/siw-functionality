@@ -7,7 +7,7 @@ class Icon extends Element {
 	protected string $icon_class;
 	protected int $size = 2;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'icon' => [

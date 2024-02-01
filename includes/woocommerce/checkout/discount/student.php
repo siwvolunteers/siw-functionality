@@ -10,22 +10,22 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 
 class Student extends Virtual_Coupon {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_coupon_code(): string {
 		return 'studentenkorting';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_discount_type(): string {
 		return 'fixed_product';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_description(): string {
 		return 'Studentenkorting';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_amount(): float {
 		return Config::get_student_discount_amount();
 	}

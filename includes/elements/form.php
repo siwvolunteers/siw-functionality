@@ -8,7 +8,7 @@ class Form extends Element {
 	protected bool $single_column = false;
 	protected \RW_Meta_Box $meta_box;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		ob_start();
 		$this->meta_box->show();
@@ -60,13 +60,13 @@ class Form extends Element {
 		return $this;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function enqueue_scripts() {
 		$this->meta_box->enqueue();
 		self::enqueue_class_script( [ 'jquery', 'wp-api-request' ] );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style();
 	}

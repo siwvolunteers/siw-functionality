@@ -14,7 +14,7 @@ enum Board_Title: string implements Labels {
 	case TREASURER = 'treasurer';
 	case BOARD_MEMBER = 'board_member';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::CHAIR => __( 'Voorzitter', 'siw' ),

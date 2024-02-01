@@ -35,7 +35,7 @@ enum Language: string implements Labels, Plato_Code {
 	case TURKISH = 'turks';
 	case SWEDISH = 'zweeds';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::ARABIC     => __( 'Arabisch', 'siw' ),
@@ -65,7 +65,7 @@ enum Language: string implements Labels, Plato_Code {
 		};
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function plato_code(): string {
 		return match ( $this ) {
 			self::ARABIC     => 'ARA',

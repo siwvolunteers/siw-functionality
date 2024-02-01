@@ -14,42 +14,42 @@ use SIW\Properties;
  */
 class Contact extends Widget {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_id(): string {
 		return 'contact';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Contactinformatie', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont contactinformatie', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return $this->get_id();
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'phone';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 		return [
 			'name'          => Properties::NAME,

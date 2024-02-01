@@ -11,22 +11,22 @@ class Settings extends Option {
 	private const EMAIL_LOCAL_PART_PATTERN = '^[^\s@]+$';
 	private const EMAIL_DOMAIN = '@siw.nl';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_title(): string {
 		return __( 'Instellingen', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_capability(): string {
 		return 'edit_posts';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_parent_page(): string {
 		return 'options-general.php';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_tabs(): array {
 		$tabs = [
 			[
@@ -58,7 +58,7 @@ class Settings extends Option {
 		return $tabs;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_fields(): array {
 		$fields = [];
 

@@ -21,7 +21,7 @@ enum Type: string implements Labels {
 	case FLIP_LEFT = 'flip-left';
 	case FLIP_RIGHT = 'flip-right';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::FADE => __( 'Fade', 'siw' ),

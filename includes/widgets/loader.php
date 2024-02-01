@@ -6,7 +6,7 @@ use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
 
 class Loader extends Class_Loader_Abstract {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_classes(): array {
 		return [
 			Accordion::class,
@@ -32,7 +32,7 @@ class Loader extends Class_Loader_Abstract {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function load( string $class_name ) {
 		$id_base = $this->get_id_base_from_class( $class_name );
 		$file_base = $this->get_file_base_from_id_base( $id_base );

@@ -7,6 +7,7 @@ use SIW\Data\Work_Type;
 
 class TM_Country extends Post {
 
+	#[\Override]
 	public function get_thumbnail_id(): int {
 		return $this->get_image_id();
 	}
@@ -36,7 +37,7 @@ class TM_Country extends Post {
 		);
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_excerpt(): string {
 		return $this->get_quote();
 	}

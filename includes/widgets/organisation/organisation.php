@@ -12,42 +12,42 @@ use SIW\Properties;
  */
 class Organisation extends Widget {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_id(): string {
 		return 'organisation';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Organisatiegegevens', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont organisatiegegevens', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return $this->get_id();
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'building';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_widget_fields(): array {
 		$widget_form = [
 			'renumeration_policy' => [
@@ -60,7 +60,7 @@ class Organisation extends Widget {
 		return $widget_form;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 		$parameters = [
 			'properties'          => [

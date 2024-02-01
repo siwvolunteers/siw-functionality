@@ -18,7 +18,7 @@ enum Dutch_Province: string implements Labels {
 	case ZE = 'ze';
 	case ZH = 'zh';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::NB => __( 'Brabant', 'siw' ),

@@ -37,7 +37,7 @@ class WooCommerce extends Base implements I_Plugin {
 
 	public const PRODUCT_POST_TYPE = 'product';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public static function get_plugin_basename(): string {
 		return 'woocommerce/woocommerce.php';
 	}

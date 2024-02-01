@@ -10,17 +10,17 @@ class Delete_Old_Posts extends Scheduled_Job {
 
 	private const ACTION_HOOK = self::class;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return __( 'Verwijderen oude posts', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_frequency(): Job_Frequency {
 		return Job_Frequency::WEEKLY;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function start(): void {
 		$post_types = apply_filters( 'siw/delete_old_posts/post_types', [] );
 

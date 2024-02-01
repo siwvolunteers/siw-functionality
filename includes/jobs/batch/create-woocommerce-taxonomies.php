@@ -11,12 +11,12 @@ class Create_WooCommerce_Taxonomies extends Update_Job {
 
 	private const ACTION_HOOK = self::class;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return __( 'Aanmaken WooCommerce taxonomieën', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function start(): void {
 		$this->enqueue_items(
 			array_map( fn( \BackedEnum $tax_enum ) => $tax_enum->value, Taxonomy_Attribute::cases() ),

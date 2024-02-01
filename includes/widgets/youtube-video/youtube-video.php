@@ -13,42 +13,42 @@ use SIW\Elements\YouTube_Video as YouTube_Video_Element;
  */
 class YouTube_Video extends Widget {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_id(): string {
 		return 'youtube_video';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'YouTube video', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont YouTube video', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'youtube';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_widget_fields(): array {
 		$widget_fields = [
 			'video_id' => [
@@ -69,7 +69,7 @@ class YouTube_Video extends Widget {
 		return $widget_fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
 		if ( ! isset( $instance['video_id'] ) || empty( $instance['video_id'] ) ) {

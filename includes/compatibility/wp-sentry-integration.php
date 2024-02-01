@@ -8,7 +8,7 @@ use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 class WP_Sentry_Integration extends Base implements I_Plugin {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public static function get_plugin_basename(): string {
 		return 'wp-sentry-integration/wp-sentry.php';
 	}

@@ -7,7 +7,7 @@ use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 class Loader extends Class_Loader_Abstract {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_classes(): array {
 		return [
 			Action_Scheduler::class,

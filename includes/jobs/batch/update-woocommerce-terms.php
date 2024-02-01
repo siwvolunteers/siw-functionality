@@ -14,17 +14,17 @@ class Update_WooCommerce_Terms extends Scheduled_Job {
 	/** Term meta voor aantal zichtbare posts */
 	private const POST_COUNT_TERM_META = 'post_count';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return 'Bijwerken WooCommerce terms';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_frequency(): Job_Frequency {
 		return Job_Frequency::DAILY;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function start(): void {
 
 		$data = get_terms(

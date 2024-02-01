@@ -15,7 +15,7 @@ class Google_Tag_Manager extends External_Asset {
 		return null;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_url(): ?string {
 		return add_query_arg(
 			array_filter(

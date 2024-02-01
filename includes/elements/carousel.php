@@ -25,7 +25,7 @@ class Carousel extends Repeater {
 		],
 	];
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'options' => wp_json_encode( $this->options ),
@@ -33,7 +33,7 @@ class Carousel extends Repeater {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_item_defaults(): array {
 		return [
 			'image'   => null,
@@ -46,12 +46,12 @@ class Carousel extends Repeater {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style( [ Splide::get_asset_handle() ] );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function enqueue_scripts() {
 		self::enqueue_class_script( [ Splide::get_asset_handle() ] );
 	}
@@ -68,7 +68,7 @@ class Carousel extends Repeater {
 	}
 
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function initialize() {
 		$this->add_class( 'splide' );
 	}

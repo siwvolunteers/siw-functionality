@@ -25,7 +25,7 @@ class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 	#[Add_Filter( 'siteorigin_add_installer', PHP_INT_MAX )]
 	private const SHOW_SITEORIGIN_INSTALLER = false;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public static function get_plugin_basename(): string {
 		return 'siteorigin-panels/siteorigin-panels.php';
 	}

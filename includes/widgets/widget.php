@@ -47,7 +47,7 @@ abstract class Widget extends \SiteOrigin_Widget {
 		return [];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	final public function get_widget_form() {
 
 		$widget_form = [];

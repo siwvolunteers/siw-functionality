@@ -12,42 +12,42 @@ use SIW\Elements\Accordion_Tabs as Accordion_Tabs_Element;
  */
 class Accordion extends Widget {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_id(): string {
 		return 'accordion';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Accordion', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont accordion', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'list-view';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_widget_fields(): array {
 		$widget_fields = [
 			'panes'        => [
@@ -112,7 +112,7 @@ class Accordion extends Widget {
 		return $widget_fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 		if ( ! isset( $instance['panes'] ) || empty( $instance['panes'] ) ) {
 			return [];

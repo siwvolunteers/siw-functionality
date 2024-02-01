@@ -15,7 +15,7 @@ enum Product_Attribute: string implements I_Enum_Labels {
 	case PARTICIPATION_FEE    = 'lokale-bijdrage';
 
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::PROJECT_NAME         => __( 'Projectnaam', 'siw' ),

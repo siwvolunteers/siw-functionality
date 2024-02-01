@@ -20,17 +20,17 @@ class Update_Projects extends Scheduled_Job {
 
 	protected WC_Product_Project $product;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return __( 'Bijwerken projecten', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_frequency(): Job_Frequency {
 		return Job_Frequency::TWICE_DAILY;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function start(): void {
 		$this->enqueue_items( siw_get_product_ids(), self::ACTION_HOOK );
 	}
