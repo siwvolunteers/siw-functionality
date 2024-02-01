@@ -4,8 +4,8 @@ namespace SIW\Features;
 
 use SIW\Attributes\Add_Action;
 use SIW\Base;
+use SIW\Data\Visibility_Class;
 use SIW\Traits\Class_Assets;
-use SIW\Util\CSS;
 
 /**
  * @see https://docs.wpslimseo.com/slim-seo/breadcrumbs/
@@ -26,6 +26,6 @@ class Breadcrumbs extends Base {
 			return;
 		}
 
-		echo do_shortcode( '<div class="' . CSS::HIDE_ON_MOBILE_CLASS . '">[slim_seo_breadcrumbs separator="&rsaquo;"]</div>' );
+		echo do_shortcode( '<div class="' . Visibility_Class::HIDE_ON_MOBILE->value . '">[slim_seo_breadcrumbs separator="&rsaquo;"]</div>' );
 	}
 }

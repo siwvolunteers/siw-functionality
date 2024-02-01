@@ -2,8 +2,8 @@
 
 namespace SIW\Elements;
 
+use SIW\Data\Breakpoint;
 use SIW\External_Assets\A11Y_Accordion_Tabs;
-use SIW\Util\CSS;
 
 class Accordion_Tabs extends Repeater {
 
@@ -15,7 +15,7 @@ class Accordion_Tabs extends Repeater {
 		return [
 			'panes'           => $this->items,
 			'tabs_allowed'    => wp_json_encode( $this->tabs_allowed ),
-			'breakpoint'      => CSS::MOBILE_BREAKPOINT,
+			'breakpoint'      => Breakpoint::MOBILE->value,
 			'start_collapsed' => wp_json_encode( $this->start_collapsed ),
 		];
 	}

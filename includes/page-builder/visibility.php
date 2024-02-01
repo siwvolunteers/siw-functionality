@@ -2,11 +2,10 @@
 
 namespace SIW\Page_Builder;
 
+use SIW\Data\Visibility_Class;
 use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
 use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
 use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
-
-use SIW\Util\CSS;
 
 class Visibility implements I_Style_Group, I_Style_Fields, I_Style_Attributes {
 
@@ -68,13 +67,13 @@ class Visibility implements I_Style_Group, I_Style_Fields, I_Style_Attributes {
 	/** {@inheritDoc} */
 	public function set_style_attributes( array $style_attributes, array $style_args ): array {
 		if ( isset( $style_args[ self::STYLE_FIELD_HIDE_ON_MOBILE ] ) && true === $style_args[ self::STYLE_FIELD_HIDE_ON_MOBILE ] ) {
-			$style_attributes['class'][] = CSS::HIDE_ON_MOBILE_CLASS;
+			$style_attributes['class'][] = Visibility_Class::HIDE_ON_MOBILE->value;
 		}
 		if ( isset( $style_args[ self::STYLE_FIELD_HIDE_ON_TABLET ] ) && true === $style_args[ self::STYLE_FIELD_HIDE_ON_TABLET ] ) {
-			$style_attributes['class'][] = CSS::HIDE_ON_TABLET_CLASS;
+			$style_attributes['class'][] = Visibility_Class::HIDE_ON_TABLET->value;
 		}
 		if ( isset( $style_args[ self::STYLE_FIELD_HIDE_ON_DESKTOP ] ) && true === $style_args[ self::STYLE_FIELD_HIDE_ON_DESKTOP ] ) {
-			$style_attributes['class'][] = CSS::HIDE_ON_DESKTOP_CLASS;
+			$style_attributes['class'][] = Visibility_Class::HIDE_ON_DESKTOP->value;
 		}
 		return $style_attributes;
 	}

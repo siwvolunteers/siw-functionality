@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\Util\CSS;
+use luizbills\CSS_Generator\Generator;
 
 class CTA_Hero extends Element {
 
@@ -94,43 +94,43 @@ class CTA_Hero extends Element {
 		$keyframe_3 = 1 / $this->get_background_images_count() * 100;
 		$keyframe_4 = 100 - ( $this->display_time / $this->determine_animation_duration() * 100 );
 
-		$css = CSS::get_css_generator();
-		$css->open_block( "keyframes siwHeroFade{$this->get_background_images_count()}" );
+		$css_generator = new Generator();
+		$css_generator->open_block( "keyframes siwHeroFade{$this->get_background_images_count()}" );
 
-		$css->add_rule(
+		$css_generator->add_rule(
 			'0%',
 			[
 				'opacity'                   => 1,
 				'animation-timing-function' => 'ease-in',
 			]
 		);
-		$css->add_rule(
+		$css_generator->add_rule(
 			"{$keyframe_2}%",
 			[
 				'opacity'                   => 1,
 				'animation-timing-function' => 'ease-out',
 			]
 		);
-		$css->add_rule(
+		$css_generator->add_rule(
 			"{$keyframe_3}%",
 			[
 				'opacity' => 0,
 			]
 		);
-		$css->add_rule(
+		$css_generator->add_rule(
 			"{$keyframe_4}%",
 			[
 				'opacity' => 0,
 			]
 		);
-		$css->add_rule(
+		$css_generator->add_rule(
 			'100%',
 			[
 				'opacity' => 1,
 			]
 		);
-		$css->close_block();
+		$css_generator->close_block();
 
-		wp_add_inline_style( self::get_asset_handle(), $css->get_output() );
+		wp_add_inline_style( self::get_asset_handle(), $css_generator->get_output() );
 	}
 }

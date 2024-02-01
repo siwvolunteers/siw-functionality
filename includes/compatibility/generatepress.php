@@ -2,13 +2,14 @@
 
 namespace SIW\Compatibility;
 
+use luizbills\CSS_Generator\Generator;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Data\Color;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Properties;
 use SIW\Update;
-use SIW\Util\CSS;
 
 /**
  * @see       https://generatepress.com/
@@ -55,9 +56,9 @@ class GeneratePress extends Base implements I_Plugin {
 
 	#[Add_Filter( 'generate_default_color_palettes' )]
 	public function set_default_color_palettes(): array {
-		return array_column(
-			CSS::get_colors(),
-			'color'
+		return array_map(
+			fn( Color $color ): string => $color->color(),
+			Color::cases()
 		);
 	}
 
@@ -65,7 +66,16 @@ class GeneratePress extends Base implements I_Plugin {
 	#[Add_Action( 'customize_save_after', 1 )]
 	public function set_global_colors() {
 		$generate_settings = get_option( 'generate_settings', [] );
-		$generate_settings['global_colors'] = CSS::get_colors();
+		$generate_settings['global_colors'] = array_map(
+			fn( Color $color ): array =>
+				[
+					'name'  => $color->label(),
+					'slug'  => $color->value,
+					'color' => $color->color(),
+				],
+			Color::cases()
+		);
+
 		update_option( 'generate_settings', $generate_settings );
 	}
 
@@ -85,28 +95,41 @@ class GeneratePress extends Base implements I_Plugin {
 			return;
 		}
 
-		$css = new \GeneratePress_Backgrounds_CSS();
+		$css_generator = new Generator();
+
 		$background_size = get_theme_mod( 'siw_404_background_size' );
 		$background_size = ( '100' === $background_size ) ? '100% auto' : esc_attr( $background_size );
 
-		$css->set_selector( '.error404 .container' );
-		$css->add_property( 'max-width', 'unset' );
-		$css->add_property( 'height', '70vh' );
-		$css->add_property( 'background-image', esc_url( $background_image ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( get_theme_mod( 'siw_404_background_repeat' ) ) );
-		$css->add_property( 'background-size', esc_attr( $background_size ) );
-		$css->add_property( 'background-attachment', esc_attr( get_theme_mod( 'siw_404_background_attachment' ) ) );
-		$css->add_property( 'background-position', esc_attr( get_theme_mod( 'siw_404_background_position' ) ) );
+		$css_generator->add_rule(
+			'.error404 .container',
+			[
+				'max-width'             => 'unset',
+				'height'                => '70vh',
+				'background-image'      => sprintf( 'url(%s)', esc_url( $background_image ) ),
+				'background-repeat'     => esc_attr( get_theme_mod( 'siw_404_background_repeat' ) ),
+				'background-size'       => esc_attr( $background_size ),
+				'background-attachment' => esc_attr( get_theme_mod( 'siw_404_background_attachment' ) ),
+				'background-position'   => esc_attr( get_theme_mod( 'siw_404_background_position' ) ),
+			]
+		);
 
-		$css->set_selector( '.error404 .container .site-content' );
-		$css->add_property( 'text-align', 'center' );
+		$css_generator->add_rule(
+			'.error404 .container .site-content',
+			[
+				'text-align' => 'center' ,
+			]
+		);
 
-		$css->set_selector( '.error404 .container .site-content main' );
-		$css->add_property( 'padding', '50px' );
-		$css->add_property( 'max-width', '85ch' );
-		$css->add_property( 'display', 'inline-block' );
-		$css->add_property( 'background-color', 'var(--siw-base)' );
-		wp_add_inline_style( 'generate-style', $css->css_output() );
+		$css_generator->add_rule(
+			'.error404 .container .site-content main',
+			[
+				'padding'          => '50px',
+				'max-width'        => '85ch',
+				'display'          => 'inline-block',
+				'background-color' => 'var(--siw-base)',
+			]
+		);
+		wp_add_inline_style( 'generate-style', $css_generator->get_output() );
 	}
 
 	#[Add_Action( Update::PLUGIN_UPDATED_HOOK )]

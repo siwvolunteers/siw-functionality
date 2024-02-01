@@ -5,9 +5,9 @@ namespace SIW\Compatibility;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Data\Color;
 use SIW\Properties;
 use SIW\Update;
-use SIW\Util\CSS;
 
 class WordPress extends Base {
 
@@ -80,7 +80,7 @@ class WordPress extends Base {
 
 	#[Add_Filter( 'site_icon_meta_tags' )]
 	public function add_theme_color_tag( array $meta_tags ): array {
-		$meta_tags[] = sprintf( '<meta name="theme-color" content="%s">', CSS::ACCENT_COLOR );
+		$meta_tags[] = sprintf( '<meta name="theme-color" content="%s">', Color::ACCENT->color() );
 		return $meta_tags;
 	}
 

@@ -2,8 +2,8 @@
 
 namespace SIW\Elements;
 
+use SIW\Data\Breakpoint;
 use SIW\External_Assets\Splide;
-use SIW\Util\CSS;
 
 class Carousel extends Repeater {
 
@@ -16,10 +16,10 @@ class Carousel extends Repeater {
 		'pagination'  => false,
 		'interval'    => 3000,
 		'breakpoints' => [
-			CSS::TABLET_BREAKPOINT => [
+			Breakpoint::TABLET->value => [
 				'perPage' => 2,
 			],
-			CSS::MOBILE_BREAKPOINT => [
+			Breakpoint::MOBILE => [
 				'perPage' => 1,
 			],
 		],
@@ -58,7 +58,7 @@ class Carousel extends Repeater {
 
 	public function set_columns( int $columns ): self {
 		$this->options['perPage'] = $columns;
-		$this->options['breakpoints'][ CSS::TABLET_BREAKPOINT ]['perPage'] = min( 2, $columns );
+		$this->options['breakpoints'][ Breakpoint::TABLET->value ]['perPage'] = min( 2, $columns );
 		return $this;
 	}
 

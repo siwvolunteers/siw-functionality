@@ -5,7 +5,7 @@ namespace SIW\Compatibility;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
-use SIW\Util\CSS;
+use SIW\Data\Breakpoint;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Traits\Class_Assets;
 
@@ -56,8 +56,8 @@ class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 
 	#[Add_Filter( 'siteorigin_panels_settings' )]
 	public function set_breakpoint_settings( array $settings ): array {
-		$settings['mobile-width'] = CSS::MOBILE_BREAKPOINT;
-		$settings['tablet-width'] = CSS::TABLET_BREAKPOINT;
+		$settings['mobile-width'] = Breakpoint::MOBILE->value;
+		$settings['tablet-width'] = Breakpoint::TABLET->value;
 		return $settings;
 	}
 

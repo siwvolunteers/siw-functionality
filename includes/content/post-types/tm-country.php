@@ -11,10 +11,10 @@ use SIW\Data\Country_Context;
 use SIW\Data\Post_Type_Support;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
+use SIW\Data\Visibility_Class;
 use SIW\Data\Work_Type;
 use SIW\Elements\Interactive_SVG_Map;
 use SIW\Elements\Quote;
-use SIW\Util\CSS;
 
 class TM_Country extends Post_Type {
 
@@ -137,7 +137,7 @@ class TM_Country extends Post_Type {
 		];
 
 		if ( 'single' === $type ) {
-			$template_variables['mapcss'] = CSS::HIDE_ON_MOBILE_CLASS;
+			$template_variables['mapcss'] = Visibility_Class::HIDE_ON_MOBILE->value;
 			$template_variables['worldmap'] = Interactive_SVG_Map::create()
 				->set_map( Interactive_SVG_Map::MAP_WORLD )
 				->select_region( $post->get_country()->iso_code() )

@@ -2,9 +2,10 @@
 
 namespace SIW\Elements;
 
+use luizbills\CSS_Generator\Generator;
+use SIW\Data\Color;
 use SIW\External_Assets\Jsvectormap;
 use SIW\External_Assets\Jsvectormap_World_Map;
-use SIW\Util\CSS;
 
 class Interactive_SVG_Map extends Element {
 
@@ -57,7 +58,7 @@ class Interactive_SVG_Map extends Element {
 					],
 					'hover'         => [],
 					'selected'      => [
-						'fill' => CSS::ACCENT_COLOR,
+						'fill' => Color::ACCENT->color(),
 					],
 					'selectedHover' => [],
 				],
@@ -87,7 +88,7 @@ class Interactive_SVG_Map extends Element {
 	/** {@inheritDoc} */
 	public function enqueue_styles() {
 		wp_enqueue_style( Jsvectormap::get_asset_handle() );
-		$css = CSS::get_css_generator();
+		$css = new Generator();
 		$css->add_rule( "#{$this->get_element_id()}", [ 'height' => "{$this->height}px" ] );
 		wp_add_inline_style( Jsvectormap::get_asset_handle(), $css->get_output() );
 	}

@@ -2,11 +2,10 @@
 
 namespace SIW\Helpers;
 
+use SIW\Data\Color;
 use SIW\Data\Social_Network;
 use SIW\Data\Social_Network_Context;
 use SIW\Properties;
-use SIW\Util\CSS;
-
 class Email_Template {
 
 	// TODO: integreren in email helper?
@@ -29,10 +28,10 @@ class Email_Template {
 				'logo_url'            => wp_get_attachment_image_url( get_theme_mod( 'custom_logo' ), 'full' ),
 			],
 			'colors'          => [
-				'accent'         => CSS::ACCENT_COLOR,
-				'contrast'       => CSS::CONTRAST_COLOR,
-				'contrast_light' => CSS::CONTRAST_COLOR_LIGHT,
-				'base'           => CSS::BASE_COLOR,
+				'accent'         => Color::ACCENT->color(),
+				'contrast'       => Color::CONTRAST->color(),
+				'contrast_light' => Color::CONTRAST_LIGHT->color(),
+				'base'           => Color::BASE->color(),
 			],
 			'i18n'            => [
 				'with_kind_regards' => __( 'Met vriendelijke groet', 'siw' ),

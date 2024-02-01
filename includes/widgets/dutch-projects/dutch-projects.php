@@ -3,11 +3,11 @@
 namespace SIW\Widgets;
 
 use SIW\Data\Sustainable_Development_Goal;
+use SIW\Data\Visibility_Class;
 use SIW\Data\Work_Type;
 use SIW\Elements\Accordion_Tabs;
 use SIW\Elements\Leaflet_Map;
 use SIW\Util\I18n;
-use SIW\Util\CSS;
 use SIW\Util\Links;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
@@ -89,8 +89,8 @@ class Dutch_Projects extends Widget {
 		return [
 			'map'                  => $map->generate(),
 			'accordion'            => $accordion->generate(),
-			'hide_on_tablet_class' => CSS::HIDE_ON_TABLET_CLASS,
-			'hide_on_mobile_class' => CSS::HIDE_ON_MOBILE_CLASS,
+			'hide_on_tablet_class' => Visibility_Class::HIDE_ON_TABLET->value,
+			'hide_on_mobile_class' => Visibility_Class::HIDE_ON_MOBILE->value,
 		];
 	}
 
