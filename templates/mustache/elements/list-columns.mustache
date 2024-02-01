@@ -1,4 +1,4 @@
-<ul id="{{ element.id }}" class="{{ element.classes }}" data-columns="{{ columns }}" {{# list_style_type }} data-list-style-type="{{ . }}" {{/ list_style_type }}>
+<ul id="{{ element.id }}" class="{{ element.classes }}" data-columns="{{ columns }}" data-list-style-type="{{ list_style_type }}" data-list-style-position="{{ list_style_position }}">
 	{{# items }}
 	<li>{{& . | wp_kses_post }}</li>
 	{{/ items }}

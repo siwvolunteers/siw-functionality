@@ -2,8 +2,8 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Elements\List_Style_Type;
 use SIW\Elements\List_Columns;
-use SIW\Elements\List_Style_Type;
 use SIW\Properties;
 
 /**
@@ -14,42 +14,42 @@ use SIW\Properties;
  */
 class Annual_Reports extends Widget {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_id(): string {
 		return 'annual_reports';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Jaarverslagen', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont jaarverslagen', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'media-document';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_widget_fields(): array {
 		$widget_fields = [
 			'number' => [
@@ -63,7 +63,7 @@ class Annual_Reports extends Widget {
 		return $widget_fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
 		$annual_reports = siw_get_option( 'annual_reports' );

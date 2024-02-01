@@ -25,9 +25,6 @@ ul[data-columns="4"] {
     column-count: 1;
   }
 }
-ul[data-list-style-type] {
-  list-style-position: inside;
-}
 ul[data-list-style-type=disc] li {
   list-style-type: disc;
 }
@@ -58,6 +55,15 @@ ul[data-list-style-type=check] li {
 .panel-layout .widget ul[data-list-style-type=check] li {
   list-style-type: check;
 }
-.footer-widgets ul {
+ul[data-list-style-position=outside] li {
+  list-style-position: outside;
+}
+.panel-layout .widget ul[data-list-style-position=outside] li {
+  list-style-position: outside;
+}
+ul[data-list-style-position=inside] li {
+  list-style-position: inside;
+}
+.panel-layout .widget ul[data-list-style-position=inside] li {
   list-style-position: inside;
 }

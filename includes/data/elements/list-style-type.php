@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Elements;
+namespace SIW\Data\Elements;
 
 enum List_Style_Type: string {
 	case NONE = 'none';
