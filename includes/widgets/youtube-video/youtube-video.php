@@ -14,11 +14,6 @@ use SIW\Elements\YouTube_Video as YouTube_Video_Element;
 class YouTube_Video extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'youtube_video';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'YouTube video', 'siw' );
 	}

@@ -15,11 +15,6 @@ use SIW\Properties;
 class Annual_Reports extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'annual_reports';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Jaarverslagen', 'siw' );
 	}

@@ -13,11 +13,6 @@ use SIW\Properties;
 class Organisation extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'organisation';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Organisatiegegevens', 'siw' );
 	}

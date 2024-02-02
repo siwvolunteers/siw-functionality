@@ -15,11 +15,6 @@ use SIW\Elements\List_Columns;
 class Board_Members extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'board_members';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Bestuurssamenstelling', 'siw' );
 	}

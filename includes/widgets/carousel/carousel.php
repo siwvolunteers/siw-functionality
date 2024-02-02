@@ -19,11 +19,6 @@ class Carousel extends Widget {
 	private const DEFAULT_NUMBER_OF_ITEMS = 6;
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'carousel';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Carousel', 'siw' );
 	}

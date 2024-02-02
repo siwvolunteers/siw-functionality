@@ -13,11 +13,6 @@ use SIW\Elements\Leaflet_Map;
 class Interactive_Map extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'interactive_map';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Interactieve kaart', 'siw' );
 	}

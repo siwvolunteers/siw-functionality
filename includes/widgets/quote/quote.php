@@ -17,11 +17,6 @@ class Quote extends Widget {
 	private const PROJECT_TYPE_TAXONOMY = 'siw_story_project_type';
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'quote';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Quote', 'siw' );
 	}

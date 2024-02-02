@@ -13,11 +13,6 @@ use SIW\Elements\CTA_Hero;
 class CTA extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'cta';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'CTA', 'siw' );
 	}

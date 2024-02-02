@@ -21,11 +21,6 @@ class Newsletter_Confirmation extends Widget {
 	public const QUERY_ARG_LIST_ID_HASH = 'nl_list_id_hash';
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'newsletter_confirmation';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Nieuwsbrief - bevestiging', 'siw' );
 	}

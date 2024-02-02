@@ -11,11 +11,6 @@ namespace SIW\Widgets;
 class Subpages extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'subpages';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( "Subpagina's", 'siw' );
 	}

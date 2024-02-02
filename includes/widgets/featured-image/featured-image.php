@@ -11,11 +11,6 @@ namespace SIW\Widgets;
 class Featured_Image extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'featured_image';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Uitgelichte afbeelding', 'siw' );
 	}

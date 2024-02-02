@@ -14,11 +14,6 @@ use SIW\Elements\Social_Links as Social_Links_Element;
 class Social_Links extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'social_links';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Social links', 'siw' );
 	}

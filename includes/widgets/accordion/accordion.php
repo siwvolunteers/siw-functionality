@@ -13,11 +13,6 @@ use SIW\Elements\Accordion_Tabs as Accordion_Tabs_Element;
 class Accordion extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'accordion';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Accordion', 'siw' );
 	}

@@ -13,11 +13,6 @@ use SIW\Elements\Form as Form_Element;
 class Form extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'form';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Formulier', 'siw' );
 	}

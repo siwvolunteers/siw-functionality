@@ -14,11 +14,6 @@ use SIW\Elements\Chart;
 class Pie_Chart extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'pie_chart';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Taartgrafiek', 'siw' );
 	}

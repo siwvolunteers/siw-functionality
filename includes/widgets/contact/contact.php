@@ -15,11 +15,6 @@ use SIW\Properties;
 class Contact extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'contact';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Contactinformatie', 'siw' );
 	}

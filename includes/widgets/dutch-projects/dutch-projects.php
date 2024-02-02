@@ -20,11 +20,6 @@ use SIW\WooCommerce\Product\WC_Product_Project;
 class Dutch_Projects extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'dutch_projects';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Nederlandse projecten', 'siw' );
 	}

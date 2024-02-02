@@ -20,11 +20,6 @@ class Calendar extends Widget {
 	private const MAX_NUMBER_OF_EVENTS = 5;
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'calendar';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Agenda', 'siw' );
 	}

@@ -15,11 +15,6 @@ class Project_Wizard extends Widget {
 	protected \RW_Meta_Box $meta_box;
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'project_wizard';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Keuzehulp', 'siw' );
 	}

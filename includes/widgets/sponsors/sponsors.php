@@ -14,11 +14,6 @@ use SIW\Elements\List_Columns;
 class Sponsors extends Widget {
 
 	#[\Override]
-	protected function get_id(): string {
-		return 'sponsors';
-	}
-
-	#[\Override]
 	protected function get_name(): string {
 		return __( 'Sponsors', 'siw' );
 	}
