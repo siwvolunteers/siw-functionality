@@ -7,6 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'ac773ca18bc86f9208de2ed8068423eb' => $vendorDir . '/johnbillion/extended-cpts/functions.php',
-    'ba75162b0a7adabdce2c95bb9e844752' => $vendorDir . '/pharaonic/php-dot-array/src/helper.php',
     '662a729f963d39afe703c9d9b7ab4a8c' => $vendorDir . '/symfony/polyfill-php83/bootstrap.php',
 );

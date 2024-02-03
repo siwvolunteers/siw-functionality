@@ -5,13 +5,14 @@ namespace SIW\Admin;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Elements\Accordion_Tabs;
+use SIW\Facades\Meta_Box;
 
 class Help_Page extends Base {
 
 	#[Add_Action( 'admin_menu' )]
 	public function add_help_page() {
 
-		if ( ! siw_get_option( 'faq.show_page' ) ) {
+		if ( ! Meta_Box::get_option( 'faq.show_page' ) ) {
 			return;
 		}
 		add_menu_page(
@@ -26,7 +27,7 @@ class Help_Page extends Base {
 
 	public function render_page() {
 
-		$faq = siw_get_option( 'faq' );
+		$faq = Meta_Box::get_option( 'faq' );
 
 		foreach ( $faq['questions'] as $question ) {
 			$panes[] = [

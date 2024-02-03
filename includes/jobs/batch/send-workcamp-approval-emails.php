@@ -5,6 +5,7 @@ namespace SIW\Jobs\Batch;
 use SIW\Attributes\Add_Action;
 use SIW\Data\Job_Frequency;
 use SIW\Elements\Link;
+use SIW\Facades\Meta_Box;
 use SIW\Helpers\Email;
 use SIW\Helpers\Email_Template;
 use SIW\Jobs\Scheduled_Job;
@@ -94,7 +95,7 @@ class Send_Workcamp_Approval_Emails extends Scheduled_Job {
 	}
 
 	protected function get_supervisor(): ?\WP_User {
-		$workcamp_approval = siw_get_option( 'workcamp_approval' );
+		$workcamp_approval = Meta_Box::get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval['supervisor'] ) ) {
 			$supervisor = get_userdata( $workcamp_approval['supervisor'] );
 			return is_a( $supervisor, \WP_User::class ) ? $supervisor : null;
@@ -103,7 +104,7 @@ class Send_Workcamp_Approval_Emails extends Scheduled_Job {
 	}
 
 	protected function get_responsible_user( string $category_slug ): ?\WP_User {
-		$workcamp_approval = siw_get_option( 'workcamp_approval' );
+		$workcamp_approval = Meta_Box::get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval[ "responsible_{$category_slug}" ] ) ) {
 			$responsible_user = get_userdata( $workcamp_approval[ "responsible_{$category_slug}" ] );
 			return is_a( $responsible_user, \WP_User::class ) ? $responsible_user : null;

@@ -138,7 +138,7 @@ class Quote extends Widget {
 
 		$rows = $story_post->get_rows();
 
-		$quotes = dot( $rows )->get( '*.quote' );
+		$quotes = wp_list_pluck( $rows, 'quote' );
 
 		$quote = [
 			'quote'        => $quotes[ array_rand( $quotes, 1 ) ],

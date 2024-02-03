@@ -9,6 +9,7 @@ use SIW\Config;
 use SIW\Content\Post\Post;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Taxonomy_Filter;
+use SIW\Facades\Meta_Box;
 use SIW\Helpers\Template;
 use SIW\Structured_Data\Thing;
 
@@ -210,7 +211,7 @@ abstract class Post_Type extends Base {
 	}
 
 	final protected static function get_option( string $option, mixed $default_value = null ): mixed {
-		return siw_get_option( static::get_post_type_base() . '.' . $option, $default_value );
+		return Meta_Box::get_option( static::get_post_type_base() . '.' . $option, $default_value );
 	}
 
 	#[Add_Filter( 'rwmb_meta_boxes' )]

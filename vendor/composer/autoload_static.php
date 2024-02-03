@@ -8,7 +8,6 @@ class ComposerStaticInitdf1049c87b05f066c6f25ccf2f11b01f
 {
     public static $files = array (
         'ac773ca18bc86f9208de2ed8068423eb' => __DIR__ . '/..' . '/johnbillion/extended-cpts/functions.php',
-        'ba75162b0a7adabdce2c95bb9e844752' => __DIR__ . '/..' . '/pharaonic/php-dot-array/src/helper.php',
         '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
     );
 
@@ -21,10 +20,6 @@ class ComposerStaticInitdf1049c87b05f066c6f25ccf2f11b01f
         array (
             'Symfony\\Polyfill\\Php83\\' => 23,
             'Spatie\\ArrayToXml\\' => 18,
-        ),
-        'P' => 
-        array (
-            'Pharaonic\\DotArray\\' => 19,
         ),
         'E' => 
         array (
@@ -49,10 +44,6 @@ class ComposerStaticInitdf1049c87b05f066c6f25ccf2f11b01f
         'Spatie\\ArrayToXml\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/array-to-xml/src',
-        ),
-        'Pharaonic\\DotArray\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/pharaonic/php-dot-array/src',
         ),
         'ExtCPTs\\Tests\\' => 
         array (

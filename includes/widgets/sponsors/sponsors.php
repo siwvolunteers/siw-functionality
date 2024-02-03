@@ -4,6 +4,7 @@ namespace SIW\Widgets;
 
 use SIW\Data\Elements\List_Style_Type;
 use SIW\Elements\List_Columns;
+use SIW\Facades\Meta_Box;
 
 /**
  * Widget Name: SIW: Social links
@@ -45,7 +46,7 @@ class Sponsors extends Widget {
 
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
-		$sponsors = siw_get_option( 'sponsors' );
+		$sponsors = Meta_Box::get_option( 'sponsors' );
 		if ( empty( $sponsors ) ) {
 			return [];
 		}

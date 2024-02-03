@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use SIW\Data\Email_Settings;
+use SIW\Facades\Meta_Box;
 
 /** Haalt data uit bestand */
 function siw_get_data( string $file ) {
@@ -21,9 +22,9 @@ function siw_get_data( string $file ) {
  * @todo fallback naar admin-email
  */
 function siw_get_email_settings( string $id ): Email_Settings {
-	$mail_settings = siw_get_option( "email_settings.{$id}" );
+	$mail_settings = Meta_Box::get_option( "email_settings.{$id}" );
 	if ( ! isset( $mail_settings['use_specific'] ) || ! $mail_settings['use_specific'] ) {
-		$mail_settings = siw_get_option( 'email_settings.default' );
+		$mail_settings = Meta_Box::get_option( 'email_settings.default' );
 	}
 	return new Email_Settings( $mail_settings );
 }
