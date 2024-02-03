@@ -15,7 +15,7 @@ class Event extends Post {
 	}
 
 	public function get_event_date(): \DateTime {
-		return \DateTime::createFromFormat( 'Y-m-d', $this->get_meta( 'event_date' ) );
+		return \DateTime::createFromFormat( 'Y-m-d', $this->get_meta( 'event_date' ), wp_timezone() );
 	}
 
 	public function get_description(): string {
@@ -23,11 +23,11 @@ class Event extends Post {
 	}
 
 	public function get_start_datetime(): \DateTime {
-		return new \DateTime( $this->get_meta( 'event_date' ) . $this->get_meta( 'start_time' ) );
+		return new \DateTime( $this->get_meta( 'event_date' ) . $this->get_meta( 'start_time' ), wp_timezone() );
 	}
 
 	public function get_end_datetime(): \DateTime {
-		return new \DateTime( $this->get_meta( 'event_date' ) . $this->get_meta( 'end_time' ) );
+		return new \DateTime( $this->get_meta( 'event_date' ) . $this->get_meta( 'end_time' ), wp_timezone() );
 	}
 
 	public function get_start_time(): string {

@@ -27,7 +27,7 @@ class Job_Posting extends Post {
 	}
 
 	public function get_deadline(): \DateTime {
-		return \DateTime::createFromFormat( 'Y-m-d', $this->get_meta( 'deadline' ) );
+		return \DateTime::createFromFormat( 'Y-m-d', $this->get_meta( 'deadline' ), wp_timezone() );
 	}
 
 	public function get_introduction(): string {
