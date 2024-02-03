@@ -8,6 +8,7 @@ use SIW\Data\Work_Type;
 use SIW\Elements\Accordion_Tabs;
 use SIW\Elements\Leaflet_Map;
 use SIW\Elements\Link;
+use SIW\Facades\WooCommerce;
 use SIW\Util\I18n;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
@@ -96,9 +97,8 @@ class Dutch_Projects extends Widget {
 		$args = [
 			'country' => 'nederland',
 		];
-		$projects = siw_get_products( $args );
 		$projects = array_filter(
-			siw_get_products( $args ),
+			WooCommerce::get_products( $args ),
 			fn( WC_Product_Project $project ): bool => ! $project->is_hidden()
 		);
 		usort( $projects, fn( WC_Product_Project $project_1, WC_Product_Project $project_2 ) => strcmp( $project_1->get_sku(), $project_2->get_sku() ) );

@@ -3,6 +3,7 @@
 namespace SIW\WooCommerce\Import;
 
 use SIW\Data\Plato\Project_Free_Places as Plato_Project_Free_Places;
+use SIW\Facades\WooCommerce;
 
 /**
  * Functies voor importeren van de vrije plaatsen van een project
@@ -17,7 +18,7 @@ class Free_Places {
 	/** Verwerk fpl  */
 	public function process() {
 
-		$product = siw_get_product_by_project_id( $this->plato_project_free_places->get_project_id() );
+		$product = WooCommerce::get_product_by_project_id( $this->plato_project_free_places->get_project_id() );
 		if ( null === $product ) {
 			return;
 		}

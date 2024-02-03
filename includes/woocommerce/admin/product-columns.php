@@ -2,6 +2,7 @@
 
 namespace SIW\WooCommerce\Admin;
 
+use SIW\Facades\WooCommerce;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
 class Product_Columns extends \MBAC\Post {
@@ -70,7 +71,7 @@ class Product_Columns extends \MBAC\Post {
 		if ( false !== $product ) {
 			return $product;
 		}
-		$product = siw_get_product( $post_id );
+		$product = WooCommerce::get_product( $post_id );
 		wp_cache_set( $post_id, $product, __METHOD__ );
 
 		return $product;

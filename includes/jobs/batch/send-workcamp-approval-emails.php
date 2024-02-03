@@ -6,6 +6,7 @@ use SIW\Attributes\Add_Action;
 use SIW\Data\Job_Frequency;
 use SIW\Elements\Link;
 use SIW\Facades\Meta_Box;
+use SIW\Facades\WooCommerce;
 use SIW\Helpers\Email;
 use SIW\Helpers\Email_Template;
 use SIW\Jobs\Scheduled_Job;
@@ -51,7 +52,7 @@ class Send_Workcamp_Approval_Emails extends Scheduled_Job {
 			return;
 		}
 
-		$products = siw_get_product_ids(
+		$products = WooCommerce::get_product_ids(
 			[
 				'continent' => $term->slug,
 				'status'    => Import_Product::REVIEW_STATUS,

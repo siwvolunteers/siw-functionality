@@ -10,6 +10,7 @@ use SIW\Content\Post_Types\Event;
 use SIW\Content\Post_Types\Job_Posting;
 use SIW\Content\Post_Types\Story;
 use SIW\Content\Post_Types\TM_Country;
+use SIW\Facades\WooCommerce;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
@@ -49,7 +50,7 @@ class Carousel {
 		$excerpt = sprintf(
 			'%s<br/>%s<br/>%s',
 			$product->get_country()->label(),
-			implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE->value, [ 'fields' => 'names' ] ) ),
+			implode( ' | ', WooCommerce::get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE->value, [ 'fields' => 'names' ] ) ),
 			siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false )
 		);
 

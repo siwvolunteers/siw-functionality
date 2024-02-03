@@ -8,6 +8,7 @@ use SIW\Base;
 use SIW\Data\Color;
 use SIW\Data\Language;
 use SIW\Data\Plato\Language_Skill_Level;
+use SIW\Facades\WooCommerce;
 use SIW\Properties;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
@@ -164,7 +165,7 @@ class Emails extends Base {
 		$count = 0;
 		foreach ( $order_items as $item ) {
 			++$count;
-			$product = siw_get_product( $item->get_product_id() );
+			$product = WooCommerce::get_product( $item->get_product_id() );
 
 			/* Als project niet meer bestaan alleen de gegevens bij de aanmelding tonen */
 			if ( ! is_a( $product, WC_Product_Project::class ) ) {

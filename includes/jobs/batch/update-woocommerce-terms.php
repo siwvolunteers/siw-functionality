@@ -4,6 +4,7 @@ namespace SIW\Jobs\Batch;
 
 use SIW\Attributes\Add_Action;
 use SIW\Data\Job_Frequency;
+use SIW\Facades\WooCommerce;
 use SIW\Jobs\Scheduled_Job;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
@@ -63,13 +64,13 @@ class Update_WooCommerce_Terms extends Scheduled_Job {
 			],
 		];
 
-		$visible_posts = siw_get_product_ids(
+		$visible_posts = WooCommerce::get_product_ids(
 			[
 				'tax_query'  => $tax_query,
 				'visibility' => 'visible',
 			]
 		);
-		$posts = siw_get_product_ids(
+		$posts = WooCommerce::get_product_ids(
 			[
 				'tax_query' => $tax_query,
 			]
