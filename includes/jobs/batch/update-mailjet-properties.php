@@ -25,7 +25,6 @@ class Update_Mailjet_Properties extends Update_Job {
 
 	#[Add_Action( self::ACTION_HOOK )]
 	public function create_property( string $property ) {
-		$datatype = Property::from( $property )->get_data_type();
-		Mailjet::create()->create_property( $property, $datatype );
+		Mailjet::create()->create_property( Property::from( $property ) );
 	}
 }
