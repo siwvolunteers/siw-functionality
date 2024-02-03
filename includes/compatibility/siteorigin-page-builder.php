@@ -43,14 +43,17 @@ class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 		unregister_widget( \SiteOrigin_Panels_Widgets_Gallery::class );
 	}
 
-	#[Add_Filter( 'siteorigin_panels_widget_dialog_tabs' )]
-	public function add_widget_tab( array $tabs ): array {
-		$tabs[] = [
+	#[Add_Filter( 'siteorigin_panels_widget_dialog_tabs', 99 )]
+	public function set_widget_dialog_tabs( array $tabs ): array {
+		$tabs['siw'] = [
 			'title'  => __( 'SIW Widgets', 'siw' ),
 			'filter' => [
 				'groups' => [ 'siw' ],
 			],
 		];
+		unset( $tabs['page_builder'] );
+		unset( $tabs['widgets_bundle'] );
+		unset( $tabs['recommended'] );
 		return $tabs;
 	}
 
