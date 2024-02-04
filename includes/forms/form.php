@@ -6,6 +6,7 @@ use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Interfaces\Forms\Form as Form_Interface;
+use SIW\Util\Logger;
 use SIW\Util\Meta_Box;
 
 class Form extends Base {
@@ -32,6 +33,7 @@ class Form extends Base {
 					'callback'            => [ $this, 'callback' ],
 					'args'                => $this->get_args(),
 					'permission_callback' => [ $this, 'verify_nonce' ],
+					'validate_callback'   => [ $this, 'validate' ],
 				],
 			]
 		);
@@ -49,6 +51,41 @@ class Form extends Base {
 	public function verify_nonce( \WP_REST_Request $request ): bool {
 		$nonce = $request->get_param( "nonce_siw_form_{$this->form->get_form_id()}" );
 		return boolval( wp_verify_nonce( $nonce, "rwmb-save-siw_form_{$this->form->get_form_id()}" ) );
+	}
+
+	public function validate( \WP_REST_Request $request ): \WP_Error|bool {
+
+		$ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+
+		// Check quiz
+		$quiz = sanitize_text_field( $request->get_param( 'quiz' ) );
+		$quiz_hash = sanitize_text_field( $request->get_param( 'quiz_hash' ) );
+
+		if ( siw_hash( $quiz ) !== $quiz_hash ) {
+			Logger::info( "Quiz verkeerd ingevuld in formulier '{$this->form->get_form_id()}' vanaf IP {$ip}", __METHOD__ );
+			return new \WP_Error(
+				'incorrect_quiz',
+				__( 'Dat is helaas niet het goede antwoord, sad.', 'siw' ),
+				[ 'status' => \WP_Http::BAD_REQUEST ]
+			);
+		}
+
+		// Check rate limit
+		$transient_name = "siw_form_{$this->form->get_form_id()}_{$ip}";
+		$submission_count = (int) get_transient( $transient_name );
+		if ( $submission_count > 1 ) {
+			++$submission_count;
+			set_transient( $transient_name, $submission_count, $submission_count * HOUR_IN_SECONDS );
+			Logger::info( "Meerdere aanmeldingen ({$submission_count}) in korte tijd voor formulier '{$this->form->get_form_id()}' vanaf IP {$ip}", __METHOD__ );
+			return new \WP_Error(
+				'duplicate_submission',
+				__( 'Je hebt dit formulier al ingevuld.', 'siw' ),
+				[ 'status' => \WP_Http::BAD_REQUEST ]
+			);
+		}
+		set_transient( $transient_name, 1, HOUR_IN_SECONDS );
+
+		return true;
 	}
 
 	public function callback( \WP_REST_Request $request ): \WP_REST_Response {

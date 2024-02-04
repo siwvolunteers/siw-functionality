@@ -9,7 +9,7 @@ class Meta_Box {
 	public static function get_meta_box( string $meta_box_id ): ?\RW_Meta_Box {
 
 		if ( ! function_exists( 'rwmb_get_registry' ) ) {
-						wp_trigger_error( __METHOD__, wp_sprintf( 'Functie %s bestaat niet', 'rwmb_set_meta' ) );
+			wp_trigger_error( __METHOD__, wp_sprintf( 'Functie %s bestaat niet', 'rwmb_set_meta' ) );
 			return null;
 		}
 
@@ -98,5 +98,20 @@ class Meta_Box {
 		wp_cache_set( $key, $value, __METHOD__ );
 
 		return $value;
+	}
+
+	public static function format_value( array $field, mixed $raw_value ) {
+		$field = \RWMB_Field::call( 'normalize', $field );
+		if ( $field['multiple'] ) {
+			return implode(
+				', ',
+				array_map(
+					fn( $value ) => \RWMB_Field::call( 'format_single_value', $field, $value, [], null ),
+					$raw_value
+				)
+			);
+		}
+
+		return \RWMB_Field::call( 'format_single_value', $field, $raw_value, [], null );
 	}
 }
