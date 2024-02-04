@@ -4,6 +4,7 @@ namespace SIW\Jobs\Batch;
 
 use SIW\Attributes\Add_Action;
 use SIW\Data\Job_Frequency;
+use SIW\Facades\Slim_SEO;
 use SIW\Jobs\Scheduled_Job;
 
 class Update_Custom_Posts extends Scheduled_Job {
@@ -41,18 +42,12 @@ class Update_Custom_Posts extends Scheduled_Job {
 			return;
 		}
 
-		$new_noindex = (int) ! apply_filters( 'siw/update_custom_posts/should_index', true, $post_id );
+		$new_noindex = ! apply_filters( 'siw/update_custom_posts/should_index', true, $post_id );
 
-		$seo_data = get_post_meta( $post_id, 'slim_seo', true );
+		$current_noindex = Slim_SEO::get_noindex( $post_id );
 
-		if ( ! is_array( $seo_data ) ) {
-			$seo_data = [];
-		}
-
-		$current_noindex = (int) ( $seo_data['noindex'] ?? false );
 		if ( $current_noindex !== $new_noindex ) {
-			$seo_data['noindex'] = $new_noindex;
-			update_post_meta( $post_id, 'slim_seo', $seo_data );
+			Slim_SEO::set_noindex( $post_id, $new_noindex );
 		}
 	}
 }

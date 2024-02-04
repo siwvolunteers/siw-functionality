@@ -6,6 +6,7 @@ use SIW\Attributes\Add_Action;
 use SIW\Data\Country;
 use SIW\Data\Database_Table;
 use SIW\Data\Job_Frequency;
+use SIW\Facades\Slim_SEO;
 use SIW\Facades\WooCommerce;
 use SIW\Helpers\Database;
 use SIW\Jobs\Scheduled_Job;
@@ -105,6 +106,7 @@ class Update_Projects extends Scheduled_Job {
 
 		if ( $visibility !== $this->product->get_catalog_visibility() ) {
 			$this->product->set_catalog_visibility( $visibility );
+			Slim_SEO::set_noindex( $this->product->get_id(), 'hidden' === $visibility );
 
 			if ( 'hidden' === $visibility ) {
 				$this->product->set_featured( false );
