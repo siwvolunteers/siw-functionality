@@ -4,15 +4,16 @@ namespace SIW\Jobs\Batch;
 
 use SIW\Attributes\Add_Action;
 use SIW\Data\Job_Frequency;
+use SIW\Facades\Slim_SEO;
 use SIW\Jobs\Scheduled_Job;
 
-class Delete_Old_Posts extends Scheduled_Job {
+class Update_Custom_Posts extends Scheduled_Job {
 
 	private const ACTION_HOOK = self::class;
 
 	#[\Override]
 	public function get_name(): string {
-		return __( 'Verwijderen oude posts', 'siw' );
+		return __( 'Bijwerken custom posts', 'siw' );
 	}
 
 	#[\Override]
@@ -22,7 +23,7 @@ class Delete_Old_Posts extends Scheduled_Job {
 
 	#[\Override]
 	public function start(): void {
-		$post_types = apply_filters( 'siw/delete_old_posts/post_types', [] );
+		$post_types = apply_filters( 'siw/update_custom_posts/post_types', [] );
 
 		$data = get_posts(
 			[
@@ -35,9 +36,18 @@ class Delete_Old_Posts extends Scheduled_Job {
 	}
 
 	#[Add_Action( self::ACTION_HOOK )]
-	public function delete_old_post( int $post_id ) {
-		if ( apply_filters( 'siw/delete_posts/should_delete', false, $post_id ) ) {
+	public function update_post( int $post_id ) {
+		if ( apply_filters( 'siw/update_custom_posts/should_delete', false, $post_id ) ) {
 			wp_delete_post( $post_id, true );
+			return;
+		}
+
+		$new_noindex = ! apply_filters( 'siw/update_custom_posts/should_index', true, $post_id );
+
+		$current_noindex = Slim_SEO::get_noindex( $post_id );
+
+		if ( $current_noindex !== $new_noindex ) {
+			Slim_SEO::set_noindex( $post_id, $new_noindex );
 		}
 	}
 }

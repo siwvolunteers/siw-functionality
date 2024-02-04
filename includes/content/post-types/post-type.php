@@ -61,7 +61,7 @@ abstract class Post_Type extends Base {
 		return ! empty( static::get_active_posts_meta_query() );
 	}
 
-	#[Add_Filter( 'siw/delete_old_posts/post_types' )]
+	#[Add_Filter( 'siw/update_custom_posts/post_types' )]
 	final public function register_post_type_for_delete_old_post( array $post_types ) {
 		if ( static::has_active_posts_meta_query() ) {
 			$post_types[] = static::get_post_type();
@@ -70,13 +70,20 @@ abstract class Post_Type extends Base {
 		return $post_types;
 	}
 
-	#[Add_Filter( 'siw/delete_posts/should_delete' )]
+	#[Add_Filter( 'siw/update_custom_posts/should_delete' )]
 	final public function should_delete_post( bool $should_delete, int $post_id ): bool {
 		if ( static::get_post_type() !== get_post_type( $post_id ) ) {
 			return $should_delete;
 		}
-		$custom_post = $this->get_custom_post( $post_id );
-		return $custom_post->should_delete();
+		return $this->get_custom_post( $post_id )->should_delete();
+	}
+
+	#[Add_Filter( 'siw/update_custom_posts/should_index' )]
+	final public function should_index( bool $should_index, int $post_id ): bool {
+		if ( static::get_post_type() !== get_post_type( $post_id ) ) {
+			return $should_index;
+		}
+		return $this->get_custom_post( $post_id )->is_active();
 	}
 
 	#[Add_Action( 'pre_get_posts' )]
@@ -89,7 +96,7 @@ abstract class Post_Type extends Base {
 		$query->set( 'meta_query', $meta_query );
 	}
 
-	#[Add_Filter( 'slim_seo_robots_index' )]
+	//#[Add_Filter( 'slim_seo_robots_index' )]
 	final public function set_seo_robots_index( bool $index, int $post_id ): bool {
 		if ( static::get_post_type() !== get_post_type( $post_id ) ) {
 			return $index;
