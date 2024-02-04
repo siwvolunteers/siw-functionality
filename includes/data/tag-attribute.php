@@ -6,5 +6,5 @@ enum Tag_Attribute: string {
 	case CROSSORIGIN = 'crossorigin';
 	case INTEGRITY = 'integrity';
 	case TYPE = 'type';
-	case COOKIE_CATEGORY = 'data-cookiecategory';
+	case COOKIE_CATEGORY = 'data-category';
 }

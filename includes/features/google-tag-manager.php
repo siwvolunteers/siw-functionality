@@ -5,6 +5,7 @@ namespace SIW\Features;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Config;
+use SIW\Data\Features\Cookie_Category;
 use SIW\Data\Tag_Attribute;
 use SIW\External_Assets\Google_Tag_Manager as Google_Tag_Manager_Asset;
 use SIW\Traits\Class_Assets;
@@ -35,7 +36,7 @@ class Google_Tag_Manager extends Base {
 		wp_script_add_data(
 			self::get_asset_handle(),
 			Tag_Attribute::COOKIE_CATEGORY->value,
-			Cookie_Consent::ANALYTICAL
+			Cookie_Category::ANALYTICAL->value,
 		);
 
 		wp_enqueue_script( self::get_asset_handle() );
