@@ -2,6 +2,7 @@
   display: inline-block;
   position: relative;
   fill: var(--siw-contrast-light);
+  vertical-align: text-bottom;
 }
 .footer-widgets .siw-icon, .top-bar .siw-icon {
   fill: var(--siw-base);
