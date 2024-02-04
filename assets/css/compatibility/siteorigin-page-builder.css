@@ -1,3 +1,7 @@
+.panel-layout [data-stretch-type=full-width-stretch] {
+  margin-left: -40px;
+  margin-right: -40px;
+}
 .panel-layout .widget ul {
   margin: 1.5em 0 1.5em 1.2em;
 }

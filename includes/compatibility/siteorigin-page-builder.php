@@ -25,6 +25,12 @@ class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 	#[Add_Filter( 'siteorigin_add_installer', PHP_INT_MAX )]
 	private const SHOW_SITEORIGIN_INSTALLER = false;
 
+	#[Add_Filter( 'siteorigin_panels_theme_container_width' )]
+	private const THEME_CONTAINER_WIDTH = '1280px';
+
+	#[Add_Filter( 'siteorigin_panels_theme_container_selector' )]
+	private const THEME_CONTAINER_SELECTOR = '.site.grid-container.container';
+
 	#[\Override]
 	public static function get_plugin_basename(): string {
 		return 'siteorigin-panels/siteorigin-panels.php';
