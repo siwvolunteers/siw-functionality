@@ -4,6 +4,7 @@ namespace SIW\Widgets;
 
 use SIW\Data\Elements\List_Style_Type;
 use SIW\Elements\List_Columns;
+use SIW\Facades\Meta_Box;
 use SIW\Properties;
 
 /**
@@ -61,7 +62,7 @@ class Annual_Reports extends Widget {
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
-		$annual_reports = siw_get_option( 'annual_reports' );
+		$annual_reports = Meta_Box::get_option( 'annual_reports' );
 		if ( empty( $annual_reports ) ) {
 			return [];
 		}

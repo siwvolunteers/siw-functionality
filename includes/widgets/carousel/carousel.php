@@ -5,6 +5,7 @@ namespace SIW\Widgets;
 use SIW\Compatibility\WooCommerce;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Carousel as Element_Carousel;
+use SIW\Facades\WooCommerce as WooCommerce_Facade;
 use SIW\Util\Carousel as Carousel_Util;
 
 /**
@@ -170,7 +171,7 @@ class Carousel extends Widget {
 
 			$posts = array_map(
 				[ Carousel_Util::class, 'product_to_carousel_slide' ],
-				siw_get_products( $args )
+				WooCommerce_Facade::get_products( $args )
 			);
 		} else {
 			$args['post_type'] = $instance['post_type'];

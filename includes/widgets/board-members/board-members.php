@@ -5,6 +5,7 @@ namespace SIW\Widgets;
 use SIW\Data\Board_Title;
 use SIW\Data\Elements\List_Style_Type;
 use SIW\Elements\List_Columns;
+use SIW\Facades\Meta_Box;
 
 /**
  * Widget Name: SIW: Bestuurssamenstellingddd
@@ -47,7 +48,7 @@ class Board_Members extends Widget {
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
-		$board_members = siw_get_option( 'board_members' );
+		$board_members = Meta_Box::get_option( 'board_members' );
 		if ( empty( $board_members ) ) {
 			return [];
 		}

@@ -45,7 +45,7 @@ class Job_Posting extends Post_Type {
 				'title'    => __( 'Soort functie', 'siw' ),
 				'function' => function ( \WP_Post $post ): void {
 					//phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					echo Job_Type::tryFrom( siw_meta( 'job_type', [], $post->ID ) )->label();
+					echo ( new Job_Posting_Post( $post ) )->get_job_type()?->label();
 				},
 			],
 			'deadline' => [
@@ -128,7 +128,7 @@ class Job_Posting extends Post_Type {
 
 	#[\Override]
 	public static function get_meta_box_fields(): array {
-		$hr_manager = siw_get_option( 'job_posting.hr_manager' );
+		$hr_manager = static::get_option( 'hr_manager' );
 		$hr_manager = wp_parse_args(
 			$hr_manager,
 			[
@@ -262,7 +262,7 @@ class Job_Posting extends Post_Type {
 						'id'   => 'organization_profile',
 						'name' => __( 'Wie zijn wij?', 'siw' ),
 						'type' => 'custom_html',
-						'std'  => siw_get_option( 'job_posting.organization_profile' ),
+						'std'  => static::get_option( 'organization_profile' ),
 					],
 				],
 			],
@@ -284,14 +284,7 @@ class Job_Posting extends Post_Type {
 		];
 	}
 
-	/** Geeft type vacature terug */
-	protected function get_job_type(): string {
-		$job_type = Job_Type::tryFrom( siw_meta( 'job_type' ) ) ?? Job_Type::VOLUNTEER;
-		return $job_type->value;
-	}
-
 	public function get_template_variables( string $type, int $post_id ): array {
-
 		$post = new Job_Posting_Post( $post_id );
 
 		$template_variables = [
@@ -314,7 +307,7 @@ class Job_Posting extends Post_Type {
 				],
 				[
 					'title'   => __( 'Wie zijn wij?', 'siw' ),
-					'content' => siw_get_option( 'job_posting.organization_profile' ),
+					'content' => static::get_option( 'organization_profile' ),
 				],
 			];
 			$template_variables['accordion'] = Accordion_Tabs::create()->add_items( $accordion_items )->generate();
@@ -356,7 +349,7 @@ class Job_Posting extends Post_Type {
 		)
 		->set_qualifications( $post->get_qualifications() )
 		->set_responsibilities( $post->get_work() )
-		->set_employer_overview( siw_get_option( 'job_posting.organization_profile', '' ) )
+		->set_employer_overview( static::get_option( 'organization_profile', '' ) )
 		->set_job_benefits( $post->get_perks() )
 		->set_job_location(
 			Place::create()

@@ -4,6 +4,7 @@ namespace SIW\Jobs\Async;
 
 use SIW\Attributes\Add_Action;
 use SIW\Base;
+use SIW\Facades\WooCommerce;
 use SIW\Plato\Export_Application as Plato_Export_Application;
 use SIW\Properties;
 
@@ -19,7 +20,7 @@ class Export_Plato_Application extends Base {
 
 	#[Add_Action( self::class )]
 	public function export_application( int $order_id ) {
-		$order = wc_get_order( $order_id );
+		$order = WooCommerce::get_order( $order_id );
 		if ( ! is_a( $order, \WC_Order::class ) ) {
 			return;
 		}
@@ -30,7 +31,12 @@ class Export_Plato_Application extends Base {
 		$order_items = $order->get_items();
 
 		foreach ( $order_items as $order_item ) {
-			$product = siw_get_product( $order_item->get_product_id() );
+			$product = WooCommerce::get_product( $order_item->get_product_id() );
+			if ( null === $product ) {
+
+
+				continue;
+			}
 			$result = $this->export_single_application( $order_data, $product );
 			$order->add_order_note( $result['message'] );
 		}

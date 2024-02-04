@@ -8,6 +8,7 @@ use SIW\Config;
 use SIW\Data\Currency;
 use SIW\Elements\Form;
 use SIW\Elements\Leaflet_Map;
+use SIW\Facades\WooCommerce;
 use SIW\Forms\Forms\Enquiry_Project;
 use SIW\Integrations\Fixer;
 use SIW\WooCommerce\Product\WC_Product_Project;
@@ -23,7 +24,7 @@ class Tabs extends Base {
 	#[Add_Filter( 'woocommerce_product_tabs' )]
 	public function add_and_rename_and_remove_product_tabs( array $tabs ): array {
 		global $post;
-		$product = siw_get_product( $post );
+		$product = WooCommerce::get_product( $post );
 		if ( null === $product ) {
 			return $tabs;
 		}

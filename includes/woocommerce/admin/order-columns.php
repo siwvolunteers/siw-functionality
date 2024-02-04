@@ -2,6 +2,7 @@
 
 namespace SIW\WooCommerce\Admin;
 
+use SIW\Facades\WooCommerce;
 use SIW\Jobs\Async\Export_Plato_Application;
 
 class Order_Columns extends \MBAC\Post {
@@ -30,7 +31,7 @@ class Order_Columns extends \MBAC\Post {
 		switch ( $column ) {
 
 			case self::COLUMN_PROJECTS:
-				$order = wc_get_order( $post_id );
+				$order = WooCommerce::get_order( $post_id );
 
 				/** @var \WC_Order_Item_Product[] */
 				$order_items = $order->get_items();
@@ -42,7 +43,7 @@ class Order_Columns extends \MBAC\Post {
 				break;
 
 			case self::COLUMN_EXPORTED:
-				$order = wc_get_order( $post_id );
+				$order = WooCommerce::get_order( $post_id );
 				$exported = $order->get_meta( Export_Plato_Application::ORDER_META_EXPORTED_TO_PLATO );
 				if ( Export_Plato_Application::SUCCESS === $exported ) {
 					$dashicon = 'yes';

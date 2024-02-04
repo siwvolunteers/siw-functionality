@@ -3,6 +3,7 @@
 namespace SIW\Content\Post;
 
 use SIW\Data\Job_Type;
+use SIW\Facades\Meta_Box;
 
 class Job_Posting extends Post {
 
@@ -47,7 +48,7 @@ class Job_Posting extends Post {
 		if ( $this->get_meta( 'different_application_manager' ) ) {
 			return $this->get_meta( 'application_manager' );
 		}
-		return siw_get_option( 'job_posting.hr_manager' );
+		return Meta_Box::get_option( 'job_posting.hr_manager' );
 	}
 
 	public function get_work(): string {

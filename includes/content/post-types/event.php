@@ -355,12 +355,12 @@ class Event extends Post_Type {
 			return;
 		}
 
-		$name = 'infodag ' . siw_format_date( siw_meta( 'event_date', [], $post_id ) );
+		$name = 'infodag ' . siw_format_date( $event->get_event_date()->format( 'Y-m-d' ) );
 		$mailjet = Mailjet::create();
 		$lists = $mailjet->get_lists( [ 'name' => $name ] );
 		$list_id = $lists[0]['id'] ?? $mailjet->create_list( $name );
 		if ( null !== $list_id ) {
-			$event->set_mailjet_list_id( $list_id );
+			$event->set_mailjet_list_id( (int) $list_id );
 		}
 	}
 

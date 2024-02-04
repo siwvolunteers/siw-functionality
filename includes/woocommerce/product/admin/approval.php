@@ -5,6 +5,7 @@ namespace SIW\WooCommerce\Product\Admin;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Compatibility\WooCommerce;
+use SIW\Facades\WooCommerce as WooCommerce_Facade;
 use SIW\WooCommerce\Import\Product as Import_Product;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
@@ -19,7 +20,7 @@ class Approval extends Base {
 		if ( WooCommerce::PRODUCT_POST_TYPE !== $post->post_type || Import_Product::REVIEW_STATUS !== $post->post_status ) {
 			return;
 		}
-		$product = siw_get_product( $post->ID );
+		$product = WooCommerce_Facade::get_product( $post->ID );
 
 		if ( null === $product ) {
 			return;
@@ -41,7 +42,7 @@ class Approval extends Base {
 
 	#[Add_Action( 'post_submitbox_start' )]
 	public function show_approval_result( \WP_Post $post ) {
-		$product = siw_get_product( $post );
+		$product = WooCommerce_Facade::get_product( $post );
 		if ( null === $product || empty( $product->get_approval_result() ) ) {
 			return;
 		}

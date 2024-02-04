@@ -2,6 +2,15 @@
 
 namespace SIW\Util;
 
+use SIW\Content\Post\Event as Event_Post;
+use SIW\Content\Post\Job_Posting as Job_Posting_Post;
+use SIW\Content\Post\Story as Story_Post;
+use SIW\Content\Post\TM_Country as TM_Country_Post;
+use SIW\Content\Post_Types\Event;
+use SIW\Content\Post_Types\Job_Posting;
+use SIW\Content\Post_Types\Story;
+use SIW\Content\Post_Types\TM_Country;
+use SIW\Facades\WooCommerce;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
@@ -10,33 +19,30 @@ class Carousel {
 	public static function post_to_carousel_slide( \WP_Post $post ): array {
 
 		switch ( $post->post_type ) {
-			case 'siw_tm_country':
-				$images = siw_meta( 'image', [ 'limit' => 1 ], $post->ID );
-				$image = reset( $images );
-
-				$slide = [
-					'image'   => wp_get_attachment_image( $image['ID'], 'large' ),
-					'title'   => get_the_title( $post ),
-					'excerpt' => siw_meta( 'quote', [], $post->ID ),
-					'link'    => [
-						'text' => __( 'Bekijk land', 'siw' ),
-						'url'  => get_the_permalink( $post ),
-					],
-				];
+			case TM_Country::get_post_type():
+				$custom_post = new TM_Country_Post( $post );
 				break;
-			default:
-				$slide = [
-					'image'   => get_the_post_thumbnail( $post, 'large' ),
-					'title'   => get_the_title( $post ),
-					'excerpt' => get_the_excerpt( $post ),
-					'link'    => [
-						'text' => __( 'Lees meer', 'siw' ),
-						'url'  => get_the_permalink( $post ),
-					],
-				];
+			case Story::get_post_type():
+				$custom_post = new Story_Post( $post );
+				break;
+			case Event::get_post_type():
+				$custom_post = new Event_Post( $post );
+				break;
+
+			case Job_Posting::get_post_type():
+				$custom_post = new Job_Posting_Post( $post );
+				break;
 		}
 
-		return $slide;
+		return [
+			'image'   => wp_get_attachment_image( $custom_post->get_thumbnail_id(), 'large' ),
+			'title'   => $custom_post->get_title(),
+			'excerpt' => $custom_post->get_excerpt(),
+			'link'    => [
+				'text' => __( 'Lees meer', 'siw' ),
+				'url'  => $custom_post->get_permalink(),
+			],
+		];
 	}
 
 	public static function product_to_carousel_slide( WC_Product_Project $product ): array {
@@ -44,7 +50,7 @@ class Carousel {
 		$excerpt = sprintf(
 			'%s<br/>%s<br/>%s',
 			$product->get_country()->label(),
-			implode( ' | ', wc_get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE->value, [ 'fields' => 'names' ] ) ),
+			implode( ' | ', WooCommerce::get_product_terms( $product->get_id(), Taxonomy_Attribute::WORK_TYPE->value, [ 'fields' => 'names' ] ) ),
 			siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false )
 		);
 

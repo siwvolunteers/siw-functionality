@@ -3,6 +3,7 @@
 namespace SIW\Widgets;
 
 use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
+use SIW\Facades\SiteOrigin;
 
 class Loader extends Class_Loader_Abstract {
 
@@ -36,31 +37,29 @@ class Loader extends Class_Loader_Abstract {
 	public function load( string $class_name ) {
 		$id_base = $this->get_id_base_from_class( $class_name );
 		$file_base = $this->get_file_base_from_id_base( $id_base );
-
 		$widget_folder = untrailingslashit( SIW_WIDGETS_DIR );
-		if ( function_exists( 'siteorigin_widget_register' ) && file_exists( "{$widget_folder}/{$file_base}/{$file_base}.php" ) ) {
-			siteorigin_widget_register(
+		$file_name = "{$widget_folder}/{$file_base}/{$file_base}.php";
+
+		if ( file_exists( $file_name ) ) {
+			SiteOrigin::widget_register(
 				"sow-siw_{$id_base}_widget",
-				"{$widget_folder}/{$file_base}/{$file_base}.php",
+				$file_name,
 				"\\{$class_name}"
 			);
-			require_once "{$widget_folder}/{$file_base}/{$file_base}.php";
+			require_once $file_name;
 		}
 
 		add_filter( 'siteorigin_widgets_active_widgets', fn( $active_widgets ) => wp_parse_args( [ $id_base => true ], $active_widgets ) );
+
 		// Widget activeren, kan pas bij init-hook
-		if ( class_exists( \SiteOrigin_Widgets_Bundle::class ) ) {
-			add_action( 'init', fn() => \SiteOrigin_Widgets_Bundle::single()->activate_widget( $file_base ) );
-		}
+		add_action( 'init', fn() => SiteOrigin::activate_widget( $file_base ) );
 	}
 
-	/** Zet FQN om naar id-base */
 	protected function get_id_base_from_class( string $class_name ): string {
 		$id_base = explode( '\\', $class_name );
 		return strtolower( end( $id_base ) );
 	}
 
-	/** Zet id_base om naar file-base */
 	protected function get_file_base_from_id_base( string $id_base ): string {
 		return str_replace( '_', '-', $id_base );
 	}

@@ -7,6 +7,7 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Gender;
 use SIW\Data\Nationality;
+use SIW\Facades\WooCommerce;
 
 class Order extends Base {
 
@@ -205,7 +206,7 @@ class Order extends Base {
 	public function process_order_meta( int $post_id, \WP_Post $post ) {
 
 		$custom_fields = $this->get_checkout_fields();
-		$order = wc_get_order( $post_id );
+		$order = WooCommerce::get_order( $post_id );
 
 		foreach ( $custom_fields as $group => $fields ) {
 			foreach ( $fields as $key => $field ) {

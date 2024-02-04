@@ -3,6 +3,7 @@
 namespace SIW\WooCommerce;
 
 use SIW\Config;
+use SIW\Facades\WooCommerce;
 
 class Coupon {
 
@@ -14,7 +15,7 @@ class Coupon {
 	}
 
 	public function create_for_order( int $order_id ): bool {
-		$order = wc_get_order( $order_id );
+		$order = WooCommerce::get_order( $order_id );
 
 		// Afbreken als order niet gevonden kan worden
 		if ( ! is_a( $order, \WC_Order::class ) ) {
@@ -22,7 +23,7 @@ class Coupon {
 		}
 
 		// Check of er al een kortingscode voor deze aanmelding bestaat
-		if ( 0 !== wc_get_coupon_id_by_code( $order->get_order_number() ) ) {
+		if ( 0 !== WooCommerce::get_coupon_id_by_code( $order->get_order_number() ) ) {
 			return false;
 		}
 		$coupon = new \WC_Coupon();

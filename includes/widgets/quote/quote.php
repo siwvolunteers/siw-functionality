@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Data\Country;
+use SIW\Content\Post\Story;
 use SIW\Elements\Blockquote;
 
 /**
@@ -134,14 +134,16 @@ class Quote extends Widget {
 		}
 
 		$post_id = $post_ids[0];
-		$rows = siw_meta( 'rows', [], $post_id );
+		$story_post = new Story( $post_id );
 
-		$quotes = dot( $rows )->get( '*.quote' );
+		$rows = $story_post->get_rows();
+
+		$quotes = wp_list_pluck( $rows, 'quote' );
 
 		$quote = [
 			'quote'        => $quotes[ array_rand( $quotes, 1 ) ],
-			'name'         => siw_meta( 'name', [], $post_id ),
-			'country'      => Country::tryFrom( siw_meta( 'country', [], $post_id ) )?->label(),
+			'name'         => $story_post->get_name(),
+			'country'      => $story_post->get_country()?->label(),
 			'project_type' => wp_get_post_terms( $post_id, self::PROJECT_TYPE_TAXONOMY )[0]->name,
 		];
 		return $quote;

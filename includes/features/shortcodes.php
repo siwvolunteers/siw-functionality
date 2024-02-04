@@ -10,6 +10,7 @@ use SIW\Data\Country_Context;
 use SIW\Data\Elements\List_Style_Type;
 use SIW\Elements\Link;
 use SIW\Elements\List_Columns;
+use SIW\Facades\Meta_Box;
 use SIW\Properties;
 use SIW\Util;
 
@@ -195,12 +196,12 @@ class Shortcodes extends Base {
 
 	#[Add_Shortcode( 'aantal_vrijwilligers' )]
 	public static function render_aantal_vrijwilligers(): string {
-		return siw_get_option( 'staff.number_of_volunteers' );
+		return Meta_Box::get_option( 'staff.number_of_volunteers' );
 	}
 
 	#[Add_Shortcode( 'aantal_betaalde_medewerker' )]
 	public static function render_aantal_betaalde_medewerkers(): string {
-		return siw_get_option( 'staff.number_of_employees' );
+		return Meta_Box::get_option( 'staff.number_of_employees' );
 	}
 
 	#[Add_Shortcode( 'accent' )]

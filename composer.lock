@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93e09265b78ca98dc9a4b8b037589815",
+    "content-hash": "791a4e02ebf3656420b34db442491649",
     "packages": [
         {
             "name": "johnbillion/args",
@@ -283,61 +283,6 @@
                 "source": "https://github.com/bobthecow/mustache.php/tree/v2.14.2"
             },
             "time": "2022-08-23T13:07:01+00:00"
-        },
-        {
-            "name": "pharaonic/php-dot-array",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Pharaonic/php-dot-array.git",
-                "reference": "a5573907abea07e7a2db9a9dd7be2c1c887e63b9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Pharaonic/php-dot-array/zipball/a5573907abea07e7a2db9a9dd7be2c1c887e63b9",
-                "reference": "a5573907abea07e7a2db9a9dd7be2c1c887e63b9",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": ">=5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/helper.php"
-                ],
-                "psr-4": {
-                    "Pharaonic\\DotArray\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Raggi",
-                    "email": "support@pharaonic.io"
-                }
-            ],
-            "description": "Access array data quickly/easily using dot-notation and asterisk.",
-            "keywords": [
-                "array",
-                "asterisk",
-                "dot notation",
-                "pharaonic",
-                "php",
-                "php array",
-                "php dot array"
-            ],
-            "support": {
-                "issues": "https://github.com/Pharaonic/php-dot-array/issues",
-                "source": "https://github.com/Pharaonic/php-dot-array/tree/1.0.3"
-            },
-            "time": "2023-01-14T14:15:02+00:00"
         },
         {
             "name": "spatie/array-to-xml",

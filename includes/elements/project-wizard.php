@@ -3,6 +3,7 @@
 namespace SIW\Elements;
 
 use SIW\Data\Project_Type;
+use SIW\Facades\WooCommerce;
 use SIW\Interfaces\Forms\Form;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
@@ -94,7 +95,7 @@ class Project_Wizard extends Element {
 					'std'     => sprintf(
 						'%s %s',
 						'Begin je zoektocht eens bij de <em>groepsprojecten</em>.',
-						$this->generate_link( wc_get_page_permalink( 'shop' ) )
+						$this->generate_link( WooCommerce::get_page_permalink( 'shop' ) )
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',
@@ -125,7 +126,7 @@ class Project_Wizard extends Element {
 					'std'     => sprintf(
 						'%s %s',
 						'Begin je zoektocht eens bij de <em>groepsprojecten</em>.',
-						$this->generate_link( wc_get_page_permalink( 'shop' ) )
+						$this->generate_link( WooCommerce::get_page_permalink( 'shop' ) )
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',

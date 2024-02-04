@@ -2,6 +2,8 @@
 
 namespace SIW\Content\Post;
 
+use SIW\Facades\Meta_Box;
+
 abstract class Post {
 
 	protected \WP_Post $post;
@@ -39,10 +41,10 @@ abstract class Post {
 	}
 
 	protected function get_meta( string $key, array $args = [] ): mixed {
-		return siw_meta( $key, $args, $this->get_id() );
+		return Meta_Box::get_meta( $key, $args, $this->get_id() );
 	}
 
 	protected function set_meta( string $key, mixed $value, array $args = [] ) {
-		siw_set_meta( $this->get_id(), $key, $value, $args );
+		Meta_Box::set_meta( $this->get_id(), $key, $value, $args );
 	}
 }

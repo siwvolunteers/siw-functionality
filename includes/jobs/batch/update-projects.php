@@ -6,6 +6,7 @@ use SIW\Attributes\Add_Action;
 use SIW\Data\Country;
 use SIW\Data\Database_Table;
 use SIW\Data\Job_Frequency;
+use SIW\Facades\WooCommerce;
 use SIW\Helpers\Database;
 use SIW\Jobs\Scheduled_Job;
 use SIW\WooCommerce\Import\Product_Image as Import_Product_Image;
@@ -32,12 +33,12 @@ class Update_Projects extends Scheduled_Job {
 
 	#[\Override]
 	public function start(): void {
-		$this->enqueue_items( siw_get_product_ids(), self::ACTION_HOOK );
+		$this->enqueue_items( WooCommerce::get_product_ids(), self::ACTION_HOOK );
 	}
 
 	#[Add_Action( self::ACTION_HOOK )]
 	public function update_project( string $product_id ) {
-		$product = siw_get_product( $product_id );
+		$product = WooCommerce::get_product( $product_id );
 
 		if ( ! is_a( $product, WC_Product_Project::class ) ) {
 			return false;

@@ -5,6 +5,7 @@ namespace SIW\WooCommerce\Order\Admin;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Facades\WooCommerce;
 use SIW\Jobs\Async\Export_Plato_Application;
 use SIW\WooCommerce\Coupon;
 
@@ -23,7 +24,7 @@ class Order_Actions extends Base {
 		if ( $order->is_paid() ) {
 			$actions['siw_export_to_plato'] = __( 'Exporteer naar PLATO', 'siw' );
 		}
-		if ( $order->is_paid() && empty( wc_get_coupon_id_by_code( $order->get_order_number() ) ) ) {
+		if ( $order->is_paid() && empty( WooCommerce::get_coupon_id_by_code( $order->get_order_number() ) ) ) {
 			$actions['siw_create_coupon'] = __( 'Creëer kortingscode', 'siw' );
 		}
 		return $actions;
