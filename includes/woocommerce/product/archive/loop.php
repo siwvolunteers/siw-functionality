@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace SIW\WooCommerce\Frontend;
+namespace SIW\WooCommerce\Product\Archive;
 
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
-class Archive extends Base {
+class Loop extends Base {
 
 	#[Add_Action( 'woocommerce_after_shop_loop_item_title' )]
 	public function show_project_data() {

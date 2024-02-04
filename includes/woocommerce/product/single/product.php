@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\WooCommerce\Frontend;
+namespace SIW\WooCommerce\Product\Single;
 
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\WooCommerce\Frontend;
+namespace SIW\WooCommerce\Product\Single;
 
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
@@ -12,7 +12,7 @@ use SIW\Forms\Forms\Enquiry_Project;
 use SIW\Integrations\Fixer;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-class Product_Tabs extends Base {
+class Tabs extends Base {
 
 	private const LOCATION_TAB = 'location_and_leisure';
 	private const REQUIREMENTS_TAB = 'requirements';
