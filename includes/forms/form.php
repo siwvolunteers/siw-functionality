@@ -13,6 +13,9 @@ class Form extends Base {
 
 	private const API_VERSION = 'v1';
 
+	private const SUBMISSION_RATE_LIMIT = 1;
+	private const SUBMISSION_RATE_LIMIT_INTERVAL = HOUR_IN_SECONDS;
+
 	protected function __construct( protected Form_Interface $form ) {}
 
 	#[Add_Filter( 'siw_forms' )]
@@ -57,15 +60,11 @@ class Form extends Base {
 
 		$ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
 
-		// Check quiz
-		$quiz = sanitize_text_field( $request->get_param( 'quiz' ) );
-		$quiz_hash = sanitize_text_field( $request->get_param( 'quiz_hash' ) );
-
-		if ( siw_hash( $quiz ) !== $quiz_hash ) {
+		if ( ! Quiz::is_correct( $request ) ) {
 			Logger::info( "Quiz verkeerd ingevuld in formulier '{$this->form->get_form_id()}' vanaf IP {$ip}", __METHOD__ );
 			return new \WP_Error(
 				'incorrect_quiz',
-				__( 'Dat is helaas niet het goede antwoord, sad.', 'siw' ),
+				__( 'Dat is helaas niet het goede antwoord.', 'siw' ),
 				[ 'status' => \WP_Http::BAD_REQUEST ]
 			);
 		}
@@ -73,9 +72,9 @@ class Form extends Base {
 		// Check rate limit
 		$transient_name = "siw_form_{$this->form->get_form_id()}_{$ip}";
 		$submission_count = (int) get_transient( $transient_name );
-		if ( $submission_count > 1 ) {
-			++$submission_count;
-			set_transient( $transient_name, $submission_count, $submission_count * HOUR_IN_SECONDS );
+		++$submission_count;
+		set_transient( $transient_name, $submission_count, self::SUBMISSION_RATE_LIMIT_INTERVAL );
+		if ( $submission_count > self::SUBMISSION_RATE_LIMIT ) {
 			Logger::info( "Meerdere aanmeldingen ({$submission_count}) in korte tijd voor formulier '{$this->form->get_form_id()}' vanaf IP {$ip}", __METHOD__ );
 			return new \WP_Error(
 				'duplicate_submission',
@@ -83,7 +82,6 @@ class Form extends Base {
 				[ 'status' => \WP_Http::BAD_REQUEST ]
 			);
 		}
-		set_transient( $transient_name, 1, HOUR_IN_SECONDS );
 
 		return true;
 	}
@@ -119,8 +117,7 @@ class Form extends Base {
 	protected function get_fields(): array {
 		$fields = $this->form->get_form_fields();
 		$fields = array_map( [ $this, 'parse_field' ], $fields );
-
-		$fields = $this->add_quiz( $fields );
+		$fields = Quiz::add_quiz_fields( $fields );
 
 		$fields[] = [
 			'type'       => 'button',
@@ -130,37 +127,6 @@ class Form extends Base {
 				'type' => 'submit',
 				'name' => 'rwmb_submit',
 			],
-		];
-
-		return $fields;
-	}
-
-	protected function add_quiz( array $fields ): array {
-
-		$one = wp_rand( 2, 5 );
-		$two = wp_rand( 2, 5 );
-
-		if ( $one > $two ) {
-			$operator = __( 'min', 'siw' );
-			$answer = $one - $two;
-		} else {
-			$operator = __( 'plus', 'siw' );
-			$answer = $one + $two;
-		}
-
-		$fields[] = [
-			'id'       => 'quiz',
-			'type'     => 'number',
-			'required' => true,
-			/* translators: %1$d en %3$d twee zijn allebei getallen, %2$s is de operator (plus of min) */
-			'name'     => sprintf( __( 'Hoeveel is %1$d %2$s %3$d?', 'siw' ), $one, $operator, $two ),
-			'columns'  => Form_Interface::HALF_WIDTH,
-		];
-		$fields[] = [
-			'id'      => 'quiz_hash',
-			'type'    => 'hidden',
-			'std'     => siw_hash( (string) $answer ),
-			'columns' => Form_Interface::FULL_WIDTH,
 		];
 
 		return $fields;
