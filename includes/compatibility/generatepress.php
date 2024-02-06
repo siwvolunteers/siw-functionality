@@ -7,9 +7,9 @@ use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Color;
+use SIW\Features\Update;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Properties;
-use SIW\Update;
 
 /**
  * @see       https://generatepress.com/

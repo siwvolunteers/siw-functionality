@@ -3,7 +3,7 @@
 namespace SIW\Jobs;
 
 use SIW\Attributes\Add_Action;
-use SIW\Update;
+use SIW\Features\Update;
 
 abstract class Update_Job extends Batch_Job {
 	#[Add_Action( Update::PLUGIN_UPDATED_HOOK )]

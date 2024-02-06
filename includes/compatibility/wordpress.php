@@ -6,8 +6,8 @@ use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Color;
+use SIW\Features\Update;
 use SIW\Properties;
-use SIW\Update;
 
 class WordPress extends Base {
 
