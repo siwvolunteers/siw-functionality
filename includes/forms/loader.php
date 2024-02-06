@@ -2,10 +2,10 @@
 
 namespace SIW\Forms;
 
-use SIW\Abstracts\Object_Loader as Object_Loader_Abstract;
+use SIW\Abstracts\Object_Loader;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 
-class Loader extends Object_Loader_Abstract {
+class Loader extends Object_Loader {
 
 	#[\Override]
 	protected function get_classes(): array {

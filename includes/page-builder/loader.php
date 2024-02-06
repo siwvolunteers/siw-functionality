@@ -2,7 +2,7 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Abstracts\Object_Loader as Object_Loader_Abstract;
+use SIW\Abstracts\Object_Loader;
 
 use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
 use SIW\Interfaces\Page_Builder\Style_CSS as I_Style_CSS;
@@ -10,7 +10,7 @@ use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
 use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
 use SIW\Interfaces\Page_Builder\Settings as I_Settings;
 
-class Loader extends Object_Loader_Abstract {
+class Loader extends Object_Loader {
 
 	#[\Override]
 	public function get_classes(): array {

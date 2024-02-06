@@ -2,10 +2,10 @@
 
 namespace SIW\Widgets;
 
-use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
+use SIW\Abstracts\Class_Loader;
 use SIW\Facades\SiteOrigin;
 
-class Loader extends Class_Loader_Abstract {
+class Loader extends Class_Loader {
 
 	#[\Override]
 	public function get_classes(): array {
