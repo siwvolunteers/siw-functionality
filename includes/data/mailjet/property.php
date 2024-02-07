@@ -20,4 +20,10 @@ enum Property: string {
 			self::AGE_RANGE             => Data_Type::STRING,
 		};
 	}
+
+	public function get_namespace(): Property_Namespace {
+		return match ( $this ) {
+			default => Property_Namespace::STATIC
+		};
+	}
 }

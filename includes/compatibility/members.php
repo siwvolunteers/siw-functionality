@@ -16,7 +16,7 @@ class Members extends Base implements I_Plugin {
 	#[Add_Filter( 'members_users_widget_enabled' )]
 	private const WIDGETS_ENABLED = false;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public static function get_plugin_basename(): string {
 		return 'members/members.php';
 	}

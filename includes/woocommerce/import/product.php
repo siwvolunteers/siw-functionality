@@ -10,6 +10,7 @@ use SIW\Data\Plato\Project as Plato_Project;
 use SIW\Data\Plato\Project_Type as Plato_Project_Type;
 use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Work_Type;
+use SIW\Facades\WooCommerce;
 use SIW\Util\Logger;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Product_Attribute;
@@ -76,7 +77,7 @@ class Product {
 			return false;
 		}
 
-		$product = siw_get_product_by_project_id( $this->plato_project->get_project_id() );
+		$product = WooCommerce::get_product_by_project_id( $this->plato_project->get_project_id() );
 
 		if ( is_a( $product, WC_Product_Project::class ) ) {
 			$this->is_update = true;
@@ -89,7 +90,7 @@ class Product {
 			if ( ! $this->is_allowed_project_type() || ! $this->country->workcamps() || gmdate( 'Y-m-d' ) > $this->plato_project->get_start_date() ) {
 				return false;
 			}
-			$this->product = wc_get_product_object( WC_Product_Project::PRODUCT_TYPE );
+			$this->product = WooCommerce::get_product_object( WC_Product_Project::PRODUCT_TYPE );
 		}
 
 		$this->set_product();
@@ -361,7 +362,7 @@ class Product {
 	}
 
 	protected function create_taxonomy_attribute( Taxonomy_Attribute $taxonomy_attribute, array $values, bool $visible = true ): ?\WC_Product_Attribute {
-		$wc_attribute_taxonomy_id = wc_attribute_taxonomy_id_by_name( $taxonomy_attribute->value );
+		$wc_attribute_taxonomy_id = WooCommerce::attribute_taxonomy_id_by_name( $taxonomy_attribute->value );
 
 		if ( 0 === $wc_attribute_taxonomy_id ) {
 			Logger::warning(

@@ -5,10 +5,11 @@ namespace SIW\WooCommerce\Email;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Data\Color;
 use SIW\Data\Language;
 use SIW\Data\Plato\Language_Skill_Level;
+use SIW\Facades\WooCommerce;
 use SIW\Properties;
-use SIW\Util\CSS;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
 class Emails extends Base {
@@ -30,7 +31,7 @@ class Emails extends Base {
 		?>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td colspan="3" height="20" style="font-family:Verdana, normal; color:<?php echo esc_attr( CSS::CONTRAST_COLOR ); ?>; font-size:0.8em; font-weight:bold; border-top:thin solid <?php echo esc_attr( CSS::CONTRAST_COLOR ); ?>" >
+				<td colspan="3" height="20" style="font-family:Verdana, normal; color:<?php echo esc_attr( Color::CONTRAST->color() ); ?>; font-size:0.8em; font-weight:bold; border-top:thin solid <?php echo esc_attr( Color::CONTRAST->color() ); ?>" >
 					&nbsp;
 				</td>
 			</tr>
@@ -52,11 +53,11 @@ class Emails extends Base {
 	public function show_table_row( string $label, string $value = '&nbsp;' ) {
 		?>
 		<tr>
-			<td width="35%" style="font-family:Verdana, normal; color:<?php echo esc_attr( CSS::CONTRAST_COLOR ); ?>; font-size:0.8em; ">
+			<td width="35%" style="font-family:Verdana, normal; color:<?php echo esc_attr( Color::CONTRAST->color() ); ?>; font-size:0.8em; ">
 				<?php echo wp_kses_post( $label ); ?>
 			</td>
 			<td width="5%"></td>
-			<td width="50%" style="font-family:Verdana, normal; color:<?php echo esc_attr( CSS::CONTRAST_COLOR ); ?>; font-size:0.8em; font-style:italic">
+			<td width="50%" style="font-family:Verdana, normal; color:<?php echo esc_attr( Color::CONTRAST->color() ); ?>; font-size:0.8em; font-style:italic">
 				<?php echo wp_kses_post( $value ); ?>
 			</td>
 		</tr>
@@ -66,7 +67,7 @@ class Emails extends Base {
 	public function show_table_header_row( string $label ) {
 		?>
 		<tr>
-			<td width="35%" style="font-family:Verdana, normal; color:<?php echo esc_attr( CSS::CONTRAST_COLOR ); ?>; font-size:0.8em; font-weight:bold">
+			<td width="35%" style="font-family:Verdana, normal; color:<?php echo esc_attr( Color::CONTRAST->color() ); ?>; font-size:0.8em; font-weight:bold">
 				<?php echo esc_html( $label ); ?>
 			</td>
 			<td width="5%">&nbsp;</td>
@@ -112,15 +113,15 @@ class Emails extends Base {
 			'header' => __( 'Talenkennis', 'siw' ),
 			'rows'   => [
 				[
-					'label' => Language::try_from_plato_code( $order->get_meta( 'language_1' ) ) ?? '',
+					'label' => Language::try_from_plato_code( $order->get_meta( 'language_1' ) ?? '' )?->label() ?? '',
 					'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_1_skill' ) ?? '' )?->label() ?? '',
 				],
 				[
-					'label' => Language::try_from_plato_code( $order->get_meta( 'language_2' ) ) ?? '',
+					'label' => Language::try_from_plato_code( $order->get_meta( 'language_2' ) ?? '' )?->label() ?? '',
 					'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_2_skill' ) ?? '' )?->label() ?? '',
 				],
 				[
-					'label' => Language::try_from_plato_code( $order->get_meta( 'language_3' ) ) ?? '',
+					'label' => Language::try_from_plato_code( $order->get_meta( 'language_3' ) ?? '' )?->label() ?? '',
 					'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_3_skill' ) ?? '' )?->label() ?? '',
 				],
 			],
@@ -164,7 +165,7 @@ class Emails extends Base {
 		$count = 0;
 		foreach ( $order_items as $item ) {
 			++$count;
-			$product = siw_get_product( $item->get_product_id() );
+			$product = WooCommerce::get_product( $item->get_product_id() );
 
 			/* Als project niet meer bestaan alleen de gegevens bij de aanmelding tonen */
 			if ( ! is_a( $product, WC_Product_Project::class ) ) {

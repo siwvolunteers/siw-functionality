@@ -3,9 +3,8 @@
 namespace SIW\Integrations;
 
 use SIW\Config;
-use SIW\Data\Mailjet\Data_Type;
-use SIW\Data\Mailjet\Operation;
-use SIW\Data\Mailjet\Property_Namespace;
+use SIW\Data\Mailjet\Endpoint;
+use SIW\Data\Mailjet\Property;
 use SIW\Helpers\HTTP_Request;
 use SIW\Helpers\Template;
 
@@ -23,7 +22,7 @@ class Mailjet {
 		return $self;
 	}
 
-	protected function get_api_url( Operation $operation, array $args = [] ): ?string {
+	protected function get_api_url( Endpoint $operation, array $args = [] ): ?string {
 		$operation_path = self::API_URL . $operation->value;
 
 		return Template::create()->set_template( $operation_path )->set_context( $args )->parse_template();
@@ -43,7 +42,7 @@ class Mailjet {
 			return false;
 		}
 
-		$url = $this->get_api_url( Operation::SUBSCRIBE_USER_TO_LIST, [ 'list_id' => $list_id ] );
+		$url = $this->get_api_url( Endpoint::SUBSCRIBE_USER_TO_LIST, [ 'list_id' => $list_id ] );
 		$body = [
 			'Email'      => $email,
 			'Action'     => 'addnoforce',
@@ -70,7 +69,7 @@ class Mailjet {
 		$args = wp_parse_args( $args, $defaults );
 		$args = array_filter( $args );
 
-		$url = $this->get_api_url( Operation::MANAGE_LISTS, [] );
+		$url = $this->get_api_url( Endpoint::MANAGE_LISTS, [] );
 
 		$response = $this->create_http_request( $url )->add_query_args( $args )->get();
 		if ( is_wp_error( $response ) ) {
@@ -89,7 +88,7 @@ class Mailjet {
 	}
 
 	public function create_list( string $name ): ?int {
-		$url = $this->get_api_url( Operation::MANAGE_LISTS );
+		$url = $this->get_api_url( Endpoint::MANAGE_LISTS );
 
 		$response = $this->create_http_request( $url )->post( [ 'Name' => $name ] );
 		if ( is_wp_error( $response ) ) {
@@ -99,7 +98,7 @@ class Mailjet {
 	}
 
 	public function retrieve_properties( string $index = 'id' ): array {
-		$url = $this->get_api_url( Operation::MANAGE_PROPERTIES );
+		$url = $this->get_api_url( Endpoint::MANAGE_PROPERTIES );
 		$response = $this->create_http_request( $url )->get();
 
 		if ( is_wp_error( $response ) ) {
@@ -123,13 +122,13 @@ class Mailjet {
 		);
 	}
 
-	public function create_property( string $name, Data_Type $datatype, Property_Namespace $mailjet_namespace = Property_Namespace::STATIC ): ?int {
-		$url = $this->get_api_url( Operation::MANAGE_PROPERTIES );
+	public function create_property( Property $property ): ?int {
+		$url = $this->get_api_url( Endpoint::MANAGE_PROPERTIES );
 
 		$body = [
-			'Name'      => $name,
-			'Datatype'  => $datatype->value,
-			'NameSpace' => $mailjet_namespace->value,
+			'Name'      => $property->value,
+			'Datatype'  => $property->get_data_type()->value,
+			'NameSpace' => $property->get_namespace()->value,
 		];
 		$response = $this->create_http_request( $url )->post( $body );
 		if ( is_wp_error( $response ) ) {

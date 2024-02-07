@@ -3,6 +3,7 @@
 namespace SIW;
 
 use SIW\Autoloader;
+use SIW\Features\Update;
 
 class Bootstrap {
 
@@ -106,7 +107,6 @@ class Bootstrap {
 
 	protected function init_loaders() {
 		$loaders = [
-			\SIW\Loader::class,
 			\SIW\Admin\Loader::class,
 			\SIW\Compatibility\Loader::class,
 			\SIW\Content\Loader::class,

@@ -14,7 +14,7 @@ enum Language_Skill_Level: string implements Labels {
 	case INTERMEDIATE = '3';
 	case ADVANCED = '4';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::BEGINNER => __( 'Matig', 'siw' ),

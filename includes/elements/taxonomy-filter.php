@@ -6,7 +6,7 @@ class Taxonomy_Filter extends Element {
 
 	protected \WP_Taxonomy $taxonomy;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'taxonomy' => $this->taxonomy,
@@ -23,6 +23,7 @@ class Taxonomy_Filter extends Element {
 		return $this;
 	}
 
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style();
 	}

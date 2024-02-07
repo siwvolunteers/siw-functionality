@@ -4,6 +4,7 @@ namespace SIW\Abstracts;
 
 abstract class Object_Loader extends Loader {
 
+	#[\Override]
 	protected function load_classes( array $classes ) {
 		array_walk( $classes, fn( string $class_name ) => $this->load( new $class_name() ) );
 	}

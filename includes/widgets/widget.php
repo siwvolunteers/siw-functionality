@@ -11,7 +11,10 @@ abstract class Widget extends \SiteOrigin_Widget {
 
 	protected const DEFAULT_TEMPLATE_ID = 'default';
 
-	abstract protected function get_id(): string;
+	final protected function get_id(): string {
+		$id_base = explode( '\\', static::class );
+		return strtolower( end( $id_base ) );
+	}
 
 	abstract protected function get_name(): string;
 
@@ -47,7 +50,7 @@ abstract class Widget extends \SiteOrigin_Widget {
 		return [];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	final public function get_widget_form() {
 
 		$widget_form = [];

@@ -6,6 +6,8 @@ use SIW\Attributes\Add_Action;
 use SIW\Data\Country;
 use SIW\Data\Database_Table;
 use SIW\Data\Job_Frequency;
+use SIW\Facades\Slim_SEO;
+use SIW\Facades\WooCommerce;
 use SIW\Helpers\Database;
 use SIW\Jobs\Scheduled_Job;
 use SIW\WooCommerce\Import\Product_Image as Import_Product_Image;
@@ -20,24 +22,24 @@ class Update_Projects extends Scheduled_Job {
 
 	protected WC_Product_Project $product;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return __( 'Bijwerken projecten', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_frequency(): Job_Frequency {
 		return Job_Frequency::TWICE_DAILY;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function start(): void {
-		$this->enqueue_items( siw_get_product_ids(), self::ACTION_HOOK );
+		$this->enqueue_items( WooCommerce::get_product_ids(), self::ACTION_HOOK );
 	}
 
 	#[Add_Action( self::ACTION_HOOK )]
 	public function update_project( string $product_id ) {
-		$product = siw_get_product( $product_id );
+		$product = WooCommerce::get_product( $product_id );
 
 		if ( ! is_a( $product, WC_Product_Project::class ) ) {
 			return false;
@@ -104,6 +106,7 @@ class Update_Projects extends Scheduled_Job {
 
 		if ( $visibility !== $this->product->get_catalog_visibility() ) {
 			$this->product->set_catalog_visibility( $visibility );
+			Slim_SEO::set_noindex( $this->product->get_id(), 'hidden' === $visibility );
 
 			if ( 'hidden' === $visibility ) {
 				$this->product->set_featured( false );

@@ -9,29 +9,29 @@ class Bulk extends Virtual_Coupon {
 
 	private const SESSION_VARIABLE = 'bulk_discount_product_ids';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_coupon_code(): string {
 		return 'korting-meerdere-projecten';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_discount_type(): string {
 		return 'percent';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_description(): string {
 		return 'Korting meerdere projecten';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_coupon_data(): array {
 		return [
 			'product_ids' => WC()?->session?->get( static::SESSION_VARIABLE ) ?? [],
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_amount(): float {
 		return Config::get_discount_percentage_second_project();
 	}

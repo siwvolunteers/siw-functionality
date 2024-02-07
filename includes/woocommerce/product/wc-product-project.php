@@ -13,7 +13,6 @@ class WC_Product_Project extends \WC_Product_Simple {
 
 	public const PRODUCT_TYPE = 'project';
 
-	/** {@inheritDoc} */
 	protected $extra_data = [
 		'project_id'                     => null,
 		'checksum'                       => null,
@@ -35,7 +34,7 @@ class WC_Product_Project extends \WC_Product_Simple {
 		'excluded_from_student_discount' => false,
 	];
 
-	/** {@inheritDoc } */
+	#[\Override]
 	public function get_type() {
 		return self::PRODUCT_TYPE;
 	}
@@ -46,48 +45,48 @@ class WC_Product_Project extends \WC_Product_Simple {
 	|--------------------------------------------------------------------------
 	*/
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function is_virtual(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_virtual( $context = 'view' ): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function is_sold_individually(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_sold_individually( $context = 'view' ): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function is_purchasable(): bool {
 		return $this->is_visible();
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function is_in_stock(): bool {
 		return $this->is_visible();
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_price( $context = 'view' ) {
 		return $this->is_on_sale() ? $this->get_sale_price() : $this->get_regular_price();
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_sale_price( $context = 'view' ) {
 		// Eventueel overschrijven als er weer kortingsacties nodig zijn
 		return null;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_regular_price( $context = 'view' ) {
 
 		if ( '' !== $this->get_custom_price() ) {
@@ -105,19 +104,19 @@ class WC_Product_Project extends \WC_Product_Simple {
 		return (string) Config::get_stv_project_fee();
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_date_on_sale_from( $context = 'view' ): ?\WC_DateTime {
 		// Eventueel overschrijven als er weer kortingsacties nodig zijn
 		return null;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_date_on_sale_to( $context = 'view' ): ?\WC_DateTime {
 		// Eventueel overschrijven als er weer kortingsacties nodig zijn
 		return null;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function single_add_to_cart_text(): string {
 		return __( 'Aanmelden', 'siw' );
 	}

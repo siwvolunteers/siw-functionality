@@ -2,8 +2,9 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Elements\List_Style_Type;
 use SIW\Elements\List_Columns;
-use SIW\Elements\List_Style_Type;
+use SIW\Facades\Meta_Box;
 
 /**
  * Widget Name: SIW: Social links
@@ -13,44 +14,39 @@ use SIW\Elements\List_Style_Type;
  */
 class Sponsors extends Widget {
 
-	/** {@inheritDoc} */
-	protected function get_id(): string {
-		return 'sponsors';
-	}
-
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Sponsors', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont links naar sponsors', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'money';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
-		$sponsors = siw_get_option( 'sponsors' );
+		$sponsors = Meta_Box::get_option( 'sponsors' );
 		if ( empty( $sponsors ) ) {
 			return [];
 		}

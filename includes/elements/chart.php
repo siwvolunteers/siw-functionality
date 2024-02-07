@@ -2,20 +2,13 @@
 
 namespace SIW\Elements;
 
+use SIW\Data\Elements\Chart_Type;
 use SIW\External_Assets\Frappe_Charts;
 use SIW\External_Assets\Polyfill;
 
 class Chart extends Element {
 
-	public const CHART_TYPE_LINE = 'line';
-	public const CHART_TYPE_BAR = 'bar';
-	public const CHART_TYPE_AXIS_MIXED = 'axis-mixed';
-	public const CHART_TYPE_SCATTER = 'scatter';
-	public const CHART_TYPE_PIE = 'pie';
-	public const CHART_TYPE_PERCENTAGE = 'percentage';
-	public const CHART_TYPE_HEATMAT = 'heatmap';
-
-	protected string $chart_type;
+	protected Chart_Type $chart_type;
 	protected ?string $title = null;
 	protected array $colors = [];
 
@@ -24,7 +17,6 @@ class Chart extends Element {
 	protected bool $truncate_legends = true;
 	protected int $max_slices = 7;
 	protected array $tooltip_options = [];
-
 
 	/** Data voor grafiek */
 	protected array $labels = [];
@@ -35,12 +27,12 @@ class Chart extends Element {
 	/** Opties voor grafiek */
 	protected array $options = [];
 
-	public function set_chart_type( string $chart_type ): self {
+	public function set_chart_type( Chart_Type $chart_type ): self {
 		$this->chart_type = $chart_type;
 		return $this;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'options' => array_filter(
@@ -52,7 +44,7 @@ class Chart extends Element {
 						'yRegions' => $this->y_regions,
 					],
 					'title'            => $this->title,
-					'type'             => $this->chart_type,
+					'type'             => $this->chart_type->value,
 					'animate'          => $this->animate,
 					'height'           => $this->height,
 					'colors'           => $this->colors,
@@ -90,11 +82,11 @@ class Chart extends Element {
 		return $this;
 	}
 
-	public function add_dataset( array $values, string $name = null, string $chart_type = null ): self {
+	public function add_dataset( array $values, string $name = null, Chart_Type $chart_type = null ): self {
 		$this->datasets[] = array_filter(
 			[
 				'name'      => $name,
-				'chartType' => $chart_type,
+				'chartType' => $chart_type?->value,
 				'values'    => $values,
 			]
 		);
@@ -102,6 +94,7 @@ class Chart extends Element {
 		return $this;
 	}
 
+	#[\Override]
 	public function enqueue_scripts() {
 		self::enqueue_class_script( [ Frappe_Charts::get_asset_handle(), Polyfill::get_asset_handle() ] );
 	}

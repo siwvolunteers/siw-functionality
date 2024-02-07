@@ -153,7 +153,7 @@ enum Nationality: string implements Labels {
 	case ZIM = 'ZIM';
 	case ZMB = 'ZMB';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		// phpcs:disable WordPress.WP.I18n.TextDomainMismatch
 		return match ( $this ) {

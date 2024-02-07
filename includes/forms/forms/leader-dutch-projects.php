@@ -2,26 +2,29 @@
 
 namespace SIW\Forms\Forms;
 
+use SIW\Data\Country;
+use SIW\Facades\WooCommerce;
 use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
 use SIW\Interfaces\Forms\Form as Form_Interface;
 use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
+
 class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
 
 	public const FORM_ID = 'leader_dutch_projects';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_id(): string {
 		return self::FORM_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_name(): string {
 		return __( 'Aanmelding projectbegeleider NP', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_fields(): array {
 		return [
 			[
@@ -67,22 +70,22 @@ class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interfa
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_subject(): string {
 		return 'Aanmelding projectbegeleider';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_message(): string {
 		return 'Via de website is onderstaande aanmelding voor begeleider NP binnengekomen:';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_subject(): string {
 		return __( 'Bevestiging aanmelding', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_message(): string {
 		// translators: %s is de voornaam van de klant
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
@@ -108,11 +111,10 @@ class Leader_Dutch_Projects implements Form_Interface, Confirmation_Mail_Interfa
 		$project_options[''] = __( 'Geen voorkeur', 'siw' );
 
 		$args = [
-			'country' => 'nederland',
+			'country' => Country::NETHERLANDS->value,
 		];
-		$projects = siw_get_products( $args );
 		$projects = array_filter(
-			siw_get_products( $args ),
+			WooCommerce::get_products( $args ),
 			fn( WC_Product_Project $project ): bool => ! $project->is_hidden()
 		);
 

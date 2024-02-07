@@ -5,8 +5,8 @@ namespace SIW\Features;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Data\Color;
 use SIW\Properties;
-use SIW\Util\CSS;
 
 /**
  * @see https://developer.mozilla.org/en-US/docs/Web/Manifest
@@ -42,8 +42,8 @@ class Web_App_Manifest extends Base {
 			'display'          => 'browser',
 			'orientation'      => 'any',
 			'dir'              => 'ltr',
-			'theme_color'      => CSS::ACCENT_COLOR,
-			'background_color' => CSS::BASE_COLOR,
+			'theme_color'      => Color::ACCENT->color(),
+			'background_color' => Color::BASE->color(),
 			'icons'            => [
 				[
 					'src'   => get_site_icon_url( 192 ),

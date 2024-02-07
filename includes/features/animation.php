@@ -5,8 +5,8 @@ namespace SIW\Features;
 use SIW\External_Assets\SAL;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
+use SIW\Data\Breakpoint;
 use SIW\Traits\Class_Assets;
-use SIW\Util\CSS;
 
 class Animation extends Base {
 
@@ -29,7 +29,7 @@ class Animation extends Base {
 			[
 				'threshold'  => self::THRESHOLD,
 				'once'       => true,
-				'breakpoint' => CSS::MOBILE_BREAKPOINT,
+				'breakpoint' => Breakpoint::MOBILE->value,
 			]
 		);
 		wp_enqueue_script( self::get_asset_handle() );
@@ -37,7 +37,7 @@ class Animation extends Base {
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function register_style() {
-		$max_width = CSS::MOBILE_BREAKPOINT;
+		$max_width = Breakpoint::MOBILE->value;
 		wp_register_style( self::get_asset_handle(), self::get_style_asset_url(), [ SAL::get_asset_handle() ], SIW_PLUGIN_VERSION, "(max-width: {$max_width}px)" );
 		// TODO: bug melden omdat wp_maybe_inline_styles() media query niet overneemt
 		// wp_style_add_data( self::ASSETS_HANDLE, 'path', SIW_ASSETS_DIR . 'css/animation.css' );

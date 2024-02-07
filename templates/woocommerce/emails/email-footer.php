@@ -7,11 +7,10 @@
  * @version     2.3.0
  */
 
+use SIW\Data\Color;
 use SIW\Data\Social_Network;
 use SIW\Data\Social_Network_Context;
 use SIW\Properties;
-use SIW\Util\CSS;
-use SIW\Util\Links;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -23,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									</tr>
 									<tr>
 										<td width="10%">&nbsp;</td>
-										<td width="80%" height="20" style="border-bottom:thin solid <?= CSS::ACCENT_COLOR;?>"></td>
+										<td width="80%" height="20" style="border-bottom:thin solid <?= Color::ACCENT->color();?>"></td>
 										<td width="10%">&nbsp;</td>
 									</tr>
 								</table>
@@ -55,21 +54,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 										<td width="40%">&nbsp;</td>
 											<?php foreach ( Social_Network::filter( Social_Network_Context::FOLLOW ) as $network ) :?>
 											<td width="auto" align="center">
-												<?php
-													echo Links::generate_image_link(
-														$network->profile_url(),
-														[
-															'src'    => SIW_ASSETS_URL . 'images/mail/' . $network->value . '.png',
-															'alt'    => $network->value,
-															'title'  =>  sprintf( __( 'Volg ons op %s', 'siw' ), $network->label() ),
-															'width'  => 20,
-															'height' => 20,
-														],
-														[
-															'target' => '_blank'
-														]
-													);
-												?>
+												<a href="<?php echo esc_url( $network->profile_url() ); ?>" target="_blank">
+													<img src="<?php echo esc_url( SIW_ASSETS_URL . 'images/mail/' . $network->value . '.png' )?>" width="20" heigth="20" alt="<?php echo esc_attr( $network->value );?>"/>
+												</a>
 											</td>
 											<?php endforeach; ?>
 										<td width="40%">&nbsp;</td>

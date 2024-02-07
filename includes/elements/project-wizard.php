@@ -3,15 +3,15 @@
 namespace SIW\Elements;
 
 use SIW\Data\Project_Type;
+use SIW\Facades\WooCommerce;
 use SIW\Interfaces\Forms\Form;
-use SIW\Util\Links;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 class Project_Wizard extends Element {
 
 	protected \RW_Meta_Box $meta_box;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		ob_start();
 		$this->meta_box->show();
@@ -21,7 +21,7 @@ class Project_Wizard extends Element {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function initialize() {
 		$meta_box = [
 			'title'       => __( 'Keuzehulp', 'siw' ),
@@ -95,7 +95,7 @@ class Project_Wizard extends Element {
 					'std'     => sprintf(
 						'%s %s',
 						'Begin je zoektocht eens bij de <em>groepsprojecten</em>.',
-						$this->generate_link( wc_get_page_permalink( 'shop' ) )
+						$this->generate_link( WooCommerce::get_page_permalink( 'shop' ) )
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',
@@ -126,7 +126,7 @@ class Project_Wizard extends Element {
 					'std'     => sprintf(
 						'%s %s',
 						'Begin je zoektocht eens bij de <em>groepsprojecten</em>.',
-						$this->generate_link( wc_get_page_permalink( 'shop' ) )
+						$this->generate_link( WooCommerce::get_page_permalink( 'shop' ) )
 					),
 					'columns' => Form::FULL_WIDTH,
 					'class'   => 'wizard-result',
@@ -169,17 +169,15 @@ class Project_Wizard extends Element {
 	}
 
 	protected function generate_link( string $url ): string {
-		return Links::generate_link(
-			$url,
-			__( 'Lees meer', 'siw' ),
-			[
-				'class' => 'page-link',
-			]
-		);
+		return Link::create()
+			->set_url( $url )
+			->set_text( __( 'Lees meer', 'siw' ) )
+			->add_class( 'page-link' )
+			->generate();
 	}
 
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function enqueue_styles() {
 		$this->meta_box->enqueue();
 		self::enqueue_class_style();

@@ -49,7 +49,7 @@ enum Sustainable_Development_Goal: int implements Labels, Colors {
 		};
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function color(): string {
 		return match ( $this ) {
 			self::GOAL_1 => '#e5243b',

@@ -31,7 +31,7 @@ class WPML extends Base implements I_Plugin {
 		'wpml_operate_woocommerce_multilingual',
 	];
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public static function get_plugin_basename(): string {
 		return 'sitepress-multilingual-cms/sitepress.php';
 	}

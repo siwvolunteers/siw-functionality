@@ -5,6 +5,7 @@ namespace SIW\WooCommerce\Product;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Compatibility\WooCommerce;
+use SIW\Facades\WooCommerce as WooCommerce_Facade;
 use SIW\Helpers\Template;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
@@ -83,7 +84,7 @@ class SEO extends Base {
 			return $index;
 		}
 
-		$product = siw_get_product( $post_id );
+		$product = WooCommerce_Facade::get_product( $post_id );
 		if ( ! is_a( $product, WC_Product_Project::class ) ) {
 			return $index;
 		}
@@ -97,7 +98,7 @@ class SEO extends Base {
 			return $title;
 		}
 
-		$product = siw_get_product( $queried_object_id );
+		$product = WooCommerce_Facade::get_product( $queried_object_id );
 		if ( ! is_a( $product, WC_Product_Project::class ) ) {
 			return $title;
 		}
@@ -112,7 +113,7 @@ class SEO extends Base {
 	#[Add_Filter( 'slim_seo_meta_description_generated' )]
 	public function set_single_seo_description( string $description, ?\WP_Post $post ): string {
 
-		$product = siw_get_product( $post );
+		$product = WooCommerce_Facade::get_product( $post );
 		if ( ! is_a( $product, WC_Product_Project::class ) ) {
 			return $description;
 		}

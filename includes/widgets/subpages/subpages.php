@@ -10,42 +10,37 @@ namespace SIW\Widgets;
  */
 class Subpages extends Widget {
 
-	/** {@inheritDoc} */
-	protected function get_id(): string {
-		return 'subpages';
-	}
-
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( "Subpagina's", 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( "Toont subpagina's", 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return $this->get_id();
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'networking';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return false;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return false;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
 		$parent_id = get_the_ID();
@@ -86,7 +81,7 @@ class Subpages extends Widget {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function initialize() {
 		$this->register_frontend_styles(
 			[

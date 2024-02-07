@@ -7,7 +7,7 @@ namespace SIW\Structured_Data;
  */
 class Event extends Thing {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_type(): string {
 		return 'Event';
 	}

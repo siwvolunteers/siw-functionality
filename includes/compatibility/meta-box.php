@@ -17,7 +17,7 @@ class Meta_Box extends Base implements I_Plugin {
 	#[Add_Filter( 'rwmb_excerpt_value' )]
 	private const EXCERPT_VALUE = '__return_empty_string';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public static function get_plugin_basename(): string {
 		return 'meta-box-aio/meta-box-aio.php';
 	}

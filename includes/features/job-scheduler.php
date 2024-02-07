@@ -5,9 +5,8 @@ namespace SIW\Features;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Data\Job_Frequency;
-use SIW\Data\Job_Time;
+use SIW\Features\Update;
 use SIW\Jobs\Scheduled_Job;
-use SIW\Update;
 
 class Job_Scheduler extends Base {
 

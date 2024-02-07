@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use SIW\Util\CSS;
+use SIW\Data\Color;
 
 /*
  * @hooked WC_Emails::email_header() Output the email header
@@ -27,7 +27,7 @@ use SIW\Util\CSS;
 do_action( 'woocommerce_email_header', $email_heading, $email );
 
 ?>
-<div style="font-family:Verdana, normal; color:<?= CSS::CONTRAST_COLOR;?>; font-size:0.9em; ">
+<div style="font-family:Verdana, normal; color:<?= Color::CONTRAST->color();?>; font-size:0.9em; ">
 	<p>
 		<?php
 		printf( esc_html__( 'Beste %s,', 'siw'), $order->get_billing_first_name() ); echo BR2;

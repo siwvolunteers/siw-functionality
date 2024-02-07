@@ -132,7 +132,7 @@ class Config {
 	}
 
 	public static function get_school_project_fee(): int {
-		return self::get_constant_value( 'SIW_STUDENT_DISCOUNT_AMOUNT' );
+		return self::get_constant_value( 'SIW_SCHOOL_PROJECT_FEE' );
 	}
 
 	public static function get_esc_deposit(): int {

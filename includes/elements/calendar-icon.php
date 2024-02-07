@@ -6,7 +6,7 @@ class Calendar_Icon extends Element {
 
 	protected \DateTime $date_time;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'day'   => [
@@ -25,6 +25,7 @@ class Calendar_Icon extends Element {
 		return $this;
 	}
 
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style();
 	}

@@ -11,7 +11,7 @@ use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
  */
 class SiteOrigin_Widgets_Bundle extends Base implements I_Plugin {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public static function get_plugin_basename(): string {
 		return 'so-widgets-bundle/so-widgets-bundle.php';
 	}

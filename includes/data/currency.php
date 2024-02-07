@@ -25,7 +25,7 @@ enum Currency: string implements Labels {
 	case USD = 'USD';
 	case VND = 'VND';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			// phpcs:disable WordPress.WP.I18n.TextDomainMismatch

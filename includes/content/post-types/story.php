@@ -11,27 +11,27 @@ use SIW\Elements\Quote;
 
 class Story extends Post_Type {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_dashicon(): string {
 		return 'format-gallery';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_slug(): string {
 		return 'ervaringen';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_singular_label(): string {
 		return __( 'Ervaringsverhaal', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_plural_label(): string {
 		return __( 'Ervaringsverhalen', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_post_type_supports(): array {
 		return [
 			Post_Type_Support::TITLE,
@@ -39,22 +39,22 @@ class Story extends Post_Type {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_admin_columns(): array {
 		return [];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_site_sortables(): array {
 		return [];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_custom_post( \WP_Post|int $post ): Story_Post {
 		return new Story_Post( $post );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public static function get_meta_box_fields(): array {
 		$meta_box_fields = [
 			[
@@ -135,7 +135,7 @@ class Story extends Post_Type {
 		return $meta_box_fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_taxonomies(): array {
 		$taxonomies['continent'] = [
 			'names' => [
@@ -160,7 +160,7 @@ class Story extends Post_Type {
 		return $taxonomies;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables( string $type, int $post_id ): array {
 		$post = new Story_Post( $post_id );
 

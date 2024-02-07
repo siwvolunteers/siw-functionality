@@ -19,42 +19,37 @@ class Calendar extends Widget {
 	/** Maximaal aantal events wat in widget getoond wordt */
 	private const MAX_NUMBER_OF_EVENTS = 5;
 
-	/** {@inheritDoc} */
-	protected function get_id(): string {
-		return 'calendar';
-	}
-
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Agenda', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont eerstvolgende evenementen', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return $this->get_id();
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'calendar';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_widget_fields(): array {
 		$widget_fields = [
 			'number'        => [
@@ -80,7 +75,7 @@ class Calendar extends Widget {
 		return $widget_fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
 		if ( $instance['only_infodays'] ) {
@@ -107,7 +102,7 @@ class Calendar extends Widget {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function initialize() {
 		$this->register_frontend_styles(
 			[

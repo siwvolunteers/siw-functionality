@@ -7,6 +7,7 @@ use SIW\Util\Logger;
 
 abstract class Base_Loader extends Loader {
 
+	#[\Override]
 	protected function load_classes( array $classes ) {
 		array_walk( $classes, fn( string $class_name ) => $this->load( $class_name ) );
 	}

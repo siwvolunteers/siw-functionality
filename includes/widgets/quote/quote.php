@@ -2,7 +2,7 @@
 
 namespace SIW\Widgets;
 
-use SIW\Data\Country;
+use SIW\Content\Post\Story;
 use SIW\Elements\Blockquote;
 
 /**
@@ -16,42 +16,37 @@ class Quote extends Widget {
 	private const CONTINENT_TAXONOMY = 'siw_story_continent';
 	private const PROJECT_TYPE_TAXONOMY = 'siw_story_project_type';
 
-	/** {@inheritDoc} */
-	protected function get_id(): string {
-		return 'quote';
-	}
-
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Quote', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont quote van deelnemer', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'editor-quote';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return false;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_widget_fields(): array {
 		$widget_form = [
 			'continent'    => [
@@ -68,7 +63,7 @@ class Quote extends Widget {
 		return $widget_form;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 		$quote = $this->get_quote( $instance['continent'], $instance['project_type'] );
 
@@ -86,7 +81,7 @@ class Quote extends Widget {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function initialize() {
 		$this->register_frontend_styles(
 			[
@@ -139,14 +134,16 @@ class Quote extends Widget {
 		}
 
 		$post_id = $post_ids[0];
-		$rows = siw_meta( 'rows', [], $post_id );
+		$story_post = new Story( $post_id );
 
-		$quotes = dot( $rows )->get( '*.quote' );
+		$rows = $story_post->get_rows();
+
+		$quotes = wp_list_pluck( $rows, 'quote' );
 
 		$quote = [
 			'quote'        => $quotes[ array_rand( $quotes, 1 ) ],
-			'name'         => siw_meta( 'name', [], $post_id ),
-			'country'      => Country::tryFrom( siw_meta( 'country', [], $post_id ) )?->label(),
+			'name'         => $story_post->get_name(),
+			'country'      => $story_post->get_country()?->label(),
 			'project_type' => wp_get_post_terms( $post_id, self::PROJECT_TYPE_TAXONOMY )[0]->name,
 		];
 		return $quote;

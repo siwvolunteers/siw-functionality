@@ -9,7 +9,7 @@ namespace SIW\Plato;
  */
 class Import_Dutch_Workcamps extends Import_Workcamps {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected string $endpoint = 'GetPartnerProjects';
 
 	/** Geef aan dat dit Nederlandse projecten zijn */

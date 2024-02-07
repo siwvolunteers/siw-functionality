@@ -12,7 +12,7 @@ use SIW\Helpers\Database;
  */
 class Import_Workcamps extends Import {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected string $endpoint = 'GetAllProjects';
 
 	/** Geef aan dat dit geen Nederlandse projecten zijn */

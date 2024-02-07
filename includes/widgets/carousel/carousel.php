@@ -5,6 +5,7 @@ namespace SIW\Widgets;
 use SIW\Compatibility\WooCommerce;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Carousel as Element_Carousel;
+use SIW\Facades\WooCommerce as WooCommerce_Facade;
 use SIW\Util\Carousel as Carousel_Util;
 
 /**
@@ -18,42 +19,37 @@ class Carousel extends Widget {
 	private const DEFAULT_NUMBER_OF_COLUMNS = 4;
 	private const DEFAULT_NUMBER_OF_ITEMS = 6;
 
-	/** {@inheritDoc} */
-	protected function get_id(): string {
-		return 'carousel';
-	}
-
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Carousel', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont carousel', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return self::DEFAULT_TEMPLATE_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'format-gallery';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_widget_fields(): array {
 		$widget_form = [
 			'items'     => [
@@ -124,7 +120,7 @@ class Carousel extends Widget {
 		return $widget_form;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
 		if ( ! isset( $instance['post_type'] ) || empty( $instance['post_type'] ) ) {
@@ -175,7 +171,7 @@ class Carousel extends Widget {
 
 			$posts = array_map(
 				[ Carousel_Util::class, 'product_to_carousel_slide' ],
-				siw_get_products( $args )
+				WooCommerce_Facade::get_products( $args )
 			);
 		} else {
 			$args['post_type'] = $instance['post_type'];

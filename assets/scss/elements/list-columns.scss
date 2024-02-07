@@ -18,10 +18,6 @@ ul {
 		check
 	);
 
-	&[data-list-style-type] {
-		list-style-position: inside;
-	}
-
 	@each $style in $list-style-types {
 		&[data-list-style-type="#{$style}"] li {
 			list-style-type: $style;
@@ -31,7 +27,17 @@ ul {
 		}
 	}
 
-	.footer-widgets & {
-		list-style-position: inside;
+	$list-style-positions: (
+		outside,
+		inside
+	);
+
+	@each $position in $list-style-positions {
+		&[data-list-style-position="#{$position}"] li {
+			list-style-position: $position;
+			.panel-layout .widget & {
+				list-style-position: $position;
+			}
+		}
 	}
 }

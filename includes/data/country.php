@@ -112,7 +112,7 @@ enum Country: string implements Labels, Plato_Code {
 	case UNITED_STATES = 'verenigde-staten';
 
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		// phpcs:disable WordPress.WP.I18n.TextDomainMismatch
 		return match ( $this ) {
@@ -217,7 +217,7 @@ enum Country: string implements Labels, Plato_Code {
 		// phpcs:enable WordPress.WP.I18n.TextDomainMismatch
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function plato_code(): string {
 		return match ( $this ) {
 			// Afrikaanse landen

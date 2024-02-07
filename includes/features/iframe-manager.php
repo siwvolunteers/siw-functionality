@@ -4,9 +4,9 @@ namespace SIW\Features;
 
 use SIW\Attributes\Add_Action;
 use SIW\Base;
+use SIW\Elements\Link;
 use SIW\External_Assets\Iframe_Manager as Iframe_Manager_Asset;
 use SIW\Traits\Class_Assets;
-use SIW\Util\Links;
 
 class Iframe_Manager extends Base {
 
@@ -48,8 +48,15 @@ class Iframe_Manager extends Base {
 								determine_locale() => [
 									'notice'     =>
 										__( 'Deze inhoud wordt gehost door een derde partij.', 'siw' ) . SPACE .
-										// translators: %s is de link naar de algemene voorwaarden van YouTube
-										sprintf( __( 'Door de video te laden, accepteer je de %s van YouTube', 'siw' ), Links::generate_external_link( 'https://www.youtube.com/t/terms', __( 'algemene voorwaarden', 'siw' ) ) ),
+										sprintf(
+											// translators: %s is de link naar de algemene voorwaarden van YouTube
+											__( 'Door de video te laden, accepteer je de %s van YouTube', 'siw' ),
+											Link::create()
+												->set_url( 'https://www.youtube.com/t/terms' )
+												->set_text( __( 'algemene voorwaarden', 'siw' ) )
+												->set_is_external()
+												->generate()
+										),
 									'loadBtn'    => __( 'Deze video laden', 'siw' ),
 									'loadAllBtn' => __( 'Vraag het niet opnieuw', 'siw' ),
 								],

@@ -13,42 +13,37 @@ use SIW\Elements\Social_Links as Social_Links_Element;
  */
 class Social_Links extends Widget {
 
-	/** {@inheritDoc} */
-	protected function get_id(): string {
-		return 'social_links';
-	}
-
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Social links', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont links naar sociale netwerken', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'share';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_widget_fields(): array {
 		$widget_form = [
 			'context' => [
@@ -61,7 +56,7 @@ class Social_Links extends Widget {
 		return $widget_form;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 		return [
 			'content' => Social_Links_Element::create()->set_context( Social_Network_Context::tryFrom( $instance['context'] ) )->generate(),

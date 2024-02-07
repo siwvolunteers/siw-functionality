@@ -4,6 +4,7 @@ namespace SIW\Jobs\Batch;
 
 use SIW\Attributes\Add_Action;
 use SIW\Data\Job_Frequency;
+use SIW\Facades\WooCommerce;
 use SIW\Jobs\Scheduled_Job;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
@@ -14,17 +15,17 @@ class Update_WooCommerce_Terms extends Scheduled_Job {
 	/** Term meta voor aantal zichtbare posts */
 	private const POST_COUNT_TERM_META = 'post_count';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return 'Bijwerken WooCommerce terms';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_frequency(): Job_Frequency {
 		return Job_Frequency::DAILY;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function start(): void {
 
 		$data = get_terms(
@@ -63,13 +64,13 @@ class Update_WooCommerce_Terms extends Scheduled_Job {
 			],
 		];
 
-		$visible_posts = siw_get_product_ids(
+		$visible_posts = WooCommerce::get_product_ids(
 			[
 				'tax_query'  => $tax_query,
 				'visibility' => 'visible',
 			]
 		);
-		$posts = siw_get_product_ids(
+		$posts = WooCommerce::get_product_ids(
 			[
 				'tax_query' => $tax_query,
 			]

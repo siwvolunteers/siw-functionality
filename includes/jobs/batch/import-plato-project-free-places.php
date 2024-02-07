@@ -12,17 +12,17 @@ class Import_Plato_Project_Free_Places extends Scheduled_Job {
 
 	private const ACTION_HOOK = self::class;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_frequency(): Job_Frequency {
 		return Job_Frequency::TWICE_DAILY;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return __( 'Importeren vrije plaatsen uit Plato', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function start(): void {
 		$import = new Import_FPL();
 		$this->enqueue_items( $import->run(), self::ACTION_HOOK );

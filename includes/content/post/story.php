@@ -6,11 +6,12 @@ use SIW\Data\Country;
 
 class Story extends Post {
 
+	#[\Override]
 	public function get_thumbnail_id(): int {
 		return $this->get_rows()[0]['image'][0] ?? 0;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_excerpt(): string {
 		return sprintf(
 			'%s | %s',

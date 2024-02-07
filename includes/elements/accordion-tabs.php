@@ -2,25 +2,25 @@
 
 namespace SIW\Elements;
 
+use SIW\Data\Breakpoint;
 use SIW\External_Assets\A11Y_Accordion_Tabs;
-use SIW\Util\CSS;
 
 class Accordion_Tabs extends Repeater {
 
 	protected bool $tabs_allowed = false;
 	protected bool $start_collapsed = true;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'panes'           => $this->items,
 			'tabs_allowed'    => wp_json_encode( $this->tabs_allowed ),
-			'breakpoint'      => CSS::MOBILE_BREAKPOINT,
+			'breakpoint'      => Breakpoint::MOBILE->value,
 			'start_collapsed' => wp_json_encode( $this->start_collapsed ),
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function parse_item( array $item ): array {
 		return [
 			'section_id' => wp_unique_prefixed_id( 'siw-accordion-section-' ),
@@ -36,7 +36,7 @@ class Accordion_Tabs extends Repeater {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_item_defaults(): array {
 		return [
 			'title'       => '',
@@ -61,7 +61,7 @@ class Accordion_Tabs extends Repeater {
 	}
 
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function initialize() {
 		$this->add_class( 'js-tabs' );
 	}

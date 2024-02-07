@@ -8,7 +8,7 @@ class Blockquote extends Element {
 	protected string $name;
 	protected string $source;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'quote'  => $this->quote,

@@ -2,6 +2,7 @@
 
 namespace SIW\Features;
 
+use luizbills\CSS_Generator\Generator;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
@@ -22,13 +23,17 @@ class Login extends Base {
 	public function enqueue_style() {
 		self::enqueue_class_style();
 
-		$css = new \GeneratePress_Backgrounds_CSS();
+		$css_generator = new Generator();
 
 		$logo_id = get_theme_mod( 'custom_logo' );
 		if ( false !== $logo_id ) {
 			$logo_url = wp_get_attachment_image_url( $logo_id, 'full' );
-			$css->set_selector( 'html body.login h1 a' );
-			$css->add_property( 'background-image', esc_url( $logo_url ), 'url' );
+			$css_generator->add_rule(
+				'html body.login h1 a',
+				[
+					'background-image' => sprintf( 'url(%s)', esc_url( $logo_url ) ),
+				]
+			);
 		}
 
 		$background_image = get_theme_mod( 'siw_login_background_image' );
@@ -36,15 +41,19 @@ class Login extends Base {
 			$background_size = get_theme_mod( 'siw_login_background_size' );
 			$background_size = ( '100' === $background_size ) ? '100% auto' : esc_attr( $background_size );
 
-			$css->set_selector( 'html' );
-			$css->add_property( 'background-image', esc_url( $background_image ), 'url' );
-			$css->add_property( 'background-repeat', esc_attr( get_theme_mod( 'siw_login_background_repeat' ) ) );
-			$css->add_property( 'background-size', esc_attr( $background_size ) );
-			$css->add_property( 'background-attachment', esc_attr( get_theme_mod( 'siw_login_background_attachment' ) ) );
-			$css->add_property( 'background-position', esc_attr( get_theme_mod( 'siw_login_background_position' ) ) );
+			$css_generator->add_rule(
+				'html',
+				[
+					'background-image'      => sprintf( 'url(%s)', esc_url( $background_image ) ),
+					'background-repeat'     => esc_attr( get_theme_mod( 'siw_login_background_repeat' ) ),
+					'background-size'       => esc_attr( $background_size ),
+					'background-attachment' => esc_attr( get_theme_mod( 'siw_login_background_attachment' ) ),
+					'background-position'   => esc_attr( get_theme_mod( 'siw_login_background_position' ) ),
+				]
+			);
 		}
 
-		wp_add_inline_style( self::get_asset_handle(), $css->css_output() );
+		wp_add_inline_style( self::get_asset_handle(), $css_generator->get_output() );
 	}
 
 	#[Add_Filter( 'login_message' )]

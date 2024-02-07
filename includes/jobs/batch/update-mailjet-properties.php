@@ -11,7 +11,7 @@ class Update_Mailjet_Properties extends Update_Job {
 
 	private const ACTION_HOOK = self::class;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return __( 'Bijwerken Mailjet eigenschappen', 'siw' );
 	}
@@ -25,7 +25,6 @@ class Update_Mailjet_Properties extends Update_Job {
 
 	#[Add_Action( self::ACTION_HOOK )]
 	public function create_property( string $property ) {
-		$datatype = Property::from( $property )->get_data_type();
-		Mailjet::create()->create_property( $property, $datatype );
+		Mailjet::create()->create_property( Property::from( $property ) );
 	}
 }

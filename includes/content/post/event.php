@@ -6,6 +6,7 @@ class Event extends Post {
 
 	private const MAX_AGE_EVENT = 6;
 
+	#[\Override]
 	public function get_thumbnail_id(): int {
 		$images = $this->get_meta( 'image', [ 'limit' => 1 ] );
 		$image = reset( $images );
@@ -14,7 +15,7 @@ class Event extends Post {
 	}
 
 	public function get_event_date(): \DateTime {
-		return \DateTime::createFromFormat( 'Y-m-d', $this->get_meta( 'event_date' ) );
+		return \DateTime::createFromFormat( 'Y-m-d', $this->get_meta( 'event_date' ), wp_timezone() );
 	}
 
 	public function get_description(): string {
@@ -22,11 +23,11 @@ class Event extends Post {
 	}
 
 	public function get_start_datetime(): \DateTime {
-		return new \DateTime( $this->get_meta( 'event_date' ) . $this->get_meta( 'start_time' ) );
+		return new \DateTime( $this->get_meta( 'event_date' ) . $this->get_meta( 'start_time' ), wp_timezone() );
 	}
 
 	public function get_end_datetime(): \DateTime {
-		return new \DateTime( $this->get_meta( 'event_date' ) . $this->get_meta( 'end_time' ) );
+		return new \DateTime( $this->get_meta( 'event_date' ) . $this->get_meta( 'end_time' ), wp_timezone() );
 	}
 
 	public function get_start_time(): string {
@@ -37,10 +38,12 @@ class Event extends Post {
 		return $this->get_meta( 'end_time' );
 	}
 
+	#[\Override]
 	public function is_active(): bool {
 		return $this->get_meta( 'event_date' ) > gmdate( 'Y-m-d' );
 	}
 
+	#[\Override]
 	public function should_delete(): bool {
 		return $this->get_meta( 'event_date' ) < gmdate( 'Y-m-d', time() - ( static::MAX_AGE_EVENT * MONTH_IN_SECONDS ) );
 	}
@@ -69,11 +72,11 @@ class Event extends Post {
 		return ! $this->is_info_day() && $this->get_meta( 'different_organizer' ) ? $this->get_meta( 'organizer' ) : [];
 	}
 
-	public function get_mailjet_list_id(): ?string {
-		return $this->get_meta( 'mailjet_list_id' );
+	public function get_mailjet_list_id(): ?int {
+		return ! empty( $this->get_meta( 'mailjet_list_id' ) ) ? (int) $this->get_meta( 'mailjet_list_id' ) : null;
 	}
 
-	public function set_mailjet_list_id( string $list_id ) {
+	public function set_mailjet_list_id( int $list_id ) {
 		$this->set_meta( 'mailjet_list_id', $list_id );
 	}
 }

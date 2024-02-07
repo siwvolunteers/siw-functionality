@@ -5,7 +5,7 @@ namespace SIW\Compatibility;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
-use SIW\Util\CSS;
+use SIW\Data\Breakpoint;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Traits\Class_Assets;
 
@@ -25,7 +25,13 @@ class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 	#[Add_Filter( 'siteorigin_add_installer', PHP_INT_MAX )]
 	private const SHOW_SITEORIGIN_INSTALLER = false;
 
-	/** {@inheritDoc} */
+	#[Add_Filter( 'siteorigin_panels_theme_container_width' )]
+	private const THEME_CONTAINER_WIDTH = '1280px';
+
+	#[Add_Filter( 'siteorigin_panels_theme_container_selector' )]
+	private const THEME_CONTAINER_SELECTOR = '.site.grid-container.container';
+
+	#[\Override]
 	public static function get_plugin_basename(): string {
 		return 'siteorigin-panels/siteorigin-panels.php';
 	}
@@ -43,21 +49,24 @@ class SiteOrigin_Page_Builder extends Base implements I_Plugin {
 		unregister_widget( \SiteOrigin_Panels_Widgets_Gallery::class );
 	}
 
-	#[Add_Filter( 'siteorigin_panels_widget_dialog_tabs' )]
-	public function add_widget_tab( array $tabs ): array {
-		$tabs[] = [
+	#[Add_Filter( 'siteorigin_panels_widget_dialog_tabs', 99 )]
+	public function set_widget_dialog_tabs( array $tabs ): array {
+		$tabs['siw'] = [
 			'title'  => __( 'SIW Widgets', 'siw' ),
 			'filter' => [
 				'groups' => [ 'siw' ],
 			],
 		];
+		unset( $tabs['page_builder'] );
+		unset( $tabs['widgets_bundle'] );
+		unset( $tabs['recommended'] );
 		return $tabs;
 	}
 
 	#[Add_Filter( 'siteorigin_panels_settings' )]
 	public function set_breakpoint_settings( array $settings ): array {
-		$settings['mobile-width'] = CSS::MOBILE_BREAKPOINT;
-		$settings['tablet-width'] = CSS::TABLET_BREAKPOINT;
+		$settings['mobile-width'] = Breakpoint::MOBILE->value;
+		$settings['tablet-width'] = Breakpoint::TABLET->value;
 		return $settings;
 	}
 

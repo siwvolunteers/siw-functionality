@@ -20,42 +20,37 @@ class Newsletter_Confirmation extends Widget {
 	public const QUERY_ARG_LIST_ID = 'nl_list_id';
 	public const QUERY_ARG_LIST_ID_HASH = 'nl_list_id_hash';
 
-	/** {@inheritDoc} */
-	protected function get_id(): string {
-		return 'newsletter_confirmation';
-	}
-
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Nieuwsbrief - bevestiging', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont bevestiging van nieuwsbrief', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'rss';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 		return [
 			'content' => $this->process_confirmation(),

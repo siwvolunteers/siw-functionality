@@ -4,26 +4,29 @@ namespace SIW\Jobs\Batch;
 
 use SIW\Attributes\Add_Action;
 use SIW\Data\Job_Frequency;
+use SIW\Elements\Link;
+use SIW\Facades\Meta_Box;
+use SIW\Facades\WooCommerce;
 use SIW\Helpers\Email;
 use SIW\Helpers\Email_Template;
 use SIW\Jobs\Scheduled_Job;
-use SIW\Util\Links;
 use SIW\WooCommerce\Import\Product as Import_Product;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 class Send_Workcamp_Approval_Emails extends Scheduled_Job {
 	private const ACTION_HOOK = self::class;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return 'Versturen email goedkeuren groepsprojecten';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_frequency(): Job_Frequency {
 		return Job_Frequency::DAILY;
 	}
 
+	#[\Override]
 	public function start(): void {
 
 		$data = get_terms(
@@ -49,7 +52,7 @@ class Send_Workcamp_Approval_Emails extends Scheduled_Job {
 			return;
 		}
 
-		$products = siw_get_product_ids(
+		$products = WooCommerce::get_product_ids(
 			[
 				'continent' => $term->slug,
 				'status'    => Import_Product::REVIEW_STATUS,
@@ -77,7 +80,7 @@ class Send_Workcamp_Approval_Emails extends Scheduled_Job {
 		$message =
 			sprintf( 'Beste %s,', $responsible_user->user_firstname ) . BR2 .
 			sprintf( 'Er wachten nog %d projecten in %s op jouw beoordeling.', count( $products ), $term->name ) . BR .
-			sprintf( 'Klik %s om de projecten te bekijken.', Links::generate_link( $admin_url, 'hier' ) );
+			sprintf( 'Klik %s om de projecten te bekijken.', Link::create()->set_url( $admin_url )->set_text( 'hier' )->generate() );
 
 		$template = Email_Template::create()
 			->set_message( $message )
@@ -93,7 +96,7 @@ class Send_Workcamp_Approval_Emails extends Scheduled_Job {
 	}
 
 	protected function get_supervisor(): ?\WP_User {
-		$workcamp_approval = siw_get_option( 'workcamp_approval' );
+		$workcamp_approval = Meta_Box::get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval['supervisor'] ) ) {
 			$supervisor = get_userdata( $workcamp_approval['supervisor'] );
 			return is_a( $supervisor, \WP_User::class ) ? $supervisor : null;
@@ -102,7 +105,7 @@ class Send_Workcamp_Approval_Emails extends Scheduled_Job {
 	}
 
 	protected function get_responsible_user( string $category_slug ): ?\WP_User {
-		$workcamp_approval = siw_get_option( 'workcamp_approval' );
+		$workcamp_approval = Meta_Box::get_option( 'workcamp_approval' );
 		if ( isset( $workcamp_approval[ "responsible_{$category_slug}" ] ) ) {
 			$responsible_user = get_userdata( $workcamp_approval[ "responsible_{$category_slug}" ] );
 			return is_a( $responsible_user, \WP_User::class ) ? $responsible_user : null;

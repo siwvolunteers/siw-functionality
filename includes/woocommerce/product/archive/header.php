@@ -5,8 +5,8 @@ namespace SIW\WooCommerce\Product\Archive;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Data\Project_Type;
-use SIW\Data\Special_Page;
 use SIW\Data\Work_Type;
+use SIW\Facades\WooCommerce;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 class Header extends Base {
@@ -28,18 +28,18 @@ class Header extends Base {
 	}
 
 	protected function show_archive_header(): bool {
-		return \is_shop() || \is_product_category() || \is_product_taxonomy();
+		return WooCommerce::is_shop() || WooCommerce::is_product_category() || WooCommerce::is_product_taxonomy();
 	}
 
 	protected function get_intro_text(): string {
 
-		if ( \is_shop() ) {
+		if ( WooCommerce::is_shop() ) {
 			$text = __( 'Hieronder zie je het beschikbare aanbod projecten.', 'siw' );
-		} elseif ( \is_product_category() ) {
+		} elseif ( WooCommerce::is_product_category() ) {
 			$category_name = get_queried_object()->name;
 			// translators: %s is het continent
 			$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod %s-projecten.', 'siw' ), '<b>' . $category_name . '</b>' );
-		} elseif ( \is_product_taxonomy() ) {
+		} elseif ( WooCommerce::is_product_taxonomy() ) {
 			$name = get_queried_object()->name;
 			switch ( get_queried_object()->taxonomy ) {
 				case Taxonomy_Attribute::CONTINENT->value:
@@ -73,7 +73,7 @@ class Header extends Base {
 		}
 
 		if (
-			\is_product_taxonomy()
+			WooCommerce::is_product_taxonomy()
 			&& get_queried_object()->taxonomy === Taxonomy_Attribute::WORK_TYPE->value
 			&& Work_Type::tryFrom( get_queried_object()->slug )?->needs_review()
 		) {

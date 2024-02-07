@@ -4,22 +4,22 @@ namespace SIW\Options;
 
 class Help extends Option {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_title(): string {
 		return __( 'Help', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_capability(): string {
 		return 'edit_posts';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_parent_page(): string {
 		return 'options-general.php';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_tabs(): array {
 		$tabs = [
 			[
@@ -40,7 +40,7 @@ class Help extends Option {
 		return $tabs;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_fields(): array {
 		$fields = [];
 

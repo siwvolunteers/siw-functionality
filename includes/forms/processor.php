@@ -3,6 +3,7 @@
 namespace SIW\Forms;
 
 use SIW\Data\Email_Settings;
+use SIW\Facades\Meta_Box;
 use SIW\Helpers\Email;
 use SIW\Helpers\Email_Template;
 use SIW\Helpers\Template;
@@ -12,8 +13,6 @@ use SIW\Interfaces\Forms\Form as I_Form;
 use SIW\Interfaces\Forms\Notification_Mail as I_Notification_Mail;
 use SIW\Jobs\Async\Export_To_Mailjet;
 use SIW\Properties;
-use SIW\Util\Logger;
-use SIW\Util\Meta_Box;
 
 class Processor {
 
@@ -22,8 +21,6 @@ class Processor {
 	protected I_Notification_Mail $notification_mail;
 
 	protected I_Export_To_Mailjet $export_to_mailjet;
-
-	protected string $ip;
 
 	/** Init */
 	public function __construct( protected I_Form $form, protected \WP_REST_Request $request ) {
@@ -43,29 +40,6 @@ class Processor {
 
 	/** Verwerken */
 	public function process(): \WP_REST_Response {
-
-		$this->ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
-
-		// Afbreken als het antwoord op de quiz niet klopt
-		if ( ! $this->check_quiz_answer() ) {
-			return new \WP_REST_Response(
-				[
-					'message' => __( 'Dat is helaas niet het goede antwoord.', 'siw' ),
-				],
-				\WP_Http::BAD_REQUEST
-			);
-		}
-
-		if ( ! $this->check_rate_limit() ) {
-			return new \WP_REST_Response(
-				[
-					'message' => __( 'Je hebt dit formulier al ingevuld.', 'siw' ),
-				],
-				\WP_Http::BAD_REQUEST
-			);
-		}
-
-		// TODO: Verwerk file uploads
 
 		// TODO: onderstaande async actie(s) van maken?
 		if ( isset( $this->confirmation_mail ) ) {
@@ -105,7 +79,7 @@ class Processor {
 			if ( empty( $raw_value ) ) {
 				continue;
 			}
-			$summary_data[ $field['name'] ] = Meta_Box::get_display_value( $field, $raw_value );
+			$summary_data[ $field['name'] ] = Meta_Box::format_value( $field, $raw_value );
 		}
 		return $summary_data;
 	}
@@ -117,7 +91,7 @@ class Processor {
 			if ( empty( $raw_value ) ) {
 				continue;
 			}
-			$context[ $field['id'] ] = Meta_Box::get_display_value( $field, $raw_value );
+			$context[ $field['id'] ] = Meta_Box::format_value( $field, $raw_value );
 		}
 
 		$post_id = url_to_postid( home_url( $this->request->get_param( '_wp_http_referer' ) ) );
@@ -191,31 +165,5 @@ class Processor {
 			->set_content_type( Email::TEXT_HTML );
 
 		$notification_mail->send();
-	}
-
-	/** Controleer het antwoord van de quiz */
-	protected function check_quiz_answer(): bool {
-		$quiz = sanitize_text_field( $this->request->get_param( 'quiz' ) );
-		$quiz_hash = sanitize_text_field( $this->request->get_param( 'quiz_hash' ) );
-		if ( siw_hash( $quiz ) !== $quiz_hash ) {
-			Logger::info( "Quiz verkeerd ingevuld in formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip}", static::class );
-			return false;
-		}
-
-		return true;
-	}
-
-	/** Checkt de rate limite */
-	protected function check_rate_limit(): bool {
-		$transient_name = "siw_form_{$this->form->get_form_id()}_{$this->ip}";
-		$submission_count = (int) get_transient( $transient_name );
-		if ( $submission_count > 0 ) {
-			++$submission_count;
-			set_transient( $transient_name, $submission_count, $submission_count * HOUR_IN_SECONDS );
-			Logger::info( "Meerdere aanmeldingen ({$submission_count}) in korte tijd voor formulier '{$this->form->get_form_id()}' vanaf IP {$this->ip}", static::class );
-			return false;
-		}
-		set_transient( $transient_name, 1, HOUR_IN_SECONDS );
-		return true;
 	}
 }

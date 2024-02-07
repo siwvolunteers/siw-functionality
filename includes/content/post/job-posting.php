@@ -3,11 +3,13 @@
 namespace SIW\Content\Post;
 
 use SIW\Data\Job_Type;
+use SIW\Facades\Meta_Box;
 
 class Job_Posting extends Post {
 
 	private const MAX_AGE_JOB_POSTING = 12;
 
+	#[\Override]
 	public function get_thumbnail_id(): int {
 		$images = $this->get_meta( 'image', [ 'limit' => 1 ] );
 		$image = reset( $images );
@@ -15,16 +17,18 @@ class Job_Posting extends Post {
 		return $image ? (int) $image['ID'] : 0;
 	}
 
+	#[\Override]
 	public function is_active(): bool {
 		return $this->get_meta( 'deadline' ) > gmdate( 'Y-m-d' );
 	}
 
+	#[\Override]
 	public function should_delete(): bool {
 		return $this->get_meta( 'deadline' ) < gmdate( 'Y-m-d', time() - ( static::MAX_AGE_JOB_POSTING * MONTH_IN_SECONDS ) );
 	}
 
 	public function get_deadline(): \DateTime {
-		return \DateTime::createFromFormat( 'Y-m-d', $this->get_meta( 'deadline' ) );
+		return \DateTime::createFromFormat( 'Y-m-d', $this->get_meta( 'deadline' ), wp_timezone() );
 	}
 
 	public function get_introduction(): string {
@@ -44,7 +48,7 @@ class Job_Posting extends Post {
 		if ( $this->get_meta( 'different_application_manager' ) ) {
 			return $this->get_meta( 'application_manager' );
 		}
-		return siw_get_option( 'job_posting.hr_manager' );
+		return Meta_Box::get_option( 'job_posting.hr_manager' );
 	}
 
 	public function get_work(): string {

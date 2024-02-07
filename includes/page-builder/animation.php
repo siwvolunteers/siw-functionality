@@ -4,7 +4,7 @@ namespace SIW\Page_Builder;
 
 use SIW\Data\Animation\Easing;
 use SIW\Data\Animation\Type;
-
+use SIW\Facades\SiteOrigin;
 use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
 use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
 use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
@@ -23,22 +23,22 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 	private const OPTION_FIELD_DELAY = 'siw_animation_delay';
 	private const OPTION_FIELD_EASING = 'siw_animation_easing';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function supports_widgets(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function supports_cells(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function supports_rows(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ): array {
 		$groups[ self::STYLE_GROUP ] = [
 			'name'     => __( 'Animatie', 'siw' ),
@@ -47,7 +47,7 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $groups;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ): array {
 
 		$fields[ self::STYLE_GROUP ] = [
@@ -102,7 +102,7 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function set_style_attributes( array $style_attributes, array $style_args ): array {
 
 		// Afbreken als er geen animatie van toepassing is
@@ -127,12 +127,12 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 	/** Geeft */
 	protected function get_attribute_value( array $style_args, string $field, string $prefix, string $default_option ): ?string {
 		if ( ! isset( $style_args[ "{$prefix}_{$field}" ] ) || 'default' === $style_args[ "{$prefix}_{$field}" ] ) {
-			return siteorigin_panels_setting( $default_option );
+			return SiteOrigin::panels_setting( $default_option );
 		}
 		return $style_args[ "{$prefix}_{$field}" ];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function add_settings( array $fields ): array {
 		$fields[ self::OPTION_GROUP ] = [
 			'title'  => __( 'Animatie', 'siw' ),
@@ -162,7 +162,7 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function set_settings_defaults( array $defaults ): array {
 		$defaults[ self::OPTION_FIELD_DURATION ] = '1000';
 		$defaults[ self::OPTION_FIELD_DELAY ]    = 'none';
@@ -203,16 +203,16 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 
 	protected function get_default_easing(): string {
 		$easing_options = $this->get_easing_options();
-		return $easing_options[ siteorigin_panels_setting( self::OPTION_FIELD_EASING ) ] ?? '';
+		return $easing_options[ SiteOrigin::panels_setting( self::OPTION_FIELD_EASING ) ] ?? '';
 	}
 
 	protected function get_default_duration(): string {
 		$duration_options = $this->get_duration_options();
-		return $duration_options[ siteorigin_panels_setting( self::OPTION_FIELD_DURATION ) ] ?? '';
+		return $duration_options[ SiteOrigin::panels_setting( self::OPTION_FIELD_DURATION ) ] ?? '';
 	}
 
 	protected function get_default_delay(): string {
 		$delay_options = $this->get_delay_options();
-		return $delay_options[ siteorigin_panels_setting( self::OPTION_FIELD_DELAY ) ] ?? '';
+		return $delay_options[ SiteOrigin::panels_setting( self::OPTION_FIELD_DELAY ) ] ?? '';
 	}
 }

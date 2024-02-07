@@ -3,8 +3,9 @@
 namespace SIW\Widgets;
 
 use SIW\Data\Board_Title;
+use SIW\Data\Elements\List_Style_Type;
 use SIW\Elements\List_Columns;
-use SIW\Elements\List_Style_Type;
+use SIW\Facades\Meta_Box;
 
 /**
  * Widget Name: SIW: Bestuurssamenstellingddd
@@ -14,45 +15,40 @@ use SIW\Elements\List_Style_Type;
  */
 class Board_Members extends Widget {
 
-	/** {@inheritDoc} */
-	protected function get_id(): string {
-		return 'board_members';
-	}
-
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Bestuurssamenstelling', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont bestuurssamenstelling', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'businessman';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
-		$board_members = siw_get_option( 'board_members' );
+		$board_members = Meta_Box::get_option( 'board_members' );
 		if ( empty( $board_members ) ) {
 			return [];
 		}

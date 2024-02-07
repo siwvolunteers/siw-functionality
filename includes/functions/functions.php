@@ -61,6 +61,41 @@ if ( ! function_exists( 'wp_parse_args_recursive' ) ) {
 	}
 }
 
+if ( ! function_exists( 'build_html_attributes' ) ) {
+	function build_html_attributes( array $attributes ): string {  // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
+		$rendered_attributes = '';
+		foreach ( $attributes as $key => $value ) {
+			if ( false === $value ) {
+				continue;
+			}
+			if ( 'class' === $key ) {
+				$value = sanitize_html_classes( $value );
+			}
+			if ( is_array( $value ) ) {
+				$value = wp_json_encode( $value );
+			}
+
+			$rendered_attributes .= sprintf( true === $value ? ' %s' : ' %s="%s"', $key, esc_attr( $value ) );
+		}
+		return $rendered_attributes;
+	}
+}
+
+if ( ! function_exists( 'sanitize_html_classes' ) ) {
+	function sanitize_html_classes( string|array $classes, string $fallback = null ): string {  // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
+		if ( is_string( $classes ) ) {
+			$classes = explode( ' ', $classes );
+		}
+		if ( is_array( $classes ) && count( $classes ) > 0 ) {
+			$classes = array_map( 'sanitize_html_class', $classes );
+			return implode( ' ', $classes );
+		} else {
+			return sanitize_html_class( $classes, $fallback );
+		}
+	}
+}
+
+
 /** Wrapper om wp_hash */
 function siw_hash( string $data ): string {
 	return wp_hash( $data, 'siw' );

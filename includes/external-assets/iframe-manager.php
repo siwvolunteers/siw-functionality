@@ -7,33 +7,23 @@ namespace SIW\External_Assets;
  */
 class Iframe_Manager extends NPM_Asset {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_npm_package(): string {
 		return '@orestbida/iframemanager';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_version_number(): ?string {
 		return '1.2.5';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_style_file(): ?string {
 		return 'dist/iframemanager.css';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_file(): ?string {
 		return 'dist/iframemanager.js';
-	}
-
-	/** {@inheritDoc} */
-	protected static function get_script_sri(): ?string {
-		return 'sha256-ENrpu20lejAzN1mxAqS9zWEKqggPt07u1yPO1365JzE=';
-	}
-
-	/** {@inheritDoc} */
-	protected static function get_style_sri(): ?string {
-		return 'sha256-l+q6tuz0+Kq5hR0kCsOJB4xp9+Jk/2QxVwyEvE9b7Uc=';
 	}
 }

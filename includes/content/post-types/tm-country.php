@@ -11,34 +11,34 @@ use SIW\Data\Country_Context;
 use SIW\Data\Post_Type_Support;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
+use SIW\Data\Visibility_Class;
 use SIW\Data\Work_Type;
 use SIW\Elements\Interactive_SVG_Map;
 use SIW\Elements\Quote;
-use SIW\Util\CSS;
 
 class TM_Country extends Post_Type {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_dashicon(): string {
 		return 'location-alt';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_slug(): string {
 		return 'wereld-basis-projecten';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_singular_label(): string {
 		return __( 'Wereld Basis land', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_plural_label(): string {
 		return __( 'Wereld Basis landen', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_post_type_supports(): array {
 		return [
 			Post_Type_Support::SOCIAL_SHARE,
@@ -46,22 +46,22 @@ class TM_Country extends Post_Type {
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_admin_columns(): array {
 		return [];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_site_sortables(): array {
 		return [];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_custom_post( \WP_Post|int $post ): TM_Country_Post {
 		return new TM_Country_Post( $post );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public static function get_meta_box_fields(): array {
 		$meta_box_fields = [
 			[
@@ -114,7 +114,7 @@ class TM_Country extends Post_Type {
 		return $meta_box_fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_taxonomies(): array {
 		$taxonomies['continent'] = [
 			'names' => [
@@ -137,7 +137,7 @@ class TM_Country extends Post_Type {
 		];
 
 		if ( 'single' === $type ) {
-			$template_variables['mapcss'] = CSS::HIDE_ON_MOBILE_CLASS;
+			$template_variables['mapcss'] = Visibility_Class::HIDE_ON_MOBILE->value;
 			$template_variables['worldmap'] = Interactive_SVG_Map::create()
 				->set_map( Interactive_SVG_Map::MAP_WORLD )
 				->select_region( $post->get_country()->iso_code() )
@@ -159,7 +159,7 @@ class TM_Country extends Post_Type {
 		return $template_variables;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function generate_title( array $data, array $postarr ): string {
 		return Country::tryFrom( $postarr['country'] )?->label() ?? 'land';
 	}

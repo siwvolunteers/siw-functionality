@@ -5,6 +5,7 @@ namespace SIW\WooCommerce\Product;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Facades\WooCommerce;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 class Shortcode extends Base {
@@ -91,7 +92,7 @@ class Shortcode extends Base {
 		);
 		printf(
 			'<a href="%s" class="button">%s</a>',
-			esc_url( wc_get_page_permalink( 'shop' ) ),
+			esc_url( WooCommerce::get_page_permalink( 'shop' ) ),
 			esc_html__( 'Bekijk alle projecten', 'siw' )
 		);
 	}

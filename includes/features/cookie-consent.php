@@ -6,9 +6,9 @@ use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Special_Page;
+use SIW\Elements\Link;
 use SIW\External_Assets\Cookie_Consent as Cookie_Consent_Asset;
 use SIW\Traits\Class_Assets;
-use SIW\Util\Links;
 
 class Cookie_Consent extends Base {
 
@@ -89,8 +89,15 @@ class Cookie_Consent extends Base {
 											__( 'Cookies zijn kleine, eenvoudige tekstbestandjes.', 'siw' ) . SPACE .
 											__( 'Cookies geven ons meer informatie over het surfgedrag op de website, waardoor we de website kunnen verbeteren en jou beter van dienst kunnen zien.', 'siw' ) . SPACE .
 											__( 'Daarnaast kunnen met behulp van cookies de informatie en aanbiedingen op de site worden afgestemd op jouw voorkeuren.', 'siw' ) . SPACE .
-											// translators: %s is de link naar het privacybeleid
-											sprintf( __( 'Lees meer over hoe wij cookies gebruiken en hoe je ze kunt beheren in ons %s.', 'siw' ), Links::generate_link( get_privacy_policy_url(), __( 'privacybeleid', 'siw' ) ) ),
+											sprintf(
+												// translators: %s is de link naar het privacybeleid
+												__( 'Lees meer over hoe wij cookies gebruiken en hoe je ze kunt beheren in ons %s.', 'siw' ),
+												Link::create()
+													->set_url( get_privacy_policy_url() )
+													->set_text( __( 'privacybeleid', 'siw' ) )
+													->generate()
+											),
+
 									],
 									[
 										'title'       => __( 'Noodzakelijke cookies', 'siw' ),
@@ -108,8 +115,15 @@ class Cookie_Consent extends Base {
 										'description' =>
 										__( 'Analytische cookies verzamelen gegevens over het gebruik van een website zoals het aantal bezoekers, de tijd die bezoekers doorbrengen op een webpagina en foutmeldingen.', 'siw' ) . SPACE .
 										__( 'We gebruiken Google Tag Manager (zorgt voor het verzamelen van anonieme gegevens over het gebruik van onze website en het opstellen van bezoekersstatistieken).', 'siw' ) . SPACE .
-										// translators: %s is de link naar het privacybeleid van Google
-										sprintf( __( 'Meer informatie over hoe Google met gegevens omgaat is te lezen in het %s van Google.', 'siw' ), Links::generate_external_link( 'http://www.google.com/intl/nl/policies/privacy/partners/', __( 'privacybeleid', 'siw' ) ) ),
+										sprintf(
+											// translators: %s is de link naar het privacybeleid van Google
+											__( 'Meer informatie over hoe Google met gegevens omgaat is te lezen in het %s van Google.', 'siw' ),
+											Link::create()
+												->set_url( 'http://www.google.com/intl/nl/policies/privacy/partners/' )
+												->set_text( __( 'privacybeleid', 'siw' ) )
+												->set_is_external()
+												->generate()
+										),
 										'toggle'      => [
 											'value'    => self::ANALYTICAL,
 											'enabled'  => true,
@@ -121,8 +135,15 @@ class Cookie_Consent extends Base {
 										'description' =>
 											__( 'Marketing cookies zorgen ervoor dat een website gepersonaliseerde reclameboodschappen kan sturen.', 'siw' ) . SPACE .
 											__( 'De website van SIW gebruikt een zogenaamde Facebook Conversion Pixel (registreert gedrag na het bekijken van een advertentie in Facebook).', 'siw' ) . SPACE .
-											// translators: %s is de link naar het privacybeleid van Facebook
-											sprintf( __( 'Meer informatie over hoe Facebook met gegevens omgaat is te lezen in het %s van Facebook.', 'siw' ), Links::generate_external_link( 'https://www.facebook.com/about/privacy/', __( 'privacybeleid', 'siw' ) ) ),
+											sprintf(
+												// translators: %s is de link naar het privacybeleid van Facebook
+												__( 'Meer informatie over hoe Facebook met gegevens omgaat is te lezen in het %s van Facebook.', 'siw' ),
+												Link::create()
+													->set_url( 'https://www.facebook.com/about/privacy/' )
+													->set_text( __( 'privacybeleid', 'siw' ) )
+													->set_is_external()
+													->generate()
+											),
 										'toggle'      => [
 											'value'    => self::MARKETING,
 											'enabled'  => false,
@@ -135,7 +156,10 @@ class Cookie_Consent extends Base {
 											sprintf(
 												// translators: %s is de link naar het de contactpagina
 												__( 'Voor meer informatie of vragen over ons privacybeleid kan je %s met ons opnemen.', 'siw' ),
-												Links::generate_link( get_permalink( Special_Page::CONTACT->get_page() ), __( 'contact', 'siw' ) )
+												Link::create()
+													->set_url( get_permalink( Special_Page::CONTACT->get_page() ) )
+													->set_text( __( 'contact', 'siw' ) )
+													->generate()
 											),
 									],
 								],
@@ -155,10 +179,11 @@ class Cookie_Consent extends Base {
 
 	#[Add_Action( 'generate_before_copyright' )]
 	public function add_cookie_settings_button(): void {
-		printf(
-			'<a href="#" data-cc="c-settings">%s</a>',
-			esc_html__( 'Cookie instellingen', 'siw' )
-		);
+		Link::create()
+			->set_url( '#' )
+			->set_text( __( 'Cookie instellingen', 'siw' ) )
+			->add_attribute( 'data-cc', 'c-settings' )
+			->render();
 	}
 
 	#[Add_Filter( 'body_class' )]

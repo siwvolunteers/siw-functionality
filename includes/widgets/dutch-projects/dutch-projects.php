@@ -3,12 +3,13 @@
 namespace SIW\Widgets;
 
 use SIW\Data\Sustainable_Development_Goal;
+use SIW\Data\Visibility_Class;
 use SIW\Data\Work_Type;
 use SIW\Elements\Accordion_Tabs;
 use SIW\Elements\Leaflet_Map;
+use SIW\Elements\Link;
+use SIW\Facades\WooCommerce;
 use SIW\Util\I18n;
-use SIW\Util\CSS;
-use SIW\Util\Links;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
 /**
@@ -19,42 +20,37 @@ use SIW\WooCommerce\Product\WC_Product_Project;
  */
 class Dutch_Projects extends Widget {
 
-	/** {@inheritDoc} */
-	protected function get_id(): string {
-		return 'dutch_projects';
-	}
-
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Nederlandse projecten', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont Nederlandse projecten', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return $this->get_id();
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'admin-home';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
 		$projects = $this->get_projects();
@@ -72,7 +68,7 @@ class Dutch_Projects extends Widget {
 				$project->get_latitude(),
 				$project->get_longitude(),
 				$project->get_name(),
-				$this->get_project_properties( $project ) . $this->get_project_button( $project ),
+				$this->get_project_properties( $project ) . $this->get_project_link( $project ),
 			);
 
 			$accordion->add_item(
@@ -89,8 +85,8 @@ class Dutch_Projects extends Widget {
 		return [
 			'map'                  => $map->generate(),
 			'accordion'            => $accordion->generate(),
-			'hide_on_tablet_class' => CSS::HIDE_ON_TABLET_CLASS,
-			'hide_on_mobile_class' => CSS::HIDE_ON_MOBILE_CLASS,
+			'hide_on_tablet_class' => Visibility_Class::HIDE_ON_TABLET->value,
+			'hide_on_mobile_class' => Visibility_Class::HIDE_ON_MOBILE->value,
 		];
 	}
 
@@ -101,9 +97,8 @@ class Dutch_Projects extends Widget {
 		$args = [
 			'country' => 'nederland',
 		];
-		$projects = siw_get_products( $args );
 		$projects = array_filter(
-			siw_get_products( $args ),
+			WooCommerce::get_products( $args ),
 			fn( WC_Product_Project $project ): bool => ! $project->is_hidden()
 		);
 		usort( $projects, fn( WC_Product_Project $project_1, WC_Product_Project $project_2 ) => strcmp( $project_1->get_sku(), $project_2->get_sku() ) );
@@ -133,10 +128,14 @@ class Dutch_Projects extends Widget {
 		return wpautop( implode( BR, $description ) );
 	}
 
-	protected function get_project_button( WC_Product_Project $project ): ?string {
+	protected function get_project_link( WC_Product_Project $project ): ?string {
 		if ( ! I18n::is_default_language() ) {
 			return null;
 		}
-		return Links::generate_button_link( $project->get_permalink(), __( 'Bekijk project', 'siw' ) );
+		return Link::create()
+			->set_url( $project->get_permalink() )
+			->set_text( __( 'Bekijk project', 'siw' ) )
+			->add_class( 'button' )
+			->generate();
 	}
 }

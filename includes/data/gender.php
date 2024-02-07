@@ -12,7 +12,7 @@ enum Gender: string implements Labels {
 	case MALE = 'M';
 	case FEMALE = 'F';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::MALE => __( 'Man', 'siw' ),

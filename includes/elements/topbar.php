@@ -7,7 +7,7 @@ class Topbar extends Element {
 	protected string $url;
 	protected string $text;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'url'  => $this->url,
@@ -25,6 +25,7 @@ class Topbar extends Element {
 		return $this;
 	}
 
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style();
 	}

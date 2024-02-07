@@ -2,12 +2,12 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Abstracts\Class_Loader as Class_Loader_Abstract;
+use SIW\Abstracts\Class_Loader;
 use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
-class Loader extends Class_Loader_Abstract {
+class Loader extends Class_Loader {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_classes(): array {
 		return [
 			Action_Scheduler::class,

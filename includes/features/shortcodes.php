@@ -7,11 +7,12 @@ use SIW\Base;
 use SIW\Config;
 use SIW\Data\Country;
 use SIW\Data\Country_Context;
+use SIW\Data\Elements\List_Style_Type;
+use SIW\Elements\Link;
 use SIW\Elements\List_Columns;
-use SIW\Elements\List_Style_Type;
+use SIW\Facades\Meta_Box;
 use SIW\Properties;
 use SIW\Util;
-use SIW\Util\Links;
 
 class Shortcodes extends Base {
 
@@ -81,7 +82,10 @@ class Shortcodes extends Base {
 
 	#[Add_Shortcode( 'email_link' )]
 	public static function render_email_link(): string {
-		return Links::generate_mailto_link( Properties::EMAIL );
+		return Link::create()
+			->set_url( sprintf( 'mailto:%s', antispambot( Properties::EMAIL ) ) )
+			->set_text( antispambot( Properties::EMAIL ) )
+			->generate();
 	}
 
 	#[Add_Shortcode( 'telefoon' )]
@@ -178,7 +182,11 @@ class Shortcodes extends Base {
 		);
 		$titel = ( $titel ) ? $titel : $url;
 
-		return Links::generate_external_link( $url, $titel );
+		return Link::create()
+			->set_url( $url )
+			->set_text( $titel )
+			->set_is_external()
+			->generate();
 	}
 
 	#[Add_Shortcode( 'leeftijd' )]
@@ -188,12 +196,12 @@ class Shortcodes extends Base {
 
 	#[Add_Shortcode( 'aantal_vrijwilligers' )]
 	public static function render_aantal_vrijwilligers(): string {
-		return siw_get_option( 'staff.number_of_volunteers' );
+		return Meta_Box::get_option( 'staff.number_of_volunteers' );
 	}
 
 	#[Add_Shortcode( 'aantal_betaalde_medewerker' )]
 	public static function render_aantal_betaalde_medewerkers(): string {
-		return siw_get_option( 'staff.number_of_employees' );
+		return Meta_Box::get_option( 'staff.number_of_employees' );
 	}
 
 	#[Add_Shortcode( 'accent' )]

@@ -7,20 +7,14 @@
 	"scripts": {
 		"update": "npm update",
 		"build": "npm run build:css && npm run build:translations",
-		"build:css": "npm run scss && npm run autoprefixer",
+		"build:css": "npm run scss",
 		"build:translations": "wp-pot --domain siw --dest-file languages/siw.pot --relative-to ./ --package \"SIW Internationale Vrijwilligersprojecten\" --team \"SIW <webmaster@siw.nl>\"",
-		"scss": "sass --update --no-source-map assets/scss:assets/css",
-		"autoprefixer": "postcss --no-map -u autoprefixer -r assets/css/*.css",
-		"frontend-dependencies": "node ./node_modules/frontend-dependencies/index.js",
-		"postinstall": "npm run frontend-dependencies"
+		"scss": "sass --update --no-source-map assets/scss:assets/css"
 	},
 	"browserslist": [
 		">0.5% in NL"
 	],
 	"devDependencies": {
-		"autoprefixer": "^10.0.0",
-		"postcss": "^8.0.0",
-		"postcss-cli": "^10.0.0",
 		"sass": "^1.53.0",
 		"wp-pot-cli": "^1.5.0"
 	}

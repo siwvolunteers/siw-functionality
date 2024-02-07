@@ -10,12 +10,12 @@ use SIW\Features\Cookie_Consent;
  */
 class Google_Tag_Manager extends External_Asset {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_version_number(): ?string {
 		return null;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_script_url(): ?string {
 		return add_query_arg(
 			array_filter(
@@ -29,12 +29,7 @@ class Google_Tag_Manager extends External_Asset {
 		);
 	}
 
-	/** {@inheritDoc} */
-	protected static function get_style_url(): ?string {
-		return null;
-	}
-
-	/** {@inheritDoc} */
+	#[\Override]
 	protected static function get_cookie_category(): ?string {
 		return Cookie_Consent::ANALYTICAL;
 	}

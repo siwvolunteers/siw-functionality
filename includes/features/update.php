@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace SIW;
+namespace SIW\Features;
 
 use SIW\Attributes\Add_Action;
+use SIW\Base;
 
 class Update extends Base {
 

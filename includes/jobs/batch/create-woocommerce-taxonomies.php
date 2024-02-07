@@ -3,6 +3,7 @@
 namespace SIW\Jobs\Batch;
 
 use SIW\Attributes\Add_Action;
+use SIW\Facades\WooCommerce;
 use SIW\Jobs\Update_Job;
 use SIW\Util\Logger;
 use SIW\WooCommerce\Taxonomy_Attribute;
@@ -11,12 +12,12 @@ class Create_WooCommerce_Taxonomies extends Update_Job {
 
 	private const ACTION_HOOK = self::class;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return __( 'Aanmaken WooCommerce taxonomieën', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function start(): void {
 		$this->enqueue_items(
 			array_map( fn( \BackedEnum $tax_enum ) => $tax_enum->value, Taxonomy_Attribute::cases() ),
@@ -31,7 +32,7 @@ class Create_WooCommerce_Taxonomies extends Update_Job {
 			return;
 		}
 
-		$wc_attribute_taxonomy_id = wc_attribute_taxonomy_id_by_name( $taxonomy_slug );
+		$wc_attribute_taxonomy_id = WooCommerce::attribute_taxonomy_id_by_name( $taxonomy_slug );
 
 		if ( 0 !== $wc_attribute_taxonomy_id ) {
 			return;
@@ -39,7 +40,7 @@ class Create_WooCommerce_Taxonomies extends Update_Job {
 
 		$taxonomy_attribute = Taxonomy_Attribute::tryFrom( $taxonomy_slug );
 
-		$wc_attribute_taxonomy_id = wc_create_attribute(
+		$wc_attribute_taxonomy_id = WooCommerce::create_attribute(
 			[
 				'name'         => $taxonomy_attribute->label(),
 				'slug'         => $taxonomy_attribute->value,

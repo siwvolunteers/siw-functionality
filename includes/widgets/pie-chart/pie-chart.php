@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Elements\Chart_Type;
 use SIW\Elements\Chart;
 
 /**
@@ -12,42 +13,37 @@ use SIW\Elements\Chart;
  */
 class Pie_Chart extends Widget {
 
-	/** {@inheritDoc} */
-	protected function get_id(): string {
-		return 'pie_chart';
-	}
-
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_name(): string {
 		return __( 'Taartgrafiek', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_description(): string {
 		return __( 'Toont taartgrafiek', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_id(): string {
 		return $this->get_id();
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_dashicon(): string {
 		return 'chart-pie';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_title(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function supports_intro(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_widget_fields(): array {
 		$widget_fields = [
 			'show_explanation' => [
@@ -96,7 +92,7 @@ class Pie_Chart extends Widget {
 		return $widget_fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
 		if ( ! isset( $instance['series'] ) || empty( $instance['series'] ) ) {
@@ -105,7 +101,7 @@ class Pie_Chart extends Widget {
 
 		return [
 			'chart'            => Chart::create()
-				->set_chart_type( Chart::CHART_TYPE_PIE )
+				->set_chart_type( Chart_Type::PIE )
 				->set_labels( wp_list_pluck( $instance['series'], 'label' ) )
 				->add_dataset( wp_list_pluck( $instance['series'], 'value' ) )
 				->generate(),

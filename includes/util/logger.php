@@ -2,18 +2,16 @@
 
 namespace SIW\Util;
 
+use SIW\Facades\WooCommerce;
+
 class Logger {
 
 	protected static function log( string $message, string $level, string $source = 'siw' ) {
 		if ( ! \WC_Log_Levels::is_valid_level( $level ) ) {
 			$level = \WC_Log_Levels::INFO;
 		}
-		if ( ! function_exists( '\wc_get_logger' ) ) {
-			return;
-		}
 
-		$logger = \wc_get_logger();
-		$logger->log( $level, $message, [ 'source' => $source ] );
+		WooCommerce::get_logger()?->log( $level, $message, [ 'source' => $source ] );
 	}
 
 	public static function debug( string $message, string $source ) {

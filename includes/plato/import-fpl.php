@@ -12,7 +12,7 @@ use SIW\Helpers\Database;
  */
 class Import_FPL extends Import {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected string $endpoint = 'GetAllFreePlaces';
 
 	/** Verwerk xml van Plato */

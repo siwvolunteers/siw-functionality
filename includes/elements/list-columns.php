@@ -2,17 +2,22 @@
 
 namespace SIW\Elements;
 
+use SIW\Data\Elements\List_Style_Position;
+use SIW\Data\Elements\List_Style_Type;
+
 class List_Columns extends Repeater {
 
 	protected int $columns = 1;
 	protected List_Style_Type $list_style_type = List_Style_Type::DISC;
+	protected List_Style_Position $list_style_position = List_Style_Position::INSIDE;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
-			'items'           => $this->items,
-			'columns'         => $this->columns,
-			'list_style_type' => $this->list_style_type->value,
+			'items'               => $this->items,
+			'columns'             => $this->columns,
+			'list_style_type'     => $this->list_style_type->value,
+			'list_style_position' => $this->list_style_position->value,
 		];
 	}
 
@@ -26,6 +31,12 @@ class List_Columns extends Repeater {
 		return $this;
 	}
 
+	public function set_list_style_position( List_Style_Position $list_style_position ): self {
+		$this->list_style_position = $list_style_position;
+		return $this;
+	}
+
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style();
 	}

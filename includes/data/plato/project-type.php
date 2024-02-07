@@ -15,7 +15,7 @@ enum Project_Type: string implements Labels {
 	case PER = 'PER';
 	case TRA = 'TRA';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function label(): string {
 		return match ( $this ) {
 			self::STV  => __( 'STV', 'siw' ),

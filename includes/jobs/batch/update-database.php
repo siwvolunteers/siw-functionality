@@ -10,12 +10,12 @@ use SIW\Jobs\Update_Job;
 class Update_Database extends Update_Job {
 	private const ACTION_HOOK = self::class;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return __( 'Database updaten', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function start(): void {
 		$database_tables = array_map(
 			fn( Database_Table $table ): string => $table->value,

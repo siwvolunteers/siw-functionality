@@ -5,6 +5,7 @@ namespace SIW\WooCommerce\Product\Admin;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Facades\WooCommerce;
 use SIW\Jobs\Async\Import_Plato_Project;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
@@ -30,7 +31,7 @@ class Bulk_Actions extends Base {
 
 		switch ( $action ) {
 			case self::ACTION_IMPORT_AGAIN:
-				$products = siw_get_products( [ 'include' => $post_ids ] );
+				$products = WooCommerce::get_products( [ 'include' => $post_ids ] );
 				array_walk(
 					$products,
 					function ( WC_Product_Project $product ) {
@@ -42,7 +43,7 @@ class Bulk_Actions extends Base {
 				);
 				break;
 			case self::ACTION_HIDE:
-				$products = siw_get_products( [ 'include' => $post_ids ] );
+				$products = WooCommerce::get_products( [ 'include' => $post_ids ] );
 				array_walk(
 					$products,
 					function ( WC_Product_Project $product ) {
@@ -53,7 +54,7 @@ class Bulk_Actions extends Base {
 				);
 				break;
 			case self::ACTION_MARK_AS_FEATURED:
-				$products = siw_get_products( [ 'include' => $post_ids ] );
+				$products = WooCommerce::get_products( [ 'include' => $post_ids ] );
 				array_walk(
 					$products,
 					function ( WC_Product_Project $product ) {

@@ -2,6 +2,6 @@
 	<h5>{{#__}}Filter op {{ taxonomy.labels.singular_name | case.lower }} {{/__}}</h5>
 	<a class="button {{ all.active }}" href="{{ all.url }}">{{#__}}Alle{{/__}}</a>
 	{{# terms }}
-		<a class="button {{ active }}" href="{{ url}}">{{ name }}</a>
+		<a class="button {{ active }}" href="{{ url}}" rel="nofollow">{{ name }}</a>
 	{{/ terms }}
 </div>

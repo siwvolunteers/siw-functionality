@@ -4,6 +4,7 @@ namespace SIW\Admin;
 
 use SIW\Attributes\Add_Action;
 use SIW\Base;
+use SIW\Facades\Meta_Box;
 
 class Help_Tabs extends Base {
 
@@ -24,7 +25,7 @@ class Help_Tabs extends Base {
 			return;
 		}
 
-		$help_tab_options = siw_get_option( "{$post_type}_help_tabs.{$base}" );
+		$help_tab_options = Meta_Box::get_option( "{$post_type}_help_tabs.{$base}" );
 
 		if ( ! isset( $help_tab_options['show_help_tabs'] ) || ! $help_tab_options['show_help_tabs'] ) {
 			return;

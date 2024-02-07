@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace SIW\WooCommerce\Frontend;
+namespace SIW\WooCommerce\Product\Single;
 
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Facades\WooCommerce;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Product_Attribute;
 use SIW\WooCommerce\Taxonomy_Attribute;
@@ -64,7 +65,7 @@ class Product extends Base {
 		//TODO: mustache template gebruiken en leuker maken met landenvlag en SDG icons */
 
 		global $post;
-		$product = \siw_get_product( $post );
+		$product = WooCommerce::get_product( $post );
 		if ( null === $product ) {
 			return;
 		}

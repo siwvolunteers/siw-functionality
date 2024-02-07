@@ -12,7 +12,7 @@ class Download_File extends Plato_Interface {
 	/** Timeout bij downloaden */
 	private const TIMEOUT = 60;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected string $endpoint = 'DownloadDocumentFile';
 
 	/** Download het bestand */

@@ -12,12 +12,12 @@ class Import_All_Plato_Projects extends Update_Job {
 
 	private const ACTION_HOOK = self::class;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_name(): string {
 		return __( 'Importeer alle Plato-projecten', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function start(): void {
 		$database = new Database( Database_Table::PLATO_PROJECTS );
 		$this->enqueue_items( $database->get_col( 'project_id' ), self::ACTION_HOOK );

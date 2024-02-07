@@ -31,13 +31,13 @@ class Facebook_Pixel extends Base {
 
 		wp_script_add_data(
 			self::get_asset_handle(),
-			Tag_Attribute::TYPE,
+			Tag_Attribute::TYPE->value,
 			'text/plain'
 		);
 
 		wp_script_add_data(
 			self::get_asset_handle(),
-			Tag_Attribute::COOKIE_CATEGORY,
+			Tag_Attribute::COOKIE_CATEGORY->value,
 			Cookie_Consent::MARKETING
 		);
 		wp_enqueue_script( self::get_asset_handle() );

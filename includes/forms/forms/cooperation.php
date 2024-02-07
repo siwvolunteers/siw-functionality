@@ -10,17 +10,17 @@ class Cooperation implements Form_Interface, Confirmation_Mail_Interface, Notifi
 
 	public const FORM_ID = 'cooperation';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_id(): string {
 		return self::FORM_ID;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_name(): string {
 		return __( 'Interesse samenwerking', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_form_fields(): array {
 		return [
 			[
@@ -54,22 +54,22 @@ class Cooperation implements Form_Interface, Confirmation_Mail_Interface, Notifi
 		];
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_subject(): string {
 		return 'Interesse samenwerking';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_notification_mail_message(): string {
 		return 'Via de website is onderstaand bericht verstuurd:';
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_subject(): string {
 		return __( 'Bevestiging interesse samenwerking', 'siw' );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function get_confirmation_mail_message(): string {
 		// translators: %s is de naam van de contactpersoon
 		return sprintf( __( 'Beste %s,', 'siw' ), '{{ contact_person }}' ) . BR2 .

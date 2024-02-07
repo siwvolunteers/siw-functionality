@@ -5,6 +5,7 @@ namespace SIW\WooCommerce\Admin;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Facades\WooCommerce;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
 class Product_Tabs extends Base {
@@ -42,7 +43,7 @@ class Product_Tabs extends Base {
 	#[Add_Action( 'woocommerce_product_data_panels' )]
 	public function show_extra_settings_tab() {
 		global $product_object;
-		$product = \siw_get_product( $product_object );
+		$product = WooCommerce::get_product( $product_object );
 		if ( null === $product ) {
 			return;
 		}
@@ -87,7 +88,7 @@ class Product_Tabs extends Base {
 	#[Add_Action( 'woocommerce_product_data_panels' )]
 	public function show_description_tab() {
 		global $product_object;
-		$product = \siw_get_product( $product_object );
+		$product = WooCommerce::get_product( $product_object );
 		if ( null === $product ) {
 			return;
 		}

@@ -9,7 +9,7 @@ use SIW\Interfaces\Structured_Data\Non_Profit_Type;
  * */
 class Organization extends Thing {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_type(): string {
 		return 'Organization';
 	}

@@ -7,7 +7,7 @@ class Table extends Repeater {
 	protected array $header = [];
 	protected array $footer = [];
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		return [
 			'rows'       => $this->items,
@@ -28,6 +28,7 @@ class Table extends Repeater {
 		return $this;
 	}
 
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style();
 	}

@@ -6,7 +6,7 @@ use SIW\Abstracts\Base_Loader;
 
 class Loader extends Base_Loader {
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_classes(): array {
 		return [
 			Async\Export_Plato_Application::class,
@@ -14,7 +14,7 @@ class Loader extends Base_Loader {
 			Async\Import_Plato_Project::class,
 			Batch\Create_WooCommerce_Taxonomies::class,
 			Batch\Delete_Applications::class,
-			Batch\Delete_Old_Posts::class,
+			Batch\Update_Custom_Posts::class,
 			Batch\Import_All_Plato_Projects::class,
 			Batch\Import_Plato_Dutch_Projects::class,
 			Batch\Import_Plato_Project_Free_Places::class,

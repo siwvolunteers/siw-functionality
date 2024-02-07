@@ -2,13 +2,15 @@
 
 namespace SIW\Elements;
 
+use SIW\Facades\Meta_Box;
+
 class Form extends Element {
 
 	protected string $form_id;
 	protected bool $single_column = false;
 	protected \RW_Meta_Box $meta_box;
 
-	/** {@inheritDoc} */
+	#[\Override]
 	protected function get_template_variables(): array {
 		ob_start();
 		$this->meta_box->show();
@@ -25,7 +27,7 @@ class Form extends Element {
 
 	public function set_form_id( string $form_id ): self {
 		$this->form_id = $form_id;
-		$this->meta_box = siw_get_meta_box( "siw_form_{$form_id}" ) ?? new \RW_Meta_Box( [] );
+		$this->meta_box = Meta_Box::get_meta_box( "siw_form_{$form_id}" ) ?? new \RW_Meta_Box( [] );
 
 		// Zet dummy id zodat er nooit per ongeluk gegevens getoond worden
 		$this->meta_box->set_object_id( -1 );
@@ -60,13 +62,13 @@ class Form extends Element {
 		return $this;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function enqueue_scripts() {
 		$this->meta_box->enqueue();
 		self::enqueue_class_script( [ 'jquery', 'wp-api-request' ] );
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style();
 	}

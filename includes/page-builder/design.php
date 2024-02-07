@@ -10,22 +10,22 @@ class Design implements I_Style_Fields, I_Style_Attributes {
 	private const STYLE_FIELD_WIDGET_TITLE_ALIGN = 'siw_widget_title_align';
 	private const STYLE_FIELD_TEXT_ALIGN = 'siw_widget_text_align';
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function supports_widgets(): bool {
 		return true;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function supports_cells(): bool {
 		return false;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function supports_rows(): bool {
 		return false;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ): array {
 		$fields[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] = [
 			'name'     => __( 'Uitlijning widget titel', 'siw' ),
@@ -56,7 +56,7 @@ class Design implements I_Style_Fields, I_Style_Attributes {
 		return $fields;
 	}
 
-	/** {@inheritDoc} */
+	#[\Override]
 	public function set_style_attributes( array $style_attributes, array $style_args ): array {
 		if ( isset( $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] ) && ! empty( $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] ) ) {
 			$style_attributes['class'][] = sprintf( 'widget-title-align-%s', $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] );
