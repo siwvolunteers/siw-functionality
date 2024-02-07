@@ -14,12 +14,12 @@ class Cookie_Consent extends NPM_Asset {
 
 	#[\Override]
 	protected static function get_version_number(): ?string {
-		return '2.9.2';
+		return '3.0.0';
 	}
 
 	#[\Override]
 	protected static function get_script_file(): ?string {
-		return 'dist/cookieconsent.js';
+		return 'dist/cookieconsent.umd.js';
 	}
 
 	#[\Override]

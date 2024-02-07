@@ -5,6 +5,7 @@ namespace SIW\Features;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Config;
+use SIW\Data\Features\Cookie_Category;
 use SIW\Data\Tag_Attribute;
 use SIW\External_Assets\Meta_Pixel;
 use SIW\Traits\Class_Assets;
@@ -38,7 +39,7 @@ class Facebook_Pixel extends Base {
 		wp_script_add_data(
 			self::get_asset_handle(),
 			Tag_Attribute::COOKIE_CATEGORY->value,
-			Cookie_Consent::MARKETING
+			Cookie_Category::MARKETING->value
 		);
 		wp_enqueue_script( self::get_asset_handle() );
 		wp_enqueue_script( Meta_Pixel::get_asset_handle() );
