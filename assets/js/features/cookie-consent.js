@@ -1,6 +1,5 @@
 const siwCookieConsent = (function () {
 
-	/* Public methodes */
 	return {
 		init: init
 	};
@@ -14,11 +13,7 @@ const siwCookieConsent = (function () {
 	}
 
 	function _load () {
-		const cc = initCookieConsent();
-		console.log(document.readyState);
-		cc.run(
-			siw_cookie_consent.config
-		);
+		CookieConsent.run( siw_cookie_consent );
 	}
 
 })();

@@ -3,7 +3,7 @@
 namespace SIW\External_Assets;
 
 use SIW\Config;
-use SIW\Features\Cookie_Consent;
+use SIW\Data\Features\Cookie_Category;
 
 /**
  * @see       https://developers.google.com/tag-platform/tag-manager/web
@@ -31,6 +31,6 @@ class Google_Tag_Manager extends External_Asset {
 
 	#[\Override]
 	protected static function get_cookie_category(): ?string {
-		return Cookie_Consent::ANALYTICAL;
+		return Cookie_Category::ANALYTICAL->value;
 	}
 }
