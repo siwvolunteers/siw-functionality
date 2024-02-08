@@ -51,7 +51,7 @@ class Import_Workcamps extends Import {
 			$image_urls = $project->xpath( "*[starts-with(local-name(),'url_prj_photo')]" );
 			foreach ( $image_urls as $index => $image_url ) {
 				$image_data = [
-					'project_id'      => (string) $project->project_id,
+					'project_id'      => str_replace( '-', '', (string) $project->project_id ),
 					'image_id'        => $index,
 					'file_identifier' => get_query_arg( 'fileIdentifier', (string) $image_url ),
 				];
