@@ -4,15 +4,13 @@ namespace SIW\Compatibility;
 
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
-use SIW\Base;
 use SIW\Data\Breakpoint;
-use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Traits\Class_Assets;
 
 /**
  * @see         https://siteorigin.com/page-builder/
  */
-class SiteOrigin_Page_Builder extends Base implements I_Plugin {
+class SiteOrigin_Page_Builder extends Plugin {
 
 	use Class_Assets;
 

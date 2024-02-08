@@ -4,16 +4,14 @@ namespace SIW\Compatibility;
 
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
-use SIW\Base;
 use SIW\Data\Post_Type_Support;
-use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Traits\Class_Assets;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * @see       https://woocommerce.com/
  */
-class WooCommerce extends Base implements I_Plugin {
+class WooCommerce extends Plugin {
 
 	use Class_Assets;
 

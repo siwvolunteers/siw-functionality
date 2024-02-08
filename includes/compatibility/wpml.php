@@ -4,14 +4,12 @@ namespace SIW\Compatibility;
 
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
-use SIW\Base;
 use SIW\Util\I18n;
-use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
  * @see       https://wpml.org/
  */
-class WPML extends Base implements I_Plugin {
+class WPML extends Plugin {
 
 	private const USER_CAPS = [
 		'wpml_manage_translation_management',

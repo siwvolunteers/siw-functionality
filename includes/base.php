@@ -8,12 +8,20 @@ abstract class Base {
 
 	protected function __construct() {}
 
-	final public static function init( object ...$args ): static {
+	final public static function init( object ...$args ): ?static {
+		if ( ! static::should_load() ) {
+			return null;
+		}
+
 		$self = new static( ...$args );
 		$self->reflection_class = new \ReflectionClass( $self );
 		$self->add_hooks();
 		$self->add_shortcodes();
 		return $self;
+	}
+
+	protected static function should_load(): bool {
+		return true;
 	}
 
 	final protected function add_hooks(): void {
