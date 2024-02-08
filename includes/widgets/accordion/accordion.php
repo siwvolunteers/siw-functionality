@@ -65,36 +65,6 @@ class Accordion extends Widget {
 						'rows'           => 10,
 						'default_editor' => 'html',
 					],
-					'show_button' => [
-						'type'          => 'checkbox',
-						'label'         => __( 'Toon een knop', 'siw' ),
-						'default'       => false,
-						'state_emitter' => [
-							'callback' => 'conditional',
-							'args'     => [
-								'button_{$repeater}[show]: val',
-								'button_{$repeater}[hide]: ! val',
-							],
-						],
-					],
-					'button_text' => [
-						'type'          => 'text',
-						'label'         => __( 'Knoptekst', 'siw' ),
-						'state_handler' => [
-							'button_{$repeater}[show]' => [ 'show' ],
-							'button_{$repeater}[hide]' => [ 'hide' ],
-						],
-					],
-					'button_url'  => [
-						'type'          => 'text',
-						'label'         => __( 'URL', 'siw' ),
-						'sanitize'      => 'wp_make_link_relative',
-						'description'   => __( 'Relatief', 'siw' ),
-						'state_handler' => [
-							'button_{$repeater}[show]' => [ 'show' ],
-							'button_{$repeater}[hide]' => [ 'hide' ],
-						],
-					],
 				],
 			],
 			'tabs_allowed' => [
