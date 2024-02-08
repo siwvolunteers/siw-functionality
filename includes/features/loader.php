@@ -28,6 +28,7 @@ class Loader extends Base_Loader {
 			Topbar::class,
 			Upload_Subdir::class,
 			Web_App_Manifest::class,
+			Widgets::class,
 		];
 	}
 }

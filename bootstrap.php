@@ -116,7 +116,6 @@ class Bootstrap {
 			\SIW\Jobs\Loader::class,
 			\SIW\Options\Loader::class,
 			\SIW\Page_Builder\Loader::class,
-			\SIW\Widgets\Loader::class,
 			\SIW\WooCommerce\Loader::class,
 		];
 
