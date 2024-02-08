@@ -19,7 +19,7 @@ class Carousel extends Repeater {
 			Breakpoint::TABLET->value => [
 				'perPage' => 2,
 			],
-			Breakpoint::MOBILE => [
+			Breakpoint::MOBILE->value => [
 				'perPage' => 1,
 			],
 		],
