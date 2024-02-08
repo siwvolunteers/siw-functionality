@@ -1,4 +1,4 @@
-.panel-layout [data-stretch-type=full-width-stretch] {
+.panel-layout [data-stretch-type^=full] {
   margin-left: -40px;
   margin-right: -40px;
 }
