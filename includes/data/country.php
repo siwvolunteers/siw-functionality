@@ -18,6 +18,7 @@ enum Country: string implements Labels, Plato_Code {
 	case BOTSWANA = 'botswana';
 	case GHANA = 'ghana';
 	case KENYA = 'kenia';
+	case MADAGASCAR = 'madagaskar';
 	case MOROCCO = 'marokko';
 	case MOZAMBIQUE = 'mozambique';
 	case SENEGAL = 'senegal';
@@ -102,6 +103,7 @@ enum Country: string implements Labels, Plato_Code {
 	case COLOMBIA = 'colombia';
 	case COSTA_RICA = 'costa-rica';
 	case ECUADOR = 'ecuador';
+	case GUATEMALA = 'guatemale';
 	case HAITI = 'haiti';
 	case MEXICO = 'mexico';
 	case PERU = 'peru';
@@ -121,6 +123,7 @@ enum Country: string implements Labels, Plato_Code {
 			self::BOTSWANA => __( 'Botswana', 'woocommerce' ),
 			self::GHANA => __( 'Ghana', 'woocommerce' ),
 			self::KENYA => __( 'Kenya', 'woocommerce' ),
+			self::MADAGASCAR => __( 'Madagascar', 'woocommerce' ),
 			self::MOROCCO => __( 'Morocco', 'woocommerce' ),
 			self::MOZAMBIQUE => __( 'Mozambique', 'woocommerce' ),
 			self::SENEGAL => __( 'Senegal', 'woocommerce' ),
@@ -205,6 +208,7 @@ enum Country: string implements Labels, Plato_Code {
 			self::COLOMBIA => __( 'Colombia', 'woocommerce' ),
 			self::COSTA_RICA => __( 'Costa Rica', 'woocommerce' ),
 			self::ECUADOR => __( 'Ecuador', 'woocommerce' ),
+			self::GUATEMALA => __( 'Guatemala', 'woocommerce' ),
 			self::HAITI => __( 'Haiti', 'woocommerce' ),
 			self::MEXICO => __( 'Mexico', 'woocommerce' ),
 			self::PERU => __( 'Peru', 'woocommerce' ),
@@ -225,6 +229,7 @@ enum Country: string implements Labels, Plato_Code {
 			self::BOTSWANA => 'BWA',
 			self::GHANA => 'GHA',
 			self::KENYA => 'KEN',
+			self::MADAGASCAR => 'MDG',
 			self::MOROCCO => 'MAR',
 			self::MOZAMBIQUE => 'MOZ',
 			self::SENEGAL => 'SEN',
@@ -309,6 +314,7 @@ enum Country: string implements Labels, Plato_Code {
 			self::COLOMBIA => 'COL',
 			self::COSTA_RICA => 'CRI',
 			self::ECUADOR => 'ECU',
+			self::GUATEMALA => 'GTM',
 			self::HAITI => 'HTE',
 			self::MEXICO => 'MEX',
 			self::PERU => 'PER',
@@ -326,6 +332,7 @@ enum Country: string implements Labels, Plato_Code {
 			self::BOTSWANA => 'bw',
 			self::GHANA => 'gh',
 			self::KENYA => 'ke',
+			self::MADAGASCAR => 'mg',
 			self::MOROCCO => 'ma',
 			self::MOZAMBIQUE => 'mz',
 			self::SENEGAL => 'sn',
@@ -409,6 +416,7 @@ enum Country: string implements Labels, Plato_Code {
 			self::COLOMBIA => 'co',
 			self::COSTA_RICA => 'cr',
 			self::ECUADOR => 'ec',
+			self::GUATEMALA => 'gt',
 			self::HAITI => 'ht',
 			self::MEXICO => 'mx',
 			self::PERU => 'pe',
