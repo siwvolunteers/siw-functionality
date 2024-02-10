@@ -14,6 +14,7 @@ use SIW\Forms\Forms\Info_Day;
 use SIW\Helpers\Template;
 use SIW\Integrations\Mailjet;
 use SIW\Properties;
+use SIW\Structured_Data\Contact_Point;
 use SIW\Structured_Data\Event as Event_Structured_Data;
 use SIW\Structured_Data\Event_Attendance_Mode;
 use SIW\Structured_Data\Event_Status_Type;
@@ -408,7 +409,12 @@ class Event extends Post_Type {
 				->set_url( SIW_SITE_URL )
 				->set_same_as( SIW_SITE_URL )
 				->set_logo( get_site_icon_url() )
-				->set_non_profit_status( NL_Non_Profit_Type::ANBI );
+				->set_non_profit_status( NL_Non_Profit_Type::ANBI )
+				->set_contact_point(
+					Contact_Point::create()
+						->set_email( Properties::EMAIL )
+						->set_telephone( Properties::PHONE_INTERNATIONAL )
+				);
 		}
 		$structured_data->set_organizer( $organizer );
 
