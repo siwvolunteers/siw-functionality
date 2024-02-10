@@ -63,4 +63,19 @@ class WPML extends Plugin {
 			\members_register_cap( $cap, [ 'label' => $cap ] );
 		}
 	}
+
+	#[Add_Filter( 'siteorigin_panels_data' )]
+	public function repair_widget_class( $panels_data ) {
+
+		if ( ! is_array( $panels_data ) ) {
+			return $panels_data;
+		}
+
+		foreach ( $panels_data['widgets'] as &$widget ) {
+			if ( 0 === strpos( $widget['panels_info']['class'], 'SIWWidgets' ) ) {
+				$widget['panels_info']['class'] = str_replace( 'SIWWidgets', '\\SIW\\Widgets\\', $widget['panels_info']['class'] );
+			}
+		}
+		return $panels_data;
+	}
 }
