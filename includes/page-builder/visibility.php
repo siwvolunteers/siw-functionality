@@ -2,34 +2,20 @@
 
 namespace SIW\Page_Builder;
 
+use SIW\Attributes\Add_Filter;
+use SIW\Base;
 use SIW\Data\Visibility_Class;
-use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
-use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
-use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
 
-class Visibility implements I_Style_Group, I_Style_Fields, I_Style_Attributes {
+class Visibility extends Base {
 
 	private const STYLE_GROUP = 'siw_visibility';
 	private const STYLE_FIELD_HIDE_ON_MOBILE = 'hide_on_mobile';
 	private const STYLE_FIELD_HIDE_ON_TABLET = 'hide_on_tablet';
 	private const STYLE_FIELD_HIDE_ON_DESKTOP = 'hide_on_desktop';
 
-	#[\Override]
-	public function supports_widgets(): bool {
-		return true;
-	}
-
-	#[\Override]
-	public function supports_cells(): bool {
-		return true;
-	}
-
-	#[\Override]
-	public function supports_rows(): bool {
-		return true;
-	}
-
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_row_style_groups' )]
+	#[Add_Filter( 'siteorigin_panels_cell_style_groups' )]
+	#[Add_Filter( 'siteorigin_panels_widget_style_groups' )]
 	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ): array {
 		$groups[ self::STYLE_GROUP ] = [
 			'name'     => __( 'Zichtbaarheid', 'siw' ),
@@ -38,7 +24,9 @@ class Visibility implements I_Style_Group, I_Style_Fields, I_Style_Attributes {
 		return $groups;
 	}
 
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_row_style_fields' )]
+	#[Add_Filter( 'siteorigin_panels_cell_style_fields' )]
+	#[Add_Filter( 'siteorigin_panels_widget_style_fields' )]
 	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ): array {
 		$fields[ self::STYLE_FIELD_HIDE_ON_MOBILE ] = [
 			'name'     => '<span class="dashicons dashicons-smartphone"></span>' . __( 'Mobiel', 'siw' ),
@@ -64,7 +52,9 @@ class Visibility implements I_Style_Group, I_Style_Fields, I_Style_Attributes {
 		return $fields;
 	}
 
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_row_style_attributes' )]
+	#[Add_Filter( 'siteorigin_panels_cell_style_attributes' )]
+	#[Add_Filter( 'siteorigin_panels_widget_style_attributes' )]
 	public function set_style_attributes( array $style_attributes, array $style_args ): array {
 		if ( isset( $style_args[ self::STYLE_FIELD_HIDE_ON_MOBILE ] ) && true === $style_args[ self::STYLE_FIELD_HIDE_ON_MOBILE ] ) {
 			$style_attributes['class'][] = Visibility_Class::HIDE_ON_MOBILE->value;

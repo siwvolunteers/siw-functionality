@@ -2,15 +2,13 @@
 
 namespace SIW\Page_Builder;
 
+use SIW\Attributes\Add_Filter;
+use SIW\Base;
 use SIW\Data\Animation\Easing;
 use SIW\Data\Animation\Type;
 use SIW\Facades\SiteOrigin;
-use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
-use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
-use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
-use SIW\Interfaces\Page_Builder\Settings as I_Settings;
 
-class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_Settings {
+class Animation extends Base {
 
 	private const STYLE_GROUP = 'siw_animation';
 	private const STYLE_FIELD_TYPE = 'type';
@@ -23,22 +21,9 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 	private const OPTION_FIELD_DELAY = 'siw_animation_delay';
 	private const OPTION_FIELD_EASING = 'siw_animation_easing';
 
-	#[\Override]
-	public function supports_widgets(): bool {
-		return true;
-	}
-
-	#[\Override]
-	public function supports_cells(): bool {
-		return true;
-	}
-
-	#[\Override]
-	public function supports_rows(): bool {
-		return true;
-	}
-
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_row_style_groups' )]
+	#[Add_Filter( 'siteorigin_panels_cell_style_groups' )]
+	#[Add_Filter( 'siteorigin_panels_widget_style_groups' )]
 	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ): array {
 		$groups[ self::STYLE_GROUP ] = [
 			'name'     => __( 'Animatie', 'siw' ),
@@ -47,7 +32,9 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $groups;
 	}
 
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_row_style_fields' )]
+	#[Add_Filter( 'siteorigin_panels_cell_style_fields' )]
+	#[Add_Filter( 'siteorigin_panels_widget_style_fields' )]
 	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ): array {
 
 		$fields[ self::STYLE_GROUP ] = [
@@ -102,7 +89,9 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $fields;
 	}
 
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_row_style_attributes' )]
+	#[Add_Filter( 'siteorigin_panels_cell_style_attributes' )]
+	#[Add_Filter( 'siteorigin_panels_widget_style_attributes' )]
 	public function set_style_attributes( array $style_attributes, array $style_args ): array {
 
 		// Afbreken als er geen animatie van toepassing is
@@ -124,7 +113,6 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $style_attributes;
 	}
 
-	/** Geeft */
 	protected function get_attribute_value( array $style_args, string $field, string $prefix, string $default_option ): ?string {
 		if ( ! isset( $style_args[ "{$prefix}_{$field}" ] ) || 'default' === $style_args[ "{$prefix}_{$field}" ] ) {
 			return SiteOrigin::panels_setting( $default_option );
@@ -132,7 +120,7 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $style_args[ "{$prefix}_{$field}" ];
 	}
 
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_settings_fields' )]
 	public function add_settings( array $fields ): array {
 		$fields[ self::OPTION_GROUP ] = [
 			'title'  => __( 'Animatie', 'siw' ),
@@ -162,7 +150,7 @@ class Animation implements I_Style_Group, I_Style_Fields, I_Style_Attributes, I_
 		return $fields;
 	}
 
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_settings_defaults' )]
 	public function set_settings_defaults( array $defaults ): array {
 		$defaults[ self::OPTION_FIELD_DURATION ] = '1000';
 		$defaults[ self::OPTION_FIELD_DELAY ]    = 'none';
