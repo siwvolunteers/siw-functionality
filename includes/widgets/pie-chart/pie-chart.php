@@ -95,7 +95,7 @@ class Pie_Chart extends Widget {
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
-		if ( ! isset( $instance['series'] ) || empty( $instance['series'] ) ) {
+		if ( empty( $instance['series'] ) ) {
 			return [];
 		}
 

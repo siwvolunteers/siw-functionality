@@ -75,6 +75,7 @@ class Carousel extends Widget {
 					'callback' => 'select',
 					'args'     => [ 'post_type' ],
 				],
+				'required'      => true,
 			],
 		];
 
@@ -123,7 +124,7 @@ class Carousel extends Widget {
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
-		if ( ! isset( $instance['post_type'] ) || empty( $instance['post_type'] ) ) {
+		if ( empty( $instance['post_type'] ) ) {
 			return [];
 		}
 

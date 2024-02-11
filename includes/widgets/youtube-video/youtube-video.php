@@ -47,8 +47,9 @@ class YouTube_Video extends Widget {
 	public function get_widget_fields(): array {
 		$widget_fields = [
 			'video_id' => [
-				'type'  => 'text',
-				'label' => __( 'Video ID', 'siw' ),
+				'type'     => 'text',
+				'label'    => __( 'Video ID', 'siw' ),
+				'required' => true,
 			],
 			'autoplay' => [
 				'type'    => 'checkbox',
@@ -67,7 +68,7 @@ class YouTube_Video extends Widget {
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
-		if ( ! isset( $instance['video_id'] ) || empty( $instance['video_id'] ) ) {
+		if ( empty( $instance['video_id'] ) ) {
 			return [];
 		}
 

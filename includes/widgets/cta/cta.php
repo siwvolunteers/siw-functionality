@@ -71,6 +71,7 @@ class CTA extends Widget {
 				'label'                => __( 'Achtergrondafbeeldingen', 'siw' ),
 				'library'              => 'image',
 				'thumbnail_dimensions' => [ 64, 64 ],
+				'required'             => true,
 			],
 		];
 		return $widget_fields;
@@ -79,7 +80,7 @@ class CTA extends Widget {
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
-		if ( ! isset( $instance['background_images'] ) || empty( $instance['background_images'] ) ) {
+		if ( empty( $instance['background_images'] ) || empty( $instance['headline'] ) || empty( $instance['button_text'] ) || empty( $instance['button_url'] ) ) {
 			return [];
 		}
 

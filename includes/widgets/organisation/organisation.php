@@ -50,6 +50,7 @@ class Organisation extends Widget {
 				'label'          => __( 'Beloningsbeleid', 'siw' ),
 				'rows'           => 10,
 				'default_editor' => 'html',
+				'required'       => true,
 			],
 		];
 		return $widget_form;

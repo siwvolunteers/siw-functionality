@@ -67,6 +67,10 @@ class Form extends Widget {
 
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
+		if ( empty( $instance['form'] ) ) {
+			return [];
+		}
+
 		$form_element = Form_Element::create()->set_form_id( $instance['form'] )->set_single_column( $instance['single_column'] );
 		if ( $instance['hide_labels'] ) {
 			$form_element->hide_labels();

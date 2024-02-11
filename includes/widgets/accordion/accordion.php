@@ -55,15 +55,17 @@ class Accordion extends Widget {
 					'value_method' => 'val',
 				],
 				'fields'     => [
-					'title'       => [
-						'type'  => 'text',
-						'label' => __( 'Titel', 'siw' ),
+					'title'   => [
+						'type'     => 'text',
+						'label'    => __( 'Titel', 'siw' ),
+						'required' => true,
 					],
-					'content'     => [
+					'content' => [
 						'type'           => 'tinymce',
 						'label'          => __( 'Inhoud', 'siw' ),
 						'rows'           => 10,
 						'default_editor' => 'html',
+						'required'       => true,
 					],
 				],
 			],
@@ -79,7 +81,7 @@ class Accordion extends Widget {
 
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
-		if ( ! isset( $instance['panes'] ) || empty( $instance['panes'] ) ) {
+		if ( empty( $instance['panes'] ) ) {
 			return [];
 		}
 
