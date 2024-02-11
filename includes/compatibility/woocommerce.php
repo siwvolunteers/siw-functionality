@@ -161,7 +161,7 @@ class WooCommerce extends Plugin {
 	}
 
 	#[Add_Filter( 'woocommerce_logger_log_message' )]
-	public function remove_fatal_error_logging( string $message, string $level, array $context, \WC_Log_Handler_Interface $handler ): ?string {
+	public function remove_fatal_error_logging( string|array $message, string $level, array $context, \WC_Log_Handler_Interface $handler ): string|array|null {
 		if ( 'fatal-errors' === $context['source'] ) {
 			return null;
 		}
