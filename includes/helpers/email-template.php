@@ -84,6 +84,11 @@ class Email_Template {
 			$data = array_values( $data );
 		}
 
+		$data = array_filter(
+			$data,
+			fn( $item ): bool=> ! empty( $item['label'] && ! empty( $item['value'] ) )
+		);
+
 		$this->context['table_data'][] = [
 			'heading' => $heading,
 			'data'    => $data,
