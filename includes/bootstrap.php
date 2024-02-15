@@ -49,7 +49,7 @@ class Bootstrap {
 		define( 'SIW_INCLUDES_DIR', SIW_PLUGIN_DIR . 'includes/' );
 		define( 'SIW_WIDGETS_DIR', SIW_INCLUDES_DIR . 'widgets/' );
 		define( 'SIW_DATA_DIR', SIW_PLUGIN_DIR . 'data/' );
-		define( 'SIW_ASSETS_URL', plugin_dir_url( __FILE__ ) . 'assets/' );
+		define( 'SIW_ASSETS_URL', plugin_dir_url( SIW_FUNCTIONALITY_PLUGIN_FILE ) . 'assets/' );
 		define( 'SIW_SITE_URL', get_home_url() );
 		define( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL, PHP_URL_HOST ) );
 		define( 'SIW_OPTIONS_KEY', 'siw_options' );
