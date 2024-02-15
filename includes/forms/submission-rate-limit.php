@@ -6,7 +6,7 @@ use SIW\Util\Logger;
 
 class Submission_Rate_Limit {
 
-	private const SUBMISSION_RATE_LIMIT = 99;
+	private const SUBMISSION_RATE_LIMIT = 1;
 	private const SUBMISSION_RATE_LIMIT_INTERVAL = HOUR_IN_SECONDS;
 
 	public static function check( \WP_REST_Request $request, string $form_id ): bool|\WP_Error {
