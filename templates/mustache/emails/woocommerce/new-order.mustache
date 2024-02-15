@@ -1,0 +1,8 @@
+{{< email }}
+	{{$ message }}
+		<p>
+			{{#__}}Er is een nieuwe aanmelding ({{ application.status }}) binnengekomen:{{/__}}<br/>
+			<a href="{{ application.admin_url }}">{{#__}}Aanmelding {{ application.number }}{{/__}}</a>
+		</p>
+	{{/ message}}
+{{/ email}}

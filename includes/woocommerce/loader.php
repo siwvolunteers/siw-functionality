@@ -21,8 +21,6 @@ class Loader extends Base_Loader {
 			Checkout\Discount\Student::class,
 			Checkout\Discount\Bulk::class,
 
-			Email\Customer_On_Hold_Order::class,
-			Email\Customer_Processing_Order::class,
 			Email\Emails::class,
 
 			Order\Admin\Order_Actions::class,

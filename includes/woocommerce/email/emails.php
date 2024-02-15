@@ -19,8 +19,10 @@ class Emails extends Base {
 	}
 
 	#[Add_Filter( 'woocommerce_email_classes' )]
-	public function overwrite_email_classes( array $classes ): array {
-		$emails['WC_Email_New_Order'] = new New_Order();
+	public function overwrite_email_classes( array $emails ): array {
+		$emails['WC_Email_New_Order'] = new New_Order( $emails['WC_Email_New_Order'] );
+		$emails['WC_Email_Customer_On_Hold_Order'] = new Customer_On_Hold_Order( $emails['WC_Email_Customer_On_Hold_Order'] );
+		$emails['WC_Email_Customer_Processing_Order'] = new Customer_Processing_Order( $emails['WC_Email_Customer_Processing_Order'] );
 		return $emails;
 	}
 

@@ -8,6 +8,20 @@ class New_Order extends \WC_Email_New_Order {
 
 	use Order_Table;
 
+	public function __construct( \WC_Email_New_Order $default_instance ) {
+		remove_action( 'woocommerce_order_status_pending_to_processing_notification', [ $default_instance, 'trigger' ], 10, 2 );
+		remove_action( 'woocommerce_order_status_pending_to_completed_notification', [ $default_instance, 'trigger' ], 10, 2 );
+		remove_action( 'woocommerce_order_status_pending_to_on-hold_notification', [ $default_instance, 'trigger' ], 10, 2 );
+		remove_action( 'woocommerce_order_status_failed_to_processing_notification', [ $default_instance, 'trigger' ], 10, 2 );
+		remove_action( 'woocommerce_order_status_failed_to_completed_notification', [ $default_instance, 'trigger' ], 10, 2 );
+		remove_action( 'woocommerce_order_status_failed_to_on-hold_notification', [ $default_instance, 'trigger' ], 10, 2 );
+		remove_action( 'woocommerce_order_status_cancelled_to_processing_notification', [ $default_instance, 'trigger' ], 10, 2 );
+		remove_action( 'woocommerce_order_status_cancelled_to_completed_notification', [ $default_instance, 'trigger' ], 10, 2 );
+		remove_action( 'woocommerce_order_status_cancelled_to_on-hold_notification', [ $default_instance, 'trigger' ], 10, 2 );
+		remove_action( 'woocommerce_email_footer', [ $default_instance, 'mobile_messaging' ], 9 );
+		parent::__construct();
+	}
+
 	#[\Override]
 	public function get_recipient(): string {
 		return siw_get_email_settings( 'workcamp' )->get_notification_mail_recipient();
@@ -27,7 +41,6 @@ class New_Order extends \WC_Email_New_Order {
 			->set_template( 'woocommerce/new-order' )
 			// translators: %s is de betaalstatus
 			->set_subject( sprintf( __( 'Nieuwe aanmelding (%s)', 'siw' ), $status ) )
-			->set_signature( __( 'SIW', 'siw' ) )
 			->add_context(
 				[
 					'application' => [
