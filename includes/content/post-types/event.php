@@ -323,7 +323,7 @@ class Event extends Post_Type {
 		if ( 'single' === $type ) {
 			if ( $post->is_info_day() ) {
 				$template_variables['application_form_info_day'] = Form::create()
-					->set_form_id( Info_Day::FORM_ID )
+					->set_form_id( Info_Day::get_id() )
 					->set_field_value( 'info_day_date', $post->get_id() )
 					->generate();
 			}

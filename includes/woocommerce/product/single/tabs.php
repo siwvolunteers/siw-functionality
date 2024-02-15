@@ -134,7 +134,7 @@ class Tabs extends Base {
 	}
 
 	public function show_product_contact_form() {
-		Form::create()->set_form_id( Enquiry_Project::FORM_ID )->render();
+		Form::create()->set_form_id( Enquiry_Project::get_id() )->render();
 	}
 
 	public function show_product_costs( string $tab, array $args ) {

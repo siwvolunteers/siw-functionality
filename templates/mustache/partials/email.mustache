@@ -35,35 +35,48 @@
 									<td width="10%">&nbsp;</td>
 									<td width="80%">
 										<div style="font-family:Verdana, normal; color:{{ colors.contrast }}; font-size:0.9em;">
-											<p>
-											{{& message|wp_kses_post }}
-
+											{{$ message }}
+												Dit is de boodschap
+											{{/ message }}
 											{{# signature }}
-												<br/><br/>
-												{{ i18n.with_kind_regards }},<br/><br/>
-												{{ name }}<br/>
+												{{#__}}Met vriendelijke groet{{/__}},<br><br>
+												{{ name }}
 											{{/ signature }}
-											</p>
 										</div>
-										{{# summary.show }}
-										<table width="100%" border="0" cellspacing="0" cellpadding="0">
-											<tr>
-												<td colspan="3" height="20" style="font-family:Verdana, normal; color:{{ colors.contrast }}; font-size:0.8em; font-weight:bold; border-top:thin solid {{ colors.accent }};" >
-													{{ i18n.entered_data }}
-												</td>
-											</tr>
-											{{# summary.data }}
-											<tr>
-												<td width="35%" style="font-family: Verdana, normal; color:{{ colors.contrast }}; font-size:0.8em;">{{ label }}</td>
-												<td width="5%"></td>
-												<td width="50%" style="font-family: Verdana, normal; color:{{ colors.contrast }}; font-size:0.8em; font-style:italic">{{ value }}</td>
-											</tr>
-											{{/ summary.data }}
-										</table>
-										{{/ summary.show }}
 									</td>
 									<td width="10%">&nbsp;</td>
 								</tr>
+								{{# has_table_data }}
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="80%" height="20" style="border-bottom:thin solid {{ colors.accent }};">&nbsp;</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="80%">
+										{{# table_data }}
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											{{# heading }}
+											<tr>
+												<td colspan="3" height="20" style="font-family:Verdana, normal; color:{{ colors.contrast }}; font-size:0.8em; font-weight:bold;" >
+													{{ . }}
+												</td>
+											</tr>
+											{{/ heading }}
+											{{# data }}
+											<tr>
+												<td width="35%" style="font-family: Verdana, normal; color:{{ colors.contrast }}; font-size:0.8em;">{{ label }}</td>
+												<td width="5%"></td>
+												<td width="50%" style="font-family: Verdana, normal; color:{{ colors.contrast }}; font-size:0.8em; font-style:italic">{{& value|wp_kses_post }}</td>
+											</tr>
+											{{/ data }}
+										</table>
+										{{/ table_data }}
+									</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+								{{/ has_table_data }}
 								<tr>
 									<td width="10%">&nbsp;</td>
 									<td width="80%" height="20" style="border-bottom:thin solid {{ colors.accent }};">&nbsp;</td>
@@ -85,7 +98,7 @@
 								<tr>
 									<td width="10%">&nbsp;</td>
 									<td width="auto" align="center" style="font-family:Verdana, normal; color:{{ colors.contrast_light }}; font-size:0.7em; font-weight:bold">
-										<a href="{{ properties.site_url }}" target="_blank" style="color:{{ colors.contrast_light }}; text-decoration:none" title="{{ i18n.visit_our_website }}">{{ properties.site_name }}</a> | <a href="tel:{{ properties.phone_international;" style="color:{{ colors.contrast_light }}; text-decoration:none">{{ properties.phone }}</a> | <a href="mailto:{{ properties.email }}" style="color:{{ colors.contrast_light }}; text-decoration:none">{{ properties.email }}</a>
+										<a href="{{ properties.site_url }}" target="_blank" style="color:{{ colors.contrast_light }}; text-decoration:none" title="{{#__}}Bezoek onze website{{/__}}">{{ properties.site_name }}</a> | <a href="tel:{{ properties.phone_international;" style="color:{{ colors.contrast_light }}; text-decoration:none">{{ properties.phone }}</a> | <a href="mailto:{{ properties.email }}" style="color:{{ colors.contrast_light }}; text-decoration:none">{{ properties.email }}</a>
 									</td>
 									<td width="10%">&nbsp;</td>
 								</tr>

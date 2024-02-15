@@ -2,26 +2,17 @@
 
 namespace SIW\Forms\Forms;
 
-use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
-use SIW\Interfaces\Forms\Form as Form_Interface;
-use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
+use SIW\Forms\Form;
 
-class Cooperation implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
-
-	public const FORM_ID = 'cooperation';
+class Cooperation extends Form {
 
 	#[\Override]
-	public function get_form_id(): string {
-		return self::FORM_ID;
-	}
-
-	#[\Override]
-	public function get_form_name(): string {
+	public function get_name(): string {
 		return __( 'Interesse samenwerking', 'siw' );
 	}
 
 	#[\Override]
-	public function get_form_fields(): array {
+	public function get_fields(): array {
 		return [
 			[
 				'id'   => 'organisation',
@@ -45,36 +36,11 @@ class Cooperation implements Form_Interface, Confirmation_Mail_Interface, Notifi
 				'required' => false,
 			],
 			[
-				'id'       => 'explanation',
-				'type'     => 'textarea',
-				'name'     => __( 'Beschrijf kort op welke manier u wilt samenwerken met SIW', 'siw' ),
-				'required' => true,
-				'columns'  => Form_Interface::FULL_WIDTH,
+				'id'      => 'explanation',
+				'type'    => 'textarea',
+				'name'    => __( 'Beschrijf kort op welke manier u wilt samenwerken met SIW', 'siw' ),
+				'columns' => Form::FULL_WIDTH,
 			],
 		];
-	}
-
-	#[\Override]
-	public function get_notification_mail_subject(): string {
-		return 'Interesse samenwerking';
-	}
-
-	#[\Override]
-	public function get_notification_mail_message(): string {
-		return 'Via de website is onderstaand bericht verstuurd:';
-	}
-
-	#[\Override]
-	public function get_confirmation_mail_subject(): string {
-		return __( 'Bevestiging interesse samenwerking', 'siw' );
-	}
-
-	#[\Override]
-	public function get_confirmation_mail_message(): string {
-		// translators: %s is de naam van de contactpersoon
-		return sprintf( __( 'Beste %s,', 'siw' ), '{{ contact_person }}' ) . BR2 .
-		__( 'Wat leuk dat u interesse heeft in een samenwerking met SIW Internationale Vrijwilligersprojecten!', 'siw' ) . SPACE .
-		__( 'Wij willen u bedanken voor het achterlaten van uw contactgegevens en wensen.', 'siw' ) . SPACE .
-		__( 'Ons streven is binnen drie tot vijf werkdagen contact met u op te nemen om de mogelijkheden te bespreken.', 'siw' );
 	}
 }

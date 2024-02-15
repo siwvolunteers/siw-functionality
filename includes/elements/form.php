@@ -47,7 +47,8 @@ class Form extends Element {
 		$placeholder_fields = [ 'text', 'search', 'url', 'tel', 'email', 'password', 'number' ];
 
 		foreach ( $this->meta_box->meta_box['fields'] as $index => $field ) {
-			if ( in_array( $field['type'], $placeholder_fields, true ) ) {
+
+			if ( in_array( $field['type'], $placeholder_fields, true ) && ! empty( $field['name'] ) ) {
 				$field['placeholder'] = $field['name'];
 			}
 			$field['attributes']['aria-label'] = $field['name'];

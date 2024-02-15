@@ -2,10 +2,9 @@
 
 namespace SIW\Forms;
 
-use SIW\Abstracts\Object_Loader;
-use SIW\Interfaces\Forms\Form as Form_Interface;
+use SIW\Abstracts\Base_Loader;
 
-class Loader extends Object_Loader {
+class Loader extends Base_Loader {
 
 	#[\Override]
 	protected function get_classes(): array {
@@ -19,14 +18,5 @@ class Loader extends Object_Loader {
 			Forms\Newsletter::class,
 			Forms\Tailor_Made::class,
 		];
-	}
-
-	#[\Override]
-	protected function load( object $form_object ) {
-
-		if ( ! is_a( $form_object, Form_Interface::class ) ) {
-			return;
-		}
-		Form::init( $form_object );
 	}
 }

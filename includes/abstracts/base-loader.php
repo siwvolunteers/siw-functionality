@@ -5,11 +5,14 @@ namespace SIW\Abstracts;
 use SIW\Base;
 use SIW\Util\Logger;
 
-abstract class Base_Loader extends Loader {
+abstract class Base_Loader {
 
-	#[\Override]
-	protected function load_classes( array $classes ) {
-		array_walk( $classes, fn( string $class_name ) => $this->load( $class_name ) );
+	abstract protected function get_classes(): array;
+
+	final public static function init() {
+		$self = new static();
+		$classes = $self->get_classes();
+		array_walk( $classes, fn( string $class_name ) => $self->load( $class_name ) );
 	}
 
 	final protected function load( string $class_name ) {

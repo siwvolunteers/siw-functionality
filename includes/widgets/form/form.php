@@ -71,7 +71,7 @@ class Form extends Widget {
 			return [];
 		}
 
-		$form_element = Form_Element::create()->set_form_id( $instance['form'] )->set_single_column( $instance['single_column'] );
+		$form_element = Form_Element::create()->set_form_id( $instance['form'] )->set_single_column( (bool) $instance['single_column'] );
 		if ( $instance['hide_labels'] ) {
 			$form_element->hide_labels();
 		}

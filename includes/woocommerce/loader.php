@@ -24,7 +24,6 @@ class Loader extends Base_Loader {
 			Email\Customer_On_Hold_Order::class,
 			Email\Customer_Processing_Order::class,
 			Email\Emails::class,
-			Email\New_Order::class,
 
 			Order\Admin\Order_Actions::class,
 			Order\Status_Transitions::class,

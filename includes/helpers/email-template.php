@@ -10,6 +10,8 @@ class Email_Template {
 
 	// TODO: integreren in email helper?
 
+	protected string $template;
+
 	protected array $context = [];
 
 	protected function __construct() {}
@@ -33,11 +35,6 @@ class Email_Template {
 				'contrast_light' => Color::CONTRAST_LIGHT->color(),
 				'base'           => Color::BASE->color(),
 			],
-			'i18n'            => [
-				'with_kind_regards' => __( 'Met vriendelijke groet', 'siw' ),
-				'entered_data'      => __( 'Ingevulde gegevens', 'siw' ),
-				'visit_our_website' => __( 'Bezoek onze website', 'siw' ),
-			],
 			'social_networks' => array_values(
 				array_map(
 					fn( Social_Network $network ): array => [
@@ -48,7 +45,6 @@ class Email_Template {
 					Social_Network::filter( Social_Network_Context::FOLLOW )
 				)
 			),
-
 		];
 		return $self;
 	}
@@ -65,34 +61,40 @@ class Email_Template {
 		return $this;
 	}
 
-	public function set_message( string $message ): self {
-		$this->context['message'] = $message;
+	public function set_template( string $template ): self {
+		$this->template = str_replace( '_', '-', $template );
 		return $this;
 	}
 
-	public function set_summary_data( array $summary_data ): self {
-		if ( ! wp_is_numeric_array( $summary_data ) ) {
-			$summary_data = array_map(
+	public function add_context( array $context ): self {
+		$this->context += $context;
+		return $this;
+	}
+
+	public function add_table_data( array $data, string $heading = null ): self {
+		if ( ! wp_is_numeric_array( $data ) ) {
+			$data = array_map(
 				fn( string $label, string $value ): array => [
 					'label' => $label,
 					'value' => $value,
 				],
-				array_keys( $summary_data ),
-				$summary_data
+				array_keys( $data ),
+				$data
 			);
-			$summary_data = array_values( $summary_data );
+			$data = array_values( $data );
 		}
 
-		$this->context['summary'] = [
-			'show' => true,
-			'data' => $summary_data,
+		$this->context['table_data'][] = [
+			'heading' => $heading,
+			'data'    => $data,
 		];
+		$this->context['has_table_data'] = true;
 		return $this;
 	}
 
 	public function generate(): string {
 		return Template::create()
-			->set_template( 'email' )
+			->set_template( 'emails/' . $this->template )
 			->set_context( $this->context )
 			->parse_template();
 	}
