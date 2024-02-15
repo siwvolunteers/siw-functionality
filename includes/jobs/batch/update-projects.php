@@ -19,7 +19,6 @@ class Update_Projects extends Scheduled_Job {
 	private const MAX_AGE_PROJECT = 6;
 	private const MIN_DAYS_BEFORE_START = 3;
 
-
 	protected WC_Product_Project $product;
 
 	#[\Override]

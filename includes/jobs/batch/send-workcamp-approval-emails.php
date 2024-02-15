@@ -17,7 +17,7 @@ class Send_Workcamp_Approval_Emails extends Scheduled_Job {
 
 	#[\Override]
 	public function get_name(): string {
-		return 'Versturen email goedkeuren groepsprojecten';
+		return __( 'Versturen email goedkeuren groepsprojecten', 'siw' );
 	}
 
 	#[\Override]
