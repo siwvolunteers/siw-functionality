@@ -47,8 +47,7 @@ class Info_Day implements I_Form, I_Confirmation_Mail, I_Notification_Mail, I_Ex
 			[
 				'id'       => 'phone',
 				'type'     => 'tel',
-				'name'     => __( 'Telefoonnummer', 'siw' ),
-				'required' => false,
+				'name'     => __( 'Telefoonnummer', 'siw' ),				
 			],
 			[
 				'id'      => 'info_day_date',
