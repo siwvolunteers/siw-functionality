@@ -356,7 +356,7 @@ class Event extends Post_Type {
 			return;
 		}
 
-		$name = 'infodag ' . siw_format_date( $event->get_event_date()->format( 'Y-m-d' ) );
+		$name = 'infodag ' . wp_date( 'j F Y', $event->get_event_date()->getTimestamp(), wp_timezone() );
 		$mailjet = Mailjet::create();
 		$lists = $mailjet->get_lists( [ 'name' => $name ] );
 		$list_id = $lists[0]['id'] ?? $mailjet->create_list( $name );
