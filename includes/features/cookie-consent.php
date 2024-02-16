@@ -82,49 +82,65 @@ class Cookie_Consent extends Base {
 								'closeIconLabel'     => __( 'Sluiten', 'siw' ),
 								'sections'           => [
 									[
-										'description' =>
-											__( 'Bij het bezoek aan deze website worden op jouw computer, tablet of smartphone cookies geplaatst.', 'siw' ) . SPACE .
-											__( 'Cookies zijn kleine, eenvoudige tekstbestandjes.', 'siw' ) . SPACE .
-											__( 'Cookies geven ons meer informatie over het surfgedrag op de website, waardoor we de website kunnen verbeteren en jou beter van dienst kunnen zien.', 'siw' ) . SPACE .
-											__( 'Daarnaast kunnen met behulp van cookies de informatie en aanbiedingen op de site worden afgestemd op jouw voorkeuren.', 'siw' ) . SPACE .
-											sprintf(
-												// translators: %s is de link naar het privacybeleid
-												__( 'Lees meer over hoe wij cookies gebruiken en hoe je ze kunt beheren in ons %s.', 'siw' ),
-												Link::create()
-													->set_url( get_privacy_policy_url() )
-													->set_text( __( 'privacybeleid', 'siw' ) )
-													->generate()
-											),
+										'description' => implode(
+											' ',
+											[
+												__( 'Bij het bezoek aan deze website worden op jouw computer, tablet of smartphone cookies geplaatst.', 'siw' ),
+												__( 'Cookies zijn kleine, eenvoudige tekstbestandjes.', 'siw' ),
+												__( 'Cookies geven ons meer informatie over het surfgedrag op de website, waardoor we de website kunnen verbeteren en jou beter van dienst kunnen zien.', 'siw' ),
+												__( 'Daarnaast kunnen met behulp van cookies de informatie en aanbiedingen op de site worden afgestemd op jouw voorkeuren.', 'siw' ),
+												sprintf(
+													// translators: %s is de link naar het privacybeleid
+													__( 'Lees meer over hoe wij cookies gebruiken en hoe je ze kunt beheren in ons %s.', 'siw' ),
+													Link::create()
+														->set_url( get_privacy_policy_url() )
+														->set_text( __( 'privacybeleid', 'siw' ) )
+														->generate()
+												),
+											],
+										),
 									],
 									[
 										'linkedCategory' => Cookie_Category::NECESSARY->value,
 										'title'          => __( 'Noodzakelijke cookies', 'siw' ),
-										'description'    =>
-											__( 'Deze cookies zijn noodzakelijk voor het functioneren van de website.', 'siw' ) . SPACE .
-											__( 'Zonder deze cookies zou de website niet naar behoren werken', 'siw' ),
+										'description'    => implode(
+											' ',
+											[
+												__( 'Deze cookies zijn noodzakelijk voor het functioneren van de website.', 'siw' ),
+												__( 'Zonder deze cookies zou de website niet naar behoren werken', 'siw' ),
+											]
+										),
 									],
 									[
 										'linkedCategory' => Cookie_Category::ANALYTICAL->value,
 										'title'          => __( 'Analytische cookies', 'siw' ),
-										'description'    =>
-											__( 'Analytische cookies verzamelen gegevens over het gebruik van een website zoals het aantal bezoekers, de tijd die bezoekers doorbrengen op een webpagina en foutmeldingen.', 'siw' ) . SPACE .
-											__( 'We gebruiken Google Tag Manager (zorgt voor het verzamelen van anonieme gegevens over het gebruik van onze website en het opstellen van bezoekersstatistieken).', 'siw' ) . SPACE .
-											sprintf(
-												// translators: %s is de link naar het privacybeleid van Google
-												__( 'Meer informatie over hoe Google met gegevens omgaat is te lezen in het %s van Google.', 'siw' ),
-												Link::create()
-													->set_url( 'http://www.google.com/intl/nl/policies/privacy/partners/' )
-													->set_text( __( 'privacybeleid', 'siw' ) )
-													->set_is_external()
-													->generate()
-											),
+										'description'    => implode(
+											' ',
+											[
+												__( 'Analytische cookies verzamelen gegevens over het gebruik van een website zoals het aantal bezoekers, de tijd die bezoekers doorbrengen op een webpagina en foutmeldingen.', 'siw' ),
+												__( 'We gebruiken Google Tag Manager (zorgt voor het verzamelen van anonieme gegevens over het gebruik van onze website en het opstellen van bezoekersstatistieken).', 'siw' ),
+												sprintf(
+													// translators: %s is de link naar het privacybeleid van Google
+													__( 'Meer informatie over hoe Google met gegevens omgaat is te lezen in het %s van Google.', 'siw' ),
+													Link::create()
+														->set_url( 'http://www.google.com/intl/nl/policies/privacy/partners/' )
+														->set_text( __( 'privacybeleid', 'siw' ) )
+														->set_is_external()
+														->generate()
+												),
+											],
+										),
 									],
 									[
 										'linkedCategory' => Cookie_Category::MARKETING->value,
 										'title'          => __( 'Marketing cookies', 'siw' ),
-										'description'    =>
-											__( 'Marketing cookies zorgen ervoor dat een website gepersonaliseerde reclameboodschappen kan sturen.', 'siw' ) . SPACE .
-											__( 'SIW adverteert daartoe via Facebook, Instagram en Google Ads.', 'siw' ),
+										'description'    => implode(
+											' ',
+											[
+												__( 'Marketing cookies zorgen ervoor dat een website gepersonaliseerde reclameboodschappen kan sturen.', 'siw' ),
+												__( 'SIW adverteert daartoe via Facebook, Instagram en Google Ads.', 'siw' ),
+											],
+										),
 									],
 									[
 										'title'       => __( 'Meer informatie', 'siw' ),

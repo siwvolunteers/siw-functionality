@@ -92,13 +92,20 @@ class Product extends Base {
 			}
 		}
 		echo '</dl>';
-		echo '<p>';
-		esc_html_e( 'Lees snel verder voor meer informatie over de werkzaamheden, de accommodatie, de projectlocatie en de kosten.', 'siw' );
-		echo SPACE; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo esc_html_e( 'Heb je een vraag over dit project?', 'siw' );
-		echo SPACE; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo esc_html_e( 'Laat je gegevens achter bij "Stel een vraag" en we nemen zo snel mogelijk contact met je op.', 'siw' );
-		echo '</p>';
+
+		echo(
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			wpautop(
+				implode(
+					' ',
+					[
+						esc_html__( 'Lees snel verder voor meer informatie over de werkzaamheden, de accommodatie, de projectlocatie en de kosten.', 'siw' ),
+						esc_html__( 'Heb je een vraag over dit project?', 'siw' ),
+						esc_html__( 'Laat je gegevens achter bij "Stel een vraag" en we nemen zo snel mogelijk contact met je op.', 'siw' ),
+					]
+				)
+			)
+		);
 	}
 
 	#[Add_Action( 'woocommerce_before_single_product_summary' )]

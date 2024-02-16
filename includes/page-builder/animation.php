@@ -72,7 +72,7 @@ class Animation extends Base {
 					'name'        => __( 'Easing', 'siw' ),
 					'description' =>
 					// translators: %s is de standaard instelling
-					sprintf( __( 'Standaard: %s', 'siw' ), $this->get_default_easing() ) . BR .
+					sprintf( __( 'Standaard: %s', 'siw' ), $this->get_default_easing() ) . '<br>' .
 					wp_targeted_link_rel( links_add_target( make_clickable( 'https://easings.net/' ) ) ),
 					'type'        => 'select',
 					'priority'    => 40,

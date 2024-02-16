@@ -2,12 +2,14 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Elements\List_Style_Position;
 use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Visibility_Class;
 use SIW\Data\Work_Type;
 use SIW\Elements\Accordion_Tabs;
 use SIW\Elements\Leaflet_Map;
 use SIW\Elements\Link;
+use SIW\Elements\List_Columns;
 use SIW\Facades\WooCommerce;
 use SIW\Util\I18n;
 use SIW\WooCommerce\Product\WC_Product_Project;
@@ -125,7 +127,10 @@ class Dutch_Projects extends Widget {
 			$description[] = sprintf( __( 'Sustainable Development Goals: %s', 'siw' ), implode( ', ', $sdgs ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 			// TODO: icons gebruiken?
 		}
-		return wpautop( implode( BR, $description ) );
+		return List_Columns::create()
+			->add_items( $description )
+			->set_list_style_position( List_Style_Position::OUTSIDE )
+			->generate();
 	}
 
 	protected function get_project_link( WC_Product_Project $project ): ?string {

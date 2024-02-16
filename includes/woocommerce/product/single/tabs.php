@@ -96,12 +96,11 @@ class Tabs extends Base {
 
 		if ( self::REQUIREMENTS_TAB === $tab && $this->product_needs_coc( $product ) ) {
 			$this->show_coc_requirement();
-			echo BR2; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		if ( ! $product->is_dutch_project() ) {
-			echo ( '<i>Onderstaande informatie komt direct van onze partnerorganisatie en wordt daarom niet in het Nederlands weergegeven.</i>' );
-			echo BR2; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wpautop( '<i>' . esc_html__( 'Onderstaande informatie komt direct van onze partnerorganisatie en wordt daarom niet in het Nederlands weergegeven.', 'siw' ) . '</i>' );
 		}
 
 		echo wp_kses_post( wp_targeted_link_rel( links_add_target( make_clickable( wpautop( $args['content'] ) ) ) ) );
@@ -124,7 +123,8 @@ class Tabs extends Base {
 	}
 
 	public function show_coc_requirement() {
-		echo esc_html( 'Aangezien je in dit project met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.' );
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wpautop( esc_html__( 'Aangezien je in dit project met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.', 'siw' ) );
 	}
 
 	public function show_project_map( string $tab, array $args ) {
@@ -143,21 +143,24 @@ class Tabs extends Base {
 		$product = $args['product'];
 
 		if ( 0.0 === (float) $product->get_price() ) {
-			esc_html_e( 'Voor dit project is geen inschrijfgeld van toepassing', 'siw' );
+			$fee_description = esc_html_e( 'Voor dit project is geen inschrijfgeld van toepassing', 'siw' );
 		} elseif ( $product->is_excluded_from_student_discount() || $product->is_esc_project() ) {
-			printf(
+			$fee_description = sprintf(
 				// translators: %s is het inschrijfgeld.
 				esc_html__( 'Het inschrijfgeld voor dit project bedraagt %s.', 'siw' ),
 				esc_html( siw_format_amount( (float) $product->get_price() ) ),
 			);
 		} else {
-			printf(
+			$fee_description = sprintf(
 				// translators: %1$s is het inschrijfgeld %2$s is het bedrag studentenkorting
 				esc_html__( 'Het inschrijfgeld voor dit project bedraagt %1$s, exclusief %2$s korting voor studenten en jongeren onder de 18.', 'siw' ),
 				esc_html( siw_format_amount( (float) $product->get_price() ) ),
 				esc_html( siw_format_amount( min( Config::get_student_discount_amount(), (float) $product->get_price() ) ) )
 			);
 		}
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wpautop( $fee_description );
 
 		// Local fee niet tonen voor nederlandse projecten
 		if ( $product->has_participation_fee() && ! $product->is_dutch_project() ) {
@@ -167,20 +170,22 @@ class Tabs extends Base {
 			if ( Currency::EUR->value !== $currency_code ) {
 				$amount_in_euro = Fixer::create()->convert_to_euro( $currency_code, $product->get_participation_fee() );
 			}
-			echo BR; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			printf(
+			$local_fee_description = sprintf(
 				// translators: %s is een bedrag
 				esc_html__( 'Let op: naast het inschrijfgeld betaal je ter plekke nog een lokale bijdrage van %s.', 'siw' ),
 				esc_html( siw_format_amount( $product->get_participation_fee(), 0, $currency_code ) )
 			);
 			if ( isset( $amount_in_euro ) ) {
-				echo SPACE; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				printf(
-					// translators: %s is het bedrag lokale bijdrage
-					esc_html__( '(Ca. %s)', 'siw' ),
+				$local_fee_description = sprintf(
+					// translators: %1$s is de lokale bijdrage in de lokale valuta %2$s is de lokale bijdrage in Euro
+					esc_html__( '%1$s (Ca. %2$s)', 'siw' ),
+					esc_html( $local_fee_description ),
 					esc_html( siw_format_amount( (float) $amount_in_euro, 0 ) )
 				);
 			}
+
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo wpautop( $local_fee_description );
 		}
 	}
 }

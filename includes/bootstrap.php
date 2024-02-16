@@ -53,9 +53,6 @@ class Bootstrap {
 		define( 'SIW_SITE_URL', get_home_url() );
 		define( 'SIW_SITE_NAME', wp_parse_url( SIW_SITE_URL, PHP_URL_HOST ) );
 		define( 'SIW_OPTIONS_KEY', 'siw_options' );
-		define( 'BR', '<br/>' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-		define( 'BR2', '<br/><br/>' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-		define( 'SPACE', ' ' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 
 		// De log handler moet zo vroeg mogelijk overschreven worden
 		define( 'WC_LOG_HANDLER', \WC_Log_Handler_DB::class ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
