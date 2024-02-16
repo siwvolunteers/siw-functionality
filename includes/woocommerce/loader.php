@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce;
 
-use SIW\Abstracts\Base_Loader;
+use SIW\Base_Loader;
 
 class Loader extends Base_Loader {
 

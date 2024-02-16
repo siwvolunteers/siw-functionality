@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Abstracts;
+namespace SIW;
 
 use SIW\Base;
 use SIW\Util\Logger;
