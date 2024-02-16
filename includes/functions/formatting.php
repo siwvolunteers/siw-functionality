@@ -19,15 +19,6 @@ function siw_format_amount( float $amount, int $decimals = 0, string $currency_c
 	return sprintf( '%s&nbsp;%s', $currency_symbol, $amount );
 }
 
-/** Formatteert kortingsbedrag */
-function siw_format_sale_amount( float $amount, float $sale_amount, int $decimals = 0, string $currency_code = 'EUR' ): string {
-	return sprintf(
-		'<del>%s</del>&nbsp;<ins>%s</ins>',
-		siw_format_amount( $amount, $decimals, $currency_code ),
-		siw_format_amount( $sale_amount, $decimals, $currency_code )
-	);
-}
-
 /** Formatteert datum als tekst */
 function siw_format_date( string $date, bool $include_year = true ): string {
 	$format = $include_year ? 'j F Y' : 'j F';
