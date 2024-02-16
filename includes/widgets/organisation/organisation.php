@@ -78,9 +78,6 @@ class Organisation extends Widget {
 				],
 			],
 			'renumeration_policy' => $instance['renumeration_policy'],
-			'i18n'                => [
-				'renumeration_policy' => __( 'Beloningsbeleid', 'siw' ),
-			],
 		];
 
 		return $parameters;

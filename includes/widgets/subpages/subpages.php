@@ -74,9 +74,6 @@ class Subpages extends Widget {
 		}
 
 		return [
-			'i18n'     => [
-				'read_more' => __( 'Lees meer', 'siw' ),
-			],
 			'subpages' => $subpages,
 		];
 	}
