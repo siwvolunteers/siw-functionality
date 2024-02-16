@@ -37,7 +37,7 @@ dl dd {
   margin: 0 0 30px 0;
   padding: 24px;
 }
-.siw-intro p {
+.siw-intro p:last-child {
   margin-bottom: 0;
 }
 .siw-intro a {
