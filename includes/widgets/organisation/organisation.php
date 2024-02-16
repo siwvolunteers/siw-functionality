@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Elements\Description_List;
 use SIW\Properties;
 
 /**
@@ -24,7 +25,7 @@ class Organisation extends Widget {
 
 	#[\Override]
 	protected function get_template_id(): string {
-		return $this->get_id();
+		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
 	#[\Override]
@@ -58,28 +59,31 @@ class Organisation extends Widget {
 
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
-		$parameters = [
-			'properties'          => [
-				[
-					'name'   => __( 'Statutaire naam', 'siw' ),
-					'values' => Properties::STATUTORY_NAME,
-				],
-				[
-					'name'   => __( 'RSIN/fiscaal nummer', 'siw' ),
-					'values' => Properties::RSIN,
-				],
-				[
-					'name'   => __( 'KVK-nummer', 'siw' ),
-					'values' => Properties::KVK,
-				],
-				[
-					'name'   => __( 'Rekeningnummer', 'siw' ),
-					'values' => Properties::IBAN,
-				],
+		$data = [
+			[
+				'term'        => __( 'Statutaire naam', 'siw' ),
+				'description' => Properties::STATUTORY_NAME,
 			],
-			'renumeration_policy' => $instance['renumeration_policy'],
+			[
+				'term'        => __( 'RSIN/fiscaal nummer', 'siw' ),
+				'description' => Properties::RSIN,
+			],
+			[
+				'term'        => __( 'KVK-nummer', 'siw' ),
+				'description' => Properties::KVK,
+			],
+			[
+				'term'        => __( 'Rekeningnummer', 'siw' ),
+				'description' => Properties::IBAN,
+			],
+			[
+				'term'        => __( 'Beloningsbeleid', 'siw' ),
+				'description' => $instance['renumeration_policy'],
+			],
 		];
 
-		return $parameters;
+		return [
+			'content' => Description_List::create()->add_items( $data )->generate(),
+		];
 	}
 }
