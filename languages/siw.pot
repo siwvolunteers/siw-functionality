@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: SIW <webmaster@siw.nl>\n"
-"POT-Creation-Date: 2024-02-16 19:40+0000\n"
+"POT-Creation-Date: 2024-02-16 19:48+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -214,7 +214,7 @@ msgstr ""
 msgid "SIW Widgets"
 msgstr ""
 
-#: includes/compatibility/wordpress.php:163, includes/elements/project-wizard.php:174, includes/util/carousel.php:42, includes/content/post-types/post-type.php:471, includes/widgets/subpages/subpages.php:78
+#: includes/compatibility/wordpress.php:163, includes/elements/project-wizard.php:174, includes/util/carousel.php:42, includes/content/post-types/post-type.php:471, languages/mustache-stubs.php:102
 msgid "Lees meer"
 msgstr ""
 
@@ -353,7 +353,7 @@ msgstr ""
 msgid "SIW adverteert daartoe via Facebook, Instagram en Google Ads."
 msgstr ""
 
-#: includes/features/cookie-consent.php:146, languages/mustache-stubs.php:60
+#: includes/features/cookie-consent.php:146, languages/mustache-stubs.php:61
 msgid "Meer informatie"
 msgstr ""
 
@@ -862,7 +862,7 @@ msgstr ""
 msgid "Intro"
 msgstr ""
 
-#: includes/woocommerce/translations.php:12, includes/content/post-types/event.php:212, includes/woocommerce/product/wc-product-project.php:121, languages/mustache-stubs.php:83
+#: includes/woocommerce/translations.php:12, includes/content/post-types/event.php:212, includes/woocommerce/product/wc-product-project.php:121, languages/mustache-stubs.php:84
 msgid "Aanmelden"
 msgstr ""
 
@@ -1086,7 +1086,7 @@ msgstr ""
 msgid "Online evenement"
 msgstr ""
 
-#: includes/content/post-types/event.php:158, includes/widgets/interactive-map/interactive-map.php:79, includes/woocommerce/product/single/tabs.php:59, languages/mustache-stubs.php:85
+#: includes/content/post-types/event.php:158, includes/widgets/interactive-map/interactive-map.php:79, includes/woocommerce/product/single/tabs.php:59, languages/mustache-stubs.php:86
 msgid "Locatie"
 msgstr ""
 
@@ -1114,7 +1114,7 @@ msgstr ""
 msgid "Heeft link"
 msgstr ""
 
-#: includes/content/post-types/event.php:239, languages/mustache-stubs.php:87
+#: includes/content/post-types/event.php:239, languages/mustache-stubs.php:88
 msgid "Organisator"
 msgstr ""
 
@@ -1575,7 +1575,7 @@ msgstr ""
 msgid "Toon alleen SIW infodagen"
 msgstr ""
 
-#: includes/widgets/calendar/calendar.php:127, languages/mustache-stubs.php:82, languages/mustache-stubs.php:86
+#: includes/widgets/calendar/calendar.php:127, languages/mustache-stubs.php:83, languages/mustache-stubs.php:87
 msgid "Online"
 msgstr ""
 
@@ -1759,7 +1759,7 @@ msgstr ""
 msgid "Toont organisatiegegevens"
 msgstr ""
 
-#: includes/widgets/organisation/organisation.php:50, includes/widgets/organisation/organisation.php:82
+#: includes/widgets/organisation/organisation.php:50, languages/mustache-stubs.php:101
 msgid "Beloningsbeleid"
 msgstr ""
 
@@ -1807,7 +1807,7 @@ msgstr ""
 msgid "Toont quote van deelnemer"
 msgstr ""
 
-#: includes/widgets/quote/quote.php:99, languages/mustache-stubs.php:3
+#: includes/widgets/quote/quote.php:99, languages/mustache-stubs.php:4
 msgid "Alle"
 msgstr ""
 
@@ -1955,7 +1955,7 @@ msgid "Bevestiging betaling aanmelding #%s"
 msgstr ""
 
 #. translators: %s is het aanmeldnummer
-#: includes/woocommerce/email/emails.php:32, languages/mustache-stubs.php:76
+#: includes/woocommerce/email/emails.php:32, languages/mustache-stubs.php:77
 msgid "Aanmelding %s"
 msgstr ""
 
@@ -2268,318 +2268,318 @@ msgstr ""
 msgid "%1$s (Ca. %2$s)"
 msgstr ""
 
-#: languages/mustache-stubs.php:2
+#: languages/mustache-stubs.php:3
 msgid "Filter op %s"
 msgstr ""
 
-#: languages/mustache-stubs.php:4, languages/mustache-stubs.php:8, languages/mustache-stubs.php:11, languages/mustache-stubs.php:17, languages/mustache-stubs.php:21, languages/mustache-stubs.php:26, languages/mustache-stubs.php:38, languages/mustache-stubs.php:42, languages/mustache-stubs.php:77
+#: languages/mustache-stubs.php:5, languages/mustache-stubs.php:9, languages/mustache-stubs.php:12, languages/mustache-stubs.php:18, languages/mustache-stubs.php:22, languages/mustache-stubs.php:27, languages/mustache-stubs.php:39, languages/mustache-stubs.php:43, languages/mustache-stubs.php:78
 msgid "Beste %s,"
 msgstr ""
 
-#: languages/mustache-stubs.php:5
+#: languages/mustache-stubs.php:6
 msgid "Wat leuk dat u interesse heeft in een samenwerking met SIW Internationale Vrijwilligersprojecten!"
 msgstr ""
 
-#: languages/mustache-stubs.php:6
+#: languages/mustache-stubs.php:7
 msgid "Wij willen u bedanken voor het achterlaten van uw contactgegevens en wensen."
 msgstr ""
 
-#: languages/mustache-stubs.php:7
+#: languages/mustache-stubs.php:8
 msgid "Ons streven is binnen drie tot vijf werkdagen contact met u op te nemen om de mogelijkheden te bespreken."
 msgstr ""
 
-#: languages/mustache-stubs.php:9
+#: languages/mustache-stubs.php:10
 msgid "Bedankt voor het invullen van ons contactformulier."
 msgstr ""
 
-#: languages/mustache-stubs.php:10
+#: languages/mustache-stubs.php:11
 msgid "Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je op."
 msgstr ""
 
-#: languages/mustache-stubs.php:12
+#: languages/mustache-stubs.php:13
 msgid "Leuk om te zien dat je interesse hebt getoond in het project:"
 msgstr ""
 
-#: languages/mustache-stubs.php:13
+#: languages/mustache-stubs.php:14
 msgid "Je hebt ons een vraag gesteld."
 msgstr ""
 
-#: languages/mustache-stubs.php:14
+#: languages/mustache-stubs.php:15
 msgid "Wellicht was er iets niet helemaal duidelijk of wil je graag meer informatie ontvangen."
 msgstr ""
 
-#: languages/mustache-stubs.php:15
+#: languages/mustache-stubs.php:16
 msgid "Wat de reden ook was, wij helpen je graag verder."
 msgstr ""
 
-#: languages/mustache-stubs.php:16
+#: languages/mustache-stubs.php:17
 msgid "We nemen zo snel mogelijk contact met je op."
 msgstr ""
 
-#: languages/mustache-stubs.php:18
+#: languages/mustache-stubs.php:19
 msgid "Bedankt voor je ESC-aanmelding."
 msgstr ""
 
-#: languages/mustache-stubs.php:19, languages/mustache-stubs.php:23
+#: languages/mustache-stubs.php:20, languages/mustache-stubs.php:24
 msgid "Onderaan deze mail staan de gegevens die je hebt ingevuld."
 msgstr ""
 
-#: languages/mustache-stubs.php:20
+#: languages/mustache-stubs.php:21
 msgid "We nemen zo snel mogelijk contact met je op om in een gesprek verder met je kennis te maken!"
 msgstr ""
 
-#: languages/mustache-stubs.php:22
+#: languages/mustache-stubs.php:23
 msgid "Bedankt voor je aanmelding voor de Infodag van %s!"
 msgstr ""
 
-#: languages/mustache-stubs.php:24
+#: languages/mustache-stubs.php:25
 msgid "Een paar dagen van tevoren ontvang je de uitnodiging met de definitieve locatie en tijden."
 msgstr ""
 
-#: languages/mustache-stubs.php:25
+#: languages/mustache-stubs.php:26
 msgid "Als je nog vragen hebt, neem dan gerust contact met ons op."
 msgstr ""
 
-#: languages/mustache-stubs.php:27
+#: languages/mustache-stubs.php:28
 msgid "Bedankt voor jouw aanmelding."
 msgstr ""
 
-#: languages/mustache-stubs.php:28
+#: languages/mustache-stubs.php:29
 msgid "Wat leuk dat je interesse hebt om projectbegeleider te worden voor de Nederlandse vrijwilligersprojecten."
 msgstr ""
 
-#: languages/mustache-stubs.php:29
+#: languages/mustache-stubs.php:30
 msgid "Een creatieve uitdaging die je nooit meer zal vergeten!"
 msgstr ""
 
-#: languages/mustache-stubs.php:30
+#: languages/mustache-stubs.php:31
 msgid "Zoals oud-projectbegeleider Diederik (project in Friesland) het omschreef:"
 msgstr ""
 
-#: languages/mustache-stubs.php:31
+#: languages/mustache-stubs.php:32
 msgid "Het is ontzettend leerzaam om met zoveel verschillende mensen om te gaan, iedereen gemotiveerd te houden en te zorgen dat iedereen zich op zijn gemak voelt."
 msgstr ""
 
-#: languages/mustache-stubs.php:32
+#: languages/mustache-stubs.php:33
 msgid "Daarnaast zie je hoe de groep zich ontwikkelt, een prachtig proces om van zo dichtbij mee te mogen maken."
 msgstr ""
 
-#: languages/mustache-stubs.php:33
+#: languages/mustache-stubs.php:34
 msgid "Hoe gaat het nu verder?"
 msgstr ""
 
-#: languages/mustache-stubs.php:34
+#: languages/mustache-stubs.php:35
 msgid "Wij werven doorgaans in de maanden maart tot en met mei projectbegeleiders om de zomerprojecten te begeleiden."
 msgstr ""
 
-#: languages/mustache-stubs.php:35
+#: languages/mustache-stubs.php:36
 msgid "Mocht jij je in deze periode hebben aangemeld, dan zullen wij contact met je opnemen."
 msgstr ""
 
-#: languages/mustache-stubs.php:36
+#: languages/mustache-stubs.php:37
 msgid "Ligt jouw aanmelding buiten onze wervingsperiode? Geen probleem."
 msgstr ""
 
-#: languages/mustache-stubs.php:37
+#: languages/mustache-stubs.php:38
 msgid "Wij voegen jouw aanmelding toe aan onze database voor een volgend zomerseizoen."
 msgstr ""
 
-#: languages/mustache-stubs.php:39
+#: languages/mustache-stubs.php:40
 msgid "Bedankt voor je aanmelding voor de SIW-nieuwsbrief!"
 msgstr ""
 
-#: languages/mustache-stubs.php:40
+#: languages/mustache-stubs.php:41
 msgid "Om zeker te weten dat je inschrijving correct is, vragen we je je aanmelding te bevestigen."
 msgstr ""
 
-#: languages/mustache-stubs.php:41
+#: languages/mustache-stubs.php:42
 msgid "Klik hier om je aanmelding voor onze nieuwsbrief direct te bevestigen."
 msgstr ""
 
-#: languages/mustache-stubs.php:43
+#: languages/mustache-stubs.php:44
 msgid "Bedankt voor je aanmelding!"
 msgstr ""
 
-#: languages/mustache-stubs.php:44
+#: languages/mustache-stubs.php:45
 msgid "Leuk dat je hebt gekozen via SIW een Wereld-basis-project te doen."
 msgstr ""
 
-#: languages/mustache-stubs.php:45
+#: languages/mustache-stubs.php:46
 msgid "Wij zullen ons best gaan doen om ervoor te zorgen dat dit voor jou een onvergetelijke ervaring wordt."
 msgstr ""
 
-#: languages/mustache-stubs.php:46
+#: languages/mustache-stubs.php:47
 msgid "Onderaan deze e-mail vind je een overzicht van de gegevens zoals je die op het inschrijfformulier hebt ingevuld."
 msgstr ""
 
-#: languages/mustache-stubs.php:47
+#: languages/mustache-stubs.php:48
 msgid "Wat gaat er nu gebeuren?"
 msgstr ""
 
-#: languages/mustache-stubs.php:48
+#: languages/mustache-stubs.php:49
 msgid "Jouw aanmelding voor Wereld-basis wordt doorgestuurd naar onze SIW-regiospecialisten."
 msgstr ""
 
-#: languages/mustache-stubs.php:49
+#: languages/mustache-stubs.php:50
 msgid "Vervolgens neemt één van de regiospecialisten contact met je op om een kennismakingsgesprek in te plannen."
 msgstr ""
 
-#: languages/mustache-stubs.php:50
+#: languages/mustache-stubs.php:51
 msgid "Houd er rekening mee dat SIW met vrijwilligers werkt, waardoor het contact soms iets langer kan duren."
 msgstr ""
 
-#: languages/mustache-stubs.php:51
+#: languages/mustache-stubs.php:52
 msgid "Kennismakingsgesprek"
 msgstr ""
 
-#: languages/mustache-stubs.php:52
+#: languages/mustache-stubs.php:53
 msgid "Tijdens het kennismakingsgesprek gaat onze regiospecialist samen met jou kijken welk Wereld-basis-project het beste bij jouw wensen en voorkeuren aansluit."
 msgstr ""
 
-#: languages/mustache-stubs.php:53
+#: languages/mustache-stubs.php:54
 msgid "In dit gesprek komen ook thema’s naar voren zoals interesse in culturen, creativiteit, flexibiliteit, enthousiasme en reis- en vrijwilligerswerkervaring."
 msgstr ""
 
-#: languages/mustache-stubs.php:54
+#: languages/mustache-stubs.php:55
 msgid "Voorbereidingsdag"
 msgstr ""
 
-#: languages/mustache-stubs.php:55
+#: languages/mustache-stubs.php:56
 msgid "Na het kennismakingsgesprek nodigen we je uit voor een voorbereidingsdag."
 msgstr ""
 
-#: languages/mustache-stubs.php:56
+#: languages/mustache-stubs.php:57
 msgid "Mocht je nog geen keuze hebben gemaakt voor een project, dan kan de voorbereiding je helpen in het bepalen wat jij belangrijk vindt."
 msgstr ""
 
-#: languages/mustache-stubs.php:57
+#: languages/mustache-stubs.php:58
 msgid "Tijdens de voorbereiding krijg je informatie over de continenten, landen, cultuurverschillen en gezondheidszorg."
 msgstr ""
 
-#: languages/mustache-stubs.php:58
+#: languages/mustache-stubs.php:59
 msgid "Ook wordt er stilgestaan bij jouw verwachtingen, praktische projectsituatie en het zelfstandig verblijven in het buitenland."
 msgstr ""
 
-#: languages/mustache-stubs.php:59
+#: languages/mustache-stubs.php:60
 msgid "Tijdens de voorbereiding zullen gastsprekers en oud-deelnemers aanwezig zijn."
 msgstr ""
 
-#: languages/mustache-stubs.php:61
+#: languages/mustache-stubs.php:62
 msgid "Als je nog vragen hebt, aarzel dan niet om contact op te nemen met ons kantoor via %s of via het nummer %s."
 msgstr ""
 
-#: languages/mustache-stubs.php:62
+#: languages/mustache-stubs.php:63
 msgid "Heel erg bedankt voor je aanmelding voor een vrijwilligersproject via SIW!"
 msgstr ""
 
-#: languages/mustache-stubs.php:63, languages/mustache-stubs.php:68
+#: languages/mustache-stubs.php:64, languages/mustache-stubs.php:69
 msgid "We doen ons best om ervoor te zorgen dat dit voor jou een onvergetelijke ervaring wordt!"
 msgstr ""
 
-#: languages/mustache-stubs.php:64
+#: languages/mustache-stubs.php:65
 msgid "Je inschrijving wordt pas in behandeling genomen als we je betaling ontvangen hebben."
 msgstr ""
 
-#: languages/mustache-stubs.php:65
+#: languages/mustache-stubs.php:66
 msgid "Je heb gekozen voor zelf overmaken. Je ontvangt een aparte e-mail van onze betaalpartner Mollie met instructies voor het overmaken."
 msgstr ""
 
-#: languages/mustache-stubs.php:66, languages/mustache-stubs.php:74
+#: languages/mustache-stubs.php:67, languages/mustache-stubs.php:75
 msgid "Als je nog vragen hebt, aarzel dan niet om contact met ons op te nemen."
 msgstr ""
 
-#: languages/mustache-stubs.php:67
+#: languages/mustache-stubs.php:68
 msgid "Heel erg bedankt voor je aanmelding en betaling voor een vrijwilligersproject via SIW!"
 msgstr ""
 
-#: languages/mustache-stubs.php:69
+#: languages/mustache-stubs.php:70
 msgid "We gaan je aanmelding doorzetten naar onze partnerorganisatie en nemen contact met je op zodra we bericht hebben ontvangen over je plaatsing."
 msgstr ""
 
-#: languages/mustache-stubs.php:70
+#: languages/mustache-stubs.php:71
 msgid "Gemiddeld duurt het 5 werkdagen om een aanmelding voor een project binnen Europa te verwerken."
 msgstr ""
 
-#: languages/mustache-stubs.php:71
+#: languages/mustache-stubs.php:72
 msgid "Voor een projectaanmelding buiten Europa duurt het ongeveer 2 weken voor je van ons hoort of je definitief geplaatst bent."
 msgstr ""
 
-#: languages/mustache-stubs.php:72
+#: languages/mustache-stubs.php:73
 msgid "We willen je er nadrukkelijk op wijzen dat deze e-mail nog geen bevestiging is van deelname, maar een bevestiging van ontvangst van je betaling."
 msgstr ""
 
-#: languages/mustache-stubs.php:73
+#: languages/mustache-stubs.php:74
 msgid "Boek nog geen tickets, totdat je van ons ook een bevestiging hebt ontvangen van je plaatsing."
 msgstr ""
 
-#: languages/mustache-stubs.php:75
+#: languages/mustache-stubs.php:76
 msgid "Er is een nieuwe aanmelding (%s) binnengekomen:"
 msgstr ""
 
-#: languages/mustache-stubs.php:78
+#: languages/mustache-stubs.php:79
 msgid "Er wachten nog %s projecten in %s op jouw beoordeling."
 msgstr ""
 
-#: languages/mustache-stubs.php:79
+#: languages/mustache-stubs.php:80
 msgid "Klik hier om de projecten te bekijken:"
 msgstr ""
 
-#: languages/mustache-stubs.php:80
+#: languages/mustache-stubs.php:81
 msgid "Met vriendelijke groet"
 msgstr ""
 
-#: languages/mustache-stubs.php:81
+#: languages/mustache-stubs.php:82
 msgid "Bezoek onze website"
 msgstr ""
 
-#: languages/mustache-stubs.php:84
+#: languages/mustache-stubs.php:85
 msgid "Dit evenement is helaas al afgelopen"
 msgstr ""
 
-#: languages/mustache-stubs.php:88
+#: languages/mustache-stubs.php:89
 msgid "Dit evenement wordt georganiseerd door"
 msgstr ""
 
-#: languages/mustache-stubs.php:89
+#: languages/mustache-stubs.php:90
 msgid "Wat houdt deze vacature in?"
 msgstr ""
 
-#: languages/mustache-stubs.php:90
+#: languages/mustache-stubs.php:91
 msgid "Solliciteren?"
 msgstr ""
 
-#: languages/mustache-stubs.php:91
+#: languages/mustache-stubs.php:92
 msgid "Je motivatie met cv kun je uiterlijk %s sturen naar:"
 msgstr ""
 
-#: languages/mustache-stubs.php:92
+#: languages/mustache-stubs.php:93
 msgid "Dit is het type projecten dat we hier aanbieden:"
 msgstr ""
 
-#: languages/mustache-stubs.php:93
+#: languages/mustache-stubs.php:94
 msgid "Goed om te weten: SIW beoordeelt projecten met kinderen volgens de richtlijnen van het Better Care Network."
 msgstr ""
 
-#: languages/mustache-stubs.php:94
+#: languages/mustache-stubs.php:95
 msgid "Lees meer over ons beleid."
 msgstr ""
 
-#: languages/mustache-stubs.php:95
+#: languages/mustache-stubs.php:96
 msgid "Samen met de regiospecialist %s ga je aan de slag om van jouw idee werkelijkheid te maken."
 msgstr ""
 
-#: languages/mustache-stubs.php:96
+#: languages/mustache-stubs.php:97
 msgid "Word jij hiervan enthousiast, ga dan naar onze pagina over Wereld-basis-projecten."
 msgstr ""
 
-#: languages/mustache-stubs.php:97
+#: languages/mustache-stubs.php:98
 msgid "Meld je aan"
 msgstr ""
 
-#: languages/mustache-stubs.php:98
+#: languages/mustache-stubs.php:99
 msgid "Bekijk de volledige agenda."
 msgstr ""
 
-#: languages/mustache-stubs.php:99
+#: languages/mustache-stubs.php:100
 msgid "Er zijn momenteel geen geplande evenementen."
 msgstr ""
