@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Dashicons;
 use SIW\Jobs\Async\Export_To_Mailjet;
 
 /**
@@ -31,23 +32,8 @@ class Newsletter_Confirmation extends Widget {
 	}
 
 	#[\Override]
-	protected function get_template_id(): string {
-		return Widget::DEFAULT_TEMPLATE_ID;
-	}
-
-	#[\Override]
-	protected function get_dashicon(): string {
-		return 'rss';
-	}
-
-	#[\Override]
-	protected function supports_title(): bool {
-		return true;
-	}
-
-	#[\Override]
-	protected function supports_intro(): bool {
-		return true;
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::RSS;
 	}
 
 	#[\Override]

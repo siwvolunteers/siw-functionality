@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Dashicons;
 use SIW\Elements\Project_Wizard as Project_Wizard_Element;
 
 /**
@@ -25,23 +26,8 @@ class Project_Wizard extends Widget {
 	}
 
 	#[\Override]
-	protected function get_template_id(): string {
-		return Widget::DEFAULT_TEMPLATE_ID;
-	}
-
-	#[\Override]
-	protected function get_dashicon(): string {
-		return 'lightbulb';
-	}
-
-	#[\Override]
-	protected function supports_title(): bool {
-		return true;
-	}
-
-	#[\Override]
-	protected function supports_intro(): bool {
-		return true;
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::LIGHTBULB;
 	}
 
 	#[\Override]

@@ -4,6 +4,7 @@ namespace SIW\Widgets;
 
 use SIW\Data\Board_Title;
 use SIW\Data\Elements\List_Style_Type;
+use SIW\Data\Icons\Dashicons;
 use SIW\Elements\List_Columns;
 use SIW\Facades\Meta_Box;
 
@@ -26,23 +27,8 @@ class Board_Members extends Widget {
 	}
 
 	#[\Override]
-	protected function get_template_id(): string {
-		return Widget::DEFAULT_TEMPLATE_ID;
-	}
-
-	#[\Override]
-	protected function get_dashicon(): string {
-		return 'businessman';
-	}
-
-	#[\Override]
-	protected function supports_title(): bool {
-		return true;
-	}
-
-	#[\Override]
-	protected function supports_intro(): bool {
-		return true;
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::BUSINESSMAN;
 	}
 
 	#[\Override]

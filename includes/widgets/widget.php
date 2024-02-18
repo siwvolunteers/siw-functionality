@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Dashicons;
 use SIW\Helpers\Template;
 use SIW\Traits\Class_Assets;
 
@@ -20,13 +21,19 @@ abstract class Widget extends \SiteOrigin_Widget {
 
 	abstract protected function get_description(): string;
 
-	abstract protected function get_template_id(): string;
+	protected function get_template_id(): string {
+		return self::DEFAULT_TEMPLATE_ID;
+	}
 
-	abstract protected function get_dashicon(): string;
+	abstract protected function get_dashicon(): Dashicons;
 
-	abstract protected function supports_title(): bool;
+	protected function supports_title(): bool {
+		return true;
+	}
 
-	abstract protected function supports_intro(): bool;
+	protected function supports_intro(): bool {
+		return true;
+	}
 
 	final public function __construct() {
 
@@ -36,7 +43,7 @@ abstract class Widget extends \SiteOrigin_Widget {
 			[
 				'description'   => $this->get_description(),
 				'panels_groups' => [ 'siw' ],
-				'panels_icon'   => sprintf( 'dashicons dashicons-%s', $this->get_dashicon() ),
+				'panels_icon'   => sprintf( 'dashicons dashicons-%s', $this->get_dashicon()->value ),
 				'has_preview'   => false,
 			],
 			[],

@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Dashicons;
 use SIW\Elements\CTA_Hero;
 
 /**
@@ -23,13 +24,8 @@ class CTA extends Widget {
 	}
 
 	#[\Override]
-	protected function get_template_id(): string {
-		return Widget::DEFAULT_TEMPLATE_ID;
-	}
-
-	#[\Override]
-	protected function get_dashicon(): string {
-		return 'megaphone';
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::MEGAPHONE;
 	}
 
 	#[\Override]

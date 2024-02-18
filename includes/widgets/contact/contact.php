@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Dashicons;
 use SIW\Data\Icons\Social_Icons;
 use SIW\Elements\Icon;
 use SIW\Properties;
@@ -30,18 +31,8 @@ class Contact extends Widget {
 	}
 
 	#[\Override]
-	protected function get_dashicon(): string {
-		return 'phone';
-	}
-
-	#[\Override]
-	protected function supports_title(): bool {
-		return true;
-	}
-
-	#[\Override]
-	protected function supports_intro(): bool {
-		return true;
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::PHONE;
 	}
 
 	#[\Override]

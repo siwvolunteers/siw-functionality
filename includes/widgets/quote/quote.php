@@ -3,6 +3,7 @@
 namespace SIW\Widgets;
 
 use SIW\Content\Post\Story;
+use SIW\Data\Icons\Dashicons;
 use SIW\Elements\Blockquote;
 
 /**
@@ -27,18 +28,8 @@ class Quote extends Widget {
 	}
 
 	#[\Override]
-	protected function get_template_id(): string {
-		return Widget::DEFAULT_TEMPLATE_ID;
-	}
-
-	#[\Override]
-	protected function get_dashicon(): string {
-		return 'editor-quote';
-	}
-
-	#[\Override]
-	protected function supports_title(): bool {
-		return true;
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::EDITOR_QUOTE;
 	}
 
 	#[\Override]

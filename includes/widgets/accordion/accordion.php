@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Dashicons;
 use SIW\Elements\Accordion_Tabs as Accordion_Tabs_Element;
 
 /**
@@ -23,23 +24,8 @@ class Accordion extends Widget {
 	}
 
 	#[\Override]
-	protected function get_template_id(): string {
-		return Widget::DEFAULT_TEMPLATE_ID;
-	}
-
-	#[\Override]
-	protected function get_dashicon(): string {
-		return 'list-view';
-	}
-
-	#[\Override]
-	protected function supports_title(): bool {
-		return true;
-	}
-
-	#[\Override]
-	protected function supports_intro(): bool {
-		return true;
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::LIST_VIEW;
 	}
 
 	#[\Override]
