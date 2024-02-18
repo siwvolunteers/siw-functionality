@@ -21,6 +21,7 @@ class Icons extends Base {
 			'sdg-icons',
 			'genericons-neue',
 			'social-logos',
+			'dashicons',
 		];
 	}
 
