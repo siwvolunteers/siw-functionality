@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce\Email;
 
-use SIW\Data\Language;
+use SIW\Data\Plato\Language;
 use SIW\Data\Plato\Language_Skill_Level;
 use SIW\Facades\WooCommerce;
 use SIW\WooCommerce\Product\WC_Product_Project;
@@ -119,15 +119,15 @@ trait Order_Table {
 	protected function get_language_data( \WC_Order $order ): array {
 		return [
 			[
-				'label' => Language::try_from_plato_code( $order->get_meta( 'language_1' ) ?? '' )?->label() ?? '',
+				'label' => Language::tryFrom( $order->get_meta( 'language_1' ) ?? '' )?->label() ?? '',
 				'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_1_skill' ) ?? '' )?->label() ?? '',
 			],
 			[
-				'label' => Language::try_from_plato_code( $order->get_meta( 'language_2' ) ?? '' )?->label() ?? '',
+				'label' => Language::tryFrom( $order->get_meta( 'language_2' ) ?? '' )?->label() ?? '',
 				'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_2_skill' ) ?? '' )?->label() ?? '',
 			],
 			[
-				'label' => Language::try_from_plato_code( $order->get_meta( 'language_3' ) ?? '' )?->label() ?? '',
+				'label' => Language::tryFrom( $order->get_meta( 'language_3' ) ?? '' )?->label() ?? '',
 				'value' => Language_Skill_Level::tryFrom( $order->get_meta( 'language_3_skill' ) ?? '' )?->label() ?? '',
 			],
 		];
