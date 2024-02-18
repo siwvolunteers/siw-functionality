@@ -2,14 +2,11 @@
 namespace SIW\Data;
 
 use SIW\Interfaces\Enums\Labels;
-use SIW\Interfaces\Enums\Plato_Code;
 use SIW\Traits\Enum_List;
-use SIW\Traits\Plato_Enum;
 
-enum Work_Type: string implements Labels, Plato_Code {
+enum Work_Type: string implements Labels {
 
 	use Enum_List;
-	use Plato_Enum;
 
 	case AGRICULTURE = 'landbouw';
 	case ANIMALS = 'dieren';
@@ -56,32 +53,6 @@ enum Work_Type: string implements Labels, Plato_Code {
 			self::SPORT        => __( 'Sport', 'siw' ),
 			self::STUDY_THEME  => __( 'Thema', 'siw' ),
 			self::YOGA         => __( 'Yoga', 'siw' ),
-		};
-	}
-
-	public function plato_code(): string {
-		return match ( $this ) {
-			self::AGRICULTURE  => 'AGRI',
-			self::ANIMALS      => 'ANIM',
-			self::ARCHEOLOGY   => 'ARCH',
-			self::ART          => 'ART',
-			self::CHILDREN     => 'CHIL',
-			self::CONSTRUCTION => 'CONS',
-			self::CULTURE      => 'CULT',
-			self::DISABILITIES => 'DISA',
-			self::EDUCATION    => 'EDUC',
-			self::ELDERLY      => 'ELDE',
-			self::FESTIVAL     => 'FEST',
-			self::HERITAGE     => 'HERI',
-			self::LANGUAGE     => 'LANG',
-			self::MANUAL_WORK  => 'MANU',
-			self::NATURE       => 'ENVI',
-			self::REFUGEES     => 'REFU',
-			self::RENOVATION   => 'RENO',
-			self::SOCIAL       => 'SOCI',
-			self::SPORT        => 'SPOR',
-			self::STUDY_THEME  => 'STUD',
-			self::YOGA         => 'YOGA',
 		};
 	}
 

@@ -6,9 +6,11 @@ use SIW\Config;
 use SIW\Util;
 use SIW\Data\Country;
 use SIW\Data\Currency;
-use SIW\Data\Plato\Language;
+use SIW\Data\Language;
+use SIW\Data\Plato\Language as Plato_Language;
 use SIW\Data\Plato\Project as Plato_Project;
 use SIW\Data\Plato\Project_Type as Plato_Project_Type;
+use SIW\Data\Plato\Work_Type as Plato_Work_Type;
 use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Work_Type;
 use SIW\Facades\WooCommerce;
@@ -160,7 +162,7 @@ class Product {
 		$languages = wp_parse_slug_list( $this->plato_project->get_languages() );
 		foreach ( $languages as $language_code ) {
 			$language_code = strtoupper( $language_code );
-			$language = Language::tryFrom( $language_code );
+			$language = Plato_Language::tryFrom( $language_code )?->to_entity();
 			if ( null === $language ) {
 				Logger::error( sprintf( 'Taal met code %s niet gevonden', $language_code ), self::LOGGER_SOURCE );
 				return false;
@@ -175,7 +177,7 @@ class Product {
 		$work_types = wp_parse_slug_list( $this->plato_project->get_work() );
 		foreach ( $work_types as $work_type_code ) {
 			$work_type_code = strtoupper( $work_type_code );
-			$work_type = Work_Type::try_from_plato_code( $work_type_code );
+			$work_type = Plato_Work_Type::tryFrom( $work_type_code )?->to_entity();
 			if ( null === $work_type ) {
 				Logger::error( sprintf( 'Soort werk met code %s niet gevonden', $work_type_code ), self::LOGGER_SOURCE );
 				return false;
@@ -292,7 +294,7 @@ class Product {
 
 		$language_values = [];
 		foreach ( $this->languages as $language ) {
-			$language_values[ $language->slug() ] = $language->label();
+			$language_values[ $language->value ] = $language->label();
 		}
 		$taxonomy_attributes[] = [
 			'taxonomy' => Taxonomy_Attribute::LANGUAGE,
