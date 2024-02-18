@@ -88,7 +88,7 @@ class Accordion extends Widget {
 		return [
 			'content' => Accordion_Tabs_Element::create()
 				->add_items( $instance['panes'] )
-				->set_tabs_allowed( $instance['tabs_allowed'] )
+				->set_tabs_allowed( (bool) $instance['tabs_allowed'] )
 				->generate(),
 		];
 	}
