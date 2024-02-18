@@ -97,14 +97,6 @@ abstract class Post_Type extends Base {
 		$query->set( 'meta_query', $meta_query );
 	}
 
-	//#[Add_Filter( 'slim_seo_robots_index' )]
-	final public function set_seo_robots_index( bool $index, int $post_id ): bool {
-		if ( static::get_post_type() !== get_post_type( $post_id ) ) {
-			return $index;
-		}
-		return $this->get_custom_post( $post_id )->is_active();
-	}
-
 	#[Add_Filter( 'slim_seo_breadcrumbs_args', 20 )]
 	final public function set_seo_breadcrumb_args( array $args ): array {
 		if ( static::get_post_type() !== get_post_type() || 1 !== count( $this->get_taxonomies() ) ) {
