@@ -3,7 +3,6 @@
 namespace SIW\Data\Plato;
 
 use SIW\Data\Work_Type as Work_Type_Entity;
-use SIW\Interfaces\Enums\Labels;
 
 enum Work_Type: string {
 
@@ -33,7 +32,7 @@ enum Work_Type: string {
 	case STUD = 'STUD';
 	case YOGA = 'YOGA';
 
-	public function to_entity(): \BackedEnum&Labels {
+	public function to_entity(): Work_Type_Entity {
 		return match ( $this ) {
 			self::AGRI => Work_Type_Entity::AGRICULTURE,
 			self::ANIM => Work_Type_Entity::ANIMALS,
