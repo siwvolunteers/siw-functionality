@@ -6,7 +6,7 @@ use SIW\Config;
 use SIW\Util;
 use SIW\Data\Country;
 use SIW\Data\Currency;
-use SIW\Data\Language;
+use SIW\Data\Plato\Language;
 use SIW\Data\Plato\Project as Plato_Project;
 use SIW\Data\Plato\Project_Type as Plato_Project_Type;
 use SIW\Data\Sustainable_Development_Goal;
@@ -160,7 +160,7 @@ class Product {
 		$languages = wp_parse_slug_list( $this->plato_project->get_languages() );
 		foreach ( $languages as $language_code ) {
 			$language_code = strtoupper( $language_code );
-			$language = Language::try_from_plato_code( $language_code );
+			$language = Language::tryFrom( $language_code );
 			if ( null === $language ) {
 				Logger::error( sprintf( 'Taal met code %s niet gevonden', $language_code ), self::LOGGER_SOURCE );
 				return false;
@@ -292,7 +292,7 @@ class Product {
 
 		$language_values = [];
 		foreach ( $this->languages as $language ) {
-			$language_values[ $language->value ] = $language->label();
+			$language_values[ $language->slug() ] = $language->label();
 		}
 		$taxonomy_attributes[] = [
 			'taxonomy' => Taxonomy_Attribute::LANGUAGE,

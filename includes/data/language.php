@@ -2,13 +2,10 @@
 namespace SIW\Data;
 
 use SIW\Interfaces\Enums\Labels;
-use SIW\Interfaces\Enums\Plato_Code;
 use SIW\Traits\Enum_List;
-use SIW\Traits\Plato_Enum;
 
-enum Language: string implements Labels, Plato_Code {
+enum Language: string implements Labels {
 	use Enum_List;
-	use Plato_Enum;
 
 	case ARABIC = 'arabisch';
 	case CATALAN = 'catalaans';
@@ -62,36 +59,6 @@ enum Language: string implements Labels, Plato_Code {
 			self::CZECH      =>__( 'Tsjechisch', 'siw' ),
 			self::TURKISH    => __( 'Turks', 'siw' ),
 			self::SWEDISH    => __( 'Zweeds', 'siw' ),
-		};
-	}
-
-	#[\Override]
-	public function plato_code(): string {
-		return match ( $this ) {
-			self::ARABIC     => 'ARA',
-			self::CATALAN    => 'CAT',
-			self::CHINESE    => 'CHN',
-			self::DANISH     => 'DNK',
-			self::GERMAN     => 'GER',
-			self::ENGLISH    => 'ENG',
-			self::ESTONIAN   => 'EST',
-			self::FINNISH    => 'FIN',
-			self::FRENCH     => 'FRA',
-			self::GREEK      => 'GRE',
-			self::HEBREW     => 'HEB',
-			self::ITALIAN    => 'ITA',
-			self::JAPANESE   => 'JAP',
-			self::KOREAN     => 'KOR',
-			self::DUTCH      => 'HOL',
-			self::UKRAINIAN  => 'UKR',
-			self::POLISH     => 'POL',
-			self::PORTUGUESE => 'POR',
-			self::RUSSIAN    => 'RUS',
-			self::SLOWAK     => 'SLK',
-			self::SPANISH    => 'ESP',
-			self::CZECH      => 'CZE',
-			self::TURKISH    => 'TUR',
-			self::SWEDISH    => 'SWE',
 		};
 	}
 }

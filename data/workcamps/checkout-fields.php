@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use SIW\Data\Language;
+use SIW\Data\Plato\Language;
 use SIW\Data\Plato\Language_Skill_Level;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,7 +36,7 @@ for ( $i = 1; $i <= 3; $i++ ) { // phpcs:ignore WordPress.NamingConventions.Pref
 		'type'     => 'select',
 		'class'    => [ 'form-row-first' ],
 		'required' => 1 === $i,
-		'options'  => [ '' => __( 'Selecteer een taal', 'siw' ) ] + Language::plato_list(),
+		'options'  => [ '' => __( 'Selecteer een taal', 'siw' ) ] + Language::list(),
 	];
 	$siw_data['language'][ "language_{$i}_skill" ] = [
 		// translators: %d is geheel getal
