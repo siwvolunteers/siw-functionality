@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\WooCommerce\Admin;
+namespace SIW\WooCommerce\Product\Admin;
 
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
@@ -8,7 +8,7 @@ use SIW\Base;
 use SIW\Facades\WooCommerce;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-class Product_Tabs extends Base {
+class Tabs extends Base {
 
 	#[Add_Filter( 'woocommerce_product_data_tabs' )]
 	public function add_tabs( array $tabs ): array {

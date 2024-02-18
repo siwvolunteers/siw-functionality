@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace SIW\WooCommerce\Admin;
+namespace SIW\WooCommerce\Product\Admin;
 
 use SIW\Facades\WooCommerce;
 use SIW\WooCommerce\Product\WC_Product_Project;
 
-class Product_Columns extends \MBAC\Post {
+class Admin_Columns extends \MBAC\Post {
 
 	private const COLUMN_COUNTRY = 'country';
 	private const COLUMN_START_DATE = 'start_date';
@@ -65,7 +65,6 @@ class Product_Columns extends \MBAC\Post {
 		}
 	}
 
-	/** Haalt het product op  */
 	protected function get_product( int $post_id ): ?WC_Product_Project {
 		$product = wp_cache_get( $post_id, __METHOD__ );
 		if ( false !== $product ) {

@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace SIW\WooCommerce\Admin;
+namespace SIW\WooCommerce\Product\Admin;
 
 use SIW\Attributes\Add_Action;
 use SIW\Base;
+use SIW\Compatibility\WooCommerce;
 
 class Product extends Base {
 
@@ -12,7 +13,7 @@ class Product extends Base {
 		if ( ! class_exists( '\MBAC\Post' ) ) {
 			return;
 		}
-		new Product_Columns( 'product', [] );
+		new Admin_Columns( WooCommerce::PRODUCT_POST_TYPE, [] );
 	}
 
 	#[Add_Action( 'add_meta_boxes', PHP_INT_MAX )]

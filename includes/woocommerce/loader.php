@@ -10,8 +10,6 @@ class Loader extends Base_Loader {
 	public function get_classes(): array {
 		return [
 			Admin\Order::class,
-			Admin\Product_Tabs::class,
-			Admin\Product::class,
 
 			Checkout\Address_Fields::class,
 			Checkout\Checkout::class,
@@ -28,6 +26,8 @@ class Loader extends Base_Loader {
 
 			Product\Admin\Approval::class,
 			Product\Admin\Bulk_Actions::class,
+			Product\Admin\Product::class,
+			Product\Admin\Tabs::class,
 			Product\Archive\Header::class,
 			Product\Archive\Loop::class,
 			Product\Archive\Ordering::class,
