@@ -7,6 +7,7 @@ use SIW\Util;
 use SIW\Data\Country;
 use SIW\Data\Currency;
 use SIW\Data\Language;
+use SIW\Data\Plato\Country as Plato_Country;
 use SIW\Data\Plato\Language as Plato_Language;
 use SIW\Data\Plato\Project as Plato_Project;
 use SIW\Data\Plato\Project_Type as Plato_Project_Type;
@@ -148,7 +149,7 @@ class Product {
 
 	protected function set_country(): bool {
 		$country_code = strtoupper( $this->plato_project->get_country() );
-		$country = Country::try_from_plato_code( $country_code );
+		$country = Plato_Country::tryFrom( $country_code )?->to_entity();
 		if ( null === $country ) {
 			Logger::error( sprintf( 'Land met code %s niet gevonden', $country_code ), self::LOGGER_SOURCE );
 			return false;
