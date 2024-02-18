@@ -4,6 +4,7 @@ class SIW_Mustache_Gettext_Extractor {
 	//phpcs:disable
 	private const MUSTACHE_TAG_REGEX = '/{{\s*.*?\s*}}/';
 	private const I18N_TAG_REGEX = '/{{#__}}(.*?){{\/__}}/';
+	private const TEXTDOMAIN = 'siw';
 
 	public function __construct( protected string $path, protected string $stubs_file ) {}
 
@@ -23,6 +24,7 @@ class SIW_Mustache_Gettext_Extractor {
 		$gettext_stubs = [
 			'<?php declare(strict_types=1);',
 			'//phpcs:disable',
+			'die();'
 		];
 
 		foreach ( $this->get_files() as $file ) {
@@ -31,11 +33,12 @@ class SIW_Mustache_Gettext_Extractor {
 			if ( empty( $matches[1] ) ) {
 				continue;
 			}
-
+			$gettext_stubs[] = '';
+			$gettext_stubs[] = '//file: ' . str_replace( $this->path, '', $file->getPathname());
 			foreach ( $matches[1] as $match ) {
 				$value = trim( $match );
 				$value = preg_replace( self::MUSTACHE_TAG_REGEX, '%s', $value );
-				$gettext_stubs[] = sprintf( "__( '%s', 'siw' );", $value );
+				$gettext_stubs[] = sprintf( "__( '%s', '%s' );", $value, self::TEXTDOMAIN );
 			}
 		}
 
