@@ -4,6 +4,7 @@ namespace SIW\Admin;
 
 use SIW\Attributes\Add_Action;
 use SIW\Base;
+use SIW\Data\Icons\Dashicons;
 use SIW\Elements\Accordion_Tabs;
 use SIW\Facades\Meta_Box;
 
@@ -21,7 +22,7 @@ class Help_Page extends Base {
 			'edit_posts',
 			'siw-help-page',
 			[ $this, 'render_page' ],
-			'dashicons-editor-help'
+			Dashicons::EDITOR_HELP->icon_class()
 		);
 	}
 

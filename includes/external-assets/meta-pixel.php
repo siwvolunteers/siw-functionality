@@ -2,7 +2,7 @@
 
 namespace SIW\External_Assets;
 
-use SIW\Features\Cookie_Consent;
+use SIW\Data\Features\Cookie_Category;
 
 /**
  * @see       https://developers.facebook.com/docs/meta-pixel/get-started
@@ -21,6 +21,6 @@ class Meta_Pixel extends External_Asset {
 
 	#[\Override]
 	protected static function get_cookie_category(): ?string {
-		return Cookie_Consent::MARKETING;
+		return Cookie_Category::MARKETING->value;
 	}
 }

@@ -11,9 +11,6 @@ use SIW\Properties;
 
 class WordPress extends Base {
 
-	#[Add_Filter( 'rest_url_prefix' )]
-	private const REST_API_PREFIX = 'api';
-
 	#[Add_Filter( 'wp_default_editor' )]
 	private const DEFAULT_EDITOR = 'html';
 

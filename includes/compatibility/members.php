@@ -4,13 +4,11 @@ namespace SIW\Compatibility;
 
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
-use SIW\Base;
-use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
  * @see       https://wordpress.org/plugins/members/
  */
-class Members extends Base implements I_Plugin {
+class Members extends Plugin {
 
 	#[Add_Filter( 'members_login_widget_enabled' )]
 	#[Add_Filter( 'members_users_widget_enabled' )]

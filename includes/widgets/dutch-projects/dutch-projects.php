@@ -2,12 +2,15 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Elements\List_Style_Position;
+use SIW\Data\Icons\Dashicons;
 use SIW\Data\Sustainable_Development_Goal;
 use SIW\Data\Visibility_Class;
 use SIW\Data\Work_Type;
 use SIW\Elements\Accordion_Tabs;
 use SIW\Elements\Leaflet_Map;
 use SIW\Elements\Link;
+use SIW\Elements\List_Columns;
 use SIW\Facades\WooCommerce;
 use SIW\Util\I18n;
 use SIW\WooCommerce\Product\WC_Product_Project;
@@ -31,23 +34,8 @@ class Dutch_Projects extends Widget {
 	}
 
 	#[\Override]
-	protected function get_template_id(): string {
-		return $this->get_id();
-	}
-
-	#[\Override]
-	protected function get_dashicon(): string {
-		return 'admin-home';
-	}
-
-	#[\Override]
-	protected function supports_title(): bool {
-		return true;
-	}
-
-	#[\Override]
-	protected function supports_intro(): bool {
-		return true;
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::ADMIN_HOME;
 	}
 
 	#[\Override]
@@ -58,8 +46,9 @@ class Dutch_Projects extends Widget {
 			return [];
 		}
 
-		$map = Leaflet_Map::create();
-		$map->set_zoom( 7 );
+		$map = Leaflet_Map::create()
+			->set_zoom( 7 )
+			->add_classes( [ Visibility_Class::HIDE_ON_MOBILE->value, Visibility_Class::HIDE_ON_TABLET->value ] );
 
 		$accordion = Accordion_Tabs::create();
 
@@ -83,10 +72,7 @@ class Dutch_Projects extends Widget {
 		}
 
 		return [
-			'map'                  => $map->generate(),
-			'accordion'            => $accordion->generate(),
-			'hide_on_tablet_class' => Visibility_Class::HIDE_ON_TABLET->value,
-			'hide_on_mobile_class' => Visibility_Class::HIDE_ON_MOBILE->value,
+			'content' => $map->generate() . $accordion->generate(),
 		];
 	}
 
@@ -125,7 +111,10 @@ class Dutch_Projects extends Widget {
 			$description[] = sprintf( __( 'Sustainable Development Goals: %s', 'siw' ), implode( ', ', $sdgs ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 			// TODO: icons gebruiken?
 		}
-		return wpautop( implode( BR, $description ) );
+		return List_Columns::create()
+			->add_items( $description )
+			->set_list_style_position( List_Style_Position::OUTSIDE )
+			->generate();
 	}
 
 	protected function get_project_link( WC_Product_Project $project ): ?string {

@@ -7,6 +7,7 @@ use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Data\Database_Table;
+use SIW\Data\Icons\Dashicons;
 
 class Tableview_Page extends Base {
 
@@ -26,7 +27,7 @@ class Tableview_Page extends Base {
 			'manage_options',
 			self::MENU_SLUG,
 			null,
-			'dashicons-database'
+			Dashicons::DATABASE->icon_class()
 		);
 
 		foreach ( Database_Table::list() as $table => $name ) {

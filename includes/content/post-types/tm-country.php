@@ -8,6 +8,7 @@ use SIW\Data\Animation\Easing;
 use SIW\Data\Animation\Type;
 use SIW\Data\Country;
 use SIW\Data\Country_Context;
+use SIW\Data\Icons\Dashicons;
 use SIW\Data\Post_Type_Support;
 use SIW\Data\Project_Type;
 use SIW\Data\Special_Page;
@@ -19,8 +20,8 @@ use SIW\Elements\Quote;
 class TM_Country extends Post_Type {
 
 	#[\Override]
-	protected static function get_dashicon(): string {
-		return 'location-alt';
+	protected static function get_dashicon(): Dashicons {
+		return Dashicons::LOCATION_ALT;
 	}
 
 	#[\Override]

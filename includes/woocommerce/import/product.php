@@ -5,6 +5,7 @@ namespace SIW\WooCommerce\Import;
 use SIW\Config;
 use SIW\Util;
 use SIW\Data\Country;
+use SIW\Data\Currency;
 use SIW\Data\Language;
 use SIW\Data\Plato\Project as Plato_Project;
 use SIW\Data\Plato\Project_Type as Plato_Project_Type;
@@ -245,22 +246,22 @@ class Product {
 			],
 			[
 				'attribute' => Product_Attribute::NUMBER_OF_VOLUNTEERS,
-				'value'     => siw_format_number_of_volunteers(
+				'value'     => $this->format_number_of_volunteers(
 					$this->plato_project->get_numvol(),
 					$this->plato_project->get_numvol_m(),
-					$this->plato_project->get_numvol_f()
+					$this->plato_project->get_numvol_f(),
 				),
 			],
 			[
 				'attribute' => Product_Attribute::AGE_RANGE,
-				'value'     => siw_format_age_range(
+				'value'     => $this->format_age_range(
 					$this->plato_project->get_min_age(),
 					$this->plato_project->get_max_age()
 				),
 			],
 			[
 				'attribute' => Product_Attribute::PARTICIPATION_FEE,
-				'value'     => siw_format_local_fee(
+				'value'     => $this->format_local_fee(
 					$this->plato_project->get_participation_fee(),
 					$this->plato_project->get_participation_fee_currency()
 				),
@@ -391,6 +392,51 @@ class Product {
 		$attribute->set_visible( $visible );
 
 		return $attribute;
+	}
+
+	protected function format_local_fee( float $fee, string $currency_code ): string {
+		if ( 0.0 === $fee || empty( $currency_code ) ) {
+			return '';
+		}
+
+		if ( Currency::EUR->value === $currency_code ) {
+			return sprintf( '&euro; %s', $fee );
+		}
+
+		$currency = Currency::tryFrom( $currency_code );
+		if ( null !== $currency ) {
+			return sprintf( '%s %d (%s)', $currency->symbol(), $fee, $currency->label() );
+		}
+
+		return sprintf( '%s %d', $currency_code, $fee );
+	}
+
+	protected function format_age_range( int $min_age, int $max_age ): string {
+		$min_age = $min_age > 0 ? $min_age : 18;
+		$max_age = $max_age > 0 ? $max_age : 99;
+
+		return sprintf(
+		// translators: %1$d is de minimumleeftijd, %2$d is de maximumleeftijd
+			__( '%1$d t/m %2$d jaar', 'siw' ),
+			$min_age,
+			$max_age
+		);
+	}
+
+	protected function format_number_of_volunteers( int $numvol, int $numvol_m, int $numvol_f ): string {
+		if ( ( $numvol_m + $numvol_f ) !== $numvol ) {
+			return strval( $numvol );
+		}
+
+		return sprintf(
+		// translators: aantal deelnemers bijv. '12 (6 mannen en 6 vrouwen)'
+			__( '%1$d (%2$d %3$s en %4$d %5$s)', 'siw' ),
+			$numvol,
+			$numvol_m,
+			_n( 'man', 'mannen', $numvol_m, 'siw' ),
+			$numvol_f,
+			_n( 'vrouw', 'vrouwen', $numvol_f, 'siw' )
+		);
 	}
 
 	protected function get_project_description(): array {

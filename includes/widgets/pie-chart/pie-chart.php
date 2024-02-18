@@ -3,6 +3,7 @@
 namespace SIW\Widgets;
 
 use SIW\Data\Elements\Chart_Type;
+use SIW\Data\Icons\Dashicons;
 use SIW\Elements\Chart;
 
 /**
@@ -29,18 +30,8 @@ class Pie_Chart extends Widget {
 	}
 
 	#[\Override]
-	protected function get_dashicon(): string {
-		return 'chart-pie';
-	}
-
-	#[\Override]
-	protected function supports_title(): bool {
-		return true;
-	}
-
-	#[\Override]
-	protected function supports_intro(): bool {
-		return true;
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::CHART_PIE;
 	}
 
 	#[\Override]
@@ -95,7 +86,7 @@ class Pie_Chart extends Widget {
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
-		if ( ! isset( $instance['series'] ) || empty( $instance['series'] ) ) {
+		if ( empty( $instance['series'] ) ) {
 			return [];
 		}
 

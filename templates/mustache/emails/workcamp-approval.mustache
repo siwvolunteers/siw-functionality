@@ -1,0 +1,12 @@
+{{< email }}
+	{{$ message }}
+		{{#__}}Beste {{ first_name }},{{/__}}
+		<p>
+			{{#__}}Er wachten nog {{ project_count }} projecten in {{ continent }} op jouw beoordeling.{{/__}}
+		</p>
+		<p>
+			{{#__}} Klik hier om de projecten te bekijken:{{/__}}<br>
+			<a href="{{ admin_url }}">{{ admin_url }}</a>
+		</p>
+	{{/ message }}
+{{/ email }}

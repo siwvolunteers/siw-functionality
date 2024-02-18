@@ -2,11 +2,10 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Interfaces\Page_Builder\Style_CSS as I_Style_CSS;
-use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
-use SIW\Interfaces\Page_Builder\Style_Group as I_Style_Group;
+use SIW\Attributes\Add_Filter;
+use SIW\Base;
 
-class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
+class CSS_Filters extends Base {
 
 	private const SUPPORTED_WIDGETS = [
 		\WP_Widget_Media_Image::class,
@@ -22,23 +21,7 @@ class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 	private const STYLE_FIELD_SEPIA = 'sepia';
 	private const STYLE_FIELD_SATURATE = 'saturate';
 
-
-	#[\Override]
-	public function supports_widgets(): bool {
-		return true;
-	}
-
-	#[\Override]
-	public function supports_cells(): bool {
-		return false;
-	}
-
-	#[\Override]
-	public function supports_rows(): bool {
-		return false;
-	}
-
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_widget_style_groups' )]
 	public function add_style_group( array $groups, int|bool $post_id, array|bool $args ): array {
 		if ( isset( $args['widget'] ) && ! in_array( $args['widget'], self::SUPPORTED_WIDGETS, true ) ) {
 			return $groups;
@@ -51,7 +34,7 @@ class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 		return $groups;
 	}
 
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_widget_style_fields' )]
 	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ): array {
 
 		if ( isset( $args['widget'] ) && \WP_Widget_Media_Image::class !== $args['widget'] ) {
@@ -111,7 +94,7 @@ class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 		return $fields;
 	}
 
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_widget_style_css' )]
 	public function set_style_css( array $style_css, array $style_args ): array {
 
 		if ( empty( $style_args[ self::STYLE_GROUP ] ) ) {
@@ -139,7 +122,6 @@ class CSS_Filters implements I_Style_Group, I_Style_Fields, I_Style_CSS {
 		return $style_css;
 	}
 
-	/** Genereert filter  */
 	protected function generate_filter( array $style_args, string $field, string $prefix, string $default_value, string $unit ): ?string {
 		if ( ! isset( $style_args[ "{$prefix}_{$field}" ] ) || $default_value === $style_args[ "{$prefix}_{$field}" ] ) {
 			return null;

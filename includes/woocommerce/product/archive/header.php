@@ -72,21 +72,32 @@ class Header extends Base {
 			}
 		}
 
+		$text = wpautop( $text );
+
 		if (
 			WooCommerce::is_product_taxonomy()
 			&& get_queried_object()->taxonomy === Taxonomy_Attribute::WORK_TYPE->value
 			&& Work_Type::tryFrom( get_queried_object()->slug )?->needs_review()
 		) {
-			$text .= BR . 'Aangezien je in deze projecten met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.';
+			$text .= wpautop( __( 'Aangezien je in deze projecten met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.', 'siw' ) );
 		}
 
 		$workcamps_page = Project_Type::WORKCAMPS->get_page();
 
-		$text .= BR .
-			__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ) . SPACE .
-			__( 'De projecten hebben vaste begin- en einddata.', 'siw' ) . SPACE .
-			// translators: %s is een url
-			sprintf( __( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">Groepsprojecten</a>.', 'siw' ), esc_url( get_permalink( $workcamps_page ?? 0 ) ) );
+		$text .= wpautop(
+			implode(
+				' ',
+				[
+					__( 'Tijdens onze Groepsprojecten ga je samen met een internationale groep vrijwilligers voor 2 á 3 weken aan de slag.', 'siw' ),
+					__( 'De projecten hebben vaste begin- en einddata.', 'siw' ),
+					sprintf(
+						// translators: %s is een url
+						__( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">Groepsprojecten</a>.', 'siw' ),
+						esc_url( get_permalink( $workcamps_page ?? 0 ) )
+					),
+				],
+			),
+		);
 
 		return $text;
 	}

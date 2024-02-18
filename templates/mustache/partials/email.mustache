@@ -1,0 +1,135 @@
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" bgcolor="{{ colors.base }}">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#eeeeee">
+		<tr>
+			<td align="center">&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="center" valign="top">
+				<table border="0" cellpadding="0" cellspacing="0" width="600" bgcolor="{{ colors.base }}" style="border-radius:3px !important;">
+					<tr>
+						<td align="center">&nbsp;</td>
+					</tr>
+					<tr>
+						<td>
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="20%">
+										<img src="{{& properties.logo_url|esc_url }}" style="display: block; border: 0px; outline: none; width: auto; height: 45px;" width="144" border="0" alt="logo" />
+									</td>
+									<td width="60%" style="vertical-align:bottom;border-bottom: solid {{ colors.accent }};font-family:Verdana, normal; color:{{ colors.contrast_light }}; font-size:0.95m; font-weight:bold;" align="center">
+										{{ subject }}
+									</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">&nbsp;</td>
+					</tr>
+					<tr>
+						<td>
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="80%">
+										<div style="font-family:Verdana, normal; color:{{ colors.contrast }}; font-size:0.9em;">
+											{{$ message }}
+												Dit is de boodschap
+											{{/ message }}
+											{{# signature }}
+												{{#__}}Met vriendelijke groet{{/__}},<br><br>
+												{{ name }}
+											{{/ signature }}
+										</div>
+									</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+								{{# has_table_data }}
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="80%" height="20" style="border-bottom:thin solid {{ colors.accent }};">&nbsp;</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="80%">
+										{{# table_data }}
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											{{# heading }}
+											<tr>
+												<td colspan="3" height="20" style="font-family:Verdana, normal; color:{{ colors.contrast }}; font-size:0.8em; font-weight:bold;" >
+													{{ . }}
+												</td>
+											</tr>
+											{{/ heading }}
+											{{# data }}
+											<tr>
+												<td width="35%" style="font-family: Verdana, normal; color:{{ colors.contrast }}; font-size:0.8em;">{{ label }}</td>
+												<td width="5%"></td>
+												<td width="50%" style="font-family: Verdana, normal; color:{{ colors.contrast }}; font-size:0.8em; font-style:italic">{{& value|wp_kses_post }}</td>
+											</tr>
+											{{/ data }}
+										</table>
+										{{/ table_data }}
+									</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+								{{/ has_table_data }}
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="80%" height="20" style="border-bottom:thin solid {{ colors.accent }};">&nbsp;</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" height="20">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="auto" align="center" style="font-family:Verdana, normal; color:{{colors.contrast_light}}; font-size:0.7em; font-weight:bold">
+										{{ properties.name }}
+									</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+								<tr>
+									<td width="10%">&nbsp;</td>
+									<td width="auto" align="center" style="font-family:Verdana, normal; color:{{ colors.contrast_light }}; font-size:0.7em; font-weight:bold">
+										<a href="{{ properties.site_url }}" target="_blank" style="color:{{ colors.contrast_light }}; text-decoration:none" title="{{#__}}Bezoek onze website{{/__}}">{{ properties.site_name }}</a> | <a href="tel:{{ properties.phone_international;" style="color:{{ colors.contrast_light }}; text-decoration:none">{{ properties.phone }}</a> | <a href="mailto:{{ properties.email }}" style="color:{{ colors.contrast_light }}; text-decoration:none">{{ properties.email }}</a>
+									</td>
+									<td width="10%">&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td height="30">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td width="40%">&nbsp;</td>
+										{{# social_networks }}
+										<td width="auto" align="center">
+											<a href="{{ follow_url }}" target="_blank">
+												<img src="{{ image_url }}" width="20" heigth="20" alt="{{ slug }}"/>
+											</a>
+										</td>
+										{{/ social_networks}}
+									<td width="40%">&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">&nbsp;</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">&nbsp;</td>
+		</tr>
+	</table>
+</body>

@@ -3,13 +3,10 @@
 namespace SIW\Compatibility;
 
 use SIW\Attributes\Add_Filter;
-use SIW\Base;
-use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
-
 /**
  * @see       https://metabox.io/
  */
-class Meta_Box extends Base implements I_Plugin {
+class Meta_Box extends Plugin {
 
 	#[Add_Filter( 'mb_aio_show_settings' )]
 	private const SHOW_SETTINGS = false;

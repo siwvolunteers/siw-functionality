@@ -2,30 +2,15 @@
 
 namespace SIW\Page_Builder;
 
-use SIW\Interfaces\Page_Builder\Style_Attributes as I_Style_Attributes;
-use SIW\Interfaces\Page_Builder\Style_Fields as I_Style_Fields;
+use SIW\Attributes\Add_Filter;
+use SIW\Base;
 
-class Design implements I_Style_Fields, I_Style_Attributes {
+class Design extends Base {
 
 	private const STYLE_FIELD_WIDGET_TITLE_ALIGN = 'siw_widget_title_align';
 	private const STYLE_FIELD_TEXT_ALIGN = 'siw_widget_text_align';
 
-	#[\Override]
-	public function supports_widgets(): bool {
-		return true;
-	}
-
-	#[\Override]
-	public function supports_cells(): bool {
-		return false;
-	}
-
-	#[\Override]
-	public function supports_rows(): bool {
-		return false;
-	}
-
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_widget_style_fields' )]
 	public function add_style_fields( array $fields, int|bool $post_id, array|bool $args ): array {
 		$fields[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] = [
 			'name'     => __( 'Uitlijning widget titel', 'siw' ),
@@ -56,7 +41,7 @@ class Design implements I_Style_Fields, I_Style_Attributes {
 		return $fields;
 	}
 
-	#[\Override]
+	#[Add_Filter( 'siteorigin_panels_widget_style_attributes' )]
 	public function set_style_attributes( array $style_attributes, array $style_args ): array {
 		if ( isset( $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] ) && ! empty( $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] ) ) {
 			$style_attributes['class'][] = sprintf( 'widget-title-align-%s', $style_args[ self::STYLE_FIELD_WIDGET_TITLE_ALIGN ] );

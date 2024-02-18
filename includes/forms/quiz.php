@@ -2,7 +2,7 @@
 
 namespace SIW\Forms;
 
-use SIW\Interfaces\Forms\Form;
+use SIW\Util\Logger;
 
 class Quiz {
 
@@ -35,10 +35,19 @@ class Quiz {
 		return $fields;
 	}
 
-	public static function is_correct( \WP_REST_Request $request ): bool {
+	public static function check( \WP_REST_Request $request, string $form_id ): bool|\WP_Error {
 		$quiz = sanitize_text_field( $request->get_param( 'quiz' ) );
 		$quiz_hash = sanitize_text_field( $request->get_param( 'quiz_hash' ) );
 
-		return siw_hash( $quiz ) === $quiz_hash;
+		if ( siw_hash( $quiz ) !== $quiz_hash ) {
+			$ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+			Logger::info( "Quiz verkeerd ingevuld in formulier '{$form_id}' vanaf IP {$ip}", __METHOD__ );
+			return new \WP_Error(
+				'incorrect_quiz',
+				__( 'Dat is helaas niet het goede antwoord.', 'siw' ),
+				[ 'status' => \WP_Http::BAD_REQUEST ]
+			);
+		}
+		return true;
 	}
 }

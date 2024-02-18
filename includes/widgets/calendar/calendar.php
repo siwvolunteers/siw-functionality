@@ -4,6 +4,7 @@ namespace SIW\Widgets;
 
 use SIW\Content\Post\Event;
 use SIW\Content\Posts\Events;
+use SIW\Data\Icons\Dashicons;
 use SIW\Elements\Calendar_Icon;
 use SIW\Helpers\Template;
 
@@ -35,18 +36,8 @@ class Calendar extends Widget {
 	}
 
 	#[\Override]
-	protected function get_dashicon(): string {
-		return 'calendar';
-	}
-
-	#[\Override]
-	protected function supports_title(): bool {
-		return true;
-	}
-
-	#[\Override]
-	protected function supports_intro(): bool {
-		return true;
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::CALENDAR;
 	}
 
 	#[\Override]

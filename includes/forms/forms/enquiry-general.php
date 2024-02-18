@@ -2,26 +2,17 @@
 
 namespace SIW\Forms\Forms;
 
-use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
-use SIW\Interfaces\Forms\Form as Form_Interface;
-use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
+use SIW\Forms\Form;
 
-class Enquiry_General implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
-
-	public const FORM_ID = 'enquiry_general';
+class Enquiry_General extends Form {
 
 	#[\Override]
-	public function get_form_id(): string {
-		return self::FORM_ID;
-	}
-
-	#[\Override]
-	public function get_form_name(): string {
+	public function get_name(): string {
 		return __( 'Infoverzoek algemeen', 'siw' );
 	}
 
 	#[\Override]
-	public function get_form_fields(): array {
+	public function get_fields(): array {
 		return [
 			[
 				'id'   => 'first_name',
@@ -48,31 +39,8 @@ class Enquiry_General implements Form_Interface, Confirmation_Mail_Interface, No
 				'id'      => 'question',
 				'type'    => 'textarea',
 				'name'    => __( 'Vraag', 'siw' ),
-				'columns' => Form_Interface::FULL_WIDTH,
+				'columns' => Form::FULL_WIDTH,
 			],
 		];
-	}
-
-	#[\Override]
-	public function get_notification_mail_message(): string {
-		return 'Via de website is een vraag gesteld:';
-	}
-
-	#[\Override]
-	public function get_notification_mail_subject(): string {
-		return 'Informatieverzoek {{ first_name }} {{ last_name }}';
-	}
-
-	#[\Override]
-	public function get_confirmation_mail_message(): string {
-		// translators: %s is de voornaam van de klant
-		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
-		__( 'Bedankt voor het invullen van ons contactformulier.', 'siw' ) . SPACE .
-		__( 'Wij hebben je vraag ontvangen en we nemen zo snel mogelijk contact met je op.', 'siw' );
-	}
-
-	#[\Override]
-	public function get_confirmation_mail_subject(): string {
-		return __( 'Bevestiging informatieverzoek', 'siw' );
 	}
 }

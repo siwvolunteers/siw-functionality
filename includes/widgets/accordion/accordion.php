@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Dashicons;
 use SIW\Elements\Accordion_Tabs as Accordion_Tabs_Element;
 
 /**
@@ -23,23 +24,8 @@ class Accordion extends Widget {
 	}
 
 	#[\Override]
-	protected function get_template_id(): string {
-		return Widget::DEFAULT_TEMPLATE_ID;
-	}
-
-	#[\Override]
-	protected function get_dashicon(): string {
-		return 'list-view';
-	}
-
-	#[\Override]
-	protected function supports_title(): bool {
-		return true;
-	}
-
-	#[\Override]
-	protected function supports_intro(): bool {
-		return true;
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::LIST_VIEW;
 	}
 
 	#[\Override]
@@ -55,45 +41,17 @@ class Accordion extends Widget {
 					'value_method' => 'val',
 				],
 				'fields'     => [
-					'title'       => [
-						'type'  => 'text',
-						'label' => __( 'Titel', 'siw' ),
+					'title'   => [
+						'type'     => 'text',
+						'label'    => __( 'Titel', 'siw' ),
+						'required' => true,
 					],
-					'content'     => [
+					'content' => [
 						'type'           => 'tinymce',
 						'label'          => __( 'Inhoud', 'siw' ),
 						'rows'           => 10,
 						'default_editor' => 'html',
-					],
-					'show_button' => [
-						'type'          => 'checkbox',
-						'label'         => __( 'Toon een knop', 'siw' ),
-						'default'       => false,
-						'state_emitter' => [
-							'callback' => 'conditional',
-							'args'     => [
-								'button_{$repeater}[show]: val',
-								'button_{$repeater}[hide]: ! val',
-							],
-						],
-					],
-					'button_text' => [
-						'type'          => 'text',
-						'label'         => __( 'Knoptekst', 'siw' ),
-						'state_handler' => [
-							'button_{$repeater}[show]' => [ 'show' ],
-							'button_{$repeater}[hide]' => [ 'hide' ],
-						],
-					],
-					'button_url'  => [
-						'type'          => 'text',
-						'label'         => __( 'URL', 'siw' ),
-						'sanitize'      => 'wp_make_link_relative',
-						'description'   => __( 'Relatief', 'siw' ),
-						'state_handler' => [
-							'button_{$repeater}[show]' => [ 'show' ],
-							'button_{$repeater}[hide]' => [ 'hide' ],
-						],
+						'required'       => true,
 					],
 				],
 			],
@@ -109,14 +67,14 @@ class Accordion extends Widget {
 
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
-		if ( ! isset( $instance['panes'] ) || empty( $instance['panes'] ) ) {
+		if ( empty( $instance['panes'] ) ) {
 			return [];
 		}
 
 		return [
 			'content' => Accordion_Tabs_Element::create()
 				->add_items( $instance['panes'] )
-				->set_tabs_allowed( $instance['tabs_allowed'] )
+				->set_tabs_allowed( (bool) $instance['tabs_allowed'] )
 				->generate(),
 		];
 	}

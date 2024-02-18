@@ -2,7 +2,7 @@
 
 namespace SIW\Features;
 
-use SIW\Abstracts\Base_Loader;
+use SIW\Base_Loader;
 
 class Loader extends Base_Loader {
 
@@ -28,6 +28,7 @@ class Loader extends Base_Loader {
 			Topbar::class,
 			Upload_Subdir::class,
 			Web_App_Manifest::class,
+			Widgets::class,
 		];
 	}
 }

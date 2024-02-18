@@ -2,10 +2,9 @@
 
 namespace SIW\Compatibility;
 
-use SIW\Abstracts\Class_Loader;
-use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
+use SIW\Base_Loader;
 
-class Loader extends Class_Loader {
+class Loader extends Base_Loader {
 
 	#[\Override]
 	public function get_classes(): array {
@@ -21,16 +20,5 @@ class Loader extends Class_Loader {
 			WP_Sentry_Integration::class,
 			WPML::class,
 		];
-	}
-
-	protected function load( string $class_name ) {
-
-		if ( is_a( $class_name, I_Plugin::class, true ) ) {
-			if ( ! is_plugin_active( $class_name::get_plugin_basename() ) ) {
-				return;
-			}
-		}
-
-		$class_name::init();
 	}
 }

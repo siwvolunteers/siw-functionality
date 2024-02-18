@@ -2,8 +2,10 @@
 	--cc-font-family: inherit;
 	--cc-text: var(--siw-contrast);
 	--cc-btn-primary-bg: var(--siw-green);
+	--cc-btn-primary-border-color: var(--siw-green);
 	--cc-btn-primary-text: var(--siw-contrast);
 	--cc-btn-primary-hover-bg: var(--siw-accent);
+	--cc-btn-primary-hover-border-color: var(--siw-accent);
 	--cc-toggle-bg-on: var(--siw-green);
 
 	.cc_div :focus {

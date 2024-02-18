@@ -4,16 +4,14 @@ namespace SIW\Compatibility;
 
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
-use SIW\Base;
 use SIW\Data\Post_Type_Support;
-use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Traits\Class_Assets;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 /**
  * @see       https://woocommerce.com/
  */
-class WooCommerce extends Base implements I_Plugin {
+class WooCommerce extends Plugin {
 
 	use Class_Assets;
 
@@ -61,11 +59,6 @@ class WooCommerce extends Base implements I_Plugin {
 		unregister_widget( \WC_Widget_Product_Tag_Cloud::class );
 		unregister_widget( \WC_Widget_Products::class );
 		unregister_widget( \WC_Widget_Cart::class );
-	}
-
-	#[Add_Action( 'enqueue_block_assets', PHP_INT_MAX )]
-	public function deregister_block_style() {
-		wp_deregister_style( 'wc-blocks-style' );
 	}
 
 	#[Add_Filter( 'woocommerce_admin_get_feature_config' )]
@@ -163,13 +156,12 @@ class WooCommerce extends Base implements I_Plugin {
 	}
 
 	#[Add_Filter( 'woocommerce_logger_log_message' )]
-	public function remove_fatal_error_logging( string $message, string $level, array $context, \WC_Log_Handler_Interface $handler ): ?string {
-		if ( 'fatal-errors' === $context['source'] ) {
+	public function remove_fatal_error_logging( string|array $message, string $level, array $context, \WC_Log_Handler_Interface $handler ): string|array|null {
+		if ( ! empty( $context['source'] ) && 'fatal-errors' === $context['source'] ) {
 			return null;
 		}
 		return $message;
 	}
-
 
 	#[Add_Action( 'wp_enqueue_scripts' )]
 	public function enqueue_styles() {

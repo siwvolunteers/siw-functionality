@@ -5,6 +5,7 @@ namespace SIW\WooCommerce\Product\Single;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
+use SIW\Elements\Description_List;
 use SIW\Facades\WooCommerce;
 use SIW\WooCommerce\Product\WC_Product_Project;
 use SIW\WooCommerce\Product_Attribute;
@@ -71,34 +72,47 @@ class Product extends Base {
 		}
 
 		$summary = [
-			__( 'Land', 'siw' )                          => $product->get_country()->label(),
-			__( 'Soort werk', 'siw' )                    => $product->get_attribute( Taxonomy_Attribute::WORK_TYPE->value ),
-			__( 'Projectduur', 'siw' )                   => siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false ),
-			__( 'Sustainable Development Goals', 'siw' ) => $product->get_attribute( Taxonomy_Attribute::SDG->value ),
-			__( 'Aantal deelnemers', 'siw' )             => $product->get_attribute( Product_Attribute::NUMBER_OF_VOLUNTEERS->value ),
+			[
+				'term'        => __( 'Land', 'siw' ),
+				'description' => $product->get_country()->label(),
+			],
+			[
+				'term'        => __( 'Soort werk', 'siw' ),
+				'description' => $product->get_attribute( Taxonomy_Attribute::WORK_TYPE->value ),
+			],
+			[
+				'term'        => __( 'Projectduur', 'siw' ),
+				'description' => siw_format_date_range( $product->get_start_date(), $product->get_end_date(), false ),
+			],
+			[
+				'term'        => __( 'Sustainable Development Goals', 'siw' ),
+				'description' => $product->get_attribute( Taxonomy_Attribute::SDG->value ),
+			],
+			[
+				'term'        => __( 'Aantal deelnemers', 'siw' ),
+				'description' => $product->get_attribute( Product_Attribute::NUMBER_OF_VOLUNTEERS->value ),
+			],
 		];
 
-		echo '<p>';
+		$summary = array_filter( $summary, fn( array $item ): bool => ! empty( $item['description'] ) );
+
 		esc_html_e( 'In het kort:', 'siw' );
-		echo '</p>';
-		echo '<dl>';
-		foreach ( $summary as $label => $value ) {
-			if ( ! empty( $value ) ) {
-				printf(
-					'<dt>%s</dt><dd>%s</dd>',
-					esc_html( $label ),
-					esc_html( $value )
-				);
-			}
-		}
-		echo '</dl>';
-		echo '<p>';
-		esc_html_e( 'Lees snel verder voor meer informatie over de werkzaamheden, de accommodatie, de projectlocatie en de kosten.', 'siw' );
-		echo SPACE; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo esc_html_e( 'Heb je een vraag over dit project?', 'siw' );
-		echo SPACE; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo esc_html_e( 'Laat je gegevens achter bij "Stel een vraag" en we nemen zo snel mogelijk contact met je op.', 'siw' );
-		echo '</p>';
+
+		Description_List::create()->add_items( $summary )->render();
+
+		echo(
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			wpautop(
+				implode(
+					' ',
+					[
+						esc_html__( 'Lees snel verder voor meer informatie over de werkzaamheden, de accommodatie, de projectlocatie en de kosten.', 'siw' ),
+						esc_html__( 'Heb je een vraag over dit project?', 'siw' ),
+						esc_html__( 'Laat je gegevens achter bij "Stel een vraag" en we nemen zo snel mogelijk contact met je op.', 'siw' ),
+					]
+				)
+			)
+		);
 	}
 
 	#[Add_Action( 'woocommerce_before_single_product_summary' )]

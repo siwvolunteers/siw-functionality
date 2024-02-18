@@ -8,7 +8,7 @@
 		"update": "npm update",
 		"build": "npm run build:css && npm run build:translations",
 		"build:css": "npm run scss",
-		"build:translations": "wp-pot --domain siw --dest-file languages/siw.pot --relative-to ./ --package \"SIW Internationale Vrijwilligersprojecten\" --team \"SIW <webmaster@siw.nl>\"",
+		"build:translations": "php languages/mustache-gettext-extractor.php && wp-pot --no-file-paths --domain siw --dest-file languages/siw.pot --relative-to ./ --package \"SIW Internationale Vrijwilligersprojecten\" --team \"SIW <webmaster@siw.nl>\"",
 		"scss": "sass --update --no-source-map assets/scss:assets/css"
 	},
 	"browserslist": [

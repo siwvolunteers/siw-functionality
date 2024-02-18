@@ -58,20 +58,17 @@ class SEO extends Base {
 			case Taxonomy_Attribute::COUNTRY->value:
 				$term->description =
 				// translators: %s is een continent of land
-					sprintf( __( 'Wil je graag vrijwilligerswerk doen in %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name ) . SPACE .
-					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
+					sprintf( __( 'Wil je graag vrijwilligerswerk doen in %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name );
 				break;
 			case Taxonomy_Attribute::WORK_TYPE->value:
 				$term->description =
 				// translators: %s is een soort werk
-					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), strtolower( $term->name ) ) . SPACE .
-					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
+					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), strtolower( $term->name ) );
 				break;
 			case Taxonomy_Attribute::SDG->value:
 				$term->description =
 				// translators: %s is een SDG
-					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op het Sustainable Development Goal %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name ) . SPACE .
-					__( 'Neem een dan een kijkje bij onze groepsvrijwilligersprojecten.', 'siw' );
+					sprintf( __( 'Wil je graag vrijwilligerswerk doen gericht op het Sustainable Development Goal %s en doe je dit het liefst samen in een groep met andere internationale vrijwilligers?', 'siw' ), $term->name );
 				break;
 		}
 

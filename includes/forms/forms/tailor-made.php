@@ -3,28 +3,17 @@
 namespace SIW\Forms\Forms;
 
 use SIW\Data\Continent;
-use SIW\Interfaces\Forms\Confirmation_Mail as Confirmation_Mail_Interface;
-use SIW\Interfaces\Forms\Form as Form_Interface;
-use SIW\Interfaces\Forms\Notification_Mail as Notification_Mail_Interface;
+use SIW\Forms\Form;
 
-use SIW\Properties;
-
-class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notification_Mail_Interface {
-
-	public const FORM_ID = 'tailor_made';
+class Tailor_Made extends Form {
 
 	#[\Override]
-	public function get_form_id(): string {
-		return self::FORM_ID;
-	}
-
-	#[\Override]
-	public function get_form_name(): string {
+	public function get_name(): string {
 		return __( 'Aanmelding Wereld-basis', 'siw' );
 	}
 
 	#[\Override]
-	public function get_form_fields(): array {
+	public function get_fields(): array {
 		return [
 			[
 				'id'   => 'first_name',
@@ -78,7 +67,6 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 		];
 	}
 
-	/** Geeft opties voor projectduur terug */
 	protected function get_duration_options(): array {
 		return [
 			'1-3'  => __( '1-3 maanden', 'siw' ),
@@ -92,54 +80,5 @@ class Tailor_Made implements Form_Interface, Confirmation_Mail_Interface, Notifi
 		unset( $destinations['noord-amerika'] );
 		unset( $destinations['europa'] );
 		return $destinations;
-	}
-
-	#[\Override]
-	public function get_notification_mail_subject(): string {
-		return 'Aanmelding Wereld-basis';
-	}
-
-	#[\Override]
-	public function get_notification_mail_message(): string {
-		return 'Via de website is onderstaande aanmelding voor Wereld-basis binnengekomen:';
-	}
-
-	#[\Override]
-	public function get_confirmation_mail_subject(): string {
-		return __( 'Bevestiging aanmelding Wereld-basis', 'siw' );
-	}
-
-	#[\Override]
-	public function get_confirmation_mail_message(): string {
-		// translators: %s is de voornaam van de klant
-		return sprintf( __( 'Beste %s,', 'siw' ), '{{ first_name }}' ) . BR2 .
-		__( 'Bedankt voor je aanmelding!', 'siw' ) . SPACE .
-		__( 'Leuk dat je hebt gekozen via SIW een Wereld-basis-project te doen.', 'siw' ) . SPACE .
-		__( 'Wij zullen ons best gaan doen om ervoor te zorgen dat dit voor jou een onvergetelijke ervaring wordt.', 'siw' ) . BR2 .
-		__( 'Onderaan deze e-mail vind je een overzicht van de gegevens zoals je die op het inschrijfformulier hebt ingevuld.', 'siw' ) . BR2 .
-		'<span style="font-weight:bold">' .
-		__( 'Wat gaat er nu gebeuren?', 'siw' ) .
-		'</span>' . BR .
-		__( 'Jouw aanmelding voor Wereld-basis wordt doorgestuurd naar onze SIW-regiospecialisten.', 'siw' ) . SPACE .
-		__( 'Vervolgens neemt één van de regiospecialisten contact met je op om een kennismakingsgesprek in te plannen.', 'siw' ) . SPACE .
-		__( 'Houd er rekening mee dat SIW met vrijwilligers werkt, waardoor het contact soms iets langer kan duren.', 'siw' ) . BR2 .
-		'<span style="font-weight:bold">' .
-		__( 'Kennismakingsgesprek', 'siw' ) .
-		'</span>' . BR .
-		__( 'Tijdens het kennismakingsgesprek gaat onze regiospecialist samen met jou kijken welk Wereld-basis-project het beste bij jouw wensen en voorkeuren aansluit.', 'siw' ) . SPACE .
-		__( 'In dit gesprek komen ook thema’s naar voren zoals interesse in culturen, creativiteit, flexibiliteit, enthousiasme en reis- en vrijwilligerswerkervaring.', 'siw' ) . BR2 .
-		'<span style="font-weight:bold">' .
-		__( 'Voorbereidingsdag', 'siw' ) .
-		'</span>' . BR .
-		__( 'Na het kennismakingsgesprek nodigen we je uit voor een voorbereidingsdag.', 'siw' ) . SPACE .
-		__( 'Mocht je nog geen keuze hebben gemaakt voor een project, dan kan de voorbereiding je helpen in het bepalen wat jij belangrijk vindt.', 'siw' ) . SPACE .
-		__( 'Tijdens de voorbereiding krijg je informatie over de continenten, landen, cultuurverschillen en gezondheidszorg.', 'siw' ) . SPACE .
-		__( 'Ook wordt er stilgestaan bij jouw verwachtingen, praktische projectsituatie en het zelfstandig verblijven in het buitenland.', 'siw' ) . SPACE .
-		__( 'Tijdens de voorbereiding zullen gastsprekers en oud-deelnemers aanwezig zijn.', 'siw' ) . BR2 .
-		'<span style="font-weight:bold">' .
-		__( 'Meer informatie', 'siw' ) .
-		'</span>' . BR .
-		// translators: %1$s is het emailadres van SIW, %2$s is het telefoonnummer
-		sprintf( __( 'Als je nog vragen hebt, aarzel dan niet om contact op te nemen met ons kantoor via %1$s of via het nummer %2$s.', 'siw' ), Properties::EMAIL, Properties::PHONE );
 	}
 }

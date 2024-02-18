@@ -4,14 +4,13 @@ namespace SIW\Compatibility;
 
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
-use SIW\Base;
+use SIW\Data\Icons\Dashicons;
 use SIW\Util\I18n;
-use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
  * @see       https://wpml.org/
  */
-class WPML extends Base implements I_Plugin {
+class WPML extends Plugin {
 
 	private const USER_CAPS = [
 		'wpml_manage_translation_management',
@@ -52,7 +51,7 @@ class WPML extends Base implements I_Plugin {
 			'wpml',
 			[
 				'label'    => 'WPML',
-				'icon'     => 'dashicons-translation',
+				'icon'     => Dashicons::TRANSLATION->icon_class(),
 				'priority' => 90,
 				'caps'     => self::USER_CAPS,
 			]
@@ -64,5 +63,20 @@ class WPML extends Base implements I_Plugin {
 		foreach ( self::USER_CAPS as $cap ) {
 			\members_register_cap( $cap, [ 'label' => $cap ] );
 		}
+	}
+
+	#[Add_Filter( 'siteorigin_panels_data' )]
+	public function repair_widget_class( $panels_data ) {
+
+		if ( ! is_array( $panels_data ) ) {
+			return $panels_data;
+		}
+
+		foreach ( $panels_data['widgets'] as &$widget ) {
+			if ( 0 === strpos( $widget['panels_info']['class'], 'SIWWidgets' ) ) {
+				$widget['panels_info']['class'] = str_replace( 'SIWWidgets', '\\SIW\\Widgets\\', $widget['panels_info']['class'] );
+			}
+		}
+		return $panels_data;
 	}
 }

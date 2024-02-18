@@ -3,13 +3,11 @@
 namespace SIW\Compatibility;
 
 use SIW\Attributes\Add_Filter;
-use SIW\Base;
-use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 
 /**
  * @see         https://siteorigin.com/widgets-bundle/
  */
-class SiteOrigin_Widgets_Bundle extends Base implements I_Plugin {
+class SiteOrigin_Widgets_Bundle extends Plugin {
 
 	#[\Override]
 	public static function get_plugin_basename(): string {

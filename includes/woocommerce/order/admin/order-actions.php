@@ -14,7 +14,6 @@ class Order_Actions extends Base {
 	#[Add_Filter( 'woocommerce_order_actions' )]
 	public function remove_order_actions( array $actions ): array {
 		unset( $actions['regenerate_download_permissions'] );
-		unset( $actions['send_order_details_admin'] );
 		unset( $actions['send_order_details'] );
 		return $actions;
 	}

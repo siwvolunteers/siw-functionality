@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Dashicons;
 use SIW\Elements\CTA_Hero;
 
 /**
@@ -23,13 +24,8 @@ class CTA extends Widget {
 	}
 
 	#[\Override]
-	protected function get_template_id(): string {
-		return Widget::DEFAULT_TEMPLATE_ID;
-	}
-
-	#[\Override]
-	protected function get_dashicon(): string {
-		return 'megaphone';
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::MEGAPHONE;
 	}
 
 	#[\Override]
@@ -71,6 +67,7 @@ class CTA extends Widget {
 				'label'                => __( 'Achtergrondafbeeldingen', 'siw' ),
 				'library'              => 'image',
 				'thumbnail_dimensions' => [ 64, 64 ],
+				'required'             => true,
 			],
 		];
 		return $widget_fields;
@@ -79,7 +76,7 @@ class CTA extends Widget {
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
-		if ( ! isset( $instance['background_images'] ) || empty( $instance['background_images'] ) ) {
+		if ( empty( $instance['background_images'] ) || empty( $instance['headline'] ) || empty( $instance['button_text'] ) || empty( $instance['button_url'] ) ) {
 			return [];
 		}
 

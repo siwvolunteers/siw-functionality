@@ -19,15 +19,6 @@ function siw_format_amount( float $amount, int $decimals = 0, string $currency_c
 	return sprintf( '%s&nbsp;%s', $currency_symbol, $amount );
 }
 
-/** Formatteert kortingsbedrag */
-function siw_format_sale_amount( float $amount, float $sale_amount, int $decimals = 0, string $currency_code = 'EUR' ): string {
-	return sprintf(
-		'<del>%s</del>&nbsp;<ins>%s</ins>',
-		siw_format_amount( $amount, $decimals, $currency_code ),
-		siw_format_amount( $sale_amount, $decimals, $currency_code )
-	);
-}
-
 /** Formatteert datum als tekst */
 function siw_format_date( string $date, bool $include_year = true ): string {
 	$format = $include_year ? 'j F Y' : 'j F';
@@ -66,46 +57,4 @@ function siw_format_date_range( string $date_start, string $date_end, bool $incl
 function siw_format_month( string $date, bool $include_year = true ): string {
 	$format = $include_year ? 'F Y' : 'F';
 	return wp_date( $format, strtotime( $date ) );
-}
-
-/** Formatteert lokale bijdrage */
-function siw_format_local_fee( float $fee, string $currency_code ): string {
-	if ( 0.0 === $fee || empty( $currency_code ) ) {
-		return '';
-	}
-
-	if ( 'EUR' === $currency_code ) {
-		return sprintf( '&euro; %s', $fee );
-	}
-
-	$currency = Currency::tryFrom( $currency_code );
-	if ( null !== $currency ) {
-		return sprintf( '%s %d (%s)', $currency->symbol(), $fee, $currency->label() );
-	}
-
-	return sprintf( '%s %d', $currency_code, $fee );
-}
-
-/** Formatteert aantal vrijwilligers TODO: i18n */
-function siw_format_number_of_volunteers( int $total, int $male, int $female ): string {
-	$male_label = ( 1 === $male ) ? 'man' : 'mannen';
-	$female_label = ( 1 === $female ) ? 'vrouw' : 'vrouwen';
-
-	if ( ( $male + $female ) === $total ) {
-		$number_of_volunteers = sprintf( '%d (%d %s en %d %s)', $total, $male, $male_label, $female, $female_label );
-	} else {
-		$number_of_volunteers = strval( $total );
-	}
-	return $number_of_volunteers;
-}
-
-/** Formatteert leeftijdsrange TODO: i18n */
-function siw_format_age_range( int $min_age, int $max_age ): string {
-	if ( $min_age < 1 ) {
-		$min_age = 18;
-	}
-	if ( $max_age < 1 ) {
-		$max_age = 99;
-	}
-	return sprintf( '%d t/m %d jaar', $min_age, $max_age );
 }

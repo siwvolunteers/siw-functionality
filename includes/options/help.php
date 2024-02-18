@@ -2,6 +2,8 @@
 
 namespace SIW\Options;
 
+use SIW\Data\Icons\Dashicons;
+
 class Help extends Option {
 
 	#[\Override]
@@ -25,7 +27,7 @@ class Help extends Option {
 			[
 				'id'    => 'faq',
 				'label' => __( 'Q&A', 'siw' ),
-				'icon'  => 'dashicons-editor-help',
+				'icon'  => Dashicons::EDITOR_HELP->icon_class(),
 			],
 		];
 

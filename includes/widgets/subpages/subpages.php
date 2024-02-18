@@ -2,6 +2,8 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Dashicons;
+
 /**
  * Widget Name: SIW: Subpagina's
  * Description: Toont subpagina's
@@ -26,8 +28,8 @@ class Subpages extends Widget {
 	}
 
 	#[\Override]
-	protected function get_dashicon(): string {
-		return 'networking';
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::NETWORKING;
 	}
 
 	#[\Override]
@@ -74,9 +76,6 @@ class Subpages extends Widget {
 		}
 
 		return [
-			'i18n'     => [
-				'read_more' => __( 'Lees meer', 'siw' ),
-			],
 			'subpages' => $subpages,
 		];
 	}

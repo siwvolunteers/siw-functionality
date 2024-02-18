@@ -46,17 +46,21 @@ class Iframe_Manager extends Base {
 							],
 							'languages'    => [
 								determine_locale() => [
-									'notice'     =>
-										__( 'Deze inhoud wordt gehost door een derde partij.', 'siw' ) . SPACE .
-										sprintf(
-											// translators: %s is de link naar de algemene voorwaarden van YouTube
-											__( 'Door de video te laden, accepteer je de %s van YouTube', 'siw' ),
-											Link::create()
-												->set_url( 'https://www.youtube.com/t/terms' )
-												->set_text( __( 'algemene voorwaarden', 'siw' ) )
-												->set_is_external()
-												->generate()
-										),
+									'notice'     => implode(
+										' ',
+										[
+											__( 'Deze inhoud wordt gehost door een derde partij.', 'siw' ),
+											sprintf(
+												// translators: %s is de link naar de algemene voorwaarden van YouTube
+												__( 'Door de video te laden, accepteer je de %s van YouTube', 'siw' ),
+												Link::create()
+													->set_url( 'https://www.youtube.com/t/terms' )
+													->set_text( __( 'algemene voorwaarden', 'siw' ) )
+													->set_is_external()
+													->generate()
+											),
+										],
+									),
 									'loadBtn'    => __( 'Deze video laden', 'siw' ),
 									'loadAllBtn' => __( 'Vraag het niet opnieuw', 'siw' ),
 								],

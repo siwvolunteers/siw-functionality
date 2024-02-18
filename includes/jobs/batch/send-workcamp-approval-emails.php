@@ -4,7 +4,6 @@ namespace SIW\Jobs\Batch;
 
 use SIW\Attributes\Add_Action;
 use SIW\Data\Job_Frequency;
-use SIW\Elements\Link;
 use SIW\Facades\Meta_Box;
 use SIW\Facades\WooCommerce;
 use SIW\Helpers\Email;
@@ -18,7 +17,7 @@ class Send_Workcamp_Approval_Emails extends Scheduled_Job {
 
 	#[\Override]
 	public function get_name(): string {
-		return 'Versturen email goedkeuren groepsprojecten';
+		return __( 'Versturen email goedkeuren groepsprojecten', 'siw' );
 	}
 
 	#[\Override]
@@ -77,13 +76,16 @@ class Send_Workcamp_Approval_Emails extends Scheduled_Job {
 			admin_url( 'edit.php' )
 		);
 
-		$message =
-			sprintf( 'Beste %s,', $responsible_user->user_firstname ) . BR2 .
-			sprintf( 'Er wachten nog %d projecten in %s op jouw beoordeling.', count( $products ), $term->name ) . BR .
-			sprintf( 'Klik %s om de projecten te bekijken.', Link::create()->set_url( $admin_url )->set_text( 'hier' )->generate() );
+		$context = [
+			'first_name'    => $responsible_user->user_firstname,
+			'project_count' => count( $products ),
+			'continent'     => $term->name,
+			'admin_url'     => $admin_url,
+		];
 
 		$template = Email_Template::create()
-			->set_message( $message )
+			->set_template( 'workcamp-approval' )
+			->add_context( $context )
 			->set_subject( sprintf( 'Nog te beoordelen projecten in %s', $term->name ) )
 			->generate();
 

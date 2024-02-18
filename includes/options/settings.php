@@ -4,6 +4,7 @@ namespace SIW\Options;
 
 use SIW\Data\Board_Title;
 use SIW\Data\Continent;
+use SIW\Data\Icons\Dashicons;
 use SIW\Properties;
 
 class Settings extends Option {
@@ -32,27 +33,27 @@ class Settings extends Option {
 			[
 				'id'    => 'organisation',
 				'label' => __( 'Organisatie', 'siw' ),
-				'icon'  => 'dashicons-building',
+				'icon'  => Dashicons::BUILDING->icon_class(),
 			],
 			[
 				'id'    => 'email',
 				'label' => __( 'E-mail', 'siw' ),
-				'icon'  => 'dashicons-email',
+				'icon'  => Dashicons::EMAIL->icon_class(),
 			],
 			[
 				'id'    => 'workcamps',
 				'label' => __( 'Groepsprojecten', 'siw' ),
-				'icon'  => 'dashicons-groups',
+				'icon'  => Dashicons::GROUPS->icon_class(),
 			],
 			[
 				'id'    => 'annual_reports',
 				'label' => __( 'Jaarverslagen', 'siw' ),
-				'icon'  => 'dashicons-media-document',
+				'icon'  => Dashicons::MEDIA_DOCUMENT->icon_class(),
 			],
 			[
 				'id'    => 'sponsors',
 				'label' => __( 'Sponsors', 'siw' ),
-				'icon'  => 'dashicons-money',
+				'icon'  => Dashicons::MONEY->icon_class(),
 			],
 		];
 		return $tabs;

@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Dashicons;
 use SIW\Elements\YouTube_Video as YouTube_Video_Element;
 
 /**
@@ -24,31 +25,17 @@ class YouTube_Video extends Widget {
 	}
 
 	#[\Override]
-	protected function get_template_id(): string {
-		return Widget::DEFAULT_TEMPLATE_ID;
-	}
-
-	#[\Override]
-	protected function get_dashicon(): string {
-		return 'youtube';
-	}
-
-	#[\Override]
-	protected function supports_title(): bool {
-		return true;
-	}
-
-	#[\Override]
-	protected function supports_intro(): bool {
-		return true;
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::YOUTUBE;
 	}
 
 	#[\Override]
 	public function get_widget_fields(): array {
 		$widget_fields = [
 			'video_id' => [
-				'type'  => 'text',
-				'label' => __( 'Video ID', 'siw' ),
+				'type'     => 'text',
+				'label'    => __( 'Video ID', 'siw' ),
+				'required' => true,
 			],
 			'autoplay' => [
 				'type'    => 'checkbox',
@@ -67,7 +54,7 @@ class YouTube_Video extends Widget {
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
 
-		if ( ! isset( $instance['video_id'] ) || empty( $instance['video_id'] ) ) {
+		if ( empty( $instance['video_id'] ) ) {
 			return [];
 		}
 

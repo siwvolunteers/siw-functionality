@@ -4,6 +4,7 @@ namespace SIW\Content\Post_Types;
 use SIW\Attributes\Add_Action;
 use SIW\Content\Post\Event as Event_Post;
 use SIW\Content\Post_Types\Post_Type;
+use SIW\Data\Icons\Dashicons;
 use SIW\Data\Icons\Genericons_Neue;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Calendar_Icon;
@@ -14,6 +15,7 @@ use SIW\Forms\Forms\Info_Day;
 use SIW\Helpers\Template;
 use SIW\Integrations\Mailjet;
 use SIW\Properties;
+use SIW\Structured_Data\Contact_Point;
 use SIW\Structured_Data\Event as Event_Structured_Data;
 use SIW\Structured_Data\Event_Attendance_Mode;
 use SIW\Structured_Data\Event_Status_Type;
@@ -27,8 +29,8 @@ use SIW\Structured_Data\Virtual_Location;
 class Event extends Post_Type {
 
 	#[\Override]
-	protected static function get_dashicon(): string {
-		return 'calendar-alt';
+	protected static function get_dashicon(): Dashicons {
+		return Dashicons::CALENDAR_ALT;
 	}
 
 	#[\Override]
@@ -322,7 +324,7 @@ class Event extends Post_Type {
 		if ( 'single' === $type ) {
 			if ( $post->is_info_day() ) {
 				$template_variables['application_form_info_day'] = Form::create()
-					->set_form_id( Info_Day::FORM_ID )
+					->set_form_id( Info_Day::get_id() )
 					->set_field_value( 'info_day_date', $post->get_id() )
 					->generate();
 			}
@@ -355,7 +357,7 @@ class Event extends Post_Type {
 			return;
 		}
 
-		$name = 'infodag ' . siw_format_date( $event->get_event_date()->format( 'Y-m-d' ) );
+		$name = 'infodag ' . wp_date( 'j F Y', $event->get_event_date()->getTimestamp(), wp_timezone() );
 		$mailjet = Mailjet::create();
 		$lists = $mailjet->get_lists( [ 'name' => $name ] );
 		$list_id = $lists[0]['id'] ?? $mailjet->create_list( $name );
@@ -408,7 +410,12 @@ class Event extends Post_Type {
 				->set_url( SIW_SITE_URL )
 				->set_same_as( SIW_SITE_URL )
 				->set_logo( get_site_icon_url() )
-				->set_non_profit_status( NL_Non_Profit_Type::ANBI );
+				->set_non_profit_status( NL_Non_Profit_Type::ANBI )
+				->set_contact_point(
+					Contact_Point::create()
+						->set_email( Properties::EMAIL )
+						->set_telephone( Properties::PHONE_INTERNATIONAL )
+				);
 		}
 		$structured_data->set_organizer( $organizer );
 

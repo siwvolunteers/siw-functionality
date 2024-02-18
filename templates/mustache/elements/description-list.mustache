@@ -1,0 +1,6 @@
+<dl id="{{ element.id }}" class="{{ element.classes }}">
+{{# items }}
+	<dt>{{ term }}</dt>
+	<dd>{{ description | wp_kses_post  }}</dd>
+{{/ items}}
+</dl>

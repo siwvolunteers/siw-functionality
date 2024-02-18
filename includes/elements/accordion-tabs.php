@@ -27,30 +27,23 @@ class Accordion_Tabs extends Repeater {
 			'tab_id'     => wp_unique_prefixed_id( 'siw-accordion-tab-' ),
 			'title'      => $item['title'] ?? '',
 			'content'    => $item['content'] ?? '',
-			'button'     => $item['show_button'] ?
-				[
-					'url'  => $item['button_url'],
-					'text' => $item['button_text'],
-				] :
-				[],
 		];
 	}
 
 	#[\Override]
 	protected function get_item_defaults(): array {
 		return [
-			'title'       => '',
-			'content'     => '',
-			'show_button' => false,
-			'button_text' => '',
-			'button_url'  => '',
+			'title'   => '',
+			'content' => '',
 		];
 	}
 
+	#[\Override]
 	public function enqueue_scripts() {
 		wp_enqueue_script( A11Y_Accordion_Tabs::get_asset_handle() );
 	}
 
+	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style();
 	}
@@ -59,7 +52,6 @@ class Accordion_Tabs extends Repeater {
 		$this->tabs_allowed = $tabs_allowed;
 		return $this;
 	}
-
 
 	#[\Override]
 	protected function initialize() {

@@ -7,6 +7,7 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Config;
 use SIW\Content\Post\Post;
+use SIW\Data\Icons\Dashicons;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Taxonomy_Filter;
 use SIW\Facades\Meta_Box;
@@ -24,7 +25,7 @@ abstract class Post_Type extends Base {
 		return 'siw_' . static::get_post_type_base();
 	}
 
-	abstract protected static function get_dashicon(): string;
+	abstract protected static function get_dashicon(): Dashicons;
 
 	abstract protected static function get_slug(): string;
 
@@ -96,14 +97,6 @@ abstract class Post_Type extends Base {
 		$query->set( 'meta_query', $meta_query );
 	}
 
-	//#[Add_Filter( 'slim_seo_robots_index' )]
-	final public function set_seo_robots_index( bool $index, int $post_id ): bool {
-		if ( static::get_post_type() !== get_post_type( $post_id ) ) {
-			return $index;
-		}
-		return $this->get_custom_post( $post_id )->is_active();
-	}
-
 	#[Add_Filter( 'slim_seo_breadcrumbs_args', 20 )]
 	final public function set_seo_breadcrumb_args( array $args ): array {
 		if ( static::get_post_type() !== get_post_type() || 1 !== count( $this->get_taxonomies() ) ) {
@@ -168,7 +161,7 @@ abstract class Post_Type extends Base {
 		$post_type = \register_extended_post_type(
 			static::get_post_type(),
 			[
-				'menu_icon'       => 'dashicons-' . static::get_dashicon(),
+				'menu_icon'       => static::get_dashicon()->icon_class(),
 				'capability_type' => static::get_post_type_base(),
 				'map_meta_cap'    => true,
 				'quick_edit'      => false,

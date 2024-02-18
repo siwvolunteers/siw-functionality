@@ -1,0 +1,17 @@
+{{< email }}
+	{{$ message }}
+		{{#__}}Beste {{ order.get_billing_first_name}},{{/__ }}
+		<p>
+			{{#__}}Heel erg bedankt voor je aanmelding voor een vrijwilligersproject via SIW!{{/__}} {{#__}}We doen ons best om ervoor te zorgen dat dit voor jou een onvergetelijke ervaring wordt!{{/__}}
+		</p>
+		<p>
+			{{#__}}Je inschrijving wordt pas in behandeling genomen als we je betaling ontvangen hebben.{{/__}}
+		</p>
+		<p>
+			{{#__}}Je heb gekozen voor zelf overmaken. Je ontvangt een aparte e-mail van onze betaalpartner Mollie met instructies voor het overmaken.{{/__}}
+		<p>
+		<p>
+			{{#__}}Als je nog vragen hebt, aarzel dan niet om contact met ons op te nemen.{{/__}}
+		</p>
+	{{/ message}}
+{{/ email}}

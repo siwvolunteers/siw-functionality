@@ -4,11 +4,13 @@ namespace SIW\Content\Post_Types;
 use SIW\Attributes\Add_Action;
 use SIW\Content\Post\Job_Posting as Job_Posting_Post;
 use SIW\Content\Post_Types\Post_Type;
+use SIW\Data\Icons\Dashicons;
 use SIW\Data\Job_Type;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Accordion_Tabs;
 use SIW\Helpers\Template;
 use SIW\Properties;
+use SIW\Structured_Data\Contact_Point;
 use SIW\Structured_Data\Employment_Type;
 use SIW\Structured_Data\Job_Posting as Job_Posting_Structured_Data;
 use SIW\Structured_Data\NL_Non_Profit_Type;
@@ -20,8 +22,8 @@ use SIW\Structured_Data\Thing;
 class Job_Posting extends Post_Type {
 
 	#[\Override]
-	protected static function get_dashicon(): string {
-		return 'nametag';
+	protected static function get_dashicon(): Dashicons {
+		return Dashicons::NAMETAG;
 	}
 
 		#[\Override]
@@ -346,6 +348,11 @@ class Job_Posting extends Post_Type {
 			->set_same_as( SIW_SITE_URL )
 			->set_logo( get_site_icon_url() )
 			->set_non_profit_status( NL_Non_Profit_Type::ANBI )
+			->set_contact_point(
+				Contact_Point::create()
+				->set_email( Properties::EMAIL )
+				->set_telephone( Properties::PHONE_INTERNATIONAL )
+			)
 		)
 		->set_qualifications( $post->get_qualifications() )
 		->set_responsibilities( $post->get_work() )

@@ -41,6 +41,10 @@ abstract class Thing {
 		return $this->set_property( 'sameAs', $same_as );
 	}
 
+	public function add_same_as( string $same_as ): static {
+		return $this->add_property( 'sameAs', $same_as );
+	}
+
 	protected function set_property( string $property, $value ): static {
 		$this->data[ $property ] = $this->parse_value( $value );
 		return $this;

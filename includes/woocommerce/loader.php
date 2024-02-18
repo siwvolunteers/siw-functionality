@@ -2,7 +2,7 @@
 
 namespace SIW\WooCommerce;
 
-use SIW\Abstracts\Base_Loader;
+use SIW\Base_Loader;
 
 class Loader extends Base_Loader {
 
@@ -10,8 +10,6 @@ class Loader extends Base_Loader {
 	public function get_classes(): array {
 		return [
 			Admin\Order::class,
-			Admin\Product_Tabs::class,
-			Admin\Product::class,
 
 			Checkout\Address_Fields::class,
 			Checkout\Checkout::class,
@@ -21,16 +19,15 @@ class Loader extends Base_Loader {
 			Checkout\Discount\Student::class,
 			Checkout\Discount\Bulk::class,
 
-			Email\Customer_On_Hold_Order::class,
-			Email\Customer_Processing_Order::class,
 			Email\Emails::class,
-			Email\New_Order::class,
 
 			Order\Admin\Order_Actions::class,
 			Order\Status_Transitions::class,
 
 			Product\Admin\Approval::class,
 			Product\Admin\Bulk_Actions::class,
+			Product\Admin\Product::class,
+			Product\Admin\Tabs::class,
 			Product\Archive\Header::class,
 			Product\Archive\Loop::class,
 			Product\Archive\Ordering::class,

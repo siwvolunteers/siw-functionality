@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Dashicons;
 use SIW\Elements\Form as Form_Element;
 
 /**
@@ -23,23 +24,8 @@ class Form extends Widget {
 	}
 
 	#[\Override]
-	protected function get_template_id(): string {
-		return Widget::DEFAULT_TEMPLATE_ID;
-	}
-
-	#[\Override]
-	protected function get_dashicon(): string {
-		return 'text-page';
-	}
-
-	#[\Override]
-	protected function supports_title(): bool {
-		return true;
-	}
-
-	#[\Override]
-	protected function supports_intro(): bool {
-		return true;
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::TEXT_PAGE;
 	}
 
 	#[\Override]
@@ -67,7 +53,11 @@ class Form extends Widget {
 
 	#[\Override]
 	public function get_template_variables( $instance, $args ) {
-		$form_element = Form_Element::create()->set_form_id( $instance['form'] )->set_single_column( $instance['single_column'] );
+		if ( empty( $instance['form'] ) ) {
+			return [];
+		}
+
+		$form_element = Form_Element::create()->set_form_id( $instance['form'] )->set_single_column( (bool) $instance['single_column'] );
 		if ( $instance['hide_labels'] ) {
 			$form_element->hide_labels();
 		}

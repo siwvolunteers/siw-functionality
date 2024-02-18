@@ -5,16 +5,14 @@ namespace SIW\Compatibility;
 use luizbills\CSS_Generator\Generator;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
-use SIW\Base;
 use SIW\Data\Color;
 use SIW\Features\Update;
-use SIW\Interfaces\Compatibility\Plugin as I_Plugin;
 use SIW\Properties;
 
 /**
  * @see       https://generatepress.com/
  */
-class GeneratePress extends Base implements I_Plugin {
+class GeneratePress extends Plugin {
 
 	#[Add_Filter( 'generate_back_to_top_scroll_speed' )]
 	private const BACK_TO_TOP_SCROLL_SPEED = 500;

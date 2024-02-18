@@ -6,14 +6,15 @@ use SIW\Content\Post_Types\Post_Type;
 use SIW\Data\Animation\Easing;
 use SIW\Data\Animation\Type;
 use SIW\Data\Country;
+use SIW\Data\Icons\Dashicons;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Quote;
 
 class Story extends Post_Type {
 
 	#[\Override]
-	protected static function get_dashicon(): string {
-		return 'format-gallery';
+	protected static function get_dashicon(): Dashicons {
+		return Dashicons::FORMAT_GALLERY;
 	}
 
 	#[\Override]

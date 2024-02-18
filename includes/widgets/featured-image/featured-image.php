@@ -2,6 +2,8 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Icons\Dashicons;
+
 /**
  * Widget Name: SIW: Featured image
  * Description: Toont uitgelichte afbeelding
@@ -21,23 +23,13 @@ class Featured_Image extends Widget {
 	}
 
 	#[\Override]
-	protected function get_template_id(): string {
-		return Widget::DEFAULT_TEMPLATE_ID;
-	}
-
-	#[\Override]
-	protected function get_dashicon(): string {
-		return 'cover-image';
+	protected function get_dashicon(): Dashicons {
+		return Dashicons::COVER_IMAGE;
 	}
 
 	#[\Override]
 	protected function supports_title(): bool {
 		return true;
-	}
-
-	#[\Override]
-	protected function supports_intro(): bool {
-		return false;
 	}
 
 	#[\Override]

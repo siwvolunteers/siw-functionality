@@ -16,15 +16,6 @@ body.home .site-content {
 	padding-top: 0;
 }
 
-dl {
-	dt {
-		font-weight: 600;
-	}
-	dd {
-		margin: 0 1em .5em 0;
-	}
-}
-
 @counter-style check {
 	system: cyclic;
 	symbols: \2713;
@@ -39,7 +30,7 @@ dl {
 	margin: 0 0 30px 0;
 	padding: 24px;
 
-	p {
+	p:last-child {
 		margin-bottom: 0;
 	}
 	a {

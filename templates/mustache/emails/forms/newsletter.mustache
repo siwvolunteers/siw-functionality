@@ -1,0 +1,11 @@
+{{< email }}
+	{{$ message }}
+		{{#__}}Beste {{ first_name }},{{/__}}
+		<p>
+			{{#__}}Bedankt voor je aanmelding voor de SIW-nieuwsbrief!{{/__}} {{#__}}Om zeker te weten dat je inschrijving correct is, vragen we je je aanmelding te bevestigen.{{/__}}
+		</p>
+		<p>
+			<a href="{{ confirmation_url }}">{{#__}}Klik hier om je aanmelding voor onze nieuwsbrief direct te bevestigen.{{/__}}</a>
+		</p>
+	{{/ message }}
+{{/ email }}

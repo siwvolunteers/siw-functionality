@@ -19,7 +19,7 @@ class Import_Plato_Dutch_Projects extends Scheduled_Job {
 
 	#[\Override]
 	public function get_name(): string {
-		return __( 'Importeren projecten uit Plato', 'siw' );
+		return __( 'Importeren Nederlandse projecten uit Plato', 'siw' );
 	}
 
 	#[\Override]
