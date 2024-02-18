@@ -4,14 +4,11 @@ namespace SIW\Data;
 
 use SIW\Data\Continent;
 use SIW\Interfaces\Enums\Labels;
-use SIW\Interfaces\Enums\Plato_Code;
 use SIW\Traits\Enum_List;
-use SIW\Traits\Plato_Enum;
 
-enum Country: string implements Labels, Plato_Code {
+enum Country: string implements Labels {
 
 	use Enum_List;
-	use Plato_Enum;
 
 	// Afrikaanse landen
 	case BURUNDI = 'burundi';
@@ -219,111 +216,6 @@ enum Country: string implements Labels, Plato_Code {
 			self::UNITED_STATES =>  __( 'United States (US)', 'woocommerce' ),
 		};
 		// phpcs:enable WordPress.WP.I18n.TextDomainMismatch
-	}
-
-	#[\Override]
-	public function plato_code(): string {
-		return match ( $this ) {
-			// Afrikaanse landen
-			self::BURUNDI => 'BDI',
-			self::BOTSWANA => 'BWA',
-			self::GHANA => 'GHA',
-			self::KENYA => 'KEN',
-			self::MADAGASCAR => 'MDG',
-			self::MOROCCO => 'MAR',
-			self::MOZAMBIQUE => 'MOZ',
-			self::SENEGAL => 'SEN',
-			self::TOGO => 'TGO',
-			self::TUNISIA => 'TUN',
-			self::TANZANIA => 'TZA',
-			self::UGANDA => 'UGA',
-			self::SOUTH_AFRICA => 'ZAF',
-			self::ZAMBIA => 'ZMB',
-			self::ZIMBABWE => 'ZWE',
-
-			// Aziatische landen
-			self::CHINA => 'CHN',
-			self::HONG_KONG => 'HKG',
-			self::INDONESIA => 'IDN',
-			self::INDIA => 'IND',
-			self::JAPAN => 'JPN',
-			self::KYRGYZSTAN => 'KGZ',
-			self::CAMBODIA => 'KHM',
-			self::SOUTH_KOREA => 'KOR',
-			self::SRI_LANKA => 'LKA',
-			self::LAOS => 'LAO',
-			self::MONGOLIA => 'MNG',
-			self::MALAYSIA => 'MYS',
-			self::NEPAL => 'NPL',
-			self::THAILAND => 'THA',
-			self::TAIWAN => 'TWN',
-			self::VIETNAM => 'VNM',
-			self::PHILIPPINES => 'PHL',
-
-			// Europese landen
-			self::ALBANIA => 'ALB',
-			self::ARMENIA => 'ARM',
-			self::AUSTRIA => 'AUT',
-			self::BELGIUM => 'BEL',
-			self::BULGARIA => 'BGR',
-			self::BELARUS => 'BLR',
-			self::SWITZERLAND => 'CHE',
-			self::CYPRUS => 'CYP',
-			self::CZECH_REPUBLIC => 'CZE',
-			self::GERMANY => 'DEU',
-			self::DENMARK => 'DNK',
-			self::SPAIN => 'ESP',
-			self::ESTONIA => 'EST',
-			self::FINLAND => 'FIN',
-			self::FRANCE => 'FRA',
-			self::UNITED_KINGDOM => 'GBR',
-			self::GEORGIA => 'GEO',
-			self::GREECE => 'GRC',
-			self::HUNGARY => 'HUN',
-			self::CROATIA => 'HRV',
-			self::IRELAND => 'IRL',
-			self::ICELAND => 'ISL',
-			self::ITALY => 'ITA',
-			self::LIECHTENSTEIN => 'LIE',
-			self::LITHUANIA => 'LTU',
-			self::LUXEMBOURG => 'LUX',
-			self::LATVIA => 'LVA',
-			self::MOLDOVA => 'MDA',
-			self::MACEDONIA => 'MKD',
-			self::MALTA => 'MLT',
-			self::MONTENEGRO => 'MNE',
-			self::NETHERLANDS => 'NLD',
-			self::NORWAY => 'NOR',
-			self::POLAND => 'POL',
-			self::PORTUGAL => 'PRT',
-			self::ROMANIA => 'ROU',
-			self::RUSSIA => 'RUS',
-			self::SERBIA => 'SRB',
-			self::SLOVAKIA => 'SVK',
-			self::SLOVENIA => 'SVN',
-			self::SWEDEN => 'SWE',
-			self::TURKEY => 'TUR',
-			self::UKRAINE => 'UKR',
-			self::KOSOVO => 'XKS',
-
-			//Latijns-Amerikaanse landen
-			self::ARUBA => 'ABW',
-			self::ARGENTINA => 'ARG',
-			self::BOLIVIA => 'BOL',
-			self::BRAZIL => 'BRA',
-			self::COLOMBIA => 'COL',
-			self::COSTA_RICA => 'CRI',
-			self::ECUADOR => 'ECU',
-			self::GUATEMALA => 'GTM',
-			self::HAITI => 'HTE',
-			self::MEXICO => 'MEX',
-			self::PERU => 'PER',
-
-			// Noord-Amerikaanse landen
-			self::CANADA => 'CAN',
-			self::GREENLAND => 'GRL',
-			self::UNITED_STATES => 'USA',
-		};
 	}
 
 	public function iso_code(): string {
