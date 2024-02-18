@@ -4,7 +4,7 @@ namespace SIW\Elements;
 
 use SIW\Data\Project_Type;
 use SIW\Facades\WooCommerce;
-use SIW\Interfaces\Forms\Form;
+use SIW\Forms\Form;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 class Project_Wizard extends Element {
