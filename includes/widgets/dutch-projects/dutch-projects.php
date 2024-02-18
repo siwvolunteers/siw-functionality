@@ -34,7 +34,7 @@ class Dutch_Projects extends Widget {
 
 	#[\Override]
 	protected function get_template_id(): string {
-		return $this->get_id();
+		return Widget::DEFAULT_TEMPLATE_ID;
 	}
 
 	#[\Override]
@@ -60,8 +60,9 @@ class Dutch_Projects extends Widget {
 			return [];
 		}
 
-		$map = Leaflet_Map::create();
-		$map->set_zoom( 7 );
+		$map = Leaflet_Map::create()
+			->set_zoom( 7 )
+			->add_classes( [ Visibility_Class::HIDE_ON_MOBILE->value, Visibility_Class::HIDE_ON_TABLET->value ] );
 
 		$accordion = Accordion_Tabs::create();
 
@@ -85,10 +86,7 @@ class Dutch_Projects extends Widget {
 		}
 
 		return [
-			'map'                  => $map->generate(),
-			'accordion'            => $accordion->generate(),
-			'hide_on_tablet_class' => Visibility_Class::HIDE_ON_TABLET->value,
-			'hide_on_mobile_class' => Visibility_Class::HIDE_ON_MOBILE->value,
+			'content' => $map->generate() . $accordion->generate(),
 		];
 	}
 
