@@ -39,12 +39,57 @@ abstract class Widget extends \SiteOrigin_Widget {
 				'panels_icon'   => sprintf( 'dashicons dashicons-%s', $this->get_dashicon() ),
 				'has_preview'   => false,
 			],
-			[], // control_options,
-			[], // form_options
+			[],
+			[],
 			plugin_dir_path( __FILE__ )
 		);
+
+		add_filter( 'wpml_siteorigin_modules_to_translate', [ $this, 'register_widget_for_translation' ] );
 	}
 
+	//TODO: werkt nog niet voor sections en nested repeaters
+	public function register_widget_for_translation( array $widgets ): array {
+		$translatable_fields = [];
+		$translatable_repeaters = [];
+
+		foreach ( $this->get_widget_form() as $field_id => $field ) {
+			if ( in_array( $field['type'], [ 'text', 'textarea', 'tinymce' ], true ) ) {
+				$translatable_fields[] = $this->parse_translatable_field( $field_id, $field );
+			} elseif ( 'repeater' === $field['type'] ) {
+				$translatable_repeaters[ $field_id ] = $this->parse_translatable_repeater( $field_id, $field );
+			}
+		}
+
+		$widgets[ '\\' . static::class ] = [
+			'conditions'     => [ 'widgetType' => '\\' . static::class ],
+			'fields'         => $translatable_fields,
+			'fields_in_item' => $translatable_repeaters,
+		];
+		return $widgets;
+	}
+
+	protected function parse_translatable_field( string $field_id, array $field ): array {
+		return [
+			'field'       => $field_id,
+			'type'        => $field['label'],
+			'editor_type' => match ( $field['type'] ) {
+				'tinymce'  => 'VISUAL',
+				'textarea' => 'AREA',
+				'text'     => 'LINE',
+				default    => 'LINE'
+			},
+		];
+	}
+
+	protected function parse_translatable_repeater( string $repeater_id, array $repeater ): array {
+		$translatable_fields = [];
+		foreach ( $repeater['fields'] as $field_id => $field ) {
+			if ( in_array( $field['type'], [ 'text', 'textarea', 'tinymce' ], true ) ) {
+				$translatable_fields[] = $this->parse_translatable_field( $field_id, $field );
+			}
+		}
+		return $translatable_fields;
+	}
 
 	protected function get_widget_fields(): array {
 		return [];
