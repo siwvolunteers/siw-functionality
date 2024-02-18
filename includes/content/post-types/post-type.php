@@ -7,6 +7,7 @@ use SIW\Attributes\Add_Filter;
 use SIW\Base;
 use SIW\Config;
 use SIW\Content\Post\Post;
+use SIW\Data\Icons\Dashicons;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Taxonomy_Filter;
 use SIW\Facades\Meta_Box;
@@ -24,7 +25,7 @@ abstract class Post_Type extends Base {
 		return 'siw_' . static::get_post_type_base();
 	}
 
-	abstract protected static function get_dashicon(): string;
+	abstract protected static function get_dashicon(): Dashicons;
 
 	abstract protected static function get_slug(): string;
 
@@ -168,7 +169,7 @@ abstract class Post_Type extends Base {
 		$post_type = \register_extended_post_type(
 			static::get_post_type(),
 			[
-				'menu_icon'       => 'dashicons-' . static::get_dashicon(),
+				'menu_icon'       => static::get_dashicon()->icon_class(),
 				'capability_type' => static::get_post_type_base(),
 				'map_meta_cap'    => true,
 				'quick_edit'      => false,

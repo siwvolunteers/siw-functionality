@@ -4,6 +4,7 @@ namespace SIW\Content\Post_Types;
 use SIW\Attributes\Add_Action;
 use SIW\Content\Post\Event as Event_Post;
 use SIW\Content\Post_Types\Post_Type;
+use SIW\Data\Icons\Dashicons;
 use SIW\Data\Icons\Genericons_Neue;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Calendar_Icon;
@@ -28,8 +29,8 @@ use SIW\Structured_Data\Virtual_Location;
 class Event extends Post_Type {
 
 	#[\Override]
-	protected static function get_dashicon(): string {
-		return 'calendar-alt';
+	protected static function get_dashicon(): Dashicons {
+		return Dashicons::CALENDAR_ALT;
 	}
 
 	#[\Override]

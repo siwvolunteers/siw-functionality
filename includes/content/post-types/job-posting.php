@@ -4,6 +4,7 @@ namespace SIW\Content\Post_Types;
 use SIW\Attributes\Add_Action;
 use SIW\Content\Post\Job_Posting as Job_Posting_Post;
 use SIW\Content\Post_Types\Post_Type;
+use SIW\Data\Icons\Dashicons;
 use SIW\Data\Job_Type;
 use SIW\Data\Post_Type_Support;
 use SIW\Elements\Accordion_Tabs;
@@ -21,8 +22,8 @@ use SIW\Structured_Data\Thing;
 class Job_Posting extends Post_Type {
 
 	#[\Override]
-	protected static function get_dashicon(): string {
-		return 'nametag';
+	protected static function get_dashicon(): Dashicons {
+		return Dashicons::NAMETAG;
 	}
 
 		#[\Override]

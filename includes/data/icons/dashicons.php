@@ -311,4 +311,9 @@ enum Dashicons: string {
 	case WELCOME_WRITE_BLOG = 'welcome-write-blog';
 	case WORDPRESS_ALT = 'wordpress-alt';
 	case WORDPRESS = 'wordpress'; //phpcs:ignore WordPress.WP.CapitalPDangit.MisspelledInText
+
+
+	public function icon_class(): string {
+		return sprintf( 'dashicons-%s', $this->value );
+	}
 }

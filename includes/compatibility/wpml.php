@@ -4,6 +4,7 @@ namespace SIW\Compatibility;
 
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
+use SIW\Data\Icons\Dashicons;
 use SIW\Util\I18n;
 
 /**
@@ -50,7 +51,7 @@ class WPML extends Plugin {
 			'wpml',
 			[
 				'label'    => 'WPML',
-				'icon'     => 'dashicons-translation',
+				'icon'     => Dashicons::TRANSLATION->icon_class(),
 				'priority' => 90,
 				'caps'     => self::USER_CAPS,
 			]
