@@ -2,7 +2,7 @@
 
 namespace SIW\Elements;
 
-use SIW\Data\Elements\Chart_Type;
+use SIW\Data\Elements\Chart\Chart_Type;
 use SIW\External_Assets\Frappe_Charts;
 use SIW\External_Assets\Polyfill;
 

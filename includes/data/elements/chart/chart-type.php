@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SIW\Data\Elements;
+namespace SIW\Data\Elements\Chart;
 
 use SIW\Interfaces\Enums\Labels;
 use SIW\Traits\Enum_List;
