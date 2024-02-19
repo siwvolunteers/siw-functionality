@@ -11,6 +11,7 @@
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   backface-visibility: hidden;
+  background-repeat: no-repeat;
   color: transparent;
   left: 0px;
   opacity: 0;
