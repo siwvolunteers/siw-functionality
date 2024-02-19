@@ -3,9 +3,9 @@
 namespace SIW\Widgets;
 
 use SIW\Data\Board_Title;
-use SIW\Data\Elements\List_Style_Type;
+use SIW\Data\Elements\Unordered_List\List_Style_Type;
 use SIW\Data\Icons\Dashicons;
-use SIW\Elements\List_Columns;
+use SIW\Elements\Unordered_List;
 use SIW\Facades\Meta_Box;
 
 /**
@@ -50,7 +50,7 @@ class Board_Members extends Widget {
 		);
 
 		return [
-			'content' => List_Columns::create()
+			'content' => Unordered_List::create()
 				->add_items( $board_members )
 				->set_list_style_type( List_Style_Type::DISC )
 				->generate(),
