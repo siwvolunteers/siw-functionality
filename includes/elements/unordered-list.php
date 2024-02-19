@@ -2,10 +2,10 @@
 
 namespace SIW\Elements;
 
-use SIW\Data\Elements\List_Style_Position;
-use SIW\Data\Elements\List_Style_Type;
+use SIW\Data\Elements\Unordered_List\List_Style_Position;
+use SIW\Data\Elements\Unordered_List\List_Style_Type;
 
-class List_Columns extends Repeater {
+class Unordered_List extends Repeater {
 
 	protected int $columns = 1;
 	protected List_Style_Type $list_style_type = List_Style_Type::DISC;

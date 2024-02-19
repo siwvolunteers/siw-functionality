@@ -2,9 +2,9 @@
 
 namespace SIW\Widgets;
 
-use SIW\Data\Elements\List_Style_Type;
+use SIW\Data\Elements\Unordered_List\List_Style_Type;
 use SIW\Data\Icons\Dashicons;
-use SIW\Elements\List_Columns;
+use SIW\Elements\Unordered_List;
 use SIW\Facades\Meta_Box;
 
 /**
@@ -47,7 +47,7 @@ class Sponsors extends Widget {
 		);
 
 		return [
-			'content' => List_Columns::create()->set_list_style_type( List_Style_Type::NONE )->add_items( $links )->generate(),
+			'content' => Unordered_List::create()->set_list_style_type( List_Style_Type::NONE )->add_items( $links )->generate(),
 		];
 	}
 }
