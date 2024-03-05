@@ -37,8 +37,11 @@ class Header extends Base {
 			$text = __( 'Hieronder zie je het beschikbare aanbod projecten.', 'siw' );
 		} elseif ( WooCommerce::is_product_category() ) {
 			$category_name = get_queried_object()->name;
-			// translators: %s is het continent
-			$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod %s-projecten.', 'siw' ), '<b>' . $category_name . '</b>' );
+			//hh: volgende tekst tijdelijk gewist 
+           //$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod %s-projecten.', 'siw' ), '<b>' . $category_name . '</b>' );
+            $text='';
+
+ 
 		} elseif ( WooCommerce::is_product_taxonomy() ) {
 			$name = get_queried_object()->name;
 			switch ( get_queried_object()->taxonomy ) {
