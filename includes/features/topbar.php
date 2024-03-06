@@ -37,10 +37,10 @@ class Topbar extends Base {
 		if ( $event->get_event_date()->diff( new \DateTime() )->days > static::EVENT_SHOW_DAYS_BEFORE ) {
 			return null;
 		}
-
+		// hh: tekst 'Kom naar' vervangen door: Bezoek de
 		$link_text = sprintf(
 		// translators: %1$s is de naam van het evenement, %2$s is de datum
-			__( 'Kom naar de %1$s op %2$s', 'siw' ),
+			__( 'Bezoek de %1$s op %2$s', 'siw' ),
 			$event->get_title(),
 			wp_date( 'j F', $event->get_event_date()->getTimestamp() )
 		);
