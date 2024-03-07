@@ -5,30 +5,20 @@ namespace SIW\Plato;
 use SIW\Helpers\HTTP_Request;
 use SIW\Util\Logger;
 
-/**
- * Import uit Plato
- *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- */
-abstract class Import extends Plato_Interface {
+abstract class Import extends Base {
 
-	/** Data voor background process */
 	protected array $data = [];
 
-	/** Constructor */
 	public function __construct() {
 		parent::__construct();
 		$this->add_query_arg_webkey();
 	}
 
-	/** Voeg de Plato-webkey toe als query arg */
 	protected function add_query_arg_webkey() {
 		$this->add_query_arg( 'organizationWebserviceKey', $this->webkey );
 	}
 
-	/** Haal de XML op */
 	protected function retrieve_xml(): bool {
-
 		$response = HTTP_Request::create( $this->endpoint_url )
 			->set_accept( HTTP_Request::APPLICATION_XML )
 			->set_content_type( HTTP_Request::APPLICATION_XML )
@@ -44,10 +34,8 @@ abstract class Import extends Plato_Interface {
 		return true;
 	}
 
-	/** Verwerk de XML */
 	abstract protected function process_xml();
 
-	/** Valideert XML tegen XSD */
 	protected function validate_xml(): bool {
 		$dom_element = dom_import_simplexml( $this->xml_response );
 		if ( null === $dom_element ) {
@@ -57,10 +45,10 @@ abstract class Import extends Plato_Interface {
 		libxml_use_internal_errors( true );
 		$dom = $dom_element->ownerDocument; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
-		if ( ! $dom->schemaValidate( SIW_PLUGIN_DIR . "xsd/plato/{$this->endpoint}.xsd" ) ) {
+		if ( ! $dom->schemaValidate( SIW_PLUGIN_DIR . "xsd/plato/{$this->get_endpoint()}.xsd" ) ) {
 			Logger::warning(
 				sprintf( 'Fout tijdens schema validatie: %s', libxml_get_last_error()->message ),
-				static::class
+				__METHOD__
 			);
 			libxml_use_internal_errors( false );
 
@@ -72,15 +60,12 @@ abstract class Import extends Plato_Interface {
 		return true;
 	}
 
-	/** Voer de Plato-import uit */
 	public function run(): array {
-		// Start import
 		if ( ! $this->retrieve_xml() || ! $this->validate_xml() ) {
 			return [];
 		}
 		$this->process_xml();
 
-		// Eind import
 		return $this->data;
 	}
 }

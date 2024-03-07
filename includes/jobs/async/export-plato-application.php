@@ -5,9 +5,8 @@ namespace SIW\Jobs\Async;
 use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Facades\WooCommerce;
-use SIW\Plato\Export_Application as Plato_Export_Application;
+use SIW\Plato\Export\Application as Plato_Export_Application;
 use SIW\Properties;
-
 
 class Export_Plato_Application extends Base {
 
@@ -33,8 +32,6 @@ class Export_Plato_Application extends Base {
 		foreach ( $order_items as $order_item ) {
 			$product = WooCommerce::get_product( $order_item->get_product_id() );
 			if ( null === $product ) {
-
-
 				continue;
 			}
 			$result = $this->export_single_application( $order_data, $product );

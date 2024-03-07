@@ -11,5 +11,6 @@ return array(
     'Spatie\\ArrayToXml\\' => array($vendorDir . '/spatie/array-to-xml/src'),
     'ExtCPTs\\Tests\\' => array($vendorDir . '/johnbillion/extended-cpts/tests/integration'),
     'ExtCPTs\\' => array($vendorDir . '/johnbillion/extended-cpts/src'),
+    'BerlinDB\\' => array($vendorDir . '/berlindb/core/src'),
     'Args\\' => array($vendorDir . '/johnbillion/args/src'),
 );

@@ -12,6 +12,7 @@ class Loader extends Base_Loader {
 			Animation::class,
 			Breadcrumbs::class,
 			Cookie_Consent::class,
+			Database_Tables::class,
 			Email::class,
 			Menu_Item_Info_Button::class,
 			Facebook_Pixel::class,

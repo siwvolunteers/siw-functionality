@@ -1,15 +1,24 @@
 <?php return array(
     'root' => array(
         'name' => 'siwvolunteers/siw-functionality',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'd2615e0cd4d48fd632358e8c908d88b2c2c35b4a',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => NULL,
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'berlindb/core' => array(
+            'pretty_version' => '2.0.1',
+            'version' => '2.0.1.0',
+            'reference' => '7dcddaddcffb69c58800d2fb3f6f169791cab1f7',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../berlindb/core',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'johnbillion/args' => array(
             'pretty_version' => '1.9.0',
             'version' => '1.9.0.0',
@@ -47,9 +56,9 @@
             'dev_requirement' => false,
         ),
         'siwvolunteers/siw-functionality' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'd2615e0cd4d48fd632358e8c908d88b2c2c35b4a',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => NULL,
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

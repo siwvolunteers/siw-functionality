@@ -16,7 +16,8 @@
 		"mustache/mustache": "2.*",
 		"luizbills/css-generator": "4.*",
 		"johnbillion/extended-cpts": "^5.0",
-		"symfony/polyfill-php83": "^1.28"
+		"symfony/polyfill-php83": "^1.28",
+		"berlindb/core": "^2.0"
 	},
 	"autoload": {
 		"files": [

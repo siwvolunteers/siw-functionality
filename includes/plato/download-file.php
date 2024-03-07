@@ -2,29 +2,22 @@
 
 namespace SIW\Plato;
 
-/**
- * Download file uit Plato
- *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- */
-class Download_File extends Plato_Interface {
+class Download_File extends Base {
 
-	/** Timeout bij downloaden */
 	private const TIMEOUT = 60;
 
 	#[\Override]
-	protected string $endpoint = 'DownloadDocumentFile';
+	protected function get_endpoint(): string {
+		return 'DownloadDocumentFile';
+	}
 
-	/** Download het bestand */
 	public function download( string $identifier, string $extension = null ): ?string {
 
-		// Download bestand
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 
 		$this->add_query_arg( 'fileIdentifier', $identifier );
 		$temp_file = \download_url( $this->endpoint_url, self::TIMEOUT );
 
-		// Afbreken als downloaden mislukt is
 		if ( \is_wp_error( $temp_file ) ) {
 			return null;
 		}

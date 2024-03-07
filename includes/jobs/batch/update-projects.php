@@ -4,12 +4,11 @@ namespace SIW\Jobs\Batch;
 
 use SIW\Attributes\Add_Action;
 use SIW\Data\Country;
-use SIW\Data\Database_Table;
 use SIW\Data\Job_Frequency;
 use SIW\Facades\Slim_SEO;
 use SIW\Facades\WooCommerce;
-use SIW\Helpers\Database;
 use SIW\Jobs\Scheduled_Job;
+use SIW\Plato\Database\Projects\Query;
 use SIW\WooCommerce\Import\Product_Image as Import_Product_Image;
 use SIW\WooCommerce\Product\Admin\Approval;
 use SIW\WooCommerce\Product\WC_Product_Project;
@@ -56,11 +55,12 @@ class Update_Projects extends Scheduled_Job {
 
 	protected function maybe_update_deleted_from_plato() {
 
-		$project_ids = wp_cache_get( 'project_ids', 'siw_update_workcamps' );
+		$project_ids = wp_cache_get( 'project_ids', __METHOD__ );
 		if ( false === $project_ids ) {
-			$project_db = new Database( Database_Table::PLATO_PROJECTS );
-			$project_ids = $project_db->get_col( 'project_id' );
-			wp_cache_set( 'project_ids', $project_ids, 'siw_update_workcamps' );
+			$query = new Query();
+			$project_ids = $query->get_results( [ 'project_id' ], [], null, null );
+			$project_ids = wp_list_pluck( $project_ids, 'project_id' );
+			wp_cache_set( 'project_ids', $project_ids, __METHOD__ );
 		}
 
 		$deleted_from_plato = ! in_array( $this->product->get_project_id(), $project_ids, true );

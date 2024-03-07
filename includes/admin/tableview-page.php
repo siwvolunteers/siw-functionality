@@ -6,8 +6,11 @@ use SIW\Admin\Database_List_Table;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
-use SIW\Data\Database_Table;
 use SIW\Data\Icons\Dashicons;
+use SIW\Plato\Database\Table;
+use SIW\Plato\Database\Free_Places\Table as Free_Places_Table;
+use SIW\Plato\Database\Partners\Table as Partners_Table;
+use SIW\Plato\Database\Projects\Table as Projects_Table;
 
 class Tableview_Page extends Base {
 
@@ -15,9 +18,20 @@ class Tableview_Page extends Base {
 
 	public Database_List_Table $database_list_table;
 
-	protected Database_Table $current_table;
+	protected Table $current_table;
 
 	public array $tables;
+
+	/**
+	 * @return Table[]
+	 * */
+	protected function get_tables(): array {
+		return [
+			new Partners_Table(),
+			new Projects_Table(),
+			new Free_Places_Table(),
+		];
+	}
 
 	#[Add_Action( 'admin_menu' )]
 	public function add_menu_pages() {
@@ -30,13 +44,13 @@ class Tableview_Page extends Base {
 			Dashicons::DATABASE->icon_class()
 		);
 
-		foreach ( Database_Table::list() as $table => $name ) {
+		foreach ( $this->get_tables() as $table ) {
 			$hook = add_submenu_page(
 				self::MENU_SLUG,
-				$name,
-				$name,
+				$table->description,
+				$table->description,
 				'manage_options',
-				'siw-database-table-' . $table,
+				'siw-database-table-' . $table->name,
 				[ $this, 'display_table' ],
 				null
 			);
@@ -51,10 +65,10 @@ class Tableview_Page extends Base {
 		add_thickbox();
 		?>
 		<div class="wrap">
-			<h2><?php echo esc_html( $this->current_table->label() ); ?> </h2>
+			<h2><?php echo esc_html( $this->current_table->description ); ?> </h2>
 			<?php $this->database_list_table->prepare_items(); ?>
 			<form method="get">
-				<input type="hidden" name="page" value="siw-database-table-<?php echo esc_attr( $this->current_table->value ); ?>"/>
+				<input type="hidden" name="page" value="siw-database-table-<?php echo esc_attr( $this->current_table->name ); ?>"/>
 				<?php $this->database_list_table->search_box( esc_attr__( 'Zoeken', 'siw' ), 'search' ); ?>
 			</form>
 			<?php $this->database_list_table->display(); ?>
@@ -64,7 +78,7 @@ class Tableview_Page extends Base {
 	}
 
 	public function add_screen_options() {
-		$this->current_table = Database_Table::from( $this->tables[ current_filter() ] );
+		$this->current_table = $this->tables[ current_filter() ];
 		$this->database_list_table = new Database_List_Table( $this->current_table );
 
 		$args = [
@@ -77,8 +91,8 @@ class Tableview_Page extends Base {
 
 	#[Add_Filter( 'set-screen-option' )]
 	public function set_screen_option( $keep, $option, $value ) {
-		foreach ( Database_Table::cases() as $table ) {
-			if ( "{$table->value}_records_per_page" === $option ) {
+		foreach ( $this->get_tables() as $table ) {
+			if ( "{$table->name}_records_per_page" === $option ) {
 				$keep = $value;
 			}
 		}

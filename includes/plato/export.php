@@ -5,20 +5,11 @@ namespace SIW\Plato;
 use SIW\Config;
 use SIW\Helpers\HTTP_Request;
 
-/**
- * Export naar Plato
- *
- * @copyright 2019 SIW Internationale Vrijwilligersprojecten
- */
-abstract class Export extends Plato_Interface {
+abstract class Export extends Base {
 
-	/** Data */
 	protected array $data;
-
-	/** XML-data */
 	protected string $xml_data;
 
-	/** Voer de Plato-export uit */
 	public function run( $data ): array {
 
 		if ( ! Config::get_plato_export_applications() ) {
@@ -43,13 +34,10 @@ abstract class Export extends Plato_Interface {
 		return $result;
 	}
 
-	/** Genereert xml */
 	abstract protected function generate_xml();
 
-	/** Verwerkt xml */
 	abstract protected function process_xml();
 
-	/** Verstuurt xml naar plato */
 	protected function send_xml(): bool {
 
 		$response = HTTP_Request::create( $this->endpoint_url )

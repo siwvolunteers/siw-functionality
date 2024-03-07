@@ -26,6 +26,10 @@ class ComposerStaticInitdf1049c87b05f066c6f25ccf2f11b01f
             'ExtCPTs\\Tests\\' => 14,
             'ExtCPTs\\' => 8,
         ),
+        'B' => 
+        array (
+            'BerlinDB\\' => 9,
+        ),
         'A' => 
         array (
             'Args\\' => 5,
@@ -52,6 +56,10 @@ class ComposerStaticInitdf1049c87b05f066c6f25ccf2f11b01f
         'ExtCPTs\\' => 
         array (
             0 => __DIR__ . '/..' . '/johnbillion/extended-cpts/src',
+        ),
+        'BerlinDB\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/berlindb/core/src',
         ),
         'Args\\' => 
         array (
