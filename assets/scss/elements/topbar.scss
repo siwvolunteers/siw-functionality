@@ -4,11 +4,15 @@
 	.content{
 		padding: 10px;
 		a.button {
-			background-color: var(--siw-base);
-			color: var(--siw-green);
+			color: var(--siw-base);
+			font-weight: 600;
+			font-size: 18px;
+			border: 2px solid var(--siw-green);
+			border-radius: 60px;
 			&:hover, &:focus {
-				background-color: var(--siw-accent);
-				color: var(--siw-base);
+				border: 2px solid var(--siw-base);
+				border-radius: 60px;
+				background-color: var(--siw-green);
 			}
 		}
 	}
