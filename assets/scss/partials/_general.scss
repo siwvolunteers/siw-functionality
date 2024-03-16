@@ -77,6 +77,10 @@ button.button.alt {
 	}
 }
 
+.main-navigation .menu-bar-items a.button {
+	color: var(--siw-base);
+}
+
 // https://docs.generatepress.com/article/disable-secondary-navigation-mobile-menu/
 .secondary-navigation .menu-toggle {
 	display: none;
