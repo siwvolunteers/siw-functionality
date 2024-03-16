@@ -2,5 +2,5 @@
   font-family: inherit;
 }
 .siw-leaflet-map.leaflet-container a.button, .siw-leaflet-map.leaflet-container a:hover.button {
-  color: inherit;
+  color: var(--siw-base);
 }

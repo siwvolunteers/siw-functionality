@@ -82,6 +82,10 @@ button.button.alt {
   border-radius: 4px;
 }
 
+.main-navigation .menu-bar-items a.button {
+  color: var(--siw-base);
+}
+
 .secondary-navigation .menu-toggle {
   display: none;
 }
