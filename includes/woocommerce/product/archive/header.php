@@ -84,8 +84,10 @@ class Header extends Base {
 		) {
 			$text .= wpautop( __( 'Aangezien je in deze projecten met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.', 'siw' ) );
 		}
-
+		//hh: 18-3-2024 toegevoegd
 		$workcamps_page = Project_Type::WORKCAMPS->get_page();
+		$toegevoegd="<p><strong>Let op: </strong> de lokale eigen bijdrage kan per project en per land erg verschillen.
+		Hiervoor krijg je ter plekke onderdak en maaltijden. Voor de meeste groepsprojecten is de lokale bijdrage minder dan 300 euro en in de helft van de gevallen zelfs minder dan 50 euro. Wil je hulp bij het zoeken naar een (betaalbaar) groepsproject, neem dan contact met ons op en stuur een email naar info@siw.nl. We helpen je graag verder!</p>";
 
 		$text .= wpautop(
 			implode(
@@ -98,6 +100,7 @@ class Header extends Base {
 						__( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">Groepsprojecten</a>.', 'siw' ),
 						esc_url( get_permalink( $workcamps_page ?? 0 ) )
 					),
+				    $toegevoegd,
 				],
 			),
 		);
