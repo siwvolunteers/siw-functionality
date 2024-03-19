@@ -6,7 +6,9 @@ use SIW\Attributes\Add_Action;
 use SIW\Base;
 use SIW\Data\Project_Type;
 use SIW\Data\Work_Type;
+use SIW\Elements\Link;
 use SIW\Facades\WooCommerce;
+use SIW\Properties;
 use SIW\WooCommerce\Taxonomy_Attribute;
 
 class Header extends Base {
@@ -37,11 +39,10 @@ class Header extends Base {
 			$text = __( 'Hieronder zie je het beschikbare aanbod projecten.', 'siw' );
 		} elseif ( WooCommerce::is_product_category() ) {
 			$category_name = get_queried_object()->name;
-			//hh: volgende tekst tijdelijk gewist 
-           //$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod %s-projecten.', 'siw' ), '<b>' . $category_name . '</b>' );
-            $text='';
+			//hh: volgende tekst tijdelijk gewist
+			//$text = sprintf( __( 'Hieronder zie je het beschikbare aanbod %s-projecten.', 'siw' ), '<b>' . $category_name . '</b>' );
+			$text = '';
 
- 
 		} elseif ( WooCommerce::is_product_taxonomy() ) {
 			$name = get_queried_object()->name;
 			switch ( get_queried_object()->taxonomy ) {
@@ -84,13 +85,8 @@ class Header extends Base {
 		) {
 			$text .= wpautop( __( 'Aangezien je in deze projecten met kinderen gaat werken, stellen wij het verplicht om een VOG (Verklaring Omtrent Gedrag) aan te vragen.', 'siw' ) );
 		}
-		//hh: 18-3-2024 toegevoegd
-		$workcamps_page = Project_Type::WORKCAMPS->get_page();
-		$toegevoegd='<p><strong>Let op: </strong> de lokale eigen bijdrage kan per project en per land erg verschillen. Hiervoor krijg je ter plekke onderdak en maaltijden. '
-			.'Voor de meeste groepsprojecten is de lokale bijdrage minder dan 300 euro en in de helft van de gevallen '
-			.'zelfs minder dan 50 euro. Wil je hulp bij het zoeken naar een (betaalbaar) groepsproject, neem dan contact '
-			.'met ons op en stuur een email naar <a href="mailto:info@siw.nl">info@siw.nl</a>. We helpen je graag verder!</p>';
 
+		$workcamps_page = Project_Type::WORKCAMPS->get_page();
 		$text .= wpautop(
 			implode(
 				' ',
@@ -102,9 +98,26 @@ class Header extends Base {
 						__( 'We vertellen je meer over de werkwijze van deze projecten op onze pagina <a href="%s">Groepsprojecten</a>.', 'siw' ),
 						esc_url( get_permalink( $workcamps_page ?? 0 ) )
 					),
-				    $toegevoegd,
 				],
 			),
+		);
+
+		$text .= wpautop(
+			implode(
+				' ',
+				[
+					'<strong>' . __( 'Let op:', 'siw' ) . '</strong>',
+					__( 'de lokale eigen bijdrage kan per project en per land erg verschillen.', 'siw' ),
+					__( 'Hiervoor krijg je ter plekke onderdak en maaltijden.', 'siw' ),
+					__( 'Voor de meeste groepsprojecten is de lokale bijdrage minder dan &euro; 300 en in de helft van de gevallen zelfs minder dan &euro; 50.', 'siw' ),
+					sprintf(
+						// translators: %s is een e-mail link
+						__( 'Wil je hulp bij het zoeken naar een (betaalbaar) groepsproject, neem dan contact met ons op en stuur een email naar %s.', 'siw' ),
+						Link::create()->set_url( 'mailto:' . antispambot( Properties::EMAIL ) )->set_text( antispambot( Properties::EMAIL ) )->generate()
+					),
+					__( 'We helpen je graag verder!', 'siw' ),
+				]
+			)
 		);
 
 		return $text;
