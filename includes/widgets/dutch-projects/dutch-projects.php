@@ -44,7 +44,9 @@ class Dutch_Projects extends Widget {
 
 		$projects = $this->get_projects();
 		if ( empty( $projects ) ) {
-			return [];
+			return [
+				'content' => wpautop( __( 'Momenteel zijn de Nederlandse projecten nog niet bekend.', 'siw' ) ),
+			];
 		}
 
 		$map = Leaflet_Map::create()
