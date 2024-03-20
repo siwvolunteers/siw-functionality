@@ -1,8 +1,4 @@
 @charset "UTF-8";
-:root {
-  --siw-text-shadow: 2px 2px 2px var(--siw-contrast);
-}
-
 /* Fade in voor lazyload */
 img[data-lazy-src] {
   opacity: 0;
@@ -11,10 +7,6 @@ img[data-lazy-src] {
 img.litespeed-loaded {
   transition: opacity 0.5s linear 0.2s;
   opacity: 1;
-}
-
-body.home .site-content {
-  padding-top: 0;
 }
 
 @counter-style check {
@@ -80,6 +72,10 @@ button.button.alt {
 .woocommerce.woocommerce-page button.button,
 .woocommerce.woocommerce-page button.button.alt {
   border-radius: 4px;
+}
+
+.main-navigation .menu-bar-items a.button {
+  color: var(--siw-base);
 }
 
 .secondary-navigation .menu-toggle {
@@ -210,16 +206,6 @@ form textarea:read-only {
   padding: 10px 30px 10px 10px;
   background: var(--siw-base) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%23f67820'><polygon points='0,0 10,0 5,5'/></svg>") no-repeat;
   background-position: right 10px top 60%;
-}
-.project-wizard[data-single-column="1"] .rwmb-column, .footer-widgets .project-wizard .rwmb-column, form[data-single-column="1"] .rwmb-column, .footer-widgets form .rwmb-column {
-  width: 100%;
-  margin-right: 0;
-}
-.project-wizard .rwmb-column .rwmb-field.rwmb-hidden-wrapper, form .rwmb-column .rwmb-field.rwmb-hidden-wrapper {
-  margin-bottom: 0;
-}
-.footer-widgets .project-wizard .rwmb-column .rwmb-field:not(.rwmb-hidden-wrapper), .footer-widgets form .rwmb-column .rwmb-field:not(.rwmb-hidden-wrapper) {
-  margin-bottom: 12px;
 }
 @supports (appearance: none) {
   .project-wizard input[type=checkbox],

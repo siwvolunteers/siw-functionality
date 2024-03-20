@@ -621,6 +621,7 @@ enum Country: string implements Labels, Plato_Code {
 			self::MOLDOVA,
 			self::MALTA,
 			self::MONTENEGRO,
+			self::NETHERLANDS,
 			self::NORWAY,
 			self::POLAND,
 			self::PORTUGAL,

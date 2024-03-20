@@ -175,11 +175,17 @@ class WC_Product_Project extends \WC_Product_Simple {
 	}
 
 	public function get_project_type(): ?Project_Type {
-		$attributes = $this->get_attributes();
-		if ( ! isset( $attributes[ Taxonomy_Attribute::PROJECT_TYPE->value ] ) ) {
+		$categories = $this->get_category_ids();
+		if ( empty( $categories ) ) {
 			return null;
 		}
-		return Project_Type::tryFrom( $attributes[ Taxonomy_Attribute::PROJECT_TYPE->value ]->get_slugs()[0] );
+
+		$term_slug = get_term( $categories[0], Taxonomy_Attribute::PROJECT_TYPE->value )?->slug;
+
+		if ( null === $term_slug ) {
+			return null;
+		}
+		return Project_Type::tryFrom( strtoupper( $term_slug ) );
 	}
 
 	public function is_esc_project(): bool {

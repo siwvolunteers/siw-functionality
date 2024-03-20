@@ -45,6 +45,21 @@
 			animation: spin .75s infinite ease-in-out;
 		}
 	}
+	form {
+		&[data-single-column="1"] .rwmb-column,
+		.footer-widgets & .rwmb-column {
+			width: 100%;
+			margin-right: 0;
+		}
+
+		.rwmb-column .rwmb-field.rwmb-hidden-wrapper {
+			margin-bottom: 0;
+		}
+
+		.footer-widgets & .rwmb-column .rwmb-field:not(.rwmb-hidden-wrapper) {
+			margin-bottom: 12px;
+		}
+	}
 }
 
 @keyframes spin {

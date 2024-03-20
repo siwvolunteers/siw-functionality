@@ -1,7 +1,3 @@
-:root {
-	--siw-text-shadow: 2px 2px 2px var(--siw-contrast);
-}
-
 /* Fade in voor lazyload */
 img[data-lazy-src] {
 	opacity: 0;
@@ -10,10 +6,6 @@ img[data-lazy-src] {
 img.litespeed-loaded {
 	transition: opacity 0.5s linear 0.2s;
 	opacity: 1;
-}
-
-body.home .site-content {
-	padding-top: 0;
 }
 
 @counter-style check {
@@ -75,6 +67,10 @@ button.button.alt {
 	.woocommerce.woocommerce-page & {
 		border-radius: 4px;
 	}
+}
+
+.main-navigation .menu-bar-items a.button {
+	color: var(--siw-base);
 }
 
 // https://docs.generatepress.com/article/disable-secondary-navigation-mobile-menu/

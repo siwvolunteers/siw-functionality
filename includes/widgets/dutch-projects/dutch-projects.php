@@ -2,6 +2,7 @@
 
 namespace SIW\Widgets;
 
+use SIW\Data\Country;
 use SIW\Data\Elements\Unordered_List\List_Style_Position;
 use SIW\Data\Icons\Dashicons;
 use SIW\Data\Sustainable_Development_Goal;
@@ -43,7 +44,9 @@ class Dutch_Projects extends Widget {
 
 		$projects = $this->get_projects();
 		if ( empty( $projects ) ) {
-			return [];
+			return [
+				'content' => wpautop( __( 'Momenteel zijn de Nederlandse projecten nog niet bekend.', 'siw' ) ),
+			];
 		}
 
 		$map = Leaflet_Map::create()
@@ -81,7 +84,7 @@ class Dutch_Projects extends Widget {
 	 */
 	protected function get_projects(): array {
 		$args = [
-			'country' => 'nederland',
+			'country' => Country::NETHERLANDS->value,
 		];
 		$projects = array_filter(
 			WooCommerce::get_products( $args ),
