@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "791a4e02ebf3656420b34db442491649",
+    "content-hash": "fe358b72bdd35a530e677435a13d02c6",
     "packages": [
         {
             "name": "johnbillion/args",
@@ -467,6 +467,46 @@
                 "source": "https://github.com/woocommerce/action-scheduler/tree/3.7.2"
             },
             "time": "2024-02-14T21:35:25+00:00"
+        },
+        {
+            "name": "wpify/model",
+            "version": "4.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wpify/model.git",
+                "reference": "d58b81467e7d72ce0d467cd0867cebb814c9c9b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wpify/model/zipball/d58b81467e7d72ce0d467cd0867cebb814c9c9b7",
+                "reference": "d58b81467e7d72ce0d467cd0867cebb814c9c9b7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Wpify\\Model\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Mejta",
+                    "email": "daniel@mejta.net"
+                }
+            ],
+            "description": "WPify Model",
+            "support": {
+                "issues": "https://github.com/wpify/model/issues",
+                "source": "https://github.com/wpify/model/tree/4.1.8"
+            },
+            "time": "2024-03-06T09:14:25+00:00"
         }
     ],
     "packages-dev": [],
@@ -479,5 +519,5 @@
         "php": ">=8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

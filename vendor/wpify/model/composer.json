@@ -1,0 +1,24 @@
+{
+  "name": "wpify/model",
+  "description": "WPify Model",
+  "type": "library",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Daniel Mejta",
+      "email": "daniel@mejta.net"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Wpify\\Model\\": "src/"
+    }
+  },
+  "scripts": {
+  },
+  "require": {
+    "php": ">=8.0.0"
+  },
+  "require-dev": {
+  }
+}

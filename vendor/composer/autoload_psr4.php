@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'luizbills\\CSS_Generator\\' => array($vendorDir . '/luizbills/css-generator/src'),
+    'Wpify\\Model\\' => array($vendorDir . '/wpify/model/src'),
     'Symfony\\Polyfill\\Php83\\' => array($vendorDir . '/symfony/polyfill-php83'),
     'Spatie\\ArrayToXml\\' => array($vendorDir . '/spatie/array-to-xml/src'),
     'ExtCPTs\\Tests\\' => array($vendorDir . '/johnbillion/extended-cpts/tests/integration'),

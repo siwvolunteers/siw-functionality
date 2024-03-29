@@ -482,6 +482,49 @@
                 "source": "https://github.com/woocommerce/action-scheduler/tree/3.7.2"
             },
             "install-path": "../woocommerce/action-scheduler"
+        },
+        {
+            "name": "wpify/model",
+            "version": "4.1.8",
+            "version_normalized": "4.1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wpify/model.git",
+                "reference": "d58b81467e7d72ce0d467cd0867cebb814c9c9b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wpify/model/zipball/d58b81467e7d72ce0d467cd0867cebb814c9c9b7",
+                "reference": "d58b81467e7d72ce0d467cd0867cebb814c9c9b7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "time": "2024-03-06T09:14:25+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Wpify\\Model\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Mejta",
+                    "email": "daniel@mejta.net"
+                }
+            ],
+            "description": "WPify Model",
+            "support": {
+                "issues": "https://github.com/wpify/model/issues",
+                "source": "https://github.com/wpify/model/tree/4.1.8"
+            },
+            "install-path": "../wpify/model"
         }
     ],
     "dev": true,

@@ -16,6 +16,10 @@ class ComposerStaticInitdf1049c87b05f066c6f25ccf2f11b01f
         array (
             'luizbills\\CSS_Generator\\' => 24,
         ),
+        'W' => 
+        array (
+            'Wpify\\Model\\' => 12,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php83\\' => 23,
@@ -36,6 +40,10 @@ class ComposerStaticInitdf1049c87b05f066c6f25ccf2f11b01f
         'luizbills\\CSS_Generator\\' => 
         array (
             0 => __DIR__ . '/..' . '/luizbills/css-generator/src',
+        ),
+        'Wpify\\Model\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/wpify/model/src',
         ),
         'Symfony\\Polyfill\\Php83\\' => 
         array (
