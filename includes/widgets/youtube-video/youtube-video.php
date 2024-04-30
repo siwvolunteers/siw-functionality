@@ -61,8 +61,8 @@ class YouTube_Video extends Widget {
 		return [
 			'content' => YouTube_Video_Element::create()
 				->set_video_id( $instance['video_id'] )
-				->set_autoplay( $instance['autoplay'] )
-				->set_mute( $instance['mute'] )
+				->set_autoplay( (bool) $instance['autoplay'] )
+				->set_mute( (bool) $instance['mute'] )
 				->generate(),
 		];
 	}
