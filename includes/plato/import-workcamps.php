@@ -5,20 +5,15 @@ namespace SIW\Plato;
 use SIW\Data\Database_Table;
 use SIW\Helpers\Database;
 
-/**
- * Importeer Groepsprojecten uit Plato
- *
- * @copyright 2019-2021 SIW Internationale Vrijwilligersprojecten
- */
 class Import_Workcamps extends Import {
 
-	#[\Override]
-	protected string $endpoint = 'GetAllProjects';
-
-	/** Geef aan dat dit geen Nederlandse projecten zijn */
 	protected bool $dutch_project = false;
 
-	/** Verwerk xml van Plato */
+	#[\Override]
+	protected function get_endpoint(): string {
+		return 'GetAllProjects';
+	}
+
 	protected function process_xml() {
 
 		$projects_db = new Database( Database_Table::PLATO_PROJECTS );

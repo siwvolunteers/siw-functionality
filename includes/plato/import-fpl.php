@@ -13,7 +13,9 @@ use SIW\Helpers\Database;
 class Import_FPL extends Import {
 
 	#[\Override]
-	protected string $endpoint = 'GetAllFreePlaces';
+	protected function get_endpoint(): string {
+		return 'GetAllFreePlaces';
+	}
 
 	/** Verwerk xml van Plato */
 	protected function process_xml() {
