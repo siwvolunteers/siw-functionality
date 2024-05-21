@@ -73,7 +73,7 @@ class WPML extends Plugin {
 		}
 
 		foreach ( $panels_data['widgets'] as &$widget ) {
-			if ( 0 === strpos( $widget['panels_info']['class'], 'SIWWidgets' ) ) {
+			if ( str_starts_with( $widget['panels_info']['class'], 'SIWWidgets' ) ) {
 				$widget['panels_info']['class'] = str_replace( 'SIWWidgets', '\\SIW\\Widgets\\', $widget['panels_info']['class'] );
 			}
 		}
