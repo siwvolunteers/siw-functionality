@@ -64,7 +64,7 @@ class WooCommerce {
 		return wc_get_product_terms( $product_id, $taxonomy, $args );
 	}
 
-	public static function get_page_permalink( string $page, string $fallback = null ): string {
+	public static function get_page_permalink( string $page, ?string $fallback = null ): string {
 		if ( ! function_exists( '\wc_get_page_permalink' ) ) {
 			return '';
 		}

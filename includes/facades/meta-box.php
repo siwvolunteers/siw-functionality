@@ -18,7 +18,7 @@ class Meta_Box {
 		return is_a( $meta_box, \RW_Meta_Box::class ) ? $meta_box : null;
 	}
 
-	public static function get_meta( string $key, array $args = [], int|string $post_id = null ) {
+	public static function get_meta( string $key, array $args = [], int|string|null $post_id = null ) {
 
 		if ( ! function_exists( 'rwmb_meta' ) ) {
 			wp_trigger_error( __METHOD__, wp_sprintf( 'Functie %s bestaat niet', 'rwmb_meta' ) );
