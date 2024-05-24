@@ -71,7 +71,7 @@ class Email_Template {
 		return $this;
 	}
 
-	public function add_table_data( array $data, string $heading = null ): self {
+	public function add_table_data( array $data, ?string $heading = null ): self {
 		if ( ! wp_is_numeric_array( $data ) ) {
 			$data = array_map(
 				fn( string $label, string $value ): array => [

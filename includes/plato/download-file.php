@@ -16,7 +16,7 @@ class Download_File extends Plato_Interface {
 	protected string $endpoint = 'DownloadDocumentFile';
 
 	/** Download het bestand */
-	public function download( string $identifier, string $extension = null ): ?string {
+	public function download( string $identifier, ?string $extension = null ): ?string {
 
 		// Download bestand
 		require_once ABSPATH . 'wp-admin/includes/file.php';

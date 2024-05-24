@@ -82,7 +82,7 @@ if ( ! function_exists( 'build_html_attributes' ) ) {
 }
 
 if ( ! function_exists( 'sanitize_html_classes' ) ) {
-	function sanitize_html_classes( string|array $classes, string $fallback = null ): string {  // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
+	function sanitize_html_classes( string|array $classes, ?string $fallback = null ): string {  // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 		if ( is_string( $classes ) ) {
 			$classes = explode( ' ', $classes );
 		}
