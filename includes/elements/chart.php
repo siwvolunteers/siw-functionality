@@ -4,7 +4,6 @@ namespace SIW\Elements;
 
 use SIW\Data\Elements\Chart\Chart_Type;
 use SIW\External_Assets\Frappe_Charts;
-use SIW\External_Assets\Polyfill;
 
 class Chart extends Element {
 
@@ -96,6 +95,6 @@ class Chart extends Element {
 
 	#[\Override]
 	public function enqueue_scripts() {
-		self::enqueue_class_script( [ Frappe_Charts::get_asset_handle(), Polyfill::get_asset_handle() ] );
+		self::enqueue_class_script( [ Frappe_Charts::get_asset_handle() ] );
 	}
 }

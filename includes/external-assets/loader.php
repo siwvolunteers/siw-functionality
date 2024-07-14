@@ -18,7 +18,6 @@ class Loader extends Base_Loader {
 			Jsvectormap_World_Map::class,
 			Leaflet::class,
 			Meta_Pixel::class,
-			Polyfill::class,
 			Sal::class,
 			Splide::class,
 		];
