@@ -11,7 +11,7 @@ class Jsvectormap extends NPM_Asset {
 
 	#[\Override]
 	protected static function get_version_number(): ?string {
-		return '1.5.3';
+		return '1.6.0';
 	}
 
 	#[\Override]
@@ -21,11 +21,11 @@ class Jsvectormap extends NPM_Asset {
 
 	#[\Override]
 	protected static function get_script_file(): ?string {
-		return 'dist/js/jsvectormap.min.js';
+		return 'dist/jsvectormap.min.js';
 	}
 
 	#[\Override]
 	protected static function get_style_file(): ?string {
-		return 'dist/css/jsvectormap.min.css';
+		return 'dist/jsvectormap.min.css';
 	}
 }

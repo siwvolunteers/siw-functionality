@@ -11,7 +11,7 @@ class Jsvectormap_World_Map extends NPM_Asset {
 
 	#[\Override]
 	protected static function get_version_number(): ?string {
-		return '1.5.3';
+		return '1.6.0';
 	}
 
 	#[\Override]
