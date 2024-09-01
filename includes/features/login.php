@@ -2,7 +2,6 @@
 
 namespace SIW\Features;
 
-use luizbills\CSS_Generator\Generator;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Base;
@@ -22,18 +21,18 @@ class Login extends Base {
 	#[Add_Action( 'login_enqueue_scripts' )]
 	public function enqueue_style() {
 		self::enqueue_class_style();
-
-		$css_generator = new Generator();
+		$style_rules = [];
 
 		$logo_id = get_theme_mod( 'custom_logo' );
 		if ( false !== $logo_id ) {
 			$logo_url = wp_get_attachment_image_url( $logo_id, 'full' );
-			$css_generator->add_rule(
-				'html body.login h1 a',
-				[
+			$style_rules[] = [
+				'selector'     => 'html body.login h1 a',
+				'declarations' => [
 					'background-image' => sprintf( 'url(%s)', esc_url( $logo_url ) ),
-				]
-			);
+				],
+			];
+
 		}
 
 		$background_image = get_theme_mod( 'siw_login_background_image' );
@@ -41,19 +40,19 @@ class Login extends Base {
 			$background_size = get_theme_mod( 'siw_login_background_size' );
 			$background_size = ( '100' === $background_size ) ? '100% auto' : esc_attr( $background_size );
 
-			$css_generator->add_rule(
-				'html',
-				[
+			$style_rules[] = [
+				'selector'     => 'html',
+				'declarations' => [
 					'background-image'      => sprintf( 'url(%s)', esc_url( $background_image ) ),
 					'background-repeat'     => esc_attr( get_theme_mod( 'siw_login_background_repeat' ) ),
 					'background-size'       => esc_attr( $background_size ),
 					'background-attachment' => esc_attr( get_theme_mod( 'siw_login_background_attachment' ) ),
 					'background-position'   => esc_attr( get_theme_mod( 'siw_login_background_position' ) ),
-				]
-			);
+				],
+			];
 		}
 
-		wp_add_inline_style( self::get_asset_handle(), $css_generator->get_output() );
+		wp_add_inline_style( self::get_asset_handle(), wp_style_engine_get_stylesheet_from_css_rules( $style_rules, [ 'optimize' => true ] ) );
 	}
 
 	#[Add_Filter( 'login_message' )]

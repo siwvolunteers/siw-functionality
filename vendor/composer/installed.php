@@ -3,7 +3,7 @@
         'name' => 'siwvolunteers/siw-functionality',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'c9145031386de89a742f9c33b8b69586eb370137',
+        'reference' => '8b2b18ad8e9c545feb6126f4e610fc61dbd5d448',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -28,15 +28,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'luizbills/css-generator' => array(
-            'pretty_version' => 'v4.0.1',
-            'version' => '4.0.1.0',
-            'reference' => 'e3807da033c2f300775a002358e026c3c33f8bdb',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../luizbills/css-generator',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'mustache/mustache' => array(
             'pretty_version' => 'v2.14.2',
             'version' => '2.14.2.0',
@@ -49,7 +40,7 @@
         'siwvolunteers/siw-functionality' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'c9145031386de89a742f9c33b8b69586eb370137',
+            'reference' => '8b2b18ad8e9c545feb6126f4e610fc61dbd5d448',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

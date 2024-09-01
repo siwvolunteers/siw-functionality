@@ -14,7 +14,6 @@
 		"spatie/array-to-xml": "3.*",
 		"woocommerce/action-scheduler": "3.*",
 		"mustache/mustache": "2.*",
-		"luizbills/css-generator": "4.*",
 		"johnbillion/extended-cpts": "^5.0",
 		"symfony/polyfill-php83": "^1.28"
 	},

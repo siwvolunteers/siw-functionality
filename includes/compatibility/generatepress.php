@@ -2,7 +2,6 @@
 
 namespace SIW\Compatibility;
 
-use luizbills\CSS_Generator\Generator;
 use SIW\Attributes\Add_Action;
 use SIW\Attributes\Add_Filter;
 use SIW\Data\Color;
@@ -93,14 +92,14 @@ class GeneratePress extends Plugin {
 			return;
 		}
 
-		$css_generator = new Generator();
+		$css_rules = [];
 
 		$background_size = get_theme_mod( 'siw_404_background_size' );
 		$background_size = ( '100' === $background_size ) ? '100% auto' : esc_attr( $background_size );
 
-		$css_generator->add_rule(
-			'.error404 .container',
-			[
+		$css_rules[] = [
+			'selector'     => '.error404 .container',
+			'declarations' => [
 				'max-width'             => 'unset',
 				'height'                => '70vh',
 				'background-image'      => sprintf( 'url(%s)', esc_url( $background_image ) ),
@@ -108,26 +107,26 @@ class GeneratePress extends Plugin {
 				'background-size'       => esc_attr( $background_size ),
 				'background-attachment' => esc_attr( get_theme_mod( 'siw_404_background_attachment' ) ),
 				'background-position'   => esc_attr( get_theme_mod( 'siw_404_background_position' ) ),
-			]
-		);
+			],
+		];
 
-		$css_generator->add_rule(
-			'.error404 .container .site-content',
-			[
-				'text-align' => 'center' ,
-			]
-		);
+		$css_rules[] = [
+			'selector'     => '.error404 .container .site-content',
+			'declarations' => [
+				'text-align' => 'center',
+			],
+		];
 
-		$css_generator->add_rule(
-			'.error404 .container .site-content main',
-			[
+		$css_rules[] = [
+			'selector'     => '.error404 .container .site-content main',
+			'declarations' => [
 				'padding'          => '50px',
 				'max-width'        => '85ch',
 				'display'          => 'inline-block',
 				'background-color' => 'var(--siw-base)',
-			]
-		);
-		wp_add_inline_style( 'generate-style', $css_generator->get_output() );
+			],
+		];
+		wp_add_inline_style( 'generate-style', wp_style_engine_get_stylesheet_from_css_rules( $css_rules ) );
 	}
 
 	#[Add_Action( Update::PLUGIN_UPDATED_HOOK )]
