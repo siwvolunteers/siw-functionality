@@ -229,4 +229,11 @@ class WordPress extends Base {
 
 		return $items;
 	}
+
+	#[Add_Filter( 'safe_style_css' )]
+	public function add_allowed_css_attributes( array $attributes ): array {
+		$attributes[] = 'opacity';
+		$attributes[] = 'animation-timing-function';
+		return $attributes;
+	}
 }

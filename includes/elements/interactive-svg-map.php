@@ -2,7 +2,6 @@
 
 namespace SIW\Elements;
 
-use luizbills\CSS_Generator\Generator;
 use SIW\Data\Color;
 use SIW\External_Assets\Jsvectormap;
 use SIW\External_Assets\Jsvectormap_World_Map;
@@ -88,9 +87,14 @@ class Interactive_SVG_Map extends Element {
 	#[\Override]
 	public function enqueue_styles() {
 		wp_enqueue_style( Jsvectormap::get_asset_handle() );
-		$css = new Generator();
-		$css->add_rule( "#{$this->get_element_id()}", [ 'height' => "{$this->height}px" ] );
-		wp_add_inline_style( Jsvectormap::get_asset_handle(), $css->get_output() );
+		$style_rules[] = [
+			'selector'     => "#{$this->get_element_id()}",
+			'declarations' => [
+				'height' => "{$this->height}px",
+			],
+		];
+
+		wp_add_inline_style( Jsvectormap::get_asset_handle(), wp_style_engine_get_stylesheet_from_css_rules( $style_rules ) );
 	}
 
 	public function set_map( string $map ): self {

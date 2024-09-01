@@ -2,7 +2,6 @@
 
 namespace SIW\Elements;
 
-use luizbills\CSS_Generator\Generator;
 use SIW\External_Assets\Leaflet;
 
 class Leaflet_Map extends Element {
@@ -111,8 +110,13 @@ class Leaflet_Map extends Element {
 	#[\Override]
 	public function enqueue_styles() {
 		self::enqueue_class_style( [ Leaflet::get_asset_handle() ] );
-		$css_generator = new Generator();
-		$css_generator->add_rule( "#{$this->get_element_id()}", [ 'height' => "{$this->height}px" ] );
-		wp_add_inline_style( self::get_asset_handle(), $css_generator->get_output() );
+		$style_rules[] = [
+			'selector'     => "#{$this->get_element_id()}",
+			'declarations' => [
+				'height' => "{$this->height}px",
+			],
+		];
+
+		wp_add_inline_style( self::get_asset_handle(), wp_style_engine_get_stylesheet_from_css_rules( $style_rules ) );
 	}
 }

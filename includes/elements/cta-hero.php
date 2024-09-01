@@ -94,43 +94,49 @@ class CTA_Hero extends Element {
 		$keyframe_3 = 1 / $this->get_background_images_count() * 100;
 		$keyframe_4 = 100 - ( $this->display_time / $this->determine_animation_duration() * 100 );
 
-		$css_generator = new Generator();
-		$css_generator->open_block( "keyframes siwHeroFade{$this->get_background_images_count()}" );
-
-		$css_generator->add_rule(
-			'0%',
-			[
+		$css_rules = [];
+		$css_rules[] = [
+			'selector'     => '0%',
+			'declarations' => [
 				'opacity'                   => 1,
 				'animation-timing-function' => 'ease-in',
-			]
-		);
-		$css_generator->add_rule(
-			"{$keyframe_2}%",
-			[
+			],
+		];
+
+		$css_rules[] = [
+			'selector'     => "{$keyframe_2}%",
+			'declarations' => [
 				'opacity'                   => 1,
 				'animation-timing-function' => 'ease-out',
-			]
-		);
-		$css_generator->add_rule(
-			"{$keyframe_3}%",
-			[
-				'opacity' => 0,
-			]
-		);
-		$css_generator->add_rule(
-			"{$keyframe_4}%",
-			[
-				'opacity' => 0,
-			]
-		);
-		$css_generator->add_rule(
-			'100%',
-			[
-				'opacity' => 1,
-			]
-		);
-		$css_generator->close_block();
+			],
+		];
 
-		wp_add_inline_style( self::get_asset_handle(), $css_generator->get_output() );
+		$css_rules[] = [
+			'selector'     => "{$keyframe_3}%",
+			'declarations' => [
+				'opacity' => 0,
+			],
+		];
+
+		$css_rules[] = [
+			'selector'     => "{$keyframe_4}%",
+			'declarations' => [
+				'opacity' => 0,
+			],
+		];
+		$css_rules[] = [
+			'selector'     => '100%',
+			'declarations' => [
+				'opacity' => 1,
+			],
+		];
+
+		// Nodig tot https://github.com/WordPress/gutenberg/pull/58918 in WP zit
+		$inline_css = sprintf(
+			"@keyframes siwHeroFade{$this->get_background_images_count()}{%s}",
+			wp_style_engine_get_stylesheet_from_css_rules( $css_rules )
+		);
+
+		wp_add_inline_style( self::get_asset_handle(), $inline_css );
 	}
 }
